@@ -1,3 +1,29 @@
+2005-02-10  Monte Ohrt  <monte@ohrt.com>
+
+    * QUICK_START:
+      update with directory structure
+
+2005-02-10  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/Makefile.in:
+      fix chm generation
+
+2005-02-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      fixed too agressive {strip} around delimiters inside strip-blocks
+
+2005-02-10  Monte Ohrt  <monte@ohrt.com>
+
+    * QUICK_START:
+      fix a couple errors
+
+2005-02-10  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/Makefile.in
+      docs/README:
+      commiting the new tools to make the CHM manual.
+
 2005-02-09  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
