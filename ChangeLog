@@ -1,3 +1,9 @@
+2004-06-09  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/modifier.escape.php:
+      added escapement of '</' to javascript escaping
+
 2004-06-08  gerald croes  <gerald@phpside.org>
 
     * docs/fr/translation.xml:
