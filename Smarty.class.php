@@ -772,7 +772,7 @@ class Smarty
         if ($create_dirs)
             $this->_create_dir_structure(dirname($filename));
         
-        if (!($fd = fopen($filename, 'a'))) {
+        if (!($fd = fopen($filename, 'w'))) {
             $this->_trigger_error_msg("problem writing '$filename.'");
             return false;
         }
