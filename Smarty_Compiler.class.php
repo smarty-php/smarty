@@ -920,6 +920,15 @@ class Smarty_Compiler extends Smarty {
         }
     }
 
+/*======================================================================*\
+    Function: _syntax_error
+    Purpose:  display Smarty syntax error
+\*======================================================================*/
+    function _syntax_error($error_msg, $error_type = E_USER_ERROR)
+    {
+        trigger_error("Smarty: [in " . $this->_current_file . " line " .
+                      $this->_current_line_no . "]: syntax error: $error_msg", $error_type);
+    }
 }
 
 ?>
