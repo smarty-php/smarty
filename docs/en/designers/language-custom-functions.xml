@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-        <chapter id="language.custom.functions">
-         <title>Custom Functions</title>
-        <para>
-         Smarty comes with several custom functions that you can
-         use in the templates.
-        </para>
-&designers.language-custom-functions.language-function-assign;
-&designers.language-custom-functions.language-function-counter;
-&designers.language-custom-functions.language-function-cycle;
-&designers.language-custom-functions.language-function-debug;
-&designers.language-custom-functions.language-function-eval;
-&designers.language-custom-functions.language-function-fetch;
-&designers.language-custom-functions.language-function-html-checkboxes;
-&designers.language-custom-functions.language-function-html-image;
-&designers.language-custom-functions.language-function-html-options;
-&designers.language-custom-functions.language-function-html-radios;
-&designers.language-custom-functions.language-function-html-select-date;
-&designers.language-custom-functions.language-function-html-select-time;
-&designers.language-custom-functions.language-function-html-table;
-&designers.language-custom-functions.language-function-math;
-&designers.language-custom-functions.language-function-mailto;
-&designers.language-custom-functions.language-function-popup-init;
-&designers.language-custom-functions.language-function-popup;
-&designers.language-custom-functions.language-function-textformat;
+<chapter id="language.custom.functions">
+ <title>Custom Functions</title>
+ <para>
+  Smarty comes with several custom functions that you can
+  use in the templates.
+ </para>
+
+ &designers.language-custom-functions.language-function-assign;
+ &designers.language-custom-functions.language-function-counter;
+ &designers.language-custom-functions.language-function-cycle;
+ &designers.language-custom-functions.language-function-debug;
+ &designers.language-custom-functions.language-function-eval;
+ &designers.language-custom-functions.language-function-fetch;
+ &designers.language-custom-functions.language-function-html-checkboxes;
+ &designers.language-custom-functions.language-function-html-image;
+ &designers.language-custom-functions.language-function-html-options;
+ &designers.language-custom-functions.language-function-html-radios;
+ &designers.language-custom-functions.language-function-html-select-date;
+ &designers.language-custom-functions.language-function-html-select-time;
+ &designers.language-custom-functions.language-function-html-table;
+ &designers.language-custom-functions.language-function-math;
+ &designers.language-custom-functions.language-function-mailto;
+ &designers.language-custom-functions.language-function-popup-init;
+ &designers.language-custom-functions.language-function-popup;
+ &designers.language-custom-functions.language-function-textformat;
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

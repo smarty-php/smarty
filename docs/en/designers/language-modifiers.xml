@@ -56,28 +56,27 @@ Topic: {$topic|truncate:40:"..."}
   $security_settings['MODIFIER_FUNCS']</link>-array.
  </para>
 
-&designers.language-modifiers.language-modifier-capitalize;
-&designers.language-modifiers.language-modifier-count-characters;
-&designers.language-modifiers.language-modifier-cat;
-&designers.language-modifiers.language-modifier-count-paragraphs;
-&designers.language-modifiers.language-modifier-count-sentences;
-&designers.language-modifiers.language-modifier-count-words;
-&designers.language-modifiers.language-modifier-date-format;
-
-&designers.language-modifiers.language-modifier-default;
-&designers.language-modifiers.language-modifier-escape;
-&designers.language-modifiers.language-modifier-indent;
-&designers.language-modifiers.language-modifier-lower;
-&designers.language-modifiers.language-modifier-nl2br;
-&designers.language-modifiers.language-modifier-regex-replace;
-&designers.language-modifiers.language-modifier-replace;
-&designers.language-modifiers.language-modifier-spacify;
-&designers.language-modifiers.language-modifier-string-format;
-&designers.language-modifiers.language-modifier-strip;
-&designers.language-modifiers.language-modifier-strip-tags;
-&designers.language-modifiers.language-modifier-truncate;
-&designers.language-modifiers.language-modifier-upper;
-&designers.language-modifiers.language-modifier-wordwrap;
+ &designers.language-modifiers.language-modifier-capitalize;
+ &designers.language-modifiers.language-modifier-count-characters;
+ &designers.language-modifiers.language-modifier-cat;
+ &designers.language-modifiers.language-modifier-count-paragraphs;
+ &designers.language-modifiers.language-modifier-count-sentences;
+ &designers.language-modifiers.language-modifier-count-words;
+ &designers.language-modifiers.language-modifier-date-format;
+ &designers.language-modifiers.language-modifier-default;
+ &designers.language-modifiers.language-modifier-escape;
+ &designers.language-modifiers.language-modifier-indent;
+ &designers.language-modifiers.language-modifier-lower;
+ &designers.language-modifiers.language-modifier-nl2br;
+ &designers.language-modifiers.language-modifier-regex-replace;
+ &designers.language-modifiers.language-modifier-replace;
+ &designers.language-modifiers.language-modifier-spacify;
+ &designers.language-modifiers.language-modifier-string-format;
+ &designers.language-modifiers.language-modifier-strip;
+ &designers.language-modifiers.language-modifier-strip-tags;
+ &designers.language-modifiers.language-modifier-truncate;
+ &designers.language-modifiers.language-modifier-upper;
+ &designers.language-modifiers.language-modifier-wordwrap;
   
 </chapter>
 

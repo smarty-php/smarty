@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <chapter id="language.variables">
-   <title>Variables</title>
-   <para>
-   	Smarty has several different types of variables. The type of the variable
-   	depends on what symbol it is prefixed with (or enclosed within).
-   </para>
-
-   <para>
-    Variables in Smarty can be either displayed directly or used as arguments
-    for function attributes and modifiers, inside conditional expressions,
-    etc. To print a variable, simply enclose it in the delimiters so that it
-    is the only thing contained between them. Examples:
-    <programlisting>
+<chapter id="language.variables">
+ <title>Variables</title>
+ <para>
+  Smarty has several different types of variables. The type of the variable
+  depends on what symbol it is prefixed with (or enclosed within).
+ </para>
+ <para>
+  Variables in Smarty can be either displayed directly or used as arguments
+  for function attributes and modifiers, inside conditional expressions,
+  etc. To print a variable, simply enclose it in the delimiters so that it
+  is the only thing contained between them. Examples:
+  <programlisting>
 <![CDATA[
 {$Name}
 
@@ -20,14 +19,13 @@
 
 <body bgcolor="{#bgcolor#}">
 ]]>
-    </programlisting>
-   </para>
+  </programlisting>
+ </para>
 
-&designers.language-variables.language-assigned-variables;
+ &designers.language-variables.language-assigned-variables;
+ &designers.language-variables.language-config-variables;
+ &designers.language-variables.language-variables-smarty;
 
-&designers.language-variables.language-config-variables;
-
-&designers.language-variables.language-variables-smarty;
 </chapter>
 
 <!-- Keep this comment at the end of the file
