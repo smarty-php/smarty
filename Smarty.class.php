@@ -47,17 +47,32 @@ class Smarty
 									// This is generally set to false once the
 									// application is entered into production and
 									// initially compiled. Leave set to true
-									// during development.
+									// during development. true/false
+
+	var $compile_force	=	false;	// force templates to compile every time.
+									// overrides compile_check. true/false
+	var $allow_url_compile =	true;	// allow forced recompile from URL ?compile_force=1
+	
+									// NOTE: all cache directives override
+									// compiling directives. If a cached version
+									// is available, that will be used regardless
+									// of compile settings.
+	var $cache_engine	=	true;	// whether to use caching or not. true/false
+	var $cache_expire	=	5;	// number of seconds cached content will expire.
+									// 0 = never expires. default is one hour (3600)
+	var $cache_force	=	false;	// force caches to expire every time. true/false
+	var $allow_url_cache =	true;	// allow forced cache expire from URL ?cache_force=1
 
 	var $template_dir			=	"./templates"; // name of directory for templates	
 	var $compile_dir			=	"./templates_c"; // name of directory for compiled templates	
+	var $cache_dir				=	"./cache"; // name of directory for template cache
 	
 	
 	var $tpl_file_ext			=	".tpl";	// template file extentions
 	
 	var $allow_php				=	false;		// whether or not to allow embedded php
 												// in the templates. By default, php tags
-												// are escaped.
+												// are escaped. true/false
 	var $left_delimiter			=	"{";		// template tag delimiters.
 	var $right_delimiter		=	"}";
 
@@ -83,7 +98,7 @@ class Smarty
 										 );
 	
 	// internal vars
-	var $_error_msg				=	false;		// error messages
+	var $_error_msg				=	false;		// error messages. true/false
 	var $_tpl_vars				= 	array();
 	var $_sectionelse_stack		=	array();	// keeps track of whether section had 'else' part
 	var $_literal_blocks		=	array();	// keeps literal template blocks
@@ -183,13 +198,7 @@ class Smarty
 
 	function display($tpl_file)
 	{
-		// compile files
-		$this->_compile($this->template_dir);
-		//assemble compile directory path to file
-		$_compile_file = $this->compile_dir.'/'.$tpl_file.'.php';
-		
-		extract($this->_tpl_vars);		
-		include($_compile_file);
+		print $this->fetch($tpl_file);
 	}	
 		
 /*======================================================================*\
@@ -199,10 +208,49 @@ class Smarty
 
 	function fetch($tpl_file)
 	{
+		global $HTTP_GET_VARS,$PHP_SELF;
+
+		if($this->cache_engine)
+		{
+			if($this->allow_url_cache && $HTTP_GET_VARS["cache_force"])
+				$this->cache_force = true;
+			
+			// cache id = template path + the invoked script
+			$cache_file = $this->cache_dir."/".urlencode($tpl_file."@".$PHP_SELF).".che";
+ 			if(!$this->cache_force &&
+					(file_exists($cache_file) &&
+						($this->cache_expire == 0 ||
+							(mktime() - filectime($cache_file) <= $this->cache_expire)
+						)))
+			{
+				echo "DEBUG: using cache<br>\n";
+					$results = $this->_read_file($cache_file);
+					$results = $this->_process_cached_inserts($results);
+					return $results;
+			}	
+		}
+
+		echo "DEBUG: not using cache<br>\n";
+		if($this->allow_url_compile && $HTTP_GET_VARS["compile_force"])
+			$this->compile_force = true;
+
 		ob_start();
-		$this->display($tpl_file);
-		$results = ob_get_contents();
+			// compile files
+			$this->_compile($this->template_dir);
+			//assemble compile directory path to file
+			$_compile_file = $this->compile_dir."/".$tpl_file.".php";
+
+			extract($this->_tpl_vars);		
+			include($_compile_file);
+			$results = ob_get_contents();
 		ob_end_clean();
+
+		if($this->cache_engine)
+		{
+			$this->_write_file($cache_file,$results);
+			$results = $this->_process_cached_inserts($results);
+		}
+
 		return $results;
 	}
 
@@ -213,7 +261,7 @@ class Smarty
 
 	function _compile($tpl_dir)
 	{
-		if($this->compile_check)
+		if($this->compile_check || $this->compile_force)
 		{
 			if($this->_traverse_files($tpl_dir, 0))
 				return true;
@@ -222,8 +270,8 @@ class Smarty
 		}
 		else
 			return false;
-	}
-
+	}	
+	
 /*======================================================================*\
 	Function:	_traverse_files()
 	Purpose:	traverse the template files & process each one
@@ -241,7 +289,8 @@ class Smarty
 
 				$filepath = $tpl_dir."/".$curr_file;
 				if(is_readable($filepath)) {
-					if(is_file($filepath) && preg_match('!' . preg_quote($this->tpl_file_ext, '!') . '$!', $curr_file)) {
+					
+					if(is_file($filepath) && substr($curr_file,-strlen($this->tpl_file_ext)) == $this->tpl_file_ext) {
 						if(!$this->_process_file($filepath))
 							return false;
 					} else if(is_dir($filepath)) {
@@ -291,8 +340,8 @@ class Smarty
 				}
 			}
 
-			// compile the template file if none exists or has been modified
-			if (!file_exists($compile_dir."/".$tpl_file_name) ||
+			// compile the template file if none exists or has been modified or compile_force
+			if (!file_exists($compile_dir."/".$tpl_file_name) ||  $this->compile_force ||
 				($this->_modified_file($filepath, $compile_dir."/".$tpl_file_name))) {
 				if (!$this->_compile_file($filepath, $compile_dir."/".$tpl_file_name))
 					return false;				
@@ -383,6 +432,44 @@ class Smarty
 		return true;
 	}
 
+	function _process_cached_inserts($results)
+	{
+
+		preg_match_all("/\{\{\{insert_cache name=([^ ]+) (.*)\}\}\}/Uis",$results,$match);
+		
+		$fulltags = $match[0];
+		$names = $match[1];
+		$args = $match[2];
+
+		for($curr_tag = 0; $curr_tag < count($fulltags); $curr_tag++)
+		{		
+			$attrs = $this->_parse_attrs($args[$curr_tag]);
+			$name = substr($attrs['name'], 1, -1);
+
+			if (empty($names[$curr_tag])) {
+				$this->_syntax_error("missing insert name");
+			}
+
+			foreach ($attrs as $arg_name => $arg_value) {
+				if ($arg_name == 'name') continue;
+				if (is_bool($arg_value))
+					$arg_value = $arg_value ? 'true' : 'false';
+				$arg_list[] = "'$arg_name' => $arg_value";
+			}
+
+			$evalcode = "print insert_".$names[$curr_tag]."(array(".implode(',', (array)$arg_list)."));";
+			
+			ob_start();
+		 		eval($evalcode);
+				$replace = ob_get_contents();
+			ob_end_clean();
+			
+			$results = str_replace($fulltags[$curr_tag],$replace,$results);
+		}
+
+		return $results;
+	}	
+	
 	function _compile_tag($template_tag)
 	{
 		/* Matched comment. */
@@ -468,7 +555,6 @@ class Smarty
 		}
 	}
 
-
 	function _compile_custom_tag($tag_command, $tag_args)
 	{
 		$attrs = $this->_parse_attrs($tag_args);
@@ -482,12 +568,14 @@ class Smarty
 		return "<?php $function(array(".implode(',', (array)$arg_list).")); ?>";
 	}
 
-
 	function _compile_insert_tag($tag_args)
 	{
 		$attrs = $this->_parse_attrs($tag_args);
 		$name = substr($attrs['name'], 1, -1);
 
+		if($this->cache_engine)
+			return "<?php print \"{{{insert_cache ".addslashes($tag_args)."}}}\"; ?>";
+		
 		if (empty($name)) {
 			$this->_syntax_error("missing insert name");
 		}
@@ -500,9 +588,8 @@ class Smarty
 		}
 
 		return "<?php print insert_$name(array(".implode(',', (array)$arg_list).")); ?>";
-	}
-
-
+	}	
+	
 	function _compile_config_load_tag($tag_args)
 	{
 		$attrs = $this->_parse_attrs($tag_args);

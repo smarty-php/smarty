@@ -14,7 +14,7 @@
 			<address><email>andrei@ispi.net</email></address>
 		</affiliation>
 	</author>
-	<edition>Version 1.2.1</edition>
+	<edition>Version 1.2.2</edition>
 	<copyright><year>2001</year><holder>ispi of Lincoln, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -1129,26 +1129,26 @@ e-mail: jane@mydomain.com
 {* This is an example of printing an associative array
    of data within a section *}
 {section name=customer loop=$contacts}
-	{$customer/contacts.name}&lt;br&gt;
-	{$customer/contacts.home}&lt;br&gt;
-	{$customer/contacts.cell}&lt;br&gt;
-	{$customer/contacts.email}&lt;br&gt;
+	name: {$customer/contacts.name}&lt;br&gt;
+	home: {$customer/contacts.home}&lt;br&gt;
+	cell: {$customer/contacts.cell}&lt;br&gt;
+	e-mail: {$customer/contacts.email}&lt;p&gt;
 {/section}
 
 
 OUTPUT:
 
 name: John Smith&lt;br&gt;
-home: 555-555-5555&lt;p&gt;
-cell: 555-555-5555&lt;p&gt;
+home: 555-555-5555&lt;br&gt;
+cell: 555-555-5555&lt;br&gt;
 e-mail: john@mydomain.com&lt;p&gt;
 name: Jack Jones&lt;br&gt;
-home phone: 555-555-5555&lt;p&gt;
-cell phone: 555-555-5555&lt;p&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
 e-mail: jack@mydomain.com&lt;p&gt;
-name: Jane Munson&lt;p&gt;
-home phone: 555-555-5555&lt;p&gt;
-cell phone: 555-555-5555&lt;p&gt;
+name: Jane Munson&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
 e-mail: jane@mydomain.com&lt;p&gt;
 
 
@@ -1933,6 +1933,15 @@ function makeTimeStamp($year="",$month="",$day="")
 </programlisting>
 </example>
 	</sect1>
+</chapter>
+<chapter id="resources">
+	<title>Resources</title>
+	<para>
+	Smarty's homepage is located at http://www.phpinsider.com/php/code/Smarty/.
+	You can join the mailing list by sending an e-mail to
+	subscribe-smarty@lists.ispi.net. An archive of the mailing list can be
+	viewed at http://marc.theaimsgroup.com/ under www/smarty.
+	</para>
 </chapter>
 <chapter id="bugs">
 	<title>BUGS</title>

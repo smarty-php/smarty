@@ -1,10 +1,10 @@
-    - fixed bug that would not respect nested template directories and would
-      put all compiled files into top-level one. (Andrei)
 
 Version 1.2.2
 -------------
-    - fixed bug using $PHP_VERSION instead of environment var PHP_VERSION.
-    - couple small warning fixes
+        - fixed bug that would not respect nested template directories and would
+          put all compiled files into top-level one. (Andrei)
+	- fixed bug using $PHP_VERSION instead of environment var PHP_VERSION.
+	- couple small warning fixes
 
 Version 1.2.1
 -------------
