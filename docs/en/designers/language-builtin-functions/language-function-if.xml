@@ -78,6 +78,13 @@
                         <entry>&lt;=</entry>
                     </row>
                     <row>
+                        <entry>===</entry>
+                        <entry></entry>
+                        <entry>$a === 0</entry>
+                        <entry>check for identity</entry>
+                        <entry>===</entry>
+                    </row>
+                    <row>
                         <entry>!</entry>
                         <entry>not</entry>
                         <entry>not $a</entry>
