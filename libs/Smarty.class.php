@@ -666,7 +666,7 @@ class Smarty
 \*======================================================================*/
     function _compile_template($tpl_file, $template_source, &$template_compiled)
     {
-        include_once dirname(__FILE__) . '/Smarty_Compiler.class.php';
+        include_once dirname(__FILE__) . '/' . $this->compiler_class . '.class.php';
 
         $smarty_compiler = new $this->compiler_class;
 
