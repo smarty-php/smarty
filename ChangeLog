@@ -1,3 +1,18 @@
+2003-09-15  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.write_cache_paths_file.php:
+      backed out _smarty_cached_paths-file-handling
+
+    * libs/Smarty.class.php
+      libs/core/core.rm_auto.php:
+      fixed clear_compiled_tpl with explicit $tpl_file given
+      fixed return value of smarty_core_rm_auto() + Smarty::_unlink()
+
+    * libs/Smarty.class.php:
+      little fix in _get_auto_filename()
+
 2003-09-14  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
