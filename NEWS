@@ -1,3 +1,4 @@
+  - fixed nocache-handling with nested includes (Lars Jankowfsky, messju)
   - moved /libs/core to /libs/internals (boots)
   - fixed more parsing problems (messju)
 
