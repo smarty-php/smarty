@@ -523,7 +523,7 @@ class Smarty
         global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
         if (!$this->debugging && $this->debugging_ctrl == 'URL'
-                && (!empty($QUERY_STRING) && strstr($QUERY_STRING, $this->_smarty_debug_id))) {
+               && strstr($QUERY_STRING, $this->_smarty_debug_id))) {
             $this->debugging = true;
         }
 
