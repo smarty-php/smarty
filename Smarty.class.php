@@ -1282,7 +1282,7 @@ function _run_insert_handler($args)
                                                              $name,
                                                              $this->_plugins['insert'][$name][1],
                                                              $this->_plugins['insert'][$name][2],
-                                                             false);
+                                                             !empty($args['script']) ? true : false);
         }
         return $this->_smarty_md5."{insert_cache $arg_string}".$this->_smarty_md5;
     } else {
