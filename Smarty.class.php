@@ -23,7 +23,7 @@ class Smarty
 									// initially compiled. Leave set to true
 									// during development.
 
-	var $template_dir			=	"templates"; // name of directory for templates	
+	var $template_dir			=	"./templates"; // name of directory for templates	
 	
 	var $compile_dir_ext		=	"_c";	// the directory extention where
 											// compiled templates are placed
@@ -190,7 +190,7 @@ class Smarty
 	{
 		if($this->compile_check)
 		{
-			if($this->_traverse_files($tpl_dir,0))
+			if($this->_traverse_files($tpl_dir, 0))
 				return true;
 			else
 				return false;
@@ -204,50 +204,42 @@ class Smarty
 	Purpose:	traverse the template files & process each one
 \*======================================================================*/
 
-	function _traverse_files($tpl_dir,$depth)
+	function _traverse_files($tpl_dir, $depth)
 	{
 		// exit if recursion depth is met
-		if($this->max_recursion_depth != 0 && $depth >= $this->max_recursion_depth)
-		{
+		if($this->max_recursion_depth != 0 && $depth >= $this->max_recursion_depth) {
 			$this->_set_error_msg("recursion depth of $depth reached on $tpl_dir/$curr_file. exiting.");
 			return false;
 		}
-		if(is_dir($tpl_dir))
-		{
+
+		if(is_dir($tpl_dir)) {
 			if($tpl_dir)
 				$dir_handle = opendir($tpl_dir);
 
-			while($curr_file = readdir($dir_handle))
-			{
+			while($curr_file = readdir($dir_handle)) {
 				if ($curr_file == '.' || $curr_file == '..')
 					continue;
 
 				$filepath = $tpl_dir."/".$curr_file;
-				if(is_readable($filepath))
-				{
-					if(is_file($filepath) && preg_match("/".preg_quote($this->tpl_file_ext,"/")."$/",$curr_file)) {
+				if(is_readable($filepath)) {
+					if(is_file($filepath) && preg_match("/".preg_quote($this->tpl_file_ext,"/")."$/", $curr_file)) {
 						if(!$this->_process_file($filepath))
 							return false;
-					}
-					elseif(is_dir($filepath))
-					{
-						if(!$this->_traverse_files($filepath,$depth+1))
+					} else if(is_dir($filepath)) {
+						if(!$this->_traverse_files($filepath, $depth + 1))
 							return false;
-					}
-					else
-					{
+					} else {
 						// invalid file type, skipping
 						$this->_set_error_msg("Invalid filetype for $filepath, skipping");
 						continue;
 					}
 				}
 			}
-		}
-		else
-		{
+		} else {
 			$this->_set_error_msg("Directory \"$tpl_dir\" does not exist or is not a directory.");
 			return false;
 		}
+
 		return true;
 	}
 
@@ -260,15 +252,13 @@ class Smarty
 
 	function _process_file($filepath)
 	{
-		if(preg_match("/^(.+)\/([^\/]+)$/",$filepath,$match))
-		{
+		if(preg_match("/^(.+)\/([^\/]+)$/", $filepath, $match)) {
 			$tpl_file_dir = $match[1];			
 			$tpl_file_name = $match[2];
 
 			//assemble compile directory path
 			$compile_dir = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$match[1]);
 			
-			//echo "compile dir: $compile_dir<br>\n";
 			//create directory if none exists
 			if(!file_exists($compile_dir)) {
 				$compile_dir_parts = preg_split('!/+!', $compile_dir);
@@ -284,22 +274,18 @@ class Smarty
 
 			// compile the template file if none exists or has been modified
 			if(!file_exists($compile_dir."/".$tpl_file_name) ||
-				($this->_modified_file($filepath,$compile_dir."/".$tpl_file_name)))
-			{
+				($this->_modified_file($filepath,$compile_dir."/".$tpl_file_name))) {
 				if(!$this->_compile_file($filepath,$compile_dir."/".$tpl_file_name))
 					return false;				
-			}
-			else
-			{
+			} else {
 				// no compilation needed
 				return true;
 			}
-		}
-		else
-		{
+		} else {
 			$this->_set_error_msg("problem matching \"$filepath.\"");
 			return false;
 		}
+
 		return true;
 	}
 
@@ -308,7 +294,7 @@ class Smarty
 	Input:		return comparison of modification times of files
 \*======================================================================*/
 
-	function _modified_file($filepath,$compilepath)
+	function _modified_file($filepath, $compilepath)
 	{
 		if(filemtime($filepath) >= filemtime($compilepath))
 			return true;
@@ -325,8 +311,8 @@ class Smarty
 		if(!($template_contents = $this->_read_file($filepath)))
 			return false;
 
-		$ldq = preg_quote($this->left_delimiter, "/");
-		$rdq = preg_quote($this->right_delimiter, "/");
+		$ldq = preg_quote($this->left_delimiter, "!");
+		$rdq = preg_quote($this->right_delimiter, "!");
 
 		/* Pull out the literal blocks. */
 		preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_contents, $match);
@@ -335,19 +321,22 @@ class Smarty
 						 				  '{literal}', $template_contents);
 
 		/* Gather all template tags. */
-		preg_match_all("/$ldq\s*(.*?)\s*$rdq/s", $template_contents, $match);
+		preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_contents, $match);
 		$template_tags = $match[1];
 		/* Split content by template tags to obtain non-template content. */
-		$text_blocks = preg_split("/$ldq.*?$rdq/s", $template_contents);
+		$text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_contents);
 		if(!$this->allow_php) {
 			/* Escape php tags. */
 			$text_blocks = preg_replace('!<\?([^?]*?)\?>!', '&lt;?$1?&gt;', $text_blocks);
 		}
 
+		/* Compile the template tags into PHP code. */
 		$compiled_tags = array();
 		foreach ($template_tags as $template_tag)
 			$compiled_tags[] = $this->_compile_tag($template_tag);
 
+		/* Interleave the compiled contents and text blocks to get the final
+		   result. */
 		for ($i = 0; $i < count($compiled_tags); $i++) {
 			$compiled_contents .= $text_blocks[$i].$compiled_tags[$i];
 		}
@@ -356,7 +345,7 @@ class Smarty
 		/* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
 		if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_contents, $match)) {
 			$strip_tags = $match[0];
-			$strip_tags_modified = preg_replace("!$ldq/?strip$rdq|[\t ]+$|^[\t ]+!m", '', $strip_tags);
+			$strip_tags_modified = preg_replace("!{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+!m", '', $strip_tags);
 			$strip_tags_modified = preg_replace('![\r\n]+!m', '', $strip_tags_modified);
 			for ($i = 0; $i < count($strip_tags); $i++)
 				$compiled_contents = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
@@ -495,11 +484,12 @@ class Smarty
 			/* TODO syntax error: missing 'file' attribute */
 		}
 
-		$output  = '<?php include_once "Config_File.php";'."\n";
-	    $output .= 'if (!is_object($_conf_obj) || get_class($_conf_obj) != "config_file") {'."\n";
-		$output .= '	$_conf_obj  = new Config_File("'.$this->config_dir.'");'."\n";
-	    $output .= '}'."\n";
-	   	$output .= '$_config = array_merge((array)$_config, $_conf_obj->get('.$attrs['file'].'));'."\n";
+		$output  = "<?php if (!class_exists('Config_File'))\n" .
+				   "	include_once 'Config_File.class.php';\n" .
+	    		   "if (!is_object(\$_conf_obj) || get_class(\$_conf_obj) != 'config_file') {\n" .
+				   "	\$_conf_obj  = new Config_File('".$this->config_dir."');\n" .
+	    		   "}\n" .
+	   			   "\$_config = array_merge((array)\$_config, \$_conf_obj->get(".$attrs['file']."));\n";
 
 		if (!empty($attrs['section']))
 			$output .= '$_config = array_merge((array)$_config, $_conf_obj->get('.$attrs['file'].', '.$attrs['section'].')); ';
@@ -752,7 +742,7 @@ class Smarty
 	{
 		/* Tokenize tag attributes. */
 		preg_match_all('/(?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"       | 
-						  \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     | (?>[^"\'= ]+)
+						  \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     | (?>[^"\'=\s]+)
 						 )+ |
 						 [=]
 					    /x', $tag_args, $match);
@@ -821,12 +811,33 @@ class Smarty
 
 		return $attrs;
 	}
+
+	function _preg_grep($pattern, $array)
+	{
+		$result = array();
+
+		foreach ($array as $key => $entry) {
+			if (preg_match($pattern, $entry))
+				$result[$key] = $entry;
+		}
+
+		return $result;
+	}
 	
 	function _parse_vars_props(&$tokens)
 	{
-		$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
-		$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
-		$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+		/* preg_grep() was fixed to return keys properly in 4.0.4 and later. To
+		   allow people to use older versions of PHP we emulate preg_grep() and
+		   use the version check to see what function to call. */
+		if (strnatcmp($PHP_VERSION, '4.0.4') >= 0) {
+			$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+			$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+			$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+		} else {
+			$var_exprs = $this->_preg_grep('!^\$(\w+/)*\w+(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+			$conf_var_exprs = $this->_preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+			$sect_prop_exprs = $this->_preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+		}
 
 		if (count($var_exprs)) {
 			foreach ($var_exprs as $expr_index => $var_expr) {
@@ -915,7 +926,6 @@ class Smarty
 			 * If we don't find that modifier there, we assume it's just a PHP
 			 * function name.
 			 */
-			/* TODO strict syntax check */
 			if (!isset($mod_func_name))
 				$mod_func_name = $modifier_name;
 
@@ -950,12 +960,11 @@ class Smarty
 
 	function _read_file($filename)
 	{
-		if(! ($fd = fopen($filename,"r")))
-		{
-			$this->_set_error_msg("problem reading \"$filename.\"");
+		if(!($fd = fopen($filename, 'r'))) {
+			$this->_set_error_msg("problem reading '$filename.'");
 			return false;
 		}
-		$contents = fread($fd,filesize($filename));
+		$contents = fread($fd, filesize($filename));
 		fclose($fd);
 		return $contents;
 	}
@@ -967,12 +976,11 @@ class Smarty
 
 	function _write_file($filename,$contents)
 	{
-		if(!($fd = fopen($filename,"w")))
-		{
-			$this->_set_error_msg("problem writing \"$filename.\"");
+		if(!($fd = fopen($filename, 'w'))) {
+			$this->_set_error_msg("problem writing '$filename.'");
 			return false;
 		}
-		fwrite($fd,$contents);
+		fwrite($fd, $contents);
 		fclose($fd);
 		return true;
 	}
