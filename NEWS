@@ -1,3 +1,5 @@
+    - fix height/width parameter index in html_image (Gerard,
+      Monte)
     - get rid of unsetting name and script attributes
       to insert tag (Thomas Schulz, Monte)
     - changed argument order of string_format modifier back,
