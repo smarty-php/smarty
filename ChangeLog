@@ -1,3 +1,13 @@
+2004-03-24  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/Makefile.in:
+      updated stylesheets
+      highlight PHP automatically
+
+    * docs/Makefile.in
+      docs/html.dsl:
+      remove unneeded file
+
 2004-03-23  Nuno Lopes  <nunoplopes@sapo.pt>
 
     * docs/version.ent.in:
