@@ -1,3 +1,9 @@
+2002-08-08  mohrt  <mohrt@pb1.pair.com>
+
+    * RELEASE_NOTES
+      Smarty.class.php:
+    supress warnings from unlink() and is_dir(), let error handler deal with it
+
 2002-08-07  mohrt  <mohrt@pb1.pair.com>
 
     * docs/appendixes.sgml
