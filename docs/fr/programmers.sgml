@@ -457,7 +457,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       Les répertoires sûrs sont ceux qui contiennent des scripts PHP qui
       sont exécutés directement depuis les templates avec
       <link linkend="language.function.include.php">{include_php}</link>.
-	  </para>
+      </para>
      </sect1>
      <sect1 id="variable.left.delimiter">
       <title>$left_delimiter</title>
@@ -595,10 +595,11 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
 	  <note>
 	  <title>Note technique</title>
      <para>
-     Le paramètre de fusion respecte les clés des tableaux, ainsi si vous fusionnez
-     deux tableaux indexés numériquement, ils pourront s’écraser l’un l’autre
-     ou donner des clés qui ne se suivent pas. Cela diffère donc de la fonction
-     PHP array_merge() qui supprime les clés numériques et les renumérote.
+       Le paramètre de fusion respecte les clés des tableaux, ainsi si vous
+      fusionnez deux tableaux indexés numériquement, ils pourront s'écraser
+      l'un l'autre ou donner des clés qui ne se suivent pas. Cela diffère
+      donc de la fonction PHP array_merge() qui supprime les clés numériques
+      et les renumérote.
      </para>
 	  </note>
       <example>
