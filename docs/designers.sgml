@@ -2277,6 +2277,18 @@ cell: 760-1234&lt;br&gt;</programlisting>
                 </tbody>
                 </tgroup>
             </informaltable>
+	        <note>
+	        <title>Technical Note</title>
+            <para>
+            include_php is pretty much deprecated from Smarty, you can
+            accomplish the same functionality via a custom template function.
+            The only reason to use include_php is if you really have a need to
+            quarantine the php function away from the plugin directory or your
+            application code. See the <link
+            linkend="tips.componentized.templates">componentized template
+            example</link> for details.
+            </para>
+	        </note>
 			<para>
 			include_php tags are used to include a php script in your template.
 			If security is enabled, then the php script must be located in the
