@@ -1,3 +1,4 @@
+    - add default modifier logic (Monte)
     - updated popup_init to be xhtml compliant (Tom Oram, Monte)
     - fix filename bug with windows (Gary Loescher, Monte)
     - add ability to supply expire time in seconds when clearing

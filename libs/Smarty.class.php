@@ -152,9 +152,9 @@ class Smarty
 											// sub directories are more efficient, but
 											// you can set this to false if your PHP environment
 											// does not allow the creation of them.
-	var $default_modifiers		= '';
-											// modifier string to implicitly append to every var
-											// example: '|escape:"htmlall"'
+	var $default_modifiers		= array();
+											// modifiers to implicitly append to every var
+											// example: array('escape:"htmlall"');
 
 /**************************************************************************/
 /* END SMARTY CONFIGURATION SECTION                                       */

@@ -1109,9 +1109,9 @@ class Smarty_Compiler extends Smarty {
         $var_ref = $parts[0];
         $modifiers = isset($parts[1]) ? $parts[1] : '';
 
-		
-		if(!empty($this->default_modifiers) && !strstr($modifiers,'smarty:nodefaults')) {
-			$modifiers = empty($modifiers) ? $this->default_modifiers : $this->default_modifiers . '|' . $modifiers;
+		if(!empty($this->default_modifiers) && !strstr('smarty:nodefaults',$modifiers)) {
+			$_default_mod_string = implode('|',(array)$this->default_modifiers);
+			$modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
 		}
 		
 		$modifiers = str_replace(array('smarty:nodefaults','||'),array('','|'),$modifiers);
