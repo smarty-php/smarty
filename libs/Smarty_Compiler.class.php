@@ -682,7 +682,7 @@ class Smarty_Compiler extends Smarty {
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 		
-	    $return = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', (array)$arg_list)."), \$this)";
+	    $_return = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', (array)$arg_list)."), \$this)";
         
 		if($tag_modifier != '') {
 			$this->_parse_modifiers($return, $tag_modifier);
