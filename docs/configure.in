@@ -11,7 +11,7 @@ AC_SUBST(WORKDIR)
 dnl debug output
 echo "file versions"
 for file in ./*.in; do
-  fgrep '$Id' $file | head -1 | sed -e"s/^.*: //g" | sed -e"s/200.\/.*$//g"
+  fgrep '$Id' $file | head -n1 | sed -e"s/^.*: //g" | sed -e"s/200.\/.*$//g"
 done
 echo "configure options: $@" 
 echo "working directory: $WORKDIR"
