@@ -26,7 +26,8 @@ function smarty_core_write_compiled_template($params, &$this)
 	}
 	
 	$_params = array('filename' => $params['compile_path'], 'contents' => $params['template_compiled'], 'create_dirs' => true);
-	$this->_execute_core_function('write_file', $_params);	
+	require_once(SMARTY_DIR . 'core/core.write_file.php');
+	smarty_core_write_file($_params, $this);	
     touch($params['compile_path'], $params['template_timestamp']);
     return true;
 }

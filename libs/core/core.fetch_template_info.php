@@ -29,7 +29,8 @@ function smarty_core_fetch_template_info(&$params, &$this)
     $_return = false;
 	$_params = array('file_base_path' => $this->template_dir,
 				'file_path' => $params['tpl_path']) ;
-    if ($this->_execute_core_function('parse_file_path', $_params)) {
+	require_once(SMARTY_DIR . 'core/core.parse_file_path.php');
+    if (smarty_core_parse_file_path($_params, $this)) {
 		$_resource_type = $_params['resource_type'];
 		$_resource_name = $_params['resource_name'];
         switch ($_resource_type) {
@@ -73,11 +74,12 @@ function smarty_core_fetch_template_info(&$params, &$this)
         }
     }
 
+	require_once(SMARTY_DIR . 'core/core.is_secure.php');
     if (!$_return) {
         if (!$params['quiet']) {
             $this->trigger_error('unable to read template resource: "' . $params['tpl_path'] . '"');
         }
-    } else if ($_return && $this->security && !$this->_execute_core_function('is_secure', $_params)) {
+    } else if ($_return && $this->security && !smarty_core_is_secure($_params, $this)) {
         if (!$params['quiet'])
             $this->trigger_error('(secure mode) accessing "' . $params['tpl_path'] . '" is not allowed');
         $params['template_source'] = null;

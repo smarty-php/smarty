@@ -19,7 +19,8 @@ function smarty_core_write_file($params, &$this)
 
     if ($params['create_dirs']) {
 		$_params = array('dir' => $_dirname);
-		$this->_execute_core_function('create_dir_structure', $_params);
+		require_once(SMARTY_DIR . 'core/core.create_dir_structure.php');
+		smarty_core_create_dir_structure($_params, $this);
 	}
 
 	// write to tmp file, then rename it to avoid

@@ -1,3 +1,4 @@
+  - fix newlines for tags without template output (Monte)
   - added config-option "request_use_auto_globals" to make auto-globals be
     used as request vars instead of HTTP_*_VARS (messju)
   - make config vars compile statically (Monte)

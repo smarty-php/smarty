@@ -19,7 +19,8 @@ function smarty_core_get_php_resource(&$params, &$this)
 {
 	
 	$params['file_base_path'] = $this->trusted_dir;	
-	$this->_execute_core_function('parse_file_path', $params);
+	require_once(SMARTY_DIR . 'core/core.parse_file_path.php');
+	smarty_core_parse_file_path($params, $this);
 		
     /*
      * Find out if the resource exists.
@@ -32,7 +33,8 @@ function smarty_core_get_php_resource(&$params, &$this)
         } else {			
             // test for file in include_path
 			$_params = array('file_path' => $params['resource_name']);
-            if($this->_execute_core_function('get_include_path', $_params)) {				
+			require_once(SMARTY_DIR . 'core/core.get_include_path.php');
+            if(smarty_core_get_include_path($_params, $this)) {				
 				$_include_path = $_params['new_file_path'];
 				$_readable = true;
             }
@@ -55,7 +57,8 @@ function smarty_core_get_php_resource(&$params, &$this)
 
     if ($_readable) {
         if ($this->security) {
-            if (!$this->_execute_core_function('is_trusted',$params)) {
+			require_once(SMARTY_DIR . 'core/core.is_trusted.php');
+            if (!smarty_core_is_trusted($params, $this)) {
                 $this->$_error_funcc('(secure mode) ' . $params['resource_type'] . ':' . $params['resource_name'] . ' is not trusted');
                 return false;
             }

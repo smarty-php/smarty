@@ -52,7 +52,8 @@ function smarty_core_parse_file_path(&$params, &$this)
                 }
                 // didn't find the file, try include_path
 				$_params = array('file_path' => $_fullpath);
-            	if($this->_execute_core_function('get_include_path', $_params)) {				
+				require_once(SMARTY_DIR . 'core/core.get_include_path.php');
+            	if(smarty_core_get_include_path($_params, $this)) {				
 					$params['resource_name'] = $_params['new_file_path'];
 					return true;
                 }
@@ -61,7 +62,8 @@ function smarty_core_parse_file_path(&$params, &$this)
         }
 	} else {
 		$_params = array('type' => $params['resource_type']);
-		$this->_execute_core_function('load_resource_plugin', $_params);
+		require_once(SMARTY_DIR . 'core/core.load_resource_plugin.php');
+		smarty_core_load_resource_plugin($_params, $this);
     }
 
     return true;

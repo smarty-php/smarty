@@ -32,7 +32,8 @@ function smarty_core_rmdir($params, &$this)
 						'level' => $params['level'] + 1,
 						'exp_time' => $params['exp_time']
 					);
-					$this->_execute_core_function('rmdir', $_params); 
+					require_once(SMARTY_DIR . 'core/core.rmdir.php');
+					smarty_core_rmdir($_params, $this); 
                 }
                 else {
                     $this->_unlink($params['dirname'] . DIRECTORY_SEPARATOR . $_entry, $params['exp_time']);

@@ -21,7 +21,8 @@
 function smarty_core_smarty_include_php($params, &$this)
 {
 	$_params = array('file_path' => $params['smarty_file']);
-	$this->_execute_core_function('get_php_resource', $_params);
+	require_once(SMARTY_DIR . 'core/core.get_php_resource.php');
+	smarty_core_get_php_resource($_params, $this);
 	$_smarty_resource_type = $_params['resource_type'];
 	$_smarty_php_resource = $_params['php_resource'];
 

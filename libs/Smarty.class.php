@@ -934,7 +934,8 @@ reques     * @var string
         switch ($type) {
             case 'output':
 				$_params = array('plugins' => array(array($type . 'filter', $name, null, null, false)));
-                $this->_execute_core_function('load_plugins', $_params);
+				require_once(SMARTY_DIR . 'core/core.load_plugins.php');
+                smarty_core_load_plugins($_params, $this);
                 break;
 
             case 'pre':
@@ -973,7 +974,8 @@ reques     * @var string
 							'auto_source' => $tpl_file,
 							'auto_id' => $_auto_id,
 							'exp_time' => $exp_time);
-			return $this->_execute_core_function('rm_auto', $_params);
+			require_once(SMARTY_DIR . 'core/core.rm_auto.php');
+			return smarty_core_rm_auto($_params, $this);
         }
         
     }
@@ -995,7 +997,8 @@ reques     * @var string
 							'auto_source' => null,
 							'auto_id' => null,
 							'exp_time' => $exp_time);
-			return $this->_execute_core_function('rm_auto', $_params);			
+			require_once(SMARTY_DIR . 'core/core.rm_auto.php');
+			return smarty_core_rm_auto($_params, $this);
         }
     }
 
@@ -1021,7 +1024,8 @@ reques     * @var string
 			'cache_id' => $cache_id,
 			'compile_id' => $compile_id
 		);
-        return $this->_execute_core_function('read_cache_file', $_params);
+		require_once(SMARTY_DIR . 'core/core.read_cache_file.php');
+        return smarty_core_read_cache_file($_params, $this);
     }
 
 
@@ -1053,7 +1057,8 @@ reques     * @var string
 						'auto_source' => $tpl_file,
 						'auto_id' => $compile_id,
 						'exp_time' => $exp_time);
-		return $this->_execute_core_function('rm_auto', $_params);		
+		require_once(SMARTY_DIR . 'core/core.rm_auto.php');
+		return smarty_core_rm_auto($_params, $this);		
     }
 
     /**
@@ -1065,7 +1070,8 @@ reques     * @var string
     function template_exists($tpl_file)
     {
 		$_params = array('tpl_path' => $tpl_file);
-         return $this->_execute_core_function('fetch_template_info', $_params);
+		require_once(SMARTY_DIR . 'core/core.fetch_template_info.php');
+        return smarty_core_fetch_template_info($_params, $this);
     }
 
     /**
@@ -1153,7 +1159,8 @@ reques     * @var string
         if ($this->debugging) {
             // capture time for debugging info
 			$_params = array();
-            $_debug_start_time = $this->_execute_core_function('get_microtime', $_params);
+			require_once(SMARTY_DIR . 'core/core.get_microtime.php');
+            $_debug_start_time = smarty_core_get_microtime($_params, $this);
             $this->_smarty_debug_info[] = array('type'      => 'template',
                                                 'filename'  => $tpl_file,
                                                 'depth'     => 0);
@@ -1177,21 +1184,26 @@ reques     * @var string
 				'compile_id' => $compile_id,
 				'results' => null
 			);
-            if ($this->_execute_core_function('read_cache_file', $_params)) {
+			require_once(SMARTY_DIR . 'core/core.read_cache_file.php');			
+            if (smarty_core_read_cache_file($_params, $this)) {
 				$_smarty_results = $_params['results'];
                 if (@count($this->_cache_info['insert_tags'])) {
 					$_params = array('plugins' => $this->_cache_info['insert_tags']);
-                	$this->_execute_core_function('load_plugins', $_params);
+					require_once(SMARTY_DIR . 'core/core.load_plugins.php');
+                	smarty_core_load_plugins($_params, $this);
 					$_params = array('results' => $_smarty_results);
-                    $_smarty_results = $this->_execute_core_function('process_cached_inserts', $_params);
+					require_once(SMARTY_DIR . 'core/core.process_cached_inserts.php');
+                    $_smarty_results = smarty_core_process_cached_inserts($_params, $this);
                 }
                 if ($display) {
                     if ($this->debugging)
                     {
                         // capture time for debugging info
 						$_params = array();
-                        $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = $this->_execute_core_function('get_microtime', $_params) - $_debug_start_time;
-                        $_smarty_results .= $this->_execute_core_function('display_debug_console', $_params);
+						require_once(SMARTY_DIR . 'core/core.get_microtime.php');
+                        $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $_debug_start_time;
+						require_once(SMARTY_DIR . 'core/core.display_debug_console.php');
+                        $_smarty_results .= smarty_core_display_debug_console($_params, $this);
                     }
                     if ($this->cache_modified_check) {
                         $_last_modified_date = substr($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 0, strpos($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
@@ -1261,8 +1273,10 @@ reques     * @var string
 						'cache_id' => $cache_id,
 						'compile_id' => $compile_id,
 						'results' => $_smarty_results); 
-			$this->_execute_core_function('write_cache_file', $_params);
-			$_smarty_results = $this->_execute_core_function('process_cached_inserts', $_params);
+			require_once(SMARTY_DIR . 'core/core.write_cache_file.php');
+			smarty_core_write_cache_file($_params, $this);
+			require_once(SMARTY_DIR . 'core/core.process_cached_inserts.php');
+			$_smarty_results = smarty_core_process_cached_inserts($_params, $this);
             // restore initial cache_info
             $this->_cache_info = array_pop($_cache_info);
         }
@@ -1272,8 +1286,10 @@ reques     * @var string
             if ($this->debugging) {
                 // capture time for debugging info
 				$_params = array();
-                $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = ($this->_execute_core_function('get_microtime', $_params) - $_debug_start_time);
-                echo $this->_execute_core_function('display_debug_console', $_params);
+				require_once(SMARTY_DIR . 'core/core.get_microtime.php');
+                $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = (smarty_core_get_microtime($_params, $this) - $_debug_start_time);
+				require_once(SMARTY_DIR . 'core/core.display_debug_console.php');
+                echo smarty_core_display_debug_console($_params, $this);
             }
             error_reporting($_smarty_old_error_level);
             return;
@@ -1338,17 +1354,6 @@ reques     * @var string
     {
         return preg_replace('![\\$]\d!', '\\\\\\0', $string);
     }
-		
-    /**
-     * execute core function
-     * @return mixed value of function return
-     */
-    function _execute_core_function($funcname, &$params)
-    {
-		require_once($this->_get_plugin_filepath('core', $funcname));  
-		$_core_funcname = 'smarty_core_' . $funcname;
-		return $_core_funcname($params, $this);
-    }
 
     /**
      * get filepath of requested plugin
@@ -1386,7 +1391,8 @@ reques     * @var string
                 $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
 
 				$_params = array('file_path' => $_plugin_filepath);
-            	if($this->_execute_core_function('get_include_path', $_params)) {				
+				require_once(SMARTY_DIR . 'core/core.get_include_path.php');
+            	if(smarty_core_get_include_path($_params, $this)) {				
 					return $_params['new_file_path'];
                 }
             }
@@ -1411,7 +1417,8 @@ reques     * @var string
             } else {
                 // get template source and timestamp
 				$_params = array('tpl_path' => $tpl_file);
-                if (!$this->_execute_core_function('fetch_template_info', $_params)) {
+				require_once(SMARTY_DIR . 'core/core.fetch_template_info.php');
+                if (!smarty_core_fetch_template_info($_params, $this)) {
                     return false;
                 }
 				$_template_source = $_params['template_source'];
@@ -1423,21 +1430,24 @@ reques     * @var string
                     // compile template
                     $this->_compile_template($tpl_file, $_template_source, $_template_compiled);
 					$_params = array('compile_path' => $compile_path, 'template_compiled' => $_template_compiled, 'template_timestamp' => $_template_timestamp);
-					$this->_execute_core_function('write_compiled_template', $_params);
+					require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
+					smarty_core_write_compiled_template($_params, $this);
                     return true;
                 }
             }
         } else {
             // compiled template does not exist, or forced compile
 			$_params = array('tpl_path' => $tpl_file);
-            if (!$this->_execute_core_function('fetch_template_info', $_params)) {
+			require_once(SMARTY_DIR . 'core/core.fetch_template_info.php');
+            if (!smarty_core_fetch_template_info($_params, $this)) {
                 return false;
             }
 			$_template_source = $_params['template_source'];
 			$_template_timestamp = $_params['template_timestamp'];
             $this->_compile_template($tpl_file, $_template_source, $_template_compiled);
 			$_params = array('compile_path' => $compile_path, 'template_compiled' => $_template_compiled, 'template_timestamp' => $_template_timestamp);
-			$this->_execute_core_function('write_compiled_template', $_params);
+			require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
+			smarty_core_write_compiled_template($_params, $this);
             return true;
         }
     }
@@ -1618,7 +1628,8 @@ reques     * @var string
         } else {
             // auto_base not found, try include_path
 			$_params = array('file_path' => $auto_base);
-            $this->_execute_core_function('get_include_path', $_params);
+			require_once(SMARTY_DIR . 'core/core.get_include_path.php');
+            smarty_core_get_include_path($_params, $this);
             $_res = isset($_params['new_file_path']) ? $_params['new_file_path'] . DIRECTORY_SEPARATOR : null;
         }
         

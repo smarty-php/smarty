@@ -14,9 +14,10 @@
 function smarty_core_run_insert_handler($params, &$this)
 {
 	
+	require_once(SMARTY_DIR . 'core/core.get_microtime.php');
     if ($this->debugging) {
 		$_params = array();
-        $_debug_start_time = $this->_execute_core_function('get_microtime', $_params);
+        $_debug_start_time = smarty_core_get_microtime($_params, $this);
     }
 
     if ($this->caching) {
@@ -33,7 +34,8 @@ function smarty_core_run_insert_handler($params, &$this)
     } else {
         if (isset($params['args']['script'])) {				
 			$_params = array('file_path' => $this->_dequote($params['args']['script']));
-			if(!$this->_execute_core_function('get_php_resource', $_params)) {
+			require_once(SMARTY_DIR . 'core/core.get_php_resource.php');
+			if(!smarty_core_get_php_resource($_params, $this)) {
 				return false;
 			}
 
@@ -49,10 +51,11 @@ function smarty_core_run_insert_handler($params, &$this)
         $_content = $_funcname($params['args'], $this);
         if ($this->debugging) {
 			$_params = array();
+			require_once(SMARTY_DIR . 'core/core.get_microtime.php');
             $this->_smarty_debug_info[] = array('type'      => 'insert',
                                                 'filename'  => 'insert_'.$params['args']['name'],
                                                 'depth'     => $this->_inclusion_depth,
-                                                'exec_time' => $this->_execute_core_function('get_microtime', $_params) - $_debug_start_time);
+                                                'exec_time' => smarty_core_get_microtime($_params, $this) - $_debug_start_time);
         }
 
         if (!empty($params['args']["assign"])) {
