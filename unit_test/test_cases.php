@@ -14,13 +14,17 @@ class Obj {
 }
 
     
-class SmartyTest extends PHPUnit_TestCase {
+class SmartyTest extends PHPUnit_TestCase {   
     // contains the object handle of the string class
     var $abc;
+    // contains the last triggered error's errorlevel
+    var $errorlevel;
+
     // constructor of the test suite
     function SmartyTest($name) {
        $this->PHPUnit_TestCase($name);
     }
+
     // called before the test functions will be executed    
     // this function is defined in PHPUnit_TestCase and overwritten 
     // here
@@ -37,6 +41,11 @@ class SmartyTest extends PHPUnit_TestCase {
         unset($this->smarty);
     }
     
+    // dummy errorhandler for functions that are supposed to call trigger_error()
+    function error_handler($errorlevel) {
+        if ($errorlevel) $this->errorlevel = $errorlevel;
+    }
+
     /* DIRECTORY TESTS */
     
     // test that template_dir exists
@@ -214,6 +223,11 @@ class SmartyTest extends PHPUnit_TestCase {
     function test_get_plugin_filepath() {
         $this->assertTrue(method_exists($this->smarty, '_get_plugin_filepath'));
     }
+
+    
+    function test_clear_compiled_tpl() {
+        $this->assertTrue($this->smarty->clear_compiled_tpl());
+    }
     
     /* DISPLAY TESTS */
     
@@ -371,7 +385,39 @@ foo:foo:b',   $this->smarty->fetch('assign_obj.tpl'));
         $this->smarty->security = $security;
 
     }
-    
-  }
+
+    // test constants and security
+    function test_core_is_secure_function_smarty_var_const() {
+        define('TEST_CONSTANT', 'test constant');
+        $this->assertEquals('test constant', $this->smarty->fetch('constant.tpl',
+                                                             null, 'var_const'));
+    }
+
+    function test_core_is_secure_function_smarty_var_const_allowed() {
+        $security = $this->smarty->security;
+        $security_settings = $this->smarty->security_settings;
+        $this->smarty->security_settings['ALLOW_CONSTANTS'] = true;
+        $this->smarty->security = true;
+        $this->assertEquals('test constant', $this->smarty->fetch('constant.tpl',
+                                                     null, 'var_const_allowed'));
+        $this->smarty->security_settings = $security_settings;
+        $this->smarty->security = $security;   
+    }
+
+    function test_core_is_secure_function_smarty_var_const_not_allowed() {
+        $security = $this->smarty->security;
+        $this->smarty->security = true;
+        /* save old error_handler */
+        $this->errorlevel = null;
+        $error_handler = set_error_handler(array(&$this, 'error_handler'));
+        $this->smarty->fetch('constant.tpl', null, 'var_const_not_allowed');
+        /* restore old error_handler */
+        if ($error_handler) set_error_handler($error_handler);
+
+        $this->assertEquals( $this->errorlevel, E_USER_WARNING);
+        $this->smarty->security = $security;
+    }
+
+}
 
 ?>

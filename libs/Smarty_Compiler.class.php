@@ -2030,6 +2030,11 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'const':
+                if ($this->security && !$this->security_settings['ALLOW_CONSTANTS']) {
+                    $this->_syntax_error("(secure mode) constants not permitted",
+                                         E_USER_WARNING, __FILE__, __LINE__);
+                    return;
+                }
                 array_shift($indexes);
                 $_val = $this->_parse_var_props(substr($indexes[0],1));
                 $compiled_ref = '@constant(' . $_val . ')';
