@@ -1445,9 +1445,8 @@ function _run_insert_handler($args)
         $cache_header = $cache_split[0];
 
         $this->_cache_info = unserialize($cache_header);
-        $cache_timestamp = $this->_cache_info['timestamp'];
 
-        if (time() - $cache_timestamp > $this->cache_lifetime) {
+        if (time() - $this->_cache_info['timestamp'] > $this->cache_lifetime) {
             // cache expired, regenerate
             return false;
         }
@@ -1455,7 +1454,7 @@ function _run_insert_handler($args)
         if ($this->compile_check) {
             foreach ($this->_cache_info['template'] as $template_dep) {
                 $this->_fetch_template_info($template_dep, $template_source, $template_timestamp, false);
-                if ($cache_timestamp < $template_timestamp) {
+                if ($this->_cache_info['timestamp'] < $template_timestamp) {
                     // template file has changed, regenerate cache
                     return false;
                 }
@@ -1463,8 +1462,8 @@ function _run_insert_handler($args)
 
             if (isset($this->_cache_info['config'])) {
                 foreach ($this->_cache_info['config'] as $config_dep) {
-                    if ($cache_timestamp < filemtime($this->config_dir.'/'.$config_dep)) {
-                        // config file file has changed, regenerate cache
+                    if ($this->_cache_info['timestamp'] < filemtime($this->config_dir.'/'.$config_dep)) {
+                        // config file has changed, regenerate cache
                         return false;
                     }
                 }
