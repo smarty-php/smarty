@@ -3,8 +3,8 @@
  <chapter id="bugs">
   <title>BUGS</title>
   <para>
-   Check the BUGS file that comes with the latest distribution of Smarty, or
-   check the website.
+   Check the <filename>BUGS</filename> file that comes with
+   the latest distribution of Smarty, or check the website.
   </para>
 </chapter>
 <!-- Keep this comment at the end of the file

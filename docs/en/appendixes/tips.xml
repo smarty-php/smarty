@@ -120,10 +120,12 @@ footer.tpl
     control over date formatting, and also makes it easy to compare dates if
     necessary.
    </para>
-   <para>
-    NOTE: As of Smarty 1.4.0, you can pass dates to Smarty as unix
-    timestamps, mysql timestamps, or any date parsable by strtotime().
-   </para>
+   <note>
+    <para>
+     As of Smarty 1.4.0, you can pass dates to Smarty as unix
+     timestamps, mysql timestamps, or any date parsable by strtotime().
+    </para>
+   </note>
    <example>
     <title>using date_format</title>
     <programlisting>
@@ -160,18 +162,21 @@ OUTPUT:
 // this assumes your form elements are named
 // startDate_Day, startDate_Month, startDate_Year
 
-$startDate = makeTimeStamp($startDate_Year,$startDate_Month,$startDate_Day);
+$startDate = makeTimeStamp($startDate_Year, $startDate_Month, $startDate_Day);
 
-function makeTimeStamp($year="",$month="",$day="")
+function makeTimeStamp($year="", $month="", $day="")
 {
-   if(empty($year))
+   if(empty($year)) {
        $year = strftime("%Y");
-   if(empty($month))
+   }
+   if(empty($month)) {
        $month = strftime("%m");
-   if(empty($day))
+   }
+   if(empty($day)) {
        $day = strftime("%d");
+   }
 
-   return mktime(0,0,0,$month,$day,$year);
+   return mktime(0, 0, 0, $month, $day, $year);
 }
 ]]>
     </programlisting>
@@ -195,10 +200,12 @@ function makeTimeStamp($year="",$month="",$day="")
 
 // be sure apache is configure for the .wml extensions!                                    
 // put this function somewhere in your application, or in Smarty.addons.php
-function insert_header($params) {
+function insert_header($params) 
+{
    // this function expects $content argument
-   if(empty($params['content']))
+   if (empty($params['content'])) {
        return;
+   }
    header($params['content']);
    return;
 }
@@ -265,18 +272,20 @@ Pretty easy isn't it?
 // drop file "function.load_ticker.php" in plugin directory
 
 // setup our function for fetching stock data
-function fetch_ticker($symbol) {
+function fetch_ticker($symbol) 
+{
    // put logic here that fetches $ticker_info
    // from some ticker resource
    return $ticker_info;
 }
 
-function smarty_function_load_ticker($params, &$smarty) {
+function smarty_function_load_ticker($params, &$smarty) 
+{
    // call the function
    $ticker_info = fetch_ticker($params['symbol']);
    
    // assign template variable
-   $smarty->assign($params['assign'],$ticker_info);
+   $smarty->assign($params['assign'], $ticker_info);
 }
 ?>
 ]]>
