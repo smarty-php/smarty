@@ -1,3 +1,14 @@
+2004-02-17  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS:
+      add header
+
+    * (Smarty_2_6_2)
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      change some info in headers, remove fluff
+
 2004-02-13  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
