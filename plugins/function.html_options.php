@@ -43,7 +43,7 @@ function smarty_function_html_options($params, &$smarty)
 
 function smarty_function_html_options_optoutput($key, $value, $selected) {
 	if(!is_array($value)) {
-    	$html_result = "<option value=\"$key\"";
+    	$html_result = "<option label=\"$key\" value=\"$key\"";
     	if (in_array($key, $selected))
         	$html_result .= " selected=\"selected\"";
     	$html_result .= ">$value</option>\n";
