@@ -1,11 +1,14 @@
 Version 2.0.1
 -------------
-    - rename plugin .make_timestamp.php to shared.make_timestamp.php (Monte)
-    - changed crc32() generated values, replace '-' with 'N' (Monte)
-    - added support for +/- N syntax in html_select_date year values (Monte)
+    - rename plugin .make_timestamp.php to shared.make_timestamp.php.
+      (Monte)
+    - changed crc32() generated values, replace '-' with 'N'. (Monte)
+    - added support for +/- N syntax in html_select_date year values.
+      (Monte)
     - fixed behavior of inserts with script attribute. (Andrei)
     - fixed bug with $smarty.cookies and $smarty.server. (Andrei)
-    - wordwrap and indent are missing from 2.0 release, now fixed. (Monte)
+    - wordwrap and indent are missing from 2.0 release, now fixed.
+      (Monte)
     - removed show_info_header and show_info_include variables. (Monte)
 
 Version 2.0.0
@@ -330,4 +333,4 @@ Version 1.0
 ------------
     - initial release
 
-/* vim: set et tw=72: */
+/* vim: set et tw=64: */
