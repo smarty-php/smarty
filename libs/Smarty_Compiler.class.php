@@ -485,15 +485,7 @@ class Smarty_Compiler extends Smarty {
         $is_arg_stack = array();
 
         for ($i = 0; $i < count($tokens); $i++) {
-			
-			if($this->security
-						&& $tokens[$i+1] == '('
-						&& !preg_match("|[^a-zA-Z_-]+|",$tokens[$i])
-						&& !in_array($tokens[$i],array('eq','ne','neq','lt','le','lte','gt','ge','gte','and','or','not','mod','is'))
-						&& !in_array($tokens[$i],$this->security_settings["ALLOW_IF_FUNCS"])) {
-                        $this->_syntax_error("(secure mode) '".$tokens[$i]."' not allowed in if statement");				
-			}
-			
+						
             $token = &$tokens[$i];
             switch ($token) {
                 case 'eq':
@@ -569,6 +561,14 @@ class Smarty_Compiler extends Smarty {
                        current position for the next iteration. */
                     $i = $is_arg_start;
                     break;
+				default:
+					if($this->security
+								&& $tokens[$i+1] == '('
+								&& !preg_match("|[^a-zA-Z_-]|",$tokens[$i])
+								&& !in_array($tokens[$i],$this->security_settings["ALLOW_IF_FUNCS"])) {
+                        		$this->_syntax_error("(secure mode) '".$tokens[$i]."' not allowed in if statement");				
+					}
+					break;
             }
         }
 
