@@ -1,3 +1,4 @@
+  - add handling of resources for {config_load} (messju)
   - fix bug when using arrays with tr_attr and td_attr in {html_table} (messju)
   - add unit testing to cvs core (Monte)
 
