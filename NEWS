@@ -1,3 +1,5 @@
+  - add error-messages when anything else than an identifier is passed
+    to foreach's key- or item-attribute (messju)
   - fix handling of digits inside tagnames (messju)
   - fix escaping of backslashes in Smarty_Compiler::_quote_replace() (messju)
 

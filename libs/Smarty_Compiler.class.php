@@ -1122,15 +1122,18 @@ class Smarty_Compiler extends Smarty {
         $arg_list = array();
 
         if (empty($attrs['from'])) {
-            $this->_syntax_error("missing 'from' attribute", E_USER_ERROR, __FILE__, __LINE__);
+            $this->_syntax_error("foreach: missing 'from' attribute", E_USER_ERROR, __FILE__, __LINE__);
         }
+        $from = $attrs['from'];
 
         if (empty($attrs['item'])) {
-            $this->_syntax_error("missing 'item' attribute", E_USER_ERROR, __FILE__, __LINE__);
+            $this->_syntax_error("foreach: missing 'item' attribute", E_USER_ERROR, __FILE__, __LINE__);
+        }
+        $item = $this->_dequote($attrs['item']);
+        if (!preg_match('!^\w+$!', $item)) {
+            $this->_syntax_error("'foreach: item' must be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
         }
 
-        $from = $attrs['from'];
-        $item = $this->_dequote($attrs['item']);
         if (isset($attrs['name']))
             $name = $attrs['name'];
 
@@ -1146,6 +1149,9 @@ class Smarty_Compiler extends Smarty {
             switch ($attr_name) {
                 case 'key':
                     $key  = $this->_dequote($attrs['key']);
+                    if (!preg_match('!^\w+$!', $key)) {
+                        $this->_syntax_error("foreach: 'key' must to be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
+                    }
                     $key_part = "\$this->_tpl_vars['$key'] => ";
                     break;
 
