@@ -1,3 +1,8 @@
+2003-03-04  Monte Ohrt  <monte@ispi.net>
+
+    * docs/programmers.sgml:
+      remove $show_info_header and $show_info_include property vars from docs
+
 2003-03-03  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
