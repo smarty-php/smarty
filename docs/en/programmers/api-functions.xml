@@ -253,7 +253,7 @@ $smarty->clear_assign(array("Name","Address","Zip"));
 				<methodparam choice="opt"><type>string</type><parameter>template</parameter></methodparam>
 				<methodparam choice="opt"><type>string</type><parameter>cache id</parameter></methodparam>
 				<methodparam choice="opt"><type>string</type><parameter>compile id</parameter></methodparam>
-				<methodparam choice="opt"><type>string</type><parameter>expire time</parameter></methodparam>
+				<methodparam choice="opt"><type>int</type><parameter>expire time</parameter></methodparam>
 			</methodsynopsis>
 			<para>
 				This clears the cache for a specific template. If you have
@@ -287,7 +287,7 @@ $smarty->clear_cache("index.tpl","CACHEID");
 			<type>void</type><methodname>clear_compiled_tpl</methodname>
 				<methodparam choice="opt"><type>string</type><parameter>tpl_file</parameter></methodparam>
 				<methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
-				<methodparam choice="opt"><type>string</type><parameter>exp_time</parameter></methodparam>
+				<methodparam choice="opt"><type>int</type><parameter>exp_time</parameter></methodparam>
 			</methodsynopsis>
 			<para>
 			This clears the compiled version of the specified template

@@ -218,7 +218,7 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
     <methodparam choice="opt"><type>string</type><parameter>template</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>cache id</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>compile id</parameter></methodparam>
-    <methodparam choice="opt"><type>string</type><parameter>expire time</parameter></methodparam>
+    <methodparam choice="opt"><type>int</type><parameter>expire time</parameter></methodparam>
    </methodsynopsis>
 			<para>
 				Isso limpa o cache de um template específico. Se você tem

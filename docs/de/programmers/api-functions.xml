@@ -198,7 +198,7 @@
     <methodparam choice="opt"><type>string</type><parameter>template</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>cache id</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>compile id</parameter></methodparam>
-    <methodparam choice="opt"><type>string</type><parameter>expire time</parameter></methodparam>
+    <methodparam choice="opt"><type>int</type><parameter>expire time</parameter></methodparam>
    </methodsynopsis>
    <para>
     L&ouml;scht den Cache eines bestimmten Templates. Falls Sie mehrere
