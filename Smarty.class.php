@@ -1001,13 +1001,35 @@ class Smarty
     /**
      * Returns an array containing template variables
      *
-     * @return array
+     * @param string $name
+     * @param string $type
+     * @return mixed
      */    
-    function &get_template_vars()
+    function &get_template_vars($name=null)
     {
-        return $this->_tpl_vars;
+		if(!isset($name)) {
+        	return $this->_tpl_vars;
+		}
+		if(isset($this->_tpl_vars[$name])) {
+			return $this->_tpl_vars[$name];
+		}
     }
 
+    /**
+     * Returns an array containing config variables
+     *
+     * @param string $name
+     * @param string $type
+     * @return mixed
+     */    
+    function &get_config_vars($name=null)
+    {
+		if(!isset($name) && is_array($this->_config[0])) {
+        	return $this->_config[0]['vars'];
+		} else if(isset($this->_config[0]['vars'][$name])) {
+			return $this->_config[0]['vars'][$name];
+		}
+    }
 
     /**
      * trigger Smarty error

@@ -1,3 +1,7 @@
+    - added get_config_vars(), same basic functionality as
+      get_template_vars() (Monte)
+    - update get_template_vars() to be able to get
+      individual vars (Monte)
     - fix minor logic in _fetch_template_info (Dennis Gearon,
       Monte)
     - fix cache groups with compile_id set (Monte)
