@@ -130,29 +130,6 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
        value is ignored.
       </para>
      </sect1>
-     <sect1 id="variable.global.assign">
-      <title>$global_assign</title>
-      <para>
-       This is a list of variables that are always implicitly assigned
-       to the template engine. This is handy for making global
-       variables or server variables available to all templates
-       without having to manually assign them. Each element in the
-       $global_assign should be either a name of the global variable,
-       or a key/value pair, where the key is the name of the global
-       array and the value is the array of variables to be assigned
-       from that global array. $SCRIPT_NAME is globally assigned by
-       default from $HTTP_SERVER_VARS.
-      </para>
-	 <note>
-	 <title>Technical Note</title>
-	 <para>
-       Server variables can be accessed through the
-       $smarty variable, such as {$smarty.server.SCRIPT_NAME}. See the
-       section on the
-       <link linkend="language.variables.smarty">$smarty</link> variable.
-      </para>
-	 </note>
-     </sect1>
      <sect1 id="variable.undefined">
       <title>$undefined</title>
       <para>
