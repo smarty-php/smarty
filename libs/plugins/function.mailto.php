@@ -127,7 +127,8 @@ function smarty_function_mailto($params, &$smarty)
             $text_encode .= '&#x' . bin2hex($text[$x]).';';
         }
 
-        return '<a href="mailto:'.$address_encode.'" '.$extra.'>'.$text_encode.'</a>';
+        $mailto = "&#109;&#97;&#105;&#108;&#116;&#111;&#58;";
+        return '<a href="'.$mailto.$address_encode.'" '.$extra.'>'.$text_encode.'</a>';
 
     } else {
         // no encoding
