@@ -1,3 +1,4 @@
+    - remove overlib.js file from distribution (Monte)
     - fixed bug with 304 Not Modified response sending
       content (Monte)
     - fixed cycle function to respect delimiter after
