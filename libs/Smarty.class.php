@@ -1674,14 +1674,11 @@ function _run_insert_handler($args)
 
 			// see if path is relative
             if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $_plugin_dir)) {
-				$_relative = true;
+				$_relative_paths[] = $_plugin_dir;
                 // relative path, see if it is in the SMARTY_DIR
             	if (@is_readable(SMARTY_DIR . $_plugin_filepath)) {
                 	return SMARTY_DIR . $_plugin_filepath;
             	}
-			} else {
-				// absolute path
-				$_relative = false;
 			}
 			// try relative to cwd (or absolute)
             if (@is_readable($_plugin_filepath)) {
@@ -1690,8 +1687,8 @@ function _run_insert_handler($args)
         }
 
 		// still not found, try PHP include_path
-		if($_relative) {
-        	foreach ((array)$this->plugins_dir as $_plugin_dir) {
+		if(isset($_relative_paths)) {
+        	foreach ((array)$_relative_paths as $_plugin_dir) {
 
             	$_plugin_filepath = $_plugin_dir . DIR_SEP . $_plugin_filename;
 
