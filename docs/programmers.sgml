@@ -1140,7 +1140,7 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 /* PHP */
 $smarty->register_block("translate", "do_translation");
 
-function do_translation ($params, $content, &$smarty) {
+function do_translation ($params, $content, &$smarty, &amp;$repeat) {
     if ($content) {
         $lang = $params['lang'];
         // do some translation with $content
@@ -2390,10 +2390,13 @@ $smarty->default_template_handler_func = 'make_template';
      way to load the needed plugin is this:
     </para>
     <programlisting>
-require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
+require_once $smarty->_get_plugin_filepath('function', 'html_options');</programlisting>
     <para>
-     As a general rule, Smarty object is always passed to the plugins as the last
-     parameter (except for modifiers).
+     As a general rule, Smarty object is always passed to the plugins
+     as the last parameter (with two exceptions: modifiers do not get
+     passed the Smarty object at all and blocks get passed
+     <parameter>&amp;$repeat</parameter> after the Smarty object to keep
+     backwards compatibility to older versions of Smarty).
     </para>
    </sect1>
 
@@ -2605,7 +2608,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     <para>
      By default your function implementation is called twice by
      Smarty: once for the opening tag, and once for the closing tag
-     (see <literal>&$repeat</literal> below how to change this).
+     (see <literal>&amp;$repeat</literal> below how to change this).
     </para>
     <para>
      Only the opening tag of the block function may have attributes. All
@@ -2628,7 +2631,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     </para>
 
     <para>
-     The parameter <parameter>&$repeat</parameter> is passed by
+     The parameter <parameter>&amp;$repeat</parameter> is passed by
      reference to the function implementation and provides a
      possibility for it to control how many times the block is
      displayed. By default <parameter>$repeat</parameter> is
@@ -2636,7 +2639,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
      (the block opening tag) and <literal>false</literal> on all
      subsequent calls to the block function (the block's closing tag).
      Each time the function implementation returns with
-     <parameter>&$repeat</parameter> being true, the contents between
+     <parameter>&amp;$repeat</parameter> being true, the contents between
      {func} .. {/func} are evaluated and the function implementation
      is called again with the new block contents in the parameter
      <parameter>$content</parameter>.
