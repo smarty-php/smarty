@@ -1,3 +1,4 @@
+    - removed notice of undefined var in _rm_auto() (messju)
     - added warning message when an array is passed as
       the "checked" value of html_radios (Monte)
     - fixed errormessage in _compile_smarty_ref() (messju)

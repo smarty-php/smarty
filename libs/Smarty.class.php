@@ -2142,11 +2142,12 @@ class Smarty
             } else {
                 // remove matching file names
                 $handle = opendir($auto_base);
+		$res = true;
                 while (false !== ($filename = readdir($handle))) {
                     if($filename == '.' || $filename == '..') {
                         continue;    
                     } elseif (substr($auto_base . DIR_SEP . $filename,0,strlen($tname)) == $tname) {
-                        $this->_unlink($auto_base . DIR_SEP . $filename, $exp_time);
+                        $res &= (bool)$this->_unlink($auto_base . DIR_SEP . $filename, $exp_time);
                     }
                 }
             }
