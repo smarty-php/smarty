@@ -1,3 +1,61 @@
+2003-02-24  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty.class.php
+      libs/plugins/function.html_image.php:
+      fix rename problem in windows, unlink first
+
+    * libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_image.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_radios.php
+      libs/plugins/shared.escape_special_chars.php:
+      update functions with separate escape_special_chars routine
+
+    * NEWS
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_radios.php:
+      commit checkboxes, update radios
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/plugins/function.html_image.php:
+      fix bug with get_registered_object
+
+    * NEWS
+      libs/plugins/modifier.cat.php:
+      added cat modifier to distribution
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      added << >> <> support to IF statements
+
+    * libs/plugins/function.html_radios.php:
+      apply patch to initial html_radios function
+
+    * NEWS
+      libs/Smarty.class.php:
+      fix _assign_smarty_interface to not overwrite keys other than 'request'
+
+    * NEWS
+      libs/plugins/function.html_radios.php:
+      added html_radios to distribution
+
+    * NEWS
+      libs/plugins/modifier.string_format.php:
+      fixed arg order of string_format
+
+    * NEWS
+      libs/Smarty.class.php:
+      use tmp file for file writes, avoid race condition
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      add $smarty.config.foo var, handle embedded smarty var correctly
+
+    * NEWS
+      libs/plugins/function.fetch.php:
+      silence warnings in fetch plugin
+
 2003-02-21  Monte Ohrt  <monte@ispi.net>
 
     * INSTALL:
