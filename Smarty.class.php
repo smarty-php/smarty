@@ -602,7 +602,11 @@ class Smarty
 \*======================================================================*/
 
 function _generate_debug_output() {
+	// we must force compile the debug template in case the environment
+	// changed between separate applications.
     ob_start();
+	$force_compile_orig = $this->force_compile;
+	$this->force_compile = true;
     if($this->_process_template($this->debug_tpl, $compile_path))
 	{
 		if ($this->show_info_include) {
@@ -614,6 +618,7 @@ function _generate_debug_output() {
 		}
 	}   
     $results = ob_get_contents();
+	$this->force_compile = $force_compile_orig;
     ob_end_clean();
     return $results;
 }   

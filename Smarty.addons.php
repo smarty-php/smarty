@@ -700,7 +700,9 @@ function smarty_func_assign_debug_info($args, &$smarty_obj) {
 function smarty_func_overlib_init($args, &$smarty_obj) {
 	// be sure to place overlib.js where Smarty can locate it.
 	// overlib.js came with the distribution of Smarty.
+	echo '<DIV ID="overDiv" STYLE="position:absolute; visibility:hidden; z-index:1000;"></DIV>'."\n".'<SCRIPT LANGUAGE=javascript>'."\n".'<!--'."\n";
 	readfile(SMARTY_DIR."overlib.js",1);	
+	echo '// -->'."\n".'</SCRIPT>'."\n";
 	return;
 }
 

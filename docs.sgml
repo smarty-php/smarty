@@ -56,8 +56,8 @@
 		pull variables from them into the templates. The list goes on.
 		</para>
 		<para>
-		We started out writing out a spec for a template engine about a year
-		ago.  After finishing the spec, we began to work on a template engine
+		We started out writing out a spec for a template engine back in late
+		1999.  After finishing the spec, we began to work on a template engine
 		written in C that would hopefully be accepted for inclusion with PHP.
 		Not only did we run into many complicated technical barriers, but there
 		was also much heated debate about exactly what a template engine should
@@ -1530,14 +1530,15 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 			</para>
 		</sect2>
 		<sect2>
-			<title>Request Variables</title>
+			<title>{$smarty} reserved variable</title>
 			<para>
-			You can access request variables in Smarty via the special variable
-			{$smarty}. You can access get, post, cookies, server, env and
-			session variables with the syntax in the following examples.
+			You can access reserved variables in Smarty via the special
+			variable {$smarty}. You can access request variables such as get,
+			post, cookies, server, env and session variables with the syntax in
+			the following examples.
 			</para>
 			<para>
-			Request variable access was added to Smarty 1.4.4.
+			The special variable {$smarty} was added to Smarty 1.4.4.
 			</para>
 <example>
 
@@ -1564,6 +1565,20 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 
 {* display the variable "username" from merged get/post/cookies/server/env *}
 {$smarty.request.username}
+
+</programlisting>
+</example>
+			<para>
+			The current date can be displayed with {$smarty.now}. This is a unix
+			timestamp of the current date/time.
+			</para>
+<example>
+
+<title>displaying current date</title>
+<programlisting>
+
+{* use the date_formate modifier to format the date *}
+{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
 
 </programlisting>
 </example>
