@@ -3,10 +3,10 @@
 <chapter id="resources">
 	<title>Recursos</title>
 	<para>
-	A homepage do Smarty está localizada em http://smarty.php.net/.
-	Você pode entrar na lista de email enviando um e-mail para
-	smarty-general-subscribe@lists.php.net. Um arquivo da lista de e-mail pode ser
-	visto em http://marc.theaimsgroup.com/?l=smarty&amp;r=1&amp;w=2
+ 	A homepage do Smarty está localizada em &url.smarty;.
+ 	Você pode entrar na lista de email enviando um e-mail para
+ 	&ml.general.sub;. Um arquivo da lista de e-mail pode ser
+ 	visto em &url.ml.archive;
 	</para>
 </chapter>
 <!-- Keep this comment at the end of the file

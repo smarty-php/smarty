@@ -3,10 +3,10 @@
 <chapter id="resources">
 	<title>Weiterf&uuml;hrende Informationen</title>
 	<para>
-	Smarty's Homepage erreicht man unter http://smarty.php.net/.
-	Sie k&ouml;nnen der Smarty Mailingliste beitreten in dem
-	sie ein E-mail an smarty-general-subscribe@lists.php.net senden. Das Archiv
-	der Liste ist hier http://marc.theaimsgroup.com/?l=smarty&amp;r=1&amp;w=2 einsehbar.
+ 	Smarty's Homepage erreicht man unter &url.smarty;.
+ 	Sie k&ouml;nnen der Smarty Mailingliste beitreten in dem
+ 	sie ein E-mail an &ml.general.sub;. Das Archiv	der Liste
+  ist hier &url.ml.archive; einsehbar.
 	</para>
 </chapter>
 <!-- Keep this comment at the end of the file

@@ -1,0 +1,18 @@
+<!--
+ $Id$
+
+ Contains global "macros" for all the XML documents.
+ -->
+
+<!ENTITY url.smarty     'http://smarty.php.net/'>
+<!ENTITY url.ml.archive 'http://marc.theaimsgroup.com/?l=smarty&amp;r=1&amp;w=2'>
+<!ENTITY ml.general.sub 'smarty-general-subscribe@lists.php.net'>
+
+
+<!-- The three special language constants -->
+<!ENTITY true  '<constant>TRUE</constant>'>
+<!ENTITY false '<constant>FALSE</constant>'>
+<!ENTITY null  '<constant>NULL</constant>'>
+<!-- use <type>NULL</type> if you're talking about the _type_ NULL,
+     use &null; if it's about the _value_ NULL
+ -->

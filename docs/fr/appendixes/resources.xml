@@ -3,11 +3,11 @@
 <chapter id="resources">
 	<title>Ressources</title>
 	<para>
-	La page Web de Smarty se trouve à l'adresse suivante : http://smarty.php.net/.
-	Vous pouvez souscrire à la mailing liste en envoyant un email à
-	smarty-general-subscribe@lists.php.net.
-	Les archives de la mailing list se trouvent à l'adresse suivante :
-	http://marc.theaimsgroup.com/?l=smarty&amp;r=1&amp;w=2
+	 La page Web de Smarty se trouve à l'adresse suivante : &url.smarty;
+	 Vous pouvez souscrire à la mailing liste en envoyant un email à
+	 &ml.general.sub;.
+	 Les archives de la mailing list se trouvent à l'adresse suivante :
+	 &url.ml.archive;
 	</para>
 </chapter>
 <!-- Keep this comment at the end of the file

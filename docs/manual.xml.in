@@ -13,7 +13,10 @@
 
 %language-defs.default;
 
+<!-- All global entities for the XML files -->
+<!ENTITY % global.entities  SYSTEM "entities/global.ent">
 
+%global.entities;
 
 <!ENTITY bookinfo SYSTEM "@LANG@/bookinfo.xml">
 <!ENTITY preface SYSTEM "@LANG@/preface.xml">
