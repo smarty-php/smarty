@@ -168,20 +168,20 @@ class Smarty
 
     
 /*======================================================================*\
-    Function: register_func
+    Function: register_function
     Purpose:  Registers custom function to be used in templates
 \*======================================================================*/
-    function register_func($function, $function_impl)
+    function register_function($function, $function_impl)
     {
         $this->custom_funcs[$function] = $function_impl;
     }
 
     
 /*======================================================================*\
-    Function: register_mod
+    Function: register_modifier
     Purpose:  Registers modifier to be used in templates
 \*======================================================================*/
-    function register_mod($modifier, $modifier_impl)
+    function register_modifier($modifier, $modifier_impl)
     {
         $this->custom_mods[$modifier] = $modifier_impl;
     }
@@ -189,13 +189,24 @@ class Smarty
     
 /*======================================================================*\
     Function:   clear_cache()
-    Purpose:    clear cached content for the given template
+    Purpose:    clear cached content for the given template and cache id
 \*======================================================================*/
 
-    function clear_cache($tpl_file)
+    function clear_cache($tpl_file, $cache_id = null)
     {
         $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
-        return $this->_clear_tpl_cache_dir($cache_tpl_md5);
+        $cache_dir = $this->cache_dir.'/'.$cache_tpl_md5;
+        
+        if (!is_dir($cache_dir))
+            return false;
+
+        if (isset($cache_id)) {
+            $cache_id_md5 = md5($cache_id);
+            $cache_id_dir = substr($cache_id_md5, 0, 2);
+            $cache_file = "$cache_dir/$cache_id_dir/{$cache_tpl_md5}_$cache_id_md5.cache";
+            return (bool)(is_file($cache_file) && unlink($cache_file));
+        } else 
+            return $this->_clear_tpl_cache_dir($cache_tpl_md5);
     }
     
     
@@ -219,21 +230,22 @@ class Smarty
         }
         closedir($dir_handle);
 
-        return true;        
+        return true;
     }
+
 
 /*======================================================================*\
     Function:   is_cached()
     Purpose:    test to see if valid cache exists for this template
 \*======================================================================*/
 
-    function is_cached($tpl_file)
+    function is_cached($tpl_file, $cache_id = null)
     {
-        // cache id = template path + the invoked script
+        // cache name = template path + cache_id
         $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
-        $cache_path_md5 = md5($HTTP_SERVER_VARS['SERVER_NAME'].'/'.$HTTP_SERVER_VARS['PHP_SELF']);
-        $cache_path_dir = substr($cache_path_md5, 0, 2);
-        $cache_file = $this->cache_dir."/$cache_tpl_md5/$cache_path_dir/$cache_tpl_md5_$cache_path_md5.cache";
+        $cache_id_md5 = md5($cache_id);
+        $cache_id_dir = substr($cache_id_md5, 0, 2);
+        $cache_file = $this->cache_dir."/$cache_tpl_md5/$cache_id_dir/{$cache_tpl_md5}_$cache_id_md5.cache";
 
         if (file_exists($cache_file) &&
             ($this->cache_lifetime == 0 ||
@@ -271,9 +283,9 @@ class Smarty
     Purpose:    executes & displays the template results
 \*======================================================================*/
 
-    function display($tpl_file)
+    function display($tpl_file, $cache_id = null)
     {
-        $this->fetch($tpl_file, true);
+        $this->fetch($tpl_file, $cache_id, true);
     }   
         
 /*======================================================================*\
@@ -281,16 +293,16 @@ class Smarty
     Purpose:    executes & returns or displays the template results
 \*======================================================================*/
 
-    function fetch($tpl_file, $display = false)
+    function fetch($tpl_file, $cache_id = null, $display = false)
     {
         global $HTTP_SERVER_VARS;
 
         if ($this->caching) {
-            // cache id = template path + the invoked script
+            // cache name = template path + cache_id
             $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
-            $cache_path_md5 = md5($HTTP_SERVER_VARS['SERVER_NAME'].'/'.$HTTP_SERVER_VARS['PHP_SELF']);
-            $cache_path_dir = substr($cache_path_md5, 0, 2);
-            $cache_file = $this->cache_dir."/$cache_tpl_md5/$cache_path_dir/$cache_tpl_md5_$cache_path_md5.cache";
+            $cache_id_md5 = md5($cache_id);
+            $cache_id_dir = substr($cache_id_md5, 0, 2);
+            $cache_file = $this->cache_dir."/$cache_tpl_md5/$cache_id_dir/{$cache_tpl_md5}_$cache_id_md5.cache";
             
             if (file_exists($cache_file) &&
                 ($this->cache_lifetime == 0 ||
@@ -438,8 +450,8 @@ class Smarty
     function _create_dir_structure($dir)
     {
         if (!file_exists($dir)) {
-            $dir_parts = preg_split('!/+!', $dir);
-            $new_dir = '';
+            $dir_parts = preg_split('!/+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
+            $new_dir = ($dir{0} == '/') ? '/' : '';
             foreach ($dir_parts as $dir_part) {
                 $new_dir .= $dir_part;
                 if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
@@ -532,29 +544,29 @@ class Smarty
 \*======================================================================*/
     function _process_cached_inserts($results)
     {
-        preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'\n??!Uis',
+        preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
                        $results, $match);
         list($cached_inserts, $insert_args) = $match;
 
         for ($i = 0; $i < count($cached_inserts); $i++) {
-            $attrs = $this->_parse_attrs($insert_args[$i], false);
-            $name = $this->_dequote($attrs['name']);
-
-            $arg_list = array();
-            foreach ($attrs as $arg_name => $arg_value) {
-                if ($arg_name == 'name') continue;
-                $arg_list[$arg_name] = $arg_value;
-            }
+            $args = unserialize($insert_args[$i]);
+            $name = $args['name'];
+            unset($args['name']);
 
             $function_name = 'insert_' . $name;
-            $replace = $function_name($arg_list);
+            $replace = $function_name($args);
 
             $results = str_replace($cached_inserts[$i], $replace, $results);
         }
 
         return $results;
     }   
-    
+
+
+/*======================================================================*\
+    Function: _compile_tag
+    Purpose:  Compile a template tag
+\*======================================================================*/
     function _compile_tag($template_tag)
     {
         /* Matched comment. */
@@ -661,6 +673,11 @@ class Smarty
         return "<?php $function(array(".implode(',', (array)$arg_list).")); ?>";
     }
 
+
+/*======================================================================*\
+    Function: _compile_insert_tag
+    Purpose:  Compile {insert ...} tag
+\*======================================================================*/
     function _compile_insert_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -670,19 +687,20 @@ class Smarty
             $this->_syntax_error("missing insert name");
         }
 
-        if($this->caching)
-            return $this->_smarty_md5."{insert_cache $tag_args}".$this->_smarty_md5;
-        
         foreach ($attrs as $arg_name => $arg_value) {
-            if ($arg_name == 'name') continue;
             if (is_bool($arg_value))
                 $arg_value = $arg_value ? 'true' : 'false';
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        return "<?php echo insert_$name(array(".implode(',', (array)$arg_list).")); ?>";
+        return "<?php echo _smarty_insert_handler(array(".implode(',', (array)$arg_list)."), \$this->caching, \$this->_smarty_md5); ?>";
     }   
-    
+ 
+
+/*======================================================================*\
+    Function: _compile_config_load_tag
+    Purpose:  Compile {config_load ...} tag
+\*======================================================================*/
     function _compile_config_load_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -707,6 +725,10 @@ class Smarty
     }
 
 
+/*======================================================================*\
+    Function: _compile_include_tag
+    Purpose:  Compile {include ...} tag
+\*======================================================================*/
     function _compile_include_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -728,17 +750,24 @@ class Smarty
             }
 
             return  "<?php " .
-                    "function $include_func_name(\$file_name, \$def_vars, \$include_vars)\n" .
-                    "{\n" .
-                    "   extract(\$def_vars);\n" .
-                    "   extract(\$include_vars);\n" .
-                    "   include \"\$file_name.php\";\n" .
+                    "if (!function_exists('$include_func_name')) {\n".
+                    "   function $include_func_name(\$file_name, \$def_vars, \$include_vars)\n" .
+                    "   {\n" .
+                    "       extract(\$def_vars);\n" .
+                    "       extract(\$include_vars);\n" .
+                    "       include \"\$file_name.php\";\n" .
+                    "   }\n" .
                     "}\n" .
                     "$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."));\n?>\n";
         } else
              return '<?php include "'.$this->compile_dir.'/'.$attrs['file'].'.php"; ?>';
     }
 
+
+/*======================================================================*\
+    Function: _compile_section_start
+    Purpose:  Compile {section ...} tag
+\*======================================================================*/
     function _compile_section_start($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -795,6 +824,11 @@ class Smarty
         return $output;
     }
 
+
+/*======================================================================*\
+    Function: _compile_if_tag
+    Purpose:  Compile {if ...} tag
+\*======================================================================*/
     function _compile_if_tag($tag_args, $elseif = false)
     {
         /* Tokenize args for 'if' tag. */
@@ -950,6 +984,11 @@ class Smarty
         return $tokens;
     }
 
+
+/*======================================================================*\
+    Function: _parse_attrs
+    Purpose:  Parse attribute string
+\*======================================================================*/
     function _parse_attrs($tag_args, $quote = true)
     {
         /* Tokenize tag attributes. */
@@ -1019,6 +1058,11 @@ class Smarty
         return $attrs;
     }
 
+
+/*======================================================================*\
+    Function: _preg_grep
+    Purpose:  Emulate PHP's preg_grep()
+\*======================================================================*/
     function _preg_grep($pattern, $array)
     {
         $result = array();
@@ -1216,11 +1260,11 @@ class Smarty
 
 /*======================================================================*\
     Function: _clear_tpl_cache_dir
-    Purpose:  Clear the specified template cache directory
+    Purpose:  Clear the specified template cache
 \*======================================================================*/
-    function _clear_tpl_cache_dir($tpl_cache_dir)
+    function _clear_tpl_cache_dir($cache_tpl_md5)
     {
-        $cache_dir = $this->cache_dir.'/'.$tpl_cache_dir;
+        $cache_dir = $this->cache_dir.'/'.$cache_tpl_md5;
 
         if (!is_dir($cache_dir))
             return false;

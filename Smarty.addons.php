@@ -1,5 +1,4 @@
 <?
-
 /*
  * Project:     Smarty: the PHP compiled template engine
  * File:        Smarty.addons.php
@@ -36,6 +35,23 @@
  * http://www.phpinsider.com
  *
  */
+
+
+/*============================================*\
+  Inserts handler
+\*============================================*/
+
+function _smarty_insert_handler($args, $caching, $delimiter)
+{
+    if ($caching) {
+        $arg_string = serialize($args);
+        return "$delimiter{insert_cache $arg_string}$delimiter";
+    } else {
+        $function_name = 'insert_'.$args['name'];
+        return $function_name($args);
+    }
+}
+
 
 /*============================================*\
   Modifiers
