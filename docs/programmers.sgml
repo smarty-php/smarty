@@ -654,9 +654,9 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 			<funcprototype>
 			<funcdef>void <function>clear_cache</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>string <parameter>cache id</parameter></paramdef>
-				<paramdef>string <parameter>compile id</parameter></paramdef>
-				<paramdef>int <parameter>expire time</parameter></paramdef>
+				<paramdef>string <parameter><optional>cache id</optional></parameter></paramdef>
+				<paramdef>string <parameter><optional>compile id</optional></parameter></paramdef>
+				<paramdef>int <parameter><optional>expire time</optional></parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
