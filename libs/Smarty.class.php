@@ -120,7 +120,8 @@ class Smarty
                                     'PHP_HANDLING'    => false,
                                     'IF_FUNCS'        => array('array', 'list',
                                                                'isset', 'empty',
-                                                               'count', 'in_array'),
+                                                               'count', 'sizeof',
+                                                               'in_array'),
                                     'INCLUDE_ANY'     => false,
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count')
