@@ -1,3 +1,13 @@
+2003-07-31  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      enabled registration of class-methods as callbacks for the
+      register_*-functions
+      
+      use: array('classname', 'method_name')) as callback
+
 2003-07-29  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
