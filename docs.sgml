@@ -14,7 +14,7 @@
 			<address><email>andrei@php.net</email></address>
 		</affiliation>
 	</author>
-	<edition>Version 1.5.0</edition>
+	<edition>Version 1.5.2</edition>
 	<copyright><year>2001</year><holder>ispi of Lincoln, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -435,18 +435,18 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				If $compile_check is enabled, the cached content will be
 				regenerated if any of the involved templates are changed. (new
 				to 1.4.6). If $force_compile is enabled, the cached content
-				will always be regenerated (new to 1.4.7). 
+				will always be regenerated. (added to Smarty 1.4.7)
 			</para>
 		</sect2>
 		<sect2 id="setting.cache.dir">
 			<title>$cache_dir</title>
 			<para>
-                This is the name of the directory where template caches are
-                stored. By default this is "./cache", meaning that it will
-                look for the cache directory in the same directory as the
-                executing php script. This was added to Smarty version 1.3.0.
-				You can also use your own custom cache handler function to
-				control cache files, which will ignore this setting.
+				This is the name of the directory where template caches are
+				stored. By default this is "./cache", meaning that it will look
+				for the cache directory in the same directory as the executing
+				php script. You can also use your own custom cache handler
+				function to control cache files, which will ignore this
+				setting. (added to Smarty 1.3.0)
 			</para>
 			<para>
                 TECHNICAL NOTE: This setting must be either a relative or
@@ -464,8 +464,8 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				valid. Once this time has expired, the cache will be
 				regenerated. $caching must be set to "true" for this setting to
 				work. You can also force the cache to expire with <link
-				linkend="api.clear.all.cache">clear_all_cache</link>. This was
-				added to Smarty 1.3.0.
+				linkend="api.clear.all.cache">clear_all_cache</link>. (added to
+				Smarty 1.3.0)
 			</para>
 		</sect2>
 		<sect2 id="setting.insert.tag.check">
@@ -483,6 +483,13 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				You can supply a custom function to handle cache files instead
 				of using the built-in method using the $cache_dir. See the
 				custom cache handler function section for details.
+			</para>
+		</sect2>
+		<sect2 id="setting.default.template.handler.func">
+			<title>$default_template_handler_func</title>
+			<para>
+				This function is called when a template cannot be obtained from
+				its resource. (added to Smarty 1.5.2)
 			</para>
 		</sect2>
         <sect2 id="setting.tpl.file.ext">
@@ -1472,7 +1479,7 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 
 // put this function somewhere in your application
 function get_db_template ($tpl_name, &$tpl_source, &$tpl_timestamp,
-	$get_source=true) {
+	$get_source=true, &amp;$smarty_obj) {
     
 	if($get_source) {
     	// do database calls (or whatever) here to fetch your template, populating
@@ -1495,6 +1502,47 @@ $smarty->display("db:index.tpl");
 
 {* using resource from within Smarty template *}
 {include file="db:/extras/navigation.tpl"}
+
+</programlisting>
+</example>
+        </sect2>
+		<sect2>
+			<title>Default Template Handler Function</title>
+			<para>
+			You can specify a function that is used to retrieve template
+			contents in the event the template cannot be retrieved from its
+			resource. One use of this is to create templates that do not exist
+			on-the-fly. This was added to Smarty 1.5.2.
+            </para>
+<example>
+
+<title>using the default template handler function call</title>
+<programlisting>
+
+// from PHP script
+
+// put this function somewhere in your application
+
+function make_template ($resource_type, $resource_name, &amp;$template_source,
+	&amp;$template_timestamp, &amp;$smarty_obj) {
+    
+	if( $resource_type == 'file' ) {
+		if ( ! is_readable ( $resource_name )) {
+			// create the template file, return contents.
+			$template_source = "This is a new template.";
+			$template_timestamp = time();
+			$smarty_obj->_write_file($resource_name,$template_source);
+			return true;
+		}
+	else {
+		// not a file
+		return false;
+    }
+}
+
+// set the default handler
+$smarty->default_template_handler_func = 'make_template';
+
 
 </programlisting>
 </example>
@@ -1601,8 +1649,8 @@ $smarty->display("index.tpl");
 			variable. Smarty will now use this to handle cached data. The first
 			argument is the action, which will be one of 'read', 'write' and
 			'clear'. The second parameter is the smarty object. The third
-			parameter is the cached content. Upon a write, Smarty passed th
-			cached content in this parameters. Upon a 'read', Smarty expects
+			parameter is the cached content. Upon a write, Smarty passes the
+			cached content in these parameters. Upon a 'read', Smarty expects
 			your function to pass this by reference and populate it with the
 			cached data. Upon a 'clear', pass a dummy variable here since it is
 			not used. The fourth parameter is the name of the template file
@@ -2482,6 +2530,14 @@ index.tpl
 						be assigned to</entry>
                     </row>
                     <row>
+                        <entry>script</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the php script that is included before
+						the insert function is called</entry>
+                    </row>
+                    <row>
                         <entry>[var ...]</entry>
                         <entry>[var type]</entry>
                         <entry>No</entry>
@@ -2492,22 +2548,19 @@ index.tpl
                 </tgroup>
             </informaltable>
 			<para>
-			The insert tag in Smarty serves a special purpose. You may
-			run into the situation where it is impossible to pass data to a template
-			before the template is executed because there is info in the template
-			needed to aquire the data, kind of a catch 22. The insert tag is a way
-			to callback a function in PHP during runtime of the template. The
-			difference between insert tags and custom functions is that insert
-			tags are not cached when you have template <link
-			linkend="section.caching">caching</link> enabled. They
-			will be executed on every invocation of the template.
+			Insert tags work much like include tags, except that insert tags
+			are not cached when you have template <link
+			linkend="section.caching">caching</link> enabled. They will be
+			executed on every invocation of the template.
 			</para>
 			<para>
-			Let's say you have a template with a banner slot at the top of the page. The
-			banner can contain any mixture of HTML, images, flash, etc. so we can't just
-			use a static link here. In comes the insert tag: the template
-			knows #banner_location_id# and #site_id# values (gathered from a config file),
-			and needs to call a function to get the banner's contents.
+			Let's say you have a template with a banner slot at the top of the
+			page. The banner can contain any mixture of HTML, images, flash,
+			etc. so we can't just use a static link here, and we don't want
+			this contents cached with the page. In comes the insert tag: the
+			template knows #banner_location_id# and #site_id# values (gathered
+			from a config file), and needs to call a function to get the banner
+			contents.
 			</para>
 <example>
 <title>function insert</title>
@@ -2533,11 +2586,19 @@ index.tpl
 			and display the returned results in place of the insert tag.
 			</para>
 			<para>
-			If you supply the special "assign" attribute, the output of the
-			insert tag will be assigned to this template variable instead of
-			being output to the template. NOTE: assiging the output to a template
-			variable isn't too useful with caching enabled. (added to Smarty
-			1.5.0)
+			If you supply the "assign" attribute, the output of the insert tag
+			will be assigned to this template variable instead of being output
+			to the template. NOTE: assiging the output to a template variable
+			isn't too useful with caching enabled. (added to Smarty 1.5.0)
+			</para>
+			<para>
+			If you supply the "script" attribute, this php script will be
+			included (only once) before the insert function is executed. This
+			is the case where the insert function may not exist yet, and a php
+			script must be included first to make it work. The path can be
+			either absolute, or relative to $trusted_dir. When security is
+			enabled, the script must reside in $trusted_dir. (added to Smarty
+			1.5.2)
 			</para>
 			<para>
 			The Smarty object is passed as the second argument. This way you

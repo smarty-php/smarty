@@ -6,7 +6,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:     1.5.1
+ * Version:     1.5.2
  * Copyright:   2001 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -204,7 +204,7 @@ class Smarty
     var $_conf_obj             =   null;       // configuration object
     var $_config               =   array();    // loaded configuration settings
     var $_smarty_md5           =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
-    var $_version              =   '1.5.1';    // Smarty version number
+    var $_version              =   '1.5.2';    // Smarty version number
     var $_extract              =   false;      // flag for custom functions
     var $_inclusion_depth      =   0;          // current template inclusion depth
     var $_compile_id           =   null;       // for different compiled templates
@@ -927,6 +927,7 @@ function _is_trusted($resource_type, $resource_name)
                 	break;
         	}		
 		}
+
 		if(!$_return) {
 			// see if we can get a template with the default template handler
 			if(!empty($this->default_template_handler_func)) {

@@ -1,3 +1,7 @@
+Version 1.5.2
+-------------
+    - added Smarty object as fifth argument for template resource functions
+      (Monte)
     - fixed a bug with incorrectly combined cache and compile id in
       clear_cache(). (Andrei)
     - fixed bug in smarty_make_timestamp introduced in PHP 4.1.0. (Monte)
