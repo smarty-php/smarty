@@ -3737,6 +3737,16 @@ OUTPUT:
 			math function will be assigned to this template variable instead of
 			being output to the template.
 			</para>
+			<note>
+				<title>Technical Note</title>
+				<para>
+				math is an expensive function in performance due to its use of
+				the php eval() function. Doing the math in PHP is much more
+				efficient, so whenever possible do the math calculations in PHP
+				and assign the results to the template. Definately avoid
+				repetitive math function calls, like within section loops.
+            	</para>
+			</note>
 <example>
 <title>math</title>
 <programlisting>

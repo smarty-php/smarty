@@ -110,11 +110,11 @@ class Smarty_Compiler extends Smarty {
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_source);
 
         /* loop through text blocks */
-        for ($curr_tb = 0; $curr_tb < count($text_blocks); $curr_tb++) {
+        for ($curr_tb = 0, $for_max = count($text_blocks); $curr_tb < $for_max; $curr_tb++) {
             /* match anything within <? ?> */
             if (preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)!is', $text_blocks[$curr_tb], $sp_match)) {
                 /* found at least one match, loop through each one */
-                for ($curr_sp = 0; $curr_sp < count($sp_match[0]); $curr_sp++) {
+                for ($curr_sp = 0, $for_max2 = count($sp_match[0]); $curr_sp < $for_max2; $curr_sp++) {
                     if (preg_match('!^(<\?(php\s|\s|=\s)|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!is', $sp_match[0][$curr_sp])) {
                         /* php tag */
                         if ($this->php_handling == SMARTY_PHP_PASSTHRU) {
@@ -140,7 +140,7 @@ class Smarty_Compiler extends Smarty {
 
         /* Compile the template tags into PHP code. */
         $compiled_tags = array();
-        for ($i = 0; $i < count($template_tags); $i++) {
+        for ($i = 0, $for_max = count($template_tags); $i < $for_max; $i++) {
             $this->_current_line_no += substr_count($text_blocks[$i], "\n");
             $compiled_tags[] = $this->_compile_tag($template_tags[$i]);
             $this->_current_line_no += substr_count($template_tags[$i], "\n");
@@ -149,7 +149,7 @@ class Smarty_Compiler extends Smarty {
         $template_compiled = '';
 
         /* Interleave the compiled contents and text blocks to get the final result. */
-        for ($i = 0; $i < count($compiled_tags); $i++) {
+        for ($i = 0, $for_max = count($compiled_tags); $i < $for_max; $i++) {
             $template_compiled .= $text_blocks[$i].$compiled_tags[$i];
         }
         $template_compiled .= $text_blocks[$i];
@@ -159,7 +159,7 @@ class Smarty_Compiler extends Smarty {
             $strip_tags = $match[0];
             $strip_tags_modified = preg_replace("!{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+!m", '', $strip_tags);
             $strip_tags_modified = preg_replace('![\r\n]+!m', '', $strip_tags_modified);
-            for ($i = 0; $i < count($strip_tags); $i++)
+            for ($i = 0, $for_max = count($strip_tags); $i < $for_max; $i++)
                 $template_compiled = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
                                                   $this->quote_replace($strip_tags_modified[$i]),
                                                   $template_compiled, 1);
@@ -844,7 +844,7 @@ class Smarty_Compiler extends Smarty {
 
         $is_arg_stack = array();
 
-        for ($i = 0; $i < count($tokens); $i++) {
+        for ($i = 0, $for_max = count($tokens); $i < $for_max; $i++) {
 
             $token = &$tokens[$i];
             switch ($token) {
@@ -1219,7 +1219,7 @@ class Smarty_Compiler extends Smarty {
         preg_match_all('!\|(@?\w+)((?>:(?:'. $qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $match);
         list(, $modifiers, $modifier_arg_strings) = $match;
 
-        for ($i = 0; $i < count($modifiers); $i++) {
+        for ($i = 0, $for_max = count($modifiers); $i < $for_max; $i++) {
             $modifier_name = $modifiers[$i];
             preg_match_all('!:(' . $qstr_regexp . '|[^:]+)!', $modifier_arg_strings[$i], $match);
             $modifier_args = $match[1];

@@ -1157,7 +1157,7 @@ function _generate_debug_output() {
                 $this->_config[1]['files'][$file] = true;
             }
         } else if ($scope == 'global')
-            for ($i = 1; $i < count($this->_config); $i++) {
+            for ($i = 1, $for_max = count($this->_config); $i < $for_max; $i++) {
                 if (!isset($this->_config[$i]['files'][$file])) {
                     $this->_config[$i]['vars'] = array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file));
                     $this->_config[$i]['files'][$file] = true;
@@ -1170,7 +1170,7 @@ function _generate_debug_output() {
                 if (count($this->_config) > 0)
                     $this->_config[1]['vars'] = array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file, $section));
             } else if ($scope == 'global')
-                for ($i = 1; $i < count($this->_config); $i++)
+                for ($i = 1, $for_max = count($this->_config); $i < $for_max; $i++)
                     $this->_config[$i]['vars'] = array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file, $section));
         }
 
@@ -1194,7 +1194,7 @@ function _generate_debug_output() {
                        $results, $match);
         list($cached_inserts, $insert_args) = $match;
 
-        for ($i = 0; $i < count($cached_inserts); $i++) {
+        for ($i = 0, $for_max = count($cached_inserts); $i < $for_max; $i++) {
             if ($this->debugging) {
                 $debug_start_time = $this->_get_microtime();
             }

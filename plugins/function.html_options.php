@@ -29,7 +29,7 @@ function smarty_function_html_options($params, &$smarty)
     } else {
         settype($output, 'array');
         settype($values, 'array');
-        for ($i = 0; $i < count($output); $i++) {
+        for ($i = 0, $for_max = count($output); $i < $for_max; $i++) {
             /* By default, check value against $selected */
             $sel_check = $values[$i];
             $html_result .= "<option";
