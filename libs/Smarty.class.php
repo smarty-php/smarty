@@ -340,16 +340,6 @@ class Smarty
     var $cache_handler_func   = null;
 
     /**
-     * These are the variables from the globals array that are
-     * assigned to all templates automatically. This isn't really
-     * necessary any more, you can use the $smarty var to access them
-     * directly.
-     *
-     * @var array
-     */
-    var $global_assign   =  array('HTTP_SERVER_VARS' => array('SCRIPT_NAME'));
-
-    /**
      * This indicates which filters are automatically loaded into Smarty.
      *
      * @var array array of filter names
@@ -590,31 +580,10 @@ class Smarty
     /**#@-*/
     /**
      * The class constructor.
-     *
-     * @uses $global_assign uses {@link assign()} to assign each corresponding
-     *                      value from $GLOBALS to the template vars
      */
     function Smarty()
     {
-        foreach ($this->global_assign as $key => $var_name) {
-            if (is_array($var_name)) {
-                foreach ($var_name as $var) {
-                    if (isset($GLOBALS[$key][$var])) {
-                        $this->assign($var, $GLOBALS[$key][$var]);
-                    } else {
-                        $this->assign($var, null);
-                    }
-                }
-            } else {
-                if (isset($GLOBALS[$var_name])) {
-                    $this->assign($var_name, $GLOBALS[$var_name]);
-                } else {
-                    $this->assign($var_name, null);
-                }
-            }
-        }
     }
-
 
     /**
      * assigns values to template variables

@@ -1,3 +1,5 @@
+  - remove {$SCRIPT_NAME}. use {$smarty.server.SCRIPT_NAME} instead (messju)
+  - remove $global_assign. assign global variables explicitly instead (messju)
   - remove warning in debug_print_var on php-resources (messju)
   - move function.assign.php to compiler.assign.php (messju)
   - add property $tpl_error_reporting (messju)
