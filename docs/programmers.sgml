@@ -1998,6 +1998,21 @@ When reloading the page you will notice that both dates differ. One is "dynamic"
 	the parameters passed one at a time for each argument like traditional
 	object parameter passing, set the fourth registration parameter to false.
 	</para>
+	<para>
+	The optional fifth parameter has only effect with
+	<parameter>format</parameter> being <literal>true</literal>
+	and contains a list ob methods that should be treated as
+	blocks. That means these methods have a closing tag in the
+	template
+	(<literal>{foobar->meth2}...{/foobar->meth2}</literal>) and
+	the parameters to the methods have the same synopsis as the
+	parameters for block-function-plugins: They get 4 parameters
+	<parameter>$params</parameter>,
+	<parameter>$content</parameter>,
+	<parameter>&$smarty</parameter> and
+	<parameter>&$repeat</parameter> and they also behave like
+	block-function-plugins.
+	</para>
     <example>
      <title>using a registered or assigned object</title>
      <programlisting>
