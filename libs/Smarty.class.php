@@ -185,7 +185,6 @@ class Smarty
 											array('vars'  => array(), 'files' => array()));
     var $_smarty_md5           = 'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
     var $_version              = '2.3.1';    // Smarty version number
-    var $_extract              = false;      // flag for custom functions
     var $_inclusion_depth      = 0;          // current template inclusion depth
     var $_compile_id           = null;       // for different compiled templates
     var $_smarty_debug_id      = 'SMARTY_DEBUG'; // text in URL to enable debug mode
@@ -227,10 +226,11 @@ class Smarty
             }
         }
 
-		if(empty($this->debug_tpl)) {
-			// set path to debug template from SMARTY_DIR
-			$this->debug_tpl = 'file:'.SMARTY_DIR.'debug.tpl';
-		}
+		// setup debugging
+        if (!$this->debugging && $this->debugging_ctrl == 'URL'
+               && strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
+            $this->debugging = true;
+        }
     }
 
 
@@ -250,7 +250,6 @@ class Smarty
             if ($tpl_var != '')
                 $this->_tpl_vars[$tpl_var] = $value;
         }
-        $this->_extract = true;
     }
 
 /*======================================================================*\
@@ -261,7 +260,6 @@ class Smarty
     {
         if ($tpl_var != '')
             $this->_tpl_vars[$tpl_var] = &$value;
-        $this->_extract = true;
     }
 	
 /*======================================================================*\
@@ -287,7 +285,6 @@ class Smarty
                 $this->_tpl_vars[$tpl_var][] = $value;
             }
         }
-        $this->_extract = true;
     }
 
 /*======================================================================*\
@@ -302,7 +299,6 @@ class Smarty
 			}
             $this->_tpl_vars[$tpl_var][] = &$value;
         }
-        $this->_extract = true;
     }
 
 
@@ -620,11 +616,6 @@ class Smarty
     {
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
 
-        if (!$this->debugging && $this->debugging_ctrl == 'URL'
-               && strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
-            $this->debugging = true;
-        }
-
         if ($this->debugging) {
             // capture time for debugging info
             $debug_start_time = $this->_get_microtime();
@@ -634,11 +625,11 @@ class Smarty
             $included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
 
-        if (!isset($_smarty_compile_id))
+        if (!isset($_smarty_compile_id)) {
             $_smarty_compile_id = $this->compile_id;
+		}
 
         $this->_compile_id = $_smarty_compile_id;
-
         $this->_inclusion_depth = 0;
 
         if ($this->caching) {
@@ -680,16 +671,9 @@ class Smarty
             }
         }
 
-        extract($this->_tpl_vars);
-
-        /* Initialize config array. */
-		/*
-        $this->_config = array(array('vars'  => array(),
-                                     'files' => array()));
-		*/
-
-        if (count($this->autoload_filters))
+        if (count($this->autoload_filters)) {
             $this->_autoload_filters();
+		}
 
         $_smarty_compile_path = $this->_get_compile_path($_smarty_tpl_file);
 
@@ -772,6 +756,12 @@ class Smarty
 function _generate_debug_output() {
     // we must force compile the debug template in case the environment
     // changed between separate applications.
+	
+	if(empty($this->debug_tpl)) {
+		// set path to debug template from SMARTY_DIR
+		$this->debug_tpl = 'file:'.SMARTY_DIR.'debug.tpl';
+	}
+
 	$_ldelim_orig = $this->left_delimiter;
 	$_rdelim_orig = $this->right_delimiter;	
 	
@@ -878,7 +868,7 @@ function _generate_debug_output() {
 		
         if ($resource_type == 'file') {
             $readable = false;
-			if(@is_file($resource_name)) {
+			if(file_exists($resource_name) && is_readable($resource_name)) {
 				$readable = true;
 			} else {
 				// test for file in include_path
@@ -1011,7 +1001,7 @@ function _generate_debug_output() {
                 // use the first directory where the file is found
                 foreach ((array)$file_base_path as $_curr_path) {
 					$_fullpath = $_curr_path . DIR_SEP . $resource_name;
-                    if (@is_file($_fullpath)) {
+                    if (file_exists($_fullpath) && is_file($_fullpath)) {
                         $resource_name = $_fullpath;
                         return true;
                     }
@@ -1142,7 +1132,6 @@ function _generate_debug_output() {
         }
 
         $this->_tpl_vars = array_merge($this->_tpl_vars, $_smarty_include_vars);
-        extract($this->_tpl_vars);
 
 		// config vars are treated as local, so push a copy of the
 		// current ones onto the front of the stack
@@ -1651,7 +1640,7 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _create_dir_structure($dir)
     {
-        if (!@file_exists($dir)) {
+        if (!file_exists($dir)) {
             $_dir_parts = preg_split('!\\'.DIR_SEP.'+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
             $_new_dir = ($dir{0} == DIR_SEP) ? DIR_SEP : '';
 			
@@ -1680,7 +1669,7 @@ function _run_insert_handler($args)
                 	$_make_new_dir = true;					
 				}
 
-                if ($_make_new_dir && !@file_exists($_new_dir) && !@mkdir($_new_dir, 0771)) {
+                if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, 0771)) {
                     $this->trigger_error("problem creating directory \"$dir\"");
                     return false;
                 }
@@ -2078,7 +2067,7 @@ function _run_insert_handler($args)
     Function:   _get_include_path
     Purpose:    Get path to file from include_path
 \*======================================================================*/
-    function _get_include_path($file_path,&$new_file_path)
+    function _get_include_path($file_path, &$new_file_path)
     {
 		static $_path_array = null;
 		
@@ -2093,7 +2082,7 @@ function _run_insert_handler($args)
 			}
 		}
         foreach ($_path_array as $_include_path) {
-            if (@file_exists($_include_path . DIR_SEP . $file_path)) {
+            if (file_exists($_include_path . DIR_SEP . $file_path)) {
                	$new_file_path = $_include_path . DIR_SEP . $file_path;
 				return true;
             }

@@ -1,9 +1,15 @@
+    - assigned variables are not longer in global
+      namespace, saving extract() calls and speeding
+      up fetch() and display() linearly with no. of
+      assigned variables (Monte)
+    - added trimwhitespace output filter to dist. (Monte)
+    - fix popup function to allow newlines in text (Monte)
     - escape html entities in html_options (Monte)
     - fixed bug with label for html_options (Monte)
     - added caching to config file loading (Monte)
     - added "extra" parameter to mailto function (Monte,
       Massimiliano Perantoni)
-    - added mailto function to default plugin list (Monte)
+    - added mailto plugin to dist.  (Monte)
 
 Version 2.3.1
 -------------

@@ -217,7 +217,7 @@ class Smarty_Compiler extends Smarty {
     Purpose:  Compile a template tag
 \*======================================================================*/
     function _compile_tag($template_tag)
-    {
+    {		
         /* Matched comment. */
         if ($template_tag{0} == '*' && $template_tag{strlen($template_tag) - 1} == '*')
             return '';
@@ -232,12 +232,13 @@ class Smarty_Compiler extends Smarty {
                     /xs', $template_tag, $match);
         $tag_command = $match[1];
         $tag_args = isset($match[2]) ? $match[2] : '';
-
+		
         /* If the tag name matches a variable or section property definition,
            we simply process it. */
+		
         if (preg_match('!^\$\w+(?>(\[(\d+|\$\w+|\w+(\.\w+)?)\])|((\.|->)\$?\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
             preg_match('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)     ||  // or a configuration variable
-            preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)) {    // or a section property
+            preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)) {   // or a section property
             settype($tag_command, 'array');
             $this->_parse_vars_props($tag_command);
             return "<?php echo $tag_command[0]; ?>\n";
@@ -490,7 +491,7 @@ class Smarty_Compiler extends Smarty {
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        return "<?php \$this->_plugins['function']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), \$this); if(\$this->_extract) { extract(\$this->_tpl_vars); \$this->_extract=false; } ?>";
+        return "<?php \$this->_plugins['function']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), \$this); ?>";
     }
 
 
@@ -1075,12 +1076,28 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _parse_vars_props(&$tokens)
     {
+				
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
         $var_exprs = preg_grep('!^\$\w+(?>(\[(\d+|\$\w+|\w+(\.\w+)?)\])|((\.|->)\$?\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
+        $quoted_exprs = preg_grep('!^' .  $qstr_regexp .  '$!', $tokens);
 
+		if (count($quoted_exprs)) {
+			// replace variables embedded in quotes
+            foreach ($quoted_exprs as $expr_index => $var_expr) {
+				if(preg_match_all('|(?<!\\\\)\$\w+|', $var_expr, $match)) {
+					rsort($match[0]);
+					reset($match[0]);
+					foreach($match[0] as $var) {
+                		$var_expr = str_replace ($var, '".' . $this->_parse_var($var) . '."', $var_expr);
+					}
+                	$tokens[$expr_index] = preg_replace(array('!^""\.!','!\.""\.!'), array('','.'), $var_expr);
+				}
+            }			
+		}
+						
         if (count($var_exprs)) {
             foreach ($var_exprs as $expr_index => $var_expr) {
                 $tokens[$expr_index] = $this->_parse_var($var_expr);
@@ -1096,8 +1113,9 @@ class Smarty_Compiler extends Smarty {
         if (count($sect_prop_exprs)) {
             foreach ($sect_prop_exprs as $expr_index => $section_prop_expr) {
                 $tokens[$expr_index] = $this->_parse_section_prop($section_prop_expr);
-            }
+            }			
         }
+		
     }
 
 
