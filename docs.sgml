@@ -552,7 +552,7 @@ $smarty->register_modifier("sslash","stripslashes");
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-                This clears the cache. For the specified template. If you have
+                This clears the cache for the specified template. If you have
                 multiple caches for this template, you can clear a specific
                 cache by supplying the cache id as the second parameter. See the
                 <link linkend="section.caching">caching section</link> for more
@@ -615,11 +615,25 @@ $smarty->clear_all_cache();
 
 $smarty->caching = true;
 
-if(!$smarty->is_cached) {
+if(!$smarty->is_cached("index.tpl")) {
     // do database calls, assign vars here
 }
 
 $smarty->display("index.tpl");
+
+</programlisting>
+</example>
+<example>
+<title>is_cached with multiple-cache template</title>
+<programlisting>
+
+$smarty->caching = true;
+
+if(!$smarty->is_cached("index.tpl","CACHEID")) {
+    // do database calls, assign vars here
+}
+
+$smarty->display("index.tpl","CACHEID");
 
 </programlisting>
 </example>
@@ -665,7 +679,7 @@ var_dump($tpl_vars);
                 more information.
 			</para>
 <example>
-<title>Example use of Smarty API</title>
+<title>display</title>
 <programlisting>
 
 include("Smarty.class.php");
@@ -708,7 +722,7 @@ $smarty->display("index.tpl");
 				<link linkend="setting.template.dir">template directory</link>
 			</para>
 <example>
-<title>Example use of Smarty API</title>
+<title>fetch</title>
 <programlisting>
 
 include("Smarty.class.php");
