@@ -8,7 +8,7 @@
  * Purpose:  Prints the dropdowns for time selection
  * -------------------------------------------------------------
  */
-require_once SMARTY_DIR . 'plugins/.make_timestamp.php';
+require_once SMARTY_DIR . 'plugins/shared.make_timestamp.php';
 require_once SMARTY_DIR . 'plugins/function.html_options.php';
 function smarty_function_html_select_time($params, &$smarty)
 {
