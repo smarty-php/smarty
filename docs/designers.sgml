@@ -457,6 +457,12 @@ OUTPUT: (same for both examples)
 {* display the variable "username" from merged get/post/cookies/server/env *}
 {$smarty.request.username}</programlisting>
 </example>
+          <para>
+	   Note: For historical reasons {$SCRIPT_NAME} can be accessed
+	   directly though {$smarty.server.SCRIPT_NAME} is the
+	   proposed way to access this value.
+          </para>
+
 		</sect2>
 
         <sect2 id="language.variables.smarty.now">
@@ -529,6 +535,7 @@ OUTPUT: (same for both examples)
              This variable contains the version of Smarty the template was compiled with.
 			</para>
 		</sect2>
+
 		</sect1>
 	</chapter>
 
