@@ -1,3 +1,16 @@
+2004-10-01  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      - better header for compiled includes (more in line with compiled
+      templates)
+      
+      - reuse cache_serials if a file is compiled more than once in one
+        process (force_compile)
+      
+      - don't print nocache-delimiters wenn already inside
+      process_cached_inserts()
+
 2004-09-29  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
