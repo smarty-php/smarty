@@ -1,3 +1,5 @@
+    - fixed html_select_date when field separator is "/"
+      (Roberto Berto, Monte)
     - added YYYY-MM-DD format support to html_select_date
       (Jan Rosier, Monte)
     - fixed cache_lifetime logic bug,
