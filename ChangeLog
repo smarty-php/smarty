@@ -1,3 +1,14 @@
+2004-10-02  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS:
+      fixed nocache-handling with nested includes. there was a logical error
+      in the replacement of internal nocache-tags to dynamic content that
+      lead to false results with deeply nested includes or with
+      nocache-blocks inside nocache-blocks.
+      
+      many thanks to Lars Jankowfsky for providing big help on reproducing
+      and tracking down this bug!
+
 2004-10-01  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
