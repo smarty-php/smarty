@@ -18,7 +18,7 @@
  *                and end year values. (Monte)
  *           - 1.2 added support for yyyy-mm-dd syntax for
  *                time value. (Jan Rosier)
- *           - 1.3 added support for choosing format for 
+ *           - 1.3 added support for choosing format for
  *                month values (Gary Loescher)
  *           - 1.3.1 added support for choosing format for
  *                day values (Marcus Bointon)
@@ -71,37 +71,37 @@ function smarty_function_html_select_date($params, &$smarty)
     $field_order      = 'MDY';
     /* String printed between the different fields. */
     $field_separator = "\n";
-	$time = time();
+    $time = time();
 
 
     extract($params);
 
-  	// If $time is not in format yyyy-mm-dd
-  	if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time)) {
-  		// then $time is empty or unix timestamp or mysql timestamp
-  		// using smarty_make_timestamp to get an unix timestamp and
-  		// strftime to make yyyy-mm-dd
-  		$time = strftime('%Y-%m-%d', smarty_make_timestamp($time));
-  	}
-  	// Now split this in pieces, which later can be used to set the select
-  	$time = explode("-", $time);
-  
-  	// make syntax "+N" or "-N" work with start_year and end_year
-  	if (preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match)) {
-  		if ($match[1] == '+') {
-  			$end_year = strftime('%Y') + $match[2];
-  		} else {
-  			$end_year = strftime('%Y') - $match[2];
-  		}
-  	}
-  	if (preg_match('!^(\+|\-)\s*(\d+)$!', $start_year, $match)) {
-  		if ($match[1] == '+') {
-  			$start_year = strftime('%Y') + $match[2];
-  		} else {
-  			$start_year = strftime('%Y') - $match[2];
-  		}
-  	}
-  
+    // If $time is not in format yyyy-mm-dd
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time)) {
+        // then $time is empty or unix timestamp or mysql timestamp
+        // using smarty_make_timestamp to get an unix timestamp and
+        // strftime to make yyyy-mm-dd
+        $time = strftime('%Y-%m-%d', smarty_make_timestamp($time));
+    }
+    // Now split this in pieces, which later can be used to set the select
+    $time = explode("-", $time);
+
+    // make syntax "+N" or "-N" work with start_year and end_year
+    if (preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match)) {
+        if ($match[1] == '+') {
+            $end_year = strftime('%Y') + $match[2];
+        } else {
+            $end_year = strftime('%Y') - $match[2];
+        }
+    }
+    if (preg_match('!^(\+|\-)\s*(\d+)$!', $start_year, $match)) {
+        if ($match[1] == '+') {
+            $start_year = strftime('%Y') + $match[2];
+        } else {
+            $start_year = strftime('%Y') - $match[2];
+        }
+    }
+
     $field_order = strtoupper($field_order);
 
     $html_result = $month_result = $day_result = $year_result = "";
@@ -131,13 +131,13 @@ function smarty_function_html_select_date($params, &$smarty)
             $month_result .= ' ' . $all_extra;
         }
         $month_result .= '>'."\n";
-        
+
         $month_result .= smarty_function_html_options(array('output'     => $month_names,
                                                             'values'     => $month_values,
                                                             'selected'   => $month_values[$time[1]-1],
                                                             'print_result' => false),
                                                       $smarty);
-        
+
         $month_result .= '</select>';
     }
 
@@ -215,24 +215,24 @@ function smarty_function_html_select_date($params, &$smarty)
 
     // Loop thru the field_order field
     for ($i = 0; $i <= 2; $i++){
-      $c = substr($field_order, $i, 1);
-      switch ($c){
-        case 'D':
-            $html_result .= $day_result;
-            break;
+        $c = substr($field_order, $i, 1);
+        switch ($c){
+            case 'D':
+                $html_result .= $day_result;
+                break;
 
-        case 'M':
-            $html_result .= $month_result;
-            break;
+            case 'M':
+                $html_result .= $month_result;
+                break;
 
-        case 'Y':
-            $html_result .= $year_result;
-            break;
-      }
-      // Add the field seperator
-	  if($i != 2) {
-      	$html_result .= $field_separator;
-  	  }
+            case 'Y':
+                $html_result .= $year_result;
+                break;
+        }
+        // Add the field seperator
+        if($i != 2) {
+            $html_result .= $field_separator;
+        }
     }
 
     return $html_result;
