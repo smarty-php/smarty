@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <chapter id="language.basic.syntax">
-   <title>Sintaxe Básica</title>
-   <para>
-    Todas as tags de template do Smarty estão fechadas com delimitadores.
-    Por padrão, estes delimitadores são <literal>{</literal> e
-    <literal>}</literal>, mas eles podem ser mudados.
-   </para>
-   <para>
-    Para estes exemplos, nós iremos assumir que você está usando os
-    delimitadores padrão. No Smarty, todo o conteúdo fora dos delimitadores é
-    mostrado como conteúdo estatico, ou sem modificações. Quando o Smarty encontra
-    tags de template, ele tenta interpreta-las, e então mostra a saída
-    apropriada em seu lugar.
-   </para>
+<!-- EN-Revision: 1.4 Maintainer: nobody Status: ready -->
+ <chapter id="language.basic.syntax">
+  <title>Sintaxe Básica</title>
+  <para>
+   Todas as tags de template do Smarty estão fechadas com delimitadores.
+   Por padrão, estes delimitadores são <literal>{</literal> e
+   <literal>}</literal>, mas eles podem ser mudados.
+  </para>
+  <para>
+   Para estes exemplos, nós iremos assumir que você está usando os
+   delimitadores padrão. No Smarty, todo o conteúdo fora dos delimitadores é
+   mostrado como conteúdo estatico, ou sem modificações. Quando o Smarty encontra
+   tags de template, ele tenta interpreta-las, e então mostra a saída
+   apropriada em seu lugar.
+  </para>
 
-&designers.language-basic-syntax.language-syntax-comments;
-
-&designers.language-basic-syntax.language-syntax-functions;
-
-&designers.language-basic-syntax.language-syntax-attributes;
-&designers.language-basic-syntax.language-syntax-quotes;
-&designers.language-basic-syntax.language-math;
-
+ &designers.language-basic-syntax.language-syntax-comments;
+ &designers.language-basic-syntax.language-syntax-functions;
+ &designers.language-basic-syntax.language-syntax-attributes;
+ &designers.language-basic-syntax.language-syntax-quotes;
+ &designers.language-basic-syntax.language-math;
+ &designers.language-basic-syntax.language-escaping;
+ 
 </chapter>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<chapter id="bugs">
-	<title>BUGS</title>
-	<para>
-	Verifique o arquivo de BUGS que vêm com a última distribuição do Smarty, ou
-	verifique o website.
-	</para>
-</chapter>
+<!-- EN-Revision: 1.2 Maintainer: nobody Status: ready -->
+ <chapter id="bugs">
+  <title>BUGS</title>
+  <para>
+   Verifique o arquivo <filename>BUGS</filename> que vem com a última
+   distribuição do Smarty, ou verifique o website.
+  </para>
+ </chapter>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
