@@ -944,10 +944,10 @@ class Smarty
         if (!isset($compile_id))
             $compile_id = $this->compile_id;
 
-    if (!isset($tpl_file))
-        $compile_id = null;
+        if (!isset($tpl_file))
+            $compile_id = null;
 
-    $_auto_id = $this->_get_auto_id($cache_id, $compile_id);
+        $_auto_id = $this->_get_auto_id($cache_id, $compile_id);
 
         if (!empty($this->cache_handler_func)) {
             return call_user_func_array($this->cache_handler_func,
@@ -972,18 +972,7 @@ class Smarty
      */
     function clear_all_cache($exp_time = null)
     {
-        if (!empty($this->cache_handler_func)) {
-            $dummy = null;
-            call_user_func_array($this->cache_handler_func,
-                           array('clear', &$this, &$dummy, null, null, null, $exp_time));
-        } else {
-            $_params = array('auto_base' => $this->cache_dir,
-                            'auto_source' => null,
-                            'auto_id' => null,
-                            'exp_time' => $exp_time);
-            require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.rm_auto.php');
-            return smarty_core_rm_auto($_params, $this);
-        }
+        return $this->clear_cache(null, null, null, $exp_time);
     }
 
 
