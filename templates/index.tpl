@@ -8,7 +8,6 @@
 Title: {#title#|capitalize}
 {if #bold#}</b>{/if}
 
-
 the value of $SCRIPT_NAME is {$SCRIPT_NAME}
 
 {* A simple variable test. print $Name in uppercase *}
@@ -33,6 +32,8 @@ testing
 {/section}
 
 <p>
+
+{%^^^}
 
 testing strip tags
 {strip}

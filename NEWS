@@ -1,3 +1,6 @@
+Version 1.2.0
+-------------
+	- added file and line number information to syntax error messages. (Andrei)
 	- added ability to index template vars by a key. (Andrei)
 
 Version 1.1.0
@@ -6,7 +9,8 @@ Version 1.1.0
 
 Version 1.0b
 ------------
-	- fixed the bug that prevented using non-array values for 'loop' attribute (Andrei)
+	- fixed the bug that prevented using non-array values for 'loop' attribute.
+	  (Andrei)
 	- many misc documentation changes & additions (monte)
 
 Version 1.0a

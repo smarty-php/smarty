@@ -5,7 +5,7 @@
  * Author:		Monte Ohrt <monte@ispi.net>
  *                      Andrei Zmievski <andrei@ispi.net>
  *
- * Version:             1.1.0
+ * Version:             1.2.0
  * Copyright:           2001 ispi of Lincoln, Inc.
  *				
  * This program is free software; you can redistribute it and/or
@@ -88,6 +88,8 @@ class Smarty
 	var $_tpl_vars				= 	array();
 	var $_sectionelse_stack		=	array();	// keeps track of whether section had 'else' part
 	var $_literal_blocks		=	array();	// keeps literal template blocks
+	var $_current_file			=	null;		// the current template being compiled
+	var $_current_current_line_no		=	1;			// line number for error messages
 
 	
 /*======================================================================*\
@@ -326,11 +328,13 @@ class Smarty
 
 	function _compile_file($filepath, $compilepath)
 	{
-		if(!($template_contents = $this->_read_file($filepath)))
+		if (!($template_contents = $this->_read_file($filepath)))
 			return false;
 
-		$ldq = preg_quote($this->left_delimiter, "!");
-		$rdq = preg_quote($this->right_delimiter, "!");
+		$this->_current_file = str_replace($this->template_dir . "/", "", $filepath);
+		$this->_current_line_no = 1;
+		$ldq = preg_quote($this->left_delimiter, '!');
+		$rdq = preg_quote($this->right_delimiter, '!');
 
 		/* Pull out the literal blocks. */
 		preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_contents, $match);
@@ -350,11 +354,13 @@ class Smarty
 
 		/* Compile the template tags into PHP code. */
 		$compiled_tags = array();
-		foreach ($template_tags as $template_tag)
-			$compiled_tags[] = $this->_compile_tag($template_tag);
+		for ($i = 0; $i < count($template_tags); $i++) {
+			$this->_current_line_no += substr_count($text_blocks[$i], "\n");
+			$compiled_tags[] = $this->_compile_tag($template_tags[$i]);
+			$this->_current_line_no += substr_count($template_tags[$i], "\n");
+		}
 
-		/* Interleave the compiled contents and text blocks to get the final
-		   result. */
+		/* Interleave the compiled contents and text blocks to get the final result. */
 		for ($i = 0; $i < count($compiled_tags); $i++) {
 			$compiled_contents .= $text_blocks[$i].$compiled_tags[$i];
 		}
@@ -445,6 +451,7 @@ class Smarty
 
 			case 'literal':
 				list (,$literal_block) = each($this->_literal_blocks);
+				$this->_current_line_no += substr_count($literal_block, "\n");
 				return $literal_block;
 
 			case 'insert':
@@ -454,7 +461,7 @@ class Smarty
 				if (isset($this->custom_funcs[$tag_command])) {
 					return $this->_compile_custom_tag($tag_command, $tag_args);
 				} else {
-					trigger_error("Smarty: syntax error: unknown tag - '$tag_command'", E_USER_WARNING);
+					$this->_syntax_error("unknown tag - '$tag_command'", E_USER_WARNING);
 					return "";
 				}
 		}
@@ -481,7 +488,7 @@ class Smarty
 		$name = substr($attrs['name'], 1, -1);
 
 		if (empty($name)) {
-			trigger_error("Smarty: syntax error: missing insert name", E_USER_ERROR);
+			$this->_syntax_error("missing insert name");
 		}
 
 		foreach ($attrs as $arg_name => $arg_value) {
@@ -500,7 +507,7 @@ class Smarty
 		$attrs = $this->_parse_attrs($tag_args);
 
 		if (empty($attrs['file'])) {
-			trigger_error("Smarty: syntax error: missing 'file' attribute in config_load tag", E_USER_ERROR);
+			$this->_syntax_error("missing 'file' attribute in config_load tag");
 		}
 
 		$output  = "<?php if (!class_exists('Config_File'))\n" .
@@ -524,7 +531,7 @@ class Smarty
 		$attrs = $this->_parse_attrs($tag_args);
 
 		if (empty($attrs['file'])) {
-			trigger_error("Smarty: syntax error: missing 'file' attribute in include tag", E_USER_ERROR);
+			$this->_syntax_error("missing 'file' attribute in include tag");
 		} else
 			$attrs['file'] = $this->_dequote($attrs['file']);
 
@@ -558,7 +565,7 @@ class Smarty
 		$output = "<?php\n";
 		$section_name = $attrs['name'];
 		if (empty($section_name)) {
-			trigger_error("Smarty: syntax error: missing section name", E_USER_ERROR);
+			$this->_syntax_error("missing section name");
 		}
 
 		$output .= "unset(\$_sections[$section_name]);\n";
@@ -744,12 +751,12 @@ class Smarty
 					$expr_arg = $tokens[$expr_end++];
 					$expr = "!($is_arg % $expr_arg)";
 				} else {
-					trigger_error("Smarty: syntax error: expecting 'by' after 'div'", E_USER_ERROR);
+					$this->_syntax_error("expecting 'by' after 'div'");
 				}
 				break;
 
 			default:
-				trigger_error("Smarty: syntax error: unknown 'is' expression - '$expr_type'", E_USER_ERROR);
+				$this->_syntax_error("unknown 'is' expression - '$expr_type'");
 				break;
 		}
 
@@ -789,7 +796,7 @@ class Smarty
 						$attr_name = $token;
 						$state = 1;
 					} else
-						trigger_error("Smarty: syntax error: invalid attribute name - '$token'", E_USER_ERROR);
+						$this->_syntax_error("invalid attribute name - '$token'");
 					break;
 
 				case 1:
@@ -802,7 +809,7 @@ class Smarty
 					if ($token == '=') {
 						$state = 2;
 					} else
-						trigger_error("Smarty: syntax error: expecting '=' after attribute name", E_USER_ERROR);
+						$this->_syntax_error("expecting '=' after attribute name");
 					break;
 
 				case 2:
@@ -826,7 +833,7 @@ class Smarty
 						$attrs[$attr_name] = $token;
 						$state = 0;
 					} else
-						trigger_error("Smarty: syntax error: '=' cannot be an attribute value", E_USER_ERROR);
+						$this->_syntax_error("'=' cannot be an attribute value");
 					break;
 			}
 		}
@@ -1024,6 +1031,15 @@ class Smarty
 		return true;
 	}
 
+/*======================================================================*\
+	Function: _syntax_error
+	Purpose:  display Smarty syntax error
+\*======================================================================*/
+	function _syntax_error($error_msg, $error_type = E_USER_ERROR)
+	{
+		trigger_error("Smarty: [in " . $this->_current_file . " line " .
+					  $this->_current_line_no . "]: syntax error: $error_msg", $error_type);
+	}
 }
 
 ?>
