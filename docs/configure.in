@@ -249,7 +249,7 @@ AC_ARG_WITH(fop,
 ]
 )
 if test $FOP = "no"; then
-  AC_MSG_WARN([no fop binary found, PDF generation work])
+  AC_MSG_WARN([no fop binary found, PDF generation won't work])
 fi
 AC_SUBST(FOP)
 
