@@ -52,7 +52,8 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty)
                 $_params = array('file_path' => $_plugin_filepath);
                 require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
                 if(smarty_core_get_include_path($_params, $smarty)) {
-                    return $_params['new_file_path'];
+                    $_return = $_params['new_file_path'];
+                    break;
                 }
             }
         }
