@@ -1,3 +1,6 @@
-docs/manual
-docs/manual.junk
+docs/*.cache
+docs/Makefile
+docs/config.*
+docs/configure
+docs/manual.xml
 /templates_c

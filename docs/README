@@ -1,15 +1,19 @@
 This directory contains the documentation for Smarty. All files are in docbook
-format with an .sgml extention. The top level directory contains the english
-docs, while the subdirs contain different available languages.
+format with an .xml extention. Different subdirs contain different available languages.
 
-To compile the documentation, I use the docbook utilities (available as an rpm
-for redhat linux.) Compiling goes as such:
 
-cd docs
-db2html -d /path/to/html.dsl manual.sgml
+		NEW BUILD SYSTEM
+		================
+Firstly issue these commands:
+1) autoconf
+2) ./configure --with-lang=xx [DEFAULT=en]
 
-Be sure to edit the html.dsl file and set the path to your docbook.dsl
-stylesheet file.
+TEST:
+ * make test
 
-This will create a subdirectory called manual/ which will contain the generated
-HTML docs to view with a browser.
+MAKE:
+ * make (to make plain html)
+ * make web (to make docs for website)
+
+You should have libxml and autoconf installed in your system.
+Read http://php.net/manual/howto/chapter-tools.html for more info.

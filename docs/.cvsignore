@@ -1,2 +1,5 @@
-manual
-manual.junk
+configure
+Makefile
+manual.xml
+config.*
+*.cache

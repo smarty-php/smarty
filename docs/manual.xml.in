@@ -1,0 +1,18 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+          "./dtds/dbxml-4.1.2/docbookx.dtd" [
+<!ENTITY bookinfo SYSTEM "@LANG@/bookinfo.xml">
+<!ENTITY preface SYSTEM "@LANG@/preface.xml">
+<!ENTITY getting.started SYSTEM "@LANG@/getting-started.xml">
+<!ENTITY smarty.for.designers SYSTEM "@LANG@/designers.xml">
+<!ENTITY smarty.for.programmers SYSTEM "@LANG@/programmers.xml">
+<!ENTITY appendixes SYSTEM "@LANG@/appendixes.xml">
+]>
+
+<book id="index">
+ &bookinfo;
+ &preface;
+ &getting.started;
+ &smarty.for.designers;
+ &smarty.for.programmers;
+ &appendixes;
+</book>
