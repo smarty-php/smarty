@@ -1,3 +1,9 @@
+Version 1.2.1
+-------------
+	- added $compile_dir, removed $compile_dir_ext, simplified usage
+	- added tips & tricks chapter to documentation
+	- misc documentation updates
+
 Version 1.2.0
 -------------
 	- updated documentation (Monte)

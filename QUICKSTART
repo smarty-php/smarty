@@ -71,7 +71,7 @@ directly from the browser, only Smarty calls them.)
 require("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->assign("Name","Ned");
-$smarty->display("./templates/index.tpl");
+$smarty->display("index.tpl");
 ?>
 
 
@@ -126,7 +126,7 @@ $smarty->assign(array(
 					));
 $zipcode = "55555";
 $smarty->assign("Zipcode",$zipcode);
-$smarty->display("./templates/index.tpl");
+$smarty->display("index.tpl");
 ?>
 
 
@@ -165,7 +165,7 @@ $smarty->assign(array(
 					));
 $zipcode = "55555";
 $smarty->assign("Zipcode",$zipcode);
-$smarty->display("./templates/index.tpl");
+$smarty->display("index.tpl");
 ?>
 
 
@@ -230,7 +230,7 @@ require("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->assign("FirstName",array("Ned","Bart","Montgomery"));
 $smarty->assign("LastName",array("Flanders","Simpson","Burns"));
-$smarty->display("./templates/index.tpl");
+$smarty->display("index.tpl");
 ?>
 
 --------- templates/index.tpl --------
@@ -272,7 +272,7 @@ $smarty->assign("ContactVals",array(
                               array("monty@simpsons.com","555-888-9999","555-234-5678"),
                                 ));
 
-$smarty->display("./templates/index.tpl");
+$smarty->display("index.tpl");
 ?>
 
 --------- templates/index.tpl --------

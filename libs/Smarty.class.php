@@ -5,7 +5,7 @@
  * Author:		Monte Ohrt <monte@ispi.net>
  *                      Andrei Zmievski <andrei@ispi.net>
  *
- * Version:             1.2.0
+ * Version:             1.2.1
  * Copyright:           2001 ispi of Lincoln, Inc.
  *				
  * This program is free software; you can redistribute it and/or
@@ -50,9 +50,8 @@ class Smarty
 									// during development.
 
 	var $template_dir			=	"./templates"; // name of directory for templates	
+	var $compile_dir			=	"./templates_c"; // name of directory for compiled templates	
 	
-	var $compile_dir_ext		=	"_c";	// the directory extention where
-											// compiled templates are placed
 	
 	var $tpl_file_ext			=	".tpl";	// template file extentions
 	
@@ -187,8 +186,8 @@ class Smarty
 		// compile files
 		$this->_compile($this->template_dir);
 		//assemble compile directory path to file
-		$_compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2.php", $tpl_file);
-
+		$_compile_file = $this->compile_dir."/".$tpl_file.".php";
+		
 		extract($this->_tpl_vars);		
 		include($_compile_file);
 	}	
@@ -276,26 +275,24 @@ class Smarty
 			$tpl_file_dir = $match[1];			
 			$tpl_file_name = $match[2] . ".php";
 
-			//assemble compile directory path
-			$compile_dir = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$match[1]);
-			
 			//create directory if none exists
-			if(!file_exists($compile_dir)) {
-				$compile_dir_parts = preg_split('!/+!', $compile_dir);
+			if(!file_exists($this->compile_dir)) {
+				$compile_dir_parts = preg_split('!/+!', $this->compile_dir);
 				$new_dir = "";
 				foreach ($compile_dir_parts as $dir_part) {
 					$new_dir .= $dir_part."/";
+echo "DEBUG: $new_dir<br>\n";
 					if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
-						$this->_set_error_msg("problem creating directory \"$compile_dir\"");
+						$this->_set_error_msg("problem creating directory \"$this->compile_dir\"");
 						return false;				
 					}
 				}
 			}
 
 			// compile the template file if none exists or has been modified
-			if(!file_exists($compile_dir."/".$tpl_file_name) ||
-				($this->_modified_file($filepath, $compile_dir."/".$tpl_file_name))) {
-				if(!$this->_compile_file($filepath, $compile_dir."/".$tpl_file_name))
+			if(!file_exists($this->compile_dir."/".$tpl_file_name) ||
+				($this->_modified_file($filepath, $this->compile_dir."/".$tpl_file_name))) {
+				if(!$this->_compile_file($filepath, $this->compile_dir."/".$tpl_file_name))
 					return false;				
 			} else {
 				// no compilation needed
@@ -537,7 +534,7 @@ class Smarty
 
 		if (count($attrs) > 1) {
 			$include_func_name = uniqid("_include_");
-			$include_file_name = $this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'];
+			$include_file_name = $this->compile_dir.'/'.$attrs['file'];
 
 			foreach ($attrs as $arg_name => $arg_value) {
 				if ($arg_name == 'file') continue;
@@ -555,7 +552,7 @@ class Smarty
 					"}\n" .
 					"$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."));\n?>\n";
 		} else
-			 return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'.php"; ?>';
+			 return '<?php include "'.$this->compile_dir.'/'.$attrs['file'].'.php"; ?>';
 	}
 
 	function _compile_section_start($tag_args)

@@ -22,7 +22,7 @@ SYNOPSIS:
     $smarty->assign("Title","My Homepage");
     $smarty->assign("Names",array("John","Gary","Gregg","James"));
 
-    $smarty->display("./templates/index.tpl");
+    $smarty->display("index.tpl");
 
 DESCRIPTION:
 

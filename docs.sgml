@@ -14,7 +14,7 @@
 			<address><email>andrei@ispi.net</email></address>
 		</affiliation>
 	</author>
-	<edition>Version 1.2.0</edition>
+	<edition>Version 1.2.1</edition>
 	<copyright><year>2001</year><holder>ispi of Lincoln, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -143,7 +143,7 @@
 	<sect1>
 		<title>Requirements</title>
 		<para>
-		Smarty requires PHP 4.0.2 or later. See the
+		Smarty requires PHP 4.0.4pl1 or later. See the
 		<link linkend="bugs">BUGS</link> section for caveats.
 		</para>
 	</sect1>
@@ -174,7 +174,7 @@
 
 # be sure you are in the web server document tree
 # this assumes your web server runs as user "nobody"
-# and you are in a unix environment
+# and you are in a un*x environment
 gtar -zxvf Smarty-1.0.tar.gz
 mkdir templates_c
 chown nobody:nobody templates_c
@@ -215,12 +215,21 @@ chown nobody:nobody templates_c
 				then set it back to "false".
 			</para>
 		</sect2>
-		<sect2>
+		<sect2 id="template.dir">
 			<title>$template_dir</title>
 			<para>
-				This is the directory where template files are located.
+				This is the name of the directory where template files are located.
+				By default this is "./templates".
 			</para>
 		</sect2>		
+		<sect2>
+			<title>$compile_dir</title>
+			<para>
+				This is the name of the directory where compiled templates are
+				located. By default this is "./templates_c". NOTE: this was
+				added to Smarty version 1.2.1.
+			</para>
+		</sect2>
 		<sect2>
 			<title>$compile_dir_ext</title>
 			<para>
@@ -228,6 +237,7 @@ chown nobody:nobody templates_c
 				compiled templates are located. By default this is "_c".
 				Therefore if your template directory is named "templates", then
 				the compiled templates directory will be named "templates_c".
+				NOTE: this was removed from Smarty version 1.2.1.
 			</para>
 		</sect2>
 		<sect2>
@@ -243,8 +253,10 @@ chown nobody:nobody templates_c
 			<para>
 				Whether or not to allow PHP code in the templates. If set to
 				false, PHP code is escaped and not interpreted. Embedding PHP
-				code into templates is highly discouraged. Use custom functions
-				or <link linkend="variable.modifiers">modifiers</link> instead. Default is "false".
+				code into templates is highly discouraged. Use <link
+				linkend="custom.functions">custom functions</link> or <link
+				linkend="variable.modifiers">modifiers</link> instead. Default
+				is "false".
 			</para>
 		</sect2>
 		<sect2>
@@ -269,7 +281,8 @@ chown nobody:nobody templates_c
 		<sect2>
 			<title>$custom_funcs</title>
 			<para>
-				This is a mapping of the names of custom functions in the template to
+				This is a mapping of the names of <link
+				linkend="custom.functions">custom functions</link> in the template to
 				the names of functions in PHP. These are usually kept in Smarty.addons.php.
 			</para>
 		</sect2>
@@ -383,7 +396,8 @@ chown nobody:nobody templates_c
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This displays the template.
+				This displays the template. Supply a path relative to the
+				<link linkend="template.dir">template directory</link>
 			</para>
 		</sect2>
 		<sect2>
@@ -395,7 +409,8 @@ chown nobody:nobody templates_c
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This returns the template output.
+				This returns the template output.  Supply a path relative to the
+				<link linkend="template.dir">template directory</link>
 			</para>
 		</sect2>
 		<sect2>
@@ -420,10 +435,10 @@ $smarty->assign("Address",$address);
 $smarty->assign($db_data);
 
 // display the output
-$smarty->display("./templates/index.tpl");
+$smarty->display("index.tpl");
 
 // alternatively capture the output
-$output = $smarty->fetch("./templates/index.tpl");
+$output = $smarty->fetch("index.tpl");
 </programlisting>
 		</example>
 		</sect2>
@@ -575,8 +590,13 @@ zaphod@slartibartfast.com&lt;br&gt;
 </programlisting>
 </example>
 			<para>
-			Both built-in functions and custom functions have the same syntax in
-			the templates.
+			Both built-in functions and custom functions have the same syntax
+			in the templates. Built-in functions are the inner workings of
+			Smarty, such as {if}, {section} and {strip}. They cannot be
+			modified. Custom functions are located in the Smarty.addons.class
+			file. They can be modified to your liking, or add new ones.
+			{html_options} and {html_select_date} are examples of custom
+			functions.
 			</para>
 		</sect2>
 		<sect2>
@@ -1352,10 +1372,6 @@ OUTPUT:
 
 </programlisting>
 </example>
-			<para>
-			This will create an option dropdown list using the values
-			of the variables supplied in the template.
-			</para>
 		</sect2>
 		<sect2>
 			<title>html_select_date</title>
@@ -1446,6 +1462,8 @@ OUTPUT:
 
 
 {html_select_date prefix="StartDate" time=$time start_year=1995 end_year=2001 display_days=false}
+
+OUTPUT:
 
 &lt;select name="StartDateMonth"&gt;
 &lt;option value="1"&gt;January&lt;/option&gt;
@@ -1622,7 +1640,7 @@ Home Page
 			This is used to capitalize the first letter of all words in a variable.
 			</para>
 		</sect2>
-		<sect2>
+		<sect2 id="date.format">
 			<title>date_format</title>
 			<para>
 			This formats a date into the given strftime() format. All dates
@@ -1848,6 +1866,74 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 		</para>
 	</sect1>
 </chapter>
+<chapter id="tips">
+	<title>Tips & Tricks</title>
+	<para>
+	</para>
+	<sect1>
+		<title>Dates</title>
+		<para>
+		As a rule of thumb, always pass dates to Smarty as timestamps.
+		This allows template designers to use <link
+		linkend="date.format">date_format</link> for full control over date
+		formatting, and also makes it easy to compare dates if necessary.
+		</para>
+<example>
+<title>using date_format</title>
+<programlisting>
+
+{$startDate|date_format}
+
+OUTPUT:
+
+Jan 4, 2001
+
+
+{$startDate|date_format:"%Y/%m/%d"}
+
+OUTPUT:
+
+2001/01/04
+
+
+{if $date1 < $date2}
+	...
+{/if}
+
+</programlisting>
+</example>
+		<para>
+		{html_select_date}, an included custom function with Smarty, also
+		expects a timestamp as the default value. When using {html_select_date}
+		in a template, The programmer will most likely want to convert the
+		output from the form back into timestamp format. Here is a function to
+		help you with that.
+		</para>
+<example>
+<title>converting form date elements back to a timestamp</title>
+<programlisting>
+
+// this assumes your form elements are named
+// startDate_Day, startDate_Month, startDate_Year
+
+$startDate = makeTimestamp($startDate_Year,$startDate_Month,$startDate_day);
+
+function makeTimeStamp($year="",$month="",$day="")
+{
+	if(empty($year))
+		$year = strftime("%Y");
+	if(empty($month))
+		$month = strftime("%m");
+	if(empty($day))
+		$day = strftime("%d");
+
+	return mktime(0,0,0,$month,$day,$year);
+}
+
+</programlisting>
+</example>
+	</sect1>
+</chapter>
 <chapter id="bugs">
 	<title>BUGS</title>
 	<para>
@@ -1860,7 +1946,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 	<para>
 	Smarty uses the PEAR libraries for some of its error handling routines.
 	PEAR libraries come with the distribution of PHP. Be sure that the path to
-	these libraries is included in your php include_path. Unix users check
+	these libraries is included in your php include_path. un*x users check
 	/usr/local/lib/php. Windows users check C:/php/pear.
 	</para>
 </chapter>
