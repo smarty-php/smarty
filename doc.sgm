@@ -18,8 +18,8 @@
 		are separate. Consequently, the search for a templating solution ensues.
 		</para>
 		<para>
-		In our company, for example, the development of an application goes on
-		as follows. After the requirements docs are done, the interface
+		In our company for example, the development of an application goes on
+		as follows: After the requirements docs are done, the interface
 		designer makes mockups of the interface and gives them to the
 		programmer. The programmer implements business logic in PHP and uses
 		interface mockups to create skeleton templates. The project is then
@@ -36,7 +36,7 @@
 		Looking at many templating solutions available for PHP today, most of
 		them provide a rudimentary way of substituting variables into templates
 		and do a limited form of dynamic block functionality (a section of a
-		template that is looped over and over with a set of indexed variables).
+		template that is looped over and over with a set of indexed variables.)
 		But our needs required a bit more than that. We didn't want programmers
 		to be dealing with HTML layout at ALL, but this was almost inevitable.
 		For instance, if a designer wanted background colors to alternate on
@@ -103,7 +103,8 @@
 			as you like.</para></listitem>
 		<listitem><para>Unlimited nesting of sections, ifs, etc. allowed.</para></listitem>
 		<listitem><para>It is possible to embed PHP code right in your template files,
-			although this may not be needed since the engine is so customizable.</para></listitem>
+			although this may not be needed (and definately not recommended)
+			since the engine is so customizable.</para></listitem>
 		</itemizedlist>
 	</sect1>
 	<sect1>
