@@ -3,8 +3,8 @@
   <chapter id="language.variables">
    <title>Variables</title>
    <para>
-	Smarty has several different types of variables. The type of the variable
-	depends on what symbol it is prefixed with (or enclosed within).
+   	Smarty has several different types of variables. The type of the variable
+   	depends on what symbol it is prefixed with (or enclosed within).
    </para>
 
    <para>
@@ -13,128 +13,169 @@
     etc. To print a variable, simply enclose it in the delimiters so that it
     is the only thing contained between them. Examples:
     <programlisting>
+<![CDATA[
 {$Name}
 
 {$Contacts[row].Phone}
 
-&lt;body bgcolor="{#bgcolor#}"&gt;</programlisting>
+<body bgcolor="{#bgcolor#}">
+]]>
+    </programlisting>
    </para>
 
    <sect1 id="language.assigned.variables">
     <title>Variables assigned from PHP</title>
     <para>
-	 Variables that are assigned from PHP are referenced by preceding them with
-	 a dollar sign <literal>$</literal>. Variables assigned from within the
-	 template with the <link linkend="language.function.assign">assign</link>
-	 function are also displayed this way.
+   	 Variables that are assigned from PHP are referenced by preceding them with
+   	 a dollar sign <literal>$</literal>. Variables assigned from within the
+   	 template with the <link linkend="language.function.assign">assign</link>
+   	 function are also displayed this way.
     </para>
     <example>
 
      <title>assigned variables</title>
-<programlisting>
+     <programlisting>
+<![CDATA[
 Hello {$firstname}, glad to see you could make it.
-&lt;p&gt;
+<br />
 Your last login was on {$lastLoginDate}.
-
-OUTPUT:
-
+]]>
+     </programlisting>
+     <para>
+      This will output:
+     </para>
+     <screen>
+<![CDATA[
 Hello Doug, glad to see you could make it.
-&lt;p&gt;
-Your last login was on January 11th, 2001.</programlisting>
-</example>
+<br />
+Your last login was on January 11th, 2001.
+]]>
+     </screen>
+    </example>
 
 		<sect2 id="language.variables.assoc.arrays">
 			<title>Associative arrays</title>
 			<para>
-			You can also reference associative array variables that are
-			assigned from PHP by specifying the key after the '.' (period)
-			symbol.
+ 			You can also reference associative array variables that are
+ 			assigned from PHP by specifying the key after the '.' (period)
+ 			symbol.
 			</para>
-<example>
-<title>accessing associative array variables</title>
-<programlisting>
-index.php:
-
+   <example>
+    <title>accessing associative array variables</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('Contacts',
+$smarty->assign('Contacts',
     array('fax' => '555-222-9876',
           'email' => 'zaphod@slartibartfast.com',
           'phone' => array('home' => '555-444-3333',
                            'cell' => '555-111-1234')));
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-{$Contacts.fax}&lt;br&gt;
-{$Contacts.email}&lt;br&gt;
+$smarty->display('index.tpl');
+?>
+]]>
+    </programlisting>
+    <para>
+     where the content of index.tpl is:
+    </para>
+    <programlisting>
+<![CDATA[
+{$Contacts.fax}<br />
+{$Contacts.email}<br />
 {* you can print arrays of arrays as well *}
-{$Contacts.phone.home}&lt;br&gt;
-{$Contacts.phone.cell}&lt;br&gt;
-
-OUTPUT:
-
-555-222-9876&lt;br&gt;
-zaphod@slartibartfast.com&lt;br&gt;
-555-444-3333&lt;br&gt;
-555-111-1234&lt;br&gt;</programlisting>
-</example>
+{$Contacts.phone.home}<br />
+{$Contacts.phone.cell}<br />
+]]>
+    </programlisting>
+    <para>
+     this will output:
+    </para>
+    <screen>
+<![CDATA[    
+555-222-9876<br />
+zaphod@slartibartfast.com<br />
+555-444-3333<br />
+555-111-1234<br />
+]]>
+    </screen>
+   </example>
 		</sect2>
-        <sect2 id="language.variables.array.indexes">
+  <sect2 id="language.variables.array.indexes">
 			<title>Array indexes</title>
 			<para>
-			You can reference arrays by their index, much like native PHP
-			syntax.
+ 			You can reference arrays by their index, much like native PHP
+ 			syntax.
 			</para>
-<example>
-<title>accessing arrays by index</title>
-<programlisting>
-index.php:
+   <example>
+   <title>accessing arrays by index</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
 
 $smarty = new Smarty;
-$smarty-&gt;assign('Contacts',
+$smarty->assign('Contacts',
     array('555-222-9876',
           'zaphod@slartibartfast.com',
           array('555-444-3333',
                 '555-111-1234')));
-$smarty-&gt;display('index.tpl');
+$smarty->display('index.tpl');
 
-index.tpl:
-
-{$Contacts[0]}&lt;br&gt;
-{$Contacts[1]}&lt;br&gt;
+?>
+]]>
+    </programlisting>
+    <para>
+     where index.tpl is:
+    </para>
+    <programlisting>
+<![CDATA[
+{$Contacts[0]}<br />
+{$Contacts[1]}<br />
 {* you can print arrays of arrays as well *}
-{$Contacts[2][0]}&lt;br&gt;
-{$Contacts[2][1]}&lt;br&gt;
+{$Contacts[2][0]}<br />
+{$Contacts[2][1]}<br />
+]]>
+     </programlisting>
+     <para>
+      This will output:
+     </para>
+     <screen>
+<![CDATA[
+555-222-9876<br />
+zaphod@slartibartfast.com<br />
+555-444-3333<br />
+555-111-1234<br />
+]]>
+      </screen>
+     </example>
+		 </sect2>
+   <sect2 id="language.variables.objects">
+			 <title>Objects</title>
+			 <para>
+			  Properties of objects assigned from PHP can be referenced
+			  by specifying the property name after the '-&gt;' symbol.
+			 </para>
+    <example>
+     <title>accessing object properties</title>
+     <programlisting>
+<![CDATA[
+name: {$person-&gt;name}<br />
+email: {$person-&gt;email}<br />
+]]>
+     </programlisting>
+     <para>
+      this will output:
+     </para>
+     <screen>
+<![CDATA[
+name: Zaphod Beeblebrox<br />
+email: zaphod@slartibartfast.com<br />
+]]>
+     </screen>
+    </example>
+		 </sect2>
+  </sect1>
 
-OUTPUT:
-
-555-222-9876&lt;br&gt;
-zaphod@slartibartfast.com&lt;br&gt;
-555-444-3333&lt;br&gt;
-555-111-1234&lt;br&gt;</programlisting>
-</example>
-		</sect2>
-        <sect2 id="language.variables.objects">
-			<title>Objects</title>
-			<para>
-			Properties of objects assigned from PHP can be referenced
-			by specifying the property name after the '-&gt;' symbol.
-			</para>
-<example>
-<title>accessing object properties</title>
-<programlisting>
-name: {$person-&gt;name}&lt;br&gt;
-email: {$person-&gt;email}&lt;br&gt;
-
-OUTPUT:
-
-name: Zaphod Beeblebrox&lt;br&gt;
-email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
-</example>
-		</sect2>
-       </sect1>
-
-       <sect1 id="language.config.variables">
+  <sect1 id="language.config.variables">
 			<title>Variables loaded from config files</title>
 			<para>
 			 Variables that are loaded from the config files are referenced by
@@ -144,92 +185,105 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 			 The second syntax is useful for embedding into quoted attribute
 			 values.
 			</para>
-<example>
-
-<title>config variables</title>
-<programlisting>
-foo.conf:
-
+   <example>
+    <title>config variables</title>
+    <para>
+     foo.conf:
+    </para>
+    <programlisting>
+<![CDATA[
 pageTitle = "This is mine"
 bodyBgColor = "#eeeeee"
 tableBorderSize = "3"
 tableBgColor = "#bbbbbb"
 rowBgColor = "#cccccc"
-
-index.tpl:
-
+]]>
+    </programlisting>
+    <para>
+     index.tpl:
+    </para>
+    <programlisting>
+<![CDATA[
 {config_load file="foo.conf"}
-&lt;html&gt;
-&lt;title&gt;{#pageTitle#}&lt;/title&gt;
-&lt;body bgcolor="{#bodyBgColor#}"&gt;
-&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
-&lt;tr bgcolor="{#rowBgColor#}"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-index.tpl: (alternate syntax)
-
+<html>
+<title>{#pageTitle#}</title>
+<body bgcolor="{#bodyBgColor#}">
+<table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
+<tr bgcolor="{#rowBgColor#}">
+	<td>First</td>
+	<td>Last</td>
+	<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+    </programlisting>
+    <para>
+     index.tpl: (alternate syntax)
+    </para>
+    <programlisting>
+<![CDATA[
 {config_load file="foo.conf"}
-&lt;html&gt;
-&lt;title&gt;{$smarty.config.pageTitle}&lt;/title&gt;
-&lt;body bgcolor="{$smarty.config.bodyBgColor}"&gt;
-&lt;table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}"&gt;
-&lt;tr bgcolor="{$smarty.config.rowBgColor}"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-
-OUTPUT: (same for both examples)
-
-&lt;html&gt;
-&lt;title&gt;This is mine&lt;/title&gt;
-&lt;body bgcolor="#eeeeee"&gt;
-&lt;table border="3" bgcolor="#bbbbbb"&gt;
-&lt;tr bgcolor="#cccccc"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</programlisting>
-</example>
+<html>
+<title>{$smarty.config.pageTitle}</title>
+<body bgcolor="{$smarty.config.bodyBgColor}">
+<table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}">
+<tr bgcolor="{$smarty.config.rowBgColor}">
+	<td>First</td>
+	<td>Last</td>
+	<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+    </programlisting>
+    <para>
+     this will output for both examples:
+    </para>
+    <screen>
+<![CDATA[
+<html>
+<title>This is mine</title>
+<body bgcolor="#eeeeee">
+<table border="3" bgcolor="#bbbbbb">
+<tr bgcolor="#cccccc">
+	<td>First</td>
+	<td>Last</td>
+	<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+    </screen>
+   </example>
 			<para>
-			Config file variables cannot be used until
-			after they are loaded in from a config file. This procedure is
-			explained later in this document under
-            <command>config_load</command>.
+		 	Config file variables cannot be used until
+		 	after they are loaded in from a config file. This procedure is
+		 	explained later in this document under <command>config_load</command>.
 			</para>
 		</sect1>
 
-        <sect1 id="language.variables.smarty">
-         <title>{$smarty} reserved variable</title>
-         <para>
-          The reserved {$smarty} variable can be used to access several
-          special template variables. The full list of them follows.
-         </para>
+  <sect1 id="language.variables.smarty">
+   <title>{$smarty} reserved variable</title>
+   <para>
+    The reserved {$smarty} variable can be used to access several
+    special template variables. The full list of them follows.
+   </para>
 
-         <sect2 id="language.variables.smarty.request">
-          <title>Request variables</title>
-          <para>
-           The request variables such as get, post, cookies, server,
-           environment, and session variables can be accessed as demonstrated
-           in the examples below:
-          </para>
-          <example>
-
-           <title>displaying request variables</title>
-           <programlisting>
+   <sect2 id="language.variables.smarty.request">
+    <title>Request variables</title>
+     <para>
+      The request variables such as get, post, cookies, server,
+      environment, and session variables can be accessed as demonstrated
+      in the examples below:
+     </para>
+     <example>
+      <title>displaying request variables</title>
+      <programlisting>
+<![CDATA[
 {* display value of page from URL (GET) http://www.domain.com/index.php?page=foo *}
 {$smarty.get.page}
 
@@ -249,89 +303,97 @@ OUTPUT: (same for both examples)
 {$smarty.session.id}
 
 {* display the variable "username" from merged get/post/cookies/server/env *}
-{$smarty.request.username}</programlisting>
-</example>
-          <para>
-	   Note: For historical reasons {$SCRIPT_NAME} can be accessed
-	   directly though {$smarty.server.SCRIPT_NAME} is the
-	   proposed way to access this value.
-          </para>
+{$smarty.request.username}
+]]>
+      </programlisting>
+     </example>
+     <note>
+      <para>
+	      For historical reasons {$SCRIPT_NAME} can be accessed
+	      directly though {$smarty.server.SCRIPT_NAME} is the
+	      proposed way to access this value.
+      </para>
+     </note>
+		  </sect2>
 
-		</sect2>
-
-        <sect2 id="language.variables.smarty.now">
+  <sect2 id="language.variables.smarty.now">
 			<title>{$smarty.now}</title>
 			<para>
-			The current timestamp can be accessed with {$smarty.now}. The
-			number reflects the number of seconds passed since the so-called
-			Epoch (January 1, 1970) and can be passed directly to
-			date_format modifier for display purposes.
+			 The current timestamp can be accessed with {$smarty.now}. The
+			 number reflects the number of seconds passed since the so-called
+			 Epoch (January 1, 1970) and can be passed directly to
+			 date_format modifier for display purposes.
 			</para>
-<example>
-
-<title>using {$smarty.now}</title>
-<programlisting>
+   <example>
+    <title>using {$smarty.now}</title>
+    <programlisting>
+<![CDATA[
 {* use the date_format modifier to show current date and time *}
-{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}</programlisting>
-</example>
+{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
+]]>
+    </programlisting>
+   </example>
 		</sect2>
-        <sect2 id="language.variables.smarty.const">
+  <sect2 id="language.variables.smarty.const">
 			<title>{$smarty.const}</title>
 			<para>
-			You can access PHP constant values directly.
+		 	You can access PHP constant values directly.
 			</para>
-<example>
-
-<title>using {$smarty.const}</title>
-<programlisting>
-{$smarty.const._MY_CONST_VAL}</programlisting>
-</example>
+   <example>
+    <title>using {$smarty.const}</title>
+    <programlisting>
+<![CDATA[
+{$smarty.const._MY_CONST_VAL}
+]]>
+    </programlisting>
+   </example>
 		</sect2>
 
 		<sect2 id="language.variables.smarty.capture">
 			<title>{$smarty.capture}</title>
 			<para>
-			The output captured via {capture}..{/capture} construct can be
-			accessed using {$smarty} variable. See section on
-			<link linkend="language.function.capture">capture</link> for an example.
+		 	The output captured via {capture}..{/capture} construct can be
+		 	accessed using {$smarty} variable. See section on
+		 	<link linkend="language.function.capture">capture</link> for an example.
 			</para>
 		</sect2>
 
 		<sect2 id="language.variables.smarty.config">
 			<title>{$smarty.config}</title>
 			<para>
-			{$smarty} variable can be used to refer to loaded config variables.
-			{$smarty.config.foo} is a synonym for {#foo#}. See the section on
-			<link linkend="language.function.config.load">config_load</link> for an example.
+			 {$smarty} variable can be used to refer to loaded config variables.
+			 {$smarty.config.foo} is a synonym for {#foo#}. See the section on
+			 <link linkend="language.function.config.load">config_load</link> for an example.
 			</para>
 		</sect2>
 
-        <sect2 id="language.variables.smarty.loops">
+  <sect2 id="language.variables.smarty.loops">
 			<title>{$smarty.section}, {$smarty.foreach}</title>
 			<para>
-			{$smarty} variable can be used to refer to 'section' and
-			'foreach' loop properties. See docs for
-			<link linkend="language.function.section">section</link> and
-			<link linkend="language.function.foreach">foreach</link>.
+		 	{$smarty} variable can be used to refer to 'section' and
+		 	'foreach' loop properties. See docs for
+		 	<link linkend="language.function.section">section</link> and
+			 <link linkend="language.function.foreach">foreach</link>.
 			</para>
 		</sect2>
 
 		<sect2 id="language.variables.smarty.template">
 			<title>{$smarty.template}</title>
 			<para>
-             This variable contains the name of the current template being
-             processed.
+    This variable contains the name of the current template being
+    processed.
 			</para>
 		</sect2>
 		<sect2 id="language.variables.smarty.version">
 			<title>{$smarty.version}</title>
 			<para>
-             This variable contains the version of Smarty the template was compiled with.
+    This variable contains the version of Smarty the template was compiled with.
 			</para>
 		</sect2>
 
-		</sect1>
+	</sect1>
 </chapter>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
