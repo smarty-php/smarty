@@ -711,8 +711,8 @@ class Smarty_Compiler extends Smarty {
             $output = '<?php ' . $this->_push_cacheable_state('block', $tag_command);
             $attrs = $this->_parse_attrs($tag_args);
             $arg_list = $this->_compile_arg_list('block', $tag_command, $attrs, $_cache_attrs='');
-            $output .= "$_cache_attrs\$_params = \$this->_tag_stack[] = array('$tag_command', array(".implode(',', $arg_list).')); ';
-            $output .= $this->_compile_plugin_call('block', $tag_command).'($_params[1], null, $this, $_block_repeat=true); unset($_params);';
+            $output .= "$_cache_attrs\$this->_tag_stack[] = array('$tag_command', array(".implode(',', $arg_list).')); ';
+            $output .= $this->_compile_plugin_call('block', $tag_command).'($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat=true);';
             $output .= 'while ($_block_repeat) { ob_start(); ?>';
         } else {
             $output = '<?php $this->_block_content = ob_get_contents(); ob_end_clean(); ';
@@ -1887,7 +1887,6 @@ class Smarty_Compiler extends Smarty {
                 $_map_array = true;
             }
 
-            $this->_add_plugin('modifier', $_modifier_name);
             if (empty($this->_plugins['modifier'][$_modifier_name])
                 && !$this->_get_plugin_filepath('modifier', $_modifier_name)
                 && function_exists($_modifier_name)) {
@@ -1897,6 +1896,7 @@ class Smarty_Compiler extends Smarty {
                     $this->_plugins['modifier'][$_modifier_name] = array($_modifier_name,  null, null, false);
                 }
             }
+            $this->_add_plugin('modifier', $_modifier_name);
 
             $this->_parse_vars_props($_modifier_args);
 
