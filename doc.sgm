@@ -132,8 +132,8 @@
 	<sect1>
 		<title>Requirements</title>
 		<para>
-		Smarty requires PHP 4. 4.0.4 contains a bug that crashes PHP when
-		certain Smarty features are used (such as the @count modifier). 4.0.3
+		Smarty requires PHP 4 or later. 4.0.4 contains a bug that crashes PHP when
+		the "@" modifier, such as {$var|@count}. 4.0.3
 		and earlier contain a bug in preg_grep() that won't allow the parser to
 		function properly, so to preserve performance Smarty will automatically
 		use built-in preg_grep() when it can and use en emulated version of it
@@ -789,7 +789,7 @@ Intro = """This is a value that spans more
 			with a few added features for the template engine.
 			Every if must be paired with /if. else and elseif are also permitted.
 			"eq", "ne","neq", "gt", "lt", "lte", "le", "gte" "ge","is even","is odd",
-			"is not even","is not odd","not","mod","even by","odd by","==","!=",">",
+			"is not even","is not odd","not","mod","div by","even by","odd by","==","!=",">",
 			"<","<=",">=" are all valid conditional qualifiers.
 			</para>
 <example>
@@ -814,7 +814,7 @@ Intro = """This is a value that spans more
 	...
 {/if}
 
-{* you can also imbed php functionality, where appropriate *}
+{* you can also imbed php function calls, where appropriate *}
 {if count($var) gt 0}
 	...
 {/if}
@@ -831,13 +831,23 @@ Intro = """This is a value that spans more
 {/if}
 
 {* test if var is divisable by 4 *}
+{if $var is div by 4}
+	...
+{/if}
+
+{* same as previous example *}
 {if $var is mod 4}
 	...
 {/if}
 
 {* test if var is even, grouped by two. i.e.,
-1=even, 2=even, 3=odd, 4=odd, 5=even, 6=even, etc. *}
+0=even, 1=even, 2=odd, 3=odd, 4=even, 5=even, etc. *}
 {if $var is even by 2}
+	...
+{/if}
+
+{* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
+{if $var is even by 3}
 	...
 {/if}
 
@@ -1045,6 +1055,121 @@ e-mail: jane@mydomain.com
 
 </programlisting>
 </example>
+		<para>
+		Sections also have their own variables that handle section properties.
+		These are indicated by percent signs around the variable name, like so:
+		%sectionname.varname%
+		</para>
+			<sect3>	
+			<title>index</title>
+			<para>
+			index is used to display the current loop iteration,
+			starting with zero.
+			</para>
+<example>
+<title>example: section property index</title>
+<programlisting>
+{section name=customer loop=$custid}
+	{%customer.index%} id: {$customer/custid}&lt;br&gt;
+{/section}
+
+
+OUTPUT:
+
+0 id: 1000&lt;br&gt;
+1 id: 1001&lt;br&gt;
+2 id: 1002&lt;br&gt;
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>	
+			<title>rownum</title>
+			<para>
+			rownum is used to display the current loop iteration,
+			starting with one.
+			</para>
+<example>
+<title>example: section property rownum</title>
+<programlisting>
+{section name=customer loop=$custid}
+	{%customer.rownum%} id: {$customer/custid}&lt;br&gt;
+{/section}
+
+
+OUTPUT:
+
+1 id: 1000&lt;br&gt;
+2 id: 1001&lt;br&gt;
+3 id: 1002&lt;br&gt;
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>	
+			<title>loop</title>
+			<para>
+			loop is used to display the total number
+			of iterations this section is looped. This can be used
+			inside or after the section.
+			</para>
+<example>
+<title>example: section property index</title>
+<programlisting>
+{section name=customer loop=$custid}
+	{%customer.index%} id: {$customer/custid}&lt;br&gt;
+{/section}
+
+There were {%customer.loop%} customers shown above.
+
+OUTPUT:
+
+0 id: 1000&lt;br&gt;
+1 id: 1001&lt;br&gt;
+2 id: 1002&lt;br&gt;
+
+There were 3 customers shown above.
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>	
+			<title>show</title>
+			<para>
+			show is used both as a parameter to section,
+			as well as displaying its value. show is a
+			boolean value, true or false. If false, the
+			section will not be displayed. If there is a
+			sectionelse present, that will be alternately
+			displayed.
+			</para>
+<example>
+<title>example: section property rownum</title>
+<programlisting>
+{* $show_customer_info may have been passed from the PHP
+   application, to regulate whether or not this section shows *}
+{section name=customer loop=$custid show=$show_customer_info}
+	{%customer.rownum%} id: {$customer/custid}&lt;br&gt;
+{/section}
+
+{if %customer.show%}
+	the section was shown.
+{else}
+	the section was not shown.
+{/if}
+
+
+OUTPUT:
+
+1 id: 1000&lt;br&gt;
+2 id: 1001&lt;br&gt;
+3 id: 1002&lt;br&gt;
+
+the section was shown.
+
+</programlisting>
+</example>
+			</sect3>
 		</sect2>
 		<sect2>
 			<title>strip</title>
