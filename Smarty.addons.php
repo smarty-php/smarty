@@ -295,7 +295,7 @@ function smarty_func_math() {
         
         foreach($match[0] as $curr_var) {
             if(!in_array($curr_var,array_keys($args)) &&
-                    !in_array($curr_var,array('abs','ceil','cos','exp','floor','log','log10',
+                    !in_array($curr_var,array('int','abs','ceil','cos','exp','floor','log','log10',
                         'max','min','pi','pow','rand','round','sin','sqrt','srand','tan')) ) {
                 trigger_error("math: parameter $curr_var not passed as argument");
                 return;
