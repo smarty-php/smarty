@@ -25,6 +25,27 @@ require_once(SMARTY_DIR."Smarty.class.php");
      </programlisting>
     </example>
    </sect1>
+   <sect1 id="constant.smarty.core.dir">
+    <title>SMARTY_CORE_DIR</title>
+    <para>
+     This should be the full system path to the location of the Smarty core
+     files. If not defined, Smarty will default this constant to the internals/
+     sub-directory below SMARTY_DIR. If defined, the path must end with a slash.
+     Use this constant when manually including any of the core.* files.
+    </para>
+    <example>
+     <title>SMARTY_CORE_DIR</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
+// load core.get_microtime.php
+
+require_once(SMARTY_CORE_DIR."core.get_microtime.php");
+?>
+]]>
+     </programlisting>
+    </example>
+   </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
