@@ -1,3 +1,20 @@
+2003-08-06  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.process_compiled_include.php:
+      added optional parameter $cache_attrs to register_function() and
+      register_block(). $cache_attrs is an array containing attribute- names
+      that should be cached on calls to functions that have $cacheable set
+      to false.
+
+    * libs/Smarty.class.php:
+      fixed bug in _run_mod_handler
+
+    * libs/Smarty_Compiler.class.php:
+      fixed bug with autoload-handling of modifiers. thanks ándre.
+
 2003-08-05  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Config_File.class.php
