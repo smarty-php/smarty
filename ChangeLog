@@ -1,3 +1,26 @@
+2002-06-03  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.cycle.php: update version number
+
+    * plugins/function.cycle.php
+      NEWS:
+    fixed cycle function to respect delimiter setting after initial setting
+
+    * Smarty.class.php
+      NEWS:
+    update $GLOBALS references to work properly with track_globals settings
+
+    * plugins/function.math.php: fixed bug with call $assign
+
+    * docs/appendixes.sgml
+      docs/designers.sgml
+      plugins/function.html_options.php
+      plugins/function.html_select_time.php
+      NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    optimized for loops with count() function calls
+
 2002-06-01  Andrei Zmievski  <andrei@php.net>
 
     * TODO: *** empty log message ***
