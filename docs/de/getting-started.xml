@@ -1,7 +1,6 @@
-<!-- Smarty German Documentation Port -->
-<!-- $Id$ -->
-<!-- $Author$ -->
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- DE-Revision: 1.1 Maintainer: andreas Status: ready -->
 <part id="getting.started">
  <title>Erste Schritte</title>
  <chapter id="what.is.smarty">
@@ -367,9 +366,8 @@ require(SMARTY_DIR.'Smarty.class.php');
 
 class Smarty_GuestBook extends Smarty {
 
-   function Smarty_GuestBook() {
-   
-
+   function Smarty_GuestBook()
+   {
 		// Konstruktor. Diese Werte werden f&uuml;r jede Instanz automatisch gesetzt
 
 		$this->Smarty();
