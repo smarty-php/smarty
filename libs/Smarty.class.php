@@ -1701,12 +1701,9 @@ class Smarty
 
 
     /**
-     * read in a file from line $start for $lines.
-     * read the entire file if $start and $lines are null.
+     * read in a file
      *
      * @param string $filename
-     * @param integer $start
-     * @param integer $lines
      * @return string
      */
     function _read_file($filename)
