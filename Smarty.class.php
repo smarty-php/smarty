@@ -578,8 +578,9 @@ class Smarty
                 }
             }
         } else {
-            if ($tpl_var != '')
+            if ($tpl_var != '') {
                 $this->_tpl_vars[$tpl_var] = $value;
+			}
         }
     }
 
@@ -600,31 +601,32 @@ class Smarty
      *
      * @param array|string $tpl_var the template variable name(s)
      * @param mixed $value the value to append
-     * @param mixed $key the key of value to append
      */    
-    function append($tpl_var, $value = null, $key=null)
+    function append($tpl_var, $value = null)
     {
         if (is_array($tpl_var)) {
-            foreach ($tpl_var as $name=>$val) {
-                if ($var_name != '') {
-                    if(!@is_array($this->_tpl_vars[$name])) {
-                        settype($this->_tpl_vars[$name],'array');
-                    }
-                  if (isset($key))
-                     $this->_tpl_vars[$name][$key] = $val;
-                  else
-                     $this->_tpl_vars[$name][] = $val;
+            foreach ($tpl_var as $key => $val) {
+                if ($key != '') {
+					if(!@is_array($this->_tpl_vars[$key])) {
+						settype($this->_tpl_vars[$key],'array');
+					}
+					if(@is_array($val)) {
+                    	$this->_tpl_vars[$key] = array_merge($this->_tpl_vars[$key],$val);
+					} else {
+                    	$this->_tpl_vars[$key][] = $val;
+					}
                 }
             }
         } else {
             if ($tpl_var != '' && isset($value)) {
-                if(!@is_array($this->_tpl_vars[$tpl_var])) {
-                    settype($this->_tpl_vars[$tpl_var],'array');
-                }
-              if (isset($key))
-                 $this->_tpl_vars[$tpl_var][$key] = $value;
-              else
-                 $this->_tpl_vars[$tpl_var][] = $value;
+				if(!@is_array($this->_tpl_vars[$tpl_var])) {
+					settype($this->_tpl_vars[$tpl_var],'array');
+				}
+				if(@is_array($value)) {
+                    $this->_tpl_vars[$tpl_var] = array_merge($this->_tpl_vars[$tpl_var],$value);
+				} else {
+                	$this->_tpl_vars[$tpl_var][] = $value;
+				}
             }
         }
     }
@@ -634,18 +636,14 @@ class Smarty
      *
      * @param string $tpl_var the template variable name
      * @param mixed $value the referenced value to append
-     * @param mixed $key the key of value to append
      */    
-    function append_by_ref($tpl_var, &$value, $key=null)
+    function append_by_ref($tpl_var, &$value)
     {
         if ($tpl_var != '' && isset($value)) {
-            if(!@is_array($this->_tpl_vars[$tpl_var])) {
-                settype($this->_tpl_vars[$tpl_var],'array');
-            }
-          if (isset($key))
-             $this->_tpl_vars[$tpl_var][$key] = &$value;
-          else
-             $this->_tpl_vars[$tpl_var][] = &$value;
+			if(!@is_array($this->_tpl_vars[$tpl_var])) {
+				settype($this->_tpl_vars[$tpl_var],'array');
+			}
+            $this->_tpl_vars[$tpl_var][] = &$value;
         }
     }
 
