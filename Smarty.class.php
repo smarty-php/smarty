@@ -194,6 +194,7 @@ class Smarty
     var $_extract              =   false;      // flag for custom functions
     var $_included_tpls        =   array();    // list of run-time included templates
     var $_inclusion_depth      =   0;          // current template inclusion depth
+    var $_compile_id           =   null;       // for different compiled templates
     var $_smarty_debug_id      =   'SMARTY_DEBUG'; // id in query string to turn on debug mode
     
 
@@ -382,21 +383,9 @@ class Smarty
     Function:   clear_cache()
     Purpose:    clear cached content for the given template and cache id
 \*======================================================================*/
-    function clear_cache($tpl_file, $cache_id = null)
+    function clear_cache($tpl_file = null, $cache_id = null, $compile_id)
     {
-        $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
-        $cache_dir = $this->cache_dir.'/'.$cache_tpl_md5;
-        
-        if (!is_dir($cache_dir))
-            return false;
-
-        if (isset($cache_id)) {
-            $cache_id_md5 = md5($cache_id);
-            $cache_id_dir = substr($cache_id_md5, 0, 2);
-            $cache_file = "$cache_dir/$cache_id_dir/{$cache_tpl_md5}_$cache_id_md5.cache";
-            return (bool)(is_file($cache_file) && unlink($cache_file));
-        } else 
-            return $this->_clear_tpl_cache_dir($cache_tpl_md5);
+        return $this->_rm_auto($this->cache_dir, $tpl_file, $compile_id . $cache_id);
     }
     
     
@@ -406,20 +395,7 @@ class Smarty
 \*======================================================================*/
     function clear_all_cache()
     {
-        if (!is_dir($this->cache_dir))
-            return false;
-
-        $dir_handle = opendir($this->cache_dir);
-        while ($curr_dir = readdir($dir_handle)) {
-            if ($curr_dir == '.' || $curr_dir == '..' ||
-                !is_dir($this->cache_dir.'/'.$curr_dir))
-                continue;
-
-            $this->_clear_tpl_cache_dir($curr_dir);
-        }
-        closedir($dir_handle);
-
-        return true;
+        return $this->_rm_auto($this->cache_dir);
     }
 
 
@@ -427,16 +403,12 @@ class Smarty
     Function:   is_cached()
     Purpose:    test to see if valid cache exists for this template
 \*======================================================================*/
-    function is_cached($tpl_file, $cache_id = null)
+    function is_cached($tpl_file, $cache_id = null, $compile_id = null)
     {
         if (!$this->caching)
             return false;
 
-        // cache name = template path + cache_id
-        $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
-        $cache_id_md5 = md5($cache_id);
-        $cache_id_dir = substr($cache_id_md5, 0, 2);
-        $cache_file = $this->cache_dir."/$cache_tpl_md5/$cache_id_dir/{$cache_tpl_md5}_$cache_id_md5.cache";
+        $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id); 
 
         if (file_exists($cache_file) &&
             ($this->cache_lifetime == 0 ||
@@ -458,36 +430,14 @@ class Smarty
     }
 
 /*======================================================================*\
-    Function:   clear_compile_dir()
+    Function:   clear_compiled_tpl()
     Purpose:    clears compiled version of specified template resource,
                 or all compiled template files if one is not specified.
                 This function is for advanced use only, not normally needed.
 \*======================================================================*/
-    function clear_compile_dir($tpl_file = null)
+    function clear_compile_tpl($tpl_file = null, $compile_id = null)
     {
-        if (!is_dir($this->compile_dir))
-            return false;
-
-        if (isset($tpl_file)) {
-            // remove compiled template file if it exists
-            $tpl_file = urlencode($tpl_file).'.php';
-            if (file_exists($this->compile_dir.'/'.$tpl_file)) {
-                unlink($this->compile_dir.'/'.$tpl_file);
-            }
-        } else {
-            // remove everything in $compile_dir
-            $dir_handle = opendir($this->compile_dir);
-            while ($curr_file = readdir($dir_handle)) {
-                if ($curr_file == '.' || $curr_dir == '..' ||
-                    !is_file($this->compile_dir.'/'.$curr_file)) {
-                        continue;
-                    }
-                unlink($this->compile_dir.'/'.$curr_file);
-            }
-            closedir($dir_handle);
-        }
-
-        return true;
+        return $this->_rm_auto($this->compile_dir, $tpl_file, $compile_id);
     }
 
 /*======================================================================*\
@@ -504,19 +454,20 @@ class Smarty
     Function:   display()
     Purpose:    executes & displays the template results
 \*======================================================================*/
-    function display($tpl_file, $cache_id = null)
+    function display($tpl_file, $cache_id = null, $compile_id = null)
     {
-        $this->fetch($tpl_file, $cache_id, true);
+        $this->fetch($tpl_file, $cache_id, $compile_id, true);
     }
         
 /*======================================================================*\
     Function:   fetch()
     Purpose:    executes & returns or displays the template results
 \*======================================================================*/
-    function fetch($tpl_file, $cache_id = null, $display = false)
+    function fetch($tpl_file, $cache_id = null, $compile_id = null, $display = false)
     {
         global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
+        $this->_compile_id = $compile_id;
         $this->_inclusion_depth = 0;
         $this->_included_tpls = array();
 
@@ -524,11 +475,7 @@ class Smarty
                                         'depth'    => 0);
         
         if ($this->caching) {
-            // cache name = template path + cache_id
-            $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
-            $cache_id_md5 = md5($cache_id);
-            $cache_id_dir = substr($cache_id_md5, 0, 2);
-            $cache_file = $this->cache_dir."/$cache_tpl_md5/$cache_id_dir/{$cache_tpl_md5}_$cache_id_md5.cache";
+            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
             
             if (file_exists($cache_file) &&
                 ($this->cache_lifetime == 0 ||
@@ -678,7 +625,7 @@ function _generate_debug_output() {
     function _process_template($tpl_file, &$compile_path)
     {
         // get path to where compiled template is (to be) saved
-        $this->_fetch_compile_path($tpl_file, $compile_path);
+        $compile_path = $this->_get_auto_filename($this->compile_dir, $tpl_file, $this->_compile_id);
 
         // test if template needs to be compiled
         if (!$this->force_compile && $this->_compiled_template_exists($compile_path)) {
@@ -712,17 +659,6 @@ function _generate_debug_output() {
     }
     
 /*======================================================================*\
-    Function:   _fetch_compile_path()
-    Purpose:    fetch the path to save the comiled template
-\*======================================================================*/
-    function _fetch_compile_path($tpl_file, &$compile_path)
-    {
-        // everything is in $compile_dir
-        $compile_path = $this->compile_dir.'/'.urlencode($tpl_file).'.php';
-        return true;
-    }    
-
-/*======================================================================*\
     Function:   _compiled_template_exists
     Purpose:    
 \*======================================================================*/
@@ -749,7 +685,7 @@ function _generate_debug_output() {
     function _write_compiled_template($compile_path, $template_compiled)
     {
         // we save everything into $compile_dir
-        $this->_write_file($compile_path, $template_compiled);
+        $this->_write_file($compile_path, $template_compiled, true);
         return true;
     }    
 
@@ -872,18 +808,17 @@ function _generate_debug_output() {
 
         array_unshift($this->_config, $this->_config[0]);
  
-        if($this->_process_template($_smarty_include_tpl_file, $compile_path))
-		{
-        	if ($this->show_info_include) {
-            	echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
-        	}
+        if ($this->_process_template($_smarty_include_tpl_file, $compile_path, $compile_id)) {
+            if ($this->show_info_include) {
+                echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
+            }
 
-        	include($compile_path);
+            include($compile_path);
 
-        	if ($this->show_info_include) {
-            	echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
-        	}
-		}
+            if ($this->show_info_include) {
+                echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
+            }
+        }
 
         array_shift($this->_config);
         $this->_inclusion_depth--;
@@ -1039,37 +974,78 @@ function _run_mod_handler()
     }    
 
 /*======================================================================*\
-    Function: _clear_tpl_cache_dir
-    Purpose:  Clear the specified template cache
+    Function: _get_auto_base
+    Purpose:  Get a base name for automatic files creation
 \*======================================================================*/
-    function _clear_tpl_cache_dir($cache_tpl_md5)
+    function _get_auto_base($auto_base, $auto_source)
     {
-        $cache_dir = $this->cache_dir.'/'.$cache_tpl_md5;
+        $source_md5 = md5($auto_source);
 
-        if (!is_dir($cache_dir))
-            return false;
+        $res = $auto_base . '/' . substr($source_md5, 0, 2) . '/' . $source_md5;
 
-        $dir_handle = opendir($cache_dir);
-        while ($curr_dir = readdir($dir_handle)) {
-            $cache_path_dir = $cache_dir.'/'.$curr_dir;
-            if ($curr_dir == '.' || $curr_dir == '..' ||
-                !is_dir($cache_path_dir))
-                continue;
+        return $res;
+    }
 
-            $dir_handle2 = opendir($cache_path_dir);
-            while ($curr_file = readdir($dir_handle2)) {
-                if ($curr_file == '.' || $curr_file == '..')
-                    continue;
+/*======================================================================*\
+    Function: _get_auto_filename
+    Purpose:  get a concrete filename for automagically created content 
+\*======================================================================*/
+    function _get_auto_filename($auto_base, $auto_source, $auto_id = null)
+    {
+        $res = $this->_get_auto_base($auto_base, $auto_source) .
+                '/' . md5($auto_id) . '.php';
 
-                $cache_file = $cache_path_dir.'/'.$curr_file;
-                if (is_file($cache_file))
-                    unlink($cache_file);
+        return $res;
+    }
+
+/*======================================================================*\
+    Function: _rm_auto
+    Purpose: delete an automagically created file by name and id 
+\*======================================================================*/
+    function _rm_auto($auto_base, $auto_source = null, $auto_id = null)
+    {
+        if (!is_dir($auto_base))
+          return false;
+
+        if (!isset($auto_source)) {
+            $res = $this->_rmdir($auto_base, 0);
+        } else {
+            if (isset($auto_id)) {
+                $tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
+                $res = is_file($tname) && unlink( $tname);
+            } else {
+                $tname = $this->_get_auto_base($auto_base, $auto_source);
+                $res = $this->_rmdir($tname);
             }
-            closedir($dir_handle2);
-            @rmdir($cache_path_dir);
         }
-        closedir($dir_handle);
-        @rmdir($cache_dir);
+
+        return $res;
+    }
+
+/*======================================================================*\
+    Function: _rmdir
+    Purpose: delete a dir recursively (level=0 -> keep root)
+    WARNING: no security whatsoever!!
+\*======================================================================*/
+    function _rmdir($dirname, $level = 1)
+    {
+        $handle = opendir($dirname); 
+
+        while ($entry = readdir($handle)) { 
+            if ($entry != '.' && $entry != '..') { 
+                if (is_dir($dirname . '/' . $entry)) { 
+                    $this->_rmdir($dirname . '/' . $entry, $level + 1);
+                } 
+                else { 
+                    unlink($dirname . '/' . $entry); 
+                }
+            }
+        } 
+
+        closedir($handle);
+
+        if ($level)
+            rmdir($dirname);
 
         return true;
     }
