@@ -1454,7 +1454,7 @@ $smarty->display('index.tpl');
     
 {$articleTitle|wordwrap:20}
     
-{$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
+{$articleTitle|wordwrap:30:"<br />\n"}
     
 {$articleTitle|wordwrap:30:"\n":true}
 ]]>
@@ -1475,12 +1475,13 @@ kidney from dad she
 hasn't seen in
 years.
 
-Blind woman gets new kidney&lt;br&gt;
-from dad she hasn't seen in years.
+Blind woman gets new kidney<br />
+from dad she hasn't seen in<br />
+years.
 
-Blind woman gets new kidney fr
-om dad she hasn't seen in year
-s.
+Blind woman gets new kidney
+from dad she hasn't seen in
+years.
 ]]>
    </screen>
   </example>
