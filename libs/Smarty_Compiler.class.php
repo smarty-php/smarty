@@ -238,18 +238,8 @@ class Smarty_Compiler extends Smarty {
         }
 
         /* Annihilate the comments. */
-		
-		$_comment_search = array(
-				"!{$ldq}\*.*?\*{$rdq}!s", // get all onto one line
-				"!(\r|\r\n|\n)%%%SMARTY_COMMENT%%%(\r|\r\n|\n)!", // remove CR if on one line
-				'!%%%SMARTY_COMMENT%%%!'); // remove remaining comments
-		$_comment_replace = array(
-				'%%%SMARTY_COMMENT%%%',
-				'\\1',
-				'');		
-				
-        $template_source = preg_replace($_comment_search,
-                                        $_comment_replace,
+        $template_source = preg_replace("!({$ldq})\*(.*?)\*({$rdq})!se",
+                                        "'\\1*'.str_repeat(\"\n\", substr_count('\\2', \"\n\")) .'*\\3'",
                                         $template_source);
 
         /* Pull out the literal blocks. */
@@ -389,6 +379,10 @@ class Smarty_Compiler extends Smarty {
 	 */
     function _compile_tag($template_tag)
     {		
+		
+        /* Matched comment. */
+        if ($template_tag{0} == '*' && $template_tag{strlen($template_tag) - 1} == '*')
+            return '';
 		
         /* Split tag into two three parts: command, command modifiers and the arguments. */
         if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp

@@ -1,4 +1,3 @@
-  - corrected output with smarty comments (Monte)
   - corrected output with {strip} and PHP tag newlines (Monte)
   - added possibility to register function-callbacks as "array(&$obj, 'method)"
     this affects register_function(), -block, -compiler_function, -modifier, 
