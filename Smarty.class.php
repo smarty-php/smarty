@@ -102,6 +102,7 @@ class Smarty
 	var $_literal_blocks		=	array();	// keeps literal template blocks
 	var $_current_file			=	null;		// the current template being compiled
 	var $_current_line_no		=	1;			// line number for error messages
+	var $_smarty_md5			=	'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
 
 	
 /*======================================================================*\
@@ -483,10 +484,14 @@ class Smarty
 		return true;
 	}
 
+/*======================================================================*\
+	Function: _process_cached_inserts
+	Purpose:  Replace cached inserts with the actual results
+\*======================================================================*/
 	function _process_cached_inserts($results)
 	{
-		preg_match_all('!\{\{\{insert_cache (.*)\}\}\}!Uis', $results, $match);
-		
+		preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
+					   $results, $match);
 		list($cached_inserts, $insert_args) = $match;
 
 		for ($i = 0; $i < count($cached_inserts); $i++) {
@@ -505,7 +510,7 @@ class Smarty
 
 			$function_name = 'insert_' . $name;
 			$replace = $function_name($arg_list);
-			
+
 			$results = str_replace($cached_inserts[$i], $replace, $results);
 		}
 
@@ -622,7 +627,7 @@ class Smarty
 		}
 
 		if($this->caching)
-			return "{{{insert_cache $tag_args}}}";
+			return $this->_smarty_md5."{insert_cache $tag_args}".$this->_smarty_md5;
 		
 		foreach ($attrs as $arg_name => $arg_value) {
 			if ($arg_name == 'name') continue;
@@ -909,8 +914,8 @@ class Smarty
 						 )+ |
 						 [=]
 					    /x', $tag_args, $match);
-		$tokens = $match[0];
-		$var_delims = array('$', '#', '%');
+		$tokens 	  = $match[0];
+		$var_delims   = array('$', '#', '%');
 
 		$attrs = array();
 		/* Parse state:
@@ -924,7 +929,7 @@ class Smarty
 				case 0:
 					/* If the token is a valid identifier, we set attribute name
 					   and go to state 1. */
-					if (preg_match('!\w+!', $token)) {
+					if (preg_match('!^\w+$!', $token)) {
 						$attr_name = $token;
 						$state = 1;
 					} else
