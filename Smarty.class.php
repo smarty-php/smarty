@@ -1068,17 +1068,17 @@ function _run_insert_handler($args)
 
 /*======================================================================*\
     Function:   _read_file()
-    Purpose:    read in a file from line $start to line $end.
-				read the entire file if $start and $end are null
+    Purpose:    read in a file from line $start for $lines.
+				read the entire file if $start and $lines are null.
 \*======================================================================*/
-    function _read_file($filename,$start=null,$end=null)
+    function _read_file($filename,$start=null,$lines=null)
     {
         if (!($fd = @fopen($filename, 'r'))) {
             $this->_trigger_error_msg("problem reading '$filename.'");
             return false;
         }
         flock($fd, LOCK_SH);
-		if($start == null && $end == null) {
+		if($start == null && $lines == null) {
 			// read the entire file
         	$contents = fread($fd, filesize($filename));
 		} else {
@@ -1088,14 +1088,14 @@ function _run_insert_handler($args)
 					fgets($fd,65536);
 				}
 			}
-			if( $end == null ) {
+			if( $lines == null ) {
 				// read the rest of the file
 				while(!feof($fd)) {
 					$contents .= fgets($fd,65536);
 				}
 			} else {
-				// read up to $end lines
-				for ($loop=$start; $loop <= $end; $loop++) {
+				// read up to $lines lines
+				for ($loop=0; $loop < $lines; $loop++) {
 					$contents .= fgets($fd,65536);
 					if(feof($fd)) {
 						break;
