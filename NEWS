@@ -1,3 +1,6 @@
+  - fixed {popup} to properly handle inarray and function parameters and added
+    support for mouseoff and followmouse options (boots)
+
 Version 2.6.6 (Oct 13, 2004)
 ----------------------------
 

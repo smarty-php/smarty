@@ -25,7 +25,11 @@ function smarty_function_popup($params, &$smarty)
         switch ($_key) {
             case 'text':
             case 'trigger':
+            case 'function':
+            case 'inarray':
                 $$_key = (string)$_value;
+                if ($_key == 'function' || $_key == 'inarray')
+                    $append .= ',' . strtoupper($_key) . ",'$_value'";
                 break;
 
             case 'caption':
@@ -44,12 +48,10 @@ function smarty_function_popup($params, &$smarty)
             case 'closefont':
             case 'fgbackground':
             case 'bgbackground':
-            case 'inarray':
             case 'caparray':
             case 'capicon':
             case 'background':
             case 'frame':
-            case 'function':
                 $append .= ',' . strtoupper($_key) . ",'$_value'";
                 break;
 
@@ -84,6 +86,8 @@ function smarty_function_popup($params, &$smarty)
             case 'fullhtml':
             case 'hauto':
             case 'vauto':
+            case 'mouseoff':
+            case 'followmouse':
                 if ($_value) $append .= ',' . strtoupper($_key);
                 break;
 
