@@ -1,3 +1,9 @@
+2005-03-19  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      objects don't get casted to arrays anymore in {foreach}
+
 2005-02-26  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
