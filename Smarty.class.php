@@ -241,6 +241,9 @@ class Smarty
 
     function is_cached($tpl_file, $cache_id = null)
     {
+        if (!$this->caching)
+            return false;
+
         // cache name = template path + cache_id
         $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
         $cache_id_md5 = md5($cache_id);
@@ -485,7 +488,7 @@ class Smarty
         if (!($template_contents = $this->_read_file($filepath)))
             return false;
 
-        $this->_current_file = str_replace($this->template_dir . "/", "", $filepath);
+        $this->_current_file = str_replace($this->template_dir . '/', '', $filepath);
         $this->_current_line_no = 1;
         $ldq = preg_quote($this->left_delimiter, '!');
         $rdq = preg_quote($this->right_delimiter, '!');
@@ -1228,11 +1231,13 @@ class Smarty
 \*======================================================================*/
 
     function _read_file($filename)
+
     {
         if (!($fd = fopen($filename, 'r'))) {
             $this->_set_error_msg("problem reading '$filename.'");
             return false;
         }
+        flock($fd, LOCK_SH);
         $contents = fread($fd, filesize($filename));
         fclose($fd);
         return $contents;
@@ -1248,12 +1253,18 @@ class Smarty
         if($create_dirs)
             $this->_create_dir_structure(dirname($filename));
         
-        if (!($fd = fopen($filename, 'w'))) {
+        if (!($fd = fopen($filename, 'a'))) {
             $this->_set_error_msg("problem writing '$filename.'");
             return false;
         }
-        fwrite($fd, $contents);
+        flock($fd, LOCK_EX);
+
+        $fd_safe = fopen($filename, 'w');
+
+        fwrite($fd_safe, $contents);
+        fclose($fd_safe);
         fclose($fd);
+
         return true;
     }    
 

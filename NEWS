@@ -1,3 +1,4 @@
+    - added file locking to prevent reader/writer problem. (Andrei)
     - made Smarty catch unimplemented modifiers and custom functions and output
       error messages during compilation instead of failing during run time.
       (Andrei)
