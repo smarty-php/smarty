@@ -3750,9 +3750,9 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{image file="pumpkin.jpg"}
-{image file="/path/from/docroot/pumpkin.jpg"}
-{image file="../path/relative/to/currdir/pumpkin.jpg"}
+{html_image file="pumpkin.jpg"}
+{html_image file="/path/from/docroot/pumpkin.jpg"}
+{html_image file="../path/relative/to/currdir/pumpkin.jpg"}
 
 OUTPUT: (possible)
 
