@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.14 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.15 Maintainer: gerald Status: ready -->
 <chapter id="language.modifiers">
  <title>Modificateurs de variables</title>
  <para>
@@ -16,17 +16,25 @@
   <title>Exemple de modificateur</title>
   <programlisting>
 <![CDATA[
-{* Met le titre en majuscule *}
-<h2>{$title|upper}</h2>
+{* applique un modificateur à une variable *}
+{$titre|upper}
 
-{* Tronque le sujet à 40 caractères,  place des "..." à la fin *}
-Sujet: {$sujet|truncate:40:"..."}
+{* modificateur avec paramètres *}
+{$titre|truncate:40:"..."}
 
-{* formatage en chaîne *}
-{"now"|date_format:"%Y/%m/%d"}
+{* applique un modificateur à un paramètre de fonction *}
+{html_table loop=$mavariable|upper}
+{* avec paramètres *}
+{html_table loop=$mavariable|truncate:40:"..."}
 
-{* application d'un modificateur à une fonction utilisateur *}
-{mailto|upper address="me@domain.dom"}
+{* applique un modificateur à une chaine de caractères *}
+{"foobar"|upper}
+
+{* utilise date_format pour mettre en forme la date *}
+{$smarty.now|date_format:"%d/%m/%Y"}
+
+{* applique un modificateur à une fonction utilisateur *}
+{mailto|upper address="moi@domaine.dom"}
 ]]>
   </programlisting>
  </example>
