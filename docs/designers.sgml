@@ -639,10 +639,11 @@ no title</programlisting>
 		<sect3>
 			<title>escape</title>
             <informaltable frame=all>
-                <tgroup cols=5>
+                <tgroup cols=6>
                 <colspec colname=param align=center>
                 <colspec colname=type align=center>
                 <colspec colname=required align=center>
+                <colspec colname=possible align=center>
                 <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
