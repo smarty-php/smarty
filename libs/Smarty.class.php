@@ -368,7 +368,7 @@ class Smarty
 		if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_contents, $match)) {
 			$strip_tags = $match[0];
 			$strip_tags_modified = preg_replace("!$ldq/?strip$rdq|[\t ]+$|^[\t ]+!m", '', $strip_tags);
-			$strip_tags_modified = preg_replace('![\r\n]+!m', ' ', $strip_tags_modified);
+			$strip_tags_modified = preg_replace('![\r\n]+!m', '', $strip_tags_modified);
 			for ($i = 0; $i < count($strip_tags); $i++)
 				$compiled_contents = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
 												  $strip_tags_modified[$i], $compiled_contents, 1);

@@ -170,7 +170,7 @@ chown nobody:nobody templates_c
 	<title>Setting up Smarty</title>
 		<para>
 		There are several variables that are at the top of the Smarty.class.php file. You
-		can usually get away with leaving these at thier default settings. This is a list
+		can usually get away with leaving these at their default settings. This is a list
 		of them and what each one does.
 		</para>
 	<sect1>
@@ -430,7 +430,7 @@ $output = $smarty->fetch("./templates/index.tpl");
 		<sect2>
 			<title>Variables</title>
 			<para>
-			There are three basic types of variables in Smarty, each with thier
+			There are three basic types of variables in Smarty, each with their
 			own unique syntax.
 			</para>
 			<sect3>
@@ -530,7 +530,9 @@ Your last login was on {$lastLoginDate}
 			<title>Attributes</title>
 			<para>
 			Attributes to functions are much like HTML attributes. Static
-			values must be enclosed in parenthesis. Variable values may
+			values don't have to be enclosed in quotes, but is recommended.
+			If not quoted, you may use a syntax that Smarty may confuse
+			with another function, such as a boolean value. Variables may
 			also be used, and should not be in parenthesis.
 			</para>
 <example>
@@ -594,10 +596,10 @@ bodyBgColor = #000000
 tableBgColor = #000000
 rowBgColor = #00ff00
 
-[ Customer ]
+[Customer]
 pageTitle = "Customer Info"
 
-[ Login ]
+[Login]
 pageTitle = "Login"
 focus = "username"
 Intro = """This is a value that spans more
@@ -739,7 +741,7 @@ Intro = """This is a value that spans more
 			</para>
 			<para>
 			Let's say you have a page with a banner slot at the top. The template
-			has a banner_id value, and needs to call a function to get the banner.
+			has banner_id  and page_id values, and needs to call a function to get the banner.
 			</para>
 <example>
 <title>Template example of function insert</title>
@@ -774,15 +776,116 @@ Intro = """This is a value that spans more
 		</sect2>
 		<sect2>
 			<title>if,elseif,else</title>
-			<para></para>
+			<para>
+			if statements in Smarty have much the same flexability as php if statements,
+			with a few added features for the template engine.
+			Every if must be paired with /if. else and elseif are also permitted.
+			"eq", "ne","neq", "gt", "lt", "lte", "le", "gte" "ge","is","is not","not",
+			"mod","by","==","!=",">","<","<=",">=" are all valid conditional qualifiers.
+			</para>
+<example>
+<title>Template example of if statements</title>
+<programlisting>
+
+{if $name eq "Fred"}
+	Welcome Sir.
+{elseif $name eq "Wilma"}
+	Welcome Ma'am.
+{else}
+	Welcome, whatever you are.
+{/if}
+
+{* an example with "or" logic *}
+{if $name eq "Fred" or $name eq "Wilma"}
+	...
+{/if}
+
+{* parenthesis are allowed *}
+{if ( $amount lt 0 or $amount gt 1000 ) and $volume ne #minVolAmt#}
+	...
+{/if}
+
+{* you can also imbed php functionality, where appropriate *}
+{if count($var) lt 0}
+	...
+{/if}
+
+{* test if values are even or odd *}
+{if $var is even}
+	...
+{/if}
+{if $var is odd}
+	...
+{/if}
+{if $var is not odd}
+	...
+{/if}
+
+{* test if var is divisable by 4 *}
+{if $var is mod 4}
+	...
+{/if}
+
+{* test if var is even, grouped by two. i.e.,
+1=even, 2=even, 3=odd, 4=odd, 5=even, 6=even, etc. *}
+{if $var is even by 2}
+	...
+{/if}
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>ldelim,rdelim</title>
-			<para></para>
+			<para>
+			ldelim and rdelim are used for displaying the literal delimiter, in 
+			our case "{" or "}". The template engine always tries to interpret
+			delimiters, so this is the way around that.
+			</para>
+<example>
+<title>Template example of ldelim, rdelim</title>
+<programlisting>
+
+{* this will print literal delimiters out of the template *}
+
+{ldelim}funcname{rdelim} is how functions look in Smarty!
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>literal</title>
-			<para></para>
+			<para>
+			Literal tags allow a block of data to be taken literally,
+			not being interpreted by the Smarty engine. This is handy
+			for things like javascript sections, where there maybe
+			curly braces and such things that would confuse the template
+			parser. Anything within {literal}{/literal} tags is not
+			interpreted, but displayed as-is.
+			</para>
+<example>
+<title>Template example of literal tags</title>
+<programlisting>
+
+{literal}
+	&lt;script language=javascript&gt;
+
+        	&lt;!--
+                	function isblank(field) {
+                	if (field.value == '') 
+                        	{ return false; }
+                	else
+                        	{
+                        	document.loginform.submit();
+                        	return true;
+                        	}
+                	}
+        	// --&gt;
+
+	&lt;/script&gt;
+{/literal}
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>section,sectionelse</title>
@@ -790,8 +893,39 @@ Intro = """This is a value that spans more
 		</sect2>
 		<sect2>
 			<title>strip</title>
-			<para></para>
+			<para>
+			strip is another nice feature of the template engine. Many times
+			you run into the issue where white space and carriage returns
+			affect the output of the rendered HTML (browser "features"), so you
+			must run all your tags together in the template to get the
+			desired results. This usually ends up in unreadable or
+			unmanagable templates.
+			</para>
+			<para>
+			Anything within {strip}{/strip} tags in Smarty are stripped of
+			the extra spaces or carriage returns before they are displayed.
+			This way you can keep your templates readable, and not worry
+			about extra white space causing problems.
+			</para>
 		</sect2>
+<example>
+<title>Template example of strip tags</title>
+<programlisting>
+
+{strip}
+<table border=0>
+	<tr>
+		<td>
+			<A HREF="$url">
+			<font color="red">This is a test</font>
+			</A>
+		</td>
+	</tr>
+</table>
+{/strip}
+
+</programlisting>
+</example>
 	</sect1>
 	<sect1>
 		<title>Custom Functions</title>

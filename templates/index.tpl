@@ -22,3 +22,16 @@ My interests are:
 ({$FirstName|@count})
 
 {insert name=paginate}
+
+testing strip tags
+{strip}
+<table border=0>
+	<tr>
+		<td>
+			<A HREF="{$url}">
+			<font color="red">This is a  test     </font>
+			</A>
+		</td>
+	</tr>
+</table>
+{/strip}
