@@ -39,8 +39,8 @@
 	 необходимости обрабатывать файл шаблона для каждого запроса, и каждый
 	 шаблон может пользоваться всеми преимуществами кэшируюших решений
 	 php компилятора таких, как Zend Accelerator
-	(http://www.zend.com) или PHP Accelerator
-	(http://www.php-accelerator.co.uk).
+	(<ulink url="&url.zend;">&url.zend;</ulink>) или PHP Accelerator
+	(<ulink url="&url.php-accelerator;">&url.php-accelerator;</ulink>).
    </para>
    <para>
     Некоторые возможности Smarty:

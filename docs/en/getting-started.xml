@@ -44,8 +44,8 @@
    they are created, they are executed from then on. Therefore there is no
    costly template file parsing for each request, and each template can take
    full advantage of PHP compiler cache solutions such as Zend Accelerator
-   (http://www.zend.com) or PHP Accelerator
-   (http://www.php-accelerator.co.uk).
+   (<ulink url="&url.zend;">&url.zend;</ulink>) or PHP Accelerator
+   (<ulink url="&url.php-accelerator;">&url.php-accelerator;</ulink>).
   </para>
   <para>
    Some of Smarty's features:

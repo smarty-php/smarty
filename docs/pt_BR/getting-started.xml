@@ -38,8 +38,8 @@
 	são executados. Então não há interpretação de arquivo de
 	template custosa para cada pedido, e 
 	cada template pode levar total vantagem de soluções de cache de compiladores PHP tais como
-	Zend Accelerator (http://www.zend.com) ou PHP Accelerator
-	(http://www.php-accelerator.co.uk).
+	Zend Accelerator (<ulink url="&url.zend;">&url.zend;</ulink>) ou PHP Accelerator
+	(<ulink url="&url.php-accelerator;">&url.php-accelerator;</ulink>).
    </para>
    <para>
     Algumas das características do Smarty:

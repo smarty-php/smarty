@@ -46,8 +46,9 @@
    de ces derniers. Une fois créés, ils sont exécutés.
    Il n'y a donc pas d'analyse coûteuse de template à chaque requête,
    et les templates peuvent bénéficier des solutions de cache PHP
-   comme Zend Accelerator (http://www.zend.com) ou PHP Accelerator
-   (http://www.php-accelerator.co.uk).
+   comme Zend Accelerator (<ulink url="&url.zend;">&url.zend;</ulink>) ou 
+   PHP Accelerator 
+   (<ulink url="&url.php-accelerator;">&url.php-accelerator;</ulink>).
    </para>
    <para>
     Quelques caractéristiques de Smarty :

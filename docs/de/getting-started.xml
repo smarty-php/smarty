@@ -40,7 +40,7 @@
 	m&uuml;ssen Templates nicht f&uuml;r jeden Seitenaufruf performance-intensiv 
     neu geparst werden und jedes Template kann voll von PHP Compiler-Cache 
     L&ouml;sungen profitieren. 
-    (Zend, http://www.zend.com; PHP Accelerator, http://www.php-accelerator.co.uk)
+    (Zend, <ulink url="&url.zend;">&url.zend;</ulink>; PHP Accelerator, <ulink url="&url.php-accelerator;">&url.php-accelerator;</ulink>)
    </para>
    <para>
     Ein paar Smarty Charakteristiken
