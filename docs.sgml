@@ -390,9 +390,9 @@ require_once(SMARTY_DIR."Smarty.class.php");
 			</para>
 			<para>
 				TECHNICAL NOTE: Server variables can be accessed through the
-				$smarty variable, such as {$smarty.env.SCRIPT_NAME}. See the
-				section on the <link
-				linkend="builtin.variable.smarty">$smarty</link> variable.
+				$smarty variable, such as {$smarty.server.SCRIPT_NAME}. See the
+				section on the
+				<link linkend="builtin.variable.smarty">$smarty</link> variable.
 			</para>
 		</sect2>
 		<sect2 id="setting.undefined">
@@ -5145,43 +5145,6 @@ OUTPUT:
 </programlisting>
 </example>
 		</sect2>
-		<sect2>
-			<title>Creating your own Custom Functions</title>
-			<para>
-			Creating your own functions is a fairly straight forward process.
-			The best way is to look at the ones that come with Smarty as
-			examples. The function names begin with smarty_func_ and they are
-			located in the Smarty.addons.php file.
-			</para>
-			<itemizedlist>
-				<listitem><para>add your function to the Smarty.addons.php file.
-						It is recommended that you prepend your function name
-						with smarty_func_</para></listitem>
-				<listitem><para>map a template function name to your PHP function.
-							This is done at the top of the Smarty.class.php file
-							in the $custom_funcs array.</para></listitem>
-				<listitem><para>Thats it! you can now call that function
-					from within Smarty.</para></listitem>
-			</itemizedlist>			
-			<para>
-			All attributes passed to custom functions are passed into the
-			first argument as an associative array. One way to get to those
-			values is to call extract(func_get_arg(0)); at the top of your
-			function. Anything that the function returns gets displayed
-			in place of the tag in the template.
-			</para>
-			<para>
-			Since version 1.4.0, custom functions are also passed Smarty object
-			as the second parameter. If the custom function declares the second
-			parameter passed by reference, it can then use Smarty object's
-			variable assignment and clearing functions to manipulate template
-			variables dynamically.
-			</para>
-            <para>
-            You can also add custom functions programatically with the <link
-            linkend="api.register.function">register_function API</link>.
-            </para>
-		</sect2>
 	</sect1>
 	<sect1 id="variable.modifiers">
 		<title>Variable Modifiers</title>
@@ -6113,29 +6076,6 @@ s m o k e r s   a r e   p. . .
 </programlisting>
 </example>
        </sect2>
-       <sect2>
-           <title>Creating your own Variable Modifiers</title>
-           <para>
-           Creating your own modifiers is a fairly straight forward process.
-           The best way is to look at the ones that come with Smarty as
-           examples. The function names begin with smarty_mod_ and they are
-           located in the Smarty.addons.php file.
-           </para>
-           <itemizedlist>
-               <listitem><para>add your modifier to the Smarty.addons.php file.
-                       It is recommended that you prepend your function name
-                       with smarty_mod_</para></listitem>
-               <listitem><para>map a template modifier name to your PHP function.
-                           This is done at the top of the Smarty.class.php file
-                           in the $custom_mods array.</para></listitem>
-               <listitem><para>Thats it! you can now use that modifier
-                   from within Smarty.</para></listitem>
-           </itemizedlist>         
-            <para>
-            You can also add modifiers programatically with the <link
-            linkend="api.register.modifier">register_modifier API</link>.
-            </para>
-       </sect2>
    </sect1>    
 </chapter>
 <chapter id="chapter.plugins">
@@ -6173,6 +6113,11 @@ s m o k e r s   a r e   p. . .
      plugin is found in the plugins directory, it will always be loaded
      because these filters are never explicitly mentioned in the template
      language.
+    </para>
+    <para>
+     There is only one plugins directory (for performance reasons). To
+     install a plugin, simply place it in the directory and Smarty will use
+     it automatically.
     </para>
     <sect2>
      <title>Naming Conventions</title>
@@ -6228,7 +6173,7 @@ s m o k e r s   a r e   p. . .
      </para>
      <note>
       <para>
-       Note that even though pre/postfilters still have to be correctly
+       Note that pre/postfilters still have to be correctly
        named even though the names are not really used for anything.
       </para>
      </note>
@@ -6322,7 +6267,7 @@ function smarty_function_eightball($params, &amp;$smarty)
      which can be used in the template as:
      <informalexample>
       <programlisting>
-Question: 
+Question: Will we ever have time travel?
 Answer: {eightball}.
       </programlisting>
      </informalexample>
@@ -6365,15 +6310,84 @@ function smarty_function_assign($params, &amp;$smarty)
    </sect2>
 
     <sect2 id="section.plugins.modifiers"><title>modifiers</title>
+     <funcsynopsis>
+      <funcprototype>
+       <funcdef>mixed <function>plugin_name</function></funcdef>
+       <paramdef>mixed <parameter>$value</parameter></paramdef>
+       <paramdef>[mixed <parameter>$param1</parameter>, ...]</paramdef>
+      </funcprototype>
+     </funcsynopsis>
      <para>
+      The first parameter to the modifier plugin is the value on which
+      the modifier is supposed to operate. The rest of the parameters can be
+      optional, depending on what kind of operation is supposed to be
+      performed.
+     </para>
+     <para>
+      The modifier has to return the result of its processing.
+     </para>
+     <para>
+     <example>
+      <title>simple modifier plugin</title>
+      <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     modifier.capitalize.php
+ * Type:     modifier
+ * Name:     capitalize
+ * Purpose:  capitalize words in the string
+ * -------------------------------------------------------------
+ */
+function smarty_modifier_capitalize($string)
+{
+    return ucwords($string);
+}
+?&gt;
+      </programlisting>
+     </example>
+     <para>
+      This plugin basically aliases one of the built-in PHP functions. It
+      does not have any additional parameters.
      </para>
      <example>
-      <title>modifier plugin</title>
+      <title>more complex modifier plugin</title>
       <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     modifier.truncate.php
+ * Type:     modifier
+ * Name:     truncate
+ * Purpose:  Truncate a string to a certain length if necessary,
+ *           optionally splitting in the middle of a word, and 
+ *           appending the $etc string.
+ * -------------------------------------------------------------
+ */
+function smarty_modifier_truncate($string, $length = 80, $etc = '...',
+                                  $break_words = false)
+{
+    if ($length == 0)
+        return '';
 
+    if (strlen($string) > $length) {
+        $length -= strlen($etc);
+        $fragment = substr($string, 0, $length+1);
+        if ($break_words)
+            $fragment = substr($fragment, 0, -1);
+        else
+            $fragment = preg_replace('/\s+(\S+)?$/', '', $fragment);
+        return $fragment.$etc;
+    } else
+        return $string;
+}
+?&gt;
       </programlisting>
      </example>
     </sect2>
+
     <sect2 id="section.plugins.compiler.functions"><title>compiler functions</title>
      <para>
      </para>
