@@ -46,7 +46,7 @@ function smarty_core_create_dir_structure($params, &$this)
             }
 
             if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, $this->_dir_perms)) {
-                $this->trigger_error("problem creating directory '" . $params['dir'] . "'");
+                $this->trigger_error("problem creating directory '" . $_new_dir . "'");
                 return false;
             }
             $_new_dir .= DIRECTORY_SEPARATOR;
