@@ -27,13 +27,6 @@
                         <entry>name/path to image</entry>
                     </row>
                     <row>
-                        <entry>border</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>0</emphasis></entry>
-                        <entry>size of border around image</entry>
-                    </row>
-                    <row>
                         <entry>height</entry>
                         <entry>string</entry>
                         <entry>No</entry>
@@ -127,9 +120,9 @@ $smarty->display('index.tpl');
     </para>
     <screen>
 <![CDATA[
-<img src="pumpkin.jpg" alt="" border="0" width="44" height="68" />
-<img src="/path/from/docroot/pumpkin.jpg" alt="" border="0" width="44" height="68" />
-<img src="../path/relative/to/currdir/pumpkin.jpg" alt="" border="0" width="44" height="68" />
+<img src="pumpkin.jpg" alt="" width="44" height="68" />
+<img src="/path/from/docroot/pumpkin.jpg" alt="" width="44" height="68" />
+<img src="../path/relative/to/currdir/pumpkin.jpg" alt="" width="44" height="68" />
 ]]>
     </screen>
    </example>
