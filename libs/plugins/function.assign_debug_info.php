@@ -24,7 +24,7 @@ function smarty_function_assign_debug_info($params, &$smarty)
         ksort($config_vars);
         $smarty->assign("_debug_config_keys", array_keys($config_vars));
         $smarty->assign("_debug_config_vals", array_values($config_vars));
-    }   
+    }
     
     $included_templates = $smarty->_smarty_debug_info;
     

@@ -48,7 +48,7 @@
  */
 function smarty_function_mailto($params, &$smarty)
 {
-    $extra = '';    
+    $extra = '';
 
     if (empty($params['address'])) {
         $smarty->trigger_error("mailto: missing 'address' parameter");
