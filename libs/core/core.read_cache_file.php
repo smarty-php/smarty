@@ -91,9 +91,16 @@ function smarty_core_read_cache_file(&$params, &$smarty)
         }
     }
 
-    $smarty->_cache_serials = array_merge($smarty->_cache_serials,
-                                        $smarty->_cache_info['cache_serials']);
-
+    foreach ($smarty->_cache_info['cache_serials'] as $_include_file_path=>$_cache_serial) {
+        if (empty($smarty->_cache_serials[$_include_file_path])) {
+            $smarty->smarty_include($_include_file_path, true);
+        }
+        
+        if ($smarty->_cache_serials[$_include_file_path] != $_cache_serial) {
+            /* regenerate */
+            return false;
+        }
+    }
     $params['results'] = $cache_split[1];
     $content_cache[$params['tpl_file'].','.$params['cache_id'].','.$params['compile_id']] = array($params['results'], $smarty->_cache_info);
 
