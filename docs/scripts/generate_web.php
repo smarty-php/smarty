@@ -24,13 +24,13 @@
 set_time_limit(0);
 
 $search = array(
-    '<BODY',
-    '</BODY'
+    '/(<HTML.*<META.*HTTP-EQUIV="Content-type".*charset=(.*)".*<BODY[^>]+>)/mSs',
+    '/(<\/BODY\s*><\/HTML\s*>)/mS'
 );
 
 $replace = array(
-    '<?php if(!isset($_GET["print"]) && !strstr($_SERVER["REQUEST_URI"],"/print/")) { commonHeader(); } ?><BODY',
-    '<?php if(!isset($_GET["print"]) && !strstr($_SERVER["REQUEST_URI"],"/print/")) { commonFooter(); } ?></BODY'
+    '<?php if(!isset($_GET["print"])&&!strstr($_SERVER["REQUEST_URI"],"/print/")){ini_set("default_charset","\2");commonHeader();}else{ ?> \1 } ?>',
+    '<?php if(!isset($_GET["print"])&&!strstr($_SERVER["REQUEST_URI"],"/print/")){commonFooter();}else{ echo "</body></html>";} ?>'
 );
 
 if ($dir = opendir('phpweb')) {
@@ -40,9 +40,10 @@ if ($dir = opendir('phpweb')) {
         if(substr($file, -4) == '.php') {
 
             $text = file_get_contents('phpweb/' . $file);
-            $text = str_replace($search, $replace, $text);
 
-            $handler = fopen('phpweb/' . $file, 'w+');
+            $text = preg_replace($search, $replace, $text);
+
+            $handler = fopen('phpweb2/' . $file, 'w+');
             fputs($handler, $text);
             fclose($handler);
         }
