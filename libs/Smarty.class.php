@@ -186,7 +186,7 @@ class Smarty
     var $cache_modified_check = false;
 
     /**
-     * This determines how Smarty handles <?php ?> tags in templates.
+     * This determines how Smarty handles "<?php ... ?>" tags in templates.
      * possible values:
      * <ul>
      *  <li>SMARTY_PHP_PASSTHRU -> print tags as plain text</li>
@@ -1330,7 +1330,7 @@ class Smarty
                 touch($_compile_file,filemtime($_file_path));
             }
         }
-        
+
         if ($this->debugging) {
             $debug_start_time = $this->_get_microtime();
         }

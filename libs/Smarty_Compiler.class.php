@@ -229,7 +229,8 @@ class Smarty_Compiler extends Smarty {
             foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
                 if ($prefilter === false) continue;
                 if ($prefilter[3] || $this->_plugin_implementation_exists($prefilter[0])) {
-                    $template_source = call_user_func($prefilter[0], $template_source, $this);
+                    $template_source = call_user_func_array($prefilter[0],
+                                                            array($template_source, &$this));
                     $this->_plugins['prefilter'][$filter_name][3] = true;
                 } else {
                     $this->_trigger_fatal_error("[plugin] prefilter '$filter_name' is not implemented");
@@ -336,7 +337,8 @@ class Smarty_Compiler extends Smarty {
             foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
                 if ($postfilter === false) continue;
                 if ($postfilter[3] || $this->_plugin_implementation_exists($postfilter[0])) {
-                    $template_compiled = call_user_func($postfilter[0], $template_compiled, $this);
+                    $template_compiled = call_user_func_array($postfilter[0],
+                                                              array($template_compiled, &$this));
                     $this->_plugins['postfilter'][$filter_name][3] = true;
                 } else {
                     $this->_trigger_fatal_error("Smarty plugin error: postfilter '$filter_name' is not implemented");
@@ -559,7 +561,8 @@ class Smarty_Compiler extends Smarty {
          */
         if ($found) {
             if ($have_function) {
-                $output = '<?php ' . call_user_func($plugin_func, $tag_args, $this) . ' ?>';
+                $output = '<?php ' . call_user_func_array($plugin_func,
+                                                          array($tag_args, &$this)) . ' ?>';
             } else {
                 $this->_syntax_error($message, E_USER_WARNING, __FILE__, __LINE__);
             }
