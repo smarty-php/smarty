@@ -1733,34 +1733,40 @@ is the first week that has at least 4 days in the current year, and with Monday 
 		<title>Smarty/PHP errors</title>
 		<para>
 		As of now, Smarty is not a validating template parser. This means that
-		the parser will blindly convert the template to PHP scripts, irregardless
-		of any syntax errors in the markup tags that may be present in the template.
-		Smarty can catch certain template errors like missing attributes to
-		functions, but not syntax errors like missing close tags.
-		These types of errors can end up in PHP run-time errors.
-		When you encounter a PHP error when attempting to display the
+		the parser will blindly convert the template to PHP scripts,
+		irregardless of any syntax errors in the markup tags that may be
+		present in the template. Smarty can catch certain template errors like
+		missing attributes to functions, but not syntax errors like missing
+		close tags. These types of errors can end up in PHP compile-time
+		errors. When you encounter a PHP error when attempting to display the
 		template in a browser, the error line number will correspond to the
-		compiled PHP template, not the template itself. This may be a bit confusing
-		or for the template designer. Our experience is to tell the
+		compiled PHP script, not the template itself. This may be a bit
+		confusing or for the template designer. Our experience is to tell the
 		designers to check their work often, and ask the programmers for help
-		if they are really stuck. Usually you can look at the template and spot the
-		syntax error. Maybe you left a delimeter off, or you didn't properly close
-		an {if}{/if} or {section}{/section} tag. If you can't find it, you must open
-		the compiled PHP file and go to the line number to figure out what went wrong.
+		if they are really stuck. Usually you can look at the template and spot
+		the syntax error. Here are some common things to look for: missing
+		close tags for {if}{/if} or {section}{/section}, missing end variable
+		delimiters like {%sec.var} instead of {%sec.var%}, or {#var} instead of
+		{#var#}. If you can't find the error, you must open the compiled PHP
+		file and go to the line number to figure out where the corresponding
+		error is in the template.
 		</para>
 	</sect1>
 </chapter>
 <chapter id="bugs">
 	<title>BUGS</title>
 	<para>
-	There are no known bugs with Smarty, although there are some bugs in PHP
-	that cause problems with Smarty. preg_replace() had a parameter added in
-	4.0.2 that is needed for Smarty. preg_grep() previous to 4.0.4 has a bug
-	which Smarty has a built-in workaround for. PHP 4.0.4 has a bug with user
-	callbacks which would cause this syntax in Smarty to crash PHP:
-	{$varname|@modname} Use PHP 4.0.4pl1 to fix this, or avoid using the "@"
-	with <link linkend="variable.modifiers">modifiers</link>. To be absolutely
-	safe, use 4.0.4pl or later with Smarty.
+	Check the BUGS file that comes with the latest distribution of Smarty, or
+	check the website.
+	</para>
+</chapter>
+<chapter id="bugs">
+	<title>PEAR</title>
+	<para>
+	Smarty uses the PEAR libraries for some of its error handling routines.
+	PEAR libraries come with the distribution of PHP. Be sure that the path to
+	these libraries is included in your php include_path. Unix users check
+	/usr/local/lib/php. Windows users check C:/php/pear.
 	</para>
 </chapter>
 <chapter id="credits">

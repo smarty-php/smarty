@@ -17,10 +17,9 @@ A: preg_replace had a parameter added in PHP 4.0.2 that Smarty
 
 Q: I get the following error when running Smarty:
    Fatal error: Failed opening required 'PEAR.php'
-   (include_path='c:\inetpub\wwwroot\intra\php') in Config_File.class.php on
-   line 3
-A: The pear libraries come bundled with PHP. In Unix, the default location
-   is in /usr/local/lib/php/. On Windows, it is under
-   the directory you installed PHP, probably c:/php/pear/.
-   Locate these files and add this directory to your php_include path.
+   (include_path='') in Config_File.class.php on line 3
+A: Smarty uses the PEAR libraries for some of its error handling routines.
+   PEAR libraries come with the distribution of PHP. Be sure that the path to
+   these libraries is included in your php include_path. Unix users check
+   /usr/local/lib/php. Windows users check C:/php/pear.
 
