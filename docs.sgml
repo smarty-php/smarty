@@ -1212,7 +1212,7 @@ function get_db_template ($tpl_name, &$tpl_source, &$tpl_timestamp) {
 }
 
 // register the resource name "db"
-$smarty->register_resource("db" => "get_db_template");
+$smarty->register_resource("db","get_db_template");
 
 // using resource from php script
 $smarty->display("db:index.tpl");
