@@ -3328,7 +3328,7 @@ Bitte geben Sie einen &lt;b&gt;Provinznamen&lt;/b&gt; ein.
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
 $smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane Johnson','Charlie Brown'));
@@ -3343,7 +3343,7 @@ index.tpl:
 
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_checkboxes', array(
                         1000 =&gt; 'Joe Schmoe',
@@ -3463,7 +3463,7 @@ AUSGABE: (beider Beispiele)
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;display('index.tpl');
 
@@ -3645,7 +3645,7 @@ AUSGABE:
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
 $smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
@@ -3661,7 +3661,7 @@ index.tpl:
 
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_radios', array(
                         1001 =&gt; 'Joe Schmoe',
@@ -4351,7 +4351,7 @@ AUSGABE:
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty-&gt;assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
