@@ -1,3 +1,10 @@
+2003-05-30  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/core.write_cache_file.php
+      libs/plugins/core.write_compiled_template.php:
+      add discrete error checking pertaining to $cache_dir
+      and $compile_dir, their existance and writability
+
 2003-05-28  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
