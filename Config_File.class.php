@@ -46,6 +46,7 @@ class Config_File extends PEAR {
 	 * @access public
 	 */
 	var $overwrite		=	true;
+
 	/**
 	 * Controls whether config values of on/true/yes and off/false/no get
 	 * converted to boolean values automatically.
@@ -53,6 +54,13 @@ class Config_File extends PEAR {
 	 * @access public
 	 */
 	var $booleanize		=	true;
+
+	/**
+	 * Controls whether hidden config sections/vars are read from the file.
+	 *
+	 * @access public
+	 */
+	var $read_hidden 	=	true;
 
 	/* Private variables */
 	var $_config_path	= "";
@@ -247,7 +255,11 @@ class Config_File extends PEAR {
 		$config_data["sections"] = array();
 		preg_match_all("/^\[(.*?)\]/m", $contents, $match);
 		foreach ($match[1] as $section) {
+			if ($section{0} == '.' && !$this->read_hidden)
+				continue;
 			if (preg_match("/\[".preg_quote($section)."\](.*?)(\n\[|\Z)/s", $contents, $match))
+				if ($section{0} == '.')
+					$section = substr($section, 1);
 				$config_data["sections"][$section]["vars"] = $this->_parse_config_block($match[1]);
 		}
 
@@ -271,7 +283,7 @@ class Config_File extends PEAR {
 		$config_lines = preg_split("/\n+/", $config_block);
 
 		foreach ($config_lines as $line) {
-			if (preg_match("/^\s*(\w+)\s*=(.*)/", $line, $match)) {
+			if (preg_match("/^\s*(\.?\w+)\s*=(.*)/", $line, $match)) {
 				$var_value = preg_replace('/^([\'"])(.*)\1$/', '\2', trim($match[2]));
 				$this->_set_config_var($vars, trim($match[1]), $var_value, $this->booleanize);
 			}
@@ -282,6 +294,13 @@ class Config_File extends PEAR {
 	
 	function _set_config_var(&$container, $var_name, $var_value, $booleanize)
 	{
+		if ($var_name{0} == '.') {
+			if (!$this->read_hidden)
+				return;
+			else
+				$var_name = substr($var_name, 1);
+		}
+
 		if (!preg_match("/^[a-zA-Z_]\w*$/", $var_name))
 			return new Config_File_Error("Bad variable name '$var_name'");
 

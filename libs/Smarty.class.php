@@ -548,6 +548,7 @@ class Smarty
             if (!class_exists('Config_File'))
                 include_once SMARTY_DIR.'Config_File.class.php';
             $this->_conf_obj = new Config_File($this->config_dir);
+            $this->_conf_obj->read_hidden = false;
         } else
             $this->_conf_obj->set_path($this->config_dir);
 

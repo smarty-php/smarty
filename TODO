@@ -13,3 +13,4 @@
 * allow {custom} .. {/custom} style of custom functions
 * ability to concatenate values/strings together
 * don't load globals more than once from the same config file
+* fix all E_NOTICE warnings

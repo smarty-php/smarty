@@ -1,5 +1,7 @@
-    - added execution time to DEBUG console (Monte)
-    - fixed bug where DEBUG console would not appear with cached content (Monte)
+    - added support for hidden config variables that cannot be read by
+      templates. (Andrei)
+    - added execution time to DEBUG console. (Monte)
+    - fixed bug where DEBUG console would not appear with cached content. (Monte)
     - added support for postfilter functions that are applied to compiled
       template right after compilation. (Andrei)
     - fixed the name of clear_compile_tpl() API function to clear_compiled_tpl.
