@@ -124,7 +124,7 @@ class Smarty_Compiler extends Smarty {
         // $foo[5][blah]
         // $foo[5].bar[$foobar][4]
         $this->_dvar_math_regexp = '[\+\-\*\/\%]';
-        $this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\|\>\[\]]';
+        $this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\>\[\]]';
         $this->_dvar_num_var_regexp = '\-?\d+(?:\.\d+)?' . $this->_dvar_math_var_regexp;
         $this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
                 . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:\-?\d+(?:\.\d+)?|' . $this->_dvar_math_var_regexp . '*))?';
@@ -1580,36 +1580,42 @@ class Smarty_Compiler extends Smarty {
      * parse variable expression into PHP code or static value
      *
      * @param string $var_expr
+     * @param string $output
      * @return string
      */
-    function _parse_var($var_expr)
+    function _parse_var($var_expr, $in_math = false)
     {
         // inform the calling expression the return type (php, static)
         $this->_output_type = 'php';
 
+        $_has_math = false;
         $_math_vars = preg_split('!('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
+
         if(count($_math_vars) > 1)
         {
-            $_output = "";
+            $_first_var = "";
             $_complete_var = "";
             // simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
-            $_has_math = false;
             foreach($_math_vars as $_k => $_math_var)
             {
                 $_math_var = $_math_vars[$_k];
-                if(!empty($_math_var))
+
+                if(!empty($_math_var) || is_numeric($_math_var))
                 {
                     // hit a math operator, so process the stuff which came before it
                     if(preg_match('!^' . $this->_dvar_math_regexp . '$!', $_math_var))
                     {
                         $_has_math = true;
-                        if(!empty($_complete_var))
+                        if(!empty($_complete_var) || is_numeric($_complete_var))
                         {
-                            $_output .= $this->_parse_var($_complete_var);
+                            $_output .= $this->_parse_var($_complete_var, true);
                         }
 
                         // just output the math operator to php
                         $_output .= $_math_var;
+
+                        if(empty($_first_var))
+                            $_first_var = $_complete_var;
 
                         $_complete_var = "";
                     }
@@ -1633,13 +1639,13 @@ class Smarty_Compiler extends Smarty {
             }
             if($_has_math)
             {
-                if(!empty($_complete_var))
-                    $_output .= $this->_parse_var($_complete_var);
+                if(!empty($_complete_var) || is_numeric($_complete_var))
+                    $_output .= $this->_parse_var($_complete_var, true);
 
-                return $_output;
+                // get the modifiers working (only the last var from math + modifier is left)
+                $var_expr = $_complete_var;
             }
         }
-
 
         preg_match('!(' . $this->_dvar_num_var_regexp . '*|' . $this->_obj_call_regexp . '|' . $this->_var_regexp . ')(' . $this->_mod_regexp . '*)$!', $var_expr, $match);
 
@@ -1657,78 +1663,85 @@ class Smarty_Compiler extends Smarty {
             $modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
         }
 
-        // get [foo] and .foo and ->foo and (...) pieces
-        preg_match_all('!(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+!', $_var_ref, $match);
+        if(!$_has_math)
+        {
+            // get [foo] and .foo and ->foo and (...) pieces
+            preg_match_all('!(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+!', $_var_ref, $match);
 
-        $_indexes = $match[0];
-        $_var_name = array_shift($_indexes);
+            $_indexes = $match[0];
+            $_var_name = array_shift($_indexes);
 
-        /* Handle $smarty.* variable references as a special case. */
-        if ($_var_name == 'smarty') {
-            /*
-             * If the reference could be compiled, use the compiled output;
-             * otherwise, fall back on the $smarty variable generated at
-             * run-time.
-             */
-            if (($smarty_ref = $this->_compile_smarty_ref($_indexes)) !== null) {
-                $_output = $smarty_ref;
-            } else {
-                $_var_name = substr(array_shift($_indexes), 1);
-                $_output = "\$this->_smarty_vars['$_var_name']";
-            }
-        } elseif(is_numeric($_var_name) && is_numeric($var_expr{0})) {
-            // because . is the operator for accessing arrays thru inidizes we need to put it together again for floating point numbers
-            if(count($_indexes) > 0)
-            {
-                $_var_name .= implode("", $_indexes);
-                $_indexes = array();
-            }
-            $_output = $_var_name;
-        } else {
-            $_output = "\$this->_tpl_vars['$_var_name']";
-        }
-
-        foreach ($_indexes as $_index) {
-            if ($_index{0} == '[') {
-                $_index = substr($_index, 1, -1);
-                if (is_numeric($_index)) {
-                    $_output .= "[$_index]";
-                } elseif ($_index{0} == '$') {
-                    $_output .= "[\$this->_tpl_vars['" . substr($_index, 1) . "']]";
+            /* Handle $smarty.* variable references as a special case. */
+            if ($_var_name == 'smarty') {
+                /*
+                 * If the reference could be compiled, use the compiled output;
+                 * otherwise, fall back on the $smarty variable generated at
+                 * run-time.
+                 */
+                if (($smarty_ref = $this->_compile_smarty_ref($_indexes)) !== null) {
+                    $_output = $smarty_ref;
                 } else {
-                    $_var_parts = explode('.', $_index);
-                    $_var_section = $_var_parts[0];
-                    $_var_section_prop = isset($_var_parts[1]) ? $_var_parts[1] : 'index';
-                    $_output .= "[\$this->_sections['$_var_section']['$_var_section_prop']]";
+                    $_var_name = substr(array_shift($_indexes), 1);
+                    $_output = "\$this->_smarty_vars['$_var_name']";
                 }
-            } else if ($_index{0} == '.') {
-                if ($_index{1} == '$')
-                    $_output .= "[\$this->_tpl_vars['" . substr($_index, 2) . "']]";
-                else
-                    $_output .= "['" . substr($_index, 1) . "']";
-            } else if (substr($_index,0,2) == '->') {
-                if(substr($_index,2,2) == '__') {
-                    $this->_syntax_error('call to internal object members is not allowed', E_USER_ERROR, __FILE__, __LINE__);
-                } elseif($this->security && substr($_index, 2, 1) == '_') {
-                    $this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
-                } elseif ($_index{2} == '$') {
-                    if ($this->security) {
-                        $this->_syntax_error('(secure) call to dynamic object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
+            } elseif(is_numeric($_var_name) && is_numeric($var_expr{0})) {
+                // because . is the operator for accessing arrays thru inidizes we need to put it together again for floating point numbers
+                if(count($_indexes) > 0)
+                {
+                    $_var_name .= implode("", $_indexes);
+                    $_indexes = array();
+                }
+                $_output = $_var_name;
+            } else {
+                $_output = "\$this->_tpl_vars['$_var_name']";
+            }
+
+            foreach ($_indexes as $_index) {
+                if ($_index{0} == '[') {
+                    $_index = substr($_index, 1, -1);
+                    if (is_numeric($_index)) {
+                        $_output .= "[$_index]";
+                    } elseif ($_index{0} == '$') {
+                        $_output .= "[\$this->_tpl_vars['" . substr($_index, 1) . "']]";
                     } else {
-                        $_output .= '->{(($_var=$this->_tpl_vars[\''.substr($_index,3).'\']) && substr($_var,0,2)!=\'__\') ? $_var : $this->trigger_error("cannot access property \\"$_var\\"")}';
+                        $_var_parts = explode('.', $_index);
+                        $_var_section = $_var_parts[0];
+                        $_var_section_prop = isset($_var_parts[1]) ? $_var_parts[1] : 'index';
+                        $_output .= "[\$this->_sections['$_var_section']['$_var_section_prop']]";
                     }
+                } else if ($_index{0} == '.') {
+                    if ($_index{1} == '$')
+                        $_output .= "[\$this->_tpl_vars['" . substr($_index, 2) . "']]";
+                    else
+                        $_output .= "['" . substr($_index, 1) . "']";
+                } else if (substr($_index,0,2) == '->') {
+                    if(substr($_index,2,2) == '__') {
+                        $this->_syntax_error('call to internal object members is not allowed', E_USER_ERROR, __FILE__, __LINE__);
+                    } elseif($this->security && substr($_index, 2, 1) == '_') {
+                        $this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
+                    } elseif ($_index{2} == '$') {
+                        if ($this->security) {
+                            $this->_syntax_error('(secure) call to dynamic object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
+                        } else {
+                            $_output .= '->{(($_var=$this->_tpl_vars[\''.substr($_index,3).'\']) && substr($_var,0,2)!=\'__\') ? $_var : $this->trigger_error("cannot access property \\"$_var\\"")}';
+                        }
+                    } else {
+                        $_output .= $_index;
+                    }
+                } elseif ($_index{0} == '(') {
+                    $_index = $this->_parse_parenth_args($_index);
+                    $_output .= $_index;
                 } else {
                     $_output .= $_index;
                 }
-            } elseif ($_index{0} == '(') {
-                $_index = $this->_parse_parenth_args($_index);
-                $_output .= $_index;
-            } else {
-                $_output .= $_index;
             }
         }
 
-        $this->_parse_modifiers($_output, $modifiers);
+        // If called recursive (because of math var splitting) don't do modifiers
+        if(!$in_math)
+        {
+            $this->_parse_modifiers($_output, $modifiers);
+        }
 
         return $_output;
     }
