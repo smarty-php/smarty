@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.checkboxes">
  <title>html_checkboxes</title>
  <informaltable frame="all">
@@ -45,7 +45,7 @@
      <entry>Un tableau de sortie pour les cases à cocher</entry>
     </row>
     <row>
-     <entry>selected/checked</entry>
+     <entry>selected</entry>
      <entry>chaîne de caractères/tableau</entry>
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
