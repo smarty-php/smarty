@@ -1,3 +1,15 @@
+2003-11-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      move Smarty::quote_replace() to Smarty_Compiler::_quote_replace()
+
+    * libs/Smarty.class.php:
+      removed extract-calls from _include()- and _eval()-wrappers
+      variables passed with {include_php} have to accessed as members of $params
+      now
+
 2003-11-17  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/designers.sgml:
