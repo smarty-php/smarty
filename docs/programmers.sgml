@@ -1051,7 +1051,7 @@ print_r($tpl_vars);</programlisting>
 			<title>is_cached</title>
 			<funcsynopsis>
 			<funcprototype>
-			<funcdef>void <function>is_cached</function></funcdef>
+			<funcdef>boolean <function>is_cached</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
 				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
 			</funcprototype>
