@@ -1,3 +1,9 @@
+2003-03-03  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/function.popup.php:
+      fixed PHP notice
+
 2003-02-28  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty_Compiler.class.php:
