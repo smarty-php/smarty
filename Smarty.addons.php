@@ -453,12 +453,11 @@ function smarty_func_math($args, $smarty_obj) {
                         
         // match all vars in equation, make sure all are passed
         preg_match_all("![a-zA-Z][a-zA-Z0-9]*!",$equation,$match);
+        $allowed_funcs = array('int','abs','ceil','cos','exp','floor','log','log10',
+                               'max','min','pi','pow','rand','round','sin','sqrt','srand','tan');
         
         foreach($match[0] as $curr_var) {
-            if(!in_array($curr_var,array_keys($args)) &&
-                    !in_array($curr_var,
-                              array('int','abs','ceil','cos','exp','floor','log','log10',
-                                    'max','min','pi','pow','rand','round','sin','sqrt','srand','tan'))) {
+            if(!in_array($curr_var,array_keys($args)) && !in_array($curr_var, $allowed_funcs)) {
                 $smarty_obj->_trigger_error_msg("math: parameter $curr_var not passed as argument");
                 return;
             }       
