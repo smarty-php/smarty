@@ -176,7 +176,7 @@ class Smarty
 	function fetch($tpl_file)
 	{
 		ob_start();
-		$this->quip($tpl_file);
+		$this->display($tpl_file);
 		$results = ob_get_contents();
 		ob_end_clean();
 		return $results;
@@ -394,9 +394,9 @@ class Smarty
 
 		/* If the tag name matches a variable or section property definition,
 		   we simply process it. */
-		if (preg_match('!^\$(\w+/)*\w+(?>\|\w+(:[^|]+)?)*$!', $tag_command) ||	// if a variable
-			preg_match('!^#(\w+)#(?>\|\w+(:[^|]+)?)*$!', $tag_command)		||  // or a configuration variable
-			preg_match('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tag_command)) {    // or a section property
+		if (preg_match('!^\$(\w+/)*\w+(?>\|@?\w+(:[^|]+)?)*$!', $tag_command) ||	// if a variable
+			preg_match('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tag_command)		||  // or a configuration variable
+			preg_match('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tag_command)) {    // or a section property
 			settype($tag_command, 'array');
 			$this->_parse_vars_props($tag_command);
 			return "<?php print $tag_command[0]; ?>";
@@ -787,9 +787,9 @@ class Smarty
 	
 	function _parse_vars_props(&$tokens)
 	{
-		$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\|\w+(:[^|]+)?)*$!', $tokens);
-		$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|\w+(:[^|]+)?)*$!', $tokens);
-		$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tokens);
+		$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+		$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+		$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 
 		if (count($var_exprs)) {
 			foreach ($var_exprs as $expr_index => $var_expr) {
@@ -862,6 +862,12 @@ class Smarty
 			$modifier = explode(':', $modifier);
 			$modifier_name = array_shift($modifier);
 
+			if ($modifier_name{0} == '@') {
+				$map_array = 'false';
+				$modifier_name = substr($modifier_name, 1);
+			} else
+				$map_array = 'true';
+
 			/*
 			 * First we lookup the modifier function name in the registered
 			 * modifiers table.
@@ -883,7 +889,7 @@ class Smarty
 			else
 				$modifier_args = '';
 
-			$output = "_smarty_mod_handler('$mod_func_name', $output$modifier_args)";
+			$output = "_smarty_mod_handler('$mod_func_name', $map_array, $output$modifier_args)";
 		}
 	}
 	

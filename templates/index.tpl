@@ -18,3 +18,4 @@ My interests are:
 	none
 {/section}
 
+{$Name|@count}

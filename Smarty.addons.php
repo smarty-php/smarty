@@ -15,10 +15,10 @@
 function _smarty_mod_handler()
 {
 	$args = func_get_args();
-	$func_name = array_shift($args);
+	list($func_name, $map_array) = array_splice($args, 0, 2);
 	$var = $args[0];
 
-	if (is_array($var)) {
+	if ($map_array && is_array($var)) {
 		foreach ($var as $key => $val) {
 			$args[0] = $val;
 			$var[$key] = call_user_func_array($func_name, $args);
