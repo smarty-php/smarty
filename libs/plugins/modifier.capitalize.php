@@ -19,13 +19,20 @@
  */
 function smarty_modifier_capitalize($string, $uc_digits = false)
 {
-    define('SMARTY_CAPITALIZE_UCDIGIT', $uc_digits);
+    smarty_modifier_capitalize_ucfirst(null, $uc_digits);
     return preg_replace_callback('!\b\w+\b!', 'smarty_modifier_capitalize_ucfirst', $string);
 }
 
-function smarty_modifier_capitalize_ucfirst($string)
+function smarty_modifier_capitalize_ucfirst($string, $uc_digits = null)
 {
-    if(!preg_match('!\d!',$string[0]) || SMARTY_CAPITALIZE_UCDIGIT)
+    static $_uc_digits = false;
+    
+    if(isset($uc_digits)) {
+        $_uc_digits = $uc_digits;
+        return;
+    }
+    
+    if(!preg_match('!\d!',$string[0]) || $_uc_digits)
         return ucfirst($string[0]);
     else
         return $string[0];
