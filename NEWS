@@ -21,7 +21,7 @@
     - fixed bug with clear_cache introduced in 1.4.6, third parameter should
       default to null. (Monte)
     - updated Config_File class to support '\' path separator in OS/2. (Monte,
-      Francesco Ciprianii)
+      Francesco Cipriani)
     - removed secure_ext setting (not used). (Monte)
     - made cache reading process more efficient. (Monte)
     - fixed bug, is_cached() now supports new 1.4.6 caching behavior. (Monte)

@@ -497,7 +497,7 @@ class Smarty
     Function:   fetch()
     Purpose:    executes & returns or displays the template results
 \*======================================================================*/
-    function fetch($tpl_file, $cache_id = null, $compile_id = null, $display = false)
+    function fetch($smarty_tpl_file, $smarty_cache_id = null, $smarty_compile_id = null, $smarty_display = false)
     {
         global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
@@ -510,25 +510,25 @@ class Smarty
             // capture time for debugging info
             $debug_start_time = $this->_get_microtime();
             $this->_smarty_debug_info[] = array('type'      => 'template',
-                                                'filename'  => $tpl_file,
+                                                'filename'  => $smarty_tpl_file,
                                                 'depth'     => 0);
             $included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
 
-        $this->_compile_id = $compile_id;
+        $this->_compile_id = $smarty_compile_id;
         $this->_inclusion_depth = 0;
 
 
         if ($this->caching) {
 
-            $this->_cache_info[] = array('template', $tpl_file);
+            $this->_cache_info[] = array('template', $smarty_tpl_file);
 
-            if ($this->_read_cache_file($tpl_file, $cache_id, $compile_id, $results)) {
+            if ($this->_read_cache_file($smarty_tpl_file, $smarty_cache_id, $smarty_compile_id, $smarty_results)) {
                 if ($this->insert_tag_check) {
-                    $results = $this->_process_cached_inserts($results);
+                    $smarty_results = $this->_process_cached_inserts($smarty_results);
                 }
-                if ($display) {
-                    echo $results;
+                if ($smarty_display) {
+                    echo $smarty_results;
                     if ($this->debugging)
                     {
                         // capture time for debugging info
@@ -538,7 +538,7 @@ class Smarty
                     }
                     return;
                 } else {
-                    return $results;
+                    return $smarty_results;
                 }
             }
         }
@@ -566,46 +566,46 @@ class Smarty
             $info_header = '';
         }
 
-        $compile_path = $this->_get_compile_path($tpl_file);
+        $compile_path = $this->_get_compile_path($smarty_tpl_file);
 
         // if we just need to display the results, don't perform output
         // buffering - for speed
-        if ($display && !$this->caching) {
+        if ($smarty_display && !$this->caching) {
             echo $info_header;
-            if ($this->_process_template($tpl_file, $compile_path))
+            if ($this->_process_template($smarty_tpl_file, $compile_path))
             {
                 if ($this->show_info_include) {
-                    echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
+                    echo "\n<!-- SMARTY_BEGIN: ".$smarty_tpl_file." -->\n";
                 }
                 include($compile_path);
                 if ($this->show_info_include) {
-                    echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
+                    echo "\n<!-- SMARTY_END: ".$smarty_tpl_file." -->\n";
                 }
             }
         } else {
             ob_start();
             echo $info_header;
-            if ($this->_process_template($tpl_file, $compile_path))
+            if ($this->_process_template($smarty_tpl_file, $compile_path))
             {
                 if ($this->show_info_include) {
-                    echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
+                    echo "\n<!-- SMARTY_BEGIN: ".$smarty_tpl_file." -->\n";
                 }
                 include($compile_path);
                 if ($this->show_info_include) {
-                    echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
+                    echo "\n<!-- SMARTY_END: ".$smarty_tpl_file." -->\n";
                 }
             }
-            $results = ob_get_contents();
+            $smarty_results = ob_get_contents();
             ob_end_clean();
         }
 
         if ($this->caching) {
-            $this->_write_cache_file($tpl_file, $cache_id, $compile_id, $results);
-            $results = $this->_process_cached_inserts($results);
+            $this->_write_cache_file($smarty_tpl_file, $smarty_cache_id, $smarty_compile_id, $smarty_results);
+            $smarty_results = $this->_process_cached_inserts($smarty_results);
         }
 
-        if ($display) {
-            if (isset($results)) { echo $results; }
+        if ($smarty_display) {
+            if (isset($smarty_results)) { echo $smarty_results; }
             if ($this->debugging)
                 {
                     // capture time for debugging info
@@ -615,7 +615,7 @@ class Smarty
                 }
             return;
         } else {
-            if (isset($results)) { return $results; }
+            if (isset($smarty_results)) { return $smarty_results; }
         }
     }
 
