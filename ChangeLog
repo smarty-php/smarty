@@ -1,3 +1,20 @@
+2003-09-01  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      re-include cache_paths on multiple calls to fetch() to avoid
+      inconsistencies
+      at multiple calls to fetch() in one script
+
+    * libs/Smarty_Compiler.class.php:
+      fixed handling of \r in {strip}
+      renamed $_trailing_lf to $_additional_newline
+
+    * libs/Smarty_Compiler.class.php:
+      the weekly fix for {strip} :)
+
+    * docs/designers.sgml:
+      fixed example for simple math.
+
 2003-08-29  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/core/core.assign_smarty_interface.php
