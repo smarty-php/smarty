@@ -39,7 +39,7 @@
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.5.0
+ * @version 2.5.0-cvs
  */
 
 /* $Id$ */
@@ -489,7 +489,7 @@ reques     * @var string
      *
      * @var string
      */
-    var $_version              = '2.5.0';
+    var $_version              = '2.5.0-cvs';
 
     /**
      * current template inclusion depth
