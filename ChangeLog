@@ -1,3 +1,33 @@
+2003-02-28  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty_Compiler.class.php:
+      simplify smarty.const.foo and smarty.const.$foo logic
+
+    * libs/Smarty_Compiler.class.php:
+      only allow $foo syntax in embedded quotes, unless escaped with backticks
+      then allow any dollar var
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fix "once" var compiling to work with new attr compiling methods for
+      include_php
+
+    * FAQ
+      NEWS
+      README
+      docs/designers.sgml
+      docs/getting-started.sgml
+      libs/Smarty_Compiler.class.php
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_image.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_radios.php
+      libs/plugins/function.html_select_date.php
+      libs/plugins/function.html_select_time.php
+      libs/plugins/function.html_table.php:
+      fix $smarty.const.foo compiling, clean up double quoted strings,
+      allow full dollar var syntax in quotes again
+
 2003-02-27  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml
