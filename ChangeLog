@@ -1,3 +1,10 @@
+2003-09-14  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.assemble_auto_filename.php:
+      removed auto-filenames from path-cache. merged assemble_auto_filename
+      back into Smarty::_get_auto_filename()
+
 2003-09-12  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
