@@ -1323,11 +1323,13 @@ class Smarty
      * @param string $name
      */    
 	function &get_registered_object($name) {
-		if(isset($this->_reg_objects[$name])) {
-			return $this->_reg_objects[$name][0];
-		} else {
-		 	return false; 
-		}
+		if (!isset($this->_reg_objects[$object]))
+		$this->_trigger_fatal_error("'$object' is not a registered object");
+
+		if (!is_object($this->_reg_objects[$object][0]))
+		$this->_trigger_fatal_error("registered '$object' is not an object");
+
+		return $this->_reg_objects[$name][0];		
 	}	
 
     /**#@+
