@@ -81,6 +81,11 @@ function smarty_mod_date_format($string, $format)
 }
 
 
+function smarty_mod_format($string, $format)
+{
+	return sprintf($format, $string);
+}
+
 function smarty_mod_replace($string, $search, $replace)
 {
 	return str_replace($search, $replace, $string);

@@ -166,8 +166,8 @@ class Smarty
 			extract($this->_tpl_vars);		
 			include($_compile_file);
 		}
-	}
-
+	}	
+		
 /*======================================================================*\
 	Function:	fetch()
 	Purpose:	executes & returns the template results
