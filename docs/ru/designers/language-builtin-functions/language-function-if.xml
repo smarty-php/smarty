@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 -->
 <sect1 id="language.function.if">
  <title>if,elseif,else</title>
  <para>
   Конструкция if в Smarty такая же гибкая, как и аналогичная
   конструкциия в php, только с несколько расширенными 
   возможностями.
-  with a few added features for the template engine.
   Каждый тэг <emphasis>if</emphasis> должен иметь пару
   <emphasis>/if</emphasis>. <emphasis>else</emphasis> и
   <emphasis>elseif</emphasis> так же допустимы. "eq", "ne",
@@ -17,7 +17,7 @@
   отделены от окружающих елементов пробелами.
  </para>
  <example>
-  <title>кострукция if</title>
+  <title>Конструкция if</title>
    <programlisting>
 <![CDATA[
 {if $name eq "Fred"}
