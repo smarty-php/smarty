@@ -1,3 +1,4 @@
+    - fix html_options to not escape already escaped entities (Monte)
     - send Last-Modified header on cache creation (Monte)
     - check strict syntax of function attributes (Monte) 
     - dropped support for modifers on object parameters,
