@@ -1,3 +1,14 @@
+2004-09-11  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.debug.php:
+      removed notice from {debug}
+      thanks to Peter Billen for pointing this one out!
+
+2004-09-11  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty_Compiler.class.php:
+      fix more object calling syntax issues
+
 2004-09-10  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
