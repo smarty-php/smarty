@@ -504,7 +504,7 @@ class Smarty
         extract($this->_tpl_vars);
 
         if ($this->show_info_header) {
-            $info_header = '<!-- Smarty '.$this->version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
+            $info_header = '<!-- Smarty '.$this->_version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
         } else {
             $info_header = "";          
         }
@@ -690,8 +690,8 @@ class Smarty
         $smarty_compiler->right_delimiter   = $this->right_delimiter;
         $smarty_compiler->custom_funcs      = $this->custom_funcs;
         $smarty_compiler->custom_mods       = $this->custom_mods;
-        $smarty_compiler->version           = $this->version;
-        $smarty_compiler->prefilter_funcs      = $this->prefilter_funcs;
+        $smarty_compiler->_version          = $this->_version;
+        $smarty_compiler->prefilter_funcs   = $this->prefilter_funcs;
         $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
