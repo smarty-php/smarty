@@ -1,3 +1,6 @@
+    - added support for math operators in if statements (Monte)
+    - added support for $foo->bar[$x].blah syntax (Monte)
+
 Version 2.4.0
 -------------
 
