@@ -24,7 +24,7 @@
  *                day values (Marcus Bointon)
  * @link http://smarty.php.net/manual/en/language.function.html.select.date.php {html_select_date}
  *      (Smarty online manual)
- * @version 1.3
+ * @version 1.3.1
  * @author   Andrei Zmievski
  * @param array
  * @param Smarty
@@ -73,8 +73,38 @@ function smarty_function_html_select_date($params, &$smarty)
     $field_separator = "\n";
     $time = time();
 
-
-    extract($params);
+    foreach ($params as $_key=>$_value) {
+        switch ($_key) {
+            case 'prefix':
+            case 'time':
+            case 'start_year':
+            case 'end_year':
+            case 'month_format':
+            case 'day_format':
+            case 'day_value_format':
+            case 'field_array':
+            case 'day_size':
+            case 'month_size':
+            case 'year_size':
+            case 'all_extra':
+            case 'day_extra':
+            case 'month_extra':
+            case 'year_extra':
+            case 'field_order':
+            case 'field_separator':
+            case 'month_value_format':
+                $$_key = (string)$_value;
+                break;
+                
+            case 'display_days':
+            case 'display_months':
+            case 'display_years':
+            case 'year_as_text':
+            case 'reverse_years':
+                $$_key = (bool)$_value;
+                break;
+        }
+    }
 
     // If $time is not in format yyyy-mm-dd
     if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time)) {
