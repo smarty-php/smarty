@@ -18,60 +18,68 @@
 		are separate. Consequently, the search for a templating solution ensues.
 		</para>
 		<para>
-		In our company for example, the development of an application goes on
-		as follows. After the requirements docs are done, the interface designer
-		makes mockups of the interface and gives them to the programmer. The
-		programmer implements business logic in PHP and uses interface mockups
-		to create skeleton templates. The project is then handed off to the HTML
-		designer/web page layout person who brings the templates up to their full
-		glory. The project may go back and forth between programming/HTML a couple
-		of times. Thus, it's important to have good template support because
-		programmers don't want anything to do with HTML and don't want HTML
-		designers mucking around with PHP code, and designers need support for
-		config files, dynamic blocks and other stuff, but they don't want to
-		have to deal with intricacies of the PHP programming language.
+		In our company, for example, the development of an application goes on
+		as follows. After the requirements docs are done, the interface
+		designer makes mockups of the interface and gives them to the
+		programmer. The programmer implements business logic in PHP and uses
+		interface mockups to create skeleton templates. The project is then
+		handed off to the HTML designer/web page layout person who brings the
+		templates up to their full glory. The project may go back and forth
+		between programming/HTML a couple of times. Thus, it's important to
+		have good template support because programmers don't want anything to
+		do with HTML and don't want HTML designers mucking around with PHP
+		code, and designers need support for config files, dynamic blocks and
+		other stuff, but they don't want to have to deal with intricacies of
+		the PHP programming language.
 		</para>
 		<para>
-		Looking at many templating solutions available for PHP today,
-		most of them provide a rudimentary way of substituting variables into
-		templates and do a limited form of dynamic block functionality (a section
-		of a template that is looped over and over with a set of indexed variables).
-		But our needs were a bit more than that. We didn't want programmers to be
-		dealing with HTML layout at ALL, but this was almost inevitable. For
-		instance, if a designer wanted background colors to alternate on dynamic
-		blocks, this had to be worked out with the programmer in advance. We also
-		needed designers to be able to use their own configuration files, and pull
-		variables from them into the templates. The list goes on.
+		Looking at many templating solutions available for PHP today, most of
+		them provide a rudimentary way of substituting variables into templates
+		and do a limited form of dynamic block functionality (a section of a
+		template that is looped over and over with a set of indexed variables).
+		But our needs required a bit more than that. We didn't want programmers
+		to be dealing with HTML layout at ALL, but this was almost inevitable.
+		For instance, if a designer wanted background colors to alternate on
+		dynamic blocks, this had to be worked out with the programmer in
+		advance. We also needed designers to be able to use their own
+		configuration files, and pull variables from them into the templates.
+		The list goes on.
 		</para>
 		<para>
-		We started out writing out a spec for a template engine about a year ago.
-		After finishing the spec, we began to work on a template engine written in
-		C that would hopefully be accepted for inclusion with PHP. Not only did we
-		run into many complicated technical barriers, but there was also much heated
-		debate about exactly what a template engine should and should not do. From
-		this experience, we decided that the template engine should be written in PHP
-		as a class, for anyone to use as they see fit. So we wrote an engine that did
-		just that. "SmartTemplate" came to existance (note: this class was never
-		submitted to the public). It was a class that did almost everything we wanted:
-		regular variable substitution, supported including other templates, integration
-		with config files, embedding PHP code, limited 'if' statement functionality and
-		much more robust dynamic blocks which could be multiply nested. It did all this
-		with regular expressions and the code turned out to be rather, shall we say,
-		impenetrable. It was also noticably slow in large applications from all the
-		parsing and regular expression work it had to do on each invocation.
+		We started out writing out a spec for a template engine about a year
+		ago.  After finishing the spec, we began to work on a template engine
+		written in C that would hopefully be accepted for inclusion with PHP.
+		Not only did we run into many complicated technical barriers, but there
+		was also much heated debate about exactly what a template engine should
+		and should not do. From this experience, we decided that the template
+		engine should be written in PHP as a class, for anyone to use as they
+		see fit. So we wrote an engine that did just that and
+		<emphasis>SmartTemplate</emphasis> came into existence (note: this
+		class was never submitted to the public). It was a class that did
+		almost everything we wanted: regular variable substitution, supported
+		including other templates, integration with config files, embedding PHP
+		code, limited 'if' statement functionality and much more robust dynamic
+		blocks which could be multiply nested. It did all this with regular
+		expressions and the code turned out to be rather, shall we say,
+		impenetrable. It was also noticably slow in large applications from all
+		the parsing and regular expression work it had to do on each
+		invocation. But the main problem from programmer's point of view was
+		that you had to do a lot of work in the PHP script to setup and process
+		templates and dynamic blocks especially.
 		</para>
 		<para>
-		Then came the vision of what ultimately became Smarty. We know how fast PHP
-		code is without the overhead of template parsing. We also know how meticulous
-		and overbearing the language may look to the average designer, and this could
-		be masked with a much simpler templating syntax. So what if we combined the two
-		strengths? Thus, Smarty was born...
+		Then came the vision of what ultimately became Smarty. We know how fast
+		PHP code is without the overhead of template parsing. We also know how
+		meticulous and overbearing the PHP language may look to the average
+		designer, and this could be masked with a much simpler templating
+		syntax. So what if we combined the two strengths? Thus, Smarty was
+		born...
 		</para>
 	<sect1><title>What is Smarty?</title>
 		<para>
 		Smarty is a template engine for PHP. One of the unique aspects about
 		Smarty that sets it apart from other templating solutions is that it
-		compiles the templates into native php scripts upon the first
+		compiles the templates into native PHP scripts upon the first
 		invocation. After that, it merely executes the compiled PHP scripts.
 		Therefore, there is no costly template file parsing for each request.
 		</para>
@@ -80,34 +88,36 @@
 		</para>
 		<itemizedlist>
 		<listitem><para>It is extremely fast.</para></listitem>
-		<listitem><para>It is relatively simple since the PHP parser does the
+		<listitem><para>It is efficient since the PHP parser does the
 			dirty work.</para></listitem>
 		<listitem><para>No template parsing overhead, only compiles once.</para></listitem>
 		<listitem><para>It is smart about recompiling only the template
 			files that have changed.</para></listitem>
-		<listitem><para>You can make custom functions and custom variable modifiers, so
-			the template language is extremely extensible.</para></listitem>
+		<listitem><para>You can make <link linkend="custom.functions">custom
+			functions</link> and custom <link linkend="variable.modifiers">variable
+			modifiers</link>, so the template language is extremely extensible.</para></listitem>
 		<listitem><para>Configurable template delimiter tag syntax, so you can use
 			{}, {{}}, &lt;!--{}--&gt;, or whatever you like.</para></listitem>
-		<listitem><para>Template if/else/endif constructs are passed to the PHP parser,
-			so the if syntax can be as simple or as complex as you like.</para></listitem>
-		<listitem><para>Unlimited nesting of sections,ifs, etc. allowed.</para></listitem>
-		<listitem><para>It is possible to imbed PHP code right in your template files,
-			although doubtfully needed since the engine is so customizable.</para></listitem>
+		<listitem><para>The if/elseif/else/endif constructs are passed to the
+			PHP parser, so the if expression syntax can be as simple or as complex
+			as you like.</para></listitem>
+		<listitem><para>Unlimited nesting of sections, ifs, etc. allowed.</para></listitem>
+		<listitem><para>It is possible to embed PHP code right in your template files,
+			although this may not be needed since the engine is so customizable.</para></listitem>
 		</itemizedlist>
 	</sect1>
 	<sect1>
 		<title>How Smarty works</title>
-		<sect2><title>compiling</title>
+		<sect2><title>Compiling</title>
 			<para>
 			Smarty compiles the templates into native PHP code on-the-fly. The actual
 			PHP scripts that are generated are created implicitly, so theoretically you
 			should never have to worry about touching these files, or even know of their
-			existance. The exception to this is debugging Smarty template syntax errors,
+			existence. The exception to this is debugging Smarty template syntax errors,
 			discussed later in this document.
 			</para>
 		</sect2>
-		<sect2><title>caching</title>
+		<sect2><title>Caching</title>
 		<para>
 			Our initial intention was to build caching into Smarty. However,
 			since the template engine is actually executing PHP scripts instead of
@@ -122,31 +132,32 @@
 	<sect1>
 		<title>Requirements</title>
 		<para>
-		Smarty requires PHP 4.0.4pl1 or later. 4.0.4 contains a bug that
-		crashes PHP when certain Smarty features are used (such as the @count modifier).
-		4.0.3 and earlier contain a bug in preg_grep() that won't allow the parser to
-		function properly. We may make some adjusments to work around these
-		issues in future versions of Smarty. For now, get the very latest version of PHP.
-		As of this writing, 4.0.4pl1 is not yet available, so a CVS snapshot is necessary.
+		Smarty requires PHP 4. 4.0.4 contains a bug that crashes PHP when
+		certain Smarty features are used (such as the @count modifier). 4.0.3
+		and earlier contain a bug in preg_grep() that won't allow the parser to
+		function properly, so to preserve performance Smarty will automatically
+		use built-in preg_grep() when it can and use en emulated version of it
+		otherwise.
 		</para>
 	</sect1>
 	<sect1>
 		<title>Installing Smarty</title>
 		<para>
-		Installing Smarty is fairly straight forward, there is just one thing you must
-		be aware of. Remember that Smarty creates compiled versions of the template code.
-		This usually means allowing user "nobody" (or whomever the web server runs
-		as) to have permission to write the files. Each installation of a Smarty
-		application minimally needs a template directory, a config file directory and a compiled
-		template directory. By default these are named "templates","configs" and "templates_c"
-		respectively.
+		Installing Smarty is fairly straightforward, there is just one thing you
+		must be aware of. Remember that Smarty creates compiled versions of the
+		template code.  This usually means allowing user "nobody" (or whomever
+		the web server runs as) to have permission to write the files. Each
+		installation of a Smarty application minimally needs a templates
+		directory and a compiled templates directory. If you use configuration
+		files you will also need a directory for those. By default these are
+		named "templates", and "templates_c" and "configs" respectively.
 		</para>
 		<para>
-		Copy the Smarty.class.php and Smarty.addons.php scripts to a
-		directory that is in your PHP include_path. NOTE: php will try to create a
-		directory along side the index.php script called "templates_c". Be sure
-		that directory permissions allow this to happen. You will see appropriate
-		error messages if this fails. You can also create the directory yourself
+		Copy the Smarty.class.php and Smarty.addons.php scripts to a directory
+		that is in your PHP include_path. NOTE: PHP will try to create a
+		directory alongside the executing script called "templates_c". Be sure
+		that directory permissions allow this to happen. You will see PHP error
+		messages if this fails. You can also create the directory yourself
 		before hand, and change the file ownership accordingly. See below.
 		</para>
 		<example>
@@ -157,7 +168,7 @@
 # this assumes your web server runs as user "nobody"
 # and you are in a unix environment
 gtar -zxvf Smarty-1.0.tar.gz
-touch templates_c
+mkdir templates_c
 chown nobody:nobody templates_c
 </programlisting>
 		</example>
@@ -179,31 +190,36 @@ chown nobody:nobody templates_c
 		<sect2>
 			<title>$compile_check</title>
 			<para>
-				Upon each invocation of the PHP application, Smarty traverses all the template
-				files and searches for any that have changed (later datestamp) since the last time the
-				application was invoked. For each one that has changed, it recompiles that
-				template. By default this is set to true. The compile check has very
-				minimal impact on the application performance. However, once an application
-				is put into production and it is initially compiled, the compile_check step
-				is no longer needed. You may set this to "false" *after* the initial compile. Then
-				Smarty will no longer check for changed template files. Note that if you change
-				this to "false" and a template file is changed, you will *not* see the change since
-				the template will not get recompiled. Set it to "true", invoke the application,
+				Upon each invocation of the PHP application, Smarty recursively
+				traverses the template directory and its subdirectories and
+				searches for all the files with the template extension that have
+				changed (later time stamp) since the last time they were
+				compiled. For each one that has changed, it recompiles that
+				template. By default this variable is set to true. The compile
+				check has very minimal impact on the application performance.
+				However, once an application is put into production and it is
+				initially compiled, the compile_check step is no longer needed.
+				You may set this to "false" *after* the initial compile. Then
+				Smarty will no longer check for changed template files. Note
+				that if you change this to "false" and a template file is
+				changed, you will *not* see the change since the template will
+				not get recompiled. Set it to "true", invoke the application,
 				then set it back to "false".
 			</para>
 		</sect2>
 		<sect2>
 			<title>$template_dir</title>
 			<para>
-				This is the directory name that template files are kept in.
+				This is the directory where template files are located.
 			</para>
 		</sect2>		
 		<sect2>
 			<title>$compile_dir_ext</title>
 			<para>
-				This is the extension used for the name of the directory that compiled templates
-				are kept in. By default this is "_c". Therefore if your template directory is
-				named "templates", then the compile directory will be named "templates_c".
+				This is the extension used for the name of the directory where
+				compiled templates are located. By default this is "_c".
+				Therefore if your template directory is named "templates", then
+				the compiled templates directory will be named "templates_c".
 			</para>
 		</sect2>
 		<sect2>
@@ -214,32 +230,24 @@ chown nobody:nobody templates_c
 			</para>
 		</sect2>
 		<sect2>
-			<title>$max_recursion_depth</title>
-			<para>
-				This is the maximum depth you can include other templates within templates.
-				This is to help catch infinite loops when template files accidentally include
-				each other.
-			</para>
-		</sect2>
-		<sect2>
 			<title>$allow_php</title>
 			<para>
-				Whether or not to allow PHP code to be imbedded into the
-				templates. If set to false, PHP code is escaped and not interpreted. Imbedding
-				PHP code into templates is highly discouraged. Use custom functions or modifiers
-				instead. Default is "false".
+				Whether or not to allow PHP code in the templates. If set to
+				false, PHP code is escaped and not interpreted. Embedding PHP
+				code into templates is highly discouraged. Use custom functions
+				or modifiers instead. Default is "false".
 			</para>
 		</sect2>
 		<sect2>
 			<title>$left_delimiter</title>
 			<para>
-				This is the left delimiter syntax in the templates. Default is "{".
+				This is the left delimiter used by the template language. Default is "{".
 			</para>
 		</sect2>
 		<sect2>
 			<title>$right_delimiter</title>
 			<para>
-				This is the right delimiter syntax in the templates. Default is "}".			
+				This is the right delimiter used by the template language. Default is "}".			
 			</para>
 		</sect2>
 		<sect2>
@@ -1087,7 +1095,7 @@ OUTPUT:
 		</para>
 		</sect2>
 	</sect1>
-	<sect1>
+	<sect1 id="custom.functions">
 		<title>Custom Functions</title>
 		<para>
 		Custom functions in Smarty work much the same as the built-in functions
@@ -1273,7 +1281,7 @@ OUTPUT:
 			</para>
 		</sect2>
 	</sect1>
-	<sect1>
+	<sect1 id="variable.modifiers">
 		<title>Variable Modifiers</title>
 		<para>
 		Variable modifiers are a bit different than custom functions.

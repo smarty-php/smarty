@@ -30,9 +30,6 @@ class Smarty
 	
 	var $tpl_file_ext			=	".tpl";	// template file extentions
 	
-	var $max_recursion_depth	=	10;			// maximum recursion depth.
-												// this is to help catch infinite loops.
-												// 0 == unlimited recursion.
 	var $allow_php				=	false;		// whether or not to allow embedded php
 												// in the templates. By default, php tags
 												// are escaped.
@@ -206,12 +203,6 @@ class Smarty
 
 	function _traverse_files($tpl_dir, $depth)
 	{
-		// exit if recursion depth is met
-		if($this->max_recursion_depth != 0 && $depth >= $this->max_recursion_depth) {
-			$this->_set_error_msg("recursion depth of $depth reached on $tpl_dir/$curr_file. exiting.");
-			return false;
-		}
-
 		if(is_dir($tpl_dir)) {
 			if($tpl_dir)
 				$dir_handle = opendir($tpl_dir);
