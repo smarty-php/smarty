@@ -48,6 +48,7 @@
  */
 function smarty_function_mailto($params, &$smarty)
 {
+    $extra = '';
     extract($params);
 
     if (empty($address)) {
@@ -83,6 +84,7 @@ function smarty_function_mailto($params, &$smarty)
 		$mail_parms[] = 'followupto='.str_replace('%40','@',rawurlencode($followupto));
 	}
 	
+    $mail_parm_vals = '';
 	for ($i=0; $i<count($mail_parms); $i++) {
 		$mail_parm_vals .= (0==$i) ? '?' : '&';
 		$mail_parm_vals .= $mail_parms[$i];
