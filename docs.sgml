@@ -1602,7 +1602,7 @@ $smarty->display("index.tpl");
 			argument is the action, which will be one of 'read', 'write' and
 			'clear'. The second parameter is the smarty object. The third
 			parameter is the cached content. Upon a write, Smarty passed th
-			cached content in this paramters. Upon a 'read', Smarty expects
+			cached content in this parameters. Upon a 'read', Smarty expects
 			your function to pass this by reference and populate it with the
 			cached data. Upon a 'clear', pass a dummy variable here since it is
 			not used. The fourth parameter is the name of the template file
@@ -4456,7 +4456,7 @@ OUTPUT:
 6
 
 
-{* you can supply a format paramter in sprintf format *}
+{* you can supply a format parameter in sprintf format *}
 
 {math equation="x + y" x=4.4444 y=5.0000 format="%.2f"}
 

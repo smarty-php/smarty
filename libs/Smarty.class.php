@@ -935,7 +935,7 @@ function _is_trusted($resource_type, $resource_name)
                     $_return = false;
 				}
 				$funcname = $this->default_template_handler_func;
-				$_return = $funcname($tpl_path, $template_source, $template_timestamp, $this);
+				$_return = $funcname($resource_type, $resource_name, $template_source, $template_timestamp, $this);
 			}			
 		}
 		
@@ -1100,15 +1100,15 @@ function _is_trusted($resource_type, $resource_name)
 \*======================================================================*/
     function _process_cached_inserts($results)
     {
-        if ($this->debugging) {
-            $debug_start_time = $this->_get_microtime();
-        }
 
         preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
                        $results, $match);
         list($cached_inserts, $insert_args) = $match;
 
         for ($i = 0; $i < count($cached_inserts); $i++) {
+        	if ($this->debugging) {
+            	$debug_start_time = $this->_get_microtime();
+        	}
 
             $args = unserialize($insert_args[$i]);
 
