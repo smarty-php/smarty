@@ -578,9 +578,8 @@ class Smarty
                 }
             }
         } else {
-            if ($tpl_var != '') {
+            if ($tpl_var != '')
                 $this->_tpl_vars[$tpl_var] = $value;
-			}
         }
     }
 
@@ -602,18 +601,21 @@ class Smarty
      * @param array|string $tpl_var the template variable name(s)
      * @param mixed $value the value to append
      */    
-    function append($tpl_var, $value = null)
+    function append($tpl_var, $value=null, $merge=false)
     {
         if (is_array($tpl_var)) {
-            foreach ($tpl_var as $key => $val) {
-                if ($key != '') {
-					if(!@is_array($this->_tpl_vars[$key])) {
-						settype($this->_tpl_vars[$key],'array');
+			// $tpl_var is an array, ignore $value
+            foreach ($tpl_var as $_key => $_val) {
+                if ($_key != '') {
+					if(!@is_array($this->_tpl_vars[$_key])) {
+						settype($this->_tpl_vars[$_key],'array');
 					}
-					if(@is_array($val)) {
-                    	$this->_tpl_vars[$key] = array_merge($this->_tpl_vars[$key],$val);
+					if($merge && is_array($_val)) {
+						foreach($_val as $_mkey => $_mval) {
+							$this->_tpl_vars[$_key][$_mkey] = $_mval;
+						}
 					} else {
-                    	$this->_tpl_vars[$key][] = $val;
+						$this->_tpl_vars[$_key][] = $_val;
 					}
                 }
             }
@@ -622,10 +624,12 @@ class Smarty
 				if(!@is_array($this->_tpl_vars[$tpl_var])) {
 					settype($this->_tpl_vars[$tpl_var],'array');
 				}
-				if(@is_array($value)) {
-                    $this->_tpl_vars[$tpl_var] = array_merge($this->_tpl_vars[$tpl_var],$value);
+				if($merge && is_array($value)) {
+					foreach($value as $_mkey => $_mval) {
+						$this->_tpl_vars[$tpl_var][$_mkey] = $_mval;
+					}
 				} else {
-                	$this->_tpl_vars[$tpl_var][] = $value;
+					$this->_tpl_vars[$tpl_var][] = $value;
 				}
             }
         }
@@ -637,13 +641,19 @@ class Smarty
      * @param string $tpl_var the template variable name
      * @param mixed $value the referenced value to append
      */    
-    function append_by_ref($tpl_var, &$value)
+    function append_by_ref($tpl_var, &$value, $merge=false)
     {
         if ($tpl_var != '' && isset($value)) {
 			if(!@is_array($this->_tpl_vars[$tpl_var])) {
-				settype($this->_tpl_vars[$tpl_var],'array');
+			 settype($this->_tpl_vars[$tpl_var],'array');
 			}
-            $this->_tpl_vars[$tpl_var][] = &$value;
+			if ($merge && is_array($value)) {
+				foreach($value as $_key => $_val) {
+					$this->_tpl_vars[$tpl_var][$_key] = &$value[$_key];
+				}
+			} else {
+				$this->_tpl_vars[$tpl_var][] = &$value;
+			}
         }
     }
 
