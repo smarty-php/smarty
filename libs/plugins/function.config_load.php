@@ -105,7 +105,7 @@ function smarty_function_config_load($params, &$smarty)
         }
 
         if ($smarty->caching) {
-            $smarty->_cache_info['config'][] = $_file;
+            $smarty->_cache_info['config'][$_file] = true;
         }
 
         $smarty->_config[0]['vars'] = @array_merge($smarty->_config[0]['vars'], $_config_vars);

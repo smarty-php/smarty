@@ -1150,7 +1150,7 @@ class Smarty
 				'tpl_file' => $tpl_file,
 				'cache_id' => $cache_id,
 				'compile_id' => $compile_id,
-				'results' => $_smarty_results
+				'results' => null
 			);
             if ($this->_execute_core_function('read_cache_file', $_params)) {
 				$_smarty_results = $_params['results'];
@@ -1192,7 +1192,7 @@ class Smarty
                     return $_smarty_results;
                 }
             } else {
-                $this->_cache_info['template'][] = $tpl_file;
+                $this->_cache_info['template'][$tpl_file] = true;
                 if ($this->cache_modified_check) {
                     header("Last-Modified: ".gmdate('D, d M Y H:i:s', time()).' GMT');
                 }

@@ -49,7 +49,7 @@ function smarty_core_smarty_include($params, &$this)
     }
 
     if ($this->caching) {
-        $this->_cache_info['template'][] = $params['smarty_include_tpl_file'];
+        $this->_cache_info['template'][$params['smarty_include_tpl_file']] = true;
     }
 }
 

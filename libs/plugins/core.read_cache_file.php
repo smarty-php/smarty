@@ -68,7 +68,7 @@ function smarty_core_read_cache_file(&$params, &$this)
     }
 
     if ($this->compile_check) {
-        foreach ($this->_cache_info['template'] as $_template_dep) {
+        foreach (array_keys($this->_cache_info['template']) as $_template_dep) {
 			$_params = array('tpl_path' => $_template_dep);
 			$this->_execute_core_function('fetch_template_info', $_params);
             if ($this->_cache_info['timestamp'] < $_params['template_timestamp']) {
@@ -78,7 +78,7 @@ function smarty_core_read_cache_file(&$params, &$this)
         }
 
         if (isset($this->_cache_info['config'])) {
-            foreach ($this->_cache_info['config'] as $config_dep) {
+            foreach (array_keys($this->_cache_info['config']) as $config_dep) {
                 if ($this->_cache_info['timestamp'] < filemtime($this->config_dir . DIRECTORY_SEPARATOR . $config_dep)) {
                     // config file has changed, regenerate cache
                     return false;
