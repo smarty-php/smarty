@@ -26,12 +26,14 @@ function smarty_modifier_escape($string, $esc_type = 'html')
 
 		case 'hex':
 			// escape every character into hex
+			return = '';
 			for ($x=0; $x < strlen($string); $x++) {
 				$return .= '%' . bin2hex($string[$x]);
 			}
 			return $return;
             
 		case 'hexentity':
+			return = '';
 			for ($x=0; $x < strlen($string); $x++) {
 				$return .= '&#x' . bin2hex($string[$x]) . ';';
 			}

@@ -1,3 +1,7 @@
+    - remove E_NOTICE warnings from debug.tpl,
+      escape modifier (Kanstantin, Monte)
+    - don't count non-ascii chars in count_words modifier
+      (Kanstantin, Monte)
     - clean up param calls to _parse_var and _parse_attrs (Monte)
     - define $template_source var, elude possible warning
       (Monte)
