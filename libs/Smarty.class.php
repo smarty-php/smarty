@@ -1138,8 +1138,8 @@ class Smarty
                && strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
             // enable debugging from URL
             $this->debugging = true;
-        }        
-        
+        }
+		
         if ($this->debugging) {
             // capture time for debugging info
 			$_params = array();
@@ -1212,8 +1212,8 @@ class Smarty
                     header("Last-Modified: ".gmdate('D, d M Y H:i:s', time()).' GMT');
                 }
             }
-        }
-
+        }		
+		
 		// load filters that are marked as autoload
         if (count($this->autoload_filters)) {
         	foreach ($this->autoload_filters as $_filter_type => $_filters) {
@@ -1454,7 +1454,7 @@ class Smarty
      * @return boolean
      */    
     function _compile_template($tpl_file, $template_source, &$template_compiled)
-    {
+    {		
         if(file_exists(SMARTY_DIR.$this->compiler_file)) {
             require_once SMARTY_DIR.$this->compiler_file;            
         } else {
@@ -1483,6 +1483,7 @@ class Smarty
         $smarty_compiler->_tpl_vars         = &$this->_tpl_vars;
         $smarty_compiler->default_modifiers = $this->default_modifiers;
         $smarty_compiler->compile_id        = $this->_compile_id;
+		$smarty_compiler->_config			= $this->_config;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled)) {
             return true;
@@ -1499,22 +1500,19 @@ class Smarty
      * @param array|null $map_array
      * @return string result of modifiers
      */
-    function _run_mod_handler()
-    {
-        $args = func_get_args();
-        list($modifier_name, $map_array) = array_splice($args, 0, 2);
-        list($func_name, $tpl_file, $tpl_line) =
-            $this->_plugins['modifier'][$modifier_name];
-        $var = $args[0];
+    function _run_mod_handler($_modifier_name, $_map_array, $_modifier_args)
+	{
+        $_func_name = $this->_plugins['modifier'][$_modifier_name][0];
+		$_var = $_modifier_args[0];
 
-        if ($map_array && is_array($var)) {
-            foreach ($var as $key => $val) {
-                $args[0] = $val;
-                $var[$key] = call_user_func_array($func_name, $args);
+        if ($_map_array && is_array($_var)) {
+            foreach ($_var as $_key => $_val) {
+                $_modifier_args[0] = $_val;
+                $_var[$_key] = call_user_func_array($_func_name, $_modifier_args);
             }
-            return $var;
+            return $_var;
         } else {
-            return call_user_func_array($func_name, $args);
+            return call_user_func_array($_func_name, $_modifier_args);
         }
     }
 
