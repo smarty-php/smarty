@@ -1,3 +1,9 @@
+2002-06-11  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php:
+    added support for subdir exclusion, deletion by full or partial cache_id and compile_id, change file format to urlencoded values instead of crc32
+
 2002-06-07  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php: fix bug with last_modified_check code
