@@ -1,3 +1,12 @@
+2004-08-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/core/core.write_file.php:
+      tempnam() seems to be borken on many installation.
+      
+      now we try tempnam first and if that fails we generate our own
+      temp-filename with uniqid()
+
 2004-08-23  Monte Ohrt  <monte@ispi.net>
 
     * libs/plugins/modifier.capitalize.php:
