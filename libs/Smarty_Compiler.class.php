@@ -228,8 +228,8 @@ class Smarty_Compiler extends Smarty {
 
         $this->_current_file = $resource_name;
         $this->_current_line_no = 1;
-        $ldq = preg_quote($this->left_delimiter, '!');
-        $rdq = preg_quote($this->right_delimiter, '!');
+        $ldq = preg_quote($this->left_delimiter, '~');
+        $rdq = preg_quote($this->right_delimiter, '~');
 
         // run template source through prefilter functions
         if (count($this->_plugins['prefilter']) > 0) {
