@@ -1,3 +1,6 @@
+    - handle embedded "$smarty.config.foo.tpl" correctly (Monte)
+    - add $smarty.config.varname variable for accessing config vars (Paul
+      Lockaby, Monte)
     - silence PHP warnings in function.fetch.php (Eduardo,
       Monte)
     - added get_config_vars(), same basic functionality as

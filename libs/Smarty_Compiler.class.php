@@ -1446,7 +1446,7 @@ class Smarty_Compiler extends Smarty {
     function _expand_quoted_text($var_expr)
     {
 		// if contains unescaped $, expand it
-		if(preg_match_all('%(?<!\\\\)\$(?:smarty(?:\.\w+)+|\w+(?:' . $this->_var_bracket_regexp . ')*)%', $var_expr, $match)) {
+		if(preg_match_all('%(?<!\\\\)\$(?:smarty(?:\.\w+){1,2}|\w+(?:' . $this->_var_bracket_regexp . ')*)%', $var_expr, $match)) {
 			rsort($match[0]);
 			reset($match[0]);
 			foreach($match[0] as $var) {
@@ -1768,6 +1768,14 @@ class Smarty_Compiler extends Smarty {
 			case 'const':
                 array_shift($indexes);
 				$compiled_ref = '(defined("' . substr($indexes[0],1) . '") ? ' . substr($indexes[0],1) . ' : null)';
+                break;
+
+            case 'config':
+                array_shift($indexes);
+                $name = substr($indexes[0], 1);
+                $compiled_ref = "\$this->_config[0]['vars']";
+                if ($name = substr($indexes[0], 1))
+                    $compiled_ref .= "['$name']";
                 break;
 
             default:
