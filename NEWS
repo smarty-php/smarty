@@ -1,3 +1,5 @@
+  - adjusted textformat to not output wrap chars after last para
+    (Monte)
   - use tempnam() instead of unqid() to create better temporary files in
     smarty_core_write_file() (xces, messju)
   - add 'mail' to escape modifier for safe display of e-mail
