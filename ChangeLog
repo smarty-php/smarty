@@ -24,6 +24,298 @@
     * docs/fr/programmers.sgml:
       fix special chars
 
+2003-05-19  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      speed up compiled templates, hardcode plugin filepaths instead of
+      recalculate at runtime
+
+2003-05-19  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      fixed example of {html_image}
+
+    * docs/designers.sgml:
+      fixed typo
+
+2003-05-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/plugins/core.read_cache_file.php
+      libs/plugins/core.smarty_include.php
+      libs/plugins/function.config_load.php:
+      fixed multiple redundant occurrences for 'config' and 'template' in
+      $smarty->_cache_info
+
+2003-05-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/core.create_dir_structure.php:
+      refurbished create_dir_structure to use '/' internally
+
+    * libs/plugins/core.create_dir_structure.php:
+      fixed windows absolute-paths in smarty_core_create_dir_structure()
+
+    * libs/plugins/core.create_dir_structure.php:
+      fixed error-message
+
+2003-05-09  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      fixed warning due to missing param to _execute_core_function()
+
+    * libs/Smarty_Compiler.class.php:
+      fixed quoting in _compile_include_php
+
+    * libs/Smarty_Compiler.class.php:
+      fixed quoting of "file"-parameter in _compile_include_tag()
+
+2003-05-08  Monte Ohrt  <monte@ispi.net>
+
+    * docs/programmers.sgml:
+      fix typo
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/plugins/core.compile_template.php
+      libs/plugins/core.create_dir_structure.php
+      libs/plugins/core.fetch_template_info.php
+      libs/plugins/core.get_include_path.php
+      libs/plugins/core.get_microtime.php
+      libs/plugins/core.get_php_resource.php
+      libs/plugins/core.is_secure.php
+      libs/plugins/core.is_trusted.php
+      libs/plugins/core.load_plugins.php
+      libs/plugins/core.load_resource_plugin.php
+      libs/plugins/core.parse_file_path.php
+      libs/plugins/core.process_cached_inserts.php
+      libs/plugins/core.read_cache_file.php
+      libs/plugins/core.rm_auto.php
+      libs/plugins/core.rmdir.php
+      libs/plugins/core.run_insert_handler.php
+      libs/plugins/core.smarty_include.php
+      libs/plugins/core.smarty_include_php.php
+      libs/plugins/core.write_cache_file.php
+      libs/plugins/core.write_compiled_template.php
+      libs/plugins/core.write_file.php
+      libs/plugins/function.config_load.php
+      libs/plugins/function.fetch.php
+      libs/plugins/function.html_image.php:
+      abstract more private functions to plugin directory
+
+    * libs/Config_File.class.php:
+      only add DIRECTORY_SEPARATOR if it isn't already present
+
+    * libs/Config_File.class.php:
+      fix directory separator code, use DIRECTORY_SEPARATOR
+
+2003-05-08  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      fixed example of html_checkboxes
+
+    * NEWS
+      libs/Smarty.class.php:
+      fixed bug in _create_dir_structure() when used with
+      open_basedir-restriction and relative paths
+
+    * docs/designers.sgml:
+      fixed example for html_radios
+
+2003-05-07  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/plugins/core.assign_smarty_interface.php
+      libs/plugins/core.display_debug_console.php
+      libs/plugins/function.display_debug_console.php:
+      abstracted display_debug_console and assign_smarty_interface to plugin dir
+      as a test
+
+    * libs/Smarty.class.php
+      libs/plugins/function.display_debug_console.php:
+      correct misc varnames, abstract debug console display to plugin function
+
+    * libs/plugins/modifier.escape.php:
+      fix typo
+
+2003-05-05  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty_Compiler.class.php:
+      add % to math
+
+    * libs/Smarty.class.php:
+      clean up comments, formatting
+
+    * NEWS
+      libs/Smarty.class.php:
+      keep DIR_SEP for 3rd party compatability
+
+    * NEWS
+      libs/Smarty.class.php:
+      remove DIR_SEP, use DIRECTORY_SEPARATOR exclusively
+
+    * libs/Smarty_Compiler.class.php:
+      remove ++ and -- math operators on template vars
+
+2003-05-04  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      removed unused parameter $quote from Smarty_Compiler::_parse_attrs()
+
+    * libs/plugins/function.html_image.php:
+      fixed DIR_SEP in html_image-plugin
+
+2003-05-04  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty.class.php:
+      rename DIR_SEP to SMARTY_DIR_SEP to avoid varname collisions
+
+2003-05-04  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.html_image.php:
+      changed "link" to "href" in html_image. "link" is still working but
+      deprecated
+      html_image always renders an alt-tag now (default alt="")
+      cleaned up indentiation of function.html_image.php
+
+2003-05-03  Monte Ohrt  <monte@ispi.net>
+
+    * libs/debug.tpl:
+      fix typo
+
+2003-05-02  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.counter.php:
+      fixed assign attribute for multiple counters
+
+2003-05-02  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty_Compiler.class.php:
+      allow math on negative number
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      added simple math operators to variables
+
+2003-05-02  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      fixed typos
+
+2003-04-30  Monte Ohrt  <monte@ispi.net>
+
+    * docs/fr/appendixes.sgml
+      docs/fr/common.dsl
+      docs/fr/designers.sgml
+      docs/fr/getting-started.sgml
+      docs/fr/html-common.dsl
+      docs/fr/html.dsl
+      docs/fr/manual.sgml
+      docs/fr/php.dsl
+      docs/fr/preface.sgml
+      docs/fr/programmers.sgml:
+      add frech docs to cvs repository
+
+2003-04-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      reverted patch for case-insensitive tag-names
+
+2003-04-28  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/programmers.sgml:
+      reverted back to humerous redundancy in the docs :). although we all
+      know we are here to generate template-based output, and not to have
+      fun ;-)
+
+    * docs/getting-started.sgml:
+      fixed default user and group for max os x installation
+
+    * libs/Smarty.class.php:
+      made $function[2] and $function[3] options for register_resource
+
+    * libs/Smarty.class.php:
+      fixed issue with object-callback when fetching a php-resource
+
+    * NEWS
+      libs/Smarty.class.php:
+      enabled array(&$obj. 'source', 'timestamp', 'secure', 'trusted') as
+      callback for register_resource()
+      
+      enabled array(&$obj, 'method') as callback for
+      $default_template_handler_func
+
+2003-04-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      fixed some typos, thank to mehdi
+
+    * libs/plugins/function.counter.php:
+      prevent assign from overruling print-attribute in function.counter.php
+
+    * libs/plugins/function.counter.php:
+      fixed problem with counter and assign
+
+    * libs/Smarty.class.php:
+      fixed notice in  _load_plugins()
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      made plugin-names case-insensitive. this affects
+      compiler/block/custom-functions and modifers.
+
+2003-04-26  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      remove unnecessary close/open tags from compiled templates
+
+2003-04-26  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      added documentation for foreach.property.*
+
+2003-04-24  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      fixed example table_attr and tr_attr in html_table-example
+
+2003-04-21  Greg Beaver  <greg@chiaraquartet.net>
+
+    * libs/Smarty.class.php:
+      fixed small bug in doc comments
+
+2003-04-21  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.html_image.php:
+      fixed errornous creation of '//' in image_path in html_image
+
+2003-04-21  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/modifier.debug_print_var.php:
+      fix htmlspecialchars() conflict
+
+    * NEWS
+      libs/plugins/modifier.debug_print_var.php:
+      fix escapement of special chars in key values of debug console
+
+    * NEWS
+      libs/plugins/function.config_load.php:
+      fixed debug timing logic for config_load
+
+    * docs/designers.sgml:
+      fix example text
+
+
 2003-04-20  Greg Beaver <cellog@users.sourceforge.net>
     * plugins/*
       Smarty.class.php
