@@ -401,10 +401,10 @@ class Smarty_Compiler extends Smarty {
                    "if (!is_object(\$GLOBALS['_smarty_conf_obj']) || get_class(\$GLOBALS['_smarty_conf_obj']) != 'config_file') {\n" .
                    "    \$GLOBALS['_smarty_conf_obj'] = new Config_File('".$this->config_dir."');\n" .
                    "}\n" .
-                   "\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
+                   "\$GLOBALS['_smarty_config'] = array_merge((array)\$GLOBALS['_smarty_config'], \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
 
         if (!empty($attrs['section']))
-            $output .= '$_smarty_config = array_merge((array)$_smarty_config, $GLOBALS[\'_smarty_conf_obj\']->get('.$attrs['file'].', '.$attrs['section'].')); ';
+            $output .= '$GLOBALS[\'_smarty_config\'] = array_merge((array)$GLOBALS[\'_smarty_config\'], $GLOBALS[\'_smarty_conf_obj\']->get('.$attrs['file'].', '.$attrs['section'].')); ';
 
         $output .= '?>';
 
@@ -841,7 +841,7 @@ class Smarty_Compiler extends Smarty {
 
         $var_name = substr($var_ref, 1, -1);
 
-        $output = "\$_smarty_config['$var_name']";
+        $output = "\$GLOBALS['_smarty_config']['$var_name']";
 
         $this->_parse_modifiers($output, $modifiers);
 
