@@ -489,10 +489,10 @@ class Smarty_Compiler extends Smarty {
 		
         if (!empty($attrs['assign'])) {
 			$output = "<?php ob_start();\n";
-			$output .= "include('" . $resource_name . "');\n";
+			$output .= 'include("' . $resource_name . '");'."\n";
 			$output .= "\$this->assign(" . $this->_dequote($attrs['assign']).", ob_get_contents()); ob_end_clean();\n?>";
 		} else {
-        	$output =  "<?php include('" . $resource_name . "'); ?>";
+        	$output =  '<?php include("' . $resource_name . '"); ?>';
 		}
 
 		return $output;

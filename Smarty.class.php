@@ -1120,10 +1120,10 @@ function _is_trusted($resource_type, $resource_name)
                 $this->_parse_file_path($this->trusted_dir, $this->_dequote($args['script']), $resource_type, $resource_name);
                 if ($this->security) {
                     if( $resource_type != 'file' || !@is_file($resource_name)) {
-                        $this->_syntax_error("include_php: $resource_type: $resource_name is not readable");                return false;
+                        $this->_syntax_error("insert: $resource_type: $resource_name is not readable");                return false;
                     }
                     if (!$this->_is_trusted($resource_type, $resource_name)) {
-                        $this->_syntax_error("include_php: $resource_type: $resource_name is not trusted");
+                        $this->_syntax_error("insert: $resource_type: $resource_name is not trusted");
                         return false;
                     }
                 }
@@ -1166,10 +1166,10 @@ function _run_insert_handler($args)
             $this->_parse_file_path($this->trusted_dir, $this->_dequote($args['script']), $resource_type, $resource_name);
             if ($this->security) {
                 if( $resource_type != 'file' || !@is_file($resource_name)) {
-                    $this->_syntax_error("include_php: $resource_type: $resource_name is not readable");                return false;
+                    $this->_syntax_error("insert: $resource_type: $resource_name is not readable");                return false;
                 }
                 if (!$this->_is_trusted($resource_type, $resource_name)) {
-                    $this->_syntax_error("include_php: $resource_type: $resource_name is not trusted");
+                    $this->_syntax_error("insert: $resource_type: $resource_name is not trusted");
                     return false;
                 }
             }
