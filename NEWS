@@ -1,3 +1,4 @@
+  - fix handling of comments inside {php}- and {literal}-blocks (messju)
   - fix bug handling triple-quotes in config-files (BRDude, messju)
   - change default of request_use_auto_globals to true - $_SERVER is
     now preferred over $HTTP_SERVER_VARS (messju)
