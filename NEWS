@@ -1,3 +1,4 @@
+  - remove cast of object to array in foreach's from-attribute (messju)
   - add "null" as a valid token for {if} when security is enabled (messju)
   - add javascript_charcode encoding option to mailto function
     (monte)
