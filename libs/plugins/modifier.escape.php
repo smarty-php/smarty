@@ -59,6 +59,10 @@ function smarty_modifier_escape($string, $esc_type = 'html')
         case 'javascript':
             // escape quotes and backslashes and newlines
             return strtr($string, array('\\'=>'\\\\',"'"=>"\\'",'"'=>'\\"',"\r"=>'\\r',"\n"=>'\\n'));
+            
+        case 'mail':
+            // safe way to display e-mail address on a web page
+            return str_replace(array('@', '.'),array(' [AT] ', ' [DOT] '),$string);
 
         default:
             return $string;

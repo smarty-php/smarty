@@ -1,3 +1,6 @@
+  - add 'mail' to escape modifier for safe display of e-mail
+    addresses (Monte)
+  - add cycle function attribute "reset" to english docs (Monte)
   - enhanced support of numeric constants as variable-expressions (messju)
   - add case decentity to smarty_modifier_escape() (Konstantin A. Pelepelin,
     messju)
