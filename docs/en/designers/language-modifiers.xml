@@ -12,8 +12,9 @@
      <example>
       <title>modifier example</title>
       <programlisting>
+<![CDATA[
 {* Uppercase the title *}
-&lt;h2&gt;{$title|upper}&lt;/h2&gt;
+<h2>{$title|upper}</h2>
 
 {* Truncate the topic to 40 characters use ... at the end *}
 Topic: {$topic|truncate:40:"..."}
@@ -22,7 +23,9 @@ Topic: {$topic|truncate:40:"..."}
 {"now"|date_format:"%Y/%m/%d"}
 
 {* apply modifier to a custom function *}
-{mailto|upper address="me@domain.dom"}</programlisting>
+{mailto|upper address="me@domain.dom"}
+]]>
+      </programlisting>
      </example>
      <para>
       If you apply a modifier to an array variable instead of a single value variable,
@@ -61,23 +64,36 @@ Topic: {$topic|truncate:40:"..."}
        </para>
        <example>
         <title>capitalize</title>
-        <programlisting>
-index.php:
+        <programlisting role="php">
+<![CDATA[
+<?php
 
 $smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'Police begin campaign to rundown jaywalkers.');
-$smarty-&gt;display('index.tpl');
+$smarty->assign('articleTitle', 'Police begin campaign to rundown jaywalkers.');
+$smarty->display('index.tpl');
 
-index.tpl:
-
+?>
+]]>
+        </programlisting>
+        <para>
+         Where index.tpl is:
+        </para>
+        <programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|capitalize}
-
-OUTPUT:
-
+]]>
+        </programlisting>
+        <para>
+         This will output:
+        </para>
+        <screen>
+<![CDATA[
 Police begin campaign to rundown jaywalkers.
-Police Begin Campaign To Rundown Jaywalkers.</programlisting>
-</example>
+Police Begin Campaign To Rundown Jaywalkers.
+]]>
+        </screen>
+       </example>
 		</sect1>
 		<sect1 id="language.modifier.count.characters">
 			<title>count_characters</title>
@@ -112,26 +128,40 @@ Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 			<para>
 			This is used to count the number of characters in a variable.
 			</para>
-<example>
-<title>count_characters</title>
-<programlisting>
-index.php:
+   <example>
+    <title>count_characters</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
 
 $smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'Cold Wave Linked to Temperatures.');
-$smarty-&gt;display('index.tpl');
+$smarty->assign('articleTitle', 'Cold Wave Linked to Temperatures.');
+$smarty->display('index.tpl');
 
-index.tpl:
-
+?>
+]]>
+    </programlisting>
+    <para>
+     Where index.tpl is:
+    </para>
+    <programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|count_characters}
 {$articleTitle|count_characters:true}
-OUTPUT:
-
+]]>
+    </programlisting>
+    <para>
+     This will output:
+    </para>
+    <screen>
+<![CDATA[
 Cold Wave Linked to Temperatures.
 29
-33</programlisting>
-</example>
+33
+]]>
+    </screen>
+   </example>
 		</sect1>
 		<sect1 id="language.modifier.cat">
 			<title>cat</title>

@@ -707,31 +707,40 @@ OUTPUT: (both examples)
 				image tags static for optimal performance.
             	</para>
 			</note>
-<example>
-<title>html_image</title>
-<programlisting>
-index.php:
+   <example>
+    <title>html_image example</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;display('index.tpl');
+$smarty->display('index.tpl');
 
-index.tpl:
-
+?>
+]]>
+    </programlisting>
+    <para>
+     where index.tpl is:
+    </para>
+    <programlisting>
+<![CDATA[
 {html_image file="pumpkin.jpg"}
 {html_image file="/path/from/docroot/pumpkin.jpg"}
 {html_image file="../path/relative/to/currdir/pumpkin.jpg"}
-
-OUTPUT: (possible)
-
-&lt;img src="pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;
-&lt;img src="/path/from/docroot/pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;
-&lt;img src="../path/relative/to/currdir/pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;</programlisting>
-
-
-
-
-</example>
+]]>
+    </programlisting>
+    <para>
+     a possible output would be:
+    </para>
+    <screen>
+<![CDATA[
+<img src="pumpkin.jpg" alt="" border="0" width="44" height="68" />
+<img src="/path/from/docroot/pumpkin.jpg" alt="" border="0" width="44" height="68" />
+<img src="../path/relative/to/currdir/pumpkin.jpg" alt="" border="0" width="44" height="68" />
+]]>
+    </screen>
+   </example>
 		</sect1>
 		<sect1 id="language.function.html.options">
 			<title>html_options</title>
