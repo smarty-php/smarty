@@ -1085,10 +1085,10 @@ print_r($config_vars);
 <programlisting role="php">
 <![CDATA[
 <?php
-function smarty_block_foo($params, &$smarty) {
+function smarty_block_foo($params, &amp;$smarty) {
 	if (isset[$params['object']]) {
 		// get reference to registered object
-   		$obj_ref = &$smarty->&get_registered_object($params['object']);
+   		$obj_ref = &amp;$smarty->&get_registered_object($params['object']);
 		// use $obj_ref is now a reference to the object
 	}
 }
@@ -1224,11 +1224,11 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 			<para>
              The php-function callback <parameter>impl</parameter> can be either (a) a string
              containing the function name or (b) an array of the form
-             <literal>array(&$object, $method)</literal> with
-             <literal>&$object</literal> being a reference to an
+             <literal>array(&amp;$object, $method)</literal> with
+             <literal>&amp;$object</literal> being a reference to an
              object and <literal>$method</literal> being a string
              containing the mehod-name or (c) an array of the form
-             <literal>array(&$class, $method)</literal> with
+             <literal>array(&amp;$class, $method)</literal> with
              <literal>$class</literal> being a classname and
              <literal>$method</literal> being a class method of that
              class.
@@ -1243,7 +1243,7 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 <?php
 $smarty->register_block("translate", "do_translation");
 
-function do_translation ($params, $content, &$smarty, &$repeat) {
+function do_translation ($params, $content, &amp;$smarty, &amp;$repeat) {
     if (isset($content)) {
         $lang = $params['lang'];
         // do some translation with $content
@@ -1278,11 +1278,11 @@ function do_translation ($params, $content, &$smarty, &$repeat) {
 			<para>
                 The php-function callback <parameter>impl</parameter> can be either (a) a string
 		containing the function name or (b) an array of the form
-		<literal>array(&$object, $method)</literal> with
-		<literal>&$object</literal> being a reference to an
+		<literal>array(&amp;$object, $method)</literal> with
+		<literal>&amp;$object</literal> being a reference to an
 		object and <literal>$method</literal> being a string
 		containing the mehod-name or (c) an array of the form
-		<literal>array(&$class, $method)</literal> with
+		<literal>array(&amp;$class, $method)</literal> with
 		<literal>$class</literal> being a classname and
 		<literal>$method</literal> being a class method of that
 		class.
@@ -1312,11 +1312,11 @@ function do_translation ($params, $content, &$smarty, &$repeat) {
 			<para>
              The php-function callback <parameter>impl</parameter> can be either (a) a string
              containing the function name or (b) an array of the form
-	     <literal>array(&$object, $method)</literal> with
-             <literal>&$object</literal> being a reference to an
+	     <literal>array(&amp;$object, $method)</literal> with
+             <literal>&amp;$object</literal> being a reference to an
              object and <literal>$method</literal> being a string
              containing the mehod-name or (c) an array of the form
-             <literal>array(&$class, $method)</literal> with
+             <literal>array(&amp;$class, $method)</literal> with
              <literal>$class</literal> being a classname and
              <literal>$method</literal> being a class method of that
              class.
@@ -1363,11 +1363,11 @@ function print_current_date ($params) {
          <para>
 	  The php-function callback <parameter>impl</parameter> can be either (a) a string
 	  containing the function name or (b) an array of the form
-	  <literal>array(&$object, $method)</literal> with
-	  <literal>&$object</literal> being a reference to an
+	  <literal>array(&amp;$object, $method)</literal> with
+	  <literal>&amp;$object</literal> being a reference to an
 	  object and <literal>$method</literal> being a string
 	  containing the mehod-name or (c) an array of the form
-	  <literal>array(&$class, $method)</literal> with
+	  <literal>array(&amp;$class, $method)</literal> with
 	  <literal>$class</literal> being a classname and
 	  <literal>$method</literal> being a class method of that
 	  class.
@@ -1424,11 +1424,11 @@ $smarty->register_modifier("sslash","stripslashes");
                 <para>
                  The php-function callback <parameter>function</parameter> can be either (a) a string
                  containing the function name or (b) an array of the form
-                 <literal>array(&$object, $method)</literal> with
-                 <literal>&$object</literal> being a reference to an
+                 <literal>array(&amp;$object, $method)</literal> with
+                 <literal>&amp;$object</literal> being a reference to an
                  object and <literal>$method</literal> being a string
                  containing the mehod-name or (c) an array of the form
-                 <literal>array(&$class, $method)</literal> with
+                 <literal>array(&amp;$class, $method)</literal> with
                  <literal>$class</literal> being a classname and
                  <literal>$method</literal> being a class method of that
                  class.
@@ -1451,11 +1451,11 @@ $smarty->register_modifier("sslash","stripslashes");
             <para>
                 The php-function callback <parameter>function</parameter> can be either (a) a string
                 containing the function name or (b) an array of the form
-                <literal>array(&$object, $method)</literal> with
-                <literal>&$object</literal> being a reference to an
+                <literal>array(&amp;$object, $method)</literal> with
+                <literal>&amp;$object</literal> being a reference to an
                 object and <literal>$method</literal> being a string
                 containing the mehod-name or (c) an array of the form
-                <literal>array(&$class, $method)</literal> with
+                <literal>array(&amp;$class, $method)</literal> with
                 <literal>$class</literal> being a classname and
                 <literal>$method</literal> being a class method of that
                 class.
@@ -1478,11 +1478,11 @@ $smarty->register_modifier("sslash","stripslashes");
                         <para>
                 The php-function callback <parameter>function</parameter> can be either (a) a string
                 containing the function name or (b) an array of the form
-                <literal>array(&$object, $method)</literal> with
-                <literal>&$object</literal> being a reference to an
+                <literal>array(&amp;$object, $method)</literal> with
+                <literal>&amp;$object</literal> being a reference to an
                 object and <literal>$method</literal> being a string
                 containing the mehod-name or (c) an array of the form
-                <literal>array(&$class, $method)</literal> with
+                <literal>array(&amp;$class, $method)</literal> with
                 <literal>$class</literal> being a classname and
                 <literal>$method</literal> being a class method of that
                 class.
@@ -2077,7 +2077,7 @@ require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
 
-function remaining_seconds($params, &$smarty) {
+function remaining_seconds($params, &amp;$smarty) {
     $remain = $params['endtime'] - time();
     if ($remain >=0)
         return $remain . " second(s)";
@@ -2118,7 +2118,7 @@ require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
 
-function smarty_block_dynamic($param, $content, &$smarty) {
+function smarty_block_dynamic($param, $content, &amp;$smarty) {
     return $content;
 }
 $smarty->register_block('dynamic', 'smarty_block_dynamic', false);
@@ -2191,8 +2191,8 @@ When reloading the page you will notice that both dates differ. One is "dynamic"
 	parameters for block-function-plugins: They get 4 parameters
 	<parameter>$params</parameter>,
 	<parameter>$content</parameter>,
-	<parameter>&$smarty</parameter> and
-	<parameter>&$repeat</parameter> and they also behave like
+	<parameter>&amp;$smarty</parameter> and
+	<parameter>&amp;$repeat</parameter> and they also behave like
 	block-function-plugins.
 	</para>
     <example>
@@ -2203,7 +2203,7 @@ When reloading the page you will notice that both dates differ. One is "dynamic"
 // the object
 
 class My_Object {
-	function meth1($params, &$smarty_obj) {
+	function meth1($params, &amp;$smarty_obj) {
 		return "this is my meth1";
 	}
 }
@@ -2258,7 +2258,7 @@ the output was {$output}
 <![CDATA[
 <?php
 // put this in your application
-function remove_dw_comments($tpl_source, &$smarty)
+function remove_dw_comments($tpl_source, &amp;$smarty)
 {
     return preg_replace("/<!--#.*-->/U","",$tpl_source);
 }
@@ -2295,7 +2295,7 @@ $smarty->display("index.tpl");
 <![CDATA[
 <?php
 // put this in your application
-function add_header_comment($tpl_source, &$smarty)
+function add_header_comment($tpl_source, &amp;$smarty)
 {
     return "<?php echo \"<!-- Created by Smarty! -->;\n\" ?>;\n".$tpl_source;
 }
@@ -2339,7 +2339,7 @@ $smarty->display("index.tpl");
 <![CDATA[
 <?php
 // put this in your application
-function protect_email($tpl_output, &$smarty)
+function protect_email($tpl_output, &amp;$smarty)
 {
     $tpl_output =
        preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
@@ -2413,7 +2413,7 @@ CacheContents MEDIUMTEXT NOT NULL
 
 */
 
-function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
+function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
 {
 	// set db host, user and pass here
 	$db_host = 'localhost';
@@ -2606,7 +2606,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 <![CDATA[
 <?php
 // put these function somewhere in your application
-function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
+function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
 {
     // do database call here to fetch your template,
     // populating $tpl_source
@@ -2622,7 +2622,7 @@ function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
     }
 }
 
-function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
+function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
 {
     // do database call here to populate $tpl_timestamp.
     $sql = new SQL;
@@ -2637,13 +2637,13 @@ function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
     }
 }
 
-function db_get_secure($tpl_name, &$smarty_obj)
+function db_get_secure($tpl_name, &amp;$smarty_obj)
 {
     // assume all templates are secure
     return true;
 }
 
-function db_get_trusted($tpl_name, &$smarty_obj)
+function db_get_trusted($tpl_name, &amp;$smarty_obj)
 {
     // not used for templates
 }
@@ -2680,7 +2680,7 @@ $smarty->display("db:index.tpl");
 <?php
 // put this function somewhere in your application
 
-function make_template ($resource_type, $resource_name, &$template_source, &$template_timestamp, &$smarty_obj)
+function make_template ($resource_type, $resource_name, &amp;$template_source, &amp;$template_timestamp, &amp;$smarty_obj)
 {
 	if( $resource_type == 'file' ) {
 		if ( ! is_readable ( $resource_name )) {
@@ -2834,7 +2834,7 @@ require_once $smarty->_get_plugin_filepath('function', 'html_options');</program
      As a general rule, Smarty object is always passed to the plugins
      as the last parameter (with two exceptions: modifiers do not get
      passed the Smarty object at all and blocks get passed
-     <parameter>&$repeat</parameter> after the Smarty object to keep
+     <parameter>&amp;$repeat</parameter> after the Smarty object to keep
      backwards compatibility to older versions of Smarty).
     </para>
    </sect1>
@@ -2844,7 +2844,7 @@ require_once $smarty->_get_plugin_filepath('function', 'html_options');</program
      <funcprototype>
       <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -2883,7 +2883,7 @@ require_once $smarty->_get_plugin_filepath('function', 'html_options');</program
  * Purpose:  outputs a random magic answer
  * -------------------------------------------------------------
  */
-function smarty_function_eightball($params, &$smarty)
+function smarty_function_eightball($params, &amp;$smarty)
 {
     $answers = array('Yes',
                      'No',
@@ -2922,7 +2922,7 @@ Answer: {eightball}.
  * Purpose:  assign a value to a template variable
  * -------------------------------------------------------------
  */
-function smarty_function_assign($params, &$smarty)
+function smarty_function_assign($params, &amp;$smarty)
 {
     if (empty($params['var'])) {
         $smarty->trigger_error("assign: missing 'var' parameter");
@@ -3042,7 +3042,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
       <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>mixed <parameter>$content</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -3055,7 +3055,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     <para>
      By default your function implementation is called twice by
      Smarty: once for the opening tag, and once for the closing tag
-     (see <literal>&$repeat</literal> below how to change this).
+     (see <literal>&amp;$repeat</literal> below how to change this).
     </para>
     <para>
      Only the opening tag of the block function may have attributes. All
@@ -3076,7 +3076,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     </para>
 
     <para>
-     The parameter <parameter>&$repeat</parameter> is passed by
+     The parameter <parameter>&amp;$repeat</parameter> is passed by
      reference to the function implementation and provides a
      possibility for it to control how many times the block is
      displayed. By default <parameter>$repeat</parameter> is
@@ -3084,7 +3084,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
      (the block opening tag) and <literal>false</literal> on all
      subsequent calls to the block function (the block's closing tag).
      Each time the function implementation returns with
-     <parameter>&$repeat</parameter> being true, the contents between
+     <parameter>&amp;$repeat</parameter> being true, the contents between
      {func} .. {/func} are evaluated and the function implementation
      is called again with the new block contents in the parameter
      <parameter>$content</parameter>.
@@ -3116,7 +3116,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
  * Purpose:  translate a block of text
  * -------------------------------------------------------------
  */
-function smarty_block_translate($params, $content, &$smarty)
+function smarty_block_translate($params, $content, &amp;$smarty)
 {
     if (isset($content)) {
         $lang = $params['lang'];
@@ -3142,7 +3142,7 @@ function smarty_block_translate($params, $content, &$smarty)
      <funcprototype>
       <funcdef>mixed <function>smarty_compiler_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$tag_arg</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -3171,7 +3171,7 @@ function smarty_block_translate($params, $content, &$smarty)
  *           the time it was compiled.
  * -------------------------------------------------------------
  */
-function smarty_compiler_tplheader($tag_arg, &$smarty)
+function smarty_compiler_tplheader($tag_arg, &amp;$smarty)
 {
     return "\necho '" . $smarty->_current_file . " compiled at " . date('Y-m-d H:M'). "';";
 }
@@ -3209,7 +3209,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_prefilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$source</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -3223,7 +3223,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_postfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$compiled</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -3248,7 +3248,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Purpose:  Convert html tags to be lowercase.
  * -------------------------------------------------------------
  */
- function smarty_prefilter_pre01($source, &$smarty)
+ function smarty_prefilter_pre01($source, &amp;$smarty)
  {
      return preg_replace('!<(\w+)[^>]+>!e', 'strtolower("$1")', $source);
  }
@@ -3271,7 +3271,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Purpose:  Output code that lists all current template vars.
  * -------------------------------------------------------------
  */
- function smarty_postfilter_post01($compiled, &$smarty)
+ function smarty_postfilter_post01($compiled, &amp;$smarty)
  {
      $compiled = "<pre>\n<?php print_r(\$this->get_template_vars()); ?>\n</pre>" . $compiled;
      return $compiled;
@@ -3291,7 +3291,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$template_output</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -3315,7 +3315,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  *           a simple protection against spambots
  * -------------------------------------------------------------
  */
- function smarty_outputfilter_protect_email($output, &$smarty)
+ function smarty_outputfilter_protect_email($output, &amp;$smarty)
  {
      return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
                          '$1%40$2', $output);
@@ -3344,24 +3344,24 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>string <parameter>&$source</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>string <parameter>&amp;$source</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>int <parameter>&$timestamp</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
 
@@ -3417,7 +3417,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Purpose:  Fetches templates from a database
  * -------------------------------------------------------------
  */
-function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
+function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
 {
     // do database call here to fetch your template,
     // populating $tpl_source
@@ -3433,7 +3433,7 @@ function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
     }
 }
 
-function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
+function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty)
 {
     // do database call here to populate $tpl_timestamp.
     $sql = new SQL;
@@ -3448,13 +3448,13 @@ function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
     }
 }
 
-function smarty_resource_db_secure($tpl_name, &$smarty)
+function smarty_resource_db_secure($tpl_name, &amp;$smarty)
 {
     // assume all templates are secure
     return true;
 }
 
-function smarty_resource_db_trusted($tpl_name, &$smarty)
+function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
 {
     // not used for templates
 }
@@ -3474,7 +3474,7 @@ function smarty_resource_db_trusted($tpl_name, &$smarty)
      <funcprototype>
       <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -3500,7 +3500,7 @@ function smarty_resource_db_trusted($tpl_name, &$smarty)
  * Purpose:  Inserts current date/time according to format
  * -------------------------------------------------------------
  */
-function smarty_insert_time($params, &$smarty)
+function smarty_insert_time($params, &amp;$smarty)
 {
     if (empty($params['format'])) {
         $smarty->trigger_error("insert time: missing 'format' parameter");

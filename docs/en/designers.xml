@@ -57,17 +57,20 @@
     <example>
      <title>function syntax</title>
      <programlisting>
+<![CDATA[
 {config_load file="colors.conf"}
 
 {include file="header.tpl"}
 
 {if $highlight_name}
-	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
+    Welcome, <font color="{#fontColor#}">{$name}!</font>
 {else}
-	Welcome, {$name}!
+    Welcome, {$name}!
 {/if}
 
-{include file="footer.tpl"}</programlisting>
+{include file="footer.tpl"}
+]]>
+     </programlisting>
     </example>
     <para>
      Both built-in functions and custom functions have the same syntax in
@@ -1069,7 +1072,7 @@ index.tpl:
 
 {$articleTitle}
 {$articleTitle|escape}
-{$articleTitle|escape:"html"}    {* escapes  & &quot; &#039; &lt; &gt; *}
+{$articleTitle|escape:"html"}    {* escapes  &amp; &quot; &#039; &lt; &gt; *}
 {$articleTitle|escape:"htmlall"} {* escapes ALL html entities *}
 {$articleTitle|escape:"url"}
 {$articleTitle|escape:"quotes"}
@@ -1267,7 +1270,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{* replace each carriage return, tab & new line with a space *}
+{* replace each carriage return, tab &amp; new line with a space *}
 
 {$articleTitle}
 {$articleTitle|regex_replace:"/[\r\t\n]/":" "}
@@ -2480,7 +2483,7 @@ index.tpl
 			<emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> and
 			<emphasis>{elseif}</emphasis> are also permitted. All PHP conditionals
 			are recognized, such as <emphasis>||</emphasis>, <emphasis>or</emphasis>,
-            <emphasis>&&</emphasis>, <emphasis>and</emphasis>, etc.
+            <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>, etc.
 			</para>
 
 			<para>
@@ -3731,7 +3734,7 @@ index.tpl
 OUTPUT:
 
 This is the contents of foo.
-Welcome to Foobar Pub & Grill's home page!
+Welcome to Foobar Pub &amp; Grill's home page!
 You must supply a &lt;b&gt;city&lt;/b&gt;.
 You must supply a &lt;b&gt;state&lt;/b&gt;.
 
@@ -5325,8 +5328,7 @@ OUTPUT:
 9%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%64%6f%6d%
 61%69%6e%2e%63%6f%6d%22%20%3e%6d%65%40%64%6f%6d%61%69%6e%2e%63%6f%6d%3c%2f%61%3e
 %27%29%3b'))&lt;/script&gt;
-&lt;a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" &gt;&#x6d;&#x65;&#x40;&#x64;&
-#x6f;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;&lt;/a&gt;
+&lt;a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" &gt;&#x6d;&#x65;&#x40;&#x64;&#x6f;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;&lt;/a&gt;
 &lt;a href="mailto:me@domain.com?subject=Hello%20to%20you%21" &gt;me@domain.com&lt;/a&gt;
 &lt;a href="mailto:me@domain.com?cc=you@domain.com%2Cthey@domain.com" &gt;me@domain.com&lt;/a&gt;
 &lt;a href="mailto:me@domain.com" class="email"&gt;me@domain.com&lt;/a&gt;</programlisting>

@@ -58,7 +58,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
   </sect1>
  </chapter>
  <chapter id="tips">
-  <title>Tips & Tricks</title>
+  <title>Tips &amp; Tricks</title>
   <para>
   </para>
   <sect1 id="tips.blank.var.handling">
