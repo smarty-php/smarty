@@ -2205,10 +2205,12 @@ class Smarty_Compiler extends Smarty {
                 return $this->_pop_tag($close_tag);
             }
             if ($close_tag == 'section' && $_open_tag == 'sectionelse') {
-                return $this->_pop_tag($close_tag);
+                $this->_pop_tag($close_tag);
+                return $_open_tag;
             }
             if ($close_tag == 'foreach' && $_open_tag == 'foreachelse') {
-                return $this->_pop_tag($close_tag);
+                $this->_pop_tag($close_tag);
+                return $_open_tag;
             }
             if ($_open_tag == 'else' || $_open_tag == 'elseif') {
                 $_open_tag = 'if';
