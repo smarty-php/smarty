@@ -48,10 +48,13 @@ function smarty_function_html_options($params, &$smarty)
                 $$_key = (array)$_val;
                 break;
                 
-            case 'selected':
             case 'values':
             case 'output':
                 $$_key = array_values((array)$_val);
+                break;
+
+            case 'selected':
+                $$_key = array_map('strval', array_values((array)$_val));
                 break;
                 
             default:
@@ -95,7 +98,7 @@ function smarty_function_html_options_optoutput($key, $value, $selected) {
     if(!is_array($value)) {
         $_html_result = '<option label="' . smarty_function_escape_special_chars($value) . '" value="' .
             smarty_function_escape_special_chars($key) . '"';
-        if (in_array($key, $selected, true))
+        if (in_array((string)$key, $selected))
             $_html_result .= ' selected="selected"';
         $_html_result .= '>' . smarty_function_escape_special_chars($value) . '</option>' . "\n";
     } else {
