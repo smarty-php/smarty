@@ -8,6 +8,8 @@ docs/dsssl/html-common.dsl
 docs/entities/file-entities.ent
 docs/entities/version.ent
 docs/html
+docs/manual.fo
+docs/manual.pdf
 docs/manual.xml
 docs/phpweb
 docs/revcheck.html

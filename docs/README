@@ -15,6 +15,16 @@ MAKE:
  * make (to make plain html)
  * make web (to make docs for website)
 
+
+Generate PDF files
+==================
+In order to generate PDF files you need some tools:
+ * Apache FOP (http://xml.apache.org/fop/)
+ * JRE 1.2 or later
+
+To generate the file, just type 'make pdf'
+
+
 Revision Tracking (for translations):
  * make revcheck (this will create revcheck.html)
 

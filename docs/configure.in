@@ -171,6 +171,90 @@ AC_SUBST(NSGMLS)
 
 dnl }}}
 
+dnl {{{   check for xsltproc
+
+AC_ARG_WITH(xsltproc,
+[  --with-xsltproc=PATH    look for xsltproc],
+[
+  if test $withval != "yes"; then
+    AC_MSG_CHECKING([for xsltproc])
+    if test -x $withval -a -f $withval
+    then
+      XSLTPROC=$withval
+      AC_MSG_RESULT($XSLTPROC)
+    else
+      XSLTPROC=no
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR([$withval: not an executable file])
+    fi
+  else
+    if test -e ../../phpdoc-tools/libxml/xsltproc.exe ; then
+      AC_MSG_CHECKING([for xsltproc])
+      XSLTPROC=../../phpdoc-tools/libxml/xsltproc.exe
+      AC_MSG_RESULT($XSLTPROC)
+    else
+      AC_PATH_PROG(XSLTPROC,"xsltproc",no)
+    fi
+  fi
+],[
+  if test -e ../../phpdoc-tools/libxml/xsltproc.exe ; then
+    AC_MSG_CHECKING([for xsltproc])
+    XSLTPROC=../../phpdoc-tools/libxml/xsltproc.exe
+    AC_MSG_RESULT($XSLTPROC)
+  else
+    AC_PATH_PROG(XSLTPROC,"xsltproc",no)
+  fi
+]
+)
+if test $XSLTPROC = "no"; then
+  AC_MSG_WARN([no xsltproc binary found, XSL Transformations won't work])
+fi
+AC_SUBST(XSLTPROC)
+
+dnl }}}
+
+dnl {{{   check for FOP
+
+AC_ARG_WITH(fop,
+[  --with-fop=PATH    look for fop],
+[
+  if test $withval != "yes"; then
+    AC_MSG_CHECKING([for FOP])
+    if test -x $withval -a -f $withval
+    then
+      FOP=$withval
+      AC_MSG_RESULT($FOP)
+    else
+      FOP=no
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR([$withval: not an executable file])
+    fi
+  else
+    if test -e ../../phpdoc-tools/fop/fop.bat ; then
+      AC_MSG_CHECKING([for FOP])
+      FOP=../../phpdoc-tools/fop/fop.bat
+      AC_MSG_RESULT($FOP)
+    else
+      AC_PATH_PROG(FOP,"fop",no)
+    fi
+  fi
+],[
+  if test -e ../../phpdoc-tools/fop/fop.bat ; then
+    AC_MSG_CHECKING([for xsltproc])
+    FOP=../../phpdoc-tools/fop/fop.bat
+    AC_MSG_RESULT($FOP)
+  else
+    AC_PATH_PROG(FOP,"fop",no)
+  fi
+]
+)
+if test $FOP = "no"; then
+  AC_MSG_WARN([no fop binary found, PDF generation work])
+fi
+AC_SUBST(FOP)
+
+dnl }}}
+
 dnl }}}
 
 dnl {{{   check for catalog files
