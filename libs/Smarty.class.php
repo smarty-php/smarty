@@ -2041,22 +2041,25 @@ class Smarty
      */    
     function _write_file($filename, $contents, $create_dirs = false)
     {
-        if ($create_dirs)
-            $this->_create_dir_structure(dirname($filename));
+		$_dirname = dirname($filename);
+		
+        if ($create_dirs) {
+            $this->_create_dir_structure($_dirname);
+		}
 
-        if (!($fd = @fopen($filename, 'w'))) {
-            $this->trigger_error("problem writing '$filename.'");
+		// write to tmp file, then rename it to avoid
+		// file locking race condition
+		$_tmp_file = $_dirname . '/' . uniqid('');
+		
+        if (!($fd = @fopen($_tmp_file, 'w'))) {
+            $this->trigger_error("problem writing temporary file '$_tmp_file'");
             return false;
         }
 
-        // flock doesn't seem to work on several windows platforms (98, NT4, NT5, ?),
-        // so we'll not use it at all in windows.
-
-        if ( strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' || (flock($fd, LOCK_EX)) ) {
-            fwrite( $fd, $contents );
-            fclose($fd);
-            chmod($filename, $this->_file_perms);
-        }
+        fwrite($fd, $contents);
+        fclose($fd);
+		rename($_tmp_file, $filename);
+        chmod($filename, $this->_file_perms);
 
         return true;
     }
