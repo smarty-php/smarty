@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: didou Status: ready -->
 <part id="getting.started">
  <title>Pour commencer</title>
  
@@ -116,7 +116,7 @@ Smarty.class.php
 Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
-/core/*.php (tous)
+/internals/*.php (tous)
 /plugins/*.php (tous)
 ]]>
     </screen>   
@@ -171,7 +171,7 @@ $smarty = new Smarty;
    </example>
    
    <example>
-    <title>Ajouter le répertoire de la bibliothèque au chemin de php_include</title>
+    <title>Ajouter le répertoire de la bibliothèque dans l'include_path de PHP</title>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -261,7 +261,7 @@ $smarty = new Smarty;
 /usr/local/lib/php/Smarty/Smarty_Compiler.class.php
 /usr/local/lib/php/Smarty/Config_File.class.php
 /usr/local/lib/php/Smarty/debug.tpl
-/usr/local/lib/php/Smarty/core/*.php
+/usr/local/lib/php/Smarty/internals/*.php
 /usr/local/lib/php/Smarty/plugins/*.php
 
 /web/www.mydomain.com/smarty/livredor/templates/

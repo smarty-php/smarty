@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
 <sect1 id="language.escaping">
  <title>Désactiver l'analyse de Smarty</title>
  <para>
-  Il est quelques fois utile voir nécessaire de demander à Smarty d'ignorer certaines sections
-  que seraient analysées sinon. Un exemple classique est l'incorporation de code
-  Javascript ou CSS dans les templates. Le problème est que ces langages utilisent
-  les caractères { et }, qui sont aussi les délimiteurs Smarty par défaut.
+  Il est quelques fois utile, voir nécessaire, de demander à Smarty d'ignorer
+  certaines sections que seraient analysées sinon. Un exemple classique est 
+  l'incorporation de code Javascript ou CSS dans les templates. Le problème 
+  est que ces langages utilisent les caractères { et }, qui sont aussi les 
+  délimiteurs Smarty par défaut.
  </para>
  
  <para>
-  Le plus simple pour éviter une telle situation est de placer vos codes Javascript et CSS
-  dans des fichiers séparés, puis d'utiliser les méthodes standards HTML pour y accéder.
+  Le plus simple pour éviter une telle situation est de placer vos codes 
+  Javascript et CSS dans des fichiers séparés, puis d'utiliser les méthodes 
+  standards HTML pour y accéder.
  </para>
  
  <para>
@@ -20,7 +22,10 @@
   linkend="language.function.literal">{literal} .. {/literal}</link>.
   Similairement à l'utilisation d'entités HTML, vous pouvez utiliser <link
   linkend="language.function.ldelim">{ldelim}</link> et <link
-  linkend="language.function.ldelim">{rdelim}</link> pour afficher les délimiteurs.
+  linkend="language.function.ldelim">{rdelim}</link>, ou <link
+  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link> et <link
+  linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>pour 
+  afficher les délimiteurs.
  </para>
  
  <para>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <chapter id="chapter.debugging.console">
  <title>Console de débogage</title>
  <para>
@@ -18,7 +18,7 @@
   Vous pouvez également temporairement activer le débogage en indiquant
   SMARTY_DEBUG dans l'url si tant est que l'option
   <link linkend="variable.debugging.ctrl">$debugging_ctrl</link> soit activée.
-  </para>
+ </para>
   <note>
    <title>Note technique</title>
    <para>
