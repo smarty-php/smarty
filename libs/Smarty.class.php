@@ -1637,7 +1637,6 @@ class Smarty
                     $_resource_base_path = (array)$params['resource_base_path'];
                 } else {
                     $_resource_base_path = (array)$this->template_dir;
-                    $_resource_base_path[] = '.';
                 }
                 foreach ($_resource_base_path as $_curr_path) {
                     $_fullpath = $_curr_path . DIRECTORY_SEPARATOR . $params['resource_name'];
