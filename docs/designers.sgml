@@ -455,7 +455,7 @@ OUTPUT: (same for both examples)
 			<title>{$smarty.config}</title>
 			<para>
 			{$smarty} variable can be used to refer to loaded config variables.
-			{$smarty.config.foo} is a synonyn for {#foo#}. See the section on
+			{$smarty.config.foo} is a synonym for {#foo#}. See the section on
 			<link linkend="language.function.config.load">config_load</link> for an example.
 			</para>
 		</sect2>
