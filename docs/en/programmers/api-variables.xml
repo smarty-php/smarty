@@ -10,7 +10,6 @@
 &programmers.api-variables.variable-debugging;
 &programmers.api-variables.variable-debug-tpl;
 &programmers.api-variables.variable-debugging-ctrl;
-&programmers.api-variables.variable-undefined;
 &programmers.api-variables.variable-autoload-filters;
 &programmers.api-variables.variable-compile-check;
 &programmers.api-variables.variable-force-compile;
