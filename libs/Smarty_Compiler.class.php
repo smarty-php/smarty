@@ -977,13 +977,13 @@ class Smarty_Compiler extends Smarty {
             $output .= "{$foreach_props}['show'] = {$foreach_props}['total'] > 0;\n";
             $output .= "if ({$foreach_props}['show']):\n";
             $output .= "{$foreach_props}['iteration'] = 0;\n";
-            $output .= "    foreach ((array)$from as $key_part$item):\n";
+            $output .= "    foreach ((array)$from as $key_part\$this->_tpl_vars['$item']):\n";
             $output .= "        {$foreach_props}['iteration']++;\n";
             $output .= "        {$foreach_props}['first'] = ({$foreach_props}['iteration'] == 1);\n";
             $output .= "        {$foreach_props}['last']  = ({$foreach_props}['iteration'] == {$foreach_props}['total']);\n";
         } else {
             $output .= "if (count((array)$from)):\n";
-            $output .= "    foreach ((array)$from as $key_part$item):\n";
+            $output .= "    foreach ((array)$from as $key_part\$this->_tpl_vars['$item']):\n";
         }
         $output .= '?>';
 
