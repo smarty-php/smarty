@@ -2161,7 +2161,7 @@ class Smarty_Compiler extends Smarty {
         if ($_cacheable
             || 0<$this->_cacheable_state++) return '';
         if (!isset($this->_cache_serial)) $this->_cache_serial = md5(uniqid('Smarty'));
-        $_ret = 'if ($this->caching) { echo \'{nocache:'
+        $_ret = 'if ($this->caching && !$this->_cache_including) { echo \'{nocache:'
             . $this->_cache_serial . '#' . $this->_nocache_count
             . '}\';}';
         return $_ret;
@@ -2178,7 +2178,7 @@ class Smarty_Compiler extends Smarty {
         $_cacheable = !isset($this->_plugins[$type][$name]) || $this->_plugins[$type][$name][4];
         if ($_cacheable
             || --$this->_cacheable_state>0) return '';
-        return 'if ($this->caching) { echo \'{/nocache:'
+        return 'if ($this->caching && !$this->_cache_including) { echo \'{/nocache:'
             . $this->_cache_serial . '#' . ($this->_nocache_count++)
             . '}\';}';
     }
