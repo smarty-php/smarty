@@ -148,6 +148,10 @@ class Smarty
                                             // in php.ini
 
     var $compile_id            = null;      // persistent compile identifier
+	var $use_sub_dirs          = true;		// use sub dirs for cache and compiled files?
+											// sub directories are more efficient, but
+											// you can set this to false if your PHP environment
+											// does not allow the creation of them.
 
 /**************************************************************************/
 /* END SMARTY CONFIGURATION SECTION                                       */
@@ -171,6 +175,7 @@ class Smarty
     var $_smarty_debug_id      = 'SMARTY_DEBUG'; // text in URL to enable debug mode
     var $_smarty_debug_info    = array();    // debugging information for debug console
     var $_cache_info           = array();    // info that makes up a cache file
+    var $_auto_id_delim        = '|';        // delimiter for auto_id groups
     var $_plugins              = array(      // table keeping track of plugins
                                        'modifier'      => array(),
                                        'function'      => array(),
@@ -452,7 +457,7 @@ class Smarty
             $compile_id = $this->compile_id;
 
         if (isset($compile_id) || isset($cache_id))
-            $auto_id = $compile_id . $cache_id;
+            $auto_id = (isset($compile_id)) ? $compile_id . $this->_auto_id_delim . $cache_id : $cache_id;
         else
             $auto_id = null;
 
@@ -1396,12 +1401,39 @@ function _run_insert_handler($args)
     Function: _get_auto_filename
     Purpose:  get a concrete filename for automagically created content
 \*======================================================================*/
-    function _get_auto_filename($auto_base, $auto_source, $auto_id = null)
+    function _get_auto_filename($auto_base, $auto_source = null, $auto_id = null)
     {
-        $source_hash = str_replace('-','N',crc32($auto_source));
-        $res = $auto_base . DIR_SEP . substr($source_hash, 0, 3) . DIR_SEP .
-            $source_hash . DIR_SEP . str_replace('-','N',crc32($auto_id)) . '.php';
-
+		static $_auto_id_delim_hex = null;
+		static $_dir_sep = null;
+		
+		if(!isset($_auto_id_delim_hex)) {
+			$_auto_id_delim_hex = strtoupper(bin2hex($this->_auto_id_delim));
+		}
+		
+		if(!isset($_dir_sep)) {
+			if($this->use_sub_dirs) {
+				$_dir_sep = DIR_SEP;
+			} else {
+				$_dir_sep = '%2F';		
+			}
+		}
+		
+        $res = $auto_base . DIR_SEP;
+		
+		if(isset($auto_id)) {
+			// make auto_id safe for directory names
+			$auto_id = str_replace('%'.$_auto_id_delim_hex,$this->_auto_id_delim,(urlencode($auto_id)));
+			// split into separate directories
+			$auto_id = str_replace($this->_auto_id_delim, $_dir_sep, $auto_id);
+        	$res .= $auto_id . $_dir_sep;
+		}
+		
+		if(isset($auto_source)) {
+			// make source name safe for filename
+        	$auto_source = urlencode($auto_source);
+			$res .= $auto_source . '.php';
+		}
+		
         return $res;
     }
 
@@ -1414,18 +1446,27 @@ function _run_insert_handler($args)
         if (!is_dir($auto_base))
           return false;
 
-        if (!isset($auto_source)) {
-            $res = $this->_rmdir($auto_base, 0);
-        } else {
-            if (isset($auto_id)) {
-                $tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
-                $res = is_file($tname) && unlink( $tname);
-            } else {
-                $source_hash = str_replace('-','N',crc32($auto_source));
-                $tname = $auto_base . DIR_SEP . substr($source_hash, 0, 3) . DIR_SEP . $source_hash;
-                $res = $this->_rmdir($tname);
-            }
-        }
+		if(!isset($auto_id) && !isset($auto_source)) {
+			$res = $this->_rmdir($auto_base, 0);			
+		} else {		
+        	$tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
+			
+			if(isset($auto_source)) {
+				$res = @unlink($tname);
+			} elseif ($this->use_sub_dirs) {
+				$res = $this->_rmdir($tname, 1);
+			} else {
+				// remove matching file names
+				$handle = opendir($auto_base);
+        		while ($filename = readdir($handle)) {
+					if($filename == '.' || $filename == '..') {
+						continue;	
+					} elseif (substr($auto_base . DIR_SEP . $filename,0,strlen($tname)) == $tname) {
+						unlink($auto_base . DIR_SEP . $filename);
+					}
+				}
+			}
+		}
 
         return $res;
     }
@@ -1437,25 +1478,30 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _rmdir($dirname, $level = 1)
     {
-        $handle = opendir($dirname);
 
-        while ($entry = readdir($handle)) {
-            if ($entry != '.' && $entry != '..') {
-                if (is_dir($dirname . DIR_SEP . $entry)) {
-                    $this->_rmdir($dirname . DIR_SEP . $entry, $level + 1);
-                }
-                else {
-                    unlink($dirname . DIR_SEP . $entry);
-                }
-            }
-        }
+       if($handle = @opendir($dirname)) {
 
-        closedir($handle);
+        	while ($entry = readdir($handle)) {
+            	if ($entry != '.' && $entry != '..') {
+                	if (is_dir($dirname . DIR_SEP . $entry)) {
+                    	$this->_rmdir($dirname . DIR_SEP . $entry, $level + 1);
+                	}
+                	else {
+                    	unlink($dirname . DIR_SEP . $entry);
+                	}
+            	}
+        	}
 
-        if ($level)
-            @rmdir($dirname);
+        	closedir($handle);
 
-        return true;
+        	if ($level)
+            	@rmdir($dirname);
+        	
+			return true;
+		
+		} else {
+       	 	return false;
+		}
     }
 
 /*======================================================================*\
@@ -1505,7 +1551,7 @@ function _run_insert_handler($args)
         } else {
             // use local cache file
             if (isset($compile_id) || isset($cache_id))
-                $auto_id = $compile_id . $cache_id;
+            	$auto_id = (isset($compile_id)) ? $compile_id . $this->_auto_id_delim . $cache_id : $cache_id;
             else
                 $auto_id = null;
 
@@ -1541,7 +1587,7 @@ function _run_insert_handler($args)
         } else {
             // use local file cache
             if (isset($compile_id) || isset($cache_id))
-                $auto_id = $compile_id . $cache_id;
+            	$auto_id = (isset($compile_id)) ? $compile_id . $this->_auto_id_delim . $cache_id : $cache_id;
             else
                 $auto_id = null;
 

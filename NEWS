@@ -1,3 +1,8 @@
+    - added support for sub directory exlusion format (Monte)
+    - added support for grouping by cache_id, compile_id
+      and segments thereof (Monte)
+    - changed cache and compile files to human readable
+      format (Monte)
     - remove overlib.js file from distribution (Monte)
     - fixed bug with 304 Not Modified response sending
       content (Monte)
