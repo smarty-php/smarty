@@ -81,7 +81,7 @@ function smarty_mod_date_format($string, $format)
 }
 
 
-function smarty_mod_format($string, $format)
+function smarty_mod_string_format($string, $format)
 {
 	return sprintf($format, $string);
 }
