@@ -450,7 +450,7 @@ class Smarty
 	 *
 	 * @access private
 	 */
-    var $_version              = '2.3.1';
+    var $_version              = '2.4.0';
 
 	/**
 	 * current template inclusion depth
