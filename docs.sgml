@@ -464,6 +464,14 @@ chmod 700 cache
                 displaying smarty version and date generated. Default is true.
 			</para>
 		</sect2>
+		<sect2 id="setting.compiler.class">
+			<title>$compiler_class</title>
+			<para>
+				Specifies the name of the compiler class that Smarty will use
+				to compile the templates. The default is 'Smarty_Compiler'. For
+				advanced users only.
+			</para>
+		</sect2>
 	</sect1>
 </chapter>
 <chapter>
@@ -846,10 +854,21 @@ $smarty->unregister_filter("imbed_asp_jokes");
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-                Use this to dynamically register template functions that are
-                executed only at compile time of the template. This useful for
-                injecting PHP code or time-sensitive static content into the
-                template.
+				Use this to register a template compiler function. These
+				functions are called only during compilation of the template.
+				They are useful for injecting PHP code or time-sensitive static
+				content into the template. The first parameter specifies the
+				template function name, and the second one the PHP function
+				implementing it. If there is both a compiler function and a
+				custom function registered under the same name, the compiler
+				function has precedence. For advanced users only.
+			</para>
+			<para>
+				The compiler function is passed two parameters: the tag
+				argument string - basically, everything from the function
+				name until the ending delimiter, and the smarty object. It's
+				supposed to return the code to be injected into the compiled
+				template.
 			</para>
 <example>
 <title>register_compiler_function</title>
@@ -857,14 +876,15 @@ $smarty->unregister_filter("imbed_asp_jokes");
 
 // PHP code
 
-$smarty->register_compiler_function("tplheader","smarty_template_header");
+$smarty-&gt;register_compiler_function("tplheader", "smarty_template_header");
 
-function smarty_template_header() {
-
+function smarty_template_header($tag_arg_string, $smarty)
+{
+	return "\necho '" . $smarty-&gt;_current_file . "' compiled at " . date('Y-m-d H:M'). ";";
 }
 
 {* this function gets executed at compile time only *}
-{tplheader}
+{tplheader }
 
 </programlisting>
 </example>
@@ -878,7 +898,7 @@ function smarty_template_header() {
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-                Use this to dynamically unregister a compiler function.
+                Use this to unregister a compiler function.
 			</para>
 <example>
 <title>unregister_compiler_function</title>
