@@ -2001,7 +2001,7 @@ class Smarty_Compiler extends Smarty {
     function _push_cacheable_state($type, $name) {
         $_cacheable = !isset($this->_plugins[$type][$name]) || $this->_plugins[$type][$name][4];
         if ($_cacheable
-            || $this->_cacheable_state++) return '';
+            || 0==$this->_cacheable_state++) return '';
         if (!isset($this->_cache_serial)) $this->_cache_serial = md5(uniqid('Smarty'));
         $_ret = 'if ($this->caching) { echo \'{nocache:'
             . $this->_cache_serial . '#' . $this->_nocache_count
