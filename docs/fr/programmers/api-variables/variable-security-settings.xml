@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="variable.security.settings">
  <title>$security_settings</title>
  <para>
@@ -18,7 +18,11 @@
   <listitem><para>PHP_TAGS - true/false. Si vrai,
   les balises {php}{/php} sont autorisées dans les templates.</para></listitem>
   <listitem><para>MODIFIER_FUNCS - Le tableau des noms de fonctions
-  autorisées à être utilisées comme modificateurs de variables.</para></listitem>
+  autorisées à être utilisées comme modificateurs de
+  variables.</para></listitem>
+  <listitem><para>ALLOW_CONSTANTS - true/false. Si l'accès aux constantes via
+    la syntaxe {$smarty.const.nom} est autorisée ou non. Par défaut, pour des
+    raisons de sécurité, le paramètre est à false.</para></listitem>
  </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file
