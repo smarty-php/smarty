@@ -1263,9 +1263,13 @@ function _generate_debug_output() {
             	$this->_conf_obj->set_path = $_config_dir;
 			}
 			if($_config_vars = $this->_conf_obj->get($file, $section)) {
-				$this->_write_file($_compile_file,
-						'<?php $_config_vars = unserialize(\'' . str_replace('\'','\\\'', serialize($_config_vars)) . '\'); ?>',
-						true);
+				
+				if(function_exists('var_export')) {
+					$_compile_data = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; ?>';					
+				} else {
+					$_compile_data = '<?php $_config_vars = unserialize(\'' . str_replace('\'','\\\'', serialize($_config_vars)) . '\'); ?>';
+				}
+				$this->_write_file($_compile_file, $_compile_data, true);
 				touch($_compile_file,filemtime($_file_path));
 			}
 		}
