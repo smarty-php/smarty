@@ -3640,7 +3640,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{html_checkboxes name="id" checkboxes=$cust_checkboxes checked=$customer_id separator="&lt;br /&gt;"}
+{html_checkboxes name="id" options=$cust_checkboxes checked=$customer_id separator="&lt;br /&gt;"}
 
 
 OUTPUT: (both examples)
