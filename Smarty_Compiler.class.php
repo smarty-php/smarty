@@ -509,7 +509,9 @@ class Smarty_Compiler extends Smarty {
 
         if (!empty($attrs['script'])) {
             $delayed_loading = true;
-        }
+        } else {
+            $delayed_loading = false;			
+		}
 
         foreach ($attrs as $arg_name => $arg_value) {
             if (is_bool($arg_value))
