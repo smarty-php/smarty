@@ -1,3 +1,8 @@
+2004-03-15  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      simplified Smarty::clear_all_cache();
+
 2004-03-12  boots  <jayboots@yahoo.com>
 
     * docs/programmers.sgml:
