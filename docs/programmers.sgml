@@ -1,4 +1,4 @@
-  <part id="smarty.for.programmers">
+ <part id="smarty.for.programmers">
    <title>Smarty For Programmers</title>
 
 
@@ -477,8 +477,9 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
 	  This is an array of modifiers to implicitly apply to every variable in a
 	  template. For example, to HTML-escape every variable by default, use
 	  array('escape:"htmlall"'); To make a variable exempt from default
-	  modifiers, pass the special "nodefaults" modifier to it, such as
-	  {$var|nodefaults}.
+	  modifiers, pass the special "smarty" modifier with a parameter value of
+	  "nodefaults" modifier to it, such as
+	  {$var|smarty:nodefaults}.
       </para>
      </sect1>
     </chapter>
