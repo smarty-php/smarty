@@ -1,3 +1,7 @@
+    - html_checkboxes now expect the options as attribute "options" instead
+      of "checkboxes. html_radios expect "options" instead of "radios".
+      cleaned up indentiation (messju)
+    - fixed too greedy str_replace in trimwhitespace outputfilter (messju)
     - html_checkboxes and html_radios passthru all unknown paramters now
       additionally their output is now XHTML compliant (messju)
     - html_options passthru all unknown paramters now (messju)

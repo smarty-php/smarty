@@ -5,13 +5,13 @@
  * -------------------------------------------------------------
  * File:       function.html_radios.php
  * Type:       function
- * Name:       html_radios	
+ * Name:       html_radios
  * Version:    1.0
  * Date:       24.Feb.2003
  * Purpose:    Prints out a list of radio input types
  * Input:      name       (optional) - string default "radio"
  *             values     (required) - array
- *             radios     (optional) - associative array
+ *             options    (optional) - associative array
  *             checked    (optional) - array default not set
  *             separator  (optional) - ie <br> or &nbsp;
  *             output     (optional) - without this one the buttons don't have names
@@ -28,13 +28,13 @@ function smarty_function_html_radios($params, &$smarty)
 
    $name = 'radio';
    $values = null;
-   $radios = null;
+   $options = null;
    $checked = null;
    $separator = '';
    $output = null;
    $extra = '';
-  
-   foreach($params as $_key => $_val) {	
+
+   foreach($params as $_key => $_val) {
       switch($_key) {
       case 'name':
       case 'separator':
@@ -42,55 +42,61 @@ function smarty_function_html_radios($params, &$smarty)
 	 $$_key = (string)$_val;
 	 break;
 
-      case 'radios':
+      case 'options':
 	 $$_key = (array)$_val;
 	 break;
 
       case 'values':
       case 'output':
-	 $$_key = array_values((array)$_val);      
+	 $$_key = array_values((array)$_val);
 	 break;
 
+      case 'radios':
+         $smarty->trigger_error('the use of the "radios"-attribute is deprecated. use "options" instead', E_USER_WARNING);
+         $options = (array)$_val;
+         break;
+
+
       default:
-	 $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-	 break;					
+	 $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars((string)$_val).'"';
+	 break;
       }
    }
 
-   if (!isset($radios) && !isset($values))
+   if (!isset($options) && !isset($values))
       return ''; /* raise error here? */
 
    $_html_result = '';
 
-   if (isset($radios) && is_array($radios)) {
+   if (isset($options) && is_array($options)) {
 
-      foreach ((array)$radios as $_key=>$_val)
+      foreach ((array)$options as $_key=>$_val)
 	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $checked, $extra, $separator);
-   
-   } else {  
+
+   } else {
 
       foreach ((array)$values as $_i=>$_key) {
 	 $_val = isset($output[$_i]) ? $output[$_i] : '';
-	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $checked, $extra, $separator);      
+	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $checked, $extra, $separator);
       }
 
    }
 
    return $_html_result;
-  
+
 }
 
 function smarty_function_html_radios_output($name, $value, $output, $checked, $extra, $separator) {
-   $_output = '<input type="radio" name="' 
-      . smarty_function_escape_special_chars($name) . '" value="' 
+   $_output = '<input type="radio" name="'
+      . smarty_function_escape_special_chars($name) . '" value="'
       . smarty_function_escape_special_chars($value) . '"';
 
    if ($value==$checked) {
       $_output .= ' checked="checked"';
    }
    $_output .= $extra . ' />' . $output . $separator . "\n";
-  
-   return $_output;        
+
+   return $_output;
 }
 
 ?>
