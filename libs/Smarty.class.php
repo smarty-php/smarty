@@ -721,13 +721,14 @@ class Smarty
      * @param object &$object_impl the referenced PHP object to register
      * @param null|array $allowed list of allowed methods (empty = all)
      * @param boolean $smarty_args smarty argument format, else traditional
+     * @param null|array $block_functs list of methods that are block format
      */    
-    function register_object($object, &$object_impl, $allowed = array(), $smarty_args = true)
+    function register_object($object, &$object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
     {
         settype($allowed, 'array');        
         settype($smarty_args, 'boolean');        
         $this->_reg_objects[$object] =
-            array(&$object_impl, $allowed, $smarty_args);
+            array(&$object_impl, $allowed, $smarty_args, $block_methods);
     }
 
     /**

@@ -379,7 +379,7 @@ class Smarty_Compiler extends Smarty {
 		
         /* Split tag into two three parts: command, command modifiers and the arguments. */
         if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp
-				. '|' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
+				. '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
                       (?:\s+(.*))?$
                     /xs', $template_tag, $match)) {
 			$this->_syntax_error("unrecognized tag: $template_tag", E_USER_ERROR, __FILE__, __LINE__);
@@ -401,7 +401,7 @@ class Smarty_Compiler extends Smarty {
 		}
 		
 	    /* If the tag name is a registered object, we process it. */
-        if (preg_match('!^' . $this->_reg_obj_regexp . '$!', $tag_command)) {
+        if (preg_match('!^\/?' . $this->_reg_obj_regexp . '$!', $tag_command)) {
 			return $this->_compile_registered_object_tag($tag_command, $this->_parse_attrs($tag_args), $tag_modifier);
 		}
 
@@ -691,6 +691,13 @@ class Smarty_Compiler extends Smarty {
 	 */
     function _compile_registered_object_tag($tag_command, $attrs, $tag_modifier)
     {
+        if ($tag_command{0} == '/') {
+            $start_tag = false;
+            $tag_command = substr($tag_command, 1);
+        } else {
+            $start_tag = true;
+        }
+
 		list($object, $obj_comp) = explode('->', $tag_command);
 
         $arg_list = array();
@@ -708,36 +715,63 @@ class Smarty_Compiler extends Smarty {
         	}
 		}
 				
+        if($this->_reg_objects[$object][2]) {
+            // smarty object argument format
+            $args = "array(".implode(',', (array)$arg_list)."), \$this";
+        } else {
+            // traditional argument format
+            $args = implode(',', array_values($attrs));
+            if (empty($args)) {
+                $args = 'null';
+            }
+        }
+
+        $prefix = '';
+        $postfix = '';
 		if(!is_object($this->_reg_objects[$object][0])) {
 			$this->_trigger_fatal_error("registered '$object' is not an object");
 		} elseif(!empty($this->_reg_objects[$object][1]) && !in_array($obj_comp, $this->_reg_objects[$object][1])) {
 			$this->_trigger_fatal_error("'$obj_comp' is not a registered component of object '$object'");
 		} elseif(method_exists($this->_reg_objects[$object][0], $obj_comp)) {
 			// method
-			if($this->_reg_objects[$object][2]) {
-				// smarty object argument format
-				$return = "\$this->_reg_objects['$object'][0]->$obj_comp(array(".implode(',', (array)$arg_list)."), \$this)";
+            if(in_array($obj_comp, $this->_reg_objects[$object][3])) {
+                // block method 
+                if ($start_tag) {
+                    $prefix = "\$this->_tag_stack[] = array('$obj_comp', $args); ";
+                    $prefix .= "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], null, \$this, \$_block_repeat=true); ";
+                    $prefix .= "while (\$_block_repeat) { ob_start();";
+                    $return = null;
+                    $postfix = '';
 			} else {
-				// traditional argument format
-				$return = "\$this->_reg_objects['$object'][0]->$obj_comp(".implode(',', array_values($attrs)).")";
+                    $prefix = "\$this->_obj_block_content = ob_get_contents(); ob_end_clean(); ";
+                    $return = "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$this->_obj_block_content, \$this, \$_block_repeat=false)";
+                    $postfix = "} array_pop(\$this->_tag_stack);";
+                }
+            } else {
+                // non-block method
+                $return = "\$this->_reg_objects['$object'][0]->$obj_comp($args)";
 			}
 		} else {
 			// property
 			$return = "\$this->_reg_objects['$object'][0]->$obj_comp";
 		}
-		
-		if($tag_modifier != '') {
-			$this->_parse_modifiers($return, $tag_modifier);
-		}
-		
-		if($_assign_var) {
-			return "<?php \$this->assign('" . $this->_dequote($_assign_var) ."',  $return); ?>\n";
-		} else {
-        	return '<?php echo ' . $return . "; ?>\n";
-		}
+
+        if($return != null) {
+            if($tag_modifier != '') {
+                $this->_parse_modifiers($return, $tag_modifier);
+            }
+
+            if(!empty($_assign_var)) {
+                $output = "\$this->assign('" . $this->_dequote($_assign_var) ."',  $return);";
+            } else {
+                $output = 'echo ' . $return . ';';
+            }
+        } else {
+            $output = '';
+        }
+
+        return '<?php ' . $prefix . $output . $postfix . "?>\n";
     }
-	
-	
 
 	/**
 	 * Compile {insert ...} tag

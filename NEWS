@@ -1,3 +1,4 @@
+  - added block-methods for registered objects (Bharat Mediratta, messju)
   - ignore one char resource names like c:foo.tpl (Monte)
   - added default_resource_type feature (Monte)
   - fix bug where config file starts with hidden section (boots, Monte)
