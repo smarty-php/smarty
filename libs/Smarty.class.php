@@ -32,9 +32,9 @@
  * Lincoln, NE 68510
  *
  * The latest version of Smarty can be obtained from:
- * http://www.phpinsider.com/
+ * http://smarty.php.net/
  *
- * @link http://www.phpinsider.com/
+ * @link http://smarty.php.net/
  * @copyright 2001,2002 ispi of Lincoln, Inc.
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
@@ -902,7 +902,7 @@ class Smarty
             $compile_id = $this->compile_id;
 
         if (isset($cache_id))
-            $auto_id = (isset($compile_id)) ? $cache_id . '|' . $compile_id : $cache_id;
+            $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
         elseif(isset($compile_id))
             $auto_id = $compile_id;
         else
@@ -2250,7 +2250,7 @@ class Smarty
         } else {
             // use local cache file
             if (isset($cache_id))
-                $auto_id = (isset($compile_id)) ? $cache_id . '|' . $compile_id : $cache_id;
+                $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
             elseif(isset($compile_id))
                 $auto_id = $compile_id;
             else
@@ -2292,7 +2292,7 @@ class Smarty
         } else {
             // use local cache file
             if (isset($cache_id))
-                $auto_id = (isset($compile_id)) ? $cache_id . '|' . $compile_id : $cache_id;
+                $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
             elseif(isset($compile_id))
                 $auto_id = $compile_id;
             else

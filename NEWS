@@ -1,3 +1,4 @@
+    - fix cache groups with compile_id set (Monte)
     - add support for appending key=>value vars (messju, Monte)
     - change embedded variable logic to only recognize $foo and
       $foo[0][bar] and $smarty.foo.bar syntax (Monte)
