@@ -1704,9 +1704,9 @@ class Smarty
      */
     function _read_file($filename)
     {
-        if ($fd = @fopen($filename, 'rb')) {
+        if ( file_exists($filename) && ($fd = @fopen($filename, 'rb')) ) {
             $contents = ($size = filesize($filename)) ? fread($fd, $size) : '';
-            fclose($fd);        
+            fclose($fd);
             return $contents;
         } else {
             return false;
