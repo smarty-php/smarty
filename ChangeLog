@@ -1,3 +1,30 @@
+2004-07-16  andreas halter  <phpcvs@andreashalter.ch>
+
+    * docs/de/bookinfo.xml
+      docs/de/getting-started.xml
+      docs/de/language-defs.ent
+      docs/de/language-snippets.ent
+      docs/de/preface.xml:
+      - updated for 2.6.3
+      - updates for new build system
+      - added missing files
+      - corrections from users
+      - revcheck comments for all files
+      - big up to didou and nuno, brilliant work
+      - make test: ok
+      - make: ok
+
+2004-07-16  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/de/getting-started.xml:
+      fix the revision tracking tag
+      the revision number might not be right. just check it, please
+
+2004-07-16  andreas halter  <phpcvs@andreashalter.ch>
+
+    * docs/de/getting-started.xml:
+      - updated version (incl revcheck comment) for revcheck testing
+
 2004-07-14  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty.class.php:
