@@ -328,13 +328,15 @@ class Config_File {
                             break;
                         }
                     }
+                    $booleanize = false;
 
                 } else {
                     /* handle simple value */
                     $var_value = preg_replace('/^([\'"])(.*)\1$/', '\2', rtrim($match[2]));
+                    $booleanize = $this->booleanize;
 
                 }
-                $this->_set_config_var($vars, $var_name, $var_value, $this->booleanize);
+                $this->_set_config_var($vars, $var_name, $var_value, $booleanize);
             }
             /* else unparsable line / means it is a comment / means ignore it */
         }
