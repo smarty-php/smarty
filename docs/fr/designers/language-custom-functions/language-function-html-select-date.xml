@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: partial -->
 <sect1 id="language.function.html.select.date">
  <title>html_select_date</title>
  <informaltable frame="all">
@@ -200,7 +200,43 @@
      <entry>%m</entry>
      <entry>Le format strftime de la valeur des mois, par défaut %m
      pour les numéros.</entry>
-    </row>
+   </row>
+   <row>
+    <entry>year_empty</entry>
+    <entry>chaîne de caractères</entry>
+    <entry>Non</entry>
+    <entry>null</entry>
+    <entry>S'il est renseigné, alors le premier élément de la boite de sélection
+    affiche le texte donné en tant que libellé et dispose de la valeur "".
+    Utile par exemple lorsque vous souhaitez que la boite de sélection affiche
+    "Sélectionnez une année".
+
+    A savoir que vous pouvez spécifier des valeurs de la forme "-MM-JJ" pour
+    l'attribut time afin d'indiquer une année non sélectionnée.</entry>
+   </row>
+   <row>
+    <entry>month_empty</entry>
+    <entry>chaîne de caractères</entry>
+    <entry>Non</entry>
+    <entry>null</entry>
+    <entry>S'il est renseigné, le premier élément de la boite de sélection
+    affiche le texte donné en tant que libellé et dispose de la valeur "".
+    
+    A savoir que vous pouvez spécifier des valeurs de la forme "AAAA--JJ" pour
+    l'attribut time afin d'indiquer qu'il manque le moi.</entry>
+   </row>
+   <row>
+    <entry>day_empty</entry>
+    <entry>chaîne de caractères</entry>
+    <entry>Non</entry>
+    <entry>null</entry>
+    <entry>S'il est renseigné, le premier élément de la boite de sélection
+    affiche le texte donné en tant que libellé et dispose de la valeur "".
+    
+    A savoir que vous pouvez spécifier des valeurs de la forme "AAAA-MM-" pour
+    l'attribut time afin d'indiquer qu'il manque le jour.
+    </entry>
+   </row>
    </tbody>
   </tgroup>
  </informaltable>
