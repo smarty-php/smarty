@@ -4,7 +4,7 @@
 The mtime on compiled files will now match the source files, in the case where
 the source file may not get the current timestamp, recompiling will still work
 as expected. Proper support for open_basedir has been added, so Smarty should
-work correctly in safe mode. Added a few new features such as formattext block
+work correctly in safe mode. Added a few new features such as textformat block
 function, strip variable modifier and optgroup support for html_options. Also
 other minor bug fixes, see the Change Log.
 

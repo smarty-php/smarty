@@ -229,12 +229,12 @@ class Smarty
     {
         if (is_array($tpl_var)){
             foreach ($tpl_var as $key => $val) {
-                if ($key != '' && isset($val)) {
+                if ($key != '') {
                     $this->_tpl_vars[$key] = $val;
                 }
             }
         } else {
-            if ($tpl_var != '' && isset($value))
+            if ($tpl_var != '')
                 $this->_tpl_vars[$tpl_var] = $value;
         }
         $this->_extract = true;
@@ -246,7 +246,7 @@ class Smarty
 \*======================================================================*/
     function assign_by_ref($tpl_var, &$value)
     {
-        if ($tpl_var != '' && isset($value))
+        if ($tpl_var != '')
             $this->_tpl_vars[$tpl_var] = &$value;
         $this->_extract = true;
     }
