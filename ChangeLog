@@ -1,3 +1,15 @@
+2003-08-11  Monte Ohrt  <monte@ispi.net>
+
+    * (Smarty_2_6_0_RC1)
+      NEWS
+      docs/designers.sgml
+      docs/html.dsl
+      docs/php.dsl
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      get ready for 2.6.0-RC1 release
+
 2003-08-10  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
