@@ -1450,7 +1450,7 @@ function _run_insert_handler($args)
 				$_crc32 = crc32($auto_source) . $_dir_sep;
 				// prepend N in case crc32 was negative to avoid possible
 				// OS issues with directory names starting with a "-"
-				$_crc32 = 'N' . substr($_crc32,0,3) . $_dir_sep . $_crc32;
+				$_crc32 = 'N' . substr($_crc32,0,3) . $_dir_sep . 'N' . $_crc32;
 				$res .= $_crc32 . $_filename . '.php';
 			} else {
         		$res .= str_replace($_dir_sep_enc,'^',urlencode($auto_source));
