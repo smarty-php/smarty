@@ -94,7 +94,8 @@ Smarty.class.php
 Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
-/plugins/*.php (all of them!)</screen>
+/core/*.php (all of them)
+/plugins/*.php (all of them)</screen>
 	</example>
 
 	<para>
