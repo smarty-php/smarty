@@ -1,3 +1,6 @@
+  - rename "private" Smarty::_get_plugin_filepath() to public
+    Smarty:: get_plugin_filepath() . _get_plugin_filepath() is kept as
+    a wrapper for backward compatibility (messju)
   - remove touch() call that made the compiled-template's timestamp the
     same as the source-template's one. (messju)
   - add assign attribute to html_checkboxes and html_radios

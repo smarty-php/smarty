@@ -41,7 +41,7 @@ function smarty_core_load_resource_plugin($params, &$smarty)
         return;
     }
 
-    $_plugin_file = $smarty->_get_plugin_filepath('resource', $params['type']);
+    $_plugin_file = $smarty->get_plugin_filepath('resource', $params['type']);
     $_found = ($_plugin_file != false);
 
     if ($_found) {            /*
