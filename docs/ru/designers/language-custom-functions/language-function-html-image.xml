@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.image">
  <title>html_image</title>
  <informaltable frame="all">
@@ -26,13 +26,6 @@
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>название/путь к изображению</entry>
-   </row>
-   <row>
-    <entry>border</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>0</emphasis></entry>
-    <entry>размер рамки вокруг изображения</entry>
    </row>
    <row>
     <entry>height</entry>
@@ -117,9 +110,9 @@ index.tpl:
 
 OUTPUT: (possible)
 
-<img src="pumpkin.jpg" border="0" width="44" height="68">
-<img src="/path/under/docroot/pumpkin.jpg" border="0" width="44" height="68">
-<img src="../path/relative/to/currdir/pumpkin.jpg" border="0" width="44" height="68">
+<img src="pumpkin.jpg" width="44" height="68">
+<img src="/path/under/docroot/pumpkin.jpg" width="44" height="68">
+<img src="../path/relative/to/currdir/pumpkin.jpg" width="44" height="68">
 ]]>
   </programlisting>
  </example>
