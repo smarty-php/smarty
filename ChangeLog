@@ -1,3 +1,12 @@
+2003-01-28  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      docs/programmers.sgml:
+      make separate var for compiler file
+
+    * plugins/function.fetch.php:
+      fix error call
+
 2003-01-25  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php
