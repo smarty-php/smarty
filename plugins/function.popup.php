@@ -19,7 +19,7 @@ function smarty_function_popup($params, &$smarty)
 
     if (empty($trigger)) { $trigger = "onMouseOver"; }
 
-    echo $trigger.'="return overlib(\''.preg_replace(array("!'!","![\r\n]+!"),array("\'",'\r'),$text).'\'';
+    echo $trigger.'="return overlib(\''.preg_replace(array("!'!","![\r\n]!"),array("\'",'\r'),$text).'\'';
     if ($sticky) { echo ",STICKY"; }
     if (!empty($caption)) { echo ",CAPTION,'".str_replace("'","\'",$caption)."'"; }
     if (!empty($fgcolor)) { echo ",FGCOLOR,'$fgcolor'"; }
