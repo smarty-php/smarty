@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
 <sect1 id="section.template.cache.handler.func">
  <title>Fonction de gestion du cache</title>
  <para>
@@ -24,6 +24,9 @@
    lire/écrire), le cinquième paramètre est l'identifiant de cache (optionnel)
    et le sixième est l'identifiant de compilation.
   </para>
+   <para>
+    Note: Le dernier paramètre ($exp_time) a été ajouté dans Smarty-2.6.0.
+   </para>  
   <example>
    <title>exemple d'utilisation de MySQL pour la source du cache</title>
    <programlisting>
