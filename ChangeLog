@@ -1,3 +1,9 @@
+2005-02-09  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed handling of strip-tags with non-default delimiters
+
 2005-02-04  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_radios.php:
