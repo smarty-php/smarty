@@ -23,7 +23,7 @@ function smarty_make_timestamp($string)
         return $time;
 
     // is mysql timestamp format of YYYYMMDDHHMMSS?
-    if (is_numeric($string) && strlen($string) == 14) {
+    if (preg_match('/^\d{14}$/', $string)) {
         $time = mktime(substr($string,8,2),substr($string,10,2),substr($string,12,2),
                substr($string,4,2),substr($string,6,2),substr($string,0,4));
 
@@ -33,9 +33,9 @@ function smarty_make_timestamp($string)
     // couldn't recognize it, try to return a time
     $time = (int) $string;
     if ($time > 0)
-		return $time;
-	else
-		return time();
+        return $time;
+    else
+        return time();
 }
 
 /* vim: set expandtab: */
