@@ -127,16 +127,15 @@ class Smarty_Compiler extends Smarty {
 		// "text"
 		$this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_qstr_regexp . ')';
 
-		// matches valid object call (no objects allowed in parameters):
+		// matches valid object property access
 		// $foo->bar
-		// $foo->bar()
-		// $foo->bar("text")
-		// $foo->bar($foo, $bar, "text")
-		// $foo->bar($foo|bar, "foo"|bar)
-		// $foo->bar->foo()
-		// $foo->bar->foo->bar()
-    	$this->_obj_start_regexp = '(?:\$\w+(?:\.\w+)*(?:\->\w+)+)';
+		// $foo.bar->bar
+		// $foo.bar.foo->bar
+		// $foo->bar->foo
+		// $foo->bar->foo->bar
+    	$this->_obj_call_regexp = '(?:' . $this->_dvar_regexp . '(?:\->\w+)+)';
 
+/*      // this is code for allowing full object access, not officially supported
 		// matches valid object call (no objects allowed in parameters):
 		// $foo->bar
 		// $foo->bar()
@@ -145,9 +144,11 @@ class Smarty_Compiler extends Smarty {
 		// $foo->bar($foo|bar, "foo"|bar)
 		// $foo->bar->foo()
 		// $foo->bar->foo->bar()
+    	$this->_obj_start_regexp = ''(?:' . $this->_dvar_regexp . '(?:\->\w+)+)';
     	$this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:\((?:\w+|'
 				. $this->_var_regexp . '(?>' . $this->_mod_regexp . '*)(?:\s*,\s*(?:(?:\w+|'
 				. $this->_var_regexp . '(?>' . $this->_mod_regexp . '*))))*)?\))?)';		
+*/
 
 		// matches valid function name:
 		// foo123
@@ -968,7 +969,7 @@ class Smarty_Compiler extends Smarty {
         preg_match_all('/(?>
 				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*) | # valid object call
 				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)	| # var or quoted string
-				\d+|!==|<=>|==|!=|<=|=>|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%	| # valid non-word token
+				\d+|!==|<=>|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%	| # valid non-word token
 				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
