@@ -388,6 +388,12 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				from that global array. $SCRIPT_NAME is globally assigned by
 				default from $HTTP_SERVER_VARS.
 			</para>
+			<para>
+				TECHNICAL NOTE: Server variables can be accessed through the
+				$smarty variable, such as {$smarty.env.SCRIPT_NAME}. See the
+				section on the <link
+				linkend="builtin.variable.smarty">$smarty</link> variable.
+			</para>
 		</sect2>
 		<sect2 id="setting.undefined">
 			<title>$undefined</title>
@@ -743,19 +749,6 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));
 				used by the <link linkend="chapter.debugging.console">debugging
 				console</link>, and should probably never be used directly.
 			</para>
-<example>
-<title>assign_debug_info</title>
-<programlisting>
-
-// passing name/value pairs
-$smarty->assign("Name","Fred");
-$smarty->assign("Address",$address);
-
-// passing an associative array
-$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));
-
-</programlisting>
-</example>
 		</sect2>
 		<sect2 id="api.append">
 			<title>append</title>
@@ -1343,7 +1336,7 @@ var_dump($tpl_vars);
 
 include("Smarty.class.php");
 $smarty = new Smarty;
-
+$smarty->caching = true;
 
 // only do db calls if cache doesn't exist
 if(!$smarty->is_cached("index.tpl"))
@@ -1423,6 +1416,7 @@ $smarty->display("db:header.tpl");
 include("Smarty.class.php");
 $smarty = new Smarty;
 
+$smarty->caching = true;
 
 // only do db calls if cache doesn't exist
 if(!$smarty->is_cached("index.tpl"))
@@ -2063,7 +2057,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 			properties that are internal variables.
 			</para>
 		</sect2>
-		<sect2>
+		<sect2 id="builtin.variable.smarty">
 			<title>{$smarty} reserved variable</title>
 			<para>
 			The reserved {$smarty} variable can be used to access several
