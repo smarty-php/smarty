@@ -1013,11 +1013,6 @@ Intro = """This is a value that spans more
 	...
 {/if}
 
-{* same as previous example *}
-{if $var is mod 4}
-	...
-{/if}
-
 {* test if var is even, grouped by two. i.e.,
 0=even, 1=even, 2=odd, 3=odd, 4=even, 5=even, etc. *}
 {if $var is even by 2}
@@ -1441,10 +1436,59 @@ OUTPUT:
 		</para>
 		<sect2>
 			<title>html_options</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>values</entry>
+                        <entry>array</entry>
+                        <entry>No, if using options attribute</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an array of values for dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>output</entry>
+                        <entry>array</entry>
+                        <entry>No, if using options attribute</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an array of output for dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>selected</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>the selected array element</entry>
+                    </row>
+                    <row>
+                        <entry>options</entry>
+                        <entry>associative array</entry>
+                        <entry>No, if using values and output</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an associative array of values and output</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			html_options is a custom function that creates html option
 			lists with provided data. It takes care of which item is
-			selected by default as well.
+			selected by default as well. Required attributes are values
+            and output, unless you use options instead.
 			</para>
 <example>
 <title>html_options</title>
@@ -1481,23 +1525,100 @@ OUTPUT:
 		</sect2>
 		<sect2>
 			<title>html_select_date</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>prefix</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>Date_</entry>
+                        <entry>what to prefix the var name with</entry>
+                    </row>
+                    <row>
+                        <entry>time</entry>
+                        <entry>timestamp</entry>
+                        <entry>No</entry>
+                        <entry>current time</entry>
+                        <entry>what date/time to use</entry>
+                    </row>
+                    <row>
+                        <entry>start_year</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>current year</entry>
+                        <entry>the first year in the dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>end_year</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>same as start_year</entry>
+                        <entry>the last year in the dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>display_days</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether to display days or not</entry>
+                    </row>
+                    <row>
+                        <entry>display_months</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether to display months or not</entry>
+                    </row>
+                    <row>
+                        <entry>display_years</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether to display years or not</entry>
+                    </row>
+                    <row>
+                        <entry>month_format</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%B</entry>
+                        <entry>what format the month should be in (strftime)</entry>
+                    </row>
+                    <row>
+                        <entry>day_format</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%02d</entry>
+                        <entry>what format the day should be in (sprintf)</entry>
+                    </row>
+                    <row>
+                        <entry>year_as_text</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>whether or not to display the year as text</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			html_select_date is a custom function that creates date dropdowns
-			for you. It can display any or all of year, month, and day. Possible
-			attributes are (attr name, type, default val):
+			for you. It can display any or all of year, month, and day.
 			</para>
-			<itemizedlist>
-				<listitem><para>prefix,string,"Date_"</para></listitem>
-				<listitem><para>time,timestamp,(current time)</para></listitem>
-				<listitem><para>start_year,int,(current year)</para></listitem>
-				<listitem><para>end_year	int (same as start_year)</para></listitem>
-				<listitem><para>display_days, boolean, true</para></listitem>
-				<listitem><para>display_months, boolean, true</para></listitem>
-				<listitem><para>display_years, boolean, true</para></listitem>
-				<listitem><para>month_format, strftime, "%B"</para></listitem>
-				<listitem><para>day_format, strftime, "%02d"</para></listitem>
-				<listitem><para>year_as_text, boolean, true</para></listitem>
-			</itemizedlist>
 <example>
 <title>html_select_date</title>
 <programlisting>
@@ -1630,131 +1751,94 @@ OUTPUT:
 		<para>
 		Variable modifiers are a bit different than
 		<link linkend="custom.functions">custom functions</link>.
-		They do just what they sound like, they modify variables before
-		they are displayed to the template. The best way to explain
-		these are by example.
-		</para>
-<example>
-<title>variable modifiers</title>
-<programlisting>
-
-{* this displays a variable, unmodified *}
-{$articleTitle}
-
-OUTPUT:
-
-Burger King fire leaves seven pregnant teenagers &lt;jobless&gt;
-
-
-{* this displays the variable in all upper case *}
-{$articleTitle|upper}
-
-OUTPUT:
-
-BURGER KING FIRE LEAVES SEVEN PREGNANT TEENAGERS &lt;JOBLESS&gt;
-
-
-{* this displays the variable html escaped *}
-{$articleTitle|escape}
-
-OUTPUT:
-
-Burger King fire leaves seven pregnant teenagers &amp;lt;jobless&amp;gt;
-
-
-{* this displays the variable uppercased AND html escaped *}
-{$articleTitle|upper|escape}
-
-OUTPUT:
-
-BURGER KING FIRE LEAVES SEVEN PREGNANT TEENAGERS &amp;lt;JOBLESS&amp;gt;
-
-
-{* an example of passing a parameter to a modifier:
-	this displays the variable url escaped *}
-{$articleTitle|escape:"url"}
-
-OUTPUT:
-
-Burger+King+fire+leaves+seven+pregnant+teenagers+%3Cjobless%3e
-
-
-{* print the first 24 characters of this variable, and
-	follow with ... if it was longer *}
-{$articleTitle|truncate:24:"..."}
-
-OUTPUT:
-
-Burger King fire...
-
-
-{* print the date in default format *}
-{$startTime|date_format}
-
-OUTPUT:
-
-Dec 13, 2000
-
-
-{* print the hour, minute and second portion of a date *}
-{$startTime|date_format:"%h:%m:%s"}
-
-OUTPUT:
-
-10:33:02
-
-{* print a number to the first two decimals *}
-{$amount|string_format:"%.2f"}
-
-OUTPUT:
-
-24.02
-
-{* print "Home Page" if $title is empty *}
-{$title|default:"Home Page"}
-
-OUTPUT:
-
-Home Page
-
-
-</programlisting>
-</example>
-		<para>
-		All modifiers will get the value of the variable as the first argument,
-		and must return a single value. Modifier parameters are separated by colons.
-		Any additional parameters passed to a modifier are passed as-is positionally,
-		much like calling a PHP function. You can also use native
-		PHP functions as modifiers, but only if they expect the correct
-		arguments. If they do not, you can always write a wrapper function
-		in Smarty to get what you want (date_format is a wrapper function
-		to strftime() for example.) You can chain as many modifiers
-		together on a variable as you like, separating each with a vertical
-		pipe "|".
+        Variable modifiers alter variable contents before they are displayed to
+        the template. All modifiers will get the value of the variable as the
+        first argument, and must return a single value. Modifier parameters are
+        separated by colons. Any additional parameters passed to a modifier are
+        passed as-is positionally, much like calling a PHP function. You can
+        also use native PHP functions as modifiers, but only if they expect the
+        correct arguments. If they do not, you can always write a wrapper
+        function in Smarty to get what you want (date_format is a wrapper
+        function to strftime() for example.) You can chain as many modifiers
+        together on a variable as you like, separating each with a vertical
+        pipe "|".
 		</para>
 		<para>
-		NOTE: if you apply a modifier to an array
-		instead of a single value variable, the modifier will be applied to every
-		value in that array. If you really want the entire array passed
-		to the modifier, you must prepend it with an "@" sign like so:
-		{$articleTitle|@count} (this will print out the number of elements
-		in the $articleTitle array.)
+        NOTE: if you apply a modifier to an array instead of a single value
+        variable, the modifier will be applied to every value in that array. If
+        you really want the entire array passed to the modifier, you must
+        prepend it with an "@" sign like so: {$articleTitle|@count} (this will
+        print out the number of elements in the $articleTitle array.)
 		</para>
 		<sect2>
 			<title>capitalize</title>
 			<para>
 			This is used to capitalize the first letter of all words in a variable.
 			</para>
+<example>
+<title>capitalize</title>
+<programlisting>
+
+{* this displays a variable, unmodified *}
+{$articleTitle|capitalize}
+
+OUTPUT:
+
+POLICE BEGIN CAMPAIGN TO RUNDOWN JAYWALKERS
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="date.format">
 			<title>date_format</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%b %e, %Y</entry>
+                        <entry>This is the format for the outputted date.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
-			This formats a date into the given strftime() format. All dates
-			should be passed to Smarty as a timestamp so that the template
-			designer has full control of how this date is formatted. The
-			default format is "%b %e, %Y", or "Jan 4, 2001" for example.
-			These are the possible conversion specifiers:
+            This formats a date and time into the given strftime() format. All
+            dates should be passed to Smarty as a timestamp so that the
+            template designer has full control of how this date is formatted.
 			</para>
+<example>
+<title>date_format</title>
+<programlisting>
+
+{$currentDate|date_format}
+{$currentDate|date_format:"%A, %B %e, %Y"}
+{$currentDate|date_format:"%H:%M:%S"}
+
+OUTPUT:
+
+Feb 6,2001
+Tuesday, February 6, 2001
+14:33:00
+
+</programlisting>
+</example>
 <example>
 <title>date_format conversion specifiers</title>
 <programlisting>
@@ -1846,54 +1930,350 @@ for a full list of valid specifiers.
 		</sect2>
 		<sect2>
 			<title>default</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>This is the default value to output if the
+                        variable is empty.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			This is used to set a default value for a variable. If the variable
 			is empty or unset, the given default value is printed instead.
-			Default takes one argument, the value to use as the default value.
+			Default takes one argument.
 			</para>
+<example>
+<title>default</title>
+<programlisting>
+
+{* this will display "no title" (without the qoutes) if $articleTitle is empty *}
+{$articleTitle|default:"no title"}
+
+OUTPUT:
+
+no title
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>escape</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=posvals>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Possible Values</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>html,url</entry>
+                        <entry>html</entry>
+                        <entry>This is the escape format to use.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			This is used to html or url escape a variable. By default,
-			the variable is html escaped. possible arguments are "url" or "html".
+			the variable is html escaped.
 			</para>
+<example>
+<title>escape</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|escape}
+{$articleTitle|escape:"html"}
+{$articleTitle|escape:"url"}
+
+OUTPUT:
+
+Stiff Opposition Expected to Casketless Funeral Plan
+Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan
+Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan
+Stiff+Opposition+Expected+to+Casketless+Funeral+Plan
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>lower</title>
 			<para>
 			This is used to lowercase a variable.
 			</para>
+<example>
+<title>lower</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|lower}
+
+OUTPUT:
+
+Two Convicts Evade Noose, Jury Hung.
+two convicts evade noose, jury hung.
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>replace</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to be replaced.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to replace with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
-			A simple search and replace on a variable. The first argument is
-			what to search for, the second argument is what to replace it with.
+			A simple search and replace on a variable.
 			</para>
+<example>
+<title>replace</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|replace:"Garden":"Vineyard"}
+{$articleTitle|replace:" ":"   "}
+
+OUTPUT:
+
+Child's Stool Great for Use in Garden.
+Child's Stool Great for Use in Vineyard.
+Child's   Stool   Great   for   Use   in   Garden.
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>spacify</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>one space</emphasis></entry>
+                        <entry>This what gets inserted between each character of
+                        the variable.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
-			spacify is a way to insert spaces between every character of a variable.
+			spacify is a way to insert a space between every character of a variable.
 			You can optionally pass a different character (or string) to insert.
 			</para>
+<example>
+<title>spacify</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|spacify}
+{$articleTitle|spacify:"^^"}
+
+OUTPUT:
+
+Something Went Wrong in Jet Crash, Experts Say.
+S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
+S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>string_format</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is what format to use. (sprintf)</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			This is a way to format strings, such as decimal numbers and such.
 			Use the syntax for sprintf for the formatting.
 			</para>
+<example>
+<title>string_format</title>
+<programlisting>
+
+{$number}
+{$number|string_format:"%.2f"}
+{$number|string_format:"%d"}
+
+OUTPUT:
+
+23.5787446
+23.58
+24
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>strip_tags</title>
 			<para>
 			This strips out markup tags, basically anything between &lt; and &gt;.
 			</para>
+<example>
+<title>strip_tags</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|strip_tags}
+
+OUTPUT:
+
+Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
+Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>truncate</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>80</entry>
+                        <entry>This determines how many characters to truncate
+                        to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>...</entry>
+                        <entry>This is the text to append if truncation occurs.</entry>
+                    </row>
+                    <row>
+                        <entry>3</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>This determines whether or not to truncate at a
+                        word boundary (false), or at the exact character (true).</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			This truncates a variable to a character length, default is 80. As
 			an optional second parameter, you can specify a string of text
@@ -1903,12 +2283,50 @@ for a full list of valid specifiers.
 			you want to cut off at the exact character length, pass the optional
 			third parameter of true.
 			</para>
+<example>
+<title>truncate</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|truncate}
+{$articleTitle|truncate:30}
+{$articleTitle|truncate:30:""}
+{$articleTitle|truncate:30:"---"}
+{$articleTitle|truncate:30:"":true}
+{$articleTitle|truncate:30:"...":true}
+
+OUTPUT:
+
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after...
+Two Sisters Reunite after
+Two Sisters Reunite after---
+Two Sisters Reunite after Eigh
+Two Sisters Reunite after E...
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>upper</title>
 			<para>
 			This is used to uppercase a variable.
 			</para>
+<example>
+<title>upper</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|upper}
+
+OUTPUT:
+
+If Strike isn't Settled Quickly it may Last a While.
+IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>Creating your own Variable Modifiers</title>

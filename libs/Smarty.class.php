@@ -57,7 +57,7 @@ class Smarty
                                         // during development. true/false default true.
 
     var $force_compile   =  false;      // force templates to compile every time.
-                                        // if cache file exists, this will
+                                        // if cache file exists, it will
                                         // override compile_check and force_compile.
                                         // true/false. default false.
     var $caching         =  false;      // whether to use caching or not. true/false
@@ -168,20 +168,20 @@ class Smarty
 
     
 /*======================================================================*\
-    Function: register_custom_function
+    Function: register_func
     Purpose:  Registers custom function to be used in templates
 \*======================================================================*/
-    function register_custom_function($function, $function_impl)
+    function register_func($function, $function_impl)
     {
         $this->custom_funcs[$function] = $function_impl;
     }
 
     
 /*======================================================================*\
-    Function: register_modifier
+    Function: register_mod
     Purpose:  Registers modifier to be used in templates
 \*======================================================================*/
-    function register_modifier($modifier, $modifier_impl)
+    function register_mod($modifier, $modifier_impl)
     {
         $this->custom_mods[$modifier] = $modifier_impl;
     }
@@ -313,7 +313,7 @@ class Smarty
         extract($this->_tpl_vars);
 
         // if we just need to display the results, don't perform output
-        // buferring - for speed
+        // buffering - for speed
         if ($display && !$this->caching)
             include($_compile_file);
         else {
