@@ -1773,23 +1773,16 @@ class Smarty_Compiler extends Smarty {
                 $_map_array = true;
             }
 
-            if (isset($this->_plugins['modifier'][$_modifier_name])
-                || (isset($this->_plugin_info['modifier']) && isset($this->_plugin_info['modifier'][$_modifier_name]))) {
-                /* modifier is already known */
-            } elseif ($this->_get_plugin_filepath('modifier', $_modifier_name)) {
-                $this->_add_plugin('modifier', $_modifier_name);
-            } elseif (function_exists($_modifier_name)) {
+            $this->_add_plugin('modifier', $_modifier_name);
+            if (empty($this->_plugins['modifier'][$_modifier_name])
+                && !$this->_get_plugin_filepath('modifier', $_modifier_name) 
+                && function_exists($_modifier_name)) {
                 if ($this->security && !in_array($_modifier_name, $this->security_settings['MODIFIER_FUNCS'])) {
                     $this->_trigger_fatal_error("[plugin] (secure mode) modifier '$_modifier_name' is not allowed" , $_tpl_file, $_tpl_line, __FILE__, __LINE__);
                 } else {
                     $this->_plugins['modifier'][$_modifier_name] = array($_modifier_name,  null, null, false);
                 }
-            } else {
-                /* modifier not found */
-            	$this->_syntax_error("[plugin] modifier '$_modifier_name' not found", E_USER_ERROR, __FILE__, __LINE__);
-                return;
             }
-
 
             $this->_parse_vars_props($_modifier_args);
 
