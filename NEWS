@@ -1,3 +1,6 @@
+Version 2.6.0-RC2 (Oct 8, 2003)
+-------------------------------
+
   - apply modifiers only once to section-loop and foreach-from attrs (messju)
   - remove use of _smarty_cached_paths-files (messju)
   - remove Smarty::_plugin_implementation_exists() - use is_callable() (messju)
