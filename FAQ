@@ -1,12 +1,26 @@
 TROUBLESHOOTING
 ---------------
 
+Q: Smarty doesn't work.
+A: You must be using PHP 4.0.4pl1 or later to fix all known problems
+   Smarty has with PHP. Read the BUGS section of the documentation.
+
 Q: Smarty is recompiling my templates on every invocation.
-A: This is a bug that was fixed, grab the latest tarball.
+A: This is a bug that was fixed in 1.0a, grab the latest tarball.
 
 Q: I get the following error when running Smarty:
    Warning: Wrong parameter count for preg_replace() in
    Smarty.class.php on line 371
 A: preg_replace had a parameter added in PHP 4.0.2 that Smarty
-   requires. Upgrade to at least 4.0.4pl to fix all PHP issues with
+   requires. Upgrade to at least 4.0.4pl to fix all known PHP issues with
    Smarty.
+
+Q: I get the following error when running Smarty:
+   Fatal error: Failed opening required 'PEAR.php'
+   (include_path='c:\inetpub\wwwroot\intra\php') in Config_File.class.php on
+   line 3
+A: The pear libraries come bundled with PHP. In Unix, the default location
+   is in /usr/local/lib/php/. On Windows, it is under
+   the directory you installed PHP, probably c:/php/pear/.
+   Locate these files and add this directory to your php_include path.
+

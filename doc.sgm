@@ -796,7 +796,7 @@ Intro = """This is a value that spans more
 			parameters #banner_location_id# and #site_id#. Smarty will look
 			for a function named insert_getBanner() in your PHP application, passing
 			the values of #banner_location_id# and #site_id# as the first argument
-			in an indexed array. All insert function names in
+			in an associative array. All insert function names in
 			your application must be prepended with "insert_" to remedy possible
 			function name-space conflicts. Your insert_getBanner() function should
 			do something with the passed values and return the results. These results
@@ -1429,7 +1429,7 @@ OUTPUT:
 			</itemizedlist>			
 			<para>
 			All attributes passed to custom functions are passed into the
-			first argument as an indexed array. One way to get to those
+			first argument as an associative array. One way to get to those
 			values is to call extract(func_get_arg(0)); at the top of your
 			function. Anything that the function returns gets displayed
 			in place of the tag in the template.
