@@ -1,3 +1,6 @@
+Version 2.3.1
+-------------
+
     - added optgroup support to html_options (Monte, Robert
       Amos)
     - set mtime on compile files so they match source
