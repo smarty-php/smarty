@@ -468,9 +468,14 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
 	  Set this to false if your PHP environment does not allow the creation of
 	  sub directories by Smarty. Sub directories are more efficient, so use them
-	  if you can. (Note: Since Smarty-2.6.2 <varname>use_sub_dirs</varname>
-          defaults to false.)
+	  if you can.
       </para>
+      <note>
+      <title>Technical Note</title>
+      <para>
+          Since Smarty-2.6.2 <varname>use_sub_dirs</varname> defaults to false.
+      </para>
+      </note>
      </sect1>
      <sect1 id="variable.default.modifiers">
       <title>$default_modifiers</title>
