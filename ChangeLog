@@ -1,3 +1,21 @@
+2003-08-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.smarty_include_php.php:
+      fixed problem with vars as attributes in {include_php}
+
+2003-08-13  Monte Ohrt  <monte@ispi.net>
+
+    * docs/README:
+      commit README file for documentation compiling
+
+2003-08-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/debug.tpl
+      libs/plugins/modifier.debug_print_var.php:
+      removed '\r' from debug_print_vars' output
+      properly escape vars in javascript-version of debug.tpl
+
 2003-08-11  Monte Ohrt  <monte@ispi.net>
 
     * (Smarty_2_6_0_RC1)
