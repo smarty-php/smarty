@@ -1,3 +1,17 @@
+2003-02-10  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      add support for $foo->$bar syntax
+
+    * NEWS:
+      update NEWS file
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      support full var syntax in quoted text, fix problem with const var access,
+      clean up some more regex code, fix object problem with no properties
+
 2003-02-06  Monte Ohrt  <monte@ispi.net>
 
     * (Smarty_2_4_1)
