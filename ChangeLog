@@ -1,3 +1,9 @@
+2002-06-06  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      overlib.js:
+    remove overlib.js file from distribution, update plugin and docs
+
 2002-06-05  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml
