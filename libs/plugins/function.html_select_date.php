@@ -56,6 +56,7 @@ function smarty_function_html_select_date($params, &$smarty)
     $field_order      = 'MDY';
     /* String printed between the different fields. */
     $field_separator = "\n";
+	$time = time();
 
 
     extract($params);
