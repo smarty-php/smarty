@@ -1513,7 +1513,7 @@ $smarty = new Smarty;
 
 $smarty->caching = 2; // lifetime is per cache
 
-// set the cache_lifetime for index.tpl to 15 minutes
+// set the cache_lifetime for index.tpl to 5 minutes
 $smarty->cache_lifetime = 300;
 $smarty->display('index.tpl');
 
