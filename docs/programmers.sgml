@@ -468,7 +468,8 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
 	  Set this to false if your PHP environment does not allow the creation of
 	  sub directories by Smarty. Sub directories are more efficient, so use them
-	  if you can.
+	  if you can. (Note: Since Smarty-2.6.2 <varname>use_sub_dirs</varname>
+          defaults to false.)
       </para>
      </sect1>
      <sect1 id="variable.default.modifiers">
@@ -741,7 +742,7 @@ $smarty->clear_cache("index.tpl","CACHEID");</programlisting>
 			<funcsynopsis>
 			<funcprototype>
 			<funcdef>void <function>clear_compiled_tpl</function></funcdef>
-				<paramdef>string <parameter><optional>tpl_file</parameter></optional></paramdef>
+				<paramdef>string <parameter><optional>tpl_file</optional></parameter></paramdef>
 				<paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
 				<paramdef>int <parameter><optional>exp_time</optional></parameter></paramdef>
 			</funcprototype>
