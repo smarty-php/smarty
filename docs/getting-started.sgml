@@ -150,7 +150,7 @@ $smarty = new Smarty;</screen>
 	<example>
      <title>Create Smarty instance from SMARTY_DIR</title>
      <screen>
-define(SMARTY_DIR,'/usr/local/lib/php/Smarty/');
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
 require(SMARTY_DIR.'Smarty.class.php');
 $smarty = new Smarty;</screen>
 	</example>
@@ -298,7 +298,7 @@ Hello, {$name}!</screen>
      <title>Editing /web/www.mydomain.com/docs/guestbook/index.php</title>
      <screen>
 
-define(SMARTY_DIR,'/usr/local/lib/php/Smarty/');
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
 require(SMARTY_DIR.'Smarty.class.php');
 
 $smarty = new Smarty;
@@ -354,7 +354,7 @@ $smarty->display('index.tpl');</screen>
     <screen>
 
 // load Smarty library files
-define(SMARTY_DIR,'/usr/local/lib/php/Smarty/');
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
 require(SMARTY_DIR.'Smarty.class.php');
 
 // a good place to load application library files, example:
@@ -365,6 +365,8 @@ class Smarty_GuestBook extends Smarty {
    function Smarty_GuestBook() {
    
    		// Class Constructor. These automatically get set with each new instance.
+
+		$this->Smarty();
 
 		$this->template_dir = '/web/www.mydomain.com/smarty/guestbook/templates/';
 		$this->compile_dir = '/web/www.mydomain.com/smarty/guestbook/templates_c/';
