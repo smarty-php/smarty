@@ -468,15 +468,6 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				Smarty 1.3.0)
 			</para>
 		</sect2>
-		<sect2 id="setting.insert.tag.check">
-			<title>$insert_tag_check</title>
-			<para>
-				If you have $caching enabled and you do not use the <link
-				linkend="builtin.functions.insert">insert</link> tag anywhere in
-				your templates, set this to false. This saves the insert tag
-				search, speeding up cached page fetches.
-			</para>
-		</sect2>
 		<sect2 id="setting.cache.handler.func">
 			<title>$cache_handler_func</title>
 			<para>

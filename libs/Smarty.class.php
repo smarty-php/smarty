@@ -94,12 +94,6 @@ class Smarty
     var $cache_dir       =  './cache';  // name of directory for template cache files
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
-    var $insert_tag_check    = true;    // if you have caching turned on and you
-                                        // don't use {insert} tags anywhere
-                                        // in your templates, set this to false.
-                                        // this will tell Smarty not to look for
-                                        // insert tags, thus speeding up cached page
-                                        // fetches. true/false default true.
     var $cache_handler_func   = null;   // function used for cached content. this is
                                         // an alternative to using the built-in file
 										// based caching.
@@ -548,7 +542,7 @@ class Smarty
             $this->_cache_info[] = array('template', $_smarty_tpl_file);
 
             if ($this->_read_cache_file($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_results)) {
-                if ($this->insert_tag_check) {
+                if ( $this->_cache_info['insert_tags'] ) {
                     $_smarty_results = $this->_process_cached_inserts($_smarty_results);
                 }
                 if ($_smarty_display) {
@@ -1400,9 +1394,14 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _write_cache_file($tpl_file, $cache_id, $compile_id, $results)
     {
+		// determine if insert tags are present
+		if (strpos($results,$this->_smarty_md5.'{insert_cache')) {
+        	$this->_cache_info['insert_tags'] = true;
+		}
+		
         // put timestamp in cache header
         $this->_cache_info['timestamp'] = time();
-
+		
         // prepend the cache header info into cache file
         $results = 'SMARTY_CACHE_INFO_HEADER'.serialize($this->_cache_info)."\n".$results;
 
@@ -1462,8 +1461,8 @@ function _run_insert_handler($args)
         $cache_header = $cache_split[0];
 
         if (substr($cache_header, 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {
-            $cache_info = unserialize(substr($cache_header, 24));
-            $cache_timestamp = $cache_info['timestamp'];
+            $this->_cache_info = unserialize(substr($cache_header, 24));
+            $cache_timestamp = $this->_cache_info['timestamp'];
 
             if (time() - $cache_timestamp > $this->cache_lifetime) {
                 // cache expired, regenerate
@@ -1471,7 +1470,7 @@ function _run_insert_handler($args)
             }
 
             if ($this->compile_check) {
-                foreach ($cache_info as $curr_cache_info) {
+                foreach ($this->_cache_info as $curr_cache_info) {
                     switch ($curr_cache_info[0]) {
                         case 'template':
                             $this->_fetch_template_info($curr_cache_info[1], $template_source, $template_timestamp, false);

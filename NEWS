@@ -1,3 +1,5 @@
+    - removed insert_tag_check, no longer needed (Monte)
+    - optimize cache fetches by scanning for insert tags only if they exist (Monte)
     - fixed bugs in overlib (Monte, Duncan Forrest)
     - fixed a problem with compile_id usage. (Andrei)
     - fixed problem with using assigned vars with {include_php ...} filepath.
