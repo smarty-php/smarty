@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
  <bookinfo id="bookinfo">
-  <title>Smarty - the compiling PHP template engine</title>
+  <title>Smarty - a ferramenta para compilar templates para PHP</title>
   <authorgroup id="authors">
    <author>
     <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
    </author>
    <author>
     <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
+   </author>
+  </authorgroup>
+  <authorgroup id="translators">
+   <author>
+    <firstname>Fernando</firstname><surname>Correa da Conceição &lt;fernandoc@php.net&gt;</surname>
+   </author>
+   <author>
+    <firstname>Marcelo</firstname><surname>Perreira Fonseca da Silva &lt;marcelo@php.net&gt;</surname>
+   </author>
+   <author>
+    <firstname>Taniel</firstname><surname>Franklin &lt;taniel@ig.com.br&gt;</surname>
    </author>
   </authorgroup>
   <pubdate>&build-date;</pubdate>
