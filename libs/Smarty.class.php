@@ -400,13 +400,6 @@ class Smarty
  * @access private
  */
     /**
-     * error messages. true/false
-     *
-     * @var boolean
-     */
-    var $_error_msg            = false;
-
-    /**
      * where assigned template vars are kept
      *
      * @var array
@@ -1432,7 +1425,6 @@ class Smarty
 
             return true;
         } else {
-            $this->trigger_error($smarty_compiler->_error_msg);
             return false;
         }
 
