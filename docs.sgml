@@ -583,6 +583,59 @@ function print_current_date ($params) {
 </programlisting>
 </example>
 		</sect2>
+		<sect2 id="api.clear.cache">
+			<title>clear_cache</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_cache</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>string <parameter>cache id</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                This clears the cache for the specified template. If you have
+                multiple caches for this template, you can clear a specific
+                cache by supplying the cache id as the second parameter. See the
+                <link linkend="section.caching">caching section</link> for more
+                information. This was added to Smarty 1.3.0.
+			</para>
+<example>
+<title>clear_cache</title>
+<programlisting>
+
+// clear the cache for a template
+$smarty->clear_cache("index.tpl");
+
+// clear the cache for a particular cache id in an multiple-cache template
+$smarty->clear_cache("index.tpl","CACHEID");
+
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.clear.all.cache">
+			<title>clear_all_cache</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_all_cache</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This clears the entire template cache. This was added to Smarty
+				1.3.0.
+			</para>
+<example>
+<title>clear_all_cache</title>
+<programlisting>
+
+// clear the entire cache
+$smarty->clear_all_cache();
+
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2 id="api.unregister.function">
 			<title>unregister_function</title>
 			<funcsynopsis>
@@ -652,59 +705,6 @@ $smarty->register_modifier("sslash","stripslashes");
 // we don't want template designers to strip tags from elements
 
 $smarty->unregister_modifier("strip_tags");
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2 id="api.clear.cache">
-			<title>clear_cache</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_cache</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>string <parameter>cache id</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                This clears the cache for the specified template. If you have
-                multiple caches for this template, you can clear a specific
-                cache by supplying the cache id as the second parameter. See the
-                <link linkend="section.caching">caching section</link> for more
-                information. This was added to Smarty 1.3.0.
-			</para>
-<example>
-<title>clear_cache</title>
-<programlisting>
-
-// clear the cache for a template
-$smarty->clear_cache("index.tpl");
-
-// clear the cache for a particular cache id in an multiple-cache template
-$smarty->clear_cache("index.tpl","CACHEID");
-
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2 id="api.clear.all.cache">
-			<title>clear_all_cache</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_all_cache</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This clears the entire template cache. This was added to Smarty
-				1.3.0.
-			</para>
-<example>
-<title>clear_all_cache</title>
-<programlisting>
-
-// clear the entire cache
-$smarty->clear_all_cache();
-
 
 </programlisting>
 </example>
@@ -1650,6 +1650,134 @@ OUTPUT:
 </example>
 			</sect3>
 			<sect3>	
+			<title>index_prev</title>
+			<para>
+			index_prev is used to display the previous loop iteration.
+            on the first loop, this is set to -1.
+			</para>
+<example>
+<title>section property index_prev</title>
+<programlisting>
+{section name=customer loop=$custid}
+	{%customer.index%} id: {$customer/custid}&lt;br&gt;
+    {* FYI, $customer.index/custid and $customer/custid are identical in meaning *}
+    {if $customer.index_prev/custid ne $customer.index/custid}
+        The customer id changed&lt;br&gt;
+    {/if}
+{/section}
+
+
+OUTPUT:
+
+0 id: 1000&lt;br&gt;
+        The customer id changed&lt;br&gt;
+1 id: 1001&lt;br&gt;
+        The customer id changed&lt;br&gt;
+2 id: 1002&lt;br&gt;
+        The customer id changed&lt;br&gt;
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>
+			<title>index_next</title>
+			<para>
+            index_next is used to display the next loop iteration. On the last
+            loop, this is still one more than the current index.
+			</para>
+<example>
+<title>section property index_next</title>
+<programlisting>
+{section name=customer loop=$custid}
+	{%customer.index%} id: {$customer/custid}&lt;br&gt;
+    {* FYI, $customer.index/custid and $customer/custid are identical in meaning *}
+    {if $customer.index_next/custid ne $customer.index/custid}
+        The customer id will change&lt;br&gt;
+    {/if}
+{/section}
+
+
+OUTPUT:
+
+0 id: 1000&lt;br&gt;
+        The customer id will change&lt;br&gt;
+1 id: 1001&lt;br&gt;
+        The customer id will change&lt;br&gt;
+2 id: 1002&lt;br&gt;
+        The customer id will change&lt;br&gt;
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>
+			<title>first</title>
+			<para>
+            first is set to true if the current section iteration is the first
+            one.
+			</para>
+<example>
+<title>section property first</title>
+<programlisting>
+{section name=customer loop=$custid}
+    {if %customer.first%}
+        &lt;table&gt;
+    {/if}
+
+	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
+            {$customer/custid}&lt;/td&gt;&lt;/tr&gt;
+
+    {if %customer.last%}
+        &lt;/table&gt;
+    {/if}
+{/section}
+
+
+OUTPUT:
+
+&lt;table&gt;
+    &lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>
+			<title>last</title>
+			<para>
+            last is set to true if the current section iteration is the last
+            one.
+			</para>
+<example>
+<title>section property last</title>
+<programlisting>
+{section name=customer loop=$custid}
+    {if %customer.first%}
+        &lt;table&gt;
+    {/if}
+
+	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
+            {$customer/custid}&lt;/td&gt;&lt;/tr&gt;
+
+    {if %customer.last%}
+        &lt;/table&gt;
+    {/if}
+{/section}
+
+
+OUTPUT:
+
+&lt;table&gt;
+    &lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>	
 			<title>rownum</title>
 			<para>
 			rownum is used to display the current loop iteration,
@@ -1821,7 +1949,7 @@ OUTPUT:
             </informaltable>
 			<para>
             fetch allows the template designer to fetch files from the local
-            file system,  ftp, or http, and display the contents. If the file
+            file system, http, or ftp and display the contents. If the file
             name begins with "http://", the web site page will be fetched and
             displayed. If the file name begins with "ftp://", the file will be
             fetched from the ftp server and displayed. For local files, the full
@@ -1835,9 +1963,10 @@ OUTPUT:
             <para>
             TECHNICAL NOTE: This function may be a security concern if you are
             allowing third parties to modify templates. i.e., they can access
-            arbitrary files on your system. Be sure to <link
-            linkend="api.unregister.function">unregister</link> this function if
-            required.
+            files on your system out side of the template directory. To disable
+            this function, <link
+            linkend="api.unregister.function">unregister</link> it in your
+            application.
             </para>
 <example>
 <title>fetch</title>

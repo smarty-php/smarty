@@ -38,26 +38,24 @@ A: Smarty and these cache solutions have nothing in common. What APC does is
    not.
 
 Q: Is Smarty faster than <insert other PHP template engine>?
-A: This would mostly depend on the other template engine, but as a general rule
-   of thumb: Without a PHP caching solution like APC or Zend Cache, Smarty is
-   most likely as fast, or possibly slower. With APC, Smarty is mostly like as
-   fast or much faster. The reason is this: Smarty generates PHP scripts from
-   your templates. The more templates your application has, the more PHP
-   scripts Smarty generates. This in turn requires more time for the PHP parser
-   to compile the PHP scripts. With APC, this compilation step is cached. So as
-   the complexity of the templates increase, the performance savings go up
-   accordingly. Also, most other template solutions parse the template files on
-   each invocation. The more complex the templates are, the longer they take to
-   parse. Smarty has no need to parse template files, it only executes PHP
-   scripts. We are working on a release of Smarty that will be noticably
-   quicker even without the aid of a PHP script caching solution by minimizing
-   the amount of PHP code that is compiled on each request.
-   
+A: It could be. One of the strengths of Smarty is that it does not need to
+   parse the template files on every hit to the server. Version 1.3.1 has
+   many noticable performance tune-ups, so your best bet is to try some
+   benchmarks and compare for yourself.
+
    The above comparison assumes that you are not using Smarty's built-in
    ability to cache templates. If you are, that makes this comparison pretty
-   useless since Smarty will basically be displaying static content instead of
-   generating templates, which of course will be magnitudes faster.
+   unfair since Smarty will basically be displaying static content instead of
+   generating templates, which will speed things up, especially for compilcated
+   templates.
 
+Q: How can I be sure to get the best performance from Smarty?
+A  Be sure you set $compile_check=false once your templates are initially
+   compiled. This will skip the unneeded step of traversing all of your template   files on each hit. If you have complex pages that don't change too often,
+   turn on the caching engine and adjust your application so it doesn't do
+   unnecessary work (like db calls) if a cached page is available. See the
+   documentation for examples.
+   
 Q: Can I use Macromedia's Dreamweaver to edit my templates?
 A: Certainly. You might want to change your tag delimiters from {} to something
    that resembles valid HTML, like <!--{ }--> or <{ }> or something similar.

@@ -1,6 +1,8 @@
+    - document first, last, index_prev, index_next (Monte)
     - added 'first' and 'last' section properties. (Andrei)
     - split out compiling code to separate class for faster template execution
       time (Monte)
+    - fixed a couple of minor PHP warnings (Monte)
     - added and documented unregister_modifier() and unregister_function() API
       calls. (Monte)
     - added and documented 'fetch' and 'math' functions. (Monte)
