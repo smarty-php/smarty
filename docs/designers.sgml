@@ -131,7 +131,7 @@
 
 {$Contacts[row].Phone}
 
-&lt;body bgcolr="{#bgcolor#}"&gt;</programlisting>
+&lt;body bgcolor="{#bgcolor#}"&gt;</programlisting>
    </para>
 
    <sect1 id="language.assigned.variables">
@@ -1253,8 +1253,8 @@ s m o k e r s   a r e   p. . .</programlisting>
       </para>
       <caution>
        <para>
-        Be careful when capturing <command>{insert}</command> output. If
-        you have caching turned on and you have <command>{insert}</command>
+        Be careful when capturing <command>insert</command> output. If
+        you have caching turned on and you have <command>insert</command>
         commands that you expect to run within cached content, do not
         capture this content.
        </para>
@@ -3288,6 +3288,14 @@ OUTPUT:
                         <entry>No</entry>
                         <entry>\n</entry>
                         <entry>string printed between different fields</entry>
+                    </row>
+                    <row>
+                        <entry>month_value_format</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%m</entry>
+						<entry>strftime format of the month values, default is
+						%m for month numbers.</entry>
                     </row>
                 </tbody>
                 </tgroup>

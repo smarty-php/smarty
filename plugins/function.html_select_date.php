@@ -4,7 +4,7 @@
  * -------------------------------------------------------------
  * Type:     function
  * Name:     html_select_date
- * Version:  1.2
+ * Version:  1.3
  * Purpose:  Prints the dropdowns for date selection.
  * Author:   Andrei Zmievski
  *
@@ -13,6 +13,8 @@
  *                and end year values. (Monte)
  *            1.2 added support for yyyy-mm-dd syntax for
  *                time value. (Jan Rosier)
+ *            1.3 added support for choosing format for 
+ *                month values (Gary Loescher)
  * -------------------------------------------------------------
  */
 require_once SMARTY_DIR . $this->plugins_dir . '/shared.make_timestamp.php';
@@ -27,6 +29,8 @@ function smarty_function_html_select_date($params, &$smarty)
     $display_months  = true;
     $display_years   = true;
     $month_format    = "%B";
+    /* Write months as numbers by default  GL */
+    $month_value_format = "%m";
     $day_format      = "%02d";
     $year_as_text    = false;
     /* Display years in reverse order? Ie. 2000,1999,.... */
@@ -53,43 +57,47 @@ function smarty_function_html_select_date($params, &$smarty)
     /* String printed between the different fields. */
     $field_separator = "\n";
 
+
     extract($params);
 
-	// If $time is not in format yyyy-mm-dd
-	if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time)) {
-		// then $time is empty or unix timestamp or mysql timestamp
-		// using smarty_make_timestamp to get an unix timestamp and
-		// strftime to make yyyy-mm-dd
-		$time = strftime('%Y-%m-%d', smarty_make_timestamp($time));
-	}
-	// Now split this in pieces, which later can be used to set the select
-	$time = explode("-", $time);
-
-	// make syntax "+N" or "-N" work with start_year and end_year
-	if (preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match)) {
-		if ($match[1] == '+') {
-			$end_year = strftime('%Y') + $match[2];
-		} else {
-			$end_year = strftime('%Y') - $match[2];
-		}
-	}
-	if (preg_match('!^(\+|\-)\s*(\d+)$!', $start_year, $match)) {
-		if ($match[1] == '+') {
-			$start_year = strftime('%Y') + $match[2];
-		} else {
-			$start_year = strftime('%Y') - $match[2];
-		}
-	}
-
+  	// If $time is not in format yyyy-mm-dd
+  	if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time)) {
+  		// then $time is empty or unix timestamp or mysql timestamp
+  		// using smarty_make_timestamp to get an unix timestamp and
+  		// strftime to make yyyy-mm-dd
+  		$time = strftime('%Y-%m-%d', smarty_make_timestamp($time));
+  	}
+  	// Now split this in pieces, which later can be used to set the select
+  	$time = explode("-", $time);
+  
+  	// make syntax "+N" or "-N" work with start_year and end_year
+  	if (preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match)) {
+  		if ($match[1] == '+') {
+  			$end_year = strftime('%Y') + $match[2];
+  		} else {
+  			$end_year = strftime('%Y') - $match[2];
+  		}
+  	}
+  	if (preg_match('!^(\+|\-)\s*(\d+)$!', $start_year, $match)) {
+  		if ($match[1] == '+') {
+  			$start_year = strftime('%Y') + $match[2];
+  		} else {
+  			$start_year = strftime('%Y') - $match[2];
+  		}
+  	}
+  
     $field_order = strtoupper($field_order);
 
     $html_result = $month_result = $day_result = $year_result = "";
 
     if ($display_months) {
         $month_names = array();
+        $month_values = array();
 
-        for ($i = 1; $i <= 12; $i++)
+        for ($i = 1; $i <= 12; $i++) {
             $month_names[] = strftime($month_format, mktime(0, 0, 0, $i, 1, 2000));
+            $month_values[] = strftime($month_value_format, mktime(0, 0, 0, $i, 1, 2000));
+        }
 
         $month_result .= '<select name=';
         if (null !== $field_array){
@@ -107,11 +115,13 @@ function smarty_function_html_select_date($params, &$smarty)
             $month_result .= ' ' . $all_extra;
         }
         $month_result .= '>'."\n";
+        
         $month_result .= smarty_function_html_options(array('output'     => $month_names,
-                                                            'values'     => range(1, 12),
-                                                            'selected'   => $time[1],
+                                                            'values'     => $month_values,
+                                                            'selected'   => $month_values[$time[1]-1],
                                                             'print_result' => false),
                                                       $smarty);
+        
         $month_result .= '</select>';
     }
 

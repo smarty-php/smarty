@@ -3,7 +3,7 @@
 /**
  * Config_File class.
  *
- * @version 2.0.1
+ * @version 2.1.1
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * 
