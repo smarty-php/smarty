@@ -38,6 +38,8 @@
  * @package Smarty
  */
 
+/* $Id$ */
+
 class Smarty_Compiler extends Smarty {
 
     // internal vars

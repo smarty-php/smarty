@@ -42,6 +42,8 @@
  * @version 2.5.0-RC2
  */
 
+/* $Id$ */
+
 /**
  * set SMARTY_DIR to absolute path to Smarty library files.
  * if not defined, include_path will be used.
