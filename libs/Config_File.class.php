@@ -1,7 +1,5 @@
 <?php
 
-require_once "PEAR.php";
-
 /**
  * Config_File class.
  *
@@ -38,7 +36,7 @@ require_once "PEAR.php";
  * http://www.phpinsider.com
  */
 
-class Config_File extends PEAR {
+class Config_File {
 	/* Options */
 	/**
 	 * Controls whether variables with the same name overwrite each other.
@@ -76,8 +74,6 @@ class Config_File extends PEAR {
 	 */
 	function Config_File($config_path = NULL)
 	{
-		$this->PEAR();
-
 		if (substr(PHP_OS, 1, 3) == "WIN" || substr(PHP_OS, 1, 4) == "OS/2")
 			$this->_separator = "\\";
 		else
@@ -98,7 +94,8 @@ class Config_File extends PEAR {
 	{
 		if (!empty($config_path)) {
 			if (!is_string($config_path) || !file_exists($config_path) || !is_dir($config_path)) {
-				return new Config_File_Error("Bad config file path '$config_path'");
+				$this->_trigger_error_msg("Bad config file path '$config_path'");
+				return;
 			}
 
 			$this->_config_path = $config_path . $this->_separator;
@@ -117,9 +114,10 @@ class Config_File extends PEAR {
 	 */
 	function &get($file_name, $section_name = NULL, $var_name = NULL)
 	{
-		if (empty($file_name))
-			return new Config_File_Error('Empty config file name');
-		else {
+		if (empty($file_name)) {
+			$this->_trigger_error_msg('Empty config file name');
+			return;
+		} else {
 			$file_name = $this->_config_path . $file_name;
 			if (!isset($this->_config_data[$file_name]))
 				$this->load_file($file_name, false);
@@ -177,8 +175,10 @@ class Config_File extends PEAR {
 	function get_section_names($file_name)
 	{
 		$file_name = $this->_config_path . $file_name;
-		if (!isset($this->_config_data[$file_name]))
-			return new Config_File_Error("Unknown config file '$file_name'");
+		if (!isset($this->_config_data[$file_name])) {
+			$this->_trigger_error_msg("Unknown config file '$file_name'");
+			return;
+		}
 		
 		return array_keys($this->_config_data[$file_name]["sections"]);
 	}
@@ -194,10 +194,13 @@ class Config_File extends PEAR {
 	 */
 	function get_var_names($file_name, $section = NULL)
 	{
-		if (empty($file_name))
-			return new Config_File_Error('Empty config file name');
-		else if (!isset($this->_config_data[$file_name]))
-			return new Config_File_Error("Unknown config file '$file_name'");
+		if (empty($file_name)) {
+			$this->_trigger_error_msg('Empty config file name');
+			return;
+		} else if (!isset($this->_config_data[$file_name])) {
+			$this->_trigger_error_msg("Unknown config file '$file_name'");
+			return;
+		}
 		
 		if (empty($section))
 			return array_keys($this->_config_data[$file_name]["vars"]);
@@ -239,8 +242,10 @@ class Config_File extends PEAR {
 
 		ini_set('track_errors', true);
 		$fp = @fopen($config_file, "r");
-		if (!is_resource($fp))
-			return new Config_File_Error($php_errormsg);
+		if (!is_resource($fp)) {
+			$this->_trigger_error_msg($php_errormsg);
+			return;
+		}
 
 		$contents = fread($fp, filesize($config_file));
 		fclose($fp);
@@ -301,8 +306,10 @@ class Config_File extends PEAR {
 				$var_name = substr($var_name, 1);
 		}
 
-		if (!preg_match("/^[a-zA-Z_]\w*$/", $var_name))
-			return new Config_File_Error("Bad variable name '$var_name'");
+		if (!preg_match("/^[a-zA-Z_]\w*$/", $var_name)) {
+			$this->_trigger_error_msg("Bad variable name '$var_name'");
+			return;
+		}
 
 		if ($booleanize) {
 			if (preg_match("/^(on|true|yes)$/i", $var_value))
@@ -318,18 +325,10 @@ class Config_File extends PEAR {
 			$container[$var_name][] = $var_value;
 		}
 	}
-}
 
-/** @exclude */
-class Config_File_Error extends PEAR_Error {
-	var	$error_message_prefix = 'Config_File: ';
-
-	function Config_File_Error($message,
-							   $code = 0,
-							   $mode = PEAR_ERROR_PRINT,
-							   $level = E_USER_NOTICE)
+	function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING)
 	{
-		$this->PEAR_Error($message."\n", $code, $mode, $level);
+		trigger_error("Config_File error: $error_msg", $error_type);
 	}
 }
 
