@@ -50,7 +50,8 @@ function smarty_block_textformat($params, $content, &$smarty)
 	
 	// split into paragraphs	
 	$paragraphs = preg_split('![\r\n][\r\n]!',$content);
-	
+	$output = '';
+
 	foreach($paragraphs as $paragraph) {
 		if($paragraph == '') {
 			continue;
