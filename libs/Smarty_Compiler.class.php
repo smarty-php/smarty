@@ -529,13 +529,13 @@ class Smarty_Compiler extends Smarty {
                     $this->_pop_tag('strip');
                     if (--$this->_strip_depth==0) { /* outermost closing {/strip} */
                         $this->_additional_newline = "\n";
-                        return $this->left_delimiter.$tag_command.$this->right_delimiter;
+                        return '{' . $tag_command . '}';
                     }
                 } else {
                     $this->_push_tag('strip');
                     if ($this->_strip_depth++==0) { /* outermost opening {strip} */
                         $this->_additional_newline = "";
-                        return $this->left_delimiter.$tag_command.$this->right_delimiter;
+                        return '{' . $tag_command . '}';
                     }
                 }
                 return '';
