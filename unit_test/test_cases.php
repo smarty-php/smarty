@@ -377,12 +377,12 @@ foo:foo:b', $this->smarty->fetch('parse_obj_meth.tpl'));
 
 
     function test_core_is_secure_file_exists() {
-        $file = SMARTY_DIR . 'core/core.is_secure.php';
+        $file = SMARTY_CORE_DIR . 'core.is_secure.php';
         $this->assertTrue(file_exists($file));
     }
 
     function test_core_is_secure_file_include() {
-        $file = SMARTY_DIR . 'core/core.is_secure.php';
+        $file = SMARTY_CORE_DIR . 'core.is_secure.php';
         $this->assertTrue(include($file));
     }
 
