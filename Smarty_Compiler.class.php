@@ -456,7 +456,11 @@ class Smarty_Compiler extends Smarty {
 				"       include \"\$file_name.php\";\n" .
 				"   }\n" .
 				"}\n" .
-				"$include_func_name($include_file_name, get_defined_vars(), array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
+				"\$_smarty_defined_vars = get_defined_vars();\n" .
+				"unset(\$_smarty_defined_vars['file_name']);\n" .
+				"unset(\$_smarty_defined_vars['def_vars']);\n" .
+				"unset(\$_smarty_defined_vars['include_vars']);\n" .
+				"$include_func_name($include_file_name, \$_smarty_defined_vars, array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
     }
 
 /*======================================================================*\
