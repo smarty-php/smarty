@@ -281,7 +281,6 @@ class Smarty
 				$new_dir = "";
 				foreach ($compile_dir_parts as $dir_part) {
 					$new_dir .= $dir_part."/";
-echo "DEBUG: $new_dir<br>\n";
 					if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
 						$this->_set_error_msg("problem creating directory \"$this->compile_dir\"");
 						return false;				
@@ -357,6 +356,8 @@ echo "DEBUG: $new_dir<br>\n";
 			$this->_current_line_no += substr_count($template_tags[$i], "\n");
 		}
 
+		$compiled_contents = "";
+		
 		/* Interleave the compiled contents and text blocks to get the final result. */
 		for ($i = 0; $i < count($compiled_tags); $i++) {
 			$compiled_contents .= $text_blocks[$i].$compiled_tags[$i];
@@ -857,7 +858,7 @@ echo "DEBUG: $new_dir<br>\n";
 		/* preg_grep() was fixed to return keys properly in 4.0.4 and later. To
 		   allow people to use older versions of PHP we emulate preg_grep() and
 		   use the version check to see what function to call. */
-		if (strnatcmp($PHP_VERSION, '4.0.4') >= 0) {
+		if (strnatcmp(PHP_VERSION, '4.0.4') >= 0) {
 			$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 			$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 			$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);

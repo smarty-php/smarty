@@ -16,15 +16,16 @@ A: Most other template engines for PHP provide basic variable substitution and
    scalable and managable for large application needs.
 
 Q: What do you mean "Compiled PHP Scripts" ?
-A: What this means is that Smarty reads the template files and creates PHP
-   scripts from them. Once these PHP scripts are created, Smarty executes
-   these, never having to parse the template files again. If you change a
-   template file, Smarty will recreate the PHP script for it. All this is done
-   automatically by Smarty. Template designers never need to mess with the
-   generated PHP scripts or even know of their existance.
+A: Smarty reads the template files and creates PHP scripts from them. Once
+   these PHP scripts are created, Smarty executes these, never having to parse
+   the template files again. If you change a template file, Smarty will
+   recreate the PHP script for it. All this is done automatically by Smarty.
+   Template designers never need to mess with the generated PHP scripts or even
+   know of their existance.
 
 Q: Do you have a mailing list?
-A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net
+A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net. This
+   is also archived at http://marc.theaimsgroup.com/ under www/smarty
 
 TROUBLESHOOTING
 ---------------

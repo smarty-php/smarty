@@ -1,3 +1,8 @@
+Version 1.2.2
+-------------
+	- fixed bug using $PHP_VERSION instead of environment var PHP_VERSION.
+	- couple small warning fixes
+
 Version 1.2.1
 -------------
 	- added $compile_dir, removed $compile_dir_ext, simplified usage
