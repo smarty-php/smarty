@@ -208,4 +208,12 @@ function smarty_func_html_select_date()
 	print $html_result;
 }
 
+/*============================================*\
+  Insert tag functions
+\*============================================*/
+
+function insert_paginate()
+{
+	echo "test paginate\n";
+}
 ?>

@@ -21,6 +21,4 @@ My interests are:
 
 ({$FirstName|@count})
 
-{insert name=test_insert}
-{insert name=test_insert}
-{insert name=test_insert}
+{insert name=paginate}

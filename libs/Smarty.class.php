@@ -494,7 +494,7 @@ class Smarty
 			$arg_list[] = "'$arg_name' => $arg_value";
 		}
 
-		return "<?php print $name(array(".implode(',', (array)$arg_list).")); ?>";
+		return "<?php print insert_$name(array(".implode(',', (array)$arg_list).")); ?>";
 	}
 
 
