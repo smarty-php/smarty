@@ -20,6 +20,7 @@
  *         - encode = (optional) can be one of:
  *                * none : no encoding (default)
  *                * javascript : encode with javascript
+ *                * javascript_charcode : encode with javascript charcode
  *                * hex : encode with hexidecimal (no javascript)
  *         - cc = (optional) address(es) to carbon copy
  *         - bcc = (optional) address(es) to blind carbon copy
@@ -92,7 +93,7 @@ function smarty_function_mailto($params, &$smarty)
     $address .= $mail_parm_vals;
 
     $encode = (empty($params['encode'])) ? 'none' : $params['encode'];
-    if (!in_array($encode,array('javascript','hex','none')) ) {
+    if (!in_array($encode,array('javascript','javascript_charcode','hex','none')) ) {
         $smarty->trigger_error("mailto: 'encode' parameter must be none, javascript or hex");
         return;
     }
@@ -107,6 +108,25 @@ function smarty_function_mailto($params, &$smarty)
 
         return '<script type="text/javascript">eval(unescape(\''.$js_encode.'\'))</script>';
 
+    } elseif ($encode == 'javascript_charcode' ) {
+        $string = '<a href="mailto:'.$address.'" '.$extra.'>'.$text.'</a>';
+
+        for($x = 0, $y = strlen($string); $x < $y; $x++ ) {
+            $ord[] = ord($string[$x]);   
+        }
+
+        $_ret = "<script type=\"text/javascript\" language=\"javascript\">\n";
+        $_ret .= "<!--\n";
+        $_ret .= "{document.write(String.fromCharCode(";
+        $_ret .= implode(',',$ord);
+        $_ret .= "))";
+        $_ret .= "}\n";
+        $_ret .= "//-->\n";
+        $_ret .= "</script>\n";
+        
+        return $_ret;
+        
+        
     } elseif ($encode == 'hex') {
 
         preg_match('!^(.*)(\?.*)$!',$address,$match);

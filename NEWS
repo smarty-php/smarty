@@ -1,3 +1,5 @@
+  - add javascript_charcode encoding option to mailto function
+    (monte)
   - add ids to html_radios labels (monte, menulis)
   - fix handling of strip-tags with non-default delimiters (Mark West, messju)
 
