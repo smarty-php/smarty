@@ -799,11 +799,11 @@ function smarty_func_overlib_init($args, &$smarty_obj) {
     Purpose:  make text pop up in windows via overlib
 \*======================================================================*/
 function smarty_func_overlib($args, &$smarty_obj) {
-    extract($args);
-    if (empty($text) && !isset($inarray) && empty($function)) {
-        $smarty_obj->_trigger_error_msg("overlib: attribute 'text' required");
-        return false;
-    }
+	extract($args);
+	if (empty($text) && !isset($inarray) && empty($function)) {
+    	$smarty_obj->_trigger_error_msg("overlib: attribute 'text' or 'inarray' or 'function' required");
+    	return false;
+	}
 
     if (empty($trigger)) { $trigger = "onMouseOver"; }
 
@@ -818,19 +818,19 @@ function smarty_func_overlib($args, &$smarty_obj) {
     if (!empty($textfont)) { echo ",TEXTFONT,'$textfont'"; }
     if (!empty($captionfont)) { echo ",CAPTIONFONT,'$captionfont'"; }
     if (!empty($closefont)) { echo ",CLOSEFONT,'$closefont'"; }
-    if (!empty($textsize)) { echo ",TEXTSIZE,'$textsize'"; }
-    if (!empty($captionsize)) { echo ",CAPTIONSIZE,'$captionsize'"; }
-    if (!empty($closesize)) { echo ",CLOSESIZE,'$closesize'"; }
-    if (!empty($width)) { echo ",WIDTH,'$width'"; }
-    if (!empty($height)) { echo ",HEIGHT,'$height'"; }
+    if (!empty($textsize)) { echo ",TEXTSIZE,$textsize"; }
+    if (!empty($captionsize)) { echo ",CAPTIONSIZE,$captionsize"; }
+    if (!empty($closesize)) { echo ",CLOSESIZE,$closesize"; }
+    if (!empty($width)) { echo ",WIDTH,$width"; }
+    if (!empty($height)) { echo ",HEIGHT,$height"; }
     if (!empty($left)) { echo ",LEFT"; }
     if (!empty($right)) { echo ",RIGHT"; }
     if (!empty($center)) { echo ",CENTER"; }
     if (!empty($above)) { echo ",ABOVE"; }
     if (!empty($below)) { echo ",BELOW"; }
-    if (!empty($border)) { echo ",BORDER,'$border'"; }
-    if (!empty($offsetx)) { echo ",OFFSETX,$offsetx"; }
-    if (!empty($offsety)) { echo ",OFFSETY,$offsety"; }
+    if (isset($border)) { echo ",BORDER,$border"; }
+    if (isset($offsetx)) { echo ",OFFSETX,$offsetx"; }
+    if (isset($offsety)) { echo ",OFFSETY,$offsety"; }
     if (!empty($fgbackground)) { echo ",FGBACKGROUND,'$fgbackground'"; }
     if (!empty($bgbackground)) { echo ",BGBACKGROUND,'$bgbackground'"; }
     if (!empty($closetext)) { echo ",CLOSETEXT,'".str_replace("'","\'",$closetext)."'"; }
@@ -838,21 +838,21 @@ function smarty_func_overlib($args, &$smarty_obj) {
     if (!empty($status)) { echo ",STATUS,'".str_replace("'","\'",$status)."'"; }
     if (!empty($autostatus)) { echo ",AUTOSTATUS"; }
     if (!empty($autostatuscap)) { echo ",AUTOSTATUSCAP"; }
-    if (!empty($inarray)) { echo ",INARRAY,'$inarray'"; }
-    if (!empty($caparray)) { echo ",CAPARRAY,'$caparray'"; }
+    if (isset($inarray)) { echo ",INARRAY,'$inarray'"; }
+    if (isset($caparray)) { echo ",CAPARRAY,'$caparray'"; }
     if (!empty($capicon)) { echo ",CAPICON,'$capicon'"; }
-    if (!empty($snapx)) { echo ",SNAPX,'$snapx'"; }
-    if (!empty($snapy)) { echo ",SNAPY,'$snapy'"; }
-    if (!empty($fixx)) { echo ",FIXX,'$fixx'"; }
-    if (!empty($fixy)) { echo ",FIXY,'$fixy'"; }
+    if (!empty($snapx)) { echo ",SNAPX,$snapx"; }
+    if (!empty($snapy)) { echo ",SNAPY,$snapy"; }
+    if (isset($fixx)) { echo ",FIXX,$fixx"; }
+    if (isset($fixy)) { echo ",FIXY,$fixy"; }
     if (!empty($background)) { echo ",BACKGROUND,'$background'"; }
-    if (!empty($padx)) { echo ",PADX,'$padx'"; }
-    if (!empty($pady)) { echo ",PADY,'$pady'"; }
+    if (!empty($padx)) { echo ",PADX,$padx"; }
+    if (!empty($pady)) { echo ",PADY,$pady"; }
     if (!empty($fullhtml)) { echo ",FULLHTML"; }
     if (!empty($frame)) { echo ",FRAME,'$frame'"; }
-    if (!empty($timeout)) { echo ",TIMEOUT,'$timeout'"; }
+    if (isset($timeout)) { echo ",TIMEOUT,$timeout"; }
     if (!empty($function)) { echo ",FUNCTION,'$function'"; }
-    if (!empty($delay)) { echo ",DELAY,'$delay'"; }
+    if (isset($delay)) { echo ",DELAY,$delay"; }
     if (!empty($hauto)) { echo ",HAUTO"; }
     if (!empty($vauto)) { echo ",VAUTO"; }
     echo ');" onMouseOut="nd();"';
