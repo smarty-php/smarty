@@ -24,14 +24,14 @@ function smarty_core_parse_file_path(&$params, &$this)
     $_file_path_parts = explode(':', $params['file_path'], 2);
 		
     if (count($_file_path_parts) == 1) {
-        // no resource type, treat as type "file"
+        // no resource type given
         $params['resource_type'] = $this->default_resource_type;
         $params['resource_name'] = $_file_path_parts[0];
     } else {
 		if(strlen($_file_path_parts[0]) == 1) {
 			// 1 char is not resource type, but part of filepath
-        	$params['resource_type'] = 'file';
-        	$params['resource_name'] = $params['file_path'];			
+        	$params['resource_type'] = $this->default_resource_type;
+        	$params['resource_name'] = $params['file_path'];	
 		} else {
         	$params['resource_type'] = $_file_path_parts[0];
         	$params['resource_name'] = $_file_path_parts[1];
