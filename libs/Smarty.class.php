@@ -450,6 +450,9 @@ class Smarty
 				list (,$literal_block) = each($this->_literal_blocks);
 				return $literal_block;
 
+			case 'insert':
+				return $this->_compile_insert_tag($tag_args);
+
 			default:
 				if (isset($this->custom_tags[$tag_command])) {
 					return $this->_compile_custom_tag($tag_command, $tag_args);
@@ -471,6 +474,26 @@ class Smarty
 		}
 
 		return "<?php $function(array(".implode(',', (array)$arg_list).")); ?>";
+	}
+
+
+	function _compile_insert_tag($tag_args)
+	{
+		$attrs = $this->_parse_attrs($tag_args);
+		$name = substr($attrs['name'], 1, -1);
+
+		if (empty($name)) {
+			/* TODO syntax error: missing insert name */
+		}
+
+		foreach ($attrs as $arg_name => $arg_value) {
+			if ($arg_name == 'name') continue;
+			if (is_bool($arg_value))
+				$arg_value = $arg_value ? 'true' : 'false';
+			$arg_list[] = "'$arg_name' => $arg_value";
+		}
+
+		return "<?php print $name(array(".implode(',', (array)$arg_list).")); ?>";
 	}
 
 
