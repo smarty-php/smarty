@@ -232,7 +232,7 @@ class Smarty
                                                                'isset', 'empty',
                                                                'count', 'sizeof',
                                                                'in_array', 'is_array',
-                                                               'true','false'),
+                                                               'true', 'false', 'null'),
                                     'INCLUDE_ANY'     => false,
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count'),

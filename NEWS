@@ -1,3 +1,4 @@
+  - add "null" as a valid token for {if} when security is enabled (messju)
   - add javascript_charcode encoding option to mailto function
     (monte)
   - add ids to html_radios labels (monte, menulis)
