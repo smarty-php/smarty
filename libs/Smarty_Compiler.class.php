@@ -90,7 +90,7 @@ class Smarty_Compiler extends Smarty {
     var $_cache_paths           =   null;
 
     var $_strip_depth           =   0;
-    var $_trailing_lf           =   "\n";
+    var $_additional_newline           =   "\n";
 
     /**#@-*/
 	/**
@@ -336,7 +336,8 @@ class Smarty_Compiler extends Smarty {
         /* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
         if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_content, $_match)) {
             $strip_tags = $_match[0];
-            $strip_tags_modified = preg_replace("!{$ldq}/?strip{$rdq}|\s+\$|^\s+!m", '', $strip_tags);
+            $strip_tags_modified = preg_replace("!{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+!m", '', $strip_tags);
+            $strip_tags_modified = preg_replace('![\r\n]+!m', '', $strip_tags_modified);
             for ($i = 0, $for_max = count($strip_tags); $i < $for_max; $i++)
                 $compiled_content = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
                                                   $this->quote_replace($strip_tags_modified[$i]),
@@ -433,7 +434,7 @@ class Smarty_Compiler extends Smarty {
 			if(isset($_tag_attrs['assign'])) {
 				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $_return ); ?>\n";  
 			} elseif ($this->_output_type == 'php') {
-            	return "<?php echo $_return; ?>" . $this->_trailing_lf;
+            	return "<?php echo $_return; ?>" . $this->_additional_newline;
 			} else {
 				// static
 				return $_return;
@@ -511,13 +512,13 @@ class Smarty_Compiler extends Smarty {
                     $this->_strip_depth--;
                 else
                     $this->_strip_depth++;
-                $this->_trailing_lf = ($this->_strip_depth>0) ? '' : "\n";
+                $this->_additional_newline = ($this->_strip_depth>0) ? '' : "\n";
                 return $this->left_delimiter.$tag_command.$this->right_delimiter;
 
             case 'literal':
                 list (,$literal_block) = each($this->_literal_blocks);
                 $this->_current_line_no += substr_count($literal_block, "\n");
-                return "<?php echo '".str_replace("'", "\'", str_replace("\\", "\\\\", $literal_block))."'; ?>" . $this->_trailing_lf;
+                return "<?php echo '".str_replace("'", "\'", str_replace("\\", "\\\\", $literal_block))."'; ?>" . $this->_additional_newline;
 
             case 'php':
                 if ($this->security && !$this->security_settings['PHP_TAGS']) {
@@ -721,7 +722,7 @@ class Smarty_Compiler extends Smarty {
         
 		if($_return != '') {
             $_return =  '<?php ' . $_cacheable_state . $_cache_attrs . 'echo ' . $_return . ';'
-                . $this->_pop_cacheable_state('function', $tag_command) . "?>" . $this->_trailing_lf;
+                . $this->_pop_cacheable_state('function', $tag_command) . "?>" . $this->_additional_newline;
 		}
         
 		return $_return; 
@@ -812,7 +813,7 @@ class Smarty_Compiler extends Smarty {
                 $output = "\$this->assign('" . $this->_dequote($_assign_var) ."',  $return);";
             } else {
                 $output = 'echo ' . $return . ';';
-                $newline = $this->_trailing_lf;
+                $newline = $this->_additional_newline;
             }
         } else {
             $output = '';
@@ -852,7 +853,7 @@ class Smarty_Compiler extends Smarty {
 
 		$_params = "array('args' => array(".implode(', ', (array)$arg_list)."))";
 		
-        return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.run_insert_handler.php');\necho smarty_core_run_insert_handler($_params, \$this); ?>" . $this->_trailing_lf;
+        return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.run_insert_handler.php');\necho smarty_core_run_insert_handler($_params, \$this); ?>" . $this->_additional_newline;
     }
 
 	/**
@@ -935,7 +936,7 @@ class Smarty_Compiler extends Smarty {
 
     	$_params = "array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."))";
 		
-		return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.smarty_include_php.php');\nsmarty_core_smarty_include_php($_params, \$this); ?>" . $this->_trailing_lf;
+		return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.smarty_include_php.php');\nsmarty_core_smarty_include_php($_params, \$this); ?>" . $this->_additional_newline;
     }
 	
 
