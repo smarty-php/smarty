@@ -2450,15 +2450,121 @@ index.tpl
 			<para>
 			if statements in Smarty have much the same flexibility as php if
 			statements, with a few added features for the template engine.
-			Every <emphasis>if</emphasis> must be paired with an
-			<emphasis>/if</emphasis>. <emphasis>else</emphasis> and
-			<emphasis>elseif</emphasis> are also permitted. "eq", "ne","neq",
-			"gt", "lt", "lte", "le", "gte" "ge","is even","is odd", "is not
-			even","is not odd","not","mod","div by","even by","odd
-			by","==","!=","&gt;", "&lt;","&lt;=","&gt;=" are all valid conditional
-            qualifiers, and must be separated from surrounding elements by
-            spaces.
-			</para>
+			Every <emphasis>{if}</emphasis> must be paired with an
+			<emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> and
+			<emphasis>{elseif}</emphasis> are also permitted. The following lists
+			the recognized conditional qualifiers, which must be separated from
+			surrounding elements by spaces.</para>
+
+            <informaltable frame="all">
+                <tgroup cols="4">
+                <colspec colname="qualifier" align="center" />
+                <colspec colname="alternates" align="center" />
+                <colspec colname="common" align="center" />
+                <colspec colname="meaning" />
+                <thead>
+                    <row>
+			<entry>qualifier</entry>
+                        <entry>Alternatives</entry>
+                        <entry>Common Name</entry>
+                        <entry>Meaning</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>==</entry>
+                        <entry>eq</entry>
+                        <entry>equals</entry>
+                        <entry>same as PHP ==</entry>
+                    </row>
+                    <row>
+                        <entry>!=</entry>
+                        <entry>ne, neq</entry>
+                        <entry>not equals</entry>
+                        <entry>same as PHP !=</entry>
+                    </row>
+                    <row>
+                        <entry>&gt;</entry>
+                        <entry>gt</entry>
+                        <entry>greater than</entry>
+                        <entry>same as PHP &gt;</entry>
+                    </row>
+                    <row>
+                        <entry>&lt;</entry>
+                        <entry>lt</entry>
+                        <entry>less than</entry>
+                        <entry>same as PHP &lt;</entry>
+                    </row>
+                    <row>
+                        <entry>&gt;=</entry>
+                        <entry>gte, ge</entry>
+                        <entry>greater than or equal</entry>
+                        <entry>same as PHP &gt;=</entry>
+                    </row>
+                    <row>
+                        <entry>&lt;=</entry>
+                        <entry>lte, le</entry>
+                        <entry>less than or equal</entry>
+                        <entry>same as PHP &lt;=</entry>
+                    </row>
+                    <row>
+                        <entry>is even</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>even number</entry>
+                        <entry>compared value is an even number</entry>
+                    </row>
+                    <row>
+                        <entry>is not even</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>not an even number</entry>
+                        <entry>compared value is not an even number</entry>
+                    </row>
+                    <row>
+                        <entry>is odd</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>odd number</entry>
+                        <entry>compared value is an odd number</entry>
+                    </row>
+                    <row>
+                        <entry>is not odd</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>not an odd number</entry>
+                        <entry>compared value is an not an odd number</entry>
+                    </row>
+                    <row>
+                        <entry>not</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>unary-negation</entry>
+                        <entry>same as PHP !</entry>
+                    </row>
+                    <row>
+                        <entry>%</entry>
+                        <entry>mod</entry>
+                        <entry>modulous</entry>
+                        <entry>same as PHP %</entry>
+                    </row>
+                    <row>
+                        <entry>div by</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>divisible by</entry>
+                        <entry>same as PHP $a % $b == 0</entry>
+                    </row>
+                    <row>
+                        <entry>even by</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>division results in an even number</entry>
+                    </row>
+                    <row>
+                        <entry>odd by</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>&nbsp;</entry>
+                        <entry>division results in an odd number</entry>
+                    </row>
+
+		</tbody>
+		</tgroup>
+	</informaltable>
 <example>
 <title>if statements</title>
 <programlisting>
