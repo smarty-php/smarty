@@ -183,9 +183,6 @@ class Smarty
      */
     var $cache_modified_check = false;
 
-    var $volatile_plugins = array('volatile'=>true,
-                                  'insert_f' => '*');
-
     /**
      * This determines how Smarty handles "<?php ... ?>" tags in templates.
      * possible values:
@@ -1226,14 +1223,6 @@ class Smarty
                     header("Last-Modified: ".gmdate('D, d M Y H:i:s', time()).' GMT');
                 }
             }
-
-            if (isset($this->_cache_info['expires'])) {
-                $expires = $this->_cache_info['expires'];
-            } else {
-                $expires = 0;
-            }
-            header("Expires: " . gmdate('D, d M Y H:i:s', $expires) . ' GMT');
-
         }
 
         // load filters that are marked as autoload
@@ -1458,7 +1447,7 @@ class Smarty
         }
 
 
-        $smarty_compiler =& new $this->compiler_class();
+        $smarty_compiler = new $this->compiler_class;
 
         $smarty_compiler->template_dir      = $this->template_dir;
         $smarty_compiler->compile_dir       = $this->compile_dir;
