@@ -95,7 +95,8 @@ class Smarty
     var $caching         =  false;      // enable caching. true/false default false.
     var $cache_dir       =  'cache';    // name of directory for template cache files
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
-                                        // 0 = never expires. default is one hour (3600)
+										// 0 = always regenerate cache,
+                                        // -1 = never expires. default is one hour (3600)
     var $cache_handler_func   = null;   // function used for cached content. this is
                                         // an alternative to using the built-in file
                                         // based caching.
@@ -1478,7 +1479,7 @@ function _run_insert_handler($args)
 
         $this->_cache_info = unserialize($cache_header);
 
-        if ($this->cache_lifetime < 0 && (time() - $this->_cache_info['timestamp'] > $this->cache_lifetime)) {
+        if ($this->cache_lifetime > -1 && (time() - $this->_cache_info['timestamp'] > $this->cache_lifetime)) {
             // cache expired, regenerate
             return false;
         }

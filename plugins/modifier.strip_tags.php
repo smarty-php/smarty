@@ -8,12 +8,12 @@
  * Purpose:  strip html tags from text
  * -------------------------------------------------------------
  */
-function smarty_modifier_strip_tags($string, $replace_with_space = true)
+function smarty_modifier_strip_tags($string, $replace_with_space = true, $allowed = "<i><b><br>")
 {
     if ($replace_with_space)
         return preg_replace('!<[^>]*?>!', ' ', $string);
     else
-        return strip_tags($string);
+        return strip_tags($string, $allowed);
 }
 
 /* vim: set expandtab: */
