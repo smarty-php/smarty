@@ -43,7 +43,7 @@ pass=foobar
  </example>
  <para>
   Les valeurs des variables de fichiers de configuration peuvent être entre
-  guillemets, sans que cela soit nécessaire. Si vous vouler utiliser des
+  guillemets, sans que celà soit nécessaire. Si vous vouler utiliser des
   valeurs sur plusieurs lignes, vous devrez les entourer de triples
   guillemets ("""). Vous pouvez insérer des commentaires dans les fichiers de
   configuration en utilisant une syntaxe quelquonque, non valide.

@@ -218,7 +218,7 @@ function make_template ($resource_type, $resource_name, &$template_source, &$tem
   }
 }
 
-// régle la fonction par défaut
+// règle la fonction par défaut
 $smarty->default_template_handler_func = 'make_template';
 ?>
 ]]>

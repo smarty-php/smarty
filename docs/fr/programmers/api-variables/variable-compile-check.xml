@@ -6,15 +6,15 @@
  <para>
   A chaque invocation de l'application PHP, Smarty fait
   un test pour voir si le template courant a été modifié
-  (date de derniére modification différente) depuis sa
-  derniére compilation. S'il a changé, le template est recompilé.
+  (date de dernière modification différente) depuis sa
+  dernière compilation. S'il a changé, le template est recompilé.
   Si le template n'a pas encore été compilé, il le sera
-  quelle que soit la valeur ce réglage.
-  Par défaut cette valeur est a vrai. Quand
+  quelque soit la valeur de ce réglage.
+  Par défaut cette valeur est à vrai. Quand
   une application est mise en production (les templates
   ne changent plus), cette vérification n'est pas nécessaire.
-  Assurez-vous de mettre $compile_check a "false" pour des performances
-  maximales. Notez que si vous mettez ce paramétre a "false" et qu'un
+  Assurez-vous de mettre $compile_check à "false" pour des performances
+  maximales. Notez que si vous mettez ce paramètre à "false" et qu'un
   template est modifié, vous ne verrez *pas* le changement
   car le template ne sera *pas* recompilé. Si le processus de cache
   est activé et que $compile_check l'est aussi, alors les fichiers

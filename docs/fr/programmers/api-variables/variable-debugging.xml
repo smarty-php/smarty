@@ -4,7 +4,7 @@
 <sect1 id="variable.debugging">
  <title>$debugging</title>
  <para>
-  Cela active la
+  Celà active la
   <link
    linkend="chapter.debugging.console">console de débogage</link>.
    La console est une fenêtre javascript qui vous informe des templates

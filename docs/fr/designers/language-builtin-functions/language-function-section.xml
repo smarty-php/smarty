@@ -312,7 +312,7 @@ e-mail: jane@myexample.com&lt;p&gt;</programlisting>
   <title>index_next</title>
   <para>
    index_next est utilisé pour afficher la valeur théorique suivante de
-   index. Dans la dernière boucle, cela reste la valeur incrémentée,
+   index. Dans la dernière boucle, celà reste la valeur incrémentée,
    qui respecte l'attribut step si donné.
   </para>
   <example>

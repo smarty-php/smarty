@@ -17,8 +17,8 @@
    Utilisée pour déclarer dynamiquement une ressource plugin
    dans Smarty. Il faut passer en paramètre le nom de la ressource
    et le tableau des fonctions PHP qui l'implémentent. Reportez-vous
-   a la section <link linkend="template.resources">ressources templates</link>
-   pour avoir plus d'informations sur la faton de paramétrer une fonction
+   à la section <link linkend="template.resources">ressources templates</link>
+   pour avoir plus d'informations sur la façon de paramétrer une fonction
    récupérant des templates.
   </para>
   <note>

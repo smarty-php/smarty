@@ -5,10 +5,10 @@
  <title>$cache_modified_check</title>
  <para>
   Si cette variable est a vrai, Smarty respectera l'en-tête
-  If-Modified-Since envoyé par le client. Si la date de derniére
-  modification du fichier de cache n'a pas changé depuis la derniére
-  visite, alors un en-tête "304 Not Modified" sera envoyé a la place
-  du contenu. Cela ne fonctionne qu'avec du contenu mis en cache hors de la
+  If-Modified-Since envoyé par le client. Si la date de dernière
+  modification du fichier de cache n'a pas changé depuis la dernière
+  visite, alors un en-tête "304 Not Modified" sera envoyé à la place
+  du contenu. Celà ne fonctionne qu'avec du contenu mis en cache hors de la
   balise <command>insert</command>.
  </para>
 </sect1>

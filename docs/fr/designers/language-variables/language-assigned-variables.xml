@@ -20,7 +20,7 @@ La dernière connexion remonte au {$dateConnexionPrecedente}.
 ]]>
    </programlisting>
    <para>
-    Cela va afficher:
+    Celà va afficher:
    </para>
    <screen>
 <![CDATA[

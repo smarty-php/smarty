@@ -75,7 +75,7 @@ $smarty->display("index.tpl", "FrontPage");
     <link linkend="api.fetch">fetch()</link> retournera ce contenu stocké en interne
     sans tenter de recharger le fichier en cache. Celà évite des problématiques d'accès concurents, 
     lorsqu'un second processus efface le cache entre l'appel de is_cached et l'appel à display 
-    comme dans l'un de nos exemples ci-dessus. Cela signifie également que les appels à 
+    comme dans l'un de nos exemples ci-dessus. Celà signifie également que les appels à 
     <link linkend="api.clear.cache">clear_cache()</link>
     et les changements de paramètres du cache peuvent n'avoir aucun effet alors que 
     <literal>is_cached</literal> a retourné vrai.

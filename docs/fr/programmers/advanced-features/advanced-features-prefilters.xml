@@ -5,7 +5,7 @@
  <title>Filtres de pré-compilation</title>
  <para>
   Les filtres de pré-compilation sont des fonctions PHP que vos templates
-  exécutent avant qu'ils ne soient compilés. Cela peut être utile
+  exécutent avant qu'ils ne soient compilés. Celà peut être utile
   pour pré-traiter vos templates afin d'enlever les commentaires
   inutiles, garder un oeil sur ce que les gens mettent dans leurs templates, etc.
  </para>

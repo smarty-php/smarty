@@ -18,7 +18,7 @@
   <programlisting role="php">
 <![CDATA[
 <?php
-// mettez cela dans votre application
+// mettez celà dans votre application
 function add_header_comment($tpl_source, &$smarty)
 {
     return "<?php echo \"<!-- Créé par Smarty ! -->\n\"; ?>\n".$tpl_source;

@@ -6,7 +6,7 @@
  <para>
   Indique a Smarty comment interpréter le code PHP
   intégré dans les templates. Il y a quatre valeurs possibles, par
-  défaut SMARTY_PHP_PASSTHRU. Notez que cela n'affecte PAS le code
+  défaut SMARTY_PHP_PASSTHRU. Notez que celà n'affecte PAS le code
   PHP entouré des balises
   <link linkend="language.function.php">{php}{/php}</link>
   dans le template.

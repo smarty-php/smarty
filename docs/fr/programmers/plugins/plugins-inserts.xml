@@ -17,7 +17,7 @@
   </funcprototype>
  </funcsynopsis>
  <para>
-  Le premier paramétre passé à la fonction est une tableau associatif
+  Le premier paramètre passé à la fonction est une tableau associatif
   d'attributs. 
  </para>
  <para>

@@ -9,7 +9,7 @@
   $caching doit être a "true" pour que $cache_lifetime ait une
   quelconque utilité. Avec une valeur de -1, le cache n'expire jamais.
   Avec une valeur de 0, le cache est toujours regénéré (utile
-  a des fins de tests seulement. Une meilleure faton de désactiver
+  a des fins de tests seulement. Une meilleure façon de désactiver
   le cache est de mettre <link
   linkend="variable.caching">$caching</link> a "false").
  </para>
@@ -19,7 +19,7 @@
   désactivant ainsi le cache. Vous pouvez effacer tous les fichiers du cache
   avec la function
   <link linkend="api.clear.all.cache">clear_all_cache()</link>
-  ou de faton individuelle (ou groupée) avec la fonction <link
+  ou de façon individuelle (ou groupée) avec la fonction <link
   linkend="api.clear.cache">clear_cache()</link>.
  </para>
  <note>

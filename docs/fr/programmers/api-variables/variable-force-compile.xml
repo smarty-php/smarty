@@ -4,11 +4,11 @@
 <sect1 id="variable.force.compile">
  <title>$force_compile</title>
  <para>
-  Cela oblige Smarty a (re)compiler les templates a chaque
+  Celà oblige Smarty a (re)compiler les templates a chaque
   invocation. Ce réglage supplante $compile_check. Par défaut, il
   est désactivé. Ceci est commode pour le développement et le
   débogage mais ne devrait jamais être utilisé dans un environnment
-  de production. Si le systéme de cache est actif, les
+  de production. Si le système de cache est actif, les
   fichiers du cache seront regénérés a chaque appel.
  </para>
 </sect1>

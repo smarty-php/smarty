@@ -4,7 +4,7 @@
 <sect1 id="caching.setting.up">
  <title>Paramétrer le cache</title>
  <para>
-  La première chose à faire est d'activer le cache. Cela est fait en
+  La première chose à faire est d'activer le cache. Celà est fait en
   mettant <link linkend="variable.caching">$caching</link> = true
   (ou 1).
  </para>
@@ -60,11 +60,11 @@ $smarty = new Smarty;
 
 $smarty->caching = 2; // régler la durée de vie individuellement
 
-// régle la durée de vie du cache a 15 minutes pour index.tpl
+// règle la durée de vie du cache a 15 minutes pour index.tpl
 $smarty->cache_lifetime = 300;
 $smarty->display('index.tpl');
 
-// régle la durée de vie du cache a 1 heure pour home.tpl
+// règle la durée de vie du cache à 1 heure pour home.tpl
 $smarty->cache_lifetime = 3600;
 $smarty->display('home.tpl');
 

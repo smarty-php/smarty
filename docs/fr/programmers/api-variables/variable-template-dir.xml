@@ -9,7 +9,7 @@
   les cherchera a cet emplacement.
   Par défaut, il s'agit de "./templates", ce qui signifie
   qu'il va chercher le répertoire templates
-  dans le répertoire oú se trouve le script PHP en cours d'exécution.
+  dans le répertoire où se trouve le script PHP en cours d'exécution.
  </para>
  
  <note>

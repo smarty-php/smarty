@@ -11,7 +11,7 @@
    défaut pour une variable qui n'a pas été assignée, comme
    pour afficher "&amp;nbsp;" afin que les couleurs de fond
    des tableaux fonctionnent. Beaucoup utiliseraient une
-   instruction {if} pour gérer cela, mais il existe un moyen
+   instruction {if} pour gérer celà, mais il existe un moyen
    plus facile dans Smarty : l'utilisation du modificateur
    de variable <emphasis>default</emphasis>.
   </para>
@@ -41,14 +41,14 @@
   <para>
    Si une variable est utilisée fréquemment dans vos templates,
    lui appliquer le modificateur par défaut peut être un peu fastidieux.
-   Vous pouvez remédier à cela en lui assignant une valeur par défaut
+   Vous pouvez remédier à celà en lui assignant une valeur par défaut
    avec la fonction <link linkend="language.function.assign">assign</link>.
   </para>
   <example>
    <title>assigner une valeur par défaut à une variable de template</title>
 <programlisting>
 <![CDATA[
-{* faites cela quelque part en haut de votre template *}
+{* faites celà quelque part en haut de votre template *}
 {assign var="title" value=$title|default:"no title"}
 
 {* si $title est vide, il contiendra alors la valeur "no title" *}
@@ -115,7 +115,7 @@ footer.tpl
   <title>Dates</title>
   <para>
    De façon générale, essayez de toujours passer les dates à Smarty
-   sous forme de timestamp. Cela permet aux designers de templates d'utiliser
+   sous forme de timestamp. Celà permet aux designers de templates d'utiliser
    <link linkend="language.modifier.date.format">date_format</link>
     pour avoir un contrôle total sur le formatage des dates et de comparer
     facilement les dates entre elles.
@@ -174,7 +174,7 @@ Jan 4, 2001
 <![CDATA[
 <?php
 
-// cela suppose que vos éléments de formulaire soient nommés
+// celà suppose que vos éléments de formulaire soient nommés
 // startDate_Day, startDate_Month, startDate_Year
 
 $startDate = makeTimeStamp($startDate_Year, $startDate_Month, $startDate_Day);
@@ -202,9 +202,9 @@ function makeTimeStamp($year="", $month="", $day="")
    <title>WAP/WML</title>
    <para>
     Les templates WAP/WML nécessitent un en-tête "Content-Type" qui doit être
-    passé avec le template. Le moyen le plus facile de faire cela est d'écrire
+    passé avec le template. Le moyen le plus facile de faire celà est d'écrire
     une fonction utilisateur qui écrit l'en-tête. Si vous utilisez le cache,
-    cela ne fonctionnera pas. Nous utiliserons donc une balise d'insertion
+    celà ne fonctionnera pas. Nous utiliserons donc une balise d'insertion
     (rappelez-vous que les balises d'insertion ne sont pas mises en cache !).
     Assurez-vous qu'aucune sortie
     rien n'est transmise au navigateur avant l'appel du template, sans quoi
@@ -328,8 +328,8 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     de listes de diffusion de spam ? Une façon pour les spammers de récupérer les
     adresses est de parcourir les pages Web. Voici une façon de remédier
     à ce problème : mettre votre adresse email dans du Javascript brouillé
-    au milieu de votre source HTML, sans que cela ne gêne l'affichage sur le
-    navigateur Web. Cela est fait grâce au plugin mailto.
+    au milieu de votre source HTML, sans que celà ne gêne l'affichage sur le
+    navigateur Web. Celà est fait grâce au plugin mailto.
    </para>
    <example>
     <title>Exemple de dissimulation d'une adresse email</title>

@@ -4,18 +4,18 @@
 <sect1 id="variable.caching">
  <title>$caching</title>
  <para>
-  Ce paramétre demande a Smarty de mettre ou non en cache la sortie des
+  Ce paramètre demande à Smarty de mettre ou non en cache la sortie des
   templates.
-  Par défaut ce réglage est a 0 (désactivé). Si vos templates
+  Par défaut, ce réglage est à 0 (désactivé). Si vos templates
   générent du contenu redondant, il est conseillé d'activer le
-  cache. Cela permettra un gain de performance conséquent.
+  cache. Celà permettra un gain de performance conséquent.
   Vous pouvez aussi avoir de nombreux fichiers de cache pour un même template.
   Une valeur de 1 ou 2 active le cache. 1 indique a Smarty d'utiliser
   la variable $cache_lifetime pour déterminer si le fichier de cache a expiré.
   Une valeur de 2 indique a Smarty d'utiliser la valeur
-  $cache_lifetime spécifiée a la génération du cache. Ainsi vous pouvez régler
+  $cache_lifetime spécifiée à la génération du cache. Ainsi vous pouvez régler
   la durée de vie d'un fichier de cache avant de récupérer le template pour avoir
-  un certain contr(le quand ce fichier en particulier expire. Voir
+  un certain contrôle quand ce fichier en particulier expire. Voir
   aussi <link linkend="api.is.cached">is_cached</link>.
  </para>
  <para>

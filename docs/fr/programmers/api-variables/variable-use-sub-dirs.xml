@@ -4,7 +4,7 @@
 <sect1 id="variable.use.sub.dirs">
  <title>$use_sub_dirs</title>
  <para>
-  Régler cela a faux si votre environnement PHP n'autorise pas Smarty a créer
+  Régler celà à faux si votre environnement PHP n'autorise pas Smarty à créer
   des sous-répertoires. Les sous-répertoires sont efficaces, utilisez-les quand
   vous le pouvez.
  </para>

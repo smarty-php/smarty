@@ -4,7 +4,7 @@
 <sect1 id="variable.undefined">
  <title>$undefined</title>
  <para>
-  Cela régle la valeur de $undefined, null par défaut.
+  Celà règle la valeur de $undefined, null par défaut.
   N'est actuellement utilisé que pour initialiser
   des variables non-définies dans $global_assign a des
   valeurs par défaut.

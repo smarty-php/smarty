@@ -4,7 +4,7 @@
 <sect1 id="variable.security.settings">
  <title>$security_settings</title>
  <para>
-  Ces réglages servent à écraser ou spécifier les paramétres de sécurité
+  Ces réglages servent à écraser ou spécifier les paramètres de sécurité
   quand celle-ci est activée. Les réglages possibles sont les suivants :
  </para>
  <itemizedlist>
@@ -13,12 +13,12 @@
   <listitem><para>IF_FUNCS - Le tableau des noms de fonctions
   PHP autorisées dans les intructions IF.</para></listitem>
   <listitem><para>INCLUDE_ANY - true/false. Si vrai,
-   les templates peuvent être inclus de n'importe oú, quelque soit
+   les templates peuvent être inclus de n'importe où, quelque soit
   le contenu de $secure_dir.</para></listitem>
   <listitem><para>PHP_TAGS - true/false. Si vrai,
   les balises {php}{/php} sont autorisées dans les templates.</para></listitem>
   <listitem><para>MODIFIER_FUNCS - Le tableau des noms de fonctions
-  autorisées a être utilisées comme modificateurs de variables.</para></listitem>
+  autorisées à être utilisées comme modificateurs de variables.</para></listitem>
  </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file

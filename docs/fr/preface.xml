@@ -35,7 +35,7 @@
   rudimentaires pour substituer des variables dans des templates, ainsi que des
   fonctionnalités limitées de blocs dynamiques. Cependant nous avons
   besoin d'un peu plus. Nous ne voulons pas que les programmeurs
-  s'occupent de la présentation HTML du TOUT, mais cela est pratiquement
+  s'occupent de la présentation HTML du TOUT, mais celà est pratiquement
   inévitable. Par exemple, si un designer veut des couleurs d'arrière plan
   différentes pour alterner entre différents blocs dynamiques, il est nécessaire
   que ce dernier travaille avec le programmeur. Nous avons aussi besoin que les
@@ -53,13 +53,13 @@
   et ce que ne devait pas faire un moteur de template. De cette expérience nous avons
   décidé qu'un moteur de template se devait d'être écrit sous la forme d'une
   classe PHP, afin que quiconque puisse l'utiliser à sa convenance. Nous
-  avons donc réalisé un moteur de template qui se contentait de faire cela,
+  avons donc réalisé un moteur de template qui se contentait de faire celà,
   et <productname>SmartTemplate</productname> a vu le jour (note : cette
   classe n'a jamais été soumise au public). C'était une classe qui
   faisait pratiquement tout ce que nous voulions : substitution de variables,
   inclusion d'autres templates, intégration avec des fichiers de configuration,
   intégration de code PHP, instruction 'if' basique et une gestion plus robuste
-  des blocks dynamiques imbriqués. Elle faisait tout cela avec des expressions
+  des blocks dynamiques imbriqués. Elle faisait tout celà avec des expressions
   rationnelles et le code se révéla, comment dire, impénétrable. De plus, elle était
   relativement lente pour les grosses applications à cause de l'analyse
   et du travail sur les expressions rationnelles qu'elle devait faire à chaque
@@ -73,7 +73,7 @@
   savons combien le code PHP peut être rapide sans le coût
   d'analyse des templates. Nous savons aussi combien fastidieux
   et décourageant peut paraître le langage  pour le designer moyen, et que
-  cela peut être remplacé par une syntaxe spécifique, beaucoup
+  celà peut être remplacé par une syntaxe spécifique, beaucoup
   plus simple. Et si nous combinions les deux forces ? Ainsi, Smarty
   était né...
  </para>

@@ -8,9 +8,9 @@
   implicitement assignées au moteur de templates.
   Ceci est commode pour rendre des variables globales
   ou des variables du serveur accessibles a tous les templates
-  plut(t que de devoir les assigner a la main. Chaque élément
+  plut(t que de devoir les assigner à la main. Chaque élément
   de $global_assign doit être soit le nom de la variable
-  globale, soit une paire clef/valeur, oú clef est le
+  globale, soit une paire clef/valeur, où clef est le
   nom du tableau global et valeur le tableau de variable
   assignées depuis ce tableau global.
   $SCRIPT_NAME est globalement assigné par défaut depuis
@@ -21,7 +21,7 @@
   <para>
    On peut accéder aux variables du serveur avec la variable
    $smarty, par exemple {$smarty.server.SCRIPT_NAME}.
-   Se reporter a la section sur la variable
+   Se reporter à la section sur la variable
    <link linkend="language.variables.smarty">$smarty</link>.
    </para>
   </note>

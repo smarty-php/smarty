@@ -20,7 +20,7 @@
   
   <para>
    Contrairement à <link linkend="language.function.insert">{insert}</link>
-   les attributs pour le plugin ne sont pas mis en cache par défaut. Cela peut
+   les attributs pour le plugin ne sont pas mis en cache par défaut. Celà peut
    être le cas en utilisant le quatrième paramètre
    <parameter>$cache_attrs</parameter>. <parameter>$cache_attrs</parameter>
    est un tableau de noms d'attributs qui doivent être mis en cache, pour que
@@ -114,7 +114,7 @@ Now is: {"0"|date_format:"%D %H:%M:%S"}
    Lors du rechargement de la page, vous remarquerez que les deux dates sont 
    différentes. L'une est "dynamique" et l'autre est "statique". Vous pouvez 
    faire ce que vous voulez entre {dynamic}...{/dynamic} et être sûrs que 
-   cela ne sera pas mis en cache comme le reste de la page.
+   celà ne sera pas mis en cache comme le reste de la page.
   </para>
   
  </sect1>

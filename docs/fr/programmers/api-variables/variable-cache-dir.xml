@@ -4,7 +4,7 @@
 <sect1 id="variable.cache.dir">
  <title>$cache_dir</title>
  <para>
-  Il s'agit du nom du répertoire oú les caches des templates
+  Il s'agit du nom du répertoire où les caches des templates
   sont stockés. Par défaut il s'agit de "./cache", ce qui signifie
   que Smarty va chercher ce répertoire
   dans le même répertoire que le script PHP en cours d'exécution.

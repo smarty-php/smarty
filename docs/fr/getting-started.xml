@@ -9,7 +9,7 @@
   <para>
    Smarty est un moteur de template pour PHP. Plus précisément, il facilite
    la séparation entre la logique applicative et la présentation.
-   Cela s'explique plus facilement dans une situation où le
+   Celà s'explique plus facilement dans une situation où le
    programmeur et le designer de templates jouent des rôles différents, ou,
    comme la plupart du temps, sont deux personnes distinctes.
   </para>
@@ -35,12 +35,12 @@
   </para>
   <para>
    Un des objectifs de Smarty est la séparation de la logique métier de la 
-   logique de présentation. Cela signifie que les templates peuvent contenir 
+   logique de présentation. Celà signifie que les templates peuvent contenir 
    des traitements, du moment qu'il soit relatif à de la présentation.
    Inclure d'autres templates, alterner les couleurs des lignes 
    d'un tableau, mettre du texte en majuscule, parcourir un tableau de données
    pour l'afficher, etc. sont toutes des actions relatives à du traitement
-   de présentation. Cela ne signifie pas que Smarty requiert une telle séparation
+   de présentation. Celà ne signifie pas que Smarty requiert une telle séparation
    de votre part. Smarty ne sais pas quoi est quoi, c'est donc à vous de placer
    la logique de présentation dans vos templates. Ainsi, si vous 
    <emphasis>ne désirez pas</emphasis>
@@ -49,7 +49,7 @@
   </para>
   <para>
    L'un des aspects unique de Smarty est la compilation des templates.
-   Cela signifie que Smarty lit les templates et crée des scripts PHP à partir
+   Celà signifie que Smarty lit les templates et crée des scripts PHP à partir
    de ces derniers. Une fois créés, ils sont exécutés.
    Il n'y a donc pas d'analyse coûteuse de template à chaque requête,
    et les templates peuvent bénéficier des solutions de cache PHP
@@ -111,7 +111,7 @@
    <listitem>
     <para>
      Il est possible d'inclure du code PHP
-     directement dans vos templates, bien que cela ne soit pas obligatoire
+     directement dans vos templates, bien que celà ne soit pas obligatoire
      (ni conseillé), vû que le moteur est extensible.
     </para>
    </listitem>
@@ -170,7 +170,7 @@ debug.tpl
 /plugins/*.php (tous)
 ]]>
     </screen>   
-  </example>
+   </example>
    
    <para>
     Smarty utilise une constante PHP appelée <link
@@ -231,8 +231,9 @@ $smarty = new Smarty;
 require('Smarty.class.php');
 $smarty = new Smarty;
 ?>
-]]></programlisting>
-</example>
+]]>
+    </programlisting>
+   </example>
    
    <example>
     <title>Définir explicitement la constante SMARTY_DIR</title>
@@ -294,13 +295,13 @@ $smarty = new Smarty;
    <note>
     <title>Technical Note</title>
     <para>
-   Il est pratique de configurer le serveur Web de
-    sorte que "index.php" soit identifié comme fichier
-    par défaut de ce répertoire. Aicnsi, si l'on tape
-    "http://www.example.com/livredor/", le script index.php soit
-    exécuté sans que "index.php" ne soit spécifié dans l'URL. Avec Apache
-    vous pouvez régler cela en ajoutant "index.php" à la ligne où se
-    trouve DirectoryIndex (séparez chaque entrée par un espace).
+     Il est pratique de configurer le serveur Web de
+     sorte que "index.php" soit identifié comme fichier
+     par défaut de ce répertoire. Aicnsi, si l'on tape
+     "http://www.example.com/livredor/", le script index.php soit
+     exécuté sans que "index.php" ne soit spécifié dans l'URL. Avec Apache
+     vous pouvez régler celà en ajoutant "index.php" à la ligne où se
+     trouve DirectoryIndex (séparez chaque entrée par un espace).
     </para>
    </note>
    <para>
@@ -309,7 +310,8 @@ $smarty = new Smarty;
    
    <example>
     <title>exemple de structure de fichiers</title>
-    <screen><![CDATA[
+    <screen>
+<![CDATA[
 /usr/local/lib/php/Smarty/Smarty.class.php
 /usr/local/lib/php/Smarty/Smarty_Compiler.class.php
 /usr/local/lib/php/Smarty/Config_File.class.php
@@ -324,7 +326,7 @@ $smarty = new Smarty;
 
 /web/www.example.com/docs/livredor/index.php
 ]]>
-</screen>
+    </screen>
    </example>
    
    <para>
@@ -376,7 +378,8 @@ chmod 770 /web/www.example.com/smarty/livredor/cache/
 {* Smarty *}
 
 Hello, {$name}!
-]]></screen>
+]]>
+    </screen>
    </example>
    
    
@@ -385,7 +388,7 @@ Hello, {$name}!
     <para>
      {* Smarty *} est un commentaire de template. Il n'est pas
      obligatoire mais il est bon de commencer tous vos templates
-     avec ce commentaire. Cela rend le fichier facilement
+     avec ce commentaire. Celà rend le fichier facilement
      reconnaissable en plus de son extension. Les éditeurs
      de texte peuvent par exemple reconnaître le fichier et
      adapter la coloration syntaxique.
@@ -434,7 +437,7 @@ Hello, {$name}!
      est dans votre include_path PHP alors ces réglages ne sont pas nécessaires.
      Quoi qu'il en soit il est plus efficace et (par expérience)
      moins générateur d'erreurs de les définir avec des chemins
-     absolus. Cela nous garantit que Smarty récupèrera les bons fichiers.
+     absolus. Celà nous garantit que Smarty récupèrera les bons fichiers.
     </para>
    </note>
    
@@ -468,7 +471,7 @@ Hello, {$name}!
    
    <example>
     <title>édition de /php/includes/livredor/setup.php</title>
-<programlisting role="php">
+    <programlisting role="php">
 <![CDATA[
 <?php
      // charge la librairie Smarty
@@ -477,7 +480,7 @@ Hello, {$name}!
      // le fichier setup.php est un bon
      // endroit pour charger les fichiers
      // de librairies de l'application et vous pouvez
-     // faire cela juste ici. Par exemple :
+     // faire celà juste ici. Par exemple :
      // require('livredor/livredor.lib.php');
      
      class Smarty_livredor extends Smarty {
@@ -510,7 +513,7 @@ Hello, {$name}!
    
    <example>
     <title>Edition de /web/www.example.com/docs/livredor/index.php</title>
-   <programlisting role="php">
+    <programlisting role="php">
 <![CDATA[
 <?php     
      require('livredor/setup.php');
@@ -523,7 +526,8 @@ Hello, {$name}!
     
 ?>
 ]]>
-   </programlisting>   </example>
+    </programlisting>   
+   </example>
    
    <para>
     Vous savez maintenant qu'il est facile de créer une instance de Smarty,

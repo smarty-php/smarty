@@ -9,8 +9,8 @@
   display('index.tpl') puisse avoir plusieurs résultats, en fonction de 
   certaines conditions, et que
   vous vouliez des fichiers de cache séparés pour chacun d'eux. Vous
-  pouvez faire cela en passant un identifiant de cache (cache_id) en
-  deuxiéme paramétre a l'appel de fonction.
+  pouvez faire celà en passant un identifiant de cache (cache_id) en
+  deuxiéme paramètre a l'appel de fonction.
  </para>
  <example>
   <title>Passage d'un cache_id a display()</title>
@@ -41,11 +41,11 @@ $smarty->display('index.tpl',$my_cache_id);
    vers Smarty (ou vers n'importe quelle application PHP). Bien que l'exemple
    ci-dessus consistant a utiliser article_id depuis l'URL puisse paraetre
    commode, le résultat peut s'avérer mauvais. L'identifiant
-   de cache est utilisé pour créer un répertoire sur le systéme de fichiers,
+   de cache est utilisé pour créer un répertoire sur le système de fichiers,
    donc si l'utilisateur décide de donner une trés grande valeur a article_id
-   ou d'écrire un script qui envoie des article_id de faton aléatoire,
-   cela pourra causer des problémes coté serveur. Assurez-vous de bien
-   tester toute donnée passée en paramétre avant de l'utiliser. Dans cet
+   ou d'écrire un script qui envoie des article_id de façon aléatoire,
+   celà pourra causer des problémes coté serveur. Assurez-vous de bien
+   tester toute donnée passée en paramètre avant de l'utiliser. Dans cet
    exemple, peut-être savez-vous que article_id a une longueur de 10
    caractéres, est exclusivement composé de caractéres alph-numériques et
    doit avoir une valeur contenue dans la base de données. Vérifiez-le bien !
@@ -79,8 +79,8 @@ $smarty->display('index.tpl',$my_cache_id);
  </example>
  <para>
   Vous pouvez effacer tous les fichiers de cache pour un identifiant
-  de cache particulier en passant null en tant que premier paramétre
-  a clear_cache().
+  de cache particulier en passant null en tant que premier paramètre
+  à clear_cache().
  </para>
  <example>
   <title>Effacement de tous les fichiers de cache pour un identifiant de cache particulier</title>
@@ -99,7 +99,7 @@ $smarty->display('index.tpl',"sports");
   </programlisting>
  </example>
  <para>
-  De cette maniére vous pouvez "grouper" vos fichiers de cache en leur
+  De cette manière, vous pouvez "grouper" vos fichiers de cache en leur
   donnant le même identifiant.
  </para>
 </sect1>

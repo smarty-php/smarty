@@ -4,7 +4,7 @@
 <sect1 id="variable.compile.dir">
  <title>$compile_dir</title>
  <para>
-  C'est le nom du répertoire oú se trouvent les templates
+  C'est le nom du répertoire où se trouvent les templates
   compilés. Par défaut, il s'agit de "./templates_c",
   ce qui signifie que Smarty va chercher ce répertoire
   dans le même répertoire que le script PHP en cours d'exécution.

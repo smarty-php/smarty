@@ -13,7 +13,7 @@
 <?php
 $smarty = new Smarty;
 $smarty->assign('titreArticle', "Si l'attaque n'est pas mise en place
-rapidement, cela risque de durer longtemps.");
+rapidement, celà risque de durer longtemps.");
 $smarty->display('index.tpl');
 ?>
 ]]>
@@ -31,8 +31,8 @@ Ou index.tpl est:
 Ce qui donne en sortie :
 </para>
 <screen>
-Si l'attaque n'est pas mise en place rapidement, cela risque de durer longtemps.
-SI L'ATTAQUE N'EST PAS MISE EN PLACE RAPIDEMENT, CELA RISQUE DE DURER LONGTEMPS.
+Si l'attaque n'est pas mise en place rapidement, celà risque de durer longtemps.
+SI L'ATTAQUE N'EST PAS MISE EN PLACE RAPIDEMENT, CELÀ RISQUE DE DURER LONGTEMPS.
 </screen>
  </example>
 </sect1>

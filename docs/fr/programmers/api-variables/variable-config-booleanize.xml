@@ -6,9 +6,9 @@
  <para>
   Si cette variable est a vrai, les valeurs on/true/yes et off/false/no
   dans les fichiers de configuration sont automitiquement converties
-  en booléen. De cette faton vous pouvez utiliser ces valeurs dans le
-  template de la faton suivante : {if #foobar#} ... {/if}. Si foobar
-  est a on, true ou yes, l'instruction {if} sera exécutée. vrai
+  en booléen. De cette façon vous pouvez utiliser ces valeurs dans le
+  template de la façon suivante : {if #foobar#} ... {/if}. Si foobar
+  est à on, true ou yes, l'instruction {if} sera exécutée. vrai
   par défaut.
  </para>
 </sect1>

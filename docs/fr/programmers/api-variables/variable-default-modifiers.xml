@@ -8,7 +8,7 @@
   une valeur par défaut a chaque variable dans un template.
   Par exemple, pour par défaut échapper les caractéres HTML de chaque variable,
   utilisez array('escape:"htmlall"'); Pour rendre une variable indépendante
-  des modificateurs par défaut, passez-lui en paramétre le modificateur
+  des modificateurs par défaut, passez-lui en paramètre le modificateur
   "nodefaults" : {$var|nodefaults}.
  </para>
 </sect1>

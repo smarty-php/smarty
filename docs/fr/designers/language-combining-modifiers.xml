@@ -35,7 +35,7 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   Cela va afficher :
+   Celà va afficher :
   </para>
   <screen>
 <![CDATA[
