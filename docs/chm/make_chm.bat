@@ -9,9 +9,6 @@ set PHP_PATH=php
 rem Path of the Help Compiler command line tool
 set PHP_HELP_COMPILER=C:\progra~1\htmlhe~1\hhc.exe
 
-rem The language of the manual to compile
-set PHP_HELP_COMPILE_LANG=en
-
 rem The source directory with the original DSSSL made HTML
 set PHP_HELP_COMPILE_DIR=html
 
@@ -24,7 +21,7 @@ rem ==========================================================
 
 echo.
 
-rem set PHP_HELP_COMPILE_LANG=%1
+set PHP_HELP_COMPILE_LANG=%1
 if "%1" == "" set PHP_HELP_COMPILE_LANG=en
 
 echo Language choosen: %PHP_HELP_COMPILE_LANG%
