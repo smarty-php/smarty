@@ -19,30 +19,9 @@
 
 %global.entities;
 
-<!ENTITY bookinfo SYSTEM "@LANG@/bookinfo.xml">
-<!ENTITY preface SYSTEM "@LANG@/preface.xml">
-<!ENTITY getting.started SYSTEM "@LANG@/getting-started.xml">
+<!ENTITY % file.entities    SYSTEM "entities/file-entities.ent">
 
-<!ENTITY language.basic.syntax        SYSTEM "@LANG@/designers/language-basic-syntax.xml">
-<!ENTITY language.variables           SYSTEM "@LANG@/designers/language-variables.xml">
-<!ENTITY language.modifiers           SYSTEM "@LANG@/designers/language-modifiers.xml">
-<!ENTITY language.combining.modifiers SYSTEM "@LANG@/designers/language-combining-modifiers.xml">
-<!ENTITY language.builtin.functions   SYSTEM "@LANG@/designers/language-builtin-functions.xml">
-<!ENTITY language.custom.functions    SYSTEM "@LANG@/designers/language-custom-functions.xml">
-<!ENTITY config.files                 SYSTEM "@LANG@/designers/config-files.xml">
-<!ENTITY chapter.debugging.console    SYSTEM "@LANG@/designers/chapter-debugging-console.xml">
-
-<!ENTITY smarty.constants  SYSTEM "@LANG@/programmers/smarty-constants.xml">
-<!ENTITY api.variables     SYSTEM "@LANG@/programmers/api-variables.xml">
-<!ENTITY api.functions     SYSTEM "@LANG@/programmers/api-functions.xml">
-<!ENTITY caching           SYSTEM "@LANG@/programmers/caching.xml">
-<!ENTITY advanced.features SYSTEM "@LANG@/programmers/advanced-features.xml">
-<!ENTITY plugins           SYSTEM "@LANG@/programmers/plugins.xml">
-
-<!ENTITY troubleshooting SYSTEM "@LANG@/appendixes/troubleshooting.xml">
-<!ENTITY tips            SYSTEM "@LANG@/appendixes/tips.xml">
-<!ENTITY resources       SYSTEM "@LANG@/appendixes/resources.xml">
-<!ENTITY bugs            SYSTEM "@LANG@/appendixes/bugs.xml">
+%file.entities;
 
 ]>
 
@@ -52,37 +31,37 @@
 
  &bookinfo;
  &preface;
- &getting.started;
+ &getting-started;
 
  <part id="smarty.for.designers">
   <title>&SMARTYDesigners;</title>
 
-  &language.basic.syntax;
-  &language.variables;
-  &language.modifiers;
-  &language.combining.modifiers;
-  &language.builtin.functions;
-  &language.custom.functions;
-  &config.files;
-  &chapter.debugging.console;
+  &designers.language-basic-syntax;
+  &designers.language-variables;
+  &designers.language-modifiers;
+  &designers.language-combining-modifiers;
+  &designers.language-builtin-functions;
+  &designers.language-custom-functions;
+  &designers.config-files;
+  &designers.chapter-debugging-console;
  </part>
 
  <part id="smarty.for.programmers">
   <title>&SMARTYProgrammers;</title>
 
-  &smarty.constants;
-  &api.variables;
-  &api.functions;
-  &caching;
-  &advanced.features;
-  &plugins;
+  &programmers.smarty-constants;
+  &programmers.api-variables;
+  &programmers.api-functions;
+  &programmers.caching;
+  &programmers.advanced-features;
+  &programmers.plugins;
  </part>
  
 <part id="appendixes">
  <title>&Appendixes;</title>
- &troubleshooting;
- &tips;
- &resources;
- &bugs;
+ &appendixes.troubleshooting;
+ &appendixes.tips;
+ &appendixes.resources;
+ &appendixes.bugs;
 </part>
 </book>

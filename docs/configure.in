@@ -3,6 +3,9 @@ dnl $Id$
 dnl autoconf initialisation
 AC_INIT()
 WORKDIR=`pwd`
+SRCDIR=$srcdir
+AC_SUBST(SRCDIR)
+
 AC_SUBST(WORKDIR)
 
 dnl debug output
@@ -217,7 +220,6 @@ AC_SUBST(CATALOG)
 
 dnl }}}
 
-
 dnl {{{ language specific stuff
 
 AC_MSG_CHECKING(for language)
@@ -295,6 +297,23 @@ do
 	fi
 done
 AC_OUTPUT($OUTFILES)
+dnl }}}
+
+dnl {{{ generate entity mapping file, missing entities and IDs
+
+dnl if we have PHP use it for all of these things
+if test $PHP != "no"
+then
+
+ dnl create entity mapping file 
+ $PHP -c $INIPATH -q ./scripts/file-entities.php
+
+else
+
+  echo ERROR: configure process cannot continue, PHP is not found
+
+fi
+
 dnl }}}
 
 dnl }}}
