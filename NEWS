@@ -1,3 +1,6 @@
+    - change logic in assign() and append() to test var names
+      against != '' instead of empty() (Monte)
+    - fix PHP notice in append() function (Monte)
     - allow $plugins_dir to be an array of directories
       (Andreas Kossmeier, Monte)
     - move debug.tpl to SMARTY_DIR, add to constructor (Monte)

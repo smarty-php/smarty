@@ -226,12 +226,12 @@ class Smarty
     {
         if (is_array($tpl_var)){
             foreach ($tpl_var as $key => $val) {
-                if (!empty($key) && isset($val)) {
+                if ($key != '' && isset($val)) {
                     $this->_tpl_vars[$key] = $val;
                 }
             }
         } else {
-            if (!empty($tpl_var) && isset($value))
+            if ($tpl_var != '' && isset($value))
                 $this->_tpl_vars[$tpl_var] = $value;
         }
         $this->_extract = true;
