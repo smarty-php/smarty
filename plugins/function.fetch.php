@@ -49,7 +49,7 @@ function smarty_function_fetch($params, &$smarty)
 				$timeout = 30;
 				$accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*";
 				$agent = "Smarty Template Engine ".$smarty->_version;
-				$referer = $_SERVER['REFERER'];
+				$referer = "";
 				if(!empty($uri_parts['path'])) {
 					$uri = $uri_parts['path'];
 				} else {
