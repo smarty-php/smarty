@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.syntax.attributes">
  <title>Paramètres</title>
  <para>
@@ -20,6 +20,7 @@
  <example>
   <title>Paramètres de fonction, syntaxe</title>
 <programlisting>
+<![CDATA[
 {include file="header.tpl"}
 
 {include file=$includeFile}
@@ -28,9 +29,11 @@
 
 {html_select_date display_days=yes}
 
-&lt;SELECT name=company&gt;
+<select name="company">
 {html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
+</select>
+]]>
+</programlisting>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
