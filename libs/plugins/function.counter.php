@@ -36,44 +36,40 @@ function smarty_function_counter($params, &$smarty)
         $counters[$name] = array(
             'start'=>1,
             'skip'=>1,
-            'assign'=>null,
-            'direction'=>'up'
+            'direction'=>'up',
+            'count'=>1
             );
     }
     $counter =& $counters[$name];
 
-
-    if (isset($start))
-        $counter['start'] = $start;
-    else if (!isset($counter['start']))
-        $counter['start'] = 1;
-
-    if (!isset($counter['count']))
-        $counter['count'] = $counter['start'];
+    if (isset($start)) {
+        $counter['start'] = $counter['count'] = $start;
+    }
 
     if (!empty($assign)) {
         $counter['assign'] = $assign;
     }
 
-    if (!empty($counter['assign'])) {
+    if (isset($counter['assign'])) {
         $smarty->assign($counter['assign'], $counter['count']);
     }
     
-    if (!isset($print))
-        $print = empty($counter['assign']);
-    else
+    if (isset($print)) {
         $print = (bool)$print;
-
-    if (isset($skip)) {
-        $counter['skip'] = $skip;
+    } else {
+        $print = empty($counter['assign']);
     }
-    
+
     if ($print) {
         $retval = $counter['count'];
 	} else {
 		$retval = null;
 	}
 
+    if (isset($skip)) {
+        $counter['skip'] = $skip;
+    }
+    
     if (isset($direction)) {
         $counter['direction'] = $direction;
     }

@@ -1,3 +1,4 @@
+  - fixed behaviour of start=... for {counter} (messju)
   - fixed assign for {counter} (messju)
   - added params vdir, hdir and inner to html_table to allow looping
     over the data in various directions (messju)
