@@ -1,3 +1,24 @@
+2003-01-08  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      plugins/function.counter.php
+      plugins/function.cycle.php
+      plugins/function.debug.php
+      plugins/function.eval.php
+      plugins/function.fetch.php
+      plugins/function.html_options.php
+      plugins/function.html_select_date.php
+      plugins/function.html_select_time.php
+      plugins/function.mailto.php
+      plugins/function.math.php
+      plugins/function.popup.php
+      plugins/function.popup_init.php:
+      update plugins to return values instead of echo, fix config file cache
+      to include global config variables in cache file
+
+    * Smarty_Compiler.class.php:
+      fix bug with >= tests in if statements, comment out full object support
+
 2003-01-06  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
