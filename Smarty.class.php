@@ -609,7 +609,9 @@ class Smarty
                             header("Last-Modified: ".$gmt_mtime);
                     		echo $_smarty_results;
                         }
-                    }
+                    } else {
+                    		echo $_smarty_results;						
+					}
                     error_reporting($_smarty_old_error_level);
                     return true;    
                 } else {
