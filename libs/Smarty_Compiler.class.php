@@ -101,7 +101,7 @@ class Smarty_Compiler extends Smarty {
         // 30
         // -12
         // 13.22
-        $this->_num_const_regexp = '\-?\d+(?:\.\d+)?';
+        $this->_num_const_regexp = '(?:\-?\d+(?:\.\d+)?)';
 
         // matches $ vars (not objects):
         // $foo
@@ -137,7 +137,7 @@ class Smarty_Compiler extends Smarty {
         // #foo#
         // "text"
         // "text"
-        $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_num_const_regexp . '|' . $this->_qstr_regexp . ')';
+        $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_qstr_regexp . ')';
 
         // matches valid object call (one level of object nesting allowed in parameters):
         // $foo->bar
@@ -152,8 +152,8 @@ class Smarty_Compiler extends Smarty {
         // $foo->bar($foo->bar($blah,$foo,44,"foo",$foo[0].bar))
         $this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
         $this->_obj_restricted_param_regexp = '(?:'
-                . $this->_var_regexp . '(?:' . $this->_obj_ext_regexp . '(?:\((?:' . $this->_var_regexp
-                . '(?:\s*,\s*' . $this->_var_regexp . ')*)?\))?)*)';
+                . '(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . ')(?:' . $this->_obj_ext_regexp . '(?:\((?:(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . ')'
+                . '(?:\s*,\s*(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . '))*)?\))?)*)';
         $this->_obj_single_param_regexp = '(?:\w+|' . $this->_obj_restricted_param_regexp . '(?:\s*,\s*(?:(?:\w+|'
                 . $this->_var_regexp . $this->_obj_restricted_param_regexp . ')))*)';
         $this->_obj_params_regexp = '\((?:' . $this->_obj_single_param_regexp
@@ -169,7 +169,7 @@ class Smarty_Compiler extends Smarty {
         // |foo:"bar":$foobar
         // |foo|bar
         // |foo:$foo->bar
-        $this->_mod_regexp = '(?:\|@?\w+(?::(?>-?\w+|'
+        $this->_mod_regexp = '(?:\|@?\w+(?::(?:\w+|' . $this->_num_const_regexp . '|'
            . $this->_obj_call_regexp . '|' . $this->_avar_regexp . '|' . $this->_qstr_regexp .'))*)';
 
         // matches valid function name:
@@ -191,7 +191,7 @@ class Smarty_Compiler extends Smarty {
         // "text"|bar
         // $foo->bar
         $this->_param_regexp = '(?:\s*(?:' . $this->_obj_call_regexp . '|'
-           . $this->_var_regexp  . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';
+           . $this->_var_regexp . '|' . $this->_num_const_regexp  . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';
 
         // matches valid parenthesised function parameters:
         //
@@ -1528,7 +1528,7 @@ class Smarty_Compiler extends Smarty {
                             $token = 'false';
                         } else if ($token == 'null') {
                             $token = 'null';
-                        } else if (preg_match('~^-?([0-9]+|0[xX][0-9a-fA-F]+)$~', $token)) {
+                        } else if (preg_match('~^' . $this->_num_const_regexp . '|0[xX][0-9a-fA-F]+$~', $token)) {
                             /* treat integer literally */
                         } else if (!preg_match('~^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')*$~', $token)) {
                             /* treat as a string, double-quote it escaping quotes */
