@@ -56,7 +56,7 @@ class Smarty
                                         // compiling directives. If a cached version
                                         // is available, that will be used regardless
                                         // of compile settings.
-	var $caching	     =	true;       // whether to use caching or not. true/false
+	var $caching	     =	false;       // whether to use caching or not. true/false
 	var $cache_lifetime	 =	3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
 
@@ -169,6 +169,27 @@ class Smarty
 	}
 
 /*======================================================================*\
+	Function:	clear_all_cache()
+	Purpose:	clear all the cached template files.
+\*======================================================================*/
+
+	function clear_all_cache()
+	{
+		if(is_dir($this->cache_dir))
+			$dir_handle = opendir($this->cache_dir);
+		else
+			return false;
+
+		while($curr_file = readdir($dir_handle)) {
+			if ($curr_file == '.' || $curr_file == '..')
+				continue;
+			if(is_file($this->cache_dir."/".$curr_file) && substr($curr_file,-6) == '.cache')
+				unlink($this->cache_dir."/".$curr_file);
+		}
+		return true;		
+	}
+	
+/*======================================================================*\
 	Function:	clear_all_assign()
 	Purpose:	clear all the assigned template variables.
 \*======================================================================*/
@@ -254,23 +275,7 @@ class Smarty
             return;
         } else
             return $results;
-	}
-
-/*======================================================================*\
-	Function:	clear_all_cache()
-	Purpose:	clear all the cached template files.
-\*======================================================================*/
-
-	function clear_all_cache()
-	{
-		while($curr_file = readdir($this->cache_dir)) {
-			if ($curr_file == '.' || $curr_file == '..')
-				continue;
-			if(substr($curr_file,-6) == '.cache')
-				unlink($curr_file);
-		}		
-	}
-	
+	}	
 	
 /*======================================================================*\
 	Function:	compile()
