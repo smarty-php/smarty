@@ -327,7 +327,7 @@ class Smarty_Compiler extends Smarty {
                     $template_compiled = $postfilter[0]($template_compiled, $this);
                     $this->_plugins['postfilter'][$filter_name][3] = true;
                 } else {
-                    $this->_trigger_plugin_error("Smarty plugin error: postfilter '$filter_name' is not implemented");
+                    $this->_trigger_fatal_error("Smarty plugin error: postfilter '$filter_name' is not implemented");
                 }
             }
         }
