@@ -252,17 +252,16 @@ class SmartyTest extends PHPUnit_TestCase {
     // test loading and running modifier.escape.php
     function test_escape_modifier_get_plugins_filepath() {
         $filepath = $this->smarty->_get_plugin_filepath('modifier', 'escape');
-        $this->assertEquals((bool)$filepath, true);
+        $this->assertTrue($filepath);
     }
 
     function test_escape_modifier_include_file() {
         $filepath = $this->smarty->_get_plugin_filepath('modifier', 'escape');
-        $success = include $filepath;
-        $this->assertEquals((bool)$success, true);
+        $this->assertTrue(include($filepath));
     }
 
     function test_escape_modifier_function_exists() {
-        $this->assertEquals(function_exists('smarty_modifier_escape'), true);
+        $this->assertTrue(function_exists('smarty_modifier_escape'));
     }
 
     function test_escape_modifier_escape_default() {
