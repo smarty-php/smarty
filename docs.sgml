@@ -1711,8 +1711,7 @@ OUTPUT:
 		<title>Custom Functions</title>
 		<para>
 		Custom functions in Smarty work much the same as the built-in functions
-		syntactically. Two custom functions come bundled with Smarty. You can
-		also write your own.
+		syntactically.
 		</para>
 		<sect2>
 			<title>html_options</title>
@@ -1736,14 +1735,14 @@ OUTPUT:
                     <row>
                         <entry>values</entry>
                         <entry>array</entry>
-                        <entry>No, if using options attribute</entry>
+                        <entry>Yes, unless using options attribute</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>an array of values for dropdown</entry>
                     </row>
                     <row>
                         <entry>output</entry>
                         <entry>array</entry>
-                        <entry>No, if using options attribute</entry>
+                        <entry>Yes, unless using options attribute</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>an array of output for dropdown</entry>
                     </row>
@@ -1757,7 +1756,7 @@ OUTPUT:
                     <row>
                         <entry>options</entry>
                         <entry>associative array</entry>
-                        <entry>No, if using values and output</entry>
+                        <entry>Yes, unless using values and output</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>an associative array of values and output</entry>
                     </row>
@@ -1995,6 +1994,71 @@ OUTPUT:
 &lt;option value="2000" selected&gt;2000&lt;/option&gt;
 &lt;option value="2001"&gt;2001&lt;/option&gt;
 &lt;/select&gt;
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>header</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>contents</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The contents of the header to pass</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            <emphasis>header</emphasis> is a function that passes a raw header
+            string to the output. If your template is used for WAP (Wireless
+            Access Protocol) for example, you would need to send a special
+            header to indicate the type of content you are sending.
+			</para>
+			<para>
+            TECHNICAL NOTE: Be sure you call {header ...}
+            <emphasis>before</emphasis> any output in your template, in
+            including whitespace. Otherwise the header will not work as
+            intended.
+			</para>
+<example>
+<title>header</title>
+<programlisting>
+
+{* our template is outputting contents for WAP devices *}
+{header contents="Content-type: text/vnd.wap.wml"}
+
+&lt;?xml version"1.0"?&gt;
+DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN"
+"http://www.wapforum.org/DTD/wml_1.1.xml"
+
+&lt;wml&gt;
+&lt;card id="card1" title="Example1"&gt;
+    &lt;p&gt;
+    {$now|date_format}
+    Welcome to my webpage!
+    &lt;/p&gt;
+&lt;/card&gt;
+&lt;/wml&gt;
+
 
 </programlisting>
 </example>

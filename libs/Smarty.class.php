@@ -76,7 +76,8 @@ class Smarty
 
 
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
-                                    'html_select_date'  => 'smarty_func_html_select_date'
+                                    'html_select_date'  => 'smarty_func_html_select_date',
+                                    'header'            => 'smarty_func_header'
                                  );
     
     var $custom_mods     =  array(  'lower'         => 'strtolower',
