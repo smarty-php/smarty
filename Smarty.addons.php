@@ -113,6 +113,9 @@ function smarty_mod_date_format($string, $format="%b %e, %Y")
 \*======================================================================*/
 function smarty_make_timestamp($string)
 {
+	if(empty($string)) {
+		$string = "now";
+	}
     $time = strtotime($string);
     if (is_numeric($time) && $time != -1)
         return $time;
@@ -125,7 +128,7 @@ function smarty_make_timestamp($string)
         return $time;
     }
 
-    // can decipher, must be timestamp already?
+    // can't decipher, just return it
     return $string;
 }
 

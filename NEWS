@@ -1,3 +1,4 @@
+    - fixed bug in smarty_make_timestamp introduced in PHP 4.1.0 (Monte)
     - fixed bug with cached insert debug timing (Monte)
     - added 'script' attribute to {insert..} which specifies the script that
       the insert function can be found in. (Andrei)
