@@ -84,6 +84,8 @@ class Smarty_Compiler extends Smarty {
     var $_nocache_count         =   0;
     var $_cache_serial          =   null;
     var $_cache_include         =   null;
+    var $_cache_paths_file      =   null;
+    var $_cache_paths           =   null;
 
     /**#@-*/
 	/**

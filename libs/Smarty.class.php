@@ -564,9 +564,41 @@ reques     * @var string
                                        'insert'        => array());
 
 
+    /**
+     * cache serial
+     *
+     * @var array
+     */
     var $_cache_serial = null;
+
+    /**
+     * cache serials
+     *
+     * @var array
+     */
     var $_cache_serials = array();
 
+    /**
+     * cached file paths
+     *
+     * @var array
+     */
+    var $_cache_paths = null;
+
+    /**
+     * cached file pathname (set in constructor)
+     *
+     * @var array
+     */
+    var $_cache_paths_file = null;
+
+    /**
+     * cached file paths
+     *
+     * @var array
+     */
+    var $_cache_paths_max = array('auto_file' => 500);	
+		
     /**#@-*/
     /**
      * The class constructor.
@@ -576,6 +608,7 @@ reques     * @var string
      */
     function Smarty()
     {
+		$this->_cache_paths_file = $this->compile_dir . '/_smarty_cached_paths.php';
         foreach ($this->global_assign as $key => $var_name) {
             if (is_array($var_name)) {
                 foreach ($var_name as $var) {
@@ -1385,39 +1418,27 @@ reques     * @var string
      */    
     function _get_plugin_filepath($type, $name)
     {
-        $_plugin_filename = "$type.$name.php";
-        
-        foreach ((array)$this->plugins_dir as $_plugin_dir) {
-
-            $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
-
-            // see if path is relative
-            if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $_plugin_dir)) {
-                $_relative_paths[] = $_plugin_dir;
-                // relative path, see if it is in the SMARTY_DIR
-                if (@is_readable(SMARTY_DIR . $_plugin_filepath)) {
-                    return SMARTY_DIR . $_plugin_filepath;
-                }
-            }
-            // try relative to cwd (or absolute)
-            if (@is_readable($_plugin_filepath)) {
-                return $_plugin_filepath;
-            }
-        }
-
-        // still not found, try PHP include_path
-        if(isset($_relative_paths)) {
-            foreach ((array)$_relative_paths as $_plugin_dir) {
-
-                $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
-
-				$_params = array('file_path' => $_plugin_filepath);
-				require_once(SMARTY_DIR . 'core/core.get_include_path.php');
-            	if(smarty_core_get_include_path($_params, $this)) {				
-					return $_params['new_file_path'];
-                }
-            }
-        }   
+		$_cache_paths_key = $type . '/' . $name;
+		if(!$this->force_compile
+			&& !isset($this->_cache_paths)
+			&& file_exists($this->_cache_paths_file)) {
+			include_once($this->_cache_paths_file);
+		}
+		if (isset($this->_cache_paths['plugins'][$_cache_paths_key])) {
+			return $this->_cache_paths['plugins'][$_cache_paths_key];
+		}
+		
+		$_params = array('type' => $type, 'name' => $name);
+		require_once(SMARTY_DIR . 'core/core.assemble_plugin_filepath.php');
+		$_return = smarty_core_assemble_plugin_filepath($_params, $this);
+						
+		if($_return !== false) {
+			$this->_cache_paths['plugins'][$_cache_paths_key] = $_return;
+			require_once(SMARTY_DIR . 'core/core.write_cache_paths_file.php');
+			smarty_core_write_cache_paths_file(null, $this);
+			return $_return;
+		}
+		
         return false;
     }	
 	
@@ -1537,21 +1558,23 @@ reques     * @var string
         $smarty_compiler->request_use_auto_globals  = $this->request_use_auto_globals;
 
         $smarty_compiler->_cache_serial = null;
-        $smarty_compiler->_cache_include    = substr($compile_path, 0, -4).'.inc';
+        $smarty_compiler->_cache_include    = substr($compile_path, 0, -4).'.inc';		
+        $smarty_compiler->_cache_paths   	= $this->_cache_paths;
+        $smarty_compiler->_cache_paths_file	= $this->_cache_paths_file;
 		
 		return $smarty_compiler->_compile_file($resource_name, $source_content, $compiled_content);
 		
 	}	
 		
     /**
-     * Get the compile path for this template file
+     * Get the compile path for this resource
      *
-     * @param string $tpl_file
+     * @param string $resource_name
      * @return string results of {@link _get_auto_filename()}
      */    
-    function _get_compile_path($tpl_file)
+    function _get_compile_path($resource_name)
     {
-        return $this->_get_auto_filename($this->compile_dir, $tpl_file,
+        return $this->_get_auto_filename($this->compile_dir, $resource_name,
                                          $this->_compile_id) . '.php';
     }
 
@@ -1653,51 +1676,28 @@ reques     * @var string
      */    
     function _get_auto_filename($auto_base, $auto_source = null, $auto_id = null)
     {
-        static $_dir_sep = null;
-        static $_dir_sep_enc = null;
-        
-        if(!isset($_dir_sep)) {
-            $_dir_sep_enc = urlencode(DIRECTORY_SEPARATOR);
-            if($this->use_sub_dirs) {
-                $_dir_sep = DIRECTORY_SEPARATOR;
-            } else {
-                $_dir_sep = '^';        
-            }
-        }
-        
-        if(@is_dir($auto_base)) {
-            $_res = $auto_base . DIRECTORY_SEPARATOR;
-        } else {
-            // auto_base not found, try include_path
-			$_params = array('file_path' => $auto_base);
-			require_once(SMARTY_DIR . 'core/core.get_include_path.php');
-            smarty_core_get_include_path($_params, $this);
-            $_res = isset($_params['new_file_path']) ? $_params['new_file_path'] . DIRECTORY_SEPARATOR : null;
-        }
-        
-        if(isset($auto_id)) {
-            // make auto_id safe for directory names
-            $auto_id = str_replace('%7C','|',(urlencode($auto_id)));
-            // split into separate directories
-            $auto_id = str_replace('|', $_dir_sep, $auto_id);
-            $_res .= $auto_id . $_dir_sep;
-        }
-        
-        if(isset($auto_source)) {
-            // make source name safe for filename
-            if($this->use_sub_dirs) {
-                $_filename = urlencode(basename($auto_source));
-                $_crc32 = crc32($auto_source) . $_dir_sep;
-                // prepend %% to avoid name conflicts with
-                // with $auto_id names
-                $_crc32 = '%%' . substr($_crc32,0,3) . $_dir_sep . '%%' . $_crc32;
-                $_res .= $_crc32 . $_filename;
-            } else {
-                $_res .= str_replace($_dir_sep_enc,'^',urlencode($auto_source));
-            }
-        }
-        
-        return $_res;
+		$_cache_paths_key = $auto_base . '/' . $auto_source . '/' . $auto_id;
+		if(!$this->force_compile
+			&& !isset($this->_cache_paths)
+			&& file_exists($this->_cache_paths_file)) {
+			include_once($this->_cache_paths_file);
+		}
+		if (isset($this->_cache_paths['auto_file'][$_cache_paths_key])) {
+			return $this->_cache_paths['auto_file'][$_cache_paths_key];
+		}
+
+		$_params = array('auto_base' => $auto_base, 'auto_source' => $auto_source, 'auto_id' => $auto_id);
+		require_once(SMARTY_DIR . 'core/core.assemble_auto_filename.php');
+		$_return = smarty_core_assemble_auto_filename($_params, $this);
+
+		if($_return !== false) {
+			$this->_cache_paths['auto_file'][$_cache_paths_key] = $_return;
+			require_once(SMARTY_DIR . 'core/core.write_cache_paths_file.php');
+			smarty_core_write_cache_paths_file(null, $this);
+			return $_return;
+		}
+				        
+        return false;
     }
 
     /**
