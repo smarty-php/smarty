@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.counter">
  <title>counter</title>
  <informaltable frame="all">
@@ -82,20 +82,24 @@
  <example>
   <title>counter</title>
 <programlisting>
+<![CDATA[
 {* initialisation du compteur *}
-{counter start=0 skip=2 print=false}
+{counter start=0 skip=2}<br />
+{counter}<br />
+{counter}<br />
+{counter}<br />
+]]>
+  </programlisting>
+<para>SORTIE:</para>
 
-{counter}&lt;br&gt;
-{counter}&lt;br&gt;
-{counter}&lt;br&gt;
-{counter}&lt;br&gt;
-
-SORTIE:
-
-2&lt;br&gt;
-4&lt;br&gt;
-6&lt;br&gt;
-8&lt;br&gt;</programlisting>
+  <screen>
+<![CDATA[
+0<br />
+2<br />
+4<br />
+6<br />
+]]>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.checkboxes">
  <title>html_checkboxes</title>
  <informaltable frame="all">
@@ -45,7 +45,7 @@
      <entry>Un tableau de sortie pour les cases à cocher</entry>
     </row>
     <row>
-     <entry>checked</entry>
+     <entry>selected</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
@@ -68,6 +68,13 @@
      <entry>chaîne de caractère pour séparer chaque case
      à cocher</entry>
     </row>
+    <row>
+     <entry>labels</entry>
+     <entry>booléen</entry>
+     <entry>Non</entry>
+     <entry><emphasis>true</emphasis></entry>
+     <entry>ajoute la balise &lt;label&gt;- à la sortie/entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
@@ -84,45 +91,62 @@
  </para>
  <example>
   <title>html_checkboxes</title>
-<programlisting>
-index.php:
+  <programlisting role="php">
+<![CDATA[
+<?php
+require('Smarty.class.php');
+$smarty = new Smarty;
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane Johnson','Charlie Brown'));
+$smarty->assign('customer_id', 1001);
+$smarty->display('index.tpl');
+
+?>
+]]
+</programlisting>
+  <para>
+   ou index.tpl est:
+  </para>
+  <programlisting>
+<![CDATA[
+{html_checkboxes name="id" values=$cust_ids selected=$customer_id output=$cust_names separator="<br />"}
+]]
+  </programlisting>
+  <programlisting role="php">
+<![CDATA[
+<?php
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('id_client', array(1000,1001,1002,1003));
-$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Charlie Brown'));
-$smarty-&gt;assign('client_id', 1001);
-$smarty-&gt;display('index.tpl');
-
-
-index.tpl:
-
-{html_checkboxes values=$id_client checked=$client_id output=$nom_client separator="&lt;br /&gt;"}
-
-
-index.php:
-
-require('Smarty.class.php');
-$smarty = new Smarty;
-$smarty-&gt;assign('cust_checkboxes', array(
-			1001 =&gt; 'Joe Schmoe',
-			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson','Charlie Brown'));
-$smarty-&gt;assign('client_id', 1001);
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-{html_checkboxes name="id" options=$cust_checkboxes checked=$client_id separator="&lt;br /&gt;"}
-
-
-SORTIE: (pour les deux exemples)
-
-&lt;input type="checkbox" name="id[]" value="1000"&gt;Joe Schmoe&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1002"&gt;Jane Johnson&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
+$smarty->assign('cust_checkboxes', array(
+			1000 => 'Joe Schmoe',
+			1001 => 'Jack Smith',
+			1002 => 'Jane Johnson',
+			1003 => 'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
+$smarty->display('index.tpl');
+?>
+]]>
+  </programlisting>
+  <para>
+   ou index.tpl est:
+  </para>
+  <programlisting>
+<![CDATA[
+{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="&lt;br /&gt;"}
+]]>
+  </programlisting>
+  <para>
+   Les deux examples donnent à l'écran :
+  </para>
+  <screen>
+<![CDATA[
+<label><input type="checkbox" name="id[]" value="1000" />Joe Schmoe</label><br />
+<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><br />
+<label><input type="checkbox" name="id[]" value="1002" />Jane Johnson</label><br />
+<label><input type="checkbox" name="id[]" value="1003" />Charlie Brown</label><br />
+]]>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

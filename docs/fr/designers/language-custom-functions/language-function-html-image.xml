@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.image">
  <title>html_image</title>
  <informaltable frame="all">
@@ -78,7 +78,7 @@
   l'image doit se situer dans un répertoire sécurisé.
  </para>
  <para>
-  link est la valeur href à laquelle lier l'image. Si link est défini,
+  link est la valeur <parameter>href</parameter> à laquelle lier l'image. Si link est défini,
   une balise &lt;a href="VALEURLINK"&gt;&lt;a&gt; est placée autour de
   l'image.
  </para>
@@ -94,24 +94,37 @@
  </note>
  <example>
   <title>html_image</title>
-<programlisting>
-index.php:
+    <programlisting role="php">
+<![CDATA[
+<?php
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;display('index.tpl');
+$smarty->display('index.tpl');
 
-index.tpl:
-
-{image file="pumpkin.jpg"}
-{image file="/path/from/docroot/pumpkin.jpg"}
-{image file="../path/relative/to/currdir/pumpkin.jpg"}
-
-SORTIE: (possible)
-
-&lt;img src="pumpkin.jpg" border="0" width="44" height="68"&gt;
-&lt;img src="/path/under/docroot/pumpkin.jpg" border="0" width="44" height="68"&gt;
-&lt;img src="../path/relative/to/currdir/pumpkin.jpg" border="0" width="44" height="68"&gt;</programlisting>
+?>
+]]>
+    </programlisting>
+    <para>
+     ou index.tpl est:
+    </para>
+    <programlisting>
+<![CDATA[
+{html_image file="pumpkin.jpg"}
+{html_image file="/path/from/docroot/pumpkin.jpg"}
+{html_image file="../path/relative/to/currdir/pumpkin.jpg"}
+]]>
+    </programlisting>
+    <para>
+     Une sortie possible est :
+    </para>
+    <screen>
+<![CDATA[
+<img src="pumpkin.jpg" alt="" border="0" width="44" height="68" />
+<img src="/path/from/docroot/pumpkin.jpg" alt="" border="0" width="44" height="68" />
+<img src="../path/relative/to/currdir/pumpkin.jpg" alt="" border="0" width="44" height="68" />
+]]>
+    </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

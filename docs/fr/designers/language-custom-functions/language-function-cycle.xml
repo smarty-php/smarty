@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.cycle">
  <title>cycle</title>
  <informaltable frame="all">
@@ -92,25 +92,28 @@
  </para>
  <example>
   <title>cycle</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 {section name=rows loop=$data}
-&lt;tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}"&gt;
-   &lt;td&gt;{$data[rows]}&lt;/td&gt;
-&lt;/tr&gt;
+<tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}">
+   <td>{$data[rows]}</td>
+</tr>
 {/section}
-
-SORTIE:
-
-&lt;tr bgcolor="#eeeeee"&gt;
-   &lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr bgcolor="#d0d0d0"&gt;
-   &lt;td&gt;2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr bgcolor="#eeeeee"&gt;
-   &lt;td&gt;3&lt;/td&gt;
-&lt;/tr&gt;
-</programlisting>
+]]>
+  </programlisting>
+  <screen>
+<![CDATA[
+<tr bgcolor="#eeeeee">
+   <td>1</td>
+</tr>
+<tr bgcolor="#d0d0d0">
+   <td>2</td>
+</tr>
+<tr bgcolor="#eeeeee">
+   <td>3</td>
+</tr>
+]]>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
