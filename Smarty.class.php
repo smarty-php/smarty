@@ -85,7 +85,8 @@ class Smarty
     
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
                                     'html_select_date'  => 'smarty_func_html_select_date',
-                                    'math'              => 'smarty_func_math'
+                                    'math'              => 'smarty_func_math',
+                                    'fetch'             => 'smarty_func_fetch'
                                  );
     
     var $custom_mods     =  array(  'lower'         => 'strtolower',
@@ -189,7 +190,16 @@ class Smarty
         $this->custom_funcs[$function] = $function_impl;
     }
 
-    
+/*======================================================================*\
+    Function: unregister_function
+    Purpose:  Unregisters custom function
+\*======================================================================*/
+    function unregister_function($function)
+    {
+        unset($this->custom_funcs[$function]);
+    }
+
+        
 /*======================================================================*\
     Function: register_modifier
     Purpose:  Registers modifier to be used in templates
@@ -197,6 +207,15 @@ class Smarty
     function register_modifier($modifier, $modifier_impl)
     {
         $this->custom_mods[$modifier] = $modifier_impl;
+    }
+
+/*======================================================================*\
+    Function: unregister_modifier
+    Purpose:  Unregisters modifier
+\*======================================================================*/
+    function unregister_modifier($modifier)
+    {
+        unset($this->custom_mods[$modifier]);
     }
 
     

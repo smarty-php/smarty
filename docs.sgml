@@ -583,6 +583,29 @@ function print_current_date ($params) {
 </programlisting>
 </example>
 		</sect2>
+		<sect2 id="api.unregister.function">
+			<title>unregister_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_function</function></funcdef>
+				<paramdef>string <parameter>funcname</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister functions with Smarty. Pass in
+                the Smarty function name.
+			</para>
+<example>
+<title>unregister_function</title>
+<programlisting>
+
+// we don't want template designers to have access to system files
+
+$smarty->unregister_modifier("fetch");
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2 id="api.register.modifier">
 			<title>register_modifier</title>
 			<funcsynopsis>
@@ -606,6 +629,29 @@ function print_current_date ($params) {
 $smarty->register_modifier("sslash","stripslashes");
 
 // now you can use {$var|sslash} to strip slashes from variables
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.unregister.modifier">
+			<title>unregister_modifier</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_modifier</function></funcdef>
+				<paramdef>string <parameter>modname</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister modifiers with Smarty. Pass in
+                the Smarty modifier name.
+			</para>
+<example>
+<title>unregister_modifier</title>
+<programlisting>
+
+// we don't want template designers to strip tags from elements
+
+$smarty->unregister_modifier("strip_tags");
 
 </programlisting>
 </example>
@@ -1744,6 +1790,72 @@ OUTPUT:
 		Custom functions in Smarty work much the same as the built-in functions
 		syntactically.
 		</para>
+		<sect2>
+			<title>fetch</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the file, http or ftp site to fetch</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            fetch allows the template designer to fetch files from the local
+            file system,  ftp, or http, and display the contents. If the file
+            name begins with "http://", the web site page will be fetched and
+            displayed. If the file name begins with "ftp://", the file will be
+            fetched from the ftp server and displayed. For local files, the full
+            system file path must be given, or a path relative to the executed
+            php script.
+			</para>
+            <para>
+            TECHNICAL NOTE: This will not support http redirects, be sure to
+            include a trailing slash on your web page fetches where necessary.
+            </para>
+            <para>
+            TECHNICAL NOTE: This function may be a security concern if you are
+            allowing third parties to modify templates. i.e., they can access
+            arbitrary files on your system. Be sure to <link
+            linkend="api.unregister.function">unregister</link> this function if
+            required.
+            </para>
+<example>
+<title>fetch</title>
+<programlisting>
+
+{* include some javascript in your template *}
+{fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
+
+{* imbed some weather text in your template from another web site *}
+{fetch file="http://www.myweather.com/cgi-bin/getweather?zipcode=68502"}
+
+{* fetch a news headline file via ftp *}
+{fetch file="ftp://user:password@ftp.domain.com/path/to/currentheadlines.txt"}
+
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2>
 			<title>html_options</title>
             <informaltable frame=all>

@@ -320,6 +320,17 @@ function smarty_func_math() {
         eval("echo ".$equation.";");
 }
 
+function smarty_func_fetch() {
+        extract(func_get_arg(0));
+
+        if(empty($file)) {
+            trigger_error("parameter 'file' cannot be empty");
+            return;                    
+        }
+        readfile($file);
+}
+
+
 /* vim: set expandtab: */
 
 ?>

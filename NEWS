@@ -1,3 +1,7 @@
+    - added unregister_modifier, documented (Monte)
+    - added unregister_function, documented (Monte)
+    - added fetch function, documented (Monte)
+    - added math function, documented (Monte)
     - added ability to index looped variables by section properties, e.g.
       $foo.index_prev/bar. (Andrei)
     - added index_prev and index_next section properties. (Andrei)
