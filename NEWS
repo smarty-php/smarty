@@ -1,3 +1,4 @@
+  - add better checks for correctly nested tags when compiling (messju)
   - remove {$SCRIPT_NAME}. use {$smarty.server.SCRIPT_NAME} instead (messju)
   - remove $global_assign. assign global variables explicitly instead (messju)
   - remove warning in debug_print_var on php-resources (messju)

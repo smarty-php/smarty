@@ -51,8 +51,6 @@ class Smarty_Compiler extends Smarty {
     /**#@+
      * @access private
      */
-    var $_sectionelse_stack     =   array();    // keeps track of whether section had 'else' part
-    var $_foreachelse_stack     =   array();    // keeps track of whether foreach had 'else' part
     var $_literal_blocks        =   array();    // keeps literal template blocks
     var $_php_blocks            =   array();    // keeps php code blocks
     var $_current_file          =   null;       // the current template being compiled
@@ -316,6 +314,11 @@ class Smarty_Compiler extends Smarty {
             $compiled_tags[] = $this->_compile_tag($template_tags[$i]);
             $this->_current_line_no += substr_count($template_tags[$i], "\n");
         }
+        if (count($this->_tag_stack)>0) {
+            list($_open_tag, $_line_no) = end($this->_tag_stack);
+            $this->_syntax_error("unclosed tag \{$_open_tag} (opened line $_line_no).", E_USER_ERROR, __FILE__, __LINE__);
+            return;
+        }
 
         $compiled_content = '';
 
@@ -393,7 +396,6 @@ class Smarty_Compiler extends Smarty {
         }
 
         $compiled_content = $template_header . $compiled_content;
-
         return true;
     }
 
@@ -444,15 +446,27 @@ class Smarty_Compiler extends Smarty {
                 return $this->_compile_include_php_tag($tag_args);
 
             case 'if':
+                $this->_push_tag('if');
                 return $this->_compile_if_tag($tag_args);
 
             case 'else':
+                list($_open_tag) = end($this->_tag_stack);
+                if ($_open_tag != 'if' && $_open_tag != 'elseif')
+                    $this->_syntax_error('unxepected {else}', E_USER_ERROR, __FILE__, __LINE__);
+                else
+                    $this->_push_tag('else');
                 return '<?php else: ?>';
 
             case 'elseif':
+                list($_open_tag) = end($this->_tag_stack);
+                if ($_open_tag != 'if' && $_open_tag != 'elseif')
+                    $this->_syntax_error('unxepected {elseif}', E_USER_ERROR, __FILE__, __LINE__);
+                if ($_open_tag == 'if')
+                    $this->_push_tag('elseif');
                 return $this->_compile_if_tag($tag_args, true);
 
             case '/if':
+                $this->_pop_tag('if');
                 return '<?php endif; ?>';
 
             case 'capture':
@@ -468,42 +482,48 @@ class Smarty_Compiler extends Smarty {
                 return $this->right_delimiter;
 
             case 'section':
-                array_push($this->_sectionelse_stack, false);
+                $this->_push_tag('section');
                 return $this->_compile_section_start($tag_args);
 
             case 'sectionelse':
-                $this->_sectionelse_stack[count($this->_sectionelse_stack)-1] = true;
+                $this->_push_tag('sectionelse');
                 return "<?php endfor; else: ?>";
+                break;
 
             case '/section':
-                if (array_pop($this->_sectionelse_stack))
+                $_open_tag = $this->_pop_tag('section');
+                if ($_open_tag == 'sectionelse')
                     return "<?php endif; ?>";
                 else
                     return "<?php endfor; endif; ?>";
 
             case 'foreach':
-                array_push($this->_foreachelse_stack, false);
+                $this->_push_tag('foreach');
                 return $this->_compile_foreach_start($tag_args);
                 break;
 
             case 'foreachelse':
-                $this->_foreachelse_stack[count($this->_foreachelse_stack)-1] = true;
+                $this->_push_tag('foreachelse');
                 return "<?php endforeach; unset(\$_from); else: ?>";
 
             case '/foreach':
-                if (array_pop($this->_foreachelse_stack))
+                $_open_tag = $this->_pop_tag('foreach');
+                if ($_open_tag == 'foreachelse')
                     return "<?php endif; ?>";
                 else
                     return "<?php endforeach; unset(\$_from); endif; ?>";
+                break;
 
             case 'strip':
             case '/strip':
                 if ($tag_command{0}=='/') {
+                    $this->_pop_tag('strip');
                     if (--$this->_strip_depth==0) { /* outermost closing {/strip} */
                         $this->_additional_newline = "\n";
                         return $this->left_delimiter.$tag_command.$this->right_delimiter;
                     }
                 } else {
+                    $this->_push_tag('strip');
                     if ($this->_strip_depth++==0) { /* outermost opening {strip} */
                         $this->_additional_newline = "";
                         return $this->left_delimiter.$tag_command.$this->right_delimiter;
@@ -673,6 +693,11 @@ class Smarty_Compiler extends Smarty {
          * at runtime for future requests.
          */
         $this->_add_plugin('block', $tag_command);
+
+        if ($start_tag)
+            $this->_push_tag($tag_command);
+        else
+            $this->_pop_tag($tag_command);
 
         if ($start_tag) {
             $output = '<?php ' . $this->_push_cacheable_state('block', $tag_command);
@@ -2096,6 +2121,47 @@ class Smarty_Compiler extends Smarty {
         return 'if ($this->caching) { echo \'{/nocache:'
             . $this->_cache_serial . '#' . ($this->_nocache_count++)
             . '}\';}';
+    }
+
+
+    /**
+     * push opening tag-name, file-name and line-number on the tag-stack
+     * @param: string the opening tag's name
+     */
+    function _push_tag($open_tag)
+    {
+        array_push($this->_tag_stack, array($open_tag, $this->_current_line_no));
+    }
+
+    /**
+     * pop closing tag-name
+     * raise an error if this stack-top doesn't match with the closing tag
+     * @param: string the closing tag's name
+     * @return: string the opening tag's name
+     */
+    function _pop_tag($close_tag)
+    {
+        $message = '';
+        if (count($this->_tag_stack)>0) {
+            list($_open_tag, $_line_no) = array_pop($this->_tag_stack);
+            if ($close_tag == $_open_tag) {
+                return $_open_tag;
+            }
+            if ($close_tag == 'if' && ($_open_tag == 'else' || $_open_tag == 'elseif' )) {
+                return $this->_pop_tag($close_tag);
+            }
+            if ($close_tag == 'section' && $_open_tag == 'sectionelse') {
+                $this->_pop_tag($close_tag);
+                return $_open_tag;
+            }
+            if ($close_tag == 'foreach' && $_open_tag == 'foreachelse') {
+                $this->_pop_tag($close_tag);
+                return $_open_tag;
+            }
+            $message = " expected {/$_open_tag} (opened line $_line_no).";
+        }
+        $this->_syntax_error("mismatched tag {/$close_tag}.$message",
+                             E_USER_ERROR, __FILE__, __LINE__);
     }
 
 }
