@@ -1498,10 +1498,10 @@ class Smarty_Compiler extends Smarty {
                 $output = $smarty_ref;
             } else {
                 $var_name = substr(array_shift($indexes), 1);
-                $output = "\$this->_smarty_vars['$var_name']";
+                $output = "@\$this->_smarty_vars['$var_name']";
             }
         } else {
-            $output = "\$this->_tpl_vars['$var_name']";
+            $output = "@\$this->_tpl_vars['$var_name']";
         }
 		
         foreach ($indexes as $index) {			
@@ -1510,16 +1510,16 @@ class Smarty_Compiler extends Smarty {
                 if (is_numeric($index)) {
                     $output .= "[$index]";
                 } elseif ($index{0} == '$') {
-                    $output .= "[\$this->_tpl_vars['" . substr($index, 1) . "']]";
+                    $output .= "[@\$this->_tpl_vars['" . substr($index, 1) . "']]";
                 } else {
                     $parts = explode('.', $index);
                     $section = $parts[0];
                     $section_prop = isset($parts[1]) ? $parts[1] : 'index';
-                    $output .= "[\$this->_sections['$section']['$section_prop']]";
+                    $output .= "[@\$this->_sections['$section']['$section_prop']]";
                 }
             } else if ($index{0} == '.') {
                 if ($index{1} == '$')
-                    $output .= "[\$this->_tpl_vars['" . substr($index, 2) . "']]";
+                    $output .= "[@\$this->_tpl_vars['" . substr($index, 2) . "']]";
                 else
                     $output .= "['" . substr($index, 1) . "']";
             } else if (substr($index,0,2) == '->') {
