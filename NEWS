@@ -1,8 +1,10 @@
-    - fixed problem with using assigned vars with {include_php ...} filepath
+    - fixed a problem with compile_id usage. (Andrei)
+    - fixed problem with using assigned vars with {include_php ...} filepath.
       (Monte)
+
 Version 1.5.2
 -------------
-    - added Smarty object as fifth argument for template resource functions
+    - added Smarty object as fifth argument for template resource functions.
       (Monte)
     - fixed a bug with incorrectly combined cache and compile id in
       clear_cache(). (Andrei)

@@ -539,6 +539,8 @@ class Smarty
         if (!isset($_smarty_compile_id))
             $_smarty_compile_id = $this->compile_id;
 
+        $this->_compile_id = $_smarty_compile_id;
+
         $this->_inclusion_depth = 0;
 
         if ($this->caching) {
