@@ -1,3 +1,8 @@
+2003-11-21  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      remove two E_NOTICES
+
 2003-11-20  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Config_File.class.php
