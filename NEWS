@@ -1,3 +1,5 @@
+    - added day_value_format to html_select_date (Marcus
+      Bointon, Monte)
     - assigned variables are not longer in global
       namespace, saving extract() calls and speeding
       up fetch() and display() linearly with no. of

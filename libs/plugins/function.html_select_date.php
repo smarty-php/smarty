@@ -15,6 +15,8 @@
  *                time value. (Jan Rosier)
  *            1.3 added support for choosing format for 
  *                month values (Gary Loescher)
+ *            1.3.1 added support for choosing format for
+ *                day values (Marcus Bointon)
  * -------------------------------------------------------------
  */
 require_once $this->_get_plugin_filepath('shared','make_timestamp');
@@ -32,6 +34,8 @@ function smarty_function_html_select_date($params, &$smarty)
     /* Write months as numbers by default  GL */
     $month_value_format = "%m";
     $day_format      = "%02d";
+    /* Write day values using this format MB */
+    $day_value_format = "%d";
     $year_as_text    = false;
     /* Display years in reverse order? Ie. 2000,1999,.... */
     $reverse_years   = false;
@@ -128,8 +132,10 @@ function smarty_function_html_select_date($params, &$smarty)
 
     if ($display_days) {
         $days = array();
-        for ($i = 1; $i <= 31; $i++)
+        for ($i = 1; $i <= 31; $i++) {
             $days[] = sprintf($day_format, $i);
+            $day_values[] = sprintf($day_value_format, $i);
+        }
 
         $day_result .= '<select name=';
         if (null !== $field_array){
@@ -148,7 +154,7 @@ function smarty_function_html_select_date($params, &$smarty)
         }
         $day_result .= '>'."\n";
         $day_result .= smarty_function_html_options(array('output'     => $days,
-                                                          'values'     => range(1, 31),
+                                                          'values'     => $day_values,
                                                           'selected'   => $time[2],
                                                           'print_result' => false),
                                                     $smarty);

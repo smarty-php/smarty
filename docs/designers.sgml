@@ -3494,7 +3494,14 @@ OUTPUT:
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry>%02d</entry>
-                        <entry>what format the day should be in (sprintf)</entry>
+                        <entry>what format the day output should be in (sprintf)</entry>
+                    </row>
+                    <row>
+                        <entry>day_value_format</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%d</entry>
+                        <entry>what format the day value should be in (sprintf)</entry>
                     </row>
                     <row>
                         <entry>year_as_text</entry>
