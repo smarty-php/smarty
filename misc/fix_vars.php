@@ -76,7 +76,7 @@ function fix_tag($template_tag)
 			   (\s+(.*))?
 			   /xs', $template_tag, $match);
 	list(, $tag_command, $tag_args) = $match;
-	if (preg_match('!^\$\w+(?>(\[\w+(\.\w+)?\])|(\.\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command))
+	if (preg_match('!^\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command))
 		$tag_command = fix_var($tag_command);
 	else if (preg_match('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command))
 		$tag_command = fix_other_var($tag_command);
