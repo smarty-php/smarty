@@ -2746,11 +2746,11 @@ OUTPUT:
                 </thead>
                 <tbody>
                     <row>
-                        <entry>id</entry>
+                        <entry>name</entry>
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>default</emphasis></entry>
-                        <entry>The id of the cycle</entry>
+                        <entry>The name of the cycle</entry>
                     </row>
                     <row>
                         <entry>values</entry>
@@ -2798,8 +2798,8 @@ OUTPUT:
 <programlisting>
 {* initialize the count *}
 {cycle values="#eeeeee,#d0d0d0"}
-{cycle values="#eeeeee,#d0d0d0"}
-{cycle values="#eeeeee,#d0d0d0"}
+{cycle}
+{cycle}
 
 
 OUTPUT:
