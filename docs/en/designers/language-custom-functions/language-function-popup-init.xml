@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.popup.init">
-			<title>popup_init</title>
-			<para>
-			popup is an integration of overLib, a library used for popup
-			windows. These are used for context sensitive information, such as
-			help windows or tooltips. popup_init must be called once at the
-			top of any page you plan on using the <link
-			linkend="language.function.popup">popup</link> function. overLib
-			was written by Erik Bosrup, and the homepage is located at
-			http://www.bosrup.com/web/overlib/.
-			</para>
-			<para>
-			As of Smarty version 2.1.2, overLib does NOT come with the release.
-			Download overLib, place the overlib.js file under your document
-			root and supply the relative path to this file as the "src"
-			parameter to popup_init.
-			</para>
-<example>
-<title>popup_init</title>
-<programlisting>
+<sect1 id="language.function.popup.init">
+ <title>popup_init</title>
+ <para>
+  popup is an integration of overLib, a library used for popup
+  windows. These are used for context sensitive information, such as
+  help windows or tooltips. popup_init must be called once at the
+  top of any page you plan on using the <link
+  linkend="language.function.popup">popup</link> function. overLib
+  was written by Erik Bosrup, and the homepage is located at
+  http://www.bosrup.com/web/overlib/.
+ </para>
+ <para>
+  As of Smarty version 2.1.2, overLib does NOT come with the release.
+  Download overLib, place the overlib.js file under your document
+  root and supply the relative path to this file as the "src"
+  parameter to popup_init.
+ </para>
+ <example>
+  <title>popup_init</title>
+  <programlisting>
+<![CDATA[
 {* popup_init must be called once at the top of the page *}
-{popup_init src="/javascripts/overlib.js"}</programlisting>
-</example>
+{popup_init src="/javascripts/overlib.js"}
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
