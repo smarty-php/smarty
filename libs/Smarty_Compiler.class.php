@@ -883,8 +883,7 @@ class Smarty_Compiler extends Smarty {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
                     $expr = "!(($is_arg / $expr_arg) % $expr_arg)";
-                }
-                else
+                } else
                     $expr = "!($is_arg % 2)";
                 break;
 
@@ -893,8 +892,7 @@ class Smarty_Compiler extends Smarty {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
                     $expr = "(($is_arg / $expr_arg) % $expr_arg)";
-                }
-                else
+                } else
                     $expr = "($is_arg % 2)";
                 break;
 
