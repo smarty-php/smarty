@@ -1,3 +1,12 @@
+2005-01-05  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      make block functions and registered objects' block methods use a
+      local variable for block_content instead of $this->_block_content
+      
+      it's not necessary to have $smarty->_block_content accessible.
+
 2005-01-04  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/bookinfo.xml:
