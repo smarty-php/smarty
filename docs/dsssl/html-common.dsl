@@ -7,7 +7,7 @@
 ;; contents) that should be made at the nd-level
 (define (toc-depth nd)
   (if (string=? (gi nd) "book")
-      2 ; the depth of the top-level TOC
+      3 ; the depth of the top-level TOC
       1 ; the depth of all other TOCs
       ))
 
