@@ -1,3 +1,29 @@
+2004-01-16  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS:
+      add unit testing
+
+    * NEWS
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update version numbers, add initial unit test directory
+
+    * (Smarty_2_6_1)
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update version numbers for 2.6.1 release
+
+2004-01-16  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * (Smarty_2_6_1)
+      NEWS
+      docs/programmers.sgml
+      libs/Smarty.class.php:
+      renamed $smarty->tpl_rror_reporting to $smarty->error_reporting
+      "tpl_" is a bit redundant here (it's a TemPLate-engine overall :)
+
 2004-01-15  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_image.php:
