@@ -1,5 +1,6 @@
 Version 1.4.0
 -------------
+    - fixed path recognition for windows (Monte)
     - added "componentized templates" tip into documentation (Monte)
     - added {php}{/php} tags for embedding php code into templates (Monte)
     - changed default value of $show_info_header to false (Monte)

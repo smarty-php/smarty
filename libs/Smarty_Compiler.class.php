@@ -199,6 +199,12 @@ class Smarty_Compiler extends Smarty {
             case '/if':
                 return '<?php endif; ?>';
 
+			case 'capture':
+				return '<?php ob_start(); ?>';
+				
+			case '/capture':
+				return '<?php $this->assign("return", ob_get_contents()); ob_end_clean(); ?>';
+				
             case 'ldelim':
                 return $this->left_delimiter;
 
