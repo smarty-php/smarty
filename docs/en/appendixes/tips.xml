@@ -131,19 +131,31 @@ footer.tpl
     <programlisting>
 <![CDATA[
 {$startDate|date_format}
-
-OUTPUT:
-
+]]>
+    </programlisting>
+    <para>
+     This will output:
+    </para>
+    <screen>
+<![CDATA[
 Jan 4, 2001
-
-
+]]>
+    </screen>
+    <programlisting>
+<![CDATA[
 {$startDate|date_format:"%Y/%m/%d"}
-
-OUTPUT:
-
+]]>
+    </programlisting>
+    <para>
+     This will output:
+    </para>
+    <screen>
+<![CDATA[
 2001/01/04
-
-
+]]>
+    </screen>
+    <programlisting>
+<![CDATA[
 {if $date1 < $date2}
    ...
 {/if}

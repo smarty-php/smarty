@@ -337,117 +337,117 @@ Monday, February 5, 2001
 <para>
 date_format conversion specifiers:
 <itemizedlist>
- <listitem>
+ <listitem><para>
 %a - abbreviated weekday name according to the current locale
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %A - full weekday name according to the current locale
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %b - abbreviated month name according to the current locale
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %B - full month name according to the current locale
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %c - preferred date and time representation for the current locale
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %C - century number (the year divided by 100 and truncated to an integer, range 00 to 99)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %d - day of the month as a decimal number (range 00 to 31)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %D - same as %m/%d/%y
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %e - day of the month as a decimal number, a single digit is preceded by a space (range 1 to 31)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %g - Week-based year within century [00,99]
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %G - Week-based year, including the century [0000,9999]
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %h - same as %b
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %H - hour as a decimal number using a 24-hour clock (range 00 to 23)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %I - hour as a decimal number using a 12-hour clock (range 01 to 12)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %j - day of the year as a decimal number (range 001 to 366)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %k - Hour (24-hour clock) single digits are preceded by a blank. (range 0 to 23)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %l - hour as a decimal number using a 12-hour clock, single digits preceeded by a space (range 1 to 12)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %m - month as a decimal number (range 01 to 12)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %M - minute as a decimal number
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %n - newline character
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %r - time in a.m. and p.m. notation
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %R - time in 24 hour notation
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %S - second as a decimal number
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %t - tab character
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %T - current time, equal to %H:%M:%S
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %u - weekday as a decimal number [1,7], with 1 representing Monday
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1 is the first week that has at least 4 days in the current year, and with Monday as the first day of the week.
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %w - day of the week as a decimal, Sunday being 0
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %x - preferred date representation for the current locale without the time
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %X - preferred time representation for the current locale without the date
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %y - year as a decimal number without a century (range 00 to 99)
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %Y - year as a decimal number including the century
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %Z - time zone or name or abbreviation
- </listitem>
- <listitem>
+ </para></listitem>
+ <listitem><para>
 %% - a literal `%' character
- </listitem>
+ </para></listitem>
 </itemizedlist>
 <note>
  <title>Programmers note</title>

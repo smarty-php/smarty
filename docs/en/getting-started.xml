@@ -445,9 +445,10 @@ require('Smarty.class.php');
 
 class Smarty_GuestBook extends Smarty {
 
-   function Smarty_GuestBook() {
+   function Smarty_GuestBook() 
+   {
    
-           // Class Constructor. These automatically get set with each new instance.
+        // Class Constructor. These automatically get set with each new instance.
 
         $this->Smarty();
 
