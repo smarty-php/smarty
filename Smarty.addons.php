@@ -201,6 +201,30 @@ function smarty_mod_default($string, $default="")
         return $string;
 }
 
+/*======================================================================*\
+    Function: smarty_func_assign
+    Purpose:  assign a value to a template variable
+\*======================================================================*/
+function smarty_func_assign($vars,&$smarty_obj)
+{
+	extract($vars);
+	$smarty_obj->assign($var,$val);
+	$smarty_obj->_extract = true;
+	return true;
+}
+
+/*======================================================================*\
+    Function: smarty_func_unassign
+    Purpose:  unassign a template variable
+\*======================================================================*/
+function smarty_func_unassign($vars,&$smarty_obj)
+{
+	extract($vars);
+	$smarty_obj->clear_assign($var);
+	$smarty_obj->_extract = true;
+	return true;
+}
+
 /*============================================*\
   Custom tag functions
 \*============================================*/

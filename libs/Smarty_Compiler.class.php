@@ -309,7 +309,7 @@ class Smarty_Compiler extends Smarty {
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        return "<?php $function(array(".implode(',', (array)$arg_list)."), \$this); ?>";
+        return "<?php $function(array(".implode(',', (array)$arg_list)."), \$this); if(\$this->_extract) { extract(\$this->_tpl_vars); \$this->_extract=false; } ?>";
     }
 
 

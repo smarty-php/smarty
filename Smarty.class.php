@@ -120,7 +120,9 @@ class Smarty
                                     'html_select_time'  => 'smarty_func_html_select_time',
                                     'math'              => 'smarty_func_math',
                                     'fetch'             => 'smarty_func_fetch',
-									'counter'			=> 'smarty_func_counter'
+									'counter'			=> 'smarty_func_counter',
+									'assign'			=> 'smarty_func_assign',
+									'unassign'			=> 'smarty_func_unassign'
                                  );
     
     var $custom_mods     =  array(  'lower'             => 'strtolower',
@@ -159,9 +161,9 @@ class Smarty
     var $_sections              =   array();    // keeps track of sections
     var $_conf_obj              =   null;       // configuration object
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
-    var $_version               =   '1.4.2';  // Smarty version number                     
-    
-
+    var $_version               =   '1.4.2';  // Smarty version number    
+	var $_extract				=	false; 	// flag for custom functions
+	
 /*======================================================================*\
     Function: Smarty
     Purpose:  Constructor
