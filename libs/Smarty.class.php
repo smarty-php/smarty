@@ -1069,7 +1069,7 @@ reques     * @var string
      */    
     function template_exists($tpl_file)
     {
-		$_params = array('file_path' => $this->template_dir . '/' . $tpl_file);
+		$_params = array('file_path' => $tpl_file);
 		require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
         return smarty_core_fetch_file_info($_params, $this);
     }
