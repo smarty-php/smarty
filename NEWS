@@ -1,3 +1,6 @@
+	- updated Smarty to use absolute paths when requiring/including Smarty
+	  components. (Andrei, John Lim)
+
 Version 1.4.0
 -------------
     - fixed indexing by section properties with the new syntax. (Andrei)
