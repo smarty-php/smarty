@@ -1,24 +1,25 @@
 REQUIREMENTS:
 
-	Smarty requires PHP 4.0.4pl1 or later to fix all known problems Smarty has
-	with PHP. Smarty was developed and tested with 4.0.4pl1. See the BUGS file
-	for more info.
+Smarty requires PHP 4.0.4pl1 or later to fix all known problems Smarty has with
+PHP. Smarty was developed and tested with 4.0.4pl1. See the BUGS file for more
+info.
 
-	Smarty uses the PEAR libraries for some of its error handling routines.
-	PEAR libraries come with the distribution of PHP. Be sure that the path to
-	these libraries is included in your php include_path. Unix users check
-	/usr/local/lib/php. Windows users check C:/php/pear.
+Smarty uses the PEAR libraries for some of its error handling routines. PEAR
+libraries come with the distribution of PHP. Be sure that the path to these
+libraries is included in your php include_path. Unix users check
+/usr/local/lib/php. Windows users check C:/php/pear.
 
 INSTALLATION:
 
 * copy the Smarty.class.php, Smarty.addons.php and Config_File.class.php
-  scripts to a directory that is in your PHP include path.
+  scripts to a directory that is in your PHP include_path.
 
 * in the same directory as your php application, create a "templates"
   directory, "configs" directory and a "templates_c" directory. Be sure the
   "templates_c" directory is writable by your web server user (usually nobody).
+  chown nobody:nobody templates_c; chmod 700 templates_c
   You can also chmod 777 this directory, but be aware of security issues for
   multi-user systems.
 
 * setup your php and template files. A good working example is included to get
-  you started.
+  you started. Also see the QUICKSTART guide for some more examples.

@@ -1,0 +1,6 @@
+Monte Ohrt <monte@ispi.net>
+	- original idea & implementation
+
+Andrei Zmievski <andrei@ispi.net>
+	- rewrote parser from scratch
+	- other misc functionality
