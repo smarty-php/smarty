@@ -180,22 +180,20 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.compile.check">
       <title>$compile_check</title>
       <para>
-       Upon each invocation of the PHP application, Smarty tests to
-       see if the current template has changed (later time stamp)
-       since the last time it was compiled. If it has changed, it
-       recompiles that template. As of 1.4.0, if the template has not
-       been compiled, it will compile regardless of this setting. By
-       default this variable is set to true. Once an application is
-       put into production (templates won't be changing), the
-       compile_check step is no longer needed. Be sure to set
-       $compile_check to "false" to improve performance! Note that if
-       you change this to "false" and a template file is changed, you
-       will *not* see the change since the template will not get
-       recompiled. If caching is enabled and compile_check is enabled,
-       then the cache files will get regenerated if an involved
-       template file was updated. See <link
-        linkend="variable.force.compile">$force_compile</link> or <link
-        linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
+	   Upon each invocation of the PHP application, Smarty tests to see if the
+	   current template has changed (different time stamp) since the last time
+	   it was compiled. If it has changed, it recompiles that template. If the
+	   template has not been compiled, it will compile regardless of this
+	   setting. By default this variable is set to true. Once an application is
+	   put into production (templates won't be changing), the compile_check
+	   step is no longer needed. Be sure to set $compile_check to "false" for
+	   maximal performance. Note that if you change this to "false" and a
+	   template file is changed, you will *not* see the change since the
+	   template will not get recompiled. If caching is enabled and
+	   compile_check is enabled, then the cache files will get regenerated if
+	   an involved template file or config file was updated. See <link
+	   linkend="variable.force.compile">$force_compile</link> or <link
+	   linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
       </para>
      </sect1>
      <sect1 id="variable.force.compile">
@@ -301,6 +299,41 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
        header will be sent instead of the content. This works only on
        cached content without <command>insert</command> tags.
       </para>
+     </sect1>
+     <sect1 id="variable.config.overwrite">
+      <title>$config_overwrite</title>
+      <para>
+       If set to true, variables read in from config files will overwrite each
+	   other. Otherwise, the variables will be pushed onto an array. This is
+	   helpful if you want to store arrays of data in config files, just list
+	   each element multiple times. true by default.
+      </para>
+     </sect1>
+     <sect1 id="variable.config.booleanize">
+      <title>$config_booleanize</title>
+      <para>
+	   If set to true, config file values of on/true/yes and off/false/no get
+	   converted to boolean values automatically. This way you can use the
+	   values in the template like so: {if #foobar#} ... {/if}. If foobar was
+	   on, true or yes, the {if} statement will execute. true by default.
+      </para>
+     </sect1>
+     <sect1 id="variable.config.read.hidden">
+      <title>$config_read_hidden</title>
+      <para>
+	   If set to true, hidden sections (section names beginning with a period)
+	   in config files can be read from templates. Typically you would leave
+	   this false, that way you can store sensitive data in the config files
+	   such as database parameters and not worry about the template loading
+	   them. false by default.
+	   </para>
+     </sect1>
+     <sect1 id="variable.config.fix.newlines">
+      <title>$config_fix_newlines</title>
+      <para>
+	   If set to true, mac and dos newlines (\r and \r\n) in config files are
+	   converted to \n when they are parsed. true by default.
+	   </para>
      </sect1>
      <sect1 id="variable.default.template.handler.func">
       <title>$default_template_handler_func</title>
@@ -701,6 +734,64 @@ $smarty->clear_compiled_tpl("index.tpl");
 
 // clear entire compile directory
 $smarty->clear_compiled_tpl();</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.config">
+			<title>clear_config</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_config</function></funcdef>
+				<paramdef>string <parameter><optional>var</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+			This clears all assigned config variables. If a variable name is
+			supplied, only that variable is cleared.
+			</para>
+<example>
+<title>clear_config</title>
+<programlisting>
+// clear all assigned config variables.
+$smarty->clear_config();
+
+// clear one variable
+$smarty->clear_config('foobar');</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.config.load">
+			<title>config_load</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>config_load</function></funcdef>
+				<paramdef>string <parameter>file</parameter></paramdef>
+				<paramdef>string <parameter><optional>section</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+			This loads config file data and assigns it to the template. This
+			works identical to the template <link
+			linkend="language.function.config.load">config_load</link>
+			function.
+			</para>
+		  <note>
+		  <title>Technical Note</title>
+    	  <para>
+		   As of Smarty 2.4.0, assigned template variables are kept across
+		   invocations of fetch() and display(). Config vars loaded from
+		   config_load() are always global scope. Config files are also
+		   compiled for faster execution, and respect the <link
+		   linkend="variable.force.compile">force_compile</link> and <link
+		   linkend="variable.compile.check">compile_check</link> settings.
+    	  </para>
+		  </note>
+<example>
+<title>config_load</title>
+<programlisting>
+// load config variables and assign them
+$smarty->config_load('my.conf');
+
+// load a section
+$smarty->config_load('my.conf','foobar');</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.display">

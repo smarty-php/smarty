@@ -22,7 +22,7 @@
      Template comments are surrounded by asterisks, and that is surrounded
      by the delimiter tags like so: {* this is a comment *}
      Smarty comments are not displayed in the final output of the template.
-     They are used mainly for making the templates more understandable.
+     They are used for making internal notes in the templates.
     </para>
     <example>
      <title>Comments</title>
@@ -116,13 +116,12 @@
   <chapter id="language.variables">
    <title>Variables</title>
    <para>
-    Smarty has several different types of variables, all of which are
-    explained in more detail below. The type of the variable depends on what
-    symbol it is prefixed with (or enclosed within).
+	Smarty has several different types of variables. The type of the variable
+	depends on what symbol it is prefixed with (or enclosed within).
    </para>
    
    <para>
-    Variable in Smarty can be either displayed directly or used as arguments
+    Variables in Smarty can be either displayed directly or used as arguments
     for function attributes and modifiers, inside conditional expressions,
     etc. To print a variable, simply enclose it in the delimiters so that it
     is the only thing contained between them. Examples:
@@ -137,8 +136,10 @@
    <sect1 id="language.assigned.variables">
     <title>Variables assigned from PHP</title>
     <para>
-     Variables that are assigned from PHP are referenced by preceding
-     them with a dollar sign <literal>$</literal>.
+	 Variables that are assigned from PHP are referenced by preceding them with
+	 a dollar sign <literal>$</literal>. Variables assigned from within the
+	 template with the <link linkend="language.function.assign">assign</link>
+	 function are also displayed this way.
     </para>
     <example>
 
@@ -165,6 +166,18 @@ Your last login was on January 11th, 2001.</programlisting>
 <example>
 <title>accessing associative array variables</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('Contacts',
+    array('fax' => '555-222-9876',
+          'email' => 'zaphod@slartibartfast.com',
+          'phone' => array('home' => '555-444-3333',
+                           'cell' => '555-111-1234')));
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$Contacts.fax}&lt;br&gt;
 {$Contacts.email}&lt;br&gt;
 {* you can print arrays of arrays as well *}
@@ -176,8 +189,7 @@ OUTPUT:
 555-222-9876&lt;br&gt;
 zaphod@slartibartfast.com&lt;br&gt;
 555-444-3333&lt;br&gt;
-555-111-1234&lt;br&gt;
-</programlisting>
+555-111-1234&lt;br&gt;</programlisting>
 </example>
 		</sect2>
         <sect2 id="language.variables.array.indexes">
@@ -189,11 +201,30 @@ zaphod@slartibartfast.com&lt;br&gt;
 <example>
 <title>accessing arrays by index</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('Contacts',
+    array('555-222-9876',
+          'zaphod@slartibartfast.com',
+          array('555-444-3333',
+                '555-111-1234')));
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$Contacts[0]}&lt;br&gt;
 {$Contacts[1]}&lt;br&gt;
 {* you can print arrays of arrays as well *}
-{$Contacts[0][0]}&lt;br&gt;
-{$Contacts[0][1]}&lt;br&gt;</programlisting>
+{$Contacts[2][0]}&lt;br&gt;
+{$Contacts[2][1]}&lt;br&gt;
+
+OUTPUT:
+
+555-222-9876&lt;br&gt;
+zaphod@slartibartfast.com&lt;br&gt;
+555-444-3333&lt;br&gt;
+555-111-1234&lt;br&gt;</programlisting>
 </example>
 		</sect2>
         <sect2 id="language.variables.objects">
@@ -226,11 +257,37 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 
 <title>config variables</title>
 <programlisting>
+foo.conf:
+
+pageTitle = "This is mine"
+bodyBgColor = "#eeeeee"
+tableBorderSize = "3"
+tableBgColor = "#bbbbbb"
+rowBgColor = "#cccccc"
+
+index.tpl:
+
+{config_load file="foo.conf"}
 &lt;html&gt;
 &lt;title&gt;{#pageTitle#}&lt;/title&gt;
 &lt;body bgcolor="{#bodyBgColor#}"&gt;
 &lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
 &lt;tr bgcolor="{#rowBgColor#}"&gt;
+	&lt;td&gt;First&lt;/td&gt;
+	&lt;td&gt;Last&lt;/td&gt;
+	&lt;td&gt;Address&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+OUTPUT:
+
+&lt;html&gt;
+&lt;title&gt;This is mine&lt;/title&gt;
+&lt;body bgcolor="#eeeeee"&gt;
+&lt;table border="3" bgcolor="#bbbbbb"&gt;
+&lt;tr bgcolor="#cccccc"&gt;
 	&lt;td&gt;First&lt;/td&gt;
 	&lt;td&gt;Last&lt;/td&gt;
 	&lt;td&gt;Address&lt;/td&gt;
@@ -265,10 +322,10 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 
            <title>displaying request variables</title>
            <programlisting>
-{* display the variable "page" given in the URL, or from a form using the GET method *}
+{* display value of page from URL (GET) http://www.domain.com/index.php?page=foo *}
 {$smarty.get.page}
 
-{* display the variable "page" from a form using the POST method *}
+{* display the variable "page" from a form a form (POST) *}
 {$smarty.post.page}
 
 {* display the value of the cookie "username" *}
@@ -370,6 +427,14 @@ Topic: {$topic|truncate:40:"..."}</programlisting>
        <example>
         <title>capitalize</title>
         <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Police begin campaign to rundown jaywalkers.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|capitalize}
 
@@ -387,13 +452,20 @@ Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 <example>
 <title>count_characters</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Cold Wave Linked to Temperatures.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
 
 {$articleTitle}
 {$articleTitle|count_characters}
 
 OUTPUT:
 
-Cold Wave Linked to Temperatures
+Cold Wave Linked to Temperatures.
 32</programlisting>
 </example>
 		</sect1>
@@ -405,6 +477,13 @@ Cold Wave Linked to Temperatures
 <example>
 <title>count_paragraphs</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
 
 {$articleTitle}
 {$articleTitle|count_paragraphs}
@@ -425,6 +504,13 @@ Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 <example>
 <title>count_sentences</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
 
 {$articleTitle}
 {$articleTitle|count_sentences}
@@ -443,6 +529,13 @@ Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
 <example>
 <title>count_words</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
 
 {$articleTitle}
 {$articleTitle|count_words}
@@ -501,14 +594,29 @@ Dealers Will Hear Car Talk at Noon.
 <example>
 <title>date_format</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('yesterday', strtotime('-1 day'));
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
+
 {$smarty.now|date_format}
 {$smarty.now|date_format:"%A, %B %e, %Y"}
 {$smarty.now|date_format:"%H:%M:%S"}
+{$yesterday|date_format}
+{$yesterday|date_format:"%A, %B %e, %Y"}
+{$yesterday|date_format:"%H:%M:%S"}
 
 OUTPUT:
 
 Feb 6, 2001
 Tuesday, February 6, 2001
+14:33:00
+Feb 5, 2001
+Monday, February 5, 2001
 14:33:00</programlisting>
 </example>
 <example>
@@ -637,11 +745,20 @@ system's manpage for a full list of valid specifiers.</programlisting>
 <example>
 <title>default</title>
 <programlisting>
-{* this will display "no title" (without the quotes) if $articleTitle is empty *}
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle|default:"no title"}
+{$myTitle|default:"no title"}
 
 OUTPUT:
 
+Dealers Will Hear Car Talk at Noon.
 no title</programlisting>
 </example>
 		</sect1>
@@ -688,6 +805,14 @@ no title</programlisting>
 <example>
 <title>escape</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "'Stiff Opposition Expected to Casketless Funeral Plan'");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|escape}
 {$articleTitle|escape:"html"}    {* escapes  &amp; &quot; &#039; &lt; &gt; *}
@@ -755,6 +880,14 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 <example>
 <title>indent</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'NJ judge to rule on nude beach.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 
 {$articleTitle|indent}
@@ -790,6 +923,14 @@ Statistics show that teen pregnancy drops off significantly after 25.
 <example>
 <title>lower</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Two Convicts Evade Noose, Jury Hung.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|lower}
 
@@ -842,6 +983,14 @@ two convicts evade noose, jury hung.</programlisting>
 <example>
 <title>regex_replace</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "Infertility unlikely to\nbe passed on, experts say.");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {* replace each carriage return, tab &amp; new line with a space *}
 
 {$articleTitle}
@@ -850,8 +999,8 @@ two convicts evade noose, jury hung.</programlisting>
 OUTPUT:
 
 Infertility unlikely to
- be passed on, experts say
-Infertility unlikely to be passed on, experts say</programlisting>
+ be passed on, experts say.
+Infertility unlikely to be passed on, experts say.</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.modifier.replace">
@@ -896,6 +1045,14 @@ Infertility unlikely to be passed on, experts say</programlisting>
 <example>
 <title>replace</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "Child's Stool Great for Use in Garden.");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|replace:"Garden":"Vineyard"}
 {$articleTitle|replace:" ":"   "}
@@ -944,6 +1101,14 @@ Child's   Stool   Great   for   Use   in   Garden.</programlisting>
 <example>
 <title>spacify</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Something Went Wrong in Jet Crash, Experts Say.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|spacify}
 {$articleTitle|spacify:"^^"}
@@ -991,6 +1156,14 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^
 <example>
 <title>string_format</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('number', 23.5787446);
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$number}
 {$number|string_format:"%.2f"}
 {$number|string_format:"%d"}
@@ -1018,6 +1191,14 @@ OUTPUT:
 <example>
 <title>strip</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "Grandmother of\neight makes\t    hole in one.");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|strip}
 {$articleTitle|strip:"&amp;nbsp;"}
@@ -1025,9 +1206,9 @@ OUTPUT:
 OUTPUT:
 
 Grandmother of
-eight makes        hole in one
-Grandmother of eight makes hole in one
-Grandmother&amp;nbsp;of&amp;nbsp;eight&amp;nbsp;makes&amp;nbsp;hole&amp;nbsp;in&amp;nbsp;one</programlisting>
+eight makes        hole in one.
+Grandmother of eight makes hole in one.
+Grandmother&amp;nbsp;of&amp;nbsp;eight&amp;nbsp;makes&amp;nbsp;hole&amp;nbsp;in&amp;nbsp;one.</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.modifier.strip.tags">
@@ -1038,6 +1219,14 @@ Grandmother&amp;nbsp;of&amp;nbsp;eight&amp;nbsp;makes&amp;nbsp;hole&amp;nbsp;in&
 <example>
 <title>strip_tags</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "Blind Woman Gets &lt;font face=\"helvetica\"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|strip_tags}
 
@@ -1104,6 +1293,14 @@ Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
 <example>
 <title>truncate</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Two Sisters Reunite after Eighteen Years at Checkout Counter.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|truncate}
 {$articleTitle|truncate:30}
@@ -1131,6 +1328,14 @@ Two Sisters Reunite after E...</programlisting>
 <example>
 <title>upper</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "If Strike isn't Settled Quickly it may Last a While.");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 {$articleTitle|upper}
 
@@ -1196,6 +1401,14 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
 <example>
 <title>wordwrap</title>
 <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "Blind woman gets new kidney from dad she hasn't seen in years.");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$articleTitle}
 
 {$articleTitle|wordwrap:30}
@@ -1241,6 +1454,14 @@ s.</programlisting>
         <example>
          <title>combining modifiers</title>
          <programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Smokers are Productive, but Death Cuts Efficiency.');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+		 
 {$articleTitle}
 {$articleTitle|upper|spacify}
 {$articleTitle|lower|spacify|truncate}
