@@ -2,6 +2,33 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.strip.tags">
   <title>strip_tags</title>
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc"/>
+    <thead>
+     <row>
+      <entry>Parameter Position</entry>
+      <entry>Type</entry>
+      <entry>Required</entry>
+      <entry>Default</entry>
+      <entry>Description</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>bool</entry>
+      <entry>No</entry>
+      <entry>true</entry>
+      <entry>This determines wether the tags are replaced by ' ' or by ''</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
   <para>
    This strips out markup tags, basically anything between &lt; and &gt;.
   </para>
@@ -25,7 +52,8 @@ $smarty->display('index.tpl');
    <programlisting>
 <![CDATA[
 {$articleTitle}
-{$articleTitle|strip_tags}
+{$articleTitle|strip_tags} {* same as {$articleTitle|strip_tags:true} *} 
+{$articleTitle|strip_tags:false}
 ]]>
    </programlisting>
    <para>
@@ -34,6 +62,7 @@ $smarty->display('index.tpl');
    <screen>
 <![CDATA[
 Blind Woman Gets <font face="helvetica">New Kidney</font> from Dad she Hasn't Seen in <b>years</b>.
+Blind Woman Gets  New Kidney  from Dad she Hasn't Seen in  years .
 Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
 ]]>
    </screen>
