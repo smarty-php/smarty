@@ -183,10 +183,9 @@ function smarty_function_html_select_date($params, &$smarty)
 
         $month_result .= smarty_function_html_options(array('output'     => $month_names,
                                                             'values'     => $month_values,
-                                                            'selected'   => $month_values[(int)$time[1]],
+                                                            'selected'   => $a=$time[1] ? strftime($month_value_format, mktime(0, 0, 0, (int)$time[1], 1, 2000)) : '',
                                                             'print_result' => false),
                                                       $smarty);
-
         $month_result .= '</select>';
     }
 
