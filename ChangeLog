@@ -1,3 +1,13 @@
+2003-09-08  andreas halter  <phpcvs@andreashalter.ch>
+
+    * docs/de/designers.sgml
+      docs/de/getting-started.sgml
+      docs/de/manual.sgml
+      docs/de/preface.sgml
+      docs/de/programmers.sgml:
+      all updated for 2.6.0 release, translated everything from 2_5_0 branch to
+      20030908
+
 2003-09-04  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
