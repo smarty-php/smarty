@@ -1,3 +1,9 @@
+2002-09-25  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      plugins/modifier.strip.php
+      NEWS: added strip variable modifier
+
 2002-09-24  Andrei Zmievski  <andrei@php.net>
 
     * NEWS: *** empty log message ***
