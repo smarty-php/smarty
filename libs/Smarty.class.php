@@ -215,16 +215,18 @@ class Smarty
 \*======================================================================*/
     function Smarty()
     {
-		$this->template_dir = SMARTY_DIR.$this->template_dir;
-		$this->config_dir = SMARTY_DIR.$this->config_dir;
-		$this->compile_dir = SMARTY_DIR.$this->compile_dir;
-		$this->cache_dir = SMARTY_DIR.$this->cache_dir;
-		
-		for ($x=0; $x < count($this->secure_dir); $x++) {
-			$this->secure_dir[$x] = SMARTY_DIR.$this->secure_dir[$x];
-		}
-		for ($x=0; $x < count($this->trusted_dir); $x++) {
-			$this->trusted_dir[$x] = SMARTY_DIR.$this->trusted_dir[$x];
+		if(!empty(SMARTY_DIR)) {
+			$this->template_dir = SMARTY_DIR.$this->template_dir;
+			$this->config_dir = SMARTY_DIR.$this->config_dir;
+			$this->compile_dir = SMARTY_DIR.$this->compile_dir;
+			$this->cache_dir = SMARTY_DIR.$this->cache_dir;
+
+			for ($x=0; $x < count($this->secure_dir); $x++) {
+				$this->secure_dir[$x] = SMARTY_DIR.$this->secure_dir[$x];
+			}
+			for ($x=0; $x < count($this->trusted_dir); $x++) {
+				$this->trusted_dir[$x] = SMARTY_DIR.$this->trusted_dir[$x];
+			}
 		}
 		
         foreach ($this->global_assign as $key => $var_name) {
