@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.14 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.15 Maintainer: freespace Status: ready -->
 <chapter id="language.modifiers">
  <title>Модификаторы переменных</title>
  <para>
@@ -15,16 +15,23 @@
   <title>Пример модификатора</title>
   <programlisting>
 <![CDATA[
-{* Выводим заголовок большими буквами *}
-<h2>{$title|upper}</h2>
+{* применение модификатора к переменной *}
+{$title|upper}
+{* модификатор с параметрами *}
+{$title|truncate:40:"..."}
 
-{* Ограничим $topic 40-а символами и добавим "..." в конце *}
-Topic: {$topic|truncate:40:"..."}
+{* применение модификатора к аргументу функции *}
+{html_table loop=$myvar|upper}
+{* с параметрами *}
+{html_table loop=$myvar|truncate:40:"..."}
 
-{* форматируем строку *}
-{"now"|date_format:"%Y/%m/%d"}
+{* применение модификатора к строке *}
+{"foobar"|upper}
 
-{* Применение модификатора к функции *}
+{* использование date_format для форматирования текущей даты *}
+{$smarty.now|date_format:"%Y/%m/%d"}
+
+{* применение модификатора к функции *}
 {mailto|upper address="me@domain.dom"}
 ]]>
   </programlisting>
