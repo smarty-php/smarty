@@ -238,25 +238,33 @@ class Smarty_Compiler extends Smarty {
         }
 
         /* Annihilate the comments. */
-        $template_source = preg_replace("!({$ldq})\*(.*?)\*({$rdq})!se",
-                                        "'\\1*'.str_repeat(\"\n\", substr_count('\\2', \"\n\")) .'*\\3'",
+		
+		$_comment_search = array(
+				"!(\r|\r\n|\n)({$ldq})\*(.*?)\*({$rdq})(\r|\r\n|\n)!s",
+				"!({$ldq})\*(.*?)\*({$rdq})!s");
+		$_comment_replace = array(
+				'\\1',
+				'');
+		
+        $template_source = preg_replace($_comment_search,
+                                        $_comment_replace,
                                         $template_source);
 
         /* Pull out the literal blocks. */
-        preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $match);
-        $this->_literal_blocks = $match[1];
+        preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $_match);
+        $this->_literal_blocks = $_match[1];
         $template_source = preg_replace("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s",
                                         $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_source);
 
         /* Pull out the php code blocks. */
-        preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $template_source, $match);
-        $this->_php_blocks = $match[1];
+        preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $template_source, $_match);
+        $this->_php_blocks = $_match[1];
         $template_source = preg_replace("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s",
                                         $this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $template_source);
 
         /* Gather all template tags. */
-        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_source, $match);
-        $template_tags = $match[1];
+        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_source, $_match);
+        $template_tags = $_match[1];
         /* Split content by template tags to obtain non-template content. */
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_source);
 		
@@ -379,10 +387,6 @@ class Smarty_Compiler extends Smarty {
 	 */
     function _compile_tag($template_tag)
     {		
-				
-        /* Matched comment. */
-        if ($template_tag{0} == '*' && $template_tag{strlen($template_tag) - 1} == '*')
-            return '';
 		
         /* Split tag into two three parts: command, command modifiers and the arguments. */
         if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp
