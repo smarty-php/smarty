@@ -87,7 +87,7 @@ require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
 $smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Carlie Brown'));
+Johnson','Charlie Brown'));
 $smarty-&gt;assign('customer_id', 1001);
 $smarty-&gt;display('index.tpl');
 
