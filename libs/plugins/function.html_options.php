@@ -43,7 +43,7 @@ function smarty_function_html_options($params, &$smarty)
 
 function smarty_function_html_options_optoutput($key, $value, $selected) {
 	if(!is_array($value)) {
-    	$html_result = "<option label=\"$key\" value=\"$key\"";
+    	$html_result = "<option label=\"$value\" value=\"$key\"";
     	if (in_array($key, $selected))
         	$html_result .= " selected=\"selected\"";
     	$html_result .= ">$value</option>\n";
@@ -54,7 +54,7 @@ function smarty_function_html_options_optoutput($key, $value, $selected) {
 }
 
 function smarty_function_html_options_optgroup($key, $values, $selected) {
-	$optgroup_html = "<optgroup label=\"$key\">\n";
+	$optgroup_html = "<optgroup label=\"$value\">\n";
 	foreach ($values as $key => $value) {
 		$optgroup_html .= smarty_function_html_options_optoutput($key, $value, $selected);
 	}
