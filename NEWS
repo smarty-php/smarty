@@ -1,4 +1,5 @@
-    - added format attribute to math function (Monte)
+    - significantly improved config_load performance. (Andrei)
+    - added format attribute to math function. (Monte)
     - added html_select_time custom function. (Andrei)
     - fixed minor PHP warning when attempting to unset an unset variable
       (Monte)
