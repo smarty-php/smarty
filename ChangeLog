@@ -1,3 +1,17 @@
+2002-05-03  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      plugins/function.counter.php:
+    update counter to use name instead of id (id still works though)
+
+    * plugins/function.cycle.php
+      docs/designers.sgml: rename id to name for cycle function
+
+    * plugins/function.cycle.php:
+    update cycle function to allow blank values parameter after initialized
+
+    * plugins/function.cycle.php: fix syntax error
+
 2002-05-02  Monte Ohrt  <monte@ispi.net>
 
     * plugins/function.cycle.php: ugh, another typo
