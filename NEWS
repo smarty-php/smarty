@@ -1,8 +1,7 @@
 Version 1.4.4
 -------------
-
     - numerous documentation updates. (Monte) 
-    - added ENT_QUOTES to escapement of html (Monte, Sam Beckwith)
+    - added ENT_QUOTES to escapement of html. (Monte, Sam Beckwith)
     - implemented access to request variables via auto-assigned $smarty
       template variable.  (Andrei)
     - fixed a bug with parsing function arguments inside {if} tags if a comma
