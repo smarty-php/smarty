@@ -1,3 +1,9 @@
+2002-07-15  mohrt  <mohrt@pb1.pair.com>
+
+    * Smarty.class.php:
+    fixed problem with insert tags when loading function from script attribute
+    and caching enabled (Monte)
+
 2002-07-14  mohrt  <mohrt@pb1.pair.com>
 
     * NEWS
