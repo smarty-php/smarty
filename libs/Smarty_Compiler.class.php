@@ -2019,7 +2019,7 @@ class Smarty_Compiler extends Smarty {
     function _pop_cacheable_state($type, $name) {
         $_cacheable = !isset($this->_plugins[$type][$name]) || $this->_plugins[$type][$name][4];
         if ($_cacheable
-            || --$this->_cacheable_state>0) return '';
+            || --$this->_cacheable_state>=0) return '';
         return 'if ($this->caching) { echo \'{/nocache:'
             . $this->_cache_serial . '#' . ($this->_nocache_count++)
             . '}\';}';
