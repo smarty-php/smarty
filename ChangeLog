@@ -1,3 +1,10 @@
+2004-01-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      added file and line-number-information to error-messages regarding
+      assigned objects an an error messages regarding modifiers with
+      security.
+
 2004-01-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
