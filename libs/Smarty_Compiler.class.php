@@ -265,13 +265,13 @@ class Smarty_Compiler extends Smarty {
         preg_match_all("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s", $source_content, $_match);
         $this->_literal_blocks = $_match[1];
         $source_content = preg_replace("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s",
-                                        $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $source_content);
+                                        $this->_quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $source_content);
 
         /* Pull out the php code blocks. */
         preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $source_content, $_match);
         $this->_php_blocks = $_match[1];
         $source_content = preg_replace("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s",
-                                        $this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $source_content);
+                                        $this->_quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $source_content);
 
         /* Gather all template tags. */
         preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $source_content, $_match);
@@ -336,7 +336,7 @@ class Smarty_Compiler extends Smarty {
             $strip_tags_modified = preg_replace('![\r\n]+!m', '', $strip_tags_modified);
             for ($i = 0, $for_max = count($strip_tags); $i < $for_max; $i++)
                 $compiled_content = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
-                                                  $this->quote_replace($strip_tags_modified[$i]),
+                                                  $this->_quote_replace($strip_tags_modified[$i]),
                                                   $compiled_content, 1);
         }
 
@@ -2031,6 +2031,17 @@ class Smarty_Compiler extends Smarty {
         }
     }
 
+
+    /**
+     * Quote subpattern references
+     *
+     * @param string $string
+     * @return string
+     */
+    function _quote_replace($string)
+    {
+        return preg_replace('![\\$]\d!', '\\\\\\0', $string);
+    }
 
     /**
      * display Smarty syntax error

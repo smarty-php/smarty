@@ -1390,17 +1390,6 @@ class Smarty
     }
 
     /**
-     * Quote subpattern references
-     *
-     * @param string $string
-     * @return string
-     */
-    function quote_replace($string)
-    {
-        return preg_replace('![\\$]\d!', '\\\\\\0', $string);
-    }
-
-    /**
      * get filepath of requested plugin
      *
      * @param string $type
