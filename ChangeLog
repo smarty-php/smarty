@@ -1,3 +1,8 @@
+2003-12-30  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      oops! removed tabs.
+
 2003-12-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
