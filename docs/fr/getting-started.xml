@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: uptodate -->
 <part id="getting.started">
  <title>Pour commencer</title>
  
@@ -32,14 +32,17 @@
    applicative.
   </para>
   <para>
-   Et maintenant un mot rapide sur ce que Smarty NE fait PAS. Smarty n'a
-   pas pour prétention de supprimer complétement les traitements au sein des
-   templates.
-   Il est tout à fait envisageable de recontrer un traitement dans un template,
-   à condition que ce dernier ne désserve que des besoins de présentation.
-   Un conseil : laissez la logique applicative en dehors des templates et
-   la logique de présentation en dehors de l'application. A l'avenir, cela permet
-   une meilleure gestion des évènements.
+   Un des objectifs de Smarty est la séparation de la logique métier de la 
+   logique de présentation. Cela signifie que les templates peuvent contenir 
+   des traitements, du moment qu'il soit relatif à de la présentation.
+   Inclure d'autres templates, alterner les couleurs des lignes 
+   d'un tableau, mettre du texte en majuscule, parcourir un tableau de données
+   pour l'afficher, etc. sont toutes des actions relatives à du traitement
+   de présentation. Cela ne signifie pas que Smarty requiert une telle séparation
+   de votre part. Smarty ne sais pas quoi est quoi, c'est donc à vous de placer
+   la logique de présentation dans vos templates. Ainsi, si vous NE désirez PAS
+   disposer de logique métier dans vos templates, placez tous vos contenus
+   dans des variables au format texte uniquement.
   </para>
   <para>
    L'un des aspects unique de Smarty est la compilation des templates.
@@ -108,12 +111,16 @@
    <example>
     <title>fichiers de la bibliothèque SMARTY</title>
     <screen>
-     Smarty.class.php
-     Smarty_Compiler.class.php
-     Config_File.class.php
-     debug.tpl
-    /plugins/*.php (tous !)</screen>
-   </example>
+<![CDATA[
+Smarty.class.php
+Smarty_Compiler.class.php
+Config_File.class.php
+debug.tpl
+/core/*.php (tous)
+/plugins/*.php (tous)
+]]>
+    </screen>   
+  </example>
    
    <para>
     Smarty utilise une constante PHP appelée <link
@@ -135,40 +142,58 @@
    
    <example>
     <title>créer une instance de Smarty</title>
-    <screen>
-     require('Smarty.class.php');
-    $smarty = new Smarty;</screen>
+    <programlisting role="php">
+<![CDATA[
+<?php
+require('Smarty.class.php');
+$smarty = new Smarty;
+?>
+]]>
+    </programlisting>
    </example>
    
    <para>
     Essayez de lancer le script ci-dessus. Si vous obtenez une erreur indiquant
     que le fichier <emphasis>Smarty.class.php</emphasis> n'est pas trouvé,
-    tentez l'une des choses suivantes :
+    tentez l'une des actions suivantes :
    </para>
    
    <example>
     <title>fournir un chemin absolu vers la bibliothèque Smarty</title>
-    <screen>
-     require('/usr/local/lib/php/Smarty/Smarty.class.php');
-    $smarty = new Smarty;</screen>
+    <programlisting role="php">
+<![CDATA[
+<?php
+require('/usr/local/lib/php/Smarty/Smarty.class.php');
+$smarty = new Smarty;
+?>
+]]>
+    </programlisting>
    </example>
    
    <example>
     <title>Ajouter le répertoire de la bibliothèque au chemin de php_include</title>
-    <screen>
-     // Editez le fichier php.ini, ajoutez le répertoire de la
-     // bibliothèque Smarty au include_path et redémarrez le serveur Web.
-     // Cela devrait ensuite fonctionner :
-     require('Smarty.class.php');
-    $smarty = new Smarty;</screen>
-   </example>
+    <programlisting role="php">
+<![CDATA[
+<?php
+// Editez votre fichier php.ini file, ajoutez le chemin de la 
+// bibliothèque Smarty et redémarrez les serveur web.
+// la ligne suivante doit alors fonctionner :
+require('Smarty.class.php');
+$smarty = new Smarty;
+?>
+]]>   </example>
    
    <example>
     <title>Définir explicitement la constante SMARTY_DIR</title>
-    <screen>
-     define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
-     require(SMARTY_DIR.'Smarty.class.php');
-    $smarty = new Smarty;</screen>
+    <programlisting role="php">
+<![CDATA[
+<?php
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty/');
+require(SMARTY_DIR . 'Smarty.class.php');
+$smarty = new Smarty;
+?>
+]]>
+    </programlisting>
    </example>
    
    <para>
@@ -209,33 +234,43 @@
     l'arborescence Web,
     il s'agit du script auquel l'internaute a accès. Nous allons l'appeler
     "index.php" et le placer dans un sous-répertoire
-    appelé "/livredor/". Il est pratique de configurer le serveur Web de
+    appelé "/livredor/". 
+   </para> 
+
+   <note>
+    <title>Technical Note</title>
+    <para>
+   Il est pratique de configurer le serveur Web de
     sorte que "index.php" soit identifié comme fichier
     par défaut de ce répertoire. Aicnsi, si l'on tape
     "http://www.mydomain.com/livredor/", le script index.php soit
     exécuté sans que "index.php" ne soit spécifié dans l'URL. Avec Apache
     vous pouvez régler cela en ajoutant "index.php" à la ligne où se
     trouve DirectoryIndex (séparez chaque entrée par un espace).
-   </para>
+    </para>
+   </note>
    <para>
     Jetons un coup d'oeil à la structure de fichier obtenue :
    </para>
    
    <example>
     <title>exemple de structure de fichiers</title>
-    <screen>
-     /usr/local/lib/php/Smarty/Smarty.class.php
-     /usr/local/lib/php/Smarty/Smarty_Compiler.class.php
-     /usr/local/lib/php/Smarty/Config_File.class.php
-     /usr/local/lib/php/Smarty/debug.tpl
-     /usr/local/lib/php/Smarty/plugins/*.php
-     
-     /web/www.mydomain.com/smarty/livredor/templates/
-     /web/www.mydomain.com/smarty/livredor/templates_c/
-     /web/www.mydomain.com/smarty/livredor/configs/
-     /web/www.mydomain.com/smarty/livredor/cache/
-     
-    /web/www.mydomain.com/docs/livredor/index.php</screen>
+    <screen><![CDATA[
+/usr/local/lib/php/Smarty/Smarty.class.php
+/usr/local/lib/php/Smarty/Smarty_Compiler.class.php
+/usr/local/lib/php/Smarty/Config_File.class.php
+/usr/local/lib/php/Smarty/debug.tpl
+/usr/local/lib/php/Smarty/core/*.php
+/usr/local/lib/php/Smarty/plugins/*.php
+
+/web/www.mydomain.com/smarty/livredor/templates/
+/web/www.mydomain.com/smarty/livredor/templates_c/
+/web/www.mydomain.com/smarty/livredor/configs/
+/web/www.mydomain.com/smarty/livredor/cache/
+
+/web/www.mydomain.com/docs/livredor/index.php
+]]>
+</screen>
    </example>
    
    <para>
@@ -250,16 +285,19 @@
     et le groupe auquel il appartient.
    </para>
    
-   
    <example>
     <title>régler les permissions d'accès</title>
     <screen>
-     
-     chown nobody:nobody /web/www.mydomain.com/smarty/templates_c/
-     chmod 770 /web/www.mydomain.com/smarty/templates_c/
-     
-     chown nobody:nobody /web/www.mydomain.com/smarty/cache/
-    chmod 770 /web/www.mydomain.com/smarty/cache/</screen>
+    <programlisting role="shell">
+<![CDATA[
+chown nobody:nobody /web/www.mydomain.com/smarty/livredor/templates_c/
+chmod 770 /web/www.mydomain.com/smarty/livredor/templates_c/
+
+chown nobody:nobody /web/www.mydomain.com/smarty/livredor/cache/
+chmod 770 /web/www.mydomain.com/smarty/livredor/cache/
+]]>
+    </programlisting>
+</screen>
    </example>
    
    <note>
@@ -281,10 +319,12 @@
    <example>
     <title>Edition de  /web/www.mydomain.com/smarty/templates/index.tpl</title>
     <screen>
-     
-     {* Smarty *}
-     
-    Hello, {$name}!</screen>
+<![CDATA[
+
+{* Smarty *}
+
+Hello, {$name}!
+]]></screen>
    </example>
    
    
@@ -312,7 +352,9 @@
    <example>
     <title>édition de  /web/www.mydomain.com/docs/livredor/index.php</title>
     <screen>
-     // charge la bibliothèque Smarty
+<![CDATA[
+<?php     
+    // charge la bibliothèque Smarty
      require('Smarty.class.php');
      
      $smarty = new Smarty;
@@ -324,7 +366,11 @@
      
      $smarty->assign('name','Ned');
      
-    $smarty->display('index.tpl');</screen>
+    $smarty->display('index.tpl');
+?>
+?>
+]]>
+    </screen>
    </example>
    
    <note>
@@ -370,8 +416,9 @@
    
    <example>
     <title>édition de /php/includes/livredor/setup.php</title>
-    <screen>
-     
+<programlisting role="php">
+<![CDATA[
+<?php
      // charge la librairie Smarty
      require('Smarty.class.php');
      
@@ -399,7 +446,10 @@
      $this->assign('app_name','Guest Book');
      }
      
-    }</screen>
+    }
+?>
+]]>
+    </programlisting>
    </example>
    
    <para>
@@ -408,16 +458,20 @@
    
    <example>
     <title>édition de /web/www.mydomain.com/docs/livredor/index.php</title>
-    <screen>
-     
+   <programlisting role="php">
+<![CDATA[
+<?php     
      require('livredor/setup.php');
      
      $smarty = new Smarty_livredor;
      
      $smarty->assign('name','Ned');
      
-    $smarty->display('index.tpl');</screen>
-   </example>
+    $smarty->display('index.tpl');
+    
+?>
+]]>
+   </programlisting>   </example>
    
    <para>
     Vous savez maintenant qu'il est facile de créer une instance de Smarty,
