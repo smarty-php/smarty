@@ -1,3 +1,5 @@
+    - implemented several optimizations, speeding up Smarty significantly in
+      most cases. (Andrei)
     - implemented plugin architecture. (Andrei)
     - added modifiers wordwrap and indent. (Monte)
     - added support for 'If-Modified-Since' headers for cached content. (Monte)

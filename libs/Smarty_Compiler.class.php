@@ -50,6 +50,7 @@ class Smarty_Compiler extends Smarty {
     var $_capture_stack         =   array();    // keeps track of nested capture buffers
     var $_plugin_info           =   array();    // keeps track of plugins to load
     var $_filters_loaded        =   false;
+    var $_init_smarty_vars      =   false;
 
 
 /*======================================================================*\
@@ -199,6 +200,11 @@ class Smarty_Compiler extends Smarty {
             $plugins_code .= ")); ?>";
             $template_header .= $plugins_code;
             $this->_plugin_info = array();
+        }
+
+        if ($this->_init_smarty_vars) {
+            $template_header .= "<?php \$this->_assign_smarty_interface(); ?>\n";
+            $this->_init_smarty_vars = false;
         }
 
         $template_compiled = $template_header . $template_compiled;
@@ -1209,14 +1215,50 @@ class Smarty_Compiler extends Smarty {
                     $compiled_ref = "\$this->_sections['$name']";
                 break;
 
-            /* These cases have to be handled at run-time. */
-            case 'env':
             case 'get':
+                array_shift($indexes);
+                $name = substr($indexes[0], 1);
+                $compiled_ref = "\$GLOBALS['HTTP_GET_VARS']['$name']";
+                break;
+
             case 'post':
+                array_shift($indexes);
+                $name = substr($indexes[0], 1);
+                $compiled_ref = "\$GLOBALS['HTTP_POST_VARS']['$name']";
+                break;
+
             case 'cookies':
+                array_shift($indexes);
+                $name = substr($indexes[0], 1);
+                $compiled_ref = "\$GLOBALS['HTTP_SERVER_VARS']['$name']";
+                break;
+
+            case 'env':
+                array_shift($indexes);
+                $name = substr($indexes[0], 1);
+                $compiled_ref = "\$GLOBALS['HTTP_ENV_VARS']['$name']";
+                break;
+
             case 'server':
+                array_shift($indexes);
+                $name = substr($indexes[0], 1);
+                $compiled_ref = "\$GLOBALS['HTTP_SERVER_VARS']['$name']";
+                break;
+
             case 'session':
+                array_shift($indexes);
+                $name = substr($indexes[0], 1);
+                $compiled_ref = "\$GLOBALS['HTTP_SESSION_VARS']['$name']";
+                break;
+
+            /*
+             * These cases are handled either at run-time or elsewhere in the
+             * compiler.
+             */
             case 'request':
+                $this->_init_smarty_vars = true;
+                return null;
+
             case 'capture':
                 return null;
 

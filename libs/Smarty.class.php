@@ -96,7 +96,7 @@ class Smarty
     var $cache_handler_func   = null;   // function used for cached content. this is
                                         // an alternative to using the built-in file
                                         // based caching.
-    var $check_if_modified = true;      // respect If-Modified-Since headers on cached content
+    var $check_if_modified = false;     // respect If-Modified-Since headers on cached content
 
 
     var $default_template_handler_func = ''; // function to handle missing templates
@@ -153,7 +153,7 @@ class Smarty
     // internal vars
     var $_error_msg            = false;      // error messages. true/false
     var $_tpl_vars             = array();    // where assigned template vars are kept
-    var $_smarty_vars          = array();    // stores run-time $smarty.* vars
+    var $_smarty_vars          = null;       // stores run-time $smarty.* vars
     var $_sections             = array();    // keeps track of sections
     var $_foreach              = array();    // keeps track of foreach blocks
     var $_conf_obj             = null;       // configuration object
@@ -517,15 +517,15 @@ class Smarty
                     }
                     if ($this->check_if_modified) {
                         global $HTTP_IF_MODIFIED_SINCE;
-                        $last_modified_date = substr($HTTP_IF_MODIFIED_SINCE,0,strpos($HTTP_IF_MODIFIED_SINCE,'GMT')+3);
+                        $last_modified_date = substr($HTTP_IF_MODIFIED_SINCE, 0, strpos($HTTP_IF_MODIFIED_SINCE, 'GMT') + 3);
                         $gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
                         if (@count($this->_cache_info['insert_tags']) == 0
                             && $gmt_mtime == $last_modified_date) {
                             header("HTTP/1.1 304 Not Modified");
-                        }               
+                        } else {
+                            header("Last-Modified: ".$gmt_mtime);
+                        }
                     }
-                    header("Content-Length: ".strlen($_smarty_results));
-                    header("Last-Modified: ".$gmt_mtime);
                     echo $_smarty_results;
                     return true;    
                 } else {
@@ -536,17 +536,6 @@ class Smarty
                 $this->_cache_info['template'][] = $_smarty_tpl_file;
             }
         }
-
-        $this->_assign_smarty_interface();
-
-        if ($this->_conf_obj === null) {
-            /* Prepare the configuration object. */
-            if (!class_exists('Config_File'))
-                require_once SMARTY_DIR.'Config_File.class.php';
-            $this->_conf_obj = new Config_File($this->config_dir);
-            $this->_conf_obj->read_hidden = false;
-        } else
-            $this->_conf_obj->set_path($this->config_dir);
 
         extract($this->_tpl_vars);
 
@@ -623,30 +612,23 @@ class Smarty
 \*======================================================================*/
     function _assign_smarty_interface()
     {
-        $egpcs  = array('e'        => 'env',
-                        'g'        => 'get',
-                        'p'        => 'post',
-                        'c'        => 'cookies',
-                        's'        => 'server');
-        $globals_map = array('get'      => 'HTTP_GET_VARS',
-                             'post'     => 'HTTP_POST_VARS',
-                             'cookies'  => 'HTTP_COOKIE_VARS',
-                             'session'  => 'HTTP_SESSION_VARS',
-                             'server'   => 'HTTP_SERVER_VARS',
-                             'env'      => 'HTTP_ENV_VARS');
+        if ($this->_smarty_vars !== null)
+            return;
+
+        $globals_map = array('g'  => 'HTTP_GET_VARS',
+                             'p'  => 'HTTP_POST_VARS',
+                             'c'  => 'HTTP_COOKIE_VARS',
+                             's'  => 'HTTP_SERVER_VARS',
+                             'e'  => 'HTTP_ENV_VARS');
 
         $smarty  = array('request'  => array());
 
-        foreach ($globals_map as $key => $array) {
-            $smarty[$key] = isset($GLOBALS[$array]) ? $GLOBALS[$array] : array();
-        }
-
         foreach (preg_split('!!', strtolower($this->request_vars_order)) as $c) {
-            if (isset($egpcs[$c])) {
-                $smarty['request'] = array_merge($smarty['request'], $smarty[$egpcs[$c]]);
+            if (isset($globals_map[$c])) {
+                $smarty['request'] = array_merge($smarty['request'], $GLOBALS[$globals_map[$c]]);
             }
         }
-        $smarty['request'] = @array_merge($smarty['request'], $smarty['session']);
+        $smarty['request'] = @array_merge($smarty['request'], $GLOBALS['HTTP_SESSION_VARS']);
 
         $this->_smarty_vars = $smarty;
     }
@@ -801,7 +783,7 @@ function _generate_debug_output() {
     function _process_template($tpl_file, $compile_path)
     {
         // test if template needs to be compiled
-        if (!$this->force_compile && $this->_compiled_template_exists($compile_path)) {
+        if (!$this->force_compile && file_exists($compile_path)) {
             if (!$this->compile_check) {
                 // no need to check if the template needs recompiled
                 return true;
@@ -811,7 +793,7 @@ function _generate_debug_output() {
                                                  $template_timestamp)) {
                     return false;
                 }
-                if ($template_timestamp <= $this->_fetch_compiled_template_timestamp($compile_path)) {
+                if ($template_timestamp <= filemtime($compile_path)) {
                     // template not expired, no recompile
                     return true;
                 } else {
@@ -841,27 +823,6 @@ function _generate_debug_output() {
     {
         return $this->_get_auto_filename($this->compile_dir, $tpl_file,
                                          $this->_compile_id);
-    }
-
-
-/*======================================================================*\
-    Function:   _compiled_template_exists
-    Purpose:
-\*======================================================================*/
-    function _compiled_template_exists($include_path)
-    {
-        // everything is in $compile_dir
-        return file_exists($include_path);
-    }
-
-/*======================================================================*\
-    Function:   _fetch_compiled_template_timestamp
-    Purpose:
-\*======================================================================*/
-    function _fetch_compiled_template_timestamp($include_path)
-    {
-        // everything is in $compile_dir
-        return filemtime($include_path);
     }
 
 /*======================================================================*\
@@ -1059,6 +1020,16 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _config_load($file, $section, $scope)
     {
+        if ($this->_conf_obj === null) {
+            /* Prepare the configuration object. */
+            if (!class_exists('Config_File'))
+                require_once SMARTY_DIR.'Config_File.class.php';
+            $this->_conf_obj = new Config_File($this->config_dir);
+            $this->_conf_obj->read_hidden = false;
+        } else {
+            $this->_conf_obj->set_path($this->config_dir);
+        }
+
         if ($this->debugging) {
             $debug_start_time = $this->_get_microtime();
         }
@@ -1311,26 +1282,14 @@ function _run_insert_handler($args)
     }
 
 /*======================================================================*\
-    Function: _get_auto_base
-    Purpose:  Get a base name for automatic files creation
-\*======================================================================*/
-    function _get_auto_base($auto_base, $auto_source)
-    {
-        $source_md5 = md5($auto_source);
-
-        $res = $auto_base . '/' . substr($source_md5, 0, 2) . '/' . $source_md5;
-
-        return $res;
-    }
-
-/*======================================================================*\
     Function: _get_auto_filename
     Purpose:  get a concrete filename for automagically created content
 \*======================================================================*/
     function _get_auto_filename($auto_base, $auto_source, $auto_id = null)
     {
-        $res = $this->_get_auto_base($auto_base, $auto_source) .
-                '/' . md5($auto_id) . '.php';
+        $source_hash = crc32($auto_source);
+        $res = $auto_base . '/' . substr($source_hash, 0, 3) . '/' .
+            $source_hash . '/' . crc32($auto_id) . '.php';
 
         return $res;
     }
@@ -1351,7 +1310,8 @@ function _run_insert_handler($args)
                 $tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
                 $res = is_file($tname) && unlink( $tname);
             } else {
-                $tname = $this->_get_auto_base($auto_base, $auto_source);
+                $source_hash = crc32($auto_source);
+                $tname = $auto_base . '/' . substr($source_hash, 0, 3) . '/' . $source_hash;
                 $res = $this->_rmdir($tname);
             }
         }
@@ -1418,7 +1378,7 @@ function _run_insert_handler($args)
         $this->_cache_info['timestamp'] = time();
         
         // prepend the cache header info into cache file
-        $results = 'SMARTY_CACHE_INFO_HEADER'.serialize($this->_cache_info)."\n".$results;
+        $results = serialize($this->_cache_info)."\n".$results;
 
         if (!empty($this->cache_handler_func)) {
             // use cache_handler function
@@ -1444,16 +1404,22 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _read_cache_file($tpl_file, $cache_id, $compile_id, &$results)
     {
+        static  $content_cache = array();
+
         if ($this->force_compile || $this->cache_lifetime == 0) {
             // force compile enabled or cache lifetime is zero, always regenerate
             return false;
+        }
+
+        if (isset($content_cache["$tpl_file,$cache_id,$compile_id"])) {
+            list($results, $this->_cache_info) = $content_cache["$tpl_file,$cache_id,$compile_id"];
+            return true;
         }
 
         if (!empty($this->cache_handler_func)) {
             // use cache_handler function
             $funcname = $this->cache_handler_func;
             $funcname('read', $this, $results, $tpl_file, $cache_id, $compile_id);
-
         } else {
             // use local file cache
             if (isset($compile_id) || isset($cache_id))
@@ -1463,7 +1429,6 @@ function _run_insert_handler($args)
 
             $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $auto_id);
             $results = $this->_read_file($cache_file);
-
         }
 
         if (empty($results)) {
@@ -1474,40 +1439,37 @@ function _run_insert_handler($args)
         $cache_split = explode("\n", $results, 2);
         $cache_header = $cache_split[0];
 
-        if (substr($cache_header, 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {
-            $this->_cache_info = unserialize(substr($cache_header, 24));
-            $cache_timestamp = $this->_cache_info['timestamp'];
+        $this->_cache_info = unserialize($cache_header);
+        $cache_timestamp = $this->_cache_info['timestamp'];
 
-            if (time() - $cache_timestamp > $this->cache_lifetime) {
-                // cache expired, regenerate
-                return false;
+        if (time() - $cache_timestamp > $this->cache_lifetime) {
+            // cache expired, regenerate
+            return false;
+        }
+
+        if ($this->compile_check) {
+            foreach ($this->_cache_info['template'] as $template_dep) {
+                $this->_fetch_template_info($template_dep, $template_source, $template_timestamp, false);
+                if ($cache_timestamp < $template_timestamp) {
+                    // template file has changed, regenerate cache
+                    return false;
+                }
             }
 
-            if ($this->compile_check) {
-                foreach ($this->_cache_info['template'] as $template_dep) {
-                    $this->_fetch_template_info($template_dep, $template_source, $template_timestamp, false);
-                    if ($cache_timestamp < $template_timestamp) {
-                        // template file has changed, regenerate cache
+            if (isset($this->_cache_info['config'])) {
+                foreach ($this->_cache_info['config'] as $config_dep) {
+                    if ($cache_timestamp < filemtime($this->config_dir.'/'.$config_dep)) {
+                        // config file file has changed, regenerate cache
                         return false;
                     }
                 }
-
-                if (isset($this->_cache_info['config'])) {
-                    foreach ($this->_cache_info['config'] as $config_dep) {
-                        if ($cache_timestamp < filemtime($this->config_dir.'/'.$config_dep)) {
-                            // config file file has changed, regenerate cache
-                            return false;
-                        }
-                    }
-                }
             }
-
-            $results = $cache_split[1];
-            return true;
-        } else {
-            // no cache info header, regenerate cache
-            return false;
         }
+
+        $results = $cache_split[1];
+        $content_cache["$tpl_file,$cache_id,$compile_id"] = array($results, $this->_cache_info);
+
+        return true;
     }
 
 
@@ -1686,6 +1648,10 @@ function _run_insert_handler($args)
 
             $this->_plugins['resource'][$type] = array($resource_funcs, true);
         }
+    }
+
+    function _init_conf_obj()
+    {
     }
 
 /*======================================================================*\
