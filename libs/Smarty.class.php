@@ -162,6 +162,7 @@ class Smarty
     var $_tpl_vars              =   array();    // where assigned template vars are kept
     var $_sections              =   array();    // keeps track of sections
     var $_conf_obj              =   null;       // configuration object
+    var $_config                =   array();    // loaded configuration settings
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
     var $_version               =   '1.4.2';    // Smarty version number    
     var $_extract               =   false;      // flag for custom functions
@@ -519,6 +520,9 @@ class Smarty
 
         extract($this->_tpl_vars);
 
+        /* Initialize config array. */
+        $this->_config = array(array());
+
         if ($this->show_info_header) {
             $info_header = '<!-- Smarty '.$this->_version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
         } else {
@@ -739,15 +743,17 @@ class Smarty
     Function:   _smarty_include()
     Purpose:    called for included templates
 \*======================================================================*/
-    function _smarty_include($_smarty_include_tpl_file, $_smarty_include_vars,
-                             &$_smarty_config_parent)
+    function _smarty_include($_smarty_include_tpl_file, $_smarty_include_vars)
     {
-        $_smarty_config = $_smarty_config_parent;
         $this->_tpl_vars = array_merge($this->_tpl_vars, $_smarty_include_vars);
         extract($this->_tpl_vars);
+
+        array_unshift($this->_config, $this->_config[0]);
  
         $this->_process_template($_smarty_include_tpl_file, $compile_path);
         include($compile_path);
+
+        array_shift($this->_config);
     }
         
 /*======================================================================*\

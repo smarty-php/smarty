@@ -347,20 +347,39 @@ class Smarty_Compiler extends Smarty {
             $this->_syntax_error("missing 'file' attribute in config_load tag");
         }
 
-        if (!empty($attrs['global']) && $attrs['global'])
-            $update_parent = true;
-        else
-            $update_parent = false;
+        $scope = $this->_dequote($attrs['scope']);
+        if (!empty($scope)) {
+            if ($scope != 'local' &&
+                $scope != 'parent' &&
+                $scope != 'global') {
+                var_dump($scope);
+                $this->_syntax_error("invalid 'scope' attribute value");
+            }
+        } else {
+            if (!empty($attrs['global']) && $attrs['global'])
+                $scope = 'parent';
+            else
+                $scope = 'local';
+        }
 
         $output  = "<?php\n" .
-                   "\$_smarty_config = array_merge((array)\$_smarty_config, \$this->_conf_obj->get(".$attrs['file']."));\n";
-        if ($update_parent)
-            $output .=  "\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$this->_conf_obj->get(".$attrs['file']."));\n";
+                   "\$this->_config[0] = array_merge(\$this->_config[0], \$this->_conf_obj->get(".$attrs['file']."));\n";
+        if ($scope == 'parent')
+            $output .=  "if (count(\$this->_config) > 0)\n" .
+                        "   \$this->_config[1] = array_merge(\$this->_config[1], \$this->_conf_obj->get(".$attrs['file']."));\n";
+        else if ($scope == 'global')
+            $output .=  "for (\$this->_i = 1; \$this->_i < count(\$this->_config); \$this->_i++)\n" .
+                        "   \$this->_config[\$this->_i] = array_merge(\$this->_config[\$this->_i], \$this->_conf_obj->get(".$attrs['file']."));\n";
 
-        if (!empty($attrs['section'])) {
-            $output .=  "\$_smarty_config = array_merge((array)\$_smarty_config, \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
-            if ($update_parent)
-                $output .=  "\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
+        $dq_section = $this->_dequote($attrs['section']);
+        if (!empty($dq_section)) {
+            $output .=  "\$this->_config[0] = array_merge(\$this->_config[0], \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
+            if ($scope == 'parent')
+                $output .= "if (count(\$this->_config) > 0)\n" .
+                           "    \$this->_config[1] = array_merge(\$this->_config[1], \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
+            else if ($scope == 'global')
+                $output .=  "for (\$this->_i = 1; \$this->_i < count(\$this->_config); \$this->_i++)\n" .
+                            "   \$this->_config[\$this->_i] = array_merge(\$this->_config[\$this->_i], \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
         }
 
         $output .= '?>';
@@ -393,7 +412,7 @@ class Smarty_Compiler extends Smarty {
 
         return  "<?php " .
             "\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
-            "\$this->_smarty_include(".$include_file.", array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n" .
+            "\$this->_smarty_include(".$include_file.", array(".implode(',', (array)$arg_list)."));\n" .
             "\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
             "unset(\$_smarty_tpl_vars); ?>";
     }
@@ -793,7 +812,7 @@ class Smarty_Compiler extends Smarty {
 
         $var_name = substr($var_ref, 1, -1);
 
-        $output = "\$_smarty_config['$var_name']";
+        $output = "\$this->_config[0]['$var_name']";
 
         $this->_parse_modifiers($output, $modifiers);
 
@@ -890,5 +909,7 @@ class Smarty_Compiler extends Smarty {
                       $this->_current_line_no . "]: syntax error: $error_msg", $error_type);
     }
 }
+
+/* vim: set et: */
 
 ?>

@@ -1,8 +1,12 @@
+    - added 'scope' attribute for {config_load}, 'global' is now deprecated but
+      is still supported. (Andrei)
+    - reduced template symbol table pollution by moving config array into the
+      class itself. (Andrei)
     - fixed a bug with passing quoted arguments to modifiers inside {if}
       statements. (Andrei, Sam Beckwith)
     - added security features for third party template editing. (Monte)
     - added assign custom function, documented. (Monte)
-    - fixed bug with template header using version instead of _version (Monte)
+    - fixed bug with template header using version instead of _version. (Monte)
     - fixed a problem with putting $ followed by numbers inside {strip} and
       {/strip} tags. (Andrei)
     - fixed Config_File class to allow empty config paths (defaults to current
