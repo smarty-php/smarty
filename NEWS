@@ -1,3 +1,5 @@
+    - add dpi functionality to html_image, change "name"
+      parameter to "file" (Thomas Shulz, Monte)
     - fix height/width parameter index in html_image (Gerard,
       Monte)
     - get rid of unsetting name and script attributes

@@ -11,14 +11,14 @@
  * Credits:  Duda <duda@big.hu> - wrote first image function
  *           in repository, helped with lots of functionality
  * Purpose:  format HTML tags for the image
- * Input:    name = name of image (required)
+ * Input:    file = file (and path) of image (required)
  *           border = border width (optional, default 0)
  *           height = image height (optional, default actual height)
  *           image =image width (optional, default actual width)
  *           basedir = base directory for absolute paths, default
  *                     is environment variable DOCUMENT_ROOT
  * 
- * Examples: {image name="images/masthead.gif"}
+ * Examples: {image file="images/masthead.gif"}
  * Output:   <img src="images/masthead.gif" border=0 width=400 height=23>
  * -------------------------------------------------------------
  */
@@ -26,7 +26,7 @@ function smarty_function_html_image($params, &$smarty)
 {	
 	require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
 
-	$name = '';
+	$file = '';
 	$border = 0;
 	$height = '';
 	$width = '';
@@ -35,11 +35,16 @@ function smarty_function_html_image($params, &$smarty)
 	$suffix = '';
 	$basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
 			? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '/';
+	if(strstr($GLOBALS['HTTP_SERVER_VARS']['HTTP_USER_AGENT'], 'Mac')) {
+		$dpi_default = 72;
+	} else {
+		$dpi_default = 96;
+	}
 	
 	foreach($params as $_key => $_val) {	
 		switch($_key) {
-			case 'name':
-				$name = $_val;
+			case 'file':
+				$file = $_val;
 				break;
 			case 'border':
 				$border = $_val;
@@ -54,20 +59,23 @@ function smarty_function_html_image($params, &$smarty)
 				$prefix = '<a href="' . $link . '">';
 				$suffix = '</a>';
 				break;
+			case 'dpi':
+				$dpi = $_val;
+				break;
 			default:
 				$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
 				break;					
 		}
 	}
 
-    if (empty($name)) {
-        $smarty->trigger_error("html_image: missing 'name' parameter", E_USER_ERROR);
+    if (empty($file)) {
+        $smarty->trigger_error("html_image: missing 'file' parameter", E_USER_ERROR);
     }
 
-	if(substr($name,0,1) == DIR_SEP) {
-		$_image_path = $basedir . DIR_SEP . $name;
+	if(substr($file,0,1) == DIR_SEP) {
+		$_image_path = $basedir . DIR_SEP . $file;
 	} else {
-		$_image_path = $name;
+		$_image_path = $file;
 	}
 	
 	if(!isset($params['width']) || !isset($params['height'])) {
@@ -92,8 +100,14 @@ function smarty_function_html_image($params, &$smarty)
 		}
 		
 	}
+
+	if(isset($params['dpi'])) {
+		$_resize = $dpi_default/$params['dpi'];
+		$width = round($width * $_resize);
+		$height = round($height * $_resize);
+	}
 			
-	return $prefix . '<img src="'.$name.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.'>' . $suffix;
+	return $prefix . '<img src="'.$file.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.'>' . $suffix;
 }
 
 /* vim: set expandtab: */
