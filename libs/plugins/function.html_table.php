@@ -53,11 +53,31 @@ function smarty_function_html_table($params, &$smarty)
     $hdir = 'right';
     $inner = 'cols';
 
-    extract($params);
-
-    if (!isset($loop)) {
+    if (!isset($params['loop'])) {
         $smarty->trigger_error("html_table: missing 'loop' parameter");
         return;
+    }
+
+    foreach ($params as $_key=>$_value) {
+        switch ($_key) {
+            case 'loop':
+                $$_key = (array)$_value;
+                break;
+
+            case 'cols':
+            case 'rows':
+                $$_key = (int)$_value;
+                break;
+
+            case 'table_attr':
+            case 'tr_attr':
+            case 'td_attr':
+            case 'trailpad':
+            case 'hdir':
+            case 'vdir':
+                $$_key = (string)$_value;
+                break;
+        }
     }
 
     $loop_count = count($loop);
@@ -91,7 +111,7 @@ function smarty_function_html_table($params, &$smarty)
             }
         }
         $output .= "</tr>\n";
-    }            
+    }
     $output .= "</table>\n";
     
     return $output;
