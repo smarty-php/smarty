@@ -5,7 +5,7 @@
  * @subpackage plugins
  */
 
-/*
+/**
  * Smarty assign_smarty_interface core plugin
  *
  * Type:     core<br>

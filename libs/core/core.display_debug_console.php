@@ -5,7 +5,7 @@
  * @subpackage plugins
  */
 
-/*
+/**
  * Smarty debug_console function plugin
  *
  * Type:     core<br>

@@ -6,7 +6,7 @@
  */
 
 
-/*
+/**
  * Smarty {html_options} function plugin
  *
  * Type:     function<br>

@@ -5,7 +5,7 @@
  * @subpackage plugins
  */
 
-/*
+/**
  * Smarty {assign} function plugin
  *
  * Type:     function<br>
