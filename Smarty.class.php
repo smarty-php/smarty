@@ -741,6 +741,7 @@ function _generate_debug_output() {
         /*
          * Find out if the resource exists.
          */
+		
         $readable = true;
         if ($resource_type == 'file' && !@is_file($resource_name)) {
             $readable = false;

@@ -14,6 +14,9 @@ function smarty_modifier_escape($string, $esc_type = 'html')
         case 'html':
             return htmlspecialchars($string, ENT_QUOTES);
 
+        case 'htmlall':
+            return htmlentities($string, ENT_QUOTES);
+
         case 'url':
             return urlencode($string);
 
