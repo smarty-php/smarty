@@ -1,3 +1,47 @@
+2003-03-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      cleaned up calls to readdir()
+
+    * libs/plugins/function.html_options.php:
+      fixed label for optgroup in html_options
+
+2003-03-18  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fix (newly introduced) bug with passing multiple modifiers to a parameter
+
+2003-03-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      docs/designers.sgml:
+      updated docs for html_checkboxes, html_options and html_radios
+
+    * libs/plugins/function.html_options.php:
+      fixed wrong default-"name" in function.html_options.php
+
+    * NEWS
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_radios.php:
+      renamed "checkbox" and "radios" to "options" in {html_checkboxes} and
+      {html_radios}
+
+    * libs/plugins/outputfilter.trimwhitespace.php:
+      tried to optimize re-replacement in outputfilter.trimwhitespace.php a
+      little
+
+    * libs/plugins/outputfilter.trimwhitespace.php:
+      fixed greedy str_replace in outputfilter.trimwhitespace.php
+
+    * NEWS
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_radios.php:
+      html_options, html_checkboxes and html_radios now pass-thru all unknown
+      paramters
+
 2003-03-17  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
