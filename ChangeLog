@@ -1,3 +1,21 @@
+2003-07-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      modifiers are resolved at compile-time now. _run_mod_handler() is
+      still used for modifiers with map_array=true (== no preceeding '@')
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.smarty_include.php:
+      moved _smarty_include() back into Smarty.class.php
+
+    * libs/Smarty.class.php
+      libs/core/core.load_plugins.php:
+      prevent unnecessary calls to _read_file() in _is_compiled()
+      converted method-call to internal function-call in
+      smarty_core_load_plugins()
+
 2003-07-28  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
