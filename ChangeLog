@@ -1,3 +1,8 @@
+2004-12-28  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty.class.php:
+      fix _read_file comments
+
 2004-12-26  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/getting-started.xml
