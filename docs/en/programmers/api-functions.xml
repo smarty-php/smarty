@@ -2,7 +2,7 @@
 <!-- $Revision$ -->
    <reference id="api.functions">
      <title>Methods</title>
-     <titleabbrev>ploop</titleabbrev>
+     <titleabbrev></titleabbrev>
      <partintro>
      </partintro>      
 &programmers.api-functions.api-append;
