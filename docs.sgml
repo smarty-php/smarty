@@ -498,8 +498,8 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
        custom cache handler function section for details.
       </para>
      </sect2>
-     <sect2 id="variable.check.if.modified">
-      <title>$check_if_modified</title>
+     <sect2 id="variable.cache.modified.check">
+      <title>$cache_modified_check</title>
       <para>
        If set to true, Smarty will respect the If-Modified-Since
        header sent from the client. If the cached file timestamp has
