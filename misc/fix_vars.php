@@ -56,8 +56,8 @@ foreach (array_slice($argv, 1) as $template) {
 	
 	fwrite($fp, $output);
 	fclose($fp);
-	//copy($template.'.out', $template);
-	//unlink($template.'.out');
+	copy($template.'.out', $template);
+	unlink($template.'.out');
 
 	print "Fixed $template.\n";
 }
