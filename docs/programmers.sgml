@@ -1112,6 +1112,8 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 			<funcdef>void <function>register_block</function></funcdef>
 				<paramdef>string <parameter>name</parameter></paramdef>
 				<paramdef>mixed <parameter>impl</parameter></paramdef>
+				<paramdef>bool <parameter>cacheable</parameter></paramdef>
+				<paramdef>array or null <parameter>cache_attrs</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1132,8 +1134,9 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
              <literal>$method</literal> being a class method of that
              class.
 			</para>
-
-
+			<para>
+<parameter>$cacheable</parameter> and <parameter>$cache_attrs</parameter> can be omitted in most cases. See <link linkend="caching.cacheable">Controlling Cacheability of Plugins' Output</link> on how to use them properly.
+			</para>
 <example>
 <title>register_block</title>
 <programlisting>
@@ -1161,6 +1164,7 @@ function do_translation ($params, $content, &$smarty, &amp;$repeat) {
 			<funcdef>void <function>register_compiler_function</function></funcdef>
 				<paramdef>string <parameter>name</parameter></paramdef>
 				<paramdef>mixed <parameter>impl</parameter></paramdef>
+				<paramdef>bool <parameter>cacheable</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1180,6 +1184,11 @@ function do_translation ($params, $content, &$smarty, &amp;$repeat) {
 		<literal>$method</literal> being a class method of that
 		class.
 			</para>
+			<para>
+                <parameter>$cacheable</parameter> can be omitted in
+                most cases. See <link linkend="caching.cacheable">Controlling
+                Cacheability of Plugins' Output</link> on how to it properly.
+			</para>
 		</sect1>
 		<sect1 id="api.register.function">
 			<title>register_function</title>
@@ -1188,6 +1197,8 @@ function do_translation ($params, $content, &$smarty, &amp;$repeat) {
 			<funcdef>void <function>register_function</function></funcdef>
 				<paramdef>string <parameter>name</parameter></paramdef>
 				<paramdef>mixed <parameter>impl</parameter></paramdef>
+				<paramdef>bool <parameter>cacheable</parameter></paramdef>
+				<paramdef>array or null <parameter>cache_attrs</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1207,6 +1218,9 @@ function do_translation ($params, $content, &$smarty, &amp;$repeat) {
              <literal>$method</literal> being a class method of that
              class.
                         </para>
+			<para>
+<parameter>$cacheable</parameter> and <parameter>$cache_attrs</parameter> can be omitted in most cases. See <link linkend="caching.cacheable">Controlling Cacheability of Plugins' Output</link> on how to use them properly.
+			</para>
 <example>
 <title>register_function</title>
 <programlisting>
@@ -1844,6 +1858,95 @@ $smarty->display('index.tpl',"sports|basketball");</programlisting>
    caches for the blue theme with clear_cache(null,'themes|blue');
    </para>
    </note>
+   </sect1>
+
+   <sect1 id="caching.cacheable">
+    <title>Controlling Cacheability of Plugins' Output</title>
+	<para>
+Since Smarty-2.6.0 plugins the cacheability of plugins can be declared
+when registering them. The third parameter to register_block,
+register_compiler_function and register_function is called
+<parameter>$cacheable</parameter> and defaults to true which is also
+the behaviour of plugins in Smarty versions before 2.6.0
+	</para>
+
+	<para>
+When registering a plugin with $cacheable=false the plugin is called everytime the page is displayed, even if the page comes from the cache. The plugin function behaves a little like an <link linkend="plugins.inserts">insert</link> function.
+	</para>
+
+	<para>
+In contrast to <link linkend="language.function.insert">{insert}</link> the attributes to the plugins are not cached by default. They can be declared to be cached with the fourth parameter <parameter>$cache_attrs</parameter>. <parameter>$cache_attrs</parameter> is an array of attribute-names that should be cached, so the plugin-function get value as it was the time the page was written to cache everytime it is fetched from the cache.
+	</para>
+
+	<example>
+     <title>Preventing a plugin's output from being cached</title>
+     <programlisting>
+index.php:
+
+require('Smarty.class.php');
+$smarty = new Smarty;
+$smarty->caching = true;
+
+function remaining_seconds($params, &$smarty) {
+    $remain = $params['endtime'] - time();
+    if ($remain >=0)
+        return $remain . " second(s)";
+    else
+        return "done";
+}
+
+$smarty->register_function('remaining', 'remaining_seconds', false, array('endtime'));
+
+if (!$smarty->is_cached('index.tpl')) {
+    // fetch $obj from db and assign...
+    $smarty->assign_by_ref('obj', $obj);
+}
+
+$smarty->display('index.tpl');
+
+
+index.tpl:
+
+Time Remaining: {remain endtime=$obj->endtime}</programlisting>
+	<para>
+The number of seconds till the endtime of $obj is reached changes on each display of the page, even if the page is cached. Since the endtime attribute is cached the object only has to be pulled from the database when page is written to the cache but not on subsequent requests of the page.
+	</para>
+    </example>
+
+
+	<example>
+     <title>Preventing a whole passage of a template from being cached</title>
+     <programlisting>
+index.php:
+
+require('Smarty.class.php');
+$smarty = new Smarty;
+$smarty->caching = true;
+
+function smarty_block_dynamic($param, $content, &$smarty) {
+    return $content;
+}
+$smarty->register_block('dynamic', 'smarty_block_dynamic', false);
+
+$smarty->display('index.tpl');
+
+
+index.tpl:
+
+Page created: {"0"|date_format:"%D %H:%M:%S"}
+
+{dynamic}
+
+Now is: {"0"|date_format:"%D %H:%M:%S"}
+
+... do other stuff ...
+
+{/dynamic}</programlisting>
+
+	</example>
+	<para>
+When reloading the page you will notice that both dates differ. One is "dynamic" one is "static". You can do everything between {dynamic}...{/dynamic} and be sure it will not be cached like the rest of the page.
+	</para>
    </sect1>
   </chapter>
 
