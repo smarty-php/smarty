@@ -68,8 +68,9 @@ function smarty_core_read_cache_file(&$params, &$smarty)
     }
 
     if ($smarty->compile_check) {
+        $_params = array('get_source' => false); 
         foreach (array_keys($smarty->_cache_info['template']) as $_template_dep) {
-			$_params = array('resource_name' => $_template_dep);
+			$_params['resource_name'] = $_template_dep;
 			$smarty->_fetch_resource_info($_params);
             if ($smarty->_cache_info['timestamp'] < $_params['resource_timestamp']) {
                 // template file has changed, regenerate cache
@@ -78,7 +79,7 @@ function smarty_core_read_cache_file(&$params, &$smarty)
         }
 
         if (isset($smarty->_cache_info['config'])) {
-            $_params = array('resource_base_path' => $smarty->config_dir); 
+            $_params = array('resource_base_path' => $smarty->config_dir, 'get_source' => false);
             foreach (array_keys($smarty->_cache_info['config']) as $_config_dep) {
                 $_params['resource_name'] = $_config_dep;
 				$smarty->_fetch_resource_info($_params);

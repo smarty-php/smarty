@@ -1108,7 +1108,7 @@ class Smarty
      */    
     function template_exists($tpl_file)
     {
-		$_params = array('resource_name' => $tpl_file);
+		$_params = array('resource_name' => $tpl_file, 'get_source'=>false);
         return $this->_fetch_resource_info($_params);
     }
 
