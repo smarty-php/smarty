@@ -248,9 +248,9 @@ class Smarty_Compiler extends Smarty {
                                         $template_source);
 
         /* Pull out the literal blocks. */
-        preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $_match);
+        preg_match_all("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s", $template_source, $_match);
         $this->_literal_blocks = $_match[1];
-        $template_source = preg_replace("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s",
+        $template_source = preg_replace("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s",
                                         $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_source);
 
         /* Pull out the php code blocks. */
@@ -816,8 +816,8 @@ class Smarty_Compiler extends Smarty {
 		$_plugin_filepath = $this->_get_plugin_filepath('core', 'smarty_include');
 	
 		$output .= "require_once('$_plugin_filepath');\nsmarty_core_smarty_include($_params, \$this);\n" .
-            "\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
-            "unset(\$_smarty_tpl_vars);\n";
+        "\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
+        "unset(\$_smarty_tpl_vars);\n";
 
         if (isset($assign_var)) {
 			$output .= "\$this->assign(" . $assign_var . ", ob_get_contents()); ob_end_clean();\n";
