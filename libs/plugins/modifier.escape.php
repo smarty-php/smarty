@@ -57,8 +57,8 @@ function smarty_modifier_escape($string, $esc_type = 'html')
             return $return;
 
         case 'javascript':
-            // escape quotes and backslashes and newlines
-            return strtr($string, array('\\'=>'\\\\',"'"=>"\\'",'"'=>'\\"',"\r"=>'\\r',"\n"=>'\\n'));
+            // escape quotes and backslashes, newlines, etc.
+            return strtr($string, array('\\'=>'\\\\',"'"=>"\\'",'"'=>'\\"',"\r"=>'\\r',"\n"=>'\\n','</'=>'<\/'));
             
         case 'mail':
             // safe way to display e-mail address on a web page
