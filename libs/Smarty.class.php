@@ -37,14 +37,12 @@
  *
  */
 
-define('SMARTY_PHP_PASSTHRU',       0);
-define('SMARTY_PHP_QUOTE',          1);
-define('SMARTY_PHP_REMOVE',         2);
-define('SMARTY_PHP_ALLOW',          3);
+require('Smarty.addons.php');
 
-define('SMARTY_PLUGIN_MODIFIER',    0);
-define('SMARTY_PLUGIN_FUNCTION',    1);
-
+define("SMARTY_PHP_PASSTHRU",0);
+define("SMARTY_PHP_QUOTE",1);
+define("SMARTY_PHP_REMOVE",2);
+define("SMARTY_PHP_ALLOW",3);
 
 class Smarty
 {
@@ -53,7 +51,6 @@ class Smarty
     var $template_dir    =  './templates';     // name of directory for templates  
     var $compile_dir     =  './templates_c';   // name of directory for compiled templates 
     var $config_dir      =  './configs';       // directory where config files are located
-    var $plugin_dir      =  './plugins';       // directory where plugins are located
 
     var $global_assign   =  array('SCRIPT_NAME'); // variables from the GLOBALS array
                                                   // that are implicitly assigned
@@ -76,19 +73,33 @@ class Smarty
     var $tpl_file_ext    =  '.tpl';     // template file extention
     
     var $php_handling    =  SMARTY_PHP_PASSTHRU; // how smarty handles php tags
-                                                 // possible values:
-                                                 // SMARTY_PHP_PASSTHRU -> echo tags as is
-                                                 // SMARTY_PHP_QUOTE    -> escape tags as entities
-                                                 // SMARTY_PHP_REMOVE   -> remove php tags
-                                                 // SMARTY_PHP_ALLOW    -> execute php tags
-                                                 // default: SMARTY_PHP_PASSTHRU
+                                        // possible values:
+                                        // SMARTY_PHP_PASSTHRU -> echo tags as is
+                                        // SMARTY_PHP_QUOTE    -> escape tags as entities
+                                        // SMARTY_PHP_REMOVE   -> remove php tags
+                                        // SMARTY_PHP_ALLOW    -> execute php tags
+                                        // default: SMARTY_PHP_PASSTHRU
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
 
 
-    var $custom_funcs    =  array();    // a table of custom functions
-    var $custom_mods     =  array();    // a table of custom modifiers
+    var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
+                                    'html_select_date'  => 'smarty_func_html_select_date'
+                                 );
+    
+    var $custom_mods     =  array(  'lower'         => 'strtolower',
+                                    'upper'         => 'strtoupper',
+                                    'capitalize'    => 'ucwords',
+                                    'escape'        => 'smarty_mod_escape',
+                                    'truncate'      => 'smarty_mod_truncate',
+                                    'spacify'       => 'smarty_mod_spacify',
+                                    'date_format'   => 'smarty_mod_date_format',
+                                    'string_format' => 'smarty_mod_string_format',
+                                    'replace'       => 'smarty_mod_replace',
+                                    'strip_tags'    => 'smarty_mod_strip_tags',
+                                    'default'       => 'smarty_mod_default'
+                                 );
     
     // internal vars
     var $_error_msg             =   false;      // error messages. true/false
@@ -98,7 +109,6 @@ class Smarty
     var $_current_file          =   null;       // the current template being compiled
     var $_current_line_no       =   1;          // line number for error messages
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
-    var $_plugins_loaded        =   false;      // keeps track of whether plugins are loaded
 
     
 /*======================================================================*\
@@ -322,9 +332,6 @@ class Smarty
                     return $results;
             }
         }
-
-        /* Load Smarty plugins. */
-        $this->_load_plugins();
 
         // compile files
         $this->_compile($this->template_dir);
@@ -1245,66 +1252,6 @@ class Smarty
     
 
 /*======================================================================*\
-    Function: _load_plugins
-    Purpose:  Load Smarty plugins
-\*======================================================================*/
-    function _load_plugins()
-    {
-        if ($this->_plugins_loaded)
-            return true;
-
-        if (!is_dir($this->plugin_dir))
-            return false;
-
-        $included_files = implode(',', get_included_files());
-        $dir_handle = opendir($this->plugin_dir);
-        while ($entry = readdir($dir_handle)) {
-            $plugin_file = $this->plugin_dir.'/'.$entry;
-
-            if ($entry == '.' || $entry == '..' ||
-                !is_file($plugin_file) ||
-                substr($plugin_file, -11) != '.plugin.php' ||
-                strpos($included_files, $entry) !== false)
-                continue;
-
-            unset($smarty_plugin_info);
-            include_once $plugin_file;
-
-            if (!isset($smarty_plugin_info) || !is_array($smarty_plugin_info)) {
-                trigger_error("Could not load plugin '$plugin_file': missing or incorrect plugin info descriptor", E_USER_WARNING);
-                continue;
-            }
-
-            $plugin_table = (array)$smarty_plugin_info['table'];
-            foreach ($plugin_table as $plugin) {
-                extract($plugin);
-                if (empty($name) || empty($impl))
-                    continue;
-
-                switch ($type) {
-                    case SMARTY_PLUGIN_MODIFIER:
-                        $this->register_modifier($name, $impl);
-                        break;
-
-                    case SMARTY_PLUGIN_FUNCTION:
-                        $this->register_function($name, $impl);
-                        break;
-
-                    default:
-                        trigger_error("Unknown plugin type $type in $plugin_file", E_USER_WARNING);
-                        break;
-                }
-            }
-        }
-        closedir($dir_handle);
-
-        $this->_plugins_loaded = true;
-
-        return true;
-    }
-
-
-/*======================================================================*\
     Function: _dequote
     Purpose:  Remove starting and ending quotes from the string
 \*======================================================================*/
@@ -1420,45 +1367,6 @@ class Smarty
                       $this->_current_line_no . "]: syntax error: $error_msg", $error_type);
     }
 }
-
-
-/*======================================================================*\
-    Function: _smarty_insert_handler
-    Purpose:  Handles insert tag calls
-\*======================================================================*/
-function _smarty_insert_handler($args, $caching, $delimiter)
-{
-    if ($caching) {
-        $arg_string = serialize($args);
-        return "$delimiter{insert_cache $arg_string}$delimiter";
-    } else {
-        $function_name = 'insert_'.$args['name'];
-        return $function_name($args);
-    }
-}
-
-
-/*======================================================================*\
-    Function: _smarty_mod_handler
-    Purpose:  Handles modifier calls
-\*======================================================================*/
-function _smarty_mod_handler()
-{
-    $args = func_get_args();
-    list($func_name, $map_array) = array_splice($args, 0, 2);
-    $var = $args[0];
-
-    if ($map_array && is_array($var)) {
-        foreach ($var as $key => $val) {
-            $args[0] = $val;
-            $var[$key] = call_user_func_array($func_name, $args);
-        }
-        return $var;
-    } else {
-        return call_user_func_array($func_name, $args);
-    }
-}
-
 
 /* vim: set expandtab: */
 
