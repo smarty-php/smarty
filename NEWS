@@ -1,3 +1,4 @@
+    - html_options passthru all unknown paramters now
     - fix link functionality of html_image, also make
       output XHTML compatible (Hinrich Donner, Monte)
     - append "@" to default modifier vars/args

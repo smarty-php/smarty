@@ -35,8 +35,17 @@ function smarty_function_html_options($params, &$smarty)
         }
     }
 
+    /* passthru all unknown params to $extra */
+    $extra = '';
+    unset($params['values']);
+    unset($params['output']);
+    unset($params['selected']);
+    unset($params['options']);
+    unset($params['name']);
+    foreach ($params as $key=>$value) $extra .= ' ' . $key . '="'. htmlspecialchars($value) . '"';
+
     if(!empty($name)) {
-        $html_result = '<select name="' . $name . '">' . "\n" . $html_result . '</select>' . "\n";
+        $html_result = '<select name="' . $name . '"' . $extra . '>' . "\n" . $html_result . '</select>' . "\n";
     }
     return $html_result;
 }
