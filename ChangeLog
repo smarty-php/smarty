@@ -1,3 +1,35 @@
+2003-11-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Config_File.class.php:
+      fix occasional notice
+
+2003-11-13  andreas halter  <phpcvs@andreashalter.ch>
+
+    * docs/de/designers.sgml:
+      - added cat modifier, thanks messju :-)
+
+2003-11-13  Monte Ohrt  <monte@ispi.net>
+
+    * (Smarty_2_6_0-RC3)
+      NEWS
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      commit RC3 tags
+
+2003-11-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fix handling of $var.key inside []
+
+    * libs/Smarty.class.php:
+      fix unnecessary loading of core.load_resource_plugin.php
+
+    * (Smarty_2_6_0-RC3)
+      docs/fr/designers.sgml:
+      fixed example of html_table
+
 2003-11-11  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
