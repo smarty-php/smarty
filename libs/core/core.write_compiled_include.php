@@ -35,12 +35,32 @@ function smarty_core_write_compiled_include($params, &$smarty)
 
     $_include_compiled .= $params['plugins_code'];
     $_include_compiled .= "<?php";
+
+    $this_varname = ((double)phpversion() >= 5.0) ? '_smarty' : 'this';
     for ($_i = 0, $_for_max = count($_match_source); $_i < $_for_max; $_i++) {
         $_match =& $_match_source[$_i];
+        $source = $_match[4];
+        if ($this_varname == '_smarty') {
+            /* rename $this to $_smarty in the sourcecode */
+            $tokens = token_get_all('<?php ' . $_match[4]);
+            array_shift($tokens); /* remove the opening <.?.php */
+            for ($i=0, $count = count($tokens); $i < $count; $i++) {
+                if (is_array($tokens[$i])) {
+                    if ($tokens[$i][0] == T_VARIABLE && $tokens[$i][1] == '$this') {
+                        $tokens[$i] = '$' . $this_varname;
+                    } else {
+                        $tokens[$i] = $tokens[$i][1];
+                    }                   
+                }
+            }
+            $source = implode('', $tokens);
+        }
+
+        /* add function to compiled include */
         $_include_compiled .= "
-function _smarty_tplfunc_$_match[2]_$_match[3](&\$this)
+function _smarty_tplfunc_$_match[2]_$_match[3](&\$$this_varname)
 {
-$_match[4]
+$source
 }
 
 ";

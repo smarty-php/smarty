@@ -1,3 +1,4 @@
+  - make smarty_core_write_compiled_include() php5-aware (messju)
   - removed unused functionality to load a subset of lines from a file (messju)
   - fix is_secure() should only check if a file is_readable, not if
     the directory where it is in is readable (sagi, messju)
