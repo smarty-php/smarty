@@ -84,7 +84,7 @@ $CSS = array(
 
 // Option for the link to cvs.php.net: normal: "&f=h"
 // long diff: "&f=h&num=10", unified (text): "&f=u"
-define("CVS_OPT", "&amp;f=h&amp;num=10");
+define("CVS_OPT", "&amp;ty=u");
 
 // Initializing variables from parameters
 $LANG = $argv[1];
