@@ -1729,6 +1729,7 @@ class Smarty
         $smarty_compiler->_plugins          = &$this->_plugins;
         $smarty_compiler->_tpl_vars         = &$this->_tpl_vars;
         $smarty_compiler->default_modifiers = $this->default_modifiers;
+        $smarty_compiler->compile_id        = $this->_compile_id;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled)) {
             return true;
