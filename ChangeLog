@@ -1,3 +1,8 @@
+2003-01-02  Monte Ohrt  <monte@ispi.net>
+
+    * templates/header.tpl:
+      move the title into head where it should be
+
 2002-12-24  Monte Ohrt  <monte@ispi.net>
 
     * Smarty_Compiler.class.php:
