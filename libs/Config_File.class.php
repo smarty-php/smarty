@@ -27,14 +27,16 @@
  * Lincoln, NE 68510
  *
  * The latest version of Config_File can be obtained from:
- * http://www.phpinsider.com
+ * http://smarty.php.net/
  *
- * @link http://www.phpinsider.com
+ * @link http://smarty.php.net/
  * @version 2.5.0
  * @copyright Copyright: 2001,2002 ispi of Lincoln, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  */
+
+/* $Id$ */
 
 class Config_File {
 	/**#@+

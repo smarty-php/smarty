@@ -29,8 +29,9 @@
  * Lincoln, NE 68510
  *
  * The latest version of Smarty can be obtained from:
- * http://www.phpinsider.com/
- * @link http://www.phpinsider.com/
+ * http://smarty.php.net/
+ *
+ * @link http://smarty.php.net/
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
  * @version 2.5.0
