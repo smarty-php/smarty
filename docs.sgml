@@ -441,6 +441,21 @@ chmod 700 cache
 				1.3.0.
 			</para>
 		</sect2>
+		<sect2 id="api.is.cached">
+			<title>is_cached</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>is_cached</function></funcdef>
+				<paramdef>string<parameter>template</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                This returns true if there is a valid cache for this template.
+                Use this to skip process-intensive tasks that aren't necessary
+                when a cached version of the template is available. This was
+                added to Smarty 1.3.0.
+			</para>
+		</sect2>
 		<sect2>
 			<title>get_template_vars</title>
 			<funcsynopsis>
@@ -488,23 +503,30 @@ chmod 700 cache
 include("Smarty.class.php");
 $smarty = new Smarty;
 
-// dummy up some data
-$address = "245 N 50th";
-$db_data = array(
-	"City" => "Lincoln",
-	"State" => "Nebraska",
-	"Zip" = > "68502"
-	);
 
-$smarty->assign("Name","Fred");
-$smarty->assign("Address",$address);
-$smarty->assign($db_data);
+// only do db calls if cache doesn't exist
+if(!$smarty->is_cached("index.tpl"))
+{
+
+    // dummy up some data
+    $address = "245 N 50th";
+    $db_data = array(
+	    "City" => "Lincoln",
+	    "State" => "Nebraska",
+	    "Zip" = > "68502"
+	    );
+
+    $smarty->assign("Name","Fred");
+    $smarty->assign("Address",$address);
+    $smarty->assign($db_data);
+
+}
 
 // display the output
 $smarty->display("index.tpl");
 
 // alternatively capture the output
-$output = $smarty->fetch("index.tpl");
+// $output = $smarty->fetch("index.tpl");
 </programlisting>
 		</example>
 		</sect2>

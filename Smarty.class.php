@@ -47,33 +47,29 @@ class Smarty
     var $compile_dir     =  "./templates_c";   // name of directory for compiled templates 
     var $config_dir      =  "./configs";       // directory where config files are located
 
-    var $global_assign   =  array(  'SCRIPT_NAME' ); // variables from the GLOBALS array
-                                                     // that are implicitly assigned
-                                                     // to all templates   
+    var $global_assign   =  array('SCRIPT_NAME'); // variables from the GLOBALS array
+                                                  // that are implicitly assigned
+                                                  // to all templates   
     var $compile_check   =  true;       // whether to check for compiling step or not:
                                         // This is generally set to false once the
                                         // application is entered into production and
                                         // initially compiled. Leave set to true
-                                        // during development. true/false
+                                        // during development. true/false default true.
 
     var $force_compile   =  false;      // force templates to compile every time.
-                                        // overrides compile_check. true/false
-        
-                                        // NOTE: all cache directives override
-                                        // compiling directives. If a cached version
-                                        // is available, that will be used regardless
-                                        // of compile settings.
+                                        // if cache file exists, this will
+                                        // override compile_check and force_compile.
+                                        // true/false. default false.
     var $caching         =  false;      // whether to use caching or not. true/false
     var $cache_dir       =  "./cache";  // name of directory for template cache
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
-    
-    
-    var $tpl_file_ext    =  ".tpl";     // template files extention
+
+    var $tpl_file_ext    =  ".tpl";     // template file extention
     
     var $allow_php       =  false;      // whether or not to allow embedded php
                                         // in the templates. By default, php tags
-                                        // are escaped. true/false
+                                        // are escaped. true/false. default false.
 
     var $left_delimiter  =  "{";        // template tag delimiters.
     var $right_delimiter =  "}";
@@ -239,7 +235,34 @@ class Smarty
         }
         return true;        
     }
+
+/*======================================================================*\
+    Function:   is_cached()
+    Purpose:    test to see if valid cache exists for this template
+\*======================================================================*/
+
+    function is_cached($tpl_file)
+    {
+        global $PHP_SELF;
+
+        // cache id = template path + the invoked script
+        $cache_tpl_md5 = md5($tpl_file);
+        $cache_path_md5 = md5($PHP_SELF);
+        $cache_path_dir = substr($cache_path_md5,0,2);
+        $cache_file = $this->cache_dir."/".$cache_tpl_md5."/$cache_path_dir/$cache_tpl_md5"."_"."$cache_path_md5.cache";
+
+        if(!$this->cache_force &&
+                (file_exists($cache_file) &&
+                    ($this->cache_lifetime == 0 ||
+                        (mktime() - filemtime($cache_file) <= $this->cache_lifetime)
+                    )))
+                return true;
+            else
+                return false;
+        
+    }
     
+        
 /*======================================================================*\
     Function:   clear_all_assign()
     Purpose:    clear all the assigned template variables.
@@ -282,7 +305,11 @@ class Smarty
 
         if($this->caching) {
             // cache id = template path + the invoked script
-            $cache_file = $this->cache_dir."/".urlencode($tpl_file."@".$PHP_SELF).".cache";
+            $cache_tpl_md5 = md5($tpl_file);
+            $cache_path_md5 = md5($PHP_SELF);
+            $cache_path_dir = substr($cache_path_md5,0,2);
+            $cache_file = $this->cache_dir."/".$cache_tpl_md5."/$cache_path_dir/$cache_tpl_md5"."_"."$cache_path_md5.cache";
+            
             if(!$this->cache_force &&
                     (file_exists($cache_file) &&
                         ($this->cache_lifetime == 0 ||
@@ -317,7 +344,7 @@ class Smarty
         }
 
         if($this->caching) {
-            $this->_write_file($cache_file, $results);
+            $this->_write_file($cache_file, $results, true);
             $results = $this->_process_cached_inserts($results);
         }
 
@@ -1179,8 +1206,39 @@ class Smarty
     Purpose:    write out a file
 \*======================================================================*/
 
-    function _write_file($filename,$contents)
+    function _write_file($filename,$contents,$create_dirs=false)
     {
+        if($create_dirs) {
+            $filename_split = split("\/+",$filename);
+            foreach($filename_split as $curr_dir) {
+                if(empty($curr_dir)) {
+                    if(empty($dir_sum))
+                        $dir_sum = "/";
+                    continue;
+                }
+
+                if($curr_dir == ".." || $curr_dir == ".") {
+                    $dir_sum .= $curr_dir."/";
+                    continue;
+                }
+                                                
+                if(substr($curr_dir,-6) == ".cache")
+                    break;
+                
+                if(empty($dir_sum))
+                    $dir_sum .= $curr_dir;                
+                else
+                    $dir_sum .= "/".$curr_dir;
+
+                if(is_dir($dir_sum))
+                    continue;   
+                if(file_exists($dir_sum))
+                    continue;
+
+                mkdir($dir_sum,0755);
+            }
+        }
+        
         if(!($fd = fopen($filename, 'w'))) {
             $this->_set_error_msg("problem writing '$filename.'");
             return false;
@@ -1188,8 +1246,8 @@ class Smarty
         fwrite($fd, $contents);
         fclose($fd);
         return true;
-    }
-
+    }    
+    
 /*======================================================================*\
     Function:   _set_error_msg()
     Purpose:    set the error message
