@@ -17,3 +17,5 @@ My interests are:
 	none
 {/section}
 {/strip}
+
+{options output=$FirstName values=$LastName selected="Case"}

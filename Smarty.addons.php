@@ -54,4 +54,41 @@ function smarty_mod_spacify($string, $spacify_char = ' ')
 	return implode($spacify_char, preg_split('//', $string, -1, PREG_SPLIT_NO_EMPTY));
 }
 
+
+/*============================================*\
+  Custom functions
+\*============================================*/
+
+/*======================================================================*\
+	Function: smarty_func_options
+	Purpose:  Returns the list of <option> tags generated from
+			  the passed parameters
+\*======================================================================*/
+function smarty_func_options()
+{
+	extract(func_get_arg(0));
+
+	settype($output, 'array');
+	settype($values, 'array');
+	settype($selected, 'array');
+
+	$html_result = "";
+
+	for ($i = 0; $i < count($output); $i++) {
+		/* By default, check value against $selected */
+		$sel_check = $values[$i];
+		$html_result .= "<option";
+		if ($i < count($values))
+			$html_result .= " value=\"".$values[$i]."\"";
+		else
+			$sel_check = $output[$i];   	/* if more outputs than values, then
+											   check output against $selected */		
+		if (in_array($sel_check, $selected))
+			$html_result .= " selected";
+		$html_result .= ">".$output[$i]."</option>\n";
+	}
+
+	print $html_result;
+}
+
 ?>

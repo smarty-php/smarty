@@ -41,6 +41,8 @@ class Smarty
 
 	var $config_dir				=	"configs";	// directory where config files are located
 
+	var $_custom_funcs			=	array(	'options'		=> 'smarty_func_options'
+										 );
 	
 	var $_modifiers				=	array(	'lower'			=> 'strtolower',
 											'upper'			=> 'strtoupper',
@@ -309,18 +311,6 @@ class Smarty
 		if(!($template_contents = $this->_read_file($filepath)))
 			return false;
 
-		if(!$this->allow_php)
-		{
-			/* Escape php tags. */
-			$search = array(	"/\<\?/i",
-								"/\?\>/i"
-							);
-			$replace = array(	"&lt;?",
-								"?&gt;"
-							);
-			$template_contents = preg_replace($search, $replacea ,$template_contents);
-		}
-
 		$ldq = preg_quote($this->left_delimiter, "/");
 		$rdq = preg_quote($this->right_delimiter, "/");
 
@@ -329,6 +319,10 @@ class Smarty
 		$template_tags = $match[1];
 		/* Split content by template tags to obtain non-template content. */
 		$text_blocks = preg_split("/$ldq.*?$rdq/s", $template_contents);
+		if(!$this->allow_php) {
+			/* Escape php tags. */
+			$text_blocks = preg_replace('!<\?([^?]*?)\?>!', '&lt;?$1?&gt;', $text_blocks);
+		}
 
 		$compiled_tags = array();
 		foreach ($template_tags as $template_tag)
@@ -414,10 +408,25 @@ class Smarty
 				return $this->left_delimiter.$tag_command.$this->right_delimiter;
 
 			default:
-				/* TODO capture custom functions here */
-				break;
+				if (isset($this->_custom_funcs[$tag_command])) {
+					return $this->_compile_custom_func($tag_command, $tag_args);
+				} else
+					/* TODO syntax error: unknown tag */
+				return "";
 		}
 	}
+
+
+	function _compile_custom_func($func_name, $tag_args)
+	{
+		$attrs = $this->_parse_attrs($tag_args);
+		$function = $this->_custom_funcs[$func_name];
+		foreach ($attrs as $arg_name => $arg_value)
+			$arg_list[] = "'$arg_name' => $arg_value";
+
+		return "<?php $function(array(".implode(',', $arg_list).")); ?>";
+	}
+
 
 	function _compile_config_load_tag($tag_args)
 	{
