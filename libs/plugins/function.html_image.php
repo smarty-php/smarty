@@ -36,7 +36,7 @@
  */
 function smarty_function_html_image($params, &$smarty)
 {
-    require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
+    require_once $smarty->get_plugin_filepath('shared','escape_special_chars');
     
     $alt = '';
     $file = '';
