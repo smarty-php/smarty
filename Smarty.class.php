@@ -198,7 +198,7 @@ class Smarty
     var $_compile_id           =   null;       // for different compiled templates
     var $_smarty_debug_id      =   'SMARTY_DEBUG'; // text in URL to enable debug mode
     var $_smarty_debug_info    =   array();    // debugging information for debug console
-	var $_cache_info           =   array();    // templates that make up a cache file
+	var $_cache_info           =   array();    // info that makes up a cache file
     
 
 /*======================================================================*\

@@ -163,6 +163,10 @@ class Smarty_Compiler extends Smarty {
         $template_header .= "         compiled from ".$tpl_file." */ ?>\n";
         $template_compiled = $template_header.$template_compiled;
 
+		// remove \n from the end of the file, if any
+		if ( $template_compiled{strlen($template_compiled)-1} == "\n" ) {
+			$template_compiled = substr($template_compiled,0,-1);
+		}
 
         // run compiled template through postfilter functions
         if (is_array($this->postfilter_funcs) && count($this->postfilter_funcs) > 0) {
