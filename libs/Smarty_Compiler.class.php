@@ -396,15 +396,24 @@ class Smarty_Compiler extends Smarty {
             $this->_syntax_error("missing 'file' attribute in config_load tag");
         }
 
+		if (!empty($attrs['global']) && $attrs['global'])
+			$update_parent = 'true';
+		else
+			$update_parent = 'false';
+
         $output  = "<?php if (!class_exists('Config_File'))\n" .
                    "    include_once 'Config_File.class.php';\n" .
-                   "if (!is_object(\$GLOBALS['_smarty_conf_obj']) || get_class(\$GLOBALS['_smarty_conf_obj']) != 'config_file') {\n" .
+                   "if (!is_object(\$GLOBALS['_smarty_conf_obj']) || get_class(\$GLOBALS['_smarty_conf_obj']) != 'config_file')\n" .
                    "    \$GLOBALS['_smarty_conf_obj'] = new Config_File('".$this->config_dir."');\n" .
-                   "}\n" .
-                   "\$GLOBALS['_smarty_config'] = array_merge((array)\$GLOBALS['_smarty_config'], \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
+				   "if (isset(\$parent_smarty_config) && $update_parent)\n" .
+				   "	\$parent_smarty_config = array_merge((array)\$parent_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n" .
+                   "\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
 
-        if (!empty($attrs['section']))
-            $output .= '$GLOBALS[\'_smarty_config\'] = array_merge((array)$GLOBALS[\'_smarty_config\'], $GLOBALS[\'_smarty_conf_obj\']->get('.$attrs['file'].', '.$attrs['section'].')); ';
+        if (!empty($attrs['section'])) {
+			$output	.=	"if (isset(\$parent_smarty_config) && $update_parent)\n" .
+						"	\$parent_smarty_config = array_merge((array)\$parent_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n" .
+            		  	"\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
+		}
 
         $output .= '?>';
 
@@ -436,14 +445,14 @@ class Smarty_Compiler extends Smarty {
 
 		return  "<?php " .
 				"if (!function_exists('$include_func_name')) {\n".
-				"   function $include_func_name(\$file_name, \$def_vars, \$include_vars)\n" .
+				"   function $include_func_name(\$file_name, \$def_vars, \$include_vars, &\$parent_smarty_config)\n" .
 				"   {\n" .
 				"       extract(\$def_vars);\n" .
 				"       extract(\$include_vars);\n" .
 				"       include \"\$file_name.php\";\n" .
 				"   }\n" .
 				"}\n" .
-				"$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."));\n?>";
+				"$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
     }
 
 /*======================================================================*\
@@ -841,7 +850,7 @@ class Smarty_Compiler extends Smarty {
 
         $var_name = substr($var_ref, 1, -1);
 
-        $output = "\$GLOBALS['_smarty_config']['$var_name']";
+        $output = "\$_smarty_config['$var_name']";
 
         $this->_parse_modifiers($output, $modifiers);
 
