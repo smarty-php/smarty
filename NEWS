@@ -1,3 +1,4 @@
+  - enabled hex-constants in function.math.php (messju)
   - enabled hex-constants (0x...) as function-attributes, inside if-statements
     and as modifier-parameters (messju)
   - fixed bug with passing $smarty as reference in Smarty.compiler.class
