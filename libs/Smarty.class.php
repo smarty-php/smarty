@@ -170,9 +170,11 @@ class Smarty
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
                                                       // Smarty to compile templates
-    var $resource_funcs        =  array();  // what functions resource handlers are mapped to
-    var $prefilter_funcs       =  array();  // what functions templates are prefiltered through
+    var $resource_funcs        =  array();  // functions that resource handlers are mapped to
+    var $prefilter_funcs       =  array();  // functions that templates are filtered through
                                             // before being compiled
+    var $postfilter_funcs      =  array();  // functions that compiled templates are filtered
+                                            // through after compilation
 
     var $request_vars_order    = "EGPCS";   // the order in which request variables are
                                             // registered, similar to variables_order
@@ -366,7 +368,7 @@ class Smarty
 
 /*======================================================================*\
     Function: unregister_prefilter
-    Purpose:  Unregisters a prefilter
+    Purpose:  Unregisters a prefilter function
 \*======================================================================*/
     function unregister_prefilter($function_name)
     {
@@ -377,6 +379,31 @@ class Smarty
             }
         }
         $this->prefilter_funcs = $tmp_array;
+    }
+    
+/*======================================================================*\
+    Function: register_postfilter
+    Purpose:  Registers a postfilter function to apply
+              to a compiled template after compilation
+\*======================================================================*/
+    function register_postfilter($function_name)
+    {
+        $this->postfilter_funcs[] = $function_name;
+    }
+
+/*======================================================================*\
+    Function: unregister_postfilter
+    Purpose:  Unregisters a postfilter function
+\*======================================================================*/
+    function unregister_postfilter($function_name)
+    {
+        $tmp_array = array();
+        foreach($this->postfilter_funcs as $curr_func) {
+            if ($curr_func != $function_name) {
+                $tmp_array[] = $curr_func;
+            }
+        }
+        $this->postfilter_funcs = $tmp_array;
     }
     
 /*======================================================================*\
@@ -786,6 +813,7 @@ function _generate_debug_output() {
         $smarty_compiler->custom_mods       = $this->custom_mods;
         $smarty_compiler->_version          = $this->_version;
         $smarty_compiler->prefilter_funcs   = $this->prefilter_funcs;
+        $smarty_compiler->postfilter_funcs  = $this->postfilter_funcs;
         $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
         $smarty_compiler->security          = $this->security;
         $smarty_compiler->secure_dir        = $this->secure_dir;

@@ -63,7 +63,7 @@ class Smarty_Compiler extends Smarty {
             }
         }
         
-        // run template source through functions registered in prefilter_funcs
+        // run template source through prefilter functions
         if (is_array($this->prefilter_funcs) && count($this->prefilter_funcs) > 0) {
             foreach ($this->prefilter_funcs as $prefilter) {
                 if (function_exists($prefilter)) {
@@ -162,6 +162,18 @@ class Smarty_Compiler extends Smarty {
         $template_header = "<?php /* Smarty version ".$this->_version.", created on ".strftime("%Y-%m-%d %H:%M:%S")."\n";
         $template_header .= "         compiled from ".$tpl_file." */ ?>\n";
         $template_compiled = $template_header.$template_compiled;
+
+
+        // run compiled template through postfilter functions
+        if (is_array($this->postfilter_funcs) && count($this->postfilter_funcs) > 0) {
+            foreach ($this->postfilter_funcs as $postfilter) {
+                if (function_exists($postfilter)) {
+                    $template_compiled = $postfilter($template_compiled, $this);
+                } else {
+                    $this->_trigger_error_msg("postfilter function $postfilter does not exist.");
+                }
+            }
+        }
         
         return true;
     }
