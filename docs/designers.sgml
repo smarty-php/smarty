@@ -3480,6 +3480,46 @@ OUTPUT: (current year is 2000)
                         <entry>n/a</entry>
                         <entry>outputs values to array of this name</entry>
                     </row>
+                    <row>
+                        <entry>all_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>hour_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>minute_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>second_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>meridian_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
