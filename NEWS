@@ -1,3 +1,6 @@
+  - fix handling of integer values like width and delay im
+    smarty_function_popup() (messju)
+
 Version 2.6.2 (Feb 17, 2004)
 ----------------------------
 
