@@ -1721,9 +1721,9 @@ index.php:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('data',array(1,2,3,4,5,6,7,8,9));
-$smarty-&gt;assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
-$smarty-&gt;display('index.tpl');
+$smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
+$smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
+$smarty->display('index.tpl');
 
 index.tpl:
 
@@ -1733,21 +1733,21 @@ index.tpl:
 
 OUTPUT:
 
-&lt;table border="1"&gt;
-&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table border="0"&gt;
-&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table border="1"&gt;
-&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
-&lt;tr bgcolor="#dddddd"&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
+<table border="1">
+<tr><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>4</td><td>5</td><td>6</td></tr>
+<tr><td>7</td><td>8</td><td>9</td></tr>
+</table>
+<table border="0">
+<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+<tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<table border="1">
+<tr bgcolor="#eeeeee"><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+<tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
 ]]></programlisting>
 </example>
 		</sect1>

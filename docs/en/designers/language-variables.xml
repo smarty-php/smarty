@@ -158,8 +158,8 @@ zaphod@slartibartfast.com<br />
      <title>accessing object properties</title>
      <programlisting>
 <![CDATA[
-name: {$person-&gt;name}<br />
-email: {$person-&gt;email}<br />
+name: {$person->name}<br />
+email: {$person->email}<br />
 ]]>
      </programlisting>
      <para>
