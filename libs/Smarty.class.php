@@ -1,9 +1,9 @@
 <?
 /*
- * Project:		Smarty: the PHP compiled template engine
+ * Project:		Smarty: the PHP compiling template engine
  * File:		Smarty.class.php
  * Author:		Monte Ohrt <monte@ispi.net>
- *                      Andrei Zmievski <andrei@ispi.net>
+ *              Andrei Zmievski <andrei@ispi.net>
  *
  * Version:             1.2.1
  * Copyright:           2001 ispi of Lincoln, Inc.
@@ -33,7 +33,7 @@
  * Lincoln, NE 68510
  *
  * The latest version of Smarty can be obtained from:
- * http://www.phpinsider.com
+ * http://www.phpinsider.com/
  *
  */
 
@@ -88,7 +88,7 @@ class Smarty
 	var $_sectionelse_stack		=	array();	// keeps track of whether section had 'else' part
 	var $_literal_blocks		=	array();	// keeps literal template blocks
 	var $_current_file			=	null;		// the current template being compiled
-	var $_current_current_line_no		=	1;			// line number for error messages
+	var $_current_line_no		=	1;			// line number for error messages
 
 	
 /*======================================================================*\
@@ -544,7 +544,7 @@ class Smarty
 				$arg_list[] = "'$arg_name' => $arg_value";
 			}
 
-			return 	"<?php\n" .
+			return 	"<?php " .
 					"function $include_func_name(\$file_name, \$def_vars, \$include_vars)\n" .
 					"{\n" .
 					"	extract(\$def_vars);\n" .
@@ -560,7 +560,7 @@ class Smarty
 	{
 		$attrs = $this->_parse_attrs($tag_args);
 
-		$output = "<?php\n";
+		$output = "<?php ";
 		$section_name = $attrs['name'];
 		if (empty($section_name)) {
 			$this->_syntax_error("missing section name");
