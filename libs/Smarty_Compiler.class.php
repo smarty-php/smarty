@@ -40,6 +40,7 @@
  */
 
 /* $Id$ */
+
 /**
  * Template compiling class
  * @package Smarty
@@ -662,8 +663,8 @@ class Smarty_Compiler extends Smarty {
             }
 
             $output = '<?php ' . $this->_push_cacheable_state('block', $tag_command);
-            $output .= "\$this->_tag_stack[] = array('$tag_command', array(".implode(',', (array)$arg_list).')); ';
-            $output .= $this->_compile_plugin_call('block', $tag_command).'(array('.implode(',', (array)$arg_list).'), null, $this, $_block_repeat=true);';
+            $output .= "\$_params = \$this->_tag_stack[] = array('$tag_command', array(".implode(',', (array)$arg_list).')); ';
+            $output .= $this->_compile_plugin_call('block', $tag_command).'($_params[1], null, $this, $_block_repeat=true); unset($_params);';
             $output .= 'while ($_block_repeat) { ob_start(); ?>';
         } else {
             $output = '<?php $this->_block_content = ob_get_contents(); ob_end_clean(); ';
