@@ -2495,7 +2495,7 @@ function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tp
     </example>
   </sect1>
 
-  <sect1 id="template.resources">
+  <sect1 id="templates.resources">
    <title>Resources</title>
    <para>
 	The templates may come from a variety of sources. When you display or fetch

@@ -1470,6 +1470,7 @@ OUTPUT:
 <example>
 <title>strip</title>
 <programlisting>
+<![CDATA[
 index.php:
 
 $smarty = new Smarty;
@@ -1487,7 +1488,8 @@ OUTPUT:
 Grandmother of
 eight makes        hole in one.
 Grandmother of eight makes hole in one.
-Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.</programlisting>
+Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
+]]></programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.modifier.strip.tags">
@@ -5010,7 +5012,7 @@ OUTPUT:
                         <entry>trailpad</entry>
                         <entry>string</entry>
                         <entry>No</entry>
-                        <entry><emphasis>&nbsp;</emphasis></entry>
+                        <entry><emphasis>&amp;nbsp;</emphasis></entry>
                         <entry>value to pad the trailing cells on last row with
 						(if any)</entry>
                     </row>
@@ -5046,6 +5048,7 @@ OUTPUT:
 <example>
 <title>html_table</title>
 <programlisting>
+<![CDATA[
 index.php:
 
 require('Smarty.class.php');
@@ -5076,7 +5079,8 @@ OUTPUT:
 &lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
 &lt;tr bgcolor="#dddddd"&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
 &lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</programlisting>
+&lt;/table&gt;
+]]></programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.math">
