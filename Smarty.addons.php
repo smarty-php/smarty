@@ -726,7 +726,7 @@ function smarty_mod_debug_print_var($var, $depth=0, $length=40) {
 			$results = $var;
 		}
 		$results = preg_replace("![\r\t\n]!", " ", $results);
-		$results = htmlspecialchars($results);
+		$results = htmlspecialchars(htmlspecialchars($results));
 		return $results;
 	}
 }
