@@ -1,169 +1,175 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.foreach">
-			<title>foreach,foreachelse</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Èìÿ àòòðèáóòà</entry>
-                        <entry>Òèï</entry>
-                        <entry>Îáÿçàòåëåí</entry>       
-                        <entry>Ïî óìîë÷àíèþ</entry>
-                        <entry>Îïèñàíèå</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>from</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Äà</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Èìÿ ìàññèâà, ïî êîòîðîìó íàäî ïðîéòèñü</entry>
-                    </row>
-                    <row>
-                        <entry>item</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Äà</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Èìÿ ïåðåìåííîé, êîòîðàÿ áóäåò âûñòóïàòü â 
-                        êà÷åñòâå çíà÷åíèÿ òåêóùåãî åëåìåíòà</entry>
-                    </row>
-                    <row>
-                        <entry>key</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-						<entry><emphasis>n/a</emphasis></entry>
-						<entry>Èìÿ ïåðåìåííîé, êîòîðàÿ áóäåò âûñòóïàòü â 
-                        êà÷åñòâå êëþ÷à òåêóùåãî åëåìåíòà</entry>
-                    </row>
-                    <row>
-                        <entry>name</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-						<entry>Íàçâàíèå öèêëà foreach äëÿ äîñòóïà ê åãî 
-						ñâîéñòâàì</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			Öèêëû <emphasis>foreach</emphasis> ÿâëÿþòñÿ àëüòåðíàòèâîé
-			öèêëàì <emphasis>section</emphasis>. Öèêëû 
-			<emphasis>foreach</emphasis> èñïîëüçóþòñÿ äëÿ ïðîõîæäåíèÿ 
-			ïî îäíîìó ìàññèâó. Ñèíòàêñèñ <emphasis>foreach</emphasis> 
-			íàìíîãî ïðîùå, ÷åì <emphasis>section</emphasis>, íî åãî 
-			ìîæíî èñïîëüçîâàòü òîëüêî äëÿ îäíîãî ìàññèâà.
-			Òýã <emphasis>foreach</emphasis> äîëæåí èìåòü â ïàðó òýã 
-			<emphasis>/foreach</emphasis>. Îáÿçàòåëüíûå ïàðàìåòðû - 
-			<emphasis>from</emphasis> è <emphasis>item</emphasis>. Íàçâàíèå
-			öèêëà foreach ìîæåò áûòü ëþáîé ïîñëåäîâàòåëüíîñòüþ áóêâ, öèôð 
-			è çíàêîâ ïîä÷åðêèâàíèé _. Öèêëû <emphasis>foreach</emphasis>
-			ìîãóò áûòü âëîæåííûå, è èìåíà âëîæåííûõ öèêëîâ äîëæíû áûòü 
-			óíèêàëüíûå. Ïåðåìåííàÿ <emphasis>from</emphasis> (îáû÷íî
-			ìàññèâ çíà÷åíèé) óêàçûâàåò êîëè÷åñòâî èòåðàöèé öèêëà.
-			<emphasis>foreachelse</emphasis> âûïîëíÿåòñÿ, åñëè íåòó çíà÷åíèé
-			â ïåðåìåííîé <emphasis>from</emphasis>.
-			</para>
-<example>
-<title>foreach</title>
-<programlisting>
+<sect1 id="language.function.foreach">
+ <title>foreach,foreachelse</title>
 
+ <informaltable frame="all">
+  <tgroup cols="5">
+  <colspec colname="param" align="center" />
+  <colspec colname="type" align="center" />
+  <colspec colname="required" align="center" />
+  <colspec colname="default" align="center" />
+  <colspec colname="desc" />
+  <thead>
+   <row>
+    <entry>Èìÿ àòòðèáóòà</entry>
+    <entry>Òèï</entry>
+    <entry>Îáÿçàòåëåí</entry>       
+    <entry>Ïî óìîë÷àíèþ</entry>
+    <entry>Îïèñàíèå</entry>
+   </row>
+  </thead>
+  <tbody>
+   <row>
+    <entry>from</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Äà</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>Èìÿ ìàññèâà, ïî êîòîðîìó íàäî ïðîéòèñü</entry>
+   </row>
+   <row>
+    <entry>item</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Äà</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>Èìÿ ïåðåìåííîé, êîòîðàÿ áóäåò âûñòóïàòü â 
+    êà÷åñòâå çíà÷åíèÿ òåêóùåãî åëåìåíòà</entry>
+   </row>
+   <row>
+    <entry>key</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>Èìÿ ïåðåìåííîé, êîòîðàÿ áóäåò âûñòóïàòü â 
+    êà÷åñòâå êëþ÷à òåêóùåãî åëåìåíòà</entry>
+   </row>
+   <row>
+    <entry>name</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>Íàçâàíèå öèêëà foreach äëÿ äîñòóïà ê åãî 
+    ñâîéñòâàì</entry>
+   </row>
+  </tbody>
+  </tgroup>
+ </informaltable>
+
+	<para>
+  Öèêëû <emphasis>foreach</emphasis> ÿâëÿþòñÿ àëüòåðíàòèâîé
+  öèêëàì <emphasis>section</emphasis>. Öèêëû 
+  <emphasis>foreach</emphasis> èñïîëüçóþòñÿ äëÿ ïðîõîæäåíèÿ 
+  ïî îäíîìó ìàññèâó. Ñèíòàêñèñ <emphasis>foreach</emphasis> 
+  íàìíîãî ïðîùå, ÷åì <emphasis>section</emphasis>, íî åãî 
+  ìîæíî èñïîëüçîâàòü òîëüêî äëÿ îäíîãî ìàññèâà.
+  Òýã <emphasis>foreach</emphasis> äîëæåí èìåòü â ïàðó òýã 
+  <emphasis>/foreach</emphasis>. Îáÿçàòåëüíûå ïàðàìåòðû - 
+  <emphasis>from</emphasis> è <emphasis>item</emphasis>. Íàçâàíèå
+  öèêëà foreach ìîæåò áûòü ëþáîé ïîñëåäîâàòåëüíîñòüþ áóêâ, öèôð 
+  è çíàêîâ ïîä÷åðêèâàíèé _. Öèêëû <emphasis>foreach</emphasis>
+  ìîãóò áûòü âëîæåííûå, è èìåíà âëîæåííûõ öèêëîâ äîëæíû áûòü 
+  óíèêàëüíûå. Ïåðåìåííàÿ <emphasis>from</emphasis> (îáû÷íî
+  ìàññèâ çíà÷åíèé) óêàçûâàåò êîëè÷åñòâî èòåðàöèé öèêëà.
+  <emphasis>foreachelse</emphasis> âûïîëíÿåòñÿ, åñëè íåòó çíà÷åíèé
+  â ïåðåìåííîé <emphasis>from</emphasis>.
+ </para>
+
+ <example>
+  <title>foreach</title>
+  <programlisting>
+<![CDATA[
 {* âûâîäÿòñÿ âñå çíà÷íèÿ ìàññèâà $custid *}
 {foreach from=$custid item=curr_id}
-	id: {$curr_id}&lt;br&gt;
+	id: {$curr_id}<br>
 {/foreach}
 
 OUTPUT:
 
-id: 1000&lt;br&gt;
-id: 1001&lt;br&gt;
-id: 1002&lt;br&gt;</programlisting>
-</example>
+id: 1000<br>
+id: 1001<br>
+id: 1002<br>
+]]>
+  </programlisting>
+ </example>
 
-<example>
-<title>foreach key</title>
-<programlisting>
+ <example>
+  <title>foreach key</title>
+  <programlisting>
+<![CDATA[
 {* The key contains the key for each looped value
 
 assignment looks like this:
 
-$smarty->assign("contacts", array(array("phone" =&gt; "1", "fax" =&gt; "2", "cell" =&gt; "3"),
-      array("phone" =&gt; "555-4444", "fax" =&gt; "555-3333", "cell" =&gt; "760-1234")));
+$smarty->assign("contacts", array(array("phone" => "1", "fax" => "2", "cell" => "3"),
+      array("phone" => "555-4444", "fax" => "555-3333", "cell" => "760-1234")));
 
 *}
 
 {foreach name=outer item=contact from=$contacts}
   {foreach key=key item=item from=$contact}
-    {$key}: {$item}&lt;br&gt;
+    {$key}: {$item}<br>
   {/foreach}
 {/foreach}
 
 OUTPUT:
 
-phone: 1&lt;br&gt;
-fax: 2&lt;br&gt;
-cell: 3&lt;br&gt;
-phone: 555-4444&lt;br&gt;
-fax: 555-3333&lt;br&gt;
-cell: 760-1234&lt;br&gt;</programlisting>
-</example>
+phone: 1<br>
+fax: 2<br>
+cell: 3<br>
+phone: 555-4444<br>
+fax: 555-3333<br>
+cell: 760-1234<br>
+]]>
+  </programlisting>
+ </example>
 
-		<para>
+	<para>
 		Öèêëû foreach èìåþò ñâîè ñâîéñòâà, äîñòóï ê êîòîðûì ðåàëèçóåòñÿ ÷åðåç
 		{$smarty.foreach.foreachname.varname}, ãäå foreachname ýòî íàçâàíèå öèêëà
 		(çíà÷åíèå àòòðèáóòà <emphasis>name</emphasis>), à varname - èìÿ ñâîéñòâà.
+	</para>
+
+	<sect2 id="foreach.property.iteration">
+		<title>iteration</title>
+		<para>
+  	Êîëè÷åñòâî îòðàáîòàííûõ èòåðàöèé.
 		</para>
-
-
-			<sect2 id="foreach.property.iteration">
-			<title>iteration</title>
-			<para>
-        	Êîëè÷åñòâî îòðàáîòàííûõ èòåðàöèé.
-			</para>
-			<para>
+		<para>
 			Îòñ÷åò íà÷èíàåòñÿ ñ 1 è óâåëè÷èâàåòñÿ íà åäèíèöó íà êàæäîé èòåðàöèè.
-			</para>
-			</sect2>
+		</para>
+	</sect2>
 
-			<sect2 id="foreach.property.first">
-			<title>first</title>
+	<sect2 id="foreach.property.first">
+		<title>first</title>
 			<para>
-        	<emphasis>first</emphasis> óñòàíàâëèâàåòñÿ â true, åñëè òåêóùàÿ èòåðàöèÿ ïåðâàÿ.
+   	<emphasis>first</emphasis> óñòàíàâëèâàåòñÿ â true, åñëè òåêóùàÿ èòåðàöèÿ ïåðâàÿ.
 			</para>
-			</sect2>
+	</sect2>
 
-			<sect2 id="foreach.property.last">
-			<title>last</title>
-			<para>
-        	<emphasis>last</emphasis> óñòàíàâëèâàåòñÿ â true, åñëè òåêóùàÿ èòåðàöèÿ ïîñëåäíÿÿ.
-			</para>
-			</sect2>
+	<sect2 id="foreach.property.last">
+		<title>last</title>
+		<para>
+  	<emphasis>last</emphasis> óñòàíàâëèâàåòñÿ â true, åñëè òåêóùàÿ èòåðàöèÿ ïîñëåäíÿÿ.
+		</para>
+	</sect2>
 
-			<sect2 id="foreach.property.show">	
-			<title>show</title>
-			<para>
-        	Àòòðèáóò <emphasis>show</emphasis> ìîæåò ïðèíèìàòü ëîãè÷åñêèå 
-        	çíà÷åíèÿ (èñòèíà èëè ëîæü). Åñëè ëîæü, òî öèêë foreach íå áóäåò
-        	îòîáðàæàòüñÿ. Åñëè ïðèñóòñòâóåò òýã foreachelse, òî îí áóäåò
-        	îòîáðàæåí.
-			</para>
-
-			</sect2>
-			<sect2 id="foreach.property.total">	
-			<title>total</title>
-			<para>
-			<emphasis>total</emphasis> õðàíèò êîëè÷åñòâî èòåðàöèé öèêëà. 
+	<sect2 id="foreach.property.show">	
+		<title>show</title>
+		<para>
+   Àòòðèáóò <emphasis>show</emphasis> ìîæåò ïðèíèìàòü ëîãè÷åñêèå 
+   çíà÷åíèÿ (èñòèíà èëè ëîæü). Åñëè ëîæü, òî öèêë foreach íå áóäåò
+   îòîáðàæàòüñÿ. Åñëè ïðèñóòñòâóåò òýã foreachelse, òî îí áóäåò
+   îòîáðàæåí.
+ 	</para>
+ </sect2>
+ 
+	<sect2 id="foreach.property.total">	
+ 	<title>total</title>
+		<para>
+	 	<emphasis>total</emphasis> õðàíèò êîëè÷åñòâî èòåðàöèé öèêëà. 
 			Ìîæåò áûòü èñïîëüçîâàíî êàê â öèêëå, òàê è âíå åãî..
-			</para>
-			</sect2>
-
+		</para>
+ </sect2>
 
 </sect1>
 <!-- Keep this comment at the end of the file
@@ -186,3 +192,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+
