@@ -1,11 +1,11 @@
-    - removed $allow_php, added $php_handler logic (Monte)
+    - removed $allow_php, added $php_handling logic (Monte)
     - added file locking to prevent reader/writer problem. (Andrei)
     - made Smarty catch unimplemented modifiers and custom functions and output
       error messages during compilation instead of failing during run time.
       (Andrei)
     - removed short-tags at the top of the smarty scripts (Monte)
-    - added register_custom_function() and register_modifier() API calls
-      to make registering stuff easier. (Andrei)
+    - added register_function() and register_modifier() API calls to make
+      registering stuff easier. (Andrei)
     - added template results caching capability. (Monte, Andrei)
     - added optional 'options' attribute to html_options custom function
       that allows passing associative arrays for values/output. (Andrei)
