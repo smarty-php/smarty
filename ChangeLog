@@ -1,3 +1,20 @@
+2003-07-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.display_debug_console.php
+      libs/core/core.fetch_resource_info.php
+      libs/core/core.get_php_resource.php
+      libs/core/core.parse_resource_name.php
+      libs/core/core.process_cached_inserts.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.run_insert_handler.php
+      libs/core/core.smarty_include.php
+      libs/core/core.smarty_include_php.php
+      libs/plugins/function.eval.php:
+      moved  _fetch_resource_info and _parse_resource_name back into
+      Smarty.class.php
+      renamed smarty_include and smarty_eval wrappers to _include and _eval
+
 2003-07-17  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/core/core.process_compiled_include.php
