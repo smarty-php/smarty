@@ -752,8 +752,8 @@ href=&quot;mailto:%62%6f%62%40%6d%65%2e%6e%65%74&quot;&gt;&#x62;&#x6f;&#x62;&#x4
 <?php
     
 $smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'NJ judge to rule on nude beach.');
-$smarty-&gt;display('index.tpl');
+$smarty->assign('articleTitle', 'NJ judge to rule on nude beach.');
+$smarty->display('index.tpl');
 
 ?>
 ]]>
@@ -913,26 +913,38 @@ Sun or rain expected<br />today, dark tonight
   </para>
   <example>
    <title>regex_replace</title>
-   <programlisting>
-    index.php:
-    
-    $smarty = new Smarty;
-    $smarty-&gt;assign('articleTitle', "Infertility unlikely to\nbe passed on, experts say.");
-    $smarty-&gt;display('index.tpl');
-    
-    index.tpl:
-    
-    {* replace each carriage return, tab &amp; new line with a space *}
-    
-    {$articleTitle}
-    {$articleTitle|regex_replace:"/[\r\t\n]/":" "}
-    
-    OUTPUT:
-    
-    Infertility unlikely to
-    be passed on, experts say.
-    Infertility unlikely to be passed on, experts say.
+   <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty = new Smarty;
+$smarty->assign('articleTitle', "Infertility unlikely to\nbe passed on, experts say.");
+$smarty->display('index.tpl');
+
+?>
+]]>
    </programlisting>
+   <para>
+    Where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+{* replace each carriage return, tab and new line with a space *}
+
+{$articleTitle}
+{$articleTitle|regex_replace:"/[\r\t\n]/":" "}
+]]>
+   </programlisting>
+   <para>
+    This should output:
+   </para>
+   <screen>
+<![CDATA[
+Infertility unlikely to
+be passed on, experts say.
+Infertility unlikely to be passed on, experts say.
+]]>
+   </screen>
   </example>
  </sect1>
  <sect1 id="language.modifier.replace">
@@ -976,25 +988,37 @@ Sun or rain expected<br />today, dark tonight
   </para>
   <example>
    <title>replace</title>
-   <programlisting>
-    index.php:
-    
-    $smarty = new Smarty;
-    $smarty-&gt;assign('articleTitle', "Child's Stool Great for Use in Garden.");
-    $smarty-&gt;display('index.tpl');
-    
-    index.tpl:
-    
-    {$articleTitle}
-    {$articleTitle|replace:"Garden":"Vineyard"}
-    {$articleTitle|replace:" ":"   "}
-    
-    OUTPUT:
-    
-    Child's Stool Great for Use in Garden.
-    Child's Stool Great for Use in Vineyard.
-    Child's   Stool   Great   for   Use   in   Garden.
+   <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty = new Smarty;
+$smarty->assign('articleTitle', "Child's Stool Great for Use in Garden.");
+$smarty->display('index.tpl');
+
+?>
+]]>
    </programlisting>
+   <para>
+    Where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+{$articleTitle}
+{$articleTitle|replace:"Garden":"Vineyard"}
+{$articleTitle|replace:" ":"   "}
+]]>
+   </programlisting>
+   <para>
+    This should output:
+   </para>
+   <screen>
+<![CDATA[
+Child's Stool Great for Use in Garden.
+Child's Stool Great for Use in Vineyard.
+Child's   Stool   Great   for   Use   in   Garden.
+]]>
+   </screen>
   </example>
  </sect1>
  <sect1 id="language.modifier.spacify">
@@ -1033,25 +1057,35 @@ Sun or rain expected<br />today, dark tonight
   </para>
   <example>
    <title>spacify</title>
-   <programlisting>
-    index.php:
-    
-    $smarty = new Smarty;
-    $smarty-&gt;assign('articleTitle', 'Something Went Wrong in Jet Crash, Experts Say.');
-    $smarty-&gt;display('index.tpl');
-    
-    index.tpl:
-    
-    {$articleTitle}
-    {$articleTitle|spacify}
-    {$articleTitle|spacify:"^^"}
-    
-    OUTPUT:
-    
-    Something Went Wrong in Jet Crash, Experts Say.
-    S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
-    S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.
+   <programlisting role="php">
+<![CDATA[
+<?php
+$smarty = new Smarty;
+$smarty->assign('articleTitle', 'Something Went Wrong in Jet Crash, Experts Say.');
+$smarty->display('index.tpl');
+?>
+]]>
    </programlisting>
+   <para>
+    Where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+{$articleTitle}
+{$articleTitle|spacify}
+{$articleTitle|spacify:"^^"}
+]]>
+   </programlisting>
+   <para>
+    This should output:
+   </para>
+   <screen>
+<![CDATA[
+Something Went Wrong in Jet Crash, Experts Say.
+S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
+S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.
+]]>
+   </screen>
   </example>
  </sect1>
  <sect1 id="language.modifier.string.format">
@@ -1089,25 +1123,37 @@ Sun or rain expected<br />today, dark tonight
   </para>
   <example>
    <title>string_format</title>
-   <programlisting>
-    index.php:
-    
-    $smarty = new Smarty;
-    $smarty-&gt;assign('number', 23.5787446);
-    $smarty-&gt;display('index.tpl');
-    
-    index.tpl:
-    
-    {$number}
-    {$number|string_format:"%.2f"}
-    {$number|string_format:"%d"}
-    
-    OUTPUT:
-    
-    23.5787446
-    23.58
-    24
+   <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty = new Smarty;
+$smarty->assign('number', 23.5787446);
+$smarty->display('index.tpl');
+
+?>
+]]>
    </programlisting>
+   <para>
+    Where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+{$number}
+{$number|string_format:"%.2f"}
+{$number|string_format:"%d"}
+]]>
+   </programlisting>
+   <para>
+    This should output:
+   </para>
+   <screen>
+<![CDATA[
+23.5787446
+23.58
+24
+]]>
+   </screen>
   </example>
  </sect1>
  <sect1 id="language.modifier.strip">
@@ -1125,28 +1171,38 @@ Sun or rain expected<br />today, dark tonight
   </note>
   <example>
    <title>strip</title>
-   <programlisting>
+   <programlisting role="php">
 <![CDATA[
-index.php:
+<?php
 
 $smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', "Grandmother of\neight makes\t    hole in one.");
-$smarty-&gt;display('index.tpl');
+$smarty->assign('articleTitle', "Grandmother of\neight makes\t    hole in one.");
+$smarty->display('index.tpl');
 
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|strip}
 {$articleTitle|strip:"&nbsp;"}
-
-OUTPUT:
-
+]]>
+   </programlisting>
+   <para>
+    This will output:
+   </para>
+   <screen>
+<![CDATA[
 Grandmother of
 eight makes        hole in one.
 Grandmother of eight makes hole in one.
 Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
 ]]>
-   </programlisting>
+   </screen>
   </example>
  </sect1>
  <sect1 id="language.modifier.strip.tags">
@@ -1156,23 +1212,36 @@ Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
   </para>
   <example>
    <title>strip_tags</title>
-   <programlisting>
-    index.php:
-    
-    $smarty = new Smarty;
-    $smarty-&gt;assign('articleTitle', "Blind Woman Gets &lt;font face=\"helvetica\"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.");
-    $smarty-&gt;display('index.tpl');
-    
-    index.tpl:
-    
-    {$articleTitle}
-    {$articleTitle|strip_tags}
-    
-    OUTPUT:
-    
-    Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
-    Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
+   <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty = new Smarty;
+$smarty->assign('articleTitle', "Blind Woman Gets <font face=\"helvetica\">New
+Kidney</font> from Dad she Hasn't Seen in <b>years</b>.");
+$smarty->display('index.tpl');
+
+?>
+]]>
    </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+{$articleTitle}
+{$articleTitle|strip_tags}
+]]>
+   </programlisting>
+   <para>
+    This will output:
+   </para>
+   <screen>
+<![CDATA[
+Blind Woman Gets <font face="helvetica">New Kidney</font> from Dad she Hasn't Seen in <b>years</b>.
+Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
+]]>
+   </screen>
   </example>
  </sect1>
  <sect1 id="language.modifier.truncate">
@@ -1231,33 +1300,45 @@ Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
   </para>
   <example>
    <title>truncate</title>
-   <programlisting>
-    index.php:
+   <programlisting role="php">
+<![CDATA[
+<?php
     
-    $smarty = new Smarty;
-    $smarty-&gt;assign('articleTitle', 'Two Sisters Reunite after Eighteen Years at Checkout Counter.');
-    $smarty-&gt;display('index.tpl');
-    
-    index.tpl:
-    
-    {$articleTitle}
-    {$articleTitle|truncate}
-    {$articleTitle|truncate:30}
-    {$articleTitle|truncate:30:""}
-    {$articleTitle|truncate:30:"---"}
-    {$articleTitle|truncate:30:"":true}
-    {$articleTitle|truncate:30:"...":true}
-    
-    OUTPUT:
-    
-    Two Sisters Reunite after Eighteen Years at Checkout Counter.
-    Two Sisters Reunite after Eighteen Years at Checkout Counter.
-    Two Sisters Reunite after...
-    Two Sisters Reunite after
-    Two Sisters Reunite after---
-    Two Sisters Reunite after Eigh
-    Two Sisters Reunite after E...
+$smarty = new Smarty;
+$smarty->assign('articleTitle', 'Two Sisters Reunite after Eighteen Years at Checkout Counter.');
+$smarty->display('index.tpl');
+
+?>
+]]>
    </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+{$articleTitle}
+{$articleTitle|truncate}
+{$articleTitle|truncate:30}
+{$articleTitle|truncate:30:""}
+{$articleTitle|truncate:30:"---"}
+{$articleTitle|truncate:30:"":true}
+{$articleTitle|truncate:30:"...":true}
+]]>
+   </programlisting>
+   <para>
+    This will output:
+   </para>
+   <screen>
+<![CDATA[
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after...
+Two Sisters Reunite after
+Two Sisters Reunite after---
+Two Sisters Reunite after Eigh
+Two Sisters Reunite after E...
+]]>
+   </screen>
   </example>
  </sect1>
  <sect1 id="language.modifier.upper">
@@ -1267,23 +1348,35 @@ Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
   </para>
   <example>
    <title>upper</title>
-   <programlisting>
-    index.php:
-    
-    $smarty = new Smarty;
-    $smarty-&gt;assign('articleTitle', "If Strike isn't Settled Quickly it may Last a While.");
-    $smarty-&gt;display('index.tpl');
-    
-    index.tpl:
-    
-    {$articleTitle}
-    {$articleTitle|upper}
-    
-    OUTPUT:
-    
-    If Strike isn't Settled Quickly it may Last a While.
-    IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
+   <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty = new Smarty;
+$smarty->assign('articleTitle', "If Strike isn't Settled Quickly it may Last a While.");
+$smarty->display('index.tpl');
+
+?>
+]]>
    </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+{$articleTitle}
+{$articleTitle|upper}
+]]>
+   </programlisting>
+   <para>
+    This will output:
+   </para>
+   <screen>
+<![CDATA[
+If Strike isn't Settled Quickly it may Last a While.
+IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
+]]>
+   </screen>
   </example>
  </sect1>
  <sect1 id="language.modifier.wordwrap">
@@ -1341,45 +1434,57 @@ Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
   </para>
   <example>
    <title>wordwrap</title>
-   <programlisting>
-    index.php:
+   <programlisting role="php">
+<![CDATA[
+<?php
     
-    $smarty = new Smarty;
-    $smarty-&gt;assign('articleTitle', "Blind woman gets new kidney from dad she hasn't seen in years.");
-    $smarty-&gt;display('index.tpl');
-    
-    index.tpl:
-    
-    {$articleTitle}
-    
-    {$articleTitle|wordwrap:30}
-    
-    {$articleTitle|wordwrap:20}
-    
-    {$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
-    
-    {$articleTitle|wordwrap:30:"\n":true}
-    
-    OUTPUT:
-    
-    Blind woman gets new kidney from dad she hasn't seen in years.
-    
-    Blind woman gets new kidney
-    from dad she hasn't seen in
-    years.
-    
-    Blind woman gets new
-    kidney from dad she
-    hasn't seen in
-    years.
-    
-    Blind woman gets new kidney&lt;br&gt;
-    from dad she hasn't seen in years.
-    
-    Blind woman gets new kidney fr
-    om dad she hasn't seen in year
-    s.
+$smarty = new Smarty;
+$smarty->assign('articleTitle', "Blind woman gets new kidney from dad she hasn't seen in years.");
+$smarty->display('index.tpl');
+
+?>
+]]>
    </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[ 
+{$articleTitle}
+
+{$articleTitle|wordwrap:30}
+    
+{$articleTitle|wordwrap:20}
+    
+{$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
+    
+{$articleTitle|wordwrap:30:"\n":true}
+]]>
+   </programlisting>
+   <para>
+    This will output:
+   </para>
+   <screen>
+<![CDATA[
+Blind woman gets new kidney from dad she hasn't seen in years.
+
+Blind woman gets new kidney
+from dad she hasn't seen in
+years.
+
+Blind woman gets new
+kidney from dad she
+hasn't seen in
+years.
+
+Blind woman gets new kidney&lt;br&gt;
+from dad she hasn't seen in years.
+
+Blind woman gets new kidney fr
+om dad she hasn't seen in year
+s.
+]]>
+   </screen>
   </example>
  </sect1>
   
