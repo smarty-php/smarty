@@ -1,3 +1,13 @@
+2002-09-23  Monte Ohrt  <monte@ispi.net>
+
+    * Config_File.class.php:
+    add support for mac/dos formatted config files (fix newlines)
+
+    * docs/programmers.sgml: add optional tags to clear_cache parameters
+
+    * docs/designers.sgml:
+    fix error with include_php description, add $this to description
+
 2002-09-20  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
