@@ -1,3 +1,7 @@
+  - added <labels> to html_checkboxes and html_radios (Philippe, messju)
+  - added "labels"-options to turn off labels in html_checkboxes and _radios
+    (messju)
+
 Version 2.5.0 (April 11, 2003)
 ------------------------------
 

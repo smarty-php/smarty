@@ -31,15 +31,20 @@ function smarty_function_html_checkboxes($params, &$smarty)
    $options = null;
    $selected = null;
    $separator = '';
+   $labels = true;
    $output = null;
-
+ 
    $extra = '';
-
+   
    foreach($params as $_key => $_val) {
       switch($_key) {
       case 'name':
       case 'separator':
          $$_key = $_val;
+         break;
+
+      case 'labels':
+         $$_key = (bool)$_val;
          break;
 
       case 'options':
@@ -76,13 +81,13 @@ function smarty_function_html_checkboxes($params, &$smarty)
    if (is_array($options)) {
 
       foreach ($options as $_key=>$_val)
-         $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator);
+         $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
 
 
    } else {
       foreach ($values as $_i=>$_key) {
          $_val = isset($output[$_i]) ? $output[$_i] : '';
-         $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator);
+         $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
       }
 
    }
@@ -91,15 +96,19 @@ function smarty_function_html_checkboxes($params, &$smarty)
 
 }
 
-function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator) {
-   $_output = '<input type="checkbox" name="'
+function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator, $labels) {
+   $_output = '';
+   if ($labels) $_output .= '<label>';
+   $_output .= '<input type="checkbox" name="'
       . smarty_function_escape_special_chars($name) . '[]" value="'
       . smarty_function_escape_special_chars($value) . '"';
 
    if (in_array($value, $selected)) {
       $_output .= ' checked="checked"';
    }
-   $_output .= $extra . ' />' . $output . $separator . "\n";
+   $_output .= $extra . ' />' . $output;
+   if ($labels) $_output .= '</label>';
+   $_output .=  $separator . "\n";
 
    return $_output;
 }

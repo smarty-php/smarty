@@ -31,6 +31,7 @@ function smarty_function_html_radios($params, &$smarty)
    $options = null;
    $selected = null;
    $separator = '';
+   $labels = true;
    $output = null;
    $extra = '';
 
@@ -49,6 +50,10 @@ function smarty_function_html_radios($params, &$smarty)
 				$selected = (string)$_val;
 			}
 			break;
+
+        case 'labels':
+            $$_key = (bool)$_val;
+            break;
 
 		case 'options':
 			$$_key = (array)$_val;
@@ -79,13 +84,13 @@ function smarty_function_html_radios($params, &$smarty)
    if (isset($options) && is_array($options)) {
 
       foreach ((array)$options as $_key=>$_val)
-	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator);
+	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
 
    } else {
 
       foreach ((array)$values as $_i=>$_key) {
 	 $_val = isset($output[$_i]) ? $output[$_i] : '';
-	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator);
+	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
       }
 
    }
@@ -94,15 +99,19 @@ function smarty_function_html_radios($params, &$smarty)
 
 }
 
-function smarty_function_html_radios_output($name, $value, $output, $selected, $extra, $separator) {
-   $_output = '<input type="radio" name="'
+function smarty_function_html_radios_output($name, $value, $output, $selected, $extra, $separator, $labels) {
+   $_output = '';
+   if ($labels) $_output .= '<label>';
+   $_output .= '<input type="radio" name="'
       . smarty_function_escape_special_chars($name) . '" value="'
       . smarty_function_escape_special_chars($value) . '"';
 
    if ($value==$selected) {
       $_output .= ' checked="checked"';
    }
-   $_output .= $extra . ' />' . $output . $separator . "\n";
+   $_output .= $extra . ' />' . $output;
+   if ($labels) $_output .= '</label>';
+   $_output .=  $separator . "\n";
 
    return $_output;
 }
