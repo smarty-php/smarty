@@ -95,3 +95,13 @@ A: All conditional qualifiers must be separated by spaces. This syntax will not
    The reason for this is syntax ambiguity. Both "==" and "eq" are equivalent
    in the template parser, so something like {if $nameeq"Wilma"} wouldn't be
    parsable by the tokenizer.
+
+Q: I'm changing my php code and/or templates, and my results are not getting
+   updated.
+A: This may be the result of your compile or cache settings. If you are
+   changing your php code, your templates will not necessarily get recompiled
+   to reflect the changes. Use $force_compile during develpment to avoid these
+   situations. Also turn off caching during development when you aren't
+   specifically testing it. You can also remove everything from your
+   compile_dir and cache_dir and reload the page to be sure everything gets
+   regenerated.

@@ -1,5 +1,4 @@
-    - fix php tag escapement logic (Monte)
-    - added header function (Monte)
+    - removed $allow_php, added $php_handler logic (Monte)
     - added file locking to prevent reader/writer problem. (Andrei)
     - made Smarty catch unimplemented modifiers and custom functions and output
       error messages during compilation instead of failing during run time.
