@@ -1,3 +1,13 @@
+2004-05-06  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/core/core.write_file.php:
+      use tempnam() instead of unqid() to create better temporary files in
+      smarty_core_write_file().
+      
+      (thanks to xces for finding this race-condition and his work on
+      fixing it)
+
 2004-05-04  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
