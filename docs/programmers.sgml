@@ -2031,7 +2031,7 @@ TEMPLATE:
 
 {* you can also assign the output *}
 {foobar->meth1 p1="foo" p2=$bar assign="output"}
-the output was {$output)
+the output was {$output}
 
 {* access our assigned object *}
 {$myobj->meth1("foo",$bar)}</programlisting>
