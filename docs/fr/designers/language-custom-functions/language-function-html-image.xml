@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.image">
  <title>html_image</title>
  <informaltable frame="all">
@@ -26,13 +26,6 @@
      <entry>Oui</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>nom/chemin des images</entry>
-    </row>
-    <row>
-     <entry>border</entry>
-     <entry>chaîne de caractères</entry>
-     <entry>Non</entry>
-     <entry><emphasis>0</emphasis></entry>
-     <entry>Bordure de l'image</entry>
     </row>
     <row>
      <entry>height</entry>
@@ -120,9 +113,9 @@ $smarty->display('index.tpl');
     </para>
     <screen>
 <![CDATA[
-<img src="pumpkin.jpg" alt="" border="0" width="44" height="68" />
-<img src="/path/from/docroot/pumpkin.jpg" alt="" border="0" width="44" height="68" />
-<img src="../path/relative/to/currdir/pumpkin.jpg" alt="" border="0" width="44" height="68" />
+<img src="pumpkin.jpg" alt="" width="44" height="68" />
+<img src="/path/from/docroot/pumpkin.jpg" alt="" width="44" height="68" />
+<img src="../path/relative/to/currdir/pumpkin.jpg" alt="" width="44" height="68" />
 ]]>
     </screen>
  </example>

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: nobody Status: partial -->
 <sect1 id="variable.plugins.dir">
  <title>$plugins_dir</title>
  <para>
-  Ce sont les répertoire dans lesquels Smarty ira chercher les plugins
-  dont il a besoin. La valeur par défaut est "plugins" sous le
-  répertoire SMARTY_DIR. Si vous donnez un chemin relatif, Smarty
+  C'est le répertoire (ou les répertoires) dans lequel Smarty ira chercher
+  les plugins dont il a besoin.La valeur par défaut est "plugins" sous
+  le répertoire SMARTY_DIR. Si vous donnez un chemin relatif, Smarty
   regardera d'abord relativement au SMARTY_DIR, puis relativement au rtc (répertoire
   de travail courant), puis relativement a chaque entrée de votre répertoire
-  d'inclusion PHP.
+  d'inclusion PHP. Si $plugins_dir est un tableau de répertoires, Smarty
+  cherchera les plugins dans chaque répertoire de plugins, dans l'ordre donné.
  </para>
  <note>
   <title>Note technique</title>
