@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: uptodate -->
 <preface id="preface">
  <title>Préface</title>
  <para>
-  "Comment rendre mes scripts PHP indépendants de la présentation ?".
+ "Comment rendre mes scripts PHP indépendants de la présentation ?".
   Voici sans doute la question la plus posée sur la mailing list
   PHP. Alors que PHP est étiqueté "langage de script
   pour HTML", on se rend vite compte, après quelques projets qui mélangent
   sans complexe HTML et PHP, que la séparation entre la forme et
-  le contenu est important. De plus, dans de nombreuses entreprises
+  le contenu, c'est bien [TM]. De plus, dans de nombreuses entreprises
   les rôles du designer et du programmeur sont distincts. La solution template
   coule donc de source.
  </para>
