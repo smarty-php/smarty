@@ -1221,9 +1221,10 @@ function do_translation ($params, $content, &amp;$smarty, &amp;$repeat) {
 $smarty->register_function("date_now", "print_current_date");
 
 function print_current_date ($params) {
-    extract($params);
-    if(empty($format))
-        $format="%b %e, %Y";
+    if(empty($params['format']))
+        $format = "%b %e, %Y";
+    else
+        $format = $params['format'];
     return strftime($format,time());
 }
 
@@ -2622,10 +2623,7 @@ require_once $smarty->_get_plugin_filepath('function', 'html_options');</program
     <para>
      All attributes passed to template functions from the template are
      contained in the <parameter>$params</parameter> as an associative
-     array. Either access those values directly, e.g.
-     <varname>$params['start']</varname> or use
-     <varname>extract($params)</varname> to import them into the symbol
-     table.
+     array.
     </para>
     <para>
 	 The output (return value) of the function will be substituted in place of the
@@ -2694,9 +2692,7 @@ Answer: {eightball}.</programlisting>
  */
 function smarty_function_assign($params, &amp;$smarty)
 {
-    extract($params);
-
-    if (empty($var)) {
+    if (empty($params['var'])) {
         $smarty->trigger_error("assign: missing 'var' parameter");
         return;
     }
@@ -2706,7 +2702,7 @@ function smarty_function_assign($params, &amp;$smarty)
         return;
     }
 
-    $smarty->assign($var, $value);
+    $smarty->assign($params['var'], $params['value']);
 }
 ?&gt;</programlisting>
      </example>
@@ -2825,10 +2821,8 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
      Only the opening tag of the block function may have attributes. All
      attributes passed to template functions from the template are contained
      in the <parameter>$params</parameter> as an associative array. You can
-     either access those values directly, e.g.
-     <varname>$params['start']</varname> or use
-     <varname>extract($params)</varname> to import them into the symbol
-     table. The opening tag attributes are also accessible to your function
+     access those values as e.g. <varname>$params['start']</varname>.
+     The opening tag attributes are also accessible to your function
      when processing the closing tag.
     </para>
     <para>
@@ -3221,10 +3215,7 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
     </funcsynopsis>
     <para>
      The first parameter to the function is an associative array of
-     attributes passed to the insert. Either access those values directly,
-     e.g. <varname>$params['start']</varname> or use
-     <varname>extract($params)</varname> to import them into the symbol
-     table.
+     attributes passed to the insert.
     </para>
     <para>
      The insert function is supposed to return the result which will be

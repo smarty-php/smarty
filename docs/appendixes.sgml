@@ -230,12 +230,11 @@ function makeTimeStamp($year="",$month="",$day="")
 <programlisting>
 // be sure apache is configure for the .wml extensions!                                    
 // put this function somewhere in your application, or in Smarty.addons.php
-function insert_header() {
+function insert_header($params) {
     // this function expects $content argument
-    extract(func_get_arg(0));
-    if(empty($content))
+    if(empty($params['content']))
         return;
-    header($content);
+    header($params['content']);
     return;
 }
 
