@@ -1,3 +1,32 @@
+2004-07-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_radios.php:
+      there was little flaw in smarty_function_html_radios() and
+      smarty_function_html_checkboxes():
+      
+      the newly introduced assign-attribute was still added to the
+      tag-output as an extra-attribute.
+      
+      fixed.
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.load_plugins.php
+      libs/core/core.load_resource_plugin.php
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_image.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_radios.php
+      libs/plugins/function.html_select_date.php
+      libs/plugins/function.html_select_time.php
+      libs/plugins/modifier.date_format.php:
+      backed out renaming of _get_plugin_filepath() to get_plugin_filepath()
+      
+      we'll stick to _get_plugin_filepath() and look for a more viable
+      solution to be exposed to plugin-writers.
+
 2004-07-20  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php
