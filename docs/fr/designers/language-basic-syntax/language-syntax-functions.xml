@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.syntax.functions">
  <title>Fonctions</title>
  <para>
@@ -11,22 +11,20 @@
  </para>
  <example>
   <title>syntaxe des fonctions</title>
-<programlisting>
+  <programlisting>
 <![CDATA[
-
 {config_load file="colors.conf"}
-
 {include file="header.tpl"}
 
 {if $name eq "Fred"}
    Vous êtes admis dans cette zone
 {else}
-	Bienvenue, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
+   Bienvenue, <font color="{#fontColor#}">{$name} !</font>
 {/if}
 
 {include file="footer.tpl"}
 ]]>
-</programlisting>
+  </programlisting>
  </example>
  <para>
   Les fonctions natives et les fonctions utilisateurs ont toutes deux la même

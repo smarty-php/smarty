@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
 <sect1 id="language.variables.smarty">
  <title>Variable réservée {$smarty}</title>
  <para>
@@ -119,16 +119,16 @@
  <sect2 id="language.variables.smarty.ldelim">
   <title>{$smarty.ldelim}</title>
   <para>
-   This variable is used for printing the left-delimiter value
-   literally. See also <link
+   Cette variable est utilisé pour afficher le délémiteur gauche. Lisez aussi
+   la partie <link
    linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
  </sect2>
  <sect2 id="language.variables.smarty.rdelim">
   <title>{$smarty.rdelim}</title>
   <para>
-   This variable is used for printing the right-delimiter value literally.
-   See also <link linkend="language.function.ldelim">{rdelim},{rdelim}</link>.
+   Cette variable est utilisé pour afficher le délémiteur droit. Lisez aussi
+   la partie <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
  </sect2>
 </sect1>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.syntax.quotes">
  <title>Variables insérées dans des chaînes de caractères</title>
  <para>
@@ -12,7 +12,7 @@
  </para>
  <example>
   <title>Syntaxe d'insertion de variables dans des chaînes</title>
-<programlisting>
+  <programlisting>
 <![CDATA[
 EXEMPLE DE SYNTAXE:
 {func var="test $foo test"}       <-- comprends $foo
@@ -24,10 +24,9 @@ EXEMPLE DE SYNTAXE:
 
 EXEMPLE PRATIQUE:
 {include file="subdir/$tpl_name.tpl"} <-- remplace $tpl_name avec la valeur
-{cycle values="one,two,`$smarty.config.myval`"} <-- doit comporter les
-apostrophes inverses
+{cycle values="one,two,`$smarty.config.myval`"} <-- doit comporter les apostrophes inverses
 ]]>
-</programlisting>
+  </programlisting>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
