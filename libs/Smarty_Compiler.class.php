@@ -54,15 +54,15 @@ class Smarty_Compiler extends Smarty {
     function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
         
-        // run template source through functions registered in filter_functions
-        if(is_array($this->filter_functions) && count($this->filter_functions) > 0) {
-            foreach($this->filter_functions as $curr_func) {
+        // run template source through functions registered in filter_funcs
+        if(is_array($this->filter_funcs) && count($this->filter_funcs) > 0) {
+            foreach($this->filter_funcs as $curr_func) {
                 if(function_exists($curr_func)) {
-                    $template_source = $curr_func($template_source);   
+                    $template_source = $curr_func($template_source);
                 } else {
-                    $this->_trigger_error_msg("filter function $curr_func does not exist.");   
+                    $this->_trigger_error_msg("filter function $curr_func does not exist.");
                 }
-            }   
+            }
         }
                 
         $this->_current_file = $tpl_file;
@@ -230,9 +230,12 @@ class Smarty_Compiler extends Smarty {
                 return $this->_compile_insert_tag($tag_args);
 
             default:
-                if (isset($this->custom_funcs[$tag_command])) {
-                    return $this->_compile_custom_tag($tag_command, $tag_args);
-                } else {
+				var_dump($tag_command);
+				if (isset($this->compiler_funcs[$tag_command])) {
+					return $this->_compile_compiler_tag($tag_command, $tag_args);
+				} else if (isset($this->custom_funcs[$tag_command])) {
+					return $this->_compile_custom_tag($tag_command, $tag_args);
+				} else {
                     $this->_syntax_error("unknown tag - '$tag_command'", E_USER_WARNING);
                     return;
                 }
@@ -240,8 +243,24 @@ class Smarty_Compiler extends Smarty {
     }
 
 /*======================================================================*\
+	Function: _compile_compiler_tag
+	Purpose:  compile the custom compiler tag
+\*======================================================================*/
+	function _compile_compiler_tag($tag_command, $tag_args)
+	{
+		$function = $this->compiler_funcs[$tag_command];
+
+		if (!function_exists($function)) {
+			$this->_syntax_error("compiler function '$tag_command' is not implemented", E_USER_WARNING);
+			return;
+		}
+
+		return '<?php' . $function($tag_args, $this) . ' ?>';
+	}
+
+/*======================================================================*\
     Function: _compile_custom_tag
-    Purpose:  compile custom tag
+    Purpose:  compile custom function tag
 \*======================================================================*/
     function _compile_custom_tag($tag_command, $tag_args)
     {

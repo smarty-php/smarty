@@ -103,6 +103,9 @@ class Smarty
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
     
+    var $compiler_funcs  =  array(
+                                 );
+
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
                                     'html_select_date'  => 'smarty_func_html_select_date',
                                     'html_select_time'  => 'smarty_func_html_select_time',
@@ -132,9 +135,9 @@ class Smarty
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
                                                       // Smarty to compile templates
-    var $resource_functions  =  array(); // what functions resource handlers are mapped to
-    var $filter_functions   =  array(); // what functions templates are filtered through
-                                        // before being compiled
+    var $resource_funcs        =  array();  // what functions resource handlers are mapped to
+    var $filter_funcs          =  array();  // what functions templates are filtered through
+                                            // before being compiled
 
 /**************************************************************************/
 /* END SMARTY CONFIGURATION SECTION                                       */    
@@ -246,6 +249,23 @@ class Smarty
         unset($this->custom_funcs[$function]);
     }
 
+/*======================================================================*\
+    Function: register_compiler_function
+    Purpose:  Registers compiler function
+\*======================================================================*/
+    function register_compiler_function($function, $function_impl)
+    {
+        $this->compiler_funcs[$function] = $function_impl;
+    }
+
+/*======================================================================*\
+    Function: unregister_compiler_function
+    Purpose:  Unregisters compiler function
+\*======================================================================*/
+    function unregister_compiler_function($function)
+    {
+        unset($this->compiler_funcs[$function]);
+    }
         
 /*======================================================================*\
     Function: register_modifier
@@ -271,7 +291,7 @@ class Smarty
 \*======================================================================*/
     function register_resource($name, $function_name)
     {
-        $this->resource_functions[$name] = $function_name;
+        $this->resource_funcs[$name] = $function_name;
     }
 
 /*======================================================================*\
@@ -280,7 +300,7 @@ class Smarty
 \*======================================================================*/
     function unregister_resource($name)
     {
-        unset($this->resource_functions[$name]);
+        unset($this->resource_funcs[$name]);
     }
 
 /*======================================================================*\
@@ -290,7 +310,7 @@ class Smarty
 \*======================================================================*/
     function register_filter($function_name)
     {
-        $this->filter_functions[] = $function_name;
+        $this->filter_funcs[] = $function_name;
     }
 
 /*======================================================================*\
@@ -300,12 +320,12 @@ class Smarty
     function unregister_filter($function_name)
     {
         $tmp_array = array();
-        foreach($this->filter_functions as $curr_func) {
+        foreach($this->filter_funcs as $curr_func) {
             if($curr_func != $function_name) {
                 $tmp_array[] = $curr_func;
             }
         }
-        $this->filter_functions = $tmp_array;
+        $this->filter_funcs = $tmp_array;
     }
     
 /*======================================================================*\
@@ -587,8 +607,8 @@ class Smarty
                 }
                 break;
             default:
-                if(isset($this->resource_functions[$resource_type])) {
-                    $funcname = $this->resource_functions[$resource_type];
+                if(isset($this->resource_funcs[$resource_type])) {
+                    $funcname = $this->resource_funcs[$resource_type];
                     if(function_exists($funcname)) {
                         // call the function to fetch the template
                         $funcname($resource_name,$template_source,$template_timestamp);
@@ -629,7 +649,8 @@ class Smarty
         $smarty_compiler->custom_funcs      = $this->custom_funcs;
         $smarty_compiler->custom_mods       = $this->custom_mods;
         $smarty_compiler->version           = $this->version;
-        $smarty_compiler->filter_functions   = $this->filter_functions;
+        $smarty_compiler->filter_funcs      = $this->filter_funcs;
+        $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;
