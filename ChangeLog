@@ -1,3 +1,15 @@
+2004-07-29  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/configure.in:
+      avoid warnings in head
+
+    * docs/.cvsignore
+      docs/Makefile.in
+      docs/README
+      docs/configure.in:
+      build pdf files
+      just type make pdf
+
 2004-07-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
