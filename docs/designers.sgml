@@ -700,7 +700,7 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 		<sect3>
 			<title>indent</title>
             <informaltable frame=all>
-                <tgroup cols=3>
+                <tgroup cols=5>
                 <colspec colname=param>
                 <colspec colname=type>
                 <colspec colname=required>
@@ -790,7 +790,7 @@ two convicts evade noose, jury hung.</programlisting>
 		<sect3>
 			<title>regex_replace</title>
             <informaltable frame=all>
-                <tgroup cols=3>
+                <tgroup cols=5>
                 <colspec colname=param>
                 <colspec colname=type>
                 <colspec colname=required>
@@ -848,7 +848,7 @@ Infertility unlikely to be passed on, experts say</programlisting>
 		<sect3>
 			<title>replace</title>
             <informaltable frame=all>
-                <tgroup cols=3>
+                <tgroup cols=5>
                 <colspec colname=param>
                 <colspec colname=type>
                 <colspec colname=required>
@@ -901,7 +901,7 @@ Child's   Stool   Great   for   Use   in   Garden.</programlisting>
 		<sect3>
 			<title>spacify</title>
             <informaltable frame=all>
-                <tgroup cols=3>
+                <tgroup cols=5>
                 <colspec colname=param>
                 <colspec colname=type>
                 <colspec colname=required>
@@ -949,7 +949,7 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^
 		<sect3>
 			<title>string_format</title>
             <informaltable frame=all>
-                <tgroup cols=3>
+                <tgroup cols=5>
                 <colspec colname=param>
                 <colspec colname=type>
                 <colspec colname=required>
@@ -1013,7 +1013,7 @@ Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
 		<sect3>
 			<title>truncate</title>
             <informaltable frame=all>
-                <tgroup cols=3>
+                <tgroup cols=5>
                 <colspec colname=param>
                 <colspec colname=type>
                 <colspec colname=required>
@@ -1106,7 +1106,7 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
 		<sect3>
 			<title>wordwrap</title>
             <informaltable frame=all>
-                <tgroup cols=3>
+                <tgroup cols=5>
                 <colspec colname=param>
                 <colspec colname=type>
                 <colspec colname=required>
