@@ -56,7 +56,7 @@ function smarty_function_html_image($params, &$smarty)
 				$width = $_val;
 				break;
 			case 'link':
-				$prefix = '<a href="' . $link . '">';
+				$prefix = '<a href="' . $_val . '">';
 				$suffix = '</a>';
 				break;
 			case 'dpi':
@@ -112,7 +112,7 @@ function smarty_function_html_image($params, &$smarty)
 		$height = round($height * $_resize);
 	}
 			
-	return $prefix . '<img src="'.$file.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.'>' . $suffix;
+	return $prefix . '<img src="'.$file.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.' />' . $suffix;
 }
 
 /* vim: set expandtab: */

@@ -1,3 +1,5 @@
+    - fix link functionality of html_image, also make
+      output XHTML compatible (Hinrich Donner, Monte)
     - append "@" to default modifier vars/args
       supress possible warnings (Monte)
     - fix problem with escaped double quotes (Monte)
