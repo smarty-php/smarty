@@ -150,7 +150,7 @@ class Smarty
                                  );
                                  
     var $show_info_header      =   false;     // display HTML info header at top of page output
-    var $show_info_include     =   true;      // display HTML comments at top & bottom of
+    var $show_info_include     =   false;      // display HTML comments at top & bottom of
                                               // each included template
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
