@@ -1,3 +1,9 @@
+2004-08-30  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      add $smarty.ldelim and $smarty.rdelim to smarty special var
+
 2004-08-29  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
