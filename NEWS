@@ -1,3 +1,5 @@
+  - added config-option "request_use_auto_globals" to make auto-globals be
+    used as request vars instead of HTTP_*_VARS (messju)
   - make config vars compile statically (Monte)
   - added block-methods for registered objects (Bharat Mediratta, messju)
   - ignore one char resource names like c:foo.tpl (Monte)

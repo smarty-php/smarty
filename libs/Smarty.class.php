@@ -92,7 +92,7 @@ class Smarty
     /**
      * The directory where config files are located.
      * 
-     * @var string
+reques     * @var string
      */
     var $config_dir      =  'configs';
 
@@ -270,6 +270,16 @@ class Smarty
      * @var string
      */
     var $request_vars_order    = "EGPCS"; 
+
+    /**
+     * Indicates wether $HTTP_*_VARS[] (request_use_auto_globals=false)
+     * are uses as request-vars or $_*[]-vars. note: if
+     * request_use_auto_globals is true, then $request_vars_order has
+     * no effect, but the php-ini-value "gpc_order"
+     * 
+     * @var boolean
+     */
+    var $request_use_auto_globals      = false;
 
     /**
      * Set this if you want different sets of compiled files for the same
@@ -1483,7 +1493,9 @@ class Smarty
         $smarty_compiler->_tpl_vars         = &$this->_tpl_vars;
         $smarty_compiler->default_modifiers = $this->default_modifiers;
         $smarty_compiler->compile_id        = $this->_compile_id;
-		$smarty_compiler->_config			= $this->_config;
+        $smarty_compiler->_config			= $this->_config;
+
+        $smarty_compiler->request_use_auto_globals  = $this->request_use_auto_globals;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled)) {
             return true;
