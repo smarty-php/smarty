@@ -1,3 +1,21 @@
+2003-02-20  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php:
+      add get_config_vars() method, update get_template_vars() functionality
+
+    * NEWS
+      Smarty.class.php:
+      fix minor logic in _fetch_template_info()
+
+    * NEWS
+      Smarty.class.php:
+      support merging appended vars
+
+    * NEWS
+      Smarty.class.php:
+      fix cache groups behavior with compile_id set
+
 2003-02-19  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php:
