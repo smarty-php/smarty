@@ -1,74 +1,77 @@
  <part id="smarty.for.programmers">
-   <title>Smarty For Programmers</title>
+  <title>Smarty For Programmers</title>
 
+  <chapter id="smarty.constants">
+   <title>Constants</title>
 
-	<chapter id="smarty.constants">
-	 <title>Constants</title>
-	 <para></para>
-
-	 <sect1 id="constant.smarty.dir">
-      <title>SMARTY_DIR</title>
-      <para>
-       This should be the full system path to the location of the Smarty
-       class files. If this is not defined, then Smarty will attempt to
-       determine the appropriate value automatically. If defined, the path
-       must end with a slash.
-      </para>
-      <example>
-       <title>SMARTY_DIR</title>
-       <programlisting>
+   <sect1 id="constant.smarty.dir">
+    <title>SMARTY_DIR</title>
+    <para>
+     This should be the full system path to the location of the Smarty
+     class files. If this is not defined, then Smarty will attempt to
+     determine the appropriate value automatically. If defined, the path
+     must end with a slash.
+    </para>
+    <example>
+     <title>SMARTY_DIR</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
 // set path to Smarty directory
 define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
 
 require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
-      </example>
-	 </sect1>
-	</chapter>
+?>
+]]>
+     </programlisting>
+    </example>
+   </sect1>
+  </chapter>
 
-    <chapter id="api.variables">
-     <title>Variables</title>
+  <chapter id="api.variables">
+   <title>Variables</title>
 
-     <sect1 id="variable.template.dir">
-      <title>$template_dir</title>
+   <sect1 id="variable.template.dir">
+    <title>$template_dir</title>
+    <para>
+     This is the name of the default template directory. If you do
+     not supply a resource type when including files, they will be
+     found here. By default this is "./templates", meaning that it
+     will look for the templates directory in the same directory as
+     the executing php script.
+    </para>
+    <note>
+     <title>Technical Note</title>
+     <para>
+      It is not recommended to put this directory under
+      the web server document root.
+     </para>
+    </note>
+   </sect1>		
+   <sect1 id="variable.compile.dir">
+    <title>$compile_dir</title>
+    <para>
+     This is the name of the directory where compiled templates are
+     located. By default this is "./templates_c", meaning that it
+     will look for the compile directory in the same directory as
+     the executing php script.
+    </para>
+    <note>
+     <title>Technical Note</title>
       <para>
-       This is the name of the default template directory. If you do
-       not supply a resource type when including files, they will be
-       found here. By default this is "./templates", meaning that it
-       will look for the templates directory in the same directory as
-       the executing php script.
-      </para>
-	   <note>
-		   <title>Technical Note</title>
-		   <para>
-    	   It is not recommended to put this directory under
-    	   the web server document root.
-    	   </para>
-	  </note>
-     </sect1>		
-     <sect1 id="variable.compile.dir">
-      <title>$compile_dir</title>
-      <para>
-       This is the name of the directory where compiled templates are
-       located. By default this is "./templates_c", meaning that it
-       will look for the compile directory in the same directory as
-       the executing php script.
-      </para>
-	 <note>
-	 <title>Technical Note</title>
-	 <para>
        This setting must be either a relative or
        absolute path. include_path is not used for writing files.
       </para>
-	 </note>
-	 <note>
-	 <title>Technical Note</title>
-	 <para>
+     </note>
+     <note>
+      <title>Technical Note</title>
+      <para>
        It is not recommended to put this directory under
        the web server document root.
       </para>
-	 </note>
-     </sect1>
-     <sect1 id="variable.config.dir">
+     </note>
+    </sect1>
+    <sect1 id="variable.config.dir">
       <title>$config_dir</title>
       <para>
        This is the directory used to store config files used in the
