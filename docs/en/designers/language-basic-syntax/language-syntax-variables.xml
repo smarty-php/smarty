@@ -19,7 +19,7 @@
 {$foo.bar}    <-- display the "bar" key value of an array, similar to PHP $foo['bar']
 {$foo.$bar}   <-- display variable key value of an array, similar to PHP $foo[$bar]
 {$foo->bar}   <-- display the object property "bar"
-{$foo->bar()} <-- display the object method "bar"
+{$foo->bar()} <-- display the return value of object method "bar"
 {#foo#}       <-- display the config file variable "foo"
 {$smarty.config.foo} <-- synonym for {#foo#}
 {$foo[bar]}   <-- syntax only valid in a section loop, see {section}
