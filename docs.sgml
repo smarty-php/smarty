@@ -2193,6 +2193,14 @@ pass=foobar
                         <entry>The name of the insert function (insert_name)</entry>
                     </row>
                     <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the template variable the output will
+						be assigned to</entry>
+                    </row>
+                    <row>
                         <entry>[var ...]</entry>
                         <entry>[var type]</entry>
                         <entry>No</entry>
@@ -2207,7 +2215,11 @@ pass=foobar
 			run into the situation where it is impossible to pass data to a template
 			before the template is executed because there is info in the template
 			needed to aquire the data, kind of a catch 22. The insert tag is a way
-			to callback a function in PHP during runtime of the template.
+			to callback a function in PHP during runtime of the template. The
+			difference between insert tags and custom functions is that insert
+			tags are not cached when you have template <link
+			linkend="section.caching">caching</link> enabled. They
+			will be executed on every invocation of the template.
 			</para>
 			<para>
 			Let's say you have a template with a banner slot at the top of the page. The
@@ -2240,17 +2252,24 @@ pass=foobar
 			and display the returned results in place of the insert tag.
 			</para>
 			<para>
+			If you supply the special "assign" attribute, the output of the
+			insert tag will be assigned to this template variable instead of
+			being output to the template. NOTE: assiging the output to a template
+			variable isn't too useful with caching enabled. (added to Smarty
+			1.5.0)
+			</para>
+			<para>
+			The Smarty object is passed as the second argument. This way you
+			can reference and modify information in the Smarty object from
+			within the insert function. (added in 1.4.5)
+			</para>
+			<para>
             TECHNICAL NOTE: It is possible to have portions of the template not
             cached. If you have <link linkend="section.caching">caching</link>
             turned on, insert tags will not be cached. They will run
             dynamically every time the page is created, even within cached
             pages. This works good for things like banners, polls, live
             weather, search results, user feedback areas, etc.
-			</para>
-			<para>
-			NOTE: As of Smarty 1.4.5, the Smarty object is passed as the second
-			argument. This way you can reference and modify information in the
-			Smarty object from within the insert function.
 			</para>
 		</sect2>
 		<sect2>
@@ -3152,6 +3171,14 @@ The value of $name is Bob.
                         <entry><emphasis>true</emphasis></entry>
                         <entry>Whether or not to print the value</entry>
                     </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the template variable the output will be assigned
+						to</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
@@ -3162,6 +3189,11 @@ The value of $name is Bob.
 			to print the value. You can run multiple counters concurrently by
 			supplying a unique id for each one. If you do not supply an id, the
 			default id will be used. counter was added to Smarty 1.4.0.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			counter function will be assigned to this template variable instead of
+			being output to the template. (new in Smarty 1.5.0)
 			</para>
 <example>
 <title>counter</title>
@@ -3211,17 +3243,29 @@ OUTPUT:
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>the file, http or ftp site to fetch</entry>
                     </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the template variable the output will be assigned
+						to</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
 			<para>
-            fetch allows the template designer to fetch files from the local
-            file system, http, or ftp and display the contents. If the file
-            name begins with "http://", the web site page will be fetched and
-            displayed. If the file name begins with "ftp://", the file will be
-            fetched from the ftp server and displayed. For local files, the full
-            system file path must be given, or a path relative to the executed
-            php script.
+			fetch is used to fetch files from the local file system, http, or
+			ftp and display the contents. If the file name begins with
+			"http://", the web site page will be fetched and displayed. If the
+			file name begins with "ftp://", the file will be fetched from the
+			ftp server and displayed. For local files, the full system file
+			path must be given, or a path relative to the executed php script.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			fetch function will be assigned to this template variable instead of
+			being output to the template. (new in Smarty 1.5.0)
 			</para>
             <para>
             TECHNICAL NOTE: This will not support http redirects, be sure to
@@ -3241,10 +3285,16 @@ OUTPUT:
 {fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
 
 {* embed some weather text in your template from another web site *}
-{fetch file="http://www.myweather.com/cgi-bin/getweather?zipcode=68502"}
+{fetch file="http://www.myweather.com/68502/"}
 
 {* fetch a news headline file via ftp *}
 {fetch file="ftp://user:password@ftp.domain.com/path/to/currentheadlines.txt"}
+
+{* assign the fetched contents to a template variable *}
+{fetch file="http://www.myweather.com/68502/" assign="weather"}
+{if $weather ne ""}
+	&lt;b&gt;{$weather}&lt;/b&gt;
+{/if}
 
 
 </programlisting>
@@ -3927,6 +3977,13 @@ OUTPUT:
                         <entry>equation variable value</entry>
                     </row>
                     <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>template variable the output will be assigned to</entry>
+                    </row>
+                    <row>
                         <entry>[var ...]</entry>
                         <entry>numeric</entry>
                         <entry>Yes</entry>
@@ -3945,6 +4002,11 @@ OUTPUT:
             exp, floor, log, log10, max, min, pi, pow, rand, round, sin, sqrt,
             srans and tan are all valid operators. Check the PHP documenation
             for further information on these math functions.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			math function will be assigned to this template variable instead of
+			being output to the template.
 			</para>
 <example>
 <title>math</title>

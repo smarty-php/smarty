@@ -500,11 +500,11 @@ class Smarty
     {
         global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
-        if ($this->debugging_ctrl == 'URL'
+        if (!$this->debugging && $this->debugging_ctrl == 'URL'
                 && (!empty($QUERY_STRING) && strstr($QUERY_STRING, $this->_smarty_debug_id))) {
             $this->debugging = true;
         }
-
+		
         if ($this->debugging) {
             // capture time for debugging info
             $debug_start_time = $this->_get_microtime();
@@ -1272,13 +1272,13 @@ function _run_insert_handler($args)
         if (!empty($this->cache_handler_func)) {
 
             // use cache_read_handler function
-            return($$this->cache_handler_func('read', $tpl_file, $cache_id, $compile_id, $results, $this));
+            $$this->cache_handler_func('read', $tpl_file, $cache_id, $compile_id, $results, $this);
 
         } else {
             // use local file cache
             
             $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
-            return ($results = $this->_read_file($cache_file));
+            $results = $this->_read_file($cache_file);
             
         }
 

@@ -1,8 +1,9 @@
-    - added assign attribute to insert function (Monte)
-    - added assign attribute to fetch function (Monte)
-    - fixed bug with fetch testing for file with http address (Monte)
-    - added assign attribute to math function (Monte)
-    - added assign attribute to counter function (Monte)
+    - added custom cache handling function ability (Monte)
+    - added assign attribute to insert function, documented (Monte)
+    - added assign attribute to fetch function, documented (Monte)
+    - fixed bug with fetch testing for local file when http address (Monte)
+    - added assign attribute to math function, documented (Monte)
+    - added assign attribute to counter function, documented (Monte)
     - fixed bug with counter and skipval setting (Monte)
     - made {config_load ...} merge globals from each config file only once per
       scope, thus avoiding several problems. (Andrei)
@@ -15,7 +16,7 @@
       blocks. (Andrei, Alexander Belonosov)
     - added 'field_array' attribute to html_select_time function. (Andrei,
       Michael Caplan)
-    - dpcumented {section} "max" attribute. (Monte)
+    - documented {section} "max" attribute. (Monte)
     - fixed notice message in Smarty_Compiler.class.php. (Monte)
     - fixed bug with clear_cache introduced in 1.4.6, third parameter should
       default to null. (Monte)
