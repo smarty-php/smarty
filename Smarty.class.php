@@ -1009,6 +1009,33 @@ function _generate_debug_output() {
     }
 
 /*======================================================================*\
+    Function:   _smarty_include_php()
+    Purpose:    called for included templates
+\*======================================================================*/
+    function _smarty_include_php($_smarty_include_php_file, $_smarty_assign)
+    {
+        $this->_get_php_resource($_smarty_include_php_file, $_smarty_resource_type,
+                                 $_smarty_php_resource);
+
+        if (!empty($_smarty_assign)) {
+            ob_start();
+            if ($_smarty_resource_type == 'file') {
+                include_once($_smarty_php_resource);
+            } else {
+                eval($_smarty_php_resource);
+            }
+            $this->assign($_smarty_assign, ob_get_contents());
+            ob_end_clean();
+        } else {
+            if ($_smarty_resource_type == 'file') {
+                include_once($_smarty_php_resource);
+            } else {
+                eval($_smarty_php_resource);
+            }
+        }
+    }
+
+/*======================================================================*\
     Function: _config_load
     Purpose:  load configuration values
 \*======================================================================*/

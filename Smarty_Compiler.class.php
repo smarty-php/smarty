@@ -632,27 +632,10 @@ class Smarty_Compiler extends Smarty {
         if (empty($attrs['file'])) {
             $this->_syntax_error("missing 'file' attribute in include_php tag");
         }
+
+        $assign_var = $this->_dequote($attrs['assign']);
 		
-        $this->_get_php_resource($this->_dequote($attrs['file']),
-                                 $resource_type, $php_resource);
-
-        if (!empty($attrs['assign'])) {
-			$output = "<?php ob_start();\n";
-            if ($resource_type == 'file') {
-                $output .= 'include("' . $php_resource . '");'."\n";
-            } else {
-                $output .= $php_resource;
-            }
-			$output .= "\$this->assign(" . $attrs['assign'] . ", ob_get_contents()); ob_end_clean();\n?>";
-		} else {
-            if ($resource_type == 'file') {
-                $output = '<?php include("' . $php_resource . '"); ?>';
-            } else {
-                $output = '<?php ' . $php_resource . ' ?>';
-            }
-		}
-
-		return $output;
+		return "<?php \$this->_smarty_include_php($attrs[file], '$assign_var'); ?>";
     }
 	
 
@@ -1349,6 +1332,13 @@ class Smarty_Compiler extends Smarty {
 
             case 'capture':
                 return null;
+
+            case 'template':
+                $compiled_ref = "'$this->_current_file'";
+                if (count($indexes) > 1) {
+                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference');
+                }
+                break;
 
             default:
                 $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference');

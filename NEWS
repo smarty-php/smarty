@@ -1,3 +1,6 @@
+    - fixed a problem with using dynamic values for 'file'
+      attribute of {include_php} tag. (Andrei)
+    - added $smarty.template variable. (Andrei)
     - fixed several plugins that would not work if the plugin
       directory was not the default one. (Andrei)
     - implemented support for block functions. (Andrei)
@@ -339,4 +342,4 @@ Version 1.0
 ------------
     - initial release
 
-/* vim: set et tw=64: */
+/* vim: set et tw=64 ft=changelog: */
