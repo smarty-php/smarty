@@ -435,12 +435,23 @@ class Smarty_Compiler extends Smarty {
                 $arg_value = $arg_value ? 'true' : 'false';
             $arg_list[] = "'$arg_name' => $arg_value";
         }
+        if (!empty($attrs['assign'])) {
+			$return = "<?php ob_start();\n";
+        	$return .=  
+            	"\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
+            	"\$this->_smarty_include(".$include_file.", array(".implode(',', (array)$arg_list)."));\n" .
+            	"\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
+            	"unset(\$_smarty_tpl_vars);\n";
+			$return .= "\$this->assign('".$this->_dequote($attrs['assign'])."',ob_get_contents()); ob_end_clean();\n?>";
+		} else {
+        	$return =  "<?php " .
+            	"\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
+            	"\$this->_smarty_include(".$include_file.", array(".implode(',', (array)$arg_list)."));\n" .
+            	"\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
+            	"unset(\$_smarty_tpl_vars); ?>";
+		}
+		return $return;
 
-        return  "<?php " .
-            "\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
-            "\$this->_smarty_include(".$include_file.", array(".implode(',', (array)$arg_list)."));\n" .
-            "\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
-            "unset(\$_smarty_tpl_vars); ?>";
     }
 
 /*======================================================================*\
@@ -456,8 +467,8 @@ class Smarty_Compiler extends Smarty {
 			return false;
         }
 		
+		$this->_parse_file_path($this->trusted_dir, $this->_dequote($attrs['file']), $resource_type, $resource_name);
 		if ($this->security) {
-			$this->_parse_file_path($this->trusted_dir, $this->_dequote($attrs['file']), $resource_type, $resource_name);
 			if( $resource_type != 'file' || !@is_file($resource_name)) {
             	$this->_syntax_error("include_php: $resource_type: $resource_name is not readable");
 				return false;
@@ -467,8 +478,15 @@ class Smarty_Compiler extends Smarty {
 				return false;
         	}
 		}
-
-        return  "<?php include('".$resource_name."'); ?>";
+		
+        if (!empty($attrs['assign'])) {
+			$return = "<?php ob_start();\n";
+			$return .= "include('".$resource_name."');\n";
+			$return .= "\$this->assign('".$this->_dequote($attrs['assign'])."',ob_get_contents()); ob_end_clean();\n?>";
+		} else {
+        	$return =  "<?php include('".$resource_name."'); ?>";
+		}
+		return $return;
     }
 	
 
