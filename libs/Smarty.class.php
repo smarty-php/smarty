@@ -158,7 +158,7 @@ class Smarty
 		// compile files
 		$this->_compile($this->template_dir);
 		//assemble compile directory path to file
-		$_compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$tpl_file);
+		$_compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2.php", $tpl_file);
 
 		extract($this->_tpl_vars);		
 		include($_compile_file);
@@ -265,8 +265,8 @@ class Smarty
 
 			// compile the template file if none exists or has been modified
 			if(!file_exists($compile_dir."/".$tpl_file_name) ||
-				($this->_modified_file($filepath,$compile_dir."/".$tpl_file_name))) {
-				if(!$this->_compile_file($filepath,$compile_dir."/".$tpl_file_name))
+				($this->_modified_file($filepath, $compile_dir."/".$tpl_file_name))) {
+				if(!$this->_compile_file($filepath, $compile_dir."/".$tpl_file_name))
 					return false;				
 			} else {
 				// no compilation needed
@@ -297,7 +297,7 @@ class Smarty
 	Input:		compile a template file
 \*======================================================================*/
 
-	function _compile_file($filepath,$compilepath)
+	function _compile_file($filepath, $compilepath)
 	{
 		if(!($template_contents = $this->_read_file($filepath)))
 			return false;
@@ -343,7 +343,7 @@ class Smarty
 												  $strip_tags_modified[$i], $compiled_contents, 1);
 		}
 
-		if(!$this->_write_file($compilepath, $compiled_contents))
+		if(!$this->_write_file($compilepath . ".php", $compiled_contents))
 			return false;
 
 		return true;
@@ -516,11 +516,11 @@ class Smarty
 					"{\n" .
 					"	extract(\$def_vars);\n" .
 					"	extract(\$include_vars);\n" .
-					"	include \"\$file_name\";\n" .
+					"	include \"\$file_name.php\";\n" .
 					"}\n" .
 					"$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."));\n?>\n";
 		} else
-			 return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'"; ?>';
+			 return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'.php"; ?>';
 	}
 
 	function _compile_section_start($tag_args)
