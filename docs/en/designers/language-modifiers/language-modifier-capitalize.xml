@@ -2,6 +2,34 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.capitalize">
   <title>capitalize</title>
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc" />
+    <thead>
+     <row>
+      <entry>Parameter Position</entry>
+      <entry>Type</entry>
+      <entry>Required</entry>
+      <entry>Default</entry>
+      <entry>Description</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>boolean</entry>
+      <entry>No</entry>
+      <entry>false</entry>
+      <entry>This determines whether or not words with
+      digits will be uppercased</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>  
   <para>
    This is used to capitalize the first letter of all words in a variable.
   </para>
@@ -12,7 +40,7 @@
 <?php
 
 $smarty = new Smarty;
-$smarty->assign('articleTitle', 'Police begin campaign to rundown jaywalkers.');
+$smarty->assign('articleTitle', 'next x-men film, x3, delayed.');
 $smarty->display('index.tpl');
 
 ?>
@@ -25,6 +53,7 @@ $smarty->display('index.tpl');
 <![CDATA[
 {$articleTitle}
 {$articleTitle|capitalize}
+{$articleTitle|capitalize:true}
 ]]>
    </programlisting>
    <para>
@@ -32,8 +61,9 @@ $smarty->display('index.tpl');
    </para>
    <screen>
 <![CDATA[
-Police begin campaign to rundown jaywalkers.
-Police Begin Campaign To Rundown Jaywalkers.
+next x-men film, x3, delayed.
+Next X-Men Film, x3, Delayed.
+Next X-Men Film, X3, Delayed.
 ]]>
    </screen>
   </example>
