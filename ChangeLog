@@ -1,3 +1,18 @@
+2002-04-03  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Fixed undefined offset warning in {if} tag.
+
+    * Smarty.class.php
+      NEWS: Added template_exists() API.
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      NEWS:
+    - Added $smarty.template variable.
+    - Fixed {include_php} tag when dynamic values were used for 'file' attribute.
+
+    * Config_File.class.php: Separator setting fix.
+
 2002-03-28  Monte Ohrt  <monte@ispi.net>
 
     * FAQ
