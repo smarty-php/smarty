@@ -117,7 +117,7 @@ function smarty_function_html_select_date($params, &$smarty)
                 break;
 
             default:
-                $smarty->trigger_error("[html_select_time] unknown parameter $_key", E_USER_WARNING);
+                $smarty->trigger_error("[html_select_date] unknown parameter $_key", E_USER_WARNING);
 
         }
     }
