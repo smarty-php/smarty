@@ -3607,7 +3607,7 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 			<para>
 			All parameters that are not in the list above are printed as
 			name/value-pairs inside each of the created &lt;input&gt;-tags.
-			</para
+			</para>
 <example>
 <title>html_checkboxes</title>
 <programlisting>
@@ -3617,7 +3617,7 @@ require('Smarty.php.class');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
 $smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','CHarlie Brown'));
+Johnson','Charlie Brown'));
 $smarty-&gt;assign('customer_id', 1001);
 $smarty-&gt;display('index.tpl');
 
@@ -3634,7 +3634,7 @@ $smarty = new Smarty;
 $smarty-&gt;assign('cust_checkboxes', array(
 			1001 =&gt; 'Joe Schmoe',
 			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson','Carlie Brown'));
+			1003 =&gt; 'Jane Johnson','Charlie Brown'));
 $smarty-&gt;assign('customer_id', 1001);
 $smarty-&gt;display('index.tpl');
 
