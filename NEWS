@@ -1,3 +1,5 @@
+    - fixed bug with resource testing, and include_path (Monte)
+
 Version 2.1.0
 -------------
 
