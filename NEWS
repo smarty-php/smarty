@@ -1,3 +1,5 @@
+  - add 'nonstd' to escape modifier for escaping non-std chars,
+    such as ms doc quote (Monte)
   - adjusted textformat to not output wrap chars after last para
     (Monte)
   - use tempnam() instead of unqid() to create better temporary files in
