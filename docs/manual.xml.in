@@ -1,6 +1,8 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "./dtds/dbxml-4.1.2/docbookx.dtd" [
-<!ENTITY build.version SYSTEM "version.ent">
+<!ENTITY % build.version SYSTEM "version.ent">
+%build.version;
+
 <!ENTITY bookinfo SYSTEM "@LANG@/bookinfo.xml">
 <!ENTITY preface SYSTEM "@LANG@/preface.xml">
 <!ENTITY getting.started SYSTEM "@LANG@/getting-started.xml">
