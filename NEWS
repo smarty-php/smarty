@@ -1,3 +1,4 @@
+    - fixed warning message in function.assign_debug_info (Monte)
     - fixed $template_dir, $compile_dir, $cache_dir, $config_dir
       to respect include_path (Monte)
     - fixed warning message with output filter array (Monte)
