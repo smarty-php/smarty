@@ -1,8 +1,6 @@
 *normal mode* :
-- add a PHP script that will generate dynamically all the files entity in manual.xml
 - add CDATA sections in all programlistings.
 - add roles to programlisting (especially role="php") and add PHP tags in PHP examples (short_open_tag is banned). This will help to :
- -- colorize examples
  -- check parse errors : for i in $(ls |grep xml); do php -d short_open_tag=off -l $i; done
 
 *pedentic mode* :
