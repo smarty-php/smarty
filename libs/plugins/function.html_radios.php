@@ -25,7 +25,7 @@
 function smarty_function_html_radios($params, &$smarty)
 {
    require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
-
+   
    $name = 'radio';
    $values = null;
    $options = null;
@@ -35,32 +35,36 @@ function smarty_function_html_radios($params, &$smarty)
    $extra = '';
 
    foreach($params as $_key => $_val) {
-      switch($_key) {
-      case 'name':
-      case 'separator':
-      case 'checked':
-	 $$_key = (string)$_val;
-	 break;
+		switch($_key) {
+		case 'name':
+		case 'separator':
+		case 'checked':
+			if(is_array($_val)) {
+				$smarty->trigger_error('the "checked"-attribute cannot be an array.', E_USER_WARNING);
+			} else {
+				$$_key = (string)$_val;
+			}
+			break;
 
-      case 'options':
-	 $$_key = (array)$_val;
-	 break;
+		case 'options':
+			$$_key = (array)$_val;
+			break;
 
-      case 'values':
-      case 'output':
-	 $$_key = array_values((array)$_val);
-	 break;
+		case 'values':
+		case 'output':
+			$$_key = array_values((array)$_val);
+			break;
 
-      case 'radios':
-         $smarty->trigger_error('the use of the "radios"-attribute is deprecated. use "options" instead', E_USER_WARNING);
-         $options = (array)$_val;
-         break;
+		case 'radios':
+			$smarty->trigger_error('the use of the "radios"-attribute is deprecated. use "options" instead', E_USER_WARNING);
+			$options = (array)$_val;
+			break;
 
 
-      default:
-	 $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars((string)$_val).'"';
-	 break;
-      }
+		default:
+			$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars((string)$_val).'"';
+			break;
+		}
    }
 
    if (!isset($options) && !isset($values))
