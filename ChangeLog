@@ -1,3 +1,10 @@
+2003-02-16  Greg Beaver  <greg@chiaraquartet.net>
+
+    * ChangeLog
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+      many more phpdoc comment upgrades
+
 2003-02-15  Greg Beaver <cellog@sourceforge.net>
     * Smarty.class.php
       Smarty_Compiler.class.php
