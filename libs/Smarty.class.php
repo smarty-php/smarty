@@ -31,7 +31,7 @@
  *
  * Or, write to:
  * Monte Ohrt
- * CTO, ispi
+ * Director of Technology, ispi
  * 237 S. 70th suite 220
  * Lincoln, NE 68510
  *
@@ -198,6 +198,7 @@ class Smarty
     var $_inclusion_depth      =   0;          // current template inclusion depth
     var $_compile_id           =   null;       // for different compiled templates
     var $_smarty_debug_id      =   'SMARTY_DEBUG'; // id in query string to turn on debug mode
+    var $_smarty_debug_times   =   array();    // exec times in milliseconds
     
 
 /*======================================================================*\
@@ -494,7 +495,19 @@ class Smarty
     {
         global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
-        $this->_compile_id = $compile_id;
+        if ($this->debugging_ctrl == 'URL'
+				&& (!empty($QUERY_STRING)
+				&& strstr($QUERY_STRING,$this->_smarty_debug_id))) {
+			$this->debugging = true;
+		}
+			
+		if($this->debugging)
+		{
+			// capture time for debugging info
+			$debug_start_time = $this->_get_microtime();	
+		}
+			
+		$this->_compile_id = $compile_id;
         $this->_inclusion_depth = 0;
         $this->_included_tpls = array();
 
@@ -513,7 +526,15 @@ class Smarty
                     $results = $this->_process_cached_inserts($results);
                 }
                 if ($display) {
-                    echo $results; return;
+                    echo $results;
+					if ($this->debugging)
+					{
+						// capture time for debugging info
+						$this->_smarty_debug_times["total"] = $this->_get_microtime() - $debug_start_time;	
+
+						echo $this->_generate_debug_output();
+					}
+					return;
                 } else {
                     return $results;
                 }
@@ -579,7 +600,13 @@ class Smarty
 		
         if ($display) {
             if (isset($results)) { echo $results; }
-            if ($this->debugging || ($this->debugging_ctrl == 'URL' && (!empty($QUERY_STRING) && strstr($QUERY_STRING,$this->_smarty_debug_id)))) { echo $this->_generate_debug_output(); }
+            if ($this->debugging)
+				{
+					// capture time for debugging info
+					$this->_smarty_debug_times["TOTAL"] = $this->_get_microtime() - $debug_start_time;	
+
+					echo $this->_generate_debug_output();
+				}
             return;
         } else {
             if (isset($results)) { return $results; }
@@ -897,6 +924,9 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _process_cached_inserts($results)
     {
+		if($this->debugging)
+		{ $debug_start_time = $this->_get_microtime(); }
+				
         preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
                        $results, $match);
         list($cached_inserts, $insert_args) = $match;
@@ -914,6 +944,9 @@ function _generate_debug_output() {
             $results = str_replace($cached_inserts[$i], $replace, $results);
         }
 
+        if ($this->debugging)
+		{ $this->_smarty_debug_times["insert_".$name] = $this->_get_microtime() - $debug_start_time; }
+			
         return $results;
     } 
 
@@ -924,12 +957,18 @@ function _generate_debug_output() {
 \*======================================================================*/
 function _run_insert_handler($args)
 {
+	if($this->debugging)
+	{ $debug_start_time = $this->_get_microtime(); }
+
     if ($this->caching) {
         $arg_string = serialize($args);
         return $this->_smarty_md5."{insert_cache $arg_string}".$this->_smarty_md5;
     } else {
         $function_name = 'insert_'.$args['name'];
-        return $function_name($args, $this);
+        $content = $function_name($args, $this);
+		if ($this->debugging)
+		{ $this->_smarty_debug_times["insert_".$args['name']] = $this->_get_microtime() - $debug_start_time; }
+		return $content;
     }
 }
 
@@ -1128,6 +1167,18 @@ function _run_mod_handler()
     {
         trigger_error("Smarty error: $error_msg", $error_type);
     }
+
+/*======================================================================*\
+	Function:	_get_microtime
+	Purpose:	Get seconds and microseconds
+\*======================================================================*/
+	function _get_microtime()
+	{
+		$mtime = microtime();
+		$mtime = explode(" ", $mtime);
+		$mtime = (double)($mtime[1]) + (double)($mtime[0]);
+		return ($mtime);
+	}
 
 }
 

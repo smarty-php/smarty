@@ -25,6 +25,10 @@
 	{sectionelse}
 		_smarty_console.document.write("<tr bgcolor=#eeeeee><td colspan=2><tt><i>no config vars assigned</i></tt></td></tr>");	
 	{/section}
+	_smarty_console.document.write("<tr bgcolor=#cccccc><td colspan=2><b>Template execution time (in seconds):</b></td></tr>");
+	{section name=exec_time loop=$_debug_times_keys}
+		_smarty_console.document.write("<tr bgcolor={if %exed_time.index% is even}#eeeeee{else}#fafafa{/if}><td><tt>{if $_debug_times_keys[exec_time] eq "TOTAL"}<b>{$_debug_times_keys[exec_time]}</b>{else}{$_debug_times_keys[exec_time]}{/if}</td><td>{$_debug_times_vals[exec_time]}</tt></td></tr>");
+	{/section}
 	_smarty_console.document.write("</table>");
 	_smarty_console.document.write("</BODY></HTML>");
 	_smarty_console.document.close();
