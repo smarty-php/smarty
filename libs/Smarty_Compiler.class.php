@@ -441,7 +441,7 @@ class Smarty_Compiler extends Smarty {
             case 'else':
                 list($_open_tag) = end($this->_tag_stack);
                 if ($_open_tag != 'if' && $_open_tag != 'elseif')
-                    $this->_syntax_error('unxepected {else}', E_USER_ERROR, __FILE__, __LINE__);
+                    $this->_syntax_error('unexpected {else}', E_USER_ERROR, __FILE__, __LINE__);
                 else
                     $this->_push_tag('else');
                 return '<?php else: ?>';
@@ -449,7 +449,7 @@ class Smarty_Compiler extends Smarty {
             case 'elseif':
                 list($_open_tag) = end($this->_tag_stack);
                 if ($_open_tag != 'if' && $_open_tag != 'elseif')
-                    $this->_syntax_error('unxepected {elseif}', E_USER_ERROR, __FILE__, __LINE__);
+                    $this->_syntax_error('unexpected {elseif}', E_USER_ERROR, __FILE__, __LINE__);
                 if ($_open_tag == 'if')
                     $this->_push_tag('elseif');
                 return $this->_compile_if_tag($tag_args, true);
