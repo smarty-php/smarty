@@ -1,0 +1,12 @@
+This directory contains the documentation for Smarty. All files are in docbook
+format. The top level directory contains the english docs, while the subdirs
+contain different available languages.
+
+To compile the documentation, I use the docbook utilities (available as an rpm
+for redhat linux.) Compiling goes as such:
+
+cd docs
+db2html -d /path/to/html.dsl manual.sgml
+
+Be sure to edit the html.dsl file and set the path to your docbook.dsl
+stylesheet file.
