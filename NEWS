@@ -1,3 +1,6 @@
+Version 2.4.0
+-------------
+
     - fix known problems with php tag handling in templates
       (recursion, echoing <?xml tags) (Monte)
     - add support for object registration (Monte)
@@ -27,6 +30,7 @@
     - fix popup function to allow newlines in text (Monte)
     - escape html entities in html_options (Monte)
     - fixed bug with label for html_options (Monte)
+    - added config_load API function (Monte)
     - added caching to config file loading (Monte)
     - added "extra" parameter to mailto function (Monte,
       Massimiliano Perantoni)

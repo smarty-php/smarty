@@ -361,6 +361,18 @@ OUTPUT:
 {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}</programlisting>
 </example>
 		</sect2>
+        <sect2 id="language.variables.smarty.const">
+			<title>{$smarty.const}</title>
+			<para>
+			You can access PHP constant values directly.
+			</para>
+<example>
+
+<title>using {$smarty.const}</title>
+<programlisting>
+{$smarty.const._MY_CONST_VAL}</programlisting>
+</example>
+		</sect2>
 
 		<sect2 id="language.variables.smarty.capture">
 			<title>{$smarty.capture}</title>
@@ -395,8 +407,8 @@ OUTPUT:
     <chapter id="language.modifiers">
      <title>Variable Modifiers</title>
      <para>
-      Variable modifiers can be applied to any variable to alter its contents. To
-      apply a modifier, specify the variable followed by the <literal>|</literal>
+      Variable modifiers can be applied to variables, custom functions or strings. To
+      apply a modifier, specify the value followed by the <literal>|</literal>
       (pipe) and the modifier name. A modifier may accept additional parameters
       that affect its behavior. These parameters follow the modifer name and are
       separated by <literal>:</literal> (colon).
@@ -408,7 +420,13 @@ OUTPUT:
 &lt;h2&gt;{$title|upper}&lt;/h2&gt;
 
 {* Truncate the topic to 40 characters use ... at the end *}
-Topic: {$topic|truncate:40:"..."}</programlisting>
+Topic: {$topic|truncate:40:"..."}
+
+{* format a literal string *}
+{"now"|date_format:"%Y/%m/%d"}
+
+{* apply modifier to a custom function *}
+{mailto|upper address="me@domain.dom"}</programlisting>
      </example>
      <para>
       If you apply a modifier to an array variable instead of a single value variable,
@@ -787,7 +805,7 @@ no title</programlisting>
                         <entry>1</entry>
                         <entry>string</entry>
                         <entry>No</entry>
-                        <entry>html,htmlall,url,quotes,hex,hexentity</entry>
+                        <entry>html,htmlall,url,quotes,hex,hexentity,javascript</entry>
                         <entry>html</entry>
                         <entry>This is the escape format to use.</entry>
                     </row>
@@ -796,10 +814,8 @@ no title</programlisting>
             </informaltable>
 			<para>
 			This is used to html escape, url escape, escape single quotes on a
-			variable not already escaped, hex escape or hexentity escape. hex
-			and hexentity escape can be used in conjunction to hide "mailto:"
-			links on a page from web spiders (spam collectors) and yet keep
-			them readable and linkable. By default, the variable is html
+			variable not already escaped, hex escape, hexentity or javascript escape.
+			By default, the variable is html
 			escaped.
 			</para>
 <example>
@@ -4128,6 +4144,138 @@ OUTPUT:
 OUTPUT:
 
 9.44</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.mailto">
+			<title>mailto</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>address</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the e-mail address</entry>
+                    </row>
+                    <row>
+                        <entry>text</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the text to display, default is
+						       the e-mail address</entry>
+                    </row>
+                    <row>
+                        <entry>encode</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>none</emphasis></entry>
+                        <entry>How to encode the e-mail.
+						       Can be one of none,
+							   hex or javascript.</entry>
+                    </row>
+                    <row>
+                        <entry>cc</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>e-mail addresses to carbon copy.
+						       Separate entries by a comma.</entry>
+                    </row>
+                    <row>
+                        <entry>bcc</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>e-mail addresses to blind carbon copy.
+						       Separate entries by a comma.</entry>
+                    </row>
+                    <row>
+                        <entry>subject</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>e-mail subject.</entry>
+                    </row>
+                    <row>
+                        <entry>newsgroups</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>newsgroups to post to.
+						       Separate entries by a comma.</entry>
+                    </row>
+                    <row>
+                        <entry>followupto</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>addresses to follow up to.
+						       Separate entries by a comma.</entry>
+                    </row>
+                    <row>
+                        <entry>extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>any extra information you
+						       want passed to the link, such
+							   as style sheet classes</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			mailto automates the creation of mailto links and optionally
+			encodes them. Encoding e-mails makes it more difficult for
+			web spiders to pick up e-mail addresses off of your site.
+			</para>
+			<note>
+				<title>Technical Note</title>
+				<para>
+				javascript is probably the most thorough form of
+			    encoding, although you can use hex encoding too.
+            	</para>
+			</note>
+<example>
+<title>mailto</title>
+<programlisting>
+{mailto address="me@domain.com"}
+{mailto address="me@domain.com" text="send me some mail"}
+{mailto address="me@domain.com" encode="javascript"}
+{mailto address="me@domain.com" encode="hex"}
+{mailto address="me@domain.com" subject="Hello to you!"}
+{mailto address="me@domain.com" cc="you@domain.com,they@domain.com"}
+{mailto address="me@domain.com" extra='class="email"'}
+
+OUTPUT:
+
+&lt;a href="mailto:me@domain.com" &gt;me@domain.com&lt;/a&gt;
+&lt;a href="mailto:me@domain.com" &gt;send me some mail&lt;/a&gt;
+&lt;SCRIPT language="javascript"&gt;eval(unescape('%64%6f%63%75%6d%65%6e%74%2e%77%72%6
+9%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%64%6f%6d%
+61%69%6e%2e%63%6f%6d%22%20%3e%6d%65%40%64%6f%6d%61%69%6e%2e%63%6f%6d%3c%2f%61%3e
+%27%29%3b'))&lt;/SCRIPT&gt;
+&lt;a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" &gt;&amp;#x6d;&amp;#x65;&amp;#x40;&amp;#x64;&amp;
+#x6f;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6e;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;
+&lt;a href="mailto:me@domain.com?subject=Hello%20to%20you%21" &gt;me@domain.com&lt;/a&gt;
+&lt;a href="mailto:me@domain.com?cc=you@domain.com%2Cthey@domain.com" &gt;me@domain.com&lt;/a&gt;
+&lt;a href="mailto:me@domain.com" class="email"&gt;me@domain.com&lt;/a&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.popup.init">

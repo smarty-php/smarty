@@ -5,7 +5,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:     2.3.1
+ * Version:     2.4.0
  * Copyright:   2001,2002 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -1734,22 +1734,22 @@ class Smarty
        		$_compile_file = $this->_get_auto_filename($this->compile_dir, $file);
 		}
 
-		// need to generate cache?
+		// need to compile config file?
 		if($this->force_compile || !file_exists($_compile_file) ||
 			($this->compile_check &&
 				file_exists($_file_path) &&
 				( filemtime($_compile_file) != filemtime($_file_path) ))) {
-			$_generate_cache = true;
+			$_compile_config = true;
         } else {
 			include($_compile_file);
 			if(!empty($_config_vars)) {
-				$_generate_cache = true;
+				$_compile_config = true;
 			} else {
-				$_generate_cache = false;					
+				$_compile_config = false;					
 			}
 		}
 
-		if($_generate_cache) {
+		if($_compile_config) {
         	if(!is_object($this->_conf_obj)) {
             	require_once SMARTY_DIR . $this->config_class . '.class.php';
         		$this->_conf_obj = new Config_File($_config_dir);

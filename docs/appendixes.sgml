@@ -362,9 +362,7 @@ Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
 		lists? One way spammers collect E-mail addresses is from web pages. To
 		help combat this problem, you can make your E-mail address show up in
 		scrambled javascript in the HTML source, yet it it will look and work
-		correctly in the browser. This is done with the mailto plugin,
-		available from the plugin repository on the Smarty website. Download
-		the plugin and drop it into the plugins directory.
+		correctly in the browser. This is done with the mailto plugin.
 		</para>
 <example>
 <title>Example of Obfuscating an E-mail Address</title>
