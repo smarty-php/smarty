@@ -1642,7 +1642,7 @@ class Smarty
                         $params['source_content'] = $this->_read_file($_resource_name);
                     }
                     $params['resource_timestamp'] = filemtime($_resource_name);
-                    $_return = true;
+                    $_return = is_file($_resource_name);
                     break;
 
                 default:                    
