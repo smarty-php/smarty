@@ -807,25 +807,32 @@ kein Titel</programlisting>
 <example>
 <title>escape (Maskieren)</title>
 <programlisting>
+<programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('TitreArticle', "'Zwei Unbekannte haben im Lidl in Monheim 24 Pakete Kaffee gestohlen.'");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
 {$artikelTitel}
 {$artikelTitel|escape}
 {$artikelTitel|escape:"html"}    {* maskiert &amp; &quot; &#039; &lt; &gt; *}
 {$artikelTitel|escape:"htmlall"} {* maskiert ALLE html Entit&auml;ten *}
 {$artikelTitel|escape:"url"}
 {$artikelTitel|escape:"quotes"}
-&lt;a
-href="mailto:{$EmailAdresse|escape:"hex"}"&gt;{$EmailAdresse|escape:"hexentity"}&lt;/a&gt;
+&lt;a href="mailto:{$EmailAdresse|escape:"hex"}"&gt;{$EmailAdresse|escape:"hexentity"}&lt;/a&gt;
 
 AUSGABE:
 
 'Zwei Unbekannte haben im Lidl in Monheim 24 Pakete Kaffee gestohlen.'
-'Zwei%20Unbekannte%20haben%20im%20Lidl%20in%20Monheim%2024%20Pakete%20Kaffee%20gestohlen.'
-'Zwei%20Unbekannte%20haben%20im%20Lidl%20in%20Monheim%2024%20Pakete%20Kaffee%20gestohlen.'
-'Zwei%20Unbekannte%20haben%20im%20Lidl%20in%20Monheim%2024%20Pakete%20Kaffee%20gestohlen.'
-'Zwei+Unbekannte+haben+im+Lidl+in+Monheim+24+Pakete+Kaffee+gestohlen.'
+&amp;#039;Zwei Unbekannte haben im Lidl in Monheim 24 Pakete Kaffee gestohlen.&amp;#039;
+&amp;#039;Zwei Unbekannte haben im Lidl in Monheim 24 Pakete Kaffee gestohlen.&amp;#039;
+&amp;#039;Zwei Unbekannte haben im Lidl in Monheim 24 Pakete Kaffee gestohlen.&amp;#039;
+%27Zwei+Unbekannte+haben+im+Lidl+in+Monheim+24+Pakete+Kaffee+gestohlen.%27
 \'Zwei Unbekannte haben im Lidl in Monheim 24 Pakete Kaffee gestohlen.\'
-&lt;a
-href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
+&lt;a href=&quot;mailto:%62%6f%62%40%6d%65%2e%6e%65%74&quot;&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.modifier.indent">
