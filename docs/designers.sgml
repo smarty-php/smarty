@@ -3854,7 +3854,7 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                         <entry>string/array</entry>
                         <entry>No</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>the checked checkbox element(s)</entry>
+                        <entry>the selected checkbox element(s)</entry>
                     </row>
                     <row>
                         <entry>options</entry>
@@ -3906,7 +3906,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{html_checkboxes name="id" values=$cust_ids checked=$customer_id output=$cust_names separator="&lt;br /&gt;"}
+{html_checkboxes name="id" values=$cust_ids selected=$customer_id output=$cust_names separator="&lt;br /&gt;"}
 
 
 index.php:
@@ -3923,7 +3923,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{html_checkboxes name="id" options=$cust_checkboxes checked=$customer_id separator="&lt;br /&gt;"}
+{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="&lt;br /&gt;"}
 
 
 OUTPUT: (both examples)
@@ -4223,11 +4223,11 @@ OUTPUT: (both examples)
                         <entry>an array of output for radio buttons</entry>
                     </row>
                     <row>
-                        <entry>checked</entry>
+                        <entry>selected</entry>
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>the checked radio element</entry>
+                        <entry>the selected radio element</entry>
                     </row>
                     <row>
                         <entry>options</entry>
@@ -4273,7 +4273,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{html_radios values=$cust_ids checked=$customer_id output=$cust_names separator="&lt;br /&gt;"}
+{html_radios values=$cust_ids selected=$customer_id output=$cust_names separator="&lt;br /&gt;"}
 
 
 index.php:
@@ -4291,7 +4291,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{html_radios name="id" options=$cust_radios checked=$customer_id separator="&lt;br /&gt;"}
+{html_radios name="id" options=$cust_radios selected=$customer_id separator="&lt;br /&gt;"}
 
 
 OUTPUT: (both examples)
