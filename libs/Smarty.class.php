@@ -1250,14 +1250,14 @@ reques     * @var string
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
-            if (!$this->_is_compiled($tpl_file, $_smarty_compile_path)
+            if ($this->_is_compiled($tpl_file, $_smarty_compile_path)
 					|| $this->_compile_template($tpl_file, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
             }
         } else {
             ob_start();
-            if (!$this->_is_compiled($tpl_file, $_smarty_compile_path)
+            if ($this->_is_compiled($tpl_file, $_smarty_compile_path)
 					|| $this->_compile_template($tpl_file, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
@@ -1414,27 +1414,27 @@ reques     * @var string
         if (!$this->force_compile && file_exists($compile_path)) {
             if (!$this->compile_check) {
                 // no need to check compiled file
-                return false;
+                return true;
             } else {
                 // get file source and timestamp
 				require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
 				$_params = array('file_path' => $file_path);
                 if (!smarty_core_fetch_file_info($_params, $this)) {
-                    return true;
+                    return false;
                 }
 				$_file_source = $_params['file_source'];
 				$_file_timestamp = $_params['file_timestamp'];
                 if ($_file_timestamp <= filemtime($compile_path)) {
                     // template not expired, no recompile
-                    return false;
+                    return true;
                 } else {
 					// compile template
-                    return true;
+                    return false;
                 }
             }
         } else {
             // compiled template does not exist, or forced compile
-            return true;
+            return false;
         }
     }
 
