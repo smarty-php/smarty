@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.14 Maintainer: gerald Status: ready -->
 <chapter id="language.modifiers">
  <title>Modificateurs de variables</title>
  <para>
@@ -38,7 +38,26 @@ Sujet: {$sujet|truncate:40:"..."}
   <literal>@</literal> comme ceci: <literal>{$titreArticle|@count}</literal>
   (Affiche le nombre d'élements du tableau $titreArticle.)
  </para>
- 
+  <para>
+  Les modificateurs sont chargés automatiquement depuis votre répertoire 
+  de plugin <link linkend="variable.plugins.dir">$plugins_dir</link> (voir aussi:
+  <link linkend="plugins.naming.conventions">convention de nommage</link>) 
+  ou peuvent être enregistrés explicitement (voir: <link
+  linkend="api.register.modifier">register_modifier</link>). 
+  De même, toutes les fonction php peuvent être utilisées comme modificateur, 
+  sans autre déclaration. (L'exemple avec 
+  <literal>@count</literal> ci dessus utilise la fonction count, et non un modificateur
+  Smarty. Utiliser des fonctions PHP en tant que modificateur comporte deux 
+  risques: Premièrement: il arrive que l'ordre des paramètres ne soit pas
+  celui attendu (<literal>{"%2.f"|sprintf:$float}</literal> fonctionne,
+  mais demande une syntaxe plus naturelle, par exemple<literal>{$float|string_format:"%2.f"}</literal>
+  fourni dans la distribution Smarty). Deuxièmement : lorsque <link
+  linkend="variable.security">$security</link> est activé, les fonctions php
+  utilisées en tant que modificateur doivent être explicitement déclarées 
+  comme connues dans le tableau <link linkend="variable.security.settings">
+  $security_settings['MODIFIER_FUNCS']</link>.
+ </para>
+
  &designers.language-modifiers.language-modifier-capitalize;
  &designers.language-modifiers.language-modifier-count-characters;
  &designers.language-modifiers.language-modifier-cat;
