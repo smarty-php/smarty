@@ -431,18 +431,22 @@ class Smarty_Compiler extends Smarty {
                 $include_file = $arg_value;
                 continue;
             }
+            elseif ($arg_name == 'assign') {
+                $assign_var = $arg_value;
+                continue;
+            }
             if (is_bool($arg_value))
                 $arg_value = $arg_value ? 'true' : 'false';
             $arg_list[] = "'$arg_name' => $arg_value";
         }
-        if (!empty($attrs['assign'])) {
+        if (isset($assign_var)) {
 			$return = "<?php ob_start();\n";
         	$return .=  
             	"\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
             	"\$this->_smarty_include(".$include_file.", array(".implode(',', (array)$arg_list)."));\n" .
             	"\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
             	"unset(\$_smarty_tpl_vars);\n";
-			$return .= "\$this->assign('".$this->_dequote($attrs['assign'])."',ob_get_contents()); ob_end_clean();\n?>";
+			$return .= "\$this->assign('".$this->_dequote($assign_var)."',ob_get_contents()); ob_end_clean();\n?>";
 		} else {
         	$return =  "<?php " .
             	"\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .

@@ -2293,6 +2293,14 @@ pass=foobar
                         <entry>The name of the template file to include</entry>
                     </row>
                     <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the varible that the output of
+						include will be assigned to</entry>
+                    </row>
+                    <row>
                         <entry>[var ...]</entry>
                         <entry>[var type]</entry>
                         <entry>No</entry>
@@ -2307,6 +2315,11 @@ pass=foobar
             template. Any variables available in the current template are also
             available within the included template. The include tag must have
             the attribute "file", which contains the template resource path.
+			</para>
+			<para>
+			You an optionally pass the assign attribute, which will specify a
+			template variable name that the output of include will be assigned
+			to instead of displayed. This was added to Smarty 1.5.0.
 			</para>
 <example>
 <title>function include</title>
@@ -2365,6 +2378,14 @@ pass=foobar
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>The name of the php file to include</entry>
                     </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the varible that the output of
+						include_php will be assigned to</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
@@ -2384,6 +2405,11 @@ pass=foobar
 			of the template. Now you can include this template anywhere without
 			worrying if the database information was assigned by the application
 			before hand.
+			</para>
+			<para>
+			You an optionally pass the assign attribute, which will specify a
+			template variable name that the output of include_php will be
+			assigned to instead of displayed.
 			</para>
 			<para>
 			include_php was added to Smarty 1.5.0.

@@ -1,3 +1,4 @@
+    - added assign attribute to include and include_php, documented (Monte)
     - added include_php built-in function. (Monte)
     - added trusted_dir functionality, documented. (Monte)
     - consolidated secure_dir tests to one function. (Monte)
