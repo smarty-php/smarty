@@ -6269,7 +6269,7 @@ OUTPUT:
 // this assumes your form elements are named
 // startDate_Day, startDate_Month, startDate_Year
 
-$startDate = makeTimeStamp($startDate_Year,$startDate_Month,$startDate_day);
+$startDate = makeTimeStamp($startDate_Year,$startDate_Month,$startDate_Day);
 
 function makeTimeStamp($year="",$month="",$day="")
 {

@@ -1,3 +1,4 @@
+    - update popup_init to accept src attribute (Monte, Duncan Forrest)
     - implemented several optimizations, speeding up Smarty significantly in
       most cases. (Andrei)
     - implemented plugin architecture. (Andrei)
