@@ -1,12 +1,22 @@
+2.0
+---
+
+This release removes PEAR dependency -- it was mainly a consequence of using
+Config_File class which was originally written with PEAR in mind but was
+never integrated into it.
+
+
 1.5.2
 -----
 
 Mostly bug fixes, added a default template resource handler.
 
+
 1.5.1
 -----
 
 Critical bug fix release. If you use caching, you'll need to upgrade.
+
 
 1.5.0
 -----
@@ -18,6 +28,7 @@ enhanced so that the output can be automatically assigned to a template
 variable instead of displayed (assign attribute). Cache files can now be
 controlled with a custom function as an alternative to the built-in file based
 method. Many code cleanups and bug fixed went into this release as well.
+
 
 1.4.6
 -----
@@ -38,6 +49,7 @@ The debug console now has script timing and array values printed. You MUST
 update your debug.tpl file with this version of Smarty. Also, the new debug.tpl
 will not work with older versions of Smarty.
 
+
 1.4.5
 -----
 
@@ -46,12 +58,14 @@ versions of the same script. The directory format and filename convention for
 the files in templates_c has changed, so you may want to remove all of the
 existing ones before you upgrade.
 
+
 1.4.4
 -----
 
 A few bug fixes, new section looping attributes and properties, debugging
 console function for control via URL, and overLib integration and access
 to request variables from within the template.
+
 
 1.4.3
 -----
@@ -62,12 +76,14 @@ ability for someone to execute commands or PHP code from the template language.
 Smarty also now has a built-in debugging console, which is a javascript pop-up
 window that displays all the included template names and assigned variables.
 
+
 1.4.2
 -----
 
 This was mostly one bug fix with variable scoping within included templates
 and a few documentation changes and updates. See the ChangeLog file for full
 details.
+
 
 1.4.1
 -----
@@ -78,6 +94,7 @@ disables file locking on windows, so there is a potential that two programs
 could write over the same file at the same time, fyi.
 
 The reset is minor bug fixes, please refer to the ChangeLog file.
+
 
 1.4.0
 -----
@@ -197,6 +214,7 @@ does not yet exist, it will compile it regardless of this setting. This way you
 can clear out the $compile_dir and not worry about setting $compile_check to
 true to get the inital compilation under way.
 
+
 1.3.2
 -----
 
@@ -229,3 +247,5 @@ function sprintf().
 
 A few custom modifiers were added: count_characters, count_words,
 count_sentences, count_paragraphs. All pretty self-explanatory.
+
+/* vim: set et: */

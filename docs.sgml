@@ -6452,13 +6452,4 @@ Stock Name: {$ticker_name} Stock Price: {$ticker_price}
 	check the website.
 	</para>
 </chapter>
-<chapter id="pear">
-	<title>PEAR</title>
-	<para>
-	Smarty uses the PEAR libraries for some of its error handling routines.
-	PEAR libraries come with the distribution of PHP. Be sure that the path to
-	these libraries is included in your php include_path. un*x users check
-	/usr/local/lib/php. Windows users check C:/php/pear.
-	</para>
-</chapter>
 </book>

@@ -21,11 +21,6 @@ can find the class. Alternatively, you can set the SMARTY_DIR constant in your
 application, and Smarty will use that directory as the path to the Smarty
 class files. Be sure the path ends with a slash!
 
-Smarty uses the PEAR libraries for some of its error handling routines. PEAR
-libraries come with the distribution of PHP. Be sure that the path to these
-libraries is included in your php include_path. Unix users check
-/usr/local/lib/php. Windows users check C:/php/pear.
-
 Now change directories somewhere inside of your web server document root. For
 this guide, we'll create a directory under the document root named "Smarty",
 and put all of our work here.
@@ -60,13 +55,6 @@ $> ls -l
 drwxrwxr-x   2 user    group        512 Jan 18 14:18 configs/
 drwxrwxr-x   2 user    group        512 Jan 18 14:18 templates/
 drwxrwxrwx   2 user    group        512 Jan 18 14:18 templates_c/
-
-Make sure the current directory and the path to PEAR.php are in your
-include_path. Example php.ini entries:
-(unix) include_path=".:/usr/local/lib/php"
-(windows) include_path=".;\php\pear"
-Also, windows users may have to change the filename from PEAR.php.in
-to PEAR.php (named like this in some distributions?)
 
 Now we need to create two files, index.php and templates/index.tpl. index.php
 is the file that we will be calling from our web browser. index.tpl is the file

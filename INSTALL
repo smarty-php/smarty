@@ -4,11 +4,6 @@ Smarty requires PHP 4.0.4pl1 or later to fix all known problems Smarty has with
 PHP. Smarty was developed and tested with 4.0.4pl1. See the BUGS file for more
 info.
 
-Smarty uses the PEAR libraries for some of its error handling routines. PEAR
-libraries come with the distribution of PHP. Be sure that the path to these
-libraries is included in your php include_path. Unix users check
-/usr/local/lib/php. Windows users check C:/php/pear.
-
 INSTALLATION:
 
 * copy the Smarty.class.php, Smarty.addons.php, Smarty_Compile.class.php and

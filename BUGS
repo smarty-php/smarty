@@ -9,8 +9,3 @@ use of get_defined_vars() function. Some versions of Windows 2k have a problem
 with flock(). Comment out the flock() command in _write_file to get around this.
 
 To be absolutely safe, use 4.0.4pl or later with Smarty.
-
-Also be sure to include the path to the PEAR libraries in your php
-include_path. Config_file.class.php uses the PEAR library for its error
-handling routines. PEAR comes with the PHP distribution. Unix users check
-/usr/local/lib/php, windows users check C:/php/pear.

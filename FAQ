@@ -21,9 +21,6 @@ Q: Smarty doesn't work.
 Q: I get the following error when running Smarty:
    Warning: Wrong parameter count for preg_replace() in
    Smarty.class.php on line 371
-Q: I get the following error when running Smarty:
-   Fatal error: Failed opening required 'PEAR.php'
-   (include_path='') in Config_File.class.php on line 3
 Q: I get this error when passing variables to {include}:
    Fatal error: Call to undefined function: get_defined_vars() in
    /path/to/Smarty/templates_c/index.tpl.php on line 8
@@ -34,8 +31,6 @@ Q: I'm running Windows 2000 and I get blank content. My compiled PHP files are
    also zero length.
 Q: The template goes into an infinite loop when I include included templates
    that pass local variables
-Q: My ISP did not setup the PEAR repository, nor will they set it up. How do I
-   make Smarty run without it?
 Q: Javascript is causing Smarty errors in my templates.
 
 MISC
@@ -143,18 +138,6 @@ A: preg_replace had a parameter added in PHP 4.0.2 that Smarty
    requires. Upgrade to at least 4.0.4pl to fix all known PHP issues with
    Smarty.
 
-Q: I get the following error when running Smarty:
-   Fatal error: Failed opening required 'PEAR.php'
-   (include_path='') in Config_File.class.php on line 3
-A: Smarty uses the PEAR libraries for some of its error handling routines.
-   PEAR libraries come with the distribution of PHP. Be sure that the path to
-   these libraries is included in your php include_path. Unix users check
-   /usr/local/lib/php. Windows users check C:\php\pear. You may also need to
-   change the filename from PEAR.php.in to PEAR.php (windows distribution)
-   Example entry in php.ini:
-   (unix) include_path=".:/usr/local/lib/php"
-   (windows) include_path=".;\php\pear"
-
 Q: I get this error when passing variables to {include}:
    Fatal error: Call to undefined function: get_defined_vars() in
    /path/to/Smarty/templates_c/index.tpl.php on line 8
@@ -189,12 +172,6 @@ A: There seems to be a problem with some W2k machines and exclusive file
 Q: The template goes into an infinite loop when I include included templates
    that pass local variables
 A: This was fixed in 1.3.2 (new global attribute)
-
-Q: My ISP did not setup the PEAR repository, nor will they set it up. How do I
-   make Smarty run without it?
-A: The easiest thing to do is grab all of PEAR and install it locally for your
-   own use. There's nothing that says PEAR must be installed in its default
-   directory. There won't be a version of Smarty that runs without PEAR.
 
 Q: Javascript is causing Smarty errors in my templates.
 A: Surround your javascript with {literal}{/literal} tags. See the docs.
