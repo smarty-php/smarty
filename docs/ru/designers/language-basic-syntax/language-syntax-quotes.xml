@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
 <sect1 id="language.syntax.quotes">
  <title>Âíåäðåííûå ïåðåìåííûå â äâîéíûõ êàâû÷êàõ</title>
@@ -11,7 +11,7 @@
  </para>
  <example>
   <title>Ñèíòàêñèñ âíåäðåííûõ ïåðåìåííûõ</title>
-   <programlisting>
+  <programlisting>
 <![CDATA[
 Ïðèìåð ñèíòàêñèñà:
 {func var="test $foo test"}       <-- èùåò $foo
@@ -25,8 +25,8 @@
 {include file="subdir/$tpl_name.tpl"} <-- çàìåíèò $tpl_name íà åå çíà÷åíèå
 {cycle values="one,two,`$smarty.config.myval`"} <-- íàäî çàêëþ÷àòü â îáðàòíûå êàâû÷êè
 ]]>
-   </programlisting>
-</example>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,23 +1,21 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-  <chapter id="language.basic.syntax">
-   <title>Áàçîâûé ñèíòàêñèñ</title>
-   <para>
-    Âñå òýãè øàáëîíîâ Smarty ðàñïîëàãàþòñÿ ìåæäó ñïåöèàëüíûìè 
-    ðàçäåëèòåëÿìè. Ïî óìîë÷àíèþ ýòî <literal>{</literal> è
-    <literal>}</literal>, íî îíè ìîãóò áûòü èçìåíåíû.
-   </para>
-   <para>
-    Äëÿ íàøèõ ïðèìåðîâ ìû áóäåì èñïîëüçîâàòü ñòàíäàðòíûå ðàçäåëèòåëè.
-    Smarty âñå ñîäåðæèìîå âíå ðàçäåëèòåëåé îòîáðàæàåò êàê ñòàòè÷åñêîå 
-    ñîäåðæàíèå, áåç èçìåíåíèé. Êîãäà Smarty âñòðå÷àåò òýãè, òî ïûòàåòñÿ
-    èíòåðïðåòèðîâàòü èõ è âûâåñòè âìåñòî íèõ ñîîòâåòñòâóþùèé ðåçóëüòàò.
-   </para>
+<chapter id="language.basic.syntax">
+ <title>Áàçîâûé ñèíòàêñèñ</title>
+ <para>
+  Âñå òýãè øàáëîíîâ Smarty ðàñïîëàãàþòñÿ ìåæäó ñïåöèàëüíûìè 
+  ðàçäåëèòåëÿìè. Ïî óìîë÷àíèþ ýòî <literal>{</literal> è
+  <literal>}</literal>, íî îíè ìîãóò áûòü èçìåíåíû.
+ </para>
+ <para>
+  Äëÿ íàøèõ ïðèìåðîâ ìû áóäåì èñïîëüçîâàòü ñòàíäàðòíûå ðàçäåëèòåëè.
+  Smarty âñå ñîäåðæèìîå âíå ðàçäåëèòåëåé îòîáðàæàåò êàê ñòàòè÷åñêîå 
+  ñîäåðæàíèå, áåç èçìåíåíèé. Êîãäà Smarty âñòðå÷àåò òýãè, òî ïûòàåòñÿ
+  èíòåðïðåòèðîâàòü èõ è âûâåñòè âìåñòî íèõ ñîîòâåòñòâóþùèé ðåçóëüòàò.
+ </para>
 
 &designers.language-basic-syntax.language-syntax-comments;
-
 &designers.language-basic-syntax.language-syntax-functions;
-
 &designers.language-basic-syntax.language-syntax-attributes;
 &designers.language-basic-syntax.language-syntax-quotes;
 
