@@ -565,13 +565,6 @@ reques     * @var string
 
 
     /**
-     * cache serial
-     *
-     * @var array
-     */
-    var $_cache_serial = null;
-
-    /**
      * cache serials
      *
      * @var array
@@ -1291,7 +1284,8 @@ reques     * @var string
         }
 
         $_smarty_compile_path = $this->_get_compile_path($resource_name);
-		
+        $this->_cache_include    = substr($_smarty_compile_path, 0, -4).'.inc';		
+
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
@@ -1496,16 +1490,14 @@ reques     * @var string
 		$_resource_timestamp = $_params['resource_timestamp'];
 
         if ($this->_compile_source($resource_name, $_source_content, $_compiled_content)) {
-			$_params = array('compile_path' => $compile_path, 'compiled_content' => $_compiled_content, 'resource_timestamp' => $_resource_timestamp);
+			$_params = array('compile_path'=>$compile_path, 'compiled_content' => $_compiled_content, 'resource_timestamp' => $_resource_timestamp);
 			require_once(SMARTY_DIR . 'core/core.write_compiled_resource.php');
 			smarty_core_write_compiled_resource($_params, $this);
-
+            
             // if a _cache_serial was set, we also have to write an include-file:
-            if ($this->_cache_serial = $smarty_compiler->_cache_serial) {
-                $_params['plugins_code'] = $smarty_compiler->_plugins_code;
-                $_params['include_file_path'] = $smarty_compiler->_cache_include;       
+            if ($this->_cache_include_info) {
                 require_once(SMARTY_DIR . 'core/core.write_compiled_include.php');
-                smarty_core_write_compiled_include($_params, $this);
+                smarty_core_write_compiled_include(array_merge($this->_cache_include_info, array('compiled_content'=>$_compiled_content)),  $this);
             }          
             return true;
         } else {
@@ -1557,13 +1549,27 @@ reques     * @var string
 
         $smarty_compiler->request_use_auto_globals  = $this->request_use_auto_globals;
 
-        $smarty_compiler->_cache_serial = null;
-        $smarty_compiler->_cache_include    = substr($compile_path, 0, -4).'.inc';		
         $smarty_compiler->_cache_paths   	= $this->_cache_paths;
         $smarty_compiler->_cache_paths_file	= $this->_cache_paths_file;
+
+        $smarty_compiler->_cache_serial = null;
+        $smarty_compiler->_cache_include = $this->_cache_include;
 		
-		return $smarty_compiler->_compile_file($resource_name, $source_content, $compiled_content);
-		
+
+		$_results = $smarty_compiler->_compile_file($resource_name, $source_content, $compiled_content);
+
+        if ($smarty_compiler->_cache_serial) {
+            $this->_cache_include_info = array(
+                'cache_serial'=>$smarty_compiler->_cache_serial
+                ,'plugins_code'=>$smarty_compiler->_plugins_code
+                ,'include_file_path' => $smarty_compiler->_cache_include);
+
+        } else {
+            $this->_cache_include_info = null;
+
+        }
+
+		return $_results;
 	}	
 		
     /**
