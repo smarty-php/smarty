@@ -1,3 +1,35 @@
+2004-07-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/modifier.date_format.php:
+      changed call from $smarty->_get_plugin_filepath() to
+      $smarty->get_plugin_filepath()
+
+    * libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_image.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_radios.php
+      libs/plugins/function.html_select_date.php
+      libs/plugins/function.html_select_time.php:
+      renamed calls to $smarty->_get_plugin_filepath() to
+      $smarty->get_plugin_filepath()
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.load_plugins.php
+      libs/core/core.load_resource_plugin.php:
+      renamed Smarty::_get_plugin_filepath() to Smarty::get_plugin_filepath()
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/core/core.write_compiled_include.php
+      libs/core/core.write_compiled_resource.php
+      libs/core/core.write_file.php:
+      removed touch() call. changing the timestamp of the compiled-template
+      to the source template's may be irritating for certain
+      source-code-caches. now a newly compiled template gets the current
+      time as timestamp.
+
 2004-07-02  gerald croes  <gerald@phpside.org>
 
     * docs/fr/getting-started.xml
