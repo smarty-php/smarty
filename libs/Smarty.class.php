@@ -23,8 +23,8 @@
  * smarty-general-subscribe@lists.php.net
  *
  * @link http://smarty.php.net/
- * @copyright 2001-2005 ispi of Lincoln, Inc.
- * @author Monte Ohrt <monte@ispi.net>
+ * @copyright 2001-2005 New Digital Group, Inc.
+ * @author Monte Ohrt <monte@ohrt.com>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
  * @version 2.6.6-dev

@@ -21,7 +21,7 @@
  * @link http://smarty.php.net/manual/en/language.modifier.nl2br.php
  *          nl2br (Smarty online manual)
  * @version  1.0
- * @author   Monte Ohrt <monte@ispi.net>
+ * @author   Monte Ohrt <monte@ohrt.com>
  * @param string
  * @return string
  */

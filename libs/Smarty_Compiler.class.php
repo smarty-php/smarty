@@ -19,10 +19,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @link http://smarty.php.net/
- * @author Monte Ohrt <monte@ispi.net>
+ * @author Monte Ohrt <monte@ohrt.com>
  * @author Andrei Zmievski <andrei@php.net>
  * @version 2.6.6-dev
- * @copyright 2001-2005 ispi of Lincoln, Inc.
+ * @copyright 2001-2005 New Digital Group, Inc.
  * @package Smarty
  */
 

@@ -17,7 +17,7 @@
  * Date:     September 25th, 2002
  * @link http://smarty.php.net/manual/en/language.modifier.strip.php
  *          strip (Smarty online manual)
- * @author   Monte Ohrt <monte@ispi.net>
+ * @author   Monte Ohrt <monte@ohrt.com>
  * @version  1.0
  * @param string
  * @param string

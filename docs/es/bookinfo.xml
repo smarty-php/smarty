@@ -4,7 +4,7 @@
   <title>Smarty - El motor compilador de Plantillas para PHP</title>
   <authorgroup id="authors">
    <author>
-    <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
+    <firstname>Monte</firstname><surname>Ohrt &lt;monte@ohrt.com&gt;</surname>
    </author>
    <author>
     <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
@@ -17,7 +17,7 @@
   <pubdate>&build-date;</pubdate>
   <copyright>
    <year>2001-2004</year>
-   <holder>ispi of Lincoln, Inc.</holder>
+   <holder>New Digital Group, Inc.</holder>
   </copyright>
  </bookinfo>
 

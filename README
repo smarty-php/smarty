@@ -6,7 +6,7 @@ VERSION: 2.6.0
 
 AUTHORS:
     
-    Monte Ohrt <monte@ispi.net>
+    Monte Ohrt <monte@ohrt.com>
     Andrei Zmievski <andrei@php.net>
 
 MAILING LISTS:
@@ -75,6 +75,6 @@ DESCRIPTION:
     * and many more.
 
 COPYRIGHT:
-    Copyright (c) 2001,2002 ispi of Lincoln, Inc. All rights reserved.
+    Copyright (c) 2001-2005 New Digital Group, Inc. All rights reserved.
     This software is released under the GNU Lesser General Public License.
     Please read the disclaimer at the top of the Smarty.class.php file.

@@ -25,7 +25,7 @@
  * Output:   <img src="images/masthead.gif" border=0 width=400 height=23>
  * @link http://smarty.php.net/manual/en/language.function.html.image.php {html_image}
  *      (Smarty online manual)
- * @author   Monte Ohrt <monte@ispi.net>
+ * @author   Monte Ohrt <monte@ohrt.com>
  * @author credits to Duda <duda@big.hu> - wrote first image function
  *           in repository, helped with lots of functionality
  * @version  1.0
