@@ -43,7 +43,19 @@ function smarty_core_write_compiled_include($params, &$smarty)
         if ($this_varname == '_smarty') {
             /* rename $this to $_smarty in the sourcecode */
             $tokens = token_get_all('<?php ' . $_match[4]);
-            array_shift($tokens); /* remove the opening <.?.php */
+
+            /* remove trailing <?php */
+            $open_tag = '';
+            while ($tokens) {
+                $token = array_shift($tokens);
+                if (is_array($token)) {
+                    $open_tag .= $token[1];
+                } else {
+                    $open_tag .= $token;
+                }
+                if ($open_tag == '<?php ') break;
+            }
+
             for ($i=0, $count = count($tokens); $i < $count; $i++) {
                 if (is_array($tokens[$i])) {
                     if ($tokens[$i][0] == T_VARIABLE && $tokens[$i][1] == '$this') {
