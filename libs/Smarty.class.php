@@ -5,7 +5,7 @@
  * Author:		Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@ispi.net>
  *
- * Version:             1.2.2
+ * Version:             1.2.3
  * Copyright:           2001 ispi of Lincoln, Inc.
  *				
  * This program is free software; you can redistribute it and/or
@@ -43,59 +43,57 @@ class Smarty
 {
 
 	// public vars
-	var	$compile_check	=	true;	// whether to check for compiling step or not:
-									// This is generally set to false once the
-									// application is entered into production and
-									// initially compiled. Leave set to true
-									// during development. true/false
+	var	$compile_check	 =	true;       // whether to check for compiling step or not:
+                                        // This is generally set to false once the
+                                        // application is entered into production and
+                                        // initially compiled. Leave set to true
+                                        // during development. true/false
 
-	var $compile_force	=	false;	// force templates to compile every time.
-									// overrides compile_check. true/false
-	var $allow_url_compile =	true;	// allow forced recompile from URL ?compile_force=1
+	var $force_compile	 =	false;      // force templates to compile every time.
+                                        // overrides compile_check. true/false
 	
-									// NOTE: all cache directives override
-									// compiling directives. If a cached version
-									// is available, that will be used regardless
-									// of compile settings.
-	var $cache_engine	=	true;	// whether to use caching or not. true/false
-	var $cache_expire	=	3600;	// number of seconds cached content will expire.
-									// 0 = never expires. default is one hour (3600)
-	var $cache_force	=	false;	// force caches to expire every time. true/false
-	var $allow_url_cache =	true;	// allow forced cache expire from URL ?cache_force=1
+                                        // NOTE: all cache directives override
+                                        // compiling directives. If a cached version
+                                        // is available, that will be used regardless
+                                        // of compile settings.
+	var $caching	     =	true;       // whether to use caching or not. true/false
+	var $cache_lifetime	 =	3600;       // number of seconds cached content will persist.
+                                        // 0 = never expires. default is one hour (3600)
 
-	var $template_dir			=	"./templates"; // name of directory for templates	
-	var $compile_dir			=	"./templates_c"; // name of directory for compiled templates	
-	var $cache_dir				=	"./cache"; // name of directory for template cache
+	var $template_dir	 =	"./templates";      // name of directory for templates	
+	var $compile_dir	 =	"./templates_c";    // name of directory for compiled templates	
+	var $cache_dir		 =	"./cache";          // name of directory for template cache
 	
 	
-	var $tpl_file_ext			=	".tpl";	// template file extentions
+	var $tpl_file_ext	 =	".tpl";	    // template file extentions
 	
-	var $allow_php				=	false;		// whether or not to allow embedded php
-												// in the templates. By default, php tags
-												// are escaped. true/false
-	var $left_delimiter			=	"{";		// template tag delimiters.
-	var $right_delimiter		=	"}";
+	var $allow_php		 =	false;      // whether or not to allow embedded php
+                                        // in the templates. By default, php tags
+                                        // are escaped. true/false
 
-	var $config_dir				=	"./configs";	// directory where config files are located
+	var $left_delimiter	 =	"{";        // template tag delimiters.
+	var $right_delimiter =	"}";
 
-	var $custom_funcs			=	array(	'html_options'		=> 'smarty_func_html_options',
-											'html_select_date'	=> 'smarty_func_html_select_date'
-										 );
+	var $config_dir		 =	"./configs";	// directory where config files are located
+
+	var $custom_funcs	 =	array(	'html_options'		=> 'smarty_func_html_options',
+									'html_select_date'	=> 'smarty_func_html_select_date'
+								 );
 	
-	var $custom_mods			=	array(	'lower'			=> 'strtolower',
-											'upper'			=> 'strtoupper',
-											'capitalize'	=> 'ucwords',
-											'escape'		=> 'smarty_mod_escape',
-											'truncate'		=> 'smarty_mod_truncate',
-											'spacify'		=> 'smarty_mod_spacify',
-											'date_format'	=> 'smarty_mod_date_format',
-											'string_format'	=> 'smarty_mod_string_format',
-											'replace'		=> 'smarty_mod_replace',
-											'strip_tags'	=> 'smarty_mod_strip_tags',
-											'default'		=> 'smarty_mod_default'
-										 );
-	var $global_assign			=	array(	'SCRIPT_NAME'
-										 );
+	var $custom_mods	 =	array(	'lower'			=> 'strtolower',
+									'upper'			=> 'strtoupper',
+									'capitalize'	=> 'ucwords',
+									'escape'		=> 'smarty_mod_escape',
+									'truncate'		=> 'smarty_mod_truncate',
+									'spacify'		=> 'smarty_mod_spacify',
+									'date_format'	=> 'smarty_mod_date_format',
+									'string_format'	=> 'smarty_mod_string_format',
+									'replace'		=> 'smarty_mod_replace',
+									'strip_tags'	=> 'smarty_mod_strip_tags',
+									'default'		=> 'smarty_mod_default'
+								 );
+	var $global_assign	 =	array(	'SCRIPT_NAME'
+								 );
 	
 	// internal vars
 	var $_error_msg				=	false;		// error messages. true/false
@@ -198,58 +196,64 @@ class Smarty
 
 	function display($tpl_file)
 	{
-		print $this->fetch($tpl_file);
+		$this->fetch($tpl_file, true);
 	}	
 		
 /*======================================================================*\
 	Function:	fetch()
-	Purpose:	executes & returns the template results
+	Purpose:	executes & returns or displays the template results
 \*======================================================================*/
 
-	function fetch($tpl_file)
+	function fetch($tpl_file, $display = false)
 	{
-		global $HTTP_GET_VARS,$PHP_SELF;
+		global $PHP_SELF;
 
-		if($this->cache_engine)
-		{
-			if($this->allow_url_cache && $HTTP_GET_VARS["cache_force"])
-				$this->cache_force = true;
-			
+		if($this->caching) {
 			// cache id = template path + the invoked script
-			$cache_file = $this->cache_dir."/".urlencode($tpl_file."@".$PHP_SELF).".che";
+			$cache_file = $this->cache_dir."/".urlencode($tpl_file."@".$PHP_SELF).".cache";
  			if(!$this->cache_force &&
 					(file_exists($cache_file) &&
-						($this->cache_expire == 0 ||
-							(mktime() - filectime($cache_file) <= $this->cache_expire)
-						)))
-			{
+						($this->cache_lifetime == 0 ||
+							(mktime() - filemtime($cache_file) <= $this->cache_lifetime)
+						))) {
 					$results = $this->_read_file($cache_file);
 					$results = $this->_process_cached_inserts($results);
-					return $results;
-			}	
+                    if ($display) {
+                        print $results;
+                        return;
+                    } else
+                        return $results;
+			}
 		}
 
-		if($this->allow_url_compile && $HTTP_GET_VARS["compile_force"])
-			$this->compile_force = true;
+        // compile files
+        $this->_compile($this->template_dir);
+        //assemble compile directory path to file
+        $_compile_file = $this->compile_dir."/".$tpl_file.".php";
 
-		ob_start();
-			// compile files
-			$this->_compile($this->template_dir);
-			//assemble compile directory path to file
-			$_compile_file = $this->compile_dir."/".$tpl_file.".php";
+        extract($this->_tpl_vars);
 
-			extract($this->_tpl_vars);		
-			include($_compile_file);
-			$results = ob_get_contents();
-		ob_end_clean();
+        // if we just need to display the results, don't perform output
+        // buferring - for speed
+        if ($display && !$this->caching)
+            include($_compile_file);
+        else {
+            ob_start();
+            include($_compile_file);
+            $results = ob_get_contents();
+            ob_end_clean();
+        }
 
-		if($this->cache_engine)
-		{
-			$this->_write_file($cache_file,$results);
+		if($this->caching) {
+			$this->_write_file($cache_file, $results);
 			$results = $this->_process_cached_inserts($results);
 		}
 
-		return $results;
+        if ($display) {
+            print $results;
+            return;
+        } else
+            return $results;
 	}
 
 /*======================================================================*\
@@ -259,7 +263,7 @@ class Smarty
 
 	function _compile($tpl_dir)
 	{
-		if($this->compile_check || $this->compile_force)
+		if($this->compile_check || $this->force_compile)
 		{
 			if($this->_traverse_files($tpl_dir, 0))
 				return true;
@@ -288,11 +292,11 @@ class Smarty
 				$filepath = $tpl_dir."/".$curr_file;
 				if(is_readable($filepath)) {
 					
-					if(is_file($filepath) && substr($curr_file,-strlen($this->tpl_file_ext)) == $this->tpl_file_ext) {
+					if(is_file($filepath) && substr($curr_file, -strlen($this->tpl_file_ext)) == $this->tpl_file_ext) {
 						if(!$this->_process_file($filepath))
 							return false;
-					} else if(is_dir($filepath)) {
-						if(!$this->_traverse_files($filepath, $depth + 1))
+					} else if (is_dir($filepath)) {
+						if (!$this->_traverse_files($filepath, $depth + 1))
 							return false;
 					} else {
 						// invalid file type, skipping
@@ -338,11 +342,11 @@ class Smarty
 				}
 			}
 
-			// compile the template file if none exists or has been modified or compile_force
-			if (!file_exists($compile_dir."/".$tpl_file_name) ||  $this->compile_force ||
+			// compile the template file if none exists or has been modified or recompile is forced
+			if ($this->force_compile || !file_exists($compile_dir."/".$tpl_file_name) ||
 				($this->_modified_file($filepath, $compile_dir."/".$tpl_file_name))) {
 				if (!$this->_compile_file($filepath, $compile_dir."/".$tpl_file_name))
-					return false;				
+					return false;
 			} else {
 				// no compilation needed
 				return true;
@@ -432,37 +436,28 @@ class Smarty
 
 	function _process_cached_inserts($results)
 	{
-
-		preg_match_all("/\{\{\{insert_cache name=([^ ]+) (.*)\}\}\}/Uis",$results,$match);
+		preg_match_all('!\{\{\{insert_cache (.*)\}\}\}!Uis', $results, $match);
 		
-		$fulltags = $match[0];
-		$names = $match[1];
-		$args = $match[2];
+		list($cached_inserts, $insert_args) = $match;
 
-		for($curr_tag = 0; $curr_tag < count($fulltags); $curr_tag++)
-		{		
-			$attrs = $this->_parse_attrs($args[$curr_tag]);
-			$name = substr($attrs['name'], 1, -1);
+		for ($i = 0; $i < count($cached_inserts); $i++) {
+			$attrs = $this->_parse_attrs($insert_args[$i], false);
+			$name = $this->_dequote($attrs['name']);
 
-			if (empty($names[$curr_tag])) {
+			if (empty($name)) {
 				$this->_syntax_error("missing insert name");
 			}
 
+			$arg_list = array();
 			foreach ($attrs as $arg_name => $arg_value) {
 				if ($arg_name == 'name') continue;
-				if (is_bool($arg_value))
-					$arg_value = $arg_value ? 'true' : 'false';
-				$arg_list[] = "'$arg_name' => $arg_value";
+				$arg_list[$arg_name] = $arg_value;
 			}
 
-			$evalcode = "print insert_".$names[$curr_tag]."(array(".implode(',', (array)$arg_list)."));";
+			$function_name = 'insert_' . $name;
+			$replace = $function_name($arg_list);
 			
-			ob_start();
-		 		eval($evalcode);
-				$replace = ob_get_contents();
-			ob_end_clean();
-			
-			$results = str_replace($fulltags[$curr_tag],$replace,$results);
+			$results = str_replace($cached_inserts[$i], $replace, $results);
 		}
 
 		return $results;
@@ -474,9 +469,11 @@ class Smarty
 		if ($template_tag{0} == '*' && $template_tag{strlen($template_tag)-1} == '*')
 			return "";
 
+		$qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
+
 		/* Split tag into two parts: command and the arguments. */
 		preg_match('/^(
-					   (?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*" | \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\' | (?>[^"\'\s]+))+
+					   (?: ' . $qstr_regexp . ' | (?>[^"\'\s]+))+
 					  )
 				      (?:\s+(.*))?
 					/xs', $template_tag, $match);
@@ -484,9 +481,9 @@ class Smarty
 
 		/* If the tag name matches a variable or section property definition,
 		   we simply process it. */
-		if (preg_match('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:[^|]+)?)*$!', $tag_command) ||	// if a variable
-			preg_match('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tag_command)		||  // or a configuration variable
-			preg_match('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tag_command)) {    // or a section property
+		if (preg_match('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command) ||	// if a variable
+			preg_match('!^#(\w+)#(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command)		||  // or a configuration variable
+			preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command)) {    // or a section property
 			settype($tag_command, 'array');
 			$this->_parse_vars_props($tag_command);
 			return "<?php print $tag_command[0]; ?>";
@@ -571,13 +568,13 @@ class Smarty
 		$attrs = $this->_parse_attrs($tag_args);
 		$name = substr($attrs['name'], 1, -1);
 
-		if($this->cache_engine)
-			return "<?php print \"{{{insert_cache ".addslashes($tag_args)."}}}\"; ?>";
-		
 		if (empty($name)) {
 			$this->_syntax_error("missing insert name");
 		}
 
+		if($this->caching)
+			return "{{{insert_cache $tag_args}}}";
+		
 		foreach ($attrs as $arg_name => $arg_value) {
 			if ($arg_name == 'name') continue;
 			if (is_bool($arg_value))
@@ -855,7 +852,7 @@ class Smarty
 		return $tokens;
 	}
 
-	function _parse_attrs($tag_args)
+	function _parse_attrs($tag_args, $quote = true)
 	{
 		/* Tokenize tag attributes. */
 		preg_match_all('/(?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"       | 
@@ -868,9 +865,9 @@ class Smarty
 
 		$attrs = array();
 		/* Parse state:
-		   	0 - expecting attr name
-			1 - expecting '=' or another attr name
-			2 - expecting attr value (not '=') */
+		   	0 - expecting attribute name
+			1 - expecting '='
+			2 - expecting attribute value (not '=') */
 		$state = 0;
 
 		foreach ($tokens as $token) {
@@ -886,12 +883,7 @@ class Smarty
 					break;
 
 				case 1:
-					/* If the token is a valid identifier, the previously set
-					   attribute name does not need an argument. We put it in
-					   the attrs array, set the new attribute name to the
-					   current token and don't switch state.
-
-					   If the token is '=', then we go to state 2. */
+					/* If the token is '=', then we go to state 2. */
 					if ($token == '=') {
 						$state = 2;
 					} else
@@ -911,7 +903,7 @@ class Smarty
 						/* If the token is not variable (doesn't start with
 						   '$', '#', or '%') and not enclosed in single or
 						   double quotes we single-quote it. */
-						else if (!in_array($token{0}, $var_delims) &&
+						else if ($quote && !in_array($token{0}, $var_delims) &&
 								 !(($token{0} == '"' || $token[0] == "'") &&
 								 $token{strlen($token)-1} == $token{0}))
 							$token = "'".$token."'";
@@ -943,17 +935,19 @@ class Smarty
 	
 	function _parse_vars_props(&$tokens)
 	{
+		$qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
+
 		/* preg_grep() was fixed to return keys properly in 4.0.4 and later. To
 		   allow people to use older versions of PHP we emulate preg_grep() and
 		   use the version check to see what function to call. */
 		if (strnatcmp(PHP_VERSION, '4.0.4') >= 0) {
-			$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
-			$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
-			$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+			$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
+			$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tokens);
+			$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
 		} else {
-			$var_exprs = $this->_preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
-			$conf_var_exprs = $this->_preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
-			$sect_prop_exprs = $this->_preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+			$var_exprs = $this->_preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
+			$conf_var_exprs = $this->_preg_grep('!^#(\w+)#(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tokens);
+			$sect_prop_exprs = $this->_preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
 		}
 
 		if (count($var_exprs)) {
@@ -977,9 +971,9 @@ class Smarty
 
 	function _parse_var($var_expr)
 	{
-		$modifiers = explode('|', substr($var_expr, 1));
+		list($var_ref, $modifiers) = explode('|', substr($var_expr, 1), 2);
 
-		$sections = explode('/', array_shift($modifiers));
+		$sections = explode('/', $var_ref);
 		$props = explode('.', array_pop($sections));
 		$var_name = array_shift($props);
 
@@ -999,9 +993,9 @@ class Smarty
 
 	function _parse_conf_var($conf_var_expr)
 	{
-		$modifiers = explode('|', $conf_var_expr);
+		list($var_ref, $modifiers) = explode('|', $conf_var_expr, 2);
 
-		$var_name = substr(array_shift($modifiers), 1, -1);
+		$var_name = substr($var_ref, 1, -1);
 
 		$output = "\$_config['$var_name']";
 
@@ -1012,9 +1006,9 @@ class Smarty
 
 	function _parse_section_prop($section_prop_expr)
 	{
-		$modifiers = explode('|', $section_prop_expr);
+		list($var_ref, $modifiers) = explode('|', $section_prop_expr, 2);
 
-		preg_match('!%(\w+)\.(\w+)%!', array_shift($modifiers), $match);
+		preg_match('!%(\w+)\.(\w+)%!', $var_ref, $match);
 		$section_name = $match[1];
 		$prop_name = $match[2];
 
@@ -1025,11 +1019,16 @@ class Smarty
 		return $output;
 	}
 
-	function _parse_modifiers(&$output, $modifiers)
+	function _parse_modifiers(&$output, $modifier_string)
 	{
-		foreach ($modifiers as $modifier) {
-			$modifier = explode(':', $modifier);
-			$modifier_name = array_shift($modifier);
+		$qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
+		preg_match_all('!\|@?(\w+)((?::(?:'. $qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $match);
+		list(, $modifiers, $modifier_arg_strings) = $match;
+
+		for ($i = 0; $i < count($modifiers); $i++) {
+			$modifier_name = $modifiers[$i];
+			preg_match_all('!:(' . $qstr_regexp . '|[^|]+)!', $modifier_arg_strings[$i], $match);
+			$modifier_args = $match[1];
 
 			if ($modifier_name{0} == '@') {
 				$map_array = 'false';
@@ -1050,10 +1049,10 @@ class Smarty
 			if (!isset($mod_func_name))
 				$mod_func_name = $modifier_name;
 
-			$this->_parse_vars_props($modifier);
+			$this->_parse_vars_props($modifier_args);
 
-			if (count($modifier) > 0)
-				$modifier_args = ', '.implode(', ', $modifier);
+			if (count($modifier_args) > 0)
+				$modifier_args = ', '.implode(', ', $modifier_args);
 			else
 				$modifier_args = '';
 
@@ -1071,6 +1070,8 @@ class Smarty
 		if (($string{0} == "'" || $string{0} == '"') &&
 			$string{strlen($string)-1} == $string{0})
 			return substr($string, 1, -1);
+		else
+			return $string;
 	}
 
 	

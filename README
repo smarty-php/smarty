@@ -2,7 +2,7 @@ NAME:
 
     Smarty - the PHP compiling template engine
 
-VERSION: 1.2.2
+VERSION: 1.2.3
 
 AUTHORS:
     
@@ -10,8 +10,8 @@ AUTHORS:
     Andrei Zmievski <andrei@ispi.net>
 
 MAILING LIST:
-	We have a mailing list for you to share your ideas or ask questions.
-	send a blank e-mail message to subscribe-smarty@lists.ispi.net
+    We have a mailing list for you to share your ideas or ask questions.
+    send a blank e-mail message to subscribe-smarty@lists.ispi.net
 
 SYNOPSIS:
 

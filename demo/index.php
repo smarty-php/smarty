@@ -4,7 +4,9 @@ require("Smarty.class.php");
 
 $smarty = new Smarty;
 
-$smarty->cache_engine = false;
+$smarty->caching = false;
+
+$smarty->assign(now, time());
 
 $smarty->assign("Name","Fred Irving Johnathan Bradley Peppergill");
 $smarty->assign("FirstName",array("John","Mary","James","Henry"));
@@ -18,5 +20,12 @@ $smarty->assign("contacts", array(array("phone" => "1", "fax" => "2", "cell" => 
 $smarty->assign("now",time());
 
 $smarty->display("index.tpl");
+
+function insert_foo($args)
+{
+	extract($args);
+
+	return "test $arg1";
+}
 
 ?>
