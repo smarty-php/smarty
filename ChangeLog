@@ -1,3 +1,14 @@
+2005-03-31  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update version numbers
+
+    * (Smarty_2_6_9)
+      NEWS:
+      update NEWS file
+
 2005-03-30  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.math.php:
