@@ -126,10 +126,10 @@ OUTPUT: (both examples)
 -----------------------
 
 &lt;select name=customer_id&gt;
-	&lt;option value="1000"&gt;Joe Schmoe&lt;/option&gt;
-	&lt;option value="1001" selected="selected"&gt;Jack Smith&lt;/option&gt;
-	&lt;option value="1002"&gt;Jane Johnson&lt;/option&gt;
-	&lt;option value="1003"&gt;Charlie Brown&lt;/option&gt;
+	&lt;option label="Joe Schmoe" value="1000"&gt;Joe Schmoe&lt;/option&gt;
+	&lt;option label="Jack Smith" value="1001" selected="selected"&gt;Jack Smith&lt;/option&gt;
+	&lt;option label="Jane Johnson" value="1002"&gt;Jane Johnson&lt;/option&gt;
+	&lt;option label="Charlie Brown" value="1003"&gt;Charlie Brown&lt;/option&gt;
 &lt;/select&gt;</programlisting>
 </example>
 </sect1>
