@@ -1,3 +1,13 @@
+2004-09-18  boots  <jayboots@yahoo.com>
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/plugins/function.config_load.php
+      libs/plugins/function.debug.php
+      libs/plugins/function.fetch.php
+      libs/plugins/function.html_image.php:
+      Fixed \\r\\n line endings mistakenly introduced in last commit. d'oh.
+
 2004-09-16  boots  <jayboots@yahoo.com>
 
     * NEWS
