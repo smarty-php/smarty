@@ -1,3 +1,19 @@
+2004-02-07  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Config_File.class.php:
+      avoid @-operator for handling empty lines in Config_File.class.php
+
+    * libs/Smarty_Compiler.class.php:
+      removed two notices from Smarty_Compiler::_parse_is_expr()
+      (thanks shuther!)
+
+    * NEWS
+      libs/Smarty.class.php:
+      changed default for use_sub_dirs to false
+
+    * libs/plugins/function.mailto.php:
+      removed notice of undefined variable. (thanks shuther!)
+
 2004-01-29  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
