@@ -20,7 +20,7 @@
  *         - image =image width (optional, default actual width)
  *         - basedir = base directory for absolute paths, default
  *                     is environment variable DOCUMENT_ROOT
- * 
+ *
  * Examples: {image file="images/masthead.gif"}
  * Output:   <img src="images/masthead.gif" border=0 width=400 height=23>
  * @link http://smarty.php.net/manual/en/language.function.html.image.php {html_image}
@@ -35,100 +35,104 @@
  * @uses smarty_function_escape_special_chars()
  */
 function smarty_function_html_image($params, &$smarty)
-{	
-	require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
+{
+    require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
+    
+    $alt = '';
+    $file = '';
+    $border = 0;
+    $height = '';
+    $width = '';
+    $extra = '';
+    $prefix = '';
+    $suffix = '';
+    $basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
+        ? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '/';
+    if(strstr($GLOBALS['HTTP_SERVER_VARS']['HTTP_USER_AGENT'], 'Mac')) {
+        $dpi_default = 72;
+    } else {
+        $dpi_default = 96;
+    }
 
-	$file = '';
-	$border = 0;
-	$height = '';
-	$width = '';
-	$extra = '';
-	$prefix = '';
-	$suffix = '';
-	$basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
-			? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '/';
-	if(strstr($GLOBALS['HTTP_SERVER_VARS']['HTTP_USER_AGENT'], 'Mac')) {
-		$dpi_default = 72;
-	} else {
-		$dpi_default = 96;
-	}
-	
-	foreach($params as $_key => $_val) {	
-		switch($_key) {
-			case 'file':
-				$file = $_val;
-				break;
-			case 'border':
-				$border = $_val;
-				break;
-			case 'height':
-				$height = $_val;
-				break;
-			case 'width':
-				$width = $_val;
-				break;
-			case 'link':
-				$prefix = '<a href="' . $_val . '">';
-				$suffix = '</a>';
-				break;
-			case 'dpi':
-				$dpi = $_val;
-				break;
-			default:
-				if(!is_array($_val)) {
-					$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-				} else {
-					$smarty->trigger_error("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-				}
-				break;					
-		}
-	}
+    foreach($params as $_key => $_val) {
+        switch($_key) {
+            case 'file':
+            case 'border':
+            case 'height':
+            case 'width':
+            case 'dpi':
+                $$_key = $_val;
+                break;
+
+            case 'alt':
+                if(!is_array($_val)) {
+                    $$_key = smarty_function_escape_special_chars($_val);
+                } else {
+                    $smarty->trigger_error("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
+
+            case 'link':
+            case 'href':
+                $prefix = '<a href="' . $_val . '">';
+                $suffix = '</a>';
+                break;
+
+            default:
+                if(!is_array($_val)) {
+                    $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+                } else {
+                    $smarty->trigger_error("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                }
+                break;
+        }
+    }
 
     if (empty($file)) {
         $smarty->trigger_error("html_image: missing 'file' parameter", E_USER_NOTICE);
         return;
     }
 
-	if(substr($file,0,1) == DIR_SEP) {
-		$_image_path = $basedir . $file;
-	} else {
-		$_image_path = $file;
-	}
-	
-	if(!isset($params['width']) || !isset($params['height'])) {
-		if(!$_image_data = @getimagesize($_image_path)) {
-			if(!file_exists($_image_path)) {
-        		$smarty->trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);		
-                return;
-			} else if(!is_readable($_image_path)) {
-        		$smarty->trigger_error("html_image: unable to read '$_image_path'", E_USER_NOTICE);		
-                return;
-			} else {
-        		$smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
-                return;
-			}
-		}
-		if(!$smarty->security && !$smarty->_is_secure('file', $_image_path)) {
-        	$smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);		
-            return;
-		}	
-		
-		if(!isset($params['width'])) {
-			$width = $_image_data[0];
-		}
-		if(!isset($params['height'])) {
-			$height = $_image_data[1];
-		}
-		
-	}
+    if(substr($file,0,1) == DIR_SEP) {
+        $_image_path = $basedir . $file;
+    } else {
+        $_image_path = $file;
+    }
 
-	if(isset($params['dpi'])) {
-		$_resize = $dpi_default/$params['dpi'];
-		$width = round($width * $_resize);
-		$height = round($height * $_resize);
-	}
-			
-	return $prefix . '<img src="'.$file.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.' />' . $suffix;
+    if(!isset($params['width']) || !isset($params['height'])) {
+        if(!$_image_data = @getimagesize($_image_path)) {
+            if(!file_exists($_image_path)) {
+                $smarty->trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);
+                return;
+            } else if(!is_readable($_image_path)) {
+                $smarty->trigger_error("html_image: unable to read '$_image_path'", E_USER_NOTICE);
+                return;
+            } else {
+                $smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
+                return;
+            }
+        }
+        if(!$smarty->security && !$smarty->_is_secure('file', $_image_path)) {
+            $smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);
+            return;
+        }
+
+        if(!isset($params['width'])) {
+            $width = $_image_data[0];
+        }
+        if(!isset($params['height'])) {
+            $height = $_image_data[1];
+        }
+
+    }
+
+    if(isset($params['dpi'])) {
+        $_resize = $dpi_default/$params['dpi'];
+        $width = round($width * $_resize);
+        $height = round($height * $_resize);
+    }
+
+    return $prefix . '<img src="'.$file.'" alt="'.$alt.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.' />' . $suffix;
 }
 
 /* vim: set expandtab: */

@@ -1,3 +1,6 @@
+  - changed "link" to "href" in html_image. "link" is still working
+    but deprecated (messju)
+  - html_image always renders an alt-tag now (default alt="") (messju)
   - fixed assign attribute for multiple counters (messju)
   - added simple math operators to variables (Monte)
   - reverted patch for case-insensitive tag-names (messju)
