@@ -497,21 +497,6 @@ require_once(SMARTY_DIR."Smarty.class.php");
                 for backward compatability.
             </para>
         </sect2>
-        <sect2 id="setting.allow.php">
-            <title>$allow_php</title>
-            <para>
-				Whether or not to allow PHP code in the templates. If set to
-				false, PHP code is escaped and not interpreted. Embedding PHP
-				code into templates is not recommended. Use <link
-				linkend="custom.functions">custom functions</link> or <link
-				linkend="variable.modifiers">modifiers</link> instead. Default
-				is "false".
-            </para>
-            <para>
-                NOTE: $allow_php was removed in 1.3.0, and replaced with
-                $php_handling.
-            </para>
-        </sect2>
 		<sect2 id="setting.php.handling">
 			<title>$php_handling</title>
 			<para>
@@ -590,6 +575,16 @@ require_once(SMARTY_DIR."Smarty.class.php");
 			PHP functions used as variable modifiers.</para></listitem>
 			</itemizedlist>
 		</sect2>
+		<sect2 id="setting.trusted.dir">
+			<title>$trusted_dir</title>
+			<para>
+				$trusted_dir is only for use when $security is enabled.
+				This is an array of all directories that are considered
+				trusted. When a directory is considered trusted, $security is
+				temporarily disabled while any templates from here are
+				included. New in Smarty 1.5.0.
+			</para>
+		</sect2>
 		<sect2 id="setting.left.delimiter">
 			<title>$left_delimiter</title>
 			<para>
@@ -628,7 +623,14 @@ require_once(SMARTY_DIR."Smarty.class.php");
 			<title>$show_info_header</title>
 			<para>
                 Shows an HTML comment at the beginning of the templates output,
-                displaying smarty version and date generated. Default is true.
+                displaying smarty version and date generated. Default is false.
+			</para>
+		</sect2>
+		<sect2 id="setting.show.info.include">
+			<title>$show_info_include</title>
+			<para>
+                Shows an HTML comment before and after each included template.
+                Default is false.
 			</para>
 		</sect2>
 		<sect2 id="setting.compiler.class">
@@ -637,6 +639,41 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				Specifies the name of the compiler class that Smarty will use
 				to compile the templates. The default is 'Smarty_Compiler'. For
 				advanced users only.
+			</para>
+		</sect2>
+		<sect2 id="setting.resource.funcs">
+			<title>$resource_funcs</title>
+			<para>
+				An array of functions that resource handlers are mapped to.
+			</para>
+		</sect2>
+		<sect2 id="setting.prefilter.funcs">
+			<title>$prefilter_funcs</title>
+			<para>
+				An array of functions that templates are filtered through before
+				compilation.
+			</para>
+		</sect2>
+		<sect2 id="setting.postfilter.funcs">
+			<title>$postfilter_funcs</title>
+			<para>
+				An array of functions that templates are filtered through after
+				compilation.
+			</para>
+		</sect2>
+		<sect2 id="setting.request.vars.order">
+			<title>$request_vars_order</title>
+			<para>
+				The order in which request variables are registered, similar to
+				variables_order in php.ini
+			</para>
+		</sect2>
+		<sect2 id="setting.compile.id">
+			<title>$compile_id</title>
+			<para>
+			Persistant compile identifier. As an alternative to passing the
+			same compile_id to each and every function call, you can set this
+			compile_id and it will be used implicitly thereafter.
 			</para>
 		</sect2>
 	</sect1>
@@ -1544,6 +1581,143 @@ $smarty->display("index.tpl");
 {* from within Smarty template *}
 <!-- Created by Smarty! -->
 {* rest of template content... *}
+
+</programlisting>
+</example>
+        </sect2>
+    </sect1>
+	<sect1 id="section.template.cache.handler.func">
+		<title>Template Cache Handling Function</title>
+        <para>
+		As an alternative to using the default file-based caching mechanism, you
+		can specify a custom cache handling function that will be used to read,
+		write and clear cached files.
+		</para>
+		<sect2>
+			<title>Example of a Template Cache Handling Function</title>
+			<para>
+			Create a function in your application that Smarty will use as a
+			cache handler. Set the name of it in the $cache_handler_func class
+			variable. Smarty will now use this to handle cached data. The first
+			argument is the action, which will be one of 'read', 'write' and
+			'clear'. The second parameter is the smarty object. The third
+			parameter is the cached content. Upon a write, Smarty passed th
+			cached content in this paramters. Upon a 'read', Smarty expects
+			your function to pass this by reference and populate it with the
+			cached data. Upon a 'clear', pass a dummy variable here since it is
+			not used. The fourth parameter is the name of the template file
+			(needed for read/write), the fifth parameter is the cache_id
+			(optional), and the sixth is the compile_id (optional)
+			</para>
+<example>
+
+<title>example using MySQL as a cache source</title>
+<programlisting>
+
+&lt;?php
+
+/*
+
+example usage:
+
+include('Smarty.class.php');
+include('mysql_cache_handler.php');
+
+$smarty = new Smarty;
+$smarty-&gt;cache_handler_func='mysql_cache_handler';
+
+$smarty-&gt;display('index.tpl');
+
+
+mysql database is expected in this format:
+	
+create database SMARTY_CACHE;
+
+create table CACHE_PAGES(
+CacheID char(32) PRIMARY KEY,
+CacheContents MEDIUMTEXT NOT NULL
+);
+
+*/
+
+function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)  {
+	// set db host, user and pass here
+	$db_host = 'localhost';
+	$db_user = 'myuser';
+	$db_pass = 'mypass';
+	$db_name = 'SMARTY_CACHE';
+	$use_gzip = false;
+	
+	// create unique cache id
+	$CacheID = md5($tpl_file.$cache_id.$compile_id);
+	
+	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
+		$smarty_obj-&gt;_trigger_error_msg("cache_handler: could not connect to database");
+		return false;
+	}
+	mysql_select_db($db_name);
+
+	switch ($action) {
+		case 'read':
+			// save cache to database
+			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$row = mysql_fetch_array($results,MYSQL_ASSOC);
+			
+			if($use_gzip && function_exists("gzuncompress")) {
+				$cache_contents = gzuncompress($row["CacheContents"]);
+			} else {
+				$cache_contents = $row["CacheContents"];
+			}
+			$return = $results;
+			break;
+		case 'write':
+			// save cache to database
+			
+			if($use_gzip && function_exists("gzcompress")) {
+				// compress the contents for storage efficiency
+				$contents = gzcompress($cache_content);
+			} else {
+				$contents = $cache_content;
+			}
+			$results = mysql_query("replace into CACHE_PAGES values(
+							'$CacheID',
+							'".addslashes($contents)."')
+						");
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$return = $results;
+			break;
+		case 'clear':
+			// clear cache info
+			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
+				// clear them all
+				$results = mysql_query("delete from CACHE_PAGES");			
+			} else {
+				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
+			}
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$return = $results;
+			break;
+		default:
+			// error, unknown action
+			$smarty_obj-&gt;_trigger_error_msg("cache_handler: unknown action \"$action\"");
+			$return = false;
+			break;
+	}
+	mysql_close($link);
+	return $return;
+	
+}
+
+?&gt;
+
+
 
 </programlisting>
 </example>
@@ -3009,6 +3183,126 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	</example>
 			</sect3>
 		</sect2>
+		<sect2 id="builtin.functions.foreach">
+			<title>foreach,foreachelse</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>from</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the array you are looping through</entry>
+                    </row>
+                    <row>
+                        <entry>item</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable that is the current
+						element</entry>
+                    </row>
+                    <row>
+                        <entry>key</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+						<entry><emphasis>n/a</emphasis></entry>
+						<entry>The name of the variable that is the current key</entry>
+                    </row>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>The name of the foreach loop for accessing
+						foreach properties</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			<emphasis>foreach</emphasis> loops are an alternative to
+			<emphasis>section</emphasis> loops. <emphasis>foreach</emphasis> is
+			used to loop over a single associative array. The syntax for
+			<emphasis>foreach</emphasis> is much easier than
+			<emphasis>section</emphasis>, but as a tradeoff it can only be used
+			for a single array. <emphasis>foreach</emphasis> tags must be
+			paired with <emphasis>/foreach</emphasis> tags. Required parameters
+			are <emphasis>from</emphasis> and <emphasis>item</emphasis>. The
+			name of the foreach loop can be anything you like, made up of
+			letters, numbers and underscores. <emphasis>foreach</emphasis>
+			loops can be nested, and the nested foreach names must be unique
+			from each other. The <emphasis>from</emphasis> variable (usually an
+			array of values) determines the number of times
+			<emphasis>foreach</emphasis> will loop.
+			<emphasis>foreachelse</emphasis> is executed when there are no
+			values in the <emphasis>from</emphasis> variable.
+			</para>
+<example>
+<title>foreach</title>
+<programlisting>
+
+
+{* this example will print out all the values of the $custid array *}
+{foreach from=$custid item=curr_id}
+	id: {$curr_id}&lt;br&gt;
+{/foreach}
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;
+
+</programlisting>
+</example>
+
+<example>
+<title>foreach key</title>
+<programlisting>
+
+{* The key contains the key for each looped value
+
+assignment looks like this:
+
+$smarty->assign("contacts", array(array("phone" =&gt; "1", "fax" =&gt; "2", "cell" =&gt; "3"),
+      array("phone" =&gt; "555-4444", "fax" =&gt; "555-3333", "cell" =&gt; "760-1234")));
+
+*}
+
+{foreach name=outer item=contact from=$contacts}
+  {foreach key=key item=item from=$smarty.foreach.outer}
+    {$key}: {$item}&lt;br&gt;
+  {/foreach}
+{/foreach}
+
+OUTPUT:
+
+phone: 1&lt;br&gt;
+fax: 2&lt;br&gt;
+cell: 3&lt;br&gt;
+phone: 555-4444&lt;br&gt;
+fax: 555-3333&lt;br&gt;
+cell: 760-1234&lt;br&gt;
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2>
 			<title>strip</title>
 			<para>
@@ -3766,6 +4060,13 @@ OUTPUT:
                         <entry>No</entry>
                         <entry>1</entry>
                         <entry>number interval in second dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>field_array</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>n/a</entry>
+                        <entry>outputs values to array of this name</entry>
                     </row>
                 </tbody>
                 </tgroup>

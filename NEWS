@@ -1,14 +1,15 @@
-    - added trusted_dir functionality. (Monte)
-    - consolidated security tests to one function. (Monte)
+    - added trusted_dir functionality, documented. (Monte)
+    - consolidated secure_dir tests to one function. (Monte)
     - prepend SMARTY_DIR to default directories in class constructor. (Monte,
       Ricard Pillosu)
     - append _smarty_ to variable names in fetch() class function to avoid
       namespace conflicts. (Monte)
     - introduced $compile_id class variable that can be used to set persistent
-      compile identifier across multiple display calls. (Andrei)
+      compile identifier across multiple display calls, documented. (Andrei)
     - fixed bug with concatenated null cache and compile identifiers. (Andrei)
-    - added $smarty.section.* syntax for accessing section properties. (Andrei)
-    - added custom cache handling function ability. (Monte)
+    - added $smarty.section.* syntax for accessing section properties,
+      documented. (Andrei)
+    - added custom cache handling function ability, documented. (Monte)
     - added assign attribute to insert, fetch, math, and counter functions,
       documented. (Monte)
     - fixed bug with fetch testing for local file when http address. (Monte)
@@ -16,14 +17,14 @@
     - made {config_load ...} merge globals from each config file only once per
       scope, thus avoiding several problems. (Andrei)
     - added {foreach ...} tag that can be used to iterate through
-      non-sequential and associative arrays. (Andrei)
+      non-sequential and associative arrays, documented. (Andrei)
     - speeded up section property access a bit. (Andrei)
     - removed $smarty variable from storage used by normal template variables,
       to prevent any problems. (Andrei)
     - fixed a bug that could cause parse error with quotes inside literal
       blocks. (Andrei, Alexander Belonosov)
-    - added 'field_array' attribute to html_select_time function. (Andrei,
-      Michael Caplan)
+    - added 'field_array' attribute to html_select_time function, documented.
+      (Andrei, Michael Caplan)
     - documented {section} "max" attribute. (Monte)
     - fixed notice message in Smarty_Compiler.class.php. (Monte)
     - fixed bug with clear_cache introduced in 1.4.6, third parameter should
