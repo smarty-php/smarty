@@ -1,3 +1,10 @@
+2002-06-14  Monte Ohrt  <monte@ispi.net>
+
+    * docs/programmers.sgml
+      plugins/function.popup_init.php
+      Smarty.class.php:
+    change directory delimiter to "^" for cache and compile files
+
 2002-06-13  Andrei Zmievski  <andrei@php.net>
 
     * TODO: done.
