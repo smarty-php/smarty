@@ -9,3 +9,4 @@
 * caching all but parts of the template
 * change plugins so $smarty variable always comes first
 * being able to load config files from PHP scripts
+* get cache ttl with function call
