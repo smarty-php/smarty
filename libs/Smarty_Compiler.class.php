@@ -159,7 +159,7 @@ class Smarty_Compiler extends Smarty {
 
         /* If the tag name matches a variable or section property definition,
            we simply process it. */
-        if (preg_match('!^\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
+        if (preg_match('!^\$\w+(?>(\[\w+(\.\w+)?\])|(\.\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
             preg_match('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)     ||  // or a configuration variable
             preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)) {    // or a section property
             settype($tag_command, 'array');
@@ -287,22 +287,22 @@ class Smarty_Compiler extends Smarty {
         }
 
 		if (!empty($attrs['global']) && $attrs['global'])
-			$update_parent = 'true';
+			$update_parent = true;
 		else
-			$update_parent = 'false';
+			$update_parent = false;
 
         $output  = "<?php if (!class_exists('Config_File'))\n" .
                    "    include_once 'Config_File.class.php';\n" .
                    "if (!is_object(\$GLOBALS['_smarty_conf_obj']) || get_class(\$GLOBALS['_smarty_conf_obj']) != 'config_file')\n" .
                    "    \$GLOBALS['_smarty_conf_obj'] = new Config_File('".$this->config_dir."');\n" .
-				   "if ($update_parent)\n" .
-				   "	\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n" .
-                   "\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
+				   "\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
+		if ($update_parent)
+			$output .=	"\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
 
         if (!empty($attrs['section'])) {
-			$output	.=	"if ($update_parent)\n" .
-						"	\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n" .
-						"\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
+			$output .=	"\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
+			if ($update_parent)
+				$output .=	"\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
 		}
 
         $output .= '?>';
@@ -643,13 +643,14 @@ class Smarty_Compiler extends Smarty {
 
 /*======================================================================*\
     Function: _parse_vars_props
-    Purpose:
+    Purpose:  compile variables and section properties tokens into
+	          PHP code
 \*======================================================================*/
     function _parse_vars_props(&$tokens)
     {        
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
-        $var_exprs = preg_grep('!^\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
+        $var_exprs = preg_grep('!^\$\w+(?>(\[\w+(\.\w+)?\])|(\.\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
 
@@ -674,27 +675,29 @@ class Smarty_Compiler extends Smarty {
 
 /*======================================================================*\
     Function: _parse_var
-    Purpose:
+    Purpose:  parse variable expression into PHP code
 \*======================================================================*/
     function _parse_var($var_expr)
     {
         list($var_ref, $modifiers) = explode('|', substr($var_expr, 1), 2);
 
-        $sections = explode('/', $var_ref);
-        $props = explode('.', array_pop($sections));
-        $var_name = array_shift($props);
+		$indexes = preg_split('![\[\]]!', $var_ref, -1, PREG_SPLIT_NO_EMPTY);
+        $var_name = array_shift($indexes);
 
         $output = "\$$var_name";
 
-        foreach ($sections as $section_ref) {
-            list($section, $section_prop) = explode('.', $section_ref);
-            if (!isset($section_prop))
-                $section_prop = 'index';
-            $output .= "[\$_smarty_sections['$section']['properties']['$section_prop']]";
-        }
-        foreach ($props as $prop) {
-            $output .= "['$prop']";
-        }
+		foreach ($indexes as $index) {
+			if ($index{0} == '.') {
+				foreach (array_slice(explode('.', $index), 1) as $prop) {
+					$output .= "['$prop']";
+				}
+			} else {
+				list($section, $section_prop) = explode('.', $index);
+				if (!isset($section_prop))
+					$section_prop = 'index';
+				$output .= "[\$_smarty_sections['$section']['properties']['$section_prop']]";
+			}
+		}
 
         $this->_parse_modifiers($output, $modifiers);
 
@@ -703,7 +706,7 @@ class Smarty_Compiler extends Smarty {
 
 /*======================================================================*\
     Function: _parse_conf_var
-    Purpose:
+    Purpose:  parse configuration variable expression into PHP code
 \*======================================================================*/
     function _parse_conf_var($conf_var_expr)
     {
@@ -720,7 +723,7 @@ class Smarty_Compiler extends Smarty {
 
 /*======================================================================*\
     Function: _parse_section_prop
-    Purpose:
+    Purpose:  parse section property expression into PHP code
 \*======================================================================*/
     function _parse_section_prop($section_prop_expr)
     {
@@ -739,7 +742,7 @@ class Smarty_Compiler extends Smarty {
 
 /*======================================================================*\
     Function: _parse_modifiers
-    Purpose:
+    Purpose:  parse modifier chain into PHP code
 \*======================================================================*/
     function _parse_modifiers(&$output, $modifier_string)
     {
