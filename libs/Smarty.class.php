@@ -40,7 +40,7 @@
  *
  */
 
-require_once dirname(__FILE__) . '/Smarty.addons.php';
+require_once 'Smarty.addons.php';
 
 define("SMARTY_PHP_PASSTHRU",0);
 define("SMARTY_PHP_QUOTE",1);
@@ -98,6 +98,16 @@ class Smarty
                                         // SMARTY_PHP_REMOVE   -> remove php tags
                                         // SMARTY_PHP_ALLOW    -> execute php tags
                                         // default: SMARTY_PHP_PASSTHRU
+	
+	
+	var $security		=	false;		// enable template security (default false)
+	var $security_settings	= array(
+									"ALLOW_PHP_HANDLING" 	=> false,
+									"ALLOW_IF_FUNCS"		=> array('count','is_array'),
+									"ALLOW_INCLUDE_ANY"		=> false,
+									"ALLOW_PHP_TAGS"		=> false,
+									"ALLOW_MODIFIER_FUNCS"	=> array('count')
+									);
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
@@ -496,7 +506,7 @@ class Smarty
         if ($this->_conf_obj === null) {
             /* Prepare the configuration object. */
             if (!class_exists('Config_File'))
-                include_once dirname(__FILE__) . '/Config_File.class.php';
+                include_once 'Config_File.class.php';
             $this->_conf_obj = new Config_File($this->config_dir);
         } else
             $this->_conf_obj->set_path($this->config_dir);
@@ -639,7 +649,14 @@ class Smarty
                     // relative pathname to $template_dir
                     $resource_name = $this->template_dir.'/'.$resource_name;   
                 }
-                if (file_exists($resource_name)) {
+				// if security is on, make sure template comes from $template_dir
+				if($this->security && !$this->security_settings["ALLOW_INCLUDE_ANY"]) {
+					if(substr(realpath($resource_name),0,strlen(realpath($this->template_dir))) != realpath($this->template_dir)) {
+                    	$this->_trigger_error_msg("(secure mode) including \"$resource_name\" is not allowed");
+                    	return false;						
+					}
+				}
+                if (file_exists($resource_name) && is_readable($resource_name)) {
                     $template_source = $this->_read_file($resource_name);
                     $template_timestamp = filemtime($resource_name);
                     return true;
@@ -676,7 +693,7 @@ class Smarty
 \*======================================================================*/
     function _compile_template($tpl_file, $template_source, &$template_compiled)
     {
-        include_once dirname(__FILE__) . '/' . $this->compiler_class . '.class.php';
+        include_once $this->compiler_class . '.class.php';
 
         $smarty_compiler = new $this->compiler_class;
 
@@ -693,6 +710,8 @@ class Smarty
         $smarty_compiler->_version          = $this->_version;
         $smarty_compiler->prefilter_funcs   = $this->prefilter_funcs;
         $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
+        $smarty_compiler->security    		= $this->security;
+        $smarty_compiler->security_settings = $this->security_settings;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;

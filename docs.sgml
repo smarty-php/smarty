@@ -3267,7 +3267,7 @@ OUTPUT:
                         <entry>numeric</entry>
                         <entry>Yes</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>equation varible value</entry>
+                        <entry>equation variable value</entry>
                     </row>
                 </tbody>
                 </tgroup>
@@ -4230,7 +4230,7 @@ footer.tpl
 		When the main page is drawn, the title of "Main Page" is passed to the
 		header.tpl, and will subsequently be used as the title. When the
 		archives page is drawn, the title will be "Archives". Notice in the
-		archive example, we are using a varible from the archives_page.conf
+		archive example, we are using a variable from the archives_page.conf
 		file instead of a hard coded variable. Also notice that "BC News" is
 		printed if the $title variable is not set, using the
 		<emphasis>default</emphasis> variable modifier.

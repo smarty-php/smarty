@@ -54,7 +54,15 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
-        
+		
+		if($this->security) {
+			// do not allow php syntax to be executed unless specified
+			if($this->php_handling == SMARTY_PHP_ALLOW &&
+				!$this->security_settings["ALLOW_PHP_HANDLING"]) {
+				$this->php_handling = SMARTY_PHP_PASSTHRU;
+			}
+		}
+		
         // run template source through functions registered in prefilter_funcs
         if (is_array($this->prefilter_funcs) && count($this->prefilter_funcs) > 0) {
             foreach($this->prefilter_funcs as $prefilter) {
@@ -240,6 +248,10 @@ class Smarty_Compiler extends Smarty {
                 return "<?php echo '".str_replace("'","\'",$literal_block)."'; ?>\n";
 
             case 'php':
+				if($this->security && !$this->security_settings["ALLOW_PHP_TAGS"]) {
+                    $this->_syntax_error("(secure mode) php tags not permitted", E_USER_WARNING);
+                    return;					
+				}
                 list (,$php_block) = each($this->_php_blocks);
                 $this->_current_line_no += substr_count($php_block, "\n");
                 return '<?php '.$php_block.' ?>';
@@ -833,8 +845,14 @@ class Smarty_Compiler extends Smarty {
              * If we don't find that modifier there, we assume it's just a PHP
              * function name.
              */
-            if (!isset($mod_func_name))
-                $mod_func_name = $modifier_name;
+            if (!isset($mod_func_name)) {
+				if($this->security && !in_array($modifier_name,$this->security_settings["ALLOW_MODIFIER_FUNCS"])) {
+                	$this->_syntax_error("(secure mode) modifier '$modifier_name' is not allowed", E_USER_WARNING);
+                	continue;					
+				} else {
+                	$mod_func_name = $modifier_name;
+				}
+			}
 
             if (!function_exists($mod_func_name)) {
                 $this->_syntax_error("modifier '$modifier_name' is not implemented", E_USER_WARNING);
