@@ -517,15 +517,17 @@ class Smarty
         /* loop through text blocks */
         for($curr_tb = 0; $curr_tb <= count($text_blocks); $curr_tb++) {
             /* match anything within <? ?> */
-            if(preg_match_all('!(<\?[^?]*?\?>)!i',$text_blocks[$curr_tb],$sp_match)) {
+            if(preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)!i',$text_blocks[$curr_tb],$sp_match)) {
                 /* found at least one match, loop through each one */
                 foreach($sp_match[0] as $curr_sp) {
-                    if(!$this->allow_php)
+                    if(!$this->allow_php) {
                         /* we don't allow php, so echo anything in <? ?> */
-                        $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.addslashes($curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
-                    elseif(!preg_match("!^<\?(php | )!i",$curr_sp))
+                        $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.str_replace("'","\'",$curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
+                        /* echo <script language=php> tag */
+                    }                    
+                    elseif(!preg_match("!^(<\?(php | )|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!i",$curr_sp))
                         /* we allow php, so echo only non-php such as <?xml ?> */
-                        $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.addslashes($curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
+                        $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.str_replace("'","\'",$curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
                 }
             }
         }
