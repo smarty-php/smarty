@@ -1352,7 +1352,7 @@ class Smarty_Compiler extends Smarty {
                             $token = 'false';
 						} else if ($token == 'null') {
                             $token = 'null';
-						} else if (!preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')?$!', $token)) {
+						} else if (!preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')*$!', $token)) {
                         	/* treat as a string, double-quote it escaping quotes */
                             $token = '"'.addslashes($token).'"';
 						}

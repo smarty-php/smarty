@@ -1,3 +1,5 @@
+    - fixed bug with passing multiple modifiers to a parameter
+      (Monte)
     - updated docs for html_checkboxes, html_options and html_radios (messju)
     - fixed wrong default "name" attribute for html_options (messju)
     - html_checkboxes now expect the options as attribute "options" instead
