@@ -1,3 +1,11 @@
+2004-02-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Config_File.class.php:
+      YES and NO should not be booleanized inside triple-quotes in a
+      config-file. this behaviour changed by accident in 2.6.1 and is now
+      reverted to pre-2.6.1 behaviour
+
 2004-02-10  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
