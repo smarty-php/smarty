@@ -11,8 +11,7 @@ compile_check, load the page, then turn it back off. This will update the cache
 file with the new content. This is accomplished by maintaining a list of
 included/loaded templates and config files at the beginning of the cache file.
 Therefore it is advisable to remove all cache files after upgrading to 1.4.6
-(although not absolutely necessary, old cache file formats will be skipped of
-this check)
+(although not absolutely necessary, old cache files will regenerate)
 
 The debug console now has script timing and array values printed. You MUST
 update your debug.tpl file with this version of Smarty. Also, the new debug.tpl
