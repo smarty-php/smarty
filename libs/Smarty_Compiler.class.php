@@ -436,9 +436,6 @@ class Smarty_Compiler extends Smarty {
                     break;
 
                 case 'max':
-                    $output .= "{$section_props}['$attr_name'] = max(0, (int)$attr_value);\n";
-                    break;
-
                 case 'start':
                     $output .= "{$section_props}['$attr_name'] = (int)$attr_value;\n";
                     break;
@@ -454,6 +451,9 @@ class Smarty_Compiler extends Smarty {
 
         if (!isset($attrs['max']))
             $output .= "{$section_props}['max'] = {$section_props}['loop'];\n";
+        else
+            $output .= "if ({$section_props}['max'] < 0)\n" .
+                       "    {$section_props}['max'] = {$section_props}['loop'];\n";   
 
         if (!isset($attrs['start']))
             $output .= "{$section_props}['start'] = 0;\n";
