@@ -100,7 +100,7 @@ class Smarty
                                         // this will tell Smarty not to look for
                                         // insert tags, thus speeding up cached page
                                         // fetches. true/false default true.
-    var $cache_handler_func   = 'make_tpl';     // function used for cached content. this is
+    var $cache_handler_func   = null;     // function used for cached content. this is
                                         // an alternative to using the built-in file
 										// based caching.
 
@@ -1115,6 +1115,21 @@ function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resour
             $name = $args['name'];
             unset($args['name']);
 
+            if (isset($args['script'])) {
+                $this->_parse_file_path($this->trusted_dir, $this->_dequote($args['script']), $resource_type, $resource_name);
+                if ($this->security) {
+                    if( $resource_type != 'file' || !@is_file($resource_name)) {
+                        $this->_syntax_error("include_php: $resource_type: $resource_name is not readable");                return false;
+                    }
+                    if (!$this->_is_trusted($resource_type, $resource_name)) {
+                        $this->_syntax_error("include_php: $resource_type: $resource_name is not trusted");
+                        return false;
+                    }
+                }
+                include_once($resource_name);
+                unset($args['script']);
+            }
+
             $function_name = 'insert_' . $name;
             $replace = $function_name($args, $this);
 
@@ -1146,6 +1161,20 @@ function _run_insert_handler($args)
         return $this->_smarty_md5."{insert_cache $arg_string}".$this->_smarty_md5;
     } else {
         $function_name = 'insert_'.$args['name'];
+        if (isset($args['script'])) {
+            $this->_parse_file_path($this->trusted_dir, $this->_dequote($args['script']), $resource_type, $resource_name);
+            if ($this->security) {
+                if( $resource_type != 'file' || !@is_file($resource_name)) {
+                    $this->_syntax_error("include_php: $resource_type: $resource_name is not readable");                return false;
+                }
+                if (!$this->_is_trusted($resource_type, $resource_name)) {
+                    $this->_syntax_error("include_php: $resource_type: $resource_name is not trusted");
+                    return false;
+                }
+            }
+            include_once($resource_name);
+        }
+
         $content = $function_name($args, $this);
         if ($this->debugging) {
             $this->_smarty_debug_info[] = array('type'      => 'insert',

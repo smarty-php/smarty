@@ -1,4 +1,6 @@
-    - added default template function handler (Monte)
+    - added 'script' attribute to {insert..} which specifies the script that
+      the insert function can be found in. (Andrei)
+    - added default template function handler. (Monte)
 
 Version 1.5.1
 -------------
