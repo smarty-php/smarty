@@ -1,5 +1,6 @@
 Version 1.2.0
 -------------
+	- updated documentation (Monte)
 	- added file and line number information to syntax error messages. (Andrei)
 	- added ability to index template vars by a key. (Andrei)
 

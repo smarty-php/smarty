@@ -14,7 +14,7 @@
 			<address><email>andrei@ispi.net</email></address>
 		</affiliation>
 	</author>
-	<edition>Version 1.1.0</edition>
+	<edition>Version 1.2.0</edition>
 	<copyright><year>2001</year><holder>ispi of Lincoln, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -459,7 +459,8 @@ $output = $smarty->fetch("./templates/index.tpl");
 				like so: {$varname}
 				</para>
 <example>
-<title>Template example of displaying assigned variables</title>
+
+<title>displaying assigned variables</title>
 <programlisting>
 
 Hello {$firstname}, glad to see you could make it.
@@ -473,12 +474,38 @@ Hello Doug, glad to see you could make it.
 Your last login was on January 11th, 2001.
 </programlisting>
 </example>
-				<para>
-				There are also variables within looping sections that are displayed
-				a bit differently. Those are exaplained later in this document under
-				<link linkend="builtin.functions">Built-in Functions</link>.
-				</para>
 			</sect3>
+
+			<sect3>
+				<title>Associative arrays</title>
+				<para>
+				You can also print variables that are assigned as associative
+				arrays from PHP by supplying the key value with the array name.
+				</para>
+<example>
+<title>displaying assigned associative array variables</title>
+<programlisting>
+
+{$Contacts.fax}&lt;br&gt;
+{$Contacts.email}&lt;br&gt;
+{* you can print arrays of arrays as well *}
+{$Contacts.phone.home}&lt;br&gt;
+{$Contacts.phone.cell}&lt;br&gt;
+
+OUTPUT:
+
+555-222-9876&lt;br&gt;
+zaphod@slartibartfast.com&lt;br&gt;
+555-444-3333&lt;br&gt;
+555-111-1234&lt;br&gt;
+
+
+
+</programlisting>
+</example>
+			</sect3>
+
+
 			<sect3>
 				<title>Variables passed from config files</title>
 				<para>
@@ -487,7 +514,9 @@ Your last login was on January 11th, 2001.
 				like so: {#varname#}
 				</para>
 <example>
-<title>Template example of displaying config variables</title>
+
+
+<title>displaying config variables</title>
 <programlisting>
 
 &lt;html&gt;
@@ -529,7 +558,7 @@ Your last login was on January 11th, 2001.
 			attributes into delimiters like so: {funcname attr1="val" attr2="val"}
 			</para>
 <example>
-<title>Template example of function syntax</title>
+<title>function syntax</title>
 <programlisting>
 
 {config_load file="colors.conf"}
@@ -560,7 +589,7 @@ Your last login was on January 11th, 2001.
 			also be used, and should not be in quotes.
 			</para>
 <example>
-<title>Template example of function attribute syntax</title>
+<title>function attribute syntax</title>
 <programlisting>
 
 {include file="header.tpl"}
@@ -584,7 +613,7 @@ Your last login was on January 11th, 2001.
 			They are used mainly for making the templates more understandable.
 			</para>		
 <example>
-<title>Template example of Comments</title>
+<title>Comments</title>
 <programlisting>
 
 {* Smarty *}
@@ -678,7 +707,7 @@ Intro = """This is a value that spans more
 			See <link linkend="configfiles">Config Files</link> for more info.
 			</para>
 <example>
-<title>Template example of function config_load</title>
+<title>function config_load</title>
 <programlisting>
 
 {config_load file="colors.conf"}
@@ -703,7 +732,7 @@ Intro = """This is a value that spans more
 			"section".
 			</para>
 <example>
-<title>Template example of function config_load with section</title>
+<title>function config_load with section</title>
 <programlisting>
 
 {config_load file="colors.conf" section="Customer"}
@@ -734,7 +763,7 @@ Intro = """This is a value that spans more
 			to the template directory.
 			</para>
 <example>
-<title>Template example of function include</title>
+<title>function include</title>
 <programlisting>
 
 {include file="header.tpl"}
@@ -754,7 +783,7 @@ Intro = """This is a value that spans more
 			static values since variables are inherited anyways).
 			</para>
 <example>
-<title>Template example of function include passing variables</title>
+<title>function include passing variables</title>
 <programlisting>
 
 {include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
@@ -784,7 +813,7 @@ Intro = """This is a value that spans more
 			and needs to call a function to get the banner's contents.
 			</para>
 <example>
-<title>Template example of function insert</title>
+<title>function insert</title>
 <programlisting>
 
 {* example of fetching a banner *}
@@ -825,7 +854,7 @@ Intro = """This is a value that spans more
 			"<","<=",">=" are all valid conditional qualifiers.
 			</para>
 <example>
-<title>Template example of if statements</title>
+<title>if statements</title>
 <programlisting>
 
 {if $name eq "Fred"}
@@ -894,7 +923,7 @@ Intro = """This is a value that spans more
 			delimiters, so this is the way around that.
 			</para>
 <example>
-<title>Template example of ldelim, rdelim</title>
+<title>ldelim, rdelim</title>
 <programlisting>
 
 {* this will print literal delimiters out of the template *}
@@ -919,7 +948,7 @@ OUTPUT:
 			interpreted, but displayed as-is.
 			</para>
 <example>
-<title>Template example of literal tags</title>
+<title>literal tags</title>
 <programlisting>
 
 {literal}
@@ -958,7 +987,7 @@ OUTPUT:
 			variable.
 			</para>
 <example>
-<title>example: section</title>
+<title>section</title>
 <programlisting>
 
 
@@ -977,7 +1006,7 @@ id: 1002&lt;br&gt;
 </example>
 
 <example>
-<title>example: section loop variable</title>
+<title>section loop variable</title>
 <programlisting>
 
 {* the loop variable only determines the number of times to loop.
@@ -1011,7 +1040,7 @@ address: 5605 apple st
 </example>
 
 <example>
-<title>example: section names</title>
+<title>section names</title>
 <programlisting>
 
 {* the name of the section can be anything you like,
@@ -1027,7 +1056,7 @@ address: 5605 apple st
 </example>
 
 <example>
-<title>example: nested sections</title>
+<title>nested sections</title>
 <programlisting>
 
 {* sections can be nested as deep as you like. With nested sections,
@@ -1074,7 +1103,42 @@ e-mail: jane@mydomain.com
 </example>
 
 <example>
-<title>example: sectionelse</title>
+<title>sections and associative arrays</title>
+<programlisting>
+
+{* This is an example of printing an associative array
+   of data within a section *}
+{section name=customer loop=$contacts}
+	{$customer/contacts.name}&lt;br&gt;
+	{$customer/contacts.home}&lt;br&gt;
+	{$customer/contacts.cell}&lt;br&gt;
+	{$customer/contacts.email}&lt;br&gt;
+{/section}
+
+
+OUTPUT:
+
+name: John Smith&lt;br&gt;
+home: 555-555-5555&lt;p&gt;
+cell: 555-555-5555&lt;p&gt;
+e-mail: john@mydomain.com&lt;p&gt;
+name: Jack Jones&lt;br&gt;
+home phone: 555-555-5555&lt;p&gt;
+cell phone: 555-555-5555&lt;p&gt;
+e-mail: jack@mydomain.com&lt;p&gt;
+name: Jane Munson&lt;p&gt;
+home phone: 555-555-5555&lt;p&gt;
+cell phone: 555-555-5555&lt;p&gt;
+e-mail: jane@mydomain.com&lt;p&gt;
+
+
+</programlisting>
+</example>
+
+
+
+<example>
+<title>sectionelse</title>
 <programlisting>
 
 {* sectionelse will execute in the case there are no $custid values *}
@@ -1098,7 +1162,7 @@ e-mail: jane@mydomain.com
 			starting with zero.
 			</para>
 <example>
-<title>example: section property index</title>
+<title>section property index</title>
 <programlisting>
 {section name=customer loop=$custid}
 	{%customer.index%} id: {$customer/custid}&lt;br&gt;
@@ -1121,7 +1185,7 @@ OUTPUT:
 			starting with one.
 			</para>
 <example>
-<title>example: section property rownum</title>
+<title>section property rownum</title>
 <programlisting>
 {section name=customer loop=$custid}
 	{%customer.rownum%} id: {$customer/custid}&lt;br&gt;
@@ -1145,7 +1209,7 @@ OUTPUT:
 			inside or after the section.
 			</para>
 <example>
-<title>example: section property index</title>
+<title>section property index</title>
 <programlisting>
 {section name=customer loop=$custid}
 	{%customer.index%} id: {$customer/custid}&lt;br&gt;
@@ -1175,7 +1239,7 @@ There were 3 customers shown above.
 			displayed.
 			</para>
 <example>
-<title>example: section property rownum</title>
+<title>section property rownum</title>
 <programlisting>
 {* $show_customer_info may have been passed from the PHP
    application, to regulate whether or not this section shows *}
@@ -1220,7 +1284,7 @@ the section was shown.
 			about extra white space causing problems.
 			</para>
 <example>
-<title>Template example of strip tags</title>
+<title>strip tags</title>
 <programlisting>
 
 {* the following will be all run into one line upon output *}
@@ -1266,7 +1330,7 @@ OUTPUT:
 			selected by default as well.
 			</para>
 <example>
-<title>Template example of html_options</title>
+<title>html_options</title>
 <programlisting>
 
 {* assume that $cust_ids, and $cust_names are arrays of values,
@@ -1313,7 +1377,7 @@ OUTPUT:
 				<listitem><para>year_as_text, boolean, true</para></listitem>
 			</itemizedlist>
 <example>
-<title>Template example of html_select_date</title>
+<title>html_select_date</title>
 <programlisting>
 
 {html_select_date}
@@ -1377,7 +1441,7 @@ OUTPUT:
 
 
 <example>
-<title>Template example of html_select_date</title>
+<title>html_select_date</title>
 <programlisting>
 
 
@@ -1447,7 +1511,7 @@ OUTPUT:
 		these are by example.
 		</para>
 <example>
-<title>Template example of variable modifiers</title>
+<title>variable modifiers</title>
 <programlisting>
 
 {* this displays a variable, unmodified *}
@@ -1733,24 +1797,54 @@ is the first week that has at least 4 days in the current year, and with Monday 
 	<sect1>
 		<title>Smarty/PHP errors</title>
 		<para>
-		As of now, Smarty is not a validating template parser. This means that
-		the parser will blindly convert the template to PHP scripts,
-		irregardless of any syntax errors in the markup tags that may be
-		present in the template. Smarty can catch certain template errors like
-		missing attributes to functions, but not syntax errors like missing
+		Smarty can catch many errors such as missing tag attributes
+		or malformed variable names. If this happens, you will see an error
+		similar to the following:
+		</para>
+
+<example>
+<title>Smarty errors</title>
+<programlisting>
+
+Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
+        in /path/to/smarty/Smarty.class.php on line 1041
+
+Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
+        in /path/to/smarty/Smarty.class.php on line 1041
+
+</programlisting>
+</example>
+
+		<para>
+		Smarty shows you the template name, the line number and the error.
+		Everything beyond that is PHP error messages which you can ignore.
+		</para>
+		
+		<para>
+		There are certain errors that Smarty cannot catch, such as missing
 		close tags. These types of errors can end up in PHP compile-time
-		errors. When you encounter a PHP error when attempting to display the
+		errors.
+		</para>
+
+<example>
+<title>PHP errors</title>
+<programlisting>
+
+Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
+
+</programlisting>
+</example>
+		
+		<para>
+		When you encounter a PHP error when attempting to display the
 		template in a browser, the error line number will correspond to the
 		compiled PHP script, not the template itself. This may be a bit
-		confusing or for the template designer. Our experience is to tell the
-		designers to check their work often, and ask the programmers for help
-		if they are really stuck. Usually you can look at the template and spot
-		the syntax error. Here are some common things to look for: missing
-		close tags for {if}{/if} or {section}{/section}, missing end variable
-		delimiters like {%sec.var} instead of {%sec.var%}, or {#var} instead of
-		{#var#}. If you can't find the error, you must open the compiled PHP
-		file and go to the line number to figure out where the corresponding
-		error is in the template.
+		confusing. Usually you can look at the template and spot the syntax
+		error. Here are some common things to look for: missing close tags for
+		{if}{/if} or {section}{/section}, or syntax of logic within an {if}
+		tag. If you can't find the error, you must open the compiled PHP file
+		and go to the line number to figure out where the corresponding error
+		is in the template.
 		</para>
 	</sect1>
 </chapter>

@@ -24,16 +24,13 @@ My interests are:
 	none
 {/section}
 
-testing
+testing section looped key values<br>
 {section name=sec1 loop=$contacts}
-	phone: {$sec1/contacts.phone}
-	fax: {$sec1/contacts.fax}
-	cell: {$sec1/contacts.cell}
+	phone: {$sec1/contacts.phone}<br>
+	fax: {$sec1/contacts.fax}<br>
+	cell: {$sec1/contacts.cell}<br>
 {/section}
-
 <p>
-
-{%^^^}
 
 testing strip tags
 {strip}

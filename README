@@ -2,7 +2,7 @@ NAME:
 
     Smarty - the PHP compiling template engine
 
-VERSION: 1.1.0
+VERSION: 1.2.0
 
 AUTHORS:
     
@@ -47,6 +47,10 @@ DESCRIPTION:
     * it is possible to imbed PHP code right in your template files,
       although not recommended and doubtfully needed since the engine
       is so customizable.
+
+MAILING LIST:
+	We have a mailing list for you to share your ideas or ask questions.
+	send a blank e-mail message to subscribe-smarty@lists.ispi.net
 
 COPYRIGHT:
     Copyright (c) 2001 ispi of Lincoln, Inc. All rights reserved.

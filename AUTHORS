@@ -5,3 +5,4 @@ Monte Ohrt <monte@ispi.net>
 Andrei Zmievski <andrei@ispi.net>
 	- Rewrote parser from scratch
 	- added much other functionality
+	- wrote Config_File class

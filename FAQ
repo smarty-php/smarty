@@ -23,6 +23,9 @@ A: What this means is that Smarty reads the template files and creates PHP
    automatically by Smarty. Template designers never need to mess with the
    generated PHP scripts or even know of their existance.
 
+Q: Do you have a mailing list?
+A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net
+
 TROUBLESHOOTING
 ---------------
 
