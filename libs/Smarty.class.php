@@ -43,6 +43,13 @@ class Smarty
 {
 
     // public vars
+    var $template_dir    =  "./templates";     // name of directory for templates  
+    var $compile_dir     =  "./templates_c";   // name of directory for compiled templates 
+    var $config_dir      =  "./configs";       // directory where config files are located
+
+    var $global_assign   =  array(  'SCRIPT_NAME' ); // variables from the GLOBALS array
+                                                     // that are implicitly assigned
+                                                     // to all templates   
     var $compile_check   =  true;       // whether to check for compiling step or not:
                                         // This is generally set to false once the
                                         // application is entered into production and
@@ -51,18 +58,15 @@ class Smarty
 
     var $force_compile   =  false;      // force templates to compile every time.
                                         // overrides compile_check. true/false
-    
+        
                                         // NOTE: all cache directives override
                                         // compiling directives. If a cached version
                                         // is available, that will be used regardless
                                         // of compile settings.
-    var $caching         =  false;       // whether to use caching or not. true/false
+    var $caching         =  false;      // whether to use caching or not. true/false
+    var $cache_dir       =  "./cache";  // name of directory for template cache
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
-
-    var $template_dir    =  "./templates";      // name of directory for templates  
-    var $compile_dir     =  "./templates_c";    // name of directory for compiled templates 
-    var $cache_dir       =  "./cache";          // name of directory for template cache
     
     
     var $tpl_file_ext    =  ".tpl";     // template file extentions
@@ -74,7 +78,6 @@ class Smarty
     var $left_delimiter  =  "{";        // template tag delimiters.
     var $right_delimiter =  "}";
 
-    var $config_dir      =  "./configs";    // directory where config files are located
 
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
                                     'html_select_date'  => 'smarty_func_html_select_date'
@@ -91,8 +94,6 @@ class Smarty
                                     'replace'       => 'smarty_mod_replace',
                                     'strip_tags'    => 'smarty_mod_strip_tags',
                                     'default'       => 'smarty_mod_default'
-                                 );
-    var $global_assign   =  array(  'SCRIPT_NAME'
                                  );
     
     // internal vars
