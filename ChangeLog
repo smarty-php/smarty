@@ -1,3 +1,9 @@
+2004-05-07  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/block.textformat.php:
+      update textformat to not output wrap chars after last para
+
 2004-05-06  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
