@@ -52,6 +52,7 @@ class Smarty
 											'truncate'		=> 'smarty_mod_truncate',
 											'spacify'		=> 'smarty_mod_spacify',
 											'date_format'	=> 'smarty_mod_date_format',
+											'string_format'	=> 'smarty_mod_string_format',
 											'replace'		=> 'smarty_mod_replace'
 										 );
 	var $global_assign			=	array(	'SCRIPT_NAME'
