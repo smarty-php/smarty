@@ -1,3 +1,18 @@
+2002-12-19  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
+      commit updates, passes all smoke tests
+
+    * NEWS:
+      update NEWS file
+
+    * Smarty_Compiler.class.php:
+      fixed literal string not in quotes as parameters
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      fix misc syntax issues, add ability to pass modifiers to functions
+
 2002-12-18  Monte Ohrt  <monte@ispi.net>
 
     * NEWS:
