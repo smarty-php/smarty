@@ -6,10 +6,15 @@ require_once 'PHPUnit.php';
 
 class Obj {
     var $val = 'val';
-    var $arr = array('one' => 'one');
+    var $arr = array('one' => 'one', 'two' => 2);
+    var $ten = 10;
 
     function meth($a="a", $b="b") {
         return "$a:$b";
+    }
+
+    function six() {
+        return 6;
     }
 }
 
@@ -255,20 +260,43 @@ class SmartyTest extends PHPUnit_TestCase {
         $this->assertEquals($this->smarty->fetch('assign_var.tpl'), 'bar');
     }
 
+    /* PARSING TESTS */
+    
     // test assigning and calling an object
-    function test_obj_meth() {
+    function test_parse_obj_meth() {
         $obj  = new Obj();
         $this->smarty->assign('obj', $obj);
         $this->smarty->assign('foo', 'foo');
-        $this->assertEquals(
-'foo:2.5
+        $this->assertEquals('foo:2.5
 2.5:foo
 2.5:b
 val:foo
 foo:val
 foo:foo
 one:2
-foo:foo:b',   $this->smarty->fetch('assign_obj.tpl'));
+foo:foo:b', $this->smarty->fetch('parse_obj_meth.tpl'));
+    }
+    
+    // test assigning and calling an object
+    function test_parse_math() {
+        $obj  = new Obj();
+        $this->smarty->assign('obj', $obj);
+        $this->smarty->assign('flt', 2.5);
+        $this->smarty->assign('items', array(1, 2));
+        $this->assertEquals('3
+3.5
+7
+11
+4
+4.5
+8
+12
+12.5
+25
+16
+20
+8.5
+7', $this->smarty->fetch('parse_math.tpl'));
     }
     
     /* CONFIG FILE TESTS */
