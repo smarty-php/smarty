@@ -1,3 +1,10 @@
+2002-09-24  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Smarty_Compiler.class.php:
+    Fix to be able to use $smarty.x variables as arrays.
+
 2002-09-23  Monte Ohrt  <monte@ispi.net>
 
     * Config_File.class.php:
