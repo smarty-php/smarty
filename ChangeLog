@@ -1,3 +1,33 @@
+2003-12-11  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      little optimization for "is odd" and "is even"
+
+2003-12-11  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fix 'is even by' and 'is odd by' logic
+
+2003-12-11  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      update example-output of {mailto}
+
+    * libs/plugins/function.mailto.php:
+      removed extract-call -> cleaner parameter-handling
+
+    * libs/plugins/function.mailto.php:
+      fixed indentiation
+
+    * TODO:
+      removed two done topics
+
+2003-12-11  boots  <jayboots@yahoo.com>
+
+    * docs/designers.sgml:
+      Updated language.function.if to describe qualifiers (thanks andre)
+
 2003-12-10  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
