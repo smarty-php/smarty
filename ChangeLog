@@ -1,3 +1,20 @@
+2004-07-01  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      removed use of get_include_filepath() inside
+      get_auto_filename(). thanks go to c960657
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      enhanced error-reporting for {foreach}
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed handling of digits inside tagnames. this problem slipped into
+      the regexps by adding support for numeric contants next to string
+      constants as variables.
+
 2004-06-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
