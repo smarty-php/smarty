@@ -99,8 +99,11 @@ class Config_File {
 				$this->_trigger_error_msg("Bad config file path '$config_path'");
 				return;
 			}
+			if(substr($config_path, -1) != DIRECTORY_SEPARATOR) {
+				$config_path .= DIRECTORY_SEPARATOR;
+			}
 
-			$this->_config_path = $config_path . DIRECTORY_SEPARATOR;
+			$this->_config_path = $config_path;
 		}
 	}
 
