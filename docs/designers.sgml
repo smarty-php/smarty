@@ -174,7 +174,7 @@ PRACTICAL EXAMPLES:
 
     <para>Including literal content is possible using <link linkend="language.function.literal">{literal} .. {/literal}</link> blocks.
     Similar to HTML entity usage, you can use <link linkend="language.function.ldelim">{ldelim}</link> and <link linkend="language.function.ldelim">{rdelim}</link>
-    to display the current deliminters.
+    to display the current delimiters.
     </para>
 
     <para>
