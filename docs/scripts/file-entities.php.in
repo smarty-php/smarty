@@ -132,20 +132,13 @@ function abs_path($path) {
  * @return boolean Success signal
  */
 function file_entities($work_dir, $trans_dir, $orig_dir, &$entities) {
-
-    // Skip the function directory not under "reference". That
-    // folder is only kept for backward compatibility and only
-    // in the English version of the docs.
-    if (strpos($work_dir, "functions") && !preg_match("!reference/.*/functions!", $work_dir)) {
-        return;
-    }
     
     // Compute translated version's path
     $trans_path = str_replace($orig_dir, $trans_dir, $work_dir);
     
     // Try to open English working directory
     $dh = opendir($work_dir);
-    if (!$dh) { return FALSE; }
+    if (!$dh) { echo "lllll"; return FALSE; }
 
     // If the working directory is a reference functions directory
     if (preg_match("!/reference/.*/functions$!", $work_dir)) {
@@ -257,6 +250,7 @@ function file_entities($work_dir, $trans_dir, $orig_dir, &$entities) {
                         $work_dir . "/" . preg_replace("!\\.xml$!", "", $file)
                     );
                     $name = fname2entname($name);
+		    echo $name;
                     
                     // If the file found is not in the English dir, append to entities list
                     if (!file_exists("$work_dir/$file")) {
