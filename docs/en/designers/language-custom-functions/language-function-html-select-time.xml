@@ -140,14 +140,9 @@
  </para>
  <para>
   The time-attribute can have different
-  formats. It can be a uniq-timestamp or a
-  string containing Y-M-D. YYYY-MM-DD may be the
-  most common, but months and days with less
-  than two digits are also recognized. If one of
-  the 3 values (Y,M,D) is the empty string, than
-  the according select-box is not pre-selected
-  at all. This is especially useful with the
-  empty_year-, -month- and -day-attritbutes.
+  formats. It can be a unique timestamp or a
+  string of the format YYYYMMDDHHMMSS or a string
+  that is parseable by php's strtotime().
  </para>
  <example>
   <title>html_select_time</title>
