@@ -1337,6 +1337,10 @@ class Smarty_Compiler extends Smarty {
                     $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference');
                 }
                 break;
+				
+			case 'version':
+				$compiled_ref = "'$this->_version'";
+				break;
 
             default:
                 $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference');
