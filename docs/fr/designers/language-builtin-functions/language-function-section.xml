@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.section">
- <title>section,sectionelse</title>
+ <title>section, sectionelse</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -29,12 +29,10 @@
     </row>
     <row>
      <entry>loop</entry>
-     <entry>[$nom_variable]</entry>
+     <entry>mixed</entry>
      <entry>Oui</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>le nom de la variable qui détermine le nombre de
-      fois que la boucle sera exécutée.
-     </entry>
+     <entry>valeur qui détermine le nombre de fois que la boucle sera exécutée.</entry>
     </row>
     <row>
      <entry>start</entry>
@@ -164,13 +162,13 @@ addresse: 5605 apple st&lt;br&gt;
    $type_contact[client] est un tableau de type de contact pour le client
    courant. *}
 {section name=client loop=$idClient}
-	id: {$idClient[client]}&lt;br&gt;
-	nom: {$nom[client]}&lt;br&gt;
-	addresse: {$addresse[client]}&lt;br&gt;
-	{section name=contact loop=$type_contact[client]}
-		{$type_contact[client][contact]}: {$info_contact[client][contact]}&lt;br&gt;
-	{/section}
-	&lt;p&gt;
+  id: {$idClient[client]}&lt;br&gt;
+  nom: {$nom[client]}&lt;br&gt;
+  addresse: {$addresse[client]}&lt;br&gt;
+  {section name=contact loop=$type_contact[client]}
+    {$type_contact[client][contact]}: {$info_contact[client][contact]}&lt;br&gt;
+  {/section}
+  &lt;p&gt;
 {/section}
 
 
@@ -181,21 +179,21 @@ nom: John Smith&lt;br&gt;
 addresse: 253 N 45th&lt;br&gt;
 telephone: 555-555-5555&lt;br&gt;
 telephone portable: 555-555-5555&lt;br&gt;
-e-mail: john@mydomain.com&lt;br&gt;
+e-mail: john@myexample.com&lt;br&gt;
 &lt;p&gt;
 id: 1001&lt;br&gt;
 nom: Jack Jones&lt;br&gt;
 addresse: 417 Mulberry ln&lt;br&gt;
 telephone: 555-555-5555&lt;br&gt;
 telephone portable: 555-555-5555&lt;br&gt;
-e-mail: jack@mydomain.com&lt;br&gt;
+e-mail: jack@myexample.com&lt;br&gt;
 &lt;p&gt;
 id: 1002&lt;br&gt;
 nom: Jane Munson&lt;br&gt;
 addresse: 5605 apple st&lt;br&gt;
 telephone: 555-555-5555&lt;br&gt;
 telephone portable: 555-555-5555&lt;br&gt;
-e-mail: jane@mydomain.com&lt;br&gt;
+e-mail: jane@myexample.com&lt;br&gt;
 &lt;p&gt;</programlisting>
  </example>
  
@@ -204,10 +202,10 @@ e-mail: jane@mydomain.com&lt;br&gt;
 <programlisting>
 {* Exemple d'affichage d'un tableau associatif dans une section *}
 {section name=client loop=$contacts}
-	nom: {$contacts[client].name}&lt;br&gt;
-	telephone: {$contacts[client].home}&lt;br&gt;
-	portable: {$contacts[client].cell}&lt;br&gt;
-	e-mail: {$contacts[client].email}&lt;p&gt;
+  nom: {$contacts[client].name}&lt;br&gt;
+  telephone: {$contacts[client].home}&lt;br&gt;
+  portable: {$contacts[client].cell}&lt;br&gt;
+  e-mail: {$contacts[client].email}&lt;p&gt;
 {/section}
 
 
@@ -216,15 +214,15 @@ SORTIE:
 nom: John Smith&lt;br&gt;
 telephone: 555-555-5555&lt;br&gt;
 portable: 555-555-5555&lt;br&gt;
-e-mail: john@mydomain.com&lt;p&gt;
+e-mail: john@myexample.com&lt;p&gt;
 nom: Jack Jones&lt;br&gt;
 telephone: 555-555-5555&lt;br&gt;
 portable: 555-555-5555&lt;br&gt;
-e-mail: jack@mydomain.com&lt;p&gt;
+e-mail: jack@myexample.com&lt;p&gt;
 nom: Jane Munson&lt;br&gt;
 telephone: 555-555-5555&lt;br&gt;
 portable: 555-555-5555&lt;br&gt;
-e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
+e-mail: jane@myexample.com&lt;p&gt;</programlisting>
  </example>
  
  
@@ -234,9 +232,9 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 <programlisting>
 {* sectionelse est exécuté s'il n'existe aucune valeur dans idClient *}
 {section name=client loop=$idClient}
-	id: {$idClient[client]}&lt;br&gt;
+  id: {$idClient[client]}&lt;br&gt;
 {sectionelse}
-	Aucune valeur dans $idClient.
+  Aucune valeur dans $idClient.
 {/section}</programlisting>
  </example>
  <para>
@@ -268,16 +266,16 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>propriété de section index</title>
 <programlisting>
-	{section name=client loop=$idClient}
-	{$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
-	{/section}
+  {section name=client loop=$idClient}
+  {$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
+  {/section}
 
 
-	SORTIE:
+  SORTIE:
 
-	0 id: 1000&lt;br&gt;
-	1 id: 1001&lt;br&gt;
-	2 id: 1002&lt;br&gt;
+  0 id: 1000&lt;br&gt;
+  1 id: 1001&lt;br&gt;
+  2 id: 1002&lt;br&gt;
 </programlisting>
   </example>
  </sect2>
@@ -290,23 +288,23 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>propriété de section index_prev</title>
 <programlisting>
-	{section name=client loop=$idClient}
-	{$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
-	{* Pour votre information, $idClient[client.index] and $idClient[client] sont identiques *}
-	{if $idClient[client.index_prev] ne $idClient[client.index]}
-    	L'id du client à été modifié&lt;br&gt;
-	{/if}
-	{/section}
+  {section name=client loop=$idClient}
+  {$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
+  {* Pour votre information, $idClient[client.index] and $idClient[client] sont identiques *}
+  {if $idClient[client.index_prev] ne $idClient[client.index]}
+    L'id du client à été modifié&lt;br&gt;
+  {/if}
+  {/section}
 
 
-	SORTIE:
+  SORTIE:
 
-	0 id: 1000&lt;br&gt;
-    	L'id du client à été modifié&lt;br&gt;
-	1 id: 1001&lt;br&gt;
-    	L'id du client à été modifié&lt;br&gt;
-	2 id: 1002&lt;br&gt;
-    	L'id du client à été modifié&lt;br&gt;
+  0 id: 1000&lt;br&gt;
+  L'id du client à été modifié&lt;br&gt;
+  1 id: 1001&lt;br&gt;
+  L'id du client à été modifié&lt;br&gt;
+  2 id: 1002&lt;br&gt;
+  L'id du client à été modifié&lt;br&gt;
 </programlisting>
   </example>
  </sect2>
@@ -320,23 +318,23 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>propriété de section index_next</title>
 <programlisting>
-	{section name=client loop=$idClient}
-	{$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
-	{* Pour votre information, $idClient[client.index] and $idClient[client] sont identiques *}
-	{if $idClient[client.index_next] ne $idClient[client.index]}
-    	L'id du client va changer&lt;br&gt;
-	{/if}
-	{/section}
+  {section name=client loop=$idClient}
+  {$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
+  {* Pour votre information, $idClient[client.index] and $idClient[client] sont identiques *}
+  {if $idClient[client.index_next] ne $idClient[client.index]}
+  L'id du client va changer&lt;br&gt;
+  {/if}
+  {/section}
 
 
-	SORTIE:
+  SORTIE:
 
-	0 id: 1000&lt;br&gt;
-    	L'id du client va changer&lt;br&gt;
-	1 id: 1001&lt;br&gt;
-    	L'id du client va changer&lt;br&gt;
-	2 id: 1002&lt;br&gt;
-    	L'id du client va changer&lt;br&gt;
+  0 id: 1000&lt;br&gt;
+  L'id du client va changer&lt;br&gt;
+  1 id: 1001&lt;br&gt;
+  L'id du client va changer&lt;br&gt;
+  2 id: 1002&lt;br&gt;
+  L'id du client va changer&lt;br&gt;
 </programlisting>
   </example>
  </sect2>
@@ -354,27 +352,27 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>propriété iteration de section</title>
 <programlisting>
-	{section name=client loop=$idClient start=5 step=2}
-	Iteration courante: {$smarty.section.client.iteration}&lt;br&gt;
-	{$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
-	{* Pour votre information, $idClient[client.index] and $idClient[client] sont identiques *}
-	{if $idCLient[client.index_next] ne $idClient[client.index]}
-    	L'id du client va changer&lt;br&gt;
-	{/if}
-	{/section}
+  {section name=client loop=$idClient start=5 step=2}
+  Iteration courante: {$smarty.section.client.iteration}&lt;br&gt;
+  {$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
+  {* Pour votre information, $idClient[client.index] and $idClient[client] sont identiques *}
+  {if $idCLient[client.index_next] ne $idClient[client.index]}
+    L'id du client va changer&lt;br&gt;
+  {/if}
+  {/section}
 
 
-	SORTIE:
+  SORTIE:
 
-	Iteration courante: 1
-	5 id: 1000&lt;br&gt;
-    	L'id du client va changer&lt;br&gt;
-	Iteration courante: 2
-	7 id: 1001&lt;br&gt;
-    	L'id du client va changer&lt;br&gt;
-	Iteration courante: 3
-	9 id: 1002&lt;br&gt;
-    	L'id du client va changer&lt;br&gt;
+  Iteration courante: 1
+  5 id: 1000&lt;br&gt;
+    L'id du client va changer&lt;br&gt;
+  Iteration courante: 2
+  7 id: 1001&lt;br&gt;
+    L'id du client va changer&lt;br&gt;
+  Iteration courante: 3
+  9 id: 1002&lt;br&gt;
+    L'id du client va changer&lt;br&gt;
 </programlisting>
   </example>
  </sect2>
@@ -386,27 +384,27 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>propriété first de la section</title>
 <programlisting>
-	{section name=client loop=$idClient}
-	{if $smarty.section.client.first}
-    	&lt;table&gt;
-	{/if}
+  {section name=client loop=$idClient}
+  {if $smarty.section.client.first}
+  &lt;table&gt;
+  {/if}
 
-	&lt;tr&gt;&lt;td&gt;{$smarty.section.client.index} id:
-        	{$idClient[client]}&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;{$smarty.section.client.index} id:
+     {$idClient[client]}&lt;/td&gt;&lt;/tr&gt;
 
-	{if $smarty.section.client.last}
-    	&lt;/table&gt;
-	{/if}
-	{/section}
+  {if $smarty.section.client.last}
+    &lt;/table&gt;
+  {/if}
+  {/section}
 
 
-	SORTIE:
+  SORTIE:
 
-	&lt;table&gt;
-	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
-	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
-	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
-	&lt;/table&gt;
+  &lt;table&gt;
+  &lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+  &lt;/table&gt;
 </programlisting>
   </example>
  </sect2>
@@ -418,27 +416,27 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>Propriété last de section</title>
 <programlisting>
-	{section name=client loop=$idClient}
-	{if $smarty.section.client.first}
-    	&lt;table&gt;
-	{/if}
+  {section name=client loop=$idClient}
+  {if $smarty.section.client.first}
+    &lt;table&gt;
+  {/if}
 
-	&lt;tr&gt;&lt;td&gt;{$smarty.section.client.index} id:
-        	{$idClient[client]}&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;{$smarty.section.client.index} id:
+    {$idClient[client]}&lt;/td&gt;&lt;/tr&gt;
 
-	{if $smarty.section.client.last}
-    	&lt;/table&gt;
-	{/if}
-	{/section}
+  {if $smarty.section.client.last}
+    &lt;/table&gt;
+  {/if}
+  {/section}
 
 
-	SORTIE:
+  SORTIE:
 
-	&lt;table&gt;
-	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
-	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
-	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
-	&lt;/table&gt;
+  &lt;table&gt;
+  &lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+  &lt;/table&gt;
 </programlisting>
   </example>
  </sect2>
@@ -452,16 +450,16 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>propriété rownum de section</title>
 <programlisting>
-	{section name=client loop=$idClient}
-	{$smarty.section.client.rownum} id: {$idClient[client]}&lt;br&gt;
-	{/section}
+  {section name=client loop=$idClient}
+  {$smarty.section.client.rownum} id: {$idClient[client]}&lt;br&gt;
+  {/section}
 
 
-	SORTIE:
+  SORTIE:
 
-	1 id: 1000&lt;br&gt;
-	2 id: 1001&lt;br&gt;
-	3 id: 1002&lt;br&gt;
+  1 id: 1000&lt;br&gt;
+  2 id: 1001&lt;br&gt;
+  3 id: 1002&lt;br&gt;
 </programlisting>
   </example>
  </sect2>
@@ -474,19 +472,19 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>Propriété de section index</title>
 <programlisting>
-	{section name=client loop=$idClient}
-	{$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
-	{/section}
+  {section name=client loop=$idClient}
+  {$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
+  {/section}
 
-	Il y eu {$smarty.section.client.loop} clients d'affichés.
+  Il y eu {$smarty.section.client.loop} clients d'affichés.
 
-	SORTIE:
+  SORTIE:
 
-	0 id: 1000&lt;br&gt;
-	1 id: 1001&lt;br&gt;
-	2 id: 1002&lt;br&gt;
+  0 id: 1000&lt;br&gt;
+  1 id: 1001&lt;br&gt;
+  2 id: 1002&lt;br&gt;
 
-	il y eu 3 clients d'affichés.
+  il y eu 3 clients d'affichés.
 </programlisting>
   </example>
  </sect2>
@@ -501,26 +499,26 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>section, attribut show</title>
 <programlisting>
-	{* $show_client_info a pu être passé par le script PHP,
-	 pour déterminer si oui ou non on souhaite afficher la section *}
-	{section name=client loop=$idClient show=$show_client_info}
-	{$smarty.section.client.rownum} id: {$idClient[client]}&lt;br&gt;
-	{/section}
+  {* $show_client_info a pu être passé par le script PHP,
+    pour déterminer si oui ou non on souhaite afficher la section *}
+  {section name=client loop=$idClient show=$show_client_info}
+  {$smarty.section.client.rownum} id: {$idClient[client]}&lt;br&gt;
+  {/section}
 
-	{if $smarty.section.client.show}
-	la section à été affichée.
-	{else}
-	la section n'a pas été affichée.
-	{/if}
+  {if $smarty.section.client.show}
+    la section à été affichée.
+  {else}
+    la section n'a pas été affichée.
+  {/if}
 
 
-	SORTIE:
+  SORTIE:
 
-	1 id: 1000&lt;br&gt;
-	2 id: 1001&lt;br&gt;
-	3 id: 1002&lt;br&gt;
+  1 id: 1000&lt;br&gt;
+  2 id: 1001&lt;br&gt;
+  3 id: 1002&lt;br&gt;
 
-	la section à été affichée.
+  la section à été affichée.
 </programlisting>
   </example>
  </sect2>
@@ -533,19 +531,19 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>section, propriété total</title>
 <programlisting>
-	{section name=client loop=$idClient step=2}
-	{$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
-	{/section}
+  {section name=client loop=$idClient step=2}
+  {$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
+  {/section}
 
-	Il y eu {$smarty.section.client.total} clients affichés.
+  Il y eu {$smarty.section.client.total} clients affichés.
 
-	SORTIE:
+  SORTIE:
 
-	0 id: 1000&lt;br&gt;
-	2 id: 1001&lt;br&gt;
-	4 id: 1002&lt;br&gt;
+  0 id: 1000&lt;br&gt;
+  2 id: 1001&lt;br&gt;
+  4 id: 1002&lt;br&gt;
 
-	Il y eu 3 clients affichés.
+  Il y eu 3 clients affichés.
 </programlisting>
   </example>
  </sect2>

@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.ldelim">
  <title>ldelim,rdelim</title>
  <para>
   ldelim et rdelim sont utilisés pour afficher les délimiteurs en tant
-  que tels, dans notre cas "{" ou "}". Le moteur de template tentera
-  toujours d'interpréter le contenu entre les délimiteurs, c'est donc
-  une façon d'afficher ces derniers sans interférer avec Smarty.
+  que tels, dans notre cas, "{" ou "}". Vous pouvez toujours utiliser <link
+  linkend="language.function.literal">{literal}{/literal}</link> pour échapper
+  des blocks de texte.
+  Voir aussi <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
+  et <link linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>.
  </para>
  <example>
   <title>ldelim, rdelim</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 {* Affiche les délimiteurs de template *}
 
 {ldelim}nomFonction{rdelim} est la façon dont sont appelées les fonctions dans Smarty !
-
-
-SORTIE:
-
-{nomFonction}  est la façon dont sont appelées les fonctions dans Smarty !
-</programlisting>
- </example>
-</sect1>
+]]>
+   </programlisting>
+   <para>
+    Affichera :
+   </para>
+   <screen>
+<![CDATA[
+{nomFonction} est la façon dont sont appelées les fonctions dans Smarty !
+]]>
+   </screen>
+  </example>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

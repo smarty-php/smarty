@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
 <sect1 id="language.syntax.quotes">
  <title>Variables insérées dans des chaînes de caractères</title>
  <para>
@@ -8,7 +8,9 @@
   chaînes entre guillemets, du moment que leur nom est exclusivement composé
   de chiffres, lettres, underscores et crochets. Si le nom de la variable
   contient tout autre caractère (point, référence à un objet, etc.)
-  la variable doit être entourée d'apostrophes inverses (`).
+  la variable doit être entourée d'apostrophes inverses (`). Vous ne pouvez jamais
+  insérer de modifieurs, ils doivent toujours être appliquer à l'extérieur des
+  guillemets.
  </para>
  <example>
   <title>Syntaxe d'insertion de variables dans des chaînes</title>
@@ -21,6 +23,7 @@ EXEMPLE DE SYNTAXE:
 {func var="test $foo[bar] test"}  <-- comprends $foo[bar]
 {func var="test $foo.bar test"}   <-- comprends $foo (not $foo.bar)
 {func var="test `$foo.bar` test"} <-- comprends $foo.bar
+{func var="test `$foo.bar` test"|escape} <-- modifieurs à l'extérieur des guillemets !
 
 EXEMPLE PRATIQUE:
 {include file="subdir/$tpl_name.tpl"} <-- remplace $tpl_name avec la valeur
