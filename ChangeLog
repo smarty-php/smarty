@@ -1,3 +1,8 @@
+2002-12-23  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
+      support nested function calls in IF statements
+
 2002-12-20  Monte Ohrt  <monte@ispi.net>
 
     * Smarty_Compiler.class.php:
