@@ -15,7 +15,7 @@
     </para>
 
     <para>
-     Inclure du contenu litéral est possible en utilisant les blocks <link 
+     Inclure du contenu litéral est possible en utilisant les blocs <link 
      linkend="language.function.literal">{literal} .. {/literal}</link>.
      Similairement à l'utilisation d'entités HTML, vous pouvez utiliser <link 
      linkend="language.function.ldelim">{ldelim}</link> et <link 
