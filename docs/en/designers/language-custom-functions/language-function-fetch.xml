@@ -84,7 +84,7 @@
 {if $weather ne ""}
 	<b>{$weather}</b>
 {/if}
-]]
+]]>
   </programlisting>
  </example>
 </sect1>
