@@ -64,6 +64,6 @@ DESCRIPTION:
     * arbitrary template sources (flat files, databases, etc.)
 
 COPYRIGHT:
-    Copyright (c) 2001 ispi of Lincoln, Inc. All rights reserved.
+    Copyright (c) 2001,2002 ispi of Lincoln, Inc. All rights reserved.
     This software is released under the GNU Lesser General Public License.
     Please read the disclaimer at the top of the Smarty.class.php file.

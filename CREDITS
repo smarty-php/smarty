@@ -3,7 +3,8 @@ Monte Ohrt <monte@ispi.net>:
     concept" implementation, and maintains documentation & code base.
     
 Andrei Zmievski <andrei@php.net>:
-    Rewrote parser from scratch and maintains code base.
+	Rewrote parser from scratch, developed plugin architecture, and maintains
+    code base.
 
 Anne Holz <anne@ispi.net>:
     Provided creative input with respect to web design.
@@ -18,5 +19,5 @@ A special thanks goes to the members of the php-template mailing list and the
 smarty mailing list, too numerous to list, who are sharing and bringing many
 ideas to the table and contributing source code.
 
-Rasmus Lerdorf <rasmus@php.net>: For starting what eventually became
-the coolest programming language ever.
+Rasmus Lerdorf <rasmus@php.net>: For starting what eventually became the
+coolest programming language ever.

@@ -7,7 +7,7 @@
  *              Andrei Zmievski <andrei@php.net>
  *
  * Version:     1.5.2
- * Copyright:   2001 ispi of Lincoln, Inc.
+ * Copyright:   2001,2002 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -48,6 +48,8 @@ class Smarty_Compiler extends Smarty {
     var $_current_file          =   null;       // the current template being compiled
     var $_current_line_no       =   1;          // line number for error messages
     var $_capture_stack         =   array();    // keeps track of nested capture buffers
+    var $_plugin_info           =   array();    // keeps track of plugins to load
+    var $_filters_loaded        =   false;
 
 
 /*======================================================================*\
@@ -64,13 +66,19 @@ class Smarty_Compiler extends Smarty {
             }
         }
 
+        if (!$this->_filters_loaded) {
+            $this->_load_filters();
+            $this->_filters_loaded = true;
+        }
+
         // run template source through prefilter functions
-        if (is_array($this->prefilter_funcs) && count($this->prefilter_funcs) > 0) {
-            foreach ($this->prefilter_funcs as $prefilter) {
-                if (function_exists($prefilter)) {
-                    $template_source = $prefilter($template_source, $this);
+        if (count($this->_plugins['prefilter']) > 0) {
+            foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
+                if ($prefilter[3] || function_exists($prefilter[0])) {
+                    $template_source = $prefilter[0]($template_source, $this);
+                    $this->_plugins['prefilter'][$filter_name][3] = true;
                 } else {
-                    $this->_trigger_error_msg("prefilter function $prefilter does not exist.");
+                    $this->_trigger_plugin_error("Smarty plugin error: prefilter '$filter_name' is not implemented");
                 }
             }
         }
@@ -170,14 +178,28 @@ class Smarty_Compiler extends Smarty {
         }
 
         // run compiled template through postfilter functions
-        if (is_array($this->postfilter_funcs) && count($this->postfilter_funcs) > 0) {
-            foreach ($this->postfilter_funcs as $postfilter) {
-                if (function_exists($postfilter)) {
-                    $template_compiled = $postfilter($template_compiled, $this);
+        if (count($this->_plugins['postfilter']) > 0) {
+            foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
+                if ($postfilter[3] || function_exists($postfilter[0])) {
+                    $template_compiled = $postfilter[0]($template_compiled, $this);
+                    $this->_plugins['postfilter'][$filter_name][3] = true;
                 } else {
-                    $this->_trigger_error_msg("postfilter function $postfilter does not exist.");
+                    $this->_trigger_plugin_error("Smarty plugin error: postfilter '$filter_name' is not implemented");
                 }
             }
+        }
+
+        /* Emit code to load needed plugins. */
+        if (count($this->_plugin_info)) {
+            $plugins_code = '<?php $this->_load_plugins(array(';
+            foreach ($this->_plugin_info as $plugin_type => $plugins) {
+                foreach ($plugins as $plugin_name => $plugin_info) {
+                    $plugins_code .= "\narray('$plugin_type', '$plugin_name', '$plugin_info[0]', $plugin_info[1]),";
+                }
+            }
+            $plugins_code .= ")); ?>";
+            $template_compiled = $plugins_code . $template_compiled;
+            $this->_plugin_info = array();
         }
 
         return true;
@@ -300,13 +322,10 @@ class Smarty_Compiler extends Smarty {
                 return $this->_compile_insert_tag($tag_args);
 
             default:
-                if (isset($this->compiler_funcs[$tag_command])) {
-                    return $this->_compile_compiler_tag($tag_command, $tag_args);
-                } else if (isset($this->custom_funcs[$tag_command])) {
-                    return $this->_compile_custom_tag($tag_command, $tag_args);
+                if ($this->_compile_compiler_tag($tag_command, $tag_args, $output)) {
+                    return $output;
                 } else {
-                    $this->_syntax_error("unknown tag - '$tag_command'", E_USER_WARNING);
-                    return;
+                    return $this->_compile_custom_tag($tag_command, $tag_args);
                 }
         }
     }
@@ -316,16 +335,62 @@ class Smarty_Compiler extends Smarty {
     Function: _compile_compiler_tag
     Purpose:  compile the custom compiler tag
 \*======================================================================*/
-    function _compile_compiler_tag($tag_command, $tag_args)
+    function _compile_compiler_tag($tag_command, $tag_args, &$output)
     {
-        $function = $this->compiler_funcs[$tag_command];
+        $found = false;
+        $have_function = true;
 
-        if (!function_exists($function)) {
-            $this->_syntax_error("compiler function '$tag_command' is not implemented", E_USER_WARNING);
-            return;
+        $plugin_file = $this->plugins_dir .
+                       '/compiler.' .
+                       $tag_command .
+                       '.php';
+
+        /*
+         * First we check if the compiler function has already been registered
+         * or loaded from a plugin file.
+         */
+        if (isset($this->_plugins['compiler'][$tag_command])) {
+            $found = true;
+            $plugin_func = $this->_plugins['compiler'][$tag_command][0];
+            if (!function_exists($plugin_func)) {
+                $message = "compiler function '$tag_command' is not implemented";
+                $have_function = false;
+            }
+        }
+        /*
+         * Otherwise we need to load plugin file and look for the function
+         * inside it.
+         */
+        else if (file_exists($plugin_file) && is_readable($plugin_file)) {
+            $found = true;
+
+            include_once $plugin_file;
+
+            $plugin_func = 'smarty_compiler_' . $tag_command;
+            if (!function_exists($plugin_func)) {
+                $message = "plugin function $plugin_func() not found in $plugin_file\n";
+                $have_function = false;
+            } else {
+                $this->_plugins['compiler'][$tag_command] = array($plugin_func, null, null);
+            }
         }
 
-        return '<?php ' . $function($tag_args, $this) . ' ?>';
+        /*
+         * True return value means that we either found a plugin or a
+         * dynamically registered function. False means that we didn't and the
+         * compiler should now emit code to load custom function plugin for this
+         * tag.
+         */
+        if ($found) {
+            if ($have_function) {
+                $output = '<?php ' . $plugin_func($tag_args, $this) . ' ?>';
+            } else {
+                $this->_syntax_error($message, E_USER_WARNING);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -335,12 +400,10 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_custom_tag($tag_command, $tag_args)
     {
-        $function = $this->custom_funcs[$tag_command];
-
-        if (!function_exists($function)) {
-            $this->_syntax_error("custom function '$tag_command' is not implemented", E_USER_WARNING);
-            return;
-        }
+        $this->_add_plugin('function',
+                           $tag_command,
+                           $this->_current_file,
+                           $this->_current_line_no);
 
         $arg_list = array();
         $attrs = $this->_parse_attrs($tag_args);
@@ -350,7 +413,7 @@ class Smarty_Compiler extends Smarty {
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        return "<?php $function(array(".implode(',', (array)$arg_list)."), \$this); if(\$this->_extract) { extract(\$this->_tpl_vars); \$this->_extract=false; } ?>";
+        return "<?php \$this->_plugins['function']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), \$this); if(\$this->_extract) { extract(\$this->_tpl_vars); \$this->_extract=false; } ?>";
     }
 
 
@@ -361,7 +424,7 @@ class Smarty_Compiler extends Smarty {
     function _compile_insert_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
-        $name = substr($attrs['name'], 1, -1);
+        $name = $this->_dequote($attrs['name']);
 
         if (empty($name)) {
             $this->_syntax_error("missing insert name");
@@ -372,6 +435,8 @@ class Smarty_Compiler extends Smarty {
                 $arg_value = $arg_value ? 'true' : 'false';
             $arg_list[] = "'$arg_name' => $arg_value";
         }
+
+        $this->_add_plugin('insert', $name);
 
         return "<?php echo \$this->_run_insert_handler(array(".implode(', ', (array)$arg_list).")); ?>\n";
     }
@@ -471,28 +536,25 @@ class Smarty_Compiler extends Smarty {
 
         if (empty($attrs['file'])) {
             $this->_syntax_error("missing 'file' attribute in include_php tag");
-			return false;
         }
 		
-		$this->_parse_file_path($this->trusted_dir, $this->_dequote($attrs['file']), $resource_type, $resource_name);
-		
-		if ($this->security) {
-			if( $resource_type != 'file' || !@is_file($resource_name)) {
-            	$this->_syntax_error("include_php: $resource_type: $resource_name is not readable");
-				return false;
-			}
-			if (!$this->_is_trusted($resource_type, $resource_name)) {
-            	$this->_syntax_error("include_php: $resource_type: $resource_name is not trusted");
-				return false;
-        	}
-		}
-		
+        $this->_get_php_resource($this->_dequote($attrs['file']),
+                                 $resource_type, $php_resource);
+
         if (!empty($attrs['assign'])) {
 			$output = "<?php ob_start();\n";
-			$output .= 'include("' . $resource_name . '");'."\n";
-			$output .= "\$this->assign(" . $this->_dequote($attrs['assign']).", ob_get_contents()); ob_end_clean();\n?>";
+            if ($resource_type == 'file') {
+                $output .= 'include("' . $php_resource . '");'."\n";
+            } else {
+                $output .= $php_resource;
+            }
+			$output .= "\$this->assign(" . $attrs['assign'] . ", ob_get_contents()); ob_end_clean();\n?>";
 		} else {
-        	$output =  '<?php include("' . $resource_name . '"); ?>';
+            if ($resource_type == 'file') {
+                $output = '<?php include("' . $php_resource . '"); ?>';
+            } else {
+                $output = '<?php ' . $php_resource . ' ?>';
+            }
 		}
 
 		return $output;
@@ -1083,32 +1145,11 @@ class Smarty_Compiler extends Smarty {
             if ($modifier_name{0} == '@') {
                 $map_array = 'false';
                 $modifier_name = substr($modifier_name, 1);
-            } else
+            } else {
                 $map_array = 'true';
-
-            /*
-             * First we lookup the modifier function name in the registered
-             * modifiers table.
-             */
-            @$mod_func_name = $this->custom_mods[$modifier_name];
-
-            /*
-             * If we don't find that modifier there, we assume it's just a PHP
-             * function name.
-             */
-            if (!isset($mod_func_name)) {
-                if ($this->security && !in_array($modifier_name, $this->security_settings['MODIFIER_FUNCS'])) {
-                    $this->_syntax_error("(secure mode) modifier '$modifier_name' is not allowed", E_USER_WARNING);
-                    continue;
-                } else {
-                    $mod_func_name = $modifier_name;
-                }
             }
 
-            if (!function_exists($mod_func_name)) {
-                $this->_syntax_error("modifier '$modifier_name' is not implemented", E_USER_WARNING);
-                continue;
-            }
+            $this->_add_plugin('modifier', $modifier_name);
 
             $this->_parse_vars_props($modifier_args);
 
@@ -1117,11 +1158,27 @@ class Smarty_Compiler extends Smarty {
             else
                 $modifier_args = '';
 
-            $output = "\$this->_run_mod_handler('$mod_func_name', $map_array, $output$modifier_args)";
+            $output = "\$this->_run_mod_handler('$modifier_name', $map_array, $output$modifier_args)";
         }
     }
 
+
+/*======================================================================*\
+    Function: _add_plugin
+    Purpose:  
+\*======================================================================*/
+    function _add_plugin($type, $name)
+    {
+        if (!isset($this->_plugin_info[$type])) {
+            $this->_plugin_info[$type] = array();
+        }
+        if (!isset($this->_plugin_info[$type][$name])) {
+            $this->_plugin_info[$type][$name] = array($this->_current_file,
+                                                      $this->_current_line_no);
+        }
+    }
     
+
 /*======================================================================*\
     Function: _compile_smarty_ref
     Purpose:  Compiles references of type $smarty.foo
@@ -1171,6 +1228,38 @@ class Smarty_Compiler extends Smarty {
         array_shift($indexes);
         return $compiled_ref;
     }
+
+/*======================================================================*\
+    Function: _load_filters
+    Purpose:  load pre- and post-filters
+\*======================================================================*/
+    function _load_filters()
+    {
+        $plugins_dir = $this->plugins_dir;
+        $handle = opendir($plugins_dir);
+        while ($entry = readdir($handle)) {
+            $parts = explode('.', $entry, 3);
+            if ($entry == '.' ||
+                $entry == '..' ||
+                count($parts) < 3 ||
+                $parts[2] != 'php' ||
+                ($parts[0] != 'prefilter' &&
+                 $parts[0] != 'postfilter') ||
+                isset($this->_plugins[$parts[0]][$parts[1]]))
+                continue;
+
+            $plugin_file = $plugins_dir . '/' . $entry;
+            include_once $plugin_file;
+            $plugin_func = 'smarty_' . $parts[0] . '_' . $parts[1];
+            if (!function_exists($plugin_func)) {
+                $this->_trigger_plugin_error("Smarty plugin error: plugin function $plugin_func() not found in $plugin_file");
+            } else {
+                $this->_plugins[$parts[0]][$parts[1]] = array($plugin_func, null, null, true);
+            }
+        }
+        closedir($handle);
+    }
+    
 
 /*======================================================================*\
     Function: _syntax_error

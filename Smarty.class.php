@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
@@ -7,7 +6,7 @@
  *              Andrei Zmievski <andrei@php.net>
  *
  * Version:     1.5.2
- * Copyright:   2001 ispi of Lincoln, Inc.
+ * Copyright:   2001,2002 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -48,7 +47,7 @@ if (!defined('SMARTY_DIR')) {
     define('SMARTY_DIR', '');
 }
 
-require_once SMARTY_DIR.'Smarty.addons.php';
+//require_once SMARTY_DIR.'Smarty.addons.php';
 
 define('SMARTY_PHP_PASSTHRU',   0);
 define('SMARTY_PHP_QUOTE',      1);
@@ -67,6 +66,7 @@ class Smarty
     var $template_dir    =  './templates';     // name of directory for templates
     var $compile_dir     =  './templates_c';   // name of directory for compiled templates
     var $config_dir      =  './configs';       // directory where config files are located
+    var $plugins_dir     =  './plugins';       // directory where plugins are kept
 
     var $debugging       =  false;             // enable debugging console true/false
     var $debug_tpl       =  'file:debug.tpl';  // path to debug console template
@@ -96,11 +96,11 @@ class Smarty
                                         // 0 = never expires. default is one hour (3600)
     var $cache_handler_func   = null;   // function used for cached content. this is
                                         // an alternative to using the built-in file
-										// based caching.
-	var $check_if_modified = true;		// respect If-Modified-Since headers on cached content
+                                        // based caching.
+    var $check_if_modified = true;      // respect If-Modified-Since headers on cached content
 
-	
-	var $default_template_handler_func = ''; // function to handle missing templates
+
+    var $default_template_handler_func = ''; // function to handle missing templates
 
     var $tpl_file_ext    =  '.tpl';     // template file extention (deprecated)
 
@@ -126,48 +126,12 @@ class Smarty
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count')
                                    );
-	var $trusted_dir		= array(); 	// directories where trusted templates & php scripts
-									// reside ($security is disabled during their
-									// inclusion/execution).
+    var $trusted_dir        = array();  // directories where trusted templates & php scripts
+                                        // reside ($security is disabled during their
+                                        // inclusion/execution).
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
-
-    var $compiler_funcs  =  array(
-                                 );
-
-    var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
-                                    'html_select_date'  => 'smarty_func_html_select_date',
-                                    'html_select_time'  => 'smarty_func_html_select_time',
-                                    'math'              => 'smarty_func_math',
-                                    'fetch'             => 'smarty_func_fetch',
-                                    'counter'           => 'smarty_func_counter',
-                                    'assign'            => 'smarty_func_assign',
-                                    'popup_init'        => 'smarty_func_overlib_init',
-                                    'popup'             => 'smarty_func_overlib',
-                                    'assign_debug_info' => 'smarty_func_assign_debug_info'
-                                 );
-
-    var $custom_mods     =  array(  'lower'             => 'strtolower',
-                                    'upper'             => 'strtoupper',
-                                    'capitalize'        => 'ucwords',
-                                    'escape'            => 'smarty_mod_escape',
-                                    'truncate'          => 'smarty_mod_truncate',
-                                    'spacify'           => 'smarty_mod_spacify',
-                                    'date_format'       => 'smarty_mod_date_format',
-                                    'string_format'     => 'smarty_mod_string_format',
-                                    'replace'           => 'smarty_mod_replace',
-                                    'regex_replace'     => 'smarty_mod_regex_replace',
-                                    'strip_tags'        => 'smarty_mod_strip_tags',
-                                    'default'           => 'smarty_mod_default',
-                                    'count_characters'  => 'smarty_mod_count_characters',
-                                    'count_words'       => 'smarty_mod_count_words',
-                                    'count_sentences'   => 'smarty_mod_count_sentences',
-                                    'count_paragraphs'  => 'smarty_mod_count_paragraphs',
-                                    'wordwrap'  		=> 'smarty_mod_wordwrap',
-                                    'indent'  			=> 'smarty_mod_indent',
-                                    'debug_print_var'   => 'smarty_mod_debug_print_var'
-                                 );
 
     var $show_info_header      =   false;     // display HTML info header at top of page output
     var $show_info_include     =   false;      // display HTML comments at top & bottom of
@@ -175,11 +139,6 @@ class Smarty
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
                                                       // Smarty to compile templates
-    var $resource_funcs        =  array();  // functions that resource handlers are mapped to
-    var $prefilter_funcs       =  array();  // functions that templates are filtered through
-                                            // before being compiled
-    var $postfilter_funcs      =  array();  // functions that compiled templates are filtered
-                                            // through after compilation
 
     var $request_vars_order    = "EGPCS";   // the order in which request variables are
                                             // registered, similar to variables_order
@@ -193,21 +152,29 @@ class Smarty
 /**************************************************************************/
 
     // internal vars
-    var $_error_msg            =   false;      // error messages. true/false
-    var $_tpl_vars             =   array();    // where assigned template vars are kept
-    var $_smarty_vars          =   array();    // stores run-time $smarty.* vars
-    var $_sections             =   array();    // keeps track of sections
-    var $_foreach              =   array();    // keeps track of foreach blocks
-    var $_conf_obj             =   null;       // configuration object
-    var $_config               =   array();    // loaded configuration settings
-    var $_smarty_md5           =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
-    var $_version              =   '1.5.2';    // Smarty version number
-    var $_extract              =   false;      // flag for custom functions
-    var $_inclusion_depth      =   0;          // current template inclusion depth
-    var $_compile_id           =   null;       // for different compiled templates
-    var $_smarty_debug_id      =   'SMARTY_DEBUG'; // text in URL to enable debug mode
-    var $_smarty_debug_info    =   array();    // debugging information for debug console
-    var $_cache_info           =   array();    // info that makes up a cache file
+    var $_error_msg            = false;      // error messages. true/false
+    var $_tpl_vars             = array();    // where assigned template vars are kept
+    var $_smarty_vars          = array();    // stores run-time $smarty.* vars
+    var $_sections             = array();    // keeps track of sections
+    var $_foreach              = array();    // keeps track of foreach blocks
+    var $_conf_obj             = null;       // configuration object
+    var $_config               = array();    // loaded configuration settings
+    var $_smarty_md5           = 'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
+    var $_version              = '1.5.2';    // Smarty version number
+    var $_extract              = false;      // flag for custom functions
+    var $_inclusion_depth      = 0;          // current template inclusion depth
+    var $_compile_id           = null;       // for different compiled templates
+    var $_smarty_debug_id      = 'SMARTY_DEBUG'; // text in URL to enable debug mode
+    var $_smarty_debug_info    = array();    // debugging information for debug console
+    var $_cache_info           = array();    // info that makes up a cache file
+    var $_plugins              = array(      // table keeping track of plugins
+                                       'modifier'  => array(),
+                                       'function'  => array(),
+                                       'compiler'  => array(),
+                                       'prefilter' => array(),
+                                       'postfilter'=> array(),
+                                       'resource'  => array(),
+                                       'insert'    => array());
 
 
 /*======================================================================*\
@@ -215,7 +182,7 @@ class Smarty
     Purpose:  Constructor
 \*======================================================================*/
     function Smarty()
-    {		
+    {
         foreach ($this->global_assign as $key => $var_name) {
             if (is_array($var_name)) {
                 foreach ($var_name as $var) {
@@ -301,7 +268,8 @@ class Smarty
 \*======================================================================*/
     function register_function($function, $function_impl)
     {
-        $this->custom_funcs[$function] = $function_impl;
+        $this->_plugins['function'][$function] =
+            array($function_impl, null, null, false);
     }
 
 /*======================================================================*\
@@ -310,7 +278,7 @@ class Smarty
 \*======================================================================*/
     function unregister_function($function)
     {
-        unset($this->custom_funcs[$function]);
+        unset($this->_plugins['function'][$function]);
     }
 
 /*======================================================================*\
@@ -319,7 +287,8 @@ class Smarty
 \*======================================================================*/
     function register_compiler_function($function, $function_impl)
     {
-        $this->compiler_funcs[$function] = $function_impl;
+        $this->_plugins['compiler'][$function] =
+            array($function_impl, null, null, false);
     }
 
 /*======================================================================*\
@@ -328,7 +297,7 @@ class Smarty
 \*======================================================================*/
     function unregister_compiler_function($function)
     {
-        unset($this->compiler_funcs[$function]);
+        unset($this->_plugins['compiler'][$function]);
     }
 
 /*======================================================================*\
@@ -337,7 +306,8 @@ class Smarty
 \*======================================================================*/
     function register_modifier($modifier, $modifier_impl)
     {
-        $this->custom_mods[$modifier] = $modifier_impl;
+        $this->_plugins['modifier'][$modifier] =
+            array($modifier_impl, null, null, false);
     }
 
 /*======================================================================*\
@@ -346,25 +316,26 @@ class Smarty
 \*======================================================================*/
     function unregister_modifier($modifier)
     {
-        unset($this->custom_mods[$modifier]);
+        unset($this->_plugins['modifier'][$modifier]);
     }
 
 /*======================================================================*\
     Function: register_resource
     Purpose:  Registers a resource to fetch a template
 \*======================================================================*/
-    function register_resource($name, $function_name)
+    function register_resource($type, $functions)
     {
-        $this->resource_funcs[$name] = $function_name;
+        $this->_plugins['resource'][$type] =
+            array((array)$functions, false);
     }
 
 /*======================================================================*\
     Function: unregister_resource
     Purpose:  Unregisters a resource
 \*======================================================================*/
-    function unregister_resource($name)
+    function unregister_resource($type)
     {
-        unset($this->resource_funcs[$name]);
+        unset($this->_plugins['resource'][$type]);
     }
 
 /*======================================================================*\
@@ -372,24 +343,19 @@ class Smarty
     Purpose:  Registers a prefilter function to apply
               to a template before compiling
 \*======================================================================*/
-    function register_prefilter($function_name)
+    function register_prefilter($function)
     {
-        $this->prefilter_funcs[] = $function_name;
+        $this->_plugins['prefilter'][$function]
+            = array($function, null, null, false);
     }
 
 /*======================================================================*\
     Function: unregister_prefilter
     Purpose:  Unregisters a prefilter function
 \*======================================================================*/
-    function unregister_prefilter($function_name)
+    function unregister_prefilter($function)
     {
-        $tmp_array = array();
-        foreach($this->prefilter_funcs as $curr_func) {
-            if ($curr_func != $function_name) {
-                $tmp_array[] = $curr_func;
-            }
-        }
-        $this->prefilter_funcs = $tmp_array;
+        unset($this->_plugins['prefilter'][$function]);
     }
 
 /*======================================================================*\
@@ -397,24 +363,19 @@ class Smarty
     Purpose:  Registers a postfilter function to apply
               to a compiled template after compilation
 \*======================================================================*/
-    function register_postfilter($function_name)
+    function register_postfilter($function)
     {
-        $this->postfilter_funcs[] = $function_name;
+        $this->_plugins['postfilter'][$function]
+            = array($function, null, null, false);
     }
 
 /*======================================================================*\
     Function: unregister_postfilter
     Purpose:  Unregisters a postfilter function
 \*======================================================================*/
-    function unregister_postfilter($function_name)
+    function unregister_postfilter($function)
     {
-        $tmp_array = array();
-        foreach($this->postfilter_funcs as $curr_func) {
-            if ($curr_func != $function_name) {
-                $tmp_array[] = $curr_func;
-            }
-        }
-        $this->postfilter_funcs = $tmp_array;
+        unset($this->_plugins['postfilter'][$function]);
     }
 
 /*======================================================================*\
@@ -430,9 +391,9 @@ class Smarty
             $auto_id = $compile_id . $cache_id;
         else
             $auto_id = null;
-        
+
         if (!empty($this->cache_handler_func)) {
-			$funcname = $this->cache_handler_func;
+            $funcname = $this->cache_handler_func;
             return $funcname('clear', $this, $dummy, $tpl_file, $cache_id, $compile_id);
         } else {
             return $this->_rm_auto($this->cache_dir, $tpl_file, $auto_id);
@@ -447,7 +408,7 @@ class Smarty
     function clear_all_cache()
     {
         if (!empty($this->cache_handler_func)) {
-			$funcname = $this->cache_handler_func;
+            $funcname = $this->cache_handler_func;
             return $funcname('clear', $this, $dummy);
         } else {
             return $this->_rm_auto($this->cache_dir);
@@ -466,6 +427,7 @@ class Smarty
 
         if (!isset($compile_id))
             $compile_id = $this->compile_id;
+
         return $this->_read_cache_file($tpl_file, $cache_id, $compile_id, $results);
     }
 
@@ -541,11 +503,9 @@ class Smarty
         $this->_inclusion_depth = 0;
 
         if ($this->caching) {
-
-            $this->_cache_info[] = array('template', $_smarty_tpl_file);
-
             if ($this->_read_cache_file($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_results)) {
-                if ( $this->_cache_info['insert_tags'] ) {
+                if (@count($this->_cache_info['insert_tags'])) {
+                    $this->_load_plugins($this->_cache_info['insert_tags']);
                     $_smarty_results = $this->_process_cached_inserts($_smarty_results);
                 }
                 if ($_smarty_display) {
@@ -556,22 +516,25 @@ class Smarty
 
                         $_smarty_results .= $this->_generate_debug_output();
                     }
-					if( $this->check_if_modified ) {
-						global $HTTP_IF_MODIFIED_SINCE;
-						$last_modified_date = substr($HTTP_IF_MODIFIED_SINCE,0,strpos($HTTP_IF_MODIFIED_SINCE,'GMT')+3);
-						$gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
-						if( !$this->_cache_info['insert_tags']
-							&& $gmt_mtime == $last_modified_date ) {
-							header("HTTP/1.1 304 Not Modified");
-						}				
-					}
-					header("Content-Length: ".strlen($_smarty_results));
-					header("Last-Modified: ".$gmt_mtime);
+                    if ($this->check_if_modified) {
+                        global $HTTP_IF_MODIFIED_SINCE;
+                        $last_modified_date = substr($HTTP_IF_MODIFIED_SINCE,0,strpos($HTTP_IF_MODIFIED_SINCE,'GMT')+3);
+                        $gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
+                        if (@count($this->_cache_info['insert_tags']) == 0
+                            && $gmt_mtime == $last_modified_date) {
+                            header("HTTP/1.1 304 Not Modified");
+                        }               
+                    }
+                    header("Content-Length: ".strlen($_smarty_results));
+                    header("Last-Modified: ".$gmt_mtime);
                     echo $_smarty_results;
-					return true;	
+                    return true;    
                 } else {
                     return $_smarty_results;
                 }
+            } else {
+                $this->_cache_info = array();
+                $this->_cache_info['template'][] = $_smarty_tpl_file;
             }
         }
 
@@ -600,15 +563,6 @@ class Smarty
 
         $compile_path = $this->_get_compile_path($_smarty_tpl_file);
 
-		
-		$_smarty_trusted = false;
-		if ($this->security) {
-			$this->_parse_file_path($this->template_dir, $_smarty_tpl_file, $resource_type, $resource_name);
-			if ($this->_is_trusted($resource_type, $resource_name)) {
-			$_smarty_trusted = true;
-			$this->security = false;
-			}
-		}
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($_smarty_display && !$this->caching) {
@@ -618,7 +572,9 @@ class Smarty
                 if ($this->show_info_include) {
                     echo "\n<!-- SMARTY_BEGIN: ".$_smarty_tpl_file." -->\n";
                 }
+                
                 include($compile_path);
+                
                 if ($this->show_info_include) {
                     echo "\n<!-- SMARTY_END: ".$_smarty_tpl_file." -->\n";
                 }
@@ -631,7 +587,9 @@ class Smarty
                 if ($this->show_info_include) {
                     echo "\n<!-- SMARTY_BEGIN: ".$_smarty_tpl_file." -->\n";
                 }
-                	include($compile_path);
+                
+                include($compile_path);
+
                 if ($this->show_info_include) {
                     echo "\n<!-- SMARTY_END: ".$_smarty_tpl_file." -->\n";
                 }
@@ -639,9 +597,6 @@ class Smarty
             $_smarty_results = ob_get_contents();
             ob_end_clean();
         }
-		if ($_smarty_trusted) {
-			$this->security = true;
-		}
 
         if ($this->caching) {
             $this->_write_cache_file($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_results);
@@ -650,13 +605,12 @@ class Smarty
 
         if ($_smarty_display) {
             if (isset($_smarty_results)) { echo $_smarty_results; }
-            if ($this->debugging)
-                {
-                    // capture time for debugging info
-                    $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = ($this->_get_microtime() - $debug_start_time);
+            if ($this->debugging) {
+                // capture time for debugging info
+                $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = ($this->_get_microtime() - $debug_start_time);
 
-                    echo $this->_generate_debug_output();
-                }
+                echo $this->_generate_debug_output();
+            }
             return;
         } else {
             if (isset($_smarty_results)) { return $_smarty_results; }
@@ -729,63 +683,116 @@ function _generate_debug_output() {
 
 /*======================================================================*\
     Function:   _is_trusted()
-    Purpose:	determines if a template is within the trusted_dir or not.
+    Purpose:    determines if a resource is trusted or not
 \*======================================================================*/
-function _is_trusted($resource_type, $resource_name)
-{
-	$_smarty_trusted = false;
-	if (!empty($this->trusted_dir)) {
-		// see if template file is within a trusted directory. If so,
-		// disable security during the execution of the template.
+    function _is_trusted($resource_type, $resource_name)
+    {
+        $_smarty_trusted = false;
+        if ($resource_type == 'file') {
+            if (!empty($this->trusted_dir)) {
+                // see if template file is within a trusted directory. If so,
+                // disable security during the execution of the template.
 
-		if ($resource_type == 'file') {
-			if (!empty($this->trusted_dir)) {
-				foreach ((array)$this->trusted_dir as $curr_dir) {
-					if ( !empty($curr_dir) && is_readable ($curr_dir)) {
-                		if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-                    		$_smarty_trusted = true;
-                    		break;
-						}
-					}
-                }				
-			}
-		} else {
-			// resource is not on local file system
-			$_smarty_trusted = false;
-		}
-	}
-	return $_smarty_trusted;
-}		
+                if (!empty($this->trusted_dir)) {
+                    foreach ((array)$this->trusted_dir as $curr_dir) {
+                        if (!empty($curr_dir) && is_readable ($curr_dir)) {
+                            if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                                $_smarty_trusted = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            // resource is not on local file system
+            $resource_func = $this->_plugins['resource'][$resource_type][0][3];
+            $_smarty_trusted = $resource_func($resource_name, $this);
+        }
+
+        return $_smarty_trusted;
+    }
 
 /*======================================================================*\
     Function:   _is_secure()
-    Purpose:	determins if a template is secure or not.
+    Purpose:    determines if a resource is secure or not.
 \*======================================================================*/
-	function _is_secure($resource_type, $resource_name) {
-	
-	if (!$this->security || $this->security_settings['INCLUDE_ANY']) {
-		return true;
-	}
+    function _is_secure($resource_type, $resource_name)
+    {
+        if (!$this->security || $this->security_settings['INCLUDE_ANY']) {
+            return true;
+        }
 
-	$_smarty_secure = false;
-	if ($resource_type == 'file') {
-			if (!empty($this->secure_dir)) {
-				foreach ((array)$this->secure_dir as $curr_dir) {
-					if ( !empty($curr_dir) && is_readable ($curr_dir)) {
-                		if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-                    		$_smarty_secure = true;
-                    		break;
-						}
-					}
-                }				
-			}
-	} else {
-		// resource is not on local file system
-		$_smarty_secure = true;
-	}
-	
-	return $_smarty_secure;
-}		
+        $_smarty_secure = false;
+        if ($resource_type == 'file') {
+            if (!empty($this->secure_dir)) {
+                foreach ((array)$this->secure_dir as $curr_dir) {
+                    if ( !empty($curr_dir) && is_readable ($curr_dir)) {
+                        if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                            $_smarty_secure = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        } else {
+            // resource is not on local file system
+            $resource_func = $this->_plugins['resource'][$resource_type][0][2];
+            $_smarty_secure = $resource_func($resource_name, $_smarty_secure, $this);
+        }
+
+        return $_smarty_secure;
+    }
+
+
+/*======================================================================*\
+    Function:   _get_php_resource
+    Purpose:    Retrieves PHP script resource
+\*======================================================================*/
+    function _get_php_resource($resource, &$resource_type, &$php_resource)
+    {
+        $this->_parse_file_path($this->trusted_dir, $resource, $resource_type, $resource_name);
+
+        /*
+         * Find out if the resource exists.
+         */
+        $readable = true;
+        if ($resource_type == 'file' && !@is_file($resource_name)) {
+            $readable = false;
+        } else if ($resource_type != 'file') {
+            $resource_func = $this->_plugins['resource'][$resource_type][0][0];
+            $readable = $resource_func($resource_name, $template_source, $this);
+        }
+
+        /*
+         * Set the error function, depending on which class calls us.
+         */
+        if (method_exists($this, '_syntax_error')) {
+            $error_func = '_syntax_error';
+        } else {
+            $error_func = '_trigger_error_msg';
+        }
+
+        if ($readable) {
+            if ($this->security) {
+                if (!$this->_is_trusted($resource_type, $resource_name)) {
+                    $this->$error_func("(secure mode) '$resource_type:$resource_name' is not trusted");
+                    return false;
+                }
+            }
+        } else {
+            $this->$error_func("'$resource_type: $resource_name' is not readable");
+            return false;
+        }
+
+        if ($resource_type == 'file') {
+            $php_resource = $resource_name;
+        } else {
+            $php_resource = $template_source;
+        }
+
+        return true;
+    }
 
 
 /*======================================================================*\
@@ -793,8 +800,8 @@ function _is_trusted($resource_type, $resource_name)
     Purpose:
 \*======================================================================*/
     function _process_template($tpl_file, $compile_path)
-    {		
-		// test if template needs to be compiled
+    {
+        // test if template needs to be compiled
         if (!$this->force_compile && $this->_compiled_template_exists($compile_path)) {
             if (!$this->compile_check) {
                 // no need to check if the template needs recompiled
@@ -871,10 +878,10 @@ function _is_trusted($resource_type, $resource_name)
 
 /*======================================================================*\
     Function:   _parse_file_path
-    Purpose:	parse out the type and name from the template resource
+    Purpose:    parse out the type and name from the template resource
 \*======================================================================*/
-	function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resource_name) {
-	
+    function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resource_name)
+    {
         // split tpl_path by the first colon
         $file_path_parts = explode(':', $file_path, 2);
 
@@ -885,79 +892,87 @@ function _is_trusted($resource_type, $resource_name)
         } else {
             $resource_type = $file_path_parts[0];
             $resource_name = $file_path_parts[1];
+            if ($resource_type != 'file') {
+                $this->_load_resource_plugin($resource_type);
+            }
         }
-		
-		if ($resource_type == 'file') {		
-        	if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
-            	// relative pathname to $file_base_path
-				// use the first directory where the file is found
-				foreach((array)$file_base_path as $curr_path) {
-					if(@is_file($curr_path.'/'.$resource_name)) {
-            			$resource_name = $curr_path.'/'.$resource_name;
-						return true;
-					}
-				}
-				// didn't find the file
-				return false;
-        	}
-		}
-		
-		// resource type != file
-		return true;
-	}	
-	
-	
+
+        if ($resource_type == 'file') {
+            if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
+                // relative pathname to $file_base_path
+                // use the first directory where the file is found
+                foreach ((array)$file_base_path as $curr_path) {
+                    if (@is_file($curr_path.'/'.$resource_name)) {
+                        $resource_name = $curr_path.'/'.$resource_name;
+                        return true;
+                    }
+                }
+                // didn't find the file
+                return false;
+            }
+        }
+
+        // resource type != file
+        return true;
+    }
+
+
 /*======================================================================*\
     Function:   _fetch_template_info()
     Purpose:    fetch the template info. Gets timestamp, and source
                 if get_source is true
 \*======================================================================*/
-    function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source=true)
+    function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source = true)
     {
         $_return = false;
-		if($this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name)) {
-        	switch ($resource_type) {
-            	case 'file':				
-                	if (@is_file($resource_name)) {
-                    	if ($get_source) {
-                        	$template_source = $this->_read_file($resource_name);
-                    	}
-                    	$template_timestamp = filemtime($resource_name);
-						$_return = true;
-                	}
-                	break;
-            	default:
-                	if (isset($this->resource_funcs[$resource_type])) {
-                    	$funcname = $this->resource_funcs[$resource_type];
-                    	if (function_exists($funcname)) {
-                        	// call the function to fetch the template
-                        	$_return = $funcname($resource_name, $template_source, $template_timestamp, $get_source, $this);
-                    	}
-                	}
-                	break;
-        	}		
-		}
+        if ($this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name)) {
+            switch ($resource_type) {
+                case 'file':
+                    if (@is_file($resource_name)) {
+                        if ($get_source) {
+                            $template_source = $this->_read_file($resource_name);
+                        }
+                        $template_timestamp = filemtime($resource_name);
+                        $_return = true;
+                    }
+                    break;
 
-		if(!$_return) {
-			// see if we can get a template with the default template handler
-			if(!empty($this->default_template_handler_func)) {
-				if(!function_exists($this->default_template_handler_func)) {
+                default:
+                    // call resource functions to fetch the template source and timestamp
+                    if ($get_source) {
+                        $resource_func = $this->_plugins['resource'][$resource_type][0][0];
+                        $_source_return = $resource_func($resource_name, $template_source, $this);
+                    } else {
+                        $_source_return = true;
+                    }
+                    $resource_func = $this->_plugins['resource'][$resource_type][0][1];
+                    $_timestamp_return = $resource_func($resource_name, $template_timestamp, $this);
+                    $_return = $_source_return && $_timestamp_return;
+                    break;
+            }
+        }
+
+        if (!$_return) {
+            // see if we can get a template with the default template handler
+            if (!empty($this->default_template_handler_func)) {
+                if (!function_exists($this->default_template_handler_func)) {
                     $this->_trigger_error_msg("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
                     $_return = false;
-				}
-				$funcname = $this->default_template_handler_func;
-				$_return = $funcname($resource_type, $resource_name, $template_source, $template_timestamp, $this);
-			}			
-		}
-		
-		if(!$_return) {
-			$this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");			
-		} elseif ($_return && $this->security && !$this->_is_secure($resource_type, $resource_name) && !$this->_is_trusted($resource_type, $resource_name)) {
-            $this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
-			$template_source = null;
-			$template_timestamp = null;
-			return false;
+                }
+                $funcname = $this->default_template_handler_func;
+                $_return = $funcname($resource_type, $resource_name, $template_source, $template_timestamp, $this);
+            }
         }
+
+        if (!$_return) {
+            $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
+        } else if ($_return && $this->security && !$this->_is_secure($resource_type, $resource_name)) {
+            $this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
+            $template_source = null;
+            $template_timestamp = null;
+            return false;
+        }
+
         return $_return;
     }
 
@@ -974,22 +989,19 @@ function _is_trusted($resource_type, $resource_name)
 
         $smarty_compiler->template_dir      = $this->template_dir;
         $smarty_compiler->compile_dir       = $this->compile_dir;
+        $smarty_compiler->plugins_dir       = $this->plugins_dir;
         $smarty_compiler->config_dir        = $this->config_dir;
         $smarty_compiler->force_compile     = $this->force_compile;
         $smarty_compiler->caching           = $this->caching;
         $smarty_compiler->php_handling      = $this->php_handling;
         $smarty_compiler->left_delimiter    = $this->left_delimiter;
         $smarty_compiler->right_delimiter   = $this->right_delimiter;
-        $smarty_compiler->custom_funcs      = $this->custom_funcs;
-        $smarty_compiler->custom_mods       = $this->custom_mods;
         $smarty_compiler->_version          = $this->_version;
-        $smarty_compiler->prefilter_funcs   = $this->prefilter_funcs;
-        $smarty_compiler->postfilter_funcs  = $this->postfilter_funcs;
-        $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
         $smarty_compiler->security          = $this->security;
         $smarty_compiler->secure_dir        = $this->secure_dir;
         $smarty_compiler->security_settings = $this->security_settings;
         $smarty_compiler->trusted_dir       = $this->trusted_dir;
+        $smarty_compiler->_plugins          = &$this->_plugins;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;
@@ -1019,14 +1031,6 @@ function _is_trusted($resource_type, $resource_name)
         array_unshift($this->_config, $this->_config[0]);
         $compile_path = $this->_get_compile_path($_smarty_include_tpl_file);
 
-		$this->_parse_file_path($this->template_dir, $_smarty_include_tpl_file, $resource_type, $resource_name);
-		if ($this->security && $this->_is_trusted($resource_type, $resource_name)) {
-			$_smarty_trusted = true;
-			$this->security = false;
-		} else {
-			$_smarty_trusted = false;
-		}
-		
         if ($this->_process_template($_smarty_include_tpl_file, $compile_path)) {
             if ($this->show_info_include) {
                 echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
@@ -1036,10 +1040,6 @@ function _is_trusted($resource_type, $resource_name)
                 echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
             }
         }
-		
-		if ($_smarty_trusted) {
-			$this->security = true;
-		}
 
         array_shift($this->_config);
         $this->_inclusion_depth--;
@@ -1050,7 +1050,7 @@ function _is_trusted($resource_type, $resource_name)
         }
 
         if ($this->caching) {
-            $this->_cache_info[] = array('template', $_smarty_include_tpl_file);
+            $this->_cache_info['template'][] = $_smarty_include_tpl_file;
         }
     }
 
@@ -1065,7 +1065,7 @@ function _is_trusted($resource_type, $resource_name)
         }
 
         if ($this->caching) {
-            $this->_cache_info[] = array('config', $file);
+            $this->_cache_info['config'][] = $file;
         }
 
         if (!isset($this->_config[0]['files'][$file])) {
@@ -1111,15 +1111,14 @@ function _is_trusted($resource_type, $resource_name)
 \*======================================================================*/
     function _process_cached_inserts($results)
     {
-
         preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
                        $results, $match);
         list($cached_inserts, $insert_args) = $match;
 
         for ($i = 0; $i < count($cached_inserts); $i++) {
-        	if ($this->debugging) {
-            	$debug_start_time = $this->_get_microtime();
-        	}
+            if ($this->debugging) {
+                $debug_start_time = $this->_get_microtime();
+            }
 
             $args = unserialize($insert_args[$i]);
 
@@ -1127,21 +1126,19 @@ function _is_trusted($resource_type, $resource_name)
             unset($args['name']);
 
             if (isset($args['script'])) {
-                $this->_parse_file_path($this->trusted_dir, $this->_dequote($args['script']), $resource_type, $resource_name);
-                if ($this->security) {
-                    if( $resource_type != 'file' || !@is_file($resource_name)) {
-                        $this->_syntax_error("insert: $resource_type: $resource_name is not readable");                return false;
-                    }
-                    if (!$this->_is_trusted($resource_type, $resource_name)) {
-                        $this->_syntax_error("insert: $resource_type: $resource_name is not trusted");
-                        return false;
-                    }
+                if (!$this->_get_php_resource($this->_dequote($args['script']), $resource_type, $php_resource)) {
+                    return false;
                 }
-                include_once($resource_name);
+
+                if ($resource_type == 'file') {
+                    include_once($php_resource);
+                } else {
+                    eval($php_resource);
+                }
                 unset($args['script']);
             }
 
-            $function_name = 'insert_' . $name;
+            $function_name = $this->_plugins['insert'][$name][0];
             $replace = $function_name($args, $this);
 
             $results = str_replace($cached_inserts[$i], $replace, $results);
@@ -1169,24 +1166,30 @@ function _run_insert_handler($args)
 
     if ($this->caching) {
         $arg_string = serialize($args);
+        $name = $args['name'];
+        if (!isset($this->_cache_info['insert_tags'][$name])) {
+            $this->_cache_info['insert_tags'][$name] = array('insert',
+                                                             $name,
+                                                             $this->_plugins['insert'][$name][1],
+                                                             $this->_plugins['insert'][$name][2],
+                                                             false);
+        }
         return $this->_smarty_md5."{insert_cache $arg_string}".$this->_smarty_md5;
     } else {
-        $function_name = 'insert_'.$args['name'];
         if (isset($args['script'])) {
-            $this->_parse_file_path($this->trusted_dir, $this->_dequote($args['script']), $resource_type, $resource_name);
-            if ($this->security) {
-                if ( $resource_type != 'file' || !@is_file($resource_name) ) {
-                    $this->_syntax_error("insert: $resource_type: $resource_name is not readable");
-					return false;
-                }
-                if ( !$this->_is_trusted($resource_type, $resource_name) ) {
-                    $this->_syntax_error("insert: $resource_type: $resource_name is not trusted");
-                    return false;
-                }
+            if (!$this->_get_php_resource($this->_dequote($args['script']), $resource_type, $php_resource)) {
+                return false;
             }
-            include_once($resource_name);
+
+            if ($resource_type == 'file') {
+                include_once($php_resource);
+            } else {
+                eval($php_resource);
+            }
+            unset($args['script']);
         }
 
+        $function_name = $this->_plugins['insert'][$args['name']][0];
         $content = $function_name($args, $this);
         if ($this->debugging) {
             $this->_smarty_debug_info[] = array('type'      => 'insert',
@@ -1194,8 +1197,9 @@ function _run_insert_handler($args)
                                                 'depth'     => $this->_inclusion_depth,
                                                 'exec_time' => $this->_get_microtime() - $debug_start_time);
         }
+
         if (!empty($args["assign"])) {
-            $this->assign($args["assign"],$content);
+            $this->assign($args["assign"], $content);
         } else {
             return $content;
         }
@@ -1210,7 +1214,9 @@ function _run_insert_handler($args)
     function _run_mod_handler()
     {
         $args = func_get_args();
-        list($func_name, $map_array) = array_splice($args, 0, 2);
+        list($modifier_name, $map_array) = array_splice($args, 0, 2);
+        list($func_name, $tpl_file, $tpl_line) =
+            $this->_plugins['modifier'][$modifier_name];
         $var = $args[0];
 
         if ($map_array && is_array($var)) {
@@ -1409,22 +1415,17 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _write_cache_file($tpl_file, $cache_id, $compile_id, $results)
     {
-		// determine if insert tags are present
-		if (strpos($results,$this->_smarty_md5)) {
-        	$this->_cache_info['insert_tags'] = true;
-		}
-		
         // put timestamp in cache header
         $this->_cache_info['timestamp'] = time();
-		
+        
         // prepend the cache header info into cache file
         $results = 'SMARTY_CACHE_INFO_HEADER'.serialize($this->_cache_info)."\n".$results;
 
         if (!empty($this->cache_handler_func)) {
             // use cache_handler function
-			$funcname = $this->cache_handler_func;
+            $funcname = $this->cache_handler_func;
             return $funcname('write', $this, $results, $tpl_file, $cache_id, $compile_id);
-        } else {    
+        } else {
             // use local cache file
             if (isset($compile_id) || isset($cache_id))
                 $auto_id = $compile_id . $cache_id;
@@ -1450,9 +1451,8 @@ function _run_insert_handler($args)
         }
 
         if (!empty($this->cache_handler_func)) {
-
             // use cache_handler function
-			$funcname = $this->cache_handler_func;
+            $funcname = $this->cache_handler_func;
             $funcname('read', $this, $results, $tpl_file, $cache_id, $compile_id);
 
         } else {
@@ -1466,12 +1466,12 @@ function _run_insert_handler($args)
             $results = $this->_read_file($cache_file);
 
         }
-		
-		if (empty($results)) {
-			// nothing to parse (error?), regenerate cache
-			return false;
-		}
-				
+
+        if (empty($results)) {
+            // nothing to parse (error?), regenerate cache
+            return false;
+        }
+
         $cache_split = explode("\n", $results, 2);
         $cache_header = $cache_split[0];
 
@@ -1485,25 +1485,24 @@ function _run_insert_handler($args)
             }
 
             if ($this->compile_check) {
-                foreach ($this->_cache_info as $curr_cache_info) {
-                    switch ($curr_cache_info[0]) {
-                        case 'template':
-                            $this->_fetch_template_info($curr_cache_info[1], $template_source, $template_timestamp, false);
-                            if ($cache_timestamp < $template_timestamp) {
-                                // template file has changed, regenerate cache
-                                return false;
-                            }
-                            break;
+                foreach ($this->_cache_info['template'] as $template_dep) {
+                    $this->_fetch_template_info($template_dep, $template_source, $template_timestamp, false);
+                    if ($cache_timestamp < $template_timestamp) {
+                        // template file has changed, regenerate cache
+                        return false;
+                    }
+                }
 
-                        case 'config':
-                            if ($cache_timestamp < filemtime($this->config_dir.'/'.$curr_cache_info[1])) {
-                                // config file file has changed, regenerate cache
-                                return false;
-                            }
-                            break;
+                if (isset($this->_cache_info['config'])) {
+                    foreach ($this->_cache_info['config'] as $config_dep) {
+                        if ($cache_timestamp < filemtime($this->config_dir.'/'.$config_dep)) {
+                            // config file file has changed, regenerate cache
+                            return false;
+                        }
                     }
                 }
             }
+
             $results = $cache_split[1];
             return true;
         } else {
@@ -1512,6 +1511,181 @@ function _run_insert_handler($args)
         }
     }
 
+
+/*======================================================================*\
+    Function:  _load_plugins
+    Purpose:   Load requested plugins
+\*======================================================================*/
+    function _load_plugins($plugins)
+    {
+        foreach ($plugins as $plugin_info) {
+            list($type, $name, $tpl_file, $tpl_line) = $plugin_info;
+            $plugin = &$this->_plugins[$type][$name];
+
+            /*
+             * We do not load plugin more than once for each instance of Smarty.
+             * The following code checks for that. The plugin can also be
+             * registered dynamically at runtime, in which case template file
+             * and line number will be unknown, so we fill them in.
+             *
+             * The final element of the info array is a flag that indicates
+             * whether the dynamically registered plugin function has been
+             * checked for existence yet or not.
+             */
+            if (isset($plugin)) {
+                if (!$plugin[3]) {
+                    if (!function_exists($plugin[0])) {
+                        $this->_trigger_plugin_error("$type '$name' is not implemented", $tpl_file, $tpl_line);
+                    } else {
+                        $plugin[1] = $tpl_file;
+                        $plugin[2] = $tpl_line;
+                        $plugin[3] = true;
+                    }
+                }
+                continue;
+            } else if ($type == 'insert') {
+                /*
+                 * For backwards compatibility, we check for insert functions in
+                 * the symbol table before trying to load them as a plugin.
+                 */
+                $plugin_func = 'insert_' . $name;
+                if (function_exists($plugin_func)) {
+                    $plugin = array($plugin_func, $tpl_file, $tpl_line, true);
+                    continue;
+                }
+            }
+
+            $plugin_file = $this->plugins_dir .
+                           '/' .
+                           $type .
+                           '.' .
+                           $name .
+                           '.php';
+
+            $found = true;
+            if (!file_exists($plugin_file) || !is_readable($plugin_file)) {
+                $message = "could not load plugin file $plugin_file\n";
+                $found = false;
+            }
+
+            /*
+             * If plugin file is found, it -must- provide the properly named
+             * plugin function. In case it doesn't, simply output the error and
+             * do not fall back on any other method.
+             */
+            if ($found) {
+                include_once $plugin_file;
+
+                $plugin_func = 'smarty_' . $type . '_' . $name;
+                if (!function_exists($plugin_func)) {
+                    $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file", $tpl_file, $tpl_line);
+                    continue;
+                }
+            }
+
+            /*
+             * Plugin specific processing and error checking.
+             */
+            if (!$found) {
+                if ($type == 'modifier') {
+                    /*
+                     * In case modifier falls back on using PHP functions
+                     * directly, we only allow those specified in the security
+                     * context.
+                     */
+                    if ($this->security && !in_array($name, $this->security_settings['MODIFIER_FUNCS'])) {
+                        $message = "(secure mode) modifier '$name' is not allowed";
+                    } else {
+                        if (!function_exists($name)) {
+                            $message = "modifier '$name' is not implemented";
+                        } else {
+                            $plugin_func = $name;
+                            $found = true;
+                        }
+                    }
+                } else if ($type == 'function') {
+                    /*
+                     * This is a catch-all situation.
+                     */
+                    $message = "unknown tag - '$name'";
+                }
+            }
+
+            if ($found) {
+                $this->_plugins[$type][$name] = array($plugin_func, $tpl_file, $tpl_line, true);
+            } else {
+                // output error
+                $this->_trigger_plugin_error($message, $tpl_file, $tpl_line);
+            }
+        }
+    }
+
+/*======================================================================*\
+    Function:   _load_resource_plugin
+    Purpose:   
+\*======================================================================*/
+    function _load_resource_plugin($type)
+    {
+        /*
+         * Resource plugins are not quite like the other ones, so they are
+         * handled differently. The first element of plugin info is the array of
+         * functions provided by the plugin, the second one indicates whether
+         * all of them exist or not.
+         */
+
+        $plugin = &$this->_plugins['resource'][$type];
+        if (isset($plugin)) {
+            if (!$plugin[1] && count($plugin[0])) {
+                $plugin[1] = true;
+                foreach ($plugin[0] as $plugin_func) {
+                    if (!function_exists($plugin_func)) {
+                        $plugin[1] = false;
+                        break;
+                    }
+                }
+            }
+
+            if (!$plugin[1]) {
+                $this->_trigger_plugin_error("resource '$type' is not implemented");
+            }
+
+            return;
+        }
+
+        $plugin_file = $this->plugins_dir .
+                       '/resource.' .
+                       $type .
+                       '.php';
+
+        $found = true;
+        if (!file_exists($plugin_file) || !is_readable($plugin_file)) {
+            $this->_trigger_plugin_error("could not load plugin file $plugin_file");
+            $found = false;
+        } else {
+            /*
+             * If the plugin file is found, it -must- provide the properly named
+             * plugin functions.
+             */
+            include_once $plugin_file;
+
+            /*
+             * Locate functions that we require the plugin to provide.
+             */
+            $resource_ops = array('source', 'timestamp', 'secure', 'trusted');
+            $resource_funcs = array();
+            foreach ($resource_ops as $op) {
+                $plugin_func = 'smarty_resource_' . $type . '_' . $op;
+                if (!function_exists($plugin_func)) {
+                    $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file");
+                    return;
+                } else {
+                    $resource_funcs[] = $plugin_func;
+                }
+            }
+
+            $this->_plugins['resource'][$type] = array($resource_funcs, true);
+        }
+    }
 
 /*======================================================================*\
     Function:   quote_replace
@@ -1530,6 +1704,20 @@ function _run_insert_handler($args)
     function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING)
     {
         trigger_error("Smarty error: $error_msg", $error_type);
+    }
+
+/*======================================================================*\
+    Function: _trigger_plugin_error
+    Purpose:  trigger Smarty plugin error
+\*======================================================================*/
+    function _trigger_plugin_error($error_msg, $tpl_file = null, $tpl_line = null, $error_type = E_USER_WARNING)
+    {
+        if (isset($tpl_line) && isset($tpl_file)) {
+            trigger_error("Smarty plugin error: [in " . $tpl_file . " line " .
+                          $tpl_line . "]: $error_msg", $error_type);
+        } else {
+            trigger_error("Smarty plugin error: $error_msg", $error_type);
+        }
     }
 
 /*======================================================================*\

@@ -9,7 +9,7 @@ require_once "PEAR.php";
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * 
- * Copyright: 2001 ispi of Lincoln, Inc.
+ * Copyright: 2001,2002 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public

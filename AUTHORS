@@ -6,4 +6,5 @@ Monte Ohrt <monte@ispi.net>
 Andrei Zmievski <andrei@php.net>
 	- rewrote parser from scratch
 	- maintains code base
+	- plugin architecture
 	- wrote Config_File class
