@@ -3,18 +3,20 @@
 		<sect1 id="language.function.literal">
 			<title>literal</title>
 			<para>
-			Literal tags allow a block of data to be taken literally,
-			not being interpreted by the Smarty engine. This is handy
-			for things like javascript sections, where there maybe
-			curly braces and such things that would confuse the template
-			parser. Anything within {literal}{/literal} tags is not
-			interpreted, but displayed as-is.
+            Literal tags allow a block of data to be taken literally. This is
+            typically used around javascript or stylesheet blocks where curly
+            braces would interfere with the template delimiter syntax. Anything
+            within {literal}{/literal} tags is not interpreted, but displayed
+            as-is. If you need template tags embedded in your literal block,
+            consider using
+            <linkend="language.function.ldelim">{ldelim}{rdelim}</link> to
+            escape the individual delimiters instead.
 			</para>
 <example>
 <title>literal tags</title>
 <programlisting>
 {literal}
-	&lt;script language=javascript&gt;
+	&lt;script type="text/javascript"&gt;
 
         	&lt;!--
                 	function isblank(field) {
