@@ -137,7 +137,7 @@ class Smarty_Compiler extends Smarty {
         // #foo#
         // "text"
         // "text"
-        $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_qstr_regexp . ')';
+        $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_num_const_regexp . '|' . $this->_qstr_regexp . ')';
 
         // matches valid object call (no objects allowed in parameters):
         // $foo->bar
@@ -148,8 +148,11 @@ class Smarty_Compiler extends Smarty {
         // $foo->bar->foo()
         // $foo->bar->foo->bar()
         $this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
-        $this->_obj_params_regexp = '\((?:(?:' . $this->_num_const_regexp . ')|\w+|'
-                . $this->_var_regexp . '(?:\s*,\s*(?:(?:\w+|'
+        $this->_obj_params_regexp = '\((?:\w+|(?:'
+                . $this->_var_regexp . '(?:' . $this->_obj_ext_regexp
+                . '(?:\((?:' . $this->_var_regexp
+                . '(?:\s*,\s*' . $this->_var_regexp
+                . ')*)?\))?)*)(?:\s*,\s*(?:(?:\w+|'
                 . $this->_var_regexp . ')))*)?\)';
         $this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
         $this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?)';
