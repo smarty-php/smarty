@@ -29,7 +29,7 @@ function smarty_function_html_radios($params, &$smarty)
    $name = 'radio';
    $values = null;
    $options = null;
-   $checked = null;
+   $selected = null;
    $separator = '';
    $output = null;
    $extra = '';
@@ -38,11 +38,15 @@ function smarty_function_html_radios($params, &$smarty)
 		switch($_key) {
 		case 'name':
 		case 'separator':
+		    $$_key = (string)$_val;
+		    break;
+
 		case 'checked':
+		case 'selected':
 			if(is_array($_val)) {
-				$smarty->trigger_error('html_radios: the "checked" attribute cannot be an array', E_USER_WARNING);
+				$smarty->trigger_error('html_radios: the "' . $_key . '" attribute cannot be an array', E_USER_WARNING);
 			} else {
-				$$_key = (string)$_val;
+				$selected = (string)$_val;
 			}
 			break;
 
@@ -75,13 +79,13 @@ function smarty_function_html_radios($params, &$smarty)
    if (isset($options) && is_array($options)) {
 
       foreach ((array)$options as $_key=>$_val)
-	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $checked, $extra, $separator);
+	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator);
 
    } else {
 
       foreach ((array)$values as $_i=>$_key) {
 	 $_val = isset($output[$_i]) ? $output[$_i] : '';
-	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $checked, $extra, $separator);
+	 $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator);
       }
 
    }
@@ -90,12 +94,12 @@ function smarty_function_html_radios($params, &$smarty)
 
 }
 
-function smarty_function_html_radios_output($name, $value, $output, $checked, $extra, $separator) {
+function smarty_function_html_radios_output($name, $value, $output, $selected, $extra, $separator) {
    $_output = '<input type="radio" name="'
       . smarty_function_escape_special_chars($name) . '" value="'
       . smarty_function_escape_special_chars($value) . '"';
 
-   if ($value==$checked) {
+   if ($value==$selected) {
       $_output .= ' checked="checked"';
    }
    $_output .= $extra . ' />' . $output . $separator . "\n";

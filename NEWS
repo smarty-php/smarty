@@ -1,3 +1,5 @@
+    - made html_radios and html_checkboxes accept "selected" instead
+      of "checked" optionally. (messju)
     - made compile_id ignored in clear_cache, made order of
       auto_file_name $cache_id.$compile_id again, applied the the new
       variable-naming-scheme for cache_file_handing functions (messju)

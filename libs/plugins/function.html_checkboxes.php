@@ -29,7 +29,7 @@ function smarty_function_html_checkboxes($params, &$smarty)
    $name = 'checkbox';
    $values = null;
    $options = null;
-   $checked = null;
+   $selected = null;
    $separator = '';
    $output = null;
 
@@ -48,8 +48,12 @@ function smarty_function_html_checkboxes($params, &$smarty)
 
       case 'values':
       case 'output':
-      case 'checked':
          $$_key = array_values((array)$_val);
+	 break;
+
+      case 'checked':
+      case 'selected':
+         $selected = array_values((array)$_val);
          break;
 
       case 'checkboxes':
@@ -66,19 +70,19 @@ function smarty_function_html_checkboxes($params, &$smarty)
    if (!isset($options) && !isset($values))
       return ''; /* raise error here? */
 
-   settype($checked, 'array');
+   settype($selected, 'array');
    $_html_result = '';
 
    if (is_array($options)) {
 
       foreach ($options as $_key=>$_val)
-         $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $checked, $extra, $separator);
+         $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator);
 
 
    } else {
       foreach ($values as $_i=>$_key) {
          $_val = isset($output[$_i]) ? $output[$_i] : '';
-         $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $checked, $extra, $separator);
+         $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator);
       }
 
    }
@@ -87,12 +91,12 @@ function smarty_function_html_checkboxes($params, &$smarty)
 
 }
 
-function smarty_function_html_checkboxes_output($name, $value, $output, $checked, $extra, $separator) {
+function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator) {
    $_output = '<input type="checkbox" name="'
       . smarty_function_escape_special_chars($name) . '[]" value="'
       . smarty_function_escape_special_chars($value) . '"';
 
-   if (in_array($value, $checked)) {
+   if (in_array($value, $selected)) {
       $_output .= ' checked="checked"';
    }
    $_output .= $extra . ' />' . $output . $separator . "\n";
