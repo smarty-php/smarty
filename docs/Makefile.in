@@ -40,6 +40,7 @@ FORCE:
 html: FORCE
 	@test -d html || mkdir html
 	$(JADE) $(CATALOG) -d $(HTML_STYLESHEET) -V use-output-dir -t sgml $(XMLDCL) manual.xml
+	$(PHP) scripts/html_syntax.php html html/
 
 web: FORCE
 	@test -d phpweb || mkdir phpweb
