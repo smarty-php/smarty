@@ -15,10 +15,13 @@
        will look for the templates directory in the same directory as
        the executing php script.
       </para>
-      <para>
-       TECHNICAL NOTE: It is not mandatory to put this directory under
-       the web server document root.
-      </para>
+	   <note>
+		   <title>Technical Note</title>
+		   <para>
+    	   It is not mandatory to put this directory under
+    	   the web server document root.
+    	   </para>
+	  </note>
      </sect2>		
      <sect2 id="variable.compile.dir">
       <title>$compile_dir</title>
@@ -29,14 +32,20 @@
        the executing php script. This was added to Smarty version
        1.2.1.
       </para>
-      <para>
-       TECHNICAL NOTE: This setting must be either a relative or
+	 <note>
+	 <title>Technical Note</title>
+	 <para>
+       This setting must be either a relative or
        absolute path. include_path is not used for writing files.
       </para>
-      <para>    
-       TECHNICAL NOTE: It is not mandatory to put this directory under
+	 </note>
+	 <note>
+	 <title>Technical Note</title>
+	 <para>
+       It is not mandatory to put this directory under
        the web server document root.
       </para>
+	 </note>
      </sect2>
      <sect2 id="variable.config.dir">
       <title>$config_dir</title>
@@ -46,10 +55,13 @@
        for the configs directory in the same directory as the
        executing php script.
       </para>
-      <para>
-       TECHNICAL NOTE: It is not mandatory to put this directory under
+	 <note>
+	 <title>Technical Note</title>
+	 <para>
+       It is not mandatory to put this directory under
        the web server document root.
       </para>
+	 </note>
      </sect2>
      <sect2 id="variable.plugins.dir">
       <title>$plugins_dir</title>
@@ -109,12 +121,15 @@
        from that global array. $SCRIPT_NAME is globally assigned by
        default from $HTTP_SERVER_VARS.
       </para>
-      <para>
-       TECHNICAL NOTE: Server variables can be accessed through the
+	 <note>
+	 <title>Technical Note</title>
+	 <para>
+       Server variables can be accessed through the
        $smarty variable, such as {$smarty.server.SCRIPT_NAME}. See the
        section on the
        <link linkend="builtin.variable.smarty">$smarty</link> variable.
       </para>
+	 </note>
      </sect2>
      <sect2 id="variable.undefined">
       <title>$undefined</title>
@@ -184,14 +199,20 @@
        function to control cache files, which will ignore this
        setting. (added to Smarty 1.3.0)
       </para>
-      <para>
-       TECHNICAL NOTE: This setting must be either a relative or
+	  <note>
+	  <title>Technical Note</title>
+	  <para>
+       This setting must be either a relative or
        absolute path. include_path is not used for writing files.
       </para>
-      <para>
-       TECHNICAL NOTE: It is not mandatory to put this directory under
-       the web server document root.
-      </para>
+	  </note>
+	  <note>
+		  <title>Technical Note</title>
+		  <para>
+    	   It is not mandatory to put this directory under
+    	   the web server document root.
+    	  </para>
+	  </note>
      </sect2>
      <sect2 id="variable.cache.lifetime">
       <title>$cache_lifetime</title>

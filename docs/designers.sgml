@@ -1697,14 +1697,17 @@ index.tpl
 			can reference and modify information in the Smarty object from
 			within the insert function. (added in 1.4.5)
 			</para>
+			<note>
+			<title>Technical Note</title>
 			<para>
-            TECHNICAL NOTE: It is possible to have portions of the template not
+            It is possible to have portions of the template not
             cached. If you have <link linkend="features.caching">caching</link>
             turned on, insert tags will not be cached. They will run
             dynamically every time the page is created, even within cached
             pages. This works good for things like banners, polls, live
             weather, search results, user feedback areas, etc.
 			</para>
+			</note>
 		</sect2>
 		<sect2 id="language.function.if">
 			<title>if,elseif,else</title>
@@ -2108,11 +2111,14 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			(or the start attribute if given), and incrementing by one (or by
 			the step attribute if given.)
 			</para>
-			<para>
-			TECHNICAL NOTE: If the step and start section properties are not
-			modified, then this works the same as the iteration section
-			property.
-			</para>
+			<note>
+				<title>Technical Note</title>
+				<para>
+				If the step and start section properties are not
+				modified, then this works the same as the iteration section
+				property.
+				</para>
+			</note>
 	<example>
 	<title>section property index</title>
 	<programlisting>
@@ -2706,6 +2712,13 @@ The value of $name is Bob.</programlisting>
 			counter function will be assigned to this template variable instead of
 			being output to the template. (new in Smarty 1.5.0)
 			</para>
+			<note>
+				<para>
+				evaluated variables follow the same rules as templates, so for
+				instance PHP tags are escaped by default, or if you have
+				security enabled then embedding PHP is not allowed.
+				</para>
+			</note>
 <example>
 <title>counter</title>
 <programlisting>
@@ -2764,6 +2777,21 @@ OUTPUT:
 			eval function will be assigned to this template variable instead of
 			being output to the template.
 			</para>
+			<note>
+			<title>Technical Note</title>
+			<para>
+			Evaluated variables are treated the same as templates. They follow
+			the same escapement and security features just as if they were
+			templates.
+			</para>
+			</note>
+			<note>
+			<title>Technical Note</title>
+			Evaluated variables are compiled on every invocation, the compiled
+			versions are not saved! However if you have caching enabled, the
+			output will be cached with the rest of the template.
+			</para>
+			</note>
 <example>
 <title>eval</title>
 <programlisting>
@@ -2848,16 +2876,22 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 			fetch function will be assigned to this template variable instead of
 			being output to the template. (new in Smarty 1.5.0)
 			</para>
-            <para>
-            TECHNICAL NOTE: This will not support http redirects, be sure to
-            include a trailing slash on your web page fetches where necessary.
-            </para>
-            <para>
-			TECHNICAL NOTE: If template security is turned on and you are
-			fetching a file from the local file system, this will only allow
-			files from within one of the defined secure directories.
-			($secure_dir)
-            </para>
+			<note>
+				<title>Technical Note</title>
+				<para>
+            	This will not support http redirects, be sure to
+            	include a trailing slash on your web page fetches where necessary.
+            	</para>
+			</note>
+			<note>
+				<title>Technical Note</title>
+				<para>
+				If template security is turned on and you are
+				fetching a file from the local file system, this will only allow
+				files from within one of the defined secure directories.
+				($secure_dir)
+            	</para>
+			</note>
 <example>
 <title>fetch</title>
 <programlisting>
@@ -4142,14 +4176,17 @@ pass=foobar
    SMARTY_DEBUG in the URL if you enable this option with <link
    linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
    </para>
-   <para>
-   TECHNICAL NOTE: The debugging console does not work when you use the fetch()
-   API, only when using display(). It is a set of javascript statements added
-   to the very bottom of the generated template. If you do not like javascript,
-   you can edit the debug.tpl template to format the output however you like.
-   Debug data is not cached and debug.tpl info is not included in the output of
-   the debug console.
-   </para>
+   <note>
+	   <title>Technical Note</title>
+	   <para>
+	   The debugging console does not work when you use the fetch()
+	   API, only when using display(). It is a set of javascript statements added
+	   to the very bottom of the generated template. If you do not like javascript,
+	   you can edit the debug.tpl template to format the output however you like.
+	   Debug data is not cached and debug.tpl info is not included in the output of
+	   the debug console.
+	   </para>
+   </note>
    <note>
    <para>
    The load times of each template and config file are in seconds, or

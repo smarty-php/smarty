@@ -385,11 +385,14 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 	correctly in your browser, and the mailto: hyperlink will go to the correct
 	address.
 	</para>
+	<note>
+	<title>Technical Note</title>
 	<para>
-	TECHNICAL NOTE: This method isn't 100% foolproof. Although highly unlikely,
+	This method isn't 100% foolproof. Although highly unlikely,
 	a spammer could conceivably write his e-mail collecter to decode these
 	values.
 	</para>
+	</note>
 	</sect1>
 </chapter>
 <chapter id="resources">
