@@ -669,7 +669,7 @@ class Smarty_Compiler extends Smarty {
                         else if ($quote && !in_array($token{0}, $var_delims) &&
                                  !(($token{0} == '"' || $token[0] == "'") &&
                                  $token{strlen($token)-1} == $token{0}))
-                            $token = "'".$token."'";
+                            $token = '"'.$token.'"';
 
                         $attrs[$attr_name] = $token;
                         $state = 0;
