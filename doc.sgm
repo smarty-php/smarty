@@ -1760,7 +1760,7 @@ is the first week that has at least 4 days in the current year, and with Monday 
 	check the website.
 	</para>
 </chapter>
-<chapter id="bugs">
+<chapter id="pear">
 	<title>PEAR</title>
 	<para>
 	Smarty uses the PEAR libraries for some of its error handling routines.
