@@ -3448,7 +3448,7 @@ index.php:
                                <title>Technische Bemerkung</title>
                                <para>
 				'html_image' verursacht Festplattenzugriffe um die Breite/H&ouml;he des Bildes
-				zu berechnen. Falls Sie 'caching' einsetzen, ist es zu empfehlen, 'html_image'
+				zu berechnen. Falls Sie kein 'caching' einsetzen, ist es zu empfehlen, 'html_image'
 				nicht zu verwenden, und stattdessen statische image Tags zu verwenden.
                </para>
                        </note>
