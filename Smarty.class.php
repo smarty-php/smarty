@@ -696,10 +696,10 @@ class Smarty
     Function:   _smarty_include()
     Purpose:    called for included templates
 \*======================================================================*/
-    function _smarty_include($_smarty_include_tpl_file ,$_smarty_def_vars,
-                             $_smarty_include_vars, &$_smarty_config_parent)
+    function _smarty_include($_smarty_include_tpl_file, $_smarty_include_vars,
+                             &$_smarty_config_parent)
     {
-        extract($_smarty_def_vars);
+        $this->_tpl_vars = array_merge($this->_tpl_vars, $_smarty_include_vars);
         extract($_smarty_include_vars);
                 
         $this->_process_template($_smarty_include_tpl_file, $compile_path);
