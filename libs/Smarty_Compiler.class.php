@@ -1842,6 +1842,7 @@ class Smarty_Compiler extends Smarty {
 
             case 'get':
                 $compiled_ref = ($this->request_use_auto_globals) ? '$_GET' : "\$GLOBALS['HTTP_GET_VARS']";
+                break;
 
             case 'post':
                 $compiled_ref = ($this->request_use_auto_globals) ? '$_POST' : "\$GLOBALS['HTTP_POST_VARS']";
