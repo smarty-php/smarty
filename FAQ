@@ -97,7 +97,11 @@ Q: I get the following error when running Smarty:
 A: Smarty uses the PEAR libraries for some of its error handling routines.
    PEAR libraries come with the distribution of PHP. Be sure that the path to
    these libraries is included in your php include_path. Unix users check
-   /usr/local/lib/php. Windows users check C:/php/pear.
+   /usr/local/lib/php. Windows users check C:\php\pear. You may also need to
+   change the filename from PEAR.php.in to PEAR.php (windows distribution)
+   Example entry in php.ini:
+   (unix) include_path=".:/usr/local/lib/php"
+   (windows) include_path=".;\php\pear"
 
 Q: I get this error when passing variables to {include}:
    Fatal error: Call to undefined function: get_defined_vars() in

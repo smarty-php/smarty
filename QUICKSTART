@@ -59,6 +59,12 @@ drwxrwxr-x   2 user    group        512 Jan 18 14:18 configs/
 drwxrwxr-x   2 user    group        512 Jan 18 14:18 templates/
 drwxrwxrwx   2 user    group        512 Jan 18 14:18 templates_c/
 
+Make sure the current directory and the path to PEAR.php are in your
+include_path. Example php.ini entries:
+(unix) include_path=".:/usr/local/lib/php"
+(windows) include_path=".;\php\pear"
+Also, windows users may have to change the filename from PEAR.php.in
+to PEAR.php (named like this in some distributions?)
 
 Now we need to create two files, index.php and templates/index.tpl. index.php
 is the file that we will be calling from our web browser. index.tpl is the file
