@@ -1,3 +1,9 @@
+2004-06-01  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.fetch.php:
+      fix: proper initialistaion of $content.
+      thanks to Dmitry Koteroff for pointing this out.
+
 2004-05-29  Mehdi Achour  <didou@keliglia.com>
 
     * docs/fr/translation.xml:
