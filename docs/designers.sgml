@@ -3479,14 +3479,14 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                     <row>
                         <entry>values</entry>
                         <entry>array</entry>
-                        <entry>Yes, unless using checkboxes attribute</entry>
+                        <entry>Yes, unless using options attribute</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>an array of values for checkbox buttons</entry>
                     </row>
                     <row>
                         <entry>output</entry>
                         <entry>array</entry>
-                        <entry>Yes, unless using checkboxes attribute</entry>
+                        <entry>Yes, unless using options attribute</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>an array of output for checkbox buttons</entry>
                     </row>
@@ -3498,7 +3498,7 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                         <entry>the checked checkbox element</entry>
                     </row>
                     <row>
-                        <entry>checkboxes</entry>
+                        <entry>options</entry>
                         <entry>associative array</entry>
                         <entry>Yes, unless using values and output</entry>
                         <entry><emphasis>n/a</emphasis></entry>
@@ -3518,9 +3518,13 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 			html_checkboxes is a custom function that creates an html checkbox
 			group with provided data. It takes care of which item(s) are
 			selected by default as well. Required attributes are values and
-			output, unless you use checkboxes instead. All output is XHTML
+			output, unless you use options instead. All output is XHTML
 			compatible.
 			</para>
+			<para>
+			All parameters that are not in the list above are printed as
+			name/value-pairs inside each of the created &lt;input&gt;-tags.
+			</para
 <example>
 <title>html_checkboxes</title>
 <programlisting>
@@ -3747,6 +3751,11 @@ OUTPUT: (possible)
 			&lt;select name="groupname"&gt;&lt;/select&gt; tags will enclose
 			the option list. Otherwise only the option list is generated.
 			</para>
+			<para>
+			All parameters that are not in the list above are printed as
+			name/value-pairs inside the &lt;select&gt;-tag. They are ignored if
+			the optional <emphasis>name</emphasis> is not given.
+			</para
 <example>
 <title>html_options</title>
 <programlisting>
@@ -3825,14 +3834,14 @@ OUTPUT: (both examples)
                     <row>
                         <entry>values</entry>
                         <entry>array</entry>
-                        <entry>Yes, unless using radios attribute</entry>
+                        <entry>Yes, unless using options attribute</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>an array of values for radio buttons</entry>
                     </row>
                     <row>
                         <entry>output</entry>
                         <entry>array</entry>
-                        <entry>Yes, unless using radios attribute</entry>
+                        <entry>Yes, unless using options attribute</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>an array of output for radio buttons</entry>
                     </row>
@@ -3844,7 +3853,7 @@ OUTPUT: (both examples)
                         <entry>the checked radio element</entry>
                     </row>
                     <row>
-                        <entry>radios</entry>
+                        <entry>options</entry>
                         <entry>associative array</entry>
                         <entry>Yes, unless using values and output</entry>
                         <entry><emphasis>n/a</emphasis></entry>
@@ -3864,8 +3873,13 @@ OUTPUT: (both examples)
 			html_radios is a custom function that creates html radio button
 			group with provided data. It takes care of which item is selected
 			by default as well. Required attributes are values and output,
-			unless you use radios instead. All output is XHTML compatible.
+			unless you use options instead. All output is XHTML compatible.
 			</para>
+			<para>
+			All parameters that are not in the list above are printed as
+			name/value-pairs inside each of the created &lt;input&gt;-tags.
+			</para
+
 <example>
 <title>html_radios</title>
 <programlisting>
