@@ -35,6 +35,7 @@ Q: I'm running Windows 2000 and I get blank content. My compiled PHP files are
 Q: The template goes into an infinite loop when I include included templates
    that pass local variables
 Q: Javascript is causing Smarty errors in my templates.
+Q: I get "SAFE MODE Restriction in effect. ..."-errors when running smarty.
 
 MISC
 
@@ -205,6 +206,9 @@ A: This was fixed in 1.3.2 (new global attribute)
 
 Q: Javascript is causing Smarty errors in my templates.
 A: Surround your javascript with {literal}{/literal} tags. See the docs.
+
+Q: I get "SAFE MODE Restriction in effect. ..."-errors when running smarty.
+A: Use $smarty->use_sub_dirs = false when running php in safe mode.
 
 MISC
 ----
