@@ -1,3 +1,8 @@
+2004-06-23  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/modifier.date_format.php:
+      display date_format %e, %T and %D as expected for windows
+
 2004-06-17  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Config_File.class.php
