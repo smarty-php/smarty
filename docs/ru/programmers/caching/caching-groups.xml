@@ -1,40 +1,44 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="caching.groups">
-    <title>Cache Groups</title>
+<!-- En-Revision: 1.2 -->
+<sect1 id="caching.groups">
+ <title>Ãðóïïîâîå êýøèðîâàíèå</title>
 	<para>
-	You can do more elaborate grouping by setting up cache_id groups. This is
-	accomplished by separating each sub-group with a vertical bar "|" in the
-	cache_id value. You can have as many sub-groups as you like.
+  Âû ìîæåòå ñäåëàòü ãðóïïèðîâêó áîëåå ïðîäóìàííîé, èñïîëüçóÿ ãðóïïîâûå çíà÷åíèÿ cache_id.
+  Â òàêîì ñëó÷àå, êàæäàÿ ïîäãðóïïà îòäåëÿåòñÿ çíàêîì âåðòèêàëüíîé ÷åðòû  "|" â 
+  çíà÷åíèè cache_id. Âîçìîæíî ñîçäàâàòü ëþáîå êîëè÷åñòâî ïîäãðóïï.
 	</para>
 	<example>
-     <title>cache_id groups</title>
-     <programlisting>
+  <title>Ãðóïïû â cache_id</title>
+  <programlisting>
+<![CDATA[
 require('Smarty.class.php');
 $smarty = new Smarty;
 
 $smarty->caching = true;
 
-// clear all caches with "sports|basketball" as the first two cache_id groups
+// Óäàëèòü âñå êýøèðîâàííûå êîïèè ïîäãðóïïû "sports|basketball"
 $smarty->clear_cache(null,"sports|basketball");
 
-// clear all caches with "sports" as the first cache_id group. This would
-// include "sports|basketball", or "sports|(anything)|(anything)|(anything)|..."
+// Óäàëèòü âñå êýøèðîâàííûå êîïèè ãðóïïû "sports", 
+// âêëþ÷àÿ "sports|basketball", èëè "sports|(anything)|(anything)|(anything)|..."
 $smarty->clear_cache(null,"sports");
 
-$smarty->display('index.tpl',"sports|basketball");</programlisting>
-    </example>
-   <note>
-   <title>Technical Note</title>
-   <para>
-   The cache grouping does NOT use the path to the template as any part of the
-   cache_id. For example, if you have display('themes/blue/index.tpl'), you
-   cannot clear the cache for everything under the "themes/blue" directory. If
-   you want to do that, you must group them in the cache_id, such as
-   display('themes/blue/index.tpl','themes|blue'); Then you can clear the
-   caches for the blue theme with clear_cache(null,'themes|blue');
-   </para>
-   </note>
+$smarty->display('index.tpl',"sports|basketball");
+]]>
+  </programlisting>
+ </example>
+ <note>
+  <title>Òåõíè÷åñêîå çàìå÷àíèå</title>
+  <para>
+   Ïðè ãðóïïîâîì  êýøèðîâàíèè, ïóòü ê øàáëîíó ÍÅ èñïîëüçóåòñÿ êàê ÷àñòü
+   cache_id. Ê ïðèìåðó, åñëè ïðîèçâîäèòñÿ âûçîâ display('themes/blue/index.tpl'), âû
+   íå ìîæåòå î÷èñòèòü êýø äëÿ âñåõ ôàéëîâ, íàõîäÿùèõñÿ â äèðåêòîðèè "themes/blue". Åñëè
+   ó âàñ âîçíèêëà òàêàÿ íåîáõîäèìîñòü, íóæíî ñãðóïïèðîâàòü èõ â cache_id, íàïðèìåð òàê - 
+   display('themes/blue/index.tpl','themes|blue'); È òåïåðü âû ìîæåòå î÷èñòèòü êýø
+   òåìû blue, èñïîëüçóÿ clear_cache(null,'themes|blue');
+  </para>
+ </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
