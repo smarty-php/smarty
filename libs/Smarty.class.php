@@ -125,9 +125,9 @@ class Smarty
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count')
                                    );
-	var $trusted_dir		= array(); 	// directories where trusted templates
+	var $trusted_dir		= array(); 	// directories where trusted templates & php scripts
 									// reside ($security is disabled during their
-									// execution).
+									// inclusion/execution).
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
@@ -1161,10 +1161,11 @@ function _run_insert_handler($args)
         if (isset($args['script'])) {
             $this->_parse_file_path($this->trusted_dir, $this->_dequote($args['script']), $resource_type, $resource_name);
             if ($this->security) {
-                if( $resource_type != 'file' || !@is_file($resource_name)) {
-                    $this->_syntax_error("insert: $resource_type: $resource_name is not readable");                return false;
+                if ( $resource_type != 'file' || !@is_file($resource_name) ) {
+                    $this->_syntax_error("insert: $resource_type: $resource_name is not readable");
+					return false;
                 }
-                if (!$this->_is_trusted($resource_type, $resource_name)) {
+                if ( !$this->_is_trusted($resource_type, $resource_name) ) {
                     $this->_syntax_error("insert: $resource_type: $resource_name is not trusted");
                     return false;
                 }
@@ -1395,7 +1396,7 @@ function _run_insert_handler($args)
     function _write_cache_file($tpl_file, $cache_id, $compile_id, $results)
     {
 		// determine if insert tags are present
-		if (strpos($results,$this->_smarty_md5.'{insert_cache')) {
+		if (strpos($results,$this->_smarty_md5)) {
         	$this->_cache_info['insert_tags'] = true;
 		}
 		
