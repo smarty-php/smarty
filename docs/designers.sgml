@@ -1168,23 +1168,27 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
 
 {$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
 
-{$articleTitle|wordwrap:30:"\n":false}
+{$articleTitle|wordwrap:30:"\n":true}
 
 OUTPUT:
 
 Blind woman gets new kidney from dad she hasn't seen in years.
 
 Blind woman gets new kidney
-from dad she hasn't seen in years.
+from dad she hasn't seen in
+years.
 
 Blind woman gets new
-kidney from dad she hasn't seen in years.
+kidney from dad she
+hasn't seen in
+years.
 
 Blind woman gets new kidney&lt;br&gt;
 from dad she hasn't seen in years.
 
 Blind woman gets new kidney fr
-om dad she hasn't seen in years.</programlisting>
+om dad she hasn't seen in
+years.</programlisting>
 </example>
         </sect3>
        </sect2> 
@@ -1439,7 +1443,7 @@ s m o k e r s   a r e   p. . .</programlisting>
             the attribute "file", which contains the template resource path.
 			</para>
 			<para>
-			You an optionally pass the <emphasis>assign</emphasis> attribute,
+			You can optionally pass the <emphasis>assign</emphasis> attribute,
 			which will specify a template variable name that the output of
 			<emphasis>include</emphasis> will be assigned to instead of
 			displayed. This was added to Smarty 1.5.0.
@@ -1545,9 +1549,9 @@ s m o k e r s   a r e   p. . .</programlisting>
 			before hand.
 			</para>
 			<para>
-			You an optionally pass the <emphasis>assign</emphasis> attribute,
+			You can optionally pass the <emphasis>assign</emphasis> attribute,
 			which will specify a template variable name that the output of
-			<emphasis>include</emphasis> will be assigned to instead of
+			<emphasis>include_php</emphasis> will be assigned to instead of
 			displayed.
 			</para>
 			<para>
@@ -1671,7 +1675,7 @@ index.tpl
 			<para>
 			If you supply the "assign" attribute, the output of the insert tag
 			will be assigned to this template variable instead of being output
-			to the template. NOTE: assiging the output to a template variable
+			to the template. NOTE: assigning the output to a template variable
 			isn't too useful with caching enabled. (added to Smarty 1.5.0)
 			</para>
 			<para>
