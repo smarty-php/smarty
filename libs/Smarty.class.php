@@ -383,15 +383,15 @@ class Smarty
 	function _compile_tag($template_tag)
 	{
 		/* Matched comment. */
-		if ($template_tag{0} == '*' && $template_tag{strlen($tokens)-1} == '*')
+		if ($template_tag{0} == '*' && $template_tag{strlen($template_tag)-1} == '*')
 			return "";
 
 		/* Split tag into two parts: command and the arguments. */
 		preg_match('/^(
-					   (?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*" | \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\' | (?>[^"\' ]+))+
+					   (?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*" | \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\' | (?>[^"\'\s]+))+
 					  )
 				      (?:\s+(.*))?
-					    /xs', $template_tag, $match);
+					/xs', $template_tag, $match);
 		list(, $tag_command, $tag_args) = $match;
 
 		/* If the tag name matches a variable or section property definition,
