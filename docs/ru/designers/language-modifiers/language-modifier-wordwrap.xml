@@ -39,7 +39,7 @@
                         <entry>логический (boolean)</entry>
                         <entry>Нет</entry>
                         <entry>false</entry>
-                        <entry>Указывает, переносить по солвам (false) или нет (true).</entry>
+                        <entry>Указывает, переносить по словам (false) или нет (true).</entry>
                     </row>
                 </tbody>
                 </tgroup>
