@@ -1,0 +1,861 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
+<book>
+<bookinfo>
+	<title>Smarty - the compiling PHP template engine</title>
+	<author><firstname>Monte</firstname><surname>Ohrt</surname></author>
+	<author><firstname>Andrei</firstname><surname>Zmievski</surname></author>
+	<copyright><year>2001</year><holder>ispi, Inc.</holder></copyright>
+</bookinfo>
+<chapter>
+	<title>Overview</title>
+		<para>
+		It is undoubtedly one of the most asked questions on the PHP mailing
+		lists: how do I make my PHP scripts independent of the layout? While
+		PHP is billed as "HTML embedded scripting language", after writing a
+		couple of projects that mixed PHP and HTML freely one comes up with
+		the idea that separation of form and content is a Good Thing [TM]. In
+		addition, in many companies the roles of layout designer and programmer
+		are separate. Consequently, the search for a templating solution ensues.
+		</para>
+		<para>
+		In our company for example, the development of an application goes on
+		as follows. After the requirements docs are done, the interface designer
+		makes mockups of the interface and gives them to the programmer. The
+		programmer implements business logic in PHP and uses interface mockups
+		to create skeleton templates. The project is then handed off to the HTML
+		designer/web page layout person who brings the templates up to their full
+		glory. The project may go back and forth between programming/HTML a couple
+		of times. Thus, it's important to have good template support because
+		programmers don't want anything to do with HTML and don't want HTML
+		designers mucking around with PHP code, and designers need support for
+		config files, dynamic blocks and other stuff, but they don't want to
+		have to deal with intricacies of the PHP programming language.
+		</para>
+		<para>
+		Looking at many templating solutions available for PHP today,
+		most of them provide a rudimentary way of substituting variables into
+		templates and do a limited form of dynamic block functionality (a section
+		of a template that is looped over and over with a set of indexed variables).
+		But our needs were a bit more than that. We didn't want programmers to be
+		dealing with HTML layout at ALL, but this was almost inevitable. For
+		instance, if a designer wanted background colors to alternate on dynamic
+		blocks, this had to be worked out with the programmer in advance. We also
+		needed designers to be able to use their own configuration files, and pull
+		variables from them into the templates. The list goes on.
+		</para>
+		<para>
+		We started out writing out a spec for a template engine about a year ago.
+		After finishing the spec, we began to work on a template engine written in
+		C that would hopefully be accepted for inclusion with PHP. Not only did we
+		run into many complicated technical barriers, but there was also much heated
+		debate about exactly what a template engine should and should not do. From
+		this experience, we decided that the template engine should be written in PHP
+		as a class, for anyone to use as they see fit. So we wrote an engine that did
+		just that. "SmartTemplate" came to existance (note: this class was never
+		submitted to the public). It was a class that did almost everything we wanted:
+		regular variable substitution, supported including other templates, integration
+		with config files, embedding PHP code, limited 'if' statement functionality and
+		much more robust dynamic blocks which could be multiply nested. It did all this
+		with regular expressions and the code turned out to be rather, shall we say,
+		impenetrable. It was also noticably slow in large applications from all the
+		parsing and regular expression work it had to do on each invocation.
+		</para>
+		<para>
+		Then came the vision of what ultimately became Smarty. We know how fast PHP
+		code is without the overhead of template parsing. We also know how meticulous
+		and overbearing the language may look to the average designer, and this could
+		be masked with a much simpler templating syntax. So what if we combined the two
+		strengths? Thus, Smarty was born...
+		</para>
+	<sect1><title>What is Smarty?</title>
+		<para>
+		Smarty is a template engine for PHP. One of the unique aspects about
+		Smarty that sets it apart from other templating solutions is that it
+		compiles the templates into native php scripts upon the first
+		invocation. After that, it merely executes the compiled PHP scripts.
+		Therefore, there is no costly template file parsing for each request.
+		</para>
+		<para>
+		Some of Smarty's features:
+		</para>
+		<itemizedlist>
+		<listitem><para>It is extremely fast.</para></listitem>
+		<listitem><para>It is relatively simple since the PHP parser does the
+			dirty work.</para></listitem>
+		<listitem><para>No template parsing overhead, only compiles once.</para></listitem>
+		<listitem><para>It is smart about recompiling only the template
+			files that have changed.</para></listitem>
+		<listitem><para>You can make custom functions and custom variable modifiers, so
+			the template language is extremely extensible.</para></listitem>
+		<listitem><para>Configurable template delimiter tag syntax, so you can use
+			{}, {{}}, &lt;!--{}--&gt;, or whatever you like.</para></listitem>
+		<listitem><para>Template if/else/endif constructs are passed to the PHP parser,
+			so the if syntax can be as simple or as complex as you like.</para></listitem>
+		<listitem><para>Unlimited nesting of sections,ifs, etc. allowed.</para></listitem>
+		<listitem><para>It is possible to imbed PHP code right in your template files,
+			although doubtfully needed since the engine is so customizable.</para></listitem>
+		</itemizedlist>
+	</sect1>
+	<sect1>
+		<title>How Smarty works</title>
+		<sect2><title>compiling</title>
+			<para>
+			Smarty compiles the templates into native PHP code on-the-fly. The actual
+			PHP scripts that are generated are created implicitly, so theoretically you
+			should never have to worry about touching these files, or even know of their
+			existance. The exception to this is debugging Smarty template syntax errors,
+			discussed later in this document.
+			</para>
+		</sect2>
+		<sect2><title>caching</title>
+		<para>
+			Our initial intention was to build caching into Smarty. However,
+			since the template engine is actually executing PHP scripts instead of
+			parsing template files, the need for a cache was dramatically reduced.
+			We may implement this in a future version of Smarty as the need arises.
+		</para>
+		</sect2>
+	</sect1>
+</chapter>
+<chapter>
+	<title>Installation</title>
+	<sect1>
+		<title>Requirements</title>
+		<para>
+		Smarty requires PHP 4.0.4pl1 or later. 4.0.4 contains a bug that
+		crashes PHP when certain Smarty features are used (such as the @count modifier).
+		4.0.3 and earlier contain a bug in preg_grep() that won't allow the parser to
+		function properly. We may make some adjusments to work around these
+		issues in future versions of Smarty. For now, get the very latest version of PHP.
+		As of this writing, 4.0.4pl1 is not yet available, so a CVS snapshot is necessary.
+		</para>
+	</sect1>
+	<sect1>
+		<title>Installing Smarty</title>
+		<para>
+		Installing Smarty is fairly straight forward, there is just one thing you must
+		be aware of. Remember that Smarty creates compiled versions of the template code.
+		This usually means allowing user "nobody" (or whomever the web server runs
+		as) to have permission to write the files. Each installation of a Smarty
+		application minimally needs a template directory, a config file directory and a compiled
+		template directory. By default these are named "templates","configs" and "templates_c"
+		respectively.
+		</para>
+		<para>
+		Copy the Smarty.class.php and Smarty.addons.php scripts to a
+		directory that is in your PHP include_path. NOTE: php will try to create a
+		directory along side the index.php script called "templates_c". Be sure
+		that directory permissions allow this to happen. You will see appropriate
+		error messages if this fails. You can also create the directory yourself
+		before hand, and change the file ownership accordingly. See below.
+		</para>
+		<example>
+			<title>Example of installing Smarty</title>
+<programlisting>
+
+# be sure you are in the web server document tree
+# this assumes your web server runs as user "nobody"
+# and you are in a unix environment
+gtar -zxvf Smarty-1.0.tar.gz
+touch templates_c
+chown nobody:nobody templates_c
+</programlisting>
+		</example>
+		<para>
+		Next, try running the index.php script from your web browser.
+		</para>
+	</sect1>
+</chapter>
+<chapter>
+	<title>Setting up Smarty</title>
+		<para>
+		There are several variables that are at the top of the Smarty.class.php file. You
+		can usually get away with leaving these at thier default settings. This is a list
+		of them and what each one does.
+		</para>
+	<sect1>
+		<title>Configuration variables</title>
+		<para></para>
+		<sect2>
+			<title>$compile_check</title>
+			<para>
+				Upon each invocation of the PHP application, Smarty traverses all the template
+				files and searches for any that have changed (later datestamp) since the last time the
+				application was invoked. For each one that has changed, it recompiles that
+				template. By default this is set to true. The compile check has very
+				minimal impact on the application performance. However, once an application
+				is put into production and it is initially compiled, the compile_check step
+				is no longer needed. You may set this to "false" *after* the initial compile. Then
+				Smarty will no longer check for changed template files. Note that if you change
+				this to "false" and a template file is changed, you will *not* see the change since
+				the template will not get recompiled. Set it to "true", invoke the application,
+				then set it back to "false".
+			</para>
+		</sect2>
+		<sect2>
+			<title>$template_dir</title>
+			<para>
+				This is the directory name that template files are kept in.
+			</para>
+		</sect2>		
+		<sect2>
+			<title>$compile_dir_ext</title>
+			<para>
+				This is the extension used for the name of the directory that compiled templates
+				are kept in. By default this is "_c". Therefore if your template directory is
+				named "templates", then the compile directory will be named "templates_c".
+			</para>
+		</sect2>
+		<sect2>
+			<title>$tpl_file_ext</title>
+			<para>
+				This is the extention used for template files. By default this is ".tpl".
+				All other files in the template directory are ignored.
+			</para>
+		</sect2>
+		<sect2>
+			<title>$max_recursion_depth</title>
+			<para>
+				This is the maximum depth you can include other templates within templates.
+				This is to help catch infinite loops when template files accidentally include
+				each other.
+			</para>
+		</sect2>
+		<sect2>
+			<title>$allow_php</title>
+			<para>
+				Whether or not to allow PHP code to be imbedded into the
+				templates. If set to false, PHP code is escaped and not interpreted. Imbedding
+				PHP code into templates is highly discouraged. Use custom functions or modifiers
+				instead. Default is "false".
+			</para>
+		</sect2>
+		<sect2>
+			<title>$left_delimiter</title>
+			<para>
+				This is the left delimiter syntax in the templates. Default is "{".
+			</para>
+		</sect2>
+		<sect2>
+			<title>$right_delimiter</title>
+			<para>
+				This is the right delimiter syntax in the templates. Default is "}".			
+			</para>
+		</sect2>
+		<sect2>
+			<title>$config_dir</title>
+			<para>
+				This is the directory used to store config files used in the templates.
+				Default is "configs".
+			</para>
+		</sect2>
+		<sect2>
+			<title>$custom_funcs</title>
+			<para>
+				This is a mapping of the names of custom functions in the template to
+				the names of functions in PHP. These are usually kept in Smarty.addons.php.
+			</para>
+		</sect2>
+		<sect2>
+			<title>$custom_mods</title>
+			<para>
+				This is a mapping of the names of variable modifiers in the template to
+				the names of functions in PHP. These are usually kept in Smarty.addons.php.			
+			</para>
+		</sect2>
+		<sect2>
+			<title>$global_assign</title>
+			<para>
+				This is a list of variables that are always implicitly assigned to the
+				template engine. This is usually handy for making global variables or server
+				variables available to the template without having to manually assign them to
+				the template every time.
+			</para>
+		</sect2>
+	</sect1>
+</chapter>
+<chapter>
+	<title>Smarty API</title>
+	<para>
+		These functions are used in the PHP portion of your application.
+	</para>
+	<sect1>
+		<title>Smarty API Functions</title>
+		<sect2>
+			<title>assign</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>assign</function></funcdef>
+				<paramdef>mixed <parameter>var</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>assign</function></funcdef>
+				<paramdef>string <parameter>varname</parameter></paramdef>
+				<paramdef>mixed <parameter>var</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This is used to assign values to the templates. This is usually
+				data gathered from database queries or other sources of data.
+			</para>
+		</sect2>
+		<sect2>
+			<title>append</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>append</function></funcdef>
+				<paramdef>mixed <parameter>var</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>append</function></funcdef>
+				<paramdef>string <parameter>varname</parameter></paramdef>
+				<paramdef>mixed <parameter>var</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This is used to append data to existing variables in the template.
+			</para>
+		</sect2>
+		<sect2>
+			<title>clear_assign</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_assign</function></funcdef>
+				<paramdef>string <parameter>var</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This clears the value of an assigned variable.
+			</para>
+		</sect2>
+		<sect2>
+			<title>clear_all_assign</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_all_assign</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This clears the values of all assigned variables.
+			</para>
+		</sect2>
+		<sect2>
+			<title>get_template_vars</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>array <function>get_template_vars</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This gets an array of the currently assigned template vars.
+			</para>
+		</sect2>
+		<sect2>
+			<title>display</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>display</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This displays the template.
+			</para>
+		</sect2>
+		<sect2>
+			<title>fetch</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>string <function>fetch</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This returns the template output.
+			</para>
+		</sect2>
+		<sect2>
+		<title>Using Smarty API</title>
+		<example>
+			<title>Example use of Smarty API</title>
+<programlisting>
+
+include("Smarty.class.php");
+$smarty = new Smarty;
+
+// dummy up some data
+$address = "245 N 50th";
+$db_data = array(
+	"City" => "Lincoln",
+	"State" => "Nebraska",
+	"Zip" = > "68502"
+	);
+
+$smarty->assign("Name","Fred");
+$smarty->assign("Address",$address);
+$smarty->assign($db_data);
+
+// display the output
+$smarty->display("./templates/index.tpl");
+
+// alternatively capture the output
+$output = $smarty->fetch("./templates/index.tpl");
+</programlisting>
+		</example>
+		</sect2>
+	</sect1>
+</chapter>
+<chapter>
+	<title>Smarty Templates</title>
+	<para>
+	The templates are the heart of Smarty. These are the files that the designers
+	work with. They're basically pages made up of static content interspersed with
+	template markup tags. These tags are placeholders for variables or blocks of logic.
+	</para>
+	<sect1>
+		<title>Syntax</title>
+		<para>
+			For these examples, we will assume that you are using the default
+			template tag delimiters, which are "{" and "}". In Smarty, all content
+			outside of delimiter tags is displayed as static content, or unchanged.
+			When Smarty encounters template tags {}, it attempts to interpret what is
+			between the tags, and displays the appropriate output in place of them.
+		</para>
+		<sect2>
+			<title>Variables</title>
+			<para>
+			There are three basic types of variables in Smarty, each with thier
+			own unique syntax.
+			</para>
+			<sect3>
+				<title>Variables assigned from PHP</title>
+				<para>
+				Variables that are assigned from PHP are displayed by preceeding
+				them with a dollar sign ($) and enclosing the variable in delimiters
+				like so: {$varname}
+				</para>
+<example>
+<title>Template example of displaying assigned variables</title>
+<programlisting>
+
+Hello {$firstname}, glad to see you could make it.
+&lt;p&gt;
+Your last login was on {$lastLoginDate}
+</programlisting>
+</example>
+				<para>
+				There are also variables within looping sections that are displayed
+				a bit differently, with the section name prepended like so: {$secname/varname}.
+				Those are exaplained later in this document under Built-in Functions.
+				</para>
+			</sect3>
+			<sect3>
+				<title>Variables passed from config files</title>
+				<para>
+				Variables that are passed in from config files are displayed by enclosing
+				them with hash marks (#) and enclosing the variable in delimiters
+				like so: {#varname#}
+				</para>
+<example>
+<title>Template example of displaying config variables</title>
+<programlisting>
+
+&lt;html&gt;
+&lt;title&gt;{#pageTitle#}&lt;/title&gt;
+&lt;body bgcolor="{#bodyBgColor#}"&gt;
+&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
+	&lt;tr bgcolor="{#rowBgColor#}"&gt;
+		&lt;td&gt;First&lt;/td&gt;
+		&lt;td&gt;Last&lt;/td&gt;
+		&lt;td&gt;Address&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</programlisting>
+</example>
+				<para>
+				Config file variables cannot be displayed until
+				after they are loaded in from a config file. This procedure is
+				explained later in this document under Built-in Functions.
+				</para>
+			</sect3>
+			<sect3>
+				<title>Variables internal to template</title>
+				<para>
+				Variables that are internal to the templates are displayed by enclosing
+				them with percent signs (%) and enclosing the variable in delimiters
+				like so: {%varname%} These are usually used in looping sections, so
+				you will most likely see the variable prepended with the section name
+				like so: {%secname.varname%}. These are explained in detail later
+				in this document under Built-in Functions.
+				</para>
+			</sect3>
+		</sect2>
+		<sect2>
+			<title>Functions</title>
+			<para>
+			Functions are processed and displayed by enclosing the function and its
+			attributes into delimiters like so: {funcname attr1="val" attr2="val"}
+			</para>
+<example>
+<title>Template example of function syntax</title>
+<programlisting>
+
+{config_load file="colors.conf"}
+
+{include file="header.tpl"}
+
+{if $name eq "Fred"}
+	You are not allowed here
+{else}
+	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
+{/if}
+
+{include file="footer.tpl"}
+</programlisting>
+</example>
+			<para>
+			Both built-in functions and custom functions work exactly the same
+			way syntactically.
+			</para>
+		</sect2>
+		<sect2>
+			<title>Attributes</title>
+			<para>
+			Attributes to functions are much like HTML attributes. Static
+			values must be enclosed in parenthesis. Variable values may
+			also be used, and should not be in parenthesis.
+			</para>
+<example>
+<title>Template example of function attribute syntax</title>
+<programlisting>
+
+{include file="header.tpl"}
+
+{include file=$includeFile}
+
+{include file=#includeFile#}
+
+{html_options values=$vals selected=$selected output=$output}
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>Comments</title>
+			<para>
+			Template comments are surrounded by asterisks, and that is surrounded
+			by the delimiter tags like so: {* this is a comment *}
+			Smarty comments are not displayed in the final output of the template.
+			They are used mainly for making the templates more understandable.
+			</para>		
+<example>
+<title>Template example of Comments</title>
+<programlisting>
+
+{* Smarty *}
+
+{* include the header file here *}
+{include file="header.tpl"}
+
+{include file=$includeFile}
+
+{include file=#includeFile#}
+
+{* display dropdown lists *}
+{html_options values=$vals selected=$selected output=$output}
+</programlisting>
+</example>
+		</sect2>
+	</sect1>
+	<sect1>
+		<title>Config Files</title>
+		<para>
+		Config files are handy for designers to manage global
+		template variables from one file. One example is template colors.
+		Normally if you wanted to change the color scheme of an application,
+		you would have to go through each and every template file
+		and change the colors. With a config file, the colors can
+		be kept in one place, and only one file needs to be updated.
+		</para>
+<example>
+<title>Example of config file syntax</title>
+<programlisting>
+
+# global variables
+pageTitle = "Main Menu"
+bodyBgColor = #000000
+tableBgColor = #000000
+rowBgColor = #00ff00
+
+[ Customer ]
+pageTitle = "Customer Info"
+
+[ Login ]
+pageTitle = "Login"
+focus = "username"
+Intro = """This is a value that spans more
+            than one line. you must enclose
+			it in triple quotes."""
+</programlisting>
+</example>
+			<para>
+			Values of config file variables can be in qoutes, but not necessary.
+			You can use either single or double quotes. If you have a value that
+			spans more than one line, enclose the entire value with triple quotes
+			("""). You can put comments into config files by any syntax that is
+			not a valid config file syntax. We recommend using a hashmark (#) at the
+			beginning of the line.
+			</para>
+			<para>
+			This config file example has two sections. Section names are enclosed
+			in brackets []. The four variables at the top are global
+			variables, or variables not within a section. These variables are
+			always loaded from the config file.
+			If a particular section is loaded, then the global variables and the
+			variables from that section are loaded. If a variable exists both as
+			a global and in a section, the section variable is used. If you name two
+			variables the same within a section, the last one will be used.
+			</para>
+			<para>
+			Config files are loaded into templates with the built-in function
+			called config_load. See Built-In functions for examples.
+			</para>
+	</sect1>
+	<sect1>
+		<title>Built-in Functions</title>
+		<para>
+		Smarty comes with several built-in functions. Built-in functions
+		are integral to the template language. You cannot create custom
+		functions with the same names, nor can you modify built-in functions.
+		</para>
+		<sect2>
+			<title>config_load</title>
+			<para>
+			This function is used for loading in variables from a
+			configuration file into the template.
+			</para>
+<example>
+<title>Template example of function config_load</title>
+<programlisting>
+
+{config_load file="colors.conf"}
+
+&lt;html&gt;
+&lt;title&gt;{#pageTitle#}&lt;/title&gt;
+&lt;body bgcolor="{#bodyBgColor#}"&gt;
+&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
+	&lt;tr bgcolor="{#rowBgColor#}"&gt;
+		&lt;td&gt;First&lt;/td&gt;
+		&lt;td&gt;Last&lt;/td&gt;
+		&lt;td&gt;Address&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</programlisting>
+</example>
+			<para>
+			Config files may also contain sections. You can load
+			variables from within a section with the added attribute
+			"section".
+			</para>
+<example>
+<title>Template example of function config_load with section</title>
+<programlisting>
+
+{config_load file="colors.conf" section="Customer"}
+
+&lt;html&gt;
+&lt;title&gt;{#pageTitle#}&lt;/title&gt;
+&lt;body bgcolor="{#bodyBgColor#}"&gt;
+&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
+	&lt;tr bgcolor="{#rowBgColor#}"&gt;
+		&lt;td&gt;First&lt;/td&gt;
+		&lt;td&gt;Last&lt;/td&gt;
+		&lt;td&gt;Address&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>include</title>
+			<para>
+			Include tags are used for including other templates into
+			the current template. When a template is included, it
+			inherits all the variables available to the current template.
+			The include tag must have the attribute "file", which
+			contains the path to the included template file relative
+			to the template directory.
+			</para>
+<example>
+<title>Template example of function include</title>
+<programlisting>
+
+{include file="header.tpl"}
+
+{* body of template goes here *}
+
+{include file="footer.tpl"}
+</programlisting>
+</example>
+			<para>
+			You can also pass variables to included templates as attributes.
+			These will be passed to the template along with the current
+			template variables. Attribute variables override template
+			variables, in the case they are named alike. You can
+			pass either static content or other variables to included templates.
+			</para>
+<example>
+<title>Template example of function include passing variables</title>
+<programlisting>
+
+{include file="header.tpl" title="Main Menu" company=$companyName}
+
+{* body of template goes here *}
+
+{include file="footer.tpl" logo="http://my.domain.com/logo.gif"}
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>insert</title>
+			<para>
+			The insert tag in Smarty serves a special purpose. You may
+			run into the situation where it is impossible to pass data to a template
+			before the template is executed because there is info in the template
+			needed to aquire the data, kind of a catch 22. The insert tag is a way
+			to callback a function in PHP during runtime of the template.
+			</para>
+			<para>
+			Let's say you have a page with a banner slot at the top. The template
+			has a banner_id value, and needs to call a function to get the banner.
+			</para>
+<example>
+<title>Template example of function insert</title>
+<programlisting>
+
+{* example of fetching a banner *}
+{insert name="getBanner" banner_id=#banner_id# page_id=#page_id#}
+
+</programlisting>
+</example>
+			<para>
+			In this example, we are using the name "getBanner" and passing #banner_id#
+			and #page_id# (which was pulled out of a configuration file). Smarty will look
+			for a function named insert_getBanner() in your PHP application, passing
+			the value of #banner_id# and #page_id# as the first argument in an indexed
+			array. All insert function names in
+			your application must be prepended with "insert_" to be sure there are
+			no function name-space conflicts. Your insert_getBanner() function should
+			do something with the passed values and return the results. These results
+			are then displayed in the template in place of the insert tag. All values
+			passed to an insert function are passed as the first argument in an indexed
+			array. In this example, it would call
+			insert_getBanner(array("banner_id" => "12345","page_id" => "67890"));
+			</para>
+			<para>
+			Another thing to keep in mind for the insert tag is caching. Smarty does not
+			currently support caching but if we decide to implement that, insert
+			tags will not be cached. They will run dynamically every time the page
+			is created. This works good for things like banners, polls, live weather,
+			user feedback areas, etc.
+			</para>
+		</sect2>
+		<sect2>
+			<title>if,elseif,else</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>ldelim,rdelim</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>literal</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>section,sectionelse</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>strip</title>
+			<para></para>
+		</sect2>
+	</sect1>
+	<sect1>
+		<title>Custom Functions</title>
+		<para></para>
+		<sect2>
+			<title>html_options</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>html_select_date</title>
+			<para></para>
+		</sect2>
+	</sect1>
+	<sect1>
+		<title>Custom Modifiers</title>
+		<para></para>
+		<sect2>
+			<title>date_format</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>escape</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>replace</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>spacify</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>string_format</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>strip_tags</title>
+			<para></para>
+		</sect2>
+		<sect2>
+			<title>truncate</title>
+			<para></para>
+		</sect2>
+	</sect1>	
+	<sect1>
+		<title>Adding your own Custom Functions and Modifiers</title>
+		<para></para>
+	</sect1>
+</chapter>
+<chapter>
+	<title>Troubleshooting</title>
+	<para></para>
+	<sect1>
+		<title>Smarty/PHP errors</title>
+		<para></para>
+	</sect1>
+</chapter>
+<chapter>
+	<title>Using Nedit Macros & Syntax Highlighting</title>
+	<para></para>
+</chapter>
+<chapter>
+	<title>FAQ</title>
+	<para></para>
+</chapter>
+</book>

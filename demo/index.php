@@ -12,4 +12,10 @@ $smarty->assign("Class",array(array("A","B","C","D"), array("E", "F", "G", "H"),
 
 $smarty->display("./templates/index.tpl");
 
+
+function insert_paginate()
+{
+    echo "test paginate\n";
+}
+
 ?>
