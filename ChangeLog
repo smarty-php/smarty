@@ -1,3 +1,16 @@
+2003-11-06  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.read_cache_file.php:
+      added $exp_time-parameter
+
+    * docs/programmers.sgml:
+      added $exp_time to cache_handler_func-example
+
+    * libs/Smarty.class.php
+      libs/core/core.write_cache_file.php:
+      added $exp_time-parameter of clear_cache() and clear_all_cache() to
+      cache_handler_func.
+
 2003-11-05  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
