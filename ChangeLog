@@ -1,3 +1,13 @@
+2004-04-14  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/Makefile.in:
+      remove file-entities.ent also
+
+    * docs/.cvsignore
+      docs/Makefile.in
+      docs/README:
+      allow make revcheck
+
 2004-04-13  Nuno Lopes  <nunoplopes@sapo.pt>
 
     * docs/configure.in:
