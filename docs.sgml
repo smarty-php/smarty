@@ -2338,7 +2338,7 @@ OUTPUT:
 
 {* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
 
-{math equation="height * padding / division"
+{math equation="height * width / division"
       height=$row_height
       width=$row_width
       division=#col_div#}
