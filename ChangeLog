@@ -1,3 +1,13 @@
+2004-01-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      fixed handling of {php}-tags
+
+2004-01-10  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml:
+      fix html_checkboxes examples
+
 2004-01-08  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
