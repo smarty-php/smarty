@@ -2302,7 +2302,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
    <sect1 id="plugins.block.functions"><title>Block Functions</title>
     <funcsynopsis>
      <funcprototype>
-      <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
+      <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>mixed <parameter>$content</parameter></paramdef>
       <paramdef>object <parameter>&$smarty</parameter></paramdef>
