@@ -450,34 +450,23 @@ class Smarty_Compiler extends Smarty {
     function _compile_include_php_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
-        $arg_list = array();
 
         if (empty($attrs['file'])) {
             $this->_syntax_error("missing 'file' attribute in include_php tag");
 			return false;
         }
 		
-		if($this->security) {
+		if ($this->security) {
 			$this->_parse_file_path($this->trusted_dir, $this->_dequote($attrs['file']), $resource_type, $resource_name);
-			if( $resource_type != 'file' || !is_file( $resource_name )) {
+			if( $resource_type != 'file' || !@is_file($resource_name)) {
             	$this->_syntax_error("include_php: $resource_type: $resource_name is not readable");
-				return false;			
+				return false;
 			}
-			if(!$this->_is_trusted($resource_type, $resource_name)) {
+			if (!$this->_is_trusted($resource_type, $resource_name)) {
             	$this->_syntax_error("include_php: $resource_type: $resource_name is not trusted");
 				return false;
         	}
 		}
-		
-        foreach ($attrs as $arg_name => $arg_value) {
-            if ($arg_name == 'file') {
-                $include_file = $arg_value;
-                continue;
-            }
-            if (is_bool($arg_value))
-                $arg_value = $arg_value ? 'true' : 'false';
-            $arg_list[] = "'$arg_name' => $arg_value";
-        }
 
         return  "<?php include('".$resource_name."'); ?>";
     }
