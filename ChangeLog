@@ -1,3 +1,12 @@
+2003-10-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.is_secure.php:
+      move check for template_dir in secure_dir-array into core.is_secure.php
+      
+      this makes template_exists() work correctly with security=true even if
+      template_dir is not inside the secure_dir-array
+
 2003-10-11  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/shared.make_timestamp.php:
