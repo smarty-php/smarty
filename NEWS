@@ -1,3 +1,5 @@
+    - fixed several plugins that would not work if the plugin
+      directory was not the default one. (Andrei)
     - implemented support for block functions. (Andrei)
     - made it possible to assign variables in pre/postfilter
       plugins. (Andrei)
