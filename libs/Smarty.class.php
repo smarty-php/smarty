@@ -1448,7 +1448,9 @@ function _run_insert_handler($args)
 			if($this->use_sub_dirs) {
 				$_filename = basename($auto_source);
 				$_crc32 = crc32($auto_source) . $_dir_sep;
-				$_crc32 = substr($_crc32,0,3) . $_dir_sep . $_crc32;
+				// prepend N in case crc32 was negative to avoid possible
+				// OS issues with directory names starting with a "-"
+				$_crc32 = 'N' . substr($_crc32,0,3) . $_dir_sep . $_crc32;
 				$res .= $_crc32 . $_filename . '.php';
 			} else {
         		$res .= str_replace($_dir_sep_enc,'^',urlencode($auto_source));
