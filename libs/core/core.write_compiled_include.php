@@ -34,7 +34,7 @@ function smarty_core_write_compiled_include($params, &$smarty)
     $_include_compiled .= "\$this->_cache_serials['".$_compile_path."'] = '".$params['cache_serial']."';\n\n?>";
 
     $_include_compiled .= $params['plugins_code'];
-    $_include_compiled .= "<?";
+    $_include_compiled .= "<?php";
     for ($_i = 0, $_for_max = count($_match_source); $_i < $_for_max; $_i++) {
         $_match =& $_match_source[$_i];
         $_include_compiled .= "
