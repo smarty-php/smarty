@@ -240,12 +240,14 @@ class Smarty_Compiler extends Smarty {
         /* Annihilate the comments. */
 		
 		$_comment_search = array(
-				"!(\r|\r\n|\n)({$ldq})\*(.*?)\*({$rdq})(\r|\r\n|\n)!s",
-				"!({$ldq})\*(.*?)\*({$rdq})!s");
+				"!{$ldq}\*.*?\*{$rdq}!s", // get all onto one line
+				"!(\r|\r\n|\n)%%%SMARTY_COMMENT%%%(\r|\r\n|\n)!", // remove CR if on one line
+				'!%%%SMARTY_COMMENT%%%!'); // remove remaining comments
 		$_comment_replace = array(
+				'%%%SMARTY_COMMENT%%%',
 				'\\1',
-				'');
-		
+				'');		
+				
         $template_source = preg_replace($_comment_search,
                                         $_comment_replace,
                                         $template_source);
