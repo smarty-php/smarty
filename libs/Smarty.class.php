@@ -213,7 +213,7 @@ class Smarty
 
 		if(empty($this->debug_tpl)) {
 			// set path to debug template from SMARTY_DIR
-			$this->debug_tpl = SMARTY_DIR.'debug.tpl';
+			$this->debug_tpl = 'file:'.SMARTY_DIR.'debug.tpl';
 		}
     }
 

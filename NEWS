@@ -1,3 +1,6 @@
+    - fix bug with debug_tpl file path with Windows (.SMK., Monte)
+    - fix append() function with string/array problem (Monte)
+
 Version 2.2.0
 -------------
 
