@@ -1,0 +1,2309 @@
+2002-03-28  Andrei Zmievski  <andrei@ispi.net>
+
+    * NEWS: *** empty log message ***
+
+    * plugins/function.html_select_date.php
+      plugins/function.html_select_time.php
+      plugins/modifier.date_format.php:
+    Fix for when plugins directory is not the default one.
+
+2002-03-27  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ: update FAQ page
+
+2002-03-26  Andrei Zmievski  <andrei@ispi.net>
+
+    * CREDITS
+      NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      TODO: Block functions changes.
+
+    * Config_File.class.php: *** empty log message ***
+
+2002-03-25  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php: Initial implementation of block functions.
+
+2002-03-22  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml: fix documentation error in capture
+
+2002-03-22  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: *** empty log message ***
+
+    * Smarty.class.php: Turn off notices.
+
+2002-03-21  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Make _current_file available to prefilters.
+
+    * NEWS
+      Smarty.class.php:
+    Made is possible to assign variables in pre/postfilters.
+
+2002-03-20  Andrei Zmievski  <andrei@php.net>
+
+    * plugins/function.html_select_date.php: Fixed +/- functionality.
+
+    * NEWS: *** empty log message ***
+
+2002-03-20  Monte Ohrt  <monte@ispi.net>
+
+    * Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.class.php
+      Smarty_Compiler.class.php: update version numbers
+
+    * plugins/function.html_select_date.php
+      plugins/function.html_select_time.php
+      plugins/modifier.date_format.php:
+    move .make_timestamp.php to shared.make_timestamp.php
+
+    * NEWS
+      Smarty.class.php
+      docs/designers.sgml
+      plugins/function.fetch.php
+      plugins/function.html_select_date.php:
+    update file generation, replace crc32() '-' with 'N'
+
+2002-03-20  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: *** empty log message ***
+
+2002-03-19  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php:
+    Fix plugin behavior for inserts with script attribute.
+
+    * NEWS: *** empty log message ***
+
+    * Smarty_Compiler.class.php: Fix bug with $smarty.cookies.
+
+    * TESTIMONIALS: *** empty log message ***
+
+2002-03-15  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      docs/designers.sgml: update Changelog
+
+    * plugins/modifier.indent.php
+      plugins/modifier.wordwrap.php: add wordwrap and indent to repository
+
+2002-03-14  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php:
+    remove show_info_include and show_info_header functions
+
+2002-03-13  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.fetch.php: update fetch function
+
+    * plugins/function.fetch.php: update fetch function with new parameters
+
+2002-03-12  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml: update doc tables
+
+    * docs/designers.sgml: update docs columns
+
+    * docs/getting-started.sgml
+      docs/appendixes.sgml: update docs
+
+    * TESTIMONIALS
+      docs/appendixes.sgml: update syntax error in docs, add to testimonials
+
+2002-03-04  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      README: update FAQ, README with digest mode info
+
+2002-03-02  Monte Ohrt  <monte@ispi.net>
+
+    * QUICKSTART: update quickstart
+
+    * Smarty.class.php:
+    change behavior so cache_lifetime = 0 never expires (instead of always regenerate)
+
+2002-03-01  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml: update doc example
+
+2002-03-01  Andrei Zmievski  <andrei@php.net>
+
+    * CREDITS
+      RELEASE_NOTES
+      TODO
+      NEWS: *** empty log message ***
+
+2002-03-01  Monte Ohrt  <monte@ispi.net>
+
+    * docs/appendixes.sgml
+      docs/designers.sgml
+      docs/getting-started.sgml
+      docs/programmers.sgml: update document id tags
+
+    * docs.sgml: remove docs.sgml
+
+    * RESOURCES
+      Smarty.class.php: update resources
+
+2002-02-28  Andrei Zmievski  <andrei@php.net>
+
+    * TESTIMONIALS
+      docs/appendixes.sgml
+      docs/designers.sgml
+      docs/programmers.sgml: *** empty log message ***
+
+2002-02-27  Andrei Zmievski  <andrei@php.net>
+
+    * plugins/function.eval.php
+      docs/designers.sgml: *** empty log message ***
+
+2002-02-27  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.eval.php: added eval function to plugin dir
+
+2002-02-27  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+2002-02-27  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml: fix syntax error
+
+    * docs/appendixes.sgml
+      docs/designers.sgml
+      docs/getting-started.sgml
+      docs/programmers.sgml: convert technical notes to docbook format
+
+    * NEWS
+      docs/designers.sgml: added "eval" plugin docs
+
+2002-02-26  Andrei Zmievski  <andrei@php.net>
+
+    * docs/programmers.sgml
+      docs/designers.sgml
+      docs/appendixes.sgml
+      docs/getting-started.sgml
+      docs/html-common.dsl
+      docs/.cvsignore: *** empty log message ***
+
+    * docs/appendixes.sgml
+      docs/common.dsl
+      docs/designers.sgml
+      docs/getting-started.sgml
+      docs/html-common.dsl
+      docs/html.dsl
+      docs/manual.sgml
+      docs/preface.sgml
+      docs/programmers.sgml: Split up docs.
+
+2002-02-25  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml: *** empty log message ***
+
+2002-02-22  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: update docs
+
+2002-02-22  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml
+      AUTHORS
+      NEWS: *** empty log message ***
+
+2002-02-21  Monte Ohrt  <monte@ispi.net>
+
+    * Config_File.class.php
+      NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml: update misc changes
+
+2002-02-21  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml: *** empty log message ***
+
+2002-02-20  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: misc updates
+
+2002-02-20  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml: *** empty log message ***
+
+    * Smarty.class.php
+      plugins/function.assign.php
+      plugins/function.assign_debug_info.php
+      plugins/function.counter.php
+      plugins/function.fetch.php
+      plugins/function.math.php
+      plugins/function.popup.php
+      plugins/function.popup_init.php
+      plugins/modifier.escape.php: Fixup some naming.
+
+2002-02-20  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: update docs
+
+2002-02-20  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml: *** empty log message ***
+
+2002-02-20  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      docs.sgml
+      plugins/modifier.escape.php:
+    removed global vars from fetch function, added attrs to escape modifier
+
+    * docs.sgml: add plugin chapter outline
+
+2002-02-19  Monte Ohrt  <monte@ispi.net>
+
+    * README
+      RELEASE_NOTES
+      RESOURCES
+      Smarty.class.php
+      docs.sgml
+      BUGS
+      FAQ
+      INSTALL
+      QUICKSTART: update docs
+
+2002-02-19  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml: Updated resources docs.
+
+    * README: *** empty log message ***
+
+    * docs.sgml: Updated description of {$smarty} variable.
+
+    * BUGS
+      FAQ
+      INSTALL
+      QUICKSTART
+      RELEASE_NOTES
+      docs.sgml: Remove PEAR notes.
+
+2002-02-18  Andrei Zmievski  <andrei@php.net>
+
+    * Config_File.class.php
+      NEWS: Removed dependency on PEAR.
+
+2002-02-18  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      docs.sgml
+      plugins/function.popup_init.php: add src attribute to popup_init
+
+2002-02-15  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php
+      plugins/modifier.debug_print_var.php
+      NEWS
+      Smarty.class.php: Performance enhancements.
+
+2002-02-06  Andrei Zmievski  <andrei@php.net>
+
+    * plugins/function.html_options.php:
+    Fix html_options output to be XHTML compatible.
+
+2002-02-05  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php: Fix up plugin inclusion.
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      TODO
+      plugins/function.html_select_date.php
+      plugins/function.html_select_time.php
+      plugins/modifier.date_format.php: Fix plugin directory access.
+
+2002-02-04  Andrei Zmievski  <andrei@php.net>
+
+    * .cvsignore
+      Smarty_Compiler.class.php: *** empty log message ***
+
+2002-01-31  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      TODO
+      plugins/function.assign.php
+      plugins/function.assign_debug_info.php
+      plugins/function.counter.php
+      plugins/function.fetch.php
+      plugins/function.html_options.php
+      plugins/function.html_select_date.php
+      plugins/function.html_select_time.php
+      plugins/function.math.php
+      plugins/function.popup.php
+      plugins/function.popup_init.php
+      plugins/modifier.capitalize.php
+      plugins/modifier.count_characters.php
+      plugins/modifier.count_paragraphs.php
+      plugins/modifier.count_sentences.php
+      plugins/modifier.count_words.php
+      plugins/modifier.date_format.php
+      plugins/modifier.debug_print_var.php
+      plugins/modifier.default.php
+      plugins/modifier.escape.php
+      plugins/modifier.lower.php
+      plugins/modifier.regex_replace.php
+      plugins/modifier.replace.php
+      plugins/modifier.spacify.php
+      plugins/modifier.string_format.php
+      plugins/modifier.strip_tags.php
+      plugins/modifier.truncate.php
+      plugins/modifier.upper.php
+      plugins/shared.make_timestamp.php
+      templates/index.tpl
+      AUTHORS
+      CREDITS
+      Config_File.class.php
+      README: Implemented plugin architecture.
+
+    * NEWS: *** empty log message ***
+
+2002-01-30  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml: added modifiers wordwrap and indent
+
+2002-01-28  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      docs.sgml:
+    add support for is-modified-since headers, adjust a doc example
+
+2002-01-24  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: cleanup formatting
+
+    * NEWS
+      Smarty.class.php
+      docs.sgml: update ChangeLog, remove insert_tag_check parameter
+
+2002-01-24  Andrei Zmievski  <andrei@php.net>
+
+    * plugins/standard.plugin.php: *** empty log message ***
+
+2002-01-24  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: fix syntax error
+
+    * Smarty.class.php: removed unneccesary test from fetch()
+
+2002-01-23  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php: update overlib fixes
+
+    * NEWS: update changelog
+
+    * FAQ
+      NEWS
+      RESOURCES
+      Smarty.addons.php: updated overlib fixes
+
+2001-12-31  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: Fixed compile_id problem.
+
+2001-12-28  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    fixed problem with using assigned var with include_php filepath
+
+2001-12-21  Monte Ohrt  <monte@ispi.net>
+
+    * RESOURCES: update RESOURCES
+
+2001-12-20  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      README: update FAQ
+
+2001-12-18  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php
+      docs.sgml
+      Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php: update version numbers
+
+2001-12-18  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: Fixed clear_cache().
+
+2001-12-14  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.addons.php:
+    fixed bug in smarty_make_timestamp introduced in PHP 4.1.0
+
+2001-12-13  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php
+      docs.sgml: update default function args, fix cached insert debug timing
+
+2001-12-12  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: fix syntax error in documentation
+
+    * Smarty.class.php: update default template handling functionality
+
+2001-12-11  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php: update file fetching logic
+
+2001-12-11  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: Added 'script' attribute to {insert..}.
+
+2001-12-10  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php: added default template function handler
+
+    * Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php: update version numbers in files to 1.5.1
+
+2001-12-10  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: Removed error message from the _read_file() method.
+
+    * Smarty.class.php: Fix check for compile and cache IDs.
+
+2001-12-06  Monte Ohrt  <monte@ispi.net>
+
+    * QUICKSTART: fix spelling error in QUICKSTART
+
+    * docs.sgml: fixed spelling errors in documenation
+
+    * Smarty_Compiler.class.php
+      docs.sgml
+      Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php: commit 1.5.0 release
+
+    * RESOURCES
+      docs.sgml: added RESOURCES file
+
+2001-12-05  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Refactor.
+
+2001-12-05  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty_Compiler.class.php
+      docs.sgml: added assign to include and php_include
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml: *** empty log message ***
+
+2001-12-04  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty_Compiler.class.php: Formatting.
+
+2001-12-04  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php
+      NEWS
+      Smarty.class.php: update ChangeLog
+
+2001-12-04  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: Formatting.
+
+2001-12-04  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: removed SMARTY_DIR setting in constructor
+
+    * Smarty.class.php: fix Smarty.class.php indention error
+
+    * Smarty.class.php: update trusted logic
+
+2001-12-03  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php:
+    fix up is_secure, is_trusted, make _parse_tpl_path function
+
+    * Smarty.class.php: fix problem with testing SMARTY_DIR as empty
+
+    * NEWS
+      docs.sgml: update documentation, change log
+
+    * Smarty.class.php:
+    update constructor to check for SMARTY_DIR before assigning
+
+2001-12-03  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: *** empty log message ***
+
+2001-12-03  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      INSTALL
+      RELEASE_NOTES: update a few files
+
+    * NEWS
+      QUICKSTART
+      Smarty.class.php
+      docs.sgml: added trusted_dir functionality, cleaned up secure_dir logic
+
+2001-12-03  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * NEWS
+      Smarty.class.php: - Introduced $compile_id class variable.
+    - Fixed a situation where if $cache_id and $compile_id were both null
+      they were passed to auto functions as empty string instead of null.
+
+2001-11-30  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php:
+    change variable names in fetch() fuction to smarty_* to avoid namespace conflicts
+
+    * NEWS
+      Smarty.class.php: fixed bug in _rm_auto with catenated null values
+
+2001-11-29  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty_Compiler.class.php: Added $smarty.section.* syntax.
+
+    * Smarty_Compiler.class.php: Made 'name' attribute optional for {foreach}.
+
+2001-11-29  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      index.php: remove assign "now" in index.tpl
+
+2001-11-29  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php: Fix formatting.
+
+2001-11-28  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php
+      docs.sgml:
+    removed return statements from _read_cache_file (how did they get in there?)
+
+2001-11-27  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml
+      NEWS
+      Smarty.addons.php
+      Smarty.class.php:
+    fixed bugs and added assign attribute to several functions
+
+2001-11-27  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: Some rewording.
+
+    * Smarty_Compiler.class.php: Fix $smarty.capture access.
+
+    * TODO: *** empty log message ***
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    Made {config_load ..} merge globals from each config file only once per scope.
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php: - Added {foreach ...}.
+    - Made certain $smarty.* references handled at compilation time.
+
+2001-11-26  Monte Ohrt  <monte@ispi.net>
+
+    * Config_File.class.php
+      NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml: commit cache handler functionality
+
+2001-11-20  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.addons.php
+      Smarty_Compiler.class.php: Various fixes and additions.
+
+    * NEWS
+      index.php: *** empty log message ***
+
+2001-11-05  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: changed _read_file parameter from $end to $lines
+
+    * NEWS
+      Smarty.class.php: fixed is_cache, make cache reading more efficient
+
+2001-11-02  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      NEWS: update FAQ with mailing list Reply-To header FAQ
+
+    * NEWS
+      Smarty.class.php
+      index.php: supress fopen errors, return false if cache file won't load
+
+2001-11-01  Monte Ohrt  <monte@ispi.net>
+
+    * QUICKSTART
+      docs.sgml
+      index.php: update QUICKSTART guide with index key example
+
+    * Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml: commit all updates for 1.4.6
+
+2001-11-01  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+2001-10-30  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php: fix assign function problem with empty value passed
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      templates/debug.tpl:
+    fixed bug in assign function when passing an empty value
+
+2001-10-26  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php
+      Smarty.class.php
+      index.php: fix minor typo in debug code
+
+2001-10-26  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Typo.
+
+2001-10-26  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php:
+    update debug console output, handle html encoding correctly
+
+2001-10-26  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php
+      templates/debug.tpl: Debug formatting.
+
+    * Smarty.class.php: Disable rmdir warning.
+
+2001-10-26  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php
+      Smarty.class.php
+      templates/debug.tpl: update debugging to expand array variables
+
+    * Smarty.class.php
+      docs.sgml:
+    update docs for fetching only timestamp with custom template source functions
+
+    * Smarty.addons.php: fix debug console error
+
+2001-10-26  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml: Typos.
+
+    * Smarty.addons.php: Cleanup whitespace.
+
+    * Smarty_Compiler.class.php: Clean up whitespace.
+
+    * Smarty.class.php: Cleaning up code, formatting mostly.
+
+    * NEWS: *** empty log message ***
+
+2001-10-25  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      docs.sgml: update documentation to current version
+
+    * NEWS
+      Smarty.addons.php:
+    updated fetch to give proper warning when fetching unreadable or nonexistant files
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    fixed problem with newline at the end of compiled templates
+
+    * NEWS
+      Smarty.class.php: recompile cache if config file gets modified too.
+
+    * NEWS
+      Smarty.class.php:
+    added feature to regenerate cache if compile_check is enabled and an
+    involved template is modified
+
+2001-10-23  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: fix indent for insert tags in debug console
+
+    * templates/debug.tpl: update debug.tpl file format
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      templates/debug.tpl:
+    update execution time debugging, move into include list
+
+2001-10-10  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    fixed up execution time output in debug console
+
+2001-10-09  Andrei Zmievski  <andrei@php.net>
+
+    * Config_File.class.php
+      NEWS
+      Smarty.class.php
+      TODO: Added support for hidden config vars.
+
+2001-10-04  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      templates/debug.tpl: added execution times to debug console
+
+2001-10-02  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Add space.
+
+2001-10-01  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Fix reference to compile_id.
+
+2001-09-28  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php: Added postfilter functions.
+
+2001-09-26  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      docs.sgml: Rename to clear_compiled_tpl().
+
+2001-09-25  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty_Compiler.class.php:
+    Fixed line number reporting when removing comments.
+
+2001-09-20  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      RELEASE_NOTES
+      Smarty.addons.php: made html_options output xhtml compatible
+
+2001-09-19  Monte Ohrt  <monte@ispi.net>
+
+    * Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      templates/debug.tpl: updated version numbers
+
+2001-09-16  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      NEWS
+      docs.sgml: fix doc error with insert function
+
+2001-09-06  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+2001-08-31  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update ChangeLog
+
+    * overlib.js
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml:
+    update overlib to 3.50, adjust addon code so that the overlib.js file isn't modified
+
+2001-08-31  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: - compile_id changes
+
+    * NEWS
+      Smarty.addons.php: - compile_id support
+    - new options for html_select_date
+
+2001-08-23  Andrei Zmievski  <andrei@php.net>
+
+    * TODO: *** empty log message ***
+
+2001-08-10  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    Modified to pass Smarty object as second parameter to insert functions.
+    Also moved _smarty_mod_handler() and _smarty_insert_handler() into the class.
+
+    * NEWS
+      Smarty_Compiler.class.php:
+    Passing Smarty as second parameter to prefilter functions.
+
+2001-08-09  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+2001-08-09  Monte Ohrt  <monte@ispi.net>
+
+    * templates/index.tpl
+      Smarty.class.php: add smarty.now variable to template
+
+2001-08-06  Monte Ohrt  <monte@ispi.net>
+
+    * templates/index.tpl: change config_load section back to setup
+
+2001-08-06  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php: Optimize a bit.
+
+2001-08-04  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: update capture documentation
+
+2001-08-03  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      NEWS
+      Smarty.class.php:
+    fix bug with URL controlled debugging, works now (Monte)
+
+2001-08-01  Andrei Zmievski  <andrei@php.net>
+
+    * Config_File.class.php: *** empty log message ***
+
+    * Smarty_Compiler.class.php
+      Smarty.class.php: - Fixed some E_NOTICE stuff in compiler.
+    - Generalized assign_smarty_interface() a bit.
+
+2001-07-24  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty_Compiler.class.php
+      TODO: See ChangeLog for details.
+
+2001-07-20  Andrei Zmievski  <andrei@php.net>
+
+    * Config_File.class.php: Booleanize case-insensitively.
+
+2001-07-17  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update ChangeLog
+
+    * Smarty.class.php
+      docs.sgml: put SMARTY_DIR on Config_File require
+
+2001-07-11  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml
+      FAQ
+      NEWS
+      Smarty.class.php:
+    updated security to not include insecure docs, only warning
+
+2001-07-10  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Adding 'sizeof' as an allowed {if} function.
+
+2001-07-06  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+2001-07-06  Monte Ohrt  <monte@ispi.net>
+
+    * Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php: update version number to 1.4.4
+
+    * NEWS
+      Smarty.addons.php
+      Smarty_Compiler.class.php
+      docs.sgml
+      templates/header.tpl
+      templates/index.tpl: update documenatation, template examples
+
+2001-07-03  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: Implemented access to request vars via $smarty var.
+
+    * NEWS
+      Smarty_Compiler.class.php:
+    Fixed a bug with parsing function arguments in {if} tags.
+
+2001-06-30  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update ChangeLog
+
+2001-06-29  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php
+      Smarty.class.php
+      docs.sgml
+      overlib.js:
+    moved overlib to separate file, added SMARTY_DIR, documented. added much documentation
+
+2001-06-29  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      RELEASE_NOTES
+      TODO: *** empty log message ***
+
+2001-06-29  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml
+      index.php
+      templates/debug.tpl
+      templates/header.tpl
+      templates/index.tpl: update release notes
+
+2001-06-27  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: *** empty log message ***
+
+    * NEWS
+      Smarty_Compiler.class.php: Implemented 'step' section attribute.
+
+    * Smarty_Compiler.class.php: Negative values of 'max' will mean no max.
+
+    * AUTHORS
+      NEWS: *** empty log message ***
+
+2001-06-26  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      index.php: Added 'max' and 'start' section attributes.
+    Added 'total' and 'iteration' section properties.
+
+2001-06-25  Andrei Zmievski  <andrei@php.net>
+
+    * Config_File.class.php
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php: Update version numbers.
+
+2001-06-23  Andrei Zmievski  <andrei@php.net>
+
+    * TODO: *** empty log message ***
+
+2001-06-21  Andrei Zmievski  <andrei@php.net>
+
+    * Config_File.class.php
+      NEWS: Fixed booleanization bug.
+
+2001-06-20  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml:
+    update documents to reflect changes to cached content & debugging
+
+2001-06-20  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php
+      Smarty.class.php: Remove debug output for cached and fetched cases.
+
+2001-06-20  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: update include_info to false
+
+    * Smarty.class.php
+      docs.sgml
+      index.php
+      templates/footer.tpl:
+    moved debug logic into Smarty completely, created flags for it
+
+2001-06-19  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php
+      Smarty.class.php
+      templates/debug.tpl: *** empty log message ***
+
+    * NEWS
+      Smarty.class.php: Remove unneeded debug functions.
+
+2001-06-19  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml
+      templates/debug.tpl
+      templates/footer.tpl: commit updates, add debug template
+
+2001-06-19  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      TODO:
+    Moved config loading code inside main class, the compiled template now
+    simply calls that method.
+
+2001-06-15  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      templates/index.tpl: * moved config array into class itself
+    * added 'scope' attribute for config_load
+
+    * Smarty_Compiler.class.php
+      Smarty.addons.php
+      Smarty.class.php: Finishing up secure mode.
+
+2001-06-15  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update ChangeLog
+
+    * Smarty_Compiler.class.php: cleaned up logic of if statement security
+
+    * Smarty_Compiler.class.php: update if logic to cover more situations
+
+    * Smarty_Compiler.class.php
+      docs.sgml: update if statement security feature
+
+2001-06-14  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php
+      Smarty.class.php: *** empty log message ***
+
+    * NEWS
+      Smarty_Compiler.class.php:
+    Fixed a bug with quoted strings inside if statements.
+
+2001-06-13  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php
+      Smarty.class.php: added secure_dir array for multiple secure directories
+
+    * Smarty.addons.php: update fetch funtion to respect security setting
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml: update documentation, changelog
+
+    * Smarty.addons.php
+      Smarty.class.php: moved _extract setting to assign functions
+
+    * Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    added assign/unassign custom functions, ability to re-extract tpl_vars
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml
+      index.php: commit security features
+
+2001-06-11  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Version variable typo.
+
+2001-06-05  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php:
+    Create config object in fetch() or just set the config path if it already
+    exists.
+
+2001-06-04  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: *** empty log message ***
+
+    * NEWS
+      Smarty_Compiler.class.php:
+    Fixed a problem with $<number> inside strip tags.
+
+2001-05-31  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Config_File.class.php: Allow empty config_path.
+
+2001-05-29  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php
+      docs.sgml
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php: update version numbers
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml: moved version variable to internal variable
+
+2001-05-22  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    Moved $_smarty_sections and $_smarty_conf_obj into Smarty class.
+
+2001-05-18  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update ChangeLog
+
+    * FAQ
+      QUICKSTART: update FAQ, QUICKSTART for windows include_path setup
+
+    * configs/test.conf: added configs directory to cvs
+
+2001-05-18  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Use compiler_class for including the file.
+
+2001-05-18  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: fix typo
+
+2001-05-16  Monte Ohrt  <monte@ispi.net>
+
+    * README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php: update files to version 1.4.1
+
+    * NEWS: update ChangeLog
+
+2001-05-15  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * index.php: forget that!
+
+    * NEWS
+      Smarty_Compiler.class.php
+      index.php: Fixed a few E_NOTICE warnings.
+
+2001-05-09  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml: update dates versions
+
+2001-05-09  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Smarty.class.php:
+    Use absolute paths when requiring/including Smart components.
+
+    * NEWS: *** empty log message ***
+
+    * Smarty.class.php: Use write mode instead of append.
+
+2001-05-02  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty_Compiler.class.php: Fix indexing by section properties.
+
+2001-05-02  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update changelog
+
+    * Smarty.class.php: remove period from syntax error
+
+2001-05-02  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Double-quote the attribute values by default.
+
+2001-04-30  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php
+      NEWS: added simple {capture} logic
+
+2001-04-30  Andrei Zmievski  <andrei@php.net>
+
+    * TODO: *** empty log message ***
+
+    * Smarty_Compiler.class.php
+      Smarty.class.php: Fix passing config vars to included files.
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php: Fix inclusion again.
+
+2001-04-30  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      RELEASE_NOTES
+      Smarty.class.php
+      misc/fix_vars.php
+      NEWS: update paths for windows (c:)
+
+2001-04-28  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php: Fix passing variables to included files.
+
+    * templates/index.tpl: *** empty log message ***
+
+2001-04-27  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Fix includes.
+
+2001-04-26  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php
+      docs.sgml
+      Smarty.class.php: Formatting mostly.
+
+    * Smarty_Compiler.class.php
+      Config_File.class.php: *** empty log message ***
+
+2001-04-26  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php
+      docs.sgml
+      FAQ
+      NEWS
+      QUICKSTART
+      RELEASE_NOTES
+      Smarty.class.php: update docs with new changes
+
+2001-04-26  Andrei Zmievski  <andrei@php.net>
+
+    * RELEASE_NOTES: *** empty log message ***
+
+    * docs.sgml
+      templates/index.tpl
+      NEWS
+      Smarty_Compiler.class.php: Added ability to reference object properties.
+
+2001-04-25  Andrei Zmievski  <andrei@php.net>
+
+    * README
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml
+      AUTHORS
+      Config_File.class.php
+      CREDITS
+      RELEASE_NOTES
+      NEWS: *** empty log message ***
+
+    * docs.sgml: Docs on new parameter to custom functions.
+
+    * NEWS: *** empty log message ***
+
+    * Smarty_Compiler.class.php:
+    Changing the way tpl vars are referenced and passing smarty object
+    to custom functions.
+
+    * RELEASE_NOTES
+      docs.sgml: Fixing docs a bit.
+
+2001-04-24  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml: Docs for $compiler_class and compiler functions.
+
+    * templates/index.tpl: *** empty log message ***
+
+    * Smarty_Compiler.class.php: Remove debugging.
+
+2001-04-24  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: update compiler function docs
+
+2001-04-24  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      templates/index.tpl: Added compiler function support.
+
+2001-04-24  Monte Ohrt  <monte@ispi.net>
+
+    * RELEASE_NOTES
+      Smarty.class.php:
+    update notes, change show_info_header to false by default
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml
+      CREDITS
+      FAQ
+      NEWS
+      README
+      RELEASE_NOTES: update documenation, bug fixes
+
+2001-04-24  Andrei Zmievski  <andrei@php.net>
+
+    * misc/fix_vars.php: Hopefully fix for sure.
+
+2001-04-23  Monte Ohrt  <monte@ispi.net>
+
+    * misc/fix_vars.php: uncomment copy/unlink
+
+2001-04-23  Andrei Zmievski  <andrei@php.net>
+
+    * misc/fix_vars.php: Do it more thoroughly.
+
+    * misc/fix_vars.php: check for }
+
+2001-04-22  Andrei Zmievski  <andrei@php.net>
+
+    * misc/fix_vars.php: Fix variable parsing.
+
+2001-04-20  Monte Ohrt  <monte@ispi.net>
+
+    * misc/fix_vars.php: fix problem with 4.0.5-dev and preg_replace_callback
+
+2001-04-19  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php
+      docs.sgml
+      misc/fix_vars.php
+      NEWS
+      RELEASE_NOTES
+      Smarty.class.php: update notes/documentation
+
+    * NEWS
+      README
+      RELEASE_NOTES
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml: update files for 1.4.0 release
+
+2001-04-16  Andrei Zmievski  <andrei@php.net>
+
+    * misc/fix_vars.php: Added fix_vars.php script.
+
+2001-04-16  Monte Ohrt  <monte@ispi.net>
+
+    * QUICKSTART
+      RELEASE_NOTES
+      docs.sgml
+      templates/index.tpl:
+    update RELEASE_NOTES & scripts with new section var syntax
+
+2001-04-13  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: * Implement new variable format parser.
+    * Optimizing config load a bit.
+
+2001-04-13  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      NEWS
+      RELEASE_NOTES
+      Smarty.class.php:
+    added $check_cached_insert_tags to speed up cached pages if
+          {insert ...} is not used (Monte)
+
+2001-04-12  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      RELEASE_NOTES: *** empty log message ***
+
+    * Smarty_Compiler.class.php: Remove redundant functions.
+
+    * Smarty.class.php: Formatting.
+
+2001-04-12  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: update file: parsing
+
+    * Smarty.class.php
+      docs.sgml: update documentation
+
+2001-04-12  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      TODO: *** empty log message ***
+
+2001-04-11  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      QUICKSTART
+      RELEASE_NOTES: added RELEASE_NOTES file to cvs
+
+    * NEWS
+      docs.sgml: update ChangeLog, update documentation
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      templates/index.tpl:
+    update Smarty to compile at run-time. added ability to get files from
+    absolute paths, added work around for LOCK_EX and windows, changed a few
+    file permissions to be more secure.
+
+2001-03-29  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.addons.php:
+    allow arbitrary date strings instead of just timestamps
+
+2001-03-28  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      docs.sgml
+      FAQ
+      NEWS
+      README
+      Smarty.addons.php:
+    update version in class, update docs for count_ and new vars
+
+    * templates/index.tpl
+      docs.sgml: update docs, example template
+
+2001-03-28  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Some variable renaming.
+
+2001-03-23  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php
+      NEWS: Fixed nested include infinite repeat bug.
+
+2001-03-23  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: fix version number
+
+    * Smarty.class.php
+      NEWS: added optional HTML header to output
+
+2001-03-22  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Fixed inclusion of dynamic files.
+
+2001-03-16  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php: Fixing the config_load scoping.
+
+    * Smarty_Compiler.class.php: making config variables global for now.
+
+2001-03-15  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Smarty_Compiler.class.php:
+    * Includes are now always done via generated function call to protect
+      namespace.
+    * config_load now always uses global config object to improve
+      performance.
+
+2001-03-13  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: update math documentation with format attribute
+
+2001-03-11  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml
+      NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php: update math function with format attribute
+
+2001-03-10  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php: *** empty log message ***
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php: Added html_select_time custom function.
+
+2001-03-08  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      NEWS
+      README
+      Smarty.addons.php: rename 1.3.1b to 1.3.1pl1
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php: update version numbers, changelog
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php:
+    moved _syntax_error to Smarty_Compiler.class.php
+
+    * Smarty.class.php
+      docs.sgml:
+    missing _syntax_error function recovered. fixed minor syntax in docs
+
+2001-03-07  Monte Ohrt  <monte@ispi.net>
+
+    * QUICKSTART
+      README
+      Smarty.addons.php
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      BUGS
+      INSTALL
+      NEWS: update everything to 1.3.1
+
+2001-03-03  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php
+      Smarty.class.php: fixed bug with cached insert tags
+
+2001-03-02  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php:
+    fix cache fuctions with separated compiled class
+
+    * FAQ
+      NEWS
+      docs.sgml: update changelog
+
+2001-03-02  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty_Compiler.class.php: Added 'first' and 'last' section properties.
+
+2001-03-02  Monte Ohrt  <monte@ispi.net>
+
+    * TODO: remove compiling separation TODO
+
+    * Smarty_Compiler.class.php
+      Smarty.addons.php
+      Smarty.class.php: update function headers
+
+    * templates/index.tpl
+      NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      index.php: split out compiling code for faster execution
+
+    * Smarty.class.php: fixed a few warning messages
+
+    * Smarty.addons.php
+      Smarty.class.php
+      docs.sgml
+      NEWS: added fetch, unregister mod/fun, updated docs
+
+2001-03-01  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php: added "int" to available list
+
+    * docs.sgml
+      FAQ
+      Smarty.class.php: update FAQ, add math functions & update documetation
+
+    * index.php
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml: fixed literal tags and other optional delimiters
+
+2001-02-26  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php:
+    Added index_prev, index_next section properties and ability to
+    index by them.
+
+    * NEWS
+      Smarty.addons.php
+      Smarty.class.php: Reverting the plugins patch - needs more thought.
+
+    * Smarty.class.php: Fixing plugin loading.
+
+2001-02-23  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php
+      Smarty.class.php
+      plugins/standard.plugin.php
+      NEWS: Added plugin functionality.
+
+2001-02-22  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml
+      templates/index.tpl
+      NEWS
+      README
+      Smarty.class.php: fixed issue with php tags executed in literal blocks
+
+2001-02-21  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update changelog for LGPL change
+
+    * Smarty.class.php
+      docs.sgml
+      README
+      Smarty.addons.php: updated version numbers to 1.3.0
+
+    * NEWS
+      templates/index.tpl: update changelog, rearrange index.tpl file
+
+2001-02-21  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: *** empty log message ***
+
+2001-02-21  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: update parameters for is_cached and fetch
+
+2001-02-21  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: *** empty log message ***
+
+2001-02-21  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.addons.php
+      docs.sgml: update docs, remove header function from addons
+
+2001-02-20  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      NEWS: update changelog
+
+    * TODO: update todo
+
+    * TODO: update todo list
+
+    * Smarty.class.php: update php tag handling logic
+
+2001-02-19  Monte Ohrt  <monte@ispi.net>
+
+    * index.php
+      Config_File.class.php
+      FAQ
+      Smarty.class.php
+      docs.sgml: fixed <?php tag at beginning of files, updated docs
+
+2001-02-19  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php: *** empty log message ***
+
+2001-02-13  Andrei Zmievski  <andrei@php.net>
+
+    * TODO: *** empty log message ***
+
+2001-02-12  Andrei Zmievski  <andrei@php.net>
+
+    * templates/index.tpl
+      Smarty.class.php: *** empty log message ***
+
+2001-02-10  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: remove  unneeded preg_match
+
+    * Smarty.class.php: remove comment
+
+    * Smarty.class.php: updated php escape to handle <script language="php">
+
+    * NEWS
+      Smarty.class.php: fix php tag escapement logic
+
+    * NEWS: commit changelog
+
+    * docs.sgml: update header docs
+
+    * docs.sgml
+      Smarty.addons.php
+      Smarty.class.php: added header custom function
+
+2001-02-09  Monte Ohrt  <monte@ispi.net>
+
+    * index.php
+      templates/header.tpl
+      templates/index.tpl
+      INSTALL
+      QUICKSTART
+      docs.sgml: update documentation, add examples to test script.
+
+2001-02-08  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: *** empty log message ***
+
+2001-02-08  Monte Ohrt  <monte@ispi.net>
+
+    * COPYING.lib: added COPYING.lib
+
+    * COPYING
+      Config_File.class.php
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml: changed license to LGPL for commercial use
+
+    * docs.sgml
+      Smarty.class.php: fix clear_assign syntax error
+
+2001-02-07  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: added ability to pass array to clear_assign
+
+    * index.php
+      templates/index.tpl
+      docs.sgml:
+    update documentation, remove tests from index file and template
+
+2001-02-07  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php: Adding file locking.
+
+    * templates/index.tpl
+      Smarty.addons.php
+      Smarty.class.php
+      index.php: More cache work.
+
+2001-02-06  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml
+      Smarty.class.php:
+    change register_ function names, update documents with tables
+
+2001-02-06  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      templates/index.tpl: Reworking and optimizing the cache system.
+
+    * Smarty.class.php: Restoring ?> in patterns.
+
+2001-02-05  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      docs.sgml: update cache directory creation logic
+
+2001-02-05  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Removing once-only subpattern for now..
+
+    * Smarty.class.php: Fix modifier arg parsing.
+
+2001-02-02  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      Smarty.class.php
+      templates/index.tpl: See changelog.
+
+2001-02-01  Andrei Zmievski  <andrei@php.net>
+
+    * README: *** empty log message ***
+
+    * Smarty.class.php: Use 'echo' instead of 'print'.
+
+    * Smarty.addons.php: *** empty log message ***
+
+2001-02-01  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: rearranged variables at top of script
+
+2001-02-01  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Retabbing.
+
+    * templates/index.tpl
+      Smarty.class.php
+      index.php: *** empty log message ***
+
+2001-02-01  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: update caching logic
+
+    * Smarty.class.php: fixed clear_all_cache bugs
+
+    * Smarty.class.php: fix .cache check
+
+    * docs.sgml
+      FAQ
+      Smarty.class.php: update .che to .cache
+
+    * FAQ
+      Smarty.class.php
+      docs.sgml: updated docs for caching, added clear_all_cache() directive
+
+2001-01-31  Monte Ohrt  <monte@ispi.net>
+
+    * index.php
+      templates/index.tpl
+      docs.sgml: upated docs for date_format and html_options
+
+2001-01-31  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Smarty.addons.php
+      index.php: Added ability to pass 'options' attribute to html_options.
+
+    * Smarty.addons.php
+      Smarty.class.php
+      docs.sgml
+      index.php
+      templates/index.tpl
+      Config_File.class.php
+      NEWS
+      README: Reworking, simplifying, and speeding up cache implementation.
+    Fixing the infelicity where you couldn't have '|' and ':' inside
+    quoted modifier arguments.
+
+2001-01-31  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      index.php
+      templates/index.tpl: removed DEBUG lines
+
+2001-01-30  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: changed default expire to 3600
+
+    * Config_File.class.php
+      NEWS
+      README
+      Smarty.addons.php
+      Smarty.class.php: updated version numbers
+
+    * docs.sgml
+      NEWS
+      Smarty.class.php:
+    added caching, force compile, force cache, misc performance updates
+
+2001-01-30  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Smarty.class.php
+      templates/index.tpl: Remove debug message.
+
+    * Smarty.class.php
+      templates/index.tpl: Fixing the compile directory mayhem...
+
+    * Smarty.class.php:
+    Fix problem with {strip} around {section} and {include}
+
+    * Smarty.addons.php: *** empty log message ***
+
+2001-01-29  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      NEWS
+      README
+      Smarty.class.php: fixed PHP_VERSION check, misc doc updates
+
+    * index.php
+      Config_File.class.php
+      NEWS
+      QUICKSTART
+      README
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml: updated for 1.2.1 compile_dir changes, misc doc updates
+
+2001-01-26  Monte Ohrt  <monte@ispi.net>
+
+    * BUGS
+      README: update BUGS and README files
+
+    * FAQ: updated FAQ
+
+    * Config_File.class.php
+      FAQ
+      NEWS
+      README
+      Smarty.addons.php
+      docs.sgml
+      templates/index.tpl
+      AUTHORS: update again
+
+2001-01-26  Andrei Zmievski  <andrei@php.net>
+
+    * docs.sgml
+      NEWS
+      README
+      Smarty.class.php
+      templates/index.tpl: *** empty log message ***
+
+    * Smarty.class.php
+      index.php
+      templates/index.tpl: Added ability to index by key.
+
+2001-01-25  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update changelog
+
+    * README
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml
+      AUTHORS: updated versions to 1.1.0
+
+    * docs.sgml
+      templates/index.tpl
+      Config_File.class.php
+      Smarty.addons.php
+      Smarty.class.php: update copyright notice
+
+    * Config_File.class.php
+      Smarty.addons.php
+      Smarty.class.php
+      docs.sgml: added misc info
+
+2001-01-24  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.addons.php
+      index.php
+      templates/index.tpl
+      Config_File.class.php: initial commit
+
+2001-01-23  Monte Ohrt  <monte@ispi.net>
+
+    * docs.sgml: fix typo
+
+2001-01-22  Monte Ohrt  <monte@ispi.net>
+
+    * doc.sgm
+      docs.sgml: updated docs, renamed file
+
+    * FAQ: updated FAQ
+
+    * NEWS
+      README: updated Changelog and Readme
+
+    * doc.sgm: updated doc.sgm error
+
+    * AUTHORS
+      COPYING
+      INSTALL
+      NEWS
+      QUICKSTART: misc doc changes, added AUTHORS, COPYING
+
+2001-01-22  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS
+      templates/index.tpl: *** empty log message ***
+
+    * Smarty.class.php
+      templates/index.tpl:
+    Fixed bug that wouldn't let you do specify non-array values for 'loop'
+    attribute.
+
+2001-01-22  Monte Ohrt  <monte@ispi.net>
+
+    * QUICKSTART: updated QUICKSTART
+
+    * BUGS
+      FAQ
+      INSTALL
+      README
+      doc.sgm: added BUGS and INSTALL, updated docs, FAQ, README
+
+2001-01-21  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      doc.sgm: updates to FAQ and docs
+
+2001-01-19  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ: initial commit of FAQ
+
+    * QUICKSTART
+      README
+      doc.sgm
+      index.php:
+    updated README, doc.sgm with preg_replace() parameter issue. also removed "./" from index.php file
+
+    * NEWS: initial commit of changelog
+
+    * doc.sgm
+      QUICKSTART: update quickstart text
+
+2001-01-19  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Fix the compiled template check.
+
+2001-01-18  Andrei Zmievski  <andrei@php.net>
+
+    * doc.sgm: *** empty log message ***
+
+2001-01-18  Monte Ohrt  <monte@ispi.net>
+
+    * index.php
+      templates/index.tpl
+      QUICKSTART
+      Smarty.addons.php
+      Smarty.class.php
+      doc.sgm: update changes
+
+2001-01-18  Andrei Zmievski  <andrei@php.net>
+
+    * QUICKSTART
+      Smarty.addons.php: *** empty log message ***
+
+2001-01-18  Monte Ohrt  <monte@ispi.net>
+
+    * QUICKSTART
+      doc.sgm: add QUICKSTART, update docs for default modifier
+
+    * Smarty.addons.php
+      Smarty.class.php: added default modifier
+
+    * README
+      Smarty.addons.php
+      Smarty.class.php
+      doc.sgm
+      templates/index.tpl: added dislaimers
+
+2001-01-18  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: *** empty log message ***
+
+2001-01-16  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      templates/index.tpl: Implement 'div by'.
+
+2001-01-12  Monte Ohrt  <monte@ispi.net>
+
+    * doc.sgm: update docs
+
+    * doc.sgm: doc changes
+
+    * doc.sgm: update docs
+
+2001-01-12  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      doc.sgm: *** empty log message ***
+
+    * Smarty.class.php: Fix template traversal.
+
+2001-01-11  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: *** empty log message ***
+
+2001-01-09  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php
+      Smarty.class.php: *** empty log message ***
+
+2001-01-09  Monte Ohrt  <monte@ispi.net>
+
+    * doc.sgm: update manual
+
+2001-01-05  Monte Ohrt  <monte@ispi.net>
+
+    * doc.sgm
+      Smarty.addons.php: commit changes
+
+2001-01-04  Monte Ohrt  <monte@ispi.net>
+
+    * doc.sgm
+      templates/index.tpl
+      Smarty.class.php: update changes
+
+    * index.php
+      Smarty.addons.php
+      doc.sgm: add documentation
+
+2001-01-02  Monte Ohrt  <monte@ispi.net>
+
+    * index.php
+      templates/index.tpl
+      Smarty.addons.php
+      Smarty.class.php: prepend insert_ to insert tag functions
+
+    * Smarty.class.php
+      index.php
+      templates/index.tpl: remove caching logic
+
+    * README
+      Smarty.class.php
+      index.php
+      templates/index.tpl: update changes
+
+2000-12-27  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      templates/header.tpl
+      templates/index.tpl
+      Smarty.addons.php: *** empty log message ***
+
+2000-12-21  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Fix access to template variables.
+
+    * Smarty.class.php
+      templates/header.tpl:
+    Added support for passing variables to included files.
+
+2000-12-20  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php:
+    Added support for inserting results of function processing a template.
+
+2000-12-18  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: added string_format function
+
+    * Smarty.addons.php: update format to string_format
+
+    * README
+      Smarty.addons.php
+      Smarty.class.php: added format addon function
+
+2000-12-13  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php
+      Smarty.class.php: Fix sectionelse.
+
+2000-12-07  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.addons.php
+      Smarty.class.php
+      templates/index.tpl: *** empty log message ***
+
+2000-12-04  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      templates/index.tpl
+      Smarty.addons.php: *** empty log message ***
+
+2000-11-27  Andrei Zmievski  <andrei@php.net>
+
+    * templates/index.tpl
+      Smarty.class.php: *** empty log message ***
+
+2000-11-22  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      templates/index.tpl: *** empty log message ***
+
+2000-11-21  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      templates/index.tpl
+      Smarty.addons.php: *** empty log message ***
+
+2000-11-20  Andrei Zmievski  <andrei@php.net>
+
+    * templates/index.tpl
+      Smarty.class.php
+      Smarty.addons.php
+      index.php: *** empty log message ***
+
+    * Smarty.class.php
+      index.php
+      templates/index.tpl: Made sections work mostly.
+
+2000-11-19  Andrei Zmievski  <andrei@php.net>
+
+    * index.php
+      templates/index.tpl: *** empty log message ***
+
+2000-11-17  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php
+      Smarty.addons.php: *** empty log message ***
+
+2000-11-15  Monte Ohrt  <monte@ispi.net>
+
+    * index.php
+      templates/footer.tpl
+      templates/header.tpl
+      templates/index.tpl: added template files to cvs dir
+
+    * README
+      Smarty.class.php: commit changes
+
+2000-08-08  Monte Ohrt  <monte@ispi.net>
+
+    * README
+      Smarty.class.php: update include path bug
+
+    * README: add README file
+
+    * Smarty.class.php: New file.
+
+    * Smarty.class.php: initial import
+
