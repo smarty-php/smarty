@@ -1,3 +1,14 @@
+2003-02-27  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      docs/programmers.sgml
+      libs/Smarty_Compiler.class.php:
+      update docs, fix smarty var compiling, allow any $smarty.*.$foo syntax,
+      add $`foobar` for embedded variables
+
+    * libs/plugins/function.html_image.php:
+      update functionality
+
 2003-02-26  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
