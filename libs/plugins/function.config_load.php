@@ -24,6 +24,10 @@
  */
 function smarty_function_config_load($params, &$smarty)
 {
+        if ($smarty->debugging) {
+            $_debug_start_time = $smarty->_get_microtime();
+        }
+
 		$_file = isset($params['file']) ? $params['file'] : null;
 		$_section = isset($params['section']) ? $params['section'] : null;
 		$_scope = isset($params['scope']) ? $params['scope'] : 'global';
@@ -96,10 +100,6 @@ function smarty_function_config_load($params, &$smarty)
             }
         }
 
-        if ($smarty->debugging) {
-            $debug_start_time = $smarty->_get_microtime();
-        }
-
         if ($smarty->caching) {
             $smarty->_cache_info['config'][] = $_file;
         }
@@ -118,11 +118,10 @@ function smarty_function_config_load($params, &$smarty)
         }
 
         if ($smarty->debugging) {
-            $debug_start_time = $smarty->_get_microtime();
             $smarty->_smarty_debug_info[] = array('type'      => 'config',
                                                 'filename'  => $_file.' ['.$_section.'] '.$_scope,
                                                 'depth'     => $smarty->_inclusion_depth,
-                                                'exec_time' => $smarty->_get_microtime() - $debug_start_time);
+                                                'exec_time' => $smarty->_get_microtime() - $_debug_start_time);
         }
 	
 }

@@ -1,3 +1,4 @@
+  - fixed debug timing logic for config_load (Tom Sommer, Monte)
   - all in-code doc comments converted to phpDocumentor format (Greg)
   - moved strip from smarty core to plugin (Monte)
   - moved config_load from smarty core to plugin (Monte)
