@@ -1,3 +1,14 @@
+2002-12-24  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
+      added correct line numbers to smarty syntax error messages
+
+    * docs/programmers.sgml:
+      update append documentation, make more clear on its function
+
+    * Smarty_Compiler.class.php:
+      fix modifier matching regexp
+
 2002-12-23  Monte Ohrt  <monte@ispi.net>
 
     * Smarty_Compiler.class.php:
