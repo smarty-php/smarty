@@ -469,6 +469,11 @@ class Smarty
         return $this->_rm_auto($this->compile_dir, $tpl_file, $compile_id);
     }
 
+    function template_exists($tpl_file)
+    {
+        return $this->_fetch_template_info($tpl_file, $source, $timestamp, true, true);
+    }
+
 /*======================================================================*\
     Function: get_template_vars
     Purpose:  Returns an array containing template variables
@@ -881,7 +886,7 @@ function _generate_debug_output() {
     Purpose:    fetch the template info. Gets timestamp, and source
                 if get_source is true
 \*======================================================================*/
-    function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source = true)
+    function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source = true, $quiet = false)
     {
         $_return = false;
         if ($this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name)) {
@@ -924,9 +929,11 @@ function _generate_debug_output() {
         }
 
         if (!$_return) {
-            $this->trigger_error("unable to read template resource: \"$tpl_path\"");
+            if (!$quiet)
+                $this->trigger_error("unable to read template resource: \"$tpl_path\"");
         } else if ($_return && $this->security && !$this->_is_secure($resource_type, $resource_name)) {
-            $this->trigger_error("(secure mode) accessing \"$tpl_path\" is not allowed");
+            if (!$quiet)
+                $this->trigger_error("(secure mode) accessing \"$tpl_path\" is not allowed");
             $template_source = null;
             $template_timestamp = null;
             return false;
