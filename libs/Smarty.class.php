@@ -1459,7 +1459,7 @@ class Smarty
                 return true;
             } else {
                 // get file source and timestamp
-				$_params = array('resource_name' => $resource_name);
+				$_params = array('resource_name' => $resource_name, 'get_source'=>false);
                 if (!$this->_fetch_resource_info($_params, $this)) {
                     return false;
                 }
