@@ -22,9 +22,11 @@
  *                month values (Gary Loescher)
  *           - 1.3.1 added support for choosing format for
  *                day values (Marcus Bointon)
+ *           - 1.3.2 suppport negative timestamps, force year
+ *             dropdown to include given date unless explicitly set (Monte)
  * @link http://smarty.php.net/manual/en/language.function.html.select.date.php {html_select_date}
  *      (Smarty online manual)
- * @version 1.3.1
+ * @version 1.3.2
  * @author   Andrei Zmievski
  * @param array
  * @param Smarty
