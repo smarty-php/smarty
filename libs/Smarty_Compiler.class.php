@@ -1122,46 +1122,39 @@ class Smarty_Compiler extends Smarty {
         $arg_list = array();
 
         if (empty($attrs['from'])) {
-            $this->_syntax_error("foreach: missing 'from' attribute", E_USER_ERROR, __FILE__, __LINE__);
+            return $this->_syntax_error("foreach: missing 'from' attribute", E_USER_ERROR, __FILE__, __LINE__);
         }
         $from = $attrs['from'];
 
         if (empty($attrs['item'])) {
-            $this->_syntax_error("foreach: missing 'item' attribute", E_USER_ERROR, __FILE__, __LINE__);
+            return $this->_syntax_error("foreach: missing 'item' attribute", E_USER_ERROR, __FILE__, __LINE__);
         }
         $item = $this->_dequote($attrs['item']);
         if (!preg_match('!^\w+$!', $item)) {
-            $this->_syntax_error("'foreach: item' must be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
+            return $this->_syntax_error("'foreach: item' must be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
         }
 
-        if (isset($attrs['name']))
+        if (isset($attrs['key'])) {
+            $key  = $this->_dequote($attrs['key']);
+            if (!preg_match('!^\w+$!', $key)) {
+                return $this->_syntax_error("foreach: 'key' must to be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
+            }
+            $key_part = "\$this->_tpl_vars['$key'] => ";
+        } else {
+            $key = null;
+            $key_part = '';
+        }
+
+        if (isset($attrs['name'])) {
             $name = $attrs['name'];
+        } else {
+            $name = null;
+        }
 
         $output = '<?php ';
         if (isset($name)) {
-            $output .= "if (isset(\$this->_foreach[$name])) unset(\$this->_foreach[$name]);\n";
             $foreach_props = "\$this->_foreach[$name]";
-        }
-
-        $key_part = '';
-
-        foreach ($attrs as $attr_name => $attr_value) {
-            switch ($attr_name) {
-                case 'key':
-                    $key  = $this->_dequote($attrs['key']);
-                    if (!preg_match('!^\w+$!', $key)) {
-                        $this->_syntax_error("foreach: 'key' must to be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
-                    }
-                    $key_part = "\$this->_tpl_vars['$key'] => ";
-                    break;
-
-                case 'name':
-                    $output .= "{$foreach_props}['$attr_name'] = $attr_value;\n";
-                    break;
-            }
-        }
-
-        if (isset($name)) {
+            $output .= "if (isset(\$this->_foreach[$name])) unset(\$this->_foreach[$name]);\n";
             $output .= "{$foreach_props}['total'] = count(\$_from = (array)$from);\n";
             $output .= "{$foreach_props}['show'] = {$foreach_props}['total'] > 0;\n";
             $output .= "if ({$foreach_props}['show']):\n";
