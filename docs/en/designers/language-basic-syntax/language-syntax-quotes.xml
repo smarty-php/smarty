@@ -3,10 +3,11 @@
 <sect1 id="language.syntax.quotes">
  <title>Embedding Vars in Double Quotes</title>
  <para>
-  Smarty will recognize assigned variables embedded in double quotes so long
-  as the variables contain only numbers, letters, underscores and brackets
-  []. With any other characters (period, object reference, etc.) the variable
-  must be surrounded by backticks.
+  Smarty will recognize assigned variables embedded in double quotes so long as
+  the variables contain only numbers, letters, underscores and brackets [].
+  With any other characters (period, object reference, etc.) the variable must
+  be surrounded by backticks. You cannot embed modifiers, they must always be
+  applied outside of quotes.
  </para>
  <example>
   <title>embedded quotes syntax</title>
@@ -19,6 +20,7 @@ SYNTAX EXAMPLES:
 {func var="test $foo[bar] test"}  <-- sees $foo[bar]
 {func var="test $foo.bar test"}   <-- sees $foo (not $foo.bar)
 {func var="test `$foo.bar` test"} <-- sees $foo.bar
+{func var="test `$foo.bar` test"|escape} <-- modifiers outside quotes!
 
 PRACTICAL EXAMPLES:
 {include file="subdir/$tpl_name.tpl"} <-- will replace $tpl_name with value
