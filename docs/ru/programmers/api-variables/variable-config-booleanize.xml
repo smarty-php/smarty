@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.booleanize">
-      <title>$config_booleanize</title>
-      <para>
-	   If set to true, config file values of on/true/yes and off/false/no get
-	   converted to boolean values automatically. This way you can use the
-	   values in the template like so: {if #foobar#} ... {/if}. If foobar was
-	   on, true or yes, the {if} statement will execute. true by default.
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.config.booleanize">
+ <title>$config_booleanize</title>
+ <para>
+  Åñëè óñòàíîâëåíî â true, çíà÷åíèÿ ïàðàìåòðîâ êîíôèãóðàöèîííûõ ôàéëîâ
+  on/true/yes è off/false/no áóäóò êîíâåðòèðîâàíû â áóëåâû çíà÷åíèÿ àâòîìàòè÷åñêè.
+  Â ýòîì ñëó÷àå âû ìîæåòå èñïîëüçîâàòü â øàáëîíå êîíñòðóêöèè, ïîäîáíûå ýòîé:
+  {if #foobar#} ... {/if}. Åñëè foobar ðàâíî on, true èëè yes, áóäåò îñóùåñòâëåí
+  ïåðåõîä ïî óñëîâèþ {if}. Ïî óìîë÷àíèþ ðàâíî true.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

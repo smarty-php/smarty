@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.cache.modified.check">
-      <title>$cache_modified_check</title>
-      <para>
-       If set to true, Smarty will respect the If-Modified-Since
-       header sent from the client. If the cached file timestamp has
-       not changed since the last visit, then a "304 Not Modified"
-       header will be sent instead of the content. This works only on
-       cached content without <command>insert</command> tags.
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.cache.modified.check">
+ <title>$cache_modified_check</title>
+ <para>
+  Åñëè óñòàíîâëåíî â true, Smarty áóäåò ó÷èòûâàòü If-Modified-Since
+  çàãîëîâîê, ïîñëàííûé êëèåíòîì. Åñëè âðåìÿ ñîçäàíèÿ êýøèðîâàííîãî
+  ôàéëà íå èçìåíèëîñü ñ ìîìåíòà ïîñëåäíåãî ïîñåùåíèÿ, òî âçàìåí åãî
+  ñîäåðæèìîãî áóäåò ïîñëàí çàãîëîâîê "304 Not Modified". Ýòî ðàáîòàåò
+  òîëüêî â ñëó÷àå, åñëè êýøèðîâàííîå ñîäåðæèìîå íå ñîäåðæèò òýãîâ
+  <command>insert</command>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

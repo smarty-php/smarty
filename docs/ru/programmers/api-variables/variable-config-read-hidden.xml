@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.read.hidden">
-      <title>$config_read_hidden</title>
-      <para>
-	   If set to true, hidden sections (section names beginning with a period)
-	   in config files can be read from templates. Typically you would leave
-	   this false, that way you can store sensitive data in the config files
-	   such as database parameters and not worry about the template loading
-	   them. false by default.
-	   </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.config.read.hidden">
+ <title>$config_read_hidden</title>
+ <para>
+  Åñëè óñòàíîâëåíî â true, ñêðûòûå ðàçäåëû (èìåþùèå èìÿ, íà÷èíàþùèåñÿ ñ òî÷êè)
+  â êîíôèãóðàöèîííûõ ôàéëàõ ìîãóò áûòü äîñòóïíûìè èç øàáëîíîâ. Êàê ïðàâèëî,
+  ñëåäóåò óñòàíàâëèâàòü çíà÷åíèå ýòîãî ïàðàìåòðà â false: â ýòîì ñëó÷àå âû
+  ìîæåòå õðàíèòü âàæíûå äàííûå (íàïðèìåð, ïàðàìåòðû ïîäêëþ÷åíèÿ ê áàçå äàííûõ)
+  â êîíôèãóðàöèîííûõ ôàéëàõ, íå áåñïîêîÿñü, ÷òî îíè áóäóò çàãðóæåíû â øàáëîí.
+  Ïî óìîë÷àíèþ false.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.cache.dir">
-      <title>$cache_dir</title>
-      <para>
-       This is the name of the directory where template caches are
-       stored. By default this is "./cache", meaning that it will look
-       for the cache directory in the same directory as the executing
-       php script. You can also use your own custom cache handler
-       function to control cache files, which will ignore this
-       setting.
-      </para>
-	  <note>
-	  <title>Technical Note</title>
-	  <para>
-       This setting must be either a relative or
-       absolute path. include_path is not used for writing files.
-      </para>
-	  </note>
-	  <note>
-		  <title>Technical Note</title>
-		  <para>
-    	   It is not recommended to put this directory under
-    	   the web server document root.
-    	  </para>
-	  </note>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.cache.dir">
+ <title>$cache_dir</title>
+ <para>
+  Èìÿ êàòàëîãà, â êîòîðîì õðàíèòñÿ êýø øàáëîíîâ. Ïî óìîë÷àíèþ
+  óñòàíîâëåíî â "./cache". Ýòî îçíà÷àåò, ÷òî ïîèñê êàòàëîãà ñ êýøåì
+  áóäåò ïðîèçâîäèòüñÿ â òîì æå êàòàëîãå, â êîòîðîì âûïîëíÿåòñÿ 
+  ñêðèïò. Âû òàêæå ìîæåòå èñïîëüçîâàòü ñîáñòâåííóþ ôóíêöèþ-îáðàáîò÷èê
+  äëÿ óïðàâëåíèÿ ôàéëàìè êýøà, êîòîðàÿ áóäåò èãíîðèðîâàòü ýòîò ïàðàìåòð.
+ </para>
+ <note>
+  <title>Òåõíè÷åñêîå çàìå÷àíèå</title>
+  <para>
+   Ïðè óñòàíîâêå ýòîãî ïàðàìåòðà ìîæíî èñïîëüçîâàòü êàê îòíîñèòåëüíûå,
+   òàê è àáñîëþòíûå ïóòè. Äëÿ ñîçäàâàåìûõ ôàéëîâ include_path íå èñïîëüçóåòñÿ. 
+  </para>
+ </note>
+ <note>
+  <title>Òåõíè÷åñêîå çàìå÷àíèå</title>
+  <para>
+   Íå ðåêîìåíäóåòñÿ ïîìåùàòü ýòîò êàòàëîã âíóòðè êîðíåâîãî êàòàëîãà äîêóìåíòîâ
+   âåá-ñåðâåðà.
+  </para>
+ </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

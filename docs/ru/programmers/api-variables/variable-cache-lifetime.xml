@@ -1,33 +1,35 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.cache.lifetime">
-      <title>$cache_lifetime</title>
-      <para>
-	   This is the length of time in seconds that a template cache is valid.
-	   Once this time has expired, the cache will be regenerated. $caching must
-	   be set to "true" for $cache_lifetime to have any purpose. A value of -1
-	   will force the cache to never expire. A value of 0 will cause the cache
-	   to always regenerate (good for testing only, to disable caching a more
-	   efficient method is to set <link
-	   linkend="variable.caching">$caching</link> = false.)
-      </para>
-	  <para>
-	   If <link linkend="variable.force.compile">$force_compile</link> is
-	   enabled, the cache files will be regenerated every time, effectively
-	   disabling caching. You can clear all the cache files with the <link
-	   linkend="api.clear.all.cache">clear_all_cache()</link> function, or
-	   individual cache files (or groups) with the <link
-	   linkend="api.clear.cache">clear_cache()</link> function.
-	  </para>
-	  <note>
-	  <title>Technical Note</title>
-	  <para>
-	  If you want to give certain templates their own cache lifetime, you could
-	  do this by setting <link linkend="variable.caching">$caching</link> = 2,
-	  then set $cache_lifetime to a unique value just before calling display()
-	  or fetch().
-	  </para>
-	  </note>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.cache.lifetime">
+ <title>$cache_lifetime</title>
+ <para>
+  Çàäàåò äëèòåëüíîñòü âðåìåíè â ñåêóíäàõ, â òå÷åíèå êîòîðîãî êýø øàáëîíà
+  áóäåò àêòóàëüíûì. Ïî èñòå÷åíèè ýòîãî âðåìåíè êýø áóäåò ðåãåíåðèðîâàí.
+  Ïåðåìåííàÿ $caching äîëæíà áûòü óñòàíîâëåíà â "true" ïðè èñïîëüçîâàíèè
+  $cache_lifetime. Çíà÷åíèå ïåðåìåííîé -1 çàäàåò íåîãðàíè÷åííîå âðåìÿ
+  æèçíè êýøà. Çíà÷åíèå ïåðåìåííîé 0 âûçîâåò ïîñòîÿííóþ åãî ðåãåíåðàöèþ
+  (ïîäõîäèò òîëüêî äëÿ òåñòèðîâàíèÿ, äëÿ îòêëþ÷åíèÿ êýøèðîâàíèÿ áîëåå
+  öåëåñîîáðàçíî óñòàíàâëèâàòü 
+  <link linkend="variable.caching">$caching</link> = false.)
+ </para>
+ <para>
+  Åñëè <link linkend="variable.force.compile">$force_compile</link>
+  àêòèâèðîâàíî, ôàéëû êýøà áóäóò êàæäûé ðàç áóäóò ðåãåíåðèðîâàòüñÿ,
+  îòêëþ÷àÿ òàêèì îáðàçîì êýøèðîâàíèå. Âû ìîæåòå î÷èñòèòü ñðàçó âñå ôàéëû êýøà,
+  èñïîëüçóÿ ôóíêöèþ <link linkend="api.clear.all.cache">clear_all_cache()</link>,
+  èëè â ñëó÷àå ñ êîíêðåòíûìè ôàéëàìè (ãðóïïàìè) êýøà - ïðè ïîìîùè ôóíêöèè
+  <link linkend="api.clear.cache">clear_cache()</link>.
+ </para>
+ <note>
+  <title>Òåõíè÷åñêîå çàìå÷àíèå</title>
+  <para>
+   Åñëè âû õîòèòå íàçíà÷èòü êîíêðåòíûì øàáëîíàì ñîáñòâåííîå âðåìÿ æèçíè èõ êýøà,
+   âû ìîæåòå ñäåëàòü ýòî ïóòåì óñòàíîâêè <link linkend="variable.caching">$caching
+   </link> = 2, çàòåì óñòàíîâêîé $cache_lifetime â íóæíîå çíà÷åíèå ïåðåä âûçîâîì 
+   display() èëè fetch().
+  </para>
+ </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

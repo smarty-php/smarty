@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.compiler.class">
-      <title>$compiler_class</title>
-      <para>
-       Specifies the name of the compiler class that Smarty will use
-       to compile the templates. The default is 'Smarty_Compiler'. For
-       advanced users only.
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.compiler.class">
+ <title>$compiler_class</title>
+ <para>
+  Çàäàåò èìÿ êëàññà-êîìïèëÿòîðà, êîòîðûé Smarty áóäåò èñïîëüçîâàòü
+  äëÿ êîìïèëÿöèè øàáëîíîâ. Ïî óìîë÷àíèþ ýòî 'Smarty_Compiler'. Òîëüêî
+  äëÿ ïðîäâèíóòûõ ïîëüçîâàòåëåé.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.force.compile">
-      <title>$force_compile</title>
-      <para>
-       This forces Smarty to (re)compile templates on every
-       invocation. This setting overrides $compile_check. By default
-       this is disabled. This is handy for development and debugging.
-       It should never be used in a production environment. If caching
-       is enabled, the cache file(s) will be regenerated every time.
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.force.compile">
+ <title>$force_compile</title>
+ <para>
+  Óêàçûâàåò Smarty (ïåðå)êîìïèëèðîâàòü øàáëîíû ïðè êàæäîì âûçîâå.
+  Ýòîò ïàðàìåòð ïåðåêðûâàåò äåéñòâèå $compile_check è ïî óìîë÷àíèþ
+  íå àêòèâèðîâàí. Äåéñòâèå ïàðàìåòðà óäîáíî èñïîëüçîâàòü â ïðîöåññå
+  ðàçðàáîòêè è îòëàäêè, îäíàêî íèêîãäà íå èñïîëüçóéòå åãî â óñëîâèÿõ 
+  ðåàëüíîé ýêñïëóàòàöèè: åñëè êýøèðîâàíèå àêòèâèðîâàíî, ôàéë(û) êýøà
+  áóäóò êàæäûé ðàç ïåðåçàïèñûâàòüñÿ.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

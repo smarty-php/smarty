@@ -1,20 +1,23 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.autoload.filters">
-      <title>$autoload_filters</title>
-      <para>
-       If there are some filters that you wish to load on every template
-       invocation, you can specify them using this variable and Smarty will
-       automatically load them for you. The variable is an associative array
-       where keys are filter types and values are arrays of the filter
-       names. For example:
-       <informalexample>
-        <programlisting>
-$smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
-                                  'output' => array('convert')); 
-        </programlisting>
-       </informalexample> 
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.autoload.filters">
+ <title>$autoload_filters</title>
+ <para>
+  Ïðè íåîáõîäèìîñòè çàãðóçêè ïðè êàæäîì âûçîâå øàáëîíîâ íåêîòîðîãî
+  êîëè÷åñòâà ôèëüòðîâ, âû ìîæåòå îïðåäåëèòü èõ, èñïîëüçóÿ ýòó ïåðåìåííóþ,
+  è Smarty àâòîìàòè÷åñêè èõ çàãðóçèò. Ïåðåìåííàÿ ïðåäñòàâëÿåò èç ñåáÿ
+  àññîöèàòèâíûé ìàññèâ, êëþ÷è â êîòîðîì ÿâëÿþòñÿ òèïàìè ôèëüòðîâ, à çíà÷åíèÿ
+  - ìàññèâàìè èìåí ôèëüòðîâ. Íàïðèìåð:
+  <informalexample>
+   <programlisting role="php">
+<![CDATA[
+    $smarty->autoload_filters = array('pre' => array('trim', 'stamp'),
+                                      'output' => array('convert')); 
+]]>
+   </programlisting>
+  </informalexample> 
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

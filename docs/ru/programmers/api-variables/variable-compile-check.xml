@@ -1,23 +1,25 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.compile.check">
-      <title>$compile_check</title>
-      <para>
-	   Upon each invocation of the PHP application, Smarty tests to see if the
-	   current template has changed (different time stamp) since the last time
-	   it was compiled. If it has changed, it recompiles that template. If the
-	   template has not been compiled, it will compile regardless of this
-	   setting. By default this variable is set to true. Once an application is
-	   put into production (templates won't be changing), the compile_check
-	   step is no longer needed. Be sure to set $compile_check to "false" for
-	   maximal performance. Note that if you change this to "false" and a
-	   template file is changed, you will *not* see the change since the
-	   template will not get recompiled. If caching is enabled and
-	   compile_check is enabled, then the cache files will get regenerated if
-	   an involved template file or config file was updated. See <link
-	   linkend="variable.force.compile">$force_compile</link> or <link
-	   linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.compile.check">
+ <title>$compile_check</title>
+ <para>
+  Ïðè êàæäîì âûçîâå ÐÍÐ-ïðèëîæåíèÿ Smarty ïðîâåðÿåò, èçìåíèëñÿ èëè íåò 
+  òåêóùèé øàáëîí ñ ìîìåíòà ïîñëåäíåé êîìïèëÿöèè. Åñëè øàáëîí èçìåíèëñÿ,
+  îí ïåðåêîìïèëèðóåòñÿ. Â ñëó÷àå, åñëè øàáëîí åùå íå áûë ñêîìïèëèðîâàí,
+  åãî êîìïèëÿöèÿ ïðîèçâîäèòñÿ ñ èãíîðèðîâàíèåì çíà÷åíèÿ ýòîãî ïàðàìåòðà.
+  Ïî óìîë÷àíèþ ýòà ïåðåìåííàÿ óñòàíîâëåíà â true. Â ìîìåíò, êîãäà ïðèëîæåíèå
+  íà÷íåò ðàáîòàòü â ðåàëüíûõ óñëîâèÿõ (øàáëîíû áîëüøå íå áóäóò èçìåíÿòüñÿ),
+  ýòàï ïðîâåðêè êîìïèëÿöèè ñòàíîâèòñÿ íåíóæíûì. Â ýòîì ñëó÷àå ïðîâåðüòå, ÷òîáû
+  ïåðåìåííàÿ $compile_check áûëà óñòàíîâëåíà â "false" äëÿ äîñòèæåíèÿ
+  ìàêñèìàëüíîé ïðîèçâîäèòåëüíîñòè. Ó÷òèòå, ÷òî åñëè âû ïðèñâîèòå ýòîé ïåðåìåííîé
+  çíà÷åíèå "false", è ôàéë øàáëîíà áóäåò èçìåíåí, âû *ÍÅ* óâèäèòå èçìåíåíèé
+  â âûâîäå øàáëîíà äî òåõ ïîð, ïîêà øàáëîí íå áóäåò ïåðåêîìïèëèðîâàí. Åñëè
+  caching è compile_check àêòèâèðîâàíû, ôàéëû êýøà áóäóò ðåãåíåðèðîâàíû ïðè
+  îáíîâëåíèè ñâÿçàííûõ ñ íèì øàáëîíîâ èëè êîíôèãóðàöèîííûõ ôàéëîâ. Ñì.
+  <link linkend="variable.force.compile">$force_compile</link> èëè 
+  <link linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

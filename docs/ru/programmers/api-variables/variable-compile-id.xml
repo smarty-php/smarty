@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.compile.id">
-      <title>$compile_id</title>
-      <para>
-	   Persistant compile identifier. As an alternative to passing the same
-	   compile_id to each and every function call, you can set this compile_id
-	   and it will be used implicitly thereafter.
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.compile.id">
+ <title>$compile_id</title>
+ <para>
+  Ïîñòîÿííûé èäåíòèôèêàòîð êîìïèëÿöèè. Êàê àëüòåðíàòèâó èñïîëüçîâàíèþ îäíîãî
+  è òîãî æå compile_id ïðè êàæäîì âûçîâå ôóíêöèè, âû ìîæåòå ñàìîñòîÿòåëüíî
+  çàäàâàòü ýòîò èäåíòèôèêàòîð, è â ýòîì ñëó÷àå áóäåò èñïîëüçîâàòüñÿ èìåííî
+  ýòî çíà÷åíèå.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

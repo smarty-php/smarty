@@ -1,19 +1,20 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.dir">
-      <title>$config_dir</title>
-      <para>
-       This is the directory used to store config files used in the
-       templates. Default is "./configs", meaning that it will look
-       for the configs directory in the same directory as the
-       executing php script.
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.config.dir">
+ <title>$config_dir</title>
+ <para>
+  Êàòàëîã äëÿ õðàíåíèÿ êîíôèãóðàöèîííûõ ôàéëîâ, èñïîëüçóåìûõ
+  â øàáëîíàõ. Ïî óìîë÷àíèþ óñòàíîâëåíî â "./configs",  ò.å. ïîèñê
+  êàòàëîãà ñ êîíôèãóðàöèîííûìè ôàéëàìè áóäåò ïðîèçâîäèòüñÿ â òîì
+  æå êàòàëîãå, â êîòîðîì âûïîëíÿåòñÿ ñêðèïò.
+ </para>
 	 <note>
-	 <title>Technical Note</title>
+   <title>Òåõíè÷åñêîå çàìå÷àíèå</title>
 	 <para>
-       It is not recommended to put this directory under
-       the web server document root.
-      </para>
+   Íå ðåêîìåíäóåòñÿ ïîìåùàòü ýòîò êàòàëîã âíóòðè êîðíåâîãî êàòàëîãà äîêóìåíòîâ
+   âåá-ñåðâåðà.
+  </para>
 	 </note>
 </sect1>
 <!-- Keep this comment at the end of the file

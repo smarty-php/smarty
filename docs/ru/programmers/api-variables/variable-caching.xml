@@ -1,26 +1,28 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.caching">
-      <title>$caching</title>
-      <para>
-	   This tells Smarty whether or not to cache the output of the templates.
-	   By default this is set to 0, or disabled. If your templates generate
-	   redundant redundant content, it is advisable to turn on caching. This
-	   will result in significant performance gains. You can also have multiple
-	   caches for the same template. A value of 1 or 2 enables caching. 1 tells
-	   Smarty to use the current $cache_lifetime variable to determine if the
-	   cache has expired. A value of 2 tells Smarty to use the cache_lifetime
-	   value at the time the cache was generated. This way you can set the
-	   cache_lifetime just before fetching the template to have granular
-	   control over when that particular cache expires. See also <link
-	   linkend="api.is.cached">is_cached</link>.
-      </para>
-      <para>
-	   If $compile_check is enabled, the cached content will be regenerated if
-	   any of the templates or config files that are part of this cache are
-	   changed. If $force_compile is enabled, the cached content will always be
-	   regenerated.
-      </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="variable.caching">
+ <title>$caching</title>
+ <para>
+  Ñîîáùàåò Smarty, áóäåò èëè íåò êýøèðîâàòüñÿ âûâîä øàáëîíîâ. Ïî óìîë÷àíèþ
+  ýòîò ïàðàìåòð óñòàíîâëåí â 0, ò.å. íå àêòèâèðîâàí. Åñëè âàøè øàáëîíû 
+  ãåíåðèðóþò áîëüøèå îáúåìû êîäà, ðåêîìåíäóåòñÿ àêòèâèðîâàòü êýøèðîâàíèå - ýòî
+  äàñò îùóòèìûé ïðèðîñò â ïðîèçâîäèòåëüíîñòè. Âû òàêæå ìîæåòå èñïîëüçîâàòü
+  ìíîæåñòâåííûé êýø øàáëîíîâ. Çíà÷åíèå 1 èëè 2 àêòèâèðóåò êýøèðîâàíèå.
+  Ïðè çàäàíèè çíà÷åíèÿ 1, äëÿ îïðåäåëåíèÿ âðåìåíè æèçíè êýøà èñïîëüçóåòñÿ
+  òåêóùåå çíà÷åíèå ïåðåìåííîé $cache_lifetime. Çíà÷åíèå 2 çàäàåò Smarty
+  èñïîëüçîâàòü çíà÷åíèå cache_lifetime âî âðåìÿ îêîí÷àíèÿ ãåíåðàöèè êýøà. Â
+  ýòîì ñëó÷àå âû ìîæåòå óñòàíàâëèâàòü cache_lifetime íåïîñðåäñòâåííî ïåðåä
+  îáðàáîòêîé øàáëîíà äëÿ îñóùåñòâëåíèÿ ãèáêîãî êîíòðîëÿ çà èñòå÷åíèåì âðåìåíè
+  æèçíè êîíêðåòíîãî ýêçåìïëÿðà êýøà. Ñì. òàêæå <link linkend="api.is.cached">
+  is_cached</link>.
+ </para>
+ <para>
+  Åñëè ïàðàìåòð $compile_check àêòèâèðîâàí, êýø áóäåò îáíîâëÿòüñÿ â ñëó÷àå,
+  êîãäà ëþáîé èç øàáëîíîâ èëè êîíôèãóðàöèîííûõ ôàéëîâ, ÿâëÿþùèõñÿ ÷àñòüþ
+  ýòîãî êýøà, áûë èçìåíåí. Åñëè àêòèâèðîâàí $force_compile, êýø áóäåò
+  îáíîâëÿòüñÿ âî âñåõ ñëó÷àÿõ.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
