@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
 <chapter id="caching">
- <title>Caching</title>
+ <title>Кэширование</title>
+
  <para>
-  Caching is used to speed up a call to 
-  <link linkend="api.display">display()</link> or 
-  <link linkend="api.fetch">fetch()</link> by saving its output to a file. 
-  If a cached version of the call is available, that is displayed instead of
-  regenerating the output. Caching can speed things up tremendously,
-  especially templates with longer computation times. Since the output of
-  display() or fetch() is cached, one cache file could conceivably be made up
-  of several template files, config files, etc.
+  Кэширование используется для ускорения вызовов
+  <link linkend="api.display">display()</link> или
+  <link linkend="api.fetch">fetch()</link> путем сохранения их результатов в
+  файл. Кэшированная версия файла (если таковая будет найдена) отображается
+  сразу, без перегенерации вывода. Кэширование может значительно ускорить
+  работу, особенно если используются сложные шаблоны с большим количеством
+  данных. Так как кэшируется вывод <link linkend="api.display">display()</link> и
+  <link linkend="api.fetch">fetch()</link>, один файл в кэше может
+  представлять из себя набор разных шаблонов, конфигурационных файлов - всего
+  того, что использовалось при генерации этого вывода.
  </para>
  <para>
-  Since templates are dynamic, it is important to be careful what you are
-  caching and for how long. For instance, if you are displaying the front page
-  of your website that does not change its content very often, it might work
-  well to cache this page for an hour or more. On the other hand, if you are
-  displaying a page with a weather map containing new information by the
-  minute, it would not make sense to cache this page.
+  Так как шаблоны могут меняться со временем, очень важно следить за тем что
+  вы кэшируете и на который срок. Например, если вы отображаете титульную
+  страницу вашего сайта, которая не меняется слишком часто, то её кэшированную
+  версию можно не обновлять в течение часа или больше. С другой стороны, если
+  вы выводите страницу с прогнозом погоды, которая может меняться с каждой
+  минутой, то кэшировать её не имеет смысла.
  </para>
  
  &programmers.caching.caching-setting-up;

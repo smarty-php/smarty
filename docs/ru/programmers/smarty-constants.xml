@@ -2,8 +2,7 @@
 <!-- $Revision$ -->
 <chapter id="smarty.constants">
  <title>Константы</title>
- <para></para>
-
+ 
  <sect1 id="constant.smarty.dir">
   <title>SMARTY_DIR</title>
   <para>
@@ -25,6 +24,7 @@ require_once(SMARTY_DIR."Smarty.class.php");
    </programlisting>
   </example>
  </sect1>
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

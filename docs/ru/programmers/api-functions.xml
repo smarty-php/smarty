@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
 <chapter id="api.functions">
- <title>Methods</title>
+ <title>Методы</title>
   &programmers.api-functions.api-append;
   &programmers.api-functions.api-append-by-ref;
   &programmers.api-functions.api-assign;
@@ -30,7 +30,6 @@
   &programmers.api-functions.api-register-prefilter;
   &programmers.api-functions.api-register-resource;
   &programmers.api-functions.api-trigger-error;
-
   &programmers.api-functions.api-template-exists;
   &programmers.api-functions.api-unregister-block;
   &programmers.api-functions.api-unregister-compiler-function;

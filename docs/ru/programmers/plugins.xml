@@ -2,6 +2,7 @@
 <!-- $Revision$ -->
 <chapter id="plugins">
  <title>Extending Smarty With Plugins</title>
+
  <para>
   Version 2.0 introduced the plugin architecture that is used
   for almost all the customizable functionality of Smarty. This includes:

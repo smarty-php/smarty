@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
 <chapter id="advanced.features">
- <title>Advanced Features</title>
+ <title>Ðàñøèðåííûå âîçìîæíîñòè</title>
   &programmers.advanced-features.advanced-features-objects;
   &programmers.advanced-features.advanced-features-prefilters;
   &programmers.advanced-features.advanced-features-postfilters;
