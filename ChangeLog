@@ -1,3 +1,13 @@
+2003-06-25  Monte Ohrt  <monte@ispi.net>
+
+    * libs/core/core.assemble_auto_filename.php
+      libs/core/core.write_cache_paths_file.php:
+      fix typo, fix write_cache_paths logic
+
+    * libs/Smarty.class.php
+      libs/core/core.assemble_auto_filename.php:
+      fix SMARTY_COMPILE_DIR_SEP problem, make local var
+
 2003-06-24  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty.class.php
