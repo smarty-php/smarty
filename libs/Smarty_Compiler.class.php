@@ -391,10 +391,6 @@ class Smarty_Compiler extends Smarty {
 			if(isset($_tag_attrs['assign'])) {
 				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $_return ); ?>\n";  
 			} else {
-				// prepend '@' if eching a variable
-				if(substr($_return, 0, 1) == '$') {
-					$_return = '@' . $_return;
-				}
             	return "<?php echo $_return; ?>\n";
 			}
 		}
@@ -1615,38 +1611,45 @@ class Smarty_Compiler extends Smarty {
 	 */
     function _parse_modifiers(&$output, $modifier_string)
     {
-        preg_match_all('!\|(@?\w+)((?>:(?:'. $this->_qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $match);
-        list(, $modifiers, $modifier_arg_strings) = $match;
+        preg_match_all('!\|(@?\w+)((?>:(?:'. $this->_qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $_match);
+        list(, $_modifiers, $modifier_arg_strings) = $_match;
 
-        for ($i = 0, $for_max = count($modifiers); $i < $for_max; $i++) {
-            $modifier_name = $modifiers[$i];
+        for ($_i = 0, $_for_max = count($_modifiers); $_i < $_for_max; $_i++) {
+            $_modifier_name = $_modifiers[$_i];
 			
-			if($modifier_name == 'smarty') {
+			if($_modifier_name == 'smarty') {
 				// skip smarty modifier
 				continue;
 			}
 			
-            preg_match_all('!:(' . $this->_qstr_regexp . '|[^:]+)!', $modifier_arg_strings[$i], $match);
-            $modifier_args = $match[1];
+            preg_match_all('!:(' . $this->_qstr_regexp . '|[^:]+)!', $modifier_arg_strings[$_i], $_match);
+            $_modifier_args = $_match[1];
 
-            if ($modifier_name{0} == '@') {
-                $map_array = 'false';
-                $modifier_name = substr($modifier_name, 1);
+            if ($_modifier_name{0} == '@') {
+                $_map_array = 'false';
+                $_modifier_name = substr($_modifier_name, 1);
             } else {
-                $map_array = 'true';
+                $_map_array = 'true';
             }
 			
-            $this->_add_plugin('modifier', $modifier_name);
+            $this->_add_plugin('modifier', $_modifier_name);
+            $this->_parse_vars_props($_modifier_args);
 
-            $this->_parse_vars_props($modifier_args);
-
-            if (count($modifier_args) > 0)
-                $modifier_args = ', '.implode(', ', $modifier_args);
+			if($_modifier_name == 'default') {
+				// supress notifications of default modifier vars and args
+				if($output{0} == '$') {
+					$output = '@' . $output;
+				}
+				if($_modifier_args[0]{0} == '$') {
+					$_modifier_args[0] = '@' . $_modifier_args[0];
+				}
+			}
+            if (count($_modifier_args) > 0)
+                $_modifier_args = ', '.implode(', ', $_modifier_args);
             else
-                $modifier_args = '';
+                $_modifier_args = '';
 
-						
-            $output = "@\$this->_run_mod_handler('$modifier_name', $map_array, $output$modifier_args)";
+            $output = "\$this->_run_mod_handler('$_modifier_name', $_map_array, $output$_modifier_args)";
         }
     }
 

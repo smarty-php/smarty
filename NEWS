@@ -1,4 +1,4 @@
-    - append "@" to _run_mod_handler and template var echos to
+    - append "@" to default modifier vars/args
       supress possible warnings (Monte)
     - fix problem with escaped double quotes (Monte)
     - fix html_radios to not return an array (Monte)
