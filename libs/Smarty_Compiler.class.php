@@ -636,6 +636,7 @@ class Smarty_Compiler extends Smarty {
                 $have_function = false;
             } else {
                 $this->_plugins['block'][$tag_command] = array($plugin_func, null, null, null, true);
+
             }
         }
 
@@ -1607,7 +1608,7 @@ class Smarty_Compiler extends Smarty {
 		}
 
 		// get [foo] and .foo and ->foo and (...) pieces			
-        preg_match_all('!(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\w+|\.\$?\w+|\S+!', $_var_ref, $match);		
+        preg_match_all('!(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+!', $_var_ref, $match);		
 				
         $_indexes = $match[0];
         $_var_name = array_shift($_indexes);
@@ -1636,7 +1637,7 @@ class Smarty_Compiler extends Smarty {
 		} else {
             $_output = "\$this->_tpl_vars['$_var_name']";
         }
-		
+
         foreach ($_indexes as $_index) {			
             if ($_index{0} == '[') {
                 $_index = substr($_index, 1, -1);
@@ -1660,8 +1661,15 @@ class Smarty_Compiler extends Smarty {
 					$this->_syntax_error('call to internal object members is not allowed', E_USER_ERROR, __FILE__, __LINE__);
 				} elseif($this->security && substr($_index, 2, 1) == '_') {
 					$this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
-				}
-                $_output .= $_index;
+                } elseif ($_index{2} == '$') {
+                    if ($this->security) {
+                        $this->_syntax_error('(secure) call to dynamic object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
+                    } else {
+                        $_output .= '->{(($_var=$this->_tpl_vars[\''.substr($_index,3).'\']) && substr($_var,0,2)!=\'__\') ? $_var : $this->trigger_error("cannot access property \\"$_var\\"")}';
+                    }
+                } else {
+                    $_output .= $_index;
+                }
 			} elseif ($_index{0} == '(') {
 				$_index = $this->_parse_parenth_args($_index);
                 $_output .= $_index;
