@@ -1752,17 +1752,12 @@ class Smarty
         list($_modifier_name, $_map_array) = array_splice($_args, 0, 2);
         list($_func_name, $_tpl_file, $_tpl_line) =
             $this->_plugins['modifier'][$_modifier_name];
-        $_var = $_args[0];
 
-        if ($_map_array && is_array($_var)) {
-            foreach ($_var as $_key => $_val) {
-                $_args[0] = $_val;
-                $_var[$_key] = call_user_func_array($_func_name, $_args);
-            }
-            return $_var;
-        } else {
-            return call_user_func_array($_func_name, $_args);
+        foreach ($_var as $_key => $_val) {
+            $_args[0] = $_val;
+            $_var[$_key] = call_user_func_array($_func_name, $_args);
         }
+        return $_var;
     }
 
     /**

@@ -1767,13 +1767,30 @@ class Smarty_Compiler extends Smarty {
             $_modifier_args = $_match[1];
 
             if ($_modifier_name{0} == '@') {
-                $_map_array = 'false';
+                $_map_array = false;
                 $_modifier_name = substr($_modifier_name, 1);
             } else {
-                $_map_array = 'true';
+                $_map_array = true;
             }
-			
-            $this->_add_plugin('modifier', $_modifier_name);
+
+            if (isset($this->_plugins['modifier'][$_modifier_name])
+                || (isset($this->_plugin_info['modifier']) && isset($this->_plugin_info['modifier'][$_modifier_name]))) {
+                /* modifier is already known */
+            } elseif ($this->_get_plugin_filepath('modifier', $_modifier_name)) {
+                $this->_add_plugin('modifier', $_modifier_name);
+            } elseif (function_exists($_modifier_name)) {
+                if ($this->security && !in_array($_modifier_name, $this->security_settings['MODIFIER_FUNCS'])) {
+                    $this->_trigger_fatal_error("[plugin] (secure mode) modifier '$_modifier_name' is not allowed" , $_tpl_file, $_tpl_line, __FILE__, __LINE__);
+                } else {
+                    $this->_plugins['modifier'][$_modifier_name] = array($_modifier_name,  null, null, false);
+                }
+            } else {
+                /* modifier not found */
+            	$this->_syntax_error("[plugin] modifier '$_modifier_name' not found", E_USER_ERROR, __FILE__, __LINE__);
+                return;
+            }
+
+
             $this->_parse_vars_props($_modifier_args);
 
 			if($_modifier_name == 'default') {
@@ -1790,7 +1807,14 @@ class Smarty_Compiler extends Smarty {
             else
                 $_modifier_args = '';
 
-            $output = "\$this->_run_mod_handler('$_modifier_name', $_map_array, $output$_modifier_args)";
+            if ($_map_array) {
+                $output = "((is_array(\$_tmp=$output)) ? \$this->_run_mod_handler('$_modifier_name', true, \$_tmp$_modifier_args) : " . $this->_compile_plugin_call('modifier', $_modifier_name) . "(\$_tmp$_modifier_args))";
+
+            } else {
+
+                $output = $this->_compile_plugin_call('modifier', $_modifier_name)."($output$_modifier_args)";
+
+            }
         }
     }
 
