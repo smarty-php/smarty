@@ -273,7 +273,7 @@ class Smarty
 	{
 		if(preg_match("/^(.+)\/([^\/]+)$/", $filepath, $match)) {
 			$tpl_file_dir = $match[1];			
-			$tpl_file_name = $match[2];
+			$tpl_file_name = $match[2] . ".php";
 
 			//assemble compile directory path
 			$compile_dir = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$match[1]);
@@ -371,7 +371,7 @@ class Smarty
 												  $strip_tags_modified[$i], $compiled_contents, 1);
 		}
 
-		if(!$this->_write_file($compilepath . ".php", $compiled_contents))
+		if(!$this->_write_file($compilepath, $compiled_contents))
 			return false;
 
 		return true;
