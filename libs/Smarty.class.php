@@ -1105,7 +1105,7 @@ class Smarty
 
         for ($i = 0; $i < count($modifiers); $i++) {
             $modifier_name = $modifiers[$i];
-            preg_match_all('!:(' . $qstr_regexp . '|[^|]+)!', $modifier_arg_strings[$i], $match);
+            preg_match_all('!:(' . $qstr_regexp . '|[^:]+)!', $modifier_arg_strings[$i], $match);
             $modifier_args = $match[1];
 
             if ($modifier_name{0} == '@') {
