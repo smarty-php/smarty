@@ -139,7 +139,7 @@ class Smarty_Compiler extends Smarty {
 		// $foo->bar($foo, "foo")
 		// $foo->bar->foo()
 		// $foo->bar->foo->bar()
-		$this->_obj_ext_regexp = '\->(?:\w+|\$?' . $this->_dvar_guts_regexp . ')';
+		$this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
     	$this->_obj_params_regexp = '\((?:\w+|'
 				. $this->_var_regexp . '(?:\s*,\s*(?:(?:\w+|'
 				. $this->_var_regexp . ')))*)?\)';		
@@ -1084,15 +1084,15 @@ class Smarty_Compiler extends Smarty {
 
         /* Tokenize args for 'if' tag. */
         preg_match_all('/(?>
-				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*) | # valid object call
-				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)	| # var or quoted string
+				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)? | # valid object call
+				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)?	| # var or quoted string
 				\-?\d+(?:\.\d+)?|\.\d+|!==|<=>|===|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@	| # valid non-word token
 				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
 				
         $tokens = $match[0];
-		
+				
 		// make sure we have balanced parenthesis
 		$token_count = array_count_values($tokens);
 		if(isset($token_count['(']) && $token_count['('] != $token_count[')']) {
@@ -1212,11 +1212,8 @@ class Smarty_Compiler extends Smarty {
                     		   !in_array($token, $this->security_settings['IF_FUNCS'])) {
                         		$this->_syntax_error("(secure mode) '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);
 							}							
-					} elseif(preg_match('!^' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)$!', $token)) {
-						// variable
-        				$token = $this->_parse_var_props($token);
-					} elseif(preg_match('!^' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)$!', $token)) {
-						// object
+					} elseif(preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)$!', $token)) {
+						// object or variable
         				$token = $this->_parse_var_props($token);
 					} elseif(is_numeric($token)) {
 						// number, skip it
@@ -1474,12 +1471,12 @@ class Smarty_Compiler extends Smarty {
 			$modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
 		}
 
-		// get [foo] and .foo and ->foo() pieces			
-        preg_match_all('!(?:^\w+)|(?:' . $this->_obj_ext_regexp . ')+(?:' . $this->_obj_params_regexp . ')?|(?:' . $this->_var_bracket_regexp . ')|\.\$?\w+!', $var_ref, $match);		
+		// get [foo] and .foo and ->foo and (...) pieces			
+        preg_match_all('!(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\w+|\.\$?\w+|\S+!', $var_ref, $match);		
 		
         $indexes = $match[0];
         $var_name = array_shift($indexes);
-				
+		
         /* Handle $smarty.* variable references as a special case. */
         if ($var_name == 'smarty') {
             /*
@@ -1496,7 +1493,7 @@ class Smarty_Compiler extends Smarty {
         } else {
             $output = "\$this->_tpl_vars['$var_name']";
         }
-
+		
         foreach ($indexes as $index) {			
             if ($index{0} == '[') {
                 $index = substr($index, 1, -1);
@@ -1520,23 +1517,11 @@ class Smarty_Compiler extends Smarty {
 					$this->_syntax_error('call to internal object members is not allowed', E_USER_ERROR, __FILE__, __LINE__);
 				} elseif($this->security && substr($index,2,1) == '_') {
 					$this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
-				} else {
-					if(preg_match('!((?:' . $this->_obj_ext_regexp . ')+)(' . $this->_obj_params_regexp . ')?!', $index, $match)) {
-						if(!empty($match[2])) {
-							// parse object parameters
-							$index = str_replace($match[2], $this->_parse_parenth_args($match[2]), $index);
-						}
-						if(preg_match_all('!' . $this->_dvar_regexp . '!', $match[1], $_dvar_match)) {
-							// parse embedded variables
-							$_match_replace = $match[1];
-							foreach($_dvar_match[0] as $_curr_var) {
-								$_match_replace = str_replace($_curr_var, '{' . $this->_parse_var($_curr_var) . '}', $_match_replace);
-							}
-							$index = str_replace($match[1], $_match_replace, $index);
-						}
-					}
-					$output .= $index;
 				}
+                $output .= $index;
+			} elseif ($index{0} == '(') {
+				$index = $this->_parse_parenth_args($index);
+                $output .= $index;
             } else {
                 $output .= $index;
             }
