@@ -1,3 +1,9 @@
+2002-06-05  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      NEWS
+      Smarty.class.php: fix 304 Not Modified, don't send content
+
 2002-06-03  Monte Ohrt  <monte@ispi.net>
 
     * plugins/function.cycle.php: update version number
