@@ -3004,7 +3004,7 @@ AUSGABE:
 			</para>
 			<para>
 			Das 'advance'-Attribut wird verwendet um einen Wert zu wiederholen.
-			Wenn auf 'true' gesetzt, wird bei der n&auml;chsten Iteration der selbe
+			Wenn auf 'false' gesetzt, wird bei der n&auml;chsten Iteration der selbe
 			Wert erneut ausgegeben.
 			</para>
 			<para>

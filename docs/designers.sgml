@@ -3389,7 +3389,7 @@ OUTPUT:
 			a value.
 			</para>
 			<para>
-			The advance attribute is used to repeat a value. When set to true,
+			The advance attribute is used to repeat a value. When set to false,
 			the next call to cycle will print the same value.
 			</para>
 			<para>
