@@ -1301,13 +1301,9 @@ class Smarty
             $_compile_config = true;
         } else {
             include($_compile_file);
-            if(!empty($_config_vars)) {
-                $_compile_config = true;
-            } else {
-                $_compile_config = false;                    
-            }
+			$_compile_config = empty($_config_vars);
         }
-
+		
         if($_compile_config) {
             if(!is_object($this->_conf_obj)) {
                 require_once SMARTY_DIR . $this->config_class . '.class.php';
