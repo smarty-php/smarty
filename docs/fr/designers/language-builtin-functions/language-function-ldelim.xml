@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.ldelim">
-			<title>ldelim,rdelim</title>
-			<para>
-			ldelim et rdelim sont utilisés pour afficher les délimiteurs en tant
-         que tels, dans notre cas "{" ou "}". Le moteur de template tentera
-         toujours d'interpréter le contenu entre les délimiteurs, c'est donc
-         une façon d'afficher ces derniers sans interférer avec Smarty.
-			</para>
-<example>
-<title>ldelim, rdelim</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.function.ldelim">
+ <title>ldelim,rdelim</title>
+ <para>
+  ldelim et rdelim sont utilisés pour afficher les délimiteurs en tant
+  que tels, dans notre cas "{" ou "}". Le moteur de template tentera
+  toujours d'interpréter le contenu entre les délimiteurs, c'est donc
+  une façon d'afficher ces derniers sans interférer avec Smarty.
+ </para>
+ <example>
+  <title>ldelim, rdelim</title>
 <programlisting>
 {* Affiche les délimiteurs de template *}
 
@@ -19,7 +20,7 @@
 SORTIE:
 
 {nomFonction}  est la façon dont sont appelées les fonctions dans Smarty !</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

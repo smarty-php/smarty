@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.php">
-			<title>php</title>
-			<para>
-			Les balises PHP permettent de rajouter du code PHP directement dans le
-         template. Ils ne seront pas ignorés, quelle que soit la valeur de <link
-			linkend="variable.php.handling">$php_handling</link>. Pour les
-         utilisateurs avancés seulement, son utilisation n'est normalement pas
-         nécessaire.
-			</para>
-<example>
-<title>balises php</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.function.php">
+ <title>php</title>
+ <para>
+  Les balises PHP permettent de rajouter du code PHP directement dans le
+  template. Ils ne seront pas ignorés, quelle que soit la valeur de <link
+  linkend="variable.php.handling">$php_handling</link>. Pour les
+  utilisateurs avancés seulement, son utilisation n'est normalement pas
+  nécessaire.
+ </para>
+ <example>
+  <title>balises php</title>
 <programlisting>
 {php}
 		// inclusion directe d'un script PHP
 		// depuis le template.
 		include("/path/to/display_weather.php");
 {/php}</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

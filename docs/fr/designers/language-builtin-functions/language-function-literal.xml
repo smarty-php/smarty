@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.literal">
-			<title>literal</title>
-			<para>
-			Les balises "literal" permettent à un bloc de données d'être pris tel
-			quel, sans qu'il ne soit interprété par Smarty. Très pratique lors
-			de l'emplois d'éléments tels que javascript, acolades et autres
-         qui peuvent confondre le moteur de template. Tout le contenu situé
-         entre les balises {literal}{/literal} ne sera pas interprété, et
-         affiché comme du contenu statique.
-			</para>
-<example>
-<title>balises literal</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.function.literal">
+ <title>literal</title>
+ <para>
+  Les balises "literal" permettent à un bloc de données d'être pris tel
+  quel, sans qu'il ne soit interprété par Smarty. Très pratique lors
+  de l'emplois d'éléments tels que javascript, acolades et autres
+  qui peuvent confondre le moteur de template. Tout le contenu situé
+  entre les balises {literal}{/literal} ne sera pas interprété, et
+  affiché comme du contenu statique.
+ </para>
+ <example>
+  <title>balises literal</title>
 <programlisting>
 {literal}
 	&lt;script language=javascript&gt;
@@ -30,7 +31,7 @@
 
 	&lt;/script&gt;
 {/literal}</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.if">
-			<title>if,elseif,else</title>
-			<para>
-         l'instruction if dans Smarty dispose de la même flexibilité que l'instruction
-         PHP du même nom, avec quelques fonctionnalités supplémentaires pour le
-         moteur de template. Tous les <emphasis>if</emphasis> doivent être
-         utilisés de pair avec un <emphasis>/if</emphasis>.
-         <emphasis>else</emphasis> et <emphasis>elseif</emphasis> sont également
-         des balises autorisées. "eq", "ne","neq", "gt", "lt", "lte", "le",
-         "gte" "ge","is even","is odd", "is not	even","is not odd","not","mod",
-         "div by","even by","odd	by","==","!=","&gt;", "&lt;","&lt;=","&gt;=" sont tous
-         des opérateurs conditionnels valides, et doivent obligatoirement être
-         séparés des autres éléments par des espaces.
-			</para>
-<example>
-<title>Instruction if</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.function.if">
+ <title>if,elseif,else</title>
+ <para>
+  l'instruction if dans Smarty dispose de la même flexibilité que l'instruction
+  PHP du même nom, avec quelques fonctionnalités supplémentaires pour le
+  moteur de template. Tous les <emphasis>if</emphasis> doivent être
+  utilisés de pair avec un <emphasis>/if</emphasis>.
+  <emphasis>else</emphasis> et <emphasis>elseif</emphasis> sont également
+  des balises autorisées. "eq", "ne","neq", "gt", "lt", "lte", "le",
+  "gte" "ge","is even","is odd", "is not	even","is not odd","not","mod",
+  "div by","even by","odd	by","==","!=","&gt;", "&lt;","&lt;=","&gt;=" sont tous
+  des opérateurs conditionnels valides, et doivent obligatoirement être
+  séparés des autres éléments par des espaces.
+ </para>
+ <example>
+  <title>Instruction if</title>
 <programlisting>
 {if $name eq "Fred"}
 	Bienvenue, Monsieur.
@@ -78,7 +79,7 @@
 {if $var is even by 3}
 	...
 {/if}</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
