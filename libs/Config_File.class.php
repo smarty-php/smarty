@@ -73,7 +73,6 @@ class Config_File {
 	/** @access private */
 	var $_config_path	= "";
 	var $_config_data	= array();
-	var $_separator		= "";
     /**#@-*/
 
 	/**
@@ -83,11 +82,6 @@ class Config_File {
 	 */
 	function Config_File($config_path = NULL)
 	{
-		if (substr(PHP_OS, 0, 3) == "WIN" || substr(PHP_OS, 0, 4) == "OS/2")
-			$this->_separator = "\\";
-		else
-			$this->_separator = "/";
-
 		if (isset($config_path))
 			$this->set_path($config_path);
 	}
@@ -106,7 +100,7 @@ class Config_File {
 				return;
 			}
 
-			$this->_config_path = $config_path . $this->_separator;
+			$this->_config_path = $config_path . DIRECTORY_SEPARATOR;
 		}
 	}
 
