@@ -89,8 +89,7 @@ class Config_File extends PEAR {
 	function set_path($config_path)
 	{
 		if (!is_string($config_path) ||
-			($config_path != ""
-			 && !is_dir($config_path))) {
+			(!is_dir($config_path))) {
 			return new Config_File_Error("Bad config file path '$config_path'");
 		}
 
@@ -113,8 +112,7 @@ class Config_File extends PEAR {
 		if (empty($file_name))
 			return new Config_File_Error('Empty config file name');
 		else {
-			if ($this->_config_path != "")
-				$file_name = $this->_config_path . $this->_separator . $file_name;
+			$file_name = $this->_config_path . $file_name;
 			if (!isset($this->_config_data[$file_name]))
 				$this->load_file($file_name, false);
 		}
@@ -170,8 +168,7 @@ class Config_File extends PEAR {
 	 */
 	function get_section_names($file_name)
 	{
-		if ($this->_config_path != "")
-			$file_name = $this->_config_path . $this->_separator . $file_name;
+		$file_name = $this->_config_path . $file_name;
 		if (!isset($this->_config_data[$file_name]))
 			return new Config_File_Error("Unknown config file '$file_name'");
 		
@@ -228,7 +225,7 @@ class Config_File extends PEAR {
 		global	$php_errormsg;
 
 		if ($prepend_path && $this->_config_path != "")
-			$config_file = $this->_config_path . $this->_separator . $file_name;
+			$config_file = $this->_config_path . $file_name;
 		else
 			$config_file = $file_name;
 
