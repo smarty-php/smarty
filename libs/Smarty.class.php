@@ -128,7 +128,7 @@ class Smarty
                                  );
                                  
     var $version               =   '1.4.0';  // Smarty version number                     
-    var $show_info_header      =   true;     // display info header at top of page output
+    var $show_info_header      =   false;     // display HTML info header at top of page output
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
                                                       // Smarty to compile templates

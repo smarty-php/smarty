@@ -36,6 +36,11 @@ MINOR FIXES
 A workaround for LOCK_EX on Windows systems was added, and changed a couple of
 file permissions for better security on public servers.
 
+$show_info_header is now defaulted to false instead of true. This header causes
+problems when displaying content other than HTML, so now you must explicitly
+set this flag to true to show the header information (or change the default in
+your copy of Smarty.)
+
 CHANGES/ENHANCEMENTS
 
 date_format, html_select_date and html_select_time used to require a unix
