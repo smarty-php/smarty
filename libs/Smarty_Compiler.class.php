@@ -348,12 +348,6 @@ class Smarty_Compiler extends Smarty {
         $found = false;
         $have_function = true;
 
-        $plugin_file = SMARTY_DIR .
-                       $this->plugins_dir . DIR_SEP .
-                       'compiler.' .
-                       $tag_command .
-                       '.php';
-
         /*
          * First we check if the compiler function has already been registered
          * or loaded from a plugin file.
@@ -370,7 +364,7 @@ class Smarty_Compiler extends Smarty {
          * Otherwise we need to load plugin file and look for the function
          * inside it.
          */
-        else if (file_exists($plugin_file) && is_readable($plugin_file)) {
+        else if ($plugin_file = $this->_get_plugin_filepath('compiler', $tag_command)) {
             $found = true;
 
             include_once $plugin_file;
@@ -418,12 +412,6 @@ class Smarty_Compiler extends Smarty {
         $found = false;
         $have_function = true;
 
-        $plugin_file = SMARTY_DIR .
-                       $this->plugins_dir . DIR_SEP .
-                       'block.' .
-                       $tag_command .
-                       '.php';
-
         /*
          * First we check if the block function has already been registered
          * or loaded from a plugin file.
@@ -440,7 +428,7 @@ class Smarty_Compiler extends Smarty {
          * Otherwise we need to load plugin file and look for the function
          * inside it.
          */
-        else if (file_exists($plugin_file) && is_readable($plugin_file)) {
+        else if ($plugin_file = $this->_get_plugin_filepath('block', $tag_command)) {
             $found = true;
 
             include_once $plugin_file;

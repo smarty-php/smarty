@@ -1,3 +1,5 @@
+    - allow $plugins_dir to be an array of directories
+      (Andreas Kossmeier, Monte)
     - move debug.tpl to SMARTY_DIR, add to constructor (Monte)
     - fixed warning message in function.assign_debug_info (Monte)
     - fixed $template_dir, $compile_dir, $cache_dir, $config_dir

@@ -11,7 +11,7 @@
  *           default_date: default date if $string is empty
  * -------------------------------------------------------------
  */
-require_once SMARTY_DIR . $this->plugins_dir . '/shared.make_timestamp.php';
+require_once $this->_get_plugin_filepath('shared','make_timestamp');
 function smarty_modifier_date_format($string, $format="%b %e, %Y", $default_date=null)
 {
 	if($string != '') {

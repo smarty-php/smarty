@@ -17,8 +17,8 @@
  *                month values (Gary Loescher)
  * -------------------------------------------------------------
  */
-require_once SMARTY_DIR . $this->plugins_dir . '/shared.make_timestamp.php';
-require_once SMARTY_DIR . $this->plugins_dir . '/function.html_options.php';
+require_once $this->_get_plugin_filepath('shared','make_timestamp');
+require_once $this->_get_plugin_filepath('function','html_options');
 function smarty_function_html_select_date($params, &$smarty)
 {
     /* Default values. */

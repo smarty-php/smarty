@@ -67,8 +67,7 @@ class Smarty
     var $template_dir    =  'templates';       // name of directory for templates
     var $compile_dir     =  'templates_c';     // name of directory for compiled templates
     var $config_dir      =  'configs';         // directory where config files are located
-    var $plugins_dir     =  'plugins';         // directory where plugins are kept
-                                               // (relative to Smarty directory)
+    var $plugins_dir     =  array('plugins');  // plugin directories
 
     var $debugging       =  false;             // enable debugging console true/false
     var $debug_tpl       =  '';                // path to debug console template
@@ -1660,7 +1659,36 @@ function _run_insert_handler($args)
 
         return true;
     }
+	
+/*======================================================================*\
+    Function:  _get_plugin_filepath
+    Purpose:   get filepath of requested plugin
+\*======================================================================*/
+    function _get_plugin_filepath($type, $name)
+    {
+        $_plugin_filename = "$type.$name.php";
+		
+        foreach ((array)$this->plugins_dir as $_plugin_dir) {
 
+            $_plugin_filepath = $_plugin_dir . DIR_SEP . $_plugin_filename;
+
+            if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $_plugin_dir)) {
+                // relative path
+            	$_plugin_filepath = SMARTY_DIR . $_plugin_filepath;				
+			}
+
+            if (@is_readable($_plugin_filepath)) {
+                return $_plugin_filepath;
+            }
+
+        	// didn't find it try include path
+        	if ($this->_get_include_path($_plugin_dir . DIR_SEP . $_plugin_filename, $_include_filepath)) {
+            	return $_include_filepath;
+        	}
+        }
+
+        return false;
+    }
 
 /*======================================================================*\
     Function:  _load_plugins
@@ -1668,6 +1696,7 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _load_plugins($plugins)
     {
+		
         foreach ($plugins as $plugin_info) {
             list($type, $name, $tpl_file, $tpl_line, $delayed_loading) = $plugin_info;
             $plugin = &$this->_plugins[$type][$name];
@@ -1705,18 +1734,10 @@ function _run_insert_handler($args)
                 }
             }
 
-            $plugin_file = SMARTY_DIR .
-                           $this->plugins_dir .
-                           DIR_SEP .
-                           $type .
-                           '.' .
-                           $name .
-                           '.php';
+            $plugin_file = $this->_get_plugin_filepath($type, $name);
 
-            $found = true;
-            if (!file_exists($plugin_file) || !is_readable($plugin_file)) {
-                $message = "could not load plugin file $plugin_file\n";
-                $found = false;
+            if ($found = ($plugin_file != false)) {
+                $message = "could not load plugin file '$type.$name.php'\n";
             }
 
             /*
@@ -1811,18 +1832,10 @@ function _run_insert_handler($args)
             return;
         }
 
-        $plugin_file = SMARTY_DIR .
-                       $this->plugins_dir . DIR_SEP .
-                       'resource.' .
-                       $type .
-                       '.php';
+        $plugin_file = $this->_get_plugin_filepath('resource', $type);
+        $found = ($plugin_file != false);
 
-        $found = true;
-        if (!file_exists($plugin_file) || !is_readable($plugin_file)) {
-            $this->_trigger_plugin_error("could not load plugin file $plugin_file");
-            $found = false;
-        } else {
-            /*
+        if ($found) {            /*
              * If the plugin file is found, it -must- provide the properly named
              * plugin functions.
              */
