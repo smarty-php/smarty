@@ -167,14 +167,14 @@ $smarty = new Smarty;</screen>
 	</para>
 	<para>
 	Be sure you know the location of your web server document root. In our
-	example, the document root is "/web/www.domain.com/docs/".
+	example, the document root is "/web/www.mydomain.com/docs/".
 	</para>
 	<para>
 	The Smarty directories are defined in the class variables $template_dir,
 	$compile_dir, $config_dir and $cache_dir, which default to the values
 	"templates", "templates_c", "configs" and "cache" respectively. In our
 	example, we'll place all of these directories under
-	"/web/www.domain.com/smarty/guestbook/".
+	"/web/www.mydomain.com/smarty/guestbook/".
 	</para>
 
 	<note>
@@ -197,7 +197,7 @@ $smarty = new Smarty;</screen>
 	<para>
 	It is convenient to setup the web server so that "index.php" can be
 	identified as the default directory index, so if you access
-	"http://www.domain.com/guestbook/", the index.php script will be executed
+	"http://www.mydomain.com/guestbook/", the index.php script will be executed
 	without "index.php" in the URL. In Apache you can set this up by adding
 	"index.php" onto the end of your DirectoryIndex setting (separate each
 	entry with a space.)

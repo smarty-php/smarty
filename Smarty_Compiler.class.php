@@ -857,8 +857,20 @@ class Smarty_Compiler extends Smarty {
         $assign_var = $this->_dequote($attrs['assign']);
 
 		$once_var = ( $attrs['once'] === false ) ? 'false' : 'true';
+
+    foreach($attrs as $arg_name => $arg_value) {
+        if($arg_name != 'file' AND $arg_name != 'once' AND $arg_name != 'assign') {
+            if(is_bool($arg_value))
+                $arg_value = $arg_value ? 'true' : 'false';
+            $arg_list[] = "'$arg_name' => $arg_value";
+        }
+    }
+
+    $output =
+        "<?php \$this->_smarty_include_php($attrs[file], '$assign_var', $once_var, " .
+        "array(".implode(',', (array)$arg_list).")); ?>";
 				
-		return "<?php \$this->_smarty_include_php($attrs[file], '$assign_var', $once_var); ?>";
+		return $output;
     }
 	
 
@@ -1109,6 +1121,10 @@ class Smarty_Compiler extends Smarty {
 				case '~':
 				case ')':
 				case ',':
+				case '+':
+				case '-':
+				case '*':
+				case '/':
 					break;					
 
                 case 'eq':

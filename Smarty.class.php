@@ -1722,10 +1722,12 @@ class Smarty
 	 * @param  $_smarty_assign
 	 * @param  $_smarty_once
 	 */	
-    function _smarty_include_php($_smarty_include_php_file, $_smarty_assign, $_smarty_once)
+    function _smarty_include_php($_smarty_include_php_file, $_smarty_assign, $_smarty_once, $_smarty_include_vars)
     {
         $this->_get_php_resource($_smarty_include_php_file, $_smarty_resource_type,
                                  $_smarty_php_resource);
+
+		extract($_smarty_include_vars, EXTR_PREFIX_SAME, 'include_php_');
 
         if (!empty($_smarty_assign)) {
             ob_start();
