@@ -1,73 +1,93 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="language.assigned.variables">
-    <title>Variables assignées depuis PHP</title>
-    <para>
-    Pour utiliser une variables assignées depuis PHP, il faut la préfixer par le
-    symbole dollar <literal>$</literal>. Les variables asignées depuis un
-    template grâce à la fonction <link linkend="language.function.assign">assign</link>
-	 sont manipulées de la même façon.
-    </para>
-    <example>
-
-     <title>Variables assignées</title>
-<programlisting>
+<sect1 id="language.assigned.variables">
+ <title>Variables assignées depuis PHP</title>
+ <para>
+  Pour utiliser une variables assignées depuis PHP, il 
+  faut la préfixer par le symbole dollar <literal>$</literal>. 
+  Les variables asignées depuis un template grâce à la fonction
+  <link linkend="language.function.assign">assign</link> sont 
+  manipulées de la même façon.
+ </para>
+ <example>
+  <title>Variables assignées</title>
+  <programlisting>
+<![CDATA[
 Bienvenue {$prenom}, heureux de voir que tu es arrivé ici.
-&lt;p&gt;
+<p>
 La dernière connexion remonte au {$dateConnexionPrecedente}.
+]]>
+  </programlisting>
+  <para>
+   Cela va afficher:
+  </para>
+  <screen>
+<![CDATA[
+Bienvenue Doug, heureux de voir que tu es arrivé ici.
+<p>
+La dernière connexion remonte au 11 janvier 2001.
+]]>
+  </screen>
+ </example>
 
-SORTIE:
-
-Bienvenue Doug, heureux de voir que tu est arrivé ici.
-&lt;p&gt;
-La dernière connexion remonte au 11 janvier 2001.</programlisting>
-</example>
-
-		<sect2 id="language.variables.assoc.arrays">
-			<title>Tableaux associatifs</title>
-			<para>
-			Vous pouvez également utiliser des variables sous forme de tableaux
-         associatifs assignées depuis PHP en en spécifiant la clef,
-         après le symbole '.' (point).
-			</para>
-<example>
-<title>accéder aux variables de tableaux associatifs</title>
-<programlisting>
-index.php:
+ <sect2 id="language.variables.assoc.arrays">
+  <title>Tableaux associatifs</title>
+  <para>
+   Vous pouvez également utiliser des variables sous forme de tableaux
+   associatifs assignées depuis PHP en en spécifiant la clef,
+   après le symbole '.' (point).
+  </para>
+  <example>
+   <title>Accéder aux variables de tableaux associatifs</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 
 $smarty = new Smarty;
-$smarty-&gt;assign('Contacts',
+$smarty->assign('Contacts',
     array('fax' => '555-222-9876',
           'email' => 'zaphod@slartibartfast.com',
           'phone' => array('home' => '555-444-3333',
                            'cell' => '555-111-1234')));
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-{$Contacts.fax}&lt;br&gt;
-{$Contacts.email}&lt;br&gt;
-{* you can print arrays of arrays as well *}
-{$Contacts.phone.home}&lt;br&gt;
-{$Contacts.phone.cell}&lt;br&gt;
-
-SORTIE:
-
-555-222-9876&lt;br&gt;
-zaphod@slartibartfast.com&lt;br&gt;
-555-444-3333&lt;br&gt;
-555-111-1234&lt;br&gt;</programlisting>
-</example>
-		</sect2>
-        <sect2 id="language.variables.array.indexes">
-			<title>Tableaux indexés</title>
-			<para>
-         Vous pouvez utiliser des tableaux indexés de la même façon que vous le
-         faites en PHP.
- 			</para>
-<example>
-<title>Accès aux tableaux grâce à l'index</title>
-<programlisting>
+$smarty->display('index.tpl');
+?>
+]]>
+   </programlisting>
+   <para>
+    où index.tpl est :
+   </para>
+   <programlisting>
+<![CDATA[
+{$Contacts.fax}<br />
+{$Contacts.email}<br />
+{* vous pouvez afficher des tableaux de tableaux *}
+{$Contacts.phone.home}<br />
+{$Contacts.phone.cell}<br />
+]]>
+   </programlisting>
+   <para>
+    Cela va afficher :
+   </para>
+   <screen>
+<![CDATA[
+555-222-9876<br />
+zaphod@slartibartfast.com<br />
+555-444-3333<br />
+555-111-1234<br />
+]]>
+   </screen>
+  </example>
+ </sect2>
+ 
+ <sect2 id="language.variables.array.indexes">
+  <title>Tableaux indexés</title>
+  <para>
+   Vous pouvez utiliser des tableaux indexés de la même façon 
+   que vous le faites en PHP.
+  </para>
+  <example>
+   <title>Accès aux tableaux grâce à l'index</title>
+   <programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -93,13 +113,13 @@ zaphod@slartibartfast.com&lt;br&gt;
 555-444-3333&lt;br&gt;
 555-111-1234&lt;br&gt;</programlisting>
 </example>
-		</sect2>
+        </sect2>
         <sect2 id="language.variables.objects">
-			<title>Objets</title>
-			<para>
-			Les attributs des objets assignés depuis PHP peuvent être utilisées en
-			en spécifiant le nom après le symbole '-&gt;'.
-			</para>
+            <title>Objets</title>
+            <para>
+            Les attributs des objets assignés depuis PHP peuvent être utilisées en
+            en spécifiant le nom après le symbole '-&gt;'.
+            </para>
 <example>
 <title>accéder aux attributs des objets</title>
 <programlisting>
@@ -111,7 +131,7 @@ SORTIE:
 nom: Zaphod Beeblebrox&lt;br&gt;
 email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 </example>
-		</sect2>
+        </sect2>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
