@@ -1,3 +1,10 @@
+2004-07-20  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php
+      libs/core/core.is_trusted.php
+      libs/plugins/compiler.assign.php:
+      Some fixes on PhpDocumentor comments. Thanks go to Ruben Vermeersch.
+
 2004-07-16  andreas halter  <phpcvs@andreashalter.ch>
 
     * docs/de/bookinfo.xml
