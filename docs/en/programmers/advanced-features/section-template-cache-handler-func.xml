@@ -82,9 +82,9 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 			
 			if($use_gzip && function_exists("gzuncompress")) {
-				$cache_contents = gzuncompress($row["CacheContents"]);
+				$cache_content = gzuncompress($row["CacheContents"]);
 			} else {
-				$cache_contents = $row["CacheContents"];
+				$cache_content = $row["CacheContents"];
 			}
 			$return = $results;
 			break;
