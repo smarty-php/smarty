@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.config.variables">
  <title>Variables chargées depuis des fichiers de configuration</title>
  <para>
@@ -12,62 +12,77 @@
   <example>
    
    <title>variables de fichiers de configuration</title>
+<para>
+foo.conf
+</para>
 <programlisting>
-foo.conf:
-
+<![CDATA[
 pageTitle = "C'est le mien"
 bodyBgColor = "#eeeeee"
 tableBorderSize = "3"
 tableBgColor = "#bbbbbb"
 rowBgColor = "#cccccc"
-
+]]>
+</programlisting>
+<para>
 index.tpl:
-
+</para>
+<programlisting>
+<![CDATA[
 {config_load file="foo.conf"}
-&lt;html&gt;
-&lt;title&gt;{#pageTitle#}&lt;/title&gt;
-&lt;body bgcolor="{#bodyBgColor#}"&gt;
-&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
-&lt;tr bgcolor="{#rowBgColor#}"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
+<html>
+<title>{#pageTitle#}</title>
+<body bgcolor="{#bodyBgColor#}">
+<table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
+<tr bgcolor="{#rowBgColor#}">
+	<td>First</td>
+	<td>Last</td>
+	<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+</programlisting>
+<para>
 index.tpl: (alternate syntax)
-
+</para>
+<programlisting>
+<![CDATA[
 {config_load file="foo.conf"}
-&lt;html&gt;
-&lt;title&gt;{$smarty.config.pageTitle}&lt;/title&gt;
-&lt;body bgcolor="{$smarty.config.bodyBgColor}"&gt;
-&lt;table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}"&gt;
-&lt;tr bgcolor="{$smarty.config.rowBgColor}"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-
-SORTIE: (same for both examples)
-
-&lt;html&gt;
-&lt;title&gt;C'est le mien&lt;/title&gt;
-&lt;body bgcolor="#eeeeee"&gt;
-&lt;table border="3" bgcolor="#bbbbbb"&gt;
-&lt;tr bgcolor="#cccccc"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</programlisting>
+<html>
+<title>{$smarty.config.pageTitle}</title>
+<body bgcolor="{$smarty.config.bodyBgColor}">
+<table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}">
+<tr bgcolor="{$smarty.config.rowBgColor}">
+	<td>First</td>
+	<td>Last</td>
+	<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie, pour les deux exemples :
+</para>
+<screen>
+<![CDATA[
+<html>
+<title>C'est le mien</title>
+<body bgcolor="#eeeeee">
+<table border="3" bgcolor="#bbbbbb">
+<tr bgcolor="#cccccc">
+	<td>First</td>
+	<td>Last</td>
+	<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+</screen>
   </example>
   <para>
    Les variables de fichier de configuration ne peuvent être utilisés tant
