@@ -1,75 +1,80 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="advanced.features.objects">
-    <title>Objects</title>
-    <para>
-     Smarty allows access to PHP objects through the templates. There are
-	 two ways to access them. One way is to register objects to the template,
-	 then use access them via syntax similar to custom functions. The other way
-	 is to assign objects to the templates and access them much like any other
-	 assigned variable. The first method has a much nicer template syntax. It
-	 is also more secure, as a registered object can be restricted to certain
-	 methods or properties. However, a registered object cannot be looped over
-	 or assigned in arrays of objects, etc. The method you choose will be
-	 determined by your needs, but use the first method whenever possible to
-	 keep template syntax to a minimum.
-    </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="advanced.features.objects">
+ <title>Îáúåêòû</title>
+ <para>
+  Ñìàðòè ïîçâîëÿåò èñïîëüçîâàòü â øàáëîíàõ îáúåêòû PHP. 
+  Ñóùåñòâóþò äâà ñïîñîáà èõ âûçîâà. Ïåðâûé - çàðåãèñòðèðîâàòü îáúåêò äëÿ 
+  øàáëîíà, çàòåì âûçâàòü åãî ïðèìåðíî òàê æå, êàê è ïîëüçîâàòåëüñêóþ
+  ôóíêöèþ. Âòîðîé - îáúÿâèòü îáúåêò äëÿ øàáëîíà è èñïîëüçîâàòü åãî, 
+  êàê ëþáóþ äðóãóþ îáúÿâëåííóþ ïåðåìåííóþ. Ïåðâûé ìåòîä ãîðàçäî àêêóðàòíåå 
+  è áåçîïàñíåå, òàê êàê ó çàðåãèñòðèðîâàííîãî îáúåêòà ìîæíî îãðàíè÷èòü 
+  ñâîéñòâà è ìåòîäû. Íî, â òîæå âðåìÿ, çàðåãèñòðèðîâàííûé îáúåêò
+  íåëüçÿ èñïîëüçîâàòü â öèêëàõ, íåëüçÿ ïîìåùàòü â ìàññèâ îáúåêòîâ 
+  è òàê äàëåå. Âûáîð ñïîñîáà çà âàìè, íî èñïîëüçóéòå ïî 
+  âîçìîæíîñòè ïåðâûé, ÷òîáû ìàêñèìàëüíî óïðîñòèòü ñèíòàêñèñ øàáëîíà.  
+ </para>
 	<para>
-    If security is enabled, no private methods or functions can be accessed
-	(begininning with "_"). If a method and property of the same name exist,
-	the method will be used.
+  Â áåçîïàñíîì ðåæèìå íåäîñòóïíû ïðèâàòíûå ìåòîäû è 
+  ôóíêöèè (èìåíà êîòîðûõ íà÷èíàþòñÿ ñ "_").
+  Åñëè ñóùåñòâóåò è ìåòîä, è ñâîéñòâî ñ îäèíàêîâûìè èìåíàìè, 
+  òî áóäåò èñïîëüçîâàí ìåòîä.
 	</para>
 	<para>
-	You can restrict the methods and properties that can be accessed by
-	listing them in an array as the third registration parameter.
+  Âû ìîæåòå îãðàíè÷èòü èñïîëüçîâàíèå îáúåêòà òîëüêî íåêîòîðûìè 
+  ìåòîäàìè è ñâîéñòâàìè. Äëÿ ýòîãî ïåðå÷èñëèòå èõ â ìàññèâå è óêàæèòå
+  ýòîò ìàññèâ òðåòüèì ïàðàìåòðîì ïðè ðåãèñòðàöèè îáúåêòà. 
 	</para>
 	<para>
-	By default, parameters passed to objects through the templates are passed
-	the same way custom functions get them. An associative array is passed
-	as the first parameter, and the smarty object as the second. If you want
-	the parameters passed one at a time for each argument like traditional
-	object parameter passing, set the fourth registration parameter to false.
+  Ïî óìîë÷àíèþ, ïàðàìåòðû èç øàáëîíà ïåðåäàþòñÿ îáúåêòó òî÷íî òàê æå, 
+  êàê è ïîëüçîâàòåëüñêîé ôóíêöèè. Ïåðâûì ïàðàìåòðîì ïåðåäà¸òñÿ 
+  àññîöèàòèâíûé ìàññèâ, âòîðûì - îáúåêò Smarty. Åñëè âû õîòèòå ïåðåäàâàòü 
+  ïàðàìåòðû ïî îäíîìó, êàê ïðè òðàäèöèîííîì îáðàùåíèè ñ îáúåêòàìè, óñòàíîâèòå
+	 ÷åòâ¸ðòûé ïàðàìåòð âûçîâà â false.
 	</para>
-    <example>
-     <title>using a registered or assigned object</title>
-     <programlisting role="php">
+ <example>
+  <title>èñïîëüçîâàíèå çàðåãèñòðèðîâàííîãî èëè îáúÿâëåííîãî îáúåêòà</title>
+  <programlisting role="php">
 <![CDATA[
 <?php
-// the object
+// ñàì îáúåêò
 
 class My_Object() {
 	function meth1($params, &$smarty_obj) {
-		return "this is my meth1";
+		return "ýòî ìîé ìåòîä meth1";
 	}
 }
 
 $myobj = new My_Object;
-// registering the object (will be by reference)
+// ðåãèñòðèðóåì îáúåêò (áóäåò äîñòóïåí ïî ññûëêå)
 $smarty->register_object("foobar",$myobj);
-// if we want to restrict access to certain methods or properties, list them
+// åñëè ìû õîòèì îãðàíè÷èòüñÿ îïðåäåë¸ííûìè ìåòîäàìè èëè ñâîéñòâàìè, ïåðå÷èñëÿåì èõ ïðè ðåãèñòðàöèè
 $smarty->register_object("foobar",$myobj,array('meth1','meth2','prop1'));
-// if you want to use the traditional object parameter format, pass a boolean of false
+// åñëè ìû õîòèì èñïîëüçîâàòü òðàäèöèîííûé ñïîñîá ïåðåäà÷è ïàðàìåòðîâ îáúåêòó, ðåãèñòðèðóåì îáúåêò ñ ñîîòâåòñòâóþùèì 
+// ôëàãîì, óñòàíîâëåííûì â false  
 $smarty->register_object("foobar",$myobj,null,false);
 
-// We can also assign objects. Assign by ref when possible.
+// Òàê æå ìû ìîæåì îáúÿâèòü îáúåêò. Æåëàòåëüíî ñîçäàâàòü îáúåêò ïî ññûëêå.
 $smarty->assign_by_ref("myobj", $myobj);
 
 $smarty->display("index.tpl");
 ?>
 
-TEMPLATE:
+ØÀÁËÎÍ:
 
-{* access our registered object *}
+{* âûçûâàåì çàðåãèñòðèðîâàííûé îáúåêò *}
 {foobar->meth1 p1="foo" p2=$bar}
 
-{* you can also assign the output *}
+{* ðåçóëüòàò ìîæíî ïåðåãðóçèòü â ïåðåìåííóþ *}
 {foobar->meth1 p1="foo" p2=$bar assign="output"}
-the output was {$output)
+â ðåçóëüòàòå ïîëó÷àåì {$output}
 
-{* access our assigned object *}
+{* âûçûâàåì îáúÿâëåííûé îáúåêò *}
 {$myobj->meth1("foo",$bar)}
-]]></programlisting>
-    </example>
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

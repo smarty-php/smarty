@@ -1,46 +1,51 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-  <sect1 id="section.template.cache.handler.func">
-   <title>Cache Handler Function</title>
-   <para>
-    As an alternative to using the default file-based caching mechanism, you
-    can specify a custom cache handling function that will be used to read,
-    write and clear cached files.
-   </para>
-   <para>
-    Create a function in your application that Smarty will use as a
-    cache handler. Set the name of it in the
-    <link linkend="variable.cache.handler.func">$cache_handler_func</link>
-    class variable. Smarty will now use this to handle cached data. The
-    first argument is the action, which will be one of 'read', 'write' and
-    'clear'. The second parameter is the Smarty object. The third parameter
-    is the cached content. Upon a write, Smarty passes the cached content
-    in these parameters. Upon a 'read', Smarty expects your function to
-    accept this parameter by reference and populate it with the cached
-    data. Upon a 'clear', pass a dummy variable here since it is not used.
-    The fourth parameter is the name of the template file (needed for
-    read/write), the fifth parameter is the cache_id (optional), and the
-    sixth is the compile_id (optional).
-   </para>
-   <example>
-    <title>example using MySQL as a cache source</title>
-    <programlisting>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="section.template.cache.handler.func">
+ <title>Óïðàâëåíèå êýøèðîâàíèåì</title>
+ <para>
+  Âìåñòî ñòàíäàðòíîãî ìåõàíèçìà êýøèðîâàíèÿ, èñïîëüçóþùåãî ôàéëû, 
+  âû ìîæåòå èñïîëüçîâàòü ñâîè ôóíêöèè äëÿ ÷òåíèÿ, çàïèñè è î÷èñòêè êýøèðîâàííûõ øàáëîíîâ.
+ </para>
+ <para>
+  Äîáàâüòå â âàøå ïðèëîæåíèå ôóíêöèþ, êîòîðóþ Smarty ñìîæåò èñïîëüçîâàòü äëÿ
+  óïðàâëåíèÿ êýøåì. Óêàæèòå å¸ èìÿ â ïåðåìåííîé êëàññà 
+  <link linkend="variable.cache.handler.func">$cache_handler_func</link>. 
+  Òåïåðü Smarty áóäåò èñïîëüçîâàòü å¸ äëÿ îïåðàöèé ñ êýøèðîâàííûì ñîäåðæèìûì.
+  Ïåðâûé ïàðàìåòð âàøåé ôóíêöèè - äåéñòâèå, ïðèíèìàåò çíà÷åíèÿ 
+  'read', 'write' èëè 'clear' (ñîîòâåòñòâåííî, 'ïðî÷èòàòü', 'çàïèñàòü' 
+  èëè 'î÷èñòèòü'). Âòîðûì ïàðàìåòðîì ïåðåäà¸òñÿ îáúåêò smarty. Òðåòüèì - äàííûå äëÿ 
+  êýøèðîâàíèÿ. 
+  Òðåòèé ïàðàìåòð èñïîëüçóåòñÿ òîëüêî ïðè ÷òåíèè è çàïèñè. Ïðè çàïèñè Smarty ïåðåäà¸ò 
+  ÷åðåç íåãî êýøèðîâàííûé êîíòåíò. Ïðè ÷òåíèè ïðåäïîëàãàåòñÿ, ÷òî ÷åðåç íåãî
+  ïåðåäà¸òñÿ ññûëêà íà ïåðåìåííóþ, â êîòîðóþ êîíòåíò áóäåò çàãðóæåí. 
+  Ïðè î÷èñòêå çíà÷åíèå òðåòüåãî ïàðàìåòðà íå îáðàáàòûâàåòñÿ. 
+  ×åòâ¸ðòûé ïàðàìåòð - èìÿ ôàéëà ñ øàáëîíîì (èñïîëüçóåòñÿ ïðè ÷òåíèè/çàïèñè),
+  ïÿòûé - èäåíòèôèêàòîð êýøà (îïöèîíàëüíî), øåñòîé - èäåíòèôèêàòîð êîìïèëÿöèè (îïöèîíàëüíî, 
+  èñïîëüçóåòñÿ äëÿ ïîñòðîåíèÿ ðàçíûõ êýøåé äëÿ îäíîãî øàáëîíà), 
+  ñåäüìîé - ñðîê ãîäíîñòè êýøà (îïöèîíàëüíî).
+
+  Ïðèìå÷àíèå: ïîñëåäíèé ïàðàìåòð ($exp_time) äîáàâëåí â Smarty 2.6.0.
+ </para>
+ <example>
+  <title>Ïðèìåíåíèå MySQL â êà÷åñòâå õðàíèëèùà êýøèðîâàííûõ äàííûõ</title>
+  <programlisting>
 <![CDATA[
-&lt;?php
+<?php
 /*
 
-example usage:
+ïðèìåð èñïîëüçîâàíèÿ:
 
 include('Smarty.class.php');
 include('mysql_cache_handler.php');
 
 $smarty = new Smarty;
-$smarty-&gt;cache_handler_func = 'mysql_cache_handler';
+$smarty->cache_handler_func = 'mysql_cache_handler';
 
-$smarty-&gt;display('index.tpl');
+$smarty->display('index.tpl');
 
 
-mysql database is expected in this format:
+êîä äëÿ MySQL òàáëèöû:
 	
 create database SMARTY_CACHE;
 
@@ -51,32 +56,33 @@ CacheContents MEDIUMTEXT NOT NULL
 
 */
 
-function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
+function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
 {
-	// set db host, user and pass here
+	// ïàðàìåòðû ïîäêëþ÷åíèÿ ê áàçå äàííûõ - õîñò, ëîãèí, ïàðîëü, íàçâàíèå áàçû
 	$db_host = 'localhost';
 	$db_user = 'myuser';
 	$db_pass = 'mypass';
 	$db_name = 'SMARTY_CACHE';
+	// óñòàíîâèòå â true äëÿ èñïîëüçîâàíèÿ gzip êîìïðåññèè êýøèðîâàííûõ äàííûõ
 	$use_gzip = false;
 	
-	// create unique cache id
+	// ñîçäà¸ì óíèêàëüíûé èäåíòèôèêàòîð êýøà
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
 	
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
-		$smarty_obj-&gt;_trigger_error_msg("cache_handler: could not connect to database");
+		$smarty_obj->_trigger_error_msg("cache_handler: íå ìîãó ïîäêëþ÷èòüñÿ ê áàçå äàííûõ");
 		return false;
 	}
 	mysql_select_db($db_name);
 
 	switch ($action) {
 		case 'read':
-			// save cache to database
+			// ÷òåíèå êýøà èç áàçû
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg("îøèáêà êýøà: íåâåðíûé çàïðîñ.");			
 			}
-			$row = mysql_fetch_array($results,MYSQL_ASSOC);
+			$row = mysql_fetch_array($results,MYSQL_ASSOC);	
 			
 			if($use_gzip && function_exists("gzuncompress")) {
 				$cache_contents = gzuncompress($row["CacheContents"]);
@@ -86,10 +92,10 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			$return = $results;
 			break;
 		case 'write':
-			// save cache to database
+			// ñîõðàíåíèå êýøà â áàçå
 			
 			if($use_gzip && function_exists("gzcompress")) {
-				// compress the contents for storage efficiency
+				// ñæèìàåì êîíòåíò ÷òîáû ñýêîíîìèòü ìåñòî
 				$contents = gzcompress($cache_content);
 			} else {
 				$contents = $cache_content;
@@ -99,12 +105,12 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 							'".addslashes($contents)."')
 						");
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg("îøèáêà êýøà: íåâåðíûé çàïðîñ.");			
 			}
 			$return = $results;
 			break;
 		case 'clear':
-			// clear cache info
+			// î÷èñòêà êýøà
 			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
 				// clear them all
 				$results = mysql_query("delete from CACHE_PAGES");			
@@ -112,13 +118,13 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
 			}
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg("îøèáêà êýøà: íåâåðíûé çàïðîñ.");			
 			}
 			$return = $results;
 			break;
 		default:
-			// error, unknown action
-			$smarty_obj-&gt;_trigger_error_msg("cache_handler: unknown action \"$action\"");
+			// îøèáêà, óêàçàí íåèçâåñòíûé ìåòîä
+			$smarty_obj->_trigger_error_msg("îøèáêà êýøà: íåèçâåñòíûé ìåòîä \"$action\"");
 			$return = false;
 			break;
 	}
@@ -127,7 +133,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	
 }
 
-?&gt;
+?>
 ]]></programlisting>
     </example>
 </sect1>

@@ -1,107 +1,115 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-  <sect1 id="template.resources">
-   <title>Resources</title>
-   <para>
-    The templates may come from a variety of sources. When you display or
-    fetch a template, or when you include a template from within another
-    template, you supply a resource type, followed by the appropriate path
-    and template name.
-   </para>
-   <sect2 id="templates.from.template.dir">
-    <title>Templates from $template_dir</title>
-    <para>
-     Templates from the $template_dir do not require a template
-     resource, although you can use the file: resource for consistancy.
-     Just supply the path to the template you want to use relative to
-     the $template_dir root directory.
-    </para>
-    <example>
-     <title>using templates from $template_dir</title>
-     <programlisting>
-// from PHP script
+<!-- EN-Revision: 1.1 -->
+<sect1 id="template.resources">
+ <title>Ðåñóðñû</title>
+ <para>
+  Øàáëîíû ìîæíî ïîëó÷àòü èç ñàìûõ ðàçíûõ èñòî÷íèêîâ. Êîãäà âû îòîáðàæàåòå, âûçûâàåòå
+  èëè ïîäêëþ÷àåòå îäèí øàáëîí èç äðóãîãî, âû óêàçûâàåòå òèï ðåñóðñà, âìåñòå ñ 
+  ñîîòâåòñòâóþùèì ïóò¸ì è íàçâàíèåì øàáëîíà.
+ </para>
+ 
+ <sect2 id="templates.from.template.dir">
+  <title>Øàáëîíû èç ïàïêè $template_dir</title>
+  <para>
+   Øàáëîíû, ëåæàùèå â ïàïêå $template_dir, íå òðåáóþò ïðè âûçîâå óêàçàíèÿ 
+   òèïà ðåñóðñà, õîòÿ âû ìîæåòå èñïîëüçîâàòü ïðåôèêñ file: äëÿ ñîõðàíåíèÿ
+   ñòèëÿ. Äëÿ âûçîâà ïðîñòî óêàæèòå îòíîñèòåëüíûé îò $template_dir ïóòü ê øàáëîíó.
+  </para>
+  <example>
+   <title>Âûçîâ øàáëîíà èç ïàïêè $template_dir</title>
+   <programlisting>
+<![CDATA[
+// PHP ñêðèïò
 $smarty->display("index.tpl");
 $smarty->display("admin/menu.tpl");
-$smarty->display("file:admin/menu.tpl"); // same as one above
+$smarty->display("file:admin/menu.tpl"); // òîæå ñàìîå, ÷òî è ñòðîêîé âûøå 
 
-{* from within Smarty template *}
+{* êîä â øàáëîíå *}
 {include file="index.tpl"}
-{include file="file:index.tpl"} {* same as one above *}</programlisting>
-    </example>
-   </sect2>
-   <sect2 id="templates.from.any.dir">
-    <title>Templates from any directory</title>
-    <para>
-     Templates outside of the $template_dir require the file: template
-     resource type, followed by the absolute path and name of the
-     template.
-    </para>
-    <example>
-     <title>using templates from any directory</title>
-     <programlisting>
-// from PHP script
+{include file="file:index.tpl"} {* òîæå ñàìîå, ÷òî è ñòðîêîé âûøå *}
+]]>
+   </programlisting>
+  </example>
+ </sect2>
+ 
+ <sect2 id="templates.from.any.dir">
+  <title>Øàáëîíû èç ïðîèçâîëüíîé ïàïêè</title>
+  <para>
+   Äëÿ âûçîâà øàáëîíîâ èç ïàïêè âíå $template_dir íåîáõîäèìî
+   èñïîëüçîâàòü ïðåôèêñ file: ñ ïîñëåäóþùèì óêàçàíèåì àñáîëþòíîãî 
+   ïóòè è èìåíè øàáëîíà. 
+  </para>
+  <example>
+   <title>Âûçîâ øàáëîíà èç ïðîèçâîëüíîé ïàïêè</title>
+   <programlisting>
+<![CDATA[
+// PHP ñêðèïò
 $smarty->display("file:/export/templates/index.tpl");
 $smarty->display("file:/path/to/my/templates/menu.tpl");
 
-{* from within Smarty template *}
-{include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
-    </example>
-
-    <sect3>
-     <title>Windows Filepaths</title>
-     <para>
-      If you are using a Windows machine, filepaths usually include a
-      drive letter (C:) at the beginning of the pathname. Be sure to use
-      "file:" in the path to avoid namespace conflicts and get the
-      desired results.
-     </para>
-     <example>
-      <title>using templates from windows file paths</title>
-      <programlisting>
-// from PHP script
+{* êîä â øàáëîíå *}
+{include file="file:/usr/local/share/templates/navigation.tpl"}
+]]>
+   </programlisting>
+  </example>
+  <sect3>
+   <title>Ïóòè â Windows</title>
+   <para>
+    Åñëè âû ðàáîòàåòå ïîä Windows, òî ïóòè ê ôàéëàì, êàê ïðàâèëî,
+    íà÷èíàþòñÿ ñ áóêâû ëîãè÷åñêîãî äèñêà (íàïðèìåð, C:). Íå çàáóäüòå
+    óêàçàòü ïðåôèêñ "file:" â íà÷àëå ïóòè, ÷òîáû èçáåæàòü ïðîáëåì ñ èìåíàìè
+    è äîñòè÷ü íåîáõîäèìîãî ðåçóëüòàòà. 
+   </para>
+   <example>
+    <title>Âûçîâ øàáëîíà ïîä windows</title>
+    <programlisting>
+<![CDATA[
+// PHP ñêðèïò
 $smarty->display("file:C:/export/templates/index.tpl");
 $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 
-{* from within Smarty template *}
-{include file="file:D:/usr/local/share/templates/navigation.tpl"}</programlisting>
-     </example>
-    </sect3>
-   </sect2>
+{* êîä â øàáëîíå *}
+{include file="file:D:/usr/local/share/templates/navigation.tpl"}
+]]>
+    </programlisting>
+   </example>
+  </sect3>
+ </sect2>
 
-   <sect2 id="templates.from.elsewhere">
-    <title>Templates from other sources</title>
-    <para>
-     You can retrieve templates using whatever possible source you can
-     access with PHP: databases, sockets, LDAP, and so on. You do this
-     by writing resource plugin functions and registering them with
-     Smarty.
-    </para>
+ <sect2 id="templates.from.elsewhere">
+  <title>Øàáëîíû èç ïðî÷èõ èñòî÷íèêîâ</title>
+  <para>
+   Âû ìîæåòå âûçûâàòü øàáëîíû, èñïîëüçóÿ ëþáûå äîñòóïíûå ÷åðåç PHP èñòî÷íèêè:
+   áàçû äàííûõ, ñîêåòû, LDAP è òàê äàëåå.
+   Äëÿ ýòîãî íóæíî íàïèñàòü ñîîòâåòñòâóþùèé ïëàãèí ðåñóðñà è çàðåãèñòðèðîâàòü 
+   åãî äëÿ Smarty.
+  </para>
 
-    <para>
-     See <link linkend="plugins.resources">resource plugins</link>
-     section for more information on the functions you are supposed
-     to provide.
-    </para>
+  <para>
+   Ñìîòðèòå ðàçäåë <link linkend="plugins.resources">ïëàãèíû ðåñóðñîâ</link>
+   äëÿ áîëåå ïîäðîáíîé èíôîðìàöèè î ñîîòâåòñòâóþùèõ ôóíêöèÿõ.
+  </para>
 
-    <note>
-     <para>
-      Note that you cannot override the built-in
-      <literal>file</literal> resource, but you can provide a resource
-      that fetches templates from the file system in some other way by
-      registering under another resource name.
-     </para>
-    </note>
-    <example>
-     <title>using custom resources</title>
-     <programlisting>
+  <note>
+   <para>
+    Îáðàòèòå âíèìàíèå íà òî, ÷òî âû íå ìîæåòå ïåðåîïðåäåëèòü âñòðîåííûé ðåñóðñ 
+    <literal>file</literal>, íî â âàøèõ ñèëàõ íàïèñàòü è çàðåãèñòðèðîâàòü ðåñóðñ ñ 
+    äðóãèì èìåíåì, êîòîðûé áóäåò èñïîëüçîâàòü äðóãîé ñïîñîá âûçîâà øàáëîíîâ èç 
+    ôàéëîâîé ñèñòåìû.
+   </para>
+  </note>
+  <example>
+   <title>Èñïîëüçîâàíèå ñâîèõ ðåñóðñîâ</title>
+   <programlisting>
 <![CDATA[
-// from PHP script
+// PHP ñêðèïò
 
-// put these function somewhere in your application
-function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
+// êîä â âàøåì ñêðèïòå 
+function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
 {
-    // do database call here to fetch your template,
-    // populating $tpl_source
+    // îáðàùàåìñÿ ê áàçå, çàïðàøèâàåì êîä øàáëîíà,
+    // ïåðåãðóæàåì åãî â $tpl_source
     $sql = new SQL;
     $sql->query("select tpl_source
                    from my_table
@@ -114,9 +122,9 @@ function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
     }
 }
 
-function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
+function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
 {
-    // do database call here to populate $tpl_timestamp.
+    // îáðàùàåìñÿ ê áàçå, çàïðàøèâàåì ïîëå $tpl_timestamp.
     $sql = new SQL;
     $sql->query("select tpl_timestamp
                    from my_table
@@ -131,65 +139,69 @@ function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
 
 function db_get_secure($tpl_name, &$smarty_obj)
 {
-    // assume all templates are secure
+    // ïðåäïîëàãàåì, ÷òî íàøè øàáëîíû ñîâåðøåííî áåçîïàñíû 
     return true;
 }
 
 function db_get_trusted($tpl_name, &$smarty_obj)
 {
-    // not used for templates
+    // íå èñïîëüçóåòñÿ äëÿ øàáëîíîâ
 }
 
-// register the resource name "db"
+// ðåãèñòðèðóåì ðåñóðñ "db"
 $smarty->register_resource("db", array("db_get_template",
                                        "db_get_timestamp",
                                        "db_get_secure",
                                        "db_get_trusted"));
 
-// using resource from php script
+// èñïîëüçóåì ðåñóðñ èç PHP ñêðèïòà
 $smarty->display("db:index.tpl");
 
-{* using resource from within Smarty template *}
+{* èñïîëüçóåì ðåñóðñ èç øàáëîíà *}
 {include file="db:/extras/navigation.tpl"}
-]]></programlisting>
-    </example>
-   </sect2>
+]]>
+   </programlisting>
+  </example>
+ </sect2>
 
-   <sect2 id="default.template.handler.function">
-    <title>Default template handler function</title>
-    <para>
-     You can specify a function that is used to retrieve template
-     contents in the event the template cannot be retrieved from its
-     resource. One use of this is to create templates that do not exist
-     on-the-fly.
-    </para>
-    <example>
-     <title>using the default template handler function</title>
-     <programlisting>
-&lt;?php
-// put this function somewhere in your application
+ <sect2 id="default.template.handler.function">
+  <title>Ôóíêöèÿ äëÿ îáðàáîòêè øàáëîíà ïî óìîë÷àíèþ</title>
+  <para>
+   Âû ìîæåòå îïðåäåëèòü ôóíêöèþ, êîòîðàÿ áóäåò èñïîëüçîâàíà, 
+   åñëè øàáëîí íå ìîæåò áûòü âûçâàí èç ñîîòâåòñòâóþùåãî ðåñóðñà. 
+   Ýòî ìîæíî èñïîëüçîâàòü, ê ïðèìåðó, äëÿ ïîñòðîåíèÿ íåäîñòàþùåãî
+   øàáëîíà íà ëåòó.
+  </para>
+  <example>
+   <title>èñïîëüçîâàíèå ôóíêöèè äëÿ îáðàáîòêè øàáëîíà ïî óìîë÷àíèþ</title>
+   <programlisting>
+<![CDATA[
+<?php
+// êîä â âàøåì ñêðèïòå 
 
-function make_template ($resource_type, $resource_name, &amp;$template_source, &amp;$template_timestamp, &amp;$smarty_obj)
+function make_template ($resource_type, $resource_name, &$template_source, &$template_timestamp, &$smarty_obj)
 {
 	if( $resource_type == 'file' ) {
 		if ( ! is_readable ( $resource_name )) {
-			// create the template file, return contents.
-			$template_source = "This is a new template.";
+			// ñîçäà¸ì è çàïèñûâàåì ôàéë øàáëîíà.
+			$template_source = "Ýòî íîâûé øàáëîí.";
 			$template_timestamp = time();
 			$smarty_obj->_write_file($resource_name,$template_source);
 			return true;
 		}
     } else {
-		// not a file
+		// íå ôàéë
 		return false;
     }
 }
 
-// set the default handler
+// îïðåäåëåíèå îáðàáîò÷èêà
 $smarty->default_template_handler_func = 'make_template';
-?&gt;</programlisting>
-    </example>
-   </sect2>
+?>
+]]>
+   </programlisting>
+  </example>
+ </sect2>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
