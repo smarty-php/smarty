@@ -1,4 +1,5 @@
-    - can use constants now, with security restrictions (Monte)
+    - support return value for custom functions (Monte)
+    - can access constants via $smarty.const.FOO (Monte)
     - cleaned up regex code in compiler (Monte)
     - can now pass modifiers to static content,
       among other minor syntax features (monte)
