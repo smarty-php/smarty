@@ -457,7 +457,6 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      </sect1>
      <sect1 id="variable.request.use.auto.globals">
       <title>$request_use_auto_globals</title>
-
       <para>
 	   Specifies if Smarty should use php's $HTTP_*_VARS[]
 	   ($request_use_auto_globals=false which is the default value) or
@@ -467,7 +466,6 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
 	   linkend="variable.request.vars.order">variable.request.vars.order
 	   </link> has no effect but php's configuration value
 	   <literal>gpc_order</literal> is used.
-
       </para>
      </sect1>
      <sect1 id="variable.compile.id">
@@ -2495,9 +2493,10 @@ $smarty->default_template_handler_func = 'make_template';
     depends on the order in which they are registered or loaded.
    </para>
    <para>
-    There is only one plugins directory (for performance reasons). To
-    install a plugin, simply place it in the directory and Smarty will use
-    it automatically.
+    The <link linkend="variable.plugins.dir">plugins directory</link>
+    can be a string containing a path or an array containing multiple
+    paths. To install a plugin, simply place it in one of the
+    directories and Smarty will use it automatically.
    </para>
   </sect1>
 
