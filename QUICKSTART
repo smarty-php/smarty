@@ -63,7 +63,7 @@ $smarty->display("./templates/index.tpl");
 <HTML>
 <TITLE>Hello</TITLE>
 <BODY>
-	Hello, {$Name}!
+    Hello, {$Name}!
 </BODY>
 </HTML>
 
@@ -118,9 +118,9 @@ $smarty->display("./templates/index.tpl");
 <HTML>
 <TITLE>Hello</TITLE>
 <BODY>
-	Hello, {$Name}!<br>
-	{$FirstName}, {$LastName}<br>
-	{$Address}, {$Zipcode}
+    Hello, {$Name}!<br>
+    {$FirstName}, {$LastName}<br>
+    {$Address}, {$Zipcode}
 </BODY>
 </HTML>
 
@@ -143,10 +143,17 @@ require("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->assign("Name","Ned");
 $smarty->assign(array(
+<<<<<<< QUICKSTART
+                    "FirstName" => "Fred",
+                    "LastName" => "Flanders",
+                    "Address" => "Springfield"
+                    ));
+=======
 					"FirstName" => "Ned",
 					"LastName" => "Flanders",
 					"Address" => "Springfield"
 					));
+>>>>>>> 1.2
 $zipcode = "55555";
 $smarty->assign("Zipcode",$zipcode);
 $smarty->display("./templates/index.tpl");
@@ -155,9 +162,9 @@ $smarty->display("./templates/index.tpl");
 
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
-	Hello, {$Name}!<br>
-	{$FirstName}, {$LastName}<br>
-	{$Address}, {$Zipcode}
+    Hello, {$Name}!<br>
+    {$FirstName}, {$LastName}<br>
+    {$Address}, {$Zipcode}
 {include file="footer.tpl"}
 
 --------- templates/header.tpl --------
@@ -187,6 +194,18 @@ Example:
 
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
+<<<<<<< QUICKSTART
+    {if $Name eq ""}
+        Hello, Noname!<br>
+    {elseif $Name eq "Fred"}
+        Hello, Frederick!<br>
+    {else}
+        Hello, {$Name}<br>
+    {/if}
+    
+    {$FirstName}, {$LastName}<br>
+    {$Address}, {$Zipcode}
+=======
 	{if $Name eq ""}
 		Hello, Noname!<br>
 	{elseif $Name eq "Ned"}
@@ -197,6 +216,7 @@ Example:
 	
 	{$FirstName}, {$LastName}<br>
 	{$Address}, {$Zipcode}
+>>>>>>> 1.2
 {include file="footer.tpl"}
 
 
@@ -219,13 +239,13 @@ $smarty->display("./templates/index.tpl");
 
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
-	{section name=people loop=$FirstName}
-		{%people.rownum%} {$people/FirstName} {$people/LastName}<br>
-	{sectionelse}
-		There are no values to loop through.
-	{/section}
-	<p>
-	There were {%people.loop%} names in this list.
+    {section name=people loop=$FirstName}
+        {%people.rownum%} {$people/FirstName} {$people/LastName}<br>
+    {sectionelse}
+        There are no values to loop through.
+    {/section}
+    <p>
+    There were {%people.loop%} names in this list.
 {include file="footer.tpl"}
 
 
@@ -246,35 +266,35 @@ $smarty = new Smarty;
 $smarty->assign("FirstName",array("Ned","Bart","Montgomery"));
 $smarty->assign("LastName",array("Flanders","Simpson","Burns"));
 $smarty->assign("ContactNames",array(
-							   array("email","home","cell"),
-							   array("email","home"),
-							   array("email","home","fax")
-								));
+                               array("email","home","cell"),
+                               array("email","home"),
+                               array("email","home","fax")
+                                ));
 $smarty->assign("ContactVals",array(
-							  array("fred@simpsons.com","555-666-7777","555-444-3333"),
-							  array("bart@simpsons.com","555-111-2222"),
-							  array("monty@simpsons.com","555-888-9999","555-234-5678"),
-								));
+                              array("fred@simpsons.com","555-666-7777","555-444-3333"),
+                              array("bart@simpsons.com","555-111-2222"),
+                              array("monty@simpsons.com","555-888-9999","555-234-5678"),
+                                ));
 
 $smarty->display("./templates/index.tpl");
 ?>
 
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
-	{section name=people loop=$FirstName}
-		{%people.rownum%} {$people/FirstName} {$people/LastName}<br>
-		{section name=contacts loop=$people/ContactNames}
-			{* for fun, lets bold every other row *}
-			{if %contacts.rownum% is even}<b>{/if}
-				{$people/contacts/ContactNames}: {$people/contacts/ContactVals}<br>
-			{if %contacts.rownum% is even}</b>{/if}
-		{/section}
-		<br>
-	{sectionelse}
-		There are no values to loop through.
-	{/section}
-	<p>
-	There were {%people.loop%} names in this list.
+    {section name=people loop=$FirstName}
+        {%people.rownum%} {$people/FirstName} {$people/LastName}<br>
+        {section name=contacts loop=$people/ContactNames}
+            {* for fun, lets bold every other row *}
+            {if %contacts.rownum% is even}<b>{/if}
+                {$people/contacts/ContactNames}: {$people/contacts/ContactVals}<br>
+            {if %contacts.rownum% is even}</b>{/if}
+        {/section}
+        <br>
+    {sectionelse}
+        There are no values to loop through.
+    {/section}
+    <p>
+    There were {%people.loop%} names in this list.
 {include file="footer.tpl"}
 
 

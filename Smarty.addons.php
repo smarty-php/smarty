@@ -4,7 +4,8 @@
  * Project:		Smarty: the PHP compiled template engine
  * File:		Smarty.addons.php
  * Author:		Monte Ohrt <monte@ispi.net>
- *				Andrei Zmievski <andrei@ispi.net>
+ *			Andrei Zmievski <andrei@ispi.net>
+ * Version:             1.0
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

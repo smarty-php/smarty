@@ -7,6 +7,7 @@
  *
  *				Andrei Zmievski <andrei@ispi.net>
  *				parsing engine rewrite and a lot more
+ * Version:		1.0
  *				
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
