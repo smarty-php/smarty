@@ -66,6 +66,7 @@ Q: Do you have a mailing list?
 A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net. This
    is also archived at http://marc.theaimsgroup.com/ under www/smarty
 
+
 TROUBLESHOOTING
 ---------------
 
@@ -126,5 +127,12 @@ A: This was fixed in 1.3.2 (new global attribute)
 Q: How can I tell what compiled template file corresponds to to which source
    file? (Smarty 1.4.0 and later have encoded compiled filenames)
 A: Compiled template files have headers that tell which source file was used to
-   compile it. cd into the compile_dir and type "head -2 *" to see the first
-   two lines of each compiled file.
+   compile it. Grep for the pathname, or use "head -2 *" to see the first two
+   lines of each compiled file.
+
+Q: My ISP did not setup the PEAR repository, nor will they set it up. How do I
+   make Smarty run without it?
+A: The easiest thing to do is grab all of PEAR and install it locally for your
+   own use. There's nothing that says PEAR must be installed in its default
+   directory. There won't be a version of Smarty that runs without PEAR, as it
+   quite dependant on it, especially with database support.

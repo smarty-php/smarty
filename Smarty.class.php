@@ -78,6 +78,12 @@ class Smarty
     var $cache_dir       =  './cache';  // name of directory for template cache
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
+    var $check_cached_insert_tags    = true; // if you have caching turned on and you
+                                            // don't use {insert} tags anywhere
+                                            // in your templates, set this to false.
+                                            // this will tell Smarty not to look for
+                                            // insert tags and speed up cached page
+                                            // fetches.
 
     var $tpl_file_ext    =  '.tpl';     // template file extention
 
@@ -361,7 +367,9 @@ class Smarty
                 ($this->cache_lifetime == 0 ||
                  (time() - filemtime($cache_file) <= $this->cache_lifetime))) {
                 $results = $this->_read_file($cache_file);
-                $results = $this->_process_cached_inserts($results);
+                if($this->check_cached_insert_tags) {
+                    $results = $this->_process_cached_inserts($results);
+                }
                 if ($display) {
                     echo $results;
                     return;

@@ -1,3 +1,5 @@
+    - added $check_cached_insert_tags to speed up cached pages if
+      {insert ...} is not used (Monte)
     - added $compiler_class variable to allow specifying a different compiler
       class. (Andrei)
     - changed Smarty to compile templates at runtime, allowing for arbitrary
