@@ -843,7 +843,7 @@ function _generate_debug_output() {
 
         array_unshift($this->_config, $this->_config[0]);
  
-        if ($this->_process_template($_smarty_include_tpl_file, $compile_path, $compile_id)) {
+        if ($this->_process_template($_smarty_include_tpl_file, $compile_path, $this->_compile_id)) {
             if ($this->show_info_include) {
                 echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
             }
