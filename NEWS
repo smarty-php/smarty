@@ -1,3 +1,4 @@
+    - fixed small bug in overlib (Monte, Duncan Forrest)
     - fixed a problem with compile_id usage. (Andrei)
     - fixed problem with using assigned vars with {include_php ...} filepath.
       (Monte)

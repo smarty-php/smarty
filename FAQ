@@ -15,11 +15,6 @@ Q: Do you have a mailing list?
 Q: Can you change the mailing list so reply-to sends to the list and not the
    user?
 
-HOWTO
-   
-Q: How do I generate different cache files per template based on arguments
-   passed to the page?
-
 TROUBLESHOOTING
 
 Q: Smarty doesn't work.
@@ -48,6 +43,12 @@ MISC
 Q: Can I use Macromedia's Dreamweaver to edit my templates?
 Q: Dreamweaver is urlencoding the template delimiters when they are in a SRC or
    HREF link. How do I get around this?
+
+HOWTO
+
+Q: How do I generate different cache files per template based on arguments
+   passed to the page?
+Q: How do I include cached template(s) within a non-cached template?
 
 
 GENERAL
@@ -127,13 +128,6 @@ Q: Can you change the mailing list so Reply-To sends to the list and not the
    user?
 A: Yes we could, but no we won't. Use "Reply-All" in your e-mail client to send
    to the list. http://www.unicom.com/pw/reply-to-harmful.html
-
-
-HOWTO
------
-Q: How do I generate different cache files per template based on arguments
-   passed to the page?
-A: Pass $REQUEST_URI as the cache_id when you display() or fetch() a page.
 
 TROUBLESHOOTING
 ---------------
@@ -218,3 +212,58 @@ Q: Dreamweaver is urlencoding the template delimiters when they are in a SRC or
 A: In Edit - Properties - Rewrite HTML you can specify if Dreamweaver should
    change special letters to %-equivalent or not. The default is on which
    produces this error.
+
+HOWTO
+-----
+   
+Q: How do I generate different cache files per template based on arguments
+   passed to the page?
+A: Use your $REQUEST_URI as the cache_id when fetching the page:
+
+   global $REQUEST_URI; // if not already present
+   $smarty->display('index.tpl',$REQUEST_URI);
+
+   This will create a separate cache file for each unique URL when you call
+   index.tpl. See the documentation for display() and fetch()
+
+Q: How do I include cached template(s) within a non-cached template?
+A: One way to do it:
+
+   $smarty->caching = true;
+   $tpl1 = $smarty->fetch("internal1.tpl");
+   $tpl2 = $smarty->fetch("internal2.tpl");
+   $tpl3 = $smarty->fetch("internal3.tpl");
+
+   $smarty->assign("tpl1_contents",$tpl1);
+   $smarty->assign("tpl2_contents",$tpl2);
+   $smarty->assign("tpl3_contents",$tpl3);
+
+   $smarty->caching = false;
+   $smarty->display('index.tpl');
+
+   index.tpl
+   ---------
+
+   <table>
+           <tr>
+                   <td>{$tpl1_contents}</td>
+                   <td>{$tpl2_contents}</td>
+                   <td>{$tpl3_contents}</td>
+           </tr>
+   </table>
+
+
+
+
+   Another approach:
+
+   You could write a custom insert function to fetch your internal
+   templates:
+
+   <table>
+           <tr>
+                   <td>{insert name=fetch_tpl tpl="internal1.tpl"}</td>
+                   <td>{insert name=fetch_tpl tpl="internal2.tpl"}</td>
+                   <td>{insert name=fetch_tpl tpl="internal3.tpl"}</td>
+           </tr>
+   </table>

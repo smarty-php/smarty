@@ -800,7 +800,7 @@ function smarty_func_overlib_init($args, &$smarty_obj) {
 \*======================================================================*/
 function smarty_func_overlib($args, &$smarty_obj) {
     extract($args);
-    if (empty($text)) {
+    if (empty($text) && !isset($inarray) && empty($function)) {
         $smarty_obj->_trigger_error_msg("overlib: attribute 'text' required");
         return false;
     }
@@ -829,8 +829,8 @@ function smarty_func_overlib($args, &$smarty_obj) {
     if (!empty($above)) { echo ",ABOVE"; }
     if (!empty($below)) { echo ",BELOW"; }
     if (!empty($border)) { echo ",BORDER,'$border'"; }
-    if (!empty($offsetx)) { echo ",OFFSETX,'$offsetx'"; }
-    if (!empty($offsety)) { echo ",OFFSETY,'$offsetxy'"; }
+    if (!empty($offsetx)) { echo ",OFFSETX,$offsetx"; }
+    if (!empty($offsety)) { echo ",OFFSETY,$offsety"; }
     if (!empty($fgbackground)) { echo ",FGBACKGROUND,'$fgbackground'"; }
     if (!empty($bgbackground)) { echo ",BGBACKGROUND,'$bgbackground'"; }
     if (!empty($closetext)) { echo ",CLOSETEXT,'".str_replace("'","\'",$closetext)."'"; }
@@ -840,7 +840,7 @@ function smarty_func_overlib($args, &$smarty_obj) {
     if (!empty($autostatuscap)) { echo ",AUTOSTATUSCAP"; }
     if (!empty($inarray)) { echo ",INARRAY,'$inarray'"; }
     if (!empty($caparray)) { echo ",CAPARRAY,'$caparray'"; }
-    if (!empty($capicaon)) { echo ",CAPICON,'$capicon'"; }
+    if (!empty($capicon)) { echo ",CAPICON,'$capicon'"; }
     if (!empty($snapx)) { echo ",SNAPX,'$snapx'"; }
     if (!empty($snapy)) { echo ",SNAPY,'$snapy'"; }
     if (!empty($fixx)) { echo ",FIXX,'$fixx'"; }
