@@ -1,3 +1,10 @@
+2004-05-23  Mehdi Achour  <didou@keliglia.com>
+
+    * docs/fr/bookinfo.xml
+      docs/fr/getting-started.xml
+      docs/fr/preface.xml:
+      WS and added revcheck
+
 2004-05-21  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
