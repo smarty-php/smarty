@@ -247,6 +247,8 @@ class Smarty_Compiler extends Smarty {
             /* match anything resembling php tags */
             if (preg_match_all('!(<\?(?:\w+|=)?|\?>|language\s*=\s*[\"\']?php[\"\']?)!is', $text_blocks[$curr_tb], $sp_match)) {
 				/* replace tags with placeholders to prevent recursive replacements */
+				$sp_match[1] = array_unique($sp_match[1]);
+				usort($sp_match[1], '_smarty_sort_length');
                 for ($curr_sp = 0, $for_max2 = count($sp_match[1]); $curr_sp < $for_max2; $curr_sp++) {
 					$text_blocks[$curr_tb] = str_replace($sp_match[1][$curr_sp],'%%%SMARTYSP'.$curr_sp.'%%%',$text_blocks[$curr_tb]);
 				}
@@ -264,7 +266,7 @@ class Smarty_Compiler extends Smarty {
                     } else {
 						/* SMARTY_PHP_ALLOW, but echo non php starting tags */
 						$sp_match[1][$curr_sp] = preg_replace('%(<\?(?!php|=|$))%i', '<?php echo \'\\1\'?>'."\n", $sp_match[1][$curr_sp]);
-						$text_blocks[$curr_tb] = str_replace('%%%SMARTYSP'.$curr_sp.'%%%',$sp_match[1][$curr_sp],$text_blocks[$curr_tb]);
+						$text_blocks[$curr_tb] = str_replace('%%%SMARTYSP'.$curr_sp.'%%%', $sp_match[1][$curr_sp], $text_blocks[$curr_tb]);
 					}
                 }
             }
@@ -342,7 +344,6 @@ class Smarty_Compiler extends Smarty {
 
         return true;
     }
-
 
 	/**
 	 * Compile a template tag
@@ -1817,6 +1818,25 @@ class Smarty_Compiler extends Smarty {
                       $this->_current_line_no . "]: syntax error: $error_msg$info", $error_type);
     }
 }
+
+/**
+ * compare to values by their string length
+ *
+ * @access private
+ * @param  $a
+ * @param  $b
+ */
+function _smarty_sort_length($a, $b)
+{
+	if($a == $b)
+		return 0;
+
+	if(strlen($a) == strlen($b))
+		return ($a > $b) ? -1 : 1;
+
+	return (strlen($a) > strlen($b)) ? -1 : 1;
+}
+
 
 /* vim: set et: */
 
