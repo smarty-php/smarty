@@ -38,7 +38,7 @@ function smarty_core_load_plugins($params, &$smarty)
                     $_plugin[1] = $_tpl_file;
                     $_plugin[2] = $_tpl_line;
                     $_plugin[3] = true;
-                    $_plugin[4] = true; /* cacheable */
+                    if (!isset($_plugin[4])) $_plugin[4] = true; /* cacheable */
                 }
             }
             continue;

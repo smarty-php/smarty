@@ -1297,7 +1297,6 @@ class Smarty
         }
 
         $_smarty_compile_path = $this->_get_compile_path($resource_name);
-        $this->_cache_include    = substr($_smarty_compile_path, 0, -4).'.inc';		
 
         // if we just need to display the results, don't perform output
         // buffering - for speed
@@ -1494,8 +1493,9 @@ class Smarty
 
 		$_source_content = $_params['source_content'];
 		$_resource_timestamp = $_params['resource_timestamp'];
+        $_cache_include    = substr($compile_path, 0, -4).'.inc';		
 
-        if ($this->_compile_source($resource_name, $_source_content, $_compiled_content)) {
+        if ($this->_compile_source($resource_name, $_source_content, $_compiled_content, $_cache_include)) {
             // if a _cache_serial was set, we also have to write an include-file:
             if ($this->_cache_include_info) {
                 require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_include.php');
@@ -1522,7 +1522,7 @@ class Smarty
      * @param string $compiled_content
      * @return boolean
      */    
-    function _compile_source($resource_name, &$source_content, &$compiled_content)
+    function _compile_source($resource_name, &$source_content, &$compiled_content, $cache_include_path=null)
     {
         if (file_exists(SMARTY_DIR . $this->compiler_file)) {
             require_once(SMARTY_DIR . $this->compiler_file);
@@ -1561,7 +1561,7 @@ class Smarty
         $smarty_compiler->_cache_paths_file	= $this->_cache_paths_file;
 
         $smarty_compiler->_cache_serial = null;
-        $smarty_compiler->_cache_include = $this->_cache_include;
+        $smarty_compiler->_cache_include = $cache_include_path;
 		
 
 		$_results = $smarty_compiler->_compile_file($resource_name, $source_content, $compiled_content);
@@ -1570,7 +1570,7 @@ class Smarty
             $this->_cache_include_info = array(
                 'cache_serial'=>$smarty_compiler->_cache_serial
                 ,'plugins_code'=>$smarty_compiler->_plugins_code
-                ,'include_file_path' => $smarty_compiler->_cache_include);
+                ,'include_file_path' => $cache_include_path);
 
         } else {
             $this->_cache_include_info = null;
