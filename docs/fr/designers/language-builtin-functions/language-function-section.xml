@@ -98,9 +98,9 @@
   <title>section</title>
 <programlisting>
 
-{* Cet exemple va afficher toutes les valeurs du tableau $custid *}
-{section name=client loop=$custid}
-	id: {$custid[client]}&lt;br&gt;
+{* Cet exemple va afficher toutes les valeurs du tableau $idClient *}
+{section name=client loop=$idClient}
+	id: {$idClient[client]}&lt;br&gt;
 {/section}
 
 SORTIE:
@@ -118,7 +118,7 @@ id: 1002&lt;br&gt;</programlisting>
    lorsque vous êtes dans une section. Cet exemple part du principe que
    $idClient, $noms et $adresses sont tous des tableaux qui contiennent
    autant de valeurs les uns que les autres.*}
-{section name=client loop=$custid}
+{section name=client loop=$idClient}
 	id: {$idClient[client]}&lt;br&gt;
 	nom: {$noms[client]}&lt;br&gt;
 	addresse: {$addresses[client]}&lt;br&gt;
@@ -163,7 +163,7 @@ addresse: 5605 apple st&lt;br&gt;
    complexes, comme des tableaux multi-dimentionnels. Dans cet exemple,
    $type_contact[client] est un tableau de type de contact pour le client
    courant. *}
-{section name=client loop=$custid}
+{section name=client loop=$idClient}
 	id: {$idClient[client]}&lt;br&gt;
 	nom: {$nom[client]}&lt;br&gt;
 	addresse: {$addresse[client]}&lt;br&gt;
@@ -290,7 +290,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
   <example>
    <title>propriété de section index_prev</title>
 <programlisting>
-	{section name=client loop=$custid}
+	{section name=client loop=$idClient}
 	{$smarty.section.client.index} id: {$idClient[client]}&lt;br&gt;
 	{* Pour votre information, $idClient[client.index] and $idClient[client] sont identiques *}
 	{if $idClient[client.index_prev] ne $idClient[client.index]}
