@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.math">
- <title>Mathématiques</title>
+ <title>Opérations mathématiques</title>
  <para>
-  Les mathématiques peuvent être directement appliquées aux
-  valeurs de variables.
+  Les opérations mathématiques peuvent être directement appliquées aux
+  variables.
  </para>
  <example>
-  <title>Exemples de mathématiques</title>
+  <title>Exemples d'opérations mathématiques</title>
   <programlisting>
 <![CDATA[
 {$foo+1}
