@@ -82,6 +82,9 @@ function smarty_function_html_checkboxes($params, &$smarty)
                 $options = (array)$_val;
                 break;
 
+            case 'assign':
+                break;
+
             default:
                 if(!is_array($_val)) {
                     $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
