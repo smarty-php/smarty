@@ -17,17 +17,6 @@
  */    
 function smarty_core_assemble_auto_filename($params, &$smarty)
 {	
-    static $_dir_sep = null;
-    static $_dir_sep_enc = null;
-
-    if(!isset($_dir_sep)) {
-        $_dir_sep_enc = urlencode(DIRECTORY_SEPARATOR);
-        if($smarty->use_sub_dirs) {
-            $_dir_sep = DIRECTORY_SEPARATOR;
-        } else {
-            $_dir_sep = '^';
-        }
-    }
 
     if(@is_dir($params['auto_base'])) {
         $_return = $params['auto_base'] . DIRECTORY_SEPARATOR;
@@ -43,22 +32,18 @@ function smarty_core_assemble_auto_filename($params, &$smarty)
         // make auto_id safe for directory names
         $params['auto_id'] = str_replace('%7C','|',(urlencode($params['auto_id'])));
         // split into separate directories
-        $params['auto_id'] = str_replace('|', $_dir_sep, $params['auto_id']);
-        $_return .= $params['auto_id'] . $_dir_sep;
+        $params['auto_id'] = str_replace('|', SMARTY_COMPILE_DIR_SEP, $params['auto_id']);
+        $_return .= $params['auto_id'] . SMARTY_COMPILE_DIR_SEP;
     }
 
     if(isset($params['auto_source'])) {
         // make source name safe for filename
-        if($smarty->use_sub_dirs) {
-            $_filename = urlencode(basename($params['auto_source']));
-            $_crc32 = crc32($params['auto_source']) . $_dir_sep;
-            // prepend %% to avoid name conflicts with
-            // with $params['auto_id'] names
-            $_crc32 = '%%' . substr($_crc32,0,3) . $_dir_sep . '%%' . $_crc32;
-            $_return .= $_crc32 . $_filename;
-        } else {
-            $_return .= str_replace($_dir_sep_enc,'^',urlencode($params['auto_source']));
-        }
+        $_filename = urlencode(basename($params['auto_source']));
+        $_crc32 = crc32($params['auto_source']) . SMARTY_COMPILE_DIR_SEP;
+        // prepend %% to avoid name conflicts with
+        // with $params['auto_id'] names
+        $_crc32 = '%%' . substr($_crc32,0,3) . SMARTY_COMPILE_DIR_SEP . '%%' . $_crc32;
+        $_return .= $_crc32 . $_filename;
     }
 	
     return $_return;

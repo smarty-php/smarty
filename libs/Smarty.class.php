@@ -1165,13 +1165,21 @@ class Smarty
     {
         static $_cache_info = array();
 
-		$this->_cache_paths_file = $this->compile_dir
+		define('SMARTY_COMPILE_DIR_SEP', $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^');
+		
+		$this->_cache_paths_file =
+				$this->compile_dir
 				. DIRECTORY_SEPARATOR
 				. '_smarty_cached_paths'
-				. DIRECTORY_SEPARATOR
+				. SMARTY_COMPILE_DIR_SEP
 				. urlencode($resource_name)
 				. '.php';
-		
+
+		if(!$this->force_compile
+			&& file_exists($this->_cache_paths_file)) {
+			include_once($this->_cache_paths_file);
+		}		
+				
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
 
         if($this->security && !in_array($this->template_dir, $this->secure_dir)) {
@@ -1414,11 +1422,6 @@ class Smarty
 		$_cache_paths_key = $type . '/' . $name;
 		if (isset($this->_cache_paths['plugins'][$_cache_paths_key])) {
 			return $this->_cache_paths['plugins'][$_cache_paths_key];
-		}
-		if (!$this->force_compile
-			&& !isset($this->_cache_paths)
-			&& file_exists($this->_cache_paths_file)) {
-			include_once($this->_cache_paths_file);
 		}
 		
 		$_params = array('type' => $type, 'name' => $name);
@@ -1684,11 +1687,6 @@ class Smarty
 		$_cache_paths_key = $auto_base . '/' . $auto_source . '/' . $auto_id;
 		if (isset($this->_cache_paths['auto_file'][$_cache_paths_key])) {
 			return $this->_cache_paths['auto_file'][$_cache_paths_key];
-		}
-		if(!$this->force_compile
-			&& !isset($this->_cache_paths)
-			&& file_exists($this->_cache_paths_file)) {
-			include_once($this->_cache_paths_file);
 		}
 
 		$_params = array('auto_base' => $auto_base, 'auto_source' => $auto_source, 'auto_id' => $auto_id);
