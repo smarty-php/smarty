@@ -1,3 +1,12 @@
+2003-03-24  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      made clear_cache() ignore compile_id when clearing cache_groups
+
+    * libs/plugins/function.popup.php:
+      made onmouseout XHTML-compatible in function.popup.php
+
 2003-03-21  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
