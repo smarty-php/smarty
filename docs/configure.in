@@ -306,7 +306,7 @@ if test $PHP != "no"
 then
 
  dnl create entity mapping file 
- $PHP -c $INIPATH -q ./scripts/file-entities.php
+ $PHP -q ./scripts/file-entities.php
 
 else
 
