@@ -56,12 +56,12 @@ class Smarty_Compiler extends Smarty {
     {
         
         // run template source through functions registered in prefilter_funcs
-        if(is_array($this->prefilter_funcs) && count($this->prefilter_funcs) > 0) {
-            foreach($this->prefilter_funcs as $curr_func) {
-                if(function_exists($curr_func)) {
-                    $template_source = $curr_func($template_source);
+        if (is_array($this->prefilter_funcs) && count($this->prefilter_funcs) > 0) {
+            foreach($this->prefilter_funcs as $prefilter) {
+                if (function_exists($prefilter)) {
+                    $template_source = $prefilter($template_source);
                 } else {
-                    $this->_trigger_error_msg("prefilter function $curr_func does not exist.");
+                    $this->_trigger_error_msg("prefilter function $prefilter does not exist.");
                 }
             }
         }
@@ -88,8 +88,6 @@ class Smarty_Compiler extends Smarty {
         $template_tags = $match[1];
         /* Split content by template tags to obtain non-template content. */
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_source);
-
-        /* TODO: speed up the following with preg_replace and /F once we require that version of PHP */
 
         /* loop through text blocks */
         for ($curr_tb = 0; $curr_tb < count($text_blocks); $curr_tb++) {

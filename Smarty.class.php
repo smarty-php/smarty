@@ -60,8 +60,7 @@ class Smarty
     var $compile_dir     =  './templates_c';   // name of directory for compiled templates 
     var $config_dir      =  './configs';       // directory where config files are located
 
-    var $global_assign   =  array(  'HTTP_SERVER_VARS' =>
-                                    array( 'SCRIPT_NAME' )
+    var $global_assign   =  array( 'HTTP_SERVER_VARS' => array( 'SCRIPT_NAME' )
                                  );     // variables from the GLOBALS array
                                         // that are implicitly assigned
                                         // to all templates
@@ -136,7 +135,7 @@ class Smarty
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
                                                       // Smarty to compile templates
     var $resource_funcs        =  array();  // what functions resource handlers are mapped to
-    var $prefilter_funcs          =  array();  // what functions templates are prefiltered through
+    var $prefilter_funcs       =  array();  // what functions templates are prefiltered through
                                             // before being compiled
 
 /**************************************************************************/
@@ -149,6 +148,7 @@ class Smarty
     var $_tpl_vars              =   array();    // where assigned template vars are kept
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
     
+
 /*======================================================================*\
     Function: Smarty
     Purpose:  Constructor
@@ -411,26 +411,27 @@ class Smarty
     Function:   clear_compile_dir()
 	Purpose:    clears compiled version of specified template resource,
 				or all compiled template files if one is not specified.
-				This function is for advanced use only, not normally needed.
+                This function is for advanced use only, not normally needed.
 \*======================================================================*/
-    function clear_compile_dir($tpl_file=null)
+    function clear_compile_dir($tpl_file = null)
     {
         if (!is_dir($this->compile_dir))
             return false;
 
-		if($tpl_file) {
+		if (isset($tpl_file)) {
 			// remove compiled template file if it exists
 			$tpl_file = urlencode($tpl_file).'.php';
-			if(file_exists($this->compile_dir.'/'.$tpl_file)) {
-					unlink($this->compile_dir.'/'.$tpl_file);
+            if (file_exists($this->compile_dir.'/'.$tpl_file)) {
+                unlink($this->compile_dir.'/'.$tpl_file);
 			}
 		} else {
 			// remove everything in $compile_dir
         	$dir_handle = opendir($this->compile_dir);
         	while ($curr_file = readdir($dir_handle)) {
             	if ($curr_file == '.' || $curr_dir == '..' ||
-                	!is_file($this->compile_dir.'/'.$curr_file))
-					{ continue; }
+                	!is_file($this->compile_dir.'/'.$curr_file)) {
+                        continue;
+                    }
             	unlink($this->compile_dir.'/'.$curr_file);
 			}
         	closedir($dir_handle);
@@ -609,7 +610,6 @@ class Smarty
 \*======================================================================*/
     function _fetch_template_source($tpl_path, &$template_source, &$template_timestamp)
     {
-        
         // split tpl_path by the first colon
         $tpl_path_parts = explode(':', $tpl_path, 2);
         
@@ -637,16 +637,17 @@ class Smarty
                     return false;
                 }
                 break;
+
             default:
-                if(isset($this->resource_funcs[$resource_type])) {
+                if (isset($this->resource_funcs[$resource_type])) {
                     $funcname = $this->resource_funcs[$resource_type];
-                    if(function_exists($funcname)) {
+                    if (function_exists($funcname)) {
                         // call the function to fetch the template
-                        $funcname($resource_name,$template_source,$template_timestamp);
+                        $funcname($resource_name, $template_source, $template_timestamp);
                         return true;
                     } else {
-                        $this->_trigger_error_msg("function: \"$funcname\" does not exist for resource type: \"$resource_type\".");
-                        return false;                        
+                        $this->_trigger_error_msg("function: resource function \"$funcname\" does not exist for resource type: \"$resource_type\".");
+                        return false;
                     }
                 } else {
                     $this->_trigger_error_msg("unknown resource type: \"$resource_type\". Register this resource first.");
