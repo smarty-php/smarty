@@ -1,3 +1,44 @@
+2005-01-21  Monte Ohrt  <monte@ohrt.com>
+
+    * README
+      RELEASE_NOTES
+      docs/de/bookinfo.xml
+      docs/fr/bookinfo.xml
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/plugins/function.cycle.php
+      libs/plugins/function.debug.php
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_image.php
+      libs/plugins/function.html_radios.php
+      libs/plugins/function.html_table.php
+      libs/plugins/function.mailto.php
+      libs/plugins/modifier.cat.php
+      libs/plugins/modifier.nl2br.php
+      libs/plugins/modifier.strip.php
+      libs/plugins/outputfilter.trimwhitespace.php:
+      de-spammify e-mails
+
+    * README
+      RELEASE_NOTES
+      docs/de/bookinfo.xml
+      docs/fr/bookinfo.xml
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/plugins/function.cycle.php
+      libs/plugins/function.debug.php
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_image.php
+      libs/plugins/function.html_radios.php
+      libs/plugins/function.html_table.php
+      libs/plugins/function.mailto.php
+      libs/plugins/modifier.cat.php
+      libs/plugins/modifier.nl2br.php
+      libs/plugins/modifier.strip.php
+      libs/plugins/outputfilter.trimwhitespace.php:
+      update copyright notices, e-mail addresses
+
 2005-01-06  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
