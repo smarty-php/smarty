@@ -2277,7 +2277,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 				<para>
 				If the step and start section properties are not
 				modified, then this works the same as the iteration section
-				property.
+				property, except it starts on 0 instead of 1.
 				</para>
 			</note>
 	<example>
@@ -2362,7 +2362,9 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			</para>
 			<para>
 			NOTE: This is not affected by the section properties start, step and
-			max, unlike the index property.
+			max, unlike the index property. Iteration also starts with 1
+			instead of 0 like index. rownum is an alias to iteration, they work
+			identical.
 			</para>
 	<example>
 	<title>section property iteration</title>
@@ -2461,7 +2463,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			<title>rownum</title>
 			<para>
 			rownum is used to display the current loop iteration,
-			starting with one.
+			starting with one. It is an alias to iteration, they work
+			identically.
 			</para>
 	<example>
 	<title>section property rownum</title>
