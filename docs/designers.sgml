@@ -2787,6 +2787,7 @@ OUTPUT:
 			</note>
 			<note>
 			<title>Technical Note</title>
+			<para>
 			Evaluated variables are compiled on every invocation, the compiled
 			versions are not saved! However if you have caching enabled, the
 			output will be cached with the rest of the template.
