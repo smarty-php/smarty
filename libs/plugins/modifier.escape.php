@@ -28,7 +28,7 @@ function smarty_modifier_escape($string, $esc_type = 'html')
             return htmlentities($string, ENT_QUOTES);
 
         case 'url':
-            return urlencode($string);
+            return rawurlencode($string);
 
         case 'quotes':
             // escape unescaped single quotes
