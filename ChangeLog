@@ -1,3 +1,9 @@
+2002-04-24  Monte Ohrt  <monte@ispi.net>
+
+    * docs/programmers.sgml
+      templates/debug.tpl
+      Smarty.class.php: changed doc structure a bit
+
 2002-04-16  Andrei Zmievski  <andrei@php.net>
 
     * Smarty.class.php: Add register/unregister API for output filters.
