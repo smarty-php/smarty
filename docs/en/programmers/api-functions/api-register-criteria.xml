@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+<refentry id="api.register.object">
+ <refnamediv>
+  <refname>register_object</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>register_criteria</methodname>
+   <methodparam><type>string</type><parameter>func_name</parameter></methodparam>
+  </methodsynopsis>
+  <methodsynopsis>
+   <type>void</type><methodname>register_criteria</methodname>
+   <methodparam><type>string</type><parameter>func_name</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>form</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+    Registers a function to use with "isCustom" criteria type. All functions
+    must be registered before they can be used. You can optinally pass a form
+    name in the case you are validating more than one form at a time. Static
+    method calls are also supported such as foo::bar. You can also register a
+    method of an object instance such as foo-&gt;bar, but you must first register
+    the object with SmartyValidate. See the <link linkend="api.register.object">register_object()</link> method.
+  </para>
+&parameter.form;
+<note>
+ <title>Technical Note</title>
+ <para>
+    The register_function() method has been deprecated, use register_criteria() instead.
+ </para>
+</note>
+  <example>
+   <title>register_criteria</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+SmartyValidate::register_criteria('test_password');
+SmartyValidate::register_criteria('test_password','myform');
+SmartyValidate::register_criteria('myobj::test_password');
+SmartyValidate::register_criteria('myobj->test_password');
+?>
+]]>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<refentry id="api.register.object">
+<refentry id="api.register.form">
  <refnamediv>
-  <refname>register_object</refname>
+  <refname>register_form</refname>
   <refpurpose></refpurpose>
  </refnamediv>
  <refsect1>
   <title />
   <methodsynopsis>
-   <type>void</type><methodname>register_object</methodname>
-   <methodparam><type>string</type><parameter>obj_name</parameter></methodparam>
-   <methodparam><type>object</type><parameter>object</parameter></methodparam>
+   <type>void</type><methodname>register_form</methodname>
+   <methodparam><type>string</type><parameter>form</parameter></methodparam>
   </methodsynopsis>
   <para>
-    Register an object with SmartyValidate for use in isCustom criteria.
-    Typically do this right after issuing <link linkend="api.connect">connect()</link>.
-    See the <link linkend="api.register.criteria">register_criteria()</link>
-    method for more details.
+    Register a form to be validated. Each form must be registered before it can
+    be validated. You do not have to register the 'default' form, that is done
+    automatically by SmartyValidate. If you register a form that is already
+    registered, it will be "reset", meaning you will lose previously stored data!
   </para>
   <example>
-   <title>register_object</title>
+   <title>register_form</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-SmartyValidate::register_object('myobj',$myobj);
+SmartyValidate::register_form('myform');
 ?>
 ]]>
    </programlisting>

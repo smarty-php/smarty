@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<refentry id="api.register.object">
+<refentry id="api.is.registered.criteria">
  <refnamediv>
-  <refname>register_object</refname>
+  <refname>is_registered_criteria</refname>
   <refpurpose></refpurpose>
- </refnamediv>
+ </refnamediv> 
  <refsect1>
   <title />
   <methodsynopsis>
-   <type>void</type><methodname>register_object</methodname>
-   <methodparam><type>string</type><parameter>obj_name</parameter></methodparam>
-   <methodparam><type>object</type><parameter>object</parameter></methodparam>
+   <type>bool</type><methodname>is_registered_criteria</methodname>
+   <methodparam><type>string</type><parameter>func_name</parameter></methodparam>
+  </methodsynopsis>
+  <methodsynopsis>
+   <type>bool</type><methodname>is_registered_criteria</methodname>
+   <methodparam><type>string</type><parameter>func_name</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>form</parameter></methodparam>
   </methodsynopsis>
   <para>
-    Register an object with SmartyValidate for use in isCustom criteria.
-    Typically do this right after issuing <link linkend="api.connect">connect()</link>.
-    See the <link linkend="api.register.criteria">register_criteria()</link>
-    method for more details.
+    Tests to see if a criteria function has been registered.
   </para>
+&parameter.form;
   <example>
-   <title>register_object</title>
+   <title>is_registered_criteria</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-SmartyValidate::register_object('myobj',$myobj);
+if(SmartyValidate::is_registered_criteria('test_password')) { ... }
 ?>
 ]]>
    </programlisting>
