@@ -4,7 +4,7 @@
  <title>Postfilters</title>
  <para>
   Template postfilters are PHP functions that your templates are ran through
-  after they are compiled. Postfilters can be either 
+  after they are compiled. Postfilters can be either
   <link linkend="api.register.postfilter">registered</link> or loaded
   from the plugins directory by using
   <link linkend="api.load.filter">load_filter()</link> function or by
@@ -22,7 +22,7 @@
 // put this in your application
 function add_header_comment($tpl_source, &$smarty)
 {
-    return "<?php echo \"<!-- Created by Smarty! -->;\n\" ?>;\n".$tpl_source;
+    return "<?php echo \"<!-- Created by Smarty! -->\n\"; ?>\n".$tpl_source;
 }
 
 // register the postfilter
