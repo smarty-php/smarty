@@ -1,3 +1,8 @@
+2002-05-09  Andrei Zmievski  <andrei@ispi.net>
+
+    * NEWS
+      TODO: *** empty log message ***
+
 2002-05-07  Monte Ohrt  <monte@ispi.net>
 
     * plugins/function.cycle.php: remove \n from cycle function
