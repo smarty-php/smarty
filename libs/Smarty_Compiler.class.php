@@ -35,7 +35,7 @@
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
  * @version 2.5.0
- * @copyright 2001,2002 ispi of Lincoln, Inc.
+ * @copyright 2001-2003 ispi of Lincoln, Inc.
  * @package Smarty
  */
 

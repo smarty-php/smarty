@@ -35,7 +35,7 @@
  * http://smarty.php.net/
  *
  * @link http://smarty.php.net/
- * @copyright 2001,2002 ispi of Lincoln, Inc.
+ * @copyright 2001-2003 ispi of Lincoln, Inc.
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty

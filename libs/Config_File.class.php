@@ -31,7 +31,7 @@
  *
  * @link http://smarty.php.net/
  * @version 2.5.0
- * @copyright Copyright: 2001,2002 ispi of Lincoln, Inc.
+ * @copyright Copyright: 2001-2003 ispi of Lincoln, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty
