@@ -230,7 +230,7 @@ class SmartyTest extends PHPUnit_TestCase {
     
     /* CONFIG FILE TESTS */
 
-    // test assigning a quoted global variable
+    // test assigning a double quoted global variable
     function test_config_load_globals_double_quotes() {
         // load the global var
         $this->smarty->config_load('globals_double_quotes.conf');
@@ -238,7 +238,7 @@ class SmartyTest extends PHPUnit_TestCase {
         $this->assertEquals($this->smarty->_config[0]['vars']['foo'], 'bar');
     }
 
-    // test assigning a quoted global
+    // test assigning a single quoted global variable
     function test_config_load_globals_single_quotes() {
         // load the global var
         $this->smarty->config_load('globals_single_quotes.conf');
