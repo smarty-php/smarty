@@ -1674,7 +1674,11 @@ class Smarty_Compiler extends Smarty {
                     if (is_numeric($_index)) {
                         $_output .= "[$_index]";
                     } elseif ($_index{0} == '$') {
-                        $_output .= "[\$this->_tpl_vars['" . substr($_index, 1) . "']]";
+                        if (strpos($_index, '.') !== false) {
+                            $_output .= '[' . $this->_parse_var($_index) . ']';
+                        } else {
+                            $_output .= "[\$this->_tpl_vars['" . substr($_index, 1) . "']]";
+                        }
                     } else {
                         $_var_parts = explode('.', $_index);
                         $_var_section = $_var_parts[0];
