@@ -1,3 +1,22 @@
+2002-04-11  Andrei Zmievski  <andrei@php.net>
+
+    * BUGS
+      FAQ
+      INSTALL
+      NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs/getting-started.sgml:
+    Fixed directory separtor issue. Requiring PHP 4.0.6 now.
+
+    * NEWS
+      Smarty_Compiler.class.php:
+    Added ability to use simple variables for array indices or object properties.
+
+    * TESTIMONIALS: Another one.
+
+    * TESTIMONIALS: Adding one from Mark P.
+
 2002-04-05  Andrei Zmievski  <andrei@php.net>
 
     * Smarty_Compiler.class.php
