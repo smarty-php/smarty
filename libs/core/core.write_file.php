@@ -33,6 +33,9 @@ function smarty_core_write_file($params, &$smarty)
     }
 
     fwrite($fd, $params['contents']);
+    if (isset($params['timestamp'])) {
+       touch($_tmp_file, $params['timestamp']);
+    }
     fclose($fd);
     if(file_exists($params['filename'])) {
         @unlink($params['filename']);
