@@ -1,3 +1,10 @@
+2002-07-08  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml: minor doc update
+
+    * Smarty.class.php:
+    cast var as an array, simplify and get rid of PHP warning messages
+
 2002-07-03  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php: one more N
