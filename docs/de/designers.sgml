@@ -3245,7 +3245,7 @@ Bitte geben Sie einen &lt;b&gt;Provinznamen&lt;/b&gt; ein.
 </example>
 		</sect1>
                 <sect1 id="language.function.html.checkboxes">
-                        <title>html_checkboxes</title>
+                        <title>html_checkboxes (Ausgabe von HTML-CHECKBOX Tag)</title>
             <informaltable frame=all>
                 <tgroup cols=5>
                 <colspec colname=param align=center>
@@ -3294,7 +3294,7 @@ Bitte geben Sie einen &lt;b&gt;Provinznamen&lt;/b&gt; ein.
                     <row>
                         <entry>options</entry>
                         <entry>assoziatives array</entry>
-                        <entry>Ja, ausser Werte/Ausgabe wird verwendet</entry>
+                        <entry>Ja, ausser values/output wird verwendet</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>ein assoziatives Array mit Werten und Ausgaben</entry>
                     </row>
@@ -3367,7 +3367,7 @@ AUSGABE: (beider Beispiele)
 </example>
                 </sect1>
                 <sect1 id="language.function.html.image">
-                        <title>html_image</title>
+                        <title>html_image (Ausgabe von HTML-IMG Tag)</title>
             <informaltable frame=all>
                 <tgroup cols=5>
                 <colspec colname=param align=center>
@@ -3417,8 +3417,8 @@ AUSGABE: (beider Beispiele)
                         <entry>basedir</entry>
                         <entry>string</entry>
                         <entry>no</entry>
-                        <entry><emphasis>web server doc root</emphasis></entry>
-                        <entry>directory to base relative paths from</entry>
+                        <entry><emphasis>DOCUMENTROOT</emphasis></entry>
+                        <entry>Basisverzeichnis f&uuml;r relative Pfadangaben</entry>
                     </row>
                     <row>
                         <entry>alt</entry>
@@ -3432,7 +3432,7 @@ AUSGABE: (beider Beispiele)
                         <entry>string</entry>
                         <entry>no</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>href Wert des Tags</entry>
+                        <entry>Link f&uuml;r das Bild</entry>
                     </row>
                 </tbody>
                 </tgroup>
@@ -3572,7 +3572,7 @@ AUSGABE:
 </example>
 		</sect1>
 		<sect1 id="language.function.html.radios">
-			<title>html_radios (Ausgabe von HTML-Radio Tags)</title>
+			<title>html_radios (Ausgabe von HTML-RADIO Tags)</title>
             <informaltable frame=all>
                 <tgroup cols=5>
                 <colspec colname=param align=center>
@@ -4260,7 +4260,7 @@ AUSGABE:
 </example>
 		</sect1>
                 <sect1 id="language.function.html.table">
-                        <title>html_table</title>
+                        <title>html_table (Ausgabe von HTML-TABLE Tag)</title>
             <informaltable frame=all>
                 <tgroup cols=5>
                 <colspec colname=param align=center>
@@ -4290,7 +4290,7 @@ AUSGABE:
                         <entry>integer</entry>
                         <entry>Nein</entry>
                         <entry><emphasis>3</emphasis></entry>
-                        <entry>Anzahl Reihen in einer Tabelle</entry>
+                        <entry>Anzahl Spalten in einer Tabelle</entry>
                     </row>
                     <row>
                         <entry>table_attr</entry>
@@ -4333,7 +4333,7 @@ AUSGABE:
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>down</emphasis></entry>
-                        <entry>Richtung in der die Reihen gerendered werden. M&ouml;gliche Werte: <emphasis>up</emphasis>/<emphasis>down</emphasis></entry>
+                        <entry>Richtung in der die Spalten gerendered werden. M&ouml;gliche Werte: <emphasis>up</emphasis>/<emphasis>down</emphasis></entry>
                     </row>
                 </tbody>
                 </tgroup>
@@ -4341,7 +4341,7 @@ AUSGABE:
                         <para>
                         <emphasis>html_table</emphasis> ist eine eigene Funktion die einen Array als
 			Tabelle ausgibt. Das <emphasis>cols</emphasis> Attribut definiert die Menge
-			von Reihen die ausgegeben werden sollen. <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis>
+			von Spalten die ausgegeben werden sollen. <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis>
 			und <emphasis>td_attr</emphasis> definieren die Attribute f&uuml;r die HTML Tags. Wenn <emphasis>tr_attr</emphasis>
 			oder <emphasis>td_attr</emphasis> Arrays sind, werden diese durchlaufen. <emphasis>trailpad</emphasis>
 			wird in leere Zellen eingef&uuml;gt.

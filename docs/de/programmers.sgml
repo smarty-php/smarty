@@ -1751,16 +1751,16 @@ Um sicherzustellen dass ein Teil eines Templates nicht gecached werden soll, kan
    <sect1 id="advanced.features.objects">
     <title>Objekte</title>
     <para>
-     Smarty erlaubt es, auf PHP Objekt durch das Template zuzugreiffen. Daf&uuml;r gitbt es
-     zwei Wege. Der erste ist, Objekte zu registrieren und wie auf eigene Funktionen zuzugreiffen.
+     Smarty erlaubt es, auf PHP Objekt durch das Template zuzugreifen. Daf&uuml;r gibt es
+     zwei Wege. Der erste ist, Objekte zu registrieren und wie auf eine eigene Funktion zuzugreifen.
      Der andere Weg ist, das Objekt dem Template zuzuweisen und darauf wie auf andere Variablen
-     zuzugreiffen. Die erste Methode hat eine nettere Template Syntax und ist sicherer da der Zugriff
+     zuzugreifen. Die erste Methode hat eine nettere Template Syntax und ist sicherer da der Zugriff
      auf ein registriertes Objekt mit Sicherheitseinstellungen kontrolliert werden kann. Der Nachteil
-     ist, dass registrierte Objekte nicht in Loops verwendet werden können. Welchen Weg Sie einschlagen
+     ist, dass registrierte Objekte nicht in Loops verwendet werden k&ouml;nnen. Welchen Weg Sie einschlagen
      wird von Ihren Bed&uuml;rfnissen definiert, die erste Methode ist jedoch zu bevorzugen.
     </para>
     <para>
-    Wenn Sicherheit eingeschaltet ist, k&ouml;nnen keine private Methoden (solche die einen '_'-Prefix tragen)
+    Wenn die Sicherheitsfunktionen eingeschaltet sind, k&ouml;nnen keine private Methoden (solche die einen '_'-Prefix tragen)
     aufgerufen werden. Wenn eine Methode und eine Eigeschaft mit dem gleichen Namen existieren wird die Methode
     verwendet.
     </para>
@@ -1776,21 +1776,21 @@ Um sicherzustellen dass ein Teil eines Templates nicht gecached werden soll, kan
     Parameter auf FALSE setzen.
     </para>
     <para>
-    Der optional f&uuml;nfte Parameter hat nur einen Effekt wenn 
-    <parameter>format</parameter> <literal>true</literal> ist und eine Liste von
+    Der optionale f&uuml;nfte Parameter hat nur einen Effekt wenn 
+    <parameter>format</parameter> = <literal>true</literal> ist und eine Liste von
     Methoden enth&auml;lt die als Block verarbeitet werden sollen.
-    Das bedeutet dass solche Methoden ein schliessendes Tag im Template
+    Das bedeutet, dass solche Methoden ein schliessendes Tag im Template
     enthalten m&uuml;ssen (<literal>{foobar->meth2}...{/foobar->meth2}</literal>)
     und die Parameter zu den Funktionen die selbe Syntax haben wie block-function-plugins:
-    sie erhalten 4 Parameter
+    sie erhalten also die 4 Parameter
     <parameter>$params</parameter>,
     <parameter>$content</parameter>,
     <parameter>&$smarty</parameter> und
-    <parameter>&$repeat</parameter>
-    und sich auch wie block-function-plugins verhalten.
+    <parameter>&$repeat</parameter>,
+    und verhalten sich auch sonst wie block-function-plugins.
     </para>
     <example>
-     <title>ein registiertes oder zugewiesenes Objekt verwenden</title>
+     <title>registierte oder zugewiesene Objekte verwenden</title>
      <programlisting>
 &lt;?php
 // das objekt
@@ -2643,7 +2643,7 @@ ausgabe war: {$output}
     kontrolliert wie oft ein Block dargestellt werden soll. Standardwert von <parameter>$repeat</parameter>
     ist beim ersten Aufruf (f&uuml;r das &ouml;ffnende Tag) <literal>true</literal>, danach immer
     <literal>false</literal>.
-    Jedes Mal wenn eine Funktion f&uuml;r <parameter>&amp;$repeat</parameter> TRUE zur&uum;ck gibt,
+    Jedes Mal wenn eine Funktion f&uuml;r <parameter>&amp;$repeat</parameter> TRUE zur&uuml;ck gibt,
     wird der Inhalt zwischen {func} .. {/func} erneut mit dem ver&auml;nderten
     Inhalt als <parameter>$content</parameter> Parameter aufgerufen.
    </para>

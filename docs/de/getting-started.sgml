@@ -112,7 +112,6 @@ Config_File.class.php
 debug.tpl
 /core/*.php (alle)
 /plugins/*.php (alle)</screen>
-</screen>
 	</example>
 
 	<para>
