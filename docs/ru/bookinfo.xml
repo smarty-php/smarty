@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <bookinfo id="bookinfo">
   <title>Smarty - компилирующий обработчик шаблонов</title>
   <authorgroup id="authors">
@@ -14,6 +14,9 @@
   <authorgroup id="translators">
    <author>
     <firstname>Sergei</firstname><surname>Suslenkov &lt;student@bsuir-fcd.org&gt;</surname>
+   </author>
+   <author>
+    <firstname>George</firstname><surname>Miroshnikov &lt;freespace@php.net&gt;</surname>
    </author>
   </authorgroup>
   <pubdate>&build-date;</pubdate>
