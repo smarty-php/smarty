@@ -1,3 +1,7 @@
+2002-07-19  mohrt  <mohrt@pb1.pair.com>
+
+    * docs/getting-started.sgml: fix error in install guide
+
 2002-07-18  mohrt  <mohrt@pb1.pair.com>
 
     * Smarty_Compiler.class.php:
