@@ -1,7 +1,7 @@
 Version 2.0
 -----------
-    - removed $tpl_file_ext variable, no longer used (Monte)
-    - added "hex" and "hexentity" attributes to escape modifier (Monte)
+    - removed $tpl_file_ext class variable, no longer used. (Monte)
+    - added "hex" and "hexentity" escape types to escape modifier. (Monte)
     - removed dependency on PEAR. (Andrei)
     - update popup_init to accept src attribute. (Monte, Duncan Forrest)
     - implemented several optimizations, speeding up Smarty significantly in

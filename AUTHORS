@@ -1,10 +1,11 @@
 Monte Ohrt <monte@ispi.net>
-	- idea of compiling into PHP scripts
-	- initial implementation
-	- documentation
+    - idea of compiling into PHP scripts
+    - initial implementation
+    - documentation
 
 Andrei Zmievski <andrei@php.net>
-	- rewrote parser from scratch
-	- maintains code base
-	- plugin architecture
-	- wrote Config_File class
+    - rewrote parser from scratch
+    - maintains code base
+    - plugin architecture
+    - wrote Config_File class
+    - documentation

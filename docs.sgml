@@ -1,5 +1,5 @@
 <!dOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
-<book>
+<book id="index">
 <bookinfo>
 	<title>Smarty - the compiling PHP template engine</title>
 	<author>
@@ -14,7 +14,7 @@
 			<address><email>andrei@php.net</email></address>
 		</affiliation>
 	</author>
-	<edition>Version 2.0</edition>
+	<edition>Version 1.5.2</edition>
 	<copyright><year>2001</year><holder>ispi of Lincoln, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -233,7 +233,6 @@
 		<example>
 			<title>Example of installing Smarty</title>
 <programlisting>
-
 # be sure you are in the web server document tree
 # this assumes your web server runs as user "nobody"
 # and you are in a un*x environment
@@ -244,8 +243,7 @@ chmod 700 templates_c
 # if you are using caching, do the following
 mkdir cache
 chown nobody:nobody cache
-chmod 700 cache
-</programlisting>
+chmod 700 cache</programlisting>
 		</example>
 		<para>
 		Next, try running the index.php script from your web browser.
@@ -272,13 +270,10 @@ chmod 700 cache
 <example>
 <title>SMARTY_DIR</title>
 <programlisting>
-
 // set path to Smarty directory
 define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
 
-require_once(SMARTY_DIR."Smarty.class.php");
-
-</programlisting>
+require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
 </example>
 		</sect2>		
 	</sect1>
@@ -731,15 +726,12 @@ require_once(SMARTY_DIR."Smarty.class.php");
 <example>
 <title>assign</title>
 <programlisting>
-
 // passing name/value pairs
 $smarty->assign("Name","Fred");
 $smarty->assign("Address",$address);
 
 // passing an associative array
-$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));
-
-</programlisting>
+$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.assign.debug.info">
@@ -773,15 +765,12 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));
 <example>
 <title>append</title>
 <programlisting>
-
 // passing name/value pairs
 $smarty->append("Name","Fred");
 $smarty->append("Address",$address);
 
 // passing an associative array
-$smarty->append(array("city" => "Lincoln","state" => "Nebraska"));
-
-</programlisting>
+$smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.clear.assign">
@@ -800,15 +789,11 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));
 <example>
 <title>clear_assign</title>
 <programlisting>
-
 // clear a single variable
 $smarty->clear_assign("Name");
 
 // clear multiple variables
-$smarty->clear_assign(array("Name","Address","Zip"));
-
-
-</programlisting>
+$smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.clear.all.assign">
@@ -825,11 +810,8 @@ $smarty->clear_assign(array("Name","Address","Zip"));
 <example>
 <title>clear_all_assign</title>
 <programlisting>
-
 // clear all assigned variables
-$smarty->clear_all_assign();
-
-</programlisting>
+$smarty->clear_all_assign();</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.clear.cache">
@@ -851,15 +833,11 @@ $smarty->clear_all_assign();
 <example>
 <title>clear_cache</title>
 <programlisting>
-
 // clear the cache for a template
 $smarty->clear_cache("index.tpl");
 
 // clear the cache for a particular cache id in an multiple-cache template
-$smarty->clear_cache("index.tpl","CACHEID");
-
-
-</programlisting>
+$smarty->clear_cache("index.tpl","CACHEID");</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.clear.all.cache">
@@ -877,12 +855,8 @@ $smarty->clear_cache("index.tpl","CACHEID");
 <example>
 <title>clear_all_cache</title>
 <programlisting>
-
 // clear the entire cache
-$smarty->clear_all_cache();
-
-
-</programlisting>
+$smarty->clear_all_cache();</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.clear.compiled.tpl">
@@ -901,15 +875,11 @@ $smarty->clear_all_cache();
 <example>
 <title>clear_compiled_tpl</title>
 <programlisting>
-
 // clear a specific template resource
 $smarty->clear_compiled_tpl("index.tpl");
 
 // clear entire compile directory
-$smarty->clear_compiled_tpl();
-
-
-</programlisting>
+$smarty->clear_compiled_tpl();</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.register.function">
@@ -917,20 +887,19 @@ $smarty->clear_compiled_tpl();
 			<funcsynopsis>
 			<funcprototype>
 			<funcdef>void <function>register_function</function></funcdef>
-				<paramdef>string <parameter>funcname</parameter></paramdef>
-				<paramdef>string <parameter>funcimpl</parameter></paramdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>string <parameter>impl</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-                Use this to dynamically register functions with Smarty. Pass in
-                the template function name, followed by the actual PHP function
-                name that it will map to.
+             Use this to dynamically register template function plugins.
+             Pass in the template function name, followed by the PHP
+             function name that implements it.
 			</para>
 <example>
 <title>register_function</title>
 <programlisting>
-
-$smarty->register_function("date_now","print_current_date");
+$smarty->register_function("date_now", "print_current_date");
 
 function print_current_date ($params) {
     extract($params);
@@ -940,130 +909,115 @@ function print_current_date ($params) {
 }
 
 // now you can use this in Smarty to print the current date: {date_now}
-// or, {date_now format="%Y/%m/%d"} to format it.
-
-</programlisting>
+// or, {date_now format="%Y/%m/%d"} to format it.</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.unregister.function">
-			<title>unregister_function</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_function</function></funcdef>
-				<paramdef>string <parameter>funcname</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister functions with Smarty. Pass in
-                the Smarty function name.
-			</para>
+         <title>unregister_function</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_function</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister template function plugin.
+          Pass in the template function name.
+         </para>
 <example>
 <title>unregister_function</title>
 <programlisting>
-
 // we don't want template designers to have access to system files
 
-$smarty->unregister_function("fetch");
-
-</programlisting>
+$smarty->unregister_function("fetch");</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.register.modifier">
-			<title>register_modifier</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_modifier</function></funcdef>
-				<paramdef>string <parameter>modname</parameter></paramdef>
-				<paramdef>string <parameter>funcimpl</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register modifiers with Smarty. Pass in
-                the template modifier name, followed by the actual PHP function name
-                that it will map to.
-			</para>
+         <title>register_modifier</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>register_modifier</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+           <paramdef>string <parameter>impl</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically register modifier plugin. Pass in the
+          template modifier name, followed by the PHP function that it
+          implements it.
+         </para>
 <example>
 <title>register_modifier</title>
 <programlisting>
-
 // let's map PHP's stripslashes function to a Smarty modifier.
 
 $smarty->register_modifier("sslash","stripslashes");
 
-// now you can use {$var|sslash} to strip slashes from variables
-
-</programlisting>
+// now you can use {$var|sslash} to strip slashes from variables</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.unregister.modifier">
-			<title>unregister_modifier</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_modifier</function></funcdef>
-				<paramdef>string <parameter>modname</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister modifiers with Smarty. Pass in
-                the template modifier name.
-			</para>
+         <title>unregister_modifier</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_modifier</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister modifier plugin. Pass in the
+          template modifier name.
+         </para>
 <example>
 <title>unregister_modifier</title>
 <programlisting>
-
 // we don't want template designers to strip tags from elements
 
-$smarty->unregister_modifier("strip_tags");
-
-</programlisting>
+$smarty->unregister_modifier("strip_tags");</programlisting>
 </example>
 		</sect2>
-		<sect2 id="api.register.resource">
-			<title>register_resource</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_resource</function></funcdef>
-				<paramdef>string <parameter>resource_name</parameter></paramdef>
-				<paramdef>array <parameter>resource_funcs</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register a resource to fetch templates
-                with Smarty. See <link
-                linkend="section.template.resources">template resources</link>
-                for more information on how to setup a function for fetching
-                templates.
-			</para>
+        <sect2 id="api.register.resource">
+         <title>register_resource</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>register_resource</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+           <paramdef>array <parameter>resource_funcs</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically register a resource plugin with Smarty.
+          Pass in the name of the resource and the array of PHP functions
+          implementing it. See
+          <link linkend="template.resources">template resources</link>
+          for more information on how to setup a function for fetching
+          templates.
+         </para>
 <example>
 <title>register_resource</title>
 <programlisting>
-
 $smarty->register_resource("db", array("db_get_template",
                                        "db_get_timestamp",
-									   "db_get_secure",
-									   "db_get_trusted"));
-
-</programlisting>
+                                       "db_get_secure",
+                                       "db_get_trusted"));</programlisting>
 </example>
 		</sect2>
-		<sect2 id="api.unregister.resource">
-			<title>unregister_resource</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_resource</function></funcdef>
-				<paramdef>string <parameter>resource_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister a resource.
-			</para>
+        <sect2 id="api.unregister.resource">
+         <title>unregister_resource</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_resource</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister a resource plugin. Pass in the
+          name of the resource.
+         </para>
 <example>
 <title>unregister_resource</title>
 <programlisting>
-
-$smarty->unregister_resource("db");
-
-</programlisting>
+$smarty->unregister_resource("db");</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.register.prefilter">
@@ -1080,14 +1034,6 @@ $smarty->unregister_resource("db");
                 linkend="section.template.prefilters">template prefilters</link> for
                 more information on how to setup a prefiltering function.
 			</para>
-<example>
-<title>register_prefilter</title>
-<programlisting>
-
-$smarty->register_prefilter("remove_dw_comments");
-
-</programlisting>
-</example>
 		</sect2>
 		<sect2 id="api.unregister.prefilter">
 			<title>unregister_prefilter</title>
@@ -1100,14 +1046,6 @@ $smarty->register_prefilter("remove_dw_comments");
 			<para>
                 Use this to dynamically unregister a prefilter.
 			</para>
-<example>
-<title>unregister_prefilter</title>
-<programlisting>
-
-$smarty->unregister_prefilter("embed_asp_jokes");
-
-</programlisting>
-</example>
 		</sect2>
 		<sect2 id="api.register.postfilter">
 			<title>register_postfilter</title>
@@ -1123,14 +1061,6 @@ $smarty->unregister_prefilter("embed_asp_jokes");
                 linkend="section.template.postfilters">template postfilters</link> for
                 more information on how to setup a postfiltering function.
 			</para>
-<example>
-<title>register_postfilter</title>
-<programlisting>
-
-$smarty->register_postfilter("remove_dw_comments");
-
-</programlisting>
-</example>
 		</sect2>
 		<sect2 id="api.unregister.postfilter">
 			<title>unregister_postfilter</title>
@@ -1143,80 +1073,35 @@ $smarty->register_postfilter("remove_dw_comments");
 			<para>
                 Use this to dynamically unregister a postfilter.
 			</para>
-<example>
-<title>unregister_postfilter</title>
-<programlisting>
-
-$smarty->unregister_postfilter("embed_asp_jokes");
-
-</programlisting>
-</example>
 		</sect2>
 		<sect2 id="api.register.compiler.function">
 			<title>register_compiler_function</title>
 			<funcsynopsis>
 			<funcprototype>
 			<funcdef>void <function>register_compiler_function</function></funcdef>
-				<paramdef>string <parameter>funcname</parameter></paramdef>
-				<paramdef>string <parameter>funcimpl</parameter></paramdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>string <parameter>impl</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				Use this to register a template compiler function. These
-				functions are called only during compilation of the template.
-				They are useful for injecting PHP code or time-sensitive static
-				content into the template. The first parameter specifies the
-				template function name, and the second one the PHP function
-				implementing it. If there is both a compiler function and a
-				custom function registered under the same name, the compiler
-				function has precedence. For advanced users only.
+                Use this to dynamically register a compiler function plugin.
+                Pass in the compiler function name, followed by the PHP
+                function that implements it.
 			</para>
-			<para>
-				The compiler function is passed two parameters: the tag
-				argument string - basically, everything from the function
-				name until the ending delimiter, and the smarty object. It's
-				supposed to return the code to be injected into the compiled
-				template.
-			</para>
-<example>
-<title>register_compiler_function</title>
-<programlisting>
-
-// PHP code
-
-$smarty-&gt;register_compiler_function("tplheader", "smarty_template_header");
-
-function smarty_template_header($tag_arg_string, $smarty)
-{
-	return "\necho '" . $smarty-&gt;_current_file . "' compiled at " . date('Y-m-d H:M'). ";";
-}
-
-{* this function gets executed at compile time only *}
-{tplheader }
-
-</programlisting>
-</example>
 		</sect2>
-		<sect2 id="api.unregister.compiler.function">
-			<title>unregister_compiler_function</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_compiler_function</function></funcdef>
-				<paramdef>string <parameter>funcname</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to unregister a compiler function.
-			</para>
-<example>
-<title>unregister_compiler_function</title>
-<programlisting>
-
-$smarty->unregister_compiler_function("tplheader");
-
-</programlisting>
-</example>
-		</sect2>
+        <sect2 id="api.unregister.compiler.function">
+         <title>unregister_compiler_function</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_compiler_function</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister a compiler function. Pass in
+          the name of the compiler function.
+         </para>
+        </sect2>
         <sect2 id="api.trigger.error">
          <title>trigger_error</title>
          <funcsynopsis>
@@ -1253,16 +1138,13 @@ $smarty->unregister_compiler_function("tplheader");
 <example>
 <title>is_cached</title>
 <programlisting>
-
 $smarty->caching = true;
 
 if(!$smarty->is_cached("index.tpl")) {
     // do database calls, assign vars here
 }
 
-$smarty->display("index.tpl");
-
-</programlisting>
+$smarty->display("index.tpl");</programlisting>
 </example>
             <para>
                 You can also pass a cache id as an an optional second parameter
@@ -1271,16 +1153,13 @@ $smarty->display("index.tpl");
 <example>
 <title>is_cached with multiple-cache template</title>
 <programlisting>
-
 $smarty->caching = true;
 
 if(!$smarty->is_cached("index.tpl","FrontPage")) {
     // do database calls, assign vars here
 }
 
-$smarty->display("index.tpl","FrontPage");
-
-</programlisting>
+$smarty->display("index.tpl","FrontPage");</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.get.template.vars">
@@ -1297,14 +1176,11 @@ $smarty->display("index.tpl","FrontPage");
 <example>
 <title>get_template_vars</title>
 <programlisting>
-
 // get all assigned template vars
 $tpl_vars = $smarty->get_template_vars();
 
 // take a look at them
-var_dump($tpl_vars);
-
-</programlisting>
+var_dump($tpl_vars);</programlisting>
 </example>
 		</sect2>
 		<sect2 id="api.display">
@@ -1319,7 +1195,7 @@ var_dump($tpl_vars);
 			</funcsynopsis>
 			<para>
                 This displays the template. Supply a valid <link
-                linkend="section.template.resources">template resource</link>
+                linkend="template.resources">template resource</link>
                 type and path. As an optional second parameter, you can pass a
                 cache id. See the <link linkend="section.caching">caching
                 section</link> for more information.
@@ -1333,7 +1209,6 @@ var_dump($tpl_vars);
 <example>
 <title>display</title>
 <programlisting>
-
 include("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->caching = true;
@@ -1357,18 +1232,16 @@ if(!$smarty->is_cached("index.tpl"))
 }
 
 // display the output
-$smarty->display("index.tpl");
-</programlisting>
+$smarty->display("index.tpl");</programlisting>
 </example>
 			<para>
 			Use the syntax for <link
-			linkend="section.template.resources">template resources</link> to
+			linkend="template.resources">template resources</link> to
 			display files outside of the $template_dir directory.
 			</para>
 <example>
 <title>function display template resource examples</title>
 <programlisting>
-
 // absolute filepath
 $smarty->display("/usr/local/include/templates/header.tpl");
 
@@ -1379,9 +1252,7 @@ $smarty->display("file:/usr/local/include/templates/header.tpl");
 $smarty->display("file:C:/www/pub/templates/header.tpl");
 
 // include from template resource named "db"
-$smarty->display("db:header.tpl");
-
-</programlisting>
+$smarty->display("db:header.tpl");</programlisting>
 </example>
 
 		</sect2>
@@ -1398,7 +1269,7 @@ $smarty->display("db:header.tpl");
 			<para>
                 This returns the template output instead of displaying it.
                 Supply a valid <link
-                linkend="section.template.resources">template resource</link>
+                linkend="template.resources">template resource</link>
                 type and path. As an optional second parameter, you can pass a
                 cache id. See the <link linkend="section.caching">caching
                 section</link> for more information.
@@ -1412,7 +1283,6 @@ $smarty->display("db:header.tpl");
 <example>
 <title>fetch</title>
 <programlisting>
-
 include("Smarty.class.php");
 $smarty = new Smarty;
 
@@ -1441,19 +1311,17 @@ $output = $smarty->fetch("index.tpl");
 
 // do something with $output here
 
-echo $output;
-
-</programlisting>
+echo $output;</programlisting>
 </example>
 		</sect2>
 	</sect1>
-	<sect1 id="section.template.resources">
+	<sect1 id="template.resources">
 		<title>Template Resources</title>
         <para>
         Your templates may come from a variety of sources. When you display or
         fetch a template, or when you include a template from within another
         template, you supply a resource type, followed by the appropriate path
-        and template name. Template resources were added to Smarty 1.4.0.
+        and template name.
         </para>
 		<sect2>
 			<title>Templates from $template_dir</title>
@@ -1467,7 +1335,6 @@ echo $output;
 
 <title>using templates from $template_dir</title>
 <programlisting>
-
 // from PHP script
 $smarty->display("index.tpl");
 $smarty->display("admin/menu.tpl");
@@ -1475,108 +1342,74 @@ $smarty->display("file:admin/menu.tpl"); // same as one above
 
 {* from within Smarty template *}
 {include file="index.tpl"}
-{include file="file:index.tpl"} {* same as one above *}
-
-</programlisting>
+{include file="file:index.tpl"} {* same as one above *}</programlisting>
 </example>
         </sect2>
-		<sect2>
-			<title>Templates from any directory</title>
-			<para>
-            Templates outside of the $template_dir require the file: template
-            resource type, followed by the absolute path and name of the
-            template.
-            </para>
-<example>
+        <sect2>
+         <title>Templates from any directory</title>
+         <para>
+          Templates outside of the $template_dir require the file: template
+          resource type, followed by the absolute path and name of the
+          template.
+         </para>
+         <example>
 
-<title>using templates from any directory</title>
-<programlisting>
-
+          <title>using templates from any directory</title>
+          <programlisting>
 // from PHP script
 $smarty->display("file:/export/templates/index.tpl");
 $smarty->display("file:/path/to/my/templates/menu.tpl");
 
 {* from within Smarty template *}
-{include file="file:/usr/local/share/templates/navigation.tpl"}
-
-</programlisting>
-</example>
-        </sect2>
-		<sect2>
-			<title>Windows Filepaths</title>
-			<para>
-			If you are using a Windows machine, filepaths usually include a
-			drive letter (C:) at the beginning of the pathname. Be sure to use
-			"file:" in the path to avoid namespace conflicts and get the
-			desired results.
-            </para>
-<example>
-
-<title>using templates from windows file paths</title>
-<programlisting>
-
+{include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
+         </example>
+         <sect3>
+          <title>Windows Filepaths</title>
+          <para>
+           If you are using a Windows machine, filepaths usually include a
+           drive letter (C:) at the beginning of the pathname. Be sure to use
+           "file:" in the path to avoid namespace conflicts and get the
+           desired results.
+          </para>
+          <example>
+           <title>using templates from windows file paths</title>
+           <programlisting>
 // from PHP script
 $smarty->display("file:C:/export/templates/index.tpl");
 $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 
 {* from within Smarty template *}
-{include file="file:D:/usr/local/share/templates/navigation.tpl"}
-
-</programlisting>
-</example>
+{include file="file:D:/usr/local/share/templates/navigation.tpl"}</programlisting>
+          </example>
+         </sect3>
         </sect2>
-		<sect2>
-			<title>Templates from callbacks</title>
-			<para>
-			You can retrieve templates using custom callbacks.  Fetching
-			templates from a database is one of the examples. You do this by
-			creating the resource handler callbacks and then registering
-			them with Smarty.
-			</para>
 
-			<para>
-			There are a total of 4 functions that need to be registered for
-			each type of resource. Every function will receive the resource
-			name as the first parameter and the Smarty object as the last
-			parameter. The rest of parameters depend on the function.
-			</para>
+        <sect2>
+         <title>Templates from other sources</title>
+         <para>
+          You can retrieve templates using whatever possible source you can
+          access with PHP: databases, sockets, LDAP, and so on. You do this
+          by writing resource plugin functions and registering them with
+          Smarty.
+         </para>
 
-			<para>
-			The first function is supposed to retrieve the resource.  Its
-			second parameter is a variable passed by reference where the
-			source should be stored. The function is supposed to return
-			<literal>true</literal> if it was able to successfully retrieve
-			the source and <literal>false</literal> otherwise.
-			</para>
+         <para>
+          See <link linkend="plugins.resources">resource plugins</link>
+          section for more information on the functions you are supposed
+          to provide.
+         </para>
 
-			<para>
-			The second function is supposed to retrieve the last
-			modification time of the requested resource (as a UNIX
-			timestamp). The second parameter is a by reference variable
-			where the timestamp should be stored. The function is supposed
-			to return <literal>true</literal> if the timestamp could be
-			succesfully determined, and <literal>false</literal> otherwise.
-			</para>
-
-			<para>
-			The third function is supposed to return <literal>true</literal>
-			or <literal>false</literal>, depending on whether the requested
-			resource is secure or not. This function is not used for
-			non-template resources but should still be defined.
-			</para>
-
-			<para>
-			The fourth function is supposed to return
-			<literal>true</literal> or <literal>false</literal>, depending
-			on whether the requested resource is trusted or not. This
-			function is not used for template resources but should still be
-			defined.
-			</para>
-<example>
-
-<title>Using template resource callbacks</title>
-<programlisting>
-
+         <note>
+          <para>
+           Note that you cannot override the built-in
+           <literal>file</literal> resource, but you can provide a resource
+           that fetches templates from the file system in some other way by
+           registering under another resource name.
+          </para>
+         </note>
+         <example>
+          <title>using custom resources</title>
+          <programlisting>
 // from PHP script
 
 // put these function somewhere in your application
@@ -1619,7 +1452,7 @@ function db_get_secure($tpl_name, &$smarty_obj)
 
 function db_get_trusted($tpl_name, &$smarty_obj)
 {
-    // not used
+    // not used for templates
 }
 
 // register the resource name "db"
@@ -1632,24 +1465,21 @@ $smarty->register_resource("db", array("db_get_template",
 $smarty->display("db:index.tpl");
 
 {* using resource from within Smarty template *}
-{include file="db:/extras/navigation.tpl"}
-
-</programlisting>
-</example>
+{include file="db:/extras/navigation.tpl"}</programlisting>
+         </example>
         </sect2>
-		<sect2>
-			<title>Default Template Handler Function</title>
-			<para>
-			You can specify a function that is used to retrieve template
-			contents in the event the template cannot be retrieved from its
-			resource. One use of this is to create templates that do not exist
-			on-the-fly. This was added to Smarty 1.5.2.
-            </para>
-<example>
 
-<title>using the default template handler function call</title>
-<programlisting>
-
+        <sect2>
+         <title>Default Template Handler Function</title>
+         <para>
+          You can specify a function that is used to retrieve template
+          contents in the event the template cannot be retrieved from its
+          resource. One use of this is to create templates that do not exist
+          on-the-fly.
+         </para>
+         <example>
+          <title>using the default template handler function</title>
+          <programlisting>
 // from PHP script
 
 // put this function somewhere in your application
@@ -1672,13 +1502,11 @@ function make_template ($resource_type, $resource_name, &amp;$template_source,
 }
 
 // set the default handler
-$smarty->default_template_handler_func = 'make_template';
-
-
-</programlisting>
-</example>
+$smarty->default_template_handler_func = 'make_template';</programlisting>
+         </example>
         </sect2>
-    </sect1>
+       </sect1>
+
 	<sect1 id="section.template.prefilters">
 		<title>Template Prefilters</title>
         <para>
@@ -1705,7 +1533,6 @@ $smarty->default_template_handler_func = 'make_template';
 
 <title>using a template prefilter</title>
 <programlisting>
-
 // put this in your application, or in Smarty.addons.php
 function remove_dw_comments($tpl_source) {
     return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
@@ -1716,9 +1543,7 @@ $smarty->register_prefilter("remove_dw_comments");
 $smarty->display("index.tpl");
 
 {* from within Smarty template *}
-&lt;!--# this line will get removed by the prefilter --&gt;
-
-</programlisting>
+&lt;!--# this line will get removed by the prefilter --&gt;</programlisting>
 </example>
         </sect2>
     </sect1>
@@ -1746,7 +1571,6 @@ $smarty->display("index.tpl");
 
 <title>using a template postfilter</title>
 <programlisting>
-
 // this program puts a 
 // put this in your application, or in Smarty.addons.php
 function add_header_comment($tpl_source) {
@@ -1759,9 +1583,7 @@ $smarty->display("index.tpl");
 
 {* from within Smarty template *}
 <!-- Created by Smarty! -->
-{* rest of template content... *}
-
-</programlisting>
+{* rest of template content... *}</programlisting>
 </example>
         </sect2>
     </sect1>
@@ -1792,7 +1614,6 @@ $smarty->display("index.tpl");
 
 <title>example using MySQL as a cache source</title>
 <programlisting>
-
 &lt;?php
 
 /*
@@ -1895,9 +1716,6 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 }
 
 ?&gt;
-
-
-
 </programlisting>
 </example>
         </sect2>
@@ -1930,7 +1748,6 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 
 <title>displaying assigned variables</title>
 <programlisting>
-
 Hello {$firstname}, glad to see you could make it.
 &lt;p&gt;
 Your last login was on {$lastLoginDate}.
@@ -1939,8 +1756,7 @@ OUTPUT:
 
 Hello Doug, glad to see you could make it.
 &lt;p&gt;
-Your last login was on January 11th, 2001.
-</programlisting>
+Your last login was on January 11th, 2001.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -1953,7 +1769,6 @@ Your last login was on January 11th, 2001.
 <example>
 <title>displaying assigned associative array variables</title>
 <programlisting>
-
 {$Contacts.fax}&lt;br&gt;
 {$Contacts.email}&lt;br&gt;
 {* you can print arrays of arrays as well *}
@@ -1966,9 +1781,6 @@ OUTPUT:
 zaphod@slartibartfast.com&lt;br&gt;
 555-444-3333&lt;br&gt;
 555-111-1234&lt;br&gt;
-
-
-
 </programlisting>
 </example>
 		</sect2>
@@ -1981,14 +1793,11 @@ zaphod@slartibartfast.com&lt;br&gt;
 <example>
 <title>displaying arrays by index</title>
 <programlisting>
-
 {$Contacts[0]}&lt;br&gt;
 {$Contacts[1]}&lt;br&gt;
 {* you can print arrays of arrays as well *}
 {$Contacts[0][0]}&lt;br&gt;
-{$Contacts[0][1]}&lt;br&gt;
-
-</programlisting>
+{$Contacts[0][1]}&lt;br&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -2000,16 +1809,13 @@ zaphod@slartibartfast.com&lt;br&gt;
 <example>
 <title>displaying object properties</title>
 <programlisting>
-
 name: {$person-&gt;name}&lt;br&gt;
 email: {$person-&gt;email}&lt;br&gt;
 
 OUTPUT:
 
 name: Zaphod Beeblebrox&lt;br&gt;
-email: zaphod@slartibartfast.com&lt;br&gt;
-
-</programlisting>
+email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 </example>
 		</sect2>
 
@@ -2025,7 +1831,6 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 
 <title>displaying config variables</title>
 <programlisting>
-
 &lt;html&gt;
 &lt;title&gt;{#pageTitle#}&lt;/title&gt;
 &lt;body bgcolor="{#bodyBgColor#}"&gt;
@@ -2037,8 +1842,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</programlisting>
+&lt;/html&gt;</programlisting>
 </example>
 			<para>
 			Config file variables cannot be displayed until
@@ -2078,7 +1882,6 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 
 <title>displaying request variables</title>
 <programlisting>
-
 {* display the variable "page" given in the URL, or from a form using the GET method *}
 {$smarty.get.page}
 
@@ -2098,9 +1901,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 {$smarty.session.id}
 
 {* display the variable "username" from merged get/post/cookies/server/env *}
-{$smarty.request.username}
-
-</programlisting>
+{$smarty.request.username}</programlisting>
 </example>
 		</sect3>
 
@@ -2116,11 +1917,8 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 
 <title>using {$smarty.now}</title>
 <programlisting>
-
 {* use the date_format modifier to show current date and time *}
-{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
-
-</programlisting>
+{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}</programlisting>
 </example>
 		</sect3>
 
@@ -2154,7 +1952,6 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 <example>
 <title>function syntax</title>
 <programlisting>
-
 {config_load file="colors.conf"}
 
 {include file="header.tpl"}
@@ -2165,8 +1962,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
 {/if}
 
-{include file="footer.tpl"}
-</programlisting>
+{include file="footer.tpl"}</programlisting>
 </example>
 			<para>
 			Both built-in functions and custom functions have the same syntax
@@ -2190,7 +1986,6 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 <example>
 <title>function attribute syntax</title>
 <programlisting>
-
 {include file="header.tpl"}
 
 {include file=$includeFile}
@@ -2199,8 +1994,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 
 &lt;SELECT name=company&gt;
 {html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;
-</programlisting>
+&lt;/SELECT&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -2214,7 +2008,6 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 <example>
 <title>Comments</title>
 <programlisting>
-
 {* Smarty *}
 
 {* include the header file here *}
@@ -2227,8 +2020,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 {* display dropdown lists *}
 &lt;SELECT name=company&gt;
 {html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;
-</programlisting>
+&lt;/SELECT&gt;</programlisting>
 </example>
 		</sect2>
 	</sect1>
@@ -2248,7 +2040,6 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 <example>
 <title>Example of config file syntax</title>
 <programlisting>
-
 # global variables
 pageTitle = "Main Menu"
 bodyBgColor = #000000
@@ -2271,8 +2062,6 @@ host=my.domain.com
 db=ADDRESSBOOK
 user=php-user
 pass=foobar
-
-			
 </programlisting>
 </example>
 			<para>
@@ -2341,7 +2130,6 @@ pass=foobar
 <example>
 <title>capturing template content</title>
 <programlisting>
-
 {* we don't want to print a table row unless content is displayed *}
 {capture name=banner}
 {include file="get_banner.tpl"}
@@ -2352,9 +2140,7 @@ pass=foobar
 			{$return}
 		&lt;/td&gt;
 	&lt;/tr&gt;
-{/if}
-
-</programlisting>
+{/if}</programlisting>
 </example>
 		</sect2>
 		<sect2 id="builtin.functions.configload">
@@ -2430,7 +2216,6 @@ pass=foobar
 <title>function config_load</title>
 
 <programlisting>
-
 {config_load file="colors.conf"}
 
 &lt;html&gt;
@@ -2444,8 +2229,7 @@ pass=foobar
 	&lt;/tr&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</programlisting>
+&lt;/html&gt;</programlisting>
 </example>
 			<para>
             Config files may also contain sections. You can load variables from
@@ -2461,7 +2245,6 @@ pass=foobar
 <example>
 <title>function config_load with section</title>
 <programlisting>
-
 {config_load file="colors.conf" section="Customer"}
 
 &lt;html&gt;
@@ -2475,8 +2258,7 @@ pass=foobar
 	&lt;/tr&gt;
 &lt;/table&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</programlisting>
+&lt;/html&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2 id="builtin.functions.include">
@@ -2538,13 +2320,11 @@ pass=foobar
 <example>
 <title>function include</title>
 <programlisting>
-
 {include file="header.tpl"}
 
 {* body of template goes here *}
 
-{include file="footer.tpl"}
-</programlisting>
+{include file="footer.tpl"}</programlisting>
 </example>
 			<para>
             You can also pass variables to included templates as attributes.
@@ -2556,24 +2336,20 @@ pass=foobar
 <example>
 <title>function include passing variables</title>
 <programlisting>
-
 {include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
 
 {* body of template goes here *}
 
-{include file="footer.tpl" logo="http://my.domain.com/logo.gif"}
-
-</programlisting>
+{include file="footer.tpl" logo="http://my.domain.com/logo.gif"}</programlisting>
 </example>
 			<para>
 			Use the syntax for <link
-			linkend="section.template.resources">template resources</link> to
+			linkend="template.resources">template resources</link> to
 			include files outside of the $template_dir directory.
 			</para>
 <example>
 <title>function include template resource examples</title>
 <programlisting>
-
 {* absolute filepath *}
 {include file="/usr/local/include/templates/header.tpl"}
 
@@ -2584,9 +2360,7 @@ pass=foobar
 {include file="file:C:/www/pub/templates/header.tpl"}
 
 {* include from template resource named "db" *}
-{include file="db:header.tpl"}
-
-</programlisting>
+{include file="db:header.tpl"}</programlisting>
 </example>
 		</sect2>
 		<sect2 id="builtin.functions.include.php">
@@ -2655,7 +2429,6 @@ pass=foobar
 <example>
 <title>function include_php</title>
 <programlisting>
-
 load_nav.php
 -------------
 
@@ -2678,9 +2451,7 @@ index.tpl
 
 {foreach item=$curr_section from=$sections}
 	&lt;a href="{$curr_section.url}"&gt;{$curr_section.name}&lt;/a&gt;&lt;br&gt;
-{/foreach}
-
-</programlisting>
+{/foreach}</programlisting>
 </example>
 		</sect2>
 		<sect2 id="builtin.functions.insert">
@@ -2753,11 +2524,8 @@ index.tpl
 <example>
 <title>function insert</title>
 <programlisting>
-
 {* example of fetching a banner *}
-{insert name="getBanner" lid=#banner_location_id# sid=#site_id#}
-
-</programlisting>
+{insert name="getBanner" lid=#banner_location_id# sid=#site_id#}</programlisting>
 </example>
 			<para>
 			In this example, we are using the name "getBanner" and passing the
@@ -2819,7 +2587,6 @@ index.tpl
 <example>
 <title>if statements</title>
 <programlisting>
-
 {if $name eq "Fred"}
 	Welcome Sir.
 {elseif $name eq "Wilma"}
@@ -2880,9 +2647,7 @@ index.tpl
 {* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
 {if $var is even by 3}
 	...
-{/if}
-
-</programlisting>
+{/if}</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -2895,7 +2660,6 @@ index.tpl
 <example>
 <title>ldelim, rdelim</title>
 <programlisting>
-
 {* this will print literal delimiters out of the template *}
 
 {ldelim}funcname{rdelim} is how functions look in Smarty!
@@ -2903,8 +2667,7 @@ index.tpl
 
 OUTPUT:
 
-{funcname} is how functions look in Smarty!
-</programlisting>
+{funcname} is how functions look in Smarty!</programlisting>
 </example>
 		</sect2>
 		<sect2 id="builtin.functions.literal">
@@ -2920,7 +2683,6 @@ OUTPUT:
 <example>
 <title>literal tags</title>
 <programlisting>
-
 {literal}
 	&lt;script language=javascript&gt;
 
@@ -2937,8 +2699,7 @@ OUTPUT:
         	// --&gt;
 
 	&lt;/script&gt;
-{/literal}
-</programlisting>
+{/literal}</programlisting>
 </example>
 		</sect2>
 		<sect2 id="builtin.functions.php">
@@ -2953,14 +2714,11 @@ OUTPUT:
 <example>
 <title>php tags</title>
 <programlisting>
-
 {php}
 		// including a php script directly
 		// from the template.
 		include("/path/to/display_weather.php");
-{/php}
-
-</programlisting>
+{/php}</programlisting>
 </example>
 		</sect2>
 		<sect2 id="builtin.functions.section">
@@ -3056,7 +2814,6 @@ OUTPUT:
 <title>section</title>
 <programlisting>
 
-
 {* this example will print out all the values of the $custid array *}
 {section name=customer loop=$custid}
 	id: {$custid[customer]}&lt;br&gt;
@@ -3066,15 +2823,12 @@ OUTPUT:
 
 id: 1000&lt;br&gt;
 id: 1001&lt;br&gt;
-id: 1002&lt;br&gt;
-
-</programlisting>
+id: 1002&lt;br&gt;</programlisting>
 </example>
 
 <example>
 <title>section loop variable</title>
 <programlisting>
-
 {* the loop variable only determines the number of times to loop.
    you can access any variable from the template within the section.
    This example assumes that $custid, $name and $address are all
@@ -3100,15 +2854,12 @@ address: 417 Mulberry ln&lt;br&gt;
 id: 1002&lt;br&gt;
 name: Jane Munson&lt;br&gt;
 address: 5605 apple st&lt;br&gt;
-&lt;p&gt;
-
-</programlisting>
+&lt;p&gt;</programlisting>
 </example>
 
 <example>
 <title>section names</title>
 <programlisting>
-
 {* the name of the section can be anything you like,
    and it is used to reference the data within the section *}
 {section name=mydata loop=$custid}
@@ -3116,15 +2867,12 @@ address: 5605 apple st&lt;br&gt;
 	name: {$name[mydata]}&lt;br&gt;
 	address: {$address[mydata]}&lt;br&gt;
 	&lt;p&gt;
-{/section}
-
-</programlisting>
+{/section}</programlisting>
 </example>
 
 <example>
 <title>nested sections</title>
 <programlisting>
-
 {* sections can be nested as deep as you like. With nested sections,
    you can access complex data structures, such as multi-dimensional
    arrays. In this example, $contact_type[customer] is an array of
@@ -3162,16 +2910,12 @@ address: 5605 apple st&lt;br&gt;
 home phone: 555-555-5555&lt;br&gt;
 cell phone: 555-555-5555&lt;br&gt;
 e-mail: jane@mydomain.com&lt;br&gt;
-&lt;p&gt;
-
-
-</programlisting>
+&lt;p&gt;</programlisting>
 </example>
 
 <example>
 <title>sections and associative arrays</title>
 <programlisting>
-
 {* This is an example of printing an associative array
    of data within a section *}
 {section name=customer loop=$contacts}
@@ -3195,10 +2939,7 @@ e-mail: jack@mydomain.com&lt;p&gt;
 name: Jane Munson&lt;br&gt;
 home phone: 555-555-5555&lt;br&gt;
 cell phone: 555-555-5555&lt;br&gt;
-e-mail: jane@mydomain.com&lt;p&gt;
-
-
-</programlisting>
+e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </example>
 
 
@@ -3206,15 +2947,12 @@ e-mail: jane@mydomain.com&lt;p&gt;
 <example>
 <title>sectionelse</title>
 <programlisting>
-
 {* sectionelse will execute if there are no $custid values *}
 {section name=customer loop=$custid}
 	id: {$custid[customer]}&lt;br&gt;
 {sectionelse}
 	there are no values in $custid.
-{/section}
-
-</programlisting>
+{/section}</programlisting>
 </example>
 		<para>
 		Sections also have their own variables that handle section properties.
@@ -3252,8 +2990,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	0 id: 1000&lt;br&gt;
 	1 id: 1001&lt;br&gt;
 	2 id: 1002&lt;br&gt;
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>	
@@ -3282,8 +3019,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
     	The customer id changed&lt;br&gt;
 	2 id: 1002&lt;br&gt;
     	The customer id changed&lt;br&gt;
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>
@@ -3313,8 +3049,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
     	The customer id will change&lt;br&gt;
 	2 id: 1002&lt;br&gt;
     	The customer id will change&lt;br&gt;
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>
@@ -3353,8 +3088,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	current loop iteration: 3
 	9 id: 1002&lt;br&gt;
     	The customer id will change&lt;br&gt;
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>
@@ -3387,8 +3121,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
 	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
 	&lt;/table&gt;
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>
@@ -3421,8 +3154,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
 	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
 	&lt;/table&gt;
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>	
@@ -3444,8 +3176,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	1 id: 1000&lt;br&gt;
 	2 id: 1001&lt;br&gt;
 	3 id: 1002&lt;br&gt;
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>	
@@ -3470,8 +3201,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	2 id: 1002&lt;br&gt;
 
 	There were 3 customers shown above.
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>	
@@ -3505,8 +3235,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	3 id: 1002&lt;br&gt;
 
 	the section was shown.
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 			<sect3>	
@@ -3534,8 +3263,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	4 id: 1002&lt;br&gt;
 
 	There were 3 customers shown above.
-
-	</programlisting>
+</programlisting>
 	</example>
 			</sect3>
 		</sect2>
@@ -3613,7 +3341,6 @@ e-mail: jane@mydomain.com&lt;p&gt;
 <title>foreach</title>
 <programlisting>
 
-
 {* this example will print out all the values of the $custid array *}
 {foreach from=$custid item=curr_id}
 	id: {$curr_id}&lt;br&gt;
@@ -3623,15 +3350,12 @@ OUTPUT:
 
 id: 1000&lt;br&gt;
 id: 1001&lt;br&gt;
-id: 1002&lt;br&gt;
-
-</programlisting>
+id: 1002&lt;br&gt;</programlisting>
 </example>
 
 <example>
 <title>foreach key</title>
 <programlisting>
-
 {* The key contains the key for each looped value
 
 assignment looks like this:
@@ -3654,9 +3378,7 @@ fax: 2&lt;br&gt;
 cell: 3&lt;br&gt;
 phone: 555-4444&lt;br&gt;
 fax: 555-3333&lt;br&gt;
-cell: 760-1234&lt;br&gt;
-
-</programlisting>
+cell: 760-1234&lt;br&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -3679,7 +3401,6 @@ cell: 760-1234&lt;br&gt;
 <example>
 <title>strip tags</title>
 <programlisting>
-
 {* the following will be all run into one line upon output *}
 {strip}
 &lt;table border=0&gt;
@@ -3696,9 +3417,7 @@ cell: 760-1234&lt;br&gt;
 
 OUTPUT:
 
-&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://my.domain.com"&gt;&lt;font color="red"&gt;This is a test&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-
-</programlisting>
+&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://my.domain.com"&gt;&lt;font color="red"&gt;This is a test&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</programlisting>
 </example>
 		<para>
 		Notice that in the above example, all the lines begin and end
@@ -3761,16 +3480,13 @@ OUTPUT:
 <example>
 <title>assign</title>
 <programlisting>
-
 {assign var="name" value="Bob"}
 
 The value of $name is {$name}.
 
 OUTPUT:
 
-The value of $name is Bob.
-
-</programlisting>
+The value of $name is Bob.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -3854,7 +3570,6 @@ The value of $name is Bob.
 <example>
 <title>counter</title>
 <programlisting>
-
 {* initialize the count *}
 {counter start=0 skip=2 print=false}
 
@@ -3868,9 +3583,7 @@ OUTPUT:
 2&lt;br&gt;
 4&lt;br&gt;
 6&lt;br&gt;
-8&lt;br&gt;
-
-</programlisting>
+8&lt;br&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -3936,7 +3649,6 @@ OUTPUT:
 <example>
 <title>fetch</title>
 <programlisting>
-
 {* include some javascript in your template *}
 {fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
 
@@ -3950,10 +3662,7 @@ OUTPUT:
 {fetch file="http://www.myweather.com/68502/" assign="weather"}
 {if $weather ne ""}
 	&lt;b&gt;{$weather}&lt;/b&gt;
-{/if}
-
-
-</programlisting>
+{/if}</programlisting>
 </example>
 		</sect2>
 		<sect2 id="custom.functions.html.options">
@@ -4019,7 +3728,6 @@ OUTPUT:
 <example>
 <title>html_options</title>
 <programlisting>
-
 {* assume that $cust_ids, and $cust_names are arrays of values,
 	and $customer_id may or may not be set to a value *}
 
@@ -4044,9 +3752,7 @@ OUTPUT:
 	&lt;option value="1001" selected>Jack Smith&lt;option&gt;
 	&lt;option value="1002">Jane Johnson&lt;option&gt;
 	&lt;option value="1003">Charlie Brown&lt;option&gt;
-&lt;/select&gt;
-
-</programlisting>
+&lt;/select&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2 id="custom.functions.html.select.date">
@@ -4238,7 +3944,6 @@ OUTPUT:
 <example>
 <title>html_select_date</title>
 <programlisting>
-
 {html_select_date}
 
 
@@ -4293,16 +3998,13 @@ OUTPUT:
 &lt;/select&gt;
 &lt;select name="Date_Year"&gt;
 &lt;option value="2001" selected&gt;2001&lt;/option&gt;
-&lt;/select&gt;
-
-</programlisting>
+&lt;/select&gt;</programlisting>
 </example>
 
 
 <example>
 <title>html_select_date</title>
 <programlisting>
-
 
 {html_select_date prefix="StartDate" time=$time start_year=1995 end_year=2001 display_days=false}
 
@@ -4330,9 +4032,7 @@ OUTPUT:
 &lt;option value="1999"&gt;1999&lt;/option&gt;
 &lt;option value="2000" selected&gt;2000&lt;/option&gt;
 &lt;option value="2001"&gt;2001&lt;/option&gt;
-&lt;/select&gt;
-
-</programlisting>
+&lt;/select&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2 id="custom.functions.html.select.time">
@@ -4435,7 +4135,6 @@ OUTPUT:
 <example>
 <title>html_select_time</title>
 <programlisting>
-
 {html_select_time use_24_hours=true}
 
 
@@ -4594,9 +4293,7 @@ OUTPUT:
 &lt;select name="Time_Meridian"&gt;
 &lt;option value="am" selected&gt;AM&lt;/option&gt;
 &lt;option value="pm"&gt;PM&lt;/option&gt;
-&lt;/select&gt;
-
-</programlisting>
+&lt;/select&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2 id="custom.functions.math">
@@ -4674,7 +4371,6 @@ OUTPUT:
 <example>
 <title>math</title>
 <programlisting>
-
 {* $height=4, $width=5 *}
 
 {math equation="x + y" x=$height y=$width}
@@ -4711,9 +4407,7 @@ OUTPUT:
 
 OUTPUT:
 
-9.44
-
-</programlisting>
+9.44</programlisting>
 </example>
 		</sect2>
 		<sect2 id="custom.functions.popup.init">
@@ -5127,7 +4821,6 @@ OUTPUT:
 <example>
 <title>popup</title>
 <programlisting>
-
 {* popup_init must be called once at the top of the page *}
 {popup_init}
 
@@ -5140,9 +4833,7 @@ text="&lt;UL&gt;&lt;LI&gt;links&lt;LI&gt;pages&lt;LI&gt;images&lt;/UL&gt;" snapx
 
 OUTPUT:
 
-(See the Smarty official web site for working examples.)
-
-</programlisting>
+(See the Smarty official web site for working examples.)</programlisting>
 </example>
 		</sect2>
 	</sect1>
@@ -5176,16 +4867,13 @@ OUTPUT:
 <example>
 <title>capitalize</title>
 <programlisting>
-
 {$articleTitle}
 {$articleTitle|capitalize}
 
 OUTPUT:
 
 Police begin campaign to rundown jaywalkers.
-Police Begin Campaign To Rundown Jaywalkers.
-
-</programlisting>
+Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5197,16 +4885,13 @@ Police Begin Campaign To Rundown Jaywalkers.
 <title>count_characters</title>
 <programlisting>
 
-
 {$articleTitle}
 {$articleTitle|count_characters}
 
 OUTPUT:
 
 Cold Wave Linked to Temperatures
-32
-
-</programlisting>
+32</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5218,7 +4903,6 @@ Cold Wave Linked to Temperatures
 <title>count_paragraphs</title>
 <programlisting>
 
-
 {$articleTitle}
 {$articleTitle|count_paragraphs}
 
@@ -5227,9 +4911,7 @@ OUTPUT:
 War Dims Hope for Peace. Child's Death Ruins Couple's Holiday. 
 
 Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
-2
-
-</programlisting>
+2</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5241,16 +4923,13 @@ Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 <title>count_sentences</title>
 <programlisting>
 
-
 {$articleTitle}
 {$articleTitle|count_sentences}
 
 OUTPUT:
 
 Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
-2
-
-</programlisting>
+2</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5262,16 +4941,13 @@ Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
 <title>count_words</title>
 <programlisting>
 
-
 {$articleTitle}
 {$articleTitle|count_words}
 
 OUTPUT:
 
 Dealers Will Hear Car Talk at Noon.
-7
-
-</programlisting>
+7</programlisting>
 </example>
 		</sect2>
 		<sect2 id="date.format">
@@ -5313,7 +4989,6 @@ Dealers Will Hear Car Talk at Noon.
 <example>
 <title>date_format</title>
 <programlisting>
-
 {$currentDate}
 {$currentDate|date_format:"%A, %B %e, %Y"}
 {$currentDate|date_format:"%H:%M:%S"}
@@ -5322,9 +4997,7 @@ OUTPUT:
 
 Feb 6, 2001
 Tuesday, February 6, 2001
-14:33:00
-
-</programlisting>
+14:33:00</programlisting>
 </example>
 <example>
 <title>date_format conversion specifiers</title>
@@ -5410,8 +5083,7 @@ is the first week that has at least 4 days in the current year, and with Monday 
 PROGRAMMERS NOTE: date_format is essentially a wrapper to PHP's strftime()
 function. You may have more or less conversion specifiers available depending
 on your system's strftime() function where PHP was compiled. Check your
-system's manpage for a full list of valid specifiers.
-</programlisting>
+system's manpage for a full list of valid specifiers.</programlisting>
 </example>
 
 		</sect2>
@@ -5453,15 +5125,12 @@ system's manpage for a full list of valid specifiers.
 <example>
 <title>default</title>
 <programlisting>
-
 {* this will display "no title" (without the quotes) if $articleTitle is empty *}
 {$articleTitle|default:"no title"}
 
 OUTPUT:
 
-no title
-
-</programlisting>
+no title</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5507,7 +5176,6 @@ no title
 <example>
 <title>escape</title>
 <programlisting>
-
 {$articleTitle}
 {$articleTitle|escape}
 {$articleTitle|escape:"html"}
@@ -5524,9 +5192,7 @@ OUTPUT:
 'Stiff+Opposition+Expected+to+Casketless+Funeral+Plan'
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
 &lt;a
-href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;
-
-</programlisting>
+href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5599,9 +5265,7 @@ Statistics show that teen pregnancy drops off significantly after 25.
 
 	NJ judge to rule on nude beach.
 	Sun or rain expected today, dark tonight.
-	Statistics show that teen pregnancy drops off significantly after 25.
-
-</programlisting>
+	Statistics show that teen pregnancy drops off significantly after 25.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5612,16 +5276,13 @@ Statistics show that teen pregnancy drops off significantly after 25.
 <example>
 <title>lower</title>
 <programlisting>
-
 {$articleTitle}
 {$articleTitle|lower}
 
 OUTPUT:
 
 Two Convicts Evade Noose, Jury Hung.
-two convicts evade noose, jury hung.
-
-</programlisting>
+two convicts evade noose, jury hung.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5670,7 +5331,6 @@ two convicts evade noose, jury hung.
 <example>
 <title>regex_replace</title>
 <programlisting>
-
 {* replace each carriage return, tab &amp; new line with a space *}
 
 {$articleTitle}
@@ -5680,10 +5340,7 @@ OUTPUT:
 
 Infertility unlikely to
  be passed on, experts say
-Infertility unlikely to be passed on, experts say
-
-
-</programlisting>
+Infertility unlikely to be passed on, experts say</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5728,7 +5385,6 @@ Infertility unlikely to be passed on, experts say
 <example>
 <title>replace</title>
 <programlisting>
-
 {$articleTitle}
 {$articleTitle|replace:"Garden":"Vineyard"}
 {$articleTitle|replace:" ":"   "}
@@ -5737,9 +5393,7 @@ OUTPUT:
 
 Child's Stool Great for Use in Garden.
 Child's Stool Great for Use in Vineyard.
-Child's   Stool   Great   for   Use   in   Garden.
-
-</programlisting>
+Child's   Stool   Great   for   Use   in   Garden.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5779,7 +5433,6 @@ Child's   Stool   Great   for   Use   in   Garden.
 <example>
 <title>spacify</title>
 <programlisting>
-
 {$articleTitle}
 {$articleTitle|spacify}
 {$articleTitle|spacify:"^^"}
@@ -5788,9 +5441,7 @@ OUTPUT:
 
 Something Went Wrong in Jet Crash, Experts Say.
 S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
-S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.
-
-</programlisting>
+S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5829,7 +5480,6 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^
 <example>
 <title>string_format</title>
 <programlisting>
-
 {$number}
 {$number|string_format:"%.2f"}
 {$number|string_format:"%d"}
@@ -5838,9 +5488,7 @@ OUTPUT:
 
 23.5787446
 23.58
-24
-
-</programlisting>
+24</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5851,16 +5499,13 @@ OUTPUT:
 <example>
 <title>strip_tags</title>
 <programlisting>
-
 {$articleTitle}
 {$articleTitle|strip_tags}
 
 OUTPUT:
 
 Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
-Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
-
-</programlisting>
+Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5936,9 +5581,7 @@ Two Sisters Reunite after...
 Two Sisters Reunite after
 Two Sisters Reunite after---
 Two Sisters Reunite after Eigh
-Two Sisters Reunite after E...
-
-</programlisting>
+Two Sisters Reunite after E...</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -5949,16 +5592,13 @@ Two Sisters Reunite after E...
 <example>
 <title>upper</title>
 <programlisting>
-
 {$articleTitle}
 {$articleTitle|upper}
 
 OUTPUT:
 
 If Strike isn't Settled Quickly it may Last a While.
-IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
-
-</programlisting>
+IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -6041,9 +5681,7 @@ Blind woman gets new kidney&lt;br&gt;
 from dad she hasn't seen in years.
 
 Blind woman gets new kidney fr
-om dad she hasn't seen in years.
-
-</programlisting>
+om dad she hasn't seen in years.</programlisting>
 </example>
 		</sect2>
 		<sect2>
@@ -6057,7 +5695,6 @@ om dad she hasn't seen in years.
 <example>
 <title>combining modifiers</title>
 <programlisting>
-
 {$articleTitle}
 {$articleTitle|upper|spacify}
 {$articleTitle|lower|spacify|truncate}
@@ -6071,27 +5708,25 @@ Smokers are Productive, but Death Cuts Efficiency.
 S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
 s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
 s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
-s m o k e r s   a r e   p. . .
-
-</programlisting>
+s m o k e r s   a r e   p. . .</programlisting>
 </example>
        </sect2>
    </sect1>    
 </chapter>
-<chapter id="chapter.plugins">
+<chapter id="plugins">
    <title>Plugins</title>
    <para>
     Version 2.0 introduced the plugin architecture that is used
     for almost all the customizable functionality of Smarty. This includes:
-    <simplelist>
-     <member>functions</member>
-     <member>modifiers</member>
-     <member>compiler functions</member>
-     <member>prefilters</member>
-     <member>postfilters</member>
-     <member>resources</member>
-     <member>inserts</member>
-    </simplelist>
+    <itemizedlist spacing=compact>
+     <listitem><simpara>functions</simpara></listitem>
+     <listitem><simpara>modifiers</simpara></listitem>
+     <listitem><simpara>compiler functions</simpara></listitem>
+     <listitem><simpara>prefilters</simpara></listitem>
+     <listitem><simpara>postfilters</simpara></listitem>
+     <listitem><simpara>resources</simpara></listitem>
+     <listitem><simpara>inserts</simpara></listitem>
+    </itemizedlist>
     With the exception of resources, backwards compatibility with the old
     way of registering handler functions via register_* API is preserved. If
     you did not use the API but instead modified the class variables
@@ -6112,75 +5747,78 @@ s m o k e r s   a r e   p. . .
      Pre/post-filters are a bit of a special case. If a pre/post-filter
      plugin is found in the plugins directory, it will always be loaded
      because these filters are never explicitly mentioned in the template
-     language.
+     language. This also means that the order in which multiple prefilters
+     or postfilters is executed depends on the way they are named
+     (basically, alphabetical order).
     </para>
     <para>
      There is only one plugins directory (for performance reasons). To
      install a plugin, simply place it in the directory and Smarty will use
      it automatically.
     </para>
-    <sect2>
-     <title>Naming Conventions</title>
-     <para>
-      Plugin files and functions must follow a very specific naming
-      convention in order to be located by Smarty.
-     </para>
-     <para>
-      The plugin files must be named as follows:
-      <blockquote>
-	   <para>
-       <emphasis>type</emphasis>.<emphasis>name</emphasis>.php
-	   </para>
-      </blockquote>
-     </para>
-     <para>
-      <literal>type</literal> is one of these plugin types:
-      <simplelist>
-       <member>function</member>
-       <member>modifier</member>
-       <member>compiler</member>
-       <member>prefilter</member>
-       <member>postfilter</member>
-       <member>resource</member>
-       <member>insert</member>
-      </simplelist>
-     </para>
-     <para>
-      <literal>name</literal> should be a valid identifier (letters,
-      numbers, and underscores only).
-     </para>
-     <para>
-      Some examples: <literal>function.html_select_date.php</literal>,
-      <literal>resource.db.php</literal>,
-      <literal>modifier.spacify.php</literal>.
-     </para>
-     <para>
-      The plugin functions inside the plugin files must be named as follows:
-      <blockquote>
-       <para>
-        smarty_<emphasis>type</emphasis>_<emphasis>name</emphasis>()
-       </para>
-      </blockquote>
-     </para>
-     <para>
-      The meanings of <literal>type</literal> and <literal>name</literal> are
-      the same as before.
-     </para>
-     <para>
-      Smarty will output appropriate error messages if the plugin file it
-      needs is not found, or if the file or the plugin function are named
-      improperly.
-     </para>
-     <note>
-      <para>
-       Note that pre/postfilters still have to be correctly
-       named even though the names are not really used for anything.
-      </para>
-     </note>
-    </sect2>
    </sect1>
 
-   <sect1>
+   <sect1 id="plugins.naming.conventions">
+    <title>Naming Conventions</title>
+    <para>
+     Plugin files and functions must follow a very specific naming
+     convention in order to be located by Smarty.
+    </para>
+    <para>
+     The plugin files must be named as follows:
+     <blockquote>
+      <para>
+       <emphasis>type</emphasis>.<emphasis>name</emphasis>.php
+      </para>
+     </blockquote>
+    </para>
+    <para>
+     <literal>type</literal> is one of these plugin types:
+     <itemizedlist spacing=compact>
+      <listitem><simpara>function</simpara></listitem>
+      <listitem><simpara>modifier</simpara></listitem>
+      <listitem><simpara>compiler</simpara></listitem>
+      <listitem><simpara>prefilter</simpara></listitem>
+      <listitem><simpara>postfilter</simpara></listitem>
+      <listitem><simpara>resource</simpara></listitem>
+      <listitem><simpara>insert</simpara></listitem>
+     </itemizedlist>
+    </para>
+    <para>
+     <literal>name</literal> should be a valid identifier (letters,
+     numbers, and underscores only).
+    </para>
+    <para>
+     Some examples: <literal>function.html_select_date.php</literal>,
+     <literal>resource.db.php</literal>,
+     <literal>modifier.spacify.php</literal>.
+    </para>
+    <para>
+     The plugin functions inside the plugin files must be named as follows:
+     <blockquote>
+      <para>
+       smarty_<emphasis>type</emphasis>_<emphasis>name</emphasis>()
+      </para>
+     </blockquote>
+    </para>
+    <para>
+     The meanings of <literal>type</literal> and <literal>name</literal> are
+     the same as before.
+    </para>
+    <para>
+     Smarty will output appropriate error messages if the plugin file it
+     needs is not found, or if the file or the plugin function are named
+     improperly.
+    </para>
+    <note>
+     <para>
+      Note that pre/postfilters still have to be correctly
+      named even though the names are not really used for anything.
+     </para>
+    </note>
+   </sect1>
+
+   <sect1 id="plugins.writing">
     <title>Writing Plugins</title>
     <para>
      Plugins can be either loaded by Smarty automatically from the
@@ -6197,46 +5835,46 @@ s m o k e r s   a r e   p. . .
      (as is the case with some plugins bundled with Smarty), then the proper
      way to load the needed plugin is this:
      <programlisting>
-require_once SMARTY_DIR . 'plugins/function.html_options.php';
-     </programlisting>
+require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
      As a general rule, Smarty object is always passed to the plugins as the last
      parameter (except for modifiers).
     </para>
+   </sect1>
 
-    <sect2 id="section.plugins.functions"><title>Functions</title>
-     <funcsynopsis>
-      <funcprototype>
-       <funcdef>void <function>plugin_name</function></funcdef>
-       <paramdef>array <parameter>$params</parameter></paramdef>
-       <paramdef>object <parameter>&$smarty</parameter></paramdef>
-      </funcprototype>
-     </funcsynopsis>
-     <para>
-      All attributes passed to template functions from the template are
-      contained in the <parameter>$params</parameter> as an associative
-      array. Either access those values directly, e.g. $params['start'] or
-      use extract($params) to import them into the symbol table.
-     </para>
-     <para>
-      The output of the function will be substituted in place of the
-      function tag in the template (<function>fetch</function> function, for
-      example). Alternatively, the function can simply perform some other
-      task without any output (<function>assign</function> function).
-     </para>
-     <para>
-      If the function needs to assign some variables to the template or use
-      some other Smarty-provided functionality, it can use the supplied
-      <parameter>$smarty</parameter> object to do so.
-     </para>
-     <para>
-      See also:
-      <link linkend="api.register.function">register_function()</link>,
-      <link linkend="api.unregister.function">unregister_function()</link>.
-     </para>
-     <para>
-      <example>
-       <title>function plugin with output</title>
-       <programlisting>
+   <sect1 id="plugins.functions"><title>Template Functions</title>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>void <function>func_name</function></funcdef>
+      <paramdef>array <parameter>$params</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     All attributes passed to template functions from the template are
+     contained in the <parameter>$params</parameter> as an associative
+     array. Either access those values directly, e.g. $params['start'] or
+     use extract($params) to import them into the symbol table.
+    </para>
+    <para>
+     The output of the function will be substituted in place of the
+     function tag in the template (<function>fetch</function> function, for
+     example). Alternatively, the function can simply perform some other
+     task without any output (<function>assign</function> function).
+    </para>
+    <para>
+     If the function needs to assign some variables to the template or use
+     some other Smarty-provided functionality, it can use the supplied
+     <parameter>$smarty</parameter> object to do so.
+    </para>
+    <para>
+     See also:
+     <link linkend="api.register.function">register_function()</link>,
+     <link linkend="api.unregister.function">unregister_function()</link>.
+    </para>
+    <para>
+     <example>
+      <title>function plugin with output</title>
+      <programlisting>
 &lt;?php
 /*
  * Smarty plugin
@@ -6259,15 +5897,15 @@ function smarty_function_eightball($params, &amp;$smarty)
     $result = array_rand($answers);
     echo $answers[$result];
 }
-?&gt;
-      </programlisting>
+?&gt;</programlisting>
      </example>
+    </para>
+    <para>
      which can be used in the template as:
      <informalexample>
       <programlisting>
-   Question: Will we ever have time travel?
-   Answer: {eightball}.
-      </programlisting>
+Question: Will we ever have time travel?
+Answer: {eightball}.</programlisting>
      </informalexample>
     </para>
 
@@ -6301,41 +5939,40 @@ function smarty_function_assign($params, &amp;$smarty)
 
     $smarty->assign($var, $value);
 }
-?&gt;
-      </programlisting>
+?&gt;</programlisting>
      </example>
     </para>
-   </sect2>
+   </sect1>
 
-    <sect2 id="section.plugins.modifiers"><title>Modifiers</title>
-     <funcsynopsis>
-      <funcprototype>
-       <funcdef>mixed <function>plugin_name</function></funcdef>
-       <paramdef>mixed <parameter>$value</parameter></paramdef>
-       <paramdef>[mixed <parameter>$param1</parameter>, ...]</paramdef>
-      </funcprototype>
-     </funcsynopsis>
+   <sect1 id="plugins.modifiers"><title>Modifiers</title>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>mixed <function>modifier_name</function></funcdef>
+      <paramdef>mixed <parameter>$value</parameter></paramdef>
+      <paramdef>[mixed <parameter>$param1</parameter>, ...]</paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     The first parameter to the modifier plugin is the value on which
+     the modifier is supposed to operate. The rest of the parameters can be
+     optional, depending on what kind of operation is supposed to be
+     performed.
+    </para>
+    <para>
+     The modifier has to return the result of its processing.
+    </para>
+    <para>
+     See also
+     <link linkend="api.register.modifier">register_modifier()</link>,
+     <link linkend="api.unregister.modifier">unregister_modifier()</link>.
+    </para>
+    <example>
+     <title>simple modifier plugin</title>
      <para>
-      The first parameter to the modifier plugin is the value on which
-      the modifier is supposed to operate. The rest of the parameters can be
-      optional, depending on what kind of operation is supposed to be
-      performed.
+      This plugin basically aliases one of the built-in PHP functions. It
+      does not have any additional parameters.
      </para>
-     <para>
-      The modifier has to return the result of its processing.
-     </para>
-     <para>
-      See also
-      <link linkend="api.register.modifier">register_modifier()</link>,
-      <link linkend="api.unregister.modifier">unregister_modifier()</link>.
-     </para>
-     <example>
-      <title>simple modifier plugin</title>
-      <para>
-       This plugin basically aliases one of the built-in PHP functions. It
-       does not have any additional parameters.
-      </para>
-      <programlisting>
+     <programlisting>
 &lt;?php
 /*
  * Smarty plugin
@@ -6350,12 +5987,11 @@ function smarty_modifier_capitalize($string)
 {
     return ucwords($string);
 }
-?&gt;
-      </programlisting>
-     </example>
-     <example>
-      <title>more complex modifier plugin</title>
-      <programlisting>
+?&gt;</programlisting>
+    </example>
+    <example>
+     <title>more complex modifier plugin</title>
+     <programlisting>
 &lt;?php
 /*
  * Smarty plugin
@@ -6385,61 +6021,229 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     } else
         return $string;
 }
-?&gt;
-      </programlisting>
-     </example>
-    </sect2>
+?&gt;</programlisting>
+    </example>
+   </sect1>
 
-    <sect2 id="section.plugins.compiler.functions"><title>compiler functions</title>
+   <sect1 id="plugins.compiler.functions"><title>Compiler Functions</title>
+    <para>
+     Compiler functions are called only during compilation of the template.
+     They are useful for injecting PHP code or time-sensitive static
+     content into the template. If there is both a compiler function and a
+     custom function registered under the same name, the compiler function
+     has precedence.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>mixed <function>compiler_name</function></funcdef>
+      <paramdef>string <parameter>$tag_arg</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     The compiler function is passed two parameters: the tag argument
+     string - basically, everything from the function name until the ending
+     delimiter, and the Smarty object. It's supposed to return the PHP code
+     to be injected into the compiled template.
+    </para>
+    <para>
+     See also
+     <link linkend="api.register.compiler.function">register_compiler_function()</link>,
+     <link linkend="api.unregister.compiler.function">unregister_compiler_function()</link>.
+    </para>
+    <example>
+     <title>simple compiler function</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     compiler.tplheader.php
+ * Type:     compiler
+ * Name:     tplheader
+ * Purpose:  Output header containing the source file name and
+ *           the time it was compiled.
+ * -------------------------------------------------------------
+ */
+function smarty_compiler_tplheader($tag_arg, &$smarty)
+{
+    return "\necho '" . $smarty-&gt;_current_file . " compiled at " . date('Y-m-d H:M'). "';";
+}
+?&gt;</programlisting>
      <para>
-     </para>
-     <example>
-      <title>compiler function plugin</title>
+      This function can be called from the template as:
       <programlisting>
-
-      </programlisting>
-     </example>
-    </sect2>
-    <sect2 id="section.plugins.prefilters"><title>prefilters</title>
-     <para>
-     </para>
-     <example>
-      <title>prefilter plugin</title>
+       {* this function gets executed at compile time only *}
+       {tplheader}</programlisting>
+      The resulting PHP code in the compiled template would be something like this:
       <programlisting>
-
-      </programlisting>
-     </example>
-    </sect2>
-    <sect2 id="section.plugins.postfilters"><title>postfilters</title>
-     <para>
+&lt;php
+echo 'index.tpl compiled at 2002-02-20 20:02';
+?&gt;</programlisting>
      </para>
-     <example>
-      <title>postfilter plugin</title>
-      <programlisting>
+    </example>
+   </sect1>
 
-      </programlisting>
-     </example>
-    </sect2>
-    <sect2 id="section.plugins.resources"><title>template resources</title>
-     <para>
-     </para>
-     <example>
-      <title>resource plugin</title>
-      <programlisting>
+   <sect1 id="plugins.prefilters.postfilters"><title>Prefilters/Postfilters</title>
+    <para>
+     Prefilter and postfilter plugins are very similar in concept; where
+     they differ is in the execution -- more precisely the time of their
+     execution.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>string <function>prefilter_name</function></funcdef>
+      <paramdef>string <parameter>$source</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     Prefilters are used to process the source of the template immediately
+     before compilation. The first parameter to the prefilter function is
+     the template source, possibly modified by some other prefilters. The
+     plugin is supposed to return the modified source.  Note that this
+     source is not saved anywhere, it is only used for compilation.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>string <function>postfilter_name</function></funcdef>
+      <paramdef>string <parameter>$compiled_source</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     Postfilters are used to process the compiled output of the template
+     (the PHP code) immediately after the compilation is done but before the
+     compiled template is saved to the filesystem. The first parameter to
+     the postfilter function is the compiled template code, possibly
+     modified by other postfilters. The plugin is supposed to return the
+     modified version of this code.
+    </para>
+    <example>
+     <title>prefilter plugin</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     prefilter.pre01.php
+ * Type:     prefilter
+ * Name:     pre01
+ * Purpose:  Convert html tags to be lowercase.
+ * -------------------------------------------------------------
+ */
+ function smarty_prefilter_pre01($source, &$smarty)
+ {
+     return preg_replace('!&lt;(\w+)[^&gt;]+&gt;!e', 'strtolower("$1")', $source);
+ }
+?&gt;</programlisting>
+    </example>
+    <para></para>
+    <example>
+     <title>postfilter plugin</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     postfilter.post01.php
+ * Type:     postfilter
+ * Name:     post01
+ * Purpose:  Output code that lists all current template vars.
+ * -------------------------------------------------------------
+ */
+ function smarty_postfilter_post01($compiled, &$smarty)
+ {
+     $compiled = "&lt;pre&gt;\n&lt;?php print_r(\$this-&gt;get_template_vars()); ?&gt;\n&lt;/pre&gt;" . $compiled;
+     return $compiled;
+ }
+?&gt;</programlisting>
+    </example>
+   </sect1>
 
-      </programlisting>
-     </example>
-    </sect2>
-    <sect2 id="section.plugins.inserts"><title>inserts</title>
-     <para>
-     </para>
-     <example>
-      <title>insert plugin</title>
-      <programlisting>
+   <sect1 id="plugins.resources"><title>Resources</title>
+    <para>
+     Resource plugins are meant as a generic way of providing template
+     sources or PHP script components to Smarty. Some examples of resources:
+     databases, LDAP, shared memory, sockets, and so on.
+    </para>
 
-      </programlisting>
-     </example>
-    </sect2>
+    <para>
+     There are a total of 4 functions that need to be registered for each
+     type of resource. Every function will receive the requested resource as
+     the first parameter and the Smarty object as the last parameter. The
+     rest of parameters depend on the function.
+    </para>
+
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>bool <function>rsrc_source</function></funcdef>
+      <paramdef>string <parameter>$name</parameter></paramdef>
+      <paramdef>string <parameter>&$source</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+     <funcprototype>
+      <funcdef>bool <function>rsrc_timestamp</function></funcdef>
+      <paramdef>string <parameter>$name</parameter></paramdef>
+      <paramdef>int <parameter>&$timestamp</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+     <funcprototype>
+      <funcdef>bool <function>rsrc_is_secure</function></funcdef>
+      <paramdef>string <parameter>$name</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+     <funcprototype>
+      <funcdef>bool <function>rsrc_is_trusted</function></funcdef>
+      <paramdef>string <parameter>$name</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+
+    <para>
+     The first function is supposed to retrieve the resource. Its
+     second parameter is a variable passed by reference where the
+     result should be stored. The function is supposed to return
+     <literal>true</literal> if it was able to successfully retrieve
+     the resource and <literal>false</literal> otherwise.
+    </para>
+
+    <para>
+     The second function is supposed to retrieve the last
+     modification time of the requested resource (as a UNIX
+     timestamp). The second parameter is a by reference variable
+     where the timestamp should be stored. The function is supposed
+     to return <literal>true</literal> if the timestamp could be
+     succesfully determined, and <literal>false</literal> otherwise.
+    </para>
+
+    <para>
+     The third function is supposed to return <literal>true</literal>
+     or <literal>false</literal>, depending on whether the requested
+     resource is secure or not. This function is not used for
+     non-template resources but should still be defined.
+    </para>
+
+    <para>
+     The fourth function is supposed to return
+     <literal>true</literal> or <literal>false</literal>, depending
+     on whether the requested resource is trusted or not. This
+     function is not used for template resources but should still be
+     defined.
+    </para>
+    <example>
+     <title>resource plugin</title>
+     <programlisting></programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="plugins.inserts"><title>inserts</title>
+    <para>
+    </para>
+    <example>
+     <title>insert plugin</title>
+     <programlisting></programlisting>
+    </example>
    </sect1>
   </chapter>
 <chapter id="chapter.debugging.console">
@@ -6466,14 +6270,12 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
    Debug data is not cached and debug.tpl info is not included in the output of
    the debug console.
    </para>
+   <note>
    <para>
-   NOTE: This feature was added to Smarty 1.4.3.
+   The load times of each template and config file are in seconds, or
+   fractions thereof.
    </para>
-   <para>
-   NOTE: The load times of each template file and config file have been added to
-   the debug output in Smarty 1.4.6. This output is in seconds, or fractions
-   thereof.
-   </para>
+  </note>
 </chapter>
 <chapter>
    <title>Troubleshooting</title>
@@ -6489,14 +6291,11 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
 <example>
 <title>Smarty errors</title>
 <programlisting>
-
 Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
         in /path/to/smarty/Smarty.class.php on line 1041
 
 Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
-        in /path/to/smarty/Smarty.class.php on line 1041
-
-</programlisting>
+        in /path/to/smarty/Smarty.class.php on line 1041</programlisting>
 </example>
 
        <para>
@@ -6514,10 +6313,7 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
 <example>
 <title>PHP parsing errors</title>
 <programlisting>
-
-Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
-
-</programlisting>
+Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75</programlisting>
 </example>
        
        <para>
@@ -6549,7 +6345,6 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 <title>Printing &amp;nbsp; when a variable is empty</title>
 <programlisting>
 
-
 {* the long way *}
 
 {if $title eq ""}
@@ -6561,9 +6356,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 
 {* the short way *}
 
-{$title|default:"&amp;nbsp;"}
-
-</programlisting>
+{$title|default:"&amp;nbsp;"}</programlisting>
 </example>
 	</sect1>
 	<sect1>
@@ -6577,14 +6370,11 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 <example>
 <title>Assigning a template variable its default value</title>
 <programlisting>
-
 {* do this somewhere at the top of your template *}
 {assign var="title" value=$title|default:"no title"}
 
 {* if $title was empty, it now contains the value "no title" when you print it *}
-{$title}
-
-</programlisting>
+{$title}</programlisting>
 </example>
 	</sect1>
 	<sect1>
@@ -6599,7 +6389,6 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 <example>
 <title>Passing the title variable to the header template</title>
 <programlisting>
-
 
 mainpage.tpl
 ------------
@@ -6630,9 +6419,7 @@ header.tpl
 footer.tpl
 ----------
 &lt;/BODY&gt;
-&lt;/HTML&gt;
-
-</programlisting>
+&lt;/HTML&gt;</programlisting>
 </example>
 	<para>
 		When the main page is drawn, the title of "Main Page" is passed to the
@@ -6659,7 +6446,6 @@ footer.tpl
 <example>
 <title>using date_format</title>
 <programlisting>
-
 {$startDate|date_format}
 
 OUTPUT:
@@ -6676,9 +6462,7 @@ OUTPUT:
 
 {if $date1 < $date2}
 	...
-{/if}
-
-</programlisting>
+{/if}</programlisting>
 </example>
 		<para>
         When using {html_select_date} in a template, The programmer will most
@@ -6688,7 +6472,6 @@ OUTPUT:
 <example>
 <title>converting form date elements back to a timestamp</title>
 <programlisting>
-
 // this assumes your form elements are named
 // startDate_Day, startDate_Month, startDate_Year
 
@@ -6704,9 +6487,7 @@ function makeTimeStamp($year="",$month="",$day="")
 		$day = strftime("%d");
 
 	return mktime(0,0,0,$month,$day,$year);
-}
-
-</programlisting>
+}</programlisting>
 </example>
 	</sect1>
 	<sect1>
@@ -6722,7 +6503,6 @@ function makeTimeStamp($year="",$month="",$day="")
 <example>
 <title>using insert to write a WML Content-Type header</title>
 <programlisting>
-
 // be sure apache is configure for the .wml extensions!                                    
 // put this function somewhere in your application, or in Smarty.addons.php
 function insert_header() {
@@ -6759,9 +6539,7 @@ Press OK to continue...
 Pretty easy isn't it?
 &lt;/p&gt; 
 &lt;/card&gt; 
-&lt;/wml&gt;
-
-</programlisting>
+&lt;/wml&gt;</programlisting>
 </example>
 	</sect1>
 	<sect1 id="tips.componentized.templates">
@@ -6782,17 +6560,16 @@ Pretty easy isn't it?
         template, and not worry about fetching the data up front?
 		</para>
         <para>
-		As of Smarty 1.4.0, you can embed php into your templates with the
-		{php}{/php} tags. With this, you can setup self contained templates
-		with their own data structures for assigning their own variables. With
-		the logic embedded like this, you can keep the template & logic
-		together. This way no matter where the template source is coming from,
-		it is always together as one component.
+        You can embed PHP into your templates with the {php}{/php} tags.
+        With this, you can setup self contained templates with their own
+        data structures for assigning their own variables. With the logic
+        embedded like this, you can keep the template & logic together. This
+        way no matter where the template source is coming from, it is always
+        together as one component.
         </para>
 <example>
 <title>componentized template</title>
 <programlisting>
-
 {* Smarty *}
 
 {php}
@@ -6812,9 +6589,7 @@ Pretty easy isn't it?
 
 {/php}
 
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}
-
-</programlisting>
+Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
 </example>
         <para>
 		As of Smarty 1.5.0, there is even a cleaner way. You can include php in
@@ -6826,7 +6601,6 @@ Stock Name: {$ticker_name} Stock Price: {$ticker_price}
 <example>
 <title>componentized template with include_php</title>
 <programlisting>
-
 load_ticker.php
 ---------------
 
@@ -6853,9 +6627,7 @@ index.tpl
 
 {include_php file="load_ticker.php"}
 
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}
-
-</programlisting>
+Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
 </example>
 	</sect1>
 </chapter>
