@@ -1,3 +1,8 @@
+2004-09-20  Monte Ohrt  <monte@ispi.net>
+
+    * libs/debug.tpl:
+      add <head></head> tags
+
 2004-09-18  boots  <jayboots@yahoo.com>
 
     * libs/Smarty.class.php
