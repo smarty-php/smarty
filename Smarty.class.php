@@ -380,10 +380,7 @@ class Smarty
 \*======================================================================*/
     function unregister_prefilter($function)
     {
-        if (isset($this->_plugins['prefilter'][$function]))
-            unset($this->_plugins['prefilter'][$function]);
-        else
-            $this->_plugins['prefilter'][$function] = false;
+        unset($this->_plugins['prefilter'][$function]);
     }
 
 /*======================================================================*\
@@ -403,10 +400,27 @@ class Smarty
 \*======================================================================*/
     function unregister_postfilter($function)
     {
-        if (isset($this->_plugins['postfilter'][$function]))
-            unset($this->_plugins['postfilter'][$function]);
-        else
-            $this->_plugins['postfilter'][$function] = false;
+        unset($this->_plugins['postfilter'][$function]);
+    }
+
+/*======================================================================*\
+    Function: register_outputfilter
+    Purpose:  Registers an output filter function to apply
+              to a template output
+\*======================================================================*/
+    function register_outputfilter($function)
+    {
+        $this->_plugins['postfilter'][$function]
+            = array($function, null, null, false);
+    }
+
+/*======================================================================*\
+    Function: unregister_outputfilter
+    Purpose:  Unregisters an outputfilter function
+\*======================================================================*/
+    function unregister_outputfilter($function)
+    {
+        unset($this->_plugins['outputfilter'][$function]);
     }
 
 /*======================================================================*\
