@@ -561,7 +561,7 @@ class Smarty_Compiler extends Smarty {
                 } else if ($this->_compile_custom_tag($tag_command, $tag_args, $tag_modifier, $output)) {
                     return $output;                    
                 } else {
-                    $this->_syntax_error("unrecognized tag '$tag_command'", E_USER_WARNING, __FILE__, __LINE__);
+                    $this->_syntax_error("unrecognized tag '$tag_command'", E_USER_ERROR, __FILE__, __LINE__);
                 }
 
         }
@@ -2133,13 +2133,7 @@ class Smarty_Compiler extends Smarty {
      */
     function _syntax_error($error_msg, $error_type = E_USER_ERROR, $file=null, $line=null)
     {
-        if(isset($file) && isset($line)) {
-            $info = ' ('.basename($file).", line $line)";
-        } else {
-            $info = null;
-        }
-        trigger_error('Smarty: [in ' . $this->_current_file . ' line ' .
-                      $this->_current_line_no . "]: syntax error: $error_msg$info", $error_type);
+        $this->_trigger_fatal_error("syntax error: $error_msg", $this->_current_file, $this->_current_line_no, $file, $line, $error_type);
     }
 
 
