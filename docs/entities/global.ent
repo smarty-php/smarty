@@ -5,7 +5,7 @@
  -->
 
 <!ENTITY url.smarty          'http://smarty.php.net/'>
-<!ENTITY url.ml.archive      'http://marc.theaimsgroup.com/?l=smarty&amp;r=1&amp;w=2'>
+<!ENTITY url.ml.archive      'http://marc.theaimsgroup.com/?l=smarty-general&amp;r=1&amp;w=2'>
 <!ENTITY ml.general.sub      'smarty-general-subscribe@lists.php.net'>
 <!ENTITY url.php-accelerator 'http://www.php-accelerator.co.uk'>
 <!ENTITY url.zend            'http://www.zend.com/'>
