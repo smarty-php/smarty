@@ -5,6 +5,7 @@ docs/config.*
 docs/configure
 docs/diff
 docs/dsssl/html-common.dsl
+docs/entities/file-entities.ent
 docs/entities/version.ent
 docs/html
 docs/manual.xml
