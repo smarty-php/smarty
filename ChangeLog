@@ -1,3 +1,18 @@
+2003-03-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.html_options.php:
+      html_options passthru all unknown paramters now
+
+2003-03-17  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/function.html_image.php:
+      Fix link bug in html_image function, also make output XHTML compatible
+
+    * libs/Smarty_Compiler.class.php:
+      fix issue of embedded var and escaped double quotes
+
 2003-03-15  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
