@@ -286,9 +286,9 @@ class Config_File extends PEAR {
 			return new Config_File_Error("Bad variable name '$var_name'");
 
 		if ($booleanize) {
-			if (preg_match("/^on|true|yes$/", $var_value))
+			if (preg_match("/^(on|true|yes)$/", $var_value))
 				$var_value = true;
-			else if (preg_match("/^off|false|no$/", $var_value))
+			else if (preg_match("/^(off|false|no)$/", $var_value))
 				$var_value = false;
 		}
 				

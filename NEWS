@@ -1,6 +1,11 @@
+    - fixed a bug in Config_File that would incorrectly booleanize values that
+      weren't really booleans. (Andrei)
+
+Version 1.4.3
+-------------
     - added regex_replace modifier, documented. (Monte)
-	- added debugging console feature and custom function assign_debug_info,
-	  documented. (Monte)
+    - added debugging console feature and custom function assign_debug_info,
+      documented. (Monte)
     - added 'scope' attribute for {config_load}, 'global' is now deprecated but
       is still supported. (Andrei)
     - reduced template symbol table pollution by moving config array into the
