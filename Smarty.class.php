@@ -492,9 +492,9 @@ class Smarty
         $tpl_path_parts = preg_split("/:/",$tpl_path,2);
         
         if(count($tpl_path_parts) == 1) {
-            // no resource type, treat as flat file from template_dir
+            // no resource type, treat as type "file"
             $resource_type = "file";
-            $filename = $this->template_dir.'/'.$tpl_path_parts[0];
+            $filename = $tpl_path_parts[0];
         } else {
             $resource_type = $tpl_path_parts[0];   
             $filename = $tpl_path_parts[1];
@@ -502,12 +502,16 @@ class Smarty
         
         switch($resource_type) {
             case "file":
+                if(substr($filename,0,1) != "/") {
+                    // relative pathname to $template_dir
+                    $filename = $this->template_dir.'/'.$filename;   
+                }
                 if (file_exists($filename)) {
                     $template_source = $this->_read_file($filename);
                     $template_timestamp = filemtime($filename);
                     return true;
                 } else {
-                    $this->_set_error_msg("unable to read template resource: \"$filename.\"");
+                    $this->_set_error_msg("unable to read template resource: \"$tpl_path.\"");
                     $this->_trigger_error_msg();
                     return false;
                 }
