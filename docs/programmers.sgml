@@ -1290,6 +1290,7 @@ $smarty->register_modifier("sslash","stripslashes");
 				<paramdef>object <parameter>$object</parameter></paramdef>
 				<paramdef>array <parameter>allowed methods/properties</parameter></paramdef>
 				<paramdef>boolean <parameter>format</parameter></paramdef>
+				<paramdef>array <parameter>block methods</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
             <para>

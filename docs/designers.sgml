@@ -1677,6 +1677,40 @@ s m o k e r s   a r e   p. . .</programlisting>
      </para>
      <sect1 id="language.function.capture">
       <title>capture</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>no</entry>
+                        <entry><emphasis>default</emphasis></entry>
+                        <entry>The name of the captured block</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The variable name where to assign the captured output to</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
       <para>
        capture is used to collect the output of the template into a
        variable instead of displaying it. Any content between {capture
@@ -3757,7 +3791,14 @@ OUTPUT: (both examples)
                         <entry>directory to base relative paths from</entry>
                     </row>
                     <row>
-                        <entry>link</entry>
+                        <entry>alt</entry>
+                        <entry>string</entry>
+                        <entry>no</entry>
+                        <entry><emphasis>""</emphasis></entry>
+                        <entry>alternative description of the image</entry>
+                    </row>
+                    <row>
+                        <entry>href</entry>
                         <entry>string</entry>
                         <entry>no</entry>
                         <entry><emphasis>n/a</emphasis></entry>
@@ -3778,7 +3819,7 @@ OUTPUT: (both examples)
 			path to the image must be within a secure directory.
 			</para>
 			<para>
-			link is the href value to link the image to. If link is supplied, an
+			<parameter>href</parameter> is the href value to link the image to. If link is supplied, an
 			&lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is put around the image tag.
 			</para>
 			<note>
@@ -4715,6 +4756,21 @@ OUTPUT:
                         <entry><emphasis>&amp;nbsp;</emphasis></entry>
                         <entry>value to pad the trailing cells on last row with
 						(if any)</entry>
+                    </row>
+
+                    <row>
+                        <entry>hdir</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>right</emphasis></entry>
+                        <entry>direction of one row to be rendered. possible values: <emphasis>left</emphasis>/<emphasis>right</emphasis>
+                    </row>
+                    <row>
+                        <entry>vdir</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>down</emphasis></entry>
+                        <entry>direction of the columns to be rendered. possible values: <emphasis>up</emphasis>/<emphasis>down</emphasis>
                     </row>
                 </tbody>
                 </tgroup>
