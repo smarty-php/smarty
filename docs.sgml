@@ -1361,6 +1361,15 @@ OUTPUT:
 &lt;/select&gt;
 
 
+{* an alternative method is to pass the values & output as an associative array into
+   options. $customer_options is an associative array in this example. This
+   functionality was added to Smarty 1.3.0 *}
+
+&lt;select name=customer_id&gt;
+	{html_options options=$customer_options selected=$customer_id}
+&lt;/select&gt;
+
+
 OUTPUT:
 
 &lt;select name=customer_id&gt;
@@ -1668,7 +1677,12 @@ Home Page
 
 %D - same as %m/%d/%y 
 
-%e - day of the month as a decimal number, a single digit is preceded by a space (range ' 1' to '31') 
+%e - day of the month as a decimal number, a single digit is preceded by a
+space (range 1 to 31) 
+
+%g - Week-based year within century [00,99]
+
+%G - Week-based year, including the century [0000,9999]
 
 %h - same as %b 
 
@@ -1677,6 +1691,11 @@ Home Page
 %I - hour as a decimal number using a 12-hour clock (range 01 to 12) 
 
 %j - day of the year as a decimal number (range 001 to 366) 
+
+%k - Hour (24-hour clock) single digits are preceded by a blank. (range 0 to 23)
+
+%l - hour as a decimal number using a 12-hour clock, single digits preceeded by
+a space (range 1 to 12)
 
 %m - month as a decimal number (range 01 to 12) 
 
@@ -1703,9 +1722,9 @@ Home Page
 %V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1
 is the first week that has at least 4 days in the current year, and with Monday as the first day of the week. 
 
-%W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week 
-
 %w - day of the week as a decimal, Sunday being 0 
+
+%W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week 
 
 %x - preferred date representation for the current locale without the time 
 
@@ -1718,6 +1737,12 @@ is the first week that has at least 4 days in the current year, and with Monday 
 %Z - time zone or name or abbreviation 
 
 %% - a literal `%' character 
+
+
+PROGRAMMERS NOTE: date_format is a wrapper to PHP's strftime() function. You
+may have more or less conversion specifiers available depending on your
+system's strftime() function where PHP was compiled. Check your system's manpage
+for a full list of valid specifiers.
 </programlisting>
 </example>
 

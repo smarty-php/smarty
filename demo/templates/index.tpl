@@ -46,7 +46,3 @@ testing strip tags
 {/strip}
 
 </PRE>
-
-test: {$now|date_format:"%I:%M %p"}
-
-{insert name = foo arg1=5}
