@@ -178,7 +178,7 @@ class Smarty
 
         /* Prepare the configuration object. */
         if (!class_exists('Config_File'))
-            include_once 'Config_File.class.php';
+            include_once dirname(__FILE__) . '/Config_File.class.php';
         $this->_conf_obj = new Config_File($this->config_dir);
     }
 
