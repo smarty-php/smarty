@@ -1,3 +1,9 @@
+2003-08-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      fixed status-header for cache_modified_check under cgi-sapi
+
 2003-08-09  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/core/core.is_secure.php
