@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+  <sect1 id="caching.multiple.caches">
+   <title>Multiple Caches f&uuml;r eine Seite</title>
+   <para>
+    Sie k&ouml;nnen f&uuml;r Aufrufe von 'display()' oder 'fetch()' auch mehrere Caches erzeugen.
+    Nehmen wir zum Beispiel an, der Aufruf von display('index.tpl') erzeuge f&uuml;r
+    verschieden F&auml;lle unterschiedliche Inhalte und Sie wollen jeden dieser Inhalte
+    separat cachen. Um dies zu erreichen, k&ouml;nnen Sie eine 'cache_id' beim Funktionsaufruf
+    &uuml;bergeben.
+   </para>
+   <example>
+    <title>'display()' eine 'cache_id' &uuml;bergeben</title>
+    <programlisting>
+     require('Smarty.class.php');
+     $smarty = new Smarty;
+     
+     $smarty->caching = true;
+     
+     $my_cache_id = $_GET['article_id'];
+     
+     $smarty->display('index.tpl', $my_cache_id);</programlisting>
+   </example>
+   <para>
+    Im oberen Beispiel &uuml;bergeben wir die Variable '$my_cache_id'
+    als 'cache_id' an 'display()'. F&uuml;r jede einmalige 'cache_id' 
+    wird ein eigener Cache von 'index.tpl' erzeugt. In diesem
+    Beispiel wurde 'article_id' per URL &uuml;bergeben und als 'cache_id' verwendet.
+   </para>
+   <note>
+    <title>Technische Bemerkung</title>
+    <para>
+     Seien Sie vorsichtig, wenn Sie Smarty (oder jeder anderen PHP-Applikation)
+     Werte direkt vom Client (Webbrowser) &uuml;bergeben. Obwohl das Beispiel oben
+     praktisch aussehen mag, kann es schwerwiegende Konsequenzen haben. Die 'cache_id'
+     wird verwendet, um im Dateisystem ein Verzeichnis zu erstellen. Wenn ein Benutzer
+     also &uuml;berlange Werte &uuml;bergibt oder ein Skript benutzt, das in hohem
+     Tempo neue 'article_ids' &uuml;bermittelt, kann dies auf dem Server zu Problemen 
+     f&uuml;hren. Stellen Sie daher sicher, dass Sie alle empfangenen Werte auf 
+     ihre G&uuml;ltigkeit &uuml;berpr&uuml;fen und unerlaubte Sequenzen entfernen. 
+     Sie wissen m&ouml;glicherweise, dass ihre 'article_id' nur 10 Zeichen lang sein kann, nur 
+     aus alphanumerischen Zeichen bestehen darf und in der Datenbank eingetragen 
+     sein muss. &uuml;berp&uuml;fen sie das!
+    </para>
+   </note>
+   <para>
+    Denken Sie daran, Aufrufen von <link linkend="api.is.cached">is_cached()</link>
+    und <link linkend="api.clear.cache">clear_cache()</link> als zweiten Parameter
+    die 'cache_id' zu &uuml;bergeben.
+   </para>
+   <example>
+    <title>'is_cached()' mit 'cache_id' aufrufen</title>
+    <programlisting>
+     require('Smarty.class.php');
+     $smarty = new Smarty;
+     
+     $smarty->caching = true;
+     
+     $my_cache_id = $_GET['article_id'];
+     
+     if(!$smarty->is_cached('index.tpl', $my_cache_id)) {
+     
+     // kein Cache gefunden, also Variablen zuweisen
+     $contents = get_database_contents();
+     $smarty->assign($contents);
+     }
+     
+     $smarty->display('index.tpl', $my_cache_id);</programlisting>
+   </example>
+   <para>
+    Sie k&ouml;nnen mit 'clear_cache()' den gesamten Cache einer bestimmten 'cache_id'
+    auf einmal l&ouml;schen, wenn Sie als Parameter die 'cache_id' &uuml;bergeben.
+   </para>
+   <example>
+    <title>Cache einer bestimmten 'cache_id' leeren</title>
+    <programlisting>
+     require('Smarty.class.php');
+     $smarty = new Smarty;
+     
+     $smarty->caching = true;
+     
+     
+     // Cache mit 'sports' als 'cache_id' l&ouml;schen
+     $smarty->clear_cache(null, "sports");
+     
+     $smarty->display('index.tpl', "sports");</programlisting>
+   </example>
+   <para>
+    Indem Sie allen dieselbe 'cache_id' &uuml;bergeben, lassen sich Caches gruppieren.
+   </para>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

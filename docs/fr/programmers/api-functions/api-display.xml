@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+		<sect1 id="api.display">
+			<title>display</title>
+   <methodsynopsis>
+    <type>void</type><methodname>display</methodname>
+    <methodparam><type>string</type><parameter>template</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   </methodsynopsis>
+			<para>
+         Utilisée pour afficher un template. Il faut fournir un type et un
+         chemin de <link
+                linkend="template.resources">ressource template</link>
+         valides. Vous pouvez passer en second paramètre un identifiant
+         de fichier de cache. Reportez-vous a la section
+         <link linkend="caching">cache</link> pour plus de renseignements.
+			</para>
+			<para>
+			Le troisième paramètre optionnel est un identifiant de compilation.
+         Cela s'avère utile quand vous voulez compiler différentes versions
+         d'un même template, pour par exemple avoir des templates
+         compilés séparés pour différents langages. Une autre utilité de ce
+         paramètre est le cas oú vous utilisez plus d'un $template_dir mais un seul
+         $compile_dir, car certains templates avec le même nom s'écraseraient
+         entre eux. Vous pouvez aussi régler la variable <link
+			linkend="variable.compile.id">$compile_id</link> une seule
+			fois au lieu de la passer a chaque appel.
+			</para>
+<example>
+<title>affichage</title>
+<programlisting>
+include("Smarty.class.php");
+$smarty = new Smarty;
+$smarty->caching = true;
+
+// ne fait un appel a la base de données que si le fichier
+// de cache n'existe pas
+if(!$smarty->is_cached("index.tpl"))
+{
+
+    // quelques données
+    $address = "245 N 50th";
+    $db_data = array(
+	    "City" => "Lincoln",
+	    "State" => "Nebraska",
+	    "Zip" = > "68502"
+	    );
+
+    $smarty->assign("Name","Fred");
+    $smarty->assign("Address",$address);
+    $smarty->assign($db_data);
+
+}
+
+// display the output
+$smarty->display("index.tpl");</programlisting>
+</example>
+         <para>
+         Utilisez la syntaxe des <link
+			linkend="template.resources">ressources templates</link>
+         pour afficher des fichiers en-dehors du répertoire
+         $template_dir
+         </para>
+
+<example>
+<title>exemples de fonction d'affichage de ressources templates</title>
+<programlisting>
+// chemin absolu
+$smarty->display("/usr/local/include/templates/header.tpl");
+
+// chemin absolu (pareil)
+$smarty->display("file:/usr/local/include/templates/header.tpl");
+
+// chemin absolu Windows (on DOIT utiliser le préfixe "file:")
+$smarty->display("file:C:/www/pub/templates/header.tpl");
+
+// inclue a partir de la ressource template "db"
+$smarty->display("db:header.tpl");</programlisting>
+</example>
+
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

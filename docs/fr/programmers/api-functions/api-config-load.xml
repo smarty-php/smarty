@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+		<sect1 id="api.config.load">
+			<title>config_load</title>
+   <methodsynopsis>
+    <type>void</type><methodname>config_load</methodname>
+    <methodparam><type>string</type><parameter>file</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>section</parameter></methodparam>
+   </methodsynopsis>
+			<para>
+			Utilisée pour charger des données d'un fichier de config et les
+			assigner a un template. Cette fonction fonctionne exactement comme
+			la fonction de template <link
+			linkend="language.function.config.load">config_load</link>.
+			</para>
+		  <note>
+		  <title>Note technique</title>
+		  <para>
+		  Comme pour Smarty 2.4.0, les variables de templates assignées
+        sont conservées entre chaque appel a fetch et display.
+		  Les variables de configuration chargées avec config_load sont
+        globales. Les fichiers de config sont aussi compilés pour une
+        exécution plus rapide et respecte les réglages de <link
+		   linkend="variable.force.compile">force_compile</link> et de <link
+		   linkend="variable.compile.check">compile_check</link>.
+		  </para>
+		  </note>
+<example>
+<title>config_load</title>
+<programlisting>
+// charge les variables de configuration et les assigne
+$smarty->config_load('my.conf');
+
+// charge une section
+$smarty->config_load('my.conf','foobar');</programlisting>
+</example>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->
