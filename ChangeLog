@@ -1,3 +1,12 @@
+2004-07-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed handling of methods arguments.
+      
+      thanks to Manfred Wischin for finding this one and providing the
+      conceptual fix.
+
 2004-07-23  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_checkboxes.php
