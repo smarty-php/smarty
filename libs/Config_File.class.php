@@ -78,7 +78,7 @@ class Config_File extends PEAR {
 	{
 		$this->PEAR();
 
-		if (substr(PHP_OS, 1, 3) == "WIN")
+		if (substr(PHP_OS, 1, 3) == "WIN" || substr(PHP_OS, 1, 4) == "OS/2")
 			$this->_separator = "\\";
 		else
 			$this->_separator = "/";

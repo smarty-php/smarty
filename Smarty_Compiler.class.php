@@ -374,7 +374,7 @@ class Smarty_Compiler extends Smarty {
             $attrs['section'] = 'null';
         }
 
-        @$scope = $this->_dequote($attrs['scope']);
+        $scope = @$this->_dequote($attrs['scope']);
         if (!empty($scope)) {
             if ($scope != 'local' &&
                 $scope != 'parent' &&

@@ -101,8 +101,10 @@ class Smarty
                                         // this will tell Smarty not to look for
                                         // insert tags and speed up cached page
                                         // fetches.
+	var $cache_handler_func   = '';		// function used for cached content. this is
+	                                    // an alternative to using the file based $cache_dir.
 
-    var $tpl_file_ext    =  '.tpl';     // template file extention
+    var $tpl_file_ext    =  '.tpl';     // template file extention (deprecated)
 
     var $php_handling    =  SMARTY_PHP_PASSTHRU;
                                         // how smarty handles php tags in the templates
@@ -116,7 +118,6 @@ class Smarty
 
     var $security       =   false;      // enable template security (default false)
     var $secure_dir     =   array('./templates'); // array of directories considered secure
-    var $secure_ext     =   array('.tpl'); // array of file extentions considered secure
     var $security_settings  = array(
                                     'PHP_HANDLING'    => false,
                                     'IF_FUNCS'        => array('array', 'list',
@@ -413,9 +414,13 @@ class Smarty
     Function:   clear_cache()
     Purpose:    clear cached content for the given template and cache id
 \*======================================================================*/
-    function clear_cache($tpl_file = null, $cache_id = null, $compile_id)
+    function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null)
     {
-        return $this->_rm_auto($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+		if(!empty($this->cache_handler_func) {
+			return $$this->cache_handler_func('clear', $tpl_file, $cache_id, $compile_id);
+		} else {
+        	return $this->_rm_auto($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+		}
     }
 
 
@@ -425,7 +430,11 @@ class Smarty
 \*======================================================================*/
     function clear_all_cache()
     {
-        return $this->_rm_auto($this->cache_dir);
+		if(!empty($this->cache_handler_func) {
+			return $$this->cache_handler_func('clear');
+		} else {
+        	return $this->_rm_auto($this->cache_dir);
+		}
     }
 
 
@@ -438,20 +447,7 @@ class Smarty
         if (!$this->caching)
             return false;
 
-        $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
-
-        if (file_exists($cache_file) &&
-            ($this->cache_lifetime == 0 ||
-             (time() - filemtime($cache_file) <= $this->cache_lifetime))) {			
-				if($this->compile_check) {
-					return $this->_read_cache_file($cache_file,$results);
-				} else {
-            		return true;
-				}
-			}
-        else
-            return false;
-
+		return $this->_read_cache_file($tpl_file,$cache_id,$compile_id,$results);
     }
 
 
@@ -524,29 +520,22 @@ class Smarty
 
             $this->_cache_info[] = array('template', $tpl_file);
 
-            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+            if($this->_read_cache_file($tpl_file,$cache_id,$compile_id,$results)) {
+                if ($this->insert_tag_check) {
+                    $results = $this->_process_cached_inserts($results);
+                }
+                if ($display) {
+                    echo $results;
+                    if ($this->debugging)
+                    {
+                        // capture time for debugging info
+                        $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = $this->_get_microtime() - $debug_start_time;
 
-            if (file_exists($cache_file) &&
-                ($this->cache_lifetime == 0 ||
-                 (time() - filemtime($cache_file) <= $this->cache_lifetime))) {
-
-                if($this->_read_cache_file($cache_file,$results)) {
-                    if ($this->insert_tag_check) {
-                        $results = $this->_process_cached_inserts($results);
+                        echo $this->_generate_debug_output();
                     }
-                    if ($display) {
-                        echo $results;
-                        if ($this->debugging)
-                        {
-                            // capture time for debugging info
-                            $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = $this->_get_microtime() - $debug_start_time;
-
-                            echo $this->_generate_debug_output();
-                        }
-                        return;
-                    } else {
-                        return $results;
-                    }
+                    return;
+                } else {
+                    return $results;
                 }
             }
         }
@@ -607,7 +596,7 @@ class Smarty
         }
 
         if ($this->caching) {
-            $this->_write_cache_file($cache_file, $results);
+            $this->_write_cache_file($tpl_file,$cache_id,$compile_id,$results);
             $results = $this->_process_cached_inserts($results);
         }
 
@@ -869,7 +858,6 @@ function _generate_debug_output() {
         $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
         $smarty_compiler->security          = $this->security;
         $smarty_compiler->secure_dir        = $this->secure_dir;
-        $smarty_compiler->secure_ext        = $this->secure_ext;
         $smarty_compiler->security_settings = $this->security_settings;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
@@ -1233,62 +1221,91 @@ function _run_insert_handler($args)
 /*======================================================================*\
     Function:   _write_cache_file
     Purpose:    Prepend the cache information to the cache file
-                and write it to disk
+                and write it
 \*======================================================================*/
-    function _write_cache_file($cache_file,$results)
+    function _write_cache_file($tpl_file, $cache_id, $compile_id, $results)
     {
-        // put the templates involved with this cache in the first line
-        $cache_info = 'SMARTY_CACHE_INFO_HEADER'.serialize($this->_cache_info)."\n";
-        $this->_write_file($cache_file, $cache_info.$results, true);
+		// put timestamp in cache header
+		$this->_cache_info['timestamp'] = time();
 
-        return true;
+        // prepend the cache header info into cache file
+        $results = 'SMARTY_CACHE_INFO_HEADER'.serialize($this->_cache_info)."\n".$results;
+
+		if(!empty($this->cache_handler_func)) {
+			// use cache_write_handler function
+			return $$this->cache_handler_func('write', $tpl_file, $cache_id, $compile_id, $results, $this);
+		} else {	
+			// use local cache file
+	    	$cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+        	$this->_write_file($cache_file, $results, true);
+        	return true;
+		}
     }
 
 /*======================================================================*\
     Function:   _read_cache_file
-    Purpose:    See if any of the templates for this cache file
-                have changed or not since the cache was created.
-                Remove the cache info from the cache results.
+    Purpose:    read a cache file, determine if it needs to be
+				regenerated or not
 \*======================================================================*/
-    function _read_cache_file($cache_file,&$results)
+    function _read_cache_file($tpl_file, $cache_id, $compile_id, &$results)
     {
-        if( !($cache_header = $this->_read_file($cache_file,1,1) )) {
+		if ($this->force_compile || $this->cache_lifetime == 0) {
+			// force compile enabled or cache lifetime is zero, always regenerate
 			return false;
 		}
 		
+		if(!empty($this->cache_handler_func)) {
+
+			// use cache_read_handler function
+			return($$this->cache_handler_func('read',$tpl_file, $cache_id, $compile_id, $results, $this));
+
+		} else {
+			// use local file cache
+			
+	    	$cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+        	return ($results = $this->_read_file($cache_file));
+			
+		}
+
+		$cache_split = explode("\n",$results,2);
+		$cache_header = $cache_split[0];
+		
         if (substr($cache_header, 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {
+
             $cache_info = unserialize(substr($cache_header, 24));
+			$cache_timestamp = $cache_info['timestamp'];
 
+       		if (time() - $cache_timestamp > $this->cache_lifetime) {
+				// cache expired, regenerate
+				return false;
+			}
+			
             if ($this->compile_check) {
-                $cache_filemtime = filemtime($cache_file);
-
                 foreach ($cache_info as $curr_cache_info) {
                     switch ($curr_cache_info[0]) {
                         case 'template':
                             $this->_fetch_template_info($curr_cache_info[1], $template_source, $template_timestamp, false);
-                            if($cache_filemtime < $template_timestamp) {
+                            if($cache_timestamp < $template_timestamp) {
                                 // template file has changed, regenerate cache
                                 return false;
                             }
                             break;
 
                         case 'config':
-                            if ($cache_filemtime < filemtime($this->config_dir.'/'.$curr_cache_info[1])) {
+                            if ($cache_timestamp < filemtime($this->config_dir.'/'.$curr_cache_info[1])) {
                                 // config file file has changed, regenerate cache
                                 return false;
                             }
                             break;
                     }
                 }
-				
             }
-			$results = $this->_read_file($cache_file,2);
+			$results = $cache_split[1];
+        	return true;
         } else {
-			// no cache info header, pre Smarty 1.4.6 format
-			$results = $this->_read_file($cache_file);
+			// no cache info header, pre Smarty 1.4.6 format. regenerate
+        	return false;
 		}
-
-        return true;
     }
 
 
