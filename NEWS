@@ -1,20 +1,22 @@
+	- added template results caching capability. (Monte, Andrei)
     - added optional 'options' attribute to html_options custom function
       that allows passing associative arrays for values/output. (Andrei)
-    - modifier arguments can now contain | and : characters inside quoted
-      strings. (Andrei)
+	- modifier arguments can now contain '|' and ':' characters inside quoted
+	  strings. (Andrei)
 
 Version 1.2.2
 -------------
     - fixed bug that would not respect nested template directories and would
       put all compiled files into top-level one. (Andrei)
-    - fixed bug using $PHP_VERSION instead of environment var PHP_VERSION.
-    - couple small warning fixes
+	- fixed bug using $PHP_VERSION instead of environment var PHP_VERSION.
+	  (Monte)
+    - a couple small warning fixes. (Monte)
 
 Version 1.2.1
 -------------
-    - added $compile_dir, removed $compile_dir_ext, simplified usage
-    - added tips & tricks chapter to documentation
-    - misc documentation updates
+    - added $compile_dir, removed $compile_dir_ext, simplified usage. (Monte)
+    - added tips & tricks chapter to documentation. (Monte)
+    - misc documentation updates. (Monte)
 
 Version 1.2.0
 -------------
