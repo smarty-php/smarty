@@ -24,7 +24,7 @@
 set_time_limit(0);
 
 $search = array(
-    '/(<HTML.*<META.*HTTP-EQUIV="Content-type".*charset=(.*)".*<BODY[^>]+>)/mSs',
+    '/(<HTML.*<META.*HTTP-EQUIV="Content-type".*charset=(.*?)".*?<BODY[^>]+>)/mSs',
     '/(<\/BODY\s*><\/HTML\s*>)/mS'
 );
 
