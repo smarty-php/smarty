@@ -15,25 +15,45 @@
  
 function smarty_core_create_dir_structure($params, &$this)
 {
-    if (!file_exists($params['dir'])) {           
-        $_new_dir = (preg_match("/^(([\/\\\\])|[a-zA-Z]:[\/\\\\])/", $params['dir'], $_root_dir))
-            ? $_root_dir[2] : getcwd().DIRECTORY_SEPARATOR;
-
-        $_dir_parts = preg_split('!\\' . DIRECTORY_SEPARATOR . '+!', $params['dir'], -1, PREG_SPLIT_NO_EMPTY);
-
-        // do not attempt to test or make directories outside of open_basedir
+    if (!file_exists($params['dir'])) {
         $_open_basedir_ini = ini_get('open_basedir');
-        if(!empty($_open_basedir_ini)) {
-            $_use_open_basedir = true;
-            $_open_basedir_sep = (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') ? ';' : ':';
-            $_open_basedirs = explode($_open_basedir_sep, $_open_basedir_ini);
-        } else {                    
-            $_use_open_basedir = false;
-        }
 
+        if (DIRECTORY_SEPARATOR=='/') {
+            /* unix-style paths */
+            $_dir = $params['dir'];
+            $_dir_parts = preg_split('!/+!', $_dir, -1, PREG_SPLIT_NO_EMPTY);
+            $_new_dir = ($_dir{0}=='/') ? '/' : getcwd().'/';
+            if($_use_open_basedir = !empty($_open_basedir_ini)) {
+                $_open_basedirs = explode(':', $_open_basedir_ini);
+            }
+
+        } else {
+            /* other-style paths */
+            $_dir = str_replace('\\','/', $params['dir']);
+            $_dir_parts = preg_split('!/+!', $_dir, -1, PREG_SPLIT_NO_EMPTY);
+            if (preg_match('!^((//)|([a-zA-Z]:/))!', $_dir, $_root_dir)) {
+                /* leading "//" for network volume, or "[letter]:/" for full path */
+                $_new_dir = $_root_dir[1];
+                /* remove drive-letter from _dir_parts */
+                if (isset($_root_dir[3])) array_shift($_dir_parts);
+
+            } else {
+                $_new_dir = str_replace('\\','/', getcwd()).'/';
+
+            }
+            
+            if($_use_open_basedir = !empty($_open_basedir_ini)) {
+                $_open_basedirs = explode(';', str_replace('\\','/', $_open_basedir_ini));
+            }
+
+        }
+        
+        /* all paths use "/" only from here */
         foreach ($_dir_parts as $_dir_part) {
             $_new_dir .= $_dir_part;
+
             if ($_use_open_basedir) {
+                // do not attempt to test or make directories outside of open_basedir
                 $_make_new_dir = false;
                 foreach ($_open_basedirs as $_open_basedir) {
                     if (substr($_new_dir.'/', 0, strlen($_open_basedir)) == $_open_basedir) {
@@ -49,7 +69,7 @@ function smarty_core_create_dir_structure($params, &$this)
                 $this->trigger_error("problem creating directory '" . $_new_dir . "'");
                 return false;
             }
-            $_new_dir .= DIRECTORY_SEPARATOR;
+            $_new_dir .= '/';
         }
     }
 }
