@@ -211,7 +211,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
 	   This tells Smarty whether or not to cache the output of the templates.
 	   By default this is set to 0, or disabled. If your templates generate
-	   redundant content, it is advisable to turn on caching. This
+	   redundant redundant content, it is advisable to turn on caching. This
 	   will result in significant performance gains. You can also have multiple
 	   caches for the same template. A value of 1 or 2 enables caching. 1 tells
 	   Smarty to use the current $cache_lifetime variable to determine if the
