@@ -1,3 +1,5 @@
+  - fix unnecessary call to smarty_core_get_include_path() inside
+    Smarty::_get_auto_filename() (c960657, messju)
   - add error-messages when anything else than an identifier is passed
     to foreach's key- or item-attribute (messju)
   - fix handling of digits inside tagnames (messju)

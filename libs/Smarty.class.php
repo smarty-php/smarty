@@ -1727,16 +1727,7 @@ class Smarty
     function _get_auto_filename($auto_base, $auto_source = null, $auto_id = null)
     {
         $_compile_dir_sep =  $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
-
-        if(@is_dir($auto_base)) {
-            $_return = $auto_base . DIRECTORY_SEPARATOR;
-        } else {
-            // auto_base not found, try include_path
-            $_params = array('file_path' => $auto_base);
-            require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
-            smarty_core_get_include_path($_params, $this);
-            $_return = isset($_params['new_file_path']) ? $_params['new_file_path'] . DIRECTORY_SEPARATOR : null;
-        }
+        $_return = $auto_base . DIRECTORY_SEPARATOR;
 
         if(isset($auto_id)) {
             // make auto_id safe for directory names
