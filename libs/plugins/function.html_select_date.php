@@ -115,11 +115,15 @@ function smarty_function_html_select_date($params, &$smarty)
             case 'reverse_years':
                 $$_key = (bool)$_value;
                 break;
+
+            default:
+                $smarty->trigger_error("[html_select_time] unknown parameter $_key", E_USER_WARNING);
+
         }
     }
 
     // If $time is not in format yyyy-mm-dd
-    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time) && $time!='--') {
+    if (!preg_match('/^\d{4}-\d{1,2}-\d{1,2}$/', $time) && $time!='--') {
         // then $time is empty or unix timestamp or mysql timestamp
         // using smarty_make_timestamp to get an unix timestamp and
         // strftime to make yyyy-mm-dd
