@@ -52,7 +52,7 @@ Edit the index.php file to look like the following:
 <?php
 
 // put full path to Smarty.class.php
-require('/usr/local/lib/php/Smarty/lib/Smarty.lib.php');
+require('/usr/local/lib/php/Smarty/Smarty.class.php');
 $smarty = new Smarty();
 
 $smarty->template_dir = '/web/www.domain.com/smarty/templates';
