@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerlad Status: ready -->
 <sect1 id="language.function.strip">
  <title>strip</title>
  <para>
@@ -30,22 +30,25 @@
 <programlisting>
 {* la suite sera affichée sur une seule ligne *}
 {strip}
-&lt;table border=0&gt;
-	&lt;tr&gt;
-		&lt;td&gt;
-			&lt;A HREF="{$url}"&gt;
-			&lt;font color="red"&gt;Un test&lt;/font&gt;
-			&lt;/A&gt;
-		&lt;/td&gt;
-	&lt;/tr&gt;
-&lt;/table&gt;
+<![CDATA[
+<table border=0>
+	<tr>
+		<td>
+			<A HREF="{$url}">
+			<font color="red">Un test</font>
+			</A>
+		</td>
+	</tr>
+</table>
 {/strip}
 
 
 SORTIE:
 
-&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://mon.domaine.com"&gt;&lt;font color="red"&gt;Un test&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</programlisting>
- </example>
+<table border=0><tr><td><A HREF="http://mon.domaine.com"><font color="red">Un test</font></A></td></tr></table>
+]]>
+</programlisting>
+</example>
  <para>
   Notez que dans l'exemple ci-dessus, toutes les lignes commencent et
   se terminent par des	balises HTML. Sachez que si vous avez du texte

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.ldelim">
  <title>ldelim,rdelim</title>
  <para>
@@ -19,7 +19,8 @@
 
 SORTIE:
 
-{nomFonction}  est la façon dont sont appelées les fonctions dans Smarty !</programlisting>
+{nomFonction}  est la façon dont sont appelées les fonctions dans Smarty !
+</programlisting>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

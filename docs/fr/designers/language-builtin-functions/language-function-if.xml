@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.if">
  <title>if,elseif,else</title>
  <para>
@@ -15,6 +15,123 @@
   des opérateurs conditionnels valides, et doivent obligatoirement être
   séparés des autres éléments par des espaces.
  </para>
+ <para>
+    La liste suivante présente les opérateurs reconnus, qui doivent être entourés d'espaces.
+    Remarquez que les éléments listés entre [crochets] sont optionnels. Les équivalents 
+    PHP sont indiqués lorsque applicables.
+ </para>
+
+ <informaltable frame="all">
+      <tgroup cols="4">
+         <colspec colname="qualifier" align="center" />
+         <colspec colname="alternates" align="center" />
+         <colspec colname="meaning" />
+         <colspec colname="example" />
+         <colspec colname="php" />
+          <thead>
+            <row>
+              <entry>Qualifier</entry>
+              <entry>Alternates</entry>
+              <entry>Syntax Example</entry>
+              <entry>Meaning</entry>
+              <entry>PHP Equivalent</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>==</entry>
+              <entry>eq</entry>
+              <entry>$a eq $b</entry>
+              <entry>equals</entry>
+              <entry>==</entry>
+            </row>
+            <row>
+              <entry>!=</entry>
+              <entry>ne, neq</entry>
+               <entry>$a neq $b</entry>
+               <entry>not equals</entry>
+               <entry>!=</entry>
+            </row>
+            <row>
+               <entry>&gt;</entry>
+               <entry>gt</entry>
+               <entry>$a gt $b</entry>
+               <entry>greater than</entry>
+               <entry>&gt;</entry>
+            </row>
+            <row>
+               <entry>&lt;</entry>
+               <entry>lt</entry>
+               <entry>$a lt $b</entry>
+               <entry>less than</entry>
+               <entry>&lt;</entry>
+            </row>
+            <row>
+               <entry>&gt;=</entry>
+               <entry>gte, ge</entry>
+               <entry>$a ge $b</entry>
+               <entry>greater than or equal</entry>
+               <entry>&gt;=</entry>
+           </row>
+           <row>
+               <entry>&lt;=</entry>
+               <entry>lte, le</entry>
+               <entry>$a le $b</entry>
+               <entry>less than or equal</entry>
+               <entry>&lt;=</entry>
+           </row>
+           <row>
+               <entry>!</entry>
+               <entry>not</entry>
+               <entry>not $a</entry>
+               <entry>negation (unary)</entry>
+               <entry>!</entry>
+           </row>
+           <row>
+               <entry>%</entry>
+               <entry>mod</entry>
+               <entry>$a mod $b</entry>
+               <entry>modulous</entry>
+               <entry>%</entry>
+           </row>
+           <row>
+              <entry>is [not] div by</entry>
+              <entry></entry>
+              <entry>$a is not div by 4</entry>
+              <entry>divisible by</entry>
+              <entry>$a % $b == 0</entry>
+           </row>
+            <row>
+              <entry>is [not] even</entry>
+              <entry></entry>
+              <entry>$a is not even</entry>
+              <entry>[not] an even number (unary)</entry>
+              <entry>$a % 2 == 0</entry>
+           </row>
+           <row>
+              <entry>is [not] even by</entry>
+              <entry></entry>
+              <entry>$a is not even by $b</entry>
+              <entry>grouping level [not] even</entry>
+              <entry>($a / $b) % 2 == 0</entry>
+           </row>
+           <row>
+              <entry>is [not] odd</entry>
+              <entry></entry>
+              <entry>$a is not odd</entry>
+              <entry>[not] an odd number (unary)</entry>
+              <entry>$a % 2 != 0</entry>
+           </row>
+           <row>
+              <entry>is [not] odd by</entry>
+              <entry></entry>
+              <entry>$a is not odd by $b</entry>
+              <entry>[not] an odd grouping</entry>
+              <entry>($a / $b) % 2 != 0</entry>
+           </row>
+        </tbody>
+	</tgroup>
+</informaltable>
  <example>
   <title>Instruction if</title>
 <programlisting>
