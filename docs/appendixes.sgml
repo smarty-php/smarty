@@ -371,7 +371,7 @@ index.tpl
 ---------
 
 Send inquiries to
-&lt;a href="mailto:{$EmailAddress|escape:"hex"}&gt;{$EmailAddress|escape:"hexentity"}&lt;/a&gt;
+&lt;a href="mailto:{$EmailAddress|escape:"hex"}"&gt;{$EmailAddress|escape:"hexentity"}&lt;/a&gt;
 
 OUTPUT:
 
