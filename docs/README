@@ -15,5 +15,9 @@ MAKE:
  * make (to make plain html)
  * make web (to make docs for website)
 
+Revision Tracking (for translations):
+ * make revcheck (this will create revcheck.html)
+
+
 You should have libxml and autoconf installed in your system.
 Read http://php.net/manual/howto/chapter-tools.html for more info.

@@ -7,3 +7,4 @@ config.*
 html
 phpweb
 diff
+revcheck.html

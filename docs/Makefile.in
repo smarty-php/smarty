@@ -52,10 +52,14 @@ test:
 	$(NSGMLS) -i lang-$(LANG) -s $(XMLDCL) manual.xml 
 
 
+revcheck: FORCE
+	$(PHP) -f scripts/revcheck.php $(LANG) > revcheck.html
+
 # {{{ cleanup 
 
 clean:
 	rm -f Makefile config.* manual.xml configure entities/version.ent *.fot dsssl/html-common.dsl
+	rm -f revcheck.html file-entities.php
 	rm -fr autom4te.cache html phpweb
 
 # }}}

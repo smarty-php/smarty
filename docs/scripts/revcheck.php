@@ -1,8 +1,7 @@
-#!/usr/bin/php -q
 <?php
 /*
   +----------------------------------------------------------------------+
-  | PHP Version 4                                                        |
+  | PHP Version 5                                                        |
   +----------------------------------------------------------------------+
   | Copyright (c) 1997-2004 The PHP Group                                |
   +----------------------------------------------------------------------+
@@ -51,6 +50,9 @@ the actual english xml files, and print statistics
 
 // Long runtime
 set_time_limit(0);
+
+// disable E_NOTICE
+error_reporting(E_ALL ^ E_NOTICE);
 
 // A file is criticaly "outdated' if
 define("ALERT_REV",   10); // translation is 10 or more revisions behind the en one
