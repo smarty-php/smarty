@@ -133,7 +133,30 @@ function smarty_mod_spacify($string, $spacify_char = ' ')
 \*======================================================================*/
 function smarty_mod_date_format($string, $format="%b %e, %Y")
 {
-    return strftime($format, $string);
+    return strftime($format, smarty_make_timestamp($string));
+}
+
+/*======================================================================*\
+    Function: smarty_make_timestamp
+    Purpose:  used by other smarty functions to make a timestamp
+              from a string of characters.
+\*======================================================================*/
+function smarty_make_timestamp($string)
+{        
+    $time = strtotime($string);
+    if(is_numeric($time) && $time != -1)
+        return $time;
+    
+    // is mysql timestamp format of YYYYMMDDHHMMSS?
+    if(is_numeric($string) && strlen($string) == 14) {
+        $time = mktime(substr($string,8,2),substr($string,10,2),substr($string,12,2),
+               substr($string,4,2),substr($string,6,2),substr($string,0,4));
+        
+        return $time;
+    }
+
+    // can decipher, must be timestamp already?    
+    return $string;
 }
 
 /*======================================================================*\
@@ -249,6 +272,8 @@ function smarty_func_html_select_date()
     
     extract(func_get_arg(0));
 
+    $time = smarty_make_timestamp($time);
+        
     $html_result = "";
 
     if ($display_months) {
@@ -316,6 +341,8 @@ function smarty_func_html_select_time()
     
     extract(func_get_arg(0));
     
+    $time = smarty_make_timestamp($time);
+
     $html_result = '';
     
     if ($display_hours) {
