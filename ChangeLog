@@ -1,3 +1,11 @@
+2002-09-10  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml:
+    add assign attribute to cycle function documentation
+
+    * docs/designers.sgml
+      docs/programmers.sgml: fix typos
+
 2002-09-09  Monte Ohrt  <monte@ispi.net>
 
     * plugins/function.debug.php
