@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <sect1 id="api.register.modifier">
-   <title>register_modifier (Modifikator-Plugin registrieren)</title>
-   <funcsynopsis>
-    <funcprototype>
-     <funcdef>void <function>register_modifier</function></funcdef>
-     <paramdef>string <parameter>name</parameter></paramdef>
-     <paramdef>mixed <parameter>impl</parameter></paramdef>
-    </funcprototype>
-   </funcsynopsis>
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+<refentry id="api.register.modifier">
+ <refnamediv>
+  <refname>register_modifier (Modifikator-Plugin registrieren)</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>register_modifier</methodname>
+   <methodparam><type>string</type><parameter>name</parameter></methodparam>
+   <methodparam><type>mixed</type><parameter>impl</parameter></methodparam>
+  </methodsynopsis>
    <para>
     Wird verwendet, um Modifikator-Plugins dynamisch zu
     registrieren. &Uuml;bergeben Sie dazu den Namen der Modifikator-Funktion 
@@ -24,16 +28,20 @@
    <example>
     <title>register_modifier (Modifikator-Plugin registrieren)</title>
     <programlisting>
-     
-     // PHP's 'stripslashes()'-Funktion als Smarty Modifikator registrieren
-     
-     $smarty->register_modifier("sslash", "stripslashes");
-     
-     
-     // Von nun an k&ouml;nnen Sie {$var|sslash} verwenden,
-     // um "\"-Zeichen (Backslash) aus Zeichenketten zu entfernen. ('\\' wird zu '\',...)</programlisting>
+<![CDATA[
+<?php
+// PHP's 'stripslashes()'-Funktion als Smarty Modifikator registrieren
+
+$smarty->register_modifier("sslash", "stripslashes");
+
+// Von nun an k&ouml;nnen Sie {$var|sslash} verwenden,
+// um "\"-Zeichen (Backslash) aus Zeichenketten zu entfernen. ('\\' wird zu '\',...)
+?>
+]]>
+</programlisting>
    </example>
-</sect1>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <sect1 id="api.trigger.error">
-   <title>trigger_error (Fehler ausl&ouml;sen)</title>
-   <funcsynopsis>
-    <funcprototype>
-     <funcdef>void <function>trigger_error</function></funcdef>
-     <paramdef>string <parameter>error_msg</parameter></paramdef>
-     <paramdef>[int <parameter>level</parameter>]</paramdef>
-    </funcprototype>
-   </funcsynopsis>
-   <para>
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+<refentry id="api.trigger.error">
+ <refnamediv>
+  <refname>trigger_error (Fehler ausl&ouml;sen)</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>trigger_error</methodname>
+   <methodparam><type>string</type><parameter>error_msg</parameter></methodparam>
+   <methodparam choice="opt"><type>int</type><parameter>level</parameter></methodparam>
+  </methodsynopsis>
+  <para>
     Wird verwendet, um eine Fehlermeldung via Smarty auszugeben.
     Der <parameter>level</parameter>-Parameter kann alle
-    Werte der 'trigger_error()'-PHP-Funktion haben, 
+    Werte der 'trigger_error()'-PHP-Funktion haben,
     zum Beispiel E_USER_NOTICE, E_USER_WARNING, usw.
     Voreingestellt ist E_USER_WARNING.
-   </para>
-</sect1>
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

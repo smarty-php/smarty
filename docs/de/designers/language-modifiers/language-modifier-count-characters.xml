@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
 		<sect1 id="language.modifier.count.characters">
 			<title>count_characters (Buchstaben z&auml;hlen)</title>
             <informaltable frame="all">
@@ -43,8 +44,9 @@
 AUSGABE:
 
 20% der US-Amerikaner finden ihr Land (die USA) nicht auf der Landkarte.
+61
 72
-61</programlisting>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

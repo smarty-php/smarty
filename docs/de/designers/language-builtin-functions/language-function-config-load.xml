@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
 		<sect1 id="language.function.config.load">
 			<title>config_load (Konfiguration laden)</title>
             <informaltable frame="all">
@@ -71,19 +72,22 @@
 <title>Funktion config_load</title>
 
 <programlisting>
+<![CDATA[
 {config_load file="farben.conf"}
-&lt;html&gt;
-&lt;title&gt;{#seitenTitel#}&lt;/title&gt;
-&lt;body bgcolor="{#bodyHintergrundFarbe#}"&gt;
-&lt;table border="{#tabelleRahmenBreite#}" bgcolor="{#tabelleHintergrundFarbe#}"&gt;
-&lt;tr bgcolor="{#reiheHintergrundFarbe#}"&gt;
-        &lt;td&gt;Vornamen&lt;/td&gt;
-        &lt;td&gt;Nachnamen&lt;/td&gt;
-        &lt;td&gt;Adresse&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</programlisting>
+<html>
+<title>{#seitenTitel#}</title>
+<body bgcolor="{#bodyHintergrundFarbe#}">
+<table border="{#tabelleRahmenBreite#}" bgcolor="{#tabelleHintergrundFarbe#}">
+<tr bgcolor="{#reiheHintergrundFarbe#}">
+        <td>Vornamen</td>
+        <td>Nachnamen</td>
+        <td>Adresse</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+</programlisting>
 </example>
 			<para>
 	    Konfigurationsdateien k&ouml;nnen Abschnitte enthalten. Um Variablen
@@ -98,19 +102,22 @@
 <example>
 <title>Funktion config_load mit Abschnitten</title>
 <programlisting>
+<![CDATA[
 {config_load file="farben.conf" section="Kunde"}
-&lt;html&gt;
-&lt;title&gt;{#seitenTitel#}&lt;/title&gt;
-&lt;body bgcolor="{#bodyHintergrundFarbe#}"&gt;
-&lt;table border="{#tabelleRahmenBreite#}" bgcolor="{#tabelleHintergrundFarbe#}"&gt;
-&lt;tr bgcolor="{#reiheHintergrundFarbe#}"&gt;
-        &lt;td&gt;Vornamen&lt;/td&gt;
-        &lt;td&gt;Nachnamen&lt;/td&gt;
-        &lt;td&gt;Adresse&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</programlisting>
+<html>
+<title>{#seitenTitel#}</title>
+<body bgcolor="{#bodyHintergrundFarbe#}">
+<table border="{#tabelleRahmenBreite#}" bgcolor="{#tabelleHintergrundFarbe#}">
+<tr bgcolor="{#reiheHintergrundFarbe#}">
+        <td>Vornamen</td>
+        <td>Nachnamen</td>
+        <td>Adresse</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

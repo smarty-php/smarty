@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
 		<sect1 id="language.modifier.regex.replace">
 			<title>regex_replace (Ersetzen mit regul&auml;ren Ausdr&uuml;cken)</title>
             <informaltable frame="all">

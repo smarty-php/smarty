@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
    <sect1 id="language.math">
     <title>Math</title>
     <para>
@@ -8,6 +9,7 @@
     <example>
      <title>Mathematik Beispiele</title>
      <programlisting>
+	 <![CDATA[
 {$foo+1}
 
 {$foo*$bar}
@@ -20,7 +22,8 @@
 
 {$foo|truncate:"`$fooTruncCount/$barTruncFactor-1`"}
 
-{assign var="foo" value="`$foo+$bar`"}</programlisting>
+{assign var="foo" value="`$foo+$bar`"}
+]]></programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
 		<sect1 id="language.function.strip">
 			<title>strip</title>
 			<para>
@@ -23,24 +24,26 @@
 <example>
 <title>strip tags</title>
 <programlisting>
-
+<![CDATA[
 {* der folgende Inhalt wird in einer Zeile ausgegeben *}
 {strip}
-&lt;table border=0&gt;
-	&lt;tr&gt;
-		&lt;td&gt;
-			&lt;A HREF="{$url}"&gt;
-			&lt;font color="red"&gt;Das ist ein Test.&lt;/font&gt;
-			&lt;/A&gt;
-		&lt;/td&gt;
-	&lt;/tr&gt;
-&lt;/table&gt;
+<table border=0>
+	<tr>
+		<td>
+			<A HREF="{$url}">
+			<font color="red">Das ist ein Test.</font>
+			</A>
+		</td>
+	</tr>
+</table>
 {/strip}
 
 
 AUSGABE:
 
-&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://my.domain.com"&gt;&lt;font color="red"&gt;Das ist ein Test.&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</programlisting>
+<table border=0><tr><td><A HREF="http://my.domain.com"><font color="red">Das ist ein Test.</font></A></td></tr></table></programlisting>
+]]>
+</programlisting>
 </example>
 		<para>
 		Achtung: im obigen Beispiel beginnen und enden alle Zeilen mit HTML-Tags.

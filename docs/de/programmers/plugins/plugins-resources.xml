@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
   <sect1 id="plugins.resources"><title>Ressourcen</title>
    <para>
     Ressourcen-Plugins stellen einen generischen Weg dar, um Smarty mit
@@ -76,60 +77,61 @@
    <example>
     <title>Ressourcen Plugin</title>
     <programlisting>
-     &lt;?php
-     /*
-     * Smarty plugin
-     * ------------------------------------------------------------- 
-     * File:     resource.db.php
-     * Type:     resource
-     * Name:     db
-     * Purpose:  Fetches templates from a database
-     * -------------------------------------------------------------
-     */
-     function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
-     {
-     // Datenbankabfragen machen, um '$tpl_source' das template zuzuweisen
-     $sql = new SQL;
-     $sql->query("select tpl_source
-     from my_table
-     where tpl_name='$tpl_name'");
-     if ($sql->num_rows) {
-     $tpl_source = $sql->record['tpl_source'];
-     return true;
-     } else {
-     return false;
-     }
-     }
-     
-     function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty)
-     {
-     
-     // Datenbankabfragen durchf&uuml;hren um '$tpl_timestamp' zuzuweisen
-     $sql = new SQL;
-     $sql->query("select tpl_timestamp
-     from my_table
-     where tpl_name='$tpl_name'");
-     if ($sql->num_rows) {
-     $tpl_timestamp = $sql->record['tpl_timestamp'];
-     return true;
-     } else {
-     return false;
-     }
-     }
-     
-     function smarty_resource_db_secure($tpl_name, &amp;$smarty)
-     {
-     
-     // angenommen alle Templates seien sicher...
-     return true;
-     }
-     
-     function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
-     {
-     
-     // wird f&uuml;r Templates nicht verwendet
-     }
-     ?&gt;</programlisting>
+<![CDATA[
+<?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     resource.db.php
+ * Type:     resource
+ * Name:     db
+ * Purpose:  Fetches templates from a database
+ * -------------------------------------------------------------
+ */
+function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
+{
+    // do database call here to fetch your template,
+    // populating $tpl_source
+    $sql = new SQL;
+    $sql->query("select tpl_source
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_source = $sql->record['tpl_source'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
+{
+    // do database call here to populate $tpl_timestamp.
+    $sql = new SQL;
+    $sql->query("select tpl_timestamp
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_timestamp = $sql->record['tpl_timestamp'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function smarty_resource_db_secure($tpl_name, &$smarty)
+{
+    // assume all templates are secure
+    return true;
+}
+
+function smarty_resource_db_trusted($tpl_name, &$smarty)
+{
+    // not used for templates
+}
+?>
+]]>
+     </programlisting>
    </example>
 </sect1>
 <!-- Keep this comment at the end of the file

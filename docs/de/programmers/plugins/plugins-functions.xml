@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
   <sect1 id="plugins.functions"><title>Template-Funktionen</title>
    <funcsynopsis>
     <funcprototype>
@@ -35,29 +36,32 @@
  <example>
   <title>Funktionsplugin mit Ausgabe</title>
   <programlisting>
-   &lt;?php
-   /*
-   * Smarty plugin
-   * -------------------------------------------------------------
-   * File:     function.eightball.php
-   * Type:     function
-   * Name:     eightball
-   * Purpose:  outputs a random magic answer
-   * -------------------------------------------------------------
-   */
-   function smarty_function_eightball($params, &amp;$smarty)
-   {
-   $answers = array('Yes',
-   'No',
-   'No way',
-   'Outlook not so good',
-   'Ask again soon',
-   'Maybe in your reality');
-   
-   $result = array_rand($answers);
-   echo $answers[$result];
-   }
-   ?&gt;</programlisting>
+<![CDATA[
+<?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     function.eightball.php
+ * Type:     function
+ * Name:     eightball
+ * Purpose:  outputs a random magic answer
+ * -------------------------------------------------------------
+ */
+function smarty_function_eightball($params, &$smarty)
+{
+    $answers = array('Yes',
+                     'No',
+                     'No way',
+                     'Outlook not so good',
+                     'Ask again soon',
+                     'Maybe in your reality');
+
+    $result = array_rand($answers);
+    return $answers[$result];
+}
+?>
+]]>
+   </programlisting>
  </example>
 </para>
 <para>
@@ -71,33 +75,34 @@
   <example>
    <title>Funktionsplugin ohne Ausgabe</title>
    <programlisting>
-    &lt;?php
-    /*
-    * Smarty plugin
-    * -------------------------------------------------------------
-    * File:     function.assign.php
-    * Type:     function
-    * Name:     assign
-    * Purpose:  assign a value to a template variable
-    * -------------------------------------------------------------
-    */
-    function smarty_function_assign($params, &amp;$smarty)
-    {
-    extract($params);
-    
-    if (empty($var)) {
-    $smarty->trigger_error("assign: missing 'var' parameter");
-    return;
+<![CDATA[
+<?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     function.assign.php
+ * Type:     function
+ * Name:     assign
+ * Purpose:  assign a value to a template variable
+ * -------------------------------------------------------------
+ */
+function smarty_function_assign($params, &$smarty)
+{
+    if (empty($params['var'])) {
+        $smarty->trigger_error("assign: missing 'var' parameter");
+        return;
     }
-    
+
     if (!in_array('value', array_keys($params))) {
-    $smarty->trigger_error("assign: missing 'value' parameter");
-    return;
+        $smarty->trigger_error("assign: missing 'value' parameter");
+        return;
     }
-    
-    $smarty->assign($var, $value);
-    }
-    ?&gt;</programlisting>
+
+    $smarty->assign($params['var'], $params['value']);
+}
+?>
+]]>
+    </programlisting>
   </example>
  </para>
 </sect1>

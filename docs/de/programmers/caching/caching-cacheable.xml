@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.5 Maintainer: andreas Status: ready -->
   <sect1 id="caching.cacheable">
    <title>Die Ausgabe von cachebaren Plugins Kontrollieren</title>
       <para>
@@ -17,13 +18,13 @@
      <example>
      <title>Preventing a plugin's output from being cached</title>
      <programlisting>
-index.php:
-
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
 
-function remaining_seconds($params, &amp;$smarty) {
+function remaining_seconds($params, &$smarty) {
     $remain = $params['endtime'] - time();
     if ($remain >=0)
         return $remain . " second(s)";
@@ -34,16 +35,22 @@ function remaining_seconds($params, &amp;$smarty) {
 $smarty->register_function('remaining', 'remaining_seconds', false, array('endtime'));
 
 if (!$smarty->is_cached('index.tpl')) {
-    // objekt $obj aus datenbank dem template zuweisen
+	// objekt $obj aus datenbank dem template zuweisen
     $smarty->assign_by_ref('obj', $obj);
 }
 
 $smarty->display('index.tpl');
-
-
-index.tpl:
-
-Time Remaining: {remain endtime=$obj->endtime}</programlisting>
+?>
+]]>
+   </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+Zeit: {remain endtime=$obj->endtime}
+]]>
+</programlisting>
     <para>
     Der Wert von $obj->endtime &auml;ndert bei jeder Anzeige der Seite, selbst wenn die Seite gecached wurde. Das Objekt $obj wird nur geladen wenn die Seite nicht gecached wurde.
     </para>
@@ -51,22 +58,28 @@ Time Remaining: {remain endtime=$obj->endtime}</programlisting>
    <example>
    <title>Verhindern dass Template Bl&ouml;cke gecached werden</title>
    <programlisting>
+<![CDATA[
 index.php:
 
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
 
-function smarty_block_dynamic($param, $content, &amp;$smarty) {
+function smarty_block_dynamic($param, $content, &$smarty) {
     return $content;
 }
 $smarty->register_block('dynamic', 'smarty_block_dynamic', false);
 
 $smarty->display('index.tpl');
-
-
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
 Page created: {"0"|date_format:"%D %H:%M:%S"}
 
 {dynamic}
@@ -75,7 +88,10 @@ Now is: {"0"|date_format:"%D %H:%M:%S"}
 
 ... do other stuff ...
 
-{/dynamic}</programlisting>
+{/dynamic}
+]]>
+
+</programlisting>
     </example>
     <para>
 Um sicherzustellen dass ein Teil eines Templates nicht gecached werden soll, kann dieser Abschnitt in einen {dynamic}...{/dynamic} Block verpackt werden.

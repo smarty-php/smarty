@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
        <chapter id="language.combining.modifiers">
         <title>Kombinieren von Modifikatoren</title>
         <para>
@@ -10,15 +11,28 @@
         <example>
          <title>Kombinieren von Modifikatoren</title>
          <programlisting>
-{$artikelTitel}
-{$artikelTitel|upper|spacify}
-{$artikelTitel|lower|spacify|truncate}
-{$artikelTitel|lower|truncate:30|spacify}
-{$artikelTitel|lower|spacify|truncate:30:". . ."}
+<![CDATA[
+index.php:
+<?php
+$smarty = new Smarty;
+$smarty->assign('articleTitle', 'Smokers are Productive, but Death Cuts Efficiency.');
+$smarty->display('index.tpl');
+?>
 
+index.tpl:
 
-AUSGABE:
-
+{$articleTitle}
+{$articleTitle|upper|spacify}
+{$articleTitle|lower|spacify|truncate}
+{$articleTitle|lower|truncate:30|spacify}
+{$articleTitle|lower|spacify|truncate:30:". . ."}
+]]>
+  </programlisting>
+   <para>
+	  AUSGABE:
+	  </para>
+	   <screen>
+<![CDATA[
 Einem Stadtrat in Salem in Pennsylvania (USA) droht eine zweij&auml;hrige Haftstrafe, da eine von ihm gehaltene Rede sechs Minuten l&auml;nger dauerte, als erlaubt. Die Redezeit ist auf maximal f&uuml;nf Minuten begrenzt.
 
 EINEM STADTRAT IN SALEM IN PENNSYLVANIA (USA) DROHT EINE ZWEIJ&auml;HRIGE HAFTSTRAFE, DA EINE VON IHM GEHALTENE REDE SECHS MINUTEN L&auml;NGER DAUERTE, ALS ERLAUBT. DIE REDEZEIT IST AUF MAXIMAL F&uuml;NF MINUTEN BEGRENZT.
@@ -27,7 +41,8 @@ e i n e m    s t a d t r a t   i n   s a l e m   i n...
 
 e i n e m    s t a d t r a t   i n   s a l e m   i n . . .
 
-e i n e m    s t a d t r. . .</programlisting>
+e i n e m    s t a d t r. . .]]>
+  </screen>
         </example>
 </chapter>
 <!-- Keep this comment at the end of the file

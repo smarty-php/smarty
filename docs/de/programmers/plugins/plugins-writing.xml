@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
   <sect1 id="plugins.writing">
    <title>Plugins schreiben</title>
    <para>
@@ -18,7 +19,12 @@
     folgender Weg gew&auml;hlt werden, um das ben&ouml;tigte Plugin zu laden:
    </para>
    <programlisting>
-    require_once $smarty->_get_plugin_filepath('function', 'html_options');</programlisting>
+<![CDATA[
+<?php
+require_once $smarty->_get_plugin_filepath('function', 'html_options');
+?>
+]]>
+</programlisting>
     <para>
      Das Smarty Objekt wird jedem Plugin immer als letzter Parameter
      &uuml;bergeben (ausser bei Variablen-Modifikatoren und bei Bl&uuml;cken wird

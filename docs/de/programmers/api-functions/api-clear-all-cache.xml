@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <sect1 id="api.clear.all.cache">
-   <title>clear_all_cache (Cache vollst&auml;ndig leeren)</title>
-   <funcsynopsis>
-    <funcprototype>
-     <funcdef>void <function>clear_all_cache</function></funcdef>
-     <paramdef>int <parameter>expire time</parameter></paramdef>
-    </funcprototype>
-   </funcsynopsis>
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+<refentry id="api.clear.all.cache">
+ <refnamediv>
+  <refname>clear_all_cache (Cache vollst&auml;ndig leeren)</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_all_cache</methodname>
+   <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
+  </methodsynopsis>
    <para>
     Leert den gesamten Template-Cache. Als optionaler Parameter kann ein
     Mindestalter in Sekunden angegeben werden, das die einzelne Datei haben
@@ -16,11 +20,16 @@
    <example>
     <title>clear_all_cache (Cache vollst&auml;ndig leeren)</title>
     <programlisting>
-     
-     // leere den gesamten cache
-     $smarty->clear_all_cache();</programlisting>
+<![CDATA[
+<?php
+// leere den gesamten cache
+$smarty->clear_all_cache();
+?>
+]]>     
+     </programlisting>
    </example>
-</sect1>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

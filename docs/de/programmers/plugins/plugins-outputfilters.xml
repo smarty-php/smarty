@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
   <sect1 id="plugins.outputfilters"><title>Ausgabefilter</title>
    <para>
     Ausgabefilter werden auf das Template direkt vor der Ausgabe angewendet,
@@ -20,21 +21,25 @@
    <example>
     <title>Ausgabefilter Plugin</title>
     <programlisting>
-     /*
-     * Smarty plugin
-     * -------------------------------------------------------------
-     * File:     outputfilter.protect_email.php
-     * Type:     outputfilter
-     * Name:     protect_email
-     * Purpose:  Converts @ sign in email addresses to %40 as 
-     *           a simple protection against spambots
-     * -------------------------------------------------------------
-     */
-     function smarty_outputfilter_protect_email($output, &amp;$smarty)
-     {
+<![CDATA[
+<?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     outputfilter.protect_email.php
+ * Type:     outputfilter
+ * Name:     protect_email
+ * Purpose:  Converts @ sign in email addresses to %40 as
+ *           a simple protection against spambots
+ * -------------------------------------------------------------
+ */
+ function smarty_outputfilter_protect_email($output, &$smarty)
+ {
      return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
-     '$1%40$2', $output);
-     }
+                         '$1%40$2', $output);
+ }
+?>
+]]>
     </programlisting>
    </example>
 </sect1>

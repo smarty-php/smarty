@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
 <!-- $Revision$ -->
 <chapter id="bugs">
 	<title>BUGS</title>
 	<para>
-	Bitte konsultieren Sie die Datei 'BUGS' welche mit Smarty ausgeliefert wird,
+	Bitte konsultieren Sie die Datei <filename>BUGS</filename> welche mit Smarty ausgeliefert wird,
 	oder die Webseite.
 	</para>
 </chapter>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
   <sect1 id="caching.groups">
    <title>Cache-Gruppen</title>
    <para>
@@ -11,20 +12,24 @@
    <example>
     <title>'cache_id'-Gruppen</title>
     <programlisting>
-     require('Smarty.class.php');
-     $smarty = new Smarty;
-     
-     $smarty->caching = true;
-     
-     
-     // leere alle Caches welche 'sports|basketball' als erste zwei 'cache_id'-Gruppen enthalten
-     $smarty->clear_cache(null, "sports|basketball");
+<![CDATA[
+<?php
+require('Smarty.class.php');
+$smarty = new Smarty;
 
-     // leere alle Caches welche 'sports' als erste 'cache_id'-Gruppe haben. Dies schliesst
-     // 'sports|basketball', oder 'sports|(anything)|(anything)|(anything)|...' ein
-     $smarty->clear_cache(null, "sports");
-     
-     $smarty->display('index.tpl',"sports|basketball");</programlisting>
+$smarty->caching = true;
+
+// leere alle Caches welche 'sports|basketball' als erste zwei 'cache_id'-Gruppen enthalten
+$smarty->clear_cache(null,"sports|basketball");
+
+// leere alle Caches welche 'sports' als erste 'cache_id'-Gruppe haben. Dies schliesst
+// 'sports|basketball', oder 'sports|(anything)|(anything)|(anything)|...' ein
+$smarty->clear_cache(null,"sports");
+
+$smarty->display('index.tpl',"sports|basketball");
+?>
+]]>
+     </programlisting>
    </example>
    <note>
     <title>Technische Bemerkung</title>

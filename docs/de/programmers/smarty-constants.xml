@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
  <chapter id="smarty.constants">
   <title>Konstanten</title>
   <para></para>
@@ -14,11 +15,15 @@
    <example>
     <title>SMARTY_DIR</title>
     <programlisting>
-     
-     // Pfad zum Smarty Verzeichnis setzen
-     define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
-     
-     require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
+<![CDATA[
+<?php
+// Pfad zum Smarty Verzeichnis setzen
+define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
+
+require_once(SMARTY_DIR."Smarty.class.php");
+?>
+]]>
+     </programlisting>
    </example>
   </sect1>
 </chapter>

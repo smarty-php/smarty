@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
 <!-- $Revision$ -->
 <chapter id="tips">
    <title>Tips &amp; Tricks</title>
@@ -121,23 +122,39 @@ footer.tpl
 <example>
 <title>Die Verwendung von date_format</title>
 <programlisting>
-{$startDatum|date_format}
-
+<![CDATA[
+{$startDate|date_format}
+]]>
+</programlisting>
+<para>
 AUSGABE:
+</para>
 
+<screen>
+<![CDATA[
 Jan 4, 2001
-
-
+]]>
+    </screen>
+    <programlisting>
+<![CDATA[
 {$startDatum|date_format:"%Y/%m/%d"}
-
+]]>
+    </programlisting>
+    <para>
 AUSGABE:
-
+    </para>
+    <screen>
+<![CDATA[
 2001/01/04
-
-
-{if $datum1 &lt; $datum2}
+]]>
+    </screen>
+    <programlisting>
+<![CDATA[
+{if $datum1 < $datum2}
 	...
-{/if}</programlisting>
+{/if}
+]]>
+</programlisting>
 </example>
 		<para>
 	Falls {html_select_date} in einem Template verwendet wird, hat der Programmierer
@@ -147,6 +164,8 @@ AUSGABE:
 <example>
 <title>Formular Datum-Elemente nach Timestamp konvertieren</title>
 <programlisting>
+<![CDATA[
+<?php
 // hierbei wird davon ausgegangen, dass Ihre Formular Elemente wie folgt benannt sind
 // startDate_Day, startDate_Month, startDate_Year
 
@@ -162,7 +181,9 @@ function makeTimeStamp($year="",$month="",$day="")
 		$day = strftime("%d");
 
 	return mktime(0,0,0,$month,$day,$year);
-}</programlisting>
+}
+]]>
+</programlisting>
 
 </example>
 	</sect1>
@@ -180,6 +201,8 @@ function makeTimeStamp($year="",$month="",$day="")
 <example>
 <title>Die verwendung von 'insert' um einen WML Content-Type header zu senden</title>
 <programlisting>
+<![CDATA[
+<?php
 // stellen Sie sicher, dass Apache mit .wml Dateien umgehen kann!
 // schreiben Sie folgende Funktion in Ihrer Applikation, oder in Smarty.addons.php
 function insert_header() {
@@ -191,9 +214,14 @@ function insert_header() {
     header($inhalt);
     return;
 }
-
+?>
+]]>
+</programlisting>
+<para>
 // Ihr Template _muss_ danach wie folgt beginnen:
-
+</para>
+    <programlisting>
+<![CDATA[
 {insert name=header inhalt="Content-Type: text/vnd.wap.wml"}
 
 &lt;?xml version="1.0"?&gt;  
@@ -218,7 +246,9 @@ OK klicken um weiterzugehen...
 Einfach, oder?
 &lt;/p&gt; 
 &lt;/card&gt; 
-&lt;/wml&gt;</programlisting>
+&lt;/wml&gt;
+]]>
+</programlisting>
 </example>
 	</sect1>
 	<sect1 id="tips.componentized.templates">
@@ -248,25 +278,42 @@ Einfach, oder?
 <example>
 <title>Template/Script Komponenten</title>
 <programlisting>
+<![CDATA[
+<?php
+
+// drop file "function.load_ticker.php" in plugin directory
+
+// setup our function for fetching stock data
+function fetch_ticker($symbol)
+{
+   // put logic here that fetches $ticker_info
+   // from some ticker resource
+   return $ticker_info;
+}
+
+function smarty_function_load_ticker($params, &$smarty)
+{
+   // call the function
+   $ticker_info = fetch_ticker($params['symbol']);
+
+   // assign template variable
+   $smarty->assign($params['assign'], $ticker_info);
+}
+?>
+]]>
+    </programlisting>
+    <programlisting>
+<![CDATA[
+index.tpl
+---------
+
 {* Smarty *}
 
-{php}
+{load_ticker symbol="YHOO" assign="ticker"}
 
-	// unsere funktion um die b&ouml;rsenkurse zu holen
-	function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) {
-		// hier wird $ticker_name und $ticker_price zugewiesen
-	}
-
-	// aufruf der funktion
-	fetch_ticker("YHOO",$ticker_name,$ticker_price);
-	
-	// zuweisung der variablen
-	$this->assign("ticker_name",$ticker_name);
-	$this->assign("ticker_price",$ticker_price);
-
-{/php}
-
-Symbol: {$ticker_name} Preis: {$ticker_price}</programlisting>
+Stock Name: {$ticker.name} Stock Price: {$ticker.price}
+]]>
+    </programlisting>
 </example>
         <para>
 		Seit Smarty 1.5.0, gibt es einen noch einfacheren und auch saubereren Weg

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
   <sect1 id="plugins.compiler.functions"><title>Compiler-Funktionen</title>
    <para>
     Compiler-Funktionen werden w&auml;hrend der Kompilierung des Template
@@ -30,22 +31,25 @@
    <example>
     <title>Einfache Compiler-Funktionen</title>
     <programlisting>
-     &lt;?php
-     /*
-     * Smarty plugin
-     * -------------------------------------------------------------
-     * File:     compiler.tplheader.php
-     * Type:     compiler
-     * Name:     tplheader
-     * Purpose:  Output header containing the source file name and
-     *           the time it was compiled.
-     * -------------------------------------------------------------
-     */
-     function smarty_compiler_tplheader($tag_arg, &amp;$smarty)
-     {
-     return "\necho '" . $smarty-&gt;_current_file . " compiled at " . date('Y-m-d H:M'). "';";
-     }
-     ?&gt;</programlisting>
+<![CDATA[
+<?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     compiler.tplheader.php
+ * Type:     compiler
+ * Name:     tplheader
+ * Purpose:  Output header containing the source file name and
+ *           the time it was compiled.
+ * -------------------------------------------------------------
+ */
+function smarty_compiler_tplheader($tag_arg, &$smarty)
+{
+    return "\necho '" . $smarty->_current_file . " compiled at " . date('Y-m-d H:M'). "';";
+}
+?>
+]]>
+     </programlisting>
      <para>
       
       Diese Funktion kann aus dem Template wie folgt aufgerufen werden:
@@ -59,9 +63,12 @@
        Der resultierende PHP-Code w&uuml;rde ungef&auml;hr so aussehen:
       </para>
       <programlisting>
-       &lt;php
-       echo 'index.tpl compiled at 2002-02-20 20:02';
-       ?&gt;</programlisting>
+<![CDATA[
+<?php
+echo 'index.tpl compiled at 2002-02-20 20:02';
+?>
+]]>
+       </programlisting>
    </example>
 </sect1>
 <!-- Keep this comment at the end of the file

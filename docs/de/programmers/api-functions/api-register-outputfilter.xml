@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <sect1 id="api.register.outputfilter">
-   <title>register_outputfilter (Ausgabefilter registrieren)</title>
-   <funcsynopsis>
-    <funcprototype>
-     <funcdef>void <function>register_outputfilter</function></funcdef>
-     <paramdef>mixed <parameter>function</parameter></paramdef>
-    </funcprototype>
-   </funcsynopsis>
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+<refentry id="api.register.outputfilter">
+ <refnamediv>
+  <refname>register_outputfilter (Ausgabefilter registrieren)</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>register_outputfilter</methodname>
+   <methodparam><type>mixed</type><parameter>function</parameter></methodparam>
+  </methodsynopsis>
   <para>
   Verwenden Sie diese Funktion um dynamisch Ausgabefilter zu registrieren, welche
   die Template Ausgabe verarbeiten bevor sie angezeigt wird. Konsultieren Sie
@@ -20,7 +24,8 @@
    oder als Array der Form <literal>array(&amp;$class, $method)</literal>, wobei <literal>$class</literal> der Name der Klasse und <literal>$method</literal>
    der Name der Methode ist die aufgerufen werden soll, &uuml;bergeben werden. 
   </para>
-</sect1>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

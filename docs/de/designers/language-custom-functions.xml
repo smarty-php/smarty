@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.5 Maintainer: andreas Status: ready -->
         <chapter id="language.custom.functions">
          <title>Eigene Funktionen</title>
         <para>
@@ -21,6 +22,7 @@
 &designers.language-custom-functions.language-function-html-select-time;
 &designers.language-custom-functions.language-function-html-table;
 &designers.language-custom-functions.language-function-math;
+ &designers.language-custom-functions.language-function-mailto;
 &designers.language-custom-functions.language-function-popup-init;
 &designers.language-custom-functions.language-function-popup;
 &designers.language-custom-functions.language-function-textformat;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
   <sect1 id="caching.multiple.caches">
    <title>Multiple Caches f&uuml;r eine Seite</title>
    <para>
@@ -12,14 +13,19 @@
    <example>
     <title>'display()' eine 'cache_id' &uuml;bergeben</title>
     <programlisting>
-     require('Smarty.class.php');
-     $smarty = new Smarty;
-     
-     $smarty->caching = true;
-     
-     $my_cache_id = $_GET['article_id'];
-     
-     $smarty->display('index.tpl', $my_cache_id);</programlisting>
+<![CDATA[
+<?php
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+$my_cache_id = $_GET['article_id'];
+
+$smarty->display('index.tpl',$my_cache_id);
+?>
+]]>
+     </programlisting>
    </example>
    <para>
     Im oberen Beispiel &uuml;bergeben wir die Variable '$my_cache_id'
@@ -51,21 +57,25 @@
    <example>
     <title>'is_cached()' mit 'cache_id' aufrufen</title>
     <programlisting>
-     require('Smarty.class.php');
-     $smarty = new Smarty;
-     
-     $smarty->caching = true;
-     
-     $my_cache_id = $_GET['article_id'];
-     
-     if(!$smarty->is_cached('index.tpl', $my_cache_id)) {
-     
-     // kein Cache gefunden, also Variablen zuweisen
-     $contents = get_database_contents();
-     $smarty->assign($contents);
-     }
-     
-     $smarty->display('index.tpl', $my_cache_id);</programlisting>
+<![CDATA[
+<?php
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+$my_cache_id = $_GET['article_id'];
+
+if(!$smarty->is_cached('index.tpl',$my_cache_id)) {
+	// kein Cache gefunden, also Variablen zuweisen
+    $contents = get_database_contents();
+    $smarty->assign($contents);
+}
+
+$smarty->display('index.tpl',$my_cache_id);
+?>
+]]>
+     </programlisting>
    </example>
    <para>
     Sie k&ouml;nnen mit 'clear_cache()' den gesamten Cache einer bestimmten 'cache_id'
@@ -74,16 +84,20 @@
    <example>
     <title>Cache einer bestimmten 'cache_id' leeren</title>
     <programlisting>
-     require('Smarty.class.php');
-     $smarty = new Smarty;
-     
-     $smarty->caching = true;
-     
-     
-     // Cache mit 'sports' als 'cache_id' l&ouml;schen
-     $smarty->clear_cache(null, "sports");
-     
-     $smarty->display('index.tpl', "sports");</programlisting>
+<![CDATA[
+<?php
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// Cache mit 'sports' als 'cache_id' l&ouml;schen
+$smarty->clear_cache(null,"sports");
+
+$smarty->display('index.tpl',"sports");
+?>
+]]>
+     </programlisting>
    </example>
    <para>
     Indem Sie allen dieselbe 'cache_id' &uuml;bergeben, lassen sich Caches gruppieren.

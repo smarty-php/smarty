@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
    <sect1 id="language.syntax.functions">
     <title>Funktionen</title>
     <para>
@@ -10,6 +11,7 @@
     <example>
      <title>Funktions-Syntax</title>
      <programlisting>
+	 <![CDATA[
 {config_load file="colors.conf"}
 
 {include file="header.tpl"}
@@ -20,7 +22,9 @@
        Welcome, {$name}!
 {/if}
 
-{include file="footer.tpl"}</programlisting>
+{include file="footer.tpl"}
+]]>
+</programlisting>
     </example>
     <para>
      Sowohl der Aufruf von eingebauten, als auch der von eigenen Funktionen folgt der

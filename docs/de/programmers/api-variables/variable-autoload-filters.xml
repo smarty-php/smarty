@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
   <sect1 id="variable.autoload.filters">
    <title>$autoload_filters</title>
    <para>
@@ -9,8 +10,12 @@
     und der Wert den Filter-Namen definiert. Zum Beispiel:
     <informalexample>
      <programlisting>
-      $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
-      'output' => array('convert')); 
+<![CDATA[
+<?php
+$smarty->autoload_filters = array('pre' => array('trim', 'stamp'),
+                                  'output' => array('convert'));
+?>
+]]>
      </programlisting>
     </informalexample> 
    </para>

@@ -1,21 +1,70 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.strip.tags">
-			<title>strip_tags (HTML-Tags entfernen)</title>
-			<para>
-			Entfernt alle HTML-Tags, beziehungsweise Zeichenketten die von &lt; und &gt; umschlossen sind.
-			</para>
-<example>
-<title>strip_tags (HTML-Tags entfernen)</title>
-<programlisting>
-{$atrikelTitel}
-{$atrikelTitel|strip_tags}
-
-AUSGABE:
-
-Da ein &lt;font face="helvetica"&gt;betrunkener Mann&lt;/font&gt; auf einem Flug ausfallend wurde, musste &lt;b&gt;das Flugzeug&lt;/b&gt; auf einer kleinen Insel zwischenlanden und den Mann aussetzen.
-Da ein betrunkener Mann auf einem Flug ausfallend wurde, musste das Flugzeug auf einer kleinen Insel zwischenlanden und den Mann aussetzen.</programlisting>
-</example>
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+ <sect1 id="language.modifier.strip.tags">
+  <title>strip_tags</title>
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc"/>
+    <thead>
+     <row>
+      <entry>Parameter Position</entry>
+      <entry>Typ</entry>
+      <entry>Ben&ouml;tigt</entry>
+      <entry>Standard</entry>
+      <entry>Beschreibung</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>bool</entry>
+      <entry>Nein</entry>
+      <entry>true</entry>
+      <entry>Definiert ob Tags durch ' ' oder '' ersetzt werden sollen.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
+  <para>
+   Entfernt alle Markup tags. - Eigentlich alles zwischen &lt; und &gt;.
+  </para>
+  <example>
+   <title>strip_tags</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+$smarty = new Smarty;
+$smarty->assign('articleTitle', "Da ein <font face="helvetica">betrunkener Mann</font> auf einem Flug ausfallend wurde, musste <b>das Flugzeug</b> auf einer kleinen Insel zwischenlanden und den Mann aussetzen.");
+$smarty->display('index.tpl');
+?>
+]]>
+   </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
+{$articleTitle}
+{$articleTitle|strip_tags} {* same as {$articleTitle|strip_tags:true} *}
+{$articleTitle|strip_tags:false}
+]]>
+   </programlisting>
+   <para>
+    This will output:
+   </para>
+   <screen>
+<![CDATA[
+Da ein <font face="helvetica">betrunkener Mann</font> auf einem Flug ausfallend wurde, musste <b>das Flugzeug</b> auf einer kleinen Insel zwischenlanden und den Mann aussetzen.
+Da ein betrunkener Mann auf einem Flug ausfallend wurde, musste das Flugzeug auf einer kleinen Insel zwischenlanden und den Mann aussetzen.
+Da ein <font face="helvetica">betrunkener Mann</font> auf einem Flug ausfallend wurde, musste <b>das Flugzeug</b> auf einer kleinen Insel zwischenlanden und den Mann aussetzen.
+]]>
+   </screen>
+  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

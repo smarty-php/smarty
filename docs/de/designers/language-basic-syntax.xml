@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
   <chapter id="language.basic.syntax">
    <title>Grundlegende Syntax</title>
    <para>
@@ -14,15 +15,12 @@
     auf Template-Tags st&ouml;sst, versucht es diese zu interpretieren und die
     entsprechenden Ausgaben an deren Stelle einzuf&uuml;gen.
    </para>
-
 &designers.language-basic-syntax.language-syntax-comments;
-
 &designers.language-basic-syntax.language-syntax-functions;
-
 &designers.language-basic-syntax.language-syntax-attributes;
-
 &designers.language-basic-syntax.language-syntax-quotes;
 &designers.language-basic-syntax.language-math;
+&designers.language-basic-syntax.language-escaping;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

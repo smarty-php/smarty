@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.14 Maintainer: andreas Status: ready -->
     <chapter id="language.modifiers">
      <title>Variablen-Modifikatoren</title>
      <para>
@@ -11,11 +12,19 @@
      <example>
       <title>Modifikator Beispiel</title>
       <programlisting>
+	  <![CDATA[
 {* Schreibe den Titel in Grossbuchstaben *}
 &lt;h2&gt;{$titel|upper}&lt;/h2&gt;
 
 {* K&uuml;rze das Thema auf 40 Zeichen, und h&auml;nge '...' an. *}
-Thema: {$thema|truncate:40:"..."}</programlisting>
+Thema: {$thema|truncate:40:"..."}
+
+{* formatierung einer Zeichenkette *}
+{"now"|date_format:"%Y/%m/%d"}
+
+{* modifier auf eigene Funktion anwenden *}
+{mailto|upper address="me@domain.dom"}
+]]></programlisting>
      </example>
      <para>
       Wenn Sie einen Modifikator auf ein Array anwenden, wird dieser auf jeden Wert angewandt.
@@ -46,6 +55,7 @@ Thema: {$thema|truncate:40:"..."}</programlisting>
 &designers.language-modifiers.language-modifier-escape;
 &designers.language-modifiers.language-modifier-indent;
 &designers.language-modifiers.language-modifier-lower;
+&designers.language-modifiers.language-modifier-nl2br;
 &designers.language-modifiers.language-modifier-regex-replace;
 &designers.language-modifiers.language-modifier-replace;
 &designers.language-modifiers.language-modifier-spacify;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
 		<sect1 id="language.function.html.select.date">
 			<title>html_select_date (Ausgabe von Daten als HTML-'options')</title>
             <informaltable frame="all">
@@ -174,6 +175,27 @@
                         <entry>Nein</entry>
                         <entry>%m</entry>
 			<entry>Format zur Ausgabe der Monats-Werte, Standardwert ist %m. (strftime)</entry>
+                    </row>
+                    <row>
+                        <entry>year_empty</entry>
+                        <entry>string</entry>
+                        <entry>Nein</entry>
+                        <entry>null</entry>
+                        <entry>Definiert, einen Namen f&uuml;r das erste Element der Jahres Select-Box und dessen Wert "". Dies is hilfreich, wenn Sie eine Select-Box machen wollen, die die Zeichenkette "Bitte w&auml;hlen Sie ein Jahr" als erstes Element enth&auml;lt. Beachten Sie, dass Sie Werte wie "-MM-DD" als 'time' Attribut definieren k&ouml;nnen, um ein unselektiertes Jahr anzuzeigen.</entry>
+                    </row>
+                    <row>
+                        <entry>month_empty</entry>
+                        <entry>string</entry>
+                        <entry>Nein</entry>
+                        <entry>null</entry>
+                        <entry>Definiert, einen Namen f&uuml;r das erste Element der Monats Select-Box und dessen Wert "". Dies is hilfreich, wenn Sie eine Select-Box machen wollen, die die Zeichenkette "Bitte w&auml;hlen Sie einen Monat" als erstes Element enth&auml;lt. Beachten Sie, dass Sie Werte wie "YYYY--DD" als 'time' Attribut definieren k&ouml;nnen, um einen unselektierten Monat anzuzeigen.</entry>
+                    </row>
+                    <row>
+                        <entry>day_empty</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>Definiert, einen Namen f&uuml;r das erste Element der Tages Select-Box und dessen Wert "". Dies is hilfreich, wenn Sie eine Select-Box machen wollen, die die Zeichenkette "Bitte w&auml;hlen Sie einen Tag" als erstes Element enth&auml;lt. Beachten Sie, dass Sie Werte wie "YYYY-MM-" als 'time' Attribut definieren k&ouml;nnen, um einen unselektierten Tag anzuzeigen.</entry>
                     </row>
                 </tbody>
                 </tgroup>

@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <sect1 id="api.append">
-   <title>append (anh&auml;ngen)</title>
-   <funcsynopsis>
-    <funcprototype>
-     <funcdef>void <function>append</function></funcdef>
-     <paramdef>mixed <parameter>var</parameter></paramdef>
-    </funcprototype>
-    <funcprototype>
-     <funcdef>void <function>append</function></funcdef>
-     <paramdef>string <parameter>varname</parameter></paramdef>
-     <paramdef>mixed <parameter>var</parameter></paramdef>
-    </funcprototype>
-   </funcsynopsis>
+<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
+<refentry id="api.append">
+ <refnamediv>
+  <refname>append (anh&auml;ngen)</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>append</methodname>
+   <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
+  </methodsynopsis>
+  <methodsynopsis>
+   <type>void</type><methodname>append</methodname>
+   <methodparam><type>string</type><parameter>varname</parameter></methodparam>
+   <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
+   <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
+  </methodsynopsis>
    <para>
     Wird verwendet, um an Template-Variablen weitere Daten anzuh&auml;ngen. Sie
     k&ouml;nnen entweder ein Namen/Wert-Paar oder assoziative Arrays,
@@ -21,15 +26,20 @@
    <example>
     <title>append (anh&auml;ngen)</title>
     <programlisting>
-     
-     // Namen/Wert-Paare &uuml;bergeben
-     $smarty->append("Name","Fred");
-     $smarty->append("Address",$address);
+<![CDATA[
+<?php
+// Namen/Wert-Paare &uuml;bergeben
+$smarty->append("Name", "Fred");
+$smarty->append("Address", $address);
 
-     // assoziatives Array &uuml;bergeben
-     $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
+// assoziatives Array &uuml;bergeben
+$smarty->append(array("city" => "Lincoln", "state" => "Nebraska"));
+?>
+]]>
+    </programlisting>
    </example>
-</sect1>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

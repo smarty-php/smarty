@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
   <chapter id="config.files">
    <title>Konfigurationsdateien</title>
    <para>
@@ -13,6 +14,7 @@
    <example>
     <title>Beispiel der Konfigurationsdatei-Syntax</title>
     <programlisting>
+<![CDATA[
 # global variables
 pageTitle = "Main Menu"
 bodyBgColor = #000000
@@ -35,7 +37,8 @@ Intro = """Diese Zeile erstreckt sich &uuml;ber
 host=my.domain.com
 db=ADDRESSBOOK
 user=php-user
-pass=foobar</programlisting>
+pass=foobar
+]]></programlisting>
    </example>
    <para>
     Die Werte in einer Konfigurationsdatei k&ouml;nnen in einfachen/doppelten Anf&uuml;hrungszeichen

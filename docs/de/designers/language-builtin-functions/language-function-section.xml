@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
 		<sect1 id="language.function.section">
 			<title>section,sectionelse</title>
             <informaltable frame="all">
@@ -60,7 +61,7 @@
                         <entry>max</entry>
                         <entry>integer</entry>
                         <entry>Nein</entry>
-                        <entry><emphasis>1</emphasis></entry>
+                        <entry><emphasis>n/a</emphasis></entry>
 			<entry>Maximale Anzahl an Iterationen, die Durchlaufen werden.</entry>
                     </row>
                     <row>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
 		<sect1 id="language.modifier.string.format">
 			<title>string_format (Zeichenkette formatieren)</title>
             <informaltable frame="all">
