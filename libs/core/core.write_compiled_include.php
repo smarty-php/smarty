@@ -13,18 +13,18 @@
  * @param integer $template_timestamp
  * @return boolean
  */
- 
+
 function smarty_core_write_compiled_include($params, &$smarty)
 {
     $_tag_start = 'if \(\$this->caching\) \{ echo \'\{nocache\:('.$params['cache_serial'].')#(\d+)\}\';\}';
     $_tag_end   = 'if \(\$this->caching\) \{ echo \'\{/nocache\:(\\2)#(\\3)\}\';\}';
 
-    preg_match_all('!('.$_tag_start.'(.*)'.$_tag_end.')!Us', 
+    preg_match_all('!('.$_tag_start.'(.*)'.$_tag_end.')!Us',
                    $params['compiled_content'], $_match_source, PREG_SET_ORDER);
 
     // no nocache-parts found: done
     if (count($_match_source)==0) return;
-    
+
     // convert the matched php-code to functions
     $_include_compiled = "<?php /* funky header here */\n\n";
 
@@ -46,13 +46,13 @@ $_match[4]
 ";
     }
     $_include_compiled .= "\n\n?>\n";
-    
-	$_params = array('filename' => $_compile_path, 
+
+    $_params = array('filename' => $_compile_path,
                      'contents' => $_include_compiled, 'create_dirs' => true);
-    
+
     require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_file.php');
     smarty_core_write_file($_params, $smarty);
-	return true;
+    return true;
 }
 
 

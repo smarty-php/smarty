@@ -14,10 +14,10 @@
  * @param string $compile_id
  * @param string $results
  * @return boolean
- */    
- 
+ */
+
 //  $tpl_file, $cache_id, $compile_id, &$results
- 
+
 function smarty_core_read_cache_file(&$params, &$smarty)
 {
     static  $content_cache = array();
@@ -68,7 +68,7 @@ function smarty_core_read_cache_file(&$params, &$smarty)
     }
 
     if ($smarty->compile_check) {
-        $_params = array('get_source' => false, 'quiet'=>true); 
+        $_params = array('get_source' => false, 'quiet'=>true);
         foreach (array_keys($_cache_info['template']) as $_template_dep) {
             $_params['resource_name'] = $_template_dep;
             if (!$smarty->_fetch_resource_info($_params) || $_cache_info['timestamp'] < $_params['resource_timestamp']) {
@@ -93,7 +93,7 @@ function smarty_core_read_cache_file(&$params, &$smarty)
         if (empty($smarty->_cache_serials[$_include_file_path])) {
             $smarty->_include($_include_file_path, true);
         }
-        
+
         if ($smarty->_cache_serials[$_include_file_path] != $_cache_serial) {
             /* regenerate */
             return false;

@@ -14,7 +14,7 @@
  * @param boolean $smarty_once uses include_once if this is true
  * @param array $smarty_include_vars associative array of vars from
  *              {include file="blah" var=$var}
- */    
+ */
 
 //  $file, $assign, $once, $_smarty_include_vars
 

@@ -10,13 +10,13 @@
  *
  * @param array $args
  * @return string
- */    
+ */
 function smarty_core_run_insert_handler($params, &$smarty)
 {
-	
-	require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
+
+    require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
     if ($smarty->debugging) {
-		$_params = array();
+        $_params = array();
         $_debug_start_time = smarty_core_get_microtime($_params, $smarty);
     }
 
@@ -32,12 +32,12 @@ function smarty_core_run_insert_handler($params, &$smarty)
         }
         return $smarty->_smarty_md5."{insert_cache $_arg_string}".$smarty->_smarty_md5;
     } else {
-        if (isset($params['args']['script'])) {				
-			$_params = array('resource_name' => $smarty->_dequote($params['args']['script']));
-			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_php_resource.php');
-			if(!smarty_core_get_php_resource($_params, $smarty)) {
-				return false;
-			}
+        if (isset($params['args']['script'])) {
+            $_params = array('resource_name' => $smarty->_dequote($params['args']['script']));
+            require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_php_resource.php');
+            if(!smarty_core_get_php_resource($_params, $smarty)) {
+                return false;
+            }
 
             if ($_params['resource_type'] == 'file') {
                 $smarty->_include($_params['php_resource'], true);
@@ -50,8 +50,8 @@ function smarty_core_run_insert_handler($params, &$smarty)
         $_funcname = $smarty->_plugins['insert'][$params['args']['name']][0];
         $_content = $_funcname($params['args'], $smarty);
         if ($smarty->debugging) {
-			$_params = array();
-			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
+            $_params = array();
+            require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
             $smarty->_smarty_debug_info[] = array('type'      => 'insert',
                                                 'filename'  => 'insert_'.$params['args']['name'],
                                                 'depth'     => $smarty->_inclusion_depth,

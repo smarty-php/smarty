@@ -12,7 +12,7 @@
  * @param string $contents
  * @param boolean $create_dirs
  * @return boolean
- */    
+ */
 function smarty_core_write_file($params, &$smarty)
 {
     $_dirname = dirname($params['filename']);
@@ -36,7 +36,7 @@ function smarty_core_write_file($params, &$smarty)
     fclose($fd);
     if(file_exists($params['filename'])) {
         @unlink($params['filename']);
-    } 
+    }
     @rename($_tmp_file, $params['filename']);
     @chmod($params['filename'], $smarty->_file_perms);
 

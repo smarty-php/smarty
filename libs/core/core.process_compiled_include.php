@@ -13,7 +13,7 @@
  * @param string $cached_source
  * @return string
  */
- 
+
 function smarty_core_process_compiled_include($params, &$smarty)
 {
     $_cache_including = $smarty->_cache_including;

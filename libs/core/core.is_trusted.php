@@ -14,8 +14,8 @@
  * @param string $resource_type
  * @param string $resource_name
  * @return boolean
- */    
- 
+ */
+
  // $resource_type, $resource_name
 
 function smarty_core_is_trusted($params, &$smarty)

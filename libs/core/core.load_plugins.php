@@ -9,10 +9,10 @@
  * Load requested plugins
  *
  * @param array $plugins
- */    
+ */
 
-// $plugins 
- 
+// $plugins
+
 function smarty_core_load_plugins($params, &$smarty)
 {
 

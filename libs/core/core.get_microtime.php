@@ -8,7 +8,7 @@
 /**
  * Get seconds and microseconds
  * @return double
- */    
+ */
 function smarty_core_get_microtime($params, &$smarty)
 {
     $mtime = microtime();

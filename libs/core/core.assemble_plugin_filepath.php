@@ -11,7 +11,7 @@
  * @param string $type
  * @param string $name
  * @return string|false
- */    
+ */
 function smarty_core_assemble_plugin_filepath($params, &$smarty)
 {
 
@@ -21,7 +21,7 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty)
     foreach ((array)$smarty->plugins_dir as $_plugin_dir) {
 
         $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
-		
+
         // see if path is relative
         if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $_plugin_dir)) {
             $_relative_paths[] = $_plugin_dir;
@@ -38,24 +38,24 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty)
         }
     }
 
-	if($_return === false) {
+    if($_return === false) {
         // still not found, try PHP include_path
         if(isset($_relative_paths)) {
             foreach ((array)$_relative_paths as $_plugin_dir) {
 
                 $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
 
-				$_params = array('file_path' => $_plugin_filepath);
-				require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
-            	if(smarty_core_get_include_path($_params, $smarty)) {				
-					return $_params['new_file_path'];
+                $_params = array('file_path' => $_plugin_filepath);
+                require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
+                if(smarty_core_get_include_path($_params, $smarty)) {
+                    return $_params['new_file_path'];
                 }
             }
         }
-	}
+    }
 
     return $_return;
-}	
+}
 
 /* vim: set expandtab: */
 

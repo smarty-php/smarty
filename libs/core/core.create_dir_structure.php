@@ -12,7 +12,7 @@
  */
 
 // $dir
- 
+
 function smarty_core_create_dir_structure($params, &$smarty)
 {
     if (!file_exists($params['dir'])) {
@@ -41,13 +41,13 @@ function smarty_core_create_dir_structure($params, &$smarty)
                 $_new_dir = str_replace('\\', '/', getcwd()).'/';
 
             }
-            
+
             if($_use_open_basedir = !empty($_open_basedir_ini)) {
                 $_open_basedirs = explode(';', str_replace('\\', '/', $_open_basedir_ini));
             }
 
         }
-        
+
         /* all paths use "/" only from here */
         foreach ($_dir_parts as $_dir_part) {
             $_new_dir .= $_dir_part;
@@ -62,7 +62,7 @@ function smarty_core_create_dir_structure($params, &$smarty)
                     }
                 }
             } else {
-                $_make_new_dir = true;                    
+                $_make_new_dir = true;
             }
 
             if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, $smarty->_dir_perms) && !is_dir($_new_dir)) {
