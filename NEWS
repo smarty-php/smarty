@@ -1,3 +1,6 @@
+	- fixed the bug that prevented using non-array values for 'loop' attribute
+	  (Andrei)
+
 Version 1.0a
 ------------
     - fixed bug that caused templates to recompile every time (monte)
