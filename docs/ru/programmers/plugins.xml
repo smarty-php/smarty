@@ -48,7 +48,7 @@
    в эту директорию и Smarty будет использовать его в автоматическом режиме.
   </para>
  </sect1>
-  
+ &programmers.plugins.plugins-howto;  
  &programmers.plugins.plugins-naming-conventions;
  &programmers.plugins.plugins-writing;
  &programmers.plugins.plugins-functions;

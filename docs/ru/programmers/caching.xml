@@ -28,7 +28,8 @@
  &programmers.caching.caching-setting-up;
  &programmers.caching.caching-multiple-caches;
  &programmers.caching.caching-groups;
-
+ &programmers.caching.caching-cacheable;
+ 
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

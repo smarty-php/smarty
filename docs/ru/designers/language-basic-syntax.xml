@@ -15,10 +15,12 @@
   интерпретировать их и вывести вместо них соответствующий результат.
  </para>
 
-&designers.language-basic-syntax.language-syntax-comments;
-&designers.language-basic-syntax.language-syntax-functions;
-&designers.language-basic-syntax.language-syntax-attributes;
-&designers.language-basic-syntax.language-syntax-quotes;
+ &designers.language-basic-syntax.language-syntax-comments;
+ &designers.language-basic-syntax.language-syntax-functions;
+ &designers.language-basic-syntax.language-syntax-attributes;
+ &designers.language-basic-syntax.language-syntax-quotes;
+ &designers.language-basic-syntax.language-math;
+ &designers.language-basic-syntax.language-escaping;
 
 </chapter>
 <!-- Keep this comment at the end of the file
