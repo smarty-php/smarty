@@ -1,3 +1,27 @@
+2004-02-24  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      _parse_resource_name() returned true on non-existant absolute
+      paths. This caused a warning on _fetch_resource_info() when used in
+      conjunction with template_exists(). It should be fixed now without
+      negative effects.
+
+2004-02-24  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml:
+      one more typo
+
+    * docs/designers.sgml:
+      fix typo
+
+2004-02-24  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/core/core.is_secure.php:
+      smarty_resource_*_secure got &$smarty passed errornously as 3rd
+      parameter and not as 2nd. this is fixed.
+
 2004-02-23  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS:
