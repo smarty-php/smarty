@@ -495,7 +495,7 @@ Dealers Will Hear Car Talk at Noon.
             or any string made up of month day year (parsable by strtotime).
             Designers can then use date_format to have complete control of the
             formatting of the date. If the date passed to date_format is empty
-			and a second paramter is passed, that will be used as the date to
+			and a second parameter is passed, that will be used as the date to
 			format.
 			</para>
 <example>

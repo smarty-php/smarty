@@ -663,7 +663,7 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 				This clears the cache for a specific template. If you have
 				multiple caches for this template, you can clear a specific
 				cache by supplying the cache id as the second parameter. You
-				can also pass a compile id as a third paramter. You can "group"
+				can also pass a compile id as a third parameter. You can "group"
 				templates together so they can be removed as a group. See the
 				<link linkend="caching">caching section</link> for more
 				information. As an optional fourth parameter, you can supply a
