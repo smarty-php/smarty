@@ -1,3 +1,27 @@
+2003-03-19  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_radios.php
+      libs/plugins/function.html_table.php:
+      fix a few error messages, follow consistancy format plugin_name: errormsg
+
+    * libs/plugins/function.html_radios.php:
+      update error messages
+
+    * NEWS
+      libs/plugins/function.html_radios.php:
+      add a warning when an array is passed as the 'checked' value of html_radios
+
+2003-03-19  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed errormessage in _compile_smarty_ref()
+
+    * NEWS
+      docs/designers.sgml:
+      updated docs for html_image
+
 2003-03-18  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
