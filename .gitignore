@@ -1,6 +1,9 @@
 docs/*.cache
 docs/*.fot
 docs/Makefile
+docs/chm/*.chm
+docs/chm/*.hh?
+docs/chm/fancy
 docs/config.*
 docs/configure
 docs/diff

@@ -1,4 +1,5 @@
 * text=auto !eol
+docs/chm/make_chm_spc.gif -text
 docs/fop/thryb.ttf -text
 docs/fop/thrybi.ttf -text
 docs/fop/thryi.ttf -text

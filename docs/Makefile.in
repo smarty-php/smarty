@@ -53,6 +53,9 @@ web: FORCE
 pdf: FORCE
 	${FOP} -xml manual.xml -xsl xsl/fo.xsl -pdf manual.pdf
 
+chm: html
+	chm/make_chm.bat $(LANG)
+
 test:
 	$(NSGMLS) -i lang-$(LANG) -s $(XMLDCL) manual.xml 
 

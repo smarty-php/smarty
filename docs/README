@@ -26,9 +26,18 @@ In order to generate PDF files you need some tools:
 To generate the file, just type 'make pdf'
 
 
+Generate CHM files
+==================
+In order to generate CHM files you need the Microsoft(r) HTML Help Workshop,
+which can be freely downloaded at
+http://msdn.microsoft.com/library/en-us/htmlhelp/html/vsconhh1start.asp
+
+Then type 'make chm'. This will run the 'make html' and then build the chm file.
+
+
 Revision Tracking (for translations):
  * make revcheck (this will create revcheck.html)
 
 
 You should have libxml and autoconf installed in your system.
-Read http://php.net/manual/howto/chapter-tools.html for more info.
+Read http://doc.php.net/php/dochowto/chapter-tools.php for more info.
