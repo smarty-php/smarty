@@ -1242,7 +1242,8 @@ Intro = """This is a value that spans more
 			"gt", "lt", "lte", "le", "gte" "ge","is even","is odd", "is not
 			even","is not odd","not","mod","div by","even by","odd
 			by","==","!=",">", "<","<=",">=" are all valid conditional
-			qualifiers.
+            qualifiers, and must be separated from surrounding elements by
+            spaces.
 			</para>
 <example>
 <title>if statements</title>
@@ -1263,6 +1264,12 @@ Intro = """This is a value that spans more
 
 {* same as above *}
 {if $name == "Fred" || $name == "Wilma"}
+	...
+{/if}
+
+{* the following syntax will NOT work, conditional qualifiers
+   must be separated from surrounding elements by spaces *}
+{if $name=="Fred" || $name=="Wilma"}
 	...
 {/if}
 

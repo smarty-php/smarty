@@ -505,8 +505,9 @@ class Smarty
                                           '{literal}', $template_contents);
 
         /* Gather all template tags. */
-        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_contents, $match);
+        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}(\n)?!s", $template_contents, $match);
         $template_tags = $match[1];
+        $template_newlines = $match[2];
         /* Split content by template tags to obtain non-template content. */
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_contents);
 
@@ -515,12 +516,12 @@ class Smarty
         /* loop through text blocks */
         for($curr_tb = 0; $curr_tb <= count($text_blocks); $curr_tb++) {
             /* match anything within <? ?> */
-            if(preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)!i',$text_blocks[$curr_tb],$sp_match)) {
+            if(preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)(\n)?!i',$text_blocks[$curr_tb],$sp_match)) {
                 /* found at least one match, loop through each one */
-                foreach($sp_match[0] as $curr_sp) {
+                for($curr_sp = 0; $curr_sp <= count($sp_match[0]); $curr_sp++) {
                     if(!$this->allow_php) {
                         /* we don't allow php, so echo everything */
-                        $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.str_replace("'","\'",$curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
+                        $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],'<?php echo \''.str_replace("'","\'",$sp_match[0][$curr_sp]).'\'; ?>',$text_blocks[$curr_tb]);
                     }                    
                     elseif(!preg_match("!^(<\?(php | )|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!i",$curr_sp))
                         /* we allow php, so echo only non-php tags */

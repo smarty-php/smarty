@@ -88,3 +88,10 @@ Q: I get this error when passing variables to {include}:
    /path/to/Smarty/templates_c/index.tpl.php on line 8
 A: get_defined_vars() was added to PHP 4.0.4. If you plan on passing
    variables to included templates, you will need PHP 4.0.4 or later.
+
+Q: I get PHP errors in my {if} tag logic.
+A: All conditional qualifiers must be separated by spaces. This syntax will not
+   work: {if $name=="Wilma"} You must instead do this: {if $name == "Wilma"}.
+   The reason for this is syntax ambiguity. Both "==" and "eq" are equivalent
+   in the template parser, so something like {if $nameeq"Wilma"} wouldn't be
+   parsable by the tokenizer.
