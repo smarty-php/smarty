@@ -82,6 +82,7 @@ class Smarty_Compiler extends Smarty {
 	var $_obj_call_regexp		=	null;
 
     var $_cacheable_state       =   0;
+    var $_cache_attrs_count     =   0;
     var $_nocache_count         =   0;
     var $_cache_serial          =   null;
     var $_cache_include         =   null;
@@ -655,16 +656,10 @@ class Smarty_Compiler extends Smarty {
         $this->_add_plugin('block', $tag_command);
 
         if ($start_tag) {
-            $arg_list = array();
-            $attrs = $this->_parse_attrs($tag_args);
-            foreach ($attrs as $arg_name => $arg_value) {
-                if (is_bool($arg_value))
-                    $arg_value = $arg_value ? 'true' : 'false';
-                $arg_list[] = "'$arg_name' => $arg_value";
-            }
-
             $output = '<?php ' . $this->_push_cacheable_state('block', $tag_command);
-            $output .= "\$_params = \$this->_tag_stack[] = array('$tag_command', array(".implode(',', (array)$arg_list).')); ';
+            $attrs = $this->_parse_attrs($tag_args);
+            $arg_list = $this->_compile_arg_list('block', $tag_command, $attrs, $_cache_attrs='');
+            $output .= "$_cache_attrs\$_params = \$this->_tag_stack[] = array('$tag_command', array(".implode(',', $arg_list).')); ';
             $output .= $this->_compile_plugin_call('block', $tag_command).'($_params[1], null, $this, $_block_repeat=true); unset($_params);';
             $output .= 'while ($_block_repeat) { ob_start(); ?>';
         } else {
@@ -693,26 +688,20 @@ class Smarty_Compiler extends Smarty {
     {		
         $this->_add_plugin('function', $tag_command);
 
-        $arg_list = array();
+        $_cacheable_state = $this->_push_cacheable_state('function', $tag_command);
         $attrs = $this->_parse_attrs($tag_args);
+        $arg_list = $this->_compile_arg_list('function', $tag_command, $attrs, $_cache_attrs='');
 
-        foreach ($attrs as $arg_name => $arg_value) {
-            if (is_bool($arg_value))
-                $arg_value = $arg_value ? 'true' : 'false';
-            if (is_null($arg_value))
-                $arg_value = 'null';
-            $arg_list[] = "'$arg_name' => $arg_value";
-        }
-	    $_return = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', (array)$arg_list)."), \$this)";
+	    $_return = $_cache_attrs . $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', $arg_list)."), \$this)";
 		if($tag_modifier != '') {
 			$this->_parse_modifiers($_return, $tag_modifier);
 		}
-
+        
 		if($_return != '') {
-            $_return =  '<?php ' . $this->_push_cacheable_state('function', $tag_command)
-             . 'echo ' . $_return . ';' . $this->_pop_cacheable_state('function', $tag_command) . "?>\n";
+            $_return =  '<?php ' . $_cacheable_state . 'echo ' . $_return . ';'
+                . $this->_pop_cacheable_state('function', $tag_command) . "?>\n";
 		}
-
+        
 		return $_return; 
     }
 
@@ -1292,6 +1281,39 @@ class Smarty_Compiler extends Smarty {
             return '<?php if ('.implode(' ', $tokens).'): ?>';
     }
 
+
+    function _compile_arg_list($type, $name, $attrs, &$cache_code) {
+        $arg_list = array();
+        
+        if (isset($type) && isset($name)
+            && isset($this->_plugins[$type])
+            && isset($this->_plugins[$type][$name])
+            && empty($this->_plugins[$type][$name][4])
+            && is_array($this->_plugins[$type][$name][5])
+            ) {
+            /* we have a list of parameters that should be cached */
+            $_cache_attrs = $this->_plugins[$type][$name][5];
+            $_count = $this->_cache_attrs_count++;
+            $cache_code = "\$_cache_attrs =& \$this->_cache_info['cache_attrs']['$this->_cache_serial'][$_count];";
+
+        } else {
+            /* no parameters are cached */
+            $_cache_attrs = null;
+        }
+
+        foreach ($attrs as $arg_name => $arg_value) {
+            if (is_bool($arg_value))
+                $arg_value = $arg_value ? 'true' : 'false';
+            if (is_null($arg_value))
+                $arg_value = 'null';
+            if ($_cache_attrs && in_array($arg_name, $_cache_attrs)) {
+                $arg_list[] = "'$arg_name' => (\$this->_cache_including) ? \$_cache_attrs['$arg_name'] : (\$_cache_attrs['$arg_name']=$arg_value)";
+            } else {
+                $arg_list[] = "'$arg_name' => $arg_value";
+            }
+        }
+        return $arg_list;
+    }
 
 	/**
 	 * Parse is expression

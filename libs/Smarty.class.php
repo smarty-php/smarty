@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
@@ -579,6 +580,14 @@ class Smarty
     var $_cache_include = null;
 
     /**
+     * indicate if the current code is used in a compiled
+     * include
+     *
+     * @var string
+     */
+    var $_cache_including = false;
+
+    /**
      * cached file paths
      *
      * @var array
@@ -737,10 +746,11 @@ class Smarty
      * @param string $function the name of the template function
      * @param string $function_impl the name of the PHP function to register
      */    
-    function register_function($function, $function_impl, $cacheable=true)
+    function register_function($function, $function_impl, $cacheable=true, $cache_attrs=null)
     {
         $this->_plugins['function'][$function] =
-            array($function_impl, null, null, false, $cacheable);
+            array($function_impl, null, null, false, $cacheable, $cache_attrs);
+        
     }
 
     /**
@@ -787,10 +797,10 @@ class Smarty
      * @param string $block name of template block
      * @param string $block_impl PHP function to register
      */    
-    function register_block($block, $block_impl, $cacheable=true)
+    function register_block($block, $block_impl, $cacheable=true, $cache_attrs=null)
     {
         $this->_plugins['block'][$block] =
-            array($block_impl, null, null, false, $cacheable);
+            array($block_impl, null, null, false, $cacheable, $cache_attrs);
     }
 
     /**

@@ -1,3 +1,7 @@
+  - added optional parameter $cache_attrs to register_function() and
+    register_block(). $cache_attrs is an array containing attribute-
+    names that should be cached on calls to functions that have
+    $cacheable set to false. (messju)
   - enabled registration of class-methods as callbacks for the register_*-
     functions (use: array('classname', 'method_name')) as callback) (messju)
   - added filepath caching (Monte)
@@ -46,7 +50,7 @@
   - all in-code doc comments converted to phpDocumentor format (Greg)
   - moved strip from smarty core to plugin (Monte)
   - moved config_load from smarty core to plugin (Monte)
-  - added &$repeat-paramter to block-functions (messju)
+  - added &$repeat-parameter to block-functions (messju)
   - enabled hex-constants in function.math.php (messju)
   - enabled hex-constants (0x...) as function-attributes, inside if-statements
     and as modifier-parameters (messju)
