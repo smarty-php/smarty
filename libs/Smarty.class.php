@@ -151,7 +151,7 @@ class Smarty
      * <ul>
      *  <li>0 = no caching</li>
      *  <li>1 = use class cache_lifetime value</li>
-     *  <li >2 = use cache_lifetime in cache file</li>
+     *  <li>2 = use cache_lifetime in cache file</li>
      * </ul>
      * @var integer
      */
