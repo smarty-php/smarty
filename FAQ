@@ -113,8 +113,15 @@ A: Be sure you set $compile_check=false once your templates are initially
    available. See the documentation for examples.
    
 Q: Do you have a mailing list?
-A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net. This
-   is also archived at http://marc.theaimsgroup.com/?l=smarty&r=1&w=2
+A: We have a mailing list for you to share your ideas or ask questions.
+   send a blank e-mail message to:
+     subscribe-smarty@lists.ispi.net (subscribe to the list)
+     digest-smarty@lists.ispi.net (subscribe or switch to digest mode)
+     mail-smarty@lists.ispi.net (switch off digest mode)
+     unsubscribe-smarty@lists.ispi.net (unsubscribe from the list)
+   You can also browse the mailing list archives at
+   http://marc.theaimsgroup.com/?l=smarty&r=1&w=2
+
 
 Q: Can you change the mailing list so Reply-To sends to the list and not the
    user?
