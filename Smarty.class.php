@@ -186,7 +186,7 @@ class Smarty
 		// compile files
 		$this->_compile($this->template_dir);
 		//assemble compile directory path to file
-		$_compile_file = $this->compile_dir."/".$tpl_file.".php";
+		$_compile_file = $this->compile_dir.'/'.$tpl_file.'.php';
 		
 		extract($this->_tpl_vars);		
 		include($_compile_file);
@@ -241,7 +241,7 @@ class Smarty
 
 				$filepath = $tpl_dir."/".$curr_file;
 				if(is_readable($filepath)) {
-					if(is_file($filepath) && preg_match("/".preg_quote($this->tpl_file_ext,"/")."$/", $curr_file)) {
+					if(is_file($filepath) && preg_match('!' . preg_quote($this->tpl_file_ext, '!') . '$!', $curr_file)) {
 						if(!$this->_process_file($filepath))
 							return false;
 					} else if(is_dir($filepath)) {
@@ -271,27 +271,32 @@ class Smarty
 
 	function _process_file($filepath)
 	{
+		var_dump($filepath);
+
 		if(preg_match("/^(.+)\/([^\/]+)$/", $filepath, $match)) {
 			$tpl_file_dir = $match[1];			
 			$tpl_file_name = $match[2] . ".php";
 
+			$compile_dir = preg_replace('!^' . preg_quote($this->template_dir, '!') . '!',
+										$this->compile_dir, $match[1]);
+
 			//create directory if none exists
-			if(!file_exists($this->compile_dir)) {
-				$compile_dir_parts = preg_split('!/+!', $this->compile_dir);
+			if(!file_exists($compile_dir)) {
+				$compile_dir_parts = preg_split('!/+!', $compile_dir);
 				$new_dir = "";
 				foreach ($compile_dir_parts as $dir_part) {
 					$new_dir .= $dir_part."/";
 					if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
-						$this->_set_error_msg("problem creating directory \"$this->compile_dir\"");
+						$this->_set_error_msg("problem creating directory \"$compile_dir\"");
 						return false;				
 					}
 				}
 			}
 
 			// compile the template file if none exists or has been modified
-			if(!file_exists($this->compile_dir."/".$tpl_file_name) ||
-				($this->_modified_file($filepath, $this->compile_dir."/".$tpl_file_name))) {
-				if(!$this->_compile_file($filepath, $this->compile_dir."/".$tpl_file_name))
+			if (!file_exists($compile_dir."/".$tpl_file_name) ||
+				($this->_modified_file($filepath, $compile_dir."/".$tpl_file_name))) {
+				if (!$this->_compile_file($filepath, $compile_dir."/".$tpl_file_name))
 					return false;				
 			} else {
 				// no compilation needed
