@@ -178,7 +178,7 @@ $smarty->display("index.tpl");
 
 --------- templates/header.tpl --------
 <HTML>
-<TITLE>{$title|default:"no title"}</TITLE>
+<TITLE>{$title}</TITLE>
 <BODY>
 
 --------- templates/footer.tpl --------
@@ -191,7 +191,7 @@ You can pass as many variables as you want. The included file inherits all the
 current template vars, plus any that are passed to it. The passed variables are
 only available within the scope of the included file. Also notice the way the
 $title variable is printed to the template. It uses a variable modifier called
-"default". Printing {$title|default:"no title"} means that if the value of
+"default". Printing {$title} means that if the value of
 $title is empty, the text "no title" will be printed instead of nothing.
 
 IF/ELSEIF/ELSE
@@ -236,7 +236,7 @@ $smarty->display("index.tpl");
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
     {section name=people loop=$FirstName}
-        {%people.rownum%} {$people/FirstName} {$people/LastName}<br>
+        {%people.rownum%} {$FirstName[people]} {$LastName[people]}<br>
     {sectionelse}
         There are no values to loop through.
     {/section}
@@ -278,11 +278,11 @@ $smarty->display("index.tpl");
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
     {section name=people loop=$FirstName}
-        {%people.rownum%} {$people/FirstName} {$people/LastName}<br>
-        {section name=contacts loop=$people/ContactNames}
+        {%people.rownum%} {$FirstName[people]} {$LastName[people]}<br>
+        {section name=contacts loop=$ContactNames[people]}
             {* for fun, lets bold every other row *}
             {if %contacts.rownum% is even}<b>{/if}
-                {$people/contacts/ContactNames}: {$people/contacts/ContactVals}<br>
+                {$ContactNames[people][contacts]}: {$ContactVals[people][contacts]}<br>
             {if %contacts.rownum% is even}</b>{/if}
         {/section}
         <br>

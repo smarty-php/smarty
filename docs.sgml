@@ -709,7 +709,7 @@ $smarty->unregister_modifier("fetch");
 
 $smarty->register_modifier("sslash","stripslashes");
 
-// now you can use {$var|sslash} to strip slashes from variables
+// now you can use {$var} to strip slashes from variables
 
 </programlisting>
 </example>
@@ -1689,9 +1689,9 @@ OUTPUT:
             section names must be unique from each other. The loop variable
             (usually an array of values) determines the number of times the
             section will loop. When printing a variable within a section, the
-            section name must be prepended to the variable name, separated by a
-            slash (/). If you are using an associative array, separate the key
-            and value with a period (.). <emphasis>sectionelse</emphasis> is
+            section name must be given next to variable name within brackets
+            []. If you are using an associative array, separate the key and
+            value with a period (.). <emphasis>sectionelse</emphasis> is
             executed when there are no values in the loop variable.
 			</para>
 <example>
@@ -1701,7 +1701,7 @@ OUTPUT:
 
 {* this example will print out all the values of the $custid array *}
 {section name=customer loop=$custid}
-	id: {$customer/custid}&lt;br&gt;
+	id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 OUTPUT:
@@ -1722,9 +1722,9 @@ id: 1002&lt;br&gt;
    This example assumes that $custid, $name and $address are all
    arrays containing the same number of values *}
 {section name=customer loop=$custid}
-	id: {$customer/custid}&lt;br&gt;
-	name: {$customer/name}&lt;br&gt;
-	address: {$customer/address}&lt;br&gt;
+	id: {$custid[customer]}&lt;br&gt;
+	name: {$name[customer]}&lt;br&gt;
+	address: {$address[customer]}&lt;br&gt;
 	&lt;p&gt;
 {/section}
 
@@ -1754,9 +1754,9 @@ address: 5605 apple st&lt;br&gt;
 {* the name of the section can be anything you like,
    and it is used to reference the data within the section *}
 {section name=mydata loop=$custid}
-	id: {$mydata/custid}&lt;br&gt;
-	name: {$mydata/name}&lt;br&gt;
-	address: {$mydata/address}&lt;br&gt;
+	id: {$custid[mydata]}&lt;br&gt;
+	name: {$name[mydata]}&lt;br&gt;
+	address: {$address[mydata]}&lt;br&gt;
 	&lt;p&gt;
 {/section}
 
@@ -1769,14 +1769,14 @@ address: 5605 apple st&lt;br&gt;
 
 {* sections can be nested as deep as you like. With nested sections,
    you can access complex data structures, such as multi-dimensional
-   arrays. In this example, $customer/contact_type is an array of
+   arrays. In this example, $contact_type[customer] is an array of
    contact types for the current customer. *}
 {section name=customer loop=$custid}
-	id: {$customer/custid}&lt;br&gt;
-	name: {$customer/name}&lt;br&gt;
-	address: {$customer/address}&lt;br&gt;
-	{section name=contact loop=$customer/contact_type}
-		{$customer/contact/contact_type}: {$customer/contact/contact_info}&lt;br&gt;
+	id: {$custid[customer]}&lt;br&gt;
+	name: {$name[customer]}&lt;br&gt;
+	address: {$address[customer]}&lt;br&gt;
+	{section name=contact loop=$contact_type[customer]}
+		{$contact_type[customer][contact]}: {$contact_info[customer][contact]}&lt;br&gt;
 	{/section}
 	&lt;p&gt;
 {/section}
@@ -1817,10 +1817,10 @@ e-mail: jane@mydomain.com&lt;br&gt;
 {* This is an example of printing an associative array
    of data within a section *}
 {section name=customer loop=$contacts}
-	name: {$customer/contacts.name}&lt;br&gt;
-	home: {$customer/contacts.home}&lt;br&gt;
-	cell: {$customer/contacts.cell}&lt;br&gt;
-	e-mail: {$customer/contacts.email}&lt;p&gt;
+	name: {$contacts[customer].name}&lt;br&gt;
+	home: {$contacts[customer].home}&lt;br&gt;
+	cell: {$contacts[customer].cell}&lt;br&gt;
+	e-mail: {$contacts[customer].email}&lt;p&gt;
 {/section}
 
 
@@ -1851,7 +1851,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 
 {* sectionelse will execute if there are no $custid values *}
 {section name=customer loop=$custid}
-	id: {$customer/custid}&lt;br&gt;
+	id: {$custid[customer]}&lt;br&gt;
 {sectionelse}
 	there are no values in $custid.
 {/section}
@@ -1873,7 +1873,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 <title>section property index</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.index%} id: {$customer/custid}&lt;br&gt;
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 
@@ -1896,9 +1896,9 @@ OUTPUT:
 <title>section property index_prev</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.index%} id: {$customer/custid}&lt;br&gt;
-    {* FYI, $customer.index/custid and $customer/custid are identical in meaning *}
-    {if $customer.index_prev/custid ne $customer.index/custid}
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+    {* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+    {if $custid[customer.index_prev] ne $custid[customer.index]}
         The customer id changed&lt;br&gt;
     {/if}
 {/section}
@@ -1926,9 +1926,9 @@ OUTPUT:
 <title>section property index_next</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.index%} id: {$customer/custid}&lt;br&gt;
-    {* FYI, $customer.index/custid and $customer/custid are identical in meaning *}
-    {if $customer.index_next/custid ne $customer.index/custid}
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+    {* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+    {if $custid[customer.index_next] ne $custid[customer.index]}
         The customer id will change&lt;br&gt;
     {/if}
 {/section}
@@ -1961,7 +1961,7 @@ OUTPUT:
     {/if}
 
 	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
-            {$customer/custid}&lt;/td&gt;&lt;/tr&gt;
+            {$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
 
     {if %customer.last%}
         &lt;/table&gt;
@@ -1995,7 +1995,7 @@ OUTPUT:
     {/if}
 
 	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
-            {$customer/custid}&lt;/td&gt;&lt;/tr&gt;
+            {$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
 
     {if %customer.last%}
         &lt;/table&gt;
@@ -2024,7 +2024,7 @@ OUTPUT:
 <title>section property rownum</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.rownum%} id: {$customer/custid}&lt;br&gt;
+	{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 
@@ -2048,7 +2048,7 @@ OUTPUT:
 <title>section property index</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.index%} id: {$customer/custid}&lt;br&gt;
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 There were {%customer.loop%} customers shown above.
@@ -2078,7 +2078,7 @@ There were 3 customers shown above.
 {* $show_customer_info may have been passed from the PHP
    application, to regulate whether or not this section shows *}
 {section name=customer loop=$custid show=$show_customer_info}
-	{%customer.rownum%} id: {$customer/custid}&lt;br&gt;
+	{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 {if %customer.show%}
@@ -2921,7 +2921,7 @@ OUTPUT:
         NOTE: if you apply a modifier to an array instead of a single value
         variable, the modifier will be applied to every value in that array. If
         you really want the entire array passed to the modifier, you must
-        prepend it with an "@" sign like so: {$articleTitle|@count} (this will
+        prepend it with an "@" sign like so: {$articleTitle} (this will
         print out the number of elements in the $articleTitle array.)
 		</para>
 		<sect2>
@@ -2934,7 +2934,7 @@ OUTPUT:
 <programlisting>
 
 {$articleTitle}
-{$articleTitle|capitalize}
+{$articleTitle}
 
 OUTPUT:
 
@@ -2955,7 +2955,7 @@ Police Begin Campaign To Rundown Jaywalkers.
 
 
 {$articleTitle}
-{$articleTitle|count_characters}
+{$articleTitle}
 
 OUTPUT:
 
@@ -2976,7 +2976,7 @@ Cold Wave Linked to Temperatures
 
 
 {$articleTitle}
-{$articleTitle|count_paragraphs}
+{$articleTitle}
 
 OUTPUT:
 
@@ -2999,7 +2999,7 @@ Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 
 
 {$articleTitle}
-{$articleTitle|count_sentences}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3020,7 +3020,7 @@ Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
 
 
 {$articleTitle}
-{$articleTitle|count_words}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3070,9 +3070,9 @@ Dealers Will Hear Car Talk at Noon.
 <title>date_format</title>
 <programlisting>
 
-{$currentDate|date_format}
-{$currentDate|date_format:"%A, %B %e, %Y"}
-{$currentDate|date_format:"%H:%M:%S"}
+{$currentDate}
+{$currentDate}
+{$currentDate}
 
 OUTPUT:
 
@@ -3211,7 +3211,7 @@ system's manpage for a full list of valid specifiers.
 <programlisting>
 
 {* this will display "no title" (without the quotes) if $articleTitle is empty *}
-{$articleTitle|default:"no title"}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3261,9 +3261,9 @@ no title
 <programlisting>
 
 {$articleTitle}
-{$articleTitle|escape}
-{$articleTitle|escape:"html"}
-{$articleTitle|escape:"url"}
+{$articleTitle}
+{$articleTitle}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3285,7 +3285,7 @@ Stiff+Opposition+Expected+to+Casketless+Funeral+Plan
 <programlisting>
 
 {$articleTitle}
-{$articleTitle|lower}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3339,8 +3339,8 @@ two convicts evade noose, jury hung.
 <programlisting>
 
 {$articleTitle}
-{$articleTitle|replace:"Garden":"Vineyard"}
-{$articleTitle|replace:" ":"   "}
+{$articleTitle}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3390,8 +3390,8 @@ Child's   Stool   Great   for   Use   in   Garden.
 <programlisting>
 
 {$articleTitle}
-{$articleTitle|spacify}
-{$articleTitle|spacify:"^^"}
+{$articleTitle}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3440,8 +3440,8 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^
 <programlisting>
 
 {$number}
-{$number|string_format:"%.2f"}
-{$number|string_format:"%d"}
+{$number}
+{$number}
 
 OUTPUT:
 
@@ -3462,7 +3462,7 @@ OUTPUT:
 <programlisting>
 
 {$articleTitle}
-{$articleTitle|strip_tags}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3531,37 +3531,8 @@ Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
 <programlisting>
 
 {$articleTitle}
-{$articleTitle|truncate}
-{$articleTitle|truncate:30}
-{$articleTitle|truncate:30:""}
-{$articleTitle|truncate:30:"---"}
-{$articleTitle|truncate:30:"":true}
-{$articleTitle|truncate:30:"...":true}
-
-OUTPUT:
-
-Two Sisters Reunite after Eighteen Years at Checkout Counter.
-Two Sisters Reunite after Eighteen Years at Checkout Counter.
-Two Sisters Reunite after...
-Two Sisters Reunite after
-Two Sisters Reunite after---
-Two Sisters Reunite after Eigh
-Two Sisters Reunite after E...
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>upper</title>
-			<para>
-			This is used to uppercase a variable.
-			</para>
-<example>
-<title>upper</title>
-<programlisting>
-
 {$articleTitle}
-{$articleTitle|upper}
+{$articleTitle}
 
 OUTPUT:
 
@@ -3584,129 +3555,17 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
 <programlisting>
 
 {$articleTitle}
-{$articleTitle|upper|spacify}
-{$articleTitle|lower|spacify|truncate}
-{$articleTitle|lower|truncate:30|spacify}
-{$articleTitle|lower|spacify|truncate:30:". . ."}
-
-OUTPUT:
-
-Smokers are Productive, but Death Cuts Efficiency.
-S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
-s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
-s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
-s m o k e r s   a r e   p. . .
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>Creating your own Variable Modifiers</title>
-			<para>
-			Creating your own modifiers is a fairly straight forward process.
-			The best way is to look at the ones that come with Smarty as
-			examples. The function names begin with smarty_mod_ and they are
-			located in the Smarty.addons.php file.
-			</para>
-			<itemizedlist>
-				<listitem><para>add your modifier to the Smarty.addons.php file.
-						It is recommended that you prepend your function name
-						with smarty_mod_</para></listitem>
-				<listitem><para>map a template modifier name to your PHP function.
-							This is done at the top of the Smarty.class.php file
-							in the $custom_mods array.</para></listitem>
-				<listitem><para>Thats it! you can now use that modifier
-					from within Smarty.</para></listitem>
-			</itemizedlist>			
-            <para>
-            You can also add modifiers programatically with the <link
-            linkend="api.register.modifier">register_modifier API</link>.
-            </para>
-		</sect2>
-	</sect1>	
-</chapter>
-<chapter>
-	<title>Troubleshooting</title>
-	<para></para>
-	<sect1>
-		<title>Smarty/PHP errors</title>
-		<para>
-		Smarty can catch many errors such as missing tag attributes
-		or malformed variable names. If this happens, you will see an error
-		similar to the following:
-		</para>
-
-<example>
-<title>Smarty errors</title>
-<programlisting>
-
-Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
-        in /path/to/smarty/Smarty.class.php on line 1041
-
-Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
-        in /path/to/smarty/Smarty.class.php on line 1041
-
-</programlisting>
-</example>
-
-		<para>
-        Smarty shows you the template name, the line number and the error.
-        After that, the error consists of the actual line number in the Smarty
-        class that the error occured.
-		</para>
-		
-		<para>
-        There are certain errors that Smarty cannot catch, such as missing
-        close tags. These types of errors usually end up in PHP compile-time
-        parsing errors.
-		</para>
-
-<example>
-<title>PHP parsing errors</title>
-<programlisting>
-
-Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
-
-</programlisting>
-</example>
-		
-		<para>
-        When you encounter a PHP parsing error, the error line number will
-        correspond to the compiled PHP script, not the template itself. Usually
-        you can look at the template and spot the syntax error. Here are some
-        common things to look for: missing close tags for {if}{/if} or
-        {section}{/section}, or syntax of logic within an {if} tag. If you
-        can't find the error, you might have to open the compiled PHP file and
-        go to the line number to figure out where the corresponding error is in
-        the template.
-		</para>
-	</sect1>
-</chapter>
-<chapter id="tips">
-	<title>Tips & Tricks</title>
-	<para>
-	</para>
-	<sect1>
-		<title>Dates</title>
-		<para>
-        Dates can be passed to Smarty as unix timestamps, mysql timestamps,
-        or a parsable string made of month day and year (parsable by strtotime())
-		This allows template designers to use <link
-		linkend="date.format">date_format</link> for full control over date
-		formatting, and also makes it easy to compare dates if necessary.
-		</para>
-<example>
-<title>using date_format</title>
-<programlisting>
-
-{$startDate|date_format}
+{$articleTitle}
+{$articleTitle}
+{$articleTitle}
+{$articleTitle}
 
 OUTPUT:
 
 Jan 4, 2001
 
 
-{$startDate|date_format:"%Y/%m/%d"}
+{$startDate}
 
 OUTPUT:
 
@@ -3747,6 +3606,7 @@ function makeTimeStamp($year="",$month="",$day="")
 
 </programlisting>
 </example>
+		</sect2>
 	</sect1>
 </chapter>
 <chapter id="resources">

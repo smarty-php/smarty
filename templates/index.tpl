@@ -12,14 +12,14 @@ Title: {#title#|capitalize}
 the value of $SCRIPT_NAME is {$SCRIPT_NAME} 
 
 {* A simple variable test. print $Name in uppercase *}
-hello, my name is {$Name|upper}
+hello, my name is {$Name}
 
 My interests are:
 {section name=outer loop=$FirstName}
 {if %outer.index% is odd by 2}
-	{%outer.rownum%} . {$outer/FirstName} {$outer/LastName}
+	{%outer.rownum%} . {$FirstName[outer]} {$LastName[outer]}
 {else}
-	{%outer.rownum%} * {$outer/FirstName} {$outer/LastName}
+	{%outer.rownum%} * {$FirstName[outer]} {$LastName[outer]}
 {/if}
 {sectionelse}
 	none
@@ -27,9 +27,9 @@ My interests are:
 
 testing section looped key values<br>
 {section name=sec1 loop=$contacts}
-	phone: {$sec1/contacts.phone}<br>
-	fax: {$sec1/contacts.fax}<br>
-	cell: {$sec1/contacts.cell}<br>
+	phone: {$contacts[sec1].phone}<br>
+	fax: {$contacts[sec1].fax}<br>
+	cell: {$contacts[sec1].cell}<br>
 {/section}
 <p>
 

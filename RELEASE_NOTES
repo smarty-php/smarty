@@ -1,17 +1,29 @@
 1.4.0
 -----
 
-The most significant change to Smarty 1.4.0 is the compilation process. Instead
-of compiling all the templates up front, it now compiles them at runtime. This
-has several advantages. First off, there is no longer a need to have a single
-template directory. You can now have arbitrary template sources, such as
-multiple directories or even database calls. This also speeds the performance
-of Smarty when $compile_check is enabled, since it is only checking the
-template that is being executed instead of everything found in the template
-directory. The $tpl_file_ext is no longer needed, but kept for backward
-compatability. Templates can now be named anything you like with any extension.
-Smarty makes use of the PEAR database abstraction class for obtaining templates
-from databases.
+IMPORTANT NOTICE: Smarty now has a new syntax for accessing elements within
+section loops. The new syntax is easier to use for complex data structures.
+Consequently, this breaks the old syntax. To fix your old templates, we have
+provided a script that will fix the syntax for you. Located in
+misc/fix_vars.php, run this script from the the command line, giving each
+template as an argument. Be sure to use absolute pathnames, or pathnames
+relative to the executing script. Probably the easiest way to do this is to
+copy the fix_vars.php script into your template directory and run 'php -q
+fix_vars.php *.tpl' For each template, this will create a temporary file with
+the fixes, then move the temp file over top the original. Backup your scripts
+first to be safe!
+
+Smarty 1.4.0 also has a new compilation process. Instead of compiling all the
+templates up front, it now compiles them at runtime. This has several
+advantages. First of all, there is no longer a need to have a single template
+directory. You can now have arbitrary template sources, such as multiple
+directories or even database calls. This also speeds the performance of Smarty
+when $compile_check is enabled, since it is only checking the template that is
+being executed instead of everything found in the template directory. The
+$tpl_file_ext is no longer needed, but kept for backward compatability.
+Templates can now be named anything you like with any extension. Smarty makes
+use of the PEAR database abstraction class for obtaining templates from
+databases.
 
 We also added a workaround for LOCK_EX on Windows systems, and changed a couple
 of file permissions for better security on public servers. Thanks goes to
