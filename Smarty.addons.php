@@ -526,7 +526,7 @@ function smarty_func_html_select_time()
     Function: smarty_func_math
     Purpose:  allow math computations in template
 \*======================================================================*/
-function smarty_func_math($args, $smarty_obj) {
+function smarty_func_math($args, &$smarty_obj) {
         // be sure equation parameter is present
         if (empty($args["equation"])) {
             $smarty_obj->_trigger_error_msg("math: missing equation parameter");
@@ -554,7 +554,7 @@ function smarty_func_math($args, $smarty_obj) {
         }
 
         foreach($args as $key => $val) {
-            if ($key != "equation" && $key != "format") {
+            if ($key != "equation" && $key != "format" && $key != "assign") {
                 // make sure value is not empty
                 if (strlen($val)==0) {
                     $smarty_obj->_trigger_error_msg("math: parameter $key is empty");
@@ -570,10 +570,19 @@ function smarty_func_math($args, $smarty_obj) {
 
     eval("\$smarty_math_result = ".$equation.";");
 
-    if (empty($args["format"]))
-        echo $smarty_math_result;
-    else
-        printf($args["format"],$smarty_math_result);
+    if (empty($args["format"])) {
+		if (empty($args["assign"])) {
+        	echo $smarty_math_result;
+		} else {
+			$smarty_obj->assign($args["assign"],$smarty_math_result);
+		}
+	} else {
+		if (empty($args["assign"])){
+        	printf($args["format"],$smarty_math_result);
+		} else {
+			$smarty_obj->assign($assign,sprintf($args["format"],$smarty_math_result));
+		}
+	}
 }
 
 /*======================================================================*\
@@ -600,13 +609,21 @@ function smarty_func_fetch($args, &$smarty_obj) {
             $smarty_obj->_trigger_error_msg("(secure mode) fetch '$file' is not allowed");
             return;
         }
-    }
-    if (!@is_readable($file)) {
-        $smarty_obj->_trigger_error_msg("fetch cannot read file '$file'");
-        return;
+    	if (!@is_readable($file)) {
+        	$smarty_obj->_trigger_error_msg("fetch cannot read file '$file'");
+        	return;
+    	}
     }
 
-    readfile($file);
+
+	if(!empty($assign)) {
+		ob_start();
+		readfile($file);
+		$smarty_obj->assign($assign,ob_get_contents());
+		ob_end_clean();
+	} else {
+    	readfile($file);
+	}
 }
 
 /*======================================================================*\
@@ -660,15 +677,16 @@ function smarty_mod_count_paragraphs($string,$include_spaces=false) {
     Function: smarty_func_counter
     Purpose:  print out a counter value
 \*======================================================================*/
-function smarty_func_counter() {
+function smarty_func_counter($args, &$smarty_obj) {
 
     static $count = array();
     static $skipval = array();
     static $dir = array();
     static $id = "default";
     static $printval = array();
+	static $assign = "";
 
-    extract(func_get_arg(0));
+    extract($args);
 
     if (!isset($id))
         $id = "default";
@@ -682,15 +700,20 @@ function smarty_func_counter() {
         $printval[$id]=true;
     else
         $printval[$id]=$print;
+	
+	if(!empty($assign)) {
+		$printval[$id] = false;
+		$smarty_obj->assign($assign,$count[$id]);
+	}
 
     if ($printval[$id])
         echo $count[$id];
 
     if (isset($skip))
         $skipval[$id] = $skip;
-    elseif (!isset($skipval))
+    elseif (empty($skipval[$id]))
         $skipval[$id] = 1;
-
+	
     if (isset($direction))
         $dir[$id] = $direction;
     elseif (!isset($dir[$id]))
@@ -700,7 +723,7 @@ function smarty_func_counter() {
         $count[$id] -= $skipval[$id];
     else
         $count[$id] += $skipval[$id];
-
+	
     return true;
 }
 

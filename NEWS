@@ -1,3 +1,9 @@
+    - added assign attribute to insert function (Monte)
+    - added assign attribute to fetch function (Monte)
+    - fixed bug with fetch testing for file with http address (Monte)
+    - added assign attribute to math function (Monte)
+    - added assign attribute to counter function (Monte)
+    - fixed bug with counter and skipval setting (Monte)
     - made {config_load ...} merge globals from each config file only once per
       scope, thus avoiding several problems. (Andrei)
     - added {foreach ...} tag that can be used to iterate through

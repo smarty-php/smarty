@@ -1024,7 +1024,11 @@ function _run_insert_handler($args)
                                                 'depth'     => $this->_inclusion_depth,
                                                 'exec_time' => $this->_get_microtime() - $debug_start_time);
         }
-        return $content;
+		if(!empty($args["assign"])) {
+			$this->assign($args["assign"],$content);			
+		} else {
+        	return $content;
+		}
     }
 }
 

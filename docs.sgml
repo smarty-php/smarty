@@ -3149,7 +3149,7 @@ The value of $name is Bob.
                         <entry>print</entry>
                         <entry>boolean</entry>
                         <entry>No</entry>
-                        <entry><emphasis>false</emphasis></entry>
+                        <entry><emphasis>true</emphasis></entry>
                         <entry>Whether or not to print the value</entry>
                     </row>
                 </tbody>
