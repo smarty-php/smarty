@@ -1,3 +1,42 @@
+2003-03-21  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      applied new var-names to fetch()
+
+    * NEWS
+      libs/Smarty.class.php:
+      renamed $localvars to $_localvars in cache-file-handling-functions,
+      added _get_auto_id()-function
+
+2003-03-21  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/function.mailto.php
+      libs/plugins/function.popup.php:
+      update functions for XHTML compatability
+
+2003-03-21  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      fixed wrong $auto_id in _read_cache_file()
+
+    * NEWS
+      libs/Smarty.class.php:
+      swapped compile_id and cache_id in read_cache_file and write_cache_file
+
+    * libs/Smarty.class.php:
+      reverted patch for ignoring compile-id back to -r1.364, due to problems
+
+    * NEWS
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_radios.php:
+      html_radios and html_checkboxes accept "selected" instead of "checked"
+      optionally now
+
+    * NEWS
+      libs/Smarty.class.php:
+      swapped compile_id and cache_id for cache-file-handling again
+
 2003-03-20  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty_Compiler.class.php:
