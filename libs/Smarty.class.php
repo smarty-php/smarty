@@ -150,6 +150,7 @@ class Smarty
     var $_smarty_vars          = null;       // stores run-time $smarty.* vars
     var $_sections             = array();    // keeps track of sections
     var $_foreach              = array();    // keeps track of foreach blocks
+    var $_tag_stack            = array();    // keeps track of tag hierarchy
     var $_conf_obj             = null;       // configuration object
     var $_config               = array();    // loaded configuration settings
     var $_smarty_md5           = 'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
@@ -273,6 +274,25 @@ class Smarty
     function unregister_function($function)
     {
         unset($this->_plugins['function'][$function]);
+    }
+
+/*======================================================================*\
+    Function: register_block
+    Purpose:  Registers block function to be used in templates
+\*======================================================================*/
+    function register_block($block, $block_impl)
+    {
+        $this->_plugins['block'][$block] =
+            array($block_impl, null, null, false);
+    }
+
+/*======================================================================*\
+    Function: unregister_block
+    Purpose:  Unregisters block function
+\*======================================================================*/
+    function unregister_block($block)
+    {
+        unset($this->_plugins['block'][$block]);
     }
 
 /*======================================================================*\

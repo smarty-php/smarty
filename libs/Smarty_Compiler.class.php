@@ -470,18 +470,18 @@ class Smarty_Compiler extends Smarty {
          */
         $this->_add_plugin('block', $tag_command);
 
-        $arg_list = array();
-        $attrs = $this->_parse_attrs($tag_args);
-        foreach ($attrs as $arg_name => $arg_value) {
-            if (is_bool($arg_value))
-                $arg_value = $arg_value ? 'true' : 'false';
-            $arg_list[] = "'$arg_name' => $arg_value";
-        }
-
         if ($start_tag) {
-            $output = "<?php \$this->_plugins['block']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), null, \$this); ob_start(); ?>";
+            $arg_list = array();
+            $attrs = $this->_parse_attrs($tag_args);
+            foreach ($attrs as $arg_name => $arg_value) {
+                if (is_bool($arg_value))
+                    $arg_value = $arg_value ? 'true' : 'false';
+                $arg_list[] = "'$arg_name' => $arg_value";
+            }
+
+            $output = "<?php \$this->_tag_stack[] = array('$tag_command', array(".implode(',', (array)$arg_list).")); \$this->_plugins['block']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), null, \$this); ob_start(); ?>";
         } else {
-            $output = "<?php \$this->_block = ob_get_contents(); ob_end_clean(); \$this->_plugins['block']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), \$this->_block, \$this); ?>";
+            $output = "<?php \$this->_block_content = ob_get_contents(); ob_end_clean(); \$this->_plugins['block']['$tag_command'][0](\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$this->_block_content, \$this); array_pop(\$this->_tag_stack); ?>";
         }
 
         return true;

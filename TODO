@@ -4,7 +4,6 @@
 * support implementations of prefiltes, mods, and others as class methods.
 * possibly implement default modifiers that apply to variables upon display
 * think about possibility of supporting something like {$data[foo].$key[bar]}
-* allow {custom} .. {/custom} style of custom functions
 * ability to concatenate values/strings together
 * fix all E_NOTICE warnings
 * make simple math easier

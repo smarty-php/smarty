@@ -1,3 +1,4 @@
+    - implemented support for block functions. (Andrei)
     - made it possible to assign variables in pre/postfilter
       plugins. (Andrei)
 
