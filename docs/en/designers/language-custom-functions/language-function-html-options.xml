@@ -81,6 +81,9 @@
 <example>
 <title>html_options</title>
 <programlisting>
+EXAMPLE 1
+---------
+
 index.php:
 
 require('Smarty.class.php');
@@ -97,6 +100,8 @@ index.tpl:
 	{html_options values=$cust_ids selected=$customer_id output=$cust_names}
 &lt;/select&gt;
 
+EXAMPLE 2
+---------
 
 index.php:
 
@@ -118,6 +123,7 @@ index.tpl:
 
 
 OUTPUT: (both examples)
+-----------------------
 
 &lt;select name=customer_id&gt;
 	&lt;option value="1000"&gt;Joe Schmoe&lt;/option&gt;
