@@ -1,3 +1,17 @@
+2002-04-12  Andrei Zmievski  <andrei@php.net>
+
+    * TESTIMONIALS: New entry.
+
+2002-04-12  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/modifier.strip_tags.php: back out changes to strip_tags
+
+    * docs/programmers.sgml: update docs regarding cache_lifetime
+
+    * plugins/modifier.strip_tags.php
+      Smarty.class.php:
+    update cache_lifetime logic: -1 = never expire, 0 = always expire
+
 2002-04-11  Andrei Zmievski  <andrei@php.net>
 
     * BUGS
