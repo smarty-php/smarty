@@ -1108,13 +1108,11 @@ class Smarty_Compiler extends Smarty {
         $parts = explode('|', substr($var_expr, 1), 2);
         $var_ref = $parts[0];
         $modifiers = isset($parts[1]) ? $parts[1] : '';
-
+		
 		if(!empty($this->default_modifiers) && !strstr($modifiers,'smarty:nodefaults')) {
 			$_default_mod_string = implode('|',(array)$this->default_modifiers);
 			$modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
 		}
-		
-		$modifiers = str_replace(array('smarty:nodefaults','||'),array('','|'),$modifiers);
 			
         preg_match_all('!\[(?:\$\w+|\w+(\.\w+)?)\]|(->|\.)\$?\w+|^\w+!', $var_ref, $match);
         $indexes = $match[0];
@@ -1220,6 +1218,12 @@ class Smarty_Compiler extends Smarty {
 
         for ($i = 0, $for_max = count($modifiers); $i < $for_max; $i++) {
             $modifier_name = $modifiers[$i];
+			
+			if($modifier_name == 'smarty') {
+				// skip smarty modifier
+				continue;
+			}
+			
             preg_match_all('!:(' . $qstr_regexp . '|[^:]+)!', $modifier_arg_strings[$i], $match);
             $modifier_args = $match[1];
 
@@ -1229,7 +1233,7 @@ class Smarty_Compiler extends Smarty {
             } else {
                 $map_array = 'true';
             }
-
+			
             $this->_add_plugin('modifier', $modifier_name);
 
             $this->_parse_vars_props($modifier_args);
