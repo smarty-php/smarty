@@ -1,3 +1,7 @@
+Version 1.1.0
+-------------
+	- misc documentation changes, official stable release
+
 Version 1.0b
 ------------
 	- fixed the bug that prevented using non-array values for 'loop' attribute (Andrei)
