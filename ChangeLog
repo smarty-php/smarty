@@ -1,3 +1,64 @@
+2003-08-07  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/programmers.sgml:
+      added docs for block-methods of registered objects
+
+    * docs/programmers.sgml:
+      fixed typo in example for registered objects
+
+    * docs/designers.sgml:
+      fixed exampls of html_image and html_checkboxes
+
+    * libs/plugins/function.debug.php:
+      fixed {debug} and removed tabs in function.debug.php
+
+    * docs/programmers.sgml:
+      fixed example for register_object
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      updated docs for capture, html_table, html_image and register_object
+
+2003-08-07  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      add math and default_resource_type to docs
+
+    * docs/getting-started.sgml:
+      add core to example, add tech note
+
+2003-08-07  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/manual.sgml
+      docs/fr/manual.sgml:
+      upd copyright in the docs
+
+2003-08-07  Monte Ohrt  <monte@ispi.net>
+
+    * docs/getting-started.sgml:
+      added core directory to install instructions
+
+2003-08-07  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      added docs for php-functions as modifiers
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      better caching of attributes for $cacheable=false-plugins
+
+    * docs/programmers.sgml:
+      added section "caching.cacheable" to the docs, explaining the usage of
+      the $cacheable-flag of the register_(block|compiler|function)-functions
+
+    * libs/Smarty_Compiler.class.php:
+      fixed output of custom-functions with cached attributes
+
+    * docs/programmers.sgml:
+      docs update on callbacks to the register_*-functions
+
 2003-08-06  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
