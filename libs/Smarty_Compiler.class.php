@@ -1565,7 +1565,7 @@ class Smarty_Compiler extends Smarty {
             rsort($_match);
             reset($_match);
             foreach($_match as $_var) {
-                $var_expr = str_replace ($_var, '".' . $this->_parse_var(str_replace('`','',$_var)) . '."', $var_expr);
+                $var_expr = str_replace ($_var, '".(' . $this->_parse_var(str_replace('`','',$_var)) . ')."', $var_expr);
             }
             $_return = preg_replace('%\.""|(?<!\\\\)""\.%', '', $var_expr);
         } else {
