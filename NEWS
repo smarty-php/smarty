@@ -1,3 +1,4 @@
+    - added html_image to distribution (Monte)
     - added cat modifier (Monte)
     - added << >> <> support to if statments (SMK, Monte)
     - fix _assign_smarty_interface to not overwrite keys
