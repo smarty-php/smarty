@@ -1,3 +1,12 @@
+2004-03-26  Mehdi Achour  <didou@keliglia.com>
+
+    * docs/de/common.dsl
+      docs/de/html.dsl
+      docs/fr/common.dsl
+      docs/fr/html.dsl
+      docs/fr/php.dsl:
+      not needed anymore
+
 2004-03-24  Nuno Lopes  <nunoplopes@sapo.pt>
 
     * docs/Makefile.in:
