@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <chapter id="advanced.features">
-   <title>Advanced Features</title>
-&programmers.advanced-features.advanced-features-objects;
-&programmers.advanced-features.advanced-features-prefilters;
-
-&programmers.advanced-features.advanced-features-postfilters;
-
-&programmers.advanced-features.advanced-features-outputfilters;
-
-&programmers.advanced-features.section-template-cache-handler-func;
-
-&programmers.advanced-features.template-resources;
+<chapter id="advanced.features">
+ <title>Advanced Features</title>
+  &programmers.advanced-features.advanced-features-objects;
+  &programmers.advanced-features.advanced-features-prefilters;
+  &programmers.advanced-features.advanced-features-postfilters;
+  &programmers.advanced-features.advanced-features-outputfilters;
+  &programmers.advanced-features.section-template-cache-handler-func;
+  &programmers.advanced-features.template-resources;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,70 +1,61 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
- <chapter id="plugins">
-  <title>Extending Smarty With Plugins</title>
-  <para>
-   Version 2.0 introduced the plugin architecture that is used
-   for almost all the customizable functionality of Smarty. This includes:
-   <itemizedlist spacing="compact">
-    <listitem><simpara>functions</simpara></listitem>
-    <listitem><simpara>modifiers</simpara></listitem>
-    <listitem><simpara>block functions</simpara></listitem>
-    <listitem><simpara>compiler functions</simpara></listitem>
-    <listitem><simpara>prefilters</simpara></listitem>
-    <listitem><simpara>postfilters</simpara></listitem>
-    <listitem><simpara>outputfilters</simpara></listitem>
-    <listitem><simpara>resources</simpara></listitem>
-    <listitem><simpara>inserts</simpara></listitem>
-   </itemizedlist>
-   With the exception of resources, backwards compatibility with the old
-   way of registering handler functions via register_* API is preserved. If
-   you did not use the API but instead modified the class variables
-   <literal>$custom_funcs</literal>, <literal>$custom_mods</literal>, and
-   other ones directly, then you will need to adjust your scripts to either
-   use the API or convert your custom functionality into plugins.
-  </para>
+<chapter id="plugins">
+ <title>Extending Smarty With Plugins</title>
+ <para>
+  Version 2.0 introduced the plugin architecture that is used
+  for almost all the customizable functionality of Smarty. This includes:
+  <itemizedlist spacing="compact">
+   <listitem><simpara>functions</simpara></listitem>
+   <listitem><simpara>modifiers</simpara></listitem>
+   <listitem><simpara>block functions</simpara></listitem>
+   <listitem><simpara>compiler functions</simpara></listitem>
+   <listitem><simpara>prefilters</simpara></listitem>
+   <listitem><simpara>postfilters</simpara></listitem>
+   <listitem><simpara>outputfilters</simpara></listitem>
+   <listitem><simpara>resources</simpara></listitem>
+   <listitem><simpara>inserts</simpara></listitem>
+  </itemizedlist>
+  With the exception of resources, backwards compatibility with the old
+  way of registering handler functions via register_* API is preserved. If
+  you did not use the API but instead modified the class variables
+  <literal>$custom_funcs</literal>, <literal>$custom_mods</literal>, and
+  other ones directly, then you will need to adjust your scripts to either
+  use the API or convert your custom functionality into plugins.
+ </para>
    
-  <sect1>
-   <title>How Plugins Work</title>
-   <para>
-    Plugins are always loaded on demand. Only the specific modifiers,
-    functions, resources, etc invoked in the templates scripts will be
-    loaded. Moreover, each plugin is loaded only once, even if you have
-    several different instances of Smarty running within the same request.
-   </para>
-   <para>
-    Pre/postfilters and output filters are a bit of a special case. Since
-    they are not mentioned in the templates, they must be registered or
-    loaded explicitly via API functions before the template is processed.
-    The order in which multiple filters of the same type are executed
-    depends on the order in which they are registered or loaded.
-   </para>
-   <para>
-    There is only one plugins directory (for performance reasons). To
-    install a plugin, simply place it in the directory and Smarty will use
-    it automatically.
-   </para>
-  </sect1>
+ <sect1>
+  <title>How Plugins Work</title>
+  <para>
+   Plugins are always loaded on demand. Only the specific modifiers,
+   functions, resources, etc invoked in the templates scripts will be
+   loaded. Moreover, each plugin is loaded only once, even if you have
+   several different instances of Smarty running within the same request.
+  </para>
+  <para>
+   Pre/postfilters and output filters are a bit of a special case. Since
+   they are not mentioned in the templates, they must be registered or
+   loaded explicitly via API functions before the template is processed.
+   The order in which multiple filters of the same type are executed
+   depends on the order in which they are registered or loaded.
+  </para>
+  <para>
+   There is only one plugins directory (for performance reasons). To
+   install a plugin, simply place it in the directory and Smarty will use
+   it automatically.
+  </para>
+ </sect1>
   
-&programmers.plugins.plugins-naming-conventions;
-
-&programmers.plugins.plugins-writing;
-
-&programmers.plugins.plugins-functions;
-
-&programmers.plugins.plugins-modifiers;
-
-&programmers.plugins.plugins-block-functions;
-
-&programmers.plugins.plugins-compiler-functions;
-
-&programmers.plugins.plugins-prefilters-postfilters;
-
-&programmers.plugins.plugins-outputfilters;
-
-&programmers.plugins.plugins-resources;
-
-&programmers.plugins.plugins-inserts;
+ &programmers.plugins.plugins-naming-conventions;
+ &programmers.plugins.plugins-writing;
+ &programmers.plugins.plugins-functions;
+ &programmers.plugins.plugins-modifiers;
+ &programmers.plugins.plugins-block-functions;
+ &programmers.plugins.plugins-compiler-functions;
+ &programmers.plugins.plugins-prefilters-postfilters;
+ &programmers.plugins.plugins-outputfilters;
+ &programmers.plugins.plugins-resources;
+ &programmers.plugins.plugins-inserts;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

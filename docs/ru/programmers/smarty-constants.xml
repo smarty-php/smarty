@@ -1,26 +1,30 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-	<chapter id="smarty.constants">
-	 <title>Constants</title>
-	 <para></para>
+<chapter id="smarty.constants">
+ <title>Êîíñòàíòû</title>
+ <para></para>
 
-	 <sect1 id="constant.smarty.dir">
-      <title>SMARTY_DIR</title>
-      <para>
-       This should be the full system path to the location of the Smarty
-       class files. If this is not defined, then Smarty will attempt to
-       determine the appropriate value automatically. If defined, the path
-       must end with a slash.
-      </para>
-      <example>
-       <title>SMARTY_DIR</title>
-       <programlisting>
+ <sect1 id="constant.smarty.dir">
+  <title>SMARTY_DIR</title>
+  <para>
+   Ýòà êîíñòàíòà äîëæíà ñîäåðæàòü ïîëíûé ïóòü ê ôàéëàì Ñìàðòè.
+   Åñëè êîíñòàíòà íå îïðåäåëåíà, Ñìàðòè áóäåò ïûòàòüñÿ îïðåäåëèòü ïóòü
+   ñàìîñòîÿòåëüíî. Ïðè îïðåäåëåíèè äàííîé êîíñòàíòû, ñëýø â êîíöå ñòðîêè
+   îáÿçàòåëåí.
+  </para>
+  <example>
+   <title>SMARTY_DIR</title>
+   <programlisting>
+<![CDATA[
+    
 // set path to Smarty directory
 define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
+require_once(SMARTY_DIR."Smarty.class.php");
 
-require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
-      </example>
-	 </sect1>
+]]>
+   </programlisting>
+  </example>
+ </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
