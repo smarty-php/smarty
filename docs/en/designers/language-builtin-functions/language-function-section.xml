@@ -61,7 +61,7 @@
                         <entry>max</entry>
                         <entry>integer</entry>
                         <entry>No</entry>
-                        <entry><emphasis>1</emphasis></entry>
+                        <entry><emphasis>n/a</emphasis></entry>
 						<entry>Sets the maximum number of times the section
 						will loop.</entry>
                     </row>
