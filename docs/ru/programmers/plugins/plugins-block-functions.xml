@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: tony2001 Status: ready -->
 <sect1 id="plugins.block.functions">
  <title>Блоковые функции</title>
  <funcsynopsis>
@@ -9,6 +9,7 @@
    <paramdef>array <parameter>$params</parameter></paramdef>
    <paramdef>mixed <parameter>$content</parameter></paramdef>
    <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+   <paramdef>boolean <parameter>&amp;$repeat</parameter></paramdef>
   </funcprototype>
  </funcsynopsis>
  <para>
@@ -41,6 +42,21 @@
   Smarty и на выводе вы получите результат обработки, а не
   исходный код шаблона.
  </para>
+
+	<para>
+     Параметр <parameter>&amp;$repeat</parameter> передается по
+     ссылке в функцию и дает ей возможность контролировать
+     количество отображений блока.
+     По умолчанию <parameter>$repeat</parameter> равен <literal>true</literal>
+     во время первого вызова блоковой функции (открывающий тэг блока)
+     и <literal>false</literal> при всех последующих вызовах блоковой функции
+     (закрывающий тэг блока).
+     Каждый раз, когда ваша функция возвращает параметр <parameter>&amp;$repeat</parameter>
+     равный <literal>true</literal>, содержимое между
+     {func} .. {/func} обрабатывается и ваша функция вновь вызывается, причем новое содержимое
+     блока передается в параметре <parameter>$content</parameter>.
+	</para>
+
  <para>
   Если вы используете вложенные блоковые функции, есть возможность определять родительские
   блоковые функции. Достаточно получить значение переменной
