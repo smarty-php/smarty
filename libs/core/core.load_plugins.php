@@ -54,7 +54,7 @@ function smarty_core_load_plugins($params, &$smarty)
             }
         }
 
-        $_plugin_file = $smarty->get_plugin_filepath($_type, $_name);
+        $_plugin_file = $smarty->_get_plugin_filepath($_type, $_name);
 
         if (! $_found = ($_plugin_file != false)) {
             $_message = "could not load plugin file '$_type.$_name.php'\n";

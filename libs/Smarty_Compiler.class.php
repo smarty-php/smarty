@@ -590,7 +590,7 @@ class Smarty_Compiler extends Smarty {
          * Otherwise we need to load plugin file and look for the function
          * inside it.
          */
-        else if ($plugin_file = $this->get_plugin_filepath('compiler', $tag_command)) {
+        else if ($plugin_file = $this->_get_plugin_filepath('compiler', $tag_command)) {
             $found = true;
 
             include_once $plugin_file;
@@ -665,7 +665,7 @@ class Smarty_Compiler extends Smarty {
          * Otherwise we need to load plugin file and look for the function
          * inside it.
          */
-        else if ($plugin_file = $this->get_plugin_filepath('block', $tag_command)) {
+        else if ($plugin_file = $this->_get_plugin_filepath('block', $tag_command)) {
             $found = true;
 
             include_once $plugin_file;
@@ -749,7 +749,7 @@ class Smarty_Compiler extends Smarty {
          * Otherwise we need to load plugin file and look for the function
          * inside it.
          */
-        else if ($plugin_file = $this->get_plugin_filepath('function', $tag_command)) {
+        else if ($plugin_file = $this->_get_plugin_filepath('function', $tag_command)) {
             $found = true;
 
             include_once $plugin_file;
@@ -1894,7 +1894,7 @@ class Smarty_Compiler extends Smarty {
             }
 
             if (empty($this->_plugins['modifier'][$_modifier_name])
-                && !$this->get_plugin_filepath('modifier', $_modifier_name)
+                && !$this->_get_plugin_filepath('modifier', $_modifier_name)
                 && function_exists($_modifier_name)) {
                 if ($this->security && !in_array($_modifier_name, $this->security_settings['MODIFIER_FUNCS'])) {
                     $this->_trigger_fatal_error("[plugin] (secure mode) modifier '$_modifier_name' is not allowed" , $this->_current_file, $this->_current_line_no, __FILE__, __LINE__);

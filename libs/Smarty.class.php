@@ -1309,7 +1309,7 @@ class Smarty
      */
     function config_load($file, $section = null, $scope = 'global')
     {
-        require_once($this->get_plugin_filepath('function', 'config_load'));
+        require_once($this->_get_plugin_filepath('function', 'config_load'));
         smarty_function_config_load(array('file' => $file, 'section' => $section, 'scope' => $scope), $this);
     }
 
@@ -1352,20 +1352,11 @@ class Smarty
      * @param string $name
      * @return string|false
      */
-    function get_plugin_filepath($type, $name)
+    function _get_plugin_filepath($type, $name)
     {
         $_params = array('type' => $type, 'name' => $name);
         require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.assemble_plugin_filepath.php');
         return smarty_core_assemble_plugin_filepath($_params, $this);
-    }
-
-    /**
-     * wrapper (kept for compatibility)
-     *
-     */
-    function _get_plugin_filepath($type, $name)
-    {
-        return $this->get_plugin_filepath($type, $name);
     }
 
    /**

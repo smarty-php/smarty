@@ -28,7 +28,7 @@
  */
 function smarty_function_html_options($params, &$smarty)
 {
-    require_once $smarty->get_plugin_filepath('shared','escape_special_chars');
+    require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
     
     $name = null;
     $values = null;
