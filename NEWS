@@ -1,3 +1,4 @@
+    - added support for modifiers to function calls (Monte)
     - support return value for custom functions (Monte)
     - can access constants via $smarty.const.FOO (Monte)
     - cleaned up regex code in compiler (Monte)
