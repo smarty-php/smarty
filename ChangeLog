@@ -1,3 +1,18 @@
+2003-08-05  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      updated copyright notice
+
+    * libs/Smarty.class.php
+      libs/core/core.load_plugins.php:
+      fixed bug that occurred when using the same not-cacheable plugin in
+      multiple includes
+
+    * docs/programmers.sgml:
+      docs-update for plugins.writing
+
 2003-08-04  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/designers.sgml
