@@ -1,3 +1,5 @@
+    - update overlib to 3.50, adjust addon code so that the overlib.js
+      file isn't modified, and not using the mini one (Monte)
     - added many more options to html_select_date. (Alexander Skwar, Andrei)
     - added support for generating different compiled templates from the same
       source template. (Hans-Peter Oeri, Andrei)
