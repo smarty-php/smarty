@@ -175,11 +175,6 @@ class Smarty
                 }
             }
         }
-
-        /* Prepare the configuration object. */
-        if (!class_exists('Config_File'))
-            include_once dirname(__FILE__) . '/Config_File.class.php';
-        $this->_conf_obj = new Config_File($this->config_dir);
     }
 
 
@@ -497,6 +492,14 @@ class Smarty
                 }
             }
         }
+
+        if ($this->_conf_obj === null) {
+            /* Prepare the configuration object. */
+            if (!class_exists('Config_File'))
+                include_once dirname(__FILE__) . '/Config_File.class.php';
+            $this->_conf_obj = new Config_File($this->config_dir);
+        } else
+            $this->_conf_obj->set_path($this->config_dir);
 
         extract($this->_tpl_vars);
 
