@@ -147,6 +147,8 @@ class Smarty
     // internal vars
     var $_error_msg             =   false;      // error messages. true/false
     var $_tpl_vars              =   array();    // where assigned template vars are kept
+    var $_sections              =   array();    // keeps track of sections
+    var $_conf_obj              =   null;       // configuration object
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
     
 
@@ -173,6 +175,11 @@ class Smarty
                 }
             }
         }
+
+        /* Prepare the configuration object. */
+        if (!class_exists('Config_File'))
+            include_once 'Config_File.class.php';
+        $this->_conf_obj = new Config_File($this->config_dir);
     }
 
 

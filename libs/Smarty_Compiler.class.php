@@ -258,6 +258,7 @@ class Smarty_Compiler extends Smarty {
         }
     }
 
+
 /*======================================================================*\
 	Function: _compile_compiler_tag
 	Purpose:  compile the custom compiler tag
@@ -273,6 +274,7 @@ class Smarty_Compiler extends Smarty {
 
 		return '<?php' . $function($tag_args, $this) . ' ?>';
 	}
+
 
 /*======================================================================*\
     Function: _compile_custom_tag
@@ -296,6 +298,7 @@ class Smarty_Compiler extends Smarty {
 
         return "<?php $function(array(".implode(',', (array)$arg_list)."), \$this); ?>";
     }
+
 
 /*======================================================================*\
     Function: _compile_insert_tag
@@ -337,24 +340,22 @@ class Smarty_Compiler extends Smarty {
 		else
 			$update_parent = false;
 
-        $output  = "<?php if (!class_exists('Config_File'))\n" .
-                   "    include_once 'Config_File.class.php';\n" .
-                   "if (!is_object(\$GLOBALS['_smarty_conf_obj']) || get_class(\$GLOBALS['_smarty_conf_obj']) != 'config_file')\n" .
-                   "    \$GLOBALS['_smarty_conf_obj'] = new Config_File('".$this->config_dir."');\n" .
-				   "\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
+        $output  = "<?php\n" .
+				   "\$_smarty_config = array_merge((array)\$_smarty_config, \$this->_conf_obj->get(".$attrs['file']."));\n";
 		if ($update_parent)
-			$output .=	"\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
+			$output .=	"\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$this->_conf_obj->get(".$attrs['file']."));\n";
 
         if (!empty($attrs['section'])) {
-			$output .=	"\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
+			$output .=	"\$_smarty_config = array_merge((array)\$_smarty_config, \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
 			if ($update_parent)
-				$output .=	"\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
+				$output .=	"\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
 		}
 
         $output .= '?>';
 
         return $output;
     }
+
 
 /*======================================================================*\
     Function: _compile_include_tag
@@ -370,7 +371,7 @@ class Smarty_Compiler extends Smarty {
 
 		foreach ($attrs as $arg_name => $arg_value) {
 			if ($arg_name == 'file') {
-				$_smarty_include_tpl_file = $arg_value;
+				$include_file = $arg_value;
                 continue;
             }
 			if (is_bool($arg_value))
@@ -380,10 +381,11 @@ class Smarty_Compiler extends Smarty {
 
 		return  "<?php " .
 			"\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
-			"\$this->_smarty_include(".$_smarty_include_tpl_file.", array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n" .
+			"\$this->_smarty_include(".$include_file.", array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n" .
 			"\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
 			"unset(\$_smarty_tpl_vars); ?>";
     }
+
 
 /*======================================================================*\
     Function: _compile_section_start
@@ -399,8 +401,8 @@ class Smarty_Compiler extends Smarty {
             $this->_syntax_error("missing section name");
         }
 
-        $output .= "if (isset(\$_smarty_sections[$section_name])) unset(\$_smarty_sections[$section_name]);\n";
-        $section_props = "\$_smarty_sections[$section_name]['properties']";
+        $output .= "if (isset(\$this->_sections[$section_name])) unset(\$this->_sections[$section_name]);\n";
+        $section_props = "\$this->_sections[$section_name]['properties']";
 
         foreach ($attrs as $attr_name => $attr_value) {
             switch ($attr_name) {
@@ -448,6 +450,7 @@ class Smarty_Compiler extends Smarty {
 
         return $output;
     }
+
 
 /*======================================================================*\
     Function: _compile_if_tag
@@ -553,6 +556,7 @@ class Smarty_Compiler extends Smarty {
             return '<?php if ('.implode(' ', $tokens).'): ?>';
     }
 
+
 /*======================================================================*\
     Function: _parse_is_expr
     Purpose:  Parse is expression
@@ -611,6 +615,7 @@ class Smarty_Compiler extends Smarty {
 
         return $tokens;
     }
+
 
 /*======================================================================*\
     Function: _parse_attrs
@@ -685,6 +690,7 @@ class Smarty_Compiler extends Smarty {
         return $attrs;
     }
 
+	
 /*======================================================================*\
     Function: _parse_vars_props
     Purpose:  compile variables and section properties tokens into
@@ -717,6 +723,7 @@ class Smarty_Compiler extends Smarty {
         }
     }
 
+
 /*======================================================================*\
     Function: _parse_var
     Purpose:  parse variable expression into PHP code
@@ -738,7 +745,7 @@ class Smarty_Compiler extends Smarty {
 				$parts = explode('.', substr($index, 1, -1));
 				$section = $parts[0];
 				$section_prop = isset($parts[1]) ? $parts[1] : 'index';
-				$output .= "[\$_smarty_sections['$section']['properties']['$section_prop']]";
+				$output .= "[\$this->_sections['$section']['properties']['$section_prop']]";
 			} else if ($index{0} == '.') {
 				$output .= "['" . substr($index, 1) . "']";
 			} else {
@@ -750,6 +757,7 @@ class Smarty_Compiler extends Smarty {
 
         return $output;
     }
+
 
 /*======================================================================*\
     Function: _parse_conf_var
@@ -770,6 +778,7 @@ class Smarty_Compiler extends Smarty {
         return $output;
     }
 
+
 /*======================================================================*\
     Function: _parse_section_prop
     Purpose:  parse section property expression into PHP code
@@ -784,12 +793,13 @@ class Smarty_Compiler extends Smarty {
         $section_name = $match[1];
         $prop_name = $match[2];
 
-        $output = "\$_smarty_sections['$section_name']['properties']['$prop_name']";
+        $output = "\$this->_sections['$section_name']['properties']['$prop_name']";
 
         $this->_parse_modifiers($output, $modifiers);
 
         return $output;
     }
+
 
 /*======================================================================*\
     Function: _parse_modifiers
@@ -840,6 +850,7 @@ class Smarty_Compiler extends Smarty {
             $output = "_smarty_mod_handler('$mod_func_name', $map_array, $output$modifier_args)";
         }
     }
+
 
 /*======================================================================*\
     Function: _syntax_error

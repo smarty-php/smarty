@@ -1,5 +1,9 @@
-    - configs directory missing from 1.4.1 release, added back in (Monte)
-    - added windows include_path setup instructions to FAQ & QUICKSTART
+    - cleaned up compiled templates global scope by moving some variables into
+      the class itself. (Andrei)
+    - fixed a bug that would not allow referring to a section in the including
+      file from the included file. (Andrei)
+    - configs directory missing from 1.4.1 release, added back in. (Monte)
+    - added windows include_path setup instructions to FAQ & QUICKSTART.
       (Monte)
 
 Version 1.4.1
