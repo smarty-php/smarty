@@ -1,3 +1,5 @@
+    - added optional 'options' attribute to html_options custom function
+      that allows passing associative arrays for values/output. (Andrei)
     - modifier arguments can now contain | and : characters inside quoted
       strings. (Andrei)
 
