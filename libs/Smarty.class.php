@@ -1535,6 +1535,8 @@ class Smarty
         $_params = array('resource_name' => $params['resource_name']) ;
         if (isset($params['resource_base_path']))
             $_params['resource_base_path'] = $params['resource_base_path'];
+        else
+            $_params['resource_base_path'] = $this->template_dir;
 
         if ($this->_parse_resource_name($_params)) {
             $_resource_type = $_params['resource_type'];
@@ -1633,12 +1635,7 @@ class Smarty
             if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $params['resource_name'])) {
                 // relative pathname to $params['resource_base_path']
                 // use the first directory where the file is found
-                if (isset($params['resource_base_path'])) {
-                    $_resource_base_path = (array)$params['resource_base_path'];
-                } else {
-                    $_resource_base_path = (array)$this->template_dir;
-                }
-                foreach ($_resource_base_path as $_curr_path) {
+                foreach ((array)$params['resource_base_path'] as $_curr_path) {
                     $_fullpath = $_curr_path . DIRECTORY_SEPARATOR . $params['resource_name'];
                     if (file_exists($_fullpath) && is_file($_fullpath)) {
                         $params['resource_name'] = $_fullpath;
