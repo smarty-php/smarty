@@ -202,7 +202,9 @@ function smarty_function_html_select_date($params, &$smarty)
             break;
       }
       // Add the field seperator
-      $html_result .= $field_separator;
+	  if($i != 2) {
+      	$html_result .= $field_separator;
+  	  }
     }
 
     print $html_result;
