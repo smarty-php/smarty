@@ -139,7 +139,7 @@ class Smarty_Compiler extends Smarty {
 		// $foo->bar($foo, "foo")
 		// $foo->bar->foo()
 		// $foo->bar->foo->bar()
-		$this->_obj_ext_regexp = '\->(?:\w+|' . $this->_dvar_regexp . ')';
+		$this->_obj_ext_regexp = '\->(?:\w+|\$?' . $this->_dvar_guts_regexp . ')';
     	$this->_obj_params_regexp = '\((?:\w+|'
 				. $this->_var_regexp . '(?:\s*,\s*(?:(?:\w+|'
 				. $this->_var_regexp . ')))*)?\)';		
