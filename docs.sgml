@@ -330,6 +330,15 @@ require_once(SMARTY_DIR."Smarty.class.php");
                 the web server document root.
 			</para>
 		</sect2>
+        <sect2 id="setting.plugins.dir">
+         <title>$plugins_dir</title>
+         <para>
+          This is the directory where Smarty will look for the plugins that
+          it needs. The directory must be relative to the directory where
+          Smarty itself is installed. Default is "plugins". There can be
+          only one plugins directory.
+         </para>
+        </sect2>
 		<sect2 id="setting.debugging">
 			<title>$debugging</title>
 			<para>
@@ -1561,51 +1570,51 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 // put these function somewhere in your application
 function db_get_template ($tpl_name, &amp;tpl_source, &amp;$smarty_obj)
 {
-	// do database call here to fetch your template,
-	// populating $tpl_source
-	$sql = new SQL;
-	$sql->query("select tpl_source
-	               from my_table
-		          where tpl_name='$tpl_name'");
-	if ($sql->num_rows) {
-		$tpl_source = $sql->record['tpl_source'];
-		return true;
-	} else {
-		return false;
-	}
+    // do database call here to fetch your template,
+    // populating $tpl_source
+    $sql = new SQL;
+    $sql->query("select tpl_source
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_source = $sql->record['tpl_source'];
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
 {
-	// do database call here to populate $tpl_timestamp.
-	$sql = new SQL;
-	$sql->query("select tpl_timestamp
-	               from my_table
+    // do database call here to populate $tpl_timestamp.
+    $sql = new SQL;
+    $sql->query("select tpl_timestamp
+                   from my_table
                   where tpl_name='$tpl_name'");
-	if ($sql->num_rows) {
-		$tpl_timestamp = $sql->record['tpl_timestamp'];
-		return true;
-	} else {
-		return false;
-	}
+    if ($sql->num_rows) {
+        $tpl_timestamp = $sql->record['tpl_timestamp'];
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function db_get_secure($tpl_name, &$smarty_obj)
 {
     // assume all templates are secure
-	return true;
+    return true;
 }
 
 function db_get_trusted($tpl_name, &$smarty_obj)
 {
-	// not used
+    // not used
 }
 
 // register the resource name "db"
 $smarty->register_resource("db", array("db_get_template",
                                        "db_get_timestamp",
-									   "db_get_secure",
-									   "db_get_trusted"));
+                                       "db_get_secure",
+                                       "db_get_trusted"));
 
 // using resource from php script
 $smarty->display("db:index.tpl");
@@ -6118,17 +6127,75 @@ s m o k e r s   a r e   p. . .
 <chapter id="chapter.plugins">
    <title>Plugins</title>
    <para>
+    Version 2.0 introduced the plugin architecture that is used
+    for almost all the customizable functionality of Smarty. This includes:
+    <simplelist>
+     <member>functions</member>
+     <member>modifiers</member>
+     <member>compiler functions</member>
+     <member>prefilters</member>
+     <member>postfilters</member>
+     <member>resources</member>
+     <member>inserts</member>
+    </simplelist>
+    With the exception of resources, backwards compatibility with the old
+    way of registering handler functions via register_* API is preserved. If
+    you did not use the API but instead modified the class variables
+    <literal>$custom_funcs</literal>, <literal>$custom_mods</literal>, and
+    other ones directly, then you will need to adjust your scripts to either
+    use the API or convert your custom functionality into plugins.
    </para>
+   
    <sect1>
-   		<title>How Plugins Work</title>
-		<para>
-		</para>
+    <title>How Plugins Work</title>
+    <para>
+     Plugins are always loaded on demand. Only the specific modifiers,
+     functions, resources, etc invoked in the templates or PHP scripts will
+     be loaded. Moreover, each plugin is loaded only once, even if you have
+     several different instances of Smarty running within the same request.
+    </para>
+    <para>
+     Pre/post-filters are a bit of a special case. If a pre/post-filter
+     plugin is found in the plugins directory, it will always be loaded
+     because these filters are never explicitly mentioned in the template
+     language.
+    </para>
+    <sect2>
+     <title>Naming Conventions</title>
+     <para>
+      Plugin files and functions must follow a very specific naming
+      convention in order to be located by Smarty.
+     </para>
+     <para>
+      The plugin files must be named as follows:
+      <blockquote>
+       <em>type</em>.<em>name</em>.php
+      </blockquote>
+     </para>
+     <para>
+      <literal>type<literal> is one of these plugin types:
+        <simplelist>
+         <member>function</member>
+         <member>modifier</member>
+         <member>compiler</member>
+         <member>prefilter</member>
+         <member>postfilter</member>
+         <member>resource</member>
+         <member>insert</member>
+        </simplelist>
+     </para>
+     <para>
+      <literal>name</literal> should be a valid identifier (letters,
+      numbers, and underscores only).
+     </para>
+    </sect2>
    </sect1>
+   
 	<sect1>
 		<title>Making Custom Plugins</title>
 		<para>
 		</para>
-		<sect2 id=section.plugins.custom.functions><title>custom functions</title>
+		<sect2 id="section.plugins.functions"><title>functions</title>
 			<para>
 			</para>
 <example>
@@ -6138,7 +6205,7 @@ s m o k e r s   a r e   p. . .
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id=section.plugins.modifiers><title>modifiers</title>
+		<sect2 id="section.plugins.modifiers"><title>modifiers</title>
 			<para>
 			</para>
 <example>
@@ -6148,7 +6215,7 @@ s m o k e r s   a r e   p. . .
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id=section.plugins.compiler.functions><title>compiler functions</title>
+		<sect2 id="section.plugins.compiler.functions"><title>compiler functions</title>
 			<para>
 			</para>
 <example>
@@ -6158,7 +6225,7 @@ s m o k e r s   a r e   p. . .
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id=section.plugins.prefilters><title>prefilters</title>
+		<sect2 id="section.plugins.prefilters"><title>prefilters</title>
 			<para>
 			</para>
 <example>
@@ -6168,7 +6235,7 @@ s m o k e r s   a r e   p. . .
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id=section.plugins.postfilters><title>postfilters</title>
+		<sect2 id="section.plugins.postfilters"><title>postfilters</title>
 			<para>
 			</para>
 <example>
@@ -6178,17 +6245,17 @@ s m o k e r s   a r e   p. . .
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id=section.plugins.template.resources><title>template resources</title>
+		<sect2 id="section.plugins.resources"><title>template resources</title>
 			<para>
 			</para>
 <example>
-<title>template resource plugin</title>
+<title>resource plugin</title>
 <programlisting>
 
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id=section.plugins.inserts><title>inserts</title>
+		<sect2 id="section.plugins.inserts"><title>inserts</title>
 			<para>
 			</para>
 <example>
