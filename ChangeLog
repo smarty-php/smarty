@@ -1,3 +1,12 @@
+2003-10-08  Monte Ohrt  <monte@ispi.net>
+
+    * (Smarty_2_6_0-RC2)
+      NEWS
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update version numbers to RC2
+
 2003-09-18  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/designers.sgml
