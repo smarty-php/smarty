@@ -784,10 +784,10 @@ reques     * @var string
      * @param string $function name of template function
      * @param string $function_impl name of PHP function to register
      */    
-    function register_compiler_function($function, $function_impl)
+    function register_compiler_function($function, $function_impl, $cacheable=true)
     {
         $this->_plugins['compiler'][$function] =
-            array($function_impl, null, null, false);
+            array($function_impl, null, null, false, $cacheable);
     }
 
     /**

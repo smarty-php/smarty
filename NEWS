@@ -1,3 +1,4 @@
+  - added $cacheable-parameter to register_compiler_function() (messju)
   - added $cacheable-parameter with default=true to register_function()
     and register_block() (messju)
   - add math speedup to core (Dominik, Monte)
