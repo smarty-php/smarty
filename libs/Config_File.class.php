@@ -128,9 +128,9 @@ class Config_File extends PEAR {
 				return $this->_config_data[$file_name]["sections"][$section_name]["vars"][$var_name];
 		} else {
 			if (empty($section_name))
-				return $this->_config_data[$file_name]["vars"];
+				return (array)$this->_config_data[$file_name]["vars"];
 			else
-				return $this->_config_data[$file_name]["sections"][$section_name]["vars"];
+				return (array)$this->_config_data[$file_name]["sections"][$section_name]["vars"];
 		}
 	}
 	
