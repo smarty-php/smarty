@@ -27,7 +27,7 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.6.6-dev
+ * @version 2.6.7-dev
  */
 
 /* $Id$ */
@@ -464,7 +464,7 @@ class Smarty
      *
      * @var string
      */
-    var $_version              = '2.6.6-dev-3';
+    var $_version              = '2.6.7-dev';
 
     /**
      * current template inclusion depth

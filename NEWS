@@ -1,4 +1,8 @@
+Version 2.6.7 (Feb 3, 2005)
+---------------------------
+
   - fix handling of hashed opening php-tags inside strip-blocks (messju)
+  - removed border tag from html_image function (monte)
   - change escape:url use rawurlencode() instead of urlencode() (messju)
   - make $smarty.const.FOO compile to "FOO", and not to "constant('foo')".
     this is less code and a little faster execution. note that undefined
