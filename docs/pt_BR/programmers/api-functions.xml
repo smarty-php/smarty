@@ -213,15 +213,13 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 		</sect1>
 		<sect1 id="api.clear.cache">
 			<title>clear_cache</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_cache</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>string <parameter><optional>cache id</optional></parameter></paramdef>
-				<paramdef>string <parameter><optional>compile id</optional></parameter></paramdef>
-				<paramdef>int <parameter><optional>expire time</optional></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
+   <methodsynopsis>
+   <type>void</type><methodname>clear_cache</methodname>
+    <methodparam choice="opt"><type>string</type><parameter>template</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>cache id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>compile id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>expire time</parameter></methodparam>
+   </methodsynopsis>
 			<para>
 				Isso limpa o cache de um template específico. Se você tem
 				múltiplos caches para este arquivo, você limpa o cache
@@ -268,12 +266,11 @@ $smarty->clear_compiled_tpl();</programlisting>
 		</sect1>
 		<sect1 id="api.clear.config">
 			<title>clear_config</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_config</function></funcdef>
-				<paramdef>string <parameter><optional>var</optional></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
+   <methodsynopsis>
+   <type>void</type><methodname>clear_config</methodname>
+    <methodparam choice="opt"><type>string</type><parameter>var</parameter></methodparam>
+   </methodsynopsis>
+
 			<para>
 			Isso limpa todas as variáveis de configuração fixadas. Se um nome de variável
 			é fornecido, somente esta variável é apagada.
@@ -290,13 +287,11 @@ $smarty->clear_config('foobar');</programlisting>
 		</sect1>
 		<sect1 id="api.config.load">
 			<title>config_load</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>config_load</function></funcdef>
-				<paramdef>string <parameter>file</parameter></paramdef>
-				<paramdef>string <parameter><optional>section</optional></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
+   <methodsynopsis>
+   <type>void</type><methodname>config_load</methodname>
+    <methodparam><type>string</type><parameter>file</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>section</parameter></methodparam>
+   </methodsynopsis>
 			<para>
 			Isso carrega o arquivo de configuração de dados e fixa-o para o 
 			template. Isso funciona idêntico a função <link
@@ -326,14 +321,12 @@ $smarty->config_load('my.conf','foobar');</programlisting>
 		</sect1>
 		<sect1 id="api.display">
 			<title>display</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>display</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>string <parameter><optional>cache_id</optional></parameter></paramdef>
-				<paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
+   <methodsynopsis>
+   <type>void</type><methodname>display</methodname>
+    <methodparam><type>string</type><parameter>template</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   </methodsynopsis>
 			<para>
                 Isso mostra o template. Fornecendo um válido <link
                 linkend="template.resources">template resource</link>
@@ -405,14 +398,12 @@ $smarty->display("db:header.tpl");</programlisting>
 		</sect1>
 		<sect1 id="api.fetch">
 			<title>fetch</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>string <function>fetch</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>string <parameter><optional>cache_id</optional></parameter></paramdef>
-				<paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
+   <methodsynopsis>
+   <type>string</type><methodname>fetch</methodname>
+    <methodparam><type>string</type><parameter>template</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   </methodsynopsis>
 			<para>
                 Isso retorna a saída do template ao invés de mostrá-lo.
 		Fornecendo um tipo ou path válido  <link
@@ -469,12 +460,10 @@ echo $output;</programlisting>
 		</sect1>
 		<sect1 id="api.get.config.vars">
 			<title>get_config_vars</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>array <function>get_config_vars</function></funcdef>
-				<paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
+   <methodsynopsis>
+   <type>array</type><methodname>get_config_vars</methodname>
+    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
+   </methodsynopsis>
 			<para>
 				Isso retorna o valor da variável de configuração dada.
 				Se nenhum parâmetro é dado, um array de todas as variáveis dos arquivos de configurações é retornado.
@@ -519,12 +508,10 @@ function smarty_block_foo($params, &amp;$smarty) {
 		</sect1>
 		<sect1 id="api.get.template.vars">
 			<title>get_template_vars</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>array <function>get_template_vars</function></funcdef>
-				<paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
+   <methodsynopsis>
+   <type>array</type><methodname>get_template_vars</methodname>
+    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
+   </methodsynopsis>
 			<para>
 				Isso retorna o valor de uma variável fixada. Se nenhum parâmetro
 				é dado, um array de todas as variávels fixadas é retornado.
@@ -1104,3 +1091,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+
