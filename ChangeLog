@@ -1,3 +1,8 @@
+2003-09-04  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      proper checking for files in  _fetch_resource_info()
+
 2003-09-02  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
