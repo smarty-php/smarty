@@ -496,13 +496,13 @@ class Smarty_Compiler extends Smarty {
 
             case 'foreachelse':
                 $this->_foreachelse_stack[count($this->_foreachelse_stack)-1] = true;
-                return "<?php endforeach; else: ?>";
+                return "<?php endforeach; unset(\$_from); else: ?>";
 
             case '/foreach':
                 if (array_pop($this->_foreachelse_stack))
                     return "<?php endif; ?>";
                 else
-                    return "<?php endforeach; endif; ?>";
+                    return "<?php endforeach; unset(\$_from); endif; ?>";
 
             case 'strip':
             case '/strip':
@@ -967,7 +967,7 @@ class Smarty_Compiler extends Smarty {
         foreach ($attrs as $attr_name => $attr_value) {
             switch ($attr_name) {
                 case 'loop':
-                    $output .= "{$section_props}['loop'] = is_array($attr_value) ? count($attr_value) : max(0, (int)$attr_value);\n";
+                    $output .= "{$section_props}['loop'] = is_array(\$_loop=$attr_value) ? count(\$_loop) : max(0, (int)\$_loop); unset(\$_loop);\n";
                     break;
 
                 case 'show':
@@ -1095,17 +1095,17 @@ class Smarty_Compiler extends Smarty {
         }
 
         if (isset($name)) {
-            $output .= "{$foreach_props}['total'] = count((array)$from);\n";
+            $output .= "{$foreach_props}['total'] = count(\$_from = (array)$from);\n";
             $output .= "{$foreach_props}['show'] = {$foreach_props}['total'] > 0;\n";
             $output .= "if ({$foreach_props}['show']):\n";
             $output .= "{$foreach_props}['iteration'] = 0;\n";
-            $output .= "    foreach ((array)$from as $key_part\$this->_tpl_vars['$item']):\n";
+            $output .= "    foreach (\$_from as $key_part\$this->_tpl_vars['$item']):\n";
             $output .= "        {$foreach_props}['iteration']++;\n";
             $output .= "        {$foreach_props}['first'] = ({$foreach_props}['iteration'] == 1);\n";
             $output .= "        {$foreach_props}['last']  = ({$foreach_props}['iteration'] == {$foreach_props}['total']);\n";
         } else {
-            $output .= "if (count((array)$from)):\n";
-            $output .= "    foreach ((array)$from as $key_part\$this->_tpl_vars['$item']):\n";
+            $output .= "if (count(\$_from = (array)$from)):\n";
+            $output .= "    foreach (\$_from as $key_part\$this->_tpl_vars['$item']):\n";
         }
         $output .= '?>';
 

@@ -1,3 +1,5 @@
+  - apply modifiers only once to section-loop and foreach-from attrs (messju)
+  - remove use of _smarty_cached_paths-files (messju)
   - remove Smarty::_plugin_implementation_exists() - use is_callable() (messju)
   - ignore {strip}/{/strip) inside {strip}-blocks (messju)
   - fixed removal of leading/trailing newlines in {strip}-blocks (messju)
