@@ -1,3 +1,14 @@
+2003-06-03  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/function.html_image.php:
+      fix example in code comments
+
+2003-06-03  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.counter.php:
+      fixed behaviour of start=... for {counter}
+
 2003-06-02  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
