@@ -1226,7 +1226,7 @@ function _generate_debug_output() {
     Purpose:  load configuration values
 \*======================================================================*/
     function config_load($file, $section = null, $scope = 'global')
-    {
+    {		
 		if(@is_dir($this->config_dir)) {
 			$_config_dir = $this->config_dir;			
 		} else {
@@ -1234,32 +1234,40 @@ function _generate_debug_output() {
 			$this->_get_include_path($this->config_dir,$_config_dir);
 		}
 
-		$_file_path = $_config_dir . '/' . $file;
+		$_file_path = str_replace('//', '/' ,$_config_dir . '/' . $file);
 		
-        if(!is_object($this->_conf_obj)) {
-            require_once SMARTY_DIR . $this->config_class . '.class.php';
-        	$this->_conf_obj = new Config_File($_config_dir);
-            $this->_conf_obj->overwrite = $this->config_overwrite;
-            $this->_conf_obj->booleanize = $this->config_booleanize;
-            $this->_conf_obj->read_hidden = $this->config_read_hidden;
-            $this->_conf_obj->fix_newlines = $this->config_fix_newlines;
-		}
-		
-		if(!isset($this->_config[0]['files'][$file])) {
-			// get path to compiled object file
-       		$_cache_file = $this->_get_auto_filename($this->cache_dir, $file, 'SMARTY_CONFIG');
+		// get path to compiled object file
+       	$_compile_file = $this->_get_auto_filename($this->compile_dir, $file . $section, 'SMARTY_CONFIG');
 
-			// see if cache file is up to date
-			if(@filemtime($_cache_file) == @filemtime($_file_path)) {
-				// load cache file
-				$this->_conf_obj = unserialize($this->_read_file($_cache_file));
+		// need to generate cache?
+		if($this->force_compile ||
+				($this->compile_check && ( @filemtime($_compile_file) != @filemtime($_file_path) ))) {
+			$_generate_cache = true;
+        } else {
+			include($_compile_file);
+			if(empty($_config_vars)) {
+				$_generate_cache = true;
 			} else {
-				// load file and save cache
-				$this->_conf_obj->load_file($file);
-				$_conf_obj_file_contents = serialize($this->_conf_obj);
-				$this->_write_file($_cache_file, $_conf_obj_file_contents, true);
-				touch($_cache_file,filemtime($_file_path));
-        	}
+				$_generate_cache = false;					
+			}
+		}
+
+		if($_generate_cache) {
+        	if(!is_object($this->_conf_obj)) {
+            	require_once SMARTY_DIR . $this->config_class . '.class.php';
+        		$this->_conf_obj = new Config_File($_config_dir);
+            	$this->_conf_obj->overwrite = $this->config_overwrite;
+            	$this->_conf_obj->booleanize = $this->config_booleanize;
+            	$this->_conf_obj->read_hidden = $this->config_read_hidden;
+            	$this->_conf_obj->fix_newlines = $this->config_fix_newlines;
+            	$this->_conf_obj->set_path = $_config_dir;
+			}
+			if($_config_vars = $this->_conf_obj->get($file, $section)) {
+				$this->_write_file($_compile_file,
+						'<?php $_config_vars = unserialize(\'' . str_replace('\'','\\\'', serialize($_config_vars)) . '\'); ?>',
+						true);
+				touch($_compile_file,filemtime($_file_path));
+			}
 		}
 		
         if ($this->debugging) {
@@ -1270,34 +1278,18 @@ function _generate_debug_output() {
             $this->_cache_info['config'][] = $file;
         }
 
-        if (!isset($this->_config[0]['files'][$file])) {
-            $this->_config[0]['vars'] = @array_merge($this->_config[0]['vars'], $this->_conf_obj->get($file));
-            $this->_config[0]['files'][$file] = true;
-        }
-
+        $this->_config[0]['vars'] = @array_merge($this->_config[0]['vars'], $_config_vars);
+        $this->_config[0]['files'][$file] = true;
+		
         if ($scope == 'parent') {
-            if (count($this->_config) > 0 && !isset($this->_config[1]['files'][$file])) {
-                $this->_config[1]['vars'] = @array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file));
+                $this->_config[1]['vars'] = @array_merge($this->_config[1]['vars'], $_config_vars);
                 $this->_config[1]['files'][$file] = true;
-            }
         } else if ($scope == 'global') {
             for ($i = 1, $for_max = count($this->_config); $i < $for_max; $i++) {
-                if (!isset($this->_config[$i]['files'][$file])) {
-                    $this->_config[$i]['vars'] = @array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file));
+                    $this->_config[$i]['vars'] = @array_merge($this->_config[$i]['vars'], $_config_vars);
                     $this->_config[$i]['files'][$file] = true;
-                }
             }
 		}
-		
-        if (!empty($section)) {
-            $this->_config[0]['vars'] = @array_merge($this->_config[0]['vars'], $this->_conf_obj->get($file, $section));
-            if ($scope == 'parent') {
-                if (count($this->_config) > 0)
-                    $this->_config[1]['vars'] = @array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file, $section));
-            } else if ($scope == 'global')
-                for ($i = 1, $for_max = count($this->_config); $i < $for_max; $i++)
-                    $this->_config[$i]['vars'] = @array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file, $section));
-        }
 
         if ($this->debugging) {
             $debug_start_time = $this->_get_microtime();
@@ -1306,7 +1298,7 @@ function _generate_debug_output() {
                                                 'depth'     => $this->_inclusion_depth,
                                                 'exec_time' => $this->_get_microtime() - $debug_start_time);
         }
-		
+	
     }
 
 

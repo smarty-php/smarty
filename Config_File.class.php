@@ -256,7 +256,7 @@ class Config_File {
 		$fp = @fopen($config_file, "r");
 		if (!is_resource($fp)) {
 			$this->_trigger_error_msg("Could not open config file '$config_file'");
-			return;
+			return false;
 		}
 
 		$contents = fread($fp, filesize($config_file));
@@ -286,6 +286,8 @@ class Config_File {
 		}
 
 		$this->_config_data[$config_file] = $config_data;
+		
+		return true;
 	}
 
 	
