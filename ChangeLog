@@ -1,3 +1,24 @@
+2003-06-24  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty.class.php
+      libs/core/core.assemble_auto_filename.php
+      libs/core/core.write_cache_paths_file.php:
+      fixed cache_paths bug, simplified filename assembly logic
+
+2003-06-24  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_image.php:
+      added parsing of forgotton param "basedir"
+
+    * libs/Smarty_Compiler.class.php:
+      fixed $smarty.get-reference
+
+    * libs/plugins/block.textformat.php:
+      removed warning
+
+    * libs/Smarty_Compiler.class.php:
+      fixed value of _cacheable_state on compiler-startup
+
 2003-06-23  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty.class.php
