@@ -41,21 +41,35 @@ class Smarty
 
 	var $config_dir				=	"configs";	// directory where config files are located
 
-	var $_custom_tags			=	array(	'html_options'	=> 'smarty_func_html_options'
+	var $custom_tags			=	array(	'html_options'	=> 'smarty_func_html_options'
 										 );
 	
-	var $_modifiers				=	array(	'lower'			=> 'strtolower',
+	var $modifiers				=	array(	'lower'			=> 'strtolower',
 											'upper'			=> 'strtoupper',
 											'capitalize'	=> 'ucwords',
 											'escape'		=> 'smarty_mod_escape',
 											'truncate'		=> 'smarty_mod_truncate',
 											'spacify'		=> 'smarty_mod_spacify'
 										 );
+	var $global_assign			=	array(	'SCRIPT_NAME'
+										 );
 
 	// internal vars
 	var $_error_msg				=	false;		// error messages
 	var $_tpl_vars				= 	array();
 	var $_sectionelse_stack		=	array();	// keeps track of whether section had 'else' part
+
+	
+/*======================================================================*\
+	Function: Smarty
+	Purpose:  Constructor
+\*======================================================================*/
+	function Smarty()
+	{
+		foreach ($this->global_assign as $var_name)
+			$this->assign($var_name, $GLOBALS[$var_name]);
+	}
+
 
 /*======================================================================*\
 	Function:	assign()
@@ -143,10 +157,10 @@ class Smarty
 			// compile files
 			$this->_compile($match[1]);
 			//assemble compile directory path to file
-			$compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$tpl_file);
+			$_compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$tpl_file);
 			
 			extract($this->_tpl_vars);		
-			include($compile_file);
+			include($_compile_file);
 		}
 	}
 
@@ -408,7 +422,7 @@ class Smarty
 				return $this->left_delimiter.$tag_command.$this->right_delimiter;
 
 			default:
-				if (isset($this->_custom_tags[$tag_command])) {
+				if (isset($this->custom_tags[$tag_command])) {
 					return $this->_compile_custom_tag($tag_command, $tag_args);
 				} else
 					/* TODO syntax error: unknown tag */
@@ -420,7 +434,7 @@ class Smarty
 	function _compile_custom_tag($tag_command, $tag_args)
 	{
 		$attrs = $this->_parse_attrs($tag_args);
-		$function = $this->_custom_tags[$tag_command];
+		$function = $this->custom_tags[$tag_command];
 		foreach ($attrs as $arg_name => $arg_value)
 			$arg_list[] = "'$arg_name' => $arg_value";
 
@@ -801,7 +815,7 @@ class Smarty
 			 * First we lookup the modifier function name in the registered
 			 * modifiers table.
 			 */
-			$mod_func_name = $this->_modifiers[$modifier_name];
+			$mod_func_name = $this->modifiers[$modifier_name];
 
 			/*
 			 * If we don't find that modifier there, we assume it's just a PHP

@@ -2,6 +2,8 @@
 
 Title: {#title#|capitalize}
 
+{$SCRIPT_NAME}
+
 {strip}
 {* A simple variable test *}
   hello, my name is {$Name}
