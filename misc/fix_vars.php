@@ -25,9 +25,9 @@ foreach (array_slice($argv, 1) as $template) {
 	}
 
 	if (function_exists("preg_replace_callback"))
-		$output = preg_replace_callback('!\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|\s]+))*)*!s', 'fix_var', $input);
+		$output = preg_replace_callback('!\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|}\s]+))*)*!s', 'fix_var', $input);
 	else
-		$output = preg_replace('!\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|\s]+))*)*!mF', 'fix_var', $input);
+		$output = preg_replace('!\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|}\s]+))*)*!mF', 'fix_var', $input);
 
 	fwrite($fp, $output);
 	fclose($fp);
