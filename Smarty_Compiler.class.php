@@ -53,6 +53,16 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
+        // run template source through functions registered in filter_functions
+        if(is_array($this->filter_functions) && count($this->filter_functions) > 0) {
+            foreach($this->filter_functions as $curr_func) {
+                if(function_exists($curr_func)) {
+                    $template_source = $curr_func($template_source);   
+                } else {
+                    $this->_trigger_error_msg("filter function $curr_func does not exist.");   
+                }
+            }   
+        }
                 
         $this->_current_file = $template_source;
         $this->_current_line_no = 1;

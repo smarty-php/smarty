@@ -782,6 +782,49 @@ $smarty->unregister_resource("db");
 </programlisting>
 </example>
 		</sect2>
+		<sect2 id="api.register.filter">
+			<title>register_filter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_filter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register filters to run templates
+                through before they are compiled. See <link
+                linkend="section.template.filters">template filters</link> for
+                more information on how to setup a filtering function.
+			</para>
+<example>
+<title>register_filter</title>
+<programlisting>
+
+$smarty->register_filter("remove_dw_comments");
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.unregister.filter">
+			<title>unregister_filter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_filter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister a filter.
+			</para>
+<example>
+<title>unregister_filter</title>
+<programlisting>
+
+$smarty->unregister_filter("imbed_asp_jokes");
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2 id="api.is.cached">
 			<title>is_cached</title>
 			<funcsynopsis>
@@ -979,9 +1022,11 @@ echo $output;
 // from PHP script
 $smarty->display("index.tpl");
 $smarty->display("admin/menu.tpl");
+$smarty->display("file:admin/menu.tpl"); // same as one above
 
 {* from within Smarty template *}
 {include file="index.tpl"}
+{include file="file:index.tpl"} {* same as one above *}
 
 </programlisting>
 </example>
@@ -1015,10 +1060,10 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
             retrieving templates from a database. You do this by first
             registering your resource handler function, then creating your
             function to get the template. Smarty expects your function to be of
-            this form: funcname($tpl_name,&tpl_source, &$tpl_timestamp) {} $tpl
-            name is passed into the function, and your function should populate
-            $tpl_source and $tpl_timestamp with the template source and the
-            last modified time of the template respectively.
+            this form: funcname($tpl_name,&amp;tpl_source, &amp;$tpl_timestamp)
+            {} $tpl_name is passed into the function, and your function should
+            populate $tpl_source and $tpl_timestamp with the template source
+            and the last modified time of the template respectively.
             </para>
 <example>
 
@@ -1045,6 +1090,45 @@ $smarty->display("db:index.tpl");
 
 {* using resource from within Smarty template *}
 {include file="db:/extras/navigation.tpl"}
+
+</programlisting>
+</example>
+        </sect2>
+    </sect1>
+	<sect1 id="section.template.filters">
+		<title>Smarty Template Filters</title>
+        <para>
+        Template filters are PHP functions that your templates are ran through
+        before they are compiled. This is good for preprocessing your templates
+        to remove unwanted comments, "beautify" the template code, keep an eye
+        on what people are putting in their templates, etc. Filters are
+        processed in the order they are <link
+        linkend="api.register.filter">registered</link>.
+        </para>
+		<sect2>
+			<title>Example of a Template Filter</title>
+			<para>
+            Create a function in your application that Smarty will use as a
+            template filter. Smarty will pass the template source code as the
+            first argument, an expect the function to return the resulting
+            template source code.
+            </para>
+<example>
+
+<title>using a template filter</title>
+<programlisting>
+
+// put this in your application, or in Smarty.addons.php
+function remove_dw_comments($tpl_source) {
+    return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
+}
+
+// register the filter
+$smarty->register_filter("remove_dw_comments");
+$smarty->display("index.tpl");
+
+{* from within Smarty template *}
+&lt;!--# this line will get removed by the filter --&gt;
 
 </programlisting>
 </example>
@@ -3745,7 +3829,7 @@ function makeTimeStamp($year="",$month="",$day="")
 	</para>
 	<para>
     A special thanks goes to the members of the php-template mailing list and
-    the smarty mailing list, whom shared and brought many ideas to the table.
+    the smarty mailing list, whom sharing and bringing many ideas to the table.
 	</para>
 	<para>
 	Rasmus Lerdorf &lt;rasmus@php.net&gt;: For starting what eventually became

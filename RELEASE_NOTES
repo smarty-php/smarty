@@ -1,17 +1,21 @@
 1.4.0
 -----
 
-IMPORTANT NOTICE: Smarty now has a new syntax for accessing elements within
-section loops. The new syntax is easier to use for complex data structures.
-Consequently, this breaks the old syntax. To fix your current templates, we
-have provided a script that will adjust the syntax for you. Located in
-misc/fix_vars.php, run this script from the the command line, giving each
-template as an argument. Be sure to use absolute pathnames, or pathnames
+IMPORTANT NOTICE
+
+Smarty now has a new syntax for accessing elements within section loops. The
+new syntax is easier to use and nicely handles data structures of any
+complexity. Consequently, this breaks the old syntax. To fix your current
+templates, we have provided a script that will adjust the syntax for you.
+Located in misc/fix_vars.php, run this script from the the command line, giving
+each template as an argument. Be sure to use absolute pathnames, or pathnames
 relative to the executing script. Probably the easiest way to do this is to
 copy the fix_vars.php script into your template directory and run 'php -q
 fix_vars.php *.tpl' Be sure you have proper write permission, and backup your
 scripts first to be safe! The examples in the 1.4.0 documentation have been
 updated to reflect the changes.
+
+NEW AND IMPROVED COMPILER
 
 Smarty 1.4.0 also has a new compilation process. Instead of compiling all the
 templates up front, it now compiles them at runtime. This has several
@@ -23,9 +27,12 @@ being executed instead of everything found in the template directory. The
 $tpl_file_ext is no longer needed, but kept for backward compatability.
 Templates can now be named anything you like with any extension.
 
+MINOR FIXES
+
 A workaround for LOCK_EX on Windows systems was added, and changed a couple of
-file permissions for better security on public servers. Thanks goes to Fernando
-Nunes for his code contributions.
+file permissions for better security on public servers.
+
+CHANGES/ENHANCEMENTS
 
 date_format, html_select_date and html_select_time used to require a unix
 timestamp as the format of the date passed into the template. Smarty is now a
@@ -33,12 +40,20 @@ bit smarter at this. It will take a unix timestamp, a mysql timestamp, or any
 date string that is parsable by strtotime, such as 10/01/2001 or 2001-10-01,
 etc. Just give some formats a try and see what works.
 
+Smarty now has template filters, meaning that you can run your templates
+through custom functions before they are compiled. This is good for things like
+removing unwanted comments, "beautifiying" your template code, keep an eye on
+words or functionality people are putting in templates, translating XML ->
+HTML, etc. See the register_filter documentation for more info.
+
 The format of the files created in the $compile_dir are now a bit different.
 Instead of reflecting the name and path of the source template, it uses an
 encoded file name, all in the top level directory. This was done to make way
 for arbitrary template resources. Each compiled template has a header that
 states what template resource was used to create it. From a unix command
 prompt, you can use "head -2 *" to see the first two lines of each file.
+
+UPGRADE NOTES
 
 When upgrading to 1.4.0, you will want to first clear out all your files in the
 $compile_dir, since it now uses a new format. If you have $compile_check set to

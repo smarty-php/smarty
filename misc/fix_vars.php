@@ -24,10 +24,7 @@ foreach (array_slice($argv, 1) as $template) {
 		die("\nError: could not open $template.out for writing\n\n");
 	}
 
-	if (strnatcmp(PHP_VERSION, '4.0.5') > 0)
-		$output = preg_replace_callback('!\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*!', 'fix_var', $input);
-	else
-		$output = preg_replace('!\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*!F', 'fix_var', $input);
+	$output = preg_replace('!\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*!F', 'fix_var', $input);
 
 	fwrite($fp, $output);
 	fclose($fp);
@@ -40,7 +37,7 @@ foreach (array_slice($argv, 1) as $template) {
 function fix_var($match)
 {
 	$var_expr = $match[0];
-
+    
 	list($var_ref, $modifiers) = explode('|', substr($var_expr, 1), 2);
 
 	$sections = explode('/', $var_ref);
