@@ -2417,7 +2417,7 @@ class Smarty
              * checked for existence yet or not.
              */
             if (isset($plugin)) {
-                if (!$plugin[3]) {
+                if (empty($plugin[3])) {
                     if (!$this->_plugin_implementation_exists($plugin[0])) {
                         $this->_trigger_fatal_error("[plugin] $type '$name' is not implemented", $tpl_file, $tpl_line, __FILE__, __LINE__);
                     } else {
