@@ -1959,7 +1959,7 @@ class Smarty_Compiler extends Smarty {
 
             case 'config':
                 $compiled_ref = "\$this->_config[0]['vars']";
-                $_max_index = 2;
+                $_max_index = 3;
                 break;
 
             default:
