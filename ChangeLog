@@ -1,3 +1,10 @@
+2003-08-04  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      updated docs for register_block_function(), block-functions,
+      $request_use_auto_globals and html_checkboxes
+
 2003-07-31  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
