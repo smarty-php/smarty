@@ -1310,6 +1310,8 @@ class Smarty
 
         // if we just need to display the results, don't perform output
         // buffering - for speed
+        $_cache_including = $this->_cache_including;
+        $this->_cache_including = false;
         if ($display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
             if ($this->_is_compiled($resource_name, $_smarty_compile_path)
 					|| $this->_compile_resource($resource_name, $_smarty_compile_path))
@@ -1350,6 +1352,7 @@ class Smarty
             // restore initial cache_info
             $this->_cache_info = array_pop($_cache_info);
         }
+        $this->_cache_including = $_cache_including;
 
         if ($display) {
             if (isset($_smarty_results)) { echo $_smarty_results; }
