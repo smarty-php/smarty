@@ -1,44 +1,44 @@
-    <?php
-    /*
-     * Project:     Smarty: the PHP compiling template engine
-     * File:        Smarty.class.php
-     * Author:      Monte Ohrt <monte@ispi.net>
-     *              Andrei Zmievski <andrei@php.net>
-     *
-     * Version:     1.4.6
-     * Copyright:   2001 ispi of Lincoln, Inc.
-     *
-     * This library is free software; you can redistribute it and/or
-     * modify it under the terms of the GNU Lesser General Public
-     * License as published by the Free Software Foundation; either
-     * version 2.1 of the License, or (at your option) any later version.
-     *
-     * This library is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-     * Lesser General Public License for more details.
-     *
-     * You should have received a copy of the GNU Lesser General Public
-     * License along with this library; if not, write to the Free Software
-     * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-     *
-     * For questions, help, comments, discussion, etc., please join the
-     * Smarty mailing list. Send a blank e-mail to smarty-subscribe@lists.ispi.net
-     *
-     * You may contact the authors of Smarty by e-mail at:
-     * monte@ispi.net
-     * andrei@php.net
-     *
-     * Or, write to:
-     * Monte Ohrt
-     * Director of Technology, ispi
-     * 237 S. 70th suite 220
-     * Lincoln, NE 68510
-     *
-     * The latest version of Smarty can be obtained from:
-     * http://www.phpinsider.com/
-     *
-     */
+<?php
+/*
+ * Project:     Smarty: the PHP compiling template engine
+ * File:        Smarty.class.php
+ * Author:      Monte Ohrt <monte@ispi.net>
+ *              Andrei Zmievski <andrei@php.net>
+ *
+ * Version:     1.4.6
+ * Copyright:   2001 ispi of Lincoln, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * For questions, help, comments, discussion, etc., please join the
+ * Smarty mailing list. Send a blank e-mail to smarty-subscribe@lists.ispi.net
+ *
+ * You may contact the authors of Smarty by e-mail at:
+ * monte@ispi.net
+ * andrei@php.net
+ *
+ * Or, write to:
+ * Monte Ohrt
+ * Director of Technology, ispi
+ * 237 S. 70th suite 220
+ * Lincoln, NE 68510
+ *
+ * The latest version of Smarty can be obtained from:
+ * http://www.phpinsider.com/
+ *
+ */
 
 // set SMARTY_DIR to absolute path to Smarty library files.
 // if not defined, include_path will be used.
