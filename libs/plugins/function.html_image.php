@@ -16,7 +16,7 @@
  * Input:<br>
  *         - file = file (and path) of image (required)
  *         - height = image height (optional, default actual height)
- *         - image =image width (optional, default actual width)
+ *         - width = image width (optional, default actual width)
  *         - basedir = base directory for absolute paths, default
  *                     is environment variable DOCUMENT_ROOT
  *
