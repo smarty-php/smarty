@@ -1,3 +1,26 @@
+2004-08-23  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/modifier.capitalize.php:
+      dont use constant, use static var instead
+
+    * libs/plugins/modifier.capitalize.php:
+      implement optional param to capitalize for digit behavior
+
+    * libs/plugins/modifier.capitalize.php:
+      another commit to capitalize, taking special chars into account
+
+2004-08-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      cleaned up attribute-handling in Smarty_Compiler::_compile_foreach_start()
+
+2004-08-23  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/function.html_select_date.php
+      libs/plugins/modifier.capitalize.php:
+      fix capitalize modifier to not rely on buggy ucwords() func
+
 2004-08-20  Monte Ohrt  <monte@ispi.net>
 
     * libs/plugins/function.html_select_date.php:
