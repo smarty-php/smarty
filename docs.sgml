@@ -1024,7 +1024,7 @@ $smarty->register_prefilter("remove_dw_comments");
 <title>unregister_prefilter</title>
 <programlisting>
 
-$smarty->unregister_prefilter("imbed_asp_jokes");
+$smarty->unregister_prefilter("embed_asp_jokes");
 
 </programlisting>
 </example>
@@ -1039,7 +1039,7 @@ $smarty->unregister_prefilter("imbed_asp_jokes");
 			</funcsynopsis>
 			<para>
                 Use this to dynamically register postfilters to run templates
-                through before they are compiled. See <link
+                through after they are compiled. See <link
                 linkend="section.template.postfilters">template postfilters</link> for
                 more information on how to setup a postfiltering function.
 			</para>
@@ -1067,7 +1067,7 @@ $smarty->register_postfilter("remove_dw_comments");
 <title>unregister_postfilter</title>
 <programlisting>
 
-$smarty->unregister_postfilter("imbed_asp_jokes");
+$smarty->unregister_postfilter("embed_asp_jokes");
 
 </programlisting>
 </example>
@@ -2260,7 +2260,7 @@ pass=foobar
 	...
 {/if}
 
-{* you can also imbed php function calls *}
+{* you can also embed php function calls *}
 {if count($var) gt 0}
 	...
 {/if}
@@ -2354,7 +2354,7 @@ OUTPUT:
 		<sect2 id="builtin.function.php">
 			<title>php</title>
 			<para>
-			php tags allow php to be imbedded directly into the template. They
+			php tags allow php to be embedded directly into the template. They
 			will not be escaped, regardless of the <link
 			linkend="setting.php.handling">$php_handling</link> setting. This
 			is for advanced users only, not normally needed. This was added to
@@ -3191,7 +3191,7 @@ OUTPUT:
 {* include some javascript in your template *}
 {fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
 
-{* imbed some weather text in your template from another web site *}
+{* embed some weather text in your template from another web site *}
 {fetch file="http://www.myweather.com/cgi-bin/getweather?zipcode=68502"}
 
 {* fetch a news headline file via ftp *}
