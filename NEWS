@@ -1,29 +1,32 @@
+    - fixed bug that would not respect nested template directories and would
+      put all compiled files into top-level one. (Andrei)
+
 Version 1.2.2
 -------------
-	- fixed bug using $PHP_VERSION instead of environment var PHP_VERSION.
-	- couple small warning fixes
+    - fixed bug using $PHP_VERSION instead of environment var PHP_VERSION.
+    - couple small warning fixes
 
 Version 1.2.1
 -------------
-	- added $compile_dir, removed $compile_dir_ext, simplified usage
-	- added tips & tricks chapter to documentation
-	- misc documentation updates
+    - added $compile_dir, removed $compile_dir_ext, simplified usage
+    - added tips & tricks chapter to documentation
+    - misc documentation updates
 
 Version 1.2.0
 -------------
-	- updated documentation (Monte)
-	- added file and line number information to syntax error messages. (Andrei)
-	- added ability to index template vars by a key. (Andrei)
+    - updated documentation (Monte)
+    - added file and line number information to syntax error messages. (Andrei)
+    - added ability to index template vars by a key. (Andrei)
 
 Version 1.1.0
 -------------
-	- misc documentation changes, official stable release
+    - misc documentation changes, official stable release
 
 Version 1.0b
 ------------
-	- fixed the bug that prevented using non-array values for 'loop' attribute.
-	  (Andrei)
-	- many misc documentation changes & additions (Monte)
+    - fixed the bug that prevented using non-array values for 'loop' attribute.
+      (Andrei)
+    - many misc documentation changes & additions (Monte)
 
 Version 1.0a
 ------------
