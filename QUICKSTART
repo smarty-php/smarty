@@ -325,7 +325,7 @@ $smarty->display("index.tpl");
         There are no values to loop through.
     {/section}
     <p>
-    There were {$smarty.sectin.people.loop} names in this list.
+    There were {$smarty.section.people.loop} names in this list.
 {include file="footer.tpl"}
 
 
