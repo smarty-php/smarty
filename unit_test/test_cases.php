@@ -228,6 +228,23 @@ class SmartyTest extends PHPUnit_TestCase {
         $this->assertEquals($this->smarty->fetch('assign_var.tpl'), 'bar');
     }
     
+    /* CONFIG FILE TESTS */
+
+    // test assigning a quoted global variable
+    function test_config_load_globals_double_quotes() {
+        // load the global var
+        $this->smarty->config_load('globals_double_quotes.conf');
+        // test that it is assigned
+        $this->assertEquals($this->smarty->_config[0]['vars']['foo'], 'bar');
+    }
+
+    // test assigning a quoted global
+    function test_config_load_globals_single_quotes() {
+        // load the global var
+        $this->smarty->config_load('globals_single_quotes.conf');
+        // test that it is assigned
+        $this->assertEquals($this->smarty->_config[0]['vars']['foo'], 'bar');
+    }
     
   }
 ?>
