@@ -51,3 +51,8 @@ A: Smarty uses the PEAR libraries for some of its error handling routines.
    these libraries is included in your php include_path. Unix users check
    /usr/local/lib/php. Windows users check C:/php/pear.
 
+Q: I get this error when passing variables to {include}:
+   Fatal error: Call to undefined function: get_defined_vars() in
+   /path/to/Smarty/templates_c/index.tpl.php on line 8
+A: get_defined_vars() was added to PHP 4.0.4. If you plan on passing
+   variables to included templates, you will need PHP 4.0.4 or later.
