@@ -1,3 +1,7 @@
+    - added {foreach ...} tag that can be used to iterate through
+      non-sequential and associative arrays. (Andrei)
+    - speeded up section property access a bit. (Andrei)
+    - protected $smarty variable from being assigned by user. (Andrei)
     - fixed a bug that could cause parse error with quotes inside literal
       blocks. (Andrei,  Alexander Belonosov)
     - added 'field_array' attribute to html_select_time function. (Andrei,

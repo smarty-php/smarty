@@ -190,7 +190,9 @@ class Smarty
     // internal vars
     var $_error_msg            =   false;      // error messages. true/false
     var $_tpl_vars             =   array();    // where assigned template vars are kept
+    var $_smarty_vars          =   array();    // stores run-time $smarty.* vars
     var $_sections             =   array();    // keeps track of sections
+    var $_foreach              =   array();    // keeps track of foreach blocks
     var $_conf_obj             =   null;       // configuration object
     var $_config               =   array();    // loaded configuration settings
     var $_smarty_md5           =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
@@ -647,9 +649,7 @@ class Smarty
         }
         $smarty['request'] = @array_merge($smarty['request'], $smarty['session']);
 
-        $smarty['now'] = time();
-
-        $this->assign('smarty', $smarty);
+        $this->_smarty_vars = $smarty;
     }
 
 

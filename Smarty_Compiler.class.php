@@ -42,6 +42,7 @@ class Smarty_Compiler extends Smarty {
 
     // internal vars
     var $_sectionelse_stack     =   array();    // keeps track of whether section had 'else' part
+    var $_foreachelse_stack     =   array();    // keeps track of whether foreach had 'else' part
     var $_literal_blocks        =   array();    // keeps literal template blocks
     var $_php_blocks            =   array();    // keeps php code blocks
     var $_current_file          =   null;       // the current template being compiled
@@ -256,6 +257,21 @@ class Smarty_Compiler extends Smarty {
                 else
                     return "<?php endfor; endif; ?>";
 
+            case 'foreach':
+                array_push($this->_foreachelse_stack, false);
+                return $this->_compile_foreach_start($tag_args);
+                break;
+
+            case 'foreachelse':
+                $this->_foreachelse_stack[count($this->_foreachelse_stack)-1] = true;
+                return "<?php endforeach; else: ?>";
+
+            case '/foreach':
+                if (array_pop($this->_foreachelse_stack))
+                    return "<?php endif; ?>";
+                else
+                    return "<?php endforeach; endif; ?>";
+
             case 'config_load':
                 return $this->_compile_config_load_tag($tag_args);
 
@@ -441,7 +457,7 @@ class Smarty_Compiler extends Smarty {
         }
 
         $output .= "if (isset(\$this->_sections[$section_name])) unset(\$this->_sections[$section_name]);\n";
-        $section_props = "\$this->_sections[$section_name]['properties']";
+        $section_props = "\$this->_sections[$section_name]";
 
         foreach ($attrs as $attr_name => $attr_value) {
             switch ($attr_name) {
@@ -519,6 +535,64 @@ class Smarty_Compiler extends Smarty {
         $output .= "{$section_props}['last']       = ({$section_props}['iteration'] == {$section_props}['total']);\n";
 
         $output .= "?>";
+
+        return $output;
+    }
+
+    
+/*======================================================================*\
+    Function: _compile_foreach_start
+    Purpose:  Compile {foreach ...} tag
+\*======================================================================*/
+    function _compile_foreach_start($tag_args)
+    {
+        $attrs = $this->_parse_attrs($tag_args);
+        $arg_list = array();
+
+        if (empty($attrs['from'])) {
+            $this->_syntax_error("missing 'from' attribute");
+        }
+
+        if (empty($attrs['item'])) {
+            $this->_syntax_error("missing 'item' attribute");
+        }
+
+        if (empty($attrs['name'])) {
+            $this->_syntax_error("missing 'name' attribute");
+        }
+
+        $from = $attrs['from'];
+        $item = $this->_dequote($attrs['item']);
+        $name = $attrs['name'];
+
+        $output = '<?php ';
+        $output .= "if (isset(\$this->_foreach[$name])) unset(\$this->_foreach[$name]);\n";
+        $foreach_props = "\$this->_foreach[$name]";
+
+        $key_part = '';
+
+        foreach ($attrs as $attr_name => $attr_value) {
+            switch ($attr_name) {
+                case 'key':
+                    $key  = $this->_dequote($attrs['key']);
+                    $key_part = "\$this->_tpl_vars['$key'] => ";
+                    break;
+
+                case 'name':
+                    $output .= "{$foreach_props}['$attr_name'] = $attr_value;\n";
+                    break;
+            }
+        }
+
+        $output .= "{$foreach_props}['total'] = count((array)$from);\n";
+        $output .= "{$foreach_props}['show'] = {$foreach_props}['total'] > 0;\n";
+        $output .= "if ({$foreach_props}['show']):\n";
+        $output .= "{$foreach_props}['iteration'] = 0;\n";
+        $output .= "    foreach ((array)$from as $key_part\$this->_tpl_vars['$item']):\n";
+        $output .= "        {$foreach_props}['iteration']++;\n";
+        $output .= "        {$foreach_props}['first'] = ({$foreach_props}['iteration'] == 1);\n";
+        $output .= "        {$foreach_props}['last']  = ({$foreach_props}['iteration'] == {$foreach_props}['total']);\n";
+        $output .= '?>';
 
         return $output;
     }
@@ -846,7 +920,22 @@ class Smarty_Compiler extends Smarty {
         $indexes = $match[0];
         $var_name = array_shift($indexes);
 
-        $output = "\$this->_tpl_vars['$var_name']";
+        /* Handle $smarty.* variable references as a special case. */
+        if ($var_name == 'smarty') {
+            /*
+             * If the reference could be compiled, use the compiled output;
+             * otherwise, fall back on the $smarty variable generated at
+             * run-time.
+             */
+            if (($smarty_ref = $this->_compile_smarty_ref($indexes)) !== null) {
+                $output = $smarty_ref;
+            } else {
+                $var_name = substr(array_shift($indexes), 1);
+                $output = "\$this->_smarty_vars['$var_name']";
+            }
+        } else {
+            $output = "\$this->_tpl_vars['$var_name']";
+        }
 
         foreach ($indexes as $index) {
             if ($index{0} == '[') {
@@ -857,7 +946,7 @@ class Smarty_Compiler extends Smarty {
                     $parts = explode('.', $index);
                     $section = $parts[0];
                     $section_prop = isset($parts[1]) ? $parts[1] : 'index';
-                    $output .= "[\$this->_sections['$section']['properties']['$section_prop']]";
+                    $output .= "[\$this->_sections['$section']['$section_prop']]";
                 }
             } else if ($index{0} == '.') {
                 $output .= "['" . substr($index, 1) . "']";
@@ -906,7 +995,7 @@ class Smarty_Compiler extends Smarty {
         $section_name = $match[1];
         $prop_name = $match[2];
 
-        $output = "\$this->_sections['$section_name']['properties']['$prop_name']";
+        $output = "\$this->_sections['$section_name']['$prop_name']";
 
         $this->_parse_modifiers($output, $modifiers);
 
@@ -970,6 +1059,51 @@ class Smarty_Compiler extends Smarty {
         }
     }
 
+    
+/*======================================================================*\
+    Function: _compile_smarty_ref
+    Purpose:  Compiles references of type $smarty.foo
+\*======================================================================*/
+    function _compile_smarty_ref(&$indexes)
+    {
+        /* Extract the reference name. */
+        $ref = substr($indexes[0], 1);
+
+        switch ($ref) {
+            case 'now':
+                $compiled_ref = 'time()';
+                if (count($indexes) > 1) {
+                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference');
+                }
+                break;
+
+            case 'foreach':
+                if ($indexes[1]{0} != '.') {
+                    $this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference');
+                }
+                $name = substr($indexes[1], 1);
+                array_shift($indexes);
+                $compiled_ref = "\$this->_foreach['$name']";
+                break;
+
+            /* These cases have to be handled at run-time. */
+            case 'env':
+            case 'get':
+            case 'post':
+            case 'cookies':
+            case 'server':
+            case 'session':
+            case 'request':
+                return null;
+
+            default:
+                $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference');
+                break;
+        }
+
+        array_shift($indexes);
+        return $compiled_ref;
+    }
 
 /*======================================================================*\
     Function: _syntax_error
