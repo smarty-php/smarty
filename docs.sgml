@@ -1680,11 +1680,11 @@ pass=foobar
 		<sect2 id="builtin.functions.configload">
 			<title>config_load</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -1798,11 +1798,11 @@ pass=foobar
 		<sect2 id="builtin.functions.include">
 			<title>include</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -1900,11 +1900,11 @@ pass=foobar
 		<sect2 id="builtin.functions.include.php">
 			<title>include_php</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -1991,11 +1991,11 @@ index.tpl
 		<sect2 id="builtin.functions.insert">
 			<title>insert</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -2258,11 +2258,11 @@ OUTPUT:
 		<sect2 id="builtin.functions.section">
 			<title>section,sectionelse</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -2804,11 +2804,11 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 		<sect2 id="builtin.functions.foreach">
 			<title>foreach,foreachelse</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -2971,11 +2971,11 @@ OUTPUT:
 		<sect2 id="custom.functions.assign">
 			<title>assign</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -3026,11 +3026,11 @@ The value of $name is Bob.</programlisting>
 		<sect2>
 			<title>counter</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -3123,11 +3123,11 @@ OUTPUT:
 		<sect2>
 			<title>fetch</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -3202,11 +3202,11 @@ OUTPUT:
 		<sect2 id="custom.functions.html.options">
 			<title>html_options</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -3292,11 +3292,11 @@ OUTPUT:
 		<sect2 id="custom.functions.html.select.date">
 			<title>html_select_date</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -3572,11 +3572,11 @@ OUTPUT:
 		<sect2 id="custom.functions.html.select.time">
 			<title>html_select_time</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -3833,11 +3833,11 @@ OUTPUT:
 		<sect2 id="custom.functions.math">
 			<title>math</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -3962,11 +3962,11 @@ OUTPUT:
 		<sect2 id="custom.functions.popup">
 			<title>popup</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -4487,11 +4487,11 @@ Dealers Will Hear Car Talk at Noon.
 		<sect2 id="date.format">
 			<title>date_format</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -4624,11 +4624,11 @@ system's manpage for a full list of valid specifiers.</programlisting>
 		<sect2>
 			<title>default</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -4670,12 +4670,12 @@ no title</programlisting>
 		<sect2>
 			<title>escape</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
+                <tgroup cols=6>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
                 <colspec colname=posvals>
-                <colspec colname=default>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -4732,11 +4732,11 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 		<sect2>
 			<title>indent</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -4822,11 +4822,11 @@ two convicts evade noose, jury hung.</programlisting>
 		<sect2>
 			<title>regex_replace</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -4880,11 +4880,11 @@ Infertility unlikely to be passed on, experts say</programlisting>
 		<sect2>
 			<title>replace</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -4933,11 +4933,11 @@ Child's   Stool   Great   for   Use   in   Garden.</programlisting>
 		<sect2>
 			<title>spacify</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -4981,11 +4981,11 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^
 		<sect2>
 			<title>string_format</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -5045,11 +5045,11 @@ Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
 		<sect2>
 			<title>truncate</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -5138,11 +5138,11 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
 		<sect2>
 			<title>wordwrap</title>
             <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
                 <colspec colname=desc>
                 <thead>
                     <row>
@@ -6720,8 +6720,8 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 	address.
 	</para>
 	<para>
-	TECHNICAL NOTE: Of course this isn't 100% foolproof. Although highly unlikely, a
-	spammer could conceivably write his e-mail collecter to decode these
+	TECHNICAL NOTE: This method isn't 100% foolproof. Although highly unlikely,
+	a spammer could conceivably write his e-mail collecter to decode these
 	values.
 	</para>
 	</sect1>
