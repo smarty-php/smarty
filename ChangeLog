@@ -1,3 +1,33 @@
+2003-06-30  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      backed out errornously committed support for $foo->$bar
+
+    * libs/core/core.write_file.php:
+      fixed indentiation, silenced occasional warning
+
+    * libs/plugins/function.html_image.php:
+      match first character of file-attribute against "/" instead of
+      DIRECTORY_SEPARATOR since it is a url-path and not a file-path.
+
+    * libs/Smarty_Compiler.class.php
+      libs/core/core.write_file.php
+      libs/plugins/function.html_image.php:
+      libs/plugins/function.html_image.php
+
+    * libs/Smarty_Compiler.class.php:
+      re-fixed cacheable_state-handling
+
+    * libs/core/core.display_debug_console.php
+      libs/core/core.process_cached_inserts.php
+      libs/core/core.process_compiled_include.php
+      libs/core/core.run_insert_handler.php:
+      extincting $this out of smarty_core_*-functions
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      fixed handling of nocache-state
+
 2003-06-29  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
