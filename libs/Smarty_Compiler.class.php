@@ -1961,9 +1961,11 @@ class Smarty_Compiler extends Smarty {
         if (isset($this->_plugins[$type][$name])) {
             /* plugin loaded */
             if (is_array($this->_plugins[$type][$name][0])) {
-                /* method callback */
-                return "\$this->_plugins['$type']['$name'][0][0]->".$this->_plugins[$type][$name][0][1];
-                
+                return ((is_object($this->_plugins[$type][$name][0][0])) ? 
+                        "\$this->_plugins['$type']['$name'][0][0]->"    /* method callback */
+                        : (string)($this->_plugins[$type][$name][0][0]).'::'    /* class callback */
+                       ). $this->_plugins[$type][$name][0][1];
+
             } else {
                 /* function callback */
                 return $this->_plugins[$type][$name][0];

@@ -855,11 +855,11 @@ class Smarty
      */    
     function register_resource($type, $functions)
     {
-        if (sizeof($functions)<5) {
+        if (count($functions)==4) {
             $this->_plugins['resource'][$type] =
                 array($functions, false);
 
-        } elseif (sizeof($functions)==5 && is_object($functions[0])) {
+        } elseif (count($functions)==5) {
             $this->_plugins['resource'][$type] =
                 array(array(array(&$functions[0], $functions[1])
                             ,array(&$functions[0], $functions[2])
@@ -1608,10 +1608,9 @@ class Smarty
 
     function _fetch_resource_info(&$params)
     {
-			
         if(!isset($params['get_source'])) { $params['get_source'] = true; }
         if(!isset($params['quiet'])) { $params['quiet'] = false; }
-	
+
         $_return = false;
         $_params = array('resource_name' => $params['resource_name']) ;
         if ($this->_parse_resource_name($_params)) {
@@ -1917,7 +1916,7 @@ class Smarty
     function _plugin_implementation_exists($function)
     {
         return (is_array($function)) ?
-            method_exists($function[0], $function[1]) : function_exists($function);
+            method_exists($function[0], $function[1]) || (in_array(strtolower($function[1]), (array)get_class_methods($function[0]))) : function_exists($function);
     }
 
 

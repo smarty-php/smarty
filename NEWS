@@ -1,3 +1,5 @@
+  - enabled registration of class-methods as callbacks for the register_*-
+    functions (use: array('classname', 'method_name')) as callback) (messju)
   - added filepath caching (Monte)
   - added optional assign-attribute to {capture}-tag (messju)
   - added $cacheable-parameter to register_compiler_function() (messju)
