@@ -960,12 +960,12 @@ class Smarty_Compiler extends Smarty {
 				' . $this->_func_call_regexp . '							| # valid function call
 				' . $this->_obj_call_regexp . $this->_mod_regexp . '		| # valid object call
 				' . $this->_var_regexp . $this->_mod_regexp . '				| # var or quoted string
-				\d+|\(|\)|,|\!|\^|==|<=>|<=|=>|\&\&|\|\||=|<|>|\||\%		| # valid non-word token
-				neq|lte|gte|and|not|mod|eq|ne|lt|le|gt|ge|or|is|div|by		  # valid word token
+				\d+|!==|<=>|==|!=|<=|=>|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%		| # valid non-word token
+				even|odd|neq|lte|gte|and|not|mod|eq|ne|lt|le|gt|ge|or|is|div|by|is	  # valid word token
 				)/x', $tag_args, $match);
 				
         $tokens = $match[0];
-			
+		
         $is_arg_stack = array();
 
         for ($i = 0; $i < count($tokens); $i++) {
@@ -981,6 +981,7 @@ class Smarty_Compiler extends Smarty {
                 case 'ne':
                 case 'neq':
                 case '!=':
+                case '!==':
                     $token = '!=';
                     break;
 
@@ -1046,9 +1047,9 @@ class Smarty_Compiler extends Smarty {
                        'is' expression parsing function. The function will
                        return modified tokens, where the first one is the result
                        of the 'is' expression and the rest are the tokens it
-                       didn't touch. */
+                       didn't touch. */					
                     $new_tokens = $this->_parse_is_expr($is_arg, array_slice($tokens, $i+1));
-					
+										
                     /* Replace the old tokens with the new ones. */
                     array_splice($tokens, $is_arg_start, count($tokens), $new_tokens);
 
@@ -1058,8 +1059,8 @@ class Smarty_Compiler extends Smarty {
                     break;
 
 				case ')':
-					break;
-
+					break;	
+					
                 default:
 					if(preg_match('!^(' . $this->_func_regexp . ')(' . $this->_parenth_param_regexp . ')$!', $token, $match)) {					
                     		if($this->security &&
@@ -1067,18 +1068,10 @@ class Smarty_Compiler extends Smarty {
                     		   $tokens[$i+1] == '(' &&
                     		   !in_array($match[1], $this->security_settings['IF_FUNCS'])) {
                         		$this->_syntax_error("(secure mode) '".$tokens[$i]."' not allowed in if statement");
-                    		} else {
-								if(!function_exists($match[1])) {
-                        		$this->_syntax_error("reference to non-existant function: $token");		
-								}
 							}							
 							$token = str_replace($match[2], $this->_parse_parenth_args($match[2]), $token);
-					} else {
-
-						$tmptoken = array($token);
-        				$this->_parse_vars_props($tmptoken);
-						$token = $tmptoken[0];
-						unset($tmptoken);
+					} else {						
+        				$token = $this->_parse_var_props($token);
 					}
                     break;
             }
@@ -1111,7 +1104,7 @@ class Smarty_Compiler extends Smarty {
                 if (@$tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
-                    $expr = "!(($is_arg / $expr_arg) % $expr_arg)";
+                    $expr = "!(($is_arg / $expr_arg) % " . $this->_parse_var_props($expr_arg) . ")";
                 } else
                     $expr = "!($is_arg % 2)";
                 break;
@@ -1120,7 +1113,7 @@ class Smarty_Compiler extends Smarty {
                 if (@$tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
-                    $expr = "(($is_arg / $expr_arg) % $expr_arg)";
+                    $expr = "(($is_arg / $expr_arg) % ". $this->_parse_var_props($expr_arg) . ")";
                 } else
                     $expr = "($is_arg % 2)";
                 break;
@@ -1129,7 +1122,7 @@ class Smarty_Compiler extends Smarty {
                 if (@$tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
-                    $expr = "!($is_arg % $expr_arg)";
+                    $expr = "!($is_arg % " . $this->_parse_var_props($expr_arg) . ")";
                 } else {
                     $this->_syntax_error("expecting 'by' after 'div'");
                 }
@@ -1143,9 +1136,9 @@ class Smarty_Compiler extends Smarty {
         if ($negate_expr) {
             $expr = "!($expr)";
         }
-
-        array_splice($tokens, 0, $expr_end, $expr);
-
+		
+        array_splice($tokens, 0, $expr_end, $expr);		
+		
         return $tokens;
     }
 
@@ -1220,49 +1213,59 @@ class Smarty_Compiler extends Smarty {
         return $attrs;
     }
 
-
 /*======================================================================*\
     Function: _parse_vars_props
-    Purpose:  compile variables and section properties tokens into
+    Purpose:  compile multiple variables and section properties tokens into
               PHP code
 \*======================================================================*/
     function _parse_vars_props(&$tokens)
-    {		
+    {
 		foreach($tokens as $key => $val) {			
-			
-        	if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')' . $this->_mod_regexp . '$!', $val)) {
-					// $ variable or object
-                	$tokens[$key] = $this->_parse_var($val);
-				}			
-        	elseif(preg_match('!^' . $this->_db_qstr_regexp . $this->_mod_regexp . '$!', $val)) {
-					// double quoted text
-					preg_match('!^(' . $this->_db_qstr_regexp . ')('. $this->_mod_regexp . ')$!', $val, $match);
-                	$tokens[$key] = $this->_expand_quoted_text($match[1]);
-					if($match[2] != '') {
-						$this->_parse_modifiers($tokens[$key], $match[2]);
-					}	
-				}			
-        	elseif(preg_match('!^' . $this->_si_qstr_regexp . $this->_mod_regexp . '$!', $val)) {
-					// single quoted text
-					preg_match('!^(' . $this->_si_qstr_regexp . ')('. $this->_mod_regexp . ')$!', $val, $match);
-					if($match[2] != '') {
-						$this->_parse_modifiers($match[1], $match[2]);
-                		$tokens[$key] = $match[1];
-					}	
-				}			
-        	elseif(preg_match('!^' . $this->_cvar_regexp . $this->_mod_regexp . '$!', $val)) {
-					// config var
-                	$tokens[$key] = $this->_parse_conf_var($val);
-				}			
-        	elseif(preg_match('!^' . $this->_svar_regexp . $this->_mod_regexp . '$!', $val)) {
-					// section var
-                	$tokens[$key] = $this->_parse_section_prop($val);
-				}
-			elseif(!in_array($val, $this->_permitted_tokens) && !is_numeric($val)) {
-				// literal string
-				$tokens[$key] = '"' . $val .'"';
-			}			
+    		$tokens[$key] = $this->_parse_var_props($val);
 		}
+	}
+		
+/*======================================================================*\
+    Function: _parse_var_props
+    Purpose:  compile single variable and section properties token into
+              PHP code
+\*======================================================================*/
+    function _parse_var_props($val)
+    {					
+        if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')' . $this->_mod_regexp . '$!', $val)) {
+				// $ variable or object
+                return $this->_parse_var($val);
+			}			
+        elseif(preg_match('!^' . $this->_db_qstr_regexp . $this->_mod_regexp . '$!', $val)) {
+				// double quoted text
+				preg_match('!^(' . $this->_db_qstr_regexp . ')('. $this->_mod_regexp . ')$!', $val, $match);
+                $return = $this->_expand_quoted_text($match[1]);
+				if($match[2] != '') {
+					$this->_parse_modifiers($return, $match[2]);
+				}
+				return $return;
+			}			
+        elseif(preg_match('!^' . $this->_si_qstr_regexp . $this->_mod_regexp . '$!', $val)) {
+				// single quoted text
+				preg_match('!^(' . $this->_si_qstr_regexp . ')('. $this->_mod_regexp . ')$!', $val, $match);
+				if($match[2] != '') {
+					$this->_parse_modifiers($match[1], $match[2]);
+                	return $match[1];
+				}	
+			}			
+        elseif(preg_match('!^' . $this->_cvar_regexp . $this->_mod_regexp . '$!', $val)) {
+				// config var
+                return $this->_parse_conf_var($val);
+			}			
+        elseif(preg_match('!^' . $this->_svar_regexp . $this->_mod_regexp . '$!', $val)) {
+				// section var
+                return $this->_parse_section_prop($val);
+			}
+		elseif(!in_array($val, $this->_permitted_tokens) && !is_numeric($val)) {
+			// literal string
+			return '"' . $val .'"';
+		}
+		return $val;
     }
 
 /*======================================================================*\
