@@ -31,7 +31,18 @@
                         <entry>integer</entry>
                         <entry>No</entry>
                         <entry><emphasis>3</emphasis></entry>
-                        <entry>number of columns in the table</entry>
+                        <entry>number of columns in the table,
+                        data populates cells left-to-right,
+                        top-to-bottom.</entry>
+                    </row>
+                    <row>
+                        <entry>rows</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>number of rows in the table, data populates
+                        cells top-to-bottom, left-to-right. This is mutually
+                        exclusive with "rows" attribute.</entry>
                     </row>
                     <row>
                         <entry>table_attr</entry>
@@ -68,14 +79,14 @@
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>right</emphasis></entry>
-                        <entry>direction of one row to be rendered. possible values: <emphasis>left</emphasis>/<emphasis>right</emphasis></entry>
+                        <entry>direction of each row to be rendered. possible values: <emphasis>left</emphasis> (left-to-right), <emphasis>right</emphasis> (right-to-left)</entry>
                     </row>
                     <row>
                         <entry>vdir</entry>
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>down</emphasis></entry>
-                        <entry>direction of the columns to be rendered. possible values: <emphasis>up</emphasis>/<emphasis>down</emphasis></entry>
+                        <entry>direction of each column to be rendered. possible values: <emphasis>down</emphasis> (top-to-bottom), <emphasis>up</emphasis> (bottom-to-top)</entry>
                     </row>
                 </tbody>
                 </tgroup>
