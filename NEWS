@@ -1,8 +1,6 @@
     - added trusted_dir functionality, documented. (Monte)
     - consolidated secure_dir tests to one function. (Monte)
-    - prepend SMARTY_DIR to default directories in class constructor. (Monte,
-      Ricard Pillosu)
-    - append _smarty_ to variable names in fetch() class function to avoid
+    - prepended _smarty_ to variable names in fetch() class function to avoid
       namespace conflicts. (Monte)
     - introduced $compile_id class variable that can be used to set persistent
       compile identifier across multiple display calls, documented. (Andrei)
@@ -277,3 +275,5 @@ Version 1.0a
 Version 1.0
 ------------
     - initial release
+
+/* vim: set et: */

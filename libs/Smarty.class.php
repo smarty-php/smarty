@@ -717,8 +717,8 @@ function _generate_debug_output() {
     Function:   _is_trusted()
     Purpose:	determines if a template is within the trusted_dir or not.
 \*======================================================================*/
-function _is_trusted($resource_type, $resource_name) {
-
+function _is_trusted($resource_type, $resource_name)
+{
 	$_smarty_trusted = false;
 	if (!empty($this->trusted_dir)) {
 		// see if template file is within a trusted directory. If so,
@@ -726,7 +726,7 @@ function _is_trusted($resource_type, $resource_name) {
 
 		if ($resource_type == 'file') {
 			if (is_readable ($this->trusted_dir)) {				
-                if (substr(realpath($resource_name),0, strlen(realpath($this->trusted_dir))) == realpath($this->trusted_dir)) {
+                if (substr(realpath($resource_name), 0, strlen(realpath($this->trusted_dir))) == realpath($this->trusted_dir)) {
                     $_smarty_trusted = true;
                 }
             }				
