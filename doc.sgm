@@ -802,7 +802,7 @@ Intro = """This is a value that spans more
 {/if}
 
 {* parenthesis are allowed *}
-{if ( $amount lt 0 or $amount gt 1000 ) and $volume ne #minVolAmt#}
+{if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
 	...
 {/if}
 
@@ -851,6 +851,10 @@ Intro = """This is a value that spans more
 
 {ldelim}funcname{rdelim} is how functions look in Smarty!
 
+
+OUTPUT:
+
+{funcname} is how functions look in Smarty!
 </programlisting>
 </example>
 		</sect2>
@@ -890,12 +894,154 @@ Intro = """This is a value that spans more
 		</sect2>
 		<sect2>
 			<title>section,sectionelse</title>
-			<para></para>
+			<para>
+			Template sections are used for looping over arrays of data.
+			All section tags must be paired with /section tags.
+			Required parameters are "name" and "loop". The name of the
+			section can be anything you like, made up of letters, numbers
+			and underscores. Sections can be nested, and the nested
+			section names must be unique from each other. The loop variable
+			determines the number of times the section will loop. sectionelse
+			will be used if there are no values in the loop variable.
+			When printing a variable within a section, the section name
+			must be prepended to the variable name, separated by a slash (/).
+			sectionelse is executed when there are no values in the loop
+			variable.
+			</para>
+<example>
+<title>example: section</title>
+<programlisting>
+
+
+{* this example will print out all the values of the $custid array *}
+{section name=customer loop=$custid}
+	id: {$customer/custid}&lt;br&gt;
+{/section}
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;
+
+</programlisting>
+</example>
+
+<example>
+<title>example: section loop variable</title>
+<programlisting>
+
+{* the loop variable only determines the number of times to loop.
+   you can access any variable from the template within the section.
+   This example assumes that $custid, $name and $address are all
+   arrays containing the same number of values *}
+{section name=customer loop=$custid}
+	id: {$customer/custid}&lt;br&gt;
+	name: {$customer/name}&lt;br&gt;
+	address: {$customer/address}&lt;br&gt;
+	&lt;p&gt;
+{/section}
+
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+name: John Smith&lt;br&gt;
+address: 253 N 45th
+&lt;p&gt;
+id: 1001&lt;br&gt;
+name: Jack Jones&lt;br&gt;
+address: 417 Mulberry ln
+&lt;p&gt;
+id: 1002&lt;br&gt;
+name: Jane Munson
+address: 5605 apple st
+&lt;p&gt;
+
+</programlisting>
+</example>
+
+<example>
+<title>example: section names</title>
+<programlisting>
+
+{* the name of the section can be anything you like,
+   and it is used to reference the data within the section *}
+{section name=mydata loop=$custid}
+	id: {$mydata/custid}&lt;br&gt;
+	name: {$mydata/name}&lt;br&gt;
+	address: {$mydata/address}&lt;br&gt;
+	&lt;p&gt;
+{/section}
+
+</programlisting>
+</example>
+
+<example>
+<title>example: nested sections</title>
+<programlisting>
+
+{* sections can be nested as deep as you like. With nested sections,
+   you can access complex data structures, such as multi-dimensional
+   arrays. In this example, $customer/contact_type is an array of
+   contact types for the current customer. *}
+{section name=customer loop=$custid}
+	id: {$customer/custid}&lt;br&gt;
+	name: {$customer/name}&lt;br&gt;
+	address: {$customer/address}&lt;br&gt;
+	{section name=contact loop=$customer/contact_type}
+		{$customer/contact/contact_type}: {$customer/contact/contact_info}&lt;br&gt;
+	{/section}
+	&lt;p&gt;
+{/section}
+
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+name: John Smith&lt;br&gt;
+address: 253 N 45th
+home phone: 555-555-5555
+cell phone: 555-555-5555
+e-mail: john@mydomain.com
+&lt;p&gt;
+id: 1001&lt;br&gt;
+name: Jack Jones&lt;br&gt;
+address: 417 Mulberry ln
+home phone: 555-555-5555
+cell phone: 555-555-5555
+e-mail: jack@mydomain.com
+&lt;p&gt;
+id: 1002&lt;br&gt;
+name: Jane Munson
+address: 5605 apple st
+home phone: 555-555-5555
+cell phone: 555-555-5555
+e-mail: jane@mydomain.com
+&lt;p&gt;
+
+
+</programlisting>
+</example>
+
+<example>
+<title>example: sectionelse</title>
+<programlisting>
+
+{* sectionelse will execute in the case there are no $custid values *}
+{section name=customer loop=$custid}
+	id: {$customer/custid}&lt;br&gt;
+{sectionelse}
+	there are no values in $custid.
+{/section}
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>strip</title>
 			<para>
-			strip is another nice feature of the template engine. Many times
+			Strip is another nice feature of the template engine. Many times
 			you run into the issue where white space and carriage returns
 			affect the output of the rendered HTML (browser "features"), so you
 			must run all your tags together in the template to get the
@@ -904,7 +1050,8 @@ Intro = """This is a value that spans more
 			</para>
 			<para>
 			Anything within {strip}{/strip} tags in Smarty are stripped of
-			the extra spaces or carriage returns before they are displayed.
+			the extra spaces or carriage returns at the beginnings and
+			ends of the lines before they are displayed.
 			This way you can keep your templates readable, and not worry
 			about extra white space causing problems.
 			</para>
@@ -925,8 +1072,19 @@ Intro = """This is a value that spans more
 &lt;/table&gt;
 {/strip}
 
+
+OUTPUT:
+
+&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://my.domain.com"&gt;&lt;font color="red"&gt;This is a test&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
 </programlisting>
 </example>
+		<para>
+		Notice that in the above example, all the lines begin and end
+		with HTML tags. Be aware that all the lines are run together.
+		If you have plain text at the beginning or end of any line,
+		they will be run together, and may not be desired results.
+		</para>
 		</sect2>
 	</sect1>
 	<sect1>
@@ -955,6 +1113,15 @@ Intro = """This is a value that spans more
 &lt;/select&gt;
 
 
+OUTPUT:
+
+&lt;select name=customer_id&gt;
+	&lt;option value="1000">Joe Schmoe&lt;option&gt;
+	&lt;option value="1001" selected>Jack Smith&lt;option&gt;
+	&lt;option value="1002">Jane Johnson&lt;option&gt;
+	&lt;option value="1003">Charlie Brown&lt;option&gt;
+&lt;/select&gt;
+
 </programlisting>
 </example>
 			<para>
@@ -973,7 +1140,7 @@ Intro = """This is a value that spans more
 				<listitem><para>prefix,string,"Date_"</para></listitem>
 				<listitem><para>time,timestamp,(current time)</para></listitem>
 				<listitem><para>start_year,int,(current year)</para></listitem>
-				<listitem><para>end_year	int (current year)</para></listitem>
+				<listitem><para>end_year	int (same as start_year)</para></listitem>
 				<listitem><para>display_days, boolean, true</para></listitem>
 				<listitem><para>display_months, boolean, true</para></listitem>
 				<listitem><para>display_years, boolean, true</para></listitem>
@@ -987,8 +1154,94 @@ Intro = """This is a value that spans more
 
 {html_select_date}
 
-{html_select_date prefix="Date_" time=$time start_year=1995 end_year=2001}
 
+OUTPUT:
+
+&lt;select name="Date_Month"&gt;
+&lt;option value="1"&gt;January&lt;/option&gt;
+&lt;option value="2"&gt;February&lt;/option&gt;
+&lt;option value="3"&gt;March&lt;/option&gt;
+&lt;option value="4"&gt;April&lt;/option&gt;
+&lt;option value="5"&gt;May&lt;/option&gt;
+&lt;option value="6"&gt;June&lt;/option&gt;
+&lt;option value="7"&gt;July&lt;/option&gt;
+&lt;option value="8"&gt;August&lt;/option&gt;
+&lt;option value="9"&gt;September&lt;/option&gt;
+&lt;option value="10"&gt;October&lt;/option&gt;
+&lt;option value="11"&gt;November&lt;/option&gt;
+&lt;option value="12" selected&gt;December&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Date_Day"&gt;
+&lt;option value="1"&gt;01&lt;/option&gt;
+&lt;option value="2"&gt;02&lt;/option&gt;
+&lt;option value="3"&gt;03&lt;/option&gt;
+&lt;option value="4"&gt;04&lt;/option&gt;
+&lt;option value="5"&gt;05&lt;/option&gt;
+&lt;option value="6"&gt;06&lt;/option&gt;
+&lt;option value="7"&gt;07&lt;/option&gt;
+&lt;option value="8"&gt;08&lt;/option&gt;
+&lt;option value="9"&gt;09&lt;/option&gt;
+&lt;option value="10"&gt;10&lt;/option&gt;
+&lt;option value="11"&gt;11&lt;/option&gt;
+&lt;option value="12"&gt;12&lt;/option&gt;
+&lt;option value="13" selected&gt;13&lt;/option&gt;
+&lt;option value="14"&gt;14&lt;/option&gt;
+&lt;option value="15"&gt;15&lt;/option&gt;
+&lt;option value="16"&gt;16&lt;/option&gt;
+&lt;option value="17"&gt;17&lt;/option&gt;
+&lt;option value="18"&gt;18&lt;/option&gt;
+&lt;option value="19"&gt;19&lt;/option&gt;
+&lt;option value="20"&gt;20&lt;/option&gt;
+&lt;option value="21"&gt;21&lt;/option&gt;
+&lt;option value="22"&gt;22&lt;/option&gt;
+&lt;option value="23"&gt;23&lt;/option&gt;
+&lt;option value="24"&gt;24&lt;/option&gt;
+&lt;option value="25"&gt;25&lt;/option&gt;
+&lt;option value="26"&gt;26&lt;/option&gt;
+&lt;option value="27"&gt;27&lt;/option&gt;
+&lt;option value="28"&gt;28&lt;/option&gt;
+&lt;option value="29"&gt;29&lt;/option&gt;
+&lt;option value="30"&gt;30&lt;/option&gt;
+&lt;option value="31"&gt;31&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Date_Year"&gt;
+&lt;option value="2001" selected&gt;2001&lt;/option&gt;
+&lt;/select&gt;
+
+</programlisting>
+</example>
+
+
+<example>
+<title>Template example of html_select_date</title>
+<programlisting>
+
+
+{html_select_date prefix="StartDate" time=$time start_year=1995 end_year=2001 display_days=false}
+
+&lt;select name="StartDateMonth"&gt;
+&lt;option value="1"&gt;January&lt;/option&gt;
+&lt;option value="2"&gt;February&lt;/option&gt;
+&lt;option value="3"&gt;March&lt;/option&gt;
+&lt;option value="4"&gt;April&lt;/option&gt;
+&lt;option value="5"&gt;May&lt;/option&gt;
+&lt;option value="6"&gt;June&lt;/option&gt;
+&lt;option value="7"&gt;July&lt;/option&gt;
+&lt;option value="8"&gt;August&lt;/option&gt;
+&lt;option value="9"&gt;September&lt;/option&gt;
+&lt;option value="10"&gt;October&lt;/option&gt;
+&lt;option value="11"&gt;November&lt;/option&gt;
+&lt;option value="12" selected&gt;December&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="StartDateYear"&gt;
+&lt;option value="1999"&gt;1995&lt;/option&gt;
+&lt;option value="1999"&gt;1996&lt;/option&gt;
+&lt;option value="1999"&gt;1997&lt;/option&gt;
+&lt;option value="1999"&gt;1998&lt;/option&gt;
+&lt;option value="1999"&gt;1999&lt;/option&gt;
+&lt;option value="2000" selected&gt;2000&lt;/option&gt;
+&lt;option value="2001"&gt;2001&lt;/option&gt;
+&lt;/select&gt;
 
 </programlisting>
 </example>
@@ -997,12 +1250,13 @@ Intro = """This is a value that spans more
 			<title>Creating your own Custom Functions</title>
 			<para>
 			Creating your own functions is a fairly straight forward process.
-			The best way is to look at the two that come with Smarty as
-			examples. They are located in the Smarty.addons.php file.
+			The best way is to look at the ones that come with Smarty as
+			examples. The function names begin with smarty_func_ and they are
+			located in the Smarty.addons.php file.
 			</para>
 			<itemizedlist>
 				<listitem><para>add your function to the Smarty.addons.php file.
-						it is recommended that you prepend your function name
+						It is recommended that you prepend your function name
 						with smarty_func_</para></listitem>
 				<listitem><para>map a template function name to your PHP function.
 							This is done at the top of the Smarty.class.php file
@@ -1034,66 +1288,196 @@ Intro = """This is a value that spans more
 {* this displays a variable, unmodified *}
 {$articleTitle}
 
+OUTPUT:
+
+Burger King fire leaves seven pregnant teenagers &lt;jobless&gt;
+
+
 {* this displays the variable in all upper case *}
 {$articleTitle|upper}
+
+OUTPUT:
+
+BURGER KING FIRE LEAVES SEVEN PREGNANT TEENAGERS &lt;JOBLESS&gt;
+
 
 {* this displays the variable html escaped *}
 {$articleTitle|escape}
 
+OUTPUT:
+
+Burger King fire leaves seven pregnant teenagers &amp;lt;jobless&amp;gt;
+
+
 {* this displays the variable uppercased AND html escaped *}
 {$articleTitle|upper|escape}
+
+OUTPUT:
+
+BURGER KING FIRE LEAVES SEVEN PREGNANT TEENAGERS &amp;lt;JOBLESS&amp;gt;
+
 
 {* an example of passing a parameter to a modifier:
 	this displays the variable url escaped *}
 {$articleTitle|escape:"url"}
 
-{* print the hour, minute and second portion of a date *}
-{$startTime|date_format:"%h:%m:%s"}
+OUTPUT:
+
+Burger+King+fire+leaves+seven+pregnant+teenagers+%3Cjobless%3e
+
 
 {* print the first 24 characters of this variable, and
 	follow with ... if it was longer *}
 {$articleTitle|truncate:24:"..."}
 
+OUTPUT:
+
+Burger King fire...
+
+
+{* print the date in default format *}
+{$startTime|date_format}
+
+OUTPUT:
+
+Dec 13, 2000
+
+
+{* print the hour, minute and second portion of a date *}
+{$startTime|date_format:"%h:%m:%s"}
+
+OUTPUT:
+
+10:33:02
+
 {* print a number to the first two decimals *}
 {$amount|string_format:"%.2f"}
+
+OUTPUT:
+
+24.02
 
 </programlisting>
 </example>
 		<para>
-		Hopefully you get a good picture of how these work, and the
-		power they have in a template engine. All modifiers will get
-		the value of the variable as the first argument, and must return
-		a single value. Modifier parameters are separated by colons. Any
-		additional parameters passed to a modifier are passed as-is positionally,
+		All modifiers will get the value of the variable as the first argument,
+		and must return a single value. Modifier parameters are separated by colons.
+		Any additional parameters passed to a modifier are passed as-is positionally,
 		much like calling a PHP function. You can also use native
 		PHP functions as modifiers, but only if they expect the correct
 		arguments. If they do not, you can always write a wrapper function
 		in Smarty to get what you want (date_format is a wrapper function
 		to strftime() for example.) You can chain as many modifiers
-		together on a variable as you like.
+		together on a variable as you like, separating each with a vertical
+		pipe "|".
 		</para>
 		<para>
-		Another thing to be aware of: if you pass an array to a modifier
-		instead of a single value, the modifier will be applied to every
+		NOTE: if you apply a modifier to an array
+		instead of a single value variable, the modifier will be applied to every
 		value in that array. If you really want the entire array passed
 		to the modifier, you must prepend it with an "@" sign like so:
 		{$articleTitle|@count} (this will print out the number of elements
 		in the $articleTitle array.)
 		</para>
 		<sect2>
+			<title>captialize</title>
+			<para>
+			This is used to capitalize the first letter of all words in a variable.
+			</para>
+		</sect2>
+		<sect2>
 			<title>date_format</title>
 			<para>
 			This formats a date into the given strftime() format. All dates
 			should be passed to Smarty as a timestamp so that the template
 			designer has full control of how this date is formatted. The
-			default format is "%b %e, %Y".
+			default format is "%b %e, %Y", or "Jan 4, 2001" for example.
+			These are the possible conversion specifiers:
 			</para>
+<example>
+<title>date_format conversion specifiers</title>
+<programlisting>
+%a - abbreviated weekday name according to the current locale 
+
+%A - full weekday name according to the current locale 
+
+%b - abbreviated month name according to the current locale 
+
+%B - full month name according to the current locale 
+
+%c - preferred date and time representation for the current locale 
+
+%C - century number (the year divided by 100 and truncated to an integer, range 00 to 99) 
+
+%d - day of the month as a decimal number (range 00 to 31) 
+
+%D - same as %m/%d/%y 
+
+%e - day of the month as a decimal number, a single digit is preceded by a space (range ' 1' to '31') 
+
+%h - same as %b 
+
+%H - hour as a decimal number using a 24-hour clock (range 00 to 23) 
+
+%I - hour as a decimal number using a 12-hour clock (range 01 to 12) 
+
+%j - day of the year as a decimal number (range 001 to 366) 
+
+%m - month as a decimal number (range 01 to 12) 
+
+%M - minute as a decimal number 
+
+%n - newline character 
+
+%p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale 
+
+%r - time in a.m. and p.m. notation 
+
+%R - time in 24 hour notation 
+
+%S - second as a decimal number 
+
+%t - tab character 
+
+%T - current time, equal to %H:%M:%S 
+
+%u - weekday as a decimal number [1,7], with 1 representing Monday 
+
+%U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week 
+
+%V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1
+is the first week that has at least 4 days in the current year, and with Monday as the first day of the week. 
+
+%W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week 
+
+%w - day of the week as a decimal, Sunday being 0 
+
+%x - preferred date representation for the current locale without the time 
+
+%X - preferred time representation for the current locale without the date 
+
+%y - year as a decimal number without a century (range 00 to 99) 
+
+%Y - year as a decimal number including the century 
+
+%Z - time zone or name or abbreviation 
+
+%% - a literal `%' character 
+</programlisting>
+</example>
+
 		</sect2>
 		<sect2>
 			<title>escape</title>
 			<para>
 			This is used to html or url escape a variable. By default,
 			the variable is html escaped. possible arguments are "url" or "html".
+			</para>
+		</sect2>
+		<sect2>
+			<title>lower</title>
+			<para>
+			This is used to lowercase a variable.
 			</para>
 		</sect2>
 		<sect2>
@@ -1126,9 +1510,19 @@ Intro = """This is a value that spans more
 		<sect2>
 			<title>truncate</title>
 			<para>
-			This truncates a variable to a certain length, default is 80. As
+			This truncates a variable to a character length, default is 80. As
 			an optional second parameter, you can specify a string of text
-			to display at the end if the variable was indeed truncated.
+			to display at the end if the variable was indeed truncated. The
+			characters in the string are included with the original truncation length.
+			By default, truncate will attempt to cut off at a word boundary. If
+			you want to cut off at the exact character length, pass the optional
+			third parameter of true.
+			</para>
+		</sect2>
+		<sect2>
+			<title>upper</title>
+			<para>
+			This is used to uppercase a variable.
 			</para>
 		</sect2>
 		<sect2>
@@ -1136,11 +1530,12 @@ Intro = """This is a value that spans more
 			<para>
 			Creating your own modifiers is a fairly straight forward process.
 			The best way is to look at the ones that come with Smarty as
-			examples. They are located in the Smarty.addons.php file.
+			examples. The function names begin with smarty_mod_ and they are
+			located in the Smarty.addons.php file.
 			</para>
 			<itemizedlist>
 				<listitem><para>add your modifier to the Smarty.addons.php file.
-						it is recommended that you prepend your function name
+						It is recommended that you prepend your function name
 						with smarty_mod_</para></listitem>
 				<listitem><para>map a template modifier name to your PHP function.
 							This is done at the top of the Smarty.class.php file
@@ -1156,12 +1551,30 @@ Intro = """This is a value that spans more
 	<para></para>
 	<sect1>
 		<title>Smarty/PHP errors</title>
-		<para></para>
+		<para>
+		As of now, Smarty is not a validating template parser. This means that
+		the parser will blindly convert the template to PHP scripts, irregardless
+		of any syntax errors in the markup tags that may be present in the template.
+		These types of errors can end up in PHP run-time errors.
+		When you encounter a PHP error when attempting to display the
+		template in a browser, the error line number will correspond to the
+		compiled PHP template, not the template itself. This may be a bit confusing
+		or for the template designer. Our experience is to tell the
+		designers to check their work often, and ask the programmers for help
+		if they are really stuck. Usually you can look at the template and spot the
+		syntax error. Maybe you left a delimeter off, or you didn't properly close
+		an {if}{/if} or {section}{/section} tag. If you can't find it, you must open
+		the compiled PHP file and go to the line number to figure out what went wrong.
+		</para>
 	</sect1>
 </chapter>
 <chapter>
-	<title>Using Nedit Macros & Syntax Highlighting</title>
-	<para></para>
+	<title>Syntax Highlighting in editors</title>
+	<para>
+	We have created some syntax highlighting for Nedit, a freely downloadable
+	text editor for X windows. You can find the files and instructions on the
+	Smarty web site.
+	</para>
 </chapter>
 <chapter>
 	<title>FAQ</title>
