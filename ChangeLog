@@ -1,3 +1,22 @@
+2004-09-09  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty_Compiler.class.php:
+      break down regex to digestable chunks, fix multiple param problem with
+      method calls,
+      add object method testing to unit_test cases
+
+    * libs/Smarty_Compiler.class.php:
+      update code comment with more examples
+
+    * libs/Smarty_Compiler.class.php:
+      allow objects in arbitrary param positions
+
+    * libs/Smarty_Compiler.class.php:
+      fix object parameter regex, allow one level of object indirection
+
+    * libs/Smarty_Compiler.class.php:
+      fix compile problem with numeric constants and math operator matching
+
 2004-09-07  Monte Ohrt  <monte@ispi.net>
 
     * libs/Config_File.class.php
