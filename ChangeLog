@@ -1,3 +1,11 @@
+2003-07-02  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      fixed duplicate generation of arg-list in _compile_block_tag()
+
+    * libs/Smarty_Compiler.class.php:
+      fixed off-by-one-error in nocache-tag-handling
+
 2003-06-30  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
