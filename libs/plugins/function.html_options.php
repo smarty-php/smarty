@@ -89,7 +89,7 @@ function smarty_function_html_options_optoutput($key, $value, $selected) {
 }
 
 function smarty_function_html_options_optgroup($key, $values, $selected) {
-   $optgroup_html = '<optgroup label="' . smarty_function_escape_special_chars($value) . '">' . "\n";
+   $optgroup_html = '<optgroup label="' . smarty_function_escape_special_chars($key) . '">' . "\n";
    foreach ($values as $key => $value) {
       $optgroup_html .= smarty_function_html_options_optoutput($key, $value, $selected);
    }
