@@ -51,8 +51,7 @@ class Smarty_Compiler extends Smarty {
     /**#@+
      * @access private
      */
-    var $_literal_blocks        =   array();    // keeps literal template blocks
-    var $_php_blocks            =   array();    // keeps php code blocks
+    var $_folded_blocks         =   array();    // keeps folded template blocks
     var $_current_file          =   null;       // the current template being compiled
     var $_current_line_no       =   1;          // line number for error messages
     var $_capture_stack         =   array();    // keeps track of nested capture buffers
@@ -254,22 +253,20 @@ class Smarty_Compiler extends Smarty {
             }
         }
 
-        /* Annihilate the comments. */
-        $source_content = preg_replace("!({$ldq})\*(.*?)\*({$rdq})!se",
-                                        "'\\1*'.str_repeat(\"\n\", substr_count('\\2', \"\n\")) .'*\\3'",
-                                        $source_content);
+        /* fetch all special blocks */
+        $search = "!{$ldq}\*(.*?)\*{$rdq}|{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}|{$ldq}\s*php\s*{$rdq}(.*?){$ldq}\s*/php\s*{$rdq}!s";
 
-        /* Pull out the literal blocks. */
-        preg_match_all("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s", $source_content, $_match);
-        $this->_literal_blocks = $_match[1];
-        $source_content = preg_replace("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s",
-                                        $this->_quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $source_content);
+        preg_match_all($search, $source_content, $match,  PREG_SET_ORDER);
+        $this->_folded_blocks = $match;
+        reset($this->_folded_blocks);
 
-        /* Pull out the php code blocks. */
-        preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $source_content, $_match);
-        $this->_php_blocks = $_match[1];
-        $source_content = preg_replace("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s",
-                                        $this->_quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $source_content);
+        /* replace special blocks by "{php}" */
+        $source_content = preg_replace($search.'e', "'"
+                                       . $this->_quote_replace($this->left_delimiter) . 'php'
+                                       . "' . str_repeat(\"\n\", substr_count('\\0', \"\n\")) .'"
+                                       . $this->_quote_replace($this->right_delimiter)
+                                       . "'"
+                                       , $source_content);
 
         /* Gather all template tags. */
         preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $source_content, $_match);
@@ -531,19 +528,27 @@ class Smarty_Compiler extends Smarty {
                 }
                 return '';
 
-            case 'literal':
-                list (,$literal_block) = each($this->_literal_blocks);
-                $this->_current_line_no += substr_count($literal_block, "\n");
-                return "<?php echo '".str_replace("'", "\'", str_replace("\\", "\\\\", $literal_block))."'; ?>" . $this->_additional_newline;
-
             case 'php':
-                if ($this->security && !$this->security_settings['PHP_TAGS']) {
-                    $this->_syntax_error("(secure mode) php tags not permitted", E_USER_WARNING, __FILE__, __LINE__);
-                    return;
+                /* handle folded tags replaced by {php} */
+                list(, $block) = each($this->_folded_blocks);
+                $this->_current_line_no += substr_count($block[0], "\n");
+                /* the number of matched elements in the regexp in _compile_file()
+                   determins the type of folded tag that was found */
+                switch (count($block)) {
+                    case 2: /* comment */
+                        return '';
+
+                    case 3: /* literal */
+                        return "<?php echo '" . strtr($block[2], array("'"=>"\'", "\\"=>"\\\\")) . "'; ?>" . $this->_additional_newline;
+
+                    case 4: /* php */
+                        if ($this->security && !$this->security_settings['PHP_TAGS']) {
+                            $this->_syntax_error("(secure mode) php tags not permitted", E_USER_WARNING, __FILE__, __LINE__);
+                            return;
+                        }
+                        return '<?php ' . $block[4] .' ?>';
                 }
-                list (,$php_block) = each($this->_php_blocks);
-                $this->_current_line_no += substr_count($php_block, "\n");
-                return '<?php '.$php_block.' ?>';
+                break;
 
             case 'insert':
                 return $this->_compile_insert_tag($tag_args);
