@@ -1,3 +1,6 @@
+  - change default of request_use_auto_globals to true - $_SERVER is
+    now preferred over $HTTP_SERVER_VARS (messju)
+  - re-add support for $SCRIPT_NAME (messju)
   - reactivate $smarty->default_modifiers (messju)
   - add cookie persistance to debug console (Monte)
   - allow single-digit days and months without smarty_make_timestamp()

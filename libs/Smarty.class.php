@@ -287,7 +287,7 @@ class Smarty
      *
      * @var boolean
      */
-    var $request_use_auto_globals      = false;
+    var $request_use_auto_globals      = true;
 
     /**
      * Set this if you want different sets of compiled files for the same
@@ -583,6 +583,8 @@ class Smarty
      */
     function Smarty()
     {
+      $this->assign('SCRIPT_NAME', isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME']
+		    : @$GLOBALS['HTTP_SERVER_VARS']['SCRIPT_NAME']);
     }
 
     /**
