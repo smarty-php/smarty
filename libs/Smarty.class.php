@@ -931,7 +931,7 @@ function _generate_debug_output() {
                 } else {
                     // compile template
                     $this->_compile_template($tpl_file, $template_source, $template_compiled);
-                    $this->_write_compiled_template($compile_path, $template_compiled);
+                    $this->_write_compiled_template($compile_path, $template_compiled, $template_timestamp);
                     return true;
                 }
             }
@@ -942,7 +942,7 @@ function _generate_debug_output() {
                 return false;
             }
             $this->_compile_template($tpl_file, $template_source, $template_compiled);
-            $this->_write_compiled_template($compile_path, $template_compiled);
+            $this->_write_compiled_template($compile_path, $template_compiled, $template_timestamp);
             return true;
         }
     }
@@ -961,10 +961,11 @@ function _generate_debug_output() {
     Function:   _write_compiled_template
     Purpose:
 \*======================================================================*/
-    function _write_compiled_template($compile_path, $template_compiled)
+    function _write_compiled_template($compile_path, $template_compiled, $template_timestamp)
     {
         // we save everything into $compile_dir
         $this->_write_file($compile_path, $template_compiled, true);
+        touch($compile_path, $template_timestamp);
         return true;
     }
 

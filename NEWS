@@ -1,3 +1,5 @@
+    - set mtime on compile files so they match source
+      files (Monte, Peter Bowen)
     - added proper support for open_basedir setting
       (Monte, Alessandro Astarita)
     - added strip variable modifier, updated docs (Monte)
