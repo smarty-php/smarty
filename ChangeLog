@@ -1,3 +1,43 @@
+2004-03-28  Mehdi Achour  <didou@keliglia.com>
+
+    * docs/manual.xml.in:
+      add global.ent and define some general entities
+
+    * docs/de/bookinfo.xml
+      docs/de/getting-started.xml
+      docs/de/language-defs.ent
+      docs/de/preface.xml:
+      add new de files
+
+    * docs/de/appendixes.sgml
+      docs/de/designers.sgml
+      docs/de/getting-started.sgml
+      docs/de/html-common.dsl
+      docs/de/preface.sgml
+      docs/de/programmers.sgml:
+      drop old de files
+
+    * docs/fr/bookinfo.xml
+      docs/fr/getting-started.xml
+      docs/fr/manual.xml
+      docs/fr/preface.xml:
+      add ommited files
+
+    * docs/fr/language-defs.ent:
+      split the french dir
+
+    * docs/fr/appendixes.sgml
+      docs/fr/designers.sgml
+      docs/fr/getting-started.sgml
+      docs/fr/html-common.dsl
+      docs/fr/manual.sgml
+      docs/fr/preface.sgml
+      docs/fr/programmers.sgml:
+      drop old french files
+
+    * docs/manual.xml.in:
+      let's put the new build system
+
 2004-03-26  Mehdi Achour  <didou@keliglia.com>
 
     * docs/de/common.dsl
