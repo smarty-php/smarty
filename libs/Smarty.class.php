@@ -346,7 +346,7 @@ class Smarty
     {
         $tmp_array = array();
         foreach($this->prefilter_funcs as $curr_func) {
-            if($curr_func != $function_name) {
+            if ($curr_func != $function_name) {
                 $tmp_array[] = $curr_func;
             }
         }
@@ -505,7 +505,7 @@ class Smarty
                 ($this->cache_lifetime == 0 ||
                  (time() - filemtime($cache_file) <= $this->cache_lifetime))) {
                 $results = $this->_read_file($cache_file);
-                if($this->insert_tag_check) {
+                if ($this->insert_tag_check) {
                     $results = $this->_process_cached_inserts($results);
                 }
                 if ($display) {
@@ -541,22 +541,22 @@ class Smarty
         if ($display && !$this->caching) {
             echo $info_header;
             $this->_process_template($tpl_file, $compile_path);
-            if($this->show_info_include) {
+            if ($this->show_info_include) {
                 echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
             }
             include($compile_path);
-            if($this->show_info_include) {
+            if ($this->show_info_include) {
                 echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
             }
         } else {
             ob_start();
             echo $info_header;
             $this->_process_template($tpl_file, $compile_path);
-            if($this->show_info_include) {
+            if ($this->show_info_include) {
                 echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
             }
             include($compile_path);
-            if($this->show_info_include) {
+            if ($this->show_info_include) {
                 echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
             }
             $results = ob_get_contents();
@@ -576,72 +576,7 @@ class Smarty
         }
     }   
 
-/*======================================================================*\
-    Function:   _display_debug_info
-    Purpose:    display debugging information
-\*======================================================================*/
-    function _display_debug_info()
-    {
-        asort($this->_debug_tpl);
-        reset($this->_debug_tpl);
-        ksort($this->_tpl_vars);
-        reset($this->_tpl_vars);
-        echo "<SCRIPT language=javascript>\n";
-        echo '_smarty_console = window.open("","console","width=500,height=600,resizable,scrollbars=yes"); ';
-        echo '_smarty_console.document.write("<HTML><TITLE>Smarty Debug Console</TITLE><BODY bgcolor=#ffffff>"); ';
-        echo "\n";
-        echo '_smarty_console.document.write("<b>included templates:</b><br>"); ';
-        echo "\n";
-        foreach ($this->_debug_tpl as $curr_tpl) {
-            echo '_smarty_console.document.write("<font color=blue>'.$curr_tpl.'</font><br>"); ';
-            echo "\n";
-        }
-        echo '_smarty_console.document.write("<br><b>assigned template variables:</b><br>"); ';
-        echo "\n";
-        echo '_smarty_console.document.write("<PRE>"); ';
-        echo "\n";
-        $search = array('!"!','![\r\t\n]!');
-        $replace = array("'",' ');
-        foreach ($this->_tpl_vars as $key => $val) {
-            echo '_smarty_console.document.write("<font color=red>{\$'.$key.'}</font> = <font color=blue>'.preg_replace($search,$replace,htmlspecialchars(substr($val,0,50))).'</font>';
-            if(is_array($val)) {
-                echo " (".count($val).")";
-            }
-            echo '<br>"); ';
-            if(is_array($val) && $this->debug_level > 2) {
-                $this->_print_debug_array($val,1);
-            }
-        }
-        echo '_smarty_console.document.write("</PRE>"); ';
-        echo "\n";
-        echo '_smarty_console.document.write("</BODY></HTML>"); ';
-        echo "\n";
-        echo '_smarty_console.document.close(); ';
-        echo "\n";
-        echo "</SCRIPT>\n";
-    }
-
-/*======================================================================*\
-    Function:   _print_debug_array
-    Purpose:    display debugging information
-\*======================================================================*/
-    function _print_debug_array($array,$level)
-    {
-        foreach($array as $key => $val) {
-            for($x=0; $x<$level; $x++) {
-                echo '_smarty_console.document.write("&nbsp;&nbsp;&nbsp;"); ';
-                echo "\n";
-            }
-            $search = array('!"!','![\r\t\n]!');
-            $replace = array("'",' ');
-            echo '_smarty_console.document.write("<font color=red>{\$'.$key.'}</font> = <font color=blue>'.preg_replace($search,$replace,htmlspecialchars(substr($val,0,50))).'</font><br>"); ';
-            echo "\n";
-            if(is_array($val)) {
-                $this->_print_debug_array($val,$level+1);
-            }            
-        }
-    }    
-    
+ 
 /*======================================================================*\
     Function:   _process_template()
     Purpose:    
@@ -836,11 +771,14 @@ class Smarty
         array_unshift($this->_config, $this->_config[0]);
  
         $this->_process_template($_smarty_include_tpl_file, $compile_path);
-        if($this->show_info_include) {
+
+        if ($this->show_info_include) {
             echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
         }
+
         include($compile_path);
-        if($this->show_info_include) {
+
+        if ($this->show_info_include) {
             echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
         }
 
