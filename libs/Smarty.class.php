@@ -1198,8 +1198,9 @@ class Smarty
      */    
     function _assign_smarty_interface()
     {
-        if ($this->_smarty_vars !== null)
+        if (isset($this->_smarty_vars) && isset($this->_smarty_vars['request'])) {
             return;
+		}
 
         $globals_map = array('g'  => 'HTTP_GET_VARS',
                              'p'  => 'HTTP_POST_VARS',
@@ -1207,16 +1208,17 @@ class Smarty
                              's'  => 'HTTP_SERVER_VARS',
                              'e'  => 'HTTP_ENV_VARS');
 
-        $smarty  = array('request'  => array());
+        $_smarty_vars_request  = array();
 
         foreach (preg_split('!!', strtolower($this->request_vars_order)) as $c) {
             if (isset($globals_map[$c])) {
-                $smarty['request'] = array_merge($smarty['request'], $GLOBALS[$globals_map[$c]]);
+                $_smarty_vars_request = array_merge($_smarty_vars_request, $GLOBALS[$globals_map[$c]]);
             }
         }
-        $smarty['request'] = @array_merge($smarty['request'], $GLOBALS['HTTP_SESSION_VARS']);
+        $_smarty_vars_request = @array_merge($_smarty_vars_request, $GLOBALS['HTTP_SESSION_VARS']);
 
-        $this->_smarty_vars = $smarty;
+        $this->_smarty_vars['request'] = $_smarty_vars_request;
+		
     }
 
 
