@@ -41,7 +41,7 @@
      <entry>an array of output for checkbox buttons</entry>
     </row>
     <row>
-     <entry>selected</entry>
+     <entry>selected/checked</entry>
      <entry>string/array</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>

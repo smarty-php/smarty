@@ -42,11 +42,11 @@
     <entry>массив названий флажков</entry>
    </row>
    <row>
-    <entry>checked</entry>
-    <entry>строка (string)</entry>
+    <entry>selected/checked</entry>
+    <entry>строка/массив</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
-    <entry>выбранный флажок</entry>
+    <entry>выбранный флажок(флажки)</entry>
    </row>
    <row>
     <entry>options</entry>
