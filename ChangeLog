@@ -1,3 +1,16 @@
+2004-01-15  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_image.php:
+      forgot to remove duplicate is_secure()-check
+
+    * NEWS
+      libs/plugins/function.html_image.php:
+      fix: $smarty->security is now correctly handled
+      
+      minor optimizations:
+         core/core.is_secure.php is only included when needed
+         $dpi_default is only determined when needed
+
 2004-01-14  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/appendixes.sgml
