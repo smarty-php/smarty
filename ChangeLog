@@ -1,3 +1,9 @@
+2005-01-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      replaced ? true : false and removed intermediate $_cookie_var in the
+      handling of the SMARTY_DEBUG-cookie
+
 2005-01-22  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/bookinfo.xml:
