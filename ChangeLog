@@ -1,3 +1,14 @@
+2004-07-30  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/configure.in:
+      typo
+
+    * docs/Makefile.in
+      docs/README
+      docs/configure.in:
+      add make test_xml
+      this is usefull to detect XML problems
+
 2004-07-29  Nuno Lopes  <nunoplopes@sapo.pt>
 
     * docs/configure.in:
