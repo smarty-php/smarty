@@ -123,7 +123,7 @@ class Smarty
                                     'IF_FUNCS'        => array('array', 'list',
                                                                'isset', 'empty',
                                                                'count', 'sizeof',
-                                                               'in_array','is_array'),
+                                                               'in_array', 'is_array'),
                                     'INCLUDE_ANY'     => false,
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count')
@@ -1360,7 +1360,7 @@ function _run_insert_handler($args)
             return $funcname('write', $this, $results, $tpl_file, $cache_id, $compile_id);
         } else {    
             // use local cache file
-            if (isset($compile_id) && isset($cache_id))
+            if (isset($compile_id) || isset($cache_id))
                 $auto_id = $compile_id . $cache_id;
             else
                 $auto_id = null;
@@ -1391,7 +1391,7 @@ function _run_insert_handler($args)
 
         } else {
             // use local file cache
-            if (isset($compile_id) && isset($cache_id))
+            if (isset($compile_id) || isset($cache_id))
                 $auto_id = $compile_id . $cache_id;
             else
                 $auto_id = null;
