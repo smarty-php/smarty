@@ -1,3 +1,13 @@
+2003-06-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/de/designers.sgml:
+      fixed german note on html_image and disk-access
+
+2003-06-10  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/core.parse_file_path.php:
+      fix bug with resource_type resolving
+
 2003-06-09  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml:
