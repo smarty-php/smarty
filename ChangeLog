@@ -1,3 +1,22 @@
+2003-12-09  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_options.php:
+      strict comparason didn't work in all cases. use type-casting now.
+
+    * NEWS
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_options.php:
+      fix bug when comparing array-keys to "selected" in html_options and
+      html_checkboxes
+      
+      in_array() uses "strict" comparason now.
+
+    * libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_radios.php:
+      removed tabs, fixed indentiation
+
 2003-12-08  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
