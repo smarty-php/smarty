@@ -1,3 +1,5 @@
+    - split out compiling code to separate class for faster
+      template execution time (Monte)
     - added unregister_modifier, documented (Monte)
     - added unregister_function, documented (Monte)
     - added fetch function, documented (Monte)

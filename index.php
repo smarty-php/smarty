@@ -4,6 +4,8 @@ require("Smarty.class.php");
 
 $smarty = new Smarty;
 
+$smarty->compile_check = true;
+
 $smarty->assign(now, time());
 
 $smarty->assign("Name","Fred Irving Johnathan Bradley Peppergill");
