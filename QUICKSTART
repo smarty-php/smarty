@@ -33,9 +33,20 @@ $> mkdir templates
 $> mkdir templates_c
 $> mkdir configs
 
-Smarty needs to be able to write to the templates_c directory. You can change
-the ownership of this directory to your web server user, but we'll just
-change the permissions to 777 (drwxrwxrwx) to make it easy for this guide.
+Smarty needs to be able to write to the templates_c directory. It is
+recommended that you change the ownership and write permissions to the web
+server user (usually nobody) has access to write to this directory. You can
+chmod 777 the directory, but be aware of security concerns on multi-user
+systems.
+
+$> chown nobody:nobody templates_c
+$> chmod 700 templates_c
+$> ls -l
+drwxrwxr-x   2 mohrt    staff        512 Jan 18 14:18 configs/
+drwxrwxr-x   2 mohrt    staff        512 Jan 18 14:18 templates/
+drwx------   2 nobody   nobody       512 Jan 18 14:18 templates_c/
+
+Or alternately (non-secure):
 
 $> chmod 777 templates_c
 $> ls -l
