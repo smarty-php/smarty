@@ -1,0 +1,1475 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+    <chapter id="language.builtin.functions">
+     <title>Funções Embutidas</title>
+     <para>
+      O Smarty vem com várias funções embutidas. Funções embutidas fazem parte
+      da linguagem de template. Você não pode criar funções personalizadas com
+      o mesmo nome, nem pode modificar as funções embutidas.
+     </para>
+     <sect1 id="language.function.capture">
+      <title>capture</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Nome do Atributo</entry>
+                        <entry>Tipo</entry>
+                        <entry>Requerido</entry>
+                        <entry>Padrão</entry>
+                        <entry>Descrição</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>default</emphasis></entry>
+                        <entry>O nome do bloco capturado</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da variável para dar o valor da saída capturada</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+      <para>
+       capture é usado para coletar toda a saída do template em uma variável ao invés
+       de mostra-lo. Qualquer conteúdo entre {capture
+       name="foo"} e {/capture} coletado na variável especificada no atributo name.
+       O conteúdo capturado pode ser usado no template a apertir da variável especial
+       $smarty.capture.foo aonde foo é o valor passado para o atributo name. Se você não
+       passar um atributo name, então será usado "default". Todos os comandos
+       {capture} devem ter o seu {/capture}. Você pode aninhar(colocar um dentro de outro)
+       comandos capture.
+      </para>
+	  <note>
+	  <title>Nota Tecnica</title>
+      <para>
+       Smarty 1.4.0 - 1.4.4 coloca o conteúdo capturado dentro da variável
+       chamada $return. A partir do 1.4.5, este funcionamento foi mudado
+       para usar o atributo name, então atualize os seus templates de acordo.
+      </para>
+	  </note>
+      <caution>
+       <para>
+        Tenha cuidado quando capturar a saída do comando <command>insert</command>.
+        Se você tiver o cache em on e você tiver comandos <command>insert</command>
+        que você espera que funcione com conteúdo do cache, 
+        não capture este conteúdo.
+       </para>
+      </caution>
+      <para>
+       <example>
+        <title>capturando conteúdo do template</title>
+        <programlisting>
+{* we don't want to print a table row unless content is displayed *}
+{capture name=banner}
+{include file="get_banner.tpl"}
+{/capture}
+{if $smarty.capture.banner ne ""}
+	&lt;tr&gt;
+		&lt;td&gt;
+			{$smarty.capture.banner}
+		&lt;/td&gt;
+	&lt;/tr&gt;
+{/if}</programlisting>
+       </example>
+      </para>
+     </sect1>
+		<sect1 id="language.function.config.load">
+			<title>config_load</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Nome do Atributo</entry>
+                        <entry>Tipo</entry>
+                        <entry>Requerido</entry>       
+                        <entry>Padrão</entry>
+                        <entry>Descrição</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Sim</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome do arquivo de configuração para incluir</entry>
+                    </row>
+                    <row>
+                        <entry>section</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da seção a carregar</entry>
+                    </row>
+                    <row>
+                        <entry>scope</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>local</emphasis></entry>
+                        <entry>
+                         Como o escopo das variáveis carregadas é tratado, 
+                         o qual deve ser um entre local, parent ou global. local
+						 indica que as variáveis são carregadas no contexto do
+						 template local apenas. parent indica que as variáveis são carregadas
+						 no contexto atual e no template que o chamou. global indica
+						 que as variáveis estão
+						 disponíveis para todos os templates.
+						</entry>
+                    </row>
+                    <row>
+                        <entry>global</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>No</emphasis></entry>
+                        <entry>
+						 Quando ou não as variáveis são visiveis para o template
+						 superior(aquele que chamou este), o mesmo que scope=parent.
+						 NOTA: este atributo esta obsoleto pelo atributo scope, mas
+						 ainda é suportado. Se scope for indicado, este valor é ignorado.
+						</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			 Esta função é usada para carregar as variáveis de um arquivo de configuração
+			 dentro de um template. Veja <link linkend="config.files">Config Files</link>
+			 para maiores
+			 informações.
+			</para>
+<example>
+<title>Função config_load</title>
+
+<programlisting>
+{config_load file="colors.conf"}
+
+&lt;html&gt;
+&lt;title&gt;{#pageTitle#}&lt;/title&gt;
+&lt;body bgcolor="{#bodyBgColor#}"&gt;
+&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
+	&lt;tr bgcolor="{#rowBgColor#}"&gt;
+		&lt;td&gt;First&lt;/td&gt;
+		&lt;td&gt;Last&lt;/td&gt;
+		&lt;td&gt;Address&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</programlisting>
+</example>
+			<para>
+			 Arquivos de configuração podem conter seções também. Voce pode carregar
+			 variáveis de uma seção adicionando o atributo
+            <emphasis>section</emphasis>.
+			</para>
+            <para>
+            NOTA: <emphasis>Config file sections</emphasis> e a função embutida de 
+            template <emphasis>section</emphasis> não tem nada a ver um com o outro,
+            eles apenas tem uma mesma
+            convenção de nomes.
+            </para>
+<example>
+<title>Função config_load com seções</title>
+<programlisting>
+{config_load file="colors.conf" section="Customer"}
+
+&lt;html&gt;
+&lt;title&gt;{#pageTitle#}&lt;/title&gt;
+&lt;body bgcolor="{#bodyBgColor#}"&gt;
+&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
+	&lt;tr bgcolor="{#rowBgColor#}"&gt;
+		&lt;td&gt;First&lt;/td&gt;
+		&lt;td&gt;Last&lt;/td&gt;
+		&lt;td&gt;Address&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.foreach">
+			<title>foreach,foreachelse</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Nome do Atributo</entry>
+                        <entry>Tipo</entry>
+                        <entry>Requerido</entry>       
+                        <entry>Padrão</entry>
+                        <entry>Descrição</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>from</entry>
+                        <entry>string</entry>
+                        <entry>Sim</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da matriz que você estará pegando os elementos</entry>
+                    </row>
+                    <row>
+                        <entry>item</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da variável
+                        que é o elemento atual</entry>
+                    </row>
+                    <row>
+                        <entry>key</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+						<entry><emphasis>n/a</emphasis></entry>
+						<entry>O nome da variável que é a chave atual</entry>
+                    </row>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>O nome do loop foreach para acessar as 
+						propriedades foreach</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			Loops <emphasis>foreach</emphasis> são uma alternativa para loops
+			<emphasis>section</emphasis>. <emphasis>foreach</emphasis> é usado
+			para pegar cada elemento de uma matriz associativa simples.
+			A sintaxe para <emphasis>foreach</emphasis> é muito mais simples do que
+			<emphasis>section</emphasis>, mas tem a desvantagem de poder ser usada
+			apenas para uma única matriz. Tags <emphasis>foreach</emphasis> devem ter
+			seu par <emphasis>/foreach</emphasis>. Os parâmetros requeridos são
+			<emphasis>from</emphasis> e <emphasis>item</emphasis>. O nome do loop
+			foreach pode ser qualquer coisa que você queira, feito de letras, números
+			e sublinhados. Loops <emphasis>foreach</emphasis>
+			podem ser aninhados, e o nome dos loops aninhados devem ser diferentes
+			um dos outros. A variável <emphasis>from</emphasis> (normalmente uma
+			matriz de valores) determina o número de vezes do loop
+			<emphasis>foreach</emphasis>.
+			<emphasis>foreachelse</emphasis> é executado quando não houverem mais valores
+			na variável <emphasis>from</emphasis>.
+			</para>
+<example>
+<title>foreach</title>
+<programlisting>
+
+{* este exemplo irá mostrar todos os valores da matriz $custid *}
+{foreach from=$custid item=curr_id}
+	id: {$curr_id}&lt;br&gt;
+{/foreach}
+
+MOSTRA:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;</programlisting>
+</example>
+
+<example>
+<title>foreach key</title>
+<programlisting>
+{* A key contém a chave para cada valor do loop
+
+A definição é alo assim:
+
+$smarty->assign("contacts", array(array("phone" =&gt; "1", "fax" =&gt; "2", "cell" =&gt; "3"),
+      array("phone" =&gt; "555-4444", "fax" =&gt; "555-3333", "cell" =&gt; "760-1234")));
+
+*}
+
+{foreach name=outer item=contact from=$contacts}
+  {foreach key=key item=item from=$contact}
+    {$key}: {$item}&lt;br&gt;
+  {/foreach}
+{/foreach}
+
+MOSTRA:
+
+phone: 1&lt;br&gt;
+fax: 2&lt;br&gt;
+cell: 3&lt;br&gt;
+phone: 555-4444&lt;br&gt;
+fax: 555-3333&lt;br&gt;
+cell: 760-1234&lt;br&gt;</programlisting>
+</example>
+
+		<para>
+		Loop foreach também tem as suas próprias variáveis para manipilar a as propriedades
+		foreach. Estas são indicadas assim: {$smarty.foreach.foreachname.varname} com
+		foreachname sendo o nome especificado no atributo
+		<emphasis>name</emphasis> do foreach.
+		</para>
+
+
+			<sect2 id="foreach.property.iteration">
+			<title>iteration</title>
+			<para>
+        	iteration é usado para mostrar a interação atual do loop.
+			</para>
+			<para>
+			Iteration sempre começa em 1 e
+			é incrementado um a um em cada interação.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.first">
+			<title>first</title>
+			<para>
+        	<emphasis>first</emphasis> é definido como true se a interação atual
+        	do foreach for a primeira.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.last">
+			<title>last</title>
+			<para>
+        	<emphasis>last</emphasis> é definido como true se a interação atual
+        	do foreach for a última.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.show">	
+			<title>show</title>
+			<para>
+        	<emphasis>show</emphasis> é usado como parâmetro para o foreach.
+        	<emphasis>show</emphasis> é um valor booleano, true ou false. Se
+        	false, o foreach não será mostrado. Se tiver um foreachelse
+        	presente, este será alternativamente mostrado.
+			</para>
+
+			</sect2>
+			<sect2 id="foreach.property.total">	
+			<title>total</title>
+			<para>
+			<emphasis>total</emphasis> é usado para mostrar o número de interações do
+			foreach. Isto pode ser usado dentro ou depois do foreach.
+			</para>
+			</sect2>
+
+
+
+
+
+		</sect1>
+		<sect1 id="language.function.include">
+			<title>include</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Nome do Atributo</entry>
+                        <entry>Tipo</entry>
+                        <entry>Requerido</entry>       
+                        <entry>Padrão</entry>
+                        <entry>Descrição</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Sim</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome do arquivo de template a incluir</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome de uma variável que irá
+                        conter toda a saída do template</entry>
+                    </row>
+                    <row>
+                        <entry>[var ...]</entry>
+                        <entry>[var type]</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>Variável para passar localmente para o template</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			 Tags include são usados para incluir outros templates no template
+			 atual. Quaisquer variáveis disponíveis no template atual também esta 
+			 disponível dentro do template incluido. A tag include deve ter o atributo
+			 "file",  o qual contém o caminho do arquivo a incluir.
+			</para>
+			<para>
+			 Você pode opcionalmente passar o atributo <emphasis>assign</emphasis>,
+			 o qual irá especificar o nome de uma variável de template para a qual
+			 conterá toda a saída de <emphasis>include</emphasis> ao
+			 invés de mostra-la.
+			</para>
+<example>
+<title>function include</title>
+<programlisting>
+{include file="header.tpl"}
+
+{* O corpo do template vai aqui *}
+
+{include file="footer.tpl"}</programlisting>
+</example>
+			<para>
+			 Você pode também passar variáveis para o template incluído como atributos.
+			 Quaisquer variáveis passadas para um template incluído como atributos 
+			 estão disponíveis somente dentro do escopo do template incluído.
+			 As variáveis passadas como atributos sobrescrevem as variáveis de 
+			 template atuais, no caso de ambas terem o mesmo nome.
+			</para>
+<example>
+<title>Função include passando variáveis</title>
+<programlisting>
+{include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+
+{* O corpo de template vai aqui *}
+
+{include file="footer.tpl" logo="http://my.domain.com/logo.gif"}</programlisting>
+</example>
+			<para>
+			Use a sintaxe para <link
+			linkend="template.resources">template resources</link> para
+			incluir arquivos fora do diretório $template_dir.
+			</para>
+<example>
+<title>Exemplos de recursos para a função include</title>
+<programlisting>
+{* caminho absoluto *}
+{include file="/usr/local/include/templates/header.tpl"}
+
+{* caminho absoluto (mesma coisa) *}
+{include file="file:/usr/local/include/templates/header.tpl"}
+
+{* caminho absoluto do windows (DEVE usar o prefixo "file:") *}
+{include file="file:C:/www/pub/templates/header.tpl"}
+
+{* incluir a partir do recurso de template chamado "db" *}
+{include file="db:header.tpl"}</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.include.php">
+			<title>include_php</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Nome do Atributo</entry>
+                        <entry>Tipo</entry>
+                        <entry>Requerido</entry>       
+                        <entry>Padrão</entry>
+                        <entry>Descrição</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Sim</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome do arquivo php a incluir</entry>
+                    </row>
+                    <row>
+                        <entry>once</entry>
+                        <entry>boolean</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>Quando incluir ou não o arquivo php mais de uma vez se
+                        incluído várias vezes</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da variável
+                        que receberá a saída do arquivo php</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			Tags include_php são usadas para incluir um script php no seu template.
+			Se a segurança estiver ativada, então o script php deve estar localizado
+			no caminho $trusted_dir. A tag include_php deve ter o atributo
+			"file", o qual contém o caminho para o arquivo php a ser incluído,
+			ou relativo a $trusted_dir, ou um caminho absoluto.
+			</para>
+			<para>
+			include_php é um bom meio de manipular templates com componentes,
+			e mante o código PHP separado dos arquivos de template. Vamos dizer
+			que você tenha um template que mostre a navegação do seu site, o qual
+			é prenchido automaticamente a partir de um banco de dados. Você pode 
+			manter a sua lógica PHP que obtém os dados em um diretório separado,
+			e inclui-la no topo do template. Agora você pode incluir este template
+			em qualquer lugar sem se preocupar se a informação do banco de dados foi
+			obtida antes de usar.
+			</para>
+			<para>
+			 Por padrão, os arquivos php são incluídos apenas uma vez mesmo 
+			 se incluídos várias vezes no template. Você pode especificar que ele 
+			 seja incluído todas as vezes com o atributo <emphasis>once</emphasis>.
+			 Definindo once para false irá incluir o script php a cada vez que
+			 ele seja incluído no template.
+			</para>
+			<para>
+			 Você pode opcionalmente passar o atributo <emphasis>assign</emphasis>,
+			 o qual irá especificar uma variável de template a qual irá conter
+			 toda a saída de 
+			 <emphasis>include_php</emphasis> em vez de mostra-la.
+			</para>
+			<para>
+			 O objeto smarty esta disponível como $this dentro do 
+			 script php que você incluiu.
+			</para>
+<example>
+<title>Função include_php</title>
+<programlisting>
+load_nav.php
+-------------
+
+&lt;?php
+
+	// carrega variáveis de um banco de dados mysql e define ela para o template
+	require_once("MySQL.class.php");
+	$sql = new MySQL;
+	$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+	$this->assign('sections',$sql->record);
+
+?&gt;
+
+
+index.tpl
+---------
+
+{* caminho absoluto ou relativo a $trusted_dir *}
+{include_php file="/path/to/load_nav.php"}
+
+{foreach item="curr_section" from=$sections}
+	&lt;a href="{$curr_section.url}"&gt;{$curr_section.name}&lt;/a&gt;&lt;br&gt;
+{/foreach}</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.insert">
+			<title>insert</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Nome do Atributo</entry>
+                        <entry>Tipo</entry>
+                        <entry>Requerido</entry>       
+                        <entry>Padrão</entry>
+                        <entry>Descrição</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Sim</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da função insert (insert_name)</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da variável que
+                        irá receber a saída</entry>
+                    </row>
+                    <row>
+                        <entry>script</entry>
+                        <entry>string</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome de um script php que será incluido
+                        antes que a função insert seja chamada</entry>
+                    </row>
+                    <row>
+                        <entry>[var ...]</entry>
+                        <entry>[var type]</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>Variável para passar para a função insert</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			 Tags insert funcionam parecido com as tags include, exceto que as tags
+			 insert não vão para o cache quando <link
+			linkend="caching">caching</link> esta ativado. Ela será
+			executada a cada invocação do template.
+			</para>
+            <para>
+             Vamos dizer que você tenha um template com um banner em cima. O
+             banner pode conter qualquer mistura de html, imagens, flash, etc.
+             Assin nós não podemos usar uma ligação estatica aqui, e nós não 
+             queremos que este conteúdo fique no cache com a página. Aqui vem a tag 
+             insert: o template conhece os valores #banner_location_id# e
+             #site_id# (obtidos de um arquivo de configuração), e precisa chamar
+             uma função para obter o conteúdo do banner.
+			</para>
+<example>
+<title>function insert</title>
+<programlisting>
+{* example of fetching a banner *}
+{insert name="getBanner" lid=#banner_location_id# sid=#site_id#}</programlisting>
+</example>
+			<para>
+			 Neste exemplo, nós estamos usando o nome "getBanner" e passando os parâmetros
+			 #banner_location_id# e #site_id#. O Smarty irá procurar por uma função chamada
+			 insert_getBanner() na sua aplicação PHP, passando os valores de 
+			 #banner_location_id# e #site_id# como primeiro argumento em uma
+			 matriz associativa. Todos os nomes de função insert em sua
+			 aplicação devem ser precedidas por "insert_" para prevenir possíveis
+			 problemas com nomes de funções repetidos. Sua função insert_getBanner()
+			 deve fazer alguma coisa com os valores passados e retornar os resultados.
+			 Estes resultados são mostrados no template em lugar da tag insert.
+			 Neste exemplo, o Smarty irá chamar esta função:
+			 insert_getBanner(array("lid" => "12345","sid" => "67890"));
+			 e mostrar o resultado retornado no lugar da tag insert.
+			</para>
+			<para>
+			 Se você der o atributo "assign", a saída da tag insert será
+			 dada para esta variável ao invés de ser mostrada
+			 no template. Nota: definir a saída para uma variável não é
+			 útil quando o cache esta ativo.
+			</para>
+			<para>
+			 Se você der o atributo "script", este script php será incluido
+			 (apenas uma vez) antes da execução da função insert. Este
+			 é o caso onde a função insert não existe ainda, e um script
+			 php deve ser incluído antes para faze-la funcionar. O caminho pode
+			 ser absoluto ou relativo a $trusted_dir. Quando a segurança esta
+			 ativada, o script deve estar em $trusted_dir.
+			</para>
+			<para>
+			 O objeto Smarty é passado como segundo argumento. Desde modo
+			 pocê pode refenciar o objeto Smarty
+			 de dentro da função.
+			</para>
+			<note>
+			<title>Nota Tecnica</title>
+			<para>
+			 É possível ter partes do template fora do cache.
+			 se você tiver <link linkend="caching">caching</link>
+             ativado, tags insert não estarão no cache. Ela será executada
+             dinamicamente a cada vez que a página seja criada, mesmo com
+             páginas em cache. Isto funciona bem para coisas como banners, pesquisa,
+             clima, resultados de pesquisa, areas de opnião do usuário, etc.
+			</para>
+			</note>
+		</sect1>
+		<sect1 id="language.function.if">
+			<title>if,elseif,else</title>
+			<para>
+			 Comandos if no Smarty tem muito da mesma flexibilidade do php,
+			 com algumas adições para a ferramenta de template.
+			 Todo <emphasis>if</emphasis> deve ter o seu 
+			<emphasis>/if</emphasis>. <emphasis>else</emphasis> e
+			<emphasis>elseif</emphasis> também são permitidos. "eq", "ne","neq",
+			"gt", "lt", "lte", "le", "gte" "ge","is even","is odd", "is not
+			even","is not odd","not","mod","div by","even by","odd
+			by","==","!=","&gt;", "&lt;","&lt;=","&gt;=" são todos os qualificadores
+			de condição válidos, e ddevem estar separados
+			dos elementos em roda por espaço.
+			</para>
+<example>
+<title>comandos if</title>
+<programlisting>
+{if $name eq "Fred"}
+	Welcome Sir.
+{elseif $name eq "Wilma"}
+	Welcome Ma'am.
+{else}
+	Welcome, whatever you are.
+{/if}
+
+{* um exemplo com "or" *}
+{if $name eq "Fred" or $name eq "Wilma"}
+	...
+{/if}
+
+{* o mesmo que acima *}
+{if $name == "Fred" || $name == "Wilma"}
+	...
+{/if}
+
+{* a seguinte sintaxe não irá funcionar, qualificadores de condição
+   devem estar separados dos elementos em torno por espaços *}
+{if $name=="Fred" || $name=="Wilma"}
+	...
+{/if}
+
+
+{* parenteses são permitidos *}
+{if ( $amount &lt; 0 or $amount &gt; 1000 ) and $volume >= #minVolAmt#}
+	...
+{/if}
+
+{* você pode também colocar funções php *}
+{if count($var) gt 0}
+	...
+{/if}
+
+{* testa se o valor é par ou impar *}
+{if $var is even}
+	...
+{/if}
+{if $var is odd}
+	...
+{/if}
+{if $var is not odd}
+	...
+{/if}
+
+{* test if var is divisible by 4 *}
+{if $var is div by 4}
+	...
+{/if}
+
+{* test if var is even, grouped by two. i.e.,
+0=even, 1=even, 2=odd, 3=odd, 4=even, 5=even, etc. *}
+{if $var is even by 2}
+	...
+{/if}
+
+{* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
+{if $var is even by 3}
+	...
+{/if}</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.ldelim">
+			<title>ldelim,rdelim</title>
+			<para>
+			ldelim e rdelim são usados para mostrar os delimitadores literalmente,
+			no nosso caso "{" ou "}". A ferramente de template sempre
+			tenta interpretar os delimitadores,	então este é o meio de contornar isso.
+			</para>
+<example>
+<title>ldelim, rdelim</title>
+<programlisting>
+{* isto irá mostrar os delimitadore no template *}
+
+{ldelim}funcname{rdelim} is how functions look in Smarty!
+
+
+MOSTRA:
+
+{funcname} is how functions look in Smarty!</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.literal">
+			<title>literal</title>
+			<para>
+			 Tags literal permitem que um bloco de dados seja tomado literalmente,
+			 não sendo interpretado pelo smarty. Isto é útil
+			 para coisas como seções javascript, aonde podem haver
+			 chaves("{}") e coisas assim que possam confundir
+			 o interpretador do template.
+			 Qualquer coisa dentro das {literal}{/literal} não será interpretado, mas mostrado como estiver.
+			</para>
+<example>
+<title>Tags literal</title>
+<programlisting>
+{literal}
+	&lt;script language=javascript&gt;
+
+        	&lt;!--
+                	function isblank(field) {
+                	if (field.value == '') 
+                        	{ return false; }
+                	else
+                        	{
+                        	document.loginform.submit();
+                        	return true;
+                        	}
+                	}
+        	// --&gt;
+
+	&lt;/script&gt;
+{/literal}</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.php">
+			<title>php</title>
+			<para>
+			 Tags php permitem que você adicione código php diretamente no template.
+			 Não será escapado, não importando a definição de <link
+			linkend="variable.php.handling">$php_handling</link>. Isto
+			é apenas para usuários avançados e normalmente não é necessário.
+			</para>
+<example>
+<title>Tags php</title>
+<programlisting>
+{php}
+		// incluindo um script php
+		// diretamente no template.
+		include("/path/to/display_weather.php");
+{/php}</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.section">
+			<title>section,sectionelse</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Nome do atributo</entry>
+                        <entry>Tipo</entry>
+                        <entry>Requerido</entry>       
+                        <entry>Padrão</entry>
+                        <entry>Descrição</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Sim</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da seção</entry>
+                    </row>
+                    <row>
+                        <entry>loop</entry>
+                        <entry>[$variable_name]</entry>
+                        <entry>Sim</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>O nome da variável para determinar o
+                        número de interações</entry>
+                    </row>
+                    <row>
+                        <entry>start</entry>
+                        <entry>integer</entry>
+                        <entry>Não</entry>
+						<entry><emphasis>0</emphasis></entry> <entry>A posição
+						do índice que a seção vai começar.  Se o valor 
+						é negativo, a posição de inicio é calculada a partir 
+						do final da matriz. For exemplo, se houverem
+						sete valores na matriz e start for -2, o
+						índice inicial é 5. Valores inválidos (valores fora do
+						tamanho da matriz) são automaticamente truncados
+						para o valor válido mais próximo.</entry>
+                    </row>
+                    <row>
+                        <entry>step</entry>
+                        <entry>integer</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>1</emphasis></entry>
+						<entry>O valor do passo que será usado para o loop
+						na matriz. Por exemplo, step=2 irá realizar o loop com
+						os índices 0,2,4, etc. Se step for negativo, ele irá caminhar
+						pela matriz de trás para frente.</entry>
+                    </row>
+                    <row>
+                        <entry>max</entry>
+                        <entry>integer</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>1</emphasis></entry>
+						<entry>Define o número máximo de loops
+						para a section.</entry>
+                    </row>
+                    <row>
+                        <entry>show</entry>
+                        <entry>boolean</entry>
+                        <entry>Não</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>Determina quando mostrar ou não esta section</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			 sections de template são usada para realizar um loop por uma matriz. Todas as tags
+			 <emphasis>section</emphasis> devem ter as suas
+             <emphasis>/section</emphasis>. Parâmetros requeridos são
+             <emphasis>name</emphasis> e <emphasis>loop</emphasis>. O nome 
+             de section pode ser o que você quiser, feito de letras,
+             números e sublinhados. Sections podem ser aninhadas, e os nomes das section
+             aninhadas devem ser diferentes um dos outros. A variável do loop
+             (normalmente uma matriz de valores) determina o número de vezes do
+             loop da section. Quando estiver mostrando uma variável dentro de uma section,
+             o nome da section deve estar ao lado da variável dentro de conchetes
+             []. <emphasis>sectionelse</emphasis> é
+             executado quando não houverem valores para a variável de loop.
+			</para>
+<example>
+<title>section</title>
+<programlisting>
+
+{* este exemplo irá mostrar todos os valores de $custid array *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+{/section}
+
+MOSTRA:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;</programlisting>
+</example>
+
+<example>
+<title>loop de variável section</title>
+<programlisting>
+{* a variável de loo´p determina o número de vezes do loop.
+   Vocâ pode acessar qualquer variável do template dentro da section.
+   Este exemplo assume que $custid, $name e $address são todas
+   matrizes contendo o mesmo número de valores *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+	name: {$name[customer]}&lt;br&gt;
+	address: {$address[customer]}&lt;br&gt;
+	&lt;p&gt;
+{/section}
+
+
+MOSTRA:
+
+id: 1000&lt;br&gt;
+name: John Smith&lt;br&gt;
+address: 253 N 45th&lt;br&gt;
+&lt;p&gt;
+id: 1001&lt;br&gt;
+name: Jack Jones&lt;br&gt;
+address: 417 Mulberry ln&lt;br&gt;
+&lt;p&gt;
+id: 1002&lt;br&gt;
+name: Jane Munson&lt;br&gt;
+address: 5605 apple st&lt;br&gt;
+&lt;p&gt;</programlisting>
+</example>
+
+<example>
+<title>Nomes de section</title>
+<programlisting>
+{* o nome de section pode ser o que você quiser,
+   e é usado para referenciar os dados dentro da section *}
+{section name=mydata loop=$custid}
+	id: {$custid[mydata]}&lt;br&gt;
+	name: {$name[mydata]}&lt;br&gt;
+	address: {$address[mydata]}&lt;br&gt;
+	&lt;p&gt;
+{/section}</programlisting>
+</example>
+
+<example>
+<title>sections aninhadas</title>
+<programlisting>
+{* sections podem ser aninhadas tão profundamente quanto você quiser. Com sections aninhadas,
+   você pode acessar estruturas de dados complexas, como matriz multi-dimensionais.
+   Neste exemplo, $contact_type[customer] é uma matriz de
+   tipos de contato para o custumer atual. *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+	name: {$name[customer]}&lt;br&gt;
+	address: {$address[customer]}&lt;br&gt;
+	{section name=contact loop=$contact_type[customer]}
+		{$contact_type[customer][contact]}: {$contact_info[customer][contact]}&lt;br&gt;
+	{/section}
+	&lt;p&gt;
+{/section}
+
+
+MOSTRA:
+
+id: 1000&lt;br&gt;
+name: John Smith&lt;br&gt;
+address: 253 N 45th&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: john@mydomain.com&lt;br&gt;
+&lt;p&gt;
+id: 1001&lt;br&gt;
+name: Jack Jones&lt;br&gt;
+address: 417 Mulberry ln&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jack@mydomain.com&lt;br&gt;
+&lt;p&gt;
+id: 1002&lt;br&gt;
+name: Jane Munson&lt;br&gt;
+address: 5605 apple st&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jane@mydomain.com&lt;br&gt;
+&lt;p&gt;</programlisting>
+</example>
+
+<example>
+<title>sections e matrizes associativas</title>
+<programlisting>
+{* Este é um exemplo de mostrar os dados de matriz associativa
+   dentro da section *}
+{section name=customer loop=$contacts}
+	name: {$contacts[customer].name}&lt;br&gt;
+	home: {$contacts[customer].home}&lt;br&gt;
+	cell: {$contacts[customer].cell}&lt;br&gt;
+	e-mail: {$contacts[customer].email}&lt;p&gt;
+{/section}
+
+
+MOSTRA:
+
+name: John Smith&lt;br&gt;
+home: 555-555-5555&lt;br&gt;
+cell: 555-555-5555&lt;br&gt;
+e-mail: john@mydomain.com&lt;p&gt;
+name: Jack Jones&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jack@mydomain.com&lt;p&gt;
+name: Jane Munson&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
+</example>
+
+
+
+<example>
+<title>sectionelse</title>
+<programlisting>
+{* sectionelse irá executar se não houverem mais valores $custid *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+{sectionelse}
+	there are no values in $custid.
+{/section}</programlisting>
+</example>
+		<para>
+		 Sections também tem as suas próprias variáveis que manipulam as propriedaes section.
+		 Estas são indicadas assim: {$smarty.section.sectionname.varname}
+		</para>
+		<para>
+		NOTA: a partir do Smarty 1.5.0, a sintaxe para as variáveis de propriedades de section
+		mudou de {%sectionname.varname%} para
+		{$smarty.section.sectionname.varname}. A sintaxe antiga ainda é suportada,
+		mas você irá ver referencias apenas a nova sintaxe nos
+		exemplos do manual.
+		</para>
+			<sect2 id="section.property.index">	
+			<title>index</title>
+			<para>
+			index é usado para mostrar o índice atual do loop, começando em zero
+			(ou pelo atributo start se dado), e incrementando por um (ou pelo
+			atributo step se dado).
+			</para>
+			<note>
+				<title>Nota Técnica</title>
+				<para>
+				 Se as propriedades section não for modificada,
+				 então isto funciona igual a propriedade iteration da section,
+				 exceto que começa em 0 ao invés de 1.
+				</para>
+			</note>
+	<example>
+	<title>section property index</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+
+	MOSTRA:
+
+	0 id: 1000&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.index.prev">	
+			<title>index_prev</title>
+			<para>
+			index_prev é usado para mostrar o índice anterior do loop.
+        	No primeiro loop, isto é definido como -1.
+			</para>
+	<example>
+	<title>section property index_prev</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_prev] ne $custid[customer.index]}
+    	The customer id changed&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	MOSTRA:
+
+	0 id: 1000&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.index.next">
+			<title>index_next</title>
+			<para>
+        	 index_next é usado para mostrar o próximo indice do loop. No último loop,
+        	 isto ainda é um mais o índice atual( respeitando a definição
+        	 do atributo step, se dado.)
+			</para>
+	<example>
+	<title>section property index_next</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_next] ne $custid[customer.index]}
+    	The customer id will change&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	MOSTRA:
+
+	0 id: 1000&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.iteration">
+			<title>iteration</title>
+			<para>
+        	iteration é usado para mostrar a interação atual do loop.
+			</para>
+			<para>
+			NOTA: isto não é afetado pelas propriedades start, step e
+			max, diferentemente das propriedade index. Iteration também começa com 1
+			ao invés de 0 como index. rownum é um apelido para iteration,
+			elas funcionam de modo identico.
+			</para>
+	<example>
+	<title>section property iteration</title>
+	<programlisting>
+	{section name=customer loop=$custid start=5 step=2}
+	current loop iteration: {$smarty.section.customer.iteration}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_next] ne $custid[customer.index]}
+    	The customer id will change&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	MOSTRA:
+
+	current loop iteration: 1
+	5 id: 1000&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	current loop iteration: 2
+	7 id: 1001&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	current loop iteration: 3
+	9 id: 1002&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.first">
+			<title>first</title>
+			<para>
+        	 first é definido como true se a interação atual da section
+        	 é a primeira.
+			</para>
+	<example>
+	<title>section property first</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{if $smarty.section.customer.first}
+    	&lt;table&gt;
+	{/if}
+
+	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
+        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+
+	{if $smarty.section.customer.last}
+    	&lt;/table&gt;
+	{/if}
+	{/section}
+
+
+	MOSTRA:
+
+	&lt;table&gt;
+	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.last">
+			<title>last</title>
+			<para>
+        	last é definido como true de a interação atual da 
+        	section é a última.
+			</para>
+	<example>
+	<title>section property last</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{if $smarty.section.customer.first}
+    	&lt;table&gt;
+	{/if}
+
+	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
+        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+
+	{if $smarty.section.customer.last}
+    	&lt;/table&gt;
+	{/if}
+	{/section}
+
+
+	MOSTRA:
+
+	&lt;table&gt;
+	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.rownum">	
+			<title>rownum</title>
+			<para>
+			rownum é usado para mostrar a interação atual do loop,
+			começando em um. É um apelido para iteration,
+			elas funcionam de modo identico.
+			</para>
+	<example>
+	<title>section property rownum</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+
+	MOSTRA:
+
+	1 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	3 id: 1002&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.loop">	
+			<title>loop</title>
+			<para>
+			loop é usado para mostrar o último número do índice do loop desta
+			section. Isto pode ser usado dentro ou depois de section.
+			</para>
+	<example>
+	<title>section property index</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	There were {$smarty.section.customer.loop} customers shown above.
+
+	MOSTRA:
+
+	0 id: 1000&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+
+	There were 3 customers shown above.
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.show">	
+			<title>show</title>
+			<para>
+        	<emphasis>show</emphasis> é usado como parâmetro para section.
+        	<emphasis>show</emphasis> é um valor booleano, true ou false. Se
+        	false, a section não será mostrada. Se existir um sectionelse
+        	presente, esta será alternativamente mostrado.
+			</para>
+	<example>
+	<title>section attribute show</title>
+	<programlisting>
+	{* $show_customer_info deve ser passada da aplicação PHP,
+	   para regular quando mostrar ou não mostrar esta section *}
+	{section name=customer loop=$custid show=$show_customer_info}
+	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	{if $smarty.section.customer.show}
+	the section was shown.
+	{else}
+	the section was not shown.
+	{/if}
+
+
+	MOSTRA:
+
+	1 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	3 id: 1002&lt;br&gt;
+
+	the section was shown.
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.total">	
+			<title>total</title>
+			<para>
+			total é usado para mostrar o número de interações que esta section terá.
+			Isto pode ser usado dentro ou depois da section.
+			</para>
+	<example>
+	<title>section property total</title>
+	<programlisting>
+	{section name=customer loop=$custid step=2}	
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	There were {$smarty.section.customer.total} customers shown above.
+
+	MOSTRA:
+
+	0 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	4 id: 1002&lt;br&gt;
+
+	There were 3 customers shown above.
+</programlisting>
+	</example>
+			</sect2>
+		</sect1>
+		<sect1 id="language.function.strip">
+			<title>strip</title>
+			<para>
+			 Várias vezes web designers tem problemas com espaços em branco e
+			 carriage returns afetam a saída do HTML (browser
+			"features"), assim você tem que colocar todas as suas tags juntas para ter 
+			os resultados desejados. Isto normalmente termina em um
+			template ilegível ou que não se consegue ler.
+			</para>
+			<para>
+			 Tudo dentro de {strip}{/strip} no Smarty tem retirados os espaços em branco
+			 e carriage returns no inicio e final das linhas
+			 antes que sejam mostrados. Deste modo você pode manter seu template
+			 legível, e não se preocupar com o espaço estra causando 
+			 problemas.
+			</para>
+			<note>
+			<title>Nota Técnica</title>
+			<para>
+			{strip}{/strip} não afeta o conteúdo das variáveis de template.
+			Veja <link linkend="language.modifier.strip">strip modifier
+			function</link>.
+			</para>
+			</note>
+<example>
+<title>strip tags</title>
+<programlisting>
+{* o seguinte estará tudo junto em uma linha na saída *}
+{strip}
+&lt;table border=0&gt;
+	&lt;tr&gt;
+		&lt;td&gt;
+			&lt;A HREF="{$url}"&gt;
+			&lt;font color="red"&gt;This is a test&lt;/font&gt;
+			&lt;/A&gt;
+		&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+{/strip}
+
+
+MOSTRA:
+
+&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://my.domain.com"&gt;&lt;font color="red"&gt;This is a test&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</programlisting>
+</example>
+		<para>
+		 Note que no exemplo acima, todas as linhas começam e terminam
+		 com tags HTML. Tenha cuidado que todas as linhas ficam juntas.
+		 Se você tiver texto simples no inicio ou no final de uma linha,
+		 ele estará junto, e pode não ser o resultado desejado.
+		</para>
+		</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->
