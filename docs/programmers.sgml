@@ -1151,10 +1151,10 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 $smarty->register_block("translate", "do_translation");
 
 function do_translation ($params, $content, &$smarty, &amp;$repeat) {
-    if ($content) {
+    if (isset($content)) {
         $lang = $params['lang'];
         // do some translation with $content
-        echo $translation;
+        return $translation;
     }
 }
 
@@ -1237,7 +1237,7 @@ function print_current_date ($params) {
     extract($params);
     if(empty($format))
         $format="%b %e, %Y";
-    echo strftime($format,time());
+    return strftime($format,time());
 }
 
 // now you can use this in Smarty to print the current date: {date_now}
@@ -2893,10 +2893,10 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
  */
 function smarty_block_translate($params, $content, &amp;$smarty)
 {
-    if ($content) {
+    if (isset($content)) {
         $lang = $params['lang'];
         // do some intelligent translation thing here with $content
-        echo $translation;
+        return $translation;
     }
 }</programlisting>
     </example>
