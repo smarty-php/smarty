@@ -3,7 +3,7 @@
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
- */
+
 
 /**
  * Smarty {assign} function plugin
@@ -18,9 +18,7 @@
  */
 function smarty_function_assign($params, &$smarty)
 {
-    extract($params);
-
-    if (empty($var)) {
+    if (empty($params['var'])) {
         $smarty->trigger_error("assign: missing 'var' parameter");
         return;
     }
@@ -30,7 +28,7 @@ function smarty_function_assign($params, &$smarty)
         return;
     }
 
-    $smarty->assign($var, $value);
+    $smarty->assign($params['var'], $params['value']);
 }
 
 /* vim: set expandtab: */
