@@ -1459,8 +1459,8 @@ class Smarty_Compiler extends Smarty {
 		} else {
 			$_return = $var_expr;
 		}
-		// replace double quoted string with single quotes
-		$_return = preg_replace('!"([^\$\']+)"!',"'\\1'",$_return);
+		// replace double quoted literal string with single quotes
+		$_return = preg_replace('!^"([\s\w]+)"$!',"'\\1'",$_return);
 		return $_return;
 	}
 	
