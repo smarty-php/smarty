@@ -4,15 +4,15 @@
  <title>ldelim,rdelim</title>
  <para>
   ldelim и rdelim используются для отображения разделителей. 
-  В нашем случае это "{" и "}". Smarty всегда пытаеться 
+  В нашем случае это "{" и "}". Smarty всегда пытается 
   интерпретировать разделители, то есть это это единственный
-  способ вывнсти их.
+  способ вывести их.
  </para>
  <example>
   <title>ldelim, rdelim</title>
   <programlisting>
 <![CDATA[
-{* будут выведены разделители в шаблона *}
+{* будут выведены разделители в шаблоне *}
 
 {ldelim}funcname{rdelim} is how functions look in Smarty!
 
