@@ -1,3 +1,5 @@
+  - ignore one char resource names like c:foo.tpl (Monte)
+  - added default_resource_type feature (Monte)
   - fix bug where config file starts with hidden section (boots, Monte)
   - add discrete error checking pertaining to $cache_dir
     and $compile_dir, their existance and writability (Monte)
