@@ -80,7 +80,7 @@ function smarty_function_cycle($params, &$smarty)
     }
 		
 	if($print) {
-		echo $cycle_array[$cycle_vars[$name]['index']]."\n";
+		echo $cycle_array[$cycle_vars[$name]['index']];
 	}
 
 	if($advance) {
