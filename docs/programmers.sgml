@@ -513,9 +513,10 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
           </funcprototype>
          </funcsynopsis>
          <para>
-          This is used to append data to variables in the template. You
-          can explicitly pass name/value pairs, or associative arrays
-          containing the name/value pairs.
+		  This is used to append an element to an assigned array. If you append
+		  to a string value, it is converted to an array value and then
+		  appended to. You can explicitly pass name/value pairs, or associative
+		  arrays containing the name/value pairs.
          </para>
          <example>
           <title>append</title>
