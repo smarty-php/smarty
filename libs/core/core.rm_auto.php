@@ -34,7 +34,13 @@ function smarty_core_rm_auto($params, &$smarty)
         $_tname = $smarty->_get_auto_filename($params['auto_base'], $params['auto_source'], $params['auto_id']);
 
         if(isset($params['auto_source'])) {
-            $_res = $smarty->_unlink($_tname);
+            if (isset($params['extensions'])) {
+                $_res = false;
+                foreach ((array)$params['extensions'] as $_extension)
+                    $_res |= $smarty->_unlink($_tname.$_extension, $params['exp_time']);
+            } else {
+                $_res = $smarty->_unlink($_tname, $params['exp_time']);
+            }
         } elseif ($smarty->use_sub_dirs) {
 			$_params = array(
 				'dirname' => $_tname,

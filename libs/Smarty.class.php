@@ -1095,7 +1095,8 @@ class Smarty
 		$_params = array('auto_base' => $this->compile_dir,
 						'auto_source' => $tpl_file,
 						'auto_id' => $compile_id,
-						'exp_time' => $exp_time);
+                        'exp_time' => $exp_time,
+                        'extensions' => array('.inc', '.php'));
 		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.rm_auto.php');
 		return smarty_core_rm_auto($_params, $this);		
     }
@@ -1897,11 +1898,11 @@ class Smarty
     function _unlink($resource, $exp_time = null)
     {
         if(isset($exp_time)) {
-            if(time() - filemtime($resource) >= $exp_time) {
-                @unlink($resource);
+            if(time() - @filemtime($resource) >= $exp_time) {
+                return @unlink($resource);
             }
         } else {            
-            @unlink($resource);
+            return @unlink($resource);
         }
     }
 
