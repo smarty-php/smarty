@@ -55,6 +55,7 @@ class Smarty_Compiler extends Smarty {
     var $_si_qstr_regexp		=	null;
     var $_qstr_regexp			=	null;
     var $_func_regexp			=	null;
+    var $_var_bracket_regexp	=	null;
     var $_dvar_guts_regexp		=	null;
     var $_dvar_regexp			=	null;
     var $_cvar_regexp			=	null;
@@ -64,8 +65,11 @@ class Smarty_Compiler extends Smarty {
     var $_var_regexp			=	null;
     var $_parenth_param_regexp	=	null;
 	var $_func_call_regexp		=	null;
+	var $_obj_ext_regexp		=	null;
+	var $_obj_start_regexp		=	null;
+	var $_obj_params_regexp		=	null;
 	var $_obj_call_regexp		=	null;
-			
+
 	/**
 	 * The class constructor.
 	 *
@@ -86,6 +90,12 @@ class Smarty_Compiler extends Smarty {
 		// matches single or double quoted strings
     	$this->_qstr_regexp = '(?:' . $this->_db_qstr_regexp . '|' . $this->_si_qstr_regexp . ')';
 
+		// matches bracket portion of vars
+		// [0]
+		// [foo]
+		// [$bar]
+		$this->_var_bracket_regexp = '\[\$?[\w\.]+\]';
+				
 		// matches $ vars (not objects):
 		// $foo
 		// $foo.bar
@@ -94,7 +104,8 @@ class Smarty_Compiler extends Smarty {
 		// $foo[$bar]
 		// $foo[5][blah]
 		// $foo[5].bar[$foobar][4]
-		$this->_dvar_guts_regexp = '\w+(?:\[\$?[\w\.]+\])*(?:\.\$?\w+(?:\[\$?[\w\.]+\])*)*';
+		$this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
+				. ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*';
 		$this->_dvar_regexp = '\$' . $this->_dvar_guts_regexp;
 
 		// matches config vars:
@@ -129,7 +140,7 @@ class Smarty_Compiler extends Smarty {
 		// "text"
 		// "text"
 		$this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_qstr_regexp . ')';
-		
+				
 		// matches valid object call (no objects allowed in parameters):
 		// $foo->bar
 		// $foo->bar()
@@ -138,11 +149,13 @@ class Smarty_Compiler extends Smarty {
 		// $foo->bar($foo|bar, "foo"|bar)
 		// $foo->bar->foo()
 		// $foo->bar->foo->bar()
-    	$this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:\->' . $this->_dvar_guts_regexp . ')+)';
-    	$this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:\((?:\w+|'
+		$this->_obj_ext_regexp = '\->(?:\w+|' . $this->_dvar_regexp . ')';
+    	$this->_obj_params_regexp = '\((?:\w+|'
 				. $this->_var_regexp . '(?>' . $this->_mod_regexp . '*)(?:\s*,\s*(?:(?:\w+|'
-				. $this->_var_regexp . '(?>' . $this->_mod_regexp . '*))))*)?\))?)';
-
+				. $this->_var_regexp . '(?>' . $this->_mod_regexp . '*))))*)?\)';		
+    	$this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
+		$this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?)';
+		
 		// matches valid function name:
 		// foo123
 		// _foo_bar
@@ -690,7 +703,7 @@ class Smarty_Compiler extends Smarty {
         	}
 		}
 				
-		if(!$this->_reg_objects[$object][0]) {
+		if(!is_object($this->_reg_objects[$object][0])) {
 			$this->_trigger_fatal_error("registered '$object' is not an object");
 		} elseif(!empty($this->_reg_objects[$object][1]) && !in_array($obj_comp, $this->_reg_objects[$object][1])) {
 			$this->_trigger_fatal_error("'$obj_comp' is not a registered component of object '$object'");
@@ -1446,7 +1459,7 @@ class Smarty_Compiler extends Smarty {
     function _expand_quoted_text($var_expr)
     {
 		// if contains unescaped $, expand it
-		if(preg_match_all('|(?<!\\\\)\$\w+|', $var_expr, $match)) {
+		if(preg_match_all('|(?<!\\\\)\$' . $this->_dvar_guts_regexp . '|', $var_expr, $match)) {
 			rsort($match[0]);
 			reset($match[0]);
 			foreach($match[0] as $var) {
@@ -1471,18 +1484,18 @@ class Smarty_Compiler extends Smarty {
 				
         $var_ref = substr($match[1],1);
         $modifiers = $match[2];
-				
+						
 		if(!empty($this->default_modifiers) && !preg_match('!(^|\|)smarty:nodefaults($|\|)!',$modifiers)) {
 			$_default_mod_string = implode('|',(array)$this->default_modifiers);
 			$modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
 		}
 
 		// get [foo] and .foo and ->foo() pieces			
-        preg_match_all('!(^\w+)|(?:\[\$?[\w\.]+\])|\.\$?\w+|(?:->\w+)+(?:\([^\)]*\))?!', $var_ref, $match);		
+        preg_match_all('!(?:^\w+)|(?:' . $this->_obj_ext_regexp . ')+(?:' . $this->_obj_params_regexp . ')?|(?:' . $this->_var_bracket_regexp . ')|\.\$?\w+!', $var_ref, $match);		
 		
         $indexes = $match[0];
         $var_name = array_shift($indexes);
-
+		
         /* Handle $smarty.* variable references as a special case. */
         if ($var_name == 'smarty') {
             /*
@@ -1520,11 +1533,13 @@ class Smarty_Compiler extends Smarty {
                 else
                     $output .= "['" . substr($index, 1) . "']";
             } else if (substr($index,0,2) == '->') {
-				if($this->security && substr($index,2,1) == '_') {
+				if(substr($index,2,2) == '__') {
+					$this->_syntax_error('call to internal object members is not allowed', E_USER_ERROR, __FILE__, __LINE__);
+				} elseif($this->security && substr($index,2,1) == '_') {
 					$this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
 				} else {
 					// parse each parameter to the object
-					if(preg_match('!(?:\->\w+)+(?:(' . $this->_parenth_param_regexp . '))?!', $index, $match)) {
+					if(preg_match('!(?:' . $this->_obj_ext_regexp . ')+(?:(' . $this->_obj_params_regexp . '))?!', $index, $match)) {
 						$index = str_replace($match[1], $this->_parse_parenth_args($match[1]), $index);
 					}
 					$output .= $index;
@@ -1774,7 +1789,7 @@ class Smarty_Compiler extends Smarty {
 
 			case 'const':
                 array_shift($indexes);
-				$compiled_ref = 'defined(' . substr($indexes[0],1) . ') ? ' . substr($indexes[0],1) . ' : null';
+				$compiled_ref = 'defined(\'' . substr($indexes[0],1) . '\') ? ' . substr($indexes[0],1) . ' : null';
                 break;
 
             default:
