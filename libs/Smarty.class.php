@@ -76,12 +76,12 @@ class Smarty
     var $tpl_file_ext    =  '.tpl';     // template file extention
     
     var $php_handling    =  SMARTY_PHP_PASSTHRU; // how smarty handles php tags
-                                        // possible values:
-                                        // SMARTY_PHP_PASSTHRU -> echo tags as is
-                                        // SMARTY_PHP_QUOTE    -> escape tags as entities
-                                        // SMARTY_PHP_REMOVE   -> remove php tags
-                                        // SMARTY_PHP_ALLOW    -> execute php tags
-                                        // default: SMARTY_PHP_PASSTHRU
+                                                 // possible values:
+                                                 // SMARTY_PHP_PASSTHRU -> echo tags as is
+                                                 // SMARTY_PHP_QUOTE    -> escape tags as entities
+                                                 // SMARTY_PHP_REMOVE   -> remove php tags
+                                                 // SMARTY_PHP_ALLOW    -> execute php tags
+                                                 // default: SMARTY_PHP_PASSTHRU
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
@@ -1256,13 +1256,15 @@ class Smarty
         if (!is_dir($this->plugin_dir))
             return false;
 
+        $included_files = implode(',', get_included_files());
         $dir_handle = opendir($this->plugin_dir);
         while ($entry = readdir($dir_handle)) {
             $plugin_file = $this->plugin_dir.'/'.$entry;
 
             if ($entry == '.' || $entry == '..' ||
                 !is_file($plugin_file) ||
-                substr($plugin_file, -11) != '.plugin.php')
+                substr($plugin_file, -11) != '.plugin.php' ||
+                strpos($included_files, $entry) !== false)
                 continue;
 
             unset($smarty_plugin_info);
