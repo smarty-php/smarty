@@ -1,3 +1,12 @@
+2004-09-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      switched from @count() to !empty() . this was pointed out a few times
+      by a few people with buggy error-handlers
+
+    * libs/Smarty_Compiler.class.php:
+      added some property declarations
+
 2004-09-28  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
