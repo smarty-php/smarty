@@ -1110,11 +1110,19 @@ class Smarty_Compiler extends Smarty {
             else
                 $buffer = "'default'";
 
+            if (isset($attrs['assign']))
+                $assign = $attrs['assign'];
+            else
+                $assign = null;
             $output = "<?php ob_start(); ?>";
-            $this->_capture_stack[] = $buffer;
+            $this->_capture_stack[] = array($buffer, $assign);
         } else {
-            $buffer = array_pop($this->_capture_stack);
-            $output = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ob_end_clean(); ?>";
+            list($buffer, $assign) = array_pop($this->_capture_stack);
+            $output = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ";
+            if (isset($assign)) {
+                $output .= " \$this->assign($assign, ob_get_contents());";
+            }
+            $output .= "ob_end_clean(); ?>";
         }
 
         return $output;
