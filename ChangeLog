@@ -1,3 +1,19 @@
+2003-12-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_select_date.php:
+      fix plugin-name in error message
+
+    * libs/plugins/function.html_select_time.php:
+      remove extract-call from {html_select_time}
+
+    * NEWS
+      libs/plugins/function.html_select_date.php:
+      allow single-digit days and months without smarty_make_timestamp()
+      this makes dates like "1968-11-6" work correctly since no strtotime()
+      is involved
+      
+      add warning when unknown parameter is passed
+
 2003-12-16  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
