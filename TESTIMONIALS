@@ -24,3 +24,13 @@
  so-called one because of my site but in reality I'm not a developer."
 
 			-- Luc Saint-Elie
+
+
+"I just wanted to say that I'm really impressed with Smarty. Coming
+ from an enterprise Java background I was frustrated with the lack of
+ templating APIs that existed for PHP.  While there are plenty of out of
+ the box 'tools' that existed, few were intended to be frameworks that
+ people could extend;  Smarty is an excellent example of an extensible
+ PHP application with it's pluggable functions, modifiers, etc."
+
+			-- Mark Priatel
