@@ -387,11 +387,15 @@ class Smarty_Compiler extends Smarty {
 		
         /* If the tag name is a variable or object, we process it. */
         if (preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '$!', $tag_command)) {
-            $return = $this->_parse_var_props($tag_command . $tag_modifier, $this->_parse_attrs($tag_args));
+            $_return = $this->_parse_var_props($tag_command . $tag_modifier, $this->_parse_attrs($tag_args));
 			if(isset($_tag_attrs['assign'])) {
-				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $return ); ?>\n";  
+				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $_return ); ?>\n";  
 			} else {
-            	return "<?php echo $return; ?>\n";
+				// prepend '@' if eching a variable
+				if(substr($_return, 0, 1) == '$') {
+					$_return = '@' . $_return;
+				}
+            	return "<?php echo $_return; ?>\n";
 			}
 		}
 		
@@ -1498,10 +1502,10 @@ class Smarty_Compiler extends Smarty {
                 $output = $smarty_ref;
             } else {
                 $var_name = substr(array_shift($indexes), 1);
-                $output = "@\$this->_smarty_vars['$var_name']";
+                $output = "\$this->_smarty_vars['$var_name']";
             }
         } else {
-            $output = "@\$this->_tpl_vars['$var_name']";
+            $output = "\$this->_tpl_vars['$var_name']";
         }
 		
         foreach ($indexes as $index) {			
@@ -1510,16 +1514,16 @@ class Smarty_Compiler extends Smarty {
                 if (is_numeric($index)) {
                     $output .= "[$index]";
                 } elseif ($index{0} == '$') {
-                    $output .= "[@\$this->_tpl_vars['" . substr($index, 1) . "']]";
+                    $output .= "[\$this->_tpl_vars['" . substr($index, 1) . "']]";
                 } else {
                     $parts = explode('.', $index);
                     $section = $parts[0];
                     $section_prop = isset($parts[1]) ? $parts[1] : 'index';
-                    $output .= "[@\$this->_sections['$section']['$section_prop']]";
+                    $output .= "[\$this->_sections['$section']['$section_prop']]";
                 }
             } else if ($index{0} == '.') {
                 if ($index{1} == '$')
-                    $output .= "[@\$this->_tpl_vars['" . substr($index, 2) . "']]";
+                    $output .= "[\$this->_tpl_vars['" . substr($index, 2) . "']]";
                 else
                     $output .= "['" . substr($index, 1) . "']";
             } else if (substr($index,0,2) == '->') {
