@@ -1,3 +1,14 @@
+2004-12-26  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/getting-started.xml
+      docs/fr/preface.xml:
+      typo
+
+    * docs/fr/language-defs.ent
+      docs/fr/language-snippets.ent
+      docs/fr/livedocs.ent:
+      sync with EN & typo
+
 2004-12-21  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/bookinfo.xml
