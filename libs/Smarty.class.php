@@ -1389,15 +1389,15 @@ class Smarty
                 if (!$this->_execute_core_function('fetch_template_info', $_params)) {
                     return false;
                 }
-				$template_source = $_params['template_source'];
-				$template_timestamp = $_params['template_timestamp'];
-                if ($template_timestamp <= filemtime($compile_path)) {
+				$_template_source = $_params['template_source'];
+				$_template_timestamp = $_params['template_timestamp'];
+                if ($_template_timestamp <= filemtime($compile_path)) {
                     // template not expired, no recompile
                     return true;
                 } else {
                     // compile template
-                    $this->_compile_template($tpl_file, $template_source, $template_compiled);
-					$_params = array('compile_path' => $compile_path, 'template_compiled' => $template_compiled, 'template_timestamp' => $template_timestamp);
+                    $this->_compile_template($tpl_file, $_template_source, $_template_compiled);
+					$_params = array('compile_path' => $compile_path, 'template_compiled' => $_template_compiled, 'template_timestamp' => $_template_timestamp);
 					$this->_execute_core_function('write_compiled_template', $_params);
                     return true;
                 }
@@ -1408,10 +1408,10 @@ class Smarty
             if (!$this->_execute_core_function('fetch_template_info', $_params)) {
                 return false;
             }
-			$template_source = $_params['template_source'];
-			$template_timestamp = $_params['template_timestamp'];
-            $this->_compile_template($tpl_file, $template_source, $template_compiled);
-			$_params = array('compile_path' => $compile_path, 'template_compiled' => $template_compiled, 'template_timestamp' => $template_timestamp);
+			$_template_source = $_params['template_source'];
+			$_template_timestamp = $_params['template_timestamp'];
+            $this->_compile_template($tpl_file, $_template_source, $_template_compiled);
+			$_params = array('compile_path' => $compile_path, 'template_compiled' => $_template_compiled, 'template_timestamp' => $_template_timestamp);
 			$this->_execute_core_function('write_compiled_template', $_params);
             return true;
         }
@@ -1594,7 +1594,7 @@ class Smarty
             // auto_base not found, try include_path
 			$_params = array('file_path' => $auto_base);
             $this->_execute_core_function('get_include_path', $_params);
-            $_res = $_params['new_file_path'] . DIRECTORY_SEPARATOR;
+            $_res = isset($_params['new_file_path']) ? $_params['new_file_path'] . DIRECTORY_SEPARATOR : null;
         }
         
         if(isset($auto_id)) {
