@@ -41,11 +41,11 @@ class Smarty
 
 	var $config_dir				=	"./configs";	// directory where config files are located
 
-	var $custom_tags			=	array(	'html_options'		=> 'smarty_func_html_options',
+	var $custom_funcs			=	array(	'html_options'		=> 'smarty_func_html_options',
 											'html_select_date'	=> 'smarty_func_html_select_date'
 										 );
 	
-	var $modifiers				=	array(	'lower'			=> 'strtolower',
+	var $custom_mods				=	array(	'lower'			=> 'strtolower',
 											'upper'			=> 'strtoupper',
 											'capitalize'	=> 'ucwords',
 											'escape'		=> 'smarty_mod_escape',
@@ -59,6 +59,15 @@ class Smarty
 	var $global_assign			=	array(	'SCRIPT_NAME'
 										 );
 
+	var $cache_enable			=	true;		// turn template cache on/off
+	
+	var $cache_dir				=	"";			// the directory path where
+												// cached templates are placed.
+												// if empty, uses compile directory
+	
+	var $cache_exp_time			=	3600;		// number of seconds cache is good for
+	
+	
 	// internal vars
 	var $_error_msg				=	false;		// error messages
 	var $_tpl_vars				= 	array();
@@ -455,7 +464,7 @@ class Smarty
 				return $this->_compile_insert_tag($tag_args);
 
 			default:
-				if (isset($this->custom_tags[$tag_command])) {
+				if (isset($this->custom_funcs[$tag_command])) {
 					return $this->_compile_custom_tag($tag_command, $tag_args);
 				} else
 					/* TODO syntax error: unknown tag */
@@ -467,7 +476,7 @@ class Smarty
 	function _compile_custom_tag($tag_command, $tag_args)
 	{
 		$attrs = $this->_parse_attrs($tag_args);
-		$function = $this->custom_tags[$tag_command];
+		$function = $this->custom_funcs[$tag_command];
 		foreach ($attrs as $arg_name => $arg_value) {
 			if (is_bool($arg_value))
 				$arg_value = $arg_value ? 'true' : 'false';
@@ -858,9 +867,9 @@ class Smarty
 
 	function _parse_var($var_expr)
 	{
-		$modifiers = explode('|', substr($var_expr, 1));
+		$custom_mods = explode('|', substr($var_expr, 1));
 
-		$sections = explode('/', array_shift($modifiers));
+		$sections = explode('/', array_shift($custom_mods));
 		$var_name = array_pop($sections);
 
 		$output = "\$$var_name";
@@ -869,42 +878,42 @@ class Smarty
 			$output .= "[\$_sections['$section']['properties']['index']]";
 		}
 
-		$this->_parse_modifiers($output, $modifiers);
+		$this->_parse_modifiers($output, $custom_mods);
 
 		return $output;
 	}
 
 	function _parse_conf_var($conf_var_expr)
 	{
-		$modifiers = explode('|', $conf_var_expr);
+		$custom_mods = explode('|', $conf_var_expr);
 
-		$var_name = substr(array_shift($modifiers), 1, -1);
+		$var_name = substr(array_shift($custom_mods), 1, -1);
 
 		$output = "\$_config['$var_name']";
 
-		$this->_parse_modifiers($output, $modifiers);
+		$this->_parse_modifiers($output, $custom_mods);
 
 		return $output;
 	}
 
 	function _parse_section_prop($section_prop_expr)
 	{
-		$modifiers = explode('|', $section_prop_expr);
+		$custom_mods = explode('|', $section_prop_expr);
 
-		preg_match('!%(\w+)\.(\w+)%!', array_shift($modifiers), $match);
+		preg_match('!%(\w+)\.(\w+)%!', array_shift($custom_mods), $match);
 		$section_name = $match[1];
 		$prop_name = $match[2];
 
 		$output = "\$_sections['$section_name']['properties']['$prop_name']";
 
-		$this->_parse_modifiers($output, $modifiers);
+		$this->_parse_modifiers($output, $custom_mods);
 
 		return $output;
 	}
 
-	function _parse_modifiers(&$output, $modifiers)
+	function _parse_modifiers(&$output, $custom_mods)
 	{
-		foreach ($modifiers as $modifier) {
+		foreach ($custom_mods as $modifier) {
 			$modifier = explode(':', $modifier);
 			$modifier_name = array_shift($modifier);
 
@@ -918,7 +927,7 @@ class Smarty
 			 * First we lookup the modifier function name in the registered
 			 * modifiers table.
 			 */
-			$mod_func_name = $this->modifiers[$modifier_name];
+			$mod_func_name = $this->custom_mods[$modifier_name];
 
 			/*
 			 * If we don't find that modifier there, we assume it's just a PHP
