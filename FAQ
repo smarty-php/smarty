@@ -140,6 +140,9 @@ A: The easiest thing to do is grab all of PEAR and install it locally for your
    directory. There won't be a version of Smarty that runs without PEAR, as it
    dependant on it, and may become moreso in the future.
 
+Q: Javascript is causing Smarty errors in my templates.
+A: Surround your javascript with {literal}{/literal} tags. See the docs.
+
 DREAMWEAVER
 -----------
 

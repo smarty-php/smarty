@@ -116,12 +116,13 @@ class Smarty
     
     var $security       =   false;      // enable template security (default false)
     var $secure_dir     =   array('./templates'); // array of directories considered secure
+    var $secure_ext     =   array('.tpl'); // array of file extentions considered secure
     var $security_settings  = array(
                                     'PHP_HANDLING'    => false,
                                     'IF_FUNCS'        => array('array', 'list',
                                                                'isset', 'empty',
                                                                'count', 'sizeof',
-                                                               'in_array'),
+                                                               'in_array','is_array'),
                                     'INCLUDE_ANY'     => false,
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count')
@@ -193,6 +194,7 @@ class Smarty
     var $_extract              =   false;      // flag for custom functions
     var $_included_tpls        =   array();    // list of run-time included templates
     var $_inclusion_depth      =   0;          // current template inclusion depth
+    var $_smarty_debug_id      =   'SMARTY_DEBUG'; // id in query string to turn on debug mode
     
 
 /*======================================================================*\
@@ -200,7 +202,7 @@ class Smarty
     Purpose:  Constructor
 \*======================================================================*/
     function Smarty()
-    {
+    {		
         foreach ($this->global_assign as $key => $var_name) {
             if (is_array($var_name)) {
                 foreach ($var_name as $var) {
@@ -599,10 +601,10 @@ class Smarty
             $this->_write_file($cache_file, $results, true);
             $results = $this->_process_cached_inserts($results);
         }
-
+		
         if ($display) {
             if (isset($results)) { echo $results; }
-            if ($this->debugging || ($this->debugging_ctrl == 'URL' && (!empty($QUERY_STRING) && strstr('SMARTY_DEBUG',$QUERY_STRING)))) { echo $this->_generate_debug_output(); }
+            if ($this->debugging || ($this->debugging_ctrl == 'URL' && (!empty($QUERY_STRING) && strstr($QUERY_STRING,$this->_smarty_debug_id)))) { echo $this->_generate_debug_output(); }
             return;
         } else {
             if (isset($results)) { return $results; }
@@ -773,7 +775,15 @@ function _generate_debug_output() {
                     // relative pathname to $template_dir
                     $resource_name = $this->template_dir.'/'.$resource_name;   
                 }
+                if (file_exists($resource_name) && is_readable($resource_name)) {
+                    $template_source = $this->_read_file($resource_name);
+                    $template_timestamp = filemtime($resource_name);
+                } else {
+                    $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
+                    return false;
+                }
                 // if security is on, make sure template comes from a $secure_dir
+				
                 if ($this->security && !$this->security_settings['INCLUDE_ANY']) {
                     $resource_is_secure = false;
                     foreach ($this->secure_dir as $curr_dir) {
@@ -786,14 +796,6 @@ function _generate_debug_output() {
                         $this->_trigger_error_msg("(secure mode) including \"$resource_name\" is not allowed");
                         return false;
                     }               
-                }
-                if (file_exists($resource_name) && is_readable($resource_name)) {
-                    $template_source = $this->_read_file($resource_name);
-                    $template_timestamp = filemtime($resource_name);
-                    return true;
-                } else {
-                    $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
-                    return false;
                 }
                 break;
             default:
@@ -843,6 +845,7 @@ function _generate_debug_output() {
         $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
         $smarty_compiler->security          = $this->security;
         $smarty_compiler->secure_dir        = $this->secure_dir;
+        $smarty_compiler->secure_ext        = $this->secure_ext;
         $smarty_compiler->security_settings = $this->security_settings;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
