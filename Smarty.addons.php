@@ -8,6 +8,26 @@
  *
  */
 
+/*============================================*\
+  Modifiers
+\*============================================*/
+
+function _smarty_mod_handler()
+{
+	$args = func_get_args();
+	$func_name = array_shift($args);
+	$var = $args[0];
+
+	if (is_array($var)) {
+		foreach ($var as $key => $val) {
+			$args[0] = $val;
+			$var[$key] = call_user_func_array($func_name, $args);
+		}
+		return $var;
+	} else
+		return call_user_func_array($func_name, $args);
+}
+
 
 /*======================================================================*\
 	Function: smarty_mod_escape
@@ -55,17 +75,31 @@ function smarty_mod_spacify($string, $spacify_char = ' ')
 }
 
 
+function smarty_mod_date_format($string, $format)
+{
+	return strftime($format, $string);
+}
+
+
+function smarty_mod_replace($string, $search, $replace)
+{
+	return str_replace($search, $replace, $string);
+}
+
+
 /*============================================*\
   Custom tag functions
 \*============================================*/
 
 /*======================================================================*\
 	Function: smarty_func_html_options
-	Purpose:  Returns the list of <option> tags generated from
+	Purpose:  Prints the list of <option> tags generated from
 			  the passed parameters
 \*======================================================================*/
 function smarty_func_html_options()
 {
+	$print_result = true;
+
 	extract(func_get_arg(0));
 
 	settype($output, 'array');
@@ -86,6 +120,76 @@ function smarty_func_html_options()
 		if (in_array($sel_check, $selected))
 			$html_result .= " selected";
 		$html_result .= ">".$output[$i]."</option>\n";
+	}
+
+	if ($print_result)
+		print $html_result;
+	else
+		return $html_result;
+}
+
+
+/*======================================================================*\
+	Function: smarty_func_html_select_date
+	Purpose:  Prints the dropdowns for date selection.
+\*======================================================================*/
+function smarty_func_html_select_date()
+{
+	/* Default values. */
+	$prefix 		= "Date_";
+	$time 			= time();
+	$start_year		= strftime("%Y");
+	$end_year		= $start_year;
+	$display_days	= true;
+	$display_months	= true;
+	$display_years	= true;
+	$month_format	= "%B";
+	$day_format		= "%02d";
+	$year_as_text	= false;
+	
+	extract(func_get_arg(0));
+
+	$html_result = "";
+
+	if ($display_months) {
+		$month_names = array();
+
+		for ($i = 1; $i <= 12; $i++)
+			$month_names[] = strftime($month_format, mktime(0, 0, 0, $i, 1, 2000));
+
+		$html_result .= '<select name="'.$date_prefix.'Month">'."\n";
+		$html_result .= smarty_func_html_options(array('output'		=> $month_names,
+													   'values'		=> range(1, 12),
+													   'selected'	=> strftime("%m", $time),
+													   'print_result' => false));
+		$html_result .= "</select>\n";
+	}
+
+	if ($display_days) {
+		$days = range(1, 31);
+		array_walk($days, create_function('&$x', '$x = sprintf("'.$day_format.'", $x);'));
+
+		$html_result .= '<select name="'.$date_prefix.'Day">'."\n";
+		$html_result .= smarty_func_html_options(array('output'		=> $days,
+													   'values'		=> range(1, 31),
+													   'selected'	=> strftime("%d", $time),
+													   'print_result' => false));
+		$html_result .= "</select>\n";
+	}
+
+	if ($display_years) {
+		if ($year_as_text) {
+			$html_result .= '<input type="text" name="'.$date_prefix.'Year" value="'.strftime('%Y', $time).'" size="4" maxlength="4">';
+		} else {
+			$years = range($start_year, $end_year);
+
+			$html_result .= '<select name="'.$date_prefix.'Year">'."\n";
+			$html_result .= smarty_func_html_options(array('output'	=> $years,
+														   'values'	=> $years,
+														   'selected'	=> strftime("%Y", $time),
+														   'print_result' => false));
+			$html_result .= "</select>\n";
+		}
 	}
 
 	print $html_result;

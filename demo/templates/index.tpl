@@ -1,11 +1,11 @@
-{config_load file=test.conf section=my foo}
+{config_load file=test.conf section="my foo"}
 
 Title: {#title#|capitalize}
 
 {$SCRIPT_NAME}
 
 {* A simple variable test *}
-hello, my name is {$Name}
+hello, my name is {$Name|upper}
 
 My interests are:
 {section name=outer loop=$FirstName}
@@ -18,4 +18,4 @@ My interests are:
 	none
 {/section}
 
-{html_options output=$FirstName values=$LastName selected="Case"}
+{html_options values=$LastName output=$FirstName|replace:"a":"@"}

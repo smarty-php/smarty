@@ -41,7 +41,8 @@ class Smarty
 
 	var $config_dir				=	"./configs";	// directory where config files are located
 
-	var $custom_tags			=	array(	'html_options'	=> 'smarty_func_html_options'
+	var $custom_tags			=	array(	'html_options'		=> 'smarty_func_html_options',
+											'html_select_date'	=> 'smarty_func_html_select_date'
 										 );
 	
 	var $modifiers				=	array(	'lower'			=> 'strtolower',
@@ -49,7 +50,9 @@ class Smarty
 											'capitalize'	=> 'ucwords',
 											'escape'		=> 'smarty_mod_escape',
 											'truncate'		=> 'smarty_mod_truncate',
-											'spacify'		=> 'smarty_mod_spacify'
+											'spacify'		=> 'smarty_mod_spacify',
+											'date_format'	=> 'smarty_mod_date_format',
+											'replace'		=> 'smarty_mod_replace'
 										 );
 	var $global_assign			=	array(	'SCRIPT_NAME'
 										 );
@@ -362,7 +365,8 @@ class Smarty
 		/* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
 		if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_contents, $match)) {
 			$strip_tags = $match[0];
-			$strip_tags_modified = preg_replace("!$ldq/?strip$rdq|[\t ]+$|^[\t ]+|/[\r\n]+!m", '', $strip_tags);
+			$strip_tags_modified = preg_replace("!$ldq/?strip$rdq|[\t ]+$|^[\t ]+!m", '', $strip_tags);
+			$strip_tags_modified = preg_replace('![\r\n]+!m', ' ', $strip_tags_modified);
 			for ($i = 0; $i < count($strip_tags); $i++)
 				$compiled_contents = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
 												  $strip_tags_modified[$i], $compiled_contents, 1);
@@ -402,6 +406,9 @@ class Smarty
 
 			case 'else':
 				return '<?php else: ?>';
+
+			case 'elseif':
+				return $this->_compile_if_tag($tag_args, true);
 
 			case '/if':
 				return '<?php endif; ?>';
@@ -451,10 +458,13 @@ class Smarty
 	{
 		$attrs = $this->_parse_attrs($tag_args);
 		$function = $this->custom_tags[$tag_command];
-		foreach ($attrs as $arg_name => $arg_value)
+		foreach ($attrs as $arg_name => $arg_value) {
+			if (is_bool($arg_value))
+				$arg_value = $arg_value ? 'true' : 'false';
 			$arg_list[] = "'$arg_name' => $arg_value";
+		}
 
-		return "<?php $function(array(".implode(',', $arg_list).")); ?>";
+		return "<?php $function(array(".implode(',', (array)$arg_list).")); ?>";
 	}
 
 
@@ -493,9 +503,9 @@ class Smarty
 		return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'"; ?>';
 	}
 
-	function _compile_section_start($tokens)
+	function _compile_section_start($tag_args)
 	{
-		$attrs = $this->_parse_attrs($tokens);
+		$attrs = $this->_parse_attrs($tag_args);
 
 		$output = "<?php\n";
 		$section_name = $attrs['name'];
@@ -509,11 +519,7 @@ class Smarty
 		foreach ($attrs as $attr_name => $attr_value) {
 			switch ($attr_name) {
 				case 'loop':
-					$output .= "
-						if (is_array($attr_value))
-							{$section_props}['loop'] = count($attr_value);
-						else
-							{$section_props}['loop'] = $attr_value;\n";
+					$output .= "{$section_props}['loop'] = count($attr_value);\n";
 					break;
 
 				default:
@@ -544,7 +550,7 @@ class Smarty
 		return $output;
 	}
 
-	function _compile_if_tag($tag_args)
+	function _compile_if_tag($tag_args, $elseif = false)
 	{
 		/* Tokenize args for 'if' tag. */
 		preg_match_all('/(?:
@@ -638,7 +644,10 @@ class Smarty
 			}
 		}
 
-		return '<?php if ('.implode(' ', $tokens).'): ?>';
+		if ($elseif)
+			return '<?php elseif ('.implode(' ', $tokens).'): ?>';
+		else
+			return '<?php if ('.implode(' ', $tokens).'): ?>';
 	}
 
 	function _parse_is_expr($is_arg, $tokens)
@@ -694,15 +703,13 @@ class Smarty
 	function _parse_attrs($tag_args)
 	{
 		/* Tokenize tag attributes. */
-		preg_match_all('/(?:
-						 "[^"\\\\]*(?:\\\\.[^"\\\\]*)*" 		| # match all double quoted strings allowed escaped double quotes
-						 \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'		| # match all single quoted strings allowed escaped single quotes
-						 [=]									| # match equal sign
-						 [^"\'\s=]+							 	  # match any other token that is not any of the above
-						)/x', $tag_args, $match);
+		preg_match_all('/(?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"       | 
+						  \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     | (?>[^"\'= ]+)
+						 )+ |
+						 [=]
+					    /x', $tag_args, $match);
 		$tokens = $match[0];
 
-		$this->_parse_vars_props($tokens);
 		$attrs = array();
 		/* Parse state:
 		   	0 - expecting attr name
@@ -729,27 +736,30 @@ class Smarty
 					   current token and don't switch state.
 
 					   If the token is '=', then we go to state 2. */
-					if (preg_match('!\w+!', $token)) {
-						$attrs[$attr_name] = "";
-						$attr_name = $token;
-					} else if ($token == '=') {
+					if ($token == '=') {
 						$state = 2;
 					} else
-						/* TODO syntax error: expecting attr name or '=' */;
+						/* TODO syntax error: expecting '=' */;
 					break;
 
 				case 2:
 					/* If token is not '=', we set the attribute value and go to
 					   state 0. */
 					if ($token != '=') {
-						/* If the token is not variable (doesn't start with '$')
-						   and not enclosed in single or double quotes
-						   we single-quote it. */
-						if ($token{0} != '$' &&
-							!(($token{0} == '"' || $token[0] == "'") &&
-							$token{strlen($token)-1} == $token{0})) {
+						/* We booleanize the token if it's a non-quoted possible
+						   boolean value. */
+						if (preg_match('!^(on|yes|true)$!', $token))
+							$token = true;
+						else if (preg_match('!^(off|no|false)$!', $token))
+							$token = false;
+						/* If the token is not variable (doesn't start with
+						   '$', '#', or '%') and not enclosed in single or
+						   double quotes we single-quote it. */
+						else if (!in_array($token{0}, array('$', '#', '%')) &&
+								 !(($token{0} == '"' || $token[0] == "'") &&
+								 $token{strlen($token)-1} == $token{0}))
 							$token = "'".$token."'";
-						}
+
 						$attrs[$attr_name] = $token;
 						$state = 0;
 					} else
@@ -757,6 +767,8 @@ class Smarty
 					break;
 			}
 		}
+
+		$this->_parse_vars_props($attrs);
 
 		return $attrs;
 	}
@@ -859,7 +871,7 @@ class Smarty
 			else
 				$modifier_args = '';
 
-			$output = "$mod_func_name($output$modifier_args)";
+			$output = "_smarty_mod_handler('$mod_func_name', $output$modifier_args)";
 		}
 	}
 	
