@@ -122,16 +122,16 @@
      <title>embedded quotes syntax</title>
      <programlisting>
 SYNTAX EXAMPLES:
-{func var="test $foo test"}       &lt-- sees $foo
-{func var="test $foo_bar test"}   &lt-- sees $foo_bar
-{func var="test $foo[0] test"}    &lt-- sees $foo[0]
-{func var="test $foo[bar] test"}  &lt-- sees $foo[bar]
-{func var="test $foo.bar test"}   &lt-- sees $foo (not $foo.bar)
-{func var="test `$foo.bar` test"} &lt-- sees $foo.bar
+{func var="test $foo test"}       &lt;-- sees $foo
+{func var="test $foo_bar test"}   &lt;-- sees $foo_bar
+{func var="test $foo[0] test"}    &lt;-- sees $foo[0]
+{func var="test $foo[bar] test"}  &lt;-- sees $foo[bar]
+{func var="test $foo.bar test"}   &lt;-- sees $foo (not $foo.bar)
+{func var="test `$foo.bar` test"} &lt;-- sees $foo.bar
 
 PRACTICAL EXAMPLES:
-{include file="subdir/$tpl_name.tpl"} &lt-- will replace $tpl_name with value
-{cycle values="one,two,`$smarty.config.myval`"} &lt-- must have backticks</programlisting>
+{include file="subdir/$tpl_name.tpl"} &lt;-- will replace $tpl_name with value
+{cycle values="one,two,`$smarty.config.myval`"} &lt;-- must have backticks</programlisting>
 </example>
 		</sect1>
 

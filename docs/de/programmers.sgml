@@ -390,20 +390,6 @@
     Normalerweise '}'.
    </para>
   </sect1>
-  <sect1 id="variable.show.info.header">
-   <title>$show_info_header</title>
-   <para>
-    Gibt am Anfang der HTML-Seite die Smarty Version und das Kompilier-Datum des Templates
-    als Kommentar aus. Normalerweise 'false'.
-   </para>
-  </sect1>
-  <sect1 id="variable.show.info.include">
-   <title>$show_info_include</title>
-   <para>
-    Gibt am Anfang und am Ende jedes eingebundenen Templates einen HTML-Kommentar aus.
-    Normalerweise 'false'.
-   </para>
-  </sect1>
   <sect1 id="variable.compiler.class">
    <title>$compiler_class</title>
    <para>
@@ -461,12 +447,27 @@
      <paramdef>string <parameter>varname</parameter></paramdef>
      <paramdef>mixed <parameter>var</parameter></paramdef>
     </funcprototype>
+    <funcprototype>
+     <funcdef>void <function>append</function></funcdef>
+     <paramdef>string <parameter>varname</parameter></paramdef>
+     <paramdef>mixed <parameter>var</parameter></paramdef>
+     <paramdef>boolean <parameter>merge</parameter></paramdef>
+    </funcprototype>
    </funcsynopsis>
    <para>
     Wird verwendet, um an Template-Variablen weitere Daten anzuh&auml;ngen. Sie
     k&ouml;nnen entweder ein Namen/Wert-Paar oder assoziative Arrays,
-    die mehrere Namen/Wert-Paare enthalten, &uuml;bergeben.
+    die mehrere Namen/Wert-Paare enthalten, &uuml;bergeben. Wenn Sie als dritten Parameter
+    'true' &uuml;bergeben werden die beiden Arrays zusammengef&uuml;gt.
    </para>
+   <note>
+    <title>Technical Note</title>
+    <para>
+    Der Parameter 'merge' &uuml;berschreibt bestehende Schl&uuml;ssel, falls
+    im zweiten Array die selben Schl&uuml;ssel wie im ersten vorkommen.
+    Diese Funktion ist ungelich 'array_merge()' aus PHP.
+    </para>
+   </note>
    <example>
     <title>append (anh&auml;ngen)</title>
     <programlisting>
@@ -487,20 +488,27 @@
      <paramdef>string <parameter>varname</parameter></paramdef>
      <paramdef>mixed <parameter>var</parameter></paramdef>
     </funcprototype>
+    <funcprototype>
+     <funcdef>void <function>append_by_ref</function></funcdef>
+     <paramdef>string <parameter>varname</parameter></paramdef>
+     <paramdef>mixed <parameter>var</parameter></paramdef>
+     <paramdef>boolean <parameter>merge</parameter></paramdef>
+    </funcprototype>
    </funcsynopsis>
    <para>
     Wird verwendet, um an Template-Variablen Werte via Referenz (pass by reference) anstatt via Kopie
-    anzuh&auml;ngen. Konsultieren Sie das PHP-Manual zum Thema 'variable referencing'
-    f&uuml;r weitere Erkl&auml;rungen.
+    anzuh&auml;ngen. Wenn Sie eine Variable via Referenz anh&auml;ngen und sie nachtr&auml;glich
+    ge&auml;ndert wird, wird auch der angeh&auml;ngte Wert ge&auml;ndert. Bei Objekten kann so
+    das kopieren derselben vermieden werden. Konsultieren Sie das PHP-Manual betreffend Variablenreferenzierung
+    f&uuml;r weitere Erkl&auml;rungen. Wenn Sie als dritten Parameter 'true' &uuml;bergeben wird das anzuh&auml;ngende Array
+    mit dem bestehenden zusammengef&uml;gt.
    </para>
    <note>
     <title>Technische Bemerkung</title>
     <para>
-     'append_by_ref()' ist effizienter als 'append()', da keine Kopie der Variable
-     erzeugt, sondern auf die Variable im Speicher referenziert wird. Beachten Sie
-     dabei, dass eine nachtr&auml;gliche &auml;nderung Original-Variable auch die zugewiesene Variable
-     &auml;ndert. PHP5 wird die Referenzierung automatisch &uuml;bernehmen, diese
-     Funktion dient als Workaround.
+    Der Parameter 'merge' &uuml;berschreibt bestehende Schl&uuml;ssel, falls
+    im zweiten Array die selben Schl&uuml;ssel wie im ersten vorkommen.
+    Diese Funktion ist ungelich 'array_merge()' aus PHP.
     </para>
    </note>
    <example>
@@ -559,11 +567,11 @@
    <note>
     <title>Technical Note</title>
     <para>
-     'assign_by_ref()' ist effizienter als 'assign()', da keine Kopie der Variable
-     erzeugt wird, sondern auf die Variable im Speicher referenziert wird. Beachten Sie
-     dabei, dass eine nachtr&auml;gliche &auml;nderung Original-Variable auch die zugewiesene Variable
-     &auml;ndert. PHP5 wird die Referenzierung automatisch &uuml;bernehmen, diese
-     Funktion dient als Workaround.
+    Wird verwendet, um an Template-Variablen Werte via Referenz (pass by reference) anstatt via Kopie
+    anzuh&auml;ngen. Wenn Sie eine Variable via Referenz anh&auml;ngen und sie nachtr&auml;glich
+    ge&auml;ndert wird, wird auch der angeh&auml;ngte Wert ge&auml;ndert. Bei Objekten kann so
+    das kopieren derselben vermieden werden. Konsultieren Sie das PHP-Manual betreffend Variablenreferenzierung
+    f&uuml;r weitere Erkl&auml;rungen.
     </para>
    </note>
    <example>
@@ -845,27 +853,80 @@
      echo $output;</programlisting>
    </example>
   </sect1>
+  <sect1 id="api.get.config.vars">
+   <title>get_config_vars</title>
+   <funcsynopsis>
+    <funcprototype>
+    <funcdef>array <function>get_config_vars</function></funcdef>
+     <paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
+    </funcprototype>
+   </funcsynopsis>
+   <para>
+    Gibt die definierte Variable aus einer Konfigurationsdatei zur&uuml;ck,
+    wenn kein Parameter &uuml;bergeben wird, wird ein Array aller Variablen
+    zur&uuml;ckgegeben.
+   </para>
+ <example>
+ <title>get_config_vars</title>
+ <programlisting>
+ // Vriable 'foo' aus Konfigurationsdatei lesen
+ $foo = $smarty->get_config_vars('foo');
+
+ // alle Variablen aus der Konfigurationsdatei lesen
+ $config_vars = $smarty->get_config_vars();
+
+ // ausgeben
+ print_r($config_vars);</programlisting>
+ </example>
+               </sect1>
+               <sect1 id="api.get.registered.object">
+                       <title>get_registered_object</title>
+                       <funcsynopsis>
+                       <funcprototype>
+                       <funcdef>array <function>get_registered_object</function></funcdef>
+                               <paramdef>string <parameter>object_name</parameter></paramdef>
+                       </funcprototype>
+                       </funcsynopsis>
+                       <para>
+                               This returns a reference to a registered object. This is useful
+                               from within a custom function when you need direct access to a
+                               registered object.
+                       </para>
+ <example>
+ <title>get_registered_object</title>
+ <programlisting>
+ function smarty_block_foo($params, &amp;$smarty) {
+       if (isset[$params['object']]) {
+               // get reference to registered object
+               $obj_ref =&amp; $smarty->&amp;get_registered_object($params['object']);
+               // use $obj_ref is now a reference to the object
+       }
+ }</programlisting>
+ </example>
+  </sect1>
   <sect1 id="api.get.template.vars">
    <title>get_template_vars (Template-Variablen extrahieren)</title>
    <funcsynopsis>
     <funcprototype>
      <funcdef>array <function>get_template_vars</function></funcdef>
-     <paramdef><parameter></parameter></paramdef>
+     <paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
    <para>
-    Gibt ein Array der zugewiesenen Template-Variablen zur&uuml;ck.
+   Gibt den Wert der &uuml;bergebenen Template-Variable zur&uuml;ck. Wenn kein Parameter
+   &uuml;bergeben wird, besteht die R&uuml;ckgabe aus einem Array aller zugewiesener Variablen.
    </para>
    <example>
     <title>get_template_vars (Template-Variablen extrahieren)</title>
     <programlisting>
+ // Template-Variable 'foo' extrahieren
+ $foo = $smarty->get_template_vars('foo');
+  
+ // alle zugewiesenen Template-Variablen extrahieren
+ $tpl_vars = $smarty->get_template_vars();
      
-     // alle zugewiesenen Template-Variablen extrahieren
-     $tpl_vars = $smarty->get_template_vars();
-     
-     
-     // Anschauen
-     var_dump($tpl_vars);</programlisting>
+ // Anschauen
+ print_r($tpl_vars);</programlisting>
    </example>
   </sect1>
   <sect1 id="api.is.cached">
