@@ -1651,10 +1651,10 @@ class Smarty
             if (!empty($this->default_template_handler_func)) {
                 if (!function_exists($this->default_template_handler_func)) {
                     $this->trigger_error("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
-                    $_return = false;
-                }
-                $funcname = $this->default_template_handler_func;
-                $_return = $funcname($resource_type, $resource_name, $template_source, $template_timestamp, $this);
+                } else {
+                	$funcname = $this->default_template_handler_func;
+                	$_return = $funcname($resource_type, $resource_name, $template_source, $template_timestamp, $this);
+				}
             }
         }
 
