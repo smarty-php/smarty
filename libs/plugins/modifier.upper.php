@@ -19,7 +19,7 @@
  */
 function smarty_modifier_upper($string)
 {
-	return strtoupper($string);
+    return strtoupper($string);
 }
 
 ?>

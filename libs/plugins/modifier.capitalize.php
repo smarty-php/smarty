@@ -19,7 +19,7 @@
  */
 function smarty_modifier_capitalize($string)
 {
-	return ucwords($string);
+    return ucwords($string);
 }
 
 ?>
