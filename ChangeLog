@@ -1,3 +1,13 @@
+2002-04-05  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty_Compiler.class.php
+      NEWS
+      Smarty.class.php: Make it possible to unregister pre/postfilter plugins.
+
+2002-04-05  Monte Ohrt  <monte@ispi.net>
+
+    * INSTALL: Remove addons file from INSTALL instructions
+
 2002-04-04  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml: update doc error
