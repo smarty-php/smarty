@@ -2987,7 +2987,7 @@ OUTPUT:
 
 &lt;select name=customer_id&gt;
 	&lt;option value="1000">Joe Schmoe&lt;option&gt;
-	&lt;option value="1001" selected>Jack Smith&lt;option&gt;
+	&lt;option value="1001" selected="selected">Jack Smith&lt;option&gt;
 	&lt;option value="1002">Jane Johnson&lt;option&gt;
 	&lt;option value="1003">Charlie Brown&lt;option&gt;
 &lt;/select&gt;</programlisting>
