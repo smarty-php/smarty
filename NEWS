@@ -1,5 +1,5 @@
     - added assign_by_ref() and append_by_ref() functions
-      (Monte)
+      (Bob Silva, Monte)
     - changed default warning type for plugin errors from
       E_USER_WARNING to E_USER_ERROR (Monte)
     - added $all_extra, $hour_extra, $minute_extra,
