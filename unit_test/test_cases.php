@@ -201,6 +201,9 @@ class SmartyTest extends PHPUnit_TestCase {
     function test_clear_config_method_exists() {
         $this->assertTrue(method_exists($this->smarty, 'clear_config'));
     }
+    function test_get_plugin_filepath() {
+        $this->assertTrue(method_exists($this->smarty, '_get_plugin_filepath'));
+    }
     
     /* DISPLAY TESTS */
     
@@ -245,6 +248,66 @@ class SmartyTest extends PHPUnit_TestCase {
         // test that it is assigned
         $this->assertEquals($this->smarty->_config[0]['vars']['foo'], 'bar');
     }
+
+    // test loading and running modifier.escape.php
+    function test_escape_modifier_get_plugins_filepath() {
+        $filepath = $this->smarty->_get_plugin_filepath('modifier', 'escape');
+        $this->assertEquals((bool)$filepath, true);
+    }
+
+    function test_escape_modifier_include_file() {
+        $filepath = $this->smarty->_get_plugin_filepath('modifier', 'escape');
+        $success = include $filepath;
+        $this->assertEquals((bool)$success, true);
+    }
+
+    function test_escape_modifier_function_exists() {
+        $this->assertEquals(function_exists('smarty_modifier_escape'), true);
+    }
+
+    function test_escape_modifier_escape_default() {
+        $string = smarty_modifier_escape("<html><body></body></html>");
+        $this->assertEquals('&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;',
+                            $string);
+    }
+
+    function test_escape_modifier_escape_html() {
+        $string = smarty_modifier_escape("<html><body></body></html>", 'html');
+        $this->assertEquals('&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;',
+                            $string);
+    }
+
+    function test_escape_modifier_escape_htmlall() {
+        $string = smarty_modifier_escape("<html><body></body></html>", 'htmlall');
+        $this->assertEquals('&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;',
+                            $string);
+    }
+
+    function test_escape_modifier_escape_url() {
+        $string = smarty_modifier_escape("http://test.com?foo=bar", 'url');
+        $this->assertEquals('http%3A%2F%2Ftest.com%3Ffoo%3Dbar', $string);
+    }
+
+    function test_escape_modifier_escape_quotes() {
+        $string = smarty_modifier_escape("'\\'\\''", 'quotes');
+        $this->assertEquals("\\'\\'\\'\\'", $string);
+    }
+
+    function test_escape_modifier_escape_hex() {
+        $string = smarty_modifier_escape("abcd", 'hex');
+        $this->assertEquals('%61%62%63%64', $string);
+    }
+
+    function test_escape_modifier_escape_hexentity() {
+        $string = smarty_modifier_escape("ABCD", 'hexentity');
+        $this->assertEquals('&#x41;&#x42;&#x43;&#x44;', $string);
+    }
+
+    function test_escape_modifier_escape_javascript() {
+        $string = smarty_modifier_escape("\r\n\\", 'javascript');
+        $this->assertEquals('\\r\\n\\\\', $string);
+    }
+
     
   }
 ?>
