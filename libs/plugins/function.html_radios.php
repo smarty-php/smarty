@@ -103,14 +103,14 @@ function smarty_function_html_radios($params, &$smarty)
 
     $_html_result = array();
 
-    if (isset($options) && is_array($options)) {
+    if (isset($options))) {
 
-        foreach ((array)$options as $_key=>$_val)
+        foreach ($options as $_key=>$_val)
             $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
 
     } else {
 
-        foreach ((array)$values as $_i=>$_key) {
+        foreach ($values as $_i=>$_key) {
             $_val = isset($output[$_i]) ? $output[$_i] : '';
             $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
         }

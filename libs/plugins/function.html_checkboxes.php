@@ -101,7 +101,7 @@ function smarty_function_html_checkboxes($params, &$smarty)
     settype($selected, 'array');
     $_html_result = array();
 
-    if (is_array($options)) {
+    if (isset($options)) {
 
         foreach ($options as $_key=>$_val)
             $_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
