@@ -1,3 +1,8 @@
+2004-11-21  Mehdi Achour  <didou@keliglia.com>
+
+    * docs/fr/livedocs.ent:
+      add livedocs specific entities files
+
 2004-11-16  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_checkboxes.php
