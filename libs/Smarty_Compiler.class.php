@@ -987,7 +987,7 @@ class Smarty_Compiler extends Smarty {
                            '$', '#', or '%') and not enclosed in single or
                            double quotes we single-quote it. */
                         else if ($quote && !in_array($token{0}, $var_delims) &&
-                                 !(($token{0} == '"' || $token[0] == "'") &&
+                                 !(($token{0} == '"' || $token{0} == "'") &&
                                  $token{strlen($token)-1} == $token{0}))
                             $token = '"'.$token.'"';
 
