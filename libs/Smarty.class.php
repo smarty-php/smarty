@@ -523,33 +523,30 @@ class Smarty
         /* TODO: speed up the following with preg_replace and /F once we require that version of PHP */
         
         /* loop through text blocks */
-        for($curr_tb = 0; $curr_tb <= count($text_blocks); $curr_tb++) {
+        for ($curr_tb = 0; $curr_tb <= count($text_blocks); $curr_tb++) {
             /* match anything within <? ?> */
-            if(preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)!is',$text_blocks[$curr_tb],$sp_match)) {
+            if (preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)!is', $text_blocks[$curr_tb], $sp_match)) {
                 /* found at least one match, loop through each one */
-                for($curr_sp = 0; $curr_sp < count($sp_match[0]); $curr_sp++) {
-                    if(preg_match("!^(<\?(php\s|\s|=\s)|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!is",$sp_match[0][$curr_sp])) {
+                for ($curr_sp = 0; $curr_sp < count($sp_match[0]); $curr_sp++) {
+                    if (preg_match('!^(<\?(php\s|\s|=\s)|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!is', $sp_match[0][$curr_sp])) {
                         /* php tag */
-                        if($this->php_handling == SMARTY_PHP_PASSTHRU) {
+                        if ($this->php_handling == SMARTY_PHP_PASSTHRU) {
                             /* echo php contents */
-                            $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],'<?php echo \''.str_replace("'","\'",$sp_match[0][$curr_sp]).'\'; ?>'."\n",$text_blocks[$curr_tb]);
-                       }                    
-                        elseif($this->php_handling == SMARTY_PHP_QUOTE) {
+                            $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp], '<?php echo \''.str_replace("'", "\'", $sp_match[0][$curr_sp]).'\'; ?>'."\n", $text_blocks[$curr_tb]);
+                       } else if ($this->php_handling == SMARTY_PHP_QUOTE) {
                             /* quote php tags */
-                            $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],htmlspecialchars($sp_match[0][$curr_sp]), $text_blocks[$curr_tb]);
-                        }                    
-                        elseif($this->php_handling == SMARTY_PHP_REMOVE) {
+                            $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp], htmlspecialchars($sp_match[0][$curr_sp]), $text_blocks[$curr_tb]);
+                        } else if ($this->php_handling == SMARTY_PHP_REMOVE) {
                             /* remove php tags */
-                            if(substr($sp_match[0][$curr_sp],0,2) == "<?")
-                                $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],"", $text_blocks[$curr_tb]);
+                            if (substr($sp_match[0][$curr_sp], 0, 2) == '<?')
+                                $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp], '', $text_blocks[$curr_tb]);
                             else
                                 /* attempt to remove everything between <script ...> and </script> */
-                                $text_blocks[$curr_tb] = preg_replace("/".preg_quote($sp_match[0][$curr_sp]).".*<\/script\s*>/is","", $text_blocks[$curr_tb]);
+                                $text_blocks[$curr_tb] = preg_replace('!'.preg_quote($sp_match[0][$curr_sp], '!').'.*?</script\s*>!is', '', $text_blocks[$curr_tb]);
                         }
-                    }                    
-                    else
+                    } else
                         /* echo the non-php tags */
-                        $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],'<?php echo \''.str_replace("'","\'",$sp_match[0][$curr_sp]).'\'; ?>'."\n",$text_blocks[$curr_tb]);
+                        $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp], '<?php echo \''.str_replace("'", "\'", $sp_match[0][$curr_sp]).'\'; ?>'."\n", $text_blocks[$curr_tb]);
                 }
             }
         }
