@@ -153,8 +153,9 @@ debug.tpl
 
 	<para>
 	You can either place these library files within your PHP include_path, or
-	in any directory as long as you define that with the SMARTY_DIR constant.
-	We'll show an example of both.
+	in any directory as long as you define that with the <link
+	linkend="constant.smarty.dir">SMARTY_DIR</link> constant. We'll show an
+	example of both.
 	</para>
 	<para>
 	Here is how you create an instance of Smarty in your PHP scripts:
@@ -169,8 +170,9 @@ $smarty = new Smarty;</screen>
 
 	<para>
 	If the library files are outside of your PHP include_path, you must define
-	the absolute path with the SMARTY_DIR constant. SMARTY_DIR must end with a
-	slash. Lets say we place our Smarty library files in
+	the absolute path with the <link
+	linkend="constant.smarty.dir">SMARTY_DIR</link> constant. SMARTY_DIR must
+	end with a slash. Lets say we place our Smarty library files in
 	"/usr/local/lib/php/Smarty/".
 	</para>
 
@@ -238,11 +240,11 @@ $smarty = new Smarty;</screen>
 	<example>
      <title>Example file structure</title>
      <screen>
-/php/includes/Smarty/Smarty.class.php
-/php/includes/Smarty/Smarty_Compiler.class.php
-/php/includes/Smarty/Config_File.class.php
-/php/includes/Smarty/debug.tpl
-/php/includes/Smarty/plugins/*.php
+/usr/local/lib/php/Smarty/Smarty.class.php
+/usr/local/lib/php/Smarty/Smarty_Compiler.class.php
+/usr/local/lib/php/Smarty/Config_File.class.php
+/usr/local/lib/php/Smarty/debug.tpl
+/usr/local/lib/php/Smarty/plugins/*.php
 
 /web/www.mydomain.com/smarty/guestbook/templates/
 /web/www.mydomain.com/smarty/guestbook/templates_c/
@@ -420,27 +422,5 @@ $smarty->display('index.tpl');</screen>
    
   </sect1>
 
-  <sect1 id="smarty.constants">
-   <title>Constants</title>
-   <para></para>
-
-   <sect2 id="constant.smarty.dir">
-    <title>SMARTY_DIR</title>
-    <para>
-     This should be the full system path to the location of the Smarty
-     class files. If this is not defined, then Smarty will attempt to
-     determine the appropriate value automatically. If defined, the path
-     must end with a slash.
-    </para>
-    <example>
-     <title>SMARTY_DIR</title>
-     <programlisting>
-// set path to Smarty directory
-define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
-
-require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
-    </example>
-   </sect2>
-  </sect1>
  </chapter>
 </part>

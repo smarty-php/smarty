@@ -3818,6 +3818,12 @@ OUTPUT:
 			root and supply the relative path to this file as the "src"
 			parameter to popup_init.
 			</para>
+<example>
+<title>popup_init</title>
+<programlisting>
+{* popup_init must be called once at the top of the page *}
+{popup_init src="/javascripts/overlib.js"}</programlisting>
+</example>
 		</sect1>
 		<sect1 id="language.function.popup">
 			<title>popup</title>

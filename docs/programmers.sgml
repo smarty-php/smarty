@@ -1,5 +1,30 @@
   <part id="smarty.for.programmers">
    <title>Smarty For Programmers</title>
+
+
+	<chapter id="smarty.constants">
+	 <title>Constants</title>
+	 <para></para>
+
+	 <sect1 id="constant.smarty.dir">
+      <title>SMARTY_DIR</title>
+      <para>
+       This should be the full system path to the location of the Smarty
+       class files. If this is not defined, then Smarty will attempt to
+       determine the appropriate value automatically. If defined, the path
+       must end with a slash.
+      </para>
+      <example>
+       <title>SMARTY_DIR</title>
+       <programlisting>
+// set path to Smarty directory
+define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
+
+require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
+      </example>
+	 </sect1>
+	</chapter>
+
     <chapter id="api.variables">
      <title>Variables</title>
 
@@ -15,7 +40,7 @@
 	   <note>
 		   <title>Technical Note</title>
 		   <para>
-    	   It is not mandatory to put this directory under
+    	   It is not recommended to put this directory under
     	   the web server document root.
     	   </para>
 	  </note>
@@ -39,7 +64,7 @@
 	 <note>
 	 <title>Technical Note</title>
 	 <para>
-       It is not mandatory to put this directory under
+       It is not recommended to put this directory under
        the web server document root.
       </para>
 	 </note>
@@ -55,7 +80,7 @@
 	 <note>
 	 <title>Technical Note</title>
 	 <para>
-       It is not mandatory to put this directory under
+       It is not recommended to put this directory under
        the web server document root.
       </para>
 	 </note>
@@ -63,11 +88,20 @@
      <sect1 id="variable.plugins.dir">
       <title>$plugins_dir</title>
       <para>
-       This is the directory where Smarty will look for the plugins that
-       it needs. The directory must be relative to the directory where
-       Smarty itself is installed. Default is "plugins". There can be
-       only one plugins directory.
+	   This is the directories where Smarty will look for the plugins that it
+	   needs. Default is "plugins" under the SMARTY_DIR. If you supply a
+	   relative path, Smarty will first look under the SMARTY_DIR, then
+	   relative to the cwd (current working directory), then relative to each
+	   entry in your PHP include path.
       </para>
+	  <note>
+	  <title>Technical Note</title>
+	  <para>
+	  For best performance, do not setup your plugins_dir to have to use the
+	  PHP include path. Use an absolute pathname, or a path relative to
+	  SMARTY_DIR or the cwd.
+	  </para>
+	  </note>
      </sect1>
      <sect1 id="variable.debugging">
       <title>$debugging</title>
@@ -217,7 +251,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
 	  <note>
 		  <title>Technical Note</title>
 		  <para>
-    	   It is not mandatory to put this directory under
+    	   It is not recommended to put this directory under
     	   the web server document root.
     	  </para>
 	  </note>

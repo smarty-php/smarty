@@ -1672,25 +1672,36 @@ function _run_insert_handler($args)
 
             $_plugin_filepath = $_plugin_dir . DIR_SEP . $_plugin_filename;
 
-            if (@is_readable($_plugin_filepath)) {
-                return $_plugin_filepath;
-            }
-
-			// didn't find it, see if path is relative
+			// see if path is relative
             if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $_plugin_dir)) {
+				$_relative = true;
                 // relative path, see if it is in the SMARTY_DIR
             	if (@is_readable(SMARTY_DIR . $_plugin_filepath)) {
                 	return SMARTY_DIR . $_plugin_filepath;
             	}
-        		// didn't find it, try include path
+			} else {
+				// absolute path
+				$_relative = false;
+			}
+			// try relative to cwd (or absolute)
+            if (@is_readable($_plugin_filepath)) {
+                return $_plugin_filepath;
+            }
+        }
+
+		// still not found, try PHP include_path
+		if($_relative) {
+        	foreach ((array)$this->plugins_dir as $_plugin_dir) {
+
+            	$_plugin_filepath = $_plugin_dir . DIR_SEP . $_plugin_filename;
+
         		if ($this->_get_include_path($_plugin_filepath, $_include_filepath)) {
             		return $_include_filepath;
         		}
-			}
-
-
-        }
-
+        	}
+		}
+		
+		
         return false;
     }
 

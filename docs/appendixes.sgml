@@ -359,9 +359,11 @@ Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
 		<para>
 		Do you ever wonder how your E-mail address gets on so many spam mailing
 		lists? One way spammers collect E-mail addresses is from web pages. To
-		help combat this problem, you can make your E-mail address show up in a
-		scrambled looking form in the HTML source, yet it it will look and work
-		correctly in the browser. This is done with the escape modifier.
+		help combat this problem, you can make your E-mail address show up in
+		scrambled javascript in the HTML source, yet it it will look and work
+		correctly in the browser. This is done with the mailto plugin,
+		available from the plugin repository on the Smarty website. Download
+		the plugin and drop it into the plugins directory.
 		</para>
 <example>
 <title>Example of Obfuscating an E-mail Address</title>
@@ -371,26 +373,15 @@ index.tpl
 ---------
 
 Send inquiries to
-&lt;a href="mailto:{$EmailAddress|escape:"hex"}"&gt;{$EmailAddress|escape:"hexentity"}&lt;/a&gt;
-
-OUTPUT:
-
-Send inquiries to 
-&lt;a
-href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;
+{mailto address=$EmailAddress encode="javascript" subject="Hello"}
 
 </programlisting>
 </example>
-	<para>
-	Although this looks like a mess in the HTML source, it will render
-	correctly in your browser, and the mailto: hyperlink will go to the correct
-	address.
-	</para>
 	<note>
 	<title>Technical Note</title>
 	<para>
-    This method isn't 100% foolproof. A spammer
-    could conceivably program his e-mail collector to decode these values.
+	This method isn't 100% foolproof. A spammer could conceivably program his
+	e-mail collector to decode these values, but not likely.
 	</para>
 	</note>
 	</sect1>
@@ -398,7 +389,7 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 <chapter id="resources">
 	<title>Resources</title>
 	<para>
-	Smarty's homepage is located at http://www.phpinsider.com/php/code/Smarty/.
+	Smarty's homepage is located at http://smarty.php.net/.
 	You can join the mailing list by sending an e-mail to
 	smarty-general-subscribe@lists.php.net. An archive of the mailing list can be
 	viewed at http://marc.theaimsgroup.com/?l=smarty&amp;r=1&amp;w=2
