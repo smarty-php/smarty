@@ -431,7 +431,6 @@ kein Titel</programlisting>
 <example>
 <title>escape (Maskieren)</title>
 <programlisting>
-<programlisting>
 index.php:
 
 $smarty = new Smarty;

@@ -5,7 +5,7 @@
   <para>
    In Version 2.0 wurde die Plugin-Architektur eingef&uuml;hrt, welche f&uuml;r fast alle anpassbaren Funktionalit&auml;ten
    verwendet wird. Unter anderem:
-   <itemizedlist spacing=compact>
+   <itemizedlist spacing="compact">
     <listitem><simpara>Funktionen</simpara></listitem>
     <listitem><simpara>Modifikatoren</simpara></listitem>
     <listitem><simpara>Block-Funktionen</simpara></listitem>
@@ -65,7 +65,7 @@
    <para>
     
     Wobei <literal>Typ</literal> einen der folgenden Werte haben kann:
-    <itemizedlist spacing=compact>
+    <itemizedlist spacing="compact">
      <listitem><simpara>function</simpara></listitem>
      <listitem><simpara>modifier</simpara></listitem>
      <listitem><simpara>block</simpara></listitem>

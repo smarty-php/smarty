@@ -193,15 +193,13 @@
   </sect1>
   <sect1 id="api.clear.cache">
    <title>clear_cache (leere Cache)</title>
-   <funcsynopsis>
-    <funcprototype>
-     <funcdef>void <function>clear_cache</function></funcdef>
-     <paramdef>string <parameter>template</parameter></paramdef>
-     <paramdef>string <parameter><optional>cache id</optional></parameter></paramdef>
-     <paramdef>string <parameter><optional>compile id</optional></parameter></paramdef>
-     <paramdef>int <parameter><optional>expire time</optional></parameter></paramdef>
-    </funcprototype>
-   </funcsynopsis>
+   <methodsynopsis>
+    <type>void</type><methodname>clear_cache</methodname>
+    <methodparam choice="opt"><type>string</type><parameter>template</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>cache id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>compile id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>expire time</parameter></methodparam>
+   </methodsynopsis>
    <para>
     L&ouml;scht den Cache eines bestimmten Templates. Falls Sie mehrere
     Caches f&uuml;r ein Template verwenden, k&ouml;nnen Sie als zweiten Parameter
@@ -251,14 +249,12 @@
   </sect1>
   <sect1 id="api.display">
    <title>display (ausgeben)</title>
-   <funcsynopsis>
-    <funcprototype>
-     <funcdef>void <function>display</function></funcdef>
-     <paramdef>string <parameter>template</parameter></paramdef>
-     <paramdef>string <parameter><optional>cache_id</optional></parameter></paramdef>
-     <paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
-    </funcprototype>
-   </funcsynopsis>
+   <methodsynopsis>
+   <type>void</type><methodname>display</methodname>
+    <methodparam><type>string</type><parameter>template</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   </methodsynopsis>
    <para>
     Gibt ein Template aus. Sie m&uuml;ssen einen g&uuml;ltigen
     <link linkend="template.resources">Template Ressourcen</link>-Typ
@@ -334,14 +330,12 @@
   </sect1>
   <sect1 id="api.fetch">
    <title>fetch</title>
-   <funcsynopsis>
-    <funcprototype>
-     <funcdef>string <function>fetch</function></funcdef>
-     <paramdef>string <parameter>template</parameter></paramdef>
-     <paramdef>string <parameter><optional>cache_id</optional></parameter></paramdef>
-     <paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
-    </funcprototype>
-   </funcsynopsis>
+   <methodsynopsis>
+   <type>string</type><methodname>fetch</methodname>
+    <methodparam><type>string</type><parameter>template</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   </methodsynopsis>
    <para>
     Gibt die Ausgabe des Template zur&uuml;ck, anstatt es direkt anzuzeigen. &Uuml;bergeben Sie
     einen g&uuml;ltigen <link linkend="template.resources">Template Ressource</link>-Typ
@@ -924,3 +918,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+
