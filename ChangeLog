@@ -1,3 +1,12 @@
+2002-07-24  mohrt  <mohrt@pb1.pair.com>
+
+    * QUICKSTART: update QUICKSTART guide
+
+    * NEWS
+      debug.tpl
+      plugins/modifier.debug_print_var.php:
+    update debug console to show objects, fix warning in debug.tpl
+
 2002-07-23  mohrt  <mohrt@pb1.pair.com>
 
     * docs/programmers.sgml: fix load_filter examples
