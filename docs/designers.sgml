@@ -2725,6 +2725,79 @@ OUTPUT:
 8&lt;br&gt;</programlisting>
 </example>
 		</sect3>
+		<sect3 id="language.function.eval">
+			<title>eval</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>var</entry>
+                        <entry>mixed</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>variable (or string) to evaluate</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			eval is used to evaluate a variable as a template. This can be used
+			for things like embedding template tags/variables into variables or
+			tags/variables into config file variables.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			eval function will be assigned to this template variable instead of
+			being output to the template.
+			</para>
+<example>
+<title>eval</title>
+<programlisting>
+setup.conf
+----------
+
+emphstart = &lt;b&gt;
+emphend = &lt;/b&gt;
+title = Welcome to {$company}'s home page!
+ErrorCity = You must supply a {#emphstart#}city{#emphend#}.
+ErrorState = You must supply a {#emphstart#}state{#emphend#}.
+
+
+index.tpl
+---------
+
+{config_load file="setup.conf"}
+
+{eval var=$foo}
+{eval var=#title#}
+{eval var=#ErrorCity#}
+{eval var=#ErrorState# assign="state_error"}
+{$state_error}
+
+OUTPUT:
+
+This is the contents of foo.
+Welcome to Foobar Pub &amp; Grill's home page!
+You must supply a &lt;b&gt;city&lt;/b&gt;.
+You must supply a &lt;b&gt;state&lt;/b&gt;.
+
+</programlisting>
+</example>
+		</sect3>
 		<sect3 id="language.function.fetch">
 			<title>fetch</title>
             <informaltable frame=all>
