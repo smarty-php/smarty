@@ -1,3 +1,5 @@
+  - fix headers sent erroneously with cache_modified_check and fetch()
+    (wphilips, messju)
   - fix config_file path bug (Marc Cabadas, Monte)
   - fix 'is even by' and 'is odd by' logic (Monte)
   - add day_empty, month_empty, year_empty and all_empty attributes to

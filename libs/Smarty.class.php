@@ -1234,7 +1234,7 @@ class Smarty
                 }
             } else {
                 $this->_cache_info['template'][$resource_name] = true;
-                if ($this->cache_modified_check) {
+                if ($this->cache_modified_check && $display) {
                     header("Last-Modified: ".gmdate('D, d M Y H:i:s', time()).' GMT');
                 }
             }
