@@ -724,7 +724,7 @@ class Smarty_Compiler extends Smarty {
     {
         list($var_ref, $modifiers) = explode('|', substr($var_expr, 1), 2);
 
-		preg_match_all('!\[\w+\]|(->|\.)\w+|^\w+!', $var_ref, $match);
+		preg_match_all('!\[\w+(\.\w+)?\]|(->|\.)\w+|^\w+!', $var_ref, $match);
 		$indexes = $match[0];
         $var_name = array_shift($indexes);
 
