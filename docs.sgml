@@ -384,7 +384,7 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				will *not* see the change since the template will not get
 				recompiled. See <link
 				linkend="setting.force.compile">$force_compile</link> or <link
-				linkend="api.clear.compile.dir">clear_compile_dir</link>.
+				linkend="api.clear.compile.dir">clear_compiled_tpl</link>.
 			</para>
 		</sect2>
 		<sect2 id="setting.force.compile">
@@ -798,8 +798,8 @@ $smarty->clear_all_cache();
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id="api.clear.compile.dir">
-			<title>clear_compile_dir</title>
+		<sect2 id="api.clear.compiled.tpl">
+			<title>clear_compiled_tpl</title>
 			<funcsynopsis>
 			<funcprototype>
 			<funcdef>void <function>clear_all_cache</function></funcdef>
@@ -812,14 +812,14 @@ $smarty->clear_all_cache();
 			This function is for advanced use only, not normally needed.
 			</para>
 <example>
-<title>clear_compile_dir</title>
+<title>clear_compiled_tpl</title>
 <programlisting>
 
 // clear a specific template resource
-$smarty->clear_compile_dir("index.tpl");
+$smarty->clear_compiled_tpl("index.tpl");
 
 // clear entire compile directory
-$smarty->clear_compile_dir();
+$smarty->clear_compiled_tpl();
 
 
 </programlisting>

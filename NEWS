@@ -1,3 +1,5 @@
+    - fixed the name of clear_compile_tpl() API function to clear_compiled_tpl.
+      (Andrei)
     - added fix for removing comments so that the line numbers are reported
       correctly in case of errors. (patch from Anders Janson)
     - made html_options output xhtml compatible code. (Monte, Arnaud Limbourg)

@@ -435,7 +435,7 @@ class Smarty
                 or all compiled template files if one is not specified.
                 This function is for advanced use only, not normally needed.
 \*======================================================================*/
-    function clear_compile_tpl($tpl_file = null, $compile_id = null)
+    function clear_compiled_tpl($tpl_file = null, $compile_id = null)
     {
         return $this->_rm_auto($this->compile_dir, $tpl_file, $compile_id);
     }
