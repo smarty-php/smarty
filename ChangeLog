@@ -1,3 +1,24 @@
+2004-07-02  gerald croes  <gerald@phpside.org>
+
+    * docs/fr/getting-started.xml
+      docs/fr/preface.xml:
+      Fixed missing tags to be able to make doc again
+
+    * docs/fr/preface.xml:
+      added the "is a good thing [TM]" as in en docs
+
+    * docs/fr/getting-started.xml:
+      added ctags, updated screen => programm listing.
+      added the technical note founded on the en doc
+
+2004-07-02  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_radios.php
+      libs/plugins/function.mailto.php:
+      add assign attribute to html_checkboxes and html_radios
+
 2004-07-01  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
