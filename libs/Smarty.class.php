@@ -169,6 +169,34 @@ class Smarty
 	}
 
 /*======================================================================*\
+	Function:	clear_cache()
+	Purpose:	clear all cached template files for given template
+\*======================================================================*/
+
+	function clear_cache($tpl_file)
+	{
+		if(is_dir($this->cache_dir))
+			$dir_handle = opendir($this->cache_dir);
+		else
+			return false;
+		
+		// remove leading . or /
+		$tpl_file = preg_replace("/^(\.{0,2}\/)*/","",$tpl_file);		
+		$tpl_file_url = urlencode($tpl_file);
+		
+		while($curr_file = readdir($dir_handle)) {
+			if ($curr_file == '.' || $curr_file == '..')
+				continue;
+			
+			if(is_file($this->cache_dir."/".$curr_file) &&
+				substr($curr_file,0,strlen($tpl_file_url)) == $tpl_file_url)
+					unlink($this->cache_dir."/".$curr_file);
+		}
+		return true;		
+	}
+	
+	
+/*======================================================================*\
 	Function:	clear_all_cache()
 	Purpose:	clear all the cached template files.
 \*======================================================================*/
