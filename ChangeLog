@@ -1,3 +1,37 @@
+2003-02-17  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/modifier.escape.php:
+      fix syntax error from previous commit
+
+    * NEWS
+      Smarty.class.php:
+      add error msgs to get_registered_object
+
+    * Smarty.class.php:
+      add function for getting reference to registered object
+
+    * Smarty_Compiler.class.php:
+      back out patches for object and objref calls on $smarty var
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      treat unrecognized param attribute syntax as a string
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      support $smarty.const.$foo syntax
+
+    * NEWS
+      debug.tpl
+      plugins/modifier.count_words.php
+      plugins/modifier.escape.php:
+      fix E_NOTICE messages
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+      add @ and === to if tokens, few param cleanups
+
 2003-02-16  Greg Beaver  <greg@chiaraquartet.net>
 
     * ChangeLog
