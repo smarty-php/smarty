@@ -143,21 +143,21 @@ TROUBLESHOOTING
 ---------------
 
 Q: Smarty doesn't work.
-A: You must be using PHP 4.0.4pl1 or later to fix all known problems
-   Smarty has with PHP. Read the BUGS file for more info.
+A: You must be using PHP 4.0.6 or later if you use any version of Smarty
+   past 2.0.1. Read the BUGS file for more info.
 
 Q: I get the following error when running Smarty:
    Warning: Wrong parameter count for preg_replace() in
    Smarty.class.php on line 371
 A: preg_replace had a parameter added in PHP 4.0.2 that Smarty
-   requires. Upgrade to at least 4.0.4pl to fix all known PHP issues with
+   requires. Upgrade to at least 4.0.6 to fix all known PHP issues with
    Smarty.
 
 Q: I get this error when passing variables to {include}:
    Fatal error: Call to undefined function: get_defined_vars() in
    /path/to/Smarty/templates_c/index.tpl.php on line 8
 A: get_defined_vars() was added to PHP 4.0.4. If you plan on passing
-   variables to included templates, you will need PHP 4.0.4 or later.
+   variables to included templates, you will need PHP 4.0.6 or later.
 
 Q: I get PHP errors in my {if} tag logic.
 A: All conditional qualifiers must be separated by spaces. This syntax will not

@@ -1,8 +1,6 @@
 REQUIREMENTS:
 
-Smarty requires PHP 4.0.4pl1 or later to fix all known problems Smarty has with
-PHP. Smarty was developed and tested with PHP versions >= 4.0.4pl1. See the
-BUGS file for more info.
+Smarty requires PHP 4.0.6 or later.
 
 INSTALLATION:
 

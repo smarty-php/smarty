@@ -44,8 +44,10 @@
 // set SMARTY_DIR to absolute path to Smarty library files.
 // if not defined, include_path will be used.
 
+define('DIR_SEP', DIRECTORY_SEPARATOR);
+
 if (!defined('SMARTY_DIR')) {
-    define('SMARTY_DIR', dirname(__FILE__) . '/');
+    define('SMARTY_DIR', dirname(__FILE__) . DIR_SEP);
 }
 
 define('SMARTY_PHP_PASSTHRU',   0);
@@ -62,9 +64,9 @@ class Smarty
 /**************************************************************************/
 
     // public vars
-    var $template_dir    =  './templates';     // name of directory for templates
-    var $compile_dir     =  './templates_c';   // name of directory for compiled templates
-    var $config_dir      =  './configs';       // directory where config files are located
+    var $template_dir    =  'templates';       // name of directory for templates
+    var $compile_dir     =  'templates_c';     // name of directory for compiled templates
+    var $config_dir      =  'configs';         // directory where config files are located
     var $plugins_dir     =  'plugins';         // directory where plugins are kept
                                                // (relative to Smarty directory)
 
@@ -91,7 +93,7 @@ class Smarty
                                         // overrides cache settings. default false.
 
     var $caching         =  false;      // enable caching. true/false default false.
-    var $cache_dir       =  './cache';  // name of directory for template cache files
+    var $cache_dir       =  'cache';    // name of directory for template cache files
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
     var $cache_handler_func   = null;   // function used for cached content. this is
@@ -113,7 +115,7 @@ class Smarty
 
 
     var $security       =   false;      // enable template security (default false)
-    var $secure_dir     =   array('./templates'); // array of directories considered secure
+    var $secure_dir     =   array('templates'); // array of directories considered secure
     var $security_settings  = array(
                                     'PHP_HANDLING'    => false,
                                     'IF_FUNCS'        => array('array', 'list',
@@ -873,8 +875,8 @@ function _generate_debug_output() {
                 // relative pathname to $file_base_path
                 // use the first directory where the file is found
                 foreach ((array)$file_base_path as $curr_path) {
-                    if (@is_file($curr_path.'/'.$resource_name)) {
-                        $resource_name = $curr_path.'/'.$resource_name;
+                    if (@is_file($curr_path.DIR_SEP.$resource_name)) {
+                        $resource_name = $curr_path.DIR_SEP.$resource_name;
                         return true;
                     }
                 }
@@ -1323,8 +1325,8 @@ function _run_insert_handler($args)
     function _get_auto_filename($auto_base, $auto_source, $auto_id = null)
     {
         $source_hash = str_replace('-','N',crc32($auto_source));
-        $res = $auto_base . '/' . substr($source_hash, 0, 3) . '/' .
-            $source_hash . '/' . str_replace('-','N',crc32($auto_id)) . '.php';
+        $res = $auto_base . DIR_SEP . substr($source_hash, 0, 3) . DIR_SEP .
+            $source_hash . DIR_SEP . str_replace('-','N',crc32($auto_id)) . '.php';
 
         return $res;
     }
@@ -1346,7 +1348,7 @@ function _run_insert_handler($args)
                 $res = is_file($tname) && unlink( $tname);
             } else {
                 $source_hash = str_replace('-','N',crc32($auto_source));
-                $tname = $auto_base . '/' . substr($source_hash, 0, 3) . '/' . $source_hash;
+                $tname = $auto_base . DIR_SEP . substr($source_hash, 0, 3) . DIR_SEP . $source_hash;
                 $res = $this->_rmdir($tname);
             }
         }
@@ -1365,11 +1367,11 @@ function _run_insert_handler($args)
 
         while ($entry = readdir($handle)) {
             if ($entry != '.' && $entry != '..') {
-                if (is_dir($dirname . '/' . $entry)) {
-                    $this->_rmdir($dirname . '/' . $entry, $level + 1);
+                if (is_dir($dirname . DIR_SEP . $entry)) {
+                    $this->_rmdir($dirname . DIR_SEP . $entry, $level + 1);
                 }
                 else {
-                    unlink($dirname . '/' . $entry);
+                    unlink($dirname . DIR_SEP . $entry);
                 }
             }
         }
@@ -1389,15 +1391,15 @@ function _run_insert_handler($args)
     function _create_dir_structure($dir)
     {
         if (!file_exists($dir)) {
-            $dir_parts = preg_split('!/+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
-            $new_dir = ($dir{0} == '/') ? '/' : '';
+            $dir_parts = preg_split('!\\'.DIR_SEP.'+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
+            $new_dir = ($dir{0} == DIR_SEP) ? DIR_SEP : '';
             foreach ($dir_parts as $dir_part) {
                 $new_dir .= $dir_part;
                 if (!file_exists($new_dir) && !mkdir($new_dir, 0771)) {
                     $this->trigger_error("problem creating directory \"$dir\"");
                     return false;
                 }
-                $new_dir .= '/';
+                $new_dir .= DIR_SEP;
             }
         }
     }
@@ -1492,7 +1494,7 @@ function _run_insert_handler($args)
 
             if (isset($this->_cache_info['config'])) {
                 foreach ($this->_cache_info['config'] as $config_dep) {
-                    if ($this->_cache_info['timestamp'] < filemtime($this->config_dir.'/'.$config_dep)) {
+                    if ($this->_cache_info['timestamp'] < filemtime($this->config_dir.DIR_SEP.$config_dep)) {
                         // config file has changed, regenerate cache
                         return false;
                     }
@@ -1552,7 +1554,7 @@ function _run_insert_handler($args)
 
             $plugin_file = SMARTY_DIR .
                            $this->plugins_dir .
-                           '/' .
+                           DIR_SEP .
                            $type .
                            '.' .
                            $name .
@@ -1657,8 +1659,8 @@ function _run_insert_handler($args)
         }
 
         $plugin_file = SMARTY_DIR .
-                       $this->plugins_dir .
-                       '/resource.' .
+                       $this->plugins_dir . DIR_SEP .
+                       'resource.' .
                        $type .
                        '.php';
 

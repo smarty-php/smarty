@@ -108,7 +108,7 @@
   <sect1 id="installation.requirements">
    <title>Requirements</title>
    <para>
-    Smarty requires PHP 4.0.4pl1 or later. See the
+    Smarty requires PHP 4.0.6 or later. See the
     <link linkend="bugs">BUGS</link> section for caveats.
    </para>
   </sect1>

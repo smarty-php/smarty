@@ -1,3 +1,4 @@
+    - fixed directory separator issue for Windows. (Andrei)
     - added ability to use simple variables as array indices or
       object properties. (Andrei)
     - added ability to unregister pre/postfilters plugins at

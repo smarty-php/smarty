@@ -353,8 +353,8 @@ class Smarty_Compiler extends Smarty {
         $have_function = true;
 
         $plugin_file = SMARTY_DIR .
-                       $this->plugins_dir .
-                       '/compiler.' .
+                       $this->plugins_dir . DIR_SEP .
+                       'compiler.' .
                        $tag_command .
                        '.php';
 
@@ -423,8 +423,8 @@ class Smarty_Compiler extends Smarty {
         $have_function = true;
 
         $plugin_file = SMARTY_DIR .
-                       $this->plugins_dir .
-                       '/block.' .
+                       $this->plugins_dir . DIR_SEP .
+                       'block.' .
                        $tag_command .
                        '.php';
 
@@ -1375,7 +1375,7 @@ class Smarty_Compiler extends Smarty {
                  $this->_plugins[$parts[0]][$parts[1]] === false))
                 continue;
 
-            $plugin_file = $plugins_dir . '/' . $entry;
+            $plugin_file = $plugins_dir . DIR_SEP . $entry;
             include_once $plugin_file;
             $plugin_func = 'smarty_' . $parts[0] . '_' . $parts[1];
             if (!function_exists($plugin_func)) {
