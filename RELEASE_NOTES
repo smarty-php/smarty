@@ -1,3 +1,11 @@
+2.1.1
+-----
+
+There was a bug with template paths and the include_path, this has been fixed.
+Also register_outputfilter() did not work, this is fixed. A new template
+function named "cycle" has been added to the distribution, nice for cycling
+through a list (or array) of values.
+
 2.1.0
 -----
 

@@ -13,8 +13,10 @@
  *           Jason Sweat <jsweat_php@yahoo.com>
  * Purpose:  cycle through given values
  * Input:    name = name of cycle (optional)
- *           values = comma separated list of values to cycle
+ *           values = comma separated list of values to cycle,
+ *                    or an array of values to cycle
  *                    (this can be left out for subsequent calls)
+ *
  *           reset = boolean - resets given var to true
  *			 print = boolean - print var or not. default is true
  *           advance = boolean - whether or not to advance the cycle
@@ -62,7 +64,11 @@ function smarty_function_cycle($params, &$smarty)
 		$cycle_vars[$name]['values'] = $values;
 	}
 
-	$cycle_array = explode($delimiter,$cycle_vars[$name]['values']);
+	if(!is_array($cycle_vars[$name]['values'])) {
+		$cycle_array = explode($delimiter,$cycle_vars[$name]['values']);
+	} else {
+		$cycle_array = $cycle_vars[$name]['values'];	
+	}
 	
 	if(!isset($cycle_vars[$name]['index']) || $reset ) {
 		$cycle_vars[$name]['index'] = 0;

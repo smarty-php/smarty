@@ -2754,11 +2754,12 @@ OUTPUT:
                     </row>
                     <row>
                         <entry>values</entry>
-                        <entry>string</entry>
+                        <entry>mixed</entry>
                         <entry>Yes</entry>
                         <entry><emphasis>N/A</emphasis></entry>
-                        <entry>The values to cycle through, delimited by comma,
-						or specified in delimiter attribute</entry>
+						<entry>The values to cycle through, either a comma
+						delimited list (see delimiter attribute), or an array
+						of values.</entry>
                     </row>
                     <row>
                         <entry>print</entry>
@@ -2779,7 +2780,7 @@ OUTPUT:
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>,</emphasis></entry>
-                        <entry>The value delimiter</entry>
+                        <entry>The delimiter to use in the values attribute.</entry>
                     </row>
                 </tbody>
                 </tgroup>
