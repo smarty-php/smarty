@@ -289,9 +289,21 @@ class Config_File {
         $lines = $match[0];
         for ($i=0, $count=count($lines); $i<$count; $i++) {
             $line = $lines[$i];
-            if ( @($line{0} == '[') && preg_match('!^\[(\w+)\]!', $line, $match) ) {
+            if ( @($line{0} == '[') && preg_match('!^\[(.*?)\]!', $line, $match) ) {
                 /* section found */
-                $section_name = $match[1];
+                if ($match[1]{0} == '.') {
+                    /* hidden section */
+                    if ($this->read_hidden) {
+                        $section_name = substr($match[1], 1);
+                    } else {
+                        /* break reference to $vars to ignore hidden section */
+                        unset($vars);
+                        $vars = array();
+                        continue;
+                    }
+                } else {                    
+                    $section_name = $match[1];
+                }
                 if (!isset($config_data['sections'][$section_name]))
                     $config_data['sections'][$section_name] = array('vars' => array());
                 $vars =& $config_data['sections'][$section_name]['vars'];
