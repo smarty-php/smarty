@@ -1,3 +1,12 @@
+2005-02-24  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS:
+      update NEWS file
+
+    * QUICK_START
+      libs/plugins/function.html_radios.php:
+      add label ids to html_radios
+
 2005-02-10  Monte Ohrt  <monte@ohrt.com>
 
     * QUICK_START:
