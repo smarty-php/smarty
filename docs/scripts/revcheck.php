@@ -721,6 +721,8 @@ print ($navbar."<p>&nbsp;</p>\n");
 // Files table goes here
 // =========================================================================
 
+if (count($files_status) != 0) {
+
 print <<<END_OF_MULTILINE
 <a name="files"></a>
 <table width="820" border="0" cellpadding="4" cellspacing="1" align="center">
@@ -745,62 +747,63 @@ print <<<END_OF_MULTILINE
 </tr>
 END_OF_MULTILINE;
 
-// This was the previous directory [first]
-$prev_dir = $new_dir = $DOCDIR."en";
-
-// Go through all files collected
-foreach ($files_status as $num => $file) {
-
-    // Make the maintainer a link, if we have that maintainer in the list
-    if (isset($maint_by_nick[$file["maintainer"]])) {
-      $file["maintainer"] = '<a href="#maint' . $maint_by_nick[$file["maintainer"]] .
-                            '">' . $file["maintainer"] . '</a>';
-    }
-
-    // If we have a 'numeric' revision diff and it is not zero,
-    // make a link to the CVS repository's diff script
-    if ($file["revision"][2] != "n/a" && $file["revision"][2] !== 0) {
-        $file["short_name"] = "<a href=\"http://cvs.php.net/diff.php/" .
-                              preg_replace( "'^".$DOCDIR."'", "smarty/docs/", $file["full_name"]) .
-                              "?r1=" . $file["revision"][1] . 
-                              "&amp;r2=" . $file["revision"][0] .
-                              CVS_OPT . "\">" . $file["short_name"] . "</a>";
-    }
-
-    // Guess the new directory from the full name of the file
-    $new_dir = dirname($file["full_name"]);
+    // This was the previous directory [first]
+    $prev_dir = $new_dir = $DOCDIR."en";
     
-    // If this is a new directory, put out dir headline
-    if ($new_dir != $prev_dir) {
+    // Go through all files collected
+    foreach ($files_status as $num => $file) {
+    
+        // Make the maintainer a link, if we have that maintainer in the list
+        if (isset($maint_by_nick[$file["maintainer"]])) {
+          $file["maintainer"] = '<a href="#maint' . $maint_by_nick[$file["maintainer"]] .
+                                '">' . $file["maintainer"] . '</a>';
+        }
+    
+        // If we have a 'numeric' revision diff and it is not zero,
+        // make a link to the CVS repository's diff script
+        if ($file["revision"][2] != "n/a" && $file["revision"][2] !== 0) {
+            $file["short_name"] = "<a href=\"http://cvs.php.net/diff.php/" .
+                                  preg_replace( "'^".$DOCDIR."'", "smarty/docs/", $file["full_name"]) .
+                                  "?r1=" . $file["revision"][1] . 
+                                  "&amp;r2=" . $file["revision"][0] .
+                                  CVS_OPT . "\">" . $file["short_name"] . "</a>";
+        }
+    
+        // Guess the new directory from the full name of the file
+        $new_dir = dirname($file["full_name"]);
         
-        // Drop out the unneeded parts from the dirname...
-        $display_dir = str_replace($DOCDIR."en/", "", dirname($file["full_name"]));
+        // If this is a new directory, put out dir headline
+        if ($new_dir != $prev_dir) {
+            
+            // Drop out the unneeded parts from the dirname...
+            $display_dir = str_replace($DOCDIR."en/", "", dirname($file["full_name"]));
+            
+            // Print out directory header
+            print "<tr class=blue><th colspan=12>$display_dir</th></tr>\n";
+            
+            // Store the new actual directory
+            $prev_dir = $new_dir;
+        }
         
-        // Print out directory header
-        print "<tr class=blue><th colspan=12>$display_dir</th></tr>\n";
-        
-        // Store the new actual directory
-        $prev_dir = $new_dir;
+        // Write out the line for the current file (get file name shorter)
+        print "<tr class={$CSS[$file['mark']]}><td>{$file['short_name']}</td>".
+              "<td> {$file['revision'][0]}</td>" .
+              "<td> {$file['revision'][1]}</td>".
+              "<td class=rb>{$file['revision'][2]} </td>".
+              "<td class=r>{$file['size'][0]} </td>".
+              "<td class=r>{$file['size'][1]} </td>".
+              "<td class=rb>{$file['size'][2]} </td>".
+              "<td class=r>{$file['date'][0]} </td>".
+              "<td class=r>{$file['date'][1]} </td>".
+              "<td class=rb>{$file['date'][2]} </td>".
+              "<td class=c>{$file['maintainer']}</td>".
+              "<td class=c>".trim($file['status'])."</td></tr>\n";
+    
     }
     
-    // Write out the line for the current file (get file name shorter)
-    print "<tr class={$CSS[$file['mark']]}><td>{$file['short_name']}</td>".
-          "<td> {$file['revision'][0]}</td>" .
-          "<td> {$file['revision'][1]}</td>".
-          "<td class=rb>{$file['revision'][2]} </td>".
-          "<td class=r>{$file['size'][0]} </td>".
-          "<td class=r>{$file['size'][1]} </td>".
-          "<td class=rb>{$file['size'][2]} </td>".
-          "<td class=r>{$file['date'][0]} </td>".
-          "<td class=r>{$file['date'][1]} </td>".
-          "<td class=rb>{$file['date'][2]} </td>".
-          "<td class=c>{$file['maintainer']}</td>".
-          "<td class=c>".trim($file['status'])."</td></tr>\n";
+    print("</table>\n<p>&nbsp;</p>\n$navbar<p>&nbsp;</p>\n");
 
 }
-
-print("</table>\n<p>&nbsp;</p>\n$navbar<p>&nbsp;</p>\n");
-
 
 // =========================================================================
 // Work in progress table goes here
