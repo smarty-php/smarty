@@ -73,6 +73,7 @@ function smarty_function_html_table($params, &$smarty)
             case 'trailpad':
             case 'hdir':
             case 'vdir':
+            case 'inner':
                 $$_key = (string)$_value;
                 break;
 
