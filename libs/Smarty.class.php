@@ -214,19 +214,7 @@ class Smarty
     Purpose:  Constructor
 \*======================================================================*/
     function Smarty()
-    {
-		if(SMARTY_DIR != '') {
-			$this->template_dir = SMARTY_DIR.$this->template_dir;
-			$this->config_dir = SMARTY_DIR.$this->config_dir;
-			$this->compile_dir = SMARTY_DIR.$this->compile_dir;
-			$this->cache_dir = SMARTY_DIR.$this->cache_dir;
-			$this->trusted_dir = SMARTY_DIR.$this->trusted_dir;
-
-			for ($x=0; $x < count($this->secure_dir); $x++) {
-				$this->secure_dir[$x] = SMARTY_DIR.$this->secure_dir[$x];
-			}
-		}
-		
+    {		
         foreach ($this->global_assign as $key => $var_name) {
             if (is_array($var_name)) {
                 foreach ($var_name as $var) {
