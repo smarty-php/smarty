@@ -166,7 +166,7 @@ templates/index.php
 {include header.tpl}
 {* This is a template comment *}
 hello, my name is {$Name}.<br>
-{if $Name == "Joe"}
+{if $Name eq "Joe"}
 	I am Joe.<br>
 {else}
 	I am not Joe.<br>
@@ -193,14 +193,17 @@ IF/ELSE LOGIC:
 
 Smarty supports if/else logic like so:
 
-{if $Name == "John"}
+{if $Name eq "John"}
 	I am John!
 {else}
 	I am not John.
 {/if}
 
 A few important things to know:
-* arguments to {if ..} are passed "as is" to the php parser.
+* arguments to {if ...} are passed "as is" to the php parser.
+* "eq", "ne","neq", "gt", "lt", "lte", "le", "gte" "ge",
+  "==","!=",">","<","<=",">=" are all valid conditional
+  qualifiers.
 
 SECTIONS:
 
@@ -228,6 +231,8 @@ A few important things to know:
   like so: {$section_name.variable_name}
 * It is OK to mention variables of parent sections
   within nested child sections.
+* nothing in the section will display if the
+  looping array is unset.
   
 Sections can be nested, like so:
 

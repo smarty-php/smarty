@@ -266,6 +266,12 @@ class Smarty
 		if(!($template_contents = $this->_read_file($filepath)))
 			return false;
 
+		if(preg_match("/^(.+)\/([^\/]+)$/",$compilepath,$match))
+		{
+			$ctpl_file_dir = $match[1];			
+			$ctpl_file_name = $match[2];
+		}
+
 		if(!$this->allow_php)
 		{
 			// escape php tags in templates
@@ -307,7 +313,7 @@ class Smarty
 		$search[] =			"/^".$ld."\s*\/if\s*".$rd."$/i"; // replace /if tags
 		$replace[] =		"<?php endif; ?>";
 		$search[] =			"/^".$ld."\s*include\s*\"?([^\s\}]+)\"?".$rd."$/i";		// replace include tags
-		$replace[] =		"<?php include(\"\\1\"); ?>";
+		$replace[] =		"<?php include(\"".$ctpl_file_dir."/\\1\"); ?>";
 		$search[] =			"/^".$ld."\s*section\s+name\s*=\s*\"?([\w\d]+)\"?\s+\\\$([^\}\s]+)\s*".$rd."$/i"; // replace section tags
 		$replace[] =		"<?php for(\$\\1_secvar=0; \$\\1_secvar<count(\$\\2); \$\\1_secvar++): ?>";
 		$search[] =			"/^".$ld."\s*\/section\s*".$rd."$/i"; // replace /section tags
