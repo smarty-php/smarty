@@ -11,8 +11,8 @@
    <type>void</type><methodname>register_function</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>impl</parameter></methodparam>
-   <methodparam><type>bool</type><parameter>cacheable</parameter></methodparam>
-   <methodparam><type>mixed</type><parameter>cache_attrs</parameter></methodparam>
+   <methodparam choice="opt"><type>bool</type><parameter>cacheable</parameter></methodparam>
+   <methodparam choice="opt"><type>mixed</type><parameter>cache_attrs</parameter></methodparam>
   </methodsynopsis>
   <para>
    Use this to dynamically register template function plugins.
