@@ -1,5 +1,7 @@
+    - check strict syntax of function attributes (Monte) 
     - dropped support for modifers on object parameters,
-      added support for objects as modifier parameters
+      added support for objects as modifier parameters (Monte)
+    - fixed bug with decimal numbers in if statements (Monte)
 
 Version 2.4.2 (Feb 11, 2003)
 ----------------------------

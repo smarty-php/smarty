@@ -162,7 +162,7 @@ class Smarty_Compiler extends Smarty {
 		$this->_func_regexp = '[a-zA-Z_]\w*';
 
 		// matches valid registered object:
-		// foo.bar
+		// foo->bar
 		$this->_reg_obj_regexp = '[a-zA-Z_]\w*->[a-zA-Z_]\w*';
 				
 		// matches valid parameter values:
@@ -193,7 +193,6 @@ class Smarty_Compiler extends Smarty {
 		// foo123($foo,$foo->bar(),"foo")
     	$this->_func_call_regexp = '(?:' . $this->_func_regexp . '\s*(?:'
 		   . $this->_parenth_param_regexp . '))';		
-
 	}			
 			
 	/**
@@ -1097,7 +1096,7 @@ class Smarty_Compiler extends Smarty {
         preg_match_all('/(?>
 				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*) | # valid object call
 				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)	| # var or quoted string
-				\-?\d+(?:\.\d+)?|!==|<=>|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%|\+|\-|\/|\*	| # valid non-word token
+				\-?\d+(?:\.\d+)?|\.\d+|!==|<=>|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*	| # valid non-word token
 				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
@@ -1321,7 +1320,7 @@ class Smarty_Compiler extends Smarty {
                          [=]
                         /x', $tag_args, $match);
         $tokens       = $match[0];		
-				
+						
         $attrs = array();
         /* Parse state:
             0 - expecting attribute name
@@ -1338,7 +1337,7 @@ class Smarty_Compiler extends Smarty {
                         $attr_name = $token;
                         $state = 1;
                     } else
-                        $this->_syntax_error("invalid attribute name - '$token'", E_USER_ERROR, __FILE__, __LINE__);
+                        $this->_syntax_error("invalid attribute name: '$token'", E_USER_ERROR, __FILE__, __LINE__);
                     break;
 
                 case 1:
@@ -1355,14 +1354,16 @@ class Smarty_Compiler extends Smarty {
                     if ($token != '=') {
                         /* We booleanize the token if it's a non-quoted possible
                            boolean value. */
-                        if (preg_match('!^(on|yes|true)$!', $token))
+                        if (preg_match('!^(on|yes|true)$!', $token)) {
                             $token = true;
-                        else if (preg_match('!^(off|no|false)$!', $token))
+						} else if (preg_match('!^(off|no|false)$!', $token)) {
                             $token = false;
-                        /* If the token is just a string,
-                           we double-quote it. */
-                        else if (preg_match('!^\w+$!', $token)) {
+						} else if (preg_match('!^[\w\.]+$!', $token)) {
+                        	/* If the token is just a string,
+                        	   we double-quote it. */
                             $token = '"'.$token.'"';
+						} else if (!preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')?$!', $token)) {
+                        	$this->_syntax_error("invalid attribute value: '$token'", E_USER_ERROR, __FILE__, __LINE__);
 						}
 
                         $attrs[$attr_name] = $token;
