@@ -1,3 +1,5 @@
+  - fix occasional wrong error messages on mismatched tags when
+    {else}, {elseif}, {foreachelse} or {sectionelse} is involved (messju)
   - fix handling of methods arguments (messju, Manfred Wischin)
   - remove touch() call that made the compiled-template's timestamp the
     same as the source-template's one. (messju)
