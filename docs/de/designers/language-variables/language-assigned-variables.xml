@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+   <sect1 id="language.assigned.variables">
+    <title>Aus einem PHP-Skript zugewiesene Variablen</title>
+    <para>
+     Variablen die in einem PHP Skript zugewiesen wurden, m&uuml;ssen mit eine Dollar Zeichen <literal>$</literal>
+     versehen werden.
+    </para>
+    <example>
+
+     <title>zugewiesene Variablen</title>
+<programlisting>
+Hallo {$vorname}, sch&ouml;n dass Du wieder da bist.
+&lt;p&gt;
+Letzer zugriff: {$lastLoginDate}.
+
+AUSGABE:
+
+Hallo Andreas, sch&ouml;n dass Du wieder da bist.
+&lt;p&gt;
+Letzer Zugriff: January 11th, 2001.</programlisting>
+</example>
+
+		<sect2 id="language.variables.assoc.arrays">
+			<title>Assoziative Arrays</title>
+			<para>
+			Sie k&ouml;nnen auch auf die Werte eines in PHP zugewiesenen assoziativen Arrays zugreifen,
+            indem Sie den Schl&uuml;ssel nach einem '.'-Zeichen (Punkt) notieren.
+			</para>
+<example>
+<title>Zugriff auf Variablen eines assoziativen Arrays</title>
+<programlisting>
+{$Kontakte.fax}&lt;br&gt;
+{$Kontakte.email}&lt;br&gt;
+{* auch multidimensionale Arrays k&ouml;nnen so angesprochen werden *}
+{$Kontakte.telefon.privat}&lt;br&gt;
+{$Kontakte.telefon.mobil}&lt;br&gt;
+
+AUSGABE:
+
+555-222-9876&lt;br&gt;
+zaphod@slartibartfast.com&lt;br&gt;
+555-444-3333&lt;br&gt;
+555-111-1234&lt;br&gt;
+</programlisting>
+</example>
+		</sect2>
+        <sect2 id="language.variables.array.indexes">
+			<title>Array Index</title>
+			<para>
+			Arrays k&ouml;nnen - &auml;hnlich der PHP-Syntax - auch &uuml;ber ihren Index angesprochen werden.
+			</para>
+<example>
+<title>Zugriff &uuml;ber den Array Index</title>
+<programlisting>
+{$Kontakte[0]}&lt;br&gt;
+{$Kontakte[1]}&lt;br&gt;
+{* auch hier sind multidimensionale Arrays m&ouml;glich *}
+{$Kontakte[0][0]}&lt;br&gt;
+{$Kontakte[0][1]}&lt;br&gt;</programlisting>
+</example>
+		</sect2>
+        <sect2 id="language.variables.objects">
+			<title>Objekte</title>
+			<para>
+			Attribute von aus PHP zugewiesenen Objekten k&ouml;nnen
+            &uuml;ber das '-&gt;'-Symbol erreicht werden.
+			</para>
+<example>
+<title>Zugriff auf Objekt-Attribute</title>
+<programlisting>
+name: {$person-&gt;name}&lt;br&gt;
+email: {$person-&gt;email}&lt;br&gt;
+
+AUSGABE:
+
+name: Zaphod Beeblebrox&lt;br&gt;
+email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
+</example>
+		</sect2>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

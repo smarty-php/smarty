@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+		<sect1 id="language.function.cycle">
+			<title>cycle</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>default</emphasis></entry>
+                        <entry>The name of the cycle</entry>
+                    </row>
+                    <row>
+                        <entry>values</entry>
+                        <entry>mixed</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>N/A</emphasis></entry>
+						<entry>The values to cycle through, either a comma
+						delimited list (see delimiter attribute), or an array
+						of values.</entry>
+                    </row>
+                    <row>
+                        <entry>print</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>Whether to print the value or not</entry>
+                    </row>
+                    <row>
+                        <entry>advance</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>Whether or not to advance to the next value</entry>
+                    </row>
+                    <row>
+                        <entry>delimiter</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>,</emphasis></entry>
+                        <entry>The delimiter to use in the values attribute.</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the template variable the output will be assigned
+						to</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			Cycle is used to cycle though a set of values. This makes it easy
+			to alternate between two or more colors in a table, or cycle
+			through an array of values.
+			</para>
+			<para>
+			You can cycle through more than one set of values in your template
+			by supplying a name attribute. Give each set of values a unique
+			name.
+			</para>
+			<para>
+			You can force the current value not to print with the print
+			attribute set to false. This would be useful for silently skipping
+			a value.
+			</para>
+			<para>
+			The advance attribute is used to repeat a value. When set to false,
+			the next call to cycle will print the same value.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			cycle function will be assigned to this template variable instead of
+			being output to the template.
+			</para>
+<example>
+<title>cycle</title>
+<programlisting>
+{section name=rows loop=$data}
+&lt;tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}"&gt;
+   &lt;td&gt;{$data[rows]}&lt;/td&gt;
+&lt;/tr&gt;
+{/section}
+
+OUTPUT:
+
+&lt;tr bgcolor="#eeeeee"&gt;
+   &lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr bgcolor="#d0d0d0"&gt;
+   &lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr bgcolor="#eeeeee"&gt;
+   &lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+</programlisting>
+</example>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

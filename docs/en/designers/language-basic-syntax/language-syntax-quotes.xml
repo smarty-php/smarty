@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+   <sect1 id="language.syntax.quotes">
+    <title>Embedding Vars in Double Quotes</title>
+    <para>
+    	Smarty will recognize assigned variables embedded in double quotes so long
+    	as the variables contain only numbers, letters, underscores and brackets
+    	[]. With any other characters (period, object reference, etc.) the variable
+    	must be surrounded by backticks.
+    </para>
+    <example>
+     <title>embedded quotes syntax</title>
+     <programlisting>
+<![CDATA[
+SYNTAX EXAMPLES:
+{func var="test $foo test"}       <-- sees $foo
+{func var="test $foo_bar test"}   <-- sees $foo_bar
+{func var="test $foo[0] test"}    <-- sees $foo[0]
+{func var="test $foo[bar] test"}  <-- sees $foo[bar]
+{func var="test $foo.bar test"}   <-- sees $foo (not $foo.bar)
+{func var="test `$foo.bar` test"} <-- sees $foo.bar
+
+PRACTICAL EXAMPLES:
+{include file="subdir/$tpl_name.tpl"} <-- will replace $tpl_name with value
+{cycle values="one,two,`$smarty.config.myval`"} <-- must have backticks
+]]>
+     </programlisting>
+    </example>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

@@ -15,143 +15,14 @@
     entsprechenden Ausgaben an deren Stelle einzuf&uuml;gen.
    </para>
 
-   <sect1 id="language.syntax.comments">
-    <title>Kommentare</title>
-    <para>
-     Kommentare werden von Asterisks umschlossen, und mit Trennzeichen umgeben.
-     Beispiel: {* das ist ein Kommentar *}
-     Smarty-Kommentare werden in der Ausgabe nicht dargestellt und vor allem
-     dazu verwendet, die Templates verst&auml;ndlicher aufzubauen.
-    </para>
-    <example>
-     <title>Kommentare</title>
-     <programlisting>
-{* Smarty *}
+&designers.language-basic-syntax.language-syntax-comments;
 
-{* einbinden des Header-Templates *}
-{include file="header.tpl"}
+&designers.language-basic-syntax.language-syntax-functions;
 
-{include file=$includeFile}
+&designers.language-basic-syntax.language-syntax-attributes;
 
-{include file=#includeFile#}
-
-{* Ausgabe der drop-down Liste *}
-&lt;SELECT name=firma&gt;
-{html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
-    </example>
-   </sect1>
-
-   <sect1 id="language.syntax.functions">
-    <title>Funktionen</title>
-    <para>
-     Jedes Smarty-Tag gibt entweder eine <link linkend="language.variables">Variable</link> aus
-     oder ruft eine Funktion auf. Funktionen werden aufgerufen indem der Funktionsname
-     und die Parameter mit Trennzeichen umschlossen werden. Beispiel: {funcname attr1="val" attr2="val"}.
-    </para>
-    <example>
-     <title>Funktions-Syntax</title>
-     <programlisting>
-{config_load file="colors.conf"}
-
-{include file="header.tpl"}
-
-{if $highlight_name}
-       Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
-{else}
-       Welcome, {$name}!
-{/if}
-
-{include file="footer.tpl"}</programlisting>
-    </example>
-    <para>
-     Sowohl der Aufruf von eingebauten, als auch der von eigenen Funktionen folgt der
-     gleichen Syntax. Eingebaute Funktionen erlauben einige Basis-Operationen wie <command>if</command>, <command>section</command>
-     und <command>strip</command>. Diese Funktionen k&ouml;nnen nicht ver&auml;ndert werden.
-     Individuelle Funktionen die die F&auml;higkeiten von Smarty erweitern werden als Plugins implementiert.
-     Diese Funktionen k&ouml;nnen von Ihnen angepasst werden, oder Sie k&ouml;nnen selbst neue Plugins
-     hinzuf&uuml;gen. <command>html_options</command> und <command>html_select_date</command> sind Beispiele solcher Funktionen.
-    </para>
-   </sect1>
-
-   <sect1 id="language.syntax.attributes">
-    <title>Attribute / Parameter</title>
-    <para>
-     Die meisten Funktionen nehmen Parameter entgegen, die das
-     Verhalten der Funktion definieren beziehungsweise beeinflussen. Parameter
-     f&uuml;r Smarty Funktionen sind HTML Attributen sehr &auml;hnlich.
-     Statische Werte m&uuml;ssen nicht in Anf&uuml;hrungszeichen gesetzt werden,
-     f&uuml;r literale Zeichenketten (literal strings) wird dies jedoch empfohlen.
-    </para>
-    <para>
-     Bestimmte Parameter verlangen logische Werte (true / false). Diese
-     k&ouml;nnen auch ohne Anf&uuml;hrungszeichen angegeben werden:
-     <literal>true</literal>, <literal>on</literal> und <literal>yes</literal>
-     - oder <literal>false</literal>, <literal>off</literal> und <literal>no</literal>.
-    </para>
-    <example>
-     <title>Funktions-Parameter Syntax</title>
-     <programlisting>
-{include file="header.tpl"}
-
-{include file=$includeFile}
-
-{include file=#includeFile#}
-
-{html_select_date display_days=yes}
-
-&lt;SELECT name=firma&gt;
-{html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
-</example>
-		</sect1>
-
-  <sect1 id="language.syntax.quotes">
-    <title>Variablen mit Doppelten Anf&uuml;hrungszeichen</title>
-    <para>
-     Smarty erkennt zugewiesene Variablen mit doppelten Anf&uuml;hrungszeichen solange
-     die Variablen nur Zahlen, Buchstaben, Understriche oder Klammern [] enthalten. Mit allen
-     anderen Zeichen wie Punkt, Objekt Referenzen, etc muss die Vairable mit Backticks umschlossen sein.
-    </para>
-    <example>
-     <title>Syntax von eingebetteten Anf&uuml;rungszeichen</title>
-     <programlisting>
-SYNTAX BEISPIELE:
-{func var="test $foo test"}       &lt;-- sieht $foo
-{func var="test $foo_bar test"}   &lt;-- sieht $foo_bar
-{func var="test $foo[0] test"}    &lt;-- sieht $foo[0]
-{func var="test $foo[bar] test"}  &lt;-- sieht $foo[bar]
-{func var="test $foo.bar test"}   &lt;-- sieht $foo (nicht $foo.bar)
-{func var="test `$foo.bar` test"} &lt;-- sieht $foo.bar
-
-PRAKTISCHE BEISPIELE:
-{include file="subdir/$tpl_name.tpl"} &lt;-- ersetzt $tpl_name durch wert
-{cycle values="one,two,`$smarty.config.myval`"} &lt;-- muss Backticks enthalten</programlisting>
-</example>
-                </sect1>
-   <sect1 id="language.math">
-    <title>Math</title>
-    <para>
-     Mathematische Operationen k&ouml;nnen direkt auf Variablen verwendet werden.
-    </para>
-    <example>
-     <title>Mathematik Beispiele</title>
-     <programlisting>
-{$foo+1}
-
-{$foo*$bar}
-
-{* kompliziertere Beispiele *}
-
-{$foo-&gt;bar-$bar[1]*$baz-&gt;foo-&gt;bar()-3*7}
-
-{if ($foo+$bar.test%$baz*134232+10+$b+10)}
-
-{$foo|truncate:"`$fooTruncCount/$barTruncFactor-1`"}
-
-{assign var="foo" value="`$foo+$bar`"}</programlisting>
-</example>
-        </sect1>
+&designers.language-basic-syntax.language-syntax-quotes;
+&designers.language-basic-syntax.language-math;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

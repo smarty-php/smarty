@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+		<sect1 id="language.function.section">
+			<title>section,sectionelse</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the section</entry>
+                    </row>
+                    <row>
+                        <entry>loop</entry>
+                        <entry>[$variable_name]</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable to determine # of loop
+                        iterations</entry>
+                    </row>
+                    <row>
+                        <entry>start</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+						<entry><emphasis>0</emphasis></entry> <entry>The index
+						position that the section will begin looping. If the
+						value is negative, the start position is calculated
+						from the end of the array. For example, if there are
+						seven values in the loop array and start is -2, the
+						start index is 5. Invalid values (values outside of the
+						length of the loop array) are automatically truncated
+						to the closest valid value.</entry>
+                    </row>
+                    <row>
+                        <entry>step</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+						<entry>The step value that will be used to traverse the
+						loop array. For example, step=2 will loop on index
+						0,2,4, etc. If step is negative, it will step through
+						the array backwards.</entry>
+                    </row>
+                    <row>
+                        <entry>max</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+						<entry>Sets the maximum number of times the section
+						will loop.</entry>
+                    </row>
+                    <row>
+                        <entry>show</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>determines whether or not to show this section</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            Template sections are used for looping over arrays of data. All
+            <emphasis>section</emphasis> tags must be paired with
+            <emphasis>/section</emphasis> tags. Required parameters are
+            <emphasis>name</emphasis> and <emphasis>loop</emphasis>. The name
+            of the section can be anything you like, made up of letters,
+            numbers and underscores. Sections can be nested, and the nested
+            section names must be unique from each other. The loop variable
+            (usually an array of values) determines the number of times the
+            section will loop. When printing a variable within a section, the
+            section name must be given next to variable name within brackets
+            []. <emphasis>sectionelse</emphasis> is
+            executed when there are no values in the loop variable.
+			</para>
+<example>
+<title>section</title>
+<programlisting>
+
+{* this example will print out all the values of the $custid array *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+{/section}
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;</programlisting>
+</example>
+
+<example>
+<title>section loop variable</title>
+<programlisting>
+{* the loop variable only determines the number of times to loop.
+   you can access any variable from the template within the section.
+   This example assumes that $custid, $name and $address are all
+   arrays containing the same number of values *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+	name: {$name[customer]}&lt;br&gt;
+	address: {$address[customer]}&lt;br&gt;
+	&lt;p&gt;
+{/section}
+
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+name: John Smith&lt;br&gt;
+address: 253 N 45th&lt;br&gt;
+&lt;p&gt;
+id: 1001&lt;br&gt;
+name: Jack Jones&lt;br&gt;
+address: 417 Mulberry ln&lt;br&gt;
+&lt;p&gt;
+id: 1002&lt;br&gt;
+name: Jane Munson&lt;br&gt;
+address: 5605 apple st&lt;br&gt;
+&lt;p&gt;</programlisting>
+</example>
+
+<example>
+<title>section names</title>
+<programlisting>
+{* the name of the section can be anything you like,
+   and it is used to reference the data within the section *}
+{section name=mydata loop=$custid}
+	id: {$custid[mydata]}&lt;br&gt;
+	name: {$name[mydata]}&lt;br&gt;
+	address: {$address[mydata]}&lt;br&gt;
+	&lt;p&gt;
+{/section}</programlisting>
+</example>
+
+<example>
+<title>nested sections</title>
+<programlisting>
+{* sections can be nested as deep as you like. With nested sections,
+   you can access complex data structures, such as multi-dimensional
+   arrays. In this example, $contact_type[customer] is an array of
+   contact types for the current customer. *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+	name: {$name[customer]}&lt;br&gt;
+	address: {$address[customer]}&lt;br&gt;
+	{section name=contact loop=$contact_type[customer]}
+		{$contact_type[customer][contact]}: {$contact_info[customer][contact]}&lt;br&gt;
+	{/section}
+	&lt;p&gt;
+{/section}
+
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+name: John Smith&lt;br&gt;
+address: 253 N 45th&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: john@mydomain.com&lt;br&gt;
+&lt;p&gt;
+id: 1001&lt;br&gt;
+name: Jack Jones&lt;br&gt;
+address: 417 Mulberry ln&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jack@mydomain.com&lt;br&gt;
+&lt;p&gt;
+id: 1002&lt;br&gt;
+name: Jane Munson&lt;br&gt;
+address: 5605 apple st&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jane@mydomain.com&lt;br&gt;
+&lt;p&gt;</programlisting>
+</example>
+
+<example>
+<title>sections and associative arrays</title>
+<programlisting>
+{* This is an example of printing an associative array
+   of data within a section *}
+{section name=customer loop=$contacts}
+	name: {$contacts[customer].name}&lt;br&gt;
+	home: {$contacts[customer].home}&lt;br&gt;
+	cell: {$contacts[customer].cell}&lt;br&gt;
+	e-mail: {$contacts[customer].email}&lt;p&gt;
+{/section}
+
+
+OUTPUT:
+
+name: John Smith&lt;br&gt;
+home: 555-555-5555&lt;br&gt;
+cell: 555-555-5555&lt;br&gt;
+e-mail: john@mydomain.com&lt;p&gt;
+name: Jack Jones&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jack@mydomain.com&lt;p&gt;
+name: Jane Munson&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
+</example>
+
+
+
+<example>
+<title>sectionelse</title>
+<programlisting>
+{* sectionelse will execute if there are no $custid values *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+{sectionelse}
+	there are no values in $custid.
+{/section}</programlisting>
+</example>
+		<para>
+		Sections also have their own variables that handle section properties.
+		These are indicated like so: {$smarty.section.sectionname.varname}
+		</para>
+		<para>
+		NOTE: As of Smarty 1.5.0, the syntax for section property variables has
+		been changed from {%sectionname.varname%} to
+		{$smarty.section.sectionname.varname}. The old syntax is still
+		supported, but you will only see reference to the new syntax in the
+		manual examples.
+		</para>
+			<sect2 id="section.property.index">
+			<title>index</title>
+			<para>
+			index is used to display the current loop index, starting with zero
+			(or the start attribute if given), and incrementing by one (or by
+			the step attribute if given.)
+			</para>
+			<note>
+				<title>Technical Note</title>
+				<para>
+				If the step and start section properties are not
+				modified, then this works the same as the iteration section
+				property, except it starts on 0 instead of 1.
+				</para>
+			</note>
+	<example>
+	<title>section property index</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.index.prev">
+			<title>index_prev</title>
+			<para>
+			index_prev is used to display the previous loop index.
+        	on the first loop, this is set to -1.
+			</para>
+	<example>
+	<title>section property index_prev</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_prev] ne $custid[customer.index]}
+    	The customer id changed&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.index.next">
+			<title>index_next</title>
+			<para>
+        	index_next is used to display the next loop index. On the last
+        	loop, this is still one more than the current index (respecting the
+			setting of the step attribute, if given.)
+			</para>
+	<example>
+	<title>section property index_next</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_next] ne $custid[customer.index]}
+    	The customer id will change&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.iteration">
+			<title>iteration</title>
+			<para>
+        	iteration is used to display the current loop iteration.
+			</para>
+			<para>
+			NOTE: This is not affected by the section properties start, step and
+			max, unlike the index property. Iteration also starts with 1
+			instead of 0 like index. rownum is an alias to iteration, they work
+			identical.
+			</para>
+	<example>
+	<title>section property iteration</title>
+	<programlisting>
+	{section name=customer loop=$custid start=5 step=2}
+	current loop iteration: {$smarty.section.customer.iteration}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_next] ne $custid[customer.index]}
+    	The customer id will change&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	current loop iteration: 1
+	5 id: 1000&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	current loop iteration: 2
+	7 id: 1001&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	current loop iteration: 3
+	9 id: 1002&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.first">
+			<title>first</title>
+			<para>
+        	first is set to true if the current section iteration is the first
+        	one.
+			</para>
+	<example>
+	<title>section property first</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{if $smarty.section.customer.first}
+    	&lt;table&gt;
+	{/if}
+
+	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
+        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+
+	{if $smarty.section.customer.last}
+    	&lt;/table&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	&lt;table&gt;
+	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.last">
+			<title>last</title>
+			<para>
+        	last is set to true if the current section iteration is the last
+        	one.
+			</para>
+	<example>
+	<title>section property last</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{if $smarty.section.customer.first}
+    	&lt;table&gt;
+	{/if}
+
+	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
+        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+
+	{if $smarty.section.customer.last}
+    	&lt;/table&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	&lt;table&gt;
+	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.rownum">
+			<title>rownum</title>
+			<para>
+			rownum is used to display the current loop iteration,
+			starting with one. It is an alias to iteration, they work
+			identically.
+			</para>
+	<example>
+	<title>section property rownum</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+
+	OUTPUT:
+
+	1 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	3 id: 1002&lt;br&gt;
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.loop">
+			<title>loop</title>
+			<para>
+			loop is used to display the last index number that this section
+			looped. This can be used inside or after the section.
+			</para>
+	<example>
+	<title>section property index</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	There were {$smarty.section.customer.loop} customers shown above.
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+
+	There were 3 customers shown above.
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.show">
+			<title>show</title>
+			<para>
+        	<emphasis>show</emphasis> is used as a parameter to section.
+        	<emphasis>show</emphasis> is a boolean value, true or false. If
+        	false, the section will not be displayed. If there is a sectionelse
+        	present, that will be alternately displayed.
+			</para>
+	<example>
+	<title>section attribute show</title>
+	<programlisting>
+	{* $show_customer_info may have been passed from the PHP
+	application, to regulate whether or not this section shows *}
+	{section name=customer loop=$custid show=$show_customer_info}
+	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	{if $smarty.section.customer.show}
+	the section was shown.
+	{else}
+	the section was not shown.
+	{/if}
+
+
+	OUTPUT:
+
+	1 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	3 id: 1002&lt;br&gt;
+
+	the section was shown.
+</programlisting>
+	</example>
+			</sect2>
+			<sect2 id="section.property.total">
+			<title>total</title>
+			<para>
+			total is used to display the number of iterations that this section
+			will loop. This can be used inside or after the section.
+			</para>
+	<example>
+	<title>section property total</title>
+	<programlisting>
+	{section name=customer loop=$custid step=2}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	There were {$smarty.section.customer.total} customers shown above.
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	4 id: 1002&lt;br&gt;
+
+	There were 3 customers shown above.
+</programlisting>
+	</example>
+			</sect2>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

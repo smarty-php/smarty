@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+		<sect1 id="language.function.foreach">
+			<title>foreach,foreachelse</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>from</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the array you are looping through</entry>
+                    </row>
+                    <row>
+                        <entry>item</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable that is the current
+						element</entry>
+                    </row>
+                    <row>
+                        <entry>key</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+						<entry><emphasis>n/a</emphasis></entry>
+						<entry>The name of the variable that is the current key</entry>
+                    </row>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>The name of the foreach loop for accessing
+						foreach properties</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			<emphasis>foreach</emphasis> loops are an alternative to
+			<emphasis>section</emphasis> loops. <emphasis>foreach</emphasis> is
+			used to loop over a single associative array. The syntax for
+			<emphasis>foreach</emphasis> is much easier than
+			<emphasis>section</emphasis>, but as a tradeoff it can only be used
+			for a single array. <emphasis>foreach</emphasis> tags must be
+			paired with <emphasis>/foreach</emphasis> tags. Required parameters
+			are <emphasis>from</emphasis> and <emphasis>item</emphasis>. The
+			name of the foreach loop can be anything you like, made up of
+			letters, numbers and underscores. <emphasis>foreach</emphasis>
+			loops can be nested, and the nested foreach names must be unique
+			from each other. The <emphasis>from</emphasis> variable (usually an
+			array of values) determines the number of times
+			<emphasis>foreach</emphasis> will loop.
+			<emphasis>foreachelse</emphasis> is executed when there are no
+			values in the <emphasis>from</emphasis> variable.
+			</para>
+<example>
+<title>foreach</title>
+<programlisting>
+
+{* this example will print out all the values of the $custid array *}
+{foreach from=$custid item=curr_id}
+	id: {$curr_id}&lt;br&gt;
+{/foreach}
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;</programlisting>
+</example>
+
+<example>
+<title>foreach key</title>
+<programlisting>
+{* The key contains the key for each looped value
+
+assignment looks like this:
+
+$smarty->assign("contacts", array(array("phone" =&gt; "1", "fax" =&gt; "2", "cell" =&gt; "3"),
+      array("phone" =&gt; "555-4444", "fax" =&gt; "555-3333", "cell" =&gt; "760-1234")));
+
+*}
+
+{foreach name=outer item=contact from=$contacts}
+  {foreach key=key item=item from=$contact}
+    {$key}: {$item}&lt;br&gt;
+  {/foreach}
+{/foreach}
+
+OUTPUT:
+
+phone: 1&lt;br&gt;
+fax: 2&lt;br&gt;
+cell: 3&lt;br&gt;
+phone: 555-4444&lt;br&gt;
+fax: 555-3333&lt;br&gt;
+cell: 760-1234&lt;br&gt;</programlisting>
+</example>
+
+		<para>
+		Foreach-loops also have their own variables that handle foreach properties.
+                These are indicated like so: {$smarty.foreach.foreachname.varname} with
+		foreachname being the name specified as the <emphasis>name</emphasis>
+		attribute of foreach
+		</para>
+
+
+			<sect2 id="foreach.property.iteration">
+			<title>iteration</title>
+			<para>
+        	iteration is used to display the current loop iteration.
+			</para>
+			<para>
+			Iteration always starts with 1 and is incremented by one
+			one each iteration.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.first">
+			<title>first</title>
+			<para>
+        	<emphasis>first</emphasis> is set to true if the current foreach iteration is the first
+        	one.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.last">
+			<title>last</title>
+			<para>
+        	<emphasis>last</emphasis> is set to true if the current foreach iteration is the last
+        	one.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.show">
+			<title>show</title>
+			<para>
+        	<emphasis>show</emphasis> is used as a parameter to foreach.
+        	<emphasis>show</emphasis> is a boolean value, true or false. If
+        	false, the foreach will not be displayed. If there is a foreachelse
+        	present, that will be alternately displayed.
+			</para>
+
+			</sect2>
+			<sect2 id="foreach.property.total">
+			<title>total</title>
+			<para>
+			<emphasis>total</emphasis> is used to display the number of iterations that this foreach
+			will loop. This can be used inside or after the foreach.
+			</para>
+			</sect2>
+
+
+
+
+
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+		<sect1 id="language.function.foreach">
+			<title>foreach, foreachelse</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Attribut Name</entry>
+                        <entry>Typ</entry>
+                        <entry>Erforderlich</entry>       
+                        <entry>Standardwert</entry>
+                        <entry>Beschreibung</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>from</entry>
+                        <entry>string</entry>
+                        <entry>Ja</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>Name des zu durchlaufenden Array.</entry>
+                    </row>
+                    <row>
+                        <entry>item</entry>
+                        <entry>string</entry>
+                        <entry>Ja</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>Name f&uuml;r das aktuelle Element.</entry>
+                    </row>
+                    <row>
+                        <entry>key</entry>
+                        <entry>string</entry>
+                        <entry>Nein</entry>
+			<entry><emphasis>n/a</emphasis></entry>
+			<entry>Name f&uuml;r den aktuellen Schl&uuml;ssel.</entry>
+                    </row>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Nein</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+			<entry>Name der 'foreach'-Schleife, f&uuml;r die Abfrage der 'foreach'-Eigenschaften.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			Die <emphasis>foreach</emphasis> Schleife ist eine Alternative zu <emphasis>section</emphasis>.
+			<emphasis>foreach</emphasis> wird verwendet, um ein assoziatives Array
+			zu durchlaufen. Die Syntax von <emphasis>foreach</emphasis>-Schleifen ist viel einfacher als
+			die von <emphasis>section</emphasis>. <emphasis>foreach</emphasis> tags m&uuml;ssen mit <emphasis>/foreach</emphasis>
+			tags kombiniert werden. Erforderliche Parameter sind: <emphasis>from</emphasis> und
+			<emphasis>item</emphasis>. Der Name der 'foreach'-Schleife kann frei vergeben werden
+			und sowohl Buchstaben, Zahlen als auch Unterstriche enthalten. 
+                            <emphasis>foreach</emphasis>-Schleifen k&ouml;nnen verschachtelt werden, dabei ist 
+                            zu beachten, dass sich die definierten Namen voneinander unterscheiden. 
+                            Die <emphasis>from</emphasis> Variable (normalerweise
+			ein assoziatives Array) definiert die Anzahl der von <emphasis>foreach</emphasis>
+			zu durchlaufenen Iterationen. <emphasis>foreachelse</emphasis> wird ausgef&uuml;hrt wenn
+			keine Werte in der <emphasis>from</emphasis> Variable &uuml;bergeben wurden.
+			</para>
+<example>
+<title>foreach</title>
+<programlisting>
+
+
+
+{* dieses Beispiel gibt alle Werte aus dem $KundenId Array aus *}
+{foreach from=$KundenId item=aktuelle_id}
+	id: {$aktuelle_id}&lt;br&gt;
+{/foreach}
+
+AUSGABE:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;</programlisting>
+</example>
+
+<example>
+<title>foreach key</title>
+<programlisting>
+{* Der Schl&uuml;ssel enth&auml;lt den Schl&uuml;ssel des jeweils iterierten Wertes
+
+die Zuweisung sieht wie folgt aus:
+
+$smarty->assign("kontakte", array(array("phone" =&gt; "1", "fax" =&gt; "2", "cell" =&gt; "3"),
+      array("phone" =&gt; "555-4444", "fax" =&gt; "555-3333", "cell" =&gt; "760-1234")));
+
+*}
+      
+{foreach name=aussen item=kontakt from=$kontakte}
+  {foreach key=schluessel item=wert from=$kontakt}
+    {$schluessel}: {$wert}&lt;br&gt;
+  {/foreach}
+{/foreach}
+
+AUSGABE:
+
+phone: 1&lt;br&gt;
+fax: 2&lt;br&gt;
+cell: 3&lt;br&gt;
+phone: 555-4444&lt;br&gt;
+fax: 555-3333&lt;br&gt;
+cell: 760-1234&lt;br&gt;</programlisting>
+</example>
+
+               <para>
+         Foreach-Loops haben auch eigene Variablen welche die Foreach Eigenschaften enthalten.
+	 Diese werden wie folgt ausgewiesen: {$smarty.foreach.foreachname.varname}. foreachname
+	 ist der Name der als <emphasis>name</emphasis> Attribut von Foreach &uuml;bergeben wurden.
+               </para>
+                       <sect2 id="foreach.property.iteration">
+                       <title>iteration</title>
+                       <para>
+		       gibt die aktuelle iteration aus
+                       </para>
+                       <para>
+		       iteration beginnt immer mit 1 und wird danach bei jedem durchgang um 1 inkrementiert.
+                       </para>
+                       </sect2>
+
+                       <sect2 id="foreach.property.first">
+                       <title>first</title>
+                       <para>
+               <emphasis>first</emphasis> ist TRUE wenn die aktuelle Iteration die erste ist
+                       </para>
+                       </sect2>
+
+                       <sect2 id="foreach.property.last">
+                       <title>last</title>
+                       <para>
+               <emphasis>last</emphasis> ist TRUE wenn die aktuelle Iteration die letzte ist
+                       </para>
+                       </sect2>
+
+                       <sect2 id="foreach.property.show">
+                       <title>show</title>
+                       <para>
+	               <emphasis>show</emphasis> wird als Parameter von foreach verwedet und ist ein boolscher Wert, TRUE oder FALSE. Auf FALSE wird
+		       nichts ausgegeben und wenn foreachelse gefunden wird, dieser angezeigt.
+                       </para>
+
+                       </sect2>
+                       <sect2 id="foreach.property.total">
+                       <title>total</title>
+                       <para>
+                       <emphasis>total</emphasis> gibt die Anzahl Iterationen des Foreach Loops aus und kann in- oder nach- Foreach Bl&ouml;cken verwendet werden.
+                       </para>
+                       </sect2>
+
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->
