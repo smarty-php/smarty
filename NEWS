@@ -1,3 +1,6 @@
+    - fixed $template_dir, $compile_dir, $cache_dir, $config_dir
+      to respect include_path (Monte)
+    - fixed warning message with output filter array (Monte)
     - add optional 2nd parameter to date_format, used as
       the default date if the passed date is empty (Monte)
     - gave $reset a default value in cycle plugin (Monte)
