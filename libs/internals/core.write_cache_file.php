@@ -62,7 +62,8 @@ function smarty_core_write_cache_file($params, &$smarty)
     $smarty->_cache_info['cache_serials'] = $smarty->_cache_serials;
 
     // prepend the cache header info into cache file
-    $params['results'] = serialize($smarty->_cache_info)."\n".$params['results'];
+    $_cache_info = serialize($smarty->_cache_info);
+    $params['results'] = strlen($_cache_info) . "\n" . $_cache_info . $params['results'];
 
     if (!empty($smarty->cache_handler_func)) {
         // use cache_handler function

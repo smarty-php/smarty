@@ -48,10 +48,11 @@ function smarty_core_read_cache_file(&$params, &$smarty)
         return false;
     }
 
-    $cache_split = explode("\n", $params['results'], 2);
-    $cache_header = $cache_split[0];
-
-    $_cache_info = unserialize($cache_header);
+    $_contents = $params['results'];
+    $_info_start = strpos($_contents, "\n") + 1;
+    $_info_len = (int)substr($_contents, 0, $_info_start - 1);
+    $_cache_info = unserialize(substr($_contents, $_info_start, $_info_len));
+    $params['results'] = substr($_contents, $_info_start + $_info_len);
 
     if ($smarty->caching == 2 && isset ($_cache_info['expires'])){
         // caching by expiration time
@@ -99,7 +100,6 @@ function smarty_core_read_cache_file(&$params, &$smarty)
             return false;
         }
     }
-    $params['results'] = $cache_split[1];
     $content_cache[$params['tpl_file'].','.$params['cache_id'].','.$params['compile_id']] = array($params['results'], $_cache_info);
 
     $smarty->_cache_info = $_cache_info;
