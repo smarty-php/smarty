@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="plugins.resources">
  <title>Ресурсы</title>
  <para>
@@ -12,7 +12,7 @@
  <para>
   Необходимо 4 функции для того, чтобы зарегестрировать
   каждый тип ресурса. Каждая такая функция получает запрашиваемый ресурс в качестве
-  первого параметра и объект Smarty как последний параметр. 
+  первого параметра и объект Smarty как последний параметр.
   Остальные параметры зависят от функции.
  </para>
 
@@ -60,7 +60,7 @@
 
  <para>
   Третья функция возвращает <literal>true</literal> или
-  <literal>false</literal> в зависимости от того, является ли 
+  <literal>false</literal> в зависимости от того, является ли
   запрашиваемый ресурс безопасным. Эта функция используется только для ресурсов шаблона, но
   в любом случае должна быть определена.
  </para>
@@ -80,12 +80,12 @@
  </para>
  <example>
   <title>Плагин ресурса</title>
-   <programlisting>
+   <programlisting role="php">
 <![CDATA[
 <?php
 /*
  * Smarty plugin
- * ------------------------------------------------------------- 
+ * -------------------------------------------------------------
  * Файл:     resource.db.php
  * Тип:     resource
  * Имя:     db
@@ -133,7 +133,7 @@ function smarty_resource_db_trusted($tpl_name, &$smarty)
 {
     // не используется для шаблонов
 }
-?> 
+?>
 ]]>
   </programlisting>
  </example>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="plugins.prefilters.postfilters">
  <title>Префильтры/Постфильтры</title>
  <para>
@@ -17,7 +17,7 @@
  <para>
   Префильтры используются для обработки исходного кода шаблона непосредственно
   перед компиляцией. Первый параметр функции префильтра -  это
-  исходный код шаблона, который, возможно, уже изменен другими префильтрами. 
+  исходный код шаблона, который, возможно, уже изменен другими префильтрами.
   Такой плагин возвращает модифицированый исходный код.  Заметьте, что
   этот исходный код нигде не сохраняется, он используется только для компиляции.
  </para>
@@ -38,7 +38,7 @@
  </para>
  <example>
   <title>Плагин префильтра</title>
-  <programlisting>
+  <programlisting role="php">
 <![CDATA[
 <?php
 /*
@@ -61,7 +61,7 @@
  <para></para>
  <example>
   <title>Плагин постфильтра</title>
-  <programlisting>
+ <programlisting role="php">
 <![CDATA[
 <?php
 /*

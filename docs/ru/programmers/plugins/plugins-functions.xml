@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="plugins.functions">
  <title>Функции шаблона</title>
  <funcsynopsis>
@@ -19,7 +19,7 @@
  </para>
  <para>
   Вывод (возвращаемое значение) функции будет подставлен в место расположения
-  тега функции в шаблоне (функция <function>fetch</function>  например). 
+  тега функции в шаблоне (функция <function>fetch</function>  например).
   В качестве альтернативы, функция может выполнять какие либо действия
   без какого-либо вывода (<function>assign</function> функция).
  </para>
@@ -36,7 +36,7 @@
  <para>
   <example>
    <title>Функция-плагин с выводом</title>
-   <programlisting>
+   <programlisting role="php">
 <![CDATA[
 <?php
 /*
@@ -60,7 +60,7 @@ function smarty_function_eightball($params, &amp;$smarty)
     $result = array_rand($answers);
     return $answers[$result];
 }
-?> 
+?>
 ]]>
    </programlisting>
   </example>
@@ -71,13 +71,13 @@ function smarty_function_eightball($params, &amp;$smarty)
   <programlisting>
 <![CDATA[
 Вопрос: Мы когда-нибудь найдем время для отпуска?
-Ответ: {eightball}. 
+Ответ: {eightball}.
 ]]>
   </programlisting>
   <para>
    <example>
     <title>Функция-плагин без вывода</title>
-    <programlisting>
+    <programlisting role="php">
 <![CDATA[
 <?php
 /*
@@ -105,7 +105,7 @@ function smarty_function_assign($params, &amp;$smarty)
 
     $smarty->assign($var, $value);
 }
-?> 
+?>
 ]]>
    </programlisting>
   </example>

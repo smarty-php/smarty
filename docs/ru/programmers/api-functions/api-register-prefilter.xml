@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="api.register.prefilter">
- <title>register_prefilter</title>
- <funcsynopsis>
- <funcprototype>
- <funcdef>void <function>register_prefilter</function></funcdef>
-  <paramdef>string <parameter>function_name</parameter></paramdef>
- </funcprototype>
- </funcsynopsis>
- <para>
-  Используйте функцию для динамической регистрации префильтра,
-  в целях управления содержимым вывода шаблона перед его компиляцией.
-  Смотрите <link linkend="advanced.features.prefilters">префильтры
-  шаблонов</link> для дополнительной информации.
- </para>
-</sect1>
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<refentry id="api.register.prefilter">
+ <refnamediv>
+  <refname>register_prefilter</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>register_prefilter</methodname>
+   <methodparam><type>mixed</type><parameter>function</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Используйте функцию для динамической регистрации префильтра,
+   в целях управления содержимым шаблона перед его компиляцией.
+   Обратитесь к <link linkend="advanced.features.prefilters">префильтрам
+   шаблонов</link> для получения дополнительной информации.
+  </para>
+  <para>
+   Коллбек-функцией php <parameter>function</parameter> может быть (a) строка,
+   содержащая имя функции, или (b) массив вида
+   <literal>array(&amp;$object, $method)</literal>, где
+   <literal>&amp;$object</literal> является ссылкой на
+   объект, а <literal>$method</literal> является строкой,
+   содержащей имя метода, или (c) массив в форме
+   <literal>array($class, $method)</literal>, где
+   <literal>$class</literal> является именем класса, а
+   <literal>$method</literal> является методом этого
+   класса.
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

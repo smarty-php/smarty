@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
      <sect1 id="variable.trusted.dir">
       <title>$trusted_dir</title>
       <para>
-	   $trusted_dir is only for use when $security is enabled. This is an array
-	   of all directories that are considered trusted. Trusted directories are
-	   where you keep php scripts that are executed directly from the templates
-	   with <link linkend="language.function.include.php">{include_php}</link>.
+	   $trusted_dir èñïîëüçóåòñÿ òîëüêî ïðè âêëþ÷åííîì ïàðàìåòðå $security. Ýòî ìàññèâ
+	   âñåõ äèðåêòîðèé, êîòîðûå ñ÷èòàþòñÿ íàä¸æíûìè. Íàä¸æíûå äèðåêòîðèè - ýòî äèðåêòîðèè,
+	   â êîòîðûõ âû õðàíèòå ñâîè php-ñêðèïòû, êîòîðûå âêëþ÷àþòñÿ ïðÿìî â øàáëîíû ïðè ïîìîùè
+	   äèðåêòèâû <link linkend="language.function.include.php">{include_php}</link>.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="api.clear.compiled.tpl">
- <title>clear_compiled_tpl</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>void <function>clear_compiled_tpl</function></funcdef>
-   <paramdef>string <parameter>tpl_file</parameter></paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
-  Очищает указанную откомпилированную версию шаблона, 
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<refentry id="api.clear.compiled.tpl">
+ <refnamediv>
+  <refname>clear_compiled_tpl</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_compiled_tpl</methodname>
+   <methodparam choice="opt"><type>string</type><parameter>tpl_file</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>int</type><parameter>exp_time</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+  Очищает указанную откомпилированную версию шаблона,
   или все откомпилированные файлы шаблона если ничего не указано.
-  Эта функция только для опытных пользователей и обычно в ее 
+   Если вы передадите аргумент compile_id, только откомпилированные версии
+   шаблонов с этим compile_id будут очищены. Если вы передадите аргумент exp_time, только
+   откомпилированные версии шаблонов старше exp_time секунд будут очищены.
+   По умолчанию очищаются все откомпилированные версии шаблонов независимо от их возраста.
+  Эта функция только для опытных пользователей и обычно в ее
   использовании необходимости нет.
  </para>
  <example>
   <title>clear_compiled_tpl</title>
-  <programlisting> 
+   <programlisting role="php">
 <![CDATA[
+<?php
 // очистить откомпилированный шаблон
 $smarty->clear_compiled_tpl("index.tpl");
 
 // очистить всю директорию с откомпилированными шаблонами
-$smarty->clear_compiled_tpl();  
-]]> 
-  </programlisting>
- </example>
-</sect1>
+$smarty->clear_compiled_tpl();
+?>
+]]>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

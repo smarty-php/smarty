@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="api.clear.cache">
- <title>clear_cache</title>
- <methodsynopsis>
- <type>void</type><methodname>clear_cache</methodname>
-  <methodparam choice="opt"><type>string</type><parameter>template</parameter></methodparam>
-  <methodparam choice="opt"><type>string</type><parameter>cache id</parameter></methodparam>
-  <methodparam choice="opt"><type>string</type><parameter>compile id</parameter></methodparam>
-  <methodparam choice="opt"><type>int</type><parameter>expire time</parameter></methodparam>
- </methodsynopsis>
- <para>
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<refentry id="api.clear.cache">
+ <refnamediv>
+  <refname>clear_cache</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_cache</methodname>
+   <methodparam><type>string</type><parameter>template</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
+  </methodsynopsis>
+  <para>
   Очищает кэш указанного шаблона. Если у вас есть
-  несколько кэшированных копий шаблона, вы можете 
-  очистить конкретную копию, указав cache id в 
-  качестве второго параметра. Вы так же можете передать 
-  compile id в качестве третьего параметра или 
-  "сгруппировать" шаблоны вместе и удалить группу. 
+  несколько кэшированных копий шаблона, вы можете
+  очистить конкретную копию, указав <parameter>cache_id</parameter> в
+  качестве второго параметра. Вы так же можете передать
+  compile id в качестве третьего параметра или
+  "сгруппировать" шаблоны вместе и удалить группу.
   Для получения дополнительной информации, смотрите
   <link linkend="caching">раздел "Кэширование"</link>.
-  В качестве необязательного четвертого параметра вы 
-  можете указать минимальное время в секундах, в 
+  В качестве необязательного четвертого параметра вы
+  можете указать минимальное время в секундах, в
   течение которого кэш будет существовать перед очисткой.
  </para>
  <example>
   <title>clear_cache</title>
-  <programlisting> 
+   <programlisting role="php">
 <![CDATA[
+<?php
 // очистить кэш шаблона
 $smarty->clear_cache("index.tpl");
 
-// очистить кэшированную копию с конкретным cache id 
+// очистить кэшированную копию с конкретным cache id
 // при множественном кэшировании шаблона
-$smarty->clear_cache("index.tpl","CACHEID");  
-]]> 
-  </programlisting>
- </example>
-</sect1>
+$smarty->clear_cache("index.tpl", "CACHEID");
+?>
+]]>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

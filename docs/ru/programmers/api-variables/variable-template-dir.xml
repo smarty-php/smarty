@@ -1,21 +1,22 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.template.dir">
-      <title>$template_dir</title>
-      <para>
-       This is the name of the default template directory. If you do
-       not supply a resource type when including files, they will be
-       found here. By default this is "./templates", meaning that it
-       will look for the templates directory in the same directory as
-       the executing php script.
-      </para>
-	   <note>
-		   <title>Technical Note</title>
-		   <para>
-    	   It is not recommended to put this directory under
-    	   the web server document root.
-    	   </para>
-	  </note>
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+   <sect1 id="variable.template.dir">
+    <title>$template_dir</title>
+    <para>
+     Ýòî íàçâàíèå äèðåêòîðèè øàáëîíîâ ïî óìîë÷àíèþ. Åñëè âû íå
+     ïåðåäàäèòå òèï ðåñóðñà âî âðåìÿ ïîäêëþ÷åíèÿ ôàéëîâ, îíè áóäóò
+     èñêàòüñÿ çäåñü. Çíà÷åíèå ïî óìîë÷àíèþ - "./templates", à ýòî çíà÷èò, ÷òî
+     äâèæîê áóäåò èñêàòü øàáëîíû â ïîääèðåêòîðèè templates òîé äèðåêòîðèè, â êîòîðîé
+     âûïîëíÿåòñÿ php-ñêðèïò.
+    </para>
+    <note>
+     <title>Òåõíè÷åñêîå çàìå÷àíèå</title>
+     <para>
+      Íå ðåêîììåíäóåòñÿ ðàçìåùàòü ýòó äèðåêòîðèþ â ïðåäåëàõ
+      êîðíåâîé äèðåêòîðèè âåá-ñåðâåðà.
+     </para>
+    </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

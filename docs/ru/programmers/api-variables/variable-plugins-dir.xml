@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
      <sect1 id="variable.plugins.dir">
       <title>$plugins_dir</title>
       <para>
-	   This is the directories where Smarty will look for the plugins that it
-	   needs. Default is "plugins" under the SMARTY_DIR. If you supply a
-	   relative path, Smarty will first look under the SMARTY_DIR, then
-	   relative to the cwd (current working directory), then relative to each
-	   entry in your PHP include path.
+	   Ýòî äèðåêòîðèè, â êîòîðûõ Smarty áóäåò èñêàòü íåîáõîäèìûå åìó ïëàãèíû.
+	   Ïî óìîë÷àíèþ ýòî ïîääèðåêòîðèÿ "plugins" äèðåêòîðèè SMARTY_DIR. Åñëè âû
+	   óêàæåòå îòíîñèòåëüíûé ïóòü, Smarty áóäåò â ïåðâóþ î÷åðåäü èñêàòü îòíîñèòåëüíî SMARTY_DIR,
+	   çàòåì îíîñèòåëüíî òåêóùåé ðàáî÷åé äèðåêòîðèè (cwd, current working directory), çàòåì îòíîñèòåëüíî
+	   êàæäîé äèðåêòîðèè â PHP-äèðåêòèâå include_path.
       </para>
 	  <note>
-	  <title>Technical Note</title>
+	  <title>Òåõíè÷åñêîå çàìå÷àíèå</title>
 	  <para>
-	  For best performance, do not setup your plugins_dir to have to use the
-	  PHP include path. Use an absolute pathname, or a path relative to
-	  SMARTY_DIR or the cwd.
+	  Äëÿ óëó÷øåíèÿ ïðîèçâîäèòåëüíîñòè, íå íóæíî íàñòðàèâàòü plugins_dir äëÿ èñïîëüçîâàíèÿ
+	  include_path. Èñïîëüçóéòå àáñîëþòíûå ïóòè èëè îòíîñèòåëüíûå ïóòè îò
+	  SMARTY_DIR èëè òåêóùåé ðàáî÷åé äèðåêòîðèè.
 	  </para>
 	  </note>
 </sect1>

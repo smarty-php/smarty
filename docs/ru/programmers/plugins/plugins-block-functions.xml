@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="plugins.block.functions">
  <title>Блоковые функции</title>
  <funcsynopsis>
@@ -30,14 +30,14 @@
   <varname>$params['start']</varname> или использовать
   <varname>extract($params)</varname> для импорта.
   Атрибуты, переданные в открывающем тэге доступны для вашей функции
-   до обработки закрывающего тэга включительно.
+  до обработки закрывающего тэга включительно.
  </para>
  <para>
   Значение переменной <parameter>$content</parameter> зависит от того,
-  вызывается ли ваша функция для отрывающего тэга или вызов происходит при закрытии тэга.
+  вызывается ли ваша функция для открывающего тэга или вызов происходит при закрытии тэга.
   В случае с открывающим тэгом, это значение будет равно <literal>null</literal>, а в случае
   закрывающего тэга, значение будет равно содержимому блока в шаблоне.
-  Заметьте, что этот блок шаблона уже будет обработан 
+  Заметьте, что этот блок шаблона уже будет обработан
   Smarty и на выводе вы получите результат обработки, а не
   исходный код шаблона.
  </para>
@@ -54,7 +54,7 @@
  </para>
  <example>
   <title>Блоковая функция</title>
-  <programlisting>
+  <programlisting role="php">
 <![CDATA[
 <?php
 /*
@@ -73,8 +73,8 @@ function smarty_block_translate($params, $content, &amp;$smarty)
         // здесь выполнить интеллектуальный перевод строки $content
         echo $translation;
     }
-} 
-?>    
+}
+?>
 ]]>
   </programlisting>
  </example>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="plugins.outputfilters">
  <title>Фильтры вывода</title>
  <para>
@@ -31,7 +31,7 @@
  * Файл:     outputfilter.protect_email.php
  * Тип:     outputfilter
  * Имя:     protect_email
- * Назначение:  Конвертировать символ @ в адресах email в %40 для 
+ * Назначение:  Конвертировать символ @ в адресах email в %40 для
  *           простейшей защиты от спамботов.
  * -------------------------------------------------------------
  */

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="variable.cache.lifetime">
  <title>$cache_lifetime</title>
  <para>
@@ -10,12 +10,12 @@
   $cache_lifetime. Значение переменной -1 задает неограниченное время
   жизни кэша. Значение переменной 0 вызовет постоянную его регенерацию
   (подходит только для тестирования, для отключения кэширования более
-  целесообразно устанавливать 
+  целесообразно устанавливать
   <link linkend="variable.caching">$caching</link> = false.)
  </para>
  <para>
   Если <link linkend="variable.force.compile">$force_compile</link>
-  активировано, файлы кэша будут каждый раз будут регенерироваться,
+  активировано, файлы кэша каждый раз будут регенерироваться,
   отключая таким образом кэширование. Вы можете очистить сразу все файлы кэша,
   используя функцию <link linkend="api.clear.all.cache">clear_all_cache()</link>,
   или в случае с конкретными файлами (группами) кэша - при помощи функции
@@ -26,7 +26,7 @@
   <para>
    Если вы хотите назначить конкретным шаблонам собственное время жизни их кэша,
    вы можете сделать это путем установки <link linkend="variable.caching">$caching
-   </link> = 2, затем установкой $cache_lifetime в нужное значение перед вызовом 
+   </link> = 2, затем установкой $cache_lifetime в нужное значение перед вызовом
    display() или fetch().
   </para>
  </note>

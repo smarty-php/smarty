@@ -1,33 +1,58 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="api.register.resource">
- <title>register_resource</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>void <function>register_resource</function></funcdef>
-   <paramdef>string <parameter>name</parameter></paramdef>
-   <paramdef>array <parameter>resource_funcs</parameter></paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
-  Используйте эту функцию, чтобы динамически зарегистрировать 
-  плагин ресурса в Smarty. Передается имя ресурса и массив PHP-функций.
-  Смотрите <link linkend="template.resources">template resources</link>
-  для дополнительной информации.
- </para>
- <example>
-  <title>register_resource</title>
-  <programlisting> 
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<refentry id="api.register.resource">
+ <refnamediv>
+  <refname>register_resource</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>register_resource</methodname>
+   <methodparam><type>string</type><parameter>name</parameter></methodparam>
+   <methodparam><type>array</type><parameter>resource_funcs</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Используйте эту функцию, чтобы динамически зарегистрировать
+   плагин ресурса в Smarty. Передается имя ресурса и массив php-функций.
+   Обратитесь к <link linkend="template.resources">ресурсам шаблонов</link>
+   для получениядополнительной информации.
+  </para>
+  <note>
+   <title>Техническое замечание</title>
+   <para>
+    Имя ресурса должно состоять минимум из двух букв. Однобуквенные
+    имена ресурсов будут игнорироваться и испольщоваться как часть файлового
+    пути, например $smarty->display('c:/path/to/index.tpl');
+   </para>
+  </note>
+  <para>
+   Массив php-функций <parameter>resource_funcs</parameter>
+   должен содержать 4 или 5 элементов.
+   В случае четырех элементов, элементы являются
+   соответствующими коллбек-функциями: "source",
+   "timestamp", "secure" и "trusted" функции ресурса.
+   В случае пяти элементов, первый элемент должен быть
+   ссылкой на объект или имя класса, объект или класс которого
+   реализовывает ресурс, а 4 следующих элементов должны быть названиями методов,
+   реализующимх "source", "timestamp", "secure" и "trusted".
+  </para>
+  <example>
+   <title>register_resource</title>
+   <programlisting role="php">
 <![CDATA[
+<?php
 $smarty->register_resource("db", array("db_get_template",
                                        "db_get_timestamp",
                                        "db_get_secure",
-                                       "db_get_trusted")); 
-]]> 
-  </programlisting>
- </example>
-</sect1>
+                                       "db_get_trusted"));
+?>
+]]>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,27 +1,28 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
      <sect1 id="variable.security">
       <title>$security</title>
       <para>
-       $security true/false, default is false. Security is good for
-       situations when you have untrusted parties editing the templates
-       (via ftp for example) and you want to reduce the risk of system
-       security compromises through the template language. Turning on
-       security enforces the following rules to the template language,
-       unless specifially overridden with $security_settings:
+       $security true/false, ïî óìîë÷àíèþ false. Áåçîïàñíîñòü (security)
+       ïîëåçíà â ñèòóàöèÿõ, êîãäà âàøè øàáëîíû ðåäàêòèðóþò ëèöà,
+       íå çàñëóæèâàþùå âàøåãî äîâåðèÿ (íàïðèìåð, ÷åðåç ftp) è âû õîòèòå
+       ñîêðàòèòü ðèñêè âçëîìà ñèñòåìû ñ ïîìîùüþ ÿçûêà øàáëîíîâ.
+       Âêëþ÷åíèå áåçîïàñíîãî ðåæèìà íàêëàäûâàåò ñëåäóþùèå îãðàíè÷åíèÿ
+       íà ÿçûê øàáëîíîâ, åñëè òîëüêî îíè íå èçìåíÿþòñÿ ïàðàìåòðîì $security_settings:
       </para>
       <itemizedlist>
-       <listitem><para>If $php_handling is set to SMARTY_PHP_ALLOW, this is
-         implicitly changed to SMARTY_PHP_PASSTHRU</para></listitem>
-       <listitem><para>PHP functions are not allowed in IF statements,
-         except those specified in the $security_settings</para></listitem>
-       <listitem><para>templates can only be included from directories
-         listed in the $secure_dir array</para></listitem>
-       <listitem><para>local files can only be fetched from directories
-         listed in the $secure_dir array using {fetch}</para></listitem>
-       <listitem><para>{php}{/php} tags are not allowed</para></listitem>
-       <listitem><para>PHP functions are not allowed as modifiers, except
-         those specified in the $security_settings</para></listitem>
+       <listitem><para>Åñëè $php_handling óñòàíîâëåí â SMARTY_PHP_ALLOW, ýòî
+         íåÿâíî ìåíÿåò åãî íà SMARTY_PHP_PASSTHRU</para></listitem>
+       <listitem><para>PHP-ôóíêöèè çàïðåùåíû â óñëîâèÿõ IF,
+         êðîìå òåõ, êîòîðûå óêàçàíû â $security_settings</para></listitem>
+       <listitem><para>Øàáëîíû ìîãóò áûòü ïîäêëþ÷åíû òîëüêî èç äèðåêòîðèé,
+         ïåðå÷èñëåííûõ â ìàññèâå $secure_dir</para></listitem>
+       <listitem><para>Ëîêàëüíûå ôàéëû ìîãóò áûòü ïðî÷èòàíû ïðè ïîìîùè {fetch}
+       òîëüêî èç äèðåêòîðèé, ïåðå÷èñëåííûõ â ìàññèâå $secure_dir</para></listitem>
+       <listitem><para>Òýãè {php}{/php} çàïðåùåíû</para></listitem>
+       <listitem><para>PHP-ôóíêöèè çàïðåùåíî èñïîëüçîâàòü â âèäå ìîäèôèêàòîðîâ,
+         êðîìå òåõ, êîòîðûå óêàçàíû â $security_settings</para></listitem>
       </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file

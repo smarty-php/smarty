@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="api.clear.all.assign">
- <title>clear_all_assign</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>void <function>clear_all_assign</function></funcdef>
-    <paramdef><parameter></parameter></paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<refentry id="api.clear.all.assign">
+ <refnamediv>
+  <refname>clear_all_assign</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_all_assign</methodname>
+   <void />
+  </methodsynopsis>
+  <para>
   Очищает все ранее присвоенные значения переменных.
  </para>
  <example>
  <title>clear_all_assign</title>
-  <programlisting> 
+   <programlisting role="php">
 <![CDATA[
- // очистить значения переменных
- $smarty->clear_all_assign(); 
+<?php
+// очистить значения переменных
+$smarty->clear_all_assign();
+?>
 ]]>
-  </programlisting>
- </example>
-</sect1>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

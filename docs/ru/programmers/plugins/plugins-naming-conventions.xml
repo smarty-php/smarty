@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="plugins.naming.conventions">
  <title>Соглашение об именах</title>
  <para>
@@ -22,7 +22,7 @@
   <itemizedlist spacing="compact">
    <listitem><simpara>function</simpara></listitem>
    <listitem><simpara>modifier</simpara></listitem>
-   <listitem><simpara>block</simpara></listitem>
+  <listitem><simpara>block</simpara></listitem>
    <listitem><simpara>compiler</simpara></listitem>
    <listitem><simpara>prefilter</simpara></listitem>
    <listitem><simpara>postfilter</simpara></listitem>
@@ -32,7 +32,7 @@
   </itemizedlist>
  </para>
  <para>
-  и <literal>name (имя)</literal> соответствует правилам наименования идентификаторов в PHP 
+  и <literal>name (имя)</literal> соответствует правилам наименования идентификаторов в PHP
   (только буквы, цифры и знак подчеркивания).
  </para>
  <para>
