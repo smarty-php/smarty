@@ -127,7 +127,7 @@
        Server variables can be accessed through the
        $smarty variable, such as {$smarty.server.SCRIPT_NAME}. See the
        section on the
-       <link linkend="builtin.variable.smarty">$smarty</link> variable.
+       <link linkend="language.variables.smarty">$smarty</link> variable.
       </para>
 	 </note>
      </sect2>
@@ -256,7 +256,7 @@
        This tells Smarty how to handle PHP code embedded in the
        tempalates. There are four possible settings, default being
        SMARTY_PHP_PASSTHRU. Note that this does NOT affect php code
-       within <link linkend="builtin.functions.php">{php}{/php}</link>
+       within <link linkend="language.function.php">{php}{/php}</link>
        tags in the template.
       </para>    
       <itemizedlist>
@@ -270,7 +270,7 @@
       </itemizedlist>
       <para>
        NOTE: Embedding PHP code into templates is highly discouraged.
-       Use <link linkend="bundled.plugins.commands">custom functions</link> or
+       Use <link linkend="language.custom.functions">custom functions</link> or
        <link linkend="language.modifiers">modifiers</link> instead.
       </para>
      </sect2>
@@ -334,7 +334,7 @@
 	   $trusted_dir is only for use when $security is enabled. This is an array
 	   of all directories that are considered trusted. Trusted directories are
 	   where you keep php scripts that are executed directly from the templates
-	   with <link linkend="builtin.functions.include.php">{include_php}</link>.
+	   with <link linkend="language.function.include.php">{include_php}</link>.
       </para>
      </sect2>
      <sect2 id="variable.left.delimiter">
@@ -708,7 +708,7 @@ $smarty->unregister_resource("db");</programlisting>
 			<para>
                 Use this to dynamically register prefilters to run templates
                 through before they are compiled. See <link
-                linkend="section.template.prefilters">template prefilters</link> for
+                linkend="advanced.features.prefilters">template prefilters</link> for
                 more information on how to setup a prefiltering function.
 			</para>
 		</sect2>
@@ -735,7 +735,7 @@ $smarty->unregister_resource("db");</programlisting>
 			<para>
                 Use this to dynamically register postfilters to run templates
                 through after they are compiled. See <link
-                linkend="template.postfilters">template postfilters</link> for
+                linkend="advanced.features.postfilters">template postfilters</link> for
                 more information on how to setup a postfiltering function.
 			</para>
 		</sect2>
@@ -1058,7 +1058,6 @@ $smarty->display("index.tpl");
 &lt;!-- Created by Smarty! --&gt;
 {* rest of template content... *}</programlisting>
     </example>
-   </sect2>
   </sect1>
 
   <sect1 id="section.template.cache.handler.func">
@@ -1980,7 +1979,7 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
    <sect1 id="plugins.inserts"><title>Inserts</title>
     <para>
      Insert plugins are used to implement functions that are invoked by
-     <link linkend="builtin.functions.insert"><command>insert</command></link>
+     <link linkend="language.function.insert"><command>insert</command></link>
      tags in the template.
     </para>
     <funcsynopsis>

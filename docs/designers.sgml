@@ -317,7 +317,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 			<para>
 			The output captured via {capture}..{/capture} construct can be
 			accessed using {$smarty} variable. See section on
-			<link linkend="builtin.functions.capture">capture</link> for an example.
+			<link linkend="language.function.capture">capture</link> for an example.
 			</para>
 		</sect3>
 
@@ -326,8 +326,8 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 			<para>
 			{$smarty} variable can be used to refer to 'section' and
 			'foreach' loop properties. See docs for
-			<link linkend="builtin.functions.section">section</link> and
-			<link linkend="builtin.functions.foreach">foreach</link>.
+			<link linkend="language.function.section">section</link> and
+			<link linkend="language.function.foreach">foreach</link>.
 			</para>
 		</sect3>
 		</sect2>
@@ -2560,15 +2560,15 @@ OUTPUT:
 		</sect2>
        </sect1>
 
-       <sect1 id="language.custom.functions">
+       <sect1 id="language.custom.functions.top">
         <title>Custom Functions</title>
         <para>
-         Smarty comes with several additional functions that you can
+         Smarty comes with several custom functions that you can
          use in the templates.
         </para>
 
-        <sect2 id="language.more.functions">
-         <title>Additional Functions</title>
+        <sect2 id="language.custom.functions">
+         <title>Custom Functions</title>
 		<sect3 id="language.function.assign">
 			<title>assign</title>
             <informaltable frame=all>

@@ -319,7 +319,7 @@ Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
 		As of Smarty 1.5.0, there is even a cleaner way. You can include php in
 		your templates with the {include_php ...} tag. This way you can keep
 		your PHP logic separated from the template logic. See the <link
-		linkend="builtin.functions.include.php">include_php</link> function for
+		linkend="language.function.include.php">include_php</link> function for
 		more information.
         </para>
 <example>
