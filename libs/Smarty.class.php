@@ -53,7 +53,8 @@ class Smarty
 											'spacify'		=> 'smarty_mod_spacify',
 											'date_format'	=> 'smarty_mod_date_format',
 											'string_format'	=> 'smarty_mod_string_format',
-											'replace'		=> 'smarty_mod_replace'
+											'replace'		=> 'smarty_mod_replace',
+											'strip_tags'	=> 'smarty_mod_strip_tags'
 										 );
 	var $global_assign			=	array(	'SCRIPT_NAME'
 										 );
@@ -541,13 +542,13 @@ class Smarty
 			}
 
 			return 	"<?php\n" .
-					"function $include_func_name(\$file_name, \$tpl_vars, \$include_vars)\n" .
+					"function $include_func_name(\$file_name, \$def_vars, \$include_vars)\n" .
 					"{\n" .
-					"	extract(\$tpl_vars);\n" .
+					"	extract(\$def_vars);\n" .
 					"	extract(\$include_vars);\n" .
 					"	include \"\$file_name\";\n" .
 					"}\n" .
-					"$include_func_name(\"$include_file_name\", \$this->_tpl_vars, array(".implode(',', (array)$arg_list)."));\n?>\n";
+					"$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."));\n?>\n";
 		} else
 			 return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'"; ?>';
 	}
@@ -599,6 +600,7 @@ class Smarty
 			for ({$section_props}['index'] = 0;
 				 {$section_props}['index'] < {$section_props}['loop'];
 				 {$section_props}['index']++):\n";
+		$output .= "{$section_props}['rownum'] = {$section_props}['index'] + 1;\n";
 
 		$output .= "?>\n";
 

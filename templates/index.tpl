@@ -1,4 +1,5 @@
 {config_load file=test.conf section="my foo"}
+{include file=header.tpl title=foo}
 
 Title: {#title#|capitalize}
 

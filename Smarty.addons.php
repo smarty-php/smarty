@@ -24,8 +24,9 @@ function _smarty_mod_handler()
 			$var[$key] = call_user_func_array($func_name, $args);
 		}
 		return $var;
-	} else
+	} else {
 		return call_user_func_array($func_name, $args);
+	}
 }
 
 
@@ -91,6 +92,13 @@ function smarty_mod_replace($string, $search, $replace)
 	return str_replace($search, $replace, $string);
 }
 
+function smarty_mod_strip_tags($string, $replace_with_space = false)
+{
+	if ($replace_with_space)
+		return preg_replace('!<[^>]*?>!', ' ', $string);
+	else
+		return strip_tags($string);
+}
 
 /*============================================*\
   Custom tag functions

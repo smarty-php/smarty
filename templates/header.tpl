@@ -1,3 +1,3 @@
 <HTML>
 <BODY>
-<TITLE>{$title} - {$section}</TITLE>
+<TITLE>{$title} - {$Name}</TITLE>
