@@ -324,7 +324,7 @@ class Config_File {
                             $var_value .= $lines[$i++];
                         } else {
                             /* end of multiline-value */
-                            $var_value .= substr($lines[$i++], 0, $pos);
+                            $var_value .= substr($lines[$i], 0, $pos);
                             break;
                         }
                     }
