@@ -4635,8 +4635,8 @@ $smarty-&gt;display('index.tpl');
 index.tpl:
 
 {html_table loop=$data}
-{html_table loop=$data cols=4 table_attrs='border="0"'}
-{html_table loop=$data cols=4 tr_attrs=$tr}
+{html_table loop=$data cols=4 table_attr='border="0"'}
+{html_table loop=$data cols=4 tr_attr=$tr}
 
 OUTPUT:
 
