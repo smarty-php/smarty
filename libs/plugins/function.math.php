@@ -35,12 +35,13 @@ function smarty_function_math($params, &$smarty)
     }
 
     // match all vars in equation, make sure all are passed
-    preg_match_all("!\!(0x)([a-zA-Z][a-zA-Z0-9_]*)!",$equation, $match);
+    preg_match_all("!([a-zA-Z][a-zA-Z0-9_]*)!",$equation, $match);
     $allowed_funcs = array('int','abs','ceil','cos','exp','floor','log','log10',
                            'max','min','pi','pow','rand','round','sin','sqrt','srand','tan');
-    foreach($match[2] as $curr_var) {
+    
+    foreach($match[1] as $curr_var) {
         if (!in_array($curr_var,array_keys($params)) && !in_array($curr_var, $allowed_funcs)) {
-            $smarty->trigger_error("math: parameter $curr_var not passed as argument");
+            $smarty->trigger_error("math: function call $curr_var not allowed");
             return;
         }
     }
