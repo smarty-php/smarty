@@ -162,7 +162,7 @@ $smarty->display("./templates/index.tpl");
 
 --------- templates/header.tpl --------
 <HTML>
-<TITLE>{$title|default:"Home Page"}</TITLE>
+<TITLE>{$title|default:"no title"}</TITLE>
 <BODY>
 
 --------- templates/footer.tpl --------
@@ -175,8 +175,8 @@ You can pass as many variables as you want. The included file inherits all the
 current template vars, plus any that are passed to it. The passed variables are
 only available within the scope of the included file. Also notice the way the
 $title variable is printed to the template. It uses a variable modifier called
-"default". Printing {$title|default:"Home Page"} means that if the value of
-$title is empty, the text "Home Page" will be printed instead of nothing.
+"default". Printing {$title|default:"no title"} means that if the value of
+$title is empty, the text "no title" will be printed instead of nothing.
 
 IF/ELSEIF/ELSE
 --------------
