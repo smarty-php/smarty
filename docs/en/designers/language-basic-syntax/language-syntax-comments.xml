@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="language.syntax.comments">
-    <title>Comments</title>
-    <para>
-     Template comments are surrounded by asterisks, and that is surrounded
-     by the delimiter tags like so: {* this is a comment *}
-     Smarty comments are not displayed in the final output of the template.
-     They are used for making internal notes in the templates.
-    </para>
-    <example>
-     <title>Comments</title>
-     <programlisting>
+<sect1 id="language.syntax.comments">
+ <title>Comments</title>
+ <para>
+  Template comments are surrounded by asterisks, and that is surrounded
+  by the delimiter tags like so: {* this is a comment *}
+  Smarty comments are not displayed in the final output of the template.
+  They are used for making internal notes in the templates.
+ </para>
+ <example>
+  <title>Comments</title>
+  <programlisting>
 <![CDATA[
 {* Smarty *}
 
@@ -26,8 +26,8 @@
 {html_options values=$vals selected=$selected output=$output}
 </select>
 ]]>
-     </programlisting>
-    </example>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="language.syntax.attributes">
-    <title>Attributes</title>
-    <para>
-     Most of the functions take attributes that specify or modify
-     their behavior. Attributes to Smarty functions are much like HTML
-     attributes. Static values don't have to be enclosed in quotes, but it
-     is recommended for literal strings. Variables may also be used, and
-     should not be in quotes.
-    </para>
-    <para>
-     Some attributes require boolean values (true or false). These can be
-     specified as either unquoted <literal>true</literal>,
-     <literal>on</literal>, and <literal>yes</literal>, or
-     <literal>false</literal>, <literal>off</literal>, and
-     <literal>no</literal>.
-    </para>
-    <example>
-     <title>function attribute syntax</title>
-     <programlisting>
+<sect1 id="language.syntax.attributes">
+ <title>Attributes</title>
+ <para>
+  Most of the functions take attributes that specify or modify
+  their behavior. Attributes to Smarty functions are much like HTML
+  attributes. Static values don't have to be enclosed in quotes, but it
+  is recommended for literal strings. Variables may also be used, and
+  should not be in quotes.
+ </para>
+ <para>
+  Some attributes require boolean values (true or false). These can be
+  specified as either unquoted <literal>true</literal>,
+  <literal>on</literal>, and <literal>yes</literal>, or
+  <literal>false</literal>, <literal>off</literal>, and
+  <literal>no</literal>.
+ </para>
+ <example>
+  <title>function attribute syntax</title>
+  <programlisting>
 <![CDATA[
 {include file="header.tpl"}
 
@@ -32,8 +32,8 @@
 {html_options values=$vals selected=$selected output=$output}
 </select>
 ]]>
-     </programlisting>
-    </example>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
