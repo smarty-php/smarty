@@ -56,18 +56,18 @@ function smarty_function_html_select_date($params, &$smarty)
     extract($params);
 
 	// make syntax "+N" or "-N" work with start_year and end_year
-	if(preg_match('!(\+|\-)\s*(\d+)!',$end_year,$match)) {
-		if($match[1] == '+') {
-			$end_year = $match[2] + strftime("%Y");			
+	if (preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match)) {
+		if ($match[1] == '+') {
+			$end_year = strftime('%Y') + $match[2];
 		} else {
-			$end_year = $match[2] - strftime("%Y");				
+			$end_year = strftime('%Y') - $match[2];
 		}
 	}
-	if(preg_match('!(\+|\-)\s*(\d+)!',$start_year,$match)) {
-		if($match[1] == '+') {
-			$start_year = $match[2] + strftime("%Y");			
+	if (preg_match('!^(\+|\-)\s*(\d+)$!', $start_year, $match)) {
+		if ($match[1] == '+') {
+			$start_year = strftime('%Y') + $match[2];
 		} else {
-			$start_year = $match[2] - strftime("%Y");				
+			$start_year = strftime('%Y') - $match[2];
 		}
 	}
 	
