@@ -482,6 +482,8 @@ class Smarty
 \*======================================================================*/
     function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false)
     {
+        $_smarty_old_error_level = error_reporting(E_ALL & ~E_NOTICE);
+
         if (!$this->debugging && $this->debugging_ctrl == 'URL'
                && strstr($GLOBALS['QUERY_STRING'], $this->_smarty_debug_id)) {
             $this->debugging = true;
@@ -528,8 +530,10 @@ class Smarty
                         }
                     }
                     echo $_smarty_results;
+                    error_reporting($_smarty_old_error_reporting);
                     return true;    
                 } else {
+                    error_reporting($_smarty_old_error_reporting);
                     return $_smarty_results;
                 }
             } else {
@@ -576,8 +580,10 @@ class Smarty
 
                 echo $this->_generate_debug_output();
             }
+            error_reporting($_smarty_old_error_reporting);
             return;
         } else {
+            error_reporting($_smarty_old_error_reporting);
             if (isset($_smarty_results)) { return $_smarty_results; }
         }
     }
