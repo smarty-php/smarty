@@ -1,3 +1,16 @@
+2002-05-02  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.cycle.php: ugh, another typo
+
+    * plugins/function.cycle.php: update comments
+
+    * docs/designers.sgml
+      plugins/function.cycle.php
+      NEWS: added function cycle
+
+    * FAQ
+      Smarty.class.php: fix register_outputfilter function
+
 2002-05-01  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml
