@@ -407,6 +407,30 @@ class Smarty
     }
 
 /*======================================================================*\
+    Function: _process_cached_inserts
+    Purpose:  Replace cached inserts with the actual results
+\*======================================================================*/
+    function _process_cached_inserts($results)
+    {
+        preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
+                       $results, $match);
+        list($cached_inserts, $insert_args) = $match;
+
+        for ($i = 0; $i < count($cached_inserts); $i++) {
+            $args = unserialize($insert_args[$i]);
+            $name = $args['name'];
+            unset($args['name']);
+
+            $function_name = 'insert_' . $name;
+            $replace = $function_name($args);
+
+            $results = str_replace($cached_inserts[$i], $replace, $results);
+        }
+
+        return $results;
+    } 
+    
+/*======================================================================*\
     Function: _dequote
     Purpose:  Remove starting and ending quotes from the string
 \*======================================================================*/
@@ -498,6 +522,26 @@ class Smarty
         return true;
     }
 
+/*======================================================================*\
+    Function: _create_dir_structure
+    Purpose:  create full directory structure
+\*======================================================================*/
+    function _create_dir_structure($dir)
+    {
+        if (!file_exists($dir)) {
+            $dir_parts = preg_split('!/+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
+            $new_dir = ($dir{0} == '/') ? '/' : '';
+            foreach ($dir_parts as $dir_part) {
+                $new_dir .= $dir_part;
+                if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
+                    $this->_set_error_msg("problem creating directory \"$dir\"");
+                    return false;               
+                }
+                $new_dir .= '/';
+            }
+        }
+    }    
+    
 /*======================================================================*\
     Function:   quote_replace
     Purpose:    Quote subpattern references
