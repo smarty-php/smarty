@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: didou Status: ready -->
 <sect1 id="caching.cacheable">
  <title>Contrôler la mise en cache des sorties des Plugins</title>
  <para>
@@ -62,7 +62,7 @@ $smarty->display('index.tpl');
    </para>
    <programlisting>
 <![CDATA[
-Time Remaining: {remain endtime=$obj->endtime}
+Time Remaining: {remaining endtime=$obj->endtime}
 ]]>
    </programlisting>
    <para>

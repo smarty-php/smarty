@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.options">
  <title>html_options</title>
  <informaltable frame="all">
@@ -88,6 +88,9 @@
   <title>html_options</title>
   <programlisting>
 <![CDATA[
+EXEMPLE 1
+---------
+
 index.php:
 
 require('Smarty.class.php');
@@ -104,6 +107,8 @@ index.tpl:
   {html_options values=$id_client selected=$client_id output=$nom_client}
 </select>
 
+EXEMPLE 2
+---------
 
 index.php:
 
@@ -125,6 +130,7 @@ index.tpl:
 
 
 SORTIE: (valable pour les deux exemples)
+-----------------------
 
 <select name=client_id>
   <option value="1000">Joe Schmoe</option>
