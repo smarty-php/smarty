@@ -1,3 +1,4 @@
+  - enhanced support of numeric constants as variable-expressions (messju)
   - add case decentity to smarty_modifier_escape() (Konstantin A. Pelepelin,
     messju)
   - make smarty_core_write_compiled_include() php5-aware (messju)
