@@ -1,3 +1,6 @@
+Version 2.6.0-RC3 (Nov 13, 2003)
+--------------------------------
+
   - fix handling of $var.key inside [] (messju)
   - fix handling of assign inside {insert}-tags (messju)
   - fix handling if [...] inside triple-quotes in config-files (messju)

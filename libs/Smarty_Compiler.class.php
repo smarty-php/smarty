@@ -34,7 +34,7 @@
  * @link http://smarty.php.net/
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
- * @version 2.6.0-RC2-cvs
+ * @version 2.6.0-RC3-cvs
  * @copyright 2001-2003 ispi of Lincoln, Inc.
  * @package Smarty
  */
