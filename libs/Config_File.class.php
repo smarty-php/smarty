@@ -6,7 +6,7 @@ require_once "PEAR.php";
  * Config_File class.
  *
  * @version 1.2.3
- * @author Andrei Zmievski <andrei@ispi.net>
+ * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * 
  * Copyright: 2001 ispi of Lincoln, Inc.
@@ -26,7 +26,7 @@ require_once "PEAR.php";
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * You may contact the author of Config_File by e-mail at:
- * andrei@ispi.net
+ * andrei@php.net
  *
  * Or, write to:
  * Andrei Zmievski

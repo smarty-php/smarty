@@ -3,7 +3,7 @@
  * Project:     Smarty: the PHP compiled template engine
  * File:        Smarty.addons.php
  * Author:      Monte Ohrt <monte@ispi.net>
- *              Andrei Zmievski <andrei@ispi.net>
+ *              Andrei Zmievski <andrei@php.net>
  * Version:     1.4.0
  * Copyright:   2001 ispi of Lincoln, Inc.
  *
@@ -23,7 +23,7 @@
  *
  * You may contact the authors of Smarty by e-mail at:
  * monte@ispi.net
- * andrei@ispi.net
+ * andrei@php.net
  *
  * Or, write to:
  * Monte Ohrt

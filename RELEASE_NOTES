@@ -19,7 +19,7 @@ cd /path/to/templates
 cp /path/to/fix_vars.php .
 find . -name "*.tpl" -exec php -q ./fix_vars.php {} \;
 
-NEW AND IMPROVED COMPILER
+NEW AND IMPROVED COMPILATION PROCESS
 
 Smarty 1.4.0 also has a new compilation process. Instead of compiling all the
 templates up front, it now compiles them at runtime. This has several
@@ -54,6 +54,15 @@ through custom functions before they are compiled. This is good for things like
 removing unwanted comments, keeping an eye on words or functionality people are
 putting in templates, translating XML -> HTML, etc. See the register_filter
 documentation for more info.
+
+Another addition are the so-called compiler functions. These are custom
+functions registered by the user that are executed at compilation time of the
+template. They can be used to inject PHP code or time-sensitive static content
+into the compiled template.
+
+The run-time custom functions are now passed Smarty object as the second
+parameter. This can be used, for example, to assign or clear template variables
+from inside the custom function.
 
 UPGRADE NOTES
 

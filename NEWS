@@ -10,14 +10,14 @@ Version 1.4.0
       in one shot with an array. (Monte, Roman Neuhauser)
     - added template filters, register_filer() and unregister_filter() API
       functions. (Monte)
-    - added RELEASE_NOTES file to distribution (Monte)
-    - moved CREDITS out of manual into its own file (Monte)
+    - added RELEASE_NOTES file to distribution. (Monte)
+    - moved CREDITS out of manual into its own file. (Monte)
     - added register_resource() and unregister_resource() API functions. (Monte)
     - changed the syntax of indexing template variables, thus supporting
       structures of arbitrary complexity; supplied fix_vars.php script to fix
       old syntax. (Andrei)
     - added $insert_tag_check to speed up cached pages if {insert ...} is not
-      used (Monte)
+      used. (Monte)
     - added $compiler_class variable to allow specifying a different compiler
       class. (Andrei)
     - changed Smarty to compile templates at runtime, allowing for arbitrary
