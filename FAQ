@@ -19,6 +19,9 @@ TROUBLESHOOTING
 
 Q: Smarty doesn't work.
 Q: I get the following error when running Smarty:
+   Warning:  Smarty error: problem creating directory "templates_c/239/239105369"
+   in /path/to/Smarty.class.php on line 542
+Q: I get the following error when running Smarty:
    Warning: Wrong parameter count for preg_replace() in
    Smarty.class.php on line 371
 Q: I get this error when passing variables to {include}:
@@ -147,8 +150,20 @@ A: You must be using PHP 4.0.6 or later if you use any version of Smarty
    past 2.0.1. Read the BUGS file for more info.
 
 Q: I get the following error when running Smarty:
-   Warning: Wrong parameter count for preg_replace() in
-   Smarty.class.php on line 371
+   Warning:  Smarty error: problem creating directory "templates_c/239/239105369"
+   in /path/to/Smarty.class.php on line 542
+A: Your web server user does not have permission to write to the templates_c
+   directory, or is unable to create the templates_c directory. Be sure the
+   templates_c directory exists in the location defined in Smarty.class.php,
+   and the web server user can write to it. If you do not know the web server
+   user, chmod 777 the templates_c directory, reload the page, then check the
+   file ownership of the files created in templates_c. Or, you can check the
+   httpd.conf (usually in /usr/local/apache/conf) file for this setting:
+   User nobody
+   Group nobody
+
+Q: I get the following error when running Smarty: Warning: Wrong parameter
+   count for preg_replace() in Smarty.class.php on line 371
 A: preg_replace had a parameter added in PHP 4.0.2 that Smarty
    requires. Upgrade to at least 4.0.6 to fix all known PHP issues with
    Smarty.

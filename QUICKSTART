@@ -13,13 +13,13 @@ should understand the difference in your OS regarding file permissions.
 INSTALLATION
 ------------
 
-Unpack the Smarty tarball. You will see four class files: Smarty.class.php,
-Smarty_Compiler.class.php and Config_File.class.php and a
-"plugins" directory. You will need to have all four of these files somewhere in
-your PHP include path, so when you call require("Smarty.class.php") from within
-your application, it can find the class. Alternatively, you can set the
-SMARTY_DIR constant in your application, and Smarty will use that directory as
-the path to the Smarty class files. Be sure the path ends with a slash!
+Unpack the Smarty tarball. You will see some files: Smarty.class.php,
+Smarty_Compiler.class.php, Config_File.class.php and a "plugins" directory. You
+will need all of these files somewhere in your PHP include path, so when you call
+require("Smarty.class.php") from within your application, it can find the
+class. Alternatively, you can set the SMARTY_DIR constant in your application,
+and Smarty will use that directory as the path to the Smarty class files. Be
+sure the SMARTY_DIR path ends with a slash!
 
 Now change directories somewhere inside of your web server document root. For
 this guide, we'll create a directory under the document root named "Smarty",
@@ -37,9 +37,10 @@ $> mkdir configs
 
 Smarty needs to be able to write to the templates_c directory. It is
 recommended that you change the ownership and write permissions such that the
-web server user (usually nobody) has write access to this directory. You can
-chmod 777 the directory, but be aware of security concerns on multi-user
-systems. See the documentation for more info on this.
+web server user (usually "nobody:nobody", Mac OS X uses "www:www") has write
+access to this directory. You can chmod 777 the directory, but be aware of
+security concerns on multi-user systems. See the documentation for more info on
+this.
 
 $> chown nobody:nobody templates_c
 $> chmod 700 templates_c
@@ -243,7 +244,7 @@ Here we are introducing the {$smarty} variable, which is used to reference
 values internal to the template. Notice that when printing variables inside of
 the section, the section name must be referenced in the name of the variable
 being displayed. This lets Smarty understand that you want to print the value
-in the array postion indexed by the current loop value. There are also internal
+in the array position indexed by the current loop value. There are also internal
 template variables available within the section that display the loop iteration
 and the total number of times the section is looped. Also note the
 {sectionelse}. This would have been displayed if looped array $FirstName was
