@@ -402,9 +402,17 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.compile.id">
       <title>$compile_id</title>
       <para>
-       Persistant compile identifier. As an alternative to passing the
-       same compile_id to each and every function call, you can set this
-       compile_id and it will be used implicitly thereafter.
+	   Persistant compile identifier. As an alternative to passing the same
+	   compile_id to each and every function call, you can set this compile_id
+	   and it will be used implicitly thereafter.
+      </para>
+     </sect1>
+     <sect1 id="variable.use.sub.dirs">
+      <title>$use_sub_dirs</title>
+      <para>
+	  Set this to false if your PHP environment does not allow the creation of
+	  sub directories by Smarty. Sub directories are more efficient, so use them
+	  if you can.
       </para>
      </sect1>
     </chapter>
@@ -536,14 +544,17 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 			<funcdef>void <function>clear_cache</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
 				<paramdef>string <parameter>cache id</parameter></paramdef>
+				<paramdef>string <parameter>compile id</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-                This clears the cache for the specified template. If you have
-                multiple caches for this template, you can clear a specific
-                cache by supplying the cache id as the second parameter. See the
-                <link linkend="features.caching">caching section</link> for more
-                information. This was added to Smarty 1.3.0.
+				This clears the cache for a specific template. If you have
+				multiple caches for this template, you can clear a specific
+				cache by supplying the cache id as the second parameter. You
+				can also pass a compile id as a third paramter. You can "group"
+				templates together so they can be removed as a group. See the
+				<link linkend="features.caching">caching section</link> for
+				more information.
 			</para>
 <example>
 <title>clear_cache</title>
@@ -599,7 +610,13 @@ $smarty->clear_compiled_tpl();</programlisting>
 				As an optional third parameter, you can pass a compile id. This
 				is in the event that you want to compile different versions of
 				the same template, such as having separate templates compiled
-				for different languages. This was added to Smarty 1.4.5.
+				for different languages. Another use for compile_id is when you
+				use more than one $template_dir but only one $compile_dir. Set
+				a separate compile_id for each $template_dir, otherwise
+				templates of the same name will overwrite each other. You can
+				also set the <link
+				linkend="variable.compile.id">$compile_id</link> variable once
+				instead of passing this to each call to display().
 			</para>
 <example>
 <title>display</title>
@@ -673,7 +690,13 @@ $smarty->display("db:header.tpl");</programlisting>
 				As an optional third parameter, you can pass a compile id. This
 				is in the event that you want to compile different versions of
 				the same template, such as having separate templates compiled
-				for different languages. This was added to Smarty 1.4.5.
+				for different languages. Another use for compile_id is when you
+				use more than one $template_dir but only one $compile_dir. Set
+				a separate compile_id for each $template_dir, otherwise
+				templates of the same name will overwrite each other. You can
+				also set the <link
+				linkend="variable.compile.id">$compile_id</link> variable once
+				instead of passing this to each call to fetch().
 			</para>
 <example>
 <title>fetch</title>

@@ -175,7 +175,6 @@ class Smarty
     var $_smarty_debug_id      = 'SMARTY_DEBUG'; // text in URL to enable debug mode
     var $_smarty_debug_info    = array();    // debugging information for debug console
     var $_cache_info           = array();    // info that makes up a cache file
-    var $_auto_id_delim        = '|';        // delimiter for auto_id groups
     var $_plugins              = array(      // table keeping track of plugins
                                        'modifier'      => array(),
                                        'function'      => array(),
@@ -457,7 +456,7 @@ class Smarty
             $compile_id = $this->compile_id;
 
         if (isset($compile_id) || isset($cache_id))
-            $auto_id = (isset($compile_id)) ? $compile_id . $this->_auto_id_delim . $cache_id : $cache_id;
+            $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
         else
             $auto_id = null;
 
@@ -1403,18 +1402,15 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _get_auto_filename($auto_base, $auto_source = null, $auto_id = null)
     {
-		static $_auto_id_delim_hex = null;
 		static $_dir_sep = null;
-		
-		if(!isset($_auto_id_delim_hex)) {
-			$_auto_id_delim_hex = strtoupper(bin2hex($this->_auto_id_delim));
-		}
+		static $_dir_sep_enc = null;
 		
 		if(!isset($_dir_sep)) {
+			$_dir_sep_enc = urlencode(DIR_SEP);
 			if($this->use_sub_dirs) {
 				$_dir_sep = DIR_SEP;
 			} else {
-				$_dir_sep = '%2F';		
+				$_dir_sep = '^';		
 			}
 		}
 		
@@ -1422,15 +1418,15 @@ function _run_insert_handler($args)
 		
 		if(isset($auto_id)) {
 			// make auto_id safe for directory names
-			$auto_id = str_replace('%'.$_auto_id_delim_hex,$this->_auto_id_delim,(urlencode($auto_id)));
+			$auto_id = str_replace('%7C','|',(urlencode($auto_id)));
 			// split into separate directories
-			$auto_id = str_replace($this->_auto_id_delim, $_dir_sep, $auto_id);
+			$auto_id = str_replace('|', $_dir_sep, $auto_id);
         	$res .= $auto_id . $_dir_sep;
 		}
 		
 		if(isset($auto_source)) {
 			// make source name safe for filename
-        	$auto_source = urlencode($auto_source);
+        	$auto_source = str_replace($_dir_sep_enc,'^',urlencode($auto_source));
 			$res .= $auto_source . '.php';
 		}
 		
@@ -1551,7 +1547,7 @@ function _run_insert_handler($args)
         } else {
             // use local cache file
             if (isset($compile_id) || isset($cache_id))
-            	$auto_id = (isset($compile_id)) ? $compile_id . $this->_auto_id_delim . $cache_id : $cache_id;
+            	$auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
             else
                 $auto_id = null;
 
@@ -1587,7 +1583,7 @@ function _run_insert_handler($args)
         } else {
             // use local file cache
             if (isset($compile_id) || isset($cache_id))
-            	$auto_id = (isset($compile_id)) ? $compile_id . $this->_auto_id_delim . $cache_id : $cache_id;
+            	$auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
             else
                 $auto_id = null;
 
