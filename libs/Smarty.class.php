@@ -117,7 +117,7 @@ class Smarty
 	var $config_read_hidden = false;	// whether hidden sections [.foobar]
 										// are readable from the templates or not
 	var $config_fix_newlines = true;	// whether or not to fix mac or dos formatted
-										// newlines [\r\n] -> \n
+										// newlines: convert \r or \r\n to \n
 	
     var $default_template_handler_func = ''; // function to handle missing templates
 
@@ -1901,7 +1901,7 @@ function _run_insert_handler($args)
 
             $plugin_file = $this->_get_plugin_filepath($type, $name);
 
-            if ($found = ($plugin_file != false)) {
+            if (! $found = ($plugin_file != false)) {
                 $message = "could not load plugin file '$type.$name.php'\n";
             }
 
