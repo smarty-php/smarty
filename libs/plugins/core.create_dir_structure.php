@@ -16,8 +16,8 @@
 function smarty_core_create_dir_structure($params, &$this)
 {
     if (!file_exists($params['dir'])) {           
-        $_new_dir = (preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $params['dir']))
-            ? DIRECTORY_SEPARATOR : getcwd().DIRECTORY_SEPARATOR;
+        $_new_dir = (preg_match("/^(([\/\\\\])|[a-zA-Z]:[\/\\\\])/", $params['dir'], $_root_dir))
+            ? $_root_dir[2] : getcwd().DIRECTORY_SEPARATOR;
 
         $_dir_parts = preg_split('!\\' . DIRECTORY_SEPARATOR . '+!', $params['dir'], -1, PREG_SPLIT_NO_EMPTY);
 
