@@ -60,6 +60,14 @@ class Config_File {
 	 */
 	var $read_hidden 	=	true;
 
+	/**
+	 * Controls whether or not to fix mac or dos formatted newlines.
+	 * If set to true, \r or \r\n will be changed to \n.
+	 *
+	 * @access public
+	 */
+	var $fix_newlines =	true;	
+	
 	/* Private variables */
 	var $_config_path	= "";
 	var $_config_data	= array();
@@ -253,6 +261,11 @@ class Config_File {
 
 		$contents = fread($fp, filesize($config_file));
 		fclose($fp);
+		
+		if($this->fix_newlines) {
+			// fix mac/dos formatted newlines
+			$contents = preg_replace('!\r\n?!',"\n",$contents);
+		}
 
 		$config_data = array();
 
