@@ -26,6 +26,7 @@ function smarty_function_fetch($params, &$smarty)
         return;
     }
 
+    $content = '';
     if ($smarty->security && !preg_match('!^(http|ftp)://!i', $params['file'])) {
         $_params = array('resource_type' => 'file', 'resource_name' => $params['file']);
         require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.is_secure.php');
@@ -171,7 +172,6 @@ function smarty_function_fetch($params, &$smarty)
                         fputs($fp, "Authorization: BASIC ".base64_encode("$user:$pass")."\r\n");
                     }
 
-                    $content = '';
                     fputs($fp, "\r\n");
                     while(!feof($fp)) {
                         $content .= fgets($fp,4096);
