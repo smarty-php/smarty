@@ -1,3 +1,4 @@
+  - move function.assign.php to compiler.assign.php (messju)
   - add property $tpl_error_reporting (messju)
   - remove property $undefined. "null" is used literally instead (messju)
 
