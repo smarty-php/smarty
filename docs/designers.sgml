@@ -1908,6 +1908,64 @@ phone: 555-4444&lt;br&gt;
 fax: 555-3333&lt;br&gt;
 cell: 760-1234&lt;br&gt;</programlisting>
 </example>
+
+		<para>
+		Foreach-loops also have their own variables that handle foreach properties.
+                These are indicated like so: {$smarty.foreach.foreachname.varname} with
+		foreachname being the name specified as the <emphasis>name</emphasis>
+		attribute of foreach
+		</para>
+
+
+			<sect2 id="foreach.property.iteration">
+			<title>iteration</title>
+			<para>
+        	iteration is used to display the current loop iteration.
+			</para>
+			<para>
+			Iteration always starts with 1 and is incremented by one
+			one each iteration.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.first">
+			<title>first</title>
+			<para>
+        	<emphasis>first</emphasis> is set to true if the current foreach iteration is the first
+        	one.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.last">
+			<title>last</title>
+			<para>
+        	<emphasis>last</emphasis> is set to true if the current foreach iteration is the last
+        	one.
+			</para>
+			</sect2>
+
+			<sect2 id="foreach.property.show">	
+			<title>show</title>
+			<para>
+        	<emphasis>show</emphasis> is used as a parameter to foreach.
+        	<emphasis>show</emphasis> is a boolean value, true or false. If
+        	false, the foreach will not be displayed. If there is a foreachelse
+        	present, that will be alternately displayed.
+			</para>
+
+			</sect2>
+			<sect2 id="foreach.property.total">	
+			<title>total</title>
+			<para>
+			<emphasis>total</emphasis> is used to display the number of iterations that this foreach
+			will loop. This can be used inside or after the foreach.
+			</para>
+			</sect2>
+
+
+
+
+
 		</sect1>
 		<sect1 id="language.function.include">
 			<title>include</title>
