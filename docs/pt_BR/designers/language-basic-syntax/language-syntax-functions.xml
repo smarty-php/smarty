@@ -17,7 +17,7 @@
 {include file="cabecalho.tpl"}
 
 {if $enfase_nome}
-    Seja bem-vindo, <font color="{#fontColor#}">{$nome}!</font>
+    Seja bem-vindo, <font color="{#corFonte#}">{$nome}!</font>
 {else}
     Seja bem-vindo, {$nome}!
 {/if}

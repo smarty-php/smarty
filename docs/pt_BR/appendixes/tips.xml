@@ -36,7 +36,7 @@
     <sect1 id="tips.default.var.handling">
 		<title>Manipulação do valor padrão de uma Variável</title>
 		<para>
-        Se uma variável é usada freqüentemente e seus templates, aplicar o modificador de variável 
+        Se uma variável é usada freqüentemente em seus templates, aplicar o modificador de variável 
 		<emphasis>padrão</emphasis> toda vez pode se tornar algo muito desagradável. Você pode evitar 
 		isto atribuindo um valor padrão para a variável usando a função <link linkend="language.function.assign">assign</link>.
 		</para>

@@ -12,12 +12,12 @@
      <title>Sintaxe entre aspas</title>
      <programlisting>
 <![CDATA[
-EXEMPLOS DE SYNTAX:
+EXEMPLOS DE SINTAXE:
 {func var="teste $foo teste"}       <-- mostra $foo
 {func var="teste $foo_bar teste"}   <-- mostra $foo_bar
 {func var="teste $foo[0] teste"}    <-- mostra $foo[0]
 {func var="teste $foo[bar] teste"}  <-- mostra $foo[bar]
-{func var="teste $foo.bar teste"}   <-- mostra $foo (not $foo.bar)
+{func var="teste $foo.bar teste"}   <-- mostra $foo (e não $foo.bar)
 {func var="teste `$foo.bar` teste"} <-- mostra $foo.bar
 
 EXEMPLOS PRÁTICOS:

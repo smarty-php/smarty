@@ -6,7 +6,7 @@
    <sect1 id="smarty.php.errors">
        <title>Erros do Smarty/PHP</title>
        <para>
-      O Smarty pode obter muitos erros tais como, atributos de tags perdidos ou nomes de variáveis
+      O Smarty pode obter muitos erros, tais como: atributos de tags perdidos ou nomes de variáveis
       mal formadas. Se isto acontece, você verá um erro similar ao seguir:
        </para>
 
@@ -39,7 +39,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 </example>
        
        <para>
-        Quando você encontra um erro de análise de PHP, o número da linha do erro corresponderá ao 
+        Quando você encontra um erro de análise do PHP, o número da linha do erro corresponderá ao 
 	    script PHP compilado, não o template em si. Normalmente você pode no template localizar o
 	    erro de sintaxe. Aqui algumas coisas para você procurar:
 	    falta de fechamento de tags para {if}{/if} ou
