@@ -600,16 +600,20 @@ class Smarty
      *
      * @param array|string $tpl_var the template variable name(s)
      * @param mixed $value the value to append
+     * @param mixed $key the key of value to append
      */    
-    function append($tpl_var, $value = null)
+    function append($tpl_var, $value = null, $key=null)
     {
         if (is_array($tpl_var)) {
-            foreach ($tpl_var as $key => $val) {
-                if ($key != '') {
-                    if(!@is_array($this->_tpl_vars[$key])) {
-                        settype($this->_tpl_vars[$key],'array');
+            foreach ($tpl_var as $name=>$val) {
+                if ($var_name != '') {
+                    if(!@is_array($this->_tpl_vars[$name])) {
+                        settype($this->_tpl_vars[$name],'array');
                     }
-                    $this->_tpl_vars[$key][] = $val;
+                  if (isset($key))
+                     $this->_tpl_vars[$name][$key] = $val;
+                  else
+                     $this->_tpl_vars[$name][] = $val;
                 }
             }
         } else {
@@ -617,7 +621,10 @@ class Smarty
                 if(!@is_array($this->_tpl_vars[$tpl_var])) {
                     settype($this->_tpl_vars[$tpl_var],'array');
                 }
-                $this->_tpl_vars[$tpl_var][] = $value;
+              if (isset($key))
+                 $this->_tpl_vars[$tpl_var][$key] = $value;
+              else
+                 $this->_tpl_vars[$tpl_var][] = $value;
             }
         }
     }
@@ -627,14 +634,18 @@ class Smarty
      *
      * @param string $tpl_var the template variable name
      * @param mixed $value the referenced value to append
+     * @param mixed $key the key of value to append
      */    
-    function append_by_ref($tpl_var, &$value)
+    function append_by_ref($tpl_var, &$value, $key=null)
     {
         if ($tpl_var != '' && isset($value)) {
             if(!@is_array($this->_tpl_vars[$tpl_var])) {
                 settype($this->_tpl_vars[$tpl_var],'array');
             }
-            $this->_tpl_vars[$tpl_var][] = &$value;
+          if (isset($key))
+             $this->_tpl_vars[$tpl_var][$key] = &$value;
+          else
+             $this->_tpl_vars[$tpl_var][] = &$value;
         }
     }
 
