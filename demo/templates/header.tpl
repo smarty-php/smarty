@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-{popup_init}
+{popup_init src="/javascripts/hiermenus.js"}
 </HEAD>
 <BODY bgcolor="#ffffff">
 <TITLE>{$title} - {$Name}</TITLE>
