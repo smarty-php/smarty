@@ -9,9 +9,12 @@ AUTHORS:
     Monte Ohrt <monte@ispi.net>
     Andrei Zmievski <andrei@ispi.net>
 
+
 MAILING LIST:
+
     We have a mailing list for you to share your ideas or ask questions.
     send a blank e-mail message to subscribe-smarty@lists.ispi.net
+
 
 SYNOPSIS:
 
@@ -24,13 +27,14 @@ SYNOPSIS:
 
     $smarty->display("index.tpl");
 
+
 DESCRIPTION:
 
     What is Smarty?
 
     Smarty is a template engine for PHP. One of the unique aspects about
     Smarty that sets it apart from other templating solutions is that it
-    compiles the templates into native php scripts upon the first
+    converts the templates into native php scripts upon the first
     execution. After that, it just executes the compiled PHP scripts.
     Therefore, there is no costly template file parsing for each request.
 
