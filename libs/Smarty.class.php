@@ -1408,7 +1408,6 @@ class Smarty
         }
 
         $_source_content = $_params['source_content'];
-        $_resource_timestamp = $_params['resource_timestamp'];
         $_cache_include    = substr($compile_path, 0, -4).'.inc';
 
         if ($this->_compile_source($resource_name, $_source_content, $_compiled_content, $_cache_include)) {
@@ -1418,7 +1417,7 @@ class Smarty
                 smarty_core_write_compiled_include(array_merge($this->_cache_include_info, array('compiled_content'=>$_compiled_content)),  $this);
             }
 
-            $_params = array('compile_path'=>$compile_path, 'compiled_content' => $_compiled_content, 'resource_timestamp' => $_resource_timestamp);
+            $_params = array('compile_path'=>$compile_path, 'compiled_content' => $_compiled_content);
             require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_resource.php');
             smarty_core_write_compiled_resource($_params, $this);
 

@@ -1,3 +1,5 @@
+  - remove touch() call that made the compiled-template's timestamp the
+    same as the source-template's one. (messju)
   - add assign attribute to html_checkboxes and html_radios
     (pcg, Monte)
   - remove non-xhtml conformant tag from mailto function

@@ -33,11 +33,6 @@ function smarty_core_write_file($params, &$smarty)
     }
 
     fwrite($fd, $params['contents']);
-
-    // Set the file's mtime
-    if (isset($params['timestamp'])) {
-       touch($_tmp_file, $params['timestamp']);
-    }
     fclose($fd);
 
     // Delete the file if it allready exists (this is needed on Win,

@@ -10,7 +10,6 @@
  *
  * @param string $compile_path
  * @param string $template_compiled
- * @param integer $template_timestamp
  * @return boolean
  */
 
