@@ -9,7 +9,7 @@
  * Author:	 Monte Ohrt <monte@ispi.net>
  * Credits:  Mark Priatel <mpriatel@rogers.com>
  *           Gerard <gerard@interfold.com>
- * Purpose:  cycle given given values
+ * Purpose:  cycle through given values
  * Input:    id = id of cycle (optional)
  *           values = comma separated list of values to cycle
  *           reset = boolean - resets given var to true
