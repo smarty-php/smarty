@@ -1,3 +1,11 @@
+2003-01-15  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+      fix if statement syntax for negative integers, fix issue with directories
+      named '0'
+
 2003-01-08  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php
