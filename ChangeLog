@@ -1,3 +1,12 @@
+2004-05-21  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      fixed typo in error-messages
+
+    * docs/de/language-snippets.ent
+      docs/fr/language-snippets.ent:
+      added empty language-snippets.ent to fix "make web"
+
 2004-05-12  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
