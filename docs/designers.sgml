@@ -3618,6 +3618,13 @@ OUTPUT: (both examples)
                         <entry><emphasis>web server doc root</emphasis></entry>
                         <entry>directory to base relative paths from</entry>
                     </row>
+                    <row>
+                        <entry>link</entry>
+                        <entry>string</entry>
+                        <entry>no</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>href value to link the image to</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
@@ -3631,6 +3638,10 @@ OUTPUT: (both examples)
 			from. If not given, the web server document root (env variable
 			DOCUMENT_ROOT) is used as the base. If security is enabled, the
 			path to the image must be within a secure directory.
+			</para>
+			<para>
+			link is the href value to link the image to. If link is supplied, an
+			&lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is put around the image tag.
 			</para>
 			<note>
 				<title>Technical Note</title>

@@ -1,0 +1,48 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY preface SYSTEM "preface.sgml">
+<!ENTITY getting.started SYSTEM "getting-started.sgml">
+<!ENTITY smarty.for.designers SYSTEM "designers.sgml">
+<!ENTITY smarty.for.programmers SYSTEM "programmers.sgml">
+<!ENTITY appendixes SYSTEM "appendixes.sgml">
+]>
+<!-- Smarty German Documentation Port -->
+<!-- $Id$ -->
+<!-- $Author$ -->
+<!-- $Revision$ -->
+<book id="index" lang="de">
+ <bookinfo id="bookinfo">
+  <title>Smarty - die kompilierende PHP Template-Engine</title>
+  <authorgroup id="authors">
+   <author>
+    <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
+   </author>
+   <author>
+    <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
+   </author>
+  </authorgroup>
+
+  <authorgroup id="translators">
+   <author>
+    <firstname>Andreas</firstname><surname>Halter &lt;smarty@andreashalter.ch&gt; (Deutsche &Uuml;bersetzung)</surname>
+   </author>
+   <author>
+    <firstname>Thomas</firstname><surname>Schulz &lt;ths@4bconsult.de&gt; (Review der deutschen &Uuml;bersetzung)</surname>
+   </author>
+  </authorgroup>
+
+  <edition>Version 2.0</edition>
+  <copyright>
+   <year>2001</year>
+   <year>2002</year>
+   <year>2003</year>
+   <holder>ispi of Lincoln, Inc.</holder>
+  </copyright>
+ </bookinfo>
+
+ &preface;
+ &getting.started;
+ &smarty.for.designers;
+ &smarty.for.programmers;
+ &appendixes;
+
+</book>
