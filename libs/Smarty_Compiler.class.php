@@ -421,43 +421,64 @@ class Smarty_Compiler extends Smarty {
         foreach ($attrs as $attr_name => $attr_value) {
             switch ($attr_name) {
                 case 'loop':
-                    $output .= "{$section_props}['loop'] = is_array($attr_value) ? count($attr_value) : $attr_value;\n";
+                    $output .= "{$section_props}['loop'] = is_array($attr_value) ? count($attr_value) : max(0, (int)$attr_value);\n";
                     break;
 
                 case 'show':
                     if (is_bool($attr_value))
-                        $attr_value = $attr_value ? 'true' : 'false';
+                        $show_attr_value = $attr_value ? 'true' : 'false';
+                    else
+                        $show_attr_value = $attr_value;
+                    break;
+
+                case 'name':
                     $output .= "{$section_props}['$attr_name'] = $attr_value;\n";
                     break;
 
+                case 'max':
+                    $output .= "{$section_props}['$attr_name'] = max(0, (int)$attr_value);\n";
+                    break;
+
+                case 'start':
+                    $output .= "{$section_props}['$attr_name'] = (int)$attr_value;\n";
+                    break;
+
                 default:
-                    $output .= "{$section_props}['$attr_name'] = $attr_value;\n";
+                    $this->_syntax_error("unknown section attribute - '$attr_name'");
                     break;
             }
         }
 
-        if (isset($attrs['loop'])) {
-            $loop_check_code = "{$section_props}['loop'] > 0 && ";
-        } else {
+        if (!isset($attrs['loop']))
             $output .= "{$section_props}['loop'] = 1;\n";
-        }
 
-        if (isset($attrs['show'])) {
-            $show_check_code = "{$section_props}['show'] && ";
-        } else {
-            $output .= "{$section_props}['show'] = {$section_props}['loop'] > 0;\n";
-        }
+        if (!isset($attrs['max']))
+            $output .= "{$section_props}['max'] = {$section_props}['loop'];\n";
 
-        $output .= "if ($loop_check_code $show_check_code true): ";
+        if (!isset($attrs['start']))
+            $output .= "{$section_props}['start'] = 0;\n";
+        else
+            $output .= "if ({$section_props}['start'] < 0)\n" .
+                       "    {$section_props}['start'] = max(0, (int)({$section_props}['loop'] + {$section_props}['start']));\n";
 
+        if (isset($attrs['show']))
+            $show_attr_code .= "$show_attr_value &&";
+        $output .= "{$section_props}['show'] = $show_attr_code {$section_props}['loop'] > 0 && {$section_props}['max'] > 0 && {$section_props}['start'] < {$section_props}['loop'];\n";
+
+        $output .= "if ({$section_props}['show'])\n" .
+                   "    {$section_props}['total'] = min({$section_props}['loop'] - {$section_props}['start'], {$section_props}['max']);\n" .
+                   "else\n" .
+                   "    {$section_props}['total'] = 0;\n";
+
+        $output .= "if ({$section_props}['show']):\n";
         $output .= "
-            for ({$section_props}['index'] = 0;
-                 {$section_props}['index'] < {$section_props}['loop'];
-                 {$section_props}['index']++):\n";
+            for ({$section_props}['index'] = {$section_props}['start'], {$section_props}['iteration'] = 1;
+                 {$section_props}['index'] < {$section_props}['loop'] && {$section_props}['iteration'] <= {$section_props}['max'];
+                 {$section_props}['index']++, {$section_props}['iteration']++):\n";
         $output .= "{$section_props}['rownum'] = {$section_props}['index'] + 1;\n";
         $output .= "{$section_props}['index_prev'] = {$section_props}['index'] - 1;\n";
         $output .= "{$section_props}['index_next'] = {$section_props}['index'] + 1;\n";
-        $output .= "{$section_props}['first']      = ({$section_props}['index'] == 0);\n";
+        $output .= "{$section_props}['first']      = ({$section_props}['index'] == {$section_props}['start']);\n";
         $output .= "{$section_props}['last']       = ({$section_props}['index'] == {$section_props}['loop']-1);\n";
 
         $output .= "?>";
@@ -566,7 +587,7 @@ class Smarty_Compiler extends Smarty {
                 default:
                     if($this->security &&
                        $tokens[$i+1] == '(' &&
-                       !preg_match("|[^a-zA-Z_]|",$tokens[$i]) &&
+                       preg_match('!^[a-zA-Z_]\w+$!', $tokens[$i]) &&
                        !in_array($tokens[$i], $this->security_settings['IF_FUNCS'])) {
                         $this->_syntax_error("(secure mode) '".$tokens[$i]."' not allowed in if statement");                
                     }

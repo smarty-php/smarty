@@ -1,3 +1,6 @@
+    - added 'total' and 'iteration' section properties. (Andrei)
+    - added 'start' and 'max' section attributes/properties. (Andrei)
+    - fixed a bug in security checking of functions inside {if} tags. (Andrei)
     - fixed a bug in Config_File that would incorrectly booleanize values that
       weren't really booleans. (Andrei)
 
