@@ -3,9 +3,10 @@
 		<sect1 id="language.function.ldelim">
 			<title>ldelim,rdelim</title>
 			<para>
-			ldelim and rdelim are used for displaying the literal delimiter, in
-			our case "{" or "}". The template engine always tries to interpret
-			delimiters, so this is the way around that.
+            ldelim and rdelim are used for escaping template delimiters, in our
+            case "{" or "}". You can also use
+            <linkend="language.function.literal">{literal}{/literal}</link> to
+            escape blocks of text.
 			</para>
 <example>
 <title>ldelim, rdelim</title>
