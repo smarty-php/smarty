@@ -1,3 +1,12 @@
+2002-06-29  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.eval.php: do nothing if $val is empty
+
+    * TODO
+      plugins/function.eval.php
+      plugins/function.popup_init.php:
+    add zindex to popup init, fix error message for eval.
+
 2002-06-27  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php:
