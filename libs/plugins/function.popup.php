@@ -42,6 +42,17 @@ function smarty_function_popup($params, &$smarty)
             case 'textfont':
             case 'captionfont':
             case 'closefont':
+            case 'fgbackground':
+            case 'bgbackground':
+            case 'inarray':
+            case 'caparray':
+            case 'capicon':
+            case 'background':
+            case 'frame':
+            case 'function':
+                $append .= ',' . strtoupper($_key) . ",'$_value'";
+                break;
+
             case 'textsize':
             case 'captionsize':
             case 'closesize':
@@ -50,23 +61,15 @@ function smarty_function_popup($params, &$smarty)
             case 'border':
             case 'offsetx':
             case 'offsety':
-            case 'fgbackground':
-            case 'bgbackground':
-            case 'inarray':
-            case 'caparray':
-            case 'capicon':
             case 'snapx':
             case 'snapy':
             case 'fixx':
             case 'fixy':
-            case 'background':
             case 'padx':
             case 'pady':
-            case 'frame':
             case 'timeout':
             case 'delay':
-            case 'function':
-                $append .= ',' . strtoupper($_key) . ",'$_value'";
+                $append .= ',' . strtoupper($_key) . ",$_value";
                 break;
 
             case 'sticky':
