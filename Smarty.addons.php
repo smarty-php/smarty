@@ -4,165 +4,54 @@
  * Project:		Smarty: the PHP compiled template engine
  * File:		Smarty.functions.php
  * Author:		Monte Ohrt <monte@ispi.net>
+ *				Andrei Zmievski <andrei@ispi.net>
  *
- * This is the smarty custom function file.
- * To add your own functions, name the function
- * smarty_[funcname], then add the function name
- * to the $registered_functions array in the
- * smarty.class.php file. You may then call your
- * function from a template file like so: {funcname [$var]...}
  */
 
 
 /*======================================================================*\
-	Function:	htmlesc
-	Purpose:	html escape template vars
+	Function: smarty_mod_escape
+	Purpose:  Escape the string according to escapement type
 \*======================================================================*/
-
-function smarty_htmlesc($var)
+function smarty_mod_escape($string, $esc_type = 'html')
 {
-	print htmlspecialchars($var);
-}
+	switch ($esc_type) {
+		case 'html':
+			return htmlspecialchars($string);
 
-/*======================================================================*\
-	Function:	urlesc
-	Purpose:	URL escape template vars
-\*======================================================================*/
+		case 'url':
+			return urlencode($string);
 
-function smarty_urlesc($var)
-{
-	print urlencode($var);
-}
-
-/*======================================================================*\
-	Function:	default
-	Purpose:	display a default value for empty template vars
-\*======================================================================*/
-
-function smarty_default($var,$default_val)
-{
-	if(empty($var))
-		print $default_val;
-	else
-		print $var;
-}
-
-/*======================================================================*\
-	Function:	configload
-	Purpose:	load vars from a config file
-
-	Notes:		config files must be in this format:
-	
-				key = "val"
-				key2 = "val2"
-\*======================================================================*/
-
-function smarty_configload($config_file)
-{
-
-	global $_config_vars;
-
-	if(!is_array($_config_vars))
-		$_config_vars = array();
-		
-	// only load in the config file
-	if(! ($fd = fopen($config_file,"r")))
-	{
-		print ("<!-- problem reading \"$config_file.\" -->");
-		return false;
+		default:
+			return $string;
 	}
-	$config_contents = fread($fd,filesize($config_file));
-	fclose($fd);
-
-	$contents_array = preg_split("/[\r\n]+/", $config_contents);
-
-	// read in the variables from the config file
-	foreach($contents_array as $current_line)
-	{
-		if (preg_match("/^\w+/",$current_line))
-		{
-			if(preg_match("/^([^\=]+)=(.*)/", $current_line, $preg_results))
-			{
-				$config_key = $preg_results[1];
-				$config_val = trim($preg_results[2]);
-
-				// remove tabs and spaces from key
-				$key = preg_replace("/[ \t]/", "", $config_key);
-
-				// is value surrounded by quotes?
-				if (!preg_match("/^['\"]/", $config_val))
-				{
-					$val = $config_val;
-				}
-				else
-				{
-					// Strip the leading and trailing quotes
-					$val = preg_replace("/^['\"]/","",$config_val);
-					$val = preg_replace("/['\"]$/","",$val);
-				}
-
-				// store the key and val in the config array
-				$_config_vars[$key] = $val;
-			}
-		}
-	}
-	
-	return true;
-		
 }
+
 
 /*======================================================================*\
-	Function:	configclear
-	Purpose:	clear config vars
+	Function: smarty_mod_truncate
+	Purpose:  Truncate a string to a certain length if necessary,
+			  optionally splitting in the middle of a word, and
+			  appending the $etc string.
 \*======================================================================*/
-
-function smarty_configclear()
+function smarty_mod_truncate($string, $length = 80, $etc = '...', $break_words = false)
 {
-
-	global $_config_vars;
-	$_config_vars = array();
-	
-	return true;
-		
+	if (strlen($string) > $length) {
+		$length -= strlen($etc);
+		$fragment = substr($string, 0, $length+1);
+		if ($break_words)
+			$fragment = substr($fragment, 0, -1);
+		else
+			$fragment = preg_replace('/\s+(\S+)?$/', '', $fragment);
+		return $fragment.$etc;
+	} else
+		return $string;
 }
 
-/*======================================================================*\
-	Function:	configprint
-	Purpose:	print a var from config
-\*======================================================================*/
 
-function smarty_configprint($var)
+function smarty_mod_spacify($string, $spacify_char = ' ')
 {
-
-	global $_config_vars;
-	
-	if (isset($_config_vars[$var]))
-		print $_config_vars[$var];
-	else
-		print "<!-- no value for $var in $config_file -->";
-	
-	return true;
-		
+	return implode($spacify_char, preg_split('//', $string, -1, PREG_SPLIT_NO_EMPTY));
 }
-
-/*======================================================================*\
-	Function:	configset
-	Purpose:	set a var from config
-\*======================================================================*/
-
-function smarty_configset($var,&$setvar)
-{
-
-	global $_config_vars;
-	
-	if (isset($_config_vars[$var]))
-		$setvar = $_config_vars[$var];
-	else
-		return false;
-			
-	return true;
-		
-}
-
 
 ?>

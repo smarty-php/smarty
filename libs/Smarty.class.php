@@ -43,6 +43,7 @@ class Smarty
 	
 	// registered template functions
 	// NOTE: leave off the "smarty_" prefix on the actual PHP function name
+	/*
 	var $registered_functions	=	array(	"htmlesc",
 											"urlesc",
 											"default",
@@ -51,13 +52,18 @@ class Smarty
 											"configprint",
 											"configset"
 											 );
+	*/
 
-	var $_modifiers				=	array(	"lower"		=> "smarty_mod_lower",
-											"upper"		=> "smarty_mod_upper"
+	var $_modifiers				=	array(	'lower'			=> 'strtolower',
+											'upper'			=> 'strtoupper',
+											'capitalize'	=> 'ucwords',
+											'escape'		=> 'smarty_mod_escape',
+											'truncate'		=> 'smarty_mod_truncate',
+											'spacify'		=> 'smarty_mod_spacify'
 										 );
 
 	// internal vars
-	var $errorMsg				=	false;		// error messages
+	var $_error_msg				=	false;		// error messages
 	var $_tpl_vars				= 	array();
 	var $_sectionelse_stack		=	array();	// keeps track of whether section had 'else' part
 
@@ -162,7 +168,7 @@ class Smarty
 		// exit if recursion depth is met
 		if($this->max_recursion_depth != 0 && $depth >= $this->max_recursion_depth)
 		{
-			$this->_set_errorMsg("recursion depth of $depth reached on $tpl_dir/$curr_file. exiting.");
+			$this->_set_error_msg("recursion depth of $depth reached on $tpl_dir/$curr_file. exiting.");
 			return false;
 		}
 		if(is_dir($tpl_dir))
@@ -198,7 +204,7 @@ class Smarty
 					else
 					{
 						// invalid file type, skipping
-						$this->_set_errorMsg("Invalid filetype for $filepath, skipping");
+						$this->_set_error_msg("Invalid filetype for $filepath, skipping");
 						continue;
 					}
 				}
@@ -206,7 +212,7 @@ class Smarty
 		}
 		else
 		{
-			$this->_set_errorMsg("Directory \"$tpl_dir\" does not exist or is not a directory.");
+			$this->_set_error_msg("Directory \"$tpl_dir\" does not exist or is not a directory.");
 			return false;
 		}
 		return true;
@@ -234,7 +240,7 @@ class Smarty
 			if(!file_exists($compile_dir))
 				if(!mkdir($compile_dir,0755))
 				{
-					$this->_set_errorMsg("problem creating directory \"$compile_dir\"");
+					$this->_set_error_msg("problem creating directory \"$compile_dir\"");
 					return false;				
 				}
 			// compile the template file if none exists or has been modified
@@ -253,7 +259,7 @@ class Smarty
 		}
 		else
 		{
-			$this->_set_errorMsg("problem matching \"$filepath.\"");
+			$this->_set_error_msg("problem matching \"$filepath.\"");
 			return false;
 		}
 		return true;
@@ -772,7 +778,7 @@ class Smarty
 	{
 		if(! ($fd = fopen($filename,"r")))
 		{
-			$this->_set_errorMsg("problem reading \"$filename.\"");
+			$this->_set_error_msg("problem reading \"$filename.\"");
 			return false;
 		}
 		$contents = fread($fd,filesize($filename));
@@ -789,7 +795,7 @@ class Smarty
 	{
 		if(!($fd = fopen($filename,"w")))
 		{
-			$this->_set_errorMsg("problem writing \"$filename.\"");
+			$this->_set_error_msg("problem writing \"$filename.\"");
 			return false;
 		}
 		fwrite($fd,$contents);
@@ -798,13 +804,13 @@ class Smarty
 	}
 
 /*======================================================================*\
-	Function:	_set_errorMsg()
+	Function:	_set_error_msg()
 	Purpose:	set the error message
 \*======================================================================*/
 
-	function _set_errorMsg($errorMsg)
+	function _set_error_msg($error_msg)
 	{
-		$this->errorMsg="smarty error: $errorMsg";
+		$this->_error_msg="smarty error: $error_msg";
 		return true;
 	}
 

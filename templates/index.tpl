@@ -1,9 +1,9 @@
 {config_load file=test.conf}
 
-Title: {#title#}
+Title: {#title#|capitalize}
 
 {* A simple variable test *}
-hello, my name is {$Name}.
+hello, my name is {$Name}
 
 My interests are:
 {section name=outer loop=$FirstName}
