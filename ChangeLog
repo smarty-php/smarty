@@ -1,3 +1,8 @@
+2004-01-23  Monte Ohrt  <monte@ispi.net>
+
+    * docs/getting-started.sgml:
+      reword a paragraph
+
 2004-01-22  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.config_load.php:
