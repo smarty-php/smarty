@@ -741,12 +741,18 @@ $smarty->clear_cache("index.tpl","CACHEID");</programlisting>
 			<funcsynopsis>
 			<funcprototype>
 			<funcdef>void <function>clear_compiled_tpl</function></funcdef>
-				<paramdef>string <parameter>tpl_file</parameter></paramdef>
+				<paramdef>string <parameter><optional>tpl_file</parameter></optional></paramdef>
+				<paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
+				<paramdef>int <parameter><optional>exp_time</optional></parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
 			This clears the compiled version of the specified template
 			resource, or all compiled template files if one is not specified.
+			if you pass a compile_id only the compiled template for this
+			specific compile_id is cleared. if you pass an exp_time, then only
+			compiled templates older than exp_time seconds are cleared, by
+			default all compiled templates are cleared regardless of their age.
 			This function is for advanced use only, not normally needed.
 			</para>
 <example>
