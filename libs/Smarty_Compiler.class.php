@@ -1449,11 +1449,11 @@ class Smarty_Compiler extends Smarty {
     function _expand_quoted_text($var_expr)
     {
 		// if contains unescaped $, expand it
-		if(preg_match_all('%(?<!\\\\)\$(?:smarty(?:\.\w+){1,2}|\w+(?:' . $this->_var_bracket_regexp . ')*)%', $var_expr, $match)) {
+		if(preg_match_all('%(?<!\\\\)\$\`?(?:smarty(?:\.\w+)*|\w+(?:' . $this->_var_bracket_regexp . ')*)\`?%', $var_expr, $match)) {
 			rsort($match[0]);
 			reset($match[0]);
 			foreach($match[0] as $var) {
-                $var_expr = str_replace ($var, '".' . $this->_parse_var($var) . '."', $var_expr);
+                $var_expr = str_replace ($var, '".' . $this->_parse_var(str_replace('`','',$var)) . '."', $var_expr);
 			}
             return preg_replace('!\.""|""\.!', '', $var_expr);
 		} else {
@@ -1677,73 +1677,52 @@ class Smarty_Compiler extends Smarty {
     function _compile_smarty_ref(&$indexes)
     {
         /* Extract the reference name. */
-        $ref = substr($indexes[0], 1);
+        $_ref = substr($indexes[0], 1);
 
-        switch ($ref) {
+		foreach($indexes as $_index) {		
+        	if ($_index{0} != '.') {
+            	$this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
+        	}
+		}
+		
+        switch ($_ref) {
             case 'now':
                 $compiled_ref = 'time()';
-                if (count($indexes) > 1) {
-                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
-                }
+				$_max_index = 1;
                 break;
 
             case 'foreach':
             case 'section':
-                if ($indexes[1]{0} != '.') {
-                    $this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
-                }
-                $name = substr($indexes[1], 1);
                 array_shift($indexes);
-                if ($ref == 'foreach')
-                    $compiled_ref = "\$this->_foreach['$name']";
+                $_var = $this->_parse_var_props(substr($indexes[0], 1));
+                if ($_ref == 'foreach')
+                    $compiled_ref = "\$this->_foreach[$_var]";
                 else
-                    $compiled_ref = "\$this->_sections['$name']";
+                    $compiled_ref = "\$this->_sections[$_var]";
                 break;
 
             case 'get':
-                array_shift($indexes);
                 $compiled_ref = "\$GLOBALS['HTTP_GET_VARS']";
-                if ($name = substr($indexes[0], 1))
-                    $compiled_ref .= "['$name']";
                 break;
 
             case 'post':
-                array_shift($indexes);
-                $name = substr($indexes[0], 1);
                 $compiled_ref = "\$GLOBALS['HTTP_POST_VARS']";
-                if ($name = substr($indexes[0], 1))
-                    $compiled_ref .= "['$name']";
                 break;
 
             case 'cookies':
-                array_shift($indexes);
-                $name = substr($indexes[0], 1);
                 $compiled_ref = "\$GLOBALS['HTTP_COOKIE_VARS']";
-                if ($name = substr($indexes[0], 1))
-                    $compiled_ref .= "['$name']";
                 break;
 
             case 'env':
-                array_shift($indexes);
                 $compiled_ref = "\$GLOBALS['HTTP_ENV_VARS']";
-                if ($name = substr($indexes[0], 1))
-                    $compiled_ref .= "['$name']";
                 break;
 
             case 'server':
-                array_shift($indexes);
-                $name = substr($indexes[0], 1);
                 $compiled_ref = "\$GLOBALS['HTTP_SERVER_VARS']";
-                if ($name = substr($indexes[0], 1))
-                    $compiled_ref .= "['$name']";
                 break;
 
             case 'session':
-                array_shift($indexes);
-                $name = substr($indexes[0], 1);
                 $compiled_ref = "\$GLOBALS['HTTP_SESSION_VARS']";
-                if ($name = substr($indexes[0], 1))
-                    $compiled_ref .= "['$name']";
                 break;
 
             /*
@@ -1759,31 +1738,33 @@ class Smarty_Compiler extends Smarty {
 
             case 'template':
                 $compiled_ref = "'$this->_current_file'";
-                if (count($indexes) > 1) {
-                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
-                }
+				$_max_index = 1;
                 break;
 				
 			case 'version':
 				$compiled_ref = "'$this->_version'";
+				$_max_index = 1;
 				break;
 
 			case 'const':
                 array_shift($indexes);
-				$compiled_ref = '(defined("' . substr($indexes[0],1) . '") ? ' . substr($indexes[0],1) . ' : null)';
+				$_val = $this->_parse_var_props(substr($indexes[0],1));
+				$compiled_ref = "(defined($_val) ? $_val : null)";
+				$_max_index = 1;
                 break;
 
             case 'config':
-                array_shift($indexes);
-                $name = substr($indexes[0], 1);
                 $compiled_ref = "\$this->_config[0]['vars']";
-                if ($name = substr($indexes[0], 1))
-                    $compiled_ref .= "['$name']";
+				$_max_index = 2;
                 break;
 
             default:
                 $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
                 break;
+        }
+
+        if (isset($_max_index) && count($indexes) > $_max_index) {
+            $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
         }
 
         array_shift($indexes);

@@ -511,13 +511,30 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
            <paramdef>string <parameter>varname</parameter></paramdef>
            <paramdef>mixed <parameter>var</parameter></paramdef>
           </funcprototype>
+          <funcprototype>
+           <funcdef>void <function>append</function></funcdef>
+           <paramdef>string <parameter>varname</parameter></paramdef>
+           <paramdef>mixed <parameter>var</parameter></paramdef>
+           <paramdef>boolean <parameter>merge</parameter></paramdef>
+          </funcprototype>
          </funcsynopsis>
          <para>
 		  This is used to append an element to an assigned array. If you append
 		  to a string value, it is converted to an array value and then
 		  appended to. You can explicitly pass name/value pairs, or associative
-		  arrays containing the name/value pairs.
+		  arrays containing the name/value pairs. If you pass the optional third
+		  parameter of true, the value will be merged with the current array
+		  instead of appended.
          </para>
+		 <note>
+		 <title>Technical Note</title>
+		 <para>
+		 The merge parameter respects array keys, so if you merge two
+		 numerically indexed arrays, they may overwrite each other or result in
+		 non-sequential keys. This is unlike the array_merge() function of PHP
+		 which wipes out numerical keys and renumbers them.
+		 </para>
+		 </note>
          <example>
           <title>append</title>
           <programlisting>
@@ -537,10 +554,18 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
         <paramdef>string <parameter>varname</parameter></paramdef>
         <paramdef>mixed <parameter>var</parameter></paramdef>
        </funcprototype>
+       <funcprototype>
+        <funcdef>void <function>append_by_ref</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+        <paramdef>boolean <parameter>merge</parameter></paramdef>
+       </funcprototype>
       </funcsynopsis>
       <para>
 	   This is used to append values to the templates by reference instead of
-	   making a copy. See the PHP manual on variable referencing for an explanation.
+	   making a copy. See the PHP manual on variable referencing for an
+	   explanation. If you pass the optional third parameter of true, the value
+	   will be merged with the current array instead of appended.
       </para>
 	  <note>
 	  <title>Technical Note</title>
@@ -551,6 +576,15 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
 	  after it is assigned, the assigned variable sees the changes! PHP 5.0
 	  will take care of referencing automatically, so this function acts as a
 	  workaround.
+	  </para>
+	  </note>
+	  <note>
+	  <title>Technical Note</title>
+	  <para>
+	  The merge parameter respects array keys, so if you merge two
+	  numerically indexed arrays, they may overwrite each other or result in
+	  non-sequential keys. This is unlike the array_merge() function of PHP
+	  which wipes out numerical keys and renumbers them.
 	  </para>
 	  </note>
       <example>
@@ -938,25 +972,79 @@ $output = $smarty->fetch("index.tpl");
 echo $output;</programlisting>
 </example>
 		</sect1>
+		<sect1 id="api.get.config.vars">
+			<title>get_config_vars</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>array <function>get_config_vars</function></funcdef>
+				<paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This returns the given loaded config variable value. If no parameter
+				is given, an array of all loaded config variables is returned.
+			</para>
+<example>
+<title>get_config_vars</title>
+<programlisting>
+// get loaded config template var 'foo'
+$foo = $smarty->get_config_vars('foo');
+
+// get all loaded config template vars
+$config_vars = $smarty->get_config_vars();
+
+// take a look at them
+print_r($config_vars);</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.get.registered.object">
+			<title>get_registered_object</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>array <function>get_registered_object</function></funcdef>
+				<paramdef>string <parameter>object_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This returns a reference to a registered object. This is useful
+				from within a custom function when you need direct access to a
+				registered object.
+			</para>
+<example>
+<title>get_registered_object</title>
+<programlisting>
+function smarty_block_foo($params, &amp;$smarty) {
+	if (isset[$params['object']]) {
+		// get reference to registered object
+   		$obj_ref =&amp; $smarty->&amp;get_registered_object($params['object']);
+		// use $obj_ref is now a reference to the object
+	}
+}</programlisting>
+</example>
+		</sect1>
 		<sect1 id="api.get.template.vars">
 			<title>get_template_vars</title>
 			<funcsynopsis>
 			<funcprototype>
 			<funcdef>array <function>get_template_vars</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
+				<paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This gets an array of the currently assigned template vars.
+				This returns the given assigned variable value. If no parameter
+				is given, an array of all assigned variables is returned.
 			</para>
 <example>
 <title>get_template_vars</title>
 <programlisting>
+// get assigned template var 'foo'
+$foo = $smarty->get_template_vars('foo');
+
 // get all assigned template vars
 $tpl_vars = $smarty->get_template_vars();
 
 // take a look at them
-var_dump($tpl_vars);</programlisting>
+print_r($tpl_vars);</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.is.cached">

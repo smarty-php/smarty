@@ -250,8 +250,12 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
        <sect1 id="language.config.variables">
 			<title>Variables loaded from config files</title>
 			<para>
-             Variables that are loaded from the config files are referenced by enclosing
-             them within hash marks (#).
+			 Variables that are loaded from the config files are referenced by
+			 enclosing them within hash marks (#), or with the smarty variable
+			 <link
+			 linkend="language.variables.smarty.config">$smarty.config</link>.
+			 The second syntax is useful for embedding into quoted attribute
+			 values.
 			</para>
 <example>
 
@@ -281,7 +285,24 @@ index.tpl:
 &lt;/body&gt;
 &lt;/html&gt;
 
-OUTPUT:
+index.tpl: (alternate syntax)
+
+{config_load file="foo.conf"}
+&lt;html&gt;
+&lt;title&gt;{$smarty.config.pageTitle}&lt;/title&gt;
+&lt;body bgcolor="{$smarty.config.bodyBgColor}"&gt;
+&lt;table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}"&gt;
+&lt;tr bgcolor="{$smarty.config.rowBgColor}"&gt;
+	&lt;td&gt;First&lt;/td&gt;
+	&lt;td&gt;Last&lt;/td&gt;
+	&lt;td&gt;Address&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+OUTPUT: (same for both examples)
 
 &lt;html&gt;
 &lt;title&gt;This is mine&lt;/title&gt;
@@ -380,6 +401,15 @@ OUTPUT:
 			The output captured via {capture}..{/capture} construct can be
 			accessed using {$smarty} variable. See section on
 			<link linkend="language.function.capture">capture</link> for an example.
+			</para>
+		</sect2>
+
+		<sect2 id="language.variables.smarty.config">
+			<title>{$smarty.config}</title>
+			<para>
+			{$smarty} variable can be used to refer to loaded config variables.
+			{$smarty.config.foo} is a synonyn for {#foo#}. See the section on
+			<link linkend="language.function.config.load">config_load</link> for an example.
 			</para>
 		</sect2>
 
