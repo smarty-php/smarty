@@ -1,3 +1,8 @@
+2004-11-08  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      removed unused code
+
 2004-10-25  Mehdi Achour  <didou@keliglia.com>
 
     * docs/fr/bookinfo.xml
