@@ -22,15 +22,7 @@
    explanation. If you pass the optional third parameter of true,
    the value will be merged with the current array instead of appended.
   </para>
-  <note>
-   <title>Technical Note</title>
-   <para>
-    The <parameter>merge</parameter> parameter respects array keys, so if 
-    you merge two numerically indexed arrays, they may overwrite each other 
-    or result in non-sequential keys. This is unlike the array_merge() function 
-    of PHP which wipes out numerical keys and renumbers them.
-   </para>
-  </note>
+  &note.parameter.merge;
   <example>
    <title>append_by_ref</title>
    <programlisting role="php">

@@ -6,8 +6,10 @@
 
 <!-- Add translated specific definitions and snippets -->
 <!ENTITY % language-defs     SYSTEM "@LANG@/language-defs.ent">
+<!ENTITY % language-snippets SYSTEM "@LANG@/language-snippets.ent">
 
 %language-defs;
+%language-snippets;
 
 <!-- Fallback to English definitions and snippets (in case of missing translation) -->
 <!ENTITY % language-defs.default     SYSTEM "en/language-defs.ent">

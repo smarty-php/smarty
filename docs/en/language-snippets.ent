@@ -1,0 +1,11 @@
+<!-- $Revision$ -->
+
+<!ENTITY note.parameter.merge '<note>
+ <title>Technical Note</title>
+ <para>
+  The <parameter>merge</parameter> parameter respects array keys, so if
+  you merge two numerically indexed arrays, they may overwrite each other
+  or result in non-sequential keys. This is unlike the array_merge() function
+  of PHP which wipes out numerical keys and renumbers them.
+ </para>
+</note>'>
