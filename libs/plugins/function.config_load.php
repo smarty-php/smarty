@@ -25,7 +25,8 @@
 function smarty_function_config_load($params, &$smarty)
 {
         if ($smarty->debugging) {
-            $_debug_start_time = $smarty->_get_microtime();
+			$_params = array();
+            $_debug_start_time = $smarty->_execute_core_function('get_microtime', $_params);
         }
 
 		$_file = isset($params['file']) ? $params['file'] : null;
@@ -55,7 +56,9 @@ function smarty_function_config_load($params, &$smarty)
             $_config_dir = $smarty->config_dir;            
         } else {
             // config_dir not found, try include_path
-            $smarty->_get_include_path($smarty->config_dir, $_config_dir);
+			$_params = array('file_path' => $smarty->config_dir);
+            $smarty->_execute_core_function('get_include_path', $_params);
+			$_config_dir = $_params['new_file_path'];
         }
 
         $_file_path = str_replace('//', '/' ,$_config_dir . '/' . $_file);
@@ -95,7 +98,8 @@ function smarty_function_config_load($params, &$smarty)
                 } else {
                     $_compile_data = '<?php $_config_vars = unserialize(\'' . str_replace('\'','\\\'', serialize($_config_vars)) . '\'); return true; ?>';
                 }
-                $smarty->_write_file($_compile_file, $_compile_data, true);
+				$_params = array('filename' => $_compile_file, 'contents' => $_compile_data, 'create_dirs' => true);
+				$smarty->_execute_core_function('write_file', $_params);
                 touch($_compile_file,filemtime($_file_path));
             }
         }
@@ -118,10 +122,11 @@ function smarty_function_config_load($params, &$smarty)
         }
 
         if ($smarty->debugging) {
+			$_params = array();
             $smarty->_smarty_debug_info[] = array('type'      => 'config',
                                                 'filename'  => $_file.' ['.$_section.'] '.$_scope,
                                                 'depth'     => $smarty->_inclusion_depth,
-                                                'exec_time' => $smarty->_get_microtime() - $_debug_start_time);
+                                                'exec_time' => $smarty->_execute_core_function('get_microtime', $_params) - $_debug_start_time);
         }
 	
 }
