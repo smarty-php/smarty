@@ -101,6 +101,7 @@ class Smarty
 	
 	
 	var $security		=	false;		// enable template security (default false)
+	var $secure_dir		=	array("./templates"); // array of directories considered secure
 	var $security_settings	= array(
 									"ALLOW_PHP_HANDLING" 	=> false,
 									"ALLOW_IF_FUNCS"		=> array('count','is_array'),
@@ -652,12 +653,19 @@ class Smarty
                     // relative pathname to $template_dir
                     $resource_name = $this->template_dir.'/'.$resource_name;   
                 }
-				// if security is on, make sure template comes from $template_dir
+				// if security is on, make sure template comes from a $secure_dir
 				if($this->security && !$this->security_settings["ALLOW_INCLUDE_ANY"]) {
-					if(substr(realpath($resource_name),0,strlen(realpath($this->template_dir))) != realpath($this->template_dir)) {
-                    	$this->_trigger_error_msg("(secure mode) including \"$resource_name\" is not allowed");
-                    	return false;						
+					$resource_is_secure = false;
+					foreach($this->secure_dir as $curr_dir) {
+						if(substr(realpath($resource_name),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+							$resource_is_secure = true;
+							break;
+						}
 					}
+					if(!$resource_is_secure) {
+                    	$this->_trigger_error_msg("(secure mode) including \"$resource_name\" is not allowed");
+                    	return false;
+					}				
 				}
                 if (file_exists($resource_name) && is_readable($resource_name)) {
                     $template_source = $this->_read_file($resource_name);
@@ -714,6 +722,7 @@ class Smarty
         $smarty_compiler->prefilter_funcs   = $this->prefilter_funcs;
         $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
         $smarty_compiler->security    		= $this->security;
+        $smarty_compiler->secure_dir 		= $this->secure_dir;
         $smarty_compiler->security_settings = $this->security_settings;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))

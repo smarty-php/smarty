@@ -484,8 +484,17 @@ function smarty_func_fetch($args,&$smarty_obj) {
         return;                    
     }
 	if($smarty_obj->security && !preg_match("/^(http|ftp):\/\//",$file)) {
-        trigger_error("(secure mode) file must start with http:// or ftp://");
-        return;
+		// make sure fetched file comes from secure directory
+		foreach($smarty_obj->secure_dir as $curr_dir) {
+			if(substr(realpath($file),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+				$resource_is_secure = true;
+				break;
+			}
+		}
+		if(!$resource_is_secure) {
+        	trigger_error("(secure mode) fetching '$file' is not allowed");
+        	return;
+		}				
 	}		
     readfile($file);
 }
