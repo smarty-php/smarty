@@ -845,7 +845,7 @@ class Smarty_Compiler extends Smarty {
     	}
 
     	$output =
-        	"<?php \$_params = array('smarty_file' => '" . $this->_dequote($attrs['file']) . "', 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list).")); \$this->_execute_core_function('smarty_include_php', \$_params); ?>";
+        	"<?php \$_params = array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list).")); \$this->_execute_core_function('smarty_include_php', \$_params); ?>";
 				
 		return $output;
     }
