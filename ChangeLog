@@ -1,3 +1,9 @@
+2005-01-28  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/modifier.escape.php:
+      escape:url now uses the (RFC 1738 compliant) rawurlencode()
+
 2005-01-23  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
