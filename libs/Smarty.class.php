@@ -45,18 +45,18 @@
 /* $Id$ */
 
 /**
- * set SMARTY_DIR to absolute path to Smarty library files.
- * if not defined, include_path will be used. Sets SMARTY_DIR only if user
- * application has not already defined it.
+ * DIR_SEP isn't used anymore, but third party apps might
  */
-
 if(!defined('DIR_SEP')) {
 	define('DIR_SEP', DIRECTORY_SEPARATOR);
 }
 
 /**
- * Sets SMARTY_DIR only if user application has not already defined it
+ * set SMARTY_DIR to absolute path to Smarty library files.
+ * if not defined, include_path will be used. Sets SMARTY_DIR only if user
+ * application has not already defined it.
  */
+
 if (!defined('SMARTY_DIR')) {
     define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 }
@@ -2196,7 +2196,7 @@ class Smarty
     function _create_dir_structure($dir)
     {
         if (!file_exists($dir)) {
-            $_dir_parts = preg_split('!\\'.DIRECTORY_SEPARATOR.'+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
+            $_dir_parts = preg_split('!\\' . DIRECTORY_SEPARATOR . '+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
             $_new_dir = ($dir{0} == DIRECTORY_SEPARATOR) ? DIRECTORY_SEPARATOR : '';
             
             // do not attempt to test or make directories outside of open_basedir
@@ -2341,7 +2341,7 @@ class Smarty
 
             if (isset($this->_cache_info['config'])) {
                 foreach ($this->_cache_info['config'] as $config_dep) {
-                    if ($this->_cache_info['timestamp'] < filemtime($this->config_dir.DIRECTORY_SEPARATOR.$config_dep)) {
+                    if ($this->_cache_info['timestamp'] < filemtime($this->config_dir . DIRECTORY_SEPARATOR . $config_dep)) {
                         // config file has changed, regenerate cache
                         return false;
                     }
