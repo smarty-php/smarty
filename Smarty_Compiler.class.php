@@ -46,6 +46,7 @@ class Smarty_Compiler extends Smarty {
     var $_php_blocks            =   array();    // keeps php code blocks
     var $_current_file          =   null;       // the current template being compiled
     var $_current_line_no       =   1;          // line number for error messages
+    var $_capture_stack         =   array();    // keeps track of nested capture buffers
         
 
 /*======================================================================*\
@@ -78,6 +79,13 @@ class Smarty_Compiler extends Smarty {
         $ldq = preg_quote($this->left_delimiter, '!');
         $rdq = preg_quote($this->right_delimiter, '!');
 
+        /* Annihilate the comments. */
+        if (preg_match_all("!{$ldq}\*.*?\*{$rdq}!s", $template_source, $match)) {
+            foreach ($match[0] as $comment)
+                $this->_current_line_no += substr_count($comment, "\n");
+            $template_source = preg_replace("!{$ldq}\*.*?\*{$rdq}!s", '', $template_source);
+        }
+        
         /* Pull out the literal blocks. */
         preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $match);
         $this->_literal_blocks = $match[1];
@@ -167,10 +175,6 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_tag($template_tag)
     {
-        /* Matched comment. */
-        if ($template_tag{0} == '*' && $template_tag{strlen($template_tag)-1} == '*')
-            return '';
-
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
         /* Split tag into two parts: command and the arguments. */
@@ -184,7 +188,7 @@ class Smarty_Compiler extends Smarty {
 
         /* If the tag name matches a variable or section property definition,
            we simply process it. */
-        if (preg_match('!^\$\w+(?>(\[\w+(\.\w+)?\])|((\.|->)\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
+        if (preg_match('!^\$\w+(?>(\[(\d+|\w+(\.\w+)?)\])|((\.|->)\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
             preg_match('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)     ||  // or a configuration variable
             preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)) {    // or a section property
             settype($tag_command, 'array');
@@ -209,10 +213,10 @@ class Smarty_Compiler extends Smarty {
                 return '<?php endif; ?>';
 
             case 'capture':
-                return '<?php ob_start(); ?>';
+                return $this->_compile_capture_tag(true, $tag_args);
                 
             case '/capture':
-                return '<?php $this->assign("return", ob_get_contents()); ob_end_clean(); ?>';
+                return $this->_compile_capture_tag(false);
                 
             case 'ldelim':
                 return $this->left_delimiter;
@@ -500,6 +504,31 @@ class Smarty_Compiler extends Smarty {
 
 
 /*======================================================================*\
+    Function: _compile_capture_tag
+    Purpose:  Compile {capture} .. {/capture} tags
+\*======================================================================*/
+    function _compile_capture_tag($start, $tag_args = '')
+    {
+        $attrs = $this->_parse_attrs($tag_args);
+
+        if ($start) {
+            if (isset($attrs['name']))
+                $buffer = $attrs['name'];
+            else
+                $buffer = "'default'";
+
+            $output = "<?php ob_start(); ?>";
+            $this->_capture_stack[] = $buffer;
+        } else {
+            $buffer = array_pop($this->_capture_stack);
+            $output = "<?php \$this->_tpl_vars['smarty']['capture'][$buffer] = ob_get_contents(); ob_end_clean(); ?>";
+        }
+
+        return $output;
+    }
+
+
+/*======================================================================*\
     Function: _compile_if_tag
     Purpose:  Compile {if ...} tag
 \*======================================================================*/
@@ -757,7 +786,7 @@ class Smarty_Compiler extends Smarty {
     {        
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
-        $var_exprs = preg_grep('!^\$\w+(?>(\[\w+(\.\w+)?\])|((\.|->)\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
+        $var_exprs = preg_grep('!^\$\w+(?>(\[(\d+|\w+(\.\w+)?)\])|((\.|->)\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
 
@@ -799,10 +828,15 @@ class Smarty_Compiler extends Smarty {
 
         foreach ($indexes as $index) {
             if ($index{0} == '[') {
-                $parts = explode('.', substr($index, 1, -1));
-                $section = $parts[0];
-                $section_prop = isset($parts[1]) ? $parts[1] : 'index';
-                $output .= "[\$this->_sections['$section']['properties']['$section_prop']]";
+                $index = substr($index, 1, -1);
+                if (is_numeric($index)) {
+                    $output .= "[$index]";
+                } else {
+                    $parts = explode('.', $index);
+                    $section = $parts[0];
+                    $section_prop = isset($parts[1]) ? $parts[1] : 'index';
+                    $output .= "[\$this->_sections['$section']['properties']['$section_prop']]";
+                }
             } else if ($index{0} == '.') {
                 $output .= "['" . substr($index, 1) . "']";
             } else {

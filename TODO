@@ -1,6 +1,6 @@
 * Ability to load multiple sections in one {config_load ...}
-* do way with Smarty.addons.php and make drop-in plugin
-  directory for functions and modifiers
+* do away with Smarty.addons.php and make drop-in plugin directory for
+  functions and modifiers
 * handle asp style tags in $php_handler
 * correctly capture nested php tag syntax in templates:
   <?php echo "<?php exit(); ?>"; ?>
@@ -10,3 +10,4 @@
 * possibly implement default modifiers that apply to variables upon display
 * possibly implement undefined template tags custom handling
 * think about possibility of supporting something like {$data[foo].{$key[bar]}}
+* allow {custom} .. {/custom} style of custom functions

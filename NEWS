@@ -1,19 +1,23 @@
-    - fixed bug with SMARTY_DIR not prepended to Config_File include (Monte)
+    - fixed comments handling to allow commenting out template blocks. (Andrei)
+    - implemented named capture buffers, with results accessible via
+      $smarty.capture.<name>. (Andrei)
+    - added ability to index arrays directly by numbers. (Andrei)
+    - fixed bug with SMARTY_DIR not prepended to Config_File include. (Monte)
 
 Version 1.4.4
 -------------
-    - fixed problem with including insecure templates with security enabled
+    - fixed problem with including insecure templates with security enabled.
       (Monte)
     - numerous documentation updates. (Monte) 
     - added ENT_QUOTES to escapement of html. (Monte, Sam Beckwith)
     - implemented access to request variables via auto-assigned $smarty
-      template variable.  (Andrei)
+      template variable. (Andrei)
     - fixed a bug with parsing function arguments inside {if} tags if a comma
       was present. (Andrei)
     - updated debug console with config file vars. (Monte)
-    - added SMARTY_DIR constant as an alternative to relying on include_path
+    - added SMARTY_DIR constant as an alternative to relying on include_path.
       (Monte)
-    - added popup_init and popup functions, (requires overlib.js) (Monte)
+    - added popup_init and popup functions (requires overlib.js). (Monte)
     - updated debug console with config file vars. (Monte)
     - added debugging url control. (Monte)
     - added 'quotes' type to escape modifier. (Monte, Mike Krus)
