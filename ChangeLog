@@ -1,3 +1,12 @@
+2003-11-22  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.assign.php:
+      remove use of extract() in smarty_function_assign()
+
+    * NEWS
+      libs/Smarty.class.php:
+      remove property $undefined. "null" is used literally instead
+
 2003-11-21  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
