@@ -669,6 +669,7 @@ $smarty->clear_all_cache();
 			<funcprototype>
 			<funcdef>void <function>is_cached</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -701,11 +702,11 @@ $smarty->display("index.tpl");
 
 $smarty->caching = true;
 
-if(!$smarty->is_cached("index.tpl","CACHEID")) {
+if(!$smarty->is_cached("index.tpl","FrontPage")) {
     // do database calls, assign vars here
 }
 
-$smarty->display("index.tpl","CACHEID");
+$smarty->display("index.tpl","FrontPage");
 
 </programlisting>
 </example>
@@ -787,6 +788,7 @@ $smarty->display("index.tpl");
 			<funcprototype>
 			<funcdef>string <function>fetch</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1448,15 +1450,15 @@ OUTPUT:
 
 id: 1000&lt;br&gt;
 name: John Smith&lt;br&gt;
-address: 253 N 45th
+address: 253 N 45th&lt;br&gt;
 &lt;p&gt;
 id: 1001&lt;br&gt;
 name: Jack Jones&lt;br&gt;
-address: 417 Mulberry ln
+address: 417 Mulberry ln&lt;br&gt;
 &lt;p&gt;
 id: 1002&lt;br&gt;
-name: Jane Munson
-address: 5605 apple st
+name: Jane Munson&lt;br&gt;
+address: 5605 apple st&lt;br&gt;
 &lt;p&gt;
 
 </programlisting>
@@ -1501,24 +1503,24 @@ OUTPUT:
 
 id: 1000&lt;br&gt;
 name: John Smith&lt;br&gt;
-address: 253 N 45th
-home phone: 555-555-5555
-cell phone: 555-555-5555
-e-mail: john@mydomain.com
+address: 253 N 45th&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: john@mydomain.com&lt;br&gt;
 &lt;p&gt;
 id: 1001&lt;br&gt;
 name: Jack Jones&lt;br&gt;
-address: 417 Mulberry ln
-home phone: 555-555-5555
-cell phone: 555-555-5555
-e-mail: jack@mydomain.com
+address: 417 Mulberry ln&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jack@mydomain.com&lt;br&gt;
 &lt;p&gt;
 id: 1002&lt;br&gt;
-name: Jane Munson
-address: 5605 apple st
-home phone: 555-555-5555
-cell phone: 555-555-5555
-e-mail: jane@mydomain.com
+name: Jane Munson&lt;br&gt;
+address: 5605 apple st&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jane@mydomain.com&lt;br&gt;
 &lt;p&gt;
 
 
@@ -2028,70 +2030,6 @@ OUTPUT:
 </example>
 		</sect2>
 		<sect2>
-			<title>header</title>
-            <informaltable frame=all>
-                <tgroup cols=3>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Attribute Name</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>       
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>contents</entry>
-                        <entry>string</entry>
-                        <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>The contents of the header to pass</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-            <emphasis>header</emphasis> is a function that sends a raw header
-            string. For example, if your template is sending content intended
-            for a WAP (Wireless Access Protocol) device, you would need to send
-            a special header to indicate the type of content you are sending.
-			</para>
-			<para>
-            TECHNICAL NOTE: Be sure you call {header ...}
-            <emphasis>before</emphasis> any output in your template, including
-            whitespace. Otherwise the header will not work as intended.
-			</para>
-<example>
-<title>header</title>
-<programlisting>
-
-{* our template is outputting contents for WAP devices *}
-{header contents="Content-type: text/vnd.wap.wml"}
-
-&lt;?xml version"1.0"?&gt;
-DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN"
-"http://www.wapforum.org/DTD/wml_1.1.xml"
-
-&lt;wml&gt;
-&lt;card id="card1" title="Example1"&gt;
-    &lt;p&gt;
-    {$now|date_format}
-    Welcome to my webpage!
-    &lt;/p&gt;
-&lt;/card&gt;
-&lt;/wml&gt;
-
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2>
 			<title>Creating your own Custom Functions</title>
 			<para>
 			Creating your own functions is a fairly straight forward process.
@@ -2209,7 +2147,7 @@ POLICE BEGIN CAMPAIGN TO RUNDOWN JAYWALKERS
 
 OUTPUT:
 
-Feb 6,2001
+Feb 6, 2001
 Tuesday, February 6, 2001
 14:33:00
 
@@ -2343,7 +2281,7 @@ for a full list of valid specifiers.
 <title>default</title>
 <programlisting>
 
-{* this will display "no title" (without the qoutes) if $articleTitle is empty *}
+{* this will display "no title" (without the quotes) if $articleTitle is empty *}
 {$articleTitle|default:"no title"}
 
 OUTPUT:
