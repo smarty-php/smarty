@@ -266,7 +266,7 @@ class Smarty
 		while($curr_file = readdir($this->cache_dir)) {
 			if ($curr_file == '.' || $curr_file == '..')
 				continue;
-			if(substr($curr_file,-4) == '.che')
+			if(substr($curr_file,-4) == '.cache')
 				unlink($curr_file);
 		}		
 	}

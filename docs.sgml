@@ -115,8 +115,8 @@
 		<listitem><para>It is possible to embed PHP code right in your template files,
 			although this may not be needed (nor recommended)
 			since the engine is so customizable.</para></listitem>
-		</itemizedlist>
 		<listitem><para>Built-in caching support (new in 1.3.0)</para></listitem>
+		</itemizedlist>
 	</sect1>
 	<sect1>
 		<title>How Smarty works</title>
@@ -888,8 +888,7 @@ Intro = """This is a value that spans more
 			run into the situation where it is impossible to pass data to a template
 			before the template is executed because there is info in the template
 			needed to aquire the data, kind of a catch 22. The insert tag is a way
-			to callback a function in PHP during runtime of the template. (This is much
-			like the functionality of Server Side Includes in a static html page.)
+			to callback a function in PHP during runtime of the template.
 			</para>
 			<para>
 			Let's say you have a template with a banner slot at the top of the page. The
@@ -922,21 +921,26 @@ Intro = """This is a value that spans more
 			and display the returned results in place of the insert tag.
 			</para>
 			<para>
-			A note on caching: If you have caching turned on, insert tags will
-			not be cached. They will run dynamically every time the page is
-			created. This works good for things like banners, polls, live
-			weather, user feedback areas, etc.
+			A note on caching: If you have <link
+			linkend="setting.caching">caching</link> turned on, insert tags
+			will not be cached. They will run dynamically every time the page
+			is created, even within cached pages. This works good for things
+			like banners, polls, live weather, search results, user feedback
+			areas, etc.
 			</para>
 		</sect2>
 		<sect2>
 			<title>if,elseif,else</title>
 			<para>
-			if statements in Smarty have much the same flexibility as php if statements,
-			with a few added features for the template engine.
-			Every if must be paired with /if. else and elseif are also permitted.
-			"eq", "ne","neq", "gt", "lt", "lte", "le", "gte" "ge","is even","is odd",
-			"is not even","is not odd","not","mod","div by","even by","odd by","==","!=",">",
-			"<","<=",">=" are all valid conditional qualifiers.
+			if statements in Smarty have much the same flexibility as php if
+			statements, with a few added features for the template engine.
+			Every <emphasis>if</emphasis> must be paired with an
+			<emphasis>/if</emphasis>. <emphasis>else</emphasis> and
+			<emphasis>elseif</emphasis> are also permitted. "eq", "ne","neq",
+			"gt", "lt", "lte", "le", "gte" "ge","is even","is odd", "is not
+			even","is not odd","not","mod","div by","even by","odd
+			by","==","!=",">", "<","<=",">=" are all valid conditional
+			qualifiers.
 			</para>
 <example>
 <title>if statements</title>
@@ -954,6 +958,12 @@ Intro = """This is a value that spans more
 {if $name eq "Fred" or $name eq "Wilma"}
 	...
 {/if}
+
+{* same as above *}
+{if $name == "Fred" || $name == "Wilma"}
+	...
+{/if}
+
 
 {* parenthesis are allowed *}
 {if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}

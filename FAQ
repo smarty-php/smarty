@@ -68,9 +68,6 @@ Q: Smarty doesn't work.
 A: You must be using PHP 4.0.4pl1 or later to fix all known problems
    Smarty has with PHP. Read the BUGS file for more info.
 
-Q: Smarty is recompiling my templates on every invocation.
-A: This is a bug that was fixed in 1.0a, grab the latest tarball.
-
 Q: I get the following error when running Smarty:
    Warning: Wrong parameter count for preg_replace() in
    Smarty.class.php on line 371
