@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="api.register.postfilter">
- <title>register_postfilter</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>void <function>register_postfilter</function></funcdef>
-   <paramdef>string <parameter>function_name</parameter></paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
-  Utilisée pour déclarer dynamiquement des filtres de post-compilation pour y faire
-  passer des templates une fois qu'ils ont été compilés. Reportez-vous
-  a la section
-  <link linkend="advanced.features.postfilters">filtres de post-compilation de templates</link>
-   pour avoir plus de renseignements sur la faton de paramétrer les fonctions
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<refentry id="api.register.postfilter">
+ <refnamediv>
+  <refname>register_postfilter</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>register_postfilter</methodname>
+   <methodparam><type>mixed</type><parameter>function</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Utilisée pour déclarer dynamiquement des filtres de post-compilation pour y faire
+   passer des templates une fois qu'ils ont été compilés. Reportez-vous
+   à la section
+   <link linkend="advanced.features.postfilters">filtres de post-compilation de templates</link>
+   pour avoir plus de renseignements sur la façon de paramétrer les fonctions
    de post-compilation.
   </para>
- </sect1>
+  <para>
+   La fonction PHP <parameter>function</parameter> peut être soit (a) une 
+   chaîne de caractères contenant le nom de la fonction, soit (b) un tableau
+   de la forme <literal>array(&amp;$object, $method)</literal> où
+   <literal>&amp;$object</literal> est une référence à un objet et
+   <literal>$method</literal> est le nom de la méthode, soit (c) un
+   tableau de la forme <literal>array(&amp;$class, $method)</literal> où
+   <literal>$class</literal> est le nom de la classe et 
+   <literal>$method</literal> est une méthode de cette classe.
+  </para>
+ </refsect1>
+</refentry>
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml

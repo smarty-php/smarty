@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="api.unregister.postfilter">
- <title>unregister_postfilter</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>void <function>unregister_postfilter</function></funcdef>
-   <paramdef>string <parameter>function_name</parameter></paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
-  Utilisée pour désallouer dynamiquement un filtre de post-compilation.
- </para>
-</sect1>
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<refentry id="api.unregister.postfilter">
+ <refnamediv>
+  <refname>unregister_postfilter</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>unregister_postfilter</methodname>
+   <methodparam><type>string</type><parameter>function_name</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Utilisée pour désallouer dynamiquement un filtre de post-compilation.
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="api.clear.config">
- <title>clear_config</title>
- <methodsynopsis>
-  <type>void</type><methodname>clear_config</methodname>
-  <methodparam choice="opt"><type>string</type><parameter>var</parameter></methodparam>
- </methodsynopsis>
- <para>
-  Utilisée pour effacer toutes les variables de configuration s'étant
-  vues assigner une valeur. Si une variable est spécifiée, seule cette
-  variable est effacée.
- </para>
- <example>
-  <title>clear_config</title>
-<programlisting>
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<refentry id="api.clear.config">
+ <refnamediv>
+  <refname>clear_config</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_config</methodname>
+   <methodparam choice="opt"><type>string</type><parameter>var</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Utilisée pour effacer toutes les variables de configuration assignées. 
+   Si un nom de variable est spécifié, seule cette variable sera effacée.
+  </para>
+  <example>
+   <title>Exemple avec clear_config</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 // efface toutes les variables de configuration assignées
 $smarty->clear_config();
 
 // efface une seule variable
-$smarty->clear_config('foobar');</programlisting>
- </example>
-</sect1>
+$smarty->clear_config('foobar');
+?>
+]]>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

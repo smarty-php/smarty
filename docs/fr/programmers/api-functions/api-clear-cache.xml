@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="api.clear.cache">
- <title>clear_cache</title>
- <methodsynopsis>
-  <type>void</type><methodname>clear_cache</methodname>
-  <methodparam choice="opt"><type>string</type><parameter>template</parameter></methodparam>
-  <methodparam choice="opt"><type>string</type><parameter>cache id</parameter></methodparam>
-  <methodparam choice="opt"><type>string</type><parameter>compile id</parameter></methodparam>
-  <methodparam choice="opt"><type>int</type><parameter>expire time</parameter></methodparam>
- </methodsynopsis>
- <para>
-  Utilisée pour nettoyer le(s) fichier(s) de cache d'un template en particulier.
-  Si vous avez plusieurs fichiers de cache pour ce template vous
-  pouvez en spécifier un en  particulier en passant son identifiant
-  en deuxième paramètre. Vous pouvez aussi passer un identifiant
-  de compilation en troisième paramètre. Vous pouvez grouper des
-  templates ensemble afin qu'ils puissent être supprimés en groupe.
-  Référez-vous a la section sur le
-  <link linkend="caching">cache</link>
-   pour plus d'informations. Vous pouvez passer un quatrième paramètre
-   pour indiquer un Gge minimum en secondes que le fichier en cache doit
-   avoir avant d'être effacé.
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<refentry id="api.clear.cache">
+ <refnamediv>
+  <refname>clear_cache</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_cache</methodname>
+   <methodparam><type>string</type><parameter>template</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Utilisée pour nettoyer le(s) fichier(s) de cache d'un 
+   <parameter>template</parameter> en particulier.
+   Si vous avez plusieurs fichiers de cache pour ce template, vous
+   pouvez en spécifier un en particulier en passant son identifiant 
+   <parameter>cache_id</parameter> en deuxième paramètre. 
+   Vous pouvez aussi passer un identifiant de compilation 
+   <parameter>compile_id</parameter> en  troisième paramètre. 
+   Vous pouvez grouper des templates ensemble afin qu'ils puissent 
+   être supprimés en groupe. Référez-vous a la section sur le
+   <link linkend="caching">cache</link> pour plus d'informations. 
+   Vous pouvez passer un quatrième paramètre pour indiquer un âge 
+   minimum en secondes que le fichier en cache doit avoir avant d'être effacé.
   </para>
   <example>
-   <title>clear_cache</title>
-<programlisting>
+   <title>Exemple avec clear_cache</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 // efface le fichier de cache de ce template
 $smarty->clear_cache("index.tpl");
 
-// efface un fichier de cache grGce a son identifiant de cache
-$smarty->clear_cache("index.tpl","CACHEID");</programlisting>
+// efface un fichier de cache grâce à son identifiant de cache
+$smarty->clear_cache("index.tpl","CACHEID");
+?>
+]]>
+   </programlisting>
   </example>
- </sect1>
+ </refsect1>
+</refentry>
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml

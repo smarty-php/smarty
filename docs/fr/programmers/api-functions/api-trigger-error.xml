@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="api.trigger.error">
- <title>trigger_error</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>void <function>trigger_error</function></funcdef>
-   <paramdef>string <parameter>error_msg</parameter></paramdef>
-   <paramdef>[int <parameter>level</parameter>]</paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
-  Cette fonction peut-être utilisée pour afficher un message d'erreur
-  en utilisant Smarty. Le paramètre <parameter>level</parameter>
-  peut prendre l'une des valeures utilisées par la fonction PHP
-  trigger_error, i.e. E_USER_NOTICE, E_USER_WARNING, etc. Par défaut
-  il s'agit de E_USER_WARNING.
- </para>
-</sect1>
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<refentry id="api.trigger.error">
+ <refnamediv>
+  <refname>trigger_error</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>trigger_error</methodname>
+   <methodparam><type>string</type><parameter>error_msg</parameter></methodparam>
+   <methodparam choice="opt"><type>int</type><parameter>level</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Cette fonction peut-être utilisée pour afficher un message d'erreur
+   en utilisant Smarty. Le paramètre <parameter>level</parameter>
+   peut prendre l'une des valeures utilisées par la fonction PHP
+   trigger_error(), i.e. E_USER_NOTICE, E_USER_WARNING, etc. Par défaut
+   il s'agit de E_USER_WARNING.
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="api.clear.all.cache">
- <title>clear_all_cache</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>void <function>clear_all_cache</function></funcdef>
-   <paramdef>int <parameter>expire time</parameter></paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
-  Utilisée pour effacer les fichiers de cache des templates. Vous pouvez passer un
-  paramètre optionnel afin d'indiquer l'Gge minimun que doivent avoir
-  les fichiers  de cache pour qu'ils soient effacés.
- </para>
- <example>
-  <title>clear_all_cache</title>
-<programlisting>
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<refentry id="api.clear.all.cache">
+ <refnamediv>
+  <refname>clear_all_cache</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_all_cache</methodname>
+   <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Utilisée pour effacer les fichiers de cache des templates. Vous pouvez passer un
+   paramètre optionnel afin d'indiquer l'âge minimun que doivent avoir
+   les fichiers de cache pour qu'ils soient effacés.
+  </para>
+  <example>
+   <title>Exemple avec clear_all_cache</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 // efface le cache
-$smarty->clear_all_cache();</programlisting>
- </example>
-</sect1>
+$smarty->clear_all_cache();
+?>
+]]>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

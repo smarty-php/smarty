@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="api.assign">
- <title>assign</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>void <function>assign</function></funcdef>
-   <paramdef>mixed <parameter>var</parameter></paramdef>
-  </funcprototype>
-  <funcprototype>
-   <funcdef>void <function>assign</function></funcdef>
-   <paramdef>string <parameter>varname</parameter></paramdef>
-   <paramdef>mixed <parameter>var</parameter></paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
-  Utilisée pour assigner des valeurs aux templates. Vous pouvez
-  explicitement passer des paires nom/valeur, ou des tableaux
-  associatifs contenant des paires nom/valeur.
- </para>
- <example>
-  <title>assign</title>
-<programlisting>
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<refentry id="api.assign">
+ <refnamediv>
+  <refname>assign</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>assign</methodname>
+   <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
+  </methodsynopsis>
+  <methodsynopsis>
+   <type>void</type><methodname>assign</methodname>
+   <methodparam><type>string</type><parameter>varname</parameter></methodparam>
+   <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Utilisée pour assigner des valeurs aux templates. Vous pouvez
+   explicitement passer des paires nom/valeur, ou des tableaux
+   associatifs contenant des paires nom/valeur.
+  </para>
+  <example>
+   <title>Exemple avec assign</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 // passe des paires nom/valeur
-$smarty->assign("Name","Fred");
-$smarty->assign("Address",$address);
+$smarty->assign("Nom","Fred");
+$smarty->assign("Adresse",$address);
 
 // passe un tableau associatif
-$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
- </example>
-</sect1>
+$smarty->assign(array("Ville" => "Lincoln","Pays" => "Nebraska"));
+?>
+]]>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="api.get.registered.object">
- <title>get_registered_object</title>
- <funcsynopsis>
-  <funcprototype>
-   <funcdef>array <function>get_registered_object</function></funcdef>
-   <paramdef>string <parameter>object_name</parameter></paramdef>
-  </funcprototype>
- </funcsynopsis>
- <para>
-  Retourne la référence d'un objet enregistré. Utile quand vous
-  voulez accéder directement a un objet enregistré avec une
-  fonction utilisateur.
- </para>
- <example>
-  <title>get_registered_object</title>
-<programlisting>
-function smarty_block_foo($params, &amp;$smarty) {
-	if (isset[$params['object']]) {
-      // récupère la référence de l'objet enregistré
-   		$obj_ref =&amp; $smarty->get_registered_object($params['object']);
-   	// $obj_ref est maintenant une référence vers l'objet
-	}
-}</programlisting>
- </example>
-</sect1>
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<refentry id="api.get.registered.object">
+ <refnamediv>
+  <refname>get_registered_object</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>array</type><methodname>get_registered_object</methodname>
+   <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Retourne la référence d'un objet enregistré. Utile quand vous
+   voulez accéder directement à un objet enregistré avec une
+   fonction utilisateur.
+  </para>
+  <example>
+   <title>Exemple avec get_registered_object</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+function smarty_block_foo($params, &amp;$smarty) 
+{
+  if (isset[$params['object']]) {
+    // récupère la référence de l'objet enregistré
+    $obj_ref =&amp; $smarty->get_registered_object($params['object']);
+    // $obj_ref est maintenant une référence vers l'objet
+  }
+}
+?>
+]]>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
