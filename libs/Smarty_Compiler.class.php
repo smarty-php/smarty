@@ -863,10 +863,9 @@ class Smarty_Compiler extends Smarty {
             $this->_syntax_error("missing 'file' attribute in include_php tag", E_USER_ERROR, __FILE__, __LINE__);
         }
 
-        $assign_var = $this->_dequote($attrs['assign']);
-
-		$once_var = ( $attrs['once'] === false ) ? 'false' : 'true';
-
+        $assign_var = $this->_dequote($attrs['assign']);		
+		$once_var = ( $attrs['once'] == 'false' ) ? 'false' : 'true';
+		
     	foreach($attrs as $arg_name => $arg_value) {
         	if($arg_name != 'file' AND $arg_name != 'once' AND $arg_name != 'assign') {
             	if(is_bool($arg_value))
