@@ -305,10 +305,14 @@ class Smarty_Compiler extends Smarty {
             $this->_current_line_no += substr_count($template_tags[$i], "\n");
         }
 
-        $template_compiled = '';
-
+        $template_compiled = '';		
+	
         /* Interleave the compiled contents and text blocks to get the final result. */
         for ($i = 0, $for_max = count($compiled_tags); $i < $for_max; $i++) {
+			if ($compiled_tags[$i] == '') {
+				// tag result empty, remove first newline from following text block
+				$text_blocks[$i+1] = preg_replace('!^(\r\n|\r|\n)!', '', $text_blocks[$i+1]);
+			}
             $template_compiled .= $text_blocks[$i].$compiled_tags[$i];
         }
         $template_compiled .= $text_blocks[$i];
@@ -552,8 +556,10 @@ class Smarty_Compiler extends Smarty {
          */
         if ($found) {
             if ($have_function) {
-                $output = '<?php ' . call_user_func_array($plugin_func,
-                                                          array($tag_args, &$this)) . ' ?>';
+                $output = call_user_func_array($plugin_func, array($tag_args, &$this));
+				if($output != '') {
+					$output = '<?php ' . $output . ' ?>';
+				}
             } else {
                 $this->_syntax_error($message, E_USER_WARNING, __FILE__, __LINE__);
             }
@@ -684,7 +690,11 @@ class Smarty_Compiler extends Smarty {
 			$this->_parse_modifiers($return, $tag_modifier);
 		}
 		
-        return '<?php echo ' . $return . " ; ?>\n";
+		if($_return != '') {
+        	$_return = '<?php echo ' . $_return . ' ; ?>';
+		}
+
+		return $_return; 
     }
 
 	/**
