@@ -41,7 +41,6 @@ function smarty_core_read_cache_file(&$params, &$smarty)
         $_auto_id = $smarty->_get_auto_id($params['cache_id'], $params['compile_id']);
         $_cache_file = $smarty->_get_auto_filename($smarty->cache_dir, $params['tpl_file'], $_auto_id);
         $params['results'] = $smarty->_read_file($_cache_file);
-        # $params['results'] = file_get_contents($_cache_file);
     }
 
     if (empty($params['results'])) {
@@ -53,8 +52,6 @@ function smarty_core_read_cache_file(&$params, &$smarty)
     $cache_header = $cache_split[0];
 
     $_cache_info = unserialize($cache_header);
-    if (!isset($_cache_info['expires']))
-        $_cache_info['expires'] = time() + $smarty->cache_lifetime;
 
     if ($smarty->caching == 2 && isset ($_cache_info['expires'])){
         // caching by expiration time
