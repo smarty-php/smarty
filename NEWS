@@ -1,3 +1,4 @@
+    - fixed bug in _rm_auto with catendated null values (Monte, Thomas Pundt)
     - added $smarty.section.* syntax for accessing section properties. (Andrei)
     - added custom cache handling function ability. (Monte)
     - added assign attribute to insert, fetch, math, and counter functions,

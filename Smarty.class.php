@@ -86,23 +86,22 @@ class Smarty
                                         // initially compiled. Leave set to true
                                         // during development. true/false default true.
 
-    var $force_compile   =  false;      // force templates to compile every time.
-                                        // if caching is on, a cached file will
-                                        // override compile_check and force_compile.
-                                        // true/false. default false.
+    var $force_compile   =  false;      // force templates to compile every time,
+                                        // overrides cache settings. default false.
 
-    var $caching         =  false;      // whether to use caching or not. true/false
-    var $cache_dir       =  './cache';  // name of directory for template cache
+    var $caching         =  false;      // enable caching. true/false default false.
+    var $cache_dir       =  './cache';  // name of directory for template cache files
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
     var $insert_tag_check    = true;    // if you have caching turned on and you
                                         // don't use {insert} tags anywhere
                                         // in your templates, set this to false.
                                         // this will tell Smarty not to look for
-                                        // insert tags and speed up cached page
-                                        // fetches.
+                                        // insert tags, thus speeding up cached page
+                                        // fetches. true/false default true.
     var $cache_handler_func   = '';     // function used for cached content. this is
-                                        // an alternative to using the file based $cache_dir.
+                                        // an alternative to using the built-in file
+										// based caching. See docs for usage.
 
     var $tpl_file_ext    =  '.tpl';     // template file extention (deprecated)
 
@@ -1172,10 +1171,10 @@ function _run_insert_handler($args)
         if (!is_dir($auto_base))
           return false;
 
-        if (!isset($auto_source)) {
+        if (empty($auto_source)) {
             $res = $this->_rmdir($auto_base, 0);
         } else {
-            if (isset($auto_id)) {
+            if (!empty($auto_id)) {
                 $tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
                 $res = is_file($tname) && unlink( $tname);
             } else {
