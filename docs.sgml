@@ -249,6 +249,17 @@ chmod 700 cache
 			used to locate the files. If defined, the path must end with a
 			slash.
 			</para>
+<example>
+<title>SMARTY_DIR</title>
+<programlisting>
+
+// set path to Smarty directory
+define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
+
+require_once(SMARTY_DIR."Smarty.class.php");
+
+</programlisting>
+</example>
 		</sect2>		
 	</sect1>
 	<sect1>
@@ -1400,18 +1411,12 @@ $smarty->display("index.tpl");
 			between the tags, and displays the appropriate output in place of them.
 		</para>
 		<sect2>
-			<title>Variables</title>
+			<title>Variables assigned from PHP</title>
 			<para>
-			There are three basic types of variables in Smarty, each with their
-			own unique syntax.
+			Variables that are assigned from PHP are referenced by preceding
+			them with a dollar sign ($) and enclosing the variable in delimiters
+			like so: $varname
 			</para>
-			<sect3>
-				<title>Variables assigned from PHP</title>
-				<para>
-				Variables that are assigned from PHP are referenced by preceding
-				them with a dollar sign ($) and enclosing the variable in delimiters
-				like so: $varname
-				</para>
 <example>
 
 <title>displaying assigned variables</title>
@@ -1428,15 +1433,14 @@ Hello Doug, glad to see you could make it.
 Your last login was on January 11th, 2001.
 </programlisting>
 </example>
-			</sect3>
-
-			<sect3>
-				<title>Associative arrays</title>
-				<para>
-				You can also reference associative array variables that are
-				assigned from PHP by specifying the key after the '.' (period)
-				symbol.
-				</para>
+		</sect2>
+		<sect2>
+			<title>Associative arrays</title>
+			<para>
+			You can also reference associative array variables that are
+			assigned from PHP by specifying the key after the '.' (period)
+			symbol.
+			</para>
 <example>
 <title>displaying assigned associative array variables</title>
 <programlisting>
@@ -1458,14 +1462,13 @@ zaphod@slartibartfast.com&lt;br&gt;
 
 </programlisting>
 </example>
-			</sect3>
-
-			<sect3>
-				<title>Objects</title>
-				<para>
-				Properties of objects assigned from PHP can be referenced
-				by specifying the property name after the '-&gt;' symbol.
-				</para>
+		</sect2>
+		<sect2>
+			<title>Objects</title>
+			<para>
+			Properties of objects assigned from PHP can be referenced
+			by specifying the property name after the '-&gt;' symbol.
+			</para>
 <example>
 <title>displaying object properties</title>
 <programlisting>
@@ -1480,15 +1483,15 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 
 </programlisting>
 </example>
-			</sect3>
+		</sect2>
 
-			<sect3>
-				<title>Variables passed from config files</title>
-				<para>
-				Variables that are passed in from config files are displayed by enclosing
-				them with hash marks (#) and enclosing the variable in delimiters
-				like so: {#varname#}
-				</para>
+		<sect2>
+			<title>Variables passed from config files</title>
+			<para>
+			Variables that are passed in from config files are displayed by enclosing
+			them with hash marks (#) and enclosing the variable in delimiters
+			like so: {#varname#}
+			</para>
 <example>
 
 
@@ -1499,33 +1502,71 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 &lt;title&gt;{#pageTitle#}&lt;/title&gt;
 &lt;body bgcolor="{#bodyBgColor#}"&gt;
 &lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
-	&lt;tr bgcolor="{#rowBgColor#}"&gt;
-		&lt;td&gt;First&lt;/td&gt;
-		&lt;td&gt;Last&lt;/td&gt;
-		&lt;td&gt;Address&lt;/td&gt;
-	&lt;/tr&gt;
+&lt;tr bgcolor="{#rowBgColor#}"&gt;
+	&lt;td&gt;First&lt;/td&gt;
+	&lt;td&gt;Last&lt;/td&gt;
+	&lt;td&gt;Address&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </programlisting>
 </example>
-				<para>
-				Config file variables cannot be displayed until
-				after they are loaded in from a config file. This procedure is
-				explained later in this document under
-				<link linkend="builtin.functions.configload">config_load</link>.
-				</para>
-			</sect3>
-			<sect3>
-				<title>Variables internal to template</title>
-				<para>
-				Variables that are internal to the templates are displayed by enclosing
-				them with percent signs (%) and enclosing the variable in delimiters
-				like so: {%varname%} So far, section properties are the only internal
-				variables used in Smarty, which can be found later in this document under
-				<link linkend="builtin.functions.section">section</link>.
-				</para>
-			</sect3>
+			<para>
+			Config file variables cannot be displayed until
+			after they are loaded in from a config file. This procedure is
+			explained later in this document under
+			<link linkend="builtin.functions.configload">config_load</link>.
+			</para>
+		</sect2>
+		<sect2>
+			<title>Variables internal to template</title>
+			<para>
+			Variables that are internal to the templates are displayed by enclosing
+			them with percent signs (%) and enclosing the variable in delimiters
+			like so: {%varname%} So far, section properties are the only internal
+			variables used in Smarty, which can be found later in this document under
+			<link linkend="builtin.functions.section">section</link>.
+			</para>
+		</sect2>
+		<sect2>
+			<title>Request Variables</title>
+			<para>
+			You can access request variables in Smarty via the special variable
+			{$smarty}. You can access get, post, cookies, server, env and
+			session variables with the syntax in the following examples.
+			</para>
+			<para>
+			Request variable access was added to Smarty 1.4.4.
+			</para>
+<example>
+
+<title>displaying request variables</title>
+<programlisting>
+
+{* display the variable "page" given in the URL, or from a form using the GET method *}
+{$smarty.get.page}
+
+{* display the variable "page" from a form using the POST method *}
+{$smarty.post.page}
+
+{* display the value of the cookie "username" *}
+{$smarty.cookies.username}
+
+{* display the server variable "SERVER_NAME" *}
+{$smarty.server.SERVER_NAME}
+
+{* display the system environment variable "PATH" *}
+{$smarty.env.PATH}
+
+{* display the php session variable "id" *}
+{$smarty.session.id}
+
+{* display the variable "username" from merged get/post/cookies/server/env *}
+{$smarty.request.username}
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2>
 			<title>Functions</title>
@@ -2402,23 +2443,24 @@ e-mail: jane@mydomain.com&lt;p&gt;
 		These are indicated by percent signs around the variable name, like so:
 		%sectionname.varname%
 		</para>
-			<sect3>	
-			<title>index</title>
-			<para>
-			index is used to display the current loop index, starting with zero
-			(or the start attribute if given), and incrementing by one (or by
-			the step attribute if given.)
-			</para>
-			<para>
-			TECHNICAL NOTE: If the step and start section properties are not
-			modified, then this works the same as the iteration section
-			property.
-			</para>
+		</sect2>
+		<sect2>	
+		<title>index</title>
+		<para>
+		index is used to display the current loop index, starting with zero
+		(or the start attribute if given), and incrementing by one (or by
+		the step attribute if given.)
+		</para>
+		<para>
+		TECHNICAL NOTE: If the step and start section properties are not
+		modified, then this works the same as the iteration section
+		property.
+		</para>
 <example>
 <title>section property index</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+{%customer.index%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 
@@ -2430,90 +2472,90 @@ OUTPUT:
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>	
-			<title>index_prev</title>
-			<para>
-			index_prev is used to display the previous loop index.
-            on the first loop, this is set to -1.
-			</para>
+		</sect2>
+		<sect2>	
+		<title>index_prev</title>
+		<para>
+		index_prev is used to display the previous loop index.
+        on the first loop, this is set to -1.
+		</para>
 <example>
 <title>section property index_prev</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-    {* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-    {if $custid[customer.index_prev] ne $custid[customer.index]}
-        The customer id changed&lt;br&gt;
-    {/if}
+{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+{if $custid[customer.index_prev] ne $custid[customer.index]}
+    The customer id changed&lt;br&gt;
+{/if}
 {/section}
 
 
 OUTPUT:
 
 0 id: 1000&lt;br&gt;
-        The customer id changed&lt;br&gt;
+    The customer id changed&lt;br&gt;
 1 id: 1001&lt;br&gt;
-        The customer id changed&lt;br&gt;
+    The customer id changed&lt;br&gt;
 2 id: 1002&lt;br&gt;
-        The customer id changed&lt;br&gt;
+    The customer id changed&lt;br&gt;
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>
-			<title>index_next</title>
-			<para>
-            index_next is used to display the next loop index. On the last
-            loop, this is still one more than the current index (respecting the
-			setting of the step attribute, if given.)
-			</para>
+		</sect2>
+		<sect2>
+		<title>index_next</title>
+		<para>
+        index_next is used to display the next loop index. On the last
+        loop, this is still one more than the current index (respecting the
+		setting of the step attribute, if given.)
+		</para>
 <example>
 <title>section property index_next</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-    {* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-    {if $custid[customer.index_next] ne $custid[customer.index]}
-        The customer id will change&lt;br&gt;
-    {/if}
+{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+{if $custid[customer.index_next] ne $custid[customer.index]}
+    The customer id will change&lt;br&gt;
+{/if}
 {/section}
 
 
 OUTPUT:
 
 0 id: 1000&lt;br&gt;
-        The customer id will change&lt;br&gt;
+    The customer id will change&lt;br&gt;
 1 id: 1001&lt;br&gt;
-        The customer id will change&lt;br&gt;
+    The customer id will change&lt;br&gt;
 2 id: 1002&lt;br&gt;
-        The customer id will change&lt;br&gt;
+    The customer id will change&lt;br&gt;
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>
-			<title>iteration</title>
-			<para>
-            iteration is used to display the current loop iteration.
-			</para>
-			<para>
-			NOTE: This is not affected by the section properties start, step and
-			max, unlike the index property.
-			</para>
-			<para>
-			This was added to Smarty 1.4.4.
-			</para>
+		</sect2>
+		<sect2>
+		<title>iteration</title>
+		<para>
+        iteration is used to display the current loop iteration.
+		</para>
+		<para>
+		NOTE: This is not affected by the section properties start, step and
+		max, unlike the index property.
+		</para>
+		<para>
+		This was added to Smarty 1.4.4.
+		</para>
 <example>
 <title>section property iteration</title>
 <programlisting>
 {section name=customer loop=$custid start=5 step=2}
-	current loop iteration: {%customer.iteration%}&lt;br&gt;
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-    {* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-    {if $custid[customer.index_next] ne $custid[customer.index]}
-        The customer id will change&lt;br&gt;
-    {/if}
+current loop iteration: {%customer.iteration%}&lt;br&gt;
+{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+{if $custid[customer.index_next] ne $custid[customer.index]}
+    The customer id will change&lt;br&gt;
+{/if}
 {/section}
 
 
@@ -2521,96 +2563,96 @@ OUTPUT:
 
 current loop iteration: 1
 5 id: 1000&lt;br&gt;
-        The customer id will change&lt;br&gt;
+    The customer id will change&lt;br&gt;
 current loop iteration: 2
 7 id: 1001&lt;br&gt;
-        The customer id will change&lt;br&gt;
+    The customer id will change&lt;br&gt;
 current loop iteration: 3
 9 id: 1002&lt;br&gt;
-        The customer id will change&lt;br&gt;
+    The customer id will change&lt;br&gt;
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>
-			<title>first</title>
-			<para>
-            first is set to true if the current section iteration is the first
-            one.
-			</para>
+		</sect2>
+		<sect2>
+		<title>first</title>
+		<para>
+        first is set to true if the current section iteration is the first
+        one.
+		</para>
 <example>
 <title>section property first</title>
 <programlisting>
 {section name=customer loop=$custid}
-    {if %customer.first%}
-        &lt;table&gt;
-    {/if}
+{if %customer.first%}
+    &lt;table&gt;
+{/if}
 
-	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
-            {$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
+        {$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
 
-    {if %customer.last%}
-        &lt;/table&gt;
-    {/if}
+{if %customer.last%}
+    &lt;/table&gt;
+{/if}
 {/section}
 
 
 OUTPUT:
 
 &lt;table&gt;
-    &lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>
-			<title>last</title>
-			<para>
-            last is set to true if the current section iteration is the last
-            one.
-			</para>
+		</sect2>
+		<sect2>
+		<title>last</title>
+		<para>
+        last is set to true if the current section iteration is the last
+        one.
+		</para>
 <example>
 <title>section property last</title>
 <programlisting>
 {section name=customer loop=$custid}
-    {if %customer.first%}
-        &lt;table&gt;
-    {/if}
+{if %customer.first%}
+    &lt;table&gt;
+{/if}
 
-	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
-            {$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
+        {$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
 
-    {if %customer.last%}
-        &lt;/table&gt;
-    {/if}
+{if %customer.last%}
+    &lt;/table&gt;
+{/if}
 {/section}
 
 
 OUTPUT:
 
 &lt;table&gt;
-    &lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>	
-			<title>rownum</title>
-			<para>
-			rownum is used to display the current loop iteration,
-			starting with one.
-			</para>
+		</sect2>
+		<sect2>	
+		<title>rownum</title>
+		<para>
+		rownum is used to display the current loop iteration,
+		starting with one.
+		</para>
 <example>
 <title>section property rownum</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
+{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 
@@ -2622,18 +2664,18 @@ OUTPUT:
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>	
-			<title>loop</title>
-			<para>
-			loop is used to display the last index number that this section
-			looped. This can be used inside or after the section.
-			</para>
+		</sect2>
+		<sect2>	
+		<title>loop</title>
+		<para>
+		loop is used to display the last index number that this section
+		looped. This can be used inside or after the section.
+		</para>
 <example>
 <title>section property index</title>
 <programlisting>
 {section name=customer loop=$custid}
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+{%customer.index%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 There were {%customer.loop%} customers shown above.
@@ -2648,28 +2690,28 @@ There were 3 customers shown above.
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>	
-			<title>show</title>
-			<para>
-            <emphasis>show</emphasis> is used as a parameter to section.
-            <emphasis>show</emphasis> is a boolean value, true or false. If
-            false, the section will not be displayed. If there is a sectionelse
-            present, that will be alternately displayed.
-			</para>
+		</sect2>
+		<sect2>	
+		<title>show</title>
+		<para>
+        <emphasis>show</emphasis> is used as a parameter to section.
+        <emphasis>show</emphasis> is a boolean value, true or false. If
+        false, the section will not be displayed. If there is a sectionelse
+        present, that will be alternately displayed.
+		</para>
 <example>
 <title>section attribute show</title>
 <programlisting>
 {* $show_customer_info may have been passed from the PHP
-   application, to regulate whether or not this section shows *}
+application, to regulate whether or not this section shows *}
 {section name=customer loop=$custid show=$show_customer_info}
-	{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
+{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 {if %customer.show%}
-	the section was shown.
+the section was shown.
 {else}
-	the section was not shown.
+the section was not shown.
 {/if}
 
 
@@ -2683,21 +2725,21 @@ the section was shown.
 
 </programlisting>
 </example>
-			</sect3>
-			<sect3>	
-			<title>total</title>
-			<para>
-			total is used to display the number of iterations that this section
-			will loop. This can be used inside or after the section.
-			</para>
-			<para>
-			This was added to Smarty 1.4.4.
-			</para>
+		</sect2>
+		<sect2>	
+		<title>total</title>
+		<para>
+		total is used to display the number of iterations that this section
+		will loop. This can be used inside or after the section.
+		</para>
+		<para>
+		This was added to Smarty 1.4.4.
+		</para>
 <example>
 <title>section property total</title>
 <programlisting>
 {section name=customer loop=$custid step=2}	
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+{%customer.index%} id: {$custid[customer]}&lt;br&gt;
 {/section}
 
 There were {%customer.total%} customers shown above.
@@ -2712,7 +2754,6 @@ There were 3 customers shown above.
 
 </programlisting>
 </example>
-			</sect3>
 		</sect2>
 		<sect2>
 			<title>strip</title>

@@ -1,12 +1,13 @@
+    - numerous documentation updates. (Monte) 
+    - added ENT_QUOTES to escapement of html (Monte, Sam Beckwith)
     - implemented access to request variables via auto-assigned $smarty
       template variable.  (Andrei)
     - fixed a bug with parsing function arguments inside {if} tags if a comma
       was present. (Andrei)
     - updated debug console with config file vars. (Monte)
-    - numerous documentation updates. (Monte) 
-    - added SMARTY_DIR constant which indicating location of Smarty files.
+    - added SMARTY_DIR constant as an alternative to relying on include_path
       (Monte)
-    - added popup_init and popup functions. (Monte)
+    - added popup_init and popup functions, (requires overlib.js) (Monte)
     - updated debug console with config file vars. (Monte)
     - added debugging url control. (Monte)
     - added 'quotes' type to escape modifier. (Monte, Mike Krus)

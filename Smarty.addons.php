@@ -83,7 +83,7 @@ function smarty_mod_escape($string, $esc_type = 'html')
 {
     switch ($esc_type) {
         case 'html':
-            return htmlspecialchars($string);
+            return htmlspecialchars($string, ENT_QUOTES);
 
         case 'url':
             return urlencode($string);

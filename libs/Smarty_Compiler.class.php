@@ -514,7 +514,6 @@ class Smarty_Compiler extends Smarty {
                         )/x', $tag_args, $match);
         $tokens = $match[0];
 
-        var_dump($tokens);
         $this->_parse_vars_props($tokens);
 
         $is_arg_stack = array();

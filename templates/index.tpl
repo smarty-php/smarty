@@ -9,14 +9,21 @@
 Title: {#title#|capitalize}
 {if #bold#}</b>{/if}
 
-Tooltip example: Move your mouse over the <A HREF="" {tooltip id="help"} onclick="return false;">Help</A> link to see a tooltip pop-up.
+Tooltip example: Move your mouse over the <A HREF="" {popup sticky=true caption="Smarty pop-up text" delay=400 text="This is an example of a tooltip. Tooltips are handy for context sensitive information, and extremely easy to add to your templates with Smarty and the integration of <a href='http://www.bosrup.com/web/overlib/'>overLIB</a> by Erik Bosrup"} onclick="return false;">Help</A> link to see an example of a tooltip using Smarty's popup function.
 
-the value of $SCRIPT_NAME is {$SCRIPT_NAME} 
+The value of global assigned variable $SCRIPT_NAME is {$SCRIPT_NAME}
 
-{* A simple variable test. print $Name in uppercase *}
-hello, my name is {$Name}
+Example of accessing server environment variable SERVER_NAME: {$smarty.server.SERVER_NAME}
 
-My interests are:
+The value of {ldelim}$Name{rdelim} is <b>{$Name}</b>
+
+variable modifier example of {ldelim}$Name|upper{rdelim}
+
+<b>{$Name|upper}</b>
+
+
+An example of a section loop:
+
 {section name=outer loop=$FirstName}
 {if %outer.index% is odd by 2}
 	{%outer.rownum%} . {$FirstName[outer]} {$LastName[outer]}
@@ -27,7 +34,8 @@ My interests are:
 	none
 {/section}
 
-testing section looped key values<br>
+An example of section looped key values:
+
 {section name=sec1 loop=$contacts}
 	phone: {$contacts[sec1].phone}<br>
 	fax: {$contacts[sec1].fax}<br>
