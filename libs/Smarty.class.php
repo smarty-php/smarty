@@ -1107,11 +1107,11 @@ class Smarty
         
         if ($this->debugging) {
             // capture time for debugging info
-            $debug_start_time = $this->_get_microtime();
+            $_debug_start_time = $this->_get_microtime();
             $this->_smarty_debug_info[] = array('type'      => 'template',
                                                 'filename'  => $tpl_file,
                                                 'depth'     => 0);
-            $included_tpls_idx = count($this->_smarty_debug_info) - 1;
+            $_included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
 
         if (!isset($compile_id)) {
@@ -1134,18 +1134,18 @@ class Smarty
                     if ($this->debugging)
                     {
                         // capture time for debugging info
-                        $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = $this->_get_microtime() - $debug_start_time;
+                        $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = $this->_get_microtime() - $_debug_start_time;
 
-                        $_smarty_results .= $this->_generate_debug_output();
+                        $_smarty_results .= $this->_display_debug_console();
                     }
                     if ($this->cache_modified_check) {
-                        $last_modified_date = substr($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 0, strpos($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
-                        $gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
+                        $_last_modified_date = substr($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 0, strpos($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
+                        $_gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
                         if (@count($this->_cache_info['insert_tags']) == 0
-                            && $gmt_mtime == $last_modified_date) {
+                            && $_gmt_mtime == $_last_modified_date) {
                             header("HTTP/1.1 304 Not Modified");
                         } else {
-                            header("Last-Modified: ".$gmt_mtime);
+                            header("Last-Modified: ".$_gmt_mtime);
                             echo $_smarty_results;
                         }
                     } else {
@@ -1191,8 +1191,8 @@ class Smarty
             $_smarty_results = ob_get_contents();
             ob_end_clean();
 
-            foreach ((array)$this->_plugins['outputfilter'] as $output_filter) {
-                $_smarty_results = call_user_func_array($output_filter[0], array($_smarty_results, &$this));
+            foreach ((array)$this->_plugins['outputfilter'] as $_output_filter) {
+                $_smarty_results = call_user_func_array($_output_filter[0], array($_smarty_results, &$this));
             }
         }
 
@@ -1207,9 +1207,9 @@ class Smarty
             if (isset($_smarty_results)) { echo $_smarty_results; }
             if ($this->debugging) {
                 // capture time for debugging info
-                $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = ($this->_get_microtime() - $debug_start_time);
+                $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = ($this->_get_microtime() - $_debug_start_time);
 
-                echo $this->_generate_debug_output();
+                echo $this->_display_debug_console();
             }
             error_reporting($_smarty_old_error_level);
             return;
@@ -1229,7 +1229,7 @@ class Smarty
             return;
 		}
 
-        $globals_map = array('g'  => 'HTTP_GET_VARS',
+        $_globals_map = array('g'  => 'HTTP_GET_VARS',
                              'p'  => 'HTTP_POST_VARS',
                              'c'  => 'HTTP_COOKIE_VARS',
                              's'  => 'HTTP_SERVER_VARS',
@@ -1238,8 +1238,8 @@ class Smarty
         $_smarty_vars_request  = array();
 
         foreach (preg_split('!!', strtolower($this->request_vars_order)) as $c) {
-            if (isset($globals_map[$c])) {
-                $_smarty_vars_request = array_merge($_smarty_vars_request, $GLOBALS[$globals_map[$c]]);
+            if (isset($_globals_map[$c])) {
+                $_smarty_vars_request = array_merge($_smarty_vars_request, $GLOBALS[$_globals_map[$c]]);
             }
         }
         $_smarty_vars_request = @array_merge($_smarty_vars_request, $GLOBALS['HTTP_SESSION_VARS']);
@@ -1250,49 +1250,14 @@ class Smarty
 
 
     /**
-     * generate debug output
+     * display debug console
      * @return string debug.tpl template output
      * @uses $debug_tpl debug template, used to display debugging output
      */
-    function _generate_debug_output()
+    function _display_debug_console()
     {
-        // we must force compile the debug template in case the environment
-        // changed between separate applications.
-
-        if(empty($this->debug_tpl)) {
-            // set path to debug template from SMARTY_DIR
-            $this->debug_tpl = 'file:'.SMARTY_DIR.'debug.tpl';
-            if($this->security && is_file($this->debug_tpl)) {
-                $secure_dir[] = $this->debug_tpl;
-            }
-        }
-
-        $_ldelim_orig = $this->left_delimiter;
-        $_rdelim_orig = $this->right_delimiter;    
-
-        $this->left_delimiter = '{';
-        $this->right_delimiter = '}';
-
-        $_force_compile_orig = $this->force_compile;
-        $this->force_compile = true;
-        $_compile_id_orig = $this->_compile_id;
-        $this->_compile_id = null;
-
-        $compile_path = $this->_get_compile_path($this->debug_tpl);
-        if ($this->_process_template($this->debug_tpl, $compile_path))
-        {
-            ob_start();
-            include($compile_path);
-            $results = ob_get_contents();
-            ob_end_clean();
-        }
-        $this->force_compile = $_force_compile_orig;
-        $this->_compile_id = $_compile_id_orig;
-
-        $this->left_delimiter = $_ldelim_orig;
-        $this->right_delimiter = $_rdelim_orig;
-
-        return $results;
+		require_once($this->_get_plugin_filepath('function', 'display_debug_console'));    
+		return smarty_function_display_debug_console(null, $this);
     }
 
     /**
