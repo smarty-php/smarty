@@ -1132,8 +1132,7 @@ class Smarty
                     $this->debugging = true;
                 }
             } else {
-                $_cookie_var = $this->request_use_auto_globals ? $_COOKIE['SMARTY_DEBUG'] : $GLOBALS['HTTP_COOKIE_VARS']['SMARTY_DEBUG'];
-                $this->debugging = $_cookie_var ? true : false;
+                $this->debugging = (bool)($this->request_use_auto_globals ? @$_COOKIE['SMARTY_DEBUG'] : @$GLOBALS['HTTP_COOKIE_VARS']['SMARTY_DEBUG']);
             }
         }
 
