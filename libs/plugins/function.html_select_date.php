@@ -152,13 +152,15 @@ function smarty_function_html_select_date($params, &$smarty)
             $start_year = strftime('%Y') - $match[2];
         }
     }
-    if($start_year > $time[0] && !isset($params['start_year'])) {
-        // force start year to include given date if not explicitly set
-        $start_year = $time[0];
-    }
-    if($end_year < $time[0] && !isset($params['end_year'])) {
-        // force end year to include given date if not explicitly set
-        $end_year = $time[0];
+    if (strlen($time[0]) > 0) { 
+        if ($start_year > $time[0] && !isset($params['start_year'])) {
+            // force start year to include given date if not explicitly set
+            $start_year = $time[0];
+        }
+        if($end_year < $time[0] && !isset($params['end_year'])) {
+            // force end year to include given date if not explicitly set
+            $end_year = $time[0];
+        }
     }
 
     $field_order = strtoupper($field_order);
@@ -256,6 +258,8 @@ function smarty_function_html_select_date($params, &$smarty)
             $years = range((int)$start_year, (int)$end_year);
             if ($reverse_years) {
                 rsort($years, SORT_NUMERIC);
+            } else {
+                sort($years, SORT_NUMERIC);
             }
             $yearvals = $years;
             if(isset($year_empty)) {
