@@ -53,6 +53,7 @@ if (!$smarty->is_cached('index.tpl')) {
 
 $smarty->display('index.tpl');
 ?>
+]]>
    </programlisting>
    <para>
     where index.tpl is:
