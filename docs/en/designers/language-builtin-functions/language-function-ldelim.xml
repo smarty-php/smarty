@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.ldelim">
-			<title>ldelim,rdelim</title>
-			<para>
-            ldelim and rdelim are used for escaping template delimiters, in our
-            case "{" or "}". You can also use
-            <linkend="language.function.literal">{literal}{/literal}</link> to
-            escape blocks of text.
-			</para>
-<example>
-<title>ldelim, rdelim</title>
-<programlisting>
+ <sect1 id="language.function.ldelim">
+  <title>ldelim,rdelim</title>
+  <para>
+   ldelim and rdelim are used for escaping template delimiters, in our case
+   "{" or "}". You can also use <link
+    linkend="language.function.literal">{literal}{/literal}</link> to escape
+   blocks of text.
+  </para>
+  <example>
+   <title>ldelim, rdelim</title>
+   <programlisting>
+<![CDATA[
 {* this will print literal delimiters out of the template *}
 
 {ldelim}funcname{rdelim} is how functions look in Smarty!
+]]>
+   </programlisting>
+   <para>
+    The above example will output:
+   </para>
+   <screen>
+<![CDATA[
+{funcname} is how functions look in Smarty!
+]]>
+   </screen>
+  </example>
+ </sect1>
 
-
-OUTPUT:
-
-{funcname} is how functions look in Smarty!</programlisting>
-</example>
-</sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

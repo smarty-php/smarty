@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.literal">
-			<title>literal</title>
-			<para>
-            Literal tags allow a block of data to be taken literally. This is
-            typically used around javascript or stylesheet blocks where curly
-            braces would interfere with the template delimiter syntax. Anything
-            within {literal}{/literal} tags is not interpreted, but displayed
-            as-is. If you need template tags embedded in your literal block,
-            consider using
-            <linkend="language.function.ldelim">{ldelim}{rdelim}</link> to
-            escape the individual delimiters instead.
-			</para>
-<example>
-<title>literal tags</title>
-<programlisting>
+ <sect1 id="language.function.literal">
+  <title>literal</title>
+  <para>
+   Literal tags allow a block of data to be taken literally. This is typically
+   used around javascript or stylesheet blocks where curly braces would
+   interfere with the template delimiter syntax. Anything within
+   {literal}{/literal} tags is not interpreted, but displayed as-is. If you
+   need template tags embedded in your literal block, consider using <link
+    linkend="language.function.ldelim">{ldelim}{rdelim}</link> to escape the
+   individual delimiters instead.
+  </para>
+  <example>
+   <title>literal tags</title>
+   <programlisting>
+<![CDATA[
 {literal}
-	&lt;script type="text/javascript"&gt;
+	<script type="text/javascript">
 
-        	&lt;!--
+        	<!--
                 	function isblank(field) {
                 	if (field.value == '')
                         	{ return false; }
@@ -28,12 +28,15 @@
                         	return true;
                         	}
                 	}
-        	// --&gt;
+        	// -->
 
-	&lt;/script&gt;
-{/literal}</programlisting>
-</example>
-</sect1>
+	</script>
+{/literal}
+]]>
+   </programlisting>
+  </example>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
