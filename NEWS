@@ -1,3 +1,6 @@
+    - add {debug} plugin to distribution (Monte)
+    - fixed bug with insert tags, loading from "script" attribute
+      when caching is enabled (Monte)
     - fix bug with debug_tpl file path with Windows (.SMK., Monte)
     - fix append() function with string/array problem (Monte)
 

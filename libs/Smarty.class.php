@@ -457,8 +457,9 @@ class Smarty
     Function:   clear_cache()
     Purpose:    clear cached content for the given template and cache id
 \*======================================================================*/
-    function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null)
+    function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null, $exp_time = null)
     {
+		
         if (!isset($compile_id))
             $compile_id = $this->compile_id;
 
@@ -473,8 +474,9 @@ class Smarty
             $funcname = $this->cache_handler_func;
             return $funcname('clear', $this, $dummy, $tpl_file, $cache_id, $compile_id);
         } else {
-            return $this->_rm_auto($this->cache_dir, $tpl_file, $auto_id);
+            return $this->_rm_auto($this->cache_dir, $tpl_file, $auto_id, $exp_time);
         }
+		
     }
 
 
@@ -482,13 +484,13 @@ class Smarty
     Function:   clear_all_cache()
     Purpose:    clear the entire contents of cache (all templates)
 \*======================================================================*/
-    function clear_all_cache()
+    function clear_all_cache($exp_time = null)
     {
         if (!empty($this->cache_handler_func)) {
             $funcname = $this->cache_handler_func;
             return $funcname('clear', $this, $dummy);
         } else {
-            return $this->_rm_auto($this->cache_dir);
+            return $this->_rm_auto($this->cache_dir,null,null,$exp_time);
         }
     }
 
@@ -524,11 +526,11 @@ class Smarty
                 or all compiled template files if one is not specified.
                 This function is for advanced use only, not normally needed.
 \*======================================================================*/
-    function clear_compiled_tpl($tpl_file = null, $compile_id = null)
+    function clear_compiled_tpl($tpl_file = null, $compile_id = null, $exp_time = null)
     {
         if (!isset($compile_id))
             $compile_id = $this->compile_id;
-        return $this->_rm_auto($this->compile_dir, $tpl_file, $compile_id);
+        return $this->_rm_auto($this->compile_dir, $tpl_file, $compile_id, $exp_time);
     }
 
  /*======================================================================*\
@@ -727,26 +729,30 @@ class Smarty
 function _generate_debug_output() {
     // we must force compile the debug template in case the environment
     // changed between separate applications.
-	$_orig_ldelim = $this->left_delimiter;
-	$_orig_rdelim = $this->right_delimiter;	
+	$_ldelim_orig = $this->left_delimiter;
+	$_rdelim_orig = $this->right_delimiter;	
 	
 	$this->left_delimiter = '{';
 	$this->right_delimiter = '}';
 	
-    ob_start();
-    $force_compile_orig = $this->force_compile;
+    $_force_compile_orig = $this->force_compile;
     $this->force_compile = true;
+	$_compile_id_orig = $this->_compile_id;
+	$this->_compile_id = null;
+
     $compile_path = $this->_get_compile_path($this->debug_tpl);
     if ($this->_process_template($this->debug_tpl, $compile_path))
     {
+    	ob_start();
         include($compile_path);
+    	$results = ob_get_contents();
+    	ob_end_clean();
     }
-    $results = ob_get_contents();
-    $this->force_compile = $force_compile_orig;
-    ob_end_clean();
+    $this->force_compile = $_force_compile_orig;
+	$this->_compile_id = $_compile_id_orig;
 
-	$this->left_delimiter = $_orig_ldelim;
-	$this->right_delimiter = $_orig_rdelim;
+	$this->left_delimiter = $_ldelim_orig;
+	$this->right_delimiter = $_rdelim_orig;
 
     return $results;
 }
@@ -1458,11 +1464,11 @@ function _run_insert_handler($args)
 		if(isset($auto_source)) {
 			// make source name safe for filename
 			if($this->use_sub_dirs) {
-				$_filename = basename($auto_source);
+				$_filename = urlencode(basename($auto_source));
 				$_crc32 = crc32($auto_source) . $_dir_sep;
-				// prepend N in case crc32 was negative to avoid possible
-				// OS issues with directory names starting with a "-"
-				$_crc32 = 'N' . substr($_crc32,0,3) . $_dir_sep . 'N' . $_crc32;
+				// prepend %% to avoid name conflicts with
+				// with $auto_id names
+				$_crc32 = '%%' . substr($_crc32,0,3) . $_dir_sep . '%%' . $_crc32;
 				$res .= $_crc32 . $_filename . '.php';
 			} else {
         		$res .= str_replace($_dir_sep_enc,'^',urlencode($auto_source));
@@ -1476,20 +1482,20 @@ function _run_insert_handler($args)
     Function: _rm_auto
     Purpose: delete an automagically created file by name and id
 \*======================================================================*/
-    function _rm_auto($auto_base, $auto_source = null, $auto_id = null)
+    function _rm_auto($auto_base, $auto_source = null, $auto_id = null, $exp_time = null)
     {
         if (!is_dir($auto_base))
           return false;
 
 		if(!isset($auto_id) && !isset($auto_source)) {
-			$res = $this->_rmdir($auto_base, 0);			
+			$res = $this->_rmdir($auto_base, 0, $exp_time);			
 		} else {		
         	$tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
 			
 			if(isset($auto_source)) {
 				$res = @unlink($tname);
 			} elseif ($this->use_sub_dirs) {
-				$res = $this->_rmdir($tname, 1);
+				$res = $this->_rmdir($tname, 1, $exp_time);
 			} else {
 				// remove matching file names
 				$handle = opendir($auto_base);
@@ -1497,7 +1503,7 @@ function _run_insert_handler($args)
 					if($filename == '.' || $filename == '..') {
 						continue;	
 					} elseif (substr($auto_base . DIR_SEP . $filename,0,strlen($tname)) == $tname) {
-						unlink($auto_base . DIR_SEP . $filename);
+						$this->_unlink($auto_base . DIR_SEP . $filename, $exp_time);
 					}
 				}
 			}
@@ -1511,7 +1517,7 @@ function _run_insert_handler($args)
     Purpose: delete a dir recursively (level=0 -> keep root)
     WARNING: no security whatsoever!!
 \*======================================================================*/
-    function _rmdir($dirname, $level = 1)
+    function _rmdir($dirname, $level = 1, $exp_time = null)
     {
 
        if($handle = @opendir($dirname)) {
@@ -1519,10 +1525,10 @@ function _run_insert_handler($args)
         	while ($entry = readdir($handle)) {
             	if ($entry != '.' && $entry != '..') {
                 	if (is_dir($dirname . DIR_SEP . $entry)) {
-                    	$this->_rmdir($dirname . DIR_SEP . $entry, $level + 1);
+                    	$this->_rmdir($dirname . DIR_SEP . $entry, $level + 1, $exp_time);
                 	}
                 	else {
-                    	unlink($dirname . DIR_SEP . $entry);
+                    	$this->_unlink($dirname . DIR_SEP . $entry, $exp_time);
                 	}
             	}
         	}
@@ -1539,6 +1545,21 @@ function _run_insert_handler($args)
 		}
     }
 
+/*======================================================================*\
+    Function: _unlink
+    Purpose: unlink a file, possibly using expiration time
+\*======================================================================*/
+    function _unlink($resource, $exp_time = null)
+    {
+		if(isset($exp_time)) {
+			if(time() - filemtime($resource) >= $exp_time) {
+				unlink($resource);
+			}
+		} else {			
+			unlink($resource);
+		}
+    }
+	
 /*======================================================================*\
     Function: _create_dir_structure
     Purpose:  create full directory structure
