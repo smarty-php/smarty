@@ -1,3 +1,5 @@
+    - added modifiers wordwrap and indent (Monte)
+    - added support for If-Modified-Since headers for cached content (Monte)
     - removed insert_tag_check, no longer needed (Monte)
     - optimize cache fetches by scanning for insert tags only if they exist (Monte)
     - fixed bugs in overlib (Monte, Duncan Forrest)

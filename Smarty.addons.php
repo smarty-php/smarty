@@ -859,6 +859,33 @@ function smarty_func_overlib($args, &$smarty_obj) {
     return;
 }
 
+/*======================================================================*\
+    Function: smarty_mod_wordwrap
+    Purpose:  wrap words to a specific column width
+	Input:	  $string - string of text to wrap
+	          $width - column width to wrap to
+			  $cut - whether or not to cut a word on the boundary
+\*======================================================================*/
+function smarty_mod_wordwrap($string, $width=80, $break="\n",$cut=false) {
+
+	return wordwrap($string,$width,$break,$cut);
+
+}
+
+/*======================================================================*\
+    Function: smarty_mod_indent
+    Purpose:  indent each line a specific number of characters
+	Input:	  $string - string of text to indent
+	          $width - number of chars to indent
+			  $indent_char - character to indent with (can be a tab \t)
+\*======================================================================*/
+function smarty_mod_indent($string, $width=4, $indent_char=' ') {
+
+	return preg_replace("/(^|\n)/","\\1".str_repeat($indent_char,$width),$string);
+
+}
+
+
 /* vim: set expandtab: */
 
 ?>

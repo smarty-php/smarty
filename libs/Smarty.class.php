@@ -164,6 +164,8 @@ class Smarty
                                     'count_words'       => 'smarty_mod_count_words',
                                     'count_sentences'   => 'smarty_mod_count_sentences',
                                     'count_paragraphs'  => 'smarty_mod_count_paragraphs',
+                                    'wordwrap'  		=> 'smarty_mod_wordwrap',
+                                    'indent'  			=> 'smarty_mod_indent',
                                     'debug_print_var'   => 'smarty_mod_debug_print_var'
                                  );
 

@@ -476,6 +476,16 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				custom cache handler function section for details.
 			</para>
 		</sect2>
+		<sect2 id="setting.check.if.modified">
+			<title>$check_if_modified</title>
+			<para>
+				If set to true, Smarty will respect the If-Modified-Since
+				header sent from the client. If the cached file timestamp has
+				not changed since the last visit, then a "304 Not Modified"
+				header will be sent instead of the content. This works only on
+				cached content without {insert} tags.
+			</para>
+		</sect2>
 		<sect2 id="setting.default.template.handler.func">
 			<title>$default_template_handler_func</title>
 			<para>
@@ -1327,6 +1337,30 @@ if(!$smarty->is_cached("index.tpl"))
 $smarty->display("index.tpl");
 </programlisting>
 </example>
+			<para>
+			Use the syntax for <link
+			linkend="section.template.resources">template resources</link> to
+			display files outside of the $template_dir directory.
+			</para>
+<example>
+<title>function display template resource examples</title>
+<programlisting>
+
+// absolute filepath
+$smarty->display("/usr/local/include/templates/header.tpl");
+
+// absolute filepath (same thing)
+$smarty->display("file:/usr/local/include/templates/header.tpl");
+
+// windows absolute filepath (MUST use "file:" prefix)
+$smarty->display("file:C:/www/pub/templates/header.tpl");
+
+// include from template resource named "db"
+$smarty->display("db:header.tpl");
+
+</programlisting>
+</example>
+
 		</sect2>
 		<sect2 id="api.fetch">
 			<title>fetch</title>
@@ -1440,6 +1474,29 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 
 {* from within Smarty template *}
 {include file="file:/usr/local/share/templates/navigation.tpl"}
+
+</programlisting>
+</example>
+        </sect2>
+		<sect2>
+			<title>Windows Filepaths</title>
+			<para>
+			If you are using a Windows machine, filepaths usually include a
+			drive letter (C:) at the beginning of the pathname. Be sure to use
+			"file:" in the path to avoid namespace conflicts and get the
+			desired results.
+            </para>
+<example>
+
+<title>using templates from windows file paths</title>
+<programlisting>
+
+// from PHP script
+$smarty->display("file:C:/export/templates/index.tpl");
+$smarty->display("file:F:/path/to/my/templates/menu.tpl");
+
+{* from within Smarty template *}
+{include file="file:D:/usr/local/share/templates/navigation.tpl"}
 
 </programlisting>
 </example>
@@ -2393,6 +2450,29 @@ pass=foobar
 {* body of template goes here *}
 
 {include file="footer.tpl" logo="http://my.domain.com/logo.gif"}
+
+</programlisting>
+</example>
+			<para>
+			Use the syntax for <link
+			linkend="section.template.resources">template resources</link> to
+			include files outside of the $template_dir directory.
+			</para>
+<example>
+<title>function include template resource examples</title>
+<programlisting>
+
+{* absolute filepath *}
+{include file="/usr/local/include/templates/header.tpl"}
+
+{* absolute filepath (same thing) *}
+{include file="file:/usr/local/include/templates/header.tpl"}
+
+{* windows absolute filepath (MUST use "file:" prefix) *}
+{include file="file:C:/www/pub/templates/header.tpl"}
+
+{* include from template resource named "db" *}
+{include file="db:header.tpl"}
 
 </programlisting>
 </example>
@@ -5368,6 +5448,81 @@ OUTPUT:
 </example>
 		</sect2>
 		<sect2>
+			<title>indent</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>4</entry>
+						<entry>This determines how many characters to indent
+						to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>(one space)</entry>
+                        <entry>This is the character used to indent with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This indents a string at each line, default is 4. As
+			an optional parameter, you can specify the number of characters to
+			indent. As an optional second parameter, you can specify the
+			character to use to indent with. (Use "\t" for tabs.)
+			</para>
+<example>
+<title>indent</title>
+<programlisting>
+{$articleTitle}
+
+{$articleTitle|indent}
+
+{$articleTitle|indent:10}
+
+{$articleTitle|indent:1:"\t"}
+
+OUTPUT:
+
+NJ judge to rule on nude beach.
+Sun or rain expected today, dark tonight.
+Statistics show that teen pregnancy drops off significantly after 25.
+
+    NJ judge to rule on nude beach.
+    Sun or rain expected today, dark tonight.
+    Statistics show that teen pregnancy drops off significantly after 25.
+
+          NJ judge to rule on nude beach.
+          Sun or rain expected today, dark tonight.
+          Statistics show that teen pregnancy drops off significantly after 25.
+
+	NJ judge to rule on nude beach.
+	Sun or rain expected today, dark tonight.
+	Statistics show that teen pregnancy drops off significantly after 25.
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
 			<title>lower</title>
 			<para>
 			This is used to lowercase a variable.
@@ -5725,6 +5880,91 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
 </example>
 		</sect2>
 		<sect2>
+			<title>wordwrap</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>80</entry>
+						<entry>This determines how many columns to wrap
+						to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>\n</entry>
+                        <entry>This is the string used to wrap words with.</entry>
+                    </row>
+                    <row>
+                        <entry>3</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>This determines whether or not to wrap at a
+                        word boundary (false), or at the exact character (true).</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This wraps a string to a column width, default is 80. As
+			an optional second parameter, you can specify a string of text
+			to wrap the text to the next line (default is carriage return \n).
+			By default, wordwrap will attempt to wrap at a word boundary. If
+			you want to cut off at the exact character length, pass the optional
+			third parameter of true.
+			</para>
+<example>
+<title>wordwrap</title>
+<programlisting>
+{$articleTitle}
+
+{$articleTitle|wordwrap:30}
+
+{$articleTitle|wordwrap:20}
+
+{$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
+
+{$articleTitle|wordwrap:30:"\n":false}
+
+OUTPUT:
+
+Blind woman gets new kidney from dad she hasn't seen in years.
+
+Blind woman gets new kidney
+from dad she hasn't seen in years.
+
+Blind woman gets new
+kidney from dad she hasn't seen in years.
+
+Blind woman gets new kidney&lt;br&gt;
+from dad she hasn't seen in years.
+
+Blind woman gets new kidney fr
+om dad she hasn't seen in years.
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
 			<title>Combining Modifiers</title>
 			<para>
             You can combine as many modifiers as you like on a single variable.
@@ -5797,9 +6037,7 @@ s m o k e r s   a r e   p. . .
    </para>
    <para>
    TECHNICAL NOTE: The debugging console does not work when you use the fetch()
-   API, only when using display(). It also does not work when the template
-   content is pulled from the cache. The debugging console should be completely
-   transparent to your application. It is a set of javascript statements added
+   API, only when using display(). It is a set of javascript statements added
    to the very bottom of the generated template. If you do not like javascript,
    you can edit the debug.tpl template to format the output however you like.
    Debug data is not cached and debug.tpl info is not included in the output of
