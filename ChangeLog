@@ -1,3 +1,8 @@
+2004-01-02  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      removed unnecessary param in call to _fetch_resource_info()
+
 2003-12-30  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
