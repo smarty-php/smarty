@@ -1,5 +1,8 @@
 2003-02-02  Greg Beaver  <cellog@php.net>
 
+    * Smarty.class.php
+      begin fixing of phpdoc comments
+
     * Config_File.class.php
       fix phpdoc comments, add phpDocumentor docblock templates
 
