@@ -1,3 +1,12 @@
+2004-09-15  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      moved $this->_num_const_regexp out of $this->_var_regexp and added it
+      to the places that affect $this->_var_regexp
+      
+      this should fix some problems parsing plugin-names endings with digits
+
 2004-09-14  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Config_File.class.php
