@@ -1,3 +1,5 @@
+    - added feature to regenerate cache if compile_check is enabled and an
+      involved template gets modified (Monte)
     - added DEBUG execution times to included files (Monte)
     - added support for hidden config variables that cannot be read by
       templates. (Andrei)
