@@ -1,8 +1,13 @@
-	- added html_select_time custom function. (Andrei)
+    - added format attribute to math function (Monte)
+    - added html_select_time custom function. (Andrei)
+    - fixed minor PHP warning when attempting to unset an unset variable
+      (Monte)
+    - added count_characters, count_words, count_sentences, count_paragraphs
+      modifiers (Monte)
 
 Version 1.3.1pl1
 --------------
-    - bug fix, recovered missing _syntax_error function
+    - bug fix, recovered missing _syntax_error function (Monte)
 
 Version 1.3.1
 -------------

@@ -100,7 +100,11 @@ class Smarty
                                     'string_format' => 'smarty_mod_string_format',
                                     'replace'       => 'smarty_mod_replace',
                                     'strip_tags'    => 'smarty_mod_strip_tags',
-                                    'default'       => 'smarty_mod_default'
+                                    'default'       => 'smarty_mod_default',
+                                    'count_characters' => 'smarty_mod_count_characters',
+                                    'count_words'   => 'smarty_mod_count_words',
+                                    'count_sentences' => 'smarty_mod_count_sentences',
+                                    'count_paragraphs' => 'smarty_mod_count_paragraphs'
                                  );
 
     // internal vars

@@ -463,7 +463,7 @@ class Smarty_Compiler extends Smarty {
             $this->_syntax_error("missing section name");
         }
 
-        $output .= "unset(\$_sections[$section_name]);\n";
+        $output .= "if(isset(\$_sections[$section_name])) { unset(\$_sections[$section_name]); }\n";
         $section_props = "\$_sections[$section_name]['properties']";
 
         foreach ($attrs as $attr_name => $attr_value) {

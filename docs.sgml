@@ -2356,6 +2356,15 @@ OUTPUT:
 
 6
 
+
+{* you can supply a format paramter in sprintf format *}
+
+{math equation="x + y" x=4.4444 y=5.0000 format="%.2f"}
+
+OUTPUT:
+
+9.44
+
 </programlisting>
 </example>
 		</sect2>

@@ -267,8 +267,8 @@ function smarty_func_html_select_date()
 
     if ($display_days) {
         $days = range(1, 31);
-		for ($i = 0; $i < count($days); $i++)
-        	$days[$i] = sprintf($day_format, $days[$i]);
+        for ($i = 0; $i < count($days); $i++)
+            $days[$i] = sprintf($day_format, $days[$i]);
 
         $html_result .= '<select name="'.$prefix.'Day">'."\n";
         $html_result .= smarty_func_html_options(array('output'     => $days,
@@ -304,69 +304,69 @@ function smarty_func_html_select_date()
 function smarty_func_html_select_time()
 {
     /* Default values. */
-    $prefix         	= "Time_";
-    $time           	= time();
-	$display_hours		= true;
-	$display_minutes	= true;
-	$display_seconds	= true;
+    $prefix             = "Time_";
+    $time               = time();
+    $display_hours        = true;
+    $display_minutes    = true;
+    $display_seconds    = true;
     $display_meridian   = true;
-	$use_24_hours	    = true;
-	$minute_interval	= 1;
-	$second_interval	= 1;
-	
-	extract(func_get_arg(0));
-	
+    $use_24_hours        = true;
+    $minute_interval    = 1;
+    $second_interval    = 1;
+    
+    extract(func_get_arg(0));
+    
     $html_result = '';
-	
-	if ($display_hours) {
-		$hours 	  = $use_24_hours ? range(0, 23) : range(1, 12);
-		$hour_fmt = $use_24_hours ? '%H' : '%I';
-		for ($i = 0; $i < count($hours); $i++)
-        	$hours[$i] = sprintf('%02d', $hours[$i]);
+    
+    if ($display_hours) {
+        $hours       = $use_24_hours ? range(0, 23) : range(1, 12);
+        $hour_fmt = $use_24_hours ? '%H' : '%I';
+        for ($i = 0; $i < count($hours); $i++)
+            $hours[$i] = sprintf('%02d', $hours[$i]);
         $html_result .= '<select name="'.$prefix.'Hour">'."\n";
-		$html_result .= smarty_func_html_options(array('output'		  => $hours,
-													   'values'		  => $hours,
-													   'selected'	  => strftime($hour_fmt, $time),
-													   'print_result' => false));
+        $html_result .= smarty_func_html_options(array('output'          => $hours,
+                                                       'values'          => $hours,
+                                                       'selected'      => strftime($hour_fmt, $time),
+                                                       'print_result' => false));
         $html_result .= "</select>\n";
-	}
-	
-	if ($display_minutes) {
-		$all_minutes = range(0, 59);
-		for ($i = 0; $i < count($all_minutes); $i+= $minute_interval)
-        	$minutes[] = sprintf('%02d', $all_minutes[$i]);
-		$selected = intval(floor(strftime('%M', $time) / $minute_interval) * $minute_interval);
+    }
+    
+    if ($display_minutes) {
+        $all_minutes = range(0, 59);
+        for ($i = 0; $i < count($all_minutes); $i+= $minute_interval)
+            $minutes[] = sprintf('%02d', $all_minutes[$i]);
+        $selected = intval(floor(strftime('%M', $time) / $minute_interval) * $minute_interval);
         $html_result .= '<select name="'.$prefix.'Minute">'."\n";
-		$html_result .= smarty_func_html_options(array('output'		  => $minutes,
-													   'values'		  => $minutes,
-													   'selected'	  => $selected,
-													   'print_result' => false));
+        $html_result .= smarty_func_html_options(array('output'          => $minutes,
+                                                       'values'          => $minutes,
+                                                       'selected'      => $selected,
+                                                       'print_result' => false));
         $html_result .= "</select>\n";
-	}
-	
-	if ($display_seconds) {
-		$all_seconds = range(0, 59);
-		for ($i = 0; $i < count($all_seconds); $i+= $second_interval)
-        	$seconds[] = sprintf('%02d', $all_seconds[$i]);
-		$selected = intval(floor(strftime('%S', $time) / $second_interval) * $second_interval);
+    }
+    
+    if ($display_seconds) {
+        $all_seconds = range(0, 59);
+        for ($i = 0; $i < count($all_seconds); $i+= $second_interval)
+            $seconds[] = sprintf('%02d', $all_seconds[$i]);
+        $selected = intval(floor(strftime('%S', $time) / $second_interval) * $second_interval);
         $html_result .= '<select name="'.$prefix.'Second">'."\n";
-		$html_result .= smarty_func_html_options(array('output'		  => $seconds,
-													   'values'		  => $seconds,
-													   'selected'	  => $selected,
-													   'print_result' => false));
+        $html_result .= smarty_func_html_options(array('output'          => $seconds,
+                                                       'values'          => $seconds,
+                                                       'selected'      => $selected,
+                                                       'print_result' => false));
         $html_result .= "</select>\n";
-	}
-	
-	if ($display_meridian && !$use_24_hours) {
-		$html_result .= '<select name="'.$prefix.'Meridian">'."\n";
-		$html_result .= smarty_func_html_options(array('output'		  => array('AM', 'PM'),
-													   'values'		  => array('am', 'pm'),
-													   'selected'	  => strtolower(strftime('%p', $time)),
-													   'print_result' => false));
-		$html_result .= "</select>\n";
-	}
-	
-	print $html_result;
+    }
+    
+    if ($display_meridian && !$use_24_hours) {
+        $html_result .= '<select name="'.$prefix.'Meridian">'."\n";
+        $html_result .= smarty_func_html_options(array('output'          => array('AM', 'PM'),
+                                                       'values'          => array('am', 'pm'),
+                                                       'selected'      => strtolower(strftime('%p', $time)),
+                                                       'print_result' => false));
+        $html_result .= "</select>\n";
+    }
+    
+    print $html_result;
 }
 
 
@@ -404,7 +404,7 @@ function smarty_func_math() {
         }
        
         foreach($args as $key => $val) {
-            if($key != "equation") {
+            if($key != "equation" && $key != "format") {
                 // make sure value is not empty
                 if(strlen($val)==0) {
                     trigger_error("math: parameter $key is empty");
@@ -418,7 +418,12 @@ function smarty_func_math() {
             }
         }
                
-        eval("echo ".$equation.";");
+    eval("\$smarty_math_result = ".$equation.";");
+
+    if(empty($args["format"]))
+        echo $smarty_math_result;
+    else
+        printf($args["format"],$smarty_math_result);
 }
 
 /*======================================================================*\
@@ -428,12 +433,58 @@ function smarty_func_math() {
 function smarty_func_fetch() {
     extract(func_get_arg(0));
 
-    if (empty($file)) {
-        trigger_error("parameter 'file' cannot be empty");
-        return;                    
-    }
+        if(empty($file)) {
+            trigger_error("parameter 'file' cannot be empty");
+            return;                    
+        }
+        readfile($file);
+}
 
-    readfile($file);
+/*======================================================================*\
+    Function: smarty_mod_count_characters
+    Purpose:  count the number of characters in a text
+\*======================================================================*/
+function smarty_mod_count_characters($string,$include_spaces=false) {
+    
+    if($include_spaces)
+       return(strlen($string));
+            
+    return preg_match_all("/[^\s]/",$string,$match);
+}
+
+/*======================================================================*\
+    Function: smarty_mod_count_words
+    Purpose:  count the number of words in a text
+\*======================================================================*/
+function smarty_mod_count_words($string) {
+    
+    // split text by ' ',\r,\n,\f,\t
+    $split_array = preg_split("/\s+/",$string);
+    // count matches that contain alphanumerics
+    $word_count = preg_grep("/[a-zA-Z0-9]/",$split_array);
+    
+    return count($word_count);
+}
+
+/*======================================================================*\
+    Function: smarty_mod_count_sentences
+    Purpose:  count the number of sentences in a text
+\*======================================================================*/
+function smarty_mod_count_sentences($string,$include_spaces=false) {
+    
+    // find periods with a word before but not after.    
+    return preg_match_all("/[^\s]\.(?!\w)/",$string,$match);
+    
+}
+
+/*======================================================================*\
+    Function: smarty_mod_count_paragraphs
+    Purpose:  count the number of sentences in a text
+\*======================================================================*/
+function smarty_mod_count_paragraphs($string,$include_spaces=false) {
+    
+    // count \r or \n characters
+    return count( preg_split("/[\r\n]+/",$string) );
 }
 
 /* vim: set expandtab: */
