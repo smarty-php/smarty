@@ -46,9 +46,9 @@ function smarty_function_html_image($params, &$smarty)
     $extra = '';
     $prefix = '';
     $suffix = '';
-    $basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
-        ? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '';
-    if(strstr($GLOBALS['HTTP_SERVER_VARS']['HTTP_USER_AGENT'], 'Mac')) {
+    $server_vars = ($smarty->request_use_auto_globals) ? $_SERVER : $GLOBALS['HTTP_SERVER_VARS'];
+    $basedir = isset($server_vars['DOCUMENT_ROOT']) ? $server_vars['DOCUMENT_ROOT'] : '';
+    if(strstr($server_vars['HTTP_USER_AGENT'], 'Mac')) {
         $dpi_default = 72;
     } else {
         $dpi_default = 96;
