@@ -3,3 +3,4 @@ Makefile
 manual.xml
 config.*
 *.cache
+version.ent

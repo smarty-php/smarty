@@ -73,7 +73,7 @@ dnl {{{ language specific stuff
 
 AC_MSG_CHECKING(for language)
 
-PHP_BUILD_DATE=`date '+%Y-%m-%d'`
+BUILD_DATE=`date '+%Y-%m-%d'`
 
 AC_ARG_WITH(lang,
 [  --with-lang=LANG        choose a language to work with],[
@@ -89,14 +89,14 @@ AC_ARG_WITH(lang,
       AC_MSG_RESULT($LANG)
     fi
        
-    PHP_BUILD_DATE=`date '+%d-%m-%Y'`
+    BUILD_DATE=`date '+%d-%m-%Y'`
   fi
 ],[
   LANG=en
   AC_MSG_RESULT([en (default)])
 ])
 AC_SUBST(LANG)
-AC_SUBST(PHP_BUILD_DATE)
+AC_SUBST(BUILD_DATE)
 
 dnl }}}
 

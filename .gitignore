@@ -3,4 +3,5 @@ docs/Makefile
 docs/config.*
 docs/configure
 docs/manual.xml
+docs/version.ent
 /templates_c
