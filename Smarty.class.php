@@ -410,7 +410,7 @@ class Smarty
 \*======================================================================*/
     function register_outputfilter($function)
     {
-        $this->_plugins['postfilter'][$function]
+        $this->_plugins['outputfilter'][$function]
             = array($function, null, null, false);
     }
 

@@ -6,7 +6,7 @@ GENERAL
 Q: What is Smarty?
 Q: What's the difference between Smarty and other template engines?
 Q: What do you mean "Compiled PHP Scripts" ?
-Q: Why can't I just use APC <http://apc.communityconnect.com/> (or Zend Cache)?
+Q: Why can't I just use PHPA (http://php-accelerator.co.uk) or Zend Cache?
 Q: Why does smarty have a built in cache? Wouldn't it be better to handle this
    in a separate class?
 Q: Is Smarty faster than <insert other PHP template engine>?
