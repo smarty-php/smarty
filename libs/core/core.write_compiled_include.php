@@ -50,7 +50,7 @@ $_match[4]
 	$_params = array('filename' => $_compile_path, 
                      'contents' => $_include_compiled, 'create_dirs' => true);
     
-    require_once(SMARTY_DIR . 'core/core.write_file.php');
+    require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_file.php');
     smarty_core_write_file($_params, $this);
 	return true;
 }

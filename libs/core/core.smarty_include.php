@@ -18,7 +18,7 @@ function smarty_core_smarty_include($params, &$this)
 {
     if ($this->debugging) {
 		$_params = array();
-		require_once(SMARTY_DIR . 'core/core.get_microtime.php');
+		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
         $debug_start_time = smarty_core_get_microtime($_params, $this);
         $this->_smarty_debug_info[] = array('type'      => 'template',
                                             'filename'  => $params['smarty_include_tpl_file'],
@@ -49,7 +49,7 @@ function smarty_core_smarty_include($params, &$this)
     if ($this->debugging) {
         // capture time for debugging info
 		$_params = array();
-		require_once(SMARTY_DIR . 'core/core.get_microtime.php');
+		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
         $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $debug_start_time;
     }
 

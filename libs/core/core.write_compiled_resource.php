@@ -26,7 +26,7 @@ function smarty_core_write_compiled_resource($params, &$this)
 	}	
 		
 	$_params = array('filename' => $params['compile_path'], 'contents' => $params['compiled_content'], 'create_dirs' => true);
-	require_once(SMARTY_DIR . 'core/core.write_file.php');
+	require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_file.php');
 	smarty_core_write_file($_params, $this);	
     touch($params['compile_path'], $params['resource_timestamp']);
     return true;

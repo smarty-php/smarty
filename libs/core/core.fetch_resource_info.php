@@ -27,7 +27,7 @@ function smarty_core_fetch_resource_info(&$params, &$this)
 	
     $_return = false;
 	$_params = array('resource_name' => $params['resource_name']) ;
-	require_once(SMARTY_DIR . 'core/core.parse_resource_name.php');
+	require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.parse_resource_name.php');
     if (smarty_core_parse_resource_name($_params, $this)) {
 		$_resource_type = $_params['resource_type'];
 		$_resource_name = $_params['resource_name'];
@@ -72,7 +72,7 @@ function smarty_core_fetch_resource_info(&$params, &$this)
         }
     }
 
-	require_once(SMARTY_DIR . 'core/core.is_secure.php');
+	require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.is_secure.php');
     if (!$_return) {
         if (!$params['quiet']) {
             $this->trigger_error('unable to read resource: "' . $params['resource_name'] . '"');

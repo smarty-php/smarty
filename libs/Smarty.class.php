@@ -964,7 +964,7 @@ reques     * @var string
         switch ($type) {
             case 'output':
 				$_params = array('plugins' => array(array($type . 'filter', $name, null, null, false)));
-				require_once(SMARTY_DIR . 'core/core.load_plugins.php');
+				require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.load_plugins.php');
                 smarty_core_load_plugins($_params, $this);
                 break;
 
@@ -1004,7 +1004,7 @@ reques     * @var string
 							'auto_source' => $tpl_file,
 							'auto_id' => $_auto_id,
 							'exp_time' => $exp_time);
-			require_once(SMARTY_DIR . 'core/core.rm_auto.php');
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.rm_auto.php');
 			return smarty_core_rm_auto($_params, $this);
         }
         
@@ -1027,7 +1027,7 @@ reques     * @var string
 							'auto_source' => null,
 							'auto_id' => null,
 							'exp_time' => $exp_time);
-			require_once(SMARTY_DIR . 'core/core.rm_auto.php');
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.rm_auto.php');
 			return smarty_core_rm_auto($_params, $this);
         }
     }
@@ -1054,7 +1054,7 @@ reques     * @var string
 			'cache_id' => $cache_id,
 			'compile_id' => $compile_id
 		);
-		require_once(SMARTY_DIR . 'core/core.read_cache_file.php');
+		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.read_cache_file.php');
         return smarty_core_read_cache_file($_params, $this);
     }
 
@@ -1087,7 +1087,7 @@ reques     * @var string
 						'auto_source' => $tpl_file,
 						'auto_id' => $compile_id,
 						'exp_time' => $exp_time);
-		require_once(SMARTY_DIR . 'core/core.rm_auto.php');
+		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.rm_auto.php');
 		return smarty_core_rm_auto($_params, $this);		
     }
 
@@ -1100,7 +1100,7 @@ reques     * @var string
     function template_exists($tpl_file)
     {
 		$_params = array('resource_name' => $tpl_file);
-		require_once(SMARTY_DIR . 'core/core.fetch_resource_info.php');
+		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.fetch_resource_info.php');
         return smarty_core_fetch_resource_info($_params, $this);
     }
 
@@ -1189,7 +1189,7 @@ reques     * @var string
         if ($this->debugging) {
             // capture time for debugging info
 			$_params = array();
-			require_once(SMARTY_DIR . 'core/core.get_microtime.php');
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
             $_debug_start_time = smarty_core_get_microtime($_params, $this);
             $this->_smarty_debug_info[] = array('type'      => 'template',
                                                 'filename'  => $resource_name,
@@ -1214,20 +1214,20 @@ reques     * @var string
 				'compile_id' => $compile_id,
 				'results' => null
 			);
-			require_once(SMARTY_DIR . 'core/core.read_cache_file.php');			
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.read_cache_file.php');			
             if (smarty_core_read_cache_file($_params, $this)) {
 				$_smarty_results = $_params['results'];
                 if (@count($this->_cache_info['insert_tags'])) {
 					$_params = array('plugins' => $this->_cache_info['insert_tags']);
-					require_once(SMARTY_DIR . 'core/core.load_plugins.php');
+					require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.load_plugins.php');
                 	smarty_core_load_plugins($_params, $this);
 					$_params = array('results' => $_smarty_results);
-					require_once(SMARTY_DIR . 'core/core.process_cached_inserts.php');
+					require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.process_cached_inserts.php');
                     $_smarty_results = smarty_core_process_cached_inserts($_params, $this);
                 }
                 if (@count($this->_cache_info['cache_serials'])) {
                     $_params = array('results' => $_smarty_results);
-                    require_once(SMARTY_DIR . 'core/core.process_compiled_include.php');
+                    require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.process_compiled_include.php');
                     $_smarty_results = smarty_core_process_compiled_include($_params, $this);
                 }
 
@@ -1237,9 +1237,9 @@ reques     * @var string
                     {
                         // capture time for debugging info
 						$_params = array();
-						require_once(SMARTY_DIR . 'core/core.get_microtime.php');
+						require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
                         $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $_debug_start_time;
-						require_once(SMARTY_DIR . 'core/core.display_debug_console.php');
+						require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.display_debug_console.php');
                         $_smarty_results .= smarty_core_display_debug_console($_params, $this);
                     }
                     if ($this->cache_modified_check) {
@@ -1314,9 +1314,9 @@ reques     * @var string
 						'cache_id' => $cache_id,
 						'compile_id' => $compile_id,
 						'results' => $_smarty_results); 
-			require_once(SMARTY_DIR . 'core/core.write_cache_file.php');
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_cache_file.php');
 			smarty_core_write_cache_file($_params, $this);
-			require_once(SMARTY_DIR . 'core/core.process_cached_inserts.php');
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.process_cached_inserts.php');
 			$_smarty_results = smarty_core_process_cached_inserts($_params, $this);
 
             if ($this->_cache_serials) {
@@ -1334,9 +1334,9 @@ reques     * @var string
             if ($this->debugging) {
                 // capture time for debugging info
 				$_params = array();
-				require_once(SMARTY_DIR . 'core/core.get_microtime.php');
+				require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
                 $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = (smarty_core_get_microtime($_params, $this) - $_debug_start_time);
-				require_once(SMARTY_DIR . 'core/core.display_debug_console.php');
+				require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.display_debug_console.php');
                 echo smarty_core_display_debug_console($_params, $this);
             }
             error_reporting($_smarty_old_error_level);
@@ -1423,12 +1423,12 @@ reques     * @var string
 		}
 		
 		$_params = array('type' => $type, 'name' => $name);
-		require_once(SMARTY_DIR . 'core/core.assemble_plugin_filepath.php');
+		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.assemble_plugin_filepath.php');
 		$_return = smarty_core_assemble_plugin_filepath($_params, $this);
 						
 		if($_return !== false) {
 			$this->_cache_paths['plugins'][$_cache_paths_key] = $_return;
-			require_once(SMARTY_DIR . 'core/core.write_cache_paths_file.php');
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_cache_paths_file.php');
 			smarty_core_write_cache_paths_file(null, $this);
 			return $_return;
 		}
@@ -1451,7 +1451,7 @@ reques     * @var string
                 return true;
             } else {
                 // get file source and timestamp
-				require_once(SMARTY_DIR . 'core/core.fetch_resource_info.php');
+				require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.fetch_resource_info.php');
 				$_params = array('resource_name' => $resource_name);
                 if (!smarty_core_fetch_resource_info($_params, $this)) {
                     return false;
@@ -1481,7 +1481,7 @@ reques     * @var string
     {
 		
 		$_params = array('resource_name' => $resource_name);
-		require_once(SMARTY_DIR . 'core/core.fetch_resource_info.php');
+		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.fetch_resource_info.php');
         if (!smarty_core_fetch_resource_info($_params, $this)) {
             return false;
         }
@@ -1491,12 +1491,12 @@ reques     * @var string
 
         if ($this->_compile_source($resource_name, $_source_content, $_compiled_content)) {
 			$_params = array('compile_path'=>$compile_path, 'compiled_content' => $_compiled_content, 'resource_timestamp' => $_resource_timestamp);
-			require_once(SMARTY_DIR . 'core/core.write_compiled_resource.php');
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_resource.php');
 			smarty_core_write_compiled_resource($_params, $this);
             
             // if a _cache_serial was set, we also have to write an include-file:
             if ($this->_cache_include_info) {
-                require_once(SMARTY_DIR . 'core/core.write_compiled_include.php');
+                require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_include.php');
                 smarty_core_write_compiled_include(array_merge($this->_cache_include_info, array('compiled_content'=>$_compiled_content)),  $this);
             }          
             return true;
@@ -1693,12 +1693,12 @@ reques     * @var string
 		}
 
 		$_params = array('auto_base' => $auto_base, 'auto_source' => $auto_source, 'auto_id' => $auto_id);
-		require_once(SMARTY_DIR . 'core/core.assemble_auto_filename.php');
+		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.assemble_auto_filename.php');
 		$_return = smarty_core_assemble_auto_filename($_params, $this);
 
 		if($_return !== false) {
 			$this->_cache_paths['auto_file'][$_cache_paths_key] = $_return;
-			require_once(SMARTY_DIR . 'core/core.write_cache_paths_file.php');
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_cache_paths_file.php');
 			smarty_core_write_cache_paths_file(null, $this);
 			return $_return;
 		}

@@ -1,3 +1,4 @@
+  - added filepath caching (Monte)
   - added optional assign-attribute to {capture}-tag (messju)
   - added $cacheable-parameter to register_compiler_function() (messju)
   - added $cacheable-parameter with default=true to register_function()
