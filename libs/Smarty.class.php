@@ -1702,7 +1702,7 @@ class Smarty
                 }
                 return false;
             }
-        } else {
+        } elseif (empty($this->_plugins['resource'][$params['resource_type']])) {
             $_params = array('type' => $params['resource_type']);
             require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.load_resource_plugin.php');
             smarty_core_load_resource_plugin($_params, $this);
