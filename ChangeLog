@@ -1,3 +1,28 @@
+2002-06-26  Monte Ohrt  <monte@ispi.net>
+
+    * docs/appendixes.sgml
+      docs/designers.sgml
+      docs/getting-started.sgml
+      docs/programmers.sgml
+      Smarty.class.php:
+    update plugin loading logic, look in SMARTY_DIR, then cwd. If all fail, then retry all with include_path
+
+    * templates/header.tpl
+      Smarty.class.php: update get_include_path, get _path_array only once
+
+    * Smarty.class.php: fix get_include_path function for windows
+
+    * Smarty.class.php: update plugin search logic
+
+    * Smarty.class.php: only search include_path if relative path
+
+    * plugins/function.html_select_date.php
+      plugins/function.html_select_time.php
+      plugins/modifier.date_format.php
+      Smarty_Compiler.class.php
+      NEWS
+      Smarty.class.php: allow plugins_dir to be an array of directories
+
 2002-06-25  Monte Ohrt  <monte@ispi.net>
 
     * docs/programmers.sgml
