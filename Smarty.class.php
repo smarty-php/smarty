@@ -1919,7 +1919,16 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _get_include_path($file_path,&$new_file_path)
     {
-        foreach (preg_split('![:;]!', ini_get('include_path')) as $_include_path) {
+		$_ini_include_path = ini_get('include_path');
+		
+		if(strstr($_ini_include_path,';')) {
+			// windows pathnames
+			$_path_array = explode(';',$_ini_include_path);
+		} else {
+			$_path_array = explode(':',$_ini_include_path);
+		}
+
+        foreach ($_path_array as $_include_path) {
             if (@file_exists($_include_path . DIR_SEP . $file_path)) {
                	$new_file_path = $_include_path . DIR_SEP . $file_path;
 				return true;
