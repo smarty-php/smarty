@@ -446,8 +446,8 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
 	   <literal>gpc_order</literal> is used.
       </para>
      </sect1>
-     <sect1 id="variable.tpl.error.reporting">
-      <title>$tpl_error_reporting</title>
+     <sect1 id="variable.error.reporting">
+      <title>$error_reporting</title>
       <para>
            When this value is set to a non-null-value it's value is
            used as php's error_reporting-level inside of display() and

@@ -118,7 +118,7 @@ class Smarty
      *
      * @var boolean
      */
-    var $tpl_error_reporting  =  null;
+    var $error_reporting  =  null;
 
     /**
      * This is the path to the debug console template. If not set,
@@ -1140,8 +1140,8 @@ class Smarty
     {
         static $_cache_info = array();
         
-        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->tpl_error_reporting)
-               ? $this->tpl_error_reporting : error_reporting() & ~E_NOTICE);
+        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
+               ? $this->error_reporting : error_reporting() & ~E_NOTICE);
 
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
             $_query_string = $this->request_use_auto_globals ? $_SERVER['QUERY_STRING'] : $GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'];

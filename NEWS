@@ -1,3 +1,5 @@
+  - rename $smarty->tpl_error_reporting to $smarty->error_reporting
+    (messju)
   - fix interpretation of $smarty->security in {html_image} (messju)
   - add caching of requested paths to _assemble_plugin_filepath() (messju)
   - fix handling of comments inside {php}- and {literal}-blocks (messju)
