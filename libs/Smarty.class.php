@@ -1702,39 +1702,15 @@ class Smarty
      * @param integer $lines
      * @return string
      */
-    function _read_file($filename, $start=null, $lines=null)
+    function _read_file($filename)
     {
-        if (!($fd = @fopen($filename, 'r'))) {
+        if ($fd = @fopen($filename, 'rb')) {
+            $contents = ($size = filesize($filename)) ? fread($fd, $size) : '';
+            fclose($fd);        
+            return $contents;
+        } else {
             return false;
         }
-        flock($fd, LOCK_SH);
-        if ($start == null && $lines == null) {
-            // read the entire file
-            $contents = fread($fd, filesize($filename));
-        } else {
-            if ( $start > 1 ) {
-                // skip the first lines before $start
-                for ($loop=1; $loop < $start; $loop++) {
-                    fgets($fd, 65536);
-                }
-            }
-            if ( $lines == null ) {
-                // read the rest of the file
-                while (!feof($fd)) {
-                    $contents .= fgets($fd, 65536);
-                }
-            } else {
-                // read up to $lines lines
-                for ($loop=0; $loop < $lines; $loop++) {
-                    $contents .= fgets($fd, 65536);
-                    if (feof($fd)) {
-                        break;
-                    }
-                }
-            }
-        }
-        fclose($fd);
-        return $contents;
     }
 
     /**

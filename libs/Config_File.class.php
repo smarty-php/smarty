@@ -240,7 +240,7 @@ class Config_File {
             return false;
         }
 
-        $contents = fread($fp, filesize($config_file));
+        $contents = ($size = filesize($config_file)) ? fread($fp, $size) : '';
         fclose($fp);
 
         $this->_config_data[$config_file] = $this->parse_contents($contents);
