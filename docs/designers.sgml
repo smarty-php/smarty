@@ -3701,8 +3701,7 @@ index.php:
 require('Smarty.php.class');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
-$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Charlie Brown'));
+$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane Johnson','Charlie Brown'));
 $smarty-&gt;assign('customer_id', 1001);
 $smarty-&gt;display('index.tpl');
 
@@ -3717,9 +3716,10 @@ index.php:
 require('Smarty.php.class');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_checkboxes', array(
-			1001 =&gt; 'Joe Schmoe',
-			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson','Charlie Brown'));
+			1000 =&gt; 'Joe Schmoe',
+			1001 =&gt; 'Jack Smith',
+			1002 =&gt; 'Jane Johnson',
+			1003 =&gt; 'Charlie Brown'));
 $smarty-&gt;assign('customer_id', 1001);
 $smarty-&gt;display('index.tpl');
 
@@ -3730,10 +3730,10 @@ index.tpl:
 
 OUTPUT: (both examples)
 
-&lt;input type="checkbox" name="id[]" value="1000"&gt;Joe Schmoe&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1002"&gt;Jane Johnson&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
+&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1000" /&gt;Joe Schmoe&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1001" checked="checked" /&gt;Jack Smith&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1002" /&gt;Jane Johnson&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1003" /&gt;Charlie Brown&lt;/label&gt;&lt;br /&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.html.image">
@@ -3848,9 +3848,13 @@ index.tpl:
 
 OUTPUT: (possible)
 
-&lt;img src="pumpkin.jpg" border="0" width="44" height="68"&gt;
-&lt;img src="/path/under/docroot/pumpkin.jpg" border="0" width="44" height="68"&gt;
-&lt;img src="../path/relative/to/currdir/pumpkin.jpg" border="0" width="44" height="68"&gt;</programlisting>
+&lt;img src="pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;
+&lt;img src="/path/from/docroot/pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;
+&lt;img src="../path/relative/to/currdir/pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;</programlisting>
+
+
+
+
 </example>
 		</sect1>
 		<sect1 id="language.function.html.options">
