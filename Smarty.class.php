@@ -518,16 +518,9 @@ class Smarty
                     $results = $this->_process_cached_inserts($results);
                 }
                 if ($display) {
-                    echo $results;
-					if ($this->debugging) { echo $this->_generate_debug_output(); }
-                    return;
+                    echo $results; return;
                 } else {
-					if ($this->debugging) {
-						$debug_output = $this->_generate_debug_output();
-						return $results.$debug_output;
-					} else {
-                    	return $results;
-					}
+                    return $results;
                 }
             }
         }
@@ -588,16 +581,9 @@ class Smarty
 			if ($this->debugging) { echo $this->_generate_debug_output(); }
             return;
         } else {
-            if (isset($results)) {
-				if ($this->debugging) {
-					$debug_output = $this->_generate_debug_output();
-					return $results.$debug_output;
-				} else {
-					return $results;
-				}
-			}
+            if (isset($results)) { return $results; }
         }
-    }   
+    }
 
 /*======================================================================*\
 	Function:	_generate_debug_output()
