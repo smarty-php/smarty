@@ -152,8 +152,8 @@ class Smarty
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
 
-    var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
-                                                      // Smarty to compile templates
+    var $compiler_file        =    'Smarty_Compiler.class.php'; // the compiler filename
+    var $compiler_class        =   'Smarty_Compiler'; // the compiler class
     var $config_class          =   'Config_File';     // the config class used by
                                                       // Smarty to load config vars
 
@@ -1122,7 +1122,12 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _compile_template($tpl_file, $template_source, &$template_compiled)
     {
-        require_once SMARTY_DIR.$this->compiler_class . '.class.php';
+		if(file_exists(SMARTY_DIR.$this->compiler_file)) {
+        	require_once SMARTY_DIR.$this->compiler_file;			
+		} else {
+			// use include_path
+        	require_once $this->compiler_file;
+		}
 
         $smarty_compiler = new $this->compiler_class;
 

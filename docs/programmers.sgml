@@ -1979,7 +1979,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 // from PHP script
 
 // put these function somewhere in your application
-function db_get_template ($tpl_name, &amp;tpl_source, &amp;$smarty_obj)
+function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
 {
     // do database call here to fetch your template,
     // populating $tpl_source
@@ -1995,7 +1995,7 @@ function db_get_template ($tpl_name, &amp;tpl_source, &amp;$smarty_obj)
     }
 }
 
-function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
+function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
 {
     // do database call here to populate $tpl_timestamp.
     $sql = new SQL;
