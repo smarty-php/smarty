@@ -541,13 +541,13 @@ class Smarty
 			}
 
 			return 	"<?php\n" .
-					"function $include_func_name(\$file_name, \$include_vars)\n" .
+					"function $include_func_name(\$file_name, \$tpl_vars, \$include_vars)\n" .
 					"{\n" .
-					"	extract(\$GLOBALS);\n" .
+					"	extract(\$tpl_vars);\n" .
 					"	extract(\$include_vars);\n" .
 					"	include \"\$file_name\";\n" .
 					"}\n" .
-					"$include_func_name(\"$include_file_name\", array(".implode(',', (array)$arg_list)."));\n?>\n";
+					"$include_func_name(\"$include_file_name\", \$this->_tpl_vars, array(".implode(',', (array)$arg_list)."));\n?>\n";
 		} else
 			 return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'"; ?>';
 	}
