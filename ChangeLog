@@ -1,3 +1,21 @@
+2002-03-28  Monte Ohrt  <monte@ispi.net>
+
+    * FAQ
+      README: add digest address
+
+    * FAQ
+      README
+      Smarty.class.php: update mailing list addresses
+
+2002-03-28  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * plugins/function.html_select_date.php
+      plugins/function.html_select_time.php
+      plugins/modifier.date_format.php:
+    Fix for when plugins directory is not the default one.
+
 2002-03-28  Andrei Zmievski  <andrei@ispi.net>
 
     * NEWS: *** empty log message ***
