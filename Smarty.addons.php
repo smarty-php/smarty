@@ -82,7 +82,7 @@ function smarty_mod_date_format($string, $format)
 }
 
 
-function smarty_mod_string_format($string, $format)
+function smarty_mod_string_format($string, $format="%b %e, %Y")
 {
 	return sprintf($format, $string);
 }

@@ -780,8 +780,9 @@ Intro = """This is a value that spans more
 			if statements in Smarty have much the same flexability as php if statements,
 			with a few added features for the template engine.
 			Every if must be paired with /if. else and elseif are also permitted.
-			"eq", "ne","neq", "gt", "lt", "lte", "le", "gte" "ge","is","is not","not",
-			"mod","by","==","!=",">","<","<=",">=" are all valid conditional qualifiers.
+			"eq", "ne","neq", "gt", "lt", "lte", "le", "gte" "ge","is even","is odd",
+			"is not even","is not odd","not","mod","even by","odd by","==","!=",">",
+			"<","<=",">=" are all valid conditional qualifiers.
 			</para>
 <example>
 <title>Template example of if statements</title>
@@ -806,7 +807,7 @@ Intro = """This is a value that spans more
 {/if}
 
 {* you can also imbed php functionality, where appropriate *}
-{if count($var) lt 0}
+{if count($var) gt 0}
 	...
 {/if}
 
@@ -907,74 +908,248 @@ Intro = """This is a value that spans more
 			This way you can keep your templates readable, and not worry
 			about extra white space causing problems.
 			</para>
-		</sect2>
 <example>
 <title>Template example of strip tags</title>
 <programlisting>
 
+{* the following will be all run into one line upon output *}
 {strip}
-<table border=0>
-	<tr>
-		<td>
-			<A HREF="$url">
-			<font color="red">This is a test</font>
-			</A>
-		</td>
-	</tr>
-</table>
+&lt;table border=0&gt;
+	&lt;tr&gt;
+		&lt;td&gt;
+			&lt;A HREF="{$url}"&gt;
+			&lt;font color="red"&gt;This is a test&lt;/font&gt;
+			&lt;/A&gt;
+		&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
 {/strip}
 
 </programlisting>
 </example>
+		</sect2>
 	</sect1>
 	<sect1>
 		<title>Custom Functions</title>
-		<para></para>
+		<para>
+		Custom functions in Smarty work much the same as the built-in functions
+		syntactically. Two custom functions come bundled with Smarty. You can
+		also write your own.
+		</para>
 		<sect2>
 			<title>html_options</title>
-			<para></para>
+			<para>
+			html_options is a custom function that creates html option
+			lists with provided data. It takes care of which item is
+			selected by default as well.
+			</para>
+<example>
+<title>Template example of html_options</title>
+<programlisting>
+
+{* assume that $cust_ids, and $cust_names are arrays of values,
+	and $customer_id may or may not be set to a value *}
+
+&lt;select name=customer_id&gt;
+	{html_options values=$cust_ids selected=$customer_id output=$cust_names}
+&lt;/select&gt;
+
+
+</programlisting>
+</example>
+			<para>
+			This will create an option dropdown list using the values
+			of the variables supplied in the template.
+			</para>
 		</sect2>
 		<sect2>
 			<title>html_select_date</title>
-			<para></para>
+			<para>
+			html_select_date is a custom function that creates date dropdowns
+			for you. It can display any or all of year, month, and day. Possible
+			attributes are (attr name, type, default val):
+			</para>
+			<itemizedlist>
+				<listitem><para>prefix,string,"Date_"</para></listitem>
+				<listitem><para>time,timestamp,(current time)</para></listitem>
+				<listitem><para>start_year,int,(current year)</para></listitem>
+				<listitem><para>end_year	int (current year)</para></listitem>
+				<listitem><para>display_days, boolean, true</para></listitem>
+				<listitem><para>display_months, boolean, true</para></listitem>
+				<listitem><para>display_years, boolean, true</para></listitem>
+				<listitem><para>month_format, strftime, "%B"</para></listitem>
+				<listitem><para>day_format, strftime, "%02d"</para></listitem>
+				<listitem><para>year_as_text, boolean, true</para></listitem>
+			</itemizedlist>
+<example>
+<title>Template example of html_select_date</title>
+<programlisting>
+
+{html_select_date}
+
+{html_select_date prefix="Date_" time=$time start_year=1995 end_year=2001}
+
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>Creating your own Custom Functions</title>
+			<para>
+			Creating your own functions is a fairly straight forward process.
+			The best way is to look at the two that come with Smarty as
+			examples. They are located in the Smarty.addons.php file.
+			</para>
+			<itemizedlist>
+				<listitem><para>add your function to the Smarty.addons.php file.
+						it is recommended that you prepend your function name
+						with smarty_func_</para></listitem>
+				<listitem><para>map a template function name to your PHP function.
+							This is done at the top of the Smarty.class.php file
+							in the $custom_funcs array.</para></listitem>
+				<listitem><para>Thats it! you can now call that function
+					from within Smarty.</para></listitem>
+			</itemizedlist>			
+			<para>
+			All attributes passed to custom functions are passed into the
+			first argument as an indexed array. One way to get to those
+			values is to call extract(func_get_arg(0)); at the top of your
+			function. Anything that the function returns gets displayed
+			in place of the tag in the template.
+			</para>
 		</sect2>
 	</sect1>
 	<sect1>
-		<title>Custom Modifiers</title>
-		<para></para>
+		<title>Variable Modifiers</title>
+		<para>
+		Variable modifiers are a bit different than custom functions.
+		They do just what they sound like, they modify variables before
+		they are displayed to the template. The best way to explain
+		these are by example.
+		</para>
+<example>
+<title>Template example of variable modifiers</title>
+<programlisting>
+
+{* this displays a variable, unmodified *}
+{$articleTitle}
+
+{* this displays the variable in all upper case *}
+{$articleTitle|upper}
+
+{* this displays the variable html escaped *}
+{$articleTitle|escape}
+
+{* this displays the variable uppercased AND html escaped *}
+{$articleTitle|upper|escape}
+
+{* an example of passing a parameter to a modifier:
+	this displays the variable url escaped *}
+{$articleTitle|escape:"url"}
+
+{* print the hour, minute and second portion of a date *}
+{$startTime|date_format:"%h:%m:%s"}
+
+{* print the first 24 characters of this variable, and
+	follow with ... if it was longer *}
+{$articleTitle|truncate:24:"..."}
+
+{* print a number to the first two decimals *}
+{$amount|string_format:"%.2f"}
+
+</programlisting>
+</example>
+		<para>
+		Hopefully you get a good picture of how these work, and the
+		power they have in a template engine. All modifiers will get
+		the value of the variable as the first argument, and must return
+		a single value. Modifier parameters are separated by colons. Any
+		additional parameters passed to a modifier are passed as-is positionally,
+		much like calling a PHP function. You can also use native
+		PHP functions as modifiers, but only if they expect the correct
+		arguments. If they do not, you can always write a wrapper function
+		in Smarty to get what you want (date_format is a wrapper function
+		to strftime() for example.) You can chain as many modifiers
+		together on a variable as you like.
+		</para>
+		<para>
+		Another thing to be aware of: if you pass an array to a modifier
+		instead of a single value, the modifier will be applied to every
+		value in that array. If you really want the entire array passed
+		to the modifier, you must prepend it with an "@" sign like so:
+		{$articleTitle|@count} (this will print out the number of elements
+		in the $articleTitle array.)
+		</para>
 		<sect2>
 			<title>date_format</title>
-			<para></para>
+			<para>
+			This formats a date into the given strftime() format. All dates
+			should be passed to Smarty as a timestamp so that the template
+			designer has full control of how this date is formatted. The
+			default format is "%b %e, %Y".
+			</para>
 		</sect2>
 		<sect2>
 			<title>escape</title>
-			<para></para>
+			<para>
+			This is used to html or url escape a variable. By default,
+			the variable is html escaped. possible arguments are "url" or "html".
+			</para>
 		</sect2>
 		<sect2>
 			<title>replace</title>
-			<para></para>
+			<para>
+			A simple search and replace on a variable. The first argument is
+			what to search for, the second argument is what to replace it with.
+			</para>
 		</sect2>
 		<sect2>
 			<title>spacify</title>
-			<para></para>
+			<para>
+			spacify is a way to insert spaces between every character of a variable.
+			You can optionally pass a different character (or string) to insert.
+			</para>
 		</sect2>
 		<sect2>
 			<title>string_format</title>
-			<para></para>
+			<para>
+			This is a way to format strings, such as decimal numbers and such.
+			Use the syntax for sprintf for the formatting.
+			</para>
 		</sect2>
 		<sect2>
 			<title>strip_tags</title>
-			<para></para>
+			<para>
+			This strips out markup tags, basically anything between &lt; and &gt;.
+			</para>
 		</sect2>
 		<sect2>
 			<title>truncate</title>
-			<para></para>
+			<para>
+			This truncates a variable to a certain length, default is 80. As
+			an optional second parameter, you can specify a string of text
+			to display at the end if the variable was indeed truncated.
+			</para>
+		</sect2>
+		<sect2>
+			<title>Creating your own Variable Modifiers</title>
+			<para>
+			Creating your own modifiers is a fairly straight forward process.
+			The best way is to look at the ones that come with Smarty as
+			examples. They are located in the Smarty.addons.php file.
+			</para>
+			<itemizedlist>
+				<listitem><para>add your modifier to the Smarty.addons.php file.
+						it is recommended that you prepend your function name
+						with smarty_mod_</para></listitem>
+				<listitem><para>map a template modifier name to your PHP function.
+							This is done at the top of the Smarty.class.php file
+							in the $custom_mods array.</para></listitem>
+				<listitem><para>Thats it! you can now use that modifier
+					from within Smarty.</para></listitem>
+			</itemizedlist>			
 		</sect2>
 	</sect1>	
-	<sect1>
-		<title>Adding your own Custom Functions and Modifiers</title>
-		<para></para>
-	</sect1>
 </chapter>
 <chapter>
 	<title>Troubleshooting</title>
