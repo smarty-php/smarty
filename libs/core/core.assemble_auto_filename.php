@@ -18,7 +18,7 @@
 function smarty_core_assemble_auto_filename($params, &$smarty)
 {	
 
-	$_compile_dir_sep =  $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
+	$_compile_dir_sep =  $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
 		
     if(@is_dir($params['auto_base'])) {
         $_return = $params['auto_base'] . DIRECTORY_SEPARATOR;
