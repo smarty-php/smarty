@@ -269,10 +269,6 @@ Pretty easy isn't it?
 	<sect1 id="tips.componentized.templates">
 		<title>Componentized Templates</title>
 		<para>
-		This tip is a bit of a hack, but still a neat idea. Use at your own
-		risk. ;-)
-		</para>
-		<para>
         Traditionally, programming templates into your applications goes as
         follows: First, you accumulate your variables within your PHP
         application, (maybe with database queries.) Then, you instantiate your
@@ -284,74 +280,40 @@ Pretty easy isn't it?
         template, and not worry about fetching the data up front?
 		</para>
         <para>
-        You can embed PHP into your templates with the {php}{/php} tags.
-        With this, you can setup self contained templates with their own
-        data structures for assigning their own variables. With the logic
-        embedded like this, you can keep the template &amp; logic together. This
-        way no matter where the template source is coming from, it is always
-        together as one component.
+        You can do this by writing a custom plugin for fetching the content and
+        assigning it to a template variable.
         </para>
 <example>
 <title>componentized template</title>
 <programlisting>
-{* Smarty *}
-
-{php}
-
-	// setup our function for fetching stock data
-	function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) {
-		// put logic here that fetches $ticker_name
-		// and $ticker_price from some resource
-	}
-
-	// call the function
-	fetch_ticker("YHOO",$ticker_name,$ticker_price);
-	
-	// assign template variables
-    $this->assign("ticker_name",$ticker_name);
-    $this->assign("ticker_price",$ticker_price);
-
-{/php}
-
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
-</example>
-        <para>
-		As of Smarty 1.5.0, there is even a cleaner way. You can include php in
-		your templates with the {include_php ...} tag. This way you can keep
-		your PHP logic separated from the template logic. See the <link
-		linkend="language.function.include.php">include_php</link> function for
-		more information.
-        </para>
-<example>
-<title>componentized template with include_php</title>
-<programlisting>
-load_ticker.php
+function.load_ticker.php
 ---------------
 
 &lt;?php
+function smarty_function_load_ticker($params, &amp;$smarty) {
 	// setup our function for fetching stock data
-	function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) {
-		// put logic here that fetches $ticker_name
-		// and $ticker_price from some resource
+	function fetch_ticker($params['symbol']) {
+		// put logic here that fetches $ticker_info
+		// from some resource
+        return $ticker_info;
 	}
 
 	// call the function
-	fetch_ticker("YHOO",$ticker_name,$ticker_price);
+	$ticker_info = fetch_ticker("YHOO",$ticker_info);
 	
-	// assign template variables
-    $this->assign("ticker_name",$ticker_name);
-    $this->assign("ticker_price",$ticker_price);
+	// assign template variable
+    $smarty->assign($params['assign'],$ticker_info);
+}
 ?&gt;
-
 
 index.tpl
 ---------
 
 {* Smarty *}
 
-{include_php file="load_ticker.php"}
+{load_ticker symbol="YHOO" assign="ticker"}
 
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
+Stock Name: {$ticker.name} Stock Price: {$ticker.price}</programlisting>
 </example>
 	</sect1>
 	<sect1 id="tips.obfuscating.email">
