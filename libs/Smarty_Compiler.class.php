@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty_Compiler.class.php
  * Author:      Monte Ohrt <monte@ispi.net>
@@ -65,10 +65,11 @@ class Smarty_Compiler extends Smarty {
 	var $_func_call_regexp		=	null;
 	var $_obj_call_regexp		=	null;
 			
-/*======================================================================*\
-    Function:   Smarty_Compiler()
-    Input:      constructor
-\*======================================================================*/
+	/**
+	 * The class constructor.
+	 *
+	 * @access public
+	 */
     function Smarty_Compiler()
     {
 		// matches double quoted strings:
@@ -180,10 +181,14 @@ class Smarty_Compiler extends Smarty {
 
 	}			
 			
-/*======================================================================*\
-    Function:   _compile_file()
-    Input:      compile a template file
-\*======================================================================*/
+	/**
+	 * compile a template file
+	 *
+	 * @access public
+	 * @param  $tpl_file
+	 * @param  $template_source
+	 * @param  $template_compiled
+	 */
     function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
         if ($this->security) {
@@ -340,10 +345,12 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _compile_tag
-    Purpose:  Compile a template tag
-\*======================================================================*/
+	/**
+	 * Compile a template tag
+	 *
+	 * @access public
+	 * @param  $template_tag
+	 */
     function _compile_tag($template_tag)
     {		
 				
@@ -475,10 +482,14 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _compile_compiler_tag
-    Purpose:  compile the custom compiler tag
-\*======================================================================*/
+	/**
+	 * compile the custom compiler tag
+	 *
+	 * @access public
+	 * @param  $tag_command
+	 * @param  $tag_args
+	 * @param  $output
+	 */
     function _compile_compiler_tag($tag_command, $tag_args, &$output)
     {
         $found = false;
@@ -533,10 +544,15 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _compile_block_tag
-    Purpose:  compile block function tag
-\*======================================================================*/
+	/**
+	 * compile block function tag
+	 *
+	 * @access public
+	 * @param  $tag_command
+	 * @param  $tag_args
+	 * @param  $tag_modifier
+	 * @param  $output
+	 */
     function _compile_block_tag($tag_command, $tag_args, $tag_modifier, &$output)
     {
         if ($tag_command{0} == '/') {
@@ -616,10 +632,14 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _compile_custom_tag
-    Purpose:  compile custom function tag
-\*======================================================================*/
+	/**
+	 * compile custom function tag
+	 *
+	 * @access public
+	 * @param  $tag_command
+	 * @param  $tag_args
+	 * @param  $tag_modifier
+	 */
     function _compile_custom_tag($tag_command, $tag_args, $tag_modifier)
     {
         $this->_add_plugin('function', $tag_command);
@@ -641,10 +661,14 @@ class Smarty_Compiler extends Smarty {
         return '<?php echo ' . $return . " ; ?>\n";
     }
 
-/*======================================================================*\
-    Function: _compile_registered_object_tag
-    Purpose:  compile a registered object tag
-\*======================================================================*/
+	/**
+	 * compile a registered object tag
+	 *
+	 * @access public
+	 * @param  $tag_command
+	 * @param  $attrs
+	 * @param  $tag_modifier
+	 */
     function _compile_registered_object_tag($tag_command, $attrs, $tag_modifier)
     {
 		list($object, $obj_comp) = explode('->', $tag_command);
@@ -695,10 +719,12 @@ class Smarty_Compiler extends Smarty {
 	
 	
 
-/*======================================================================*\
-    Function: _compile_insert_tag
-    Purpose:  Compile {insert ...} tag
-\*======================================================================*/
+	/**
+	 * Compile {insert ...} tag
+	 *
+	 * @access public
+	 * @param  $tag_args
+	 */
     function _compile_insert_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -726,10 +752,12 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _compile_config_load_tag
-    Purpose:  Compile {config_load ...} tag
-\*======================================================================*/
+	/**
+	 * Compile {config_load ...} tag
+	 *
+	 * @access public
+	 * @param  $tag_args
+	 */
     function _compile_config_load_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -760,10 +788,12 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _compile_include_tag
-    Purpose:  Compile {include ...} tag
-\*======================================================================*/
+	/**
+	 * Compile {include ...} tag
+	 *
+	 * @access public
+	 * $param  $tag_args
+	 */
     function _compile_include_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -808,10 +838,12 @@ class Smarty_Compiler extends Smarty {
 
     }
 
-/*======================================================================*\
-    Function: _compile_include_php_tag
-    Purpose:  Compile {include ...} tag
-\*======================================================================*/
+	/**
+	 * Compile {include ...} tag
+	 *
+	 * @access public
+	 * @param $tag_args
+	 */
     function _compile_include_php_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -828,10 +860,12 @@ class Smarty_Compiler extends Smarty {
     }
 	
 
-/*======================================================================*\
-    Function: _compile_section_start
-    Purpose:  Compile {section ...} tag
-\*======================================================================*/
+	/**
+	 * Compile {section ...} tag
+	 *
+	 * @access public
+	 * @param  $tag_args
+	 */
     function _compile_section_start($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -931,10 +965,12 @@ class Smarty_Compiler extends Smarty {
     }
 
     
-/*======================================================================*\
-    Function: _compile_foreach_start
-    Purpose:  Compile {foreach ...} tag
-\*======================================================================*/
+	/**
+	 * Compile {foreach ...} tag.
+	 *
+	 * @access public
+	 * @param  $tag_args
+	 */
     function _compile_foreach_start($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -993,10 +1029,13 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _compile_capture_tag
-    Purpose:  Compile {capture} .. {/capture} tags
-\*======================================================================*/
+	/**
+	 * Compile {capture} .. {/capture} tags
+	 *
+	 * @access public
+	 * @param  $start
+	 * @param  $tag_args
+	 */
     function _compile_capture_tag($start, $tag_args = '')
     {
         $attrs = $this->_parse_attrs($tag_args);
@@ -1017,10 +1056,13 @@ class Smarty_Compiler extends Smarty {
         return $output;
     }
 
-/*======================================================================*\
-    Function: _compile_if_tag
-    Purpose:  Compile {if ...} tag
-\*======================================================================*/
+	/**
+	 * Compile {if ...} tag
+	 *
+	 * @access public
+	 * @param  $tag_args
+	 * @param  $elseif
+	 */
     function _compile_if_tag($tag_args, $elseif = false)
     {
 
@@ -1170,10 +1212,13 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _parse_is_expr
-    Purpose:  Parse is expression
-\*======================================================================*/
+	/**
+	 * Parse is expression
+	 *
+	 * @access public
+	 * @param  $is_arg
+	 * @param  $tokens
+	 */
     function _parse_is_expr($is_arg, $tokens)
     {
         $expr_end = 0;
@@ -1229,10 +1274,13 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _parse_attrs
-    Purpose:  Parse attribute string
-\*======================================================================*/
+	/**
+	 * Parse attribute string
+	 *
+	 * @access public
+	 * @param  $tag_args
+	 * @param  $quote
+	 */
     function _parse_attrs($tag_args, $quote = true)
     {
 				
@@ -1308,11 +1356,13 @@ class Smarty_Compiler extends Smarty {
         return $attrs;
     }
 
-/*======================================================================*\
-    Function: _parse_vars_props
-    Purpose:  compile multiple variables and section properties tokens into
-              PHP code
-\*======================================================================*/
+	/**
+	 * compile multiple variables and section properties tokens into
+	 * PHP code
+	 *
+	 * @access public
+	 * @param  $tokens
+	 */
     function _parse_vars_props(&$tokens)
     {
 		foreach($tokens as $key => $val) {			
@@ -1320,11 +1370,14 @@ class Smarty_Compiler extends Smarty {
 		}
 	}
 		
-/*======================================================================*\
-    Function: _parse_var_props
-    Purpose:  compile single variable and section properties token into
-              PHP code
-\*======================================================================*/
+	/**
+	 * compile single variable and section properties token into
+	 * PHP code
+	 *
+	 * @access public
+	 * @param  $val
+	 * @param  $tag_attrs
+	 */
     function _parse_var_props($val, $tag_attrs = null)
     {					
 
@@ -1366,10 +1419,12 @@ class Smarty_Compiler extends Smarty {
 		return $val;
     }
 
-/*======================================================================*\
-    Function: _expand_quoted_text
-    Purpose:  expand quoted text with embedded variables
-\*======================================================================*/
+	/**
+	 * expand quoted text with embedded variables
+	 *
+	 * @access public
+	 * @param  $var_expr
+	 */
     function _expand_quoted_text($var_expr)
     {
 		// if contains unescaped $, expand it
@@ -1385,10 +1440,12 @@ class Smarty_Compiler extends Smarty {
 		}
 	}
 	
-/*======================================================================*\
-    Function: _parse_var
-    Purpose:  parse variable expression into PHP code
-\*======================================================================*/
+	/**
+	 * parse variable expression into PHP code
+	 *
+	 * @access public
+	 * @param  $var_expr
+	 */
     function _parse_var($var_expr)
     {
 				
@@ -1469,10 +1526,12 @@ class Smarty_Compiler extends Smarty {
         return $output;
     }
 
-/*======================================================================*\
-    Function: _parse_parenth_args
-    Purpose:  parse arguments in function call parenthesis
-\*======================================================================*/
+	/**
+	 * parse arguments in function call parenthesis
+	 *
+	 * @access public
+	 * @param  $parenth_args
+	 */
     function _parse_parenth_args($parenth_args)
     {
 		preg_match_all('!' . $this->_param_regexp . '!',$parenth_args, $match);
@@ -1484,10 +1543,12 @@ class Smarty_Compiler extends Smarty {
 		return str_replace($orig_vals, $match, $parenth_args);
 	}	
 		
-/*======================================================================*\
-    Function: _parse_conf_var
-    Purpose:  parse configuration variable expression into PHP code
-\*======================================================================*/
+	/**
+	 * parse configuration variable expression into PHP code
+	 *
+	 * @access public
+	 * @param  $conf_var_expr
+	 */
     function _parse_conf_var($conf_var_expr)
     {
         $parts = explode('|', $conf_var_expr, 2);
@@ -1504,10 +1565,12 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _parse_section_prop
-    Purpose:  parse section property expression into PHP code
-\*======================================================================*/
+	/**
+	 * parse section property expression into PHP code
+	 *
+	 * @access public
+	 * @param  $section_prop_expr
+	 */
     function _parse_section_prop($section_prop_expr)
     {
         $parts = explode('|', $section_prop_expr, 2);
@@ -1526,10 +1589,13 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _parse_modifiers
-    Purpose:  parse modifier chain into PHP code
-\*======================================================================*/
+	/**
+	 * parse modifier chain into PHP code
+	 *
+	 * @access public
+	 * @param  $output
+	 * @param  $modifier_string
+	 */
     function _parse_modifiers(&$output, $modifier_string)
     {
         preg_match_all('!\|(@?\w+)((?>:(?:'. $this->_qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $match);
@@ -1567,10 +1633,14 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _add_plugin
-    Purpose:  
-\*======================================================================*/
+	/**
+	 * add plugin
+	 *
+	 * @access public
+	 * @param  $type
+	 * @param  $name
+	 * @param  $delayed_loading
+	 */
     function _add_plugin($type, $name, $delayed_loading = null)
     {
         if (!isset($this->_plugin_info[$type])) {
@@ -1584,10 +1654,12 @@ class Smarty_Compiler extends Smarty {
     }
     
 
-/*======================================================================*\
-    Function: _compile_smarty_ref
-    Purpose:  Compiles references of type $smarty.foo
-\*======================================================================*/
+	/**
+	 * Compiles references of type $smarty.foo
+	 *
+	 * @access public
+	 * @param  $indexes
+	 */
     function _compile_smarty_ref(&$indexes)
     {
         /* Extract the reference name. */
@@ -1700,10 +1772,11 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _load_filters
-    Purpose:  load pre- and post-filters
-\*======================================================================*/
+	/**
+	 * load pre- and post-filters
+	 *
+	 * @access public
+	 */
     function _load_filters()
     {
         if (count($this->_plugins['prefilter']) > 0) {
@@ -1725,10 +1798,15 @@ class Smarty_Compiler extends Smarty {
     }
 
 
-/*======================================================================*\
-    Function: _syntax_error
-    Purpose:  display Smarty syntax error
-\*======================================================================*/
+	/**
+	 * display Smarty syntax error
+	 *
+	 * @access public
+	 * @param  $error_msg
+	 * @param  $error_type
+	 * @param  $file
+	 * @param  $line
+	 */
     function _syntax_error($error_msg, $error_type = E_USER_ERROR, $file=null, $line=null)
     {
 		if(isset($file) && isset($line)) {
