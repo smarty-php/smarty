@@ -1,3 +1,9 @@
+2003-03-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/modifier.debug_print_var.php:
+      $length is now propagated to sub-values in debug_print_var
+
 2003-03-26  Monte Ohrt  <monte@ispi.net>
 
     * NEWS:
