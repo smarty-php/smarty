@@ -1,3 +1,4 @@
+  - add property $tpl_error_reporting (messju)
   - remove property $undefined. "null" is used literally instead (messju)
 
 Version 2.6.0 (Nov 19, 2003)

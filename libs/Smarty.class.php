@@ -114,6 +114,13 @@ class Smarty
     var $debugging       =  false;
 
     /**
+     * When set, smarty does uses this value as error_reporting-level.
+     *
+     * @var boolean
+     */
+    var $tpl_error_reporting  =  null;
+
+    /**
      * This is the path to the debug console template. If not set,
      * the default one will be used.
      *
@@ -1162,7 +1169,8 @@ class Smarty
     {
         static $_cache_info = array();
 
-        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
+        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->tpl_error_reporting) 
+               ? $this->tpl_error_reporting : error_reporting() & ~E_NOTICE);
 
         if (!$this->debugging && $this->debugging_ctrl == 'URL'
                && @strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
