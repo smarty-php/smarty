@@ -360,7 +360,7 @@ require(SMARTY_DIR.'Smarty.class.php');
 // a good place to load application library files, example:
 // require('guestbook/guestbook.lib.php');
 
-Smarty_GuestBook extends Smarty {
+class Smarty_GuestBook extends Smarty {
 
    function Smarty_GuestBook() {
    
