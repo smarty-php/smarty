@@ -3,6 +3,7 @@
     - made Smarty catch unimplemented modifiers and custom functions and output
       error messages during compilation instead of failing during run time.
       (Andrei)
+    - removed short-tags at the top of the smarty scripts (Monte)
     - added register_custom_function() and register_modifier() API calls
       to make registering stuff easier. (Andrei)
     - added template results caching capability. (Monte, Andrei)

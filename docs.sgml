@@ -371,6 +371,28 @@ chmod 700 cache
 				is "false".
 			</para>
 		</sect2>
+		<sect2 id="setting.php.handling">
+			<title>$php_handling</title>
+			<para>
+                This tells Smarty how to handle PHP code embedded in the
+                tempalates. There are four possible settings, default being
+                SMARTY_PHP_PASSTHRU.
+            </para>    
+		    <itemizedlist>
+		    <listitem><para>SMARTY_PHP_PASSTHRU - Smarty echos tags as-is.</para></listitem>
+		    <listitem><para>SMARTY_PHP_QUOTE - Smarty quotes the tags as
+                html entities.</para></listitem>
+		    <listitem><para>SMARTY_PHP_REMOVE - Smarty removes the tags from
+                the templates.</para></listitem>
+		    <listitem><para>SMARTY_PHP_ALLOW - Smarty will execute the tags
+                as PHP code.</para></listitem>
+            </itemizedlist>
+            <para>
+                NOTE: Embedding PHP code into templates is highly discouraged.
+                Use <link linkend="custom.functions">custom functions</link> or
+                <link linkend="variable.modifiers">modifiers</link> instead.
+			</para>
+		</sect2>
 		<sect2 id="setting.left.delimiter">
 			<title>$left_delimiter</title>
 			<para>

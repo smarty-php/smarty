@@ -273,16 +273,6 @@ function smarty_func_html_select_date()
     print $html_result;
 }
 
-/*======================================================================*\
-    Function: smarty_func_header
-    Purpose:  Pass a header. Must be used before any content is sent.
-\*======================================================================*/
-function smarty_func_header($params)
-{
-    extract($params);
-    header($contents);
-}
-
 /* vim: set expandtab: */
 
 ?>
