@@ -1317,6 +1317,18 @@ class Smarty
     
     }
 
+    /**
+     * return a reference to a registered object
+     *
+     * @param string $name
+     */    
+	function &get_registered_object($name) {
+		if(isset($this->_reg_objects[$name])) {
+			return $this->_reg_objects[$name][0];
+		} else {
+		 	return false; 
+		}
+	}	
 
     /**#@+
      * @access private
