@@ -1,76 +1,24 @@
 <?php
 
-require("Smarty.class.php");
-
-error_reporting(E_ALL);
+require 'Smarty.class.php';
 
 $smarty = new Smarty;
-$smarty->force_compile = true;
-//$smarty->left_delimiter = '<!---';
-//$smarty->right_delimiter = '--->';
-//$smarty->plugins_dir = array('plugins','./my_plugins');
-$smarty->plugins_dir = './plugins';
-//$smarty->use_sub_dirs = false;
-//$smarty->caching = true;
-//$smarty->cache_modified_check = true;
-//$smarty->compile_check = false;
-//$smarty->security = true;
-//$smarty->security_settings['ALLOW_CONSTANTS'] = true;
-//$smarty->trusted_dir=array("./trusted");
-//$smarty->secure_dir=array("./templates");
-//$smarty->default_template_handler_func = "make_tpl";
 
-//$smarty->debugging=true;
+$smarty->compile_check = true;
+$smarty->debugging = true;
 
-define('_MY_CONST','myconst');
+$smarty->assign("Name","Fred Irving Johnathan Bradley Peppergill");
+$smarty->assign("FirstName",array("John","Mary","James","Henry"));
+$smarty->assign("LastName",array("Doe","Smith","Johnson","Case"));
+$smarty->assign("Class",array(array("A","B","C","D"), array("E", "F", "G", "H"),
+	  array("I", "J", "K", "L"), array("M", "N", "O", "P")));
 
-$smarty->assign('foo','bar');
-$smarty->assign('bfoo',true);
-$smarty->assign('bar','one');
-$smarty->assign('afoo',array('one' => 'foo', 'two' => 'bar'));
+$smarty->assign("contacts", array(array("phone" => "1", "fax" => "2", "cell" => "3"),
+	  array("phone" => "555-4444", "fax" => "555-3333", "cell" => "760-1234")));
 
-class ofoo {
-	var $blah = 'myblah';
-	function foo($var=null,$var2=null,$var3=null) {
-		return '[' . $var . '][' . $var2 . '][' . $var3 . ']';
-	}
-}
-
-$ofoo = new ofoo;
-
-$smarty->assign('ofoo',$ofoo);
-
-class nfoo {
-	var $ofoo = null;
-	function nfoo() {
-		$this->ofoo = new ofoo;
-	}
-}
-
-
-$nfoo = new nfoo;
-
-$smarty->assign('nfoo',$nfoo);
-
-
-function _smarty_ffoo($params, &$smarty) {
-	foreach($params as $var) {
-		$return .= '[' . $var . ']'; 
-	}
-	return $return;
-}
-
-$smarty->register_function('ffoo','_smarty_ffoo');
-
-$smarty->assign('sfoo',array('one','two','three'));
-
-function smarty_block_reverse($params, $content, &$smarty) {
-	if($content) {
-		return strrev($content);
-	}
-}
-
-$smarty->register_block('reverse', 'smarty_block_reverse');
+$smarty->assign("option_values", array("NY","NE","KS","IA","OK","TX"));
+$smarty->assign("option_output", array("New York","Nebraska","Kansas","Iowa","Oklahoma","Texas"));
+$smarty->assign("option_selected", "NE");
 
 $smarty->display('index.tpl');
 
