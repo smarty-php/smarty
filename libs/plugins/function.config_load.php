@@ -64,7 +64,10 @@ function smarty_function_config_load($params, &$smarty)
         }
 
 		$_file_path = $_config_dir . DIRECTORY_SEPARATOR . $_file;
-		$_compile_file = $smarty->_get_compile_path($_file_path);
+        if (isset($_section)) 
+            $_compile_file = $smarty->_get_compile_path($_file_path.'|'.$_section);
+        else
+            $_compile_file = $smarty->_get_compile_path($_file_path);
 		
 		if($smarty->force_compile
 				|| !file_exists($_compile_file)
@@ -85,13 +88,13 @@ function smarty_function_config_load($params, &$smarty)
 			if(function_exists('var_export')) {
 				$_output = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; ?>';
 			} else {
-				$_output = '<?php $_config_vars = unserialize(' . serialize($_config_vars) . '); ?>';
+				$_output = '<?php $_config_vars = unserialize(\'' . strtr(serialize($_config_vars),array('\''=>'\\\'', '\\'=>'\\\\')) . '\'); ?>';
 			}
 			$_params = (array('compile_path' => $_compile_file, 'compiled_content' => $_output, 'resource_timestamp' => filemtime($_file_path)));
 			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_resource.php');
 			smarty_core_write_compiled_resource($_params, $smarty);
 		} else {
-			include_once($_compile_file);
+            include($_compile_file);
 		}
 
         if ($smarty->caching) {

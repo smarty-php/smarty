@@ -1,3 +1,6 @@
+  - fixed config_load: handling of section-attribute and use of
+    multiple config-files in one template (atu, messju)
+
 Version 2.6.0-RC1 (August 11, 2003)
 -----------------------------------
 
