@@ -55,7 +55,7 @@ test:
 # {{{ cleanup 
 
 clean:
-	rm -f Makefile config.* manual.xml configure entities/version.ent *.fot
+	rm -f Makefile config.* manual.xml configure entities/version.ent *.fot dsssl/html-common.dsl
 	rm -fr autom4te.cache html phpweb
 
 # }}}

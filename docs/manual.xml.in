@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='@ENCODING@' ?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
           "./dtds/dbxml-4.1.2/docbookx.dtd" [
 <!ENTITY % build.version SYSTEM "entities/version.ent">

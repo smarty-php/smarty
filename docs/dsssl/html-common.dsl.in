@@ -249,3 +249,6 @@
   (para-check 'restart)))))
 
 (define (linebreak) (make element gi: "BR" (empty-sosofo)))
+
+(define %html-header-tags%
+  '(("META" ("HTTP-EQUIV" "Content-type") ("CONTENT" "text/html; charset=@ENCODING@"))))
