@@ -721,6 +721,12 @@ class Smarty
 function _generate_debug_output() {
     // we must force compile the debug template in case the environment
     // changed between separate applications.
+	$_orig_ldelim = $this->left_delimiter;
+	$_orig_rdelim = $this->right_delimiter;	
+	
+	$this->left_delimiter = '{';
+	$this->right_delimiter = '}';
+	
     ob_start();
     $force_compile_orig = $this->force_compile;
     $this->force_compile = true;
@@ -732,6 +738,10 @@ function _generate_debug_output() {
     $results = ob_get_contents();
     $this->force_compile = $force_compile_orig;
     ob_end_clean();
+
+	$this->left_delimiter = $_orig_ldelim;
+	$this->right_delimiter = $_orig_rdelim;
+
     return $results;
 }
 
