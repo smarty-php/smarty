@@ -112,7 +112,7 @@ class Smarty_Compiler extends Smarty {
 		// $foo[5][blah]
 		// $foo[5].bar[$foobar][4]
 		$this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
-				. ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*';
+				. ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:\+\+|\-\-|(?:[\+\-\*\/]\d+(?:\.\d+)?))?';
 		$this->_dvar_regexp = '\$' . $this->_dvar_guts_regexp;
 
 		// matches config vars:
