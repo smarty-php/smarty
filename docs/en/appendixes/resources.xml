@@ -3,10 +3,11 @@
  <chapter id="resources">
   <title>Resources</title>
   <para>
-   Smarty's homepage is located at &url.smarty;.
+   Smarty's homepage is located at <ulink
+   url="&url.smarty;">&url.smarty;</ulink>.
    You can join the mailing list by sending an e-mail to
    &ml.general.sub;. An archive of the mailing list can 
-   be viewed at &url.ml.archive;
+   be viewed at <ulink url="&url.ml.archive;">&url.ml.archive;</ulink>.
   </para>
 </chapter>
 <!-- Keep this comment at the end of the file
