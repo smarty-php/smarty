@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <refentry id="api.register.function">
  <refnamediv>
   <refname>register_function</refname>
@@ -12,16 +12,16 @@
    <type>void</type><methodname>register_function</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>impl</parameter></methodparam>
-   <methodparam><type>bool</type><parameter>cacheable</parameter></methodparam>
-   <methodparam><type>mixed</type><parameter>cache_attrs</parameter></methodparam>
+   <methodparam choice="opt"><type>bool</type><parameter>cacheable</parameter></methodparam>
+   <methodparam choice="opt"><type>mixed</type><parameter>cache_attrs</parameter></methodparam>
   </methodsynopsis>
   <para>
    Используется для динамической регистрации плагинов функций шаблона.
    Передается наименование функции шаблона и имя функции, реализующей ее.
   </para>
   <para>
-   Коллбек-функцией php <parameter>impl</parameter> может быть (a) строка,
-   содержащая имя функции, или (b) массив вида
+   Функция обратного вызова PHP <parameter>impl</parameter> может быть
+   (a) строка, содержащая имя функции, или (b) массив вида
    <literal>array(&amp;$object, $method)</literal>, где
    <literal>&amp;$object</literal> является ссылкой на
    объект, а <literal>$method</literal> является строкой,
@@ -39,15 +39,18 @@
   </para>
  <example>
   <title>register_function</title>
-  <programlisting>
+  <programlisting role="php">
 <![CDATA[
 $smarty->register_function("date_now", "print_current_date");
 
-function print_current_date ($params) {
-    extract($params);
-    if(empty($format))
-        $format="%b %e, %Y";
-    echo strftime($format,time());
+function print_current_date($params)
+{
+  if(empty($params['format'])) {
+    $format = "%b %e, %Y";
+  } else {
+    $format = $params['format'];
+    return strftime($format,time());
+  }
 }
 
 // теперь вы можете использовать ее в Smarty чтобы вывести текущую дату: {date_now}

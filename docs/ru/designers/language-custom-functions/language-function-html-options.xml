@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.options">
  <title>html_options</title>
  <informaltable frame="all">
@@ -14,7 +14,7 @@
    <row>
     <entry>Имя атрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -61,7 +61,7 @@
  <para>
   пользовательская функция html_options генерирует группу html тэгов
   option по указанной информации. Также заботится о выбранных по
-  умолчанию элементах. Атрибуты values и output обязательны, если не 
+  умолчанию элементах. Атрибуты values и output обязательны, если не
   указан атрибут options.
  </para>
  <para>
@@ -71,8 +71,8 @@
  </para>
  <para>
   Если указан необязательный атрибут <emphasis>name</emphasis>,
-  то группа опций заключится в тэг &lt;select 
-  name="groupname"&gt; и &lt;/select&gt;, иначе сгенерируется только 
+  то группа опций заключится в тэг &lt;select
+  name="groupname"&gt; и &lt;/select&gt;, иначе сгенерируется только
   группа опций.
  </para>
  <para>
@@ -128,7 +128,7 @@
   <option value="1002">Jane Johnson</option>
   <option value="1003">Charlie Brown</option>
  </select>
-]]>  
+]]>
   </programlisting>
  </example>
 </sect1>

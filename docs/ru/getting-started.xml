@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <part id="getting.started">
  <title>Приступая к работе</title>
 
@@ -11,16 +11,19 @@
     Говоря более четко, он предоставляет один из инструментов, которые
     позволяет добиться отделения прикладной логики и данных от
     представления. Это очень удобно в ситуациях, когда программист и
-    верстальщик шаблона - различные люди. Например, скажем, вы создаете
-    страницу, которая показывает газетную статью. Название статьи, автор
-    и сама статья - элементы, которые не содержат никакой информации о том, как они
-    будут представлены. Их передают в Smarty из приложения, а верстальщик
-    шаблона редактирует шаблоны и использует комбинацию тэгов HTML и
-    тэгов шаблона, чтобы отформатировать представление этих элементов
-    (таблицы HTML, фоновые цвета, размеры шрифта, стиля и т.д.). Однажды
-    программист захочет изменить способ хранения статьи (сделать изменения
-    в логике приложения). Это изменение не вызовет изменений в шаблонах.
-    Содержание будет все еще передаваться в шаблон таким же самым способом.
+    верстальщик шаблона - различные люди.
+   </para>
+   <para>
+    Например, скажем, вы создаете страницу, которая показывает газетную
+    статью. Название статьи, автор и сама статья - элементы, которые не
+    содержат никакой информации о том, как они будут представлены. Их
+    передают в Smarty из приложения, а верстальщик шаблона редактирует
+    шаблоны и использует комбинацию тэгов HTML и тэгов шаблона, чтобы
+    отформатировать представление этих элементов (таблицы HTML, фоновые
+    цвета, размеры шрифта, стиля и т.д.). Однажды программист захочет
+    изменить способ хранения статьи (сделать изменения в логике приложения).
+    Это изменение не вызовет изменений в шаблонах. Содержание будет все еще
+    передаваться в шаблон таким же самым способом.
     Аналогично, если верстальщик захочет полностью перепроектировать
     шаблоны, это не потребует никаких изменений в прикладной логике.
    </para>
@@ -31,11 +34,12 @@
     данных. Такие задачи, как подключение других шаблонов, чередующаяся окраска
     строчек в таблице, приведение букв к верхнему регистру, циклический проход
     по массиву для его отображения и т.д. - всё это является примером логики
-    представления. Не следует думать, что Smarty заставляет вас разделять логику
-    приложения и представление. Smarty не видит разницы между этими вещами,
-    так что помещать или не помещать логику приложения в шаблоны - решать вам.
-    Если же вы считаете, что в шаблоне ВООБЩЕ не должно быть логики, вы можете
-    ограничиться использованием чистого текста и переменных.
+    представления. Не следует думать, что Smarty заставляет вас разделять
+    логику приложения и представление. Smarty не видит разницы между этими
+    вещами, так что помещать или не помещать логику приложения в шаблоны -
+    решать вам. Если же вы считаете, что в шаблоне <emphasis>вообще</emphasis>
+    не должно быть логики, вы можете ограничиться использованием чистого
+    текста и переменных.
    </para>
    <para>
     Одна из уникальных возможностей Smarty - компилирование шаблонов. Это
@@ -73,9 +77,10 @@
     </listitem>
     <listitem>
      <para>
-      Вы можете создавать пользовательские
-      <link linkend="language.custom.functions">функции</link> и
-      <link linkend="language.modifiers">модификаторы</link>, что делает язык
+      Вы можете создавать пользовательские <link
+      linkend="language.custom.functions">функции</link>
+      и <link
+      linkend="language.modifiers">модификаторы</link>, что делает язык
       шаблонов чрезвычайно расширяемым.
      </para>
     </listitem>
@@ -162,8 +167,8 @@ debug.tpl
      Smarty использует константу PHP <link
      linkend="constant.smarty.dir">SMARTY_DIR</link>, которая указывает путь к
      директории библиотеки Smarty. Обычно, если приложение может найти файл
-     <emphasis>Smarty.class.php</emphasis>, то нет необходимости устанавливать
-     SMARTY_DIR. Однако, если	<emphasis>Smarty.class.php</emphasis> не может
+     <filename>Smarty.class.php</filename>, то нет необходимости устанавливать
+     SMARTY_DIR. Однако, если <filename>Smarty.class.php</filename> не может
      быть найден в вашем include_path или вы не указывали абсолютный путь к
      нему в приложении, то вы должны определить SMARTY_DIR вручную.
      SMARTY_DIR <emphasis>должен</emphasis> включать завершающий слэш.
@@ -185,7 +190,7 @@ $smarty = new Smarty;
 
     <para>
      Попробуйте выполнить вышеуказанный код. Если Вы получаете ошибку о том,
-     что <emphasis>Smarty.class.php</emphasis> не найден, попробуйте следующие
+     что <filename>Smarty.class.php</filename> не найден, попробуйте следующие
      варианты действий:
     </para>
 
@@ -233,17 +238,20 @@ $smarty = new Smarty;
      Теперь, когда все файлы находятся на своих местах, пришло время
      установки директорий Smarty в вашем приложении. Smarty требует
      четыре директории, которые (по умолчанию) называются
-     <emphasis>templates</emphasis>, <emphasis>templates_c</emphasis>,
-     <emphasis>configs</emphasis> и <emphasis>cache</emphasis>. Каждая из
+     <filename class="directory">templates</filename>,
+     <filename class="directory">templates_c</filename>,
+     <filename class="directory">configs</filename> и
+     <filename class="directory">cache</filename>. Каждая из
      них определяется свойствами класса Smarty:
-     <emphasis>$template_dir</emphasis>, <emphasis>$compile_dir</emphasis>,
-     <emphasis>$config_dir</emphasis> и <emphasis>$cache_dir</emphasis>
+     <varname>$template_dir</varname>, <varname>$compile_dir</varname>,
+     <varname>$config_dir</varname> и <varname>$cache_dir</varname>
      соответственно. Настойчиво рекомендуется использовать разные наборы
      этих директорий для каждого приложения, использующего Smarty.
     </para>
     <para>
      Убедитесь, что вы знаете расположение корневой директории для документов
-     вашего веб-сервера. В нашем примере это "/web/www.mydomain.com/docs/".
+     вашего веб-сервера. В нашем примере это <filename
+     class="directory">/web/www.example.com/docs/</filename>.
      Так как доступ к директориям Smarty получает только библиотека Smarty
      и они никогда не запрашиваются напрямую веб-браузером, вам рекомендуется
      вынести директории Smarty <emphasis>за пределы</emphasis> корневой
@@ -256,12 +264,14 @@ $smarty = new Smarty;
      имя в именах директорий. Вы можете использовать те же настройки с любым
      другим приложением, просто меняя "guestbook" на имя вашего приложения.
      Мы же разместим наши директории Smarty тут:
-     "/web/www.mydomain.com/smarty/guestbook/".
+     <filename
+     class="directory">web/www.example.com/smarty/guestbook/</filename>
     </para>
    <para>
     Вам понадобится как минимум один файл в корневой директории для документов
     - это скрипт, к которому обращается веб-браузер. Мы назовём наш скрипт
-    "index.php" и поместим его в поддиректорию "/guestbook/" корневой директории
+    <filename>index.php</filename> и поместим его в поддиректорию
+    <filename class="directory">/guestbook/</filename> корневой директории
     для документов.
    </para>
 
@@ -270,7 +280,7 @@ $smarty = new Smarty;
     <para>
      Бывает удобно настроить веб-сервер так, чтобы "index.php" расценивался
      как индексный файл дирекотрии по умолчанию, чтобы при запросе страницы
-     "http://www.mydomain.com/guestbook/", вызывался скрипт index.php без
+     "http://www.example.com/guestbook/", вызывался скрипт index.php без
      "index.php" в конце адресной строки. В веб-сервере Apache вы можете
      настроить это, добавив "index.php" в конец директивы DirectoryIndex
      (записи разделяются пробелами).
@@ -292,12 +302,12 @@ $smarty = new Smarty;
 /usr/local/lib/php/Smarty/internals/*.php
 /usr/local/lib/php/Smarty/plugins/*.php
 
-/web/www.mydomain.com/smarty/guestbook/templates/
-/web/www.mydomain.com/smarty/guestbook/templates_c/
-/web/www.mydomain.com/smarty/guestbook/configs/
-/web/www.mydomain.com/smarty/guestbook/cache/
+/web/www.example.com/smarty/guestbook/templates/
+/web/www.example.com/smarty/guestbook/templates_c/
+/web/www.example.com/smarty/guestbook/configs/
+/web/www.example.com/smarty/guestbook/cache/
 
-/web/www.mydomain.com/docs/guestbook/index.php
+/web/www.example.com/docs/guestbook/index.php
 ]]>
     </screen>
    </example>
@@ -316,11 +326,11 @@ $smarty = new Smarty;
     <title>Установка прав доступа к файлам</title>
     <programlisting role="shell">
 <![CDATA[
-chown nobody:nobody /web/www.mydomain.com/smarty/guestbook/templates_c/
-chmod 770 /web/www.mydomain.com/smarty/guestbook/templates_c/
+chown nobody:nobody /web/www.example.com/smarty/guestbook/templates_c/
+chmod 770 /web/www.example.com/smarty/guestbook/templates_c/
 
-chown nobody:nobody /web/www.mydomain.com/smarty/guestbook/cache/
-chmod 770 /web/www.mydomain.com/smarty/guestbook/cache/
+chown nobody:nobody /web/www.example.com/smarty/guestbook/cache/
+chmod 770 /web/www.example.com/smarty/guestbook/cache/
 ]]>
     </programlisting>
    </example>
@@ -341,7 +351,7 @@ chmod 770 /web/www.mydomain.com/smarty/guestbook/cache/
    </para>
 
    <example>
-    <title>Редактирование /web/www.mydomain.com/smarty/guestbook/templates/index.tpl</title>
+    <title>Редактирование /web/www.example.com/smarty/guestbook/templates/index.tpl</title>
     <screen>
 <![CDATA[
 
@@ -372,7 +382,7 @@ Hello, {$name}!
    </para>
 
    <example>
-    <title>Редактироение /web/www.mydomain.com/docs/guestbook/index.php</title>
+    <title>Редактироение /web/www.example.com/docs/guestbook/index.php</title>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -382,10 +392,10 @@ require('Smarty.class.php');
 
 $smarty = new Smarty;
 
-$smarty->template_dir = '/web/www.mydomain.com/smarty/guestbook/templates/';
-$smarty->compile_dir = '/web/www.mydomain.com/smarty/guestbook/templates_c/';
-$smarty->config_dir = '/web/www.mydomain.com/smarty/guestbook/configs/';
-$smarty->cache_dir = '/web/www.mydomain.com/smarty/guestbook/cache/';
+$smarty->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
+$smarty->compile_dir = '/web/www.example.com/smarty/guestbook/templates_c/';
+$smarty->config_dir = '/web/www.example.com/smarty/guestbook/configs/';
+$smarty->cache_dir = '/web/www.example.com/smarty/guestbook/cache/';
 
 $smarty->assign('name','Ned');
 
@@ -399,17 +409,18 @@ $smarty->display('index.tpl');
     <title>Техническое замечание</title>
     <para>
      В нашем примере мы устанавливаем абсолютные пути ко всем директориям
-     Smarty. Если '/web/www.mydomain.com/smarty/guestbook/' находится в
-     include_path вашего PHP, то эти настройки не обязательны. Тем не менее,
-     более эффективным и (из опыта) менее глюкоопасным является использование
-     абсолютных путей. Это придаст уверенность в том, что Smarty получает файлы
-     из тех директорий, из которых вы хотите.
+     Smarty. Если <filename
+     class="directory">/web/www.example.com/smarty/guestbook/</filename>
+     находится в include_path вашего PHP, то эти настройки не обязательны.
+     Тем не менее, более эффективным и (из опыта) менее глюкоопасным является
+     использование абсолютных путей. Это придаст уверенность в том, что Smarty
+     получает файлы из тех директорий, из которых вы хотите.
     </para>
    </note>
 
    <para>
-    Теперь загрузите файл index.php из вашего веб-браузера.
-    Вы должны увидеть надпись "Hello, Ned!"
+    Теперь загрузите файл <filename>index.php</filename> из вашего
+    веб-браузера. Вы должны увидеть надпись "Hello, Ned!"
    </para>
    <para>
     Вы закончили базовую установку Smarty!
@@ -429,9 +440,9 @@ $smarty->display('index.tpl');
     того, чтобы постоянно устанавливать пути директорий, присваивать одни и те
     же переменные и т.д., мы можем всё это сделать в одном месте.
     Давайте создадим новую директорию "/php/includes/guestbook/",а в ней -
-    новый файл, который назовем "setup.php". По условиям нашего примера,
-    "/php/includes" находится в include_path. Убедитесь, чтобы то же самое было
-    и у вас, или используетй абсолютные пути.
+    новый файл, который назовем <filename>setup.php</filename>. По условиям
+    нашего примера, "/php/includes" находится в include_path. Убедитесь, чтобы
+    то же самое было и у вас, или используетй абсолютные пути.
    </para>
 
    <example>
@@ -453,17 +464,18 @@ class Smarty_GuestBook extends Smarty {
    function Smarty_GuestBook()
    {
 
-        // Конструктор класса. Он автоматически вызывается при создании нового экземпляра.
+        // Конструктор класса.
+        // Он автоматически вызывается при создании нового экземпляра.
 
         $this->Smarty();
 
-        $this->template_dir = '/web/www.mydomain.com/smarty/guestbook/templates/';
-        $this->compile_dir = '/web/www.mydomain.com/smarty/guestbook/templates_c/';
-        $this->config_dir = '/web/www.mydomain.com/smarty/guestbook/configs/';
-        $this->cache_dir = '/web/www.mydomain.com/smarty/guestbook/cache/';
+        $this->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
+        $this->compile_dir  = '/web/www.example.com/smarty/guestbook/templates_c/';
+        $this->config_dir   = '/web/www.example.com/smarty/guestbook/configs/';
+        $this->cache_dir    = '/web/www.example.com/smarty/guestbook/cache/';
 
         $this->caching = true;
-        $this->assign('app_name','Guest Book');
+        $this->assign('app_name', 'Guest Book');
    }
 
 }
@@ -477,7 +489,7 @@ class Smarty_GuestBook extends Smarty {
   </para>
 
   <example>
-   <title>Редактирование /web/www.mydomain.com/docs/guestbook/index.php</title>
+   <title>Редактирование /web/www.example.com/docs/guestbook/index.php</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -496,8 +508,8 @@ $smarty->display('index.tpl');
 
   <para>
    Теперь вы видите, что создать экземпляр Smarty довольно просто - нужно лишь
-   использовать Smarty_GuestBook, который автоматически инициализирует все настройки
-   для нашего приложения.
+   использовать Smarty_GuestBook, который автоматически инициализирует все
+   настройки для нашего приложения.
   </para>
 
   </sect1>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.popup">
  <title>popup</title>
   <informaltable frame="all">
@@ -14,7 +14,7 @@
     <row>
      <entry>Имя атрибута</entry>
      <entry>Тип</entry>
-     <entry>Обязателен</entry>       
+     <entry>Обязателен</entry>
      <entry>По умолчанию</entry>
      <entry>Описание</entry>
     </row>
@@ -25,16 +25,18 @@
      <entry>string</entry>
      <entry>Да</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>HTML код (текст), который будет выводиться 
-     в высплывающем окне.</entry>
+     <entry>
+      HTML код (текст), который будет выводиться в высплывающем окне.
+     </entry>
     </row>
     <row>
      <entry>trigger</entry>
      <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>onMouseOver</emphasis></entry>
-     <entry>Способ вызова окна. Может быть либо 
-     onMouseOver, либо onClick</entry>
+     <entry>
+      Способ вызова окна. Может быть либо onMouseOver, либо onclick
+     </entry>
     </row>
     <row>
      <entry>sticky</entry>
@@ -167,7 +169,7 @@
      <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>false</emphasis></entry>
-     <entry>создает окно выше курсора мыши. ЗАМЕЧАНИЕ: возможно 
+     <entry>создает окно выше курсора мыши. ЗАМЕЧАНИЕ: возможно
      только если указан атрибут height</entry>
     </row>
     <row>
@@ -203,19 +205,23 @@
      <entry>url to image</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>определяет фоновое изображение текста, 
-     вместо fgcolor.</entry>
+     <entry>
+      определяет фоновое изображение текста,
+      вместо fgcolor.
+     </entry>
     </row>
     <row>
      <entry>bgbackground</entry>
      <entry>url to image</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>определяет фоновое изображение для границ окна, 
-     вместо bgcolor.  ЗАМЕЧАНИЕ: Может понадобиться установить 
-     bgcolor в "" или будет показан цвет, а не зиображение. 
-     ЗАМЕЧАНИЕ: При наличии ссылки "Close" Netscape перерисовывает
-     ячейки таблицы, что приводит к некорректному отображению.</entry>
+     <entry>
+      определяет фоновое изображение для границ окна, вместо bgcolor.
+      ЗАМЕЧАНИЕ: Может понадобиться установить bgcolor в "" или будет
+      показан цвет, а не зиображение.
+      ЗАМЕЧАНИЕ: При наличии ссылки "Close" Netscape перерисовывает
+      ячейки таблицы, что приводит к некорректному отображению.
+     </entry>
     </row>
     <row>
      <entry>closetext</entry>
@@ -243,33 +249,41 @@
      <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>установить значение строки статуса в браузере 
-     в текст окна. ЗАМЕЧАНИЕ: отменяет значение status</entry>
+     <entry>
+      установить значение строки статуса в браузере в текст окна.
+      ЗАМЕЧАНИЕ: отменяет значение status
+     </entry>
     </row>
     <row>
      <entry>autostatuscap</entry>
      <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>установить значение строки статуса в браузере 
-     в текст заголовка. ЗАМЕЧАНИЕ: отменяет начение autostatus</entry>
+     <entry>
+      установить значение строки статуса в браузере в текст заголовка.
+      ЗАМЕЧАНИЕ: отменяет начение autostatus
+     </entry>
     </row>
     <row>
      <entry>inarray</entry>
      <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
- <entry>указывает, что текст окна следует взять из указанного
- элемента массива ol_text, расположенного в overlib.js. Этот 
- параметр может использоваться вместо text</entry>
+     <entry>
+      указывает, что текст окна следует взять из указанного элемента массива
+      ol_text, расположенного в overlib.js. Этот параметр может использоваться
+      вместо text
+     </entry>
     </row>
     <row>
      <entry>caparray</entry>
      <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>указывает, что заголовок окна следует взять из 
-     указанного элемента массива ol_caps</entry>
+     <entry>
+      указывает, что заголовок окна следует взять из указанного элемента
+      массива ol_caps
+     </entry>
     </row>
     <row>
      <entry>capicon</entry>
@@ -297,18 +311,20 @@
      <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>закрепляет горизонтальное положение окна. 
-     Замечание: отменяет все остальные параметры
-     горизонтального положения</entry>
+     <entry>
+      закрепляет горизонтальное положение окна.
+      ЗАМЕЧАНИЕ: отменяет все остальные параметры горизонтального положения
+     </entry>
     </row>
     <row>
      <entry>fixy</entry>
      <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>закрепляет вертикалнное положение окна. 
-     Замечание: отменяет все остальные параметры
-     вертикального положения</entry>
+     <entry>
+      закрепляет вертикалнное положение окна.
+      ЗАМЕЧАНИЕ: отменяет все остальные параметры вертикального положения
+     </entry>
     </row>
     <row>
      <entry>background</entry>
@@ -322,74 +338,84 @@
      <entry>integer,integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>дополняет фоновое изображение горизонтальными 
-     отступами к тексту. Обратите внимание: этот параметр 
-     принимает два значения</entry>
+     <entry>
+      дополняет фоновое изображение горизонтальными отступами к тексту.
+      ЗАМЕЧАНИЕ: этот параметр принимает два значения</entry>
     </row>
     <row>
      <entry>pady</entry>
      <entry>integer,integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>дополняет фоновое изображение вертикальными
-     отступами к тексту. Обратите внимание: этот параметр 
-     принимает два значения</entry>
+     <entry>
+      дополняет фоновое изображение вертикальными отступами к тексту.
+      ЗАМЕЧАНИЕ: этот параметр принимает два значения</entry>
     </row>
     <row>
      <entry>fullhtml</entry>
      <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Позволяет полностью контролировать HTML над 
-     фоновым изображением. HTML код ожидается в 
-     параметре text</entry>
+     <entry>
+      Позволяет полностью контролировать HTML над фоновым изображением.
+      HTML код ожидается в параметре text
+     </entry>
     </row>
     <row>
      <entry>frame</entry>
      <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Контролировать высплывающие окна в различных
-     фрэймах. См. сайт overlib для дополнительной информации
-     по этой функции</entry>
+     <entry>
+      Контролировать высплывающие окна в различных фрэймах.
+      См. сайт overlib для дополнительной информации по этой функции
+     </entry>
     </row>
     <row>
      <entry>timeout</entry>
      <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>вызывает указанную javascript функцию и 
-     использует результат как текст окна</entry>
+     <entry>
+      вызывает указанную javascript функцию и использует результат
+      как текст окна
+     </entry>
     </row>
     <row>
      <entry>delay</entry>
      <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>время жизни окна в милисекундах. Позволяет
-     реализовывать высплывающие подсказки.</entry>
+     <entry>
+      время жизни окна в милисекундах. Позволяет реализовывать
+      высплывающие подсказки.
+     </entry>
     </row>
     <row>
      <entry>hauto</entry>
      <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>автоматическое опредление горизонтального 
-     местоположения окна относительно мыши.</entry>
+     <entry>
+      автоматическое опредление горизонтального местоположения окна
+      относительно мыши.
+     </entry>
     </row>
     <row>
      <entry>vauto</entry>
      <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>автоматическое опредление вертикального
-     местоположения окна относительно мыши.</entry>
+     <entry>
+      автоматическое опредление вертикального местоположения окна
+      относительно мыши.
+     </entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
  <para>
-  функция popup используется для генерации javascript кода, 
+  функция popup используется для генерации javascript кода,
   который создаст высплывающее окно.
  </para>
  <example>
@@ -400,11 +426,11 @@
 {popup_init src="/javascripts/overlib.js"}
 
 {* создаем ссылку с всплывающим окном, которое появляеться при наведении мыши *}
-<A href="mypage.html" {popup text="This link takes you to my page!"}>mypage</A>
+<a href="mypage.html" {popup text="This link takes you to my page!"}>mypage</A>
 
 {* можно использовать html, ссылки и т.п. в высплывающем окне *}
-<A href="mypage.html" {popup sticky=true caption="mypage contents"
-text="<UL><LI>links<LI>pages<LI>images</UL>" snapx=10 snapy=10}>mypage</A>
+<a href="mypage.html" {popup sticky=true caption="mypage contents"
+text="<ul><li>links</li><li>pages</li><li>images</li></ul>" snapx=10 snapy=10}>mypage</A>
 
 ]]>
   </programlisting>

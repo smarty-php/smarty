@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.include">
  <title>include</title>
  <informaltable frame="all">
@@ -14,7 +14,7 @@
    <row>
     <entry>Имя атрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -48,12 +48,12 @@
  </informaltable>
  <para>
   Тэги include используются для включения других шаблонов в текущий.
-  Любые переменные, доступные в текущем шаблоне, доступны и во 
-  включаемом. Тэг include должен иметь атрибут "file", который 
+  Любые переменные, доступные в текущем шаблоне, доступны и во
+  включаемом. Тэг include должен иметь атрибут "file", который
   указывает имя ресурса шаблона.
  </para>
  <para>
-  Опциональный атрибут <emphasis>assign</emphasis> указывает, что 
+  Опциональный атрибут <emphasis>assign</emphasis> указывает, что
   вывод шаблона будет присвоен переменной вместо отображения.
  </para>
  <example>
@@ -68,13 +68,13 @@
 ]]>
   </programlisting>
  </example>
-	<para>
-  Вы также можете передать переменные в подключаемый шаблон в 
-  виде атрибутов. Любая переменная, переданная в подключаемый 
-  шаблон, доступны только в области видимости подключаемого 
-  файла. Переданные переменные имеют преимущество перед 
+ <para>
+  Вы также можете передать переменные в подключаемый шаблон в
+  виде атрибутов. Любая переменная, переданная в подключаемый
+  шаблон, доступны только в области видимости подключаемого
+  файла. Переданные переменные имеют преимущество перед
   существующими переменными с аналогичными именами.
-	</para>
+ </para>
  <example>
   <title>функция include: передача переменных</title>
   <programlisting>
@@ -83,15 +83,15 @@
 
 {* тело шаблона *}
 
-{include file="footer.tpl" logo="http://my.domain.com/logo.gif"}
+{include file="footer.tpl" logo="http://my.example.com/logo.gif"}
 ]]>
   </programlisting>
  </example>
-	<para>
-		Для подключения файлов вне папки $template_dir можно
-		указывать файл с помощью <link 
-		linkend="template.resources">ресурсов</link>.
-	</para>
+ <para>
+  Для подключения файлов вне папки $template_dir можно
+  указывать файл с помощью <link
+  linkend="template.resources">ресурсов</link>.
+ </para>
  <example>
   <title>функция include: пример использвоания ресурсов</title>
   <programlisting>
@@ -131,4 +131,3 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
-

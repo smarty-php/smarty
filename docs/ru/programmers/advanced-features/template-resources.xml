@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="template.resources">
  <title>Ресурсы</title>
  <para>
-  Шаблоны можно получать из самых разных источников. Когда вы отображаете, вызываете
-  или подключаете один шаблон из другого, вы указываете тип ресурса, вместе с 
-  соответствующим путём и названием шаблона.
+  Шаблоны можно получать из самых разных источников. Когда вы отображаете,
+  вызываете или подключаете один шаблон из другого, вы указываете тип ресурса,
+  вместе с соответствующим путём и названием шаблона.
  </para>
- 
+
  <sect2 id="templates.from.template.dir">
   <title>Шаблоны из папки $template_dir</title>
   <para>
-   Шаблоны, лежащие в папке $template_dir, не требуют при вызове указания 
+   Шаблоны, лежащие в папке $template_dir, не требуют при вызове указания
    типа ресурса, хотя вы можете использовать префикс file: для сохранения
-   стиля. Для вызова просто укажите относительный от $template_dir путь к шаблону.
+   стиля. Для вызова просто укажите относительный от $template_dir путь к
+   шаблону.
   </para>
   <example>
    <title>Вызов шаблона из папки $template_dir</title>
-   <programlisting>
+   <programlisting role="php">
 <![CDATA[
-// PHP скрипт
+<?php
 $smarty->display("index.tpl");
 $smarty->display("admin/menu.tpl");
-$smarty->display("file:admin/menu.tpl"); // тоже самое, что и строкой выше 
+$smarty->display("file:admin/menu.tpl"); // тоже самое, что и строкой выше
 
 {* код в шаблоне *}
 {include file="index.tpl"}
@@ -32,13 +33,13 @@ $smarty->display("file:admin/menu.tpl"); // тоже самое, что и строкой выше
    </programlisting>
   </example>
  </sect2>
- 
+
  <sect2 id="templates.from.any.dir">
   <title>Шаблоны из произвольной папки</title>
   <para>
    Для вызова шаблонов из папки вне $template_dir необходимо
-   использовать префикс file: с последующим указанием асболютного 
-   пути и имени шаблона. 
+   использовать префикс file: с последующим указанием асболютного
+   пути и имени шаблона.
   </para>
   <example>
    <title>Вызов шаблона из произвольной папки</title>
@@ -47,29 +48,43 @@ $smarty->display("file:admin/menu.tpl"); // тоже самое, что и строкой выше
 // PHP скрипт
 $smarty->display("file:/export/templates/index.tpl");
 $smarty->display("file:/path/to/my/templates/menu.tpl");
-
-{* код в шаблоне *}
+?>
+]]>
+   </programlisting>
+   <para>
+    А изнутри шаблона Smarty:
+   </para>
+   <programlisting>
+<![CDATA[
 {include file="file:/usr/local/share/templates/navigation.tpl"}
 ]]>
    </programlisting>
   </example>
-  <sect3>
-   <title>Пути в Windows</title>
+
+  <sect3 id="templates.windows.filepath">
+   <title>Файловые пути в Windows</title>
    <para>
     Если вы работаете под Windows, то пути к файлам, как правило,
     начинаются с буквы логического диска (например, C:). Не забудьте
-    указать префикс "file:" в начале пути, чтобы избежать проблем с именами
-    и достичь необходимого результата. 
+    указать префикс "file:" в начале пути, чтобы избежать конфликтов
+    имён и достичь необходимого результата.
    </para>
    <example>
-    <title>Вызов шаблона под windows</title>
-    <programlisting>
+    <title>использование шаблонов с файловіми путями Windows</title>
+    <programlisting role="php">
 <![CDATA[
+<?php
 // PHP скрипт
 $smarty->display("file:C:/export/templates/index.tpl");
 $smarty->display("file:F:/path/to/my/templates/menu.tpl");
-
-{* код в шаблоне *}
+?>
+]]>
+    </programlisting>
+    <para>
+     А изнутри шаблона Smarty:
+    </para>
+    <programlisting>
+<![CDATA[
 {include file="file:D:/usr/local/share/templates/navigation.tpl"}
 ]]>
     </programlisting>
@@ -82,30 +97,29 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
   <para>
    Вы можете вызывать шаблоны, используя любые доступные через PHP источники:
    базы данных, сокеты, LDAP и так далее.
-   Для этого нужно написать соответствующий плагин ресурса и зарегистрировать 
-   его для Smarty.
+   Для этого нужно написать соответствующий плагин ресурса и зарегистрировать
+   его в Smarty.
   </para>
 
   <para>
    Смотрите раздел <link linkend="plugins.resources">плагины ресурсов</link>
-   для более подробной информации о соответствующих функциях.
+   для более подробной информации о тех функциях, которые вы должны
+   предоставить.
   </para>
 
   <note>
    <para>
-    Обратите внимание на то, что вы не можете переопределить встроенный ресурс 
-    <literal>file</literal>, но в ваших силах написать и зарегистрировать ресурс с 
-    другим именем, который будет использовать другой способ вызова шаблонов из 
+    Обратите внимание на то, что вы не можете переопределить встроенный ресурс
+    <literal>file</literal>, но в ваших силах написать и зарегистрировать ресурс с
+    другим именем, который будет использовать другой способ вызова шаблонов из
     файловой системы.
    </para>
   </note>
   <example>
-   <title>Использование своих ресурсов</title>
-   <programlisting>
+   <title>Использование собственных ресурсов</title>
+   <programlisting role="php">
 <![CDATA[
-// PHP скрипт
-
-// код в вашем скрипте 
+// код в вашем скрипте
 function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
 {
     // обращаемся к базе, запрашиваем код шаблона,
@@ -139,7 +153,7 @@ function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
 
 function db_get_secure($tpl_name, &$smarty_obj)
 {
-    // предполагаем, что наши шаблоны совершенно безопасны 
+    // предполагаем, что наши шаблоны совершенно безопасны
     return true;
 }
 
@@ -148,7 +162,7 @@ function db_get_trusted($tpl_name, &$smarty_obj)
     // не используется для шаблонов
 }
 
-// регистрируем ресурс "db"
+// регистрируем ресурс под именем "db"
 $smarty->register_resource("db", array("db_get_template",
                                        "db_get_timestamp",
                                        "db_get_secure",
@@ -156,8 +170,14 @@ $smarty->register_resource("db", array("db_get_template",
 
 // используем ресурс из PHP скрипта
 $smarty->display("db:index.tpl");
-
-{* используем ресурс из шаблона *}
+?>
+]]>
+    </programlisting>
+    <para>
+     А изнутри шаблона Smarty:
+    </para>
+    <programlisting>
+<![CDATA[
 {include file="db:/extras/navigation.tpl"}
 ]]>
    </programlisting>
@@ -167,17 +187,17 @@ $smarty->display("db:index.tpl");
  <sect2 id="default.template.handler.function">
   <title>Функция для обработки шаблона по умолчанию</title>
   <para>
-   Вы можете определить функцию, которая будет использована, 
-   если шаблон не может быть вызван из соответствующего ресурса. 
+   Вы можете определить функцию, которая будет использована,
+   если шаблон не может быть вызван из соответствующего ресурса.
    Это можно использовать, к примеру, для построения недостающего
    шаблона на лету.
   </para>
   <example>
    <title>использование функции для обработки шаблона по умолчанию</title>
-   <programlisting>
+   <programlisting role="php">
 <![CDATA[
 <?php
-// код в вашем скрипте 
+// код в вашем скрипте
 
 function make_template ($resource_type, $resource_name, &$template_source, &$template_timestamp, &$smarty_obj)
 {

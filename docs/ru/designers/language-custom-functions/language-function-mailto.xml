@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.mailto">
  <title>mailto</title>
  <informaltable frame="all">
@@ -14,7 +14,7 @@
    <row>
     <entry>Имя атрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -32,7 +32,7 @@
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>название ссылки. По умолчанию: 
+    <entry>название ссылки. По умолчанию:
     адрес e-mail</entry>
    </row>
    <row>
@@ -95,16 +95,16 @@
   </tgroup>
  </informaltable>
  <para>
-  пользовательская функция mailto автоматизирует создание ссылок 
-  на e-mail адреса с возможностью кодирования их. Кодирование 
-  усложняет работу web-пауков, которые собирают e-mail адреса 
+  пользовательская функция mailto автоматизирует создание ссылок
+  на e-mail адреса с возможностью кодирования их. Кодирование
+  усложняет работу web-пауков, которые собирают e-mail адреса
   с вашего сайта.
  </para>
  <note>
   <title>Техническое Замечание</title>
   <para>
    javascript - скорее всего наиболее полная форма кодирования,
-   хотя вы так же можете использовать шестнадцатиричное 
+   хотя вы так же можете использовать шестнадцатиричное
    кодирование.
   </para>
  </note>
@@ -112,27 +112,27 @@
   <title>mailto</title>
   <programlisting>
 <![CDATA[
-{mailto address="me@domain.com"}
-{mailto address="me@domain.com" text="send me some mail"}
-{mailto address="me@domain.com" encode="javascript"}
-{mailto address="me@domain.com" encode="hex"}
-{mailto address="me@domain.com" subject="Hello to you!"}
-{mailto address="me@domain.com" cc="you@domain.com,they@domain.com"}
-{mailto address="me@domain.com" extra='class="email"'}
+{mailto address="me@example.com"}
+{mailto address="me@example.com" text="send me some mail"}
+{mailto address="me@example.com" encode="javascript"}
+{mailto address="me@example.com" encode="hex"}
+{mailto address="me@example.com" subject="Hello to you!"}
+{mailto address="me@example.com" cc="you@example.com,they@example.com"}
+{mailto address="me@example.com" extra='class="email"'}
 
 OUTPUT:
 
-<a href="mailto:me@domain.com" >me@domain.com</a>
-<a href="mailto:me@domain.com" >send me some mail</a>
+<a href="mailto:me@example.com" >me@example.com</a>
+<a href="mailto:me@example.com" >send me some mail</a>
 <SCRIPT language="javascript">eval(unescape('%64%6f%63%75%6d%65%6e%74%2e%77%72%6
 9%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%64%6f%6d%
 61%69%6e%2e%63%6f%6d%22%20%3e%6d%65%40%64%6f%6d%61%69%6e%2e%63%6f%6d%3c%2f%61%3e
 %27%29%3b'))</SCRIPT>
 <a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" >&#x6d;&#x65;&#x40;&#x64;&
 #x6f;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;</a>
-<a href="mailto:me@domain.com?subject=Hello%20to%20you%21" >me@domain.com</a>
-<a href="mailto:me@domain.com?cc=you@domain.com%2Cthey@domain.com" >me@domain.com</a>
-<a href="mailto:me@domain.com" class="email">me@domain.com</a>
+<a href="mailto:me@example.com?subject=Hello%20to%20you%21" >me@example.com</a>
+<a href="mailto:me@example.com?cc=you@example.com%2Cthey@example.com" >me@example.com</a>
+<a href="mailto:me@example.com" class="email">me@example.com</a>
 ]]>
   </programlisting>
  </example>

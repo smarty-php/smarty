@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.fetch">
  <title>fetch</title>
  <informaltable frame="all">
@@ -14,7 +14,7 @@
    <row>
     <entry>Имя атрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -38,30 +38,30 @@
   </tgroup>
  </informaltable>
  <para>
-  fetch используется для отображения локальных файлов, http или ftp 
+  fetch используется для отображения локальных файлов, http или ftp
   страниц. Если файл начинается с "http://", то вебстраница будет
-  получена и выведена. Если файл начинается с "ftp://", то файл будет 
-  получен с ftp сервера и выведен. Для локальных файлов должен быть 
-  указан либо абсолютный путь, либо путь относительно выполняемого 
+  получена и выведена. Если файл начинается с "ftp://", то файл будет
+  получен с ftp сервера и выведен. Для локальных файлов должен быть
+  указан либо абсолютный путь, либо путь относительно выполняемого
   php файла.
  </para>
  <para>
-  Если указать специалньый атрибут "assign", то вывод функции fetch 
-  будет присвоен переменной вместо отображения. Добавлено в 
+  Если указать специалньый атрибут "assign", то вывод функции fetch
+  будет присвоен переменной вместо отображения. Добавлено в
   Smarty версии 1.5.0.
  </para>
  <note>
   <title>Техническое Замечание</title>
   <para>
-   HTTP переадресация не поддерживается. Убедитесь, что указываете 
+   HTTP переадресация не поддерживается. Убедитесь, что указываете
    завершающие слэши, где это необходимо.
   </para>
  </note>
  <note>
   <title>Техническое Замечание</title>
   <para>
-   Если включена security и указан файл из локальной файловой 
-   системы, то отобразятся лишь файлы, который находятся в 
+   Если включена security и указан файл из локальной файловой
+   системы, то отобразятся лишь файлы, который находятся в
    указаных безопасных папках ($secure_dir).
   </para>
  </note>
@@ -70,20 +70,20 @@
   <programlisting>
 <![CDATA[
 {* включаем javascript в шаблон *}
-{fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
+{fetch file="/export/httpd/www.example.com/docs/navbar.js"}
 
 {* Добавляем немного прогноза погоды с сервера погоды *}
 {fetch file="http://www.myweather.com/68502/"}
 
 {* новостную ленту берем с ftp сервера *}
-{fetch file="ftp://user:password@ftp.domain.com/path/to/currentheadlines.txt"}
+{fetch file="ftp://user:password@ftp.example.com/path/to/currentheadlines.txt"}
 
 {* присваиваем полученный файл переменной *}
 {fetch file="http://www.myweather.com/68502/" assign="weather"}
 {if $weather ne ""}
 	&lt;b&gt;{$weather}&lt;/b&gt;
 {/if}
-]]> 
+]]>
   </programlisting>
  </example>
 </sect1>

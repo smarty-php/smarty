@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <chapter id="tips">
  <title>Советы</title>
   <sect1 id="tips.blank.var.handling">
   <title>Обработка пустых переменных</title>
   <para>
-   Иногда, например, для того чтобы фон таблицы работал корректно, 
-   необходимо вывести вместо пустого значения переменной, значение 
+   Иногда, например, для того чтобы фон таблицы работал корректно,
+   необходимо вывести вместо пустого значения переменной, значение
    по умолчанию "&amp;nbsp;". Многие бы использовали конструкцию {if},
    но есть более короткий путь в Smatry используя <emphasis>default</emphasis>
    модификатор переменной.
@@ -35,7 +35,7 @@
 <sect1 id="tips.default.var.handling">
  <title>Обработка переменных по умолчанию</title>
  <para>
-  Если переменная встречается часто, то использование модификатора 
+  Если переменная встречается часто, то использование модификатора
   default каждый раз можно избежать, используя функцию
   <link linkend="language.function.assign">assign</link>.
  </para>
@@ -55,9 +55,9 @@
 <sect1 id="tips.passing.vars">
  <title>Присвоение переменной заголовка (title) заголовку шаблона.</title>
   <para>
-   Если большинство ваших шаблонов имеют похожие верхние и нижние 
-   части, то имеет смысл вынести их в отдельные файлы. Но если 
-   шапка должна иметь различные заголовки на различных страницах? 
+   Если большинство ваших шаблонов имеют похожие верхние и нижние
+   части, то имеет смысл вынести их в отдельные файлы. Но если
+   шапка должна иметь различные заголовки на различных страницах?
    Смотрите пример ниже.
   </para>
 <example>
@@ -99,7 +99,7 @@ footer.tpl
 </example>
  <para>
   Если выводится главная страница, то заголовок будет "Main Page",
-  если архивы, то заголовк берется из файла конфигурации. Если 
+  если архивы, то заголовк берется из файла конфигурации. Если
   заголовок будет пустой, то выведется значение по умолчанию "BC News".
  </para>
 </sect1>
@@ -109,7 +109,7 @@ footer.tpl
   Обычно даты в Smarty всегда передаются как временные метки, что
   позволяет проектировщикам шаблонов использовать <link
 		linkend="language.modifier.date.format">date_format</link>
-  для полного контроля над форматированием даты и также делает легким 
+  для полного контроля над форматированием даты и также делает легким
 		сравнение дат там, где это необходимо.
  </para>
    <note>
@@ -193,10 +193,10 @@ function makeTimeStamp($year="", $month="", $day="")
  <title>WAP/WML</title>
  <para>
   WAP/WML шаблоны требуют, чтобы заголовок Content-type был
-  передан вместе с шаблоном. Простейший путь - написать 
-  пользовательскую функцию, которая будет выводить заголовки. 
-  Так как мы будем пользоваться тэгами insert, то заголовки не будут 
-  кэшироваться. Так же ничего не должно выводиться в браузер до 
+  передан вместе с шаблоном. Простейший путь - написать
+  пользовательскую функцию, которая будет выводить заголовки.
+  Так как мы будем пользоваться тэгами insert, то заголовки не будут
+  кэшироваться. Так же ничего не должно выводиться в браузер до
   шаблона, иначе заголовки могут быть неправильно восприняты.
  </para>
 <example>
@@ -205,9 +205,9 @@ function makeTimeStamp($year="", $month="", $day="")
 <![CDATA[
 <?php
 
-// убедитесь, что apache настроен на обработку расширений .wml!                                    
+// убедитесь, что apache настроен на обработку расширений .wml!
 // добавьте эту функцию в своё приложение или в Smarty.addons.php
-function insert_header($params) 
+function insert_header($params)
 {
    // эта функция ожидает аргумент $content
    if (empty($params['content'])) {
@@ -227,27 +227,27 @@ function insert_header($params)
 <![CDATA[
 {insert name=header content="Content-Type: text/vnd.wap.wml"}
 
-<?xml version="1.0"?>  
-<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"> 
+<?xml version="1.0"?>
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">
 
-<!-- begin new wml deck --> 
-<wml> 
-<!-- begin first card --> 
-<card> 
-<do type="accept"> 
-<go href="#two"/> 
-</do>  
-<p> 
-Welcome to WAP with Smarty!
-Press OK to continue...  
-</p> 
-</card>  
-<!-- begin second card --> 
-<card id="two">  
-<p> 
-Pretty easy isn't it?
-</p> 
-</card> 
+<!-- begin new wml deck -->
+<wml>
+ <!-- begin first card -->
+ <card>
+  <do type="accept">
+   <go href="#two"/>
+  </do>
+  <p>
+   Welcome to WAP with Smarty!
+   Press OK to continue...
+  </p>
+ </card>
+ <!-- begin second card -->
+ <card id="two">
+  <p>
+   Pretty easy isn't it?
+  </p>
+ </card>
 </wml>
 ]]>
     </programlisting>
@@ -280,18 +280,18 @@ Pretty easy isn't it?
 // поместите файл "function.load_ticker.php" в директорию плагинов
 
 // настраиваем нашу функцию для получения информации о ценных бумагах
-function fetch_ticker($symbol) 
+function fetch_ticker($symbol)
 {
    // здесь находится логика формирования $ticker_info
    // из какого-то источника
    return $ticker_info;
 }
 
-function smarty_function_load_ticker($params, &$smarty) 
+function smarty_function_load_ticker($params, &$smarty)
 {
    // вызываем функцию
    $ticker_info = fetch_ticker($params['symbol']);
-   
+
    // присваиваем переменную шаблона
    $smarty->assign($params['assign'], $ticker_info);
 }
@@ -300,10 +300,7 @@ function smarty_function_load_ticker($params, &$smarty)
     </programlisting>
     <programlisting>
 <![CDATA[
-index.tpl
----------
-
-{* Smarty *}
+{* in index.tpl *}
 
 {load_ticker symbol="YHOO" assign="ticker"}
 
@@ -327,8 +324,7 @@ index.tpl
     <title>Пример сокрытия e-mail адреса</title>
     <programlisting>
 <![CDATA[
-index.tpl
----------
+{* in index.tpl *}
 
 По вопросам обращайтесь на
 {mailto address=$EmailAddress encode="javascript" subject="Hello"}
