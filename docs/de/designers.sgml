@@ -3355,7 +3355,7 @@ index.php:
 
  index.tpl:
 
- {html_checkboxes name="id" checkboxes=$cust_checkboxes checked=$customer_id separator="&lt;br /&gt;"}
+ {html_checkboxes name="id" options=$cust_checkboxes checked=$customer_id separator="&lt;br /&gt;"}
 
 
  AUSGABE: (Beide Beispiele)
@@ -3708,7 +3708,7 @@ AUSGABE (beide Beispiele):
 
  index.tpl:
 
- {html_radios name="id" radios=$cust_radios checked=$customer_id separator="&lt;br /&gt;"}
+ {html_radios name="id" options=$cust_radios checked=$customer_id separator="&lt;br /&gt;"}
 
 
  AUSGABE: (beide Beispiele)

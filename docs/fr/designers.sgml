@@ -3626,7 +3626,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{html_checkboxes name="id" checkboxes=$cust_checkboxes checked=$client_id separator="&lt;br /&gt;"}
+{html_checkboxes name="id" options=$cust_checkboxes checked=$client_id separator="&lt;br /&gt;"}
 
 
 SORTIE: (pour les deux exemples)
@@ -3997,7 +3997,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{html_radios name="id" radios=$cust_radios checked=$client_id separator="&lt;br /&gt;"}
+{html_radios name="id" options=$cust_radios checked=$client_id separator="&lt;br /&gt;"}
 
 
 SORTIE: (both examples)
