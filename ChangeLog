@@ -1,3 +1,8 @@
+2003-10-16  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml:
+      update overlib docs, no working examples
+
 2003-10-12  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
