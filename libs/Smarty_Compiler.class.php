@@ -402,6 +402,7 @@ class Smarty_Compiler extends Smarty {
 			return $this->_compile_registered_object_tag($tag_command, $this->_parse_attrs($tag_args), $tag_modifier);
 		}
 
+        $tag_command = strtolower($tag_command);
         switch ($tag_command) {
             case 'include':
                 return $this->_compile_include_tag($tag_args);
@@ -1598,7 +1599,7 @@ class Smarty_Compiler extends Smarty {
         list(, $_modifiers, $modifier_arg_strings) = $_match;
 
         for ($_i = 0, $_for_max = count($_modifiers); $_i < $_for_max; $_i++) {
-            $_modifier_name = $_modifiers[$_i];
+            $_modifier_name = strtolower($_modifiers[$_i]);
 			
 			if($_modifier_name == 'smarty') {
 				// skip smarty modifier

@@ -1,3 +1,5 @@
+  - made plugin-names case-insensitive. this affects compiler/block/custom-
+    functions and modifers. (messju)
   - remove unnecessary close/open tags from compiled templates
     (Monte)
   - fixed errornous creation of '//' in image_path in html_image (messju)
