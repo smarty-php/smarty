@@ -683,7 +683,7 @@ class Smarty
      */    
     function register_function($function, $function_impl)
     {
-        $this->_plugins['function'][strtolower($function)] =
+        $this->_plugins['function'][$function] =
             array($function_impl, null, null, false);
     }
 
@@ -694,7 +694,7 @@ class Smarty
      */    
     function unregister_function($function)
     {
-        unset($this->_plugins['function'][strtolower($function)]);
+        unset($this->_plugins['function'][$function]);
     }
 
     /**
@@ -732,7 +732,7 @@ class Smarty
      */    
     function register_block($block, $block_impl)
     {
-        $this->_plugins['block'][strtolower($block)] =
+        $this->_plugins['block'][$block] =
             array($block_impl, null, null, false);
     }
 
@@ -743,7 +743,7 @@ class Smarty
      */    
     function unregister_block($block)
     {
-        unset($this->_plugins['block'][strtolower($block)]);
+        unset($this->_plugins['block'][$block]);
     }
 
     /**
@@ -754,7 +754,7 @@ class Smarty
      */    
     function register_compiler_function($function, $function_impl)
     {
-        $this->_plugins['compiler'][strtolower($function)] =
+        $this->_plugins['compiler'][$function] =
             array($function_impl, null, null, false);
     }
 
@@ -765,7 +765,7 @@ class Smarty
      */    
     function unregister_compiler_function($function)
     {
-        unset($this->_plugins['compiler'][strtolower($function)]);
+        unset($this->_plugins['compiler'][$function]);
     }
 
     /**
@@ -776,7 +776,7 @@ class Smarty
      */    
     function register_modifier($modifier, $modifier_impl)
     {
-        $this->_plugins['modifier'][strtolower($modifier)] =
+        $this->_plugins['modifier'][$modifier] =
             array($modifier_impl, null, null, false);
     }
 
@@ -787,7 +787,7 @@ class Smarty
      */    
     function unregister_modifier($modifier)
     {
-        unset($this->_plugins['modifier'][strtolower($modifier)]);
+        unset($this->_plugins['modifier'][$modifier]);
     }
 
     /**

@@ -1,3 +1,4 @@
+  - reverted patch for case-insensitive tag-names (messju)
   - enabled array(&$obj. 'source', 'timestamp', 'secure', 'trusted')
     as callback for register_resource() (messju);
   - enabled array(&$obj, 'method') as callback for
