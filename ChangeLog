@@ -1,3 +1,50 @@
+2004-04-16  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS:
+      added entry for numeric constants
+
+    * libs/Smarty_Compiler.class.php:
+      removed unused 2nd param in call to _parse_var()
+
+    * libs/Smarty_Compiler.class.php:
+      added explanation for $this->_num_const_regexp
+
+    * NEWS
+      libs/plugins/modifier.escape.php:
+      added escape type "decentity" to smarty_modifier_escape()
+
+    * libs/Smarty_Compiler.class.php:
+      enabled numerical constants be parsed as statements.
+      (like {10} or {10|@range:12} )
+
+    * libs/Smarty_Compiler.class.php:
+      removed unused $smarty_compiler->_dvar_num_var_regexp
+
+    * libs/Smarty.class.php:
+      reverted Stuff
+
+    * libs/debug.tpl
+      libs/core/core.assemble_plugin_filepath.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.write_file.php
+      libs/plugins/function.eval.php
+      libs/plugins/function.popup.php
+      libs/plugins/modifier.escape.php
+      libs/plugins/shared.make_timestamp.php:
+      reverted stuff
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/debug.tpl
+      libs/core/core.assemble_plugin_filepath.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.write_file.php
+      libs/plugins/function.eval.php
+      libs/plugins/function.popup.php
+      libs/plugins/modifier.escape.php
+      libs/plugins/shared.make_timestamp.php:
+      Smarty_Compiler.class.php
+
 2004-04-15  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
