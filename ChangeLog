@@ -1,3 +1,14 @@
+2003-04-04  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      docs/designers.sgml
+      libs/Smarty_Compiler.class.php:
+      change backtic syntax from $`foo` to `$foo`
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      recognize $foo[][] syntax in embedded quotes without backticks
+
 2003-04-03  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
