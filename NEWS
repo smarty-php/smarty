@@ -1,3 +1,6 @@
+Version 2.6.2 (Feb 17, 2004)
+----------------------------
+
   - fix allow empty years, months and days in html_select_date's
     time-attribute (messju)
   - fix YES and NO should not be booleanized inside triple-quotes in a
