@@ -1,3 +1,3 @@
 <HTML>
-<BODY>
+<BODY bgcolor="#ffffff">
 <TITLE>{$title} - {$Name}</TITLE>

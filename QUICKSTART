@@ -42,7 +42,7 @@ Smarty needs to be able to write to the templates_c directory. It is
 recommended that you change the ownership and write permissions such that the
 web server user (usually nobody) has write access to this directory. You can
 chmod 777 the directory, but be aware of security concerns on multi-user
-systems.
+systems. See the documentation for more info on this.
 
 $> chown nobody:nobody templates_c
 $> chmod 700 templates_c

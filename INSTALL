@@ -23,3 +23,7 @@ INSTALLATION:
 
 * setup your php and template files. A good working example is included to get
   you started. Also see the QUICKSTART guide for some more examples.
+
+* TECHNICAL NOTE: If you do not have access to the php.ini file, you can change
+  non-server settings (such as your include_path) with the ini_set() command.
+  example: ini_set("include_path",".:/usr/local/lib/php");

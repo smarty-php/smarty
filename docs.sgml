@@ -168,17 +168,37 @@
 	<sect1>
 		<title>Installing Smarty</title>
 		<para>
-		Installing Smarty is fairly straightforward, there is just one thing
-		you must be aware of. Remember that Smarty creates compiled versions of
-		the template code.  This usually means allowing user "nobody" (or
-		whomever the web server runs as) to have permission to write the files.
-		Each installation of a Smarty application minimally needs a templates
-		directory and a compiled templates directory. If you use configuration
-		files you will also need a directory for those. By default these are
-		named "templates", and "templates_c" and "configs" respectively. If you
-		plan on using caching, you will need to create a "cache" directory, also
-		with permission to write files.
+        Installing Smarty is fairly straightforward, there is just one thing
+        you must be aware of. Smarty creates PHP scripts from the templates.
+        This usually means allowing user "nobody" (or whomever the web server
+        runs as) to have permission to write the files. Each installation of a
+        Smarty application minimally needs a templates directory and a compiled
+        templates directory. If you use configuration files you will also need
+        a directory for those. By default these are named "templates", and
+        "templates_c" and "configs" respectively. If you plan on using caching,
+        you will need to create a "cache" directory, also with permission to
+        write files.
 		</para>
+        <para>
+        TECHNICAL NOTE: You can get around the need to allow the web server
+        user write access to compile templates. Smarty needs to compile the
+        templates only once. This can be done from the command line, using the
+        CGI version of PHP. example: "php -q index.php". Once the templates are
+        compiled, they should run fine from the web environment. If you change
+        a template, you must recompile from the command line again. If you do
+        not have the CGI version of PHP available and you are concerned about
+        world-writable directory access, you can chmod 777 the compile_dir, let
+        the templates compile once as the web server user, then change the
+        directory mode back to 700. If you are using the caching feature of
+        Smarty, the cache directory must always have write access for the web
+        server user.
+        </para>
+        <para>
+        TECHNICAL NOTE: If you do not have access to the php.ini file, you can
+        change non-server settings (such as your include_path) with the
+        ini_set() command (available in PHP 4.0.4 or later.) example:
+        ini_set("include_path",".:/usr/local/lib/php");
+        </para>
 		<para>
 		Copy the Smarty.class.php, Smarty.addons.php and Config_File.class.php
 		scripts to a directory that is in your PHP include_path. NOTE: PHP will
@@ -195,10 +215,11 @@
 # be sure you are in the web server document tree
 # this assumes your web server runs as user "nobody"
 # and you are in a un*x environment
-gtar -zxvf Smarty-1.0.tar.gz
+gtar -zxvf Smarty-[version].tar.gz
 mkdir templates_c
 chown nobody:nobody templates_c
 chmod 700 templates_c
+# if you are using caching, do the following
 mkdir cache
 chown nobody:nobody cache
 chmod 700 cache
@@ -212,9 +233,8 @@ chmod 700 cache
 <chapter>
 	<title>Setting up Smarty</title>
 		<para>
-		There are several variables that are at the top of the Smarty.class.php
-		file. You can usually get away with leaving these at their default
-		settings. This is a list of them and what each one does.
+        There are several variables that are at the top of the Smarty.class.php
+        file. The default settings work for all of the examples and tutorials.
 		</para>
 	<sect1>
 		<title>Configuration variables</title>
@@ -225,6 +245,10 @@ chmod 700 cache
 				This is the name of the directory where template files are located.
 				By default this is "./templates".
 			</para>
+			<para>
+                TECHNICAL NOTE: It is not mandatory to put this directory under
+                the web server document root.
+			</para>
 		</sect2>		
 		<sect2 id="setting.compile.dir">
 			<title>$compile_dir</title>
@@ -233,21 +257,34 @@ chmod 700 cache
 				located. By default this is "./templates_c". This was
 				added to Smarty version 1.2.1.
 			</para>
+			<para>
+                TECHNICAL NOTE: This setting must be either a relative or
+                absolute path. include_path is not used for writing files.
+            </para>
+            <para>    
+                TECHNICAL NOTE: It is not mandatory to put this directory under
+                the web server document root.
+			</para>
 		</sect2>
 		<sect2 id="setting.config.dir">
 			<title>$config_dir</title>
 			<para>
 				This is the directory used to store config files used in the templates.
-				Default is "configs".
+				Default is "./configs".
+			</para>
+			<para>
+                TECHNICAL NOTE: It is not mandatory to put this directory under
+                the web server document root.
 			</para>
 		</sect2>
 		<sect2 id="setting.global.assign">
 			<title>$global_assign</title>
 			<para>
-				This is a list of variables that are always implicitly assigned to the
-				template engine. This is usually handy for making global variables or server
-				variables available to the template without having to manually assign them to
-				the template every time.
+                This is a list of variables that are always implicitly assigned
+                to the template engine. This is handy for making global
+                variables or server variables available to all templates
+                without having to manually assign them. $SCRIPT_NAME is
+                globally assigned by default.
 			</para>
 		</sect2>
 		<sect2>
@@ -279,16 +316,13 @@ chmod 700 cache
 		<sect2 id="setting.caching">
 			<title>$caching</title>
 			<para>
-				This tells Smarty whether or not to cache the output of the
-				templates. By default this is set to false. If your templates
-				generate the same content over and over, it is advisable to
-				turn on caching. This will result significant performance
-				gains. Smarty uses a combination of the template being called
-				and the URL ($PHP_SELF) for the cache indentification. This way
-				you can have multiple caches for the same template. NOTE: If
-				you ever turn caching off after templates are compiled, be sure
-				to recompile all of your templates once. Otherwise you may get
-				undesireable results. This was added to Smarty 1.3.0.
+                This tells Smarty whether or not to cache the output of the
+                templates. By default this is set to false. If your templates
+                generate the same content over and over, it is advisable to
+                turn on caching. This will result significant performance
+                gains. You can also have multiple caches for the same template.
+                See <link linkend="api.is.cached">is_cached</link> for details.
+                This was added to Smarty 1.3.0.
 			</para>
 		</sect2>
 		<sect2 id="setting.cache.dir">
@@ -297,6 +331,14 @@ chmod 700 cache
 				This is the name of the directory where template caches are
 				located. By default this is "./cache". This was
 				added to Smarty version 1.3.0.
+			</para>
+			<para>
+                TECHNICAL NOTE: This setting must be either a relative or
+                absolute path. include_path is not used for writing files.
+            </para>
+			<para>
+                TECHNICAL NOTE: It is not mandatory to put this directory under
+                the web server document root.
 			</para>
 		</sect2>
 		<sect2 id="setting.cache.lifetime">
@@ -345,8 +387,10 @@ chmod 700 cache
 			<title>$custom_funcs</title>
 			<para>
 				This is a mapping of the names of <link
-				linkend="custom.functions">custom functions</link> in the template to
-				the names of functions in PHP. These are usually kept in Smarty.addons.php.
+                linkend="custom.functions">custom functions</link> in the
+                template to the names of functions in PHP. The default custom
+                functions that come bundled with Smarty are located in
+                Smarty.addons.php.
 			</para>
 		</sect2>
 		<sect2 id="setting.custom.mods">
@@ -354,7 +398,9 @@ chmod 700 cache
 			<para>
 				This is a mapping of the names of variable
 				<link linkend="variable.modifiers">modifiers</link> in the template to
-				the names of functions in PHP. These are usually kept in Smarty.addons.php.			
+                the names of functions in PHP. The default variable modifiers
+                that come bundled with Smarty are located in
+                Smarty.addons.php.
 			</para>
 		</sect2>
 	</sect1>
@@ -600,7 +646,7 @@ $smarty->clear_all_cache();
 			<funcsynopsis>
 			<funcprototype>
 			<funcdef>void <function>is_cached</function></funcdef>
-				<paramdef>string<parameter>template</parameter></paramdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -623,6 +669,10 @@ $smarty->display("index.tpl");
 
 </programlisting>
 </example>
+            <para>
+                You can also pass a cache id as an an optional second parameter
+                in the case you want multiple caches for the given template.
+            </para>
 <example>
 <title>is_cached with multiple-cache template</title>
 <programlisting>
@@ -718,8 +768,9 @@ $smarty->display("index.tpl");
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This returns the template output.  Supply a path relative to the
-				<link linkend="setting.template.dir">template directory</link>
+                This returns the template output instead of displaying it.
+                Supply a path relative to the <link
+                linkend="setting.template.dir">template directory</link>
 			</para>
 <example>
 <title>fetch</title>
@@ -971,16 +1022,15 @@ zaphod@slartibartfast.com&lt;br&gt;
 	<sect1 id="configfiles">
 		<title>Config Files</title>
 		<para>
-		Config files are handy for designers to manage global
-		template variables from one file. One example is template colors.
-		Normally if you wanted to change the color scheme of an application,
-		you would have to go through each and every template file
-		and change the colors. With a config file, the colors can
-		be kept in one place, and only one file needs to be updated.
-        Note that to use config files, you must include the Config_File.class.php
-		In your PHP include path. Config_File.class.php comes bundled with
-		Smarty. Smarty will implicitly include the file if you
-		don't already include it in your application.
+        Config files are handy for designers to manage global template
+        variables from one file. One example is template colors. Normally if
+        you wanted to change the color scheme of an application, you would have
+        to go through each and every template file and change the colors. With
+        a config file, the colors can be kept in one place, and only one file
+        needs to be updated. Note that to use config files, you must place the
+        Config_File.class.php in your PHP include path. Config_File.class.php
+        comes bundled with Smarty. Smarty will implicitly include the file if
+        you don't already include it in your application.
 		</para>
 <example>
 <title>Example of config file syntax</title>
@@ -1062,10 +1112,16 @@ Intro = """This is a value that spans more
 </programlisting>
 </example>
 			<para>
-			Config files may also contain sections. You can load
-			variables from within a section with the added attribute
-			"section".
+            Config files may also contain sections. You can load variables from
+            within a section with the added attribute
+            <emphasis>section</emphasis>.
 			</para>
+            <para>
+            NOTE: <emphasis>Config file sections</emphasis> and the built-in
+            template function called <emphasis>section</emphasis> have nothing
+            to do with each other, they just happen to share a common naming
+            convention.
+            </para>
 <example>
 <title>function config_load with section</title>
 <programlisting>
@@ -1090,12 +1146,11 @@ Intro = """This is a value that spans more
 		<sect2>
 			<title>include</title>
 			<para>
-			Include tags are used for including other templates into
-			the current template. When a template is included, it
-			inherits all the variables available to the current template.
-			The include tag must have the attribute "file", which
-			contains the path to the included template file relative
-			to the template directory.
+            Include tags are used for including other templates in the current
+            template. Any variables available in the current template are also
+            available within the included template. The include tag must have
+            the attribute "file", which contains the path to the included
+            template file relative to the template directory.
 			</para>
 <example>
 <title>function include</title>
@@ -1109,13 +1164,11 @@ Intro = """This is a value that spans more
 </programlisting>
 </example>
 			<para>
-			You can also pass variables to included templates as attributes.
-			These will be passed to the template along with the current
-			template variables. Attribute variables override template
-			variables, in the case they are named alike. You can
-			pass either static values or variables to included templates
-			(although it doesn't make much sense to pass anything other than
-			static values since variables are inherited anyways).
+            You can also pass variables to included templates as attributes.
+            Any variables explicitly passed to an included template as
+            attributes are only available within the scope of the included
+            file. Attribute variables override current template variables, in
+            the case they are named alike.
 			</para>
 <example>
 <title>function include passing variables</title>
@@ -1313,17 +1366,19 @@ OUTPUT:
 		<sect2 id="builtin.functions.section">
 			<title>section,sectionelse</title>
 			<para>
-			Template sections are used for looping over arrays of data.
-			All section tags must be paired with /section tags.
-			Required parameters are "name" and "loop". The name of the
-			section can be anything you like, made up of letters, numbers
-			and underscores. Sections can be nested, and the nested
-			section names must be unique from each other. The loop variable
-			determines the number of times the section will loop.
-			When printing a variable within a section, the section name
-			must be prepended to the variable name, separated by a slash (/).
-			sectionelse is executed when there are no values in the loop
-			variable.
+            Template sections are used for looping over arrays of data. All
+            <emphasis>section</emphasis> tags must be paired with
+            <emphasis>/section</emphasis> tags. Required parameters are
+            <emphasis>name</emphasis> and <emphasis>loop</emphasis>. The name
+            of the section can be anything you like, made up of letters,
+            numbers and underscores. Sections can be nested, and the nested
+            section names must be unique from each other. The loop variable
+            (usually an array of values) determines the number of times the
+            section will loop. When printing a variable within a section, the
+            section name must be prepended to the variable name, separated by a
+            slash (/). If you are using an associative array, separate the key
+            and value with a period (.). <emphasis>sectionelse</emphasis> is
+            executed when there are no values in the loop variable.
 			</para>
 <example>
 <title>section</title>
@@ -1570,12 +1625,10 @@ There were 3 customers shown above.
 			<sect3>	
 			<title>show</title>
 			<para>
-			show is used both as a parameter to section,
-			as well as displaying its value. show is a
-			boolean value, true or false. If false, the
-			section will not be displayed. If there is a
-			sectionelse present, that will be alternately
-			displayed.
+            <emphasis>show</emphasis> is used as a parameter to section.
+            <emphasis>show</emphasis> is a boolean value, true or false. If
+            false, the section will not be displayed. If there is a sectionelse
+            present, that will be alternately displayed.
 			</para>
 <example>
 <title>section property rownum</title>
@@ -1971,6 +2024,10 @@ OUTPUT:
 			function. Anything that the function returns gets displayed
 			in place of the tag in the template.
 			</para>
+            <para>
+            You can also add custom functions programatically with the <link
+            linkend="api.register.function">register_function API</link>.
+            </para>
 		</sect2>
 	</sect1>
 	<sect1 id="variable.modifiers">
@@ -2573,6 +2630,10 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
 				<listitem><para>Thats it! you can now use that modifier
 					from within Smarty.</para></listitem>
 			</itemizedlist>			
+            <para>
+            You can also add modifiers programatically with the <link
+            linkend="api.register.modifier">register_modifier API</link>.
+            </para>
 		</sect2>
 	</sect1>	
 </chapter>
@@ -2601,18 +2662,19 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
 </example>
 
 		<para>
-		Smarty shows you the template name, the line number and the error.
-		Everything beyond that is PHP error messages which you can ignore.
+        Smarty shows you the template name, the line number and the error.
+        After that, the error consists of the actual line number in the Smarty
+        class that the error occured.
 		</para>
 		
 		<para>
-		There are certain errors that Smarty cannot catch, such as missing
-		close tags. These types of errors can end up in PHP compile-time
-		errors.
+        There are certain errors that Smarty cannot catch, such as missing
+        close tags. These types of errors usually end up in PHP compile-time
+        parsing errors.
 		</para>
 
 <example>
-<title>PHP errors</title>
+<title>PHP parsing errors</title>
 <programlisting>
 
 Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
@@ -2621,15 +2683,14 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 </example>
 		
 		<para>
-		When you encounter a PHP error when attempting to display the
-		template in a browser, the error line number will correspond to the
-		compiled PHP script, not the template itself. This may be a bit
-		confusing. Usually you can look at the template and spot the syntax
-		error. Here are some common things to look for: missing close tags for
-		{if}{/if} or {section}{/section}, or syntax of logic within an {if}
-		tag. If you can't find the error, you must open the compiled PHP file
-		and go to the line number to figure out where the corresponding error
-		is in the template.
+        When you encounter a PHP parsing error, the error line number will
+        correspond to the compiled PHP script, not the template itself. Usually
+        you can look at the template and spot the syntax error. Here are some
+        common things to look for: missing close tags for {if}{/if} or
+        {section}{/section}, or syntax of logic within an {if} tag. If you
+        can't find the error, you might have to open the compiled PHP file and
+        go to the line number to figure out where the corresponding error is in
+        the template.
 		</para>
 	</sect1>
 </chapter>
