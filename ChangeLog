@@ -1,3 +1,14 @@
+2004-09-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS:
+      fixed typo
+
+2004-09-13  Monte Ohrt  <monte@ispi.net>
+
+    * (Smarty_2_6_5)
+      NEWS:
+      update NEWS file with parsing correction note
+
 2004-09-11  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.debug.php:
