@@ -105,6 +105,8 @@ class Smarty_Compiler extends Smarty {
         // $foo[$bar]
         // $foo[5][blah]
         // $foo[5].bar[$foobar][4]
+        $this->_num_const_regexp = '\-?\d+(?:\.\d+)?';
+
         $this->_dvar_math_regexp = '[\+\-\*\/\%]';
         $this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\>\[\]]';
         $this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
@@ -131,7 +133,7 @@ class Smarty_Compiler extends Smarty {
         // #foo#
         // "text"
         // "text"
-        $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_qstr_regexp . ')';
+        $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_num_const_regexp . '|' . $this->_qstr_regexp . ')';
 
         // matches valid object call (no objects allowed in parameters):
         // $foo->bar
@@ -1588,6 +1590,14 @@ class Smarty_Compiler extends Smarty {
                     $this->_parse_modifiers($return, $match[2]);
                 }
                 return $return;
+            }
+        elseif(preg_match('!^' . $this->_num_const_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
+                // numerical constant
+                preg_match('!^(' . $this->_num_const_regexp . ')('. $this->_mod_regexp . '*)$!', $val, $match);
+                if($match[2] != '') {
+                    $this->_parse_modifiers($match[1], $match[2]);
+                    return $match[1];
+                }
             }
         elseif(preg_match('!^' . $this->_si_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
                 // single quoted text
