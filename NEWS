@@ -1,3 +1,5 @@
+    - update debug console to print objects (Simon Willison,
+      Monte)
     - fix Config_File class to not error when there are no
       sections (Peter Kmet, Monte)
     - add default modifier logic (Monte)

@@ -4,7 +4,7 @@
 
 {assign_debug_info}
 
-{if $_smarty_debug_output eq "html"}
+{if isset($_smarty_debug_output) and $_smarty_debug_output eq "html"}
 <HTML><TITLE>Smarty Debug Console_"+self.name+"</TITLE><BODY bgcolor=#ffffff>
 	<table border=0 width=100%>
 	<tr bgcolor=#cccccc><th colspan=2>Smarty Debug Console</th></tr>
