@@ -1155,6 +1155,48 @@ Intro = """This is a value that spans more
 		</para>
 		<sect2 id="builtin.functions.configload">
 			<title>config_load</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the config file to include</entry>
+                    </row>
+                    <row>
+                        <entry>section</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the section to load</entry>
+                    </row>
+                    <row>
+                        <entry>global</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>No</emphasis></entry>
+                        <entry>Whether or not variables are global (visible to
+                        parent templates)</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			This function is used for loading in variables from a
 			configuration file into the template. You must have the Config_file.class.php
@@ -1163,6 +1205,7 @@ Intro = """This is a value that spans more
 			</para>
 <example>
 <title>function config_load</title>
+
 <programlisting>
 
 {config_load file="colors.conf"}
@@ -1215,6 +1258,40 @@ Intro = """This is a value that spans more
 		</sect2>
 		<sect2>
 			<title>include</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the template file to include</entry>
+                    </row>
+                    <row>
+                        <entry>[var ...]</entry>
+                        <entry>[var type]</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>variable to pass local to template</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
             Include tags are used for including other templates in the current
             template. Any variables available in the current template are also
@@ -1255,6 +1332,40 @@ Intro = """This is a value that spans more
 		</sect2>
 		<sect2 id="function.insert">
 			<title>insert</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the insert function (insert_name)</entry>
+                    </row>
+                    <row>
+                        <entry>[var ...]</entry>
+                        <entry>[var type]</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>variable to pass to insert function</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			The insert tag in Smarty serves a special purpose. You may
 			run into the situation where it is impossible to pass data to a template
@@ -1442,6 +1553,48 @@ OUTPUT:
 		</sect2>
 		<sect2 id="builtin.functions.section">
 			<title>section,sectionelse</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the section</entry>
+                    </row>
+                    <row>
+                        <entry>loop</entry>
+                        <entry>[$variable_name]</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable to determine # of loop
+                        iterations</entry>
+                    </row>
+                    <row>
+                        <entry>show</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>determines whether or not to show this section</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
             Template sections are used for looping over arrays of data. All
             <emphasis>section</emphasis> tags must be paired with
@@ -1836,7 +1989,7 @@ There were 3 customers shown above.
             present, that will be alternately displayed.
 			</para>
 <example>
-<title>section property rownum</title>
+<title>section attribute show</title>
 <programlisting>
 {* $show_customer_info may have been passed from the PHP
    application, to regulate whether or not this section shows *}
@@ -2271,6 +2424,263 @@ OUTPUT:
 </example>
 		</sect2>
 		<sect2>
+			<title>html_select_time</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>prefix</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>Time_</entry>
+                        <entry>what to prefix the var name with</entry>
+                    </row>
+                    <row>
+                        <entry>time</entry>
+                        <entry>timestamp</entry>
+                        <entry>No</entry>
+                        <entry>current time</entry>
+                        <entry>what date/time to use</entry>
+                    </row>
+                    <row>
+                        <entry>display_hours</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to display hours</entry>
+                    </row>
+                    <row>
+                        <entry>display_minutes</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to display minutes</entry>
+                    </row>
+                    <row>
+                        <entry>display_seconds</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to display seconds</entry>
+                    </row>
+                    <row>
+                        <entry>display_meridian</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to display meridian (am/pm)</entry>
+                    </row>
+                    <row>
+                        <entry>use_24_hours</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to use 24 hour clock</entry>
+                    </row>
+                    <row>
+                        <entry>minute_interval</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>1</entry>
+                        <entry>number interval in minute dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>second_interval</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>1</entry>
+                        <entry>number interval in second dropdown</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			html_select_time is a custom function that creates time dropdowns
+			for you. It can display any or all of hour, minute, second and
+            meridian.
+			</para>
+<example>
+<title>html_select_time</title>
+<programlisting>
+
+{html_select_time use_24_hours=false}
+
+
+OUTPUT:
+
+&lt;select name="Time_Hour"&gt;
+&lt;option value="00"&gt;00&lt;/option&gt;
+&lt;option value="01"&gt;01&lt;/option&gt;
+&lt;option value="02"&gt;02&lt;/option&gt;
+&lt;option value="03"&gt;03&lt;/option&gt;
+&lt;option value="04"&gt;04&lt;/option&gt;
+&lt;option value="05"&gt;05&lt;/option&gt;
+&lt;option value="06"&gt;06&lt;/option&gt;
+&lt;option value="07"&gt;07&lt;/option&gt;
+&lt;option value="08"&gt;08&lt;/option&gt;
+&lt;option value="09" selected&gt;09&lt;/option&gt;
+&lt;option value="10"&gt;10&lt;/option&gt;
+&lt;option value="11"&gt;11&lt;/option&gt;
+&lt;option value="12"&gt;12&lt;/option&gt;
+&lt;option value="13"&gt;13&lt;/option&gt;
+&lt;option value="14"&gt;14&lt;/option&gt;
+&lt;option value="15"&gt;15&lt;/option&gt;
+&lt;option value="16"&gt;16&lt;/option&gt;
+&lt;option value="17"&gt;17&lt;/option&gt;
+&lt;option value="18"&gt;18&lt;/option&gt;
+&lt;option value="19"&gt;19&lt;/option&gt;
+&lt;option value="20"&gt;20&lt;/option&gt;
+&lt;option value="21"&gt;21&lt;/option&gt;
+&lt;option value="22"&gt;22&lt;/option&gt;
+&lt;option value="23"&gt;23&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Time_Minute"&gt;
+&lt;option value="00"&gt;00&lt;/option&gt;
+&lt;option value="01"&gt;01&lt;/option&gt;
+&lt;option value="02"&gt;02&lt;/option&gt;
+&lt;option value="03"&gt;03&lt;/option&gt;
+&lt;option value="04"&gt;04&lt;/option&gt;
+&lt;option value="05"&gt;05&lt;/option&gt;
+&lt;option value="06"&gt;06&lt;/option&gt;
+&lt;option value="07"&gt;07&lt;/option&gt;
+&lt;option value="08"&gt;08&lt;/option&gt;
+&lt;option value="09"&gt;09&lt;/option&gt;
+&lt;option value="10"&gt;10&lt;/option&gt;
+&lt;option value="11"&gt;11&lt;/option&gt;
+&lt;option value="12"&gt;12&lt;/option&gt;
+&lt;option value="13"&gt;13&lt;/option&gt;
+&lt;option value="14"&gt;14&lt;/option&gt;
+&lt;option value="15"&gt;15&lt;/option&gt;
+&lt;option value="16"&gt;16&lt;/option&gt;
+&lt;option value="17"&gt;17&lt;/option&gt;
+&lt;option value="18"&gt;18&lt;/option&gt;
+&lt;option value="19"&gt;19&lt;/option&gt;
+&lt;option value="20" selected&gt;20&lt;/option&gt;
+&lt;option value="21"&gt;21&lt;/option&gt;
+&lt;option value="22"&gt;22&lt;/option&gt;
+&lt;option value="23"&gt;23&lt;/option&gt;
+&lt;option value="24"&gt;24&lt;/option&gt;
+&lt;option value="25"&gt;25&lt;/option&gt;
+&lt;option value="26"&gt;26&lt;/option&gt;
+&lt;option value="27"&gt;27&lt;/option&gt;
+&lt;option value="28"&gt;28&lt;/option&gt;
+&lt;option value="29"&gt;29&lt;/option&gt;
+&lt;option value="30"&gt;30&lt;/option&gt;
+&lt;option value="31"&gt;31&lt;/option&gt;
+&lt;option value="32"&gt;32&lt;/option&gt;
+&lt;option value="33"&gt;33&lt;/option&gt;
+&lt;option value="34"&gt;34&lt;/option&gt;
+&lt;option value="35"&gt;35&lt;/option&gt;
+&lt;option value="36"&gt;36&lt;/option&gt;
+&lt;option value="37"&gt;37&lt;/option&gt;
+&lt;option value="38"&gt;38&lt;/option&gt;
+&lt;option value="39"&gt;39&lt;/option&gt;
+&lt;option value="40"&gt;40&lt;/option&gt;
+&lt;option value="41"&gt;41&lt;/option&gt;
+&lt;option value="42"&gt;42&lt;/option&gt;
+&lt;option value="43"&gt;43&lt;/option&gt;
+&lt;option value="44"&gt;44&lt;/option&gt;
+&lt;option value="45"&gt;45&lt;/option&gt;
+&lt;option value="46"&gt;46&lt;/option&gt;
+&lt;option value="47"&gt;47&lt;/option&gt;
+&lt;option value="48"&gt;48&lt;/option&gt;
+&lt;option value="49"&gt;49&lt;/option&gt;
+&lt;option value="50"&gt;50&lt;/option&gt;
+&lt;option value="51"&gt;51&lt;/option&gt;
+&lt;option value="52"&gt;52&lt;/option&gt;
+&lt;option value="53"&gt;53&lt;/option&gt;
+&lt;option value="54"&gt;54&lt;/option&gt;
+&lt;option value="55"&gt;55&lt;/option&gt;
+&lt;option value="56"&gt;56&lt;/option&gt;
+&lt;option value="57"&gt;57&lt;/option&gt;
+&lt;option value="58"&gt;58&lt;/option&gt;
+&lt;option value="59"&gt;59&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Time_Second"&gt;
+&lt;option value="00"&gt;00&lt;/option&gt;
+&lt;option value="01"&gt;01&lt;/option&gt;
+&lt;option value="02"&gt;02&lt;/option&gt;
+&lt;option value="03"&gt;03&lt;/option&gt;
+&lt;option value="04"&gt;04&lt;/option&gt;
+&lt;option value="05"&gt;05&lt;/option&gt;
+&lt;option value="06"&gt;06&lt;/option&gt;
+&lt;option value="07"&gt;07&lt;/option&gt;
+&lt;option value="08"&gt;08&lt;/option&gt;
+&lt;option value="09"&gt;09&lt;/option&gt;
+&lt;option value="10"&gt;10&lt;/option&gt;
+&lt;option value="11"&gt;11&lt;/option&gt;
+&lt;option value="12"&gt;12&lt;/option&gt;
+&lt;option value="13"&gt;13&lt;/option&gt;
+&lt;option value="14"&gt;14&lt;/option&gt;
+&lt;option value="15"&gt;15&lt;/option&gt;
+&lt;option value="16"&gt;16&lt;/option&gt;
+&lt;option value="17"&gt;17&lt;/option&gt;
+&lt;option value="18"&gt;18&lt;/option&gt;
+&lt;option value="19"&gt;19&lt;/option&gt;
+&lt;option value="20"&gt;20&lt;/option&gt;
+&lt;option value="21"&gt;21&lt;/option&gt;
+&lt;option value="22"&gt;22&lt;/option&gt;
+&lt;option value="23" selected&gt;23&lt;/option&gt;
+&lt;option value="24"&gt;24&lt;/option&gt;
+&lt;option value="25"&gt;25&lt;/option&gt;
+&lt;option value="26"&gt;26&lt;/option&gt;
+&lt;option value="27"&gt;27&lt;/option&gt;
+&lt;option value="28"&gt;28&lt;/option&gt;
+&lt;option value="29"&gt;29&lt;/option&gt;
+&lt;option value="30"&gt;30&lt;/option&gt;
+&lt;option value="31"&gt;31&lt;/option&gt;
+&lt;option value="32"&gt;32&lt;/option&gt;
+&lt;option value="33"&gt;33&lt;/option&gt;
+&lt;option value="34"&gt;34&lt;/option&gt;
+&lt;option value="35"&gt;35&lt;/option&gt;
+&lt;option value="36"&gt;36&lt;/option&gt;
+&lt;option value="37"&gt;37&lt;/option&gt;
+&lt;option value="38"&gt;38&lt;/option&gt;
+&lt;option value="39"&gt;39&lt;/option&gt;
+&lt;option value="40"&gt;40&lt;/option&gt;
+&lt;option value="41"&gt;41&lt;/option&gt;
+&lt;option value="42"&gt;42&lt;/option&gt;
+&lt;option value="43"&gt;43&lt;/option&gt;
+&lt;option value="44"&gt;44&lt;/option&gt;
+&lt;option value="45"&gt;45&lt;/option&gt;
+&lt;option value="46"&gt;46&lt;/option&gt;
+&lt;option value="47"&gt;47&lt;/option&gt;
+&lt;option value="48"&gt;48&lt;/option&gt;
+&lt;option value="49"&gt;49&lt;/option&gt;
+&lt;option value="50"&gt;50&lt;/option&gt;
+&lt;option value="51"&gt;51&lt;/option&gt;
+&lt;option value="52"&gt;52&lt;/option&gt;
+&lt;option value="53"&gt;53&lt;/option&gt;
+&lt;option value="54"&gt;54&lt;/option&gt;
+&lt;option value="55"&gt;55&lt;/option&gt;
+&lt;option value="56"&gt;56&lt;/option&gt;
+&lt;option value="57"&gt;57&lt;/option&gt;
+&lt;option value="58"&gt;58&lt;/option&gt;
+&lt;option value="59"&gt;59&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Time_Meridian"&gt;
+&lt;option value="am" selected&gt;AM&lt;/option&gt;
+&lt;option value="pm"&gt;PM&lt;/option&gt;
+&lt;/select&gt;
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
 			<title>math</title>
             <informaltable frame=all>
                 <tgroup cols=3>
@@ -2311,7 +2721,7 @@ OUTPUT:
                         <entry>equation variable value</entry>
                     </row>
                     <row>
-                        <entry>...[var]</entry>
+                        <entry>[var ...]</entry>
                         <entry>numeric</entry>
                         <entry>Yes</entry>
                         <entry><emphasis>n/a</emphasis></entry>
