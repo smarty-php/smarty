@@ -1,8 +1,9 @@
 REQUIREMENTS:
 
 Smarty requires PHP 4.0.6 or later.
+See the on-line documentation for complete install instructions.
 
-INSTALLATION:
+INSTALLATION (quick):
 
 * copy the files under the libs/ directory to a directory that is in your PHP
   include_path, or set the SMARTY_DIR constant and put them in this directory.
