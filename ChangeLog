@@ -1,3 +1,14 @@
+2003-11-29  boots  <jayboots@yahoo.com>
+
+    * libs/plugins/function.config_load.php:
+      really make the fixes the last patch was supposed to do
+
+    * libs/plugins/function.config_load.php:
+      removed tabs and killed trailing white-space
+
+    * libs/plugins/function.config_load.php:
+      changed $smarty->_syntax_error to $smarty->trigger_error
+
 2003-11-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
