@@ -1282,84 +1282,8 @@ class Smarty
      */    
     function config_load($file, $section = null, $scope = 'global')
     {        
-        if(@is_dir($this->config_dir)) {
-            $_config_dir = $this->config_dir;            
-        } else {
-            // config_dir not found, try include_path
-            $this->_get_include_path($this->config_dir,$_config_dir);
-        }
-
-        $_file_path = str_replace('//', '/' ,$_config_dir . '/' . $file);
-        
-        // get path to compiled object file
-        if(isset($section)) {
-               $_compile_file = $this->_get_auto_filename($this->compile_dir, $section . ' ' . $file);
-        } else {
-               $_compile_file = $this->_get_auto_filename($this->compile_dir, $file);
-        }
-
-        // need to compile config file?
-        if($this->force_compile || !file_exists($_compile_file) ||
-            ($this->compile_check &&
-                file_exists($_file_path) &&
-                ( filemtime($_compile_file) != filemtime($_file_path) ))) {
-            $_compile_config = true;
-        } else {
-            include($_compile_file);
-			$_compile_config = empty($_config_vars);
-        }
-		
-        if($_compile_config) {
-            if(!is_object($this->_conf_obj)) {
-                require_once SMARTY_DIR . $this->config_class . '.class.php';
-                $this->_conf_obj = new $this->config_class($_config_dir);
-                $this->_conf_obj->overwrite = $this->config_overwrite;
-                $this->_conf_obj->booleanize = $this->config_booleanize;
-                $this->_conf_obj->read_hidden = $this->config_read_hidden;
-                $this->_conf_obj->fix_newlines = $this->config_fix_newlines;
-                $this->_conf_obj->set_path = $_config_dir;
-            }
-            if($_config_vars = array_merge($this->_conf_obj->get($file),
-                    $this->_conf_obj->get($file, $section))) {
-                if(function_exists('var_export')) {
-                    $_compile_data = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; return true; ?>';                    
-                } else {
-                    $_compile_data = '<?php $_config_vars = unserialize(\'' . str_replace('\'','\\\'', serialize($_config_vars)) . '\'); return true; ?>';
-                }
-                $this->_write_file($_compile_file, $_compile_data, true);
-                touch($_compile_file,filemtime($_file_path));
-            }
-        }
-
-        if ($this->debugging) {
-            $debug_start_time = $this->_get_microtime();
-        }
-
-        if ($this->caching) {
-            $this->_cache_info['config'][] = $file;
-        }
-
-        $this->_config[0]['vars'] = @array_merge($this->_config[0]['vars'], $_config_vars);
-        $this->_config[0]['files'][$file] = true;
-        
-        if ($scope == 'parent') {
-                $this->_config[1]['vars'] = @array_merge($this->_config[1]['vars'], $_config_vars);
-                $this->_config[1]['files'][$file] = true;
-        } else if ($scope == 'global') {
-            for ($i = 1, $for_max = count($this->_config); $i < $for_max; $i++) {
-                    $this->_config[$i]['vars'] = @array_merge($this->_config[$i]['vars'], $_config_vars);
-                    $this->_config[$i]['files'][$file] = true;
-            }
-        }
-
-        if ($this->debugging) {
-            $debug_start_time = $this->_get_microtime();
-            $this->_smarty_debug_info[] = array('type'      => 'config',
-                                                'filename'  => $file.' ['.$section.'] '.$scope,
-                                                'depth'     => $this->_inclusion_depth,
-                                                'exec_time' => $this->_get_microtime() - $debug_start_time);
-        }
-    
+		require_once($this->_get_plugin_filepath('function', 'config_load'));    
+		smarty_function_config_load(array('file' => $file, 'section' => $section, 'scope' => $scope), $this);
     }
 
     /**

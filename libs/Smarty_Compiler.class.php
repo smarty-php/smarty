@@ -474,9 +474,6 @@ class Smarty_Compiler extends Smarty {
                 else
                     return "<?php endforeach; endif; ?>";
 
-            case 'config_load':
-                return $this->_compile_config_load_tag($tag_args);
-
             case 'strip':
             case '/strip':
                 return $this->left_delimiter.$tag_command.$this->right_delimiter;
@@ -781,42 +778,6 @@ class Smarty_Compiler extends Smarty {
 
         return "<?php echo \$this->_run_insert_handler(array(".implode(', ', (array)$arg_list).")); ?>\n";
     }
-
-
-	/**
-	 * Compile {config_load ...} tag
-	 *
-	 * @param string $tag_args
-	 */
-    function _compile_config_load_tag($tag_args)
-    {
-        $attrs = $this->_parse_attrs($tag_args);
-
-        if (empty($attrs['file'])) {
-            $this->_syntax_error("missing 'file' attribute in config_load tag", E_USER_ERROR, __FILE__, __LINE__);
-        }
-
-        if (empty($attrs['section'])) {
-            $attrs['section'] = 'null';
-        }
-
-        if (isset($attrs['scope'])) {
-			$scope = @$this->_dequote($attrs['scope']);
-            if ($scope != 'local' &&
-                $scope != 'parent' &&
-                $scope != 'global') {
-                $this->_syntax_error("invalid 'scope' attribute value", E_USER_ERROR, __FILE__, __LINE__);
-            }
-        } else {
-            if (isset($attrs['global']) && $attrs['global'])
-                $scope = 'parent';
-            else
-                $scope = 'local';
-        }
-
-        return '<?php $this->config_load(' . $attrs['file'] . ', ' . $attrs['section'] . ", '$scope'); ?>";
-    }
-
 
 	/**
 	 * Compile {include ...} tag

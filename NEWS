@@ -1,3 +1,4 @@
+  - moved config_load from smarty core to plugin (Monte)
   - added &$repeat-paramter to block-functions (messju)
   - enabled hex-constants in function.math.php (messju)
   - enabled hex-constants (0x...) as function-attributes, inside if-statements
