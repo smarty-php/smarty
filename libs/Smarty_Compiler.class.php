@@ -80,7 +80,7 @@ class Smarty_Compiler extends Smarty {
 	var $_obj_params_regexp		=	null;
 	var $_obj_call_regexp		=	null;
 
-    var $_cacheable_state       =   0;
+    var $_cacheable_state       =   true;
     var $_nocache_count         =   0;
     var $_cache_serial          =   null;
     var $_cache_include         =   null;
