@@ -1,3 +1,6 @@
+Version 2.5.0 (April 4, 2003)
+-----------------------------
+
    - fixed bug with default modifier when passing integer 0
      (Monte)
    - change backtic syntax from $`foo` to `$foo` (Monte)
