@@ -1,12 +1,17 @@
-    - numerous documentation updates (Monte) 
-    - added SMARTY_DIR constant (Monte)
-    - added popup_init and popup functions (Monte)
-    - updated debug console with config file vars (Monte)
-    - added debugging url control (Monte)
-    - added 'quotes' parameter to escape modifier (Monte, Mike Krus)
+    - fixed a bug with parsing function arguments inside {if} tags if a comma
+      was present. (Andrei)
+    - updated debug console with config file vars. (Monte)
+    - numerous documentation updates. (Monte) 
+    - added SMARTY_DIR constant which indicating location of Smarty files.
+      (Monte)
+    - added popup_init and popup functions. (Monte)
+    - updated debug console with config file vars. (Monte)
+    - added debugging url control. (Monte)
+    - added 'quotes' type to escape modifier. (Monte, Mike Krus)
     - added 'total' and 'iteration' section properties. (Andrei)
-    - added 'start', 'max', and step section attributes/properties. (Andrei)
-    - fixed a bug with security checking of functions inside {if} tags. (Andrei)
+    - added 'start', 'max', and 'step' section attributes/properties. (Andrei)
+    - fixed a bug with security checking of functions inside {if} tags.
+      (Andrei)
     - fixed a bug in Config_File that would incorrectly booleanize values that
       weren't really booleans. (Andrei)
 
@@ -21,7 +26,8 @@ Version 1.4.3
       class itself. (Andrei)
     - fixed a bug with passing quoted arguments to modifiers inside {if}
       statements. (Andrei, Sam Beckwith)
-    - added security features for third party template editing, documented (Monte)
+    - added security features for third party template editing, documented
+      (Monte)
     - added assign custom function, documented. (Monte)
     - fixed bug with template header using version instead of _version. (Monte)
     - fixed a problem with putting $ followed by numbers inside {strip} and
