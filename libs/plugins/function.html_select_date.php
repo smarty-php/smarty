@@ -68,10 +68,14 @@ function smarty_function_html_select_date($params, &$smarty)
     $year_extra      = null;
     /* Order in which to display the fields.
        "D" -> day, "M" -> month, "Y" -> year. */
-    $field_order      = 'MDY';
+    $field_order     = 'MDY';
     /* String printed between the different fields. */
     $field_separator = "\n";
     $time = time();
+    $all_empty       = null;
+    $day_empty       = null;
+    $month_empty     = null;
+    $year_empty      = null;
 
     foreach ($params as $_key=>$_value) {
         switch ($_key) {
@@ -93,9 +97,17 @@ function smarty_function_html_select_date($params, &$smarty)
             case 'field_order':
             case 'field_separator':
             case 'month_value_format':
+            case 'month_empty':
+            case 'day_empty':
+            case 'year_empty':
                 $$_key = (string)$_value;
                 break;
-                
+
+            case 'all_empty':
+                $$_key = (string)$_value;
+                $day_empty = $month_empty = $year_empty = $all_empty;
+                break;
+
             case 'display_days':
             case 'display_months':
             case 'display_years':
@@ -107,7 +119,7 @@ function smarty_function_html_select_date($params, &$smarty)
     }
 
     // If $time is not in format yyyy-mm-dd
-    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time)) {
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time) && $time!='--') {
         // then $time is empty or unix timestamp or mysql timestamp
         // using smarty_make_timestamp to get an unix timestamp and
         // strftime to make yyyy-mm-dd
@@ -139,7 +151,10 @@ function smarty_function_html_select_date($params, &$smarty)
     if ($display_months) {
         $month_names = array();
         $month_values = array();
-
+        if(isset($month_empty)) {
+            $month_names[''] = $month_empty;
+            $month_values[''] = '';
+        }
         for ($i = 1; $i <= 12; $i++) {
             $month_names[] = strftime($month_format, mktime(0, 0, 0, $i, 1, 2000));
             $month_values[] = strftime($month_value_format, mktime(0, 0, 0, $i, 1, 2000));
@@ -173,6 +188,10 @@ function smarty_function_html_select_date($params, &$smarty)
 
     if ($display_days) {
         $days = array();
+        if (isset($day_empty)) {
+            $days[''] = $day_empty;
+            $day_values[''] = '';
+        }
         for ($i = 1; $i <= 31; $i++) {
             $days[] = sprintf($day_format, $i);
             $day_values[] = sprintf($day_value_format, $i);
@@ -222,7 +241,11 @@ function smarty_function_html_select_date($params, &$smarty)
             if ($reverse_years) {
                 rsort($years, SORT_NUMERIC);
             }
-
+            $yearvals = $years;
+            if(isset($year_empty)) {
+                array_unshift($years, $year_empty);
+                array_unshift($yearvals, '');
+            }
             $year_result .= '<select name="' . $year_name . '"';
             if (null !== $year_size){
                 $year_result .= ' size="' . $year_size . '"';
@@ -235,7 +258,7 @@ function smarty_function_html_select_date($params, &$smarty)
             }
             $year_result .= '>'."\n";
             $year_result .= smarty_function_html_options(array('output' => $years,
-                                                               'values' => $years,
+                                                               'values' => $yearvals,
                                                                'selected'   => $time[0],
                                                                'print_result' => false),
                                                          $smarty);

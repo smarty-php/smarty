@@ -1,3 +1,5 @@
+  - add day_empty, month_empty, year_empty and all_empty attributes to
+    html_select_date (messju)
   - add table of explanation for {if} qualifiers in docs (boots)
   - fix bug when comparing array-keys to "selected" in html_options
     and html_checkboxes (messju)
