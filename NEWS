@@ -1,3 +1,6 @@
+Version 2.3.0
+-------------
+
     - added assign_by_ref() and append_by_ref() functions
       (Bob Silva, Monte)
     - changed default warning type for plugin errors from

@@ -158,10 +158,11 @@ footer.tpl
     <sect1 id="tips.dates">
        <title>Dates</title>
        <para>
-       As a rule of thumb, always pass dates to Smarty as timestamps.
-       This allows template designers to use <link
-       linkend="date.format">date_format</link> for full control over date
-       formatting, and also makes it easy to compare dates if necessary.
+	   As a rule of thumb, always pass dates to Smarty as timestamps. This
+	   allows template designers to use <link
+	   linkend="language.modifier.date.format">date_format</link> for full
+	   control over date formatting, and also makes it easy to compare dates if
+	   necessary.
        </para>
        <para>
        NOTE: As of Smarty 1.4.0, you can pass dates to Smarty as unix

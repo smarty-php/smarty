@@ -1,3 +1,27 @@
+2.3.0
+-----
+
+Smarty now has a {debug} template function that brings up the debugging console
+right where {debug} is called, regardless of $debugging settings. This works a
+little different than turning on $debugging in the sense that it shows all the
+template variables available at the time {debug} is called, including local
+scope vars. It does not show the templates names however, since this
+executed during runtime of the template.
+
+You can now supply an expire time when clearing cache or compile files. This is
+mostly useful for removing stale files via the API.
+
+Plugins now stop execution upon error, instead of outputting a warning and
+continuing.
+
+Two new API functions, assign_by_ref() and append_by_ref() were added. They
+allow assigning template variables by reference. This can make a significance
+performance gain, especially if you are assigning large arrays of data. PHP 5.0
+will do this implicitly, so these functions are basically workarounds.
+
+Several misc bug fixes, see the Change Log for information.
+
+
 2.2.0
 -----
 

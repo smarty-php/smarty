@@ -362,7 +362,7 @@ Topic: {$topic|truncate:40:"..."}</programlisting>
       elements in the $articleTitle array.)
      </para>
 
-      <sect1>
+      <sect1 id="language.modifier.capitalize">
        <title>capitalize</title>
        <para>
         This is used to capitalize the first letter of all words in a variable.
@@ -379,7 +379,7 @@ Police begin campaign to rundown jaywalkers.
 Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.count.characters">
 			<title>count_characters</title>
 			<para>
 			This is used to count the number of characters in a variable.
@@ -397,7 +397,7 @@ Cold Wave Linked to Temperatures
 32</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.count.paragraphs">
 			<title>count_paragraphs</title>
 			<para>
 			This is used to count the number of paragraphs in a variable.
@@ -417,7 +417,7 @@ Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 2</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.count.sentences">
 			<title>count_sentences</title>
 			<para>
 			This is used to count the number of sentences in a variable.
@@ -435,7 +435,7 @@ Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
 2</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.count.words">
 			<title>count_words</title>
 			<para>
 			This is used to count the number of words in a variable.
@@ -453,7 +453,7 @@ Dealers Will Hear Car Talk at Noon.
 7</programlisting>
 </example>
 		</sect1>
-		<sect1 id="date.format">
+		<sect1 id="language.modifier.date.format">
 			<title>date_format</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -599,7 +599,7 @@ system's manpage for a full list of valid specifiers.</programlisting>
 </example>
 
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.default">
 			<title>default</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -645,7 +645,7 @@ OUTPUT:
 no title</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.escape">
 			<title>escape</title>
             <informaltable frame=all>
                 <tgroup cols=6>
@@ -709,7 +709,7 @@ OUTPUT:
 href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.indent">
 			<title>indent</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -782,7 +782,7 @@ Statistics show that teen pregnancy drops off significantly after 25.
 	Statistics show that teen pregnancy drops off significantly after 25.</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.lower">
 			<title>lower</title>
 			<para>
 			This is used to lowercase a variable.
@@ -799,7 +799,7 @@ Two Convicts Evade Noose, Jury Hung.
 two convicts evade noose, jury hung.</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.regex.replace">
 			<title>regex_replace</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -854,7 +854,7 @@ Infertility unlikely to
 Infertility unlikely to be passed on, experts say</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.replace">
 			<title>replace</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -907,7 +907,7 @@ Child's Stool Great for Use in Vineyard.
 Child's   Stool   Great   for   Use   in   Garden.</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.spacify">
 			<title>spacify</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -955,7 +955,7 @@ S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r 
 S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.string.format">
 			<title>string_format</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1002,7 +1002,7 @@ OUTPUT:
 24</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.strip.tags">
 			<title>strip_tags</title>
 			<para>
 			This strips out markup tags, basically anything between &lt; and &gt;.
@@ -1019,7 +1019,7 @@ Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad s
 Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.truncate">
 			<title>truncate</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1095,7 +1095,7 @@ Two Sisters Reunite after Eigh
 Two Sisters Reunite after E...</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.upper">
 			<title>upper</title>
 			<para>
             This is used to uppercase a variable.
@@ -1112,7 +1112,7 @@ If Strike isn't Settled Quickly it may Last a While.
 IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
 </example>
 		</sect1>
-		<sect1>
+		<sect1 id="language.modifier.wordwrap">
 			<title>wordwrap</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2233,7 +2233,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 		supported, but you will only see reference to the new syntax in the
 		manual examples.
 		</para>
-			<sect2>	
+			<sect2 id="section.property.index">	
 			<title>index</title>
 			<para>
 			index is used to display the current loop index, starting with zero
@@ -2264,7 +2264,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>	
+			<sect2 id="section.property.index.prev">	
 			<title>index_prev</title>
 			<para>
 			index_prev is used to display the previous loop index.
@@ -2293,7 +2293,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>
+			<sect2 id="section.property.index.next">
 			<title>index_next</title>
 			<para>
         	index_next is used to display the next loop index. On the last
@@ -2323,7 +2323,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>
+			<sect2 id="section.property.iteration">
 			<title>iteration</title>
 			<para>
         	iteration is used to display the current loop iteration.
@@ -2359,7 +2359,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>
+			<sect2 id="section.property.first">
 			<title>first</title>
 			<para>
         	first is set to true if the current section iteration is the first
@@ -2392,7 +2392,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>
+			<sect2 id="section.property.last">
 			<title>last</title>
 			<para>
         	last is set to true if the current section iteration is the last
@@ -2425,7 +2425,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>	
+			<sect2 id="section.property.rownum">	
 			<title>rownum</title>
 			<para>
 			rownum is used to display the current loop iteration,
@@ -2447,7 +2447,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>	
+			<sect2 id="section.property.loop">	
 			<title>loop</title>
 			<para>
 			loop is used to display the last index number that this section
@@ -2472,7 +2472,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>	
+			<sect2 id="section.property.show">	
 			<title>show</title>
 			<para>
         	<emphasis>show</emphasis> is used as a parameter to section.
@@ -2506,7 +2506,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2>	
+			<sect2 id="section.property.total">	
 			<title>total</title>
 			<para>
 			total is used to display the number of iterations that this section
@@ -2832,6 +2832,44 @@ OUTPUT:
 #d0d0d0
 #eeeeee</programlisting>
 </example>
+		</sect1>
+		<sect1 id="language.function.debug">
+			<title>debug</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>output</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>html</emphasis></entry>
+                        <entry>output type, html or javascript</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			{debug} dumps the debug console to the page. This works regardless
+			of the <link linkend="chapter.debugging.console">debug</link>
+			settings in Smarty. Since this gets executed at runtime, this is
+			only able to show the assigned variables, not the templates that
+			are in use. But, you see all the currently available variables
+			within the scope of this template.
+			</para>
 		</sect1>
 		<sect1 id="language.function.eval">
 			<title>eval</title>
@@ -4325,18 +4363,20 @@ pass=foobar</programlisting>
   <chapter id="chapter.debugging.console">
    <title>Debugging Console</title>
    <para>
-    There is a debugging console included with Smarty. The console informs you
-    of all the included templates, assigned variables and config file variables
-    for the current invocation of the template. A template named "debug.tpl" is
-    included with the distribution of Smarty which controls the formatting of
-    the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
-    to the template resource path for debug.tpl (this is in $template_dir by
-    default.) When you load the page, a javascript console window should pop up
-    and give you the names of all the included templates and assigned variables
-    for the current page. To disable the debugging console, set $debugging to
-    false. You can also temporarily turn on the debugging console by putting
-    SMARTY_DEBUG in the URL if you enable this option with <link
-     linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
+	There is a debugging console included with Smarty. The console informs you
+	of all the included templates, assigned variables and config file variables
+	for the current invocation of the template. A template named "debug.tpl" is
+	included with the distribution of Smarty which controls the formatting of
+	the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
+	to the template resource path for debug.tpl (this is in SMARTY_DIR by
+	default.) When you load the page, a javascript console window should pop up
+	and give you the names of all the included templates and assigned variables
+	for the current page. To see the available variables for a particular
+	templates, see the <link linkend="language.function.debug">{debug}</link>
+	template function. To disable the debugging console, set $debugging to
+	false. You can also temporarily turn on the debugging console by putting
+	SMARTY_DEBUG in the URL if you enable this option with <link
+	linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
    </para>
    <note>
     <title>Technical Note</title>

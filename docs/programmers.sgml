@@ -452,6 +452,16 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
 	  if you can.
       </para>
      </sect1>
+     <sect1 id="variable.default.modifiers">
+      <title>$default_modifiers</title>
+      <para>
+	  This is an array of modifiers to implicitly apply to every variable in a
+	  template. For example, to HTML-escape every variable by default, use
+	  array('escape:"htmlall"'); To make a variable exempt from default
+	  modifiers, pass the special "nodefaults" modifier to it, such as
+	  {$var|nodefaults}.
+      </para>
+     </sect1>
     </chapter>
 
    <chapter id="api.functions">
@@ -485,6 +495,38 @@ $smarty->append("Address",$address);
 $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
 </example>
 		</sect1>
+     <sect1 id="api.append.by.ref">
+      <title>append_by_ref</title>
+      <funcsynopsis>
+       <funcprototype>
+        <funcdef>void <function>assign</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+      </funcsynopsis>
+      <para>
+	   This is used to append values to the templates by reference instead of
+	   making a copy. See the PHP manual on variable referencing for an explanation.
+      </para>
+	  <note>
+	  <title>Technical Note</title>
+	  <para>
+	  assign_by_append() is more efficient than append() since it does not create
+	  an in-memory copy of the variable. Instead it refers to the actual
+	  variable in the memory heap. Be aware if you alter the original variable
+	  after it is assigned, the assigned variable sees the changes! PHP 5.0
+	  will take care of referencing automatically, so this function acts as a
+	  workaround.
+	  </para>
+	  </note>
+      <example>
+       <title>append_by_ref</title>
+       <programlisting>
+// appending name/value pairs
+$smarty->append_by_ref("Name",$myname);
+$smarty->append_by_ref("Address",$address);</programlisting>
+</example>
+		</sect1>
      <sect1 id="api.assign">
       <title>assign</title>
       <funcsynopsis>
@@ -514,6 +556,38 @@ $smarty->assign("Address",$address);
 $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
 </example>
 		</sect1>
+     <sect1 id="api.assign.by.ref">
+      <title>assign_by_ref</title>
+      <funcsynopsis>
+       <funcprototype>
+        <funcdef>void <function>assign</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+      </funcsynopsis>
+      <para>
+	   This is used to assign values to the templates by reference instead of
+	   making a copy. See the PHP manual on variable referencing for an explanation.
+      </para>
+	  <note>
+	  <title>Technical Note</title>
+	  <para>
+	  assign_by_ref() is more efficient than assign() since it does not create
+	  an in-memory copy of the variable. Instead it refers to the actual
+	  variable in the memory heap. Be aware if you alter the original variable
+	  after it is assigned, the assigned variable sees the changes! PHP 5.0
+	  will take care of referencing automatically, so this function acts as a
+	  workaround.
+	  </para>
+	  </note>
+      <example>
+       <title>assign_by_ref</title>
+       <programlisting>
+// passing name/value pairs
+$smarty->assign_by_ref("Name",$myname);
+$smarty->assign_by_ref("Address",$address);</programlisting>
+</example>
+		</sect1>
 		<sect1 id="api.clear.all.assign">
 			<title>clear_all_assign</title>
 			<funcsynopsis>
@@ -537,11 +611,13 @@ $smarty->clear_all_assign();</programlisting>
 			<funcsynopsis>
 			<funcprototype>
 			<funcdef>void <function>clear_all_cache</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
+				<paramdef>int <parameter>expire time</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This clears the entire template cache.
+				This clears the entire template cache. As an optional
+				parameter, you can supply a minimum age in seconds the cache
+				files must be before they will get cleared.
 			</para>
 <example>
 <title>clear_all_cache</title>
@@ -580,6 +656,7 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 				<paramdef>string <parameter>template</parameter></paramdef>
 				<paramdef>string <parameter>cache id</parameter></paramdef>
 				<paramdef>string <parameter>compile id</parameter></paramdef>
+				<paramdef>int <parameter>expire time</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -588,8 +665,10 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 				cache by supplying the cache id as the second parameter. You
 				can also pass a compile id as a third paramter. You can "group"
 				templates together so they can be removed as a group. See the
-				<link linkend="caching">caching section</link> for
-				more information.
+				<link linkend="caching">caching section</link> for more
+				information. As an optional fourth parameter, you can supply a
+				minimum age in seconds the cache file must be before it will
+				get cleared.
 			</para>
 <example>
 <title>clear_cache</title>
