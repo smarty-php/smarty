@@ -309,7 +309,8 @@ function smarty_func_html_select_time()
 	$display_hours		= true;
 	$display_minutes	= true;
 	$display_seconds	= true;
-	$display_24_hours	= true;
+    $display_meridian   = true;
+	$use_24_hours	    = true;
 	$minute_interval	= 1;
 	$second_interval	= 1;
 	
@@ -318,8 +319,8 @@ function smarty_func_html_select_time()
     $html_result = '';
 	
 	if ($display_hours) {
-		$hours 	  = $display_24_hours ? range(0, 23) : range(1, 12);
-		$hour_fmt = $display_24_hors ? '%H' : '%I';
+		$hours 	  = $use_24_hours ? range(0, 23) : range(1, 12);
+		$hour_fmt = $use_24_hours ? '%H' : '%I';
 		for ($i = 0; $i < count($hours); $i++)
         	$hours[$i] = sprintf('%02d', $hours[$i]);
         $html_result .= '<select name="'.$prefix.'Hour">'."\n";
@@ -356,7 +357,7 @@ function smarty_func_html_select_time()
         $html_result .= "</select>\n";
 	}
 	
-	if (!$display_24_hours) {
+	if ($display_meridian && !$use_24_hours) {
 		$html_result .= '<select name="'.$prefix.'Meridian">'."\n";
 		$html_result .= smarty_func_html_options(array('output'		  => array('AM', 'PM'),
 													   'values'		  => array('am', 'pm'),
