@@ -1,17 +1,18 @@
 <?php
-
 /*
  * Smarty plugin
  * -------------------------------------------------------------
  * Type:     function
  * Name:     html_select_date
- * Version:  1.1
+ * Version:  1.2
  * Purpose:  Prints the dropdowns for date selection.
  * Author:   Andrei Zmievski
  *
  * ChangeLog: 1.0 initial release
  *            1.1 added support for +/- N syntax for begin
  *                and end year values. (Monte)
+ *            1.2 added support for yyyy-mm-dd syntax for
+ *                time value. (Jan Rosier)
  * -------------------------------------------------------------
  */
 require_once SMARTY_DIR . $this->plugins_dir . '/shared.make_timestamp.php';
@@ -20,7 +21,6 @@ function smarty_function_html_select_date($params, &$smarty)
 {
     /* Default values. */
     $prefix          = "Date_";
-    $time            = time();
     $start_year      = strftime("%Y");
     $end_year        = $start_year;
     $display_days    = true;
@@ -55,6 +55,16 @@ function smarty_function_html_select_date($params, &$smarty)
 
     extract($params);
 
+	// If $time is not in format yyyy-mm-dd
+	if (!preg_match('/\d{4}-\d{2}-\d{2}/', $time)) {
+		// then $time is empty or unix timestamp or mysql timestamp
+		// using smarty_make_timestamp to get an unix timestamp and
+		// strftime to make yyyy-mm-dd
+		$time = strftime('%Y-%m-%d', smarty_make_timestamp($time));
+	}
+	// Now split this in pieces, which later can be used to set the select
+	$time = explode("-", $time);
+
 	// make syntax "+N" or "-N" work with start_year and end_year
 	if (preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match)) {
 		if ($match[1] == '+') {
@@ -70,8 +80,7 @@ function smarty_function_html_select_date($params, &$smarty)
 			$start_year = strftime('%Y') - $match[2];
 		}
 	}
-	
-    $time = smarty_make_timestamp($time);
+
     $field_order = strtoupper($field_order);
 
     $html_result = $month_result = $day_result = $year_result = "";
@@ -100,16 +109,16 @@ function smarty_function_html_select_date($params, &$smarty)
         $month_result .= '>'."\n";
         $month_result .= smarty_function_html_options(array('output'     => $month_names,
                                                             'values'     => range(1, 12),
-                                                            'selected'   => strftime("%m", $time),
+                                                            'selected'   => $time[1],
                                                             'print_result' => false),
                                                       $smarty);
         $month_result .= '</select>';
     }
 
     if ($display_days) {
-        $days = range(1, 31);
-        for ($i = 0; $i < count($days); $i++)
-            $days[$i] = sprintf($day_format, $days[$i]);
+        $days = array();
+        for ($i = 1; $i <= 31; $i++)
+            $days[] = sprintf($day_format, $i);
 
         $day_result .= '<select name=';
         if (null !== $field_array){
@@ -129,7 +138,7 @@ function smarty_function_html_select_date($params, &$smarty)
         $day_result .= '>'."\n";
         $day_result .= smarty_function_html_options(array('output'     => $days,
                                                           'values'     => range(1, 31),
-                                                          'selected'   => strftime("%d", $time),
+                                                          'selected'   => $time[2],
                                                           'print_result' => false),
                                                     $smarty);
         $day_result .= '</select>';
@@ -142,7 +151,7 @@ function smarty_function_html_select_date($params, &$smarty)
             $year_name = $prefix . 'Year';
         }
         if ($year_as_text) {
-            $year_result .= '<input type="text" name="' . $year_name . '" value="'.strftime('%Y', $time).'" size="4" maxlength="4"';
+            $year_result .= '<input type="text" name="' . $year_name . '" value="' . $time[0] . '" size="4" maxlength="4"';
             if (null !== $all_extra){
                 $year_result .= ' ' . $all_extra;
             }
@@ -169,7 +178,7 @@ function smarty_function_html_select_date($params, &$smarty)
             $year_result .= '>'."\n";
             $year_result .= smarty_function_html_options(array('output' => $years,
                                                                'values' => $years,
-                                                               'selected'   => strftime("%Y", $time),
+                                                               'selected'   => $time[0],
                                                                'print_result' => false),
                                                          $smarty);
             $year_result .= '</select>';
