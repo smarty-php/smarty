@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: nobody Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: nobody Status: ready -->
  <bookinfo id="bookinfo">
   <title>Smarty - a ferramenta para compilar templates para PHP</title>
   <authorgroup id="authors">
@@ -22,7 +22,7 @@
     <firstname>Taniel</firstname><surname>Franklin &lt;taniel@ig.com.br&gt;</surname>
    </author>
    <author>
-    <firstname>Thomas</firstname><surname>Thomas Gonzalez Miranda &lt;thomasgm@php.net&gt;</surname>
+    <firstname>Thomas</firstname><surname>Gonzalez Miranda &lt;thomasgm@php.net&gt;</surname>
    </author>
   </authorgroup>
   <pubdate>&build-date;</pubdate>
