@@ -363,9 +363,7 @@ class Smarty_Compiler extends Smarty {
 
 		foreach ($attrs as $arg_name => $arg_value) {
 			if ($arg_name == 'file') {
-                $_smarty_include_tpl_file = $this->_dequote($arg_value);
-				if ($_smarty_include_tpl_file{0} != '$')
-					$_smarty_include_tpl_file = '"' . $_smarty_include_tpl_file . '"';
+				$_smarty_include_tpl_file = $arg_value;
                 continue;
             }
 			if (is_bool($arg_value))
@@ -378,7 +376,7 @@ class Smarty_Compiler extends Smarty {
 			"unset(\$_smarty_defined_vars['_smarty_include_tpl_file']);\n" .
 			"unset(\$_smarty_defined_vars['_smarty_include_vars']);\n" .
 			"\$this->_smarty_include(".$_smarty_include_tpl_file.", array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n" .
-			"\$this->_tpl_vars = \$_smarty_defined_vars;\n" .
+			"\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
 			"unset(\$_smarty_tpl_vars); ?>";
     }
 
