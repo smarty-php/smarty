@@ -1,3 +1,5 @@
+    - fixed string_format modifier args (wrong order) (Paul
+      Lockaby, Monte)
     - use tmp file for file writes, avoid file lock race (Monte)
     - handle embedded "$smarty.config.foo.tpl" correctly (Monte)
     - add $smarty.config.varname variable for accessing config vars (Paul
