@@ -1,4 +1,5 @@
-    - fixed syntax error when including a non-existant template with security enabled (Monte)
+    - fixed syntax error when including a non-existant template with security
+      enabled. (Monte)
     - fixed comments handling to allow commenting out template blocks. (Andrei)
     - implemented named capture buffers, with results accessible via
       $smarty.capture.<name>. (Andrei)
