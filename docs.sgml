@@ -5538,7 +5538,8 @@ no title
 {$articleTitle|escape:"html"}
 {$articleTitle|escape:"url"}
 {$articleTitle|escape:"quotes"}
-<a href="mailto:{$EmailAddress|escape:"hex"}">{$EmailAddress|escape:"hexentity"}</a>
+&lt;a
+href="mailto:{$EmailAddress|escape:"hex"}"&gt;{$EmailAddress|escape:"hexentity"}&lt;/a&gt;
 
 OUTPUT:
 
@@ -5547,7 +5548,8 @@ OUTPUT:
 'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
 'Stiff+Opposition+Expected+to+Casketless+Funeral+Plan'
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
-<a href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74">&#x62;&#x6f;&#x62;&#x40;&#x6d;&#x65;&#x2e;&#x6e;&#x65;&#x74;</a>
+&lt;a
+href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;
 
 </programlisting>
 </example>
@@ -6169,11 +6171,13 @@ s m o k e r s   a r e   p. . .
      <para>
       The plugin files must be named as follows:
       <blockquote>
-       <em>type</em>.<em>name</em>.php
+	   <para>
+       <emphasis>type</emphasis>.<emphasis>name</emphasis>.php
+	   </para>
       </blockquote>
      </para>
      <para>
-      <literal>type<literal> is one of these plugin types:
+      <literal>type</literal> is one of these plugin types:
         <simplelist>
          <member>function</member>
          <member>modifier</member>
@@ -6190,7 +6194,6 @@ s m o k e r s   a r e   p. . .
      </para>
     </sect2>
    </sect1>
-   
 	<sect1>
 		<title>Making Custom Plugins</title>
 		<para>
