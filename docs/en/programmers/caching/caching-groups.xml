@@ -2,14 +2,14 @@
 <!-- $Revision$ -->
    <sect1 id="caching.groups">
     <title>Cache Groups</title>
-	<para>
-	You can do more elaborate grouping by setting up cache_id groups. This is
-	accomplished by separating each sub-group with a vertical bar "|" in the
-	cache_id value. You can have as many sub-groups as you like.
-	</para>
-	<example>
-     <title>cache_id groups</title>
-     <programlisting role="php">
+     <para>
+      You can do more elaborate grouping by setting up cache_id groups. This is
+      accomplished by separating each sub-group with a vertical bar "|" in the
+      cache_id value. You can have as many sub-groups as you like.
+     </para>
+     <example>
+      <title>cache_id groups</title>
+      <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
@@ -27,20 +27,22 @@ $smarty->clear_cache(null,"sports");
 $smarty->display('index.tpl',"sports|basketball");
 ?>
 ]]>
-</programlisting>
-    </example>
-   <note>
-   <title>Technical Note</title>
-   <para>
-   The cache grouping does NOT use the path to the template as any part of the
-   cache_id. For example, if you have display('themes/blue/index.tpl'), you
-   cannot clear the cache for everything under the "themes/blue" directory. If
-   you want to do that, you must group them in the cache_id, such as
-   display('themes/blue/index.tpl','themes|blue'); Then you can clear the
-   caches for the blue theme with clear_cache(null,'themes|blue');
-   </para>
-   </note>
-</sect1>
+      </programlisting>
+     </example>
+     <note>
+      <title>Technical Note</title>
+      <para>
+       The cache grouping does NOT use the path to the template as any part of the
+       cache_id. For example, if you have display('themes/blue/index.tpl'), you
+       cannot clear the cache for everything under the "themes/blue" directory. If
+       you want to do that, you must group them in the cache_id, such as
+       display('themes/blue/index.tpl','themes|blue'); Then you can clear the
+       caches for the blue theme with clear_cache(null,'themes|blue');
+      </para>
+     </note>
+    
+    </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

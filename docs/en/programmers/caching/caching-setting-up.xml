@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="caching.setting.up">
+  <sect1 id="caching.setting.up">
    <title>Setting Up Caching</title>
    <para>
-   The first thing to do is enable caching. This is done by setting <link
-   linkend="variable.caching">$caching</link> = true (or 1.)     
+    The first thing to do is enable caching. This is done by setting <link
+    linkend="variable.caching">$caching</link> = true (or 1.)     
    </para>
-    <example>
-     <title>enabling caching</title>
-     <programlisting role="php">
+   <example>
+    <title>enabling caching</title>
+    <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
@@ -19,34 +19,34 @@ $smarty->caching = true;
 $smarty->display('index.tpl');
 ?>
 ]]>
-     </programlisting>
-    </example>
-	<para>
-	With caching enabled, the function call to display('index.tpl') will render
-	the template as usual, but also saves a copy of its output to a file (a
-	cached copy) in the <link linkend="variable.cache.dir">$cache_dir</link>.
-	Upon the next call to display('index.tpl'), the cached copy will be used
-	instead of rendering the template again.
-	</para>
-	<note>
-	<title>Technical Note</title>
-	<para>
-	The files in the $cache_dir are named similar to the template name.
-	Although they end in the ".php" extention, they are not really executable
-	php scripts. Do not edit these files!
-	</para>
-	</note>
-	<para>
-	Each cached page has a limited lifetime determined by <link
-	linkend="variable.cache.lifetime">$cache_lifetime</link>. The default value
-	is 3600 seconds, or 1 hour. After that time expires, the cache is
-	regenerated. It is possible to give individual caches their own expiration
-	time by setting $caching = 2. See the documentation on <link
-	linkend="variable.cache.lifetime">$cache_lifetime</link> for details.
-	</para>
-    <example>
-     <title>setting cache_lifetime per cache</title>
-     <programlisting role="php">
+    </programlisting>
+   </example>
+   <para>
+    With caching enabled, the function call to display('index.tpl') will render
+    the template as usual, but also saves a copy of its output to a file (a
+    cached copy) in the <link linkend="variable.cache.dir">$cache_dir</link>.
+    Upon the next call to display('index.tpl'), the cached copy will be used
+    instead of rendering the template again.
+   </para>
+   <note>
+    <title>Technical Note</title>
+    <para>
+     The files in the $cache_dir are named similar to the template name.
+     Although they end in the ".php" extention, they are not really executable
+     php scripts. Do not edit these files!
+    </para>
+   </note>
+   <para>
+    Each cached page has a limited lifetime determined by <link
+    linkend="variable.cache.lifetime">$cache_lifetime</link>. The default value
+    is 3600 seconds, or 1 hour. After that time expires, the cache is
+    regenerated. It is possible to give individual caches their own expiration
+    time by setting $caching = 2. See the documentation on <link
+    linkend="variable.cache.lifetime">$cache_lifetime</link> for details.
+   </para>
+   <example>
+    <title>setting cache_lifetime per cache</title>
+    <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
@@ -70,18 +70,18 @@ $smarty->cache_lifetime = 30; // 30 seconds
 $smarty->display('home.tpl');
 ?>
 ]]>
-</programlisting>
-    </example>
-	<para>
-	If <link linkend="variable.compile.check">$compile_check</link> is enabled,
-	every template file and config file that is involved with the cache file is
-	checked for modification. If any of the files have been modified since the
-	cache was generated, the cache is immediately regenerated. This is a slight
-	overhead so for optimum performance, leave $compile_check set to false.
-	</para>
-    <example>
-     <title>enabling $compile_check</title>
-     <programlisting role="php">
+    </programlisting>
+   </example>
+   <para>
+    If <link linkend="variable.compile.check">$compile_check</link> is enabled,
+    every template file and config file that is involved with the cache file is
+    checked for modification. If any of the files have been modified since the
+    cache was generated, the cache is immediately regenerated. This is a slight
+    overhead so for optimum performance, leave $compile_check set to false.
+   </para>
+   <example>
+    <title>enabling $compile_check</title>
+    <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
@@ -93,24 +93,24 @@ $smarty->compile_check = true;
 $smarty->display('index.tpl');
 ?>
 ]]>
-</programlisting>
-	</example>
-	<para>
-	If <link linkend="variable.force.compile">$force_compile</link> is enabled,
-	the cache files will always be regenerated. This effectively turns off
-	caching. $force_compile is usually for debugging purposes only, a more
-	efficient way of disabling caching is to set <link
-	linkend="variable.caching">$caching</link> = false (or 0.)
-	</para>
-	<para>
-	The <link linkend="api.is.cached">is_cached()</link> function
-	can be used to test if a template has a valid cache or not. If you have a
-	cached template that requires something like a database fetch, you can use
-	this to skip that process.
-	</para>
-    <example>
-     <title>using is_cached()</title>
-     <programlisting role="php">
+    </programlisting>
+   </example>
+   <para>
+    If <link linkend="variable.force.compile">$force_compile</link> is enabled,
+    the cache files will always be regenerated. This effectively turns off
+    caching. $force_compile is usually for debugging purposes only, a more
+    efficient way of disabling caching is to set <link
+    linkend="variable.caching">$caching</link> = false (or 0.)
+   </para>
+   <para>
+    The <link linkend="api.is.cached">is_cached()</link> function
+    can be used to test if a template has a valid cache or not. If you have a
+    cached template that requires something like a database fetch, you can use
+    this to skip that process.
+   </para>
+   <example>
+    <title>using is_cached()</title>
+    <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
@@ -119,34 +119,34 @@ $smarty = new Smarty;
 $smarty->caching = true;
 
 if(!$smarty->is_cached('index.tpl')) {
-	// No cache available, do variable assignments here.
-	$contents = get_database_contents();
-	$smarty->assign($contents);
+    // No cache available, do variable assignments here.
+    $contents = get_database_contents();
+    $smarty->assign($contents);
 }
 
 $smarty->display('index.tpl');
 ?>
 ]]>
-</programlisting>
-    </example>
-	<para>
-	You can keep parts of a page dynamic with the <link
-	linkend="language.function.insert">insert</link> template function. Let's
-	say the whole page can be cached except for a banner that is displayed down
-	the right side of the page. By using an insert function for the banner, you
-	can keep this element dynamic within the cached content. See the
-	documentation on <link linkend="language.function.insert">insert</link> for
-	details and examples.
-	</para>
-	<para>
-	You can clear all the cache files with the <link
-	linkend="api.clear.all.cache">clear_all_cache()</link> function, or
-	individual cache files (or groups) with the <link
-	linkend="api.clear.cache">clear_cache()</link> function.	
-	</para>
-    <example>
-     <title>clearing the cache</title>
-     <programlisting role="php">
+    </programlisting>
+   </example>
+   <para>
+    You can keep parts of a page dynamic with the <link
+    linkend="language.function.insert">insert</link> template function. Let's
+    say the whole page can be cached except for a banner that is displayed down
+    the right side of the page. By using an insert function for the banner, you
+    can keep this element dynamic within the cached content. See the
+    documentation on <link linkend="language.function.insert">insert</link> for
+    details and examples.
+   </para>
+   <para>
+    You can clear all the cache files with the <link
+    linkend="api.clear.all.cache">clear_all_cache()</link> function, or
+    individual cache files (or groups) with the <link
+    linkend="api.clear.cache">clear_cache()</link> function.    
+   </para>
+   <example>
+    <title>clearing the cache</title>
+    <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
@@ -163,9 +163,11 @@ $smarty->clear_cache('index.tpl');
 $smarty->display('index.tpl');
 ?>
 ]]>
-</programlisting>
-    </example>
-</sect1>
+    </programlisting>
+   </example>
+
+  </sect1>
+  
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
