@@ -1511,7 +1511,7 @@ reques     * @var string
     function _get_compile_path($tpl_file)
     {
         return $this->_get_auto_filename($this->compile_dir, $tpl_file,
-                                         $this->_compile_id);
+                                         $this->_compile_id) . '.php';
     }
 
     /**
@@ -1650,7 +1650,7 @@ reques     * @var string
                 // prepend %% to avoid name conflicts with
                 // with $auto_id names
                 $_crc32 = '%%' . substr($_crc32,0,3) . $_dir_sep . '%%' . $_crc32;
-                $_res .= $_crc32 . $_filename . '.php';
+                $_res .= $_crc32 . $_filename;
             } else {
                 $_res .= str_replace($_dir_sep_enc,'^',urlencode($auto_source));
             }
