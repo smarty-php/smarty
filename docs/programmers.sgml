@@ -499,7 +499,7 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
       <title>append_by_ref</title>
       <funcsynopsis>
        <funcprototype>
-        <funcdef>void <function>assign</function></funcdef>
+        <funcdef>void <function>append_by_ref</function></funcdef>
         <paramdef>string <parameter>varname</parameter></paramdef>
         <paramdef>mixed <parameter>var</parameter></paramdef>
        </funcprototype>
@@ -511,7 +511,7 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
 	  <note>
 	  <title>Technical Note</title>
 	  <para>
-	  assign_by_append() is more efficient than append() since it does not create
+	  append_by_ref() is more efficient than append() since it does not create
 	  an in-memory copy of the variable. Instead it refers to the actual
 	  variable in the memory heap. Be aware if you alter the original variable
 	  after it is assigned, the assigned variable sees the changes! PHP 5.0
@@ -560,7 +560,7 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
       <title>assign_by_ref</title>
       <funcsynopsis>
        <funcprototype>
-        <funcdef>void <function>assign</function></funcdef>
+        <funcdef>void <function>assign_by_ref</function></funcdef>
         <paramdef>string <parameter>varname</parameter></paramdef>
         <paramdef>mixed <parameter>var</parameter></paramdef>
        </funcprototype>
