@@ -161,9 +161,8 @@ Hello Doug, glad to see you could make it.
 &lt;p&gt;
 Your last login was on January 11th, 2001.</programlisting>
 </example>
-		</sect2>
 
-		<sect2>
+		<sect3>
 			<title>Associative arrays</title>
 			<para>
 			You can also reference associative array variables that are
@@ -187,8 +186,8 @@ zaphod@slartibartfast.com&lt;br&gt;
 555-111-1234&lt;br&gt;
 </programlisting>
 </example>
-		</sect2>
-		<sect2>
+		</sect3>
+		<sect3>
 			<title>Array indexes</title>
 			<para>
 			You can reference arrays by their index, much like native PHP
@@ -203,8 +202,8 @@ zaphod@slartibartfast.com&lt;br&gt;
 {$Contacts[0][0]}&lt;br&gt;
 {$Contacts[0][1]}&lt;br&gt;</programlisting>
 </example>
-		</sect2>
-		<sect2>
+		</sect3>
+		<sect3>
 			<title>Objects</title>
 			<para>
 			Properties of objects assigned from PHP can be referenced
@@ -221,10 +220,11 @@ OUTPUT:
 name: Zaphod Beeblebrox&lt;br&gt;
 email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 </example>
-		</sect2>
+		</sect3>
+</sect2>
 
 		<sect2>
-			<title>Variables passed from config files</title>
+			<title>Variables loaded from config files</title>
 			<para>
 			Variables that are passed in from config files are displayed by enclosing
 			them with hash marks (#) and enclosing the variable in delimiters
