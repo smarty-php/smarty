@@ -577,7 +577,7 @@ Topic: {$topic|truncate:40:"..."}
       <link linkend="plugins.naming.conventions">Naming
       Conventions</link>) or can be registered explicitely (see: <link
       linkend="api.register.modifier">register_modifier</link>). Additionally
-      all php-functions can be used as modifiers implicitely. (The
+      all php-functions can be used as modifiers implicitly. (The
       <literal>@count</literal>-example above actually uses php's
       count-function and not a smarty-modifier). Using php-functions
       as modifiers has two little pitfalls: First: Sometimes the order
