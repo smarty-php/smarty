@@ -40,18 +40,14 @@ function smarty_core_rmdir($params, &$smarty)
                 }
             }
         }
-
         closedir($_handle);
+   }
 
-        if ($params['level']) {
-            @rmdir($params['dirname']);
-		}
+   if ($params['level']) {
+       return @rmdir($params['dirname']);
+   }
+   return (bool)$_handle;
 
-        return true;
-
-    } else {
-            return false;
-    }
 }
 
 /* vim: set expandtab: */
