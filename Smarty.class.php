@@ -108,7 +108,7 @@ class Smarty
                                  );
                                  
 
-    var $version               =   "3.0.1pl1";  // Smarty version number                     
+    var $version               =   "1.3.1pl1";  // Smarty version number                     
     var $show_info_header      =   true;        // display info header at top of page output
 
     // internal vars
