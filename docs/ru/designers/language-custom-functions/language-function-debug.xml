@@ -22,7 +22,7 @@
                 <tbody>
                     <row>
                         <entry>output</entry>
-                        <entry>строка (string)</entry>
+                        <entry>string</entry>
                         <entry>Нет</entry>
                         <entry><emphasis>html</emphasis></entry>
                         <entry>Тип вывода (html или javascript)</entry>

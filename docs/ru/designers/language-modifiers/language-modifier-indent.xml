@@ -22,14 +22,14 @@
   <tbody>
    <row>
     <entry>1</entry>
-    <entry>целое (integer)</entry>
+    <entry>integer</entry>
     <entry>Нет</entry>
     <entry>4</entry>
     <entry>Количество символов для вставки.</entry>
    </row>
    <row>
     <entry>2</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry>(один пробел)</entry>
     <entry>Символ для вставки.</entry>

@@ -22,7 +22,7 @@
   <tbody>
    <row>
     <entry>var</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>Имя переменной, значение которой будет
@@ -30,7 +30,7 @@
    </row>
    <row>
     <entry>value</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>Устанавливаемое значение</entry>

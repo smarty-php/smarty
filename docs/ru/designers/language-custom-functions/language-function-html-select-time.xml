@@ -22,7 +22,7 @@
   <tbody>
    <row>
     <entry>prefix</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry>Time_</entry>
     <entry>префикс названий переменных</entry>
@@ -36,56 +36,56 @@
    </row>
    <row>
     <entry>display_hours</entry>
-    <entry>логический (boolean)</entry>
+    <entry>boolean</entry>
     <entry>Нет</entry>
     <entry>true</entry>
     <entry>выводить часы</entry>
    </row>
    <row>
     <entry>display_minutes</entry>
-    <entry>логический (boolean)</entry>
+    <entry>boolean</entry>
     <entry>Нет</entry>
     <entry>true</entry>
     <entry>выводить минуты</entry>
    </row>
    <row>
     <entry>display_seconds</entry>
-    <entry>логический (boolean)</entry>
+    <entry>boolean</entry>
     <entry>Нет</entry>
     <entry>true</entry>
     <entry>выводить секунды</entry>
    </row>
    <row>
     <entry>display_meridian</entry>
-    <entry>логический (boolean)</entry>
+    <entry>boolean</entry>
     <entry>Нет</entry>
     <entry>true</entry>
     <entry>выводить меридиан (am/pm)</entry>
    </row>
    <row>
     <entry>use_24_hours</entry>
-    <entry>логический (boolean)</entry>
+    <entry>boolean</entry>
     <entry>Нет</entry>
     <entry>true</entry>
     <entry>использовать 24-часовой формат времени</entry>
    </row>
    <row>
     <entry>minute_interval</entry>
-    <entry>целое (integer)</entry>
+    <entry>integer</entry>
     <entry>Нет</entry>
     <entry>1</entry>
     <entry>интервал элементов выпадающего списка минут</entry>
    </row>
    <row>
     <entry>second_interval</entry>
-    <entry>целое (integer)</entry>
+    <entry>integer</entry>
     <entry>Нет</entry>
     <entry>1</entry>
     <entry>интервал элементов выпадающего списка секунд</entry>
    </row>
    <row>
     <entry>field_array</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry>n/a</entry>
     <entry>
@@ -95,7 +95,7 @@
    </row>
    <row>
     <entry>all_extra</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry>null</entry>
     <entry>
@@ -104,7 +104,7 @@
    </row>
    <row>
     <entry>hour_extra</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry>null</entry>
     <entry>
@@ -114,7 +114,7 @@
    </row>
    <row>
     <entry>minute_extra</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry>null</entry>
     <entry>
@@ -124,7 +124,7 @@
    </row>
    <row>
     <entry>second_extra</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry>null</entry>
     <entry>
@@ -134,7 +134,7 @@
    </row>
    <row>
     <entry>meridian_extra</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry>null</entry>
     <entry>

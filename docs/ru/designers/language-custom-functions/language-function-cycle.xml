@@ -22,7 +22,7 @@
                 <tbody>
                     <row>
                         <entry>name</entry>
-                        <entry>строка (string)</entry>
+                        <entry>string</entry>
                         <entry>Нет</entry>
                         <entry><emphasis>default</emphasis></entry>
                         <entry>Название цикла</entry>
@@ -38,28 +38,28 @@
                     </row>
                     <row>
                         <entry>print</entry>
-                        <entry>логический (boolean)</entry>
+                        <entry>boolean</entry>
                         <entry>Нет</entry>
                         <entry><emphasis>true</emphasis></entry>
                         <entry>Выводить значение, или нет</entry>
                     </row>
                     <row>
                         <entry>advance</entry>
-                        <entry>логический (boolean)</entry>
+                        <entry>boolean</entry>
                         <entry>Нет</entry>
                         <entry><emphasis>true</emphasis></entry>
                         <entry>Переключаться или нет на следующее значение</entry>
                     </row>
                     <row>
                         <entry>delimiter</entry>
-                        <entry>строка (string)</entry>
+                        <entry>string</entry>
                         <entry>Нет</entry>
                         <entry><emphasis>,</emphasis></entry>
                         <entry>Разделитель, используемый в атрибуте values.</entry>
                     </row>
                     <row>
                         <entry>assign</entry>
-                        <entry>строка (string)</entry>
+                        <entry>string</entry>
                         <entry>Нет</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>Имя переменной, которой будет присвоен вывод тэга</entry>

@@ -22,49 +22,49 @@
   <tbody>
    <row>
     <entry>file</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>название/путь к изображению</entry>
    </row>
    <row>
     <entry>border</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>0</emphasis></entry>
     <entry>размер рамки вокруг изображения</entry>
    </row>
    <row>
     <entry>height</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>реальная высота изображения</emphasis></entry>
     <entry>высота изображения</entry>
    </row>
    <row>
     <entry>width</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>реальная ширина изображения</emphasis></entry>
     <entry>ширина изображения</entry>
    </row>
    <row>
     <entry>basedir</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>корень веб сервера</emphasis></entry>
     <entry>папка, от которой указаны относительные пути</entry>
    </row>
    <row>
     <entry>alt</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>""</emphasis></entry>
     <entry>альтернативное описание изображения</entry>
    </row>
    <row>
     <entry>href</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>значение href, куда ссылается картинка</entry>

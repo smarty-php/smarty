@@ -50,7 +50,7 @@
    </row>
    <row>
     <entry>name</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
     <entry>Название выпадающего списка</entry>

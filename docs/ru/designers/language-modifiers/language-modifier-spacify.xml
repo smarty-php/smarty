@@ -22,7 +22,7 @@
                 <tbody>
                     <row>
                         <entry>1</entry>
-                        <entry>строка (string)</entry>
+                        <entry>string</entry>
                         <entry>Нет</entry>
                         <entry><emphasis>один пробел</emphasis></entry>
                         <entry>Строка вставялется между каждым символом переменной.</entry>

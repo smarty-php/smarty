@@ -22,14 +22,14 @@
    <tbody>
     <row>
      <entry>1</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry>%b %e, %Y</entry>
      <entry>Формат вывода даты.</entry>
     </row>
     <row>
      <entry>2</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry>n/a</entry>
      <entry>Если модифицируемое значение пусто, то используется это.</entry>

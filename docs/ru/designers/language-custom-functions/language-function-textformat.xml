@@ -22,7 +22,7 @@
   <tbody>
    <row>
     <entry>style</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>предустановленный стиль</entry>
@@ -43,7 +43,7 @@
    </row>
    <row>
     <entry>indent_char</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>(single space)</emphasis></entry>
     <entry>символ, которым заполняется отступ строк.</entry>
@@ -57,14 +57,14 @@
    </row>
    <row>
     <entry>wrap_char</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>\n</emphasis></entry>
     <entry>текст, разделяющий каждую строку</entry>
    </row>
    <row>
     <entry>wrap_cut</entry>
-    <entry>логический (boolean)</entry>
+    <entry>boolean</entry>
     <entry>Нет</entry>
     <entry><emphasis>false</emphasis></entry>
     <entry>
@@ -75,7 +75,7 @@
    </row>
    <row>
     <entry>assign</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>переменная шаблона, которой будет присвоен вывод</entry>

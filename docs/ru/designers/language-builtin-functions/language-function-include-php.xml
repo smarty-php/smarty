@@ -22,14 +22,14 @@
   <tbody>
    <row>
     <entry>file</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>Имя подключаемого php файла</entry>
    </row>
    <row>
     <entry>once</entry>
-    <entry>логический (boolean)</entry>
+    <entry>boolean</entry>
     <entry>Нет</entry>
     <entry><emphasis>true</emphasis></entry>
     <entry>Указывает подключать файл или нет, 
@@ -37,7 +37,7 @@
    </row>
    <row>
     <entry>assign</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>Название переменной, которой будет 

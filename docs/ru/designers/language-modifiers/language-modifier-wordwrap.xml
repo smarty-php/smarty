@@ -22,21 +22,21 @@
                 <tbody>
                     <row>
                         <entry>1</entry>
-                        <entry>целое (integer)</entry>
+                        <entry>integer</entry>
                         <entry>Нет</entry>
                         <entry>80</entry>
 						<entry>Количество столбцов для переноса.</entry>
                     </row>
                     <row>
                         <entry>2</entry>
-                        <entry>строка (string)</entry>
+                        <entry>string</entry>
                         <entry>Нет</entry>
                         <entry>\n</entry>
                         <entry>Строка, которая вставляется на месте переноса.</entry>
                     </row>
                     <row>
                         <entry>3</entry>
-                        <entry>логический (boolean)</entry>
+                        <entry>boolean</entry>
                         <entry>Нет</entry>
                         <entry>false</entry>
                         <entry>Указывает, переносить по словам (false) или нет (true).</entry>

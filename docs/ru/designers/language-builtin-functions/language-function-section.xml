@@ -22,7 +22,7 @@
   <tbody>
    <row>
     <entry>name</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>Название секции</entry>
@@ -37,7 +37,7 @@
    </row>
    <row>
     <entry>start</entry>
-    <entry>целое (integer)</entry>
+    <entry>integer</entry>
     <entry>Нет</entry>
     <entry><emphasis>0</emphasis></entry> 
     <entry>
@@ -52,7 +52,7 @@
    </row>
    <row>
     <entry>step</entry>
-    <entry>целое (integer)</entry>
+    <entry>integer</entry>
     <entry>Нет</entry>
     <entry><emphasis>1</emphasis></entry>
     <entry>
@@ -64,14 +64,14 @@
    </row>
    <row>
     <entry>max</entry>
-    <entry>целое (integer)</entry>
+    <entry>integer</entry>
     <entry>Нет</entry>
     <entry><emphasis>1</emphasis></entry>
     <entry>Максимальное количество итераций цикла.</entry>
    </row>
    <row>
     <entry>show</entry>
-    <entry>логический (boolean)</entry>
+    <entry>boolean</entry>
     <entry>Нет</entry>
     <entry><emphasis>true</emphasis></entry>
     <entry>Указывает, показывать или нет эту секцию</entry>

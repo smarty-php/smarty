@@ -22,7 +22,7 @@
      <tbody>
          <row>
              <entry>name</entry>
-             <entry>строка (string)</entry>
+             <entry>string</entry>
              <entry>Нет</entry>
              <entry><emphasis>radio</emphasis></entry>
              <entry>название элементов выбора</entry>
@@ -43,7 +43,7 @@
          </row>
          <row>
              <entry>checked</entry>
-             <entry>строка (string)</entry>
+             <entry>string</entry>
              <entry>Нет</entry>
              <entry><emphasis>пусто</emphasis></entry>
              <entry>Значение выбранного элемента</entry>
@@ -58,7 +58,7 @@
          </row>
          <row>
              <entry>separator</entry>
-             <entry>строка (string)</entry>
+             <entry>string</entry>
              <entry>Нет</entry>
              <entry><emphasis>пусто</emphasis></entry>
              <entry>текст, разделяющий элементы выбора</entry>

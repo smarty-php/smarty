@@ -22,7 +22,7 @@
    <tbody>
     <row>
      <entry>text</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Да</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>HTML код (текст), который будет выводиться 
@@ -30,7 +30,7 @@
     </row>
     <row>
      <entry>trigger</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>onMouseOver</emphasis></entry>
      <entry>Способ вызова окна. Может быть либо 
@@ -38,133 +38,133 @@
     </row>
     <row>
      <entry>sticky</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>false</emphasis></entry>
      <entry>Makes the popup stick around until closed</entry>
     </row>
     <row>
      <entry>caption</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>устанавливает заголовок</entry>
     </row>
     <row>
      <entry>fgcolor</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>цвет внутри окна</entry>
     </row>
     <row>
      <entry>bgcolor</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>цвет границы окна</entry>
     </row>
     <row>
      <entry>textcolor</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>цвет текста в окне</entry>
     </row>
     <row>
      <entry>capcolor</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>цвет заголовка окна</entry>
     </row>
     <row>
      <entry>closecolor</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>цвет текста "Close" (Закрыть)</entry>
     </row>
     <row>
      <entry>textfont</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>шрифт текста в окне</entry>
     </row>
     <row>
      <entry>captionfont</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>шрифт заголовка окна</entry>
     </row>
     <row>
      <entry>closefont</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>шрифт текста "Close" (Закрыть)</entry>
     </row>
     <row>
      <entry>textsize</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>размер шрифта в окне</entry>
     </row>
     <row>
      <entry>captionsize</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>размер шрифта заголовка</entry>
     </row>
     <row>
      <entry>closesize</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>размер шрифта текста "Close" (Закрыть)</entry>
     </row>
     <row>
      <entry>width</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>ширина окна</entry>
     </row>
     <row>
      <entry>height</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>высота окна</entry>
     </row>
     <row>
      <entry>left</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>false</emphasis></entry>
      <entry>создавать окно слева от курсора мыши</entry>
     </row>
     <row>
      <entry>right</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>false</emphasis></entry>
      <entry>создавать окно справа от курсора мыши</entry>
     </row>
     <row>
      <entry>center</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>false</emphasis></entry>
      <entry>создавать окно на месте мыши</entry>
     </row>
     <row>
      <entry>above</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>false</emphasis></entry>
      <entry>создает окно выше курсора мыши. ЗАМЕЧАНИЕ: возможно 
@@ -172,28 +172,28 @@
     </row>
     <row>
      <entry>below</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>false</emphasis></entry>
      <entry>создает окно под курсором мыши</entry>
     </row>
     <row>
      <entry>border</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>толщина границы окна</entry>
     </row>
     <row>
      <entry>offsetx</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>горизонтальное смещение окна от курсора мыши.</entry>
     </row>
     <row>
      <entry>offsety</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>вертикальное смещение окна от курсора мыши</entry>
@@ -219,28 +219,28 @@
     </row>
     <row>
      <entry>closetext</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>устанвливает текст вместо "Close"</entry>
     </row>
     <row>
      <entry>noclose</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>не отображать текст "Close"</entry>
     </row>
     <row>
      <entry>status</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>установить значение строки статуса в браузере</entry>
     </row>
     <row>
      <entry>autostatus</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>установить значение строки статуса в браузере 
@@ -248,7 +248,7 @@
     </row>
     <row>
      <entry>autostatuscap</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>установить значение строки статуса в браузере 
@@ -256,7 +256,7 @@
     </row>
     <row>
      <entry>inarray</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
  <entry>указывает, что текст окна следует взять из указанного
@@ -265,7 +265,7 @@
     </row>
     <row>
      <entry>caparray</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>указывает, что заголовок окна следует взять из 
@@ -280,21 +280,21 @@
     </row>
     <row>
      <entry>snapx</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>ровняет окно к горизонтальной сетке</entry>
     </row>
     <row>
      <entry>snapy</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>ровняет окно к вертикальной сетке</entry>
     </row>
     <row>
      <entry>fixx</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>закрепляет горизонтальное положение окна. 
@@ -303,7 +303,7 @@
     </row>
     <row>
      <entry>fixy</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>закрепляет вертикалнное положение окна. 
@@ -337,7 +337,7 @@
     </row>
     <row>
      <entry>fullhtml</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>Позволяет полностью контролировать HTML над 
@@ -346,7 +346,7 @@
     </row>
     <row>
      <entry>frame</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>Контролировать высплывающие окна в различных
@@ -355,7 +355,7 @@
     </row>
     <row>
      <entry>timeout</entry>
-     <entry>строка (string)</entry>
+     <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>вызывает указанную javascript функцию и 
@@ -363,7 +363,7 @@
     </row>
     <row>
      <entry>delay</entry>
-     <entry>целое (integer)</entry>
+     <entry>integer</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>время жизни окна в милисекундах. Позволяет
@@ -371,7 +371,7 @@
     </row>
     <row>
      <entry>hauto</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>автоматическое опредление горизонтального 
@@ -379,7 +379,7 @@
     </row>
     <row>
      <entry>vauto</entry>
-     <entry>логический (boolean)</entry>
+     <entry>boolean</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>автоматическое опредление вертикального

@@ -24,7 +24,7 @@
                 <tbody>
                     <row>
                         <entry>1</entry>
-                        <entry>строка (string)</entry>
+                        <entry>string</entry>
                         <entry>Нет</entry>
                         <entry>html,htmlall,url,quotes,hex,hexentity,javascript</entry>
                         <entry>html</entry>

@@ -22,14 +22,14 @@
   <tbody>
    <row>
     <entry>address</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>адрес e-mail</entry>
    </row>
    <row>
     <entry>text</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>название ссылки. По умолчанию: 
@@ -37,7 +37,7 @@
    </row>
    <row>
     <entry>encode</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>none</emphasis></entry>
     <entry>Способ кодирования e-mail.
@@ -46,7 +46,7 @@
    </row>
    <row>
     <entry>cc</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>адреса e-mail для точной копии.
@@ -54,7 +54,7 @@
    </row>
    <row>
     <entry>bcc</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>адреса e-mail для "слепой" копии.
@@ -62,14 +62,14 @@
    </row>
    <row>
     <entry>subject</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>тема письма.</entry>
    </row>
    <row>
     <entry>newsgroups</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>в какие конференции передавать.
@@ -77,7 +77,7 @@
    </row>
    <row>
     <entry>followupto</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>адреса для дальнейшего перенаправления.
@@ -85,7 +85,7 @@
    </row>
    <row>
     <entry>extra</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>Дополнительный атрибуты, передаваемые в ссылку
