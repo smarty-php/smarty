@@ -1,3 +1,14 @@
+2002-06-19  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update NEWS file
+
+    * plugins/modifier.date_format.php
+      docs/designers.sgml:
+    update date_format, allow optional 2nd paramater as default date if passed date is empty. update docs.
+
+    * plugins/modifier.date_format.php:
+    fix date_format modifier, return nothing if given empty string
+
 2002-06-18  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
