@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: didou Status: ready -->
 <sect1 id="variable.autoload.filters">
  <title>$autoload_filters</title>
  <para>
@@ -9,10 +9,12 @@
   variable. Les types de filtres et les valeurs sont des
   tableaux comportant le nom des filtres.
   <informalexample>
-<programlisting>
-$smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
+   <programlisting>
+<![CDATA[
+$smarty->autoload_filters = array('pre' => array('trim', 'stamp'),
                                   'output' => array('convert')); 
-        </programlisting>
+]]>
+   </programlisting>
   </informalexample>
  </para>
 </sect1>

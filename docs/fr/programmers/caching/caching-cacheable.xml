@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: didou Status: ready -->
 <sect1 id="caching.cacheable">
  <title>Contrôler la mise en cache des sorties des Plugins</title>
  <para>
@@ -32,9 +32,8 @@
    <title>Eviter la mise en cache du résultat d'un plugin</title>
    <programlisting role="php">
 <![CDATA[
-index.php:
-
 <?php
+
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
@@ -56,19 +55,22 @@ if (!$smarty->is_cached('index.tpl')) {
 
 $smarty->display('index.tpl');
 ?>
-
-
-index.tpl:
-
+]]>
+   </programlisting>
+   <para>
+    Où index.tpl contient :
+   </para>
+   <programlisting>
+<![CDATA[
 Time Remaining: {remain endtime=$obj->endtime}
 ]]>
    </programlisting>
    <para>
-    Le nombre de secondes avant que la date de fin de $obj ne soit atteinte change
-    à chaque affichage de la page, même si la page est mise en cache. Comme l'attribut
-    endtime est mis en cache, il n'y a que l'objet qui ait besoin d'être extrait de la
-    base de données lors de la mise en cache de la page, mais pas lors des affichages
-    ultérieurs de la page.
+    Le nombre de secondes avant que la date de fin de $obj ne soit atteinte
+    change à chaque affichage de la page, même si la page est mise en cache. 
+    Comme l'attribut endtime est mis en cache, il n'y a que l'objet qui ait 
+    besoin d'être extrait de la base de données lors de la mise en cache de 
+    la page, mais pas lors des affichages ultérieurs de la page.
    </para>
   </example>
   
@@ -76,8 +78,6 @@ Time Remaining: {remain endtime=$obj->endtime}
    <title>Eviter la mise en cache d'une portion du template</title>
    <programlisting role="php">
 <![CDATA[
-index.php:
-
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -90,10 +90,13 @@ $smarty->register_block('dynamic', 'smarty_block_dynamic', false);
 
 $smarty->display('index.tpl');
 ?>
-
-
-index.tpl:
-
+]]>
+   </programlisting>
+   <para>
+    Où index.tpl contient :
+   </para>
+   <programlisting>
+<![CDATA[
 Page created: {"0"|date_format:"%D %H:%M:%S"}
 
 {dynamic}
@@ -108,10 +111,10 @@ Now is: {"0"|date_format:"%D %H:%M:%S"}
   </example>
   
   <para>
-   Lors du rechargement de la page, vous remarquerez que les deux dates sont différentes.
-   L'une est "dynamique" et l'autre est "statique". Vous pouvez faire ce que vous voulez
-   entre {dynamic}...{/dynamic} et être sûrs que cela ne sera pas mis en cache comme le
-   reste de la page.
+   Lors du rechargement de la page, vous remarquerez que les deux dates sont 
+   différentes. L'une est "dynamique" et l'autre est "statique". Vous pouvez 
+   faire ce que vous voulez entre {dynamic}...{/dynamic} et être sûrs que 
+   cela ne sera pas mis en cache comme le reste de la page.
   </para>
   
  </sect1>
