@@ -1,3 +1,6 @@
+Version 2.6.3 (June 16, 2004)
+-----------------------------
+
   - added escapement of '</' to '<\/' in escape:javascript
     modifier (c960657, Monte)
   - added obfuscation of protocol-string in {mailto} when using hex-
