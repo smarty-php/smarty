@@ -277,7 +277,7 @@ class Smarty_Compiler extends Smarty {
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        return "<?php $function(array(".implode(',', (array)$arg_list).")); ?>";
+        return "<?php $function(array(".implode(',', (array)$arg_list)."), \$this); ?>";
     }
 
 /*======================================================================*\
@@ -713,7 +713,7 @@ class Smarty_Compiler extends Smarty {
 		$indexes = preg_split('![\[\]]!', $var_ref, -1, PREG_SPLIT_NO_EMPTY);
         $var_name = array_shift($indexes);
 
-        $output = "\$$var_name";
+        $output = "\$this->_tpl_vars['$var_name']";
 
 		foreach ($indexes as $index) {
 			if ($index{0} == '.') {
