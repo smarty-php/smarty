@@ -270,7 +270,7 @@ class Smarty
                     $results = $this->_read_file($cache_file);
                     $results = $this->_process_cached_inserts($results);
                     if ($display) {
-                        print $results;
+                        echo $results;
                         return;
                     } else
                         return $results;
@@ -301,7 +301,7 @@ class Smarty
         }
 
         if ($display) {
-            print $results;
+            echo $results;
             return;
         } else
             return $results;
@@ -541,7 +541,7 @@ class Smarty
             preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command)) {    // or a section property
             settype($tag_command, 'array');
             $this->_parse_vars_props($tag_command);
-            return "<?php print $tag_command[0]; ?>";
+            return "<?php echo $tag_command[0]; ?>";
         }
 
         switch ($tag_command) {
@@ -637,7 +637,7 @@ class Smarty
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        return "<?php print insert_$name(array(".implode(',', (array)$arg_list).")); ?>";
+        return "<?php echo insert_$name(array(".implode(',', (array)$arg_list).")); ?>";
     }   
     
     function _compile_config_load_tag($tag_args)
