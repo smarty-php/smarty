@@ -1,8 +1,13 @@
+{config_load file=test.conf}
+
+Title: {#title#}
+
 {* A simple variable test *}
-hello, my name is {$Name}.<br>
+hello, my name is {$Name}.
+
 My interests are:
 {section name=outer loop=$FirstName}
-	{if %outer.index% is even by 2}
+	{if %outer.index% is odd by 2}
 		. {$outer/FirstName} {$outer/LastName}
 	{else}
 		* {$outer/FirstName} {$outer/LastName}

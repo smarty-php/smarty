@@ -38,6 +38,8 @@ class Smarty
 	var $left_delimiter			=	"{";		// template tag delimiters.
 	var $right_delimiter		=	"}";
 
+	var $config_dir				=	"configs";	// directory where config files are located
+
 	
 	// registered template functions
 	// NOTE: leave off the "smarty_" prefix on the actual PHP function name
@@ -66,20 +68,14 @@ class Smarty
 
 	function assign($tpl_var, $value = NULL)
 	{
-		if(gettype($tpl_var) == "array")
-		{
-		   foreach ($tpl_var as $key => $val)
-			{
-				if (!(empty($key)))
-					$this->_tpl_vars["$key"] = $val;
+		if (is_array($tpl_var)){
+			foreach ($tpl_var as $key => $val) {
+				if (!empty($key))
+					$this->_tpl_vars[$key] = $val;
 			}
-		}
-		else
-		{
-			if ((!(empty($tpl_var))) && (isset($value)))
-			{
-				$this->_tpl_vars["$tpl_var"] = $value;
-			}
+		} else {
+			if (!empty($tpl_var) && isset($value))
+				$this->_tpl_vars[$tpl_var] = $value;
 		}
 	}
 
@@ -105,11 +101,11 @@ class Smarty
 	}
 
 /*======================================================================*\
-	Function:	quip()
-	Purpose:	executes & prints the template results
+	Function:	display()
+	Purpose:	executes & displays the template results
 \*======================================================================*/
 
-	function quip($tpl_file)
+	function display($tpl_file)
 	{
 		if(preg_match("/^(.+)\/([^\/]+)$/",$tpl_file,$match))
 		{
@@ -324,7 +320,8 @@ class Smarty
 		/* If the tag name matches a variable or section property definition,
 		   we simply process it. */
 		if (preg_match('!^\$(\w+/)*\w+(?>\|\w+(:[^|]+)?)*$!', $tag_command) ||	// if a variable
-			preg_match('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tag_command)) {   	// or a section property
+			preg_match('!^#(\w+)#(?>\|\w+(:[^|]+)?)*$!', $tag_command)		||  // or a configuration variable
+			preg_match('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tag_command)) {    // or a section property
 			settype($tag_command, 'array');
 			$this->_parse_vars_props($tag_command);
 			return "<?php print $tag_command[0]; ?>";
@@ -332,8 +329,7 @@ class Smarty
 
 		switch ($tag_command) {
 			case 'include':
-				/* TODO parse file= attribute */
-				return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$tokens[1].'"; ?>';
+				return $this->_compile_include_tag($tag_args);
 
 			case 'if':
 				return $this->_compile_if_tag($tag_args);
@@ -364,10 +360,45 @@ class Smarty
 				else
 					return "<?php endfor; endif; ?>";
 
+			case 'config_load':
+				return $this->_compile_config_load_tag($tag_args);
+
 			default:
 				/* TODO capture custom functions here */
 				break;
 		}
+	}
+
+	function _compile_config_load_tag($tag_args)
+	{
+		$attrs = $this->_parse_attrs($tag_args);
+
+		if (empty($attrs['file'])) {
+			/* TODO syntax error: missing 'file' attribute */
+		}
+
+		if (empty($attrs['section']))
+			$section = 'NULL';
+		else
+			$section = '"'.$attrs['section'].'"';
+
+		$output  = '<?php if (!class_exists("Config_File")) { include "Config_File.php"; $conf = new Config_File("'.$this->config_dir."\"); }\n";
+		$output .= '$conf->load_file("'.$attrs['file']."\");\n";
+		$output .= '$_config = array_merge((array)$_config, $conf->get("'.$attrs['file'].'", '.$section.")); ?>";
+
+		return $output;
+	}
+
+
+	function _compile_include_tag($tag_args)
+	{
+		$attrs = $this->_parse_attrs($tag_args);
+
+		if (empty($attrs['file'])) {
+			/* TODO syntax error: missing 'file' attribute */
+		}
+		
+		return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'"; ?>';
 	}
 
 	function _compile_section_start($tokens)
@@ -416,8 +447,6 @@ class Smarty
 				 {$section_props}['index'] < {$section_props}['loop'];
 				 {$section_props}['index']++):\n";
 
-		$output .= "{$section_props}['rownum'] = {$section_props}['index'] + 1;\n";
-
 		$output .= "?>\n";
 
 		return $output;
@@ -425,7 +454,6 @@ class Smarty
 
 	function _compile_if_tag($tag_args)
 	{
-		print "_compile_if_tag()\n";
 		/* Tokenize args for 'if' tag. */
 		preg_match_all('/(?:
 						 "[^"\\\\]*(?:\\\\.[^"\\\\]*)*" 		| # match all double quoted strings allowed escaped double quotes
@@ -536,7 +564,7 @@ class Smarty
 				if ($tokens[$expr_end] == 'by') {
 					$expr_end++;
 					$expr_arg = $tokens[$expr_end++];
-					$expr = "(($is_arg / $expr_arg) % $expr_arg)";
+					$expr = "!(($is_arg / $expr_arg) % $expr_arg)";
 				}
 				else
 					$expr = "!($is_arg % 2)";
@@ -546,7 +574,7 @@ class Smarty
 				if ($tokens[$expr_end] == 'by') {
 					$expr_end++;
 					$expr_arg = $tokens[$expr_end++];
-					$expr = "!(($is_arg / $expr_arg) % $expr_arg)";
+					$expr = "(($is_arg / $expr_arg) % $expr_arg)";
 				}
 				else
 					$expr = "($is_arg % 2)";
@@ -635,14 +663,22 @@ class Smarty
 	
 	function _parse_vars_props(&$tokens)
 	{
-		$var_exprs = preg_grep('!^\$(\w+/)*\w+(\|\w+(:[^|]+)?)*$!', $tokens);
-		$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(\|\w+(:[^|]+)?)*$!', $tokens);
+		$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\|\w+(:[^|]+)?)*$!', $tokens);
+		$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|\w+(:[^|]+)?)*$!', $tokens);
+		$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tokens);
 
 		if (count($var_exprs)) {
 			foreach ($var_exprs as $expr_index => $var_expr) {
 				$tokens[$expr_index] = $this->_parse_var($var_expr);
 			}
 		}
+		
+		if (count($conf_var_exprs)) {
+			foreach ($conf_var_exprs as $expr_index => $var_expr) {
+				$tokens[$expr_index] = $this->_parse_conf_var($var_expr);
+			}
+		}
+
 		if (count($sect_prop_exprs)) {
 			foreach ($sect_prop_exprs as $expr_index => $section_prop_expr) {
 				$tokens[$expr_index] = $this->_parse_section_prop($section_prop_expr);
@@ -662,6 +698,19 @@ class Smarty
 		foreach ($sections as $section) {
 			$output .= "[\$_sections['$section']['properties']['index']]";
 		}
+
+		$this->_parse_modifiers($output, $modifiers);
+
+		return $output;
+	}
+
+	function _parse_conf_var($conf_var_expr)
+	{
+		$modifiers = explode('|', $conf_var_expr);
+
+		$var_name = substr(array_shift($modifiers), 1, -1);
+
+		$output = "\$_config['$var_name']";
 
 		$this->_parse_modifiers($output, $modifiers);
 
@@ -702,6 +751,8 @@ class Smarty
 			/* TODO strict syntax check */
 			if (!isset($mod_func_name))
 				$mod_func_name = $modifier_name;
+
+			$this->_parse_vars_props($modifier);
 
 			if (count($modifier) > 0)
 				$modifier_args = ", ".implode(', ', $modifier);
