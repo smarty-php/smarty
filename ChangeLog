@@ -1,3 +1,15 @@
+2003-11-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.write_compiled_resource.php
+      libs/core/core.write_file.php:
+      avoid touch()-ing of recently unlinked files by touch()-ing the
+      tempfile before rename instead of touch()-ing the resulting file after
+      rename.
+
+    * NEWS
+      libs/Smarty.class.php:
+      add property $tpl_error_reporting
+
 2003-11-22  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.assign.php:
