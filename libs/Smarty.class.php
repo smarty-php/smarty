@@ -1187,7 +1187,7 @@ class Smarty
     function _parse_modifiers(&$output, $modifier_string)
     {
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
-        preg_match_all('!\|@?(\w+)((?>:(?:'. $qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $match);
+        preg_match_all('!\|(@?\w+)((?>:(?:'. $qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $match);
         list(, $modifiers, $modifier_arg_strings) = $match;
 
         for ($i = 0; $i < count($modifiers); $i++) {
