@@ -69,7 +69,7 @@ class Smarty
                                         // 0 = never expires. default is one hour (3600)
     
     
-    var $tpl_file_ext    =  ".tpl";     // template file extentions
+    var $tpl_file_ext    =  ".tpl";     // template files extention
     
     var $allow_php       =  false;      // whether or not to allow embedded php
                                         // in the templates. By default, php tags
@@ -170,6 +170,27 @@ class Smarty
         unset($this->_tpl_vars[$tpl_var]);
     }
 
+    
+/*======================================================================*\
+    Function: register_custom_function
+    Purpose:  Registers custom function to be used in templates
+\*======================================================================*/
+    function register_custom_function($function, $function_impl)
+    {
+        $this->custom_funcs[$function] = $function_impl;
+    }
+
+    
+/*======================================================================*\
+    Function: register_modifier
+    Purpose:  Registers modifier to be used in templates
+\*======================================================================*/
+    function register_modifier($modifier, $modifier_impl)
+    {
+        $this->custom_mods[$modifier] = $modifier_impl;
+    }
+
+    
 /*======================================================================*\
     Function:   clear_cache()
     Purpose:    clear all cached template files for given template
@@ -491,17 +512,13 @@ class Smarty
 \*======================================================================*/
     function _process_cached_inserts($results)
     {
-        preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
+        preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'\n??!Uis',
                        $results, $match);
         list($cached_inserts, $insert_args) = $match;
 
         for ($i = 0; $i < count($cached_inserts); $i++) {
             $attrs = $this->_parse_attrs($insert_args[$i], false);
             $name = $this->_dequote($attrs['name']);
-
-            if (empty($name)) {
-                $this->_syntax_error("missing insert name");
-            }
 
             $arg_list = array();
             foreach ($attrs as $arg_name => $arg_value) {
@@ -600,15 +617,21 @@ class Smarty
                     return $this->_compile_custom_tag($tag_command, $tag_args);
                 } else {
                     $this->_syntax_error("unknown tag - '$tag_command'", E_USER_WARNING);
-                    return "";
+                    return;
                 }
         }
     }
 
     function _compile_custom_tag($tag_command, $tag_args)
     {
-        $attrs = $this->_parse_attrs($tag_args);
         $function = $this->custom_funcs[$tag_command];
+
+        if (!function_exists($function)) {
+            $this->_syntax_error("custom function '$tag_command' is not implemented", E_USER_WARNING);
+            return;
+        }
+        
+        $attrs = $this->_parse_attrs($tag_args);
         foreach ($attrs as $arg_name => $arg_value) {
             if (is_bool($arg_value))
                 $arg_value = $arg_value ? 'true' : 'false';
@@ -1103,6 +1126,11 @@ class Smarty
              */
             if (!isset($mod_func_name))
                 $mod_func_name = $modifier_name;
+
+            if (!function_exists($mod_func_name)) {
+                $this->_syntax_error("modifier '$modifier_name' is not implemented", E_USER_WARNING);
+                continue;
+            }
 
             $this->_parse_vars_props($modifier_args);
 
