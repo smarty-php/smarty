@@ -405,13 +405,13 @@ class Smarty_Compiler extends Smarty {
                    "    include_once 'Config_File.class.php';\n" .
                    "if (!is_object(\$GLOBALS['_smarty_conf_obj']) || get_class(\$GLOBALS['_smarty_conf_obj']) != 'config_file')\n" .
                    "    \$GLOBALS['_smarty_conf_obj'] = new Config_File('".$this->config_dir."');\n" .
-				   "if (isset(\$parent_smarty_config) && $update_parent)\n" .
-				   "	\$parent_smarty_config = array_merge((array)\$parent_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n" .
+				   "if (isset(\$_smarty_config_parent) && $update_parent)\n" .
+				   "	\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n" .
                    "\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
 
         if (!empty($attrs['section'])) {
-			$output	.=	"if (isset(\$parent_smarty_config) && $update_parent)\n" .
-						"	\$parent_smarty_config = array_merge((array)\$parent_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n" .
+			$output	.=	"if (isset(\$_smarty_config_parent) && $update_parent)\n" .
+						"	\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n" .
             		  	"\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
 		}
 
@@ -449,17 +449,18 @@ class Smarty_Compiler extends Smarty {
 
 		return  "<?php " .
 				"if (!function_exists('$include_func_name')) {\n".
-				"   function $include_func_name(\$file_name, \$def_vars, \$include_vars, &\$parent_smarty_config)\n" .
+				"   function $include_func_name(\$_smarty_file_name, \$_smarty_def_vars," .
+				"								\$_smarty_include_vars, &\$_smarty_config_parent)\n" .
 				"   {\n" .
-				"       extract(\$def_vars);\n" .
-				"       extract(\$include_vars);\n" .
-				"       include \"\$file_name.php\";\n" .
+				"       extract(\$_smarty_def_vars);\n" .
+				"       extract(\$_smarty_include_vars);\n" .
+				"       include \"\$_smarty_file_name.php\";\n" .
 				"   }\n" .
 				"}\n" .
 				"\$_smarty_defined_vars = get_defined_vars();\n" .
-				"unset(\$_smarty_defined_vars['file_name']);\n" .
-				"unset(\$_smarty_defined_vars['def_vars']);\n" .
-				"unset(\$_smarty_defined_vars['include_vars']);\n" .
+				"unset(\$_smarty_defined_vars['_smarty_file_name']);\n" .
+				"unset(\$_smarty_defined_vars['_smarty_def_vars']);\n" .
+				"unset(\$_smarty_defined_vars['_smarty_include_vars']);\n" .
 				"$include_func_name($include_file_name, \$_smarty_defined_vars, array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
     }
 
