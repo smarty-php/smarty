@@ -1774,10 +1774,7 @@ class Smarty_Compiler extends Smarty {
 
 			case 'const':
                 array_shift($indexes);
-				if(!defined(substr($indexes[0],1))) {
-                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an undefined constant', E_USER_ERROR, __FILE__, __LINE__);
-				}
-                $compiled_ref = substr($indexes[0],1);
+				$compiled_ref = 'defined(' . substr($indexes[0],1) . ') ? ' . substr($indexes[0],1) . ' : null';
                 break;
 
             default:
