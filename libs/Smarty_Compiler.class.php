@@ -3,11 +3,6 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty_Compiler.class.php
- * Author:      Monte Ohrt <monte@ispi.net>
- *              Andrei Zmievski <andrei@php.net>
- *
- * Version:     2.4.2
- * Copyright:   2001,2002 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -35,12 +30,20 @@
  *
  * The latest version of Smarty can be obtained from:
  * http://www.phpinsider.com/
- *
+ * @link http://www.phpinsider.com/
+ * @author Monte Ohrt <monte@ispi.net>
+ * @author Andrei Zmievski <andrei@php.net>
+ * @version 2.4.2
+ * @copyright 2001,2002 ispi of Lincoln, Inc.
+ * @package Smarty
  */
 
 class Smarty_Compiler extends Smarty {
 
     // internal vars
+    /**#@+
+     * @access private
+     */
     var $_sectionelse_stack     =   array();    // keeps track of whether section had 'else' part
     var $_foreachelse_stack     =   array();    // keeps track of whether foreach had 'else' part
     var $_literal_blocks        =   array();    // keeps literal template blocks
@@ -69,11 +72,9 @@ class Smarty_Compiler extends Smarty {
 	var $_obj_start_regexp		=	null;
 	var $_obj_params_regexp		=	null;
 	var $_obj_call_regexp		=	null;
-
+    /**#@-*/
 	/**
 	 * The class constructor.
-	 *
-	 * @access public
 	 */
     function Smarty_Compiler()
     {
@@ -198,10 +199,10 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * compile a template file
 	 *
-	 * @access public
-	 * @param  $tpl_file
-	 * @param  $template_source
-	 * @param  $template_compiled
+     * sets $template_compiled to the compiled source
+	 * @param string $tpl_file
+	 * @param string $template_source
+	 * @param string $template_compiled
 	 */
     function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
@@ -362,8 +363,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile a template tag
 	 *
-	 * @access public
-	 * @param  $template_tag
+	 * @param string $template_tag
 	 */
     function _compile_tag($template_tag)
     {		
@@ -499,10 +499,10 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * compile the custom compiler tag
 	 *
-	 * @access public
-	 * @param  $tag_command
-	 * @param  $tag_args
-	 * @param  $output
+     * sets $output to the compiled custom compiler tag
+	 * @param string $tag_command
+	 * @param string $tag_args
+	 * @param string $output
 	 */
     function _compile_compiler_tag($tag_command, $tag_args, &$output)
     {
@@ -561,11 +561,11 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * compile block function tag
 	 *
-	 * @access public
-	 * @param  $tag_command
-	 * @param  $tag_args
-	 * @param  $tag_modifier
-	 * @param  $output
+     * sets $output to compiled block function tag
+	 * @param string $tag_command
+	 * @param string $tag_args
+	 * @param string $tag_modifier
+	 * @param string $output
 	 */
     function _compile_block_tag($tag_command, $tag_args, $tag_modifier, &$output)
     {
@@ -649,10 +649,9 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * compile custom function tag
 	 *
-	 * @access public
-	 * @param  $tag_command
-	 * @param  $tag_args
-	 * @param  $tag_modifier
+	 * @param string $tag_command
+	 * @param string $tag_args
+	 * @param string $tag_modifier
 	 */
     function _compile_custom_tag($tag_command, $tag_args, $tag_modifier)
     {
@@ -678,10 +677,9 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * compile a registered object tag
 	 *
-	 * @access public
-	 * @param  $tag_command
-	 * @param  $attrs
-	 * @param  $tag_modifier
+	 * @param string $tag_command
+	 * @param array $attrs
+	 * @param string $tag_modifier
 	 */
     function _compile_registered_object_tag($tag_command, $attrs, $tag_modifier)
     {
@@ -736,8 +734,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile {insert ...} tag
 	 *
-	 * @access public
-	 * @param  $tag_args
+	 * @param string $tag_args
 	 */
     function _compile_insert_tag($tag_args)
     {
@@ -769,8 +766,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile {config_load ...} tag
 	 *
-	 * @access public
-	 * @param  $tag_args
+	 * @param string $tag_args
 	 */
     function _compile_config_load_tag($tag_args)
     {
@@ -805,8 +801,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile {include ...} tag
 	 *
-	 * @access public
-	 * $param  $tag_args
+	 * $param string $tag_args
 	 */
     function _compile_include_tag($tag_args)
     {
@@ -855,8 +850,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile {include ...} tag
 	 *
-	 * @access public
-	 * @param $tag_args
+	 * @param string $tag_args
 	 */
     function _compile_include_php_tag($tag_args)
     {
@@ -889,8 +883,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile {section ...} tag
 	 *
-	 * @access public
-	 * @param  $tag_args
+	 * @param string $tag_args
 	 */
     function _compile_section_start($tag_args)
     {
@@ -994,8 +987,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile {foreach ...} tag.
 	 *
-	 * @access public
-	 * @param  $tag_args
+	 * @param string $tag_args
 	 */
     function _compile_foreach_start($tag_args)
     {
@@ -1058,9 +1050,8 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile {capture} .. {/capture} tags
 	 *
-	 * @access public
-	 * @param  $start
-	 * @param  $tag_args
+	 * @param boolean $start true if this is the {capture} tag
+	 * @param string $tag_args
 	 */
     function _compile_capture_tag($start, $tag_args = '')
     {
@@ -1085,9 +1076,8 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compile {if ...} tag
 	 *
-	 * @access public
-	 * @param  $tag_args
-	 * @param  $elseif
+	 * @param string $tag_args
+	 * @param boolean $elseif if true, uses elseif instead of if
 	 */
     function _compile_if_tag($tag_args, $elseif = false)
     {
@@ -1245,9 +1235,8 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Parse is expression
 	 *
-	 * @access public
-	 * @param  $is_arg
-	 * @param  $tokens
+	 * @param string $is_arg
+	 * @param array $tokens
 	 */
     function _parse_is_expr($is_arg, $tokens)
     {
@@ -1307,9 +1296,8 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Parse attribute string
 	 *
-	 * @access public
-	 * @param  $tag_args
-	 * @param  $quote
+	 * @param string $tag_args
+	 * @param true $quote unused?
 	 */
     function _parse_attrs($tag_args, $quote = true)
     {
@@ -1392,8 +1380,7 @@ class Smarty_Compiler extends Smarty {
 	 * compile multiple variables and section properties tokens into
 	 * PHP code
 	 *
-	 * @access public
-	 * @param  $tokens
+	 * @param array $tokens
 	 */
     function _parse_vars_props(&$tokens)
     {
@@ -1406,9 +1393,8 @@ class Smarty_Compiler extends Smarty {
 	 * compile single variable and section properties token into
 	 * PHP code
 	 *
-	 * @access public
-	 * @param  $val
-	 * @param  $tag_attrs
+	 * @param string $val
+	 * @param string $tag_attrs
 	 */
     function _parse_var_props($val, $tag_attrs = null)
     {					
@@ -1454,8 +1440,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * expand quoted text with embedded variables
 	 *
-	 * @access public
-	 * @param  $var_expr
+	 * @param string $var_expr
 	 */
     function _expand_quoted_text($var_expr)
     {
@@ -1475,8 +1460,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * parse variable expression into PHP code
 	 *
-	 * @access public
-	 * @param  $var_expr
+	 * @param string $var_expr
 	 */
     function _parse_var($var_expr)
     {
@@ -1572,8 +1556,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * parse arguments in function call parenthesis
 	 *
-	 * @access public
-	 * @param  $parenth_args
+	 * @param string $parenth_args
 	 */
     function _parse_parenth_args($parenth_args)
     {
@@ -1589,8 +1572,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * parse configuration variable expression into PHP code
 	 *
-	 * @access public
-	 * @param  $conf_var_expr
+	 * @param string $conf_var_expr
 	 */
     function _parse_conf_var($conf_var_expr)
     {
@@ -1611,8 +1593,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * parse section property expression into PHP code
 	 *
-	 * @access public
-	 * @param  $section_prop_expr
+	 * @param string $section_prop_expr
 	 */
     function _parse_section_prop($section_prop_expr)
     {
@@ -1635,9 +1616,9 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * parse modifier chain into PHP code
 	 *
-	 * @access public
-	 * @param  $output
-	 * @param  $modifier_string
+     * sets $output to parsed modified chain
+	 * @param string $output
+	 * @param string $modifier_string
 	 */
     function _parse_modifiers(&$output, $modifier_string)
     {
@@ -1679,10 +1660,9 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * add plugin
 	 *
-	 * @access public
-	 * @param  $type
-	 * @param  $name
-	 * @param  $delayed_loading
+	 * @param string $type
+	 * @param string $name
+	 * @param boolean? $delayed_loading
 	 */
     function _add_plugin($type, $name, $delayed_loading = null)
     {
@@ -1700,8 +1680,7 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * Compiles references of type $smarty.foo
 	 *
-	 * @access public
-	 * @param  $indexes
+	 * @param string $indexes
 	 */
     function _compile_smarty_ref(&$indexes)
     {
@@ -1814,8 +1793,6 @@ class Smarty_Compiler extends Smarty {
 
 	/**
 	 * load pre- and post-filters
-	 *
-	 * @access public
 	 */
     function _load_filters()
     {
@@ -1841,11 +1818,10 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * display Smarty syntax error
 	 *
-	 * @access public
-	 * @param  $error_msg
-	 * @param  $error_type
-	 * @param  $file
-	 * @param  $line
+	 * @param string $error_msg
+	 * @param integer $error_type
+	 * @param string $file
+	 * @param integer $line
 	 */
     function _syntax_error($error_msg, $error_type = E_USER_ERROR, $file=null, $line=null)
     {
@@ -1863,8 +1839,8 @@ class Smarty_Compiler extends Smarty {
  * compare to values by their string length
  *
  * @access private
- * @param  $a
- * @param  $b
+ * @param string $a
+ * @param string $b
  */
 function _smarty_sort_length($a, $b)
 {

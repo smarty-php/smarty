@@ -1,3 +1,10 @@
+2003-02-15  Greg Beaver <cellog@sourceforge.net>
+    * Smarty.class.php
+      Smarty_Compiler.class.php
+      continue cleaning of phpdoc comments.  All that is needed is the
+      addition of @return tags and perhaps a bit more verbose comments
+      and they are finished.
+
 2003-02-14  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
