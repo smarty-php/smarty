@@ -1,3 +1,8 @@
+2003-11-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      fixed typo
+
 2003-11-13  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Config_File.class.php:
