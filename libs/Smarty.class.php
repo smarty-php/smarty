@@ -1170,11 +1170,6 @@ class Smarty
 
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
 
-        if($this->security && !in_array($this->template_dir, $this->secure_dir)) {
-            // add template_dir to secure_dir array
-            array_unshift($this->secure_dir, $this->template_dir);
-        }
-
         if (!$this->debugging && $this->debugging_ctrl == 'URL'
                && @strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
             // enable debugging from URL
