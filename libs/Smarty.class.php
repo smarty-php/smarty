@@ -71,7 +71,8 @@ class Smarty
                                                // (relative to Smarty directory)
 
     var $debugging       =  false;             // enable debugging console true/false
-    var $debug_tpl       =  'file:debug.tpl';  // path to debug console template
+    var $debug_tpl       =  '';                // path to debug console template
+                                               // (this gets set in the constructor)
     var $debugging_ctrl  =  'NONE';            // Possible values:
                                                // NONE - no debug control allowed
                                                // URL - enable debugging when keyword
@@ -210,6 +211,8 @@ class Smarty
                 }
             }
         }
+		// look for debug template in the SMARTY_DIR
+		$this->debug_tpl = SMARTY_DIR.'debug.tpl';
     }
 
 

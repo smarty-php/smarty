@@ -116,78 +116,158 @@
   <sect1 id="installing.smarty">
    <title>Installing Smarty</title>
    <para>
-	Installing Smarty is fairly straightforward, there are a few things to be
-	aware of. Smarty creates PHP scripts from the templates. This usually means
-	allowing user "nobody" (or whomever the web server runs as) to have
-	permission to write the files. Each installation of a Smarty application
-	minimally needs a templates directory and a compiled templates directory.
-	If you use configuration files you will also need a directory for those. By
-	default these are named "templates", "templates_c" and "configs"
-	respectively. "templates_c" needs to be writable by the web server user. If
-	you plan on using caching, you will need to create a "cache" directory,
-	also with permission to write files.
+   First install the Smarty library files. These are the PHP files that you DO
+   NOT edit. They only get updated when you upgrade to a new version of Smarty.
+   These files are shared among all applications installed on your server that
+   utilize Smarty.
    </para>
    <note>
 	<title>Technical Note</title>
 	<para>
-    You can get around the need to allow the web server
-    user write access to compile templates. Smarty needs to compile the
-    templates only once. This can be done from the command line, using the
-    CGI version of PHP. example: "php -q index.php". Once the templates are
-    compiled, they should run fine from the web environment. If you change
-    a template, you must recompile from the command line again. If you do
-    not have the CGI version of PHP available and you are concerned about
-    world-writable directory access, you can chmod 777 the compile_dir, let
-    the templates compile once as the web server user, then change the
-    directory mode to 755. If you are using the caching feature of Smarty,
-    the cache directory must always have write access for the web server
-    user.
+	We highly recommend you do not edit the Smarty files unless you know what
+	you're doing. This makes upgrades much easier for you. You DO NOT need to
+	edit these files to configure your applications! Use an instance of the
+	Smarty class, which we'll get to in the sample setup below.
    </para>
    </note>
-   <note>
-   <title>Technical Note</title>
+   
    <para>
-    If you do not have access to the php.ini file, you can
-    change non-server settings (such as your include_path) with the
-    ini_set() command (available in PHP 4.0.4 or later.) example:
-    ini_set("include_path",".:/usr/local/lib/php");
+   Here is a list of the library files that come with Smarty:
    </para>
-   </note>
-   <para>
-    Copy the Smarty.class.php, Smarty.addons.php and Config_File.class.php
-    scripts to a directory that is in your PHP include_path. NOTE: PHP will
-    try to create a directory alongside the executing script called
-    "templates_c". Be sure that directory permissions allow this to happen.
-    You will see PHP error messages if this fails. You can also create the
-    directory yourself before hand, and change the file ownership
-    accordingly. See below.
-   </para>
-   <note>
-   <title>Technical Note</title>
-   <para>
-    If you don't want to use include_path to find the
-    Smarty files, you can set the SMARTY_DIR constant to the full path to
-    your Smarty library files. Be sure the path ends with a slash!
-   </para>
-   </note>
    <example>
-    <title>Example of installing Smarty</title>
+    <title>Smarty library files list</title>
     <screen>
-# be sure you are in the web server document tree
-# this assumes your web server runs as user "nobody"
-# and you are in a un*x environment
-gtar -zxvf Smarty-[version].tar.gz
-mkdir templates_c
-chown nobody:nobody templates_c
-chmod 700 templates_c
-# if you are using caching, do the following
-mkdir cache
-chown nobody:nobody cache
-chmod 700 cache</screen>
+Smarty.class.php
+Smarty_Compiler.class.php
+Config_File.class.php
+/plugins/(all files)</screen>
    </example>
+
    <para>
-    Next, try running the index.php script from your web browser.
+   Place these library files in a directory located within your PHP
+   include_path. Your include_path is usually set in your php.ini file, and you
+   can get your current include_path setting from the phpinfo() function. Call
+   Smarty in your applications like this:
    </para>
+
+   <example>
+    <title>Loading Smarty library files from include_path</title>
+    <screen>
+// Smarty.class.php will be found in your include_path
+require('Smarty.class.php');
+$smarty = new Smarty;</screen>
+   </example>
+  
+   <para>
+   If you would like to place your library files outside of your include path,
+   you must supply the absolute path in your application via the SMARTY_DIR
+   constant. SMARTY_DIR must end with a slash. Lets say we place our Smarty
+   library files in /usr/local/lib/php/Smarty/.
+   </para>
+ 
+   <example>
+    <title>Loading Smarty library files directly</title>
+    <screen>
+define(SMARTY_DIR,'/usr/local/lib/php/Smarty/');
+require(SMARTY_DIR.'Smarty.class.php');
+$smarty = new Smarty;</screen>
+   </example>
+
+   <para>
+	Now we need to setup the directories for our application. These are
+	$template_dir, $compile_dir, $config_dir and $cache_dir. It is your
+	discretion to have your applications share any of these directories, or
+	make them separate. None of these directories need be in the document root
+	of your web server, so keep them out of there to avoid the issue of prying
+	eyes getting to these files directly with a browser.
+   </para>
+   <para>
+   Lets take a look at an example of a complete file structure for all of our
+   files:
+   </para>
+  
+   <example>
+    <title>Example file structure</title>
+    <screen>
+/usr/local/lib/php/Smarty/Smarty.class.php
+/usr/local/lib/php/Smarty/Smarty_Compiler.class.php
+/usr/local/lib/php/Smarty/Config_File.class.php
+/usr/local/lib/php/Smarty/plugins/*.php
+
+/web/www.mydomain.com/smarty/templates/
+/web/www.mydomain.com/smarty/templates_c/
+/web/www.mydomain.com/smarty/configs/
+/web/www.mydomain.com/smarty/cache/
+
+/web/www.mydomain.com/docs/myapp/index.php</screen>
+   </example>
+
+   <para>
+   Smarty will need write access to the $compile_dir and $cache_dir, so be sure
+   the web server user can write to them. This is usually user "nobody" and
+   group "nobody". For OS X users, the default is user "web" and group "web".
+   </para>
+   <example>
+    <title>Setting file permissions</title>
+    <screen>
+
+chown nobody:nobody /web/www.mydomain.com/smarty/templates_c/
+chmod 550 /web/www.mydomain.com/smarty/templates_c/
+
+chown nobody:nobody /web/www.mydomain.com/smarty/cache/
+chmod 550 /web/www.mydomain.com/smarty/cache/
+
+/web/www.mydomain.com/docs/index.php</screen>
+   </example>
+   
+   <para>
+   In this example, index.php is in our document root under the subdirectory
+   "myapp". Lets edit this file and call a Smarty template.
+   </para>
+   
+   <example>
+    <title>Editing index.php</title>
+    <screen>
+
+// contents of /web/www.mydomain.com/docs/myapp/index.php
+
+define(SMARTY_DIR,'/usr/local/lib/php/Smarty/');
+require(SMARTY_DIR.'Smarty.class.php');
+
+$smarty = new Smarty;
+
+/*
+   NOTE: the following four lines do not need to be set if
+   /web/www.mydomain.com/smarty/ is in your include_path.
+*/
+
+$smarty->template_dir = '/web/www.mydomain.com/smarty/templates/';
+$smarty->compile_dir = '/web/www.mydomain.com/smarty/templates_c/';
+$smarty->config_dir = '/web/www.mydomain.com/smarty/configs/';
+$smarty->cache_dir = '/web/www.mydomain.com/smarty/cache/';
+
+$smarty->display('index.tpl');</screen>
+   </example>
+   
+   <para>
+   Before we execute this, we need to create the index.tpl file that Smarty will
+   load. This will be located in your $template_dir.
+   </para>
+
+   <example>
+    <title>Editing index.tpl</title>
+    <screen>
+
+{* contents of /web/www.mydomain.com/smarty/templates/index.tpl *}
+
+Hello World!</screen>
+   </example>
+   
+   <para>
+   Now load the index.php file from your web browser. You should see "Hello
+   World!" That's it for the basic setup for Smarty!
+   </para>
+   
   </sect1>
 
   <sect1 id="smarty.constants">
