@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
 <chapter id="smarty.constants">
  <title>Constantes</title>
- <para></para>
  
  <sect1 id="constant.smarty.dir">
   <title>SMARTY_DIR</title>
   <para>
-   Il doit s'agir du chemin complet du répertoire oú
+   Il doit s'agir du chemin complet du répertoire où
    se trouvent les fichiers classes de Smarty.
    S'il n'est pas défini, Smarty essaiera alors d'en
    déterminer automatiquement la valeur.
    S'il est défini, le chemin doit se terminer par un slash.
   </para>
-  
   <example>
    <title>SMARTY_DIR</title>
    <programlisting role="php">
@@ -25,6 +23,30 @@
 define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
 
 require_once(SMARTY_DIR."Smarty.class.php");
+?>
+]]>
+   </programlisting>
+  </example>
+ </sect1>
+ <sect1 id="constant.smarty.core.dir">
+  <title>SMARTY_CORE_DIR</title>
+  <para>
+   Il doit s'agir du chemin complet du répertoire où
+   se trouvent les fichiers internes de Smarty. S'il n'est
+   pas défini, Smarty placera comme valeur par défaut la
+   valeur de la constante précédente SMARTY_DIR. S'il est
+   défini, le chemin doit se terminer par un slash. Utilisez cette
+   constante lorsque vous incluez manuellement n'importe
+   quel fichier core.*.
+  </para>
+  <example>
+   <title>SMARTY_CORE_DIR</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+// chargement de core.get_microtime.php
+
+require_once(SMARTY_CORE_DIR."core.get_microtime.php");
 ?>
 ]]>
    </programlisting>

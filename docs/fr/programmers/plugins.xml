@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 <chapter id="plugins">
  <title>Etendre Smarty avec des plugins</title>
  <para>
   La version 2.0 a introduit l'architecture de plugin qui est
-  utilisée pour pratiquement toute les fonctionnalités
+  utilisée pour pratiquement toutes les fonctionnalités
   personnalisables de Smarty. Ceci comprend :
   <itemizedlist spacing="compact">
    <listitem><simpara>les fonctions</simpara></listitem>
@@ -19,9 +19,9 @@
    <listitem><simpara>les insertions</simpara></listitem>
   </itemizedlist>
   A part pour les ressources, la compatibilité avec les anciennes
-  fatons d'enregistrer les fonctions de gestion avec l'API register_
+  façons d'enregistrer les fonctions de gestion avec l'API register_
   est conservée. Si vous n'avez pas utilisé cette API et que vous avez
-  a la place directement modifié les variables de classes
+  à la place directement modifié les variables de classes
   <literal>$custom_funcs</literal>, <literal>$custom_mods</literal> et
   d'autres, vous devez alors modifier vos scripts pour utiliser
   l'API ou convertir vos fonctionnalités personnalisées en plugins.
