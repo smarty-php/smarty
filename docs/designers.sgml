@@ -562,6 +562,34 @@ Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.count.characters">
 			<title>count_characters</title>
+            <informaltable frame=all>
+                <tgroup cols=6>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>This determines whether or not to include
+                        whitespace characters in the count.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			This is used to count the number of characters in a variable.
 			</para>
@@ -578,10 +606,11 @@ index.tpl:
 
 {$articleTitle}
 {$articleTitle|count_characters}
-
+{$articleTitle|count_characters:true}
 OUTPUT:
 
 Cold Wave Linked to Temperatures.
+29
 32</programlisting>
 </example>
 		</sect1>
@@ -598,7 +627,7 @@ Cold Wave Linked to Temperatures.
                     <row>
                         <entry>Parameter Position</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>cat</entry>
                         <entry>Description</entry>
                     </row>
@@ -3652,11 +3681,11 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                         <entry>an array of output for checkbox buttons</entry>
                     </row>
                     <row>
-                        <entry>checked</entry>
-                        <entry>string</entry>
+                        <entry>selected</entry>
+                        <entry>string/array</entry>
                         <entry>No</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>the checked checkbox element</entry>
+                        <entry>the checked checkbox element(s)</entry>
                     </row>
                     <row>
                         <entry>options</entry>
