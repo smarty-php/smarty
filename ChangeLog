@@ -1,3 +1,14 @@
+2003-02-11  Monte Ohrt  <monte@ispi.net>
+
+    * (Smarty_2_4_2)
+      Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+      update version numbers
+
 2003-02-10  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
