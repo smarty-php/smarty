@@ -1,3 +1,6 @@
+    - made it possible to assign variables in pre/postfilter
+      plugins. (Andrei)
+
 Version 2.0.1
 -------------
     - rename plugin .make_timestamp.php to shared.make_timestamp.php.

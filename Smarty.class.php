@@ -933,6 +933,7 @@ function _generate_debug_output() {
         $smarty_compiler->security_settings = $this->security_settings;
         $smarty_compiler->trusted_dir       = $this->trusted_dir;
         $smarty_compiler->_plugins          = &$this->_plugins;
+        $smarty_compiler->_tpl_vars         = &$this->_tpl_vars;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;
