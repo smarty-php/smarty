@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.compile.id">
-      <title>$compile_id</title>
-      <para>
-	   Persistant compile identifier. As an alternative to passing the same
-	   compile_id to each and every function call, you can set this compile_id
-	   and it will be used implicitly thereafter.
-      </para>
+<sect1 id="variable.compile.id">
+ <title>$compile_id</title>
+ <para>
+  Persistant compile identifier. As an alternative to passing the same
+  compile_id to each and every function call, you can set this
+  compile_id and it will be used implicitly thereafter.
+ </para>
+ <para>
+  With a compile_id you can work around the limitation that you cannot
+  use the same compile_dir for different template_dirs.  If you set a
+  distinct compile_id for each template_dir then smarty can tell the
+  compiled templates apart by their compile_id.
+ </para>
+ <para>
+  If you have for example a prefilter that localizes your templates
+  (that is: translates language dependend parts) at compile time, then
+  you should use the current language as compile_id and you will get a
+  set of compiled templates for each language you use.
+ </para>
+ <para>
+  Another example would be to use the same compile directory across
+  multiple domains / multiple vhosts. eg:
+ </para>
+ <example>
+  <title>compile_id</title>
+  <programlisting role="php">
+<![CDATA[
+   $smarty->compile_id = $_SERVER['SERVER_NAME'];
+   $smarty->compile_dir = 'path/to/shared_compile_dir';
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
