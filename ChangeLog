@@ -1,3 +1,10 @@
+2003-12-04  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/plugins/function.html_image.php:
+      fix: check $smarty->request_use_auto_globals at the last occurences of
+           HTTP_*_VARS
+
 2003-12-03  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
