@@ -43,7 +43,7 @@ if ($dir = opendir('phpweb')) {
 
             $text = preg_replace($search, $replace, $text);
 
-            $handler = fopen('phpweb2/' . $file, 'w+');
+            $handler = fopen('phpweb/' . $file, 'w+');
             fputs($handler, $text);
             fclose($handler);
         }
