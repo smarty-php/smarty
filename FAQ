@@ -43,6 +43,8 @@ HOWTO
 
 Q: How do I generate different cache files per template based on arguments
    passed to the page?
+Q: How do I pass a template variable as a parameter? {function param={$varname}}
+   does not work.
 Q: How do I include cached template(s) within a non-cached template?
 
 
@@ -206,6 +208,10 @@ A: Use your $REQUEST_URI as the cache_id when fetching the page:
 
    This will create a separate cache file for each unique URL when you call
    index.tpl. See the documentation for display() and fetch()
+
+Q: How do I pass a template variable as a parameter? {function param={$varname}}
+   does not work.
+A: {function param=$varname} (You cannot nest template delimiters.)
 
 Q: How do I include cached template(s) within a non-cached template?
 A: One way to do it:
