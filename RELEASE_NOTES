@@ -1,9 +1,19 @@
 2.4.0
 -----
 
-Smarty now supports the ability to access objects within the templates. Two methods are available, one which closely follows Smartys conventions, and another that follows more traditional object syntax for those familiar with PHP.
+Smarty now supports the ability to access objects within the templates. Two
+methods are available, one which closely follows Smartys conventions, and
+another that follows more traditional object syntax for those familiar with
+PHP.
 
-The internal compiling engine has also undergone some major work. The regex parsing was rewritten to be much more strict, more secure and more maintainable. Config files are now compiled, which can speed up pages quite a bit that use config files extensively. Assigned variables are no longer extracted to PHP namespace, saving an extract call for every template. There is now support for applying modifiers to static values and functions. You can now access constants with $smarty.const.VAR.  See the NEWS file for complete changes.
+The internal compiling engine has also undergone some major work. The regex
+parsing was rewritten to be much more strict, more secure and more
+maintainable. Config files are now compiled, which can speed up pages quite a
+bit that use config files extensively. Assigned variables are no longer
+extracted to PHP namespace, saving an extract call for every template. There is
+now support for applying modifiers to static values and functions. You can now
+access constants with $smarty.const.VAR.  See the NEWS file for complete
+changes.
  
 2.3.1
 -----
