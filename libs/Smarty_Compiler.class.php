@@ -80,6 +80,7 @@ class Smarty_Compiler extends Smarty {
         // run template source through prefilter functions
         if (count($this->_plugins['prefilter']) > 0) {
             foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
+                if ($prefilter === false) continue;
                 if ($prefilter[3] || function_exists($prefilter[0])) {
                     $template_source = $prefilter[0]($template_source, $this);
                     $this->_plugins['prefilter'][$filter_name][3] = true;
@@ -176,6 +177,7 @@ class Smarty_Compiler extends Smarty {
         // run compiled template through postfilter functions
         if (count($this->_plugins['postfilter']) > 0) {
             foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
+                if ($postfilter === false) continue;
                 if ($postfilter[3] || function_exists($postfilter[0])) {
                     $template_compiled = $postfilter[0]($template_compiled, $this);
                     $this->_plugins['postfilter'][$filter_name][3] = true;
@@ -1366,7 +1368,8 @@ class Smarty_Compiler extends Smarty {
                 $parts[2] != 'php' ||
                 ($parts[0] != 'prefilter' &&
                  $parts[0] != 'postfilter') ||
-                isset($this->_plugins[$parts[0]][$parts[1]]))
+                (isset($this->_plugins[$parts[0]][$parts[1]]) &&
+                 $this->_plugins[$parts[0]][$parts[1]] === false))
                 continue;
 
             $plugin_file = $plugins_dir . '/' . $entry;

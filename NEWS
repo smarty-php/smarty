@@ -1,4 +1,6 @@
-    - added htmlall attribute to escape (Monte)
+    - added ability to unregister pre/postfilters plugins at
+      runtime. (Andrei)
+    - added 'htmlall' attribute to escape modifier. (Monte)
     - added template_exists() API function. (Andrei)
     - fixed a problem with using dynamic values for 'file'
       attribute of {include_php} tag. (Andrei)

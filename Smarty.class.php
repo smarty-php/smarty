@@ -370,7 +370,10 @@ class Smarty
 \*======================================================================*/
     function unregister_prefilter($function)
     {
-        unset($this->_plugins['prefilter'][$function]);
+        if (isset($this->_plugins['prefilter'][$function]))
+            unset($this->_plugins['prefilter'][$function]);
+        else
+            $this->_plugins['prefilter'][$function] = false;
     }
 
 /*======================================================================*\
@@ -390,7 +393,10 @@ class Smarty
 \*======================================================================*/
     function unregister_postfilter($function)
     {
-        unset($this->_plugins['postfilter'][$function]);
+        if (isset($this->_plugins['postfilter'][$function]))
+            unset($this->_plugins['postfilter'][$function]);
+        else
+            $this->_plugins['postfilter'][$function] = false;
     }
 
 /*======================================================================*\
