@@ -95,12 +95,14 @@
   within a section with the added attribute
   <emphasis>section</emphasis>.
  </para>
- <para>
-  NOTE: <emphasis>Config file sections</emphasis> and the built-in
-  template function called <emphasis>section</emphasis> have nothing
-  to do with each other, they just happen to share a common naming
-  convention.
- </para>
+ <note>
+  <para>
+   <emphasis>Config file sections</emphasis> and the built-in
+   template function called <emphasis>section</emphasis> have nothing
+   to do with each other, they just happen to share a common naming
+   convention.
+  </para>
+ </note>
  <example>
   <title>function config_load with section</title>
   <programlisting>

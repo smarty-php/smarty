@@ -18,11 +18,13 @@
        <listitem><para>SMARTY_PHP_ALLOW - Smarty will execute the tags
          as PHP code.</para></listitem>
       </itemizedlist>
-      <para>
-       NOTE: Embedding PHP code into templates is highly discouraged.
-       Use <link linkend="language.custom.functions">custom functions</link> or
-       <link linkend="language.modifiers">modifiers</link> instead.
-      </para>
+      <note>
+       <para>
+        Embedding PHP code into templates is highly discouraged.
+        Use <link linkend="language.custom.functions">custom functions</link> or
+        <link linkend="language.modifiers">modifiers</link> instead.
+       </para>
+      </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

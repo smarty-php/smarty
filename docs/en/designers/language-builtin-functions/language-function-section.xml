@@ -237,13 +237,15 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 		Sections also have their own variables that handle section properties.
 		These are indicated like so: {$smarty.section.sectionname.varname}
 		</para>
-		<para>
-		NOTE: As of Smarty 1.5.0, the syntax for section property variables has
-		been changed from {%sectionname.varname%} to
-		{$smarty.section.sectionname.varname}. The old syntax is still
-		supported, but you will only see reference to the new syntax in the
-		manual examples.
-		</para>
+		<note>
+		 <para>
+		  As of Smarty 1.5.0, the syntax for section property variables has
+ 		  been changed from {%sectionname.varname%} to
+		  {$smarty.section.sectionname.varname}. The old syntax is still
+		  supported, but you will only see reference to the new syntax in the
+		  manual examples.
+		 </para>
+		</note>
 			<sect2 id="section.property.index">
 			<title>index</title>
 			<para>
@@ -339,12 +341,14 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			<para>
         	iteration is used to display the current loop iteration.
 			</para>
-			<para>
-			NOTE: This is not affected by the section properties start, step and
-			max, unlike the index property. Iteration also starts with 1
-			instead of 0 like index. rownum is an alias to iteration, they work
-			identical.
-			</para>
+			<note>
+			 <para>
+			  This is not affected by the section properties start, step and
+			  max, unlike the index property. Iteration also starts with 1
+			  instead of 0 like index. rownum is an alias to iteration, they work
+			  identical.
+			 </para>
+			</note>
 	<example>
 	<title>section property iteration</title>
 	<programlisting>
