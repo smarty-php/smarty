@@ -425,6 +425,19 @@ chmod 700 cache
                 Smarty.addons.php.
 			</para>
 		</sect2>
+		<sect2 id="setting.version">
+			<title>$version</title>
+			<para>
+                Current version of Smarty, used in info header.
+			</para>
+		</sect2>
+		<sect2 id="setting.show.info.header">
+			<title>$show_info_header</title>
+			<para>
+                Shows an HTML comment at the beginning of the templates output,
+                displaying smarty version and date generated. Default is true.
+			</para>
+		</sect2>
 	</sect1>
 </chapter>
 <chapter>
@@ -2849,12 +2862,99 @@ OUTPUT:
 <title>capitalize</title>
 <programlisting>
 
-{* this displays a variable, unmodified *}
+{$articleTitle}
 {$articleTitle|capitalize}
 
 OUTPUT:
 
-POLICE BEGIN CAMPAIGN TO RUNDOWN JAYWALKERS
+Police begin campaign to rundown jaywalkers.
+Police Begin Campaign To Rundown Jaywalkers.
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>count_characters</title>
+			<para>
+			This is used to count the number of characters in a variable.
+			</para>
+<example>
+<title>count_characters</title>
+<programlisting>
+
+
+{$articleTitle}
+{$articleTitle|count_characters}
+
+OUTPUT:
+
+Cold Wave Linked to Temperatures
+32
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>count_paragraphs</title>
+			<para>
+			This is used to count the number of paragraphs in a variable.
+			</para>
+<example>
+<title>count_paragraphs</title>
+<programlisting>
+
+
+{$articleTitle}
+{$articleTitle|count_paragraphs}
+
+OUTPUT:
+
+War Dims Hope for Peace. Child's Death Ruins Couple's Holiday. 
+
+Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
+2
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>count_sentences</title>
+			<para>
+			This is used to count the number of sentences in a variable.
+			</para>
+<example>
+<title>count_sentences</title>
+<programlisting>
+
+
+{$articleTitle}
+{$articleTitle|count_sentences}
+
+OUTPUT:
+
+Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
+2
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>count_words</title>
+			<para>
+			This is used to count the number of words in a variable.
+			</para>
+<example>
+<title>count_words</title>
+<programlisting>
+
+
+{$articleTitle}
+{$articleTitle|count_words}
+
+OUTPUT:
+
+Dealers Will Hear Car Talk at Noon.
+7
 
 </programlisting>
 </example>
