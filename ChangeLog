@@ -1,3 +1,12 @@
+2003-08-09  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.is_secure.php
+      libs/core/core.is_trusted.php:
+      synced secure_dir-checking with trusted_dir-checking
+
+    * libs/core/core.is_secure.php:
+      tightenend path checking in smarty_core_is_secure()
+
 2003-08-08  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
