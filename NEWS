@@ -1,3 +1,6 @@
+    - fix filename bug with windows (Gary Loescher, Monte)
+    - add ability to supply expire time in seconds when clearing
+      cache or compile files (Monte)
     - add {debug} plugin to distribution (Monte)
     - fixed bug with insert tags, loading from "script" attribute
       when caching is enabled (Monte)
