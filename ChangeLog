@@ -1,3 +1,8 @@
+2002-07-18  mohrt  <mohrt@pb1.pair.com>
+
+    * Smarty_Compiler.class.php:
+    correct the expression match for smarty:nodefaults
+
 2002-07-17  mohrt  <mohrt@pb1.pair.com>
 
     * Smarty_Compiler.class.php: fix default modifier to work with config vars
