@@ -12,6 +12,10 @@ $smarty->assign("Class",array(array("A","B","C","D"), array("E", "F", "G", "H"),
 
 $smarty->display("./templates/index.tpl");
 
-print "\ndone\n";
 
+function test_insert()
+{
+	print "<br>this is a test for the insert function<br>\n";
+
+}
 ?>

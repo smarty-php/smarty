@@ -58,15 +58,6 @@ class Smarty
 										 );
 	var $global_assign			=	array(	'SCRIPT_NAME'
 										 );
-
-	var $cache_enable			=	true;		// turn template cache on/off
-	
-	var $cache_dir				=	"";			// the directory path where
-												// cached templates are placed.
-												// if empty, uses compile directory
-	
-	var $cache_exp_time			=	3600;		// number of seconds cache is good for
-	
 	
 	// internal vars
 	var $_error_msg				=	false;		// error messages

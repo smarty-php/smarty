@@ -20,3 +20,7 @@ My interests are:
 {/section}
 
 ({$FirstName|@count})
+
+{insert name=test_insert}
+{insert name=test_insert}
+{insert name=test_insert}
