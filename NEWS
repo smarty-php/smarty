@@ -1,3 +1,7 @@
+    - configs directory missing from 1.4.1 release, added back in (Monte)
+    - added windows include_path setup instructions to FAQ & QUICKSTART
+      (Monte)
+
 Version 1.4.1
 -------------
     - fix LOCK_EX logic for all windows platforms (Monte)
