@@ -1,3 +1,14 @@
+2002-06-18  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      plugins/function.cycle.php:
+    gave $reset a default value in cycle function
+
+    * plugins/function.html_select_date.php
+      plugins/shared.make_timestamp.php
+      NEWS:
+    corrected warnings in html_select_time function, made make timestamp always return a timestamp
+
 2002-06-17  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php: swapped around cache_id and compile_id order
