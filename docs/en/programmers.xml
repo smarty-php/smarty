@@ -20,7 +20,7 @@
 // set path to Smarty directory
 define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
 
-require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
+require_once(SMARTY_DIR."Smarty.class.php");
 ?>
 ]]>
      </programlisting>
