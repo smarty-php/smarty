@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-     <sect1 id="variable.plugins.dir">
      <sect1 id="variable.security.settings">
       <title>$security_settings</title>
       <para>
        Это используется для изменения или указания настроек безопасности
        когда безопасносить (security) включена. Допустимые значения:
-       /para>
+      </para>
       <itemizedlist>
        <listitem><para>PHP_HANDLING - true/false. Если установлено в true, параметр
          $php_handling не проверяется на безопасность.</para></listitem>
