@@ -1,0 +1,3275 @@
+ <part id="smarty.for.programmers"><!-- En Version: 1.47 -->
+   <title>Smarty para Programadores</title>
+
+
+	<chapter id="smarty.constants">
+	 <title>Constantes</title>
+	 <para></para>
+
+	 <sect1 id="constant.smarty.dir">
+      <title>SMARTY_DIR</title>
+      <para>
+       Isso deve ser o caminho completo do path para a localização dos arquivos de classe da Smarty.
+       Se isso não for definido, então a Smarty irá tentar determinar
+       o valor apropriado automaticamente. Se definido, o path
+       deve finalizar com uma barra.
+      </para>
+      <example>
+       <title>SMARTY_DIR</title>
+       <programlisting>
+// set path to Smarty directory
+define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
+
+require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
+      </example>
+	 </sect1>
+	</chapter>
+
+    <chapter id="api.variables">
+     <title>Variáveis</title>
+
+     <sect1 id="variable.template.dir">
+      <title>$template_dir</title>
+      <para>
+       Este é o nome padrão do diretório de template. Se você não fornecer
+       um tipo de recurso quando incluir arquivos, então ele irá ser encontrado aqui. 
+       Por padrão isso é "./templates", significando que isso irá
+       olhar para o diretório de templates no mesmo diretório que está executando 
+       o script PHP.
+      </para>
+	   <note>
+		   <title>Notas Técnicas</title>
+		   <para>
+    	   Não é recomendado colocar este diretório sob um diretório 
+	   document root do seu webserver.
+    	   </para>
+	  </note>
+     </sect1>		
+     <sect1 id="variable.compile.dir">
+      <title>$compile_dir</title>
+      <para>
+       Esse é o nome do diretório onde os template compilados estão localizados
+       Por padrão isso é "./templates_c", significando que isso irá
+       olhar para o diretório de templates no mesmo diretório que está executando 
+       o script PHP.
+      </para>
+	 <note>
+	 <title>Notas Técnicas</title>
+	 <para>
+       Essa configuração deve ser  um path relativo ou um path absoluto.
+       include_path não é usado para escrever em arquivos.
+      </para>
+	 </note>
+	 <note>
+	 <title>Notas Técnicas</title>
+	 <para>
+          Não é recomendado colocar este diretório sob um diretório 
+	  document root do seu webserver.
+      </para>
+	 </note>
+     </sect1>
+     <sect1 id="variable.config.dir">
+      <title>$config_dir</title>
+      <para>
+       Este é o diretório usado para armazenar arquivos de configuração usados nos
+       templates. O padrão é "./configs", significando que isso irá
+       olhar para o diretório de templates no mesmo diretório que está executando 
+       o script PHP.
+      </para>
+	 <note>
+	 <title>Notas Técnicas</title>
+	 <para>
+          Não é recomendado colocar este diretório sob um diretório 
+	  document root do seu webserver.
+      </para>
+	 </note>
+     </sect1>
+     <sect1 id="variable.plugins.dir">
+      <title>$plugins_dir</title>
+      <para>
+	   Esse é o diretório onde Smarty irá procurar por plugins que são necessários.
+	   O Padrão é "plugins" sob o SMARTY_DIR. Se vocêes especificar um
+	   path relativo, Smarty irá primeiro procurar sob o SMARTY_DIR, então
+	   relativo para o cwd (current working directory), então relativo para cada
+	   entrada no seu PHP include path.
+      </para>
+	  <note>
+	  <title>Notas técnicas</title>
+	  <para>
+	  Para uma melhor performance, não configure seu plugins_dir para ter que usar o
+	  PHP include path. Use um path absoluto, ou um path relativo para
+	  SMARTY_DIR ou o cwd.
+	  </para>
+	  </note>
+     </sect1>
+     <sect1 id="variable.debugging">
+      <title>$debugging</title>
+      <para>
+       Isso habilita o <link
+        linkend="chapter.debugging.console">debugging console</link>.
+       O console é uma janela de javascript que informa à você
+       sobre os arquivos de template incluídos e variáveis
+       destinadas para a página de template atual.
+      </para>
+     </sect1>
+     <sect1 id="variable.debug.tpl">
+      <title>$debug_tpl</title>
+      <para>
+	   Este é o nome do arquivo de template usado para o console de debug. 
+	   Por padrão, é nomeado como debug.tpl e está localizado no <link
+	   linkend="constant.smarty.dir">SMARTY_DIR</link>.
+      </para>
+     </sect1>
+     <sect1 id="variable.debugging.ctrl">
+      <title>$debugging_ctrl</title>
+      <para>
+       Isso permite caminhos alternativos de habilitar o debug. NONE não significa
+       que métodos alternativos são permitidos. URL significa quando a palavra
+       SMARTY_DEBUG foi encontrado na QUERY_STRING, que o debug está habilitado
+       para a chamada do script.
+       Se $debugging é true, esse valor é ignorado.
+      </para>
+     </sect1>
+     <sect1 id="variable.global.assign">
+      <title>$global_assign</title>
+      <para>
+       Essa é a lista de variáveis que estão sempre implicitamente fixadas
+       para o template engine. Isso está acessível para fazer variáveis
+       globais ou variáveis do servidor disponíveis para todo o template
+       sem ter que fixá-las manualmente. Cada elemento em
+       $global_assign deve ser um nome de uma variável global,
+       ou um par de chave/valor, onde a chave é o nome do array global
+       array e o valor é o array de variáveis fixadas deste array global. $SCRIPT_NAME é 
+       globalmente fixado por padrão
+       para $HTTP_SERVER_VARS.
+      </para>
+	 <note>
+	 <title>Notas Técnicas</title>
+	 <para>
+       Variáveis de servidor podem ser acessadas através da variável
+       $smarty, como {$smarty.server.SCRIPT_NAME}. Veja a seção
+       da variável
+       <link linkend="language.variables.smarty">$smarty</link>.
+      </para>
+	 </note>
+     </sect1>
+     <sect1 id="variable.undefined">
+      <title>$undefined</title>
+      <para>
+       Isso seta o valor de $undefined para Smarty, o padrão é null.
+       Atualmente isso é somente usado para setar variáveis indefinidas em
+       $global_assign para o valor padrão.
+      </para>
+     </sect1>
+     <sect1 id="variable.autoload.filters">
+      <title>$autoload_filters</title>
+      <para>
+       Se há algum filtro que você deseja carregar em cada chamada de template,
+       você pode especificar-lhes usando essa variável e a Smarty irá
+       automaticamente carregá-los para você. A variável é um array associativo
+       onde as chaves são tipos de filtro e os valores são arrays de nomes de filtros. 
+       Por exemplo:
+       <informalexample>
+        <programlisting>
+$smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
+                                  'output' => array('convert')); 
+        </programlisting>
+       </informalexample> 
+      </para>
+     </sect1>
+     <sect1 id="variable.compile.check">
+      <title>$compile_check</title>
+      <para>
+	   Em cima de cada requisição da aplicação PHP , Smarty testa para ver se o
+	   template atual foi alterado (diferentes time stamp) desde a última 
+	   compilação. Se isso foi alterado, ele irá recompilar o template. Se o template
+	   não foi compilado, ele irá compilar de qualquer maneira dessa configuração.
+	   Por padrão esta variável é setada como true. Uma vez que a aplicação está
+	   em produção (templates não serão alterados), o passo compile_check
+	   não é necessário. Tenha certeza de setar $compile_check para "false" para
+	   maior performance. Note que se você alterar isso para "false" e o
+	   arquivo de template está alterado, você *não* irá ver a alteração desde que
+	   o template seja recompilado. Se caching está habilitado e
+	   compile_check está habilitado, então os arquivos de cache não serão regerados se
+	   um complexo arquivo de ou um arquivo de configuração foi atualizado. Veja <link
+	   linkend="variable.force.compile">$force_compile</link> ou <link
+	   linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
+      </para>
+     </sect1>
+     <sect1 id="variable.force.compile">
+      <title>$force_compile</title>
+      <para>
+       Isso força Smarty para (re)compilar templates a cada requisição.
+       Essa configuração sobreescreve $compile_check. Por padrão
+       isso está desabilitado. Isso é útil para desenvolvimento e debug.
+       Isso nunca deve ser usado em ambiente de produção. Se caching
+       está habilitado, os arquivo(s) de cache serão regerados à todo momento.
+      </para>
+     </sect1>
+     <sect1 id="variable.caching">
+      <title>$caching</title>
+      <para>
+	   Isto diz à Smarty se há ou não saída de cache para o template.
+	   Por padrão isso está setado para 0, ou desabilitado. Se seu template gerar
+	   conteúdo redundante, é necessário ligar o caching. Isso
+	   irá resultar num ganho significativo de performance. Você pode também ter múltiplos
+	   caches para o mesmo template. Um valor de 1 ou 2 caching habilitados. 1 diz
+	   à Smarty para usar a variável atual $cache_lifetime para  determinar se o 
+	   cache expirou. Um valor 2 diz à Smarty para usar o valor cache_lifetime
+	   então para quando o cache foi gerado. Desta maneira você pode setar o
+	   cache_lifetime imediatamente antes de buscar o template para ter controle
+	   sobre quando este cache em particular expira. Veja também <link
+	   linkend="api.is.cached">is_cached</link>.
+      </para>
+      <para>
+	   Se $compile_check está habilitado, o conteúdo do cache irá ser regerado se
+	   algum dos templates ou arquivos de configuração que são parte deste cache estiverem
+	   alterados. Se $force_compile está habilitado, o conteúdo do cache irá sempre ser
+	   regerado.
+      </para>
+     </sect1>
+     <sect1 id="variable.cache.dir">
+      <title>$cache_dir</title>
+      <para>
+       Isso é o nome do diretório onde os caches do template são 
+       armazenados. Por padrão isso é "./cache", significando que isso irá olhar
+       para o diretório de cache no mesmo diretório que executar scripts PHP.
+       Você pode tambe usar sua própria função customizada de manuseamento de cache
+       para manipular arquivos de cache,
+       que irão ignorar esta configuração.
+      </para>
+	  <note>
+	  <title>Notas Técnicas</title>
+	  <para>
+       Essa configuração deve ser ou um relativo 
+       ou absoluto path. include_path não é usado para escrever em arquivos.
+      </para>
+	  </note>
+	  <note>
+		  <title>Notas Técnicas</title>
+		  <para>
+    	   Não é recomendado colocar este diretório sob um diretório 
+	   document root do seu webserver.
+    	  </para>
+	  </note>
+     </sect1>
+     <sect1 id="variable.cache.lifetime">
+      <title>$cache_lifetime</title>
+      <para>
+	   Isso é o comprimento de tempo em segundos que um cache de template é válido.
+	   Uma vez que este tempo está expirado, o cache irá ser regerado. $caching deve
+	   ser configurado para "true" para $cache_lifetime para ter algum propósito. Um valor de -1
+	   irá forçar o cache a nunca expirar. Um valor de 0 irá fazer com que o cache seja sempre regerado 
+	   (bom somente para testes, o método mais eficiente de desabilitar caching é setá-lo para
+	   <link
+	   linkend="variable.caching">$caching</link> = false.)
+      </para>
+	  <para>
+	   Se <link linkend="variable.force.compile">$force_compile</link> está
+	   habilitado, os arquivos de cache serão regerados todo o tempo, eficazmente
+	   desativando caching. Você pode limpar todos os arquivos de cache com a função <link
+	   linkend="api.clear.all.cache">clear_all_cache()</link>, ou
+	   arquivos individuais de cache (ou grupos) com a função <link
+	   linkend="api.clear.cache">clear_cache()</link>.
+	  </para>
+	  <note>
+	  <title>Notas Técnicas</title>
+	  <para>
+	  Se você quiser dar para certos templates seu próprio tempo de vida de um cache, 
+	  você poderia fazer isso configurando <link linkend="variable.caching">$caching</link> = 2,
+	  então configure $cache_lifetime para um único valor somente antes de chamar display()
+	  ou fetch().
+	  </para>
+	  </note>
+     </sect1>
+     <sect1 id="variable.cache.handler.func">
+      <title>$cache_handler_func</title>
+      <para>
+       Você pode fornecer uma função padrão para manipular arquivos de cache ao invés de
+       usar o método built-in usando o $cache_dir. Veja a 
+       seção <link linkend="section.template.cache.handler.func">cache
+       handler function section</link> para obter detalhes.
+      </para>
+     </sect1>
+     <sect1 id="variable.cache.modified.check">
+      <title>$cache_modified_check</title>
+      <para>
+       Se configurado para true, Smarty irá respeitar o If-Modified-Since
+       header enviado para o cliente. Se o timestamp do arquivo de cache
+       não foi alterado desde a última visita, então um header "304 Not Modified" 
+       irá ser enviado ao invés do conteúdo. Isso funciona somente em arquivos
+       de cache sem tags <command>insert</command>.
+      </para>
+     </sect1>
+     <sect1 id="variable.config.overwrite">
+      <title>$config_overwrite</title>
+      <para>
+       Se configurado para true, variáveis lidas no arquivo de configurações irão sobrescrever
+       uma a outra. Do contrário, as variáveis serão guardadas em um array. Isso é
+	   útil se você quer armazenar arrays de dados em arquivos de configuração, somente lista
+	   tempos de cada elemento múltiplo. true por padrão.
+      </para>
+     </sect1>
+     <sect1 id="variable.config.booleanize">
+      <title>$config_booleanize</title>
+      <para>
+	   Se setado para true, os valores do arquivo de configuração de on/true/yes e off/false/no
+	   ficará convertido para valores booleanos automaticamente. Desta forma você pode usar os
+	   valores em um template como: {if #foobar#} ... {/if}. Se foobar estiver
+	   on, true ou yes, a condição {if} irá executar. true por padrão.
+      </para>
+     </sect1>
+     <sect1 id="variable.config.read.hidden">
+      <title>$config_read_hidden</title>
+      <para>
+	   Se configurado para true, esconde seções (nomes de seções começados com um período)
+	   no arquivo de configuração podem ser lidos do template. Tipicamente você deixaria
+	   isto como false, desta forma você pode armazenar dados sensitivos no arquivo de configuração
+	   como um parâmetro de banco de
+	   dados e sem preocupar-se sobre o template carregá-los. false é o padrão.
+	   </para>
+     </sect1>
+     <sect1 id="variable.config.fix.newlines">
+      <title>$config_fix_newlines</title>
+      <para>
+	   Se setado para true, mac e dos newlines (\r e \r\n) no arquivo de configuração serão
+	   convertidos para \n quando eles forem interpretados. true é o padrão.
+	   </para>
+     </sect1>
+     <sect1 id="variable.default.template.handler.func">
+      <title>$default_template_handler_func</title>
+      <para>
+       Essa função é chamada quando um template não pode ser obtido
+       de seu recurso.
+      </para>
+     </sect1>
+     <sect1 id="variable.php.handling">
+      <title>$php_handling</title>
+      <para>
+       Isso diz à Smarty como manipular códigos PHP contido nos
+       templates. Há quatro possíveis configurações, padrão sendo
+       SMARTY_PHP_PASSTHRU. Note que isso NÃO fará efeito com códigos php
+       dentro de tags <link linkend="language.function.php">{php}{/php}</link>
+       no template.
+      </para>    
+      <itemizedlist>
+       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty echos tags as-is.</para></listitem>
+       <listitem><para>SMARTY_PHP_QUOTE - Smarty quotes the
+       tags as html entities.</para></listitem>
+       <listitem><para>SMARTY_PHP_REMOVE - Smarty
+       irá remover as tags do template.</para></listitem>
+       <listitem><para>SMARTY_PHP_ALLOW - Smarty irá executar as 
+       tags como códigos PHP.</para></listitem>
+      </itemizedlist>
+      <para>
+       NOTE: Usando códigos PHP code dentro de templates é altamente desencorajado.
+       Use <link linkend="language.custom.functions">custom functions</link> ou
+       <link linkend="language.modifiers">modifiers</link> ao invés disso.
+      </para>
+     </sect1>
+     <sect1 id="variable.security">
+      <title>$security</title>
+      <para>
+       $security true/false, o padrão é false. Security é bom para situações
+       quando você tem partes inconfiáveis editando o template
+       (via ftp por exemplo) e você quer reduzir os riscos de comprometimento
+       da segurança do sistema através da linguagem de template.
+       Habilitando-o faz-se cumprir as regras da linguagem de template,
+       a menos que especificamente cancelada com $security_settings:
+      </para>
+      <itemizedlist>
+       <listitem><para>Se $php_handling está setado para SMARTY_PHP_ALLOW, isso é implicitamente
+         alterado para SMARTY_PHP_PASSTHRU</para></listitem>
+       <listitem><para>Funçõs PHP não são permitidas em blocos IF,
+         exceto estes especificados no $security_settings</para></listitem>
+       <listitem><para>templates podem ser somente incluidos no diretório
+         listado em $secure_dir array</para></listitem>
+       <listitem><para>Arquivos locais podem ser somente trazidos do diretório
+         listado em $secure_dir usando no array {fetch}</para></listitem>
+       <listitem><para>Estas tags {php}{/php} não são permitidas</para></listitem>
+       <listitem><para>Funções PHP não são permitidas como modificadores, exceto 
+         estes especificados no $security_settings</para></listitem>
+      </itemizedlist>
+     </sect1>
+     <sect1 id="variable.secure.dir">
+      <title>$secure_dir</title>
+      <para>
+       Isso é um array de todos os diretórios locais que são considerados
+       seguros. {include} e {fetch} usam estes (diretórios) quando security está habilitado.
+      </para>
+     </sect1>
+     <sect1 id="variable.security.settings">
+      <title>$security_settings</title>
+      <para>
+       Essas configurações são usadas para cancelar ou especificar configurações
+       de segurança quando security está habilitado. Estas possuem as seguintes configurações possíveis:
+      </para>
+      <itemizedlist>
+       <listitem><para>PHP_HANDLING - true/false. Se setado para true,
+         a configuração de $php_handling não é checada para security.</para></listitem>
+       <listitem><para>IF_FUNCS - Isso é um array de nomes de funções PHP permitidas
+         nos blocos IF.</para></listitem>
+       <listitem><para>INCLUDE_ANY - true/false. Se setado para true, algum
+         template pode ser incluído para um arquivo do sistema, apesar de toda a lista de
+         $secure_dir.</para></listitem>
+       <listitem><para>PHP_TAGS - true/false. Se setado para true, as tags {php}{/php}
+         são permitidas nos templates.</para></listitem>
+       <listitem><para>MODIFIER_FUNCS - Isso é um array de nomes de funções PHP permitidas
+         usadas como modificadores de variável.</para></listitem>
+      </itemizedlist>
+     </sect1>
+     <sect1 id="variable.trusted.dir">
+      <title>$trusted_dir</title>
+      <para>
+	   $trusted_dir  somente usado quando $security está habilitado. Isso é um array
+	   de todos os diretórios que são considerados confiáveis. Diretórios confiáveis
+	   são onde você irá deixar seus scripts php que são executados diretamente para o
+	   template com <link linkend="language.function.include.php">{include_php}</link>.
+      </para>
+     </sect1>
+     <sect1 id="variable.left.delimiter">
+      <title>$left_delimiter</title>
+      <para>
+       Este é o delimitador esquerdo usado para a linguagem de template.
+       O padrão é "{".			
+      </para>
+     </sect1>
+     <sect1 id="variable.right.delimiter">
+      <title>$right_delimiter</title>
+      <para>
+       Este é o delimitador direito usado para a linguagem de template.
+       O padrão é "}".			
+      </para>
+     </sect1>
+     <sect1 id="variable.compiler.class">
+      <title>$compiler_class</title>
+      <para>
+       Especifica o nome do compilador de classes que
+       Smarty irá usar para compilar templates. O padrão é 'Smarty_Compiler'.
+       Para usuários avançados somente.
+      </para>
+     </sect1>
+     <sect1 id="variable.request.vars.order">
+      <title>$request_vars_order</title>
+      <para>
+       A ordem na qual as variáveis requeridas serão registradas, similar ao
+       variables_order no php.ini
+      </para>
+     </sect1>
+     <sect1 id="variable.request.use.auto.globals">
+      <title>$request_use_auto_globals</title>
+      <para>
+	   Especifica se a Smarty deve usar variáveis globais do php $HTTP_*_VARS[]
+	   ($request_use_auto_globals=false que é o valor padrão) ou
+	   $_*[] ($request_use_auto_globals=true). Isso afeta templates
+	   que fazem uso do {$smarty.request.*}, {$smarty.get.*} etc. .
+	   Atenção: Se você setar $request_use_auto_globals para true, <link
+	   linkend="variable.request.vars.order">variable.request.vars.order
+	   </link> não terão efeito mas valores de configurações do php
+	   <literal>gpc_order</literal> são usados.
+      </para>
+     </sect1>
+     <sect1 id="variable.compile.id">
+      <title>$compile_id</title>
+      <para>
+	   Identificador de compilação persistente. Como uma alternativa
+	   para passar o mesmo compile_id para cada chamada de função, você
+	   pode setar este compile_id e isso irá ser usado implicitamente após isso.
+      </para>
+     </sect1>
+     <sect1 id="variable.use.sub.dirs">
+      <title>$use_sub_dirs</title>
+      <para>
+	  Configure isso para false se seu ambiente de PHP não permite a criação de
+	  subdiretórios pela Smarty. Subdiretórios são muito eficientes, então use-os se você
+	  conseguir. 
+      </para>
+     </sect1>
+     <sect1 id="variable.default.modifiers">
+      <title>$default_modifiers</title>
+      <para>
+	  Isso é um array de modificadores implicitamente aplicados par cada
+	  variável no template. Por Exemplo, para cada variável HTML-escape por padrão,
+	  use o array('escape:"htmlall"'); Para fazer a variável isenta para modificadores
+	  padrão, passe o modificador especial "smarty" com um valor de parâmetro "nodefaults"
+	  modificando isso, como
+	  {$var|smarty:nodefaults}.
+      </para>
+     </sect1>
+     <sect1 id="variable.default.resource.type">
+      <title>$default_resource_type</title>
+      <para>
+	  Isso diz à Smarty qual tipo de recurso usar implicitamente.
+	  O valor padrão é 'file', significando que $smarty->display('index.tpl'); e
+	  $smarty->display('file:index.tpl'); são idênticos no significado.
+	  Veja o capítulo  <link linkend="template.resources">resource</link> para detalhes.
+      </para>
+     </sect1>
+    </chapter>
+
+   <chapter id="api.functions">
+     <title>Métodos</title>
+        <sect1 id="api.append">
+         <title>append</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>append</function></funcdef>
+           <paramdef>mixed <parameter>var</parameter></paramdef>
+          </funcprototype>
+          <funcprototype>
+           <funcdef>void <function>append</function></funcdef>
+           <paramdef>string <parameter>varname</parameter></paramdef>
+           <paramdef>mixed <parameter>var</parameter></paramdef>
+          </funcprototype>
+          <funcprototype>
+           <funcdef>void <function>append</function></funcdef>
+           <paramdef>string <parameter>varname</parameter></paramdef>
+           <paramdef>mixed <parameter>var</parameter></paramdef>
+           <paramdef>boolean <parameter>merge</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+		  Isso é usado para adicionar um elemento para um array fixado. Se você adicionar
+		  uma string como valor, isso irá converter-se para um valor de array e então adicioná-lo.
+		  Você pode explicitamente passar pares nomes/valores, ou arrays associativos
+		  contendo o par nome/valor. Se você passar o terceiro parâmetro opcional para true,
+		  o valor unir-se ao array atual
+		  ao invés de ser adicionado.
+         </para>
+		 <note>
+		 <title>Notas Técnicas</title>
+		 <para>
+		 O parâmetro de união respeita a chave do array, então se você
+		 mesclar dois índices númericos de um array, eles devem sobrescrever-se
+		 um ao outro ou em resultados não sequências de chave. Isso é diferente da função de PHP array_merge() 
+		 que apaga as chaves e as renumera.
+		 </para>
+		 </note>
+         <example>
+          <title>append</title>
+          <programlisting>
+// passing name/value pairs
+$smarty->append("Name","Fred");
+$smarty->append("Address",$address);
+
+// passing an associative array
+$smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
+</example>
+		</sect1>
+     <sect1 id="api.append.by.ref">
+      <title>append_by_ref</title>
+      <funcsynopsis>
+       <funcprototype>
+        <funcdef>void <function>append_by_ref</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+       <funcprototype>
+        <funcdef>void <function>append_by_ref</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+        <paramdef>boolean <parameter>merge</parameter></paramdef>
+       </funcprototype>
+      </funcsynopsis>
+      <para>
+	   Isso é usado para adicionar vlaores para o template por referência.
+	   Se você adicionar uma variável por referência e então alterar este valor
+	   o valor adicionado enxergará a alteração também. Para objetos,
+	   append_by_ref() também evita uma cópia em memória do objeto adicionado. 
+	   Veja o manual do PHP em referenciando variáveis para uma melhor explanação sobre o assunto.
+	   Se você passar o terceiro parâmetro opcional para true,
+	   o valor irá ser mesclado com o array atual ao invés de adicioná-lo.   
+      </para>
+	  <note>
+	  <title>Notas Técnicas</title>
+	  <para>
+	  O parâmetro de união respeita a chave do array, então se você mesclar
+	  dois índices númericos de arrays, eles devem sobrescrever-se um ao outro ou
+	  em resultados não sequências de chave. Isso é diferente da função de PHP array_merge()
+	  que apaga as chaves numéricas e as renumera.
+	  </para>
+	  </note>
+      <example>
+       <title>append_by_ref</title>
+       <programlisting>
+// appending name/value pairs
+$smarty->append_by_ref("Name",$myname);
+$smarty->append_by_ref("Address",$address);</programlisting>
+</example>
+		</sect1>
+     <sect1 id="api.assign">
+      <title>assign</title>
+      <funcsynopsis>
+       <funcprototype>
+        <funcdef>void <function>assign</function></funcdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+       <funcprototype>
+        <funcdef>void <function>assign</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+      </funcsynopsis>
+      <para>
+       Isso é usado para fixar valores para o template. Você pode
+       explicitamente passar pares de nomes/valores, ou um array associativo
+       contendo o par de nome/valor. 
+      </para>
+      <example>
+       <title>assign</title>
+       <programlisting>
+// passing name/value pairs
+$smarty->assign("Name","Fred");
+$smarty->assign("Address",$address);
+
+// passing an associative array
+$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
+</example>
+		</sect1>
+     <sect1 id="api.assign.by.ref">
+      <title>assign_by_ref</title>
+      <funcsynopsis>
+       <funcprototype>
+        <funcdef>void <function>assign_by_ref</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+      </funcsynopsis>
+      <para>
+	   Isso é usado para fixar valores para o template por referência ao invés de fazer uma cópia.
+	   Veja o manual do PHP na parte sobre referência de variáveis para uma explanação mais detalhada.
+      </para>
+	  <note>
+	  <title>Notas Técnicas</title>
+	  <para>
+	   Isso é usado para fixar valores para o template por referência.
+	   Se você fixar uma variável por referência e então alterar o valor dela,
+	   o valor fixado enxergará o valor alterado também.
+	   Para objetos, assign_by_ref() também restringe uma cópia de objetos fixados
+	   em memória.
+	   Veja o manual do php em refereciando variáveis para uma melhor explanação.   
+	  </para>
+	  </note>
+      <example>
+       <title>assign_by_ref</title>
+       <programlisting>
+// passing name/value pairs
+$smarty->assign_by_ref("Name",$myname);
+$smarty->assign_by_ref("Address",$address);</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.all.assign">
+			<title>clear_all_assign</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_all_assign</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				Isso limpa o valor de todas as variáveis fixadas.
+			</para>
+<example>
+<title>clear_all_assign</title>
+<programlisting>
+// clear all assigned variables
+$smarty->clear_all_assign();</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.all.cache">
+			<title>clear_all_cache</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_all_cache</function></funcdef>
+				<paramdef>int <parameter>expire time</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				Isso limpa completamente o cache de template. Como um parâmetro 
+				opcional, você pode fornecer um ano mínimo em segundos
+			        que o arquivo de cache deve ter antes deles serem apagados. 
+			</para>
+<example>
+<title>clear_all_cache</title>
+<programlisting>
+// clear the entire cache
+$smarty->clear_all_cache();</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.assign">
+			<title>clear_assign</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_assign</function></funcdef>
+				<paramdef>string <parameter>var</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				Isso limpa o valor de uma variável fixada. Isso
+				pode ser um valor simples, ou um array de valores.
+			</para>
+<example>
+<title>clear_assign</title>
+<programlisting>
+// clear a single variable
+$smarty->clear_assign("Name");
+
+// clear multiple variables
+$smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.cache">
+			<title>clear_cache</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_cache</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>string <parameter><optional>cache id</optional></parameter></paramdef>
+				<paramdef>string <parameter><optional>compile id</optional></parameter></paramdef>
+				<paramdef>int <parameter><optional>expire time</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				Isso limpa o cache de um template específico. Se você tem
+				múltiplos caches para este arquivo, você limpa o cache
+				específico fornecendo o cache id como o segundo parâmetro.
+				Você pode também passar um compile id como um terceiro parâmetro.
+				Você pode "agrupar" templates juntos e então eles podem ser removidos
+				como um grupo. Veja o <link linkend="caching">caching section</link> para maiores informações. Como um quarto
+				parâmetro opcional, você pode fornecer um ano mínimo em segundos 
+				que o arquivo de cache deve
+				ter antes dele ser apagado.
+			</para>
+<example>
+<title>clear_cache</title>
+<programlisting>
+// clear the cache for a template
+$smarty->clear_cache("index.tpl");
+
+// clear the cache for a particular cache id in an multiple-cache template
+$smarty->clear_cache("index.tpl","CACHEID");</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.compiled.tpl">
+			<title>clear_compiled_tpl</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_compiled_tpl</function></funcdef>
+				<paramdef>string <parameter>tpl_file</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+			Isso limpa a versão compilada do recurso de template especificado,
+			ou todos os arquivos de templates compilados se nenhum for especificado.
+			Essa função é para uso avançado somente, não normalmente necessária.
+			</para>
+<example>
+<title>clear_compiled_tpl</title>
+<programlisting>
+// clear a specific template resource
+$smarty->clear_compiled_tpl("index.tpl");
+
+// clear entire compile directory
+$smarty->clear_compiled_tpl();</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.config">
+			<title>clear_config</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_config</function></funcdef>
+				<paramdef>string <parameter><optional>var</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+			Isso limpa todas as variáveis de configuração fixadas. Se um nome de variável
+			é fornecido, somente esta variável é apagada.
+			</para>
+<example>
+<title>clear_config</title>
+<programlisting>
+// clear all assigned config variables.
+$smarty->clear_config();
+
+// clear one variable
+$smarty->clear_config('foobar');</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.config.load">
+			<title>config_load</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>config_load</function></funcdef>
+				<paramdef>string <parameter>file</parameter></paramdef>
+				<paramdef>string <parameter><optional>section</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+			Isso carrega o arquivo de configuração de dados e fixa-o para o 
+			template. Isso funciona idêntico a função <link
+			linkend="language.function.config.load">
+			config_load</link>.
+			</para>
+		  <note>
+		  <title>Notas Técnicas</title>
+    	  <para>
+		   À partir da Smarty 2.4.0, variáveis de template fixadas são
+		   mantidas através de fetch() e display(). Variáveis de configuração carregadas
+		   de config_load() são sempre de escopo global. Arquivos de configuração
+		   também são compilados para execução rápida, e repeita o <link
+		   linkend="variable.force.compile">force_compile</link> e <link
+		   linkend="variable.compile.check">compile_check</link> parâmetros de configuração.
+    	  </para>
+		  </note>
+<example>
+<title>config_load</title>
+<programlisting>
+// load config variables and assign them
+$smarty->config_load('my.conf');
+
+// load a section
+$smarty->config_load('my.conf','foobar');</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.display">
+			<title>display</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>display</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>string <parameter><optional>cache_id</optional></parameter></paramdef>
+				<paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Isso mostra o template. Fornecendo um válido <link
+                linkend="template.resources">template resource</link>
+                tipo e path. Como um segundo parâmetro opcional, você pode passar
+		um cache id. Veja o <link linkend="caching">caching
+                section</link> para maiores informações.
+			</para>
+			<para>
+				Como um terceiro parâmetro opcional, você pode passar um compile id.
+				Isso está no evento que você quer compilar diferentes versões do
+				mesmo template, como ter templates compilados separadamente para diferentes linguagens.
+				Outro uso para compile_id é quando você usa mais do que um $template_dir
+				mas somente um $compile_dir. Seta um compile_id em separado para cada $template_dir,
+				de outra maneira templates com mesmo nome irão sobrescrever-se um ao outro.
+				Você pode também setar a variável <link
+				linkend="variable.compile.id">$compile_id</link> ao invés de 
+				passar isso para cada chamada
+				de display().
+			</para>	
+<example>
+<title>display</title>
+<programlisting>
+include("Smarty.class.php");
+$smarty = new Smarty;
+$smarty->caching = true;
+
+// only do db calls if cache doesn't exist
+if(!$smarty->is_cached("index.tpl"))
+{
+
+    // dummy up some data
+    $address = "245 N 50th";
+    $db_data = array(
+	    "City" => "Lincoln",
+	    "State" => "Nebraska",
+	    "Zip" = > "68502"
+	    );
+
+    $smarty->assign("Name","Fred");
+    $smarty->assign("Address",$address);
+    $smarty->assign($db_data);
+
+}
+
+// display the output
+$smarty->display("index.tpl");</programlisting>
+</example>
+			<para>
+			Use a sintaxe para <link
+			linkend="template.resources">template resources</link> para
+			mostrar arquivos fora do  $template_dir directory.
+			</para>
+<example>
+<title>Exemplos de recursos da função display</title>
+<programlisting>
+// absolute filepath
+$smarty->display("/usr/local/include/templates/header.tpl");
+
+// absolute filepath (same thing)
+$smarty->display("file:/usr/local/include/templates/header.tpl");
+
+// windows absolute filepath (MUST use "file:" prefix)
+$smarty->display("file:C:/www/pub/templates/header.tpl");
+
+// include from template resource named "db"
+$smarty->display("db:header.tpl");</programlisting>
+</example>
+
+		</sect1>
+		<sect1 id="api.fetch">
+			<title>fetch</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>string <function>fetch</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>string <parameter><optional>cache_id</optional></parameter></paramdef>
+				<paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Isso retorna a saída do template ao invés de mostrá-lo.
+		Fornecendo um tipo ou path válido  <link
+                linkend="template.resources">template resource</link>. 
+		Como um segundo parâmetro opcional, você pode passar o cache id.
+		Veja o <link linkend="caching">caching
+                section</link> para maiores informações.
+			</para>
+			<para>
+				Como um terceiro parâmetro opcional, você pode passar um compile id.
+				Isso está no evento que você quer compilar diferentes versões do
+				mesmo template, como ter templates compilados separadamente para
+				diferentes linguagens. Outro uso para compile_id é quando você
+				usa mais do que um $template_dir mas somente um $compile_dir. Seta
+				um compile_id em separado para cada $template_dir, de outra maneira
+				templates com mesmo nome irão sobrescrever-se uns aos outros. Você
+				pode também setar a variável <link
+				linkend="variable.compile.id">$compile_id</link> ao invés
+				de passá-la para cada chamada de fetch().
+			</para>
+<example>
+<title>fetch</title>
+<programlisting>
+include("Smarty.class.php");
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// only do db calls if cache doesn't exist
+if(!$smarty->is_cached("index.tpl"))
+{
+
+    // dummy up some data
+    $address = "245 N 50th";
+    $db_data = array(
+	    "City" => "Lincoln",
+	    "State" => "Nebraska",
+	    "Zip" = > "68502"
+	    );
+
+    $smarty->assign("Name","Fred");
+    $smarty->assign("Address",$address);
+    $smarty->assign($db_data);
+
+}
+
+// capture the output
+$output = $smarty->fetch("index.tpl");
+
+// do something with $output here
+
+echo $output;</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.get.config.vars">
+			<title>get_config_vars</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>array <function>get_config_vars</function></funcdef>
+				<paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				Isso retorna o valor da variável de configuração dada.
+				Se nenhum parâmetro é dado, um array de todas as variáveis dos arquivos de configurações é retornado.
+			</para>
+<example>
+<title>get_config_vars</title>
+<programlisting>
+// get loaded config template var 'foo'
+$foo = $smarty->get_config_vars('foo');
+
+// get all loaded config template vars
+$config_vars = $smarty->get_config_vars();
+
+// take a look at them
+print_r($config_vars);</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.get.registered.object">
+			<title>get_registered_object</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>array <function>get_registered_object</function></funcdef>
+				<paramdef>string <parameter>object_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				Isso retorna uma referência para um objeto registrado.
+				Isso é útil para dentro de uma função customizada quando você
+				precisa acessar diretamente um objeto registrado.
+			</para>
+<example>
+<title>get_registered_object</title>
+<programlisting>
+function smarty_block_foo($params, &amp;$smarty) {
+	if (isset[$params['object']]) {
+		// get reference to registered object
+   		$obj_ref =&amp; $smarty->&amp;get_registered_object($params['object']);
+		// use $obj_ref is now a reference to the object
+	}
+}</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.get.template.vars">
+			<title>get_template_vars</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>array <function>get_template_vars</function></funcdef>
+				<paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				Isso retorna o valor de uma variável fixada. Se nenhum parâmetro
+				é dado, um array de todas as variávels fixadas é retornado.
+			</para>
+<example>
+<title>get_template_vars</title>
+<programlisting>
+// get assigned template var 'foo'
+$foo = $smarty->get_template_vars('foo');
+
+// get all assigned template vars
+$tpl_vars = $smarty->get_template_vars();
+
+// take a look at them
+print_r($tpl_vars);</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.is.cached">
+			<title>is_cached</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>is_cached</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Isso retorna true se há um cache válido para esse template.
+		Isso somente funciona se <link
+                linkend="variable.caching">caching</link> está setado para true.
+			</para>
+<example>
+<title>is_cached</title>
+<programlisting>
+$smarty->caching = true;
+
+if(!$smarty->is_cached("index.tpl")) {
+    // do database calls, assign vars here
+}
+
+$smarty->display("index.tpl");</programlisting>
+</example>
+            <para>
+                Você pode também passar um cache id como um segundo parâmetro opcional
+		no caso você quer múltiplos caches para o template dado.
+            </para>
+<example>
+<title>is_cached with multiple-cache template</title>
+<programlisting>
+$smarty->caching = true;
+
+if(!$smarty->is_cached("index.tpl","FrontPage")) {
+    // do database calls, assign vars here
+}
+
+$smarty->display("index.tpl","FrontPage");</programlisting>
+</example>
+		</sect1>
+        <sect1 id="api.load.filter">
+         <title>load_filter</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>load_filter</function></funcdef>
+           <paramdef>string <parameter>type</parameter></paramdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Essa função pode ser usada para carregar um filtro de plugin. O primeiro
+	  argumento especifica o tipo do filtro para carregar e pode ser um
+	  dos seguintes: 'pre', 'post', ou 'output'. O segundo argumento
+	  especifica o nome do filtro de plugin, por exemplo, 'trim'.
+         </para>
+<example>
+<title>Carregando filtros de plugins</title>
+<programlisting>
+$smarty->load_filter('pre', 'trim'); // load prefilter named 'trim'
+$smarty->load_filter('pre', 'datefooter'); // load another prefilter named 'datefooter'
+$smarty->load_filter('output', 'compress'); // load output filter named 'compress'</programlisting>
+</example>
+        </sect1>
+		<sect1 id="api.register.block">
+			<title>register_block</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_block</function></funcdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>mixed <parameter>impl</parameter></paramdef>
+				<paramdef>bool <parameter>cacheable</parameter></paramdef>
+				<paramdef>array or null <parameter>cache_attrs</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+             Use isso para registrar dinamicamente blocos de funções de plugins.
+	     Passe no bloco de nomes de função, seguido por uma chamada de função PHP
+	     que implemente isso. 
+			</para>
+
+			<para>
+             A chamada de uma função-php <parameter>impl</parameter> pode ser (a)
+	     uma string contendo o nome da função ou (b) um array no formato
+             <literal>array(&amp;$object, $method)</literal> com
+             <literal>&amp;$object</literal> sendo uma referência para um
+             objeto e <literal>$method</literal> sendo uma string
+             contendo o nome do método ou (c) um array no formato
+             <literal>array(&amp;$class, $method)</literal> com
+             <literal>$class</literal> sendo um nome de classe e
+             <literal>$method</literal> sendo um 
+             método desta classe.
+			</para>
+			<para>
+<parameter>$cacheable</parameter> e <parameter>$cache_attrs</parameter> podem ser omitidos na maior parte dos casos. Veja <link linkend="caching.cacheable">Controlando modos de Saída de Cache dos Plugins</link> para obter informações apropriadas.
+			</para>
+<example>
+<title>register_block</title>
+<programlisting>
+/* PHP */
+$smarty->register_block("translate", "do_translation");
+
+function do_translation ($params, $content, &amp;$smarty, &amp;$repeat) {
+    if (isset($content)) {
+        $lang = $params['lang'];
+        // do some translation with $content
+        return $translation;
+    }
+}
+
+{* template *}
+{translate lang="br"}
+   Hello, world!
+{/translate}</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.register.compiler.function">
+			<title>register_compiler_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_compiler_function</function></funcdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>mixed <parameter>impl</parameter></paramdef>
+				<paramdef>bool <parameter>cacheable</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use isso para registrar dinamicamente uma função de plugin compilador.
+		Passe no nome da função compilador, seguido pela função 
+		PHP que implemente isso.
+			</para>
+			<para>
+                A chamada para função-php <parameter>impl</parameter> 
+		pode ser uma string contendo o nome da função ou (b) um array
+		no formato <literal>array(&amp;$object, $method)</literal> com
+		<literal>&amp;$object</literal> sendo uma referência para um
+		objeto e <literal>$method</literal> sendo uma string
+		contendo o nome do método ou (c) um array no formato
+		<literal>array(&amp;$class, $method)</literal> com
+		<literal>$class</literal> sendo um nome de classe e 
+		<literal>$method</literal> sendo o método
+		desta classe.
+			</para>
+			<para>
+                <parameter>$cacheable</parameter> pode ser omitido na maioria
+                dos casos. Veja <link linkend="caching.cacheable">Controlando modos de Saída de Cache dos Plugins</link> 
+		para obter informações apropriadas.
+			</para>
+		</sect1>
+		<sect1 id="api.register.function">
+			<title>register_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_function</function></funcdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>mixed <parameter>impl</parameter></paramdef>
+				<paramdef>bool <parameter>cacheable</parameter></paramdef>
+				<paramdef>array or null <parameter>cache_attrs</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+	     Use isso para registrar funções de plugins dinamicamente para o template.
+	     Passe no template o nome da função, 
+	     seguido pelo nome da função PHP que implemente isso.
+			</para>
+			<para>
+             A chamada para função-php <parameter>impl</parameter> pode ser (a) 
+	     uma string contendo o nome da função ou (b) um array no formato
+	     <literal>array(&amp;$object, $method)</literal> com
+             <literal>&amp;$object</literal> sendo uma referência para um
+             objeto e <literal>$method</literal> sendo uma string
+             contendo o nome do método ou (c) um array no formato
+             <literal>array(&amp;$class, $method)</literal> com
+             <literal>$class</literal> sendo um nome de classe e 
+             <literal>$method</literal> sendo um método
+             desta classe.
+                        </para>
+			<para>
+<parameter>$cacheable</parameter> e <parameter>$cache_attrs</parameter> podem ser omitidos na maioria dos casos. Veja <link linkend="caching.cacheable">Controlando modos de Saída Cache dos Plugins</link> para obter informações apropriadas.
+			</para>
+<example>
+<title>register_function</title>
+<programlisting>
+$smarty->register_function("date_now", "print_current_date");
+
+function print_current_date ($params) {
+    extract($params);
+    if(empty($format))
+        $format="%b %e, %Y";
+    return strftime($format,time());
+}
+
+// agora você pode usar isso no Smarty para mostrar a data atual: {date_now}
+// ou, {date_now format="%Y/%m/%d"} para formatar isso.</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.register.modifier">
+         <title>register_modifier</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>register_modifier</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+           <paramdef>mixed <parameter>impl</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+	  Use isso para modificar dinamicamente plugins registrados.
+	  Passe no template o nome do modificador, seguido da função PHP
+	  que implemente isso.
+         </para>
+         <para>
+	  A chamada da função-php <parameter>impl</parameter> 
+	  pode ser (a) uma strin contendo o nome da função
+	  ou (b) um array no formato
+	  <literal>array(&amp;$object, $method)</literal> com
+	  <literal>&amp;$object</literal> sendo uma referência para um
+	  objeto e <literal>$method</literal> sendo uma string
+	  contendo o nome do método ou (c) um array no formato
+	  <literal>array(&amp;$class, $method)</literal> com
+	  <literal>$class</literal> sendo um nome de classe e
+	  <literal>$method</literal> sendo um método desta classe.
+	</para>
+
+<example>
+<title>register_modifier</title>
+<programlisting>
+// let's map PHP's stripslashes function to a Smarty modifier.
+
+$smarty->register_modifier("sslash","stripslashes");
+
+// now you can use {$var|sslash} to strip slashes from variables</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.register.object">
+			<title>register_object</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_object</function></funcdef>
+				<paramdef>string <parameter>object_name</parameter></paramdef>
+				<paramdef>object <parameter>$object</parameter></paramdef>
+				<paramdef>array <parameter>allowed methods/properties</parameter></paramdef>
+				<paramdef>boolean <parameter>format</parameter></paramdef>
+				<paramdef>array <parameter>block methods</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+            <para>
+			Isso é para registrar um objeto para uso no template. Veja a
+			<link linkend="advanced.features.objects">seção de objetos</link>
+			do manual para examplos.
+            </para>
+		</sect1>
+		<sect1 id="api.register.outputfilter">
+			<title>register_outputfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_outputfilter</function></funcdef>
+				<paramdef>mixed <parameter>function</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+                <para>
+                 Use isso para registrar dinamicamente filtros de saída para operações
+		 na saída do template antes de mostrá-lo. Veja
+                 <link linkend="advanced.features.outputfilters">Filtros de Saída de Templates</link>
+                 para maiores informações de como configurar uma
+                 função de filtro de saída. 
+                </para>
+                <para>
+                 A chamada da função-php <parameter>function</parameter> pode
+		 ser (a) uma string contendo um nome de função ou (b) um array no formato
+                 <literal>array(&amp;$object, $method)</literal> com
+                 <literal>&amp;$object</literal> sendo uma referência para um
+                 objeto e <literal>$method</literal> sendo uma string
+                 contendo o nome do método ou (c) um array no formato
+                 <literal>array(&amp;$class, $method)</literal> com
+                 <literal>$class</literal> sendo um nome de classe e
+                 <literal>$method</literal> sendo um método
+                 desta classe.
+                </para>
+		</sect1>
+		<sect1 id="api.register.postfilter">
+			<title>register_postfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_postfilter</function></funcdef>
+				<paramdef>mixed <parameter>function</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+	        Use isso para registrar dinamicamente pósfiltros para rodar templates
+		após eles terem sido compilados. Veja   
+                 <link linkend="advanced.features.postfilters">pósfiltros de template</link> para
+		maiores informações de como configurar funções de pósfiltragem.
+			</para>
+            <para>
+	         A chamada da função-php <parameter>function</parameter> pode
+		 ser (a) uma string contendo um nome de função ou (b) um array no formato
+                 <literal>array(&amp;$object, $method)</literal> com
+                 <literal>&amp;$object</literal> sendo uma referência para um
+                 objeto e <literal>$method</literal> sendo uma string
+                 contendo o nome do método ou (c) um array no formato
+                 <literal>array(&amp;$class, $method)</literal> com
+                 <literal>$class</literal> sendo um nome de classe e
+                 <literal>$method</literal> sendo um método
+                 desta classe.
+            </para>
+		</sect1>
+		<sect1 id="api.register.prefilter">
+			<title>register_prefilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_prefilter</function></funcdef>
+				<paramdef>mixed <parameter>function</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+		Use isso para registrar préfiltros dinamicamente para rodar
+		templates antes deles serem compilados. Veja <link
+                linkend="advanced.features.prefilters">template prefilters</link> para
+                maiores informações de como configurar uma função de préfiltragem.
+			</para>
+                        <para>
+                 A chamada da função-php <parameter>function</parameter> pode
+		 ser (a) uma string contendo um nome de função ou (b) um array no formato
+                 <literal>array(&amp;$object, $method)</literal> com
+                 <literal>&amp;$object</literal> sendo uma referência para um
+                 objeto e <literal>$method</literal> sendo uma string
+                 contendo o nome do método ou (c) um array no formato
+                 <literal>array(&amp;$class, $method)</literal> com
+                 <literal>$class</literal> sendo um nome de classe e
+                 <literal>$method</literal> sendo um método
+                 desta classe.
+                        </para>
+		</sect1>
+        <sect1 id="api.register.resource">
+         <title>register_resource</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>register_resource</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+           <paramdef>array <parameter>resource_funcs</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use isso para registrar dinamicamente um recurso de plugin com a Smarty.
+	      Passe no nome o recurso e o array de funções
+	      PHP que implementam isso. Veja
+          <link linkend="template.resources">template resources</link>
+          para maiores informações de como configurar uma função para retornar
+	  templates. 
+         </para>
+		 <note>
+		 <title>Notas Técnicas</title>
+		 <para>
+		 Um nome de recurso deve ter ao menos dois caracteres de comprimento.
+		 Um caracter do nome de recurso irá ser ignorado e usado como parte do
+		 path do arquivo como, $smarty->display('c:/path/to/index.tpl');
+		 </para>
+		 </note>
+         <para>
+          A função-php-array <parameter>resource_funcs</parameter>
+          deve ter 4 ou 5 elementos. Com 4 elementos os elementos são
+	      as functions-callbacks para as respectivas funções "source",
+          "timestamp", "secure" e "trusted" de recurso.
+          Com 5 elementos o primeiro elemento tem que ser um objeto por referência
+	      ou um nome de classe do objeto ou uma classe implementando o recurso e os 4
+	      elementos seguintes tem que ter os nomes de métodos
+	      implementando "source", "timestamp",
+          "secure" e "trusted".
+         </para>
+<example>
+<title>register_resource</title>
+<programlisting>
+$smarty->register_resource("db", array("db_get_template",
+                                       "db_get_timestamp",
+                                       "db_get_secure",
+                                       "db_get_trusted"));</programlisting>
+</example>
+		</sect1>
+        <sect1 id="api.trigger.error">
+         <title>trigger_error</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>trigger_error</function></funcdef>
+           <paramdef>string <parameter>error_msg</parameter></paramdef>
+           <paramdef>[int <parameter>level</parameter>]</paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+	 Essa função pode ser usada para saída de uma mensagem de erro usando Smarty.
+	 O parâmetro <parameter>level</parameter> pode ser um dos valores usados 
+	 para a função de php trigger_error(), ex.: E_USER_NOTICE,
+          E_USER_WARNING, etc. Por padrão é E_USER_WARNING.
+         </para>
+        </sect1>
+
+        <sect1 id="api.template.exists">
+         <title>template_exists</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>bool <function>template_exists</function></funcdef>
+           <paramdef>string <parameter>template</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Essa função checa se o template especificado existe. Isso pode
+	  aceitar um path para o template no filesystem ou um recurso de string
+	  especificando o template.
+         </para>
+        </sect1>
+        <sect1 id="api.unregister.block">
+         <title>unregister_block</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_block</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+	 Use isso para desregistrar dinamicamente um bloco de funções de plugin.
+	 Passe no bloco o nome da função.
+         </para>
+		</sect1>
+        <sect1 id="api.unregister.compiler.function">
+         <title>unregister_compiler_function</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_compiler_function</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+	  Use essa função para desregistrar uma função de compilador. Passe
+	  o nome da função de compilador.
+         </para>
+        </sect1>
+		<sect1 id="api.unregister.function">
+         <title>unregister_function</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_function</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+	  Use isso para desregistrar dinamicamente uma função de plugin do template.
+          Passe no template o nome da função.
+         </para>
+<example>
+<title>unregister_function</title>
+<programlisting>
+// nós não queremos que designers template tenham acesso aos nossos arquivos do sistema
+
+$smarty->unregister_function("fetch");</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.unregister.modifier">
+         <title>unregister_modifier</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_modifier</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+	  Use isso para desregistrar dincamimente um modificador de plugin.
+	  Passe no template o nome do modificador.
+         </para>
+<example>
+<title>unregister_modifier</title>
+<programlisting>
+// nós não queremos que designers de template usem strip tags para os elementos
+
+$smarty->unregister_modifier("strip_tags");</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.unregister.object">
+			<title>unregister_object</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_object</function></funcdef>
+				<paramdef>string <parameter>object_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use isso para desregistrar um objeto.
+			</para>
+		</sect1>
+		<sect1 id="api.unregister.outputfilter">
+			<title>unregister_outputfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_outputfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+		Use isso para desregistrar dinamicamente um filtro de saída.
+			</para>
+		</sect1>
+		<sect1 id="api.unregister.postfilter">
+			<title>unregister_postfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_postfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+		Use isso para dinamicamente desregistrar um pósfiltro.
+			</para>
+		</sect1>
+		<sect1 id="api.unregister.prefilter">
+			<title>unregister_prefilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_prefilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+		Use isso para dinamicamente desregistrar um préfiltro.
+			</para>
+		</sect1>
+        <sect1 id="api.unregister.resource">
+         <title>unregister_resource</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_resource</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+	  Use isso para dinamicamente desregistrar um recurso de plugin.
+	  Passe no parâmetro nome o nome do recurso.
+         </para>
+<example>
+<title>unregister_resource</title>
+<programlisting>
+$smarty->unregister_resource("db");</programlisting>
+</example>
+		</sect1>
+       </chapter>
+
+  <chapter id="caching">
+   <title>Caching</title>
+   <para>
+   Caching é usado para aumentar a velocidade de chamada para <link
+   linkend="api.display">display()</link> ou <link
+   linkend="api.fetch">fetch()</link> salvando isso num arquivo de saída. Se há uma versão
+   de cache disponível para a chamada, isso é mostrado ao invés de regerar a saída de dados.
+   Caching pode fazer coisas tremendamente rápidas,
+   especialmente templates com longo tempo computacional. Desde a saída de dados do
+   display() ou fetch() está em cache, um arquivo de cache poderia ser composto por
+   diversos arquivos de templates, arquivos de configuração, etc.
+   </para>
+   <para>
+   Desde que templates sejam dinâmicos, é importante isso ter cuidado com
+   o que você está fazendo cache e por quanto tempo. Por exemplo, se você está mostrando
+   a página principal do seu website na qual as alterações de conteúdo são muito frequentes,
+   isso funciona bem para cache dessa por uma hora ou mais. Um outro modo, se você está
+   mostrando uma página com um mapa do tempo contendo novas informações por minuto, não
+   faz sentido fazer cache nesta página.
+   </para>
+   <sect1 id="caching.setting.up">
+   <title>Configurando Caching</title>
+   <para>
+   A primeira coisa a fazer é habilitar o caching. Isso é feito pela configuração <link
+   linkend="variable.caching">$caching</link> = true (or 1.)     
+   </para>
+    <example>
+     <title>Habilitando Caching</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+$smarty->display('index.tpl');</programlisting>
+    </example>
+	<para>
+	Com caching habilitado, a chamada para a função display('index.tpl') irá trazer
+	o template como usual, mas também
+	salva uma cópia disso para o arquivo de saída (uma cópia de cache) in the <link linkend="variable.cache.dir">$cache_dir</link>.
+	Na próxima chamada de display('index.tpl'), a cópia em cache será usada
+	ao invés de trazer novamente o template.
+	</para>
+	<note>
+	<title>Notas Técnicas</title>
+	<para>
+	Os arquivos no $cache_dir são nomeados com similaridade ao nome do arquivo de template.
+	Embora eles terminem com a extensão ".php", eles não são realmente scripts executáveis de php.
+	Não edite estes arquivos!
+	</para>
+	</note>
+	<para>
+	Cada página em cache tem um período de tempo limitado determinado por <link
+	linkend="variable.cache.lifetime">$cache_lifetime</link>. O padrão do valor é
+        3600 segundos, ou 1 hora. Após o tempo expirar, o cache é regerado.
+	É possível dar tempos individuais para caches com seu próprio tempo
+	de expiração pela configuração $caching = 2. Veja a documentação em <link
+	linkend="variable.cache.lifetime">$cache_lifetime</link> para detalhes.
+	</para>
+    <example>
+     <title>Configurando cache_lifetime por cache</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = 2; // lifetime is per cache
+
+// set the cache_lifetime for index.tpl to 5 minutes
+$smarty->cache_lifetime = 300;
+$smarty->display('index.tpl');
+
+// set the cache_lifetime for home.tpl to 1 hour
+$smarty->cache_lifetime = 3600;
+$smarty->display('home.tpl');
+
+// NOTE: the following $cache_lifetime setting will not work when $caching = 2.
+// The cache lifetime for home.tpl has already been set
+// to 1 hour, and will no longer respect the value of $cache_lifetime.
+// The home.tpl cache will still expire after 1 hour.
+$smarty->cache_lifetime = 30; // 30 seconds
+$smarty->display('home.tpl');</programlisting>
+    </example>
+	<para>
+	Se <link linkend="variable.compile.check">$compile_check</link> está habilitado,
+	cada arquivo de template e arquivo de configuração que está envolvido com o arquivo em cache
+	é checado por modificações. Se algum destes arquivos foi modificado desde que o último cache
+	foi gerado, o cache é imediatamente regerado. 
+	Isso é ligeiramente uma forma de optimização de performance de overhead, deixe $compile_check setado para false.
+	</para>
+    <example>
+     <title>Habilitando $compile_check</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+$smarty->compile_check = true;
+
+$smarty->display('index.tpl');</programlisting>
+	</example>
+	<para>
+	Se <link linkend="variable.force.compile">$force_compile</link> está habilitado,
+	os arquivos de cache irão sempre ser regerados. Isso é efetivamente desativar caching.
+        $force_compile é usualmente para propósitos de debug somente, um caminho mais
+	eficiente de desativar caching é setar o <link
+	linkend="variable.caching">$caching</link> = false (ou 0.)
+	</para>
+	<para>
+	A função <link linkend="api.is.cached">is_cached()</link> 
+	pode ser usada para testar se um template tem um cache válido ou não.
+	Se você tem um template com cache que requer alguma coisa como um retorno do banco de dados,
+	você pode usar isso para pular este processo.
+	</para>
+    <example>
+     <title>Usando is_cached()</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+if(!$smarty->is_cached('index.tpl')) {
+	// No cache available, do variable assignments here.
+	$contents = get_database_contents();
+	$smarty->assign($contents);
+}
+
+$smarty->display('index.tpl');</programlisting>
+    </example>
+	<para>
+	Você pode deixar partes da sua página dinâmica com a função de template <link
+	linkend="language.function.insert">insert</link>.
+	Vamos dizer que sua página inteira pode ter cache exceto para um banner que é
+	mostrado abaixo do lado direito da sua página. Usando uma função insert para o banner,
+	você pode deixar esse elemento dinâmico dentro do conteúdo de cache. Veja a documentação
+	em <link linkend="language.function.insert">insert</link> para 
+	detalhes e exemplos.
+	</para>
+	<para>
+	Você pode limpar todos os arquivos de cache com a função <link
+	linkend="api.clear.all.cache">clear_all_cache()</link>, ou
+	arquivos de cache individuais (ou grupos) com a função <link
+	linkend="api.clear.cache">clear_cache()</link>.	
+	</para>
+    <example>
+     <title>Limpando o cache</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// clear out all cache files
+$smarty->clear_all_cache();
+
+// clear only cache for index.tpl
+$smarty->clear_cache('index.tpl');
+
+$smarty->display('index.tpl');</programlisting>
+    </example>
+   </sect1>
+   <sect1 id="caching.multiple.caches">
+    <title>Multiple Caches Per Page</title>
+	<para>
+	Você pode ter múltiplos arquivos de cache para uma simples chamada de display()
+	ou fetch(). Vamos dizer que uma chamada para display('index.tpl') deve ter vários
+	conteúdo de saída diferentes dependendo de alguma condição, e você quer separar
+	os caches para cada um. Você pode fazer isso passando um cache_id como um
+	segundo parâmetro para a chamada da função.
+	</para>
+    <example>
+     <title>Passando um cache_id para display()</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+$my_cache_id = $_GET['article_id'];
+
+$smarty->display('index.tpl',$my_cache_id);</programlisting>
+    </example>
+	<para>
+	Acima, nós estamos passando a variável $my_cache_id para display() com o
+	cache_id. Para cada valor único de $my_cache_id, um cache em separado irá ser
+	gerado para index.tpl. Nesse exemplo, "article_id" foi passado em URL e é usado
+	como o cache_id.
+	</para>
+	<note>
+	<title>Notas Técnicas</title>
+	<para>
+	Tenha muito cuidado quando passar valores do cliente (web brownser) dentro
+	da Smarty (ou alguma aplicação PHP.) Embora o exemplo acima usando o article_id
+	vindo de uma URL pareça fácil, isso poderia ter consequências ruins. O
+	cache_id é usado para criar um diretório no sistema de arquivos, então se o usuário
+	decidir passar um valor extremamente largo para article_id, ou escrever um script
+	que envia article_ids randômicos em um ritmo rápido, isso poderia possivelmente causar
+	problemas em nível de servidor. Tenha certeza de limpar algum dado passado antes de usar isso. Nessa instãncia, talvez você
+	saiba que o article_id tem um comprimento de 10 caracteres e isso é constituído somente
+	de alfa-numéricos, e deve ser um
+	article_id válido no database. Verifique isso!
+	</para>
+	</note>
+	<para>
+	Tenha certeza de passar o mesmo cache_id como o segundo
+	parâmetro para <link linkend="api.is.cached">is_cached()</link> e
+	<link linkend="api.clear.cache">clear_cache()</link>.
+	</para>
+	<example>
+     <title>Passando um cache_id para is_cached()</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+$my_cache_id = $_GET['article_id'];
+
+if(!$smarty->is_cached('index.tpl',$my_cache_id)) {
+	// No cache available, do variable assignments here.
+	$contents = get_database_contents();
+	$smarty->assign($contents);
+}
+
+$smarty->display('index.tpl',$my_cache_id);</programlisting>
+    </example>
+	<para>
+	Você pode limpar todos os caches para um cache_id em particular passando
+	o primeiro parâmetro null para clear_cache().
+	</para>
+	<example>
+     <title>Limpando todos os caches para um cache_id em particular</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// clear all caches with "sports" as the cache_id
+$smarty->clear_cache(null,"sports");
+
+$smarty->display('index.tpl',"sports");</programlisting>
+    </example>
+	<para>
+	Desta maneira, você pode "agrupar" seus 
+	caches juntos dando-lhes o mesmo cache_id.
+	</para>
+   </sect1>
+   <sect1 id="caching.groups">
+    <title>Grupos de Cache</title>
+	<para>
+	Você pode fazer agrupamentos mais elaborados configurando grupos de cache_id. Isso é
+	realizado pela separação de cada sub-grupo com uma barra vertical "|" no valor do 
+	cache_id. Você pode ter muitos sub-grupos com você desejar.
+	</para>
+	<example>
+     <title>Grupos de cache_id</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// clear all caches with "sports|basketball" as the first two cache_id groups
+$smarty->clear_cache(null,"sports|basketball");
+
+// clear all caches with "sports" as the first cache_id group. This would
+// include "sports|basketball", or "sports|(anything)|(anything)|(anything)|..."
+$smarty->clear_cache(null,"sports");
+
+$smarty->display('index.tpl',"sports|basketball");</programlisting>
+    </example>
+   <note>
+   <title>Notas Técnicas</title>
+   <para>
+   O agrupamento de cache id NÃO use o path do template como alguma parte do cache_id.
+   Por exemplo, se você tem display('themes/blue/index.tpl'), você não pode limpar o cache
+   para tudo que estiver sob o diretório "themes/blue". Se você quiser fazer isso, você deve
+   agrupá-los no cache_id, como display('themes/blue/index.tpl','themes|blue'); Então
+   você pode limpar os caches para o 
+   tema azul com with clear_cache(null,'themes|blue');
+   </para>
+   </note>
+   </sect1>
+
+   <sect1 id="caching.cacheable">
+    <title>Controlling Cacheability of Plugins' Output</title>
+	<para>
+Desde Smarty-2.6.0 os caches de plugins pode ser declarados
+ao registrá-los. O terceiro parâmetro para register_block,
+register_compiler_function e register_function é chamado
+<parameter>$cacheable</parameter> e o padrão para true que é também
+o comportamento de plugins na versão da Smarty antecessores à 2.6.0
+	</para>
+
+	<para>
+Quando registrando um plugin com $cacheable=false o plugin é chamado todo o tempo na página que está sendo mostrada, sempre se a página vier do cache. A função de plugin tem um comportamento levemente como uma função <link linkend="plugins.inserts">insert</link>.
+	</para>
+
+	<para>
+Em contraste para <link linkend="language.function.insert">{insert}</link> o atributo para o plugin não está em cache por padrão. Eles podem ser declarados para serem cacheados com o quarto parâmetro <parameter>$cache_attrs</parameter>. <parameter>$cache_attrs</parameter> é um array de nomes de atributos que devem ser cacheados, então a função de plugin pega o valor como isso sendo o tempo que a página foi escrita para o cache todo o tempo isso é buscado do cache.
+	</para>
+
+	<example>
+     <title>Prevenindo uma saída de plugin de ser cacheada</title>
+     <programlisting>
+index.php:
+
+require('Smarty.class.php');
+$smarty = new Smarty;
+$smarty->caching = true;
+
+function remaining_seconds($params, &amp;$smarty) {
+    $remain = $params['endtime'] - time();
+    if ($remain >=0)
+        return $remain . " second(s)";
+    else
+        return "done";
+}
+
+$smarty->register_function('remaining', 'remaining_seconds', false, array('endtime'));
+
+if (!$smarty->is_cached('index.tpl')) {
+    // fetch $obj from db and assign...
+    $smarty->assign_by_ref('obj', $obj);
+}
+
+$smarty->display('index.tpl');
+
+
+index.tpl:
+
+Tempo restante: {remain endtime=$obj->endtime}</programlisting>
+	<para>
+O número de segundos até que o endtime de $obj alcança alterações em cada display de página, mesmo que a página esteja em cache. Desde o atributo endtime esteja em cache o objeto somente tem que ser puxado do banco de dados quando a página está escrita para o cache mas não em requisições subsequentes da página. 
+</para>
+    </example>
+
+
+	<example>
+     <title>Prevenindo uma passagem inteira do template para o cache</title>
+     <programlisting>
+index.php:
+
+require('Smarty.class.php');
+$smarty = new Smarty;
+$smarty->caching = true;
+
+function smarty_block_dynamic($param, $content, &amp;$smarty) {
+    return $content;
+}
+$smarty->register_block('dynamic', 'smarty_block_dynamic', false);
+
+$smarty->display('index.tpl');
+
+
+index.tpl:
+
+Page created: {"0"|date_format:"%D %H:%M:%S"}
+
+{dynamic}
+
+Now is: {"0"|date_format:"%D %H:%M:%S"}
+
+... do other stuff ...
+
+{/dynamic}</programlisting>
+
+	</example>
+	<para>
+Quando recarregado a página que você irá notar que ambas as datas diferem. Uma é "dinâmica" e uma é "estática". Você pode fazer qualquer coisa entre as tags {dynamic}...{/dynamic} e ter certeza que isso não irá ficar em cache como o restante da página. 
+	</para>
+   </sect1>
+  </chapter>
+
+  <chapter id="advanced.features">
+   <title>Advanced Features</title>
+   <sect1 id="advanced.features.objects">
+    <title>Objetos</title>
+    <para>
+     O Smarty permite acesso a objetos do PHP através de seus templates. Há duas formas de acessá-los.
+     Uma forma é registrar objetos para o template, então os acessa via sintaxe similar a funções
+      customizáveis. A outra forma é atribuir objetos para os templates e acessá-los como se fossem
+       uma variável atribuída. O primeiro método tem uma sintaxe de template muito mais legal. E também
+       mais segura, à medida que um objeto registrado pode ser restrito a certos métodos e
+       propriedades. Entretanto, um objeto registrado não pode ser
+       posto em loop ou ser atribuido em arrays de
+       objetos, etc. O método que você escolher será determinado pelas suas necessidades, mas use o
+       primeiro método se possível para 
+       manter um mínimo de sintaxe no template.
+    </para>
+	<para>
+    Se a segurança está habilitada, nenhum dos métodos privados ou funções podem acessados
+	(começando com "_"). Se um método e propriedade de um mesmo nome existir, o método será
+	usado.
+	</para>
+	<para>
+	Você pode restringir os métodos e propriedades que podem ser acessados listando os em um array
+	como o terceiro parâmetro de registração.
+	</para>
+	<para>
+	Por definição, parâmetros passados para objetos através dos templates são passados da mesma
+	forma que funções customizáveis os obtém. Um array associativo é passado como o primeiro parâmetro,
+	 e o objeto smarty como o segundo. Se você quer que os parâmetros passados um de cada vez
+	  por cada argumento como passagem de parâmetro de objeto tradicional, defina o quarto parâmetro 
+	  de registração para falso.
+	</para>
+	<para>
+	O quinto parâmetro opcional só tem efeito com <parameter>format</parameter> 
+	sendo <literal>true</literal> e contém 
+	uma lista de métods de ob que seriam tratados como
+	blocos. Isso significa que estes métodos 
+	tem uma tag de fechamento no template
+	(<literal>{foobar->meth2}...{/foobar->meth2}</literal>) e
+	os parâmetros para os métodos tem a mesma sinopse como os parâmetros para 
+	block-function-plugins: Eles pegam 4 parâmetros
+	<parameter>$params</parameter>,
+	<parameter>$content</parameter>,
+	<parameter>&amp;$smarty</parameter> e
+	<parameter>&amp;$repeat</parameter> e eles também comportam-se como
+	block-function-plugins.
+	</para>
+    <example>
+     <title>usando um objeto registrado ou atribuído</title>
+     <programlisting>
+&lt;?php
+// O objeto
+
+class My_Object {
+	function meth1($params, &amp;$smarty_obj) {
+		return "this is my meth1";
+	}
+}
+
+$myobj = new My_Object;
+// registrando o objeto (será por referência)
+$smarty->register_object("foobar",$myobj);
+// Se você quer restringie acesso a certos métodos ou propriedades, liste-os 
+$smarty->register_object("foobar",$myobj,array('meth1','meth2','prop1'));
+// Se você quer usar o formato de parâmetro de objeto tradicional, passe um booleano de false
+$smarty->register_object("foobar",$myobj,null,false);
+
+// Você pode também atribuir objetos. Atribua por referência quando possível.
+$smarty->assign_by_ref("myobj", $myobj);
+
+$smarty->display("index.tpl");
+?&gt;
+
+TEMPLATE:
+
+{* accessa nosso objeto registrado *}
+{foobar->meth1 p1="foo" p2=$bar}
+
+{* você pode também atribuir a saída *}
+{foobar->meth1 p1="foo" p2=$bar assign="output"}
+the output was {$output}
+
+{* acessa nosso objeto atribuído *}
+{$myobj->meth1("foo",$bar)}</programlisting>
+    </example>
+  </sect1>
+   <sect1 id="advanced.features.prefilters">
+    <title>Prefilters</title>
+    <para>
+     Os prefilters de Template são funções de PHP nas quais seus templates são rodados
+     antes de serem compilados. Isto é bom para preprocessamento de seus templates para remover 
+     comentários indesejados, mantendo o olho no que as pessoas estão colocando nos seus templates,
+      etc.  Prefilters podem ser ou <link linkend="api.register.prefilter">registrado</link>
+       ou carregado do diretório de plugins usando a função
+       <link linkend="api.load.filter">load_filter()</link> 
+       ou pela configuração da variável 
+       <link linkend="variable.autoload.filters">$autoload_filters</link>.
+    O Smarty passará o código fonte do template como o
+     primeiro argumeto, e espera a função retornar
+    o código fonte do template resultante.
+    </para>
+    <example>
+     <title>Usando um prefilter de template</title>
+     <programlisting>
+&lt;?php
+// Ponha isto em sua aplicação
+function remove_dw_comments($tpl_source, &amp;$smarty)
+{
+    return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
+}
+
+// registrar o prefilter
+$smarty->register_prefilter("remove_dw_comments");
+$smarty->display("index.tpl");
+?&gt;
+
+{* Smarty template index.tpl *}
+&lt;!--# esta linha será removida pelo prefilter --&gt;</programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="advanced.features.postfilters">
+    <title>Postfilters</title>
+    <para>
+     Os postfilters de template são funções de PHP nas quais seus templates são rodados
+     imediatamente depois de serem compilados. Os postfilters podem ser ou 
+     <link linkend="api.register.postfilter">registrado</link>carrgados do diretório de
+     plugins usando a função
+     <link linkend="api.load.filter">load_filter()</link> ou pela
+     variável de configuração
+     <link linkend="variable.autoload.filters">$autoload_filters</link>.
+     O Smarty passará o código fonte do template compilado
+     como o primeiro argumento, e espera
+     a função retornar o resultado do processamento.
+    </para>
+    <example>
+     <title>usando um postfilter de template</title>
+     <programlisting>
+&lt;?php
+// ponha isto em sua aplicação
+function add_header_comment($tpl_source, &amp;$smarty)
+{
+    return "&lt;?php echo \"&lt;!-- Created by Smarty! --&gt;\n\" ?&gt;\n".$tpl_source;
+}
+
+// registra o postfilter
+$smarty->register_postfilter("add_header_comment");
+$smarty->display("index.tpl");
+?&gt;
+
+{* compiled Smarty template index.tpl *}
+&lt;!-- Created by Smarty! --&gt;
+{* rest of template content... *}</programlisting>
+    </example>
+  </sect1>
+
+  <sect1 id="advanced.features.outputfilters">
+   <title>Output Filters (Filtros de Saída)</title>
+   <para>
+    Quando o template é invocado via display() ou fetch(), sua saída pode ser enviada
+    através de um ou mais filtros de saída. Estes diferem dos postfilters porque postfilters
+    operam em templates compilados antes de serem salvos para o disco, e os filtros de saída
+    operam na saída do template quando
+    ele é executado.
+   </para>
+
+   <para>
+    Filtros de Saída podem ser ou 
+    <link linkend="api.register.outputfilter">registrado</link> ou carregado
+    do diretório de plugins usando a função
+    <link linkend="api.load.filter">load_filter()</link> ou configurando a variável
+    <link linkend="variable.autoload.filters">$autoload_filters</link>.
+    O Smarty passará a saída como o primeiro argumento,
+    e espera a função retornar o resultado
+    do processamento.
+   </para>
+   <example>
+    <title>usando um filtro de saída de template</title>
+    <programlisting>
+&lt;?php
+// ponha isto em sua aplicação
+function protect_email($tpl_output, &amp;$smarty)
+{
+    $tpl_output =
+       preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
+                    '$1%40$2', $tpl_output);
+    return $tpl_output;
+}
+
+// registra o outputfilter
+$smarty->register_outputfilter("protect_email");
+$smarty->display("index.tpl");
+
+// agora qualquer ocorrência de um endereço de email na saída do template terá uma
+// simples proteção contra spambots
+?&gt;</programlisting>
+   </example>
+  </sect1>
+
+  <sect1 id="section.template.cache.handler.func">
+   <title>Função Manipuladora de Cache</title>
+   <para>
+    Como uma alternativa ao uso do mecanismo de caching padrão baseado em arquivo, você pode 
+    especificar uma função de manipulação de cache customizada que será usada para ler, escrever
+    e limpar arquivos de cache.
+   </para>
+   <para>
+    Crie uma função em sua aplicação que o Smarty usará como um manipulador de cache. Defina o 
+    nome dela na variável de classe
+    <link linkend="variable.cache.handler.func">$cache_handler_func</link>.
+     O Smarty agora usará esta para manipular dados no cache. O primeiro argumento é a ação,
+     que é um desses 'read', 'write' e 'clear'. O segundo parâmetro é o objeto do Smarty. O
+     terceiro parâmetro é o conteúdo que está no cache. 
+     No write, o Smarty passa o conteúdo em
+     cache nestes parâmetros. No 'read', o Smarty espera sua função aceitar este parâmetro por
+     referência e preenche ele com os dados em cache. No 'clear', passa uma variável simulacra aqui
+     visto que ela não é usada. O quarto parâmetro
+     é o nome do arquivo de template (necessário para
+     ler/escrever), o quinto parâmetro é a cache_id (opcional),
+     e o sexto é a compile_id (opcional).
+   </para>
+   <para>
+    Note que: O último parâmetro ($exp_time)foi adicionado no Smarty-2.6.0.
+   </para>
+   <example>
+    <title>exemplo usando MySQL como uma fonte de cache</title>
+    <programlisting>
+&lt;?php
+/*
+
+exemplo de uso:
+
+include('Smarty.class.php');
+include('mysql_cache_handler.php');
+
+$smarty = new Smarty;
+$smarty-&gt;cache_handler_func = 'mysql_cache_handler';
+
+$smarty-&gt;display('index.tpl');
+
+
+mysql database is expected in this format:
+	
+create database SMARTY_CACHE;
+
+create table CACHE_PAGES(
+CacheID char(32) PRIMARY KEY,
+CacheContents MEDIUMTEXT NOT NULL
+);
+
+*/
+
+function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
+{
+	// set db host, user and pass here
+	$db_host = 'localhost';
+	$db_user = 'myuser';
+	$db_pass = 'mypass';
+	$db_name = 'SMARTY_CACHE';
+	$use_gzip = false;
+	
+	// cria um cache id unico 
+	$CacheID = md5($tpl_file.$cache_id.$compile_id);
+	
+	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
+		$smarty_obj-&gt;_trigger_error_msg("cache_handler: could not connect to database");
+		return false;
+	}
+	mysql_select_db($db_name);
+
+	switch ($action) {
+		case 'read':
+			// save cache to database
+			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$row = mysql_fetch_array($results,MYSQL_ASSOC);
+			
+			if($use_gzip &amp;&amp; function_exists("gzuncompress")) {
+				$cache_contents = gzuncompress($row["CacheContents"]);
+			} else {
+				$cache_contents = $row["CacheContents"];
+			}
+			$return = $results;
+			break;
+		case 'write':
+			// save cache to database
+			
+			if($use_gzip &amp;&amp; function_exists("gzcompress")) {
+				// compress the contents for storage efficiency
+				$contents = gzcompress($cache_content);
+			} else {
+				$contents = $cache_content;
+			}
+			$results = mysql_query("replace into CACHE_PAGES values(
+							'$CacheID',
+							'".addslashes($contents)."')
+						");
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$return = $results;
+			break;
+		case 'clear':
+			// clear cache info
+			if(empty($cache_id) &amp;&amp; empty($compile_id) &amp;&amp; empty($tpl_file)) {
+				// clear them all
+				$results = mysql_query("delete from CACHE_PAGES");			
+			} else {
+				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
+			}
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$return = $results;
+			break;
+		default:
+			// error, unknown action
+			$smarty_obj-&gt;_trigger_error_msg("cache_handler: unknown action \"$action\"");
+			$return = false;
+			break;
+	}
+	mysql_close($link);
+	return $return;
+	
+}
+
+?&gt;</programlisting>
+    </example>
+  </sect1>
+
+  <sect1 id="template.resources">
+   <title>Recursos (Resources)</title>
+   <para>
+	Os templates podem vir de uma variedade de fontes. Quando você exibe (display) ou
+	 busca (fetch) um template, ou inclui um template de dentro de outro template, você 
+	 fornece um tipo de recurso, seguido pelo
+	 caminho e nome do template apropriado. Se um 
+	 recurso não é dado explicitamente o valor de 
+	 <link linkend="variable.default.resource.type">$default_resource_type</link> é assumido.
+   </para>
+   <sect2 id="templates.from.template.dir">
+    <title>Templates partindo do $template_dir</title>
+    <para>
+     Templates a partir do $template_dir não exigem um recurso de template,
+     apesar de você usar o arquivo: resource for consistancy.
+     Apenas forneça o caminho para o template que você quer usar em relação ao diretório
+     root $template_dir.
+    </para>
+    <example>
+     <title>Usando templates partindo do $template_dir</title>
+     <programlisting>
+// from PHP script
+$smarty->display("index.tpl");
+$smarty->display("admin/menu.tpl");
+$smarty->display("file:admin/menu.tpl"); // Igual ao de cima
+
+{* de dentro do template do Smarty *}
+{include file="index.tpl"}
+{include file="file:index.tpl"} {* igual ao de cima *}</programlisting>
+    </example>
+   </sect2>
+   <sect2 id="templates.from.any.dir">
+    <title>Templates partindo de qualquer diretório</title>
+    <para>
+     Os Templates de fora do $template_dir exigem o arquivo:
+     tipo de recurso do template,
+     seguido pelo caminho absoluto e nome do template.
+    </para>
+    <example>
+     <title>usando templates partindo de qualquer diretório</title>
+     <programlisting>
+// de dentro do script PHP
+$smarty->display("file:/export/templates/index.tpl");
+$smarty->display("file:/path/to/my/templates/menu.tpl");
+
+{* de dentro do template do Smarty *}
+{include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
+    </example>
+
+    <sect3>
+     <title>Caminhos de arquivos do Windows</title>
+     <para>
+      Se você está usando uma máquina windows, caminhos de arquivos normalmente incluem uma letra
+      do drive (C:) no começo do nome do caminho.
+      Esteja certo de usar "file:" no caminho para
+      evitar conflitos de nome e obter os resultados desejados.
+     </para>
+     <example>
+      <title>usando templates com caminhos de arquivo do windows</title>
+      <programlisting>
+// de dentro do script PHP
+$smarty->display("file:C:/export/templates/index.tpl");
+$smarty->display("file:F:/path/to/my/templates/menu.tpl");
+
+{* de dentro do template do Smarty *}
+{include file="file:D:/usr/local/share/templates/navigation.tpl"}</programlisting>
+     </example>
+    </sect3>
+   </sect2>
+
+   <sect2 id="templates.from.elsewhere">
+    <title>Templates partindo de outras fontes</title>
+    <para>
+     Você pode resgatar templates usando qualquer fonte possível de você acessar com PHP: banco
+      de dados, sockets, LDAP, e assim por diante.
+      Você faz isto escrevendo as funções de plugin
+      de recurso e registrando elas com o Smarty.
+    </para>
+
+    <para>
+     Veja a seção <link linkend="plugins.resources">plugins de recurso</link>
+     para mais informação sobre as funções
+     que você deve fornecer.
+    </para>
+
+    <note>
+     <para>
+      Note que você pode ativar manualmente o recurso de <literal>arquivo</literal> embutido, mas não pode fornecer um recurso que busca templates a partir do sistema de arquivos de alguma outra forma registrando sob um outro nome de recurso.
+      <literal>file</literal> resource, but you can provide a resource
+      that fetches templates from the file system in some other way by
+      registering under another resource name.
+     </para>
+    </note>
+    <example>
+     <title>usando recursos customizáveis</title>
+     <programlisting>
+// no script PHP
+
+// ponha estas funções em algum lugar de sua aplicação
+function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
+{
+    // faça o banco de dados chamar aqui para buscar o seu template,
+    // preenchendo o $tpl_source
+    $sql = new SQL;
+    $sql->query("select tpl_source
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_source = $sql->record['tpl_source'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
+{
+    // faça o banco de dados chamar daqui para preencher a $tpl_timestamp.
+    $sql = new SQL;
+    $sql->query("select tpl_timestamp
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_timestamp = $sql->record['tpl_timestamp'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function db_get_secure($tpl_name, &amp;$smarty_obj)
+{
+    // assume-se que todos os templates são seguros
+    return true;
+}
+
+function db_get_trusted($tpl_name, &amp;$smarty_obj)
+{
+    // não usado para templates
+}
+
+// registrar o nome de recurso "db"
+$smarty->register_resource("db", array("db_get_template",
+                                       "db_get_timestamp",
+                                       "db_get_secure",
+                                       "db_get_trusted"));
+
+// usando o recurso a partir do script PHP
+$smarty->display("db:index.tpl");
+
+{* usando o recurso de dentro do template do Smarty *}
+{include file="db:/extras/navigation.tpl"}</programlisting>
+    </example>
+   </sect2>
+
+   <sect2 id="default.template.handler.function">
+    <title>Função Manipuladora de Template Padrão</title>
+    <para>
+     Você pode especificar a função que é usada para devolver o conteúdo do template no evento
+     em que o template não pode ser devolvido de seu recurso. Um uso disto é para criar templates
+     que não existem "on-the-fly" 
+     (templates cujo conteúdo flutua muito, bastante variável).
+    </para>
+    <example>
+     <title>usando a função manipuladora de template padrão</title>
+     <programlisting>
+&lt;?php
+// ponha esta função em algum lugar de sua aplicação
+
+function make_template ($resource_type, $resource_name, &amp;$template_source, &amp;$template_timestamp, &amp;$smarty_obj)
+{
+	if( $resource_type == 'file' ) {
+		if ( ! is_readable ( $resource_name )) {
+			// cria um arquivo de template, retorna o conteúdo.
+			$template_source = "This is a new template.";
+			$template_timestamp = time();
+			$smarty_obj->_write_file($resource_name,$template_source);
+			return true;
+		}
+    } else {
+		// não é arquivo
+		return false;
+    }
+}
+
+// defina a manipuladora padrão
+$smarty->default_template_handler_func = 'make_template';
+?&gt;</programlisting>
+    </example>
+   </sect2>
+  </sect1>
+ </chapter>
+ 
+ <chapter id="plugins">
+  <title>Extendendo a Smarty com Plugins</title>
+  <para>
+   A Versão 2.0 introduziu a arquitetura de plugin que é usada para quase todas as 
+    funcionalidades customizáveis da Smarty. Isto inclui:
+   <itemizedlist spacing="compact">
+    <listitem><simpara>funções</simpara></listitem>
+    <listitem><simpara>modificadores</simpara></listitem>
+    <listitem><simpara>funções de bloco</simpara></listitem>
+    <listitem><simpara>funções de compilador</simpara></listitem>
+    <listitem><simpara>prefiltros</simpara></listitem>
+    <listitem><simpara>posfiltros</simpara></listitem>
+    <listitem><simpara>filtros de saída</simpara></listitem>
+    <listitem><simpara>recursos</simpara></listitem>
+    <listitem><simpara>inserir</simpara></listitem>
+   </itemizedlist>
+   Com a exceção de recursos, a compatibilidade com a forma antiga de funções de 
+   manipulador de registro via register_* API é preservada. Se você não usou o API mas no lugar disso 
+   modificou as variáveis de classe <literal>$custom_funcs</literal>, <literal>$custom_mods</literal>, e
+   outras diretamente, então você vai 
+   precisar ajustar seus scripts para ou usar API ou converter suas 
+   funcionalidade customizadas em plugins.
+  </para>
+   
+  <sect1>
+   <title>Como os Plugins Funcionam</title>
+   <para>
+    Plugins são sempre lidos quando requisitados. Apenas os modificadores específicos,
+    funções, recursos, etc convocados em scripts de template serão lidos. Além disso, cada plugin
+    é lido apenas uma vez, mesmo se você tem várias instâncias diferentes da Smarty rodando na mesma
+    requisição.
+   </para>
+   <para>
+    Pre/posfiltros e filtros de saída são uma parte de um caso especial. Visto que eles não são mencionados
+    nos templates, eles devem ser registrados ou lidos explicitamente via funções de API antes do template
+    ser processado.
+    A ordem em que multiplos filtros do mesmo
+    tipo são executados dependem da ordem em que eles são registrados ou lidos.
+   </para>
+   <para>
+    O <link linkend="variable.plugins.dir">diretório de plugins</link>
+    pode ser uma string contendo um caminho ou um array
+    contendo multiplos caminhos. Para instalar um plugin, 
+    simplesmente coloque-o em um dos diretórios e a Smarty irá usá-lo automaticamente.
+   </para>
+  </sect1>
+
+   <sect1 id="plugins.naming.conventions">
+    <title>Convenções de Aparência</title>
+    <para>
+     Arquivos e funções de Plugin devem seguir uma convenção de aparência muito específica
+     a fim de ser localizada pela Smarty.
+    </para>
+    <para>
+     Os arquivos de plugin devem ser nomeados da sequinte forma:
+     <blockquote>
+      <para>
+       <filename>
+        <replaceable>tipo</replaceable>.<replaceable>nome</replaceable>.php
+       </filename>
+      </para>
+     </blockquote>
+    </para>
+    <para>
+     Onde <literal>tipo</literal> é um dos seguintes tipos de plugin:
+     <itemizedlist spacing="compact">
+      <listitem><simpara>function</simpara></listitem>
+      <listitem><simpara>modifier</simpara></listitem>
+      <listitem><simpara>block</simpara></listitem>
+      <listitem><simpara>compiler</simpara></listitem>
+      <listitem><simpara>prefilter</simpara></listitem>
+      <listitem><simpara>postfilter</simpara></listitem>
+      <listitem><simpara>outputfilter</simpara></listitem>
+      <listitem><simpara>resource</simpara></listitem>
+      <listitem><simpara>insert</simpara></listitem>
+     </itemizedlist>
+    </para>
+    <para>
+     E <literal>nome</literal> seria um identificador válido (letras,
+     números, e underscores apenas).
+    </para>
+    <para>
+     Alguns exemplos: <literal>function.html_select_date.php</literal>,
+     <literal>resource.db.php</literal>,
+     <literal>modifier.spacify.php</literal>.
+    </para>
+    <para>
+     As funções de plugin dentro dos arquivos do plugin devem ser nomeadas da seguinte forma:
+     <blockquote>
+      <para>
+       <function>smarty_<replaceable>tipo</replaceable>_<replaceable>nome</replaceable></function>
+      </para>
+     </blockquote>
+    </para>
+    <para>
+     O significado de <literal>tipo</literal> e
+     <literal>nome</literal> são os mesmos de antes.
+    </para>
+    <para>
+     A Smarty mostrará mensagens de erro apropriadas se o arquivo de plugins que é necessário não é encontrado,
+      ou se o arquivo ou a função de plugin 
+      estão nomeadas inadequadamente.
+    </para>
+   </sect1>
+
+   <sect1 id="plugins.writing">
+    <title>Escrevendo Plugins</title>
+    <para>
+     Os Plugins podem ser ou lidos pela Smarty automaticamente do sistema de arquivos ou eles podem
+     ser registrados no tempo de execução via uma das funções
+     de API register_* . Eles podem também ser
+     com o uso da função API unregister_* .
+    </para>
+    <para>
+     Para os plugins que são registrados no tempo de execução, o nome da(s) função(ões) de plugin
+     não têm que seguir a convenção de aparência.
+    </para>
+    <para>
+     Se um plugin depende de alguma funcionalidade fornecida por um outro plugin (como é o caso com alguns
+     plugins embutidos com a Smarty), 
+     então a forma apropriada para ler o plugin necessário é esta:
+    </para>
+    <programlisting>
+require_once $smarty->_get_plugin_filepath('function', 'html_options');</programlisting>
+    <para>
+     Como uma regra geral, o objeto da Smarty é sempre passado para os plugins como o último parâmetro
+      (com duas exceções: modificadores não passam o objeto da Smarty em tudo e blocks passam
+     <parameter>&amp;$repeat</parameter> depois do objeto da Smarty 
+     para manter compatibilidade a antigas
+     versões da Smarty).
+    </para>
+   </sect1>
+
+   <sect1 id="plugins.functions"><title>Funções de Template</title>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>array <parameter>$params</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     Todos os atributos passados para as funções de template a
+      partir do template estão contidas em
+      <parameter>$params</parameter> como um array associativo. Ou acessa esses valores
+      diretamente i.e <varname>$params['start']</varname> ou usa
+     <varname>extract($params)</varname> para 
+     importá-los para dentro da tabela símbolo.
+    </para>
+    <para>
+	 A saída (valor de retorno) da função será substituída no lugar da tag da função no template
+     (a função <function>fetch</function>, por exemplo). Alternativamente, a função pode simplesmente executar
+     alguma outra tarefa sem ter alguma saída
+     (a função <function>assign</function>).
+    </para>
+    <para>
+     Se a função precisa passar valores a algumas variáveis para o template ou utilizar alguma outra funcionalidade
+     fornecida com a Smarty, ela pode usar 
+     o objeto <parameter>$smarty</parameter> fornecido para fazer isso.
+    </para>
+    <para>
+     Veja também:
+     <link linkend="api.register.function">register_function()</link>,
+     <link linkend="api.unregister.function">unregister_function()</link>.
+    </para>
+    <para>
+     <example>
+      <title>função de plugin com saída</title>
+      <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     function.eightball.php
+ * Type:     function
+ * Name:     eightball
+ * Purpose:  outputs a random magic answer
+ * -------------------------------------------------------------
+ */
+function smarty_function_eightball($params, &amp;$smarty)
+{
+    $answers = array('Yes',
+                     'No',
+                     'No way',
+                     'Outlook not so good',
+                     'Ask again soon',
+                     'Maybe in your reality');
+
+    $result = array_rand($answers);
+    return $answers[$result];
+}
+?&gt;</programlisting>
+     </example>
+    </para>
+    <para>
+     que pode ser usada no template da seguinte forma:
+    </para>
+    <programlisting>
+Pergunta: Nós sempre teremos tempo para viajar?
+Resposta: {eightball}.</programlisting>
+    <para>
+     <example>
+      <title>função de plugin sem saída</title>
+      <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     function.assign.php
+ * Type:     function
+ * Name:     assign
+ * Purpose:  assign a value to a template variable
+ * -------------------------------------------------------------
+ */
+function smarty_function_assign($params, &amp;$smarty)
+{
+    extract($params);
+
+    if (empty($var)) {
+        $smarty->trigger_error("assign: missing 'var' parameter");
+        return;
+    }
+
+    if (!in_array('value', array_keys($params))) {
+        $smarty->trigger_error("assign: missing 'value' parameter");
+        return;
+    }
+
+    $smarty->assign($var, $value);
+}
+?&gt;</programlisting>
+     </example>
+    </para>
+   </sect1>
+
+   <sect1 id="plugins.modifiers"><title>Modifiers</title>
+    <para>
+     Modificadores são funções que são aplicadas a uma variável no template antes dela ser mostrada
+     ou usada em algum outro contexto. 
+     Modificadores podem ser encadeados juntos.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>mixed <function>smarty_modifier_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>mixed <parameter>$value</parameter></paramdef>
+      <paramdef>[mixed <parameter>$param1</parameter>, ...]</paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     O primeiro parâmetro para o plugin midificador é o valor em que o modificador é suposto
+     operar. O resto dos parâmetros podem ser opcionais,
+     dependendo de qual tipo de operação é para
+     ser executada.
+    </para>
+    <para>
+     O modificador deve retornar o resultado de seu processamento.
+    </para>
+    <para>
+     Veja também:
+     <link linkend="api.register.modifier">register_modifier()</link>,
+     <link linkend="api.unregister.modifier">unregister_modifier()</link>.
+    </para>
+    <example>
+     <title>Plugin modificador simples</title>
+     <para>
+      Este plugin basiamente é um alias de uma 
+      função do PHP. Ele não tem nenhum parâmetro adicional.
+     </para>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     modifier.capitalize.php
+ * Type:     modifier
+ * Name:     capitalize
+ * Purpose:  capitalize words in the string
+ * -------------------------------------------------------------
+ */
+function smarty_modifier_capitalize($string)
+{
+    return ucwords($string);
+}
+?&gt;</programlisting>
+    </example>
+    <para></para>
+    <example>
+     <title>Plugin modificador mais complexo</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     modifier.truncate.php
+ * Type:     modifier
+ * Name:     truncate
+ * Purpose:  Truncate a string to a certain length if necessary,
+ *           optionally splitting in the middle of a word, and 
+ *           appending the $etc string.
+ * -------------------------------------------------------------
+ */
+function smarty_modifier_truncate($string, $length = 80, $etc = '...',
+                                  $break_words = false)
+{
+    if ($length == 0)
+        return '';
+
+    if (strlen($string) > $length) {
+        $length -= strlen($etc);
+        $fragment = substr($string, 0, $length+1);
+        if ($break_words)
+            $fragment = substr($fragment, 0, -1);
+        else
+            $fragment = preg_replace('/\s+(\S+)?$/', '', $fragment);
+        return $fragment.$etc;
+    } else
+        return $string;
+}
+?&gt;</programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="plugins.block.functions"><title>Block Functions</title>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>array <parameter>$params</parameter></paramdef>
+      <paramdef>mixed <parameter>$content</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     Funções de Block são funções da forma: {func} .. {/func}. Em outras palavras, ele enclausura
+     um bloco de template e opera no conteúdo deste bloco. Funções de Block tem precedência sobre 
+     funções customizadas com mesmo nome,
+     assim, você não pode ter ambas, função customizável {func} e
+     função de Bloco {func} .. {/func}.
+    </para>
+    <para>
+     Por definição a implementação de sua função é chamada duas vezes pela Smarty: uma vez pela tag de abertura,
+    e outra pela tag de fechamento 
+    (veja <literal>&amp;$repeat</literal> abaixo para como mudar isto).
+    </para>
+    <para>
+     Apenas a tag de abertura da função de bloco pode ter atributos. 
+     Todos os atributos passados para as funções de
+     template estão contidos em <parameter>$params</parameter> como um array associativo. Você pode ou acessar
+     esses valores diretamente, i.e. <varname>$params['start']</varname>
+     ou usar <varname>extract($params)</varname> 
+     para importá-los para dentro da tabela símbolo. Os atributos da tag de
+     abertura são também acessíveis a sua função 
+      quando processando a tag de fechamento.
+    </para>
+    <para>
+     O valor da variável <parameter>$content</parameter> 
+     depende de que se sua função é chamada pela tag de 
+     fechamento ou de abertura. Caso seja a de abertura, ele será
+     <literal>null</literal>, se for a de fechamento
+     o valor será do conteúdo do bloco de template. 
+     Note que o bloco de template já terá sido processado pela
+     Smarty, então tudo que você receberá é saída do template, não o template original.
+    </para>
+
+    <para>
+     O parâmetro <parameter>&amp;$repeat</parameter> é passado por 
+     referência para a função de implementação
+      e fornece uma possibilidade para ele controlar quantas
+      vezes o bloco é mostrado. Por definição
+       <parameter>$repeat</parameter> é <literal>true</literal> na primeira chamada da block-function
+     (a tag de abertura do bloco) e <literal>false</literal>
+     em todas as chamadas subsequentes à função de bloco
+     (a tag de fechamento do bloco). Cada vez que a
+     implementação da função retorna com o <parameter>&amp;$repeat</parameter> 
+     sendo true, o conteúdo entre {func} .. {/func} é avaliado 
+     e a implementação da função é chamada novamente com
+     o novo conteúdo do bloco no parâmetro <parameter>$content</parameter>.
+
+	</para>
+
+    <para>
+     Se você tem funções de bloco aninhadas, é possível 
+     descobrir qual é a função de bloco pai acessando
+     a variável <varname>$smarty->_tag_stack</varname>. Apenas faça um var_dump()
+     nela e a estrutura estaria visível.
+    </para>
+    <para>
+     See also:
+     <link linkend="api.register.block">register_block()</link>,
+     <link linkend="api.unregister.block">unregister_block()</link>.
+    </para>
+    <example>
+     <title>função de bloco</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     block.translate.php
+ * Type:     block
+ * Name:     translate
+ * Purpose:  translate a block of text
+ * -------------------------------------------------------------
+ */
+function smarty_block_translate($params, $content, &amp;$smarty)
+{
+    if (isset($content)) {
+        $lang = $params['lang'];
+        // do some intelligent translation thing here with $content
+        return $translation;
+    }
+}</programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="plugins.compiler.functions"><title>Funções Compiladoras</title>
+    <para>
+     Funções compiladoras só são chamadas durante a compilação do template.
+     Elas são úteis para injeção de código PHP ou conteúdo estático time-sensitive
+     dentro do template. Se há ambos, uma função 
+     compiladora e uma função customizável
+     registrada sob o mesmo nome, a função compiladora tem precedência.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>mixed <function>smarty_compiler_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>string <parameter>$tag_arg</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     À função compiladora são passados dois parâmetros: 
+     a tag string de argumento da tag - basicamente, tudo a partir
+     do nome da função até o delimitador de fechamento, e o objeto da Smarty. É suposto que retorna o código PHP
+     para ser injetado dentro do template compilado.
+    </para>
+    <para>
+     See also
+     <link linkend="api.register.compiler.function">register_compiler_function()</link>,
+     <link linkend="api.unregister.compiler.function">unregister_compiler_function()</link>.
+    </para>
+    <example>
+     <title>função compiladora simples</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     compiler.tplheader.php
+ * Type:     compiler
+ * Name:     tplheader
+ * Purpose:  Output header containing the source file name and
+ *           the time it was compiled.
+ * -------------------------------------------------------------
+ */
+function smarty_compiler_tplheader($tag_arg, &amp;$smarty)
+{
+    return "\necho '" . $smarty-&gt;_current_file . " compiled at " . date('Y-m-d H:M'). "';";
+}
+?&gt;</programlisting>
+     <para>
+      Esta função pode ser chamada em um template da seguinte forma:
+     </para>
+     <programlisting>
+{* esta função é executada somente no tempo de compilação *}
+{tplheader}</programlisting>
+     <para>
+      O código PHP resultante no template compilado seria algo assim:
+     </para>
+     <programlisting>
+&lt;php
+echo 'index.tpl compiled at 2002-02-20 20:02';
+?&gt;</programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="plugins.prefilters.postfilters">
+    <title>Prefiltros/Posfiltros</title>
+    <para>
+     Plugins Prefilter e postfilter são muito similares 
+     em conceito; onde eles diferem é na execução -- mais 
+     precisamente no tempo de suas execuções.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>string <function>smarty_prefilter_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>string <parameter>$source</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     Prefilters são usados para processar o fonte do template
+     imediatamente antes da compilação. O primeiro parâmetro da
+     função de prefilter é o fonte do template, possivelmente modificado por alguns outros prefilters. O Plugin
+      é suposto retornar o fonte modificado. Note que este fonte não é salvo em lugar nenhum, ele só é usado para
+      a compilação.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>string <function>smarty_postfilter_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>string <parameter>$compiled</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     Postfilters são usados para processar a saída compilada do template (o código PHP) imediatamente após
+     a compilação ser feita e antes do template compilado ser 
+     salvo no sistema de arquivo. O primeiro parâmetro
+     para a função postfilter é o código do template compilado,
+     possivelmente modificado por outros postfilters. 
+     O plugin é suposto retornar a versão modificada deste código.
+    </para>
+    <example>
+     <title>Plugin prefilter</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     prefilter.pre01.php
+ * Type:     prefilter
+ * Name:     pre01
+ * Purpose:  Convert html tags to be lowercase.
+ * -------------------------------------------------------------
+ */
+ function smarty_prefilter_pre01($source, &amp;$smarty)
+ {
+     return preg_replace('!&lt;(\w+)[^&gt;]+&gt;!e', 'strtolower("$1")', $source);
+ }
+?&gt;</programlisting>
+    </example>
+    <para></para>
+    <example>
+     <title>Plugin postfilter</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     postfilter.post01.php
+ * Type:     postfilter
+ * Name:     post01
+ * Purpose:  Output code that lists all current template vars.
+ * -------------------------------------------------------------
+ */
+ function smarty_postfilter_post01($compiled, &amp;$smarty)
+ {
+     $compiled = "&lt;pre&gt;\n&lt;?php print_r(\$this-&gt;get_template_vars()); ?&gt;\n&lt;/pre&gt;" . $compiled;
+     return $compiled;
+ }
+?&gt;</programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="plugins.outputfilters"><title>Filtros de saída</title>
+    <para>
+     Filtros de saída operam na saída do template, depois que o template é lido e executado, mas
+     antes a saída é mostrada.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>string <parameter>$template_output</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     O primeiro parâmetro para a função do filtro de saída é a saída do template que precisa ser processada, e 
+     o segundo parâmetro é a instância da Smarty invocando o plugin.
+     O plugin deve fazer o precessamento e 
+     retornar os resultados.
+    </para>
+    <example>
+     <title>output filter plugin</title>
+     <programlisting>
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     outputfilter.protect_email.php
+ * Type:     outputfilter
+ * Name:     protect_email
+ * Purpose:  Converts @ sign in email addresses to %40 as 
+ *           a simple protection against spambots
+ * -------------------------------------------------------------
+ */
+ function smarty_outputfilter_protect_email($output, &amp;$smarty)
+ {
+     return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
+                         '$1%40$2', $output);
+ }
+     </programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="plugins.resources"><title>Recursos (Resources)</title>
+    <para>
+     Os plugins de Recursos são como uma forma genérica de fornecer códigos fontes de template
+     ou componentes de script PHP para a Smarty. Alguns exemplos de recursos:
+     banco de dados, LDAP, memória compartilhada, sockets, e assim por diante.
+    </para>
+
+    <para>
+     Há um total de 4 funções que precisam estar registradas
+     para cada tipo de recurso. Cada função receberá
+     o recurso requisitado como o primeiro parâmetro e o objeto da Smarty como o último parâmetro. O resto
+     dos parâmetros dependem da função.
+    </para>
+
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
+      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
+      <paramdef>string <parameter>&amp;$source</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+     <funcprototype>
+      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
+      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
+      <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+     <funcprototype>
+      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
+      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+     <funcprototype>
+      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
+      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+
+    <para>
+     A primeira função deve devolver o recurso. Seu segundo parâmetro é uma variável passada por
+     referência onde o resultado seria armazenado.
+     A função deve retornar <literal>true</literal> se
+     ela está apta a devolver com sucesso o recurso e
+     caso contrário retorna <literal>false</literal>.
+    </para>
+
+    <para>
+     A segunda função deve devolver a última modificação do
+     recurso requisitado (como um timestamp Unix). 
+     O segundo parâmetro é uma variável passada por referência onde o timestamp seria armazenado.
+     A função deve retornar <literal>true</literal>
+     se o timestamp poderia ser determinado com sucesso,
+      e caso contrário retornaria <literal>false</literal>.
+    </para>
+
+    <para>
+     A terceira função deve retornar <literal>true</literal> ou
+     <literal>false</literal>, dependendo do recurso requisitado
+     está seguro ou não. Esta função é usada
+     apenas para recursos de template mas ainda assim seria definida.
+    </para>
+
+    <para>
+     A quarta função deve retornar <literal>true</literal>
+     ou <literal>false</literal>, dependendo
+     do recurso requisitado ser confiável ou não.
+     Esta função é usada apenas para componentes de 
+     script PHP requisitados pelas tags <command>include_php</command> ou
+     <command>insert</command> com o atributo <structfield>src</structfield>.
+     Entretanto, ela ainda assim mesmo seria definida para os recursos de template.
+    </para>
+    <para>
+     Veja também:
+     <link linkend="api.register.resource">register_resource()</link>,
+     <link linkend="api.unregister.resource">unregister_resource()</link>.
+    </para>
+    <example>
+     <title>Plugin resource (recurso)</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * ------------------------------------------------------------- 
+ * File:     resource.db.php
+ * Type:     resource
+ * Name:     db
+ * Purpose:  Fetches templates from a database
+ * -------------------------------------------------------------
+ */
+function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
+{
+    // do database call here to fetch your template,
+    // populating $tpl_source
+    $sql = new SQL;
+    $sql->query("select tpl_source
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_source = $sql->record['tpl_source'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty)
+{
+    // faz o banco de dados chamar aqui para preencher $tpl_timestamp.
+    $sql = new SQL;
+    $sql->query("select tpl_timestamp
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_timestamp = $sql->record['tpl_timestamp'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function smarty_resource_db_secure($tpl_name, &amp;$smarty)
+{
+    // assume que todos os templates são seguros
+    return true;
+}
+
+function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
+{
+    // não usado para templates
+}
+?&gt;</programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="plugins.inserts"><title>Inserts</title>
+    <para>
+     Plugins Insert são usados para implementar funções que são invocadas por tags 
+     <link linkend="language.function.insert"><command>insert</command></link>
+     no template.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>array <parameter>$params</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     O primeiro parâmetro para a função é um array
+      associativo de atributos passados para o 
+      insert. Ou acessa esses valores diretamente,
+      i.e. <varname>$params['start']</varname> ou usa
+     <varname>extract($params)</varname> para importá-los para dentro da tabela símbolo.
+    </para>
+    <para>
+     A função insert deve retornar o
+      resultado que será substituído  no lugar da tag
+      <command>insert</command> no template.
+    </para>
+    <example>
+     <title>Plugin insert</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * ------------------------------------------------------------- 
+ * File:     insert.time.php
+ * Type:     time
+ * Name:     time
+ * Purpose:  Inserts current date/time according to format
+ * -------------------------------------------------------------
+ */
+function smarty_insert_time($params, &amp;$smarty)
+{
+    if (empty($params['format'])) {
+        $smarty->trigger_error("insert time: missing 'format' parameter");
+        return;
+    }
+
+    $datetime = strftime($params['format']);
+    return $datetime;
+}
+?&gt;</programlisting>
+    </example>
+   </sect1>
+  </chapter>
+ </part>

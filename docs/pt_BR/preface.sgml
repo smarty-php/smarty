@@ -1,0 +1,69 @@
+ <preface id="preface"><!-- En Version: 1.1 -->
+  <title>Prefácio</title>
+  <para>
+   Esta é uma das dúvidas mais frenquentes na "mailing list" do PHP:
+   Como eu posso fazer PHP scripts independentes do layout ? Enquanto 
+   PHP está contado como "HTML linguagem de blocos dinâmicos", após estar
+   escrevendo alguns projetos que misturavam PHP e HTML livremente alguém veio com a
+   idéia que a separação do form e conteúdo é uma boa prática [TM]. Além disso,
+   em muitas empresas os papéis de web designer e programador são separados. 
+   Consequentemente, a procura por 
+   uma solução de template continua.
+  </para>
+  <para>
+   Na minha própria empresa por exemplo, o desenvolvimento de uma aplicação
+   continua como segue: Após a documentação necessária estar pronta, o web designer
+   faz a maquete da interface e entrega isso ao programador. O programador implementa 
+   as regras de negócio no PHP e usa a maquete para criar o "esqueleto" do template. 
+   O projeto está então nas mãos da pessoa responsável pelo layout HTML designer/web page 
+   que produz o template para sua glória completa. O projeto deve ir e voltar
+   entre programação/HTML várias vezes. Desta maneira, é importante para ter
+   um bom suporte de template porque programadores não querem fazer nada
+   com HTML e não querem HTML designers fazendo besteiras no código PHP.
+   Designers precisam de suporte para arquivos de configuração, blocos dinâmicos e
+   outras interfaces usadas, mas eles não querem ocupar-se com
+   as complexidades da linguagem 
+   de programação PHP.
+  </para>
+  <para>
+   Olhando para muitas soluções de template para PHP disponíveis atualmente,
+   a maioria destes disponibiliza uma forma rudimentar de substituição de variáveis
+   dentro de templates e fazem um form limitado de blocos dinâmicos de funcionalidades.
+   Mas minhas necessidades próprias requisitam um pouco mais do que isso. 
+   Nós não queremos programadores mexendo com layout HTML em tudo, mas isso foi quase inevitável. 
+   Por exemplo, se um designer quiser cores no background alternando-se em blocos dinâmicos,
+   isso tem que ser feito pelo programador antecipadamente. Nós também
+   precisamos que designers estejam habilitados a usar seus próprios arquivos de configuração,
+   e colocar variáveis deles dentro dos templates. A lista continua.
+  </para>
+  <para>
+   Nós iniciamos escrevendo por acaso um template engine por volta de 1999.
+   Após o término, nós começamos a trabalhar num template engine
+   escrito em C que esperançosamente foi aceito para ser incluso com PHP.
+   Nós não somente encontramos algumas complicadas barreiras técnicas, mas 
+   houve também calorosos debates sobre exatamente o que um template engine devia
+   e não devia fazer. Desta experiência, nós decidimos que o template
+   engine deveria ser escrito em PHP como uma classe, para qualquer um usar da mesma forma
+   como eles vêem. Então nós escrevemos um engine que o
+   <productname>SmartTemplate</productname> nunca veio a existir (note: essa
+   classe nunca foi enviada ao público). Ela foi uma classe que
+   fazia quase tudo que gostaríamos: substituição de variáveis regular, suporte à
+   inclusão de outros templates, integração com arquivos de configuração, código PHP
+   embutido, funcionalidade 'if' limitada e muito mais blocos dinâmicos robustos
+   que poderia ser aninhados muitas vezes. Tudo isso com expressões regulares
+   e o código produzido será melhor, como nós diremos,
+   impenetrável. Isso era também notoriamente lento em grandes aplicações para todos
+   as interpretações e expressões regulares trabalhando em cada requisição.
+   O maior problema do ponto de vista de um programador foi toda a
+   necessidade de trabalhar no processamento de scripts PHP e processamento
+   de blocos dinâmicos de templates. Como nós fazemos isso facilmente?
+  </para>
+  <para>
+   Então vem a visão do que ultimamente virou a Smarty. Nós sabemos quão rápido
+   é um código PHP sem o overhead da interpretação do template. Nós também sabemos
+   quão meticuloso e autoritária a linguagem PHP deve ser ao olhar de um designer, 
+   e isso poderia ser mascarado com uma simples sintaxe de template.
+   Então o que acontece se nós combinarmos
+   estas duas forças? Desta maneira, Smarty nasceu...
+  </para>
+ </preface>
