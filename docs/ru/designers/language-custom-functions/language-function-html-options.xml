@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.options">
  <title>html_options</title>
  <informaltable frame="all">
@@ -129,10 +129,10 @@ index.tpl:
 ------------------------
 
 <select name=customer_id>
- <option value="1000">Joe Schmoe</option>
- <option value="1001" selected="selected">Jack Smith</option>
- <option value="1002">Jane Johnson</option>
- <option value="1003">Charlie Brown</option>
+ <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
+ <option label="Jack Smith" value="1001" selected="selected">Jack Smith</option>
+ <option label="Jane Johnson" value="1002">Jane Johnson</option>
+ <option label="Charlie Brown" value="1003">Charlie Brown</option>
 </select>
 ]]>
   </programlisting>
