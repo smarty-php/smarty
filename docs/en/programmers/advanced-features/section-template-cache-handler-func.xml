@@ -74,7 +74,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 
 	switch ($action) {
 		case 'read':
-			// save cache to database
+			// read cache from database
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
 				$smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
