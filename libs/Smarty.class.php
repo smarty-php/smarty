@@ -5,8 +5,8 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:             1.4.6
- * Copyright:           2001 ispi of Lincoln, Inc.
+ * Version:     1.4.6
+ * Copyright:   2001 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -101,8 +101,8 @@ class Smarty
                                         // this will tell Smarty not to look for
                                         // insert tags and speed up cached page
                                         // fetches.
-	var $cache_handler_func   = '';		// function used for cached content. this is
-	                                    // an alternative to using the file based $cache_dir.
+    var $cache_handler_func   = '';     // function used for cached content. this is
+                                        // an alternative to using the file based $cache_dir.
 
     var $tpl_file_ext    =  '.tpl';     // template file extention (deprecated)
 
@@ -241,7 +241,7 @@ class Smarty
             foreach ($tpl_var as $key => $val) {
                 if (!empty($key) && isset($val)) {
                     $this->_tpl_vars[$key] = $val;
-				}
+                }
             }
         } else {
             if (!empty($tpl_var) && isset($value))
@@ -418,11 +418,11 @@ class Smarty
 \*======================================================================*/
     function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null)
     {
-		if(!empty($this->cache_handler_func) {
-			return $$this->cache_handler_func('clear', $tpl_file, $cache_id, $compile_id);
-		} else {
-        	return $this->_rm_auto($this->cache_dir, $tpl_file, $compile_id . $cache_id);
-		}
+        if (!empty($this->cache_handler_func)) {
+            return $$this->cache_handler_func('clear', $tpl_file, $cache_id, $compile_id);
+        } else {
+            return $this->_rm_auto($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+        }
     }
 
 
@@ -432,11 +432,11 @@ class Smarty
 \*======================================================================*/
     function clear_all_cache()
     {
-		if(!empty($this->cache_handler_func) {
-			return $$this->cache_handler_func('clear');
-		} else {
-        	return $this->_rm_auto($this->cache_dir);
-		}
+        if (!empty($this->cache_handler_func)) {
+            return $$this->cache_handler_func('clear');
+        } else {
+            return $this->_rm_auto($this->cache_dir);
+        }
     }
 
 
@@ -449,7 +449,7 @@ class Smarty
         if (!$this->caching)
             return false;
 
-		return $this->_read_cache_file($tpl_file,$cache_id,$compile_id,$results);
+        return $this->_read_cache_file($tpl_file, $cache_id, $compile_id, $results);
     }
 
 
@@ -501,11 +501,11 @@ class Smarty
         global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
         if ($this->debugging_ctrl == 'URL'
-                && (!empty($QUERY_STRING) && strstr($QUERY_STRING,$this->_smarty_debug_id))) {
+                && (!empty($QUERY_STRING) && strstr($QUERY_STRING, $this->_smarty_debug_id))) {
             $this->debugging = true;
         }
 
-        if($this->debugging) {
+        if ($this->debugging) {
             // capture time for debugging info
             $debug_start_time = $this->_get_microtime();
             $this->_smarty_debug_info[] = array('type'      => 'template',
@@ -522,7 +522,7 @@ class Smarty
 
             $this->_cache_info[] = array('template', $tpl_file);
 
-            if($this->_read_cache_file($tpl_file,$cache_id,$compile_id,$results)) {
+            if ($this->_read_cache_file($tpl_file, $cache_id, $compile_id, $results)) {
                 if ($this->insert_tag_check) {
                     $results = $this->_process_cached_inserts($results);
                 }
@@ -556,7 +556,8 @@ class Smarty
         extract($this->_tpl_vars);
 
         /* Initialize config array. */
-        $this->_config = array(array());
+        $this->_config = array(array('vars'  => array(),
+                                     'files' => array()));
 
         if ($this->show_info_header) {
             $info_header = '<!-- Smarty '.$this->_version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
@@ -598,7 +599,7 @@ class Smarty
         }
 
         if ($this->caching) {
-            $this->_write_cache_file($tpl_file,$cache_id,$compile_id,$results);
+            $this->_write_cache_file($tpl_file, $cache_id, $compile_id, $results);
             $results = $this->_process_cached_inserts($results);
         }
 
@@ -788,7 +789,7 @@ function _generate_debug_output() {
                     $resource_name = $this->template_dir.'/'.$resource_name;
                 }
                 if (file_exists($resource_name) && is_readable($resource_name)) {
-                    if($get_source) {
+                    if ($get_source) {
                         $template_source = $this->_read_file($resource_name);
                     }
                     $template_timestamp = filemtime($resource_name);
@@ -874,7 +875,7 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _smarty_include($_smarty_include_tpl_file, $_smarty_include_vars)
     {
-        if($this->debugging) {
+        if ($this->debugging) {
             $debug_start_time = $this->_get_microtime();
             $this->_smarty_debug_info[] = array('type'      => 'template',
                                                 'filename'  => $_smarty_include_tpl_file,
@@ -919,7 +920,7 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _config_load($file, $section, $scope)
     {
-        if($this->debugging) {
+        if ($this->debugging) {
             $debug_start_time = $this->_get_microtime();
         }
 
@@ -927,24 +928,34 @@ function _generate_debug_output() {
             $this->_cache_info[] = array('config', $file);
         }
 
-        $this->_config[0] = array_merge($this->_config[0], $this->_conf_obj->get($file));
+        if (!isset($this->_config[0]['files'][$file])) {
+            $this->_config[0]['vars'] = array_merge($this->_config[0]['vars'], $this->_conf_obj->get($file));
+            $this->_config[0]['files'][$file] = true;
+        }
         if ($scope == 'parent') {
-            if (count($this->_config) > 0)
-                $this->_config[1] = array_merge($this->_config[1], $this->_conf_obj->get($file));
+            if (count($this->_config) > 0 && !isset($this->_config[1]['files'][$file])) {
+                $this->_config[1]['vars'] = array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file));
+                $this->_config[1]['files'][$file] = true;
+            }
         } else if ($scope == 'global')
-            for ($i = 1; $i < count($this->_config); $i++)
-                $this->_config[$i] = array_merge($this->_config[$i], $this->_conf_obj->get($file));
+            for ($i = 1; $i < count($this->_config); $i++) {
+                if (!isset($this->_config[$i]['files'][$file])) {
+                    $this->_config[$i]['vars'] = array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file));
+                    $this->_config[$i]['files'][$file] = true;
+                }
+            }
 
         if (!empty($section)) {
-            $this->_config[0] = array_merge($this->_config[0], $this->_conf_obj->get($file, $section));
+            $this->_config[0]['vars'] = array_merge($this->_config[0]['vars'], $this->_conf_obj->get($file, $section));
             if ($scope == 'parent') {
                 if (count($this->_config) > 0)
-                    $this->_config[1] = array_merge($this->_config[1], $this->_conf_obj->get($file, $section));
+                    $this->_config[1]['vars'] = array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file, $section));
             } else if ($scope == 'global')
                 for ($i = 1; $i < count($this->_config); $i++)
-                    $this->_config[$i] = array_merge($this->_config[$i], $this->_conf_obj->get($file, $section));
+                    $this->_config[$i]['vars'] = array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file, $section));
         }
-        if($this->debugging) {
+
+        if ($this->debugging) {
             $debug_start_time = $this->_get_microtime();
             $this->_smarty_debug_info[] = array('type'      => 'config',
                                                 'filename'  => $file.' ['.$section.'] '.$scope,
@@ -960,7 +971,7 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _process_cached_inserts($results)
     {
-        if($this->debugging) {
+        if ($this->debugging) {
             $debug_start_time = $this->_get_microtime();
         }
 
@@ -997,7 +1008,7 @@ function _generate_debug_output() {
 \*======================================================================*/
 function _run_insert_handler($args)
 {
-    if($this->debugging) {
+    if ($this->debugging) {
         $debug_start_time = $this->_get_microtime();
     }
 
@@ -1022,22 +1033,22 @@ function _run_insert_handler($args)
     Function: _run_mod_handler
     Purpose:  Handle modifiers
 \*======================================================================*/
-	function _run_mod_handler()
-	{
-    	$args = func_get_args();
-    	list($func_name, $map_array) = array_splice($args, 0, 2);
-    	$var = $args[0];
+    function _run_mod_handler()
+    {
+        $args = func_get_args();
+        list($func_name, $map_array) = array_splice($args, 0, 2);
+        $var = $args[0];
 
-    	if ($map_array && is_array($var)) {
-        	foreach ($var as $key => $val) {
-            	$args[0] = $val;
-            	$var[$key] = call_user_func_array($func_name, $args);
-        	}
-        	return $var;
-    	} else {
-        	return call_user_func_array($func_name, $args);
-    	}
-	}
+        if ($map_array && is_array($var)) {
+            foreach ($var as $key => $val) {
+                $args[0] = $val;
+                $var[$key] = call_user_func_array($func_name, $args);
+            }
+            return $var;
+        } else {
+            return call_user_func_array($func_name, $args);
+        }
+    }
 
 
 /*======================================================================*\
@@ -1057,40 +1068,40 @@ function _run_insert_handler($args)
 /*======================================================================*\
     Function:   _read_file()
     Purpose:    read in a file from line $start for $lines.
-				read the entire file if $start and $lines are null.
+                read the entire file if $start and $lines are null.
 \*======================================================================*/
-    function _read_file($filename,$start=null,$lines=null)
+    function _read_file($filename, $start=null, $lines=null)
     {
         if (!($fd = @fopen($filename, 'r'))) {
             $this->_trigger_error_msg("problem reading '$filename.'");
             return false;
         }
         flock($fd, LOCK_SH);
-		if($start == null && $lines == null) {
-			// read the entire file
-        	$contents = fread($fd, filesize($filename));
-		} else {
-			if( $start > 1 ) {
-				// skip the first lines before $start
-				for ($loop=1; $loop < $start; $loop++) {
-					fgets($fd,65536);
-				}
-			}
-			if( $lines == null ) {
-				// read the rest of the file
-				while(!feof($fd)) {
-					$contents .= fgets($fd,65536);
-				}
-			} else {
-				// read up to $lines lines
-				for ($loop=0; $loop < $lines; $loop++) {
-					$contents .= fgets($fd,65536);
-					if(feof($fd)) {
-						break;
-					}
-				}				
-			}
-		}
+        if ($start == null && $lines == null) {
+            // read the entire file
+            $contents = fread($fd, filesize($filename));
+        } else {
+            if ( $start > 1 ) {
+                // skip the first lines before $start
+                for ($loop=1; $loop < $start; $loop++) {
+                    fgets($fd,65536);
+                }
+            }
+            if ( $lines == null ) {
+                // read the rest of the file
+                while (!feof($fd)) {
+                    $contents .= fgets($fd,65536);
+                }
+            } else {
+                // read up to $lines lines
+                for ($loop=0; $loop < $lines; $loop++) {
+                    $contents .= fgets($fd,65536);
+                    if (feof($fd)) {
+                        break;
+                    }
+                }
+            }
+        }
         fclose($fd);
         return $contents;
     }
@@ -1225,67 +1236,67 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _write_cache_file($tpl_file, $cache_id, $compile_id, $results)
     {
-		// put timestamp in cache header
-		$this->_cache_info['timestamp'] = time();
+        // put timestamp in cache header
+        $this->_cache_info['timestamp'] = time();
 
         // prepend the cache header info into cache file
         $results = 'SMARTY_CACHE_INFO_HEADER'.serialize($this->_cache_info)."\n".$results;
 
-		if(!empty($this->cache_handler_func)) {
-			// use cache_write_handler function
-			return $$this->cache_handler_func('write', $tpl_file, $cache_id, $compile_id, $results, $this);
-		} else {	
-			// use local cache file
-	    	$cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
-        	$this->_write_file($cache_file, $results, true);
-        	return true;
-		}
+        if (!empty($this->cache_handler_func)) {
+            // use cache_write_handler function
+            return $$this->cache_handler_func('write', $tpl_file, $cache_id, $compile_id, $results, $this);
+        } else {    
+            // use local cache file
+            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+            $this->_write_file($cache_file, $results, true);
+            return true;
+        }
     }
 
 /*======================================================================*\
     Function:   _read_cache_file
     Purpose:    read a cache file, determine if it needs to be
-				regenerated or not
+                regenerated or not
 \*======================================================================*/
     function _read_cache_file($tpl_file, $cache_id, $compile_id, &$results)
     {
-		if ($this->force_compile || $this->cache_lifetime == 0) {
-			// force compile enabled or cache lifetime is zero, always regenerate
-			return false;
-		}
-		
-		if(!empty($this->cache_handler_func)) {
+        if ($this->force_compile || $this->cache_lifetime == 0) {
+            // force compile enabled or cache lifetime is zero, always regenerate
+            return false;
+        }
+        
+        if (!empty($this->cache_handler_func)) {
 
-			// use cache_read_handler function
-			return($$this->cache_handler_func('read',$tpl_file, $cache_id, $compile_id, $results, $this));
+            // use cache_read_handler function
+            return($$this->cache_handler_func('read', $tpl_file, $cache_id, $compile_id, $results, $this));
 
-		} else {
-			// use local file cache
-			
-	    	$cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
-        	return ($results = $this->_read_file($cache_file));
-			
-		}
+        } else {
+            // use local file cache
+            
+            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+            return ($results = $this->_read_file($cache_file));
+            
+        }
 
-		$cache_split = explode("\n",$results,2);
-		$cache_header = $cache_split[0];
-		
+        $cache_split = explode("\n",$results,2);
+        $cache_header = $cache_split[0];
+        
         if (substr($cache_header, 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {
 
             $cache_info = unserialize(substr($cache_header, 24));
-			$cache_timestamp = $cache_info['timestamp'];
+            $cache_timestamp = $cache_info['timestamp'];
 
-       		if (time() - $cache_timestamp > $this->cache_lifetime) {
-				// cache expired, regenerate
-				return false;
-			}
-			
+            if (time() - $cache_timestamp > $this->cache_lifetime) {
+                // cache expired, regenerate
+                return false;
+            }
+            
             if ($this->compile_check) {
                 foreach ($cache_info as $curr_cache_info) {
                     switch ($curr_cache_info[0]) {
                         case 'template':
                             $this->_fetch_template_info($curr_cache_info[1], $template_source, $template_timestamp, false);
-                            if($cache_timestamp < $template_timestamp) {
+                            if ($cache_timestamp < $template_timestamp) {
                                 // template file has changed, regenerate cache
                                 return false;
                             }
@@ -1300,12 +1311,12 @@ function _run_insert_handler($args)
                     }
                 }
             }
-			$results = $cache_split[1];
-        	return true;
+            $results = $cache_split[1];
+            return true;
         } else {
-			// no cache info header, pre Smarty 1.4.6 format. regenerate
-        	return false;
-		}
+            // no cache info header, pre Smarty 1.4.6 format. regenerate
+            return false;
+        }
     }
 
 

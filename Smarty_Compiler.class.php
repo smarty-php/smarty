@@ -6,8 +6,8 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:             1.4.6
- * Copyright:           2001 ispi of Lincoln, Inc.
+ * Version:     1.4.6
+ * Copyright:   2001 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -973,7 +973,7 @@ class Smarty_Compiler extends Smarty {
 
         $var_name = substr($var_ref, 1, -1);
 
-        $output = "\$this->_config[0]['$var_name']";
+        $output = "\$this->_config[0]['vars']['$var_name']";
 
         $this->_parse_modifiers($output, $modifiers);
 
