@@ -1,3 +1,9 @@
+2004-01-21  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.config_load.php:
+      added handling of resources for {config_load}
+
 2004-01-19  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
