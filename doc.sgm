@@ -1765,10 +1765,10 @@ is the first week that has at least 4 days in the current year, and with Monday 
 <chapter id="credits">
 	<title>CREDITS</title>
 	<para>
-	Monte Ohrt &lt;monte@ispi.net&rt;: Original idea and initial implementation, documentation.
+	Monte Ohrt &lt;monte@ispi.net&gt;: Original idea and initial implementation, documentation.
 	</para>
 	<para>
-	Andrei Zmievski &lt;andrei@ispi.net&rt;: Rewrote parser from scratch, added much functionality.
+	Andrei Zmievski &lt;andrei@ispi.net&gt;: Rewrote parser from scratch, added much functionality.
 	</para>
 </chapter>
 </book>
