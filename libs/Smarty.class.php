@@ -22,21 +22,8 @@
  * Smarty mailing list. Send a blank e-mail to
  * smarty-general-subscribe@lists.php.net
  *
- * You may contact the authors of Smarty by e-mail at:
- * monte@ispi.net
- * andrei@php.net
- *
- * Or, write to:
- * Monte Ohrt
- * Director of Technology, ispi
- * 237 S. 70th suite 220
- * Lincoln, NE 68510
- *
- * The latest version of Smarty can be obtained from:
- * http://smarty.php.net/
- *
  * @link http://smarty.php.net/
- * @copyright 2001-2003 ispi of Lincoln, Inc.
+ * @copyright 2001-2004 ispi of Lincoln, Inc.
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty

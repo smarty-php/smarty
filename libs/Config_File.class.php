@@ -17,15 +17,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * You may contact the author of Config_File by e-mail at:
- * {@link andrei@php.net}
- *
- * The latest version of Config_File can be obtained from:
- * http://smarty.php.net/
- *
  * @link http://smarty.php.net/
  * @version 2.6.2-dev
- * @copyright Copyright: 2001-2003 ispi of Lincoln, Inc.
+ * @copyright Copyright: 2001-2004 ispi of Lincoln, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty
