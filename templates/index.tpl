@@ -69,3 +69,8 @@ This is an example of the html_options function:
 </form>
 
 {include file="footer.tpl"}
+
+{section name=test loop=$a->foo}
+	foo: {$a->foo[test]}
+	bar: {$a->bar[test]}
+{/section}

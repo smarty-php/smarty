@@ -1244,9 +1244,9 @@ $smarty->display("index.tpl");
 			<sect3>
 				<title>Variables assigned from PHP</title>
 				<para>
-				Variables that are assigned from PHP are displayed by preceeding
+				Variables that are assigned from PHP are referenced by preceding
 				them with a dollar sign ($) and enclosing the variable in delimiters
-				like so: {$varname}
+				like so: $varname
 				</para>
 <example>
 
@@ -1269,8 +1269,9 @@ Your last login was on January 11th, 2001.
 			<sect3>
 				<title>Associative arrays</title>
 				<para>
-				You can also print variables that are assigned as associative
-				arrays from PHP by supplying the key value with the array name.
+				You can also reference associative array variables that are
+				assigned from PHP by specifying the key after the '.' (period)
+				symbol.
 				</para>
 <example>
 <title>displaying assigned associative array variables</title>
@@ -1295,6 +1296,27 @@ zaphod@slartibartfast.com&lt;br&gt;
 </example>
 			</sect3>
 
+			<sect3>
+				<title>Objects</title>
+				<para>
+				Properties of objects assigned from PHP can be referenced
+				by specifying the property name after the '-&gt;' symbol.
+				</para>
+<example>
+<title>displaying object properties</title>
+<programlisting>
+
+name: {$person-&gt;name}&lt;br&gt;
+email: {$person-&gt;email}&lt;br&gt;
+
+OUTPUT:
+
+name: Zaphod Beeblebrox&lt;br&gt;
+email: zaphod@slartibartfast.com&lt;br&gt;
+
+</programlisting>
+</example>
+			</sect3>
 
 			<sect3>
 				<title>Variables passed from config files</title>
@@ -1945,8 +1967,7 @@ OUTPUT:
             (usually an array of values) determines the number of times the
             section will loop. When printing a variable within a section, the
             section name must be given next to variable name within brackets
-            []. If you are using an associative array, separate the key and
-            value with a period (.). <emphasis>sectionelse</emphasis> is
+            []. <emphasis>sectionelse</emphasis> is
             executed when there are no values in the loop variable.
 			</para>
 <example>

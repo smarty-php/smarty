@@ -170,7 +170,7 @@ class Smarty_Compiler extends Smarty {
 
         /* If the tag name matches a variable or section property definition,
            we simply process it. */
-        if (preg_match('!^\$\w+(?>(\[\w+(\.\w+)?\])|(\.\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
+        if (preg_match('!^\$\w+(?>(\[\w+(\.\w+)?\])|((\.|->)\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
             preg_match('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)     ||  // or a configuration variable
             preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)) {    // or a section property
             settype($tag_command, 'array');
@@ -679,7 +679,7 @@ class Smarty_Compiler extends Smarty {
     {        
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
-        $var_exprs = preg_grep('!^\$\w+(?>(\[\w+(\.\w+)?\])|(\.\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
+        $var_exprs = preg_grep('!^\$\w+(?>(\[\w+(\.\w+)?\])|((\.|->)\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
 
@@ -710,21 +710,22 @@ class Smarty_Compiler extends Smarty {
     {
         list($var_ref, $modifiers) = explode('|', substr($var_expr, 1), 2);
 
-		$indexes = preg_split('![\[\]]!', $var_ref, -1, PREG_SPLIT_NO_EMPTY);
+		preg_match_all('!\[\w+\]|(->|\.)\w+|^\w+!', $var_ref, $match);
+		$indexes = $match[0];
         $var_name = array_shift($indexes);
 
         $output = "\$this->_tpl_vars['$var_name']";
 
 		foreach ($indexes as $index) {
-			if ($index{0} == '.') {
-				foreach (array_slice(explode('.', $index), 1) as $prop) {
-					$output .= "['$prop']";
-				}
-			} else {
-				list($section, $section_prop) = explode('.', $index);
+			if ($index{0} == '[') {
+				list($section, $section_prop) = explode('.', substr($index, 1, -1));
 				if (!isset($section_prop))
 					$section_prop = 'index';
 				$output .= "[\$_smarty_sections['$section']['properties']['$section_prop']]";
+			} else if ($index{0} == '.') {
+				$output .= "['" . substr($index, 1) . "']";
+			} else {
+				$output .= $index;
 			}
 		}
 
