@@ -39,7 +39,7 @@ function smarty_function_html_options($params, &$smarty)
                 $sel_check = $output[$i];       /* if more outputs than values, then
                                                    check output against $selected */
             if (in_array($sel_check, $selected))
-                $html_result .= " selected";
+                $html_result .= " selected=\"selected\"";
             $html_result .= ">".$output[$i]."</option>\n";
         }
     }
