@@ -6,11 +6,11 @@
  * Type:     	function
  * Name:     	html_radios
  * Purpose:  	Prints the list of <input type="radio" tags generated from the passed parameters
- * Parameters:	name [required]- string
- * 				checked [optional]- string
+ * Parameters:	name [optional]- string default "radio"
+ * 				checked [optional]- string default not set
  * 				values [required] - array
  * 				separator[optional] - ie <br> or &nbsp;
- * 				output[optional] -without this one the buttons don't have names
+ * 				output[optional] - without this one the buttons don't have names
  * Author:		Christopher Kvarme <christopher.kvarme@flashjab.com> 
  * ---------------------------------------------------------------------------------------------
  */
@@ -19,7 +19,9 @@ function smarty_function_html_radios($params, &$smarty)
     extract($params);
 
     $html_result = '';
-	
+	if(!isset($name)){
+	$name = "radio";
+	}
     settype($checked, 'array');
     if (isset($radios)) {
         settype($radios, 'array');
