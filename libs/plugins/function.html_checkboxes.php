@@ -21,6 +21,7 @@
  *             {html_checkboxes values=$ids checked=$checked separator='<br>' output=$names}
  * -------------------------------------------------------------
  */
+require_once $this->_get_plugin_filepath('shared','escape_special_chars');
 function smarty_function_html_checkboxes($params, &$smarty)
 {
     extract($params);
@@ -47,12 +48,12 @@ function smarty_function_html_checkboxes($params, &$smarty)
 }
 
 function smarty_function_html_checkboxes_output($name, $value, $output, $checked, $separator) {
-	$_output = '<input type="checkbox" name="' . htmlspecialchars($name) . '[]' .'" value="' . htmlspecialchars($value) . '"';
+	$_output = '<input type="checkbox" name="' . smarty_function_escape_special_chars($name) . '[]' .'" value="' . smarty_function_escape_special_chars($value) . '"';
 	
     if (in_array($value, $checked)) {
        	$_output .= " checked=\"checked\"";
 	}
-    $_output .= '>' . $name . $separator . "\n";
+    $_output .= '>' . $output . $separator . "\n";
 
 	return $_output;	
 }

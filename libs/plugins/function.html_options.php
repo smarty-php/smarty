@@ -1,5 +1,7 @@
 <?php
 
+require('shared.escape_special_chars.php');
+
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -38,11 +40,11 @@ function smarty_function_html_options($params, &$smarty)
 
 function smarty_function_html_options_optoutput($key, $value, $selected) {
 	if(!is_array($value)) {
-    	$html_result = '<option label="' . smarty_function_html_options_htmlspecialchars($value) . '" value="' . 
-				smarty_function_html_options_htmlspecialchars($key) . '"';
+    	$html_result = '<option label="' . smarty_function_escape_special_chars($value) . '" value="' . 
+				smarty_function_escape_special_chars($key) . '"';
     	if (in_array($key, $selected))
         	$html_result .= " selected=\"selected\"";
-    	$html_result .= '>' . smarty_function_html_options_htmlspecialchars($value) . '</option>' . "\n";
+    	$html_result .= '>' . smarty_function_escape_special_chars($value) . '</option>' . "\n";
 	} else {
 		$html_result = smarty_function_html_options_optgroup($key, $value, $selected);
 	}
@@ -50,20 +52,12 @@ function smarty_function_html_options_optoutput($key, $value, $selected) {
 }
 
 function smarty_function_html_options_optgroup($key, $values, $selected) {
-	$optgroup_html = '<optgroup label="' . smarty_function_html_options_htmlspecialchars($value) . '">' . "\n";
+	$optgroup_html = '<optgroup label="' . smarty_function_escape_special_chars($value) . '">' . "\n";
 	foreach ($values as $key => $value) {
 		$optgroup_html .= smarty_function_html_options_optoutput($key, $value, $selected);
 	}
 	$optgroup_html .= "</optgroup>\n";
 	return $optgroup_html;
-}
-
-function smarty_function_html_options_htmlspecialchars($text) {
-	// do not escape already escaped entities (&amp; &#123;)
-	$text = preg_replace('!&(#?\w+);!', '%%%SMARTY_START%%%\\1%%%SMARTY_END%%%', $text);
-	$text = htmlspecialchars($text);
-	$text = str_replace(array('%%%SMARTY_START%%%','%%%SMARTY_END%%%'), array('&',';'), $text);
-	return $text;
 }
 
 /* vim: set expandtab: */
