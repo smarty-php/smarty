@@ -1723,12 +1723,20 @@ Intro = """This is a value that spans more
 			<title>capture</title>
 			<para>
 			capture is used to collect the output of the template into a
-			variable instead of displaying it. Any content between {capture} and
-			{/capture} is collected into the special $return variable, which can
-			be used in the template from that point on. All {capture} commands
-			must be paired with {/capture}. You can nest capture commands, but
-			be aware that each iteration will overwrite the last value of
-			$return. capture was added to Smarty 1.4.0.
+			variable instead of displaying it. Any content between {capture
+			name="foo"} and {/capture} is collected into the variable specified
+			in the name attribute. The captured content can be used in the
+			template from the special variable $smarty.capture.foo where foo is
+			the value passed in the name attribute. If you do not supply a name
+			attribute, then "default" will be used. All {capture} commands must
+			be paired with {/capture}. You can nest capture commands. capture
+			was added to Smarty 1.4.0. The "name" attribute was added to Smarty
+			1.4.5.
+			</para>
+			<para>
+			NOTE: Smarty 1.4.0 - 1.4.4 placed the captured content into the
+			varible named $return. As of 1.4.5, this behavior was changed to use
+			the name attribute, so update your templates accordingly.
 			</para>
 			<para>
 			TECHNICAL NOTE: Be careful when capturing {insert} output. If you
@@ -1740,10 +1748,10 @@ Intro = """This is a value that spans more
 <programlisting>
 
 {* we don't want to print a table row unless content is displayed *}
-{capture}
+{capture name=banner}
 {include file="get_banner.tpl"}
 {/capture}
-{if $return ne ""}
+{if $smarty.capture.banner ne ""}
 	&lt;tr&gt;
 		&lt;td&gt;
 			{$return}
