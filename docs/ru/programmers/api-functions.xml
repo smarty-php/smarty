@@ -608,7 +608,10 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 			</para>
 <example>
 <title>register_block</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
+
 /* PHP */
 $smarty->register_block("translate", "do_translation");
 
@@ -619,11 +622,14 @@ function do_translation ($params, $content, &$smarty) {
         echo $translation;
     }
 }
+?>
 
 {* template *}
 {translate lang="br"}
    Hello, world!
-{/translate}</programlisting>
+{/translate}
+]]>
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.register.compiler.function">

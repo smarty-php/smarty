@@ -676,7 +676,7 @@ index.tpl
 			<emphasis>elseif</emphasis> так же допустимы. "eq", "ne",
 			"neq", "gt", "lt", "lte", "le", "gte" "ge", "is even", 
 			"is odd", "is not even", "is not odd", "not", "mod", 
-			"div by", "even by", "odd by", "==", "!=", ">", "<", "<=",
+			"div by", "even by", "odd by", "==", "!=", "&gt;", "&lt;", "&lt;=",
 			">=" -- допустимые квалификаторы условий. ќни должны быть 
 			отделены от окружающих елементов пробелами.
 			</para>

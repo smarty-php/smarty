@@ -134,7 +134,7 @@ require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
      <funcprototype>
       <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>

@@ -115,6 +115,7 @@ footer.tpl
 <example>
 <title>использование date_format</title>
 <programlisting>
+<![CDATA[
 {$startDate|date_format}
 
 ВЫВОД:
@@ -131,7 +132,8 @@ Jan 4, 2001
 
 {if $date1 < $date2}
 	...
-{/if}</programlisting>
+{/if}
+]]></programlisting>
 </example>
 		<para>
 		Когда {html_select_date} используется в шаблоне, программисты обычно 

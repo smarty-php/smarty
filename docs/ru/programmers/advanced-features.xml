@@ -34,8 +34,9 @@
 	</para>
     <example>
      <title>using a registered or assigned object</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 // the object
 
 class My_Object() {
@@ -56,7 +57,7 @@ $smarty->register_object("foobar",$myobj,null,false);
 $smarty->assign_by_ref("myobj", $myobj);
 
 $smarty->display("index.tpl");
-?&gt;
+?>
 
 TEMPLATE:
 
@@ -68,7 +69,8 @@ TEMPLATE:
 the output was {$output)
 
 {* access our assigned object *}
-{$myobj->meth1("foo",$bar)}</programlisting>
+{$myobj->meth1("foo",$bar)}
+]]></programlisting>
     </example>
   </sect1>
    <sect1 id="advanced.features.prefilters">
