@@ -18,8 +18,8 @@
   </copyright>
  </bookinfo>
 
- <chapter id="overview">
-  <title>Overview</title>
+ <preface id="preface">
+  <title>Preface</title>
   <para>
    It is undoubtedly one of the most asked questions on the PHP mailing
    lists: how do I make my PHP scripts independent of the layout? While
@@ -86,7 +86,12 @@
    syntax. So what if we combined the two strengths? Thus, Smarty was
    born...
   </para>
+ </preface>
 
+ <part id="getting.started">
+  <title>Getting Started</title>
+ <chapter id="overview">
+  <title>Overview</title>
   <sect1 id="what.is.smarty">
    <title>What is Smarty?</title>
    <para>
@@ -108,7 +113,7 @@
     <listitem><para>No template parsing overhead, only compiles once.</para></listitem>
     <listitem><para>It is smart about recompiling only the template
       files that have changed.</para></listitem>
-    <listitem><para>You can make <link linkend="custom.functions">custom
+    <listitem><para>You can make <link linkend="bundled.plugins.commands">custom
        functions</link> and custom <link linkend="variable.modifiers">variable
        modifiers</link>, so the template language is extremely extensible.</para></listitem>
     <listitem><para>Configurable template delimiter tag syntax, so you can use
@@ -129,7 +134,7 @@
   <sect1 id="how.smarty.works">
    <title>How Smarty works</title>
 
-   <sect2 id="compiling"><title>Compiling</title>
+   <sect2 id="features.compiling"><title>Compiling</title>
     <para>
      Smarty compiles the templates into native PHP code on-the-fly. The actual
      PHP scripts that are generated are created implicitly, so theoretically you
@@ -139,7 +144,7 @@
     </para>
    </sect2>
 
-   <sect2 id="section.caching">
+   <sect2 id="features.caching">
     <title>Caching</title>
     <para>
      Smarty can cache the output of your generated templates. By default
@@ -280,1002 +285,128 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
      </sect2>
     </sect1>
    </chapter>
+  </part>
 
-   <chapter id="chapter.class.variables">
-     <title>Class Variables</title>
-     <para></para>
+  <part>
+   <title>Smarty For Template Designers</title>
+ <chapter id="language">
+  <title>Template Language</title>
+  <para>
+   The templates are the heart of Smarty. These are the files that the designers
+   work with. They're basically pages made up of static content interspersed with
+   template markup tags. These tags are placeholders for variables or blocks of logic.
+  </para>
 
-     <sect1 id="variable.template.dir">
-      <title>$template_dir</title>
-      <para>
-       This is the name of the default template directory. If you do
-       not supply a resource type when including files, they will be
-       found here. By default this is "./templates", meaning that it
-       will look for the templates directory in the same directory as
-       the executing php script.
-      </para>
-      <para>
-       TECHNICAL NOTE: It is not mandatory to put this directory under
-       the web server document root.
-      </para>
-     </sect1>		
-     <sect1 id="variable.compile.dir">
-      <title>$compile_dir</title>
-      <para>
-       This is the name of the directory where compiled templates are
-       located. By default this is "./templates_c", meaning that it
-       will look for the compile directory in the same directory as
-       the executing php script. This was added to Smarty version
-       1.2.1.
-      </para>
-      <para>
-       TECHNICAL NOTE: This setting must be either a relative or
-       absolute path. include_path is not used for writing files.
-      </para>
-      <para>    
-       TECHNICAL NOTE: It is not mandatory to put this directory under
-       the web server document root.
-      </para>
-     </sect1>
-     <sect1 id="variable.config.dir">
-      <title>$config_dir</title>
-      <para>
-       This is the directory used to store config files used in the
-       templates. Default is "./configs", meaning that it will look
-       for the configs directory in the same directory as the
-       executing php script.
-      </para>
-      <para>
-       TECHNICAL NOTE: It is not mandatory to put this directory under
-       the web server document root.
-      </para>
-     </sect1>
-     <sect1 id="variable.plugins.dir">
-      <title>$plugins_dir</title>
-      <para>
-       This is the directory where Smarty will look for the plugins that
-       it needs. The directory must be relative to the directory where
-       Smarty itself is installed. Default is "plugins". There can be
-       only one plugins directory.
-      </para>
-     </sect1>
-     <sect1 id="variable.debugging">
-      <title>$debugging</title>
-      <para>
-       This enables the <link
-        linkend="chapter.debugging.console">debugging console</link>.
-       The console is a javascript window that informs you of the
-       included templates and assigned variables for the current
-       template page.
-      </para>
-      <para>
-       NOTE: This was added to Smarty 1.4.3.
-      </para>
-     </sect1>
-     <sect1 id="variable.debug.tpl">
-      <title>$debug_tpl</title>
-      <para>
-       This is the name of the template file used for the debugging
-       console.
-      </para>
-      <para>
-       NOTE: This was added to Smarty 1.4.3.
-      </para>
-     </sect1>
-     <sect1 id="variable.debugging.ctrl">
-      <title>$debugging_ctrl</title>
-      <para>
-       This allows alternate ways to enable debugging. NONE means no
-       alternate methods are allowed. URL means when the keyword
-       SMARTY_DEBUG is found in the QUERY_STRING, debugging is enabled
-       for that invocation of the script. If $debugging is true, this
-       value is ignored.
-      </para>
-      <para>
-       NOTE: This was added to Smarty 1.4.4.
-      </para>
-     </sect1>
-     <sect1 id="variable.global.assign">
-      <title>$global_assign</title>
-      <para>
-       This is a list of variables that are always implicitly assigned
-       to the template engine. This is handy for making global
-       variables or server variables available to all templates
-       without having to manually assign them. Each element in the
-       $global_assign should be either a name of the global variable,
-       or a key/value pair, where the key is the name of the global
-       array and the value is the array of variables to be assigned
-       from that global array. $SCRIPT_NAME is globally assigned by
-       default from $HTTP_SERVER_VARS.
-      </para>
-      <para>
-       TECHNICAL NOTE: Server variables can be accessed through the
-       $smarty variable, such as {$smarty.server.SCRIPT_NAME}. See the
-       section on the
-       <link linkend="builtin.variable.smarty">$smarty</link> variable.
-      </para>
-     </sect1>
-     <sect1 id="variable.undefined">
-      <title>$undefined</title>
-      <para>
-       This sets the value of $undefined for Smarty, default is null.
-       Currently this is only used to set undefined variables in
-       $global_assign to a default value.
-      </para>
-     </sect1>
-     <sect1>
-      <title>$compile_check</title>
-      <para>
-       Upon each invocation of the PHP application, Smarty tests to
-       see if the current template has changed (later time stamp)
-       since the last time it was compiled. If it has changed, it
-       recompiles that template. As of 1.4.0, if the template has not
-       been compiled, it will compile regardless of this setting. By
-       default this variable is set to true. Once an application is
-       put into production (templates won't be changing), the
-       compile_check step is no longer needed. Be sure to set
-       $compile_check to "false" to improve performance! Note that if
-       you change this to "false" and a template file is changed, you
-       will *not* see the change since the template will not get
-       recompiled. If caching is enabled and compile_check is enabled,
-       then the cache files will get regenerated if an involved
-       template file was updated. See <link
-        linkend="variable.force.compile">$force_compile</link> or <link
-        linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
-      </para>
-     </sect1>
-     <sect1 id="variable.force.compile">
-      <title>$force_compile</title>
-      <para>
-       This forces Smarty to (re)compile templates on every
-       invocation. This setting overrides $compile_check. By default
-       this is disabled. This is handy for development and debugging.
-       It should never be used in a production environment. If caching
-       is enabled, the cache file(s) will be regenerated every time.
-      </para>
-     </sect1>
-     <sect1 id="variable.caching">
-      <title>$caching</title>
-      <para>
-       This tells Smarty whether or not to cache the output of the
-       templates. By default this is set to false. If your templates
-       generate redundant redundant content over and over again and
-       again repeatedly, it is advisable to turn on caching. This will
-       result in significant performance gains. You can also have
-       multiple caches for the same template. See <link
-        linkend="api.is.cached">is_cached</link> for details. This was
-       added to Smarty 1.3.0.
-      </para>
-      <para>
-       If $compile_check is enabled, the cached content will be
-       regenerated if any of the involved templates are changed. (new
-       to 1.4.6). If $force_compile is enabled, the cached content
-       will always be regenerated. (added to Smarty 1.4.7)
-      </para>
-     </sect1>
-     <sect1 id="variable.cache.dir">
-      <title>$cache_dir</title>
-      <para>
-       This is the name of the directory where template caches are
-       stored. By default this is "./cache", meaning that it will look
-       for the cache directory in the same directory as the executing
-       php script. You can also use your own custom cache handler
-       function to control cache files, which will ignore this
-       setting. (added to Smarty 1.3.0)
-      </para>
-      <para>
-       TECHNICAL NOTE: This setting must be either a relative or
-       absolute path. include_path is not used for writing files.
-      </para>
-      <para>
-       TECHNICAL NOTE: It is not mandatory to put this directory under
-       the web server document root.
-      </para>
-     </sect1>
-     <sect1 id="variable.cache.lifetime">
-      <title>$cache_lifetime</title>
-      <para>
-       This is the length of time in seconds that a template cache is
-       valid. Once this time has expired, the cache will be
-       regenerated. $caching must be set to "true" for this setting to
-       work. You can also force the cache to expire with <link
-        linkend="api.clear.all.cache">clear_all_cache</link>. (added to
-       Smarty 1.3.0)
-      </para>
-     </sect1>
-     <sect1 id="variable.cache.handler.func">
-      <title>$cache_handler_func</title>
-      <para>
-       You can supply a custom function to handle cache files instead
-       of using the built-in method using the $cache_dir. See the
-       custom cache handler function section for details.
-      </para>
-     </sect1>
-     <sect1 id="variable.cache.modified.check">
-      <title>$cache_modified_check</title>
-      <para>
-       If set to true, Smarty will respect the If-Modified-Since
-       header sent from the client. If the cached file timestamp has
-       not changed since the last visit, then a "304 Not Modified"
-       header will be sent instead of the content. This works only on
-       cached content without <command>{insert}</command> tags.
-      </para>
-     </sect1>
-     <sect1 id="variable.default.template.handler.func">
-      <title>$default_template_handler_func</title>
-      <para>
-       This function is called when a template cannot be obtained from
-       its resource. (added to Smarty 1.5.2)
-      </para>
-     </sect1>
-     <sect1 id="variable.php.handling">
-      <title>$php_handling</title>
-      <para>
-       This tells Smarty how to handle PHP code embedded in the
-       tempalates. There are four possible settings, default being
-       SMARTY_PHP_PASSTHRU. Note that this does NOT affect php code
-       within <link linkend="builtin.functions.php">{php}{/php}</link>
-       tags in the template.
-      </para>    
-      <itemizedlist>
-       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty echos tags as-is.</para></listitem>
-       <listitem><para>SMARTY_PHP_QUOTE - Smarty quotes the tags as
-         html entities.</para></listitem>
-       <listitem><para>SMARTY_PHP_REMOVE - Smarty removes the tags from
-         the templates.</para></listitem>
-       <listitem><para>SMARTY_PHP_ALLOW - Smarty will execute the tags
-         as PHP code.</para></listitem>
-      </itemizedlist>
-      <para>
-       NOTE: Embedding PHP code into templates is highly discouraged.
-       Use <link linkend="custom.functions">custom functions</link> or
-       <link linkend="variable.modifiers">modifiers</link> instead.
-      </para>
-     </sect1>
-     <sect1 id="variable.security">
-      <title>$security</title>
-      <para>
-       $security true/false, default is false. Security is good for
-       situations when you have untrusted parties editing the templates
-       (via ftp for example) and you want to reduce the risk of system
-       security compromises through the template language. Turning on
-       security enforces the following rules to the template language,
-       unless specifially overridden with $security_settings:
-      </para>
-      <itemizedlist>
-       <listitem><para>If $php_handling is set to SMARTY_PHP_ALLOW, this is
-         implicitly changed to SMARTY_PHP_PASSTHRU</para></listitem>
-       <listitem><para>PHP functions are not allowed in IF statements,
-         except those specified in the $security_settings</para></listitem>
-       <listitem><para>templates can only be included from directories
-         listed in the $secure_dir array</para></listitem>
-       <listitem><para>local files can only be fetched from directories
-         listed in the $secure_dir array using {fetch}</para></listitem>
-       <listitem><para>{php}{/php} tags are not allowed</para></listitem>
-       <listitem><para>PHP functions are not allowed as modifiers, except
-         those specified in the $security_settings</para></listitem>
-      </itemizedlist>
-      <para>
-       NOTE: Security features were added to Smarty 1.4.3.
-      </para>
-     </sect1>
-     <sect1 id="variable.secure.dir">
-      <title>$secure_dir</title>
-      <para>
-       This is an array of all local directories that are considered
-       secure. {include} and {fetch} use this when security is enabled.
-      </para>
-     </sect1>
-     <sect1 id="variable.security.settings">
-      <title>$security_settings</title>
-      <para>
-       These are used to override or specify the security settings when
-       security is enabled. These are the possible settings:
-      </para>
-      <itemizedlist>
-       <listitem><para>PHP_HANDLING - true/false. If set to true, the
-         $php_handling setting is not checked for security.</para></listitem>
-       <listitem><para>IF_FUNCS - This is an array of the names of permitted
-         PHP functions in IF statements.</para></listitem>
-       <listitem><para>INCLUDE_ANY - true/false. If set to true, any
-         template can be included from the file system, regardless of the
-         $secure_dir list.</para></listitem>
-       <listitem><para>PHP_TAGS - true/false. If set to true, {php}{/php}
-         tags are permitted in the templates.</para></listitem>
-       <listitem><para>MODIFIER_FUNCS - This is an array of the names of permitted
-         PHP functions used as variable modifiers.</para></listitem>
-      </itemizedlist>
-     </sect1>
-     <sect1 id="variable.trusted.dir">
-      <title>$trusted_dir</title>
-      <para>
-	   $trusted_dir is only for use when $security is enabled. This is an array
-	   of all directories that are considered trusted. Trusted directories are
-	   where you keep php scripts that are executed directly from the templates
-	   with <link linkend="builtin.functions.include.php">{include_php}</link>.
-      </para>
-     </sect1>
-     <sect1 id="variable.left.delimiter">
-      <title>$left_delimiter</title>
-      <para>
-       This is the left delimiter used by the template language.
-       Default is "{".			
-      </para>
-     </sect1>
-     <sect1 id="variable.right.delimiter">
-      <title>$right_delimiter</title>
-      <para>
-       This is the right delimiter used by the template language.
-       Default is "}".			
-      </para>
-     </sect1>
-     <sect1 id="variable.show.info.header">
-      <title>$show_info_header</title>
-      <para>
-       Shows an HTML comment at the beginning of the templates output,
-       displaying smarty version and date generated. Default is false.
-      </para>
-     </sect1>
-     <sect1 id="variable.show.info.include">
-      <title>$show_info_include</title>
-      <para>
-       Shows an HTML comment before and after each included template.
-       Default is false.
-      </para>
-     </sect1>
-     <sect1 id="variable.compiler.class">
-      <title>$compiler_class</title>
-      <para>
-       Specifies the name of the compiler class that Smarty will use
-       to compile the templates. The default is 'Smarty_Compiler'. For
-       advanced users only.
-      </para>
-     </sect1>
-     <sect1 id="variable.request.vars.order">
-      <title>$request_vars_order</title>
-      <para>
-       The order in which request variables are registered, similar to
-       variables_order in php.ini
-      </para>
-     </sect1>
-     <sect1 id="variable.compile.id">
-      <title>$compile_id</title>
-      <para>
-       Persistant compile identifier. As an alternative to passing the
-       same compile_id to each and every function call, you can set this
-       compile_id and it will be used implicitly thereafter.
-      </para>
-     </sect1>
-   </chapter>
+  <sect1 id="language.basic.syntax">
+   <title>Basic Syntax</title>
+   <para>
+    For these examples, we will assume that you are using the default
+    template tag delimiters, which are "{" and "}". In Smarty, all content
+    outside of delimiter tags is displayed as static content, or unchanged.
+    When Smarty encounters template tags {}, it attempts to interpret what is
+    between the tags, and displays the appropriate output in place of them.
+   </para>
 
-   <chapter>
-     <title>API Functions</title>
-     <sect1 id="api.assign">
-      <title>assign</title>
-      <funcsynopsis>
-       <funcprototype>
-        <funcdef>void <function>assign</function></funcdef>
-        <paramdef>mixed <parameter>var</parameter></paramdef>
-       </funcprototype>
-       <funcprototype>
-        <funcdef>void <function>assign</function></funcdef>
-        <paramdef>string <parameter>varname</parameter></paramdef>
-        <paramdef>mixed <parameter>var</parameter></paramdef>
-       </funcprototype>
-      </funcsynopsis>
-      <para>
-       This is used to assign values to the templates. You can
-       explicitly pass name/value pairs, or associative arrays
-       containing the name/value pairs.
-      </para>
-      <example>
-       <title>assign</title>
-       <programlisting>
-// passing name/value pairs
-$smarty->assign("Name","Fred");
-$smarty->assign("Address",$address);
+   <sect2 id="language.basic.syntax.comments">
+    <title>Comments</title>
+    <para>
+     Template comments are surrounded by asterisks, and that is surrounded
+     by the delimiter tags like so: {* this is a comment *}
+     Smarty comments are not displayed in the final output of the template.
+     They are used mainly for making the templates more understandable.
+    </para>
+    <example>
+     <title>Comments</title>
+     <programlisting>
+{* Smarty *}
 
-// passing an associative array
-$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
-</example>
-		</sect1>
-        <sect1 id="api.append">
-         <title>append</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>append</function></funcdef>
-           <paramdef>mixed <parameter>var</parameter></paramdef>
-          </funcprototype>
-          <funcprototype>
-           <funcdef>void <function>append</function></funcdef>
-           <paramdef>string <parameter>varname</parameter></paramdef>
-           <paramdef>mixed <parameter>var</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          This is used to append data to variables in the template. You
-          can explicitly pass name/value pairs, or associative arrays
-          containing the name/value pairs.
-         </para>
-         <example>
-          <title>append</title>
-          <programlisting>
-// passing name/value pairs
-$smarty->append("Name","Fred");
-$smarty->append("Address",$address);
+{* include the header file here *}
+{include file="header.tpl"}
 
-// passing an associative array
-$smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.clear.assign">
-			<title>clear_assign</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_assign</function></funcdef>
-				<paramdef>string <parameter>var</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This clears the value of an assigned variable. This
-                can be a single value, or an array of values. Array
-                functionality was added to Smarty 1.3.0.
-			</para>
-<example>
-<title>clear_assign</title>
-<programlisting>
-// clear a single variable
-$smarty->clear_assign("Name");
+{include file=$includeFile}
 
-// clear multiple variables
-$smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.clear.all.assign">
-			<title>clear_all_assign</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_all_assign</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This clears the values of all assigned variables.
-			</para>
-<example>
-<title>clear_all_assign</title>
-<programlisting>
-// clear all assigned variables
-$smarty->clear_all_assign();</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.clear.cache">
-			<title>clear_cache</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_cache</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>string <parameter>cache id</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                This clears the cache for the specified template. If you have
-                multiple caches for this template, you can clear a specific
-                cache by supplying the cache id as the second parameter. See the
-                <link linkend="section.caching">caching section</link> for more
-                information. This was added to Smarty 1.3.0.
-			</para>
-<example>
-<title>clear_cache</title>
-<programlisting>
-// clear the cache for a template
-$smarty->clear_cache("index.tpl");
+{include file=#includeFile#}
 
-// clear the cache for a particular cache id in an multiple-cache template
-$smarty->clear_cache("index.tpl","CACHEID");</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.clear.all.cache">
-			<title>clear_all_cache</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_all_cache</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This clears the entire template cache. This was added to Smarty
-				1.3.0.
-			</para>
-<example>
-<title>clear_all_cache</title>
-<programlisting>
-// clear the entire cache
-$smarty->clear_all_cache();</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.clear.compiled.tpl">
-			<title>clear_compiled_tpl</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_compiled_tpl</function></funcdef>
-				<paramdef>string <parameter>tpl_file</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-			This clears the compiled version of the specified template
-			resource, or all compiled template files if one is not specified.
-			This function is for advanced use only, not normally needed.
-			</para>
-<example>
-<title>clear_compiled_tpl</title>
-<programlisting>
-// clear a specific template resource
-$smarty->clear_compiled_tpl("index.tpl");
-
-// clear entire compile directory
-$smarty->clear_compiled_tpl();</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.register.function">
-			<title>register_function</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_function</function></funcdef>
-				<paramdef>string <parameter>name</parameter></paramdef>
-				<paramdef>string <parameter>impl</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-             Use this to dynamically register template function plugins.
-             Pass in the template function name, followed by the PHP
-             function name that implements it.
-			</para>
-<example>
-<title>register_function</title>
-<programlisting>
-$smarty->register_function("date_now", "print_current_date");
-
-function print_current_date ($params) {
-    extract($params);
-    if(empty($format))
-        $format="%b %e, %Y";
-    echo strftime($format,time());
-}
-
-// now you can use this in Smarty to print the current date: {date_now}
-// or, {date_now format="%Y/%m/%d"} to format it.</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.unregister.function">
-         <title>unregister_function</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_function</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister template function plugin.
-          Pass in the template function name.
-         </para>
-<example>
-<title>unregister_function</title>
-<programlisting>
-// we don't want template designers to have access to system files
-
-$smarty->unregister_function("fetch");</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.register.modifier">
-         <title>register_modifier</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>register_modifier</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-           <paramdef>string <parameter>impl</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically register modifier plugin. Pass in the
-          template modifier name, followed by the PHP function that it
-          implements it.
-         </para>
-<example>
-<title>register_modifier</title>
-<programlisting>
-// let's map PHP's stripslashes function to a Smarty modifier.
-
-$smarty->register_modifier("sslash","stripslashes");
-
-// now you can use {$var|sslash} to strip slashes from variables</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.unregister.modifier">
-         <title>unregister_modifier</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_modifier</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister modifier plugin. Pass in the
-          template modifier name.
-         </para>
-<example>
-<title>unregister_modifier</title>
-<programlisting>
-// we don't want template designers to strip tags from elements
-
-$smarty->unregister_modifier("strip_tags");</programlisting>
-</example>
-		</sect1>
-        <sect1 id="api.register.resource">
-         <title>register_resource</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>register_resource</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-           <paramdef>array <parameter>resource_funcs</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically register a resource plugin with Smarty.
-          Pass in the name of the resource and the array of PHP functions
-          implementing it. See
-          <link linkend="template.resources">template resources</link>
-          for more information on how to setup a function for fetching
-          templates.
-         </para>
-<example>
-<title>register_resource</title>
-<programlisting>
-$smarty->register_resource("db", array("db_get_template",
-                                       "db_get_timestamp",
-                                       "db_get_secure",
-                                       "db_get_trusted"));</programlisting>
-</example>
-		</sect1>
-        <sect1 id="api.unregister.resource">
-         <title>unregister_resource</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_resource</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister a resource plugin. Pass in the
-          name of the resource.
-         </para>
-<example>
-<title>unregister_resource</title>
-<programlisting>
-$smarty->unregister_resource("db");</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.register.prefilter">
-			<title>register_prefilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_prefilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register prefilters to run templates
-                through before they are compiled. See <link
-                linkend="section.template.prefilters">template prefilters</link> for
-                more information on how to setup a prefiltering function.
-			</para>
-		</sect1>
-		<sect1 id="api.unregister.prefilter">
-			<title>unregister_prefilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_prefilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister a prefilter.
-			</para>
-		</sect1>
-		<sect1 id="api.register.postfilter">
-			<title>register_postfilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_postfilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register postfilters to run templates
-                through after they are compiled. See <link
-                linkend="section.template.postfilters">template postfilters</link> for
-                more information on how to setup a postfiltering function.
-			</para>
-		</sect1>
-		<sect1 id="api.unregister.postfilter">
-			<title>unregister_postfilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_postfilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister a postfilter.
-			</para>
-		</sect1>
-		<sect1 id="api.register.compiler.function">
-			<title>register_compiler_function</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_compiler_function</function></funcdef>
-				<paramdef>string <parameter>name</parameter></paramdef>
-				<paramdef>string <parameter>impl</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register a compiler function plugin.
-                Pass in the compiler function name, followed by the PHP
-                function that implements it.
-			</para>
-		</sect1>
-        <sect1 id="api.unregister.compiler.function">
-         <title>unregister_compiler_function</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_compiler_function</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister a compiler function. Pass in
-          the name of the compiler function.
-         </para>
-        </sect1>
-        <sect1 id="api.trigger.error">
-         <title>trigger_error</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>trigger_error</function></funcdef>
-           <paramdef>string <parameter>error_msg</parameter></paramdef>
-           <paramdef>[int <parameter>level</parameter>]</paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          This function can be used to output an error message using Smarty.
-          <parameter>level</parameter> parameter can be one of the values
-          used for trigger_error() PHP function, i.e. E_USER_NOTICE,
-          E_USER_WARNING, etc. By default it's E_USER_WARNING. This function
-          was added to Smarty 2.0.
-         </para>
-        </sect1>
-
-		<sect1 id="api.is.cached">
-			<title>is_cached</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>is_cached</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                This returns true if there is a valid cache for this template.
-                This only works if <link
-                linkend="variable.caching">caching</link> is set to true. This
-                was added to Smarty 1.3.0.
-			</para>
-<example>
-<title>is_cached</title>
-<programlisting>
-$smarty->caching = true;
-
-if(!$smarty->is_cached("index.tpl")) {
-    // do database calls, assign vars here
-}
-
-$smarty->display("index.tpl");</programlisting>
-</example>
-            <para>
-                You can also pass a cache id as an an optional second parameter
-                in case you want multiple caches for the given template.
-            </para>
-<example>
-<title>is_cached with multiple-cache template</title>
-<programlisting>
-$smarty->caching = true;
-
-if(!$smarty->is_cached("index.tpl","FrontPage")) {
-    // do database calls, assign vars here
-}
-
-$smarty->display("index.tpl","FrontPage");</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.get.template.vars">
-			<title>get_template_vars</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>array <function>get_template_vars</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This gets an array of the currently assigned template vars.
-			</para>
-<example>
-<title>get_template_vars</title>
-<programlisting>
-// get all assigned template vars
-$tpl_vars = $smarty->get_template_vars();
-
-// take a look at them
-var_dump($tpl_vars);</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.display">
-			<title>display</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>display</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>string <parameter>cache id</parameter></paramdef>
-				<paramdef>string <parameter>compile id</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                This displays the template. Supply a valid <link
-                linkend="template.resources">template resource</link>
-                type and path. As an optional second parameter, you can pass a
-                cache id. See the <link linkend="section.caching">caching
-                section</link> for more information.
-			</para>
-			<para>
-				As an optional third parameter, you can pass a compile id. This
-				is in the event that you want to compile different versions of
-				the same template, such as having separate templates compiled
-				for different languages. This was added to Smarty 1.4.5.
-			</para>
-<example>
-<title>display</title>
-<programlisting>
-include("Smarty.class.php");
-$smarty = new Smarty;
-$smarty->caching = true;
-
-// only do db calls if cache doesn't exist
-if(!$smarty->is_cached("index.tpl"))
-{
-
-    // dummy up some data
-    $address = "245 N 50th";
-    $db_data = array(
-	    "City" => "Lincoln",
-	    "State" => "Nebraska",
-	    "Zip" = > "68502"
-	    );
-
-    $smarty->assign("Name","Fred");
-    $smarty->assign("Address",$address);
-    $smarty->assign($db_data);
-
-}
-
-// display the output
-$smarty->display("index.tpl");</programlisting>
-</example>
-			<para>
-			Use the syntax for <link
-			linkend="template.resources">template resources</link> to
-			display files outside of the $template_dir directory.
-			</para>
-<example>
-<title>function display template resource examples</title>
-<programlisting>
-// absolute filepath
-$smarty->display("/usr/local/include/templates/header.tpl");
-
-// absolute filepath (same thing)
-$smarty->display("file:/usr/local/include/templates/header.tpl");
-
-// windows absolute filepath (MUST use "file:" prefix)
-$smarty->display("file:C:/www/pub/templates/header.tpl");
-
-// include from template resource named "db"
-$smarty->display("db:header.tpl");</programlisting>
-</example>
-
-		</sect1>
-		<sect1 id="api.fetch">
-			<title>fetch</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>string <function>fetch</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
-				<paramdef>[string <parameter>compile_id</parameter>]</paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                This returns the template output instead of displaying it.
-                Supply a valid <link
-                linkend="template.resources">template resource</link>
-                type and path. As an optional second parameter, you can pass a
-                cache id. See the <link linkend="section.caching">caching
-                section</link> for more information.
-			</para>
-			<para>
-				As an optional third parameter, you can pass a compile id. This
-				is in the event that you want to compile different versions of
-				the same template, such as having separate templates compiled
-				for different languages. This was added to Smarty 1.4.5.
-			</para>
-<example>
-<title>fetch</title>
-<programlisting>
-include("Smarty.class.php");
-$smarty = new Smarty;
-
-$smarty->caching = true;
-
-// only do db calls if cache doesn't exist
-if(!$smarty->is_cached("index.tpl"))
-{
-
-    // dummy up some data
-    $address = "245 N 50th";
-    $db_data = array(
-	    "City" => "Lincoln",
-	    "State" => "Nebraska",
-	    "Zip" = > "68502"
-	    );
-
-    $smarty->assign("Name","Fred");
-    $smarty->assign("Address",$address);
-    $smarty->assign($db_data);
-
-}
-
-// capture the output
-$output = $smarty->fetch("index.tpl");
-
-// do something with $output here
-
-echo $output;</programlisting>
-</example>
-		</sect1>
-</chapter>
-<chapter>
-	<title>Smarty Templates</title>
-	<para>
-	The templates are the heart of Smarty. These are the files that the designers
-	work with. They're basically pages made up of static content interspersed with
-	template markup tags. These tags are placeholders for variables or blocks of logic.
-	</para>
-	<sect1>
-		<title>Syntax</title>
-		<para>
-			For these examples, we will assume that you are using the default
-			template tag delimiters, which are "{" and "}". In Smarty, all content
-			outside of delimiter tags is displayed as static content, or unchanged.
-			When Smarty encounters template tags {}, it attempts to interpret what is
-			between the tags, and displays the appropriate output in place of them.
-		</para>
+{* display dropdown lists *}
+&lt;SELECT name=company&gt;
+{html_options values=$vals selected=$selected output=$output}
+&lt;/SELECT&gt;</programlisting>
+    </example>
+   </sect2>
 		<sect2>
-			<title>Variables assigned from PHP</title>
+			<title>Attributes</title>
 			<para>
-			Variables that are assigned from PHP are referenced by preceding
-			them with a dollar sign ($) and enclosing the variable in delimiters
-			like so: $varname
+			Attributes to functions are much like HTML attributes. Static
+			values don't have to be enclosed in quotes, but it is recommended
+			for literal strings. If not quoted, you may use a syntax that Smarty may confuse
+			with another function, such as a boolean value. Variables may
+			also be used, and should not be in quotes.
 			</para>
 <example>
+<title>function attribute syntax</title>
+<programlisting>
+{include file="header.tpl"}
 
-<title>displaying assigned variables</title>
+{include file=$includeFile}
+
+{include file=#includeFile#}
+
+&lt;SELECT name=company&gt;
+{html_options values=$vals selected=$selected output=$output}
+&lt;/SELECT&gt;</programlisting>
+</example>
+		</sect2>
+        <sect2>
+         <title>blah</title>
+        <para>
+         Functions are processed and displayed by enclosing the function and its
+         attributes into delimiters like so: {funcname attr1="val" attr2="val"}
+        </para>
+        <example>
+         <title>function syntax</title>
+         <programlisting>
+{config_load file="colors.conf"}
+
+{include file="header.tpl"}
+
+{if $name eq "Fred"}
+	You are not allowed here
+{else}
+	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
+{/if}
+
+{include file="footer.tpl"}</programlisting>
+</example>
+			<para>
+			Both built-in functions and custom functions have the same syntax
+			in the templates. Built-in functions are the inner workings of
+			Smarty, such as {if}, {section} and {strip}. They cannot be
+			modified. Custom functions are located in the Smarty.addons.class
+			file. They can be modified to your liking, or add new ones.
+			{html_options} and {html_select_date} are examples of custom
+			functions.
+			</para>
+		<para>
+		Custom functions in Smarty work much the same as the built-in functions,
+		except that built-in functions cannot be modified. Custom functions are
+		located in Smarty.addons.php, built-in functions are not.
+		</para>
+        </sect2>
+  </sect1>
+
+  <sect1 id="language.variables">
+   <title>Variables</title>
+
+   <sect2>
+    <title>Variables assigned from PHP</title>
+    <para>
+     Variables that are assigned from PHP are referenced by preceding
+     them with a dollar sign ($) and enclosing the variable in delimiters
+     like so: $varname
+    </para>
+    <example>
+
+     <title>displaying assigned variables</title>
 <programlisting>
 Hello {$firstname}, glad to see you could make it.
 &lt;p&gt;
@@ -1472,160 +603,887 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 
 		</sect2>
 
-		<sect2>
-			<title>Functions</title>
-			<para>
-			Functions are processed and displayed by enclosing the function and its
-			attributes into delimiters like so: {funcname attr1="val" attr2="val"}
-			</para>
-<example>
-<title>function syntax</title>
-<programlisting>
-{config_load file="colors.conf"}
-
-{include file="header.tpl"}
-
-{if $name eq "Fred"}
-	You are not allowed here
-{else}
-	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
-{/if}
-
-{include file="footer.tpl"}</programlisting>
-</example>
-			<para>
-			Both built-in functions and custom functions have the same syntax
-			in the templates. Built-in functions are the inner workings of
-			Smarty, such as {if}, {section} and {strip}. They cannot be
-			modified. Custom functions are located in the Smarty.addons.class
-			file. They can be modified to your liking, or add new ones.
-			{html_options} and {html_select_date} are examples of custom
-			functions.
-			</para>
-		</sect2>
-		<sect2>
-			<title>Attributes</title>
-			<para>
-			Attributes to functions are much like HTML attributes. Static
-			values don't have to be enclosed in quotes, but it is recommended
-			for literal strings. If not quoted, you may use a syntax that Smarty may confuse
-			with another function, such as a boolean value. Variables may
-			also be used, and should not be in quotes.
-			</para>
-<example>
-<title>function attribute syntax</title>
-<programlisting>
-{include file="header.tpl"}
-
-{include file=$includeFile}
-
-{include file=#includeFile#}
-
-&lt;SELECT name=company&gt;
-{html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>Comments</title>
-			<para>
-			Template comments are surrounded by asterisks, and that is surrounded
-			by the delimiter tags like so: {* this is a comment *}
-			Smarty comments are not displayed in the final output of the template.
-			They are used mainly for making the templates more understandable.
-			</para>		
-<example>
-<title>Comments</title>
-<programlisting>
-{* Smarty *}
-
-{* include the header file here *}
-{include file="header.tpl"}
-
-{include file=$includeFile}
-
-{include file=#includeFile#}
-
-{* display dropdown lists *}
-&lt;SELECT name=company&gt;
-{html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
-</example>
-		</sect2>
 	</sect1>
-	<sect1 id="configfiles">
-		<title>Config Files</title>
-		<para>
-        Config files are handy for designers to manage global template
-        variables from one file. One example is template colors. Normally if
-        you wanted to change the color scheme of an application, you would have
-        to go through each and every template file and change the colors. With
-        a config file, the colors can be kept in one place, and only one file
-        needs to be updated. Note that to use config files, you must place the
-        Config_File.class.php in your PHP include path. Config_File.class.php
-        comes bundled with Smarty. Smarty will implicitly include the file if
-        you don't already include it in your application.
-		</para>
+
+       <sect1 id="variable.modifiers">
+        <title>Variable Modifiers</title>
+        <para>
+         Variable modifiers are a bit different than <link
+          linkend="bundled.plugins.commands">custom functions</link>. Variable modifiers
+         alter variable contents before they are displayed to the template. All
+         modifiers will get the value of the variable as the first argument, and
+         must return a single value. Modifier parameters are separated by
+         colons. Any additional parameters passed to a modifier are passed as-is
+         positionally, much like calling a PHP function. You can also use native
+         PHP functions as modifiers, but only if they expect the correct
+         arguments. If they do not, you can always write a wrapper function in
+         Smarty to get what you want. You can chain as many modifiers together
+         on a variable as you like, separating each with a vertical pipe "|".
+        </para>
+        <para>
+         NOTE: if you apply a modifier to an array instead of a single value
+         variable, the modifier will be applied to every value in that array. If
+         you really want the entire array passed to the modifier, you must
+         prepend it with an "@" sign like so: {$articleTitle|@count} (this will
+         print out the number of elements in the $articleTitle array.)
+        </para>
+	<sect2 id="bundled.plugins.modifiers">
+     <title>Available Modifiers</title>
+		<sect3>
+			<title>capitalize</title>
+			<para>
+			This is used to capitalize the first letter of all words in a variable.
+			</para>
 <example>
-<title>Example of config file syntax</title>
+<title>capitalize</title>
 <programlisting>
-# global variables
-pageTitle = "Main Menu"
-bodyBgColor = #000000
-tableBgColor = #000000
-rowBgColor = #00ff00
+{$articleTitle}
+{$articleTitle|capitalize}
 
-[Customer]
-pageTitle = "Customer Info"
+OUTPUT:
 
-[Login]
-pageTitle = "Login"
-focus = "username"
-Intro = """This is a value that spans more
-            than one line. you must enclose
-			it in triple quotes."""
-
-# hidden section
-[.Database]
-host=my.domain.com
-db=ADDRESSBOOK
-user=php-user
-pass=foobar
-</programlisting>
+Police begin campaign to rundown jaywalkers.
+Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 </example>
+		</sect3>
+		<sect3>
+			<title>count_characters</title>
 			<para>
-			Values of config file variables can be in quotes, but not necessary.
-			You can use either single or double quotes. If you have a value that
-			spans more than one line, enclose the entire value with triple quotes
-			("""). You can put comments into config files by any syntax that is
-			not a valid config file syntax. We recommend using a hashmark (#) at the
-			beginning of the line.
+			This is used to count the number of characters in a variable.
+			</para>
+<example>
+<title>count_characters</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|count_characters}
+
+OUTPUT:
+
+Cold Wave Linked to Temperatures
+32</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>count_paragraphs</title>
+			<para>
+			This is used to count the number of paragraphs in a variable.
+			</para>
+<example>
+<title>count_paragraphs</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|count_paragraphs}
+
+OUTPUT:
+
+War Dims Hope for Peace. Child's Death Ruins Couple's Holiday. 
+
+Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
+2</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>count_sentences</title>
+			<para>
+			This is used to count the number of sentences in a variable.
+			</para>
+<example>
+<title>count_sentences</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|count_sentences}
+
+OUTPUT:
+
+Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
+2</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>count_words</title>
+			<para>
+			This is used to count the number of words in a variable.
+			</para>
+<example>
+<title>count_words</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|count_words}
+
+OUTPUT:
+
+Dealers Will Hear Car Talk at Noon.
+7</programlisting>
+</example>
+		</sect3>
+		<sect3 id="date.format">
+			<title>date_format</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%b %e, %Y</entry>
+                        <entry>This is the format for the outputted date.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            This formats a date and time into the given strftime() format.
+            Dates can be passed to Smarty as unix timestamps, mysql timestamps
+            or any string made up of month day year (parsable by strtotime).
+            Designers can then use date_format to have complete control of the
+            formatting of the date.
+			</para>
+<example>
+<title>date_format</title>
+<programlisting>
+{$currentDate}
+{$currentDate|date_format:"%A, %B %e, %Y"}
+{$currentDate|date_format:"%H:%M:%S"}
+
+OUTPUT:
+
+Feb 6, 2001
+Tuesday, February 6, 2001
+14:33:00</programlisting>
+</example>
+<example>
+<title>date_format conversion specifiers</title>
+<programlisting>
+%a - abbreviated weekday name according to the current locale 
+
+%A - full weekday name according to the current locale 
+
+%b - abbreviated month name according to the current locale 
+
+%B - full month name according to the current locale 
+
+%c - preferred date and time representation for the current locale 
+
+%C - century number (the year divided by 100 and truncated to an integer, range 00 to 99) 
+
+%d - day of the month as a decimal number (range 00 to 31) 
+
+%D - same as %m/%d/%y 
+
+%e - day of the month as a decimal number, a single digit is preceded by a
+space (range 1 to 31) 
+
+%g - Week-based year within century [00,99]
+
+%G - Week-based year, including the century [0000,9999]
+
+%h - same as %b 
+
+%H - hour as a decimal number using a 24-hour clock (range 00 to 23) 
+
+%I - hour as a decimal number using a 12-hour clock (range 01 to 12) 
+
+%j - day of the year as a decimal number (range 001 to 366) 
+
+%k - Hour (24-hour clock) single digits are preceded by a blank. (range 0 to 23)
+
+%l - hour as a decimal number using a 12-hour clock, single digits preceeded by
+a space (range 1 to 12)
+
+%m - month as a decimal number (range 01 to 12) 
+
+%M - minute as a decimal number 
+
+%n - newline character 
+
+%p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale 
+
+%r - time in a.m. and p.m. notation 
+
+%R - time in 24 hour notation 
+
+%S - second as a decimal number 
+
+%t - tab character 
+
+%T - current time, equal to %H:%M:%S 
+
+%u - weekday as a decimal number [1,7], with 1 representing Monday 
+
+%U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week 
+
+%V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1
+is the first week that has at least 4 days in the current year, and with Monday as the first day of the week. 
+
+%w - day of the week as a decimal, Sunday being 0 
+
+%W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week 
+
+%x - preferred date representation for the current locale without the time 
+
+%X - preferred time representation for the current locale without the date 
+
+%y - year as a decimal number without a century (range 00 to 99) 
+
+%Y - year as a decimal number including the century 
+
+%Z - time zone or name or abbreviation 
+
+%% - a literal `%' character 
+
+
+PROGRAMMERS NOTE: date_format is essentially a wrapper to PHP's strftime()
+function. You may have more or less conversion specifiers available depending
+on your system's strftime() function where PHP was compiled. Check your
+system's manpage for a full list of valid specifiers.</programlisting>
+</example>
+
+		</sect3>
+		<sect3>
+			<title>default</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>This is the default value to output if the
+                        variable is empty.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This is used to set a default value for a variable. If the variable
+			is empty or unset, the given default value is printed instead.
+			Default takes one argument.
+			</para>
+<example>
+<title>default</title>
+<programlisting>
+{* this will display "no title" (without the quotes) if $articleTitle is empty *}
+{$articleTitle|default:"no title"}
+
+OUTPUT:
+
+no title</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>escape</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Possible Values</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>html,url,quotes,hex,hexentity</entry>
+                        <entry>html</entry>
+                        <entry>This is the escape format to use.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This is used to html escape, url escape, escape single quotes on a
+			variable not already escaped, hex escape or hexentity escape. hex
+			and hexentity escape can be used in conjunction to hide "mailto:"
+			links on a page from web spiders (spam collectors) and yet keep
+			them readable and linkable. By default, the variable is html
+			escaped.
+			</para>
+<example>
+<title>escape</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|escape}
+{$articleTitle|escape:"html"}
+{$articleTitle|escape:"url"}
+{$articleTitle|escape:"quotes"}
+&lt;a
+href="mailto:{$EmailAddress|escape:"hex"}"&gt;{$EmailAddress|escape:"hexentity"}&lt;/a&gt;
+
+OUTPUT:
+
+'Stiff Opposition Expected to Casketless Funeral Plan'
+'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
+'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
+'Stiff+Opposition+Expected+to+Casketless+Funeral+Plan'
+\'Stiff Opposition Expected to Casketless Funeral Plan\'
+&lt;a
+href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>indent</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>4</entry>
+						<entry>This determines how many characters to indent
+						to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>(one space)</entry>
+                        <entry>This is the character used to indent with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This indents a string at each line, default is 4. As
+			an optional parameter, you can specify the number of characters to
+			indent. As an optional second parameter, you can specify the
+			character to use to indent with. (Use "\t" for tabs.)
+			</para>
+<example>
+<title>indent</title>
+<programlisting>
+{$articleTitle}
+
+{$articleTitle|indent}
+
+{$articleTitle|indent:10}
+
+{$articleTitle|indent:1:"\t"}
+
+OUTPUT:
+
+NJ judge to rule on nude beach.
+Sun or rain expected today, dark tonight.
+Statistics show that teen pregnancy drops off significantly after 25.
+
+    NJ judge to rule on nude beach.
+    Sun or rain expected today, dark tonight.
+    Statistics show that teen pregnancy drops off significantly after 25.
+
+          NJ judge to rule on nude beach.
+          Sun or rain expected today, dark tonight.
+          Statistics show that teen pregnancy drops off significantly after 25.
+
+	NJ judge to rule on nude beach.
+	Sun or rain expected today, dark tonight.
+	Statistics show that teen pregnancy drops off significantly after 25.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>lower</title>
+			<para>
+			This is used to lowercase a variable.
+			</para>
+<example>
+<title>lower</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|lower}
+
+OUTPUT:
+
+Two Convicts Evade Noose, Jury Hung.
+two convicts evade noose, jury hung.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>regex_replace</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the regular expression to be replaced.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to replace with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			A regular expression search and replace on a variable. Use the
+			syntax for preg_replace() from the PHP manual.
 			</para>
 			<para>
-			This config file example has two sections. Section names are enclosed
-			in brackets []. The four variables at the top are global
-			variables, or variables not within a section. These variables are
-			always loaded from the config file.
-			If a particular section is loaded, then the global variables and the
-			variables from that section are loaded. If a variable exists both as
-			a global and in a section, the section variable is used. If you name two
-			variables the same within a section, the last one will be used.
+			NOTE: This function was added to Smarty 1.4.3.
 			</para>
+<example>
+<title>regex_replace</title>
+<programlisting>
+{* replace each carriage return, tab &amp; new line with a space *}
+
+{$articleTitle}
+{$articleTitle|regex_replace:"/[\r\t\n]/":" "}
+
+OUTPUT:
+
+Infertility unlikely to
+ be passed on, experts say
+Infertility unlikely to be passed on, experts say</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>replace</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to be replaced.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to replace with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
-			Config files are loaded into templates with the built-in function
-			called <link linkend="builtin.functions.configload">config_load</link>.
+			A simple search and replace on a variable.
 			</para>
+<example>
+<title>replace</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|replace:"Garden":"Vineyard"}
+{$articleTitle|replace:" ":"   "}
+
+OUTPUT:
+
+Child's Stool Great for Use in Garden.
+Child's Stool Great for Use in Vineyard.
+Child's   Stool   Great   for   Use   in   Garden.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>spacify</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>one space</emphasis></entry>
+                        <entry>This what gets inserted between each character of
+                        the variable.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
-			You can hide variables or entire sections by prepending the variable
-			name or section name with a period. This is useful if your
-			application reads the config files and gets sensitive data from them
-			that the template engine does not need. If you have third parties
-			doing template editing, you can be certain that they cannot read
-			sensitive data from the config file by loading it into the template.
-			This is new in Smarty 1.4.6.
+			spacify is a way to insert a space between every character of a variable.
+			You can optionally pass a different character (or string) to insert.
 			</para>
-	</sect1>
-    <sect1 id="builtin.functions">
+<example>
+<title>spacify</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|spacify}
+{$articleTitle|spacify:"^^"}
+
+OUTPUT:
+
+Something Went Wrong in Jet Crash, Experts Say.
+S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
+S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>string_format</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is what format to use. (sprintf)</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This is a way to format strings, such as decimal numbers and such.
+			Use the syntax for sprintf for the formatting.
+			</para>
+<example>
+<title>string_format</title>
+<programlisting>
+{$number}
+{$number|string_format:"%.2f"}
+{$number|string_format:"%d"}
+
+OUTPUT:
+
+23.5787446
+23.58
+24</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>strip_tags</title>
+			<para>
+			This strips out markup tags, basically anything between &lt; and &gt;.
+			</para>
+<example>
+<title>strip_tags</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|strip_tags}
+
+OUTPUT:
+
+Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
+Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>truncate</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>80</entry>
+                        <entry>This determines how many characters to truncate
+                        to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>...</entry>
+                        <entry>This is the text to append if truncation occurs.</entry>
+                    </row>
+                    <row>
+                        <entry>3</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>This determines whether or not to truncate at a
+                        word boundary (false), or at the exact character (true).</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This truncates a variable to a character length, default is 80. As
+			an optional second parameter, you can specify a string of text
+			to display at the end if the variable was truncated. The
+			characters in the string are included with the original truncation length.
+			By default, truncate will attempt to cut off at a word boundary. If
+			you want to cut off at the exact character length, pass the optional
+			third parameter of true.
+			</para>
+<example>
+<title>truncate</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|truncate}
+{$articleTitle|truncate:30}
+{$articleTitle|truncate:30:""}
+{$articleTitle|truncate:30:"---"}
+{$articleTitle|truncate:30:"":true}
+{$articleTitle|truncate:30:"...":true}
+
+OUTPUT:
+
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after...
+Two Sisters Reunite after
+Two Sisters Reunite after---
+Two Sisters Reunite after Eigh
+Two Sisters Reunite after E...</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>upper</title>
+			<para>
+            This is used to uppercase a variable.
+			</para>
+<example>
+<title>upper</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|upper}
+
+OUTPUT:
+
+If Strike isn't Settled Quickly it may Last a While.
+IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>wordwrap</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>80</entry>
+						<entry>This determines how many columns to wrap
+						to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>\n</entry>
+                        <entry>This is the string used to wrap words with.</entry>
+                    </row>
+                    <row>
+                        <entry>3</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>This determines whether or not to wrap at a
+                        word boundary (false), or at the exact character (true).</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This wraps a string to a column width, default is 80. As
+			an optional second parameter, you can specify a string of text
+			to wrap the text to the next line (default is carriage return \n).
+			By default, wordwrap will attempt to wrap at a word boundary. If
+			you want to cut off at the exact character length, pass the optional
+			third parameter of true.
+			</para>
+<example>
+<title>wordwrap</title>
+<programlisting>
+{$articleTitle}
+
+{$articleTitle|wordwrap:30}
+
+{$articleTitle|wordwrap:20}
+
+{$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
+
+{$articleTitle|wordwrap:30:"\n":false}
+
+OUTPUT:
+
+Blind woman gets new kidney from dad she hasn't seen in years.
+
+Blind woman gets new kidney
+from dad she hasn't seen in years.
+
+Blind woman gets new
+kidney from dad she hasn't seen in years.
+
+Blind woman gets new kidney&lt;br&gt;
+from dad she hasn't seen in years.
+
+Blind woman gets new kidney fr
+om dad she hasn't seen in years.</programlisting>
+</example>
+		</sect3>
+   </sect2> 
+		<sect2>
+			<title>Combining Modifiers</title>
+			<para>
+            You can combine as many modifiers as you like on a single variable.
+            This allows the ability to combine the application of different
+            modifiers to a single variable. The modifiers will be applied to
+            the variable in the order they are combined, from left to right.
+			</para>
+<example>
+<title>combining modifiers</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|upper|spacify}
+{$articleTitle|lower|spacify|truncate}
+{$articleTitle|lower|truncate:30|spacify}
+{$articleTitle|lower|spacify|truncate:30:". . ."}
+
+
+OUTPUT:
+
+Smokers are Productive, but Death Cuts Efficiency.
+S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
+s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
+s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
+s m o k e r s   a r e   p. . .</programlisting>
+</example>
+       </sect2>
+       </sect1>
+
+    <sect1 id="language.commands">
      <title>Built-in Functions</title>
      <para>
       Smarty comes with several built-in functions. Built-in functions
@@ -1744,7 +1602,7 @@ pass=foobar
 			This function is used for loading in variables from a
 			configuration file into the template. You must have the Config_file.class.php
 			file somewhere in your PHP include path for config_load to work properly.
-			See <link linkend="configfiles">Config Files</link> for more info.
+			See <link linkend="config.files">Config Files</link> for more info.
 			</para>
 <example>
 <title>function config_load</title>
@@ -2960,15 +2818,18 @@ OUTPUT:
 		they will be run together, and may not be desired results.
 		</para>
 		</sect2>
-	</sect1>
-	<sect1 id="custom.functions">
-		<title>Custom Functions</title>
-		<para>
-		Custom functions in Smarty work much the same as the built-in functions,
-		except that built-in functions cannot be modified. Custom functions are
-		located in Smarty.addons.php, built-in functions are not.
-		</para>
-		<sect2 id="custom.functions.assign">
+       </sect1>
+
+       <sect1 id="language.additional.functions">
+        <title>Additional Functions</title>
+        <para>
+         Smarty comes with several additional functions that you can
+         use in the templates.
+        </para>
+
+        <sect2 id="language.available.functions">
+         <title>Available Functions</title>
+		<sect3 id="language.functions.assign">
 			<title>assign</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3022,8 +2883,8 @@ OUTPUT:
 
 The value of $name is Bob.</programlisting>
 </example>
-		</sect2>
-		<sect2>
+		</sect3>
+		<sect3>
 			<title>counter</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3119,8 +2980,8 @@ OUTPUT:
 6&lt;br&gt;
 8&lt;br&gt;</programlisting>
 </example>
-		</sect2>
-		<sect2>
+		</sect3>
+		<sect3>
 			<title>fetch</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3198,8 +3059,8 @@ OUTPUT:
 	&lt;b&gt;{$weather}&lt;/b&gt;
 {/if}</programlisting>
 </example>
-		</sect2>
-		<sect2 id="custom.functions.html.options">
+		</sect3>
+		<sect3 id="language.functions.html.options">
 			<title>html_options</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3288,8 +3149,8 @@ OUTPUT:
 	&lt;option value="1003">Charlie Brown&lt;option&gt;
 &lt;/select&gt;</programlisting>
 </example>
-		</sect2>
-		<sect2 id="custom.functions.html.select.date">
+		</sect3>
+		<sect3 id="language.functions.html.select.date">
 			<title>html_select_date</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3568,8 +3429,8 @@ OUTPUT:
 &lt;option value="2001"&gt;2001&lt;/option&gt;
 &lt;/select&gt;</programlisting>
 </example>
-		</sect2>
-		<sect2 id="custom.functions.html.select.time">
+		</sect3>
+		<sect3 id="language.functions.html.select.time">
 			<title>html_select_time</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3829,8 +3690,8 @@ OUTPUT:
 &lt;option value="pm"&gt;PM&lt;/option&gt;
 &lt;/select&gt;</programlisting>
 </example>
-		</sect2>
-		<sect2 id="custom.functions.math">
+		</sect3>
+		<sect3 id="language.functions.math">
 			<title>math</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3943,23 +3804,23 @@ OUTPUT:
 
 9.44</programlisting>
 </example>
-		</sect2>
-		<sect2 id="custom.functions.popup.init">
+		</sect3>
+		<sect3 id="language.functions.popup.init">
 			<title>popup_init</title>
 			<para>
 			popup is an integration of overLib, a library used for popup
 			windows. These are used for context sensitive information, such as
 			help windows or tooltips. popup_init must be called once at the
 			top of any page you plan on using the <link
-			linkend="custom.functions.popup">popup</link> function. overLib
+			linkend="language.functions.popup">popup</link> function. overLib
 			was written by Erik Bosrup, and the homepage is located at
 			http://www.bosrup.com/web/overlib/.
 			</para>
 			<para>
 			This was added to Smarty 1.4.4.
 			</para>
-		</sect2>
-		<sect2 id="custom.functions.popup">
+		</sect3>
+		<sect3 id="language.functions.popup">
 			<title>popup</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -4369,886 +4230,1095 @@ OUTPUT:
 
 (See the Smarty official web site for working examples.)</programlisting>
 </example>
-		</sect2>
-	</sect1>
-	<sect1 id="variable.modifiers">
-		<title>Variable Modifiers</title>
-		<para>
-        Variable modifiers are a bit different than <link
-        linkend="custom.functions">custom functions</link>. Variable modifiers
-        alter variable contents before they are displayed to the template. All
-        modifiers will get the value of the variable as the first argument, and
-        must return a single value. Modifier parameters are separated by
-        colons. Any additional parameters passed to a modifier are passed as-is
-        positionally, much like calling a PHP function. You can also use native
-        PHP functions as modifiers, but only if they expect the correct
-        arguments. If they do not, you can always write a wrapper function in
-        Smarty to get what you want. You can chain as many modifiers together
-        on a variable as you like, separating each with a vertical pipe "|".
-		</para>
-		<para>
-        NOTE: if you apply a modifier to an array instead of a single value
-        variable, the modifier will be applied to every value in that array. If
-        you really want the entire array passed to the modifier, you must
-        prepend it with an "@" sign like so: {$articleTitle|@count} (this will
-        print out the number of elements in the $articleTitle array.)
-		</para>
-		<sect2>
-			<title>capitalize</title>
-			<para>
-			This is used to capitalize the first letter of all words in a variable.
-			</para>
-<example>
-<title>capitalize</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|capitalize}
-
-OUTPUT:
-
-Police begin campaign to rundown jaywalkers.
-Police Begin Campaign To Rundown Jaywalkers.</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>count_characters</title>
-			<para>
-			This is used to count the number of characters in a variable.
-			</para>
-<example>
-<title>count_characters</title>
-<programlisting>
-
-{$articleTitle}
-{$articleTitle|count_characters}
-
-OUTPUT:
-
-Cold Wave Linked to Temperatures
-32</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>count_paragraphs</title>
-			<para>
-			This is used to count the number of paragraphs in a variable.
-			</para>
-<example>
-<title>count_paragraphs</title>
-<programlisting>
-
-{$articleTitle}
-{$articleTitle|count_paragraphs}
-
-OUTPUT:
-
-War Dims Hope for Peace. Child's Death Ruins Couple's Holiday. 
-
-Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
-2</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>count_sentences</title>
-			<para>
-			This is used to count the number of sentences in a variable.
-			</para>
-<example>
-<title>count_sentences</title>
-<programlisting>
-
-{$articleTitle}
-{$articleTitle|count_sentences}
-
-OUTPUT:
-
-Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
-2</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>count_words</title>
-			<para>
-			This is used to count the number of words in a variable.
-			</para>
-<example>
-<title>count_words</title>
-<programlisting>
-
-{$articleTitle}
-{$articleTitle|count_words}
-
-OUTPUT:
-
-Dealers Will Hear Car Talk at Noon.
-7</programlisting>
-</example>
-		</sect2>
-		<sect2 id="date.format">
-			<title>date_format</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>       
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>%b %e, %Y</entry>
-                        <entry>This is the format for the outputted date.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-            This formats a date and time into the given strftime() format.
-            Dates can be passed to Smarty as unix timestamps, mysql timestamps
-            or any string made up of month day year (parsable by strtotime).
-            Designers can then use date_format to have complete control of the
-            formatting of the date.
-			</para>
-<example>
-<title>date_format</title>
-<programlisting>
-{$currentDate}
-{$currentDate|date_format:"%A, %B %e, %Y"}
-{$currentDate|date_format:"%H:%M:%S"}
-
-OUTPUT:
-
-Feb 6, 2001
-Tuesday, February 6, 2001
-14:33:00</programlisting>
-</example>
-<example>
-<title>date_format conversion specifiers</title>
-<programlisting>
-%a - abbreviated weekday name according to the current locale 
-
-%A - full weekday name according to the current locale 
-
-%b - abbreviated month name according to the current locale 
-
-%B - full month name according to the current locale 
-
-%c - preferred date and time representation for the current locale 
-
-%C - century number (the year divided by 100 and truncated to an integer, range 00 to 99) 
-
-%d - day of the month as a decimal number (range 00 to 31) 
-
-%D - same as %m/%d/%y 
-
-%e - day of the month as a decimal number, a single digit is preceded by a
-space (range 1 to 31) 
-
-%g - Week-based year within century [00,99]
-
-%G - Week-based year, including the century [0000,9999]
-
-%h - same as %b 
-
-%H - hour as a decimal number using a 24-hour clock (range 00 to 23) 
-
-%I - hour as a decimal number using a 12-hour clock (range 01 to 12) 
-
-%j - day of the year as a decimal number (range 001 to 366) 
-
-%k - Hour (24-hour clock) single digits are preceded by a blank. (range 0 to 23)
-
-%l - hour as a decimal number using a 12-hour clock, single digits preceeded by
-a space (range 1 to 12)
-
-%m - month as a decimal number (range 01 to 12) 
-
-%M - minute as a decimal number 
-
-%n - newline character 
-
-%p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale 
-
-%r - time in a.m. and p.m. notation 
-
-%R - time in 24 hour notation 
-
-%S - second as a decimal number 
-
-%t - tab character 
-
-%T - current time, equal to %H:%M:%S 
-
-%u - weekday as a decimal number [1,7], with 1 representing Monday 
-
-%U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week 
-
-%V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1
-is the first week that has at least 4 days in the current year, and with Monday as the first day of the week. 
-
-%w - day of the week as a decimal, Sunday being 0 
-
-%W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week 
-
-%x - preferred date representation for the current locale without the time 
-
-%X - preferred time representation for the current locale without the date 
-
-%y - year as a decimal number without a century (range 00 to 99) 
-
-%Y - year as a decimal number including the century 
-
-%Z - time zone or name or abbreviation 
-
-%% - a literal `%' character 
-
-
-PROGRAMMERS NOTE: date_format is essentially a wrapper to PHP's strftime()
-function. You may have more or less conversion specifiers available depending
-on your system's strftime() function where PHP was compiled. Check your
-system's manpage for a full list of valid specifiers.</programlisting>
-</example>
-
-		</sect2>
-		<sect2>
-			<title>default</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>       
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>This is the default value to output if the
-                        variable is empty.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			This is used to set a default value for a variable. If the variable
-			is empty or unset, the given default value is printed instead.
-			Default takes one argument.
-			</para>
-<example>
-<title>default</title>
-<programlisting>
-{* this will display "no title" (without the quotes) if $articleTitle is empty *}
-{$articleTitle|default:"no title"}
-
-OUTPUT:
-
-no title</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>escape</title>
-            <informaltable frame=all>
-                <tgroup cols=6>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=posvals>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Possible Values</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>html,url,quotes</entry>
-                        <entry>html</entry>
-                        <entry>This is the escape format to use.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			This is used to html escape, url escape, escape single quotes on a
-			variable not already escaped, hex escape or hexentity escape. hex
-			and hexentity escape can be used in conjunction to hide "mailto:"
-			links on a page from web spiders (spam collectors) and yet keep
-			them readable and linkable. By default, the variable is html
-			escaped.
-			</para>
-<example>
-<title>escape</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|escape}
-{$articleTitle|escape:"html"}
-{$articleTitle|escape:"url"}
-{$articleTitle|escape:"quotes"}
-&lt;a
-href="mailto:{$EmailAddress|escape:"hex"}"&gt;{$EmailAddress|escape:"hexentity"}&lt;/a&gt;
-
-OUTPUT:
-
-'Stiff Opposition Expected to Casketless Funeral Plan'
-'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
-'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
-'Stiff+Opposition+Expected+to+Casketless+Funeral+Plan'
-\'Stiff Opposition Expected to Casketless Funeral Plan\'
-&lt;a
-href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>indent</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>integer</entry>
-                        <entry>No</entry>
-                        <entry>4</entry>
-						<entry>This determines how many characters to indent
-						to.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>(one space)</entry>
-                        <entry>This is the character used to indent with.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			This indents a string at each line, default is 4. As
-			an optional parameter, you can specify the number of characters to
-			indent. As an optional second parameter, you can specify the
-			character to use to indent with. (Use "\t" for tabs.)
-			</para>
-<example>
-<title>indent</title>
-<programlisting>
-{$articleTitle}
-
-{$articleTitle|indent}
-
-{$articleTitle|indent:10}
-
-{$articleTitle|indent:1:"\t"}
-
-OUTPUT:
-
-NJ judge to rule on nude beach.
-Sun or rain expected today, dark tonight.
-Statistics show that teen pregnancy drops off significantly after 25.
-
-    NJ judge to rule on nude beach.
-    Sun or rain expected today, dark tonight.
-    Statistics show that teen pregnancy drops off significantly after 25.
-
-          NJ judge to rule on nude beach.
-          Sun or rain expected today, dark tonight.
-          Statistics show that teen pregnancy drops off significantly after 25.
-
-	NJ judge to rule on nude beach.
-	Sun or rain expected today, dark tonight.
-	Statistics show that teen pregnancy drops off significantly after 25.</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>lower</title>
-			<para>
-			This is used to lowercase a variable.
-			</para>
-<example>
-<title>lower</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|lower}
-
-OUTPUT:
-
-Two Convicts Evade Noose, Jury Hung.
-two convicts evade noose, jury hung.</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>regex_replace</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>This is the regular expression to be replaced.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>string</entry>
-                        <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>This is the string of text to replace with.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			A regular expression search and replace on a variable. Use the
-			syntax for preg_replace() from the PHP manual.
-			</para>
-			<para>
-			NOTE: This function was added to Smarty 1.4.3.
-			</para>
-<example>
-<title>regex_replace</title>
-<programlisting>
-{* replace each carriage return, tab &amp; new line with a space *}
-
-{$articleTitle}
-{$articleTitle|regex_replace:"/[\r\t\n]/":" "}
-
-OUTPUT:
-
-Infertility unlikely to
- be passed on, experts say
-Infertility unlikely to be passed on, experts say</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>replace</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>This is the string of text to be replaced.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>string</entry>
-                        <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>This is the string of text to replace with.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			A simple search and replace on a variable.
-			</para>
-<example>
-<title>replace</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|replace:"Garden":"Vineyard"}
-{$articleTitle|replace:" ":"   "}
-
-OUTPUT:
-
-Child's Stool Great for Use in Garden.
-Child's Stool Great for Use in Vineyard.
-Child's   Stool   Great   for   Use   in   Garden.</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>spacify</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>one space</emphasis></entry>
-                        <entry>This what gets inserted between each character of
-                        the variable.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			spacify is a way to insert a space between every character of a variable.
-			You can optionally pass a different character (or string) to insert.
-			</para>
-<example>
-<title>spacify</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|spacify}
-{$articleTitle|spacify:"^^"}
-
-OUTPUT:
-
-Something Went Wrong in Jet Crash, Experts Say.
-S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
-S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>string_format</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>This is what format to use. (sprintf)</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			This is a way to format strings, such as decimal numbers and such.
-			Use the syntax for sprintf for the formatting.
-			</para>
-<example>
-<title>string_format</title>
-<programlisting>
-{$number}
-{$number|string_format:"%.2f"}
-{$number|string_format:"%d"}
-
-OUTPUT:
-
-23.5787446
-23.58
-24</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>strip_tags</title>
-			<para>
-			This strips out markup tags, basically anything between &lt; and &gt;.
-			</para>
-<example>
-<title>strip_tags</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|strip_tags}
-
-OUTPUT:
-
-Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
-Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>truncate</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>integer</entry>
-                        <entry>No</entry>
-                        <entry>80</entry>
-                        <entry>This determines how many characters to truncate
-                        to.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>...</entry>
-                        <entry>This is the text to append if truncation occurs.</entry>
-                    </row>
-                    <row>
-                        <entry>3</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry>false</entry>
-                        <entry>This determines whether or not to truncate at a
-                        word boundary (false), or at the exact character (true).</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			This truncates a variable to a character length, default is 80. As
-			an optional second parameter, you can specify a string of text
-			to display at the end if the variable was truncated. The
-			characters in the string are included with the original truncation length.
-			By default, truncate will attempt to cut off at a word boundary. If
-			you want to cut off at the exact character length, pass the optional
-			third parameter of true.
-			</para>
-<example>
-<title>truncate</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|truncate}
-{$articleTitle|truncate:30}
-{$articleTitle|truncate:30:""}
-{$articleTitle|truncate:30:"---"}
-{$articleTitle|truncate:30:"":true}
-{$articleTitle|truncate:30:"...":true}
-
-OUTPUT:
-
-Two Sisters Reunite after Eighteen Years at Checkout Counter.
-Two Sisters Reunite after Eighteen Years at Checkout Counter.
-Two Sisters Reunite after...
-Two Sisters Reunite after
-Two Sisters Reunite after---
-Two Sisters Reunite after Eigh
-Two Sisters Reunite after E...</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>upper</title>
-			<para>
-            This is used to uppercase a variable.
-			</para>
-<example>
-<title>upper</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|upper}
-
-OUTPUT:
-
-If Strike isn't Settled Quickly it may Last a While.
-IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>wordwrap</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>integer</entry>
-                        <entry>No</entry>
-                        <entry>80</entry>
-						<entry>This determines how many columns to wrap
-						to.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>\n</entry>
-                        <entry>This is the string used to wrap words with.</entry>
-                    </row>
-                    <row>
-                        <entry>3</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry>false</entry>
-                        <entry>This determines whether or not to wrap at a
-                        word boundary (false), or at the exact character (true).</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			This wraps a string to a column width, default is 80. As
-			an optional second parameter, you can specify a string of text
-			to wrap the text to the next line (default is carriage return \n).
-			By default, wordwrap will attempt to wrap at a word boundary. If
-			you want to cut off at the exact character length, pass the optional
-			third parameter of true.
-			</para>
-<example>
-<title>wordwrap</title>
-<programlisting>
-{$articleTitle}
-
-{$articleTitle|wordwrap:30}
-
-{$articleTitle|wordwrap:20}
-
-{$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
-
-{$articleTitle|wordwrap:30:"\n":false}
-
-OUTPUT:
-
-Blind woman gets new kidney from dad she hasn't seen in years.
-
-Blind woman gets new kidney
-from dad she hasn't seen in years.
-
-Blind woman gets new
-kidney from dad she hasn't seen in years.
-
-Blind woman gets new kidney&lt;br&gt;
-from dad she hasn't seen in years.
-
-Blind woman gets new kidney fr
-om dad she hasn't seen in years.</programlisting>
-</example>
-		</sect2>
-		<sect2>
-			<title>Combining Modifiers</title>
-			<para>
-            You can combine as many modifiers as you like on a single variable.
-            This allows the ability to combine the application of different
-            modifiers to a single variable. The modifiers will be applied to
-            the variable in the order they are combined, from left to right.
-			</para>
-<example>
-<title>combining modifiers</title>
-<programlisting>
-{$articleTitle}
-{$articleTitle|upper|spacify}
-{$articleTitle|lower|spacify|truncate}
-{$articleTitle|lower|truncate:30|spacify}
-{$articleTitle|lower|spacify|truncate:30:". . ."}
-
-
-OUTPUT:
-
-Smokers are Productive, but Death Cuts Efficiency.
-S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
-s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
-s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
-s m o k e r s   a r e   p. . .</programlisting>
-</example>
+		</sect3>
        </sect2>
-   </sect1>    
+	</sect1>
+
+  </chapter>
+  <chapter id="config.files">
+		<title>Config Files</title>
+		<para>
+        Config files are handy for designers to manage global template
+        variables from one file. One example is template colors. Normally if
+        you wanted to change the color scheme of an application, you would have
+        to go through each and every template file and change the colors. With
+        a config file, the colors can be kept in one place, and only one file
+        needs to be updated. Note that to use config files, you must place the
+        Config_File.class.php in your PHP include path. Config_File.class.php
+        comes bundled with Smarty. Smarty will implicitly include the file if
+        you don't already include it in your application.
+		</para>
+<example>
+<title>Example of config file syntax</title>
+<programlisting>
+# global variables
+pageTitle = "Main Menu"
+bodyBgColor = #000000
+tableBgColor = #000000
+rowBgColor = #00ff00
+
+[Customer]
+pageTitle = "Customer Info"
+
+[Login]
+pageTitle = "Login"
+focus = "username"
+Intro = """This is a value that spans more
+            than one line. you must enclose
+			it in triple quotes."""
+
+# hidden section
+[.Database]
+host=my.domain.com
+db=ADDRESSBOOK
+user=php-user
+pass=foobar
+</programlisting>
+</example>
+			<para>
+			Values of config file variables can be in quotes, but not necessary.
+			You can use either single or double quotes. If you have a value that
+			spans more than one line, enclose the entire value with triple quotes
+			("""). You can put comments into config files by any syntax that is
+			not a valid config file syntax. We recommend using a hashmark (#) at the
+			beginning of the line.
+			</para>
+			<para>
+			This config file example has two sections. Section names are enclosed
+			in brackets []. The four variables at the top are global
+			variables, or variables not within a section. These variables are
+			always loaded from the config file.
+			If a particular section is loaded, then the global variables and the
+			variables from that section are loaded. If a variable exists both as
+			a global and in a section, the section variable is used. If you name two
+			variables the same within a section, the last one will be used.
+			</para>
+			<para>
+			Config files are loaded into templates with the built-in function
+			called <link linkend="builtin.functions.configload">config_load</link>.
+			</para>
+			<para>
+			You can hide variables or entire sections by prepending the variable
+			name or section name with a period. This is useful if your
+			application reads the config files and gets sensitive data from them
+			that the template engine does not need. If you have third parties
+			doing template editing, you can be certain that they cannot read
+			sensitive data from the config file by loading it into the template.
+			This is new in Smarty 1.4.6.
+			</para>
 </chapter>
+
+
+  <chapter id="chapter.debugging.console">
+   <title>Debugging Console</title>
+   <para>
+   There is a dubugging console included with Smarty. The console informs you
+   of all the included templates, assigned variables and config file variables
+   for the current invocation of the template. A template named "debug.tpl" is
+   included with the distribution of Smarty which controls the formatting of
+   the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
+   to the template resource path for debug.tpl (this is in $template_dir by
+   default.) When you load the page, a javascript console window should pop up
+   and give you the names of all the included templates and assigned variables
+   for the current page. To disable the debugging console, set $debugging to
+   false. You can also temporarily turn on the debugging console by putting
+   SMARTY_DEBUG in the URL if you enable this option with <link
+   linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
+   </para>
+   <para>
+   TECHNICAL NOTE: The debugging console does not work when you use the fetch()
+   API, only when using display(). It is a set of javascript statements added
+   to the very bottom of the generated template. If you do not like javascript,
+   you can edit the debug.tpl template to format the output however you like.
+   Debug data is not cached and debug.tpl info is not included in the output of
+   the debug console.
+   </para>
+   <note>
+   <para>
+   The load times of each template and config file are in seconds, or
+   fractions thereof.
+   </para>
+  </note>
+</chapter>
+ </part>
+
+  <part>
+   <title>Smarty For Programmers</title>
+   <chapter id="api">
+    <title>Smarty API</title>
+
+    <sect1 id="api.variables">
+     <title>Variables</title>
+
+     <sect2 id="variable.template.dir">
+      <title>$template_dir</title>
+      <para>
+       This is the name of the default template directory. If you do
+       not supply a resource type when including files, they will be
+       found here. By default this is "./templates", meaning that it
+       will look for the templates directory in the same directory as
+       the executing php script.
+      </para>
+      <para>
+       TECHNICAL NOTE: It is not mandatory to put this directory under
+       the web server document root.
+      </para>
+     </sect2>		
+     <sect2 id="variable.compile.dir">
+      <title>$compile_dir</title>
+      <para>
+       This is the name of the directory where compiled templates are
+       located. By default this is "./templates_c", meaning that it
+       will look for the compile directory in the same directory as
+       the executing php script. This was added to Smarty version
+       1.2.1.
+      </para>
+      <para>
+       TECHNICAL NOTE: This setting must be either a relative or
+       absolute path. include_path is not used for writing files.
+      </para>
+      <para>    
+       TECHNICAL NOTE: It is not mandatory to put this directory under
+       the web server document root.
+      </para>
+     </sect2>
+     <sect2 id="variable.config.dir">
+      <title>$config_dir</title>
+      <para>
+       This is the directory used to store config files used in the
+       templates. Default is "./configs", meaning that it will look
+       for the configs directory in the same directory as the
+       executing php script.
+      </para>
+      <para>
+       TECHNICAL NOTE: It is not mandatory to put this directory under
+       the web server document root.
+      </para>
+     </sect2>
+     <sect2 id="variable.plugins.dir">
+      <title>$plugins_dir</title>
+      <para>
+       This is the directory where Smarty will look for the plugins that
+       it needs. The directory must be relative to the directory where
+       Smarty itself is installed. Default is "plugins". There can be
+       only one plugins directory.
+      </para>
+     </sect2>
+     <sect2 id="variable.debugging">
+      <title>$debugging</title>
+      <para>
+       This enables the <link
+        linkend="chapter.debugging.console">debugging console</link>.
+       The console is a javascript window that informs you of the
+       included templates and assigned variables for the current
+       template page.
+      </para>
+      <para>
+       NOTE: This was added to Smarty 1.4.3.
+      </para>
+     </sect2>
+     <sect2 id="variable.debug.tpl">
+      <title>$debug_tpl</title>
+      <para>
+       This is the name of the template file used for the debugging
+       console.
+      </para>
+      <para>
+       NOTE: This was added to Smarty 1.4.3.
+      </para>
+     </sect2>
+     <sect2 id="variable.debugging.ctrl">
+      <title>$debugging_ctrl</title>
+      <para>
+       This allows alternate ways to enable debugging. NONE means no
+       alternate methods are allowed. URL means when the keyword
+       SMARTY_DEBUG is found in the QUERY_STRING, debugging is enabled
+       for that invocation of the script. If $debugging is true, this
+       value is ignored.
+      </para>
+      <para>
+       NOTE: This was added to Smarty 1.4.4.
+      </para>
+     </sect2>
+     <sect2 id="variable.global.assign">
+      <title>$global_assign</title>
+      <para>
+       This is a list of variables that are always implicitly assigned
+       to the template engine. This is handy for making global
+       variables or server variables available to all templates
+       without having to manually assign them. Each element in the
+       $global_assign should be either a name of the global variable,
+       or a key/value pair, where the key is the name of the global
+       array and the value is the array of variables to be assigned
+       from that global array. $SCRIPT_NAME is globally assigned by
+       default from $HTTP_SERVER_VARS.
+      </para>
+      <para>
+       TECHNICAL NOTE: Server variables can be accessed through the
+       $smarty variable, such as {$smarty.server.SCRIPT_NAME}. See the
+       section on the
+       <link linkend="builtin.variable.smarty">$smarty</link> variable.
+      </para>
+     </sect2>
+     <sect2 id="variable.undefined">
+      <title>$undefined</title>
+      <para>
+       This sets the value of $undefined for Smarty, default is null.
+       Currently this is only used to set undefined variables in
+       $global_assign to a default value.
+      </para>
+     </sect2>
+     <sect2>
+      <title>$compile_check</title>
+      <para>
+       Upon each invocation of the PHP application, Smarty tests to
+       see if the current template has changed (later time stamp)
+       since the last time it was compiled. If it has changed, it
+       recompiles that template. As of 1.4.0, if the template has not
+       been compiled, it will compile regardless of this setting. By
+       default this variable is set to true. Once an application is
+       put into production (templates won't be changing), the
+       compile_check step is no longer needed. Be sure to set
+       $compile_check to "false" to improve performance! Note that if
+       you change this to "false" and a template file is changed, you
+       will *not* see the change since the template will not get
+       recompiled. If caching is enabled and compile_check is enabled,
+       then the cache files will get regenerated if an involved
+       template file was updated. See <link
+        linkend="variable.force.compile">$force_compile</link> or <link
+        linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
+      </para>
+     </sect2>
+     <sect2 id="variable.force.compile">
+      <title>$force_compile</title>
+      <para>
+       This forces Smarty to (re)compile templates on every
+       invocation. This setting overrides $compile_check. By default
+       this is disabled. This is handy for development and debugging.
+       It should never be used in a production environment. If caching
+       is enabled, the cache file(s) will be regenerated every time.
+      </para>
+     </sect2>
+     <sect2 id="variable.caching">
+      <title>$caching</title>
+      <para>
+       This tells Smarty whether or not to cache the output of the
+       templates. By default this is set to false. If your templates
+       generate redundant redundant content over and over again and
+       again repeatedly, it is advisable to turn on caching. This will
+       result in significant performance gains. You can also have
+       multiple caches for the same template. See <link
+        linkend="api.is.cached">is_cached</link> for details. This was
+       added to Smarty 1.3.0.
+      </para>
+      <para>
+       If $compile_check is enabled, the cached content will be
+       regenerated if any of the involved templates are changed. (new
+       to 1.4.6). If $force_compile is enabled, the cached content
+       will always be regenerated. (added to Smarty 1.4.7)
+      </para>
+     </sect2>
+     <sect2 id="variable.cache.dir">
+      <title>$cache_dir</title>
+      <para>
+       This is the name of the directory where template caches are
+       stored. By default this is "./cache", meaning that it will look
+       for the cache directory in the same directory as the executing
+       php script. You can also use your own custom cache handler
+       function to control cache files, which will ignore this
+       setting. (added to Smarty 1.3.0)
+      </para>
+      <para>
+       TECHNICAL NOTE: This setting must be either a relative or
+       absolute path. include_path is not used for writing files.
+      </para>
+      <para>
+       TECHNICAL NOTE: It is not mandatory to put this directory under
+       the web server document root.
+      </para>
+     </sect2>
+     <sect2 id="variable.cache.lifetime">
+      <title>$cache_lifetime</title>
+      <para>
+       This is the length of time in seconds that a template cache is
+       valid. Once this time has expired, the cache will be
+       regenerated. $caching must be set to "true" for this setting to
+       work. You can also force the cache to expire with <link
+        linkend="api.clear.all.cache">clear_all_cache</link>. (added to
+       Smarty 1.3.0)
+      </para>
+     </sect2>
+     <sect2 id="variable.cache.handler.func">
+      <title>$cache_handler_func</title>
+      <para>
+       You can supply a custom function to handle cache files instead
+       of using the built-in method using the $cache_dir. See the
+       custom cache handler function section for details.
+      </para>
+     </sect2>
+     <sect2 id="variable.cache.modified.check">
+      <title>$cache_modified_check</title>
+      <para>
+       If set to true, Smarty will respect the If-Modified-Since
+       header sent from the client. If the cached file timestamp has
+       not changed since the last visit, then a "304 Not Modified"
+       header will be sent instead of the content. This works only on
+       cached content without <command>{insert}</command> tags.
+      </para>
+     </sect2>
+     <sect2 id="variable.default.template.handler.func">
+      <title>$default_template_handler_func</title>
+      <para>
+       This function is called when a template cannot be obtained from
+       its resource. (added to Smarty 1.5.2)
+      </para>
+     </sect2>
+     <sect2 id="variable.php.handling">
+      <title>$php_handling</title>
+      <para>
+       This tells Smarty how to handle PHP code embedded in the
+       tempalates. There are four possible settings, default being
+       SMARTY_PHP_PASSTHRU. Note that this does NOT affect php code
+       within <link linkend="builtin.functions.php">{php}{/php}</link>
+       tags in the template.
+      </para>    
+      <itemizedlist>
+       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty echos tags as-is.</para></listitem>
+       <listitem><para>SMARTY_PHP_QUOTE - Smarty quotes the tags as
+         html entities.</para></listitem>
+       <listitem><para>SMARTY_PHP_REMOVE - Smarty removes the tags from
+         the templates.</para></listitem>
+       <listitem><para>SMARTY_PHP_ALLOW - Smarty will execute the tags
+         as PHP code.</para></listitem>
+      </itemizedlist>
+      <para>
+       NOTE: Embedding PHP code into templates is highly discouraged.
+       Use <link linkend="bundled.plugins.commands">custom functions</link> or
+       <link linkend="variable.modifiers">modifiers</link> instead.
+      </para>
+     </sect2>
+     <sect2 id="variable.security">
+      <title>$security</title>
+      <para>
+       $security true/false, default is false. Security is good for
+       situations when you have untrusted parties editing the templates
+       (via ftp for example) and you want to reduce the risk of system
+       security compromises through the template language. Turning on
+       security enforces the following rules to the template language,
+       unless specifially overridden with $security_settings:
+      </para>
+      <itemizedlist>
+       <listitem><para>If $php_handling is set to SMARTY_PHP_ALLOW, this is
+         implicitly changed to SMARTY_PHP_PASSTHRU</para></listitem>
+       <listitem><para>PHP functions are not allowed in IF statements,
+         except those specified in the $security_settings</para></listitem>
+       <listitem><para>templates can only be included from directories
+         listed in the $secure_dir array</para></listitem>
+       <listitem><para>local files can only be fetched from directories
+         listed in the $secure_dir array using {fetch}</para></listitem>
+       <listitem><para>{php}{/php} tags are not allowed</para></listitem>
+       <listitem><para>PHP functions are not allowed as modifiers, except
+         those specified in the $security_settings</para></listitem>
+      </itemizedlist>
+      <para>
+       NOTE: Security features were added to Smarty 1.4.3.
+      </para>
+     </sect2>
+     <sect2 id="variable.secure.dir">
+      <title>$secure_dir</title>
+      <para>
+       This is an array of all local directories that are considered
+       secure. {include} and {fetch} use this when security is enabled.
+      </para>
+     </sect2>
+     <sect2 id="variable.security.settings">
+      <title>$security_settings</title>
+      <para>
+       These are used to override or specify the security settings when
+       security is enabled. These are the possible settings:
+      </para>
+      <itemizedlist>
+       <listitem><para>PHP_HANDLING - true/false. If set to true, the
+         $php_handling setting is not checked for security.</para></listitem>
+       <listitem><para>IF_FUNCS - This is an array of the names of permitted
+         PHP functions in IF statements.</para></listitem>
+       <listitem><para>INCLUDE_ANY - true/false. If set to true, any
+         template can be included from the file system, regardless of the
+         $secure_dir list.</para></listitem>
+       <listitem><para>PHP_TAGS - true/false. If set to true, {php}{/php}
+         tags are permitted in the templates.</para></listitem>
+       <listitem><para>MODIFIER_FUNCS - This is an array of the names of permitted
+         PHP functions used as variable modifiers.</para></listitem>
+      </itemizedlist>
+     </sect2>
+     <sect2 id="variable.trusted.dir">
+      <title>$trusted_dir</title>
+      <para>
+	   $trusted_dir is only for use when $security is enabled. This is an array
+	   of all directories that are considered trusted. Trusted directories are
+	   where you keep php scripts that are executed directly from the templates
+	   with <link linkend="builtin.functions.include.php">{include_php}</link>.
+      </para>
+     </sect2>
+     <sect2 id="variable.left.delimiter">
+      <title>$left_delimiter</title>
+      <para>
+       This is the left delimiter used by the template language.
+       Default is "{".			
+      </para>
+     </sect2>
+     <sect2 id="variable.right.delimiter">
+      <title>$right_delimiter</title>
+      <para>
+       This is the right delimiter used by the template language.
+       Default is "}".			
+      </para>
+     </sect2>
+     <sect2 id="variable.show.info.header">
+      <title>$show_info_header</title>
+      <para>
+       Shows an HTML comment at the beginning of the templates output,
+       displaying smarty version and date generated. Default is false.
+      </para>
+     </sect2>
+     <sect2 id="variable.show.info.include">
+      <title>$show_info_include</title>
+      <para>
+       Shows an HTML comment before and after each included template.
+       Default is false.
+      </para>
+     </sect2>
+     <sect2 id="variable.compiler.class">
+      <title>$compiler_class</title>
+      <para>
+       Specifies the name of the compiler class that Smarty will use
+       to compile the templates. The default is 'Smarty_Compiler'. For
+       advanced users only.
+      </para>
+     </sect2>
+     <sect2 id="variable.request.vars.order">
+      <title>$request_vars_order</title>
+      <para>
+       The order in which request variables are registered, similar to
+       variables_order in php.ini
+      </para>
+     </sect2>
+     <sect2 id="variable.compile.id">
+      <title>$compile_id</title>
+      <para>
+       Persistant compile identifier. As an alternative to passing the
+       same compile_id to each and every function call, you can set this
+       compile_id and it will be used implicitly thereafter.
+      </para>
+     </sect2>
+    </sect1>
+
+   <sect1 id="api.functions">
+     <title>Methods</title>
+     <sect2 id="api.assign">
+      <title>assign</title>
+      <funcsynopsis>
+       <funcprototype>
+        <funcdef>void <function>assign</function></funcdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+       <funcprototype>
+        <funcdef>void <function>assign</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+      </funcsynopsis>
+      <para>
+       This is used to assign values to the templates. You can
+       explicitly pass name/value pairs, or associative arrays
+       containing the name/value pairs.
+      </para>
+      <example>
+       <title>assign</title>
+       <programlisting>
+// passing name/value pairs
+$smarty->assign("Name","Fred");
+$smarty->assign("Address",$address);
+
+// passing an associative array
+$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
+</example>
+		</sect2>
+        <sect2 id="api.append">
+         <title>append</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>append</function></funcdef>
+           <paramdef>mixed <parameter>var</parameter></paramdef>
+          </funcprototype>
+          <funcprototype>
+           <funcdef>void <function>append</function></funcdef>
+           <paramdef>string <parameter>varname</parameter></paramdef>
+           <paramdef>mixed <parameter>var</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          This is used to append data to variables in the template. You
+          can explicitly pass name/value pairs, or associative arrays
+          containing the name/value pairs.
+         </para>
+         <example>
+          <title>append</title>
+          <programlisting>
+// passing name/value pairs
+$smarty->append("Name","Fred");
+$smarty->append("Address",$address);
+
+// passing an associative array
+$smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.clear.assign">
+			<title>clear_assign</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_assign</function></funcdef>
+				<paramdef>string <parameter>var</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This clears the value of an assigned variable. This
+                can be a single value, or an array of values. Array
+                functionality was added to Smarty 1.3.0.
+			</para>
+<example>
+<title>clear_assign</title>
+<programlisting>
+// clear a single variable
+$smarty->clear_assign("Name");
+
+// clear multiple variables
+$smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.clear.all.assign">
+			<title>clear_all_assign</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_all_assign</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This clears the values of all assigned variables.
+			</para>
+<example>
+<title>clear_all_assign</title>
+<programlisting>
+// clear all assigned variables
+$smarty->clear_all_assign();</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.clear.cache">
+			<title>clear_cache</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_cache</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>string <parameter>cache id</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                This clears the cache for the specified template. If you have
+                multiple caches for this template, you can clear a specific
+                cache by supplying the cache id as the second parameter. See the
+                <link linkend="section.caching">caching section</link> for more
+                information. This was added to Smarty 1.3.0.
+			</para>
+<example>
+<title>clear_cache</title>
+<programlisting>
+// clear the cache for a template
+$smarty->clear_cache("index.tpl");
+
+// clear the cache for a particular cache id in an multiple-cache template
+$smarty->clear_cache("index.tpl","CACHEID");</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.clear.all.cache">
+			<title>clear_all_cache</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_all_cache</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This clears the entire template cache. This was added to Smarty
+				1.3.0.
+			</para>
+<example>
+<title>clear_all_cache</title>
+<programlisting>
+// clear the entire cache
+$smarty->clear_all_cache();</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.clear.compiled.tpl">
+			<title>clear_compiled_tpl</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_compiled_tpl</function></funcdef>
+				<paramdef>string <parameter>tpl_file</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+			This clears the compiled version of the specified template
+			resource, or all compiled template files if one is not specified.
+			This function is for advanced use only, not normally needed.
+			</para>
+<example>
+<title>clear_compiled_tpl</title>
+<programlisting>
+// clear a specific template resource
+$smarty->clear_compiled_tpl("index.tpl");
+
+// clear entire compile directory
+$smarty->clear_compiled_tpl();</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.register.function">
+			<title>register_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_function</function></funcdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>string <parameter>impl</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+             Use this to dynamically register template function plugins.
+             Pass in the template function name, followed by the PHP
+             function name that implements it.
+			</para>
+<example>
+<title>register_function</title>
+<programlisting>
+$smarty->register_function("date_now", "print_current_date");
+
+function print_current_date ($params) {
+    extract($params);
+    if(empty($format))
+        $format="%b %e, %Y";
+    echo strftime($format,time());
+}
+
+// now you can use this in Smarty to print the current date: {date_now}
+// or, {date_now format="%Y/%m/%d"} to format it.</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.unregister.function">
+         <title>unregister_function</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_function</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister template function plugin.
+          Pass in the template function name.
+         </para>
+<example>
+<title>unregister_function</title>
+<programlisting>
+// we don't want template designers to have access to system files
+
+$smarty->unregister_function("fetch");</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.register.modifier">
+         <title>register_modifier</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>register_modifier</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+           <paramdef>string <parameter>impl</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically register modifier plugin. Pass in the
+          template modifier name, followed by the PHP function that it
+          implements it.
+         </para>
+<example>
+<title>register_modifier</title>
+<programlisting>
+// let's map PHP's stripslashes function to a Smarty modifier.
+
+$smarty->register_modifier("sslash","stripslashes");
+
+// now you can use {$var|sslash} to strip slashes from variables</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.unregister.modifier">
+         <title>unregister_modifier</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_modifier</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister modifier plugin. Pass in the
+          template modifier name.
+         </para>
+<example>
+<title>unregister_modifier</title>
+<programlisting>
+// we don't want template designers to strip tags from elements
+
+$smarty->unregister_modifier("strip_tags");</programlisting>
+</example>
+		</sect2>
+        <sect2 id="api.register.resource">
+         <title>register_resource</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>register_resource</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+           <paramdef>array <parameter>resource_funcs</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically register a resource plugin with Smarty.
+          Pass in the name of the resource and the array of PHP functions
+          implementing it. See
+          <link linkend="template.resources">template resources</link>
+          for more information on how to setup a function for fetching
+          templates.
+         </para>
+<example>
+<title>register_resource</title>
+<programlisting>
+$smarty->register_resource("db", array("db_get_template",
+                                       "db_get_timestamp",
+                                       "db_get_secure",
+                                       "db_get_trusted"));</programlisting>
+</example>
+		</sect2>
+        <sect2 id="api.unregister.resource">
+         <title>unregister_resource</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_resource</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister a resource plugin. Pass in the
+          name of the resource.
+         </para>
+<example>
+<title>unregister_resource</title>
+<programlisting>
+$smarty->unregister_resource("db");</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.register.prefilter">
+			<title>register_prefilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_prefilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register prefilters to run templates
+                through before they are compiled. See <link
+                linkend="section.template.prefilters">template prefilters</link> for
+                more information on how to setup a prefiltering function.
+			</para>
+		</sect2>
+		<sect2 id="api.unregister.prefilter">
+			<title>unregister_prefilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_prefilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister a prefilter.
+			</para>
+		</sect2>
+		<sect2 id="api.register.postfilter">
+			<title>register_postfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_postfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register postfilters to run templates
+                through after they are compiled. See <link
+                linkend="template.postfilters">template postfilters</link> for
+                more information on how to setup a postfiltering function.
+			</para>
+		</sect2>
+		<sect2 id="api.unregister.postfilter">
+			<title>unregister_postfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_postfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister a postfilter.
+			</para>
+		</sect2>
+		<sect2 id="api.register.compiler.function">
+			<title>register_compiler_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_compiler_function</function></funcdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>string <parameter>impl</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register a compiler function plugin.
+                Pass in the compiler function name, followed by the PHP
+                function that implements it.
+			</para>
+		</sect2>
+        <sect2 id="api.unregister.compiler.function">
+         <title>unregister_compiler_function</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_compiler_function</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister a compiler function. Pass in
+          the name of the compiler function.
+         </para>
+        </sect2>
+        <sect2 id="api.trigger.error">
+         <title>trigger_error</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>trigger_error</function></funcdef>
+           <paramdef>string <parameter>error_msg</parameter></paramdef>
+           <paramdef>[int <parameter>level</parameter>]</paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          This function can be used to output an error message using Smarty.
+          <parameter>level</parameter> parameter can be one of the values
+          used for trigger_error() PHP function, i.e. E_USER_NOTICE,
+          E_USER_WARNING, etc. By default it's E_USER_WARNING. This function
+          was added to Smarty 2.0.
+         </para>
+        </sect2>
+
+		<sect2 id="api.is.cached">
+			<title>is_cached</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>is_cached</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                This returns true if there is a valid cache for this template.
+                This only works if <link
+                linkend="variable.caching">caching</link> is set to true. This
+                was added to Smarty 1.3.0.
+			</para>
+<example>
+<title>is_cached</title>
+<programlisting>
+$smarty->caching = true;
+
+if(!$smarty->is_cached("index.tpl")) {
+    // do database calls, assign vars here
+}
+
+$smarty->display("index.tpl");</programlisting>
+</example>
+            <para>
+                You can also pass a cache id as an an optional second parameter
+                in case you want multiple caches for the given template.
+            </para>
+<example>
+<title>is_cached with multiple-cache template</title>
+<programlisting>
+$smarty->caching = true;
+
+if(!$smarty->is_cached("index.tpl","FrontPage")) {
+    // do database calls, assign vars here
+}
+
+$smarty->display("index.tpl","FrontPage");</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.get.template.vars">
+			<title>get_template_vars</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>array <function>get_template_vars</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This gets an array of the currently assigned template vars.
+			</para>
+<example>
+<title>get_template_vars</title>
+<programlisting>
+// get all assigned template vars
+$tpl_vars = $smarty->get_template_vars();
+
+// take a look at them
+var_dump($tpl_vars);</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.display">
+			<title>display</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>display</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>string <parameter>cache id</parameter></paramdef>
+				<paramdef>string <parameter>compile id</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                This displays the template. Supply a valid <link
+                linkend="template.resources">template resource</link>
+                type and path. As an optional second parameter, you can pass a
+                cache id. See the <link linkend="section.caching">caching
+                section</link> for more information.
+			</para>
+			<para>
+				As an optional third parameter, you can pass a compile id. This
+				is in the event that you want to compile different versions of
+				the same template, such as having separate templates compiled
+				for different languages. This was added to Smarty 1.4.5.
+			</para>
+<example>
+<title>display</title>
+<programlisting>
+include("Smarty.class.php");
+$smarty = new Smarty;
+$smarty->caching = true;
+
+// only do db calls if cache doesn't exist
+if(!$smarty->is_cached("index.tpl"))
+{
+
+    // dummy up some data
+    $address = "245 N 50th";
+    $db_data = array(
+	    "City" => "Lincoln",
+	    "State" => "Nebraska",
+	    "Zip" = > "68502"
+	    );
+
+    $smarty->assign("Name","Fred");
+    $smarty->assign("Address",$address);
+    $smarty->assign($db_data);
+
+}
+
+// display the output
+$smarty->display("index.tpl");</programlisting>
+</example>
+			<para>
+			Use the syntax for <link
+			linkend="template.resources">template resources</link> to
+			display files outside of the $template_dir directory.
+			</para>
+<example>
+<title>function display template resource examples</title>
+<programlisting>
+// absolute filepath
+$smarty->display("/usr/local/include/templates/header.tpl");
+
+// absolute filepath (same thing)
+$smarty->display("file:/usr/local/include/templates/header.tpl");
+
+// windows absolute filepath (MUST use "file:" prefix)
+$smarty->display("file:C:/www/pub/templates/header.tpl");
+
+// include from template resource named "db"
+$smarty->display("db:header.tpl");</programlisting>
+</example>
+
+		</sect2>
+		<sect2 id="api.fetch">
+			<title>fetch</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>string <function>fetch</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
+				<paramdef>[string <parameter>compile_id</parameter>]</paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                This returns the template output instead of displaying it.
+                Supply a valid <link
+                linkend="template.resources">template resource</link>
+                type and path. As an optional second parameter, you can pass a
+                cache id. See the <link linkend="section.caching">caching
+                section</link> for more information.
+			</para>
+			<para>
+				As an optional third parameter, you can pass a compile id. This
+				is in the event that you want to compile different versions of
+				the same template, such as having separate templates compiled
+				for different languages. This was added to Smarty 1.4.5.
+			</para>
+<example>
+<title>fetch</title>
+<programlisting>
+include("Smarty.class.php");
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// only do db calls if cache doesn't exist
+if(!$smarty->is_cached("index.tpl"))
+{
+
+    // dummy up some data
+    $address = "245 N 50th";
+    $db_data = array(
+	    "City" => "Lincoln",
+	    "State" => "Nebraska",
+	    "Zip" = > "68502"
+	    );
+
+    $smarty->assign("Name","Fred");
+    $smarty->assign("Address",$address);
+    $smarty->assign($db_data);
+
+}
+
+// capture the output
+$output = $smarty->fetch("index.tpl");
+
+// do something with $output here
+
+echo $output;</programlisting>
+</example>
+		</sect2>
+       </sect1>
+      </chapter>
+
 <chapter id="plugins">
-   <title>Plugins</title>
+ <title>Extending Smarty With Plugins</title>
    <para>
     Version 2.0 introduced the plugin architecture that is used
     for almost all the customizable functionality of Smarty. This includes:
@@ -5893,11 +5963,10 @@ function smarty_insert_time($params, &amp;$smarty)
     </example>
    </sect1>
   </chapter>
-
-<chapter id="chapter.advanced.features">
+<chapter id="advanced.features">
 	<title>Advanced Features</title>
-	<sect1 id="section.template.prefilters">
-		<title>Template Prefilters</title>
+    <sect1 id="advanced.features.prefilters">
+		<title>Prefilters</title>
         <para>
 		Template prefilters are PHP functions that your templates are ran through
 		before they are compiled. This is good for preprocessing your templates
@@ -5936,8 +6005,8 @@ $smarty->display("index.tpl");
 </example>
         </sect2>
     </sect1>
-	<sect1 id="section.template.postfilters">
-		<title>Template Postfilters</title>
+	<sect1 id="advanced.features.postfilters">
+		<title>Postfilters</title>
         <para>
 		Template postfilters are PHP functions that your templates are ran through
 		after they are compiled. Postfilters are processed in the order they are
@@ -5977,7 +6046,7 @@ $smarty->display("index.tpl");
         </sect2>
     </sect1>
 	<sect1 id="section.template.cache.handler.func">
-		<title>Template Cache Handling Function</title>
+		<title>Cache Handling Function</title>
         <para>
 		As an alternative to using the default file-based caching mechanism, you
 		can specify a custom cache handling function that will be used to read,
@@ -6110,7 +6179,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
         </sect2>
     </sect1>
 	<sect1 id="template.resources">
-		<title>Template Resources</title>
+		<title>Resources</title>
         <para>
         Your templates may come from a variety of sources. When you display or
         fetch a template, or when you include a template from within another
@@ -6302,39 +6371,11 @@ $smarty->default_template_handler_func = 'make_template';</programlisting>
 	</sect1>
 </chapter>
 
+ </part>
 
-  <chapter id="chapter.debugging.console">
-   <title>Debugging Console</title>
-   <para>
-   There is a dubugging console included with Smarty. The console informs you
-   of all the included templates, assigned variables and config file variables
-   for the current invocation of the template. A template named "debug.tpl" is
-   included with the distribution of Smarty which controls the formatting of
-   the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
-   to the template resource path for debug.tpl (this is in $template_dir by
-   default.) When you load the page, a javascript console window should pop up
-   and give you the names of all the included templates and assigned variables
-   for the current page. To disable the debugging console, set $debugging to
-   false. You can also temporarily turn on the debugging console by putting
-   SMARTY_DEBUG in the URL if you enable this option with <link
-   linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
-   </para>
-   <para>
-   TECHNICAL NOTE: The debugging console does not work when you use the fetch()
-   API, only when using display(). It is a set of javascript statements added
-   to the very bottom of the generated template. If you do not like javascript,
-   you can edit the debug.tpl template to format the output however you like.
-   Debug data is not cached and debug.tpl info is not included in the output of
-   the debug console.
-   </para>
-   <note>
-   <para>
-   The load times of each template and config file are in seconds, or
-   fractions thereof.
-   </para>
-  </note>
-</chapter>
-<chapter>
+<part id="appendixes">
+ <title>Appendixes</title>
+<chapter id="troubleshooting">
    <title>Troubleshooting</title>
    <para></para>
    <sect1>
@@ -6422,7 +6463,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 		If a variable is used frequently throughout your templates, applying
 		the default modifier every time it is mentioned can get a bit ugly. You
 		can remedy this by assigning the variable its default value with the
-		<link linkend="custom.functions.assign">assign</link> function.
+		<link linkend="language.functions.assign">assign</link> function.
 		</para>
 <example>
 <title>Assigning a template variable its default value</title>
@@ -6742,4 +6783,5 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 	check the website.
 	</para>
 </chapter>
+</part>
 </book>
