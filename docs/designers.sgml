@@ -4495,7 +4495,7 @@ OUTPUT: (both examples)
 						%m for month numbers.</entry>
                     </row>
                     <row>
-                        <entry>year_emtpy</entry>
+                        <entry>year_empty</entry>
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry>null</entry>
