@@ -6,7 +6,8 @@
  *				original idea and implementation
  *
  *				Andrei Zmievski <andrei@ispi.net>
- *				parser rewrite and optimizations
+ *				parsing engine rewrite and a lot more
+ *				
  *
  */
 
@@ -121,7 +122,6 @@ class Smarty
 			$compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$tpl_file);
 			
 			extract($this->_tpl_vars);		
-			/* TODO remove comments */
 			include($compile_file);
 		}
 	}
@@ -297,18 +297,22 @@ class Smarty
 		$text_blocks = preg_split("/$ldq.*?$rdq/s", $template_contents);
 
 		$compiled_tags = array();
-		foreach ($template_tags as $template_tag) {
+		foreach ($template_tags as $template_tag)
 			$compiled_tags[] = $this->_compile_tag($template_tag);
-		}
 
 		for ($i = 0; $i < count($compiled_tags); $i++) {
 			$compiled_contents .= $text_blocks[$i].$compiled_tags[$i];
 		}
 		$compiled_contents .= $text_blocks[$i];
 		
-		//var_dump($compiled_tags);
+		/* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
+		preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_contents, $match);
+		$strip_tags = $match[0];
+		$strip_tags_modified = preg_replace("!$ldq/?strip$rdq|[\t ]+$|^[\t ]+|/[\r\n]+!m", '', $strip_tags);
+		for ($i = 0; $i < count($strip_tags); $i++)
+			$compiled_contents = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $strip_tags_modified[$i], $compiled_contents, 1);
 
-		if(!($this->_write_file($compilepath, $compiled_contents)))
+		if(!$this->_write_file($compilepath, $compiled_contents))
 			return false;
 
 		return true;
@@ -368,6 +372,10 @@ class Smarty
 
 			case 'config_load':
 				return $this->_compile_config_load_tag($tag_args);
+
+			case 'strip':
+			case '/strip':
+				return $this->left_delimiter.$tag_command.$this->right_delimiter;
 
 			default:
 				/* TODO capture custom functions here */

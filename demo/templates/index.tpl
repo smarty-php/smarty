@@ -2,8 +2,9 @@
 
 Title: {#title#|capitalize}
 
+{strip}
 {* A simple variable test *}
-hello, my name is {$Name}
+  hello, my name is {$Name}
 
 My interests are:
 {section name=outer loop=$FirstName}
@@ -15,3 +16,4 @@ My interests are:
 {sectionelse}
 	none
 {/section}
+{/strip}
