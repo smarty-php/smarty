@@ -1,3 +1,4 @@
+  - fixed assign attribute for multiple counters (messju)
   - added simple math operators to variables (Monte)
   - reverted patch for case-insensitive tag-names (messju)
   - enabled array(&$obj. 'source', 'timestamp', 'secure', 'trusted')

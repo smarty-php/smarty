@@ -48,7 +48,7 @@ function smarty_function_counter($params, &$smarty)
     
     if (!empty($assign)) {
         if (!isset($print)) $printval[$name] = false;
-        $smarty->assign($assign, $count[$name]);
+        $smarty->assign_by_ref($assign, $count[$name]);
     }
 
     if ($printval[$name]) {
