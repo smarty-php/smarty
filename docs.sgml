@@ -836,6 +836,59 @@ $smarty->unregister_filter("imbed_asp_jokes");
 </programlisting>
 </example>
 		</sect2>
+		<sect2 id="api.register.compiler.function">
+			<title>register_compiler_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_compiler_function</function></funcdef>
+				<paramdef>string <parameter>funcname</parameter></paramdef>
+				<paramdef>string <parameter>funcimpl</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register template functions that are
+                executed only at compile time of the template. This useful for
+                injecting PHP code or time-sensitive static content into the
+                template.
+			</para>
+<example>
+<title>register_compiler_function</title>
+<programlisting>
+
+// PHP code
+
+$smarty->register_compiler_function("tplheader","smarty_template_header");
+
+function smarty_template_header() {
+
+}
+
+{* this function gets executed at compile time only *}
+{tplheader}
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.unregister.compiler.function">
+			<title>unregister_compiler_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_compiler_function</function></funcdef>
+				<paramdef>string <parameter>funcname</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister a compiler function.
+			</para>
+<example>
+<title>unregister_compiler_function</title>
+<programlisting>
+
+$smarty->unregister_compiler_function("tplheader");
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2 id="api.is.cached">
 			<title>is_cached</title>
 			<funcsynopsis>
