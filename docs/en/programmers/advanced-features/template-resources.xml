@@ -50,11 +50,16 @@ $smarty->display("file:admin/menu.tpl"); // same as one above
 $smarty->display("file:/export/templates/index.tpl");
 $smarty->display("file:/path/to/my/templates/menu.tpl");
 ?>
-
-{* from within Smarty template *}
+]]>
+     </programlisting>
+     <para>
+      And from within Smarty template:
+     </para>
+     <programlisting>
+<![CDATA[
 {include file="file:/usr/local/share/templates/navigation.tpl"}
 ]]>
-</programlisting>
+     </programlisting>
     </example>
 
     <sect3 id="templates.windows.filepath">
@@ -73,8 +78,13 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 $smarty->display("file:C:/export/templates/index.tpl");
 $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 ?>
-
-{* from within Smarty template *}
+]]>
+     </programlisting>
+     <para>
+      And from within Smarty template:
+     </para>
+     <programlisting>
+<![CDATA[
 {include file="file:D:/usr/local/share/templates/navigation.tpl"}
 ]]>
 </programlisting>
@@ -162,11 +172,16 @@ $smarty->register_resource("db", array("db_get_template",
 // using resource from php script
 $smarty->display("db:index.tpl");
 ?>
-
-{* using resource from within Smarty template *}
+]]>
+     </programlisting>
+     <para>
+      And from within Smarty template:
+     </para>
+     <programlisting>
+<![CDATA[
 {include file="db:/extras/navigation.tpl"}
 ]]>
-</programlisting>
+     </programlisting>
     </example>
    </sect2>
 
@@ -205,10 +220,10 @@ function make_template ($resource_type, $resource_name, &$template_source, &$tem
 $smarty->default_template_handler_func = 'make_template';
 ?>
 ]]>
-</programlisting>
+     </programlisting>
     </example>
    </sect2>
-</sect1>
+  </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
