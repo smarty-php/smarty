@@ -1,3 +1,20 @@
+2003-03-15  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      back out "@" logic, apply only to default modifier special case
+
+    * libs/Smarty_Compiler.class.php:
+      fix @ logic, only use upon an echo
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      append "@" to template var echoes to supress possible notices
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      append "@" to _run_mod_handler to supress warnings
+
 2003-03-14  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
