@@ -7,6 +7,30 @@
       accomplished by separating each sub-group with a vertical bar "|" in the
       cache_id value. You can have as many sub-groups as you like.
      </para>
+     <para>
+      You can think of cache groups like a directory heirarchy. For instance, a
+      cache group of "a|b|c" could be thought of as the directory structure
+      "/a/b/c/". clear_cache(null,"a|b|c") would be like removing the files
+      "/a/b/c/*". clear_cache(null,"a|b") would be like removing the files
+      "/a/b/*". If you specify a compile_id such as
+      clear_cache(null,"a|b","foo") it is treated as an appended cache group
+      "/a/b/c/foo/". If you specify a template name such as
+      clear_cache("foo.tpl","a|b|c") then Smarty will attempt to remove
+      "/a/b/c/foo.tpl". You CANNOT remove a specified template name under
+      multiple cache groups such as "/a/b/*/foo.tpl", the cache grouping works
+      left-to-right ONLY. You will need to group your templates under a single
+      cache group heirarchy to be able to clear them as a group.
+     </para>
+     <para>
+      Cache grouping should not be confused with your template directory
+      heirarchy, the cache grouping has no knowledge of how your templates are
+      structured. So for example, if you have a template structure like
+      "themes/blue/index.tpl" and you want to be able to clear all the cache
+      files for the "blue" theme, you will need to create a cache group
+      structure that mimics your template file structure, such as
+      display("themes/blue/index.tpl","themes|blue"), then clear them with
+      clear_cache(null,"themes|blue").
+     </para>
      <example>
       <title>cache_id groups</title>
       <programlisting role="php">
@@ -24,22 +48,15 @@ $smarty->clear_cache(null,"sports|basketball");
 // include "sports|basketball", or "sports|(anything)|(anything)|(anything)|..."
 $smarty->clear_cache(null,"sports");
 
+// clear the foo.tpl cache file with "sports|basketball" as the cache_id
+$smarty->clear_cache("foo.tpl","sports|basketball");
+
+
 $smarty->display('index.tpl',"sports|basketball");
 ?>
 ]]>
       </programlisting>
      </example>
-     <note>
-      <title>Technical Note</title>
-      <para>
-       The cache grouping does NOT use the path to the template as any part of the
-       cache_id. For example, if you have display('themes/blue/index.tpl'), you
-       cannot clear the cache for everything under the "themes/blue" directory. If
-       you want to do that, you must group them in the cache_id, such as
-       display('themes/blue/index.tpl','themes|blue'); Then you can clear the
-       caches for the blue theme with clear_cache(null,'themes|blue');
-      </para>
-     </note>
     
     </sect1>
 
