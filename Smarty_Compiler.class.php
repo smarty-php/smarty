@@ -55,7 +55,7 @@ class Smarty_Compiler extends Smarty {
     var $_si_qstr_regexp		=	null;
     var $_qstr_regexp			=	null;
     var $_func_regexp			=	null;
-    var $_dvar__gets_regexp		=	null;
+    var $_dvar_guts_regexp		=	null;
     var $_dvar_regexp			=	null;
     var $_cvar_regexp			=	null;
     var $_svar_regexp			=	null;
@@ -87,13 +87,13 @@ class Smarty_Compiler extends Smarty {
     	$this->_qstr_regexp = '(?:' . $this->_db_qstr_regexp . '|' . $this->_si_qstr_regexp . ')';
 
 		// matches $ vars (not objects):
-		// foo
-		// foo.bar
-		// foo.bar.foobar
-		// foo[0]
-		// foo[$bar]
-		// foo[5][blah]
-		// foo[5].bar[$foobar][4]
+		// $foo
+		// $foo.bar
+		// $foo.bar.foobar
+		// $foo[0]
+		// $foo[$bar]
+		// $foo[5][blah]
+		// $foo[5].bar[$foobar][4]
 		$this->_dvar_guts_regexp = '\w+(?:\[\$?[\w\.]+\])*(?:\.\$?\w+(?:\[\$?[\w\.]+\])*)*';
 		$this->_dvar_regexp = '\$' . $this->_dvar_guts_regexp;
 
@@ -132,8 +132,6 @@ class Smarty_Compiler extends Smarty {
 		
 		// matches valid object call (no objects allowed in parameters):
 		// $foo->bar
-		// $foo->bar[0]
-		// $foo->bar[$x].foobar
 		// $foo->bar()
 		// $foo->bar("text")
 		// $foo->bar($foo, $bar, "text")
