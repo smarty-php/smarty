@@ -1,3 +1,9 @@
+2003-04-03  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      name=123 is passed as an integer (not a string) to plugins now
+
 2003-04-01  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
