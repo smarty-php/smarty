@@ -13,14 +13,21 @@
   <title>modifier example</title>
   <programlisting>
 <![CDATA[
-{* Uppercase the title *}
-<h2>{$title|upper}</h2>
+{* apply modifier to a variable *}
+{$title|upper}
+{* modifier with parameters *}
+{$title|truncate:40:"..."}
 
-{* Truncate the topic to 40 characters use ... at the end *}
-Topic: {$topic|truncate:40:"..."}
+{* apply modifier to a function parameter *}
+{html_table loop=$myvar|upper}
+{* with parameters *}
+{html_table loop=$myvar|truncate:40:"..."}
 
-{* format a literal string *}
-{"now"|date_format:"%Y/%m/%d"}
+{* apply modifier to literal string *}
+{"foobar"|upper}
+
+{* using date_format to format the current date *}
+{$smarty.now|date_format:"%Y/%m/%d"}
 
 {* apply modifier to a custom function *}
 {mailto|upper address="me@domain.dom"}
