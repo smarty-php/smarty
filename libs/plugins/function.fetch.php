@@ -1,12 +1,23 @@
 <?php
-
-/*
+/**
  * Smarty plugin
- * -------------------------------------------------------------
- * Type:     function
- * Name:     fetch
+ * @package Smarty
+ * @subpackage plugins
+ */
+
+
+/**
+ * Smarty {fetch} plugin
+ *
+ * Type:     function<br>
+ * Name:     fetch<br>
  * Purpose:  fetch file, web or ftp data and display results
- * -------------------------------------------------------------
+ * @link http://smarty.php.net/manual/en/language.function.fetch.php {fetch}
+ *       (Smarty online manual)
+ * @param array
+ * @param Smarty
+ * @return string|null if the assign parameter is passed, Smarty assigns the
+ *                     result to a template variable
  */
 function smarty_function_fetch($params, &$smarty)
 {

@@ -1,3 +1,10 @@
+2003-04-20  Greg Beaver <cellog@users.sourceforge.net>
+    * plugins/*
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      Config_File.class.php:
+      updated all doc comments to phpDocumentor format (whew!)
+
 2003-04-06  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.math.php:

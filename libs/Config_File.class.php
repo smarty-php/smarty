@@ -34,10 +34,14 @@
  * @copyright Copyright: 2001,2002 ispi of Lincoln, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
+ * @package Smarty
  */
 
 /* $Id$ */
-
+/**
+ * Config file reading class
+ * @package Smarty
+ */
 class Config_File {
 	/**#@+
      * Options

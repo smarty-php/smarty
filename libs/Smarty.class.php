@@ -909,6 +909,7 @@ class Smarty
      * @param string $cache_id name of cache_id
      * @param string $compile_id name of compile_id
      * @param string $exp_time expiration time
+     * @return boolean
      */    
     function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null, $exp_time = null)
     {
@@ -935,6 +936,7 @@ class Smarty
      * clear the entire contents of cache (all templates)
      *
      * @param string $exp_time expire time
+     * @return boolean results of {@link _rm_auto()}
      */    
     function clear_all_cache($exp_time = null)
     {
@@ -953,6 +955,7 @@ class Smarty
      * @param string $tpl_file name of template file
      * @param string $cache_id
      * @param string $compile_id
+     * @return string|false results of {@link _read_cache_file()}
      */    
     function is_cached($tpl_file, $cache_id = null, $compile_id = null)
     {
@@ -983,6 +986,7 @@ class Smarty
      * @param string $tpl_file
      * @param string $compile_id
      * @param string $exp_time
+     * @return boolean results of {@link _rm_auto()}
      */    
     function clear_compiled_tpl($tpl_file = null, $compile_id = null, $exp_time = null)
     {
@@ -995,6 +999,7 @@ class Smarty
      * Checks whether requested template exists.
      *
      * @param string $tpl_file
+     * @return boolean
      */    
     function template_exists($tpl_file)
     {
@@ -1006,7 +1011,7 @@ class Smarty
      *
      * @param string $name
      * @param string $type
-     * @return mixed
+     * @return array
      */    
     function &get_template_vars($name=null)
     {
@@ -1023,7 +1028,7 @@ class Smarty
      *
      * @param string $name
      * @param string $type
-     * @return mixed
+     * @return array
      */    
     function &get_config_vars($name=null)
     {
@@ -1290,6 +1295,7 @@ class Smarty
      * return a reference to a registered object
      *
      * @param string $name
+     * @return object
      */    
 	function &get_registered_object($name) {
 		if (!isset($this->_reg_objects[$name]))
@@ -1309,6 +1315,7 @@ class Smarty
      *
      * @param string $resource_type
      * @param string $resource_name
+     * @return boolean
      */    
     function _is_trusted($resource_type, $resource_name)
     {
@@ -1344,6 +1351,7 @@ class Smarty
      *
      * @param string $resource_type
      * @param string $resource_name
+     * @return boolean
      */    
     function _is_secure($resource_type, $resource_name)
     {
@@ -1380,6 +1388,7 @@ class Smarty
      * @param string $resource
      * @param string $resource_type
      * @param  $php_resource
+     * @return boolean
      */    
     function _get_php_resource($resource, &$resource_type, &$php_resource)
     {
@@ -1442,6 +1451,7 @@ class Smarty
      *
      * @param string $tpl_file
      * @param string $compile_path
+     * @return boolean
      */    
     function _process_template($tpl_file, $compile_path)
     {
@@ -1482,6 +1492,7 @@ class Smarty
      * Get the compile path for this template file
      *
      * @param string $tpl_file
+     * @return string results of {@link _get_auto_filename()}
      */    
     function _get_compile_path($tpl_file)
     {
@@ -1512,6 +1523,7 @@ class Smarty
      * @param string $file_path
      * @param string $resource_type
      * @param string $resource_name
+     * @return boolean
      */    
     function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resource_name)
     {
@@ -1566,6 +1578,7 @@ class Smarty
      * @param integer $template_timestamp
      * @param boolean $get_source
      * @param boolean $quiet
+     * @return boolean
      */    
     function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source = true, $quiet = false)
     {
@@ -1630,6 +1643,7 @@ class Smarty
      * @param string $tpl_file
      * @param string $template_source
      * @param string $template_compiled
+     * @return boolean
      */    
     function _compile_template($tpl_file, $template_source, &$template_compiled)
     {
@@ -1778,6 +1792,7 @@ class Smarty
      * Replace cached inserts with the actual results
      *
      * @param string $results
+     * @return string
      */    
     function _process_cached_inserts($results)
     {
@@ -1825,6 +1840,7 @@ class Smarty
      * Handle insert tags
      *
      * @param array $args
+     * @return string
      */    
     function _run_insert_handler($args)
     {
@@ -1878,6 +1894,9 @@ class Smarty
     /**
      * Handle modifiers
      *
+     * @param string|null $modifier_name
+     * @param array|null $map_array
+     * @return string result of modifiers
      */
     function _run_mod_handler()
     {
@@ -1903,6 +1922,7 @@ class Smarty
      * Remove starting and ending quotes from the string
      *
      * @param string $string
+     * @return string
      */    
     function _dequote($string)
     {
@@ -1921,6 +1941,7 @@ class Smarty
      * @param string $filename
      * @param integer $start
      * @param integer $lines
+     * @return string
      */    
     function _read_file($filename, $start=null, $lines=null)
     {
@@ -1963,6 +1984,7 @@ class Smarty
      * @param string $filename
      * @param string $contents
      * @param boolean $create_dirs
+     * @return boolean
      */    
     function _write_file($filename, $contents, $create_dirs = false)
     {
@@ -1999,6 +2021,9 @@ class Smarty
      * @param string $auto_base
      * @param string $auto_source
      * @param string $auto_id
+     * @return string
+     * @staticvar string|null
+     * @staticvar string|null
      */    
     function _get_auto_filename($auto_base, $auto_source = null, $auto_id = null)
     {
@@ -2054,6 +2079,7 @@ class Smarty
      * @param string $auto_source
      * @param string $auto_id
      * @param integer $exp_time
+     * @return boolean
      */    
     function _rm_auto($auto_base, $auto_source = null, $auto_id = null, $exp_time = null)
     {
@@ -2093,6 +2119,7 @@ class Smarty
      * @param string $dirname
      * @param integer $level
      * @param integer $exp_time
+     * @return boolean
      */    
     function _rmdir($dirname, $level = 1, $exp_time = null)
     {
@@ -2192,6 +2219,7 @@ class Smarty
      * @param string $cache_id
      * @param string $compile_id
      * @param string $results
+     * @return true|null
      */    
     function _write_cache_file($tpl_file, $cache_id, $compile_id, $results)
     {
@@ -2229,6 +2257,7 @@ class Smarty
      * @param string $cache_id
      * @param string $compile_id
      * @param string $results
+     * @return boolean
      */    
     function _read_cache_file($tpl_file, $cache_id, $compile_id, &$results)
     {
@@ -2309,6 +2338,7 @@ class Smarty
      *
      * @param string $cache_id
      * @param string $compile_id
+     * @return string|null
      */
     function _get_auto_id($cache_id=null, $compile_id=null) {
 	if (isset($cache_id))
@@ -2324,6 +2354,7 @@ class Smarty
      *
      * @param string $type
      * @param string $name
+     * @return string|false
      */    
     function _get_plugin_filepath($type, $name)
     {
@@ -2537,6 +2568,7 @@ class Smarty
 
     /**
      * automatically load a set of filters
+     * @uses load_filter()
      */
     function _autoload_filters()
     {
@@ -2551,6 +2583,7 @@ class Smarty
      * Quote subpattern references
      *
      * @param string $string
+     * @return string
      */
     function quote_replace($string)
     {
@@ -2601,6 +2634,8 @@ class Smarty
      *
      * @param string $file_path
      * @param string $new_file_path
+     * @return boolean
+     * @staticvar array|null
      */    
     function _get_include_path($file_path, &$new_file_path)
     {

@@ -1,26 +1,38 @@
 <?php
-
-/*
+/**
  * Smarty plugin
- * -------------------------------------------------------------
- * Type:     function
- * Name:     html_image
- * Version:  1.0
- * Date:     Feb 24, 2003
- * Author:	 Monte Ohrt <monte@ispi.net>
- * Credits:  Duda <duda@big.hu> - wrote first image function
- *           in repository, helped with lots of functionality
- * Purpose:  format HTML tags for the image
- * Input:    file = file (and path) of image (required)
- *           border = border width (optional, default 0)
- *           height = image height (optional, default actual height)
- *           image =image width (optional, default actual width)
- *           basedir = base directory for absolute paths, default
+ * @package Smarty
+ * @subpackage plugins
+ */
+
+
+/**
+ * Smarty {html_image} function plugin
+ *
+ * Type:     function<br>
+ * Name:     html_image<br>
+ * Date:     Feb 24, 2003<br>
+ * Purpose:  format HTML tags for the image<br>
+ * Input:<br>
+ *         - file = file (and path) of image (required)
+ *         - border = border width (optional, default 0)
+ *         - height = image height (optional, default actual height)
+ *         - image =image width (optional, default actual width)
+ *         - basedir = base directory for absolute paths, default
  *                     is environment variable DOCUMENT_ROOT
  * 
  * Examples: {image file="images/masthead.gif"}
  * Output:   <img src="images/masthead.gif" border=0 width=400 height=23>
- * -------------------------------------------------------------
+ * @link http://smarty.php.net/manual/en/language.function.html.image.php {html_image}
+ *      (Smarty online manual)
+ * @author   Monte Ohrt <monte@ispi.net>
+ * @author credits to Duda <duda@big.hu> - wrote first image function
+ *           in repository, helped with lots of functionality
+ * @version  1.0
+ * @param array
+ * @param Smarty
+ * @return string
+ * @uses smarty_function_escape_special_chars()
  */
 function smarty_function_html_image($params, &$smarty)
 {	

@@ -1,12 +1,21 @@
 <?php
-
-/*
+/**
  * Smarty plugin
- * -------------------------------------------------------------
- * Type:     modifier
- * Name:     count_words
+ * @package Smarty
+ * @subpackage plugins
+ */
+
+
+/**
+ * Smarty count_words modifier plugin
+ *
+ * Type:     modifier<br>
+ * Name:     count_words<br>
  * Purpose:  count the number of words in a text
- * -------------------------------------------------------------
+ * @link http://smarty.php.net/manual/en/language.modifier.count.words.php
+ *          count_words (Smarty online manual)
+ * @param string
+ * @return integer
  */
 function smarty_modifier_count_words($string)
 {

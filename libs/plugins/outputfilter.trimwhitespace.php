@@ -1,22 +1,29 @@
 <?php
-/*
+/**
  * Smarty plugin
- * -------------------------------------------------------------
- * File:     outputfilter.trimwhitespace.php
- * Type:     outputfilter
- * Name:     trimwhitespace
- * Version:  1.3
- * Date:     Jan 25, 2003
+ * @package Smarty
+ * @subpackage plugins
+ */
+
+/**
+ * Smarty trimwhitespace outputfilter plugin
+ *
+ * File:     outputfilter.trimwhitespace.php<br>
+ * Type:     outputfilter<br>
+ * Name:     trimwhitespace<br>
+ * Date:     Jan 25, 2003<br>
  * Purpose:  trim leading white space and blank lines from
  *           template source after it gets interpreted, cleaning
  *           up code and saving bandwidth. Does not affect
- *           <PRE></PRE> and <SCRIPT></SCRIPT> blocks.
+ *           <<PRE>></PRE> and <SCRIPT></SCRIPT> blocks.<br>
  * Install:  Drop into the plugin directory, call 
- *           $smarty->load_filter('output','trimwhitespace');
+ *           <code>$smarty->load_filter('output','trimwhitespace');</code>
  *           from application.
- * Author:   Monte Ohrt <monte@ispi.net>
- * Contribs: Lars Noschinski <lars@usenet.noschinski.de>
- * -------------------------------------------------------------
+ * @author   Monte Ohrt <monte@ispi.net>
+ * @author Contributions from Lars Noschinski <lars@usenet.noschinski.de>
+ * @version  1.3
+ * @param string
+ * @param Smarty
  */
  function smarty_outputfilter_trimwhitespace($source, &$smarty)
  {

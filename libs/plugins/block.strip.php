@@ -6,12 +6,17 @@
  */
 
 /**
- * Smarty textformat plugin
+ * Smarty {strip}{/strip} block plugin
  *
  * Type:     block function<br>
  * Name:     strip<br>
  * Purpose:  strip unwanted white space from text<br>
- *
+ * @link http://smarty.php.net/manual/en/language.function.strip.php {strip}
+ *       (Smarty online manual)
+ * @param array unused, no parameters for this block
+ * @param string content of {strip}{/strip} tags
+ * @param Smarty clever method emulation
+ * @return string $content stripped of whitespace
  */
 function smarty_block_strip($params, $content, &$this)
 {

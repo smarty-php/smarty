@@ -1,10 +1,18 @@
 <?php
+/**
+ * Smarty shared plugin
+ * @package Smarty
+ * @subpackage plugins
+ */
 
-/*======================================================================*\
-    Function: smarty_make_timestamp
-    Purpose:  used by other smarty functions to make a timestamp
-              from a string.
-\*======================================================================*/
+
+/**
+ * Function: smarty_make_timestamp<br>
+ * Purpose:  used by other smarty functions to make a timestamp
+ *           from a string.
+ * @param string
+ * @return string
+ */
 function smarty_make_timestamp($string)
 {
     if(empty($string)) {

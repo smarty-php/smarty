@@ -1,12 +1,23 @@
 <?php
-
-/*
+/**
  * Smarty plugin
- * -------------------------------------------------------------
- * Type:     modifier
- * Name:     debug_print_var
+ * @package Smarty
+ * @subpackage plugins
+ */
+
+
+/**
+ * Smarty debug_print_var modifier plugin
+ *
+ * Type:     modifier<br>
+ * Name:     debug_print_var<br>
  * Purpose:  formats variable contents for display in the console
- * -------------------------------------------------------------
+ * @link http://smarty.php.net/manual/en/language.modifier.debug.print.var.php
+ *          debug_print_var (Smarty online manual)
+ * @param array|object
+ * @param integer
+ * @param integer
+ * @return string
  */
 function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
 {
