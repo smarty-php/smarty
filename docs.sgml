@@ -694,7 +694,7 @@ $smarty->display("index.tpl");
 </example>
             <para>
                 You can also pass a cache id as an an optional second parameter
-                in the case you want multiple caches for the given template.
+                in case you want multiple caches for the given template.
             </para>
 <example>
 <title>is_cached with multiple-cache template</title>
@@ -1566,7 +1566,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 <title>sectionelse</title>
 <programlisting>
 
-{* sectionelse will execute in the case there are no $custid values *}
+{* sectionelse will execute if there are no $custid values *}
 {section name=customer loop=$custid}
 	id: {$customer/custid}&lt;br&gt;
 {sectionelse}
@@ -2643,6 +2643,35 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
 </example>
 		</sect2>
 		<sect2>
+			<title>Combining Modifiers</title>
+			<para>
+            You can combine as many modifiers as you like on a single variable.
+            This allows the ability to combine the application of different
+            modifiers to a single variable. The modifiers will be applied to
+            the variable in the order they are combined, from left to right.
+			</para>
+<example>
+<title>combining modifiers</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|upper|spacify}
+{$articleTitle|lower|spacify|truncate}
+{$articleTitle|lower|truncate:30|spacify}
+{$articleTitle|lower|spacify|truncate:30:". . ."}
+
+OUTPUT:
+
+Smokers are Productive, but Death Cuts Efficiency.
+S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
+s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
+s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
+s m o k e r s   a r e   p. . .
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
 			<title>Creating your own Variable Modifiers</title>
 			<para>
 			Creating your own modifiers is a fairly straight forward process.
@@ -2829,8 +2858,8 @@ function makeTimeStamp($year="",$month="",$day="")
     added other features too numerous to mention.
 	</para>
 	<para>
-    Anne Holz &lt;anne@ispi.net&gt;: Many of Smarty's formatting features were
-    a direct result of needs from her department.
+    Anne Holz &lt;anne@ispi.net&gt;: Provided creative input with respect
+    to web design.
 	</para>
 	<para>
 	Frank Kromann &lt;fmk@php.net&gt;: Idea of custom function ability.

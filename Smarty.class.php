@@ -85,7 +85,8 @@ class Smarty
 
 
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
-                                    'html_select_date'  => 'smarty_func_html_select_date'
+                                    'html_select_date'  => 'smarty_func_html_select_date',
+                                    'math'              => 'smarty_func_math'
                                  );
     
     var $custom_mods     =  array(  'lower'         => 'strtolower',
@@ -510,7 +511,7 @@ class Smarty
         preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_contents, $match);
         $this->_literal_blocks = $match[1];
         $template_contents = preg_replace("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s",
-                                          '{literal}', $template_contents);
+                                        $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_contents);
 
         /* Gather all template tags. */
         preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_contents, $match);
@@ -712,7 +713,7 @@ class Smarty
                 $arg_value = $arg_value ? 'true' : 'false';
             $arg_list[] = "'$arg_name' => $arg_value";
         }
-
+        
         return "<?php $function(array(".implode(',', (array)$arg_list).")); ?>";
     }
 
@@ -1350,6 +1351,14 @@ class Smarty
         return true;
     }
 
+/*======================================================================*\
+    Function:   quote_replace
+    Purpose:    Quote subpattern references
+\*======================================================================*/
+    function quote_replace($string)
+    {
+        return preg_replace('![\\$]\d!', '\\\\\\0', $string);
+    }
 
 /*======================================================================*\
     Function:   _set_error_msg()
