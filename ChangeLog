@@ -1,3 +1,9 @@
+2004-12-15  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/function.popup.php:
+      fix invalid HTML issue with popup
+
 2004-12-06  boots  <jayboots@yahoo.com>
 
     * NEWS
