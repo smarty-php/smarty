@@ -1,3 +1,4 @@
+  - fix bug where config file starts with hidden section (boots, Monte)
   - add discrete error checking pertaining to $cache_dir
     and $compile_dir, their existance and writability (Monte)
   - fixed behaviour of start=... for {counter} (messju)

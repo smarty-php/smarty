@@ -262,7 +262,7 @@ class Config_File {
 		$config_data = array();
 
 		/* Get global variables first. */
-		if (preg_match("/^(.*?)(\n\[|\Z)/s", $contents, $match))
+		if ($contents{0} != '[' && preg_match("/^(.*?)(\n\[|\Z)/s", $contents, $match))
 			$config_data["vars"] = $this->_parse_config_block($match[1]);
 		
 		/* Get section variables. */
