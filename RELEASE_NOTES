@@ -1,7 +1,7 @@
 2.5.0-RC1
 ---------
 
-Release Candidate 1. All $smarty vars can now by dynamic, such as
+Release Candidate 1. All $smarty vars can now be dynamic, such as
 $smarty.get.$foo. A new class function get_function_object() gets you a
 reference to an assigned object, useful within your own custom functions.
 append() can now merge as well as append with a third optional attribute. A new
