@@ -1,3 +1,39 @@
+2004-09-16  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.assemble_plugin_filepath.php
+      libs/core/core.assign_smarty_interface.php
+      libs/core/core.create_dir_structure.php
+      libs/core/core.display_debug_console.php
+      libs/core/core.get_include_path.php
+      libs/core/core.get_microtime.php
+      libs/core/core.get_php_resource.php
+      libs/core/core.is_secure.php
+      libs/core/core.is_trusted.php
+      libs/core/core.load_plugins.php
+      libs/core/core.load_resource_plugin.php
+      libs/core/core.process_cached_inserts.php
+      libs/core/core.process_compiled_include.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.rm_auto.php
+      libs/core/core.rmdir.php
+      libs/core/core.run_insert_handler.php
+      libs/core/core.smarty_include_php.php
+      libs/core/core.write_cache_file.php
+      libs/core/core.write_compiled_include.php
+      libs/core/core.write_compiled_resource.php
+      libs/core/core.write_file.php
+      libs/plugins/function.config_load.php
+      libs/plugins/function.debug.php
+      libs/plugins/function.fetch.php
+      libs/plugins/function.html_image.php:
+      Moved /libs/core to /libs/internals and created new constant,
+      SMARTY_CORE_DIR which defaults to SMARTY_DIR/internals. This should help
+      CVS and rsynch users butupgrades will require changes and this may affect
+      3rd party plugins that use the /core dir.
+
 2004-09-15  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
