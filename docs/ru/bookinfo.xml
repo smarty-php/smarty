@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <bookinfo id="bookinfo">
   <title>Smarty - компилирующий обработчик шаблонов</title>
   <authorgroup id="authors">
@@ -25,7 +25,7 @@
   </authorgroup>
   <pubdate>&build-date;</pubdate>
   <copyright>
-   <year>2001-2004</year>
+   <year>2001-2005</year>
    <holder>ispi of Lincoln, Inc.</holder>
   </copyright>
  </bookinfo>
