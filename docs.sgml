@@ -609,8 +609,8 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));
 			<title>assign_debug_info</title>
 			<para>
 				This is used to assign debugging data to the template. This is
-				used exlusively by the <link
-				linkend="chapter.debugging.console">debugging console</link>.
+				used by the <link linkend="chapter.debugging.console">debugging
+				console</link>, and should probably never be used directly.
 			</para>
 <example>
 <title>assign</title>
@@ -4332,18 +4332,22 @@ s m o k e r s   a r e   p. . .
    There is a dubugging console included with Smarty. The console informs you
    of all the included templates and assigned variables for the current
    invocation of the template. A template named "debug.tpl" is included with
-   the distribution of Smarty. Set $debugging to true in Smarty and, if needed,
-   set $debug_tpl to the template resource path for debug.tpl (this is in
-   $template_dir by default.) When you load the page, a javascript console
-   window should pop up and give you the names of all the included templates
-   and assigned variables for the current page. To disable the debugging
-   console, set $debugging to false.
+   the distribution of Smarty which controls the formatting of the console. Set
+   $debugging to true in Smarty, and if needed set $debug_tpl to the template
+   resource path for debug.tpl (this is in $template_dir by default.) When you
+   load the page, a javascript console window should pop up and give you the
+   names of all the included templates and assigned variables for the current
+   page. To disable the debugging console, set $debugging to false.
    </para>
    <para>
-   TECHNICAL NOTE: The debugging console should be completely transparent to
-   your application. It is a set of javascript statements added to the very
-   bottom of the generated template. Debug data is not cached and is not
-   included in the output of the debug console.
+   TECHNICAL NOTE: The debugging console does not work when you use the fetch()
+   API, only when using display(). It also does not work when the template
+   content is pulled from the cache. The debugging console should be completely
+   transparent to your application. It is a set of javascript statements added
+   to the very bottom of the generated template. If you do not like javascript,
+   you can edit the debug.tpl template to format the output however you like.
+   Debug data is not cached and debug.tpl info is not included in the output of
+   the debug console.
    </para>
    <para>
    NOTE: This feature was added to Smarty 1.4.3.
