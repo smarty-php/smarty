@@ -86,6 +86,9 @@ function smarty_mod_escape($string, $esc_type = 'html')
 \*======================================================================*/
 function smarty_mod_truncate($string, $length = 80, $etc = '...', $break_words = false)
 {
+	if ($length == 0)
+		return '';
+
 	if (strlen($string) > $length) {
 		$length -= strlen($etc);
 		$fragment = substr($string, 0, $length+1);
