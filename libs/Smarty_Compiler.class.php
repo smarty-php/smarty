@@ -1746,7 +1746,7 @@ class Smarty_Compiler extends Smarty {
 			case 'const':
                 array_shift($indexes);
 				$_val = $this->_parse_var_props(substr($indexes[0],1));
-				$compiled_ref = '(defined(' . $_val . ') ? ' . $this->_dequote($_val) . ' : null)';
+				$compiled_ref = '@constant(' . $_val . ')';
 				$_max_index = 1;
                 break;
 
