@@ -1,12 +1,26 @@
 <?php
-
-/*
+/**
  * Smarty plugin
- * -------------------------------------------------------------
- * Type:     function
- * Name:     config_load
+ * @package Smarty
+ * @subpackage plugins
+ */
+
+/**
+ * Smarty {config_load} function plugin
+ *
+ * Type:     function<br>
+ * Name:     config_load<br>
  * Purpose:  load config file vars
- * -------------------------------------------------------------
+ * @link http://smarty.php.net/manual/en/language.function.config.load.php {config_load}
+ *       (Smarty online manual)
+ * @param array Format:
+ * <pre>
+ * array('file' => required config file name,
+ *       'section' => optional config file section to load
+ *       'scope' => local/parent/global
+ *       'global' => overrides scope, setting to parent if true)
+ * </pre>
+ * @param Smarty
  */
 function smarty_function_config_load($params, &$smarty)
 {
