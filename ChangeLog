@@ -1,3 +1,15 @@
+2003-03-07  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/function.html_image.php:
+      change E_USER_ERROR to E_USER_NOTICE
+
+    * libs/plugins/function.html_image.php:
+      suppress warning in html_image
+
+    * NEWS
+      libs/plugins/function.html_image.php:
+      update changes to html_image
+
 2003-03-06  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml
