@@ -1,3 +1,9 @@
+2003-09-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml
+      docs/de/designers.sgml:
+      fixed description of cycle's advance-attribute
+
 2003-09-16  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
