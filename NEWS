@@ -1,3 +1,5 @@
+    - fix problem with inserts and nested fetches
+      (Rainer Collet, Monte)
     - added support for passing params to include_php
       (Tim Riley, Monte)
     - added support for math operators in if statements (Monte)

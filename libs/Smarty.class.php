@@ -1052,6 +1052,11 @@ class Smarty
         $this->_inclusion_depth = 0;
 
         if ($this->caching) {
+			if(!empty($this->_cache_info)) {
+				// nested call, init cache_info
+				$_cache_info = $this->_cache_info;
+				$this->_cache_info = array();
+			}
             if ($this->_read_cache_file($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_results)) {
                 if (@count($this->_cache_info['insert_tags'])) {
                     $this->_load_plugins($this->_cache_info['insert_tags']);
@@ -1085,9 +1090,12 @@ class Smarty
                     return $_smarty_results;
                 }
             } else {
-                $this->_cache_info = array();
                 $this->_cache_info['template'][] = $_smarty_tpl_file;
             }
+			if(isset($_cache_info)) {
+				// restore cache_info
+				$this->_cache_info = $_cache_info;
+			}
         }
 
         if (count($this->autoload_filters)) {
