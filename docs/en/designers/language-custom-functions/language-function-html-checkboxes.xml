@@ -84,6 +84,9 @@
  </para>
  <example>
   <title>html_checkboxes</title>
+  <para>
+   where PHP code is:
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -99,13 +102,16 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   where index.tpl is:
+   and index.tpl is:
   </para>
   <programlisting>
 <![CDATA[
 {html_checkboxes name="id" values=$cust_ids selected=$customer_id output=$cust_names separator="<br />"}
 ]]>
   </programlisting>
+  <para>
+   or where PHP code is:
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -123,7 +129,7 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   where index.tpl is:
+   and index.tpl is:
   </para>
   <programlisting>
 <![CDATA[
