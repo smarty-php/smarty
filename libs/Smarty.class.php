@@ -92,7 +92,7 @@ class Smarty
     /**
      * The directory where config files are located.
      * 
-reques     * @var string
+     * @var string
      */
     var $config_dir      =  'configs';
 
@@ -584,13 +584,6 @@ reques     * @var string
      * @var array
      */
     var $_cache_paths_file = null;
-
-    /**
-     * cached file paths
-     *
-     * @var array
-     */
-    var $_cache_paths_max = array('auto_file' => 500);	
 		
     /**#@-*/
     /**
@@ -601,7 +594,6 @@ reques     * @var string
      */
     function Smarty()
     {
-		$this->_cache_paths_file = $this->compile_dir . '/_smarty_cached_paths.php';
         foreach ($this->global_assign as $key => $var_name) {
             if (is_array($var_name)) {
                 foreach ($var_name as $var) {
@@ -1173,6 +1165,13 @@ reques     * @var string
     {
         static $_cache_info = array();
 
+		$this->_cache_paths_file = $this->compile_dir
+				. DIRECTORY_SEPARATOR
+				. '_smarty_cached_paths'
+				. DIRECTORY_SEPARATOR
+				. urlencode($resource_name)
+				. '.php';
+		
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
 
         if($this->security && !in_array($this->template_dir, $this->secure_dir)) {
@@ -1413,20 +1412,20 @@ reques     * @var string
     function _get_plugin_filepath($type, $name)
     {
 		$_cache_paths_key = $type . '/' . $name;
-		if(!$this->force_compile
+		if (isset($this->_cache_paths['plugins'][$_cache_paths_key])) {
+			return $this->_cache_paths['plugins'][$_cache_paths_key];
+		}
+		if (!$this->force_compile
 			&& !isset($this->_cache_paths)
 			&& file_exists($this->_cache_paths_file)) {
 			include_once($this->_cache_paths_file);
-		}
-		if (isset($this->_cache_paths['plugins'][$_cache_paths_key])) {
-			return $this->_cache_paths['plugins'][$_cache_paths_key];
 		}
 		
 		$_params = array('type' => $type, 'name' => $name);
 		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.assemble_plugin_filepath.php');
 		$_return = smarty_core_assemble_plugin_filepath($_params, $this);
 						
-		if($_return !== false) {
+		if ($_return !== false) {
 			$this->_cache_paths['plugins'][$_cache_paths_key] = $_return;
 			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_cache_paths_file.php');
 			smarty_core_write_cache_paths_file(null, $this);
@@ -1683,13 +1682,13 @@ reques     * @var string
     function _get_auto_filename($auto_base, $auto_source = null, $auto_id = null)
     {
 		$_cache_paths_key = $auto_base . '/' . $auto_source . '/' . $auto_id;
+		if (isset($this->_cache_paths['auto_file'][$_cache_paths_key])) {
+			return $this->_cache_paths['auto_file'][$_cache_paths_key];
+		}
 		if(!$this->force_compile
 			&& !isset($this->_cache_paths)
 			&& file_exists($this->_cache_paths_file)) {
 			include_once($this->_cache_paths_file);
-		}
-		if (isset($this->_cache_paths['auto_file'][$_cache_paths_key])) {
-			return $this->_cache_paths['auto_file'][$_cache_paths_key];
 		}
 
 		$_params = array('auto_base' => $auto_base, 'auto_source' => $auto_source, 'auto_id' => $auto_id);

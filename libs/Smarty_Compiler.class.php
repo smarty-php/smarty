@@ -369,14 +369,14 @@ class Smarty_Compiler extends Smarty {
                 }
             }
             $_plugins_params .= '))';
-			$plugins_code = "<?php require_once(SMARTY_DIR . 'core/core.load_plugins.php');\nsmarty_core_load_plugins($_plugins_params, \$this); ?>\n";
+			$plugins_code = "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.load_plugins.php');\nsmarty_core_load_plugins($_plugins_params, \$this); ?>\n";
             $template_header .= $plugins_code;
             $this->_plugin_info = array();
             $this->_plugins_code = $plugins_code;
         }
 
         if ($this->_init_smarty_vars) {
-            $template_header .= "<?php require_once(SMARTY_DIR . 'core/core.assign_smarty_interface.php');\nsmarty_core_assign_smarty_interface(null, \$this); ?>\n";
+            $template_header .= "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.assign_smarty_interface.php');\nsmarty_core_assign_smarty_interface(null, \$this); ?>\n";
             $this->_init_smarty_vars = false;
         }
 
@@ -837,7 +837,7 @@ class Smarty_Compiler extends Smarty {
 
 		$_params = "array('args' => array(".implode(', ', (array)$arg_list)."))";
 		
-        return "<?php require_once(SMARTY_DIR . 'core/core.run_insert_handler.php');\necho smarty_core_run_insert_handler($_params, \$this); ?>\n";
+        return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.run_insert_handler.php');\necho smarty_core_run_insert_handler($_params, \$this); ?>\n";
     }
 
 	/**
@@ -880,7 +880,7 @@ class Smarty_Compiler extends Smarty {
 		
 		$_params = "array('smarty_include_tpl_file' => " . $include_file . ", 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."))";
 	
-		$output .= "require_once(SMARTY_DIR . 'core/core.smarty_include.php');\nsmarty_core_smarty_include($_params, \$this);\n" .
+		$output .= "require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.smarty_include.php');\nsmarty_core_smarty_include($_params, \$this);\n" .
         "\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
         "unset(\$_smarty_tpl_vars);\n";
 
@@ -921,7 +921,7 @@ class Smarty_Compiler extends Smarty {
 
     	$_params = "array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."))";
 		
-		return "<?php require_once(SMARTY_DIR . 'core/core.smarty_include_php.php');\nsmarty_core_smarty_include_php($_params, \$this); ?>\n";
+		return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.smarty_include_php.php');\nsmarty_core_smarty_include_php($_params, \$this); ?>\n";
     }
 	
 
@@ -1953,7 +1953,7 @@ class Smarty_Compiler extends Smarty {
                 if ($prefilter === false) {
                     unset($this->_plugins['prefilter'][$filter_name]);
 					$_params = array('plugins' => array(array('prefilter', $filter_name, null, null, false)));
-					require_once(SMARTY_DIR . 'core/core.load_plugins.php');
+					require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.load_plugins.php');
                     smarty_core_load_plugins($_params, $this);
                 }
             }
@@ -1963,7 +1963,7 @@ class Smarty_Compiler extends Smarty {
                 if ($postfilter === false) {
                     unset($this->_plugins['postfilter'][$filter_name]);
 					$_params = array('plugins' => array(array('postfilter', $filter_name, null, null, false)));
-					require_once(SMARTY_DIR . 'core/core.load_plugins.php');
+					require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.load_plugins.php');
                     smarty_core_load_plugins($_params, $this);
                 }
             }
