@@ -4767,14 +4767,14 @@ OUTPUT:
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>right</emphasis></entry>
-                        <entry>direction of one row to be rendered. possible values: <emphasis>left</emphasis>/<emphasis>right</emphasis>
+                        <entry>direction of one row to be rendered. possible values: <emphasis>left</emphasis>/<emphasis>right</emphasis></entry>
                     </row>
                     <row>
                         <entry>vdir</entry>
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>down</emphasis></entry>
-                        <entry>direction of the columns to be rendered. possible values: <emphasis>up</emphasis>/<emphasis>down</emphasis>
+                        <entry>direction of the columns to be rendered. possible values: <emphasis>up</emphasis>/<emphasis>down</emphasis></entry>
                     </row>
                 </tbody>
                 </tgroup>

@@ -20,17 +20,11 @@
  * You may contact the author of Config_File by e-mail at:
  * {@link andrei@php.net}
  *
- * Or, write to:
- * Andrei Zmievski
- * Software Engineer, ispi
- * 237 S. 70th suite 220
- * Lincoln, NE 68510
- *
  * The latest version of Config_File can be obtained from:
  * http://smarty.php.net/
  *
  * @link http://smarty.php.net/
- * @version 2.5.0
+ * @version 2.6.0-RC1-cvs
  * @copyright Copyright: 2001-2003 ispi of Lincoln, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public

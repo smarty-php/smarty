@@ -1,3 +1,6 @@
+Version 2.6.0-RC1 (August 11, 2003)
+-----------------------------------
+
   - fixed status-header for cache_modified_check under cgi-sapi (messju)
   - added optional parameter $cache_attrs to register_function() and
     register_block(). $cache_attrs is an array containing attribute-
