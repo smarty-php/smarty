@@ -1,11 +1,13 @@
+    - add javascript parameter to escape modifier (Monte)
+    - added correct line numbers to syntax error messages
+      in compiler (Monte)
     - added support for modifiers to function calls (Monte)
     - support return value for custom functions (Monte)
     - can access constants via $smarty.const.FOO (Monte)
     - cleaned up regex code in compiler (Monte)
-    - can now pass modifiers to static content,
-      among other minor syntax features (monte)
-    - fix up regex code in compiler, make much more flexible
-      (Monte)
+    - can now pass modifiers to static content (Monte)
+    - fix up regex code in compiler, more flexible and
+      maintainable (Monte)
     - added support for object method access (Monte)
     - added day_value_format to html_select_date (Marcus
       Bointon, Monte)

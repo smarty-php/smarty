@@ -8,7 +8,7 @@
 <style-specification id="docbook-smarty-html" use="docbook">
 <style-specification-body>
 
-(define %html-ext% ".html")
+(define %html-ext% ".php")
 
 &html-common.dsl;
 &common.dsl;
