@@ -1,3 +1,18 @@
+2003-03-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/modifier.truncate.php:
+      fixed length in modifier.truncate.php
+
+    * NEWS
+      libs/plugins/outputfilter.trimwhitespace.php:
+      fixed handling of '$'-signs in trimwhitespace outputfilter (messju)
+
+2003-03-12  Monte Ohrt  <monte@ispi.net>
+
+    * docs/programmers.sgml:
+      update technical explanation of assign_by_ref and append_by_ref
+
 2003-03-11  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
