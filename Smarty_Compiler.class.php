@@ -1446,7 +1446,7 @@ class Smarty_Compiler extends Smarty {
     function _expand_quoted_text($var_expr)
     {
 		// if contains unescaped $, expand it
-		if(preg_match_all('|(?<!\\\\)\$' . $this->_dvar_guts_regexp . '|', $var_expr, $match)) {
+		if(preg_match_all('|(?<!\\\\)\$\w+(?:' . $this->_var_bracket_regexp . ')*|', $var_expr, $match)) {
 			rsort($match[0]);
 			reset($match[0]);
 			foreach($match[0] as $var) {
@@ -1533,7 +1533,7 @@ class Smarty_Compiler extends Smarty {
         }
 
 		// look for variables imbedded in quoted strings, replace them
-        if(preg_match('!' . $this->_qstr_regexp . '!', $output, $match)) {
+        if(preg_match('|(?<!\\\\)\$|', $output, $match)) {
 			$output = str_replace($match[0], $this->_expand_quoted_text($match[0]), $output);
 		}
 		

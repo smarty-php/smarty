@@ -1,3 +1,5 @@
+    - change embedded variable logic to only recognize $foo and
+      $foo[0][bar] syntax (Monte)
     - allow null as function attribute value
       (André Rabold, Monte)
     - support $foo->bar[index] syntax (Monte)
