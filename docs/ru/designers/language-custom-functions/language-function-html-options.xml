@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.options">
  <title>html_options</title>
  <informaltable frame="all">
@@ -84,50 +84,56 @@
   <title>html_options</title>
   <programlisting>
 <![CDATA[
- index.php:
+ПРИМЕР 1
+--------
 
- require('Smarty.php.class');
- $smarty = new Smarty;
- $smarty->assign('cust_ids', array(1000,1001,1002,1003));
- $smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
- Johnson','Carlie Brown'));
- $smarty->assign('customer_id', 1001);
- $smarty->display('index.tpl');
+index.php:
 
- index.tpl:
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
+Johnson','Charlie Brown'));
+$smarty->assign('customer_id', 1001);
+$smarty->display('index.tpl');
 
- <select name=customer_id>
-  {html_options values=$cust_ids selected=$customer_id output=$cust_names}
- </select>
+index.tpl:
+
+<select name=customer_id>
+ {html_options values=$cust_ids selected=$customer_id output=$cust_names}
+</select>
+
+ПРИМЕР 2
+--------
+
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty->assign('cust_options', array(
+   1001 => 'Joe Schmoe',
+   1002 => 'Jack Smith',
+   1003 => 'Jane Johnson',
+   1004 => 'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
+$smarty->display('index.tpl');
+
+index.tpl:
+
+<select name=customer_id>
+ {html_options options=$cust_options selected=$customer_id}
+</select>
 
 
- index.php:
+РЕЗУЛЬТАТ: (оба примера)
+------------------------
 
- require('Smarty.php.class');
- $smarty = new Smarty;
- $smarty->assign('cust_options', array(
-    1001 => 'Joe Schmoe',
-    1002 => 'Jack Smith',
-    1003 => 'Jane Johnson',
-    1004 => 'Charlie Brown'));
- $smarty->assign('customer_id', 1001);
- $smarty->display('index.tpl');
-
- index.tpl:
-
- <select name=customer_id>
-  {html_options options=$cust_options selected=$customer_id}
- </select>
-
-
- OUTPUT: (both examples)
-
- <select name=customer_id>
-  <option value="1000">Joe Schmoe</option>
-  <option value="1001" selected="selected">Jack Smith</option>
-  <option value="1002">Jane Johnson</option>
-  <option value="1003">Charlie Brown</option>
- </select>
+<select name=customer_id>
+ <option value="1000">Joe Schmoe</option>
+ <option value="1001" selected="selected">Jack Smith</option>
+ <option value="1002">Jane Johnson</option>
+ <option value="1003">Charlie Brown</option>
+</select>
 ]]>
   </programlisting>
  </example>
