@@ -16,7 +16,8 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty)
 {
 
     $_plugin_filename = $params['type'] . '.' . $params['name'] . '.php';
-		
+    $_return = false;
+
     foreach ((array)$smarty->plugins_dir as $_plugin_dir) {
 
         $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
