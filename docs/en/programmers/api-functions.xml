@@ -648,7 +648,7 @@ $smarty->display("index.tpl");
 </programlisting>
 </example>
             <para>
-                You can also pass a cache id as an an optional second parameter
+                You can also pass a cache id as an optional second parameter
                 in case you want multiple caches for the given template.
             </para>
 <example>
