@@ -1093,7 +1093,7 @@ class Smarty_Compiler extends Smarty {
 					foreach($match[0] as $var) {
                 		$var_expr = str_replace ($var, '".' . $this->_parse_var($var) . '."', $var_expr);
 					}
-                	$tokens[$expr_index] = preg_replace(array('!^""\.!','!\.""\.!'), array('','.'), $var_expr);
+                	$tokens[$expr_index] = preg_replace(array('!(^""\.)|(\.""$)!','!\.""\.!'), array('','.'), $var_expr);
 				}
             }			
 		}
