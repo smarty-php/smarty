@@ -163,6 +163,7 @@ class Smarty
     var $_plugins              = array(      // table keeping track of plugins
                                        'modifier'  => array(),
                                        'function'  => array(),
+                                       'block'     => array(),
                                        'compiler'  => array(),
                                        'prefilter' => array(),
                                        'postfilter'=> array(),

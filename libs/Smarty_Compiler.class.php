@@ -332,6 +332,8 @@ class Smarty_Compiler extends Smarty {
             default:
                 if ($this->_compile_compiler_tag($tag_command, $tag_args, $output)) {
                     return $output;
+                } else if ($this->_compile_block_tag($tag_command, $tag_args, $output)) {
+                    return $output;
                 } else {
                     return $this->_compile_custom_tag($tag_command, $tag_args);
                 }
@@ -400,6 +402,89 @@ class Smarty_Compiler extends Smarty {
         } else {
             return false;
         }
+    }
+
+
+/*======================================================================*\
+    Function: _compile_block_tag
+    Purpose:  compile block function tag
+\*======================================================================*/
+    function _compile_block_tag($tag_command, $tag_args, &$output)
+    {
+        if ($tag_command{0} == '/') {
+            $start_tag = false;
+            $tag_command = substr($tag_command, 1);
+        } else
+            $start_tag = true;
+
+        $found = false;
+        $have_function = true;
+
+        $plugin_file = SMARTY_DIR .
+                       $this->plugins_dir .
+                       '/block.' .
+                       $tag_command .
+                       '.php';
+
+        /*
+         * First we check if the block function has already been registered
+         * or loaded from a plugin file.
+         */
+        if (isset($this->_plugins['block'][$tag_command])) {
+            $found = true;
+            $plugin_func = $this->_plugins['block'][$tag_command][0];
+            if (!function_exists($plugin_func)) {
+                $message = "block function '$tag_command' is not implemented";
+                $have_function = false;
+            }
+        }
+        /*
+         * Otherwise we need to load plugin file and look for the function
+         * inside it.
+         */
+        else if (file_exists($plugin_file) && is_readable($plugin_file)) {
+            $found = true;
+
+            include_once $plugin_file;
+
+            $plugin_func = 'smarty_block_' . $tag_command;
+            if (!function_exists($plugin_func)) {
+                $message = "plugin function $plugin_func() not found in $plugin_file\n";
+                $have_function = false;
+            } else {
+                $this->_plugins['block'][$tag_command] = array($plugin_func, null, null);
+            }
+        }
+
+        if (!$found) {
+            return false;
+        } else if (!$have_function) {
+            $this->_syntax_error($message, E_USER_WARNING);
+            return true;
+        }
+
+        /*
+         * Even though we've located the plugin function, compilation
+         * happens only once, so the plugin will still need to be loaded
+         * at runtime for future requests.
+         */
+        $this->_add_plugin('block', $tag_command);
+
+        $arg_list = array();
+        $attrs = $this->_parse_attrs($tag_args);
+        foreach ($attrs as $arg_name => $arg_value) {
+            if (is_bool($arg_value))
+                $arg_value = $arg_value ? 'true' : 'false';
+            $arg_list[] = "'$arg_name' => $arg_value";
+        }
+
+        if ($start_tag) {
+            $output = "<?php \$this->_plugins['block']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), null, \$this); ob_start(); ?>";
+        } else {
+            $output = "<?php \$this->_block = ob_get_contents(); ob_end_clean(); \$this->_plugins['block']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), \$this->_block, \$this); ?>";
+        }
+
+        return true;
     }
 
 
