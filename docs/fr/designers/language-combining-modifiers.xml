@@ -16,7 +16,7 @@
 
 $smarty = new Smarty;
 $smarty->assign('titreArticle', 'Les fumeurs sont productifs, mais la mort
-tue l'efficacitée.');
+tue l\'efficacitée.');
 $smarty->display('index.tpl');
 
 ?>
