@@ -2,8 +2,8 @@
       (Roberto Berto, Monte)
     - added YYYY-MM-DD format support to html_select_date
       (Jan Rosier, Monte)
-    - fixed cache_lifetime logic bug,
-      also made -1 = never expire (Monte)
+    - fixed cache_lifetime logic bug, also made -1 = never
+      expire (Monte)
     - fixed directory separator issue for Windows. (Andrei)
     - added ability to use simple variables as array indices or
       object properties. (Andrei)
