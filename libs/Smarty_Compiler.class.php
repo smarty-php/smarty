@@ -330,6 +330,26 @@ class Smarty_Compiler extends Smarty {
         }
         $compiled_content .= $text_blocks[$i];
 
+        /* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
+        if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_content, $_match)) {
+            $strip_tags = $_match[0];
+            $_strip_search = array(
+                '%([^\\\\]\?>)\n%', // remove newlines after PHP close tags
+                "!{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+!m", // remove leading/trailing space chars
+                '%[\r\n]+%m', // remove CRs and newlines
+                '%([^\\\\]\?>)%'); // replace newlines after PHP close tags
+            $_strip_replace = array(
+                '\\1',
+                '',
+                '',
+                '\\1' . "\n");
+            $strip_tags_modified = preg_replace($_strip_search, $_strip_replace, $strip_tags);
+            for ($i = 0, $for_max = count($strip_tags); $i < $for_max; $i++)
+                $compiled_content = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
+                                                  $this->quote_replace($strip_tags_modified[$i]),
+                                                  $compiled_content, 1);
+        }
+
         // remove \n from the end of the file, if any
         if (($_len=strlen($compiled_content)) && ($compiled_content{$_len - 1} == "\n" )) {
             $compiled_content = substr($compiled_content, 0, -1);
@@ -492,6 +512,9 @@ class Smarty_Compiler extends Smarty {
                 else
                     return "<?php endforeach; endif; ?>";
 
+            case 'strip':
+            case '/strip':
+                return $this->left_delimiter.$tag_command.$this->right_delimiter;
             case 'literal':
                 list (,$literal_block) = each($this->_literal_blocks);
                 $this->_current_line_no += substr_count($literal_block, "\n");
