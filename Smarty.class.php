@@ -1597,15 +1597,39 @@ function _run_insert_handler($args)
     function _create_dir_structure($dir)
     {
         if (!@file_exists($dir)) {
-            $dir_parts = preg_split('!\\'.DIR_SEP.'+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
-            $new_dir = ($dir{0} == DIR_SEP) ? DIR_SEP : '';
-            foreach ($dir_parts as $dir_part) {
-                $new_dir .= $dir_part;
-                if (!file_exists($new_dir) && !mkdir($new_dir, 0771)) {
+            $_dir_parts = preg_split('!\\'.DIR_SEP.'+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
+            $_new_dir = ($dir{0} == DIR_SEP) ? DIR_SEP : '';
+			
+			// do not attempt to test or make directories outside of open_basedir
+			$_open_basedir_ini = ini_get('open_basedir');
+			if(!empty($_open_basedir_ini)) {
+				$_use_open_basedir = true;
+            	$_open_basedir_sep = (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') ? ';' : ':';
+            	$_open_basedirs = explode($_open_basedir_sep, $_open_basedir_ini);
+			} else {					
+				$_use_open_basedir = false;
+			}
+
+            foreach ($_dir_parts as $_dir_part) {
+                $_new_dir .= $_dir_part;
+
+                if ($_use_open_basedir) {
+                    $_make_new_dir = false;
+                    foreach ($_open_basedirs as $_open_basedir) {
+                        if (substr($_new_dir.'/', 0, strlen($_open_basedir)) == $_open_basedir) {
+                            $_make_new_dir = true;
+                            break;
+                        }
+                    }
+                } else {
+                	$_make_new_dir = true;					
+				}
+
+                if ($_make_new_dir && !@file_exists($_new_dir) && !@mkdir($_new_dir, 0771)) {
                     $this->trigger_error("problem creating directory \"$dir\"");
                     return false;
                 }
-                $new_dir .= DIR_SEP;
+                $_new_dir .= DIR_SEP;
             }
         }
     }
