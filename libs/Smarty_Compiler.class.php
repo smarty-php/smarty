@@ -116,7 +116,7 @@ class Smarty_Compiler extends Smarty {
 		// |foo:"bar":$foobar
 		// |foo|bar
 		// |foo
-		$this->_mod_regexp = '(?>\|@?\w+(?::(?>\w+|' . $this->_avar_regexp . '|' . $this->_qstr_regexp .'))*)*';
+		$this->_mod_regexp = '(?:\|@?\w+(?::(?>\w+|' . $this->_avar_regexp . '|' . $this->_qstr_regexp .'))*)';
 
 		// matches valid variable syntax:
 		// $foo
@@ -135,9 +135,19 @@ class Smarty_Compiler extends Smarty {
 		// $foo->bar($foo|bar, "foo"|bar)
 		// $foo->bar->foo()
 		// $foo->bar->foo->bar()
-    	$this->_obj_call_regexp = '(?:\$\w+(?:\.\w+)*(?:\->\w+)+(?:\((?:\w+|'
-				. $this->_var_regexp . $this->_mod_regexp . '(?:\s*,\s*(?:(?:\w+|'
-				. $this->_var_regexp . $this->_mod_regexp . ')))*)?\))?)';		
+    	$this->_obj_start_regexp = '(?:\$\w+(?:\.\w+)*(?:\->\w+)+)';
+
+		// matches valid object call (no objects allowed in parameters):
+		// $foo->bar
+		// $foo->bar()
+		// $foo->bar("text")
+		// $foo->bar($foo, $bar, "text")
+		// $foo->bar($foo|bar, "foo"|bar)
+		// $foo->bar->foo()
+		// $foo->bar->foo->bar()
+    	$this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:\((?:\w+|'
+				. $this->_var_regexp . '(?>' . $this->_mod_regexp . ')*(?:\s*,\s*(?:(?:\w+|'
+				. $this->_var_regexp . '(?>' . $this->_mod_regexp . ')*)))*)?\))?)';		
 
 		// matches valid function name:
 		// foo123
@@ -153,15 +163,16 @@ class Smarty_Compiler extends Smarty {
 		// "text"
 		// "text"|bar
 		// $foo->bar()
-		$this->_param_regexp = '(?:\s*(?:' . $this->_obj_call_regexp . '|' . $this->_var_regexp  . '|\w+)' . $this->_mod_regexp . '\s*)';		
+		$this->_param_regexp = '(?:\s*(?:\(array|int\)\s*)?(?:' . $this->_obj_call_regexp . '|' . $this->_var_regexp  . '|\w+)(?>' . $this->_mod_regexp . ')*\s*)';		
 		
 		// matches valid parenthesised function parameters:
 		// 
 		// "text"
 		//	$foo, $bar, "text"
 		// $foo|bar, "foo"|bar, $foo->bar($foo)|bar
-    	$this->_parenth_param_regexp = '(?:\((?:' . $this->_param_regexp 
-				. '(?:,(?:' . $this->_param_regexp . '))*)?\))';
+    	$this->_parenth_param_regexp = '(?:\((?:\w+|'
+				. $this->_param_regexp . '(?:\s*,\s*(?:(?:\w+|'
+				. $this->_param_regexp . ')))*)?\))';
 	
 		// matches valid function call:
 		// foo()
@@ -344,7 +355,7 @@ class Smarty_Compiler extends Smarty {
             return '';
 		
         /* Split tag into two three parts: command, command modifiers and the arguments. */
-        if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '))
+        if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . ')*)
                       (?:\s+(.*))?$
                     /xs', $template_tag, $match)) {
 			$this->_syntax_error("unrecognized tag: $template_tag");
@@ -357,9 +368,8 @@ class Smarty_Compiler extends Smarty {
         /* If the tag name is not a function, we process it. */		
 		
         if (!preg_match('!^\/?' . $this->_func_regexp . '$!', $tag_command)) {
-            $array_tag_command = array($tag_command . $tag_modifier);
-            $this->_parse_vars_props($array_tag_command);
-            return "<?php echo $array_tag_command[0]; ?>\n";
+            $return = $this->_parse_var_props($tag_command . $tag_modifier);
+            return "<?php echo $return; ?>\n";
 		}
 
         switch ($tag_command) {
@@ -953,19 +963,24 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_if_tag($tag_args, $elseif = false)
     {
-						
+
         /* Tokenize args for 'if' tag. */
         preg_match_all('/(?>
-				' . $this->_func_call_regexp . '							| # valid function call
-				' . $this->_obj_call_regexp . $this->_mod_regexp . '		| # valid object call
-				' . $this->_var_regexp . $this->_mod_regexp . '				| # var or quoted string
-				\d+|!==|<=>|==|!=|<=|=>|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%		| # valid non-word token
-				\b(even|odd|neq|lte|gte|and|not|mod|div|eq|ne|lt|le|gt|ge|or|is|by)\b |	  # valid word token
+				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . ')* | # valid object call
+				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')*	| # var or quoted string
+				\d+|!==|<=>|==|!=|<=|=>|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%	| # valid non-word token
+				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
 				
         $tokens = $match[0];
-						
+
+	// make sure we have balanced parenthesis
+		$token_count = array_count_values($tokens);
+		if(isset($token_count['(']) && $token_count['('] != $token_count[')']) {
+			$this->_syntax_error("unbalanced parenthesis");					
+		}
+												
         $is_arg_stack = array();
 
         for ($i = 0; $i < count($tokens); $i++) {
@@ -1059,25 +1074,31 @@ class Smarty_Compiler extends Smarty {
                     break;
 
 				case ')':
+				case ',':
 					break;	
 					
                 default:
-					if(preg_match('!^(' . $this->_func_regexp . ')(' . $this->_parenth_param_regexp . ')$!', $token, $match)) {
+					if(preg_match('!^' . $this->_func_regexp . '$!', $token) ) {
 							// function call	
                     		if($this->security &&
-                    		   $i+1 < count($tokens) &&
-                    		   $tokens[$i+1] == '(' &&
-                    		   !in_array($match[1], $this->security_settings['IF_FUNCS'])) {
-                        		$this->_syntax_error("(secure mode) '".$tokens[$i]."' not allowed in if statement");
+                    		   !in_array($token, $this->security_settings['IF_FUNCS'])) {
+                        		$this->_syntax_error("(secure mode) '$token' not allowed in if statement");
 							}							
-							$token = str_replace($match[2], $this->_parse_parenth_args($match[2]), $token);
-					} else {						
+					} elseif(preg_match('!^' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')*$!', $token)) {
+						// variable
         				$token = $this->_parse_var_props($token);
+					} elseif(preg_match('!^' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . ')*$!', $token)) {
+						// object
+        				$token = $this->_parse_var_props($token);
+					} elseif(is_numeric($token)) {
+						// number, skip it
+					} else {
+                		$this->_syntax_error("unidentified token '$token'");						
 					}
                     break;
             }
         }
-
+				
         if ($elseif)
             return '<?php elseif ('.implode(' ', $tokens).'): ?>';
         else
@@ -1235,33 +1256,33 @@ class Smarty_Compiler extends Smarty {
     {					
 
 		$val = trim($val);
-				
-        if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')' . $this->_mod_regexp . '$!', $val)) {
+
+        if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(?:' . $this->_mod_regexp . ')*$!', $val)) {
 				// $ variable or object
                 return $this->_parse_var($val);
 			}			
-        elseif(preg_match('!^' . $this->_db_qstr_regexp . $this->_mod_regexp . '$!', $val)) {
+        elseif(preg_match('!^' . $this->_db_qstr_regexp . '(?:' . $this->_mod_regexp . ')*$!', $val)) {
 				// double quoted text
-				preg_match('!^(' . $this->_db_qstr_regexp . ')('. $this->_mod_regexp . ')$!', $val, $match);
+				preg_match('!^(' . $this->_db_qstr_regexp . ')('. $this->_mod_regexp . ')*$!', $val, $match);
                 $return = $this->_expand_quoted_text($match[1]);
 				if($match[2] != '') {
 					$this->_parse_modifiers($return, $match[2]);
 				}
 				return $return;
 			}			
-        elseif(preg_match('!^' . $this->_si_qstr_regexp . $this->_mod_regexp . '$!', $val)) {
+        elseif(preg_match('!^' . $this->_si_qstr_regexp . '(?:' . $this->_mod_regexp . ')*$!', $val)) {
 				// single quoted text
-				preg_match('!^(' . $this->_si_qstr_regexp . ')('. $this->_mod_regexp . ')$!', $val, $match);
+				preg_match('!^(' . $this->_si_qstr_regexp . ')('. $this->_mod_regexp . ')*$!', $val, $match);
 				if($match[2] != '') {
 					$this->_parse_modifiers($match[1], $match[2]);
                 	return $match[1];
 				}	
 			}			
-        elseif(preg_match('!^' . $this->_cvar_regexp . $this->_mod_regexp . '$!', $val)) {
+        elseif(preg_match('!^' . $this->_cvar_regexp . '(?:' . $this->_mod_regexp . ')*$!', $val)) {
 				// config var
                 return $this->_parse_conf_var($val);
 			}			
-        elseif(preg_match('!^' . $this->_svar_regexp . $this->_mod_regexp . '$!', $val)) {
+        elseif(preg_match('!^' . $this->_svar_regexp . '(?:' . $this->_mod_regexp . ')*$!', $val)) {
 				// section var
                 return $this->_parse_section_prop($val);
 			}
@@ -1297,12 +1318,12 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _parse_var($var_expr)
     {
-		
-		preg_match('!(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . ')(' . $this->_mod_regexp . ')$!', $var_expr, $match);
+				
+		preg_match('!(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . ')(' . $this->_mod_regexp . ')*$!', $var_expr, $match);
 				
         $var_ref = substr($match[1],1);
         $modifiers = $match[2];
-		
+				
 		if(!empty($this->default_modifiers) && !preg_match('!(^|\|)smarty:nodefaults($|\|)!',$modifiers)) {
 			$_default_mod_string = implode('|',(array)$this->default_modifiers);
 			$modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
