@@ -1,3 +1,10 @@
+2003-11-20  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      change version to 2.6.1-dev
+
 2003-11-19  Monte Ohrt  <monte@ispi.net>
 
     * (Smarty_2_6_0)
