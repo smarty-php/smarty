@@ -1,3 +1,8 @@
+2003-05-22  Monte Ohrt  <monte@ispi.net>
+
+    * docs/fr/programmers.sgml:
+      fix special chars
+
 2003-04-20  Greg Beaver <cellog@users.sourceforge.net>
     * plugins/*
       Smarty.class.php
