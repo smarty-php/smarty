@@ -1,3 +1,8 @@
+2002-05-06  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.fetch.php:
+    update fetch function with more error checking
+
 2002-05-03  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml
