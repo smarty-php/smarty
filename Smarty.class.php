@@ -755,10 +755,17 @@ function _generate_debug_output() {
          * Find out if the resource exists.
          */
 		
-        $readable = true;
-        if ($resource_type == 'file' && !@is_file($resource_name)) {
+        if ($resource_type == 'file') {
             $readable = false;
+            $include_paths = preg_split('![:;]!', ini_get('include_path'));
+            foreach ($include_paths as $path) {
+                if (@is_file($path . DIRECTORY_SEPARATOR . $resource_name)) {
+                    $readable = true;
+                    break;
+                }
+            }
         } else if ($resource_type != 'file') {
+            $readable = true;
             $resource_func = $this->_plugins['resource'][$resource_type][0][0];
             $readable = $resource_func($resource_name, $template_source, $this);
         }
