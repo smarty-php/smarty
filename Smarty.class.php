@@ -5,7 +5,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:             1.4.0
+ * Version:             1.4.1
  * Copyright:           2001 ispi of Lincoln, Inc.
  *              
  * This library is free software; you can redistribute it and/or
@@ -130,7 +130,7 @@ class Smarty
                                     'count_paragraphs'  => 'smarty_mod_count_paragraphs'
                                  );
                                  
-    var $version               =   '1.4.0';  // Smarty version number                     
+    var $version               =   '1.4.1';  // Smarty version number                     
     var $show_info_header      =   false;     // display HTML info header at top of page output
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by

@@ -1,3 +1,13 @@
+1.4.1
+-----
+
+It seems that the EX_LOCK logic from the previous release didn't fix all the
+problems with windows platforms. Hopefully this one does. It basically
+disables file locking on windows, so there is a potential that two programs
+could write over the same file at the same time, fyi.
+
+The reset is minor bug fixes, please refer to the ChangeLog file.
+
 1.4.0
 -----
 
