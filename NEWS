@@ -1,3 +1,4 @@
+    - fix html_radios to not return an array (Monte)
     - fixed length in modifier.truncate.php (messju)
     - fixed handling of '$'-signs in trimwhitespace outputfilter (messju)
     - fix bug that makes config files recompile every time

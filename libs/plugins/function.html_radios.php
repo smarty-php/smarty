@@ -49,7 +49,7 @@ function smarty_function_html_radios($params, &$smarty)
 }
 
 function smarty_function_html_radios_output($name, $value, $output, $checked, $separator) {
-	$_output = '<input type="radio" name="' . smarty_function_escape_special_chars($name) . '[]' .'" value="' . smarty_function_escape_special_chars($value) . '"';
+	$_output = '<input type="radio" name="' . smarty_function_escape_special_chars($name) . '" value="' . smarty_function_escape_special_chars($value) . '"';
 	
     if (in_array($value, $checked)) {
        	$_output .= " checked=\"checked\"";
