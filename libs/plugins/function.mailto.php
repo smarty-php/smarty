@@ -48,40 +48,40 @@
  */
 function smarty_function_mailto($params, &$smarty)
 {
-    $extra = '';
-    extract($params);
+    $extra = '';    
 
-    if (empty($address)) {
+    if (empty($params['address'])) {
         $smarty->trigger_error("mailto: missing 'address' parameter");
         return;
+    } else {
+        $address = $params['address'];
     }
 
-    if (empty($text)) {
-        $text = $address;
-    }
+    $text = $address;
 
     // netscape and mozilla do not decode %40 (@) in BCC field (bug?)
     // so, don't encode it.
-
     $mail_parms = array();
-    if (!empty($cc)) {
-        $mail_parms[] = 'cc='.str_replace('%40','@',rawurlencode($cc));
-    }
+    foreach ($params as $var=>$value) {
+        switch ($var) {
+            case 'cc':
+            case 'bcc':
+            case 'followupto':
+                if (!empty($value))
+                    $mail_parms[] = $var.'='.str_replace('%40','@',rawurlencode($value));
+                break;
+                
+            case 'subject':
+            case 'newsgroups':
+                $mail_parms[] = $var.'='.rawurlencode($value);
+                break;
 
-    if (!empty($bcc)) {
-        $mail_parms[] = 'bcc='.str_replace('%40','@',rawurlencode($bcc));
-    }
+            case 'extra':
+            case 'text':
+                $$var = $value;
 
-    if (!empty($subject)) {
-        $mail_parms[] = 'subject='.rawurlencode($subject);
-    }
-
-    if (!empty($newsgroups)) {
-        $mail_parms[] = 'newsgroups='.rawurlencode($newsgroups);
-    }
-
-    if (!empty($followupto)) {
-        $mail_parms[] = 'followupto='.str_replace('%40','@',rawurlencode($followupto));
+            default:
+        }
     }
 
     $mail_parm_vals = '';
@@ -91,9 +91,8 @@ function smarty_function_mailto($params, &$smarty)
     }
     $address .= $mail_parm_vals;
 
-    if (empty($encode)) {
-        $encode = 'none';
-    } elseif (!in_array($encode,array('javascript','hex','none')) ) {
+    $encode = (empty($params['encode'])) ? 'none' : $params['encode'];
+    if (!in_array($encode,array('javascript','hex','none')) ) {
         $smarty->trigger_error("mailto: 'encode' parameter must be none, javascript or hex");
         return;
     }
