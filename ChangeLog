@@ -1,3 +1,10 @@
+2002-08-01  mohrt  <mohrt@pb1.pair.com>
+
+    * TODO
+      NEWS
+      Smarty.class.php:
+    changed default warning type for plugin errors from E_USER_WARNING to E_USER_ERROR
+
 2002-07-29  mohrt  <mohrt@pb1.pair.com>
 
     * plugins/function.html_select_time.php
