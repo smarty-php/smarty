@@ -1,3 +1,9 @@
+2003-07-28  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      quote smarty-header properly to prevent resource-names from escaping from
+      the comment
+
 2003-07-25  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/core/core.create_dir_structure.php:
