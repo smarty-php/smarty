@@ -3,69 +3,68 @@
   <chapter id="config.files">
    <title>Arquivos de Configuração</title>
    <para>
-    Arquivos de configuração são úteis para designers gerenciarem váriaveis
-    globais para os templates a partir de um arquivo. Um exemplo são as cores do template. Normalmente se
-    se você quer mudar o tema de cores para uma aplicação, você deve ir
-    em cada um dos arquivos de template e mudar as cores. Com
-    um arquivo de configuração, as cores podem ser mantidas em um lugar, e apenas
-    um arquivo precisa ser atualizado.
+    Arquivos de configuração são úteis para designers que gerenciam variáveis globais 
+	para os templates à partir de um arquivo. Um exemplo são as cores do template. 
+	Normalmente se você quisesse mudar o tema de cores de uma aplicação, você teria 
+	que abrir cada arquivo de template e alterar as cores. Com arquivos de configurações, 
+	as cores podem ser armazenadas em um lugar, e apenas um arquivo precisaria ser alterado.
    </para>
    <example>
-    <title>Examplo de sintaxe de um arquivo de configuração</title>
+    <title>Exemplo de sintaxe de um arquivo de configuração</title>
     <programlisting>
-# global variables
-pageTitle = "Main Menu"
-bodyBgColor = #000000
-tableBgColor = #000000
-rowBgColor = #00ff00
+<![CDATA[
+# variáveis globais
+tituloPagina = "Menu Principal"
+corfundoPagina = #000000
+corfundoTabela = #000000
+corlinhaTabela = #00ff00
 
-[Customer]
-pageTitle = "Customer Info"
+[Consumidor]
+tituloPagina = "Informações do Consumidor"
 
 [Login]
-pageTitle = "Login"
-focus = "username"
-Intro = """este é um valor
-           que se divide m mais de uma linha. deve
-           estar dentro de três aspas."""
+tituloPagina = "Login"
+focus = "nomeusuario"
+Intro = """Este é um valor que ultrapassa uma 
+           linha. Você deve colocá-lo 
+           dentre três aspas."""
 
-# hidden section
-[.Database]
-host=my.domain.com
-db=ADDRESSBOOK
-user=php-user
-pass=foobar</programlisting>
+# seção invisível
+[.BancoDeDados]
+host=meu.dominio.com
+bd=LIVRODEVISITAS
+usuario=usuario-php
+senha=foobar
+]]>
+</programlisting>
    </example>
    <para>
-    Valores de variáveis podem estar entre aspas, mas não é necessário.
-    Você pode usar aspas simples ou duplas. Se você tiver um valor que 
-    ocupe mais de uma linha, coloque todo o valor entre três aspas
-    ("""). Você pode colocar comentários em um arquivo de configuração com qualquer sintaxe
-    que não seja válida em um arquivo de configuração. Nós recomendamos usar um <literal>#</literal>
-    (cancela) no ínicio de cada linha.
+    Valores de variáveis de arquivos de configuração pode estar entre aspas, 
+	mas não é necessário. Você pode usar tanto aspas simples como duplas. 
+	Se você tiver um valor que ocupe mais de uma linha, coloque-o dentre três aspas 
+	("""). Você pode colocar comentários em arquivos de configuração com qualquer 
+	sintaxe que não é válida para um arquivo de configuração. Nós recomendamos usar um 
+	<literal>#</literal> (cancela) no início de cada linha que contém o comentário.
    </para>
    <para>
-    Este arquivo de onfiguração tem duas seções. Nomes de seções devem estar entre conchetes
-    []. Nomes de seção podem ser string arbritraria que não contenham os símbolos
-    <literal>[</literal> ou <literal>]</literal>. As quatro variáveis no top são
-    variáveis globais, ou variáveis sem seção.
-    Estas variáveis são sempre carregadas do arquivo de configuração. Se uma seção em
-    particular for carregada, então as variáveis globais e as variáveis desta seção são carregadas.
-    Se uma variável existir como global e dentro de uma seção,
-    a variável da seção será utilizada. Se você tiver duas variáveis na mesma seção com o mesmo nome,
-    a última será utilizada.
+    Este arquivo de configuração tem duas seções. Nomes de seções devem estar entre conchetes []. 
+	Nomes de seção podem ser string arbritraria que não contenham os símbolos 
+	<literal>[</literal> ou <literal>]</literal>. As quatro variáveis no topo são variáveis globais, 
+	ou variáveis que não pertencem à uma seção. Estas variáveis sempre são carregadas do arquivo de 
+	configuração. Se uma seção em particular é carregada, então as variáveis globais e as variáveis 
+	desta seção também são carregadas. Se uma variável de seção e global já existirem, 
+	a variável de seção será utilizada. Se você tiver duas variáveis na mesma seção com o mesmo nome, 
+	a última será utilizada.
    </para>
    <para>
-    Arquivos de configuração são carregados no template com a função embutida
-    <command>config_load</command>.
+    Arquivos de configuração são carregados no template usando a função embutida <command>config_load</command>.
    </para>
    <para>
-    Você pode esconder variáveis ou seções inteiras colocando um ponto
-    antes do nome da variável. Isto é útil se a sua aplicação
-    se arquivos de configuração e lê dados sensíveis a partir deles
-    que a ferramenta de template não precisa. Se você tem terceiros fazendo a edição de templates,
-    você terá certesa que eles não leiam dados sensíveis
-    do arquivo de configuração carregando ele no template.
+    Você pode esconder as variáveis ou uma seção inteira colocando um ponto 
+	antes do nome da seção ou variávei. Isso é útil em casos no qual sua aplicação lê 
+	arquivos de configuração e obtém dados sensíveis que não são necessários para o sistema 
+	de templates. Se a edição de seus templates é terceirizada, você terá certeza que eles não 
+	irão ler os dados sensíveis do arquivo de configuração que é carregado no template.
    </para>
 </chapter>
 <!-- Keep this comment at the end of the file

@@ -3,27 +3,30 @@
    <sect1 id="language.syntax.comments">
     <title>Comentários</title>
     <para>
-     Comentários de template são cercados por asteriscos, e são cercados por
-     delimitadores, assim: {* este é um comentário *}.
-     Comentários Smarty não são mostrado na saída final do template.
-     Eles são usados para fazer notas internas nos templates.
+     Os comentários do template ficam entre asteriscos dentro de delimitadores, 
+	 exemplo: {* este é um comentário *}. Comentários do Smarty não são 
+	 exibidos no resultado final do template. Eles são usados para fazer 
+	 anotações internas nos templates.
     </para>
     <example>
      <title>Comentários</title>
      <programlisting>
+<![CDATA[
 {* Smarty *}
 
-{* inclui o arquivo header aqui *}
-{include file="header.tpl"}
+{* inclua o arquivo de cabeçalho aqui *}
+{include file="cabecalho.tpl"}
 
-{include file=$includeFile}
+{include file=$arquivoInclude}
 
-{include file=#includeFile#}
+{include file=#arquivoInclude#}
 
-{* Mostra listas dropdown *}
-&lt;SELECT name=company&gt;
+{* mostra lista dropdown *}
+<select name="empresa">
 {html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
+</select>
+]]>
+</programlisting>
     </example>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -3,55 +3,54 @@
     <chapter id="language.modifiers">
      <title>Modificadores de variáveis</title>
      <para>
-      Modificadores de variáveis podem ser aplicados a variáveis, funções customizadas
+      Modificadores de variáveis podem ser aplicados a variáveis, funções personalizadas 
       ou strings. Para aplicar um modificador, especifique o valor seguido por
       <literal>|</literal>(pipe) e o nome do modificador. Um modificador aceita
-      parâmetros adicionais que afetam o seu funcionamento. Estes parâmetros seguem
+      parâmetros adicionais que afetam o seu comportamento. Estes parâmetros vem após 
       o nome do modificador e são separados por <literal>:</literal> (dois pontos).
      </para>
      <example>
       <title>Exemplo de modificador</title>
       <programlisting>
-{* Transforma para maiúsculas *}
-&lt;h2&gt;{$title|upper}&lt;/h2&gt;
+<![CDATA[
+{* Faz o título ficar com letras maiúsculas *}
+<h2>{$titulo|upper}</h2>
 
-{* Trunca o $topic para 40 caracteres usa ... no final *}
-Topic: {$topic|truncate:40:"..."}
+{* Faz com que $topico use somente 40 caracteres, e coloca ... no fim da frase *}
 
-{* formata uma string literal *}
-{"now"|date_format:"%Y/%m/%d"}
+Tópico: {$topico|truncate:40:"..."}
 
-{* aplica um modificador para uma função customizada *}
-{mailto|upper address="me@domain.dom"}</programlisting>
+{* transforma a data em um formato legível *}
+{"agora"|date_format:"%Y/%m/%d"}
+
+{* aplica um modificador à uma função personalizada *}
+{mailto|upper address="eu@dominio.dom"}
+]]>
+</programlisting>
      </example>
      <para>
-      Se você aplicar um modificador para uma matriz ao invés de o valor de uma variável,
-      o modificador vai ser aplicado em cada valor desta matriz. Se você realmente quiser
-      que o funciona em uma matriz inteira, você deve colocar um simbolo
-      <literal>@</literal> antes do nome do modificador, assim como:
-      <literal>{$articleTitle|@count}</literal> (isto irá mostrar o número de elementos 
-      na matriz $articleTitle.)
+      Se você aplicar um modificador à uma matriz ao invés de aplicar ao valor de uma variável, 
+	  o modificador vai ser aplicado à cada valor da matriz especificada. Se você quer que o modificador 
+	  use a matriz inteira como um valor, você deve colocar o símbolo <literal>@</literal> antes do 
+	  nome do modificador, como a seguir: <literal>{$tituloArtigo|@count}</literal> 
+	  (isto irá mostrar o número de elementos na matriz $tituloArtigo).
      </para>
      <para>
-      Modificadores podem ser carregados automaticamente a partir do seu <link
-      linkend="variable.plugins.dir">$plugins_dir</link> (veja também:
-      <link linkend="plugins.naming.conventions">Naming
-      Conventions</link>) ou podem ser registrados explicitamente (veja: <link
-      linkend="api.register.modifier">register_modifier</link>).
-      Adicionalmente, todas as funções do php podem ser utilizadas como
-      modificadores implicitamente. (O exemplo
-      <literal>@count</literal> acima usa atualmente a função count
-      do php e não um modificador do Smarty). Usar funções do
-      php como modificadores tem dois pequenos problemas: Primeiro, algumas
-      vezes a ordem dos parâmetros da função não é a desejavel
-      (<literal>{"%2.f"|sprintf:$float}</literal> atualmente funciona, mas pede algo
-      mais intuitivo <literal>{Por exemplo:
-      $float|string_format:"%2.f"}</literal> que é provido pela distribuição
-      do Smarty). Segundo: com <link
-      linkend="variable.security">$security</link> ativado, todas as funções do 
-      php que sejam utilizados como modificadores devem ser declaradas como
-      confiáveis na matriz <link linkend="variable.security.settings">
-      $security_settings['MODIFIER_FUNCS']</link>.
+      Modificadores podem ser carregados automaticamente à partir do seu <link
+      linkend="variable.plugins.dir">$plugins_dir</link> (veja: 
+	  <link linkend="plugins.naming.conventions">Nomes sugeridos</link>) ou podem ser 
+	  registrados explicitamente (veja: <link
+      linkend="api.register.modifier">register_modifier</link>). Adicionalmente, 
+	  todas as funções php podem ser utiliadas como modificadores implicitamente. (O 
+	  exemplo do <literal>@count</literal> acima usa a função count do php e não 
+	  um modificador do Smarty). Usar funções do php como modificadores tem dois 
+	  pequenos problemas: Primeiro: às vezes a ordem dos parâmetros da função 
+	  não é a desejada (<literal>{"%2.f"|sprintf:$float}</literal> atualmente funciona, 
+	  mas o melhor seria algo mais intuitivo. Por exemplo: <literal>{$float|string_format:"%2.f"}</literal> 
+	  que é disponibilizado na distribuição do Smarty). Segundo: com a variável 
+	  <link linkend="variable.security">$security</link> ativada em todas as funções do 
+	  php que são usadas como modificadores precisam ser declaradas como confiáveis (trusted) 
+	  na matriz <link linkend="variable.security.settings">$security_settings['MODIFIER_FUNCS']</link>.
      </para>
 
 &designers.language-modifiers.language-modifier-capitalize;

@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.3 Maintainer: nobody Status: ready -->
 <chapter id="language.builtin.functions">
- <title>Funções Embutidas</title>
+ <title>Funções internas</title>
  <para>
-  O Smarty vem com várias funções embutidas. Funções embutidas fazem parte
-  da linguagem de template. Você não pode criar funções personalizadas com
-  o mesmo nome, nem pode modificar as funções embutidas.
+  O Smarty contém várias funções internas. Funções internas são parte integral 
+  da linguagem de template. Você não pode criar funções personalizadas com o 
+  mesmo nome de uma função interna, e também não pode modificar funções internas.
  </para>
 
  &designers.language-builtin-functions.language-function-capture;

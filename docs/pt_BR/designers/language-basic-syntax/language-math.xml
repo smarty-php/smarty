@@ -3,24 +3,27 @@
    <sect1 id="language.math">
     <title>Matemática</title>
     <para>
-    Matemática pode ser aplicada diretamente em valores de variáveis.
+    Matemática pode ser aplicada diretamente aos valores de variáveis.
     </para>
     <example>
      <title>Exemplos de matemática</title>
      <programlisting>
+<![CDATA[
 {$foo+1}
 
 {$foo*$bar}
 
 {* alguns exemplos mais complicados *}
 
-{$foo-&gt;bar-$bar[1]*$baz-&gt;foo-&gt;bar()-3*7}
+{$foo->bar-$bar[1]*$baz->foo->bar()-3*7}
 
 {if ($foo+$bar.test%$baz*134232+10+$b+10)}
 
 {$foo|truncate:"`$fooTruncCount/$barTruncFactor-1`"}
 
-{assign var="foo" value="`$foo+$bar`"}</programlisting>
+{assign var="foo" value="`$foo+$bar`"}
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

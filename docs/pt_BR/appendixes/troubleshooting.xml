@@ -4,11 +4,10 @@
    <title>Localização de Erros</title>
    <para></para>
    <sect1 id="smarty.php.errors">
-       <title>erros de Smarty/PHP </title>
+       <title>Erros do Smarty/PHP</title>
        <para>
       O Smarty pode obter muitos erros tais como, atributos de tags perdidos ou nomes de variáveis
-      mal formadas. Se isto acontece, você verá 
-      um erro como segue:
+      mal formadas. Se isto acontece, você verá um erro similar ao seguir:
        </para>
 
 <example>
@@ -28,9 +27,9 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
        </para>
        
        <para>
-       Há certos erros que o smarty não pode entender, tais como um um fechamento de tags errado.
-       Estes tipos de erros normalmente
-       termina na interpretação de erros do tempo de compilação do PHP.
+       Há certos erros que o Smarty não consegue detectar, tais como uma tag de fechamento errada. 
+	   Estes tipos de erro geralmente acabam gerando erros em tempo de processamento do interpretador 
+	   de erros do PHP.
        </para>
 
 <example>
@@ -44,10 +43,10 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 	    script PHP compilado, não o template em si. Normalmente você pode no template localizar o
 	    erro de sintaxe. Aqui algumas coisas para você procurar:
 	    falta de fechamento de tags para {if}{/if} ou
-        {section}{/section}, ou sintaxe da lógica dentro de uma tag {if}.
-        Se você não encontra o erro, você pode ter
-	    que abrir o arquivo PHP compilado e ir até o numero da linha exibido, no local onde o erro correspondente
-	    está no template. 
+        {section}{/section}, ou erro de lógica dentro de uma tag {if}.
+        Se você não conseguir encontrar o erro, talvez seja necessário abrir 
+		o arquivo PHP compilado e ir até o número da linha exibido, para saber 
+		onde se encontra o erro correspondente no template.
        </para>
    </sect1>
 </chapter>

@@ -3,25 +3,28 @@
    <sect1 id="language.syntax.quotes">
     <title>Colocando Variáveis em Aspas Duplas</title>
     <para>
-    Smarty irá reconhecer variáveis entre aspas duplas enquanto
-    as variáveis conterem apenas números, letras, sublinhados e conchetes
-    []. Com qualquer outro caractere (pontos, referencia de objetos, etc.) as variáveis
-    devem estar entre apóstrofos.
+    Smarty irá reconhecer variáveis definidas entre asplas duplas enquanto 
+	as variáveis conterem apenas números, letras, sublinhados e conchetes []. 
+	Com qualquer outro caractere (pontos, referência à objetos, etc.) a variável 
+	deve estar entre apóstrofos.
     </para>
     <example>
      <title>Sintaxe entre aspas</title>
      <programlisting>
-EXEMPLOS DE SINTAXE:
-{func var="test $foo test"}       &lt;-- vê $foo
-{func var="test $foo_bar test"}   &lt;-- vê $foo_bar
-{func var="test $foo[0] test"}    &lt;-- vê $foo[0]
-{func var="test $foo[bar] test"}  &lt;-- vê $foo[bar]
-{func var="test $foo.bar test"}   &lt;-- vê $foo (not $foo.bar)
-{func var="test `$foo.bar` test"} &lt;-- vê $foo.bar
+<![CDATA[
+EXEMPLOS DE SYNTAX:
+{func var="teste $foo teste"}       <-- mostra $foo
+{func var="teste $foo_bar teste"}   <-- mostra $foo_bar
+{func var="teste $foo[0] teste"}    <-- mostra $foo[0]
+{func var="teste $foo[bar] teste"}  <-- mostra $foo[bar]
+{func var="teste $foo.bar teste"}   <-- mostra $foo (not $foo.bar)
+{func var="teste `$foo.bar` teste"} <-- mostra $foo.bar
 
-EXEMPLOS PRATICOS:
-{include file="subdir/$tpl_name.tpl"} &lt;-- irá substituir $tpl_name com o valor
-{cycle values="one,two,`$smarty.config.myval`"} &lt;-- deve ter apóstrofos</programlisting>
+EXEMPLOS PRÁTICOS:
+{include file="subdir/$tpl_name.tpl"} <-- substitui $tpl_name pelo seu valor
+{cycle values="one,two,`$smarty.config.myval`"} <-- deve conter apóstrofos
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

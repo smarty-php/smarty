@@ -3,8 +3,8 @@
         <chapter id="language.custom.functions">
          <title>Funções Personalizadas</title>
         <para>
-         Smarty vem com várias funções personalizadas que você
-         pode usar em seus templates.
+         O Smarty contém várias funções personalizadas que você 
+		 pode usar em seus templates.
         </para>
 &designers.language-custom-functions.language-function-assign;
 &designers.language-custom-functions.language-function-counter;

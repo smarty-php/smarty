@@ -3,15 +3,15 @@
    <sect1 id="language.syntax.attributes">
     <title>Atributos</title>
     <para>
-     A maioria das funções levam atributos que especificam ou modificam o seu
-     funcionamento. Atributos para funções Smarty são muito parecidos como
-     atributos HTML. Valores estáticos são precisam estar entre aspas,
-     mas é recomendados para strings literais. Variáveis também podem ser
-     usadas, e não precisam estar entre aspas.
+     A maioria das funções contém atributos que especificam ou modificam 
+	 o seu comportamento. Atributos para funções do Smarty são muito parecidos 
+	 com atributos da HTML. Valores estáticos não precisam ficar entre aspas, 
+	 mas recomenda-se usar aspas para strings literais. Variáveis também podem 
+	 ser usadas, e não precisam estar entre aspas.
     </para>
     <para>
-     Alguns atributos requerem valores booleanos (true ou false). Estes podem
-     ser especificados sem aspas <literal>true</literal>,
+     Alguns atributos exigem valores booleanos (verdadeiro ou falso). Estes valores 
+	 podem ser especificados sem aspas <literal>true</literal>,
      <literal>on</literal>, e <literal>yes</literal>, ou
      <literal>false</literal>, <literal>off</literal>, e
      <literal>no</literal>.
@@ -19,17 +19,20 @@
     <example>
      <title>Sintaxe de atributos de funções</title>
      <programlisting>
-{include file="header.tpl"}
+<![CDATA[
+{include file="cabecalho.tpl"}
 
-{include file=$includeFile}
+{include file=$arquivoInclude}
 
-{include file=#includeFile#}
+{include file=#arquivoInclude#}
 
 {html_select_date display_days=yes}
 
-&lt;SELECT name=company&gt;
+<select name="empresa">
 {html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
+</select>
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -4,21 +4,21 @@
  <chapter id="language.variables">
   <title>Variáveis</title>
   <para>
-   O Smarty tem vários tipos diferentes de variáveis. O tipo de variável depende de
-   de qual símbolo esta prefixada(ou cercada).
+   No Smarty há vários tipos diferentes de variáveis. O tipo da variável depende do prefixo que 
+   ela usa (ou do símbolo pelo qual ela está contida).
   </para>
   <para>
-   Variáveis no Smarty podem ser mostradas diretamente ou usada como argumentos para
-   atributos de funções e modificadores, dentro de expressões condicionais, etc.
-   Para mostrar uma variável, simplesmente coloque ela entre delimitadores sendo que
-   ela seja a única coisa entre eles. Exemplos:
+   Variáveis no Smarty podem tanto serem exibidas diretamente ou usadas como argumentos 
+   para atributos de funções e modificadores, dentro de expressões condicionais, etc. 
+   Para que uma variável seja exibida o nome dela deve estar dentro dos delimitadores 
+   e não pode conter nenhum outro caracter. Veja os exemplos abaixo:
   <programlisting>
 <![CDATA[
-{$Name}
+{$Nome}
 
-{$Contacts[row].Phone}
+{$Contatos[row].Telefone}
 
-<body bgcolor="{#bgcolor#}">
+<body bgcolor="{#cordefundo#}">
 ]]>
   </programlisting>
  </para>
