@@ -36,14 +36,14 @@ function smarty_function_config_load($params, &$smarty)
 		$_global = isset($params['global']) ? $smarty->_dequote($params['global']) : false;
 
         if (!isset($_file) || strlen($_file) == 0) {
-            $smarty->_syntax_error("missing 'file' attribute in config_load tag", E_USER_ERROR, __FILE__, __LINE__);
+            $smarty->trigger_error("missing 'file' attribute in config_load tag", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         if (isset($_scope)) {
             if ($_scope != 'local' &&
                 $_scope != 'parent' &&
                 $_scope != 'global') {
-                $smarty->_syntax_error("invalid 'scope' attribute value", E_USER_ERROR, __FILE__, __LINE__);
+                $smarty->trigger_error("invalid 'scope' attribute value", E_USER_ERROR, __FILE__, __LINE__);
             }
         } else {
             if ($_global) {
@@ -51,10 +51,10 @@ function smarty_function_config_load($params, &$smarty)
 			} else {
                 $_scope = 'local';
 			}
-        }		
-			
+        }
+
         if(@is_dir($smarty->config_dir)) {
-            $_config_dir = $smarty->config_dir;            
+            $_config_dir = $smarty->config_dir;
         } else {
             // config_dir not found, try include_path
 			$_params = array('file_path' => $smarty->config_dir);
@@ -64,11 +64,11 @@ function smarty_function_config_load($params, &$smarty)
         }
 
 		$_file_path = $_config_dir . DIRECTORY_SEPARATOR . $_file;
-        if (isset($_section)) 
+        if (isset($_section))
             $_compile_file = $smarty->_get_compile_path($_file_path.'|'.$_section);
         else
             $_compile_file = $smarty->_get_compile_path($_file_path);
-		
+
 		if($smarty->force_compile
 				|| !file_exists($_compile_file)
 				|| ($smarty->compile_check
@@ -103,7 +103,7 @@ function smarty_function_config_load($params, &$smarty)
 
         $smarty->_config[0]['vars'] = @array_merge($smarty->_config[0]['vars'], $_config_vars);
         $smarty->_config[0]['files'][$_file] = true;
-        
+
         if ($_scope == 'parent') {
                 $smarty->_config[1]['vars'] = @array_merge($smarty->_config[1]['vars'], $_config_vars);
                 $smarty->_config[1]['files'][$_file] = true;
@@ -113,7 +113,7 @@ function smarty_function_config_load($params, &$smarty)
                     $smarty->_config[$i]['files'][$_file] = true;
             }
         }
-		
+
         if ($smarty->debugging) {
 			$_params = array();
 			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
@@ -122,7 +122,7 @@ function smarty_function_config_load($params, &$smarty)
                                                 'depth'     => $smarty->_inclusion_depth,
                                                 'exec_time' => smarty_core_get_microtime($_params, $smarty) - $_debug_start_time);
         }
-	
+
 }
 
 /* vim: set expandtab: */
