@@ -1,6 +1,14 @@
 2002-12-20  Monte Ohrt  <monte@ispi.net>
 
     * Smarty_Compiler.class.php:
+      few more fixes, spaces around function parameters
+
+    * Smarty_Compiler.class.php:
+      fix misc syntax issues with {if} tags
+
+2002-12-20  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
       fix misc syntax issues with {if} tags
 
 2002-12-19  Monte Ohrt  <monte@ispi.net>
