@@ -42,7 +42,7 @@
                         <entry><emphasis>empty</emphasis></entry>
                         <entry>number of rows in the table, data populates
                         cells top-to-bottom, left-to-right. This is mutually
-                        exclusive with "rows" attribute.</entry>
+                        exclusive with "cols" attribute.</entry>
                     </row>
                     <row>
                         <entry>table_attr</entry>
