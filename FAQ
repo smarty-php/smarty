@@ -115,14 +115,21 @@ A: Be sure you set $compile_check=false once your templates are initially
    available. See the documentation for examples.
    
 Q: Do you have a mailing list?
-A: We have a mailing list for you to share your ideas or ask questions.
-   send a blank e-mail message to:
-     subscribe-smarty@lists.ispi.net (subscribe to the list)
-     digest-smarty@lists.ispi.net (subscribe or switch to digest mode)
-     mail-smarty@lists.ispi.net (switch off digest mode)
-     unsubscribe-smarty@lists.ispi.net (unsubscribe from the list)
-   You can also browse the mailing list archives at
-   http://marc.theaimsgroup.com/?l=smarty&r=1&w=2
+A:  We have a few mailing lists. "general" for you to share your ideas or ask
+	questions, "dev" for those interested in the development efforts of Smarty,
+	and "cvs" for those that would like to track the updates made in the cvs
+	repository.
+
+    send a blank e-mail message to:
+      smarty-general-subscribe@lists.php.net (subscribe to the general list)
+      smarty-general-unsubscribe@lists.php.net (unsubscribe from the general list)
+      smarty-dev-subscribe@lists.php.net (subscribe to the dev list)
+      smarty-dev-unsubscribe@lists.php.net (unsubscribe from the dev list)
+      smarty-cvs-subscribe@lists.php.net (subscribe to the cvs list)
+      smarty-cvs-unsubscribe@lists.php.net (unsubscribe from the cvs list)
+    You can also browse the mailing list archives at
+    http://marc.theaimsgroup.com/?l=smarty&r=1&w=2
+
 
 
 Q: Can you change the mailing list so Reply-To sends to the list and not the
