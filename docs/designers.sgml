@@ -289,7 +289,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 		</sect2>
 
         <sect2 id="language.variables.smarty.now">
-			<title>Current timestamp</title>
+			<title>{$smarty.now}</title>
 			<para>
 			The current timestamp can be accessed with {$smarty.now}. The
 			number reflects the number of seconds passed since the so-called
@@ -306,7 +306,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 		</sect2>
 
 		<sect2 id="language.variables.smarty.capture">
-			<title>Output capture buffer</title>
+			<title>{$smarty.capture}</title>
 			<para>
 			The output captured via {capture}..{/capture} construct can be
 			accessed using {$smarty} variable. See section on
@@ -315,7 +315,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 		</sect2>
 
         <sect2 id="language.variables.smarty.loops">
-			<title>Loop properties</title>
+			<title>{$smarty.section}, {$smarty.foreach}</title>
 			<para>
 			{$smarty} variable can be used to refer to 'section' and
 			'foreach' loop properties. See docs for
@@ -323,6 +323,15 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 			<link linkend="language.function.foreach">foreach</link>.
 			</para>
 		</sect2>
+
+		<sect2 id="language.variables.smarty.template">
+			<title>{$smarty.template}</title>
+			<para>
+             This variable contains the name of the current template being
+             processed.
+			</para>
+		</sect2>
+
 		</sect1>
 	</chapter>
 

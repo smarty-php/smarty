@@ -136,6 +136,22 @@
        $global_assign to a default value.
       </para>
      </sect1>
+     <sect1 id="variable.autoload.filters">
+      <title>$autoload_filters</title>
+      <para>
+       If there are some filters that you wish to load on every template
+       invocation, you can specify them using this variable and Smarty will
+       automatically load them for you. The variable is an associative array
+       where keys are filter types and values are arrays of the filter
+       names. For example:
+       <informalexample>
+        <programlisting>
+$smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
+                                  'output' => array('convert')); 
+        </programlisting>
+       </informalexample> 
+      </para>
+     </sect1>
      <sect1 id="variable.compile.check">
       <title>$compile_check</title>
       <para>
@@ -395,35 +411,6 @@
 
    <chapter id="api.functions">
      <title>Methods</title>
-     <sect1 id="api.assign">
-      <title>assign</title>
-      <funcsynopsis>
-       <funcprototype>
-        <funcdef>void <function>assign</function></funcdef>
-        <paramdef>mixed <parameter>var</parameter></paramdef>
-       </funcprototype>
-       <funcprototype>
-        <funcdef>void <function>assign</function></funcdef>
-        <paramdef>string <parameter>varname</parameter></paramdef>
-        <paramdef>mixed <parameter>var</parameter></paramdef>
-       </funcprototype>
-      </funcsynopsis>
-      <para>
-       This is used to assign values to the templates. You can
-       explicitly pass name/value pairs, or associative arrays
-       containing the name/value pairs.
-      </para>
-      <example>
-       <title>assign</title>
-       <programlisting>
-// passing name/value pairs
-$smarty->assign("Name","Fred");
-$smarty->assign("Address",$address);
-
-// passing an associative array
-$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
-</example>
-		</sect1>
         <sect1 id="api.append">
          <title>append</title>
          <funcsynopsis>
@@ -453,6 +440,72 @@ $smarty->append("Address",$address);
 $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
 </example>
 		</sect1>
+     <sect1 id="api.assign">
+      <title>assign</title>
+      <funcsynopsis>
+       <funcprototype>
+        <funcdef>void <function>assign</function></funcdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+       <funcprototype>
+        <funcdef>void <function>assign</function></funcdef>
+        <paramdef>string <parameter>varname</parameter></paramdef>
+        <paramdef>mixed <parameter>var</parameter></paramdef>
+       </funcprototype>
+      </funcsynopsis>
+      <para>
+       This is used to assign values to the templates. You can
+       explicitly pass name/value pairs, or associative arrays
+       containing the name/value pairs.
+      </para>
+      <example>
+       <title>assign</title>
+       <programlisting>
+// passing name/value pairs
+$smarty->assign("Name","Fred");
+$smarty->assign("Address",$address);
+
+// passing an associative array
+$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.all.assign">
+			<title>clear_all_assign</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_all_assign</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This clears the values of all assigned variables.
+			</para>
+<example>
+<title>clear_all_assign</title>
+<programlisting>
+// clear all assigned variables
+$smarty->clear_all_assign();</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.clear.all.cache">
+			<title>clear_all_cache</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>clear_all_cache</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This clears the entire template cache. This was added to Smarty
+				1.3.0.
+			</para>
+<example>
+<title>clear_all_cache</title>
+<programlisting>
+// clear the entire cache
+$smarty->clear_all_cache();</programlisting>
+</example>
+		</sect1>
 		<sect1 id="api.clear.assign">
 			<title>clear_assign</title>
 			<funcsynopsis>
@@ -474,24 +527,6 @@ $smarty->clear_assign("Name");
 
 // clear multiple variables
 $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.clear.all.assign">
-			<title>clear_all_assign</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_all_assign</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This clears the values of all assigned variables.
-			</para>
-<example>
-<title>clear_all_assign</title>
-<programlisting>
-// clear all assigned variables
-$smarty->clear_all_assign();</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.clear.cache">
@@ -520,25 +555,6 @@ $smarty->clear_cache("index.tpl");
 $smarty->clear_cache("index.tpl","CACHEID");</programlisting>
 </example>
 		</sect1>
-		<sect1 id="api.clear.all.cache">
-			<title>clear_all_cache</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_all_cache</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This clears the entire template cache. This was added to Smarty
-				1.3.0.
-			</para>
-<example>
-<title>clear_all_cache</title>
-<programlisting>
-// clear the entire cache
-$smarty->clear_all_cache();</programlisting>
-</example>
-		</sect1>
 		<sect1 id="api.clear.compiled.tpl">
 			<title>clear_compiled_tpl</title>
 			<funcsynopsis>
@@ -560,307 +576,6 @@ $smarty->clear_compiled_tpl("index.tpl");
 
 // clear entire compile directory
 $smarty->clear_compiled_tpl();</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.register.function">
-			<title>register_function</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_function</function></funcdef>
-				<paramdef>string <parameter>name</parameter></paramdef>
-				<paramdef>string <parameter>impl</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-             Use this to dynamically register template function plugins.
-             Pass in the template function name, followed by the PHP
-             function name that implements it.
-			</para>
-<example>
-<title>register_function</title>
-<programlisting>
-$smarty->register_function("date_now", "print_current_date");
-
-function print_current_date ($params) {
-    extract($params);
-    if(empty($format))
-        $format="%b %e, %Y";
-    echo strftime($format,time());
-}
-
-// now you can use this in Smarty to print the current date: {date_now}
-// or, {date_now format="%Y/%m/%d"} to format it.</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.unregister.function">
-         <title>unregister_function</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_function</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister template function plugin.
-          Pass in the template function name.
-         </para>
-<example>
-<title>unregister_function</title>
-<programlisting>
-// we don't want template designers to have access to system files
-
-$smarty->unregister_function("fetch");</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.register.modifier">
-         <title>register_modifier</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>register_modifier</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-           <paramdef>string <parameter>impl</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically register modifier plugin. Pass in the
-          template modifier name, followed by the PHP function that it
-          implements it.
-         </para>
-<example>
-<title>register_modifier</title>
-<programlisting>
-// let's map PHP's stripslashes function to a Smarty modifier.
-
-$smarty->register_modifier("sslash","stripslashes");
-
-// now you can use {$var|sslash} to strip slashes from variables</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.unregister.modifier">
-         <title>unregister_modifier</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_modifier</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister modifier plugin. Pass in the
-          template modifier name.
-         </para>
-<example>
-<title>unregister_modifier</title>
-<programlisting>
-// we don't want template designers to strip tags from elements
-
-$smarty->unregister_modifier("strip_tags");</programlisting>
-</example>
-		</sect1>
-        <sect1 id="api.register.resource">
-         <title>register_resource</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>register_resource</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-           <paramdef>array <parameter>resource_funcs</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically register a resource plugin with Smarty.
-          Pass in the name of the resource and the array of PHP functions
-          implementing it. See
-          <link linkend="template.resources">template resources</link>
-          for more information on how to setup a function for fetching
-          templates.
-         </para>
-<example>
-<title>register_resource</title>
-<programlisting>
-$smarty->register_resource("db", array("db_get_template",
-                                       "db_get_timestamp",
-                                       "db_get_secure",
-                                       "db_get_trusted"));</programlisting>
-</example>
-		</sect1>
-        <sect1 id="api.unregister.resource">
-         <title>unregister_resource</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_resource</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister a resource plugin. Pass in the
-          name of the resource.
-         </para>
-<example>
-<title>unregister_resource</title>
-<programlisting>
-$smarty->unregister_resource("db");</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.register.prefilter">
-			<title>register_prefilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_prefilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register prefilters to run templates
-                through before they are compiled. See <link
-                linkend="advanced.features.prefilters">template prefilters</link> for
-                more information on how to setup a prefiltering function.
-			</para>
-		</sect1>
-		<sect1 id="api.unregister.prefilter">
-			<title>unregister_prefilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_prefilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister a prefilter.
-			</para>
-		</sect1>
-		<sect1 id="api.register.postfilter">
-			<title>register_postfilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_postfilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register postfilters to run templates
-                through after they are compiled. See <link
-                linkend="advanced.features.postfilters">template postfilters</link> for
-                more information on how to setup a postfiltering function.
-			</para>
-		</sect1>
-		<sect1 id="api.unregister.postfilter">
-			<title>unregister_postfilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_postfilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister a postfilter.
-			</para>
-		</sect1>
-		<sect1 id="api.register.compiler.function">
-			<title>register_compiler_function</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_compiler_function</function></funcdef>
-				<paramdef>string <parameter>name</parameter></paramdef>
-				<paramdef>string <parameter>impl</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register a compiler function plugin.
-                Pass in the compiler function name, followed by the PHP
-                function that implements it.
-			</para>
-		</sect1>
-        <sect1 id="api.unregister.compiler.function">
-         <title>unregister_compiler_function</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_compiler_function</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister a compiler function. Pass in
-          the name of the compiler function.
-         </para>
-        </sect1>
-        <sect1 id="api.trigger.error">
-         <title>trigger_error</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>trigger_error</function></funcdef>
-           <paramdef>string <parameter>error_msg</parameter></paramdef>
-           <paramdef>[int <parameter>level</parameter>]</paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          This function can be used to output an error message using Smarty.
-          <parameter>level</parameter> parameter can be one of the values
-          used for trigger_error() PHP function, i.e. E_USER_NOTICE,
-          E_USER_WARNING, etc. By default it's E_USER_WARNING. This function
-          was added to Smarty 2.0.
-         </para>
-        </sect1>
-
-		<sect1 id="api.is.cached">
-			<title>is_cached</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>is_cached</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                This returns true if there is a valid cache for this template.
-                This only works if <link
-                linkend="variable.caching">caching</link> is set to true. This
-                was added to Smarty 1.3.0.
-			</para>
-<example>
-<title>is_cached</title>
-<programlisting>
-$smarty->caching = true;
-
-if(!$smarty->is_cached("index.tpl")) {
-    // do database calls, assign vars here
-}
-
-$smarty->display("index.tpl");</programlisting>
-</example>
-            <para>
-                You can also pass a cache id as an an optional second parameter
-                in case you want multiple caches for the given template.
-            </para>
-<example>
-<title>is_cached with multiple-cache template</title>
-<programlisting>
-$smarty->caching = true;
-
-if(!$smarty->is_cached("index.tpl","FrontPage")) {
-    // do database calls, assign vars here
-}
-
-$smarty->display("index.tpl","FrontPage");</programlisting>
-</example>
-		</sect1>
-		<sect1 id="api.get.template.vars">
-			<title>get_template_vars</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>array <function>get_template_vars</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This gets an array of the currently assigned template vars.
-			</para>
-<example>
-<title>get_template_vars</title>
-<programlisting>
-// get all assigned template vars
-$tpl_vars = $smarty->get_template_vars();
-
-// take a look at them
-var_dump($tpl_vars);</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.display">
@@ -994,6 +709,419 @@ $output = $smarty->fetch("index.tpl");
 echo $output;</programlisting>
 </example>
 		</sect1>
+		<sect1 id="api.get.template.vars">
+			<title>get_template_vars</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>array <function>get_template_vars</function></funcdef>
+				<paramdef><parameter></parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This gets an array of the currently assigned template vars.
+			</para>
+<example>
+<title>get_template_vars</title>
+<programlisting>
+// get all assigned template vars
+$tpl_vars = $smarty->get_template_vars();
+
+// take a look at them
+var_dump($tpl_vars);</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.is.cached">
+			<title>is_cached</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>is_cached</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                This returns true if there is a valid cache for this template.
+                This only works if <link
+                linkend="variable.caching">caching</link> is set to true. This
+                was added to Smarty 1.3.0.
+			</para>
+<example>
+<title>is_cached</title>
+<programlisting>
+$smarty->caching = true;
+
+if(!$smarty->is_cached("index.tpl")) {
+    // do database calls, assign vars here
+}
+
+$smarty->display("index.tpl");</programlisting>
+</example>
+            <para>
+                You can also pass a cache id as an an optional second parameter
+                in case you want multiple caches for the given template.
+            </para>
+<example>
+<title>is_cached with multiple-cache template</title>
+<programlisting>
+$smarty->caching = true;
+
+if(!$smarty->is_cached("index.tpl","FrontPage")) {
+    // do database calls, assign vars here
+}
+
+$smarty->display("index.tpl","FrontPage");</programlisting>
+</example>
+		</sect1>
+        <sect1 id="api.load.filter">
+         <title>load_filter</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>load_filter</function></funcdef>
+           <paramdef>string <parameter>type</parameter></paramdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          This function can be used to load a filter plugin. The first
+          argument specifies the type of the filter to load and can be one
+          of the following: 'pre', 'post', or 'output'. The second argument
+          specifies the name of the filter plugin, for example, 'trim'.
+         </para>
+<example>
+<title>loading filter plugins</title>
+<programlisting>
+$smarty->load('pre', 'trim'); // load prefilter named 'trim'
+$smarty->load('pre', 'datefooter'); // load another prefilter named 'datefooter'
+$smarty->load('output', 'compress'); // load output filter named 'compress'</programlisting>
+</example>
+        </sect1>
+		<sect1 id="api.register.block">
+			<title>register_block</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_block</function></funcdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>string <parameter>impl</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+             Use this to dynamically register block functions plugins.
+             Pass in the block function name, followed by the PHP
+             function name that implements it.
+			</para>
+<example>
+<title>register_block</title>
+<programlisting>
+/* PHP */
+$smarty->register_block("translate", "do_translation");
+
+function do_translation ($params, $content, &$smarty) {
+    if ($content) {
+        $lang = $params['lang'];
+        // do some translation with $content
+        echo $translation;
+    }
+}
+
+{* template *}
+{translate lang="br"}
+   Hello, world!
+{/translate}</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.register.compiler.function">
+			<title>register_compiler_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_compiler_function</function></funcdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>string <parameter>impl</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register a compiler function plugin.
+                Pass in the compiler function name, followed by the PHP
+                function that implements it.
+			</para>
+		</sect1>
+		<sect1 id="api.register.function">
+			<title>register_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_function</function></funcdef>
+				<paramdef>string <parameter>name</parameter></paramdef>
+				<paramdef>string <parameter>impl</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+             Use this to dynamically register template function plugins.
+             Pass in the template function name, followed by the PHP
+             function name that implements it.
+			</para>
+<example>
+<title>register_function</title>
+<programlisting>
+$smarty->register_function("date_now", "print_current_date");
+
+function print_current_date ($params) {
+    extract($params);
+    if(empty($format))
+        $format="%b %e, %Y";
+    echo strftime($format,time());
+}
+
+// now you can use this in Smarty to print the current date: {date_now}
+// or, {date_now format="%Y/%m/%d"} to format it.</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.register.modifier">
+         <title>register_modifier</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>register_modifier</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+           <paramdef>string <parameter>impl</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically register modifier plugin. Pass in the
+          template modifier name, followed by the PHP function that it
+          implements it.
+         </para>
+<example>
+<title>register_modifier</title>
+<programlisting>
+// let's map PHP's stripslashes function to a Smarty modifier.
+
+$smarty->register_modifier("sslash","stripslashes");
+
+// now you can use {$var|sslash} to strip slashes from variables</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.register.outputfilter">
+			<title>register_outputfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_outputfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+            <para>
+             Use this to dynamically register outputfilters to operate on
+             a template's output before it is displayed. See
+             <link linkend="advanced.features.outputfilters">template output
+             filters</link>
+             for more information on how to set up an output filter function.
+            </para>
+		</sect1>
+		<sect1 id="api.register.postfilter">
+			<title>register_postfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_postfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register postfilters to run templates
+                through after they are compiled. See <link
+                linkend="advanced.features.postfilters">template postfilters</link> for
+                more information on how to setup a postfiltering function.
+			</para>
+		</sect1>
+		<sect1 id="api.register.prefilter">
+			<title>register_prefilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_prefilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register prefilters to run templates
+                through before they are compiled. See <link
+                linkend="advanced.features.prefilters">template prefilters</link> for
+                more information on how to setup a prefiltering function.
+			</para>
+		</sect1>
+        <sect1 id="api.register.resource">
+         <title>register_resource</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>register_resource</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+           <paramdef>array <parameter>resource_funcs</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically register a resource plugin with Smarty.
+          Pass in the name of the resource and the array of PHP functions
+          implementing it. See
+          <link linkend="template.resources">template resources</link>
+          for more information on how to setup a function for fetching
+          templates.
+         </para>
+<example>
+<title>register_resource</title>
+<programlisting>
+$smarty->register_resource("db", array("db_get_template",
+                                       "db_get_timestamp",
+                                       "db_get_secure",
+                                       "db_get_trusted"));</programlisting>
+</example>
+		</sect1>
+        <sect1 id="api.trigger.error">
+         <title>trigger_error</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>trigger_error</function></funcdef>
+           <paramdef>string <parameter>error_msg</parameter></paramdef>
+           <paramdef>[int <parameter>level</parameter>]</paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          This function can be used to output an error message using Smarty.
+          <parameter>level</parameter> parameter can be one of the values
+          used for trigger_error() PHP function, i.e. E_USER_NOTICE,
+          E_USER_WARNING, etc. By default it's E_USER_WARNING. This function
+          was added to Smarty 2.0.
+         </para>
+        </sect1>
+
+        <sect1 id="api.template.exists">
+         <title>template_exists</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>bool <function>template_exists</function></funcdef>
+           <paramdef>string <parameter>template</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          This function checks whether the specified template exists. It can
+          accept either a path to the template on the filesystem or a
+          resource string specifying the template.
+         </para>
+        </sect1>
+        <sect1 id="api.unregister.block">
+         <title>unregister_block</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_block</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister block function plugin.
+          Pass in the block function name.
+         </para>
+		</sect1>
+        <sect1 id="api.unregister.compiler.function">
+         <title>unregister_compiler_function</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_compiler_function</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister a compiler function. Pass in
+          the name of the compiler function.
+         </para>
+        </sect1>
+		<sect1 id="api.unregister.function">
+         <title>unregister_function</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_function</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister template function plugin.
+          Pass in the template function name.
+         </para>
+<example>
+<title>unregister_function</title>
+<programlisting>
+// we don't want template designers to have access to system files
+
+$smarty->unregister_function("fetch");</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.unregister.modifier">
+         <title>unregister_modifier</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_modifier</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister modifier plugin. Pass in the
+          template modifier name.
+         </para>
+<example>
+<title>unregister_modifier</title>
+<programlisting>
+// we don't want template designers to strip tags from elements
+
+$smarty->unregister_modifier("strip_tags");</programlisting>
+</example>
+		</sect1>
+		<sect1 id="api.unregister.outputfilter">
+			<title>unregister_outputfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_outputfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister an output filter.
+			</para>
+		</sect1>
+		<sect1 id="api.unregister.postfilter">
+			<title>unregister_postfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_postfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister a postfilter.
+			</para>
+		</sect1>
+		<sect1 id="api.unregister.prefilter">
+			<title>unregister_prefilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_prefilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister a prefilter.
+			</para>
+		</sect1>
+        <sect1 id="api.unregister.resource">
+         <title>unregister_resource</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>unregister_resource</function></funcdef>
+           <paramdef>string <parameter>name</parameter></paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          Use this to dynamically unregister a resource plugin. Pass in the
+          name of the resource.
+         </para>
+<example>
+<title>unregister_resource</title>
+<programlisting>
+$smarty->unregister_resource("db");</programlisting>
+</example>
+		</sect1>
        </chapter>
 
   <chapter id="advanced.features">
@@ -1004,10 +1132,13 @@ echo $output;</programlisting>
      Template prefilters are PHP functions that your templates are ran through
      before they are compiled. This is good for preprocessing your templates
      to remove unwanted comments, keeping an eye on what people are putting
-     in their templates, etc. Prefilters are processed in the order they are
+     in their templates, etc. Prefilters can be either
      <link linkend="api.register.prefilter">registered</link> or loaded from
-     the <link linkend="plugins.prefilters.postfilters">plugin</link> directory.
-     Smarty will pass the template source code as the first argument, an
+     the plugins directory by using
+     <link linkend="api.load.filter">load_filter()</link> function or by
+     setting
+     <link linkend="variable.autoload.filters">$autoload_filters</link> variable.
+     Smarty will pass the template source code as the first argument, and
      expect the function to return the resulting template source code.
     </para>
     <example>
@@ -1015,7 +1146,7 @@ echo $output;</programlisting>
      <programlisting>
 &lt;?php
 // put this in your application
-function remove_dw_comments($tpl_source)
+function remove_dw_comments($tpl_source, &$smarty)
 {
     return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
 }
@@ -1034,11 +1165,14 @@ $smarty->display("index.tpl");
     <title>Postfilters</title>
     <para>
      Template postfilters are PHP functions that your templates are ran through
-     after they are compiled. Postfilters are processed in the order they are
+     after they are compiled. Postfilters can be either 
      <link linkend="api.register.postfilter">registered</link> or loaded
-     from the <link linkend="plugins.prefilters.postfilters">plugin</link>
-     directory. Smarty will pass the compiled template code as the first
-     argument, an expect the function to return the result of the
+     from the plugins directory by using
+     <link linkend="api.load.filter">load_filter()</link> function or by
+     setting
+     <link linkend="variable.autoload.filters">$autoload_filters</link>
+     variable. Smarty will pass the compiled template code as the first
+     argument, and expect the function to return the result of the
      processing.
     </para>
     <example>
@@ -1046,7 +1180,7 @@ $smarty->display("index.tpl");
      <programlisting>
 &lt;?php
 // put this in your application
-function add_header_comment($tpl_source)
+function add_header_comment($tpl_source, &$smarty)
 {
     return "&lt;?php echo \"&lt;!-- Created by Smarty! --&gt;\n\" ?&gt;\n".$tpl_source;
 }
@@ -1060,6 +1194,49 @@ $smarty->display("index.tpl");
 &lt;!-- Created by Smarty! --&gt;
 {* rest of template content... *}</programlisting>
     </example>
+  </sect1>
+
+  <sect1 id="advanced.features.outputfilters">
+   <title>Output Filters</title>
+   <para>
+    When the template is invoked via display() or fetch(), its output can be
+    sent through one or more output filters. This differs from postfilters
+    because postfilters operate on compiled templates before they are saved to
+    the disk, and output filters operate on the template output when it is
+    executed.
+   </para>
+
+   <para>
+    Output filters can be either 
+    <link linkend="api.register.outputfilter">registered</link> or loaded
+    from the plugins directory by using
+    <link linkend="api.load.filter">load_filter()</link> function or by
+    setting
+    <link linkend="variable.autoload.filters">$autoload_filters</link>
+    variable. Smarty will pass the template output as the first argument,
+    and expect the function to return the result of the processing.
+   </para>
+   <example>
+    <title>using a template outputfilter</title>
+    <programlisting>
+&lt;?php
+// put this in your application
+function protect_email($tpl_output, &$smarty)
+{
+    $tpl_output =
+       preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
+                    '$1%40$2', $tpl_output);
+    return $tpl_output;
+}
+
+// register the outputfilter
+$smarty->register_outputfilter("protect_email");
+$smarty->display("index.tpl");
+
+// now any occurrence of an email address in the template output will have
+// a simple protection against spambots
+?&gt;</programlisting>
+   </example>
   </sect1>
 
   <sect1 id="section.template.cache.handler.func">
@@ -1391,9 +1568,11 @@ $smarty->default_template_handler_func = 'make_template';
    <itemizedlist spacing=compact>
     <listitem><simpara>functions</simpara></listitem>
     <listitem><simpara>modifiers</simpara></listitem>
+    <listitem><simpara>block functions</simpara></listitem>
     <listitem><simpara>compiler functions</simpara></listitem>
     <listitem><simpara>prefilters</simpara></listitem>
     <listitem><simpara>postfilters</simpara></listitem>
+    <listitem><simpara>outputfilters</simpara></listitem>
     <listitem><simpara>resources</simpara></listitem>
     <listitem><simpara>inserts</simpara></listitem>
    </itemizedlist>
@@ -1409,17 +1588,16 @@ $smarty->default_template_handler_func = 'make_template';
    <title>How Plugins Work</title>
    <para>
     Plugins are always loaded on demand. Only the specific modifiers,
-    functions, resources, etc invoked in the templates or PHP scripts will
-    be loaded. Moreover, each plugin is loaded only once, even if you have
+    functions, resources, etc invoked in the templates scripts will be
+    loaded. Moreover, each plugin is loaded only once, even if you have
     several different instances of Smarty running within the same request.
    </para>
    <para>
-    Pre/post-filters are a bit of a special case. If a pre/post-filter
-    plugin is found in the plugins directory, it will always be loaded
-    because these filters are never explicitly mentioned in the template
-    language. This also means that the order in which multiple prefilters
-    or postfilters is executed depends on the way they are named
-    (basically, alphabetical order).
+    Pre/postfilters and output filters are a bit of a special case. Since
+    they are not mentioned in the templates, they must be registered or
+    loaded explicitly via API functions before the template is processed.
+    The order in which multiple filters of the same type are executed
+    depends on the order in which they are registered or loaded.
    </para>
    <para>
     There is only one plugins directory (for performance reasons). To
@@ -1449,9 +1627,11 @@ $smarty->default_template_handler_func = 'make_template';
      <itemizedlist spacing=compact>
       <listitem><simpara>function</simpara></listitem>
       <listitem><simpara>modifier</simpara></listitem>
+      <listitem><simpara>block</simpara></listitem>
       <listitem><simpara>compiler</simpara></listitem>
       <listitem><simpara>prefilter</simpara></listitem>
       <listitem><simpara>postfilter</simpara></listitem>
+      <listitem><simpara>outputfilter</simpara></listitem>
       <listitem><simpara>resource</simpara></listitem>
       <listitem><simpara>insert</simpara></listitem>
      </itemizedlist>
@@ -1482,12 +1662,6 @@ $smarty->default_template_handler_func = 'make_template';
      needs is not found, or if the file or the plugin function are named
      improperly.
     </para>
-    <note>
-     <para>
-      Note that pre/postfilters still have to be correctly named even though
-      the names are not used for anything except their order of execution.
-     </para>
-    </note>
    </sect1>
 
    <sect1 id="plugins.writing">
@@ -1704,6 +1878,80 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     </example>
    </sect1>
 
+   <sect1 id="plugins.block.functions"><title>Block Functions</title>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>array <parameter>$params</parameter></paramdef>
+      <paramdef>mixed <parameter>$content</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     Block functions are functions of the form: {func} .. {/func}. In other
+     words, they enclose a template block and operate on the contents of
+     this block. Block functions take precedence over custom functions of
+     the same name, that is, you cannot have both custom function {func} and
+     block function {func} .. {/func}.
+    </para>
+    <para>
+     Your function implementation is called twice by Smarty:
+     once for the opening tag, and once for the closing tag.
+    </para>
+    <para>
+     Only the opening tag of the block function may have attributes. All
+     attributes passed to template functions from the template are contained
+     in the <parameter>$params</parameter> as an associative array. You can
+     either access those values directly, e.g.
+     <varname>$params['start']</varname> or use
+     <varname>extract($params)</varname> to import them into the symbol
+     table. The opening tag attributes are also accessible to your function
+     when processing the closing tag.
+    </para>
+    <para>
+     The value of <parameter>$content</parameter> variable depends on
+     whether your function is called for the opening or closing tag. In case
+     of the opening tag, it will be <literal>null</literal>, and in case of
+     the closing tag it will be the contents of the template block.
+     Note that the template block will have already been processed by
+     Smarty, so all you will receive is the template output, not the
+     template source.
+    </para>
+    <para>
+     If you have nested block functions, it's possible to find out what the
+     parent block function is by accessing
+     <varname>$smarty->_tag_stack</varname> variable. Just do a var_dump()
+     on it and the structure should be apparent.
+    </para>
+    <para>
+     See also:
+     <link linkend="api.register.block">register_block()</link>,
+     <link linkend="api.unregister.block">unregister_block()</link>.
+    </para>
+    <example>
+     <title>block function</title>
+     <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     block.translate.php
+ * Type:     block
+ * Name:     translate
+ * Purpose:  translate a block of text
+ * -------------------------------------------------------------
+ */
+function smarty_block_eightball($params, $content, &amp;$smarty)
+{
+    if ($content) {
+        $lang = $params['lang'];
+        // do some intelligent translation thing here with $content
+        echo $translation;
+    }
+}</programlisting>
+    </example>
+   </sect1>
+
    <sect1 id="plugins.compiler.functions"><title>Compiler Functions</title>
     <para>
      Compiler functions are called only during compilation of the template.
@@ -1840,6 +2088,46 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      return $compiled;
  }
 ?&gt;</programlisting>
+    </example>
+   </sect1>
+
+   <sect1 id="plugins.outputfilters"><title>Output Filters</title>
+    <para>
+     Output filter plugins operate on a template's output, after the
+     template is loaded and executed, but before the output is displayed.
+    </para>
+    <funcsynopsis>
+     <funcprototype>
+      <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
+      <paramdef>string <parameter>$template_output</parameter></paramdef>
+      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+     </funcprototype>
+    </funcsynopsis>
+    <para>
+     The first parameter to the output filter function is the template
+     output that needs to be processed, and the second parameter is the
+     instance of Smarty invoking the plugin. The plugin is supposed to do
+     the processing and return the results.
+    </para>
+    <example>
+     <title>output filter plugin</title>
+     <programlisting>
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     outputfilter.protect_email.php
+ * Type:     outputfilter
+ * Name:     protect_email
+ * Purpose:  Converts @ sign in email addresses to %40 as 
+ *           a simple protection against spambots
+ * -------------------------------------------------------------
+ */
+ function smarty_outputfilter_protect_email($output, &$smarty)
+ {
+     return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
+                         '$1%40$2', $output);
+ }
+     </programlisting>
     </example>
    </sect1>
 
