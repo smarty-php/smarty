@@ -118,8 +118,11 @@ class Smarty
 \*======================================================================*/
     function Smarty()
     {
-        foreach ($this->global_assign as $var_name)
-            $this->assign($var_name, $GLOBALS[$var_name]);
+        foreach ($this->global_assign as $var_name) {
+            if(isset($GLOBALS[$var_name])) {
+                $this->assign($var_name, $GLOBALS[$var_name]);
+            }
+        }
     }
 
 
@@ -376,10 +379,11 @@ class Smarty
         }
 
         if ($display) {
-            echo $results;
+            if(isset($results)) { echo $results; }
             return;
-        } else
-            return $results;
+        } else {
+            if(isset($results)) { return $results; }
+        }
     }   
     
 /*======================================================================*\
@@ -1140,7 +1144,7 @@ class Smarty
     }
     
     function _parse_vars_props(&$tokens)
-    {
+    {        
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
         /* preg_grep() was fixed to return keys properly in 4.0.4 and later. To
@@ -1182,7 +1186,7 @@ class Smarty
         $sections = explode('/', $var_ref);
         $props = explode('.', array_pop($sections));
         $var_name = array_shift($props);
-
+        
         $output = "\$$var_name";
 
         foreach ($sections as $section_ref) {
