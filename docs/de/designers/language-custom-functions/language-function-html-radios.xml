@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
 		<sect1 id="language.function.html.radios">
 			<title>html_radios (Ausgabe von HTML-RADIO Tags)</title>
             <informaltable frame="all">
@@ -70,6 +70,9 @@
             Elemente erstellt und k&uuml;mmert sich darum welche Elemente ausgew&auml;hlt sind.
             Erforderliche Attribute sind Wert/Ausgabe oder Options. Die Ausgabe ist XHTML kompatibel
 			</para>
+			<para>
+			Alle weiteren Parameter werden als Name/Wert Paare (Attribute) in jedem der &lt;input&gt;-Tags ausgegeben.
+			</para>
 <example>
 <title>html_radios</title>
 <programlisting>
@@ -110,7 +113,7 @@ index.tpl:
 AUSGABE: (beider Beispiele)
 
 &lt;input type="radio" name="id[]" value="1000"&gt;Joe Schmoe&lt;br /&gt;
-&lt;input type="radio" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
+&lt;input type="radio" name="id[]" value="1001" checked="checked"&gt;Jack Smith&lt;br /&gt;
 &lt;input type="radio" name="id[]" value="1002"&gt;Jane Johnson&lt;br /&gt;
 &lt;input type="radio" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
 </example>
