@@ -50,6 +50,10 @@
  * application has not already defined it.
  */
 
+if(!defined('DIR_SEP')) {
+	define('DIR_SEP', DIRECTORY_SEPARATOR);
+}
+
 /**
  * Sets SMARTY_DIR only if user application has not already defined it
  */

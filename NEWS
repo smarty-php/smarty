@@ -1,4 +1,4 @@
-  - remove DIR_SEP, use DIRECTORY_SEPARATOR exclusively (Monte)
+  - use DIRECTORY_SEPARATOR exclusively, keep DIR_SEP for BC (Monte)
   - changed "link" to "href" in html_image. "link" is still working
     but deprecated (messju)
   - html_image always renders an alt-tag now (default alt="") (messju)
