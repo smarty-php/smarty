@@ -74,7 +74,7 @@ class Config_File {
 	 */
 	function Config_File($config_path = NULL)
 	{
-		if (substr(PHP_OS, 1, 3) == "WIN" || substr(PHP_OS, 1, 4) == "OS/2")
+		if (substr(PHP_OS, 0, 3) == "WIN" || substr(PHP_OS, 0, 4) == "OS/2")
 			$this->_separator = "\\";
 		else
 			$this->_separator = "/";
