@@ -14,6 +14,7 @@
 			<address><email>andrei@ispi.net</email></address>
 		</affiliation>
 	</author>
+	<edition>Version 1.0b</edition>
 	<copyright><year>2001</year><holder>ispi, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -1772,15 +1773,30 @@ is the first week that has at least 4 days in the current year, and with Monday 
 <chapter id="credits">
 	<title>CREDITS</title>
 	<para>
-	Monte Ohrt &lt;monte@ispi.net&gt;: Original idea and initial implementation, documentation.
+	Monte Ohrt &lt;monte@ispi.net&gt;: Idea of compiling into PHP scripts,
+	initial implementation, documentation.
 	</para>
 	<para>
-	Andrei Zmievski &lt;andrei@ispi.net&gt;: Rewrote parser from scratch, added much functionality.
+	Andrei Zmievski &lt;andrei@ispi.net&gt;: Rewrote parser from scratch, added
+	custom modifier functionality, and much more.
 	</para>
 	<para>
-	Special thanks goes too all the members of the php-template mailing list.
-	Many people shared their thoughts and ideas here, all of which influenced
-	the direction Smarty took during it's journey to a reality.
+	Anne Holz &lt;anne@ispi.net&gt;: Contributed several ideas for formatting features.
+	</para>
+	<para>
+	Frank Kromann &lt;fmk@php.net&gt;: Idea of custom function ability.
+	</para>
+	<para>
+	A special thanks goes to all the people that have contributed other
+	templating solutions to the PHP community which we learned a lot from.
+	</para>
+	<para>
+	A special thanks goes to all the members of the php-template mailing list,
+	who shared and brought many ideas to the table.
+	</para>
+	<para>
+	Rasmus Lerdorf &lt;rasmus@php.net&gt;: For starting what eventually became
+	the coolest programming language ever.
 	</para>
 </chapter>
 </book>

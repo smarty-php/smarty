@@ -33,10 +33,6 @@ testing
 {$Contacts["phone"]["work"]}<br>
 {$Contacts["fax"]}<br>
 
-printing by key val:
-{$Contacts|@key:"phone"}<br>
-{$Contacts|@key:"fax"}<br>
-{$Contacts|@key:"cell"}<br>
 <p>
 
 testing strip tags

@@ -3,12 +3,10 @@
  * Project:		Smarty: the PHP compiled template engine
  * File:		Smarty.class.php
  * Author:		Monte Ohrt <monte@ispi.net>
- *				original idea and implementation
+ *                      Andrei Zmievski <andrei@ispi.net>
  *
- *				Andrei Zmievski <andrei@ispi.net>
- *				parsing engine rewrite and a lot more
- * Version:		1.0b
- * Copyright:	2001 ispi, Inc.
+ * Version:             1.0b
+ * Copyright:           2001 ispi of Lincoln, Inc.
  *				
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
