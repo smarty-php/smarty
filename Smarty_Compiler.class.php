@@ -54,7 +54,7 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
-        if($this->security) {
+        if ($this->security) {
             // do not allow php syntax to be executed unless specified
             if ($this->php_handling == SMARTY_PHP_ALLOW &&
                 !$this->security_settings['PHP_HANDLING']) {
@@ -249,7 +249,7 @@ class Smarty_Compiler extends Smarty {
             case 'php':
                 if ($this->security && !$this->security_settings['PHP_TAGS']) {
                     $this->_syntax_error("(secure mode) php tags not permitted", E_USER_WARNING);
-                    return;                 
+                    return;
                 }
                 list (,$php_block) = each($this->_php_blocks);
                 $this->_current_line_no += substr_count($php_block, "\n");
@@ -347,12 +347,15 @@ class Smarty_Compiler extends Smarty {
             $this->_syntax_error("missing 'file' attribute in config_load tag");
         }
 
+        if (empty($attrs['section'])) {
+            $attrs['section'] = 'null';
+        }
+
         $scope = $this->_dequote($attrs['scope']);
         if (!empty($scope)) {
             if ($scope != 'local' &&
                 $scope != 'parent' &&
                 $scope != 'global') {
-                var_dump($scope);
                 $this->_syntax_error("invalid 'scope' attribute value");
             }
         } else {
@@ -362,27 +365,7 @@ class Smarty_Compiler extends Smarty {
                 $scope = 'local';
         }
 
-        $output  = "<?php\n" .
-                   "\$this->_config[0] = array_merge(\$this->_config[0], \$this->_conf_obj->get(".$attrs['file']."));\n";
-        if ($scope == 'parent')
-            $output .=  "if (count(\$this->_config) > 0)\n" .
-                        "   \$this->_config[1] = array_merge(\$this->_config[1], \$this->_conf_obj->get(".$attrs['file']."));\n";
-        else if ($scope == 'global')
-            $output .=  "for (\$this->_i = 1; \$this->_i < count(\$this->_config); \$this->_i++)\n" .
-                        "   \$this->_config[\$this->_i] = array_merge(\$this->_config[\$this->_i], \$this->_conf_obj->get(".$attrs['file']."));\n";
-
-        $dq_section = $this->_dequote($attrs['section']);
-        if (!empty($dq_section)) {
-            $output .=  "\$this->_config[0] = array_merge(\$this->_config[0], \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
-            if ($scope == 'parent')
-                $output .= "if (count(\$this->_config) > 0)\n" .
-                           "    \$this->_config[1] = array_merge(\$this->_config[1], \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
-            else if ($scope == 'global')
-                $output .=  "for (\$this->_i = 1; \$this->_i < count(\$this->_config); \$this->_i++)\n" .
-                            "   \$this->_config[\$this->_i] = array_merge(\$this->_config[\$this->_i], \$this->_conf_obj->get(".$attrs['file'].", ".$attrs['section']."));\n";
-        }
-
-        $output .= '?>';
+        $output  = '<?php $this->_config_load(' . $attrs['file'] . ', ' . $attrs['section'] . ", '$scope'); ?>";
 
         return $output;
     }

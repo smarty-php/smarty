@@ -477,7 +477,7 @@ class Smarty
     function display($tpl_file, $cache_id = null)
     {
         $this->fetch($tpl_file, $cache_id, true);
-    }   
+    }
         
 /*======================================================================*\
     Function:   fetch()
@@ -526,7 +526,7 @@ class Smarty
         if ($this->show_info_header) {
             $info_header = '<!-- Smarty '.$this->_version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
         } else {
-            $info_header = "";          
+            $info_header = '';          
         }
 
         // if we just need to display the results, don't perform output
@@ -548,7 +548,7 @@ class Smarty
             $this->_write_file($cache_file, $results, true);
             $results = $this->_process_cached_inserts($results);
         }
-                
+ 
         if ($display) {
             if (isset($results)) { echo $results; }
             return;
@@ -570,8 +570,8 @@ class Smarty
         if (!$this->force_compile && $this->_compiled_template_exists($compile_path)) {
             if (!$this->compile_check) {
                 // no need to check if the template needs recompiled
-                return true;                
-            } else {               
+                return true;
+            } else { 
                 // get template source and timestamp
                 $this->_fetch_template_source($tpl_file, $template_source, $template_timestamp);
                 if ($template_timestamp <= $this->_fetch_compiled_template_timestamp($compile_path)) {
@@ -591,7 +591,7 @@ class Smarty
             $this->_write_compiled_template($compile_path, $template_compiled);
             return true;
         }
-    }    
+    }
     
 /*======================================================================*\
     Function:   _fetch_compile_path()
@@ -756,6 +756,33 @@ class Smarty
         array_shift($this->_config);
     }
         
+    
+/*======================================================================*\
+    Function: _config_load
+    Purpose:  load configuration values
+\*======================================================================*/
+    function _config_load($file, $section, $scope)
+    {
+        $this->_config[0] = array_merge($this->_config[0], $this->_conf_obj->get($file));
+        if ($scope == 'parent') {
+            if (count($this->_config) > 0)
+                $this->_config[1] = array_merge($this->_config[1], $this->_conf_obj->get($file));
+        } else if ($scope == 'global')
+            for ($i = 1; $i < count($this->_config); $i++)
+                $this->_config[$i] = array_merge($this->_config[$i], $this->_conf_obj->get($file));
+
+        if (!empty($section)) {
+            $this->_config[0] = array_merge($this->_config[0], $this->_conf_obj->get($file, $section));
+            if ($scope == 'parent') {
+                if (count($this->_config) > 0)
+                    $this->_config[1] = array_merge($this->_config[1], $this->_conf_obj->get($file, $section));
+            } else if ($scope == 'global')
+                for ($i = 1; $i < count($this->_config); $i++)
+                    $this->_config[$i] = array_merge($this->_config[$i], $this->_conf_obj->get($file, $section));
+        }
+    }
+
+
 /*======================================================================*\
     Function: _process_cached_inserts
     Purpose:  Replace cached inserts with the actual results

@@ -7,3 +7,4 @@
 * think about passing default structures to includes, i.e. {include
   default=$foo}, then using $bar in included template, instead of $foo.bar
 * support implementations of prefiltes, mods, and others as class methods.
+* possibly implement default modifiers that apply to variables upon display
