@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.table">
  <title>html_table</title>
  <informaltable frame="all">
@@ -22,28 +22,46 @@
   <tbody>
    <row>
     <entry>loop</entry>
-    <entry>массив</entry>
+    <entry>array</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>массив данных, по которому будет произведен обход</entry>
    </row>
    <row>
     <entry>cols</entry>
-    <entry>целое (integer)</entry>
+    <entry>integer</entry>
     <entry>Нет</entry>
     <entry><emphasis>3</emphasis></entry>
     <entry>количество колонок таблицы</entry>
    </row>
    <row>
+    <entry>cols</entry>
+    <entry>integer</entry>
+    <entry>Нет</entry>
+    <entry><emphasis>3</emphasis></entry>
+    <entry>количество колонок таблицы,
+    данные заполняют ячецки слева направо,
+    сверху вниз.</entry>
+   </row>
+   <row>
+    <entry>rows</entry>
+    <entry>integer</entry>
+    <entry>Нет</entry>
+    <entry><emphasis>empty</emphasis></entry>
+    <entry>количество рядов таблицы, данные заполняют
+    ячецки слева направо, сверху вниз. Этот аттрибут -
+    взаимоисключающийся с аттрибутом "cols".</entry>
+   </row>
+   <row>
     <entry>table_attr</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>border="1"</emphasis></entry>
     <entry>дополнительные аттрибуты тэга table</entry>
    </row>
    <row>
     <entry>tr_attr</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
     <entry>дополнительные аттрибуты тэга tr (если указан 
@@ -51,7 +69,7 @@
    </row>
    <row>
     <entry>td_attr</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
     <entry>дополнительные аттрибуты тэга td (если указан 
@@ -59,11 +77,26 @@
    </row>
    <row>
     <entry>trailpad</entry>
-    <entry>строка (string)</entry>
+    <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>&amp;nbsp;</emphasis></entry>
        <entry>значение остаточных ячеек на последней 
        строке табилцы</entry>
+   </row>
+   
+   <row>
+    <entry>hdir</entry>
+    <entry>string</entry>
+    <entry>Нет</entry>
+    <entry><emphasis>right</emphasis></entry>
+    <entry>направление отображения каждого ряда. допустимые значения: <emphasis>left</emphasis> (слева направо), <emphasis>right</emphasis> (справа налево)</entry>
+   </row>
+   <row>
+    <entry>vdir</entry>
+    <entry>string</entry>
+    <entry>Нет</entry>
+    <entry><emphasis>down</emphasis></entry>
+    <entry>направление отображение каждой колонки. допустимые значения: <emphasis>down</emphasis> (сверху вниз), <emphasis>up</emphasis> (снизу вверх)</entry>
    </row>
   </tbody>
   </tgroup>
