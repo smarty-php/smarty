@@ -14,7 +14,6 @@ My interests are:
 	{else}
 		* {$outer/FirstName} {$outer/LastName}
 	{/if}
-	{$outer/date|date_format:"%B %d, %Y"}
 {sectionelse}
 	none
 {/section}

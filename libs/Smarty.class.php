@@ -527,6 +527,12 @@ class Smarty
 					$output .= "{$section_props}['loop'] = count($attr_value);\n";
 					break;
 
+				case 'show':
+					if (is_bool($attr_value))
+						$attr_value = $attr_value ? 'true' : 'false';
+					$output .= "{$section_props}['$attr_name'] = $attr_value;\n";
+					break;
+
 				default:
 					$output .= "{$section_props}['$attr_name'] = $attr_value;\n";
 					break;
