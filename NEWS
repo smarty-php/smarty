@@ -4,7 +4,7 @@ Version 2.6.5 (Sept 13, 2004)
   - fixed some parsing problems with object calls introduced
     in 2.6.4 (Monte)
   - add $smarty->security_settings['ALLOW_CONSTANTS']. note: this
-    defaults to false which means you have to allow them explicitely
+    defaults to false which means you have to allow them explicitly
     in your secured templates from now on! (messju)
 
 Version 2.6.4 (Sept 7, 2004)
