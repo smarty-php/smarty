@@ -143,17 +143,10 @@ require("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->assign("Name","Ned");
 $smarty->assign(array(
-<<<<<<< QUICKSTART
-                    "FirstName" => "Fred",
-                    "LastName" => "Flanders",
-                    "Address" => "Springfield"
-                    ));
-=======
 					"FirstName" => "Ned",
 					"LastName" => "Flanders",
 					"Address" => "Springfield"
 					));
->>>>>>> 1.2
 $zipcode = "55555";
 $smarty->assign("Zipcode",$zipcode);
 $smarty->display("./templates/index.tpl");
@@ -194,18 +187,6 @@ Example:
 
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
-<<<<<<< QUICKSTART
-    {if $Name eq ""}
-        Hello, Noname!<br>
-    {elseif $Name eq "Fred"}
-        Hello, Frederick!<br>
-    {else}
-        Hello, {$Name}<br>
-    {/if}
-    
-    {$FirstName}, {$LastName}<br>
-    {$Address}, {$Zipcode}
-=======
 	{if $Name eq ""}
 		Hello, Noname!<br>
 	{elseif $Name eq "Ned"}
@@ -216,7 +197,6 @@ Example:
 	
 	{$FirstName}, {$LastName}<br>
 	{$Address}, {$Zipcode}
->>>>>>> 1.2
 {include file="footer.tpl"}
 
 
@@ -271,7 +251,7 @@ $smarty->assign("ContactNames",array(
                                array("email","home","fax")
                                 ));
 $smarty->assign("ContactVals",array(
-                              array("fred@simpsons.com","555-666-7777","555-444-3333"),
+                              array("ned@simpsons.com","555-666-7777","555-444-3333"),
                               array("bart@simpsons.com","555-111-2222"),
                               array("monty@simpsons.com","555-888-9999","555-234-5678"),
                                 ));

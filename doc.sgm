@@ -556,7 +556,7 @@ Your last login was on January 11th, 2001.
 			values don't have to be enclosed in quotes, but it is recommended
 			for literal strings. If not quoted, you may use a syntax that Smarty may confuse
 			with another function, such as a boolean value. Variables may
-			also be used, and should not be in parenthesis.
+			also be used, and should not be in quotes.
 			</para>
 <example>
 <title>Template example of function attribute syntax</title>
