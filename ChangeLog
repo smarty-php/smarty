@@ -1,3 +1,8 @@
+2002-09-20  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      docs/getting-started.sgml: fixed errors with example setup docs
+
 2002-09-16  Monte Ohrt  <monte@ispi.net>
 
     * plugins/block.textformat.php
