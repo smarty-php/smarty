@@ -17,7 +17,7 @@ function smarty_function_popup($params, &$smarty)
         return false;
     }
 
-    if (empty($trigger)) { $trigger = "onMouseOver"; }
+    if (empty($trigger)) { $trigger = "onmouseover"; }
 
     $retval = $trigger . '="return overlib(\''.preg_replace(array("!'!","![\r\n]!"),array("\'",'\r'),$text).'\'';
     if ($sticky) { $retval .= ",STICKY"; }
