@@ -1,3 +1,6 @@
+Version 2.1.0
+-------------
+
     - introduced output filters. (Andrei)
     - changed the way filters are loaded, added load_filter()
       API function and $autoload_filters variable. (Andrei)
