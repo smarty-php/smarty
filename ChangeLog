@@ -1,3 +1,17 @@
+2003-02-14  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php:
+      enable config_load error messages
+
+    * NEWS
+      plugins/function.html_options.php:
+      fix html_options to not escape already escaped entities
+
+    * NEWS
+      Smarty.class.php:
+      send Last-Modified header on cache creation, misc tab/spacing cleanup
+
 2003-02-13  Monte Ohrt  <monte@ispi.net>
 
     * Smarty_Compiler.class.php
