@@ -1,3 +1,16 @@
+2003-12-01  boots  <jayboots@yahoo.com>
+
+    * docs/designers.sgml:
+      Added section "Escaping Smarty Parsing" under Basic Syntax.
+
+2003-12-01  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.create_dir_structure.php:
+      thought again about my latest commit and backed it out.
+
+    * libs/core/core.create_dir_structure.php:
+      fix root-dir-handling on windows filepath
+
 2003-11-29  boots  <jayboots@yahoo.com>
 
     * libs/plugins/function.config_load.php:
