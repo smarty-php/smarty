@@ -33,8 +33,8 @@
 	 <note>
 	 <title>Note technique</title>
 	 <para>
-	 Ce réglage doit Otre soit un chemin absolu, soit un chemin
-	 relatif. include_path n'est pas utilisé pour Tcrire des fichiers.
+	 Ce réglage doit être soit un chemin absolu, soit un chemin
+	 relatif. include_path n'est pas utilisé pour écrire des fichiers.
 	 </para>
 	 </note>
 	 <note>
@@ -116,8 +116,8 @@
       implicitement assignées au moteur de templates.
       Ceci est commode pour rendre des variables globales
       ou des variables du serveur accessibles a tous les templates
-      plut(t que de devoir les assigner a la main. Chaque Tlément
-      de $global_assign doit Otre soit le nom de la variable
+      plut(t que de devoir les assigner a la main. Chaque élément
+      de $global_assign doit être soit le nom de la variable
       globale, soit une paire clef/valeur, oú clef est le
       nom du tableau global et valeur le tableau de variable
       assignées depuis ce tableau global.
@@ -162,10 +162,10 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <title>$compile_check</title>
       <para>
       A chaque invocation de l'application PHP, Smarty fait
-      un test pour voir si le template courant a Tté modifié
+      un test pour voir si le template courant a été modifié
       (date de derniére modification différente) depuis sa
       derniére compilation. S'il a changé, le template est recompilé.
-      Si le template n'a pas encore Tté compilé, il le sera
+      Si le template n'a pas encore été compilé, il le sera
       quelle que soit la valeur ce réglage.
       Par défaut cette valeur est a vrai. Quand
       une application est mise en production (les templates
@@ -188,7 +188,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       Cela oblige Smarty a (re)compiler les templates a chaque
       invocation. Ce réglage supplante $compile_check. Par défaut, il
       est désactivé. Ceci est commode pour le développement et le
-      débogage mais ne devrait jamais Otre utilisé dans un environnment
+      débogage mais ne devrait jamais être utilisé dans un environnment
       de production. Si le systéme de cache est actif, les
       fichiers du cache seront regénérés a chaque appel.
       </para>
@@ -213,7 +213,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
       Si $compile_check est actif, le contenu du cache sera regénéré
       si un des templates ou un des fichiers de configuration qui fait partie
-      de ce fichier de cache a Tté modifié. Si $force_compile est actif, le contenu
+      de ce fichier de cache a été modifié. Si $force_compile est actif, le contenu
       du cache est toujours regénéré.
       </para>
      </sect1>
@@ -228,12 +228,12 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
 	 <note>
 	 <title>Note technique</title>
 	 <para>
-       Ce réglage doit Otre soit un chemin absolu, soit un chemin
-	 relatif. include_path n'a aucune influence lors de l'Tcriture des fichiers.
+       Ce réglage doit être soit un chemin absolu, soit un chemin
+	 relatif. include_path n'a aucune influence lors de l'écriture des fichiers.
       </para>
 	  </note>
 	  <note>
-		  <title>Technical Note</title>
+		  <title>Note technique</title>
 		  <para>
          Il n'est pas conseillé de mettre ce répertoire
          dans l'arborescence Web.
@@ -245,7 +245,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
       Il s'agit de la durée en secondes pendant laquelle un cache de template
       est valide. Une fois cette durée dépassée, le cache est regénéré.
-      $caching doit Otre a "true" pour que $cache_lifetime ait une
+      $caching doit être a "true" pour que $cache_lifetime ait une
       quelconque utilité. Avec une valeur de -1, le cache n'expire jamais.
       Avec une valeur de 0, le cache est toujours regénéré (utile
       a des fins de tests seulement. Une meilleure faton de désactiver
@@ -278,7 +278,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
       Vous pouvez utiliser votre propre fonction de gestion du cache plut(t que
       d'utiliser celle livrée avec Smarty.
-      RTférez-vous a la section sur la fonction de gestion de cache
+      Référez-vous a la section sur la fonction de gestion de cache
       personnalisée pour plus de détails.
       </para>
      </sect1>
@@ -297,10 +297,10 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <title>$config_overwrite</title>
       <para>
       Si cette variable est a vrai, les variables lues dans les fichiers
-      de configuration peuvent s'Tcraser entre elles. Sinon les variables
-      seront mises dans un tableau. Trés utile si vous voulez stocker
+      de configuration peuvent s'écraser entre elles. Sinon les variables
+      seront mises dans un tableau. Très utile si vous voulez stocker
       des tableaux de données dans des fichiers de configuration, listez
-      simplement chaque Tlément plusieurs fois. Mise a faux par défaut.
+      simplement chaque élément plusieurs fois. Mise a faux par défaut.
       </para>
      </sect1>
      <sect1 id="variable.config.booleanize">
@@ -319,7 +319,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
       Si cette variable est a vrai, les sections cachés (dont les noms
       commencent par un point) dans les fichiers de configuration peuvent
-      Otre lues depuis les templates. On laisse habituellement cela a faux, de
+      être lues depuis les templates. On laisse habituellement cela a faux, de
       cette faton vous pouvez stocker des données sensibles dans les fichiers
       de configuration, comme par exemple des paramétres de base de données,
       sans vous soucier de la faton dont les templates les chargent.
@@ -336,7 +336,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.default.template.handler.func">
       <title>$default_template_handler_func</title>
       <para>
-      Cette fonction est appelée quand un template ne peut pas Otre
+      Cette fonction est appelée quand un template ne peut pas être
       obtenu avec sa ressource.
       </para>
      </sect1>
@@ -351,7 +351,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       dans le template.
       </para>
       <itemizedlist>
-       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty Tcrit les balises
+       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty écrit les balises
        telles quelles.</para></listitem>
        <listitem><para>SMARTY_PHP_QUOTE - Smarty transforme les balises
        en entités HTML.</para></listitem>
@@ -371,7 +371,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <title>$security</title>
       <para>
       Cette variable est a faux par défaut. $security est de rigueur
-      quand vous n'Otes pas complétement svr des personnes qui Tditent les templates
+      quand vous n'Otes pas complétement svr des personnes qui éditent les templates
       (par ftp par exemple) et que vous voulez réduire le risque que
       la sécurité du systéme soit compromise par le language de template.
       Activer cette option de sécurité applique les régles suivantes
@@ -384,9 +384,9 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
        <listitem><para>Les fonctions PHP ne sont pas autorisées dans les
          instructions IF, a part celles déclarées dans
          $security_settings.</para></listitem>
-       <listitem><para>Les templates ne peuvent Otre inclus que depuis
+       <listitem><para>Les templates ne peuvent être inclus que depuis
          des répertoires listés dans le tableau $security_dir.</para></listitem>
-       <listitem><para>Les fichiers locaux ne peuvent Otre récupérés que depuis
+       <listitem><para>Les fichiers locaux ne peuvent être récupérés que depuis
          les répertoires listés dans le tableau $security_dir en
          utilisant {fetch}.</para></listitem>
        <listitem><para>Les balises {php}{/php} ne sont pas autorisées.</para></listitem>
@@ -405,7 +405,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.security.settings">
       <title>$security_settings</title>
       <para>
-      Ces réglages servent a Tcraser ou spécifier les paramétres de sécurité
+      Ces réglages servent à écraser ou spécifier les paramétres de sécurité
       quand celle-ci est activée. Les réglages possibles sont les suivants :
       </para>
       <itemizedlist>
@@ -414,19 +414,19 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
        <listitem><para>IF_FUNCS - Le tableau des noms de fonctions
        PHP autorisées dans les intructions IF.</para></listitem>
        <listitem><para>INCLUDE_ANY - true/false. Si vrai,
-       les templates peuvent Otre inclus de n'importe oú, quelque soit
+       les templates peuvent être inclus de n'importe oú, quelque soit
        le contenu de $secure_dir.</para></listitem>
        <listitem><para>PHP_TAGS - true/false. Si vrai,
        les balises {php}{/php} sont autorisées dans les templates.</para></listitem>
        <listitem><para>MODIFIER_FUNCS - Le tableau des noms de fonctions
-       autorisées a Otre utilisées comme modificateurs de variables.</para></listitem>
+       autorisées a être utilisées comme modificateurs de variables.</para></listitem>
       </itemizedlist>
      </sect1>
      <sect1 id="variable.trusted.dir">
       <title>$trusted_dir</title>
       <para>
       $trusted_dir n'est utilisée lorsque $security est activée. C'est un
-      tableau de tous les répertoires qui peuvent Otre considérés comme svrs.
+      tableau de tous les répertoires qui peuvent être considérés comme svrs.
       Les répertoires svrs sont ceux qui contiennent des scripts PHP qui
       sont exécutés directement depuis les templates avec
       <link linkend="language.function.include.php">{include_php}</link>.
@@ -449,9 +449,9 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.compiler.class">
       <title>$compiler_class</title>
       <para>
-      Spécifie le nom de la classe du compilateur qui va Otre utilisée pour
+      Spécifie le nom de la classe du compilateur qui va être utilisée pour
       compiler les templates. Le compilateur par défaut est
-      'Smarty_Compiler'. RTservé aux utilisateurs avancés.
+      'Smarty_Compiler'. Réservé aux utilisateurs avancés.
       </para>
      </sect1>
      <sect1 id="variable.request.vars.order">
@@ -472,7 +472,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.use.sub.dirs">
       <title>$use_sub_dirs</title>
       <para>
-      RTgler cela a faux si votre environnement PHP n'autorise pas Smarty a créer
+      Régler cela a faux si votre environnement PHP n'autorise pas Smarty a créer
       des sous-répertoires. Les sous-répertoires sont efficaces, utilisez-les quand
       vous le pouvez.
       </para>
@@ -482,7 +482,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
       Il s'agit d'un tableau de modificateurs utilisé pour assigner
       une valeur par défaut a chaque variable dans un template.
-      Par exemple, pour par défaut Tchapper les caractéres HTML de chaque variable,
+      Par exemple, pour par défaut échapper les caractéres HTML de chaque variable,
       utilisez array('escape:"htmlall"'); Pour rendre une variable indépendante
       des modificateurs par défaut, passez-lui en paramétre le modificateur
       "nodefaults" : {$var|nodefaults}.
