@@ -9,3 +9,4 @@
 * support implementations of prefiltes, mods, and others as class methods.
 * possibly implement default modifiers that apply to variables upon display
 * possibly implement undefined template tags custom handling
+* think about possibility of supporting something like {$data[foo].{$key[bar]}}
