@@ -221,8 +221,10 @@
        valid. Once this time has expired, the cache will be
        regenerated. $caching must be set to "true" for this setting to
        work. You can also force the cache to expire with <link
-        linkend="api.clear.all.cache">clear_all_cache</link>. (added to
-       Smarty 1.3.0)
+        linkend="api.clear.all.cache">clear_all_cache</link>. A setting
+		of -1 will force the cache to never expire. A setting of 0 will cause
+		the cache to always regenerate (which doesn't make much sense, you'd be
+		better off setting caching=false.)
       </para>
      </sect2>
      <sect2 id="variable.cache.handler.func">
