@@ -45,23 +45,10 @@ function smarty_function_cycle($params, &$smarty)
 {
     static $cycle_vars;
     
-    extract($params);
-
-    if (empty($name)) {
-        $name = 'default';
-    }
-
-    if (!isset($print)) {
-        $print = true;
-    }
-
-    if (!isset($advance)) {
-        $advance = true;        
-    }    
-
-    if (!isset($reset)) {
-        $reset = false;        
-    }        
+    $name = (empty($params['name'])) ? 'default' : $params['name'];
+    $print = (isset($params['print'])) ? (bool)$params['print'] : true;
+    $advance = (isset($params['advance'])) ? (bool)$params['advance'] : true;
+    $reset = (isset($params['reset'])) ? (bool)$params['reset'] : false;
             
     if (!in_array('values', array_keys($params))) {
         if(!isset($cycle_vars[$name]['values'])) {
@@ -70,31 +57,27 @@ function smarty_function_cycle($params, &$smarty)
         }
     } else {
         if(isset($cycle_vars[$name]['values'])
-            && $cycle_vars[$name]['values'] != $values ) {
+            && $cycle_vars[$name]['values'] != $params['values'] ) {
             $cycle_vars[$name]['index'] = 0;
         }
-        $cycle_vars[$name]['values'] = $values;
+        $cycle_vars[$name]['values'] = $params['values'];
     }
 
-    if (isset($delimiter)) {
-        $cycle_vars[$name]['delimiter'] = $delimiter;
-    } elseif (!isset($cycle_vars[$name]['delimiter'])) {
-        $cycle_vars[$name]['delimiter'] = ',';        
-    }
+    $cycle_vars[$name]['delimiter'] = (isset($params['delimiter'])) ? $params['delimiter'] : ',';
     
-    if(!is_array($cycle_vars[$name]['values'])) {
-        $cycle_array = explode($cycle_vars[$name]['delimiter'],$cycle_vars[$name]['values']);
-    } else {
+    if(is_array($cycle_vars[$name]['values'])) {
         $cycle_array = $cycle_vars[$name]['values'];    
+    } else {
+        $cycle_array = explode($cycle_vars[$name]['delimiter'],$cycle_vars[$name]['values']);
     }
     
     if(!isset($cycle_vars[$name]['index']) || $reset ) {
         $cycle_vars[$name]['index'] = 0;
     }
     
-    if (isset($assign)) {
+    if (isset($params['assign'])) {
         $print = false;
-        $smarty->assign($assign, $cycle_array[$cycle_vars[$name]['index']]);
+        $smarty->assign($params['assign'], $cycle_array[$cycle_vars[$name]['index']]);
     }
         
     if($print) {

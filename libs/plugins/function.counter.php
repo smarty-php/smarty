@@ -22,16 +22,7 @@ function smarty_function_counter($params, &$smarty)
 {
     static $counters = array();
 
-    extract($params);
-
-    if (!isset($name)) {
-		if(isset($id)) {
-			$name = $id;
-		} else {		
-        	$name = "default";
-		}
-	}
-
+    $name = (isset($params['name'])) ? $params['name'] : 'default';
     if (!isset($counters[$name])) {
         $counters[$name] = array(
             'start'=>1,
@@ -42,20 +33,20 @@ function smarty_function_counter($params, &$smarty)
     }
     $counter =& $counters[$name];
 
-    if (isset($start)) {
-        $counter['start'] = $counter['count'] = $start;
+    if (isset($params['start'])) {
+        $counter['start'] = $counter['count'] = (int)$params['start'];
     }
 
-    if (!empty($assign)) {
-        $counter['assign'] = $assign;
+    if (!empty($params['assign'])) {
+        $counter['assign'] = $params['assign'];
     }
 
     if (isset($counter['assign'])) {
         $smarty->assign($counter['assign'], $counter['count']);
     }
     
-    if (isset($print)) {
-        $print = (bool)$print;
+    if (isset($params['print'])) {
+        $print = (bool)$params['print'];
     } else {
         $print = empty($counter['assign']);
     }
@@ -66,12 +57,12 @@ function smarty_function_counter($params, &$smarty)
 		$retval = null;
 	}
 
-    if (isset($skip)) {
-        $counter['skip'] = $skip;
+    if (isset($params['skip'])) {
+        $counter['skip'] = $params['skip'];
     }
     
-    if (isset($direction)) {
-        $counter['direction'] = $direction;
+    if (isset($params['direction'])) {
+        $counter['direction'] = $params['direction'];
     }
 
     if ($counter['direction'] == "down")
