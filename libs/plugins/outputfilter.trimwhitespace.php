@@ -43,27 +43,26 @@
       	$source = trim(preg_replace('/((?<!\?>)\n)[\s]+/m', '\1', $source));
 
 	// replace script blocks
-	foreach($_script_blocks as $curr_block) {
-	   smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:SCRIPT@@@",$curr_block, $source);
-	}
+	smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:SCRIPT@@@",$_script_blocks, $source);
+
 	// replace pre blocks
-	foreach($_pre_blocks as $curr_block) {
-	   smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:PRE@@@",$curr_block, $source);
-      }
+	smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:PRE@@@",$_pre_blocks, $source);
+
     // replace textarea blocks
-      foreach($_textarea_blocks as $curr_block) {
-	 smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:TEXTAREA@@@",$curr_block, $source);
-	}
+	smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:TEXTAREA@@@",$_textarea_blocks, $source);
 
 	return $source; 
  }
 
-function smarty_outputfilter_trimwhitespace_replace($search, $replace, &$subject) {
-   if (($_pos=strpos($subject, $search))!==false) {
-      $subject = substr($subject, 0, $_pos) 
-	 . $replace 
-	 . substr($subject, $_pos+strlen($search));
-   }
+function smarty_outputfilter_trimwhitespace_replace($search_str, $replace, &$subject) {
+   $_len = strlen($search_str);
+   $_pos = 0;
+   for ($_i=0, $_count=count($replace); $_i<$_count; $_i++)
+      if (($_pos=strpos($subject, $search_str, $_pos))!==false)
+	 $subject = substr_replace($subject, $replace[$_i], $_pos, $_len);
+      else
+	 break;
+   
 }
 
 ?>
