@@ -1,3 +1,8 @@
+2003-12-22  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml:
+      fix counter example
+
 2003-12-19  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty.class.php:
