@@ -7,6 +7,7 @@
       <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>mixed <parameter>$content</parameter></paramdef>
       <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>boolean <parameter>&amp;$repeat</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -80,7 +81,7 @@
  * Purpose:  translate a block of text
  * -------------------------------------------------------------
  */
-function smarty_block_translate($params, $content, &$smarty)
+function smarty_block_translate($params, $content, &$smarty, &$repeat)
 {
     if (isset($content)) {
         $lang = $params['lang'];
