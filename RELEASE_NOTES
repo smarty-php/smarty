@@ -2,7 +2,8 @@
 -----
 
 A few bug fixes, new section looping attributes and properties, debugging
-console function for control via URL, and overLib integration.
+console function for control via URL, and overLib integration and access
+to request variables from within the template.
 
 1.4.3
 -----
