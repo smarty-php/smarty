@@ -13,47 +13,52 @@ function smarty_function_counter($params, &$smarty)
     static $count = array();
     static $skipval = array();
     static $dir = array();
-    static $id = "default";
+    static $name = "default";
     static $printval = array();
     static $assign = "";
 
     extract($params);
 
-    if (!isset($id))
-        $id = "default";
+    if (!isset($name)) {
+		if(isset($id)) {
+			$name = $id;
+		} else {		
+        	$name = "default";
+		}
+	}
 
     if (isset($start))
-        $count[$id] = $start;
-    else if (!isset($count[$id]))
-        $count[$id]=1;
+        $count[$name] = $start;
+    else if (!isset($count[$name]))
+        $count[$name]=1;
 
     if (!isset($print))
-        $printval[$id]=true;
+        $printval[$name]=true;
     else
-        $printval[$id]=$print;
+        $printval[$name]=$print;
     
     if (!empty($assign)) {
-        $printval[$id] = false;
-        $smarty->assign($assign, $count[$id]);
+        $printval[$name] = false;
+        $smarty->assign($assign, $count[$name]);
     }
 
-    if ($printval[$id])
-        echo $count[$id];
+    if ($printval[$name])
+        echo $count[$name];
 
     if (isset($skip))
-        $skipval[$id] = $skip;
-    else if (empty($skipval[$id]))
-        $skipval[$id] = 1;
+        $skipval[$name] = $skip;
+    else if (empty($skipval[$name]))
+        $skipval[$name] = 1;
     
     if (isset($direction))
-        $dir[$id] = $direction;
-    else if (!isset($dir[$id]))
-        $dir[$id] = "up";
+        $dir[$name] = $direction;
+    else if (!isset($dir[$name]))
+        $dir[$name] = "up";
 
-    if ($dir[$id] == "down")
-        $count[$id] -= $skipval[$id];
+    if ($dir[$name] == "down")
+        $count[$name] -= $skipval[$name];
     else
-        $count[$id] += $skipval[$id];
+        $count[$name] += $skipval[$name];
 }
 
 /* vim: set expandtab: */

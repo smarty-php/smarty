@@ -2649,11 +2649,11 @@ The value of $name is Bob.</programlisting>
                 </thead>
                 <tbody>
                     <row>
-                        <entry>id</entry>
+                        <entry>name</entry>
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>default</emphasis></entry>
-                        <entry>The id of the counter</entry>
+                        <entry>The name of the counter</entry>
                     </row>
                     <row>
                         <entry>start</entry>
@@ -2699,8 +2699,8 @@ The value of $name is Bob.</programlisting>
 			count on each iteration. You can adjust the number, the interval
 			and the direction of the count, as well as determine whether or not
 			to print the value. You can run multiple counters concurrently by
-			supplying a unique id for each one. If you do not supply an id, the
-			default id will be used. counter was added to Smarty 1.4.0.
+			supplying a unique id for each one. If you do not supply a name, the
+			name 'default' will be used. counter was added to Smarty 1.4.0.
 			</para>
 			<para>
 			If you supply the special "assign" attribute, the output of the
