@@ -81,7 +81,7 @@ function smarty_function_config_load($params, &$smarty)
                 $smarty->_conf_obj->booleanize = $smarty->config_booleanize;
                 $smarty->_conf_obj->read_hidden = $smarty->config_read_hidden;
                 $smarty->_conf_obj->fix_newlines = $smarty->config_fix_newlines;
-                $smarty->_conf_obj->set_path = $_config_dir;
+                $smarty->_conf_obj->set_path($_config_dir);
             }
             $_config_vars = array_merge($smarty->_conf_obj->get($_file),
                     $smarty->_conf_obj->get($_file, $_section));

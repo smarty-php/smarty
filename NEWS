@@ -1,3 +1,4 @@
+  - fix config_file path bug (Marc Cabadas, Monte)
   - fix 'is even by' and 'is odd by' logic (Monte)
   - add day_empty, month_empty, year_empty and all_empty attributes to
     html_select_date (messju)
