@@ -1185,7 +1185,6 @@ function _run_insert_handler($args)
     function _read_file($filename, $start=null, $lines=null)
     {
         if (!($fd = @fopen($filename, 'r'))) {
-            $this->_trigger_error_msg("problem reading '$filename.'");
             return false;
         }
         flock($fd, LOCK_SH);
