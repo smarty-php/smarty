@@ -616,7 +616,7 @@ class Smarty_Compiler extends Smarty {
             $this->_capture_stack[] = $buffer;
         } else {
             $buffer = array_pop($this->_capture_stack);
-            $output = "<?php \$this->_tpl_vars['smarty']['capture'][$buffer] = ob_get_contents(); ob_end_clean(); ?>";
+            $output = "<?php \$this->_smarty_vars['capture'][$buffer] = ob_get_contents(); ob_end_clean(); ?>";
         }
 
         return $output;
@@ -631,8 +631,8 @@ class Smarty_Compiler extends Smarty {
     {
         /* Tokenize args for 'if' tag. */
         preg_match_all('/(?:
-                         "[^"\\\\]*(?:\\\\.[^"\\\\]*)*"         | # match all double quoted strings allowed escaped double quotes
-                         \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     | # match all single quoted strings allowed escaped single quotes
+                         "[^"\\\\]*(?:\\\\.[^"\\\\]*)*"         | # match all double quoted strings allowing escaped double quotes
+                         \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     | # match all single quoted strings allowing escaped single quotes
                          [(),]                                  | # match parentheses and commas
                          [^\s(),]+                                # match any other token that is not any of the above
                         )/x', $tag_args, $match);
@@ -1094,6 +1094,7 @@ class Smarty_Compiler extends Smarty {
             case 'server':
             case 'session':
             case 'request':
+            case 'capture':
                 return null;
 
             default:
