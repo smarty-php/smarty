@@ -112,8 +112,11 @@ class Smarty_Compiler extends Smarty {
 		// $foo[$bar]
 		// $foo[5][blah]
 		// $foo[5].bar[$foobar][4]
+		$this->_dvar_math_regexp = '[\+\-\*\/\%]';
+		$this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\|\:\>\[\]]';
+		$this->_dvar_num_var_regexp = '\-?\d+(?:\.\d+)?'.$this->_dvar_math_var_regexp;
 		$this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
-				. ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:[\+\-\*\/\%]\-?\d+(?:\.\d+)?)?';
+				. ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:\-?\d+(?:\.\d+)?|' . $this->_dvar_math_var_regexp . '*))?';
 		$this->_dvar_regexp = '\$' . $this->_dvar_guts_regexp;
 
 		// matches config vars:
@@ -1505,11 +1508,71 @@ class Smarty_Compiler extends Smarty {
     {
 		// inform the calling expression the return type (php, static)
 		$this->_output_type = 'php';
-		
-		preg_match('!(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . ')(' . $this->_mod_regexp . '*)$!', $var_expr, $match);
+
+		$math_vars = preg_split('!('.$this->_dvar_math_regexp.'|\".*?\")!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
+		if(count($math_vars) > 1)
+		{
+			$output = "";
+			$complete_var = "";
+			// simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
+			$hasMath = false;
+			foreach($math_vars as $k => $math_var)
+			{
+				$math_var = $math_vars[$k];
+				if(!empty($math_var))
+				{
+					// hit a math operator, so process the stuff which came before it
+					if(preg_match('!^'.$this->_dvar_math_regexp.'$!', $math_var))
+					{
+						$hasMath = true;
+						if(!empty($complete_var))
+						{
+							$output .= $this->_parse_var($complete_var);
+						}
+
+						// just output the math operator to php
+						$output .= $math_var;
 						
-        $_var_ref = substr($match[1],1);
-        $modifiers = $match[2];
+						$complete_var = "";
+					}
+					else
+					{
+						// fetch multiple -> (like $foo->bar->baz ) which wouldn't get fetched else, because it would only get $foo->bar and treat the ->baz as "-" ">baz" then
+						for($i = $k + 1; $i <= count($math_vars); $i += 2)
+						{
+							// fetch -> because it gets splitted at - and move it back together
+							if( /* prevent notice */ (isset($math_vars[$i]) && isset($math_vars[$i+1])) && ($math_vars[$i] === '-' && $math_vars[$i+1]{0} === '>'))
+							{
+								$math_var .= $math_vars[$i].$math_vars[$i+1];
+								$math_vars[$i] = $math_vars[$i+1] = "";
+							}
+							else
+								break;
+						}
+						$complete_var .= $math_var;
+					}
+				}
+			}
+			if($hasMath)
+			{
+				if(!empty($complete_var))
+					$output .= $this->_parse_var($complete_var);
+
+				return $output;
+			}
+		}
+
+		
+		preg_match('!(' . $this->_dvar_num_var_regexp . '*|' . $this->_obj_call_regexp . '|' . $this->_var_regexp . ')(' . $this->_mod_regexp . '*)$!', $var_expr, $match);
+
+		// prevent cutting of first digit in the number (we _definitly_ got a number if the first char is a digit)
+		if(!is_numeric($match[1]{0}))
+			$_var_ref = substr($match[1],1);
+		else
+			$_var_ref = $match[1];
+
+		$modifiers = $match[2];
+
 						
 		if(!empty($this->default_modifiers) && !preg_match('!(^|\|)smarty:nodefaults($|\|)!',$modifiers)) {
 			$_default_mod_string = implode('|',(array)$this->default_modifiers);
@@ -1535,7 +1598,15 @@ class Smarty_Compiler extends Smarty {
                 $_var_name = substr(array_shift($_indexes), 1);
                 $_output = "\$this->_smarty_vars['$_var_name']";
             }
-        } else {
+        } elseif(is_numeric($_var_name) && is_numeric($var_expr{0})) {
+			// because . is the operator for accessing arrays thru inidizes we need to put it together again for floating point numbers
+			if(count($_indexes) > 0)
+			{
+				$_var_name .= implode("", $_indexes);
+				$_indexes = array();
+			}
+			$_output = $_var_name;
+		} else {
             $_output = "\$this->_tpl_vars['$_var_name']";
         }
 		
@@ -1688,6 +1759,7 @@ class Smarty_Compiler extends Smarty {
             $output = "\$this->_run_mod_handler('$_modifier_name', $_map_array, $output$_modifier_args)";
         }
     }
+
 
 	/**
 	 * add plugin
