@@ -1,3 +1,9 @@
+2003-01-29  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php:
+      change comments to phpdoc style
+
 2003-01-28  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php
