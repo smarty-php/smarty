@@ -1,27 +1,31 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="api.get.template.vars">
-			<title>get_template_vars</title>
-   <methodsynopsis>
-   <type>array</type><methodname>get_template_vars</methodname>
-    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
-   </methodsynopsis>
-			<para>
-				This returns the given assigned variable value. If no parameter
-				is given, an array of all assigned variables is returned.
-			</para>
-<example>
-<title>get_template_vars</title>
-<programlisting>
-// get assigned template var 'foo'
+<!-- EN-Revision: 1.1 -->
+<sect1 id="api.get.template.vars">
+ <title>get_template_vars</title>
+ <methodsynopsis>
+ <type>array</type><methodname>get_template_vars</methodname>
+  <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
+ </methodsynopsis>
+ <para>
+  Âîçâðàùàåò çíà÷åíèå ïåðåìåííîé. Åñëè ïàðàìåòðîâ íåò,
+  òî âîçâðàùàåòñÿ ìàññèâ ñî âñåìè íàçíà÷åííûìè ïåðåìåííûìè.
+ </para>
+ <example>
+  <title>get_template_vars</title>
+  <programlisting> 
+<![CDATA[
+// ïîëó÷àåì íàçíà÷åííóþ ïåðåìåííóþ øàáëîíà 'foo'
 $foo = $smarty->get_template_vars('foo');
 
-// get all assigned template vars
+// ïîëó÷àåì âñå íàçíà÷åííûå ïåðåìåííûå øàáëîíà
 $tpl_vars = $smarty->get_template_vars();
 
-// take a look at them
-print_r($tpl_vars);</programlisting>
-</example>
+// ïîãëÿäèì ÷òî èç ýòîãî âûøëî
+print_r($tpl_vars); 
+]]> 
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

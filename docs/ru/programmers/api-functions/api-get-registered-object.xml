@@ -1,29 +1,33 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="api.get.registered.object">
-			<title>get_registered_object</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>array <function>get_registered_object</function></funcdef>
-				<paramdef>string <parameter>object_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This returns a reference to a registered object. This is useful
-				from within a custom function when you need direct access to a
-				registered object.
-			</para>
-<example>
-<title>get_registered_object</title>
-<programlisting>
-function smarty_block_foo($params, &amp;$smarty) {
-	if (isset[$params['object']]) {
-		// get reference to registered object
-   		$obj_ref =&amp; $smarty->&amp;get_registered_object($params['object']);
-		// use $obj_ref is now a reference to the object
-	}
-}</programlisting>
-</example>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="api.get.registered.object">
+ <title>get_registered_object</title>
+ <funcsynopsis>
+ <funcprototype>
+ <funcdef>array <function>get_registered_object</function></funcdef>
+  <paramdef>string <parameter>object_name</parameter></paramdef>
+ </funcprototype>
+ </funcsynopsis>
+ <para>
+  Âîçâðàùàåò ññûëêó íà çàðåãåñòðèðîâàííûé îáúåêò. Ìîæåò áûòü ïîëåçíî â ñëó÷àå
+  íåîáõîäèìîñòè ïîëó÷åíèÿ ïðÿìîãî äîñòóïà ê
+  çàðåãåñòðèðîâàííîìó îáúåêòó.
+ </para>
+ <example>
+  <title>get_registered_object</title>
+  <programlisting> 
+<![CDATA[
+function smarty_block_foo($params, &$smarty) {
+  if (isset[$params['object']]) {
+   // ïîëó÷àåì ññûëêó íà îáúåêò
+      $obj_ref =& $smarty->&get_registered_object($params['object']);
+   // òåïåðü èñïîëüçóåì $obj_ref êàê ññûëêó íà îáúåêò
+  }
+} 
+]]> 
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

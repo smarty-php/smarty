@@ -1,22 +1,26 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.all.assign">
-			<title>clear_all_assign</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_all_assign</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This clears the values of all assigned variables.
-			</para>
-<example>
-<title>clear_all_assign</title>
-<programlisting>
-// clear all assigned variables
-$smarty->clear_all_assign();</programlisting>
-</example>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="api.clear.all.assign">
+ <title>clear_all_assign</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>clear_all_assign</function></funcdef>
+    <paramdef><parameter></parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Î÷èùàåò âñå ðàíåå ïðèñâîåííûå çíà÷åíèÿ ïåðåìåííûõ.
+ </para>
+ <example>
+ <title>clear_all_assign</title>
+  <programlisting> 
+<![CDATA[
+ // î÷èñòèòü çíà÷åíèÿ ïåðåìåííûõ
+ $smarty->clear_all_assign(); 
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

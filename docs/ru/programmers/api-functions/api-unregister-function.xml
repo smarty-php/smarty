@@ -1,24 +1,28 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="api.unregister.function">
-         <title>unregister_function</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_function</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister template function plugin.
-          Pass in the template function name.
-         </para>
-<example>
-<title>unregister_function</title>
-<programlisting>
-// we don't want template designers to have access to system files
+<!-- EN-Revision: 1.1 -->
+<sect1 id="api.unregister.function">
+ <title>unregister_function</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>unregister_function</function></funcdef>
+   <paramdef>string <parameter>name</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Èñïîëüçóéòå ôóíêöèþ äëÿ äèíàìè÷åñêîé äåðèãèñòðàöèè ïëàãèíà ôóíêöèè øàáëîíà.
+  Â êà÷åñòâå àðãóìåíòà ïåðåäàåòñÿ èìÿ ôóíêöèè øàáëîíà.
+ </para>
+ <example>
+  <title>unregister_function</title>
+  <programlisting> 
+<![CDATA[
+// ìû íå õîòèì äàâàòü äîñòóï äèçàéíåðó øàáëîíîâ ê ñèñòåìíûì ôàéëàì
 
-$smarty->unregister_function("fetch");</programlisting>
-</example>
+$smarty->unregister_function("fetch"); 
+]]> 
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="api.unregister.postfilter">
-			<title>unregister_postfilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_postfilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister a postfilter.
-			</para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="api.unregister.postfilter">
+ <title>unregister_postfilter</title>
+ <funcsynopsis>
+ <funcprototype>
+ <funcdef>void <function>unregister_postfilter</function></funcdef>
+  <paramdef>string <parameter>function_name</parameter></paramdef>
+ </funcprototype>
+ </funcsynopsis>
+ <para>
+  Èñïîëüçóéòå ôóíêöèþ äëÿ äèíàìè÷åñêîé äåðåãèñòðàöèè ïîñòôèëüòðà.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,26 +1,30 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.assign">
-			<title>clear_assign</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_assign</function></funcdef>
-				<paramdef>string <parameter>var</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This clears the value of an assigned variable. This
-                can be a single value, or an array of values.
-			</para>
-<example>
-<title>clear_assign</title>
-<programlisting>
-// clear a single variable
+<!-- EN-Revision: 1.1 -->
+<sect1 id="api.clear.assign">
+ <title>clear_assign</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>clear_assign</function></funcdef>
+   <paramdef>string <parameter>var</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Î÷èùàåò ïðèñâîåííîå ðàíåå çíà÷åíèå ïåðåìåííîé. Ýòî ìîæåò áûòü
+  êàê îáû÷íàÿ ïåðåìåííàÿ, òàê è ìàññèâ íåêîòîðûõ çíà÷åíèé.
+ </para>
+ <example>
+  <title>clear_assign</title>
+  <programlisting> 
+<![CDATA[
+// î÷èñòèòü çíà÷åíèå ïåðåìåííîé
 $smarty->clear_assign("Name");
 
-// clear multiple variables
-$smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
-</example>
+// î÷èñòèòü çíà÷åíèÿ íåñêîëüêî ïåðåìåííûõ
+$smarty->clear_assign(array("Name","Address","Zip"));  
+]]> 
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

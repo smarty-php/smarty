@@ -1,46 +1,50 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="api.fetch">
-			<title>fetch</title>
-   <methodsynopsis>
-   <type>string</type><methodname>fetch</methodname>
-    <methodparam><type>string</type><parameter>template</parameter></methodparam>
-    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
-   </methodsynopsis>
-			<para>
-                This returns the template output instead of displaying it.
-                Supply a valid <link
-                linkend="template.resources">template resource</link>
-                type and path. As an optional second parameter, you can pass a
-                cache id. See the <link linkend="caching">caching
-                section</link> for more information.
-			</para>
-			<para>
-				As an optional third parameter, you can pass a compile id. This
-				is in the event that you want to compile different versions of
-				the same template, such as having separate templates compiled
-				for different languages. Another use for compile_id is when you
-				use more than one $template_dir but only one $compile_dir. Set
-				a separate compile_id for each $template_dir, otherwise
-				templates of the same name will overwrite each other. You can
-				also set the <link
-				linkend="variable.compile.id">$compile_id</link> variable once
-				instead of passing this to each call to fetch().
-			</para>
-<example>
-<title>fetch</title>
-<programlisting>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="api.fetch">
+ <title>fetch</title>
+ <methodsynopsis>
+ <type>string</type><methodname>fetch</methodname>
+  <methodparam><type>string</type><parameter>template</parameter></methodparam>
+  <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+  <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+ </methodsynopsis>
+ <para>
+  Ôóíêöèÿ âîçâðàùàåò âûâîä øàáëîíà âìåñòî åãî îòîáðàæåíèÿ íà ýêðàí.
+  Óêàæèòå âåðíûé òèï  <link
+  linkend="template.resources">template resource</link>
+  è ïóòü. Â êà÷åñòâå íåîáÿçàòåëüíîãî âòîðîãî ïàðàìåòðà ìîæíî ïåðåäàòü
+  cache id. Ñìîòðèòå <link linkend="caching">ðàçäåë
+  "Êýøèðîâàíèå"</link> äëÿ ïîëó÷åíèÿ äîïîëíèòåëüíîé èíôîðìàöèè.
+	</para>
+	<para>
+  Â êà÷åñòâå íåîáÿçàòåëüíîãî òðåòüåãî ïàðàìåòðà, ìîæíî 
+  ïåðåäàòü compile id. Ýòî íåîáõîäèìî â òîì ñëó÷àå, åñëè 
+  âû õîòèòå ñêîìïèëèðîâàòü ðàçíûå âåðñèè îäíîãî è òîãî æå 
+  øàáëîíà, íàïðèìåð äëÿ òîãî, ÷òîáû èìåòü ðàçëè÷íûå 
+  îòêîìïèëèðîâàííûå âåðñèè øàáëîíà äëÿ ðàçëè÷íûõ ÿçûêîâ. 
+  Òàêæå, compile_id ìîæåò áûòü ïîëåçåí â òîì ñëó÷àå, åñëè
+  áîëåå ÷åì îäèí $template_dir íî òîëüêî îäèí $compile_dir. 
+  Â òàêîì ñëó÷àå, óñòàíîâèòå ðàçëè÷íûå compile_id äëÿ êàæäîãî 
+  $template_dir, èíà÷å, øàáëîíû, èìåþùèå îäèíàêîâûå íîìåðà 
+  ïåðåçàïèøóò äðóã äðóãà. Òàêæå, âû ìîæåòå óñòàíîâèòü ïåðåìåííóþ 
+  <link linkend="variable.compile.id">$compile_id</link> îäíàæäû,
+  âìåñòî òîãî, ÷òîáû ïåðåäàâàòü åå ïðè êàæäîì âûçîâå fetch().
+	</para>
+ <example>
+  <title>fetch</title>
+  <programlisting> 
+<![CDATA[
 include("Smarty.class.php");
 $smarty = new Smarty;
 
 $smarty->caching = true;
 
-// only do db calls if cache doesn't exist
+// îáðàùàåìñÿ ê ÁÄ òîëüêî åñëè îòñóòñòâóåò êýø
 if(!$smarty->is_cached("index.tpl"))
 {
 
-    // dummy up some data
+    // ïðèñâàèâàåì íåêîòîðûå çíà÷åíèÿ
     $address = "245 N 50th";
     $db_data = array(
 	    "City" => "Lincoln",
@@ -54,13 +58,15 @@ if(!$smarty->is_cached("index.tpl"))
 
 }
 
-// capture the output
+// ïåðåõâàòûâàåì âûâîä
 $output = $smarty->fetch("index.tpl");
 
-// do something with $output here
+// çäåñü âûïîëíÿåì êàêèå ëèáî äåéñòâèÿ ñ $output
 
-echo $output;</programlisting>
-</example>
+echo $output; 
+]]> 
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
