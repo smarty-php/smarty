@@ -1,3 +1,21 @@
+2005-03-21  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * (Smarty_2_6_8)
+      NEWS:
+      maybe even better this way. thanks monte :)
+
+    * NEWS:
+      little more clear news-entry
+
+2005-03-21  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS:
+      update NEWS with e-modifier removal
+
+    * (Smarty_2_6_8)
+      libs/plugins/modifier.regex_replace.php:
+      remove e-modifier
+
 2005-03-19  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
