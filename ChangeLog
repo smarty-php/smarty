@@ -1,3 +1,11 @@
+2002-06-07  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: fix bug with last_modified_check code
+
+    * NEWS
+      Smarty.class.php:
+    updated $GLOBALS refererence for HTTP_IF_MODIFIED_SINCE
+
 2002-06-06  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml
