@@ -528,8 +528,28 @@ class Smarty
 			/* TODO syntax error: missing 'file' attribute */
 		} else
 			$attrs['file'] = $this->_dequote($attrs['file']);
-		
-		return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'"; ?>';
+
+		if (count($attrs) > 1) {
+			$include_func_name = uniqid("_include_");
+			$include_file_name = $this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'];
+
+			foreach ($attrs as $arg_name => $arg_value) {
+				if ($arg_name == 'file') continue;
+				if (is_bool($arg_value))
+					$arg_value = $arg_value ? 'true' : 'false';
+				$arg_list[] = "'$arg_name' => $arg_value";
+			}
+
+			return 	"<?php\n" .
+					"function $include_func_name(\$file_name, \$include_vars)\n" .
+					"{\n" .
+					"	extract(\$GLOBALS);\n" .
+					"	extract(\$include_vars);\n" .
+					"	include \"\$file_name\";\n" .
+					"}\n" .
+					"$include_func_name(\"$include_file_name\", array(".implode(',', (array)$arg_list)."));\n?>\n";
+		} else
+			 return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'"; ?>';
 	}
 
 	function _compile_section_start($tag_args)
