@@ -542,23 +542,21 @@ class Smarty_Compiler extends Smarty {
             $attrs['section'] = 'null';
         }
 
-        $scope = @$this->_dequote($attrs['scope']);
-        if (!empty($scope)) {
+        if (isset($attrs['scope'])) {
+			$scope = @$this->_dequote($attrs['scope']);
             if ($scope != 'local' &&
                 $scope != 'parent' &&
                 $scope != 'global') {
                 $this->_syntax_error("invalid 'scope' attribute value");
             }
         } else {
-            if (!empty($attrs['global']) && $attrs['global'])
+            if (isset($attrs['global']) && $attrs['global'])
                 $scope = 'parent';
             else
                 $scope = 'local';
         }
 
-        $output  = '<?php $this->config_load(' . $attrs['file'] . ', ' . $attrs['section'] . ", '$scope'); ?>";
-
-        return $output;
+        return '<?php $this->config_load(' . $attrs['file'] . ', ' . $attrs['section'] . ", '$scope'); ?>";
     }
 
 

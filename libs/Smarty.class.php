@@ -1226,15 +1226,21 @@ function _generate_debug_output() {
 		$_file_path = str_replace('//', '/' ,$_config_dir . '/' . $file);
 		
 		// get path to compiled object file
-       	$_compile_file = $this->_get_auto_filename($this->compile_dir, $file . $section, 'SMARTY_CONFIG');
+		if(isset($section)) {
+       		$_compile_file = $this->_get_auto_filename($this->compile_dir, $section . ' ' . $file);
+		} else {
+       		$_compile_file = $this->_get_auto_filename($this->compile_dir, $file);
+		}
 
 		// need to generate cache?
-		if($this->force_compile ||
-				($this->compile_check && ( @filemtime($_compile_file) != @filemtime($_file_path) ))) {
+		if($this->force_compile || !file_exists($_compile_file) ||
+			($this->compile_check &&
+				file_exists($_file_path) &&
+				( filemtime($_compile_file) != filemtime($_file_path) ))) {
 			$_generate_cache = true;
         } else {
 			include($_compile_file);
-			if(empty($_config_vars)) {
+			if(!empty($_config_vars)) {
 				$_generate_cache = true;
 			} else {
 				$_generate_cache = false;					
@@ -1254,9 +1260,9 @@ function _generate_debug_output() {
 			if($_config_vars = $this->_conf_obj->get($file, $section)) {
 				
 				if(function_exists('var_export')) {
-					$_compile_data = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; ?>';					
+					$_compile_data = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; return true; ?>';					
 				} else {
-					$_compile_data = '<?php $_config_vars = unserialize(\'' . str_replace('\'','\\\'', serialize($_config_vars)) . '\'); ?>';
+					$_compile_data = '<?php $_config_vars = unserialize(\'' . str_replace('\'','\\\'', serialize($_config_vars)) . '\'); return true; ?>';
 				}
 				$this->_write_file($_compile_file, $_compile_data, true);
 				touch($_compile_file,filemtime($_file_path));
