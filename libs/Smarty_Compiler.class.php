@@ -1433,7 +1433,7 @@ class Smarty_Compiler extends Smarty {
 
         switch ($expr_type) {
             case 'even':
-                if (@$tokens[$expr_end] == 'by') {
+                if (isset($tokens[$expr_end]) && $tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
                     $expr = "!(1 & ($is_arg / " . $this->_parse_var_props($expr_arg) . "))";
@@ -1442,7 +1442,7 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'odd':
-                if (@$tokens[$expr_end] == 'by') {
+                if (isset($tokens[$expr_end]) && $tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
                     $expr = "(1 & ($is_arg / " . $this->_parse_var_props($expr_arg) . "))";
