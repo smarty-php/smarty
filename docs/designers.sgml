@@ -4482,6 +4482,31 @@ OUTPUT: (both examples)
 						<entry>strftime format of the month values, default is
 						%m for month numbers.</entry>
                     </row>
+                    <row>
+                        <entry>year_emtpy</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>If supplied then the first element of the year's select-box has this
+                        value as it's label and "" as it's value. This is useful to make the
+                        select-box read "Please select a year" for example.</entry>
+                    </row>
+                    <row>
+                        <entry>day_empty</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>If supplied then the first element of the day's select-box has this
+                        value as it's label and "" as it's value.</entry>
+                    </row>
+                    <row>
+                        <entry>month_empty</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>If supplied then the first element of the month's select-box has this
+                        value as it's label and "" as it's value. .</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
@@ -4717,10 +4742,23 @@ OUTPUT: (current year is 2000)
                 </tgroup>
             </informaltable>
 			<para>
-			html_select_time is a custom function that creates time dropdowns
-			for you. It can display any or all of hour, minute, second and
-            meridian.
+			html_select_time is a custom function that
+			creates time dropdowns for you. It can display
+			any or all of hour, minute, second and
+			meridian.
 			</para>
+			<para>
+			The time-attribute can have different
+			formats. It can be a uniq-timestamp or a
+			string containing Y-M-D. YYYY-MM-DD may be the
+			most common, but months and days with less
+			than two digits are also recognized. If one of
+			the 3 values (Y,M,D) is the empty string, than
+			the according select-box is not pre-selected
+			at all. This is especially useful with the
+			empty_year-, -month- and -day-attritbutes.
+			</para>
+
 <example>
 <title>html_select_time</title>
 <programlisting>
