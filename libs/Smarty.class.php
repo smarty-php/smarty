@@ -1727,8 +1727,12 @@ class Smarty
             if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $params['resource_name'])) {
                 // relative pathname to $params['resource_base_path']
                 // use the first directory where the file is found
-                $_resource_base_path = isset($params['resource_base_path']) ? $params['resource_base_path'] : array($this->template_dir, '.');
-                settype($_resource_base_path, 'array');
+                if (isset($params['resource_base_path'])) {
+                    $_resource_base_path = (array)$params['resource_base_path'];        
+                } else {
+                    $_resource_base_path = (array)$this->template_dir;
+                    $_resource_base_path[] = '.';
+                }
                 foreach ($_resource_base_path as $_curr_path) {
                     $_fullpath = $_curr_path . DIRECTORY_SEPARATOR . $params['resource_name'];
                     if (file_exists($_fullpath) && is_file($_fullpath)) {
