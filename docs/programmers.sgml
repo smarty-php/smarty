@@ -845,8 +845,8 @@ var_dump($tpl_vars);</programlisting>
 			<funcprototype>
 			<funcdef>void <function>display</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>string <parameter>cache id</parameter></paramdef>
-				<paramdef>string <parameter>compile id</parameter></paramdef>
+				<paramdef>string <parameter><optional>cache_id</optional></parameter></paramdef>
+				<paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -918,8 +918,8 @@ $smarty->display("db:header.tpl");</programlisting>
 			<funcprototype>
 			<funcdef>string <function>fetch</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
-				<paramdef>[string <parameter>compile_id</parameter>]</paramdef>
+				<paramdef>string <parameter><optional>cache_id</optional></parameter></paramdef>
+				<paramdef>string <parameter><optional>compile_id</optional></parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>

@@ -371,8 +371,8 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
          prepend it with an "@" sign like so: {$articleTitle|@count} (this will
          print out the number of elements in the $articleTitle array.)
         </para>
-	<sect2 id="bundled.plugins.modifiers">
-     <title>Available Modifiers</title>
+	<sect2 id="language.builtin.modifiers">
+     <title>Built-in Modifiers</title>
 		<sect3>
 			<title>capitalize</title>
 			<para>
@@ -1198,7 +1198,7 @@ om dad she hasn't seen in years.</programlisting>
 </example>
 		</sect3>
    </sect2> 
-		<sect2>
+		<sect2 id="language.combining.modifiers">
 			<title>Combining Modifiers</title>
 			<para>
             You can combine as many modifiers as you like on a single variable.
