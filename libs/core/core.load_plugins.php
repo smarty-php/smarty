@@ -32,7 +32,7 @@ function smarty_core_load_plugins($params, &$smarty)
          */
         if (isset($_plugin)) {
             if (empty($_plugin[3])) {
-                if (!$smarty->_plugin_implementation_exists($_plugin[0])) {
+                if (!is_callable($_plugin[0])) {
                     $smarty->_trigger_fatal_error("[plugin] $_type '$_name' is not implemented", $_tpl_file, $_tpl_line, __FILE__, __LINE__);
                 } else {
                     $_plugin[1] = $_tpl_file;

@@ -1667,7 +1667,7 @@ class Smarty
         if (!$_return) {
             // see if we can get a template with the default template handler
             if (!empty($this->default_template_handler_func)) {
-                if (!$this->_plugin_implementation_exists($this->default_template_handler_func)) {
+                if (!is_callable($this->default_template_handler_func)) {
                     $this->trigger_error("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
                 } else {
                     $_return = call_user_func_array(
@@ -1932,16 +1932,6 @@ class Smarty
         } else {
             trigger_error("Smarty error: $error_msg$info", $error_type);
         }
-    }
-
-    /**
-     * check if the function or method exists
-     * @return bool
-     */
-    function _plugin_implementation_exists($function)
-    {
-        return (is_array($function)) ?
-            method_exists($function[0], $function[1]) || (in_array(strtolower($function[1]), (array)get_class_methods($function[0]))) : function_exists($function);
     }
 
 

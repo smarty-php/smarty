@@ -250,7 +250,7 @@ class Smarty_Compiler extends Smarty {
         if (count($this->_plugins['prefilter']) > 0) {
             foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
                 if ($prefilter === false) continue;
-                if ($prefilter[3] || $this->_plugin_implementation_exists($prefilter[0])) {
+                if ($prefilter[3] || is_callable($prefilter[0])) {
                     $source_content = call_user_func_array($prefilter[0],
                                                             array($source_content, &$this));
                     $this->_plugins['prefilter'][$filter_name][3] = true;
@@ -360,7 +360,7 @@ class Smarty_Compiler extends Smarty {
         if (count($this->_plugins['postfilter']) > 0) {
             foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
                 if ($postfilter === false) continue;
-                if ($postfilter[3] || $this->_plugin_implementation_exists($postfilter[0])) {
+                if ($postfilter[3] || is_callable($postfilter[0])) {
                     $compiled_content = call_user_func_array($postfilter[0],
                                                               array($compiled_content, &$this));
                     $this->_plugins['postfilter'][$filter_name][3] = true;
@@ -571,7 +571,7 @@ class Smarty_Compiler extends Smarty {
         if (isset($this->_plugins['compiler'][$tag_command])) {
             $found = true;
             $plugin_func = $this->_plugins['compiler'][$tag_command][0];
-            if (!$this->_plugin_implementation_exists($plugin_func)) {
+            if (!is_callable($plugin_func)) {
                 $message = "compiler function '$tag_command' is not implemented";
                 $have_function = false;
             }
@@ -586,7 +586,7 @@ class Smarty_Compiler extends Smarty {
             include_once $plugin_file;
 
             $plugin_func = 'smarty_compiler_' . $tag_command;
-            if (!$this->_plugin_implementation_exists($plugin_func)) {
+            if (!is_callable($plugin_func)) {
                 $message = "plugin function $plugin_func() not found in $plugin_file\n";
                 $have_function = false;
             } else {
@@ -646,7 +646,7 @@ class Smarty_Compiler extends Smarty {
         if (isset($this->_plugins['block'][$tag_command])) {
             $found = true;
             $plugin_func = $this->_plugins['block'][$tag_command][0];
-            if (!$this->_plugin_implementation_exists($plugin_func)) {
+            if (!is_callable($plugin_func)) {
                 $message = "block function '$tag_command' is not implemented";
                 $have_function = false;
             }
