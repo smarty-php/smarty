@@ -317,17 +317,18 @@ Pretty easy isn't it?
 <![CDATA[
 <?php
 
-// function.load_ticker.php
-function smarty_function_load_ticker($params, &amp;$smarty) {
-   // setup our function for fetching stock data
-   function fetch_ticker($params['symbol']) {
-       // put logic here that fetches $ticker_info
-       // from some resource
-       return $ticker_info;
-   }
+// drop file "function.load_ticker.php" in plugin directory
 
+// setup our function for fetching stock data
+function fetch_ticker($symbol) {
+   // put logic here that fetches $ticker_info
+   // from some ticker resource
+   return $ticker_info;
+}
+
+function smarty_function_load_ticker($params, &amp;$smarty) {
    // call the function
-   $ticker_info = fetch_ticker("YHOO",$ticker_info);
+   $ticker_info = fetch_ticker($params['symbol']);
    
    // assign template variable
    $smarty->assign($params['assign'],$ticker_info);
