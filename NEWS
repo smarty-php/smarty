@@ -1,10 +1,8 @@
-    - added custom cache handling function ability (Monte)
-    - added assign attribute to insert function, documented (Monte)
-    - added assign attribute to fetch function, documented (Monte)
-    - fixed bug with fetch testing for local file when http address (Monte)
-    - added assign attribute to math function, documented (Monte)
-    - added assign attribute to counter function, documented (Monte)
-    - fixed bug with counter and skipval setting (Monte)
+    - added custom cache handling function ability. (Monte)
+    - added assign attribute to insert, fetch, math, and counter functions,
+      documented. (Monte)
+    - fixed bug with fetch testing for local file when http address. (Monte)
+    - fixed bug with counter and skipval setting. (Monte)
     - made {config_load ...} merge globals from each config file only once per
       scope, thus avoiding several problems. (Andrei)
     - added {foreach ...} tag that can be used to iterate through

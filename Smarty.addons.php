@@ -186,7 +186,7 @@ function smarty_mod_default($string, $default="")
 \*======================================================================*/
 function smarty_func_assign($args, &$smarty_obj)
 {
-	extract($args);
+    extract($args);
 
     if (empty($var)) {
         $smarty_obj->_trigger_error_msg("assign: missing 'var' parameter");
@@ -542,7 +542,7 @@ function smarty_func_math($args, &$smarty_obj) {
         }
 
         // match all vars in equation, make sure all are passed
-        preg_match_all("![a-zA-Z][a-zA-Z0-9]*!",$equation,$match);
+        preg_match_all("![a-zA-Z][a-zA-Z0-9]*!",$equation, $match);
         $allowed_funcs = array('int','abs','ceil','cos','exp','floor','log','log10',
                                'max','min','pi','pow','rand','round','sin','sqrt','srand','tan');
 
@@ -564,25 +564,25 @@ function smarty_func_math($args, &$smarty_obj) {
                     $smarty_obj->_trigger_error_msg("math: parameter $key: is not numeric");
                     return;
                 }
-                $equation = preg_replace("/\b$key\b/",$val,$equation);
+                $equation = preg_replace("/\b$key\b/",$val, $equation);
             }
         }
 
     eval("\$smarty_math_result = ".$equation.";");
 
     if (empty($args["format"])) {
-		if (empty($args["assign"])) {
-        	echo $smarty_math_result;
-		} else {
-			$smarty_obj->assign($args["assign"],$smarty_math_result);
-		}
-	} else {
-		if (empty($args["assign"])){
-        	printf($args["format"],$smarty_math_result);
-		} else {
-			$smarty_obj->assign($assign,sprintf($args["format"],$smarty_math_result));
-		}
-	}
+        if (empty($args["assign"])) {
+            echo $smarty_math_result;
+        } else {
+            $smarty_obj->assign($args["assign"],$smarty_math_result);
+        }
+    } else {
+        if (empty($args["assign"])){
+            printf($args["format"],$smarty_math_result);
+        } else {
+            $smarty_obj->assign($assign,sprintf($args["format"],$smarty_math_result));
+        }
+    }
 }
 
 /*======================================================================*\
@@ -609,33 +609,33 @@ function smarty_func_fetch($args, &$smarty_obj) {
             $smarty_obj->_trigger_error_msg("(secure mode) fetch '$file' is not allowed");
             return;
         }
-    	if (!@is_readable($file)) {
-        	$smarty_obj->_trigger_error_msg("fetch cannot read file '$file'");
-        	return;
-    	}
+        if (!@is_readable($file)) {
+            $smarty_obj->_trigger_error_msg("fetch cannot read file '$file'");
+            return;
+        }
     }
 
 
-	if(!empty($assign)) {
-		ob_start();
-		readfile($file);
-		$smarty_obj->assign($assign,ob_get_contents());
-		ob_end_clean();
-	} else {
-    	readfile($file);
-	}
+    if (!empty($assign)) {
+        ob_start();
+        readfile($file);
+        $smarty_obj->assign($assign,ob_get_contents());
+        ob_end_clean();
+    } else {
+        readfile($file);
+    }
 }
 
 /*======================================================================*\
     Function: smarty_mod_count_characters
     Purpose:  count the number of characters in a text
 \*======================================================================*/
-function smarty_mod_count_characters($string,$include_spaces=false) {
+function smarty_mod_count_characters($string, $include_spaces=false) {
 
     if ($include_spaces)
        return(strlen($string));
 
-    return preg_match_all("/[^\s]/",$string,$match);
+    return preg_match_all("/[^\s]/",$string, $match);
 }
 
 /*======================================================================*\
@@ -656,10 +656,10 @@ function smarty_mod_count_words($string) {
     Function: smarty_mod_count_sentences
     Purpose:  count the number of sentences in a text
 \*======================================================================*/
-function smarty_mod_count_sentences($string,$include_spaces=false) {
+function smarty_mod_count_sentences($string, $include_spaces=false) {
 
     // find periods with a word before but not after.
-    return preg_match_all("/[^\s]\.(?!\w)/",$string,$match);
+    return preg_match_all("/[^\s]\.(?!\w)/",$string, $match);
 
 }
 
@@ -667,7 +667,7 @@ function smarty_mod_count_sentences($string,$include_spaces=false) {
     Function: smarty_mod_count_paragraphs
     Purpose:  count the number of sentences in a text
 \*======================================================================*/
-function smarty_mod_count_paragraphs($string,$include_spaces=false) {
+function smarty_mod_count_paragraphs($string, $include_spaces=false) {
 
     // count \r or \n characters
     return count( preg_split("/[\r\n]+/",$string) );
@@ -684,7 +684,7 @@ function smarty_func_counter($args, &$smarty_obj) {
     static $dir = array();
     static $id = "default";
     static $printval = array();
-	static $assign = "";
+    static $assign = "";
 
     extract($args);
 
@@ -693,37 +693,37 @@ function smarty_func_counter($args, &$smarty_obj) {
 
     if (isset($start))
         $count[$id] = $start;
-    elseif (!isset($count[$id]))
+    else if (!isset($count[$id]))
         $count[$id]=1;
 
     if (!isset($print))
         $printval[$id]=true;
     else
         $printval[$id]=$print;
-	
-	if(!empty($assign)) {
-		$printval[$id] = false;
-		$smarty_obj->assign($assign,$count[$id]);
-	}
+    
+    if (!empty($assign)) {
+        $printval[$id] = false;
+        $smarty_obj->assign($assign, $count[$id]);
+    }
 
     if ($printval[$id])
         echo $count[$id];
 
     if (isset($skip))
         $skipval[$id] = $skip;
-    elseif (empty($skipval[$id]))
+    else if (empty($skipval[$id]))
         $skipval[$id] = 1;
-	
+    
     if (isset($direction))
         $dir[$id] = $direction;
-    elseif (!isset($dir[$id]))
+    else if (!isset($dir[$id]))
         $dir[$id] = "up";
 
     if ($dir[$id] == "down")
         $count[$id] -= $skipval[$id];
     else
         $count[$id] += $skipval[$id];
-	
+    
     return true;
 }
 
@@ -732,22 +732,22 @@ function smarty_func_counter($args, &$smarty_obj) {
     Purpose:  assign debug info to the template
 \*======================================================================*/
 function smarty_func_assign_debug_info($args, &$smarty_obj) {
-	$assigned_vars = $smarty_obj->_tpl_vars;
-	ksort($assigned_vars);
-	if (is_array($smarty_obj->_config[0])) {
-		$config_vars = $smarty_obj->_config[0];
-		ksort($config_vars);
-		$smarty_obj->assign("_debug_config_keys", array_keys($config_vars));
-		$smarty_obj->assign("_debug_config_vals", array_values($config_vars));
-	}	
-	
-	$included_templates = $smarty_obj->_smarty_debug_info;
-	
-	$smarty_obj->assign("_debug_keys", array_keys($assigned_vars));
-	$smarty_obj->assign("_debug_vals", array_values($assigned_vars));
-	
-	$smarty_obj->assign("_debug_tpls", $included_templates);
-	return true;
+    $assigned_vars = $smarty_obj->_tpl_vars;
+    ksort($assigned_vars);
+    if (is_array($smarty_obj->_config[0])) {
+        $config_vars = $smarty_obj->_config[0];
+        ksort($config_vars);
+        $smarty_obj->assign("_debug_config_keys", array_keys($config_vars));
+        $smarty_obj->assign("_debug_config_vals", array_values($config_vars));
+    }   
+    
+    $included_templates = $smarty_obj->_smarty_debug_info;
+    
+    $smarty_obj->assign("_debug_keys", array_keys($assigned_vars));
+    $smarty_obj->assign("_debug_vals", array_values($assigned_vars));
+    
+    $smarty_obj->assign("_debug_tpls", $included_templates);
+    return true;
 }
 
 /*======================================================================*\
@@ -755,26 +755,26 @@ function smarty_func_assign_debug_info($args, &$smarty_obj) {
     Purpose:  prints variable (or array) contents to the console
 \*======================================================================*/
 function smarty_mod_debug_print_var($var, $depth=0, $length=40) {
-	if (is_array($var)) {
-		$results = "<b>Array (".count($var).")</b>";
-		foreach ($var as $curr_key => $curr_val) {
-			$return = smarty_mod_debug_print_var($curr_val, $depth+1);
-			$results .= '<br>\r'.str_repeat('&nbsp;', $depth*2)."<b>$curr_key</b> =&gt; $return";
-		}
-		return $results;
-	} else {
-		if (empty($var)) {
-			return '<i>empty</i>';
-		}
-		if (strlen($var) > $length ) {
-			$results = substr($var, 0, $length-3).'...';
-		} else {
-			$results = $var;
-		}
-		$results = preg_replace("![\r\t\n]!", " ", $results);
-		$results = htmlspecialchars(htmlspecialchars($results));
-		return $results;
-	}
+    if (is_array($var)) {
+        $results = "<b>Array (".count($var).")</b>";
+        foreach ($var as $curr_key => $curr_val) {
+            $return = smarty_mod_debug_print_var($curr_val, $depth+1);
+            $results .= '<br>\r'.str_repeat('&nbsp;', $depth*2)."<b>$curr_key</b> =&gt; $return";
+        }
+        return $results;
+    } else {
+        if (empty($var)) {
+            return '<i>empty</i>';
+        }
+        if (strlen($var) > $length ) {
+            $results = substr($var, 0, $length-3).'...';
+        } else {
+            $results = $var;
+        }
+        $results = preg_replace("![\r\t\n]!", " ", $results);
+        $results = htmlspecialchars(htmlspecialchars($results));
+        return $results;
+    }
 }
 
 

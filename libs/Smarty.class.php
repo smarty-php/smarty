@@ -504,7 +504,7 @@ class Smarty
                 && (!empty($QUERY_STRING) && strstr($QUERY_STRING, $this->_smarty_debug_id))) {
             $this->debugging = true;
         }
-		
+
         if ($this->debugging) {
             // capture time for debugging info
             $debug_start_time = $this->_get_microtime();
@@ -1024,11 +1024,11 @@ function _run_insert_handler($args)
                                                 'depth'     => $this->_inclusion_depth,
                                                 'exec_time' => $this->_get_microtime() - $debug_start_time);
         }
-		if(!empty($args["assign"])) {
-			$this->assign($args["assign"],$content);			
-		} else {
-        	return $content;
-		}
+        if (!empty($args["assign"])) {
+            $this->assign($args["assign"],$content);
+        } else {
+            return $content;
+        }
     }
 }
 
@@ -1249,7 +1249,7 @@ function _run_insert_handler($args)
         if (!empty($this->cache_handler_func)) {
             // use cache_write_handler function
             return $$this->cache_handler_func('write', $tpl_file, $cache_id, $compile_id, $results, $this);
-        } else {    
+        } else {
             // use local cache file
             $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
             $this->_write_file($cache_file, $results, true);
@@ -1268,7 +1268,7 @@ function _run_insert_handler($args)
             // force compile enabled or cache lifetime is zero, always regenerate
             return false;
         }
-        
+
         if (!empty($this->cache_handler_func)) {
 
             // use cache_read_handler function
@@ -1276,15 +1276,15 @@ function _run_insert_handler($args)
 
         } else {
             // use local file cache
-            
+
             $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
             $results = $this->_read_file($cache_file);
-            
+
         }
 
         $cache_split = explode("\n",$results,2);
         $cache_header = $cache_split[0];
-        
+
         if (substr($cache_header, 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {
 
             $cache_info = unserialize(substr($cache_header, 24));
@@ -1294,7 +1294,7 @@ function _run_insert_handler($args)
                 // cache expired, regenerate
                 return false;
             }
-            
+
             if ($this->compile_check) {
                 foreach ($cache_info as $curr_cache_info) {
                     switch ($curr_cache_info[0]) {
