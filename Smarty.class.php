@@ -41,7 +41,7 @@ class Smarty
 
 	var $config_dir				=	"configs";	// directory where config files are located
 
-	var $_custom_funcs			=	array(	'options'		=> 'smarty_func_options'
+	var $_custom_tags			=	array(	'html_options'	=> 'smarty_func_html_options'
 										 );
 	
 	var $_modifiers				=	array(	'lower'			=> 'strtolower',
@@ -408,8 +408,8 @@ class Smarty
 				return $this->left_delimiter.$tag_command.$this->right_delimiter;
 
 			default:
-				if (isset($this->_custom_funcs[$tag_command])) {
-					return $this->_compile_custom_func($tag_command, $tag_args);
+				if (isset($this->_custom_tags[$tag_command])) {
+					return $this->_compile_custom_tag($tag_command, $tag_args);
 				} else
 					/* TODO syntax error: unknown tag */
 				return "";
@@ -417,10 +417,10 @@ class Smarty
 	}
 
 
-	function _compile_custom_func($func_name, $tag_args)
+	function _compile_custom_tag($tag_command, $tag_args)
 	{
 		$attrs = $this->_parse_attrs($tag_args);
-		$function = $this->_custom_funcs[$func_name];
+		$function = $this->_custom_tags[$tag_command];
 		foreach ($attrs as $arg_name => $arg_value)
 			$arg_list[] = "'$arg_name' => $arg_value";
 

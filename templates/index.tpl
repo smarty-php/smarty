@@ -18,4 +18,4 @@ My interests are:
 {/section}
 {/strip}
 
-{options output=$FirstName values=$LastName selected="Case"}
+{html_options output=$FirstName values=$LastName selected="Case"}

@@ -56,15 +56,15 @@ function smarty_mod_spacify($string, $spacify_char = ' ')
 
 
 /*============================================*\
-  Custom functions
+  Custom tag functions
 \*============================================*/
 
 /*======================================================================*\
-	Function: smarty_func_options
+	Function: smarty_func_html_options
 	Purpose:  Returns the list of <option> tags generated from
 			  the passed parameters
 \*======================================================================*/
-function smarty_func_options()
+function smarty_func_html_options()
 {
 	extract(func_get_arg(0));
 
