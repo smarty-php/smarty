@@ -1,3 +1,14 @@
+2004-03-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      removed '.' from the list of default resource_base_paths in
+      _parse_resource_name()
+      
+      this should only affect _parse_resource_name() for templates, not for
+      php-resources and not for config_files. the latter pass two their own
+      resource_base_path.
+
 2004-03-16  Mehdi Achour  <didou@keliglia.com>
 
     * docs/appendixes.sgml
