@@ -42,19 +42,6 @@ class Smarty
 	var $config_dir				=	"configs";	// directory where config files are located
 
 	
-	// registered template functions
-	// NOTE: leave off the "smarty_" prefix on the actual PHP function name
-	/*
-	var $registered_functions	=	array(	"htmlesc",
-											"urlesc",
-											"default",
-											"configload",
-											"configclear",
-											"configprint",
-											"configset"
-											 );
-	*/
-
 	var $_modifiers				=	array(	'lower'			=> 'strtolower',
 											'upper'			=> 'strtoupper',
 											'capitalize'	=> 'ucwords',
@@ -70,7 +57,7 @@ class Smarty
 
 /*======================================================================*\
 	Function:	assign()
-	Purpose:	assign template variables
+	Purpose:	assigns values to template variables
 \*======================================================================*/
 
 	function assign($tpl_var, $value = NULL)
@@ -86,6 +73,31 @@ class Smarty
 		}
 	}
 
+	
+/*======================================================================*\
+	Function: append
+	Purpose:  appens values to template variables
+\*======================================================================*/
+	function append($tpl_var, $value = NULL)
+	{
+		if (is_array($tpl_var)) {
+			foreach ($tpl_var as $key => $val) {
+				if (!empty($key)) {
+					if (!is_array($this->_tpl_vars[$key]))
+						settype($this->_tpl_vars[$key], 'array');
+					$this->_tpl_vars[$key][] = $val;
+				}
+			}
+		} else {
+			if (!empty($tpl_var) && isset($value)) {
+				if (!is_array($this->_tpl_vars[$tpl_var]))
+					settype($this->_tpl_vars[$tpl_var], 'array');
+				$this->_tpl_vars[$tpl_var][] = $value;
+			}
+		}
+	}
+
+
 /*======================================================================*\
 	Function:	clear_assign()
 	Purpose:	clear the given assigned template variable.
@@ -94,7 +106,6 @@ class Smarty
 	function clear_assign($tpl_var)
 	{
 		unset($this->_tpl_vars[$tpl_var]);
-		return true;
 	}
 
 /*======================================================================*\
@@ -104,8 +115,19 @@ class Smarty
 
 	function clear_all_assign()
 	{
-		return($this->_tpl_vars = array());
+		$this->_tpl_vars = array();
 	}
+
+
+/*======================================================================*\
+	Function: get_template_vars
+	Purpose:  Returns an array containing template variables
+\*======================================================================*/
+	function &get_template_vars()
+	{
+		return $this->_tpl_vars;
+	}
+
 
 /*======================================================================*\
 	Function:	display()
@@ -287,6 +309,18 @@ class Smarty
 		if(!($template_contents = $this->_read_file($filepath)))
 			return false;
 
+		if(!$this->allow_php)
+		{
+			/* Escape php tags. */
+			$search = array(	"/\<\?/i",
+								"/\?\>/i"
+							);
+			$replace = array(	"&lt;?",
+								"?&gt;"
+							);
+			$template_contents = preg_replace($search, $replacea ,$template_contents);
+		}
+
 		$ldq = preg_quote($this->left_delimiter, "/");
 		$rdq = preg_quote($this->right_delimiter, "/");
 
@@ -306,11 +340,13 @@ class Smarty
 		$compiled_contents .= $text_blocks[$i];
 		
 		/* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
-		preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_contents, $match);
-		$strip_tags = $match[0];
-		$strip_tags_modified = preg_replace("!$ldq/?strip$rdq|[\t ]+$|^[\t ]+|/[\r\n]+!m", '', $strip_tags);
-		for ($i = 0; $i < count($strip_tags); $i++)
-			$compiled_contents = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $strip_tags_modified[$i], $compiled_contents, 1);
+		if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_contents, $match)) {
+			$strip_tags = $match[0];
+			$strip_tags_modified = preg_replace("!$ldq/?strip$rdq|[\t ]+$|^[\t ]+|/[\r\n]+!m", '', $strip_tags);
+			for ($i = 0; $i < count($strip_tags); $i++)
+				$compiled_contents = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
+												  $strip_tags_modified[$i], $compiled_contents, 1);
+		}
 
 		if(!$this->_write_file($compilepath, $compiled_contents))
 			return false;
