@@ -146,14 +146,24 @@
 			every invocation, even within cached content.
 		</para>
         <para>
-            TECHNICAL NOTE: Any time you change a template, change values in
-            config files or change the content that gets displayed in a
-            template, you must either clear the caches that are affected, or
-            wait for the cache to expire to see the results of the changes. You
-            can either do this manually by deleting files from the cache
-            directory, or programatically with <link
-            linkend="api.clear.cache">clear_cache</link> or <link
-            linkend="api.clear.all.cache">clear_all_cache</link>.
+			TECHNICAL NOTE: Any time you change a template, change values in
+			config files or change the content that gets displayed in a
+			template, you must turn on compile_check (new behavior in 1.4.6),
+			clear the caches that are affected, or wait for the cache to expire
+			to see the results of the changes. You can either do this manually
+			by deleting files from the cache directory, or programatically with
+			<link linkend="api.clear.cache">clear_cache</link> or <link
+			linkend="api.clear.all.cache">clear_all_cache</link>.
+        </para>
+        <para>
+			TECHNICAL NOTE: As of Smarty 1.4.6, if you have caching enabled AND
+			you have compile_check enabled, the cached file will regenerate if
+			an involved template or config file has been modified, regardless
+			of the cache expire time. This results in a slight performance hit
+			since it has to check the templates and config files for
+			modification times. Therefore if you are not actively changing
+			templates or config files, it is advisable to leave compile_check
+			off.
         </para>
 		</sect2>
 	</sect1>
@@ -384,7 +394,7 @@ require_once(SMARTY_DIR."Smarty.class.php");
 				will *not* see the change since the template will not get
 				recompiled. See <link
 				linkend="setting.force.compile">$force_compile</link> or <link
-				linkend="api.clear.compile.dir">clear_compiled_tpl</link>.
+				linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
 			</para>
 		</sect2>
 		<sect2 id="setting.force.compile">
@@ -1019,6 +1029,49 @@ $smarty->unregister_prefilter("imbed_asp_jokes");
 </programlisting>
 </example>
 		</sect2>
+		<sect2 id="api.register.postfilter">
+			<title>register_postfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_postfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register postfilters to run templates
+                through before they are compiled. See <link
+                linkend="section.template.postfilters">template postfilters</link> for
+                more information on how to setup a postfiltering function.
+			</para>
+<example>
+<title>register_postfilter</title>
+<programlisting>
+
+$smarty->register_postfilter("remove_dw_comments");
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.unregister.postfilter">
+			<title>unregister_postfilter</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>unregister_postfilter</function></funcdef>
+				<paramdef>string <parameter>function_name</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically unregister a postfilter.
+			</para>
+<example>
+<title>unregister_postfilter</title>
+<programlisting>
+
+$smarty->unregister_postfilter("imbed_asp_jokes");
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2 id="api.register.compiler.function">
 			<title>register_compiler_function</title>
 			<funcsynopsis>
@@ -1163,6 +1216,7 @@ var_dump($tpl_vars);
 			<funcdef>void <function>display</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
 				<paramdef>string <parameter>cache id</parameter></paramdef>
+				<paramdef>string <parameter>compile id</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1171,6 +1225,12 @@ var_dump($tpl_vars);
                 type and path. As an optional second parameter, you can pass a
                 cache id. See the <link linkend="section.caching">caching
                 section</link> for more information.
+			</para>
+			<para>
+				As an optional third parameter, you can pass a compile id. This
+				is in the event that you want to compile different versions of
+				the same template, such as having separate templates compiled
+				for different languages. This was added to Smarty 1.4.5.
 			</para>
 <example>
 <title>display</title>
@@ -1210,6 +1270,7 @@ $smarty->display("index.tpl");
 			<funcdef>string <function>fetch</function></funcdef>
 				<paramdef>string <parameter>template</parameter></paramdef>
 				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
+				<paramdef>[string <parameter>compile_id</parameter>]</paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1219,6 +1280,12 @@ $smarty->display("index.tpl");
                 type and path. As an optional second parameter, you can pass a
                 cache id. See the <link linkend="section.caching">caching
                 section</link> for more information.
+			</para>
+			<para>
+				As an optional third parameter, you can pass a compile id. This
+				is in the event that you want to compile different versions of
+				the same template, such as having separate templates compiled
+				for different languages. This was added to Smarty 1.4.5.
 			</para>
 <example>
 <title>fetch</title>
@@ -1372,6 +1439,11 @@ $smarty->display("db:index.tpl");
             first argument, an expect the function to return the resulting
             template source code.
             </para>
+			<para>
+			NOTE: As of Smarty 1.4.5, the Smarty object is passed as the second
+			argument. This way you can reference and modify information in the
+			Smarty object from within the prefilter function.
+			</para>
 <example>
 
 <title>using a template prefilter</title>
@@ -1388,6 +1460,49 @@ $smarty->display("index.tpl");
 
 {* from within Smarty template *}
 &lt;!--# this line will get removed by the prefilter --&gt;
+
+</programlisting>
+</example>
+        </sect2>
+    </sect1>
+	<sect1 id="section.template.postfilters">
+		<title>Template Postfilters</title>
+        <para>
+		Template postfilters are PHP functions that your templates are ran through
+		after they are compiled. Postfilters are processed in the order they are
+		<link linkend="api.register.postfilter">registered</link>.
+        </para>
+		<sect2>
+			<title>Example of a Template Postfilter</title>
+			<para>
+            Create a function in your application that Smarty will use as a
+            template postfilter. Smarty will pass the template source code as the
+            first argument, an expect the function to return the resulting
+            template source code.
+			</para>
+			<para>
+			The Smarty object is passed as the second argument. This way you
+			can reference and modify information in the Smarty object from
+			within the prefilter function.
+			</para>
+<example>
+
+<title>using a template postfilter</title>
+<programlisting>
+
+// this program puts a 
+// put this in your application, or in Smarty.addons.php
+function add_header_comment($tpl_source) {
+    return "<?php echo \"<!-- Created by Smarty! -->\n\" ?>\n".$tpl_source;
+}
+
+// register the postfilter
+$smarty->register_postfilter("add_header_comments");
+$smarty->display("index.tpl");
+
+{* from within Smarty template *}
+<!-- Created by Smarty! -->
+{* rest of template content... *}
 
 </programlisting>
 </example>
@@ -1459,6 +1574,25 @@ zaphod@slartibartfast.com&lt;br&gt;
 555-111-1234&lt;br&gt;
 
 
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>Array indexes</title>
+			<para>
+			You can reference arrays by their index, much like native PHP
+			syntax.
+			</para>
+<example>
+<title>displaying arrays by index</title>
+<programlisting>
+
+{$Contacts[0]}&lt;br&gt;
+{$Contacts[1]}&lt;br&gt;
+{* you can print arrays of arrays as well *}
+{$Contacts[0][0]}&lt;br&gt;
+{$Contacts[0][1]}&lt;br&gt;
 
 </programlisting>
 </example>
@@ -1702,6 +1836,15 @@ focus = "username"
 Intro = """This is a value that spans more
             than one line. you must enclose
 			it in triple quotes."""
+
+# hidden section
+[.Database]
+host=my.domain.com
+db=ADDRESSBOOK
+user=php-user
+pass=foobar
+
+			
 </programlisting>
 </example>
 			<para>
@@ -1725,6 +1868,15 @@ Intro = """This is a value that spans more
 			<para>
 			Config files are loaded into templates with the built-in function
 			called <link linkend="builtin.functions.configload">config_load</link>.
+			</para>
+			<para>
+			You can hide variables or entire sections by prepending the variable
+			name or section name with a period. This is useful if your
+			application reads the config files and gets sensitive data from them
+			that the template engine does not need. If you have third parties
+			doing template editing, you can be certain that they cannot read
+			sensitive data from the config file by loading it into the template.
+			This is new in Smarty 1.4.6.
 			</para>
 	</sect1>
 	<sect1 id="builtin.functions">
@@ -2053,6 +2205,11 @@ Intro = """This is a value that spans more
             dynamically every time the page is created, even within cached
             pages. This works good for things like banners, polls, live
             weather, search results, user feedback areas, etc.
+			</para>
+			<para>
+			NOTE: As of Smarty 1.4.5, the Smarty object is passed as the second
+			argument. This way you can reference and modify information in the
+			Smarty object from within the insert function.
 			</para>
 		</sect2>
 		<sect2>
@@ -3100,6 +3257,10 @@ OUTPUT:
 			selected by default as well. Required attributes are values
             and output, unless you use options instead.
 			</para>
+			<para>
+			NOTE: As of Smarty 1.4.5, html_options now outputs xhtml compatible
+			code.
+			</para>
 <example>
 <title>html_options</title>
 <programlisting>
@@ -3222,12 +3383,102 @@ OUTPUT:
                         <entry>false</entry>
                         <entry>whether or not to display the year as text</entry>
                     </row>
+                    <row>
+                        <entry>reverse_years</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>display years in reverse order</entry>
+                    </row>
+                    <row>
+                        <entry>field_array</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>
+							if a name is given, the select boxes will be drawn
+							such that the results will be returned to PHP in the
+							form of name[Day], name[Year], name[Month].
+						</entry>
+                    </row>
+                    <row>
+                        <entry>day_size</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds size attribute to select tag if given</entry>
+                    </row>
+                    <row>
+                        <entry>month_size</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds size attribute to select tag if given</entry>
+                    </row>
+                    <row>
+                        <entry>year_size</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds size attribute to select tag if given</entry>
+                    </row>
+                    <row>
+                        <entry>all_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to all select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>day_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>month_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>year_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>field_order</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>MDY</entry>
+                        <entry>the order in which to display the fields</entry>
+                    </row>
+                    <row>
+                        <entry>field_separator</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>\n</entry>
+                        <entry>string printed between different fields</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
 			<para>
 			html_select_date is a custom function that creates date dropdowns
 			for you. It can display any or all of year, month, and day.
+			</para>
+			<para>
+			NOTE: reverse_years, field_array, day_size, month_size, year_size,
+			all_extra, day_extra, month_extra, year_extra, field_order,
+			field_separator added in Smarty 1.4.5.
 			</para>
 <example>
 <title>html_select_date</title>
@@ -4974,6 +5225,11 @@ s m o k e r s   a r e   p. . .
    </para>
    <para>
    NOTE: This feature was added to Smarty 1.4.3.
+   </para>
+   <para>
+   NOTE: The load times of each template file and config file have been added to
+   the debug output in Smarty 1.4.6. This output is in seconds, or fractions
+   thereof.
    </para>
 </chapter>
 <chapter>

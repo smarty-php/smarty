@@ -1,9 +1,11 @@
+    - documentation updates (Monte)
     - update fetch function to give proper warning when fetching a non-readable
       or non-existant file (Monte)
     - fixed problem with newline at the end of included templates (Monte, Andrei)
     - added feature to regenerate cache if compile_check is enabled and an
       involved template or config file gets modified (Monte)
-    - added DEBUG execution times to included files (Monte)
+    - added DEBUG execution times to included files: REQUIRES updated debug.tpl
+      file! (Monte)
     - added support for hidden config variables that cannot be read by
       templates. (Andrei)
     - added execution time to DEBUG console, total and inserts. (Monte)
