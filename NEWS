@@ -1,3 +1,5 @@
+   - recognize $foo[][] syntax inside embedded quotes without
+     backtics (Monte)
    - name=123 is passed as an integer (not a string) to plugins now (messju)
    - $length is now propagated to sub-values in debug_print_var (messju) 
 
