@@ -4,7 +4,7 @@
  <title>Comentarios</title>
  <para>
   Los comentarios en los templates son cercados por asteriscos, y por 
-  los delimitadores, así:<br> {* este es un comentario *}.
+  los delimitadores, así: {* este es un comentario *}.
   Los comentarios en Smarty no son mostrados en la salida final del
   template. 
   Estos son usados para hacer notas internas dentro del template.

@@ -46,7 +46,7 @@
 
     <para>
      El parámetro <parameter>&amp;$repeat</parameter> es pasado por
-     referencia para la funci&oacuten de implementación y proporciona
+     referencia para la funci&oacute;n de implementación y proporciona
      la posibilidad de controlar cuantas veces será mostrado el bloque.
      Por default <parameter>$repeat</parameter> es <literal>true</literal>
      en la primera llamada de la block-function (etiqueta de apertura del 

@@ -165,7 +165,7 @@ debug.tpl
    </example>
    <para>
     Smarty utiliza una constante de PHP llamada <link
-    linkend="constant.smarty.dir">SMARTY_DIR</A> que es la ruta para 
+    linkend="constant.smarty.dir">SMARTY_DIR</link> que es la ruta para 
     el directorio de la biblioteca de Smarty. Basicamente, si su 
     aplicación puede encontrar el archivo <emphasis>Smarty.class.php
     </emphasis>, usted no necesita definir SMARTY_DIR, Smarty lo 
