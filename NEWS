@@ -1,3 +1,5 @@
+    - added default template function handler (Monte)
+
 Version 1.5.1
 -------------
     - removed error message from the generic _read_file() method, the caller

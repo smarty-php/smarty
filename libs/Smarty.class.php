@@ -100,9 +100,12 @@ class Smarty
                                         // this will tell Smarty not to look for
                                         // insert tags, thus speeding up cached page
                                         // fetches. true/false default true.
-    var $cache_handler_func   = '';     // function used for cached content. this is
+    var $cache_handler_func   = 'make_tpl';     // function used for cached content. this is
                                         // an alternative to using the built-in file
 										// based caching.
+
+	
+	var $default_template_handler_func = ''; // function to handle missing templates
 
     var $tpl_file_ext    =  '.tpl';     // template file extention (deprecated)
 
@@ -752,7 +755,7 @@ function _is_trusted($resource_type, $resource_name)
 	$_smarty_secure = false;
 	if ($resource_type == 'file') {
 			if (!empty($this->secure_dir)) {
-				foreach ($this->secure_dir as $curr_dir) {
+				foreach ((array)$this->secure_dir as $curr_dir) {
 					if ( !empty($curr_dir) && is_readable ($curr_dir)) {
                 		if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
                     		$_smarty_secure = true;
@@ -888,9 +891,35 @@ function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resour
 
 		$this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name);
 		
+        if ($this->security && !$this->_is_secure($resource_type, $resource_name) && !$this->_is_trusted($resource_type, $resource_name)) {
+            $this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
+            return false;
+        }
         switch ($resource_type) {
             case 'file':
-                if (file_exists($resource_name) && is_readable($resource_name)) {
+
+				$_is_file = false;
+
+                if (!@is_file($resource_name)) {
+					if(!empty($this->default_template_handler_func)) {
+						if(!function_exists($this->default_template_handler_func)) {
+                    		$this->_trigger_error_msg("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
+                    		return false;
+						}
+						// call default template handler function
+						$funcname = $this->default_template_handler_func;
+						if($funcname($resource_type, $resource_name)) {
+							// test for file once more
+							if(@is_file($resource_name)) {
+								$_is_file = true;
+							}
+						}
+					}
+				} else {
+					$_is_file = true;
+				}				
+
+                if ($_is_file) {
                     if ($get_source) {
                         $template_source = $this->_read_file($resource_name);
                     }
@@ -898,17 +927,9 @@ function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resour
                 } else {
                     $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
                     return false;
-                }				
-        		if ($this->security && !$this->_is_secure($resource_type, $resource_name) && !$this->_is_trusted($resource_type, $resource_name)) {
-            		$this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
-            		return false;
-        		}
+                }
                 break;
             default:
-        		if ($this->security && !$this->_is_secure($resource_type, $resource_name) && !$this->_is_trusted($resource_type, $resource_name)) {
-            		$this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
-            		return false;
-        		}
                 if (isset($this->resource_funcs[$resource_type])) {
                     $funcname = $this->resource_funcs[$resource_type];
                     if (function_exists($funcname)) {
