@@ -1089,7 +1089,7 @@ class Smarty_Compiler extends Smarty {
         preg_match_all('/(?>
 				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)? | # valid object call
 				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)?	| # var or quoted string
-				\-?\d+(?:\.\d+)?|\.\d+|!==|<=>|===|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@	| # valid non-word token
+				\-?\d+(?:\.\d+)?|\.\d+|!==|===|==|!=|<>|<<|>>|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@	| # valid non-word token
 				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
@@ -1117,6 +1117,9 @@ class Smarty_Compiler extends Smarty {
                 case '>':
                 case '<':
                 case '!=':
+                case '<>':
+                case '<<':
+                case '>>':
                 case '<=':
                 case '>=':
                 case '&&':

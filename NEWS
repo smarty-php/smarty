@@ -1,3 +1,4 @@
+    - added << >> <> support to if statments (SMK, Monte)
     - fix _assign_smarty_interface to not overwrite keys
       other than 'request' (Jerome Poudevigne, Monte)
     - added html_radios to distribution (Christopher Kvarme, Monte)
