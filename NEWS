@@ -1,3 +1,5 @@
+    - made html_options output xhtml compatible (Monte, Arnaud Limbourg)
+
 Version 1.4.5
 -------------
     - update FAQ with index of questions at the top

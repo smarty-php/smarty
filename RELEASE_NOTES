@@ -2,7 +2,9 @@
 -----
 
 Mostly bug fixes and minor improvements. Added compile id for separate compiled
-versions of the same script. See the ChangeLog for detailed changes.
+versions of the same script. The directory format and filename convention for
+the files in templates_c has changed, so you may want to remove all of the
+existing ones before you upgrade.
 
 1.4.4
 -----

@@ -225,7 +225,7 @@ function smarty_func_html_options()
         foreach ($options as $key => $value) {
             $html_result .= "<option value=\"$key\"";
             if (in_array($key, $selected))
-                $html_result .= " selected";
+                $html_result .= " selected=\"selected\"";
             $html_result .= ">$value</option>\n";
         }
     } else {
