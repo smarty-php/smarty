@@ -1,3 +1,9 @@
+2004-11-16  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_checkboxes.php
+      libs/plugins/function.html_radios.php:
+      cleaned up typecasting
+
 2004-11-15  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_options.php:
