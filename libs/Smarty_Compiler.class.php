@@ -43,6 +43,7 @@ class Smarty_Compiler extends Smarty {
     // internal vars
     var $_sectionelse_stack     =   array();    // keeps track of whether section had 'else' part
     var $_literal_blocks        =   array();    // keeps literal template blocks
+    var $_php_blocks        	=   array();    // keeps php code blocks
     var $_current_file          =   null;       // the current template being compiled
     var $_current_line_no       =   1;          // line number for error messages
         
@@ -54,13 +55,13 @@ class Smarty_Compiler extends Smarty {
     function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
         
-        // run template source through functions registered in filter_funcs
-        if(is_array($this->filter_funcs) && count($this->filter_funcs) > 0) {
-            foreach($this->filter_funcs as $curr_func) {
+        // run template source through functions registered in prefilter_funcs
+        if(is_array($this->prefilter_funcs) && count($this->prefilter_funcs) > 0) {
+            foreach($this->prefilter_funcs as $curr_func) {
                 if(function_exists($curr_func)) {
                     $template_source = $curr_func($template_source);
                 } else {
-                    $this->_trigger_error_msg("filter function $curr_func does not exist.");
+                    $this->_trigger_error_msg("prefilter function $curr_func does not exist.");
                 }
             }
         }
@@ -74,8 +75,14 @@ class Smarty_Compiler extends Smarty {
         preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $match);
         $this->_literal_blocks = $match[1];
         $template_source = preg_replace("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s",
-                                        $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_source);
+        	$this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_source);
 
+        /* Pull out the php code blocks. */
+        preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $template_source, $match);
+        $this->_php_blocks = $match[1];
+        $template_source = preg_replace("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s",
+        	$this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $template_source);		
+		
         /* Gather all template tags. */
         preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_source, $match);
         $template_tags = $match[1];
@@ -226,6 +233,11 @@ class Smarty_Compiler extends Smarty {
                 $this->_current_line_no += substr_count($literal_block, "\n");
                 return "<?php echo '".str_replace("'","\'",$literal_block)."'; ?>\n";
 
+            case 'php':
+                list (,$php_block) = each($this->_php_blocks);
+                $this->_current_line_no += substr_count($php_block, "\n");
+                return '<?php '.$php_block.' ?>';
+				
             case 'insert':
                 return $this->_compile_insert_tag($tag_args);
 

@@ -139,4 +139,4 @@ Q: My ISP did not setup the PEAR repository, nor will they set it up. How do I
 A: The easiest thing to do is grab all of PEAR and install it locally for your
    own use. There's nothing that says PEAR must be installed in its default
    directory. There won't be a version of Smarty that runs without PEAR, as it
-   quite dependant on it, especially with database support.
+   quite dependant on it.

@@ -136,7 +136,7 @@ class Smarty
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
                                                       // Smarty to compile templates
     var $resource_funcs        =  array();  // what functions resource handlers are mapped to
-    var $filter_funcs          =  array();  // what functions templates are filtered through
+    var $prefilter_funcs          =  array();  // what functions templates are prefiltered through
                                             // before being compiled
 
 /**************************************************************************/
@@ -304,28 +304,28 @@ class Smarty
     }
 
 /*======================================================================*\
-    Function: register_filter
-    Purpose:  Registers a filter function to apply
+    Function: register_prefilter
+    Purpose:  Registers a prefilter function to apply
               to a template before compiling
 \*======================================================================*/
-    function register_filter($function_name)
+    function register_prefilter($function_name)
     {
-        $this->filter_funcs[] = $function_name;
+        $this->prefilter_funcs[] = $function_name;
     }
 
 /*======================================================================*\
-    Function: unregister_filter
-    Purpose:  Unregisters a filter
+    Function: unregister_prefilter
+    Purpose:  Unregisters a prefilter
 \*======================================================================*/
-    function unregister_filter($function_name)
+    function unregister_prefilter($function_name)
     {
         $tmp_array = array();
-        foreach($this->filter_funcs as $curr_func) {
+        foreach($this->prefilter_funcs as $curr_func) {
             if($curr_func != $function_name) {
                 $tmp_array[] = $curr_func;
             }
         }
-        $this->filter_funcs = $tmp_array;
+        $this->prefilter_funcs = $tmp_array;
     }
     
 /*======================================================================*\
@@ -407,6 +407,37 @@ class Smarty
         $this->_tpl_vars = array();
     }
 
+/*======================================================================*\
+    Function:   clear_compile_dir()
+	Purpose:    clears compiled version of specified template resource,
+				or all compiled template files if one is not specified.
+				This function is for advanced use only, not normally needed.
+\*======================================================================*/
+    function clear_compile_dir($tpl_file=null)
+    {
+        if (!is_dir($this->compile_dir))
+            return false;
+
+		if($tpl_file) {
+			// remove compiled template file if it exists
+			$tpl_file = urlencode($tpl_file).'.php';
+			if(file_exists($this->compile_dir.'/'.$tpl_file)) {
+					unlink($this->compile_dir.'/'.$tpl_file);
+			}
+		} else {
+			// remove everything in $compile_dir
+        	$dir_handle = opendir($this->compile_dir);
+        	while ($curr_file = readdir($dir_handle)) {
+            	if ($curr_file == '.' || $curr_dir == '..' ||
+                	!is_file($this->compile_dir.'/'.$curr_file))
+					{ continue; }
+            	unlink($this->compile_dir.'/'.$curr_file);
+			}
+        	closedir($dir_handle);
+        }
+
+        return true;
+    }
 
 /*======================================================================*\
     Function: get_template_vars
@@ -649,7 +680,7 @@ class Smarty
         $smarty_compiler->custom_funcs      = $this->custom_funcs;
         $smarty_compiler->custom_mods       = $this->custom_mods;
         $smarty_compiler->version           = $this->version;
-        $smarty_compiler->filter_funcs      = $this->filter_funcs;
+        $smarty_compiler->prefilter_funcs      = $this->prefilter_funcs;
         $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))

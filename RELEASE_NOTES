@@ -41,7 +41,12 @@ problems when displaying content other than HTML, so now you must explicitly
 set this flag to true to show the header information (or change the default in
 your copy of Smarty.)
 
-CHANGES/ENHANCEMENTS
+Documentation is written in docbook format. I updated the docbook -> HTML
+generating software & style-sheets, and consequently the examples are no longer
+in a different background color. If anyone wants to contribute a better
+stylesheet or help with documentation, drop me a line. <monte@ispi.net>
+
+CHANGES/ENHANCEMENTS/UPDATES
 
 date_format, html_select_date and html_select_time used to require a unix
 timestamp as the format of the date passed into the template. Smarty is now a
@@ -64,8 +69,19 @@ The run-time custom functions are now passed Smarty object as the second
 parameter. This can be used, for example, to assign or clear template variables
 from inside the custom function.
 
+clear_compile_dir() was added for clearing out compiled versions of your
+templates. Not something normally needed, but you may have a need for this if
+you have $compile_check set to false and you periodically update templates via
+some automated process. As of 1.4.0, uncompiled templates _always_ get
+compiled, regardless of $compile_check setting, although they won't be checked
+for recompile if $compile_check is set to false.
+
 You can now refer to properties of objects assigned from PHP by using the '->'
 symbol and specifying the property name after it, e.g. $foo->bar.
+
+{php}{/php} tags were added to embed php into the templates. Not normally
+needed, but some circumstances may call for it. Check out the "componentized
+templates" tip in the documentation for an example of needed usage.
 
 UPGRADE NOTES
 

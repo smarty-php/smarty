@@ -62,7 +62,7 @@ drwxrwxrwx   2 user    group        512 Jan 18 14:18 templates_c/
 
 Now we need to create two files, index.php and templates/index.tpl. index.php
 is the file that we will be calling from our web browser. index.tpl is the file
-that Smarty will use as it's template file. (.tpl files are never called
+that Smarty will use as its template file. (.tpl files are never called
 directly from the browser, only Smarty calls them.)
 
 
@@ -178,7 +178,7 @@ $smarty->display("index.tpl");
 
 --------- templates/header.tpl --------
 <HTML>
-<TITLE>{$title}</TITLE>
+<TITLE>{$title|default:"no title"}</TITLE>
 <BODY>
 
 --------- templates/footer.tpl --------
@@ -191,7 +191,7 @@ You can pass as many variables as you want. The included file inherits all the
 current template vars, plus any that are passed to it. The passed variables are
 only available within the scope of the included file. Also notice the way the
 $title variable is printed to the template. It uses a variable modifier called
-"default". Printing {$title} means that if the value of
+"default". Printing {$title|default:"no title"} means that if the value of
 $title is empty, the text "no title" will be printed instead of nothing.
 
 IF/ELSEIF/ELSE

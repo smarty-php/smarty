@@ -1,5 +1,8 @@
 Version 1.4.0
 -------------
+    - added "componentized templates" tip into documentation (Monte)
+    - added {php}{/php} tags for embedding php code into templates (Monte)
+    - changed default value of $show_info_header to false (Monte)
     - implemented '->' syntax for accessing properties of objects passed to the
       template. (Andrei)
     - allowed custom functions to receive Smarty object as the second
@@ -25,7 +28,7 @@ Version 1.4.0
     - changed Smarty to compile templates at runtime, allowing for arbitrary
       template resources. (Monte)
     - added fix for LOCK_EX under Windows and changed a couple of file
-      permissions for security. (Monte)
+      permissions for security. (Monte, Fernando Nunes)
     - allow arbitrary date strings to date_format, html_select_date and
       html_select_time (Monte)
 
