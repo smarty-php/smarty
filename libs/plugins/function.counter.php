@@ -25,7 +25,6 @@ function smarty_function_counter($params, &$smarty)
     static $dir = array();
     static $name = "default";
     static $printval = array();
-    static $assign = "";
 
     extract($params);
 
