@@ -135,7 +135,7 @@
 			<title>{$smarty.rdelim}</title>
 			<para>
     This variable is used for printing the right-delimiter value literally.
-    See also <link linkend="language.function.ldelim">{rdelim},{rdelim}</link>.
+    See also <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
 			</para>
 		</sect2>
 
