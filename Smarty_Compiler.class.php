@@ -48,17 +48,6 @@ class Smarty_Compiler extends Smarty {
         
 
 /*======================================================================*\
-    Function:   _modified_file()
-    Input:      return comparison of modification times of files
-\*======================================================================*/
-    function _modified_file($filepath, $compilepath)
-    {
-        if (filemtime($filepath) >= filemtime($compilepath))
-            return true;
-        return false;
-    }
-
-/*======================================================================*\
     Function:   _compile_file()
     Input:      compile a template file
 \*======================================================================*/
@@ -147,29 +136,6 @@ class Smarty_Compiler extends Smarty {
         return true;
     }
 
-/*======================================================================*\
-    Function: _process_cached_inserts
-    Purpose:  Replace cached inserts with the actual results
-\*======================================================================*/
-    function _process_cached_inserts($results)
-    {
-        preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
-                       $results, $match);
-        list($cached_inserts, $insert_args) = $match;
-
-        for ($i = 0; $i < count($cached_inserts); $i++) {
-            $args = unserialize($insert_args[$i]);
-            $name = $args['name'];
-            unset($args['name']);
-
-            $function_name = 'insert_' . $name;
-            $replace = $function_name($args);
-
-            $results = str_replace($cached_inserts[$i], $replace, $results);
-        }
-
-        return $results;
-    }   
 
 /*======================================================================*\
     Function: _compile_tag
