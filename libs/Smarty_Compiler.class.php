@@ -508,12 +508,18 @@ class Smarty_Compiler extends Smarty {
 
             case 'strip':
             case '/strip':
-                if ($tag_command{0}=='/')
-                    $this->_strip_depth--;
-                else
-                    $this->_strip_depth++;
-                $this->_additional_newline = ($this->_strip_depth>0) ? '' : "\n";
-                return $this->left_delimiter.$tag_command.$this->right_delimiter;
+                if ($tag_command{0}=='/') {
+                    if (--$this->_strip_depth==0) { /* outermost closing {/strip} */
+                        $this->_additional_newline = "\n";
+                        return $this->left_delimiter.$tag_command.$this->right_delimiter;
+                    }
+                } else {
+                    if ($this->_strip_depth++==0) { /* outermost opening {strip} */
+                        $this->_additional_newline = "";
+                        return $this->left_delimiter.$tag_command.$this->right_delimiter;
+                    }
+                }
+                return '';
 
             case 'literal':
                 list (,$literal_block) = each($this->_literal_blocks);

@@ -1,3 +1,4 @@
+  - ignore {strip}/{/strip) inside {strip}-blocks (messju)
   - fixed removal of leading/trailing newlines in {strip}-blocks (messju)
   - fixed proper escaping of " and ' with escape:javascript (messju)
   - fixed bug in traversal of $smarty->plugins_dir-array. now the
