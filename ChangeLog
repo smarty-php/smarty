@@ -1,3 +1,10 @@
+2004-12-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed escaping of template-filenames in the generated code that loads
+      needed plugins
+
 2004-12-15  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
