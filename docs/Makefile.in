@@ -24,18 +24,36 @@ all: html
 PHP=@PHP@
 LANG=@LANG@
 NSGMLS=@NSGMLS@
+JADE=@JADE@  -D . -wno-idref
+XMLDCL=./dtds/dbxml-4.1.2/phpdocxml.dcl
+CATALOG=@CATALOG@
+HTML_STYLESHEET=dsssl/html.dsl
+PHPWEB_STYLESHEET=dsssl/php.dsl
 
 # }}}
 
-test:
-	$(NSGMLS) -i lang-$(LANG) -s ./dtds/dbxml-4.1.2/phpdocxml.dcl manual.xml 
+#default behaviour
+all:html
 
+FORCE:
+
+html: FORCE
+	@test -d html || mkdir html
+	$(JADE) $(CATALOG) -d $(HTML_STYLESHEET) -V use-output-dir -t sgml $(XMLDCL) manual.xml
+
+web: FORCE
+	@test -d phpweb || mkdir phpweb
+	$(JADE) $(CATALOG) -d $(PHPWEB_STYLESHEET) -V use-output-dir -t sgml $(XMLDCL) manual.xml
+	$(PHP) scripts/generate_web.php
+
+test:
+	$(NSGMLS) -i lang-$(LANG) -s $(XMLDCL) manual.xml 
 
 
 # {{{ cleanup 
 
 clean:
-	rm -f Makefile config.* manual.xml configure version.ent
-	rm -fr autom4te.cache 
+	rm -f Makefile config.* manual.xml configure entities/version.ent *.fot
+	rm -fr autom4te.cache html phpweb
 
 # }}}

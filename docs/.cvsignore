@@ -3,4 +3,6 @@ Makefile
 manual.xml
 config.*
 *.cache
-version.ent
+*.fot
+html
+phpweb

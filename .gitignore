@@ -1,7 +1,9 @@
 docs/*.cache
+docs/*.fot
 docs/Makefile
 docs/config.*
 docs/configure
+docs/html
 docs/manual.xml
-docs/version.ent
+docs/phpweb
 /templates_c

@@ -16,6 +16,108 @@ echo
 
 dnl {{{ check for support programs
 
+dnl {{{   check for PHP
+
+dnl use given argument, if any, else search in path 
+AC_ARG_WITH(php,
+[  --with-php=PATH         look for PHP executable needed for helper scripts],
+[
+  if test $withval != "yes"; then
+    AC_MSG_CHECKING([for php])
+    if test -x $withval; then
+      PHP=$withval
+      AC_MSG_RESULT($PHP)
+    else
+      PHP=no
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR([$withval: not an executable file])
+    fi
+  else
+    if test -e ../../phpdoc-tools/php.bat ; then
+      AC_MSG_CHECKING([for php])
+      PHP=../../phpdoc-tools/php.bat
+      AC_MSG_RESULT($PHP)
+    else
+      AC_PATH_PROG(PHP,"php",no)
+      if test $PHP = "no"; then
+        AC_PATH_PROG(PHP4,"php4",no)
+        PHP=$PHP4
+      fi
+    fi
+  fi
+],[
+  if test -e ../../phpdoc-tools/php.bat ; then
+    AC_MSG_CHECKING([for php])
+    PHP=../../phpdoc-tools/php.bat
+    AC_MSG_RESULT($PHP)
+  else
+    AC_PATH_PROG(PHP,"php",no)
+    if test $PHP = "no"; then
+      AC_PATH_PROG(PHP4,"php4",no)
+      PHP=$PHP4
+    fi
+  fi
+]
+)
+if test $PHP = "no"; then
+  AC_MSG_ERROR([no PHP binary found])
+fi
+AC_SUBST(PHP)
+
+dnl }}}
+
+dnl {{{   check for the Jade or OpenJade DSSSL parser
+
+dnl use given argument, if any, else search in path 
+
+AC_ARG_WITH(jade,
+[  --with-jade=PATH        look for jade or openjade executable],[
+  if test $withval != "yes"; then
+    AC_MSG_CHECKING([for jade])
+    if test -x $withval; then
+      JADE=$withval
+      AC_MSG_RESULT($JADE)
+    else
+      JADE=no
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR([$withval: not an executable file])
+    fi
+  else
+    if test -e ../../phpdoc-tools/jade/jade.exe ; then
+      AC_MSG_CHECKING([for jade])
+      JADE=../../phpdoc-tools/jade/jade.exe
+      AC_MSG_RESULT($JADE)
+    else
+      AC_PATH_PROG(OPENJADE,"openjade",no)
+      if test $OPENJADE = "no"; then
+        AC_PATH_PROG(JADE,"jade",no)
+      else
+        JADE=$OPENJADE
+      fi
+    fi
+  fi
+],[
+  if test -e ../../phpdoc-tools/jade/jade.exe ; then
+    AC_MSG_CHECKING([for jade])
+    JADE=../../phpdoc-tools/jade/jade.exe
+    AC_MSG_RESULT($JADE)
+  else
+    AC_PATH_PROG(OPENJADE,"openjade",no)
+    if test $OPENJADE = "no"; then
+      AC_PATH_PROG(JADE,"jade",no)
+    else
+      JADE=$OPENJADE
+    fi
+   fi
+]
+)
+if test $JADE = "no"; then
+  AC_MSG_ERROR([can't find jade or openjade])
+fi
+AC_SUBST(JADE)
+
+dnl }}}
+
 dnl {{{   check for nsgmls or onsgmls
 
 AC_ARG_WITH(nsgmls,
@@ -65,6 +167,53 @@ fi
 AC_SUBST(NSGMLS)
 
 dnl }}}
+
+dnl }}}
+
+dnl {{{   check for catalog files
+
+CATALOG=""
+
+dnl iso-ents catalog file
+dnl The 4.1.2 DocBook DTD also includes entity files, but they cannot be used with Jade!
+if test -e ./entities/ISO/catalog
+then
+  CATALOG="$CATALOG -c ./entities/ISO/catalog"
+fi
+
+dnl DSSSL catalog file
+if test -e ./dsssl/docbook/catalog
+then
+  CATALOG="$CATALOG -c ./dsssl/docbook/catalog"
+fi
+
+dnl For windows (and maybe *nix too?) users lacking catalog-files
+
+dnl jade catalog file
+# how about using JADEPATH? You should replace the last 4 chars ('jade') with catalog
+# !! JADEPATH may not properly be set on windows, so do not use it !!
+if test -e ../../phpdoc-tools/jade/catalog
+then
+  CATALOG="$CATALOG -c ../../phpdoc-tools/jade/catalog"
+fi
+dnl SuSE openjade setup
+if test -e /usr/share/sgml/CATALOG.docbk41
+then
+  CATALOG="$CATALOG -c /usr/share/sgml/CATALOG.docbk41"
+fi
+if test -e /usr/share/sgml/CATALOG.jade_dsl
+then
+  CATALOG="$CATALOG -c /usr/share/sgml/CATALOG.jade_dsl"
+fi
+
+dnl As a very last option, include default catalog files from phpdoc
+dnl (imported from the openjade distribution)
+if test -e $srcdir/dsssl/defaults/catalog
+then
+  CATALOG="$CATALOG -c ./dsssl/defaults/catalog"
+fi
+
+AC_SUBST(CATALOG)
 
 dnl }}}
 
