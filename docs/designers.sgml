@@ -1002,6 +1002,34 @@ OUTPUT:
 24</programlisting>
 </example>
 		</sect1>
+		<sect1 id="language.modifier.strip">
+			<title>strip</title>
+			<para>
+			This replaces all repeated spaces, newlines and tabs with a single
+			space, or with a supplied string.
+			</para>
+			<note>
+			<title>Note</title>
+			<para>
+			If you want to strip blocks of template text, use the <link
+			linkend="language.function.strip">strip function</link>.
+			</para>
+			</note>
+<example>
+<title>strip</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|strip}
+{$articleTitle|strip:"&amp;nbsp;"}
+
+OUTPUT:
+
+Grandmother of
+eight makes        hole in one
+Grandmother of eight makes hole in one
+Grandmother&amp;nbsp;of&amp;nbsp;eight&amp;nbsp;makes&amp;nbsp;hole&amp;nbsp;in&amp;nbsp;one</programlisting>
+</example>
+		</sect1>
 		<sect1 id="language.modifier.strip.tags">
 			<title>strip_tags</title>
 			<para>
@@ -2539,20 +2567,27 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 		<sect1 id="language.function.strip">
 			<title>strip</title>
 			<para>
-			Many times web designers
-			run into the issue where white space and carriage returns
-			affect the output of the rendered HTML (browser "features"), so you
-			must run all your tags together in the template to get the
-			desired results. This usually ends up in unreadable or
+			Many times web designers run into the issue where white space and
+			carriage returns affect the output of the rendered HTML (browser
+			"features"), so you must run all your tags together in the template
+			to get the desired results. This usually ends up in unreadable or
 			unmanagable templates.
 			</para>
 			<para>
-			Anything within {strip}{/strip} tags in Smarty are stripped of
-			the extra spaces or carriage returns at the beginnings and
-			ends of the lines before they are displayed.
-			This way you can keep your templates readable, and not worry
-			about extra white space causing problems.
+			Anything within {strip}{/strip} tags in Smarty are stripped of the
+			extra spaces or carriage returns at the beginnings and ends of the
+			lines before they are displayed. This way you can keep your
+			templates readable, and not worry about extra white space causing
+			problems.
 			</para>
+			<note>
+			<title>Technical Note</title>
+			<para>
+			{strip}{/strip} does not affect the contents of template variables.
+			See the <link linkend="language.modifier.strip">strip modifier
+			function</link>.
+			</para>
+			</note>
 <example>
 <title>strip tags</title>
 <programlisting>

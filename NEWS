@@ -1,3 +1,4 @@
+    - added strip variable modifier, updated docs (Monte)
     - fixed access to $smarty.x variables as arrays. (Andrei)
     - fixed errors with example setup docs (Monte, Matthew
       Hagerty)
