@@ -1,3 +1,17 @@
+2003-08-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.assign_smarty_interface.php
+      libs/core/core.display_debug_console.php
+      libs/plugins/function.assign.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_table.php:
+      fixed PHPDocumentor-comments (thanks Konstantin)
+
+    * libs/core/core.rmdir.php:
+      made rmdir a bit more optimistic. especially it now removes
+      directories correctly that where created accidently by "safe_mode=On
+      && $use_sub_dirs=true"
+
 2003-08-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
