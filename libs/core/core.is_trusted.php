@@ -23,20 +23,19 @@ function smarty_core_is_trusted($params, &$smarty)
     $_smarty_trusted = false;
     if ($params['resource_type'] == 'file') {
         if (!empty($smarty->trusted_dir)) {
-            // see if template file is within a trusted directory. If so,
-            // disable security during the execution of the template.
-
-            if (!empty($smarty->trusted_dir)) {
-                foreach ((array)$smarty->trusted_dir as $curr_dir) {
-                    if (!empty($curr_dir) && is_readable ($curr_dir)) {
-                        if (substr(realpath($params['resource_name']),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-                            $_smarty_trusted = true;
-                            break;
-                        }
+            $_rp = realpath($params['resource_name']);
+            foreach ((array)$smarty->trusted_dir as $curr_dir) {
+                if (!empty($curr_dir) && is_readable ($curr_dir)) {
+                    $_cd = realpath($curr_dir);
+                    if (strncmp($_rp, $_cd, strlen($_cd)) == 0
+                        && $_rp{strlen($_cd)} == DIRECTORY_SEPARATOR ) {
+                        $_smarty_trusted = true;
+                        break;
                     }
                 }
             }
         }
+
     } else {
         // resource is not on local file system
         $_smarty_trusted = call_user_func_array($smarty->_plugins['resource'][$params['resource_type']][0][3],
