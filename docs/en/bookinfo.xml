@@ -1,0 +1,18 @@
+ <bookinfo id="bookinfo">
+  <title>Smarty - the compiling PHP template engine</title>
+  <authorgroup id="authors">
+   <author>
+    <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
+   </author>
+   <author>
+    <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
+   </author>
+  </authorgroup>
+  <edition>Version 2.0</edition>
+  <copyright>
+   <year>2001</year>
+   <year>2002</year>
+   <year>2003</year>
+   <holder>ispi of Lincoln, Inc.</holder>
+  </copyright>
+ </bookinfo>
