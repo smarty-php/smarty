@@ -1,9 +1,8 @@
 Version 2.1.1
 -------------
-
-    - added cycle function (Monte)
-    - fixed bug with resource testing, and include_path (Monte)
-    - fixed a bug with register_outputfilter function (Monte)
+    - added cycle function. (Monte)
+    - fixed bug with resource testing, and include_path. (Monte)
+    - fixed a bug with register_outputfilter function. (Monte)
 
 Version 2.1.0
 -------------

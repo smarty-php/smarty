@@ -8,3 +8,4 @@
 * make simple math easier
 * caching all but parts of the template
 * change plugins so $smarty variable always comes first
+* being able to load config files from PHP scripts
