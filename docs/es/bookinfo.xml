@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.9 Maintainer: ramirez Status: ready -->
  <bookinfo id="bookinfo">
   <title>Smarty - El motor compilador de Plantillas para PHP</title>
   <authorgroup id="authors">
@@ -9,6 +10,8 @@
    <author>
     <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
    </author>
+  </authorgroup>
+  <authorgroup id="translators">
    <author>
     <firstname>Mario</firstname><surname>Ramírez
     &lt;mario_ramirez@fjcorona.com.mx&gt;</surname>
@@ -16,7 +19,7 @@
   </authorgroup>
   <pubdate>&build-date;</pubdate>
   <copyright>
-   <year>2001-2004</year>
+   <year>2001-2005</year>
    <holder>New Digital Group, Inc.</holder>
   </copyright>
  </bookinfo>
