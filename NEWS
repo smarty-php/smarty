@@ -1,5 +1,6 @@
-    - wordwrap and indent are missing from 2.0 release, now fixed (Monte)
-    - removed show_info_header and show_info_include functions (Monte)
+    - fixed bug with $smarty.cookies and $smarty.server. (Andrei).
+    - wordwrap and indent are missing from 2.0 release, now fixed. (Monte)
+    - removed show_info_header and show_info_include variables. (Monte)
 
 Version 2.0.0
 -------------
