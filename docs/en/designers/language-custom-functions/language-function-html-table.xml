@@ -31,19 +31,24 @@
                         <entry>integer</entry>
                         <entry>No</entry>
                         <entry><emphasis>3</emphasis></entry>
-                        <entry>number of columns in the table,
-                        data populates cells left-to-right,
-                        top-to-bottom.</entry>
+                        <entry>number of columns in the table. if the cols-attribute is empty, but rows are given, then the number of cols is computed by the number of rows and the number of elements to display to be just enough cols to display all elements. If both, rows and cols, are omitted cols defaults to 3.</entry>
                     </row>
                     <row>
                         <entry>rows</entry>
                         <entry>integer</entry>
                         <entry>No</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>number of rows in the table, data populates
-                        cells top-to-bottom, left-to-right. This is mutually
-                        exclusive with "cols" attribute.</entry>
+                        <entry>number of rows in the table. if the rows-attribute is empty, but cols are given, then the number of rows is computed by the number of cols and the number of elements to display to be just enough rows to display all elements.</entry>
                     </row>
+
+                    <row>
+                        <entry>inner</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>cols</emphasis></entry>
+                        <entry>direction of consecutive elements in the loop-array to be rendered. <emphasis>cols</emphasis> means elements are displayed col-by-col. <emphasis>rows</emphasis> means elements are displayed row-by-row.</entry>
+                    </row>
+
                     <row>
                         <entry>table_attr</entry>
                         <entry>string</entry>
