@@ -215,7 +215,7 @@ $smarty = new Smarty;</screen>
 	Smarty will need write access to the <emphasis>$compile_dir</emphasis> and
 	<emphasis>$cache_dir</emphasis>, so be sure the web server user can write
 	to them. This is usually user "nobody" and group "nobody". For OS X users,
-	the default is user "web" and group "web". If you are using Apache, you can
+	the default is user "www" and group "www". If you are using Apache, you can
 	look in your httpd.conf file (usually in "/usr/local/apache/conf/") to see
 	what user and group are being used.
 	</para>
