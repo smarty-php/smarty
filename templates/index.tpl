@@ -68,5 +68,4 @@ This is an example of the html_options function:
 </select>
 </form>
 
-{myfunc attr1=5 attr2=$Name|upper}
 {include file="footer.tpl"}
