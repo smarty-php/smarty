@@ -9,6 +9,7 @@ INSTALL SMARTY LIBRARY FILES
 Copy the Smarty library files to your system. In our example, we place them in
 /usr/local/lib/php/Smarty/
 
+$> cd YOUR_DOWNLOAD_DIRECTORY
 $> gtar -ztvf Smarty-2.6.7.tar.gz
 $> mkdir /usr/local/lib/php/Smarty
 $> cp -r Smarty-2.6.7/libs/* /usr/local/lib/php/Smarty
