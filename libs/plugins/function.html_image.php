@@ -113,7 +113,8 @@ function smarty_function_html_image($params, &$smarty)
             }
         }
 		$_params = array('resource_type' => 'file', 'resource_name' => $_image_path);
-        if(!$smarty->security && !$this->_execute_core_function('is_secure', $_params)) {
+		require_once(SMARTY_DIR . 'core/core.is_secure.php');
+        if(!$smarty->security && !smarty_core_is_secure($_params, $smarty)) {
             $smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);
             return;
         }

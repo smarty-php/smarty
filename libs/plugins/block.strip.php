@@ -18,7 +18,7 @@
  * @param Smarty clever method emulation
  * @return string $content stripped of whitespace
  */
-function smarty_block_strip($params, $content, &$this)
+function smarty_block_strip($params, $content, &$smarty)
 {
 	/* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
 	$_strip_search = array(

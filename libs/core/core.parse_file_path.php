@@ -37,12 +37,12 @@ function smarty_core_parse_file_path(&$params, &$this)
         	$params['resource_name'] = $_file_path_parts[1];
 		}
     }	
-	
+		
     if ($params['resource_type'] == 'file') {
         if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $params['resource_name'])) {
             // relative pathname to $params['file_base_path']
             // use the first directory where the file is found
-			$_file_base_path = $params['file_base_path'];
+			$_file_base_path = isset($params['file_base_path']) ? $params['file_base_path'] : array('.');
 			settype($_file_base_path, 'array');
             foreach ($_file_base_path as $_curr_path) {
                 $_fullpath = $_curr_path . DIRECTORY_SEPARATOR . $params['resource_name'];

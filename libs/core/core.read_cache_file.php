@@ -68,22 +68,25 @@ function smarty_core_read_cache_file(&$params, &$this)
     }
 
     if ($this->compile_check) {
+		require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
         foreach (array_keys($this->_cache_info['template']) as $_template_dep) {
-			$_params = array('tpl_path' => $_template_dep);
-			require_once(SMARTY_DIR . 'core/core.fetch_template_info.php');
-			smarty_core_fetch_template_info($_params, $this);
-            if ($this->_cache_info['timestamp'] < $_params['template_timestamp']) {
+			$_params = array('file_path' => $this->template_dir . '/' . $_template_dep);
+			smarty_core_fetch_file_info($_params, $this);
+            if ($this->_cache_info['timestamp'] < $_params['file_timestamp']) {
                 // template file has changed, regenerate cache
                 return false;
             }
         }
 
         if (isset($this->_cache_info['config'])) {
-            foreach (array_keys($this->_cache_info['config']) as $config_dep) {
-                if ($this->_cache_info['timestamp'] < filemtime($this->config_dir . DIRECTORY_SEPARATOR . $config_dep)) {
-                    // config file has changed, regenerate cache
-                    return false;
-                }
+			require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
+            foreach (array_keys($this->_cache_info['config']) as $_config_dep) {
+				$_params = array('file_path' => $this->config_dir . '/' . $_config_dep);
+				smarty_core_fetch_file_info($_params, $this);
+            	if ($this->_cache_info['timestamp'] < $_params['file_timestamp']) {
+                	// config file has changed, regenerate cache
+                	return false;
+            	}
             }
         }
     }

@@ -1069,9 +1069,9 @@ reques     * @var string
      */    
     function template_exists($tpl_file)
     {
-		$_params = array('tpl_path' => $tpl_file);
-		require_once(SMARTY_DIR . 'core/core.fetch_template_info.php');
-        return smarty_core_fetch_template_info($_params, $this);
+		$_params = array('file_path' => $this->template_dir . '/' . $tpl_file);
+		require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
+        return smarty_core_fetch_file_info($_params, $this);
     }
 
     /**
@@ -1245,18 +1245,21 @@ reques     * @var string
         	}
         }
 
-        $_smarty_compile_path = $this->_get_compile_path($tpl_file);
-
+		$_template_file_path = $this->template_dir . '/' . $tpl_file;		
+        $_smarty_compile_path = $this->_get_compile_path($_template_file_path);
+		
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
-            if ($this->_process_template($tpl_file, $_smarty_compile_path))
+            if (!$this->_file_needs_compiling($_template_file_path, $_smarty_compile_path)
+					|| $this->_compile_template($tpl_file, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
             }
         } else {
             ob_start();
-            if ($this->_process_template($tpl_file, $_smarty_compile_path))
+            if (!$this->_file_needs_compiling($_template_file_path, $_smarty_compile_path)
+					|| $this->_compile_template($tpl_file, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
             }
@@ -1401,85 +1404,65 @@ reques     * @var string
     }	
 	
    /**
-     * umm... process the template
+     * test if source file needs compiling
      *
      * @param string $tpl_file
      * @param string $compile_path
      * @return boolean
      */    
-    function _process_template($tpl_file, $compile_path)
+    function _file_needs_compiling($file_path, $compile_path)
     {
-        // test if template needs to be compiled
         if (!$this->force_compile && file_exists($compile_path)) {
             if (!$this->compile_check) {
-                // no need to check if the template needs recompiled
-                return true;
+                // no need to check compiled file
+                return false;
             } else {
-                // get template source and timestamp
-				$_params = array('tpl_path' => $tpl_file);
-				require_once(SMARTY_DIR . 'core/core.fetch_template_info.php');
-                if (!smarty_core_fetch_template_info($_params, $this)) {
-                    return false;
+                // get file source and timestamp
+				require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
+				$_params = array('file_path' => $file_path);
+                if (!smarty_core_fetch_file_info($_params, $this)) {
+                    return true;
                 }
-				$_template_source = $_params['template_source'];
-				$_template_timestamp = $_params['template_timestamp'];
+				$_file_source = $_params['file_source'];
+				$_file_timestamp = $_params['file_timestamp'];
                 if ($_template_timestamp <= filemtime($compile_path)) {
                     // template not expired, no recompile
-                    return true;
+                    return false;
                 } else {
-                    // compile template
-                    $this->_compile_template($tpl_file, $_template_source, $_template_compiled);
-					$_params = array('compile_path' => $compile_path, 'template_compiled' => $_template_compiled, 'template_timestamp' => $_template_timestamp);
-					require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
-					smarty_core_write_compiled_template($_params, $this);
+					// compile template
                     return true;
                 }
             }
         } else {
             // compiled template does not exist, or forced compile
-			$_params = array('tpl_path' => $tpl_file);
-			require_once(SMARTY_DIR . 'core/core.fetch_template_info.php');
-            if (!smarty_core_fetch_template_info($_params, $this)) {
-                return false;
-            }
-			$_template_source = $_params['template_source'];
-			$_template_timestamp = $_params['template_timestamp'];
-            $this->_compile_template($tpl_file, $_template_source, $_template_compiled);
-			$_params = array('compile_path' => $compile_path, 'template_compiled' => $_template_compiled, 'template_timestamp' => $_template_timestamp);
-			require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
-			smarty_core_write_compiled_template($_params, $this);
             return true;
         }
     }
 
-    /**
-     * Get the compile path for this template file
+   /**
+     * compile the template
      *
      * @param string $tpl_file
-     * @return string results of {@link _get_auto_filename()}
-     */    
-    function _get_compile_path($tpl_file)
-    {
-        return $this->_get_auto_filename($this->compile_dir, $tpl_file,
-                                         $this->_compile_id);
-    }
-
-    /**
-     * called to compile the templates
-     *
-     * sets $template_compiled to the compiled template
-     * @param string $tpl_file
-     * @param string $template_source
-     * @param string $template_compiled
+     * @param string $compile_path
      * @return boolean
      */    
-    function _compile_template($tpl_file, $template_source, &$template_compiled)
-    {		
-        if(file_exists(SMARTY_DIR.$this->compiler_file)) {
-            require_once SMARTY_DIR.$this->compiler_file;            
+    function _compile_template($tpl_file, $compile_path)
+    {
+        // compiled template does not exist, or forced compile
+		$_params = array('file_path' => $this->template_dir . '/' . $tpl_file);
+		require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
+        if (!smarty_core_fetch_file_info($_params, $this)) {
+            return false;
+        }
+
+		$_file_source = $_params['file_source'];
+		$_file_timestamp = $_params['file_timestamp'];
+		
+        if (file_exists(SMARTY_DIR . $this->compiler_file)) {
+            require_once(SMARTY_DIR . $this->compiler_file);
         } else {
             // use include_path
-            require_once $this->compiler_file;
+            require_once($this->compiler_file);
         }
 
         $smarty_compiler = new $this->compiler_class;
@@ -1507,12 +1490,28 @@ reques     * @var string
 
         $smarty_compiler->request_use_auto_globals  = $this->request_use_auto_globals;
 
-        if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled)) {
+        if ($smarty_compiler->_compile_file($tpl_file, $_file_source, $_file_compiled)) {
+			$_params = array('compile_path' => $compile_path, 'template_compiled' => $_file_compiled, 'template_timestamp' => $_file_timestamp);
+			require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
+			smarty_core_write_compiled_template($_params, $this);
             return true;
         } else {
             $this->trigger_error($smarty_compiler->_error_msg);
             return false;
-        }
+        }		
+
+    }	
+	
+    /**
+     * Get the compile path for this template file
+     *
+     * @param string $tpl_file
+     * @return string results of {@link _get_auto_filename()}
+     */    
+    function _get_compile_path($tpl_file)
+    {
+        return $this->_get_auto_filename($this->compile_dir, $tpl_file,
+                                         $this->_compile_id);
     }
 
     /**

@@ -668,7 +668,7 @@ class Smarty_Compiler extends Smarty {
      * @return string
 	 */
     function _compile_custom_tag($tag_command, $tag_args, $tag_modifier)
-    {
+    {		
         $this->_add_plugin('function', $tag_command);
 
         $arg_list = array();
@@ -683,7 +683,6 @@ class Smarty_Compiler extends Smarty {
         }
 		
 	    $_return = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', (array)$arg_list)."), \$this)";
-        
 		if($tag_modifier != '') {
 			$this->_parse_modifiers($return, $tag_modifier);
 		}
@@ -1458,7 +1457,6 @@ class Smarty_Compiler extends Smarty {
 			}			
         elseif(preg_match('!^' . $this->_cvar_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
 				// config var
-				$this->_output_type = 'static';
                 return $this->_parse_conf_var($val);
 			}			
         elseif(preg_match('!^' . $this->_svar_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
@@ -1600,23 +1598,21 @@ class Smarty_Compiler extends Smarty {
 	 * parse configuration variable expression into PHP code
 	 *
 	 * @param string $conf_var_expr
-     * @return string
 	 */
     function _parse_conf_var($conf_var_expr)
-    {		
+    {
         $parts = explode('|', $conf_var_expr, 2);
         $var_ref = $parts[0];
         $modifiers = isset($parts[1]) ? $parts[1] : '';
 
         $var_name = substr($var_ref, 1, -1);
 
-        $output = isset($this->_config[0]['vars'][$var_name]) ? $this->_config[0]['vars'][$var_name] : '';
+        $output = "\$this->_config[0]['vars']['$var_name']";
 
         $this->_parse_modifiers($output, $modifiers);
-		
+
         return $output;
     }
-
 
 	/**
 	 * parse section property expression into PHP code
@@ -1651,11 +1647,9 @@ class Smarty_Compiler extends Smarty {
 	 */
     function _parse_modifiers(&$output, $modifier_string)
     {
-		
-		// match each modifier and its arguments
         preg_match_all('!\|(@?\w+)((?>:(?:'. $this->_qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $_match);
-        list(, $_modifiers, $_modifiers_argstrings) = $_match;
-				
+        list(, $_modifiers, $modifier_arg_strings) = $_match;
+
         for ($_i = 0, $_for_max = count($_modifiers); $_i < $_for_max; $_i++) {
             $_modifier_name = $_modifiers[$_i];
 			
@@ -1664,23 +1658,17 @@ class Smarty_Compiler extends Smarty {
 				continue;
 			}
 			
-			// split up all the args
-            preg_match_all('!:(' . $this->_qstr_regexp . '|[^:]+)!', $_modifiers_argstrings[$_i], $_match);
+            preg_match_all('!:(' . $this->_qstr_regexp . '|[^:]+)!', $modifier_arg_strings[$_i], $_match);
             $_modifier_args = $_match[1];
-			
+
             if ($_modifier_name{0} == '@') {
-				// apply modifier to entire array
                 $_map_array = 'false';
                 $_modifier_name = substr($_modifier_name, 1);
             } else {
-				// apply modifier to each individual array element
                 $_map_array = 'true';
             }
 			
-			if($this->_output_type == 'php') {
-				// add to list of modifiers to load into the template
-            	$this->_add_plugin('modifier', $_modifier_name);
-			}
+            $this->_add_plugin('modifier', $_modifier_name);
             $this->_parse_vars_props($_modifier_args);
 
 			if($_modifier_name == 'default') {
@@ -1692,29 +1680,13 @@ class Smarty_Compiler extends Smarty {
 					$_modifier_args[0] = '@' . $_modifier_args[0];
 				}
 			}
+            if (count($_modifier_args) > 0)
+                $_modifier_args = ', '.implode(', ', $_modifier_args);
+            else
+                $_modifier_args = '';
 
-			if($this->_output_type == 'php') {
-            	if (count($_modifier_args) > 0) {
-                	$_modifier_args = $output . ',' . implode(',', $_modifier_args);
-				} else {
-					$_modifier_args = $output;
-				}
-            	$output = "\$this->_run_mod_handler('$_modifier_name', $_map_array, array($_modifier_args))";
-			} else {
-				// static output
-				foreach($_modifier_args as $_key => $_val) {
-					// get rid of quotes around static values
-					$_modifier_args[$_key] = $this->_dequote($_val);
-				}
-				if(!isset($this->_plugins['modifier'][$_modifier_name])) {
-					$_params = array('plugins' => array(array('modifier', $_modifier_name, null, null, false)));
-					require_once(SMARTY_DIR . 'core/core.load_plugins.php');
-                    smarty_core_load_plugins($_params, $this);					
-				}
-				array_unshift($_modifier_args, $output);
-            	$output = $this->_run_mod_handler($_modifier_name, $_map_array, $_modifier_args);
-			}
-        }		
+            $output = "\$this->_run_mod_handler('$_modifier_name', $_map_array, $output$_modifier_args)";
+        }
     }
 
 
@@ -1828,9 +1800,7 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'config':
-				array_shift($indexes);
-                $compiled_ref = isset($this->_config[0]['vars'][substr($indexes[0],1)]) ? $this->_config[0]['vars'][substr($indexes[0],1)] : '';
-				$this->_output_type = 'static';
+                $compiled_ref = "\$this->_config[0]['vars']";
 				$_max_index = 2;
                 break;
 
