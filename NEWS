@@ -1,4 +1,3 @@
-
 Version 1.2.2
 -------------
         - fixed bug that would not respect nested template directories and would

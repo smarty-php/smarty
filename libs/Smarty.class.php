@@ -5,7 +5,7 @@
  * Author:		Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@ispi.net>
  *
- * Version:             1.2.1
+ * Version:             1.2.2
  * Copyright:           2001 ispi of Lincoln, Inc.
  *				
  * This program is free software; you can redistribute it and/or
