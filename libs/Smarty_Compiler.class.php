@@ -89,6 +89,9 @@ class Smarty_Compiler extends Smarty {
     var $_cache_paths_file      =   null;
     var $_cache_paths           =   null;
 
+    var $_strip_depth           =   0;
+    var $_trailing_lf           =   "\n";
+
     /**#@-*/
 	/**
 	 * The class constructor.
@@ -333,17 +336,7 @@ class Smarty_Compiler extends Smarty {
         /* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
         if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_content, $_match)) {
             $strip_tags = $_match[0];
-            $_strip_search = array(
-                '%([^\\\\]\?>)\n%', // remove newlines after PHP close tags
-                "!{$ldq}/?strip{$rdq}|\s+$|^\s+!m", // remove leading/trailing space chars
-                '%[\r\n]+%m', // remove CRs and newlines
-                '%([^\\\\]\?>)%'); // replace newlines after PHP close tags
-            $_strip_replace = array(
-                '\\1',
-                '',
-                '',
-                '\\1' . "\n");
-            $strip_tags_modified = preg_replace($_strip_search, $_strip_replace, $strip_tags);
+            $strip_tags_modified = preg_replace("!{$ldq}/?strip{$rdq}|\s+\$|^\s+!m", '', $strip_tags);
             for ($i = 0, $for_max = count($strip_tags); $i < $for_max; $i++)
                 $compiled_content = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
                                                   $this->quote_replace($strip_tags_modified[$i]),
@@ -440,7 +433,7 @@ class Smarty_Compiler extends Smarty {
 			if(isset($_tag_attrs['assign'])) {
 				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $_return ); ?>\n";  
 			} elseif ($this->_output_type == 'php') {
-            	return "<?php echo $_return; ?>\n";
+            	return "<?php echo $_return; ?>" . $this->_trailing_lf;
 			} else {
 				// static
 				return $_return;
@@ -514,11 +507,17 @@ class Smarty_Compiler extends Smarty {
 
             case 'strip':
             case '/strip':
+                if ($tag_command{0}=='/')
+                    $this->_strip_depth--;
+                else
+                    $this->_strip_depth++;
+                $this->_trailing_lf = ($this->_strip_depth>0) ? '' : "\n";
                 return $this->left_delimiter.$tag_command.$this->right_delimiter;
+
             case 'literal':
                 list (,$literal_block) = each($this->_literal_blocks);
                 $this->_current_line_no += substr_count($literal_block, "\n");
-                return "<?php echo '".str_replace("'", "\'", str_replace("\\", "\\\\", $literal_block))."'; ?>\n";
+                return "<?php echo '".str_replace("'", "\'", str_replace("\\", "\\\\", $literal_block))."'; ?>" . $this->_trailing_lf;
 
             case 'php':
                 if ($this->security && !$this->security_settings['PHP_TAGS']) {
@@ -722,7 +721,7 @@ class Smarty_Compiler extends Smarty {
         
 		if($_return != '') {
             $_return =  '<?php ' . $_cacheable_state . $_cache_attrs . 'echo ' . $_return . ';'
-                . $this->_pop_cacheable_state('function', $tag_command) . "?>\n";
+                . $this->_pop_cacheable_state('function', $tag_command) . "?>" . $this->_trailing_lf;
 		}
         
 		return $_return; 
@@ -775,6 +774,7 @@ class Smarty_Compiler extends Smarty {
 
         $prefix = '';
         $postfix = '';
+        $newline = '';
 		if(!is_object($this->_reg_objects[$object][0])) {
 			$this->_trigger_fatal_error("registered '$object' is not an object");
 		} elseif(!empty($this->_reg_objects[$object][1]) && !in_array($obj_comp, $this->_reg_objects[$object][1])) {
@@ -812,12 +812,13 @@ class Smarty_Compiler extends Smarty {
                 $output = "\$this->assign('" . $this->_dequote($_assign_var) ."',  $return);";
             } else {
                 $output = 'echo ' . $return . ';';
+                $newline = $this->_trailing_lf;
             }
         } else {
             $output = '';
         }
 
-        return '<?php ' . $prefix . $output . $postfix . "?>\n";
+        return '<?php ' . $prefix . $output . $postfix . "?>" . $newline;
     }
 
 	/**
@@ -851,7 +852,7 @@ class Smarty_Compiler extends Smarty {
 
 		$_params = "array('args' => array(".implode(', ', (array)$arg_list)."))";
 		
-        return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.run_insert_handler.php');\necho smarty_core_run_insert_handler($_params, \$this); ?>\n";
+        return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.run_insert_handler.php');\necho smarty_core_run_insert_handler($_params, \$this); ?>" . $this->_trailing_lf;
     }
 
 	/**
@@ -934,7 +935,7 @@ class Smarty_Compiler extends Smarty {
 
     	$_params = "array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."))";
 		
-		return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.smarty_include_php.php');\nsmarty_core_smarty_include_php($_params, \$this); ?>\n";
+		return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.smarty_include_php.php');\nsmarty_core_smarty_include_php($_params, \$this); ?>" . $this->_trailing_lf;
     }
 	
 
