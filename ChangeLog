@@ -1,3 +1,12 @@
+2004-01-14  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/appendixes.sgml
+      docs/programmers.sgml:
+      removed suggestions to use extract() from the manual
+
+    * docs/designers.sgml:
+      fixed typo
+
 2004-01-12  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/designers.sgml:
