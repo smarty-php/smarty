@@ -19,27 +19,27 @@
  */
 function smarty_function_eval($params, &$smarty)
 {
-    extract($params);
 
-    if (!isset($var)) {
+    if (!isset($params['var'])) {
         $smarty->trigger_error("eval: missing 'var' parameter");
         return;
     }
-	if($var == '') {
+
+	if($params['var'] == '') {
 		return;
 	}
 
-	$smarty->_compile_template("evaluated template", $var, $source);
+	$smarty->_compile_source('evaluated template', $params['var'], $_var_compiled);
 	
     ob_start();
-	eval('?>' . $source);
-	$contents = ob_get_contents();
+	eval('?>' . $_var_compiled);
+	$_contents = ob_get_contents();
     ob_end_clean();
 
     if (!empty($assign)) {
-    	$smarty->assign($assign, $contents);
+    	$smarty->assign($assign, $_contents);
     } else {
-		return $contents;
+		return $_contents;
     }
 }
 

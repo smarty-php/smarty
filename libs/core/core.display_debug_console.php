@@ -37,7 +37,7 @@ function smarty_core_display_debug_console($params, &$this)
 	$this->_compile_id = null;
 
 	$_compile_path = $this->_get_compile_path($this->debug_tpl);
-	if ($this->_compile_template($this->debug_tpl, $_compile_path))
+	if ($this->_compile_file($this->debug_tpl, $_compile_path))
 	{
 		ob_start();
 		include($_compile_path);

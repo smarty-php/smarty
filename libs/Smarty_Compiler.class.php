@@ -221,7 +221,7 @@ class Smarty_Compiler extends Smarty {
 	 * @param string $file_compiled
      * @return true
 	 */
-    function _compile_file($tpl_file, $file_source, &$file_compiled)
+    function _compile_file($file_path, $file_source, &$file_compiled)
     {
 		
         if ($this->security) {
@@ -234,7 +234,7 @@ class Smarty_Compiler extends Smarty {
 
         $this->_load_filters();
 
-        $this->_current_file = $tpl_file;
+        $this->_current_file = $file_path;
         $this->_current_line_no = 1;
         $ldq = preg_quote($this->left_delimiter, '!');
         $rdq = preg_quote($this->right_delimiter, '!');
@@ -354,7 +354,7 @@ class Smarty_Compiler extends Smarty {
 
         // put header at the top of the compiled template
         $template_header = "<?php /* Smarty version ".$this->_version.", created on ".strftime("%Y-%m-%d %H:%M:%S")."\n";
-        $template_header .= "         compiled from ".$tpl_file." */ ?>\n";
+        $template_header .= "         compiled from ".$file_path." */ ?>\n";
 
         /* Emit code to load needed plugins. */
         $this->_plugins_code = '';
