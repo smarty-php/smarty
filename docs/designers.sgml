@@ -3036,14 +3036,16 @@ OUTPUT:
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry>current year</entry>
-                        <entry>the first year in the dropdown</entry>
+                        <entry>the first year in the dropdown, either
+						year number, or relative to current year (+/- N)</entry>
                     </row>
                     <row>
                         <entry>end_year</entry>
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry>same as start_year</entry>
-                        <entry>the last year in the dropdown</entry>
+                        <entry>the last year in the dropdown, either
+						year number, or relative to current year (+/- N)</entry>
                     </row>
                     <row>
                         <entry>display_days</entry>
@@ -3249,9 +3251,10 @@ OUTPUT:
 <title>html_select_date</title>
 <programlisting>
 
-{html_select_date prefix="StartDate" time=$time start_year=1995 end_year=2001 display_days=false}
+{* start and end year can be relative to current year *}
+{html_select_date prefix="StartDate" time=$time start_year="-5" end_year="+1" display_days=false}
 
-OUTPUT:
+OUTPUT: (current year is 2000)
 
 &lt;select name="StartDateMonth"&gt;
 &lt;option value="1"&gt;January&lt;/option&gt;

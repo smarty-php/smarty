@@ -5,7 +5,13 @@
  * -------------------------------------------------------------
  * Type:     function
  * Name:     html_select_date
+ * Version:  1.1
  * Purpose:  Prints the dropdowns for date selection.
+ * Author:   Andrei Zmievski
+ *
+ * ChangeLog: 1.0 initial release
+ *            1.1 added support for +/- N syntax for begin
+ *                and end year values. (Monte)
  * -------------------------------------------------------------
  */
 require_once SMARTY_DIR . 'plugins/.make_timestamp.php';
@@ -49,6 +55,22 @@ function smarty_function_html_select_date($params, &$smarty)
 
     extract($params);
 
+	// make syntax "+N" or "-N" work with start_year and end_year
+	if(preg_match('!(\+|\-)\s*(\d+)!',$end_year,$match)) {
+		if($match[1] == '+') {
+			$end_year = $match[2] + strftime("%Y");			
+		} else {
+			$end_year = $match[2] - strftime("%Y");				
+		}
+	}
+	if(preg_match('!(\+|\-)\s*(\d+)!',$start_year,$match)) {
+		if($match[1] == '+') {
+			$start_year = $match[2] + strftime("%Y");			
+		} else {
+			$start_year = $match[2] - strftime("%Y");				
+		}
+	}
+	
     $time = smarty_make_timestamp($time);
     $field_order = strtoupper($field_order);
 

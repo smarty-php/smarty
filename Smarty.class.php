@@ -1252,9 +1252,9 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _get_auto_filename($auto_base, $auto_source, $auto_id = null)
     {
-        $source_hash = crc32($auto_source);
+        $source_hash = str_replace('-','N',crc32($auto_source));
         $res = $auto_base . '/' . substr($source_hash, 0, 3) . '/' .
-            $source_hash . '/' . crc32($auto_id) . '.php';
+            $source_hash . '/' . str_replace('-','N',crc32($auto_id)) . '.php';
 
         return $res;
     }
@@ -1275,7 +1275,7 @@ function _run_insert_handler($args)
                 $tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
                 $res = is_file($tname) && unlink( $tname);
             } else {
-                $source_hash = crc32($auto_source);
+                $source_hash = str_replace('-','N',crc32($auto_source));
                 $tname = $auto_base . '/' . substr($source_hash, 0, 3) . '/' . $source_hash;
                 $res = $this->_rmdir($tname);
             }

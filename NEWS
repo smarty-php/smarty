@@ -1,3 +1,5 @@
+    - changed crc32() generated values, replace '-' with 'N' (Monte)
+    - added support for +/- N syntax in html_select_date year values (Monte)
     - fixed behavior of inserts with script attribute. (Andrei)
     - fixed bug with $smarty.cookies and $smarty.server. (Andrei)
     - wordwrap and indent are missing from 2.0 release, now fixed. (Monte)
