@@ -25,7 +25,7 @@ function smarty_core_write_file($params, &$this)
 
 	// write to tmp file, then rename it to avoid
 	// file locking race condition
-	$_tmp_file = $_dirname . '/' . uniqid('');
+	$_tmp_file = $_dirname . DIRECTORY_SEPARATOR . uniqid('');
 
     if (!($fd = @fopen($_tmp_file, 'w'))) {
         $this->trigger_error("problem writing temporary file '$_tmp_file'");

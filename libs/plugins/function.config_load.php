@@ -63,7 +63,7 @@ function smarty_function_config_load($params, &$smarty)
 			$_config_dir = $_params['new_file_path'];
         }
 
-		$_file_path = $_config_dir . '/' . $_file;
+		$_file_path = $_config_dir . DIRECTORY_SEPARATOR . $_file;
 		$_compile_file = $smarty->_get_compile_path($_file_path);
 		
 		if($smarty->force_compile
