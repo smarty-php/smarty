@@ -58,7 +58,7 @@ class Smarty
 									// is available, that will be used regardless
 									// of compile settings.
 	var $cache_engine	=	true;	// whether to use caching or not. true/false
-	var $cache_expire	=	5;	// number of seconds cached content will expire.
+	var $cache_expire	=	3600;	// number of seconds cached content will expire.
 									// 0 = never expires. default is one hour (3600)
 	var $cache_force	=	false;	// force caches to expire every time. true/false
 	var $allow_url_cache =	true;	// allow forced cache expire from URL ?cache_force=1
