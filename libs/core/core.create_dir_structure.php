@@ -56,7 +56,7 @@ function smarty_core_create_dir_structure($params, &$smarty)
                 // do not attempt to test or make directories outside of open_basedir
                 $_make_new_dir = false;
                 foreach ($_open_basedirs as $_open_basedir) {
-                    if (substr($_new_dir . '/', 0, strlen($_open_basedir)) == $_open_basedir) {
+                    if (substr($_new_dir, 0, strlen($_open_basedir)) == $_open_basedir) {
                         $_make_new_dir = true;
                         break;
                     }

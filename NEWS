@@ -1,3 +1,6 @@
+  - fix handling of trailing-slashes in open_basedir in
+    smarty_core_create_dir_structure() (packman, messju)
+
 Version 2.6.0-RC2 (Oct 8, 2003)
 -------------------------------
 
