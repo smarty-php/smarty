@@ -1,3 +1,5 @@
+    - can use constants now, with security restrictions (Monte)
+    - cleaned up regex code in compiler (Monte)
     - can now pass modifiers to static content,
       among other minor syntax features (monte)
     - fix up regex code in compiler, make much more flexible
