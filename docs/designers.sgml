@@ -1,0 +1,4054 @@
+  <part>
+   <title>Smarty For Template Designers</title>
+ <chapter id="language">
+  <title>Template Language</title>
+  <para>
+   The templates are the heart of Smarty. These are the files that the designers
+   work with. They're basically pages made up of static content interspersed with
+   template markup tags. These tags are placeholders for variables or blocks of logic.
+  </para>
+
+  <sect1 id="language.basic.syntax">
+   <title>Basic Syntax</title>
+   <para>
+    For these examples, we will assume that you are using the default
+    template tag delimiters, which are "{" and "}". In Smarty, all content
+    outside of delimiter tags is displayed as static content, or unchanged.
+    When Smarty encounters template tags {}, it attempts to interpret what is
+    between the tags, and displays the appropriate output in place of them.
+   </para>
+
+   <sect2 id="language.basic.syntax.comments">
+    <title>Comments</title>
+    <para>
+     Template comments are surrounded by asterisks, and that is surrounded
+     by the delimiter tags like so: {* this is a comment *}
+     Smarty comments are not displayed in the final output of the template.
+     They are used mainly for making the templates more understandable.
+    </para>
+    <example>
+     <title>Comments</title>
+     <programlisting>
+{* Smarty *}
+
+{* include the header file here *}
+{include file="header.tpl"}
+
+{include file=$includeFile}
+
+{include file=#includeFile#}
+
+{* display dropdown lists *}
+&lt;SELECT name=company&gt;
+{html_options values=$vals selected=$selected output=$output}
+&lt;/SELECT&gt;</programlisting>
+    </example>
+   </sect2>
+		<sect2>
+			<title>Attributes</title>
+			<para>
+			Attributes to functions are much like HTML attributes. Static
+			values don't have to be enclosed in quotes, but it is recommended
+			for literal strings. If not quoted, you may use a syntax that Smarty may confuse
+			with another function, such as a boolean value. Variables may
+			also be used, and should not be in quotes.
+			</para>
+<example>
+<title>function attribute syntax</title>
+<programlisting>
+{include file="header.tpl"}
+
+{include file=$includeFile}
+
+{include file=#includeFile#}
+
+&lt;SELECT name=company&gt;
+{html_options values=$vals selected=$selected output=$output}
+&lt;/SELECT&gt;</programlisting>
+</example>
+		</sect2>
+        <sect2>
+         <title>blah</title>
+        <para>
+         Functions are processed and displayed by enclosing the function and its
+         attributes into delimiters like so: {funcname attr1="val" attr2="val"}
+        </para>
+        <example>
+         <title>function syntax</title>
+         <programlisting>
+{config_load file="colors.conf"}
+
+{include file="header.tpl"}
+
+{if $name eq "Fred"}
+	You are not allowed here
+{else}
+	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
+{/if}
+
+{include file="footer.tpl"}</programlisting>
+</example>
+			<para>
+			Both built-in functions and custom functions have the same syntax
+			in the templates. Built-in functions are the inner workings of
+			Smarty, such as {if}, {section} and {strip}. They cannot be
+			modified. Custom functions are located in the Smarty.addons.class
+			file. They can be modified to your liking, or add new ones.
+			{html_options} and {html_select_date} are examples of custom
+			functions.
+			</para>
+		<para>
+		Custom functions in Smarty work much the same as the built-in functions,
+		except that built-in functions cannot be modified. Custom functions are
+		located in Smarty.addons.php, built-in functions are not.
+		</para>
+        </sect2>
+  </sect1>
+
+  <sect1 id="language.variables">
+   <title>Variables</title>
+
+   <sect2>
+    <title>Variables assigned from PHP</title>
+    <para>
+     Variables that are assigned from PHP are referenced by preceding
+     them with a dollar sign ($) and enclosing the variable in delimiters
+     like so: $varname
+    </para>
+    <example>
+
+     <title>displaying assigned variables</title>
+<programlisting>
+Hello {$firstname}, glad to see you could make it.
+&lt;p&gt;
+Your last login was on {$lastLoginDate}.
+
+OUTPUT:
+
+Hello Doug, glad to see you could make it.
+&lt;p&gt;
+Your last login was on January 11th, 2001.</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>Associative arrays</title>
+			<para>
+			You can also reference associative array variables that are
+			assigned from PHP by specifying the key after the '.' (period)
+			symbol.
+			</para>
+<example>
+<title>displaying assigned associative array variables</title>
+<programlisting>
+{$Contacts.fax}&lt;br&gt;
+{$Contacts.email}&lt;br&gt;
+{* you can print arrays of arrays as well *}
+{$Contacts.phone.home}&lt;br&gt;
+{$Contacts.phone.cell}&lt;br&gt;
+
+OUTPUT:
+
+555-222-9876&lt;br&gt;
+zaphod@slartibartfast.com&lt;br&gt;
+555-444-3333&lt;br&gt;
+555-111-1234&lt;br&gt;
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>Array indexes</title>
+			<para>
+			You can reference arrays by their index, much like native PHP
+			syntax.
+			</para>
+<example>
+<title>displaying arrays by index</title>
+<programlisting>
+{$Contacts[0]}&lt;br&gt;
+{$Contacts[1]}&lt;br&gt;
+{* you can print arrays of arrays as well *}
+{$Contacts[0][0]}&lt;br&gt;
+{$Contacts[0][1]}&lt;br&gt;</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>Objects</title>
+			<para>
+			Properties of objects assigned from PHP can be referenced
+			by specifying the property name after the '-&gt;' symbol.
+			</para>
+<example>
+<title>displaying object properties</title>
+<programlisting>
+name: {$person-&gt;name}&lt;br&gt;
+email: {$person-&gt;email}&lt;br&gt;
+
+OUTPUT:
+
+name: Zaphod Beeblebrox&lt;br&gt;
+email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
+</example>
+		</sect2>
+
+		<sect2>
+			<title>Variables passed from config files</title>
+			<para>
+			Variables that are passed in from config files are displayed by enclosing
+			them with hash marks (#) and enclosing the variable in delimiters
+			like so: {#varname#}
+			</para>
+<example>
+
+
+<title>displaying config variables</title>
+<programlisting>
+&lt;html&gt;
+&lt;title&gt;{#pageTitle#}&lt;/title&gt;
+&lt;body bgcolor="{#bodyBgColor#}"&gt;
+&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
+&lt;tr bgcolor="{#rowBgColor#}"&gt;
+	&lt;td&gt;First&lt;/td&gt;
+	&lt;td&gt;Last&lt;/td&gt;
+	&lt;td&gt;Address&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</programlisting>
+</example>
+			<para>
+			Config file variables cannot be displayed until
+			after they are loaded in from a config file. This procedure is
+			explained later in this document under
+			<link linkend="builtin.functions.configload">config_load</link>.
+			</para>
+		</sect2>
+		<sect2>
+			<title>Variables internal to template</title>
+			<para>
+			Variables that are internal to the templates are displayed by using
+			the special variable {$smarty}. For instance, you can reference the
+			current date/time with {$smarty.now}, or <link
+			linkend="builtin.functions.section">section loops</link> have
+			properties that are internal variables.
+			</para>
+		</sect2>
+		<sect2 id="builtin.variable.smarty">
+			<title>{$smarty} reserved variable</title>
+			<para>
+			The reserved {$smarty} variable can be used to access several
+			special template variables. The full list of them follows.
+			</para>
+			<para>
+			The special variable {$smarty} was added to Smarty 1.4.4.
+			</para>
+
+		<sect3>
+		<title>Request variables</title>
+		<para>
+		The request variables such as get, post, cookies, server,
+		environment, and session variables can be accessed as demonstrated
+		in the examples below:
+		</para>
+<example>
+
+<title>displaying request variables</title>
+<programlisting>
+{* display the variable "page" given in the URL, or from a form using the GET method *}
+{$smarty.get.page}
+
+{* display the variable "page" from a form using the POST method *}
+{$smarty.post.page}
+
+{* display the value of the cookie "username" *}
+{$smarty.cookies.username}
+
+{* display the server variable "SERVER_NAME" *}
+{$smarty.server.SERVER_NAME}
+
+{* display the system environment variable "PATH" *}
+{$smarty.env.PATH}
+
+{* display the php session variable "id" *}
+{$smarty.session.id}
+
+{* display the variable "username" from merged get/post/cookies/server/env *}
+{$smarty.request.username}</programlisting>
+</example>
+		</sect3>
+
+		<sect3>
+			<title>Current timestamp</title>
+			<para>
+			The current timestamp can be accessed with {$smarty.now}. The
+			number reflects the number of seconds passed since the so-called
+			Epoch (January 1, 1970) and can be passed directly to
+			date_format modifier for display purposes.
+			</para>
+<example>
+
+<title>using {$smarty.now}</title>
+<programlisting>
+{* use the date_format modifier to show current date and time *}
+{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}</programlisting>
+</example>
+		</sect3>
+
+		<sect3>
+			<title>Output capture buffer</title>
+			<para>
+			The output captured via {capture}..{/capture} construct can be
+			accessed using {$smarty} variable. See section on
+			<link linkend="builtin.functions.capture">capture</link> for an example.
+			</para>
+		</sect3>
+
+		<sect3>
+			<title>Loop properties</title>
+			<para>
+			{$smarty} variable can be used to refer to 'section' and
+			'foreach' loop properties. See docs for
+			<link linkend="builtin.functions.section">section</link> and
+			<link linkend="builtin.functions.foreach">foreach</link>.
+			</para>
+		</sect3>
+
+		</sect2>
+
+	</sect1>
+
+       <sect1 id="variable.modifiers">
+        <title>Variable Modifiers</title>
+        <para>
+         Variable modifiers are a bit different than <link
+          linkend="bundled.plugins.commands">custom functions</link>. Variable modifiers
+         alter variable contents before they are displayed to the template. All
+         modifiers will get the value of the variable as the first argument, and
+         must return a single value. Modifier parameters are separated by
+         colons. Any additional parameters passed to a modifier are passed as-is
+         positionally, much like calling a PHP function. You can also use native
+         PHP functions as modifiers, but only if they expect the correct
+         arguments. If they do not, you can always write a wrapper function in
+         Smarty to get what you want. You can chain as many modifiers together
+         on a variable as you like, separating each with a vertical pipe "|".
+        </para>
+        <para>
+         NOTE: if you apply a modifier to an array instead of a single value
+         variable, the modifier will be applied to every value in that array. If
+         you really want the entire array passed to the modifier, you must
+         prepend it with an "@" sign like so: {$articleTitle|@count} (this will
+         print out the number of elements in the $articleTitle array.)
+        </para>
+	<sect2 id="bundled.plugins.modifiers">
+     <title>Available Modifiers</title>
+		<sect3>
+			<title>capitalize</title>
+			<para>
+			This is used to capitalize the first letter of all words in a variable.
+			</para>
+<example>
+<title>capitalize</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|capitalize}
+
+OUTPUT:
+
+Police begin campaign to rundown jaywalkers.
+Police Begin Campaign To Rundown Jaywalkers.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>count_characters</title>
+			<para>
+			This is used to count the number of characters in a variable.
+			</para>
+<example>
+<title>count_characters</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|count_characters}
+
+OUTPUT:
+
+Cold Wave Linked to Temperatures
+32</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>count_paragraphs</title>
+			<para>
+			This is used to count the number of paragraphs in a variable.
+			</para>
+<example>
+<title>count_paragraphs</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|count_paragraphs}
+
+OUTPUT:
+
+War Dims Hope for Peace. Child's Death Ruins Couple's Holiday. 
+
+Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
+2</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>count_sentences</title>
+			<para>
+			This is used to count the number of sentences in a variable.
+			</para>
+<example>
+<title>count_sentences</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|count_sentences}
+
+OUTPUT:
+
+Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
+2</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>count_words</title>
+			<para>
+			This is used to count the number of words in a variable.
+			</para>
+<example>
+<title>count_words</title>
+<programlisting>
+
+{$articleTitle}
+{$articleTitle|count_words}
+
+OUTPUT:
+
+Dealers Will Hear Car Talk at Noon.
+7</programlisting>
+</example>
+		</sect3>
+		<sect3 id="date.format">
+			<title>date_format</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%b %e, %Y</entry>
+                        <entry>This is the format for the outputted date.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            This formats a date and time into the given strftime() format.
+            Dates can be passed to Smarty as unix timestamps, mysql timestamps
+            or any string made up of month day year (parsable by strtotime).
+            Designers can then use date_format to have complete control of the
+            formatting of the date.
+			</para>
+<example>
+<title>date_format</title>
+<programlisting>
+{$currentDate}
+{$currentDate|date_format:"%A, %B %e, %Y"}
+{$currentDate|date_format:"%H:%M:%S"}
+
+OUTPUT:
+
+Feb 6, 2001
+Tuesday, February 6, 2001
+14:33:00</programlisting>
+</example>
+<example>
+<title>date_format conversion specifiers</title>
+<programlisting>
+%a - abbreviated weekday name according to the current locale 
+
+%A - full weekday name according to the current locale 
+
+%b - abbreviated month name according to the current locale 
+
+%B - full month name according to the current locale 
+
+%c - preferred date and time representation for the current locale 
+
+%C - century number (the year divided by 100 and truncated to an integer, range 00 to 99) 
+
+%d - day of the month as a decimal number (range 00 to 31) 
+
+%D - same as %m/%d/%y 
+
+%e - day of the month as a decimal number, a single digit is preceded by a
+space (range 1 to 31) 
+
+%g - Week-based year within century [00,99]
+
+%G - Week-based year, including the century [0000,9999]
+
+%h - same as %b 
+
+%H - hour as a decimal number using a 24-hour clock (range 00 to 23) 
+
+%I - hour as a decimal number using a 12-hour clock (range 01 to 12) 
+
+%j - day of the year as a decimal number (range 001 to 366) 
+
+%k - Hour (24-hour clock) single digits are preceded by a blank. (range 0 to 23)
+
+%l - hour as a decimal number using a 12-hour clock, single digits preceeded by
+a space (range 1 to 12)
+
+%m - month as a decimal number (range 01 to 12) 
+
+%M - minute as a decimal number 
+
+%n - newline character 
+
+%p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale 
+
+%r - time in a.m. and p.m. notation 
+
+%R - time in 24 hour notation 
+
+%S - second as a decimal number 
+
+%t - tab character 
+
+%T - current time, equal to %H:%M:%S 
+
+%u - weekday as a decimal number [1,7], with 1 representing Monday 
+
+%U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week 
+
+%V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1
+is the first week that has at least 4 days in the current year, and with Monday as the first day of the week. 
+
+%w - day of the week as a decimal, Sunday being 0 
+
+%W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week 
+
+%x - preferred date representation for the current locale without the time 
+
+%X - preferred time representation for the current locale without the date 
+
+%y - year as a decimal number without a century (range 00 to 99) 
+
+%Y - year as a decimal number including the century 
+
+%Z - time zone or name or abbreviation 
+
+%% - a literal `%' character 
+
+
+PROGRAMMERS NOTE: date_format is essentially a wrapper to PHP's strftime()
+function. You may have more or less conversion specifiers available depending
+on your system's strftime() function where PHP was compiled. Check your
+system's manpage for a full list of valid specifiers.</programlisting>
+</example>
+
+		</sect3>
+		<sect3>
+			<title>default</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>This is the default value to output if the
+                        variable is empty.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This is used to set a default value for a variable. If the variable
+			is empty or unset, the given default value is printed instead.
+			Default takes one argument.
+			</para>
+<example>
+<title>default</title>
+<programlisting>
+{* this will display "no title" (without the quotes) if $articleTitle is empty *}
+{$articleTitle|default:"no title"}
+
+OUTPUT:
+
+no title</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>escape</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Possible Values</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>html,url,quotes,hex,hexentity</entry>
+                        <entry>html</entry>
+                        <entry>This is the escape format to use.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This is used to html escape, url escape, escape single quotes on a
+			variable not already escaped, hex escape or hexentity escape. hex
+			and hexentity escape can be used in conjunction to hide "mailto:"
+			links on a page from web spiders (spam collectors) and yet keep
+			them readable and linkable. By default, the variable is html
+			escaped.
+			</para>
+<example>
+<title>escape</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|escape}
+{$articleTitle|escape:"html"}
+{$articleTitle|escape:"url"}
+{$articleTitle|escape:"quotes"}
+&lt;a
+href="mailto:{$EmailAddress|escape:"hex"}"&gt;{$EmailAddress|escape:"hexentity"}&lt;/a&gt;
+
+OUTPUT:
+
+'Stiff Opposition Expected to Casketless Funeral Plan'
+'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
+'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
+'Stiff+Opposition+Expected+to+Casketless+Funeral+Plan'
+\'Stiff Opposition Expected to Casketless Funeral Plan\'
+&lt;a
+href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>indent</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>4</entry>
+						<entry>This determines how many characters to indent
+						to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>(one space)</entry>
+                        <entry>This is the character used to indent with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This indents a string at each line, default is 4. As
+			an optional parameter, you can specify the number of characters to
+			indent. As an optional second parameter, you can specify the
+			character to use to indent with. (Use "\t" for tabs.)
+			</para>
+<example>
+<title>indent</title>
+<programlisting>
+{$articleTitle}
+
+{$articleTitle|indent}
+
+{$articleTitle|indent:10}
+
+{$articleTitle|indent:1:"\t"}
+
+OUTPUT:
+
+NJ judge to rule on nude beach.
+Sun or rain expected today, dark tonight.
+Statistics show that teen pregnancy drops off significantly after 25.
+
+    NJ judge to rule on nude beach.
+    Sun or rain expected today, dark tonight.
+    Statistics show that teen pregnancy drops off significantly after 25.
+
+          NJ judge to rule on nude beach.
+          Sun or rain expected today, dark tonight.
+          Statistics show that teen pregnancy drops off significantly after 25.
+
+	NJ judge to rule on nude beach.
+	Sun or rain expected today, dark tonight.
+	Statistics show that teen pregnancy drops off significantly after 25.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>lower</title>
+			<para>
+			This is used to lowercase a variable.
+			</para>
+<example>
+<title>lower</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|lower}
+
+OUTPUT:
+
+Two Convicts Evade Noose, Jury Hung.
+two convicts evade noose, jury hung.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>regex_replace</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the regular expression to be replaced.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to replace with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			A regular expression search and replace on a variable. Use the
+			syntax for preg_replace() from the PHP manual.
+			</para>
+			<para>
+			NOTE: This function was added to Smarty 1.4.3.
+			</para>
+<example>
+<title>regex_replace</title>
+<programlisting>
+{* replace each carriage return, tab &amp; new line with a space *}
+
+{$articleTitle}
+{$articleTitle|regex_replace:"/[\r\t\n]/":" "}
+
+OUTPUT:
+
+Infertility unlikely to
+ be passed on, experts say
+Infertility unlikely to be passed on, experts say</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>replace</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to be replaced.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to replace with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			A simple search and replace on a variable.
+			</para>
+<example>
+<title>replace</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|replace:"Garden":"Vineyard"}
+{$articleTitle|replace:" ":"   "}
+
+OUTPUT:
+
+Child's Stool Great for Use in Garden.
+Child's Stool Great for Use in Vineyard.
+Child's   Stool   Great   for   Use   in   Garden.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>spacify</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>one space</emphasis></entry>
+                        <entry>This what gets inserted between each character of
+                        the variable.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			spacify is a way to insert a space between every character of a variable.
+			You can optionally pass a different character (or string) to insert.
+			</para>
+<example>
+<title>spacify</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|spacify}
+{$articleTitle|spacify:"^^"}
+
+OUTPUT:
+
+Something Went Wrong in Jet Crash, Experts Say.
+S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
+S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>string_format</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is what format to use. (sprintf)</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This is a way to format strings, such as decimal numbers and such.
+			Use the syntax for sprintf for the formatting.
+			</para>
+<example>
+<title>string_format</title>
+<programlisting>
+{$number}
+{$number|string_format:"%.2f"}
+{$number|string_format:"%d"}
+
+OUTPUT:
+
+23.5787446
+23.58
+24</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>strip_tags</title>
+			<para>
+			This strips out markup tags, basically anything between &lt; and &gt;.
+			</para>
+<example>
+<title>strip_tags</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|strip_tags}
+
+OUTPUT:
+
+Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
+Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>truncate</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>80</entry>
+                        <entry>This determines how many characters to truncate
+                        to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>...</entry>
+                        <entry>This is the text to append if truncation occurs.</entry>
+                    </row>
+                    <row>
+                        <entry>3</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>This determines whether or not to truncate at a
+                        word boundary (false), or at the exact character (true).</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This truncates a variable to a character length, default is 80. As
+			an optional second parameter, you can specify a string of text
+			to display at the end if the variable was truncated. The
+			characters in the string are included with the original truncation length.
+			By default, truncate will attempt to cut off at a word boundary. If
+			you want to cut off at the exact character length, pass the optional
+			third parameter of true.
+			</para>
+<example>
+<title>truncate</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|truncate}
+{$articleTitle|truncate:30}
+{$articleTitle|truncate:30:""}
+{$articleTitle|truncate:30:"---"}
+{$articleTitle|truncate:30:"":true}
+{$articleTitle|truncate:30:"...":true}
+
+OUTPUT:
+
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after...
+Two Sisters Reunite after
+Two Sisters Reunite after---
+Two Sisters Reunite after Eigh
+Two Sisters Reunite after E...</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>upper</title>
+			<para>
+            This is used to uppercase a variable.
+			</para>
+<example>
+<title>upper</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|upper}
+
+OUTPUT:
+
+If Strike isn't Settled Quickly it may Last a While.
+IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>wordwrap</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>80</entry>
+						<entry>This determines how many columns to wrap
+						to.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>\n</entry>
+                        <entry>This is the string used to wrap words with.</entry>
+                    </row>
+                    <row>
+                        <entry>3</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>This determines whether or not to wrap at a
+                        word boundary (false), or at the exact character (true).</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This wraps a string to a column width, default is 80. As
+			an optional second parameter, you can specify a string of text
+			to wrap the text to the next line (default is carriage return \n).
+			By default, wordwrap will attempt to wrap at a word boundary. If
+			you want to cut off at the exact character length, pass the optional
+			third parameter of true.
+			</para>
+<example>
+<title>wordwrap</title>
+<programlisting>
+{$articleTitle}
+
+{$articleTitle|wordwrap:30}
+
+{$articleTitle|wordwrap:20}
+
+{$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
+
+{$articleTitle|wordwrap:30:"\n":false}
+
+OUTPUT:
+
+Blind woman gets new kidney from dad she hasn't seen in years.
+
+Blind woman gets new kidney
+from dad she hasn't seen in years.
+
+Blind woman gets new
+kidney from dad she hasn't seen in years.
+
+Blind woman gets new kidney&lt;br&gt;
+from dad she hasn't seen in years.
+
+Blind woman gets new kidney fr
+om dad she hasn't seen in years.</programlisting>
+</example>
+		</sect3>
+   </sect2> 
+		<sect2>
+			<title>Combining Modifiers</title>
+			<para>
+            You can combine as many modifiers as you like on a single variable.
+            This allows the ability to combine the application of different
+            modifiers to a single variable. The modifiers will be applied to
+            the variable in the order they are combined, from left to right.
+			</para>
+<example>
+<title>combining modifiers</title>
+<programlisting>
+{$articleTitle}
+{$articleTitle|upper|spacify}
+{$articleTitle|lower|spacify|truncate}
+{$articleTitle|lower|truncate:30|spacify}
+{$articleTitle|lower|spacify|truncate:30:". . ."}
+
+
+OUTPUT:
+
+Smokers are Productive, but Death Cuts Efficiency.
+S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
+s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
+s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
+s m o k e r s   a r e   p. . .</programlisting>
+</example>
+       </sect2>
+       </sect1>
+
+    <sect1 id="language.commands">
+     <title>Built-in Functions</title>
+     <para>
+      Smarty comes with several built-in functions. Built-in functions
+      are integral to the template language. You cannot create custom
+      functions with the same names, nor can you modify built-in functions.
+     </para>
+     <sect2 id="builtin.functions.capture">
+      <title>capture</title>
+      <para>
+       capture is used to collect the output of the template into a
+       variable instead of displaying it. Any content between {capture
+       name="foo"} and {/capture} is collected into the variable specified
+       in the name attribute. The captured content can be used in the
+       template from the special variable $smarty.capture.foo where foo is
+       the value passed in the name attribute. If you do not supply a name
+       attribute, then "default" will be used. All {capture} commands must
+       be paired with {/capture}. You can nest capture commands. capture
+       was added to Smarty 1.4.0. The "name" attribute was added to Smarty
+       1.4.5.
+      </para>
+      <para>
+       NOTE: Smarty 1.4.0 - 1.4.4 placed the captured content into the
+       variable named $return. As of 1.4.5, this behavior was changed to use
+       the name attribute, so update your templates accordingly.
+      </para>
+      <caution>
+       <para>
+        Be careful when capturing <command>{insert}</command> output. If
+        you have caching turned on and you have <command>{insert}</command>
+        commands that you expect to run within cached content, do not
+        capture this content.
+       </para>
+      </caution>
+      <para>
+       <example>
+        <title>capturing template content</title>
+        <programlisting>
+{* we don't want to print a table row unless content is displayed *}
+{capture name=banner}
+{include file="get_banner.tpl"}
+{/capture}
+{if $smarty.capture.banner ne ""}
+	&lt;tr&gt;
+		&lt;td&gt;
+			{$return}
+		&lt;/td&gt;
+	&lt;/tr&gt;
+{/if}</programlisting>
+       </example>
+      </para>
+     </sect2>
+		<sect2 id="builtin.functions.configload">
+			<title>config_load</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the config file to include</entry>
+                    </row>
+                    <row>
+                        <entry>section</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the section to load</entry>
+                    </row>
+                    <row>
+                        <entry>scope</entry>
+                        <entry>string</entry>
+                        <entry>no</entry>
+                        <entry><emphasis>local</emphasis></entry>
+                        <entry>
+						How the scope of the loaded variables are treated,
+						which must be one of local, parent or global. local
+						means variables are loaded into the local template
+						context. parent means variables are loaded into both
+						the local context and the parent template that called
+						it. global means variables are available to all
+						templates. NOTE: This was added to Smarty 1.4.3.
+						</entry>
+                    </row>
+                    <row>
+                        <entry>global</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>No</emphasis></entry>
+                        <entry>
+						Whether or not variables are visible to the parent
+						template, same as scope=parent. NOTE: This attribute is
+						deprecated by the scope attribute, but still supported.
+						If scope is supplied, this value is ignored.
+						</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This function is used for loading in variables from a
+			configuration file into the template. You must have the Config_file.class.php
+			file somewhere in your PHP include path for config_load to work properly.
+			See <link linkend="config.files">Config Files</link> for more info.
+			</para>
+<example>
+<title>function config_load</title>
+
+<programlisting>
+{config_load file="colors.conf"}
+
+&lt;html&gt;
+&lt;title&gt;{#pageTitle#}&lt;/title&gt;
+&lt;body bgcolor="{#bodyBgColor#}"&gt;
+&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
+	&lt;tr bgcolor="{#rowBgColor#}"&gt;
+		&lt;td&gt;First&lt;/td&gt;
+		&lt;td&gt;Last&lt;/td&gt;
+		&lt;td&gt;Address&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</programlisting>
+</example>
+			<para>
+            Config files may also contain sections. You can load variables from
+            within a section with the added attribute
+            <emphasis>section</emphasis>.
+			</para>
+            <para>
+            NOTE: <emphasis>Config file sections</emphasis> and the built-in
+            template function called <emphasis>section</emphasis> have nothing
+            to do with each other, they just happen to share a common naming
+            convention.
+            </para>
+<example>
+<title>function config_load with section</title>
+<programlisting>
+{config_load file="colors.conf" section="Customer"}
+
+&lt;html&gt;
+&lt;title&gt;{#pageTitle#}&lt;/title&gt;
+&lt;body bgcolor="{#bodyBgColor#}"&gt;
+&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
+	&lt;tr bgcolor="{#rowBgColor#}"&gt;
+		&lt;td&gt;First&lt;/td&gt;
+		&lt;td&gt;Last&lt;/td&gt;
+		&lt;td&gt;Address&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</programlisting>
+</example>
+		</sect2>
+		<sect2 id="builtin.functions.include">
+			<title>include</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the template file to include</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable that the output of
+						include will be assigned to</entry>
+                    </row>
+                    <row>
+                        <entry>[var ...]</entry>
+                        <entry>[var type]</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>variable to pass local to template</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            Include tags are used for including other templates in the current
+            template. Any variables available in the current template are also
+            available within the included template. The include tag must have
+            the attribute "file", which contains the template resource path.
+			</para>
+			<para>
+			You an optionally pass the <emphasis>assign</emphasis> attribute,
+			which will specify a template variable name that the output of
+			<emphasis>include</emphasis> will be assigned to instead of
+			displayed. This was added to Smarty 1.5.0.
+			</para>
+<example>
+<title>function include</title>
+<programlisting>
+{include file="header.tpl"}
+
+{* body of template goes here *}
+
+{include file="footer.tpl"}</programlisting>
+</example>
+			<para>
+            You can also pass variables to included templates as attributes.
+            Any variables explicitly passed to an included template as
+            attributes are only available within the scope of the included
+            file. Attribute variables override current template variables, in
+            the case they are named alike.
+			</para>
+<example>
+<title>function include passing variables</title>
+<programlisting>
+{include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+
+{* body of template goes here *}
+
+{include file="footer.tpl" logo="http://my.domain.com/logo.gif"}</programlisting>
+</example>
+			<para>
+			Use the syntax for <link
+			linkend="template.resources">template resources</link> to
+			include files outside of the $template_dir directory.
+			</para>
+<example>
+<title>function include template resource examples</title>
+<programlisting>
+{* absolute filepath *}
+{include file="/usr/local/include/templates/header.tpl"}
+
+{* absolute filepath (same thing) *}
+{include file="file:/usr/local/include/templates/header.tpl"}
+
+{* windows absolute filepath (MUST use "file:" prefix) *}
+{include file="file:C:/www/pub/templates/header.tpl"}
+
+{* include from template resource named "db" *}
+{include file="db:header.tpl"}</programlisting>
+</example>
+		</sect2>
+		<sect2 id="builtin.functions.include.php">
+			<title>include_php</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the php file to include</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable that the output of
+						include_php will be assigned to</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			include_php tags are used to include a php script in your template.
+			If security is enabled, then the php script must be located in the
+			$trusted_dir path. The include_php tag must have the attribute
+			"file", which contains the path to the included php file, either
+			relative to $trusted_dir, or an absolute path.
+			</para>
+			<para>
+			include_php is a nice way to handle componentized templates, and
+			keep PHP code separate from the template files. Lets say you have a
+			template that shows your site navigation, which is pulled
+			dynamically from a database. You can keep your PHP logic that grabs
+			database content in a separate directory, and include it at the top
+			of the template. Now you can include this template anywhere without
+			worrying if the database information was assigned by the application
+			before hand.
+			</para>
+			<para>
+			You an optionally pass the <emphasis>assign</emphasis> attribute,
+			which will specify a template variable name that the output of
+			<emphasis>include</emphasis> will be assigned to instead of
+			displayed.
+			</para>
+			<para>
+			include_php was added to Smarty 1.5.0.
+			</para>
+<example>
+<title>function include_php</title>
+<programlisting>
+load_nav.php
+-------------
+
+&lt;?php
+
+	// load in variables from a mysql db and assign them to the template
+	require_once("MySQL.class.php");
+	$sql = new MySQL;
+	$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+	$this->assign($sections,$sql->record);
+
+?&gt;
+
+
+index.tpl
+---------
+
+{* absolute path, or relative to $trusted_dir *}
+{include_php file="/path/to/load_nav.php"}
+
+{foreach item=$curr_section from=$sections}
+	&lt;a href="{$curr_section.url}"&gt;{$curr_section.name}&lt;/a&gt;&lt;br&gt;
+{/foreach}</programlisting>
+</example>
+		</sect2>
+		<sect2 id="builtin.functions.insert">
+			<title>insert</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the insert function (insert_name)</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the template variable the output will
+						be assigned to</entry>
+                    </row>
+                    <row>
+                        <entry>script</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the php script that is included before
+						the insert function is called</entry>
+                    </row>
+                    <row>
+                        <entry>[var ...]</entry>
+                        <entry>[var type]</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>variable to pass to insert function</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			Insert tags work much like include tags, except that insert tags
+			are not cached when you have template <link
+			linkend="features.caching">caching</link> enabled. They will be
+			executed on every invocation of the template.
+			</para>
+            <para>
+             Let's say you have a template with a banner slot at the top of
+             the page. The banner can contain any mixture of HTML, images,
+             flash, etc. so we can't just use a static link here, and we
+             don't want this contents cached with the page. In comes the
+             insert tag: the template knows #banner_location_id# and
+             #site_id# values (gathered from a config file), and needs to
+             call a function to get the banner contents.
+			</para>
+<example>
+<title>function insert</title>
+<programlisting>
+{* example of fetching a banner *}
+{insert name="getBanner" lid=#banner_location_id# sid=#site_id#}</programlisting>
+</example>
+			<para>
+			In this example, we are using the name "getBanner" and passing the
+			parameters #banner_location_id# and #site_id#. Smarty will look
+			for a function named insert_getBanner() in your PHP application, passing
+			the values of #banner_location_id# and #site_id# as the first argument
+			in an associative array. All insert function names in
+			your application must be prepended with "insert_" to remedy possible
+			function name-space conflicts. Your insert_getBanner() function should
+			do something with the passed values and return the results. These results
+			are then displayed in the template in place of the insert tag.
+			In this example, Smarty would call this function:
+			insert_getBanner(array("lid" => "12345","sid" => "67890"));
+			and display the returned results in place of the insert tag.
+			</para>
+			<para>
+			If you supply the "assign" attribute, the output of the insert tag
+			will be assigned to this template variable instead of being output
+			to the template. NOTE: assiging the output to a template variable
+			isn't too useful with caching enabled. (added to Smarty 1.5.0)
+			</para>
+			<para>
+			If you supply the "script" attribute, this php script will be
+			included (only once) before the insert function is executed. This
+			is the case where the insert function may not exist yet, and a php
+			script must be included first to make it work. The path can be
+			either absolute, or relative to $trusted_dir. When security is
+			enabled, the script must reside in $trusted_dir. (added to Smarty
+			1.5.2)
+			</para>
+			<para>
+			The Smarty object is passed as the second argument. This way you
+			can reference and modify information in the Smarty object from
+			within the insert function. (added in 1.4.5)
+			</para>
+			<para>
+            TECHNICAL NOTE: It is possible to have portions of the template not
+            cached. If you have <link linkend="features.caching">caching</link>
+            turned on, insert tags will not be cached. They will run
+            dynamically every time the page is created, even within cached
+            pages. This works good for things like banners, polls, live
+            weather, search results, user feedback areas, etc.
+			</para>
+		</sect2>
+		<sect2>
+			<title>if,elseif,else</title>
+			<para>
+			if statements in Smarty have much the same flexibility as php if
+			statements, with a few added features for the template engine.
+			Every <emphasis>if</emphasis> must be paired with an
+			<emphasis>/if</emphasis>. <emphasis>else</emphasis> and
+			<emphasis>elseif</emphasis> are also permitted. "eq", "ne","neq",
+			"gt", "lt", "lte", "le", "gte" "ge","is even","is odd", "is not
+			even","is not odd","not","mod","div by","even by","odd
+			by","==","!=",">", "<","<=",">=" are all valid conditional
+            qualifiers, and must be separated from surrounding elements by
+            spaces.
+			</para>
+<example>
+<title>if statements</title>
+<programlisting>
+{if $name eq "Fred"}
+	Welcome Sir.
+{elseif $name eq "Wilma"}
+	Welcome Ma'am.
+{else}
+	Welcome, whatever you are.
+{/if}
+
+{* an example with "or" logic *}
+{if $name eq "Fred" or $name eq "Wilma"}
+	...
+{/if}
+
+{* same as above *}
+{if $name == "Fred" || $name == "Wilma"}
+	...
+{/if}
+
+{* the following syntax will NOT work, conditional qualifiers
+   must be separated from surrounding elements by spaces *}
+{if $name=="Fred" || $name=="Wilma"}
+	...
+{/if}
+
+
+{* parenthesis are allowed *}
+{if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
+	...
+{/if}
+
+{* you can also embed php function calls *}
+{if count($var) gt 0}
+	...
+{/if}
+
+{* test if values are even or odd *}
+{if $var is even}
+	...
+{/if}
+{if $var is odd}
+	...
+{/if}
+{if $var is not odd}
+	...
+{/if}
+
+{* test if var is divisible by 4 *}
+{if $var is div by 4}
+	...
+{/if}
+
+{* test if var is even, grouped by two. i.e.,
+0=even, 1=even, 2=odd, 3=odd, 4=even, 5=even, etc. *}
+{if $var is even by 2}
+	...
+{/if}
+
+{* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
+{if $var is even by 3}
+	...
+{/if}</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>ldelim,rdelim</title>
+			<para>
+			ldelim and rdelim are used for displaying the literal delimiter, in 
+			our case "{" or "}". The template engine always tries to interpret
+			delimiters, so this is the way around that.
+			</para>
+<example>
+<title>ldelim, rdelim</title>
+<programlisting>
+{* this will print literal delimiters out of the template *}
+
+{ldelim}funcname{rdelim} is how functions look in Smarty!
+
+
+OUTPUT:
+
+{funcname} is how functions look in Smarty!</programlisting>
+</example>
+		</sect2>
+		<sect2 id="builtin.functions.literal">
+			<title>literal</title>
+			<para>
+			Literal tags allow a block of data to be taken literally,
+			not being interpreted by the Smarty engine. This is handy
+			for things like javascript sections, where there maybe
+			curly braces and such things that would confuse the template
+			parser. Anything within {literal}{/literal} tags is not
+			interpreted, but displayed as-is.
+			</para>
+<example>
+<title>literal tags</title>
+<programlisting>
+{literal}
+	&lt;script language=javascript&gt;
+
+        	&lt;!--
+                	function isblank(field) {
+                	if (field.value == '') 
+                        	{ return false; }
+                	else
+                        	{
+                        	document.loginform.submit();
+                        	return true;
+                        	}
+                	}
+        	// --&gt;
+
+	&lt;/script&gt;
+{/literal}</programlisting>
+</example>
+		</sect2>
+		<sect2 id="builtin.functions.php">
+			<title>php</title>
+			<para>
+			php tags allow php to be embedded directly into the template. They
+			will not be escaped, regardless of the <link
+			linkend="variable.php.handling">$php_handling</link> setting. This
+			is for advanced users only, not normally needed. This was added to
+			1.4.0.
+			</para>
+<example>
+<title>php tags</title>
+<programlisting>
+{php}
+		// including a php script directly
+		// from the template.
+		include("/path/to/display_weather.php");
+{/php}</programlisting>
+</example>
+		</sect2>
+		<sect2 id="builtin.functions.section">
+			<title>section,sectionelse</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the section</entry>
+                    </row>
+                    <row>
+                        <entry>loop</entry>
+                        <entry>[$variable_name]</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable to determine # of loop
+                        iterations</entry>
+                    </row>
+                    <row>
+                        <entry>start</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+						<entry><emphasis>0</emphasis></entry> <entry>The index
+						position that the section will begin looping. If the
+						value is negative, the start position is calculated
+						from the end of the array. For example, if there are
+						seven values in the loop array and start is -2, the
+						start index is 5. Invalid values (values outside of the
+						length of the loop array) are automatically truncated
+						to the closest valid value. (Added to Smarty 1.4.4.)</entry>
+                    </row>
+                    <row>
+                        <entry>step</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+						<entry>The step value that will be used to traverse the
+						loop array. For example, step=2 will loop on index
+						0,2,4, etc. If step is negative, it will step through
+						the array backwards. (Added to Smarty 1.4.4.)</entry>
+                    </row>
+                    <row>
+                        <entry>max</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+						<entry>Sets the maximum number of times the section
+						will loop. (Added to Smarty 1.4.4.)</entry>
+                    </row>
+                    <row>
+                        <entry>show</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>determines whether or not to show this section</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            Template sections are used for looping over arrays of data. All
+            <emphasis>section</emphasis> tags must be paired with
+            <emphasis>/section</emphasis> tags. Required parameters are
+            <emphasis>name</emphasis> and <emphasis>loop</emphasis>. The name
+            of the section can be anything you like, made up of letters,
+            numbers and underscores. Sections can be nested, and the nested
+            section names must be unique from each other. The loop variable
+            (usually an array of values) determines the number of times the
+            section will loop. When printing a variable within a section, the
+            section name must be given next to variable name within brackets
+            []. <emphasis>sectionelse</emphasis> is
+            executed when there are no values in the loop variable.
+			</para>
+<example>
+<title>section</title>
+<programlisting>
+
+{* this example will print out all the values of the $custid array *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+{/section}
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;</programlisting>
+</example>
+
+<example>
+<title>section loop variable</title>
+<programlisting>
+{* the loop variable only determines the number of times to loop.
+   you can access any variable from the template within the section.
+   This example assumes that $custid, $name and $address are all
+   arrays containing the same number of values *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+	name: {$name[customer]}&lt;br&gt;
+	address: {$address[customer]}&lt;br&gt;
+	&lt;p&gt;
+{/section}
+
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+name: John Smith&lt;br&gt;
+address: 253 N 45th&lt;br&gt;
+&lt;p&gt;
+id: 1001&lt;br&gt;
+name: Jack Jones&lt;br&gt;
+address: 417 Mulberry ln&lt;br&gt;
+&lt;p&gt;
+id: 1002&lt;br&gt;
+name: Jane Munson&lt;br&gt;
+address: 5605 apple st&lt;br&gt;
+&lt;p&gt;</programlisting>
+</example>
+
+<example>
+<title>section names</title>
+<programlisting>
+{* the name of the section can be anything you like,
+   and it is used to reference the data within the section *}
+{section name=mydata loop=$custid}
+	id: {$custid[mydata]}&lt;br&gt;
+	name: {$name[mydata]}&lt;br&gt;
+	address: {$address[mydata]}&lt;br&gt;
+	&lt;p&gt;
+{/section}</programlisting>
+</example>
+
+<example>
+<title>nested sections</title>
+<programlisting>
+{* sections can be nested as deep as you like. With nested sections,
+   you can access complex data structures, such as multi-dimensional
+   arrays. In this example, $contact_type[customer] is an array of
+   contact types for the current customer. *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+	name: {$name[customer]}&lt;br&gt;
+	address: {$address[customer]}&lt;br&gt;
+	{section name=contact loop=$contact_type[customer]}
+		{$contact_type[customer][contact]}: {$contact_info[customer][contact]}&lt;br&gt;
+	{/section}
+	&lt;p&gt;
+{/section}
+
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+name: John Smith&lt;br&gt;
+address: 253 N 45th&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: john@mydomain.com&lt;br&gt;
+&lt;p&gt;
+id: 1001&lt;br&gt;
+name: Jack Jones&lt;br&gt;
+address: 417 Mulberry ln&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jack@mydomain.com&lt;br&gt;
+&lt;p&gt;
+id: 1002&lt;br&gt;
+name: Jane Munson&lt;br&gt;
+address: 5605 apple st&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jane@mydomain.com&lt;br&gt;
+&lt;p&gt;</programlisting>
+</example>
+
+<example>
+<title>sections and associative arrays</title>
+<programlisting>
+{* This is an example of printing an associative array
+   of data within a section *}
+{section name=customer loop=$contacts}
+	name: {$contacts[customer].name}&lt;br&gt;
+	home: {$contacts[customer].home}&lt;br&gt;
+	cell: {$contacts[customer].cell}&lt;br&gt;
+	e-mail: {$contacts[customer].email}&lt;p&gt;
+{/section}
+
+
+OUTPUT:
+
+name: John Smith&lt;br&gt;
+home: 555-555-5555&lt;br&gt;
+cell: 555-555-5555&lt;br&gt;
+e-mail: john@mydomain.com&lt;p&gt;
+name: Jack Jones&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jack@mydomain.com&lt;p&gt;
+name: Jane Munson&lt;br&gt;
+home phone: 555-555-5555&lt;br&gt;
+cell phone: 555-555-5555&lt;br&gt;
+e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
+</example>
+
+
+
+<example>
+<title>sectionelse</title>
+<programlisting>
+{* sectionelse will execute if there are no $custid values *}
+{section name=customer loop=$custid}
+	id: {$custid[customer]}&lt;br&gt;
+{sectionelse}
+	there are no values in $custid.
+{/section}</programlisting>
+</example>
+		<para>
+		Sections also have their own variables that handle section properties.
+		These are indicated like so: {$smarty.section.sectionname.varname}
+		</para>
+		<para>
+		NOTE: As of Smarty 1.5.0, the syntax for section property variables has
+		been changed from {%sectionname.varname%} to
+		{$smarty.section.sectionname.varname}. The old syntax is still
+		supported, but you will only see reference to the new syntax in the
+		manual examples.
+		</para>
+			<sect3>	
+			<title>index</title>
+			<para>
+			index is used to display the current loop index, starting with zero
+			(or the start attribute if given), and incrementing by one (or by
+			the step attribute if given.)
+			</para>
+			<para>
+			TECHNICAL NOTE: If the step and start section properties are not
+			modified, then this works the same as the iteration section
+			property.
+			</para>
+	<example>
+	<title>section property index</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>index_prev</title>
+			<para>
+			index_prev is used to display the previous loop index.
+        	on the first loop, this is set to -1.
+			</para>
+	<example>
+	<title>section property index_prev</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_prev] ne $custid[customer.index]}
+    	The customer id changed&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>
+			<title>index_next</title>
+			<para>
+        	index_next is used to display the next loop index. On the last
+        	loop, this is still one more than the current index (respecting the
+			setting of the step attribute, if given.)
+			</para>
+	<example>
+	<title>section property index_next</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_next] ne $custid[customer.index]}
+    	The customer id will change&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>
+			<title>iteration</title>
+			<para>
+        	iteration is used to display the current loop iteration.
+			</para>
+			<para>
+			NOTE: This is not affected by the section properties start, step and
+			max, unlike the index property.
+			</para>
+			<para>
+			This was added to Smarty 1.4.4.
+			</para>
+	<example>
+	<title>section property iteration</title>
+	<programlisting>
+	{section name=customer loop=$custid start=5 step=2}
+	current loop iteration: {$smarty.section.customer.iteration}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_next] ne $custid[customer.index]}
+    	The customer id will change&lt;br&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	current loop iteration: 1
+	5 id: 1000&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	current loop iteration: 2
+	7 id: 1001&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	current loop iteration: 3
+	9 id: 1002&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>
+			<title>first</title>
+			<para>
+        	first is set to true if the current section iteration is the first
+        	one.
+			</para>
+	<example>
+	<title>section property first</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{if $smarty.section.customer.first}
+    	&lt;table&gt;
+	{/if}
+
+	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
+        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+
+	{if $smarty.section.customer.last}
+    	&lt;/table&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	&lt;table&gt;
+	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>
+			<title>last</title>
+			<para>
+        	last is set to true if the current section iteration is the last
+        	one.
+			</para>
+	<example>
+	<title>section property last</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{if $smarty.section.customer.first}
+    	&lt;table&gt;
+	{/if}
+
+	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
+        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+
+	{if $smarty.section.customer.last}
+    	&lt;/table&gt;
+	{/if}
+	{/section}
+
+
+	OUTPUT:
+
+	&lt;table&gt;
+	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>rownum</title>
+			<para>
+			rownum is used to display the current loop iteration,
+			starting with one.
+			</para>
+	<example>
+	<title>section property rownum</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+
+	OUTPUT:
+
+	1 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	3 id: 1002&lt;br&gt;
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>loop</title>
+			<para>
+			loop is used to display the last index number that this section
+			looped. This can be used inside or after the section.
+			</para>
+	<example>
+	<title>section property index</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	There were {$smarty.section.customer.loop} customers shown above.
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+
+	There were 3 customers shown above.
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>show</title>
+			<para>
+        	<emphasis>show</emphasis> is used as a parameter to section.
+        	<emphasis>show</emphasis> is a boolean value, true or false. If
+        	false, the section will not be displayed. If there is a sectionelse
+        	present, that will be alternately displayed.
+			</para>
+	<example>
+	<title>section attribute show</title>
+	<programlisting>
+	{* $show_customer_info may have been passed from the PHP
+	application, to regulate whether or not this section shows *}
+	{section name=customer loop=$custid show=$show_customer_info}
+	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	{if $smarty.section.customer.show}
+	the section was shown.
+	{else}
+	the section was not shown.
+	{/if}
+
+
+	OUTPUT:
+
+	1 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	3 id: 1002&lt;br&gt;
+
+	the section was shown.
+</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>total</title>
+			<para>
+			total is used to display the number of iterations that this section
+			will loop. This can be used inside or after the section.
+			</para>
+			<para>
+			This was added to Smarty 1.4.4.
+			</para>
+	<example>
+	<title>section property total</title>
+	<programlisting>
+	{section name=customer loop=$custid step=2}	
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	There were {$smarty.section.customer.total} customers shown above.
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	4 id: 1002&lt;br&gt;
+
+	There were 3 customers shown above.
+</programlisting>
+	</example>
+			</sect3>
+		</sect2>
+		<sect2 id="builtin.functions.foreach">
+			<title>foreach,foreachelse</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>from</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the array you are looping through</entry>
+                    </row>
+                    <row>
+                        <entry>item</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable that is the current
+						element</entry>
+                    </row>
+                    <row>
+                        <entry>key</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+						<entry><emphasis>n/a</emphasis></entry>
+						<entry>The name of the variable that is the current key</entry>
+                    </row>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>The name of the foreach loop for accessing
+						foreach properties</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			<emphasis>foreach</emphasis> loops are an alternative to
+			<emphasis>section</emphasis> loops. <emphasis>foreach</emphasis> is
+			used to loop over a single associative array. The syntax for
+			<emphasis>foreach</emphasis> is much easier than
+			<emphasis>section</emphasis>, but as a tradeoff it can only be used
+			for a single array. <emphasis>foreach</emphasis> tags must be
+			paired with <emphasis>/foreach</emphasis> tags. Required parameters
+			are <emphasis>from</emphasis> and <emphasis>item</emphasis>. The
+			name of the foreach loop can be anything you like, made up of
+			letters, numbers and underscores. <emphasis>foreach</emphasis>
+			loops can be nested, and the nested foreach names must be unique
+			from each other. The <emphasis>from</emphasis> variable (usually an
+			array of values) determines the number of times
+			<emphasis>foreach</emphasis> will loop.
+			<emphasis>foreachelse</emphasis> is executed when there are no
+			values in the <emphasis>from</emphasis> variable.
+			</para>
+<example>
+<title>foreach</title>
+<programlisting>
+
+{* this example will print out all the values of the $custid array *}
+{foreach from=$custid item=curr_id}
+	id: {$curr_id}&lt;br&gt;
+{/foreach}
+
+OUTPUT:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;</programlisting>
+</example>
+
+<example>
+<title>foreach key</title>
+<programlisting>
+{* The key contains the key for each looped value
+
+assignment looks like this:
+
+$smarty->assign("contacts", array(array("phone" =&gt; "1", "fax" =&gt; "2", "cell" =&gt; "3"),
+      array("phone" =&gt; "555-4444", "fax" =&gt; "555-3333", "cell" =&gt; "760-1234")));
+
+*}
+
+{foreach name=outer item=contact from=$contacts}
+  {foreach key=key item=item from=$contact}
+    {$key}: {$item}&lt;br&gt;
+  {/foreach}
+{/foreach}
+
+OUTPUT:
+
+phone: 1&lt;br&gt;
+fax: 2&lt;br&gt;
+cell: 3&lt;br&gt;
+phone: 555-4444&lt;br&gt;
+fax: 555-3333&lt;br&gt;
+cell: 760-1234&lt;br&gt;</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>strip</title>
+			<para>
+			Many times web designers
+			run into the issue where white space and carriage returns
+			affect the output of the rendered HTML (browser "features"), so you
+			must run all your tags together in the template to get the
+			desired results. This usually ends up in unreadable or
+			unmanagable templates.
+			</para>
+			<para>
+			Anything within {strip}{/strip} tags in Smarty are stripped of
+			the extra spaces or carriage returns at the beginnings and
+			ends of the lines before they are displayed.
+			This way you can keep your templates readable, and not worry
+			about extra white space causing problems.
+			</para>
+<example>
+<title>strip tags</title>
+<programlisting>
+{* the following will be all run into one line upon output *}
+{strip}
+&lt;table border=0&gt;
+	&lt;tr&gt;
+		&lt;td&gt;
+			&lt;A HREF="{$url}"&gt;
+			&lt;font color="red"&gt;This is a test&lt;/font&gt;
+			&lt;/A&gt;
+		&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+{/strip}
+
+
+OUTPUT:
+
+&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://my.domain.com"&gt;&lt;font color="red"&gt;This is a test&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</programlisting>
+</example>
+		<para>
+		Notice that in the above example, all the lines begin and end
+		with HTML tags. Be aware that all the lines are run together.
+		If you have plain text at the beginning or end of any line,
+		they will be run together, and may not be desired results.
+		</para>
+		</sect2>
+       </sect1>
+
+       <sect1 id="language.additional.functions">
+        <title>Additional Functions</title>
+        <para>
+         Smarty comes with several additional functions that you can
+         use in the templates.
+        </para>
+
+        <sect2 id="language.available.functions">
+         <title>Available Functions</title>
+		<sect3 id="language.functions.assign">
+			<title>assign</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>var</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable being assigned</entry>
+                    </row>
+                    <row>
+                        <entry>value</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The value being assigned</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			assign is used for assigning template variables during the execution
+			of the template.
+			</para>
+			<para>
+			NOTE: This was added to Smarty 1.4.3.
+			</para>
+<example>
+<title>assign</title>
+<programlisting>
+{assign var="name" value="Bob"}
+
+The value of $name is {$name}.
+
+OUTPUT:
+
+The value of $name is Bob.</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>counter</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>id</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>default</emphasis></entry>
+                        <entry>The id of the counter</entry>
+                    </row>
+                    <row>
+                        <entry>start</entry>
+                        <entry>number</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+                        <entry>The initial number to start counting from</entry>
+                    </row>
+                    <row>
+                        <entry>skip</entry>
+                        <entry>number</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+                        <entry>The interval to count by</entry>
+                    </row>
+                    <row>
+                        <entry>direction</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>up</emphasis></entry>
+                        <entry>the direction to count (up/down)</entry>
+                    </row>
+                    <row>
+                        <entry>print</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>Whether or not to print the value</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the template variable the output will be assigned
+						to</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			counter is used to print out a count. counter will remember the
+			count on each iteration. You can adjust the number, the interval
+			and the direction of the count, as well as determine whether or not
+			to print the value. You can run multiple counters concurrently by
+			supplying a unique id for each one. If you do not supply an id, the
+			default id will be used. counter was added to Smarty 1.4.0.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			counter function will be assigned to this template variable instead of
+			being output to the template. (new in Smarty 1.5.0)
+			</para>
+<example>
+<title>counter</title>
+<programlisting>
+{* initialize the count *}
+{counter start=0 skip=2 print=false}
+
+{counter}&lt;br&gt;
+{counter}&lt;br&gt;
+{counter}&lt;br&gt;
+{counter}&lt;br&gt;
+
+OUTPUT:
+
+2&lt;br&gt;
+4&lt;br&gt;
+6&lt;br&gt;
+8&lt;br&gt;</programlisting>
+</example>
+		</sect3>
+		<sect3>
+			<title>fetch</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>file</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the file, http or ftp site to fetch</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the template variable the output will be assigned
+						to</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			fetch is used to fetch files from the local file system, http, or
+			ftp and display the contents. If the file name begins with
+			"http://", the web site page will be fetched and displayed. If the
+			file name begins with "ftp://", the file will be fetched from the
+			ftp server and displayed. For local files, the full system file
+			path must be given, or a path relative to the executed php script.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			fetch function will be assigned to this template variable instead of
+			being output to the template. (new in Smarty 1.5.0)
+			</para>
+            <para>
+            TECHNICAL NOTE: This will not support http redirects, be sure to
+            include a trailing slash on your web page fetches where necessary.
+            </para>
+            <para>
+			TECHNICAL NOTE: If template security is turned on and you are
+			fetching a file from the local file system, this will only allow
+			files from within one of the defined secure directories.
+			($secure_dir)
+            </para>
+<example>
+<title>fetch</title>
+<programlisting>
+{* include some javascript in your template *}
+{fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
+
+{* embed some weather text in your template from another web site *}
+{fetch file="http://www.myweather.com/68502/"}
+
+{* fetch a news headline file via ftp *}
+{fetch file="ftp://user:password@ftp.domain.com/path/to/currentheadlines.txt"}
+
+{* assign the fetched contents to a template variable *}
+{fetch file="http://www.myweather.com/68502/" assign="weather"}
+{if $weather ne ""}
+	&lt;b&gt;{$weather}&lt;/b&gt;
+{/if}</programlisting>
+</example>
+		</sect3>
+		<sect3 id="language.functions.html.options">
+			<title>html_options</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>values</entry>
+                        <entry>array</entry>
+                        <entry>Yes, unless using options attribute</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an array of values for dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>output</entry>
+                        <entry>array</entry>
+                        <entry>Yes, unless using options attribute</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an array of output for dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>selected</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>the selected array element</entry>
+                    </row>
+                    <row>
+                        <entry>options</entry>
+                        <entry>associative array</entry>
+                        <entry>Yes, unless using values and output</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an associative array of values and output</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			html_options is a custom function that creates html option
+			lists with provided data. It takes care of which item is
+			selected by default as well. Required attributes are values
+            and output, unless you use options instead.
+			</para>
+			<para>
+			NOTE: As of Smarty 1.4.5, html_options now outputs xhtml compatible
+			code.
+			</para>
+<example>
+<title>html_options</title>
+<programlisting>
+{* assume that $cust_ids, and $cust_names are arrays of values,
+	and $customer_id may or may not be set to a value *}
+
+&lt;select name=customer_id&gt;
+	{html_options values=$cust_ids selected=$customer_id output=$cust_names}
+&lt;/select&gt;
+
+
+{* an alternative method is to pass the values & output as an associative array into
+   options. $customer_options is an associative array in this example. This
+   functionality was added to Smarty 1.3.0 *}
+
+&lt;select name=customer_id&gt;
+	{html_options options=$customer_options selected=$customer_id}
+&lt;/select&gt;
+
+
+OUTPUT:
+
+&lt;select name=customer_id&gt;
+	&lt;option value="1000">Joe Schmoe&lt;option&gt;
+	&lt;option value="1001" selected>Jack Smith&lt;option&gt;
+	&lt;option value="1002">Jane Johnson&lt;option&gt;
+	&lt;option value="1003">Charlie Brown&lt;option&gt;
+&lt;/select&gt;</programlisting>
+</example>
+		</sect3>
+		<sect3 id="language.functions.html.select.date">
+			<title>html_select_date</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>prefix</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>Date_</entry>
+                        <entry>what to prefix the var name with</entry>
+                    </row>
+                    <row>
+                        <entry>time</entry>
+                        <entry>timestamp</entry>
+                        <entry>No</entry>
+                        <entry>current time</entry>
+                        <entry>what date/time to use</entry>
+                    </row>
+                    <row>
+                        <entry>start_year</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>current year</entry>
+                        <entry>the first year in the dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>end_year</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>same as start_year</entry>
+                        <entry>the last year in the dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>display_days</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether to display days or not</entry>
+                    </row>
+                    <row>
+                        <entry>display_months</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether to display months or not</entry>
+                    </row>
+                    <row>
+                        <entry>display_years</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether to display years or not</entry>
+                    </row>
+                    <row>
+                        <entry>month_format</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%B</entry>
+                        <entry>what format the month should be in (strftime)</entry>
+                    </row>
+                    <row>
+                        <entry>day_format</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>%02d</entry>
+                        <entry>what format the day should be in (sprintf)</entry>
+                    </row>
+                    <row>
+                        <entry>year_as_text</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>whether or not to display the year as text</entry>
+                    </row>
+                    <row>
+                        <entry>reverse_years</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>display years in reverse order</entry>
+                    </row>
+                    <row>
+                        <entry>field_array</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>
+							if a name is given, the select boxes will be drawn
+							such that the results will be returned to PHP in the
+							form of name[Day], name[Year], name[Month].
+						</entry>
+                    </row>
+                    <row>
+                        <entry>day_size</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds size attribute to select tag if given</entry>
+                    </row>
+                    <row>
+                        <entry>month_size</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds size attribute to select tag if given</entry>
+                    </row>
+                    <row>
+                        <entry>year_size</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds size attribute to select tag if given</entry>
+                    </row>
+                    <row>
+                        <entry>all_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to all select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>day_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>month_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>year_extra</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>adds extra attributes to select/input tags if
+						given</entry>
+                    </row>
+                    <row>
+                        <entry>field_order</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>MDY</entry>
+                        <entry>the order in which to display the fields</entry>
+                    </row>
+                    <row>
+                        <entry>field_separator</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>\n</entry>
+                        <entry>string printed between different fields</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			html_select_date is a custom function that creates date dropdowns
+			for you. It can display any or all of year, month, and day.
+			</para>
+			<para>
+			NOTE: reverse_years, field_array, day_size, month_size, year_size,
+			all_extra, day_extra, month_extra, year_extra, field_order,
+			field_separator added in Smarty 1.4.5.
+			</para>
+<example>
+<title>html_select_date</title>
+<programlisting>
+{html_select_date}
+
+
+OUTPUT:
+
+&lt;select name="Date_Month"&gt;
+&lt;option value="1"&gt;January&lt;/option&gt;
+&lt;option value="2"&gt;February&lt;/option&gt;
+&lt;option value="3"&gt;March&lt;/option&gt;
+&lt;option value="4"&gt;April&lt;/option&gt;
+&lt;option value="5"&gt;May&lt;/option&gt;
+&lt;option value="6"&gt;June&lt;/option&gt;
+&lt;option value="7"&gt;July&lt;/option&gt;
+&lt;option value="8"&gt;August&lt;/option&gt;
+&lt;option value="9"&gt;September&lt;/option&gt;
+&lt;option value="10"&gt;October&lt;/option&gt;
+&lt;option value="11"&gt;November&lt;/option&gt;
+&lt;option value="12" selected&gt;December&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Date_Day"&gt;
+&lt;option value="1"&gt;01&lt;/option&gt;
+&lt;option value="2"&gt;02&lt;/option&gt;
+&lt;option value="3"&gt;03&lt;/option&gt;
+&lt;option value="4"&gt;04&lt;/option&gt;
+&lt;option value="5"&gt;05&lt;/option&gt;
+&lt;option value="6"&gt;06&lt;/option&gt;
+&lt;option value="7"&gt;07&lt;/option&gt;
+&lt;option value="8"&gt;08&lt;/option&gt;
+&lt;option value="9"&gt;09&lt;/option&gt;
+&lt;option value="10"&gt;10&lt;/option&gt;
+&lt;option value="11"&gt;11&lt;/option&gt;
+&lt;option value="12"&gt;12&lt;/option&gt;
+&lt;option value="13" selected&gt;13&lt;/option&gt;
+&lt;option value="14"&gt;14&lt;/option&gt;
+&lt;option value="15"&gt;15&lt;/option&gt;
+&lt;option value="16"&gt;16&lt;/option&gt;
+&lt;option value="17"&gt;17&lt;/option&gt;
+&lt;option value="18"&gt;18&lt;/option&gt;
+&lt;option value="19"&gt;19&lt;/option&gt;
+&lt;option value="20"&gt;20&lt;/option&gt;
+&lt;option value="21"&gt;21&lt;/option&gt;
+&lt;option value="22"&gt;22&lt;/option&gt;
+&lt;option value="23"&gt;23&lt;/option&gt;
+&lt;option value="24"&gt;24&lt;/option&gt;
+&lt;option value="25"&gt;25&lt;/option&gt;
+&lt;option value="26"&gt;26&lt;/option&gt;
+&lt;option value="27"&gt;27&lt;/option&gt;
+&lt;option value="28"&gt;28&lt;/option&gt;
+&lt;option value="29"&gt;29&lt;/option&gt;
+&lt;option value="30"&gt;30&lt;/option&gt;
+&lt;option value="31"&gt;31&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Date_Year"&gt;
+&lt;option value="2001" selected&gt;2001&lt;/option&gt;
+&lt;/select&gt;</programlisting>
+</example>
+
+
+<example>
+<title>html_select_date</title>
+<programlisting>
+
+{html_select_date prefix="StartDate" time=$time start_year=1995 end_year=2001 display_days=false}
+
+OUTPUT:
+
+&lt;select name="StartDateMonth"&gt;
+&lt;option value="1"&gt;January&lt;/option&gt;
+&lt;option value="2"&gt;February&lt;/option&gt;
+&lt;option value="3"&gt;March&lt;/option&gt;
+&lt;option value="4"&gt;April&lt;/option&gt;
+&lt;option value="5"&gt;May&lt;/option&gt;
+&lt;option value="6"&gt;June&lt;/option&gt;
+&lt;option value="7"&gt;July&lt;/option&gt;
+&lt;option value="8"&gt;August&lt;/option&gt;
+&lt;option value="9"&gt;September&lt;/option&gt;
+&lt;option value="10"&gt;October&lt;/option&gt;
+&lt;option value="11"&gt;November&lt;/option&gt;
+&lt;option value="12" selected&gt;December&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="StartDateYear"&gt;
+&lt;option value="1999"&gt;1995&lt;/option&gt;
+&lt;option value="1999"&gt;1996&lt;/option&gt;
+&lt;option value="1999"&gt;1997&lt;/option&gt;
+&lt;option value="1999"&gt;1998&lt;/option&gt;
+&lt;option value="1999"&gt;1999&lt;/option&gt;
+&lt;option value="2000" selected&gt;2000&lt;/option&gt;
+&lt;option value="2001"&gt;2001&lt;/option&gt;
+&lt;/select&gt;</programlisting>
+</example>
+		</sect3>
+		<sect3 id="language.functions.html.select.time">
+			<title>html_select_time</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>prefix</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>Time_</entry>
+                        <entry>what to prefix the var name with</entry>
+                    </row>
+                    <row>
+                        <entry>time</entry>
+                        <entry>timestamp</entry>
+                        <entry>No</entry>
+                        <entry>current time</entry>
+                        <entry>what date/time to use</entry>
+                    </row>
+                    <row>
+                        <entry>display_hours</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to display hours</entry>
+                    </row>
+                    <row>
+                        <entry>display_minutes</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to display minutes</entry>
+                    </row>
+                    <row>
+                        <entry>display_seconds</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to display seconds</entry>
+                    </row>
+                    <row>
+                        <entry>display_meridian</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to display meridian (am/pm)</entry>
+                    </row>
+                    <row>
+                        <entry>use_24_hours</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>true</entry>
+                        <entry>whether or not to use 24 hour clock</entry>
+                    </row>
+                    <row>
+                        <entry>minute_interval</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>1</entry>
+                        <entry>number interval in minute dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>second_interval</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry>1</entry>
+                        <entry>number interval in second dropdown</entry>
+                    </row>
+                    <row>
+                        <entry>field_array</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>n/a</entry>
+                        <entry>outputs values to array of this name</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			html_select_time is a custom function that creates time dropdowns
+			for you. It can display any or all of hour, minute, second and
+            meridian.
+			</para>
+<example>
+<title>html_select_time</title>
+<programlisting>
+{html_select_time use_24_hours=true}
+
+
+OUTPUT:
+
+&lt;select name="Time_Hour"&gt;
+&lt;option value="00"&gt;00&lt;/option&gt;
+&lt;option value="01"&gt;01&lt;/option&gt;
+&lt;option value="02"&gt;02&lt;/option&gt;
+&lt;option value="03"&gt;03&lt;/option&gt;
+&lt;option value="04"&gt;04&lt;/option&gt;
+&lt;option value="05"&gt;05&lt;/option&gt;
+&lt;option value="06"&gt;06&lt;/option&gt;
+&lt;option value="07"&gt;07&lt;/option&gt;
+&lt;option value="08"&gt;08&lt;/option&gt;
+&lt;option value="09" selected&gt;09&lt;/option&gt;
+&lt;option value="10"&gt;10&lt;/option&gt;
+&lt;option value="11"&gt;11&lt;/option&gt;
+&lt;option value="12"&gt;12&lt;/option&gt;
+&lt;option value="13"&gt;13&lt;/option&gt;
+&lt;option value="14"&gt;14&lt;/option&gt;
+&lt;option value="15"&gt;15&lt;/option&gt;
+&lt;option value="16"&gt;16&lt;/option&gt;
+&lt;option value="17"&gt;17&lt;/option&gt;
+&lt;option value="18"&gt;18&lt;/option&gt;
+&lt;option value="19"&gt;19&lt;/option&gt;
+&lt;option value="20"&gt;20&lt;/option&gt;
+&lt;option value="21"&gt;21&lt;/option&gt;
+&lt;option value="22"&gt;22&lt;/option&gt;
+&lt;option value="23"&gt;23&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Time_Minute"&gt;
+&lt;option value="00"&gt;00&lt;/option&gt;
+&lt;option value="01"&gt;01&lt;/option&gt;
+&lt;option value="02"&gt;02&lt;/option&gt;
+&lt;option value="03"&gt;03&lt;/option&gt;
+&lt;option value="04"&gt;04&lt;/option&gt;
+&lt;option value="05"&gt;05&lt;/option&gt;
+&lt;option value="06"&gt;06&lt;/option&gt;
+&lt;option value="07"&gt;07&lt;/option&gt;
+&lt;option value="08"&gt;08&lt;/option&gt;
+&lt;option value="09"&gt;09&lt;/option&gt;
+&lt;option value="10"&gt;10&lt;/option&gt;
+&lt;option value="11"&gt;11&lt;/option&gt;
+&lt;option value="12"&gt;12&lt;/option&gt;
+&lt;option value="13"&gt;13&lt;/option&gt;
+&lt;option value="14"&gt;14&lt;/option&gt;
+&lt;option value="15"&gt;15&lt;/option&gt;
+&lt;option value="16"&gt;16&lt;/option&gt;
+&lt;option value="17"&gt;17&lt;/option&gt;
+&lt;option value="18"&gt;18&lt;/option&gt;
+&lt;option value="19"&gt;19&lt;/option&gt;
+&lt;option value="20" selected&gt;20&lt;/option&gt;
+&lt;option value="21"&gt;21&lt;/option&gt;
+&lt;option value="22"&gt;22&lt;/option&gt;
+&lt;option value="23"&gt;23&lt;/option&gt;
+&lt;option value="24"&gt;24&lt;/option&gt;
+&lt;option value="25"&gt;25&lt;/option&gt;
+&lt;option value="26"&gt;26&lt;/option&gt;
+&lt;option value="27"&gt;27&lt;/option&gt;
+&lt;option value="28"&gt;28&lt;/option&gt;
+&lt;option value="29"&gt;29&lt;/option&gt;
+&lt;option value="30"&gt;30&lt;/option&gt;
+&lt;option value="31"&gt;31&lt;/option&gt;
+&lt;option value="32"&gt;32&lt;/option&gt;
+&lt;option value="33"&gt;33&lt;/option&gt;
+&lt;option value="34"&gt;34&lt;/option&gt;
+&lt;option value="35"&gt;35&lt;/option&gt;
+&lt;option value="36"&gt;36&lt;/option&gt;
+&lt;option value="37"&gt;37&lt;/option&gt;
+&lt;option value="38"&gt;38&lt;/option&gt;
+&lt;option value="39"&gt;39&lt;/option&gt;
+&lt;option value="40"&gt;40&lt;/option&gt;
+&lt;option value="41"&gt;41&lt;/option&gt;
+&lt;option value="42"&gt;42&lt;/option&gt;
+&lt;option value="43"&gt;43&lt;/option&gt;
+&lt;option value="44"&gt;44&lt;/option&gt;
+&lt;option value="45"&gt;45&lt;/option&gt;
+&lt;option value="46"&gt;46&lt;/option&gt;
+&lt;option value="47"&gt;47&lt;/option&gt;
+&lt;option value="48"&gt;48&lt;/option&gt;
+&lt;option value="49"&gt;49&lt;/option&gt;
+&lt;option value="50"&gt;50&lt;/option&gt;
+&lt;option value="51"&gt;51&lt;/option&gt;
+&lt;option value="52"&gt;52&lt;/option&gt;
+&lt;option value="53"&gt;53&lt;/option&gt;
+&lt;option value="54"&gt;54&lt;/option&gt;
+&lt;option value="55"&gt;55&lt;/option&gt;
+&lt;option value="56"&gt;56&lt;/option&gt;
+&lt;option value="57"&gt;57&lt;/option&gt;
+&lt;option value="58"&gt;58&lt;/option&gt;
+&lt;option value="59"&gt;59&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Time_Second"&gt;
+&lt;option value="00"&gt;00&lt;/option&gt;
+&lt;option value="01"&gt;01&lt;/option&gt;
+&lt;option value="02"&gt;02&lt;/option&gt;
+&lt;option value="03"&gt;03&lt;/option&gt;
+&lt;option value="04"&gt;04&lt;/option&gt;
+&lt;option value="05"&gt;05&lt;/option&gt;
+&lt;option value="06"&gt;06&lt;/option&gt;
+&lt;option value="07"&gt;07&lt;/option&gt;
+&lt;option value="08"&gt;08&lt;/option&gt;
+&lt;option value="09"&gt;09&lt;/option&gt;
+&lt;option value="10"&gt;10&lt;/option&gt;
+&lt;option value="11"&gt;11&lt;/option&gt;
+&lt;option value="12"&gt;12&lt;/option&gt;
+&lt;option value="13"&gt;13&lt;/option&gt;
+&lt;option value="14"&gt;14&lt;/option&gt;
+&lt;option value="15"&gt;15&lt;/option&gt;
+&lt;option value="16"&gt;16&lt;/option&gt;
+&lt;option value="17"&gt;17&lt;/option&gt;
+&lt;option value="18"&gt;18&lt;/option&gt;
+&lt;option value="19"&gt;19&lt;/option&gt;
+&lt;option value="20"&gt;20&lt;/option&gt;
+&lt;option value="21"&gt;21&lt;/option&gt;
+&lt;option value="22"&gt;22&lt;/option&gt;
+&lt;option value="23" selected&gt;23&lt;/option&gt;
+&lt;option value="24"&gt;24&lt;/option&gt;
+&lt;option value="25"&gt;25&lt;/option&gt;
+&lt;option value="26"&gt;26&lt;/option&gt;
+&lt;option value="27"&gt;27&lt;/option&gt;
+&lt;option value="28"&gt;28&lt;/option&gt;
+&lt;option value="29"&gt;29&lt;/option&gt;
+&lt;option value="30"&gt;30&lt;/option&gt;
+&lt;option value="31"&gt;31&lt;/option&gt;
+&lt;option value="32"&gt;32&lt;/option&gt;
+&lt;option value="33"&gt;33&lt;/option&gt;
+&lt;option value="34"&gt;34&lt;/option&gt;
+&lt;option value="35"&gt;35&lt;/option&gt;
+&lt;option value="36"&gt;36&lt;/option&gt;
+&lt;option value="37"&gt;37&lt;/option&gt;
+&lt;option value="38"&gt;38&lt;/option&gt;
+&lt;option value="39"&gt;39&lt;/option&gt;
+&lt;option value="40"&gt;40&lt;/option&gt;
+&lt;option value="41"&gt;41&lt;/option&gt;
+&lt;option value="42"&gt;42&lt;/option&gt;
+&lt;option value="43"&gt;43&lt;/option&gt;
+&lt;option value="44"&gt;44&lt;/option&gt;
+&lt;option value="45"&gt;45&lt;/option&gt;
+&lt;option value="46"&gt;46&lt;/option&gt;
+&lt;option value="47"&gt;47&lt;/option&gt;
+&lt;option value="48"&gt;48&lt;/option&gt;
+&lt;option value="49"&gt;49&lt;/option&gt;
+&lt;option value="50"&gt;50&lt;/option&gt;
+&lt;option value="51"&gt;51&lt;/option&gt;
+&lt;option value="52"&gt;52&lt;/option&gt;
+&lt;option value="53"&gt;53&lt;/option&gt;
+&lt;option value="54"&gt;54&lt;/option&gt;
+&lt;option value="55"&gt;55&lt;/option&gt;
+&lt;option value="56"&gt;56&lt;/option&gt;
+&lt;option value="57"&gt;57&lt;/option&gt;
+&lt;option value="58"&gt;58&lt;/option&gt;
+&lt;option value="59"&gt;59&lt;/option&gt;
+&lt;/select&gt;
+&lt;select name="Time_Meridian"&gt;
+&lt;option value="am" selected&gt;AM&lt;/option&gt;
+&lt;option value="pm"&gt;PM&lt;/option&gt;
+&lt;/select&gt;</programlisting>
+</example>
+		</sect3>
+		<sect3 id="language.functions.math">
+			<title>math</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>equation</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the equation to execute</entry>
+                    </row>
+                    <row>
+                        <entry>format</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the format of the result (sprintf)</entry>
+                    </row>
+                    <row>
+                        <entry>var</entry>
+                        <entry>numeric</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>equation variable value</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>template variable the output will be assigned to</entry>
+                    </row>
+                    <row>
+                        <entry>[var ...]</entry>
+                        <entry>numeric</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>equation variable value</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            math allows the template designer to do math equations in the
+            template. Any numeric template variables may be used in the
+            equations, and the result is printed in place of the tag. The
+            variables used in the equation are passed as parameters, which can
+            be template variables or static values. +, -, /, *, abs, ceil, cos,
+            exp, floor, log, log10, max, min, pi, pow, rand, round, sin, sqrt,
+            srans and tan are all valid operators. Check the PHP documenation
+            for further information on these math functions.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			math function will be assigned to this template variable instead of
+			being output to the template.
+			</para>
+<example>
+<title>math</title>
+<programlisting>
+{* $height=4, $width=5 *}
+
+{math equation="x + y" x=$height y=$width}
+
+OUTPUT:
+
+9
+
+
+{* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
+
+{math equation="height * width / division"
+      height=$row_height
+      width=$row_width
+      division=#col_div#}
+
+OUTPUT:
+
+100
+
+
+{* you can use parenthesis *}
+
+{math equation="(( x + y ) / z )" x=2 y=10 z=2}
+
+OUTPUT:
+
+6
+
+
+{* you can supply a format parameter in sprintf format *}
+
+{math equation="x + y" x=4.4444 y=5.0000 format="%.2f"}
+
+OUTPUT:
+
+9.44</programlisting>
+</example>
+		</sect3>
+		<sect3 id="language.functions.popup.init">
+			<title>popup_init</title>
+			<para>
+			popup is an integration of overLib, a library used for popup
+			windows. These are used for context sensitive information, such as
+			help windows or tooltips. popup_init must be called once at the
+			top of any page you plan on using the <link
+			linkend="language.functions.popup">popup</link> function. overLib
+			was written by Erik Bosrup, and the homepage is located at
+			http://www.bosrup.com/web/overlib/.
+			</para>
+			<para>
+			This was added to Smarty 1.4.4.
+			</para>
+		</sect3>
+		<sect3 id="language.functions.popup">
+			<title>popup</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>text</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the text/html to display in the popup window</entry>
+                    </row>
+                    <row>
+                        <entry>trigger</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>onMouseOver</emphasis></entry>
+                        <entry>What is used to trigger the popup window. Can be
+						one of onMouseOver or onClick</entry>
+                    </row>
+                    <row>
+                        <entry>sticky</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>Makes the popup stick around until closed</entry>
+                    </row>
+                    <row>
+                        <entry>caption</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the caption to title</entry>
+                    </row>
+                    <row>
+                        <entry>fgcolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>color of the inside of the popup box</entry>
+                    </row>
+                    <row>
+                        <entry>bgcolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>color of the border of the popup box</entry>
+                    </row>
+                    <row>
+                        <entry>textcolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the color of the text inside the box</entry>
+                    </row>
+                    <row>
+                        <entry>capcolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets color of the box's caption</entry>
+                    </row>
+                    <row>
+                        <entry>closecolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the color of the close text</entry>
+                    </row>
+                    <row>
+                        <entry>textfont</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the font to be used by the main text</entry>
+                    </row>
+                    <row>
+                        <entry>captionfont</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the font of the caption</entry>
+                    </row>
+                    <row>
+                        <entry>closefont</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the font for the "Close" text</entry>
+                    </row>
+                    <row>
+                        <entry>textsize</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the size of the main text's font</entry>
+                    </row>
+                    <row>
+                        <entry>captionsize</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the size of the caption's font</entry>
+                    </row>
+                    <row>
+                        <entry>closesize</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the size of the "Close" text's font</entry>
+                    </row>
+                    <row>
+                        <entry>width</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the width of the box</entry>
+                    </row>
+                    <row>
+                        <entry>height</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the height of the box</entry>
+                    </row>
+                    <row>
+                        <entry>left</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go to the left of the mouse</entry>
+                    </row>
+                    <row>
+                        <entry>right</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go to the right of the mouse</entry>
+                    </row>
+                    <row>
+                        <entry>center</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go to the center of the mouse</entry>
+                    </row>
+                    <row>
+                        <entry>above</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go above the mouse. NOTE: only
+						possible when height has been set</entry>
+                    </row>
+                    <row>
+                        <entry>below</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go below the mouse</entry>
+                    </row>
+                    <row>
+                        <entry>border</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>makes the border of the popups thicker or thinner</entry>
+                    </row>
+                    <row>
+                        <entry>offsetx</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>how far away from the pointer the popup will show
+						up, horizontally</entry>
+                    </row>
+                    <row>
+                        <entry>offsety</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>how far away from the pointer the popup will show
+						up, vertically</entry>
+                    </row>
+                    <row>
+                        <entry>fgbackground</entry>
+                        <entry>url to image</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>defines a picture to use instead of color for the
+						inside of the popup.</entry>
+                    </row>
+                    <row>
+                        <entry>bgbackground</entry>
+                        <entry>url to image</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>defines a picture to use instead of color for the
+						border of the popup. NOTE: You will want to set bgcolor
+						to "" or the color will show as well. NOTE: When having
+						a Close link, Netscape will re-render the table cells,
+						making things look incorrect</entry>
+                    </row>
+                    <row>
+                        <entry>closetext</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the "Close" text to something else</entry>
+                    </row>
+                    <row>
+                        <entry>noclose</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>does not display the "Close" text on stickies
+						with a caption</entry>
+                    </row>
+                    <row>
+                        <entry>status</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the text in the browsers status bar</entry>
+                    </row>
+                    <row>
+                        <entry>autostatus</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the status bar's text to the popup's text.
+						NOTE: overrides status setting</entry>
+                    </row>
+                    <row>
+                        <entry>autostatuscap</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the status bar's text to the caption's text.
+						NOTE: overrides status and autostatus settings</entry>
+                    </row>
+                    <row>
+                        <entry>inarray</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>tells overLib to read text from this index in
+						the ol_text array, located in overlib.js. This
+						parameter can be used instead of text</entry>
+                    </row>
+                    <row>
+                        <entry>caparray</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>tells overLib to read the caption from this index
+						in the ol_caps array</entry>
+                    </row>
+                    <row>
+                        <entry>capicon</entry>
+                        <entry>url</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>displays the image given before the popup caption</entry>
+                    </row>
+                    <row>
+                        <entry>snapx</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>snaps the popup to an even position in a
+						horizontal grid</entry>
+                    </row>
+                    <row>
+                        <entry>snapy</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>snaps the popup to an even position in a
+						vertical grid</entry>
+                    </row>
+                    <row>
+                        <entry>fixx</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>locks the popups horizontal position Note:
+						overrides all other horizontal placement</entry>
+                    </row>
+                    <row>
+                        <entry>fixy</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>locks the popups vertical position Note:
+						overrides all other vertical placement</entry>
+                    </row>
+                    <row>
+                        <entry>background</entry>
+                        <entry>url</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets image to be used instead of table box
+						background</entry>
+                    </row>
+                    <row>
+                        <entry>padx</entry>
+                        <entry>integer,integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>pads the background image with horizontal
+						whitespace for text placement. Note: this is a two
+						parameter command</entry>
+                    </row>
+                    <row>
+                        <entry>pady</entry>
+                        <entry>integer,integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>pads the background image with vertical
+						whitespace for text placement. Note: this is a two
+						parameter command</entry>
+                    </row>
+                    <row>
+                        <entry>fullhtml</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>allows you to control the html over a background
+						picture completely. The html code is expected in the "text"
+						attribute</entry>
+                    </row>
+                    <row>
+                        <entry>frame</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>controls popups in a different frame. See the
+						overlib page for more info on this function</entry>
+                    </row>
+                    <row>
+                        <entry>timeout</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>calls the specified javascript function and takes
+						the return value as the text that should be displayed in
+						the popup window</entry>
+                    </row>
+                    <row>
+                        <entry>delay</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>makes that popup behave like a tooltip. It will
+						popup only after this delay in milliseconds</entry>
+                    </row>
+                    <row>
+                        <entry>hauto</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>automatically determine if the popup should be to
+						the left or right of the mouse.</entry>
+                    </row>
+                    <row>
+                        <entry>vauto</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>automatically determine if the popup should be
+						above or below the mouse.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			popup is used to create javascript popup windows.
+			</para>
+<example>
+<title>popup</title>
+<programlisting>
+{* popup_init must be called once at the top of the page *}
+{popup_init}
+
+{* create a link with a popup window when you move your mouse over *}
+&lt;A href="mypage.html" {popup text="This link takes you to my page!"}&gt;mypage&lt;/A&gt;
+
+{* you can use html, links, etc in your popup text *}
+&lt;A href="mypage.html" {popup sticky=true caption="mypage contents"
+text="&lt;UL&gt;&lt;LI&gt;links&lt;LI&gt;pages&lt;LI&gt;images&lt;/UL&gt;" snapx=10 snapy=10}&gt;mypage&lt;/A&gt;
+
+OUTPUT:
+
+(See the Smarty official web site for working examples.)</programlisting>
+</example>
+		</sect3>
+       </sect2>
+	</sect1>
+
+  </chapter>
+  <chapter id="config.files">
+		<title>Config Files</title>
+		<para>
+        Config files are handy for designers to manage global template
+        variables from one file. One example is template colors. Normally if
+        you wanted to change the color scheme of an application, you would have
+        to go through each and every template file and change the colors. With
+        a config file, the colors can be kept in one place, and only one file
+        needs to be updated. Note that to use config files, you must place the
+        Config_File.class.php in your PHP include path. Config_File.class.php
+        comes bundled with Smarty. Smarty will implicitly include the file if
+        you don't already include it in your application.
+		</para>
+<example>
+<title>Example of config file syntax</title>
+<programlisting>
+# global variables
+pageTitle = "Main Menu"
+bodyBgColor = #000000
+tableBgColor = #000000
+rowBgColor = #00ff00
+
+[Customer]
+pageTitle = "Customer Info"
+
+[Login]
+pageTitle = "Login"
+focus = "username"
+Intro = """This is a value that spans more
+            than one line. you must enclose
+			it in triple quotes."""
+
+# hidden section
+[.Database]
+host=my.domain.com
+db=ADDRESSBOOK
+user=php-user
+pass=foobar
+</programlisting>
+</example>
+			<para>
+			Values of config file variables can be in quotes, but not necessary.
+			You can use either single or double quotes. If you have a value that
+			spans more than one line, enclose the entire value with triple quotes
+			("""). You can put comments into config files by any syntax that is
+			not a valid config file syntax. We recommend using a hashmark (#) at the
+			beginning of the line.
+			</para>
+			<para>
+			This config file example has two sections. Section names are enclosed
+			in brackets []. The four variables at the top are global
+			variables, or variables not within a section. These variables are
+			always loaded from the config file.
+			If a particular section is loaded, then the global variables and the
+			variables from that section are loaded. If a variable exists both as
+			a global and in a section, the section variable is used. If you name two
+			variables the same within a section, the last one will be used.
+			</para>
+			<para>
+			Config files are loaded into templates with the built-in function
+			called <link linkend="builtin.functions.configload">config_load</link>.
+			</para>
+			<para>
+			You can hide variables or entire sections by prepending the variable
+			name or section name with a period. This is useful if your
+			application reads the config files and gets sensitive data from them
+			that the template engine does not need. If you have third parties
+			doing template editing, you can be certain that they cannot read
+			sensitive data from the config file by loading it into the template.
+			This is new in Smarty 1.4.6.
+			</para>
+</chapter>
+
+
+  <chapter id="chapter.debugging.console">
+   <title>Debugging Console</title>
+   <para>
+   There is a dubugging console included with Smarty. The console informs you
+   of all the included templates, assigned variables and config file variables
+   for the current invocation of the template. A template named "debug.tpl" is
+   included with the distribution of Smarty which controls the formatting of
+   the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
+   to the template resource path for debug.tpl (this is in $template_dir by
+   default.) When you load the page, a javascript console window should pop up
+   and give you the names of all the included templates and assigned variables
+   for the current page. To disable the debugging console, set $debugging to
+   false. You can also temporarily turn on the debugging console by putting
+   SMARTY_DEBUG in the URL if you enable this option with <link
+   linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
+   </para>
+   <para>
+   TECHNICAL NOTE: The debugging console does not work when you use the fetch()
+   API, only when using display(). It is a set of javascript statements added
+   to the very bottom of the generated template. If you do not like javascript,
+   you can edit the debug.tpl template to format the output however you like.
+   Debug data is not cached and debug.tpl info is not included in the output of
+   the debug console.
+   </para>
+   <note>
+   <para>
+   The load times of each template and config file are in seconds, or
+   fractions thereof.
+   </para>
+  </note>
+</chapter>
+ </part>
