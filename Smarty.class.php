@@ -426,9 +426,10 @@ class Smarty
 			default:
 				if (isset($this->custom_funcs[$tag_command])) {
 					return $this->_compile_custom_tag($tag_command, $tag_args);
-				} else
-					/* TODO syntax error: unknown tag */
-				return "";
+				} else {
+					trigger_error("Smarty: syntax error: unknown tag - '$tag_command'", E_USER_WARNING);
+					return "";
+				}
 		}
 	}
 
@@ -453,7 +454,7 @@ class Smarty
 		$name = substr($attrs['name'], 1, -1);
 
 		if (empty($name)) {
-			/* TODO syntax error: missing insert name */
+			trigger_error("Smarty: syntax error: missing insert name", E_USER_ERROR);
 		}
 
 		foreach ($attrs as $arg_name => $arg_value) {
@@ -472,7 +473,7 @@ class Smarty
 		$attrs = $this->_parse_attrs($tag_args);
 
 		if (empty($attrs['file'])) {
-			/* TODO syntax error: missing 'file' attribute */
+			trigger_error("Smarty: syntax error: missing 'file' attribute in config_load tag", E_USER_ERROR);
 		}
 
 		$output  = "<?php if (!class_exists('Config_File'))\n" .
@@ -496,7 +497,7 @@ class Smarty
 		$attrs = $this->_parse_attrs($tag_args);
 
 		if (empty($attrs['file'])) {
-			/* TODO syntax error: missing 'file' attribute */
+			trigger_error("Smarty: syntax error: missing 'file' attribute in include tag", E_USER_ERROR);
 		} else
 			$attrs['file'] = $this->_dequote($attrs['file']);
 
@@ -530,7 +531,7 @@ class Smarty
 		$output = "<?php\n";
 		$section_name = $attrs['name'];
 		if (empty($section_name)) {
-			/* TODO syntax error: section needs a name */
+			trigger_error("Smarty: syntax error: missing section name", E_USER_ERROR);
 		}
 
 		$output .= "unset(\$_sections[$section_name]);\n";
@@ -716,12 +717,12 @@ class Smarty
 					$expr_arg = $tokens[$expr_end++];
 					$expr = "!($is_arg % $expr_arg)";
 				} else {
-					/* TODO syntax error: expecting 'by' */
+					trigger_error("Smarty: syntax error: expecting 'by' after 'div'", E_USER_ERROR);
 				}
 				break;
 
 			default:
-				/* TODO strict syntax checking */
+				trigger_error("Smarty: syntax error: unknown 'is' expression - '$expr_type'", E_USER_ERROR);
 				break;
 		}
 
@@ -761,7 +762,7 @@ class Smarty
 						$attr_name = $token;
 						$state = 1;
 					} else
-						/* TODO syntax error: invalid attr name */;
+						trigger_error("Smarty: syntax error: invalid attribute name - '$token'", E_USER_ERROR);
 					break;
 
 				case 1:
@@ -774,7 +775,7 @@ class Smarty
 					if ($token == '=') {
 						$state = 2;
 					} else
-						/* TODO syntax error: expecting '=' */;
+						trigger_error("Smarty: syntax error: expecting '=' after attribute name", E_USER_ERROR);
 					break;
 
 				case 2:
@@ -798,7 +799,7 @@ class Smarty
 						$attrs[$attr_name] = $token;
 						$state = 0;
 					} else
-						/* TODO syntax error: '=' can't be a value */;
+						trigger_error("Smarty: syntax error: '=' cannot be an attribute value", E_USER_ERROR);
 					break;
 			}
 		}
