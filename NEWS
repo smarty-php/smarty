@@ -1,8 +1,9 @@
-    - added modifiers wordwrap and indent (Monte)
-    - added support for If-Modified-Since headers for cached content (Monte)
-    - removed insert_tag_check, no longer needed (Monte)
-    - optimize cache fetches by scanning for insert tags only if they exist (Monte)
-    - fixed bugs in overlib (Monte, Duncan Forrest)
+    - added modifiers wordwrap and indent. (Monte)
+    - added support for 'If-Modified-Since' headers for cached content. (Monte)
+    - removed insert_tag_check class variable, no longer needed. (Monte)
+    - optimized cache fetches by scanning for insert tags only if they exist.
+      (Monte)
+    - fixed bugs in overlib. (Monte, Duncan Forrest)
     - fixed a problem with compile_id usage. (Andrei)
     - fixed problem with using assigned vars with {include_php ...} filepath.
       (Monte)
