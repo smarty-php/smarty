@@ -1,3 +1,8 @@
+2002-06-23  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/shared.make_timestamp.php:
+    update timestamp plugin to work when passed a timestamp
+
 2002-06-19  Monte Ohrt  <monte@ispi.net>
 
     * NEWS: update NEWS file
