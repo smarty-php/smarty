@@ -80,11 +80,9 @@ class Smarty_Compiler extends Smarty {
         $rdq = preg_quote($this->right_delimiter, '!');
 
         /* Annihilate the comments. */
-        if (preg_match_all("!{$ldq}\*.*?\*{$rdq}!s", $template_source, $match)) {
-            foreach ($match[0] as $comment)
-                $this->_current_line_no += substr_count($comment, "\n");
-            $template_source = preg_replace("!{$ldq}\*.*?\*{$rdq}!s", '', $template_source);
-        }
+        $template_source = preg_replace("!({$ldq})\*(.*?)\*({$rdq})!se",
+                                        "'\\1*'.str_repeat(\"\n\", substr_count('\\2', \"\n\")) .'*\\3'",
+                                        $template_source);
         
         /* Pull out the literal blocks. */
         preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $match);
@@ -175,6 +173,10 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_tag($template_tag)
     {
+        /* Matched comment. */
+        if ($template_tag{0} == '*' && $template_tag{strlen($template_tag) - 1} == '*')
+            return '';
+
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
         /* Split tag into two parts: command and the arguments. */

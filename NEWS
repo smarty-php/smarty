@@ -1,4 +1,6 @@
-    - made html_options output xhtml compatible (Monte, Arnaud Limbourg)
+    - added fix for removing comments so that the line numbers are reported
+      correctly in case of errors. (patch from Anders Janson)
+    - made html_options output xhtml compatible code. (Monte, Arnaud Limbourg)
 
 Version 1.4.5
 -------------
