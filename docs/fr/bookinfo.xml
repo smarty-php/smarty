@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: didou Status: ready -->
 <bookinfo id="bookinfo">
  <title>Smarty - le moteur et compilateur de templates PHP</title>
  <authorgroup id="authors">
@@ -33,7 +33,7 @@
  </authorgroup>
  <pubdate>&build-date;</pubdate>
  <copyright>
-  <year>2001-2004</year>
+  <year>2001-2005</year>
   <holder>ispi of Lincoln, Inc.</holder>
  </copyright>
 </bookinfo>
