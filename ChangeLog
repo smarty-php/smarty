@@ -1,3 +1,8 @@
+2004-03-20  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/manual.xml.in:
+      fix build date
+
 2004-03-18  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/core/core.is_secure.php:
