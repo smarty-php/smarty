@@ -1,3 +1,42 @@
+QUESTION INDEX
+--------------
+
+Q: What is Smarty?
+Q: What's the difference between Smarty and other template engines?
+Q: What do you mean "Compiled PHP Scripts" ?
+Q: Why can't I just use APC <http://apc.communityconnect.com/> (or Zend Cache)?
+Q: Why does smarty have a built in cache? Wouldn't it be better to handle this
+   in a separate class?
+Q: Is Smarty faster than <insert other PHP template engine>?
+Q: How can I be sure to get the best performance from Smarty?
+Q: Do you have a mailing list?
+
+Q: Smarty doesn't work.
+Q: I get the following error when running Smarty:
+   Warning: Wrong parameter count for preg_replace() in
+   Smarty.class.php on line 371
+Q: I get the following error when running Smarty:
+   Fatal error: Failed opening required 'PEAR.php'
+   (include_path='') in Config_File.class.php on line 3
+Q: I get this error when passing variables to {include}:
+   Fatal error: Call to undefined function: get_defined_vars() in
+   /path/to/Smarty/templates_c/index.tpl.php on line 8
+Q: I get PHP errors in my {if} tag logic.
+Q: I'm changing my php code and/or templates, and my results are not getting
+   updated.
+Q: I'm running Windows 2000 and I get blank content. My compiled PHP files are
+   also zero length.
+Q: The template goes into an infinite loop when I include included templates
+   that pass local variables
+Q: My ISP did not setup the PEAR repository, nor will they set it up. How do I
+   make Smarty run without it?
+Q: Javascript is causing Smarty errors in my templates.
+
+Q: Can I use Macromedia's Dreamweaver to edit my templates?
+Q: Dreamweaver is urlencoding the template delimiters when they are in a SRC or
+   HREF link. How do I get around this?
+
+
 GENERAL
 -------
 

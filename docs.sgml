@@ -2043,7 +2043,7 @@ Intro = """This is a value that spans more
 			do something with the passed values and return the results. These results
 			are then displayed in the template in place of the insert tag.
 			In this example, Smarty would call this function:
-			insert_getBanner(array("banner_id" => "12345","page_id" => "67890"));
+			insert_getBanner(array("lid" => "12345","sid" => "67890"));
 			and display the returned results in place of the insert tag.
 			</para>
 			<para>
