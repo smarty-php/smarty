@@ -151,14 +151,16 @@ class Smarty_Compiler extends Smarty {
         // $foo->bar($foo->bar())
         // $foo->bar($foo->bar($blah,$foo,44,"foo",$foo[0].bar))
         $this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
-        $this->_obj_params_regexp = '\((?:\w+|(?:'
+        $this->_obj_restricted_param_regexp = '(?:'
                 . $this->_var_regexp . '(?:' . $this->_obj_ext_regexp . '(?:\((?:' . $this->_var_regexp
-                . '(?:\s*,\s*' . $this->_var_regexp . ')*)?\))?)*)(?:\s*,\s*(?:(?:\w+|'
-                . $this->_var_regexp . '(?:' . $this->_obj_ext_regexp . '(?:\((?:' . $this->_var_regexp
-                . '(?:\s*,\s*' . $this->_var_regexp . ')*)?\))?))))*)?\)';
+                . '(?:\s*,\s*' . $this->_var_regexp . ')*)?\))?)*)';
+        $this->_obj_single_param_regexp = '(?:\w+|' . $this->_obj_restricted_param_regexp . '(?:\s*,\s*(?:(?:\w+|'
+                . $this->_var_regexp . $this->_obj_restricted_param_regexp . ')))*)';
+        $this->_obj_params_regexp = '\((?:' . $this->_obj_single_param_regexp
+                . '(?:\s*,\s*' . $this->_obj_single_param_regexp . ')*)?\)';
         $this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
         $this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?)';
-
+        
         // matches valid modifier syntax:
         // |foo
         // |@foo

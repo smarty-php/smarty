@@ -3,6 +3,16 @@
 require_once './config.php';
 require_once SMARTY_DIR . 'Smarty.class.php';
 require_once 'PHPUnit.php';
+
+class Obj {
+    var $val = 'val';
+    var $arr = array('one' => 'one');
+
+    function meth($a="a", $b="b") {
+        return "$a:$b";
+    }
+}
+
     
 class SmartyTest extends PHPUnit_TestCase {
     // contains the object handle of the string class
@@ -229,6 +239,22 @@ class SmartyTest extends PHPUnit_TestCase {
     function test_assign_var() {
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($this->smarty->fetch('assign_var.tpl'), 'bar');
+    }
+
+    // test assigning and calling an object
+    function test_obj_meth() {
+        $obj  = new Obj();
+        $this->smarty->assign('obj', $obj);
+        $this->smarty->assign('foo', 'foo');
+        $this->assertEquals(
+'foo:2.5
+2.5:foo
+2.5:b
+val:foo
+foo:val
+foo:foo
+one:2
+foo:foo:b',   $this->smarty->fetch('assign_obj.tpl'));
     }
     
     /* CONFIG FILE TESTS */
