@@ -69,7 +69,8 @@ function smarty_function_html_image($params, &$smarty)
 	}
 
     if (empty($file)) {
-        $smarty->trigger_error("html_image: missing 'file' parameter", E_USER_ERROR);
+        $smarty->trigger_error("html_image: missing 'file' parameter", E_USER_NOTICE);
+        return;
     }
 
 	if(substr($file,0,1) == DIR_SEP) {
@@ -81,15 +82,19 @@ function smarty_function_html_image($params, &$smarty)
 	if(!isset($params['width']) || !isset($params['height'])) {
 		if(!$_image_data = @getimagesize($_image_path)) {
 			if(!file_exists($_image_path)) {
-        		$smarty->trigger_error("html_image: unable to find '$_image_path'", E_USER_ERROR);		
+        		$smarty->trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);		
+                return;
 			} else if(!is_readable($_image_path)) {
-        		$smarty->trigger_error("html_image: unable to read '$_image_path'", E_USER_ERROR);		
+        		$smarty->trigger_error("html_image: unable to read '$_image_path'", E_USER_NOTICE);		
+                return;
 			} else {
-        		$smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_ERROR);
+        		$smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
+                return;
 			}
 		}
 		if(!$smarty->security && !$smarty->_is_secure('file', $_image_path)) {
-        	$smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_ERROR);		
+        	$smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);		
+            return;
 		}	
 		
 		if(!isset($params['width'])) {
