@@ -1,3 +1,5 @@
+  - fix bug with fetch, passing user/pass in url did not work
+    (Monte)
   - fix occasional wrong error messages on mismatched tags when
     {else}, {elseif}, {foreachelse} or {sectionelse} is involved (messju)
   - fix handling of methods arguments (messju, Manfred Wischin)

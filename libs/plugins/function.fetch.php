@@ -64,8 +64,11 @@ function smarty_function_fetch($params, &$smarty)
                 } else {
                     $port = $uri_parts['port'];
                 }
-                if(empty($uri_parts['user'])) {
-                    $user = '';
+                if(!empty($uri_parts['user'])) {
+                    $user = $uri_parts['user'];
+                }
+                if(!empty($uri_parts['pass'])) {
+                    $pass = $uri_parts['pass'];
                 }
                 // loop through parameters, setup headers
                 foreach($params as $param_key => $param_value) {
