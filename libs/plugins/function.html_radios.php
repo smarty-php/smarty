@@ -20,7 +20,8 @@
  *           - options    (optional) - associative array
  *           - checked    (optional) - array default not set
  *           - separator  (optional) - ie <br> or &nbsp;
- *           - output     (optional) - without this one the buttons don't have names
+ *           - output     (optional) - the output next to each radio button
+ *           - assign     (optional) - assign the output as an array to this variable
  * Examples:
  * <pre>
  * {html_radios values=$ids output=$names}
@@ -98,23 +99,27 @@ function smarty_function_html_radios($params, &$smarty)
     if (!isset($options) && !isset($values))
         return ''; /* raise error here? */
 
-    $_html_result = '';
+    $_html_result = array();
 
     if (isset($options) && is_array($options)) {
 
         foreach ((array)$options as $_key=>$_val)
-            $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
+            $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
 
     } else {
 
         foreach ((array)$values as $_i=>$_key) {
             $_val = isset($output[$_i]) ? $output[$_i] : '';
-            $_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
+            $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
         }
 
     }
 
-    return $_html_result;
+    if(!empty($params['assign'])) {
+        $smarty->assign($params['assign'], $_html_result);
+    } else {
+        return implode("\n",$_html_result);
+    }
 
 }
 
@@ -130,7 +135,7 @@ function smarty_function_html_radios_output($name, $value, $output, $selected, $
     }
     $_output .= $extra . ' />' . $output;
     if ($labels) $_output .= '</label>';
-    $_output .=  $separator . "\n";
+    $_output .=  $separator;
 
     return $_output;
 }

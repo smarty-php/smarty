@@ -105,7 +105,7 @@ function smarty_function_mailto($params, &$smarty)
             $js_encode .= '%' . bin2hex($string[$x]);
         }
 
-        return '<script type="text/javascript" language="javascript">eval(unescape(\''.$js_encode.'\'))</script>';
+        return '<script type="text/javascript">eval(unescape(\''.$js_encode.'\'))</script>';
 
     } elseif ($encode == 'hex') {
 

@@ -1,3 +1,9 @@
+  - add assign attribute to html_checkboxes and html_radios
+    (pcg, Monte)
+  - remove non-xhtml conformant tag from mailto function
+    (tacker, Monte)
+  - handle date_format codes %e, %T and %D for windows (tip,
+    Monte)
   - fix unnecessary call to smarty_core_get_include_path() inside
     Smarty::_get_auto_filename() (c960657, messju)
   - add error-messages when anything else than an identifier is passed
