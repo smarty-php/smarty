@@ -55,7 +55,7 @@
 // the object
 
 class My_Object {
-	function meth1($params, &amp;$smarty_obj) {
+	function meth1($params, &$smarty_obj) {
 		return "this is my meth1";
 	}
 }
@@ -110,7 +110,7 @@ the output was {$output}
 <![CDATA[
 <?php
 // put this in your application
-function remove_dw_comments($tpl_source, &amp;$smarty)
+function remove_dw_comments($tpl_source, &$smarty)
 {
     return preg_replace("/<!--#.*-->/U","",$tpl_source);
 }
@@ -147,7 +147,7 @@ $smarty->display("index.tpl");
 <![CDATA[
 <?php
 // put this in your application
-function add_header_comment($tpl_source, &amp;$smarty)
+function add_header_comment($tpl_source, &$smarty)
 {
     return "<?php echo \"<!-- Created by Smarty! -->;\n\" ?>;\n".$tpl_source;
 }
@@ -191,7 +191,7 @@ $smarty->display("index.tpl");
 <![CDATA[
 <?php
 // put this in your application
-function protect_email($tpl_output, &amp;$smarty)
+function protect_email($tpl_output, &$smarty)
 {
     $tpl_output =
        preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
@@ -265,7 +265,7 @@ CacheContents MEDIUMTEXT NOT NULL
 
 */
 
-function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
+function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
 {
 	// set db host, user and pass here
 	$db_host = 'localhost';
@@ -458,7 +458,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 <![CDATA[
 <?php
 // put these function somewhere in your application
-function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
+function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
 {
     // do database call here to fetch your template,
     // populating $tpl_source
@@ -474,7 +474,7 @@ function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
     }
 }
 
-function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
+function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
 {
     // do database call here to populate $tpl_timestamp.
     $sql = new SQL;
@@ -489,13 +489,13 @@ function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
     }
 }
 
-function db_get_secure($tpl_name, &amp;$smarty_obj)
+function db_get_secure($tpl_name, &$smarty_obj)
 {
     // assume all templates are secure
     return true;
 }
 
-function db_get_trusted($tpl_name, &amp;$smarty_obj)
+function db_get_trusted($tpl_name, &$smarty_obj)
 {
     // not used for templates
 }
@@ -532,7 +532,7 @@ $smarty->display("db:index.tpl");
 <?php
 // put this function somewhere in your application
 
-function make_template ($resource_type, $resource_name, &amp;$template_source, &amp;$template_timestamp, &amp;$smarty_obj)
+function make_template ($resource_type, $resource_name, &$template_source, &$template_timestamp, &$smarty_obj)
 {
 	if( $resource_type == 'file' ) {
 		if ( ! is_readable ( $resource_name )) {

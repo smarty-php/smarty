@@ -182,7 +182,7 @@ require_once $smarty->_get_plugin_filepath('function', 'html_options');
  * Purpose:  outputs a random magic answer
  * -------------------------------------------------------------
  */
-function smarty_function_eightball($params, &amp;$smarty)
+function smarty_function_eightball($params, &$smarty)
 {
     $answers = array('Yes',
                      'No',
@@ -221,7 +221,7 @@ Answer: {eightball}.
  * Purpose:  assign a value to a template variable
  * -------------------------------------------------------------
  */
-function smarty_function_assign($params, &amp;$smarty)
+function smarty_function_assign($params, &$smarty)
 {
     if (empty($params['var'])) {
         $smarty->trigger_error("assign: missing 'var' parameter");
@@ -415,7 +415,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
  * Purpose:  translate a block of text
  * -------------------------------------------------------------
  */
-function smarty_block_translate($params, $content, &amp;$smarty)
+function smarty_block_translate($params, $content, &$smarty)
 {
     if (isset($content)) {
         $lang = $params['lang'];
@@ -470,7 +470,7 @@ function smarty_block_translate($params, $content, &amp;$smarty)
  *           the time it was compiled.
  * -------------------------------------------------------------
  */
-function smarty_compiler_tplheader($tag_arg, &amp;$smarty)
+function smarty_compiler_tplheader($tag_arg, &$smarty)
 {
     return "\necho '" . $smarty->_current_file . " compiled at " . date('Y-m-d H:M'). "';";
 }
@@ -547,7 +547,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Purpose:  Convert html tags to be lowercase.
  * -------------------------------------------------------------
  */
- function smarty_prefilter_pre01($source, &amp;$smarty)
+ function smarty_prefilter_pre01($source, &$smarty)
  {
      return preg_replace('!<(\w+)[^>]+>!e', 'strtolower("$1")', $source);
  }
@@ -570,7 +570,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Purpose:  Output code that lists all current template vars.
  * -------------------------------------------------------------
  */
- function smarty_postfilter_post01($compiled, &amp;$smarty)
+ function smarty_postfilter_post01($compiled, &$smarty)
  {
      $compiled = "<pre>\n<?php print_r(\$this->get_template_vars()); ?>\n</pre>" . $compiled;
      return $compiled;
@@ -614,7 +614,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  *           a simple protection against spambots
  * -------------------------------------------------------------
  */
- function smarty_outputfilter_protect_email($output, &amp;$smarty)
+ function smarty_outputfilter_protect_email($output, &$smarty)
  {
      return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
                          '$1%40$2', $output);
@@ -716,7 +716,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Purpose:  Fetches templates from a database
  * -------------------------------------------------------------
  */
-function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
+function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
 {
     // do database call here to fetch your template,
     // populating $tpl_source
@@ -732,7 +732,7 @@ function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
     }
 }
 
-function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty)
+function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
 {
     // do database call here to populate $tpl_timestamp.
     $sql = new SQL;
@@ -747,13 +747,13 @@ function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smar
     }
 }
 
-function smarty_resource_db_secure($tpl_name, &amp;$smarty)
+function smarty_resource_db_secure($tpl_name, &$smarty)
 {
     // assume all templates are secure
     return true;
 }
 
-function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
+function smarty_resource_db_trusted($tpl_name, &$smarty)
 {
     // not used for templates
 }
@@ -799,7 +799,7 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
  * Purpose:  Inserts current date/time according to format
  * -------------------------------------------------------------
  */
-function smarty_insert_time($params, &amp;$smarty)
+function smarty_insert_time($params, &$smarty)
 {
     if (empty($params['format'])) {
         $smarty->trigger_error("insert time: missing 'format' parameter");

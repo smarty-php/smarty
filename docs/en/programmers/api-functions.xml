@@ -422,7 +422,7 @@ if(!$smarty->is_cached("index.tpl"))
     $db_data = array(
 	    "City" => "Lincoln",
 	    "State" => "Nebraska",
-	    "Zip" = > "68502"
+	    "Zip" => "68502"
 	    );
 
     $smarty->assign("Name","Fred");
@@ -511,7 +511,7 @@ if(!$smarty->is_cached("index.tpl"))
     $db_data = array(
 	    "City" => "Lincoln",
 	    "State" => "Nebraska",
-	    "Zip" = > "68502"
+	    "Zip" => "68502"
 	    );
 
     $smarty->assign("Name","Fred");
@@ -577,10 +577,10 @@ print_r($config_vars);
 <programlisting role="php">
 <![CDATA[
 <?php
-function smarty_block_foo($params, &amp;$smarty) {
-	if (isset[$params['object']]) {
+function smarty_block_foo($params, &$smarty) {
+	if (isset($params['object'])) {
 		// get reference to registered object
-   		$obj_ref = &amp;$smarty->&get_registered_object($params['object']);
+   		$obj_ref = &$smarty->get_registered_object($params['object']);
 		// use $obj_ref is now a reference to the object
 	}
 }
@@ -735,7 +735,7 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 <?php
 $smarty->register_block("translate", "do_translation");
 
-function do_translation ($params, $content, &amp;$smarty, &amp;$repeat) {
+function do_translation ($params, $content, &$smarty, &$repeat) {
     if (isset($content)) {
         $lang = $params['lang'];
         // do some translation with $content
