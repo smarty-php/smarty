@@ -1,3 +1,4 @@
+    - support $smarty.const.$foo syntax (messju, Monte)
     - remove E_NOTICE warnings from debug.tpl,
       escape modifier (Kanstantin, Monte)
     - don't count non-ascii chars in count_words modifier

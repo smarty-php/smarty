@@ -1780,7 +1780,7 @@ class Smarty_Compiler extends Smarty {
 
 			case 'const':
                 array_shift($indexes);
-				$compiled_ref = '(defined(\'' . substr($indexes[0],1) . '\') ? ' . substr($indexes[0],1) . ' : null)';
+				$compiled_ref = '(defined("' . substr($indexes[0],1) . '") ? ' . substr($indexes[0],1) . ' : null)';
                 break;
 
             default:
