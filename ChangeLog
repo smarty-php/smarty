@@ -1,3 +1,17 @@
+2003-10-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      removed notice in php-tag handling in Smarty_Compiler::_compile_file()
+
+    * libs/Smarty_Compiler.class.php:
+      removed two occasional E_NOTICES from
+      Smarty_Compiler::_compile_include_php_tag()
+
+    * NEWS
+      libs/core/core.create_dir_structure.php:
+      fix handling of trailing-slashes in open_basedir in
+      smarty_core_create_dir_structure()
+
 2003-10-20  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
