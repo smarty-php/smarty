@@ -1,3 +1,19 @@
+2004-08-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed occasional wrong error messages on mismatched tags when
+      {else}, {elseif}, {foreachelse} or {sectionelse} is involved
+      
+      thanks to Ooypunk for pointing me on this
+
+2004-08-12  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/.cvsignore
+      docs/Makefile.in
+      docs/configure.in:
+      enable russian PDF builds
+
 2004-07-30  Nuno Lopes  <nunoplopes@sapo.pt>
 
     * docs/configure.in:
