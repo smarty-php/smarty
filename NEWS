@@ -1,4 +1,8 @@
-    - optimized for loops with count() function calls (monte)
+    - update $GLOBALS references to work properly with
+      track_globals settings (Michal Prinke, Monte)
+    - fixed bug in math function with call to assign
+      (Grigory V. Kareev, Monte)
+    - optimized for loops with count() function calls (Monte)
     - add month_value_format attribute to html_select_date
       plugin (Gary Loescher, Monte) 
     - made it possible to use simple variables inside [] for
