@@ -1,3 +1,8 @@
+    - clean up param calls to _parse_var and _parse_attrs (Monte)
+    - define $template_source var, elude possible warning
+      (Monte)
+    - fix syntax problem with evaluating PHP constants (Monte)
+    - add @ and === as valid if statement tokens (Monte)
     - enable error messages for config_load errors,
       use $this->config_class for loading class name (Monte)
     - fix html_options to not escape already escaped entities (Monte)

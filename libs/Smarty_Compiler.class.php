@@ -1086,7 +1086,7 @@ class Smarty_Compiler extends Smarty {
         preg_match_all('/(?>
 				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*) | # valid object call
 				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)	| # var or quoted string
-				\-?\d+(?:\.\d+)?|\.\d+|!==|<=>|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*	| # valid non-word token
+				\-?\d+(?:\.\d+)?|\.\d+|!==|<=>|===|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@	| # valid non-word token
 				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
@@ -1110,6 +1110,7 @@ class Smarty_Compiler extends Smarty {
                 case '%':
                 case '!==':
                 case '==':
+                case '===':
                 case '>':
                 case '<':
                 case '!=':
@@ -1127,6 +1128,7 @@ class Smarty_Compiler extends Smarty {
 				case '-':
 				case '*':
 				case '/':
+				case '@':
 					break;					
 
                 case 'eq':
@@ -1346,7 +1348,7 @@ class Smarty_Compiler extends Smarty {
                             $token = true;
 						} else if (preg_match('!^(off|no|false)$!', $token)) {
                             $token = false;
-						} else if (preg_match('!^[\w\.-]+$!', $token)) {
+						} else if ($quote && preg_match('!^[\w\.-]+$!', $token)) {
                         	/* If the token is just a string,
                         	   we double-quote it. */
                             $token = '"'.$token.'"';
@@ -1403,7 +1405,7 @@ class Smarty_Compiler extends Smarty {
 
         if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(?:' . $this->_mod_regexp . '*)$!', $val)) {
 				// $ variable or object
-                return $this->_parse_var($val, $tag_attrs);
+                return $this->_parse_var($val);
 			}			
         elseif(preg_match('!^' . $this->_db_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
 				// double quoted text
@@ -1778,7 +1780,7 @@ class Smarty_Compiler extends Smarty {
 
 			case 'const':
                 array_shift($indexes);
-				$compiled_ref = 'defined(\'' . substr($indexes[0],1) . '\') ? ' . substr($indexes[0],1) . ' : null';
+				$compiled_ref = '(defined(\'' . substr($indexes[0],1) . '\') ? ' . substr($indexes[0],1) . ' : null)';
                 break;
 
             default:

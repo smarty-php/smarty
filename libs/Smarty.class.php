@@ -1418,6 +1418,7 @@ class Smarty
             }
         } else if ($resource_type != 'file') {
             $readable = true;
+			$template_source = null;
             $resource_func = $this->_plugins['resource'][$resource_type][0][0];
             $readable = $resource_func($resource_name, $template_source, $this);
         }
