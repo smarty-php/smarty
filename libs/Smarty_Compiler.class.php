@@ -1703,7 +1703,7 @@ class Smarty_Compiler extends Smarty {
             }
             if($_has_math) {
                 if(!empty($_complete_var) || is_numeric($_complete_var))
-                    $_output .= $this->_parse_var($_complete_var, true);
+                    $_output .= $this->_parse_var($_complete_var);
 
                 // get the modifiers working (only the last var from math + modifier is left)
                 $var_expr = $_complete_var;
