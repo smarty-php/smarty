@@ -3,6 +3,7 @@
     - added << >> <> support to if statments (SMK, Monte)
     - fix _assign_smarty_interface to not overwrite keys
       other than 'request' (Jerome Poudevigne, Monte)
+    - added html_checkboxes to distribution (Christopher Kvarme, Monte)
     - added html_radios to distribution (Christopher Kvarme, Monte)
     - fixed string_format modifier args (wrong order) (Paul
       Lockaby, Monte)

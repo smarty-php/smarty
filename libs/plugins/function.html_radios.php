@@ -2,69 +2,60 @@
 
 /*
  * Smarty plugin
- * ---------------------------------------------------------------------------------------------
- * Type:     	function
- * Name:     	html_radios
- * Purpose:  	Prints the list of <input type="radio" tags generated from the passed parameters
- * Parameters:	name [optional]- string default "radio"
- * 				checked [optional]- string default not set
- * 				values [required] - array
- * 				separator[optional] - ie <br> or &nbsp;
- * 				output[optional] - without this one the buttons don't have names
- * Author:		Christopher Kvarme <christopher.kvarme@flashjab.com> 
- * ---------------------------------------------------------------------------------------------
+ * -------------------------------------------------------------
+ * File:       function.html_radios.php
+ * Type:       function
+ * Name:       html_radios	
+ * Version:    1.0
+ * Date:       24.Feb.2003
+ * Purpose:    Prints out a list of radio button input types
+ * Input:      name       (optional) - string default "radio"
+ *             values     (required) - array
+ *             checked    (optional) - array default not set
+ *             separator  (optional) - ie <br> or &nbsp;
+ *             output     (optional) - without this one the buttons don't have names
+ * Author:     Christopher Kvarme <christopher.kvarme@flashjab.com>
+ * Credits:    Monte Ohrt <monte@ispi.net>
+ * Examples:   {html_radios values=$ids output=$names}
+ *             {html_radios values=$ids name='choices' separator='<br>' output=$names}
+ *             {html_radios values=$ids checked=$checked separator='<br>' output=$names}
+ * -------------------------------------------------------------
  */
 function smarty_function_html_radios($params, &$smarty)
 {
     extract($params);
 
-    $html_result = '';
+    $_html_result = '';
 	if(!isset($name)){
-	$name = "radio";
+	$name = 'radio';
 	}
     settype($checked, 'array');
     if (isset($radios)) {
         settype($radios, 'array');
-        foreach ($radios as $key => $value) {
-			$html_result .= smarty_function_html_radios_optoutput($key, $value, $checked);
+        foreach ($radios as $_key => $_val) {
+			$_html_result .= smarty_function_html_radios_output($name, $_key, $_val, $checked, $separator);
         }
     } else {
         settype($output, 'array');
         settype($values, 'array');
-        for ($i = 0, $for_max = count($output); $i < $for_max; $i++) {
-            if ($i < count($values)) {
-				$html_result .= smarty_function_html_radios_optoutput($values[$i], $output[$i], $checked, $name, $separator);
-			} else {
-				$html_result .= smarty_function_html_radios_optoutput($output[$i], $output[$i], $checked, $name, $separator);
-			}
+        for ($_i = 0, $_for_max = count($output); $_i < $_for_max; $_i++) {
+			$_html_result .= smarty_function_html_radios_output($name, $values[$_i], $output[$_i], $checked, $separator);
         }
     }
 
-    return $html_result;
+    return $_html_result;
 }
 
-function smarty_function_html_radios_optoutput($key, $value, $checked, $name, $separator) {
-	if(!is_array($value)) {
-    	$html_result = '<input type="radio" name="' . htmlspecialchars($name) . '" value="' . 
-				htmlspecialchars($key) . '"';
-    	if (in_array($key, $checked))
-        	$html_result .= " checked";
-    	$html_result .= '>' . htmlspecialchars($value) . $separator . "\n";
-	} else {
-		$html_result = smarty_function_html_radios_optgroup($key, $value, $checked, $name, $separator);
+function smarty_function_html_radios_output($name, $value, $output, $checked, $separator) {
+	$_output = '<input type="radio" name="' . htmlspecialchars($name) . '[]' .'" value="' . htmlspecialchars($value) . '"';
+	
+    if (in_array($value, $checked)) {
+       	$_output .= " checked=\"checked\"";
 	}
-		return $html_result;	
+    $_output .= '>' . $name . $separator . "\n";
+
+	return $_output;	
 }
 
-function smarty_function_html_radios_optgroup($key, $values, $checked) {
-	$optgroup_html = '<optgroup label="' . htmlspecialchars($value) . '">' . "\n";
-	foreach ($values as $key => $value) {
-		$optgroup_html .= smarty_function_html_radios_optoutput($key, $value, $checked);
-	}
-	$optgroup_html .= "</optgroup>\n";
-	return $optgroup_html;
-}
-
-/* vim: set expandtab: */
 
 ?>
