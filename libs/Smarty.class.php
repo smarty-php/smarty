@@ -2327,7 +2327,7 @@ class Smarty
         } else {
             // use local cache file
             if (isset($cache_id))
-                $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
+                $auto_id = (isset($compile_id)) ? $cache_id . '|' . $compile_id  : $cache_id;
             elseif(isset($compile_id))
                 $auto_id = $compile_id;
             else
