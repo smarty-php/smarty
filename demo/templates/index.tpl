@@ -25,6 +25,18 @@ My interests are:
 	none
 {/section}
 
+Contacts: {$Contacts}<br>
+testing
+{$Contacts["phone"]["cell"]}<br>
+{$Contacts["phone"]["fax"]}<br>
+{$Contacts["phone"]["home"]}<br>
+{$Contacts["phone"]["work"]}<br>
+{$Contacts["fax"]}<br>
+
+printing by key val:
+{$Contacts|@key:"phone"}<br>
+{$Contacts|@key:"fax"}<br>
+{$Contacts|@key:"cell"}<br>
 <p>
 
 testing strip tags

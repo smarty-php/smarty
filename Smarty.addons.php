@@ -136,7 +136,6 @@ function smarty_mod_default($string, $default="")
 		return $string;
 }
 
-
 /*============================================*\
   Custom tag functions
 \*============================================*/
