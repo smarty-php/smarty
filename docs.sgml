@@ -6250,7 +6250,7 @@ s m o k e r s   a r e   p. . .
      unregister_* API functions.
     </para>
     <para>
-     For the plugins are registered at runtime the name of the plugin
+     For the plugins that are registered at runtime, the name of the plugin
      function does not have to follow the naming convention.
     </para>
     <para>
@@ -6260,8 +6260,6 @@ s m o k e r s   a r e   p. . .
      <programlisting>
 require_once SMARTY_DIR . 'plugins/function.html_options.php';
      </programlisting>
-    </para>
-    <para>
      As a rule, Smarty object is always passed to the plugins as the last
      parameter.
     </para>
@@ -6298,9 +6296,10 @@ require_once SMARTY_DIR . 'plugins/function.html_options.php';
      </para>
      <para>
      </para>
-     <example>
-      <title>function plugin with output</title>
-      <programlisting>
+     <para>
+      <example>
+       <title>function plugin with output</title>
+       <programlisting>
 &lt;?php
 /*
  * Smarty plugin
@@ -6323,9 +6322,19 @@ function smarty_function_eightball($params, &amp;$smarty)
     $result = array_rand($answers);
     echo $answers[$result];
 }
-?&rt;
+?&gt;
       </programlisting>
      </example>
+     which can be used in the template as:
+     <informalexample>
+      <programlisting>
+Question: 
+Answer: {eightball}.
+      </programlisting>
+     </informalexample>
+    </para>
+
+    <para>
      <example>
       <title>function plugin without output</title>
       <programlisting>
@@ -6355,10 +6364,12 @@ function smarty_function_assign($params, &amp;$smarty)
 
     $smarty->assign($var, $value);
 }
-?&rt;
+?&gt;
       </programlisting>
      </example>
-    </sect2>
+    </para>
+   </sect2>
+
     <sect2 id="section.plugins.modifiers"><title>modifiers</title>
      <para>
      </para>
