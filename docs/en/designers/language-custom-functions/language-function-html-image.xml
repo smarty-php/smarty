@@ -86,6 +86,10 @@
 			<parameter>href</parameter> is the href value to link the image to. If link is supplied, an
 			&lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is put around the image tag.
 			</para>
+			<para>
+			All parameters that are not in the list above are printed as
+			name/value-pairs inside the created &lt;img&gt;-tag.
+			</para>
 			<note>
 				<title>Technical Note</title>
 				<para>
