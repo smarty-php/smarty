@@ -1,5 +1,13 @@
-2.0
----
+2.0.1
+-----
+
+This is a point release, fixing a few bugs and cleaning things up. A plugin
+was renamed, the dash "-" was removed from compiled template and cached file
+names. If you're upgrading, you might want to clear them out first.  See the
+ChangeLog for details.
+
+2.0.0
+-----
 
 This release is a huge milestone for Smarty. Most notable new things are a
 plugin architecture, removal of PEAR dependency, and optimizations that

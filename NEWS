@@ -1,3 +1,6 @@
+Version 2.0.1
+-------------
+    - rename plugin .make_timestamp.php to shared.make_timestamp.php (Monte)
     - changed crc32() generated values, replace '-' with 'N' (Monte)
     - added support for +/- N syntax in html_select_date year values (Monte)
     - fixed behavior of inserts with script attribute. (Andrei)
