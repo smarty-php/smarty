@@ -49,6 +49,13 @@ function smarty_modifier_escape($string, $esc_type = 'html')
             }
             return $return;
 
+        case 'decentity':
+            $return = '';
+            for ($x=0; $x < strlen($string); $x++) {
+                $return .= '&#' . ord($string[$x]) . ';';
+            }
+            return $return;
+
         case 'javascript':
             // escape quotes and backslashes and newlines
             return strtr($string, array('\\'=>'\\\\',"'"=>"\\'",'"'=>'\\"',"\r"=>'\\r',"\n"=>'\\n'));

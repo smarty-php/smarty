@@ -1,3 +1,5 @@
+  - add case decentity to smarty_modifier_escape() (Konstantin A. Pelepelin,
+    messju)
   - make smarty_core_write_compiled_include() php5-aware (messju)
   - removed unused functionality to load a subset of lines from a file (messju)
   - fix is_secure() should only check if a file is_readable, not if
