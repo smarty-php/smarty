@@ -1,3 +1,9 @@
+2004-06-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed escaping of backslashes in Smarty_Compiler::_quote_replace()
+
 2004-06-23  Monte Ohrt  <monte@ispi.net>
 
     * libs/plugins/modifier.date_format.php:
