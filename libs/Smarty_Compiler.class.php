@@ -111,7 +111,7 @@ class Smarty_Compiler extends Smarty {
         // $foo[$bar]
         // $foo[5][blah]
         // $foo[5].bar[$foobar][4]
-        $this->_dvar_math_regexp = '[\+\*\/\%]|-(?!>)';
+        $this->_dvar_math_regexp = '(?:[\+\*\/\%]|(?:-(?!>)))';
         $this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\>\[\]]';
         $this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
                 . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?';
@@ -148,7 +148,7 @@ class Smarty_Compiler extends Smarty {
         // $foo->bar->foo()
         // $foo->bar->foo->bar()
         $this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
-        $this->_obj_params_regexp = '\((?:-?\d|\w+|'
+        $this->_obj_params_regexp = '\((?:(?:' . $this->_num_const_regexp . ')|\w+|'
                 . $this->_var_regexp . '(?:\s*,\s*(?:(?:\w+|'
                 . $this->_var_regexp . ')))*)?\)';
         $this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
