@@ -1,3 +1,7 @@
+    - fixed a bug that could cause parse error with quotes inside literal
+      blocks. (Andrei,  Alexander Belonosov)
+    - added 'field_array' attribute to html_select_time function. (Andrei,
+      Michael Caplan)
     - made cache reading process more efficient. (Monte)
     - fixed bug, is_cached() now supports new 1.4.6 caching behavior. (Monte)
     - update FAQ with mailing list Reply-To header FAQ. (Monte)

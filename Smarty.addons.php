@@ -431,13 +431,18 @@ function smarty_func_html_select_time()
     /* Default values. */
     $prefix             = "Time_";
     $time               = time();
-    $display_hours        = true;
+    $display_hours      = true;
     $display_minutes    = true;
     $display_seconds    = true;
     $display_meridian   = true;
-    $use_24_hours        = true;
+    $use_24_hours       = true;
     $minute_interval    = 1;
     $second_interval    = 1;
+    /* Should the select boxes be part of an array when returned from PHP?
+       e.g. setting it to "birthday", would create "birthday[Hour]",
+       "birthday[Minute]", "birthday[Seconds]" & "birthday[Meridian]".
+       Can be combined with prefix. */
+    $field_array        = null;
 
     extract(func_get_arg(0));
 
@@ -450,7 +455,12 @@ function smarty_func_html_select_time()
         $hour_fmt = $use_24_hours ? '%H' : '%I';
         for ($i = 0; $i < count($hours); $i++)
             $hours[$i] = sprintf('%02d', $hours[$i]);
-        $html_result .= '<select name="'.$prefix.'Hour">'."\n";
+        $html_result .= '<select name=';
+        if (null !== $field_array) {
+            $html_result .= '"' . $field_array . '[' . $prefix . 'Hour]">'."\n";
+        } else {
+            $html_result .= '"' . $prefix . 'Hour">'."\n";
+        }
         $html_result .= smarty_func_html_options(array('output'          => $hours,
                                                        'values'          => $hours,
                                                        'selected'      => strftime($hour_fmt, $time),
@@ -463,7 +473,12 @@ function smarty_func_html_select_time()
         for ($i = 0; $i < count($all_minutes); $i+= $minute_interval)
             $minutes[] = sprintf('%02d', $all_minutes[$i]);
         $selected = intval(floor(strftime('%M', $time) / $minute_interval) * $minute_interval);
-        $html_result .= '<select name="'.$prefix.'Minute">'."\n";
+        $html_result .= '<select name=';
+        if (null !== $field_array) {
+            $html_result .= '"' . $field_array . '[' . $prefix . 'Minute]">'."\n";
+        } else {
+            $html_result .= '"' . $prefix . 'Minute">'."\n";
+        }
         $html_result .= smarty_func_html_options(array('output'          => $minutes,
                                                        'values'          => $minutes,
                                                        'selected'      => $selected,
@@ -476,7 +491,12 @@ function smarty_func_html_select_time()
         for ($i = 0; $i < count($all_seconds); $i+= $second_interval)
             $seconds[] = sprintf('%02d', $all_seconds[$i]);
         $selected = intval(floor(strftime('%S', $time) / $second_interval) * $second_interval);
-        $html_result .= '<select name="'.$prefix.'Second">'."\n";
+        $html_result .= '<select name=';
+        if (null !== $field_array) {
+            $html_result .= '"' . $field_array . '[' . $prefix . 'Second]">'."\n";
+        } else {
+            $html_result .= '"' . $prefix . 'Second">'."\n";
+        }
         $html_result .= smarty_func_html_options(array('output'          => $seconds,
                                                        'values'          => $seconds,
                                                        'selected'      => $selected,
@@ -485,7 +505,12 @@ function smarty_func_html_select_time()
     }
 
     if ($display_meridian && !$use_24_hours) {
-        $html_result .= '<select name="'.$prefix.'Meridian">'."\n";
+        $html_result .= '<select name=';
+        if (null !== $field_array) {
+            $html_result .= '"' . $field_array . '[' . $prefix . 'Meridian]">'."\n";
+        } else {
+            $html_result .= '"' . $prefix . 'Meridian">'."\n";
+        }
         $html_result .= smarty_func_html_options(array('output'          => array('AM', 'PM'),
                                                        'values'          => array('am', 'pm'),
                                                        'selected'      => strtolower(strftime('%p', $time)),

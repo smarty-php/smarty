@@ -266,7 +266,7 @@ class Smarty_Compiler extends Smarty {
             case 'literal':
                 list (,$literal_block) = each($this->_literal_blocks);
                 $this->_current_line_no += substr_count($literal_block, "\n");
-                return "<?php echo '".str_replace("'","\'",$literal_block)."'; ?>\n";
+                return "<?php echo '".str_replace("'", "\'", str_replace("\\", "\\\\", $literal_block))."'; ?>\n";
 
             case 'php':
                 if ($this->security && !$this->security_settings['PHP_TAGS']) {
@@ -401,7 +401,7 @@ class Smarty_Compiler extends Smarty {
     function _compile_include_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
-	$arg_list = array();
+        $arg_list = array();
 
         if (empty($attrs['file'])) {
             $this->_syntax_error("missing 'file' attribute in include tag");
