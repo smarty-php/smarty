@@ -9,10 +9,9 @@
  * Author:	 Monte Ohrt <monte@ispi.net>
  * Credits:  Mark Priatel <mpriatel@rogers.com>
  *           Gerard <gerard@interfold.com>
- * Purpose:  cycle given given values each time
+ * Purpose:  cycle given given values
  * Input:    id = id of cycle (optional)
  *           values = comma separated list of values to cycle
- *           (use hex value for literal comma or quote)
  *           reset = boolean - resets given var to true
  *			 print = boolean - print var or not. default is true
  *           advance = boolean - whether or not to advance the cycle
