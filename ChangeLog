@@ -1,3 +1,9 @@
+2003-11-25  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      changed version-tag to indicate incompatibility to older compiled
+      templates
+
 2003-11-24  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
