@@ -440,20 +440,6 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
        Default is "}".			
       </para>
      </sect1>
-     <sect1 id="variable.show.info.header">
-      <title>$show_info_header</title>
-      <para>
-       Shows an HTML comment at the beginning of the templates output,
-       displaying smarty version and date generated. Default is false.
-      </para>
-     </sect1>
-     <sect1 id="variable.show.info.include">
-      <title>$show_info_include</title>
-      <para>
-       Shows an HTML comment before and after each included template.
-       Default is false.
-      </para>
-     </sect1>
      <sect1 id="variable.compiler.class">
       <title>$compiler_class</title>
       <para>
