@@ -1,4 +1,6 @@
-    - added "once" attribute to php_include (Monte)
+    - made it possible to use simple variables inside [] for
+      indexing. (Andrei)
+    - added "once" attribute to {include_php}. (Monte)
 
 Version 2.1.1
 -------------

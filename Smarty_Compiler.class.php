@@ -235,7 +235,7 @@ class Smarty_Compiler extends Smarty {
 
         /* If the tag name matches a variable or section property definition,
            we simply process it. */
-        if (preg_match('!^\$\w+(?>(\[(\d+|\w+(\.\w+)?)\])|((\.|->)\$?\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
+        if (preg_match('!^\$\w+(?>(\[(\d+|\$\w+|\w+(\.\w+)?)\])|((\.|->)\$?\w+))*(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command) ||   // if a variable
             preg_match('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)     ||  // or a configuration variable
             preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)) {    // or a section property
             settype($tag_command, 'array');
@@ -1083,7 +1083,7 @@ class Smarty_Compiler extends Smarty {
     {
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
-        $var_exprs = preg_grep('!^\$\w+(?>(\[(\d+|\w+(\.\w+)?)\])|((\.|->)\$?\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
+        $var_exprs = preg_grep('!^\$\w+(?>(\[(\d+|\$\w+|\w+(\.\w+)?)\])|((\.|->)\$?\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
 
@@ -1117,7 +1117,7 @@ class Smarty_Compiler extends Smarty {
         $var_ref = $parts[0];
         $modifiers = isset($parts[1]) ? $parts[1] : '';
 
-        preg_match_all('!\[\w+(\.\w+)?\]|(->|\.)\$?\w+|^\w+!', $var_ref, $match);
+        preg_match_all('!\[(?:\$\w+|\w+(\.\w+)?)\]|(->|\.)\$?\w+|^\w+!', $var_ref, $match);
         $indexes = $match[0];
         $var_name = array_shift($indexes);
 
@@ -1143,6 +1143,8 @@ class Smarty_Compiler extends Smarty {
                 $index = substr($index, 1, -1);
                 if (is_numeric($index)) {
                     $output .= "[$index]";
+                } elseif ($index{0} == '$') {
+                    $output .= "[\$this->_tpl_vars['" . substr($index, 1) . "']]";
                 } else {
                     $parts = explode('.', $index);
                     $section = $parts[0];
