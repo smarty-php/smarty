@@ -28,6 +28,8 @@ function smarty_function_html_image($params, &$smarty)
 	$height = '';
 	$width = '';
 	$extra = '';
+	$prefix = '';
+	$suffix = '';
 	$basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
 			? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '/';
 	
@@ -44,6 +46,10 @@ function smarty_function_html_image($params, &$smarty)
 				break;
 			case 'width':
 				$width = $_val;
+				break;
+			case 'link':
+				$prefix = '<a href="' . $link . '">';
+				$suffix = '</a>';
 				break;
 			default:
 				$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
@@ -77,7 +83,7 @@ function smarty_function_html_image($params, &$smarty)
         $smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_ERROR);
 	}
 			
-	return "<img src=\"$name\" border=\"$border\" ".$_image_data[3]."$extra>";
+	return $prefix . "<img src=\"$name\" border=\"$border\" ".$_image_data[3]."$extra>" . $suffix;
 }
 
 /* vim: set expandtab: */
