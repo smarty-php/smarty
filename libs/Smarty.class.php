@@ -947,15 +947,15 @@ function _generate_debug_output() {
     function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resource_name)
     {
         // split tpl_path by the first colon
-        $file_path_parts = explode(':', $file_path, 2);
+        $_file_path_parts = explode(':', $file_path, 2);
 
-        if (count($file_path_parts) == 1) {
+        if (count($_file_path_parts) == 1) {
             // no resource type, treat as type "file"
             $resource_type = 'file';
-            $resource_name = $file_path_parts[0];
+            $resource_name = $_file_path_parts[0];
         } else {
-            $resource_type = $file_path_parts[0];
-            $resource_name = $file_path_parts[1];
+            $resource_type = $_file_path_parts[0];
+            $resource_name = $_file_path_parts[1];
             if ($resource_type != 'file') {
                 $this->_load_resource_plugin($resource_type);
             }
@@ -965,13 +965,14 @@ function _generate_debug_output() {
             if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
                 // relative pathname to $file_base_path
                 // use the first directory where the file is found
-                foreach ((array)$file_base_path as $curr_path) {
-                    if (@is_file($curr_path . DIR_SEP . $resource_name)) {
-                        $resource_name = $curr_path . DIR_SEP . $resource_name;
+                foreach ((array)$file_base_path as $_curr_path) {
+					$_fullpath = $_curr_path . DIR_SEP . $resource_name;
+                    if (@is_file($_fullpath)) {
+                        $resource_name = $_fullpath;
                         return true;
                     }
                 	// didn't find the file, try include_path
-					if($this->_get_include_path($curr_path . DIR_SEP . $resource_name, $_include_path)) {
+					if($this->_get_include_path($_fullpath, $_include_path)) {
 						$resource_name = $_include_path;
 						return true;
 					}

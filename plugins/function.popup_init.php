@@ -18,7 +18,7 @@ function smarty_function_popup_init($params, &$smarty)
 	
     if (!empty($params['src'])) {
     	echo '<div id="overDiv" style="position:absolute; visibility:hidden; z-index:'.$zindex.';"></div>'."\n";
-        echo '<script language="JavaScript" src="'.$params['src'].'"></script>'."\n";
+        echo '<script type="text/javascript" language="JavaScript" src="'.$params['src'].'"></script>'."\n";
     } else {
         $smarty->trigger_error("popup_init: missing src parameter");
     }
