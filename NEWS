@@ -1,5 +1,7 @@
+    - fix bug with objects with no properties (M Mohr, Monte)
     - support full dollar var syntax in quoted text (Monte)
-    - fixed bug in $smarty.const.FOO introduced in 2.4.1 (Monte)
+    - fixed bug in $smarty.const.FOO introduced in 2.4.1 (M
+      Mohr, Monte)
 
 Version 2.4.1
 -------------
