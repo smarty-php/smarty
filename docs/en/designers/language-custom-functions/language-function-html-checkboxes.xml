@@ -127,7 +127,7 @@ $smarty->display('index.tpl');
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="&lt;br /&gt;"}
+{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="<br />"}
 ]]>
   </programlisting>
   <para>
