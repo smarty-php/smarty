@@ -2031,8 +2031,12 @@ class Smarty_Compiler extends Smarty {
                     return;
                 }
                 array_shift($indexes);
-                $_val = $this->_parse_var_props(substr($indexes[0],1));
-                $compiled_ref = '@constant(' . $_val . ')';
+                if (preg_match('!^\.\w+$!', $indexes[0])) {
+                    $compiled_ref = '@' . substr($indexes[0], 1);
+                } else {
+                    $_val = $this->_parse_var_props(substr($indexes[0], 1));
+                    $compiled_ref = '@constant(' . $_val . ')';
+                }
                 $_max_index = 1;
                 break;
 

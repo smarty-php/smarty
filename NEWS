@@ -1,3 +1,6 @@
+  - make $smarty.const.FOO compile to "FOO", and not to "constant('foo')".
+    this is less code and a little faster execution. note that undefined
+    constants are now displayed as the constant's name. (messju)
   - make block functions and registered objects' block methods use a
     local variable for block_content instead of a property of $smarty (messju)
   - fix escaping in the generated code that calls smarty_core_load_plugins
