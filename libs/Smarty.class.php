@@ -97,6 +97,7 @@ class Smarty
     var $cache_handler_func   = null;   // function used for cached content. this is
                                         // an alternative to using the built-in file
 										// based caching.
+	var $check_if_modified = true;		// respect If-Modified-Since headers on cached content
 
 	
 	var $default_template_handler_func = ''; // function to handle missing templates
@@ -546,15 +547,26 @@ class Smarty
                     $_smarty_results = $this->_process_cached_inserts($_smarty_results);
                 }
                 if ($_smarty_display) {
-                    echo $_smarty_results;
                     if ($this->debugging)
                     {
                         // capture time for debugging info
                         $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = $this->_get_microtime() - $debug_start_time;
 
-                        echo $this->_generate_debug_output();
+                        $_smarty_results .= $this->_generate_debug_output();
                     }
-                    return;
+					if( $this->check_if_modified ) {
+						global $HTTP_IF_MODIFIED_SINCE;
+						$last_modified_date = substr($HTTP_IF_MODIFIED_SINCE,0,strpos($HTTP_IF_MODIFIED_SINCE,'GMT')+3);
+						$gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
+						if( !$this->_cache_info['insert_tags']
+							&& $gmt_mtime == $last_modified_date ) {
+							header("HTTP/1.1 304 Not Modified");
+						}				
+					}
+					header("Content-Length: ".strlen($_smarty_results));
+					header("Last-Modified: ".$gmt_mtime);
+                    echo $_smarty_results;
+					return true;	
                 } else {
                     return $_smarty_results;
                 }

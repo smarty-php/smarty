@@ -1473,13 +1473,18 @@ function get_db_template ($tpl_name, &$tpl_source, &$tpl_timestamp,
 	$get_source=true, &amp;$smarty_obj) {
     
 	if($get_source) {
-    	// do database calls (or whatever) here to fetch your template, populating
+    	// do database call here to fetch your template, populating
     	// $tpl_source and $tpl_timestamp.
-    	$tpl_source = "This is a simulation of a template fetched from a db.";
-    	$tpl_timestamp = mktime();
+		$sql = new SQL;
+		$sql->query("select tpl_source, tpl_timestamp from my_table
+			where tpl_name='$tpl_name'");
+			extract($sql->record);
 	} else {	
-    	// just populate $tpl_timestamp.
-    	$tpl_timestamp = mktime();
+    	// do database call here to populate $tpl_timestamp.
+		$sql = new SQL;
+		$sql->query("select tpl_timestamp from my_table
+			where tpl_name='$tpl_name'");
+			extract($sql->record);
 	}
     
     return true;
