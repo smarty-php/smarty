@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.count.paragraphs">
-			<title>count_paragraphs</title>
-			<para>
-			Compte le nombre de paragraphes dans une variable.
-			</para>
-<example>
-<title>count_paragraphs</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.count.paragraphs">
+ <title>count_paragraphs</title>
+ <para>
+  Compte le nombre de paragraphes dans une variable.
+ </para>
+ <example>
+  <title>count_paragraphs</title>
 <programlisting>
 index.php:
 
@@ -23,7 +24,7 @@ SORTIE:
 
 La guerre apporte la paix, au prix de la vie des innocents.
 1</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

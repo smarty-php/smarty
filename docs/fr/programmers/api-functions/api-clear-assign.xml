@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.assign">
-			<title>clear_assign</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_assign</function></funcdef>
-				<paramdef>string <parameter>var</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-         <para>
-         Efface la valeur d'une variable assignée. Il peut s'agir
-         d'une simple valeur ou d'un tableau de valeur.
-         </para>
-<example>
-<title>clear_assign</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.clear.assign">
+ <title>clear_assign</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>clear_assign</function></funcdef>
+   <paramdef>string <parameter>var</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Efface la valeur d'une variable assignée. Il peut s'agir
+  d'une simple valeur ou d'un tableau de valeur.
+ </para>
+ <example>
+  <title>clear_assign</title>
 <programlisting>
 // efface une variable
 $smarty->clear_assign("Name");
 
 // efface plusieurs variables
 $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

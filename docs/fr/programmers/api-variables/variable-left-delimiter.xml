@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.left.delimiter">
-      <title>$left_delimiter</title>
-      <para>
-      Il s'agit du délimiteur gauche utilisé par le moteur de templates. La
-      valeur par défaut est "{".
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.left.delimiter">
+ <title>$left_delimiter</title>
+ <para>
+  Il s'agit du délimiteur gauche utilisé par le moteur de templates. La
+  valeur par défaut est "{".
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

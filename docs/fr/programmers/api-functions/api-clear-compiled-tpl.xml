@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.compiled.tpl">
-			<title>clear_compiled_tpl</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_compiled_tpl</function></funcdef>
-				<paramdef>string <parameter>tpl_file</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-			Utilisée pour effacer la version compilée du template spécifié ou
-			de tous les templates si aucun n'est spécifié. Cette fonction
-			est destinée a un usage avancé et n'est pas habituellement utilisée.
-			</para>
-<example>
-<title>clear_compiled_tpl</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.clear.compiled.tpl">
+ <title>clear_compiled_tpl</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>clear_compiled_tpl</function></funcdef>
+   <paramdef>string <parameter>tpl_file</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Utilisée pour effacer la version compilée du template spécifié ou
+  de tous les templates si aucun n'est spécifié. Cette fonction
+  est destinée a un usage avancé et n'est pas habituellement utilisée.
+ </para>
+ <example>
+  <title>clear_compiled_tpl</title>
 <programlisting>
 // efface la version compilée du template spécifié
 $smarty->clear_compiled_tpl("index.tpl");
 
 // efface tout le contenu du répertoire des templates compilés
 $smarty->clear_compiled_tpl();</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.register.outputfilter">
-			<title>register_outputfilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_outputfilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-			Utilisée pour déclarer dynamiquement des filtres de sortie, pour
-			agir sur la sortie d'un template avant qu'elle ne soit affichée.
-			Reportez-vous a la section <link linkend="advanced.features.outputfilters">
-         filtres de sortie</link> pour plus d'information sur le sujet.
-			</para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.register.outputfilter">
+ <title>register_outputfilter</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>register_outputfilter</function></funcdef>
+   <paramdef>string <parameter>function_name</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Utilisée pour déclarer dynamiquement des filtres de sortie, pour
+  agir sur la sortie d'un template avant qu'elle ne soit affichée.
+  Reportez-vous a la section <link linkend="advanced.features.outputfilters">
+  filtres de sortie</link> pour plus d'information sur le sujet.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.debugging.ctrl">
-      <title>$debugging_ctrl</title>
-      <para>
-      Cela permet d'avoir différents moyens pour activer
-      le débogage. URL signifie que si SMARTY_DEBUG se
-      trouve dans QUERY_STRING, le débuggage
-      est activé a l'invocation du script. Si $debugging
-      est a vrai, cette valeur est sans effet.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.debugging.ctrl">
+ <title>$debugging_ctrl</title>
+ <para>
+  Cela permet d'avoir différents moyens pour activer
+  le débogage. URL signifie que si SMARTY_DEBUG se
+  trouve dans QUERY_STRING, le débuggage
+  est activé a l'invocation du script. Si $debugging
+  est a vrai, cette valeur est sans effet.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

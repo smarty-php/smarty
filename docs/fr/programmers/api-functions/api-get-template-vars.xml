@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.get.template.vars">
-			<title>get_template_vars</title>
-   <methodsynopsis>
-    <type>array</type><methodname>get_template_vars</methodname>
-    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
-   </methodsynopsis>
-			<para>
-			Retourne la valeur assignée passée en paramètre. Si aucun paramètre
-			n'est donné, un tableau de toutes les variables assignées est
-			renvoyé.
-			</para>
-<example>
-<title>get_template_vars</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.get.template.vars">
+ <title>get_template_vars</title>
+ <methodsynopsis>
+  <type>array</type><methodname>get_template_vars</methodname>
+  <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
+ </methodsynopsis>
+ <para>
+  Retourne la valeur assignée passée en paramètre. Si aucun paramètre
+  n'est donné, un tableau de toutes les variables assignées est
+  renvoyé.
+ </para>
+ <example>
+  <title>get_template_vars</title>
 <programlisting>
 // récupère la variable 'foo' assignée au template
 // get assigned template var 'foo'
@@ -23,7 +24,7 @@ $tpl_vars = $smarty->get_template_vars();
 
 // les affiche a l'écran
 print_r($tpl_vars);</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

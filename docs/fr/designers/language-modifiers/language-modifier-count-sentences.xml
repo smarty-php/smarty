@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.count.sentences">
-			<title>count_sentences</title>
-			<para>
-			Compte le nombre de phrases dans une variable.
-			</para>
-<example>
-<title>count_sentences</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.count.sentences">
+ <title>count_sentences</title>
+ <para>
+  Compte le nombre de phrases dans une variable.
+ </para>
+ <example>
+  <title>count_sentences</title>
 <programlisting>
 index.php:
 
@@ -27,7 +28,7 @@ Deux navires rentrent en collision
 à coups de haches.
 
 2</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

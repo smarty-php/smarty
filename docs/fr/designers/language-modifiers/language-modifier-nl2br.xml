@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.nl2br">
-			<title>nl2br</title>
-			<para>
-			Transforme toutes les fins de lignes en balises &lt;br /&gt;.
-         Equivalent à la fonction PHP nl2br().
-			</para>
-<example>
-<title>nl2br</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.nl2br">
+ <title>nl2br</title>
+ <para>
+  Transforme toutes les fins de lignes en balises &lt;br /&gt;.
+  Equivalent à la fonction PHP nl2br().
+ </para>
+ <example>
+  <title>nl2br</title>
 <programlisting>
 index.php:
 
@@ -22,7 +23,7 @@ index.tpl:
 SORTIE:
 
 Pluie ou soleil attendu&lt;br /&gt;aujourd'hui, nuit noire</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

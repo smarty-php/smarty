@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="caching.groups">
-    <title>groupes de fichiers de cache</title>
-    <para>
-    Vous pouvez faire des groupements plus élaborés en paramétrant les
-    groupes d'identifiant de cache. Il suffit de séparer chaque sous-groupes
-    avec une barre verticale "|" dans la valeur de l'identifiant de cache.
-    Vous pouvez faire autant de sous-groupes que vous le désirez.
-    </para>
-	<example>
-     <title>groupes d'identifiants de cache</title>
-     <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="caching.groups">
+ <title>groupes de fichiers de cache</title>
+ <para>
+  Vous pouvez faire des groupements plus élaborés en paramétrant les
+  groupes d'identifiant de cache. Il suffit de séparer chaque sous-groupes
+  avec une barre verticale "|" dans la valeur de l'identifiant de cache.
+  Vous pouvez faire autant de sous-groupes que vous le désirez.
+ </para>
+ <example>
+  <title>groupes d'identifiants de cache</title>
+<programlisting>
 require('Smarty.class.php');
 $smarty = new Smarty;
 
@@ -25,10 +26,10 @@ $smarty->clear_cache(null,"sports|basketball");
 $smarty->clear_cache(null,"sports");
 
 $smarty->display('index.tpl',"sports|basketball");</programlisting>
-    </example>
-   <note>
-   <title>Note technique</title>
-   <para>
+ </example>
+ <note>
+  <title>Note technique</title>
+  <para>
    Le systéme de cache n'utilise PAS le chemin vers le template en quoi
    que ce soit pour l'identifiant de cache.  Si par exemple vous
    faites display('themes/blue/index.tpl'), vous ne pouvez pas effacer tous
@@ -36,8 +37,8 @@ $smarty->display('index.tpl',"sports|basketball");</programlisting>
    faire cela, vous devez les grouper avec un même identifiant de cache,
    display('themes/blue/index.tpl','themes|blue'). Vous pouvez ensuite effacer les
    fichiers de cache pour blue et theme avec clear_cache(null,'theme|blue').
-   </para>
-   </note>
+  </para>
+ </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.template.dir">
-      <title>$template_dir</title>
-      <para>
-      C'est le nom par défaut du répertoire des templates.
-      Si vous ne spécifiez aucun chemin lors de l'utilisation de templates, Smarty
-      les cherchera a cet emplacement.
-      Par défaut, il s'agit de "./templates", ce qui signifie
-      qu'il va chercher le répertoire templates
-      dans le répertoire oú se trouve le script PHP en cours d'exécution.
-      </para>
-
-	   <note>
-		   <title>Note technique</title>
-         <para>
-         Il n'est pas conseillé de mettre ce répertoire
-         dans l'arborescence Web.
-         </para>
-	  </note>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.template.dir">
+ <title>$template_dir</title>
+ <para>
+  C'est le nom par défaut du répertoire des templates.
+  Si vous ne spécifiez aucun chemin lors de l'utilisation de templates, Smarty
+  les cherchera a cet emplacement.
+  Par défaut, il s'agit de "./templates", ce qui signifie
+  qu'il va chercher le répertoire templates
+  dans le répertoire oú se trouve le script PHP en cours d'exécution.
+ </para>
+ 
+ <note>
+  <title>Note technique</title>
+  <para>
+   Il n'est pas conseillé de mettre ce répertoire
+   dans l'arborescence Web.
+  </para>
+ </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

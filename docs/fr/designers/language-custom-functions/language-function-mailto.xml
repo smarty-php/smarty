@@ -1,111 +1,112 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.mailto">
-			<title>mailto</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Nom attribut</entry>
-                        <entry>Type</entry>
-                        <entry>Requis</entry>
-                        <entry>Defaut</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>address</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Oui</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>l'adresse email</entry>
-                    </row>
-                    <row>
-                        <entry>text</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>le texte à afficher, par défaut l'adresse email</entry>
-                    </row>
-                    <row>
-                        <entry>encode</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>none</emphasis></entry>
-                        <entry>Comment encoder l'adresse email.
-						        none, hex et javascript sont des valeurs correctes.</entry>
-                    </row>
-                    <row>
-                        <entry>cc</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Les adresses email en copie (Cc).
-						       Séparez les entrées par une virgule.</entry>
-                    </row>
-                    <row>
-                        <entry>bcc</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Les adresses email en copie cachées (Bcc).
-						       Séparez les entrées par une virgule.</entry>
-                    </row>
-                    <row>
-                        <entry>subject</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Sujet de l'email.</entry>
-                    </row>
-                    <row>
-                        <entry>newsgroups</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>newsgroup ou poster le message.
-						       Séparez les entrées par une virgule.</entry>
-                    </row>
-                    <row>
-                        <entry>followupto</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Adresses ou transmettre le message.
-						       Séparez les entrées par une virgule.
-						       </entry>
-                    </row>
-                    <row>
-                        <entry>extra</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Toute information que vous souhaitez passer au lien,
-                        comme par exemple une classe css.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			mailto crée un lien mailto automatiquement encodé (optionnel).
-			L'encodage rend la tâche de récupération des e-mails sur votre
-         site plus difficiles aux "web spiders".
-			</para>
-			<note>
-				<title>Note technique</title>
-				<para>
-            javascript n'est certainement pas la forme d'encodage la plus robuste.
-            Vous pouvez également utiliser un encodage hexadécimal.
-            	</para>
-			</note>
-<example>
-<title>mailto</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.function.mailto">
+ <title>mailto</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Nom attribut</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Defaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>address</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Oui</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>l'adresse email</entry>
+    </row>
+    <row>
+     <entry>text</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>le texte à afficher, par défaut l'adresse email</entry>
+    </row>
+    <row>
+     <entry>encode</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>none</emphasis></entry>
+     <entry>Comment encoder l'adresse email.
+     none, hex et javascript sont des valeurs correctes.</entry>
+    </row>
+    <row>
+     <entry>cc</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Les adresses email en copie (Cc).
+     Séparez les entrées par une virgule.</entry>
+    </row>
+    <row>
+     <entry>bcc</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Les adresses email en copie cachées (Bcc).
+     Séparez les entrées par une virgule.</entry>
+    </row>
+    <row>
+     <entry>subject</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Sujet de l'email.</entry>
+    </row>
+    <row>
+     <entry>newsgroups</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>newsgroup ou poster le message.
+     Séparez les entrées par une virgule.</entry>
+    </row>
+    <row>
+     <entry>followupto</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Adresses ou transmettre le message.
+      Séparez les entrées par une virgule.
+     </entry>
+    </row>
+    <row>
+     <entry>extra</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Toute information que vous souhaitez passer au lien,
+     comme par exemple une classe css.</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  mailto crée un lien mailto automatiquement encodé (optionnel).
+  L'encodage rend la tâche de récupération des e-mails sur votre
+  site plus difficiles aux "web spiders".
+ </para>
+ <note>
+  <title>Note technique</title>
+  <para>
+   javascript n'est certainement pas la forme d'encodage la plus robuste.
+   Vous pouvez également utiliser un encodage hexadécimal.
+  </para>
+ </note>
+ <example>
+  <title>mailto</title>
 <programlisting>
 {mailto address="me@domain.com"}
 {mailto address="moi@domaine.com" text="send me some mail"}
@@ -128,7 +129,7 @@ SORTIE:
 &lt;a href="mailto:moi@domaine.com?subject=Hello%20to%20you%21" &gt;moi@domaine.com&lt;/a&gt;
 &lt;a href="mailto:moi@domaine.com?cc=you@domain.com%2Cthey@domain.com" &gt;moi@domaine.com&lt;/a&gt;
 &lt;a href="mailto:moi@domaine.com" class="email"&gt;moi@domaine.com&lt;/a&gt;</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

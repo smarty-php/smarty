@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-	<chapter id="smarty.constants">
-	 <title>Constantes</title>
-	 <para></para>
-
-	 <sect1 id="constant.smarty.dir">
-      <title>SMARTY_DIR</title>
-      <para>
-      Il doit s'agir du chemin complet du répertoire oú
-      se trouvent les fichiers classes de Smarty.
-      S'il n'est pas défini, Smarty essaiera alors d'en
-      déterminer automatiquement la valeur.
-      S'il est défini, le chemin doit se terminer par un slash.
-      </para>
-
-      <example>
-       <title>SMARTY_DIR</title>
-       <programlisting role="php">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<chapter id="smarty.constants">
+ <title>Constantes</title>
+ <para></para>
+ 
+ <sect1 id="constant.smarty.dir">
+  <title>SMARTY_DIR</title>
+  <para>
+   Il doit s'agir du chemin complet du répertoire oú
+   se trouvent les fichiers classes de Smarty.
+   S'il n'est pas défini, Smarty essaiera alors d'en
+   déterminer automatiquement la valeur.
+   S'il est défini, le chemin doit se terminer par un slash.
+  </para>
+  
+  <example>
+   <title>SMARTY_DIR</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 
@@ -26,9 +27,9 @@ define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
 require_once(SMARTY_DIR."Smarty.class.php");
 ?>
 ]]>
-       </programlisting>
-      </example>
-	 </sect1>
+   </programlisting>
+  </example>
+ </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

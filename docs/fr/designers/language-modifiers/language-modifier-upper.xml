@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.upper">
-			<title>upper</title>
-			<para>
-            Met une variable en majuscules.
-			</para>
-<example>
-<title>upper</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.upper">
+ <title>upper</title>
+ <para>
+  Met une variable en majuscules.
+ </para>
+ <example>
+  <title>upper</title>
 <programlisting>
 index.php:
 
@@ -24,7 +25,7 @@ SORTIE:
 
 Si l'attaque n'est pas mise en place rapidement, cela risque de durer longtemps.
 SI L'ATTAQUE N'EST PAS MISE EN PLACE RAPIDEMENT, CELA RISQUE DE DURER LONGTEMPS.</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,88 +1,89 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.html.checkboxes">
-			<title>html_checkboxes</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Nom attribut</entry>
-                        <entry>Type</entry>
-                        <entry>Requis</entry>
-                        <entry>Defaut</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>name</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>checkbox</emphasis></entry>
-                        <entry>Nom de la liste de cases à cocher</entry>
-                    </row>
-                    <row>
-                        <entry>values</entry>
-                        <entry>array</entry>
-                        <entry>Oui, à moins que vous n'utilisiez l'attribut
-                        option</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Un tableau de valeurs pour les cases à
-                        cocher</entry>
-                    </row>
-                    <row>
-                        <entry>output</entry>
-                        <entry>array</entry>
-                        <entry>Oui, à moins que vous n'utilisiez l'attribut
-                        option</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Un tableau de sortie pour les cases à cocher</entry>
-                    </row>
-                    <row>
-                        <entry>checked</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>Les éléments cochés de la liste</entry>
-                    </row>
-                    <row>
-                        <entry>options</entry>
-                        <entry>associative array</entry>
-                        <entry>Oui, à moins que vous n'utilisiez values et
-                        output</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Un tableau associatif de valeurs et
-                        sorties</entry>
-                    </row>
-                    <row>
-                        <entry>separator</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>chaîne de caractère pour séparer chaque case
-                        à cocher</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			html_checkboxes est une fonction utilisateur qui crée un groupe de
-			cases à cocher avec les données fournies. Elle prend en compte la liste
-			des éléments sélectionnés par défaut. Les attributs requis sont
-			values et output, à moins que vous n'utilisiez options à la place.
-			La sortie générée est compatible XHTML.
-			</para>
-			<para>
-			Tous les paramètres qui ne sont pas listés ci-dessus sont affichés
-			en tant que paires nom/valeur dans chaque balise &lt;input&gt; crée.
-			</para>
-<example>
-<title>html_checkboxes</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.function.html.checkboxes">
+ <title>html_checkboxes</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Nom attribut</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Defaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>name</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>checkbox</emphasis></entry>
+     <entry>Nom de la liste de cases à cocher</entry>
+    </row>
+    <row>
+     <entry>values</entry>
+     <entry>array</entry>
+     <entry>Oui, à moins que vous n'utilisiez l'attribut
+     option</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Un tableau de valeurs pour les cases à
+     cocher</entry>
+    </row>
+    <row>
+     <entry>output</entry>
+     <entry>array</entry>
+     <entry>Oui, à moins que vous n'utilisiez l'attribut
+     option</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Un tableau de sortie pour les cases à cocher</entry>
+    </row>
+    <row>
+     <entry>checked</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>Les éléments cochés de la liste</entry>
+    </row>
+    <row>
+     <entry>options</entry>
+     <entry>associative array</entry>
+     <entry>Oui, à moins que vous n'utilisiez values et
+     output</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Un tableau associatif de valeurs et
+     sorties</entry>
+    </row>
+    <row>
+     <entry>separator</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>chaîne de caractère pour séparer chaque case
+     à cocher</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  html_checkboxes est une fonction utilisateur qui crée un groupe de
+  cases à cocher avec les données fournies. Elle prend en compte la liste
+  des éléments sélectionnés par défaut. Les attributs requis sont
+  values et output, à moins que vous n'utilisiez options à la place.
+  La sortie générée est compatible XHTML.
+ </para>
+ <para>
+  Tous les paramètres qui ne sont pas listés ci-dessus sont affichés
+  en tant que paires nom/valeur dans chaque balise &lt;input&gt; crée.
+ </para>
+ <example>
+  <title>html_checkboxes</title>
 <programlisting>
 index.php:
 
@@ -122,7 +123,7 @@ SORTIE: (pour les deux exemples)
 &lt;input type="checkbox" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
 &lt;input type="checkbox" name="id[]" value="1002"&gt;Jane Johnson&lt;br /&gt;
 &lt;input type="checkbox" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-    <chapter id="api.variables">
-     <title>Variables</title>
-
-&programmers.api-variables.variable-template-dir;
-&programmers.api-variables.variable-compile-dir;
-&programmers.api-variables.variable-config-dir;
-&programmers.api-variables.variable-plugins-dir;
-&programmers.api-variables.variable-debugging;
-&programmers.api-variables.variable-debug-tpl;
-&programmers.api-variables.variable-debugging-ctrl;
-&programmers.api-variables.variable-global-assign;
-&programmers.api-variables.variable-undefined;
-&programmers.api-variables.variable-autoload-filters;
-&programmers.api-variables.variable-compile-check;
-&programmers.api-variables.variable-force-compile;
-&programmers.api-variables.variable-caching;
-&programmers.api-variables.variable-cache-dir;
-&programmers.api-variables.variable-cache-lifetime;
-&programmers.api-variables.variable-cache-handler-func;
-&programmers.api-variables.variable-cache-modified-check;
-&programmers.api-variables.variable-config-overwrite;
-&programmers.api-variables.variable-config-booleanize;
-&programmers.api-variables.variable-config-read-hidden;
-&programmers.api-variables.variable-config-fix-newlines;
-&programmers.api-variables.variable-default-template-handler-func;
-&programmers.api-variables.variable-php-handling;
-&programmers.api-variables.variable-security;
-&programmers.api-variables.variable-secure-dir;
-&programmers.api-variables.variable-security-settings;
-&programmers.api-variables.variable-trusted-dir;
-&programmers.api-variables.variable-left-delimiter;
-&programmers.api-variables.variable-right-delimiter;
-&programmers.api-variables.variable-compiler-class;
-&programmers.api-variables.variable-request-vars-order;
-&programmers.api-variables.variable-compile-id;
-&programmers.api-variables.variable-use-sub-dirs;
-&programmers.api-variables.variable-default-modifiers;
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<chapter id="api.variables">
+ <title>Variables</title>
+ 
+ &programmers.api-variables.variable-template-dir;
+ &programmers.api-variables.variable-compile-dir;
+ &programmers.api-variables.variable-config-dir;
+ &programmers.api-variables.variable-plugins-dir;
+ &programmers.api-variables.variable-debugging;
+ &programmers.api-variables.variable-debug-tpl;
+ &programmers.api-variables.variable-debugging-ctrl;
+ &programmers.api-variables.variable-global-assign;
+ &programmers.api-variables.variable-undefined;
+ &programmers.api-variables.variable-autoload-filters;
+ &programmers.api-variables.variable-compile-check;
+ &programmers.api-variables.variable-force-compile;
+ &programmers.api-variables.variable-caching;
+ &programmers.api-variables.variable-cache-dir;
+ &programmers.api-variables.variable-cache-lifetime;
+ &programmers.api-variables.variable-cache-handler-func;
+ &programmers.api-variables.variable-cache-modified-check;
+ &programmers.api-variables.variable-config-overwrite;
+ &programmers.api-variables.variable-config-booleanize;
+ &programmers.api-variables.variable-config-read-hidden;
+ &programmers.api-variables.variable-config-fix-newlines;
+ &programmers.api-variables.variable-default-template-handler-func;
+ &programmers.api-variables.variable-php-handling;
+ &programmers.api-variables.variable-security;
+ &programmers.api-variables.variable-secure-dir;
+ &programmers.api-variables.variable-security-settings;
+ &programmers.api-variables.variable-trusted-dir;
+ &programmers.api-variables.variable-left-delimiter;
+ &programmers.api-variables.variable-right-delimiter;
+ &programmers.api-variables.variable-compiler-class;
+ &programmers.api-variables.variable-request-vars-order;
+ &programmers.api-variables.variable-compile-id;
+ &programmers.api-variables.variable-use-sub-dirs;
+ &programmers.api-variables.variable-default-modifiers;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <sect1 id="plugins.howto">
-   <title>Comment fonctionnent les plugins</title>
-   <para>
-   Les plugins sont toujours chargés a la demande. Seuls les modificateurs
-   de variables, les ressources, etc invoqués dans les scripts de templates
-   seront chargés. De plus, chaque plugin n'est chargé qu'une fois, et ce
-   même si vous avez plusieurs instances de Smarty qui tournent dans
-   la même requête.
-   </para>
-   <para>
-   Les filtres de post/pré-compilation et les filtres de sortie sont des cas
-   un peu spéciaux.
-   Comme ils ne sont pas mentionnés dans les templates, ils doivent être déclarés
-   ou chargés explicitement via les fonctions de l'API avant que le template
-   ne soit exécuté. L'ordre dans lequel les filtres multiples d'un même type
-   sont exécutés dépend de l'ordre dans lequel ils sont enregistrés ou chargés.
-   </para>
-   <para>
-   Il n'existe qu'un seul répertoire de plugin (pour des raisons de performances).
-   Pour installer un plugin, copiez-le simplement dans le répertoire et Smarty
-   l'utilisera automatiquement.
-   </para>   
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="plugins.howto">
+ <title>Comment fonctionnent les plugins</title>
+ <para>
+  Les plugins sont toujours chargés a la demande. Seuls les modificateurs
+  de variables, les ressources, etc invoqués dans les scripts de templates
+  seront chargés. De plus, chaque plugin n'est chargé qu'une fois, et ce
+  même si vous avez plusieurs instances de Smarty qui tournent dans
+  la même requête.
+ </para>
+ <para>
+  Les filtres de post/pré-compilation et les filtres de sortie sont des cas
+  un peu spéciaux.
+  Comme ils ne sont pas mentionnés dans les templates, ils doivent être déclarés
+  ou chargés explicitement via les fonctions de l'API avant que le template
+  ne soit exécuté. L'ordre dans lequel les filtres multiples d'un même type
+  sont exécutés dépend de l'ordre dans lequel ils sont enregistrés ou chargés.
+ </para>
+ <para>
+  Il n'existe qu'un seul répertoire de plugin (pour des raisons de performances).
+  Pour installer un plugin, copiez-le simplement dans le répertoire et Smarty
+  l'utilisera automatiquement.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

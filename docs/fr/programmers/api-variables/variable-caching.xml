@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.caching">
-      <title>$caching</title>
-      <para>
-      Ce paramétre demande a Smarty de mettre ou non en cache la sortie des
-      templates.
-      Par défaut ce réglage est a 0 (désactivé). Si vos templates
-      générent du contenu redondant, il est conseillé d'activer le
-      cache. Cela permettra un gain de performance conséquent.
-      Vous pouvez aussi avoir de nombreux fichiers de cache pour un même template.
-      Une valeur de 1 ou 2 active le cache. 1 indique a Smarty d'utiliser
-      la variable $cache_lifetime pour déterminer si le fichier de cache a expiré.
-      Une valeur de 2 indique a Smarty d'utiliser la valeur
-      $cache_lifetime spécifiée a la génération du cache. Ainsi vous pouvez régler
-      la durée de vie d'un fichier de cache avant de récupérer le template pour avoir
-      un certain contr(le quand ce fichier en particulier expire. Voir
-      aussi <link linkend="api.is.cached">is_cached</link>.
-      </para>
-      <para>
-      Si $compile_check est actif, le contenu du cache sera regénéré
-      si un des templates ou un des fichiers de configuration qui fait partie
-      de ce fichier de cache a été modifié. Si $force_compile est actif, le contenu
-      du cache est toujours regénéré.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.caching">
+ <title>$caching</title>
+ <para>
+  Ce paramétre demande a Smarty de mettre ou non en cache la sortie des
+  templates.
+  Par défaut ce réglage est a 0 (désactivé). Si vos templates
+  générent du contenu redondant, il est conseillé d'activer le
+  cache. Cela permettra un gain de performance conséquent.
+  Vous pouvez aussi avoir de nombreux fichiers de cache pour un même template.
+  Une valeur de 1 ou 2 active le cache. 1 indique a Smarty d'utiliser
+  la variable $cache_lifetime pour déterminer si le fichier de cache a expiré.
+  Une valeur de 2 indique a Smarty d'utiliser la valeur
+  $cache_lifetime spécifiée a la génération du cache. Ainsi vous pouvez régler
+  la durée de vie d'un fichier de cache avant de récupérer le template pour avoir
+  un certain contr(le quand ce fichier en particulier expire. Voir
+  aussi <link linkend="api.is.cached">is_cached</link>.
+ </para>
+ <para>
+  Si $compile_check est actif, le contenu du cache sera regénéré
+  si un des templates ou un des fichiers de configuration qui fait partie
+  de ce fichier de cache a été modifié. Si $force_compile est actif, le contenu
+  du cache est toujours regénéré.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

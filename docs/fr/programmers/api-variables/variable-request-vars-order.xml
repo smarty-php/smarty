@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.request.vars.order">
-      <title>$request_vars_order</title>
-      <para>
-      L'ordre dans lequel les variables de requêtes sont enregistrées,
-      identique a variables_order dans php.ini.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.request.vars.order">
+ <title>$request_vars_order</title>
+ <para>
+  L'ordre dans lequel les variables de requêtes sont enregistrées,
+  identique a variables_order dans php.ini.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

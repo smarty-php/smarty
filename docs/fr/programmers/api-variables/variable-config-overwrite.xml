@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.overwrite">
-      <title>$config_overwrite</title>
-      <para>
-      Si cette variable est a vrai, les variables lues dans les fichiers
-      de configuration peuvent s'écraser entre elles. Sinon les variables
-      seront mises dans un tableau. Très utile si vous voulez stocker
-      des tableaux de données dans des fichiers de configuration, listez
-      simplement chaque élément plusieurs fois. Mise a faux par défaut.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.config.overwrite">
+ <title>$config_overwrite</title>
+ <para>
+  Si cette variable est a vrai, les variables lues dans les fichiers
+  de configuration peuvent s'écraser entre elles. Sinon les variables
+  seront mises dans un tableau. Très utile si vous voulez stocker
+  des tableaux de données dans des fichiers de configuration, listez
+  simplement chaque élément plusieurs fois. Mise a faux par défaut.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

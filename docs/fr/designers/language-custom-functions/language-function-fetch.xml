@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.fetch">
-			<title>fetch</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Nom attribut</entry>
-                        <entry>Type</entry>
-                        <entry>Requis</entry>
-                        <entry>Defaut</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>file</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Oui</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>le fichier, site http ou ftp à récupérer</entry>
-                    </row>
-                    <row>
-                        <entry>assign</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>le nom de la variable PHP dans laquelle la sortie
-                        sera assignée plutôt que d'être directement affichée.
-                        </entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			fetch est utilisé pour récupérer des fichiers depuis le système de
-         fichier local, depuis un serveur http ou ftp, et en afficher le contenu.
-         Si le nom du fichier commence par "http://", la page internet sera
-         récupérée, puis affichée. Si le nom du fichier commence par "ftp://",
-         le fichier sera récupéré depuis le serveur ftp, et affiché.
-         Pour les fichiers du système local, le chemin doit être absolu ou
-         relatif au chemin d'exécution du script PHP.
-			</para>
-			<para>
-			Vous pouvez spécifier l'attribut optionnel <emphasis>assign</emphasis>
-			qui défini une variable de template dans laquelle la sortie
-          sera stockée plutôt qude d'être affichée (nouveau dans Smarty 1.5.0).
-			</para>
-			<note>
-				<title>Note technique</title>
-				<para>Ne supporte pas les redirections http. Assurez vous d'inclure les
-               slash de fin sur votre page web si nécessaire.
-            	</para>
-			</note>
-			<note>
-				<title>Note technique</title>
-				<para>
-				Si la sécurité est activée, vous ne pourez récupérer les
-            fichiers du système local que s'ils sont situés dans l'un des
-            répertoires sécurisé ($secure_dir).
-            	</para>
-			</note>
-<example>
-<title>fetch</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.function.fetch">
+ <title>fetch</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Nom attribut</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Defaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>file</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Oui</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>le fichier, site http ou ftp à récupérer</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>le nom de la variable PHP dans laquelle la sortie
+      sera assignée plutôt que d'être directement affichée.
+     </entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  fetch est utilisé pour récupérer des fichiers depuis le système de
+  fichier local, depuis un serveur http ou ftp, et en afficher le contenu.
+  Si le nom du fichier commence par "http://", la page internet sera
+  récupérée, puis affichée. Si le nom du fichier commence par "ftp://",
+  le fichier sera récupéré depuis le serveur ftp, et affiché.
+  Pour les fichiers du système local, le chemin doit être absolu ou
+  relatif au chemin d'exécution du script PHP.
+ </para>
+ <para>
+  Vous pouvez spécifier l'attribut optionnel <emphasis>assign</emphasis>
+  qui défini une variable de template dans laquelle la sortie
+  sera stockée plutôt qude d'être affichée (nouveau dans Smarty 1.5.0).
+ </para>
+ <note>
+  <title>Note technique</title>
+  <para>Ne supporte pas les redirections http. Assurez vous d'inclure les
+   slash de fin sur votre page web si nécessaire.
+  </para>
+ </note>
+ <note>
+  <title>Note technique</title>
+  <para>
+   Si la sécurité est activée, vous ne pourez récupérer les
+   fichiers du système local que s'ils sont situés dans l'un des
+   répertoires sécurisé ($secure_dir).
+  </para>
+ </note>
+ <example>
+  <title>fetch</title>
 <programlisting>
 {* Inclus du javascript dans votre template *}
 {fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
@@ -83,7 +84,7 @@
 {if $weather ne ""}
 	&lt;b&gt;{$weather}&lt;/b&gt;
 {/if}</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

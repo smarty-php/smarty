@@ -60,7 +60,7 @@ Sujet: {$sujet|truncate:40:"..."}
  &designers.language-modifiers.language-modifier-truncate;
  &designers.language-modifiers.language-modifier-upper;
  &designers.language-modifiers.language-modifier-wordwrap;
-
+ 
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,59 +1,60 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.wordwrap">
-			<title>wordwrap</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc"/>
-                <thead>
-                    <row>
-                        <entry>Position du paramètre</entry>
-                        <entry>Type</entry>
-                        <entry>Requis</entry>
-                        <entry>Defaut</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>entier</entry>
-                        <entry>Non</entry>
-                        <entry>80</entry>
-						<entry>La nombre de colonnes sur lequel ajuster l'affichage.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry>\n</entry>
-                        <entry>chaîne de caractères utilisée pour l'ajustement.</entry>
-                    </row>
-                    <row>
-                        <entry>3</entry>
-                        <entry>booléen</entry>
-                        <entry>Non</entry>
-                        <entry>false</entry>
-                        <entry>Détermine si l'ajustement se fait en fin de mot
-                        (false) ou au caractère exact (true).</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			Ajuste une chaîne de caractères à une taille de colonne, par défaut 80.
-			Un second paramètre optionnel vous permet de spécifier la chaîne à utiliser
-			pour l'ajustement à la nouvelle ligne (retour chariot \n par défaut).
-			Par défaut, wordwrap tente un ajustement à la fin d'un mot. Si vous voulez
-			autoriser le découpage des mots pour un ajustement au caractère près,
-			passez true au troisième paramètre optionnel.
-			</para>
-<example>
-<title>wordwrap</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.wordwrap">
+ <title>wordwrap</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc"/>
+   <thead>
+    <row>
+     <entry>Position du paramètre</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Defaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>1</entry>
+     <entry>entier</entry>
+     <entry>Non</entry>
+     <entry>80</entry>
+     <entry>La nombre de colonnes sur lequel ajuster l'affichage.</entry>
+    </row>
+    <row>
+     <entry>2</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry>\n</entry>
+     <entry>chaîne de caractères utilisée pour l'ajustement.</entry>
+    </row>
+    <row>
+     <entry>3</entry>
+     <entry>booléen</entry>
+     <entry>Non</entry>
+     <entry>false</entry>
+     <entry>Détermine si l'ajustement se fait en fin de mot
+     (false) ou au caractère exact (true).</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  Ajuste une chaîne de caractères à une taille de colonne, par défaut 80.
+  Un second paramètre optionnel vous permet de spécifier la chaîne à utiliser
+  pour l'ajustement à la nouvelle ligne (retour chariot \n par défaut).
+  Par défaut, wordwrap tente un ajustement à la fin d'un mot. Si vous voulez
+  autoriser le découpage des mots pour un ajustement au caractère près,
+  passez true au troisième paramètre optionnel.
+ </para>
+ <example>
+  <title>wordwrap</title>
 <programlisting>
 index.php:
 
@@ -98,7 +99,7 @@ Une femme aveugle obtient un n
 ouveau rein d'un père qu'elle
 n'a pas vu depuis des années.
 </programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

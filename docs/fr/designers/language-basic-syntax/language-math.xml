@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: didou Status: ready -->
-   <sect1 id="language.math">
-    <title>Mathématiques</title>
-    <para>
-     Les mathématiques peuvent être directement appliquées aux
-     valeurs de variables.
-    </para>
-    <example>
-     <title>Exemples de mathématiques</title>
-     <programlisting>
+<sect1 id="language.math">
+ <title>Mathématiques</title>
+ <para>
+  Les mathématiques peuvent être directement appliquées aux
+  valeurs de variables.
+ </para>
+ <example>
+  <title>Exemples de mathématiques</title>
+  <programlisting>
 <![CDATA[
 {$foo+1}
 
@@ -25,8 +25,8 @@
 
 {assign var="foo" value="`$foo+$bar`"}
 ]]>
-     </programlisting>
-    </example>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

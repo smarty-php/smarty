@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.default.template.handler.func">
-      <title>$default_template_handler_func</title>
-      <para>
-      Cette fonction est appelée quand un template ne peut pas être
-      obtenu avec sa ressource.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.default.template.handler.func">
+ <title>$default_template_handler_func</title>
+ <para>
+  Cette fonction est appelée quand un template ne peut pas être
+  obtenu avec sa ressource.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

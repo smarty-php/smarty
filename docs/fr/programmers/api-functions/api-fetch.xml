@@ -1,34 +1,77 @@
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.fetch">
-			<title>fetch</title>
-   <methodsynopsis>
-    <type>string</type><methodname>fetch</methodname>
-    <methodparam><type>string</type><parameter>template</parameter></methodparam>
-    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
-   </methodsynopsis>
-			<para>
-			Utilisée pour renvoyer le résultat du template plut(t que de l'afficher.
-         Il faut passer un type et un chemin de <link
-         linkend="template.resources">ressource template</link>
-         valides. Vous pouvez passer un identifiant de cache en deuxième
-         paramètre. Reportez-vous a la section <link linkend="caching">cache
-         </link> pour plus de renseignements.
-			</para>
-			<para>
-         Un troisième paramètre optionnel est un identifiant de compilation.
-         Cela s'avère utile quand vous voulez compiler différentes versions
-         d'un même template, pour par exemple avoir des templates
-         compilés séparés pour différents langages. Une autre utilité de ce
-         paramètre est le cas oú vous utilisez plus d'un $template_dir
-         mais un seul $compile_dir, car certains templates avec le même nom
-         s'écraseraient entre eux. Vous pouvez aussi régler la variable <link
-			linkend="variable.compile.id">$compile_id</link> une seule
-			fois plut(t que de la passer a chaque appel.
-			</para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.fetch">
+ <title>fetch</title>
+ <methodsynopsis>
+  <type>string</type><methodname>fetch</methodname>
+  <methodparam><type>string</type><parameter>template</parameter></methodparam>
+  <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+  <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+ </methodsynopsis>
+ <para>
+  Utilisée pour renvoyer le résultat du template plut(t que de l'afficher.
+  Il faut passer un type et un chemin de <link
+  linkend="template.resources">ressource template</link>
+  valides. Vous pouvez passer un identifiant de cache en deuxième
+  paramètre. Reportez-vous a la section <link linkend="caching">cache
+ </link> pour plus de renseignements.
+</para>
+<para>
+ Un troisième paramètre optionnel est un identifiant de compilation.
+ Cela s'avère utile quand vous voulez compiler différentes versions
+ d'un même template, pour par exemple avoir des templates
+ compilés séparés pour différents langages. Une autre utilité de ce
+ paramètre est le cas oú vous utilisez plus d'un $template_dir
+ mais un seul $compile_dir, car certains templates avec le même nom
+ s'écraseraient entre eux. Vous pouvez aussi régler la variable <link
+ linkend="variable.compile.id">$compile_id</link> une seule
+ fois plut(t que de la passer a chaque appel.
+</para>
 <example>
-<title>fetch</title>
+ <title>fetch</title>
 <programlisting>
 include("Smarty.class.php");
 $smarty = new Smarty;

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.unregister.outputfilter">
-			<title>unregister_outputfilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_outputfilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-			Utilisée pour désallouer dynamiquement un filtre de sortie.
-			</para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.unregister.outputfilter">
+ <title>unregister_outputfilter</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>unregister_outputfilter</function></funcdef>
+   <paramdef>string <parameter>function_name</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Utilisée pour désallouer dynamiquement un filtre de sortie.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

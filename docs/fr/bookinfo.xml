@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
- <bookinfo id="bookinfo">
-  <title>Smarty - le moteur et compilateur de templates PHP</title>
-  <authorgroup id="authors">
-   <author>
-    <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
-   </author>
-   <author>
-    <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
-   </author>
-  </authorgroup>
-  <authorgroup id="translators">
-   <author>
-    <firstname>Arnaud</firstname><surname>Cogoluègnes &lt;arnaud.cogoluegnes@free.fr&gt;</surname>
-   </author>
-   <author>
-    <firstname>Gérald</firstname><surname>Croës &lt;gcroes@aston.fr&gt;</surname>
-   </author>
-   <author>
-    <firstname>Mehdi</firstname><surname>Achour &lt;didou@php.net&gt;</surname>
-   </author>
-  </authorgroup>
-  <pubdate>&build-date;</pubdate>
-  <copyright>
-   <year>2001-2004</year>
-   <holder>ispi of Lincoln, Inc.</holder>
-  </copyright>
- </bookinfo>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<bookinfo id="bookinfo">
+ <title>Smarty - le moteur et compilateur de templates PHP</title>
+ <authorgroup id="authors">
+  <author>
+   <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
+  </author>
+  <author>
+   <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
+  </author>
+ </authorgroup>
+ <authorgroup id="translators">
+  <author>
+   <firstname>Arnaud</firstname><surname>Cogoluègnes &lt;arnaud.cogoluegnes@free.fr&gt;</surname>
+  </author>
+  <author>
+   <firstname>Gérald</firstname><surname>Croës &lt;gcroes@aston.fr&gt;</surname>
+  </author>
+  <author>
+   <firstname>Mehdi</firstname><surname>Achour &lt;didou@php.net&gt;</surname>
+  </author>
+ </authorgroup>
+ <pubdate>&build-date;</pubdate>
+ <copyright>
+  <year>2001-2004</year>
+  <holder>ispi of Lincoln, Inc.</holder>
+ </copyright>
+</bookinfo>
 
 <!-- Keep this comment at the end of the file
 Local variables:

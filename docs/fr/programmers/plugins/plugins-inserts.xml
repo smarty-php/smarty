@@ -1,33 +1,76 @@
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.inserts"><title>Insertions</title>
-    <para>
-    Les plugins d'insertion sont utilisés pour implémenter les fonctions
-    qui sont appelées par les balises 
-    <link linkend="language.function.insert"><command>insert</command></link>
-    dans les templates.
-    </para>
-    <funcsynopsis>
-     <funcprototype>
-      <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
-      <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-    </funcsynopsis>
-    <para>
-    Le premier paramétre passé a la fonction est une tableau associatif
-    d'attributs. Vous pouvez accéder a ces valeurs soit directement, par exemple
-    <varname>$params['start']</varname>, soit en utilisant
-    <varname>extract($params)</varname> pour les importer dans la table
-    des symboles.
-    </para>
-    <para>
-    La fonction d'insertion est supposée retourner le résultat qui sera
-    substitué a la balise <command>insert</command> dans le template.
-    </para>    
-    <example>
-     <title>plugin d'insertion</title>
-     <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="plugins.inserts"><title>Insertions</title>
+<para>
+ Les plugins d'insertion sont utilisés pour implémenter les fonctions
+ qui sont appelées par les balises
+ <link linkend="language.function.insert"><command>insert</command></link>
+ dans les templates.
+</para>
+<funcsynopsis>
+ <funcprototype>
+  <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
+  <paramdef>array <parameter>$params</parameter></paramdef>
+  <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+ </funcprototype>
+</funcsynopsis>
+<para>
+ Le premier paramétre passé a la fonction est une tableau associatif
+ d'attributs. Vous pouvez accéder a ces valeurs soit directement, par exemple
+ <varname>$params['start']</varname>, soit en utilisant
+ <varname>extract($params)</varname> pour les importer dans la table
+ des symboles.
+</para>
+<para>
+ La fonction d'insertion est supposée retourner le résultat qui sera
+ substitué a la balise <command>insert</command> dans le template.
+</para>
+<example>
+ <title>plugin d'insertion</title>
+<programlisting>
 &lt;?php
 /*
  * Smarty plugin
@@ -50,7 +93,7 @@ function smarty_insert_time($params, &amp;$smarty)
     return $datetime;
 }
 ?&gt;</programlisting>
-    </example>
+</example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

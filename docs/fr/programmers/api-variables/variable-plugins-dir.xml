@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.plugins.dir">
-      <title>$plugins_dir</title>
-      <para>
-      Ce sont les répertoire dans lesquels Smarty ira chercher les plugins
-      dont il a besoin. La valeur par défaut est "plugins" sous le
-      répertoire SMARTY_DIR. Si vous donnez un chemin relatif, Smarty
-      regardera d'abord relativement au SMARTY_DIR, puis relativement au rtc (répertoire
-      de travail courant), puis relativement a chaque entrée de votre répertoire
-      d'inclusion PHP.
-      </para>
-	  <note>
-	  <title>Note technique</title>
-	  <para>
-	  Pour des raisons de performances, ne réglez pas votre plugins_dir
-	  pour qu'il utilise votre include_path PHP. Utilisez un
-	  chemin absolu ou un chemin relatif a SMARTY_DIR ou au rtc.
-	  </para>
-	  </note>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.plugins.dir">
+ <title>$plugins_dir</title>
+ <para>
+  Ce sont les répertoire dans lesquels Smarty ira chercher les plugins
+  dont il a besoin. La valeur par défaut est "plugins" sous le
+  répertoire SMARTY_DIR. Si vous donnez un chemin relatif, Smarty
+  regardera d'abord relativement au SMARTY_DIR, puis relativement au rtc (répertoire
+  de travail courant), puis relativement a chaque entrée de votre répertoire
+  d'inclusion PHP.
+ </para>
+ <note>
+  <title>Note technique</title>
+  <para>
+   Pour des raisons de performances, ne réglez pas votre plugins_dir
+   pour qu'il utilise votre include_path PHP. Utilisez un
+   chemin absolu ou un chemin relatif a SMARTY_DIR ou au rtc.
+  </para>
+ </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

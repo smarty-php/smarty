@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.all.cache">
-			<title>clear_all_cache</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_all_cache</function></funcdef>
-				<paramdef>int <parameter>expire time</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-         Utilisée pour effacer les fichiers de cache des templates. Vous pouvez passer un
-         paramètre optionnel afin d'indiquer l'Gge minimun que doivent avoir
-         les fichiers  de cache pour qu'ils soient effacés.
-			</para>
-<example>
-<title>clear_all_cache</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.clear.all.cache">
+ <title>clear_all_cache</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>clear_all_cache</function></funcdef>
+   <paramdef>int <parameter>expire time</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Utilisée pour effacer les fichiers de cache des templates. Vous pouvez passer un
+  paramètre optionnel afin d'indiquer l'Gge minimun que doivent avoir
+  les fichiers  de cache pour qu'ils soient effacés.
+ </para>
+ <example>
+  <title>clear_all_cache</title>
 <programlisting>
 // efface le cache
 $smarty->clear_all_cache();</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

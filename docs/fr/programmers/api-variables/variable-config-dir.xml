@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.dir">
-      <title>$config_dir</title>
-      <para>
-      Il s'agit du répertoire utilisé pour stocker les
-      fichiers de configuration utilisés dans les templates.
-      La valeur par défaut est "./configs", ce qui signifie
-      que Smarty va chercher ce répertoire
-      dans le même répertoire que le script PHP qui s'exécute.
-      </para>
-	 <note>
-	 <title>Note technique</title>
-	 <para>
-       Il n'est pas conseillé de mettre ce répertoire
-      sous la racine de l'arborescence Web.
-    </para>
-	 </note>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.config.dir">
+ <title>$config_dir</title>
+ <para>
+  Il s'agit du répertoire utilisé pour stocker les
+  fichiers de configuration utilisés dans les templates.
+  La valeur par défaut est "./configs", ce qui signifie
+  que Smarty va chercher ce répertoire
+  dans le même répertoire que le script PHP qui s'exécute.
+ </para>
+ <note>
+  <title>Note technique</title>
+  <para>
+   Il n'est pas conseillé de mettre ce répertoire
+   sous la racine de l'arborescence Web.
+  </para>
+ </note>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

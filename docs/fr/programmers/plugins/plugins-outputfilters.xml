@@ -1,27 +1,70 @@
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
+
+Warning: str_repeat(): Second argument has to be greater than or equal to 0. in /home/user/didou/cvs/smarty/docs/fr/clean.php on line 63
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.outputfilters"><title>Filtres de sortie</title>
-    <para>
-    Les plugins de filtres de sortie opérent sur la sortie du template,
-    aprés que le template a été chargé et exécuté, mais avant que
-    la sortie ne soit affichée.
-    </para>    
-    <funcsynopsis>
-     <funcprototype>
-      <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
-      <paramdef>string <parameter>$template_output</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-    </funcsynopsis>
-    <para>
-    Le premier paramétre passé a la fonction du filtre de sortie est la
-    sortie du template qui doit être modifiée et le second paramétre
-    est l'instance de Smarty appelant le plugin. Le plugin est supposé
-    faire un traitement et en retourner le résultat.
-    </para>
-    <example>
-     <title>plugin de filtre de sortie</title>
-     <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="plugins.outputfilters"><title>Filtres de sortie</title>
+<para>
+ Les plugins de filtres de sortie opérent sur la sortie du template,
+ aprés que le template a été chargé et exécuté, mais avant que
+ la sortie ne soit affichée.
+</para>
+<funcsynopsis>
+ <funcprototype>
+  <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
+  <paramdef>string <parameter>$template_output</parameter></paramdef>
+  <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+ </funcprototype>
+</funcsynopsis>
+<para>
+ Le premier paramétre passé a la fonction du filtre de sortie est la
+ sortie du template qui doit être modifiée et le second paramétre
+ est l'instance de Smarty appelant le plugin. Le plugin est supposé
+ faire un traitement et en retourner le résultat.
+</para>
+<example>
+ <title>plugin de filtre de sortie</title>
+<programlisting>
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -38,7 +81,7 @@
                          '$1%40$2', $output);
  }
      </programlisting>
-    </example>
+</example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

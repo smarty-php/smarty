@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.read.hidden">
-      <title>$config_read_hidden</title>
-      <para>
-      Si cette variable est a vrai, les sections cachés (dont les noms
-      commencent par un point) dans les fichiers de configuration peuvent
-      être lues depuis les templates. On laisse habituellement cela a faux, de
-      cette faton vous pouvez stocker des données sensibles dans les fichiers
-      de configuration, comme par exemple des paramétres de base de données,
-      sans vous soucier de la faton dont les templates les chargent.
-      Mise a faux par défaut.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.config.read.hidden">
+ <title>$config_read_hidden</title>
+ <para>
+  Si cette variable est a vrai, les sections cachés (dont les noms
+  commencent par un point) dans les fichiers de configuration peuvent
+  être lues depuis les templates. On laisse habituellement cela a faux, de
+  cette faton vous pouvez stocker des données sensibles dans les fichiers
+  de configuration, comme par exemple des paramétres de base de données,
+  sans vous soucier de la faton dont les templates les chargent.
+  Mise a faux par défaut.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

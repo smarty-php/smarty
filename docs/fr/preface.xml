@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
 <preface id="preface">
-  <title>Préface</title>
-  <para>
+ <title>Préface</title>
+ <para>
   "Comment rendre mes scripts PHP indépendants de la présentation ?".
   Voici sans doute la question la plus posée sur la mailing list
   PHP. Alors que PHP est étiqueté "langage de script
@@ -11,8 +12,8 @@
   le contenu est important. De plus, dans de nombreuses entreprises
   les rôles du designer et du programmeur sont distincts. La solution template
   coule donc de source.
-  </para>
-  <para>
+ </para>
+ <para>
   Dans notre entreprise par exemple, le développement d'une application
   se fait de la manière suivante : une fois le cahier des charges écrit,
   le designer réalise une maquette, et donne ses interfaces
@@ -27,8 +28,8 @@
   comme des fichiers de configuration, des blocs dynamiques et d'autres solutions
   pour répondre à des problématiques d'interface, mais ne veulent pas
   nécessairement avoir à faire à toutes les subtilités de la programmation PHP.
-  </para>
-  <para>
+ </para>
+ <para>
   Un rapide tour d'horizon des solutions type template aujourd'hui et
   l'on s'aperçoit que la plupart d'entre elles n'offrent que des moyens
   rudimentaires pour substituer des variables dans des templates, ainsi que des
@@ -41,8 +42,8 @@
   designers soient capables de travailler avec leurs propres fichiers
   de configuration pour y récupérer des variables, exploitables dans leurs
   templates. Et la liste est longue.
-  </para>
-  <para>
+ </para>
+ <para>
   Fin 1999, nous avons commencé à écrire une spécification pour un moteur de
   template. Une fois la spécification terminée,
   nous avons commencé à travailler sur un moteur de template écrit
@@ -66,8 +67,8 @@
   tout le travail nécessaire en amont, dans le script PHP, pour configurer
   et exécuter les templates, et les blocs dynamiques. Comment rendre tout ceci
   plus simple ?
-  </para>
-  <para>
+ </para>
+ <para>
   Puis vint la vision de ce que devait devenir Smarty. Nous
   savons combien le code PHP peut être rapide sans le coût
   d'analyse des templates. Nous savons aussi combien fastidieux
@@ -75,8 +76,8 @@
   cela peut être remplacé par une syntaxe spécifique, beaucoup
   plus simple. Et si nous combinions les deux forces ? Ainsi, Smarty
   était né...
-  </para>
- </preface>
+ </para>
+</preface>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

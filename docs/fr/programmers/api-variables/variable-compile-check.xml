@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.compile.check">
-      <title>$compile_check</title>
-      <para>
-      A chaque invocation de l'application PHP, Smarty fait
-      un test pour voir si le template courant a été modifié
-      (date de derniére modification différente) depuis sa
-      derniére compilation. S'il a changé, le template est recompilé.
-      Si le template n'a pas encore été compilé, il le sera
-      quelle que soit la valeur ce réglage.
-      Par défaut cette valeur est a vrai. Quand
-      une application est mise en production (les templates
-      ne changent plus), cette vérification n'est pas nécessaire.
-      Assurez-vous de mettre $compile_check a "false" pour des performances
-      maximales. Notez que si vous mettez ce paramétre a "false" et qu'un
-      template est modifié, vous ne verrez *pas* le changement
-      car le template ne sera *pas* recompilé. Si le processus de cache
-      est activé et que $compile_check l'est aussi, alors les fichiers
-      du cache seront regénérés si un template concerné ou un fichier de
-      configuration concerné est modifié. Voir aussi <link
-	   linkend="variable.force.compile">$force_compile</link> ou <link
-	   linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
-      </para>
-
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.compile.check">
+ <title>$compile_check</title>
+ <para>
+  A chaque invocation de l'application PHP, Smarty fait
+  un test pour voir si le template courant a été modifié
+  (date de derniére modification différente) depuis sa
+  derniére compilation. S'il a changé, le template est recompilé.
+  Si le template n'a pas encore été compilé, il le sera
+  quelle que soit la valeur ce réglage.
+  Par défaut cette valeur est a vrai. Quand
+  une application est mise en production (les templates
+  ne changent plus), cette vérification n'est pas nécessaire.
+  Assurez-vous de mettre $compile_check a "false" pour des performances
+  maximales. Notez que si vous mettez ce paramétre a "false" et qu'un
+  template est modifié, vous ne verrez *pas* le changement
+  car le template ne sera *pas* recompilé. Si le processus de cache
+  est activé et que $compile_check l'est aussi, alors les fichiers
+  du cache seront regénérés si un template concerné ou un fichier de
+  configuration concerné est modifié. Voir aussi <link
+  linkend="variable.force.compile">$force_compile</link> ou <link
+  linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
+ </para>
+ 
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

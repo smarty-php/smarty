@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-      <sect1 id="language.modifier.capitalize">
-       <title>capitalize</title>
-       <para>
-        Met la première lettre de chaque mot d'une variable en majuscule.
-       </para>
-       <example>
-        <title>capitalize</title>
-        <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.capitalize">
+ <title>capitalize</title>
+ <para>
+  Met la première lettre de chaque mot d'une variable en majuscule.
+ </para>
+ <example>
+  <title>capitalize</title>
+<programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -23,7 +24,7 @@ SORTIE:
 
 La police commence une campagne de sensibilisation contre la violence routière.
 La Police Commence Une Campagne De Sensibilisation Contre La Violence Routière.</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="language.syntax.attributes">
-    <title>Paramètres</title>
-    <para>
-     La plupart des fonctions attendent des paramètres qui régissent leur
-     comportement. Les paramètres des fonctions Smarty sont très proches des
-     attributs des balises HTML. Les valeurs numériques n'ont pas besoin d'être
-     entourées par des guillemets, par contre, ces guillemets sont recommandées lors
-     de l'utilisation de chaînes de caractères. Des variables peuvent aussi être
-     utilisées en tant que paramètres, et ne doivent pas être entourées de guillemets.
-    </para>
-    <para>
-     Certains paramètres requièrent des valeurs booléennes (true / false).
-     Elles peuvent être spécifiées par l'une des valeures suivantes, sans
-     guillemet: <literal>true</literal>, <literal>on</literal>, et <literal>yes</literal>,
-     ou <literal>false</literal>, <literal>off</literal>, et <literal>no</literal>.
-    </para>
-    <example>
-     <title>Paramètres de fonction, syntaxe</title>
-     <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.syntax.attributes">
+ <title>Paramètres</title>
+ <para>
+  La plupart des fonctions attendent des paramètres qui régissent leur
+  comportement. Les paramètres des fonctions Smarty sont très proches des
+  attributs des balises HTML. Les valeurs numériques n'ont pas besoin d'être
+  entourées par des guillemets, par contre, ces guillemets sont recommandées lors
+  de l'utilisation de chaînes de caractères. Des variables peuvent aussi être
+  utilisées en tant que paramètres, et ne doivent pas être entourées de guillemets.
+ </para>
+ <para>
+  Certains paramètres requièrent des valeurs booléennes (true / false).
+  Elles peuvent être spécifiées par l'une des valeures suivantes, sans
+  guillemet: <literal>true</literal>, <literal>on</literal>, et <literal>yes</literal>,
+  ou <literal>false</literal>, <literal>off</literal>, et <literal>no</literal>.
+ </para>
+ <example>
+  <title>Paramètres de fonction, syntaxe</title>
+<programlisting>
 {include file="header.tpl"}
 
 {include file=$includeFile}
@@ -30,7 +31,7 @@
 &lt;SELECT name=company&gt;
 {html_options values=$vals selected=$selected output=$output}
 &lt;/SELECT&gt;</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

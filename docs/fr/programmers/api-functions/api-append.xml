@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-        <sect1 id="api.append">
-         <title>append</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>append</function></funcdef>
-           <paramdef>mixed <parameter>var</parameter></paramdef>
-          </funcprototype>
-          <funcprototype>
-           <funcdef>void <function>append</function></funcdef>
-           <paramdef>string <parameter>varname</parameter></paramdef>
-           <paramdef>mixed <parameter>var</parameter></paramdef>
-          </funcprototype>
-          <funcprototype>
-           <funcdef>void <function>append</function></funcdef>
-           <paramdef>string <parameter>varname</parameter></paramdef>
-           <paramdef>mixed <parameter>var</parameter></paramdef>
-           <paramdef>boolean <parameter>merge</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-         Utilisée pour ajouter un élément a un tableau assigné. Si vous utilisez
-         cette fonction avec une chaîne de caractères, elle est convertie en
-         tableau auquel on ajoute ensuite l'élément. Vous pouvez explicitement passer
-         des paires nom/valeur. Si vous passez le troisième paramètre
-         (optionel) a vrai, la valeur sera fusionnée avec le tableau plut(t que
-         d'être ajoutée.
-         </para>
-		 <note>
-		 <title>Note technique</title>
-		 <para>
-		 Le paramètre de fusion respecte les clés des tableaux, ainsi si vous
-		 fusionnez deux tableaux indexés numériquement, ils pourront s'écraser
-		 l'un l'autre ou donner des clés qui ne se suivent pas. Cela diffère
-		 donc de la fonction PHP array_merge() qui supprime les clés numériques
-		 et les renumérote.
-		 </para>
-		 </note>
-         <example>
-          <title>append</title>
-          <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.append">
+ <title>append</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>append</function></funcdef>
+   <paramdef>mixed <parameter>var</parameter></paramdef>
+  </funcprototype>
+  <funcprototype>
+   <funcdef>void <function>append</function></funcdef>
+   <paramdef>string <parameter>varname</parameter></paramdef>
+   <paramdef>mixed <parameter>var</parameter></paramdef>
+  </funcprototype>
+  <funcprototype>
+   <funcdef>void <function>append</function></funcdef>
+   <paramdef>string <parameter>varname</parameter></paramdef>
+   <paramdef>mixed <parameter>var</parameter></paramdef>
+   <paramdef>boolean <parameter>merge</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Utilisée pour ajouter un élément a un tableau assigné. Si vous utilisez
+  cette fonction avec une chaîne de caractères, elle est convertie en
+  tableau auquel on ajoute ensuite l'élément. Vous pouvez explicitement passer
+  des paires nom/valeur. Si vous passez le troisième paramètre
+  (optionel) a vrai, la valeur sera fusionnée avec le tableau plut(t que
+  d'être ajoutée.
+ </para>
+ <note>
+  <title>Note technique</title>
+  <para>
+   Le paramètre de fusion respecte les clés des tableaux, ainsi si vous
+   fusionnez deux tableaux indexés numériquement, ils pourront s'écraser
+   l'un l'autre ou donner des clés qui ne se suivent pas. Cela diffère
+   donc de la fonction PHP array_merge() qui supprime les clés numériques
+   et les renumérote.
+  </para>
+ </note>
+ <example>
+  <title>append</title>
+<programlisting>
 // passe des paires nom/valeur
 $smarty->append("Name","Fred");
 $smarty->append("Address",$address);
 
 // passe un tableau associatif
 $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

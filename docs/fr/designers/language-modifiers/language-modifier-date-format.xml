@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.date.format">
-			<title>date_format</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Position du paramètre</entry>
-                        <entry>Type</entry>
-                        <entry>Requis</entry>
-                        <entry>Defaut</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry>%b %e, %Y</entry>
-                        <entry>Format de sortie de la date.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry>n/a</entry>
-                        <entry>Date par défaut si aucune n'est spécifiée en entrée.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-            Formate une date / heure au format strftime donné. Les dates peuvent
-            être passées à smarty en tant que timestamp unix, timestamp mysql ou
-            comme chaîne quelconque contenant mois jour année (interprétable par
-            strtotime). Les concepteurs de templates peuvent utiliser date_format
-            pour contrôler parfaitement le format de sortie de la date.
-            Si la date passée à date_format est vide, et qu'un second paramètre
-            est donné, ce dernier sera utilisé comme étant la date à formater.
-			</para>
-<example>
-<title>date_format</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.date.format">
+ <title>date_format</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Position du paramètre</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Defaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>1</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry>%b %e, %Y</entry>
+     <entry>Format de sortie de la date.</entry>
+    </row>
+    <row>
+     <entry>2</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry>n/a</entry>
+     <entry>Date par défaut si aucune n'est spécifiée en entrée.</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  Formate une date / heure au format strftime donné. Les dates peuvent
+  être passées à smarty en tant que timestamp unix, timestamp mysql ou
+  comme chaîne quelconque contenant mois jour année (interprétable par
+  strtotime). Les concepteurs de templates peuvent utiliser date_format
+  pour contrôler parfaitement le format de sortie de la date.
+  Si la date passée à date_format est vide, et qu'un second paramètre
+  est donné, ce dernier sera utilisé comme étant la date à formater.
+ </para>
+ <example>
+  <title>date_format</title>
 <programlisting>
 index.php:
 
@@ -72,9 +73,9 @@ Tuesday, February 6, 2001
 Feb 5, 2001
 Monday, February 5, 2001
 14:33:00</programlisting>
-</example>
-<example>
-<title>date_format indicateurs de convertion</title>
+ </example>
+ <example>
+  <title>date_format indicateurs de convertion</title>
 <programlisting>
 %a - Abréviation du jour de la semaine, selon les paramètres locaux.
 
@@ -162,8 +163,8 @@ PHP strftime(). Il est probable que vous disposiez de plus ou moins d'options
 disponibles selon le système sur lequel PHP a été compilé (strftime ()).
 Reportez vous à l'aide de votre système pour une liste complète des
 paramètres disponibles.</programlisting>
-</example>
-
+ </example>
+ 
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

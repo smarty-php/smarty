@@ -1,98 +1,99 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.html.image">
-			<title>html_image</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Nom attribut</entry>
-                        <entry>Type</entry>
-                        <entry>Requis</entry>
-                        <entry>Defaut</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>file</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Oui</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>nom/chemin des images</entry>
-                    </row>
-                    <row>
-                        <entry>border</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>0</emphasis></entry>
-                        <entry>Bordure de l'image</entry>
-                    </row>
-                    <row>
-                        <entry>height</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>Hauteur de l'image actuelle</emphasis></entry>
-                        <entry>Hauteur de l'image à afficher</entry>
-                    </row>
-                    <row>
-                        <entry>width</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>Longueur de l'image actuelle</emphasis></entry>
-                        <entry>Longueur de l'image à afficher</entry>
-                    </row>
-                    <row>
-                        <entry>basedir</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>non</entry>
-                        <entry><emphasis>racine du serveur web</emphasis></entry>
-                        <entry>répertoire depuis lequel baser le calcul des
-                        chemins relatifs</entry>
-                    </row>
-                    <row>
-                        <entry>link</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>non</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>lien sur lequel l'image pointe</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			html_image est une fonction utilisateur qui génère la balise
-			HTML pour une image. La hauteur et la longueur de l'image sont calculés
-			automatiquement depuis le fichier image si aucune n'est spécifiée.
-			</para>
-			<para>
-			basedir est le répertoire de base depuis lequel seront calculés les
-         chemins relatifs. Si non spécifié, la racine du serveur web est utilisé
-         (variable d'environnement DOCUMENT_ROOT). Si la sécurité est activée,
-         l'image doit se situer dans un répertoire sécurisé.
-			</para>
-			<para>
-			link est la valeur href à laquelle lier l'image. Si link est défini,
-			une balise &lt;a href="VALEURLINK"&gt;&lt;a&gt; est placée autour de
-			l'image.
-			</para>
-			<note>
-				<title>Note technique</title>
-				<para>
-				html_image requiert un accès au disque dur pour lire l'image et
-				calculer ses dimensions. Si vous n'utilisez pas un cache, il
-				est généralement préférable d'éviter d'utiliser html_image
-				et de laisser les balises images statiques pour de meilleures
-            performances.
-            	</para>
-			</note>
-<example>
-<title>html_image</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.function.html.image">
+ <title>html_image</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Nom attribut</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Defaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>file</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Oui</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>nom/chemin des images</entry>
+    </row>
+    <row>
+     <entry>border</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>0</emphasis></entry>
+     <entry>Bordure de l'image</entry>
+    </row>
+    <row>
+     <entry>height</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>Hauteur de l'image actuelle</emphasis></entry>
+     <entry>Hauteur de l'image à afficher</entry>
+    </row>
+    <row>
+     <entry>width</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>Longueur de l'image actuelle</emphasis></entry>
+     <entry>Longueur de l'image à afficher</entry>
+    </row>
+    <row>
+     <entry>basedir</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>non</entry>
+     <entry><emphasis>racine du serveur web</emphasis></entry>
+     <entry>répertoire depuis lequel baser le calcul des
+     chemins relatifs</entry>
+    </row>
+    <row>
+     <entry>link</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>non</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>lien sur lequel l'image pointe</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  html_image est une fonction utilisateur qui génère la balise
+  HTML pour une image. La hauteur et la longueur de l'image sont calculés
+  automatiquement depuis le fichier image si aucune n'est spécifiée.
+ </para>
+ <para>
+  basedir est le répertoire de base depuis lequel seront calculés les
+  chemins relatifs. Si non spécifié, la racine du serveur web est utilisé
+  (variable d'environnement DOCUMENT_ROOT). Si la sécurité est activée,
+  l'image doit se situer dans un répertoire sécurisé.
+ </para>
+ <para>
+  link est la valeur href à laquelle lier l'image. Si link est défini,
+  une balise &lt;a href="VALEURLINK"&gt;&lt;a&gt; est placée autour de
+  l'image.
+ </para>
+ <note>
+  <title>Note technique</title>
+  <para>
+   html_image requiert un accès au disque dur pour lire l'image et
+   calculer ses dimensions. Si vous n'utilisez pas un cache, il
+   est généralement préférable d'éviter d'utiliser html_image
+   et de laisser les balises images statiques pour de meilleures
+   performances.
+  </para>
+ </note>
+ <example>
+  <title>html_image</title>
 <programlisting>
 index.php:
 
@@ -111,7 +112,7 @@ SORTIE: (possible)
 &lt;img src="pumpkin.jpg" border="0" width="44" height="68"&gt;
 &lt;img src="/path/under/docroot/pumpkin.jpg" border="0" width="44" height="68"&gt;
 &lt;img src="../path/relative/to/currdir/pumpkin.jpg" border="0" width="44" height="68"&gt;</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.is.cached">
-			<title>is_cached</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>is_cached</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-			Retourne vrai s'il y a un fichier de cache valide pour ce template.
-			Cela fonctionne seulement si <link
-         linkend="variable.caching">caching</link> est a vrai.
-			</para>
-<example>
-<title>is_cached</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.is.cached">
+ <title>is_cached</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>is_cached</function></funcdef>
+   <paramdef>string <parameter>template</parameter></paramdef>
+   <paramdef>[string <parameter>cache_id</parameter>]</paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Retourne vrai s'il y a un fichier de cache valide pour ce template.
+  Cela fonctionne seulement si <link
+  linkend="variable.caching">caching</link> est a vrai.
+ </para>
+ <example>
+  <title>is_cached</title>
 <programlisting>
 $smarty->caching = true;
 
@@ -25,14 +26,14 @@ if(!$smarty->is_cached("index.tpl")) {
 }
 
 $smarty->display("index.tpl");</programlisting>
-</example>
-            <para>
-            Vous pouvez aussi passer en second paramètre un identifiant
-            de cache au cas oú vous voudriez plusieurs fichiers de cache
-            pour ce template.
-            </para>
-<example>
-<title>is_cached with multiple-cache template</title>
+ </example>
+ <para>
+  Vous pouvez aussi passer en second paramètre un identifiant
+  de cache au cas oú vous voudriez plusieurs fichiers de cache
+  pour ce template.
+ </para>
+ <example>
+  <title>is_cached with multiple-cache template</title>
 <programlisting>
 $smarty->caching = true;
 
@@ -42,7 +43,7 @@ if(!$smarty->is_cached("index.tpl","FrontPage")) {
 }
 
 $smarty->display("index.tpl","FrontPage");</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

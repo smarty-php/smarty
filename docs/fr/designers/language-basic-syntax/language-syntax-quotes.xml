@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="language.syntax.quotes">
-    <title>Variables insérées dans des chaînes de caractères</title>
-    <para>
-    Smarty est capable d'interpréter les variables insérées à l'intérieur de
-    chaînes entre guillemets, du moment que leur nom est exclusivement composé
-    de chiffres, lettres, underscores et crochets. Si le nom de la variable
-    contient tout autre caractère (point, référence à un objet, etc.)
-    la variable doit être entourée d'apostrophes inverses (`).
-    </para>
-    <example>
-     <title>Syntaxe d'insertion de variables dans des chaînes</title>
-     <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.syntax.quotes">
+ <title>Variables insérées dans des chaînes de caractères</title>
+ <para>
+  Smarty est capable d'interpréter les variables insérées à l'intérieur de
+  chaînes entre guillemets, du moment que leur nom est exclusivement composé
+  de chiffres, lettres, underscores et crochets. Si le nom de la variable
+  contient tout autre caractère (point, référence à un objet, etc.)
+  la variable doit être entourée d'apostrophes inverses (`).
+ </para>
+ <example>
+  <title>Syntaxe d'insertion de variables dans des chaînes</title>
+<programlisting>
 EXEMPLE DE SYNTAXE:
 {func var="test $foo test"}       &lt;-- comprends $foo
 {func var="test $foo_bar test"}   &lt;-- comprends $foo_bar
@@ -24,7 +25,7 @@ EXEMPLE PRATIQUE:
 {include file="subdir/$tpl_name.tpl"} &lt;-- remplace $tpl_name avec la valeur
 {cycle values="one,two,`$smarty.config.myval`"} &lt;-- doit comporter les
 apostrophes inverses</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.all.assign">
-			<title>clear_all_assign</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>clear_all_assign</function></funcdef>
-				<paramdef><parameter></parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-			Utilisée pour effacer les valeurs de toutes les variables assignées.
-			</para>
-<example>
-<title>clear_all_assign</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="api.clear.all.assign">
+ <title>clear_all_assign</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>clear_all_assign</function></funcdef>
+   <paramdef><parameter></parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Utilisée pour effacer les valeurs de toutes les variables assignées.
+ </para>
+ <example>
+  <title>clear_all_assign</title>
 <programlisting>
 // efface toutes les variables assignées
 $smarty->clear_all_assign();</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

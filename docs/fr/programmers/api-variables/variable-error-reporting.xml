@@ -2,7 +2,7 @@
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: didou Status: ready -->
 <sect1 id="variable.error.reporting">
-<title>$error_reporting</title>
+ <title>$error_reporting</title>
  <para>
   Lorsque cette valeur est configurée à une valeur non nulle,
   sa valeur est utilisée comme le error_reporting-level de PHP

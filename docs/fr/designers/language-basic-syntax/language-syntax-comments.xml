@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="language.syntax.comments">
-    <title>Commentaires</title>
-    <para>
-     Les commentaires dans Smarty sont entourés d'asterisques, de cette
-     façon : {* voici un commentaire *}
-     Les commentaires Smarty ne sont pas affichés dans la sortie finale du
-     template.
-     Ils sont utilisés pour des notes internes, dans le template, pour aider
-     les développeurs à en comprendre le fonctionnement.
-    </para>
-    <example>
-     <title>Commentaires</title>
-     <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.syntax.comments">
+ <title>Commentaires</title>
+ <para>
+  Les commentaires dans Smarty sont entourés d'asterisques, de cette
+  façon : {* voici un commentaire *}
+  Les commentaires Smarty ne sont pas affichés dans la sortie finale du
+  template.
+  Ils sont utilisés pour des notes internes, dans le template, pour aider
+  les développeurs à en comprendre le fonctionnement.
+ </para>
+ <example>
+  <title>Commentaires</title>
+<programlisting>
 {* Smarty *}
 
 {* Inclusion de l'en tête *}
@@ -26,7 +27,7 @@
 &lt;SELECT name=company&gt;
 {html_options values=$vals selected=$selected output=$output}
 &lt;/SELECT&gt;</programlisting>
-    </example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

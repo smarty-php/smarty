@@ -7,7 +7,7 @@
   Smarty est livré avec plusieurs fonctions utilisateurs que vous pouvez
   appeler dans vos templates.
  </para>
-
+ 
  &designers.language-custom-functions.language-function-assign;
  &designers.language-custom-functions.language-function-counter;
  &designers.language-custom-functions.language-function-cycle;

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.strip.tags">
-			<title>strip_tags</title>
-			<para>
-			Supprime toutes les balises, et plus généralement tout ce qui se trouve
-      entre &lt; et &gt;.
-			</para>
-<example>
-<title>strip_tags</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.strip.tags">
+ <title>strip_tags</title>
+ <para>
+  Supprime toutes les balises, et plus généralement tout ce qui se trouve
+  entre &lt; et &gt;.
+ </para>
+ <example>
+  <title>strip_tags</title>
 <programlisting>
 index.php:
 
@@ -27,7 +28,7 @@ Une femme aveugle obtient un nouveau &lt;font face=\"helvetica\"&gt;
 rein&lt;/font&gt; d'un père qu'elle n'a pas vu depuis&lt;b&gt; des années&lt;/b&gt;.
 Une femme aveugle obtient un nouveau rein d'un père
 qu'elle n'a pas vu depuis des années.</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.cache.handler.func">
-      <title>$cache_handler_func</title>
-      <para>
-      Vous pouvez utiliser votre propre fonction de gestion du cache plut(t que
-      d'utiliser celle livrée avec Smarty.
-      Référez-vous a la section sur la fonction de gestion de cache
-      personnalisée pour plus de détails.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.cache.handler.func">
+ <title>$cache_handler_func</title>
+ <para>
+  Vous pouvez utiliser votre propre fonction de gestion du cache plut(t que
+  d'utiliser celle livrée avec Smarty.
+  Référez-vous a la section sur la fonction de gestion de cache
+  personnalisée pour plus de détails.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

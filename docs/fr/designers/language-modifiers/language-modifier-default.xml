@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.default">
-			<title>default</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Position du paramètre</entry>
-                        <entry>Type</entry>
-                        <entry>Requis</entry>
-                        <entry>Defaut</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>chaîne de caractères</entry>
-                        <entry>Non</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>La valeur par défaut de la sortie si la variable
-                        d'entrée est vide.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			Utilisé pour définir une valeur par défaut à une variable.
-			Si la variable est vide ou indéfinie, la valeur donnée est affichée
-			en lieu et place. Default attends un seul argument.
-			</para>
-<example>
-<title>default</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="language.modifier.default">
+ <title>default</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Position du paramètre</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Defaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>1</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>La valeur par défaut de la sortie si la variable
+     d'entrée est vide.</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  Utilisé pour définir une valeur par défaut à une variable.
+  Si la variable est vide ou indéfinie, la valeur donnée est affichée
+  en lieu et place. Default attends un seul argument.
+ </para>
+ <example>
+  <title>default</title>
 <programlisting>
 index.php:
 
@@ -53,7 +54,7 @@ SORTIE:
 
 Les portes de la moria restent fermées.
 pas de titre</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

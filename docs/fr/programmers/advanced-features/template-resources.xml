@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <sect1 id="template.resources">  
-   <title>Ressources</title>
-   <para>
-   Les templates peuvent provenir d'une grande variété de ressources. Quand vous
-   affichez ou récupérez un template, ou quand vous incluez un template
-   dans un autre template, vous fournissez un type de ressource, suivi
-   par le chemin approprié et le nom du template.
-   </para>
-      <sect2 id="templates.from.template.dir">
-    <title>Templates depuis $template_dir</title>
-    <para>
-    Les templates du répertoire $template_dir n'ont pas
-    besoin d'une ressource template, bien que vous puissiez utiliser
-    la ressource "file" pour être cohérent. Vous n'avez qu'a fournir
-    le chemin vers le template que vous voulez utiliser, relatif
-    au répertoire racine $template_dir.
-    </para>    
-    <example>
-     <title>Utilisation de templates depuis $template_dir</title>
-     <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="template.resources">
+ <title>Ressources</title>
+ <para>
+  Les templates peuvent provenir d'une grande variété de ressources. Quand vous
+  affichez ou récupérez un template, ou quand vous incluez un template
+  dans un autre template, vous fournissez un type de ressource, suivi
+  par le chemin approprié et le nom du template.
+ </para>
+ <sect2 id="templates.from.template.dir">
+  <title>Templates depuis $template_dir</title>
+  <para>
+   Les templates du répertoire $template_dir n'ont pas
+   besoin d'une ressource template, bien que vous puissiez utiliser
+   la ressource "file" pour être cohérent. Vous n'avez qu'a fournir
+   le chemin vers le template que vous voulez utiliser, relatif
+   au répertoire racine $template_dir.
+  </para>
+  <example>
+   <title>Utilisation de templates depuis $template_dir</title>
+<programlisting>
 // le script PHP
 $smarty->display("index.tpl");
 $smarty->display("admin/menu.tpl");
@@ -28,70 +29,70 @@ $smarty->display("file:admin/menu.tpl"); // le même que celui ci-dessus
 {* le template Smarty *}
 {include file="index.tpl"}
 {include file="file:index.tpl"} {* le même que celui ci-dessus *}</programlisting>
-    </example>
-   </sect2>
-   <sect2 id="templates.from.any.dir">
-    <title>Templates a partir de n'importe quel répertoire</title>
-    <para>
-    Les templates en-dehors du répertoire $template_dir nécessitent
-    le type de ressource template, suivi du chemin absolu et du nom du
-    template.
-    </para>    
-    <example>
-     <title>utilisation d'un template depuis n'importe quel répertoire</title>
-     <programlisting>
+  </example>
+ </sect2>
+ <sect2 id="templates.from.any.dir">
+  <title>Templates a partir de n'importe quel répertoire</title>
+  <para>
+   Les templates en-dehors du répertoire $template_dir nécessitent
+   le type de ressource template, suivi du chemin absolu et du nom du
+   template.
+  </para>
+  <example>
+   <title>utilisation d'un template depuis n'importe quel répertoire</title>
+<programlisting>
 // le script PHP
 $smarty->display("file:/export/templates/index.tpl");
 $smarty->display("file:/path/to/my/templates/menu.tpl");
 
 {* le template Smarty *}
 {include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
-    </example>
-
-    <sect3 id="templates.windows.filepath">
-     <title>Chemin de fichiers Windows</title>
-     <para>
-     Si vous utilisez Windows, les chemins de fichiers sont la plupart
-     du temps sur un disque identifié par une lettre (c:) au début du chemin.
-     Assurez-vous de bien mettre "file:" dans le chemin pour éviter des
-     conflits d'espace de nommage et obtenir les résultats escomptés.
-     </para>
-     <example>
-      <title>utilisation de templates avec des chemins de fichiers Windows</title>
-      <programlisting>
+  </example>
+  
+  <sect3 id="templates.windows.filepath">
+   <title>Chemin de fichiers Windows</title>
+   <para>
+    Si vous utilisez Windows, les chemins de fichiers sont la plupart
+    du temps sur un disque identifié par une lettre (c:) au début du chemin.
+    Assurez-vous de bien mettre "file:" dans le chemin pour éviter des
+    conflits d'espace de nommage et obtenir les résultats escomptés.
+   </para>
+   <example>
+    <title>utilisation de templates avec des chemins de fichiers Windows</title>
+<programlisting>
 // le script PHP
 $smarty->display("file:C:/export/templates/index.tpl");
 $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 
 {* le template Smarty *}
 {include file="file:D:/usr/local/share/templates/navigation.tpl"}</programlisting>
-     </example>
-    </sect3>
-   </sect2>
-
-   <sect2 id="templates.from.elsewhere">
-    <title>Templates depuis d'autres sources</title>
-    <para>
-    Vous pouvez récupérer les templates a partir n'importe quelle
-    source a laquelle vous avez accès avec PHP : base de données,
-    sockets, LDAP et ainsi de suite. Il suffit d'écrire les fonctions
-    de ressource plugins et de les enregistrer auprès de Smarty. 
-    </para>
-    <para>
-    Reportez-vous a la section <link linkend="plugins.resources">ressource plugins</link>
-    pour plus d'informations sur les fonctions que vous Otes censé fournir.
-    </para>
-    <note>
-     <para>
-     Notez que vous ne pouvez pas écraser la ressource <literal>file</literal> native,
-     toutefois, vous pouvez fournir une ressource qui récupère un template depuis
-     le système de fichier par un autre moyen en l'enregistrant sous un autre
-     nom de ressource.
-     </para>
-    </note>
-    <example>
-     <title>utilisation de ressources utilisateurs</title>
-     <programlisting>
+   </example>
+  </sect3>
+ </sect2>
+ 
+ <sect2 id="templates.from.elsewhere">
+  <title>Templates depuis d'autres sources</title>
+  <para>
+   Vous pouvez récupérer les templates a partir n'importe quelle
+   source a laquelle vous avez accès avec PHP : base de données,
+   sockets, LDAP et ainsi de suite. Il suffit d'écrire les fonctions
+   de ressource plugins et de les enregistrer auprès de Smarty.
+  </para>
+  <para>
+   Reportez-vous a la section <link linkend="plugins.resources">ressource plugins</link>
+   pour plus d'informations sur les fonctions que vous Otes censé fournir.
+  </para>
+  <note>
+   <para>
+    Notez que vous ne pouvez pas écraser la ressource <literal>file</literal> native,
+    toutefois, vous pouvez fournir une ressource qui récupère un template depuis
+    le système de fichier par un autre moyen en l'enregistrant sous un autre
+    nom de ressource.
+   </para>
+  </note>
+  <example>
+   <title>utilisation de ressources utilisateurs</title>
+<programlisting>
 // le script PHP
 
 // mettez ces fonctions quelque part dans votre application
@@ -148,20 +149,20 @@ $smarty->display("db:index.tpl");
 
 {* utilise la ressource depuis le template Smarty *}
 {include file="db:/extras/navigation.tpl"}</programlisting>
-    </example>
-   </sect2>
-
-   <sect2 id="default.template.handler.function">
-    <title>Fonction de gestion de template par défaut</title>
-    <para>
-    Vous pouvez spécifier une fonction qui sera utilisée pour
-    récupérer le contenu d'un template dans le cas oú le template
-    ne peut pas être récupéré depuis sa ressource. Une utilisation possible est
-    la création de templates a la volée.
-    </para>
-    <example>
-     <title>utilisation de la fonction de gestion de template par défaut</title>
-     <programlisting>
+  </example>
+ </sect2>
+ 
+ <sect2 id="default.template.handler.function">
+  <title>Fonction de gestion de template par défaut</title>
+  <para>
+   Vous pouvez spécifier une fonction qui sera utilisée pour
+   récupérer le contenu d'un template dans le cas oú le template
+   ne peut pas être récupéré depuis sa ressource. Une utilisation possible est
+   la création de templates a la volée.
+  </para>
+  <example>
+   <title>utilisation de la fonction de gestion de template par défaut</title>
+<programlisting>
 &lt;?php
 // mettez cette fonction quelque part dans votre application
 
@@ -184,8 +185,8 @@ function make_template ($resource_type, $resource_name, &amp;$template_source, &
 // régle la fonction par défaut
 $smarty->default_template_handler_func = 'make_template';
 ?&gt;</programlisting>
-    </example>
-   </sect2>
+  </example>
+ </sect2>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

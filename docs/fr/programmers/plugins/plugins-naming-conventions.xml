@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.naming.conventions">
-    <title>Conventions de nommage</title>
-    <para>
-    Les fichiers et les fonctions de plugins doivent suivre une convention
-    de nommage trés spécifique pour être localisés par Smarty.
-    </para>
-    <para>
-    Les fichiers de plugins doivent être nommés de la faton suivante :
-    <blockquote>
-      <para>
-       <filename>
-        <replaceable>type</replaceable>.<replaceable>nom</replaceable>.php
-       </filename>
-      </para>
-     </blockquote>
-    </para>
-    <para>
-    Oú <literal>type</literal> est l'une des valeurs suivantes :
-    <itemizedlist spacing="compact">
-      <listitem><simpara>function</simpara></listitem>
-      <listitem><simpara>modifier</simpara></listitem>
-      <listitem><simpara>block</simpara></listitem>
-      <listitem><simpara>compiler</simpara></listitem>
-      <listitem><simpara>prefilter</simpara></listitem>
-      <listitem><simpara>postfilter</simpara></listitem>
-      <listitem><simpara>outputfilter</simpara></listitem>
-      <listitem><simpara>resource</simpara></listitem>
-      <listitem><simpara>insert</simpara></listitem>
-     </itemizedlist>
-    </para>
-    <para>
-    Et <literal>nom</literal> doit être un identifiant valide (lettres, nombres
-    et underscore seulement).
-    </para>
-    <para>
-    Quelques exemples : <literal>function.html_select_date.php</literal>,
-    <literal>resource.db.php</literal>,
-    <literal>modifier.spacify.php</literal>.
-    </para>
-    <para>
-    Les fonctions de plugins dans les fichiers de plugins doivent être
-    nommées de la faton suivante :
-    <blockquote>
-      <para>
-       <function>smarty_<replaceable>type</replaceable>_<replaceable>nom</replaceable></function>
-      </para>
-     </blockquote> 
-    </para>
-    <para>
-    Les significations de <literal>type</literal> et de <literal>nom</literal> sont les mêmes
-    que précédemment.
-    </para>
-    <para>
-    Smarty donnera des messages d'erreur approprié si le fichier de plugin
-    n'est pas trouvé, ou si le fichier ou la fonction de plugin ne sont
-    pas nommés correctement.
-    </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="plugins.naming.conventions">
+ <title>Conventions de nommage</title>
+ <para>
+  Les fichiers et les fonctions de plugins doivent suivre une convention
+  de nommage trés spécifique pour être localisés par Smarty.
+ </para>
+ <para>
+  Les fichiers de plugins doivent être nommés de la faton suivante :
+  <blockquote>
+   <para>
+    <filename>
+     <replaceable>type</replaceable>.<replaceable>nom</replaceable>.php
+    </filename>
+   </para>
+  </blockquote>
+ </para>
+ <para>
+  Oú <literal>type</literal> est l'une des valeurs suivantes :
+  <itemizedlist spacing="compact">
+   <listitem><simpara>function</simpara></listitem>
+   <listitem><simpara>modifier</simpara></listitem>
+   <listitem><simpara>block</simpara></listitem>
+   <listitem><simpara>compiler</simpara></listitem>
+   <listitem><simpara>prefilter</simpara></listitem>
+   <listitem><simpara>postfilter</simpara></listitem>
+   <listitem><simpara>outputfilter</simpara></listitem>
+   <listitem><simpara>resource</simpara></listitem>
+   <listitem><simpara>insert</simpara></listitem>
+  </itemizedlist>
+ </para>
+ <para>
+  Et <literal>nom</literal> doit être un identifiant valide (lettres, nombres
+  et underscore seulement).
+ </para>
+ <para>
+  Quelques exemples : <literal>function.html_select_date.php</literal>,
+  <literal>resource.db.php</literal>,
+  <literal>modifier.spacify.php</literal>.
+ </para>
+ <para>
+  Les fonctions de plugins dans les fichiers de plugins doivent être
+  nommées de la faton suivante :
+  <blockquote>
+   <para>
+    <function>smarty_<replaceable>type</replaceable>_<replaceable>nom</replaceable></function>
+   </para>
+  </blockquote>
+ </para>
+ <para>
+  Les significations de <literal>type</literal> et de <literal>nom</literal> sont les mêmes
+  que précédemment.
+ </para>
+ <para>
+  Smarty donnera des messages d'erreur approprié si le fichier de plugin
+  n'est pas trouvé, ou si le fichier ou la fonction de plugin ne sont
+  pas nommés correctement.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.undefined">
-      <title>$undefined</title>
-      <para>
-      Cela régle la valeur de $undefined, null par défaut.
-      N'est actuellement utilisé que pour initialiser
-      des variables non-définies dans $global_assign a des
-      valeurs par défaut.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.undefined">
+ <title>$undefined</title>
+ <para>
+  Cela régle la valeur de $undefined, null par défaut.
+  N'est actuellement utilisé que pour initialiser
+  des variables non-définies dans $global_assign a des
+  valeurs par défaut.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.secure.dir">
-      <title>$secure_dir</title>
-      <para>
-      Il s'agit d'un tableau contenant tous les répertoires locaux qui sont
-      considérés comme sécurisés. {include} et {fetch} l'utilisent quand
-      la sécurité est activée.
-      </para>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<sect1 id="variable.secure.dir">
+ <title>$secure_dir</title>
+ <para>
+  Il s'agit d'un tableau contenant tous les répertoires locaux qui sont
+  considérés comme sécurisés. {include} et {fetch} l'utilisent quand
+  la sécurité est activée.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
