@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -31,14 +31,14 @@
                         <entry>number</entry>
                         <entry>Não</entry>
                         <entry><emphasis>1</emphasis></entry>
-                        <entry>O número inicial para contar a partir de</entry>
+                        <entry>O número no qual a contagem se inicia</entry>
                     </row>
                     <row>
                         <entry>skip</entry>
                         <entry>number</entry>
                         <entry>Não</entry>
                         <entry><emphasis>1</emphasis></entry>
-                        <entry>O intervalo para contar</entry>
+                        <entry>O intervalo entre as contagens</entry>
                     </row>
                     <row>
                         <entry>direction</entry>
@@ -69,32 +69,35 @@
 			counter é usada para mostrar uma contagem. counter irá se lembrar de
 			count em cada interação. Você pode ajustar o número, o intervalo
 			e a direção da contagem, assim como detrminar quando
-			mostrar ou não a contagem. Você pode ter varios contadores ao
+			mostrar ou não a contagem. Você pode ter vários contadores ao
 			mesmo tempo, dando um nome único para cada um. Se você não der um nome,
 			o nome 'default' será usado.
 			</para>
 			<para>
 			 Se você indicar o atributo especial "assign", a saída da função counter
-			 irá para essa variável de template ao invés de
+			 será passada para essa variável de template ao invés de
 			 ser mostrada no template.
 			</para>
 <example>
 <title>counter</title>
 <programlisting>
+<![CDATA[
 {* inicia a contagem *}
 {counter start=0 skip=2 print=false}
 
-{counter}&lt;br&gt;
-{counter}&lt;br&gt;
-{counter}&lt;br&gt;
-{counter}&lt;br&gt;
+{counter}<br>
+{counter}<br>
+{counter}<br>
+{counter}<br>
 
 MOSTRA:
 
-2&lt;br&gt;
-4&lt;br&gt;
-6&lt;br&gt;
-8&lt;br&gt;</programlisting>
+2<br>
+4<br>
+6<br>
+8<br>
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

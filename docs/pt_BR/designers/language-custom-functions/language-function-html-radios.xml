@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Exigido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -29,95 +29,98 @@
                     <row>
                         <entry>values</entry>
                         <entry>array</entry>
-                        <entry>Sim, a menos que utilizando atributo de opções</entry>
+                        <entry>Sim, a menos que utilizando atributo de options</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>um array de valores para radio buttons</entry>
+                        <entry>uma matriz de valores para radio buttons</entry>
                     </row>
                     <row>
                         <entry>output</entry>
                         <entry>array</entry>
-                        <entry>Sim, a menos que utilizando atributo de opções</entry>
+                        <entry>Sim, a menos que utilizando atributo de options</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>um array de saída pra radio buttons</entry>
+                        <entry>uma matriz de saída pra radio buttons</entry>
                     </row>
                     <row>
                         <entry>checked</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>O elemento do radio assinalado</entry>
+                        <entry>O elemento do radio marcado</entry>
                     </row>
                     <row>
                         <entry>options</entry>
                         <entry>associative array</entry>
-                        <entry>Sim, a menos que utilizando valores e saída</entry>
+                        <entry>Sim, a menos que utilizando values e output</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>um array associativo de valores e saída</entry>
+                        <entry>uma matriz associativa de values e output</entry>
                     </row>
                     <row>
                         <entry>separator</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>string de texto para separae cada item de radio</entry>
+                        <entry>string de texto para separar cada item de radio</entry>
                     </row>
                 </tbody>
                 </tgroup>
             </informaltable>
 			<para>
-			html_radios é uma função customizada que cria grupo de botões de radio html
-			com os dados fornecidos.  Ele está atento para qual item está selecionado por definição.
-			Atributos exigidos são valores e saídas, a menos que você use opções no lugar disso. Toda 
+			html_radios é uma função personalizada que cria grupo de botões de radio html
+			com os dados fornecidos.  Ele está atento para qual item está selecionado por padrão.
+			Atributos obrigatórios são 'values' e 'output', a menos que você use 'options' no lugar disso. Toda 
 			saída é compatível com XHTML.
 			</para>
 			<para>
 			Todos os parâmetros que não estão na lista acima são impressos como
-			name/value-pairs de dentro de cada &lt;input&gt;-tags criada.
+			nome/valor de dentro de cada tag &lt;input&gt; criada.
 			</para>
 
 <example>
 <title>html_radios</title>
 <programlisting>
+<![CDATA[
 index.php:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
-$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
 Johnson','Carlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
+$smarty->assign('customer_id', 1001);
+$smarty->display('index.tpl');
 
 
 index.tpl:
 
-{html_radios values=$cust_ids checked=$customer_id output=$cust_names separator="&lt;br /&gt;"}
+{html_radios values=$cust_ids checked=$customer_id output=$cust_names separator="<br />"}
 
 
 index.php:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('cust_radios', array(
-			1001 =&gt; 'Joe Schmoe',
-			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson',
-			1004 =&gt; 'Charlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
+$smarty->assign('cust_radios', array(
+			1001 => 'Joe Schmoe',
+			1002 => 'Jack Smith',
+			1003 => 'Jane Johnson',
+			1004 => 'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
+$smarty->display('index.tpl');
 
 
 index.tpl:
 
-{html_radios name="id" options=$cust_radios checked=$customer_id separator="&lt;br /&gt;"}
+{html_radios name="id" options=$cust_radios checked=$customer_id separator="<br />"}
 
 
 OUTPUT: (both examples)
 
-&lt;input type="radio" name="id[]" value="1000"&gt;Taniel Fraklin&lt;br /&gt;
-&lt;input type="radio" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
-&lt;input type="radio" name="id[]" value="1002"&gt;Marcelo Pereira&lt;br /&gt;
-&lt;input type="radio" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
+<input type="radio" name="id[]" value="1000">Taniel Fraklin<br />
+<input type="radio" name="id[]" value="1001" checked="checked"><br />
+<input type="radio" name="id[]" value="1002">Marcelo Pereira<br />
+<input type="radio" name="id[]" value="1003">Charlie Brown<br />
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

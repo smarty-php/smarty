@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Exigido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -23,7 +23,7 @@
                         <entry>loop</entry>
                         <entry>array</entry>
                         <entry>Sim</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>array de dados para ser feito o loop</entry>
                     </row>
                     <row>
@@ -81,26 +81,27 @@
                 </tgroup>
             </informaltable>
 			<para>
-			<emphasis>html_table</emphasis> é uma função customizada que transforma um array de dados
-			em uma tabela HTML. O atributo <emphasis>cols</emphasis> determina com quantas colunas estarão
-			na tabela. Os valores <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis> e
+			<emphasis>html_table</emphasis> é uma função personalizada que transforma um array de dados
+			em uma tabela HTML. O atributo <emphasis>cols</emphasis> determina a quantidade de colunas que  
+			a tabela terá. Os valores <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis> e
 			<emphasis>td_attr</emphasis> determinam os atributos dados para a tabela, tags tr e td. Se <emphasis>tr_attr</emphasis> ou
 			<emphasis>td_attr</emphasis> são arrays, eles entrarão em ciclo.
 			<emphasis>trailpad</emphasis> é o 
-			alor colocado dentro do trailing
+			valor colocado dentro do trailing
 			cells na última linha da tabela
 			se há alguma presente.
 			</para>
 <example>
 <title>html_table</title>
 <programlisting>
+<![CDATA[
 index.php:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('data',array(1,2,3,4,5,6,7,8,9));
-$smarty-&gt;assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
-$smarty-&gt;display('index.tpl');
+$smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
+$smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
+$smarty->display('index.tpl');
 
 index.tpl:
 
@@ -110,21 +111,23 @@ index.tpl:
 
 MOSTRA:
 
-&lt;table border="1"&gt;
-&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table border="0"&gt;
-&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table border="1"&gt;
-&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
-&lt;tr bgcolor="#dddddd"&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</programlisting>
+<table border="1">
+<tr><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>4</td><td>5</td><td>6</td></tr>
+<tr><td>7</td><td>8</td><td>9</td></tr>
+</table>
+<table border="0">
+<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+<tr><td>9</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td></tr>
+</table>
+<table border="1">
+<tr bgcolor="#eeeeee"><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+<tr bgcolor="#eeeeee"><td>9</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td></tr>
+</table>
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

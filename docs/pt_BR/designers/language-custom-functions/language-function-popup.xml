@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -23,7 +23,7 @@
                         <entry>text</entry>
                         <entry>string</entry>
                         <entry>Sim</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>O text/html para mostrar na janela popup</entry>
                     </row>
                     <row>
@@ -45,98 +45,98 @@
                         <entry>caption</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define o texto para o título</entry>
                     </row>
                     <row>
                         <entry>fgcolor</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>A cor usada dentro da caixa popup</entry>
                     </row>
                     <row>
                         <entry>bgcolor</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>A cor da borda da caixa popup</entry>
                     </row>
                     <row>
                         <entry>textcolor</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a cor do texto dentro da caixa popup</entry>
                     </row>
                     <row>
                         <entry>capcolor</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a cor do título da caixa</entry>
                     </row>
                     <row>
                         <entry>closecolor</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a cor do texto para fechar</entry>
                     </row>
                     <row>
                         <entry>textfont</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a cor do texto para ser usado no texto principal</entry>
                     </row>
                     <row>
                         <entry>captionfont</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a fonte para ser usada no Título</entry>
                     </row>
                     <row>
                         <entry>closefont</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a fonte para o texto "Close"</entry>
                     </row>
                     <row>
                         <entry>textsize</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a fonte do texto principa</entry>
                     </row>
                     <row>
                         <entry>captionsize</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define o tamanho da fonte do título</entry>
                     </row>
                     <row>
                         <entry>closesize</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define o tamanho da fonte do texto "Close"</entry>
                     </row>
                     <row>
                         <entry>width</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a largura da caixa</entry>
                     </row>
                     <row>
                         <entry>height</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define a altura da caixa</entry>
                     </row>
                     <row>
@@ -179,14 +179,14 @@
                         <entry>border</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Torna as bordas dos popups grossas ou finas</entry>
                     </row>
                     <row>
                         <entry>offsetx</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>A que distancia do mouse o popup irá
                         aparecer, horizontalmente</entry>
                     </row>
@@ -194,7 +194,7 @@
                         <entry>offsety</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>A que distancia do mouse o popup irá
                         aparecer, verticalmente</entry>
                     </row>
@@ -202,7 +202,7 @@
                         <entry>fgbackground</entry>
                         <entry>url para imagem</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define uma imagem para usar ao invés de uma
                         cor dentro do popup.</entry>
                     </row>
@@ -210,7 +210,7 @@
                         <entry>bgbackground</entry>
                         <entry>url to image</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>define uma imagem para ser usada como borda
                         ao invés de uma cor para o popup. Nota: você deve definir bgcolor
                         como "" ou a cor irá aparecer também. NOTA: quando tiver um
@@ -221,14 +221,14 @@
                         <entry>closetext</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define o texto "Close" para qualquer outra coisa</entry>
                     </row>
                     <row>
                         <entry>noclose</entry>
                         <entry>boolean</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Não mostra o texto "Close" em coladas
                         com um título</entry>
                     </row>
@@ -236,14 +236,14 @@
                         <entry>status</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define o texto na barra de status do browser</entry>
                     </row>
                     <row>
                         <entry>autostatus</entry>
                         <entry>boolean</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define o texto da barra de status para o texto do popup.
 						NOTA: sobrescreve a definição de status</entry>
                     </row>
@@ -251,7 +251,7 @@
                         <entry>autostatuscap</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>define o texto da barra de status como o texto do título
                         NOTA: sobrescreve o status e autostatus</entry>
                     </row>
@@ -259,7 +259,7 @@
                         <entry>inarray</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
 						<entry>Indica ao overLib para ler o texto deste índice
 						na matriz ol_text array, localizada em overlib.js. Este
 						parâmetro pode ser usado ao invés do texto</entry>
@@ -268,7 +268,7 @@
                         <entry>caparray</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>diz para overLib ler o título a partir deste índice
                         na matriz ol_caps</entry>
                     </row>
@@ -276,14 +276,14 @@
                         <entry>capicon</entry>
                         <entry>url</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Mostra a imagem antes do título</entry>
                     </row>
                     <row>
                         <entry>snapx</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>snaps the popup to an even position in a
 						horizontal grid</entry>
                     </row>
@@ -291,7 +291,7 @@
                         <entry>snapy</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>snaps the popup to an even position in a
 						vertical grid</entry>
                     </row>
@@ -299,7 +299,7 @@
                         <entry>fixx</entry>
                         <entry>integer</entry>
                         <entry>No</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>locks the popups horizontal position Note:
 						overrides all other horizontal placement</entry>
                     </row>
@@ -307,7 +307,7 @@
                         <entry>fixy</entry>
                         <entry>integer</entry>
                         <entry>No</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>locks the popups vertical position Note:
 						overrides all other vertical placement</entry>
                     </row>
@@ -315,7 +315,7 @@
                         <entry>background</entry>
                         <entry>url</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Define uma imagem para ser usada como
                         fundo ao invés da tabela</entry>
                     </row>
@@ -323,7 +323,7 @@
                         <entry>padx</entry>
                         <entry>integer,integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Prenche a imagem de fundo com espaços em branco horizontal
                         para colocação do texto. Nota: este é um comando
                         de dois parâmetros</entry>
@@ -332,7 +332,7 @@
                         <entry>pady</entry>
                         <entry>integer,integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Prenche a imagem de fundo com espaços em branco vertical
 						para colocação do texto. Nota: este é um comando
                         de dois parâmetros</entry>
@@ -341,7 +341,7 @@
                         <entry>fullhtml</entry>
                         <entry>boolean</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Permite a você controlar o html sobre a figura
                         de fundo completamente. O código HTML é esperado
                         no atributo "text"</entry>
@@ -350,7 +350,7 @@
                         <entry>frame</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Controla popups em frames diferentes. Veja a página da
 						overlib para maiores informações sobre esta função</entry>
                     </row>
@@ -358,7 +358,7 @@
                         <entry>timeout</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Utiliza uma função e pega o valor de retorno
                         como texto que deva ser mostrado 
                         na janela popup</entry>
@@ -367,7 +367,7 @@
                         <entry>delay</entry>
                         <entry>integer</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Faz com que o popup funcione como um tooltip. Irá
                         aparecer apenas após um certo atraso em milésimos de segundo</entry>
                     </row>
@@ -375,7 +375,7 @@
                         <entry>hauto</entry>
                         <entry>boolean</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Determina automaticamente se o popup deve aparecer
                         a esquerda ou direita do mouse.</entry>
                     </row>
@@ -383,7 +383,7 @@
                         <entry>vauto</entry>
                         <entry>boolean</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
 						<entry>Determina automaticamente se o popup deve aparecer
 						abaixo ou acima do mouse.</entry>
                     </row>

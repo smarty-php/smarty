@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -23,7 +23,7 @@
                         <entry>style</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>estilo pré-definido</entry>
                     </row>
                     <row>
@@ -52,7 +52,7 @@
                         <entry>number</entry>
                         <entry>Não</entry>
                         <entry><emphasis>80</emphasis></entry>
-                        <entry>Em quantos caracteres quebrar cada linha</entry>
+                        <entry>Quantidade de caracteres antes de quebrar cada linha</entry>
                     </row>
                     <row>
                         <entry>wrap_char</entry>
@@ -74,7 +74,7 @@
                         <entry>assign</entry>
                         <entry>string</entry>
                         <entry>No</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>A variável de template que irá
                         receber a saída</entry>
                     </row>
@@ -83,7 +83,7 @@
             </informaltable>
 			<para>
 			textformat é uma função de bloco usada para formatar texto. Basicamente
-			limpa espaços e caracteres especiais, e formata os paragrafos
+			ela remove espaços e caracteres especiais, e formata os parágrafos
 			quebrando o texto ao final de palavras e identando linhas.
 			</para>
 			<para>
@@ -93,6 +93,7 @@
 <example>
 <title>textformat</title>
 <programlisting>
+<![CDATA[
 {textformat wrap=40}
 
 This is foo.
@@ -228,7 +229,7 @@ This is bar.
 bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
 bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
 foo.
-
+]]>
 </programlisting>
 </example>
 </sect1>

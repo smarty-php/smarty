@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -30,7 +30,7 @@
                         <entry>values</entry>
                         <entry>mixed</entry>
                         <entry>Sim</entry>
-                        <entry><emphasis>N/A</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
 						<entry>Os valores do ciclo, ou uma lista delimitada
 						por vírgula (veja o atributo delimiter),
 						ou uma matriz de valores.</entry>
@@ -54,13 +54,13 @@
                         <entry>string</entry>
                         <entry>Não</entry>
                         <entry><emphasis>,</emphasis></entry>
-                        <entry>O delimitador para usar no atributo values.</entry>
+                        <entry>O delimitador para usar no atributo 'values'.</entry>
                     </row>
                     <row>
                         <entry>assign</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>A variável de template que
                         receberá a saída</entry>
                     </row>
@@ -88,29 +88,31 @@
 			</para>
 			<para>
 			 Se você indicar o atributo especial "assign", a saída da função
-			 cycle irá para a variável de template ao invés de ser
+			 cycle será passada para uma variável de template ao invés de ser
 			 mostrado diretamente no template.
 			</para>
 <example>
 <title>cycle</title>
 <programlisting>
+<![CDATA[
 {section name=rows loop=$data}
-&lt;tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}"&gt;
-   &lt;td&gt;{$data[rows]}&lt;/td&gt;
-&lt;/tr&gt;
+<tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}">
+   <td>{$data[rows]}</td>
+</tr>
 {/section}
 
 MOSTRA:
 
-&lt;tr bgcolor="#eeeeee"&gt;
-   &lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr bgcolor="#d0d0d0"&gt;
-   &lt;td&gt;2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr bgcolor="#eeeeee"&gt;
-   &lt;td&gt;3&lt;/td&gt;
-&lt;/tr&gt;
+<tr bgcolor="#eeeeee">
+   <td>1</td>
+</tr>
+<tr bgcolor="#d0d0d0">
+   <td>2</td>
+</tr>
+<tr bgcolor="#eeeeee">
+   <td>3</td>
+</tr>
+]]>
 </programlisting>
 </example>
 </sect1>

@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -40,35 +40,36 @@
 			<para>
 			 fetch é usado para obter arquivos do sistema de arquivos local,
 			 http ou ftp, e mostrar o seu conteúdo. Se o nome do arquivo começar
-			 com "http://", a página do web site será obtidae mostrada. Se o
+			 com "http://", a página do web site será obtida e mostrada. Se o
 			 nome do arquivo começar com "ftp://", o arquivo será obtido do servidor
 			 ftp e mostrado. Para arquivos locais, o caminho completo do sistema de 
 			 arquivos deve ser dado, ou um caminho relativo ao script php executado.
 			</para>
 			<para>
 			 Se você indicar o atributo especial "assign", a saída da função
- 			 fetch irá para uma variável de template ao ivés de 
+ 			 fetch será passada para uma variável de template ao invés de 
  			 ser mostrado no template. (novo no Smarty 1.5.0)
 			</para>
 			<note>
 				<title>Nota Técnica</title>
 				<para>
-				 Isto não suporta redirecionamento http, tenha
-				 certesa de incluir a barra no final aonde necessário.
+				 fetch não suporta redirecionamento http, tenha
+				 certeza de incluir a barra no final aonde necessário.
             	</para>
 			</note>
 			<note>
 				<title>Nota Técnica</title>
 				<para>
 				 Se a segurança do template esta ativada e você
-				 estiver obtendo um arquivo do sistema de arquivos local, isto
-				 irá permitir apenas arquivos de um dos diretórios
+				 estiver obtendo um arquivo do sistema de arquivos locais, fetch
+				 irá funcionar apenas em arquivos de um dos diretórios
 				 definidos como seguros. ($secure_dir)
             	</para>
 			</note>
 <example>
 <title>fetch</title>
 <programlisting>
+<![CDATA[
 {* inclui algum javascript no seu template *}
 {fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
 
@@ -81,8 +82,10 @@
 {* coloca o conteúdo obtido para uma varável de template *}
 {fetch file="http://www.myweather.com/68502/" assign="weather"}
 {if $weather ne ""}
-	&lt;b&gt;{$weather}&lt;/b&gt;
-{/if}</programlisting>
+	<b>{$weather}</b>
+{/if}
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

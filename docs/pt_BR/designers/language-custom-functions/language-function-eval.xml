@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -66,11 +66,12 @@
 <example>
 <title>eval</title>
 <programlisting>
+<![CDATA[
 setup.conf
 ----------
 
-emphstart = &lt;b&gt;
-emphend = &lt;/b&gt;
+emphstart = <b>
+emphend = </b>
 title = Welcome to {$company}'s home page!
 ErrorCity = You must supply a {#emphstart#}city{#emphend#}.
 ErrorState = You must supply a {#emphstart#}state{#emphend#}.
@@ -90,10 +91,10 @@ index.tpl
 MOSTRA:
 
 This is the contents of foo.
-Welcome to Foobar Pub &amp; Grill's home page!
-You must supply a &lt;b&gt;city&lt;/b&gt;.
-You must supply a &lt;b&gt;state&lt;/b&gt;.
-
+Welcome to Foobar Pub & Grill's home page!
+You must supply a <b>city</b>.
+You must supply a <b>state</b>.
+]]>
 </programlisting>
 </example>
 </sect1>

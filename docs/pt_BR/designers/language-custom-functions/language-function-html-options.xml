@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Exigido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -22,30 +22,30 @@
                     <row>
                         <entry>values</entry>
                         <entry>array</entry>
-                        <entry>Sim, a menos que usando atributos de opções</entry>
+                        <entry>Sim, a menos que usando atributos de options</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>um array de valores para o menu dropdown</entry>
+                        <entry>uma matriz de valores para o menu dropdown</entry>
                     </row>
                     <row>
                         <entry>output</entry>
                         <entry>array</entry>
-                        <entry>Sim, a menos que usando atributos de opções</entry>
+                        <entry>Sim, a menos que usando atributos de options</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>um array de saída para o menu dropdown</entry>
+                        <entry>uma matriz de saída para o menu dropdown</entry>
                     </row>
                     <row>
                         <entry>selected</entry>
                         <entry>string/array</entry>
                         <entry>Não</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>o elemento do option selecionado</entry>
+                        <entry>o elemento do options selecionado</entry>
                     </row>
                     <row>
                         <entry>options</entry>
                         <entry>associative array</entry>
-                        <entry>Sim, a menos que usando valores e saída</entry>
+                        <entry>Sim, a menos que usando values e output</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>um array associativo de valores e saída</entry>
+                        <entry>uma matriz associativa de output e output</entry>
                     </row>
                     <row>
                         <entry>name</entry>
@@ -58,73 +58,75 @@
                 </tgroup>
             </informaltable>
 			<para>
-			html_options é uma função customizada que cria um grupo html option com os dados fornecidos.
-			Ela está atenta de quais itens são selecionados por definição. Atributos exigidos são valores e
-			saída, a menos que você use options
-			no lugar.
+			html_options é uma função personalizada que cria um grupo html option com os dados fornecidos.
+			Ela está atenta de quais itens estão selecionados por padrão. Atributos obrigatórios são 'values' e
+			'output', a menos que você use options no lugar.
 			</para>
 			<para>
 			Se um valor dado é um array, ele será tratado como um OPTGROUP html,
 			e mostrará os grupos.
-			Recursion é suportado com OPTGROUP. Todas as saídas estão compatíveis com XHTML.
+			Recursividade é suportada pelo OPTGROUP. Todas as saídas são compatíveis com XHTML.
 			</para>
 			<para>
 			Se o atributo opcional <emphasis>name</emphasis> é dado, as tags
-			&lt;select name="groupname"&gt;&lt;/select&gt; irão enclausurar a lista de opções.
+			&lt;select name="groupname"&gt;&lt;/select&gt; irão incluir a lista de opções dentro dela. 
 			Caso contrário apenas a lista de opções é gerada.
 			</para>
 			<para>
 			Todos os parâmetros que não estão na lista acima são exibidos como
-			name/value-pairs dentro de &lt;select&gt;-tag. Eles são ignorados se o opcional
-			 <emphasis>name</emphasis>não é dado.
+			nome/valor dentro de &lt;select&gt;-tag. Eles são ignorados se o opcional
+			 <emphasis>name</emphasis> não é fornecido.
 			</para>
 <example>
 <title>html_options</title>
 <programlisting>
+<![CDATA[
 index.php:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
-$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
 Johnson','Carlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
+$smarty->assign('customer_id', 1001);
+$smarty->display('index.tpl');
 
 index.tpl:
 
-&lt;select name=customer_id&gt;
+<select name=customer_id>
 	{html_options values=$cust_ids selected=$customer_id output=$cust_names}
-&lt;/select&gt;
+</select>
 
 
 index.php:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('cust_options', array(
-			1001 =&gt; 'Taniel Franklin',
-			1002 =&gt; 'Fernando Correa',
-			1003 =&gt; 'Marcelo Pereira',
-			1004 =&gt; 'Charlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
+$smarty->assign('cust_options', array(
+			1001 => 'Taniel Franklin',
+			1002 => 'Fernando Correa',
+			1003 => 'Marcelo Pereira',
+			1004 => 'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
+$smarty->display('index.tpl');
 
 index.tpl:
 
-&lt;select name=customer_id&gt;
+<select name=customer_id>
 	{html_options options=$cust_options selected=$customer_id}
-&lt;/select&gt;
+</select>
 
 
 OUTPUT: (both examples)
 
-&lt;select name=customer_id&gt;
-	&lt;option value="1000"&gt;Taniel Franklin&lt;/option&gt;
-	&lt;option value="1001" selected="selected"&gt;Fernando Correa&lt;/option&gt;
-	&lt;option value="1002"&gt;Marcelo Pereira&lt;/option&gt;
-	&lt;option value="1003"&gt;Charlie Brown&lt;/option&gt;
-&lt;/select&gt;</programlisting>
+<select name=customer_id>
+	<option value="1000">Taniel Franklin</option>
+	<option value="1001" selected="selected">Fernando Correa</option>
+	<option value="1002">Marcelo Pereira</option>
+	<option value="1003">Charlie Brown</option>
+</select>
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file
