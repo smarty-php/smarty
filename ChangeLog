@@ -1,3 +1,9 @@
+2003-11-11  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/core/core.process_cached_inserts.php:
+      fix handling of assign inside {insert}-tags
+
 2003-11-06  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/core/core.read_cache_file.php:
