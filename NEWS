@@ -1,3 +1,5 @@
+  - fix escaping of backslashes in Smarty_Compiler::_quote_replace() (messju)
+
 Version 2.6.3 (June 16, 2004)
 -----------------------------
 

@@ -2120,7 +2120,7 @@ class Smarty_Compiler extends Smarty {
      */
     function _quote_replace($string)
     {
-        return preg_replace('![\\$]\d!', '\\\\\\0', $string);
+        return strtr($string, array('\\' => '\\\\', '$' => '\\$'));
     }
 
     /**
