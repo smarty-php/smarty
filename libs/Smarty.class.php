@@ -198,7 +198,7 @@ class Smarty
     var $_compile_id           =   null;       // for different compiled templates
     var $_smarty_debug_id      =   'SMARTY_DEBUG'; // text in URL to enable debug mode
     var $_smarty_debug_info    =   array();    // debugging information for debug console
-	var $_cache_tpls           =   array();    // templates that make up a cache file
+	var $_cache_info           =   array();    // templates that make up a cache file
     
 
 /*======================================================================*\
@@ -517,7 +517,7 @@ class Smarty
         
         if ($this->caching) {
 			
-			$this->_cache_tpls[] = $tpl_file;
+			$this->_cache_info[] = array('template',$tpl_file);
             
 			$cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
             
@@ -914,7 +914,7 @@ function _generate_debug_output() {
 		}
 
         if ($this->caching) {
-			$this->_cache_tpls[] = $_smarty_include_tpl_file;
+			$this->_cache_info[] = array('template',$_smarty_include_tpl_file);
 		}
     }
         
@@ -928,6 +928,11 @@ function _generate_debug_output() {
 		if($this->debugging) {
 			$debug_start_time = $this->_get_microtime();
 		}
+		
+		if ($this->caching) {
+			$this->_cache_info[] = array('config',$file);
+		}
+
 		
         $this->_config[0] = array_merge($this->_config[0], $this->_conf_obj->get($file));
         if ($scope == 'parent') {
@@ -949,7 +954,7 @@ function _generate_debug_output() {
 		if($this->debugging) {
 			$debug_start_time = $this->_get_microtime();
 			$this->_smarty_debug_info[] = array('type' => 'config',
-									'filename' => $file,
+									'filename' => $file.' ['.$section.'] '.$scope,
                             		'depth'    => $this->_inclusion_depth,
 									'exec_time' => $this->_get_microtime() - $debug_start_time);
 		}
@@ -1205,7 +1210,7 @@ function _run_mod_handler()
     function _write_cache_file($cache_file,$results)
     {
 		// put the templates involved with this cache in the first line
-		$cache_info = "SMARTY_CACHE_INFO_HEADER".serialize($this->_cache_tpls)."\n";
+		$cache_info = "SMARTY_CACHE_INFO_HEADER".serialize($this->_cache_info)."\n";
         $this->_write_file($cache_file, $cache_info.$results, true);
 		
 		return true;
@@ -1225,17 +1230,27 @@ function _run_mod_handler()
 		$contents = split("\n",$results,2);
 		
 		if(substr($contents[0],0,24) == 'SMARTY_CACHE_INFO_HEADER') {
-			$cache_tpls = unserialize(substr($contents[0],24));
+			$cache_info = unserialize(substr($contents[0],24));
 			$results = $contents[1];
 
 			if($this->compile_check) {
 				$cache_filemtime = filemtime($cache_file);
 
-				foreach($cache_tpls as $curr_cache_tpl) {
-					$this->_fetch_template_info($curr_cache_tpl, $template_source, $template_timestamp, false);
-					if( $cache_filemtime < $template_timestamp) {
-						// template file has changed, regenerate cache
-						return false;
+				foreach($cache_info as $curr_cache_info) {
+					switch ($curr_cache_info[0]) {
+						case 'template':
+							$this->_fetch_template_info($curr_cache_info[1], $template_source, $template_timestamp, false);
+							if( $cache_filemtime < $template_timestamp) {
+								// template file has changed, regenerate cache
+								return false;
+							}
+							break;
+						case 'config':
+							if( $cache_filemtime < filemtime($this->config_dir.'/'.$curr_cache_info[1])) {
+								// config file file has changed, regenerate cache
+								return false;
+							}							
+							break;
 					}
 				}		
 			}		
