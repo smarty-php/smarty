@@ -5539,11 +5539,7 @@ OUTPUT:
 
 {* you can use html, links, etc in your popup text *}
 &lt;A href="mypage.html" {popup sticky=true caption="mypage contents"
-text="&lt;UL&gt;&lt;LI&gt;links&lt;LI&gt;pages&lt;LI&gt;images&lt;/UL&gt;" snapx=10 snapy=10}&gt;mypage&lt;/A&gt;
-
-OUTPUT:
-
-(See the Smarty official web site for working examples.)</programlisting>
+text="&lt;UL&gt;&lt;LI&gt;links&lt;LI&gt;pages&lt;LI&gt;images&lt;/UL&gt;" snapx=10 snapy=10}&gt;mypage&lt;/A&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.textformat">
