@@ -19,6 +19,10 @@ $cache_dir, $config_dir and $plugin_dir. Be aware that relying on the
 include_path is an overhead, try to use absolute pathnames when possible
 (or relative to working directory.)
 
+Documentation has been updated and rearranged a bit. Most notably, the
+installation instructions are completely revamped, and a new Caching section
+explains Smarty's caching in detail along with the new grouping functionality.
+
 Many misc. bug fixes and enhancements, see the full ChangeLog (NEWS file) for
 details.
 
