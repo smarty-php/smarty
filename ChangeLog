@@ -1,3 +1,12 @@
+2004-03-01  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml:
+      update include_php docs:wq
+      :q
+
+    * docs/appendixes.sgml:
+      update componentized template example to something useful
+
 2004-02-24  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
