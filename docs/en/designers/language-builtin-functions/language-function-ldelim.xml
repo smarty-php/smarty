@@ -7,6 +7,8 @@
    "{" or "}". You can also use <link
     linkend="language.function.literal">{literal}{/literal}</link> to escape
    blocks of text.
+    See also <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
+    and <link linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
   </para>
   <example>
    <title>ldelim, rdelim</title>

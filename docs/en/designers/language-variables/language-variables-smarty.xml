@@ -124,6 +124,20 @@
     This variable contains the version of Smarty the template was compiled with.
 			</para>
 		</sect2>
+		<sect2 id="language.variables.smarty.ldelim">
+			<title>{$smarty.ldelim}</title>
+			<para>
+    This variable is used for printing the left-delimiter value literally.
+    See also <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+			</para>
+		</sect2>
+		<sect2 id="language.variables.smarty.rdelim">
+			<title>{$smarty.rdelim}</title>
+			<para>
+    This variable is used for printing the right-delimiter value literally.
+    See also <link linkend="language.function.ldelim">{rdelim},{rdelim}</link>.
+			</para>
+		</sect2>
 
 </sect1>
 <!-- Keep this comment at the end of the file
