@@ -7,17 +7,17 @@ will work for you.
 
 We make a few assumptions here, such as you already have PHP installed on your
 web server, you know the basics of unix file permissions, the basics of PHP and
-how it works, etc. If you are using Smarty in a non-unix environment, you should
-understand the difference in your OS regarding file permissions.
+how it works, etc. If you are using Smarty in a non-unix environment, you
+should understand the difference in your OS regarding file permissions.
 
 INSTALLATION
 ------------
 
-Unpack the Smarty tarball. You will see fou: class files: Smarty.class.php,
-Smarty.addons.php, Smarty_Compiler.class.php and Config_File.class.php. You will
-need to have all three of these files somewhere in your PHP include path, so when
-you call require("Smarty.class.php") from within your application, it can find the
-class.
+Unpack the Smarty tarball. You will see four class files: Smarty.class.php,
+Smarty.addons.php, Smarty_Compiler.class.php and Config_File.class.php. You
+will need to have all three of these files somewhere in your PHP include path,
+so when you call require("Smarty.class.php") from within your application, it
+can find the class.
 
 Smarty uses the PEAR libraries for some of its error handling routines. PEAR
 libraries come with the distribution of PHP. Be sure that the path to these
@@ -99,8 +99,8 @@ script which you can take a look at in the templates_c directory. Smarty will
 continue to use this compiled script until the index.tpl file is changed, then
 it will automatically recompile. What this means for you: forget about the
 templates_c directory. Out of sight, out of mind. You don't need to worry about
-it, Smarty takes care of this technical stuff. Out of curiosity, you can see how
-your templates look as compiled php scripts, but please don't touch them!
+it, Smarty takes care of this technical stuff. Out of curiosity, you can see
+how your templates look as compiled php scripts, but please don't edit them!
 
 Now that we have Smarty functioning properly, let's get into the guts of Smarty
 and learn what thing is all about. I'll try to briefly show examples to cover

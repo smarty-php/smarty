@@ -25,17 +25,17 @@ A: Smarty reads the template files and creates PHP scripts from them. Once
    in Smarty for increased performance.)
 
 Q: Why can't I just use APC <http://apc.communityconnect.com/> (or Zend Cache)?
-A: Smarty and these cache solutions have nothing in common. What APC does is
-   caches compiled bytecode of your PHP scripts in shared memory or in a file.
-   This speeds up server response and saves the compilation step. Smarty
-   creates PHP scripts (which APC will cache nicely) and also has it's own
-   internal caching mechanism for the output of the template contents. For
-   example, if you have a template that requires several database queries,
-   Smarty can cache this output, saving the need to call the database every
-   time. APC cannot help you here. Smarty and APC (or Zend Cache) actually
-   complement each other nicely. If performance is of the utmost importance, we
-   would recommend using one of these with any PHP application, using Smarty or
-   not.
+A: You certainly can. Smarty's cache and these cache solutions have nothing in
+   common. What APC does is caches compiled bytecode of your PHP scripts in
+   shared memory or in a file. This speeds up server response and saves the
+   compilation step. Smarty creates PHP scripts (which APC will cache nicely)
+   and also has it's own internal caching mechanism for the output of the
+   template contents. For example, if you have a template that requires several
+   database queries, Smarty can cache this output, saving the need to call the
+   database every time. APC cannot help you here. Smarty and APC (or Zend
+   Cache) actually complement each other nicely. If performance is of the
+   utmost importance, we would recommend using one of these with any PHP
+   application, using Smarty or not.
 
 Q: Is Smarty faster than <insert other PHP template engine>?
 A: It could be. One of the strengths of Smarty is that it does not need to
@@ -50,11 +50,12 @@ A: It could be. One of the strengths of Smarty is that it does not need to
    templates.
 
 Q: How can I be sure to get the best performance from Smarty?
-A  Be sure you set $compile_check=false once your templates are initially
-   compiled. This will skip the unneeded step of traversing all of your template   files on each hit. If you have complex pages that don't change too often,
-   turn on the caching engine and adjust your application so it doesn't do
-   unnecessary work (like db calls) if a cached page is available. See the
-   documentation for examples.
+A: Be sure you set $compile_check=false once your templates are initially
+   compiled. This will skip the unneeded step of testing if the template has
+   changed since it was last compiled. If you have complex pages that don't
+   change too often, turn on the caching engine and adjust your application so
+   it doesn't do unnecessary work (like db calls) if a cached page is
+   available. See the documentation for examples.
    
 Q: Can I use Macromedia's Dreamweaver to edit my templates?
 A: Certainly. You might want to change your tag delimiters from {} to something
@@ -115,8 +116,15 @@ Q: I'm running Windows 2000 and I get blank content. My compiled PHP files are
 A: There seems to be a problem with some W2k machines and exclusive file
    locking. Comment out the flock() call in _write_file to get around this,
    although be aware this could possibly cause a problem with simultaneous
-   writes to a file, especially with caching turned on.
+   writes to a file, especially with caching turned on. NOTE: As of Smarty
+   1.4.0, a workaround was put in place that should solve this.
 
 Q: The template goes into an infinite loop when I include included templates
    that pass local variables
 A: This was fixed in 1.3.2 (new global attribute)
+
+Q: How can I tell what compiled template file corresponds to to which source
+   file? (Smarty 1.4.0 and later have encoded compiled filenames)
+A: Compiled template files have headers that tell which source file was used to
+   compile it. cd into the compile_dir and type "head -2 *" to see the first
+   two lines of each compiled file.
