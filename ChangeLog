@@ -1,3 +1,17 @@
+2005-02-01  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/plugins/function.html_image.php:
+      remove border tag
+
+2005-02-01  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      fixed serialization of values containing newlines (like _cache_attrs)
+      in core_write_cache_file()
+      
+      bumped version to 2.6.6-dev-3 to indicate that the fileformat of cache
+      has changed
+
 2005-01-30  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
