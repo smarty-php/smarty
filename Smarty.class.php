@@ -609,7 +609,7 @@ class Smarty
     Purpose:    fetch the template source and timestamp
 \*======================================================================*/
     function _fetch_template_source($tpl_path, &$template_source, &$template_timestamp)
-    {
+    {		
         // split tpl_path by the first colon
         $tpl_path_parts = explode(':', $tpl_path, 2);
         
@@ -633,7 +633,7 @@ class Smarty
                     $template_timestamp = filemtime($resource_name);
                     return true;
                 } else {
-                    $this->_trigger_error_msg("unable to read template resource: \"$tpl_path.\"");
+                    $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
                     return false;
                 }
                 break;
