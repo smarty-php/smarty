@@ -3,9 +3,6 @@
 
 <PRE>
 
-{$Name}
-{$Name}
-
 {* bold and title are read from the config file *}
 {if #bold#}<b>{/if}
 {* capitalize the first letters of each word of the title *}
@@ -66,4 +63,3 @@ This is an example of the html_options function:
 {html_options values=$option_values selected=$option_selected output=$option_output}
 </select>
 </form>
-
