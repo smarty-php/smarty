@@ -1,3 +1,13 @@
+2004-08-20  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/function.html_select_date.php:
+      update version
+
+    * NEWS
+      libs/plugins/function.html_select_date.php:
+      make time param work with negative timestamps, force year range to include
+      given date unless explicitly set
+
 2004-08-19  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
