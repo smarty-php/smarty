@@ -1177,7 +1177,7 @@ function _run_mod_handler()
         closedir($handle);
 
         if ($level)
-            rmdir($dirname);
+            @rmdir($dirname);
 
         return true;
     }
