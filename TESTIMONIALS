@@ -1,0 +1,9 @@
+"I just got my first paying contract for a local small business and in my
+ program I'm using Smarty. Smarty is an absolute joy to work with -
+ at first, I didn't like the idea of populating variables/arrays and then
+ assigning those directly (since I'd been using FastTemplates for so long),
+ but after using this system for a while, I don't think I can ever go back
+ (I even switched my Perl template engine to HTML-Template-2.4 which
+ operates on the same concepts).  Anyway, thanks for saving me time and
+ headache!"
+            -- Brian E. Lozier

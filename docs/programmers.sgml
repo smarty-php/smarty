@@ -1,4 +1,4 @@
-  <part>
+  <part id="smarty.for.programmersr">
    <title>Smarty For Programmers</title>
    <chapter id="api">
     <title>Smarty API</title>
@@ -139,7 +139,7 @@
        $global_assign to a default value.
       </para>
      </sect2>
-     <sect2>
+     <sect2 id="variable.compile.check">
       <title>$compile_check</title>
       <para>
        Upon each invocation of the PHP application, Smarty tests to
@@ -271,7 +271,7 @@
       <para>
        NOTE: Embedding PHP code into templates is highly discouraged.
        Use <link linkend="bundled.plugins.commands">custom functions</link> or
-       <link linkend="variable.modifiers">modifiers</link> instead.
+       <link linkend="language.modifiers">modifiers</link> instead.
       </para>
      </sect2>
      <sect2 id="variable.security">
@@ -994,50 +994,438 @@ echo $output;</programlisting>
        </sect1>
       </chapter>
 
-<chapter id="plugins">
- <title>Extending Smarty With Plugins</title>
-   <para>
-    Version 2.0 introduced the plugin architecture that is used
-    for almost all the customizable functionality of Smarty. This includes:
-    <itemizedlist spacing=compact>
-     <listitem><simpara>functions</simpara></listitem>
-     <listitem><simpara>modifiers</simpara></listitem>
-     <listitem><simpara>compiler functions</simpara></listitem>
-     <listitem><simpara>prefilters</simpara></listitem>
-     <listitem><simpara>postfilters</simpara></listitem>
-     <listitem><simpara>resources</simpara></listitem>
-     <listitem><simpara>inserts</simpara></listitem>
-    </itemizedlist>
-    With the exception of resources, backwards compatibility with the old
-    way of registering handler functions via register_* API is preserved. If
-    you did not use the API but instead modified the class variables
-    <literal>$custom_funcs</literal>, <literal>$custom_mods</literal>, and
-    other ones directly, then you will need to adjust your scripts to either
-    use the API or convert your custom functionality into plugins.
-   </para>
-   
-   <sect1>
-    <title>How Plugins Work</title>
+  <chapter id="advanced.features">
+   <title>Advanced Features</title>
+   <sect1 id="advanced.features.prefilters">
+    <title>Prefilters</title>
     <para>
-     Plugins are always loaded on demand. Only the specific modifiers,
-     functions, resources, etc invoked in the templates or PHP scripts will
-     be loaded. Moreover, each plugin is loaded only once, even if you have
-     several different instances of Smarty running within the same request.
+     Template prefilters are PHP functions that your templates are ran through
+     before they are compiled. This is good for preprocessing your templates
+     to remove unwanted comments, keeping an eye on what people are putting
+     in their templates, etc. Prefilters are processed in the order they are
+     <link linkend="api.register.prefilter">registered</link> or loaded from
+     the <link linkend="plugins.prefilters.postfilters">plugin</link> directory.
+     Smarty will pass the template source code as the first argument, an
+     expect the function to return the resulting template source code.
     </para>
-    <para>
-     Pre/post-filters are a bit of a special case. If a pre/post-filter
-     plugin is found in the plugins directory, it will always be loaded
-     because these filters are never explicitly mentioned in the template
-     language. This also means that the order in which multiple prefilters
-     or postfilters is executed depends on the way they are named
-     (basically, alphabetical order).
-    </para>
-    <para>
-     There is only one plugins directory (for performance reasons). To
-     install a plugin, simply place it in the directory and Smarty will use
-     it automatically.
-    </para>
+    <example>
+     <title>using a template prefilter</title>
+     <programlisting>
+&lt;?php
+// put this in your application
+function remove_dw_comments($tpl_source)
+{
+    return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
+}
+
+// register the prefilter
+$smarty->register_prefilter("remove_dw_comments");
+$smarty->display("index.tpl");
+?&gt;
+
+{* Smarty template index.tpl *}
+&lt;!--# this line will get removed by the prefilter --&gt;</programlisting>
+    </example>
    </sect1>
+
+   <sect1 id="advanced.features.postfilters">
+    <title>Postfilters</title>
+    <para>
+     Template postfilters are PHP functions that your templates are ran through
+     after they are compiled. Postfilters are processed in the order they are
+     <link linkend="api.register.postfilter">registered</link> or loaded
+     from the <link linkend="plugins.prefilters.postfilters">plugin</link>
+     directory. Smarty will pass the compiled template code as the first
+     argument, an expect the function to return the result of the
+     processing.
+    </para>
+    <example>
+     <title>using a template postfilter</title>
+     <programlisting>
+&lt;?php
+// put this in your application
+function add_header_comment($tpl_source)
+{
+    return "&lt;?php echo \"&lt;!-- Created by Smarty! --&gt;\n\" ?&gt;\n".$tpl_source;
+}
+
+// register the postfilter
+$smarty->register_postfilter("add_header_comment");
+$smarty->display("index.tpl");
+?&gt;
+
+{* compiled Smarty template index.tpl *}
+&lt;!-- Created by Smarty! --&gt;
+{* rest of template content... *}</programlisting>
+    </example>
+   </sect2>
+  </sect1>
+
+  <sect1 id="section.template.cache.handler.func">
+   <title>Cache Handler Function</title>
+   <para>
+    As an alternative to using the default file-based caching mechanism, you
+    can specify a custom cache handling function that will be used to read,
+    write and clear cached files.
+   </para>
+   <para>
+    Create a function in your application that Smarty will use as a
+    cache handler. Set the name of it in the
+    <link linkend="variable.cache.handler.func">$cache_handler_func</link>
+    class variable. Smarty will now use this to handle cached data. The
+    first argument is the action, which will be one of 'read', 'write' and
+    'clear'. The second parameter is the Smarty object. The third parameter
+    is the cached content. Upon a write, Smarty passes the cached content
+    in these parameters. Upon a 'read', Smarty expects your function to
+    accept this parameter by reference and populate it with the cached
+    data. Upon a 'clear', pass a dummy variable here since it is not used.
+    The fourth parameter is the name of the template file (needed for
+    read/write), the fifth parameter is the cache_id (optional), and the
+    sixth is the compile_id (optional).
+   </para>
+   <example>
+    <title>example using MySQL as a cache source</title>
+    <programlisting>
+&lt;?php
+/*
+
+example usage:
+
+include('Smarty.class.php');
+include('mysql_cache_handler.php');
+
+$smarty = new Smarty;
+$smarty-&gt;cache_handler_func = 'mysql_cache_handler';
+
+$smarty-&gt;display('index.tpl');
+
+
+mysql database is expected in this format:
+	
+create database SMARTY_CACHE;
+
+create table CACHE_PAGES(
+CacheID char(32) PRIMARY KEY,
+CacheContents MEDIUMTEXT NOT NULL
+);
+
+*/
+
+function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
+{
+	// set db host, user and pass here
+	$db_host = 'localhost';
+	$db_user = 'myuser';
+	$db_pass = 'mypass';
+	$db_name = 'SMARTY_CACHE';
+	$use_gzip = false;
+	
+	// create unique cache id
+	$CacheID = md5($tpl_file.$cache_id.$compile_id);
+	
+	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
+		$smarty_obj-&gt;_trigger_error_msg("cache_handler: could not connect to database");
+		return false;
+	}
+	mysql_select_db($db_name);
+
+	switch ($action) {
+		case 'read':
+			// save cache to database
+			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$row = mysql_fetch_array($results,MYSQL_ASSOC);
+			
+			if($use_gzip && function_exists("gzuncompress")) {
+				$cache_contents = gzuncompress($row["CacheContents"]);
+			} else {
+				$cache_contents = $row["CacheContents"];
+			}
+			$return = $results;
+			break;
+		case 'write':
+			// save cache to database
+			
+			if($use_gzip && function_exists("gzcompress")) {
+				// compress the contents for storage efficiency
+				$contents = gzcompress($cache_content);
+			} else {
+				$contents = $cache_content;
+			}
+			$results = mysql_query("replace into CACHE_PAGES values(
+							'$CacheID',
+							'".addslashes($contents)."')
+						");
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$return = $results;
+			break;
+		case 'clear':
+			// clear cache info
+			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
+				// clear them all
+				$results = mysql_query("delete from CACHE_PAGES");			
+			} else {
+				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
+			}
+			if(!$results) {
+				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+			}
+			$return = $results;
+			break;
+		default:
+			// error, unknown action
+			$smarty_obj-&gt;_trigger_error_msg("cache_handler: unknown action \"$action\"");
+			$return = false;
+			break;
+	}
+	mysql_close($link);
+	return $return;
+	
+}
+
+?&gt;</programlisting>
+    </example>
+  </sect1>
+
+  <sect1 id="template.resources">
+   <title>Resources</title>
+   <para>
+    The templates may come from a variety of sources. When you display or
+    fetch a template, or when you include a template from within another
+    template, you supply a resource type, followed by the appropriate path
+    and template name.
+   </para>
+   <sect2 id="templates.from.template.dir">
+    <title>Templates from $template_dir</title>
+    <para>
+     Templates from the $template_dir do not require a template
+     resource, although you can use the file: resource for consistancy.
+     Just supply the path to the template you want to use relative to
+     the $template_dir root directory.
+    </para>
+    <example>
+     <title>using templates from $template_dir</title>
+     <programlisting>
+// from PHP script
+$smarty->display("index.tpl");
+$smarty->display("admin/menu.tpl");
+$smarty->display("file:admin/menu.tpl"); // same as one above
+
+{* from within Smarty template *}
+{include file="index.tpl"}
+{include file="file:index.tpl"} {* same as one above *}</programlisting>
+    </example>
+   </sect2>
+   <sect2 id="templates.from.any.dir">
+    <title>Templates from any directory</title>
+    <para>
+     Templates outside of the $template_dir require the file: template
+     resource type, followed by the absolute path and name of the
+     template.
+    </para>
+    <example>
+     <title>using templates from any directory</title>
+     <programlisting>
+// from PHP script
+$smarty->display("file:/export/templates/index.tpl");
+$smarty->display("file:/path/to/my/templates/menu.tpl");
+
+{* from within Smarty template *}
+{include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
+    </example>
+
+    <sect3>
+     <title>Windows Filepaths</title>
+     <para>
+      If you are using a Windows machine, filepaths usually include a
+      drive letter (C:) at the beginning of the pathname. Be sure to use
+      "file:" in the path to avoid namespace conflicts and get the
+      desired results.
+     </para>
+     <example>
+      <title>using templates from windows file paths</title>
+      <programlisting>
+// from PHP script
+$smarty->display("file:C:/export/templates/index.tpl");
+$smarty->display("file:F:/path/to/my/templates/menu.tpl");
+
+{* from within Smarty template *}
+{include file="file:D:/usr/local/share/templates/navigation.tpl"}</programlisting>
+     </example>
+    </sect3>
+   </sect2>
+
+   <sect2 id="templates.from.elsewhere">
+    <title>Templates from other sources</title>
+    <para>
+     You can retrieve templates using whatever possible source you can
+     access with PHP: databases, sockets, LDAP, and so on. You do this
+     by writing resource plugin functions and registering them with
+     Smarty.
+    </para>
+
+    <para>
+     See <link linkend="plugins.resources">resource plugins</link>
+     section for more information on the functions you are supposed
+     to provide.
+    </para>
+
+    <note>
+     <para>
+      Note that you cannot override the built-in
+      <literal>file</literal> resource, but you can provide a resource
+      that fetches templates from the file system in some other way by
+      registering under another resource name.
+     </para>
+    </note>
+    <example>
+     <title>using custom resources</title>
+     <programlisting>
+// from PHP script
+
+// put these function somewhere in your application
+function db_get_template ($tpl_name, &amp;tpl_source, &amp;$smarty_obj)
+{
+    // do database call here to fetch your template,
+    // populating $tpl_source
+    $sql = new SQL;
+    $sql->query("select tpl_source
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_source = $sql->record['tpl_source'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
+{
+    // do database call here to populate $tpl_timestamp.
+    $sql = new SQL;
+    $sql->query("select tpl_timestamp
+                   from my_table
+                  where tpl_name='$tpl_name'");
+    if ($sql->num_rows) {
+        $tpl_timestamp = $sql->record['tpl_timestamp'];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function db_get_secure($tpl_name, &$smarty_obj)
+{
+    // assume all templates are secure
+    return true;
+}
+
+function db_get_trusted($tpl_name, &$smarty_obj)
+{
+    // not used for templates
+}
+
+// register the resource name "db"
+$smarty->register_resource("db", array("db_get_template",
+                                       "db_get_timestamp",
+                                       "db_get_secure",
+                                       "db_get_trusted"));
+
+// using resource from php script
+$smarty->display("db:index.tpl");
+
+{* using resource from within Smarty template *}
+{include file="db:/extras/navigation.tpl"}</programlisting>
+    </example>
+   </sect2>
+
+   <sect2 id="default.template.handler.function">
+    <title>Default template handler function</title>
+    <para>
+     You can specify a function that is used to retrieve template
+     contents in the event the template cannot be retrieved from its
+     resource. One use of this is to create templates that do not exist
+     on-the-fly.
+    </para>
+    <example>
+     <title>using the default template handler function</title>
+     <programlisting>
+&lt;?php
+// put this function somewhere in your application
+
+function make_template ($resource_type, $resource_name, &amp;$template_source, &amp;$template_timestamp, &amp;$smarty_obj)
+{
+	if( $resource_type == 'file' ) {
+		if ( ! is_readable ( $resource_name )) {
+			// create the template file, return contents.
+			$template_source = "This is a new template.";
+			$template_timestamp = time();
+			$smarty_obj->_write_file($resource_name,$template_source);
+			return true;
+		}
+    } else {
+		// not a file
+		return false;
+    }
+}
+
+// set the default handler
+$smarty->default_template_handler_func = 'make_template';
+?&gt;</programlisting>
+    </example>
+   </sect2>
+  </sect1>
+ </chapter>
+
+ <chapter id="plugins">
+  <title>Extending Smarty With Plugins</title>
+  <para>
+   Version 2.0 introduced the plugin architecture that is used
+   for almost all the customizable functionality of Smarty. This includes:
+   <itemizedlist spacing=compact>
+    <listitem><simpara>functions</simpara></listitem>
+    <listitem><simpara>modifiers</simpara></listitem>
+    <listitem><simpara>compiler functions</simpara></listitem>
+    <listitem><simpara>prefilters</simpara></listitem>
+    <listitem><simpara>postfilters</simpara></listitem>
+    <listitem><simpara>resources</simpara></listitem>
+    <listitem><simpara>inserts</simpara></listitem>
+   </itemizedlist>
+   With the exception of resources, backwards compatibility with the old
+   way of registering handler functions via register_* API is preserved. If
+   you did not use the API but instead modified the class variables
+   <literal>$custom_funcs</literal>, <literal>$custom_mods</literal>, and
+   other ones directly, then you will need to adjust your scripts to either
+   use the API or convert your custom functionality into plugins.
+  </para>
+   
+  <sect1>
+   <title>How Plugins Work</title>
+   <para>
+    Plugins are always loaded on demand. Only the specific modifiers,
+    functions, resources, etc invoked in the templates or PHP scripts will
+    be loaded. Moreover, each plugin is loaded only once, even if you have
+    several different instances of Smarty running within the same request.
+   </para>
+   <para>
+    Pre/post-filters are a bit of a special case. If a pre/post-filter
+    plugin is found in the plugins directory, it will always be loaded
+    because these filters are never explicitly mentioned in the template
+    language. This also means that the order in which multiple prefilters
+    or postfilters is executed depends on the way they are named
+    (basically, alphabetical order).
+   </para>
+   <para>
+    There is only one plugins directory (for performance reasons). To
+    install a plugin, simply place it in the directory and Smarty will use
+    it automatically.
+   </para>
+  </sect1>
 
    <sect1 id="plugins.naming.conventions">
     <title>Naming Conventions</title>
@@ -1376,7 +1764,8 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     </example>
    </sect1>
 
-   <sect1 id="plugins.prefilters.postfilters"><title>Prefilters/Postfilters</title>
+   <sect1 id="plugins.prefilters.postfilters">
+    <title>Prefilters/Postfilters</title>
     <para>
      Prefilter and postfilter plugins are very similar in concept; where
      they differ is in the execution -- more precisely the time of their
@@ -1640,412 +2029,4 @@ function smarty_insert_time($params, &amp;$smarty)
     </example>
    </sect1>
   </chapter>
-<chapter id="advanced.features">
-	<title>Advanced Features</title>
-    <sect1 id="advanced.features.prefilters">
-		<title>Prefilters</title>
-        <para>
-		Template prefilters are PHP functions that your templates are ran through
-		before they are compiled. This is good for preprocessing your templates
-		to remove unwanted comments, keeping an eye on what people are putting
-		in their templates, etc. Prefilters are processed in the order they are
-		<link linkend="api.register.prefilter">registered</link>.
-        </para>
-		<sect2>
-			<title>Example of a Template Prefilter</title>
-			<para>
-            Create a function in your application that Smarty will use as a
-            template prefilter. Smarty will pass the template source code as the
-            first argument, an expect the function to return the resulting
-            template source code.
-            </para>
-			<para>
-			NOTE: As of Smarty 1.4.5, the Smarty object is passed as the second
-			argument. This way you can reference and modify information in the
-			Smarty object from within the prefilter function.
-			</para>
-<example>
-
-<title>using a template prefilter</title>
-<programlisting>
-// put this in your application, or in Smarty.addons.php
-function remove_dw_comments($tpl_source) {
-    return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
-}
-
-// register the prefilter
-$smarty->register_prefilter("remove_dw_comments");
-$smarty->display("index.tpl");
-
-{* from within Smarty template *}
-&lt;!--# this line will get removed by the prefilter --&gt;</programlisting>
-</example>
-        </sect2>
-    </sect1>
-	<sect1 id="advanced.features.postfilters">
-		<title>Postfilters</title>
-        <para>
-		Template postfilters are PHP functions that your templates are ran through
-		after they are compiled. Postfilters are processed in the order they are
-		<link linkend="api.register.postfilter">registered</link>.
-        </para>
-		<sect2>
-			<title>Example of a Template Postfilter</title>
-			<para>
-            Create a function in your application that Smarty will use as a
-            template postfilter. Smarty will pass the template source code as the
-            first argument, an expect the function to return the resulting
-            template source code.
-			</para>
-			<para>
-			The Smarty object is passed as the second argument. This way you
-			can reference and modify information in the Smarty object from
-			within the prefilter function.
-			</para>
-<example>
-
-<title>using a template postfilter</title>
-<programlisting>
-// this program puts a 
-// put this in your application, or in Smarty.addons.php
-function add_header_comment($tpl_source) {
-    return "<?php echo \"<!-- Created by Smarty! -->\n\" ?>\n".$tpl_source;
-}
-
-// register the postfilter
-$smarty->register_postfilter("add_header_comment");
-$smarty->display("index.tpl");
-
-{* from within Smarty template *}
-<!-- Created by Smarty! -->
-{* rest of template content... *}</programlisting>
-</example>
-        </sect2>
-    </sect1>
-	<sect1 id="section.template.cache.handler.func">
-		<title>Cache Handling Function</title>
-        <para>
-		As an alternative to using the default file-based caching mechanism, you
-		can specify a custom cache handling function that will be used to read,
-		write and clear cached files.
-		</para>
-		<sect2>
-			<title>Example of a Template Cache Handling Function</title>
-			<para>
-			Create a function in your application that Smarty will use as a
-			cache handler. Set the name of it in the $cache_handler_func class
-			variable. Smarty will now use this to handle cached data. The first
-			argument is the action, which will be one of 'read', 'write' and
-			'clear'. The second parameter is the smarty object. The third
-			parameter is the cached content. Upon a write, Smarty passes the
-			cached content in these parameters. Upon a 'read', Smarty expects
-			your function to pass this by reference and populate it with the
-			cached data. Upon a 'clear', pass a dummy variable here since it is
-			not used. The fourth parameter is the name of the template file
-			(needed for read/write), the fifth parameter is the cache_id
-			(optional), and the sixth is the compile_id (optional)
-			</para>
-<example>
-
-<title>example using MySQL as a cache source</title>
-<programlisting>
-&lt;?php
-
-/*
-
-example usage:
-
-include('Smarty.class.php');
-include('mysql_cache_handler.php');
-
-$smarty = new Smarty;
-$smarty-&gt;cache_handler_func='mysql_cache_handler';
-
-$smarty-&gt;display('index.tpl');
-
-
-mysql database is expected in this format:
-	
-create database SMARTY_CACHE;
-
-create table CACHE_PAGES(
-CacheID char(32) PRIMARY KEY,
-CacheContents MEDIUMTEXT NOT NULL
-);
-
-*/
-
-function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)  {
-	// set db host, user and pass here
-	$db_host = 'localhost';
-	$db_user = 'myuser';
-	$db_pass = 'mypass';
-	$db_name = 'SMARTY_CACHE';
-	$use_gzip = false;
-	
-	// create unique cache id
-	$CacheID = md5($tpl_file.$cache_id.$compile_id);
-	
-	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
-		$smarty_obj-&gt;_trigger_error_msg("cache_handler: could not connect to database");
-		return false;
-	}
-	mysql_select_db($db_name);
-
-	switch ($action) {
-		case 'read':
-			// save cache to database
-			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
-			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
-			}
-			$row = mysql_fetch_array($results,MYSQL_ASSOC);
-			
-			if($use_gzip && function_exists("gzuncompress")) {
-				$cache_contents = gzuncompress($row["CacheContents"]);
-			} else {
-				$cache_contents = $row["CacheContents"];
-			}
-			$return = $results;
-			break;
-		case 'write':
-			// save cache to database
-			
-			if($use_gzip && function_exists("gzcompress")) {
-				// compress the contents for storage efficiency
-				$contents = gzcompress($cache_content);
-			} else {
-				$contents = $cache_content;
-			}
-			$results = mysql_query("replace into CACHE_PAGES values(
-							'$CacheID',
-							'".addslashes($contents)."')
-						");
-			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
-			}
-			$return = $results;
-			break;
-		case 'clear':
-			// clear cache info
-			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
-				// clear them all
-				$results = mysql_query("delete from CACHE_PAGES");			
-			} else {
-				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
-			}
-			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
-			}
-			$return = $results;
-			break;
-		default:
-			// error, unknown action
-			$smarty_obj-&gt;_trigger_error_msg("cache_handler: unknown action \"$action\"");
-			$return = false;
-			break;
-	}
-	mysql_close($link);
-	return $return;
-	
-}
-
-?&gt;
-</programlisting>
-</example>
-        </sect2>
-    </sect1>
-	<sect1 id="template.resources">
-		<title>Resources</title>
-        <para>
-        Your templates may come from a variety of sources. When you display or
-        fetch a template, or when you include a template from within another
-        template, you supply a resource type, followed by the appropriate path
-        and template name.
-        </para>
-		<sect2>
-			<title>Templates from $template_dir</title>
-			<para>
-            Templates from the $template_dir do not require a template
-            resource, although you can use the file: resource for consistancy.
-            Just supply the path to the template you want to use relative to
-            the $template_dir root directory.
-            </para>
-<example>
-
-<title>using templates from $template_dir</title>
-<programlisting>
-// from PHP script
-$smarty->display("index.tpl");
-$smarty->display("admin/menu.tpl");
-$smarty->display("file:admin/menu.tpl"); // same as one above
-
-{* from within Smarty template *}
-{include file="index.tpl"}
-{include file="file:index.tpl"} {* same as one above *}</programlisting>
-</example>
-        </sect2>
-        <sect2>
-         <title>Templates from any directory</title>
-         <para>
-          Templates outside of the $template_dir require the file: template
-          resource type, followed by the absolute path and name of the
-          template.
-         </para>
-         <example>
-
-          <title>using templates from any directory</title>
-          <programlisting>
-// from PHP script
-$smarty->display("file:/export/templates/index.tpl");
-$smarty->display("file:/path/to/my/templates/menu.tpl");
-
-{* from within Smarty template *}
-{include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
-         </example>
-         <sect3>
-          <title>Windows Filepaths</title>
-          <para>
-           If you are using a Windows machine, filepaths usually include a
-           drive letter (C:) at the beginning of the pathname. Be sure to use
-           "file:" in the path to avoid namespace conflicts and get the
-           desired results.
-          </para>
-          <example>
-           <title>using templates from windows file paths</title>
-           <programlisting>
-// from PHP script
-$smarty->display("file:C:/export/templates/index.tpl");
-$smarty->display("file:F:/path/to/my/templates/menu.tpl");
-
-{* from within Smarty template *}
-{include file="file:D:/usr/local/share/templates/navigation.tpl"}</programlisting>
-          </example>
-         </sect3>
-        </sect2>
-
-        <sect2>
-         <title>Templates from other sources</title>
-         <para>
-          You can retrieve templates using whatever possible source you can
-          access with PHP: databases, sockets, LDAP, and so on. You do this
-          by writing resource plugin functions and registering them with
-          Smarty.
-         </para>
-
-         <para>
-          See <link linkend="plugins.resources">resource plugins</link>
-          section for more information on the functions you are supposed
-          to provide.
-         </para>
-
-         <note>
-          <para>
-           Note that you cannot override the built-in
-           <literal>file</literal> resource, but you can provide a resource
-           that fetches templates from the file system in some other way by
-           registering under another resource name.
-          </para>
-         </note>
-         <example>
-          <title>using custom resources</title>
-          <programlisting>
-// from PHP script
-
-// put these function somewhere in your application
-function db_get_template ($tpl_name, &amp;tpl_source, &amp;$smarty_obj)
-{
-    // do database call here to fetch your template,
-    // populating $tpl_source
-    $sql = new SQL;
-    $sql->query("select tpl_source
-                   from my_table
-                  where tpl_name='$tpl_name'");
-    if ($sql->num_rows) {
-        $tpl_source = $sql->record['tpl_source'];
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
-{
-    // do database call here to populate $tpl_timestamp.
-    $sql = new SQL;
-    $sql->query("select tpl_timestamp
-                   from my_table
-                  where tpl_name='$tpl_name'");
-    if ($sql->num_rows) {
-        $tpl_timestamp = $sql->record['tpl_timestamp'];
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function db_get_secure($tpl_name, &$smarty_obj)
-{
-    // assume all templates are secure
-    return true;
-}
-
-function db_get_trusted($tpl_name, &$smarty_obj)
-{
-    // not used for templates
-}
-
-// register the resource name "db"
-$smarty->register_resource("db", array("db_get_template",
-                                       "db_get_timestamp",
-                                       "db_get_secure",
-                                       "db_get_trusted"));
-
-// using resource from php script
-$smarty->display("db:index.tpl");
-
-{* using resource from within Smarty template *}
-{include file="db:/extras/navigation.tpl"}</programlisting>
-         </example>
-        </sect2>
-
-        <sect2>
-         <title>Default Template Handler Function</title>
-         <para>
-          You can specify a function that is used to retrieve template
-          contents in the event the template cannot be retrieved from its
-          resource. One use of this is to create templates that do not exist
-          on-the-fly.
-         </para>
-         <example>
-          <title>using the default template handler function</title>
-          <programlisting>
-// from PHP script
-
-// put this function somewhere in your application
-
-function make_template ($resource_type, $resource_name, &amp;$template_source,
-	&amp;$template_timestamp, &amp;$smarty_obj) {
-    
-	if( $resource_type == 'file' ) {
-		if ( ! is_readable ( $resource_name )) {
-			// create the template file, return contents.
-			$template_source = "This is a new template.";
-			$template_timestamp = time();
-			$smarty_obj->_write_file($resource_name,$template_source);
-			return true;
-		}
-	else {
-		// not a file
-		return false;
-    }
-}
-
-// set the default handler
-$smarty->default_template_handler_func = 'make_template';</programlisting>
-         </example>
-        </sect2>
-	</sect1>
-</chapter>
-
  </part>

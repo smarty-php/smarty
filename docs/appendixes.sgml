@@ -3,7 +3,7 @@
 <chapter id="troubleshooting">
    <title>Troubleshooting</title>
    <para></para>
-   <sect1>
+   <sect1 id="smarty.php.errors">
        <title>Smarty/PHP errors</title>
        <para>
        Smarty can catch many errors such as missing tag attributes
@@ -55,7 +55,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
    <title>Tips & Tricks</title>
    <para>
    </para>
-	<sect1>
+   <sect1 id="tips.blank.var.handling">
 		<title>Blank Variable Handling</title>
 		<para>
 		There may be times when you want to print a default value for an empty
@@ -82,7 +82,8 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 {$title|default:"&amp;nbsp;"}</programlisting>
 </example>
 	</sect1>
-	<sect1>
+
+    <sect1 id="tips.default.var.handling">
 		<title>Default Variable Handling</title>
 		<para>
 		If a variable is used frequently throughout your templates, applying
@@ -100,7 +101,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 {$title}</programlisting>
 </example>
 	</sect1>
-	<sect1>
+    <sect1 id="tips.passing.vars">
 		<title>Passing variable title to header template</title>
 		<para>
 		When the majority of your templates use the same headers and footers, it
@@ -154,7 +155,7 @@ footer.tpl
 		<emphasis>default</emphasis> variable modifier.
 	</para>
 	</sect1>
-   <sect1>
+    <sect1 id="tips.dates">
        <title>Dates</title>
        <para>
        As a rule of thumb, always pass dates to Smarty as timestamps.
@@ -213,7 +214,7 @@ function makeTimeStamp($year="",$month="",$day="")
 }</programlisting>
 </example>
 	</sect1>
-	<sect1>
+    <sect1 id="tips.wap">
 		<title>WAP/WML</title>
 		<para>
         WAP/WML templates require a php Content-Type header to be passed along
@@ -353,7 +354,7 @@ index.tpl
 Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
 </example>
 	</sect1>
-	<sect1>
+	<sect1 id="tips.obfuscating.email">
 		<title>Obfuscating E-mail Addresses</title>
 		<para>
 		Do you ever wonder how your E-mail address gets on so many spam mailing
@@ -388,9 +389,8 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 	<note>
 	<title>Technical Note</title>
 	<para>
-	This method isn't 100% foolproof. Although highly unlikely,
-	a spammer could conceivably write his e-mail collecter to decode these
-	values.
+    This method isn't 100% foolproof. Although highly unlikely, a spammer
+    could conceivably write his e-mail collector to decode these values.
 	</para>
 	</note>
 	</sect1>

@@ -1,4 +1,4 @@
-<part>
+<part id="smarty.for.designers">
  <title>Smarty For Template Designers</title>
  <chapter id="language">
   <title>Template Language</title>
@@ -141,7 +141,7 @@
 &lt;body bgcolr="{#bgcolor#}"&gt;</programlisting>
    </para>
 
-   <sect2>
+   <sect2 id="language.assigned.variables">
     <title>Variables assigned from PHP</title>
     <para>
      Variables that are assigned from PHP are referenced by preceding
@@ -162,7 +162,7 @@ Hello Doug, glad to see you could make it.
 Your last login was on January 11th, 2001.</programlisting>
 </example>
 
-		<sect3>
+		<sect3 id="language.variables.assoc.arrays">
 			<title>Associative arrays</title>
 			<para>
 			You can also reference associative array variables that are
@@ -170,7 +170,7 @@ Your last login was on January 11th, 2001.</programlisting>
 			symbol.
 			</para>
 <example>
-<title>displaying assigned associative array variables</title>
+<title>accessing associative array variables</title>
 <programlisting>
 {$Contacts.fax}&lt;br&gt;
 {$Contacts.email}&lt;br&gt;
@@ -187,14 +187,14 @@ zaphod@slartibartfast.com&lt;br&gt;
 </programlisting>
 </example>
 		</sect3>
-		<sect3>
+        <sect3 id="language.variables.array.indexes">
 			<title>Array indexes</title>
 			<para>
 			You can reference arrays by their index, much like native PHP
 			syntax.
 			</para>
 <example>
-<title>displaying arrays by index</title>
+<title>accessing arrays by index</title>
 <programlisting>
 {$Contacts[0]}&lt;br&gt;
 {$Contacts[1]}&lt;br&gt;
@@ -203,14 +203,14 @@ zaphod@slartibartfast.com&lt;br&gt;
 {$Contacts[0][1]}&lt;br&gt;</programlisting>
 </example>
 		</sect3>
-		<sect3>
+        <sect3 id="language.variables.objects">
 			<title>Objects</title>
 			<para>
 			Properties of objects assigned from PHP can be referenced
 			by specifying the property name after the '-&gt;' symbol.
 			</para>
 <example>
-<title>displaying object properties</title>
+<title>accessing object properties</title>
 <programlisting>
 name: {$person-&gt;name}&lt;br&gt;
 email: {$person-&gt;email}&lt;br&gt;
@@ -221,19 +221,17 @@ name: Zaphod Beeblebrox&lt;br&gt;
 email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 </example>
 		</sect3>
-</sect2>
+       </sect2>
 
-		<sect2>
+       <sect2 id="language.config.variables">
 			<title>Variables loaded from config files</title>
 			<para>
-			Variables that are passed in from config files are displayed by enclosing
-			them with hash marks (#) and enclosing the variable in delimiters
-			like so: {#varname#}
+             Variables that are loaded from the config files are referenced by enclosing
+             them within hash marks (#).
 			</para>
 <example>
 
-
-<title>displaying config variables</title>
+<title>config variables</title>
 <programlisting>
 &lt;html&gt;
 &lt;title&gt;{#pageTitle#}&lt;/title&gt;
@@ -249,43 +247,31 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 &lt;/html&gt;</programlisting>
 </example>
 			<para>
-			Config file variables cannot be displayed until
+			Config file variables cannot be used until
 			after they are loaded in from a config file. This procedure is
 			explained later in this document under
-			<link linkend="builtin.functions.configload">config_load</link>.
+            <command>config_load</command>.
 			</para>
 		</sect2>
-		<sect2>
-			<title>Variables internal to template</title>
-			<para>
-			Variables that are internal to the templates are displayed by using
-			the special variable {$smarty}. For instance, you can reference the
-			current date/time with {$smarty.now}, or <link
-			linkend="builtin.functions.section">section loops</link> have
-			properties that are internal variables.
-			</para>
-		</sect2>
-		<sect2 id="builtin.variable.smarty">
-			<title>{$smarty} reserved variable</title>
-			<para>
-			The reserved {$smarty} variable can be used to access several
-			special template variables. The full list of them follows.
-			</para>
-			<para>
-			The special variable {$smarty} was added to Smarty 1.4.4.
-			</para>
 
-		<sect3>
-		<title>Request variables</title>
-		<para>
-		The request variables such as get, post, cookies, server,
-		environment, and session variables can be accessed as demonstrated
-		in the examples below:
-		</para>
-<example>
+        <sect2 id="language.variables.smarty">
+         <title>{$smarty} reserved variable</title>
+         <para>
+          The reserved {$smarty} variable can be used to access several
+          special template variables. The full list of them follows.
+         </para>
 
-<title>displaying request variables</title>
-<programlisting>
+         <sect3 id="language.variables.smarty.request">
+          <title>Request variables</title>
+          <para>
+           The request variables such as get, post, cookies, server,
+           environment, and session variables can be accessed as demonstrated
+           in the examples below:
+          </para>
+          <example>
+
+           <title>displaying request variables</title>
+           <programlisting>
 {* display the variable "page" given in the URL, or from a form using the GET method *}
 {$smarty.get.page}
 
@@ -309,7 +295,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 </example>
 		</sect3>
 
-		<sect3>
+        <sect3 id="language.variables.smarty.now">
 			<title>Current timestamp</title>
 			<para>
 			The current timestamp can be accessed with {$smarty.now}. The
@@ -326,7 +312,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 </example>
 		</sect3>
 
-		<sect3>
+		<sect3 id="language.variables.smarty.capture">
 			<title>Output capture buffer</title>
 			<para>
 			The output captured via {capture}..{/capture} construct can be
@@ -335,7 +321,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 			</para>
 		</sect3>
 
-		<sect3>
+        <sect3 id="language.variables.smarty.loops">
 			<title>Loop properties</title>
 			<para>
 			{$smarty} variable can be used to refer to 'section' and
@@ -344,43 +330,46 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 			<link linkend="builtin.functions.foreach">foreach</link>.
 			</para>
 		</sect3>
-
 		</sect2>
-
 	</sect1>
 
-       <sect1 id="variable.modifiers">
-        <title>Variable Modifiers</title>
-        <para>
-         Variable modifiers are a bit different than <link
-          linkend="bundled.plugins.commands">custom functions</link>. Variable modifiers
-         alter variable contents before they are displayed to the template. All
-         modifiers will get the value of the variable as the first argument, and
-         must return a single value. Modifier parameters are separated by
-         colons. Any additional parameters passed to a modifier are passed as-is
-         positionally, much like calling a PHP function. You can also use native
-         PHP functions as modifiers, but only if they expect the correct
-         arguments. If they do not, you can always write a wrapper function in
-         Smarty to get what you want. You can chain as many modifiers together
-         on a variable as you like, separating each with a vertical pipe "|".
-        </para>
-        <para>
-         NOTE: if you apply a modifier to an array instead of a single value
-         variable, the modifier will be applied to every value in that array. If
-         you really want the entire array passed to the modifier, you must
-         prepend it with an "@" sign like so: {$articleTitle|@count} (this will
-         print out the number of elements in the $articleTitle array.)
-        </para>
-	<sect2 id="language.builtin.modifiers">
-     <title>Built-in Modifiers</title>
-		<sect3>
-			<title>capitalize</title>
-			<para>
-			This is used to capitalize the first letter of all words in a variable.
-			</para>
-<example>
-<title>capitalize</title>
-<programlisting>
+    <sect1 id="language.modifiers">
+     <title>Variable Modifiers</title>
+     <para>
+      Variable modifiers can be applied to any variable to alter its contents. To
+      apply a modifier, specify the variable followed by the <literal>|</literal>
+      (pipe) and the modifier name. A modifier may accept additional parameters
+      that affect its behavior. These parameters follow the modifer name and are
+      separated by <literal>:</literal> (colon).
+     </para>
+     <example>
+      <title>modifier example</title>
+      <programlisting>
+{* Uppercase the title *}
+&lt;h2&gt;{$title|upper}&lt;/h2&gt;
+
+{* Truncate the topic to 40 characters use ... at the end *}
+Topic: {$topic|truncate:40:"..."}</programlisting>
+     </example>
+     <para>
+      If you apply a modifier to an array variable instead of a single value variable,
+      the modifier will be applied to every value in that array. If you really want
+      the modifier to work on an entire array as a value, you must prepend the
+      modifier name with an <literal>@</literal> symbol like so:
+      <literal>{$articleTitle|@count}</literal> (this will print out the number of
+      elements in the $articleTitle array.)
+     </para>
+
+     <sect2 id="language.builtin.modifiers">
+      <title>Built-in Modifiers</title>
+      <sect3>
+       <title>capitalize</title>
+       <para>
+        This is used to capitalize the first letter of all words in a variable.
+       </para>
+       <example>
+        <title>capitalize</title>
+        <programlisting>
 {$articleTitle}
 {$articleTitle|capitalize}
 
@@ -1196,19 +1185,20 @@ from dad she hasn't seen in years.
 Blind woman gets new kidney fr
 om dad she hasn't seen in years.</programlisting>
 </example>
-		</sect3>
-   </sect2> 
-		<sect2 id="language.combining.modifiers">
-			<title>Combining Modifiers</title>
-			<para>
-            You can combine as many modifiers as you like on a single variable.
-            This allows the ability to combine the application of different
-            modifiers to a single variable. The modifiers will be applied to
-            the variable in the order they are combined, from left to right.
-			</para>
-<example>
-<title>combining modifiers</title>
-<programlisting>
+        </sect3>
+       </sect2> 
+
+       <sect2 id="language.combining.modifiers">
+        <title>Combining Modifiers</title>
+        <para>
+         You can apply as many modifiers as you like to a variable. The modifiers
+         will be applied to the variable in the order they are combined, from left
+         to right. The modifier have to be separated with a <literal>|</literal>
+         (pipe) symbol.
+        </para>
+        <example>
+         <title>combining modifiers</title>
+         <programlisting>
 {$articleTitle}
 {$articleTitle|upper|spacify}
 {$articleTitle|lower|spacify|truncate}
@@ -1223,9 +1213,9 @@ S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E 
 s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
 s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
 s m o k e r s   a r e   p. . .</programlisting>
-</example>
+        </example>
        </sect2>
-       </sect1>
+      </sect1>
 
     <sect1 id="language.builtin.functions">
      <title>Built-in Functions</title>
@@ -1344,9 +1334,9 @@ s m o k e r s   a r e   p. . .</programlisting>
             </informaltable>
 			<para>
 			This function is used for loading in variables from a
-			configuration file into the template. You must have the Config_file.class.php
-			file somewhere in your PHP include path for config_load to work properly.
-			See <link linkend="config.files">Config Files</link> for more info.
+			configuration file into the template.
+            See <link linkend="config.files">Config Files</link> for more
+            info.
 			</para>
 <example>
 <title>function config_load</title>
@@ -2570,14 +2560,14 @@ OUTPUT:
 		</sect2>
        </sect1>
 
-       <sect1 id="language.more.functions">
+       <sect1 id="language.custom.functions">
         <title>Custom Functions</title>
         <para>
          Smarty comes with several additional functions that you can
          use in the templates.
         </para>
 
-        <sect2 id="language.custom.functions">
+        <sect2 id="language.more.functions">
          <title>Additional Functions</title>
 		<sect3 id="language.function.assign">
 			<title>assign</title>
@@ -4086,24 +4076,21 @@ OUTPUT:
 		</sect3>
        </sect2>
 	</sect1>
-
   </chapter>
+
   <chapter id="config.files">
-		<title>Config Files</title>
-		<para>
-        Config files are handy for designers to manage global template
-        variables from one file. One example is template colors. Normally if
-        you wanted to change the color scheme of an application, you would have
-        to go through each and every template file and change the colors. With
-        a config file, the colors can be kept in one place, and only one file
-        needs to be updated. Note that to use config files, you must place the
-        Config_File.class.php in your PHP include path. Config_File.class.php
-        comes bundled with Smarty. Smarty will implicitly include the file if
-        you don't already include it in your application.
-		</para>
-<example>
-<title>Example of config file syntax</title>
-<programlisting>
+   <title>Config Files</title>
+   <para>
+    Config files are handy for designers to manage global template
+    variables from one file. One example is template colors. Normally if
+    you wanted to change the color scheme of an application, you would have
+    to go through each and every template file and change the colors. With
+    a config file, the colors can be kept in one place, and only one file
+    needs to be updated.
+   </para>
+   <example>
+    <title>Example of config file syntax</title>
+    <programlisting>
 # global variables
 pageTitle = "Main Menu"
 bodyBgColor = #000000
@@ -4125,75 +4112,73 @@ Intro = """This is a value that spans more
 host=my.domain.com
 db=ADDRESSBOOK
 user=php-user
-pass=foobar
-</programlisting>
-</example>
-			<para>
-			Values of config file variables can be in quotes, but not necessary.
-			You can use either single or double quotes. If you have a value that
-			spans more than one line, enclose the entire value with triple quotes
-			("""). You can put comments into config files by any syntax that is
-			not a valid config file syntax. We recommend using a hashmark (#) at the
-			beginning of the line.
-			</para>
-			<para>
-			This config file example has two sections. Section names are enclosed
-			in brackets []. The four variables at the top are global
-			variables, or variables not within a section. These variables are
-			always loaded from the config file.
-			If a particular section is loaded, then the global variables and the
-			variables from that section are loaded. If a variable exists both as
-			a global and in a section, the section variable is used. If you name two
-			variables the same within a section, the last one will be used.
-			</para>
-			<para>
-			Config files are loaded into templates with the built-in function
-			called <link linkend="builtin.functions.configload">config_load</link>.
-			</para>
-			<para>
-			You can hide variables or entire sections by prepending the variable
-			name or section name with a period. This is useful if your
-			application reads the config files and gets sensitive data from them
-			that the template engine does not need. If you have third parties
-			doing template editing, you can be certain that they cannot read
-			sensitive data from the config file by loading it into the template.
-			This is new in Smarty 1.4.6.
-			</para>
-</chapter>
-
+pass=foobar</programlisting>
+   </example>
+   <para>
+    Values of config file variables can be in quotes, but not necessary.
+    You can use either single or double quotes. If you have a value that
+    spans more than one line, enclose the entire value with triple quotes
+    ("""). You can put comments into config files by any syntax that is not
+    a valid config file syntax. We recommend using a <literal>#</literal>
+    (hash) at the beginning of the line.
+   </para>
+   <para>
+    This config file example has two sections. Section names are enclosed in
+    brackets []. Section names can be arbitrary strings not containing
+    <literal>[</literal> or <literal>]</literal> symbols. The four variables
+    at the top are global variables, or variables not within a section.
+    These variables are always loaded from the config file. If a particular
+    section is loaded, then the global variables and the variables from that
+    section are also loaded. If a variable exists both as a global and in a
+    section, the section variable is used. If you name two variables the
+    same within a section, the last one will be used.
+   </para>
+   <para>
+    Config files are loaded into templates with the built-in function
+    <command>config_load</command>.
+   </para>
+   <para>
+    You can hide variables or entire sections by prepending the variable
+    name or section name with a period. This is useful if your application
+    reads the config files and gets sensitive data from them that the
+    template engine does not need. If you have third parties doing template
+    editing, you can be certain that they cannot read sensitive data from
+    the config file by loading it into the template.
+   </para>
+  </chapter>
 
   <chapter id="chapter.debugging.console">
    <title>Debugging Console</title>
    <para>
-   There is a dubugging console included with Smarty. The console informs you
-   of all the included templates, assigned variables and config file variables
-   for the current invocation of the template. A template named "debug.tpl" is
-   included with the distribution of Smarty which controls the formatting of
-   the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
-   to the template resource path for debug.tpl (this is in $template_dir by
-   default.) When you load the page, a javascript console window should pop up
-   and give you the names of all the included templates and assigned variables
-   for the current page. To disable the debugging console, set $debugging to
-   false. You can also temporarily turn on the debugging console by putting
-   SMARTY_DEBUG in the URL if you enable this option with <link
-   linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
+    There is a debugging console included with Smarty. The console informs you
+    of all the included templates, assigned variables and config file variables
+    for the current invocation of the template. A template named "debug.tpl" is
+    included with the distribution of Smarty which controls the formatting of
+    the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
+    to the template resource path for debug.tpl (this is in $template_dir by
+    default.) When you load the page, a javascript console window should pop up
+    and give you the names of all the included templates and assigned variables
+    for the current page. To disable the debugging console, set $debugging to
+    false. You can also temporarily turn on the debugging console by putting
+    SMARTY_DEBUG in the URL if you enable this option with <link
+     linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
    </para>
    <note>
-	   <title>Technical Note</title>
-	   <para>
-	   The debugging console does not work when you use the fetch()
-	   API, only when using display(). It is a set of javascript statements added
-	   to the very bottom of the generated template. If you do not like javascript,
-	   you can edit the debug.tpl template to format the output however you like.
-	   Debug data is not cached and debug.tpl info is not included in the output of
-	   the debug console.
-	   </para>
+    <title>Technical Note</title>
+    <para>
+     The debugging console does not work when you use the fetch()
+     API, only when using display(). It is a set of javascript statements added
+     to the very bottom of the generated template. If you do not like javascript,
+     you can edit the debug.tpl template to format the output however you like.
+     Debug data is not cached and debug.tpl info is not included in the output of
+     the debug console.
+    </para>
    </note>
    <note>
-   <para>
-   The load times of each template and config file are in seconds, or
-   fractions thereof.
-   </para>
-  </note>
-</chapter>
+    <para>
+     The load times of each template and config file are in seconds, or
+     fractions thereof.
+    </para>
+   </note>
+  </chapter>
  </part>
