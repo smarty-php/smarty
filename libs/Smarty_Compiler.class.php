@@ -546,7 +546,7 @@ class Smarty_Compiler extends Smarty {
                             $this->_syntax_error("(secure mode) php tags not permitted", E_USER_WARNING, __FILE__, __LINE__);
                             return;
                         }
-                        return '<?php ' . $block[4] .' ?>';
+                        return '<?php ' . $block[3] .' ?>';
                 }
                 break;
 
