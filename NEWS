@@ -1,3 +1,4 @@
+  - fixed assign for {counter} (messju)
   - added params vdir, hdir and inner to html_table to allow looping
     over the data in various directions (messju)
   - allow spaces in literal tags (Paul Lockaby, Monte)
