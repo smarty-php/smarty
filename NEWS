@@ -1,3 +1,4 @@
+    - added support for object method access (Monte)
     - fixed bug with directories named '0' (Frank Bauer, Monte)
     - add javascript parameter to escape modifier (Monte)
     - added correct line numbers to syntax error messages
@@ -9,7 +10,6 @@
     - can now pass modifiers to static content (Monte)
     - fix up regex code in compiler, more flexible and
       maintainable (Monte)
-    - added support for object method access (Monte)
     - added day_value_format to html_select_date (Marcus
       Bointon, Monte)
     - assigned variables are no longer in global

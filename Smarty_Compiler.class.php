@@ -64,8 +64,6 @@ class Smarty_Compiler extends Smarty {
     var $_parenth_param_regexp	=	null;
 	var $_func_call_regexp		=	null;
 	var $_obj_call_regexp		=	null;
-
-
 			
 /*======================================================================*\
     Function:   Smarty_Compiler()
@@ -165,7 +163,7 @@ class Smarty_Compiler extends Smarty {
 		// #foo#|bar
 		// "text"
 		// "text"|bar
-		// $foo->bar()
+		// $foo->bar
 		$this->_param_regexp = '(?:\s*(?:' . $this->_obj_call_regexp . '|'
 		   . $this->_var_regexp  . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';		
 		
@@ -367,14 +365,18 @@ class Smarty_Compiler extends Smarty {
 		}
 
         $tag_command = $match[1];
-        $tag_modifier = isset($match[2]) ? $match[2] : '';
-        $tag_args = isset($match[3]) ? $match[3] : '';		
-		
-        /* If the tag name is not a function, we process it. */		
-		
+        $tag_modifier = isset($match[2]) ? $match[2] : null;
+        $tag_args = isset($match[3]) ? $match[3] : null;
+				
+        /* If the tag name is not a function, we process it. */
         if (!preg_match('!^\/?' . $this->_func_regexp . '$!', $tag_command)) {
-            $return = $this->_parse_var_props($tag_command . $tag_modifier);
-            return "<?php echo $return; ?>\n";
+            $_tag_attrs = $this->_parse_attrs($tag_args);
+            $return = $this->_parse_var_props($tag_command . $tag_modifier, $_tag_attrs);
+			if(isset($_tag_attrs['assign'])) {
+				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $return ); ?>\n";  
+			} else {
+            	return "<?php echo $return; ?>\n";
+			}
 		}
 
         switch ($tag_command) {
@@ -1212,7 +1214,7 @@ class Smarty_Compiler extends Smarty {
                     if ($token == '=') {
                         $state = 2;
                     } else
-                        $this->_syntax_error("expecting '=' after attribute name", E_USER_ERROR, __FILE__, __LINE__);
+                        $this->_syntax_error("expecting '=' after attribute name '$last_token'", E_USER_ERROR, __FILE__, __LINE__);
                     break;
 
                 case 2:
@@ -1237,8 +1239,17 @@ class Smarty_Compiler extends Smarty {
                         $this->_syntax_error("'=' cannot be an attribute value", E_USER_ERROR, __FILE__, __LINE__);
                     break;
             }
+			$last_token = $token;
         }
 
+		if($state != 0) {
+			if($state == 1) {
+				$this->_syntax_error("expecting '=' after attribute name '$last_token'", E_USER_ERROR, __FILE__, __LINE__);				
+			} else {
+				$this->_syntax_error("missing attribute value", E_USER_ERROR, __FILE__, __LINE__);								
+			}
+		}
+		
         $this->_parse_vars_props($attrs);
 
         return $attrs;
@@ -1261,14 +1272,14 @@ class Smarty_Compiler extends Smarty {
     Purpose:  compile single variable and section properties token into
               PHP code
 \*======================================================================*/
-    function _parse_var_props($val)
+    function _parse_var_props($val, $tag_attrs = null)
     {					
 
 		$val = trim($val);
 
         if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(?:' . $this->_mod_regexp . '*)$!', $val)) {
 				// $ variable or object
-                return $this->_parse_var($val);
+                return $this->_parse_var($val, $tag_attrs);
 			}			
         elseif(preg_match('!^' . $this->_db_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
 				// double quoted text
@@ -1325,9 +1336,9 @@ class Smarty_Compiler extends Smarty {
     Function: _parse_var
     Purpose:  parse variable expression into PHP code
 \*======================================================================*/
-    function _parse_var($var_expr)
-    {
-				
+    function _parse_var($var_expr, $tag_attrs = null)
+    {		
+						
 		preg_match('!(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . ')(' . $this->_mod_regexp . '*)$!', $var_expr, $match);
 				
         $var_ref = substr($match[1],1);
@@ -1360,9 +1371,8 @@ class Smarty_Compiler extends Smarty {
         } else {
             $output = "\$this->_tpl_vars['$var_name']";
         }
-
-        foreach ($indexes as $index) {
-			
+				
+        foreach ($indexes as $index) {			
             if ($index{0} == '[') {
                 $index = substr($index, 1, -1);
                 if (is_numeric($index)) {
@@ -1376,18 +1386,58 @@ class Smarty_Compiler extends Smarty {
                     $output .= "[\$this->_sections['$section']['$section_prop']]";
                 }
             } else if ($index{0} == '.') {
-                if ($index{1} == '$')
+				// figure out if reference to array or object
+                if ($index{1} == '$') {
+					// array reference
                     $output .= "[\$this->_tpl_vars['" . substr($index, 2) . "']]";
-                else
+				} else if (!preg_match('!^\w+$!', substr($index, 1))) {
+					// array reference
                     $output .= "['" . substr($index, 1) . "']";
+				} else {
+					if(eval("return is_object($output);")) {
+						// is object
+						if($this->security && substr($index, 1, 1) == '_') {
+							$this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
+						}
+						if(eval("return method_exists($output,'" . substr($index,1) . "');")) {
+							// object method reference
+							// parse parameters
+							if(isset($tag_attrs))  {
+								if(isset($tag_attrs['wrapper'])) {
+									$_object_wrapper = $tag_attrs['wrapper'];
+									unset($tag_attrs['wrapper']);
+								} else {
+									$_object_wrapper = $this->_object_wrapper;
+								}
+								if(isset($tag_attrs['assign'])) {
+									unset($tag_attrs['assign']);
+								}
+								if(!$_object_wrapper) {
+									// pass args as associative array
+									$index .= '(array(' . implode(',' , $tag_attrs) . '), $this)';
+								} else {
+									// pass args as separate parameters
+									$index .= '(' . implode(',' , array_values($tag_attrs)) . ')';							
+								}
+							} else {
+								// no args for method
+								$index .= '()';
+							}
+							$output .= '->' . substr($index, 1);
+						} else {
+							// object property reference
+                    		$output .= "->" . substr($index, 1);
+						}
+					} else {
+						// array reference
+                    	$output .= "['" . substr($index, 1) . "']";
+					}
+				}
             } else if (substr($index,0,2) == '->') {
-				if($this->security && substr($index,2,1) == '_') {
+				// object property reference syntax (deprecated)
+				if($this->security && strstr($index, '->_')) {
 					$this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
 				} else {
-					// parse each parameter to the object
-					if(preg_match('!(?:\->\w+)+(?:(' . $this->_parenth_param_regexp . '))?!', $index, $match)) {
-						$index = str_replace($match[1], $this->_parse_parenth_args($match[1]), $index);
-					}
 					$output .= $index;
 				}
             } else {
@@ -1401,25 +1451,9 @@ class Smarty_Compiler extends Smarty {
 		}
 		
         $this->_parse_modifiers($output, $modifiers);
-
+		
         return $output;
-    }
-
-/*======================================================================*\
-    Function: _parse_parenth_args
-    Purpose:  parse arguments in function call parenthesis
-\*======================================================================*/
-    function _parse_parenth_args($parenth_args)
-    {
-		preg_match_all('!' . $this->_param_regexp . '!',$parenth_args, $match);
-		$match = $match[0];
-		rsort($match);
-		reset($match);						
-		$orig_vals = $match;
-		$this->_parse_vars_props($match);
-		return str_replace($orig_vals, $match, $parenth_args);
-	}
-	
+    }	
 	
 /*======================================================================*\
     Function: _parse_conf_var

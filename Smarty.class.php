@@ -191,8 +191,9 @@ class Smarty
     var $_smarty_debug_id      = 'SMARTY_DEBUG'; // text in URL to enable debug mode
     var $_smarty_debug_info    = array();    // debugging information for debug console
     var $_cache_info           = array();    // info that makes up a cache file
-	var $_file_perms		   = 0644;     // default file permissions
-	var $_dir_perms		       = 0771;     // default dir permissions
+	var $_file_perms		   = 0644;       // default file permissions
+	var $_dir_perms		       = 0771;       // default dir permissions
+	var $_object_wrapper	   = false;      // default object params structure
     var $_plugins              = array(      // table keeping track of plugins
                                        'modifier'      => array(),
                                        'function'      => array(),
