@@ -1,3 +1,17 @@
+2003-09-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      fixed quoting of modifier parameters
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.get_php_resource.php
+      libs/core/core.load_plugins.php
+      libs/core/core.load_resource_plugin.php:
+      remove Smarty::_plugin_implementation_exists() - use php's native
+      is_callable()
+
 2003-09-11  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
