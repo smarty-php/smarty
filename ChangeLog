@@ -1,3 +1,26 @@
+2003-06-20  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty_Compiler.class.php:
+      update more varnames
+
+    * libs/Smarty.class.php
+      libs/core/core.display_debug_console.php
+      libs/core/core.fetch_file_info.php
+      libs/core/core.fetch_resource_info.php
+      libs/core/core.get_php_resource.php
+      libs/core/core.parse_file_path.php
+      libs/core/core.parse_resource_name.php
+      libs/core/core.process_cached_inserts.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.run_insert_handler.php
+      libs/core/core.smarty_include.php
+      libs/core/core.smarty_include_php.php
+      libs/core/core.write_compiled_resource.php
+      libs/core/core.write_compiled_template.php
+      libs/plugins/function.config_load.php:
+      refactored var naming to better reflect "resource" instead of "file" where
+      appropriate
+
 2003-06-19  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
