@@ -434,7 +434,11 @@ class Smarty_Compiler extends Smarty {
             $attrs['file'] = $this->_dequote($attrs['file']);
 
 		$include_func_name = uniqid("_include_");
-		$include_file_name = $this->compile_dir.'/'.$attrs['file'];
+		if ($attrs['file']{0} == '$')
+			$include_file_name = '"'.$this->compile_dir.'/".'.$attrs['file'];
+		else
+			$include_file_name = '"'.$this->compile_dir.'/'.$attrs['file'].'"';
+
 
 		foreach ($attrs as $arg_name => $arg_value) {
 			if ($arg_name == 'file') continue;
@@ -452,7 +456,7 @@ class Smarty_Compiler extends Smarty {
 				"       include \"\$file_name.php\";\n" .
 				"   }\n" .
 				"}\n" .
-				"$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
+				"$include_func_name($include_file_name, get_defined_vars(), array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
     }
 
 /*======================================================================*\
