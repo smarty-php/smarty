@@ -1,6 +1,8 @@
 QUESTION INDEX
 --------------
 
+GENERAL
+
 Q: What is Smarty?
 Q: What's the difference between Smarty and other template engines?
 Q: What do you mean "Compiled PHP Scripts" ?
@@ -12,6 +14,13 @@ Q: How can I be sure to get the best performance from Smarty?
 Q: Do you have a mailing list?
 Q: Can you change the mailing list so reply-to sends to the list and not the
    user?
+
+HOWTO
+   
+Q: How do I generate different cache files per template based on arguments
+   passed to the page?
+
+TROUBLESHOOTING
 
 Q: Smarty doesn't work.
 Q: I get the following error when running Smarty:
@@ -33,6 +42,8 @@ Q: The template goes into an infinite loop when I include included templates
 Q: My ISP did not setup the PEAR repository, nor will they set it up. How do I
    make Smarty run without it?
 Q: Javascript is causing Smarty errors in my templates.
+
+MISC
 
 Q: Can I use Macromedia's Dreamweaver to edit my templates?
 Q: Dreamweaver is urlencoding the template delimiters when they are in a SRC or
@@ -118,6 +129,12 @@ A: Yes we could, but no we won't. Use "Reply-All" in your e-mail client to send
    to the list. http://www.unicom.com/pw/reply-to-harmful.html
 
 
+HOWTO
+-----
+Q: How do I generate different cache files per template based on arguments
+   passed to the page?
+A: Pass $REQUEST_URI as the cache_id when you display() or fetch() a page.
+
 TROUBLESHOOTING
 ---------------
 
@@ -188,8 +205,8 @@ A: The easiest thing to do is grab all of PEAR and install it locally for your
 Q: Javascript is causing Smarty errors in my templates.
 A: Surround your javascript with {literal}{/literal} tags. See the docs.
 
-DREAMWEAVER
------------
+MISC
+----
 
 Q: Can I use Macromedia's Dreamweaver to edit my templates?
 A: Certainly. You might want to change your tag delimiters from {} to something

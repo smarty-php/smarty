@@ -33,11 +33,15 @@ DESCRIPTION:
 
     What is Smarty?
 
-    Smarty is a template engine for PHP. One of the unique aspects about
-    Smarty that sets it apart from other templating solutions is that it
-    converts the templates into native php scripts upon the first
-    execution. After that, it just executes the compiled PHP scripts.
-    Therefore, there is no costly template file parsing for each request.
+	Smarty is a template engine for PHP. Many other template engines for PHP
+	provide basic variable substitution and dynamic block functionality. Smarty
+	takes a step further to be a "smart" template engine, adding features such
+	as configuration files, template functions, and variable modifiers, and
+	making all of this functionality as easy as possible to use for both
+	programmers and template designers. Smarty also converts the templates into
+	PHP scripts, eliminating the need to parse the templates on every
+	invocation. This makes Smarty extremely scalable and managable for large
+	application needs.
 
     Some of Smarty's features:
 
