@@ -286,6 +286,29 @@ chmod 700 cache
                 the web server document root.
 			</para>
 		</sect2>
+		<sect2 id="setting.debugging">
+			<title>$debugging</title>
+			<para>
+				This enables the <link
+				linkend="chapter.debugging.console">debugging console</link>.
+				The console is a javascript window that informs you of the
+				included templates and assigned variables for the current
+				template page.
+			</para>
+			<para>
+                NOTE: This was added to Smarty 1.4.3.
+			</para>
+		</sect2>
+		<sect2 id="setting.debug.tpl">
+			<title>$debug_tpl</title>
+			<para>
+				This is the name of the template file used for the debugging
+				console.
+			</para>
+			<para>
+                NOTE: This was added to Smarty 1.4.3.
+			</para>
+		</sect2>
 		<sect2 id="setting.global.assign">
 			<title>$global_assign</title>
 			<para>
@@ -4308,36 +4331,23 @@ s m o k e r s   a r e   p. . .
    <para>
    There is a dubugging console included with Smarty. The console informs you
    of all the included templates and assigned variables for the current
-   invocation of the template, very useful information during development! A
-   template named "debug.tpl" is included with the distribution of Smarty. Put
-   this template where it can be included from a template within your
-   application. Include the template somewhere toward the bottom of the page.
-   If you have a footer template, this would be an excellent place to include
-   debug.tpl since it will automatically be included at the bottom of every
-   page that uses that footer. When you load the page, a javascript console
+   invocation of the template. A template named "debug.tpl" is included with
+   the distribution of Smarty. Set $debugging to true in Smarty and, if needed,
+   set $debug_tpl to the template resource path for debug.tpl (this is in
+   $template_dir by default.) When you load the page, a javascript console
    window should pop up and give you the names of all the included templates
    and assigned variables for the current page. To disable the debugging
-   console, simply remove the include statement from your template.
+   console, set $debugging to false.
+   </para>
+   <para>
+   TECHNICAL NOTE: The debugging console should be completely transparent to
+   your application. It is a set of javascript statements added to the very
+   bottom of the generated template. Debug data is not cached and is not
+   included in the output of the debug console.
    </para>
    <para>
    NOTE: This feature was added to Smarty 1.4.3.
    </para>
-<example>
-<title>Including Debugging Console</title>
-<programlisting>
-
-footer.tpl
-----------
-
-{* We will include the debugging console in the footer template. *}
-{* debug.tpl is in our default template directory. *}
-
-{include file="debug.tpl"}
-&lt;BODY&gt;
-&lt;HTML&gt;
-
-</programlisting>
-</example>
 </chapter>
 <chapter>
    <title>Troubleshooting</title>

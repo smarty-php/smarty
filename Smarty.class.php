@@ -59,7 +59,10 @@ class Smarty
     var $template_dir    =  './templates';     // name of directory for templates  
     var $compile_dir     =  './templates_c';   // name of directory for compiled templates 
     var $config_dir      =  './configs';       // directory where config files are located
-    
+
+	var $debugging		 =	false;		// enable debugging console true/false
+	var $debug_tpl		 =  'file:debug.tpl'; // path to debug console template
+	    
     var $global_assign   =  array( 'HTTP_SERVER_VARS' => array( 'SCRIPT_NAME' )
                                  );     // variables from the GLOBALS array
                                         // that are implicitly assigned
@@ -516,9 +519,15 @@ class Smarty
                 }
                 if ($display) {
                     echo $results;
+					if ($this->debugging) { echo $this->_generate_debug_output(); }
                     return;
                 } else {
-                    return $results;
+					if ($this->debugging) {
+						$debug_output = $this->_generate_debug_output();
+						return $results.$debug_output;
+					} else {
+                    	return $results;
+					}
                 }
             }
         }
@@ -573,16 +582,43 @@ class Smarty
             $this->_write_file($cache_file, $results, true);
             $results = $this->_process_cached_inserts($results);
         }
- 
+
         if ($display) {
             if (isset($results)) { echo $results; }
+			if ($this->debugging) { echo $this->_generate_debug_output(); }
             return;
         } else {
-            if (isset($results)) { return $results; }
+            if (isset($results)) {
+				if ($this->debugging) {
+					$debug_output = $this->_generate_debug_output();
+					return $results.$debug_output;
+				} else {
+					return $results;
+				}
+			}
         }
     }   
 
- 
+/*======================================================================*\
+	Function:	_generate_debug_output()
+	Purpose:	generate debug output
+\*======================================================================*/
+
+function _generate_debug_output() {
+    ob_start();
+    $this->_process_template($this->debug_tpl, $compile_path);
+    if ($this->show_info_include) {
+        echo "\n<!-- SMARTY_BEGIN: ".$this->debug_tpl." -->\n";
+    }
+    include($compile_path);
+    if ($this->show_info_include) {
+        echo "\n<!-- SMARTY_END: ".$this->debug_tpl." -->\n";
+    }	
+    $results = ob_get_contents();
+    ob_end_clean();
+	return $results;
+}	
+	 
 /*======================================================================*\
     Function:   _process_template()
     Purpose:    
