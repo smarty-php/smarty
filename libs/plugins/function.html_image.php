@@ -8,6 +8,8 @@
  * Version:  1.0
  * Date:     Feb 24, 2003
  * Author:	 Monte Ohrt <monte@ispi.net>
+ * Credits:  Duda <duda@big.hu> - wrote first image function
+ *           in repository, helped with lots of functionality
  * Purpose:  format HTML tags for the image
  * Input:    name = name of image (required)
  *           border = border width (optional, default 0)
@@ -20,9 +22,10 @@
  * Output:   <img src="images/masthead.gif" border=0 width=400 height=23>
  * -------------------------------------------------------------
  */
-require_once $this->_get_plugin_filepath('shared','escape_special_chars');
 function smarty_function_html_image($params, &$smarty)
 {	
+	require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
+
 	$name = '';
 	$border = 0;
 	$height = '';
@@ -67,23 +70,30 @@ function smarty_function_html_image($params, &$smarty)
 		$_image_path = $name;
 	}
 	
-	if(!file_exists($_image_path)) {
-        $smarty->trigger_error("html_image: unable to find '$_image_path'", E_USER_ERROR);		
-	}
-
-	if(!is_readable($_image_path)) {
-        $smarty->trigger_error("html_image: unable to read '$_image_path'", E_USER_ERROR);		
-	}
-
-	if(!$smarty->security && substr($_image_path,0,strlen($basedir)) != $basedir) {
-        $smarty->trigger_error("html_image: (secure) '$_image_path' not within basedir ($basedir)", E_USER_ERROR);		
-	}	
+	if(!isset($params['width']) || !isset($params['height'])) {
+		if(!$_image_data = getimagesize($_image_path)) {
+			if(!file_exists($_image_path)) {
+        		$smarty->trigger_error("html_image: unable to find '$_image_path'", E_USER_ERROR);		
+			} else if(!is_readable($_image_path)) {
+        		$smarty->trigger_error("html_image: unable to read '$_image_path'", E_USER_ERROR);		
+			} else {
+        		$smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_ERROR);
+			}
+		}
+		if(!$smarty->security && substr($_image_path,0,strlen($basedir)) != $basedir) {
+        	$smarty->trigger_error("html_image: (secure) '$_image_path' not within basedir ($basedir)", E_USER_ERROR);		
+		}	
 		
-	if(!$_image_data = getimagesize($_image_path)) {
-        $smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_ERROR);
+		if(!isset($params['width'])) {
+			$width = $_image_data[1];
+		}
+		if(!isset($params['height'])) {
+			$height = $_image_data[2];
+		}
+		
 	}
 			
-	return $prefix . "<img src=\"$name\" border=\"$border\" ".$_image_data[3]."$extra>" . $suffix;
+	return $prefix . '<img src="'.$name.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.'>' . $suffix;
 }
 
 /* vim: set expandtab: */
