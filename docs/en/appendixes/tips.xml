@@ -8,13 +8,13 @@
    <title>Blank Variable Handling</title>
    <para>
     There may be times when you want to print a default value for an empty
-    variable instead of printing nothing, such as printing "&nbsp;" so that
+    variable instead of printing nothing, such as printing "&amp;nbsp;" so that
     table backgrounds work properly. Many would use an {if} statement to
     handle this, but there is a shorthand way with Smarty, using the
     <emphasis>default</emphasis> variable modifier.
    </para>
    <example>
-    <title>Printing &nbsp; when a variable is empty</title>
+    <title>Printing &amp;nbsp; when a variable is empty</title>
     <programlisting>
 <![CDATA[
 {* the long way *}
@@ -171,6 +171,8 @@ Jan 4, 2001
     <title>converting form date elements back to a timestamp</title>
     <programlisting role="php">
 <![CDATA[
+<?php
+
 // this assumes your form elements are named
 // startDate_Day, startDate_Month, startDate_Year
 
@@ -190,6 +192,7 @@ function makeTimeStamp($year="", $month="", $day="")
 
    return mktime(0, 0, 0, $month, $day, $year);
 }
+?>
 ]]>
     </programlisting>
    </example>
