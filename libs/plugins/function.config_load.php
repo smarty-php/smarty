@@ -69,7 +69,7 @@ function smarty_function_config_load($params, &$smarty)
 		if($smarty->force_compile
 				|| !file_exists($_compile_file)
 				|| ($smarty->compile_check
-					&& $smarty->_is_compiled($_file_path, $_compile_file))) {
+					&& !$smarty->_is_compiled($_file_path, $_compile_file))) {
 			// compile config file
         	if(!is_object($smarty->_conf_obj)) {
             	require_once SMARTY_DIR . $smarty->config_class . '.class.php';
