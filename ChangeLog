@@ -1,3 +1,8 @@
+2003-06-07  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/programmers.sgml:
+      fixed bug in documentation for $smarty->default_modifiers
+
 2003-06-06  Monte Ohrt  <monte@ispi.net>
 
     * libs/plugins/core.parse_file_path.php:
