@@ -1,3 +1,4 @@
+    - gave $reset a default value in cycle plugin (Monte)
     - fixed warnings with html_select_date and timestamp
       functions (Monte)
     - added support for sub directory exlusion format (Monte)

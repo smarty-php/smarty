@@ -46,7 +46,11 @@ function smarty_function_cycle($params, &$smarty)
     if (!isset($advance)) {
         $advance = true;		
     }	
-		
+
+    if (!isset($reset)) {
+        $reset = false;		
+    }		
+			
     if (!in_array('values', array_keys($params))) {
 		if(!isset($cycle_vars[$name]['values'])) {
         	$smarty->trigger_error("cycle: missing 'values' parameter");
