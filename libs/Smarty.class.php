@@ -1864,13 +1864,12 @@ class Smarty
         if(isset($file) && isset($line)) {
             $info = ' ('.basename($file).", line $line)";
         } else {
-            $info = null;
+            $info = '';
         }
         if (isset($tpl_line) && isset($tpl_file)) {
-            trigger_error("Smarty error: [in " . $tpl_file . " line " .
-                          $tpl_line . "]: $error_msg$info", $error_type);
+            $this->trigger_error('[in ' . $tpl_file . ' line ' . $tpl_line . "]: $error_msg$info", $error_type);
         } else {
-            trigger_error("Smarty error: $error_msg$info", $error_type);
+            $this->trigger_error($error_msg . $info, $error_type);
         }
     }
 
