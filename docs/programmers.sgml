@@ -847,9 +847,9 @@ $smarty->display("index.tpl","FrontPage");</programlisting>
 <example>
 <title>loading filter plugins</title>
 <programlisting>
-$smarty->load('pre', 'trim'); // load prefilter named 'trim'
-$smarty->load('pre', 'datefooter'); // load another prefilter named 'datefooter'
-$smarty->load('output', 'compress'); // load output filter named 'compress'</programlisting>
+$smarty->load_filter('pre', 'trim'); // load prefilter named 'trim'
+$smarty->load_filter('pre', 'datefooter'); // load another prefilter named 'datefooter'
+$smarty->load_filter('output', 'compress'); // load output filter named 'compress'</programlisting>
 </example>
         </sect1>
 		<sect1 id="api.register.block">
