@@ -419,7 +419,8 @@ class Smarty
     function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null)
     {
         if (!empty($this->cache_handler_func)) {
-            return $$this->cache_handler_func('clear', $tpl_file, $cache_id, $compile_id);
+			$funcname = $this->cache_handler_func;
+            return $funcname('clear', $this, $dummy, $tpl_file, $cache_id, $compile_id);
         } else {
             return $this->_rm_auto($this->cache_dir, $tpl_file, $compile_id . $cache_id);
         }
@@ -433,7 +434,8 @@ class Smarty
     function clear_all_cache()
     {
         if (!empty($this->cache_handler_func)) {
-            return $$this->cache_handler_func('clear');
+			$funcname = $this->cache_handler_func;
+            return $funcname('clear', $this, $dummy);
         } else {
             return $this->_rm_auto($this->cache_dir);
         }
@@ -1247,9 +1249,10 @@ function _run_insert_handler($args)
         $results = 'SMARTY_CACHE_INFO_HEADER'.serialize($this->_cache_info)."\n".$results;
 
         if (!empty($this->cache_handler_func)) {
-            // use cache_write_handler function
-            return $$this->cache_handler_func('write', $tpl_file, $cache_id, $compile_id, $results, $this);
-        } else {
+            // use cache_handler function
+			$funcname = $this->cache_handler_func;
+            return $funcname('write', $this, $results, $tpl_file, $cache_id, $compile_id);
+        } else {    
             // use local cache file
             $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
             $this->_write_file($cache_file, $results, true);
@@ -1271,8 +1274,9 @@ function _run_insert_handler($args)
 
         if (!empty($this->cache_handler_func)) {
 
-            // use cache_read_handler function
-            $$this->cache_handler_func('read', $tpl_file, $cache_id, $compile_id, $results, $this);
+            // use cache_handler function
+			$funcname = $this->cache_handler_func;
+            $funcname('read', $this, $results, $tpl_file, $cache_id, $compile_id);
 
         } else {
             // use local file cache
@@ -1281,12 +1285,16 @@ function _run_insert_handler($args)
             $results = $this->_read_file($cache_file);
 
         }
-
+		
+		if(empty($results)) {
+			// nothing to parse (error?), regenerate cache
+			return false;
+		}
+				
         $cache_split = explode("\n",$results,2);
         $cache_header = $cache_split[0];
 
         if (substr($cache_header, 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {
-
             $cache_info = unserialize(substr($cache_header, 24));
             $cache_timestamp = $cache_info['timestamp'];
 
@@ -1318,7 +1326,7 @@ function _run_insert_handler($args)
             $results = $cache_split[1];
             return true;
         } else {
-            // no cache info header, pre Smarty 1.4.6 format. regenerate
+            // no cache info header, regenerate cache
             return false;
         }
     }

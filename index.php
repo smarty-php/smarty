@@ -7,8 +7,6 @@ $smarty = new Smarty;
 $smarty->compile_check = true;
 $smarty->debugging = true;
 
-$smarty->assign("now", time());
-
 $smarty->assign("Name","Fred Irving Johnathan Bradley Peppergill");
 $smarty->assign("FirstName",array("John","Mary","James","Henry"));
 $smarty->assign("LastName",array("Doe","Smith","Johnson","Case"));
