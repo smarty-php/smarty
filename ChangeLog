@@ -1,3 +1,10 @@
+2002-08-02  mohrt  <mohrt@pb1.pair.com>
+
+    * NEWS: update NEWS file with credits
+
+    * NEWS
+      Smarty.class.php: added assign_by_ref() and append_by_ref() functions
+
 2002-08-01  mohrt  <mohrt@pb1.pair.com>
 
     * TODO
