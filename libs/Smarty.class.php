@@ -572,6 +572,13 @@ class Smarty
     var $_cache_serials = array();
 
     /**
+     * name of optional cache include file
+     *
+     * @var string
+     */
+    var $_cache_include = null;
+
+    /**
      * cached file paths
      *
      * @var array
