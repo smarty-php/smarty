@@ -1811,12 +1811,13 @@ class Smarty_Compiler extends Smarty {
     function _parse_parenth_args($parenth_args)
     {
         preg_match_all('!' . $this->_param_regexp . '!',$parenth_args, $match);
-        $match = $match[0];
-        rsort($match);
-        reset($match);
-        $orig_vals = $match;
+        $orig_vals = $match = $match[0];
         $this->_parse_vars_props($match);
-        return str_replace($orig_vals, $match, $parenth_args);
+        $replace = array();
+        for ($i = 0, $count = count($match); $i < $count; $i++) {
+            $replace[$orig_vals[$i]] = $match[$i];
+        }
+        return strtr($parenth_args, $replace);
     }
 
     /**

@@ -1,3 +1,4 @@
+  - fix handling of methods arguments (messju, Manfred Wischin)
   - remove touch() call that made the compiled-template's timestamp the
     same as the source-template's one. (messju)
   - add assign attribute to html_checkboxes and html_radios
