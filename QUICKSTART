@@ -13,10 +13,10 @@ understand the difference in your OS regarding file permissions.
 INSTALLATION
 ------------
 
-Unpack the Smarty tarball. You will see three class files: Smarty.class.php,
-Smarty.addons.php and Config_File.class.php. You will need to have all three of
-these files somewhere in your PHP include path, so when you call
-require("Smarty.class.php") from within your application, it can find the
+Unpack the Smarty tarball. You will see fou: class files: Smarty.class.php,
+Smarty.addons.php, Smarty_Compiler.class.php and Config_File.class.php. You will
+need to have all three of these files somewhere in your PHP include path, so when
+you call require("Smarty.class.php") from within your application, it can find the
 class.
 
 Smarty uses the PEAR libraries for some of its error handling routines. PEAR

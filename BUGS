@@ -5,7 +5,8 @@ a built-in workaround for. PHP 4.0.4 has a bug with user callbacks which would
 cause this syntax in Smarty to crash PHP: {$varname|@modname} Use PHP 4.0.4pl1
 to fix this, or avoid using the "@" with modifiers. if you are passing variables
 to {include} statements, you will need PHP 4.0.4 or later, which requires the
-use of get_defined_vars() function.
+use of get_defined_vars() function. Some versions of Windows 2k have a problem
+with flock(). Comment out the flock() command in _write_file to get around this.
 
 To be absolutely safe, use 4.0.4pl or later with Smarty.
 

@@ -11,8 +11,8 @@ libraries is included in your php include_path. Unix users check
 
 INSTALLATION:
 
-* copy the Smarty.class.php, Smarty.addons.php and Config_File.class.php
-  scripts to a directory that is in your PHP include_path.
+* copy the Smarty.class.php, Smarty.addons.php, Smarty_Compile.class.php and
+  Config_File.class.php scripts to a directory that is in your PHP include_path.
 
 * in the same directory as your php application, create a "templates"
   directory, "configs" directory and a "templates_c" directory. Be sure the
