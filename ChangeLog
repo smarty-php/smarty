@@ -1,3 +1,14 @@
+2003-08-22  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/core/core.assemble_plugin_filepath.php:
+      fixed bug in traversal of $smarty->plugins_dir-array in
+      smarty_core_assemble_plugin_filepath(). the first matching plugin in
+      the path should be used, not the last one.
+
+    * libs/core/core.read_cache_file.php:
+      discard $_cache_info when the cache should be regenerated
+
 2003-08-20  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
