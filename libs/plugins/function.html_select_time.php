@@ -44,7 +44,36 @@ function smarty_function_html_select_time($params, &$smarty)
     $second_extra       = null;
     $meridian_extra     = null;
 
-    extract($params);
+    foreach ($params as $_key=>$_value) {
+        switch ($_key) {
+            case 'prefix':
+            case 'time':
+            case 'field_array':
+            case 'all_extra':
+            case 'hour_extra':
+            case 'minute_extra':
+            case 'second_extra':
+            case 'meridian_extra':
+                $$_key = (string)$_value;
+                break;
+
+            case 'display_hours':
+            case 'display_minutes':
+            case 'display_seconds':
+            case 'display_meridian':
+            case 'use_24_hours':
+                $$_key = (bool)$_value;
+                break;
+
+            case 'minute_interval':
+            case 'second_interval':
+                $$_key = (int)$_value;
+                break;
+
+            default:
+                $smarty->trigger_error("[html_select_time] unknown parameter $_key", E_USER_WARNING);
+        }
+    }
 
     $time = smarty_make_timestamp($time);
 
