@@ -1,3 +1,13 @@
+2002-05-21  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update NEWS file
+
+    * plugins/function.html_select_date.php
+      RESOURCES
+      docs/designers.sgml
+      Config_File.class.php:
+    update html_select_date with month_value_format attribute for controlling the format of the month values.
+
 2002-05-17  Andrei Zmievski  <andrei@php.net>
 
     * NEWS
