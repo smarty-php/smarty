@@ -1,3 +1,9 @@
+2004-08-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      fixed handling of {foreachelse} and {sectionelse} that got borked with
+      the latest commit (v 1.330)
+
 2004-08-12  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
