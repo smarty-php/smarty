@@ -1297,38 +1297,48 @@ class Smarty_Compiler extends Smarty {
 
             case 'get':
                 array_shift($indexes);
-                $name = substr($indexes[0], 1);
-                $compiled_ref = "\$GLOBALS['HTTP_GET_VARS']['$name']";
+                $compiled_ref = "\$GLOBALS['HTTP_GET_VARS']";
+                if ($name = substr($indexes[0], 1))
+                    $compiled_ref .= "['$name']";
                 break;
 
             case 'post':
                 array_shift($indexes);
                 $name = substr($indexes[0], 1);
-                $compiled_ref = "\$GLOBALS['HTTP_POST_VARS']['$name']";
+                $compiled_ref = "\$GLOBALS['HTTP_POST_VARS']";
+                if ($name = substr($indexes[0], 1))
+                    $compiled_ref .= "['$name']";
                 break;
 
             case 'cookies':
                 array_shift($indexes);
                 $name = substr($indexes[0], 1);
-                $compiled_ref = "\$GLOBALS['HTTP_COOKIE_VARS']['$name']";
+                $compiled_ref = "\$GLOBALS['HTTP_COOKIE_VARS']";
+                if ($name = substr($indexes[0], 1))
+                    $compiled_ref .= "['$name']";
                 break;
 
             case 'env':
                 array_shift($indexes);
-                $name = substr($indexes[0], 1);
-                $compiled_ref = "\$GLOBALS['HTTP_ENV_VARS']['$name']";
+                $compiled_ref = "\$GLOBALS['HTTP_ENV_VARS']";
+                if ($name = substr($indexes[0], 1))
+                    $compiled_ref .= "['$name']";
                 break;
 
             case 'server':
                 array_shift($indexes);
                 $name = substr($indexes[0], 1);
-                $compiled_ref = "\$GLOBALS['HTTP_SERVER_VARS']['$name']";
+                $compiled_ref = "\$GLOBALS['HTTP_SERVER_VARS']";
+                if ($name = substr($indexes[0], 1))
+                    $compiled_ref .= "['$name']";
                 break;
 
             case 'session':
                 array_shift($indexes);
                 $name = substr($indexes[0], 1);
-                $compiled_ref = "\$GLOBALS['HTTP_SESSION_VARS']['$name']";
+                $compiled_ref = "\$GLOBALS['HTTP_SESSION_VARS']";
+                if ($name = substr($indexes[0], 1))
+                    $compiled_ref .= "['$name']";
                 break;
 
             /*
