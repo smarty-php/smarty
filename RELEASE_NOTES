@@ -15,7 +15,7 @@ Plugins now stop execution upon error, instead of outputting a warning and
 continuing.
 
 Two new API functions, assign_by_ref() and append_by_ref() were added. They
-allow assigning template variables by reference. This can make a significance
+allow assigning template variables by reference. This can make a significant
 performance gain, especially if you are assigning large arrays of data. PHP 5.0
 will do this implicitly, so these functions are basically workarounds.
 

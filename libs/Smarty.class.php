@@ -1514,7 +1514,7 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _rm_auto($auto_base, $auto_source = null, $auto_id = null, $exp_time = null)
     {
-        if (!is_dir($auto_base))
+        if (!@is_dir($auto_base))
           return false;
 
 		if(!isset($auto_id) && !isset($auto_source)) {
@@ -1523,7 +1523,7 @@ function _run_insert_handler($args)
         	$tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
 			
 			if(isset($auto_source)) {
-				$res = @unlink($tname);
+				$res = $this->_unlink($tname);
 			} elseif ($this->use_sub_dirs) {
 				$res = $this->_rmdir($tname, 1, $exp_time);
 			} else {
@@ -1554,7 +1554,7 @@ function _run_insert_handler($args)
 
         	while ($entry = readdir($handle)) {
             	if ($entry != '.' && $entry != '..') {
-                	if (is_dir($dirname . DIR_SEP . $entry)) {
+                	if (@is_dir($dirname . DIR_SEP . $entry)) {
                     	$this->_rmdir($dirname . DIR_SEP . $entry, $level + 1, $exp_time);
                 	}
                 	else {
@@ -1583,10 +1583,10 @@ function _run_insert_handler($args)
     {
 		if(isset($exp_time)) {
 			if(time() - filemtime($resource) >= $exp_time) {
-				unlink($resource);
+				@unlink($resource);
 			}
 		} else {			
-			unlink($resource);
+			@unlink($resource);
 		}
     }
 	
