@@ -1853,26 +1853,39 @@ class Smarty
      * @return string
      * @staticvar string|null
      * @staticvar string|null
-     */    
+     */
     function _get_auto_filename($auto_base, $auto_source = null, $auto_id = null)
     {
-		$_cache_paths_key = $auto_base . '/' . $auto_source . '/' . $auto_id;
-		if (isset($this->_cache_paths['auto_file'][$_cache_paths_key])) {
-			return $this->_cache_paths['auto_file'][$_cache_paths_key];
-		}
+        $_compile_dir_sep =  $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
 
-		$_params = array('auto_base' => $auto_base, 'auto_source' => $auto_source, 'auto_id' => $auto_id);
-		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.assemble_auto_filename.php');
-		$_return = smarty_core_assemble_auto_filename($_params, $this);
+        if(@is_dir($auto_base)) {
+            $_return = $auto_base . DIRECTORY_SEPARATOR;
+        } else {
+            // auto_base not found, try include_path
+            $_params = array('file_path' => $auto_base);
+            require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
+            smarty_core_get_include_path($_params, $smarty);
+            $_return = isset($_params['new_file_path']) ? $_params['new_file_path'] . DIRECTORY_SEPARATOR : null;
+        }
 
-		if($_return !== false) {
-			$this->_cache_paths['auto_file'][$_cache_paths_key] = $_return;
-			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_cache_paths_file.php');
-			smarty_core_write_cache_paths_file(null, $this);
-			return $_return;
-		}
-				        
-        return false;
+        if(isset($auto_id)) {
+            // make auto_id safe for directory names
+            $auto_id = str_replace('%7C',$_compile_dir_sep,(urlencode($auto_id)));
+            // split into separate directories
+            $_return .= $auto_id . $_compile_dir_sep;
+        }
+
+        if(isset($auto_source)) {
+            // make source name safe for filename
+            $_filename = urlencode(basename($auto_source));
+            $_crc32 = crc32($auto_source) . $_compile_dir_sep;
+            // prepend %% to avoid name conflicts with
+            // with $params['auto_id'] names
+            $_crc32 = '%%' . substr($_crc32,0,3) . $_compile_dir_sep . '%%' . $_crc32;
+            $_return .= $_crc32 . $_filename;
+        }
+
+        return $_return;
     }
 
     /**
