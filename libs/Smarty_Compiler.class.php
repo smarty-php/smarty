@@ -924,6 +924,7 @@ class Smarty_Compiler extends Smarty {
 
                 default:
                     if($this->security &&
+                       $i+1 < count($tokens) &&
                        $tokens[$i+1] == '(' &&
                        preg_match('!^[a-zA-Z_]\w+$!', $tokens[$i]) &&
                        !in_array($tokens[$i], $this->security_settings['IF_FUNCS'])) {
