@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 <sect1 id="language.config.variables">
  <title>Переменные файлов конфигурации</title>
  <para>
@@ -12,52 +12,63 @@
  </para>
  <example>
   <title>Переменные из файлов конфигурации</title>
-   <programlisting>
+  <para>
+   foo.conf:
+  </para>
+  <programlisting>
 <![CDATA[
-
-foo.conf:
-
 pageTitle = "This is mine"
 bodyBgColor = "#eeeeee"
 tableBorderSize = "3"
 tableBgColor = "#bbbbbb"
 rowBgColor = "#cccccc"
-
-index.tpl:
-
+]]>
+  </programlisting>
+  <para>
+   index.tpl:
+  </para>
+  <programlisting>
+<![CDATA[
 {config_load file="foo.conf"}
 <html>
 <title>{#pageTitle#}</title>
 <body bgcolor="{#bodyBgColor#}">
 <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
 <tr bgcolor="{#rowBgColor#}">
-<td>First</td>
-<td>Last</td>
-<td>Address</td>
+    <td>First</td>
+    <td>Last</td>
+    <td>Address</td>
 </tr>
 </table>
 </body>
 </html>
-
-index.tpl: (alternate syntax)
-
+]]>
+  </programlisting>
+  <para>
+   index.tpl: (альтернативный синтаксис)
+  </para>
+    <programlisting>
+<![CDATA[
 {config_load file="foo.conf"}
 <html>
 <title>{$smarty.config.pageTitle}</title>
 <body bgcolor="{$smarty.config.bodyBgColor}">
 <table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}">
 <tr bgcolor="{$smarty.config.rowBgColor}">
-<td>First</td>
-<td>Last</td>
-<td>Address</td>
+    <td>First</td>
+    <td>Last</td>
+    <td>Address</td>
 </tr>
 </table>
 </body>
 </html>
-
-
-OUTPUT: (same for both examples)
-
+]]>
+  </programlisting>
+  <para>
+   результат выполнения обоих примеров:
+  </para>
+  <screen>
+<![CDATA[
 <html>
 <title>This is mine</title>
 <body bgcolor="#eeeeee">
@@ -71,7 +82,7 @@ OUTPUT: (same for both examples)
 </body>
 </html>
 ]]>
-   </programlisting>
+  </screen>
  </example>
  <para>
   Переменные из файлов конфигурации не могут быть использованы,
