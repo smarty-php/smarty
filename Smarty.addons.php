@@ -186,14 +186,14 @@ function smarty_mod_default($string, $default="")
 \*======================================================================*/
 function smarty_func_assign($args, &$smarty_obj)
 {
-    extract($args);
+	extract($args);
 
     if (empty($var)) {
         $smarty_obj->_trigger_error_msg("assign: missing 'var' parameter");
         return;
     }
 
-    if (!isset($value)) {
+    if (!in_array('value', array_keys($args))) {
         $smarty_obj->_trigger_error_msg("assign: missing 'value' parameter");
         return;
     }
