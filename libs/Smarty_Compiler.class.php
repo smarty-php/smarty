@@ -125,7 +125,7 @@ class Smarty_Compiler extends Smarty {
         $this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\>\[\]]';
         $this->_dvar_num_var_regexp = '\-?\d+(?:\.\d+)?' . $this->_dvar_math_var_regexp;
         $this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
-                . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:\-?\d+(?:\.\d+)?|' . $this->_dvar_math_var_regexp . '*))?';
+                . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:\-?\d+(?:\.\d+)?|' . $this->_dvar_math_var_regexp . ')*)?';
         $this->_dvar_regexp = '\$' . $this->_dvar_guts_regexp;
 
         // matches config vars:
@@ -1507,9 +1507,13 @@ class Smarty_Compiler extends Smarty {
     {
         $val = trim($val);
 
-        if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(?:' . $this->_mod_regexp . '*)$!', $val)) {
+        if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(' . $this->_mod_regexp . '*)$!', $val, $match)) {
                 // $ variable or object
-                return $this->_parse_var($val);
+                $return = $this->_parse_var($match[1]);
+                if($match[2] != '') {
+                    $this->_parse_modifiers($return, $match[2]);
+                }
+                return $return;
             }
         elseif(preg_match('!^' . $this->_db_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
                 // double quoted text
@@ -1569,35 +1573,30 @@ class Smarty_Compiler extends Smarty {
     }
 
     /**
-     * parse variable expression into PHP code or static value
+     * parse variable expression into PHP code
      *
      * @param string $var_expr
      * @param string $output
      * @return string
      */
-    function _parse_var($var_expr, $in_math = false)
+    function _parse_var($var_expr)
     {
         $_has_math = false;
         $_math_vars = preg_split('!('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-        if(count($_math_vars) > 1)
-        {
+        if(count($_math_vars) > 1) {
             $_first_var = "";
             $_complete_var = "";
             // simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
-            foreach($_math_vars as $_k => $_math_var)
-            {
+            foreach($_math_vars as $_k => $_math_var) {
                 $_math_var = $_math_vars[$_k];
 
-                if(!empty($_math_var) || is_numeric($_math_var))
-                {
+                if(!empty($_math_var) || is_numeric($_math_var)) {
                     // hit a math operator, so process the stuff which came before it
-                    if(preg_match('!^' . $this->_dvar_math_regexp . '$!', $_math_var))
-                    {
+                    if(preg_match('!^' . $this->_dvar_math_regexp . '$!', $_math_var)) {
                         $_has_math = true;
-                        if(!empty($_complete_var) || is_numeric($_complete_var))
-                        {
-                            $_output .= $this->_parse_var($_complete_var, true);
+                        if(!empty($_complete_var) || is_numeric($_complete_var)) {
+                            $_output .= $this->_parse_var($_complete_var);
                         }
 
                         // just output the math operator to php
@@ -1607,27 +1606,22 @@ class Smarty_Compiler extends Smarty {
                             $_first_var = $_complete_var;
 
                         $_complete_var = "";
-                    }
-                    else
-                    {
+                    } else {
                         // fetch multiple -> (like $foo->bar->baz ) which wouldn't get fetched else, because it would only get $foo->bar and treat the ->baz as "-" ">baz" then
-                        for($_i = $_k + 1; $_i <= count($_math_vars); $_i += 2)
-                        {
+                        for($_i = $_k + 1; $_i <= count($_math_vars); $_i += 2) {
                             // fetch -> because it gets splitted at - and move it back together
-                            if( /* prevent notice */ (isset($_math_vars[$_i]) && isset($_math_vars[$_i+1])) && ($_math_vars[$_i] === '-' && $_math_vars[$_i+1]{0} === '>'))
-                            {
+                            if( /* prevent notice */ (isset($_math_vars[$_i]) && isset($_math_vars[$_i+1])) && ($_math_vars[$_i] === '-' && $_math_vars[$_i+1]{0} === '>')) {
                                 $_math_var .= $_math_vars[$_i].$_math_vars[$_i+1];
                                 $_math_vars[$_i] = $_math_vars[$_i+1] = '';
-                            }
-                            else
+                            } else {
                                 break;
+                            }
                         }
                         $_complete_var .= $_math_var;
                     }
                 }
             }
-            if($_has_math)
-            {
+            if($_has_math) {
                 if(!empty($_complete_var) || is_numeric($_complete_var))
                     $_output .= $this->_parse_var($_complete_var, true);
 
@@ -1636,24 +1630,13 @@ class Smarty_Compiler extends Smarty {
             }
         }
 
-        preg_match('!(' . $this->_dvar_num_var_regexp . '*|' . $this->_obj_call_regexp . '|' . $this->_var_regexp . ')(' . $this->_mod_regexp . '*)$!', $var_expr, $match);
-
         // prevent cutting of first digit in the number (we _definitly_ got a number if the first char is a digit)
-        if(!is_numeric($match[1]{0}))
-            $_var_ref = substr($match[1],1);
+        if(is_numeric($var_expr{0}))
+            $_var_ref = $var_expr;
         else
-            $_var_ref = $match[1];
+            $_var_ref = substr($var_expr, 1);
 
-        $modifiers = $match[2];
-
-
-        if(!empty($this->default_modifiers) && !preg_match('!(^|\|)smarty:nodefaults($|\|)!',$modifiers)) {
-            $_default_mod_string = implode('|',(array)$this->default_modifiers);
-            $modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
-        }
-
-        if(!$_has_math)
-        {
+        if(!$_has_math) {
             // get [foo] and .foo and ->foo and (...) pieces
             preg_match_all('!(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+!', $_var_ref, $match);
 
@@ -1724,12 +1707,6 @@ class Smarty_Compiler extends Smarty {
                     $_output .= $_index;
                 }
             }
-        }
-
-        // If called recursive (because of math var splitting) don't do modifiers
-        if(!$in_math)
-        {
-            $this->_parse_modifiers($_output, $modifiers);
         }
 
         return $_output;

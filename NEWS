@@ -1,3 +1,4 @@
+  - fix handling of simple-math-operators inside modifiers(Dominik, messju)
   - fix handling of trailing-slashes in open_basedir in
     smarty_core_create_dir_structure() (packman, messju)
 
