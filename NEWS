@@ -1,6 +1,6 @@
     - added support for hidden config variables that cannot be read by
       templates. (Andrei)
-    - added execution time to DEBUG console. (Monte)
+    - added execution time to DEBUG console, total and inserts. (Monte)
     - fixed bug where DEBUG console would not appear with cached content. (Monte)
     - added support for postfilter functions that are applied to compiled
       template right after compilation. (Andrei)

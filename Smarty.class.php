@@ -530,7 +530,8 @@ class Smarty
 					if ($this->debugging)
 					{
 						// capture time for debugging info
-						$this->_smarty_debug_times["total"] = $this->_get_microtime() - $debug_start_time;	
+						$this->_smarty_debug_times['var'][] = 'TOTAL';
+						$this->_smarty_debug_times['val'][] = $this->_get_microtime() - $debug_start_time;	
 
 						echo $this->_generate_debug_output();
 					}
@@ -604,7 +605,8 @@ class Smarty
             if ($this->debugging)
 				{
 					// capture time for debugging info
-					$this->_smarty_debug_times["TOTAL"] = $this->_get_microtime() - $debug_start_time;	
+					$this->_smarty_debug_times['var'][] = 'TOTAL';
+					$this->_smarty_debug_times['val'][] = $this->_get_microtime() - $debug_start_time;	
 
 					echo $this->_generate_debug_output();
 				}
@@ -943,10 +945,12 @@ function _generate_debug_output() {
             $replace = $function_name($args, $this);
 
             $results = str_replace($cached_inserts[$i], $replace, $results);
+        	if ($this->debugging) {
+				$this->_smarty_debug_times['var'][] = 'insert_'.$name;
+		 		$this->_smarty_debug_times['val'][] = $this->_get_microtime() - $debug_start_time;
+			}
         }
 
-        if ($this->debugging)
-		{ $this->_smarty_debug_times["insert_".$name] = $this->_get_microtime() - $debug_start_time; }
 			
         return $results;
     } 
@@ -967,8 +971,10 @@ function _run_insert_handler($args)
     } else {
         $function_name = 'insert_'.$args['name'];
         $content = $function_name($args, $this);
-		if ($this->debugging)
-		{ $this->_smarty_debug_times["insert_".$args['name']] = $this->_get_microtime() - $debug_start_time; }
+		if ($this->debugging) {
+			$this->_smarty_debug_times['var'][] = 'insert_'.$args['name'];
+			$this->_smarty_debug_times['val'][] = $this->_get_microtime() - $debug_start_time;
+		}
 		return $content;
     }
 }

@@ -27,7 +27,7 @@
  *
  * Or, write to:
  * Monte Ohrt
- * CTO, ispi
+ * Directory of Technology, ispi
  * 237 S. 70th suite 220
  * Lincoln, NE 68510
  *
@@ -682,16 +682,19 @@ function smarty_func_counter() {
 function smarty_func_assign_debug_info($args, &$smarty_obj) {
 	$assigned_vars = $smarty_obj->_tpl_vars;
 	ksort($assigned_vars);
-	$config_vars = $smarty_obj->_config[0];
-	ksort($config_vars);
+	if(is_array($smarty_obj->_config[0])) {
+		$config_vars = $smarty_obj->_config[0];
+		ksort($config_vars);
+		$smarty_obj->assign("_debug_config_keys",array_keys($config_vars));
+		$smarty_obj->assign("_debug_config_vals",array_values($config_vars));
+	}	
+	
 	$included_templates = $smarty_obj->_included_tpls;
 	
 	$smarty_obj->assign("_debug_keys",array_keys($assigned_vars));
 	$smarty_obj->assign("_debug_vals",array_values($assigned_vars));
-	$smarty_obj->assign("_debug_config_keys",array_keys($config_vars));
-	$smarty_obj->assign("_debug_config_vals",array_values($config_vars));
-	$smarty_obj->assign("_debug_times_keys",array_keys($smarty_obj->_smarty_debug_times));
-	$smarty_obj->assign("_debug_times_vals",array_values($smarty_obj->_smarty_debug_times));
+	$smarty_obj->assign("_debug_times_keys",$smarty_obj->_smarty_debug_times['var']);
+	$smarty_obj->assign("_debug_times_vals",$smarty_obj->_smarty_debug_times['val']);
 	
 	$smarty_obj->assign("_debug_tpls",$included_templates);
 	return true;

@@ -29,7 +29,7 @@
  *
  * Or, write to:
  * Monte Ohrt
- * CTO, ispi
+ * Director of Technology, ispi
  * 237 S. 70th suite 220
  * Lincoln, NE 68510
  *
