@@ -635,7 +635,7 @@ class Smarty_Compiler extends Smarty {
                 $message = "plugin function $plugin_func() not found in $plugin_file\n";
                 $have_function = false;
             } else {
-                $this->_plugins['block'][$tag_command] = array($plugin_func, null, null);
+                $this->_plugins['block'][$tag_command] = array($plugin_func, null, null, null, true);
             }
         }
 
