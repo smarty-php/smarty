@@ -3028,9 +3028,10 @@ OUTPUT:
                     </row>
                     <row>
                         <entry>time</entry>
-                        <entry>timestamp</entry>
+                        <entry>timestamp/YYYY-MM-DD</entry>
                         <entry>No</entry>
-                        <entry>current time</entry>
+                        <entry>current time in unix timestamp or YYYY-MM-DD
+						format</entry>
                         <entry>what date/time to use</entry>
                     </row>
                     <row>
