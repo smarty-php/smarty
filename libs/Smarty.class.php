@@ -1137,30 +1137,30 @@ class Smarty
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
         static $_cache_info = array();
-
-        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->tpl_error_reporting) 
+        
+        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->tpl_error_reporting)
                ? $this->tpl_error_reporting : error_reporting() & ~E_NOTICE);
 
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
-			$_query_string = $this->request_use_auto_globals ? $_SERVER['QUERY_STRING'] : $GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'];
+            $_query_string = $this->request_use_auto_globals ? $_SERVER['QUERY_STRING'] : $GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'];
             if (@strstr($_query_string, $this->_smarty_debug_id)) {
-				if (@strstr($_query_string, $this->_smarty_debug_id . '=on')) {
-            		// enable debugging for this browser session
-					@setcookie('SMARTY_DEBUG', true);
-            		$this->debugging = true;					
-				} elseif (@strstr($_query_string, $this->_smarty_debug_id . '=off')) {
-            		// disable debugging for this browser session
-					@setcookie('SMARTY_DEBUG', false);
-            		$this->debugging = false;
-				} else {
-            		// enable debugging for this page
-            		$this->debugging = true;
-				}
-        	} else {
-				$_cookie_var = $this->request_use_auto_globals ? $_COOKIE['SMARTY_DEBUG'] : $GLOBALS['HTTP_COOKIE_VARS']['SMARTY_DEBUG'];
-            	$this->debugging = $_cookie_var ? true : false;				
-			}
-		}
+                if (@strstr($_query_string, $this->_smarty_debug_id . '=on')) {
+                    // enable debugging for this browser session
+                    @setcookie('SMARTY_DEBUG', true);
+                    $this->debugging = true;
+                } elseif (@strstr($_query_string, $this->_smarty_debug_id . '=off')) {
+                    // disable debugging for this browser session
+                    @setcookie('SMARTY_DEBUG', false);
+                    $this->debugging = false;
+                } else {
+                    // enable debugging for this page
+                    $this->debugging = true;
+                }
+            } else {
+                $_cookie_var = $this->request_use_auto_globals ? $_COOKIE['SMARTY_DEBUG'] : $GLOBALS['HTTP_COOKIE_VARS']['SMARTY_DEBUG'];
+                $this->debugging = $_cookie_var ? true : false;
+            }
+        }
 
         if ($this->debugging) {
             // capture time for debugging info
