@@ -1,3 +1,12 @@
+2004-05-26  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      enhanced auto-generated filenames for templates_c and cache
+      
+      incremented Smarty::_version because the tempfiles' structure changed
+      a little
+
 2004-05-23  Mehdi Achour  <didou@keliglia.com>
 
     * docs/fr/bookinfo.xml
