@@ -325,14 +325,18 @@ class Smarty_Compiler extends Smarty {
             if ($compiled_tags[$i] == '{strip}') {
                 $compiled_tags[$i] = '';
                 $strip = true;
+                /* remove leading whitespaces */
+                $text_blocks[$i + 1] = ltrim($text_blocks[$i + 1]);
             }
             if ($strip) {
                 /* strip all $text_blocks before the next '/strip' */
                 for ($j = $i + 1; $j < $for_max; $j++) {
                     /* remove leading and trailing whitespaces of each line */
-                    $text_blocks[$j] = preg_replace('!\s+$|^\s+!m', '', $text_blocks[$j]);
-                    /* remove carriage return and newline between each line */
-                    $text_blocks[$j] = preg_replace('![\r\n]+!m', '', $text_blocks[$j]);                
+                    $text_blocks[$j] = preg_replace('![\t ]*[\r\n]+[\t ]*!', '', $text_blocks[$j]);
+                    if ($compiled_tags[$j] == '{/strip}') {                       
+                        /* remove trailing whitespaces from the last text_block */
+                        $text_blocks[$j] = rtrim($text_blocks[$j]);
+                    }
                     $text_blocks[$j] = "<?php echo '" . strtr($text_blocks[$j], array("'"=>"\'", "\\"=>"\\\\")) . "'; ?>";
                     if ($compiled_tags[$j] == '{/strip}') {
                         $compiled_tags[$j] = "\n"; /* slurped by php, but necessary
