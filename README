@@ -33,35 +33,35 @@ DESCRIPTION:
 
     What is Smarty?
 
-	Smarty is a template engine for PHP. Many other template engines for PHP
-	provide basic variable substitution and dynamic block functionality. Smarty
-	takes a step further to be a "smart" template engine, adding features such
-	as configuration files, template functions, and variable modifiers, and
-	making all of this functionality as easy as possible to use for both
-	programmers and template designers. Smarty also converts the templates into
-	PHP scripts, eliminating the need to parse the templates on every
-	invocation. This makes Smarty extremely scalable and managable for large
-	application needs.
+    Smarty is a template engine for PHP. Many other template engines for PHP
+    provide basic variable substitution and dynamic block functionality.
+    Smarty takes a step further to be a "smart" template engine, adding
+    features such as configuration files, template functions, and variable
+    modifiers, and making all of this functionality as easy as possible to
+    use for both programmers and template designers. Smarty also converts
+    the templates into PHP scripts, eliminating the need to parse the
+    templates on every invocation. This makes Smarty extremely scalable and
+    managable for large application needs.
 
     Some of Smarty's features:
 
     * it is extremely fast
-    * it is relatively simple since the PHP parser does the dirty work.
     * no template parsing overhead, only compiles once.
-    * it is smart about recompiling only the template
-      files that have changed.
-    * you can make custom functions and custom variable modifiers, so
-      the template language is extremely extensible.
+	* it is smart about recompiling only the template files that have
+	  changed.
+    * the template language is remarkably extensible via the plugin
+      architecture.
     * configurable template delimiter tag syntax, so you can use
       {}, {{}}, <!--{}-->, or whatever you like.
+    * built-in caching of template output.
+    * arbitrary template sources (filesystem, databases, etc.)
     * template if/elseif/else/endif constructs are passed to the PHP parser,
       so the if syntax can be as simple or as complex as you like.
-    * unlimited nesting of sections, ifs, etc. allowed
-    * it is possible to imbed PHP code right in your template files,
+    * unlimited nesting of sections, conditionals, etc. allowed
+    * it is possible to embed PHP code right in your template files,
       although not recommended and doubtfully needed since the engine
       is so customizable.
-    * built in caching
-    * arbitrary template sources (flat files, databases, etc.)
+    * and many more.
 
 COPYRIGHT:
     Copyright (c) 2001,2002 ispi of Lincoln, Inc. All rights reserved.
