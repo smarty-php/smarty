@@ -1224,6 +1224,24 @@ $smarty->unregister_compiler_function("tplheader");
 </programlisting>
 </example>
 		</sect2>
+        <sect2 id="api.trigger.error">
+         <title>trigger_error</title>
+         <funcsynopsis>
+          <funcprototype>
+           <funcdef>void <function>trigger_error</function></funcdef>
+           <paramdef>string <parameter>error_msg</parameter></paramdef>
+           <paramdef>[int <parameter>level</parameter>]</paramdef>
+          </funcprototype>
+         </funcsynopsis>
+         <para>
+          This function can be used to output an error message using Smarty.
+          <parameter>level</parameter> parameter can be one of the values
+          used for trigger_error() PHP function, i.e. E_USER_NOTICE,
+          E_USER_WARNING, etc. By default it's E_USER_WARNING. This function
+          was added to Smarty 2.0.
+         </para>
+        </sect2>
+
 		<sect2 id="api.is.cached">
 			<title>is_cached</title>
 			<funcsynopsis>
@@ -6178,98 +6196,231 @@ s m o k e r s   a r e   p. . .
      </para>
      <para>
       <literal>type</literal> is one of these plugin types:
-        <simplelist>
-         <member>function</member>
-         <member>modifier</member>
-         <member>compiler</member>
-         <member>prefilter</member>
-         <member>postfilter</member>
-         <member>resource</member>
-         <member>insert</member>
-        </simplelist>
+      <simplelist>
+       <member>function</member>
+       <member>modifier</member>
+       <member>compiler</member>
+       <member>prefilter</member>
+       <member>postfilter</member>
+       <member>resource</member>
+       <member>insert</member>
+      </simplelist>
      </para>
      <para>
       <literal>name</literal> should be a valid identifier (letters,
       numbers, and underscores only).
      </para>
+     <para>
+      Some examples: <literal>function.html_select_date.php</literal>,
+      <literal>resource.db.php</literal>,
+      <literal>modifier.spacify.php</literal>.
+     </para>
+     <para>
+      The plugin functions inside the plugin files must be named as follows:
+      <blockquote>
+       <para>
+        smarty_<emphasis>type</emphasis>_<emphasis>name</emphasis>()
+       </para>
+      </blockquote>
+     </para>
+     <para>
+      The meanings of <literal>type</literal> and <literal>name</literal> are
+      the same as before.
+     </para>
+     <para>
+      Smarty will output appropriate error messages if the plugin file it
+      needs is not found, or if the file or the plugin function are named
+      improperly.
+     </para>
+     <note>
+      <para>
+       Note that even though pre/postfilters still have to be correctly
+       named even though the names are not really used for anything.
+      </para>
+     </note>
     </sect2>
    </sect1>
-	<sect1>
-		<title>Making Custom Plugins</title>
-		<para>
-		</para>
-		<sect2 id="section.plugins.functions"><title>functions</title>
-			<para>
-			</para>
-<example>
-<title>custom function plugin</title>
-<programlisting>
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2 id="section.plugins.modifiers"><title>modifiers</title>
-			<para>
-			</para>
-<example>
-<title>modifier plugin</title>
-<programlisting>
+   <sect1>
+    <title>Writing Plugins</title>
+    <para>
+     Plugins can be either loaded by Smarty automatically from the
+     filesystem or they can be registered at runtime via one of the
+     register_* API functions. They can also be unregistered by using
+     unregister_* API functions.
+    </para>
+    <para>
+     For the plugins are registered at runtime the name of the plugin
+     function does not have to follow the naming convention.
+    </para>
+    <para>
+     If a plugin depends on some functionality provided by another plugin
+     (as is the case with some plugins bundled with Smarty), then the proper
+     way to load the needed plugin is this:
+     <programlisting>
+require_once SMARTY_DIR . 'plugins/function.html_options.php';
+     </programlisting>
+    </para>
+    <para>
+     As a rule, Smarty object is always passed to the plugins as the last
+     parameter.
+    </para>
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2 id="section.plugins.compiler.functions"><title>compiler functions</title>
-			<para>
-			</para>
-<example>
-<title>compiler function plugin</title>
-<programlisting>
+    <sect2 id="section.plugins.functions"><title>functions</title>
+     <funcsynopsis>
+      <funcprototype>
+       <funcdef>void <function>plugin_name</function></funcdef>
+       <paramdef>array <parameter>$params</parameter></paramdef>
+       <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      </funcprototype>
+     </funcsynopsis>
+     <para>
+      All attributes passed to template functions from the template are
+      contained in the <parameter>$params</parameter> as an associative
+      array. Either access those values directly, e.g. $params['start'] or
+      use extract($params) to import them into the symbol table.
+     </para>
+     <para>
+      The output of the function will be substituted in place of the
+      function tag in the template (<function>fetch</function> function, for
+      example). Alternatively, the function can simply perform some other
+      task without any output (<function>assign</function> function).
+     </para>
+     <para>
+      If the function needs to assign some variables to the template or use
+      some other Smarty-provided functionality, it can use the supplied
+      <parameter>$smarty</parameter> object to do so.
+     </para>
+     <para>
+      See also:
+      <link linkend="api.register.function">register_function</link>,
+      <link linkend="api.unregister.function">unregister_function</link>.
+     </para>
+     <para>
+     </para>
+     <example>
+      <title>function plugin with output</title>
+      <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     function.eightball.php
+ * Type:     function
+ * Name:     eightball
+ * Purpose:  outputs a random magic answer
+ * -------------------------------------------------------------
+ */
+function smarty_function_eightball($params, &amp;$smarty)
+{
+    $answers = array('Yes',
+                     'No',
+                     'No way',
+                     'Outlook no so good',
+                     'Ask again soon',
+                     'Maybe in your reality');
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2 id="section.plugins.prefilters"><title>prefilters</title>
-			<para>
-			</para>
-<example>
-<title>prefilter plugin</title>
-<programlisting>
+    $result = array_rand($answers);
+    echo $answers[$result];
+}
+?&rt;
+      </programlisting>
+     </example>
+     <example>
+      <title>function plugin without output</title>
+      <programlisting>
+&lt;?php
+/*
+ * Smarty plugin
+ * -------------------------------------------------------------
+ * File:     function.assign.php
+ * Type:     function
+ * Name:     assign
+ * Purpose:  assign a value to a template variable
+ * -------------------------------------------------------------
+ */
+function smarty_function_assign($params, &amp;$smarty)
+{
+    extract($params);
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2 id="section.plugins.postfilters"><title>postfilters</title>
-			<para>
-			</para>
-<example>
-<title>postfilter plugin</title>
-<programlisting>
+    if (empty($var)) {
+        $smarty->trigger_error("assign: missing 'var' parameter");
+        return;
+    }
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2 id="section.plugins.resources"><title>template resources</title>
-			<para>
-			</para>
-<example>
-<title>resource plugin</title>
-<programlisting>
+    if (!in_array('value', array_keys($params))) {
+        $smarty->trigger_error("assign: missing 'value' parameter");
+        return;
+    }
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2 id="section.plugins.inserts"><title>inserts</title>
-			<para>
-			</para>
-<example>
-<title>insert plugin</title>
-<programlisting>
+    $smarty->assign($var, $value);
+}
+?&rt;
+      </programlisting>
+     </example>
+    </sect2>
+    <sect2 id="section.plugins.modifiers"><title>modifiers</title>
+     <para>
+     </para>
+     <example>
+      <title>modifier plugin</title>
+      <programlisting>
 
-</programlisting>
-</example>
-		</sect2>
-	</sect1>
-</chapter>
+      </programlisting>
+     </example>
+    </sect2>
+    <sect2 id="section.plugins.compiler.functions"><title>compiler functions</title>
+     <para>
+     </para>
+     <example>
+      <title>compiler function plugin</title>
+      <programlisting>
+
+      </programlisting>
+     </example>
+    </sect2>
+    <sect2 id="section.plugins.prefilters"><title>prefilters</title>
+     <para>
+     </para>
+     <example>
+      <title>prefilter plugin</title>
+      <programlisting>
+
+      </programlisting>
+     </example>
+    </sect2>
+    <sect2 id="section.plugins.postfilters"><title>postfilters</title>
+     <para>
+     </para>
+     <example>
+      <title>postfilter plugin</title>
+      <programlisting>
+
+      </programlisting>
+     </example>
+    </sect2>
+    <sect2 id="section.plugins.resources"><title>template resources</title>
+     <para>
+     </para>
+     <example>
+      <title>resource plugin</title>
+      <programlisting>
+
+      </programlisting>
+     </example>
+    </sect2>
+    <sect2 id="section.plugins.inserts"><title>inserts</title>
+     <para>
+     </para>
+     <example>
+      <title>insert plugin</title>
+      <programlisting>
+
+      </programlisting>
+     </example>
+    </sect2>
+   </sect1>
+  </chapter>
 <chapter id="chapter.debugging.console">
    <title>Debugging Console</title>
    <para>
