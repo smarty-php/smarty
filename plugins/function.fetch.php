@@ -50,11 +50,8 @@ function smarty_function_fetch($params, &$smarty)
 				$accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*";
 				$agent = "Smarty Template Engine ".$smarty->_version;
 				$referer = "";
-				if(!empty($uri_parts['path'])) {
-					$uri = $uri_parts['path'];
-				} else {
-					$uri = '/';
-				}
+				$uri = !empty($uri_parts['path']) ? $uri_parts['path'] : '/';
+				$uri .= !empty($uri_parts['query']) ? '?' . $uri_parts['query'] : '';
 				$_is_proxy = false;
 				if(empty($uri_parts['port'])) {
 					$port = 80;
