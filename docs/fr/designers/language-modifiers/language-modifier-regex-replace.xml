@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.regex.replace">
  <title>regex_replace</title>
  <informaltable frame="all">
@@ -43,25 +43,36 @@
  </para>
  <example>
   <title>regex_replace</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('TitreArticle', "L'infertilité est un maux grandissant\n, disent les experts.");
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->assign('TitreArticle', "L'infertilité est un maux grandissant\n, disent les experts.");
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est : 
+</para>
+<programlisting>
+<![CDATA[
 {* Remplace tous les retours chariot et les tabulation par une nouvelle ligne avec un espace *}
 
 {$TitreArticle}
 {$TitreArticle|regex_replace:"/[\r\t\n]/":" "}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie: 
+</para>
+<screen>
+<![CDATA[
 L'infertilité est un maux grandissant
 , disent les experts.
-L'infertilité est un maux grandissant, disent les experts.</programlisting>
+L'infertilité est un maux grandissant, disent les experts.
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

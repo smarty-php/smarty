@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.upper">
  <title>upper</title>
  <para>
@@ -8,23 +8,32 @@
  </para>
  <example>
   <title>upper</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('titreArticle', "Si l'attaque n'est pas mise en place
+$smarty->assign('titreArticle', "Si l'attaque n'est pas mise en place
 rapidement, cela risque de durer longtemps.");
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est:
+</para>
+<programlisting>
+<![CDATA[
 {$titreArticle}
 {$titreArticle|upper}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie :
+</para>
+<screen>
 Si l'attaque n'est pas mise en place rapidement, cela risque de durer longtemps.
-SI L'ATTAQUE N'EST PAS MISE EN PLACE RAPIDEMENT, CELA RISQUE DE DURER LONGTEMPS.</programlisting>
+SI L'ATTAQUE N'EST PAS MISE EN PLACE RAPIDEMENT, CELA RISQUE DE DURER LONGTEMPS.
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

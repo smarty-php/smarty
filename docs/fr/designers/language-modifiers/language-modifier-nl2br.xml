@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.nl2br">
  <title>nl2br</title>
  <para>
@@ -9,20 +9,31 @@
  </para>
  <example>
   <title>nl2br</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('TitreArticle', "Pluie ou soleil attendu\naujourd'hui, nuit noire");
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->assign('TitreArticle', "Pluie ou soleil attendu\naujourd'hui, nuit noire");
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est :
+</para>
+<programlisting>
+<![CDATA[
 {$TitreArticle|nl2br}
-
-SORTIE:
-
-Pluie ou soleil attendu&lt;br /&gt;aujourd'hui, nuit noire</programlisting>
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie :
+</para>
+<screen>
+<![CDATA[
+Pluie ou soleil attendu<br />aujourd'hui, nuit noire
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

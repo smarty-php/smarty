@@ -1,33 +1,70 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.strip.tags">
  <title>strip_tags</title>
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc"/>
+    <thead>
+     <row>
+      <entry>Position du paramètre</entry>
+      <entry>Type</entry>
+      <entry>Requis</entry>
+      <entry>Defaut</entry>
+      <entry>Description</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>bool</entry>
+      <entry>Non</entry>
+      <entry>true</entry>
+      <entry>Si l'on remplace les éléments par ' ' ou par ''</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
  <para>
   Supprime toutes les balises, et plus généralement tout ce qui se trouve
   entre &lt; et &gt;.
  </para>
  <example>
   <title>strip_tags</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('titreArticle', "Une femme aveugle obtient un nouveau &lt;font face=\"helvetica\"&gt;
-rein&lt;/font&gt; d'un père qu'elle n'a pas vu depuis&lt;b&gt; des années&lt;/b&gt;.");
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->assign('titreArticle', "Une femme aveugle obtient un nouveau <font face=\"helvetica\">rein</font> d'un père qu'elle n'a pas vu depuis <b>des années</b>.");
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est :
+</para>
+<programlisting>
+<![CDATA[
 {$titreArticle}
-{$titreArticle|strip_tags}
-
-SORTIE:
-
-Une femme aveugle obtient un nouveau &lt;font face=\"helvetica\"&gt;
-rein&lt;/font&gt; d'un père qu'elle n'a pas vu depuis&lt;b&gt; des années&lt;/b&gt;.
-Une femme aveugle obtient un nouveau rein d'un père
-qu'elle n'a pas vu depuis des années.</programlisting>
+{$titreArticle|strip_tags} {* identique à {$titreArticle|strip_tags:true} *} 
+{$titreArticle|strip_tags:false}
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie : 
+</para>
+<screen>
+<![CDATA[
+Une femme aveugle obtient un nouveau <font face=\"helvetica\">rein</font> d'un père qu'elle n'a pas vu depuis <b>des années</b>.
+Une femme aveugle obtient un nouveau  rein  d'un père qu'elle n'a pas vu depuis  des années .
+Une femme aveugle obtient un nouveau rein d'un père qu'elle n'a pas vu depuis des années.
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

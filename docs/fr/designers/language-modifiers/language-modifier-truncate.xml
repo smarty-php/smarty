@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.truncate">
  <title>truncate</title>
  <informaltable frame="all">
@@ -59,15 +59,20 @@
  </para>
  <example>
   <title>truncate</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('titreArticle', 'Deux soeurs réunies après 18 ans de séparation.');
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->assign('titreArticle', 'Deux soeurs réunies après 18 ans de séparation.');
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est :
+</para>
+<programlisting>
+<![CDATA[
 {$titreArticle}
 {$titreArticle|truncate}
 {$titreArticle|truncate:30}
@@ -75,16 +80,21 @@ index.tpl:
 {$titreArticle|truncate:30:"---"}
 {$titreArticle|truncate:30:"":true}
 {$titreArticle|truncate:30:"...":true}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie :
+</para>
+<screen>
+<![CDATA[
 Deux soeurs réunies après 18 ans de séparation.
 Deux soeurs réunies après...
 Deux soeurs réunies après
 Deux soeurs réunies après---
 Deux soeurs réunies après 18 a
 Deux soeurs réunies après 1...
-</programlisting>
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

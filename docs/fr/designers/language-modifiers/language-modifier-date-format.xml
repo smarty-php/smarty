@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.date.format">
  <title>date_format</title>
  <informaltable frame="all">
@@ -48,123 +48,176 @@
  </para>
  <example>
   <title>date_format</title>
-<programlisting>
-index.php:
+<programlisting role="php">
+<![CDATA[
+<?php
 
 $smarty = new Smarty;
-$smarty-&gt;assign('hier', strtotime('-1 day'));
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-
+$smarty->assign('hier', strtotime('-1 day'));
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+ ou index.tpl est:
+</para>
+<programlisting>
+<![CDATA[
 {$smarty.now|date_format}
 {$smarty.now|date_format:"%A, %B %e, %Y"}
 {$smarty.now|date_format:"%H:%M:%S"}
 {$hier|date_format}
 {$hier|date_format:"%A, %B %e, %Y"}
 {$hier|date_format:"%H:%M:%S"}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+ Ce qui donne à l'écran:
+</para>
+<screen>
+<![CDATA[
 Feb 6, 2001
 Tuesday, February 6, 2001
 14:33:00
 Feb 5, 2001
 Monday, February 5, 2001
-14:33:00</programlisting>
+14:33:00
+]]>
+</screen>
  </example>
- <example>
-  <title>date_format indicateurs de convertion</title>
-<programlisting>
+  <para>
+   date_format conversion specifiers:
+   <itemizedlist>
+<listitem><para>
 %a - Abréviation du jour de la semaine, selon les paramètres locaux.
-
+</para></listitem>
+<listitem><para>
 %A - Nom du jour de la semaine, selon les paramètres locaux.
-
+</para></listitem>
+<listitem><para>
 %b - Abréviation du nom du jour, selon les paramètres locaux.
-
+</para></listitem>
+<listitem><para>
 %B - Nom complet du mois, selon les paramètres locaux.
-
+</para></listitem>
+<listitem><para>
 %c - Préférences d'affichage selon les paramètres locaux.
-
+</para></listitem>
+<listitem><para>
 %C - Siècle, (L'année divisée par 100 et tronquée comme un entier, de 00 à 99)
-
+</para></listitem>
+<listitem><para>
 %d - Jour du mois, en tant que nombre décimal (de 00 à 31)
-
+</para></listitem>
+<listitem><para>
 %D - même chose que %m/%d/%y
-
+</para></listitem>
+<listitem><para>
 %e - Jour du mois en tant que nombre décimal. Un chiffre unique est précédé par
 un espace (de 1 à 31)
-
+</para></listitem>
+<listitem><para>
 %g - Position de la semaine dans le siècle [00,99]
-
+</para></listitem>
+<listitem><para>
 %G - Position de la semaine, incluant le siècle [0000,9999]
-
+</para></listitem>
+<listitem><para>
 %h - identique à %b
-
+</para></listitem>
+<listitem><para>
 %H - L'heure en tant que décimale, en utilisant une horloge sur 24 (de 00 à 23)
-
+</para></listitem>
+<listitem><para>
 %I - L'heure en tant que décimale en utilisant une horloge sur 12 (de 01 to 12)
-
+</para></listitem>
+<listitem><para>
 %j - jour de l'année (de 001 à 366)
-
+</para></listitem>
+<listitem><para>
 %k - Heure (horloge sur 24). Les numéros à un chiffre sont précédés d'un espace. (de 0 à 23)
-
+</para></listitem>
+<listitem><para>
 %l - Heure (horloge sur 12). Les numéros à un chiffre sont précédés d'un espace. (de 1 à 12)
-
+</para></listitem>
+<listitem><para>
 %m - Mois en tant que nombre décimal (de 01 à 12)
-
+</para></listitem>
+<listitem><para>
 %M - Minute en tant que nombre décimal
-
+</para></listitem>
+<listitem><para>
 %n - Retour chariot (nouvelle ligne).
-
+</para></listitem>
+<listitem><para>
 %p - soit am soit pm selon l'heure donnée, ou alors leurs correspondances locales.
-
+</para></listitem>
+<listitem><para>
 %r - heure en notation a.m. et p.m.
-
+</para></listitem>
+<listitem><para>
 %R - Heure au format 24 heures
-
+</para></listitem>
+<listitem><para>
 %S - Secondes en tant que nombre décimal.
-
+</para></listitem>
+<listitem><para>
 %t - Caractère tabulation.
-
+</para></listitem>
+<listitem><para>
 %T - Heure courante, équivalent à %H:%M:%S
-
+</para></listitem>
+<listitem><para>
 %u - Jour de la semaine en tant que nombre décimal [1,7], ou 1 représente le lundi.
-
+</para></listitem>
+<listitem><para>
 %U - Le numéro de la semaine en nombre décimal, utilisant le premier dimanche
 en tant que premier jour de la première semaine.
-
+</para></listitem>
+<listitem><para>
 %V - Le numéro de la semaine de l'année courante selon la norme ISO 8601:1988,
     de 01 à 53, ou la semaine 1 est la première semaine qui dispose au minimum
     de 4 jours dans l'année courante et ou Lundi est le premier jour
     de cette semaine.
-
+</para></listitem>
+<listitem><para>
 %w - Jour de la semaine en tant que nombre décimal, dimanche étant 0
-
+</para></listitem>
+<listitem><para>
 %W - Le numéro de la semaine de l'année courante en tant que nombre décimal,
      ou Lundi est le premier jour de la première semaine.
-
+</para></listitem>
+<listitem><para>
 %x - Représentation préférée de la date selon les paramètres locaux.
-
+</para></listitem>
+<listitem><para>
 %X - Représentation préférée de l'heure selon les paramètres locaux, sans la
      date.
-
+</para></listitem>
+<listitem><para>
 %y - L'année en tant que nombre décimal, sans le siècle. (de 00 à 99)
-
+</para></listitem>
+<listitem><para>
 %Y - L'année en tant que nombre décimal, avec le siècle.
-
+</para></listitem>
+<listitem><para>
 %Z - Zone horraire, nom ou abréviation
-
+</para></listitem>
+<listitem><para>
 %% - Un caractère litéral `%'
-
-NOTE AUX DEVELOPPEURS: date_format est un alias de la fonction
-PHP strftime(). Il est probable que vous disposiez de plus ou moins d'options
-disponibles selon le système sur lequel PHP a été compilé (strftime ()).
-Reportez vous à l'aide de votre système pour une liste complète des
-paramètres disponibles.</programlisting>
- </example>
- 
+</para></listitem>
+</itemizedlist>
+   <note>
+    <title>Note aux développeurs</title>
+    <para>
+     NOTE AUX DEVELOPPEURS: date_format est un alias de la fonction
+     PHP strftime(). Il est probable que vous disposiez de plus ou moins d'options
+     disponibles selon le système sur lequel PHP a été compilé (strftime ()).
+     Reportez vous à l'aide de votre système pour une liste complète des
+     paramètres disponibles.
+    </para>
+   </note>
+</para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

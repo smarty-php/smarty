@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.spacify">
  <title>spacify</title>
  <informaltable frame="all">
@@ -37,25 +37,36 @@
  </para>
  <example>
   <title>spacify</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('titreArticle', 'Quelque chose s'est mal passé et à provoqué
+$smarty->assign('titreArticle', 'Quelque chose s\'est mal passé et à provoqué
 cet accident, disent les experts');
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est :
+</para>
+<programlisting>
+<![CDATA[
 {$titreArticle}
 {$titreArticle|spacify}
 {$titreArticle|spacify:"^^"}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+Ce qui donne à l'écran :
+</para>
+<screen>
+<![CDATA[
 Quelquechose s'est mal passé et à provoqué cet accident, disent les experts.
 Q u e l q u e c h o s e   s ' e s t   m a l   p a s s é   e t   à   p r o v o q u é   c e t   a c c i d e n t ,   d i s e n t   l e s   e x p e r t s .
-Q^^u^^e^^l^^q^^u^^e^^c^^h^^o^^s^^e^^ ^^s^^'^^e^^s^^t^^ ^^m^^a^^l^^ ^^p^^a^^s^^s^^é^^ ^^e^^t^^ ^^à^^ ^^p^^r^^o^^v^^o^^q^^u^^é^^ ^^c^^e^^t^^ ^^a^^c^^c^^i^^d^^e^^n^^t^^,^^ ^^d^^i^^s^^e^^n^^t^^ ^^l^^e^^s^^ ^^e^^x^^p^^e^^r^^t^^s^^.</programlisting>
+Q^^u^^e^^l^^q^^u^^e^^c^^h^^o^^s^^e^^ ^^s^^'^^e^^s^^t^^ ^^m^^a^^l^^ ^^p^^a^^s^^s^^é^^ ^^e^^t^^ ^^à^^ ^^p^^r^^o^^v^^o^^q^^u^^é^^ ^^c^^e^^t^^ ^^a^^c^^c^^i^^d^^e^^n^^t^^,^^ ^^d^^i^^s^^e^^n^^t^^ ^^l^^e^^s^^ ^^e^^x^^p^^e^^r^^t^^s^^.
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.strip">
  <title>strip</title>
  <para>
@@ -17,27 +17,36 @@
  </note>
  <example>
   <title>strip</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('titreArticle', "Une réunion autour\n d'un feu de cheminée\t
+$smarty->assign('titreArticle', "Une réunion autour\n d'un feu de cheminée\t
 est toujours agréable.");
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est : 
+</para>
+<programlisting>
+<![CDATA[
 {$titreArticle}
 {$titreArticle|strip}
 {$titreArticle|strip:"&amp;nbsp;"}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie :
+</para>
+<screen>
 Une réunion autour
  d'un feu de cheminée     est toujours agréable.
 Une réunion autour d'un feu de cheminée est toujours agréable.
 Une&amp;nbsp;réunion&amp;nbsp;autour&amp;nbsp;d'un&amp;nbsp;feu&amp;nbsp;de&amp;nbsp;cheminée&amp;nbsp;est&amp;nbsp;toujours
-&amp;nbsp;agréable.</programlisting>
+&amp;nbsp;agréable.
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

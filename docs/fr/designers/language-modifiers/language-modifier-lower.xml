@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.lower">
  <title>lower</title>
  <para>
@@ -8,22 +8,33 @@
  </para>
  <example>
   <title>lower</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('TitreArticle', 'Deux Suspects Se Sont Sauvés.');
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->assign('TitreArticle', 'Deux Suspects Se Sont Sauvés.');
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est :
+</para>
+<programlisting>
+<![CDATA[
 {$TitreArticle}
 {$TitreArticle|lower}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+Ce qui donne à l'écran :
+</para>
+<screen>
+<![CDATA[
 Deux Suspects Se Sont Sauvés.
-deux suspects se sont sauvés.</programlisting>
+deux suspects se sont sauvés.
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

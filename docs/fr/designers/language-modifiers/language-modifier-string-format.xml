@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.string.format">
  <title>string_format</title>
  <informaltable frame="all">
@@ -36,24 +36,35 @@
  </para>
  <example>
   <title>string_format</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('nombre', 23.5787446);
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->assign('nombre', 23.5787446);
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+ou index.tpl est :
+</para>
+<programlisting>
+<![CDATA[
 {$nombre}
 {$nombre|string_format:"%.2f"}
 {$nombre|string_format:"%d"}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie :
+</para>
+<screen>
+<![CDATA[
 23.5787446
 23.58
-24</programlisting>
+24
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

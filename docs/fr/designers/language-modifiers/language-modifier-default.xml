@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.default">
  <title>default</title>
  <informaltable frame="all">
@@ -38,22 +38,31 @@
  </para>
  <example>
   <title>default</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('TitreArticle', 'Les portes de la moria restent fermées.');
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->assign('TitreArticle', 'Les portes de la moria restent fermées.');
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est:
+</para>
+<programlisting>
+<![CDATA[
 {$TitreArticle|default:"pas de titre"}
 {$monTitre|default:"pas de titre"}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+Ce qui donne à l'écran :
+</para>
+<screen>
 Les portes de la moria restent fermées.
-pas de titre</programlisting>
+pas de titre
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
