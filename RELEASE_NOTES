@@ -1,3 +1,8 @@
+2.6.7
+-----
+
+Those using Smarty with security enabled: a hole was found that allowed PHP code to be executed from within a template file. This has been fixed and you are engouraged to upgrade immediately. Note that this hole does NOT affect the security of your web server or PHP applications, only the ability for someone editing a template to execute PHP code. Other changes in this release can be found in the NEWS file.
+
 2.5.0
 -----
 
