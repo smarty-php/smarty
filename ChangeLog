@@ -1,3 +1,40 @@
+2003-12-19  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty.class.php:
+      add debug console persistance feature
+
+2003-12-19  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/block.textformat.php
+      libs/plugins/function.html_table.php
+      libs/plugins/function.popup.php:
+      removed extract(). enhanced parameter parsing.
+
+    * libs/plugins/function.counter.php
+      libs/plugins/function.fetch.php
+      libs/plugins/function.popup_init.php
+      libs/plugins/modifier.capitalize.php
+      libs/plugins/modifier.cat.php
+      libs/plugins/modifier.date_format.php
+      libs/plugins/modifier.debug_print_var.php
+      libs/plugins/modifier.escape.php
+      libs/plugins/modifier.indent.php
+      libs/plugins/modifier.lower.php
+      libs/plugins/modifier.nl2br.php
+      libs/plugins/modifier.strip.php
+      libs/plugins/modifier.upper.php
+      libs/plugins/modifier.wordwrap.php
+      libs/plugins/outputfilter.trimwhitespace.php
+      libs/plugins/shared.escape_special_chars.php:
+      removed tabs. fixed indentiation.
+
+    * libs/plugins/modifier.truncate.php:
+      removed tabs
+
+    * libs/plugins/function.counter.php
+      libs/plugins/function.cycle.php:
+      removed extract() from parameter-parsing
+
 2003-12-17  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_select_date.php:
