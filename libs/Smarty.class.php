@@ -39,7 +39,7 @@ class Smarty
 	var $left_delimiter			=	"{";		// template tag delimiters.
 	var $right_delimiter		=	"}";
 
-	var $config_dir				=	"configs";	// directory where config files are located
+	var $config_dir				=	"./configs";	// directory where config files are located
 
 	var $custom_tags			=	array(	'html_options'	=> 'smarty_func_html_options'
 										 );
@@ -58,6 +58,7 @@ class Smarty
 	var $_error_msg				=	false;		// error messages
 	var $_tpl_vars				= 	array();
 	var $_sectionelse_stack		=	array();	// keeps track of whether section had 'else' part
+	var $_literal_blocks		=	array();	// keeps literal template blocks
 
 	
 /*======================================================================*\
@@ -275,15 +276,20 @@ class Smarty
 			
 			//echo "compile dir: $compile_dir<br>\n";
 			//create directory if none exists
-			if(!file_exists($compile_dir))
-				if(!mkdir($compile_dir,0755))
-				{
-					$this->_set_error_msg("problem creating directory \"$compile_dir\"");
-					return false;				
+			if(!file_exists($compile_dir)) {
+				$compile_dir_parts = preg_split('!/+!', $compile_dir);
+				$new_dir = "";
+				foreach ($compile_dir_parts as $dir_part) {
+					$new_dir .= $dir_part."/";
+					if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
+						$this->_set_error_msg("problem creating directory \"$compile_dir\"");
+						return false;				
+					}
 				}
+			}
+
 			// compile the template file if none exists or has been modified
-			/* TODO remove 1 from test */
-			if(!file_exists($compile_dir."/".$tpl_file_name) || 1 ||
+			if(!file_exists($compile_dir."/".$tpl_file_name) ||
 				($this->_modified_file($filepath,$compile_dir."/".$tpl_file_name)))
 			{
 				if(!$this->_compile_file($filepath,$compile_dir."/".$tpl_file_name))
@@ -327,6 +333,12 @@ class Smarty
 
 		$ldq = preg_quote($this->left_delimiter, "/");
 		$rdq = preg_quote($this->right_delimiter, "/");
+
+		/* Pull out the literal blocks. */
+		preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_contents, $match);
+		$this->_literal_blocks = $match[1];
+		$template_contents = preg_replace("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s",
+						 				  '{literal}', $template_contents);
 
 		/* Gather all template tags. */
 		preg_match_all("/$ldq\s*(.*?)\s*$rdq/s", $template_contents, $match);
@@ -421,6 +433,10 @@ class Smarty
 			case '/strip':
 				return $this->left_delimiter.$tag_command.$this->right_delimiter;
 
+			case 'literal':
+				list (,$literal_block) = each($this->_literal_blocks);
+				return $literal_block;
+
 			default:
 				if (isset($this->custom_tags[$tag_command])) {
 					return $this->_compile_custom_tag($tag_command, $tag_args);
@@ -450,14 +466,16 @@ class Smarty
 			/* TODO syntax error: missing 'file' attribute */
 		}
 
-		if (empty($attrs['section']))
-			$section = 'NULL';
-		else
-			$section = '"'.$attrs['section'].'"';
+		$output  = '<?php include_once "Config_File.php";'."\n";
+	    $output .= 'if (!is_object($_conf_obj) || get_class($_conf_obj) != "config_file") {'."\n";
+		$output .= '	$_conf_obj  = new Config_File("'.$this->config_dir.'");'."\n";
+	    $output .= '}'."\n";
+	   	$output .= '$_config = array_merge((array)$_config, $_conf_obj->get('.$attrs['file'].'));'."\n";
 
-		$output  = '<?php if (!class_exists("Config_File")) { include "Config_File.php"; $conf = new Config_File("'.$this->config_dir."\"); }\n";
-		$output .= '$conf->load_file("'.$attrs['file']."\");\n";
-		$output .= '$_config = array_merge((array)$_config, $conf->get("'.$attrs['file'].'", '.$section.")); ?>";
+		if (!empty($attrs['section']))
+			$output .= '$_config = array_merge((array)$_config, $_conf_obj->get('.$attrs['file'].', '.$attrs['section'].')); ';
+
+		$output .= '?>';
 
 		return $output;
 	}
@@ -469,7 +487,8 @@ class Smarty
 
 		if (empty($attrs['file'])) {
 			/* TODO syntax error: missing 'file' attribute */
-		}
+		} else
+			$attrs['file'] = $this->_dequote($attrs['file']);
 		
 		return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$attrs['file'].'"; ?>';
 	}
@@ -484,8 +503,8 @@ class Smarty
 			/* TODO syntax error: section needs a name */
 		}
 
-		$output .= "unset(\$_sections['$section_name']);\n";
-		$section_props = "\$_sections['$section_name']['properties']";
+		$output .= "unset(\$_sections[$section_name]);\n";
+		$section_props = "\$_sections[$section_name]['properties']";
 
 		foreach ($attrs as $attr_name => $attr_value) {
 			switch ($attr_name) {
@@ -723,6 +742,14 @@ class Smarty
 					/* If token is not '=', we set the attribute value and go to
 					   state 0. */
 					if ($token != '=') {
+						/* If the token is not variable (doesn't start with '$')
+						   and not enclosed in single or double quotes
+						   we single-quote it. */
+						if ($token{0} != '$' &&
+							!(($token{0} == '"' || $token[0] == "'") &&
+							$token{strlen($token)-1} == $token{0})) {
+							$token = "'".$token."'";
+						}
 						$attrs[$attr_name] = $token;
 						$state = 0;
 					} else
@@ -828,13 +855,26 @@ class Smarty
 			$this->_parse_vars_props($modifier);
 
 			if (count($modifier) > 0)
-				$modifier_args = ", ".implode(', ', $modifier);
+				$modifier_args = ', '.implode(', ', $modifier);
 			else
-				$modifier_args = "";
+				$modifier_args = '';
 
 			$output = "$mod_func_name($output$modifier_args)";
 		}
 	}
+	
+
+/*======================================================================*\
+	Function: _dequote
+	Purpose:  Remove starting and ending quotes from the string
+\*======================================================================*/
+	function _dequote($string)
+	{
+		if (($string{0} == "'" || $string{0} == '"') &&
+			$string{strlen($string)-1} == $string{0})
+			return substr($string, 1, -1);
+	}
+
 	
 /*======================================================================*\
 	Function:	_read_file()
