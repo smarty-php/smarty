@@ -1411,8 +1411,8 @@ function _run_insert_handler($args)
     {
         static  $content_cache = array();
 
-        if ($this->force_compile || $this->cache_lifetime == 0) {
-            // force compile enabled or cache lifetime is zero, always regenerate
+        if ($this->force_compile) {
+            // force compile enabled, always regenerate
             return false;
         }
 
@@ -1446,7 +1446,7 @@ function _run_insert_handler($args)
 
         $this->_cache_info = unserialize($cache_header);
 
-        if (time() - $this->_cache_info['timestamp'] > $this->cache_lifetime) {
+        if ($this->cache_lifetime < 0 && (time() - $this->_cache_info['timestamp'] > $this->cache_lifetime)) {
             // cache expired, regenerate
             return false;
         }
