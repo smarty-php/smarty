@@ -51,9 +51,9 @@ etc. Just give some formats a try and see what works.
 
 Smarty now has template filters, meaning that you can run your templates
 through custom functions before they are compiled. This is good for things like
-removing unwanted comments, "beautifying" your template code, keep an eye on
-words or functionality people are putting in templates, translating XML ->
-HTML, etc. See the register_filter documentation for more info.
+removing unwanted comments, keeping an eye on words or functionality people are
+putting in templates, translating XML -> HTML, etc. See the register_filter
+documentation for more info.
 
 UPGRADE NOTES
 

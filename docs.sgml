@@ -1183,12 +1183,11 @@ $smarty->display("db:index.tpl");
 	<sect1 id="section.template.filters">
 		<title>Template Filters</title>
         <para>
-        Template filters are PHP functions that your templates are ran through
-        before they are compiled. This is good for preprocessing your templates
-        to remove unwanted comments, "beautify" the template code, keep an eye
-        on what people are putting in their templates, etc. Filters are
-        processed in the order they are <link
-        linkend="api.register.filter">registered</link>.
+		Template filters are PHP functions that your templates are ran through
+		before they are compiled. This is good for preprocessing your templates
+		to remove unwanted comments, keeping an eye on what people are putting
+		in their templates, etc. Filters are processed in the order they are
+		<link linkend="api.register.filter">registered</link>.
         </para>
 		<sect2>
 			<title>Example of a Template Filter</title>
