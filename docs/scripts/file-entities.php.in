@@ -138,7 +138,7 @@ function file_entities($work_dir, $trans_dir, $orig_dir, &$entities) {
     
     // Try to open English working directory
     $dh = opendir($work_dir);
-    if (!$dh) { echo "lllll"; return FALSE; }
+    if (!$dh) { return FALSE; }
 
     // If the working directory is a reference functions directory
     if (preg_match("!/reference/.*/functions$!", $work_dir)) {
