@@ -1,3 +1,6 @@
+    - swapped compile_id and cache_id in read_cache_file and write_cache_file
+      (messju)
+    - reverted patch for cache-file-handling (messju)
     - made html_radios and html_checkboxes accept "selected" instead
       of "checked" optionally. (messju)
     - made compile_id ignored in clear_cache, made order of
