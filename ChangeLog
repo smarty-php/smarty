@@ -1,3 +1,11 @@
+2004-09-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      added $smarty->security_settings['ALLOW_CONSTANTS']
+      including test-cases for them
+
 2004-09-09  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty_Compiler.class.php:
