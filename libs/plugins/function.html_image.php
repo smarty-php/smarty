@@ -15,14 +15,13 @@
  * Purpose:  format HTML tags for the image<br>
  * Input:<br>
  *         - file = file (and path) of image (required)
- *         - border = border width (optional, default 0)
  *         - height = image height (optional, default actual height)
  *         - image =image width (optional, default actual width)
  *         - basedir = base directory for absolute paths, default
  *                     is environment variable DOCUMENT_ROOT
  *
  * Examples: {html_image file="images/masthead.gif"}
- * Output:   <img src="images/masthead.gif" border=0 width=400 height=23>
+ * Output:   <img src="images/masthead.gif" width=400 height=23>
  * @link http://smarty.php.net/manual/en/language.function.html.image.php {html_image}
  *      (Smarty online manual)
  * @author   Monte Ohrt <monte at ohrt dot com>
@@ -40,7 +39,6 @@ function smarty_function_html_image($params, &$smarty)
     
     $alt = '';
     $file = '';
-    $border = 0;
     $height = '';
     $width = '';
     $extra = '';
@@ -51,7 +49,6 @@ function smarty_function_html_image($params, &$smarty)
     foreach($params as $_key => $_val) {
         switch($_key) {
             case 'file':
-            case 'border':
             case 'height':
             case 'width':
             case 'dpi':
@@ -134,7 +131,7 @@ function smarty_function_html_image($params, &$smarty)
         $height = round($height * $_resize);
     }
 
-    return $prefix . '<img src="'.$file.'" alt="'.$alt.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.' />' . $suffix;
+    return $prefix . '<img src="'.$file.'" alt="'.$alt.'" width="'.$width.'" height="'.$height.'"'.$extra.' />' . $suffix;
 }
 
 /* vim: set expandtab: */
