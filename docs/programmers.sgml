@@ -548,22 +548,14 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
        </funcprototype>
       </funcsynopsis>
       <para>
-	   This is used to append values to the templates by reference instead of
-	   making a copy. See the PHP manual on variable referencing for an
-	   explanation. If you pass the optional third parameter of true, the value
-	   will be merged with the current array instead of appended.
+	   This is used to append values to the templates by reference.
+	   If you append a variable by reference then change its
+       value, the appended value sees the change as well. For objects, 
+       append_by_ref() also avoids an in-memory copy of the appended object.
+       See the PHP manual on variable referencing for an in-depth
+	   explanation. If you pass the optional third parameter of true,
+       the value will be merged with the current array instead of appended.
       </para>
-	  <note>
-	  <title>Technical Note</title>
-	  <para>
-	  append_by_ref() is more efficient than append() since it does not create
-	  an in-memory copy of the variable. Instead it refers to the actual
-	  variable in the memory heap. Be aware if you alter the original variable
-	  after it is assigned, the assigned variable sees the changes! PHP 5.0
-	  will take care of referencing automatically, so this function acts as a
-	  workaround.
-	  </para>
-	  </note>
 	  <note>
 	  <title>Technical Note</title>
 	  <para>
@@ -626,12 +618,12 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
 	  <note>
 	  <title>Technical Note</title>
 	  <para>
-	  assign_by_ref() is more efficient than assign() since it does not create
-	  an in-memory copy of the variable. Instead it refers to the actual
-	  variable in the memory heap. Be aware if you alter the original variable
-	  after it is assigned, the assigned variable sees the changes! PHP 5.0
-	  will take care of referencing automatically, so this function acts as a
-	  workaround.
+	   This is used to assign values to the templates by reference.
+	   If you assign a variable by reference then change its
+       value, the assigned value sees the change as well. For objects, 
+       assign_by_ref() also avoids an in-memory copy of the assigned object.
+       See the PHP manual on variable referencing for an in-depth
+	   explanation.
 	  </para>
 	  </note>
       <example>
