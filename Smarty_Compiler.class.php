@@ -53,6 +53,7 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
+        
         // run template source through functions registered in filter_functions
         if(is_array($this->filter_functions) && count($this->filter_functions) > 0) {
             foreach($this->filter_functions as $curr_func) {
@@ -64,7 +65,7 @@ class Smarty_Compiler extends Smarty {
             }   
         }
                 
-        $this->_current_file = $template_source;
+        $this->_current_file = $tpl_file;
         $this->_current_line_no = 1;
         $ldq = preg_quote($this->left_delimiter, '!');
         $rdq = preg_quote($this->right_delimiter, '!');

@@ -60,9 +60,13 @@ class Smarty
     var $compile_dir     =  './templates_c';   // name of directory for compiled templates 
     var $config_dir      =  './configs';       // directory where config files are located
 
-    var $global_assign   =  array('SCRIPT_NAME'); // variables from the GLOBALS array
-                                                  // that are implicitly assigned
-                                                  // to all templates   
+    var $global_assign   =  array(  'HTTP_SERVER_VARS' =>
+                                    array( 'SCRIPT_NAME' )
+                                 );     // variables from the GLOBALS array
+                                        // that are implicitly assigned
+                                        // to all templates
+    var $undefined       =  null;       // undefined variables in $global_assign will be
+                                        // created with this value
     var $compile_check   =  true;       // whether to check for compiling step or not:
                                         // This is generally set to false once the
                                         // application is entered into production and
@@ -78,12 +82,12 @@ class Smarty
     var $cache_dir       =  './cache';  // name of directory for template cache
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
-    var $check_cached_insert_tags    = true; // if you have caching turned on and you
-                                            // don't use {insert} tags anywhere
-                                            // in your templates, set this to false.
-                                            // this will tell Smarty not to look for
-                                            // insert tags and speed up cached page
-                                            // fetches.
+    var $insert_tag_check    = true;    // if you have caching turned on and you
+                                        // don't use {insert} tags anywhere
+                                        // in your templates, set this to false.
+                                        // this will tell Smarty not to look for
+                                        // insert tags and speed up cached page
+                                        // fetches.
 
     var $tpl_file_ext    =  '.tpl';     // template file extention
 
@@ -139,7 +143,7 @@ class Smarty
     
     // internal vars
     var $_error_msg             =   false;      // error messages. true/false
-    var $_tpl_vars              =   array();
+    var $_tpl_vars              =   array();    // where assigned template vars are kept
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
     
 /*======================================================================*\
@@ -148,9 +152,21 @@ class Smarty
 \*======================================================================*/
     function Smarty()
     {
-        foreach ($this->global_assign as $var_name) {
-            if (isset($GLOBALS[$var_name])) {
-                $this->assign($var_name, $GLOBALS[$var_name]);
+        foreach ($this->global_assign as $key => $var_name) {
+            if (is_array($var_name)) {
+                foreach ($var_name as $var) {
+                    if (isset($GLOBALS[$key][$var])) {
+                        $this->assign($var, $GLOBALS[$key][$var]);
+                    } else {
+                        $this->assign($var, $this->undefined);
+                    }
+                }
+            } else {
+                if (isset($GLOBALS[$var_name])) {
+                    $this->assign($var_name, $GLOBALS[$var_name]);
+                } else {
+                    $this->assign($var_name, $this->undefined);
+                }
             }
         }
     }
@@ -410,7 +426,7 @@ class Smarty
                 ($this->cache_lifetime == 0 ||
                  (time() - filemtime($cache_file) <= $this->cache_lifetime))) {
                 $results = $this->_read_file($cache_file);
-                if($this->check_cached_insert_tags) {
+                if($this->insert_tag_check) {
                     $results = $this->_process_cached_inserts($results);
                 }
                 if ($display) {
@@ -500,8 +516,8 @@ class Smarty
 \*======================================================================*/
     function _fetch_compile_path($tpl_file, &$compile_path)
     {
-        // for now, everything is in $compile_dir
-        $compile_path = $this->compile_dir.'/'.md5($tpl_file).'.php';
+        // everything is in $compile_dir
+        $compile_path = $this->compile_dir.'/'.urlencode($tpl_file).'.php';
         return true;
     }    
 
@@ -511,7 +527,7 @@ class Smarty
 \*======================================================================*/
     function _compiled_template_exists($include_path)
     {
-        // for now, everything is in $compile_dir
+        // everything is in $compile_dir
         return file_exists($include_path);
     }    
 
@@ -521,7 +537,7 @@ class Smarty
 \*======================================================================*/
     function _fetch_compiled_template_timestamp($include_path)
     {
-        // for now, everything is in $compile_dir
+        // everything is in $compile_dir
         return filemtime($include_path);
     }    
 
@@ -531,7 +547,7 @@ class Smarty
 \*======================================================================*/
     function _write_compiled_template($compile_path, $template_compiled)
     {
-        // for now, we save everything into $compile_dir
+        // we save everything into $compile_dir
         $this->_write_file($compile_path, $template_compiled);
         return true;
     }    
@@ -542,6 +558,7 @@ class Smarty
 \*======================================================================*/
     function _fetch_template_source($tpl_path, &$template_source, &$template_timestamp)
     {
+        
         // split tpl_path by the first colon
         $tpl_path_parts = explode(':', $tpl_path, 2);
         

@@ -85,7 +85,8 @@
 		syntax. So what if we combined the two strengths? Thus, Smarty was
 		born...
 		</para>
-	<sect1><title>What is Smarty?</title>
+	<sect1>
+        <title>What is Smarty?</title>
 		<para>
 		Smarty is a template engine for PHP. One of the unique aspects about
 		Smarty that sets it apart from other templating solutions is that it
@@ -116,6 +117,7 @@
 			although this may not be needed (nor recommended)
 			since the engine is so customizable.</para></listitem>
 		<listitem><para>Built-in caching support (new in 1.3.0)</para></listitem>
+		<listitem><para>Arbitrary template sources (new in 1.4.0)</para></listitem>
 		</itemizedlist>
 	</sect1>
 	<sect1>
@@ -359,6 +361,15 @@ chmod 700 cache
 				added to Smarty 1.3.0.
 			</para>
 		</sect2>
+		<sect2 id="setting.insert.tag.check">
+			<title>$insert_tag_check</title>
+			<para>
+                If you have $caching enabled and you do not use the <link
+                linkend="function.insert">insert</link> tag anywhere in your
+                templates, set this to false. This saves the insert tag search,
+                speeding up cached page fetches.
+			</para>
+		</sect2>
         <sect2 id="setting.tpl.file.ext">
             <title>$tpl_file_ext</title>
             <para>
@@ -461,7 +472,7 @@ chmod 700 cache
 		These functions are used in the PHP portion of your application.
 	</para>
 	<sect1>
-		<title>Smarty API Functions</title>
+		<title>API Functions</title>
 		<sect2 id="api.assign">
 			<title>assign</title>
 			<funcsynopsis>
@@ -578,39 +589,6 @@ $smarty->clear_all_assign();
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id="api.register.function">
-			<title>register_function</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_function</function></funcdef>
-				<paramdef>string <parameter>funcname</parameter></paramdef>
-				<paramdef>string <parameter>funcimpl</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register functions with Smarty. Pass in
-                the template function name, followed by the actual PHP function
-                name that it will map to.
-			</para>
-<example>
-<title>register_function</title>
-<programlisting>
-
-$smarty->register_function("date_now","print_current_date");
-
-function print_current_date ($params) {
-    extract($params);
-    if(empty($format))
-        $format="%b %e, %Y";
-    echo strftime($format,time());
-}
-
-// now you can use this in Smarty to print the current date: {date_now}
-// or, {date_now format="%Y/%m/%d"} to format it.
-
-</programlisting>
-</example>
-		</sect2>
 		<sect2 id="api.clear.cache">
 			<title>clear_cache</title>
 			<funcsynopsis>
@@ -664,6 +642,39 @@ $smarty->clear_all_cache();
 </programlisting>
 </example>
 		</sect2>
+		<sect2 id="api.register.function">
+			<title>register_function</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>void <function>register_function</function></funcdef>
+				<paramdef>string <parameter>funcname</parameter></paramdef>
+				<paramdef>string <parameter>funcimpl</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+                Use this to dynamically register functions with Smarty. Pass in
+                the template function name, followed by the actual PHP function
+                name that it will map to.
+			</para>
+<example>
+<title>register_function</title>
+<programlisting>
+
+$smarty->register_function("date_now","print_current_date");
+
+function print_current_date ($params) {
+    extract($params);
+    if(empty($format))
+        $format="%b %e, %Y";
+    echo strftime($format,time());
+}
+
+// now you can use this in Smarty to print the current date: {date_now}
+// or, {date_now format="%Y/%m/%d"} to format it.
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2 id="api.unregister.function">
 			<title>unregister_function</title>
 			<funcsynopsis>
@@ -709,7 +720,7 @@ $smarty->unregister_modifier("fetch");
 
 $smarty->register_modifier("sslash","stripslashes");
 
-// now you can use {$var} to strip slashes from variables
+// now you can use {$var|sslash} to strip slashes from variables
 
 </programlisting>
 </example>
@@ -999,7 +1010,7 @@ echo $output;
 		</sect2>
 	</sect1>
 	<sect1 id="section.template.resources">
-		<title>Smarty Template Resources</title>
+		<title>Template Resources</title>
         <para>
         Your templates may come from a variety of sources. When you display or
         fetch a template, or when you include a template from within another
@@ -1060,7 +1071,7 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
             retrieving templates from a database. You do this by first
             registering your resource handler function, then creating your
             function to get the template. Smarty expects your function to be of
-            this form: funcname($tpl_name,&amp;tpl_source, &amp;$tpl_timestamp)
+            this form: funcname($tpl_name,&amp;$tpl_source, &amp;$tpl_timestamp)
             {} $tpl_name is passed into the function, and your function should
             populate $tpl_source and $tpl_timestamp with the template source
             and the last modified time of the template respectively.
@@ -1083,6 +1094,7 @@ function get_db_template ($tpl_name, &$tpl_source, &$tpl_timestamp) {
     return true;
 }
 
+// register the resource name "db"
 $smarty->register_resource("db" => "get_db_template");
 
 // using resource from php script
@@ -1096,7 +1108,7 @@ $smarty->display("db:index.tpl");
         </sect2>
     </sect1>
 	<sect1 id="section.template.filters">
-		<title>Smarty Template Filters</title>
+		<title>Template Filters</title>
         <para>
         Template filters are PHP functions that your templates are ran through
         before they are compiled. This is good for preprocessing your templates
@@ -3074,19 +3086,17 @@ OUTPUT:
 	<sect1 id="variable.modifiers">
 		<title>Variable Modifiers</title>
 		<para>
-		Variable modifiers are a bit different than
-		<link linkend="custom.functions">custom functions</link>.
-        Variable modifiers alter variable contents before they are displayed to
-        the template. All modifiers will get the value of the variable as the
-        first argument, and must return a single value. Modifier parameters are
-        separated by colons. Any additional parameters passed to a modifier are
-        passed as-is positionally, much like calling a PHP function. You can
-        also use native PHP functions as modifiers, but only if they expect the
-        correct arguments. If they do not, you can always write a wrapper
-        function in Smarty to get what you want (date_format is a wrapper
-        function to strftime() for example.) You can chain as many modifiers
-        together on a variable as you like, separating each with a vertical
-        pipe "|".
+        Variable modifiers are a bit different than <link
+        linkend="custom.functions">custom functions</link>. Variable modifiers
+        alter variable contents before they are displayed to the template. All
+        modifiers will get the value of the variable as the first argument, and
+        must return a single value. Modifier parameters are separated by
+        colons. Any additional parameters passed to a modifier are passed as-is
+        positionally, much like calling a PHP function. You can also use native
+        PHP functions as modifiers, but only if they expect the correct
+        arguments. If they do not, you can always write a wrapper function in
+        Smarty to get what you want. You can chain as many modifiers together
+        on a variable as you like, separating each with a vertical pipe "|".
 		</para>
 		<para>
         NOTE: if you apply a modifier to an array instead of a single value
@@ -3105,7 +3115,7 @@ OUTPUT:
 <programlisting>
 
 {$articleTitle}
-{$articleTitle}
+{$articleTitle|capitalize}
 
 OUTPUT:
 
@@ -3126,7 +3136,7 @@ Police Begin Campaign To Rundown Jaywalkers.
 
 
 {$articleTitle}
-{$articleTitle}
+{$articleTitle|count_characters}
 
 OUTPUT:
 
@@ -3147,7 +3157,7 @@ Cold Wave Linked to Temperatures
 
 
 {$articleTitle}
-{$articleTitle}
+{$articleTitle|count_paragraphs}
 
 OUTPUT:
 
@@ -3170,7 +3180,7 @@ Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 
 
 {$articleTitle}
-{$articleTitle}
+{$articleTitle|count_sentences}
 
 OUTPUT:
 
@@ -3191,7 +3201,7 @@ Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
 
 
 {$articleTitle}
-{$articleTitle}
+{$articleTitle|count_words}
 
 OUTPUT:
 
@@ -3242,8 +3252,8 @@ Dealers Will Hear Car Talk at Noon.
 <programlisting>
 
 {$currentDate}
-{$currentDate}
-{$currentDate}
+{$currentDate|date_format:"%A, %B %e, %Y"}
+{$currentDate|date_format:"%H:%M:%S"}
 
 OUTPUT:
 
@@ -3382,7 +3392,7 @@ system's manpage for a full list of valid specifiers.
 <programlisting>
 
 {* this will display "no title" (without the quotes) if $articleTitle is empty *}
-{$articleTitle}
+{$articleTitle|default:"no title"}
 
 OUTPUT:
 
@@ -3432,9 +3442,9 @@ no title
 <programlisting>
 
 {$articleTitle}
-{$articleTitle}
-{$articleTitle}
-{$articleTitle}
+{$articleTitle|escape}
+{$articleTitle|escape:"html"}
+{$articleTitle|escape:"url"}
 
 OUTPUT:
 
@@ -3456,7 +3466,7 @@ Stiff+Opposition+Expected+to+Casketless+Funeral+Plan
 <programlisting>
 
 {$articleTitle}
-{$articleTitle}
+{$articleTitle|lower}
 
 OUTPUT:
 
@@ -3510,8 +3520,8 @@ two convicts evade noose, jury hung.
 <programlisting>
 
 {$articleTitle}
-{$articleTitle}
-{$articleTitle}
+{$articleTitle|replace:"Garden":"Vineyard"}
+{$articleTitle|replace:" ":"   "}
 
 OUTPUT:
 
@@ -3561,8 +3571,8 @@ Child's   Stool   Great   for   Use   in   Garden.
 <programlisting>
 
 {$articleTitle}
-{$articleTitle}
-{$articleTitle}
+{$articleTitle|spacify}
+{$articleTitle|spacify:"^^"}
 
 OUTPUT:
 
@@ -3611,8 +3621,8 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^
 <programlisting>
 
 {$number}
-{$number}
-{$number}
+{$number|string_format:"%.2f"}
+{$number|string_format:"%d"}
 
 OUTPUT:
 
@@ -3633,7 +3643,7 @@ OUTPUT:
 <programlisting>
 
 {$articleTitle}
-{$articleTitle}
+{$articleTitle|strip_tags}
 
 OUTPUT:
 
@@ -3700,10 +3710,38 @@ Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
 <example>
 <title>truncate</title>
 <programlisting>
+{$articleTitle}
+{$articleTitle|truncate}
+{$articleTitle|truncate:30}
+{$articleTitle|truncate:30:""}
+{$articleTitle|truncate:30:"---"}
+{$articleTitle|truncate:30:"":true}
+{$articleTitle|truncate:30:"...":true}
+
+OUTPUT:
+
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after Eighteen Years at Checkout Counter.
+Two Sisters Reunite after...
+Two Sisters Reunite after
+Two Sisters Reunite after---
+Two Sisters Reunite after Eigh
+Two Sisters Reunite after E...
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
+			<title>upper</title>
+			<para>
+            This is used to uppercase a variable.
+			</para>
+<example>
+<title>upper</title>
+<programlisting>
 
 {$articleTitle}
-{$articleTitle}
-{$articleTitle}
+{$articleTitle|upper}
 
 OUTPUT:
 
@@ -3726,17 +3764,129 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
 <programlisting>
 
 {$articleTitle}
-{$articleTitle}
-{$articleTitle}
-{$articleTitle}
-{$articleTitle}
+{$articleTitle|upper|spacify}
+{$articleTitle|lower|spacify|truncate}
+{$articleTitle|lower|truncate:30|spacify}
+{$articleTitle|lower|spacify|truncate:30:". . ."}
+
+
+OUTPUT:
+
+Smokers are Productive, but Death Cuts Efficiency.
+S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
+s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
+s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
+s m o k e r s   a r e   p. . .
+
+</programlisting>
+</example>
+       </sect2>
+       <sect2>
+           <title>Creating your own Variable Modifiers</title>
+           <para>
+           Creating your own modifiers is a fairly straight forward process.
+           The best way is to look at the ones that come with Smarty as
+           examples. The function names begin with smarty_mod_ and they are
+           located in the Smarty.addons.php file.
+           </para>
+           <itemizedlist>
+               <listitem><para>add your modifier to the Smarty.addons.php file.
+                       It is recommended that you prepend your function name
+                       with smarty_mod_</para></listitem>
+               <listitem><para>map a template modifier name to your PHP function.
+                           This is done at the top of the Smarty.class.php file
+                           in the $custom_mods array.</para></listitem>
+               <listitem><para>Thats it! you can now use that modifier
+                   from within Smarty.</para></listitem>
+           </itemizedlist>         
+            <para>
+            You can also add modifiers programatically with the <link
+            linkend="api.register.modifier">register_modifier API</link>.
+            </para>
+       </sect2>
+   </sect1>    
+</chapter>
+<chapter>
+   <title>Troubleshooting</title>
+   <para></para>
+   <sect1>
+       <title>Smarty/PHP errors</title>
+       <para>
+       Smarty can catch many errors such as missing tag attributes
+       or malformed variable names. If this happens, you will see an error
+       similar to the following:
+       </para>
+
+<example>
+<title>Smarty errors</title>
+<programlisting>
+
+Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
+        in /path/to/smarty/Smarty.class.php on line 1041
+
+Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
+        in /path/to/smarty/Smarty.class.php on line 1041
+
+</programlisting>
+</example>
+
+       <para>
+        Smarty shows you the template name, the line number and the error.
+        After that, the error consists of the actual line number in the Smarty
+        class that the error occured.
+       </para>
+       
+       <para>
+        There are certain errors that Smarty cannot catch, such as missing
+        close tags. These types of errors usually end up in PHP compile-time
+        parsing errors.
+       </para>
+
+<example>
+<title>PHP parsing errors</title>
+<programlisting>
+
+Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
+
+</programlisting>
+</example>
+       
+       <para>
+        When you encounter a PHP parsing error, the error line number will
+        correspond to the compiled PHP script, not the template itself. Usually
+        you can look at the template and spot the syntax error. Here are some
+        common things to look for: missing close tags for {if}{/if} or
+        {section}{/section}, or syntax of logic within an {if} tag. If you
+        can't find the error, you might have to open the compiled PHP file and
+        go to the line number to figure out where the corresponding error is in
+        the template.
+       </para>
+   </sect1>
+</chapter>
+<chapter id="tips">
+   <title>Tips & Tricks</title>
+   <para>
+   </para>
+   <sect1>
+       <title>Dates</title>
+       <para>
+       As a rule of thumb, always pass dates to Smarty as timestamps.
+       This allows template designers to use <link
+       linkend="date.format">date_format</link> for full control over date
+       formatting, and also makes it easy to compare dates if necessary.
+       </para>
+<example>
+<title>using date_format</title>
+<programlisting>
+
+{$startDate|date_format}
 
 OUTPUT:
 
 Jan 4, 2001
 
 
-{$startDate}
+{$startDate|date_format:"%Y/%m/%d"}
 
 OUTPUT:
 
@@ -3777,8 +3927,65 @@ function makeTimeStamp($year="",$month="",$day="")
 
 </programlisting>
 </example>
-		</sect2>
 	</sect1>
+	<sect1>
+		<title>WAP/WML</title>
+		<para>
+        WAP/WML templates require a php Content-Type header to be passed along
+        with the template. The easist way to do this would be to write a custom
+        function that prints the header. If you are using caching, that won't
+        work so we'll do it using the insert tag (remember insert tags are not
+        cached!) Be sure that there is nothing output to the browser before the
+        template, or else the header may fail.
+		</para>
+<example>
+<title>using insert to write a WML Content-Type header</title>
+<programlisting>
+
+// be sure apache is configure for the .wml extensions!                                    
+// put this function somewhere in your application, or in Smarty.addons.php
+function insert_header() {
+    // this function expects $content argument
+    extract(func_get_arg(0));
+    if(empty($content))
+        return;
+    header($content);
+    return;
+}
+
+// your Smarty template _must_ begin with the insert tag example:
+
+{insert name=header content="Content-Type: text/vnd.wap.wml"}
+
+&lt;?xml version="1.0"?&gt;  
+&lt;!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"&gt; 
+
+&lt;!-- begin new wml deck --&gt; 
+&lt;wml&gt; 
+&lt;!-- begin first card --&gt; 
+&lt;card&gt; 
+&lt;do type="accept"&gt; 
+&lt;go href="#two"/&gt; 
+&lt;/do&gt;  
+&lt;p&gt; 
+Welcome to WAP with Smarty!
+Press OK to continue...  
+&lt;/p&gt; 
+&lt;/card&gt;  
+&lt;!-- begin second card --&gt; 
+&lt;card id="two"&gt;  
+&lt;p&gt; 
+Pretty easy isn't it?
+&lt;/p&gt; 
+&lt;/card&gt; 
+&lt;/wml&gt;
+
+</programlisting>
+</example>
+	</sect1>
+
+
+
 </chapter>
 <chapter id="resources">
 	<title>Resources</title>
@@ -3803,37 +4010,6 @@ function makeTimeStamp($year="",$month="",$day="")
 	PEAR libraries come with the distribution of PHP. Be sure that the path to
 	these libraries is included in your php include_path. un*x users check
 	/usr/local/lib/php. Windows users check C:/php/pear.
-	</para>
-</chapter>
-<chapter id="credits">
-	<title>CREDITS</title>
-	<para>
-    Monte Ohrt &lt;monte@ispi.net&gt;: Concepted compiling templates into PHP
-    scripts, wrote initial "proof of concept" implementation, and maintains
-    documentation.
-	</para>
-	<para>
-    Andrei Zmievski &lt;andrei@ispi.net&gt;: Rewrote parser from scratch and
-    added other features too numerous to mention.
-	</para>
-	<para>
-    Anne Holz &lt;anne@ispi.net&gt;: Provided creative input with respect
-    to web design.
-	</para>
-	<para>
-	Frank Kromann &lt;fmk@php.net&gt;: Idea of custom function ability.
-	</para>
-	<para>
-    A special thanks goes to the people that have contributed other templating
-    solutions to the PHP community which we learned a lot from.
-	</para>
-	<para>
-    A special thanks goes to the members of the php-template mailing list and
-    the smarty mailing list, whom sharing and bringing many ideas to the table.
-	</para>
-	<para>
-	Rasmus Lerdorf &lt;rasmus@php.net&gt;: For starting what eventually became
-	the coolest programming language ever.
 	</para>
 </chapter>
 </book>

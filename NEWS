@@ -1,17 +1,22 @@
 Version 1.4.0
 -------------
+    - updated GLOBAL_ASSIGN to take SCRIPT_NAME from HTTP_SERVER_VARS
+      instead of global variable. You can also assign several variables
+      in one shot with an array. (Monte)
     - added template filters (Monte)
     - added RELEASE_NOTES file to distribution (Monte)
+    - moved CREDITS out of manual into its own file (Monte)
     - added register_resource() and unregister_resource() functions (Monte)
     - changed syntax of variables called within section loops,
       supplied fix_vars.php script to fix old syntax (Andrei)
-    - added $check_cached_insert_tags to speed up cached pages if
+    - added $insert_tag_check to speed up cached pages if
       {insert ...} is not used (Monte)
     - added $compiler_class variable to allow specifying a different compiler
       class. (Andrei)
     - changed Smarty to compile templates at runtime, allowing for arbitrary
-      template resources. Also added fix for LOCK_EX under windows and changed
-      a couple file permissions for security. (Monte)
+      template resources. (Monte)
+    - added fix for LOCK_EX under windows and changed a couple file
+      permissions for security. (Monte)
     - allow arbitrary date strings to date_format, html_select_date and
       html_select_time (Monte)
 

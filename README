@@ -52,11 +52,12 @@ DESCRIPTION:
       {}, {{}}, <!--{}-->, or whatever you like.
     * template if/elseif/else/endif constructs are passed to the PHP parser,
       so the if syntax can be as simple or as complex as you like.
-    * unlimited nesting of sections,ifs, etc. allowed
+    * unlimited nesting of sections, ifs, etc. allowed
     * it is possible to imbed PHP code right in your template files,
       although not recommended and doubtfully needed since the engine
       is so customizable.
     * built in caching
+    * arbitrary template sources (flat files, databases, etc.)
 
 COPYRIGHT:
     Copyright (c) 2001 ispi of Lincoln, Inc. All rights reserved.

@@ -37,6 +37,16 @@ A: You certainly can. Smarty's cache and these cache solutions have nothing in
    utmost importance, we would recommend using one of these with any PHP
    application, using Smarty or not.
 
+Q: Why does smarty have a built in cache? Wouldn't it be better to handle this
+   in a separate class?
+A: Smarty's caching functionality is tightly integrated with the template
+   engine, making it quite a bit more flexible than a simple caching wrapper.
+   For instance, you can cache select portions of a template page. Let's say
+   you have a polling box on your site. With Smarty, you can leave the poll
+   dynamic and cache the rest of the page. You can also pass templates
+   multiple cache ids, meaning that a template can have several caches
+   depending on URL, cookies, etc.
+
 Q: Is Smarty faster than <insert other PHP template engine>?
 A: It could be. One of the strengths of Smarty is that it does not need to
    parse the template files on every hit to the server. Version 1.3.1 has
@@ -46,8 +56,8 @@ A: It could be. One of the strengths of Smarty is that it does not need to
    The above comparison assumes that you are not using Smarty's built-in
    ability to cache templates. If you are, that makes this comparison pretty
    unfair since Smarty will basically be displaying static content instead of
-   generating templates, which will speed things up, especially for compilcated
-   templates.
+   generating templates, which will really speed things up especially for
+   complicated tests.
 
 Q: How can I be sure to get the best performance from Smarty?
 A: Be sure you set $compile_check=false once your templates are initially
@@ -64,7 +74,7 @@ A: Certainly. You might want to change your tag delimiters from {} to something
    
 Q: Do you have a mailing list?
 A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net. This
-   is also archived at http://marc.theaimsgroup.com/ under www/smarty
+   is also archived at http://marc.theaimsgroup.com/?l=smarty&r=1&w=2
 
 
 TROUBLESHOOTING
@@ -123,12 +133,6 @@ A: There seems to be a problem with some W2k machines and exclusive file
 Q: The template goes into an infinite loop when I include included templates
    that pass local variables
 A: This was fixed in 1.3.2 (new global attribute)
-
-Q: How can I tell what compiled template file corresponds to to which source
-   file? (Smarty 1.4.0 and later have encoded compiled filenames)
-A: Compiled template files have headers that tell which source file was used to
-   compile it. Grep for the pathname, or use "head -2 *" to see the first two
-   lines of each compiled file.
 
 Q: My ISP did not setup the PEAR repository, nor will they set it up. How do I
    make Smarty run without it?
