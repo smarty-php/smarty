@@ -1,30 +1,73 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="language.modifier.capitalize">
  <title>capitalize</title>
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc" />
+    <thead>
+     <row>
+      <entry>Позиция параметра</entry>
+      <entry>Тип</entry>
+      <entry>Обязателен</entry>
+      <entry>По умолчанию</entry>
+      <entry>Описание</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>boolean</entry>
+      <entry>Нет</entry>
+      <entry>false</entry>
+      <entry>Этот параметр определяет, распространяется ли действие
+      модификатора на слова с цифрами</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
  <para>
   Первые буквы каждого слова преобразуются в заглавные.
  </para>
  <example>
   <title>capitalize</title>
-  <programlisting>
-index.php:
+   <programlisting role="php">
+<![CDATA[
+<?php
 
 $smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'Police begin campaign to rundown jaywalkers.');
-$smarty-&gt;display('index.tpl');
+$smarty->assign('articleTitle', 'next x-men film, x3, delayed.');
+$smarty->display('index.tpl');
 
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон index.tpl:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|capitalize}
-
-OUTPUT:
-
-Police begin campaign to rundown jaywalkers.
-Police Begin Campaign To Rundown Jaywalkers.</programlisting>
-</example>
+{$articleTitle|capitalize:true}
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
+next x-men film, x3, delayed.
+Next X-Men Film, x3, Delayed.
+Next X-Men Film, X3, Delayed.
+]]>
+   </screen>
+  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

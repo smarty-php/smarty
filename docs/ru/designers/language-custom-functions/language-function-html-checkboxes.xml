@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: tony2001 Status: ready -->
 <sect1 id="language.function.html.checkboxes">
  <title>html_checkboxes</title>
  <informaltable frame="all">
@@ -14,7 +14,7 @@
    <row>
     <entry>Имя аттрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -66,8 +66,8 @@
   </tgroup>
  </informaltable>
  <para>
-  Пользовательская функция html_checkboxes генерирует группу 
-  HTML фложков по указанной информации. Также заботится об 
+  Пользовательская функция html_checkboxes генерирует группу
+  HTML фложков по указанной информации. Также заботится об
   флажках, которые выбраны по умолчанию. параметры vslues и output
   обязательны, если не указан аттрибут options. Весь вывод
   совместим с XHTML.
