@@ -32,6 +32,7 @@
  */
 
 /* $Id$ */
+
 /**
  * Config file reading class
  * @package Smarty
@@ -148,218 +149,175 @@ class Config_File {
      *
      * @param $file_name string config key (filename/section/var)
      * @return string|array same as get()
-     * @uses get() retrieves information from config file and returns it
-     */
-    function &get_key($config_key)
-    {
-        list($file_name, $section_name, $var_name) = explode('/', $config_key, 3);
-        $result = &$this->get($file_name, $section_name, $var_name);
-        return $result;
-    }
+     * @uses get() ret       ntain/ecu9///
+cross mulget() ret       ntain
+u=rw,g=r,o=r
+12243
+<?ain
 
-    /**
-     * Get all loaded config file names.
-     *
-     * @return array an array of loaded config file names
-     */
-    function get_file_names()
-    {
-        return array_keys($this->_config_data);
-    }
+/**
+ * out compilin:
+ * h
+ *
+ * T
+      ; if    fass bofts"]e; yublic
+ ed ithout e. (Mohis/fig_*------f   - aei Zth no* @is lith nGNU Lspei ZGer wadre- aicg_*-Lg_path) add- aisay c_dath nFass Softs"]eame ae     ; e!emat
+  ke - adde {
+s lith nLg_path_coscr  iyubAndibuteo_herin/
 
+$th - addh
+ *
+ * T
+      ; if     ithout e.che_ith nhing Bad c  -wulz,d debuy_rent*   t WITHOUT ANY  vaRANTY; (!ema    (Anith npathion_s"]rect    nt* MERCHANTABILITYcoscFITNESS FempA erag iULAR PURPOSE.  Sss th nGNUg_*-Lspei ZGer wadre- aic-Lg_path)dataiablede    if
+ *
+ * Publ ConfigMonle_ncompiVerilep    mth nGNU Lspei ZGer wadre- aicg_*-Lg_path)  iss (!emp-
+      ; if;t thig_seronte,ersionnFass Softs"]eg_*-me ae     , Inc wi59 Ttruc
+  hing, Sunte,33onsBforire (A  02111-1307  USA
+ *
+ * Publm->_     g in te  hhata  mor messages _dae-ates   :g_*-{@o synhisins@ain.netove*
+ * T
+    win    - adde  mor messages  - initob   riVe
+ * :g_*-ixed:/ get()
+tain.net/ve*
+ * @o synixed:/ get()
+tain.net/ve* @e - adde {6.1-r og_*-@lep titiesCep titie:m 2.1- 2.don'nto  mLeparlre Inc g_*-@  hhataror_ms Zmievif} <hisins@ain.net>g_*-@ Monte)d- aicg_*-@nd k pat     (Mo @r
+/* $Id$secju Exp ma @r
+/**
+ * out coARRANT). (Andrtch.php*-@nd k pat     (Mo @r}
+ *
+ or messages { $fil/**#@+file_n* Oibute file_n* @    Monte)
+file_n*/vefil/**file_n* or s, c contematonfiguratiop-level on_ext  - ims (Monte,   - n)
+  ctions" @refil    $ms (Monte,   - fmpiiiie qe;n 1.5./**file_n* or s, c contematooblem witto _pditin/e qe/y an
+   onf/ attr/ buint objec*_   ribution (Monte)
+_config_  ht
+   am syctions" @refil    $s for faste   - fmpiiiie qe;n 1.5./**file_n* or s, c contematoixed problem w
+-------/ting ve Smacluunction
+ R A Pfile_n*/vefil    $ bug ixed pr- fmpiiiie qe;n 1.5./**file_n* or s, c contemato    -mentec.
+ maccoscd, Me {
+  onte)ew
+   if
+ le_n* I noame/rsi qe, \ta r \t\n-wulz,d duld have o \dh
+ le_n*@refil    $e Soescape mopiiiie qe;n$fil/**#@- @r
+$fil/**-@ Monte)driv/
 
-    /**
-     * Get all section names from a loaded file.
-     *
-     * @param string $file_name config file to get section names from
-     * @return array an array of section names from the specified file
-     */
-    function get_section_names($file_name)
-    {
-        $file_name = $this->_config_path . $file_name;
-        if (!isset($this->_config_data[$file_name])) {
-            $this->_trigger_error_msg("Unknown config file '$file_name'");
-            return;
-        }
+ *@refil    $tra and or me fmpi"";refil    $tra and e  ae fmpit_temp);refil/**#@- @r
+$fil/**file_n* or g withe)
+ ne. oblem wRRANT:
+ * h
+ le_n*file_n* @11, 20nte)
+  efault tor me(&get($fi) and
+ ersionnoblem wRRAN file_n*@refilfixed indor messages(efault tor me= NULLs.php,{ $filllll th(   et(efault tor m)s.php,,,,,,,,,es
+     ettion.(efault tor m);refil}
+n 1.5./**file_n* Same/ith id
+ onte Soblem eleconsol
+     - initers, h
+ le_n*file_n* @11, 20nte)
+  efault tor meand
+ ersionnoblem wRRAN file_n*@refilfixed ind ettion.(efault tor m).php,{ $filllll th(!ion i(efault tor m)s,{ $filllllllll th(!ionnte)
+ (efault tor m) || ! doll fixed efault tor m) || !ionams efault tor m)),{ $fillllllllllllles
+    _te)t_da If se_msg("Bcluoblem wRRANTand
+ 'efault tor m'");refilphp,,,,,,,,,h '$co;refillllllllloved licilllll t(ed.nte efault tor m,_Co) wit (MECTORY_SEeraATOR),{ $filllllllllllllea bug iand
+ .it (MECTORY_SEeraATOR;refilllllllllov.php,,,,,,,,,es
+    tra and or me=default tand
+;refillllloved l}
+n 1.5./**file_n* Rete) (Ae)
+    - 
+    ra nte    nside ls"]les ca
 
-        return array_keys($this->_config_data[$file_name]["sections"]);
-    }
+Vers variable. (Ah
+ le_n*file_n* @11, 20nte)
+  e doll  - ioblem wRRANTerssign
+    al settin*-@nd, 20nte)
+  e]les cal  - i(&get($fi) nction serssign
+    al settin*-@nd, 20nte)
+  e val  - i(&get($fi)  variableerssign
+    al settin*-@)
+     nte)
+ |his->_a_confia r his->_ditconfig
+ le_n*@refilfixed ind&sig($ doll  -  de]les cal  - i= NULL de val  - i= NULLs.php,{ $filllll th(ion i(e doll  - )),{ $fillllllllles
+    _te)t_da If se_msg('Eon instead oRRANT  - ');refilphp,,,,,h '$co;refilllll} (Mth){ $fillllllllle doll  - i=des
+    tra and or me.le doll  - ;refilllllllll th(!io et(es
+    tra and e  a[e doll  - ])s.php,,,,,,,,,lllles
+    ny proble($ doll  -  d attr);refilphp,}
+n$filllll th(!ion i(e val  - )),{ $filllllllll th(ion i(e]les cal  - )),{ $filllllllll$fil)
+     es
+    tra and e  a[e doll  - ]["ting"][e val  - ];refilllllllllo (Mth){ $filllllllllllll t(   et(es
+    tra and e  a[e doll  - ][maluoted
+"][e]les cal  - ]["ting"][e val  - ])s.php,,,,,,,,,llll$fil)
+     es
+    tra and e  a[e doll  - ]["aluoted
+"][e]les cal  - ]["ting"][e val  - ];refilllllllll$fil(Mth.php,,,,,,,,,$filllllrty.cons_temp);refillllllllloved licil} (Mth){ $filllllllll th(ion i(e]les cal  - )),{ $filllllllll$fil)
+     (his->)es
+    tra and e  a[e doll  - ]["ting"];refilllllllllo (Mth){ $filllllllllllll t(   et(es
+    tra and e  a[e doll  - ][maluoted
+"][e]les cal  - ]["ting"])s.php,,,,,,,,,llll$fil)
+     (his->)es
+    tra and e  a[e doll  - ]["aluoted
+"][e]les cal  - ]["ting"];refilllllllll$fil(Mth.php,,,,,,,,,$filllllrty.cons_temp);refillllllllloved licil}ved l}
+n 1.5./**file_n* Rete) (Ae)
+    - 
+    ra nte    nsi[$fi
+ le_n*file_n* @11, 20e doll  - inte)
+  oblem w)
+  (dwrap an/aluoted/tins.php,,*-@)
+     nte)
+ |his->_n_ext adsig(s.php,,*-@ebuadsig(sl)
+ e) (Ae)lse {
+      unctioblem wRRANTVersh '$conc  
+ le_n*@refilfixed ind&sig_)
+  efault t)
+ s.php,{ $filllllbal ($ doll  -  de]les cal  -  de val  - )mpip. l
+  ('/)
 
-
-    /**
-     * Get all global or section variable names.
-     *
-     * @param string $file_name config file to get info for
-     * @param string $section_name (optional) section to get info for
-     * @return array an array of variables names from the specified file/section
-     */
-    function get_var_names($file_name, $section = NULL)
-    {
-        if (empty($file_name)) {
-            $this->_trigger_error_msg('Empty config file name');
-            return;
-        } else if (!isset($this->_config_data[$file_name])) {
-            $this->_trigger_error_msg("Unknown config file '$file_name'");
-            return;
-        }
-
-        if (empty($section))
-            return array_keys($this->_config_data[$file_name]["vars"]);
-        else
-            return array_keys($this->_config_data[$file_name]["sections"][$section]["vars"]);
-    }
-
-
-    /**
-     * Clear loaded config data for a certain file or all files.
-     *
-     * @param string $file_name file to clear config data for
-     */
-    function clear($file_name = NULL)
-    {
-        if ($file_name === NULL)
-            $this->_config_data = array();
-        else if (isset($this->_config_data[$file_name]))
-            $this->_config_data[$file_name] = array();
-    }
-
-
-    /**
-     * Load a configuration file manually.
-     *
-     * @param string $file_name file name to load
-     * @param boolean $prepend_path whether current config path should be
-     *                              prepended to the filename
-     */
-    function load_file($file_name, $prepend_path = true)
-    {
-        if ($prepend_path && $this->_config_path != "")
-            $config_file = $this->_config_path . $file_name;
-        else
-            $config_file = $file_name;
-
-        ini_set('track_errors', true);
-        $fp = @fopen($config_file, "r");
-        if (!is_resource($fp)) {
-            $this->_trigger_error_msg("Could not open config file '$config_file'");
-            return false;
-        }
-
-        $contents = fread($fp, filesize($config_file));
-        fclose($fp);
-
-        if($this->fix_newlines) {
-            // fix mac/dos formatted newlines
-            $contents = preg_replace('!\r\n?!',"\n",$contents);
-        }
-
-        $config_data = array();
-
-        /* replace all multi-line values by placeholders */
-        if (preg_match_all('/"""(.*)"""/Us', $contents, $match)) {
-            $_triple_quotes = $match[1];
-            $_i = 0;
-            $contents = preg_replace('/""".*"""/Use', '"\x1b\x1b\x1b".$_i++."\x1b\x1b\x1b"', $contents);
-        } else {
-            $_triple_quotes = null;
-        }
-
-        /* Get global variables first. */
-        if ($contents{0} != '[' && preg_match("/^(.*?)(\n\[|\Z)/s", $contents, $match))
-            $config_data["vars"] = $this->_parse_config_block($match[1], $_triple_quotes);
-
-        /* Get section variables. */
-        $config_data["sections"] = array();
-        preg_match_all("/^\[(.*?)\]/m", $contents, $match);
-        foreach ($match[1] as $section) {
-            if ($section{0} == '.' && !$this->read_hidden)
-                continue;
-            if (preg_match("/\[".preg_quote($section, '/')."\](.*?)(\n\[|\Z)/s", $contents, $match))
-                if ($section{0} == '.')
-                    $section = substr($section, 1);
-                $config_data["sections"][$section]["vars"] = $this->_parse_config_block($match[1], $_triple_quotes);
-        }
-
-        $this->_config_data[$config_file] = $config_data;
-
-        return true;
-    }
-
-    /**#@+ @access private */
-    /**
-     * @var string $config_block
-     */
-    function _parse_config_block($config_block, $triple_quotes)
-    {
-        $vars = array();
-
-        /* First we grab the multi-line values. */
-        if (preg_match_all("/^([^=\n]+)=\s*\x1b\x1b\x1b(\d+)\x1b\x1b\x1b\s*$/ms", $config_block, $match, PREG_SET_ORDER)) {
-            for ($i = 0; $i < count($match); $i++) {
-                $this->_set_config_var($vars, trim($match[$i][1]), $triple_quotes[$match[$i][2]], false);
-            }
-            $config_block = preg_replace("/^[^=\n]+=\s*\x1b\x1b\x1b\d+\x1b\x1b\x1b\s*$/ms", "", $config_block);
-        }
-
-
-        $config_lines = preg_split("/\n+/", $config_block);
-
-        foreach ($config_lines as $line) {
-            if (preg_match("/^\s*(\.?\w+)\s*=(.*)/", $line, $match)) {
-                $var_value = preg_replace('/^([\'"])(.*)\1$/', '\2', trim($match[2]));
-                $this->_set_config_var($vars, trim($match[1]), $var_value, $this->booleanize);
-            }
-        }
-
-        return $vars;
-    }
-
-    /**
-     * @param array &$container
-     * @param string $var_name
-     * @param mixed $var_value
-     * @param boolean $booleanize determines whether $var_value is converted to
-     *                            to true/false
-     */
-    function _set_config_var(&$container, $var_name, $var_value, $booleanize)
-    {
-        if ($var_name{0} == '.') {
-            if (!$this->read_hidden)
-                return;
-            else
-                $var_name = substr($var_name, 1);
-        }
-
-        if (!preg_match("/^[a-zA-Z_]\w*$/", $var_name)) {
-            $this->_trigger_error_msg("Bad variable name '$var_name'");
-            return;
-        }
-
-        if ($booleanize) {
-            if (preg_match("/^(on|true|yes)$/i", $var_value))
-                $var_value = true;
-            else if (preg_match("/^(off|false|no)$/i", $var_value))
-                $var_value = false;
-        }
-
-        if (!isset($container[$var_name]) || $this->overwrite)
-            $container[$var_name] = $var_value;
-        else {
-            settype($container[$var_name], 'array');
-            $container[$var_name][] = $var_value;
-        }
-    }
-
-    /**
-     * @uses trigger_error() creates a PHP warning/error
-     * @param string $error_msg
-     * @param integer $error_type one of
-     */
-    function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING)
-    {
-        trigger_error("Config_File error: $error_msg", $error_type);
-    }
-    /**#@-*/
-}
-
-?>
+efault t)
+ , 3);refilphp,id. rrampi&es
+    sig($ doll  -  de]les cal  -  de val  - );refilllll)
+     ed. rra;refil}
+nllll/**file_n* G /**lz,ge useioblem wRRANTion ai
+ le_n*file_n* @rty.cons_temnst.FOO (Mditge useioblem wRRANTion a
+ le_n*@refilfixed indds w doll  - ion.php,{ $filllllrty.cons_tem_)
+ s(es
+    tra and e  a);refil}
+n 1.5./**file_n* G /**lz,nction s. (Andunctiatge useiR A Pfile_n*file_n* @11, 20nte)
+  e doll  - ioblem wRRANTerssignnction s. (Andunctfile_n* @rty.cons_temnst.FOO (Mditnction s. (Andunctio forlate blck fun
+ le_n*@refilfixed indds w]les cal  - s(e doll  - ).php,{ $fillllle doll  - i=des
+    tra and or me.le doll  - ;refilllll th(!io et(es
+    tra and e  a[e doll  - ])s){ $fillllllllles
+    tte)t_da If se_msg("Unops wioblem wRRANT'e doll  - '");refilphp,,,,,h '$co;refilllll}
+n$filllllrty.cons_tem_)
+ s(es
+    tra and e  a[e doll  - ][maluoted
+"]);refil}
+n 1.5./**file_n* G /**lz,U Lessemarty
+conso variable. (Anh
+ le_n*file_n* @11, 20nte)
+  e doll  - ioblem wRRANTerssign
+    al settin*-@nd, 20nte)
+  e]les cal  - i(&get($fi) nction serssign
+    al settin*-@rty.cons_temnst.FOO (Mditnfiguratio. (Andunctio forlate blck fun/aluoted
+ le_n*@refilfixed indds w val  - s(e doll  -  de]les campiNULLs.php,{ $filllll th(ion i(e doll  - )),{ $fillllllllles
+    _te)t_da If se_msg('Eon instead oRRANT  - ');refilphp,,,,,h '$co;refilllll} (Mth) th(!io et(es
+    tra and e  a[e doll  - ])s){ $fillllllllles
+    tte)t_da If se_msg("Unops wioblem wRRANT'e doll  - '");refilphp,,,,,h '$co;refilllll}
+n$filllll th(ion i(e]les ca)s.php,,,,,,,,,rty.cons_tem_)
+ s(es
+    tra and e  a[e doll  - ][mting"]);refilphp,(Mth.php,,,,,,,,,rty.cons_tem_)
+ s(es
+    tra and e  a[e doll  - ][maluoted
+"][e]les ca]["ting"]);refil}
+n 1.5./**file_n* Cmenttge useioblem we  aeocume ctho  reRRANTcumelz,l
+   h
+ le_n*file_n* @11, 20nte)
+  e doll  - iRRANTY; opertioblem we  aeocu
+ le_n*@refilfixed indopert(e doll  - mpiNULLs.php,{ $filllll th(e doll  - i=   NULLs.php,,,,,,,,,es
+    tra and e  aepit_temp);refil$fil(Mthl th(   et(es
+    tra and e  a[e doll  - ])s.php,,,,,,,,,es
+    tra and e  a[e doll  - ]mpit_temp);refil}
+n 1.5./**file_n* Le uerilelem eleconsol
+  ABILITYsyctions" file_n* @11, 20nte)
+  e doll  - iRRANT  - /**
+  a$file_n*-@nd, 20Monte)
+_$s. (Andtion.contematon time.nstead of fal Configbn
+ le_n*efilllllllllefilllllllllefillls. (Andrei)
+  nside l. (A
+ le_
