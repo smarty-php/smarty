@@ -557,7 +557,7 @@ class Smarty
     Purpose:    called for included templates
 \*======================================================================*/
     function _smarty_include($_smarty_include_tpl_file,$_smarty_def_vars,
-                $_smarty_include_vars,&$parent_smarty_config)
+                $_smarty_include_vars,&$_smarty_config_parent)
     {
         extract($_smarty_def_vars);
         extract($_smarty_include_vars);

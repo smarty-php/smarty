@@ -85,7 +85,7 @@ class Smarty_Compiler extends Smarty {
         /* TODO: speed up the following with preg_replace and /F once we require that version of PHP */
 
         /* loop through text blocks */
-        for ($curr_tb = 0; $curr_tb <= count($text_blocks); $curr_tb++) {
+        for ($curr_tb = 0; $curr_tb < count($text_blocks); $curr_tb++) {
             /* match anything within <? ?> */
             if (preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)!is', $text_blocks[$curr_tb], $sp_match)) {
                 /* found at least one match, loop through each one */
@@ -329,14 +329,14 @@ class Smarty_Compiler extends Smarty {
                    "    include_once 'Config_File.class.php';\n" .
                    "if (!is_object(\$GLOBALS['_smarty_conf_obj']) || get_class(\$GLOBALS['_smarty_conf_obj']) != 'config_file')\n" .
                    "    \$GLOBALS['_smarty_conf_obj'] = new Config_File('".$this->config_dir."');\n" .
-				   "if (isset(\$parent_smarty_config) && $update_parent)\n" .
-				   "	\$parent_smarty_config = array_merge((array)\$parent_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n" .
+				   "if ($update_parent)\n" .
+				   "	\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n" .
                    "\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
 
         if (!empty($attrs['section'])) {
-			$output	.=	"if (isset(\$parent_smarty_config) && $update_parent)\n" .
-						"	\$parent_smarty_config = array_merge((array)\$parent_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n" .
-            		  	"\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
+			$output	.=	"if ($update_parent)\n" .
+						"	\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n" .
+						"\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
 		}
 
         $output .= '?>';

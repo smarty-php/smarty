@@ -4,3 +4,5 @@
 * handle asp style tags in $php_handler
 * correctly capture nested php tag syntax in templates:
   <?php echo "<?php exit(); ?>"; ?>
+* think about passing default structures to includes, i.e. {include
+  default=$foo}, then using $bar in included template, instead of $foo.bar
