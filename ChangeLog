@@ -1,3 +1,12 @@
+2004-08-31  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty_Compiler.class.php:
+      fix preg_quote
+
+    * libs/Smarty_Compiler.class.php:
+      fix math in object params, clean up some regex on the way, change
+      preg_ delimiters to ~ to avoid character clashes with ! and %
+
 2004-08-30  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
