@@ -1267,7 +1267,7 @@ s m o k e r s   a r e   p. . .</programlisting>
 {if $smarty.capture.banner ne ""}
 	&lt;tr&gt;
 		&lt;td&gt;
-			{$return}
+			{$smarty.capture.banner}
 		&lt;/td&gt;
 	&lt;/tr&gt;
 {/if}</programlisting>
