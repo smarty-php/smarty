@@ -907,22 +907,12 @@ class Smarty
      */    
     function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null, $exp_time = null)
     {
-        
-        if (!isset($compile_id))
-            $compile_id = $this->compile_id;
-
-        if (isset($cache_id))
-            $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
-        elseif(isset($compile_id))
-            $auto_id = $compile_id;
-        else
-            $auto_id = null;
-
+        /* the use of $compile_id is deprecated, so it is ignored */
         if (!empty($this->cache_handler_func)) {
             $funcname = $this->cache_handler_func;
-            return $funcname('clear', $this, $dummy, $tpl_file, $cache_id, $compile_id);
+            return $funcname('clear', $this, $dummy, $tpl_file, $cache_id, null);
         } else {
-            return $this->_rm_auto($this->cache_dir, $tpl_file, $auto_id, $exp_time);
+            return $this->_rm_auto($this->cache_dir, $tpl_file, $cache_id, $exp_time);
         }
         
     }
@@ -2285,14 +2275,14 @@ class Smarty
         } else {
             // use local cache file
             if (isset($cache_id))
-                $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
+                $_auto_id = (isset($compile_id)) ? $cache_id . '|' .  $compile_id : $cache_id;
             elseif(isset($compile_id))
-                $auto_id = $compile_id;
+                $_auto_id = $compile_id;
             else
-                $auto_id = null;
+                $_auto_id = null;
 
-            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $auto_id);
-            $this->_write_file($cache_file, $results, true);
+            $_cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $_auto_id);
+            $this->_write_file($_cache_file, $results, true);
             return true;
         }
     }
@@ -2322,19 +2312,19 @@ class Smarty
 
         if (!empty($this->cache_handler_func)) {
             // use cache_handler function
-            $funcname = $this->cache_handler_func;
-            $funcname('read', $this, $results, $tpl_file, $cache_id, $compile_id);
+            $_funcname = $this->cache_handler_func;
+            $_funcname('read', $this, $results, $tpl_file, $cache_id, $compile_id);
         } else {
             // use local cache file
             if (isset($cache_id))
-                $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
+                $_auto_id = (isset($compile_id)) ?  $cache_id . '|' . $compile_id : $cache_id;
             elseif(isset($compile_id))
-                $auto_id = $compile_id;
+                $_auto_id = $compile_id;
             else
-                $auto_id = null;
+                $_auto_id = null;
 
-            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $auto_id);
-            $results = $this->_read_file($cache_file);
+            $_cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $_auto_id);
+            $results = $this->_read_file($_cache_file);
         }
 
         if (empty($results)) {
@@ -2342,10 +2332,10 @@ class Smarty
             return false;
         }
 
-        $cache_split = explode("\n", $results, 2);
-        $cache_header = $cache_split[0];
+        $_cache_split = explode("\n", $_results, 2);
+        $_cache_header = $_cache_split[0];
 
-        $this->_cache_info = unserialize($cache_header);
+        $this->_cache_info = unserialize($_cache_header);
 
         if ($this->caching == 2 && isset ($this->_cache_info['expires'])){
             // caching by expiration time
@@ -2380,7 +2370,7 @@ class Smarty
             }
         }
 
-        $results = $cache_split[1];
+        $results = $_cache_split[1];
         $content_cache["$tpl_file,$cache_id,$compile_id"] = array($results, $this->_cache_info);
 
         return true;

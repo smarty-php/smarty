@@ -1,3 +1,6 @@
+    - made compile_id ignored in clear_cache, made order of
+      auto_file_name $cache_id.$compile_id again, applied the the new
+      variable-naming-scheme for cache_file_handing functions (messju)
     - removed notice of undefined var in _rm_auto() (messju)
     - added warning message when an array is passed as
       the "checked" value of html_radios (Monte)
