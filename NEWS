@@ -1,3 +1,6 @@
+    - add debug template to secure dir (Ferdinand Beyer, Monte)
+    - add template_dir to secure_dir by default (Ferdinand
+      Beyer, Monte)
     - added support for object method access (Monte)
     - fixed bug with directories named '0' (Frank Bauer, Monte)
     - add javascript parameter to escape modifier (Monte)

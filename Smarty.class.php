@@ -132,7 +132,7 @@ class Smarty
 
 
     var $security       =   false;      // enable template security (default false)
-    var $secure_dir     =   array('templates'); // array of directories considered secure
+    var $secure_dir     =   array(); // array of directories considered secure
     var $security_settings  = array(
                                     'PHP_HANDLING'    => false,
                                     'IF_FUNCS'        => array('array', 'list',
@@ -212,6 +212,10 @@ class Smarty
 \*======================================================================*/
     function Smarty()
     {
+        if($this->security) {
+            // add template_dir to secure_dir array
+            $this->secure_dir = array_merge(array($this->template_dir),$this->secure_dir);
+        }
         foreach ($this->global_assign as $key => $var_name) {
             if (is_array($var_name)) {
                 foreach ($var_name as $var) {
@@ -764,6 +768,9 @@ function _generate_debug_output() {
 	if(empty($this->debug_tpl)) {
 		// set path to debug template from SMARTY_DIR
 		$this->debug_tpl = 'file:'.SMARTY_DIR.'debug.tpl';
+        if($this->security && is_file($this->debug_tpl)) {
+            $secure_dir[] = $this->debug_tpl;
+        }
 	}
 
 	$_ldelim_orig = $this->left_delimiter;
