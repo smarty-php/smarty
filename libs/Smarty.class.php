@@ -391,7 +391,7 @@ class Smarty
 					   (?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*" | \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\' | (?>[^"\' ]+))+
 					  )
 				      (?:\s+(.*))?
-					    /x', $template_tag, $match);
+					    /xs', $template_tag, $match);
 		list(, $tag_command, $tag_args) = $match;
 
 		/* If the tag name matches a variable or section property definition,
@@ -592,6 +592,8 @@ class Smarty
 
 		if (isset($attrs['show'])) {
 			$show_check_code = "{$section_props}['show'] && ";
+		} else {
+			$output .= "{$section_props}['show'] = {$section_props}['loop'] > 0;\n";
 		}
 
 		$output .= "if ($loop_check_code $show_check_code true): ";
@@ -858,9 +860,9 @@ class Smarty
 
 	function _parse_var($var_expr)
 	{
-		$custom_mods = explode('|', substr($var_expr, 1));
+		$modifiers = explode('|', substr($var_expr, 1));
 
-		$sections = explode('/', array_shift($custom_mods));
+		$sections = explode('/', array_shift($modifiers));
 		$var_name = array_pop($sections);
 
 		$output = "\$$var_name";
@@ -869,42 +871,42 @@ class Smarty
 			$output .= "[\$_sections['$section']['properties']['index']]";
 		}
 
-		$this->_parse_modifiers($output, $custom_mods);
+		$this->_parse_modifiers($output, $modifiers);
 
 		return $output;
 	}
 
 	function _parse_conf_var($conf_var_expr)
 	{
-		$custom_mods = explode('|', $conf_var_expr);
+		$modifiers = explode('|', $conf_var_expr);
 
-		$var_name = substr(array_shift($custom_mods), 1, -1);
+		$var_name = substr(array_shift($modifiers), 1, -1);
 
 		$output = "\$_config['$var_name']";
 
-		$this->_parse_modifiers($output, $custom_mods);
+		$this->_parse_modifiers($output, $modifiers);
 
 		return $output;
 	}
 
 	function _parse_section_prop($section_prop_expr)
 	{
-		$custom_mods = explode('|', $section_prop_expr);
+		$modifiers = explode('|', $section_prop_expr);
 
-		preg_match('!%(\w+)\.(\w+)%!', array_shift($custom_mods), $match);
+		preg_match('!%(\w+)\.(\w+)%!', array_shift($modifiers), $match);
 		$section_name = $match[1];
 		$prop_name = $match[2];
 
 		$output = "\$_sections['$section_name']['properties']['$prop_name']";
 
-		$this->_parse_modifiers($output, $custom_mods);
+		$this->_parse_modifiers($output, $modifiers);
 
 		return $output;
 	}
 
-	function _parse_modifiers(&$output, $custom_mods)
+	function _parse_modifiers(&$output, $modifiers)
 	{
-		foreach ($custom_mods as $modifier) {
+		foreach ($modifiers as $modifier) {
 			$modifier = explode(':', $modifier);
 			$modifier_name = array_shift($modifier);
 

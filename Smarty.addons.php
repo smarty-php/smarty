@@ -76,13 +76,13 @@ function smarty_mod_spacify($string, $spacify_char = ' ')
 }
 
 
-function smarty_mod_date_format($string, $format)
+function smarty_mod_date_format($string, $format="%b %e, %Y")
 {
 	return strftime($format, $string);
 }
 
 
-function smarty_mod_string_format($string, $format="%b %e, %Y")
+function smarty_mod_string_format($string, $format)
 {
 	return sprintf($format, $string);
 }
@@ -92,7 +92,7 @@ function smarty_mod_replace($string, $search, $replace)
 	return str_replace($search, $replace, $string);
 }
 
-function smarty_mod_strip_tags($string, $replace_with_space = false)
+function smarty_mod_strip_tags($string, $replace_with_space = true)
 {
 	if ($replace_with_space)
 		return preg_replace('!<[^>]*?>!', ' ', $string);
