@@ -1,3 +1,5 @@
+    - update fetch function to give proper warning when fetching a non-readable
+      or non-existant file (Monte)
     - fixed problem with newline at the end of included templates (Monte, Andrei)
     - added feature to regenerate cache if compile_check is enabled and an
       involved template or config file gets modified (Monte)

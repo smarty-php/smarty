@@ -572,10 +572,14 @@ function smarty_func_fetch($args, &$smarty_obj) {
 			}
 		}
 		if (!$resource_is_secure) {
-        	$smarty_obj->_trigger_error_msg("(secure mode) fetching '$file' is not allowed");
+        	$smarty_obj->_trigger_error_msg("(secure mode) fetch '$file' is not allowed");
         	return;
-		}				
+		}
 	}
+	if (!@is_readable($file)) {
+    	$smarty_obj->_trigger_error_msg("fetch cannot read file '$file'");
+    	return;			
+	}				
 
     readfile($file);
 }
