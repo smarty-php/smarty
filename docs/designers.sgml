@@ -501,18 +501,15 @@ Dealers Will Hear Car Talk at Noon.
 <example>
 <title>date_format</title>
 <programlisting>
-{$currentDate}
-{$currentDate|date_format:"%A, %B %e, %Y"}
-{$currentDate|date_format:"%H:%M:%S"}
-{* format current time if $currentDate is empty *}
-{$currentDate|date_format:"%H:%M:%S":"now"}
+{$smarty.now|date_format}
+{$smarty.now|date_format:"%A, %B %e, %Y"}
+{$smarty.now|date_format:"%H:%M:%S"}
 
 OUTPUT:
 
 Feb 6, 2001
 Tuesday, February 6, 2001
-14:33:00
-22:23:12</programlisting>
+14:33:00</programlisting>
 </example>
 <example>
 <title>date_format conversion specifiers</title>
