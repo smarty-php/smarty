@@ -671,23 +671,6 @@ set       toc,title
 </xsl:template>
 
 
-
-<!-- Add VERSION INFORMATION below FUNCTION name,
-     prevent function names from appearing twice
-<xsl:template match="refnamediv">
-  <fo:block font-family="sans-serif" font-weight="bold" font-size="20pt">
-    <xsl:apply-templates select="refname[1]"/>
-  </fo:block>
-  <fo:block font-size="11pt">
-    (<xsl:value-of select="$version/function[@name=string(current()/refname)]/@from"/>)
-  </fo:block>
-  <fo:block xsl:use-attribute-sets="normal.para.spacing" font-size="12pt">
-    <xsl:apply-templates select="refname[1]"/><xsl:text> - </xsl:text>
-    <xsl:apply-templates select="refpurpose"/>
-  </fo:block>
-</xsl:template> -->
-
-
 <!-- Make the PROTOTYPE an own paragraph -->
 <xsl:template match="methodsynopsis">
   <fo:block font-size="11pt">
