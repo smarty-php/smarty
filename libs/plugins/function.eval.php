@@ -16,6 +16,9 @@ function smarty_function_eval($params, &$this)
         $this->trigger_error("eval: missing 'var' parameter");
         return;
     }
+	if($var == '') {
+		return;
+	}
 
 	$this->_compile_template("evaluated template", $var, $source);
 	
