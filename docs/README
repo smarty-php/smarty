@@ -10,6 +10,7 @@ Firstly issue these commands:
 
 TEST:
  * make test
+ * make test_xml (test for XML validity)
 
 MAKE:
  * make (to make plain html)

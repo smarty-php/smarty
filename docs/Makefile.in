@@ -26,6 +26,7 @@ LANG=@LANG@
 NSGMLS=@NSGMLS@
 JADE=@JADE@  -D . -wno-idref
 XSLTPROC=@XSLTPROC@
+XMLLINT=@XMLLINT@
 FOP=@FOP@
 XMLDCL=./dtds/dbxml-4.1.2/phpdocxml.dcl
 CATALOG=@CATALOG@
@@ -57,6 +58,8 @@ pdf: FORCE
 test:
 	$(NSGMLS) -i lang-$(LANG) -s $(XMLDCL) manual.xml 
 
+test_xml:
+	$(XMLLINT) --noent --noout --valid manual.xml
 
 revcheck: FORCE
 	$(PHP) -f scripts/revcheck.php $(LANG) > revcheck.html

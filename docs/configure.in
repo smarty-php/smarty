@@ -240,7 +240,7 @@ AC_ARG_WITH(fop,
   fi
 ],[
   if test -e ../../phpdoc-tools/fop/fop.bat ; then
-    AC_MSG_CHECKING([for xsltproc])
+    AC_MSG_CHECKING([for FOP])
     FOP=../../phpdoc-tools/fop/fop.bat
     AC_MSG_RESULT($FOP)
   else
@@ -252,6 +252,48 @@ if test $FOP = "no"; then
   AC_MSG_WARN([no fop binary found, PDF generation work])
 fi
 AC_SUBST(FOP)
+
+dnl }}}
+
+dnl {{{   check for xmllint
+
+AC_ARG_WITH(xmllint,
+[  --with-xmllint=PATH     check for xmllint],
+[
+  if test $withval != "yes"; then
+    AC_MSG_CHECKING([for xmllint])
+    if test -x $withval -a -f $withval
+    then
+      XMLLINT=$withval
+      AC_MSG_RESULT($XMLLINT)
+    else
+      XMLLINT=no
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR([$withval: no xmllint binary found])
+    fi
+  else
+    if test -e ../../phpdoc-tools/libxml/xmllint.exe ; then
+      AC_MSG_CHECKING([for xmllint])
+      XSLTPROC=../../phpdoc-tools/libxml/xmllint.exe
+      AC_MSG_RESULT($XMLLINT)
+    else
+      AC_PATH_PROG(XMLLINT,"xmllint",no)
+    fi
+  fi
+],[
+  if test -e ../../phpdoc-tools/libxml/xmllint.exe ; then
+    AC_MSG_CHECKING([for xmllint])
+    XMLLINT=../../phpdoc-tools/libxml/xmllint.exe
+    AC_MSG_RESULT($XMLLINT)
+  else
+    AC_PATH_PROG(XMLLINT,"xmllint",no)
+  fi
+]
+)
+if test $XMLLINT = "no"; then
+  AC_MSG_WARN([no xmllint binary found, XML Validation won't work])
+fi
+AC_SUBST(XMLLINT)
 
 dnl }}}
 
