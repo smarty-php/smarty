@@ -46,16 +46,15 @@
 
 /**
  * set SMARTY_DIR to absolute path to Smarty library files.
- * if not defined, include_path will be used.
+ * if not defined, include_path will be used. Sets SMARTY_DIR only if user
+ * application has not already defined it.
  */
-
-define('SMARTY_DIR_SEP', DIRECTORY_SEPARATOR);
 
 /**
  * Sets SMARTY_DIR only if user application has not already defined it
  */
 if (!defined('SMARTY_DIR')) {
-    define('SMARTY_DIR', dirname(__FILE__) . SMARTY_DIR_SEP);
+    define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 }
 
 define('SMARTY_PHP_PASSTHRU',   0);
@@ -1561,7 +1560,7 @@ class Smarty
                 // relative pathname to $file_base_path
                 // use the first directory where the file is found
                 foreach ((array)$file_base_path as $_curr_path) {
-                    $_fullpath = $_curr_path . SMARTY_DIR_SEP . $resource_name;
+                    $_fullpath = $_curr_path . DIRECTORY_SEPARATOR . $resource_name;
                     if (file_exists($_fullpath) && is_file($_fullpath)) {
                         $resource_name = $_fullpath;
                         return true;
@@ -2050,20 +2049,20 @@ class Smarty
         static $_dir_sep_enc = null;
         
         if(!isset($_dir_sep)) {
-            $_dir_sep_enc = urlencode(SMARTY_DIR_SEP);
+            $_dir_sep_enc = urlencode(DIRECTORY_SEPARATOR);
             if($this->use_sub_dirs) {
-                $_dir_sep = SMARTY_DIR_SEP;
+                $_dir_sep = DIRECTORY_SEPARATOR;
             } else {
                 $_dir_sep = '^';        
             }
         }
         
         if(@is_dir($auto_base)) {
-            $res = $auto_base . SMARTY_DIR_SEP;
+            $res = $auto_base . DIRECTORY_SEPARATOR;
         } else {
             // auto_base not found, try include_path
             $this->_get_include_path($auto_base,$_include_path);
-            $res = $_include_path . SMARTY_DIR_SEP;
+            $res = $_include_path . DIRECTORY_SEPARATOR;
         }
         
         if(isset($auto_id)) {
@@ -2121,8 +2120,8 @@ class Smarty
                 while (false !== ($filename = readdir($handle))) {
                     if($filename == '.' || $filename == '..') {
                         continue;    
-                    } elseif (substr($auto_base . SMARTY_DIR_SEP . $filename,0,strlen($tname)) == $tname) {
-                        $res &= (bool)$this->_unlink($auto_base . SMARTY_DIR_SEP . $filename, $exp_time);
+                    } elseif (substr($auto_base . DIRECTORY_SEPARATOR . $filename,0,strlen($tname)) == $tname) {
+                        $res &= (bool)$this->_unlink($auto_base . DIRECTORY_SEPARATOR . $filename, $exp_time);
                     }
                 }
             }
@@ -2147,11 +2146,11 @@ class Smarty
 
             while (false !== ($entry = readdir($handle))) {
                 if ($entry != '.' && $entry != '..') {
-                    if (@is_dir($dirname . SMARTY_DIR_SEP . $entry)) {
-                        $this->_rmdir($dirname . SMARTY_DIR_SEP . $entry, $level + 1, $exp_time);
+                    if (@is_dir($dirname . DIRECTORY_SEPARATOR . $entry)) {
+                        $this->_rmdir($dirname . DIRECTORY_SEPARATOR . $entry, $level + 1, $exp_time);
                     }
                     else {
-                        $this->_unlink($dirname . SMARTY_DIR_SEP . $entry, $exp_time);
+                        $this->_unlink($dirname . DIRECTORY_SEPARATOR . $entry, $exp_time);
                     }
                 }
             }
@@ -2193,8 +2192,8 @@ class Smarty
     function _create_dir_structure($dir)
     {
         if (!file_exists($dir)) {
-            $_dir_parts = preg_split('!\\'.SMARTY_DIR_SEP.'+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
-            $_new_dir = ($dir{0} == SMARTY_DIR_SEP) ? SMARTY_DIR_SEP : '';
+            $_dir_parts = preg_split('!\\'.DIRECTORY_SEPARATOR.'+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
+            $_new_dir = ($dir{0} == DIRECTORY_SEPARATOR) ? DIRECTORY_SEPARATOR : '';
             
             // do not attempt to test or make directories outside of open_basedir
             $_open_basedir_ini = ini_get('open_basedir');
@@ -2225,7 +2224,7 @@ class Smarty
                     $this->trigger_error("problem creating directory \"$dir\"");
                     return false;
                 }
-                $_new_dir .= SMARTY_DIR_SEP;
+                $_new_dir .= DIRECTORY_SEPARATOR;
             }
         }
     }
@@ -2338,7 +2337,7 @@ class Smarty
 
             if (isset($this->_cache_info['config'])) {
                 foreach ($this->_cache_info['config'] as $config_dep) {
-                    if ($this->_cache_info['timestamp'] < filemtime($this->config_dir.SMARTY_DIR_SEP.$config_dep)) {
+                    if ($this->_cache_info['timestamp'] < filemtime($this->config_dir.DIRECTORY_SEPARATOR.$config_dep)) {
                         // config file has changed, regenerate cache
                         return false;
                     }
@@ -2381,7 +2380,7 @@ class Smarty
         
         foreach ((array)$this->plugins_dir as $_plugin_dir) {
 
-            $_plugin_filepath = $_plugin_dir . SMARTY_DIR_SEP . $_plugin_filename;
+            $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
 
             // see if path is relative
             if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $_plugin_dir)) {
@@ -2401,7 +2400,7 @@ class Smarty
         if(isset($_relative_paths)) {
             foreach ((array)$_relative_paths as $_plugin_dir) {
 
-                $_plugin_filepath = $_plugin_dir . SMARTY_DIR_SEP . $_plugin_filename;
+                $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
 
                 if ($this->_get_include_path($_plugin_filepath, $_include_filepath)) {
                     return $_include_filepath;
@@ -2671,8 +2670,8 @@ class Smarty
             }
         }
         foreach ($_path_array as $_include_path) {
-            if (file_exists($_include_path . SMARTY_DIR_SEP . $file_path)) {
-                   $new_file_path = $_include_path . SMARTY_DIR_SEP . $file_path;
+            if (file_exists($_include_path . DIRECTORY_SEPARATOR . $file_path)) {
+                   $new_file_path = $_include_path . DIRECTORY_SEPARATOR . $file_path;
                 return true;
             }
         }
