@@ -1,78 +1,49 @@
 <?php
-/*
- * Project:     Smarty: the PHP compiled template engine
- * File:        Smarty.addons.php
- * Author:      Monte Ohrt <monte@ispi.net>
- *              Andrei Zmievski <andrei@ispi.net>
- * Version:     1.3.0
- * Copyright:   2001 ispi of Lincoln, Inc.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * You may contact the authors of Smarty by e-mail at:
- * monte@ispi.net
- * andrei@ispi.net
- *
- * Or, write to:
- * Monte Ohrt
- * CTO, ispi
- * 237 S. 70th suite 220
- * Lincoln, NE 68510
- *
- * The latest version of Smarty can be obtained from:
- * http://www.phpinsider.com
- *
- */
+
+$smarty_plugin_info['name'] = 'standard';
 
 
-/*============================================*\
-  Inserts handler
-\*============================================*/
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'lower',
+                                       'impl' => 'strtolower');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'upper',
+                                       'impl' => 'strtoupper');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'capitalize',
+                                       'impl' => 'ucwords');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'escape',
+                                       'impl' => 'smarty_mod_escape');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'truncate',
+                                       'impl' => 'smarty_mod_truncate');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'spacify',
+                                       'impl' => 'smarty_mod_spacify');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'date_format',
+                                       'impl' => 'smarty_mod_date_format');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'string_format',
+                                       'impl' => 'smarty_mod_string_format');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'replace',
+                                       'impl' => 'smarty_mod_replace');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'strip_tags',
+                                       'impl' => 'smarty_mod_strip_tags');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_MODIFIER,
+                                       'name' => 'default',
+                                       'impl' => 'smarty_mod_default');
 
-function _smarty_insert_handler($args, $caching, $delimiter)
-{
-    if ($caching) {
-        $arg_string = serialize($args);
-        return "$delimiter{insert_cache $arg_string}$delimiter";
-    } else {
-        $function_name = 'insert_'.$args['name'];
-        return $function_name($args);
-    }
-}
 
-
-/*============================================*\
-  Modifiers
-\*============================================*/
-
-function _smarty_mod_handler()
-{
-    $args = func_get_args();
-    list($func_name, $map_array) = array_splice($args, 0, 2);
-    $var = $args[0];
-
-    if ($map_array && is_array($var)) {
-        foreach ($var as $key => $val) {
-            $args[0] = $val;
-            $var[$key] = call_user_func_array($func_name, $args);
-        }
-        return $var;
-    } else {
-        return call_user_func_array($func_name, $args);
-    }
-}
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_FUNCTION,
+                                       'name' => 'html_options',
+                                       'impl' => 'smarty_func_html_options');
+$smarty_plugin_info['table'][] = array('type' => SMARTY_PLUGIN_FUNCTION,
+                                       'name' => 'html_select_date',
+                                       'impl' => 'smarty_func_html_select_date');
 
 
 /*======================================================================*\
@@ -118,28 +89,51 @@ function smarty_mod_truncate($string, $length = 80, $etc = '...', $break_words =
 }
 
 
+/*======================================================================*\
+    Function: smarty_mod_spacify
+    Purpose:  Insert a character (space by default) between every
+              character in the string.
+\*======================================================================*/
 function smarty_mod_spacify($string, $spacify_char = ' ')
 {
     return implode($spacify_char, preg_split('//', $string, -1, PREG_SPLIT_NO_EMPTY));
 }
 
 
+/*======================================================================*\
+    Function: smarty_mod_date_format
+    Purpose:  Output formatted date
+\*======================================================================*/
 function smarty_mod_date_format($string, $format="%b %e, %Y")
 {
     return strftime($format, $string);
 }
 
 
+/*======================================================================*\
+    Function: smarty_mod_string_format
+    Purpose:  Output formatted string
+\*======================================================================*/
 function smarty_mod_string_format($string, $format)
 {
     return sprintf($format, $string);
 }
 
+
+/*======================================================================*\
+    Function: smarty_mod_replace
+    Purpose:  Perform simple search and replace
+\*======================================================================*/
 function smarty_mod_replace($string, $search, $replace)
 {
     return str_replace($search, $replace, $string);
 }
 
+
+/*======================================================================*\
+    Function: smarty_mod_strip_tags
+    Purpose:  Strip HTML tags
+\*======================================================================*/
 function smarty_mod_strip_tags($string, $replace_with_space = true)
 {
     if ($replace_with_space)
@@ -148,7 +142,12 @@ function smarty_mod_strip_tags($string, $replace_with_space = true)
         return strip_tags($string);
 }
 
-function smarty_mod_default($string, $default="")
+
+/*======================================================================*\
+    Function: smarty_mod_default
+    Purpose:  Output default value if string is empty
+\*======================================================================*/
+function smarty_mod_default($string, $default='')
 {
     if(empty($string))
         return $default;
@@ -156,9 +155,6 @@ function smarty_mod_default($string, $default="")
         return $string;
 }
 
-/*============================================*\
-  Custom tag functions
-\*============================================*/
 
 /*======================================================================*\
     Function: smarty_func_html_options
