@@ -523,7 +523,6 @@ class Smarty
                     if(!$this->allow_php) {
                         /* we don't allow php, so echo anything in <? ?> */
                         $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.str_replace("'","\'",$curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
-                        /* echo <script language=php> tag */
                     }                    
                     elseif(!preg_match("!^(<\?(php | )|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!i",$curr_sp))
                         /* we allow php, so echo only non-php such as <?xml ?> */
