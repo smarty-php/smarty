@@ -335,6 +335,26 @@ class Smarty
     }
 
 /*======================================================================*\
+    Function: register_object
+    Purpose:  Registers object to be used in templates
+\*======================================================================*/
+    function register_object($object, &$object_impl)
+    {
+        $this->_plugins['object'][$object] =
+            array(&$object_impl, null, null, false);
+    }
+
+/*======================================================================*\
+    function: unregister_object
+    Purpose:  Unregisters object
+\*======================================================================*/
+    function unregister_object($object)
+    {
+        unset($this->_plugins['object'][$object]);
+    }
+	
+	
+/*======================================================================*\
     Function: register_block
     Purpose:  Registers block function to be used in templates
 \*======================================================================*/
@@ -614,10 +634,12 @@ class Smarty
     function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false)
     {
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
+
         if($this->security && !in_array($this->template_dir, $this->secure_dir)) {
             // add template_dir to secure_dir array
             array_unshift($this->secure_dir, $this->template_dir);
         }
+
         if (!$this->debugging && $this->debugging_ctrl == 'URL'
                && strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
             // enable debugging from URL
@@ -1868,10 +1890,10 @@ function _run_insert_handler($args)
     function _load_plugins($plugins)
     {
 		
-        foreach ($plugins as $plugin_info) {
+        foreach ($plugins as $plugin_info) {			
             list($type, $name, $tpl_file, $tpl_line, $delayed_loading) = $plugin_info;
             $plugin = &$this->_plugins[$type][$name];
-
+			
             /*
              * We do not load plugin more than once for each instance of Smarty.
              * The following code checks for that. The plugin can also be
@@ -1882,10 +1904,13 @@ function _run_insert_handler($args)
              * whether the dynamically registered plugin function has been
              * checked for existence yet or not.
              */
-            if (isset($plugin)) {
+            if (isset($plugin)) {			
                 if (!$plugin[3]) {
-                    if (!function_exists($plugin[0])) {
+					// no line number, see if it is valid
+                    if ($type == 'function' && !function_exists($plugin[0])) {
                         $this->_trigger_plugin_error("$type '$name' is not implemented", $tpl_file, $tpl_line, __FILE__, __LINE__);
+					} elseif ($type == 'object' && !is_object($plugin[0])) {
+                        $this->_trigger_plugin_error("$type '$name' is not an object", $tpl_file, $tpl_line, __FILE__, __LINE__);
                     } else {
                         $plugin[1] = $tpl_file;
                         $plugin[2] = $tpl_line;

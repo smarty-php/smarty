@@ -144,7 +144,11 @@ class Smarty_Compiler extends Smarty {
 		// foo123
 		// _foo_bar
 		$this->_func_regexp = '[a-zA-Z_]\w*';
-		
+
+		// matches valid registered object:
+		// foo.bar
+		$this->_reg_obj_regexp = '[a-zA-Z_]\w*\.[a-zA-Z_]\w*';
+				
 		// matches valid parameter values:
 		// true
 		// $foo
@@ -342,13 +346,14 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_tag($template_tag)
     {		
-		
+				
         /* Matched comment. */
         if ($template_tag{0} == '*' && $template_tag{strlen($template_tag) - 1} == '*')
             return '';
 		
         /* Split tag into two three parts: command, command modifiers and the arguments. */
-        if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
+        if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp
+				. '|' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
                       (?:\s+(.*))?$
                     /xs', $template_tag, $match)) {
 			$this->_syntax_error("unrecognized tag: $template_tag", E_USER_ERROR, __FILE__, __LINE__);
@@ -357,16 +362,21 @@ class Smarty_Compiler extends Smarty {
         $tag_command = $match[1];
         $tag_modifier = isset($match[2]) ? $match[2] : null;
         $tag_args = isset($match[3]) ? $match[3] : null;
-
-        /* If the tag name is not a function, we process it. */
-        if (!preg_match('!^\/?' . $this->_func_regexp . '$!', $tag_command)) {
-            $_tag_attrs = $this->_parse_attrs($tag_args);
-            $return = $this->_parse_var_props($tag_command . $tag_modifier, $_tag_attrs);
+		
+		
+        /* If the tag name is a variable or object, we process it. */
+        if (preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '$!', $tag_command)) {
+            $return = $this->_parse_var_props($tag_command . $tag_modifier, $this->_parse_attrs($tag_args));
 			if(isset($_tag_attrs['assign'])) {
 				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $return ); ?>\n";  
 			} else {
             	return "<?php echo $return; ?>\n";
 			}
+		}
+		
+	    /* If the tag name is a registered object, we process it. */
+        if (preg_match('!^' . $this->_reg_obj_regexp . '$!', $tag_command)) {
+			return $this->_compile_registered_object_tag($tag_command, $this->_parse_attrs($tag_args), $tag_modifier);
 		}
 
         switch ($tag_command) {
@@ -453,7 +463,7 @@ class Smarty_Compiler extends Smarty {
             case 'insert':
                 return $this->_compile_insert_tag($tag_args);
 
-            default:					
+            default:
                 if ($this->_compile_compiler_tag($tag_command, $tag_args, $output)) {
                     return $output;
                 } else if ($this->_compile_block_tag($tag_command, $tag_args, $tag_modifier, $output)) {
@@ -631,6 +641,51 @@ class Smarty_Compiler extends Smarty {
         return '<?php echo ' . $return . " ; ?>\n";
     }
 
+/*======================================================================*\
+    Function: _compile_registered_object_tag
+    Purpose:  compile a registered object tag
+\*======================================================================*/
+    function _compile_registered_object_tag($tag_command, $attrs, $tag_modifier)
+    {
+		list($object, $obj_comp) = explode('.', $tag_command);
+        $this->_add_plugin('object', $object);
+
+        $arg_list = array();
+		if(count($attrs)) {
+			$_assign_var = false;
+        	foreach ($attrs as $arg_name => $arg_value) {
+				if($arg_name == 'assign') {
+					$_assign_var = $arg_value;
+					continue;
+				}
+            	if (is_bool($arg_value))
+                	$arg_value = $arg_value ? 'true' : 'false';
+            	$arg_list[] = "'$arg_name' => $arg_value";
+        	}
+		}
+
+		if(!$this->_plugins['object'][$object][0]) {
+			$this->_trigger_plugin_error("Smarty error: Registered '$object' is not an object");
+		} elseif(method_exists($this->_plugins['object'][$object][0], $obj_comp)) {
+			// method
+			$return = "\$this->_plugins['object']['$object'][0]->$obj_comp(array(".implode(',', (array)$arg_list)."), \$this)";
+		} else {
+			// property
+			$return = "\$this->_plugins['object']['$object'][0]->$obj_comp";
+		}
+		
+		if($tag_modifier != '') {
+			$this->_parse_modifiers($return, $tag_modifier);
+		}
+		
+		if($_assign_var) {
+			return "<?php \$this->assign('" . $this->_dequote($_assign_var) ."',  $return); ?>\n";
+		} else {
+        	return '<?php echo ' . $return . " ; ?>\n";
+		}
+    }
+	
+	
 
 /*======================================================================*\
     Function: _compile_insert_tag
@@ -1186,7 +1241,7 @@ class Smarty_Compiler extends Smarty {
             1 - expecting '='
             2 - expecting attribute value (not '=') */
         $state = 0;
-		
+				
         foreach ($tokens as $token) {
             switch ($state) {
                 case 0:
