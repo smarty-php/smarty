@@ -75,7 +75,9 @@ function smarty_function_config_load($params, &$smarty)
                 $smarty->_conf_obj->fix_newlines = $smarty->config_fix_newlines;
             }
             $_params = array('resource_name' => $_file, 'resource_base_path' => $smarty->config_dir);
-            $smarty->_fetch_resource_info($_params);
+            if (!$smarty->_fetch_resource_info($_params)) {
+                return;
+            }
             $smarty->_conf_obj->set_file_contents($_file, $_params['source_content']);
             $_config_vars = array_merge($smarty->_conf_obj->get($_file),
                     $smarty->_conf_obj->get($_file, $_section));
