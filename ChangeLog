@@ -1,3 +1,10 @@
+2002-07-23  mohrt  <mohrt@pb1.pair.com>
+
+    * docs/programmers.sgml: fix load_filter examples
+
+    * Config_File.class.php
+      NEWS: fix error when there are no sections in config file
+
 2002-07-19  mohrt  <mohrt@pb1.pair.com>
 
     * docs/getting-started.sgml: fix error in install guide
