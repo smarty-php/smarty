@@ -1,6 +1,7 @@
 Monte Ohrt <monte@ispi.net>
-	- original idea & implementation
-
+	- Idea of compiling into PHP scripts
+	- Initial implementation
+	- Documentation
 Andrei Zmievski <andrei@ispi.net>
-	- rewrote parser from scratch
-	- other misc functionality
+	- Rewrote parser from scratch
+	- added much other functionality
