@@ -1,3 +1,4 @@
+  - fixed proper escaping of " and ' with escape:javascript (messju)
   - fixed bug in traversal of $smarty->plugins_dir-array. now the
     first matching plugin is taken (messju)
   - moved {strip} back into the compiler (messju)
