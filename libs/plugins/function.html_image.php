@@ -25,11 +25,11 @@ function smarty_function_html_image($params, &$smarty)
 {	
 	$name = '';
 	$border = 0;
-	$height = null;
-	$width = null;
+	$height = '';
+	$width = '';
 	$extra = '';
 	$basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
-			? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : null;
+			? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '/';
 	
 	foreach($params as $_key => $_val) {	
 		switch($_key) {
@@ -46,7 +46,8 @@ function smarty_function_html_image($params, &$smarty)
 				$width = $_val;
 				break;
 			default:
-				$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';					
+				$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+				break;					
 		}
 	}
 

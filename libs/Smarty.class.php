@@ -2060,7 +2060,11 @@ class Smarty
 
         fwrite($fd, $contents);
         fclose($fd);
-		rename($_tmp_file, $filename);
+		// Win32 can't rename over top another file
+		if(strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' && file_exists($filename)) {
+			@unlink($filename);
+		} 
+		@rename($_tmp_file, $filename);
         chmod($filename, $this->_file_perms);
 
         return true;
