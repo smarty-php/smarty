@@ -1,3 +1,4 @@
+  - fix parameters passed to resource's secure()-function (messju)
   - fix handling of integer values like width and delay im
     smarty_function_popup() (messju)
 
