@@ -1,5 +1,8 @@
     - fixed Config_File class to allow empty config paths (defaults to current
       directory). (Andrei)
+
+Version 1.4.2
+-------------
     - move $version to internal variable, remove from docs. (Monte)
     - cleaned up compiled templates global scope by moving some variables into
       the class itself. (Andrei)
