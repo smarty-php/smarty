@@ -1,3 +1,22 @@
+2003-10-29  boots  <jayboots@yahoo.com>
+
+    * docs/appendixes.sgml
+      docs/designers.sgml
+      docs/manual.sgml
+      docs/programmers.sgml
+      docs/de/appendixes.sgml
+      docs/de/designers.sgml
+      docs/de/programmers.sgml
+      docs/fr/appendixes.sgml
+      docs/fr/designers.sgml
+      docs/fr/getting-started.sgml
+      docs/fr/manual.sgml
+      docs/fr/preface.sgml
+      docs/fr/programmers.sgml:
+      Fixes to documentation syntax so that all content can be processed used
+      xsltproc docbook-xsl tools. In particular, fixes unescaped entities,
+      broken tags, unquoted attributes.
+
 2003-10-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
