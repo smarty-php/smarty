@@ -630,7 +630,7 @@ class Smarty
         $egpcs  = array('e'        => 'env',
                         'g'        => 'get',
                         'p'        => 'post',
-                        'c'        => 'cookie',
+                        'c'        => 'cookies',
                         's'        => 'server');
         $globals_map = array('get'      => 'HTTP_GET_VARS',
                              'post'     => 'HTTP_POST_VARS',
