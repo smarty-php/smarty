@@ -142,19 +142,19 @@ PRACTICAL EXAMPLES:
     <example>
      <title>math examples</title>
      <programlisting>	 
-{$foo + 1}
+{$foo+1}
 
-{$foo * $bar}
+{$foo*$bar}
 	 
 {* some more complicated examples *}
 	 
-{$foo-&gt;bar - $bar[1] * $baz-&gt;foo-&gt;bar() - 3 * 7}
+{$foo-&gt;bar-$bar[1]*$baz-&gt;foo-&gt;bar()-3*7}
 
 {if ($foo+$bar.test%$baz*134232+10+$b+10)}
 
-{$foo|truncate:"`$fooTruncCount / $barTruncFactor -1`"}
+{$foo|truncate:"`$fooTruncCount/$barTruncFactor-1`"}
 
-{assign var="foo" value="`$foo + $bar`"}</programlisting>
+{assign var="foo" value="`$foo+$bar`"}</programlisting>
 </example>
 	</sect1>
 
