@@ -57,6 +57,7 @@ class Smarty
 	// internal vars
 	var $errorMsg				=	false;		// error messages
 	var $_tpl_vars				= 	array();
+	var $_sectionelse_stack		=	array();	// keeps track of whether section had 'else' part
 
 /*======================================================================*\
 	Function:	assign()
@@ -104,11 +105,11 @@ class Smarty
 	}
 
 /*======================================================================*\
-	Function:	spew()
+	Function:	quip()
 	Purpose:	executes & prints the template results
 \*======================================================================*/
 
-	function spew($tpl_file)
+	function quip($tpl_file)
 	{
 		if(preg_match("/^(.+)\/([^\/]+)$/",$tpl_file,$match))
 		{
@@ -119,7 +120,7 @@ class Smarty
 			
 			extract($this->_tpl_vars);		
 			/* TODO remove comments */
-			/* include($compile_file); */
+			include($compile_file);
 		}
 	}
 
@@ -131,7 +132,7 @@ class Smarty
 	function fetch($tpl_file)
 	{
 		ob_start();
-		$this->spew($tpl_file);
+		$this->quip($tpl_file);
 		$results = ob_get_contents();
 		ob_end_clean();
 		return $results;
@@ -303,7 +304,7 @@ class Smarty
 		}
 		$compiled_contents .= $text_blocks[$i];
 		
-		var_dump($compiled_tags);
+		//var_dump($compiled_tags);
 
 		if(!($this->_write_file($compilepath, $compiled_contents)))
 			return false;
@@ -326,7 +327,7 @@ class Smarty
 			preg_match('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tag_command)) {   	// or a section property
 			settype($tag_command, 'array');
 			$this->_parse_vars_props($tag_command);
-			return "<?php print $tag_command; ?>";
+			return "<?php print $tag_command[0]; ?>";
 		}
 
 		switch ($tag_command) {
@@ -350,10 +351,18 @@ class Smarty
 				return $this->right_delimiter;
 
 			case 'section':
+				array_push($this->_sectionelse_stack, false);
 				return $this->_compile_section_start($tag_args);
 
+			case 'sectionelse':
+				$this->_sectionelse_stack[count($this->_sectionelse_stack)-1] = true;
+				return "<?php endfor; else: ?>";
+
 			case '/section':
-				break;
+				if (array_pop($this->_sectionelse_stack))
+					return "<?php endif; ?>";
+				else
+					return "<?php endfor; endif; ?>";
 
 			default:
 				/* TODO capture custom functions here */
@@ -364,10 +373,59 @@ class Smarty
 	function _compile_section_start($tokens)
 	{
 		$attrs = $this->_parse_attrs($tokens);
+
+		$output = "<?php\n";
+		$section_name = $attrs['name'];
+		if (empty($section_name)) {
+			/* TODO syntax error: section needs a name */
+		}
+
+		$output .= "unset(\$_sections['$section_name']);\n";
+		$section_props = "\$_sections['$section_name']['properties']";
+
+		foreach ($attrs as $attr_name => $attr_value) {
+			switch ($attr_name) {
+				case 'loop':
+					$output .= "
+						if (is_array($attr_value))
+							{$section_props}['loop'] = count($attr_value);
+						else
+							{$section_props}['loop'] = $attr_value;\n";
+					break;
+
+				default:
+					$output .= "{$section_props}['$attr_name'] = $attr_value;\n";
+					break;
+			}
+		}
+
+		if (isset($attrs['loop'])) {
+			$loop_check_code = "count({$section_props}['loop']) > 0 && ";
+		} else {
+			$output .= "{$section_props}['loop'] = 1;\n";
+		}
+
+		if (isset($attrs['show'])) {
+			$show_check_code = "{$section_props}['show'] && ";
+		}
+
+		$output .= "if ($loop_check_code $show_check_code true): ";
+
+		$output .= "
+			for ({$section_props}['index'] = 0;
+				 {$section_props}['index'] < {$section_props}['loop'];
+				 {$section_props}['index']++):\n";
+
+		$output .= "{$section_props}['rownum'] = {$section_props}['index'] + 1;\n";
+
+		$output .= "?>\n";
+
+		return $output;
 	}
 
 	function _compile_if_tag($tag_args)
 	{
+		print "_compile_if_tag()\n";
 		/* Tokenize args for 'if' tag. */
 		preg_match_all('/(?:
 						 "[^"\\\\]*(?:\\\\.[^"\\\\]*)*" 		| # match all double quoted strings allowed escaped double quotes
@@ -513,12 +571,6 @@ class Smarty
 		return $tokens;
 	}
 
-	function _compile_section_start($tag_args)
-	{
-		$attrs = $this->_parse_attrs($tag_args);
-
-	}
-	
 	function _parse_attrs($tag_args)
 	{
 		/* Tokenize tag attributes. */
@@ -538,7 +590,7 @@ class Smarty
 			2 - expecting attr value (not '=') */
 		$state = 0;
 
-		for ($tokens as $token) {
+		foreach ($tokens as $token) {
 			switch ($state) {
 				case 0:
 					/* If the token is a valid identifier, we set attribute name
@@ -592,7 +644,7 @@ class Smarty
 			}
 		}
 		if (count($sect_prop_exprs)) {
-			foreach ($section_prop_exprs as $expr_index => $section_prop_expr) {
+			foreach ($sect_prop_exprs as $expr_index => $section_prop_expr) {
 				$tokens[$expr_index] = $this->_parse_section_prop($section_prop_expr);
 			}
 		}

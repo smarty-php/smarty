@@ -1,11 +1,12 @@
-{include header.tpl}
-
 {* A simple variable test *}
 hello, my name is {$Name}.<br>
-{if $Name eq "Joe"}
-	I am {ldelim}Joe{rdelim}.<br>
-{else}
-	I am not Joe.<br>
-{/if} 
-
-{include footer.tpl}
+My interests are:
+{section name=outer loop=$FirstName}
+	{if %outer.index% is even by 2}
+		. {$outer/FirstName} {$outer/LastName}
+	{else}
+		* {$outer/FirstName} {$outer/LastName}
+	{/if}
+{sectionelse}
+	none
+{/section}

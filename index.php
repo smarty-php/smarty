@@ -10,7 +10,7 @@ $smarty->assign("LastName",array("Doe","Smith","Johnson","Case"));
 $smarty->assign("Class",array(array("A","B","C","D"), array("E", "F", "G", "H"),
 							  array("I", "J", "K", "L"), array("M", "N", "O", "P")));
 
-$smarty->spew("./templates/index.tpl");
+$smarty->quip("./templates/index.tpl");
 
 print "\ndone\n";
 
