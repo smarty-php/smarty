@@ -16,11 +16,11 @@ hello, my name is {$Name|upper}
 
 My interests are:
 {section name=outer loop=$FirstName}
-	{if %outer.index% is odd by 2}
-		{%outer.rownum%} . {$outer/FirstName} {$outer/LastName}
-	{else}
-		{%outer.rownum%} * {$outer/FirstName} {$outer/LastName}
-	{/if}
+{if %outer.index% is odd by 2}
+	{%outer.rownum%} . {$outer/FirstName} {$outer/LastName}
+{else}
+	{%outer.rownum%} * {$outer/FirstName} {$outer/LastName}
+{/if}
 {sectionelse}
 	none
 {/section}

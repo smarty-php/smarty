@@ -85,8 +85,7 @@ class Smarty
 
 
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
-                                    'html_select_date'  => 'smarty_func_html_select_date',
-                                    'header'            => 'smarty_func_header'
+                                    'html_select_date'  => 'smarty_func_html_select_date'
                                  );
     
     var $custom_mods     =  array(  'lower'         => 'strtolower',
@@ -683,7 +682,7 @@ class Smarty
             case 'literal':
                 list (,$literal_block) = each($this->_literal_blocks);
                 $this->_current_line_no += substr_count($literal_block, "\n");
-                return $literal_block;
+                return "<?php echo '".str_replace("'","\'",$literal_block)."'; ?>\n";
 
             case 'insert':
                 return $this->_compile_insert_tag($tag_args);

@@ -55,8 +55,9 @@ DESCRIPTION:
     * it is possible to imbed PHP code right in your template files,
       although not recommended and doubtfully needed since the engine
       is so customizable.
+    * built in caching
 
 COPYRIGHT:
     Copyright (c) 2001 ispi of Lincoln, Inc. All rights reserved.
-    This software is released under the GNU General Public License.
+    This software is released under the GNU Lesser General Public License.
     Please read the disclaimer at the top of the Smarty.class.php file.

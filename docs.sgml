@@ -189,9 +189,9 @@
         not have the CGI version of PHP available and you are concerned about
         world-writable directory access, you can chmod 777 the compile_dir, let
         the templates compile once as the web server user, then change the
-        directory mode back to 700. If you are using the caching feature of
-        Smarty, the cache directory must always have write access for the web
-        server user.
+        directory mode to 755. If you are using the caching feature of Smarty,
+        the cache directory must always have write access for the web server
+        user.
         </para>
         <para>
         TECHNICAL NOTE: If you do not have access to the php.ini file, you can
