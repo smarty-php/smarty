@@ -3154,14 +3154,12 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                 </tgroup>
             </informaltable>
 			<para>
-			html_options is a custom function that creates html option
-			lists with provided data. It takes care of which item is
-			selected by default as well. Required attributes are values
-            and output, unless you use options instead.
-			</para>
-			<para>
-			NOTE: As of Smarty 1.4.5, html_options now outputs xhtml compatible
-			code.
+			html_options is a custom function that creates html option lists
+			with provided data. It takes care of which item is selected by
+			default as well. Required attributes are values and output, unless
+			you use options instead. If a given value is an array, it will
+			treat it as an html OPTGROUP, and display the groups. Recursion is
+			supported with OPTGROUP. All output is xhtml compatible.
 			</para>
 <example>
 <title>html_options</title>
