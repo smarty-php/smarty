@@ -1,3 +1,13 @@
+2003-03-14  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fix problem with escaped double quotes
+
+    * NEWS
+      libs/plugins/function.html_radios.php:
+      fixed html_options to not return an array
+
 2003-03-12  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
