@@ -90,7 +90,7 @@ function smarty_function_html_image($params, &$smarty)
     }
 
 	if(substr($file,0,1) == DIR_SEP) {
-		$_image_path = $basedir . DIR_SEP . $file;
+		$_image_path = $basedir . $file;
 	} else {
 		$_image_path = $file;
 	}
