@@ -1,3 +1,11 @@
+2004-02-22  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_select_date.php:
+      removed notice on html_select_date with the month_empty-attribute
+
+    * libs/plugins/function.mailto.php:
+      removed 2 notices of undefined vars (thanks Cit)
+
 2004-02-17  Monte Ohrt  <monte@ispi.net>
 
     * NEWS:
