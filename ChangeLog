@@ -1,3 +1,18 @@
+2003-12-12  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/function.config_load.php:
+      move set_path() call below the conditional bracket
+
+    * NEWS
+      libs/plugins/function.config_load.php:
+      fix config_load filepath bug
+
+2003-12-12  boots  <jayboots@yahoo.com>
+
+    * docs/designers.sgml:
+      Updated language.function.if with additional annotation and to fix error
+      that broke docs build process
+
 2003-12-11  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
