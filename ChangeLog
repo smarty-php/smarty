@@ -1,3 +1,17 @@
+2004-02-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS:
+      fix handling of integer values like width and delay im
+      smarty_function_popup()
+
+    * libs/plugins/function.popup.php:
+      fixed handling of integer-attributes
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      updated version to 2.6.3-dev
+
 2004-02-22  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_select_date.php:
