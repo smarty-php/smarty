@@ -100,6 +100,7 @@ function smarty_function_mailto($params, &$smarty)
     if ($encode == 'javascript' ) {
         $string = 'document.write(\'<a href="mailto:'.$address.'" '.$extra.'>'.$text.'</a>\');';
 
+        $js_encode = '';
         for ($x=0; $x < strlen($string); $x++) {
             $js_encode .= '%' . bin2hex($string[$x]);
         }
