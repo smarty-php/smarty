@@ -1,3 +1,8 @@
+2002-07-14  mohrt  <mohrt@pb1.pair.com>
+
+    * NEWS
+      Smarty.class.php: fix bug with debug_tpl file path for Windows
+
 2002-07-12  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php: fix append function with array/string issue
