@@ -40,7 +40,7 @@ function smarty_function_html_radios($params, &$smarty)
 		case 'separator':
 		case 'checked':
 			if(is_array($_val)) {
-				$smarty->trigger_error('html_radio: the "checked" attribute cannot be an array', E_USER_WARNING);
+				$smarty->trigger_error('html_radios: the "checked" attribute cannot be an array', E_USER_WARNING);
 			} else {
 				$$_key = (string)$_val;
 			}
@@ -56,7 +56,7 @@ function smarty_function_html_radios($params, &$smarty)
 			break;
 
 		case 'radios':
-			$smarty->trigger_error('html_radio: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
+			$smarty->trigger_error('html_radios: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
 			$options = (array)$_val;
 			break;
 

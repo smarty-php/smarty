@@ -53,7 +53,7 @@ function smarty_function_html_checkboxes($params, &$smarty)
          break;
 
       case 'checkboxes':
-         $smarty->trigger_error('the use of the "checkboxes"-attribute is deprecated. use "options" instead', E_USER_WARNING);
+         $smarty->trigger_error('html_checkboxes: the use of the "checkboxes" attribute is deprecated, use "options" instead', E_USER_WARNING);
          $options = (array)$_val;
          break;
 

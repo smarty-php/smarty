@@ -32,7 +32,7 @@ function smarty_function_html_table($params, &$smarty)
 	extract($params);
 
     if (!isset($loop)) {
-        $smarty->trigger_error("table: missing 'loop' parameter");
+        $smarty->trigger_error("html_table: missing 'loop' parameter");
         return;
 	}
 	
