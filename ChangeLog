@@ -1,3 +1,9 @@
+2002-05-01  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      NEWS
+      Smarty.class.php: fixed bug with resource testing and include_path
+
 2002-04-30  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
