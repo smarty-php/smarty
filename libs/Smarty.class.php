@@ -589,7 +589,7 @@ class Smarty
 		
 		$_smarty_trusted = false;
 		if ($this->security) {
-			$this->_parse_tpl_path($_smarty_tpl_file, $resource_type, $resource_name);
+			$this->_parse_file_path($this->template_dir, $_smarty_tpl_file, $resource_type, $resource_name);
 			if ($this->_is_trusted($resource_type, $resource_name)) {
 			$_smarty_trusted = true;
 			$this->security = false;
@@ -851,26 +851,27 @@ function _is_trusted($resource_type, $resource_name)
     }
 
 /*======================================================================*\
-    Function:   _parse_tpl_path
+    Function:   _parse_file_path
     Purpose:	parse out the type and name from the template resource
 \*======================================================================*/
-function _parse_tpl_path($tpl_path, &$resource_type, &$resource_name) {
+function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resource_name) {
+	
         // split tpl_path by the first colon
-        $tpl_path_parts = explode(':', $tpl_path, 2);
+        $file_path_parts = explode(':', $file_path, 2);
 
-        if (count($tpl_path_parts) == 1) {
+        if (count($file_path_parts) == 1) {
             // no resource type, treat as type "file"
             $resource_type = 'file';
-            $resource_name = $tpl_path_parts[0];
+            $resource_name = $file_path_parts[0];
         } else {
-            $resource_type = $tpl_path_parts[0];
-            $resource_name = $tpl_path_parts[1];
+            $resource_type = $file_path_parts[0];
+            $resource_name = $file_path_parts[1];
         }
 
 		if ($resource_type == 'file') {		
         	if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
-            	// relative pathname to $template_dir
-            	$resource_name = $this->template_dir.'/'.$resource_name;
+            	// relative pathname to $file_base_path
+            	$resource_name = $file_base_path.'/'.$resource_name;
         	}
 		}
 }	
@@ -884,7 +885,7 @@ function _parse_tpl_path($tpl_path, &$resource_type, &$resource_name) {
     function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source=true)
     {
 
-		$this->_parse_tpl_path($tpl_path, $resource_type, $resource_name);
+		$this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name);
 		
         switch ($resource_type) {
             case 'file':
@@ -954,6 +955,7 @@ function _parse_tpl_path($tpl_path, &$resource_type, &$resource_name) {
         $smarty_compiler->security          = $this->security;
         $smarty_compiler->secure_dir        = $this->secure_dir;
         $smarty_compiler->security_settings = $this->security_settings;
+        $smarty_compiler->trusted_dir       = $this->trusted_dir;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;
@@ -983,7 +985,7 @@ function _parse_tpl_path($tpl_path, &$resource_type, &$resource_name) {
         array_unshift($this->_config, $this->_config[0]);
         $compile_path = $this->_get_compile_path($_smarty_include_tpl_file);
 
-		$this->_parse_tpl_path($_smarty_include_tpl_file, $resource_type, $resource_name);
+		$this->_parse_file_path($this->template_dir, $_smarty_include_tpl_file, $resource_type, $resource_name);
 		if ($this->security && $this->_is_trusted($resource_type, $resource_name)) {
 			$_smarty_trusted = true;
 			$this->security = false;
