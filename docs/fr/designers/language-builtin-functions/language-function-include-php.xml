@@ -55,7 +55,7 @@
     vous avez besoin de mettre une de vos fonction en quarantaine vis à vis du 
     répertoire des plugins ou de votre application. Reportez vous à 
     l'exemple des <link
-    linkend="tips.componentized.templates"> templates composants</links>
+     linkend="tips.componentized.templates"> templates composants</link>
     pour plus de détails.
    </para>
  </note>
