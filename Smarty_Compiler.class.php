@@ -106,7 +106,8 @@ class Smarty_Compiler extends Smarty {
 		$this->_svar_regexp = '\%\w+\.\w+\%';
 
 		// matches all valid variables (no quotes, no modifiers)
-		$this->_avar_regexp = '(?:' . $this->_dvar_regexp . '|' . $this->_cvar_regexp . '|' . $this->_svar_regexp . ')';
+		$this->_avar_regexp = '(?:' . $this->_dvar_regexp . '|'
+		   . $this->_cvar_regexp . '|' . $this->_svar_regexp . ')';
 
 		// matches valid modifier syntax:
 		// |foo
@@ -116,7 +117,8 @@ class Smarty_Compiler extends Smarty {
 		// |foo:"bar":$foobar
 		// |foo|bar
 		// |foo
-		$this->_mod_regexp = '(?:\|@?\w+(?::(?>\w+|' . $this->_avar_regexp . '|' . $this->_qstr_regexp .'))*)';
+		$this->_mod_regexp = '(?:\|@?\w+(?::(?>\w+|'
+		   . $this->_avar_regexp . '|' . $this->_qstr_regexp .'))*)';
 
 		// matches valid variable syntax:
 		// $foo
@@ -164,7 +166,8 @@ class Smarty_Compiler extends Smarty {
 		// "text"
 		// "text"|bar
 		// $foo->bar()
-		$this->_param_regexp = '(?:\s*(?:' . $this->_obj_call_regexp . '|' . $this->_var_regexp  . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';		
+		$this->_param_regexp = '(?:\s*(?:' . $this->_obj_call_regexp . '|'
+		   . $this->_var_regexp  . '|\w+)(?>' . $this->_mod_regexp . '*)\s*)';		
 		
 		// matches valid parenthesised function parameters:
 		// 
@@ -180,7 +183,8 @@ class Smarty_Compiler extends Smarty {
 		// foo_bar($foo)
 		// _foo_bar($foo,"bar")
 		// foo123($foo,$foo->bar(),"foo")
-    	$this->_func_call_regexp = '(?:' . $this->_func_regexp . '\s*(?:' . $this->_parenth_param_regexp . '))';		
+    	$this->_func_call_regexp = '(?:' . $this->_func_regexp . '\s*(?:'
+		   . $this->_parenth_param_regexp . '))';		
 
 	}			
 			
@@ -969,13 +973,13 @@ class Smarty_Compiler extends Smarty {
         preg_match_all('/(?>
 				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*) | # valid object call
 				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)	| # var or quoted string
-				\d+|!==|<=>|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%	| # valid non-word token
+				\-?\d+|!==|<=>|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%	| # valid non-word token
 				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
 				
         $tokens = $match[0];
-
+		
 		// make sure we have balanced parenthesis
 		$token_count = array_count_values($tokens);
 		if(isset($token_count['(']) && $token_count['('] != $token_count[')']) {
@@ -989,64 +993,72 @@ class Smarty_Compiler extends Smarty {
             $token = &$tokens[$i];
 			
             switch ($token) {
-                case 'eq':
+                case '!':
+                case '%':
+                case '!==':
                 case '==':
+                case '>':
+                case '<':
+                case '!=':
+                case '<=':
+                case '>=':
+                case '&&':
+                case '||':
+				case '|':
+				case '^':
+				case '&':
+				case '~':
+				case ')':
+				case ',':
+					break;					
+
+                case 'eq':
                     $token = '==';
                     break;
 
                 case 'ne':
                 case 'neq':
-                case '!=':
-                case '!==':
                     $token = '!=';
                     break;
 
                 case 'lt':
-                case '<':
                     $token = '<';
                     break;
 
                 case 'le':
                 case 'lte':
-                case '<=':
                     $token = '<=';
                     break;
 
                 case 'gt':
-                case '>':
                     $token = '>';
                     break;
 
                 case 'ge':
                 case 'gte':
-                case '>=':
                     $token = '>=';
                     break;
 
                 case 'and':
-                case '&&':
                     $token = '&&';
                     break;
 
                 case 'or':
-                case '||':
                     $token = '||';
                     break;
 
                 case 'not':
-                case '!':
                     $token = '!';
                     break;
 
                 case 'mod':
-                case '%':
                     $token = '%';
                     break;
 
                 case '(':
                     array_push($is_arg_stack, $i);
                     break;
-
+					
                 case 'is':
                     /* If last token was a ')', we operate on the parenthesized
                        expression. The start of the expression is on the stack.
@@ -1073,10 +1085,6 @@ class Smarty_Compiler extends Smarty {
                        current position for the next iteration. */
                     $i = $is_arg_start;
                     break;
-
-				case ')':
-				case ',':
-					break;	
 					
                 default:
 					if(preg_match('!^' . $this->_func_regexp . '$!', $token) ) {

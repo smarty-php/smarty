@@ -466,8 +466,8 @@ class Smarty
     function unregister_outputfilter($function)
     {
         unset($this->_plugins['outputfilter'][$function]);
-    }
-
+    }	
+	
 /*======================================================================*\
     Function:   load_filter()
     Purpose:    load a filter of specified type and name
@@ -1605,7 +1605,7 @@ function _run_insert_handler($args)
 
        if($handle = @opendir($dirname)) {
 
-        	while ($entry = readdir($handle)) {
+        	while (null != ($entry = readdir($handle))) {
             	if ($entry != '.' && $entry != '..') {
                 	if (@is_dir($dirname . DIR_SEP . $entry)) {
                     	$this->_rmdir($dirname . DIR_SEP . $entry, $level + 1, $exp_time);

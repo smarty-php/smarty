@@ -1,3 +1,4 @@
+    - fixed bug with directories named '0' (Frank Bauer, Monte)
     - add javascript parameter to escape modifier (Monte)
     - added correct line numbers to syntax error messages
       in compiler (Monte)
