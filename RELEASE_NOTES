@@ -64,6 +64,9 @@ The run-time custom functions are now passed Smarty object as the second
 parameter. This can be used, for example, to assign or clear template variables
 from inside the custom function.
 
+You can now refer to properties of objects assigned from PHP by using the '->'
+symbol and specifying the property name after it, e.g. $foo->bar.
+
 UPGRADE NOTES
 
 The format of the files created in the $compile_dir are now a bit different.
