@@ -3,35 +3,37 @@
 <sect1 id="language.escaping">
  <title>Escaping Smarty Parsing</title>
  <para>
-  It is sometimes desirable or even necessary to have Smarty ignore sections it
-  would otherwise parse. A classic example is embedding Javascript or CSS code in
-  a template. The problem arises as those languages use the { and } characters
-  which are also the default delimiters for Smarty.
+  En algunas ocaciones es deseable o hasta necesario que Smarty tenga que
+  ingonar sections o algun otro tipo analisis de sintaxis. Un ejemplo clasico 
+  es con el codigo JavaScript o CSS incrustado en el template. El problema se
+  origina cuando aquellos lenguajes que utilizan los caracteres { y } los
+  cuales son también los delimitadores por default para Smarty.
  </para>
 
  <para>
-  The simplest thing is to avoid the situation altogether by separating your Javascript
-  and CSS code into their own files and then using standard HTML methods to access them.
+  Esta puede ser una simple situación separando enteramente su codigo JavaScript 
+  y CSS dentro de un archivo personal y utilizar el metodo standar del HTML para 
+  el acceso.
  </para>
 
  <para>
-  Including literal content is possible using <link 
-  linkend="language.function.literal">{literal} .. {/literal}</link> blocks.
-  Similar to HTML entity usage, you can use <link 
+  Es posible usar literal incluyendo el contenido del bloque <link 
+  linkend="language.function.literal">{literal} .. {/literal}</link>.
+  Similar a usar entidades HTML, usted puede usar <link 
   linkend="language.function.ldelim">{ldelim}</link>,<link 
-  linkend="language.function.ldelim">{rdelim}</link> or <link 
+  linkend="language.function.ldelim">{rdelim}</link> o <link 
   linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>,<link
   linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
-  to display the current delimiters.
+  para mostrar los delimitadores actuales.
  </para>
 
  <para>
-  It is often convenient to simply change Smarty's <link 
-  linkend="variable.left.delimiter">$left_delimiter</link> and
+  Esto a menudo es conveniente para cambios simples a Smarty's <link 
+  linkend="variable.left.delimiter">$left_delimiter</link> y 
   <link linkend="variable.right.delimiter">$right_delimiter</link>.
  </para>
  <example>
-  <title>changing delimiters example</title>
+  <title>Ejemplo cambiando delimitadores</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -46,7 +48,7 @@ $smarty->display('example.tpl');
 ]]>
   </programlisting>
   <para>
-   Where example.tpl is:
+   Donde example.tpl es:
   </para>
   <programlisting>
 <![CDATA[
