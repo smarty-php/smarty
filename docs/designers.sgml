@@ -1,14 +1,7 @@
 <part id="smarty.for.designers">
  <title>Smarty For Template Designers</title>
- <chapter id="language">
-  <title>Template Language</title>
-  <para>
-   The templates are the language of Smarty. These are the files that the designers
-   work with. They're basically pages made up of static content interspersed with
-   template markup tags. These tags are placeholders for variables or blocks of logic.
-  </para>
 
-  <sect1 id="language.basic.syntax">
+  <chapter id="language.basic.syntax">
    <title>Basic Syntax</title>
    <para>
     All Smarty template tags are enclosed within delimiters. By
@@ -23,7 +16,7 @@
     place.
    </para>
 
-   <sect2 id="language.syntax.comments">
+   <sect1 id="language.syntax.comments">
     <title>Comments</title>
     <para>
      Template comments are surrounded by asterisks, and that is surrounded
@@ -48,9 +41,9 @@
 {html_options values=$vals selected=$selected output=$output}
 &lt;/SELECT&gt;</programlisting>
     </example>
-   </sect2>
+   </sect1>
 
-   <sect2 id="language.syntax.functions">
+   <sect1 id="language.syntax.functions">
     <title>Functions</title>
     <para>
      Each Smarty tag either prints a
@@ -83,9 +76,9 @@
      your liking, or you can add new ones. <command>html_options</command> and
      <command>html_select_date</command> are examples of custom functions.
     </para>
-   </sect2>
+   </sect1>
 
-   <sect2 id="language.syntax.attributes">
+   <sect1 id="language.syntax.attributes">
     <title>Attributes</title>
     <para>
      Most of the functions take attributes that specify or modify
@@ -116,11 +109,11 @@
 {html_options values=$vals selected=$selected output=$output}
 &lt;/SELECT&gt;</programlisting>
 </example>
-		</sect2>
+		</sect1>
 
-  </sect1>
+  </chapter>
 
-  <sect1 id="language.variables">
+  <chapter id="language.variables">
    <title>Variables</title>
    <para>
     Smarty has several different types of variables, all of which are
@@ -141,7 +134,7 @@
 &lt;body bgcolr="{#bgcolor#}"&gt;</programlisting>
    </para>
 
-   <sect2 id="language.assigned.variables">
+   <sect1 id="language.assigned.variables">
     <title>Variables assigned from PHP</title>
     <para>
      Variables that are assigned from PHP are referenced by preceding
@@ -162,7 +155,7 @@ Hello Doug, glad to see you could make it.
 Your last login was on January 11th, 2001.</programlisting>
 </example>
 
-		<sect3 id="language.variables.assoc.arrays">
+		<sect2 id="language.variables.assoc.arrays">
 			<title>Associative arrays</title>
 			<para>
 			You can also reference associative array variables that are
@@ -186,8 +179,8 @@ zaphod@slartibartfast.com&lt;br&gt;
 555-111-1234&lt;br&gt;
 </programlisting>
 </example>
-		</sect3>
-        <sect3 id="language.variables.array.indexes">
+		</sect2>
+        <sect2 id="language.variables.array.indexes">
 			<title>Array indexes</title>
 			<para>
 			You can reference arrays by their index, much like native PHP
@@ -202,8 +195,8 @@ zaphod@slartibartfast.com&lt;br&gt;
 {$Contacts[0][0]}&lt;br&gt;
 {$Contacts[0][1]}&lt;br&gt;</programlisting>
 </example>
-		</sect3>
-        <sect3 id="language.variables.objects">
+		</sect2>
+        <sect2 id="language.variables.objects">
 			<title>Objects</title>
 			<para>
 			Properties of objects assigned from PHP can be referenced
@@ -220,10 +213,10 @@ OUTPUT:
 name: Zaphod Beeblebrox&lt;br&gt;
 email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 </example>
-		</sect3>
-       </sect2>
+		</sect2>
+       </sect1>
 
-       <sect2 id="language.config.variables">
+       <sect1 id="language.config.variables">
 			<title>Variables loaded from config files</title>
 			<para>
              Variables that are loaded from the config files are referenced by enclosing
@@ -252,16 +245,16 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 			explained later in this document under
             <command>config_load</command>.
 			</para>
-		</sect2>
+		</sect1>
 
-        <sect2 id="language.variables.smarty">
+        <sect1 id="language.variables.smarty">
          <title>{$smarty} reserved variable</title>
          <para>
           The reserved {$smarty} variable can be used to access several
           special template variables. The full list of them follows.
          </para>
 
-         <sect3 id="language.variables.smarty.request">
+         <sect2 id="language.variables.smarty.request">
           <title>Request variables</title>
           <para>
            The request variables such as get, post, cookies, server,
@@ -293,9 +286,9 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 {* display the variable "username" from merged get/post/cookies/server/env *}
 {$smarty.request.username}</programlisting>
 </example>
-		</sect3>
+		</sect2>
 
-        <sect3 id="language.variables.smarty.now">
+        <sect2 id="language.variables.smarty.now">
 			<title>Current timestamp</title>
 			<para>
 			The current timestamp can be accessed with {$smarty.now}. The
@@ -310,18 +303,18 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 {* use the date_format modifier to show current date and time *}
 {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}</programlisting>
 </example>
-		</sect3>
+		</sect2>
 
-		<sect3 id="language.variables.smarty.capture">
+		<sect2 id="language.variables.smarty.capture">
 			<title>Output capture buffer</title>
 			<para>
 			The output captured via {capture}..{/capture} construct can be
 			accessed using {$smarty} variable. See section on
 			<link linkend="language.function.capture">capture</link> for an example.
 			</para>
-		</sect3>
+		</sect2>
 
-        <sect3 id="language.variables.smarty.loops">
+        <sect2 id="language.variables.smarty.loops">
 			<title>Loop properties</title>
 			<para>
 			{$smarty} variable can be used to refer to 'section' and
@@ -329,11 +322,11 @@ email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
 			<link linkend="language.function.section">section</link> and
 			<link linkend="language.function.foreach">foreach</link>.
 			</para>
-		</sect3>
 		</sect2>
-	</sect1>
+		</sect1>
+	</chapter>
 
-    <sect1 id="language.modifiers">
+    <chapter id="language.modifiers">
      <title>Variable Modifiers</title>
      <para>
       Variable modifiers can be applied to any variable to alter its contents. To
@@ -360,9 +353,7 @@ Topic: {$topic|truncate:40:"..."}</programlisting>
       elements in the $articleTitle array.)
      </para>
 
-     <sect2 id="language.builtin.modifiers">
-      <title>Built-in Modifiers</title>
-      <sect3>
+      <sect1>
        <title>capitalize</title>
        <para>
         This is used to capitalize the first letter of all words in a variable.
@@ -378,8 +369,8 @@ OUTPUT:
 Police begin campaign to rundown jaywalkers.
 Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>count_characters</title>
 			<para>
 			This is used to count the number of characters in a variable.
@@ -396,8 +387,8 @@ OUTPUT:
 Cold Wave Linked to Temperatures
 32</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>count_paragraphs</title>
 			<para>
 			This is used to count the number of paragraphs in a variable.
@@ -416,8 +407,8 @@ War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.
 Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 2</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>count_sentences</title>
 			<para>
 			This is used to count the number of sentences in a variable.
@@ -434,8 +425,8 @@ OUTPUT:
 Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
 2</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>count_words</title>
 			<para>
 			This is used to count the number of words in a variable.
@@ -452,8 +443,8 @@ OUTPUT:
 Dealers Will Hear Car Talk at Noon.
 7</programlisting>
 </example>
-		</sect3>
-		<sect3 id="date.format">
+		</sect1>
+		<sect1 id="date.format">
 			<title>date_format</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -589,8 +580,8 @@ on your system's strftime() function where PHP was compiled. Check your
 system's manpage for a full list of valid specifiers.</programlisting>
 </example>
 
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>default</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -635,8 +626,8 @@ OUTPUT:
 
 no title</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>escape</title>
             <informaltable frame=all>
                 <tgroup cols=6>
@@ -699,8 +690,8 @@ OUTPUT:
 &lt;a
 href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>indent</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -772,8 +763,8 @@ Statistics show that teen pregnancy drops off significantly after 25.
 	Sun or rain expected today, dark tonight.
 	Statistics show that teen pregnancy drops off significantly after 25.</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>lower</title>
 			<para>
 			This is used to lowercase a variable.
@@ -789,8 +780,8 @@ OUTPUT:
 Two Convicts Evade Noose, Jury Hung.
 two convicts evade noose, jury hung.</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>regex_replace</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -847,8 +838,8 @@ Infertility unlikely to
  be passed on, experts say
 Infertility unlikely to be passed on, experts say</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>replace</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -900,8 +891,8 @@ Child's Stool Great for Use in Garden.
 Child's Stool Great for Use in Vineyard.
 Child's   Stool   Great   for   Use   in   Garden.</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>spacify</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -948,8 +939,8 @@ Something Went Wrong in Jet Crash, Experts Say.
 S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
 S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>string_format</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -995,8 +986,8 @@ OUTPUT:
 23.58
 24</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>strip_tags</title>
 			<para>
 			This strips out markup tags, basically anything between &lt; and &gt;.
@@ -1012,8 +1003,8 @@ OUTPUT:
 Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
 Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>truncate</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1088,8 +1079,8 @@ Two Sisters Reunite after---
 Two Sisters Reunite after Eigh
 Two Sisters Reunite after E...</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>upper</title>
 			<para>
             This is used to uppercase a variable.
@@ -1105,8 +1096,8 @@ OUTPUT:
 If Strike isn't Settled Quickly it may Last a While.
 IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
 </example>
-		</sect3>
-		<sect3>
+		</sect1>
+		<sect1>
 			<title>wordwrap</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1192,10 +1183,11 @@ Blind woman gets new kidney fr
 om dad she hasn't seen in
 years.</programlisting>
 </example>
-        </sect3>
-       </sect2> 
+        </sect1>
 
-       <sect2 id="language.combining.modifiers">
+      </chapter>
+
+       <chapter id="language.combining.modifiers">
         <title>Combining Modifiers</title>
         <para>
          You can apply as many modifiers as you like to a variable. The modifiers
@@ -1221,17 +1213,17 @@ s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
 s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
 s m o k e r s   a r e   p. . .</programlisting>
         </example>
-       </sect2>
-      </sect1>
+       </chapter>
 
-    <sect1 id="language.builtin.functions">
+
+    <chapter id="language.builtin.functions">
      <title>Built-in Functions</title>
      <para>
       Smarty comes with several built-in functions. Built-in functions
       are integral to the template language. You cannot create custom
       functions with the same names, nor can you modify built-in functions.
      </para>
-     <sect2 id="language.function.capture">
+     <sect1 id="language.function.capture">
       <title>capture</title>
       <para>
        capture is used to collect the output of the template into a
@@ -1275,8 +1267,8 @@ s m o k e r s   a r e   p. . .</programlisting>
 {/if}</programlisting>
        </example>
       </para>
-     </sect2>
-		<sect2 id="language.function.config.load">
+     </sect1>
+		<sect1 id="language.function.config.load">
 			<title>config_load</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1393,8 +1385,8 @@ s m o k e r s   a r e   p. . .</programlisting>
 &lt;/body&gt;
 &lt;/html&gt;</programlisting>
 </example>
-		</sect2>
-		<sect2 id="language.function.include">
+		</sect1>
+		<sect1 id="language.function.include">
 			<title>include</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1495,8 +1487,8 @@ s m o k e r s   a r e   p. . .</programlisting>
 {* include from template resource named "db" *}
 {include file="db:header.tpl"}</programlisting>
 </example>
-		</sect2>
-		<sect2 id="language.function.include.php">
+		</sect1>
+		<sect1 id="language.function.include.php">
 			<title>include_php</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1586,8 +1578,8 @@ index.tpl
 	&lt;a href="{$curr_section.url}"&gt;{$curr_section.name}&lt;/a&gt;&lt;br&gt;
 {/foreach}</programlisting>
 </example>
-		</sect2>
-		<sect2 id="language.function.insert">
+		</sect1>
+		<sect1 id="language.function.insert">
 			<title>insert</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1705,8 +1697,8 @@ index.tpl
             weather, search results, user feedback areas, etc.
 			</para>
 			</note>
-		</sect2>
-		<sect2 id="language.function.if">
+		</sect1>
+		<sect1 id="language.function.if">
 			<title>if,elseif,else</title>
 			<para>
 			if statements in Smarty have much the same flexibility as php if
@@ -1785,8 +1777,8 @@ index.tpl
 	...
 {/if}</programlisting>
 </example>
-		</sect2>
-		<sect2 id="language.function.ldelim">
+		</sect1>
+		<sect1 id="language.function.ldelim">
 			<title>ldelim,rdelim</title>
 			<para>
 			ldelim and rdelim are used for displaying the literal delimiter, in 
@@ -1805,8 +1797,8 @@ OUTPUT:
 
 {funcname} is how functions look in Smarty!</programlisting>
 </example>
-		</sect2>
-		<sect2 id="language.function.literal">
+		</sect1>
+		<sect1 id="language.function.literal">
 			<title>literal</title>
 			<para>
 			Literal tags allow a block of data to be taken literally,
@@ -1837,8 +1829,8 @@ OUTPUT:
 	&lt;/script&gt;
 {/literal}</programlisting>
 </example>
-		</sect2>
-		<sect2 id="language.function.php">
+		</sect1>
+		<sect1 id="language.function.php">
 			<title>php</title>
 			<para>
 			php tags allow php to be embedded directly into the template. They
@@ -1856,8 +1848,8 @@ OUTPUT:
 		include("/path/to/display_weather.php");
 {/php}</programlisting>
 </example>
-		</sect2>
-		<sect2 id="language.function.section">
+		</sect1>
+		<sect1 id="language.function.section">
 			<title>section,sectionelse</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2101,7 +2093,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 		supported, but you will only see reference to the new syntax in the
 		manual examples.
 		</para>
-			<sect3>	
+			<sect2>	
 			<title>index</title>
 			<para>
 			index is used to display the current loop index, starting with zero
@@ -2131,8 +2123,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	2 id: 1002&lt;br&gt;
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>	
+			</sect2>
+			<sect2>	
 			<title>index_prev</title>
 			<para>
 			index_prev is used to display the previous loop index.
@@ -2160,8 +2152,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
     	The customer id changed&lt;br&gt;
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>
+			</sect2>
+			<sect2>
 			<title>index_next</title>
 			<para>
         	index_next is used to display the next loop index. On the last
@@ -2190,8 +2182,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
     	The customer id will change&lt;br&gt;
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>
+			</sect2>
+			<sect2>
 			<title>iteration</title>
 			<para>
         	iteration is used to display the current loop iteration.
@@ -2229,8 +2221,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
     	The customer id will change&lt;br&gt;
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>
+			</sect2>
+			<sect2>
 			<title>first</title>
 			<para>
         	first is set to true if the current section iteration is the first
@@ -2262,8 +2254,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	&lt;/table&gt;
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>
+			</sect2>
+			<sect2>
 			<title>last</title>
 			<para>
         	last is set to true if the current section iteration is the last
@@ -2295,8 +2287,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	&lt;/table&gt;
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>	
+			</sect2>
+			<sect2>	
 			<title>rownum</title>
 			<para>
 			rownum is used to display the current loop iteration,
@@ -2317,8 +2309,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	3 id: 1002&lt;br&gt;
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>	
+			</sect2>
+			<sect2>	
 			<title>loop</title>
 			<para>
 			loop is used to display the last index number that this section
@@ -2342,8 +2334,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	There were 3 customers shown above.
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>	
+			</sect2>
+			<sect2>	
 			<title>show</title>
 			<para>
         	<emphasis>show</emphasis> is used as a parameter to section.
@@ -2376,8 +2368,8 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	the section was shown.
 </programlisting>
 	</example>
-			</sect3>
-			<sect3>	
+			</sect2>
+			<sect2>	
 			<title>total</title>
 			<para>
 			total is used to display the number of iterations that this section
@@ -2404,9 +2396,9 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	There were 3 customers shown above.
 </programlisting>
 	</example>
-			</sect3>
-		</sect2>
-		<sect2 id="language.function.foreach">
+			</sect2>
+		</sect1>
+		<sect1 id="language.function.foreach">
 			<title>foreach,foreachelse</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2519,8 +2511,8 @@ phone: 555-4444&lt;br&gt;
 fax: 555-3333&lt;br&gt;
 cell: 760-1234&lt;br&gt;</programlisting>
 </example>
-		</sect2>
-		<sect2 id="language.function.strip">
+		</sect1>
+		<sect1 id="language.function.strip">
 			<title>strip</title>
 			<para>
 			Many times web designers
@@ -2564,19 +2556,16 @@ OUTPUT:
 		If you have plain text at the beginning or end of any line,
 		they will be run together, and may not be desired results.
 		</para>
-		</sect2>
-       </sect1>
+		</sect1>
+       </chapter>
 
-       <sect1 id="language.custom.functions.top">
-        <title>Custom Functions</title>
+        <chapter id="language.custom.functions">
+         <title>Custom Functions</title>
         <para>
          Smarty comes with several custom functions that you can
          use in the templates.
         </para>
-
-        <sect2 id="language.custom.functions">
-         <title>Custom Functions</title>
-		<sect3 id="language.function.assign">
+		<sect1 id="language.function.assign">
 			<title>assign</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2630,8 +2619,8 @@ OUTPUT:
 
 The value of $name is Bob.</programlisting>
 </example>
-		</sect3>
-		<sect3 id="language.function.counter">
+		</sect1>
+		<sect1 id="language.function.counter">
 			<title>counter</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2727,8 +2716,8 @@ OUTPUT:
 6&lt;br&gt;
 8&lt;br&gt;</programlisting>
 </example>
-		</sect3>
-		<sect3 id="language.function.eval">
+		</sect1>
+		<sect1 id="language.function.eval">
 			<title>eval</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2824,8 +2813,8 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 
 </programlisting>
 </example>
-		</sect3>
-		<sect3 id="language.function.fetch">
+		</sect1>
+		<sect1 id="language.function.fetch">
 			<title>fetch</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2909,8 +2898,8 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 	&lt;b&gt;{$weather}&lt;/b&gt;
 {/if}</programlisting>
 </example>
-		</sect3>
-		<sect3 id="language.function.html.options">
+		</sect1>
+		<sect1 id="language.function.html.options">
 			<title>html_options</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2999,8 +2988,8 @@ OUTPUT:
 	&lt;option value="1003">Charlie Brown&lt;/option&gt;
 &lt;/select&gt;</programlisting>
 </example>
-		</sect3>
-		<sect3 id="language.function.html.select.date">
+		</sect1>
+		<sect1 id="language.function.html.select.date">
 			<title>html_select_date</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3283,8 +3272,8 @@ OUTPUT: (current year is 2000)
 &lt;option value="2001"&gt;2001&lt;/option&gt;
 &lt;/select&gt;</programlisting>
 </example>
-		</sect3>
-		<sect3 id="language.function.html.select.time">
+		</sect1>
+		<sect1 id="language.function.html.select.time">
 			<title>html_select_time</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3544,8 +3533,8 @@ OUTPUT:
 &lt;option value="pm"&gt;PM&lt;/option&gt;
 &lt;/select&gt;</programlisting>
 </example>
-		</sect3>
-		<sect3 id="language.function.math">
+		</sect1>
+		<sect1 id="language.function.math">
 			<title>math</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3658,8 +3647,8 @@ OUTPUT:
 
 9.44</programlisting>
 </example>
-		</sect3>
-		<sect3 id="language.function.popup.init">
+		</sect1>
+		<sect1 id="language.function.popup.init">
 			<title>popup_init</title>
 			<para>
 			popup is an integration of overLib, a library used for popup
@@ -3673,8 +3662,8 @@ OUTPUT:
 			<para>
 			This was added to Smarty 1.4.4.
 			</para>
-		</sect3>
-		<sect3 id="language.function.popup">
+		</sect1>
+		<sect1 id="language.function.popup">
 			<title>popup</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -4084,10 +4073,8 @@ OUTPUT:
 
 (See the Smarty official web site for working examples.)</programlisting>
 </example>
-		</sect3>
-       </sect2>
-	</sect1>
-  </chapter>
+		</sect1>
+       </chapter>
 
   <chapter id="config.files">
    <title>Config Files</title>
