@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.table">
  <title>html_table</title>
  <informaltable frame="all">
@@ -12,27 +12,59 @@
    <colspec colname="desc" />
    <thead>
     <row>
-     <entry>Nom attribut</entry>
+     <entry>Nom de l'attribut</entry>
      <entry>Type</entry>
      <entry>Requis</entry>
-     <entry>Defaut</entry>
+     <entry>Défaut</entry>
      <entry>Description</entry>
     </row>
    </thead>
    <tbody>
     <row>
      <entry>loop</entry>
-     <entry>array</entry>
+     <entry>tableau</entry>
      <entry>Oui</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>Tableau de données à parcourir</entry>
     </row>
     <row>
      <entry>cols</entry>
-     <entry>integer</entry>
+     <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>3</emphasis></entry>
-     <entry>Nombre de colonnes du tableau</entry>
+     <entry>
+      nombre de colonnes de la table. Si l'attribut "cols" est vide,
+      mais que des lignes sont données, alors le nombre de colonnes sera calculé
+      en utilisant le nombre de lignes et le nombre d'éléments à afficher pour qu'il y 
+      ait juste assez de colonnes pour afficher tous les éléments. Si les lignes et 
+      les colonnes sont omis tous les deux, la valeur par défaut de "cols" sera appliquée,
+      à savoir 3.
+     </entry>
+    </row>
+    <row>
+     <entry>rows</entry>
+     <entry>entier</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>
+      nombre de lignes de la table. Si l'attribut "rows" est vide, mais que des colonnes
+      sont données, alors le nombre de lignes sera calculée en utilisant le nombre de colonnes
+      et le nombre d'éléments à afficher pour qu'il y ait juste assez de lignes pour afficher
+      tous les éléments.
+     </entry>
+    </row>
+    <row>
+     <entry>inner</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>No</entry>
+     <entry><emphasis>cols</emphasis></entry>
+     <entry>
+      la direction du rendu des éléments consécutifs dans la boucle du tableau.
+      <emphasis>cols</emphasis> signifie que les éléments doivent être
+      afficher colonnes par colonnes.
+      <emphasis>rows</emphasis> signifie que les éléments doivent être
+      afficher lignes par lignes.
+     </entry>
     </row>
     <row>
      <entry>table_attr</entry>
@@ -46,16 +78,14 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>attributs pour les balises tr (les tableaux sont
-     parcourus)</entry>
+     <entry>attributs pour les balises tr (les tableaux sont parcourus)</entry>
     </row>
     <row>
      <entry>td_attr</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>attributs pour les balises td (les tableaux sont
-     parcourus)</entry>
+     <entry>attributs pour les balises td (les tableaux sont parcourus)</entry>
     </row>
     <row>
      <entry>trailpad</entry>
@@ -67,18 +97,25 @@
     </row>
     <row>
      <entry>hdir</entry>
-     <entry>string</entry>
+     <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>right</emphasis></entry>
-     <entry>Direction du rendu. Les valeurs possibles sont <emphasis>left</emphasis>/<emphasis>right</emphasis></entry>
+     <entry>
+      Direction du rendu. Les valeurs possibles sont <emphasis>left</emphasis> (left-to-right), 
+      <emphasis>right</emphasis> (right-to-left)
+     </entry>
     </row>
     <row>
      <entry>vdir</entry>
-     <entry>string</entry>
+     <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>down</emphasis></entry>
-     <entry>Direction des colonnes lors du rendu. Les valeurs possibles sont : <emphasis>up</emphasis>/<emphasis>down</emphasis></entry>
-   </row>    
+     <entry>
+      Direction des colonnes lors du rendu. Les valeurs possibles sont : 
+      <emphasis>down</emphasis> (top-to-bottom), <emphasis>up</emphasis>
+      (bottom-to-top)
+     </entry>
+    </row>    
    </tbody>
   </tgroup>
  </informaltable>
@@ -93,26 +130,32 @@
   <emphasis>trailpad</emphasis> est la valeur avec laquelle remplir
   les cellules restantes de la dernière ligne, s'il y en a une.
  </para>
+ 
  <example>
   <title>html_table</title>
-<programlisting>
+  <programlisting role="php">
 <![CDATA[
-index.php:
-
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
 $smarty->display('index.tpl');
-
-index.tpl:
-
+?>
+]]>
+  </programlisting>
+  <programlisting>
+<![CDATA[
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
 {html_table loop=$data cols=4 tr_attr=$tr}
-
-OUTPUT:
-
+]]>
+  </programlisting>
+  <para>
+   Affichera :
+  </para>
+  <screen>
+<![CDATA[
 <table border="1">
 <tr><td>1</td><td>2</td><td>3</td></tr>
 <tr><td>4</td><td>5</td><td>6</td></tr>
@@ -128,9 +171,11 @@ OUTPUT:
 <tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table>
-]]></programlisting>
+]]>
+  </screen>
  </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

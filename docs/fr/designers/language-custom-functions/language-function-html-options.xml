@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.options">
  <title>html_options</title>
  <informaltable frame="all">
@@ -86,51 +86,54 @@
  </para>
  <example>
   <title>html_options</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 index.php:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('id_client', array(1000,1001,1002,1003));
-$smarty-&gt;assign('nom_client', array('Joe Schmoe','Jack Smith','Jane
+$smarty->assign('id_client', array(1000,1001,1002,1003));
+$smarty->assign('nom_client', array('Joe Schmoe','Jack Smith','Jane
 Johnson','Charlie Brown'));
-$smarty-&gt;assign('client_id', 1001);
-$smarty-&gt;display('index.tpl');
+$smarty->assign('client_id', 1001);
+$smarty->display('index.tpl');
 
 index.tpl:
 
-&lt;select name=client_id&gt;
-	{html_options values=$id_client selected=$client_id output=$nom_client}
-&lt;/select&gt;
+<select name=client_id>
+  {html_options values=$id_client selected=$client_id output=$nom_client}
+</select>
 
 
 index.php:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('cust_options', array(
-			1001 =&gt; 'Joe Schmoe',
-			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson',
-			1004 =&gt; 'Charlie Brown'));
-$smarty-&gt;assign('client_id', 1001);
-$smarty-&gt;display('index.tpl');
+$smarty->assign('cust_options', array(
+      1001 => 'Joe Schmoe',
+      1002 => 'Jack Smith',
+      1003 => 'Jane Johnson',
+      1004 => 'Charlie Brown'));
+$smarty->assign('client_id', 1001);
+$smarty->display('index.tpl');
 
 index.tpl:
 
-&lt;select name=client_id&gt;
-	{html_options options=$cust_options selected=$client_id}
-&lt;/select&gt;
+<select name=client_id>
+  {html_options options=$cust_options selected=$client_id}
+</select>
 
 
 SORTIE: (valable pour les deux exemples)
 
-&lt;select name=client_id&gt;
-	&lt;option value="1000"&gt;Joe Schmoe&lt;/option&gt;
-	&lt;option value="1001" selected="selected"&gt;Jack Smith&lt;/option&gt;
-	&lt;option value="1002"&gt;Jane Johnson&lt;/option&gt;
-	&lt;option value="1003"&gt;Charlie Brown&lt;/option&gt;
-&lt;/select&gt;</programlisting>
+<select name=client_id>
+  <option value="1000">Joe Schmoe</option>
+  <option value="1001" selected="selected">Jack Smith</option>
+  <option value="1002">Jane Johnson</option>
+  <option value="1003">Charlie Brown</option>
+</select>
+]]>
+  </programlisting>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

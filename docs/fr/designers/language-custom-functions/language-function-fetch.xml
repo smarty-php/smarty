@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.fetch">
  <title>fetch</title>
  <informaltable frame="all">
@@ -72,18 +72,18 @@
 <programlisting>
 <![CDATA[
 {* Inclus du javascript dans votre template *}
-{fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
+{fetch file="/export/httpd/www.example.com/docs/navbar.js"}
 
 {* récupère les informations météo d'un autre site sur votre page *}
 {fetch file="http://www.myweather.com/68502/"}
 
 {* récupère les titres depuis un fichier ftp *}
-{fetch file="ftp://user:password@ftp.domain.com/path/to/currentheadlines.txt"}
+{fetch file="ftp://user:password@ftp.example.com/path/to/currentheadlines.txt"}
 
 {* assigne le contenu récupéré à une variable de template *}
 {fetch file="http://www.myweather.com/68502/" assign="weather"}
 {if $weather ne ""}
-	<b>{$weather}</b>
+  <b>{$weather}</b>
 {/if}
 ]]>
 </programlisting>

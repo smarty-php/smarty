@@ -1,37 +1,70 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.capitalize">
  <title>capitalize</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Position du paramètre</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Défaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>1</entry>
+     <entry>booléen</entry>
+     <entry>No</entry>
+     <entry>false</entry>
+     <entry>Détermine si oui ou non les mots contenant des chiffres
+     doivent être mis en majuscule</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>  
  <para>
   Met la première lettre de chaque mot d'une variable en majuscule.
  </para>
  <example>
-  <title>capitalize</title>
+  <title>Mise en majuscule</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 
 $smarty = new Smarty;
-$smarty->assign('articleTitle', 'Police begin campaign to rundown jaywalkers.');
+$smarty->assign('titreArticle', 'Le nouveau php5 est vraiment performant !');
 $smarty->display('index.tpl');
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Où index.tpl contient :
    </para>
    <programlisting>
 <![CDATA[
-{$articleTitle}
-{$articleTitle|capitalize}
+{$titreArticle}
+{$titreArticle|capitalize}
+{$titreArticle|capitalize:true}
 ]]>
    </programlisting>
+   <para>
+    Affichera :
+   </para>
    <screen>
 <![CDATA[
-La police commence une campagne de sensibilisation contre la violence routière.
-La Police Commence Une Campagne De Sensibilisation Contre La Violence Routière.
+Le nouveau php5 est vraiment performant !
+Le Nouveau php5 Est Vraiment Performant !
+Le Nouveau Php5 Est Vraiment Performant !
 ]]>
    </screen>   
  </example>

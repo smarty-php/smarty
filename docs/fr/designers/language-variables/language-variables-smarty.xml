@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.variables.smarty">
  <title>Variable réservée {$smarty}</title>
  <para>
@@ -19,7 +19,7 @@
    <title>Afficher des variables de requête</title>
 <programlisting>
 <![CDATA[
-{* Affiche la valeur de page dans l'url (GET) http://www.domain.com/index.php?page=foo *}
+{* Affiche la valeur de page dans l'url (GET) http://www.example.com/index.php?page=foo *}
 {$smarty.get.page}
 
 {* affiche la variable "page" récupérée depuis un formulaire (POST) *}
@@ -119,7 +119,7 @@
  <sect2 id="language.variables.smarty.ldelim">
   <title>{$smarty.ldelim}</title>
   <para>
-   Cette variable est utilisé pour afficher le délémiteur gauche. Lisez aussi
+   Cette variable est utilisée pour afficher le délémiteur gauche. Lisez aussi
    la partie <link
    linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
@@ -127,7 +127,7 @@
  <sect2 id="language.variables.smarty.rdelim">
   <title>{$smarty.rdelim}</title>
   <para>
-   Cette variable est utilisé pour afficher le délémiteur droit. Lisez aussi
+   Cette variable est utilisée pour afficher le délémiteur droit. Lisez aussi
    la partie <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
  </sect2>
