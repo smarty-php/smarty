@@ -1,3 +1,13 @@
+2003-02-13  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php
+      docs/designers.sgml:
+      allow dash in plain text
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      check strict syntax of function attributes
+
 2003-02-12  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
