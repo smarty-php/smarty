@@ -1,3 +1,27 @@
+2003-03-06  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      docs/de/appendixes.sgml
+      docs/de/common.dsl
+      docs/de/designers.sgml
+      docs/de/getting-started.sgml
+      docs/de/html-common.dsl
+      docs/de/html.dsl
+      docs/de/manual.sgml
+      docs/de/preface.sgml
+      docs/de/programmers.sgml:
+      add german docs to dist
+
+    * NEWS:
+      update news file
+
+    * libs/plugins/function.html_image.php:
+      fix width/height parameter index
+
+    * NEWS
+      libs/Smarty.class.php:
+      get rid of unsetting name and script attributes to insert tags
+
 2003-03-05  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
