@@ -77,7 +77,8 @@ class Smarty
 											'date_format'	=> 'smarty_mod_date_format',
 											'string_format'	=> 'smarty_mod_string_format',
 											'replace'		=> 'smarty_mod_replace',
-											'strip_tags'	=> 'smarty_mod_strip_tags'
+											'strip_tags'	=> 'smarty_mod_strip_tags',
+											'default'		=> 'smarty_mod_default'
 										 );
 	var $global_assign			=	array(	'SCRIPT_NAME'
 										 );

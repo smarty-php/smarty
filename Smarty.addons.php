@@ -127,6 +127,15 @@ function smarty_mod_strip_tags($string, $replace_with_space = true)
 		return strip_tags($string);
 }
 
+function smarty_mod_default($string,$default="")
+{
+	if(empty($string))
+		return $default;
+	else
+		return $string;
+}
+
+
 /*============================================*\
   Custom tag functions
 \*============================================*/
