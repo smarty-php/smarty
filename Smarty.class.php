@@ -710,9 +710,14 @@ class Smarty
 					$expr = "($is_arg % 2)";
 				break;
 
-			case 'mod':
-				$expr_arg = $tokens[$expr_end++];
-				$expr = "!($is_arg % $expr_arg)";
+			case 'div':
+				if ($tokens[$expr_end] == 'by') {
+					$expr_end++;
+					$expr_arg = $tokens[$expr_end++];
+					$expr = "!($is_arg % $expr_arg)";
+				} else {
+					/* TODO syntax error: expecting 'by' */
+				}
 				break;
 
 			default:
