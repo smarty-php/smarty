@@ -1,3 +1,8 @@
+2002-12-20  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
+      fix misc syntax issues with {if} tags
+
 2002-12-19  Monte Ohrt  <monte@ispi.net>
 
     * Smarty_Compiler.class.php:
@@ -22,6 +27,123 @@
       Smarty.class.php
       Smarty_Compiler.class.php:
       update compiler code, clean up regex, add new syntax features
+
+2002-12-16  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS:
+      update NEWS file
+
+    * Smarty_Compiler.class.php:
+      commit updates for objects
+
+2002-12-14  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php:
+      fix bug with compiling config files with caching on
+
+2002-12-13  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
+      fix problem with matching single quoted strings
+
+    * Smarty_Compiler.class.php:
+      update embedded variable logic, get rid of ."" at end of output
+
+    * NEWS
+      docs/designers.sgml
+      plugins/function.html_select_date.php:
+      add day_value_format to html_select_date
+
+2002-12-12  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/modifier.debug_print_var.php:
+      fix bug, double escaped values in display
+
+    * Smarty.class.php:
+      move debug test back into fetch()
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      plugins/outputfilter.trimwhitespace.php:
+      assigned vars are no longer in global name space, few debug cleanups
+
+2002-12-11  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.popup.php:
+      fix error in newline code
+
+    * plugins/function.popup.php:
+      fix popup to allow newlines in text data
+
+2002-12-10  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php:
+      fix plugin error logic
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      edit examples, make more verbose
+
+    * NEWS
+      plugins/function.html_options.php:
+      escape html entities in the option values and output
+
+    * NEWS
+      plugins/function.html_options.php:
+      fixed bug with label of html_options
+
+2002-12-09  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php:
+      add support for var_export()
+
+    * Config_File.class.php
+      Smarty.class.php:
+      clean up code, respect force_compile and compile_check flags
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs/designers.sgml
+      plugins/function.mailto.php:
+      add caching feature to config loading, document update, add mailto plugin
+
+2002-12-08  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.fetch.php:
+      fix query part of URL
+
+2002-12-05  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml:
+      fix typos
+
+2002-11-22  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
+      patch for warning message
+
+2002-11-21  Monte Ohrt  <monte@ispi.net>
+
+    * RELEASE_NOTES
+      Smarty.class.php:
+      get rid of testing for a set value with assign function, just set to
+      whatever is passed into the template
+
+    * docs/programmers.sgml:
+      fix typo
+
+2002-11-19  Monte Ohrt  <monte@ispi.net>
+
+    * Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+      commit changes, ready for 2.3.1 release
 
 2002-11-01  Monte Ohrt  <monte@ispi.net>
 
