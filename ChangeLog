@@ -1,3 +1,12 @@
+2003-09-02  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      ignore {strip}/{/strip) inside {strip}-blocks
+
+    * libs/plugins/function.mailto.php:
+      fixed 2 notices in smarty_function_mailto()
+
 2003-09-01  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
