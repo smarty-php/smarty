@@ -11,55 +11,55 @@
  * @param array $args
  * @return string
  */    
-function smarty_core_run_insert_handler($params, &$this)
+function smarty_core_run_insert_handler($params, &$smarty)
 {
 	
 	require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
-    if ($this->debugging) {
+    if ($smarty->debugging) {
 		$_params = array();
-        $_debug_start_time = smarty_core_get_microtime($_params, $this);
+        $_debug_start_time = smarty_core_get_microtime($_params, $smarty);
     }
 
-    if ($this->caching) {
+    if ($smarty->caching) {
         $_arg_string = serialize($params['args']);
         $_name = $params['args']['name'];
-        if (!isset($this->_cache_info['insert_tags'][$_name])) {
-            $this->_cache_info['insert_tags'][$_name] = array('insert',
+        if (!isset($smarty->_cache_info['insert_tags'][$_name])) {
+            $smarty->_cache_info['insert_tags'][$_name] = array('insert',
                                                              $_name,
-                                                             $this->_plugins['insert'][$_name][1],
-                                                             $this->_plugins['insert'][$_name][2],
+                                                             $smarty->_plugins['insert'][$_name][1],
+                                                             $smarty->_plugins['insert'][$_name][2],
                                                              !empty($params['args']['script']) ? true : false);
         }
-        return $this->_smarty_md5."{insert_cache $_arg_string}".$this->_smarty_md5;
+        return $smarty->_smarty_md5."{insert_cache $_arg_string}".$smarty->_smarty_md5;
     } else {
         if (isset($params['args']['script'])) {				
-			$_params = array('resource_name' => $this->_dequote($params['args']['script']));
+			$_params = array('resource_name' => $smarty->_dequote($params['args']['script']));
 			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_php_resource.php');
-			if(!smarty_core_get_php_resource($_params, $this)) {
+			if(!smarty_core_get_php_resource($_params, $smarty)) {
 				return false;
 			}
 
             if ($_params['resource_type'] == 'file') {
-                include_once($_params['php_resource']);
+                $smarty->smarty_include_once($_params['php_resource']);
             } else {
-                eval($_params['php_resource']);
+                $smarty->smarty_eval($_params['php_resource']);
             }
             unset($params['args']['script']);
         }
 
-        $_funcname = $this->_plugins['insert'][$params['args']['name']][0];
-        $_content = $_funcname($params['args'], $this);
-        if ($this->debugging) {
+        $_funcname = $smarty->_plugins['insert'][$params['args']['name']][0];
+        $_content = $_funcname($params['args'], $smarty);
+        if ($smarty->debugging) {
 			$_params = array();
 			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
-            $this->_smarty_debug_info[] = array('type'      => 'insert',
+            $smarty->_smarty_debug_info[] = array('type'      => 'insert',
                                                 'filename'  => 'insert_'.$params['args']['name'],
-                                                'depth'     => $this->_inclusion_depth,
-                                                'exec_time' => smarty_core_get_microtime($_params, $this) - $_debug_start_time);
+                                                'depth'     => $smarty->_inclusion_depth,
+                                                'exec_time' => smarty_core_get_microtime($_params, $smarty) - $_debug_start_time);
         }
 
         if (!empty($params['args']["assign"])) {
-            $this->assign($params['args']["assign"], $_content);
+            $smarty->assign($params['args']["assign"], $_content);
         } else {
             return $_content;
         }
