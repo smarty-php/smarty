@@ -1,3 +1,16 @@
+2003-05-28  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.html_table.php:
+      added params vdir, hdir and inner to html_table to allow looping over
+      the data in various directions
+
+2003-05-28  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/core.compile_template.php
+      libs/plugins/core.display_debug_console.php:
+      fix problem with security and debug.tpl file
+
 2003-05-23  Monte Ohrt  <monte@ispi.net>
 
     * NEWS:
