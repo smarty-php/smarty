@@ -1,3 +1,38 @@
+2003-06-19  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      updated version-number to 2.5.0-cvs
+
+    * libs/core/core.write_cache_file.php:
+      omit is-cache_dir-writable-check if a cache_handler_function is in use
+
+    * libs/core/core.smarty_include_php.php:
+      fixed comments in smarty_include_php
+
+2003-06-19  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.display_debug_console.php
+      libs/core/core.smarty_include.php
+      libs/plugins/function.eval.php:
+      split up _compile_template to _compile_file and _compile_source, fix eval
+      function
+      VS: ----------------------------------------------------------------------
+
+    * libs/plugins/function.config_load.php:
+      fix logic for _is_compiled()
+
+2003-06-19  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      added optional assign-attribute to {capture}-tag
+
+    * NEWS
+      libs/Smarty.class.php:
+      added $cacheable-parameter to register_compiler_function()
+
 2003-06-18  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
