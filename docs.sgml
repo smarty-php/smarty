@@ -14,7 +14,7 @@
 			<address><email>andrei@php.net</email></address>
 		</affiliation>
 	</author>
-	<edition>Version 1.4.2</edition>
+	<edition>Version 1.4.3</edition>
 	<copyright><year>2001</year><holder>ispi of Lincoln, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -436,16 +436,72 @@ chmod 700 cache
                 <link linkend="variable.modifiers">modifiers</link> instead.
 			</para>
 		</sect2>
+		<sect2 id="setting.security">
+			<title>$security</title>
+			<para>
+			$security true/false, default is false. Security is good for
+			situations when you have untrusted parties editing the templates
+			(via ftp for example) and you want to reduce the risk of system
+			security compromises through the template language. Turning on
+			security enforces the following rules to the template language,
+			unless specifially overridden with $security_settings:
+			</para>
+			<itemizedlist>
+			<listitem><para>If $php_handling is set to SMARTY_PHP_ALLOW, this is
+			implicitly changed to SMARTY_PHP_PASSTHRU</para></listitem>
+			<listitem><para>PHP functions are not allowed in IF statements,
+			except those specified in the $security_settings</para></listitem>
+			<listitem><para>templates can only be included from directories
+			listed in the $secure_dir array</para></listitem>
+			<listitem><para>local files can only be fetched from directories
+			listed in the $secure_dir array using {fetch}</para></listitem>
+			<listitem><para>{php}{/php} tags are not allowed</para></listitem>
+			<listitem><para>PHP functions are not allowed as modifiers, except
+			those specified in the $security_settings</para></listitem>
+			</itemizedlist>
+			<para>
+			NOTE: Security features were added to Smarty 1.4.3.
+			</para>
+		</sect2>
+		<sect2 id="setting.secure.dir">
+			<title>$secure_dir</title>
+			<para>
+				This is an array of all local directories that are considered
+				secure. {include} and {fetch} use this when security is enabled.
+			</para>
+		</sect2>
+		<sect2 id="setting.security.settings">
+			<title>$security_settings</title>
+			<para>
+			These are used to override or specify the security settings when
+			security is enabled. These are the possible settings:
+			</para>
+			<itemizedlist>
+			<listitem><para>PHP_HANDLING - true/false. If set to true, the
+			$php_handling setting is not checked for security.</para></listitem>
+			<listitem><para>IF_FUNCS - This is an array of the names of permitted
+			PHP functions in IF statements.</para></listitem>
+			<listitem><para>INCLUDE_ANY - true/false. If set to true, any
+			template can be included from the file system, regardless of the
+			$secure_dir list.</para></listitem>
+			<listitem><para>PHP_TAGS - true/false. If set to true, {php}{/php}
+			tags are permitted in the templates.</para></listitem>
+			<listitem><para>MODIFIER_FUNCS - This is an array of the names of permitted
+			PHP functions used as variable modifiers.</para></listitem>
+			</itemizedlist>
+		</sect2>
 		<sect2 id="setting.left.delimiter">
 			<title>$left_delimiter</title>
 			<para>
-				This is the left delimiter used by the template language. Default is "{".
+				This is the left delimiter used by the template language.
+				Default is "{".			
 			</para>
 		</sect2>
 		<sect2 id="setting.right.delimiter">
 			<title>$right_delimiter</title>
 			<para>
-				This is the right delimiter used by the template language. Default is "}".			
+				This is the right delimiter used by the template language.
+				Default is "}".			
 			</para>
 		</sect2>
 		<sect2 id="setting.custom.funcs">
@@ -511,6 +567,27 @@ chmod 700 cache
                 This is used to assign values to the templates. You can
                 explicitly pass name/value pairs, or associative arrays
                 containing the name/value pairs.
+			</para>
+<example>
+<title>assign</title>
+<programlisting>
+
+// passing name/value pairs
+$smarty->assign("Name","Fred");
+$smarty->assign("Address",$address);
+
+// passing an associative array
+$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.assign.debug.info">
+			<title>assign_debug_info</title>
+			<para>
+				This is used to assign debugging data to the template. This is
+				used exlusively by the <link
+				linkend="chapter.debugging.console">debugging console</link>.
 			</para>
 <example>
 <title>assign</title>
@@ -1621,12 +1698,31 @@ Intro = """This is a value that spans more
                         <entry>The name of the section to load</entry>
                     </row>
                     <row>
+                        <entry>scope</entry>
+                        <entry>string</entry>
+                        <entry>no</entry>
+                        <entry><emphasis>local</emphasis></entry>
+                        <entry>
+						How the scope of the loaded variables are treated,
+						which must be one of local, parent or global. local
+						means variables are loaded into the local template
+						context. parent means variables are loaded into both
+						the local context and the parent template that called
+						it. global means variables are available to all
+						templates. NOTE: This was added to Smarty 1.4.3.
+						</entry>
+                    </row>
+                    <row>
                         <entry>global</entry>
                         <entry>boolean</entry>
                         <entry>No</entry>
                         <entry><emphasis>No</emphasis></entry>
-                        <entry>Whether or not variables are global (visible to
-                        parent templates)</entry>
+                        <entry>
+						Whether or not variables are visible to the parent
+						template, same as scope=parent. NOTE: This attribute is
+						deprecated by the scope attribute, but still supported.
+						If scope is supplied, this value is ignored.
+						</entry>
                     </row>
                 </tbody>
                 </tgroup>
@@ -2565,7 +2661,10 @@ OUTPUT:
             </informaltable>
 			<para>
 			assign is used for assigning template variables during the execution
-			of the template. assign was added to Smarty 1.4.3.
+			of the template.
+			</para>
+			<para>
+			NOTE: This was added to Smarty 1.4.3.
 			</para>
 <example>
 <title>assign</title>
@@ -3813,6 +3912,68 @@ two convicts evade noose, jury hung.
 </example>
 		</sect2>
 		<sect2>
+			<title>regex_replace</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the regular expression to be replaced.</entry>
+                    </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>This is the string of text to replace with.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			A regular expression search and replace on a variable. Use the
+			syntax for preg_replace() from the PHP manual.
+			</para>
+			<para>
+			NOTE: This function was added to Smarty 1.4.3.
+			</para>
+<example>
+<title>regex_replace</title>
+<programlisting>
+
+{* replace each carriage return, tab &amp; new line with a space *}
+
+{$articleTitle}
+{$articleTitle|regex_replace:"/[\r\t\n]/":" "}
+
+OUTPUT:
+
+Infertility unlikely to
+ be passed on, experts say
+Infertility unlikely to be passed on, experts say
+
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
 			<title>replace</title>
             <informaltable frame=all>
                 <tgroup cols=3>
@@ -4141,6 +4302,42 @@ s m o k e r s   a r e   p. . .
             </para>
        </sect2>
    </sect1>    
+</chapter>
+<chapter id="chapter.debugging.console">
+   <title>Debugging Console</title>
+   <para>
+   There is a dubugging console included with Smarty. The console informs you
+   of all the included templates and assigned variables for the current
+   invocation of the template, very useful information during development! A
+   template named "debug.tpl" is included with the distribution of Smarty. Put
+   this template where it can be included from a template within your
+   application. Include the template somewhere toward the bottom of the page.
+   If you have a footer template, this would be an excellent place to include
+   debug.tpl since it will automatically be included at the bottom of every
+   page that uses that footer. When you load the page, a javascript console
+   window should pop up and give you the names of all the included templates
+   and assigned variables for the current page. To disable the debugging
+   console, simply remove the include statement from your template.
+   </para>
+   <para>
+   NOTE: This feature was added to Smarty 1.4.3.
+   </para>
+<example>
+<title>Including Debugging Console</title>
+<programlisting>
+
+footer.tpl
+----------
+
+{* We will include the debugging console in the footer template. *}
+{* debug.tpl is in our default template directory. *}
+
+{include file="debug.tpl"}
+&lt;BODY&gt;
+&lt;HTML&gt;
+
+</programlisting>
+</example>
 </chapter>
 <chapter>
    <title>Troubleshooting</title>

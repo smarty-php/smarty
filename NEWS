@@ -1,10 +1,13 @@
+    - added regex_replace modifier, documented (Monte)
+    - added debugging console feature, documented (Monte)
+    - added custom function assign_debug_info, documented (Monte)
     - added 'scope' attribute for {config_load}, 'global' is now deprecated but
       is still supported. (Andrei)
     - reduced template symbol table pollution by moving config array into the
       class itself. (Andrei)
     - fixed a bug with passing quoted arguments to modifiers inside {if}
       statements. (Andrei, Sam Beckwith)
-    - added security features for third party template editing. (Monte)
+    - added security features for third party template editing, documented (Monte)
     - added assign custom function, documented. (Monte)
     - fixed bug with template header using version instead of _version. (Monte)
     - fixed a problem with putting $ followed by numbers inside {strip} and

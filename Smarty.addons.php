@@ -178,6 +178,15 @@ function smarty_mod_replace($string, $search, $replace)
 }
 
 /*======================================================================*\
+    Function: smarty_mod_regex_replace
+    Purpose:  regular epxression search/replace
+\*======================================================================*/
+function smarty_mod_regex_replace($string, $search, $replace)
+{
+    return preg_replace($search, $replace, $string);
+}
+
+/*======================================================================*\
     Function: smarty_mod_strip_tags
     Purpose:  strip html tags from text
 \*======================================================================*/
@@ -596,6 +605,21 @@ function smarty_func_counter() {
 		$count[$id] += $skipval[$id];
 
     return true;
+}
+
+/*======================================================================*\
+    Function: smarty_func_assign_debug_info
+    Purpose:  assign debug info to the template
+\*======================================================================*/
+function smarty_func_assign_debug_info($args, &$smarty_obj) {
+	$assigned_vars = $smarty_obj->_tpl_vars;
+	ksort($assigned_vars);
+	$included_templates = $smarty_obj->_included_tpls;
+	sort($included_templates);
+	$smarty_obj->assign("_debug_keys",array_keys($assigned_vars));
+	$smarty_obj->assign("_debug_vals",array_values($assigned_vars));
+	$smarty_obj->assign("_debug_tpls",$included_templates);
+	return true;
 }
 
 /* vim: set expandtab: */

@@ -59,7 +59,7 @@ class Smarty
     var $template_dir    =  './templates';     // name of directory for templates  
     var $compile_dir     =  './templates_c';   // name of directory for compiled templates 
     var $config_dir      =  './configs';       // directory where config files are located
-
+    
     var $global_assign   =  array( 'HTTP_SERVER_VARS' => array( 'SCRIPT_NAME' )
                                  );     // variables from the GLOBALS array
                                         // that are implicitly assigned
@@ -114,7 +114,7 @@ class Smarty
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
-    
+        
     var $compiler_funcs  =  array(
                                  );
 
@@ -124,7 +124,8 @@ class Smarty
                                     'math'              => 'smarty_func_math',
                                     'fetch'             => 'smarty_func_fetch',
                                     'counter'           => 'smarty_func_counter',
-                                    'assign'            => 'smarty_func_assign'
+                                    'assign'            => 'smarty_func_assign',
+                                    'assign_debug_info' => 'smarty_func_assign_debug_info'            
                                  );
     
     var $custom_mods     =  array(  'lower'             => 'strtolower',
@@ -136,6 +137,7 @@ class Smarty
                                     'date_format'       => 'smarty_mod_date_format',
                                     'string_format'     => 'smarty_mod_string_format',
                                     'replace'           => 'smarty_mod_replace',
+                                    'regex_replace'     => 'smarty_mod_regex_replace',
                                     'strip_tags'        => 'smarty_mod_strip_tags',
                                     'default'           => 'smarty_mod_default',
                                     'count_characters'  => 'smarty_mod_count_characters',
@@ -145,6 +147,8 @@ class Smarty
                                  );
                                  
     var $show_info_header      =   false;     // display HTML info header at top of page output
+    var $show_info_include     =   true;      // display HTML comments at top & bottom of
+                                              // each included template
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
                                                       // Smarty to compile templates
@@ -166,6 +170,7 @@ class Smarty
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
     var $_version               =   '1.4.2';    // Smarty version number    
     var $_extract               =   false;      // flag for custom functions
+    var $_included_tpls            =    array();    // list of included templates
     
 /*======================================================================*\
     Function: Smarty
@@ -485,8 +490,10 @@ class Smarty
 \*======================================================================*/
     function fetch($tpl_file, $cache_id = null, $display = false)
     {
-        global $HTTP_SERVER_VARS;
+        global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
+        $this->_included_tpls[] = $tpl_file;
+        
         if ($this->caching) {
             // cache name = template path + cache_id
             $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
@@ -528,18 +535,30 @@ class Smarty
         } else {
             $info_header = '';          
         }
-
+        
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($display && !$this->caching) {
             echo $info_header;
             $this->_process_template($tpl_file, $compile_path);
+            if($this->show_info_include) {
+                echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
+            }
             include($compile_path);
+            if($this->show_info_include) {
+                echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
+            }
         } else {
             ob_start();
             echo $info_header;
             $this->_process_template($tpl_file, $compile_path);
+            if($this->show_info_include) {
+                echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
+            }
             include($compile_path);
+            if($this->show_info_include) {
+                echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
+            }
             $results = ob_get_contents();
             ob_end_clean();
         }
@@ -557,6 +576,72 @@ class Smarty
         }
     }   
 
+/*======================================================================*\
+    Function:   _display_debug_info
+    Purpose:    display debugging information
+\*======================================================================*/
+    function _display_debug_info()
+    {
+        asort($this->_debug_tpl);
+        reset($this->_debug_tpl);
+        ksort($this->_tpl_vars);
+        reset($this->_tpl_vars);
+        echo "<SCRIPT language=javascript>\n";
+        echo '_smarty_console = window.open("","console","width=500,height=600,resizable,scrollbars=yes"); ';
+        echo '_smarty_console.document.write("<HTML><TITLE>Smarty Debug Console</TITLE><BODY bgcolor=#ffffff>"); ';
+        echo "\n";
+        echo '_smarty_console.document.write("<b>included templates:</b><br>"); ';
+        echo "\n";
+        foreach ($this->_debug_tpl as $curr_tpl) {
+            echo '_smarty_console.document.write("<font color=blue>'.$curr_tpl.'</font><br>"); ';
+            echo "\n";
+        }
+        echo '_smarty_console.document.write("<br><b>assigned template variables:</b><br>"); ';
+        echo "\n";
+        echo '_smarty_console.document.write("<PRE>"); ';
+        echo "\n";
+        $search = array('!"!','![\r\t\n]!');
+        $replace = array("'",' ');
+        foreach ($this->_tpl_vars as $key => $val) {
+            echo '_smarty_console.document.write("<font color=red>{\$'.$key.'}</font> = <font color=blue>'.preg_replace($search,$replace,htmlspecialchars(substr($val,0,50))).'</font>';
+            if(is_array($val)) {
+                echo " (".count($val).")";
+            }
+            echo '<br>"); ';
+            if(is_array($val) && $this->debug_level > 2) {
+                $this->_print_debug_array($val,1);
+            }
+        }
+        echo '_smarty_console.document.write("</PRE>"); ';
+        echo "\n";
+        echo '_smarty_console.document.write("</BODY></HTML>"); ';
+        echo "\n";
+        echo '_smarty_console.document.close(); ';
+        echo "\n";
+        echo "</SCRIPT>\n";
+    }
+
+/*======================================================================*\
+    Function:   _print_debug_array
+    Purpose:    display debugging information
+\*======================================================================*/
+    function _print_debug_array($array,$level)
+    {
+        foreach($array as $key => $val) {
+            for($x=0; $x<$level; $x++) {
+                echo '_smarty_console.document.write("&nbsp;&nbsp;&nbsp;"); ';
+                echo "\n";
+            }
+            $search = array('!"!','![\r\t\n]!');
+            $replace = array("'",' ');
+            echo '_smarty_console.document.write("<font color=red>{\$'.$key.'}</font> = <font color=blue>'.preg_replace($search,$replace,htmlspecialchars(substr($val,0,50))).'</font><br>"); ';
+            echo "\n";
+            if(is_array($val)) {
+                $this->_print_debug_array($val,$level+1);
+            }            
+        }
+    }    
+    
 /*======================================================================*\
     Function:   _process_template()
     Purpose:    
@@ -751,8 +836,16 @@ class Smarty
         array_unshift($this->_config, $this->_config[0]);
  
         $this->_process_template($_smarty_include_tpl_file, $compile_path);
+        if($this->show_info_include) {
+            echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
+        }
         include($compile_path);
+        if($this->show_info_include) {
+            echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
+        }
 
+        $this->_included_tpls[] = $_smarty_include_tpl_file;
+        
         array_shift($this->_config);
     }
         
