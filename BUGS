@@ -1,14 +1,4 @@
-There are some bugs in older versions of PHP that cause problems with Smarty.
-preg_replace() had a parameter added in 4.0.2 that is needed for Smarty.
-preg_grep() previous to 4.0.4 has a bug which Smarty has a built-in workaround
-for. PHP 4.0.4 has a bug with user callbacks which would cause this syntax in
-Smarty to crash PHP: {$varname|@modname} Use PHP 4.0.4pl1 to fix this, or avoid
-using the "@" with modifiers. if you are passing variables to {include}
-statements, you will need PHP 4.0.4 or later, which requires the use of
-get_defined_vars() function. Some versions of Windows 2k have a problem with
-flock(). Comment out the flock() command in _write_file to get around this.
-
-To be absolutely safe, use 4.0.6 or later with Smarty.
+Smarty is supported only in PHP 4.0.6 or later.
 
 Smarty versions previous to 2.0 require the PEAR libraries. Be sure to include
 the path to the PEAR libraries in your php include_path. Config_file.class.php
