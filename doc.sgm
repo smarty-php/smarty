@@ -1552,7 +1552,7 @@ Home Page
 		in the $articleTitle array.)
 		</para>
 		<sect2>
-			<title>captialize</title>
+			<title>capitalize</title>
 			<para>
 			This is used to capitalize the first letter of all words in a variable.
 			</para>
