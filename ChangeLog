@@ -1,3 +1,13 @@
+2002-12-18  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS:
+      update NEWS
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+      update compiler code, clean up regex, add new syntax features
+
 2002-11-01  Monte Ohrt  <monte@ispi.net>
 
     * plugins/function.html_options.php:
