@@ -47,8 +47,6 @@ if (!defined('SMARTY_DIR')) {
     define('SMARTY_DIR', '');
 }
 
-//require_once SMARTY_DIR.'Smarty.addons.php';
-
 define('SMARTY_PHP_PASSTHRU',   0);
 define('SMARTY_PHP_QUOTE',      1);
 define('SMARTY_PHP_REMOVE',     2);
@@ -543,7 +541,7 @@ class Smarty
         if ($this->_conf_obj === null) {
             /* Prepare the configuration object. */
             if (!class_exists('Config_File'))
-                include_once SMARTY_DIR.'Config_File.class.php';
+                require_once SMARTY_DIR.'Config_File.class.php';
             $this->_conf_obj = new Config_File($this->config_dir);
             $this->_conf_obj->read_hidden = false;
         } else
@@ -983,7 +981,7 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _compile_template($tpl_file, $template_source, &$template_compiled)
     {
-        include_once SMARTY_DIR.$this->compiler_class . '.class.php';
+        require_once SMARTY_DIR.$this->compiler_class . '.class.php';
 
         $smarty_compiler = new $this->compiler_class;
 
@@ -1555,7 +1553,8 @@ function _run_insert_handler($args)
                 }
             }
 
-            $plugin_file = $this->plugins_dir .
+            $plugin_file = SMARTY_DIR .
+                           $this->plugins_dir .
                            '/' .
                            $type .
                            '.' .
@@ -1652,7 +1651,8 @@ function _run_insert_handler($args)
             return;
         }
 
-        $plugin_file = $this->plugins_dir .
+        $plugin_file = SMARTY_DIR .
+                       $this->plugins_dir .
                        '/resource.' .
                        $type .
                        '.php';

@@ -8,8 +8,8 @@
  * Purpose:  Prints the dropdowns for date selection.
  * -------------------------------------------------------------
  */
-include_once dirname(__FILE__) . '/.make_timestamp.php';
-include_once dirname(__FILE__) . '/function.html_options.php';
+require_once SMARTY_DIR . 'plugins/.make_timestamp.php';
+require_once SMARTY_DIR . 'plugins/function.html_options.php';
 function smarty_function_html_select_date($params, &$smarty)
 {
     /* Default values. */

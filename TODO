@@ -1,9 +1,6 @@
-* Ability to load multiple sections in one {config_load ...}
 * handle asp style tags in $php_handler
 * correctly capture nested php tag syntax in templates:
   <?php echo "<?php exit(); ?>"; ?>
-* think about passing default structures to includes, i.e. {include
-  default=$foo}, then using $bar in included template, instead of $foo.bar
 * support implementations of prefiltes, mods, and others as class methods.
 * possibly implement default modifiers that apply to variables upon display
 * think about possibility of supporting something like {$data[foo].$key[bar]}

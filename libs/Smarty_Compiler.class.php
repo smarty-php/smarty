@@ -340,7 +340,8 @@ class Smarty_Compiler extends Smarty {
         $found = false;
         $have_function = true;
 
-        $plugin_file = $this->plugins_dir .
+        $plugin_file = SMARTY_DIR .
+                       $this->plugins_dir .
                        '/compiler.' .
                        $tag_command .
                        '.php';
@@ -1233,7 +1234,7 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _load_filters()
     {
-        $plugins_dir = $this->plugins_dir;
+        $plugins_dir = SMARTY_DIR . $this->plugins_dir;
         $handle = opendir($plugins_dir);
         while ($entry = readdir($handle)) {
             $parts = explode('.', $entry, 3);
