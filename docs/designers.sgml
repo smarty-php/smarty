@@ -1737,7 +1737,7 @@ load_nav.php
 	require_once("MySQL.class.php");
 	$sql = new MySQL;
 	$sql->query("select * from site_nav_sections order by name",SQL_ALL);
-	$this->assign($sections,$sql->record);
+	$this->assign('sections',$sql->record);
 
 ?&gt;
 
@@ -1748,7 +1748,7 @@ index.tpl
 {* absolute path, or relative to $trusted_dir *}
 {include_php file="/path/to/load_nav.php"}
 
-{foreach item=$curr_section from=$sections}
+{foreach item="curr_section" from=$sections}
 	&lt;a href="{$curr_section.url}"&gt;{$curr_section.name}&lt;/a&gt;&lt;br&gt;
 {/foreach}</programlisting>
 </example>
