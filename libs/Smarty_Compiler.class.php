@@ -97,6 +97,12 @@ class Smarty_Compiler extends Smarty {
         // [$bar]
         $this->_var_bracket_regexp = '\[\$?[\w\.]+\]';
 
+        // matches numerical constants
+        // 30
+        // -12
+        // 13.22
+        $this->_num_const_regexp = '\-?\d+(?:\.\d+)?';
+
         // matches $ vars (not objects):
         // $foo
         // $foo.bar
@@ -105,12 +111,10 @@ class Smarty_Compiler extends Smarty {
         // $foo[$bar]
         // $foo[5][blah]
         // $foo[5].bar[$foobar][4]
-        $this->_num_const_regexp = '\-?\d+(?:\.\d+)?';
-
         $this->_dvar_math_regexp = '[\+\-\*\/\%]';
         $this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\>\[\]]';
         $this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
-                . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:\-?\d+(?:\.\d+)?|' . $this->_dvar_math_var_regexp . ')*)?';
+                . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?';
         $this->_dvar_regexp = '\$' . $this->_dvar_guts_regexp;
 
         // matches config vars:
