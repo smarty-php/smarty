@@ -3,7 +3,7 @@ Monte Ohrt <monte@ispi.net>:
     concept" implementation, and maintains documentation & code base.
     
 Andrei Zmievski <andrei@php.net>:
-	Rewrote parser from scratch, developed plugin architecture, and maintains
+    Rewrote parser from scratch, developed plugin architecture, and maintains
     code base.
 
 Anne Holz <anne@ispi.net>:

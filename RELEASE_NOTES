@@ -2,11 +2,11 @@
 ---
 
 This release is a huge milestone for Smarty. Most notable new things are a
-plugin architecture, PEAR dependancies removed and optimizations that
-drastically improved the performance of Smarty in most cases.
+plugin architecture, removal of PEAR dependency, and optimizations that
+drastically improve the performance of Smarty in most cases.
 
 The plugin architecture allows modifiers, custom functions, compiler functions,
-prefilters, postfilters, resources an insert functions all to be added by
+prefilters, postfilters, resources, and insert functions to be added by
 simply dropping a file into the plugins directory. Once dropped in, they are
 automatically registered by the template engine. This makes user-contributed
 plugins easy to manage, as well as the internal workings of Smarty easy to
@@ -29,6 +29,7 @@ Smarty-cached pages now support If-Modified-Since headers, meaning that if a
 cached template page has not changed since the last request, a "304 Not
 Modified" header will be sent instead of resending the same page. This is
 disabled by default, change the setting of $cache_modified_check.
+
 
 1.5.2
 -----
