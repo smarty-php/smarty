@@ -2030,6 +2030,95 @@ OUTPUT:
 </example>
 		</sect2>
 		<sect2>
+			<title>math</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>equation</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the equation to execute</entry>
+                    </row>
+                    <row>
+                        <entry>var</entry>
+                        <entry>numeric</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>equation variable value</entry>
+                    </row>
+                    <row>
+                        <entry>...[var]</entry>
+                        <entry>numeric</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>equation varible value</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+            math allows the template designer to do math equations in the
+            template. Any numeric template variables may be used in the
+            equations, and the result is printed in place of the tag. The
+            variables used in the equation are passed as parameters, which can
+            be template variables or static values. +, -, /, *, abs, ceil, cos,
+            exp, floor, log, log10, max, min, pi, pow, rand, round, sin, sqrt,
+            srans and tan are all valid operators. Check the PHP documenation
+            for further information on these math functions.
+			</para>
+<example>
+<title>math</title>
+<programlisting>
+
+{* $height=4, $width=5 *}
+
+{math equation="x + y" x=$height y=$width}
+
+OUTPUT:
+
+9
+
+
+{* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
+
+{math equation="height * padding / division"
+      height=$row_height
+      width=$row_width
+      division=#col_div#}
+
+OUTPUT:
+
+100
+
+
+{* you can use parenthesis *}
+
+{math equation="(( x + y ) / z )" x=2 y=10 z=2}
+
+OUTPUT:
+
+6
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2>
 			<title>Creating your own Custom Functions</title>
 			<para>
 			Creating your own functions is a fairly straight forward process.

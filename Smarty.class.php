@@ -82,8 +82,7 @@ class Smarty
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
-
-
+    
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
                                     'html_select_date'  => 'smarty_func_html_select_date',
                                     'math'              => 'smarty_func_math'
@@ -101,7 +100,7 @@ class Smarty
                                     'strip_tags'    => 'smarty_mod_strip_tags',
                                     'default'       => 'smarty_mod_default'
                                  );
-    
+
     // internal vars
     var $_error_msg             =   false;      // error messages. true/false
     var $_tpl_vars              =   array();
