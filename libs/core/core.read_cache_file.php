@@ -68,22 +68,22 @@ function smarty_core_read_cache_file(&$params, &$this)
     }
 
     if ($this->compile_check) {
-		require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
+		require_once(SMARTY_DIR . 'core/core.fetch_resource_info.php');
         foreach (array_keys($this->_cache_info['template']) as $_template_dep) {
-			$_params = array('file_path' => $_template_dep);
-			smarty_core_fetch_file_info($_params, $this);
-            if ($this->_cache_info['timestamp'] < $_params['file_timestamp']) {
+			$_params = array('resource_name' => $_template_dep);
+			smarty_core_fetch_resource_info($_params, $this);
+            if ($this->_cache_info['timestamp'] < $_params['resource_timestamp']) {
                 // template file has changed, regenerate cache
                 return false;
             }
         }
 
         if (isset($this->_cache_info['config'])) {
-			require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
+			require_once(SMARTY_DIR . 'core/core.fetch_resource_info.php');
             foreach (array_keys($this->_cache_info['config']) as $_config_dep) {
-				$_params = array('file_path' => $_config_dep);
-				smarty_core_fetch_file_info($_params, $this);
-            	if ($this->_cache_info['timestamp'] < $_params['file_timestamp']) {
+				$_params = array('resource_name' => $_config_dep);
+				smarty_core_fetch_resource_info($_params, $this);
+            	if ($this->_cache_info['timestamp'] < $_params['resource_timestamp']) {
                 	// config file has changed, regenerate cache
                 	return false;
             	}

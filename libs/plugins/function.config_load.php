@@ -87,9 +87,9 @@ function smarty_function_config_load($params, &$smarty)
 			} else {
 				$_output = '<?php $_config_vars = unserialize(' . serialize($_config_vars) . '); ?>';
 			}
-			$_params = (array('compile_path' => $_compile_file, 'file_compiled' => $_output, 'file_timestamp' => filemtime($_file_path)));
-			require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
-			smarty_core_write_compiled_template($_params, $smarty);
+			$_params = (array('compile_path' => $_compile_file, 'compiled_content' => $_output, 'resource_timestamp' => filemtime($_file_path)));
+			require_once(SMARTY_DIR . 'core/core.write_compiled_resource.php');
+			smarty_core_write_compiled_resource($_params, $smarty);
 		} else {
 			include_once($_compile_file);
 		}

@@ -1073,9 +1073,9 @@ reques     * @var string
      */    
     function template_exists($tpl_file)
     {
-		$_params = array('file_path' => $tpl_file);
-		require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
-        return smarty_core_fetch_file_info($_params, $this);
+		$_params = array('resource_name' => $tpl_file);
+		require_once(SMARTY_DIR . 'core/core.fetch_resource_info.php');
+        return smarty_core_fetch_resource_info($_params, $this);
     }
 
     /**
@@ -1126,24 +1126,24 @@ reques     * @var string
     /**
      * executes & displays the template results
      *
-     * @param string $tpl_file
+     * @param string $resource_name
      * @param string $cache_id
      * @param string $compile_id
      */    
-    function display($tpl_file, $cache_id = null, $compile_id = null)
+    function display($resource_name, $cache_id = null, $compile_id = null)
     {
-        $this->fetch($tpl_file, $cache_id, $compile_id, true);
+        $this->fetch($resource_name, $cache_id, $compile_id, true);
     }
 
     /**
      * executes & returns or displays the template results
      *
-     * @param string $file_path
+     * @param string $resource_name
      * @param string $cache_id
      * @param string $compile_id
      * @param boolean $display
      */
-    function fetch($file_path, $cache_id = null, $compile_id = null, $display = false)
+    function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
         static $_cache_info = array();
 
@@ -1166,7 +1166,7 @@ reques     * @var string
 			require_once(SMARTY_DIR . 'core/core.get_microtime.php');
             $_debug_start_time = smarty_core_get_microtime($_params, $this);
             $this->_smarty_debug_info[] = array('type'      => 'template',
-                                                'filename'  => $file_path,
+                                                'filename'  => $resource_name,
                                                 'depth'     => 0);
             $_included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
@@ -1183,7 +1183,7 @@ reques     * @var string
             array_push($_cache_info, $this->_cache_info);
             $this->_cache_info = array();
 			$_params = array(
-				'tpl_file' => $file_path,
+				'tpl_file' => $resource_name,
 				'cache_id' => $cache_id,
 				'compile_id' => $compile_id,
 				'results' => null
@@ -1241,7 +1241,7 @@ reques     * @var string
                     return $_smarty_results;
                 }
             } else {
-                $this->_cache_info['template'][$file_path] = true;
+                $this->_cache_info['template'][$resource_name] = true;
                 if ($this->cache_modified_check) {
                     header("Last-Modified: ".gmdate('D, d M Y H:i:s', time()).' GMT');
                 }
@@ -1257,20 +1257,20 @@ reques     * @var string
         	}
         }
 
-        $_smarty_compile_path = $this->_get_compile_path($file_path);
+        $_smarty_compile_path = $this->_get_compile_path($resource_name);
 		
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
-            if ($this->_is_compiled($file_path, $_smarty_compile_path)
-					|| $this->_compile_file($file_path, $_smarty_compile_path))
+            if ($this->_is_compiled($resource_name, $_smarty_compile_path)
+					|| $this->_compile_resource($resource_name, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
             }
         } else {
             ob_start();
-            if ($this->_is_compiled($file_path, $_smarty_compile_path)
-					|| $this->_compile_file($file_path, $_smarty_compile_path))
+            if ($this->_is_compiled($resource_name, $_smarty_compile_path)
+					|| $this->_compile_resource($resource_name, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
             }
@@ -1283,7 +1283,7 @@ reques     * @var string
         }
 
         if ($this->caching) {
-			$_params = array('tpl_file' => $file_path,
+			$_params = array('tpl_file' => $resource_name,
 						'cache_id' => $cache_id,
 						'compile_id' => $compile_id,
 						'results' => $_smarty_results); 
@@ -1422,13 +1422,13 @@ reques     * @var string
     }	
 	
    /**
-     * test if source file needs compiling
+     * test if resource needs compiling
      *
-     * @param string $tpl_file
+     * @param string $resource_name
      * @param string $compile_path
      * @return boolean
      */    
-    function _is_compiled($file_path, $compile_path)
+    function _is_compiled($resource_name, $compile_path)
     {
         if (!$this->force_compile && file_exists($compile_path)) {
             if (!$this->compile_check) {
@@ -1436,14 +1436,12 @@ reques     * @var string
                 return true;
             } else {
                 // get file source and timestamp
-				require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
-				$_params = array('file_path' => $file_path);
-                if (!smarty_core_fetch_file_info($_params, $this)) {
+				require_once(SMARTY_DIR . 'core/core.fetch_resource_info.php');
+				$_params = array('resource_name' => $resource_name);
+                if (!smarty_core_fetch_resource_info($_params, $this)) {
                     return false;
                 }
-				$_file_source = $_params['file_source'];
-				$_file_timestamp = $_params['file_timestamp'];
-                if ($_file_timestamp <= filemtime($compile_path)) {
+                if ($_params['resource_timestamp'] <= filemtime($compile_path)) {
                     // template not expired, no recompile
                     return true;
                 } else {
@@ -1460,31 +1458,31 @@ reques     * @var string
    /**
      * compile the template
      *
-     * @param string $file_path
+     * @param string $resource_name
      * @param string $compile_path
      * @return boolean
      */    
-    function _compile_file($file_path, $compile_path)
+    function _compile_resource($resource_name, $compile_path)
     {
 		
-		$_params = array('file_path' => $file_path);
-		require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
-        if (!smarty_core_fetch_file_info($_params, $this)) {
+		$_params = array('resource_name' => $resource_name);
+		require_once(SMARTY_DIR . 'core/core.fetch_resource_info.php');
+        if (!smarty_core_fetch_resource_info($_params, $this)) {
             return false;
         }
 
-		$_file_source = $_params['file_source'];
-		$_file_timestamp = $_params['file_timestamp'];
+		$_source_content = $_params['source_content'];
+		$_resource_timestamp = $_params['resource_timestamp'];
 
-        if ($this->_compile_source($file_path, $_file_source, $_file_compiled)) {
-			$_params = array('compile_path' => $compile_path, 'file_compiled' => $_file_compiled, 'file_timestamp' => $_file_timestamp);
-			require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
-			smarty_core_write_compiled_template($_params, $this);
+        if ($this->_compile_source($resource_name, $_source_content, $_compiled_content)) {
+			$_params = array('compile_path' => $compile_path, 'compiled_content' => $_compiled_content, 'resource_timestamp' => $_resource_timestamp);
+			require_once(SMARTY_DIR . 'core/core.write_compiled_resource.php');
+			smarty_core_write_compiled_resource($_params, $this);
 
             // if a _cache_serial was set, we also have to write an include-file:
             if ($this->_cache_serial = $smarty_compiler->_cache_serial) {
                 $_params['plugins_code'] = $smarty_compiler->_plugins_code;
-                $_params['include_file_path'] = $smarty_compiler->_cache_include;              
+                $_params['include_file_path'] = $smarty_compiler->_cache_include;       
                 require_once(SMARTY_DIR . 'core/core.write_compiled_include.php');
                 smarty_core_write_compiled_include($_params, $this);
             }          
@@ -1499,12 +1497,12 @@ reques     * @var string
    /**
      * compile the given source
      *
-     * @param string $file_path
-     * @param string $file_source
-     * @param string $file_compiled
+     * @param string $resource_name
+     * @param string $source_content
+     * @param string $compiled_content
      * @return boolean
      */    
-    function _compile_source($file_path, &$file_source, &$file_compiled)
+    function _compile_source($resource_name, &$source_content, &$compiled_content)
     {
         if (file_exists(SMARTY_DIR . $this->compiler_file)) {
             require_once(SMARTY_DIR . $this->compiler_file);
@@ -1541,7 +1539,7 @@ reques     * @var string
         $smarty_compiler->_cache_serial = null;
         $smarty_compiler->_cache_include    = substr($compile_path, 0, -4).'.inc';
 		
-		return $smarty_compiler->_compile_file($file_path, $file_source, $file_compiled);
+		return $smarty_compiler->_compile_file($resource_name, $source_content, $compiled_content);
 		
 	}	
 		

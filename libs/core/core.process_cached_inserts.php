@@ -28,7 +28,7 @@ function smarty_core_process_cached_inserts($params, &$this)
         $name = $args['name'];
 
         if (isset($args['script'])) {
-			$_params = array('file_path' => $this->_dequote($args['script']));
+			$_params = array('resource_name' => $this->_dequote($args['script']));
 			require_once(SMARTY_DIR . 'core/core.get_php_resource.php');
 			if(!smarty_core_get_php_resource($_params, $this)) {
 				return false;

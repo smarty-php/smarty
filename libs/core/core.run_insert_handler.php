@@ -33,7 +33,7 @@ function smarty_core_run_insert_handler($params, &$this)
         return $this->_smarty_md5."{insert_cache $_arg_string}".$this->_smarty_md5;
     } else {
         if (isset($params['args']['script'])) {				
-			$_params = array('file_path' => $this->_dequote($params['args']['script']));
+			$_params = array('resource_name' => $this->_dequote($params['args']['script']));
 			require_once(SMARTY_DIR . 'core/core.get_php_resource.php');
 			if(!smarty_core_get_php_resource($_params, $this)) {
 				return false;
