@@ -1,3 +1,22 @@
+2004-02-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.html_select_date.php:
+      correctly handle partially empty dates (like "2004--" or "-12-").
+
+    * docs/programmers.sgml:
+      learned something about <note> and sgml and applied this to the
+      use.sub.dirs-section :)
+
+    * docs/designers.sgml:
+      changed attribute-name "checked" to "selected" in the docs for
+      html_radios and html_checkboxes. "checked" is deprecated for ages
+      AFAIK and selected is recommended for consistency with {html_options}
+
+    * docs/programmers.sgml:
+      added note about use_sub_dirs and Smarty-2.6.2 .
+      fixed markup for section about clear_compiled_tpl() .
+
 2004-02-12  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
