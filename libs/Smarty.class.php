@@ -2130,10 +2130,12 @@ class Smarty
      */    
     function _create_dir_structure($dir)
     {
-        if (!file_exists($dir)) {
+        if (!file_exists($dir)) {           
+            $_new_dir = (preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $dir))
+                ? DIRECTORY_SEPARATOR : getcwd().DIRECTORY_SEPARATOR;
+
             $_dir_parts = preg_split('!\\' . DIRECTORY_SEPARATOR . '+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
-            $_new_dir = ($dir{0} == DIRECTORY_SEPARATOR) ? DIRECTORY_SEPARATOR : '';
-            
+
             // do not attempt to test or make directories outside of open_basedir
             $_open_basedir_ini = ini_get('open_basedir');
             if(!empty($_open_basedir_ini)) {
@@ -2146,7 +2148,6 @@ class Smarty
 
             foreach ($_dir_parts as $_dir_part) {
                 $_new_dir .= $_dir_part;
-
                 if ($_use_open_basedir) {
                     $_make_new_dir = false;
                     foreach ($_open_basedirs as $_open_basedir) {
