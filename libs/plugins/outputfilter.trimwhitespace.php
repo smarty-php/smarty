@@ -44,17 +44,26 @@
 
 	// replace script blocks
 	foreach($_script_blocks as $curr_block) {
-		$source = str_replace("@@@SMARTY:TRIM:SCRIPT@@@",$curr_block, $source);
+	   smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:SCRIPT@@@",$curr_block, $source);
 	}
 	// replace pre blocks
 	foreach($_pre_blocks as $curr_block) {
-		$source = str_replace("@@@SMARTY:TRIM:PRE@@@",$curr_block, $source);
+	   smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:PRE@@@",$curr_block, $source);
       }
     // replace textarea blocks
       foreach($_textarea_blocks as $curr_block) {
-              $source = str_replace("@@@SMARTY:TRIM:TEXTAREA@@@",$curr_block, $source);
+	 smarty_outputfilter_trimwhitespace_replace("@@@SMARTY:TRIM:TEXTAREA@@@",$curr_block, $source);
 	}
 
 	return $source; 
  }
+
+function smarty_outputfilter_trimwhitespace_replace($search, $replace, &$subject) {
+   if (($_pos=strpos($subject, $search))!==false) {
+      $subject = substr($subject, 0, $_pos) 
+	 . $replace 
+	 . substr($subject, $_pos+strlen($search));
+   }
+}
+
 ?>
