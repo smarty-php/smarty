@@ -833,12 +833,17 @@ $smarty->clear_compiled_tpl();
 			</para>
 <example>
 <title>clear_config</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 // clear all assigned config variables.
 $smarty->clear_config();
 
 // clear one variable
-$smarty->clear_config('foobar');</programlisting>
+$smarty->clear_config('foobar');
+?>
+]]>
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.config.load">
@@ -867,12 +872,17 @@ $smarty->clear_config('foobar');</programlisting>
 		  </note>
 <example>
 <title>config_load</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 // load config variables and assign them
 $smarty->config_load('my.conf');
 
 // load a section
-$smarty->config_load('my.conf','foobar');</programlisting>
+$smarty->config_load('my.conf','foobar');
+?>
+]]>
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.display">
@@ -904,7 +914,9 @@ $smarty->config_load('my.conf','foobar');</programlisting>
 			</para>
 <example>
 <title>display</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 include("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->caching = true;
@@ -928,7 +940,10 @@ if(!$smarty->is_cached("index.tpl"))
 }
 
 // display the output
-$smarty->display("index.tpl");</programlisting>
+$smarty->display("index.tpl");
+?>
+]]>
+</programlisting>
 </example>
 			<para>
 			Use the syntax for <link
@@ -937,7 +952,9 @@ $smarty->display("index.tpl");</programlisting>
 			</para>
 <example>
 <title>function display template resource examples</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 // absolute filepath
 $smarty->display("/usr/local/include/templates/header.tpl");
 
@@ -948,7 +965,10 @@ $smarty->display("file:/usr/local/include/templates/header.tpl");
 $smarty->display("file:C:/www/pub/templates/header.tpl");
 
 // include from template resource named "db"
-$smarty->display("db:header.tpl");</programlisting>
+$smarty->display("db:header.tpl");
+?>
+]]>
+</programlisting>
 </example>
 
 		</sect1>
@@ -982,7 +1002,9 @@ $smarty->display("db:header.tpl");</programlisting>
 			</para>
 <example>
 <title>fetch</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 include("Smarty.class.php");
 $smarty = new Smarty;
 
@@ -1011,7 +1033,10 @@ $output = $smarty->fetch("index.tpl");
 
 // do something with $output here
 
-echo $output;</programlisting>
+echo $output;
+?>
+]]>
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.get.config.vars">
@@ -1026,7 +1051,9 @@ echo $output;</programlisting>
 			</para>
 <example>
 <title>get_config_vars</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 // get loaded config template var 'foo'
 $foo = $smarty->get_config_vars('foo');
 
@@ -1034,7 +1061,10 @@ $foo = $smarty->get_config_vars('foo');
 $config_vars = $smarty->get_config_vars();
 
 // take a look at them
-print_r($config_vars);</programlisting>
+print_r($config_vars);
+?>
+]]>
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.get.registered.object">
@@ -1211,7 +1241,6 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 <programlisting role="php">
 <![CDATA[
 <?php
-/* PHP */
 $smarty->register_block("translate", "do_translation");
 
 function do_translation ($params, $content, &$smarty, &$repeat) {
@@ -1497,11 +1526,16 @@ $smarty->register_modifier("sslash","stripslashes");
          </para>
 <example>
 <title>register_resource</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty->register_resource("db", array("db_get_template",
                                        "db_get_timestamp",
                                        "db_get_secure",
-                                       "db_get_trusted"));</programlisting>
+                                       "db_get_trusted"));
+?>
+]]>
+</programlisting>
 </example>
 		</sect1>
         <sect1 id="api.trigger.error">
@@ -1575,10 +1609,15 @@ $smarty->register_resource("db", array("db_get_template",
          </para>
 <example>
 <title>unregister_function</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 // we don't want template designers to have access to system files
 
-$smarty->unregister_function("fetch");</programlisting>
+$smarty->unregister_function("fetch");
+?>
+]]>
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.unregister.modifier">
@@ -1595,10 +1634,15 @@ $smarty->unregister_function("fetch");</programlisting>
          </para>
 <example>
 <title>unregister_modifier</title>
-<programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 // we don't want template designers to strip tags from elements
 
-$smarty->unregister_modifier("strip_tags");</programlisting>
+$smarty->unregister_modifier("strip_tags");
+?>
+]]>
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="api.unregister.object">
@@ -1663,8 +1707,13 @@ $smarty->unregister_modifier("strip_tags");</programlisting>
          </para>
 <example>
 <title>unregister_resource</title>
-<programlisting>
-$smarty->unregister_resource("db");</programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
+$smarty->unregister_resource("db");
+?>
+]]>
+</programlisting>
 </example>
 		</sect1>
        </chapter>
@@ -1697,13 +1746,18 @@ $smarty->unregister_resource("db");</programlisting>
    </para>
     <example>
      <title>enabling caching</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
 $smarty->caching = true;
 
-$smarty->display('index.tpl');</programlisting>
+$smarty->display('index.tpl');
+?>
+]]>
+     </programlisting>
     </example>
 	<para>
 	With caching enabled, the function call to display('index.tpl') will render
@@ -1730,7 +1784,9 @@ $smarty->display('index.tpl');</programlisting>
 	</para>
     <example>
      <title>setting cache_lifetime per cache</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
@@ -1749,7 +1805,10 @@ $smarty->display('home.tpl');
 // to 1 hour, and will no longer respect the value of $cache_lifetime.
 // The home.tpl cache will still expire after 1 hour.
 $smarty->cache_lifetime = 30; // 30 seconds
-$smarty->display('home.tpl');</programlisting>
+$smarty->display('home.tpl');
+?>
+]]>
+</programlisting>
     </example>
 	<para>
 	If <link linkend="variable.compile.check">$compile_check</link> is enabled,
@@ -1760,14 +1819,19 @@ $smarty->display('home.tpl');</programlisting>
 	</para>
     <example>
      <title>enabling $compile_check</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
 $smarty->caching = true;
 $smarty->compile_check = true;
 
-$smarty->display('index.tpl');</programlisting>
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
 	</example>
 	<para>
 	If <link linkend="variable.force.compile">$force_compile</link> is enabled,
@@ -1784,7 +1848,9 @@ $smarty->display('index.tpl');</programlisting>
 	</para>
     <example>
      <title>using is_cached()</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
@@ -1796,7 +1862,10 @@ if(!$smarty->is_cached('index.tpl')) {
 	$smarty->assign($contents);
 }
 
-$smarty->display('index.tpl');</programlisting>
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
     </example>
 	<para>
 	You can keep parts of a page dynamic with the <link
@@ -1815,7 +1884,9 @@ $smarty->display('index.tpl');</programlisting>
 	</para>
     <example>
      <title>clearing the cache</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
@@ -1827,7 +1898,10 @@ $smarty->clear_all_cache();
 // clear only cache for index.tpl
 $smarty->clear_cache('index.tpl');
 
-$smarty->display('index.tpl');</programlisting>
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
     </example>
    </sect1>
    <sect1 id="caching.multiple.caches">
@@ -1841,7 +1915,9 @@ $smarty->display('index.tpl');</programlisting>
 	</para>
     <example>
      <title>passing a cache_id to display()</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
@@ -1849,7 +1925,10 @@ $smarty->caching = true;
 
 $my_cache_id = $_GET['article_id'];
 
-$smarty->display('index.tpl',$my_cache_id);</programlisting>
+$smarty->display('index.tpl',$my_cache_id);
+?>
+]]>
+</programlisting>
     </example>
 	<para>
 	Above, we are passing the variable $my_cache_id to display() as the
@@ -1879,7 +1958,9 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
 	</para>
 	<example>
      <title>passing a cache_id to is_cached()</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
@@ -1893,7 +1974,10 @@ if(!$smarty->is_cached('index.tpl',$my_cache_id)) {
 	$smarty->assign($contents);
 }
 
-$smarty->display('index.tpl',$my_cache_id);</programlisting>
+$smarty->display('index.tpl',$my_cache_id);
+?>
+]]>
+</programlisting>
     </example>
 	<para>
 	You can clear all caches for a particular cache_id by passing null as the
@@ -1901,7 +1985,9 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
 	</para>
 	<example>
      <title>clearing all caches for a particular cache_id</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
@@ -1910,7 +1996,10 @@ $smarty->caching = true;
 // clear all caches with "sports" as the cache_id
 $smarty->clear_cache(null,"sports");
 
-$smarty->display('index.tpl',"sports");</programlisting>
+$smarty->display('index.tpl',"sports");
+?>
+]]>
+</programlisting>
     </example>
 	<para>
 	In this manner, you can "group" your caches together by giving them the
@@ -1926,7 +2015,9 @@ $smarty->display('index.tpl',"sports");</programlisting>
 	</para>
 	<example>
      <title>cache_id groups</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
@@ -1939,7 +2030,10 @@ $smarty->clear_cache(null,"sports|basketball");
 // include "sports|basketball", or "sports|(anything)|(anything)|(anything)|..."
 $smarty->clear_cache(null,"sports");
 
-$smarty->display('index.tpl',"sports|basketball");</programlisting>
+$smarty->display('index.tpl',"sports|basketball");
+?>
+]]>
+</programlisting>
     </example>
    <note>
    <title>Technical Note</title>
@@ -1974,9 +2068,11 @@ In contrast to <link linkend="language.function.insert">{insert}</link> the attr
 
 	<example>
      <title>Preventing a plugin's output from being cached</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
 index.php:
 
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
@@ -1997,11 +2093,14 @@ if (!$smarty->is_cached('index.tpl')) {
 }
 
 $smarty->display('index.tpl');
+?>
 
 
 index.tpl:
 
-Time Remaining: {remain endtime=$obj->endtime}</programlisting>
+Time Remaining: {remain endtime=$obj->endtime}
+]]>
+</programlisting>
 	<para>
 The number of seconds till the endtime of $obj is reached changes on each display of the page, even if the page is cached. Since the endtime attribute is cached the object only has to be pulled from the database when page is written to the cache but not on subsequent requests of the page.
 	</para>
@@ -2010,9 +2109,11 @@ The number of seconds till the endtime of $obj is reached changes on each displa
 
 	<example>
      <title>Preventing a whole passage of a template from being cached</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
 index.php:
 
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
@@ -2023,6 +2124,7 @@ function smarty_block_dynamic($param, $content, &$smarty) {
 $smarty->register_block('dynamic', 'smarty_block_dynamic', false);
 
 $smarty->display('index.tpl');
+?>
 
 
 index.tpl:
@@ -2035,7 +2137,9 @@ Now is: {"0"|date_format:"%D %H:%M:%S"}
 
 ... do other stuff ...
 
-{/dynamic}</programlisting>
+{/dynamic}
+]]>
+</programlisting>
 
 	</example>
 	<para>
@@ -2093,8 +2197,9 @@ When reloading the page you will notice that both dates differ. One is "dynamic"
 	</para>
     <example>
      <title>using a registered or assigned object</title>
-     <programlisting>
-&lt;?php
+<programlisting role="php">
+<![CDATA[
+<?php
 // the object
 
 class My_Object {
@@ -2115,7 +2220,7 @@ $smarty->register_object("foobar",$myobj,null,false);
 $smarty->assign_by_ref("myobj", $myobj);
 
 $smarty->display("index.tpl");
-?&gt;
+?>
 
 TEMPLATE:
 
@@ -2127,7 +2232,9 @@ TEMPLATE:
 the output was {$output}
 
 {* access our assigned object *}
-{$myobj->meth1("foo",$bar)}</programlisting>
+{$myobj->meth1("foo",$bar)}
+]]>
+</programlisting>
     </example>
   </sect1>
    <sect1 id="advanced.features.prefilters">
@@ -2147,21 +2254,24 @@ the output was {$output}
     </para>
     <example>
      <title>using a template prefilter</title>
-     <programlisting>
-&lt;?php
+<programlisting role="php">
+<![CDATA[
+<?php
 // put this in your application
 function remove_dw_comments($tpl_source, &$smarty)
 {
-    return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
+    return preg_replace("/<!--#.*-->/U","",$tpl_source);
 }
 
 // register the prefilter
 $smarty->register_prefilter("remove_dw_comments");
 $smarty->display("index.tpl");
-?&gt;
+?>
 
 {* Smarty template index.tpl *}
-&lt;!--# this line will get removed by the prefilter --&gt;</programlisting>
+<!--# this line will get removed by the prefilter -->
+]]>
+</programlisting>
     </example>
    </sect1>
 
@@ -2181,22 +2291,25 @@ $smarty->display("index.tpl");
     </para>
     <example>
      <title>using a template postfilter</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 // put this in your application
 function add_header_comment($tpl_source, &$smarty)
 {
-    return "&lt;?php echo \"&lt;!-- Created by Smarty! --&gt;\n\" ?&gt;\n".$tpl_source;
+    return "<?php echo \"<!-- Created by Smarty! -->;\n\" ?>;\n".$tpl_source;
 }
 
 // register the postfilter
 $smarty->register_postfilter("add_header_comment");
 $smarty->display("index.tpl");
-?&gt;
+?>
 
 {* compiled Smarty template index.tpl *}
-&lt;!-- Created by Smarty! --&gt;
-{* rest of template content... *}</programlisting>
+<!-- Created by Smarty! -->
+{* rest of template content... *}
+]]>
+</programlisting>
     </example>
   </sect1>
 
@@ -2222,8 +2335,9 @@ $smarty->display("index.tpl");
    </para>
    <example>
     <title>using a template outputfilter</title>
-    <programlisting>
-&lt;?php
+    <programlisting role="php">
+<![CDATA[
+<?php
 // put this in your application
 function protect_email($tpl_output, &$smarty)
 {
@@ -2239,7 +2353,9 @@ $smarty->display("index.tpl");
 
 // now any occurrence of an email address in the template output will have
 // a simple protection against spambots
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
    </example>
   </sect1>
 
@@ -2270,8 +2386,9 @@ $smarty->display("index.tpl");
    </para>
    <example>
     <title>example using MySQL as a cache source</title>
-    <programlisting>
-&lt;?php
+    <programlisting role="php">
+<![CDATA[
+<?php
 /*
 
 example usage:
@@ -2280,9 +2397,9 @@ include('Smarty.class.php');
 include('mysql_cache_handler.php');
 
 $smarty = new Smarty;
-$smarty-&gt;cache_handler_func = 'mysql_cache_handler';
+$smarty->cache_handler_func = 'mysql_cache_handler';
 
-$smarty-&gt;display('index.tpl');
+$smarty->display('index.tpl');
 
 
 mysql database is expected in this format:
@@ -2309,7 +2426,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
 	
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
-		$smarty_obj-&gt;_trigger_error_msg("cache_handler: could not connect to database");
+		$smarty_obj->_trigger_error_msg("cache_handler: could not connect to database");
 		return false;
 	}
 	mysql_select_db($db_name);
@@ -2319,7 +2436,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			// save cache to database
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
 			}
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 			
@@ -2344,7 +2461,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 							'".addslashes($contents)."')
 						");
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
 			}
 			$return = $results;
 			break;
@@ -2357,13 +2474,13 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
 			}
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
 			}
 			$return = $results;
 			break;
 		default:
 			// error, unknown action
-			$smarty_obj-&gt;_trigger_error_msg("cache_handler: unknown action \"$action\"");
+			$smarty_obj->_trigger_error_msg("cache_handler: unknown action \"$action\"");
 			$return = false;
 			break;
 	}
@@ -2372,7 +2489,9 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	
 }
 
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
   </sect1>
 
@@ -2396,15 +2515,19 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
     </para>
     <example>
      <title>using templates from $template_dir</title>
-     <programlisting>
-// from PHP script
+     <programlisting role="php">
+<![CDATA[
+<?php
 $smarty->display("index.tpl");
 $smarty->display("admin/menu.tpl");
 $smarty->display("file:admin/menu.tpl"); // same as one above
+?>
 
 {* from within Smarty template *}
 {include file="index.tpl"}
-{include file="file:index.tpl"} {* same as one above *}</programlisting>
+{include file="file:index.tpl"} {* same as one above *}
+]]>
+</programlisting>
     </example>
    </sect2>
    <sect2 id="templates.from.any.dir">
@@ -2416,13 +2539,17 @@ $smarty->display("file:admin/menu.tpl"); // same as one above
     </para>
     <example>
      <title>using templates from any directory</title>
-     <programlisting>
-// from PHP script
+     <programlisting role="php">
+<![CDATA[
+<?php
 $smarty->display("file:/export/templates/index.tpl");
 $smarty->display("file:/path/to/my/templates/menu.tpl");
+?>
 
 {* from within Smarty template *}
-{include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
+{include file="file:/usr/local/share/templates/navigation.tpl"}
+]]>
+</programlisting>
     </example>
 
     <sect3>
@@ -2435,13 +2562,17 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
      </para>
      <example>
       <title>using templates from windows file paths</title>
-      <programlisting>
-// from PHP script
+      <programlisting role="php">
+<![CDATA[
+<?php
 $smarty->display("file:C:/export/templates/index.tpl");
 $smarty->display("file:F:/path/to/my/templates/menu.tpl");
+?>
 
 {* from within Smarty template *}
-{include file="file:D:/usr/local/share/templates/navigation.tpl"}</programlisting>
+{include file="file:D:/usr/local/share/templates/navigation.tpl"}
+]]>
+</programlisting>
      </example>
     </sect3>
    </sect2>
@@ -2471,9 +2602,9 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
     </note>
     <example>
      <title>using custom resources</title>
-     <programlisting>
-// from PHP script
-
+     <programlisting role="php">
+<![CDATA[
+<?php
 // put these function somewhere in your application
 function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
 {
@@ -2525,9 +2656,12 @@ $smarty->register_resource("db", array("db_get_template",
 
 // using resource from php script
 $smarty->display("db:index.tpl");
+?>
 
 {* using resource from within Smarty template *}
-{include file="db:/extras/navigation.tpl"}</programlisting>
+{include file="db:/extras/navigation.tpl"}
+]]>
+</programlisting>
     </example>
    </sect2>
 
@@ -2541,8 +2675,9 @@ $smarty->display("db:index.tpl");
     </para>
     <example>
      <title>using the default template handler function</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 // put this function somewhere in your application
 
 function make_template ($resource_type, $resource_name, &$template_source, &$template_timestamp, &$smarty_obj)
@@ -2563,7 +2698,9 @@ function make_template ($resource_type, $resource_name, &$template_source, &$tem
 
 // set the default handler
 $smarty->default_template_handler_func = 'make_template';
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
    </sect2>
   </sect1>
@@ -2734,8 +2871,9 @@ require_once $smarty->_get_plugin_filepath('function', 'html_options');</program
     <para>
      <example>
       <title>function plugin with output</title>
-      <programlisting>
-&lt;?php
+      <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -2757,7 +2895,9 @@ function smarty_function_eightball($params, &$smarty)
     $result = array_rand($answers);
     return $answers[$result];
 }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
      </example>
     </para>
     <para>
@@ -2765,12 +2905,14 @@ function smarty_function_eightball($params, &$smarty)
     </para>
     <programlisting>
 Question: Will we ever have time travel?
-Answer: {eightball}.</programlisting>
+Answer: {eightball}.
+    </programlisting>
     <para>
      <example>
       <title>function plugin without output</title>
-      <programlisting>
-&lt;?php
+      <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -2794,7 +2936,9 @@ function smarty_function_assign($params, &$smarty)
 
     $smarty->assign($params['var'], $params['value']);
 }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
      </example>
     </para>
    </sect1>
@@ -2832,8 +2976,9 @@ function smarty_function_assign($params, &$smarty)
       This plugin basically aliases one of the built-in PHP functions. It
       does not have any additional parameters.
      </para>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -2847,13 +2992,16 @@ function smarty_modifier_capitalize($string)
 {
     return ucwords($string);
 }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
     <para></para>
     <example>
      <title>more complex modifier plugin</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -2882,7 +3030,9 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     } else
         return $string;
 }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
    </sect1>
 
@@ -2954,8 +3104,9 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     </para>
     <example>
      <title>block function</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -2972,7 +3123,10 @@ function smarty_block_translate($params, $content, &$smarty)
         // do some intelligent translation thing here with $content
         return $translation;
     }
-}</programlisting>
+}
+?>
+]]>
+</programlisting>
     </example>
    </sect1>
 
@@ -3004,8 +3158,9 @@ function smarty_block_translate($params, $content, &$smarty)
     </para>
     <example>
      <title>simple compiler function</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -3018,22 +3173,28 @@ function smarty_block_translate($params, $content, &$smarty)
  */
 function smarty_compiler_tplheader($tag_arg, &$smarty)
 {
-    return "\necho '" . $smarty-&gt;_current_file . " compiled at " . date('Y-m-d H:M'). "';";
+    return "\necho '" . $smarty->_current_file . " compiled at " . date('Y-m-d H:M'). "';";
 }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
      <para>
       This function can be called from the template as:
      </para>
      <programlisting>
 {* this function gets executed at compile time only *}
-{tplheader}</programlisting>
+{tplheader}
+     </programlisting>
      <para>
       The resulting PHP code in the compiled template would be something like this:
      </para>
-     <programlisting>
-&lt;php
+     <programlisting role="php">
+<![CDATA[
+<?php
 echo 'index.tpl compiled at 2002-02-20 20:02';
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
    </sect1>
 
@@ -3075,8 +3236,9 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     </para>
     <example>
      <title>prefilter plugin</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -3088,15 +3250,18 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  */
  function smarty_prefilter_pre01($source, &$smarty)
  {
-     return preg_replace('!&lt;(\w+)[^&gt;]+&gt;!e', 'strtolower("$1")', $source);
+     return preg_replace('!<(\w+)[^>]+>!e', 'strtolower("$1")', $source);
  }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
     <para></para>
     <example>
      <title>postfilter plugin</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -3108,10 +3273,12 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  */
  function smarty_postfilter_post01($compiled, &$smarty)
  {
-     $compiled = "&lt;pre&gt;\n&lt;?php print_r(\$this-&gt;get_template_vars()); ?&gt;\n&lt;/pre&gt;" . $compiled;
+     $compiled = "<pre>\n<?php print_r(\$this->get_template_vars()); ?>\n</pre>" . $compiled;
      return $compiled;
  }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
    </sect1>
 
@@ -3135,7 +3302,9 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     </para>
     <example>
      <title>output filter plugin</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -3151,6 +3320,8 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
                          '$1%40$2', $output);
  }
+?>
+]]>
      </programlisting>
     </example>
    </sect1>
@@ -3234,8 +3405,9 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     </para>
     <example>
      <title>resource plugin</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * ------------------------------------------------------------- 
@@ -3286,7 +3458,9 @@ function smarty_resource_db_trusted($tpl_name, &$smarty)
 {
     // not used for templates
 }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
    </sect1>
 
@@ -3314,8 +3488,9 @@ function smarty_resource_db_trusted($tpl_name, &$smarty)
     </para>
     <example>
      <title>insert plugin</title>
-     <programlisting>
-&lt;?php
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * ------------------------------------------------------------- 
@@ -3335,7 +3510,9 @@ function smarty_insert_time($params, &$smarty)
     $datetime = strftime($params['format']);
     return $datetime;
 }
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
     </example>
    </sect1>
   </chapter>
