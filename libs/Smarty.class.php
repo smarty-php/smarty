@@ -240,17 +240,27 @@ class Smarty
         $this->_extract = true;
     }
 
-
+/*======================================================================*\
+    Function:   assign_by_ref()
+    Purpose:    assigns values to template variables by reference
+\*======================================================================*/
+    function assign_by_ref($tpl_var, &$value)
+    {
+        if ($tpl_var != '' && isset($value))
+            $this->_tpl_vars[$tpl_var] = &$value;
+        $this->_extract = true;
+    }
+	
 /*======================================================================*\
     Function: append
-    Purpose:  appens values to template variables
+    Purpose:  appends values to template variables
 \*======================================================================*/
     function append($tpl_var, $value = NULL)
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $key => $val) {
                 if ($key != '') {
-					if(!is_array($this->_tpl_vars[$key])) {
+					if(!@is_array($this->_tpl_vars[$key])) {
 						settype($this->_tpl_vars[$key],'array');
 					}
                     $this->_tpl_vars[$key][] = $val;
@@ -258,11 +268,26 @@ class Smarty
             }
         } else {
             if ($tpl_var != '' && isset($value)) {
-				if(!is_array($this->_tpl_vars[$tpl_var])) {
+				if(!@is_array($this->_tpl_vars[$tpl_var])) {
 					settype($this->_tpl_vars[$tpl_var],'array');
 				}
                 $this->_tpl_vars[$tpl_var][] = $value;
             }
+        }
+        $this->_extract = true;
+    }
+
+/*======================================================================*\
+    Function: append_by_ref
+    Purpose:  appends values to template variables by reference
+\*======================================================================*/
+    function append_by_ref($tpl_var, &$value)
+    {
+        if ($tpl_var != '' && isset($value)) {
+			if(!@is_array($this->_tpl_vars[$tpl_var])) {
+				settype($this->_tpl_vars[$tpl_var],'array');
+			}
+            $this->_tpl_vars[$tpl_var][] = &$value;
         }
         $this->_extract = true;
     }
