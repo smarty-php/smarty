@@ -225,12 +225,6 @@ class Smarty
                 }
             }
         }
-
-		// setup debugging
-        if (!$this->debugging && $this->debugging_ctrl == 'URL'
-               && strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
-            $this->debugging = true;
-        }
     }
 
 
@@ -616,6 +610,12 @@ class Smarty
     {
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
 
+		// setup debugging
+        if (!$this->debugging && $this->debugging_ctrl == 'URL'
+               && strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
+            $this->debugging = true;
+        }		
+		
         if ($this->debugging) {
             // capture time for debugging info
             $debug_start_time = $this->_get_microtime();
