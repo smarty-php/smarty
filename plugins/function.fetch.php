@@ -130,7 +130,7 @@ function smarty_function_fetch($params, &$smarty)
 						case "cluster_host":
 							if(!empty($param_value)
 								&& (gethostbyname($param_value) != $param_value)) {
-									$server_name = $param_value;
+                                $server_name = $param_value;
 							}
 							break;
 						default:

@@ -518,6 +518,10 @@ class Smarty
         return $this->_rm_auto($this->compile_dir, $tpl_file, $compile_id);
     }
 
+ /*======================================================================*\
+    Function:   template_exists()
+    Purpose:    Checks whether requested template exists.
+\*======================================================================*/
     function template_exists($tpl_file)
     {
         return $this->_fetch_template_info($tpl_file, $source, $timestamp, true, true);
@@ -1445,7 +1449,7 @@ function _run_insert_handler($args)
 \*======================================================================*/
     function _create_dir_structure($dir)
     {
-        if (!file_exists($dir)) {
+        if (!@file_exists($dir)) {
             $dir_parts = preg_split('!\\'.DIR_SEP.'+!', $dir, -1, PREG_SPLIT_NO_EMPTY);
             $new_dir = ($dir{0} == DIR_SEP) ? DIR_SEP : '';
             foreach ($dir_parts as $dir_part) {

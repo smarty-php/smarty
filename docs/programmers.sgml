@@ -1941,7 +1941,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
  * Purpose:  translate a block of text
  * -------------------------------------------------------------
  */
-function smarty_block_eightball($params, $content, &amp;$smarty)
+function smarty_block_translate($params, $content, &amp;$smarty)
 {
     if ($content) {
         $lang = $params['lang'];
