@@ -1,5 +1,6 @@
 Version 1.3.0
 -------------
+    - moved license from GPL to LGPL (Monte)
     - implemented workaround for PHP "feature" that eats carriage returns
       if the PHP tag is at the end of the line. (Andrei)
     - removed $allow_php, added $php_handling logic (Monte)
