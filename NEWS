@@ -1,3 +1,5 @@
+  - speed up compiled templates, hardcode plugin filepaths
+    instead of dynamically calculate at runtime. (Monte)
   - fixed bug in _create_dir_structure() when used with open_basedir-
     restriction and relative paths (messju)
   - use DIRECTORY_SEPARATOR exclusively, keep DIR_SEP for BC (Monte)

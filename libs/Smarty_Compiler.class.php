@@ -339,20 +339,23 @@ class Smarty_Compiler extends Smarty {
 
         /* Emit code to load needed plugins. */
         if (count($this->_plugin_info)) {
-            $plugins_code = "<?php \$_params = array('plugins' => array(";
+            $_plugins_params = "array('plugins' => array(";
             foreach ($this->_plugin_info as $plugin_type => $plugins) {
                 foreach ($plugins as $plugin_name => $plugin_info) {
-                    $plugins_code .= "\narray('$plugin_type', '$plugin_name', '$plugin_info[0]', $plugin_info[1], ";
-                    $plugins_code .= $plugin_info[2] ? 'true),' : 'false),';
+                    $_plugins_params .= "array('$plugin_type', '$plugin_name', '$plugin_info[0]', $plugin_info[1], ";
+                    $_plugins_params .= $plugin_info[2] ? 'true),' : 'false),';
                 }
             }
-            $plugins_code .= "));\n\$this->_execute_core_function('load_plugins', \$_params); ?>\n";
+            $_plugins_params .= '))';
+			$_plugin_filepath = $this->_get_plugin_filepath('core', 'load_plugins');
+			$plugins_code = "<?php require_once('$_plugin_filepath');\nsmarty_core_load_plugins($_plugins_params, \$this); ?>\n";
             $template_header .= $plugins_code;
             $this->_plugin_info = array();
         }
 
         if ($this->_init_smarty_vars) {
-            $template_header .= "<?php \$this->_execute_core_function('assign_smarty_interface', \$params=null); ?>\n";
+			$_plugin_filepath = $this->_get_plugin_filepath('core', 'assign_smarty_interface');
+            $template_header .= "<?php require_once('$_plugin_filepath');\nsmarty_core_assign_smarty_interface(null, \$this); ?>\n";
             $this->_init_smarty_vars = false;
         }
 
@@ -765,7 +768,10 @@ class Smarty_Compiler extends Smarty {
 
         $this->_add_plugin('insert', $name, $delayed_loading);
 
-        return "<?php \$_params = array('args' => array(".implode(', ', (array)$arg_list).")); echo \$this->_execute_core_function('run_insert_handler', \$_params); ?>\n";
+		$_params = "array('args' => array(".implode(', ', (array)$arg_list)."))";
+		$_plugin_filepath = $this->_get_plugin_filepath('core', 'run_insert_handler');
+		
+        return "<?php require_once('$_plugin_filepath');\necho smarty_core_run_insert_handler($_params, \$this); ?>\n";
     }
 
 	/**
@@ -803,9 +809,13 @@ class Smarty_Compiler extends Smarty {
         }
 
         $output .=  
-            "\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
-			"\$_params = array('smarty_include_tpl_file' => " . $include_file . ", 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."));\n" .
-            "\$this->_execute_core_function('smarty_include', \$_params);\n" .
+            "\$_smarty_tpl_vars = \$this->_tpl_vars;\n";
+		
+		
+		$_params = "array('smarty_include_tpl_file' => " . $include_file . ", 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."))";
+		$_plugin_filepath = $this->_get_plugin_filepath('core', 'smarty_include');
+	
+		$output .= "require_once('$_plugin_filepath');\nsmarty_core_smarty_include($_params, \$this);\n" .
             "\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
             "unset(\$_smarty_tpl_vars);\n";
 
@@ -844,10 +854,10 @@ class Smarty_Compiler extends Smarty {
         	}
     	}
 
-    	$output =
-        	"<?php \$_params = array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list).")); \$this->_execute_core_function('smarty_include_php', \$_params); ?>";
-				
-		return $output;
+    	$_params = "array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."))";
+		$_plugin_filepath = $this->_get_plugin_filepath('core', 'smarty_include_php');
+		
+		return "<?php require_once('$_plugin_filepath');\nsmarty_core_smarty_include_php($_params, \$this); ?>\n";
     }
 	
 
