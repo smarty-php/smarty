@@ -1,3 +1,33 @@
+2002-04-15  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php:
+    Fixed _get_php_resource() to take include_path into account.
+
+2002-04-15  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml:
+    update docs, get modifiers and functions into index for easy access
+
+    * docs/programmers.sgml
+      NEWS
+      Smarty.class.php: update caching documentation
+
+2002-04-15  Andrei Zmievski  <andrei@php.net>
+
+    * NEWS: *** empty log message ***
+
+    * Smarty.class.php: Only turn down error notices if $debugging is false.
+
+2002-04-15  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS: update NEWS file
+
+    * plugins/function.html_select_date.php:
+    fixed logic so this works right when field_separator = "/"
+
+    * plugins/function.html_select_date.php:
+    fix regular expression for matching date
+
 2002-04-13  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml: updated html_select_date docs to reflect changes
