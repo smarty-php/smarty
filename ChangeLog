@@ -1,3 +1,22 @@
+2003-08-18  Monte Ohrt  <monte@ispi.net>
+
+    * docs/getting-started.sgml:
+      fix example title
+
+    * docs/README
+      docs/getting-started.sgml:
+      change installation wording confusion
+
+2003-08-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.read_cache_file.php:
+      fixed unnecessary load of source in template_exists() and the
+      compile-check of smarty_core_read_cache_file()
+
+    * libs/Smarty_Compiler.class.php:
+      allow section-, array- and object-dereference in $smarty-references
+
 2003-08-15  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/designers.sgml:
