@@ -491,6 +491,8 @@ function _compile_section_start($tag_args)
     $output .= "{$section_props}['rownum'] = {$section_props}['index'] + 1;\n";
     $output .= "{$section_props}['index_prev'] = {$section_props}['index'] - 1;\n";
     $output .= "{$section_props}['index_next'] = {$section_props}['index'] + 1;\n";
+	$output .= "{$section_props}['first']      = ({$section_props}['index'] == 0);\n";
+	$output .= "{$section_props}['last']       = ({$section_props}['index'] == {$section_props}['loop']-1);\n";
 
     $output .= "?>";
 
