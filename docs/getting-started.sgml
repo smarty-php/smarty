@@ -36,9 +36,10 @@
     <listitem><para>It is possible to embed PHP code right in your template files,
       although this may not be needed (nor recommended)
       since the engine is so customizable.</para></listitem>
-    <listitem><para>Built-in caching support (new in 1.3.0)</para></listitem>
-    <listitem><para>Arbitrary template sources (new in 1.4.0)</para></listitem>
-    <listitem><para>Custom cache handling functions (new in 1.4.7)</para></listitem>
+    <listitem><para>Built-in caching support</para></listitem>
+    <listitem><para>Arbitrary template sources</para></listitem>
+    <listitem><para>Custom cache handling functions</para></listitem>
+    <listitem><para>Plugin architecture</para></listitem>
    </itemizedlist>
   </sect1>
 
