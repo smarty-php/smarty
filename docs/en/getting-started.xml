@@ -151,7 +151,7 @@ Smarty.class.php
 Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
-/core/*.php (all of them)
+/internals/*.php (all of them)
 /plugins/*.php (all of them)
 ]]>
     </screen>
@@ -288,7 +288,7 @@ $smarty = new Smarty;
 /usr/local/lib/php/Smarty/Smarty_Compiler.class.php
 /usr/local/lib/php/Smarty/Config_File.class.php
 /usr/local/lib/php/Smarty/debug.tpl
-/usr/local/lib/php/Smarty/core/*.php
+/usr/local/lib/php/Smarty/internals/*.php
 /usr/local/lib/php/Smarty/plugins/*.php
 
 /web/www.mydomain.com/smarty/guestbook/templates/
