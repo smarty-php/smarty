@@ -1,3 +1,4 @@
+  - enhanced auto-generated filenames for templates_c and cache (messju)
   - add 'nonstd' to escape modifier for escaping non-std chars,
     such as ms doc quote (Monte)
   - adjusted textformat to not output wrap chars after last para

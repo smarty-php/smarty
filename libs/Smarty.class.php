@@ -459,7 +459,7 @@ class Smarty
      *
      * @var string
      */
-    var $_version              = '2.6.3-dev';
+    var $_version              = '2.6.3-dev-2';
 
     /**
      * current template inclusion depth
@@ -1747,11 +1747,12 @@ class Smarty
         if(isset($auto_source)) {
             // make source name safe for filename
             $_filename = urlencode(basename($auto_source));
-            $_crc32 = crc32($auto_source) . $_compile_dir_sep;
+            $_crc32 = sprintf("%08X", crc32($auto_source));
             // prepend %% to avoid name conflicts with
             // with $params['auto_id'] names
-            $_crc32 = '%%' . substr($_crc32,0,3) . $_compile_dir_sep . '%%' . $_crc32;
-            $_return .= $_crc32 . $_filename;
+            $_crc32 = substr($_crc32, 0, 2) . $_compile_dir_sep .
+                      substr($_crc32, 0, 3) . $_compile_dir_sep . $_crc32;
+            $_return .= '%%' . $_crc32 . '%%' . $_filename;
         }
 
         return $_return;
