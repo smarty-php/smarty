@@ -14,47 +14,47 @@
  
 // $_smarty_include_tpl_file, $_smarty_include_vars
 
-function smarty_core_smarty_include($params, &$this)
+function smarty_core_smarty_include($params, &$smarty)
 {
-    if ($this->debugging) {
-		$_params = array();
-		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
-        $debug_start_time = smarty_core_get_microtime($_params, $this);
-        $this->_smarty_debug_info[] = array('type'      => 'template',
+    if ($smarty->debugging) {
+        $_params = array();
+        require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
+        $debug_start_time = smarty_core_get_microtime($_params, $smarty);
+        $smarty->_smarty_debug_info[] = array('type'      => 'template',
                                             'filename'  => $params['smarty_include_tpl_file'],
-                                            'depth'     => ++$this->_inclusion_depth);
-        $included_tpls_idx = count($this->_smarty_debug_info) - 1;
+                                            'depth'     => ++$smarty->_inclusion_depth);
+        $included_tpls_idx = count($smarty->_smarty_debug_info) - 1;
     }
 
-    $this->_tpl_vars = array_merge($this->_tpl_vars, $params['smarty_include_vars']);
+    $smarty->_tpl_vars = array_merge($smarty->_tpl_vars, $params['smarty_include_vars']);
 
     // config vars are treated as local, so push a copy of the
     // current ones onto the front of the stack
-    array_unshift($this->_config, $this->_config[0]);
+    array_unshift($smarty->_config, $smarty->_config[0]);
 
-    $_smarty_compile_path = $this->_get_compile_path($params['smarty_include_tpl_file']);
+    $_smarty_compile_path = $smarty->_get_compile_path($params['smarty_include_tpl_file']);
 
 
-    if ($this->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
-        || $this->_compile_resource($params['smarty_include_tpl_file'], $_smarty_compile_path))
+    if ($smarty->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
+        || $smarty->_compile_resource($params['smarty_include_tpl_file'], $_smarty_compile_path))
     {
-        include($_smarty_compile_path);
+        $smarty->smarty_include($_smarty_compile_path);
     }
 
     // pop the local vars off the front of the stack
-    array_shift($this->_config);
+    array_shift($smarty->_config);
 
-    $this->_inclusion_depth--;
+    $smarty->_inclusion_depth--;
 
-    if ($this->debugging) {
+    if ($smarty->debugging) {
         // capture time for debugging info
-		$_params = array();
-		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
-        $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $debug_start_time;
+        $_params = array();
+        require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
+        $smarty->_smarty_debug_info[$included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $smarty) - $debug_start_time;
     }
 
-    if ($this->caching) {
-        $this->_cache_info['template'][$params['smarty_include_tpl_file']] = true;
+    if ($smarty->caching) {
+        $smarty->_cache_info['template'][$params['smarty_include_tpl_file']] = true;
     }
 }
 

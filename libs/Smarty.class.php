@@ -1492,15 +1492,16 @@ class Smarty
 		$_resource_timestamp = $_params['resource_timestamp'];
 
         if ($this->_compile_source($resource_name, $_source_content, $_compiled_content)) {
-			$_params = array('compile_path'=>$compile_path, 'compiled_content' => $_compiled_content, 'resource_timestamp' => $_resource_timestamp);
-			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_resource.php');
-			smarty_core_write_compiled_resource($_params, $this);
-            
             // if a _cache_serial was set, we also have to write an include-file:
             if ($this->_cache_include_info) {
                 require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_include.php');
                 smarty_core_write_compiled_include(array_merge($this->_cache_include_info, array('compiled_content'=>$_compiled_content)),  $this);
             }          
+
+			$_params = array('compile_path'=>$compile_path, 'compiled_content' => $_compiled_content, 'resource_timestamp' => $_resource_timestamp);
+			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_resource.php');
+			smarty_core_write_compiled_resource($_params, $this);
+            
             return true;
         } else {
             $this->trigger_error($smarty_compiler->_error_msg);
@@ -1525,6 +1526,7 @@ class Smarty
             // use include_path
             require_once($this->compiler_file);
         }
+
 
         $smarty_compiler = new $this->compiler_class;
 
@@ -1771,8 +1773,6 @@ class Smarty
         return (is_array($function)) ?
             method_exists($function[0], $function[1]) : function_exists($function);
     }
-    /**#@-*/
-
 
 
     /**
@@ -1787,6 +1787,31 @@ class Smarty
         ob_end_clean();
         return $_ret;
     }
+
+
+    /**
+     * wrapper for include() retaining $this
+     * @return mixed
+     */
+    function smarty_include($filename, $once=false)
+    {
+        if ($once) {
+            return include_once($filename);
+        } else {
+            return include($filename);
+        }
+    }
+
+
+    /**
+     * wrapper for eval() retaining $this
+     * @return mixed
+     */
+    function smarty_eval($code)
+    {
+        return eval($code);
+    }
+    /**#@-*/
 
 }
 

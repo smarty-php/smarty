@@ -16,40 +16,32 @@
  *              {include file="blah" var=$var}
  */    
 
-// 	$file, $assign, $once, $_smarty_include_vars	 		  
-		 
-function smarty_core_smarty_include_php($params, &$this)
+//  $file, $assign, $once, $_smarty_include_vars
+
+function smarty_core_smarty_include_php($params, &$smarty)
 {
-	$_params = array('resource_name' => $params['smarty_file']);
-	require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_php_resource.php');
-	smarty_core_get_php_resource($_params, $this);
-	$_smarty_resource_type = $_params['resource_type'];
-	$_smarty_php_resource = $_params['php_resource'];
+    $_params = array('resource_name' => $params['smarty_file']);
+    require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_php_resource.php');
+    smarty_core_get_php_resource($_params, $smarty);
+    $_smarty_resource_type = $_params['resource_type'];
+    $_smarty_php_resource = $_params['php_resource'];
 
     extract($params['smarty_include_vars'], EXTR_PREFIX_SAME, 'include_php_');
 
     if (!empty($params['smarty_assign'])) {
         ob_start();
         if ($_smarty_resource_type == 'file') {
-            if($params['smarty_once']) {
-                include_once($_smarty_php_resource);
-            } else {
-                include($_smarty_php_resource);                    
-            }
+            $smarty->smarty_include($_smarty_php_resource, $params['smarty_once']);
         } else {
-            eval($_smarty_php_resource);
+            $smarty->smarty_eval($_smarty_php_resource);
         }
-        $this->assign($params['smarty_assign'], ob_get_contents());
+        $smarty->assign($params['smarty_assign'], ob_get_contents());
         ob_end_clean();
     } else {
         if ($_smarty_resource_type == 'file') {
-            if($params['smarty_once']) {
-                include_once($_smarty_php_resource);
-            } else {
-                include($_smarty_php_resource);                    
-            }
+            $smarty->smarty_include($_smarty_php_resource, $params['smarty_once']);
         } else {
-            eval($_smarty_php_resource);
+            $smarty->smarty_eval($_smarty_php_resource);
         }
     }
 }
