@@ -11,8 +11,8 @@
     upon the first invocation. After that, it just executes the compiled
     PHP scripts. Therefore, there is no costly template file parsing for
     each request, and each template can take full advantage of PHP compiler
-    cache solutions such as Zend Cache (http://www.zend.com) or APC
-    (http://apc.communityconnect.com).
+    cache solutions such as Zend Cache (http://www.zend.com) or PHP
+    Accelerator (http://www.php-accelerator.co.uk).
    </para>
    <para>
     Some of Smarty's features:

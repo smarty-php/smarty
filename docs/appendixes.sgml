@@ -389,8 +389,8 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 	<note>
 	<title>Technical Note</title>
 	<para>
-    This method isn't 100% foolproof. Although highly unlikely, a spammer
-    could conceivably write his e-mail collector to decode these values.
+    This method isn't 100% foolproof. A spammer
+    could conceivably program his e-mail collector to decode these values.
 	</para>
 	</note>
 	</sect1>
