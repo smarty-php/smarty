@@ -96,7 +96,7 @@ class Smarty
     var $cache_handler_func   = null;   // function used for cached content. this is
                                         // an alternative to using the built-in file
                                         // based caching.
-    var $check_if_modified = false;     // respect If-Modified-Since headers on cached content
+    var $cache_modified_check = false;  // respect If-Modified-Since headers on cached content
 
 
     var $default_template_handler_func = ''; // function to handle missing templates
@@ -515,7 +515,7 @@ class Smarty
 
                         $_smarty_results .= $this->_generate_debug_output();
                     }
-                    if ($this->check_if_modified) {
+                    if ($this->cache_modified_check) {
                         global $HTTP_IF_MODIFIED_SINCE;
                         $last_modified_date = substr($HTTP_IF_MODIFIED_SINCE, 0, strpos($HTTP_IF_MODIFIED_SINCE, 'GMT') + 3);
                         $gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';

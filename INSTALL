@@ -1,22 +1,24 @@
 REQUIREMENTS:
 
 Smarty requires PHP 4.0.4pl1 or later to fix all known problems Smarty has with
-PHP. Smarty was developed and tested with 4.0.4pl1. See the BUGS file for more
-info.
+PHP. Smarty was developed and tested with PHP versions >= 4.0.4pl1. See the
+BUGS file for more info.
 
 INSTALLATION:
 
-* copy the Smarty.class.php, Smarty.addons.php, Smarty_Compile.class.php and
-  Config_File.class.php scripts to a directory that is in your PHP include_path,
-  or set the SMARTY_DIR constant and put your class files in this directory.
+* copy the Smarty.class.php, Smarty.addons.php, Smarty_Compile.class.php
+  Config_File.class.php scripts and the plugins directory to a directory that
+  is in your PHP include_path, or set the SMARTY_DIR constant and put your
+  class files in this directory.
 
-* create a "templates" directory, "configs" directory and a "templates_c"
-  directory, be sure to set the appropriate directory settings in Smarty for
-  them. If they are located in the same directory as your application, they
-  shouldn't need to be modified. Be sure the "templates_c" directory is
-  writable by your web server user (usually nobody). chown nobody:nobody
-  templates_c; chmod 700 templates_c You can also chmod 777 this directory, but
-  be aware of security issues for multi-user systems.
+* create a "templates", "configs", and a "templates_c" directory,
+  be sure to set the appropriate directory settings in Smarty for them. If they
+  are located in the same directory as your application, they shouldn't need to
+  be modified. Be sure the "templates_c" directory is writable by your web
+  server user (usually nobody). chown nobody:nobody templates_c; chmod 700
+  templates_c You can also chmod 777 this directory, but be aware of security
+  issues for multi-user systems. If you are using Smarty's built-in caching,
+  create a "cache" directory and also chown nobody:nobody.
 
 * setup your php and template files. A good working example is included to get
   you started. Also see the QUICKSTART guide for some more examples.

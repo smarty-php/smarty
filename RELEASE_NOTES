@@ -1,10 +1,34 @@
 2.0
 ---
 
-This release removes PEAR dependency -- it was mainly a consequence of using
-Config_File class which was originally written with PEAR in mind but was
-never integrated into it.
+This release is a huge milestone for Smarty. Most notable new things are a
+plugin architecture, PEAR dependancies removed and optimizations that
+drastically improved the performance of Smarty in most cases.
 
+The plugin architecture allows modifiers, custom functions, compiler functions,
+prefilters, postfilters, resources an insert functions all to be added by
+simply dropping a file into the plugins directory. Once dropped in, they are
+automatically registered by the template engine. This makes user-contributed
+plugins easy to manage, as well as the internal workings of Smarty easy to
+control and customize. This new architecture depends on the __FILE__ constant,
+which contains the full path to the executing script. Some older versions of
+PHP incorrectly gave the script name and not the full filesystem path. Be sure
+your version of PHP populates __FILE__ correctly. If you use custom template
+resource functions, the format of these changed with the plugin architecture.
+Be sure to update your functions accordingly. See the template resource section
+of the documentation.
+
+The PEAR dependancy was removed from Smarty. The Config_File class that comes
+with Smarty was actually what needed PEAR for error handling which Smarty didn't
+use, but now everything is self-contained.
+
+Performance improvements are graphed on the benchmark page, you will see that
+overall performance has been sped up by as much as 80% in some cases.
+
+Smarty-cached pages now support If-Modified-Since headers, meaning that if a
+cached template page has not changed since the last request, a "304 Not
+Modified" header will be sent instead of resending the same page. This is
+disabled by default, change the setting of $cache_modified_check.
 
 1.5.2
 -----

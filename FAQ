@@ -72,18 +72,19 @@ A: Smarty reads the template files and creates PHP scripts from them. Once
    know of their existance. (NOTE: you can turn off this compile checking step
    in Smarty for increased performance.)
 
-Q: Why can't I just use APC <http://apc.communityconnect.com/> (or Zend Cache)?
-A: You certainly can. Smarty's cache and these cache solutions have nothing in
-   common. What APC does is caches compiled bytecode of your PHP scripts in
-   shared memory or in a file. This speeds up server response and saves the
-   compilation step. Smarty creates PHP scripts (which APC will cache nicely)
-   and also has it's own internal caching mechanism for the output of the
-   template contents. For example, if you have a template that requires several
-   database queries, Smarty can cache this output, saving the need to call the
-   database every time. APC cannot help you here. Smarty and APC (or Zend
-   Cache) actually complement each other nicely. If performance is of the
-   utmost importance, we would recommend using one of these with any PHP
-   application, using Smarty or not.
+Q: Why can't I just use PHPA (http://php-accelerator.co.uk) or Zend Cache?
+A: You certainly can, and we highly recommend it! What PHPA does is caches
+   compiled bytecode of your PHP scripts in shared memory or in a file. This
+   speeds up server response and saves the compilation step. Smarty creates PHP
+   scripts, which PHPA will cache nicely. Now, Smarty's built-in cache is
+   something completely different. It caches the _output_ of the template
+   contents. For example, if you have a template that requires several database
+   queries, Smarty can cache this output, saving the need to call the database
+   every time. Smarty and PHPA (or Zend Cache) complement each other nicely. If
+   performance is of the utmost importance, we would recommend using one of
+   these with any PHP application, using Smarty or not. As you can see in the
+   benchmarks, Smartys performance _really_ excels in combination with a PHP
+   accelerator.
 
 Q: Why does Smarty have a built in cache? Wouldn't it be better to handle this
    in a separate class?
@@ -96,16 +97,12 @@ A: Smarty's caching functionality is tightly integrated with the template
    depending on URL, cookies, etc.
 
 Q: Is Smarty faster than <insert other PHP template engine>?
-A: It could be. One of the strengths of Smarty is that it does not need to
-   parse the template files on every hit to the server. Version 1.3.1 has
-   many noticable performance tune-ups, so your best bet is to try some
-   benchmarks and compare for yourself.
-
-   The above comparison assumes that you are not using Smarty's built-in
-   ability to cache templates. If you are, that makes this comparison pretty
-   unfair since Smarty will basically be displaying static content instead of
-   generating templates, which will really speed things up especially for
-   complicated tests.
+A: See the benchmark page for some performance comparisons. Smarty's approach
+   to templates is a bit different from some languages: it compiles templates
+   into PHP scripts instead of parsing them on each invocation. This usually
+   results in great performance gains, especially with complex templates.
+   Coupled with the built-in caching of Smarty templates, the performance is
+   outstanding.
 
 Q: How can I be sure to get the best performance from Smarty?
 A: Be sure you set $compile_check=false once your templates are initially

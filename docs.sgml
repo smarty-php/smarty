@@ -2118,7 +2118,7 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 			{$smarty} variable can be used to refer to 'section' and
 			'foreach' loop properties. See docs for
 			<link linkend="builtin.functions.section">section</link> and
-			<link linkend="builtin.function.foreach">foreach</link>.
+			<link linkend="builtin.functions.foreach">foreach</link>.
 			</para>
 		</sect3>
 
