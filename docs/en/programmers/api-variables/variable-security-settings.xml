@@ -18,6 +18,9 @@
          tags are permitted in the templates.</para></listitem>
        <listitem><para>MODIFIER_FUNCS - This is an array of the names of permitted
          PHP functions used as variable modifiers.</para></listitem>
+       <listitem><para>ALLOW_CONSTANTS - true/false. If set to true, constants via
+         {$smarty.const.name} are allowed in the templates. The defaults is set to
+         "false" for security.</para></listitem>
       </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file
