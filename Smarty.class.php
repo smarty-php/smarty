@@ -215,7 +215,7 @@ class Smarty
 \*======================================================================*/
     function Smarty()
     {
-		if(!empty(SMARTY_DIR)) {
+		if(SMARTY_DIR != '') {
 			$this->template_dir = SMARTY_DIR.$this->template_dir;
 			$this->config_dir = SMARTY_DIR.$this->config_dir;
 			$this->compile_dir = SMARTY_DIR.$this->compile_dir;
