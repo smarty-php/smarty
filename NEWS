@@ -1,3 +1,5 @@
+    - fixed a problem with putting $ followed by numbers inside {strip} and
+      {/strip} tags. (Andrei)
     - fixed Config_File class to allow empty config paths (defaults to current
       directory). (Andrei)
 

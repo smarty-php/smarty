@@ -141,7 +141,8 @@ class Smarty_Compiler extends Smarty {
             $strip_tags_modified = preg_replace('![\r\n]+!m', '', $strip_tags_modified);
             for ($i = 0; $i < count($strip_tags); $i++)
                 $template_compiled = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
-                                                  $strip_tags_modified[$i], $template_compiled, 1);
+                                                  $this->quote_replace($strip_tags_modified[$i]),
+												  $template_compiled, 1);
         }
 
         // put header at the top of the compiled template
