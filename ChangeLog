@@ -1,3 +1,11 @@
+2002-04-13  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml: updated html_select_date docs to reflect changes
+
+    * NEWS
+      plugins/function.html_select_date.php:
+    added YYYY-MM-DD support to html_select_date
+
 2002-04-12  Andrei Zmievski  <andrei@php.net>
 
     * TESTIMONIALS: New entry.
