@@ -20,7 +20,7 @@
 function smarty_function_eval($params, &$smarty)
 {
 
-    if (!isset($params['var'])) {
+    if (!array_key_exists('var', $params)) {
         $smarty->trigger_error("eval: missing 'var' parameter");
         return;
     }

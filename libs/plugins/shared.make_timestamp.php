@@ -16,18 +16,20 @@
 function smarty_make_timestamp($string)
 {
     if(empty($string)) {
-        $string = "now";
-    }
-    $time = strtotime($string);
-    if (is_numeric($time) && $time != -1)
-        return $time;
+        // now
+        $time = -1;
 
-    // is mysql timestamp format of YYYYMMDDHHMMSS?
-    if (preg_match('/^\d{14}$/', $string)) {
+    } elseif (preg_match('/^\d{14}$/', $string)) {
+        // is mysql timestamp format of YYYYMMDDHHMMSS?
         $time = mktime(substr($string,8,2),substr($string,10,2),substr($string,12,2),
                substr($string,4,2),substr($string,6,2),substr($string,0,4));
 
         return $time;
+
+    } else {
+        $time = strtotime($string);
+        if (is_numeric($time) && $time != -1)
+            return $time;
     }
 
     // couldn't recognize it, try to return a time

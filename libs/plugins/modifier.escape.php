@@ -51,7 +51,12 @@ function smarty_modifier_escape($string, $esc_type = 'html')
 
         case 'javascript':
             // escape quotes and backslashes and newlines
-            return strtr($string, array('\\'=>'\\\\',"'"=>"\\'",'"'=>'\\"',"\r"=>'\\r',"\n"=>'\\n'));
+            $return = strtr($string, array(
+                                "\x08" => '\\b', "\x09" => '\\t', "\n" => '\\n', 
+                                "\x0b" => '\\v', "\x0c" => '\\f', "\r" => '\\r', 
+                                '"' => '\\"', '\'' => '\\\'', '\\' => '\\\\'));
+
+            return preg_replace('!<(/\w)!', "<\\\\$1", $return);
 
         default:
             return $string;
