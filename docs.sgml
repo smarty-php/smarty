@@ -2028,16 +2028,15 @@ OUTPUT:
                 </tgroup>
             </informaltable>
 			<para>
-            <emphasis>header</emphasis> is a function that passes a raw header
-            string to the output. If your template is used for WAP (Wireless
-            Access Protocol) for example, you would need to send a special
-            header to indicate the type of content you are sending.
+            <emphasis>header</emphasis> is a function that sends a raw header
+            string. For example, if your template is sending content intended
+            for a WAP (Wireless Access Protocol) device, you would need to send
+            a special header to indicate the type of content you are sending.
 			</para>
 			<para>
             TECHNICAL NOTE: Be sure you call {header ...}
-            <emphasis>before</emphasis> any output in your template, in
-            including whitespace. Otherwise the header will not work as
-            intended.
+            <emphasis>before</emphasis> any output in your template, including
+            whitespace. Otherwise the header will not work as intended.
 			</para>
 <example>
 <title>header</title>
