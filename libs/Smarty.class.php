@@ -1065,6 +1065,8 @@ class Smarty
      */
     function fetch($tpl_file, $cache_id = null, $compile_id = null, $display = false)
     {
+        static $_cache_info = array();
+
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
 
         if($this->security && !in_array($this->template_dir, $this->secure_dir)) {
@@ -1095,11 +1097,9 @@ class Smarty
         $this->_inclusion_depth = 0;
 
         if ($this->caching) {
-            if(!empty($this->_cache_info)) {
-                // nested call, init cache_info
-                $_cache_info = $this->_cache_info;
-                $this->_cache_info = array();
-            }
+            // save old cache_info, initialize cache_info
+            array_push($_cache_info, $this->_cache_info);
+            $this->_cache_info = array();
             if ($this->_read_cache_file($tpl_file, $cache_id, $compile_id, $_smarty_results)) {
                 if (@count($this->_cache_info['insert_tags'])) {
                     $this->_load_plugins($this->_cache_info['insert_tags']);
@@ -1127,9 +1127,13 @@ class Smarty
                             echo $_smarty_results;                        
                     }
                     error_reporting($_smarty_old_error_level);
+                    // restore initial cache_info
+                    $this->_cache_info = array_pop($_cache_info);
                     return true;    
                 } else {
                     error_reporting($_smarty_old_error_level);
+                    // restore initial cache_info
+                    $this->_cache_info = array_pop($_cache_info);
                     return $_smarty_results;
                 }
             } else {
@@ -1137,10 +1141,6 @@ class Smarty
                 if ($this->cache_modified_check) {
                     header("Last-Modified: ".gmdate('D, d M Y H:i:s', time()).' GMT');
                 }
-            }
-            if(isset($_cache_info)) {
-                // restore cache_info
-                $this->_cache_info = $_cache_info;
             }
         }
 
@@ -1174,6 +1174,8 @@ class Smarty
         if ($this->caching) {
             $this->_write_cache_file($tpl_file, $cache_id, $compile_id, $_smarty_results);
             $_smarty_results = $this->_process_cached_inserts($_smarty_results);
+            // restore initial cache_info
+            $this->_cache_info = array_pop($_cache_info);
         }
 
         if ($display) {
