@@ -329,7 +329,7 @@ class Smarty_Compiler extends Smarty {
         $compiled_content .= $text_blocks[$i];
 
         // remove \n from the end of the file, if any
-        if ($compiled_content{strlen($compiled_content) - 1} == "\n" ) {
+        if (($_len=strlen($compiled_content)) && ($compiled_content{$_len - 1} == "\n" )) {
             $compiled_content = substr($compiled_content, 0, -1);
         }
 
