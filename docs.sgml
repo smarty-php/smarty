@@ -1777,5 +1777,10 @@ is the first week that has at least 4 days in the current year, and with Monday 
 	<para>
 	Andrei Zmievski &lt;andrei@ispi.net&gt;: Rewrote parser from scratch, added much functionality.
 	</para>
+	<para>
+	Special thanks goes too all the members of the php-template mailing list.
+	Many people shared their thoughts and ideas here, all of which influenced
+	the direction Smarty took during it's journey to a reality.
+	</para>
 </chapter>
 </book>
