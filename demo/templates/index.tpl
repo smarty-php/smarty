@@ -8,7 +8,7 @@
 Title: {#title#|capitalize}
 {if #bold#}</b>{/if}
 
-the value of $SCRIPT_NAME is {$SCRIPT_NAME}
+the value of $SCRIPT_NAME is {$SCRIPT_NAME} 
 
 {* A simple variable test. print $Name in uppercase *}
 hello, my name is {$Name|upper}

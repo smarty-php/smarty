@@ -37,15 +37,15 @@
  *
  */
 
-require("Smarty.addons.php");
+require('Smarty.addons.php');
 
 class Smarty
 {
 
     // public vars
-    var $template_dir    =  "./templates";     // name of directory for templates  
-    var $compile_dir     =  "./templates_c";   // name of directory for compiled templates 
-    var $config_dir      =  "./configs";       // directory where config files are located
+    var $template_dir    =  './templates';     // name of directory for templates  
+    var $compile_dir     =  './templates_c';   // name of directory for compiled templates 
+    var $config_dir      =  './configs';       // directory where config files are located
 
     var $global_assign   =  array('SCRIPT_NAME'); // variables from the GLOBALS array
                                                   // that are implicitly assigned
@@ -61,18 +61,18 @@ class Smarty
                                         // override compile_check and force_compile.
                                         // true/false. default false.
     var $caching         =  false;      // whether to use caching or not. true/false
-    var $cache_dir       =  "./cache";  // name of directory for template cache
+    var $cache_dir       =  './cache';  // name of directory for template cache
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
 
-    var $tpl_file_ext    =  ".tpl";     // template file extention
+    var $tpl_file_ext    =  '.tpl';     // template file extention
     
     var $allow_php       =  false;      // whether or not to allow embedded php
                                         // in the templates. By default, php tags
                                         // are escaped. true/false. default false.
 
-    var $left_delimiter  =  "{";        // template tag delimiters.
-    var $right_delimiter =  "}";
+    var $left_delimiter  =  '{';        // template tag delimiters.
+    var $right_delimiter =  '}';
 
 
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
@@ -189,50 +189,36 @@ class Smarty
     
 /*======================================================================*\
     Function:   clear_cache()
-    Purpose:    clear all cached template files for given template
+    Purpose:    clear cached content for the given template
 \*======================================================================*/
 
     function clear_cache($tpl_file)
     {
-        if(is_dir($this->cache_dir))
-            $dir_handle = opendir($this->cache_dir);
-        else
-            return false;
-        
-        // remove leading . or /
-        $tpl_file = preg_replace("/^(\.{0,2}\/)*/","",$tpl_file);       
-        $tpl_file_url = urlencode($tpl_file);
-        
-        while($curr_file = readdir($dir_handle)) {
-            if ($curr_file == '.' || $curr_file == '..')
-                continue;
-            
-            if(is_file($this->cache_dir."/".$curr_file) &&
-                substr($curr_file,0,strlen($tpl_file_url)) == $tpl_file_url)
-                    unlink($this->cache_dir."/".$curr_file);
-        }
-        return true;        
+        $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
+        return $this->_clear_tpl_cache_dir($cache_tpl_md5);
     }
     
     
 /*======================================================================*\
     Function:   clear_all_cache()
-    Purpose:    clear all the cached template files.
+    Purpose:    clear the entire contents of cache (all templates)
 \*======================================================================*/
 
     function clear_all_cache()
     {
-        if(is_dir($this->cache_dir))
-            $dir_handle = opendir($this->cache_dir);
-        else
+        if (!is_dir($this->cache_dir))
             return false;
 
-        while($curr_file = readdir($dir_handle)) {
-            if ($curr_file == '.' || $curr_file == '..')
+        $dir_handle = opendir($this->cache_dir);
+        while ($curr_dir = readdir($dir_handle)) {
+            if ($curr_dir == '.' || $curr_dir == '..' ||
+                !is_dir($this->cache_dir.'/'.$curr_dir))
                 continue;
-            if(is_file($this->cache_dir."/".$curr_file) && substr($curr_file,-6) == '.cache')
-                unlink($this->cache_dir."/".$curr_file);
+
+            $this->_clear_tpl_cache_dir($curr_dir);
         }
+        closedir($dir_handle);
+
         return true;        
     }
 
@@ -243,22 +229,18 @@ class Smarty
 
     function is_cached($tpl_file)
     {
-        global $PHP_SELF;
-
         // cache id = template path + the invoked script
-        $cache_tpl_md5 = md5($tpl_file);
-        $cache_path_md5 = md5($PHP_SELF);
-        $cache_path_dir = substr($cache_path_md5,0,2);
-        $cache_file = $this->cache_dir."/".$cache_tpl_md5."/$cache_path_dir/$cache_tpl_md5"."_"."$cache_path_md5.cache";
+        $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
+        $cache_path_md5 = md5($HTTP_SERVER_VARS['SERVER_NAME'].'/'.$HTTP_SERVER_VARS['PHP_SELF']);
+        $cache_path_dir = substr($cache_path_md5, 0, 2);
+        $cache_file = $this->cache_dir."/$cache_tpl_md5/$cache_path_dir/$cache_tpl_md5_$cache_path_md5.cache";
 
-        if(!$this->cache_force &&
-                (file_exists($cache_file) &&
-                    ($this->cache_lifetime == 0 ||
-                        (mktime() - filemtime($cache_file) <= $this->cache_lifetime)
-                    )))
-                return true;
-            else
-                return false;
+        if (file_exists($cache_file) &&
+            ($this->cache_lifetime == 0 ||
+             (time() - filemtime($cache_file) <= $this->cache_lifetime)))
+            return true;
+        else
+            return false;
         
     }
     
@@ -301,27 +283,25 @@ class Smarty
 
     function fetch($tpl_file, $display = false)
     {
-        global $PHP_SELF;
+        global $HTTP_SERVER_VARS;
 
-        if($this->caching) {
+        if ($this->caching) {
             // cache id = template path + the invoked script
-            $cache_tpl_md5 = md5($tpl_file);
-            $cache_path_md5 = md5($PHP_SELF);
-            $cache_path_dir = substr($cache_path_md5,0,2);
-            $cache_file = $this->cache_dir."/".$cache_tpl_md5."/$cache_path_dir/$cache_tpl_md5"."_"."$cache_path_md5.cache";
+            $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
+            $cache_path_md5 = md5($HTTP_SERVER_VARS['SERVER_NAME'].'/'.$HTTP_SERVER_VARS['PHP_SELF']);
+            $cache_path_dir = substr($cache_path_md5, 0, 2);
+            $cache_file = $this->cache_dir."/$cache_tpl_md5/$cache_path_dir/$cache_tpl_md5_$cache_path_md5.cache";
             
-            if(!$this->cache_force &&
-                    (file_exists($cache_file) &&
-                        ($this->cache_lifetime == 0 ||
-                            (mktime() - filemtime($cache_file) <= $this->cache_lifetime)
-                        ))) {
-                    $results = $this->_read_file($cache_file);
-                    $results = $this->_process_cached_inserts($results);
-                    if ($display) {
-                        echo $results;
-                        return;
-                    } else
-                        return $results;
+            if (file_exists($cache_file) &&
+                ($this->cache_lifetime == 0 ||
+                 (time() - filemtime($cache_file) <= $this->cache_lifetime))) {
+                $results = $this->_read_file($cache_file);
+                $results = $this->_process_cached_inserts($results);
+                if ($display) {
+                    echo $results;
+                    return;
+                } else
+                    return $results;
             }
         }
 
@@ -368,8 +348,7 @@ class Smarty
                 return true;
             else
                 return false;
-        }
-        else
+        } else
             return false;
     }   
     
@@ -380,23 +359,26 @@ class Smarty
 
     function _traverse_files($tpl_dir, $depth)
     {
-        if(is_dir($tpl_dir)) {
-            if($tpl_dir)
-                $dir_handle = opendir($tpl_dir);
+        $retval = true;
 
-            while($curr_file = readdir($dir_handle)) {
+        if (is_dir($tpl_dir)) {
+            $dir_handle = opendir($tpl_dir);
+            while ($curr_file = readdir($dir_handle)) {
                 if ($curr_file == '.' || $curr_file == '..')
                     continue;
 
-                $filepath = $tpl_dir."/".$curr_file;
-                if(is_readable($filepath)) {
-                    
-                    if(is_file($filepath) && substr($curr_file, -strlen($this->tpl_file_ext)) == $this->tpl_file_ext) {
-                        if(!$this->_process_file($filepath))
-                            return false;
+                $filepath = $tpl_dir.'/'.$curr_file;
+                if (is_readable($filepath)) {
+                    if (is_file($filepath) && substr($curr_file, -strlen($this->tpl_file_ext)) == $this->tpl_file_ext) {
+                        if (!$this->_process_file($filepath)) {
+                            $retval = false;
+                            break;
+                        }
                     } else if (is_dir($filepath)) {
-                        if (!$this->_traverse_files($filepath, $depth + 1))
-                            return false;
+                        if (!$this->_traverse_files($filepath, $depth + 1)) {
+                            $retval = false;
+                            break;
+                        }
                     } else {
                         // invalid file type, skipping
                         $this->_set_error_msg("Invalid filetype for $filepath, skipping");
@@ -404,12 +386,13 @@ class Smarty
                     }
                 }
             }
+
+            closedir($dir_handle);
+            return $retval;
         } else {
             $this->_set_error_msg("Directory \"$tpl_dir\" does not exist or is not a directory.");
             return false;
         }
-
-        return true;
     }
 
 /*======================================================================*\
@@ -423,23 +406,13 @@ class Smarty
     {
         if(preg_match("/^(.+)\/([^\/]+)$/", $filepath, $match)) {
             $tpl_file_dir = $match[1];          
-            $tpl_file_name = $match[2] . ".php";
+            $tpl_file_name = $match[2] . '.php';
 
             $compile_dir = preg_replace('!^' . preg_quote($this->template_dir, '!') . '!',
                                         $this->compile_dir, $match[1]);
 
             //create directory if none exists
-            if(!file_exists($compile_dir)) {
-                $compile_dir_parts = preg_split('!/+!', $compile_dir);
-                $new_dir = "";
-                foreach ($compile_dir_parts as $dir_part) {
-                    $new_dir .= $dir_part."/";
-                    if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
-                        $this->_set_error_msg("problem creating directory \"$compile_dir\"");
-                        return false;               
-                    }
-                }
-            }
+            $this->_create_dir_structure($compile_dir);
 
             // compile the template file if none exists or has been modified or recompile is forced
             if ($this->force_compile || !file_exists($compile_dir."/".$tpl_file_name) ||
@@ -459,13 +432,33 @@ class Smarty
     }
 
 /*======================================================================*\
+    Function: _create_dir_structure
+    Purpose:  create full directory structure
+\*======================================================================*/
+    function _create_dir_structure($dir)
+    {
+        if (!file_exists($dir)) {
+            $dir_parts = preg_split('!/+!', $dir);
+            $new_dir = '';
+            foreach ($dir_parts as $dir_part) {
+                $new_dir .= $dir_part;
+                if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
+                    $this->_set_error_msg("problem creating directory \"$dir\"");
+                    return false;               
+                }
+                $new_dir .= '/';
+            }
+        }
+    }
+
+/*======================================================================*\
     Function:   _modified_file()
     Input:      return comparison of modification times of files
 \*======================================================================*/
 
     function _modified_file($filepath, $compilepath)
     {
-        if(filemtime($filepath) >= filemtime($compilepath))
+        if (filemtime($filepath) >= filemtime($compilepath))
             return true;
         return false;
     }
@@ -509,7 +502,7 @@ class Smarty
             $this->_current_line_no += substr_count($template_tags[$i], "\n");
         }
 
-        $compiled_contents = "";
+        $compiled_contents = '';
         
         /* Interleave the compiled contents and text blocks to get the final result. */
         for ($i = 0; $i < count($compiled_tags); $i++) {
@@ -1192,7 +1185,7 @@ class Smarty
 
     function _read_file($filename)
     {
-        if(!($fd = fopen($filename, 'r'))) {
+        if (!($fd = fopen($filename, 'r'))) {
             $this->_set_error_msg("problem reading '$filename.'");
             return false;
         }
@@ -1206,40 +1199,12 @@ class Smarty
     Purpose:    write out a file
 \*======================================================================*/
 
-    function _write_file($filename,$contents,$create_dirs=false)
+    function _write_file($filename, $contents, $create_dirs = false)
     {
-        if($create_dirs) {
-            $filename_split = split("\/+",$filename);
-            foreach($filename_split as $curr_dir) {
-                if(empty($curr_dir)) {
-                    if(empty($dir_sum))
-                        $dir_sum = "/";
-                    continue;
-                }
-
-                if($curr_dir == ".." || $curr_dir == ".") {
-                    $dir_sum .= $curr_dir."/";
-                    continue;
-                }
-                                                
-                if(substr($curr_dir,-6) == ".cache")
-                    break;
-                
-                if(empty($dir_sum))
-                    $dir_sum .= $curr_dir;                
-                else
-                    $dir_sum .= "/".$curr_dir;
-
-                if(is_dir($dir_sum))
-                    continue;   
-                if(file_exists($dir_sum))
-                    continue;
-
-                mkdir($dir_sum,0755);
-            }
-        }
+        if($create_dirs)
+            $this->_create_dir_structure(dirname($filename));
         
-        if(!($fd = fopen($filename, 'w'))) {
+        if (!($fd = fopen($filename, 'w'))) {
             $this->_set_error_msg("problem writing '$filename.'");
             return false;
         }
@@ -1247,7 +1212,45 @@ class Smarty
         fclose($fd);
         return true;
     }    
-    
+
+
+/*======================================================================*\
+    Function: _clear_tpl_cache_dir
+    Purpose:  Clear the specified template cache directory
+\*======================================================================*/
+    function _clear_tpl_cache_dir($tpl_cache_dir)
+    {
+        $cache_dir = $this->cache_dir.'/'.$tpl_cache_dir;
+
+        if (!is_dir($cache_dir))
+            return false;
+
+        $dir_handle = opendir($cache_dir);
+        while ($curr_dir = readdir($dir_handle)) {
+            $cache_path_dir = $cache_dir.'/'.$curr_dir;
+            if ($curr_dir == '.' || $curr_dir == '..' ||
+                !is_dir($cache_path_dir))
+                continue;
+
+            $dir_handle2 = opendir($cache_path_dir);
+            while ($curr_file = readdir($dir_handle2)) {
+                if ($curr_file == '.' || $curr_file == '..')
+                    continue;
+
+                $cache_file = $cache_path_dir.'/'.$curr_file;
+                if (is_file($cache_file))
+                    unlink($cache_file);
+            }
+            closedir($dir_handle2);
+            @rmdir($cache_path_dir);
+        }
+        closedir($dir_handle);
+        @rmdir($cache_dir);
+
+        return true;
+    }
+
+
 /*======================================================================*\
     Function:   _set_error_msg()
     Purpose:    set the error message
