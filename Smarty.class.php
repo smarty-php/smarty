@@ -429,7 +429,7 @@ class Smarty
         if (!isset($compile_id))
             $compile_id = $this->compile_id;
 
-        if (isset($compile_id) && isset($cache_id))
+        if (isset($compile_id) || isset($cache_id))
             $auto_id = $compile_id . $cache_id;
         else
             $auto_id = null;
