@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: didou Status: ready -->
 <chapter id="tips">
  <title>Trucs et astuces</title>
  <para></para>
@@ -47,11 +47,14 @@
   <example>
    <title>assigner une valeur par défaut à une variable de template</title>
 <programlisting>
-{* faites cela qq part en haut de votre template *}
+<![CDATA[
+{* faites cela quelque part en haut de votre template *}
 {assign var="title" value=$title|default:"no title"}
 
-{* si $title est vide, il contiendra alors no "no title" *}
-{$title}</programlisting>
+{* si $title est vide, il contiendra alors la valeur "no title" *}
+{$title}
+]]>
+   </programlisting>
   </example>
  </sect1>
  <sect1 id="tips.passing.vars">
@@ -64,8 +67,8 @@
   </para>
   <example>
    <title>passer le titre au template d'en-tête</title>
-<programlisting>
-
+   <programlisting>
+<![CDATA[
 mainpage.tpl
 ------------
 
@@ -85,17 +88,19 @@ archives.tpl
 
 header.tpl
 ----------
-&lt;HTML&gt;
-&lt;HEAD&gt;
-&lt;TITLE&gt;{$title|default:"BC News"}&lt;/TITLE&gt;
-&lt;/HEAD&gt;
-&lt;BODY&gt;
+<HTML>
+<HEAD>
+<TITLE>{$title|default:"BC News"}</TITLE>
+</HEAD>
+<BODY>
 
 
 footer.tpl
 ----------
-&lt;/BODY&gt;
-&lt;/HTML&gt;</programlisting>
+</BODY>
+</HTML>
+]]>
+   </programlisting>
   </example>
   <para>
    Quand la page principale est conçue, le titre "Main page" est passé à header.tpl
@@ -115,31 +120,48 @@ footer.tpl
     pour avoir un contrôle total sur le formatage des dates et de comparer
     facilement les dates entre elles.
    </para>
-   <para>
-    NOTE : à partir Smarty 1.4.0, vous pouvez passer les dates à Smarty
-    sous la forme de timestamps Unix ou MySQL, ou tout autre format de dates
-    que comprend strtotime().
-   </para>
+   <note>
+    <para>
+     A partir Smarty 1.4.0, vous pouvez passer les dates à Smarty
+     sous la forme de timestamps Unix ou MySQL, ou tout autre format de dates
+     que comprend strtotime().
+    </para>
+   </note>
    <example>
-    <title>utilisation de date_format</title>
-<programlisting>
+    <title>Utilisation de date_format</title>
+    <programlisting>
+<![CDATA[
 {$startDate|date_format}
-
-OUTPUT:
-
+]]>
+    </programlisting>
+    <para>
+     Affichera :
+    </para>
+    <screen>
+<![CDATA[
 Jan 4, 2001
-
-
+]]>
+    </screen>
+    <programlisting>
+<![CDATA[
 {$startDate|date_format:"%Y/%m/%d"}
-
-OUTPUT:
-
+]]>
+    </programlisting>
+    <para>
+     Affichera :
+    </para>
+    <screen>
+<![CDATA[
 2001/01/04
-
-
-{if $date1 &lt; $date2}
+]]>
+    </screen>
+    <programlisting>
+<![CDATA[
+{if $date1 < $date2}
    ...
-{/if}</programlisting>
+{/if}
+]]>
+    </programlisting>
    </example>
    <para>
     En utilisant la fonction {html_select_date} dans un template, le programmeur
@@ -147,24 +169,33 @@ OUTPUT:
     Voici une fonction qui devrait vous être utile.
    </para>
    <example>
-    <title>conversion des éléments date d'un formulaire en timestamp</title>
-<programlisting>
+    <title>Conversion des éléments date d'un formulaire en timestamp</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
+
 // cela suppose que vos éléments de formulaire soient nommés
 // startDate_Day, startDate_Month, startDate_Year
 
-$startDate = makeTimeStamp($startDate_Year,$startDate_Month,$startDate_Day);
+$startDate = makeTimeStamp($startDate_Year, $startDate_Month, $startDate_Day);
 
-function makeTimeStamp($year="",$month="",$day="")
+function makeTimeStamp($year="", $month="", $day="")
 {
-   if(empty($year))
-      $year = strftime("%Y");
-   if(empty($month))
-      $month = strftime("%m");
-   if(empty($day))
-      $day = strftime("%d");
-
-   return mktime(0,0,0,$month,$day,$year);
-}</programlisting>
+   if(empty($year)) {
+       $year = strftime("%Y");
+   }
+   if(empty($month)) {
+       $month = strftime("%m");
+   }
+   if(empty($day)) {
+       $day = strftime("%d");
+   }
+   
+   return mktime(0, 0, 0, $month, $day, $year);
+}
+?>
+]]>
+    </programlisting>
    </example>
   </sect1>
   <sect1 id="tips.wap">
@@ -180,52 +211,62 @@ function makeTimeStamp($year="",$month="",$day="")
     la modification de l'en-tête échouera.
    </para>
    <example>
-    <title>utilisation d'insert pour écrire un en-tête Content-Type WML</title>
-<programlisting>
+    <title>Utilisation d'insert pour écrire un en-tête Content-Type WML</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
+
 // assurez-vous que Apache est configuré pour les extensions .wml !
-// mettez cette fonction qq part dans votre applications
+// mettez cette fonction quelque part dans votre applications
 // ou dans Smarty.addons.php
-function insert_header() {
-    // cette fonction attend un argument $content
-    extract(func_get_arg(0));
-    if(empty($content))
-        return;
-    header($content);
-    return;
+function insert_header() 
+{
+   // cette fonction attend un argument $content
+   if (empty($params['content'])) {
+       return;
+   }
+   header($params['content']);
+   return;
 }
 
-// votre template Smarty DOIT commencer avec la balise d'insertion
+?>
+]]>
+    </programlisting>
+    <para>
+     votre template Smarty <emphasis>doit</emphasis> commencer avec la balise d'insertion :
+    </para>
+    <programlisting>
+<![CDATA[
+{insert name=header content="Content-Type: text/vnd.wap.wml"}
 
-&lt;?xml version="1.0"?&gt;  
-&lt;!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"&gt; 
+<?xml version="1.0"?>  
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"> 
 
-&lt;!-- begin new wml deck --&gt; 
-&lt;wml&gt; 
-&lt;!-- begin first card --&gt; 
-&lt;card&gt; 
-&lt;do type="accept"&gt; 
-&lt;go href="#two"/&gt; 
-&lt;/do&gt;  
-&lt;p&gt; 
-Welcome to WAP with Smarty!
-Press OK to continue...  
-&lt;/p&gt; 
-&lt;/card&gt;  
-&lt;!-- begin second card --&gt; 
-&lt;card id="two"&gt;  
-&lt;p&gt; 
-Pretty easy isn't it?
-&lt;/p&gt; 
-&lt;/card&gt; 
-&lt;/wml&gt;</programlisting>
+<!-- begin new wml deck --> 
+<wml> 
+ <!-- begin first card --> 
+ <card> 
+  <do type="accept"> 
+   <go href="#two"/> 
+  </do>  
+  <p> 
+   Welcome to WAP with Smarty!
+   Press OK to continue...  
+  </p> 
+ </card>  
+ <!-- begin second card --> 
+ <card id="two">  
+  <p> 
+   Pretty easy isn't it?
+  </p> 
+ </card> 
+</wml>
+]]>
+    </programlisting>
    </example>
   </sect1>
   <sect1 id="tips.componentized.templates">
    <title>Templates composants</title>
-   <para>
-    Cette astuce tient plus du hack qu'autre chose mais n'en demeure pas
-    moins une idée plutôt chouette. Utilisez-la à vos propres risques. ;-)
-   </para>
    <para>
     Traditionnellemnt, la programmation avec des templates dans les applications
     se déroule de la façon suivante : d'abord vous récupérez vos variables
@@ -236,102 +277,70 @@ Pretty easy isn't it?
     puis les assignerions ensuite pour les afficher. Mais ne serait-ce pas
     mieux de pouvoir ajouter ce téléscripteur à n'importe quelle application
     en incluant directement le template sans avoir à se soucier de la récupération
-    des données.
+    des données ?
    </para>
    <para>
-    Vous pouvez intégrer du PHP dans vos templates avec les balises
-    {php}{/php}. Avec cette méthode, vous pouvez inclure des templates complets,
-    dans la mesure où ils récupèrent leurs propres données pour les assigner
-    à leurs propres variables. Avec le traitement intégré
-    de cette façon, vous pouvez garder le template et le traitement ensemble.
-    Ainsi, on ne se soucie plus d'où vient le contenu du template,
-    tout vient comme un seul et unique composant.
+    Vous pouvez réaliser celà en écrivant un plugin personnalisé pour récupérer le contenu
+    et l'assigner à une variable du template.
    </para>
    <example>
-    <title>template composant</title>
-<programlisting>
-{* Smarty *}
+    <title>Template composant</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
 
-{php}
+// Efface le fichier "function.load_ticker.php" dans le répertoire des plugins
 
-   // notre fonction pour récupérer les données
-   function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) {
-      // du traitement qui récupère $ticker_name
-      // $ticker_price
-   }
+// notre fonction pour récupérer les données
+function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) 
+{
+   // du traitement qui récupère $ticker_name
+   // depuis la ressource ticker
+   return $ticker_info;
+}
 
-   // appelle la fonction
-   fetch_ticker("YHOO",$ticker_name,$ticker_price);
+function smarty_function_load_ticker($params, &$smarty) 
+{
+   // appel de la fonction
+   $ticker_info = fetch_ticker($params['symbol']);
    
-   // assigne les variables
-  $this->assign("ticker_name",$ticker_name);
-  $this->assign("ticker_price",$ticker_price);
+   // assignation de la variable de template
+   $smarty->assign($params['assign'], $ticker_info);
+}
+?>
+]]>
+    </programlisting>
+    <programlisting>
+<![CDATA[
+{* in index.tpl *}
 
-{/php}
+{load_ticker symbol="YHOO" assign="ticker"}
 
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
-   </example>
-   <para>
-    A partir de Smarty 1.5.0, il y a même un moyen plus propre. Vous
-    pouvez inclure du PHP dans votre template avec la balise {include_php ...}.
-    De cette façon, vous pouvez garder séparée la logique applicative
-    de la logique de présentation. Reportez-vous à la fonction <link
-    linkend="language.function.include.php">include_php</link> pour plus
-    d'informations.
-   </para>
-   <example>
-    <title>template composant avec include_php</title>
-<programlisting>
-load_ticker.php
----------------
-
-&lt;?php
-   // notre fonction pour récupérer les données
-   function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) {
-      // put logic here that fetches $ticker_name
-      // and $ticker_price from some resource
-   }
-
-   // appelle la fonction
-   fetch_ticker("YHOO",$ticker_name,$ticker_price);
-   
-   // assigne les variables
-   $this->assign("ticker_name",$ticker_name);
-   $this->assign("ticker_price",$ticker_price);
-?&gt;
-
-
-index.tpl
----------
-
-{* Smarty *}
-
-{include_php file="load_ticker.php"}
-
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
+Stock Name: {$ticker.name} Stock Price: {$ticker.price}
+]]>
+    </programlisting>
    </example>
   </sect1>
   <sect1 id="tips.obfuscating.email">
    <title>Dissimuler les adresses email</title>
    <para>
     Vous-êtes vous déjà demandé pourquoi vos adresses emails sont sur autant
-    de mailing listes de spam ? Une façon pour les spammers de récupérer les
+    de listes de diffusion de spam ? Une façon pour les spammers de récupérer les
     adresses est de parcourir les pages Web. Voici une façon de remédier
     à ce problème : mettre votre adresse email dans du Javascript brouillé
     au milieu de votre source HTML, sans que cela ne gêne l'affichage sur le
     navigateur Web. Cela est fait grâce au plugin mailto.
    </para>
    <example>
-    <title>exemple de dissimulation d'une adresse email</title>
+    <title>Exemple de dissimulation d'une adresse email</title>
 <programlisting>
-
-index.tpl
----------
+<![CDATA[
+{* in index.tpl *}
 
 Send inquiries to
 {mailto address=$EmailAddress encode="javascript" subject="Hello"}
-
-</programlisting>
+]]>
+    </programlisting>
    </example>
    <note>
     <title>Note technique</title>

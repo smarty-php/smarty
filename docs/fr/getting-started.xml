@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: didou Status: ready -->
 <part id="getting.started">
  <title>Pour commencer</title>
  
@@ -12,6 +12,8 @@
    Cela s'explique plus facilement dans une situation où le
    programmeur et le designer de templates jouent des rôles différents, ou,
    comme la plupart du temps, sont deux personnes distinctes.
+  </para>
+  <para>
    Supposons par exemple que vous concevez une page Web qui affiche un
    article de newsletter. Le titre, le sous-titre, l'auteur et le corps
    sont des éléments de contenu, ils ne contiennent aucune information
@@ -40,7 +42,8 @@
    pour l'afficher, etc. sont toutes des actions relatives à du traitement
    de présentation. Cela ne signifie pas que Smarty requiert une telle séparation
    de votre part. Smarty ne sais pas quoi est quoi, c'est donc à vous de placer
-   la logique de présentation dans vos templates. Ainsi, si vous NE désirez PAS
+   la logique de présentation dans vos templates. Ainsi, si vous 
+   <emphasis>ne désirez pas</emphasis>
    disposer de logique métier dans vos templates, placez tous vos contenus
    dans des variables au format texte uniquement.
   </para>
@@ -58,33 +61,80 @@
    Quelques caractéristiques de Smarty :
   </para>
   <itemizedlist>
-   <listitem><para>Il est très rapide.</para></listitem>
-   <listitem><para>Il est efficace, le parser PHP s'occupe
-   du sale travail.</para></listitem>
-   <listitem><para>Pas d'analyse de template coûteuse, une seule compilation.
-   </para></listitem>
-   <listitem><para>Il sait ne recompiler que les fichiers de templates
-   qui ont été modifiés.</para></listitem>
-   <listitem><para>Vous pouvez créer des <link linkend="language.custom.functions">
-    fonctions utilisateurs</link> et des <link linkend="language.modifiers">
-    modificateurs de variables</link> personnalisés, le langage de
-   template est donc extrémement extensible.</para></listitem>
-   <listitem><para>Syntaxe des templates configurable, vous
-    pouvez utiliser {}, {{}}, &lt;!--{}--&gt;, etc comme délimiteurs.
-   </para></listitem>
-   <listitem><para>Les instructions if/elseif/else/endif
-    sont passées au parser PHP, la syntaxe de l'expression {if...}
-    peut être aussi simple ou aussi complexe que vous
-   le désirez.</para></listitem>
-   <listitem><para>Imbrication illimitée de sections,
-   de 'if', etc. autorisée.</para></listitem>
-   <listitem><para>Il est possible d'inclure du code PHP
-    directement dans vos templates, bien que cela ne soit pas obligatoire
-   (ni conseillé), vu que le moteur est extensible.</para></listitem>
-   <listitem><para>Support de cache intégré.</para></listitem>
-   <listitem><para>Sources de templates arbitraires.</para></listitem>
-   <listitem><para>Fonctions de gestion de cache personnalisables.</para></listitem>
-   <listitem><para>Architecture de plugins</para></listitem>
+   <listitem>
+    <para>
+     Il est très rapide.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Il est efficace, le parser PHP s'occupe du sale travail.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Pas d'analyse de template coûteuse, une seule compilation.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Il sait ne recompiler que les fichiers de templates qui ont été modifiés.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Vous pouvez créer des <link linkend="language.custom.functions">
+     fonctions utilisateurs</link> et des <link linkend="language.modifiers">
+     modificateurs de variables</link> personnalisés, le langage de
+     template est donc extrémement extensible.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Syntaxe des templates configurable, vous
+     pouvez utiliser {}, {{}}, &lt;!--{}--&gt;, etc. comme délimiteurs.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Les instructions if/elseif/else/endif
+     sont passées au parser PHP, la syntaxe de l'expression {if...}
+     peut être aussi simple ou aussi complexe que vous
+     le désirez.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Imbrication illimitée de sections, de 'if', etc. autorisée.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Il est possible d'inclure du code PHP
+     directement dans vos templates, bien que cela ne soit pas obligatoire
+     (ni conseillé), vû que le moteur est extensible.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Support de cache intégré.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Sources de templates arbitraires.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Fonctions de gestion de cache personnalisables.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Architecture de plugins
+    </para>
+   </listitem>
   </itemizedlist>
  </chapter>
  
@@ -127,9 +177,9 @@ debug.tpl
     linkend="constant.smarty.dir">SMARTY_DIR</link> qui
     représente le chemin complet de la bibliothèque Smarty. En fait,
     si votre application trouve le fichier
-    <emphasis>Smarty.class.php</emphasis>, vous n'aurez pas
+    <filename>Smarty.class.php</filename>, vous n'aurez pas
     besoin de définir la variable SMARTY_DIR, Smarty s'en chargera pour vous.
-    En revanche, si <emphasis>Smarty.class.php</emphasis>
+    En revanche, si <filename>Smarty.class.php</filename>
     n'est pas dans votre répertoire d'inclusion ou que vous ne
     donnez pas un chemin absolu à votre application, vous
     devez définir SMARTY_DIR explicitement. SMARTY_DIR
@@ -154,7 +204,7 @@ $smarty = new Smarty;
    
    <para>
     Essayez de lancer le script ci-dessus. Si vous obtenez une erreur indiquant
-    que le fichier <emphasis>Smarty.class.php</emphasis> n'est pas trouvé,
+    que le fichier <filename>Smarty.class.php</filename> n'est pas trouvé,
     tentez l'une des actions suivantes :
    </para>
    
@@ -201,19 +251,21 @@ $smarty = new Smarty;
     Maintenant que les fichiers de la librairie sont en place,
     il est temps de définir les répertoires de Smarty, pour votre application.
     Smarty a besoin de quatre répertoires qui sont (par défaut)
-    <emphasis>templates</emphasis>,
-    <emphasis>templates_c</emphasis>, <emphasis>configs</emphasis> et
-    <emphasis>cache</emphasis>. Chacun d'entre eux peut être défini
-    via les attributs <emphasis>$template_dir</emphasis>,
-    <emphasis>$compile_dir</emphasis>, <emphasis>$config_dir</emphasis> et
-    <emphasis>$cache_dir</emphasis> respectivement. Il est vivement
+    <filename class="directory">templates</filename>,
+    <filename class="directory">templates_c</filename>, 
+    <filename class="directory">configs</filename> et
+    <filename class="directory">cache</filename>. Chacun d'entre eux peut être défini
+    via les attributs <varname>$template_dir</varname>,
+    <varname>$compile_dir</varname>, <varname>$config_dir</varname> et
+    <varname>$cache_dir</varname> respectivement. Il est vivement
     conseillé que vous régliez ces répertoires séparément pour chaque
     application qui utilise Smarty.
    </para>
    <para>
     Assurez-vous de bien connaître chemin de la racine
     de votre arborescence Web. Dans notre exemple, la racine
-    est "/web/www.mydomain.com/docs". Seul Smarty
+    est <filename 
+    class="directory">/web/www.example.com/docs/</filename>. Seul Smarty
     accède aux répertoires en question, et jamais le serveur Web.
     Pour des raisons de sécurité, il est donc conseillé de
     sortir ces répertoires dans un répertoire
@@ -228,15 +280,16 @@ $smarty = new Smarty;
     environnement pour n'importe quelle autre application, il suffit de
     remplacer "livredor" avec le nom de votre application. Nous allons
     mettre nos répertoires Smarty dans
-    "/web/www.mydomain.com/smarty/livredor/".
+    <filename 
+    class="directory">/web/www.example.com/smarty/livredor/</filename>.
    </para>
    <para>
     Vous allez avoir besoin d'au moins un fichier à la racine de
     l'arborescence Web,
     il s'agit du script auquel l'internaute a accès. Nous allons l'appeler
-    "index.php" et le placer dans un sous-répertoire
-    appelé "/livredor/". 
-   </para> 
+    <filename>index.php</filename> et le placer dans un sous-répertoire
+    appelé <filename class="directory">/livredor/</filename>. 
+   </para>
 
    <note>
     <title>Technical Note</title>
@@ -244,7 +297,7 @@ $smarty = new Smarty;
    Il est pratique de configurer le serveur Web de
     sorte que "index.php" soit identifié comme fichier
     par défaut de ce répertoire. Aicnsi, si l'on tape
-    "http://www.mydomain.com/livredor/", le script index.php soit
+    "http://www.example.com/livredor/", le script index.php soit
     exécuté sans que "index.php" ne soit spécifié dans l'URL. Avec Apache
     vous pouvez régler cela en ajoutant "index.php" à la ligne où se
     trouve DirectoryIndex (séparez chaque entrée par un espace).
@@ -264,12 +317,12 @@ $smarty = new Smarty;
 /usr/local/lib/php/Smarty/internals/*.php
 /usr/local/lib/php/Smarty/plugins/*.php
 
-/web/www.mydomain.com/smarty/livredor/templates/
-/web/www.mydomain.com/smarty/livredor/templates_c/
-/web/www.mydomain.com/smarty/livredor/configs/
-/web/www.mydomain.com/smarty/livredor/cache/
+/web/www.example.com/smarty/livredor/templates/
+/web/www.example.com/smarty/livredor/templates_c/
+/web/www.example.com/smarty/livredor/configs/
+/web/www.example.com/smarty/livredor/cache/
 
-/web/www.mydomain.com/docs/livredor/index.php
+/web/www.example.com/docs/livredor/index.php
 ]]>
 </screen>
    </example>
@@ -290,11 +343,11 @@ $smarty = new Smarty;
     <title>régler les permissions d'accès</title>
     <programlisting role="shell">
 <![CDATA[
-chown nobody:nobody /web/www.mydomain.com/smarty/livredor/templates_c/
-chmod 770 /web/www.mydomain.com/smarty/livredor/templates_c/
+chown nobody:nobody /web/www.example.com/smarty/livredor/templates_c/
+chmod 770 /web/www.example.com/smarty/livredor/templates_c/
 
-chown nobody:nobody /web/www.mydomain.com/smarty/livredor/cache/
-chmod 770 /web/www.mydomain.com/smarty/livredor/cache/
+chown nobody:nobody /web/www.example.com/smarty/livredor/cache/
+chmod 770 /web/www.example.com/smarty/livredor/cache/
 ]]>
     </programlisting>
    </example>
@@ -316,7 +369,7 @@ chmod 770 /web/www.mydomain.com/smarty/livredor/cache/
    </para>
    
    <example>
-    <title>Edition de  /web/www.mydomain.com/smarty/templates/index.tpl</title>
+    <title>Edition de  /web/www.example.com/smarty/templates/index.tpl</title>
     <screen>
 <![CDATA[
 
@@ -349,7 +402,7 @@ Hello, {$name}!
    </para>
    
    <example>
-    <title>édition de  /web/www.mydomain.com/docs/livredor/index.php</title>
+    <title>édition de  /web/www.example.com/docs/livredor/index.php</title>
     <screen>
 <![CDATA[
 <?php     
@@ -358,10 +411,10 @@ Hello, {$name}!
      
      $smarty = new Smarty;
      
-     $smarty->template_dir = '/web/www.mydomain.com/smarty/livredor/templates/';
-     $smarty->compile_dir = '/web/www.mydomain.com/smarty/livredor/templates_c/';
-     $smarty->config_dir = '/web/www.mydomain.com/smarty/livredor/configs/';
-     $smarty->cache_dir = '/web/www.mydomain.com/smarty/livredor/cache/';
+     $smarty->template_dir = '/web/www.example.com/smarty/livredor/templates/';
+     $smarty->compile_dir = '/web/www.example.com/smarty/livredor/templates_c/';
+     $smarty->config_dir = '/web/www.example.com/smarty/livredor/configs/';
+     $smarty->cache_dir = '/web/www.example.com/smarty/livredor/cache/';
      
      $smarty->assign('name','Ned');
      
@@ -376,8 +429,9 @@ Hello, {$name}!
     <para>
      Dans notre exemple, nous avons configuré les chemins absolus
      pour chacun des répertoires Smarty. Si
-     '/web/www.mydomain.com/smarty/livredor/' est dans votre
-     include_path PHP alors ces réglages ne sont pas nécessaires.
+     <filename 
+     class="directory">/web/www.example.com/smarty/livredor/</filename> 
+     est dans votre include_path PHP alors ces réglages ne sont pas nécessaires.
      Quoi qu'il en soit il est plus efficace et (par expérience)
      moins générateur d'erreurs de les définir avec des chemins
      absolus. Cela nous garantit que Smarty récupèrera les bons fichiers.
@@ -385,7 +439,7 @@ Hello, {$name}!
    </note>
    
    <para>
-    Et maintenant appelez le fichier index.php avec navigateur
+    Et maintenant appelez le fichier <filename>index.php</filename> avec navigateur
     Web. Vous devriez voir "Hello, Ned!".
    </para>
    <para>
@@ -406,7 +460,7 @@ Hello, {$name}!
     propre classe fille et de l'initialiser selon votre environnement.
     De la sorte, nous n'aurons plus besoin de configurer à chaques fois les
     chemins de notre environnement. Créons un nouveau répertoire
-    "/php/includes/livredor/" et un nouveau fichier appelé "setup.php".
+    "/php/includes/livredor/" et un nouveau fichier appelé <filename>setup.php</filename>.
     Dans notre exemple d'environnement, "/php/includes" est notre
     include_path PHP. Assurez-vous de faire la même chose ou alors d'utiliser
     des chemins absolus.
@@ -430,18 +484,18 @@ Hello, {$name}!
      
      function Smarty_livredor() {
      
-     // Constructeur de la classe. Appelé automatiquement
-     // à l'instanciation de la classe.
+     // Constructeur de la classe. 
+     // Appelé automatiquement à l'instanciation de la classe.
      
      $this->Smarty();
      
-     $this->template_dir = '/web/www.mydomain.com/smarty/livredor/templates/';
-     $this->compile_dir = '/web/www.mydomain.com/smarty/livredor/templates_c/';
-     $this->config_dir = '/web/www.mydomain.com/smarty/livredor/configs/';
-     $this->cache_dir = '/web/www.mydomain.com/smarty/livredor/cache/';
+     $this->template_dir = '/web/www.example.com/smarty/livredor/templates/';
+     $this->compile_dir = '/web/www.example.com/smarty/livredor/templates_c/';
+     $this->config_dir = '/web/www.example.com/smarty/livredor/configs/';
+     $this->cache_dir = '/web/www.example.com/smarty/livredor/cache/';
      
      $this->caching = true;
-     $this->assign('app_name','Guest Book');
+     $this->assign('app_name', 'Guest Book');
      }
      
     }
@@ -455,7 +509,7 @@ Hello, {$name}!
    </para>
    
    <example>
-    <title>édition de /web/www.mydomain.com/docs/livredor/index.php</title>
+    <title>Edition de /web/www.example.com/docs/livredor/index.php</title>
    <programlisting role="php">
 <![CDATA[
 <?php     

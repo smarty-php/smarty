@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <chapter id="language.basic.syntax">
  <title>Bases syntaxiques</title>
  <para>
@@ -17,6 +17,7 @@
  </para>
  
  &designers.language-basic-syntax.language-syntax-comments;
+ &designers.language-basic-syntax.language-syntax-variables;
  &designers.language-basic-syntax.language-syntax-functions;
  &designers.language-basic-syntax.language-syntax-attributes;
  &designers.language-basic-syntax.language-syntax-quotes;

@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: didou Status: ready -->
 <bookinfo id="bookinfo">
  <title>Smarty - le moteur et compilateur de templates PHP</title>
  <authorgroup id="authors">
   <author>
-   <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
+   <firstname>Monte</firstname>
+   <surname>Ohrt &lt;monte@ispi.net&gt;</surname>
   </author>
   <author>
-   <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
+   <firstname>Andrei</firstname>
+   <surname>Zmievski &lt;andrei@php.net&gt;</surname>
   </author>
  </authorgroup>
  <authorgroup id="translators">
   <author>
-   <firstname>Arnaud</firstname><surname>Cogoluègnes &lt;arnaud.cogoluegnes@free.fr&gt;</surname>
+   <firstname>Arnaud</firstname>
+   <surname>Cogoluègnes &lt;arnaud.cogoluegnes@free.fr&gt;</surname>
   </author>
   <author>
-   <firstname>Gérald</firstname><surname>Croës &lt;gcroes@aston.fr&gt;</surname>
+   <firstname>Gérald</firstname>
+   <surname>Croës &lt;gcroes@aston.fr&gt;</surname>
   </author>
   <author>
-   <firstname>Mehdi</firstname><surname>Achour &lt;didou@php.net&gt;</surname>
+   <firstname>Mehdi</firstname>
+   <surname>Achour &lt;didou@php.net&gt;</surname>
   </author>
+  <author>
+   <firstname>Yannick</firstname>
+   <surname>Yannick &lt;yannick@php.net&gt;</surname>
+  </author>  
  </authorgroup>
  <pubdate>&build-date;</pubdate>
  <copyright>
