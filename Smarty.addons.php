@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  * Project:     Smarty: the PHP compiled template engine
  * File:        Smarty.addons.php
