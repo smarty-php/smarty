@@ -302,7 +302,7 @@ class Smarty_Compiler extends Smarty {
             return;
         }
 
-        return '<?php' . $function($tag_args, $this) . ' ?>';
+        return '<?php ' . $function($tag_args, $this) . ' ?>';
     }
 
 
