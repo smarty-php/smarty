@@ -1,3 +1,12 @@
+2003-02-26  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/modifier.nl2br.php:
+      add nl2br modifier
+
+    * libs/plugins/function.html_image.php:
+      add link parameter
+
 2003-02-24  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty.class.php
