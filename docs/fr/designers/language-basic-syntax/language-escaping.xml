@@ -24,7 +24,7 @@
   linkend="language.function.ldelim">{ldelim}</link> et <link
   linkend="language.function.ldelim">{rdelim}</link>, ou <link
   linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link> et <link
-  linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>pour 
+  linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link> pour 
   afficher les délimiteurs.
  </para>
  
