@@ -1,3 +1,10 @@
+2002-06-27  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php:
+    only loop through relative paths for PHP include_path, remove $_relative variable
+
+    * Smarty_Compiler.class.php: added {$smarty.version} variable
+
 2002-06-26  Monte Ohrt  <monte@ispi.net>
 
     * docs/appendixes.sgml
