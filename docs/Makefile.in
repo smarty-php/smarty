@@ -25,7 +25,6 @@ PHP=@PHP@
 LANG=@LANG@
 NSGMLS=@NSGMLS@
 JADE=@JADE@  -D . -wno-idref
-XSLTPROC=@XSLTPROC@
 XMLLINT=@XMLLINT@
 FOP=@FOP@
 XMLDCL=./dtds/dbxml-4.1.2/phpdocxml.dcl
@@ -52,8 +51,7 @@ web: FORCE
 	$(PHP) scripts/html_syntax.php php phpweb/
 
 pdf: FORCE
-	${XSLTPROC} -o manual.fo xsl/fo.xsl manual.xml
-	${FOP} -fo manual.fo -pdf manual.pdf
+	${FOP} -xml manual.xml -xsl xsl/fo.xsl -pdf manual.pdf
 
 test:
 	$(NSGMLS) -i lang-$(LANG) -s $(XMLDCL) manual.xml 
