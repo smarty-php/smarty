@@ -5,7 +5,7 @@
  * -------------------------------------------------------------
  * Type:     function
  * Name:     cycle
- * Version:  1.2
+ * Version:  1.3
  * Date:     May 3, 2002
  * Author:	 Monte Ohrt <monte@ispi.net>
  * Credits:  Mark Priatel <mpriatel@rogers.com>
