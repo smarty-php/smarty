@@ -23,10 +23,13 @@ function smarty_core_is_secure($params, &$smarty)
 
     $_smarty_secure = false;
     if ($params['resource_type'] == 'file') {
+        $_rp = realpath($params['resource_name']);
         if (!empty($smarty->secure_dir)) {
             foreach ((array)$smarty->secure_dir as $curr_dir) {
                 if ( !empty($curr_dir) && is_readable ($curr_dir)) {
-                    if (substr(realpath($params['resource_name']),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                    $_cd = realpath($curr_dir);
+                    if (strncmp($_rp, $_cd, strlen($_cd)) == 0
+                        && $_rp{strlen($_cd)} == DIRECTORY_SEPARATOR ) {
                         $_smarty_secure = true;
                         break;
                     }
