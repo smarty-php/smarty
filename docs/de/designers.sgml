@@ -475,6 +475,56 @@ AUSGABE:
 61</programlisting>
 </example>
 		</sect1>
+                <sect1 id="language.modifier.cat">
+                        <title>cat</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="cat" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Typ</entry>
+                        <entry>Ben&ouml;tigt</entry>
+                        <entry>Standard</entry>
+                        <entry>Beschreibung</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>Nein</entry>
+                        <entry><emphasis>leer/empty</emphasis></entry>
+                        <entry>Wert der an die Variable angef&uuml;gt werden soll.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+                        <para>
+			Dieser Wert wird der aktuellen Variable hinzugef&uuml;gt.
+                        </para>
+<example>
+<title>cat</title>
+<programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "Psychics predict world didn't end");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
+{$articleTitle|cat:" yesterday."}
+
+OUTPUT:
+
+Psychics predict world didn't end yesterday.</programlisting>
+</example>
+                </sect1>
 		<sect1 id="language.modifier.count.paragraphs">
 			<title>count_paragraphs (Abs&auml;tze z&auml;hlen)</title>
 			<para>
