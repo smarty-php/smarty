@@ -1,3 +1,22 @@
+2003-02-02  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      docs/html.dsl
+      docs/php.dsl:
+      fix version number
+
+    * (Smarty_2_4_0)
+      Config_File.class.php
+      NEWS
+      README
+      RELEASE_NOTES
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs/appendixes.sgml
+      docs/designers.sgml
+      docs/programmers.sgml:
+      update Smarty version numbers
+
 2003-01-30  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
