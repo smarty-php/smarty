@@ -167,11 +167,6 @@ class Smarty_Compiler extends Smarty {
                                                   $template_compiled, 1);
         }
 
-        // put header at the top of the compiled template
-        $template_header = "<?php /* Smarty version ".$this->_version.", created on ".strftime("%Y-%m-%d %H:%M:%S")."\n";
-        $template_header .= "         compiled from ".$tpl_file." */ ?>\n";
-        $template_compiled = $template_header.$template_compiled;
-
         // remove \n from the end of the file, if any
         if ($template_compiled{strlen($template_compiled) - 1} == "\n" ) {
             $template_compiled = substr($template_compiled, 0, -1);
@@ -189,6 +184,10 @@ class Smarty_Compiler extends Smarty {
             }
         }
 
+        // put header at the top of the compiled template
+        $template_header = "<?php /* Smarty version ".$this->_version.", created on ".strftime("%Y-%m-%d %H:%M:%S")."\n";
+        $template_header .= "         compiled from ".$tpl_file." */ ?>\n";
+
         /* Emit code to load needed plugins. */
         if (count($this->_plugin_info)) {
             $plugins_code = '<?php $this->_load_plugins(array(';
@@ -198,9 +197,11 @@ class Smarty_Compiler extends Smarty {
                 }
             }
             $plugins_code .= ")); ?>";
-            $template_compiled = $plugins_code . $template_compiled;
+            $template_header .= $plugins_code;
             $this->_plugin_info = array();
         }
+
+        $template_compiled = $template_header . $template_compiled;
 
         return true;
     }

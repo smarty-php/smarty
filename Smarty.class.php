@@ -44,7 +44,7 @@
 // if not defined, include_path will be used.
 
 if (!defined('SMARTY_DIR')) {
-    define('SMARTY_DIR', '');
+    define('SMARTY_DIR', dirname(__FILE__) . '/');
 }
 
 define('SMARTY_PHP_PASSTHRU',   0);
@@ -64,7 +64,8 @@ class Smarty
     var $template_dir    =  './templates';     // name of directory for templates
     var $compile_dir     =  './templates_c';   // name of directory for compiled templates
     var $config_dir      =  './configs';       // directory where config files are located
-    var $plugins_dir     =  './plugins';       // directory where plugins are kept
+    var $plugins_dir     =  'plugins';         // directory where plugins are kept
+                                               // (relative to Smarty directory)
 
     var $debugging       =  false;             // enable debugging console true/false
     var $debug_tpl       =  'file:debug.tpl';  // path to debug console template
