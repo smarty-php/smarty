@@ -130,7 +130,6 @@ class Smarty
                                     'count_paragraphs'  => 'smarty_mod_count_paragraphs'
                                  );
                                  
-    var $version               =   '1.4.1';  // Smarty version number                     
     var $show_info_header      =   false;     // display HTML info header at top of page output
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
@@ -150,6 +149,7 @@ class Smarty
     var $_sections              =   array();    // keeps track of sections
     var $_conf_obj              =   null;       // configuration object
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
+    var $_version               =   '1.4.1';  // Smarty version number                     
     
 
 /*======================================================================*\

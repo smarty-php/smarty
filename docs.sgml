@@ -14,7 +14,7 @@
 			<address><email>andrei@php.net</email></address>
 		</affiliation>
 	</author>
-	<edition>Version 1.3.0</edition>
+	<edition>Version 1.4.1</edition>
 	<copyright><year>2001</year><holder>ispi of Lincoln, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -466,12 +466,6 @@ chmod 700 cache
                 the names of functions in PHP. The default variable modifiers
                 that come bundled with Smarty are located in
                 Smarty.addons.php.
-			</para>
-		</sect2>
-		<sect2 id="setting.version">
-			<title>$version</title>
-			<para>
-                Current version of Smarty, used in info header.
 			</para>
 		</sect2>
 		<sect2 id="setting.show.info.header">
@@ -4155,6 +4149,93 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
    <title>Tips & Tricks</title>
    <para>
    </para>
+	<sect1>
+		<title>Blank Variable Handling</title>
+		<para>
+		There may be times when you want to print a default value for an empty
+		variable instead of printing nothing, such as printing "&amp;nbsp;" so that
+		table backgrounds work properly. Many would use an {if} statement to
+		handle this, but there is a shorthand way with Smarty, using the
+		<emphasis>default</emphasis> variable modifier.
+		</para>
+<example>
+<title>Printing &amp;nbsp; when a variable is empty</title>
+<programlisting>
+
+
+{* the long way *}
+
+{if $title eq ""}
+	&amp;nbsp;
+{else}
+	{$title}
+{/if}
+
+
+{* the short way *}
+
+{$title|default:"&amp;nbsp;"}
+
+</programlisting>
+</example>
+	</sect1>
+	<sect1>
+		<title>Passing variable title to header template</title>
+		<para>
+		When the majority of your templates use the same headers and footers, it
+		is common to split those out into their own templates and include them.
+		But what if the header needs to have a different title, depending on
+		what page you are coming from? You can pass the title to the header when
+		it is included.
+		</para>
+<example>
+<title>Passing the title variable to the header template</title>
+<programlisting>
+
+
+mainpage.tpl
+------------
+
+{include file="header.tpl" title="Main Page"}
+{* template body goes here *}
+{include file="footer.tpl"}
+
+
+archives.tpl
+------------
+
+{config_load file="archive_page.conf"}
+{include file="header.tpl" title=#archivePageTitle#}
+{* template body goes here *}
+{include file="footer.tpl"}
+
+
+header.tpl
+----------
+&lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;{$title|default:"BC News"}&lt;/TITLE&gt;
+&lt;/HEAD&gt;
+&lt;BODY&gt;
+
+
+footer.tpl
+----------
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+
+</programlisting>
+</example>
+	<para>
+		When the main page is drawn, the title of "Main Page" is passed to the
+		header.tpl, and will subsequently be used as the title. When the
+		archives page is drawn, the title will be "Archives". Notice in the
+		archive example, we are using a varible from the archives_page.conf
+		file instead of a hard coded variable. Also notice that "BC News" is
+		printed if the $title variable is not set, using the
+		<emphasis>default</emphasis> variable modifier.
+	</para>
+	</sect1>
    <sect1>
        <title>Dates</title>
        <para>
