@@ -1,3 +1,4 @@
+    - added support for object method access (Monte)
     - added day_value_format to html_select_date (Marcus
       Bointon, Monte)
     - assigned variables are not longer in global
