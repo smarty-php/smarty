@@ -385,7 +385,12 @@ class Smarty
 			return "";
 
 		/* Split tag into two parts: command and the arguments. */
-		list($tag_command, $tag_args) = preg_split('!\s+!', $template_tag, 2);
+		preg_match('/^(
+					   (?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*" | \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\' | (?>[^"\' ]+))+
+					  )
+				      (?:\s+(.*))?
+					    /x', $template_tag, $match);
+		list(, $tag_command, $tag_args) = $match;
 
 		/* If the tag name matches a variable or section property definition,
 		   we simply process it. */
