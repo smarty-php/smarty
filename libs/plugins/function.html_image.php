@@ -85,10 +85,10 @@ function smarty_function_html_image($params, &$smarty)
 		}	
 		
 		if(!isset($params['width'])) {
-			$width = $_image_data[1];
+			$width = $_image_data[0];
 		}
 		if(!isset($params['height'])) {
-			$height = $_image_data[2];
+			$height = $_image_data[1];
 		}
 		
 	}
