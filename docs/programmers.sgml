@@ -287,7 +287,8 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
        You can supply a custom function to handle cache files instead
        of using the built-in method using the $cache_dir. See the
-       custom cache handler function section for details.
+       custom  <link linkend="section.template.cache.handler.func">cache
+       handler function section</link> for details.
       </para>
      </sect1>
      <sect1 id="variable.cache.modified.check">
@@ -2187,6 +2188,9 @@ $smarty->display("index.tpl");
     read/write), the fifth parameter is the cache_id (optional), and the
     sixth is the compile_id (optional).
    </para>
+   <para>
+    Note: The last parameter ($exp_time) was added in Smarty-2.6.0.
+   </para>
    <example>
     <title>example using MySQL as a cache source</title>
     <programlisting>
@@ -2215,7 +2219,7 @@ CacheContents MEDIUMTEXT NOT NULL
 
 */
 
-function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
+function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
 {
 	// set db host, user and pass here
 	$db_host = 'localhost';
