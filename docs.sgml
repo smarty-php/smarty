@@ -3149,6 +3149,13 @@ OUTPUT:
 			function. Anything that the function returns gets displayed
 			in place of the tag in the template.
 			</para>
+			<para>
+			Since version 1.4.0, custom functions are also passed Smarty object
+			as the second parameter. If the custom function declares the second
+			parameter passed by reference, it can then use Smarty object's
+			variable assignment and clearing functions to manipulate template
+			variables dynamically.
+			</para>
             <para>
             You can also add custom functions programatically with the <link
             linkend="api.register.function">register_function API</link>.
