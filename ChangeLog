@@ -1,3 +1,9 @@
+2003-09-16  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      apply modifiers only once to section-loop and foreach-from attributes
+
 2003-09-15  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
