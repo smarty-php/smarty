@@ -17,6 +17,8 @@ class Smarty
 									// application is entered into production and
 									// initially compiled. Leave set to true
 									// during development.
+
+	var $template_dir			=	"templates"; // name of directory for templates	
 	
 	var $compile_dir_ext		=	"_c";	// the directory extention where
 											// compiled templates are placed
@@ -35,7 +37,14 @@ class Smarty
 	
 	// registered template functions
 	// NOTE: leave off the "smarty_" prefix on the actual PHP function name
-	var $registered_functions	=	array(	"htmlesc","urlesc","default","config" );
+	var $registered_functions	=	array(	"htmlesc",
+											"urlesc",
+											"default",
+											"configload",
+											"configclear",
+											"configprint",
+											"configset"
+											 );
 
 	// internal vars
 	var $errorMsg				=	false;		// error messages
@@ -266,11 +275,11 @@ class Smarty
 		if(!($template_contents = $this->_read_file($filepath)))
 			return false;
 
-		if(preg_match("/^(.+)\/([^\/]+)$/",$compilepath,$match))
+		/* if(preg_match("/^(.+)\/([^\/]+)$/",$compilepath,$match))
 		{
 			$ctpl_file_dir = $match[1];			
 			$ctpl_file_name = $match[2];
-		}
+		} */
 
 		if(!$this->allow_php)
 		{
@@ -290,9 +299,33 @@ class Smarty
 		$ld = preg_quote($this->left_delimiter,"/");
 		$rd = preg_quote($this->right_delimiter,"/");
 
-		$search[] =			"/^".$ld."\*[^\}]+\*".$rd."$/U"; // remove template comments
+		$search[] =			"/^".$ld."\*.*\*".$rd."$/U"; // remove template comments
 		$replace[] =		"";
-		$search[] =			"/(\\\$[\w\d]+)\.([\w\d]+)/"; // replace section vars with php vars
+		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.even\.([\d]+)/"; // replace section rownum.even.digit
+		$replace[] =		"((\\1_secvar / \\2) % 2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.odd\.([\d]+)/"; // replace section rownum.even.digit
+		$replace[] =		"!((\\1_secvar / \\2) % 2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.index\.even\.([\d]+)/"; // replace section index.even.digit
+		$replace[] =		"!((\\1_secvar) % \\2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.index\.odd\.([\d]+)/"; // replace section index.even.digit
+		$replace[] =		"((\\1_secvar) % \\2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.mod\.([\d]+)/"; // replace section rownum.even.digit
+		$replace[] =		"!((\\1_secvar+1) % \\2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.index\.mod\.([\d]+)/"; // replace section rownum.even.digit
+		$replace[] =		"!((\\1_secvar) % \\2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.even/"; // replace section rownum.even
+		$replace[] =		"!((\\1_secvar+1) % 2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.odd/"; // replace section rownum.odd
+		$replace[] =		"((\\1_secvar+1) % 2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.index\.even/"; // replace section index.even
+		$replace[] =		"!((\\1_secvar) % 2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.index\.odd/"; // replace section index.odd
+		$replace[] =		"((\\1_secvar) % 2)";
+		$search[] =			"/(\\\$[\w\d\_]+)\.rownum/"; // replace section rownum
+		$replace[] =		"\\1_secvar+1";
+		$search[] =			"/(\\\$[\w\d\_]+)\.index/"; // replace section index
+		$replace[] =		"\\1_secvar";
+		$search[] =			"/(\\\$[\w\d\_]+)\.([\w\d\_]+)/"; // replace section vars
 		$replace[] =		"\$\\2[\\1_secvar]";
 		$search[] =			"/\beq\b/i"; // replace eq with ==
 		$replace[] =		"==";
@@ -306,15 +339,24 @@ class Smarty
 		$replace[] =		">=";
 		$search[] =			"/\bne(q)?\b/i"; // replace ne or neq with !=
 		$replace[] =		"!=";
-		$search[] =			"/^".$ld."if ([^\}]+)".$rd."$/i"; // replace if tags
+		$search[] =			"/\band\b/i"; // replace and with &&
+		$replace[] =		"&&";
+		$search[] =			"/\bmod\b/i"; // replace mod with %
+		$replace[] =		"%";
+		$search[] =			"/\bor\b/i"; // replace or with ||
+		$replace[] =		"||";
+		$search[] =			"/\bnot\b/i"; // replace not with !
+		$replace[] =		"!";
+		$search[] =			"/^".$ld."if (.*)".$rd."$/Ui"; // replace if tags
 		$replace[] =		"<?php if(\\1): ?>";
 		$search[] =			"/^".$ld."\s*else\s*".$rd."$/i"; // replace else tags
 		$replace[] =		"<?php else: ?>";
 		$search[] =			"/^".$ld."\s*\/if\s*".$rd."$/i"; // replace /if tags
 		$replace[] =		"<?php endif; ?>";
-		$search[] =			"/^".$ld."\s*include\s*\"?([^\s\}]+)\"?".$rd."$/i";		// replace include tags
-		$replace[] =		"<?php include(\"".$ctpl_file_dir."/\\1\"); ?>";
-		$search[] =			"/^".$ld."\s*section\s+name\s*=\s*\"?([\w\d]+)\"?\s+\\\$([^\}\s]+)\s*".$rd."$/i"; // replace section tags
+		$search[] =			"/^".$ld."\s*include\s*\"?([^\s]+)\"?".$rd."$/i";		// replace include tags
+		/* $replace[] =		"<?php include(\"".$ctpl_file_dir."/\\1\"); ?>"; */
+		$replace[] =		"<?php include(\"./".$this->template_dir.$this->compile_dir_ext."/\\1\"); ?>";
+		$search[] =			"/^".$ld."\s*section\s+name\s*=\s*\"?([\w\d\_]+)\"?\s+\\\$([^\s]+)\s*".$rd."$/i"; // replace section tags
 		$replace[] =		"<?php for(\$\\1_secvar=0; \$\\1_secvar<count(\$\\2); \$\\1_secvar++): ?>";
 		$search[] =			"/^".$ld."\s*\/section\s*".$rd."$/i"; // replace /section tags
 		$replace[] =		"<?php endfor; ?>";
@@ -322,14 +364,19 @@ class Smarty
 		if(count($this->registered_functions) > 0)
 		{
 			$funcs = implode("|",$this->registered_functions);
-			$search[]  = 	"/^".$ld."\s*(".$funcs.")\s*([^\}]*)".$rd."$/i";
+			// user functions without args
+			$search[]  = 	"/^".$ld."\s*(".$funcs.")\s*".$rd."$/i";
+			$replace[] =	"<?php smarty_\\1(); ?>";
+			// user functions with args
+			$search[]  = 	"/^".$ld."\s*(".$funcs.")\s+(.*)".$rd."$/i";
 			$replace[] =	"<?php smarty_\\1(\\2); ?>";
 		}			
-		$search[] =			"/^".$ld."\s*(\\\$[^\}\s\.]+)\s*".$rd."$/";	// replace vars							
+		$search[] =			"/^".$ld."\s*(\\\$[^\s]+)\s*".$rd."$/";	// replace vars							
 		$replace[] =		"<?php print \\1; ?>";
 
 		// collect all the tags in the template
-		preg_match_all("/".$ld."[^\}]+".$rd."/U",$template_contents,$match);
+				
+		preg_match_all("/".$ld.".*".$rd."/U",$template_contents,$match);
 		$template_tags = $match[0];
 		
 		$template_tags_modified = preg_replace($search,$replace,$template_tags);
@@ -338,9 +385,26 @@ class Smarty
 		for($tagloop=0; $tagloop<count($template_tags); $tagloop++)
 			$template_contents = preg_replace("/".preg_quote($template_tags[$tagloop],"/")."/",$template_tags_modified[$tagloop],$template_contents);
 
+		
+		// reformat data within {strip}{/strip} tags, removing spaces, tabs and newlines
+		preg_match_all("/\{strip\}.*\{\/strip\}/Usi",$template_contents,$match);
+		$strip_tags = $match[0];
+			
+		$search = array( "/\{\/?strip\}/i","/[\t ]+$/m","/^[\t ]+/m","/[\r\n]+/" );
+		$replace = array ("","",""," ");
+		$strip_tags_modified = preg_replace($search,$replace,$strip_tags);
+				
+		// replace the tags in the template
+		for($tagloop=0; $tagloop<count($strip_tags); $tagloop++)
+			$template_contents = preg_replace("/".preg_quote($strip_tags[$tagloop],"/")."/",$strip_tags_modified[$tagloop],$template_contents);
+
+		// replace literal delimiter tags
+		$template_contents = preg_replace("/{ldelim}/",$this->left_delimiter,$template_contents);
+		$template_contents = preg_replace("/{rdelim}/",$this->right_delimiter,$template_contents);
+								
 		if(!($this->_write_file($compilepath,$template_contents)))
 			return false;
-
+		
 		return true;
 	}
 

@@ -79,6 +79,8 @@ CLASS VARIABLES:	(default value in parenthesis)
 						the scripts are initially compiled.
 						(true)
 
+	$template_dir		Name of directory containing templates
+
 	$compile_dir_ext	Extention to give the name of the compile
 						directory. For example, if your templates
 						are stored in a directory named
@@ -86,7 +88,9 @@ CLASS VARIABLES:	(default value in parenthesis)
 						files will be kept in "templates_c" in the
 						same directory. (_c)
 
-	$tpl_file_ext		the extention used on template files. (.tpl)
+	$tpl_file_ext		The extention used on template files. (.tpl)
+						All other files in the template directory
+						without this extention are ignored.
 
 	$max_recursion_depth	The maximum recursion depth for template
 							files includes. This is to help catch an
@@ -104,9 +108,10 @@ CLASS VARIABLES:	(default value in parenthesis)
 	
 	$right_delimiter	The right delimiter of the template syntax. (})
 	
-	$registered_functions	Names of the custom template functions.
-							To add your own, add them to the array
-							here, and add the actual functions to the
+	$registered_functions	Names of the custom template functions
+							that Smarty will recognize.
+							To add your own, add them to this array
+							and add the actual functions to the
 							smarty.functions.php file.
 					(array(	"htmlesc","urlesc","default","config" );)
 
@@ -189,6 +194,17 @@ Hello, my name is {htmlesc $Name}
 {include footer.tpl}
 
 
+INCLUDE LOGIC:
+
+Smarty supports including other template files.
+
+* you must supply the relative path to the
+  included template file from the template
+  in use. Example: in index.tpl, the file
+  header.tpl is included from the same directory:
+
+  {include header.tpl} 
+
 IF/ELSE LOGIC:
 
 Smarty supports if/else logic like so:
@@ -245,6 +261,100 @@ Sections can be nested, like so:
 	{/section}
 {/section}
 
+SPECIAL FUNCTIONALITY:
+
+There are some special functions that determine the
+current loop iteration of a section. These are
+
+rownum:		current row, first row starting with 1
+index:		current row, first row starting with 0
+odd:		true if value is odd
+even:		true if value is even
+mod:		true if value is divisible by X
+
+Examples:
+
+{section name=month $var}
+	{if $month.rownum eq 4}
+		{* in 4th row of section loop *}
+	{/if}
+	{if $month.rownum.even}
+		{* current rownum is even *}
+	{/if}
+	{if $month.rownum.odd}
+		{* current rownum is odd *}
+	{/if}
+	{if $month.rownum.even.3}
+		{* each even row, grouped by 3.
+		   so rows 1,2,3 are true (even),
+		   4,5,6 are odd (false), etc *}
+	{/if}
+	{if $month.rownum.odd.3}
+		{* each odd row, grouped by 3.
+		   so rows 1,2,3 are true (odd),
+		   4,5,6 are even (false), etc *}
+	{/if}
+	{if $month.rownum.mod.4}
+		{* true if current row is divisible by 4 *}
+	{/if}
+{/section}
+
+THE {strip} TAG:
+
+A special tag called {strip} can be used to strip out
+extra space, tabs or newlines at the beginning and end
+of each template row within {strip} and {/strip}.
+For example:
+
+<TR>
+<TD>
+	<TT>
+		{section name=row $weekday}
+			{$row.weekday}&nbsp;
+		{/section}
+	</TT>
+</TD>
+</TR>
+
+This will return unwanted results because of
+the extra tabs and newlines contained within the <TT></TT>
+tags. Normally to remedy this, you must run all
+the lines together in the template like so:
+
+<TR>
+<TD>
+<TT>{section name=row $weekday}{$row.weekday}&nbsp;{/section}</TT>
+</TD>
+</TR>
+
+
+As you can see, this quickly makes the template unreadable.
+An alternate solution is to use the {strip} tag like so:
+
+<TR>
+<TD>
+	{strip}
+	<TT>
+		{section name=row $weekday}
+			{$row.weekday}&nbsp;
+		{/section}
+	</TT>
+	{/strip}
+</TD>
+</TR>
+
+
+What this will do is strip out tabs, spaces and newlines
+at the beginning and end of each line before outputting
+the results. This helps keep the template file readable
+without affecting the output. Only text between {strip}
+and {/strip} is affected.
+
+{ldelim} AND {rdelim} TAGS:
+
+These are used in the template to output the literal
+left and right delimiters. Normally these are
+"{" and "}" if you are using the default delimiters.
 
 CUSTOM FUNCTIONS:
 
@@ -258,8 +368,7 @@ functions that come bundled with Smarty, which are the following:
 {config "file.conf","var"}		prints the value of a variable
 								from a config file.
 
-For this config function, config files are kept in a "config" directory.
-Config files also must be in the following syntax:
+For this "config" function, config files must be in the following syntax:
 
 var = "value"
 
@@ -274,7 +383,7 @@ index.conf
 ----------
 
 title = "My Homepage"
-Name = "Gomer Pyle"
+Name = "Gomer"
 
 
 creating your own:
@@ -282,8 +391,7 @@ creating your own:
 To create your own custom functions, do the following:
 
 * edit the smarty.functions.php file, add your custom function. Be sure
-  the function name is prepended with "smarty_". The template engine
-  will print anything that is returned from this function.
+  the function name is prepended with "smarty_".
 * edit the smarty.class.php file, add your custom function name to the
   array (leave off the smarty_ prefix.)
 * make a mention of your custom function in a template, like so:
