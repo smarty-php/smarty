@@ -1,3 +1,4 @@
+  - add $smarty.ldelim and $smarty.rdelim to smarty special var (Monte)
   - fall back to old uniqid()-behaviour when tempnam() fails in
     core.write_file.php (messju)
   - fix capitalize modifier, don't rely on buggy ucwords (Monte)

@@ -2040,6 +2040,14 @@ class Smarty_Compiler extends Smarty {
                 $_max_index = 3;
                 break;
 
+            case 'ldelim':
+                $compiled_ref = "'$this->left_delimiter'";
+                break;
+
+            case 'rdelim':
+                $compiled_ref = "'$this->right_delimiter'";
+                break;
+                
             default:
                 $this->_syntax_error('$smarty.' . $_ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
                 break;
