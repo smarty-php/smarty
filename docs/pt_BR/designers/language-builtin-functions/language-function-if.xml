@@ -9,7 +9,7 @@
 			 Todo <emphasis>if</emphasis> deve ter o seu 
 			<emphasis>/if</emphasis>. <emphasis>else</emphasis> e
 			<emphasis>elseif</emphasis> também são permitidos. Todos os 
-			condicionais do PHP são reconhecidos, tais como ||, or, &&, and, etc.
+			condicionais do PHP são reconhecidos, tais como ||, or, &amp;&amp;, and, etc.
 			</para>
 
 			<para>
