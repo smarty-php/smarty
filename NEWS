@@ -1,7 +1,7 @@
   - fix newlines for tags without template output (Monte)
   - added config-option "request_use_auto_globals" to make auto-globals be
     used as request vars instead of HTTP_*_VARS (messju)
-  - make config vars compile statically (Monte)
+  - speed up config_load, simplify compiling (Monte)
   - added block-methods for registered objects (Bharat Mediratta, messju)
   - ignore one char resource names like c:foo.tpl (Monte)
   - added default_resource_type feature (Monte)
@@ -15,8 +15,8 @@
   - allow spaces in literal tags (Paul Lockaby, Monte)
   - speed up compiled templates, hardcode plugin filepaths
     instead of dynamically calculate at runtime. (Monte)
-  - move many core components from Smarty.class.php into plugins
-    (monte)
+  - abstract many core components from Smarty.class.php,
+    speeding up core class instantiation (Monte)
   - fixed bug in _create_dir_structure() when used with open_basedir-
     restriction and relative paths (messju)
   - use DIRECTORY_SEPARATOR exclusively, keep DIR_SEP for BC (Monte)
