@@ -9,12 +9,12 @@
       blocks. (Andrei, Alexander Belonosov)
     - added 'field_array' attribute to html_select_time function. (Andrei,
       Michael Caplan)
-    - added {section} "max" attribute to docs. (Monte)
+    - dpcumented {section} "max" attribute. (Monte)
     - fixed notice message in Smarty_Compiler.class.php. (Monte)
-    - fixed bug with clear_cache introduced in 1.4.6, third parameter should be
-      null. (Monte)
-    - updated Config_File.class.php for "\" support in OS/2. (Monte, Francesco
-      Ciprianii)
+    - fixed bug with clear_cache introduced in 1.4.6, third parameter should
+      default to null. (Monte)
+    - updated Config_File class to support '\' path separator in OS/2. (Monte,
+      Francesco Ciprianii)
     - removed secure_ext setting (not used). (Monte)
     - made cache reading process more efficient. (Monte)
     - fixed bug, is_cached() now supports new 1.4.6 caching behavior. (Monte)
