@@ -1,3 +1,13 @@
+2004-03-30  Monte Ohrt  <monte@ispi.net>
+
+    * libs/core/core.display_debug_console.php:
+      fix problem with debug_tpl path and security
+
+    * NEWS
+      libs/core/core.display_debug_console.php:
+      fix problem displaying debug console when $default_resource_type is not
+      "file:"
+
 2004-03-29  Mehdi Achour  <didou@keliglia.com>
 
     * docs/TODO:
