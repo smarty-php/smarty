@@ -1,3 +1,19 @@
+2003-08-08  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      fix: proper nesting of $smarty->_cache_including flag in cascaded
+      cached/not-cached/fetched/inserted/foo-templates
+
+    * libs/debug.tpl:
+      better escaping for $_debug_tpls[templates].filenames
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      removed redundant $smarty from Smarty::_smarty_include()
+
+    * libs/debug.tpl:
+      proper escaping of filenames in debug-console (thanks to prossel).
+
 2003-08-07  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/programmers.sgml:
