@@ -73,20 +73,23 @@
 <title>function config_load</title>
 
 <programlisting>
+<![CDATA[
 {config_load file="colors.conf"}
 
-&lt;html&gt;
-&lt;title&gt;{#pageTitle#}&lt;/title&gt;
-&lt;body bgcolor="{#bodyBgColor#}"&gt;
-&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
-	&lt;tr bgcolor="{#rowBgColor#}"&gt;
-		&lt;td&gt;First&lt;/td&gt;
-		&lt;td&gt;Last&lt;/td&gt;
-		&lt;td&gt;Address&lt;/td&gt;
-	&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</programlisting>
+<html>
+<title>{#pageTitle#}</title>
+<body bgcolor="{#bodyBgColor#}">
+<table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
+	<tr bgcolor="{#rowBgColor#}">
+		<td>First</td>
+		<td>Last</td>
+		<td>Address</td>
+	</tr>
+</table>
+</body>
+</html>
+]]>
+</programlisting>
 </example>
 			<para>
             Config files may also contain sections. You can load variables from
@@ -102,22 +105,26 @@
 <example>
 <title>function config_load with section</title>
 <programlisting>
+<![CDATA[
 {config_load file="colors.conf" section="Customer"}
 
-&lt;html&gt;
-&lt;title&gt;{#pageTitle#}&lt;/title&gt;
-&lt;body bgcolor="{#bodyBgColor#}"&gt;
-&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
-	&lt;tr bgcolor="{#rowBgColor#}"&gt;
-		&lt;td&gt;First&lt;/td&gt;
-		&lt;td&gt;Last&lt;/td&gt;
-		&lt;td&gt;Address&lt;/td&gt;
-	&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</programlisting>
+<html>
+<title>{#pageTitle#}</title>
+<body bgcolor="{#bodyBgColor#}">
+<table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
+	<tr bgcolor="{#rowBgColor#}">
+		<td>First</td>
+		<td>Last</td>
+		<td>Address</td>
+	</tr>
+</table>
+</body>
+</html>
+]]>
+</programlisting>
 </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

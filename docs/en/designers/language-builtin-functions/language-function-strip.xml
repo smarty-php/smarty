@@ -27,23 +27,26 @@
 <example>
 <title>strip tags</title>
 <programlisting>
+<![CDATA[
 {* the following will be all run into one line upon output *}
 {strip}
-&lt;table border=0&gt;
-	&lt;tr&gt;
-		&lt;td&gt;
-			&lt;A HREF="{$url}"&gt;
-			&lt;font color="red"&gt;This is a test&lt;/font&gt;
-			&lt;/A&gt;
-		&lt;/td&gt;
-	&lt;/tr&gt;
-&lt;/table&gt;
+<table border=0>
+	<tr>
+		<td>
+			<A HREF="{$url}">
+			<font color="red">This is a test</font>
+			</A>
+		</td>
+	</tr>
+</table>
 {/strip}
 
 
 OUTPUT:
 
-&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://my.domain.com"&gt;&lt;font color="red"&gt;This is a test&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</programlisting>
+<table border=0><tr><td><A HREF="http://my.domain.com"><font color="red">This is a test</font></A></td></tr></table>
+]]>
+</programlisting>
 </example>
 		<para>
 		Notice that in the above example, all the lines begin and end
@@ -52,6 +55,7 @@ OUTPUT:
 		they will be run together, and may not be desired results.
 		</para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

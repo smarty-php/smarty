@@ -34,7 +34,8 @@ Intro = """This is a value that spans more
 host=my.domain.com
 db=ADDRESSBOOK
 user=php-user
-pass=foobar</programlisting>
+pass=foobar
+    </programlisting>
    </example>
    <para>
     Values of config file variables can be in quotes, but not necessary.
@@ -67,7 +68,8 @@ pass=foobar</programlisting>
     editing, you can be certain that they cannot read sensitive data from
     the config file by loading it into the template.
    </para>
-</chapter>
+  </chapter>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

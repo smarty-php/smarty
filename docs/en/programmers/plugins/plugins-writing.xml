@@ -31,7 +31,8 @@ require_once $smarty->_get_plugin_filepath('function', 'html_options');
      <parameter>&amp;$repeat</parameter> after the Smarty object to keep
      backwards compatibility to older versions of Smarty).
     </para>
-</sect1>
+   </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

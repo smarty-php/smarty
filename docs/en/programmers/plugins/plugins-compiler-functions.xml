@@ -64,9 +64,10 @@ function smarty_compiler_tplheader($tag_arg, &$smarty)
 echo 'index.tpl compiled at 2002-02-20 20:02';
 ?>
 ]]>
-</programlisting>
+     </programlisting>
     </example>
-</sect1>
+   </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

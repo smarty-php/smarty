@@ -66,17 +66,20 @@
        <example>
         <title>capturing template content</title>
         <programlisting>
+<![CDATA[
 {* we don't want to print a table row unless content is displayed *}
 {capture name=banner}
 {include file="get_banner.tpl"}
 {/capture}
 {if $smarty.capture.banner ne ""}
-	&lt;tr&gt;
-		&lt;td&gt;
+	<tr>
+		<td>
 			{$smarty.capture.banner}
-		&lt;/td&gt;
-	&lt;/tr&gt;
-{/if}</programlisting>
+		</td>
+	</tr>
+{/if}
+]]>
+</programlisting>
        </example>
       </para>
 </sect1>
