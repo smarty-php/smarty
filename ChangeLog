@@ -1,3 +1,8 @@
+2003-01-21  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
+      put php style object syntax back in
+
 2003-01-20  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php:
