@@ -124,7 +124,6 @@ class Smarty
     Function:   assign()
     Purpose:    assigns values to template variables
 \*======================================================================*/
-
     function assign($tpl_var, $value = NULL)
     {
         if (is_array($tpl_var)){
@@ -167,7 +166,6 @@ class Smarty
     Function:   clear_assign()
     Purpose:    clear the given assigned template variable.
 \*======================================================================*/
-
     function clear_assign($tpl_var)
     {
         if(is_array($tpl_var))
@@ -220,7 +218,6 @@ class Smarty
     Function:   clear_cache()
     Purpose:    clear cached content for the given template and cache id
 \*======================================================================*/
-
     function clear_cache($tpl_file, $cache_id = null)
     {
         $cache_tpl_md5 = md5(realpath($this->template_dir.'/'.$tpl_file));
@@ -243,7 +240,6 @@ class Smarty
     Function:   clear_all_cache()
     Purpose:    clear the entire contents of cache (all templates)
 \*======================================================================*/
-
     function clear_all_cache()
     {
         if (!is_dir($this->cache_dir))
@@ -267,7 +263,6 @@ class Smarty
     Function:   is_cached()
     Purpose:    test to see if valid cache exists for this template
 \*======================================================================*/
-
     function is_cached($tpl_file, $cache_id = null)
     {
         if (!$this->caching)
@@ -293,7 +288,6 @@ class Smarty
     Function:   clear_all_assign()
     Purpose:    clear all the assigned template variables.
 \*======================================================================*/
-
     function clear_all_assign()
     {
         $this->_tpl_vars = array();
@@ -314,7 +308,6 @@ class Smarty
     Function:   display()
     Purpose:    executes & displays the template results
 \*======================================================================*/
-
     function display($tpl_file, $cache_id = null)
     {
         $this->fetch($tpl_file, $cache_id, true);
@@ -324,7 +317,6 @@ class Smarty
     Function:   fetch()
     Purpose:    executes & returns or displays the template results
 \*======================================================================*/
-
     function fetch($tpl_file, $cache_id = null, $display = false)
     {
         global $HTTP_SERVER_VARS;
@@ -384,7 +376,6 @@ class Smarty
     Function:   compile()
     Purpose:    called to compile the templates
 \*======================================================================*/
-
     function _compile($tpl_dir)
     {
         if($this->compile_check || $this->force_compile)
@@ -433,7 +424,6 @@ class Smarty
     Function:   _read_file()
     Purpose:    read in a file
 \*======================================================================*/
-
     function _read_file($filename)
 
     {
@@ -451,7 +441,6 @@ class Smarty
     Function:   _write_file()
     Purpose:    write out a file
 \*======================================================================*/
-
     function _write_file($filename, $contents, $create_dirs = false)
     {
         if($create_dirs)
@@ -522,7 +511,6 @@ class Smarty
     Function:   _set_error_msg()
     Purpose:    set the error message
 \*======================================================================*/
-
     function _set_error_msg($error_msg)
     {
         $this->_error_msg="smarty error: $error_msg";

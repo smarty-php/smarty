@@ -118,28 +118,46 @@ function smarty_mod_truncate($string, $length = 80, $etc = '...', $break_words =
 }
 
 
+/*======================================================================*\
+    Function: smarty_mod_spacify
+    Purpose:  add spaces between characters in a string
+\*======================================================================*/
 function smarty_mod_spacify($string, $spacify_char = ' ')
 {
     return implode($spacify_char, preg_split('//', $string, -1, PREG_SPLIT_NO_EMPTY));
 }
 
-
+/*======================================================================*\
+    Function: smarty_mod_date_format
+    Purpose:  format datestamps via strftime
+\*======================================================================*/
 function smarty_mod_date_format($string, $format="%b %e, %Y")
 {
     return strftime($format, $string);
 }
 
-
+/*======================================================================*\
+    Function: smarty_mod_string_format
+    Purpose:  format strings via sprintf
+\*======================================================================*/
 function smarty_mod_string_format($string, $format)
 {
     return sprintf($format, $string);
 }
 
+/*======================================================================*\
+    Function: smarty_mod_replace
+    Purpose:  simple search/replace
+\*======================================================================*/
 function smarty_mod_replace($string, $search, $replace)
 {
     return str_replace($search, $replace, $string);
 }
 
+/*======================================================================*\
+    Function: smarty_mod_strip_tags
+    Purpose:  strip html tags from text
+\*======================================================================*/
 function smarty_mod_strip_tags($string, $replace_with_space = true)
 {
     if ($replace_with_space)
@@ -148,6 +166,10 @@ function smarty_mod_strip_tags($string, $replace_with_space = true)
         return strip_tags($string);
 }
 
+/*======================================================================*\
+    Function: smarty_mod_default
+    Purpose:  designate default text for empty variables
+\*======================================================================*/
 function smarty_mod_default($string, $default="")
 {
     if(empty($string))
@@ -273,6 +295,10 @@ function smarty_func_html_select_date()
     print $html_result;
 }
 
+/*======================================================================*\
+    Function: smarty_func_math
+    Purpose:  allow math computations in template
+\*======================================================================*/
 function smarty_func_math() {
         $args=func_get_arg(0);
 
@@ -320,6 +346,10 @@ function smarty_func_math() {
         eval("echo ".$equation.";");
 }
 
+/*======================================================================*\
+    Function: smarty_func_fetch
+    Purpose:  fetch file, web or ftp data and display results
+\*======================================================================*/
 function smarty_func_fetch() {
         extract(func_get_arg(0));
 

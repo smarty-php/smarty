@@ -13,7 +13,6 @@ class Smarty_Compiler extends Smarty {
     Function:   _traverse_files()
     Purpose:    traverse the template files & process each one
 \*======================================================================*/
-
 function _traverse_files($tpl_dir, $depth)
 {
     $retval = true;
@@ -58,7 +57,6 @@ function _traverse_files($tpl_dir, $depth)
                 and execute the compilation for each
                 one requiring it.
 \*======================================================================*/
-
 function _process_file($filepath)
 {
     if(preg_match("/^(.+)\/([^\/]+)$/", $filepath, $match)) {
@@ -92,7 +90,6 @@ function _process_file($filepath)
     Function: _create_dir_structure
     Purpose:  create full directory structure
 \*======================================================================*/
-
 function _create_dir_structure($dir)
 {
     if (!file_exists($dir)) {
@@ -113,7 +110,6 @@ function _create_dir_structure($dir)
     Function:   _modified_file()
     Input:      return comparison of modification times of files
 \*======================================================================*/
-
 function _modified_file($filepath, $compilepath)
 {
     if (filemtime($filepath) >= filemtime($compilepath))
@@ -125,7 +121,6 @@ function _modified_file($filepath, $compilepath)
     Function:   _compile_file()
     Input:      compile a template file
 \*======================================================================*/
-
 function _compile_file($filepath, $compilepath)
 {
     if (!($template_contents = $this->_read_file($filepath)))
@@ -215,7 +210,6 @@ function _compile_file($filepath, $compilepath)
     Function: _process_cached_inserts
     Purpose:  Replace cached inserts with the actual results
 \*======================================================================*/
-
 function _process_cached_inserts($results)
 {
     preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
@@ -241,7 +235,6 @@ function _process_cached_inserts($results)
     Function: _compile_tag
     Purpose:  Compile a template tag
 \*======================================================================*/
-
 function _compile_tag($template_tag)
 {
     /* Matched comment. */
@@ -333,7 +326,6 @@ function _compile_tag($template_tag)
     Function: _compile_custom_tag
     Purpose:  compile custom tag
 \*======================================================================*/
-
 function _compile_custom_tag($tag_command, $tag_args)
 {
     $function = $this->custom_funcs[$tag_command];
@@ -357,7 +349,6 @@ function _compile_custom_tag($tag_command, $tag_args)
     Function: _compile_insert_tag
     Purpose:  Compile {insert ...} tag
 \*======================================================================*/
-
 function _compile_insert_tag($tag_args)
 {
     $attrs = $this->_parse_attrs($tag_args);
@@ -381,7 +372,6 @@ function _compile_insert_tag($tag_args)
     Function: _compile_config_load_tag
     Purpose:  Compile {config_load ...} tag
 \*======================================================================*/
-
 function _compile_config_load_tag($tag_args)
 {
     $attrs = $this->_parse_attrs($tag_args);
@@ -410,7 +400,6 @@ function _compile_config_load_tag($tag_args)
     Function: _compile_include_tag
     Purpose:  Compile {include ...} tag
 \*======================================================================*/
-
 function _compile_include_tag($tag_args)
 {
     $attrs = $this->_parse_attrs($tag_args);
@@ -450,7 +439,6 @@ function _compile_include_tag($tag_args)
     Function: _compile_section_start
     Purpose:  Compile {section ...} tag
 \*======================================================================*/
-
 function _compile_section_start($tag_args)
 {
     $attrs = $this->_parse_attrs($tag_args);
@@ -514,7 +502,6 @@ function _compile_section_start($tag_args)
     Function: _compile_if_tag
     Purpose:  Compile {if ...} tag
 \*======================================================================*/
-
 function _compile_if_tag($tag_args, $elseif = false)
 {
     /* Tokenize args for 'if' tag. */
@@ -619,7 +606,6 @@ function _compile_if_tag($tag_args, $elseif = false)
     Function: _parse_is_expr
     Purpose:  Parse is expression
 \*======================================================================*/
-
 function _parse_is_expr($is_arg, $tokens)
 {
     $expr_end = 0;
@@ -679,7 +665,6 @@ function _parse_is_expr($is_arg, $tokens)
     Function: _parse_attrs
     Purpose:  Parse attribute string
 \*======================================================================*/
-
 function _parse_attrs($tag_args, $quote = true)
 {
     /* Tokenize tag attributes. */
@@ -753,7 +738,6 @@ function _parse_attrs($tag_args, $quote = true)
     Function: _preg_grep
     Purpose:  Emulate PHP's preg_grep()
 \*======================================================================*/
-
 function _preg_grep($pattern, $array)
 {
     $result = array();
@@ -770,7 +754,6 @@ function _preg_grep($pattern, $array)
     Function: _parse_vars_props
     Purpose:
 \*======================================================================*/
-    
 function _parse_vars_props(&$tokens)
 {        
     $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
@@ -811,7 +794,6 @@ function _parse_vars_props(&$tokens)
     Function: _parse_var
     Purpose:
 \*======================================================================*/
-
 function _parse_var($var_expr)
 {
     list($var_ref, $modifiers) = explode('|', substr($var_expr, 1), 2);
@@ -841,7 +823,6 @@ function _parse_var($var_expr)
     Function: _parse_conf_var
     Purpose:
 \*======================================================================*/
-
 function _parse_conf_var($conf_var_expr)
 {
     list($var_ref, $modifiers) = explode('|', $conf_var_expr, 2);
@@ -859,7 +840,6 @@ function _parse_conf_var($conf_var_expr)
     Function: _parse_section_prop
     Purpose:
 \*======================================================================*/
-
 function _parse_section_prop($section_prop_expr)
 {
     list($var_ref, $modifiers) = explode('|', $section_prop_expr, 2);
@@ -879,7 +859,6 @@ function _parse_section_prop($section_prop_expr)
     Function: _parse_modifiers
     Purpose:
 \*======================================================================*/
-
 function _parse_modifiers(&$output, $modifier_string)
 {
     $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
