@@ -60,27 +60,25 @@ class Smarty_Compiler extends Smarty {
     var $_capture_stack         =   array();    // keeps track of nested capture buffers
     var $_plugin_info           =   array();    // keeps track of plugins to load
     var $_init_smarty_vars      =   false;
-    var $_permitted_tokens        =    array('true','false','yes','no','on','off','null');
-    var $_output_type            =    'php';
-    var $_db_qstr_regexp        =    null;        // regexps are setup in the constructor
-    var $_si_qstr_regexp        =    null;
-    var $_qstr_regexp            =    null;
-    var $_func_regexp            =    null;
-    var $_var_bracket_regexp    =    null;
-    var $_dvar_guts_regexp        =    null;
-    var $_dvar_regexp            =    null;
-    var $_cvar_regexp            =    null;
-    var $_svar_regexp            =    null;
-    var $_avar_regexp            =    null;
-    var $_mod_regexp            =    null;
-    var $_var_regexp            =    null;
-    var $_parenth_param_regexp    =    null;
-    var $_func_call_regexp        =    null;
-    var $_obj_ext_regexp        =    null;
-    var $_obj_start_regexp        =    null;
-    var $_obj_params_regexp        =    null;
-    var $_obj_call_regexp        =    null;
-
+    var $_permitted_tokens      =   array('true','false','yes','no','on','off','null');
+    var $_db_qstr_regexp        =   null;        // regexps are setup in the constructor
+    var $_si_qstr_regexp        =   null;
+    var $_qstr_regexp           =   null;
+    var $_func_regexp           =   null;
+    var $_var_bracket_regexp    =   null;
+    var $_dvar_guts_regexp      =   null;
+    var $_dvar_regexp           =   null;
+    var $_cvar_regexp           =   null;
+    var $_svar_regexp           =   null;
+    var $_avar_regexp           =   null;
+    var $_mod_regexp            =   null;
+    var $_var_regexp            =   null;
+    var $_parenth_param_regexp  =   null;
+    var $_func_call_regexp      =   null;
+    var $_obj_ext_regexp        =   null;
+    var $_obj_start_regexp      =   null;
+    var $_obj_params_regexp     =   null;
+    var $_obj_call_regexp       =   null;
     var $_cacheable_state       =   0;
     var $_cache_attrs_count     =   0;
     var $_nocache_count         =   0;
@@ -88,7 +86,7 @@ class Smarty_Compiler extends Smarty {
     var $_cache_include         =   null;
 
     var $_strip_depth           =   0;
-    var $_additional_newline           =   "\n";
+    var $_additional_newline    =   "\n";
 
     /**#@-*/
     /**
@@ -407,9 +405,6 @@ class Smarty_Compiler extends Smarty {
      */
     function _compile_tag($template_tag)
     {
-        // default to php output
-        $this->_output_type = 'php';
-
         /* Matched comment. */
         if ($template_tag{0} == '*' && $template_tag{strlen($template_tag) - 1} == '*')
             return '';
@@ -431,11 +426,8 @@ class Smarty_Compiler extends Smarty {
             $_return = $this->_parse_var_props($tag_command . $tag_modifier, $this->_parse_attrs($tag_args));
             if(isset($_tag_attrs['assign'])) {
                 return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $_return ); ?>\n";
-            } elseif ($this->_output_type == 'php') {
-                return "<?php echo $_return; ?>" . $this->_additional_newline;
             } else {
-                // static
-                return $_return;
+                return "<?php echo $_return; ?>" . $this->_additional_newline;
             }
         }
 
@@ -1511,7 +1503,7 @@ class Smarty_Compiler extends Smarty {
      * @param string $tag_attrs
      * @return string
      */
-    function _parse_var_props($val, $tag_attrs = null)
+    function _parse_var_props($val)
     {
         $val = trim($val);
 
@@ -1585,9 +1577,6 @@ class Smarty_Compiler extends Smarty {
      */
     function _parse_var($var_expr, $in_math = false)
     {
-        // inform the calling expression the return type (php, static)
-        $this->_output_type = 'php';
-
         $_has_math = false;
         $_math_vars = preg_split('!('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
 
