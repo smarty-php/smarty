@@ -209,7 +209,7 @@ class Smarty_Compiler extends Smarty {
                     $template_source = $prefilter[0]($template_source, $this);
                     $this->_plugins['prefilter'][$filter_name][3] = true;
                 } else {
-                    $this->_trigger_plugin_error("Smarty plugin error: prefilter '$filter_name' is not implemented");
+                    $this->_trigger_fatal_error("[plugin] prefilter '$filter_name' is not implemented");
                 }
             }
         }
@@ -663,12 +663,14 @@ class Smarty_Compiler extends Smarty {
             	$arg_list[] = "'$arg_name' => $arg_value";
         	}
 		}
-		
+				
 		if(!$this->_reg_objects[$object][0]) {
-			$this->trigger_error("Smarty error: registered '$object' is not an object");
+			$this->_trigger_fatal_error("registered '$object' is not an object");
+		} elseif(!empty($this->_reg_objects[$object][1]) && !in_array($obj_comp, $this->_reg_objects[$object][1])) {
+			$this->_trigger_fatal_error("'$obj_comp' is not a registered component of object '$object'");
 		} elseif(method_exists($this->_reg_objects[$object][0], $obj_comp)) {
 			// method
-			if($this->_reg_objects[$object][1]) {
+			if($this->_reg_objects[$object][2]) {
 				// smarty object argument format
 				$return = "\$this->_reg_objects['$object'][0]->$obj_comp(array(".implode(',', (array)$arg_list)."), \$this)";
 			} else {

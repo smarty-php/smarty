@@ -338,10 +338,12 @@ class Smarty
     Function: register_object
     Purpose:  Registers object to be used in templates
 \*======================================================================*/
-    function register_object($object, &$object_impl, $smarty_args = true)
-    {		
+    function register_object($object, &$object_impl, $allowed = array(), $smarty_args = true)
+    {
+		settype($allowed, 'array');		
+		settype($smarty_args, 'boolean');		
         $this->_reg_objects[$object] =
-            array(&$object_impl, $smarty_args);		
+            array(&$object_impl, $allowed, $smarty_args);
     }
 
 /*======================================================================*\
@@ -1908,7 +1910,7 @@ function _run_insert_handler($args)
             if (isset($plugin)) {
                 if (!$plugin[3]) {
                     if (!function_exists($plugin[0])) {
-                        $this->_trigger_plugin_error("$type '$name' is not implemented", $tpl_file, $tpl_line);
+                        $this->_trigger_fatal_error("[plugin] $type '$name' is not implemented", $tpl_file, $tpl_line, __FILE__, __LINE__);
                     } else {
                         $plugin[1] = $tpl_file;
                         $plugin[2] = $tpl_line;
@@ -1944,7 +1946,7 @@ function _run_insert_handler($args)
 
                 $plugin_func = 'smarty_' . $type . '_' . $name;
                 if (!function_exists($plugin_func)) {
-                    $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file", $tpl_file, $tpl_line, __FILE__, __LINE__);
+                    $this->_trigger_fatal_error("[plugin] function $plugin_func() not found in $plugin_file", $tpl_file, $tpl_line, __FILE__, __LINE__);
                     continue;
                 }
             }
@@ -1989,7 +1991,7 @@ function _run_insert_handler($args)
                 $this->_plugins[$type][$name] = array($plugin_func, $tpl_file, $tpl_line, true);
             } else {
                 // output error
-                $this->_trigger_plugin_error($message, $tpl_file, $tpl_line, __FILE__, __LINE__);
+                $this->_trigger_fatal_error('[plugin] ' . $message, $tpl_file, $tpl_line, __FILE__, __LINE__);
             }
         }
     }
@@ -2020,7 +2022,7 @@ function _run_insert_handler($args)
             }
 
             if (!$plugin[1]) {
-                $this->_trigger_plugin_error("resource '$type' is not implemented", null, null, __FILE__, __LINE__);
+                $this->_trigger_fatal_error("[plugin] resource '$type' is not implemented", null, null, __FILE__, __LINE__);
             }
 
             return;
@@ -2043,7 +2045,7 @@ function _run_insert_handler($args)
             foreach ($resource_ops as $op) {
                 $plugin_func = 'smarty_resource_' . $type . '_' . $op;
                 if (!function_exists($plugin_func)) {
-                    $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file", null, null, __FILE__, __LINE__);
+                    $this->_trigger_fatal_error("[plugin] function $plugin_func() not found in $plugin_file", null, null, __FILE__, __LINE__);
                     return;
                 } else {
                     $resource_funcs[] = $plugin_func;
@@ -2078,10 +2080,10 @@ function _run_insert_handler($args)
 
 
 /*======================================================================*\
-    Function: _trigger_plugin_error
+    Function: _trigger_fatal_error
     Purpose:  trigger Smarty plugin error
 \*======================================================================*/
-    function _trigger_plugin_error($error_msg, $tpl_file = null, $tpl_line = null,
+    function _trigger_fatal_error($error_msg, $tpl_file = null, $tpl_line = null,
 			$file = null, $line = null, $error_type = E_USER_ERROR)
     {
 		if(isset($file) && isset($line)) {
@@ -2090,10 +2092,10 @@ function _run_insert_handler($args)
 			$info = null;
 		}
         if (isset($tpl_line) && isset($tpl_file)) {
-            trigger_error("Smarty plugin error: [in " . $tpl_file . " line " .
+            trigger_error("Smarty error: [in " . $tpl_file . " line " .
                           $tpl_line . "]: $error_msg$info", $error_type);
         } else {
-            trigger_error("Smarty plugin error: $error_msg$info", $error_type);
+            trigger_error("Smarty error: $error_msg$info", $error_type);
         }
     }
 
