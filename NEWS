@@ -1,3 +1,6 @@
+    - dropped support for modifers on object parameters,
+      added support for objects as modifier parameters
+
 Version 2.4.2 (Feb 11, 2003)
 ----------------------------
     - support embedded variables in objects (Monte)
