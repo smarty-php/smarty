@@ -1,30 +1,33 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.popup.init">
-			<title>popup_init</title>
-			<para>
-			ôóíêöèÿ popup ðåàëèçóåò èíòåãðàöèþ ñ áèáëèîòåêîé overLib, êîòîðàÿ
-			èñïîëüçóåòñÿ äëÿ ñîçäàíèÿ âûñïëûâàþùèõ îêîí. Îíè ìîãóò èñïîëüçîâàòüñÿ 
-			äëÿ âûâîäà êîíòåêñòíî-çàâèñèìîé èíôîðìàöèè, òàêîé êàê êîíòåêñòíàÿ 
-			ïîìîùü èëè âûñïëûâàþùèå ïîäñêàçêè. ôóíêöèÿ popup_init äîëæíà áûòü 
-			âûçâàíà îäèí ðàç â íà÷àëå ñòðàíèöû, ãäå ïëàíèðóåòñÿ âûçîâ ôóíêöèè
-			<link linkend="language.function.popup">popup</link>. Áèáëèîòåêó 
-			overLib íàïèñàë Ýðèê Áîñðàï (Erik Bosrup). Äîìàøíÿÿ ñòðàíèöà ðàñïîëîæåíà
-			ïî àäðåñó http://www.bosrup.com/web/overlib/.
-			</para>
-			<para>
-			Íà÷èíàÿ ñî Smarty âåðñèè 2.1.2, áèáëèîòåêà overLib íå âêëþ÷àåòñÿ 
-			â ðåëèç. Ñêà÷àéòå áèáëèîòåêó overLib, ïîìåñòèòå ôàéë overlib.js 
-			â êîðåíü äîêóìåíòîâ (DOCUMENT_ROOT) èëè ãëóáæå. Ïðè âûçîâå ôóíêöèè
-			popup_init ïåðåäàéòå îòíîñèòåëüíûé ïóòü ê ýòîìó ôàéëó â êà÷åñòâå 
-			ïàðàìåòðà src.
-			</para>
-<example>
-<title>popup_init</title>
-<programlisting>
-{* popup_init äîëæåí áûòü âûçâàí îäèí ðàç â íà÷àëå ñòðàíèöû *}
-{popup_init src="/javascripts/overlib.js"}</programlisting>
-</example>
+<sect1 id="language.function.popup.init">
+ <title>popup_init</title>
+ <para>
+  ôóíêöèÿ popup ðåàëèçóåò èíòåãðàöèþ ñ áèáëèîòåêîé overLib, êîòîðàÿ
+  èñïîëüçóåòñÿ äëÿ ñîçäàíèÿ âñïëûâàþùèõ îêîí. Îíè ìîãóò èñïîëüçîâàòüñÿ 
+  äëÿ âûâîäà êîíòåêñòíî-çàâèñèìîé èíôîðìàöèè, òàêîé êàê êîíòåêñòíàÿ 
+  ïîìîùü èëè âñïëûâàþùèå ïîäñêàçêè. Ôóíêöèÿ popup_init äîëæíà áûòü 
+  âûçâàíà îäèí ðàç â íà÷àëå ñòðàíèöû, ãäå ïëàíèðóåòñÿ âûçîâ ôóíêöèè
+  <link linkend="language.function.popup">popup</link>. Áèáëèîòåêó 
+  overLib íàïèñàë Ýðèê Áîñðàï (Erik Bosrup). Äîìàøíÿÿ ñòðàíèöà ðàñïîëîæåíà
+  ïî àäðåñó http://www.bosrup.com/web/overlib/.
+ </para>
+ <para>
+  Íà÷èíàÿ ñî Smarty âåðñèè 2.1.2, áèáëèîòåêà overLib íå âêëþ÷àåòñÿ 
+  â ðåëèç. Ñêà÷àéòå áèáëèîòåêó overLib, ïîìåñòèòå ôàéë overlib.js 
+  â êîðåíü äîêóìåíòîâ (DOCUMENT_ROOT) èëè ãëóáæå. Ïðè âûçîâå ôóíêöèè
+  popup_init ïåðåäàéòå îòíîñèòåëüíûé ïóòü ê ýòîìó ôàéëó â êà÷åñòâå 
+  ïàðàìåòðà src.
+ </para>
+ <example>
+  <title>popup_init</title>
+  <programlisting>
+<![CDATA[
+ {* popup_init äîëæåí áûòü âûçâàí îäèí ðàç â íà÷àëå ñòðàíèöû *}
+ {popup_init src="/javascripts/overlib.js"}
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

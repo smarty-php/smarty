@@ -1,93 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.html.table">
-			<title>html_table</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Èìÿ àòòðèáóòà</entry>
-                        <entry>Òèï</entry>
-                        <entry>Îáÿçàòåëåí</entry>       
-                        <entry>Ïî óìîë÷àíèþ</entry>
-                        <entry>Îïèñàíèå</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>loop</entry>
-                        <entry>ìàññèâ</entry>
-                        <entry>Äà</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ìàññèâ äàííûõ, ïî êîòîðîìó áóäåò ïðîèçâåäåí îáõîä</entry>
-                    </row>
-                    <row>
-                        <entry>cols</entry>
-                        <entry>öåëîå (integer)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>3</emphasis></entry>
-                        <entry>êîëè÷åñòâî êîëîíîê òàáëèöû</entry>
-                    </row>
-                    <row>
-                        <entry>table_attr</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>border="1"</emphasis></entry>
-                        <entry>äîïîëíèòåëüíûå àòòðèáóòû òýãà table</entry>
-                    </row>
-                    <row>
-                        <entry>tr_attr</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>ïóñòî</emphasis></entry>
-                        <entry>äîïîëíèòåëüíûå àòòðèáóòû òýãà tr (åñëè óêàçàí 
-                        ìàññèâ, òî åãî ýëåìåíòû öèêëè÷åñêè ïîâòîðÿþòüñÿ)</entry>
-                    </row>
-                    <row>
-                        <entry>td_attr</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>ïóñòî</emphasis></entry>
-                        <entry>äîïîëíèòåëüíûå àòòðèáóòû òýãà td (åñëè óêàçàí 
-                        ìàññèâ, òî åãî ýëåìåíòû öèêëè÷åñêè ïîâòîðÿþòüñÿ)</entry>
-                    </row>
-                    <row>
-                        <entry>trailpad</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>&amp;nbsp;</emphasis></entry>
-                        <entry>çíà÷åíèå îñòàòî÷íûõ ÿ÷ååê íà ïîñëåäíåé 
-                        ñòðîêå òàáèëöû</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			Ïîëüçîâàòåëüñêàÿ ôóíêöèÿ <emphasis>html_table</emphasis> âûâîäèò
-			ìàññèâ â âèäå HTML òàáëèöû. Àòòðèáóò <emphasis>cols</emphasis>
-			óêàçûâàåò êîëè÷åñòâî êîëîíîê. Àòòðèáóòû <emphasis>table_attr</emphasis>,
-			<emphasis>tr_attr</emphasis> è <emphasis>td_attr</emphasis> óêàçûâàþò
-			äîïîëíèòåëüíûå àòòðèáóòû òýãî table, tr è td. Åñëè çíà÷åíèå
-			<emphasis>tr_attr</emphasis> èëè <emphasis>td_attr</emphasis> - ìàññèâ, 
-			òî êãî çíà÷åíèÿ öèêëè÷åñêèé ïîâòîðÿþòñÿ. Àòðèáóò
-			<emphasis>trailpad</emphasis> óñòàíàâëèâàåò çíà÷åíèÿ äëÿ îñòàòî÷íûõ 
-			ÿ÷ååê íà ïîñëäåíåé ñòðîêå òàáëèöû.
-			</para>
-<example>
-<title>html_table</title>
-<programlisting>
+<sect1 id="language.function.html.table">
+ <title>html_table</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+  <colspec colname="param" align="center" />
+  <colspec colname="type" align="center" />
+  <colspec colname="required" align="center" />
+  <colspec colname="default" align="center" />
+  <colspec colname="desc" />
+  <thead>
+   <row>
+    <entry>Èìÿ àòòðèáóòà</entry>
+    <entry>Òèï</entry>
+    <entry>Îáÿçàòåëåí</entry>       
+    <entry>Ïî óìîë÷àíèþ</entry>
+    <entry>Îïèñàíèå</entry>
+   </row>
+  </thead>
+  <tbody>
+   <row>
+    <entry>loop</entry>
+    <entry>ìàññèâ</entry>
+    <entry>Äà</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>ìàññèâ äàííûõ, ïî êîòîðîìó áóäåò ïðîèçâåäåí îáõîä</entry>
+   </row>
+   <row>
+    <entry>cols</entry>
+    <entry>öåëîå (integer)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>3</emphasis></entry>
+    <entry>êîëè÷åñòâî êîëîíîê òàáëèöû</entry>
+   </row>
+   <row>
+    <entry>table_attr</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>border="1"</emphasis></entry>
+    <entry>äîïîëíèòåëüíûå àòòðèáóòû òýãà table</entry>
+   </row>
+   <row>
+    <entry>tr_attr</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>ïóñòî</emphasis></entry>
+    <entry>äîïîëíèòåëüíûå àòòðèáóòû òýãà tr (åñëè óêàçàí 
+    ìàññèâ, òî åãî ýëåìåíòû öèêëè÷åñêè ïîâòîðÿþòüñÿ)</entry>
+   </row>
+   <row>
+    <entry>td_attr</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>ïóñòî</emphasis></entry>
+    <entry>äîïîëíèòåëüíûå àòòðèáóòû òýãà td (åñëè óêàçàí 
+    ìàññèâ, òî åãî ýëåìåíòû öèêëè÷åñêè ïîâòîðÿþòüñÿ)</entry>
+   </row>
+   <row>
+    <entry>trailpad</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>&amp;nbsp;</emphasis></entry>
+       <entry>çíà÷åíèå îñòàòî÷íûõ ÿ÷ååê íà ïîñëåäíåé 
+       ñòðîêå òàáèëöû</entry>
+   </row>
+  </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  Ïîëüçîâàòåëüñêàÿ ôóíêöèÿ <emphasis>html_table</emphasis> âûâîäèò
+  ìàññèâ â âèäå HTML òàáëèöû. Àòòðèáóò <emphasis>cols</emphasis>
+  óêàçûâàåò êîëè÷åñòâî êîëîíîê. Àòòðèáóòû <emphasis>table_attr</emphasis>,
+  <emphasis>tr_attr</emphasis> è <emphasis>td_attr</emphasis> óêàçûâàþò
+  äîïîëíèòåëüíûå àòòðèáóòû òýãî table, tr è td. Åñëè çíà÷åíèå
+  <emphasis>tr_attr</emphasis> èëè <emphasis>td_attr</emphasis> - ìàññèâ, 
+  òî êãî çíà÷åíèÿ öèêëè÷åñêèé ïîâòîðÿþòñÿ. Àòðèáóò
+  <emphasis>trailpad</emphasis> óñòàíàâëèâàåò çíà÷åíèÿ äëÿ îñòàòî÷íûõ 
+  ÿ÷ååê íà ïîñëåäíåé ñòðîêå òàáëèöû.
+ </para>
+ <example>
+  <title>html_table</title>
+  <programlisting>
+<![CDATA[
 index.php:
 
 require('Smarty.php.class');
 $smarty = new Smarty;
-$smarty-&gt;assign('data',array(1,2,3,4,5,6,7,8,9));
-$smarty-&gt;assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
-$smarty-&gt;display('index.tpl');
+$smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
+$smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
+$smarty->display('index.tpl');
 
 index.tpl:
 
@@ -97,22 +98,24 @@ index.tpl:
 
 OUTPUT:
 
-&lt;table border="1"&gt;
-&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table border="0"&gt;
-&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table border="1"&gt;
-&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
-&lt;tr bgcolor="#dddddd"&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</programlisting>
-</example>
+<table border="1">
+<tr><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>4</td><td>5</td><td>6</td></tr>
+<tr><td>7</td><td>8</td><td>9</td></tr>
+</table>
+<table border="0">
+<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+<tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<table border="1">
+<tr bgcolor="#eeeeee"><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+<tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

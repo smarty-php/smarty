@@ -1,126 +1,129 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.html.radios">
-			<title>html_radios</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Èìÿ àòòðèáóòà</entry>
-                        <entry>Òèï</entry>
-                        <entry>Îáÿçàòåëåí</entry>       
-                        <entry>Ïî óìîë÷àíèþ</entry>
-                        <entry>Îïèñàíèå</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>name</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>radio</emphasis></entry>
-                        <entry>íàçâàíèå ýëåìåíòîâ âûáîðà</entry>
-                    </row>
-                    <row>
-                        <entry>values</entry>
-                        <entry>ìàññèâ</entry>
-                        <entry>Äà, åñëè íå óêàçàí àòòðèáóò options</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ìàññèâ çíà÷åíèé ýëåìåíòîâ âûáîðà</entry>
-                    </row>
-                    <row>
-                        <entry>output</entry>
-                        <entry>ìàññèâ</entry>
-                        <entry>Äà, åñëè íå óêàçàí àòòðèáóò options</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ìàññèâ íàçâàíèé ýëåìåíòîâ âûáîðà</entry>
-                    </row>
-                    <row>
-                        <entry>checked</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>ïóñòî</emphasis></entry>
-                        <entry>Çíà÷åíèå âûáðàííîãî ýëåìåíòà</entry>
-                    </row>
-                    <row>
-                        <entry>options</entry>
-                        <entry>àññîöèàòèâíûé ìàññèâ</entry>
-                        <entry>Äà, åñëè íå óêàçàíû àòòðèáóòû values è output</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>àññîöèàòèâíûé ìàññèâ çíà÷åíèé è íàçâàíèé 
-                        ýëåìåíòîâ âûáîðà</entry>
-                    </row>
-                    <row>
-                        <entry>separator</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>ïóñòî</emphasis></entry>
-                        <entry>òåêñò, ðàçäåëÿþùèé ýëåìåíòû âûáîðà</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			Ïîëüçîâàòåëüñÿêàÿ ôóíêöèÿ html_radios ãåíåðèðóåò HMTL êîä 
-			ãðóïïû ýëåìåíòîâ âûáîðà (radio button group). Àâòîìàòè÷åñêè
-			óñòàíàâëèâàåò âûáðàííîå çíà÷åíèå, åñëè îíî óêçàíî. Òðåáóåò 
-			íàëè÷èÿ àòòðèáóòîâ values è output èëè àòòðèáóòà options. 
-			Ñãåíåðèðîâàííûé HMTL êîä ñîâìåñòèì ñ XHTML.
-			</para>
-			<para>
-			Âñå ïàðàìåòðû, êîòîðûå íå óêàçàíû â òàáëèöå âûøå, ïåðåäàþòñÿ 
-			è âûâîäÿòñÿ âíóòðè êàæäîãî ñîçäàííîãî òýãà  &lt;input&gt;.
-			</para>
+<sect1 id="language.function.html.radios">
+ <title>html_radios</title>
+ <informaltable frame="all">
+     <tgroup cols="5">
+     <colspec colname="param" align="center" />
+     <colspec colname="type" align="center" />
+     <colspec colname="required" align="center" />
+     <colspec colname="default" align="center" />
+     <colspec colname="desc" />
+     <thead>
+         <row>
+             <entry>Èìÿ àòòðèáóòà</entry>
+             <entry>Òèï</entry>
+             <entry>Îáÿçàòåëåí</entry>       
+             <entry>Ïî óìîë÷àíèþ</entry>
+             <entry>Îïèñàíèå</entry>
+         </row>
+     </thead>
+     <tbody>
+         <row>
+             <entry>name</entry>
+             <entry>ñòðîêà (string)</entry>
+             <entry>Íåò</entry>
+             <entry><emphasis>radio</emphasis></entry>
+             <entry>íàçâàíèå ýëåìåíòîâ âûáîðà</entry>
+         </row>
+         <row>
+             <entry>values</entry>
+             <entry>ìàññèâ</entry>
+             <entry>Äà, åñëè íå óêàçàí àòòðèáóò options</entry>
+             <entry><emphasis>n/a</emphasis></entry>
+             <entry>ìàññèâ çíà÷åíèé ýëåìåíòîâ âûáîðà</entry>
+         </row>
+         <row>
+             <entry>output</entry>
+             <entry>ìàññèâ</entry>
+             <entry>Äà, åñëè íå óêàçàí àòòðèáóò options</entry>
+             <entry><emphasis>n/a</emphasis></entry>
+             <entry>ìàññèâ íàçâàíèé ýëåìåíòîâ âûáîðà</entry>
+         </row>
+         <row>
+             <entry>checked</entry>
+             <entry>ñòðîêà (string)</entry>
+             <entry>Íåò</entry>
+             <entry><emphasis>ïóñòî</emphasis></entry>
+             <entry>Çíà÷åíèå âûáðàííîãî ýëåìåíòà</entry>
+         </row>
+         <row>
+             <entry>options</entry>
+             <entry>àññîöèàòèâíûé ìàññèâ</entry>
+             <entry>Äà, åñëè íå óêàçàíû àòòðèáóòû values è output</entry>
+             <entry><emphasis>n/a</emphasis></entry>
+             <entry>àññîöèàòèâíûé ìàññèâ çíà÷åíèé è íàçâàíèé 
+             ýëåìåíòîâ âûáîðà</entry>
+         </row>
+         <row>
+             <entry>separator</entry>
+             <entry>ñòðîêà (string)</entry>
+             <entry>Íåò</entry>
+             <entry><emphasis>ïóñòî</emphasis></entry>
+             <entry>òåêñò, ðàçäåëÿþùèé ýëåìåíòû âûáîðà</entry>
+         </row>
+     </tbody>
+     </tgroup>
+ </informaltable>
+ <para>
+  Ïîëüçîâàòåëüñÿêàÿ ôóíêöèÿ html_radios ãåíåðèðóåò HMTL êîä 
+  ãðóïïû ýëåìåíòîâ âûáîðà (radio button group). Àâòîìàòè÷åñêè
+  óñòàíàâëèâàåò âûáðàííîå çíà÷åíèå, åñëè îíî óêçàíî. Òðåáóåò 
+  íàëè÷èÿ àòòðèáóòîâ values è output èëè àòòðèáóòà options. 
+  Ñãåíåðèðîâàííûé HMTL êîä ñîâìåñòèì ñ XHTML.
+ </para>
+ <para>
+  Âñå ïàðàìåòðû, êîòîðûå íå óêàçàíû â òàáëèöå âûøå, ïåðåäàþòñÿ 
+  è âûâîäÿòñÿ âíóòðè êàæäîãî ñîçäàííîãî òýãà  &lt;input&gt;.
+ </para>
 
-<example>
-<title>html_radios</title>
-<programlisting>
-index.php:
+ <example>
+  <title>html_radios</title>
+  <programlisting>
+<![CDATA[
+ index.php:
 
-require('Smarty.php.class');
-$smarty = new Smarty;
-$smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
-$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Carlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
-
-
-index.tpl:
-
-{html_radios values=$cust_ids checked=$customer_id output=$cust_names separator="&lt;br /&gt;"}
+ require('Smarty.php.class');
+ $smarty = new Smarty;
+ $smarty->assign('cust_ids', array(1000,1001,1002,1003));
+ $smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
+ Johnson','Carlie Brown'));
+ $smarty->assign('customer_id', 1001);
+ $smarty->display('index.tpl');
 
 
-index.php:
+ index.tpl:
 
-require('Smarty.php.class');
-$smarty = new Smarty;
-$smarty-&gt;assign('cust_radios', array(
-			1001 =&gt; 'Joe Schmoe',
-			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson',
-			1004 =&gt; 'Charlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
+ {html_radios values=$cust_ids checked=$customer_id output=$cust_names separator="<br />"}
 
 
-index.tpl:
+ index.php:
 
-{html_radios name="id" options=$cust_radios checked=$customer_id separator="&lt;br /&gt;"}
+ require('Smarty.php.class');
+ $smarty = new Smarty;
+ $smarty->assign('cust_radios', array(
+    1001 => 'Joe Schmoe',
+    1002 => 'Jack Smith',
+    1003 => 'Jane Johnson',
+    1004 => 'Charlie Brown'));
+ $smarty->assign('customer_id', 1001);
+ $smarty->display('index.tpl');
 
 
-OUTPUT: (both examples)
+ index.tpl:
 
-&lt;input type="radio" name="id[]" value="1000"&gt;Joe Schmoe&lt;br /&gt;
-&lt;input type="radio" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
-&lt;input type="radio" name="id[]" value="1002"&gt;Jane Johnson&lt;br /&gt;
-&lt;input type="radio" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
-</example>
+ {html_radios name="id" options=$cust_radios checked=$customer_id separator="<br />"}
+
+
+ OUTPUT: (both examples)
+
+ <input type="radio" name="id[]" value="1000">Joe Schmoe<br />
+ <input type="radio" name="id[]" value="1001" checked="checked"><br />
+ <input type="radio" name="id[]" value="1002">Jane Johnson<br />
+ <input type="radio" name="id[]" value="1003">Charlie Brown<br />
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

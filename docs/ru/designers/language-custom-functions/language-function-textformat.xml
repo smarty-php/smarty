@@ -1,98 +1,101 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.textformat">
-			<title>textformat</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Èìÿ àòòðèáóòà</entry>
-                        <entry>Òèï</entry>
-                        <entry>Îáÿçàòåëåí</entry>       
-                        <entry>Ïî óìîë÷àíèþ</entry>
-                        <entry>Îïèñàíèå</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>style</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ïðåäóñòàíîâëåííûé ñòèëü</entry>
-                    </row>
-                    <row>
-                        <entry>indent</entry>
-                        <entry>number</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>0</emphasis></entry>
-                        <entry>îòñòóï ñòðîêè</entry>
-                    </row>
-                    <row>
-                        <entry>indent_first</entry>
-                        <entry>number</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>0</emphasis></entry>
-                        <entry>îòñòóï ïåðâîé ñòðîêè</entry>
-                    </row>
-                    <row>
-                        <entry>indent_char</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>(single space)</emphasis></entry>
-                        <entry>ñèìâîë, êîòîðûì çàïîëíÿåòüñÿ îòñòóï ñòðîê.</entry>
-                    </row>
-                    <row>
-                        <entry>wrap</entry>
-                        <entry>number</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>80</emphasis></entry>
-                        <entry>êîëè÷åñòâî ñèìâîëîâ â ñòðîêå</entry>
-                    </row>
-                    <row>
-                        <entry>wrap_char</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>\n</emphasis></entry>
-                        <entry>òåêñò, ðàçäåëÿþùèé êàæäóþ ñòðîêó</entry>
-                    </row>
-                    <row>
-                        <entry>wrap_cut</entry>
-                        <entry>ëîãè÷åñêèé (boolean)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>false</emphasis></entry>
-                        <entry>Ïåðåíîñèòü òåêñò ïî ñèìâîëàì (òî åñòü òî÷íî 
-                        ïî óêàçàííîé äëèíå ñòðîêè) (true), èëè ïî 
-                        ãðàíèöàì ñëîâ (false)</entry>
-                    </row>
-                    <row>
-                        <entry>assign</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ïåðåìåííàÿ øàáëîíà, êîòîðîé áóäåò ïðèñâîåí âûâîä</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			ôóíêöèÿ textformat èñïîëüçóåòüñÿ äëÿ ôîðìàòèðîâàíèÿ òåêñò, 
-			çàêëþ÷åííîãî âíòóðè åå. Â îñíîâíîì óáèðàåò ëèøíèå ïðîáåëû è 
-			ñïåöèàëüíûå ñèìâîëû, à òàê æå ôîðìàòèðóåò àáçàöû, äåëàåò îòñòóïû,
-			ïåðåíîñèò ñëîâà.
-			</para>
-			<para>
-			Ìîæíî óêàçûâàòü ïàðàìåòðû ÿâíî, èëè èñïîëüçîâàòü ïðåäóñòàíîâëåííûå ñòèëè.
-			Íà äàííûé ìîìåíò ñóùåñòâóåò òîëüêî ñòèëü "email".
-			</para>
-<example>
-<title>textformat</title>
-<programlisting>
+<sect1 id="language.function.textformat">
+ <title>textformat</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+  <colspec colname="param" align="center" />
+  <colspec colname="type" align="center" />
+  <colspec colname="required" align="center" />
+  <colspec colname="default" align="center" />
+  <colspec colname="desc" />
+  <thead>
+   <row>
+    <entry>Èìÿ àòòðèáóòà</entry>
+    <entry>Òèï</entry>
+    <entry>Îáÿçàòåëåí</entry>       
+    <entry>Ïî óìîë÷àíèþ</entry>
+    <entry>Îïèñàíèå</entry>
+   </row>
+  </thead>
+  <tbody>
+   <row>
+    <entry>style</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>ïðåäóñòàíîâëåííûé ñòèëü</entry>
+   </row>
+   <row>
+    <entry>indent</entry>
+    <entry>number</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>0</emphasis></entry>
+    <entry>îòñòóï ñòðîêè</entry>
+   </row>
+   <row>
+    <entry>indent_first</entry>
+    <entry>number</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>0</emphasis></entry>
+    <entry>îòñòóï ïåðâîé ñòðîêè</entry>
+   </row>
+   <row>
+    <entry>indent_char</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>(single space)</emphasis></entry>
+    <entry>ñèìâîë, êîòîðûì çàïîëíÿåòüñÿ îòñòóï ñòðîê.</entry>
+   </row>
+   <row>
+    <entry>wrap</entry>
+    <entry>number</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>80</emphasis></entry>
+    <entry>êîëè÷åñòâî ñèìâîëîâ â ñòðîêå</entry>
+   </row>
+   <row>
+    <entry>wrap_char</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>\n</emphasis></entry>
+    <entry>òåêñò, ðàçäåëÿþùèé êàæäóþ ñòðîêó</entry>
+   </row>
+   <row>
+    <entry>wrap_cut</entry>
+    <entry>ëîãè÷åñêèé (boolean)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>false</emphasis></entry>
+    <entry>
+     Ïåðåíîñèòü òåêñò ïî ñèìâîëàì (òî åñòü òî÷íî 
+     ïî óêàçàííîé äëèíå ñòðîêè) (true), èëè ïî 
+     ãðàíèöàì ñëîâ (false)
+    </entry>
+   </row>
+   <row>
+    <entry>assign</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>ïåðåìåííàÿ øàáëîíà, êîòîðîé áóäåò ïðèñâîåí âûâîä</entry>
+   </row>
+  </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  ôóíêöèÿ textformat èñïîëüçóåòüñÿ äëÿ ôîðìàòèðîâàíèÿ òåêñò, 
+  çàêëþ÷åííîãî âíòóðè åå. Â îñíîâíîì óáèðàåò ëèøíèå ïðîáåëû è 
+  ñïåöèàëüíûå ñèìâîëû, à òàê æå ôîðìàòèðóåò àáçàöû, äåëàåò îòñòóïû,
+  ïåðåíîñèò ñëîâà.
+ </para>
+ <para>
+  Ìîæíî óêàçûâàòü ïàðàìåòðû ÿâíî, èëè èñïîëüçîâàòü ïðåäóñòàíîâëåííûå ñòèëè.
+  Íà äàííûé ìîìåíò ñóùåñòâóåò òîëüêî ñòèëü "email".
+ </para>
+ <example>
+  <title>textformat</title>
+  <programlisting>
+<![CDATA[
 {textformat wrap=40}
 
 This is foo.
@@ -228,9 +231,9 @@ This is bar.
 bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
 bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
 foo.
-
-</programlisting>
-</example>
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,132 +1,135 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.html.options">
-			<title>html_options</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Èìÿ àòòðèáóòà</entry>
-                        <entry>Òèï</entry>
-                        <entry>Îáÿçàòåëåí</entry>       
-                        <entry>Ïî óìîë÷àíèþ</entry>
-                        <entry>Îïèñàíèå</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>values</entry>
-                        <entry>ìàññèâ</entry>
-                        <entry>Äà, åñëè íå óêàçàí àòòðèáóò options</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ìàññèâ çíà÷åíèé äëÿ âûïàäàþùåãî ñïèñêà</entry>
-                    </row>
-                    <row>
-                        <entry>output</entry>
-                        <entry>ìàññèâ</entry>
-                        <entry>Äà, åñëè íå óêàçàí àòòðèáóò options</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ìàññèâ íàçâàíèé äëÿ âûïàäàþùåãî ñïèñêà</entry>
-                    </row>
-                    <row>
-                        <entry>selected</entry>
-                        <entry>string/array</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>ïóñòî</emphasis></entry>
-                        <entry>Âûáðàííûé ýëåìåíò(û)</entry>
-                    </row>
-                    <row>
-                        <entry>options</entry>
-                        <entry>àññîöèàòèâíûé ìàññèâ</entry>
-                        <entry>Äà, åñëè íå óêàçàíû àòòðèáóòû values è output</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>àññîöèàòèâíûé ìàññèâ çíà÷åíèé è íàçâàíèé</entry>
-                    </row>
-                    <row>
-                        <entry>name</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry><emphasis>ïóñòî</emphasis></entry>
-                        <entry>Íàçâàíèå âûïàäàþùåãî ñïèñêà</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			ïîëüçîâàòåëüñêàÿ ôóíêöèÿ html_options ãåíåðèðóåò ãðóïïó html òýãîâ
-			option ïî óêàçàííîé èíôîðìàöèè. Òàêæå çàáîòèòñÿ î âûáðàííûõ ïî
-			óìîë÷àíèþ ýëåìåíòàõ. Àòòðèáóòû values è output îáÿçàòåëüíû, åñëè íå 
-			óêàçàí àòòðèáóò options.
-			</para>
-			<para>
-			Åñëè äàííîå çíà÷åíèå - ìàññèâ, òî îíî áóäåò ïðåäñòàâëåíî â âèäå
-			html OPTGROUP. Ðåêóðñèÿ ñ OPTGROUP ïîääåðæèâàåòñÿ. Âåñü âûâîä
-			ñîâìåñòèì ñ XHTML.
-			</para>
-			<para>
-			Åñëè óêàçàí íåîáÿçàòåëüíûé àòòðèáóò <emphasis>name</emphasis>,
-			òî ãðóïïà îïöèé çàêëþ÷èòñÿ â òýã &lt;select 
-			name="groupname"&gt; è &lt;/select&gt;, èíà÷å ñãåíåðèðóåòñÿ òîëüêî 
-			ãðóïïà îïöèé.
-			</para>
-			<para>
-			Âñå ïàðàìåòðû, êîòîðûå íå óêàçàíû âûøå, âûâîäÿòñÿ â âèäå
-			ïàðû name/value âíóòðè òýãà &lt;select&gt;-tag. Îíè èãíîðèðóþòñÿ,
-			åñëè àòòðèáóò <emphasis>name</emphasis> íå óêàçàí.
-			</para>
-<example>
-<title>html_options</title>
-<programlisting>
-index.php:
+<sect1 id="language.function.html.options">
+ <title>html_options</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+  <colspec colname="param" align="center" />
+  <colspec colname="type" align="center" />
+  <colspec colname="required" align="center" />
+  <colspec colname="default" align="center" />
+  <colspec colname="desc" />
+  <thead>
+   <row>
+    <entry>Èìÿ àòòðèáóòà</entry>
+    <entry>Òèï</entry>
+    <entry>Îáÿçàòåëåí</entry>       
+    <entry>Ïî óìîë÷àíèþ</entry>
+    <entry>Îïèñàíèå</entry>
+   </row>
+  </thead>
+  <tbody>
+   <row>
+    <entry>values</entry>
+    <entry>ìàññèâ</entry>
+    <entry>Äà, åñëè íå óêàçàí àòòðèáóò options</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>ìàññèâ çíà÷åíèé äëÿ âûïàäàþùåãî ñïèñêà</entry>
+   </row>
+   <row>
+    <entry>output</entry>
+    <entry>ìàññèâ</entry>
+    <entry>Äà, åñëè íå óêàçàí àòòðèáóò options</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>ìàññèâ íàçâàíèé äëÿ âûïàäàþùåãî ñïèñêà</entry>
+   </row>
+   <row>
+    <entry>selected</entry>
+    <entry>string/array</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>ïóñòî</emphasis></entry>
+    <entry>Âûáðàííûé ýëåìåíò(û)</entry>
+   </row>
+   <row>
+    <entry>options</entry>
+    <entry>àññîöèàòèâíûé ìàññèâ</entry>
+    <entry>Äà, åñëè íå óêàçàíû àòòðèáóòû values è output</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>àññîöèàòèâíûé ìàññèâ çíà÷åíèé è íàçâàíèé</entry>
+   </row>
+   <row>
+    <entry>name</entry>
+    <entry>ñòðîêà (string)</entry>
+    <entry>Íåò</entry>
+    <entry><emphasis>ïóñòî</emphasis></entry>
+    <entry>Íàçâàíèå âûïàäàþùåãî ñïèñêà</entry>
+   </row>
+  </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  ïîëüçîâàòåëüñêàÿ ôóíêöèÿ html_options ãåíåðèðóåò ãðóïïó html òýãîâ
+  option ïî óêàçàííîé èíôîðìàöèè. Òàêæå çàáîòèòñÿ î âûáðàííûõ ïî
+  óìîë÷àíèþ ýëåìåíòàõ. Àòòðèáóòû values è output îáÿçàòåëüíû, åñëè íå 
+  óêàçàí àòòðèáóò options.
+ </para>
+ <para>
+  Åñëè äàííîå çíà÷åíèå - ìàññèâ, òî îíî áóäåò ïðåäñòàâëåíî â âèäå
+  html OPTGROUP. Ðåêóðñèÿ ñ OPTGROUP ïîääåðæèâàåòñÿ. Âåñü âûâîä
+  ñîâìåñòèì ñ XHTML.
+ </para>
+ <para>
+  Åñëè óêàçàí íåîáÿçàòåëüíûé àòòðèáóò <emphasis>name</emphasis>,
+  òî ãðóïïà îïöèé çàêëþ÷èòñÿ â òýã &lt;select 
+  name="groupname"&gt; è &lt;/select&gt;, èíà÷å ñãåíåðèðóåòñÿ òîëüêî 
+  ãðóïïà îïöèé.
+ </para>
+ <para>
+  Âñå ïàðàìåòðû, êîòîðûå íå óêàçàíû âûøå, âûâîäÿòñÿ â âèäå
+  ïàðû name/value âíóòðè òýãà &lt;select&gt;-tag. Îíè èãíîðèðóþòñÿ,
+  åñëè àòòðèáóò <emphasis>name</emphasis> íå óêàçàí.
+ </para>
+ <example>
+  <title>html_options</title>
+  <programlisting>
+<![CDATA[
+ index.php:
 
-require('Smarty.php.class');
-$smarty = new Smarty;
-$smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
-$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Carlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
+ require('Smarty.php.class');
+ $smarty = new Smarty;
+ $smarty->assign('cust_ids', array(1000,1001,1002,1003));
+ $smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
+ Johnson','Carlie Brown'));
+ $smarty->assign('customer_id', 1001);
+ $smarty->display('index.tpl');
 
-index.tpl:
+ index.tpl:
 
-&lt;select name=customer_id&gt;
-	{html_options values=$cust_ids selected=$customer_id output=$cust_names}
-&lt;/select&gt;
-
-
-index.php:
-
-require('Smarty.php.class');
-$smarty = new Smarty;
-$smarty-&gt;assign('cust_options', array(
-			1001 =&gt; 'Joe Schmoe',
-			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson',
-			1004 =&gt; 'Charlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-&lt;select name=customer_id&gt;
-	{html_options options=$cust_options selected=$customer_id}
-&lt;/select&gt;
+ <select name=customer_id>
+  {html_options values=$cust_ids selected=$customer_id output=$cust_names}
+ </select>
 
 
-OUTPUT: (both examples)
+ index.php:
 
-&lt;select name=customer_id&gt;
-	&lt;option value="1000"&gt;Joe Schmoe&lt;/option&gt;
-	&lt;option value="1001" selected="selected"&gt;Jack Smith&lt;/option&gt;
-	&lt;option value="1002"&gt;Jane Johnson&lt;/option&gt;
-	&lt;option value="1003"&gt;Charlie Brown&lt;/option&gt;
-&lt;/select&gt;</programlisting>
-</example>
+ require('Smarty.php.class');
+ $smarty = new Smarty;
+ $smarty->assign('cust_options', array(
+    1001 => 'Joe Schmoe',
+    1002 => 'Jack Smith',
+    1003 => 'Jane Johnson',
+    1004 => 'Charlie Brown'));
+ $smarty->assign('customer_id', 1001);
+ $smarty->display('index.tpl');
+
+ index.tpl:
+
+ <select name=customer_id>
+  {html_options options=$cust_options selected=$customer_id}
+ </select>
+
+
+ OUTPUT: (both examples)
+
+ <select name=customer_id>
+  <option value="1000">Joe Schmoe</option>
+  <option value="1001" selected="selected">Jack Smith</option>
+  <option value="1002">Jane Johnson</option>
+  <option value="1003">Charlie Brown</option>
+ </select>
+]]>  
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
