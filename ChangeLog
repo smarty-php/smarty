@@ -1,3 +1,12 @@
+2002-04-04  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml: update doc error
+
+    * docs/designers.sgml
+      plugins/modifier.escape.php
+      NEWS
+      Smarty.class.php: added htmlall attribute to escape modifier
+
 2002-04-03  Andrei Zmievski  <andrei@php.net>
 
     * Smarty_Compiler.class.php: Fixed undefined offset warning in {if} tag.
