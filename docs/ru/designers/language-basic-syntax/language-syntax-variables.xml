@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.variables">
  <title>Переменные</title>
  <para>
@@ -18,12 +18,22 @@
 {$foo}        <-- отображение простой переменной (не массив и не объект)
 {$foo[4]}     <-- отображает 5-й элемент числового массива
 {$foo.bar}    <-- отображает значение ключа "bar" ассоциативного массива, подобно PHP $foo['bar']
-{$foo.$bar}   <-- отображает значение ключа массива; имя ключа указано в переменной $bar
+{$foo.$bar}   <-- отображает значение переменного ключа массива, подобно PHP $foo[$bar]
 {$foo->bar}   <-- отображает свойство "bar" объекта
 {$foo->bar()} <-- отображает возвращаемое значение метода "bar" объекта
 {#foo#}       <-- отображает переменную "foo" конфигурационного файла
 {$smarty.config.foo} <-- синоним для {#foo#}
 {$foo[bar]}   <-- синтаксис доступен только в цикле section, см. {section}
+
+Также доступно множество других комбинаций
+
+{$foo.bar.baz}
+{$foo.$bar.$baz}
+{$foo[4].baz}
+{$foo[4].$baz}
+{$foo.bar.baz[4]}
+{$foo->bar($baz,2,$bar)} <-- передача параметра
+{"foo"}       <-- статические значения также разрешены
 ]]>
   </programlisting>
  </example>
