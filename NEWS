@@ -10,6 +10,8 @@
   - allow spaces in literal tags (Paul Lockaby, Monte)
   - speed up compiled templates, hardcode plugin filepaths
     instead of dynamically calculate at runtime. (Monte)
+  - move many core components from Smarty.class.php into plugins
+    (monte)
   - fixed bug in _create_dir_structure() when used with open_basedir-
     restriction and relative paths (messju)
   - use DIRECTORY_SEPARATOR exclusively, keep DIR_SEP for BC (Monte)
@@ -18,13 +20,10 @@
   - html_image always renders an alt-tag now (default alt="") (messju)
   - fixed assign attribute for multiple counters (messju)
   - added simple math operators to variables (Monte)
-  - reverted patch for case-insensitive tag-names (messju)
   - enabled array(&$obj. 'source', 'timestamp', 'secure', 'trusted')
     as callback for register_resource() (messju);
   - enabled array(&$obj, 'method') as callback for
     $default_template_handler_func (messju)
-  - made plugin-names case-insensitive. this affects compiler/block/custom-
-    functions and modifers. (messju)
   - remove unnecessary close/open tags from compiled templates
     (Monte)
   - fixed errornous creation of '//' in image_path in html_image (messju)
