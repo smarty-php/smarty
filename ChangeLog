@@ -1,3 +1,10 @@
+2004-03-11  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.assemble_plugin_filepath.php:
+      fixed little bug that prevented plugins filepaths that are found in
+      php's include_path (and not in one of the plugins_dirs) from being
+      cached in the internal plugins-filepath-cache
+
 2004-03-01  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml:
