@@ -12,3 +12,4 @@
 * think about possibility of supporting something like {$data[foo].{$key[bar]}}
 * allow {custom} .. {/custom} style of custom functions
 * ability to concatenate values/strings together
+* don't load globals more than once from the same config file
