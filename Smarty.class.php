@@ -904,7 +904,6 @@ function _is_trusted($resource_type, $resource_name)
 \*======================================================================*/
     function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source=true)
     {
-
         $_return = false;
 		if($this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name)) {
         	switch ($resource_type) {
@@ -936,7 +935,7 @@ function _is_trusted($resource_type, $resource_name)
                     $_return = false;
 				}
 				$funcname = $this->default_template_handler_func;
-				$_return = $funcname($resource_type, $resource_name, $template_source, $template_timestamp, $this);
+				$_return = $funcname($tpl_path, $template_source, $template_timestamp, $this);
 			}			
 		}
 		
