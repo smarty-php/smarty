@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-    <chapter id="language.modifiers">
-     <title>Modificateurs de variables</title>
-     <para>
-      Les modificateurs de variables peuvent être appliqués aux variables,
-      fonctions utilisateurs ou chaînes de caractères. Pour appliquer un modificateur
-      de variable, tappez une valeure suivie de <literal>|</literal>
-      (pipe) et du nom du modificateur. Un modificateur de variable
-      est succeptible d'accepter des paramètres additionnels, qui en affectent
-      le comportement. Ces paramètres suivent le nom du modificateur et
-      sont séparés par un <literal>:</literal> (deux points).
-     </para>
-     <example>
-      <title>Exemple de modificateur</title>
-      <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<chapter id="language.modifiers">
+ <title>Modificateurs de variables</title>
+ <para>
+  Les modificateurs de variables peuvent être appliqués aux variables,
+  fonctions utilisateurs ou chaînes de caractères. Pour appliquer un modificateur
+  de variable, tappez une valeure suivie de <literal>|</literal>
+  (pipe) et du nom du modificateur. Un modificateur de variable
+  est succeptible d'accepter des paramètres additionnels, qui en affectent
+  le comportement. Ces paramètres suivent le nom du modificateur et
+  sont séparés par un <literal>:</literal> (deux points).
+ </para>
+ <example>
+  <title>Exemple de modificateur</title>
+  <programlisting>
+<![CDATA[
 {* Met le titre en majuscule *}
-&lt;h2&gt;{$title|upper}&lt;/h2&gt;
+<h2>{$title|upper}</h2>
 
 {* Tronque le sujet à 40 caractères,  place des "..." à la fin *}
 Sujet: {$sujet|truncate:40:"..."}
@@ -24,38 +26,40 @@ Sujet: {$sujet|truncate:40:"..."}
 {"now"|date_format:"%Y/%m/%d"}
 
 {* application d'un modificateur à une fonction utilisateur *}
-{mailto|upper address="me@domain.dom"}</programlisting>
-     </example>
-     <para>
-      Si vous appliquez un modificateur de variable à un tableau plutôt qu'à une
-      variable simple, le modificateur sera appliqué à chaque valeur du tableau.
-      Si vous souhaitez que le modificateur travaille réellement avec le tableau
-      en tant que tel, vous devez préfixer le nom du modificateur avec un symbole
-      <literal>@</literal> comme ceci: <literal>{$titreArticle|@count}</literal>
-      (Affiche le nombre d'élements du tableau $titreArticle.)
-     </para>
-
-&designers.language-modifiers.language-modifier-capitalize;
-&designers.language-modifiers.language-modifier-count-characters;
-&designers.language-modifiers.language-modifier-cat;
-&designers.language-modifiers.language-modifier-count-paragraphs;
-&designers.language-modifiers.language-modifier-count-sentences;
-&designers.language-modifiers.language-modifier-count-words;
-&designers.language-modifiers.language-modifier-date-format;
-&designers.language-modifiers.language-modifier-default;
-&designers.language-modifiers.language-modifier-escape;
-&designers.language-modifiers.language-modifier-indent;
-&designers.language-modifiers.language-modifier-lower;
-&designers.language-modifiers.language-modifier-nl2br;
-&designers.language-modifiers.language-modifier-regex-replace;
-&designers.language-modifiers.language-modifier-replace;
-&designers.language-modifiers.language-modifier-spacify;
-&designers.language-modifiers.language-modifier-string-format;
-&designers.language-modifiers.language-modifier-strip;
-&designers.language-modifiers.language-modifier-strip-tags;
-&designers.language-modifiers.language-modifier-truncate;
-&designers.language-modifiers.language-modifier-upper;
-&designers.language-modifiers.language-modifier-wordwrap;
+{mailto|upper address="me@domain.dom"}
+]]>
+  </programlisting>
+ </example>
+ <para>
+  Si vous appliquez un modificateur de variable à un tableau plutôt qu'à une
+  variable simple, le modificateur sera appliqué à chaque valeur du tableau.
+  Si vous souhaitez que le modificateur travaille réellement avec le tableau
+  en tant que tel, vous devez préfixer le nom du modificateur avec un symbole
+  <literal>@</literal> comme ceci: <literal>{$titreArticle|@count}</literal>
+  (Affiche le nombre d'élements du tableau $titreArticle.)
+ </para>
+ 
+ &designers.language-modifiers.language-modifier-capitalize;
+ &designers.language-modifiers.language-modifier-count-characters;
+ &designers.language-modifiers.language-modifier-cat;
+ &designers.language-modifiers.language-modifier-count-paragraphs;
+ &designers.language-modifiers.language-modifier-count-sentences;
+ &designers.language-modifiers.language-modifier-count-words;
+ &designers.language-modifiers.language-modifier-date-format;
+ &designers.language-modifiers.language-modifier-default;
+ &designers.language-modifiers.language-modifier-escape;
+ &designers.language-modifiers.language-modifier-indent;
+ &designers.language-modifiers.language-modifier-lower;
+ &designers.language-modifiers.language-modifier-nl2br;
+ &designers.language-modifiers.language-modifier-regex-replace;
+ &designers.language-modifiers.language-modifier-replace;
+ &designers.language-modifiers.language-modifier-spacify;
+ &designers.language-modifiers.language-modifier-string-format;
+ &designers.language-modifiers.language-modifier-strip;
+ &designers.language-modifiers.language-modifier-strip-tags;
+ &designers.language-modifiers.language-modifier-truncate;
+ &designers.language-modifiers.language-modifier-upper;
+ &designers.language-modifiers.language-modifier-wordwrap;
 
 </chapter>
 <!-- Keep this comment at the end of the file

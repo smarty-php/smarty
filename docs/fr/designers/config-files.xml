@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
   <chapter id="config.files">
    <title>Fichiers de configuration</title>
    <para>
@@ -14,6 +15,7 @@
    <example>
     <title>Exemple de fichier de configuration</title>
     <programlisting>
+<![CDATA[
 # variables globales
 titrePage = "Menu principal"
 bodyBgColor = #000000
@@ -35,7 +37,9 @@ Intro = """Une valeur qui tient sur
 host=mon.domaine.com
 db=ADDRESSBOOK
 user=php-user
-pass=foobar</programlisting>
+pass=foobar
+]]>
+    </programlisting>
    </example>
    <para>
     Les valeurs des variables de fichiers de configuration peuvent être entre
@@ -73,7 +77,7 @@ pass=foobar</programlisting>
     êtes sûr que ces derniers n'accèderont pas à ces données de configuration
     en les chargeant depuis le template.
    </para>
-</chapter>
+  </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

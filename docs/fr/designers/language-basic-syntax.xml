@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
   <chapter id="language.basic.syntax">
    <title>Bases syntaxiques</title>
    <para>
@@ -15,15 +16,12 @@
     appropriée, en lieu et place.
    </para>
 
-&designers.language-basic-syntax.language-syntax-comments;
-
-&designers.language-basic-syntax.language-syntax-functions;
-
-&designers.language-basic-syntax.language-syntax-attributes;
-&designers.language-basic-syntax.language-syntax-quotes;
-&designers.language-basic-syntax.language-math;
-
-&designers.language-basic-syntax.language-escaping;
+   &designers.language-basic-syntax.language-syntax-comments;
+   &designers.language-basic-syntax.language-syntax-functions;
+   &designers.language-basic-syntax.language-syntax-attributes;
+   &designers.language-basic-syntax.language-syntax-quotes;
+   &designers.language-basic-syntax.language-math;
+   &designers.language-basic-syntax.language-escaping;
 
 </chapter>
 <!-- Keep this comment at the end of the file

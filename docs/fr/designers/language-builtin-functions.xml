@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-    <chapter id="language.builtin.functions">
-     <title>Fonctions natives</title>
-     <para>
-      Smarty est fourni en standard avec plusieurs fonctions natives.
-      Les fonctions natives sont partie intégrante du language de template.
-      Vous ne pouvez pas créer de fonctions utilisateurs qui portent le même nom
-      qu'une fonction native. Vous ne pouvez pas non plus en modifier le
-      comportement.
-     </para>
-&designers.language-builtin-functions.language-function-capture;
-&designers.language-builtin-functions.language-function-config-load;
-&designers.language-builtin-functions.language-function-foreach;
-&designers.language-builtin-functions.language-function-include;
-&designers.language-builtin-functions.language-function-include-php;
-&designers.language-builtin-functions.language-function-insert;
-&designers.language-builtin-functions.language-function-if;
-&designers.language-builtin-functions.language-function-ldelim;
-&designers.language-builtin-functions.language-function-literal;
-&designers.language-builtin-functions.language-function-php;
-&designers.language-builtin-functions.language-function-section;
-&designers.language-builtin-functions.language-function-strip;
-</chapter>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+ <chapter id="language.builtin.functions">
+  <title>Fonctions natives</title>
+  <para>
+   Smarty est fourni en standard avec plusieurs fonctions natives.
+   Les fonctions natives sont partie intégrante du language de template.
+   Vous ne pouvez pas créer de fonctions utilisateurs qui portent le même nom
+   qu'une fonction native. Vous ne pouvez pas non plus en modifier le
+   comportement.
+  </para>
+
+  &designers.language-builtin-functions.language-function-capture;
+  &designers.language-builtin-functions.language-function-config-load;
+  &designers.language-builtin-functions.language-function-foreach;
+  &designers.language-builtin-functions.language-function-include;
+  &designers.language-builtin-functions.language-function-include-php;
+  &designers.language-builtin-functions.language-function-insert;
+  &designers.language-builtin-functions.language-function-if;
+  &designers.language-builtin-functions.language-function-ldelim;
+  &designers.language-builtin-functions.language-function-literal;
+  &designers.language-builtin-functions.language-function-php;
+  &designers.language-builtin-functions.language-function-section;
+  &designers.language-builtin-functions.language-function-strip;
+  
+ </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

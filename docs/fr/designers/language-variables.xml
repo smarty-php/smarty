@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <chapter id="language.variables">
-   <title>Variables</title>
-   <para>
-   Smarty possède différents types de variables. Le type de ces variables dépend
-   du symbole qui les préfixe, ou des symboles qui les entourent.
-   </para>
-   
-   <para>
-    Les variables de Smarty peuvent être soit affichées directement, soit utilisées
-    comme arguments pour les fonctions et modificateurs, à l'intérieur d'expressions
-    conditionnelles, etc.
-    Pour afficher une variable, il suffit de l'entourer par des délimiteurs de
-    telle sorte qu'elle soit la seule chose qu'ils contiennent. Exemple :
-    <programlisting>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<chapter id="language.variables">
+ <title>Variables</title>
+ <para>
+  Smarty possède différents types de variables. Le type de ces variables dépend
+  du symbole qui les préfixe, ou des symboles qui les entourent.
+ </para>
+ <para>
+  Les variables de Smarty peuvent être soit affichées directement, soit utilisées
+  comme arguments pour les fonctions et modificateurs, à l'intérieur d'expressions
+  conditionnelles, etc.
+  Pour afficher une variable, il suffit de l'entourer par des délimiteurs de
+  telle sorte qu'elle soit la seule chose qu'ils contiennent. Exemple :
+  <programlisting>
+<![CDATA[
 {$Nom}
 
 {$Contacts[enreg].Telephone}
 
-&lt;body bgcolor="{#bgcolor#}"&gt;</programlisting>
-   </para>
+<body bgcolor="{#bgcolor#}">
+]]>
+  </programlisting>
+ </para>
 
-&designers.language-variables.language-assigned-variables;
-
-&designers.language-variables.language-config-variables;
-
-&designers.language-variables.language-variables-smarty;
+ &designers.language-variables.language-assigned-variables;
+ &designers.language-variables.language-config-variables;
+ &designers.language-variables.language-variables-smarty;
+ 
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

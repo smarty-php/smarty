@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
   <chapter id="chapter.debugging.console">
    <title>Console de débogage</title>
    <para>
-   Il existe une console de débogage dans Smarty. La console vous indique
-   toutes les variables incluses, assignées et chargées depuis un fichier de
-   configuration pour le template courant. Un template appelé "debug.tpl"
-   est inclus dans la distribution de Smarty. Si besoin, vous pouvez définir
-   $debug_tpl de façon à ce que ce dernier contienne le chemin
-   du template à utiliser(dans SMARTY_DIR par defaut).
-   Lorsque vous chargez la page, une console javascript est censée surgir
-   et vous donner les noms de toutes les variables inclues et assignées dans
-   votre page courante. Pour voir toutes les variables d'un template particulier,
-   voir la fonction <link linkend="language.function.debug">{debug}</link>.
-   Pour désactiver la console de débogage, définissez $debugging à false.
-   Vous pouvez également temporairement activer le débogage en indiquant
-   SMARTY_DEBUG dans l'url si tant est que l'option
-   <link
-	linkend="variable.debugging.ctrl">$debugging_ctrl</link> soit activée.
-    </para>
+    Il existe une console de débogage dans Smarty. La console vous indique
+    toutes les variables incluses, assignées et chargées depuis un fichier de
+    configuration pour le template courant. Un template appelé "debug.tpl"
+    est inclus dans la distribution de Smarty. Si besoin, vous pouvez définir
+    $debug_tpl de façon à ce que ce dernier contienne le chemin
+    du template à utiliser(dans SMARTY_DIR par defaut).
+    Lorsque vous chargez la page, une console javascript est censée surgir
+    et vous donner les noms de toutes les variables inclues et assignées dans
+    votre page courante. Pour voir toutes les variables d'un template particulier,
+    voir la fonction <link linkend="language.function.debug">{debug}</link>.
+    Pour désactiver la console de débogage, définissez $debugging à false.
+    Vous pouvez également temporairement activer le débogage en indiquant
+    SMARTY_DEBUG dans l'url si tant est que l'option
+    <link linkend="variable.debugging.ctrl">$debugging_ctrl</link> soit activée.
+   </para>
    <note>
     <title>Note technique</title>
     <para>
@@ -38,7 +38,7 @@
      indiqués en secondes.
     </para>
    </note>
-</chapter>
+  </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
