@@ -600,11 +600,14 @@ class Smarty
 
         $compile_path = $this->_get_compile_path($_smarty_tpl_file);
 
-		if ($this->security && $this->_is_trusted($_smarty_tpl_file)) {
+		
+		$_smarty_trusted = false;
+		if ($this->security) {
+			$this->_parse_tpl_path($_smarty_tpl_file, $resource_type, $resource_name);
+			if ($this->_is_trusted($resource_type, $resource_name)) {
 			$_smarty_trusted = true;
 			$this->security = false;
-		} else {
-			$_smarty_trusted = false;
+			}
 		}
         // if we just need to display the results, don't perform output
         // buffering - for speed
@@ -615,13 +618,7 @@ class Smarty
                 if ($this->show_info_include) {
                     echo "\n<!-- SMARTY_BEGIN: ".$_smarty_tpl_file." -->\n";
                 }
-				if ($this->security && $this->_is_trusted($_smarty_tpl_file)) {
-					$this->security = false;
-                	include($compile_path);
-					$this->security = true;
-				} else {					
-                	include($compile_path);
-				}
+                include($compile_path);
                 if ($this->show_info_include) {
                     echo "\n<!-- SMARTY_END: ".$_smarty_tpl_file." -->\n";
                 }
@@ -735,40 +732,21 @@ function _generate_debug_output() {
     Purpose:	determins if a template is trusted or not. If trusted,
 				$security is disabled during its execution.
 \*======================================================================*/
-function _is_trusted($tpl_file) {
-
-	static $_trusted_tpls = array();
-
-	if (in_array($tpl_file, $_trusted_tpls)) {
-		return true;
-	}
+function _is_trusted($resource_type, $resource_name) {
 
 	$_smarty_trusted = false;
 	if ($this->security && !empty($this->trusted_dir)) {
 		// see if template file is within a trusted directory. If so,
 		// disable security during the execution of the template.
 
-		// if template is on local file system, check if trusted
-		$tpl_path_parts = explode(':', $tpl_file, 2);
-        if (count($tpl_path_parts) == 1) {
-            // no resource type, treat as type "file"
-            $resource_type = 'file';
-            $resource_name = $tpl_path_parts[0];
-        } else {
-            $resource_type = $tpl_path_parts[0];
-            $resource_name = $tpl_path_parts[1];
-        }
 		if ($resource_type == 'file') {
- 			if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
-                // relative pathname to $template_dir
-                $resource_name = $this->template_dir.'/'.$resource_name;   
-            }
             foreach ($this->trusted_dir as $curr_dir) {
-                if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-                    $_smarty_trusted = true;
-					$_trusted_tpls[] = $tpl_file;
-                    break;
-                }
+				if ( !empty($curr_dir) && is_readable ($curr_dir)) {				
+                	if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                    	$_smarty_trusted = true;
+                    	break;
+                	}
+				}
             }				
 		} else {
 			// resource is not on local file system
@@ -782,40 +760,24 @@ function _is_trusted($tpl_file) {
     Function:   _is_secure()
     Purpose:	determins if a template is secure or not.
 \*======================================================================*/
-function _is_secure($tpl_file) {
+	function _is_secure($resource_type, $resource_name) {
 	
-	static $_secure_tpls = array();
-
-	if (!$this->security || $this->security_settings['INCLUDE_ANY'] || in_array($tpl_file, $_secure_tpls)) {
+	if (!$this->security || $this->security_settings['INCLUDE_ANY']) {
 		return true;
 	}
 
 	$_smarty_secure = false;
-	// if template is on local file system, check if secure
-	$tpl_path_parts = explode(':', $tpl_file, 2);
-    if (count($tpl_path_parts) == 1) {
-        // no resource type, treat as type "file"
-        $resource_type = 'file';
-        $resource_name = $tpl_path_parts[0];
-    } else {
-        $resource_type = $tpl_path_parts[0];
-        $resource_name = $tpl_path_parts[1];
-    }
-
 	if ($resource_type == 'file') {
 			if (!empty($this->secure_dir)) {
- 				if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
-                    // relative pathname to $template_dir
-                    $resource_name = $this->template_dir.'/'.$resource_name;   
-                }				
 				foreach ($this->secure_dir as $curr_dir) {
-                	if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-                    	$_smarty_secure = true;
-						$_secure_tpls[] = $tpl_file;
-                    	break;
-                }
+					if ( !empty($curr_dir) && is_readable ($curr_dir)) {
+                		if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                    		$_smarty_secure = true;
+                    		break;
+						}
+					}
+                }				
 			}
-		}				
 	} else {
 		// resource is not on local file system
 		$_smarty_secure = true;
@@ -907,17 +869,10 @@ function _is_secure($tpl_file) {
     }
 
 /*======================================================================*\
-    Function:   _fetch_template_info()
-    Purpose:    fetch the template info. Gets timestamp, and source
-                if get_source is true
+    Function:   _parse_tpl_path
+    Purpose:	parse out the type and name from the template resource
 \*======================================================================*/
-    function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source=true)
-    {
-        if ($this->security && !$this->_is_secure($tpl_path) && !$this->_is_trusted($tpl_path)) {
-            $this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
-            return false;
-        }
-
+function _parse_tpl_path($tpl_path, &$resource_type, &$resource_name) {
         // split tpl_path by the first colon
         $tpl_path_parts = explode(':', $tpl_path, 2);
 
@@ -930,12 +885,27 @@ function _is_secure($tpl_file) {
             $resource_name = $tpl_path_parts[1];
         }
 
+		if ($resource_type == 'file') {		
+        	if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
+            	// relative pathname to $template_dir
+            	$resource_name = $this->template_dir.'/'.$resource_name;
+        	}
+		}
+}	
+	
+	
+/*======================================================================*\
+    Function:   _fetch_template_info()
+    Purpose:    fetch the template info. Gets timestamp, and source
+                if get_source is true
+\*======================================================================*/
+    function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source=true)
+    {
+
+		$this->_parse_tpl_path($tpl_path, $resource_type, $resource_name);
+		
         switch ($resource_type) {
             case 'file':
-                if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
-                    // relative pathname to $template_dir
-                    $resource_name = $this->template_dir.'/'.$resource_name;
-                }
                 if (file_exists($resource_name) && is_readable($resource_name)) {
                     if ($get_source) {
                         $template_source = $this->_read_file($resource_name);
@@ -944,9 +914,17 @@ function _is_secure($tpl_file) {
                 } else {
                     $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
                     return false;
-                }
+                }				
+        		if ($this->security && !$this->_is_secure($resource_type, $resource_name) && !$this->_is_trusted($resource_type, $resource_name)) {
+            		$this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
+            		return false;
+        		}
                 break;
             default:
+        		if ($this->security && !$this->_is_secure($resource_type, $resource_name) && !$this->_is_trusted($resource_type, $resource_name)) {
+            		$this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
+            		return false;
+        		}
                 if (isset($this->resource_funcs[$resource_type])) {
                     $funcname = $this->resource_funcs[$resource_type];
                     if (function_exists($funcname)) {
@@ -1023,7 +1001,8 @@ function _is_secure($tpl_file) {
         array_unshift($this->_config, $this->_config[0]);
         $compile_path = $this->_get_compile_path($_smarty_include_tpl_file);
 
-		if ($this->security && $this->_is_trusted($_smarty_include_tpl_file)) {
+		$this->_parse_tpl_path($_smarty_include_tpl_file, $resource_type, $resource_name);
+		if ($this->security && $this->_is_trusted($resource_type, $resource_name)) {
 			$_smarty_trusted = true;
 			$this->security = false;
 		} else {
