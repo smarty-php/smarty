@@ -714,9 +714,13 @@ class Smarty_Compiler extends Smarty {
                        "    {$section_props}['start'] = min({$section_props}['start'], {$section_props}['step'] > 0 ? {$section_props}['loop'] : {$section_props}['loop']-1);\n";
         }
 
-        $output .= "if ({$section_props}['show']) {\n" .
-                   "    {$section_props}['total'] = min(ceil(({$section_props}['step'] > 0 ? {$section_props}['loop'] - {$section_props}['start'] : {$section_props}['start']+1)/abs({$section_props}['step'])), {$section_props}['max']);\n" .
-                   "    if ({$section_props}['total'] == 0)\n" .
+        $output .= "if ({$section_props}['show']) {\n";
+        if (!isset($attrs['start']) && !isset($attrs['step']) && !isset($attrs['max'])) {
+            $output .= "    {$section_props}['total'] = {$section_props}['loop'];\n";
+        } else {
+            $output .= "    {$section_props}['total'] = min(ceil(({$section_props}['step'] > 0 ? {$section_props}['loop'] - {$section_props}['start'] : {$section_props}['start']+1)/abs({$section_props}['step'])), {$section_props}['max']);\n";
+        }
+        $output .= "    if ({$section_props}['total'] == 0)\n" .
                    "        {$section_props}['show'] = false;\n" .
                    "} else\n" .
                    "    {$section_props}['total'] = 0;\n";
