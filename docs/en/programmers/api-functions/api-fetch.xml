@@ -21,18 +21,7 @@
    cache id. See the <link linkend="caching">caching
    section</link> for more information.
   </para>
-  <para>
-   As an optional third parameter, you can pass a compile id. This
-   is in the event that you want to compile different versions of
-   the same template, such as having separate templates compiled
-   for different languages. Another use for compile_id is when you
-   use more than one $template_dir but only one $compile_dir. Set
-   a separate compile_id for each $template_dir, otherwise
-   templates of the same name will overwrite each other. You can
-   also set the <link
-   linkend="variable.compile.id">$compile_id</link> variable once
-   instead of passing this to each call to fetch().
-  </para>
+  &parameter.compileid;
   <para>
    <example>
     <title>fetch</title>
