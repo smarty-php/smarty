@@ -60,7 +60,7 @@ $smarty->display('index.tpl');
    </para>
    <programlisting>
 <![CDATA[
-Time Remaining: {remain endtime=$obj->endtime}
+Time Remaining: {remaining endtime=$obj->endtime}
 ]]>
    </programlisting>
    <para>
