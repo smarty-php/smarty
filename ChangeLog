@@ -1,3 +1,14 @@
+2004-06-08  gerald croes  <gerald@phpside.org>
+
+    * docs/fr/translation.xml:
+      Add other translators.
+
+2004-06-08  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      made the correct value of "use_sub_dirs" available to the compiler.
+      (not worth a NEWS-entry, i think)
+
 2004-06-01  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.fetch.php:
