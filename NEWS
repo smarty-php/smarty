@@ -1,3 +1,6 @@
+    - added many more options to html_select_date. (Alexander Skwar, Andrei)
+    - added support for generating different compiled templates from the same
+      source template. (Hans-Peter Oeri, Andrei)
     - modified Smarty to pass itself to insert functions as the second
       parameter. (Andrei)
     - modified Smarty to pass itself to prefilter functions as the second
