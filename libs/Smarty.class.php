@@ -1674,17 +1674,22 @@ function _run_insert_handler($args)
 
             if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $_plugin_dir)) {
                 // relative path
+				$_relative = true;
             	$_plugin_filepath = SMARTY_DIR . $_plugin_filepath;				
+			} else {
+				$_relative = false;
 			}
 
             if (@is_readable($_plugin_filepath)) {
                 return $_plugin_filepath;
             }
 
-        	// didn't find it try include path
-        	if ($this->_get_include_path($_plugin_dir . DIR_SEP . $_plugin_filename, $_include_filepath)) {
-            	return $_include_filepath;
-        	}
+        	// didn't find it, try include path
+			if($_relative) {
+        		if ($this->_get_include_path($_plugin_dir . DIR_SEP . $_plugin_filename, $_include_filepath)) {
+            		return $_include_filepath;
+        		}
+			}
         }
 
         return false;
