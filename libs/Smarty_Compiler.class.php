@@ -498,14 +498,14 @@ class Smarty_Compiler extends Smarty {
 
             case 'foreachelse':
                 $this->_push_tag('foreachelse');
-                return "<?php endforeach; unset(\$_from); else: ?>";
+                return "<?php endforeach; else: ?>";
 
             case '/foreach':
                 $_open_tag = $this->_pop_tag('foreach');
                 if ($_open_tag == 'foreachelse')
-                    return "<?php endif; ?>";
+                    return "<?php endif; unset(\$_from); ?>";
                 else
-                    return "<?php endforeach; unset(\$_from); endif; ?>";
+                    return "<?php endforeach; endif; unset(\$_from); ?>";
                 break;
 
             case 'strip':
@@ -1159,15 +1159,10 @@ class Smarty_Compiler extends Smarty {
         $output = '<?php ';
         if (isset($name)) {
             $foreach_props = "\$this->_foreach[$name]";
-            $output .= "if (isset(\$this->_foreach[$name])) unset(\$this->_foreach[$name]);\n";
-            $output .= "{$foreach_props}['total'] = count(\$_from = (array)$from);\n";
-            $output .= "{$foreach_props}['show'] = {$foreach_props}['total'] > 0;\n";
-            $output .= "if ({$foreach_props}['show']):\n";
-            $output .= "{$foreach_props}['iteration'] = 0;\n";
+            $output .= "{$foreach_props} = array('total' => count(\$_from = (array)$from), 'iteration' => 0);\n";
+            $output .= "if ({$foreach_props}['total'] > 0):\n";
             $output .= "    foreach (\$_from as $key_part\$this->_tpl_vars['$item']):\n";
             $output .= "        {$foreach_props}['iteration']++;\n";
-            $output .= "        {$foreach_props}['first'] = ({$foreach_props}['iteration'] == 1);\n";
-            $output .= "        {$foreach_props}['last']  = ({$foreach_props}['iteration'] == {$foreach_props}['total']);\n";
         } else {
             $output .= "if (count(\$_from = (array)$from)):\n";
             $output .= "    foreach (\$_from as $key_part\$this->_tpl_vars['$item']):\n";
@@ -1965,13 +1960,41 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'foreach':
+                array_shift($indexes);
+                $_var = $this->_parse_var_props(substr($indexes[0], 1));
+                $_propname = substr($indexes[1], 1);
+                $_max_index = 1;
+                switch ($_propname) {
+                    case 'index':
+                        array_shift($indexes);
+                        $compiled_ref = "(\$this->_foreach[$_var]['iteration']-1)";
+                        break;
+                        
+                    case 'first':
+                        array_shift($indexes);
+                        $compiled_ref = "(\$this->_foreach[$_var]['iteration'] <= 1)";
+                        break;
+
+                    case 'last':
+                        array_shift($indexes);
+                        $compiled_ref = "(\$this->_foreach[$_var]['iteration'] == \$this->_foreach[$_var]['total'])";
+                        break;
+                        
+                    case 'show':
+                        array_shift($indexes);
+                        $compiled_ref = "(\$this->_foreach[$_var]['total'] > 0)";
+                        break;
+                        
+                    default:
+                        unset($_max_index);
+                        $compiled_ref = "\$this->_foreach[$_var]";
+                }
+                break;
+
             case 'section':
                 array_shift($indexes);
                 $_var = $this->_parse_var_props(substr($indexes[0], 1));
-                if ($_ref == 'foreach')
-                    $compiled_ref = "\$this->_foreach[$_var]";
-                else
-                    $compiled_ref = "\$this->_sections[$_var]";
+                $compiled_ref = "\$this->_sections[$_var]";
                 break;
 
             case 'get':
