@@ -16,6 +16,7 @@
  </para>
 
  &designers.language-basic-syntax.language-syntax-comments;
+ &designers.language-basic-syntax.language-syntax-variables;
  &designers.language-basic-syntax.language-syntax-functions;
  &designers.language-basic-syntax.language-syntax-attributes;
  &designers.language-basic-syntax.language-syntax-quotes;
