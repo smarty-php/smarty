@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: tony2001 Status: ready -->
 <sect1 id="language.escaping">
  <title>Предотвращение обработки Smarty</title>
  <para>
-  Иногда необходимо, чтобы Smarty не обрабатывал часть шаблона, 
-  которая должна по умолчанию обрабатываться. Классическим примером 
+  Иногда необходимо, чтобы Smarty не обрабатывал часть шаблона,
+  которая должна по умолчанию обрабатываться. Классическим примером
   такой ситуации является встраивание Javascript или CSS-кода в
-  шаблон. Проблема появляется из-за того, что эти языки используют 
-  символы { и }, которые так же используются в качестве ограничителей 
+  шаблон. Проблема появляется из-за того, что эти языки используют
+  символы { и }, которые так же используются в качестве разделителей
   для Smarty.
  </para>
 
@@ -21,9 +21,12 @@
   Дословное включение контента возможно при помощи блоков <link
   linkend="language.function.literal">{literal} .. {/literal}</link>.
   Подобно тому, как вы используете HTML-сущности (&amp;nbsp; и т.п.), вы можете
-  использовать <link linkend="language.function.ldelim">{ldelim}</link> и <link
-   linkend="language.function.ldelim">{rdelim}</link>, чтобы отобразить текущие 
-  ограничители.
+  использовать <link
+  linkend="language.function.ldelim">{ldelim}</link>,<link
+  linkend="language.function.ldelim">{rdelim}</link> иди <link
+  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>,<link
+  linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
+  для отображения текущих разделителей.
  </para>
 
  <para>
@@ -33,7 +36,7 @@
   в объекте Smarty.
  </para>
  <example>
-  <title>Изменение ограничителей</title>
+  <title>Изменение разделителей</title>
   <programlisting role="php">
 <![CDATA[
 <?php

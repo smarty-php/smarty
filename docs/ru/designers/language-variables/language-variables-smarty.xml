@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="language.variables.smarty">
  <title>Зарезервированная переменная {$smarty}</title>
   <para>
@@ -46,10 +46,10 @@
   <sect2 id="language.variables.smarty.now">
    <title>{$smarty.now}</title>
    <para>
-    К текущему timestamp (штам времени) можно обратиться через 
-    {$smarty.now}. Оно содержит число секунд с начала так 
-    называемой Эпохи (Epoch, 1 января 1970 года) и может быть 
-    передано прямо модификатору	date_format для вывода текущей 
+    К текущему timestamp (штам времени) можно обратиться через
+    {$smarty.now}. Оно содержит число секунд с начала так
+    называемой Эпохи (Epoch, 1 января 1970 года) и может быть
+    передано прямо модификатору	date_format для вывода текущей
     даты.
    </para>
    <example>
@@ -62,7 +62,7 @@
      </programlisting>
    </example>
   </sect2>
-  
+
   <sect2 id="language.variables.smarty.const">
    <title>{$smarty.const}</title>
    <para>
@@ -90,7 +90,7 @@
    <title>{$smarty.config}</title>
    <para>
     Переменная {$smarty} может быть использована для получения значений
-    переменных из файлов конфигураций. {$smarty.config.foo} 
+    переменных из файлов конфигураций. {$smarty.config.foo}
     является синонимом для {#foo#}. Смотрите раздел <link
     linkend="language.function.config.load">config_load</link>
     для примера.
@@ -113,6 +113,20 @@
     Эта переменная содержит имя текущего шаблона.
    </para>
   </sect2>
+		<sect2 id="language.variables.smarty.ldelim">
+			<title>{$smarty.ldelim}</title>
+			<para>
+    Эта переменная используется для вставки символа левого разделителя.
+    См. также <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+			</para>
+		</sect2>
+		<sect2 id="language.variables.smarty.rdelim">
+			<title>{$smarty.rdelim}</title>
+			<para>
+    Эта переменная используется для вставки символа правого разделителя.
+    См. также <link linkend="language.function.ldelim">{rdelim},{rdelim}</link>.
+			</para>
+		</sect2>
 
  </sect1>
 <!-- Keep this comment at the end of the file
