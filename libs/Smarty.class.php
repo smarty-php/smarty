@@ -1994,11 +1994,8 @@ class Smarty
      * wrapper for include() retaining $this
      * @return mixed
      */
-    function _include($filename, $once=false, $vars=null)
+    function _include($filename, $once=false, $params=null)
     {
-        if (is_array($vars))
-            extract($vars, EXTR_PREFIX_SAME, 'include_php_');
-
         if ($once) {
             return include_once($filename);
         } else {
@@ -2011,11 +2008,8 @@ class Smarty
      * wrapper for eval() retaining $this
      * @return mixed
      */
-    function _eval($code, $vars=null)
+    function _eval($code, $params=null)
     {
-        if (is_array($vars))
-            extract($vars, EXTR_PREFIX_SAME, 'include_php_');
-
         return eval($code);
     }
     /**#@-*/
