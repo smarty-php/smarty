@@ -1,3 +1,14 @@
+2004-09-07  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update files to 2.6.5-dev
+
+    * (Smarty_2_6_4)
+      NEWS:
+      update NEWS file with 2.6.4 header
+
 2004-08-31  Monte Ohrt  <monte@ispi.net>
 
     * libs/Smarty_Compiler.class.php:
