@@ -1,3 +1,23 @@
+2003-06-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.load_plugins.php
+      libs/core/core.process_compiled_include.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.write_cache_file.php
+      libs/core/core.write_compiled_include.php:
+      added $cacheable-parameter to register_function() and register_block()
+
+    * libs/Smarty.class.php:
+      append '.php' to all compiled templates regardless of the settings of
+      $use_sub_dirs
+
+    * libs/Smarty.class.php
+      libs/core/core.read_cache_file.php:
+      fixed $file_path-parameters  passed to smarty_core_fetch_file_info()
+
 2003-06-17  Monte Ohrt  <monte@ispi.net>
 
     * NEWS:
