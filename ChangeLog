@@ -1,3 +1,13 @@
+2002-07-16  mohrt  <mohrt@pb1.pair.com>
+
+    * NEWS: update NEWS file
+
+    * plugins/function.debug.php
+      Smarty.class.php
+      debug.tpl
+      NEWS:
+    fix problem with filenames on windows, add ability to supply expire time in seconds when clearing cache or compiled files
+
 2002-07-15  mohrt  <mohrt@pb1.pair.com>
 
     * Smarty.class.php:
