@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
@@ -509,11 +509,27 @@ class Smarty
         $template_tags = $match[1];
         /* Split content by template tags to obtain non-template content. */
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_contents);
-        if(!$this->allow_php) {
-            /* Escape php tags. */
-            $text_blocks = preg_replace('!<\?([^?]*?)\?>!', '&lt;?$1?&gt;', $text_blocks);
-        }
 
+        $special_tags = preg_match_all('!(<\?[^?]*?\?>)!i',$text_blocks,$sp_match);
+
+        /* TODO: speed up the following with preg_replace and /F once we require that version of PHP */
+
+        /* loop through text blocks */
+        for($curr_tb = 0; $curr_tb <= count($text_blocks); $curr_tb++) {
+            /* match anything within <? ?> */
+            if(preg_match_all('!(<\?[^?]*?\?>)!i',$text_blocks[$curr_tb],$sp_match)) {
+                /* found at least one match, loop through each one */
+                foreach($sp_match[0] as $curr_sp) {
+                    if(!$this->allow_php)
+                        /* we don't allow php, so echo anything in <? ?> */
+                        $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.addslashes($curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
+                    elseif(!preg_match("!^<\?(php | )!i",$curr_sp))
+                        /* we allow php, so echo only non-php such as <?xml ?> */
+                        $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.addslashes($curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
+                }
+            }
+        }
+                      
         /* Compile the template tags into PHP code. */
         $compiled_tags = array();
         for ($i = 0; $i < count($template_tags); $i++) {
