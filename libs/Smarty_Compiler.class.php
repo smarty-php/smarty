@@ -114,7 +114,7 @@ class Smarty_Compiler extends Smarty {
 		// $foo[5].bar[$foobar][4]
 		$this->_dvar_math_regexp = '[\+\-\*\/\%]';
 		$this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\|\:\>\[\]]';
-		$this->_dvar_num_var_regexp = '\-?\d+(?:\.\d+)?'.$this->_dvar_math_var_regexp;
+		$this->_dvar_num_var_regexp = '\-?\d+(?:\.\d+)?' . $this->_dvar_math_var_regexp;
 		$this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
 				. ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:\-?\d+(?:\.\d+)?|' . $this->_dvar_math_var_regexp . '*))?';
 		$this->_dvar_regexp = '\$' . $this->_dvar_guts_regexp;
@@ -1509,56 +1509,56 @@ class Smarty_Compiler extends Smarty {
 		// inform the calling expression the return type (php, static)
 		$this->_output_type = 'php';
 
-		$math_vars = preg_split('!('.$this->_dvar_math_regexp.'|\".*?\")!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
-		if(count($math_vars) > 1)
+		$_math_vars = preg_split('!('.$this->_dvar_math_regexp.'|\".*?\")!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
+		if(count($_math_vars) > 1)
 		{
-			$output = "";
-			$complete_var = "";
+			$_output = "";
+			$_complete_var = "";
 			// simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
-			$hasMath = false;
-			foreach($math_vars as $k => $math_var)
+			$_has_math = false;
+			foreach($_math_vars as $_k => $_math_var)
 			{
-				$math_var = $math_vars[$k];
-				if(!empty($math_var))
+				$_math_var = $_math_vars[$_k];
+				if(!empty($_math_var))
 				{
 					// hit a math operator, so process the stuff which came before it
-					if(preg_match('!^'.$this->_dvar_math_regexp.'$!', $math_var))
+					if(preg_match('!^' . $this->_dvar_math_regexp . '$!', $_math_var))
 					{
-						$hasMath = true;
-						if(!empty($complete_var))
+						$_has_math = true;
+						if(!empty($_complete_var))
 						{
-							$output .= $this->_parse_var($complete_var);
+							$_output .= $this->_parse_var($_complete_var);
 						}
 
 						// just output the math operator to php
-						$output .= $math_var;
+						$_output .= $_math_var;
 						
-						$complete_var = "";
+						$_complete_var = "";
 					}
 					else
 					{
 						// fetch multiple -> (like $foo->bar->baz ) which wouldn't get fetched else, because it would only get $foo->bar and treat the ->baz as "-" ">baz" then
-						for($i = $k + 1; $i <= count($math_vars); $i += 2)
+						for($_i = $_k + 1; $_i <= count($_math_vars); $_i += 2)
 						{
 							// fetch -> because it gets splitted at - and move it back together
-							if( /* prevent notice */ (isset($math_vars[$i]) && isset($math_vars[$i+1])) && ($math_vars[$i] === '-' && $math_vars[$i+1]{0} === '>'))
+							if( /* prevent notice */ (isset($_math_vars[$_i]) && isset($_math_vars[$_i+1])) && ($_math_vars[$_i] === '-' && $_math_vars[$_i+1]{0} === '>'))
 							{
-								$math_var .= $math_vars[$i].$math_vars[$i+1];
-								$math_vars[$i] = $math_vars[$i+1] = "";
+								$_math_var .= $_math_vars[$_i].$_math_vars[$_i+1];
+								$_math_vars[$_i] = $_math_vars[$_i+1] = '';
 							}
 							else
 								break;
 						}
-						$complete_var .= $math_var;
+						$_complete_var .= $_math_var;
 					}
 				}
 			}
-			if($hasMath)
+			if($_has_math)
 			{
-				if(!empty($complete_var))
-					$output .= $this->_parse_var($complete_var);
+				if(!empty($_complete_var))
+					$_output .= $this->_parse_var($_complete_var);
 
-				return $output;
+				return $_output;
 			}
 		}
 
