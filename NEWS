@@ -1,3 +1,4 @@
+    - implemented plugin architecture. (Andrei)
     - added modifiers wordwrap and indent. (Monte)
     - added support for 'If-Modified-Since' headers for cached content. (Monte)
     - removed insert_tag_check class variable, no longer needed. (Monte)
