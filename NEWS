@@ -1,3 +1,4 @@
+  - fix 'is even by' and 'is odd by' logic (Monte)
   - add day_empty, month_empty, year_empty and all_empty attributes to
     html_select_date (messju)
   - add table of explanation for {if} qualifiers in docs (boots)

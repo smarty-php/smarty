@@ -1385,7 +1385,7 @@ class Smarty_Compiler extends Smarty {
                 if (@$tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
-                    $expr = "!(($is_arg / $expr_arg) % " . $this->_parse_var_props($expr_arg) . ")";
+                    $expr = "!(1 & ($is_arg / " . $this->_parse_var_props($expr_arg) . "))";
                 } else
                     $expr = "!($is_arg % 2)";
                 break;
@@ -1394,7 +1394,7 @@ class Smarty_Compiler extends Smarty {
                 if (@$tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
-                    $expr = "(($is_arg / $expr_arg) % ". $this->_parse_var_props($expr_arg) . ")";
+                    $expr = "(1 & ($is_arg / " . $this->_parse_var_props($expr_arg) . "))";
                 } else
                     $expr = "($is_arg % 2)";
                 break;
