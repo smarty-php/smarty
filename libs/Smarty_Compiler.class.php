@@ -316,6 +316,9 @@ class Smarty_Compiler extends Smarty {
             $template_compiled = substr($template_compiled, 0, -1);
         }
 
+        // remove unnecessary close/open tags
+        $template_compiled = preg_replace('!\?>\n?<\?php!', '', $template_compiled);
+
         // run compiled template through postfilter functions
         if (count($this->_plugins['postfilter']) > 0) {
             foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {

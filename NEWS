@@ -1,3 +1,5 @@
+  - remove unnecessary close/open tags from compiled templates
+    (Monte)
   - fixed errornous creation of '//' in image_path in html_image (messju)
   - fix escapement of special chars for key vals in debug
     console (Monte)
