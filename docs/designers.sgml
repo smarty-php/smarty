@@ -571,7 +571,7 @@ Cold Wave Linked to Temperatures.
                 </tgroup>
             </informaltable>
 			<para>
-			This value is catenated to the given variable.
+			This value is concatenated to the given variable.
 			</para>
 <example>
 <title>cat</title>
