@@ -1,3 +1,17 @@
+2003-03-26  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS:
+      update header
+
+    * RELEASE_NOTES:
+      commit changes to release notes
+
+    * (Smarty_2_5_0_RC2)
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      committing RC2
+
 2003-03-24  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
