@@ -37,7 +37,7 @@ include('Smarty.class.php');
 include('mysql_cache_handler.php');
 
 $smarty = new Smarty;
-$smarty-i>cache_handler_func = 'mysql_cache_handler';
+$smarty->cache_handler_func = 'mysql_cache_handler';
 
 $smarty->display('index.tpl');
 
