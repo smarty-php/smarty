@@ -44,7 +44,7 @@
 
 OUTPUT:
 
-<table border=0><tr><td><A HREF="http://my.domain.com"><font color="red">This is a test</font></A></td></tr></table>
+<table border=0><tr><td><A HREF="http://my.example.com"><font color="red">This is a test</font></A></td></tr></table>
 ]]>
 </programlisting>
 </example>

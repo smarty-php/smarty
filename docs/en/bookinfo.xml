@@ -4,10 +4,12 @@
   <title>Smarty - the compiling PHP template engine</title>
   <authorgroup id="authors">
    <author>
-    <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
+    <firstname>Monte</firstname>
+    <surname>Ohrt &lt;monte@ispi.net&gt;</surname>
    </author>
    <author>
-    <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
+    <firstname>Andrei</firstname>
+    <surname>Zmievski &lt;andrei@php.net&gt;</surname>
    </author>
   </authorgroup>
   <pubdate>&build-date;</pubdate>

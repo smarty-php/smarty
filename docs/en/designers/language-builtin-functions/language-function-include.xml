@@ -79,7 +79,7 @@
 
 {* body of template goes here *}
 
-{include file="footer.tpl" logo="http://my.domain.com/logo.gif"}</programlisting>
+{include file="footer.tpl" logo="http://my.example.com/logo.gif"}</programlisting>
 </example>
 			<para>
 			Use the syntax for <link

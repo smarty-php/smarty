@@ -42,7 +42,7 @@ $smarty->display("index.tpl");
 // a simple protection against spambots
 ?>
 ]]>
-</programlisting>
+    </programlisting>
    </example>
 </sect1>
 <!-- Keep this comment at the end of the file

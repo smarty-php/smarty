@@ -9,12 +9,15 @@
    Smarty is a template engine for PHP. More specifically, it facilitates a
    manageable way to separate application logic and content from its
    presentation. This is best described in a situation where the application
-   programmer and the template designer play different roles, or in most cases
-   are not the same person. For example, let's say you are creating a web page
-   that is displaying a newspaper article. The article headline, tagline,
-   author and body are content elements, they contain no information about how
-   they will be presented. They are passed into Smarty by the application,
-   then the template designer edits the templates and uses a combination of
+   programmer and the template designer play different roles, or in most 
+   cases are not the same person.
+  </para>
+  <para>
+   For example, let's say you are creating a web page that is displaying a
+   newspaper article. The article headline, tagline, author and body are 
+   content elements, they contain no information about how they will be 
+   presented. They are passed into Smarty by the application, then the 
+   template designer edits the templates and uses a combination of
    HTML tags and template tags to format the presentation of these elements
    (HTML tables, background colors, font sizes, style sheets, etc.) One day
    the programmer needs to change the way the article content is retrieved (a
@@ -35,16 +38,16 @@
    presentation logic. This does not mean that Smarty forces a separation of
    business and presentation logic. Smarty has no knowledge of which is which,
    so placing business logic in the template is your own doing. Also, if you
-   desire NO logic in your templates you certainly can do so by boiling the
-   content down to text and variables only.
+   desire <emphasis>no</emphasis> logic in your templates you certainly can 
+   do so by boiling the content down to text and variables only.
   </para>
   <para>
-   One of the unique aspects about Smarty is the template compiling. This means
-   Smarty reads the template files and creates PHP scripts from them. Once
-   they are created, they are executed from then on. Therefore there is no
-   costly template file parsing for each request, and each template can take
-   full advantage of PHP compiler cache solutions such as Zend Accelerator
-   (<ulink url="&url.zend;">&url.zend;</ulink>) or PHP Accelerator
+   One of the unique aspects about Smarty is the template compiling. This 
+   means Smarty reads the template files and creates PHP scripts from them. 
+   Once they are created, they are executed from then on. Therefore there is 
+   no costly template file parsing for each request, and each template can 
+   take full advantage of PHP compiler cache solutions such as Zend 
+   Accelerator (<ulink url="&url.zend;">&url.zend;</ulink>) or PHP Accelerator
    (<ulink url="&url.php-accelerator;">&url.php-accelerator;</ulink>).
   </para>
   <para>
@@ -73,8 +76,10 @@
    </listitem>
    <listitem>
     <para>
-     You can make <link linkend="language.custom.functions">custom functions</link>
-     and custom <link linkend="language.modifiers">variable modifiers</link>, so the
+     You can make <link 
+     linkend="language.custom.functions">custom functions</link>
+     and custom <link 
+     linkend="language.modifiers">variable modifiers</link>, so the
      template language is extremely extensible.
     </para>
    </listitem>
@@ -87,8 +92,8 @@
    <listitem>
     <para>
      The if/elseif/else/endif constructs are passed to the
-     PHP parser, so the {if ...} expression syntax can be as simple or as complex
-     as you like.
+     PHP parser, so the {if ...} expression syntax can be as simple or as 
+     complex as you like.
     </para>
    </listitem>
    <listitem>
@@ -98,9 +103,9 @@
    </listitem>
    <listitem>
     <para>
-     It is possible to embed PHP code right in your template files,
-     although this may not be needed (nor recommended)
-     since the engine is so customizable.
+     It is possible to embed PHP code right in your template files, although
+     this may not be needed (nor recommended) since the engine is so 
+     customizable.
     </para>
    </listitem>
    <listitem>
@@ -160,9 +165,9 @@ debug.tpl
     Smarty uses a PHP constant named <link
     linkend="constant.smarty.dir">SMARTY_DIR</link> which is the system
     filepath Smarty library directory. Basically, if your application can find
-    the <emphasis>Smarty.class.php</emphasis> file, you do not need to set
+    the <filename>Smarty.class.php</filename> file, you do not need to set
     SMARTY_DIR, Smarty will figure it out on its own. Therefore, if
-    <emphasis>Smarty.class.php</emphasis> is not in your include_path, or you
+    <filename>Smarty.class.php</filename> is not in your include_path, or you
     do not supply an absolute path to it in your application, then you must
     define SMARTY_DIR manually. SMARTY_DIR <emphasis>must</emphasis> include a
     trailing slash.
@@ -185,7 +190,7 @@ $smarty = new Smarty;
 
    <para>
     Try running the above script. If you get an error saying the
-    <emphasis>Smarty.class.php</emphasis> file could not be found, you have to
+    <filename>Smarty.class.php</filename> file could not be found, you have to
     do one of the following:
    </para>
 
@@ -232,18 +237,20 @@ $smarty = new Smarty;
    <para>
     Now that the library files are in place, it's time to setup the Smarty
     directories for your application. Smarty requires four directories which
-    are (by default) named <emphasis>templates</emphasis>,
-    <emphasis>templates_c</emphasis>, <emphasis>configs</emphasis> and
-    <emphasis>cache</emphasis>. Each of these are definable by the Smarty class
-    properties <emphasis>$template_dir</emphasis>,
-    <emphasis>$compile_dir</emphasis>, <emphasis>$config_dir</emphasis>, and
-    <emphasis>$cache_dir</emphasis> respectively. It is highly recommended
+    are (by default) named <filename class="directory">templates</filename>,
+    <filename class="directory">templates_c</filename>, <filename 
+    class="directory">configs</filename> and <filename 
+    class="directory">cache</filename>. Each of these are definable by the 
+    Smarty class properties <varname>$template_dir</varname>,
+    <varname>$compile_dir</varname>, <varname>$config_dir</varname>, and
+    <varname>$cache_dir</varname> respectively. It is highly recommended
     that you setup a separate set of these directories for each application
     that will use Smarty.
    </para>
    <para>
     Be sure you know the location of your web server document root. In our
-    example, the document root is "/web/www.mydomain.com/docs/". The Smarty
+    example, the document root is <filename 
+    class="directory">/web/www.example.com/docs/</filename>. The Smarty
     directories are only accessed by the Smarty library and never accessed
     directly by the web browser. Therefore to avoid any security concerns, it
     is recommended to place these directories <emphasis>outside</emphasis> of
@@ -255,13 +262,14 @@ $smarty = new Smarty;
     of a directory naming convention. You can use the same environment for any
     application, just replace "guestbook" with the name of your app. We'll
     place our Smarty directories under
-    "/web/www.mydomain.com/smarty/guestbook/".
+    <filename
+    class="directory">/web/www.example.com/smarty/guestbook/</filename>.
    </para>
    <para>
     You will need as least one file under your document root, and that is the
-    script accessed by the web browser. We will call our script "index.php",
-    and place it in a subdirectory under the document root called
-    "/guestbook/".
+    script accessed by the web browser. We will call our script 
+    <filename>index.php</filename>, and place it in a subdirectory under the
+    document root called <filename class="directory">/guestbook/</filename>.
    </para>
 
    <note>
@@ -269,7 +277,7 @@ $smarty = new Smarty;
     <para>
      It is convenient to setup the web server so that "index.php" can be
      identified as the default directory index, so if you access
-     "http://www.mydomain.com/guestbook/", the index.php script will be executed
+     "http://www.example.com/guestbook/", the index.php script will be executed
      without "index.php" in the URL. In Apache you can set this up by adding
      "index.php" onto the end of your DirectoryIndex setting (separate each
      entry with a space.)
@@ -291,12 +299,12 @@ $smarty = new Smarty;
 /usr/local/lib/php/Smarty/internals/*.php
 /usr/local/lib/php/Smarty/plugins/*.php
 
-/web/www.mydomain.com/smarty/guestbook/templates/
-/web/www.mydomain.com/smarty/guestbook/templates_c/
-/web/www.mydomain.com/smarty/guestbook/configs/
-/web/www.mydomain.com/smarty/guestbook/cache/
+/web/www.example.com/smarty/guestbook/templates/
+/web/www.example.com/smarty/guestbook/templates_c/
+/web/www.example.com/smarty/guestbook/configs/
+/web/www.example.com/smarty/guestbook/cache/
 
-/web/www.mydomain.com/docs/guestbook/index.php
+/web/www.example.com/docs/guestbook/index.php
 ]]>
     </screen>
    </example>
@@ -314,11 +322,11 @@ $smarty = new Smarty;
     <title>Setting file permissions</title>
     <programlisting role="shell">
 <![CDATA[
-chown nobody:nobody /web/www.mydomain.com/smarty/guestbook/templates_c/
-chmod 770 /web/www.mydomain.com/smarty/guestbook/templates_c/
+chown nobody:nobody /web/www.example.com/smarty/guestbook/templates_c/
+chmod 770 /web/www.example.com/smarty/guestbook/templates_c/
 
-chown nobody:nobody /web/www.mydomain.com/smarty/guestbook/cache/
-chmod 770 /web/www.mydomain.com/smarty/guestbook/cache/
+chown nobody:nobody /web/www.example.com/smarty/guestbook/cache/
+chmod 770 /web/www.example.com/smarty/guestbook/cache/
 ]]>
     </programlisting>
    </example>
@@ -339,7 +347,7 @@ chmod 770 /web/www.mydomain.com/smarty/guestbook/cache/
    </para>
 
    <example>
-    <title>Editing /web/www.mydomain.com/smarty/guestbook/templates/index.tpl</title>
+    <title>Editing /web/www.example.com/smarty/guestbook/templates/index.tpl</title>
     <screen>
 <![CDATA[
 
@@ -369,7 +377,7 @@ Hello, {$name}!
    </para>
 
    <example>
-    <title>Editing /web/www.mydomain.com/docs/guestbook/index.php</title>
+    <title>Editing /web/www.example.com/docs/guestbook/index.php</title>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -379,10 +387,10 @@ require('Smarty.class.php');
 
 $smarty = new Smarty;
 
-$smarty->template_dir = '/web/www.mydomain.com/smarty/guestbook/templates/';
-$smarty->compile_dir = '/web/www.mydomain.com/smarty/guestbook/templates_c/';
-$smarty->config_dir = '/web/www.mydomain.com/smarty/guestbook/configs/';
-$smarty->cache_dir = '/web/www.mydomain.com/smarty/guestbook/cache/';
+$smarty->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
+$smarty->compile_dir = '/web/www.example.com/smarty/guestbook/templates_c/';
+$smarty->config_dir = '/web/www.example.com/smarty/guestbook/configs/';
+$smarty->cache_dir = '/web/www.example.com/smarty/guestbook/cache/';
 
 $smarty->assign('name','Ned');
 
@@ -396,17 +404,18 @@ $smarty->display('index.tpl');
     <title>Technical Note</title>
     <para>
      In our example, we are setting absolute paths to all of the Smarty
-     directories. If '/web/www.mydomain.com/smarty/guestbook/' is within your
-     PHP include_path, then these settings are not necessary. However, it is
-     more efficient and (from experience) less error-prone to set them to
-     absolute paths. This ensures that Smarty is getting files from the
-     directories you intended.
+     directories. If <filename 
+     class="directory">/web/www.example.com/smarty/guestbook/</filename> is
+     within your PHP include_path, then these settings are not necessary. 
+     However, it is more efficient and (from experience) less error-prone to
+     set them to absolute paths. This ensures that Smarty is getting files 
+     from the directories you intended.
     </para>
    </note>
 
    <para>
-    Now load the index.php file from your web browser. You should see "Hello,
-    Ned!"
+    Now load the <filename>index.php</filename> file from your web browser. 
+    You should see "Hello, Ned!"
    </para>
    <para>
     You have completed the basic setup for Smarty!
@@ -425,8 +434,9 @@ $smarty->display('index.tpl');
     initialize your Smarty environment. So instead of repeatedly setting
     directory paths, assigning the same vars, etc., we can do that in one place.
     Lets create a new directory "/php/includes/guestbook/" and make a new file
-    called "setup.php". In our example environment, "/php/includes" is in our
-    include_path. Be sure you set this up too, or use absolute file paths.
+    called <filename>setup.php</filename>. In our example environment, 
+    "/php/includes" is in our include_path. Be sure you set this up too, or 
+    use absolute file paths.
    </para>
 
    <example>
@@ -448,17 +458,18 @@ class Smarty_GuestBook extends Smarty {
    function Smarty_GuestBook()
    {
 
-        // Class Constructor. These automatically get set with each new instance.
+        // Class Constructor. 
+        // These automatically get set with each new instance.
 
         $this->Smarty();
 
-        $this->template_dir = '/web/www.mydomain.com/smarty/guestbook/templates/';
-        $this->compile_dir = '/web/www.mydomain.com/smarty/guestbook/templates_c/';
-        $this->config_dir = '/web/www.mydomain.com/smarty/guestbook/configs/';
-        $this->cache_dir = '/web/www.mydomain.com/smarty/guestbook/cache/';
+        $this->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
+        $this->compile_dir  = '/web/www.example.com/smarty/guestbook/templates_c/';
+        $this->config_dir   = '/web/www.example.com/smarty/guestbook/configs/';
+        $this->cache_dir    = '/web/www.example.com/smarty/guestbook/cache/';
 
         $this->caching = true;
-        $this->assign('app_name','Guest Book');
+        $this->assign('app_name', 'Guest Book');
    }
 
 }
@@ -472,7 +483,7 @@ class Smarty_GuestBook extends Smarty {
   </para>
 
   <example>
-   <title>Editing /web/www.mydomain.com/docs/guestbook/index.php</title>
+   <title>Editing /web/www.example.com/docs/guestbook/index.php</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -491,7 +502,8 @@ $smarty->display('index.tpl');
 
   <para>
    Now you see it is quite simple to bring up an instance of Smarty, just use
-   Smarty_GuestBook which automatically initializes everything for our application.
+   Smarty_GuestBook which automatically initializes everything for our 
+   application.
   </para>
 
   </sect1>

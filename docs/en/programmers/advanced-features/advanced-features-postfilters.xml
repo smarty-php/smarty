@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="advanced.features.postfilters">
-    <title>Postfilters</title>
-    <para>
-     Template postfilters are PHP functions that your templates are ran through
-     after they are compiled. Postfilters can be either 
-     <link linkend="api.register.postfilter">registered</link> or loaded
-     from the plugins directory by using
-     <link linkend="api.load.filter">load_filter()</link> function or by
-     setting
-     <link linkend="variable.autoload.filters">$autoload_filters</link>
-     variable. Smarty will pass the compiled template code as the first
-     argument, and expect the function to return the result of the
-     processing.
-    </para>
-    <example>
-     <title>using a template postfilter</title>
-     <programlisting role="php">
+<sect1 id="advanced.features.postfilters">
+ <title>Postfilters</title>
+ <para>
+  Template postfilters are PHP functions that your templates are ran through
+  after they are compiled. Postfilters can be either 
+  <link linkend="api.register.postfilter">registered</link> or loaded
+  from the plugins directory by using
+  <link linkend="api.load.filter">load_filter()</link> function or by
+  setting
+  <link linkend="variable.autoload.filters">$autoload_filters</link>
+  variable. Smarty will pass the compiled template code as the first
+  argument, and expect the function to return the result of the
+  processing.
+ </para>
+ <example>
+  <title>using a template postfilter</title>
+  <programlisting role="php">
 <![CDATA[
 <?php
 // put this in your application
@@ -29,13 +29,18 @@ function add_header_comment($tpl_source, &$smarty)
 $smarty->register_postfilter("add_header_comment");
 $smarty->display("index.tpl");
 ?>
-
-{* compiled Smarty template index.tpl *}
+]]>
+  </programlisting>
+  <para>
+   This will make the compiled Smarty template index.tpl look like:
+  </para>
+  <screen>
+<![CDATA[
 <!-- Created by Smarty! -->
 {* rest of template content... *}
 ]]>
-</programlisting>
-    </example>
+  </screen>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

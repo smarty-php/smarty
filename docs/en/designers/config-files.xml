@@ -32,7 +32,7 @@ Intro = """This is a value that spans more
 
 # hidden section
 [.Database]
-host=my.domain.com
+host=my.example.com
 db=ADDRESSBOOK
 user=php-user
 pass=foobar

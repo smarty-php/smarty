@@ -71,13 +71,13 @@
   <programlisting>
 <![CDATA[
 {* include some javascript in your template *}
-{fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
+{fetch file="/export/httpd/www.example.com/docs/navbar.js"}
 
 {* embed some weather text in your template from another web site *}
 {fetch file="http://www.myweather.com/68502/"}
 
 {* fetch a news headline file via ftp *}
-{fetch file="ftp://user:password@ftp.domain.com/path/to/currentheadlines.txt"}
+{fetch file="ftp://user:password@ftp.example.com/path/to/currentheadlines.txt"}
 
 {* assign the fetched contents to a template variable *}
 {fetch file="http://www.myweather.com/68502/" assign="weather"}

@@ -3,12 +3,12 @@
   <sect1 id="template.resources">
    <title>Resources</title>
    <para>
-	The templates may come from a variety of sources. When you display or fetch
-	a template, or when you include a template from within another template,
-	you supply a resource type, followed by the appropriate path and template
-	name. If a resource is not explicitly given the value of <link
-	linkend="variable.default.resource.type">$default_resource_type</link> is
-	assumed.
+	   The templates may come from a variety of sources. When you display or fetch
+	   a template, or when you include a template from within another template,
+	   you supply a resource type, followed by the appropriate path and template
+   	name. If a resource is not explicitly given the value of <link
+   	linkend="variable.default.resource.type">$default_resource_type</link> is
+   	assumed.
    </para>
    <sect2 id="templates.from.template.dir">
     <title>Templates from $template_dir</title>

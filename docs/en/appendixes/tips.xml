@@ -240,22 +240,22 @@ function insert_header($params)
 
 <!-- begin new wml deck --> 
 <wml> 
-<!-- begin first card --> 
-<card> 
-<do type="accept"> 
-<go href="#two"/> 
-</do>  
-<p> 
-Welcome to WAP with Smarty!
-Press OK to continue...  
-</p> 
-</card>  
-<!-- begin second card --> 
-<card id="two">  
-<p> 
-Pretty easy isn't it?
-</p> 
-</card> 
+ <!-- begin first card --> 
+ <card> 
+  <do type="accept"> 
+   <go href="#two"/> 
+  </do>  
+  <p> 
+   Welcome to WAP with Smarty!
+   Press OK to continue...  
+  </p> 
+ </card>  
+ <!-- begin second card --> 
+ <card id="two">  
+  <p> 
+   Pretty easy isn't it?
+  </p> 
+ </card> 
 </wml>
 ]]>
     </programlisting>
@@ -307,10 +307,7 @@ function smarty_function_load_ticker($params, &$smarty)
     </programlisting>
     <programlisting>
 <![CDATA[
-index.tpl
----------
-
-{* Smarty *}
+{* in index.tpl *}
 
 {load_ticker symbol="YHOO" assign="ticker"}
 
@@ -332,8 +329,7 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     <title>Example of Obfuscating an E-mail Address</title>
     <programlisting>
 <![CDATA[
-index.tpl
----------
+{* in index.tpl *}
 
 Send inquiries to
 {mailto address=$EmailAddress encode="javascript" subject="Hello"}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="advanced.features.objects">
-    <title>Objects</title>
-    <para>
-     Smarty allows access to PHP objects through the templates. There are
+<sect1 id="advanced.features.objects">
+ <title>Objects</title>
+ <para>
+  Smarty allows access to PHP objects through the templates. There are
 	 two ways to access them. One way is to register objects to the template,
 	 then use access them via syntax similar to custom functions. The other way
 	 is to assign objects to the templates and access them much like any other
@@ -13,41 +13,41 @@
 	 or assigned in arrays of objects, etc. The method you choose will be
 	 determined by your needs, but use the first method whenever possible to
 	 keep template syntax to a minimum.
-    </para>
+ </para>
 	<para>
-    If security is enabled, no private methods or functions can be accessed
-	(begininning with "_"). If a method and property of the same name exist,
-	the method will be used.
+  If security is enabled, no private methods or functions can be accessed
+ 	(begininning with "_"). If a method and property of the same name exist,
+ 	the method will be used.
 	</para>
 	<para>
-	You can restrict the methods and properties that can be accessed by
-	listing them in an array as the third registration parameter.
+ 	You can restrict the methods and properties that can be accessed by
+ 	listing them in an array as the third registration parameter.
 	</para>
 	<para>
-	By default, parameters passed to objects through the templates are passed
-	the same way custom functions get them. An associative array is passed
-	as the first parameter, and the smarty object as the second. If you want
-	the parameters passed one at a time for each argument like traditional
-	object parameter passing, set the fourth registration parameter to false.
+	 By default, parameters passed to objects through the templates are passed
+	 the same way custom functions get them. An associative array is passed
+	 as the first parameter, and the smarty object as the second. If you want
+	 the parameters passed one at a time for each argument like traditional
+	 object parameter passing, set the fourth registration parameter to false.
 	</para>
 	<para>
-	The optional fifth parameter has only effect with
-	<parameter>format</parameter> being <literal>true</literal>
-	and contains a list ob methods that should be treated as
-	blocks. That means these methods have a closing tag in the
-	template
-	(<literal>{foobar->meth2}...{/foobar->meth2}</literal>) and
-	the parameters to the methods have the same synopsis as the
-	parameters for block-function-plugins: They get 4 parameters
-	<parameter>$params</parameter>,
-	<parameter>$content</parameter>,
-	<parameter>&amp;$smarty</parameter> and
-	<parameter>&amp;$repeat</parameter> and they also behave like
-	block-function-plugins.
+	 The optional fifth parameter has only effect with
+	 <parameter>format</parameter> being <literal>true</literal>
+	 and contains a list ob methods that should be treated as
+	 blocks. That means these methods have a closing tag in the
+	 template
+	 (<literal>{foobar->meth2}...{/foobar->meth2}</literal>) and
+	 the parameters to the methods have the same synopsis as the
+	 parameters for block-function-plugins: They get 4 parameters
+	 <parameter>$params</parameter>,
+	 <parameter>$content</parameter>,
+	 <parameter>&amp;$smarty</parameter> and
+	 <parameter>&amp;$repeat</parameter> and they also behave like
+	 block-function-plugins.
 	</para>
-    <example>
-     <title>using a registered or assigned object</title>
-<programlisting role="php">
+ <example>
+  <title>using a registered or assigned object</title>
+  <programlisting role="php">
 <![CDATA[
 <?php
 // the object
@@ -71,9 +71,13 @@ $smarty->assign_by_ref("myobj", $myobj);
 
 $smarty->display("index.tpl");
 ?>
-
-TEMPLATE:
-
+]]>
+  </programlisting>
+  <para>
+   And here's how to access your objects in index.tpl:
+  </para>
+  <programlisting>
+<![CDATA[
 {* access our registered object *}
 {foobar->meth1 p1="foo" p2=$bar}
 
@@ -84,8 +88,8 @@ the output was {$output}
 {* access our assigned object *}
 {$myobj->meth1("foo",$bar)}
 ]]>
-</programlisting>
-    </example>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

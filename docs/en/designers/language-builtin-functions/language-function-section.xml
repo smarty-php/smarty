@@ -174,21 +174,21 @@ name: John Smith&lt;br&gt;
 address: 253 N 45th&lt;br&gt;
 home phone: 555-555-5555&lt;br&gt;
 cell phone: 555-555-5555&lt;br&gt;
-e-mail: john@mydomain.com&lt;br&gt;
+e-mail: john@myexample.com&lt;br&gt;
 &lt;p&gt;
 id: 1001&lt;br&gt;
 name: Jack Jones&lt;br&gt;
 address: 417 Mulberry ln&lt;br&gt;
 home phone: 555-555-5555&lt;br&gt;
 cell phone: 555-555-5555&lt;br&gt;
-e-mail: jack@mydomain.com&lt;br&gt;
+e-mail: jack@myexample.com&lt;br&gt;
 &lt;p&gt;
 id: 1002&lt;br&gt;
 name: Jane Munson&lt;br&gt;
 address: 5605 apple st&lt;br&gt;
 home phone: 555-555-5555&lt;br&gt;
 cell phone: 555-555-5555&lt;br&gt;
-e-mail: jane@mydomain.com&lt;br&gt;
+e-mail: jane@myexample.com&lt;br&gt;
 &lt;p&gt;</programlisting>
 </example>
 
@@ -210,15 +210,15 @@ OUTPUT:
 name: John Smith&lt;br&gt;
 home: 555-555-5555&lt;br&gt;
 cell: 555-555-5555&lt;br&gt;
-e-mail: john@mydomain.com&lt;p&gt;
+e-mail: john@myexample.com&lt;p&gt;
 name: Jack Jones&lt;br&gt;
 home phone: 555-555-5555&lt;br&gt;
 cell phone: 555-555-5555&lt;br&gt;
-e-mail: jack@mydomain.com&lt;p&gt;
+e-mail: jack@myexample.com&lt;p&gt;
 name: Jane Munson&lt;br&gt;
 home phone: 555-555-5555&lt;br&gt;
 cell phone: 555-555-5555&lt;br&gt;
-e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
+e-mail: jane@myexample.com&lt;p&gt;</programlisting>
 </example>
 
 

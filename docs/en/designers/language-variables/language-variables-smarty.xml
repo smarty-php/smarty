@@ -18,7 +18,7 @@
       <title>displaying request variables</title>
       <programlisting>
 <![CDATA[
-{* display value of page from URL (GET) http://www.domain.com/index.php?page=foo *}
+{* display value of page from URL (GET) http://www.example.com/index.php?page=foo *}
 {$smarty.get.page}
 
 {* display the variable "page" from a form (POST) *}
