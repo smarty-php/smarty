@@ -85,6 +85,7 @@ class Smarty
     
     var $custom_funcs    =  array(  'html_options'      => 'smarty_func_html_options',
                                     'html_select_date'  => 'smarty_func_html_select_date',
+                                    'html_select_time'  => 'smarty_func_html_select_time',
                                     'math'              => 'smarty_func_math',
                                     'fetch'             => 'smarty_func_fetch'
                                  );

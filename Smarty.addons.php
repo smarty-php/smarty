@@ -267,7 +267,8 @@ function smarty_func_html_select_date()
 
     if ($display_days) {
         $days = range(1, 31);
-        array_walk($days, create_function('&$x', '$x = sprintf("'.$day_format.'", $x);'));
+		for ($i = 0; $i < count($days); $i++)
+        	$days[$i] = sprintf($day_format, $days[$i]);
 
         $html_result .= '<select name="'.$prefix.'Day">'."\n";
         $html_result .= smarty_func_html_options(array('output'     => $days,
@@ -294,6 +295,79 @@ function smarty_func_html_select_date()
 
     print $html_result;
 }
+
+
+/*======================================================================*\
+    Function: smarty_func_html_select_time
+    Purpose:  Prints the dropdowns for time selection
+\*======================================================================*/
+function smarty_func_html_select_time()
+{
+    /* Default values. */
+    $prefix         	= "Time_";
+    $time           	= time();
+	$display_hours		= true;
+	$display_minutes	= true;
+	$display_seconds	= true;
+	$display_24_hours	= true;
+	$minute_interval	= 1;
+	$second_interval	= 1;
+	
+	extract(func_get_arg(0));
+	
+    $html_result = '';
+	
+	if ($display_hours) {
+		$hours 	  = $display_24_hours ? range(0, 23) : range(1, 12);
+		$hour_fmt = $display_24_hors ? '%H' : '%I';
+		for ($i = 0; $i < count($hours); $i++)
+        	$hours[$i] = sprintf('%02d', $hours[$i]);
+        $html_result .= '<select name="'.$prefix.'Hour">'."\n";
+		$html_result .= smarty_func_html_options(array('output'		  => $hours,
+													   'values'		  => $hours,
+													   'selected'	  => strftime($hour_fmt, $time),
+													   'print_result' => false));
+        $html_result .= "</select>\n";
+	}
+	
+	if ($display_minutes) {
+		$all_minutes = range(0, 59);
+		for ($i = 0; $i < count($all_minutes); $i+= $minute_interval)
+        	$minutes[] = sprintf('%02d', $all_minutes[$i]);
+		$selected = intval(floor(strftime('%M', $time) / $minute_interval) * $minute_interval);
+        $html_result .= '<select name="'.$prefix.'Minute">'."\n";
+		$html_result .= smarty_func_html_options(array('output'		  => $minutes,
+													   'values'		  => $minutes,
+													   'selected'	  => $selected,
+													   'print_result' => false));
+        $html_result .= "</select>\n";
+	}
+	
+	if ($display_seconds) {
+		$all_seconds = range(0, 59);
+		for ($i = 0; $i < count($all_seconds); $i+= $second_interval)
+        	$seconds[] = sprintf('%02d', $all_seconds[$i]);
+		$selected = intval(floor(strftime('%S', $time) / $second_interval) * $second_interval);
+        $html_result .= '<select name="'.$prefix.'Second">'."\n";
+		$html_result .= smarty_func_html_options(array('output'		  => $seconds,
+													   'values'		  => $seconds,
+													   'selected'	  => $selected,
+													   'print_result' => false));
+        $html_result .= "</select>\n";
+	}
+	
+	if (!$display_24_hours) {
+		$html_result .= '<select name="'.$prefix.'Meridian">'."\n";
+		$html_result .= smarty_func_html_options(array('output'		  => array('AM', 'PM'),
+													   'values'		  => array('am', 'pm'),
+													   'selected'	  => strtolower(strftime('%p', $time)),
+													   'print_result' => false));
+		$html_result .= "</select>\n";
+	}
+	
+	print $html_result;
+}
+
 
 /*======================================================================*\
     Function: smarty_func_math
@@ -351,15 +425,15 @@ function smarty_func_math() {
     Purpose:  fetch file, web or ftp data and display results
 \*======================================================================*/
 function smarty_func_fetch() {
-        extract(func_get_arg(0));
+    extract(func_get_arg(0));
 
-        if(empty($file)) {
-            trigger_error("parameter 'file' cannot be empty");
-            return;                    
-        }
-        readfile($file);
+    if (empty($file)) {
+        trigger_error("parameter 'file' cannot be empty");
+        return;                    
+    }
+
+    readfile($file);
 }
-
 
 /* vim: set expandtab: */
 
