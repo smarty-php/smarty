@@ -1,3 +1,8 @@
+2003-01-22  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php:
+      add file & line number of calling error to error message
+
 2003-01-21  Monte Ohrt  <monte@ispi.net>
 
     * Smarty_Compiler.class.php:
