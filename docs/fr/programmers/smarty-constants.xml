@@ -7,17 +7,17 @@
 	 <sect1 id="constant.smarty.dir">
       <title>SMARTY_DIR</title>
       <para>
-      Il doit s'agir du chemin complet du rTpertoire oú
+      Il doit s'agir du chemin complet du répertoire oú
       se trouvent les fichiers classes de Smarty.
-      S'il n'est pas dTfini, Smarty essaiera alors d'en
-      dTterminer automatiquement la valeur.
-      S'il est dTfini, le chemin doit se terminer par un slash.
+      S'il n'est pas défini, Smarty essaiera alors d'en
+      déterminer automatiquement la valeur.
+      S'il est défini, le chemin doit se terminer par un slash.
       </para>
 
       <example>
        <title>SMARTY_DIR</title>
        <programlisting>
-// dTfinit le chemin du rTpertoire de Smarty
+// définit le chemin du répertoire de Smarty
 define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
 
 require_once(SMARTY_DIR."Smarty.class.php");</programlisting>

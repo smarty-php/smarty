@@ -4,48 +4,48 @@
   <title>Etendre Smarty avec des plugins</title>
   <para>
   La version 2.0 a introduit l'architecture de plugin qui est
-  utilisTe pour pratiquement toute les fonctionnalitTs
+  utilisée pour pratiquement toute les fonctionnalités
   personnalisables de Smarty. Ceci comprend : 
   <itemizedlist spacing="compact">
     <listitem><simpara>les fonctions</simpara></listitem>
     <listitem><simpara>les modificateurs</simpara></listitem>
     <listitem><simpara>les fonctions de blocs</simpara></listitem>
     <listitem><simpara>les fonctions de compilation</simpara></listitem>
-    <listitem><simpara>les filtres de prT-compilation</simpara></listitem>
+    <listitem><simpara>les filtres de pré-compilation</simpara></listitem>
     <listitem><simpara>les filtres de post-compilation</simpara></listitem>
     <listitem><simpara>les filtres de sorties</simpara></listitem>
     <listitem><simpara>les ressources</simpara></listitem>
     <listitem><simpara>les insertions</simpara></listitem>
   </itemizedlist>
-  A part pour les ressources, la compatibilitT avec les anciennes
+  A part pour les ressources, la compatibilité avec les anciennes
   fatons d'enregistrer les fonctions de gestion avec l'API register_
-  est conservTe. Si vous n'avez pas utilisT cette API et que vous avez
-  a la place directement modifiT les variables de classes 
+  est conservée. Si vous n'avez pas utilisé cette API et que vous avez
+  a la place directement modifié les variables de classes 
   <literal>$custom_funcs</literal>, <literal>$custom_mods</literal> et
   d'autres, vous devez alors modifier vos scripts pour utiliser
-  l'API ou convertir vos fonctionnalitTs personnalisTes en plugins.
+  l'API ou convertir vos fonctionnalités personnalisées en plugins.
   </para>
      
   <sect1>
    <title>Comment fonctionnent les plugins</title>
    <para>
-   Les plugins sont toujours chargTs a la demande. Seuls les modificateurs
-   de variables, les ressources, etc invoquTs dans les scripts de templates
-   seront chargTs. De plus, chaque plugin n'est chargT qu'une fois, et ce
-   mOme si vous avez plusieurs instances de Smarty qui tournent dans
-   la mOme requOte.
+   Les plugins sont toujours chargés a la demande. Seuls les modificateurs
+   de variables, les ressources, etc invoqués dans les scripts de templates
+   seront chargés. De plus, chaque plugin n'est chargé qu'une fois, et ce
+   même si vous avez plusieurs instances de Smarty qui tournent dans
+   la même requête.
    </para>
    <para>
-   Les filtres de post/prT-compilation et les filtres de sortie sont des cas
-   un peu spTciaux.
-   Comme ils ne sont pas mentionnTs dans les templates, ils doivent Otre dTclarTs
-   ou chargTs explicitement via les fonctions de l'API avant que le template
-   ne soit exTcutT. L'ordre dans lequel les filtres multiples d'un mOme type
-   sont exTcutTs dTpend de l'ordre dans lequel ils sont enregistrTs ou chargTs.
+   Les filtres de post/pré-compilation et les filtres de sortie sont des cas
+   un peu spéciaux.
+   Comme ils ne sont pas mentionnés dans les templates, ils doivent Otre déclarés
+   ou chargés explicitement via les fonctions de l'API avant que le template
+   ne soit exécuté. L'ordre dans lequel les filtres multiples d'un même type
+   sont exécutés dépend de l'ordre dans lequel ils sont enregistrés ou chargés.
    </para>
    <para>
-   Il n'existe qu'un seul rTpertoire de plugin (pour des raisons de performances).
-   Pour installer un plugin, copiez-le simplement dans le rTpertoire et Smarty
+   Il n'existe qu'un seul répertoire de plugin (pour des raisons de performances).
+   Pour installer un plugin, copiez-le simplement dans le répertoire et Smarty
    l'utilisera automatiquement.
    </para>   
   </sect1>
@@ -54,10 +54,10 @@
     <title>Conventions de nommage</title>
     <para>
     Les fichiers et les fonctions de plugins doivent suivre une convention
-    de nommage trFs spTcifique pour Otre localisTs par Smarty.
+    de nommage trés spécifique pour Otre localisés par Smarty.
     </para>
     <para>
-    Les fichiers de plugins doivent Otre nommTs de la faton suivante :
+    Les fichiers de plugins doivent Otre nommés de la faton suivante :
     <blockquote>
       <para>
        <filename>
@@ -91,7 +91,7 @@
     </para>
     <para>
     Les fonctions de plugins dans les fichiers de plugins doivent Otre
-    nommTes de la faton suivante :
+    nommées de la faton suivante :
     <blockquote>
       <para>
        <function>smarty_<replaceable>type</replaceable>_<replaceable>nom</replaceable></function>
@@ -99,40 +99,40 @@
      </blockquote> 
     </para>
     <para>
-    Les significations de <literal>type</literal> et de <literal>nom</literal> sont les mOmes
-    que prTcTdemment.
+    Les significations de <literal>type</literal> et de <literal>nom</literal> sont les mêmes
+    que précédemment.
     </para>
     <para>
-    Smarty donnera des messages d'erreur appropriT si le fichier de plugin
-    n'est pas trouvT, ou si le fichier ou la fonction de plugin ne sont
-    pas nommTs correctement.
+    Smarty donnera des messages d'erreur approprié si le fichier de plugin
+    n'est pas trouvé, ou si le fichier ou la fonction de plugin ne sont
+    pas nommés correctement.
     </para>
     </sect1>
 
    <sect1 id="plugins.writing">
     <title>Ecrire des plugins</title>
     <para>
-    Les plugins peuvent Otre soit chargTs automatiquement par Smarty
-    depuis le systFme de fichier, soit Otre dTclarTs
-    pendant l'exTcution via une fonction register_* de l'API. Ils peuvent
-    aussi Otre dTsallouTs en utilisant une fonction unregister_* de
+    Les plugins peuvent Otre soit chargés automatiquement par Smarty
+    depuis le systéme de fichier, soit Otre déclarés
+    pendant l'exécution via une fonction register_* de l'API. Ils peuvent
+    aussi Otre désalloués en utilisant une fonction unregister_* de
     l'API.
     </para>
     <para>
-    Pour les plugins qui ne sont pas enregistrTs pendant l'exTcution, le nom
+    Pour les plugins qui ne sont pas enregistrés pendant l'exécution, le nom
     des fonctions n'ont pas a suivre la convention de nommage.
     </para>
     <para>
-    Si certaines fonctionnalitTs d'un plugin dTpendent d'un autre plugin
-    (comme c'est le cas de certains plugins accompagnant Smarty), alors la maniFre appropriTe
+    Si certaines fonctionnalités d'un plugin dépendent d'un autre plugin
+    (comme c'est le cas de certains plugins accompagnant Smarty), alors la maniére appropriée
     de charger le plugin est la suivante :
     </para>
     
     <programlisting>
 require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
     <para>
-    Une rFgle gTnTrale est que chaque objet Smarty est toujours passT au plugin
-    en tant que dernier paramFtre (a part pour les modificateurs).
+    Une régle générale est que chaque objet Smarty est toujours passé au plugin
+    en tant que dernier paramétre (a part pour les modificateurs).
     </para>    
    </sect1>
 
@@ -145,26 +145,26 @@ require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
      </funcprototype>
     </funcsynopsis>
     <para>
-    Tous les attributs passTs aux fonctions de template a partir du template
+    Tous les attributs passés aux fonctions de template a partir du template
     sont contenus dans le tableau associatif <parameter>$params</parameter>.
-    Vous pouvez accTder a ces valeurs soit directement, par exemple
+    Vous pouvez accéder a ces valeurs soit directement, par exemple
     <varname>$params['start']</varname>, soit en utilisant
     <varname>extract($params)</varname> pour les importer dans la table
     des symboles.
     </para>
     <para>
-    Le retour de la fonction sera substituTe a la balise de fonction
+    Le retour de la fonction sera substituée a la balise de fonction
     du template (fonction <function>fetch</function> par exemple). Sinon,
     la fonction peut simplement accomplir une autre tGche sans sortie
     (la fonction <function>assign</function> par exemple)
     </para>
     <para>
     Si la fonction a besoin d'assigner des variables aux templates ou d'utiliser
-    d'autres fonctionnalitTs fournies par Smarty, elle peut recevoir un
+    d'autres fonctionnalités fournies par Smarty, elle peut recevoir un
     objet <parameter>$smarty</parameter> pour cela.
     </para>
     <para>
-     RTfTrez-vous aussi a :
+     RTférez-vous aussi a :
      <link linkend="api.register.function">register_function()</link>,
      <link linkend="api.unregister.function">unregister_function()</link>.
     </para>
@@ -198,7 +198,7 @@ function smarty_function_eightball($params, &amp;$smarty)
      </example>
     </para>
     <para>
-     peut Otre utilisTe dans le template de la faton suivante :
+     peut Otre utilisée dans le template de la faton suivante :
     </para>
     <programlisting>
 Question: Will we ever have time travel?
@@ -240,9 +240,9 @@ function smarty_function_assign($params, &amp;$smarty)
 
    <sect1 id="plugins.modifiers"><title>Modificateurs</title>
     <para>
-    Les modificateurs sont des petites fonctions appliquTes a une variable
-    de template avant qu'elle ne soit affichTe ou utilisTe dans un autre contexte.
-    Les modificateurs peuvent Otre chaenTs entre eux.
+    Les modificateurs sont des petites fonctions appliquées a une variable
+    de template avant qu'elle ne soit affichée ou utilisée dans un autre contexte.
+    Les modificateurs peuvent Otre chaenés entre eux.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -252,13 +252,13 @@ function smarty_function_assign($params, &amp;$smarty)
      </funcprototype>
     </funcsynopsis>
     <para>
-    Le premier paramFtre passT au modificateur est la valeur
-    sur laquelle le modificateur est supposT opTrer. Les autres paramFtres
-    peuvent Otre optionnels, dTpendant de quel genre d'opTration doit Otre
-    effectuT.
+    Le premier paramétre passé au modificateur est la valeur
+    sur laquelle le modificateur est supposé opérer. Les autres paramétres
+    peuvent Otre optionnels, dépendant de quel genre d'opération doit Otre
+    effectué.
     </para>
     <para>
-    Le modificateur doit retourner le rTsultat de son exTcution.
+    Le modificateur doit retourner le résultat de son exécution.
     </para>
     <para>
     Regardez aussi
@@ -268,8 +268,8 @@ function smarty_function_assign($params, &amp;$smarty)
     <example>
      <title>plugin modificateur simple</title>
      <para>
-     Ce plugin est un alias d'une fonction PHP. Il n'a aucun paramFtre
-     supplTmentaires.
+     Ce plugin est un alias d'une fonction PHP. Il n'a aucun paramétre
+     supplémentaires.
      </para>
      <programlisting>
 &lt;?php
@@ -300,7 +300,7 @@ function smarty_modifier_capitalize($string)
  * Type :     modificateur
  * Name :     truncate
  * R(le :     Tronque une chaene a une certaine longueur si
- *            nTcessaire, la coupe optionnellement au milieu
+ *            nécessaire, la coupe optionnellement au milieu
  *            d'un mot et ajoute la chaene $etc 
  * -------------------------------------------------------------
  */
@@ -336,38 +336,38 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     </funcsynopsis>
     <para>
     Les fonctions de blocs sont des fonctions de la forme {func} .. {/func}.
-    En d'autres mots, elles englobent des blocs de template et opFrent sur les
-    contenus de ces blocs. Les fonctions de blocs ont la prioritT sur les
-    fonctions utilisateurs de mOme nom, ce qui signifie que vous ne
+    En d'autres mots, elles englobent des blocs de template et opérent sur les
+    contenus de ces blocs. Les fonctions de blocs ont la priorité sur les
+    fonctions utilisateurs de même nom, ce qui signifie que vous ne
     pouvez avoir une fonction utilisateur {func} et une fonction de bloc
     {func} .. {/func}.
     </para>
     <para>
-    L'implTmentation de votre fonction est appelTe deux fois par Smarty :
+    L'implémentation de votre fonction est appelée deux fois par Smarty :
     une fois pour la balise ouvrante et une autre fois pour la balise
     fermante.
     </para>
     <para>
     Seule la balise ouvrante d'une fonction de bloc peut avoir des attributs.
-    Tous les attributs passTs par le template aux fonctions de templates sont
+    Tous les attributs passés par le template aux fonctions de templates sont
     contenues dans le tableau associatif <parameter>$params</parameter>.
-    Vous pouvez accTder a ces valeurs soit directement, par exemple
+    Vous pouvez accéder a ces valeurs soit directement, par exemple
     <varname>$params['start']</varname>, soit en utilisant
     <varname>extract($params)</varname> pour les importer dans la table
-    des symboles. Votre fonction a aussi accFs aux attributs de la balise
-    ouvrante quand c'est la balise fermante qui est exTcutTe.     
+    des symboles. Votre fonction a aussi accés aux attributs de la balise
+    ouvrante quand c'est la balise fermante qui est exécutée.     
     </para>
     <para>
-    La valeur de la variable <parameter>$content</parameter> est diffTrente
-    selon si votre fonction est appelTe pour la balise ouvrante ou la
+    La valeur de la variable <parameter>$content</parameter> est différente
+    selon si votre fonction est appelée pour la balise ouvrante ou la
     balise fermante. Si c'est pour la balise ouvrante, elle sera a
     <literal>null</literal> et si c'est la balise fermante elle sera
     Tgale au contenu du bloc de template. Notez que le bloc de template
-    aura dTja TtT exTcutT par Smarty, vous recevrez donc la sortie du
+    aura déja Tté exécuté par Smarty, vous recevrez donc la sortie du
     template et non sa source.    
     </para>
     <para>
-    Si vous imbriquT des fonctions de bloc, il est possible de connaetre
+    Si vous imbriqué des fonctions de bloc, il est possible de connaetre
     la fonction de bloc parente grGce a la variable <varname>$smarty->_tag_stack</varname>.
     Faites un var_dump() dessus et la structure devrait apparaetre.
     </para>    
@@ -402,11 +402,11 @@ function smarty_block_translate($params, $content, &amp;$smarty)
 
    <sect1 id="plugins.compiler.functions"><title>Fonctions de compilation</title>
     <para>
-    Les fonctions de compilation sont appelTes durant la compilation du template.
+    Les fonctions de compilation sont appelées durant la compilation du template.
     Elles sont utiles pour injecter du code PHP ou du contenu "statique variant
     avec le temps" (bandeau de pub par ex.). Si une fonction de compilation et
-    une fonction personnalisTe ont le mOme
-    nom, la fonction de compilation a prioritT. 
+    une fonction personnalisée ont le même
+    nom, la fonction de compilation a priorité. 
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -416,10 +416,10 @@ function smarty_block_translate($params, $content, &amp;$smarty)
      </funcprototype>
     </funcsynopsis>
     <para>
-    Les fonctions de compilation ont deux paramFtres : une chaene contenant
-    la balise - en gros, tout, depuis le nom de la fonction jusqu'au dTlimiteur de fin - et
-    l'objet Smarty. Elles sont censTes retourner le code PHP qui doit Otre
-    injectT dans le template compilT.
+    Les fonctions de compilation ont deux paramétres : une chaene contenant
+    la balise - en gros, tout, depuis le nom de la fonction jusqu'au délimiteur de fin - et
+    l'objet Smarty. Elles sont censées retourner le code PHP qui doit Otre
+    injecté dans le template compilé.
     </para>
     <para>
      Regardez aussi
@@ -436,7 +436,7 @@ function smarty_block_translate($params, $content, &amp;$smarty)
  * Fichier :   compiler.tplheader.php
  * Type :      compilation
  * Nom :       tplheader
- * R(le :      Renvoie l'en-tOte contenant le nom du fichier
+ * R(le :      Renvoie l'en-tête contenant le nom du fichier
  *             source et le temps de compilation.
  * -------------------------------------------------------------
  */
@@ -446,13 +446,13 @@ function smarty_compiler_tplheader($tag_arg, &amp;$smarty)
 }
 ?&gt;</programlisting>
      <para>
-     Cette fonction peut-Otre appelT depuis le template comme suivant :
+     Cette fonction peut-Otre appelé depuis le template comme suivant :
      </para>     
      <programlisting>
-{* cette fonction n'est executTe que lors de la compilation *}
+{* cette fonction n'est executée que lors de la compilation *}
 {tplheader}</programlisting>
      <para>
-     Le code PHP rTsultant dans les templates compilTs ressemblerait a ta :
+     Le code PHP résultant dans les templates compilés ressemblerait a ta :
      </para>
      <programlisting>
 &lt;php
@@ -462,11 +462,11 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
    </sect1>
 
    <sect1 id="plugins.prefilters.postfilters">
-    <title>filtres de prT-compilation/filtres de post-compilation</title>
+    <title>filtres de pré-compilation/filtres de post-compilation</title>
     <para>
-    Les filtres de prT-compilation et les filtres de post-compilation ont des concepts trFs
-    proches. Ils diffTrent dans leur exTcution, plus prTcisTment dans le
-    moment oú ils sont exTcutTs.
+    Les filtres de pré-compilation et les filtres de post-compilation ont des concepts trés
+    proches. Ils différent dans leur exécution, plus précisément dans le
+    moment oú ils sont exécutés.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -476,12 +476,12 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      </funcprototype>
     </funcsynopsis>
     <para>
-    Les filtres de prT-compilation sont utilisTs pour transformer la source d'un template
-    juste avant la compilation. Le premier paramFtre passT a la fonction
-    de filtre de prT-compilation est la source du template, Tventuellement modifiTe par
-    d'autres filtre de prT-compilations. Le plugin est supposT retourner la source modifiTe.
-    Notez que cette source n'est sauvegardTe nulle part, elle est seulement
-    utilisT pour la compilation.
+    Les filtres de pré-compilation sont utilisés pour transformer la source d'un template
+    juste avant la compilation. Le premier paramétre passé a la fonction
+    de filtre de pré-compilation est la source du template, Tventuellement modifiée par
+    d'autres filtre de pré-compilations. Le plugin est supposé retourner la source modifiée.
+    Notez que cette source n'est sauvegardée nulle part, elle est seulement
+    utilisé pour la compilation.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -491,12 +491,12 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      </funcprototype>
     </funcsynopsis>
     <para>
-    Les filtres de post-compilation sont utilisTs pour modifier la sortie du template
-    (le code PHP) juste aprFs que la compilation a TtT faite mais juste
-    avant que le template ne soit sauvegardT sur le systFme de fichiers.
-    Le premier paramFtre passT a la fonction de filtre de post-compilation est le code
-    du template compilT, Tventuellement dTja modifiT par d'autres filtre de post-compilations.
-    Le plugin est censT retourner la version modifiT du code.
+    Les filtres de post-compilation sont utilisés pour modifier la sortie du template
+    (le code PHP) juste aprés que la compilation a Tté faite mais juste
+    avant que le template ne soit sauvegardé sur le systéme de fichiers.
+    Le premier paramétre passé a la fonction de filtre de post-compilation est le code
+    du template compilé, Tventuellement déja modifié par d'autres filtre de post-compilations.
+    Le plugin est censé retourner la version modifié du code.
     </para>
     <example>
      <title>plugin de filtre de post-compilation</title>
@@ -506,7 +506,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Smarty plugin
  * -------------------------------------------------------------
  * Fichier :  prefilter.pre01.php
- * Type :     filtre de prT-compilation
+ * Type :     filtre de pré-compilation
  * Nom :      pre01
  * R(le :     Passe les balises HTML en minuscules.
  * -------------------------------------------------------------
@@ -543,9 +543,9 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
 
    <sect1 id="plugins.outputfilters"><title>Filtres de sortie</title>
     <para>
-    Les plugins de filtres de sortie opFrent sur la sortie du template,
-    aprFs que le template a TtT chargT et exTcutT, mais avant que
-    la sortie ne soit affichTe.
+    Les plugins de filtres de sortie opérent sur la sortie du template,
+    aprés que le template a Tté chargé et exécuté, mais avant que
+    la sortie ne soit affichée.
     </para>    
     <funcsynopsis>
      <funcprototype>
@@ -555,10 +555,10 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      </funcprototype>
     </funcsynopsis>
     <para>
-    Le premier paramFtre passT a la fonction du filtre de sortie est la
-    sortie du template qui doit Otre modifiTe et le second paramFtre
-    est l'instance de Smarty appelant le plugin. Le plugin est supposT
-    faire un traitement et en retourner le rTsultat.
+    Le premier paramétre passé a la fonction du filtre de sortie est la
+    sortie du template qui doit Otre modifiée et le second paramétre
+    est l'instance de Smarty appelant le plugin. Le plugin est supposé
+    faire un traitement et en retourner le résultat.
     </para>
     <example>
      <title>plugin de filtre de sortie</title>
@@ -569,7 +569,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  outputfilter.protect_email.php
  * Type :     filtre de sortie
  * Nom :      protect_email
- * R(le:     Convertie les @ en %40 pour protTger des 
+ * R(le:     Convertie les @ en %40 pour protéger des 
  *           robots spammers.
  * -------------------------------------------------------------
  */
@@ -584,16 +584,16 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
 
    <sect1 id="plugins.resources"><title>Ressources</title>
     <para>
-    Les plugins ressources sont un moyen gTnTrique de fournir des sources
+    Les plugins ressources sont un moyen générique de fournir des sources
     de templates ou des composants de scripts PHP a Smarty. Quelques exemples
-    de ressources : bases de donnTes, LDAP, mTmoire partagTe, sockets, et ainsi
+    de ressources : bases de données, LDAP, mémoire partagée, sockets, et ainsi
     de suite.
     </para>
     <para>
-    Il y au total 4 fonctions qui ont besoin d'Otre enregistrTes pour
-    chaque type de ressource. Chaque fonction retoit le nom de la ressource demandTe
-    comme premier paramFtre et l'objet Smarty comme dernier paramFtre.
-    Les autres paramFtres dTpendent de la fonction.
+    Il y au total 4 fonctions qui ont besoin d'Otre enregistrées pour
+    chaque type de ressource. Chaque fonction retoit le nom de la ressource demandée
+    comme premier paramétre et l'objet Smarty comme dernier paramétre.
+    Les autres paramétres dépendent de la fonction.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -621,35 +621,35 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     </funcsynopsis>
 
     <para>
-    La premiFre fonction est supposTe rTcupTrer la ressource. Son second
-    paramFtre est une variable passTe par rTfTrence oú le rTsultat doit Otre
-    stockT. La fonction est supposTe retourner <literal>true</literal> si
-    elle rTussi a rTcupTrer la ressource et <literal>false</literal> sinon.
+    La premiére fonction est supposée récupérer la ressource. Son second
+    paramétre est une variable passée par référence oú le résultat doit Otre
+    stocké. La fonction est supposée retourner <literal>true</literal> si
+    elle réussi a récupérer la ressource et <literal>false</literal> sinon.
     </para>
 
     <para>
-    La seconde fonction est supposTe rTcupTrer la date de derniFre modification 
-    de la ressource demandTe (comme un timestamp UNIX). Le second paramFtre
-    est une variable passTe par rTfTrence dans laquelle la date doit
-    Otre stockTe. La fonction est supposTe renvoyer <literal>true</literal> si elle
-    a rTussi a rTcupTrer la date et <literal>false</literal> sinon.
+    La seconde fonction est supposée récupérer la date de derniére modification 
+    de la ressource demandée (comme un timestamp UNIX). Le second paramétre
+    est une variable passée par référence dans laquelle la date doit
+    Otre stockée. La fonction est supposée renvoyer <literal>true</literal> si elle
+    a réussi a récupérer la date et <literal>false</literal> sinon.
     </para>
 
     <para>
-    La troisiFme fonction est supposTe retourner <literal>true</literal>
-    ou <literal>false</literal> selon si la ressource demandTe est svre
-    ou non. La fonction est utilisTe seulement pour les ressources templates
-    mais doit tout de mOme Otre dTfinie.
+    La troisiéme fonction est supposée retourner <literal>true</literal>
+    ou <literal>false</literal> selon si la ressource demandée est svre
+    ou non. La fonction est utilisée seulement pour les ressources templates
+    mais doit tout de même Otre définie.
     </para>
 
     <para>
-    La quatriFme fonction est supposTe retourner <literal>true</literal>
+    La quatriéme fonction est supposée retourner <literal>true</literal>
     ou <literal>false</literal> selon si on peut faire confiance ou
-    non a la ressource demandTe. Cette fonction est utilisTe seulement
-    pour les composants de scripts PHP demandTs par les balises
+    non a la ressource demandée. Cette fonction est utilisée seulement
+    pour les composants de scripts PHP demandés par les balises
     <command>include_php</command> ou <command>insert</command>
     ayant un attribut <structfield>src</structfield>. Quoiqu'il en soit,
-    elle doit Otre dTfinie pour les ressources templates.
+    elle doit Otre définie pour les ressources templates.
     </para>
 
     <para>
@@ -667,12 +667,12 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  resource.db.php
  * Type :     ressource
  * Nom :      db
- * R(le :     RTcupFre des templates depuis une base de donnTes
+ * R(le :     RTcupére des templates depuis une base de données
  * -------------------------------------------------------------
  */
 function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
 {
-    // fait des requOtes BD pour rTcupTrer votre template
+    // fait des requêtes BD pour récupérer votre template
     // et remplir $tpl_source
     $sql = new SQL;
     $sql->query("select tpl_source
@@ -688,7 +688,7 @@ function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
 
 function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty)
 {
-    // fait des requOtes BD pour remplir $tpl_timestamp
+    // fait des requêtes BD pour remplir $tpl_timestamp
     $sql = new SQL;
     $sql->query("select tpl_timestamp
                    from my_table
@@ -709,7 +709,7 @@ function smarty_resource_db_secure($tpl_name, &amp;$smarty)
 
 function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
 {
-    // inutilisTe pour les templates
+    // inutilisée pour les templates
 }
 ?&gt;</programlisting>
     </example>
@@ -717,8 +717,8 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
 
    <sect1 id="plugins.inserts"><title>Insertions</title>
     <para>
-    Les plugins d'insertion sont utilisTs pour implTmenter les fonctions
-    qui sont appelTes par les balises 
+    Les plugins d'insertion sont utilisés pour implémenter les fonctions
+    qui sont appelées par les balises 
     <link linkend="language.function.insert"><command>insert</command></link>
     dans les templates.
     </para>
@@ -730,15 +730,15 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
      </funcprototype>
     </funcsynopsis>
     <para>
-    Le premier paramFtre passT a la fonction est une tableau associatif
-    d'attributs. Vous pouvez accTder a ces valeurs soit directement, par exemple
+    Le premier paramétre passé a la fonction est une tableau associatif
+    d'attributs. Vous pouvez accéder a ces valeurs soit directement, par exemple
     <varname>$params['start']</varname>, soit en utilisant
     <varname>extract($params)</varname> pour les importer dans la table
     des symboles.
     </para>
     <para>
-    La fonction d'insertion est supposTe retourner le rTsultat qui sera
-    substituT a la balise <command>insert</command> dans le template.
+    La fonction d'insertion est supposée retourner le résultat qui sera
+    substitué a la balise <command>insert</command> dans le template.
     </para>    
     <example>
      <title>plugin d'insertion</title>
@@ -750,7 +750,7 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
  * Fichier :  insert.time.php
  * Type :     temps
  * Nom :      time
- * R(le :     Insert la date/heure courante conformTment
+ * R(le :     Insert la date/heure courante conformément
  *            au format
  * -------------------------------------------------------------
  */

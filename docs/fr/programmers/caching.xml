@@ -3,31 +3,31 @@
   <chapter id="caching">
    <title>Cache</title>
    <para>
-   Le cache est utilisTe pour accTlTrer l'appel de <link
+   Le cache est utilisée pour accélérer l'appel de <link
    linkend="api.display">display()</link> ou de <link
-   linkend="api.fetch">fetch()</link> en sauvegardant leur rTsultat
+   linkend="api.fetch">fetch()</link> en sauvegardant leur résultat
    dans un fichier. Si un fichier de cache est disponible lors d'un appel,
-   il sera affichT sans qu'il ne soit nTcessaire de regTnTrer le rTsultat.
-   Le systFme de cache
-   peut accTlTrer les traitements de faton impressionnante, en particulier les
-   templates dont la compilation est trFs longue. Comme le rTsultat de
+   il sera affiché sans qu'il ne soit nécessaire de regénérer le résultat.
+   Le systéme de cache
+   peut accélérer les traitements de faton impressionnante, en particulier les
+   templates dont la compilation est trés longue. Comme le résultat de
    display() ou de fetch() est dans le cache, un fichier de cache peut
-   Otre composT de plusieurs fichiers de templates, plusieurs fichiers
+   Otre composé de plusieurs fichiers de templates, plusieurs fichiers
    de configuration, etc.
    </para>
    <para>
    Comme les templates sont dynamiques, il est important de faire attention
-   a la faton dont les fichiers de cache sont gTnTrTs, et pour combien de temps.
+   a la faton dont les fichiers de cache sont générés, et pour combien de temps.
    Si par exemple vous affichez la page d'accueil de votre site Web dont le
-   contenu ne change pas souvent, il peut Otre intTressant de mettre cette page
+   contenu ne change pas souvent, il peut Otre intéressant de mettre cette page
    dans le cache pour une heure ou plus. A l'inverse, si vous affichez une page
-   de mTtTo mises a jour toutes les minutes, mettre cette page en cache
+   de météo mises a jour toutes les minutes, mettre cette page en cache
    n'a aucun sens.
    </para>
    <sect1 id="caching.setting.up">
-   <title>ParamTtrer le cache</title>
+   <title>Paramétrer le cache</title>
    <para>
-   La premiFre chose a faire est d'activer le cache. Cela est fait en
+   La premiére chose a faire est d'activer le cache. Cela est fait en
    mettant <link linkend="variable.caching">$caching</link> = true
    (ou 1).
    </para>
@@ -42,50 +42,50 @@ $smarty->caching = true;
 $smarty->display('index.tpl');</programlisting>
     </example>
     <para>
-    Avec le cache activT, la fonction display('index.tpl') va afficher
-    le template mais sauvegardera par la mOme occasion une copie du rTsultat
-    dans un fichier (de cache) du rTpertoire
+    Avec le cache activé, la fonction display('index.tpl') va afficher
+    le template mais sauvegardera par la même occasion une copie du résultat
+    dans un fichier (de cache) du répertoire
     <link linkend="variable.cache.dir">$cache_dir</link>. Au prochain appel de
-    display('index.tpl'), le fichier de cache sera prTfTrT a la rTutilisation
+    display('index.tpl'), le fichier de cache sera préféré a la réutilisation
     du template.
     </para>
 	<note>
 	<title>Note technique</title>
 	<para>
-	Les fichiers situTs dans $cache_dir sont nommTs de la mOme faton que les templates.
-	Bien qu'ils aient une extension ".php", ils ne sont pas vraiment exTcutable.
+	Les fichiers situés dans $cache_dir sont nommés de la même faton que les templates.
+	Bien qu'ils aient une extension ".php", ils ne sont pas vraiment exécutable.
 	N'Tditez surtout pas ces fichiers !
 	</para>
 	</note>
 	<para>
-	Tout fichier de cache a une durTe de vie limitTe dTterminTe par <link
+	Tout fichier de cache a une durée de vie limitée déterminée par <link
 	linkend="variable.cache.lifetime">$cache_lifetime</link>. La valeur par
-	dTfaut est 3600 secondes, i.e. 1 heure. Une fois que cette durTe est
-	dTpassTe, le cache est regTnTrT. Il est possible de donner
-   une durTe d'expiration propre a chaque fichier de cache en rTglant
+	défaut est 3600 secondes, i.e. 1 heure. Une fois que cette durée est
+	dépassée, le cache est regénéré. Il est possible de donner
+   une durée d'expiration propre a chaque fichier de cache en réglant
    $caching = 2.
    Se reporter a la documentation de <link
 	linkend="variable.cache.lifetime">$cache_lifetime</link> pour plus de
-	dTtails.
+	détails.
 	</para>
     <example>
-     <title>rTglage individuel de cache_lifetime</title>
+     <title>réglage individuel de cache_lifetime</title>
      <programlisting>
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 2; // rTgler la durTe de vie individuellement
+$smarty->caching = 2; // régler la durée de vie individuellement
 
-// rTgle la durTe de vie du cache a 15 minutes pour index.tpl
+// régle la durée de vie du cache a 15 minutes pour index.tpl
 $smarty->cache_lifetime = 300;
 $smarty->display('index.tpl');
 
-// rTgle la durTe de vie du cache a 1 heure pour home.tpl
+// régle la durée de vie du cache a 1 heure pour home.tpl
 $smarty->cache_lifetime = 3600;
 $smarty->display('home.tpl');
 
-// NOTE : le rTglage suivant ne fonctionne pas quand $caching = 2. La durTe de vie
-// du fichier de cache de home.tpl a dTja TtT rTglTe a 1 heure et ne respectera
+// NOTE : le réglage suivant ne fonctionne pas quand $caching = 2. La durée de vie
+// du fichier de cache de home.tpl a déja Tté réglée a 1 heure et ne respectera
 // plus la valeur de $cache_lifetime. Le cache de home.tpl expirera toujours
 // dans 1 heure.
 $smarty->cache_lifetime = 30; // 30 secondes
@@ -94,10 +94,10 @@ $smarty->display('home.tpl');</programlisting>
   <para>
   Si <link linkend="variable.compile.check">$compile_check</link> est actif,
   chaque fichier de template et de configuration qui a un rapport
-  avec le fichier de cache sera vTrifiT pour dTtecter une Tventuelle
-  modification. Si l'un de ces fichiers a TtT modifiT depuis que le fichier de cache a TtT
-  gTnTrT, le cache est immTdiatement regTnTrT. Ce processus est covteux, donc,
-  pour des raisons de performances, mettez ce paramFtre a false pour une application
+  avec le fichier de cache sera vérifié pour détecter une Tventuelle
+  modification. Si l'un de ces fichiers a Tté modifié depuis que le fichier de cache a Tté
+  généré, le cache est immédiatement regénéré. Ce processus est covteux, donc,
+  pour des raisons de performances, mettez ce paramétre a false pour une application
   en production.
   </para>
     <example>
@@ -113,16 +113,16 @@ $smarty->display('index.tpl');</programlisting>
 	</example>
    <para>
    Si <link linkend="variable.force.compile">$force_compile</link> est actif,
-   les fichiers de cache sont toujours regTnTrTs. Ceci revient finalement a
-   dTsactiver le cache. $force_compile est utilisT a des fins de dTbogage,
-   un moyen plus efficace de dTsactiver le cache est de rTgler
+   les fichiers de cache sont toujours regénérés. Ceci revient finalement a
+   désactiver le cache. $force_compile est utilisé a des fins de débogage,
+   un moyen plus efficace de désactiver le cache est de régler
    <link	linkend="variable.caching">$caching</link> = false (ou 0).
    </para>
    <para>
    La fonction <link linkend="api.is.cached">is_cached()</link> permet
    de tester si un template a ou non un fichier de cache valide.
-   Si vous disposez d'un template en cache qui requiert une requOte
-   a une base de donnTes, vous pouvez utiliser cette mTthode plut(t
+   Si vous disposez d'un template en cache qui requiert une requête
+   a une base de données, vous pouvez utiliser cette méthode plut(t
    que $compile_check.
    </para>
     <example>
@@ -146,10 +146,10 @@ $smarty->display('index.tpl');</programlisting>
     page avec la fonction de templates <link
     linkend="language.function.insert">insert</link>.
     Imaginons que toute une page doit Otre mise en cache a part
-    une banniFre en bas a droite. En utilisant une fonction insert pour la
-    banniFre, vous pouvez garder cet TlTment dynamique dans le contenu qui
+    une banniére en bas a droite. En utilisant une fonction insert pour la
+    banniére, vous pouvez garder cet Tlément dynamique dans le contenu qui
     est en cache. Reportez-vous a la documentation
-    <link linkend="language.function.insert">insert</link> pour plus de dTtails
+    <link linkend="language.function.insert">insert</link> pour plus de détails
     et des exemples.
     </para>
     <para>
@@ -178,12 +178,12 @@ $smarty->display('index.tpl');</programlisting>
    <sect1 id="caching.multiple.caches">
    <title>Caches multiples pour une seule page</title>
    <para>
-   Vous pouvez avoir plusieurs fichiers de caches pour un mOme appel
+   Vous pouvez avoir plusieurs fichiers de caches pour un même appel
    aux fonctions display() ou fetch(). Imaginons qu'un appel a display('index.tpl')
-   puisse avoir plusieurs rTsultats, en fonction de certaines conditions, et que
-   vous vouliez des fichiers de cache sTparTs pour chacun d'eux. Vous
+   puisse avoir plusieurs résultats, en fonction de certaines conditions, et que
+   vous vouliez des fichiers de cache séparés pour chacun d'eux. Vous
    pouvez faire cela en passant un identifiant de cache (cache_id) en
-   deuxiFme paramFtre a l'appel de fonction.
+   deuxiéme paramétre a l'appel de fonction.
    </para>
     <example>
      <title>Passage d'un cache_id a display()</title>
@@ -200,8 +200,8 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
     <para>
     Nous passons ci-dessus la variable $my_cache_id a display() comme
     identifiant de cache. Pour chaque valeur distincte de $my_cache_id,
-    un fichier de cache distinct va Otre crTT. Dans cet exemple,
-    "article_id" a TtT passT dans l'URL et est utilisT en tant qu'identifiant
+    un fichier de cache distinct va Otre créT. Dans cet exemple,
+    "article_id" a Tté passé dans l'URL et est utilisé en tant qu'identifiant
     de cache.
     </para>
  	<note>
@@ -210,19 +210,19 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
 	Soyez prudent en passant des valeurs depuis un client (navigateur Web)
 	vers Smarty (ou vers n'importe quelle application PHP). Bien que l'exemple
 	ci-dessus consistant a utiliser article_id depuis l'URL puisse paraetre
-	commode, le rTsultat peut s'avTrer mauvais. L'identifiant
-	de cache est utilisT pour crTer un rTpertoire sur le systFme de fichiers,
-	donc si l'utilisateur dTcide de donner une trFs grande valeur a article_id
-	ou d'Tcrire un script qui envoie des article_id de faton alTatoire,
-	cela pourra causer des problFmes cotT serveur. Assurez-vous de bien
-	tester toute donnTe passTe en paramFtre avant de l'utiliser. Dans cet
+	commode, le résultat peut s'avérer mauvais. L'identifiant
+	de cache est utilisé pour créer un répertoire sur le systéme de fichiers,
+	donc si l'utilisateur décide de donner une trés grande valeur a article_id
+	ou d'Tcrire un script qui envoie des article_id de faton aléatoire,
+	cela pourra causer des problémes coté serveur. Assurez-vous de bien
+	tester toute donnée passée en paramétre avant de l'utiliser. Dans cet
 	exemple, peut-Otre savez-vous que article_id a une longueur de 10
-   caractFres, est exclusivement composT de caractFres alph-numTriques et
-   doit avoir une valeur contenue dans la base de donnTes. VTrifiez-le bien !
+   caractéres, est exclusivement composé de caractéres alph-numériques et
+   doit avoir une valeur contenue dans la base de données. VTrifiez-le bien !
 	</para>
 	</note>
 	<para>
-	Assurez-vous de bien passer le mOme identifiant aux fonctions
+	Assurez-vous de bien passer le même identifiant aux fonctions
    <link linkend="api.is.cached">is_cached()</link> et
 	<link linkend="api.clear.cache">clear_cache()</link>.
 	</para>
@@ -246,7 +246,7 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
     </example>
     <para>
     Vous pouvez effacer tous les fichiers de cache pour un identifiant
-    de cache particulier en passant null en tant que premier paramFtre
+    de cache particulier en passant null en tant que premier paramétre
     a clear_cache().
     </para>
 	<example>
@@ -263,17 +263,17 @@ $smarty->clear_cache(null,"sports");
 $smarty->display('index.tpl',"sports");</programlisting>
     </example>
     <para>
-    De cette maniFre vous pouvez "grouper" vos fichiers de cache en leur
-    donnant le mOme identifiant.
+    De cette maniére vous pouvez "grouper" vos fichiers de cache en leur
+    donnant le même identifiant.
     </para>
    </sect1>
    <sect1 id="caching.groups">
     <title>groupes de fichiers de cache</title>
     <para>
-    Vous pouvez faire des groupements plus TlaborTs en paramTtrant les
-    groupes d'identifiant de cache. Il suffit de sTparer chaque sous-groupes
+    Vous pouvez faire des groupements plus Tlaborés en paramétrant les
+    groupes d'identifiant de cache. Il suffit de séparer chaque sous-groupes
     avec une barre verticale "|" dans la valeur de l'identifiant de cache.
-    Vous pouvez faire autant de sous-groupes que vous le dTsirez.
+    Vous pouvez faire autant de sous-groupes que vous le désirez.
     </para>
 	<example>
      <title>groupes d'identifiants de cache</title>
@@ -296,11 +296,11 @@ $smarty->display('index.tpl',"sports|basketball");</programlisting>
    <note>
    <title>Note technique</title>
    <para>
-   Le systFme de cache n'utilise PAS le chemin vers le template en quoi
+   Le systéme de cache n'utilise PAS le chemin vers le template en quoi
    que ce soit pour l'identifiant de cache.  Si par exemple vous
    faites display('themes/blue/index.tpl'), vous ne pouvez pas effacer tous
-   les fichiers de cache dans le rTpertoire "theme/blue". Si vous voulez
-   faire cela, vous devez les grouper avec un mOme identifiant de cache,
+   les fichiers de cache dans le répertoire "theme/blue". Si vous voulez
+   faire cela, vous devez les grouper avec un même identifiant de cache,
    display('themes/blue/index.tpl','themes|blue'). Vous pouvez ensuite effacer les
    fichiers de cache pour blue et theme avec clear_cache(null,'theme|blue').
    </para>
