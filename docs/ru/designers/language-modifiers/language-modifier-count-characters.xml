@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.count.characters">
-			<title>count_characters</title>
-			<para>
-			Âîçâðàùàåò êîëè÷åñòâî ñèìâîëîâ â ñòðîêå.
-			</para>
-<example>
-<title>count_characters</title>
-<programlisting>
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.count.characters">
+ <title>count_characters</title>
+ <para>
+  Âîçâðàùàåò êîëè÷åñòâî ñèìâîëîâ â ñòðîêå.
+ </para>
+ <example>
+  <title>count_characters</title>
+  <programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -22,8 +23,9 @@ index.tpl:
 OUTPUT:
 
 Cold Wave Linked to Temperatures.
-32</programlisting>
-</example>
+32
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

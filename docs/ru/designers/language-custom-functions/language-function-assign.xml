@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
 <sect1 id="language.function.assign">
-	<title>assign</title>
+ <title>assign</title>
  <informaltable frame="all">
   <tgroup cols="5">
   <colspec colname="param" align="center" />

@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.replace">
-			<title>replace</title>
-            <informaltable frame="all">
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.replace">
+ <title>replace</title>
+ <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" />
                 <colspec colname="type" />
@@ -35,13 +36,13 @@
                     </row>
                 </tbody>
                 </tgroup>
-            </informaltable>
-			<para>
-			Âûïîëíÿåòüñÿ ïðîñòîé ïîèñê è çàìåíà ñòðîêè.
-			</para>
-<example>
-<title>replace</title>
-<programlisting>
+ </informaltable>
+	<para>
+		Âûïîëíÿåòüñÿ ïðîñòîé ïîèñê è çàìåíà ñòðîêè.
+	</para>
+ <example>
+  <title>replace</title>
+  <programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -58,8 +59,9 @@ OUTPUT:
 
 Child's Stool Great for Use in Garden.
 Child's Stool Great for Use in Vineyard.
-Child's   Stool   Great   for   Use   in   Garden.</programlisting>
-</example>
+Child's   Stool   Great   for   Use   in   Garden.
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

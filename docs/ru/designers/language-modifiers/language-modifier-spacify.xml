@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.spacify">
-			<title>spacify</title>
-            <informaltable frame="all">
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.spacify">
+ <title>spacify</title>
+ <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" />
                 <colspec colname="type" />
@@ -28,13 +29,13 @@
                     </row>
                 </tbody>
                 </tgroup>
-            </informaltable>
-			<para>
-			Spacify ïîçâîëÿåò âñòàâèòü ïðîáåë ìåæäó êàæäûì ñèìâîëîì ïåðåìåííîé.
-			Ìîæíî òàêæå óêàçàòü äðóãîé ñèìâîë (èëè ñòðîêó) äëÿ âñòàâêè
-			</para>
-<example>
-<title>spacify</title>
+ </informaltable>
+ <para>
+  spacify ïîçâîëÿåò âñòàâèòü ïðîáåë ìåæäó êàæäûì ñèìâîëîì ïåðåìåííîé.
+  Ìîæíî òàêæå óêàçàòü äðóãîé ñèìâîë (èëè ñòðîêó) äëÿ âñòàâêè.
+ </para>
+ <example>
+  <title>spacify</title>
 <programlisting>
 index.php:
 
@@ -53,7 +54,7 @@ OUTPUT:
 Something Went Wrong in Jet Crash, Experts Say.
 S o m e t h i n g   W e n t   W r o n g   i n   J e t   C r a s h ,   E x p e r t s   S a y .
 S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^^ ^^C^^r^^a^^s^^h^^,^^ ^^E^^x^^p^^e^^r^^t^^s^^ ^^S^^a^^y^^.</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

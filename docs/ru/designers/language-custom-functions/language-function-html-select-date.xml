@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="language.function.html.select.date">
  <title>html_select_date</title>
  <informaltable frame="all">

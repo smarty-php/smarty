@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.indent">
-			<title>indent</title>
-            <informaltable frame="all">
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.indent">
+ <title>indent</title>
+ <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" />
                 <colspec colname="type" />
@@ -35,13 +36,13 @@
                     </row>
                 </tbody>
                 </tgroup>
-            </informaltable>
-			<para>
-			Âñòàâëÿåò â íà÷àëî êàæäîé ñòðîêè çàäàííîå êîëè÷åñòâî 
-			çàäàííûõ ñèìâîëîâ. Ïî óìîë÷àíèþ âñòàâëÿåòüñÿ 4 ïðîáåëà.
-			</para>
-<example>
-<title>indent</title>
+ </informaltable>
+	<para>
+		Âñòàâëÿåò â íà÷àëî êàæäîé ñòðîêè çàäàííîå êîëè÷åñòâî 
+		çàäàííûõ ñèìâîëîâ. Ïî óìîë÷àíèþ âñòàâëÿåòüñÿ 4 ïðîáåëà.
+	</para>
+ <example>
+  <title>indent</title>
 <programlisting>
 index.php:
 
@@ -76,7 +77,7 @@ Statistics show that teen pregnancy drops off significantly after 25.
 	NJ judge to rule on nude beach.
 	Sun or rain expected today, dark tonight.
 	Statistics show that teen pregnancy drops off significantly after 25.</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.cat">
-			<title>cat</title>
-            <informaltable frame="all">
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.cat">
+ <title>cat</title>
+ <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" align="center" />
                 <colspec colname="type" align="center" />
@@ -29,12 +30,12 @@
                     </row>
                 </tbody>
                 </tgroup>
-            </informaltable>
-			<para>
-			Äàííàÿ ñòðîêà äîáàâëÿåòñÿ ê ìîäèôèöèðóåìîìó çíà÷åíèþ.
-			</para>
-<example>
-<title>cat</title>
+ </informaltable>
+ <para>
+		Äàííàÿ ñòðîêà äîáàâëÿåòñÿ ê ìîäèôèöèðóåìîìó çíà÷åíèþ.
+	</para>
+ <example>
+  <title>cat</title>
 <programlisting>
 index.php:
 
@@ -49,7 +50,7 @@ index.tpl:
 OUTPUT:
 
 Psychics predict world didn't end yesterday.</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

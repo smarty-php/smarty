@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 -->
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
 <sect1 id="variable.global.assign">
  <title>$global_assign</title>
  <para>
@@ -15,7 +15,7 @@
  </para>
  <note>
   <title>Техническое замечание</title>
-	 <para>
+  <para>
    Доступ к серверным переменным может быть осуществлен через переменную
    $smarty, например, {$smarty.server.SCRIPT_NAME}. См. раздел о переменной
    <link linkend="language.variables.smarty">$smarty</link>.

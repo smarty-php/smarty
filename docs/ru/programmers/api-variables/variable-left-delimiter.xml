@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 -->
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
 <sect1 id="variable.left.delimiter">
  <title>$left_delimiter</title>
  <para>
-  Левый ограничитель, используемый	в языке шаблонов.
+  Левый ограничитель, используемый в языке шаблонов.
   По умолчанию равно "{".
  </para>
 </sect1>

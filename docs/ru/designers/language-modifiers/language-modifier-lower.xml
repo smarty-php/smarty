@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.lower">
-			<title>lower</title>
-			<para>
-			Âñå áóêâû â ïåðåìåííîé ñòàíîâÿòñÿ ìàëåíüêèìè.
-			</para>
-<example>
-<title>lower</title>
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.lower">
+ <title>lower</title>
+ <para>
+  Ïåðåâîäèò òåêñò â íèæíèé ðåãèñòð.
+ </para>
+ <example>
+  <title>lower</title>
 <programlisting>
 index.php:
 
@@ -23,7 +24,7 @@ OUTPUT:
 
 Two Convicts Evade Noose, Jury Hung.
 two convicts evade noose, jury hung.</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

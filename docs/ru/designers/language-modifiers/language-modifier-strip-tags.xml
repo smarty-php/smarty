@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.strip.tags">
-			<title>strip_tags</title>
-			<para>
-			Âûðåçàåò HTML òåãè, îáû÷íî âñå ìåæäó &lt; è &gt;.
-			</para>
-<example>
-<title>strip_tags</title>
-<programlisting>
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.strip.tags">
+ <title>strip_tags</title>
+ <para>
+  Âûðåçàåò HTML òåãè, îáû÷íî âñå ìåæäó &lt; è &gt;.
+ </para>
+ <example>
+  <title>strip_tags</title>
+  <programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -22,8 +23,9 @@ index.tpl:
 OUTPUT:
 
 Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
-Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
-</example>
+Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

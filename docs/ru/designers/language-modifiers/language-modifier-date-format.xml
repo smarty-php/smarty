@@ -1,51 +1,51 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.date.format">
-			<title>date_format</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Ïîçèöèÿ ïàðàìåòðà</entry>
-                        <entry>Òèï</entry>
-                        <entry>Îáÿçàòåëåí</entry>       
-                        <entry>Ïî óìîë÷àíèþ</entry>
-                        <entry>Îïèñàíèå</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry>%b %e, %Y</entry>
-                        <entry>Ôîðìàò âûâîäà äàòû.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>ñòðîêà (string)</entry>
-                        <entry>Íåò</entry>
-                        <entry>n/a</entry>
-                        <entry>Åñëè ìîäèôèöèðóåìîå çíà÷åíèå ïóñòî, 
-                        òî èñïîëüçóåòñÿ ýòî.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			Ôîðìèðóåò äàòó è âðåìÿ ïî çàäàííîìó ôîðìàòó strftime(). Äàòû ìîãóò 
-			áûòü â âèäå unix timestamps, mysql timestamps èëè â ëþáîì äðóãîì âèäå,
-			êîòîðûé ïîéìåò strtotime(). Ïðîåêòèðîâùèêè øàáëîíîâ ìîãóò èñïîëüçîâàòü 
-			date_format äëÿ êîíòðîëÿ íàä ôîðìàòîì âûâîäèìûõ äàò. Åñëè äàòà, 
-			ïåðåäàííàÿ ìîäèôèêàòîðó, ïóñòà, òî âòîðîé ïàðàìåòð èñïîëüçóåòñÿ êàê äàòà.
-			</para>
-<example>
-<title>date_format</title>
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.date.format">
+ <title>date_format</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Ïîçèöèÿ ïàðàìåòðà</entry>
+     <entry>Òèï</entry>
+     <entry>Îáÿçàòåëåí</entry>       
+     <entry>Ïî óìîë÷àíèþ</entry>
+     <entry>Îïèñàíèå</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>1</entry>
+     <entry>ñòðîêà (string)</entry>
+     <entry>Íåò</entry>
+     <entry>%b %e, %Y</entry>
+     <entry>Ôîðìàò âûâîäà äàòû.</entry>
+    </row>
+    <row>
+     <entry>2</entry>
+     <entry>ñòðîêà (string)</entry>
+     <entry>Íåò</entry>
+     <entry>n/a</entry>
+     <entry>Åñëè ìîäèôèöèðóåìîå çíà÷åíèå ïóñòî, òî èñïîëüçóåòñÿ ýòî.</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+	<para>
+		Ôîðìèðóåò äàòó è âðåìÿ ïî çàäàííîìó ôîðìàòó strftime(). Äàòû ìîãóò 
+ 	áûòü â âèäå unix timestamps, mysql timestamps èëè â ëþáîì äðóãîì âèäå,
+		êîòîðûé ïîéìåò strtotime(). Ïðîåêòèðîâùèêè øàáëîíîâ ìîãóò èñïîëüçîâàòü 
+		date_format äëÿ êîíòðîëÿ íàä ôîðìàòîì âûâîäèìûõ äàò. Åñëè äàòà, 
+		ïåðåäàííàÿ ìîäèôèêàòîðó, ïóñòà, òî âòîðîé ïàðàìåòð èñïîëüçóåòñÿ êàê äàòà.
+	</para>
+ <example>
+  <title>date_format</title>
 <programlisting>
 index.php:
 
@@ -71,15 +71,15 @@ Tuesday, February 6, 2001
 Feb 5, 2001
 Monday, February 5, 2001
 14:33:00</programlisting>
-</example>
-<example>
-<title>date_format conversion specifiers</title>
+ </example>
+ <example>
+  <title>date_format conversion specifiers</title>
 <programlisting>
 %a - ñîêðàùåííîå íàçâàíèå äíÿ íåäåëè, â çàâèñèìîñòè îò òåêóùåé ëîêàëè
 
 %A - ïîëíîå íàçâàíèå äíÿ íåäåëè, â çàâèñèìîñòè îò òåêóùåé ëîêàëè
 
-%b - ñîêðàùåííîå íàùâàíèå ìåñÿöà, â çàâèñèìîñòè îò òåêóùåé ëîêàëè
+%b - ñîêðàùåííîå íàçâàíèå ìåñÿöà, â çàâèñèìîñòè îò òåêóùåé ëîêàëè
 
 %B - ïîëíîå íàçâàíèå ìåñÿöà, â çàâèñèìîñòè îò òåêóùåé ëîêàëè
 
@@ -132,8 +132,8 @@ Monday, February 5, 2001
 %U - íîìåð íåäåëè â ãîäó, ñ÷èòàÿ ïåðâîå âîñêðåñåíüÿ ãîäà ïåðâûì äíåì ïåðâîé íåäåëè 
 
 %V - íîìåð íåäåëè â ãîäó (ïî ISO 8601:1988) â äèàïàçîíå îò 01 äî 53, ãäå ïåðâàÿ íåäåëÿ
-	 òà, ó êîòîðîé õîòÿ áû 4 äíÿ íàõîäÿòüñÿ â äàííîì ãîäó. Ïîíåäåëüíèê ñ÷èòàåòñÿ 
-	 ïåðâûì äíåì íåäåëè. 
+     òà, ó êîòîðîé õîòÿ áû 4 äíÿ íàõîäÿòñÿ â äàííîì ãîäó. Ïîíåäåëüíèê ñ÷èòàåòñÿ 
+	    ïåðâûì äíåì íåäåëè. 
 
 %w - íîìåð äíÿ íåäåëè, ãäå 0 - âîñêðåñåíüå
 
@@ -152,12 +152,11 @@ Monday, February 5, 2001
 %% - a literal `%' character 
 
 
-PROGRAMMERS ÇÀÌÅ×ÀÍÈÅ: date_format is essentially a wrapper to PHP's strftime()
-function. You may have more or less conversion specifiers available depending
-on your system's strftime() function where PHP was compiled. Check your
-system's manpage for a full list of valid specifiers.</programlisting>
-</example>
-
+ÇÀÌÅ×ÀÍÈÅ ÄËß ÏÐÎÃÐÀÌÌÈÑÒÎÂ: date_format - ýòî îáåðòêà äëÿ ôóíêöèè strftime(),
+ïîýòîìó ïîëíûé ñïèñîê ñïåöèôèêàòîðîâ, ñîîòâåòñòâóþùèé âàøåé ñèñòåìå, âû
+ñìîæåòå íàéòè â ñîîòâåòñòâóþùåì ñèñòåìíîì ðóêîâîäñòâå.
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,22 +1,23 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.strip">
-			<title>strip</title>
-			<para>
-			Çàìåíÿåò âñå ïîâòîðíûå ïðîáåëû, íîâûå ñòðîêè è çíàêè òàáóëÿöèè íà
-			îäèíî÷íûé ïðîáåë èëè íà çàäàííóþ ñòðîêó.
-			</para>
-			<note>
-			<title>Çàìå÷àíèå</title>
-			<para>
-			Åñëè âû õîòèòå ñäåëàòü àíàëîãè÷íóþ îïåðàöèþ íàä ÷àñòüþ
-			òåêñòà øàáëîíà, òî èñïîëüçóéòå ôóíêöèþ <link
-			linkend="language.function.strip">strip</link>.
-			</para>
-			</note>
-<example>
-<title>strip</title>
-<programlisting>
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.strip">
+ <title>strip</title>
+ <para>
+  Çàìåíÿåò âñå ïîâòîðíûå ïðîáåëû, íîâûå ñòðîêè è çíàêè òàáóëÿöèè íà
+  îäèíî÷íûé ïðîáåë èëè íà çàäàííóþ ñòðîêó.
+ </para>
+ <note>
+  <title>Çàìå÷àíèå</title>
+  <para>
+   Åñëè âû õîòèòå ñäåëàòü àíàëîãè÷íóþ îïåðàöèþ íàä ÷àñòüþ
+   òåêñòà øàáëîíà, òî èñïîëüçóéòå ôóíêöèþ <link
+   linkend="language.function.strip">strip</link>.
+  </para>
+ </note>
+ <example>
+  <title>strip</title>
+  <programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -34,8 +35,9 @@ OUTPUT:
 Grandmother of
 eight makes        hole in one.
 Grandmother of eight makes hole in one.
-Grandmother&amp;nbsp;of&amp;nbsp;eight&amp;nbsp;makes&amp;nbsp;hole&amp;nbsp;in&amp;nbsp;one.</programlisting>
-</example>
+Grandmother&amp;nbsp;of&amp;nbsp;eight&amp;nbsp;makes&amp;nbsp;hole&amp;nbsp;in&amp;nbsp;one.
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

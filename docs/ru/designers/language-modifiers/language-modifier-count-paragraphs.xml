@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.count.paragraphs">
-			<title>count_paragraphs</title>
-			<para>
-			Âîçâðàùàåò êîëè÷åñòâî àáçàöåâ â ñòðîêå.
-			</para>
-<example>
-<title>count_paragraphs</title>
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.count.paragraphs">
+	<title>count_paragraphs</title>
+	<para>
+		Âîçâðàùàåò êîëè÷åñòâî àáçàöåâ â ñòðîêå.
+	</para>
+ <example>
+  <title>count_paragraphs</title>
 <programlisting>
 index.php:
 
@@ -26,7 +27,7 @@ War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.
 
 Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 2</programlisting>
-</example>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

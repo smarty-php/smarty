@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.wordwrap">
-			<title>wordwrap</title>
-            <informaltable frame="all">
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.wordwrap">
+ <title>wordwrap</title>
+ <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" />
                 <colspec colname="type" />
@@ -42,17 +43,17 @@
                     </row>
                 </tbody>
                 </tgroup>
-            </informaltable>
-			<para>
-			Ïåðåíîñèò ñòðîêó ïî êîëè÷åñòâó ñòîëáöîâ (ïî óìîë÷àíèþ 80). Ìîæíî 
-			óêàçàòü ñòðîêó, êîòîðàÿ áóäåò âñòàâëÿòñÿ íà ìåñòå ïåðåíîñà (ïî 
-			óìîë÷àíèþ ñèìâîë íîâîé ñòðîêè). Ïî óìîë÷àíèþ wordwrap ïûòàåòñÿ 
-			ïåðåíîñèòü ïî ñëîâàì, íî åñëè óêàçàòü òðåòèì ïàðàìåòðîì true, òî 
-			ïåðåíîñèòüñÿ áóäåò ïî êîíêðåòíîìó ñèìâîëó.
-			</para>
-<example>
-<title>wordwrap</title>
-<programlisting>
+ </informaltable>
+ <para>
+  Ïåðåíîñèò ñòðîêó ïî êîëè÷åñòâó ñòîëáöîâ (ïî óìîë÷àíèþ 80). Ìîæíî 
+  óêàçàòü ñòðîêó, êîòîðàÿ áóäåò âñòàâëÿòñÿ íà ìåñòå ïåðåíîñà (ïî 
+  óìîë÷àíèþ ñèìâîë íîâîé ñòðîêè). Ïî óìîë÷àíèþ wordwrap ïûòàåòñÿ 
+  ïåðåíîñèòü ïî ñëîâàì, íî åñëè óêàçàòü òðåòèì ïàðàìåòðîì true, òî 
+  ïåðåíîñèòüñÿ áóäåò ïî êîíêðåòíîìó ñèìâîëó.
+ </para>
+ <example>
+  <title>wordwrap</title>
+  <programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -89,8 +90,9 @@ from dad she hasn't seen in years.
 
 Blind woman gets new kidney fr
 om dad she hasn't seen in year
-s.</programlisting>
-</example>
+s.
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- En-Revision: 1.2 -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="caching.groups">
  <title>Групповое кэширование</title>
-	<para>
+ <para>
   Вы можете сделать группировку более продуманной, используя групповые значения cache_id.
   В таком случае, каждая подгруппа отделяется знаком вертикальной черты  "|" в 
   значении cache_id. Возможно создавать любое количество подгрупп.
-	</para>
-	<example>
+ </para>
+ <example>
   <title>Группы в cache_id</title>
   <programlisting>
 <![CDATA[

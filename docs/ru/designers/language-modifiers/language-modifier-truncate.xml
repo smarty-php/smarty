@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.truncate">
-			<title>truncate</title>
-            <informaltable frame="all">
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<sect1 id="language.modifier.truncate">
+ <title>truncate</title>
+ <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" />
                 <colspec colname="type" />
@@ -44,18 +45,18 @@
                     </row>
                 </tbody>
                 </tgroup>
-            </informaltable>
-			<para>
-			Îáðåçàåò ïåðåìåííóþ ïî óêàçàííîé äëèíå (ïî óìîë÷àíèþ 80). Âòîðûì 
-			ïàðàìåòðîì ìîæíî óêàçàòü òåêñò, êîòîðûé áóäåò äîáàâëåí â êîíåö 
-			îáðåçàííîé ñòðîêè. Ïî óìîë÷àíèþ truncate áóäåò ïûòàòüñÿ âûðåçàòü 
-			ñëîâî, êîòîðîé ëåæèò íà âûðåçàåìîé ãðàíèöå, öåëèêîì. Ìîæíî óêàçàòü 
-			òðåòèé ïàðàìåòð true, åñëè íàäî îáðåçàòü ñòðîêó òî÷íî ïî 
-			îïðåäåëåííîìó ñèìâîëó.
-			</para>
-<example>
-<title>truncate</title>
-<programlisting>
+ </informaltable>
+ <para>
+  Îáðåçàåò ïåðåìåííóþ ïî óêàçàííîé äëèíå (ïî óìîë÷àíèþ 80). Âòîðûì 
+  ïàðàìåòðîì ìîæíî óêàçàòü òåêñò, êîòîðûé áóäåò äîáàâëåí â êîíåö 
+  îáðåçàííîé ñòðîêè. Ïî óìîë÷àíèþ truncate áóäåò ïûòàòüñÿ âûðåçàòü 
+  ñëîâî, êîòîðîé ëåæèò íà âûðåçàåìîé ãðàíèöå, öåëèêîì. Ìîæíî óêàçàòü 
+  òðåòèé ïàðàìåòð true, åñëè íàäî îáðåçàòü ñòðîêó òî÷íî ïî 
+  îïðåäåëåííîìó ñèìâîëó.
+ </para>
+ <example>
+  <title>truncate</title>
+  <programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -80,8 +81,9 @@ Two Sisters Reunite after...
 Two Sisters Reunite after
 Two Sisters Reunite after---
 Two Sisters Reunite after Eigh
-Two Sisters Reunite after E...</programlisting>
-</example>
+Two Sisters Reunite after E...
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
