@@ -1,3 +1,14 @@
+1.5.0
+-----
+
+Several feature enhancements were made to this version, most notably the
+{foreach ...} command which is an alternative to {section ...} with an easier
+syntax for looping through a single array of values. Several functions were
+enhanced so that the output can be automatically assigned to a template
+variable instead of displayed (assign attribute). Cache files can now be
+controlled with a custom function as an alternative to the built-in file based
+method. Many code cleanups and bug fixed went into this release as well.
+
 1.4.6
 -----
 

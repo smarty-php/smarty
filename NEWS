@@ -1,5 +1,7 @@
-    - added assign attribute to include and include_php, documented (Monte)
-    - added include_php built-in function. (Monte)
+Version 1.5.0
+-------------
+
+    - added include_php built-in function, documented. (Monte)
     - added trusted_dir functionality, documented. (Monte)
     - consolidated secure_dir tests to one function. (Monte)
     - prepended _smarty_ to variable names in fetch() class function to avoid
@@ -10,8 +12,8 @@
     - added $smarty.section.* syntax for accessing section properties,
       documented. (Andrei)
     - added custom cache handling function ability, documented. (Monte)
-    - added assign attribute to insert, fetch, math, and counter functions,
-      documented. (Monte)
+	- added assign attribute to include, include_php, insert, fetch, math, and
+	  counter functions, documented. (Monte)
     - fixed bug with fetch testing for local file when http address. (Monte)
     - fixed bug with counter and skipval setting. (Monte)
     - made {config_load ...} merge globals from each config file only once per
