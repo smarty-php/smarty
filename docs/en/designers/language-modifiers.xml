@@ -47,9 +47,8 @@ Topic: {$topic|truncate:40:"..."}
   as modifiers has two little pitfalls: First: Sometimes the order
   of the function-parameters is not the desirable one
   (<literal>{"%2.f"|sprintf:$float}</literal> actually works, but
-  asks for the more intuitive <literal>{For example:
-  $float|string_format:"%2.f"}</literal> that is provided by the
-  Smarty distribution). Second: with <link
+  asks for the more intuitive. For example:<literal>{$float|string_format:"%2.f"}</literal>
+  that is provided by the Smarty distribution). Second: with <link
   linkend="variable.security">$security</link> turned on all
   php-functions that are to be used as modifiers have to be
   declared trusted in the <link linkend="variable.security.settings">
