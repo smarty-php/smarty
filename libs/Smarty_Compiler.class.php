@@ -1449,16 +1449,20 @@ class Smarty_Compiler extends Smarty {
     function _expand_quoted_text($var_expr)
     {
 		// if contains unescaped $, expand it
-		if(preg_match_all('%(?<!\\\\)\$\`?(?:smarty(?:\.\w+)*|\w+(?:' . $this->_var_bracket_regexp . ')*)\`?%', $var_expr, $match)) {
-			rsort($match[0]);
-			reset($match[0]);
-			foreach($match[0] as $var) {
-                $var_expr = str_replace ($var, '".' . $this->_parse_var(str_replace('`','',$var)) . '."', $var_expr);
+		if(preg_match_all('%(?<!\\\\)\$\`?' . $this->_dvar_guts_regexp . '\`?%', $var_expr, $_match)) {
+			$_match = $_match[0];
+			rsort($_match);
+			reset($_match);
+			foreach($_match as $_var) {
+                $var_expr = str_replace ($_var, '".' . $this->_parse_var(str_replace('`','',$_var)) . '."', $var_expr);
 			}
-            return preg_replace('!\.""|""\.!', '', $var_expr);
+            $_return = preg_replace('!\.""|""\.!', '', $var_expr);
 		} else {
-			return $var_expr;
+			$_return = $var_expr;
 		}
+		// replace double quoted string with single quotes
+		$_return = preg_replace('!"([^\$\']+)"!',"'\\1'",$_return);
+		return $_return;
 	}
 	
 	/**
@@ -1468,9 +1472,8 @@ class Smarty_Compiler extends Smarty {
 	 */
     function _parse_var($var_expr)
     {
-				
 		preg_match('!(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . ')(' . $this->_mod_regexp . '*)$!', $var_expr, $match);
-				
+						
         $var_ref = substr($match[1],1);
         $modifiers = $match[2];
 						
@@ -1481,7 +1484,7 @@ class Smarty_Compiler extends Smarty {
 
 		// get [foo] and .foo and ->foo and (...) pieces			
         preg_match_all('!(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\w+|\.\$?\w+|\S+!', $var_ref, $match);		
-		
+				
         $indexes = $match[0];
         $var_name = array_shift($indexes);
 		
@@ -1534,11 +1537,6 @@ class Smarty_Compiler extends Smarty {
                 $output .= $index;
             }
         }
-
-		// look for variables imbedded in quoted strings, replace them
-        if(preg_match('|(?<!\\\\)\$|', $output, $match)) {
-			$output = str_replace($match[0], $this->_expand_quoted_text($match[0]), $output);
-		}
 		
         $this->_parse_modifiers($output, $modifiers);
 
@@ -1749,7 +1747,7 @@ class Smarty_Compiler extends Smarty {
 			case 'const':
                 array_shift($indexes);
 				$_val = $this->_parse_var_props(substr($indexes[0],1));
-				$compiled_ref = "(defined($_val) ? $_val : null)";
+				$compiled_ref = '(defined(' . $_val . ') ? ' . $this->_dequote($_val) . ' : null)';
 				$_max_index = 1;
                 break;
 

@@ -19,10 +19,10 @@
  *                day values (Marcus Bointon)
  * -------------------------------------------------------------
  */
-require_once $this->_get_plugin_filepath('shared','make_timestamp');
-require_once $this->_get_plugin_filepath('function','html_options');
 function smarty_function_html_select_date($params, &$smarty)
 {
+    require_once $smarty->_get_plugin_filepath('shared','make_timestamp');
+    require_once $smarty->_get_plugin_filepath('function','html_options');
     /* Default values. */
     $prefix          = "Date_";
     $start_year      = strftime("%Y");

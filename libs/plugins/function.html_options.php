@@ -1,7 +1,5 @@
 <?php
 
-require('shared.escape_special_chars.php');
-
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -13,6 +11,8 @@ require('shared.escape_special_chars.php');
  */
 function smarty_function_html_options($params, &$smarty)
 {
+    require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
+
     extract($params);
 
     $html_result = '';
@@ -35,6 +35,9 @@ function smarty_function_html_options($params, &$smarty)
         }
     }
 
+    if(!empty($name)) {
+        $html_result = '<select name="' . $name . '">' . "\n" . $html_result . '</select>' . "\n";
+    }
     return $html_result;
 }
 

@@ -8,10 +8,10 @@
  * Purpose:  Prints the dropdowns for time selection
  * -------------------------------------------------------------
  */
-require_once $this->_get_plugin_filepath('shared','make_timestamp');
-require_once $this->_get_plugin_filepath('function','html_options');
 function smarty_function_html_select_time($params, &$smarty)
 {
+    require_once $smarty->_get_plugin_filepath('shared','make_timestamp');
+    require_once $smarty->_get_plugin_filepath('function','html_options');
     /* Default values. */
     $prefix             = "Time_";
     $time               = time();

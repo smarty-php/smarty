@@ -15,8 +15,8 @@
  *           border = border width (optional, default 0)
  *           height = image height (optional, default actual height)
  *           image =image width (optional, default actual width)
- *           basedir= base directory for absolute paths, default
- *           is environment variable DOCUMENT_ROOT
+ *           basedir = base directory for absolute paths, default
+ *                     is environment variable DOCUMENT_ROOT
  * 
  * Examples: {image name="images/masthead.gif"}
  * Output:   <img src="images/masthead.gif" border=0 width=400 height=23>
@@ -80,8 +80,8 @@ function smarty_function_html_image($params, &$smarty)
         		$smarty->trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_ERROR);
 			}
 		}
-		if(!$smarty->security && substr($_image_path,0,strlen($basedir)) != $basedir) {
-        	$smarty->trigger_error("html_image: (secure) '$_image_path' not within basedir ($basedir)", E_USER_ERROR);		
+		if(!$smarty->security && !$smarty->_is_secure('file', $_image_path)) {
+        	$smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_ERROR);		
 		}	
 		
 		if(!isset($params['width'])) {

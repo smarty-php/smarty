@@ -1,6 +1,7 @@
     - added nl2br modifier to distribution (Monte)
     - added html_image to distribution (Monte)
     - added cat modifier to distribution (Monte)
+    - added html_table to distribution (Monte)
     - added << >> <> support to if statments (SMK, Monte)
     - fix _assign_smarty_interface to not overwrite keys
       other than 'request' (Jerome Poudevigne, Monte)
@@ -9,7 +10,8 @@
     - fixed string_format modifier args (wrong order) (Paul
       Lockaby, Monte)
     - use tmp file for file writes, avoid file lock race (Monte)
-    - handle embedded "$smarty.config.foo.tpl" correctly (Monte)
+    - support syntax "$`smarty.config.foo`.tpl" for embedded
+      vars in quotes, and allow full dollar var syntax (Monte)
     - add $smarty.config.varname variable for accessing config vars (Paul
       Lockaby, Monte)
     - silence PHP warnings in function.fetch.php (Eduardo,

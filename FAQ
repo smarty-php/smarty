@@ -66,7 +66,7 @@ A: Most other template engines for PHP provide basic variable substitution and
    functionality as easy as possible to use for both programmers and template
    designers. Smarty also compiles the templates into PHP scripts, eliminating
    the need to parse the templates on every invocation, making Smarty extremely
-   scalable and managable for large application needs.
+   scalable and manageable for large application needs.
 
 Q: What do you mean "Compiled PHP Scripts" ?
 A: Smarty reads the template files and creates PHP scripts from them. Once

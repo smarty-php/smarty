@@ -14,7 +14,7 @@
  *           table_attr = table attributes
  *           tr_attr = table row attributes (arrays are cycled)
  *           td_attr = table cell attributes (arrays are cycled)
- *           cellpad = value to pad trailing cells with
+ *           trailpad = value to pad trailing cells with
  * 
  * Examples: {table loop=$data}
  *           {$table loop=$data cols=4 tr_attr='"bgcolor=red"'}
@@ -23,11 +23,11 @@
  */
 function smarty_function_html_table($params, &$smarty)
 {
-	$table_attr = 'border=1';
+	$table_attr = 'border="1"';
 	$tr_attr = '';
 	$td_attr = '';
 	$cols = 3;
-	$cellpad = '&nbsp;';
+	$trailpad = '&nbsp;';
 	
 	extract($params);
 
@@ -50,7 +50,7 @@ function smarty_function_html_table($params, &$smarty)
 			$cells = $cols - $y % $cols;
 			if($cells != $cols) {
 				for($padloop = 0; $padloop < $cells; $padloop++) {
-					$output .= "<td " . smarty_function_html_table_cycle('td', $td_attr) . ">$cellpad</td>\n";
+					$output .= "<td " . smarty_function_html_table_cycle('td', $td_attr) . ">$trailpad</td>\n";
 				}
 			}
 			$output .= "</tr>\n";

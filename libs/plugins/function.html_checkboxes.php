@@ -11,6 +11,7 @@
  * Purpose:    Prints out a list of checkbox input types
  * Input:      name       (optional) - string default "checkbox"
  *             values     (required) - array
+ *             checkboxes (optional) - associative array
  *             checked    (optional) - array default not set
  *             separator  (optional) - ie <br> or &nbsp;
  *             output     (optional) - without this one the buttons don't have names
@@ -21,9 +22,10 @@
  *             {html_checkboxes values=$ids checked=$checked separator='<br>' output=$names}
  * -------------------------------------------------------------
  */
-require_once $this->_get_plugin_filepath('shared','escape_special_chars');
 function smarty_function_html_checkboxes($params, &$smarty)
 {
+    require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
+
     extract($params);
 
     $_html_result = '';

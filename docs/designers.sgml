@@ -517,6 +517,56 @@ Cold Wave Linked to Temperatures.
 32</programlisting>
 </example>
 		</sect1>
+		<sect1 id="language.modifier.cat">
+			<title>cat</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=cat align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>cat</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>This value to catentate to the given variable.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			This value is catenated to the given variable.
+			</para>
+<example>
+<title>cat</title>
+<programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', 'Psychics predict world didn't end');
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
+{$articleTitle|cat:" yesterday."}
+
+OUTPUT:
+
+Psychics predict world didn't end yesterday.</programlisting>
+</example>
+		</sect1>
 		<sect1 id="language.modifier.count.paragraphs">
 			<title>count_paragraphs</title>
 			<para>
@@ -984,6 +1034,30 @@ OUTPUT:
 
 Two Convicts Evade Noose, Jury Hung.
 two convicts evade noose, jury hung.</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.modifier.nl2br">
+			<title>nl2br</title>
+			<para>
+			All linebreaks will be converted to &lt;br /&gt; tags in the given
+			variable. This is equivalent to the PHP nl2br() function.
+			</para>
+<example>
+<title>nl2br</title>
+<programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('articleTitle', "Sun or rain expected\ntoday, dark tonight");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
+{$articleTitle|nl2br}
+
+OUTPUT:
+
+Sun or rain expected&lt;br /&gt;today, dark tonight</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.modifier.regex.replace">
@@ -2840,7 +2914,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			carriage returns affect the output of the rendered HTML (browser
 			"features"), so you must run all your tags together in the template
 			to get the desired results. This usually ends up in unreadable or
-			unmanagable templates.
+			unmanageable templates.
 			</para>
 			<para>
 			Anything within {strip}{/strip} tags in Smarty are stripped of the
@@ -3376,6 +3450,219 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 {/if}</programlisting>
 </example>
 		</sect1>
+		<sect1 id="language.function.html.checkboxes">
+			<title>html_checkboxes</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>checkbox</emphasis></entry>
+                        <entry>name of checkbox list</entry>
+                    </row>
+                    <row>
+                        <entry>values</entry>
+                        <entry>array</entry>
+                        <entry>Yes, unless using checkboxes attribute</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an array of values for checkbox buttons</entry>
+                    </row>
+                    <row>
+                        <entry>output</entry>
+                        <entry>array</entry>
+                        <entry>Yes, unless using checkboxes attribute</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an array of output for checkbox buttons</entry>
+                    </row>
+                    <row>
+                        <entry>checked</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>the checked checkbox element</entry>
+                    </row>
+                    <row>
+                        <entry>checkboxes</entry>
+                        <entry>associative array</entry>
+                        <entry>Yes, unless using values and output</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an associative array of values and output</entry>
+                    </row>
+                    <row>
+                        <entry>separator</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>string of text to separate each checkbox item</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			html_checkboxes is a custom function that creates an html checkbox
+			group with provided data. It takes care of which item(s) are
+			selected by default as well. Required attributes are values and
+			output, unless you use checkboxes instead. All output is XHTML
+			compatible.
+			</para>
+<example>
+<title>html_checkboxes</title>
+<programlisting>
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
+$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
+Johnson','CHarlie Brown'));
+$smarty-&gt;assign('customer_id', 1001);
+$smarty-&gt;display('index.tpl');
+
+
+index.tpl:
+
+{html_checkboxes values=$cust_ids checked=$customer_id output=$cust_names separator="&lt;br /&gt;"}
+
+
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty-&gt;assign('cust_checkboxes', array(
+			1001 =&gt; 'Joe Schmoe',
+			1002 =&gt; 'Jack Smith',
+			1003 =&gt; 'Jane Johnson','Carlie Brown'));
+$smarty-&gt;assign('customer_id', 1001);
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
+{html_checkboxes name="id" checkboxes=$cust_checkboxes checked=$customer_id separator="&lt;br /&gt;"}
+
+
+OUTPUT: (both examples)
+
+&lt;input type="checkbox" name="id[]" value="1000"&gt;Joe Schmoe&lt;br /&gt;
+&lt;input type="checkbox" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
+&lt;input type="checkbox" name="id[]" value="1002"&gt;Jane Johnson&lt;br /&gt;
+&lt;input type="checkbox" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.html.image">
+			<title>html_image</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>name/path to image</entry>
+                    </row>
+                    <row>
+                        <entry>border</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>0</emphasis></entry>
+                        <entry>size of border around image</entry>
+                    </row>
+                    <row>
+                        <entry>height</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>actual image height</emphasis></entry>
+                        <entry>height to display image</entry>
+                    </row>
+                    <row>
+                        <entry>width</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>actual image width</emphasis></entry>
+                        <entry>width to display image</entry>
+                    </row>
+                    <row>
+                        <entry>basedir</entry>
+                        <entry>string</entry>
+                        <entry>no</entry>
+                        <entry><emphasis>web server doc root</emphasis></entry>
+                        <entry>directory to base relative paths from</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			html_image is a custom function that generates an HTML tag for an
+			image. The height and width are automatically calculated from the
+			image file if none are supplied.
+			</para>
+			<para>
+			basedir is the base directory that relative image paths are based
+			from. If not given, the web server document root (env variable
+			DOCUMENT_ROOT) is used as the base. If security is enabled, the
+			path to the image must be within a secure directory.
+			</para>
+			<note>
+				<title>Technical Note</title>
+				<para>
+				html_image requires a hit to the disk to read the image and
+				calculate the height and width. If you don't use template
+				caching, it is generally better to avoid html_image and leave
+				image tags static for optimal performance.			
+            	</para>
+			</note>
+<example>
+<title>html_image</title>
+<programlisting>
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
+{image file="pumpkin.jpg"}
+{image file="/path/from/docroot/pumpkin.jpg"}
+{image file="../path/relative/to/currdir/pumpkin.jpg"}
+
+OUTPUT: (possible)
+
+&lt;img src="pumpkin.jpg" border="0" width="44" height="68"&gt;
+&lt;img src="/path/under/docroot/pumpkin.jpg" border="0" width="44" height="68"&gt;
+&lt;img src="../path/relative/to/currdir/pumpkin.jpg" border="0" width="44" height="68"&gt;</programlisting>
+</example>
+		</sect1>
 		<sect1 id="language.function.html.options">
 			<title>html_options</title>
             <informaltable frame=all>
@@ -3414,7 +3701,7 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                         <entry>string/array</entry>
                         <entry>No</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>the selected array element(s)</entry>
+                        <entry>the selected option element(s)</entry>
                     </row>
                     <row>
                         <entry>options</entry>
@@ -3423,44 +3710,194 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>an associative array of values and output</entry>
                     </row>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>name of select group</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
 			<para>
-			html_options is a custom function that creates html option lists
-			with provided data. It takes care of which item is selected by
+			html_options is a custom function that creates html option group
+			with provided data. It takes care of which item(s) are selected by
 			default as well. Required attributes are values and output, unless
-			you use options instead. If a given value is an array, it will
-			treat it as an html OPTGROUP, and display the groups. Recursion is
-			supported with OPTGROUP. All output is xhtml compatible.
+			you use options instead.
+			</para>
+			<para>
+			If a given value is an array, it will treat it as an html OPTGROUP,
+			and display the groups. Recursion is supported with OPTGROUP. All
+			output is XHTML compatible.
+			</para>
+			<para>
+			If the optional <emphasis>name</emphasis> attribute is given, the
+			&lt;select name="groupname"&gt;&lt;/select&gt; tags will enclose
+			the option list. Otherwise only the option list is generated.
 			</para>
 <example>
 <title>html_options</title>
 <programlisting>
-{* assume that $cust_ids, and $cust_names are arrays of values,
-	and $customer_id may or may not be set to a value *}
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
+$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
+Johnson','Carlie Brown'));
+$smarty-&gt;assign('customer_id', 1001);
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
 
 &lt;select name=customer_id&gt;
 	{html_options values=$cust_ids selected=$customer_id output=$cust_names}
 &lt;/select&gt;
 
 
-{* an alternative method is to pass the values & output as an associative array into
-   options. $customer_options is an associative array in this example. *}
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty-&gt;assign('cust_options', array(
+			1001 =&gt; 'Joe Schmoe',
+			1002 =&gt; 'Jack Smith',
+			1003 =&gt; 'Jane Johnson',
+			1004 =&gt; 'Charlie Brown'));
+$smarty-&gt;assign('customer_id', 1001);
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
 
 &lt;select name=customer_id&gt;
-	{html_options options=$customer_options selected=$customer_id}
+	{html_options options=$cust_options selected=$customer_id}
 &lt;/select&gt;
 
 
-OUTPUT:
+OUTPUT: (both examples)
 
 &lt;select name=customer_id&gt;
-	&lt;option value="1000">Joe Schmoe&lt;/option&gt;
-	&lt;option value="1001" selected="selected">Jack Smith&lt;/option&gt;
-	&lt;option value="1002">Jane Johnson&lt;/option&gt;
-	&lt;option value="1003">Charlie Brown&lt;/option&gt;
+	&lt;option value="1000"&gt;Joe Schmoe&lt;/option&gt;
+	&lt;option value="1001" selected="selected"&gt;Jack Smith&lt;/option&gt;
+	&lt;option value="1002"&gt;Jane Johnson&lt;/option&gt;
+	&lt;option value="1003"&gt;Charlie Brown&lt;/option&gt;
 &lt;/select&gt;</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.html.radios">
+			<title>html_radios</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>radio</emphasis></entry>
+                        <entry>name of radio list</entry>
+                    </row>
+                    <row>
+                        <entry>values</entry>
+                        <entry>array</entry>
+                        <entry>Yes, unless using radios attribute</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an array of values for radio buttons</entry>
+                    </row>
+                    <row>
+                        <entry>output</entry>
+                        <entry>array</entry>
+                        <entry>Yes, unless using radios attribute</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an array of output for radio buttons</entry>
+                    </row>
+                    <row>
+                        <entry>checked</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>the checked radio element</entry>
+                    </row>
+                    <row>
+                        <entry>radios</entry>
+                        <entry>associative array</entry>
+                        <entry>Yes, unless using values and output</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>an associative array of values and output</entry>
+                    </row>
+                    <row>
+                        <entry>separator</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>string of text to separate each radio item</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			html_radios is a custom function that creates html radio button
+			group with provided data. It takes care of which item is selected
+			by default as well. Required attributes are values and output,
+			unless you use radios instead. All output is XHTML compatible.
+			</para>
+<example>
+<title>html_radios</title>
+<programlisting>
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
+$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
+Johnson','Carlie Brown'));
+$smarty-&gt;assign('customer_id', 1001);
+$smarty-&gt;display('index.tpl');
+
+
+index.tpl:
+
+{html_radios values=$cust_ids checked=$customer_id output=$cust_names separator="&lt;br /&gt;"}
+
+
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty-&gt;assign('cust_radios', array(
+			1001 =&gt; 'Joe Schmoe',
+			1002 =&gt; 'Jack Smith',
+			1003 =&gt; 'Jane Johnson',
+			1004 =&gt; 'Charlie Brown'));
+$smarty-&gt;assign('customer_id', 1001);
+$smarty-&gt;display('index.tpl');
+
+
+index.tpl:
+
+{html_radios name="id" radios=$cust_radios checked=$customer_id separator="&lt;br /&gt;"}
+
+
+OUTPUT: (both examples)
+
+&lt;input type="radio" name="id[]" value="1000"&gt;Joe Schmoe&lt;br /&gt;
+&lt;input type="radio" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
+&lt;input type="radio" name="id[]" value="1002"&gt;Jane Johnson&lt;br /&gt;
+&lt;input type="radio" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.html.select.date">
@@ -4056,6 +4493,118 @@ OUTPUT:
 &lt;option value="am" selected&gt;AM&lt;/option&gt;
 &lt;option value="pm"&gt;PM&lt;/option&gt;
 &lt;/select&gt;</programlisting>
+</example>
+		</sect1>
+		<sect1 id="language.function.html.table">
+			<title>html_table</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>loop</entry>
+                        <entry>array</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>array of data to loop through</entry>
+                    </row>
+                    <row>
+                        <entry>cols</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>3</emphasis></entry>
+                        <entry>number of columns in the table</entry>
+                    </row>
+                    <row>
+                        <entry>table_attr</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>border="1"</emphasis></entry>
+                        <entry>attributes for table tag</entry>
+                    </row>
+                    <row>
+                        <entry>tr_attr</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>attributes for tr tag (arrays are cycled)</entry>
+                    </row>
+                    <row>
+                        <entry>td_attr</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>empty</emphasis></entry>
+                        <entry>attributes for td tag (arrays are cycled)</entry>
+                    </row>
+                    <row>
+                        <entry>trailpad</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>&amp;nbsp;</emphasis></entry>
+                        <entry>value to pad the trailing cells on last row with
+						(if any)</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			<emphasis>html_table</emphasis> is a custom function that dumps an
+			array of data into an HTML table. The <emphasis>cols</emphasis>
+			attribute determines how many columns will be in the table. The
+			<emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis> and
+			<emphasis>td_attr</emphasis> values determine the attributes given
+			to the table, tr and td tags. If <emphasis>tr_attr</emphasis> or
+			<emphasis>td_attr</emphasis> are arrays, they will be cycled through.
+			<emphasis>trailpad</emphasis> is the value put into the trailing
+			cells on the last table row if there are any present.
+			</para>
+<example>
+<title>html_table</title>
+<programlisting>
+index.php:
+
+require('Smarty.php.class');
+$smarty = new Smarty;
+$smarty-&gt;assign('data',array(1,2,3,4,5,6,7,8,9));
+$smarty-&gt;assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
+{html_table loop=$data}
+{html_table loop=$data cols=4 table_attrs='border="0"'}
+{html_table loop=$data cols=4 tr_attrs=$tr}
+
+OUTPUT:
+
+&lt;table border="1"&gt;
+&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table border="0"&gt;
+&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table border="1"&gt;
+&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor="#dddddd"&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.math">
