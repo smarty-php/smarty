@@ -19,55 +19,57 @@ function smarty_function_popup($params, &$smarty)
 
     if (empty($trigger)) { $trigger = "onMouseOver"; }
 
-    echo $trigger.'="return overlib(\''.preg_replace(array("!'!","![\r\n]!"),array("\'",'\r'),$text).'\'';
-    if ($sticky) { echo ",STICKY"; }
-    if (!empty($caption)) { echo ",CAPTION,'".str_replace("'","\'",$caption)."'"; }
-    if (!empty($fgcolor)) { echo ",FGCOLOR,'$fgcolor'"; }
-    if (!empty($bgcolor)) { echo ",BGCOLOR,'$bgcolor'"; }
-    if (!empty($textcolor)) { echo ",TEXTCOLOR,'$textcolor'"; }
-    if (!empty($capcolor)) { echo ",CAPCOLOR,'$capcolor'"; }
-    if (!empty($closecolor)) { echo ",CLOSECOLOR,'$closecolor'"; }
-    if (!empty($textfont)) { echo ",TEXTFONT,'$textfont'"; }
-    if (!empty($captionfont)) { echo ",CAPTIONFONT,'$captionfont'"; }
-    if (!empty($closefont)) { echo ",CLOSEFONT,'$closefont'"; }
-    if (!empty($textsize)) { echo ",TEXTSIZE,$textsize"; }
-    if (!empty($captionsize)) { echo ",CAPTIONSIZE,$captionsize"; }
-    if (!empty($closesize)) { echo ",CLOSESIZE,$closesize"; }
-    if (!empty($width)) { echo ",WIDTH,$width"; }
-    if (!empty($height)) { echo ",HEIGHT,$height"; }
-    if (!empty($left)) { echo ",LEFT"; }
-    if (!empty($right)) { echo ",RIGHT"; }
-    if (!empty($center)) { echo ",CENTER"; }
-    if (!empty($above)) { echo ",ABOVE"; }
-    if (!empty($below)) { echo ",BELOW"; }
-    if (isset($border)) { echo ",BORDER,$border"; }
-    if (isset($offsetx)) { echo ",OFFSETX,$offsetx"; }
-    if (isset($offsety)) { echo ",OFFSETY,$offsety"; }
-    if (!empty($fgbackground)) { echo ",FGBACKGROUND,'$fgbackground'"; }
-    if (!empty($bgbackground)) { echo ",BGBACKGROUND,'$bgbackground'"; }
-    if (!empty($closetext)) { echo ",CLOSETEXT,'".str_replace("'","\'",$closetext)."'"; }
-    if (!empty($noclose)) { echo ",NOCLOSE"; }
-    if (!empty($status)) { echo ",STATUS,'".str_replace("'","\'",$status)."'"; }
-    if (!empty($autostatus)) { echo ",AUTOSTATUS"; }
-    if (!empty($autostatuscap)) { echo ",AUTOSTATUSCAP"; }
-    if (isset($inarray)) { echo ",INARRAY,'$inarray'"; }
-    if (isset($caparray)) { echo ",CAPARRAY,'$caparray'"; }
-    if (!empty($capicon)) { echo ",CAPICON,'$capicon'"; }
-    if (!empty($snapx)) { echo ",SNAPX,$snapx"; }
-    if (!empty($snapy)) { echo ",SNAPY,$snapy"; }
-    if (isset($fixx)) { echo ",FIXX,$fixx"; }
-    if (isset($fixy)) { echo ",FIXY,$fixy"; }
-    if (!empty($background)) { echo ",BACKGROUND,'$background'"; }
-    if (!empty($padx)) { echo ",PADX,$padx"; }
-    if (!empty($pady)) { echo ",PADY,$pady"; }
-    if (!empty($fullhtml)) { echo ",FULLHTML"; }
-    if (!empty($frame)) { echo ",FRAME,'$frame'"; }
-    if (isset($timeout)) { echo ",TIMEOUT,$timeout"; }
-    if (!empty($function)) { echo ",FUNCTION,'$function'"; }
-    if (isset($delay)) { echo ",DELAY,$delay"; }
-    if (!empty($hauto)) { echo ",HAUTO"; }
-    if (!empty($vauto)) { echo ",VAUTO"; }
-    echo ');" onMouseOut="nd();"';
+    $retval .= $trigger . '="return overlib(\''.preg_replace(array("!'!","![\r\n]!"),array("\'",'\r'),$text).'\'';
+    if ($sticky) { $retval .= ",STICKY"; }
+    if (!empty($caption)) { $retval .= ",CAPTION,'".str_replace("'","\'",$caption)."'"; }
+    if (!empty($fgcolor)) { $retval .= ",FGCOLOR,'$fgcolor'"; }
+    if (!empty($bgcolor)) { $retval .= ",BGCOLOR,'$bgcolor'"; }
+    if (!empty($textcolor)) { $retval .= ",TEXTCOLOR,'$textcolor'"; }
+    if (!empty($capcolor)) { $retval .= ",CAPCOLOR,'$capcolor'"; }
+    if (!empty($closecolor)) { $retval .= ",CLOSECOLOR,'$closecolor'"; }
+    if (!empty($textfont)) { $retval .= ",TEXTFONT,'$textfont'"; }
+    if (!empty($captionfont)) { $retval .= ",CAPTIONFONT,'$captionfont'"; }
+    if (!empty($closefont)) { $retval .= ",CLOSEFONT,'$closefont'"; }
+    if (!empty($textsize)) { $retval .= ",TEXTSIZE,$textsize"; }
+    if (!empty($captionsize)) { $retval .= ",CAPTIONSIZE,$captionsize"; }
+    if (!empty($closesize)) { $retval .= ",CLOSESIZE,$closesize"; }
+    if (!empty($width)) { $retval .= ",WIDTH,$width"; }
+    if (!empty($height)) { $retval .= ",HEIGHT,$height"; }
+    if (!empty($left)) { $retval .= ",LEFT"; }
+    if (!empty($right)) { $retval .= ",RIGHT"; }
+    if (!empty($center)) { $retval .= ",CENTER"; }
+    if (!empty($above)) { $retval .= ",ABOVE"; }
+    if (!empty($below)) { $retval .= ",BELOW"; }
+    if (isset($border)) { $retval .= ",BORDER,$border"; }
+    if (isset($offsetx)) { $retval .= ",OFFSETX,$offsetx"; }
+    if (isset($offsety)) { $retval .= ",OFFSETY,$offsety"; }
+    if (!empty($fgbackground)) { $retval .= ",FGBACKGROUND,'$fgbackground'"; }
+    if (!empty($bgbackground)) { $retval .= ",BGBACKGROUND,'$bgbackground'"; }
+    if (!empty($closetext)) { $retval .= ",CLOSETEXT,'".str_replace("'","\'",$closetext)."'"; }
+    if (!empty($noclose)) { $retval .= ",NOCLOSE"; }
+    if (!empty($status)) { $retval .= ",STATUS,'".str_replace("'","\'",$status)."'"; }
+    if (!empty($autostatus)) { $retval .= ",AUTOSTATUS"; }
+    if (!empty($autostatuscap)) { $retval .= ",AUTOSTATUSCAP"; }
+    if (isset($inarray)) { $retval .= ",INARRAY,'$inarray'"; }
+    if (isset($caparray)) { $retval .= ",CAPARRAY,'$caparray'"; }
+    if (!empty($capicon)) { $retval .= ",CAPICON,'$capicon'"; }
+    if (!empty($snapx)) { $retval .= ",SNAPX,$snapx"; }
+    if (!empty($snapy)) { $retval .= ",SNAPY,$snapy"; }
+    if (isset($fixx)) { $retval .= ",FIXX,$fixx"; }
+    if (isset($fixy)) { $retval .= ",FIXY,$fixy"; }
+    if (!empty($background)) { $retval .= ",BACKGROUND,'$background'"; }
+    if (!empty($padx)) { $retval .= ",PADX,$padx"; }
+    if (!empty($pady)) { $retval .= ",PADY,$pady"; }
+    if (!empty($fullhtml)) { $retval .= ",FULLHTML"; }
+    if (!empty($frame)) { $retval .= ",FRAME,'$frame'"; }
+    if (isset($timeout)) { $retval .= ",TIMEOUT,$timeout"; }
+    if (!empty($function)) { $retval .= ",FUNCTION,'$function'"; }
+    if (isset($delay)) { $retval .= ",DELAY,$delay"; }
+    if (!empty($hauto)) { $retval .= ",HAUTO"; }
+    if (!empty($vauto)) { $retval .= ",VAUTO"; }
+    $retval .= ');" onMouseOut="nd();"';
+	
+	return $retval;
 }
 
 /* vim: set expandtab: */

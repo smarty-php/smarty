@@ -224,7 +224,7 @@ function smarty_function_html_select_date($params, &$smarty)
   	  }
     }
 
-    print $html_result;
+    return $html_result;
 }
 
 /* vim: set expandtab: */

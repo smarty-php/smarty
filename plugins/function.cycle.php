@@ -86,7 +86,9 @@ function smarty_function_cycle($params, &$smarty)
     }
 		
 	if($print) {
-		echo $cycle_array[$cycle_vars[$name]['index']];
+		$retval = $cycle_array[$cycle_vars[$name]['index']];
+	} else {
+		$retval = null;
 	}
 
 	if($advance) {
@@ -96,6 +98,8 @@ function smarty_function_cycle($params, &$smarty)
 			$cycle_vars[$name]['index']++;
 		}
 	}
+	
+	return $retval;
 }
 
 /* vim: set expandtab: */

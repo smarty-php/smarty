@@ -22,13 +22,15 @@ function smarty_function_eval($params, &$this)
 
 	$this->_compile_template("evaluated template", $var, $source);
 	
+    ob_start();
+	eval('?>' . $source);
+	$contents = ob_get_contents();
+    ob_end_clean();
+
     if (!empty($assign)) {
-        ob_start();
-		eval('?>' . $source);
-        $this->assign($assign, ob_get_contents());
-        ob_end_clean();
+    	$this->assign($assign, $contents);
     } else {
-		eval('?>' . $source);
+		return $contents;
     }
 }
 

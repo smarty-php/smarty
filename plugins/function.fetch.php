@@ -202,7 +202,7 @@ function smarty_function_fetch($params, &$smarty)
     if (!empty($params['assign'])) {
         $smarty->assign($params['assign'],$content);
     } else {
-        echo $content;
+        return $content;
     }
 }
 

@@ -55,7 +55,7 @@ function smarty_function_math($params, &$smarty)
 
     if (empty($params['format'])) {
         if (empty($params['assign'])) {
-            echo $smarty_math_result;
+            return $smarty_math_result;
         } else {
             $smarty->assign($params['assign'],$smarty_math_result);
         }

@@ -42,8 +42,11 @@ function smarty_function_counter($params, &$smarty)
         $smarty->assign($assign, $count[$name]);
     }
 
-    if ($printval[$name])
-        echo $count[$name];
+    if ($printval[$name]) {
+        $retval = $count[$name];
+	} else {
+		$retval = null;
+	}
 
     if (isset($skip))
         $skipval[$name] = $skip;
@@ -59,6 +62,9 @@ function smarty_function_counter($params, &$smarty)
         $count[$name] -= $skipval[$name];
     else
         $count[$name] += $skipval[$name];
+	
+	return $retval;
+	
 }
 
 /* vim: set expandtab: */

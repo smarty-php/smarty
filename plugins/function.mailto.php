@@ -89,7 +89,7 @@ function smarty_function_mailto($params, &$smarty)
 			$js_encode .= '%' . bin2hex($string[$x]);
 		}
 	
-		echo '<SCRIPT language="javascript">eval(unescape(\''.$js_encode.'\'))</SCRIPT>';
+		return '<SCRIPT language="javascript">eval(unescape(\''.$js_encode.'\'))</SCRIPT>';
 		
 	} elseif ($encode == 'hex') {
 
@@ -109,11 +109,11 @@ function smarty_function_mailto($params, &$smarty)
 			$text_encode .= '&#x' . bin2hex($text[$x]).';';
 		}
 		
-		echo '<a href="mailto:'.$address_encode.'" '.$extra.'>'.$text_encode.'</a>';
+		return '<a href="mailto:'.$address_encode.'" '.$extra.'>'.$text_encode.'</a>';
 		
 	} else {
 		// no encoding		
-		echo '<a href="mailto:'.$address.'" '.$extra.'>'.$text.'</a>';
+		return '<a href="mailto:'.$address.'" '.$extra.'>'.$text.'</a>';
 
 	}
 	

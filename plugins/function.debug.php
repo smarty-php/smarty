@@ -16,7 +16,7 @@ function smarty_function_debug($params, &$smarty)
 	if($params['output']) {
 		$smarty->assign('_smarty_debug_output',$params['output']);
 	}
-	echo $smarty->_generate_debug_output();
+	return $smarty->_generate_debug_output();
 }
 
 /* vim: set expandtab: */

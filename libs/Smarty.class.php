@@ -1260,8 +1260,8 @@ function _generate_debug_output() {
             	$this->_conf_obj->fix_newlines = $this->config_fix_newlines;
             	$this->_conf_obj->set_path = $_config_dir;
 			}
-			if($_config_vars = $this->_conf_obj->get($file, $section)) {
-				
+			if($_config_vars = @array_merge($this->_conf_obj->get($file),
+					$this->_conf_obj->get($file, $section))) {
 				if(function_exists('var_export')) {
 					$_compile_data = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; return true; ?>';					
 				} else {

@@ -11,8 +11,6 @@
  */
 function smarty_function_html_options($params, &$smarty)
 {
-    $print_result = true;
-
     extract($params);
 
     $html_result = '';
@@ -35,10 +33,7 @@ function smarty_function_html_options($params, &$smarty)
         }
     }
 
-    if ($print_result)
-        print $html_result;
-    else
-        return $html_result;
+    return $html_result;
 }
 
 function smarty_function_html_options_optoutput($key, $value, $selected) {
