@@ -1,0 +1,45 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY preface SYSTEM "preface.sgml">
+<!ENTITY getting.started SYSTEM "getting-started.sgml">
+<!ENTITY smarty.for.designers SYSTEM "designers.sgml">
+<!ENTITY smarty.for.programmers SYSTEM "programmers.sgml">
+<!ENTITY appendixes SYSTEM "appendixes.sgml">
+]>
+
+<book id="index" lang="fr">
+ <bookinfo id="bookinfo">
+  <title>Smarty - le moteur et compilateur de template PHP</title>
+  <authorgroup id="authors">
+   <author>
+    <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>
+   </author>
+   <author>
+    <firstname>Andrei</firstname><surname>Zmievski &lt;andrei@php.net&gt;</surname>
+   </author>
+  </authorgroup>
+
+  <authorgroup id="translators">
+   <author>
+    <firstname>Arnaud</firstname><surname>Cogoluègnes &lt;arnaud.cogoluegnes@free.fr&gt;</surname>
+   </author>
+   <author>
+    <firstname>Gérald</firstname><surname>Croës &lt;gcroes@aston.fr&gt;</surname>
+   </author>
+  </authorgroup>
+
+  <edition>Version 2.0</edition>
+  <copyright>
+   <year>2001</year>
+   <year>2002</year>
+   <year>2003</year>
+   <holder>ispi of Lincoln, Inc.</holder>
+  </copyright>
+ </bookinfo>
+
+ &preface;
+ &getting.started;
+ &smarty.for.designers;
+ &smarty.for.programmers;
+ &appendixes;
+
+</book>
