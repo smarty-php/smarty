@@ -1,9 +1,9 @@
-  <part>
-   <title>Smarty For Template Designers</title>
+<part>
+ <title>Smarty For Template Designers</title>
  <chapter id="language">
   <title>Template Language</title>
   <para>
-   The templates are the heart of Smarty. These are the files that the designers
+   The templates are the language of Smarty. These are the files that the designers
    work with. They're basically pages made up of static content interspersed with
    template markup tags. These tags are placeholders for variables or blocks of logic.
   </para>
@@ -11,14 +11,19 @@
   <sect1 id="language.basic.syntax">
    <title>Basic Syntax</title>
    <para>
+    All Smarty template tags are enclosed within delimiters. By
+    default, these delimiters are <literal>{</literal> and
+    <literal>}</literal>, but they can be changed.
+   </para>
+   <para>
     For these examples, we will assume that you are using the default
-    template tag delimiters, which are "{" and "}". In Smarty, all content
-    outside of delimiter tags is displayed as static content, or unchanged.
-    When Smarty encounters template tags {}, it attempts to interpret what is
-    between the tags, and displays the appropriate output in place of them.
+    delimiters. In Smarty, all content outside of delimiters is displayed as
+    static content, or unchanged. When Smarty encounters template tags, it
+    attempts to interpret them, and displays the appropriate output in their
+    place.
    </para>
 
-   <sect2 id="language.basic.syntax.comments">
+   <sect2 id="language.syntax.comments">
     <title>Comments</title>
     <para>
      Template comments are surrounded by asterisks, and that is surrounded
@@ -44,38 +49,19 @@
 &lt;/SELECT&gt;</programlisting>
     </example>
    </sect2>
-		<sect2>
-			<title>Attributes</title>
-			<para>
-			Attributes to functions are much like HTML attributes. Static
-			values don't have to be enclosed in quotes, but it is recommended
-			for literal strings. If not quoted, you may use a syntax that Smarty may confuse
-			with another function, such as a boolean value. Variables may
-			also be used, and should not be in quotes.
-			</para>
-<example>
-<title>function attribute syntax</title>
-<programlisting>
-{include file="header.tpl"}
 
-{include file=$includeFile}
-
-{include file=#includeFile#}
-
-&lt;SELECT name=company&gt;
-{html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
-</example>
-		</sect2>
-        <sect2>
-         <title>blah</title>
-        <para>
-         Functions are processed and displayed by enclosing the function and its
-         attributes into delimiters like so: {funcname attr1="val" attr2="val"}
-        </para>
-        <example>
-         <title>function syntax</title>
-         <programlisting>
+   <sect2 id="language.syntax.functions">
+    <title>Functions</title>
+    <para>
+     Each Smarty tag either prints a
+     <link linkend="language.variables">variable</link> or invokes some sort
+     of function. Functions are processed and displayed by enclosing the
+     function and its attributes into delimiters like so: {funcname
+     attr1="val" attr2="val"}.
+    </para>
+    <example>
+     <title>function syntax</title>
+     <programlisting>
 {config_load file="colors.conf"}
 
 {include file="header.tpl"}
@@ -87,22 +73,51 @@
 {/if}
 
 {include file="footer.tpl"}</programlisting>
+    </example>
+    <para>
+     Both built-in functions and custom functions have the same syntax in
+     the templates. Built-in functions are the inner workings of Smarty,
+     such as <command>if</command>, <command>section</command> and
+     <command>strip</command>. They cannot be modified. Custom functions are
+     additional functions implemented via plugins. They can be modified to
+     your liking, or you can add new ones. <command>html_options</command> and
+     <command>html_select_date</command> are examples of custom functions.
+    </para>
+   </sect2>
+
+   <sect2 id="language.syntax.attributes">
+    <title>Attributes</title>
+    <para>
+     Most of the functions take attributes that specify or modify
+     their behavior. Attributes to Smarty functions are much like HTML
+     attributes. Static values don't have to be enclosed in quotes, but it
+     is recommended for literal strings. Variables may also be used, and
+     should not be in quotes.
+    </para>
+    <para>
+     Some attributes require boolean values (true or false). These can be
+     specified as either unquoted <literal>true</literal>,
+     <literal>on</literal>, and <literal>yes</literal>, or
+     <literal>false</literal>, <literal>off</literal>, and
+     <literal>no</literal>.
+    </para>
+    <example>
+     <title>function attribute syntax</title>
+     <programlisting>
+{include file="header.tpl"}
+
+{include file=$includeFile}
+
+{include file=#includeFile#}
+
+{html_select_date display_days=yes}
+
+&lt;SELECT name=company&gt;
+{html_options values=$vals selected=$selected output=$output}
+&lt;/SELECT&gt;</programlisting>
 </example>
-			<para>
-			Both built-in functions and custom functions have the same syntax
-			in the templates. Built-in functions are the inner workings of
-			Smarty, such as {if}, {section} and {strip}. They cannot be
-			modified. Custom functions are located in the Smarty.addons.class
-			file. They can be modified to your liking, or add new ones.
-			{html_options} and {html_select_date} are examples of custom
-			functions.
-			</para>
-		<para>
-		Custom functions in Smarty work much the same as the built-in functions,
-		except that built-in functions cannot be modified. Custom functions are
-		located in Smarty.addons.php, built-in functions are not.
-		</para>
-        </sect2>
+		</sect2>
+
   </sect1>
 
   <sect1 id="language.variables">
@@ -1194,14 +1209,14 @@ s m o k e r s   a r e   p. . .</programlisting>
        </sect2>
        </sect1>
 
-    <sect1 id="language.commands">
+    <sect1 id="language.builtin.functions">
      <title>Built-in Functions</title>
      <para>
       Smarty comes with several built-in functions. Built-in functions
       are integral to the template language. You cannot create custom
       functions with the same names, nor can you modify built-in functions.
      </para>
-     <sect2 id="builtin.functions.capture">
+     <sect2 id="language.function.capture">
       <title>capture</title>
       <para>
        capture is used to collect the output of the template into a
@@ -1246,7 +1261,7 @@ s m o k e r s   a r e   p. . .</programlisting>
        </example>
       </para>
      </sect2>
-		<sect2 id="builtin.functions.configload">
+		<sect2 id="language.function.config.load">
 			<title>config_load</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1364,7 +1379,7 @@ s m o k e r s   a r e   p. . .</programlisting>
 &lt;/html&gt;</programlisting>
 </example>
 		</sect2>
-		<sect2 id="builtin.functions.include">
+		<sect2 id="language.function.include">
 			<title>include</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1466,7 +1481,7 @@ s m o k e r s   a r e   p. . .</programlisting>
 {include file="db:header.tpl"}</programlisting>
 </example>
 		</sect2>
-		<sect2 id="builtin.functions.include.php">
+		<sect2 id="language.function.include.php">
 			<title>include_php</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1557,7 +1572,7 @@ index.tpl
 {/foreach}</programlisting>
 </example>
 		</sect2>
-		<sect2 id="builtin.functions.insert">
+		<sect2 id="language.function.insert">
 			<title>insert</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -1673,7 +1688,7 @@ index.tpl
             weather, search results, user feedback areas, etc.
 			</para>
 		</sect2>
-		<sect2>
+		<sect2 id="language.function.if">
 			<title>if,elseif,else</title>
 			<para>
 			if statements in Smarty have much the same flexibility as php if
@@ -1753,7 +1768,7 @@ index.tpl
 {/if}</programlisting>
 </example>
 		</sect2>
-		<sect2>
+		<sect2 id="language.function.ldelim">
 			<title>ldelim,rdelim</title>
 			<para>
 			ldelim and rdelim are used for displaying the literal delimiter, in 
@@ -1773,7 +1788,7 @@ OUTPUT:
 {funcname} is how functions look in Smarty!</programlisting>
 </example>
 		</sect2>
-		<sect2 id="builtin.functions.literal">
+		<sect2 id="language.function.literal">
 			<title>literal</title>
 			<para>
 			Literal tags allow a block of data to be taken literally,
@@ -1805,7 +1820,7 @@ OUTPUT:
 {/literal}</programlisting>
 </example>
 		</sect2>
-		<sect2 id="builtin.functions.php">
+		<sect2 id="language.function.php">
 			<title>php</title>
 			<para>
 			php tags allow php to be embedded directly into the template. They
@@ -1824,7 +1839,7 @@ OUTPUT:
 {/php}</programlisting>
 </example>
 		</sect2>
-		<sect2 id="builtin.functions.section">
+		<sect2 id="language.function.section">
 			<title>section,sectionelse</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2370,7 +2385,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	</example>
 			</sect3>
 		</sect2>
-		<sect2 id="builtin.functions.foreach">
+		<sect2 id="language.function.foreach">
 			<title>foreach,foreachelse</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2484,7 +2499,7 @@ fax: 555-3333&lt;br&gt;
 cell: 760-1234&lt;br&gt;</programlisting>
 </example>
 		</sect2>
-		<sect2>
+		<sect2 id="language.function.strip">
 			<title>strip</title>
 			<para>
 			Many times web designers
@@ -2531,16 +2546,16 @@ OUTPUT:
 		</sect2>
        </sect1>
 
-       <sect1 id="language.additional.functions">
-        <title>Additional Functions</title>
+       <sect1 id="language.more.functions">
+        <title>Custom Functions</title>
         <para>
          Smarty comes with several additional functions that you can
          use in the templates.
         </para>
 
-        <sect2 id="language.available.functions">
-         <title>Available Functions</title>
-		<sect3 id="language.functions.assign">
+        <sect2 id="language.custom.functions">
+         <title>Additional Functions</title>
+		<sect3 id="language.function.assign">
 			<title>assign</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2595,7 +2610,7 @@ OUTPUT:
 The value of $name is Bob.</programlisting>
 </example>
 		</sect3>
-		<sect3>
+		<sect3 id="language.function.counter">
 			<title>counter</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2692,7 +2707,7 @@ OUTPUT:
 8&lt;br&gt;</programlisting>
 </example>
 		</sect3>
-		<sect3>
+		<sect3 id="language.function.fetch">
 			<title>fetch</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2771,7 +2786,7 @@ OUTPUT:
 {/if}</programlisting>
 </example>
 		</sect3>
-		<sect3 id="language.functions.html.options">
+		<sect3 id="language.function.html.options">
 			<title>html_options</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -2861,7 +2876,7 @@ OUTPUT:
 &lt;/select&gt;</programlisting>
 </example>
 		</sect3>
-		<sect3 id="language.functions.html.select.date">
+		<sect3 id="language.function.html.select.date">
 			<title>html_select_date</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3141,7 +3156,7 @@ OUTPUT:
 &lt;/select&gt;</programlisting>
 </example>
 		</sect3>
-		<sect3 id="language.functions.html.select.time">
+		<sect3 id="language.function.html.select.time">
 			<title>html_select_time</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3402,7 +3417,7 @@ OUTPUT:
 &lt;/select&gt;</programlisting>
 </example>
 		</sect3>
-		<sect3 id="language.functions.math">
+		<sect3 id="language.function.math">
 			<title>math</title>
             <informaltable frame=all>
                 <tgroup cols=5>
@@ -3516,14 +3531,14 @@ OUTPUT:
 9.44</programlisting>
 </example>
 		</sect3>
-		<sect3 id="language.functions.popup.init">
+		<sect3 id="language.function.popup.init">
 			<title>popup_init</title>
 			<para>
 			popup is an integration of overLib, a library used for popup
 			windows. These are used for context sensitive information, such as
 			help windows or tooltips. popup_init must be called once at the
 			top of any page you plan on using the <link
-			linkend="language.functions.popup">popup</link> function. overLib
+			linkend="language.function.popup">popup</link> function. overLib
 			was written by Erik Bosrup, and the homepage is located at
 			http://www.bosrup.com/web/overlib/.
 			</para>
@@ -3531,7 +3546,7 @@ OUTPUT:
 			This was added to Smarty 1.4.4.
 			</para>
 		</sect3>
-		<sect3 id="language.functions.popup">
+		<sect3 id="language.function.popup">
 			<title>popup</title>
             <informaltable frame=all>
                 <tgroup cols=5>

@@ -181,6 +181,52 @@
 		)
 	       (literal "()"))))))))
 
+(element command
+  (let* ((command-name (data (current-node)))
+	 (linkend 
+	  (string-append
+	   "language.function." 
+	   (string-replace
+	    (string-replace command-name "_" ".")
+	    "::" ".")))
+	 (target (element-with-id linkend))
+	 (parent-gi (gi (parent))))
+    (cond
+     ;; function names should be plain in FUNCDEF
+     ((equal? parent-gi "funcdef")
+      (process-children))
+     
+     ;; if a valid ID for the target function is not found, or if the
+     ;; FUNCTION tag is within the definition of the same function,
+     ;; make it bold, add (), but don't make a link
+     ((or (node-list-empty? target)
+	  (equal? (case-fold-down
+		   (data (node-list-first
+			  (select-elements
+			   (node-list-first
+			    (children
+			     (select-elements
+			      (children
+			       (ancestor-member (parent) (list "refentry")))
+			      "refnamediv")))
+			   "refname"))))
+		  command-name))
+      ($bold-seq$
+       (make sequence
+	 (literal "{")
+	 (process-children)
+	 (literal "}"))))
+     
+     ;; else make a link to the function and add ()
+     (else
+      (make element gi: "A"
+	    attributes: (list
+			 (list "HREF" (href-to target)))
+	    ($bold-seq$
+	     (make sequence
+           (literal "{")
+	       (process-children)
+	       (literal "}"))))))))
 
 (element classname
   (let* ((class-name (data (current-node)))

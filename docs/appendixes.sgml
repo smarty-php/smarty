@@ -88,7 +88,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 		If a variable is used frequently throughout your templates, applying
 		the default modifier every time it is mentioned can get a bit ugly. You
 		can remedy this by assigning the variable its default value with the
-		<link linkend="language.functions.assign">assign</link> function.
+		<link linkend="language.function.assign">assign</link> function.
 		</para>
 <example>
 <title>Assigning a template variable its default value</title>
