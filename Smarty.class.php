@@ -132,7 +132,8 @@ class Smarty
 
 
     var $security       =   false;      // enable template security (default false)
-    var $secure_dir     =   array(); // array of directories considered secure
+    var $secure_dir     =   array();    // array of directories considered secure
+                                        // ($template_dir is implicitly)
     var $security_settings  = array(
                                     'PHP_HANDLING'    => false,
                                     'IF_FUNCS'        => array('array', 'list',
@@ -212,10 +213,6 @@ class Smarty
 \*======================================================================*/
     function Smarty()
     {
-        if($this->security) {
-            // add template_dir to secure_dir array
-            $this->secure_dir = array_merge(array($this->template_dir),$this->secure_dir);
-        }
         foreach ($this->global_assign as $key => $var_name) {
             if (is_array($var_name)) {
                 foreach ($var_name as $var) {
@@ -617,10 +614,13 @@ class Smarty
     function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false)
     {
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
-
-		// setup debugging
+        if($this->security && !in_array($this->template_dir, $this->secure_dir)) {
+            // add template_dir to secure_dir array
+            array_unshift($this->secure_dir, $this->template_dir);
+        }
         if (!$this->debugging && $this->debugging_ctrl == 'URL'
                && strstr($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'], $this->_smarty_debug_id)) {
+            // enable debugging from URL
             $this->debugging = true;
         }		
 		
