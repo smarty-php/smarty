@@ -1,3 +1,4 @@
+    - fixed handling of '$'-signs in trimwhitespace outputfilter (messju)
     - fix bug that makes config files recompile every time
       (Nagger, Monte)
     - add dpi functionality to html_image, change "name"

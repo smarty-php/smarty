@@ -44,15 +44,15 @@
 
 	// replace script blocks
 	foreach($_script_blocks as $curr_block) {
-		$source = preg_replace("!@@@SMARTY:TRIM:SCRIPT@@@!",$curr_block,$source,1);
+		$source = str_replace("@@@SMARTY:TRIM:SCRIPT@@@",$curr_block, $source);
 	}
 	// replace pre blocks
 	foreach($_pre_blocks as $curr_block) {
-		$source = preg_replace("!@@@SMARTY:TRIM:PRE@@@!",$curr_block,$source,1);
+		$source = str_replace("@@@SMARTY:TRIM:PRE@@@",$curr_block, $source);
       }
     // replace textarea blocks
       foreach($_textarea_blocks as $curr_block) {
-              $source = preg_replace("!@@@SMARTY:TRIM:TEXTAREA@@@!",$curr_block,$source,1);
+              $source = str_replace("@@@SMARTY:TRIM:TEXTAREA@@@",$curr_block, $source);
 	}
 
 	return $source; 
