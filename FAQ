@@ -10,6 +10,8 @@ Q: Why does smarty have a built in cache? Wouldn't it be better to handle this
 Q: Is Smarty faster than <insert other PHP template engine>?
 Q: How can I be sure to get the best performance from Smarty?
 Q: Do you have a mailing list?
+Q: Can you change the mailing list so reply-to sends to the list and not the
+   user?
 
 Q: Smarty doesn't work.
 Q: I get the following error when running Smarty:
@@ -109,6 +111,12 @@ A: Be sure you set $compile_check=false once your templates are initially
 Q: Do you have a mailing list?
 A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net. This
    is also archived at http://marc.theaimsgroup.com/?l=smarty&r=1&w=2
+
+Q: Can you change the mailing list so Reply-To sends to the list and not the
+   user?
+A: Yes we could, but no we won't. Use "Reply-All" in your e-mail client to send
+   to the list.
+   http://www.unicom.com/pw/reply-to-harmful.html
 
 
 TROUBLESHOOTING
