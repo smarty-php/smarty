@@ -29,7 +29,7 @@ $search = array(
 );
 
 $replace = array(
-    '<?php if(!isset($_GET["print"])&&!strstr($_SERVER["REQUEST_URI"],"/print/")){ini_set("default_charset","\2");commonHeader();}else{ ?> \1 } ?>',
+    '<?php if(!isset($_GET["print"])&&!strstr($_SERVER["REQUEST_URI"],"/print/")){ini_set("default_charset","\2");commonHeader();}else{ ?>\1<?php } ?>',
     '<?php if(!isset($_GET["print"])&&!strstr($_SERVER["REQUEST_URI"],"/print/")){commonFooter();}else{ echo "</body></html>";} ?>'
 );
 
