@@ -163,8 +163,11 @@ class Smarty
 
     function clear_assign($tpl_var)
     {
-        foreach($tpl_var as $curr_var)
-            unset($this->_tpl_vars[$curr_var]);
+        if(is_array($tpl_var))
+            foreach($tpl_var as $curr_var)
+                unset($this->_tpl_vars[$curr_var]);
+        else
+            unset($this->_tpl_vars[$tpl_var]);
     }
 
     

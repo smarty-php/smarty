@@ -382,9 +382,23 @@ chmod 700 cache
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This is used to assign values to the templates. This is usually
-				data gathered from database queries or other sources of data.
+                This is used to assign values to the templates. You can
+                explicitly pass name/value pairs, or associative arrays
+                containing the name/value pairs.
 			</para>
+<example>
+<title>assign</title>
+<programlisting>
+
+// passing name/value pairs
+$smarty->assign("Name","Fred");
+$smarty->assign("Address",$address);
+
+// passing an associative array
+$smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="api.append">
 			<title>append</title>
@@ -402,8 +416,23 @@ chmod 700 cache
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This is used to append data to existing variables in the template.
+                This is used to append data to variables in the template. You
+                can explicitly pass name/value pairs, or associative arrays
+                containing the name/value pairs.
 			</para>
+<example>
+<title>append</title>
+<programlisting>
+
+// passing name/value pairs
+$smarty->append("Name","Fred");
+$smarty->append("Address",$address);
+
+// passing an associative array
+$smarty->append(array("city" => "Lincoln","state" => "Nebraska"));
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="api.clear.assign">
 			<title>clear_assign</title>
@@ -414,8 +443,23 @@ chmod 700 cache
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This clears the value of an assigned variable.
+				This clears the value of an assigned variable. This
+                can be a single value, or an array of values. Array
+                functionality was added to Smarty 1.3.0.
 			</para>
+<example>
+<title>clear_assign</title>
+<programlisting>
+
+// clear a single variable
+$smarty->clear_assign("Name");
+
+// clear multiple variables
+$smarty->clear_assign(array("Name","Address","Zip"));
+
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="api.clear.all.assign">
 			<title>clear_all_assign</title>
@@ -428,6 +472,15 @@ chmod 700 cache
 			<para>
 				This clears the values of all assigned variables.
 			</para>
+<example>
+<title>clear_all_assign</title>
+<programlisting>
+
+// clear all assigned variables
+$smarty->clear_all_assign();
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="api.register.function">
 			<title>register_function</title>
@@ -505,6 +558,19 @@ $smarty->register_modifier("sslash","stripslashes");
                 <link linkend="section.caching">caching section</link> for more
                 information. This was added to Smarty 1.3.0.
 			</para>
+<example>
+<title>clear_cache</title>
+<programlisting>
+
+// clear the cache for a template
+$smarty->clear_cache("index.tpl");
+
+// clear the cache for a particular cache id in an multiple-cache template
+$smarty->clear_cache("index.tpl","CACHEID");
+
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="api.clear.all.cache">
 			<title>clear_all_cache</title>
@@ -518,6 +584,16 @@ $smarty->register_modifier("sslash","stripslashes");
 				This clears the entire template cache. This was added to Smarty
 				1.3.0.
 			</para>
+<example>
+<title>clear_all_cache</title>
+<programlisting>
+
+// clear the entire cache
+$smarty->clear_all_cache();
+
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="api.is.cached">
 			<title>is_cached</title>
@@ -529,8 +605,24 @@ $smarty->register_modifier("sslash","stripslashes");
 			</funcsynopsis>
 			<para>
                 This returns true if there is a valid cache for this template.
-                This was added to Smarty 1.3.0.
+                This only works if <link
+                linkend="setting.caching">caching</link> is set to true. This
+                was added to Smarty 1.3.0.
 			</para>
+<example>
+<title>is_cached</title>
+<programlisting>
+
+$smarty->caching = true;
+
+if(!$smarty->is_cached) {
+    // do database calls, assign vars here
+}
+
+$smarty->display("index.tpl");
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="api.get.template.vars">
 			<title>get_template_vars</title>
@@ -543,6 +635,18 @@ $smarty->register_modifier("sslash","stripslashes");
 			<para>
 				This gets an array of the currently assigned template vars.
 			</para>
+<example>
+<title>get_template_vars</title>
+<programlisting>
+
+// get all assigned template vars
+$tpl_vars = $smarty->get_template_vars();
+
+// take a look at them
+var_dump($tpl_vars);
+
+</programlisting>
+</example>
 		</sect2>
 		<sect2 id="api.display">
 			<title>display</title>
@@ -560,22 +664,6 @@ $smarty->register_modifier("sslash","stripslashes");
                 See the <link linkend="section.caching">caching section</link> for
                 more information.
 			</para>
-		</sect2>
-		<sect2 id="api.fetch">
-			<title>fetch</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>string <function>fetch</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This returns the template output.  Supply a path relative to the
-				<link linkend="setting.template.dir">template directory</link>
-			</para>
-		</sect2>
-		<sect2>
-		<title>Using Smarty API</title>
 <example>
 <title>Example use of Smarty API</title>
 <programlisting>
@@ -604,9 +692,54 @@ if(!$smarty->is_cached("index.tpl"))
 
 // display the output
 $smarty->display("index.tpl");
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id="api.fetch">
+			<title>fetch</title>
+			<funcsynopsis>
+			<funcprototype>
+			<funcdef>string <function>fetch</function></funcdef>
+				<paramdef>string <parameter>template</parameter></paramdef>
+			</funcprototype>
+			</funcsynopsis>
+			<para>
+				This returns the template output.  Supply a path relative to the
+				<link linkend="setting.template.dir">template directory</link>
+			</para>
+<example>
+<title>Example use of Smarty API</title>
+<programlisting>
 
-// alternatively capture the output
-// $output = $smarty->fetch("index.tpl");
+include("Smarty.class.php");
+$smarty = new Smarty;
+
+
+// only do db calls if cache doesn't exist
+if(!$smarty->is_cached("index.tpl"))
+{
+
+    // dummy up some data
+    $address = "245 N 50th";
+    $db_data = array(
+	    "City" => "Lincoln",
+	    "State" => "Nebraska",
+	    "Zip" = > "68502"
+	    );
+
+    $smarty->assign("Name","Fred");
+    $smarty->assign("Address",$address);
+    $smarty->assign($db_data);
+
+}
+
+// capture the output
+$output = $smarty->fetch("index.tpl");
+
+// do something with $output here
+
+echo $output;
+
 </programlisting>
 </example>
 		</sect2>
