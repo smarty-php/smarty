@@ -318,6 +318,32 @@ class Smarty_Compiler extends Smarty {
             return;
         }
 
+        /* Reformat $text_blocks between 'strip' and '/strip' tags,
+           removing spaces, tabs and newlines. */
+        $strip = false;
+        for ($i = 0, $for_max = count($compiled_tags); $i < $for_max; $i++) {
+            if ($compiled_tags[$i] == '{strip}') {
+                $compiled_tags[$i] = '';
+                $strip = true;
+            }
+            if ($strip) {
+                /* strip all $text_blocks before the next '/strip' */
+                for ($j = $i + 1; $j < $for_max; $j++) {
+                    /* remove leading and trailing whitespaces of each line */
+                    $text_blocks[$j] = preg_replace('!\s+$|^\s+!m', '', $text_blocks[$j]);
+                    /* remove carriage return and newline between each line */
+                    $text_blocks[$j] = preg_replace('![\r\n]+!m', '', $text_blocks[$j]);                
+                    $text_blocks[$j] = "<?php echo '" . strtr($text_blocks[$j], array("'"=>"\'", "\\"=>"\\\\")) . "'; ?>";
+                    if ($compiled_tags[$j] == '{/strip}') {
+                        $compiled_tags[$j] = "\n"; /* slurped by php, but necessary
+                                    if a newline is following the closing strip-tag */
+                        $strip = false;
+                        $i = $j;
+                        break;
+                    }
+                }
+            }
+        }
         $compiled_content = '';
 
         /* Interleave the compiled contents and text blocks to get the final result. */
@@ -329,17 +355,6 @@ class Smarty_Compiler extends Smarty {
             $compiled_content .= $text_blocks[$i].$compiled_tags[$i];
         }
         $compiled_content .= $text_blocks[$i];
-
-        /* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
-        if (preg_match_all("~{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}~s", $compiled_content, $_match)) {
-            $strip_tags = $_match[0];
-            $strip_tags_modified = preg_replace("~{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+~m", '', $strip_tags);
-            $strip_tags_modified = preg_replace('~[\r\n]+~m', '', $strip_tags_modified);
-            for ($i = 0, $for_max = count($strip_tags); $i < $for_max; $i++)
-                $compiled_content = preg_replace("~{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}~s",
-                                                  $this->_quote_replace($strip_tags_modified[$i]),
-                                                  $compiled_content, 1);
-        }
 
         // remove \n from the end of the file, if any
         if (($_len=strlen($compiled_content)) && ($compiled_content{$_len - 1} == "\n" )) {
