@@ -1,3 +1,12 @@
+2002-05-16  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      docs/getting-started.sgml
+      NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      TESTIMONIALS: add "once" attribute to php_include, update docs
+
 2002-05-09  Andrei Zmievski  <andrei@ispi.net>
 
     * NEWS
