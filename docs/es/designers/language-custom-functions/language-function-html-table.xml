@@ -22,7 +22,7 @@
                     <row>
                         <entry>loop</entry>
                         <entry>array</entry>
-                        <entry>Yes</entry>
+                        <entry>Si</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>matriz de datos para el ciclo(loop)</entry>
                     </row>
@@ -31,7 +31,40 @@
                         <entry>integer</entry>
                         <entry>No</entry>
                         <entry><emphasis>3</emphasis></entry>
-                        <entry>número de columnas para la tabla</entry>
+                        <entry>Número de columnas para la tabla. Si el
+                        atributo cols esta vacio, los renglones seran determinados,
+                        entonces el numero de columnas sera calculado por el
+                        numero de renglones y el numero de elementos a mostrar
+                        para ser ajustado a las columnas de todos los
+                        elementos que seran mostrados, si ambos, renglones y
+                        columnas, son omitidos las columnas por default son 3.
+                        </entry>
+                    </row>
+                    <row>
+                    <entry>rows</entry>
+                    <entry>integer</entry>
+                    <entry>No</entry>
+                    <entry><emphasis>empty</emphasis></entry>
+                    <entry> Número de renglones en la tabla. Si el atributo
+                        rows es vacio, las columnas seran determinadas,
+                        entonces el numero de renglones sera calculado por el
+                        numero de columnas y el numero de elementos a mostrar 
+                        para ser ajustado el numero de renglones al total de
+                        elementos a ser mostrados.
+                    </entry>
+                    </row>
+                    <row>
+                    <entry>inner</entry>
+                    <entry>string</entry>
+                    <entry>No</entry>
+                    <entry><emphasis>cols</emphasis></entry>
+                    <entry> Dirección consecutiva de los elementos en el
+                            arreglo para ser representados.
+                            <emphasis>cols</emphasis> manera en que los
+                            elementos son mostrados columna por columna. 
+                            <emphasis>rows</emphasis> manera en que los
+                            elementos son mostrados renglon por renglon.
+                    </entry>
                     </row>
                     <row>
                         <entry>table_attr</entry>
@@ -69,7 +102,9 @@
                         <entry>No</entry>
                         <entry><emphasis>right</emphasis></entry>
                         <entry> dirección de una linea para ser representada.
-                          posibles valores: <emphasis>left</emphasis>/<emphasis>right</emphasis>
+                          posibles valores: 
+                         <emphasis>left</emphasis> (left-to-right),
+                         <emphasis>right</emphasis> (right-to-left)
                         </entry>
                     </row>
                     <row>
@@ -78,7 +113,9 @@
                         <entry>No</entry>
                         <entry><emphasis>down</emphasis></entry>
                         <entry>Dirección de las columnas para ser representadas. 
-                           posibles valores: <emphasis>up</emphasis>/<emphasis>down</emphasis>
+                               posibles valores:
+                              <emphasis>down</emphasis> (top-to-bottom),
+                              <emphasis>up</emphasis> (bottom-to-top)
                         </entry>
                     </row>
                 </tbody>
