@@ -59,7 +59,7 @@ function smarty_function_fetch($params, &$smarty)
 					$port = $uri_parts['port'];
 				}
 				if(empty($uri_parts['user'])) {
-					$user = $uri_parts['user'];
+					$user = '';
 				}				
 				// loop through parameters, setup headers
 				foreach($params as $param_key => $param_value) {			
@@ -157,7 +157,7 @@ function smarty_function_fetch($params, &$smarty)
 					if(!empty($referer)) {
 						fputs($fp, "Referer: $referer\r\n");
 					}
-					if(is_array($extra_headers)) {
+					if(isset($extra_headers) && is_array($extra_headers)) {
 						foreach($extra_headers as $curr_header) {
 							fputs($fp, $curr_header."\r\n");
 						}
@@ -165,7 +165,8 @@ function smarty_function_fetch($params, &$smarty)
 					if(!empty($user) && !empty($pass)) {
 						fputs($fp, "Authorization: BASIC ".base64_encode("$user:$pass")."\r\n");						
 					}
-					
+
+					$content = '';					
 					fputs($fp, "\r\n");
 					while(!feof($fp)) {
 						$content .= fgets($fp,4096);
