@@ -993,7 +993,7 @@ class Smarty
 
         if (!empty($this->cache_handler_func)) {
             return call_user_func_array($this->cache_handler_func,
-                                  array('clear', &$this, &$dummy, $tpl_file, $cache_id, $compile_id));
+                                  array('clear', &$this, &$dummy, $tpl_file, $cache_id, $compile_id, $exp_time));
         } else {
             $_params = array('auto_base' => $this->cache_dir,
                             'auto_source' => $tpl_file,
@@ -1015,8 +1015,9 @@ class Smarty
     function clear_all_cache($exp_time = null)
     {
         if (!empty($this->cache_handler_func)) {
+            $dummy = null;
             call_user_func_array($this->cache_handler_func,
-                           array('clear', &$this, &$dummy));
+                           array('clear', &$this, &$dummy, null, null, null, $exp_time));
         } else {
             $_params = array('auto_base' => $this->cache_dir,
                             'auto_source' => null,
