@@ -1,3 +1,5 @@
+	- added ability to index template vars by a key. (Andrei)
+
 Version 1.1.0
 -------------
 	- misc documentation changes, official stable release
