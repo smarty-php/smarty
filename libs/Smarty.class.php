@@ -1665,6 +1665,9 @@ class Smarty
                     }
                 }
                 return false;
+            } else {
+                /* absolute path */
+                return file_exists($params['resource_name']);
             }
         } elseif (empty($this->_plugins['resource'][$params['resource_type']])) {
             $_params = array('type' => $params['resource_type']);
