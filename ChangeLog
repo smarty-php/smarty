@@ -1,3 +1,17 @@
+2003-12-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      made $SCRIPT_NAME available again
+      changes default for request_use_auto_global to prefer autoglobals
+
+    * libs/Smarty.class.php:
+      removed tabs and trailing spaces
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      readded default_modifiers. who removed that?
+
 2003-12-23  Monte Ohrt  <monte@ispi.net>
 
     * NEWS:
