@@ -21,6 +21,9 @@
 
 &designers.language-basic-syntax.language-syntax-attributes;
 &designers.language-basic-syntax.language-syntax-quotes;
+&designers.language-basic-syntax.language-math;
+
+&designers.language-basic-syntax.language-escaping;
 
 </chapter>
 <!-- Keep this comment at the end of the file
