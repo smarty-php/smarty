@@ -1,3 +1,9 @@
+2003-04-01  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      added CVS $Id$
+
 2003-03-31  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
