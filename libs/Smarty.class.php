@@ -1271,7 +1271,11 @@ class Smarty
                         if (@count($this->_cache_info['insert_tags']) == 0
                             && !$this->_cache_serials
                             && $_gmt_mtime == $_last_modified_date) {
-                            header("HTTP/1.1 304 Not Modified");
+                            if (php_sapi_name()=='cgi')
+                                header("Status: 304 Not Modified");
+                            else
+                                header("HTTP/1.1 304 Not Modified");
+
                         } else {
                             header("Last-Modified: ".$_gmt_mtime);
                             echo $_smarty_results;
