@@ -2117,7 +2117,7 @@ pass=foobar
 			</para>
 			<para>
 			NOTE: Smarty 1.4.0 - 1.4.4 placed the captured content into the
-			varible named $return. As of 1.4.5, this behavior was changed to use
+			variable named $return. As of 1.4.5, this behavior was changed to use
 			the name attribute, so update your templates accordingly.
 			</para>
 			<para>
@@ -2297,7 +2297,7 @@ pass=foobar
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>The name of the varible that the output of
+                        <entry>The name of the variable that the output of
 						include will be assigned to</entry>
                     </row>
                     <row>
@@ -2384,7 +2384,7 @@ pass=foobar
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>The name of the varible that the output of
+                        <entry>The name of the variable that the output of
 						include_php will be assigned to</entry>
                     </row>
                 </tbody>
