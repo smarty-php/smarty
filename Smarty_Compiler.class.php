@@ -487,7 +487,7 @@ class Smarty_Compiler extends Smarty {
             for ({$section_props}['index'] = {$section_props}['start'], {$section_props}['iteration'] = 1;
                  {$section_props}['iteration'] <= {$section_props}['total'];
                  {$section_props}['index'] += {$section_props}['step'], {$section_props}['iteration']++):\n";
-        $output .= "{$section_props}['rownum'] = {$section_props}['index'] + 1;\n";
+        $output .= "{$section_props}['rownum'] = {$section_props}['iteration'];\n";
         $output .= "{$section_props}['index_prev'] = {$section_props}['index'] - {$section_props}['step'];\n";
         $output .= "{$section_props}['index_next'] = {$section_props}['index'] + {$section_props}['step'];\n";
         $output .= "{$section_props}['first']      = ({$section_props}['iteration'] == 1);\n";
