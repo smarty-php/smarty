@@ -45,7 +45,7 @@ class Smarty
 											'html_select_date'	=> 'smarty_func_html_select_date'
 										 );
 	
-	var $custom_mods				=	array(	'lower'			=> 'strtolower',
+	var $custom_mods			=	array(	'lower'			=> 'strtolower',
 											'upper'			=> 'strtoupper',
 											'capitalize'	=> 'ucwords',
 											'escape'		=> 'smarty_mod_escape',
@@ -158,16 +158,13 @@ class Smarty
 
 	function display($tpl_file)
 	{
-		if(preg_match("/^(.+)\/([^\/]+)$/",$tpl_file,$match))
-		{
-			// compile files
-			$this->_compile($match[1]);
-			//assemble compile directory path to file
-			$_compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$tpl_file);
-			
-			extract($this->_tpl_vars);		
-			include($_compile_file);
-		}
+		// compile files
+		$this->_compile($this->template_dir);
+		//assemble compile directory path to file
+		$_compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$tpl_file);
+
+		extract($this->_tpl_vars);		
+		include($_compile_file);
 	}	
 		
 /*======================================================================*\
@@ -218,30 +215,22 @@ class Smarty
 		if(is_dir($tpl_dir))
 		{
 			if($tpl_dir)
+				$dir_handle = opendir($tpl_dir);
 
-			$dir_handle = opendir($tpl_dir);
 			while($curr_file = readdir($dir_handle))
 			{
-				if(!preg_match("/".preg_quote($this->tpl_file_ext,"/")."$/",$curr_file))
-				{
-					//echo "skipping $curr_file<br>\n";
+				if ($curr_file == '.' || $curr_file == '..')
 					continue;
-				}
-				
+
 				$filepath = $tpl_dir."/".$curr_file;
-				//echo "filepath is $filepath<br>\n";
 				if(is_readable($filepath))
 				{
-					if(is_file($filepath))
-					{
-						//echo "is file.<br>\n";
-						//echo $filepath, $depth<br>\n";
+					if(is_file($filepath) && preg_match("/".preg_quote($this->tpl_file_ext,"/")."$/",$curr_file)) {
 						if(!$this->_process_file($filepath))
-							return false;						
+							return false;
 					}
 					elseif(is_dir($filepath))
 					{
-						//echo "is directory.<br>\n";
 						if(!$this->_traverse_files($filepath,$depth+1))
 							return false;
 					}
