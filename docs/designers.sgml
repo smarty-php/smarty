@@ -370,7 +370,7 @@ OUTPUT: (same for both examples)
 {* display value of page from URL (GET) http://www.domain.com/index.php?page=foo *}
 {$smarty.get.page}
 
-{* display the variable "page" from a form a form (POST) *}
+{* display the variable "page" from a form (POST) *}
 {$smarty.post.page}
 
 {* display the value of the cookie "username" *}
@@ -579,7 +579,7 @@ Cold Wave Linked to Temperatures.
 index.php:
 
 $smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'Psychics predict world didn't end');
+$smarty-&gt;assign('articleTitle', "Psychics predict world didn't end");
 $smarty-&gt;display('index.tpl');
 
 index.tpl:
