@@ -616,43 +616,31 @@ class Smarty
 \*======================================================================*/
     function _assign_smarty_interface()
     { 
-        $smarty = array('get'      => $GLOBALS['HTTP_GET_VARS'],
-                        'post'     => $GLOBALS['HTTP_POST_VARS'],
-                        'cookies'  => $GLOBALS['HTTP_COOKIE_VARS'],
-                        'session'  => $GLOBALS['HTTP_SESSION_VARS'],
-                        'server'   => $GLOBALS['HTTP_SERVER_VARS'],
-                        'env'      => $GLOBALS['HTTP_ENV_VARS']);
+        $egpcs  = array('e'        => 'env',
+                        'g'        => 'get',
+                        'p'        => 'post',
+                        'c'        => 'cookie',
+                        's'        => 'server');
+        $globals_map = array('get'      => 'HTTP_GET_VARS',
+                             'post'     => 'HTTP_POST_VARS',
+                             'cookies'  => 'HTTP_COOKIE_VARS',
+                             'session'  => 'HTTP_SESSION_VARS',
+                             'server'   => 'HTTP_SERVER_VARS',
+                             'env'      => 'HTTP_ENV_VARS');
 
-        $smarty['request'] = array();
-        foreach (preg_split('!!', $this->request_vars_order) as $c) {
-            switch (strtolower($c)) {
-                case 'p':
-                    $smarty['request'] = array_merge($smarty['request'],
-                                                     $GLOBALS['HTTP_POST_VARS']);
-                    break;
+        $smarty  = array('request'  => array());
 
-                case 'c':
-                    $smarty['request'] = array_merge($smarty['request'],
-                                                     $GLOBALS['HTTP_COOKIE_VARS']);
-                    break;
+        foreach ($globals_map as $key => $array) {
+            $smarty[$key] = isset($GLOBALS[$array]) ? $GLOBALS[$array] : array();
+        }
 
-                case 'g':
-                    $smarty['request'] = array_merge($smarty['request'],
-                                                     $GLOBALS['HTTP_GET_VARS']);
-                    break;
-
-                case 'e':
-                    $smarty['request'] = array_merge($smarty['request'],
-                                                     $GLOBALS['HTTP_ENV_VARS']);
-                    break;
-
-                case 's':
-                    $smarty['request'] = array_merge($smarty['request'],
-                                                     $GLOBALS['HTTP_SERVER_VARS']);
-                    break;
+        foreach (preg_split('!!', strtolower($this->request_vars_order)) as $c) {
+            if (isset($egpcs[$c])) {
+                $smarty['request'] = array_merge($smarty['request'], $smarty[$egpcs[$c]]);
             }
         }
-        
+        $smarty['request'] = array_merge($smarty['request'], $smarty['session']);
+
         $this->assign('smarty', $smarty);
     }
 

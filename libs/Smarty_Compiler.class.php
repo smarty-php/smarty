@@ -305,6 +305,7 @@ class Smarty_Compiler extends Smarty {
             return;
         }
 
+        $arg_list = array();
         $attrs = $this->_parse_attrs($tag_args);
         foreach ($attrs as $arg_name => $arg_value) {
             if (is_bool($arg_value))
@@ -355,7 +356,7 @@ class Smarty_Compiler extends Smarty {
             $attrs['section'] = 'null';
         }
 
-        $scope = $this->_dequote($attrs['scope']);
+        @$scope = $this->_dequote($attrs['scope']);
         if (!empty($scope)) {
             if ($scope != 'local' &&
                 $scope != 'parent' &&
@@ -412,6 +413,7 @@ class Smarty_Compiler extends Smarty {
     function _compile_section_start($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
+        $arg_list = array();
 
         $output = "<?php ";
         $section_name = $attrs['name'];
@@ -650,6 +652,7 @@ class Smarty_Compiler extends Smarty {
     function _parse_is_expr($is_arg, $tokens)
     {
         $expr_end = 0;
+        $negate_expr = false;
 
         if (($first_token = array_shift($tokens)) == 'not') {
             $negate_expr = true;
@@ -659,7 +662,7 @@ class Smarty_Compiler extends Smarty {
 
         switch ($expr_type) {
             case 'even':
-                if ($tokens[$expr_end] == 'by') {
+                if (@$tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
                     $expr = "!(($is_arg / $expr_arg) % $expr_arg)";
@@ -669,7 +672,7 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'odd':
-                if ($tokens[$expr_end] == 'by') {
+                if (@$tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
                     $expr = "(($is_arg / $expr_arg) % $expr_arg)";
@@ -679,7 +682,7 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'div':
-                if ($tokens[$expr_end] == 'by') {
+                if (@$tokens[$expr_end] == 'by') {
                     $expr_end++;
                     $expr_arg = $tokens[$expr_end++];
                     $expr = "!($is_arg % $expr_arg)";
@@ -917,7 +920,7 @@ class Smarty_Compiler extends Smarty {
              * First we lookup the modifier function name in the registered
              * modifiers table.
              */
-            $mod_func_name = $this->custom_mods[$modifier_name];
+            @$mod_func_name = $this->custom_mods[$modifier_name];
 
             /*
              * If we don't find that modifier there, we assume it's just a PHP
