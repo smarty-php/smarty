@@ -1,3 +1,87 @@
+2003-06-16  Monte Ohrt  <monte@ispi.net>
+
+    * libs/core/core.fetch_file_info.php
+      libs/core/core.fetch_template_info.php:
+      rename file, commit
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.parse_file_path.php
+      libs/core/core.read_cache_file.php
+      libs/plugins/block.strip.php
+      libs/plugins/block.textformat.php
+      libs/plugins/compiler.config_load.php
+      libs/plugins/function.config_load.php
+      libs/plugins/function.eval.php
+      libs/plugins/function.fetch.php
+      libs/plugins/function.html_image.php:
+      fix config_load, compile fetched arrays to compile_dir, switch display
+      back to runtime. clean up var names and function names,  split up compile
+      testing and compiling to separate funcs, rename some template_* functions
+      to
+      file_* functions and update logic so they can be used for file resources
+      other than templates.
+
+2003-06-16  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      fixed little bug in _compile_custom_tag()
+
+2003-06-16  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.assign_smarty_interface.php
+      libs/core/core.create_dir_structure.php
+      libs/core/core.display_debug_console.php
+      libs/core/core.fetch_template_info.php
+      libs/core/core.get_include_path.php
+      libs/core/core.get_microtime.php
+      libs/core/core.get_php_resource.php
+      libs/core/core.is_secure.php
+      libs/core/core.is_trusted.php
+      libs/core/core.load_plugins.php
+      libs/core/core.load_resource_plugin.php
+      libs/core/core.parse_file_path.php
+      libs/core/core.process_cached_inserts.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.rm_auto.php
+      libs/core/core.rmdir.php
+      libs/core/core.run_insert_handler.php
+      libs/core/core.smarty_include.php
+      libs/core/core.smarty_include_php.php
+      libs/core/core.write_cache_file.php
+      libs/core/core.write_compiled_template.php
+      libs/core/core.write_file.php
+      libs/plugins/core.assign_smarty_interface.php
+      libs/plugins/core.create_dir_structure.php
+      libs/plugins/core.display_debug_console.php
+      libs/plugins/core.fetch_template_info.php
+      libs/plugins/core.get_include_path.php
+      libs/plugins/core.get_microtime.php
+      libs/plugins/core.get_php_resource.php
+      libs/plugins/core.is_secure.php
+      libs/plugins/core.is_trusted.php
+      libs/plugins/core.load_plugins.php
+      libs/plugins/core.load_resource_plugin.php
+      libs/plugins/core.parse_file_path.php
+      libs/plugins/core.process_cached_inserts.php
+      libs/plugins/core.read_cache_file.php
+      libs/plugins/core.rm_auto.php
+      libs/plugins/core.rmdir.php
+      libs/plugins/core.run_insert_handler.php
+      libs/plugins/core.smarty_include.php
+      libs/plugins/core.smarty_include_php.php
+      libs/plugins/core.write_cache_file.php
+      libs/plugins/core.write_compiled_template.php
+      libs/plugins/core.write_file.php:
+      move core files into their own directory under SMARTY_DIR,
+      remove abstraction function _execute_core_function
+
+    * libs/Smarty_Compiler.class.php:
+      fix newline handling for template for all template tags
+
 2003-06-11  Monte Ohrt  <monte@ispi.net>
 
     * libs/plugins/compiler.config_load.php:
