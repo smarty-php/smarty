@@ -1,0 +1,12 @@
+TROUBLESHOOTING
+---------------
+
+Q: Smarty is recompiling my templates on every invocation.
+A: This is a bug that was fixed, grab the latest tarball.
+
+Q: I get the following error when running Smarty:
+   Warning: Wrong parameter count for preg_replace() in
+   Smarty.class.php on line 371
+A: preg_replace had a parameter added in PHP 4.0.2 that Smarty
+   requires. Upgrade to at least 4.0.4pl to fix all PHP issues with
+   Smarty.
