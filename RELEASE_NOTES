@@ -1,3 +1,9 @@
+2.4.2
+-----
+Another point release. Added support for dynamic object reference syntax
+($foo->$bar), support for full variable syntax within quotes ("$foo[0].bar"),
+and other minor fixes. See the NEWS file for full details.
+
 2.4.1
 -----
 

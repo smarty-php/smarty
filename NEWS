@@ -1,11 +1,13 @@
+Version 2.4.2 (Feb 11, 2003)
+----------------------------
     - support embedded variables in objects (Monte)
     - fix bug with objects with no properties (M Mohr, Monte)
     - support full dollar var syntax in quoted text (Monte)
     - fixed bug in $smarty.const.FOO introduced in 2.4.1 (M
       Mohr, Monte)
 
-Version 2.4.1
--------------
+Version 2.4.1 (Feb 6, 2003)
+---------------------------
 
     - ignore case in IF statements (Rainer Collet, Monte)
     - treat undefined constants as null (Ferdinand Beyer, Monte)
@@ -16,8 +18,8 @@ Version 2.4.1
     - added support for math operators in if statements (Monte)
     - added support for $foo->bar[$x].blah syntax (Monte)
 
-Version 2.4.0
--------------
+Version 2.4.0 (Feb 2, 2003)
+---------------------------
 
     - fix known problems with php tag handling in templates
       (recursion, echoing <?xml tags) (Monte)
@@ -54,8 +56,8 @@ Version 2.4.0
       Massimiliano Perantoni)
     - added mailto plugin to dist.  (Monte)
 
-Version 2.3.1
--------------
+Version 2.3.1 (Nov 19, 2002)
+----------------------------
 
     - added optgroup support to html_options (Monte, Robert
       Amos)
@@ -69,8 +71,8 @@ Version 2.3.1
       Hagerty)
     - added textformat block function (Monte)
 
-Version 2.3.0
--------------
+Version 2.3.0 (Aug 7, 2002)
+---------------------------
 
     - added assign_by_ref() and append_by_ref() functions
       (Bob Silva, Monte)
@@ -94,8 +96,8 @@ Version 2.3.0
     - fix bug with debug_tpl file path with Windows (.SMK., Monte)
     - fix append() function with string/array problem (Monte)
 
-Version 2.2.0
--------------
+Version 2.2.0 (July 11, 2002)
+-----------------------------
 
     - make debug.tpl work with any delimiter (Monte)
     - change logic in assign() and append() to test var names
