@@ -1,23 +1,25 @@
-Version 2.0
------------
-    - added "eval" function plugin for evaluating variables as templates.
-      (Monte)
+Version 2.0.0
+-------------
+    - added "eval" function plugin for evaluating variables as
+      templates. (Monte)
     - removed $tpl_file_ext class variable, no longer used. (Monte)
-    - added "hex" and "hexentity" escape types to escape modifier. (Monte)
+    - added "hex" and "hexentity" escape types to escape modifier.
+      (Monte)
     - removed dependency on PEAR. (Andrei)
     - update popup_init to accept src attribute. (Monte, Duncan Forrest)
-    - implemented several optimizations, speeding up Smarty significantly in
-      most cases. (Andrei,Monte)
+    - implemented several optimizations, speeding up Smarty
+      significantly in most cases. (Andrei,Monte)
     - implemented plugin architecture. (Andrei)
-    - added modifiers wordwrap and indent. (Monte)
-    - added support for 'If-Modified-Since' headers for cached content. (Monte)
-    - removed insert_tag_check class variable, no longer needed. (Monte)
-    - optimized cache fetches by scanning for insert tags only if they exist.
+    - added wordwrap and indent modifiers. (Monte)
+    - added support for 'If-Modified-Since' headers for cached content.
       (Monte)
+    - removed insert_tag_check class variable, no longer needed. (Monte)
+    - optimized cache fetches by scanning for insert tags only if they
+      exist. (Monte)
     - fixed bugs in overlib. (Monte, Duncan Forrest)
     - fixed a problem with compile_id usage. (Andrei)
-    - fixed problem with using assigned vars with {include_php ...} filepath.
-      (Monte)
+    - fixed problem with using assigned vars with {include_php ...}
+      filepath. (Monte)
 
 Version 1.5.2
 -------------
@@ -318,4 +320,4 @@ Version 1.0
 ------------
     - initial release
 
-/* vim: set et: */
+/* vim: set et tw=72: */
