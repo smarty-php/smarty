@@ -122,8 +122,13 @@
      (as is the case with some plugins bundled with Smarty), then the proper
      way to load the needed plugin is this:
     </para>
-    <programlisting>
-require_once $smarty->_get_plugin_filepath('function', 'html_options');</programlisting>
+    <programlisting role="php">
+<![CDATA[
+<?php
+require_once $smarty->_get_plugin_filepath('function', 'html_options');
+?>
+]]>
+    </programlisting>
     <para>
      As a general rule, Smarty object is always passed to the plugins
      as the last parameter (with two exceptions: modifiers do not get
