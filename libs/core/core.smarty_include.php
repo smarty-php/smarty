@@ -34,7 +34,10 @@ function smarty_core_smarty_include($params, &$this)
 
     $_smarty_compile_path = $this->_get_compile_path($params['smarty_include_tpl_file']);
 
-    if ($this->_process_template($params['smarty_include_tpl_file'], $_smarty_compile_path)) {
+
+    if ($this->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
+        || $this->_compile_template($params['smarty_include_tpl_file'], $_smarty_compile_path))
+    {
         include($_smarty_compile_path);
     }
 
