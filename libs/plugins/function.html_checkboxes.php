@@ -24,41 +24,75 @@
  */
 function smarty_function_html_checkboxes($params, &$smarty)
 {
-    require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
+   require_once $smarty->_get_plugin_filepath('shared','escape_special_chars');
+  
+   $name = 'checkbox';
+   $values = null;
+   $checkboxes = null;
+   $checked = null;
+   $separator = '';
+   $output = null;
+   
+   $extra = '';
+   
+   foreach($params as $_key => $_val) {	
+      switch($_key) {
+      case 'name':
+      case 'separator':
+	 $$_key = $_val;
+	 break;
 
-    extract($params);
+      case 'checkboxes':
+	 $$_key = (array)$_val;
+	 break;
 
-    $_html_result = '';
-	if(!isset($name)){
-	$name = 'checkbox';
-	}
-    settype($checked, 'array');
-    if (isset($checkboxes)) {
-        settype($checkboxes, 'array');
-        foreach ($checkboxes as $_key => $_val) {
-			$_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $checked, $separator);
-        }
-    } else {
-        settype($output, 'array');
-        settype($values, 'array');
-        for ($_i = 0, $_for_max = count($output); $_i < $_for_max; $_i++) {
-			$_html_result .= smarty_function_html_checkboxes_output($name, $values[$_i], $output[$_i], $checked, $separator);
-        }
-    }
+      case 'values':
+      case 'output':
+      case 'checked':
+	 $$_key = array_values((array)$_val);      
+	 break;
 
-    return $_html_result;
+      default:
+	 $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+	 break;					
+      }
+   }
+
+   if (!isset($checkboxes) && !isset($values))
+      return ''; /* raise error here? */
+
+   settype($checked, 'array');
+   $_html_result = '';
+
+   if (is_array($checkboxes)) {
+
+      foreach ($checkboxes as $_key=>$_val)
+	 $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $checked, $extra, $separator);      
+    
+
+   } else {  
+      foreach ($values as $_i=>$_key) {
+	 $_val = isset($output[$_i]) ? $output[$_i] : '';
+	 $_html_result .= smarty_function_html_checkboxes_output($name, $_key, $_val, $checked, $extra, $separator);      
+      }
+
+   }
+
+   return $_html_result;
+  
 }
 
-function smarty_function_html_checkboxes_output($name, $value, $output, $checked, $separator) {
-	$_output = '<input type="checkbox" name="' . smarty_function_escape_special_chars($name) . '[]' .'" value="' . smarty_function_escape_special_chars($value) . '"';
-	
-    if (in_array($value, $checked)) {
-       	$_output .= " checked=\"checked\"";
-	}
-    $_output .= '>' . $output . $separator . "\n";
-
-	return $_output;	
+function smarty_function_html_checkboxes_output($name, $value, $output, $checked, $extra, $separator) {
+   $_output = '<input type="checkbox" name="' 
+      . smarty_function_escape_special_chars($name) . '[]" value="' 
+      . smarty_function_escape_special_chars($value) . '"';
+  
+   if (in_array($value, $checked)) {
+      $_output .= ' checked="checked"';
+   }
+   $_output .= $extra . ' />' . $output . $separator . "\n";
+  
+   return $_output;        
 }
-
 
 ?>
