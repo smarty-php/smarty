@@ -1,3 +1,41 @@
+2004-03-23  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/version.ent.in:
+      remove this also
+
+    * docs/getting-started.sgml:
+      remove this one too
+
+    * docs/appendixes.sgml
+      docs/common.dsl
+      docs/designers.sgml
+      docs/html-common.dsl
+      docs/manual.sgml
+      docs/php.dsl
+      docs/preface.sgml
+      docs/programmers.sgml:
+      removing uneeded files
+
+    * docs/.cvsignore:
+      commiting missing files for docbook
+
+    * docs/.cvsignore
+      docs/Makefile.in
+      docs/configure.in
+      docs/manual.xml.in:
+      bundling docbook 4
+      now make and make web works
+
+2004-03-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.config_load.php:
+      unrolled call to the is_compiled()-check to be able to supply the
+      correct resource_base_path for config_load. this avoids errors when
+      config-files are accessed where security is enabled.
+      
+      thanks to shuther for pointing out this bug.
+
 2004-03-20  Nuno Lopes  <nunoplopes@sapo.pt>
 
     * docs/manual.xml.in:
