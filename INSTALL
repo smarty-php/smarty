@@ -6,10 +6,10 @@ BUGS file for more info.
 
 INSTALLATION:
 
-* copy the Smarty.class.php, Smarty.addons.php, Smarty_Compile.class.php
-  Config_File.class.php scripts and the plugins directory to a directory that
-  is in your PHP include_path, or set the SMARTY_DIR constant and put your
-  class files in this directory.
+* copy the Smarty.class.php, Smarty_Compile.class.php Config_File.class.php
+  scripts and the plugins directory to a directory that is in your PHP
+  include_path, or set the SMARTY_DIR constant and put your class files in this
+  directory.
 
 * create a "templates", "configs", and a "templates_c" directory,
   be sure to set the appropriate directory settings in Smarty for them. If they
