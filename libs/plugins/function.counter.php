@@ -8,7 +8,7 @@
  * Purpose:  print out a counter value
  * -------------------------------------------------------------
  */
-function smarty_function_counter($args, &$smarty_obj)
+function smarty_function_counter($params, &$smarty)
 {
     static $count = array();
     static $skipval = array();
@@ -17,7 +17,7 @@ function smarty_function_counter($args, &$smarty_obj)
     static $printval = array();
     static $assign = "";
 
-    extract($args);
+    extract($params);
 
     if (!isset($id))
         $id = "default";
@@ -34,7 +34,7 @@ function smarty_function_counter($args, &$smarty_obj)
     
     if (!empty($assign)) {
         $printval[$id] = false;
-        $smarty_obj->assign($assign, $count[$id]);
+        $smarty->assign($assign, $count[$id]);
     }
 
     if ($printval[$id])
@@ -54,8 +54,6 @@ function smarty_function_counter($args, &$smarty_obj)
         $count[$id] -= $skipval[$id];
     else
         $count[$id] += $skipval[$id];
-    
-    return true;
 }
 
 /* vim: set expandtab: */

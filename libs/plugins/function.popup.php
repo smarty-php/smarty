@@ -8,12 +8,12 @@
  * Purpose:  make text pop up in windows via overlib
  * -------------------------------------------------------------
  */
-function smarty_function_popup($args, &$smarty_obj)
+function smarty_function_popup($params, &$smarty)
 {
-    extract($args);
+    extract($params);
 
     if (empty($text) && !isset($inarray) && empty($function)) {
-        $smarty_obj->_trigger_error_msg("overlib: attribute 'text' or 'inarray' or 'function' required");
+        $smarty->trigger_error("overlib: attribute 'text' or 'inarray' or 'function' required");
         return false;
     }
 
@@ -68,7 +68,6 @@ function smarty_function_popup($args, &$smarty_obj)
     if (!empty($hauto)) { echo ",HAUTO"; }
     if (!empty($vauto)) { echo ",VAUTO"; }
     echo ');" onMouseOut="nd();"';
-    return;
 }
 
 /* vim: set expandtab: */

@@ -8,19 +8,19 @@
  * Purpose:  handle math computations in template
  * -------------------------------------------------------------
  */
-function smarty_function_math($args, &$smarty_obj)
+function smarty_function_math($params, &$smarty)
 {
     // be sure equation parameter is present
-    if (empty($args["equation"])) {
-        $smarty_obj->_trigger_error_msg("math: missing equation parameter");
+    if (empty($params["equation"])) {
+        $smarty->trigger_error("math: missing equation parameter");
         return;
     }
 
-    $equation = $args["equation"];
+    $equation = $params["equation"];
 
     // make sure parenthesis are balanced
     if (substr_count($equation,"(") != substr_count($equation,")")) {
-        $smarty_obj->_trigger_error_msg("math: unbalanced parenthesis");
+        $smarty->trigger_error("math: unbalanced parenthesis");
         return;
     }
 
@@ -30,21 +30,21 @@ function smarty_function_math($args, &$smarty_obj)
                            'max','min','pi','pow','rand','round','sin','sqrt','srand','tan');
 
     foreach($match[0] as $curr_var) {
-        if (!in_array($curr_var,array_keys($args)) && !in_array($curr_var, $allowed_funcs)) {
-            $smarty_obj->_trigger_error_msg("math: parameter $curr_var not passed as argument");
+        if (!in_array($curr_var,array_keys($params)) && !in_array($curr_var, $allowed_funcs)) {
+            $smarty->trigger_error("math: parameter $curr_var not passed as argument");
             return;
         }
     }
 
-    foreach($args as $key => $val) {
+    foreach($params as $key => $val) {
         if ($key != "equation" && $key != "format" && $key != "assign") {
             // make sure value is not empty
             if (strlen($val)==0) {
-                $smarty_obj->_trigger_error_msg("math: parameter $key is empty");
+                $smarty->trigger_error("math: parameter $key is empty");
                 return;
             }
             if (!is_numeric($val)) {
-                $smarty_obj->_trigger_error_msg("math: parameter $key: is not numeric");
+                $smarty->trigger_error("math: parameter $key: is not numeric");
                 return;
             }
             $equation = preg_replace("/\b$key\b/",$val, $equation);
@@ -53,17 +53,17 @@ function smarty_function_math($args, &$smarty_obj)
 
     eval("\$smarty_math_result = ".$equation.";");
 
-    if (empty($args["format"])) {
-        if (empty($args["assign"])) {
+    if (empty($params["format"])) {
+        if (empty($params["assign"])) {
             echo $smarty_math_result;
         } else {
-            $smarty_obj->assign($args["assign"],$smarty_math_result);
+            $smarty->assign($params["assign"],$smarty_math_result);
         }
     } else {
-        if (empty($args["assign"])){
-            printf($args["format"],$smarty_math_result);
+        if (empty($params["assign"])){
+            printf($params["format"],$smarty_math_result);
         } else {
-            $smarty_obj->assign($assign,sprintf($args["format"],$smarty_math_result));
+            $smarty->assign($assign,sprintf($params["format"],$smarty_math_result));
         }
     }
 }

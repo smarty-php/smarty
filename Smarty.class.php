@@ -464,6 +464,16 @@ class Smarty
 
 
 /*======================================================================*\
+    Function: trigger_error
+    Purpose:  trigger Smarty error
+\*======================================================================*/
+    function trigger_error($error_msg, $error_type = E_USER_WARNING)
+    {
+        trigger_error("Smarty error: $error_msg", $error_type);
+    }
+
+
+/*======================================================================*\
     Function:   display()
     Purpose:    executes & displays the template results
 \*======================================================================*/
@@ -751,7 +761,7 @@ function _generate_debug_output() {
         if (method_exists($this, '_syntax_error')) {
             $error_func = '_syntax_error';
         } else {
-            $error_func = '_trigger_error_msg';
+            $error_func = 'trigger_error';
         }
 
         if ($readable) {
@@ -916,7 +926,7 @@ function _generate_debug_output() {
             // see if we can get a template with the default template handler
             if (!empty($this->default_template_handler_func)) {
                 if (!function_exists($this->default_template_handler_func)) {
-                    $this->_trigger_error_msg("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
+                    $this->trigger_error("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
                     $_return = false;
                 }
                 $funcname = $this->default_template_handler_func;
@@ -925,9 +935,9 @@ function _generate_debug_output() {
         }
 
         if (!$_return) {
-            $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
+            $this->trigger_error("unable to read template resource: \"$tpl_path\"");
         } else if ($_return && $this->security && !$this->_is_secure($resource_type, $resource_name)) {
-            $this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
+            $this->trigger_error("(secure mode) accessing \"$tpl_path\" is not allowed");
             $template_source = null;
             $template_timestamp = null;
             return false;
@@ -966,7 +976,7 @@ function _generate_debug_output() {
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;
         else {
-            $this->_trigger_error_msg($smarty_compiler->_error_msg);
+            $this->trigger_error($smarty_compiler->_error_msg);
             return false;
         }
     }
@@ -1265,7 +1275,7 @@ function _run_insert_handler($args)
             $this->_create_dir_structure(dirname($filename));
 
         if (!($fd = @fopen($filename, 'w'))) {
-            $this->_trigger_error_msg("problem writing '$filename.'");
+            $this->trigger_error("problem writing '$filename.'");
             return false;
         }
 
@@ -1359,7 +1369,7 @@ function _run_insert_handler($args)
             foreach ($dir_parts as $dir_part) {
                 $new_dir .= $dir_part;
                 if (!file_exists($new_dir) && !mkdir($new_dir, 0771)) {
-                    $this->_trigger_error_msg("problem creating directory \"$dir\"");
+                    $this->trigger_error("problem creating directory \"$dir\"");
                     return false;
                 }
                 $new_dir .= '/';
@@ -1663,15 +1673,6 @@ function _run_insert_handler($args)
         return preg_replace('![\\$]\d!', '\\\\\\0', $string);
     }
 
-
-/*======================================================================*\
-    Function: _trigger_error_msg
-    Purpose:  trigger Smarty error
-\*======================================================================*/
-    function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING)
-    {
-        trigger_error("Smarty error: $error_msg", $error_type);
-    }
 
 /*======================================================================*\
     Function: _trigger_plugin_error
