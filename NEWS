@@ -1,3 +1,5 @@
+Version 1.5.1
+-------------
     - removed error message from the generic _read_file() method, the caller
       should take care of that. (Andrei)
     - fixed a bug with incorrectly combined cache and compile id. (Andrei)

@@ -5,7 +5,7 @@ require_once "PEAR.php";
 /**
  * Config_File class.
  *
- * @version 1.5.0
+ * @version 1.5.1
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * 

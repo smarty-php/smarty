@@ -6,7 +6,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:     1.5.0
+ * Version:     1.5.1
  * Copyright:   2001 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -201,7 +201,7 @@ class Smarty
     var $_conf_obj             =   null;       // configuration object
     var $_config               =   array();    // loaded configuration settings
     var $_smarty_md5           =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
-    var $_version              =   '1.5.0';    // Smarty version number
+    var $_version              =   '1.5.1';    // Smarty version number
     var $_extract              =   false;      // flag for custom functions
     var $_inclusion_depth      =   0;          // current template inclusion depth
     var $_compile_id           =   null;       // for different compiled templates
