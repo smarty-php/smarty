@@ -5,7 +5,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:     1.5.2
+ * Version:     2.0
  * Copyright:   2001,2002 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -101,8 +101,6 @@ class Smarty
 
     var $default_template_handler_func = ''; // function to handle missing templates
 
-    var $tpl_file_ext    =  '.tpl';     // template file extention (deprecated)
-
     var $php_handling    =  SMARTY_PHP_PASSTHRU;
                                         // how smarty handles php tags in the templates
                                         // possible values:
@@ -159,7 +157,7 @@ class Smarty
     var $_conf_obj             = null;       // configuration object
     var $_config               = array();    // loaded configuration settings
     var $_smarty_md5           = 'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
-    var $_version              = '1.5.2';    // Smarty version number
+    var $_version              = '2.0';    // Smarty version number
     var $_extract              = false;      // flag for custom functions
     var $_inclusion_depth      = 0;          // current template inclusion depth
     var $_compile_id           = null;       // for different compiled templates
@@ -488,10 +486,8 @@ class Smarty
 \*======================================================================*/
     function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false)
     {
-        global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
-
         if (!$this->debugging && $this->debugging_ctrl == 'URL'
-               && strstr($QUERY_STRING, $this->_smarty_debug_id)) {
+               && strstr($GLOBALS['QUERY_STRING'], $this->_smarty_debug_id)) {
             $this->debugging = true;
         }
 
@@ -526,8 +522,7 @@ class Smarty
                         $_smarty_results .= $this->_generate_debug_output();
                     }
                     if ($this->cache_modified_check) {
-                        global $HTTP_IF_MODIFIED_SINCE;
-                        $last_modified_date = substr($HTTP_IF_MODIFIED_SINCE, 0, strpos($HTTP_IF_MODIFIED_SINCE, 'GMT') + 3);
+                        $last_modified_date = substr($GLOBALS['HTTP_IF_MODIFIED_SINCE'], 0, strpos($GLOBALS['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
                         $gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
                         if (@count($this->_cache_info['insert_tags']) == 0
                             && $gmt_mtime == $last_modified_date) {
