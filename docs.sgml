@@ -6199,11 +6199,11 @@ s m o k e r s   a r e   p. . .
      <programlisting>
 require_once SMARTY_DIR . 'plugins/function.html_options.php';
      </programlisting>
-     As a rule, Smarty object is always passed to the plugins as the last
-     parameter.
+     As a general rule, Smarty object is always passed to the plugins as the last
+     parameter (except for modifiers).
     </para>
 
-    <sect2 id="section.plugins.functions"><title>functions</title>
+    <sect2 id="section.plugins.functions"><title>Functions</title>
      <funcsynopsis>
       <funcprototype>
        <funcdef>void <function>plugin_name</function></funcdef>
@@ -6230,10 +6230,8 @@ require_once SMARTY_DIR . 'plugins/function.html_options.php';
      </para>
      <para>
       See also:
-      <link linkend="api.register.function">register_function</link>,
-      <link linkend="api.unregister.function">unregister_function</link>.
-     </para>
-     <para>
+      <link linkend="api.register.function">register_function()</link>,
+      <link linkend="api.unregister.function">unregister_function()</link>.
      </para>
      <para>
       <example>
@@ -6267,8 +6265,8 @@ function smarty_function_eightball($params, &amp;$smarty)
      which can be used in the template as:
      <informalexample>
       <programlisting>
-Question: Will we ever have time travel?
-Answer: {eightball}.
+   Question: Will we ever have time travel?
+   Answer: {eightball}.
       </programlisting>
      </informalexample>
     </para>
@@ -6309,7 +6307,7 @@ function smarty_function_assign($params, &amp;$smarty)
     </para>
    </sect2>
 
-    <sect2 id="section.plugins.modifiers"><title>modifiers</title>
+    <sect2 id="section.plugins.modifiers"><title>Modifiers</title>
      <funcsynopsis>
       <funcprototype>
        <funcdef>mixed <function>plugin_name</function></funcdef>
@@ -6327,8 +6325,16 @@ function smarty_function_assign($params, &amp;$smarty)
       The modifier has to return the result of its processing.
      </para>
      <para>
+      See also
+      <link linkend="api.register.modifier">register_modifier()</link>,
+      <link linkend="api.unregister.modifier">unregister_modifier()</link>.
+     </para>
      <example>
       <title>simple modifier plugin</title>
+      <para>
+       This plugin basically aliases one of the built-in PHP functions. It
+       does not have any additional parameters.
+      </para>
       <programlisting>
 &lt;?php
 /*
@@ -6347,10 +6353,6 @@ function smarty_modifier_capitalize($string)
 ?&gt;
       </programlisting>
      </example>
-     <para>
-      This plugin basically aliases one of the built-in PHP functions. It
-      does not have any additional parameters.
-     </para>
      <example>
       <title>more complex modifier plugin</title>
       <programlisting>
