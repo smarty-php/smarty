@@ -1136,7 +1136,7 @@ class Smarty
                         // capture time for debugging info
                         $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = $this->_get_microtime() - $_debug_start_time;
 
-                        $_smarty_results .= $this->_display_debug_console();
+                        $_smarty_results .= $this->_execute_core_function('display_debug_console');
                     }
                     if ($this->cache_modified_check) {
                         $_last_modified_date = substr($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 0, strpos($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
@@ -1209,7 +1209,7 @@ class Smarty
                 // capture time for debugging info
                 $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = ($this->_get_microtime() - $_debug_start_time);
 
-                echo $this->_display_debug_console();
+                echo $this->_execute_core_function('display_debug_console');
             }
             error_reporting($_smarty_old_error_level);
             return;
@@ -1219,45 +1219,15 @@ class Smarty
         }
     }
 
-
     /**
-     * assign $smarty interface variable
-     */    
-    function _assign_smarty_interface()
-    {
-        if (isset($this->_smarty_vars) && isset($this->_smarty_vars['request'])) {
-            return;
-		}
-
-        $_globals_map = array('g'  => 'HTTP_GET_VARS',
-                             'p'  => 'HTTP_POST_VARS',
-                             'c'  => 'HTTP_COOKIE_VARS',
-                             's'  => 'HTTP_SERVER_VARS',
-                             'e'  => 'HTTP_ENV_VARS');
-
-        $_smarty_vars_request  = array();
-
-        foreach (preg_split('!!', strtolower($this->request_vars_order)) as $c) {
-            if (isset($_globals_map[$c])) {
-                $_smarty_vars_request = array_merge($_smarty_vars_request, $GLOBALS[$_globals_map[$c]]);
-            }
-        }
-        $_smarty_vars_request = @array_merge($_smarty_vars_request, $GLOBALS['HTTP_SESSION_VARS']);
-
-        $this->_smarty_vars['request'] = $_smarty_vars_request;
-		
-    }
-
-
-    /**
-     * display debug console
-     * @return string debug.tpl template output
-     * @uses $debug_tpl debug template, used to display debugging output
+     * execute core function
+     * @return mixed value of function return
      */
-    function _display_debug_console()
+    function _execute_core_function($funcname, $params=null)
     {
-		require_once($this->_get_plugin_filepath('function', 'display_debug_console'));    
-		return smarty_function_display_debug_console(null, $this);
+		require_once($this->_get_plugin_filepath('core', $funcname));    
+		$_core_funcname = 'smarty_core_' . $funcname;
+		return $_core_funcname($params, $this);
     }
 
     /**

@@ -352,7 +352,7 @@ class Smarty_Compiler extends Smarty {
         }
 
         if ($this->_init_smarty_vars) {
-            $template_header .= "<?php \$this->_assign_smarty_interface(); ?>\n";
+            $template_header .= "<?php \$this->_execute_core_function('assign_smarty_interface'); ?>\n";
             $this->_init_smarty_vars = false;
         }
 

@@ -8,13 +8,13 @@
 /*
  * Smarty debug_console function plugin
  *
- * Type:     function<br>
+ * Type:     core<br>
  * Name:     display_debug_console<br>
  * Purpose:  display the javascript debug console window
  * @param array Format: null
  * @param Smarty
  */
-function smarty_function_display_debug_console($params, &$this)
+function smarty_core_display_debug_console($params, &$this)
 {
 	// we must force compile the debug template in case the environment
 	// changed between separate applications.
