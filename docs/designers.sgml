@@ -122,17 +122,34 @@
 
   <sect1 id="language.variables">
    <title>Variables</title>
+   <para>
+    Smarty has several different types of variables, all of which are
+    explained in more detail below. The type of the variable depends on what
+    symbol it is prefixed with (or enclosed within).
+   </para>
+   
+   <para>
+    Variable in Smarty can be either displayed directly or used as arguments
+    for function attributes and modifiers, inside conditional expressions,
+    etc. To print a variable, simply enclose it in the delimiters so that it
+    is the only thing contained between them. Examples:
+    <programlisting>
+{$Name}
+
+{$Contacts[row].Phone}
+
+&lt;body bgcolr="{#bgcolor#}"&gt;</programlisting>
+   </para>
 
    <sect2>
     <title>Variables assigned from PHP</title>
     <para>
      Variables that are assigned from PHP are referenced by preceding
-     them with a dollar sign ($) and enclosing the variable in delimiters
-     like so: $varname
+     them with a dollar sign <literal>$</literal>.
     </para>
     <example>
 
-     <title>displaying assigned variables</title>
+     <title>assigned variables</title>
 <programlisting>
 Hello {$firstname}, glad to see you could make it.
 &lt;p&gt;
@@ -145,6 +162,7 @@ Hello Doug, glad to see you could make it.
 Your last login was on January 11th, 2001.</programlisting>
 </example>
 		</sect2>
+
 		<sect2>
 			<title>Associative arrays</title>
 			<para>
