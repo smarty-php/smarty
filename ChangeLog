@@ -1,3 +1,34 @@
+2003-06-11  Monte Ohrt  <monte@ispi.net>
+
+    * libs/plugins/compiler.config_load.php:
+      add compiler function to cvs repository
+
+2003-06-11  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      added config-option "request_use_auto_globals" to make auto-globals be
+      used as request vars instead of HTTP_*_VARS
+
+2003-06-11  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/plugins/function.config_load.php:
+      make config vars compile statically
+
+2003-06-11  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      backed out newlines patch
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      removed newlines in compiled templates after closing tags
+
 2003-06-10  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/de/designers.sgml:
