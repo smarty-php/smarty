@@ -1,3 +1,6 @@
+Version 2.6.1 (Jan 16, 2004)
+----------------------------
+
   - rename $smarty->tpl_error_reporting to $smarty->error_reporting
     (messju)
   - fix interpretation of $smarty->security in {html_image} (messju)
