@@ -1082,18 +1082,18 @@ class Smarty_Compiler extends Smarty {
         $var_exprs = preg_grep('!^\$\w+(?>(\[(\d+|\$\w+|\w+(\.\w+)?)\])|((\.|->)\$?\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
         $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
-        $quoted_exprs = preg_grep('!^' .  $qstr_regexp .  '$!', $tokens);
+        $db_quoted_exprs = preg_grep('!^"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"$!', $tokens);
 
-		if (count($quoted_exprs)) {
+		if (count($db_quoted_exprs)) {
 			// replace variables embedded in quotes
-            foreach ($quoted_exprs as $expr_index => $var_expr) {
+            foreach ($db_quoted_exprs as $expr_index => $var_expr) {
 				if(preg_match_all('|(?<!\\\\)\$\w+|', $var_expr, $match)) {
 					rsort($match[0]);
 					reset($match[0]);
 					foreach($match[0] as $var) {
                 		$var_expr = str_replace ($var, '".' . $this->_parse_var($var) . '."', $var_expr);
 					}
-                	$tokens[$expr_index] = preg_replace(array('!(^""\.)|(\.""$)!','!\.""\.!'), array('','.'), $var_expr);
+                	$tokens[$expr_index] = preg_replace('!\.""|""\.!', '', $var_expr);
 				}
             }			
 		}
