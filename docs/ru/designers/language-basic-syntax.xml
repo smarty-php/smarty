@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <chapter id="language.basic.syntax">
  <title>Базовый синтаксис</title>
  <para>
@@ -16,6 +16,7 @@
  </para>
 
  &designers.language-basic-syntax.language-syntax-comments;
+ &designers.language-basic-syntax.language-syntax-variables;
  &designers.language-basic-syntax.language-syntax-functions;
  &designers.language-basic-syntax.language-syntax-attributes;
  &designers.language-basic-syntax.language-syntax-quotes;
