@@ -1233,8 +1233,8 @@ class Smarty_Compiler extends Smarty {
                 	$tokens[$key] = $this->_parse_section_prop($val);
 				}
 			elseif(!in_array($val, $this->_permitted_tokens) && !is_numeric($val)) {
-				// not recognized value
-				$this->_syntax_error("unknown syntax: $val");
+				// literal string
+				$tokens[$key] = '"' . $val .'"';
 			}			
 		}
     }
