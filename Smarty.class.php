@@ -1442,8 +1442,14 @@ function _run_insert_handler($args)
 		
 		if(isset($auto_source)) {
 			// make source name safe for filename
-        	$auto_source = str_replace($_dir_sep_enc,'^',urlencode($auto_source));
-			$res .= $auto_source . '.php';
+			if($this->use_sub_dirs) {
+				$_filename = basename($auto_source);
+				$_crc32 = crc32($auto_source) . $_dir_sep;
+				$_crc32 = substr($_crc32,0,3) . $_dir_sep . $_crc32;
+				$res .= $_crc32 . $_filename . '.php';
+			} else {
+        		$res .= str_replace($_dir_sep_enc,'^',urlencode($auto_source));
+			}
 		}
 		
         return $res;

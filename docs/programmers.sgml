@@ -51,8 +51,7 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
        This is the name of the directory where compiled templates are
        located. By default this is "./templates_c", meaning that it
        will look for the compile directory in the same directory as
-       the executing php script. This was added to Smarty version
-       1.2.1.
+       the executing php script.
       </para>
 	 <note>
 	 <title>Technical Note</title>
@@ -239,7 +238,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
        for the cache directory in the same directory as the executing
        php script. You can also use your own custom cache handler
        function to control cache files, which will ignore this
-       setting. (added to Smarty 1.3.0)
+       setting.
       </para>
 	  <note>
 	  <title>Technical Note</title>
@@ -261,14 +260,29 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <para>
 	   This is the length of time in seconds that a template cache is valid.
 	   Once this time has expired, the cache will be regenerated. $caching must
-	   be set to "true" for this setting to work. You can also force the cache
-	   to expire with <link
-	   linkend="api.clear.all.cache">clear_all_cache</link>. A setting of -1
-	   will force the cache to never expire. A setting of 0 will cause the
-	   cache to always regenerate (which doesn't make much sense, you'd be
-	   better off setting caching=false.) If $caching = 2, then the cache
-	   expiration time is saved along with the template.
+	   be set to "true" for $cache_lifetime to have any purpose. A value of -1
+	   will force the cache to never expire. A value of 0 will cause the cache
+	   to always regenerate (good for testing only, to disable caching a more
+	   efficient method is to set <link
+	   linkend="variable.caching">$caching</link> = false.)
       </para>
+	  <para>
+	   If <link linkend="variable.force.compile">$force_compile</link> is
+	   enabled, the cache files will be regenerated every time, effectively
+	   disabling caching. You can clear all the cache files with the <link
+	   linkend="api.clear.all.cache">clear_all_cache()</link> function, or
+	   individual cache files (or groups) with the <link
+	   linkend="api.clear.cache">clear_cache()</link> function.
+	  </para>
+	  <note>
+	  <title>Technical Note</title>
+	  <para>
+	  If you want to give certain templates their own cache lifetime, you could
+	  do this by setting <link linkend="variable.caching">$caching</link> = 2,
+	  then set $cache_lifetime to a unique value just before calling display()
+	  or fetch().
+	  </para>
+	  </note>
      </sect1>
      <sect1 id="variable.cache.handler.func">
       <title>$cache_handler_func</title>
@@ -292,7 +306,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <title>$default_template_handler_func</title>
       <para>
        This function is called when a template cannot be obtained from
-       its resource. (added to Smarty 1.5.2)
+       its resource.
       </para>
      </sect1>
      <sect1 id="variable.php.handling">
@@ -342,9 +356,6 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
        <listitem><para>PHP functions are not allowed as modifiers, except
          those specified in the $security_settings</para></listitem>
       </itemizedlist>
-      <para>
-       NOTE: Security features were added to Smarty 1.4.3.
-      </para>
      </sect1>
      <sect1 id="variable.secure.dir">
       <title>$secure_dir</title>
@@ -530,8 +541,7 @@ $smarty->clear_all_assign();</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-				This clears the entire template cache. This was added to Smarty
-				1.3.0.
+				This clears the entire template cache.
 			</para>
 <example>
 <title>clear_all_cache</title>
@@ -550,8 +560,7 @@ $smarty->clear_all_cache();</programlisting>
 			</funcsynopsis>
 			<para>
 				This clears the value of an assigned variable. This
-                can be a single value, or an array of values. Array
-                functionality was added to Smarty 1.3.0.
+                can be a single value, or an array of values.
 			</para>
 <example>
 <title>clear_assign</title>
@@ -579,7 +588,7 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 				cache by supplying the cache id as the second parameter. You
 				can also pass a compile id as a third paramter. You can "group"
 				templates together so they can be removed as a group. See the
-				<link linkend="features.caching">caching section</link> for
+				<link linkend="caching">caching section</link> for
 				more information.
 			</para>
 <example>
@@ -629,7 +638,7 @@ $smarty->clear_compiled_tpl();</programlisting>
                 This displays the template. Supply a valid <link
                 linkend="template.resources">template resource</link>
                 type and path. As an optional second parameter, you can pass a
-                cache id. See the <link linkend="features.caching">caching
+                cache id. See the <link linkend="caching">caching
                 section</link> for more information.
 			</para>
 			<para>
@@ -709,7 +718,7 @@ $smarty->display("db:header.tpl");</programlisting>
                 Supply a valid <link
                 linkend="template.resources">template resource</link>
                 type and path. As an optional second parameter, you can pass a
-                cache id. See the <link linkend="features.caching">caching
+                cache id. See the <link linkend="caching">caching
                 section</link> for more information.
 			</para>
 			<para>
@@ -791,8 +800,7 @@ var_dump($tpl_vars);</programlisting>
 			<para>
                 This returns true if there is a valid cache for this template.
                 This only works if <link
-                linkend="variable.caching">caching</link> is set to true. This
-                was added to Smarty 1.3.0.
+                linkend="variable.caching">caching</link> is set to true.
 			</para>
 <example>
 <title>is_cached</title>
@@ -1032,8 +1040,7 @@ $smarty->register_resource("db", array("db_get_template",
           This function can be used to output an error message using Smarty.
           <parameter>level</parameter> parameter can be one of the values
           used for trigger_error() PHP function, i.e. E_USER_NOTICE,
-          E_USER_WARNING, etc. By default it's E_USER_WARNING. This function
-          was added to Smarty 2.0.
+          E_USER_WARNING, etc. By default it's E_USER_WARNING.
          </para>
         </sect1>
 
@@ -1172,6 +1179,292 @@ $smarty->unregister_resource("db");</programlisting>
 </example>
 		</sect1>
        </chapter>
+
+  <chapter id="caching">
+   <title>Caching</title>
+   <para>
+   Caching is used to speed up a call to <link
+   linkend="api.display">display()</link> or <link
+   linkend="api.fetch">fetch()</link> by saving its output to a file. If a
+   cached version of the call is available, that is displayed instead of
+   regenerating the output. Caching can speed things up tremendously,
+   especially templates with longer computation times. Since the output of
+   display() or fetch() is cached, one cache file could conceivably be made up
+   of several template files, config files, etc.
+   </para>
+   <para>
+   Since templates are dynamic, it is important to be careful what you are
+   caching and for how long. For instance, if you are displaying the front page
+   of your website that does not change its content very often, it might work
+   well to cache this page for an hour or more. On the other hand, if you are
+   displaying a page with a weather map containing new information by the
+   minute, it would not make sense to cache this page.
+   </para>
+   <sect1 id="caching.setting.up">
+   <title>Setting Up Caching</title>
+   <para>
+   The first thing to do is enable caching. This is done by setting <link
+   linkend="variable.caching">$caching</link> = true (or 1.)     
+   </para>
+    <example>
+     <title>enabling caching</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+$smarty->display('index.tpl');</programlisting>
+    </example>
+	<para>
+	With caching enabled, the function call to display('index.tpl') will render
+	the template as usual, but also saves a copy of its output to a file (a
+	cached copy) in the <link linkend="variable.cache.dir">$cache_dir</link>.
+	Upon the next call to display('index.tpl'), the cached copy will be used
+	instead of rendering the template again.
+	</para>
+	<note>
+	<title>Technical Note</title>
+	<para>
+	The files in the $cache_dir are named similar to the template name.
+	Although they end in the ".php" extention, they are not really executable
+	php scripts. Do not edit these files!
+	</para>
+	</note>
+	<para>
+	Each cached page has a limited lifetime determined by <link
+	linkend="variable.cache.lifetime">$cache_lifetime</link>. The default value
+	is 3600 seconds, or 1 hour. After that time expires, the cache is
+	regenerated. It is possible to give individual caches their own expiration
+	time by setting $caching = 2. See the documentation on <link
+	linkend="variable.cache.lifetime">$cache_lifetime</link> for details.
+	</para>
+    <example>
+     <title>setting cache_lifetime per cache</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = 2; // lifetime is per cache
+
+// set the cache_lifetime for index.tpl to 15 minutes
+$smarty->cache_lifetime = 300;
+$smarty->display('index.tpl');
+
+// set the cache_lifetime for home.tpl to 1 hour
+$smarty->cache_lifetime = 3600;
+$smarty->display('home.tpl');
+
+// NOTE: the following $cache_lifetime setting will not work when $caching = 2.
+// The cache lifetime for home.tpl has already been set
+// to 1 hour, and will no longer respect the value of $cache_lifetime.
+// The home.tpl cache will still expire after 1 hour.
+$smarty->cache_lifetime = 30; // 30 seconds
+$smarty->display('home.tpl');</programlisting>
+    </example>
+	<para>
+	If <link linkend="variable.compile.check">$compile_check</link> is enabled,
+	every template file and config file that is involved with the cache file is
+	checked for modification. If any of the files have been modified since the
+	cache was generated, the cache is immediately regenerated. This is a slight
+	overhead so for optimum performance, leave $compile_check set to false.
+	</para>
+    <example>
+     <title>enabling $compile_check</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+$smarty->compile_check = true;
+
+$smarty->display('index.tpl');</programlisting>
+	</example>
+	<para>
+	If <link linkend="variable.force.compile">$force_compile</link> is enabled,
+	the cache files will always be regenerated. This effectively turns off
+	caching. $force_compile is usually for debugging purposes only, a more
+	efficient way of disabling caching is to set <link
+	linkend="variable.caching">$caching</link> = false (or 0.)
+	</para>
+	<para>
+	The <link linkend="api.is.cached">is_cached()</link> function
+	can be used to test if a template has a valid cache or not. If you have a
+	cached template that requires something like a database fetch, you can use
+	this to skip that process.
+	</para>
+    <example>
+     <title>using is_cached()</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+if(!$smarty->is_cached('index.tpl')) {
+	// No cache available, do variable assignments here.
+	$contents = get_database_contents();
+	$smarty->assign($contents);
+}
+
+$smarty->display('index.tpl');</programlisting>
+    </example>
+	<para>
+	You can keep parts of a page dynamic with the <link
+	linkend="language.function.insert">insert</link> template function. Let's
+	say the whole page can be cached except for a banner that is displayed down
+	the right side of the page. By using an insert function for the banner, you
+	can keep this element dynamic within the cached content. See the
+	documentation on <link linkend="language.function.insert">insert</link> for
+	details and examples.
+	</para>
+	<para>
+	You can clear all the cache files with the <link
+	linkend="api.clear.all.cache">clear_all_cache()</link> function, or
+	individual cache files (or groups) with the <link
+	linkend="api.clear.cache">clear_cache()</link> function.	
+	</para>
+    <example>
+     <title>clearing the cache</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// clear out all cache files
+$smarty->clear_all_cache();
+
+// clear only cache for index.tpl
+$smarty->clear_cache('index.tpl');
+
+$smarty->display('index.tpl');</programlisting>
+    </example>
+   </sect1>
+   <sect1 id="caching.multiple.caches">
+    <title>Multiple Caches Per Page</title>
+	<para>
+	You can have multiple cache files for a single call to display() or
+	fetch(). Let's say that a call to display('index.tpl') may have several
+	different output contents depending on some condition, and you want
+	separate caches for each one. You can do this by passing a cache_id as the
+	second parameter to the function call.
+	</para>
+    <example>
+     <title>passing a cache_id to display()</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+$my_cache_id = $_GET['article_id'];
+
+$smarty->display('index.tpl',$my_cache_id);</programlisting>
+    </example>
+	<para>
+	Above, we are passing the variable $my_cache_id to display() as the
+	cache_id. For each unique value of $my_cache_id, a separate cache will be
+	generated for index.tpl. In this example, "article_id" was passed in the
+	URL and is used as the cache_id.
+	</para>
+	<note>
+	<title>Technical Note</title>
+	<para>
+	Be very cautious when passing values from a client (web browser) into
+	Smarty (or any PHP application.) Although the above example of using the
+	article_id from the URL looks handy, it could have bad consequences. The
+	cache_id is used to create a directory on the file system, so if the user
+	decided to pass an extremely large value for article_id, or write a script
+	that sends random article_ids at a rapid pace, this could possibly cause
+	problems at the server level. Be sure to sanitize any data passed in before
+	using it. In this instance, maybe you know the article_id has a length of
+	10 characters and is made up of alpha-numerics only, and must be a valid
+	article_id in the database. Check for this!
+	</para>
+	</note>
+	<para>
+	Be sure to pass the same cache_id as the
+	second parameter to <link linkend="api.is.cached">is_cached()</link> and
+	<link linkend="api.clear.cache">clear_cache()</link>.
+	</para>
+	<example>
+     <title>passing a cache_id to is_cached()</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+$my_cache_id = $_GET['article_id'];
+
+if(!$smarty->is_cached('index.tpl',$my_cache_id)) {
+	// No cache available, do variable assignments here.
+	$contents = get_database_contents();
+	$smarty->assign($contents);
+}
+
+$smarty->display('index.tpl',$my_cache_id);</programlisting>
+    </example>
+	<para>
+	You can clear all caches for a particular cache_id by passing null as the
+	first parameter to clear_cache().
+	</para>
+	<example>
+     <title>clearing all caches for a particular cache_id</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// clear all caches with "sports" as the cache_id
+$smarty->clear_cache(null,"sports");
+
+$smarty->display('index.tpl',"sports");</programlisting>
+    </example>
+	<para>
+	In this manner, you can "group" your caches together by giving them the
+	same cache_id.
+	</para>
+   </sect1>
+   <sect1 id="caching.groups">
+    <title>Cache Groups</title>
+	<para>
+	You can do more elaborate grouping by setting up cache_id groups. This is
+	accomplished by separating each sub-group with a vertical bar "|" in the
+	cache_id value. You can have as many sub-groups as you like.
+	</para>
+	<example>
+     <title>cache_id groups</title>
+     <programlisting>
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+// clear all caches with "sports|basketball" as the first two cache_id groups
+$smarty->clear_cache(null,"sports|basketball");
+
+// clear all caches with "sports" as the first cache_id group. This would
+// include "sports|basketball", or "sports|(anything)|(anything)|(anything)|..."
+$smarty->clear_cache(null,"sports");
+
+$smarty->display('index.tpl',"sports|basketball");</programlisting>
+    </example>
+   <note>
+   <title>Technical Note</title>
+   <para>
+   The cache grouping does NOT use the path to the template as any part of the
+   cache_id. For example, if you have display('themes/blue/index.tpl'), you
+   cannot clear the cache for everything under the "themes/blue" directory. If
+   you want to do that, you must group them in the cache_id, such as
+   display('themes/blue/index.tpl','themes|blue'); Then you can clear the
+   caches for the blue theme with clear_cache(null,'themes|blue');
+   </para>
+   </note>
+   </sect1>
+  </chapter>
 
   <chapter id="advanced.features">
    <title>Advanced Features</title>

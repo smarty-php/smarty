@@ -842,9 +842,6 @@ two convicts evade noose, jury hung.</programlisting>
 			A regular expression search and replace on a variable. Use the
 			syntax for preg_replace() from the PHP manual.
 			</para>
-			<para>
-			NOTE: This function was added to Smarty 1.4.3.
-			</para>
 <example>
 <title>regex_replace</title>
 <programlisting>
@@ -1254,15 +1251,16 @@ s m o k e r s   a r e   p. . .</programlisting>
        template from the special variable $smarty.capture.foo where foo is
        the value passed in the name attribute. If you do not supply a name
        attribute, then "default" will be used. All {capture} commands must
-       be paired with {/capture}. You can nest capture commands. capture
-       was added to Smarty 1.4.0. The "name" attribute was added to Smarty
-       1.4.5.
+       be paired with {/capture}. You can nest capture commands.
       </para>
+	  <note>
+	  <title>Technical Note</title>
       <para>
-       NOTE: Smarty 1.4.0 - 1.4.4 placed the captured content into the
+       Smarty 1.4.0 - 1.4.4 placed the captured content into the
        variable named $return. As of 1.4.5, this behavior was changed to use
        the name attribute, so update your templates accordingly.
       </para>
+	  </note>
       <caution>
        <para>
         Be careful when capturing <command>insert</command> output. If
@@ -1334,7 +1332,7 @@ s m o k e r s   a r e   p. . .</programlisting>
 						context. parent means variables are loaded into both
 						the local context and the parent template that called
 						it. global means variables are available to all
-						templates. NOTE: This was added to Smarty 1.4.3.
+						templates.
 						</entry>
                     </row>
                     <row>
@@ -1575,7 +1573,7 @@ cell: 760-1234&lt;br&gt;</programlisting>
 			You can optionally pass the <emphasis>assign</emphasis> attribute,
 			which will specify a template variable name that the output of
 			<emphasis>include</emphasis> will be assigned to instead of
-			displayed. This was added to Smarty 1.5.0.
+			displayed.
 			</para>
 <example>
 <title>function include</title>
@@ -1698,9 +1696,6 @@ cell: 760-1234&lt;br&gt;</programlisting>
 			<emphasis>include_php</emphasis> will be assigned to instead of
 			displayed.
 			</para>
-			<para>
-			include_php was added to Smarty 1.5.0.
-			</para>
 <example>
 <title>function include_php</title>
 <programlisting>
@@ -1784,7 +1779,7 @@ index.tpl
 			<para>
 			Insert tags work much like include tags, except that insert tags
 			are not cached when you have template <link
-			linkend="features.caching">caching</link> enabled. They will be
+			linkend="caching">caching</link> enabled. They will be
 			executed on every invocation of the template.
 			</para>
             <para>
@@ -1820,7 +1815,7 @@ index.tpl
 			If you supply the "assign" attribute, the output of the insert tag
 			will be assigned to this template variable instead of being output
 			to the template. NOTE: assigning the output to a template variable
-			isn't too useful with caching enabled. (added to Smarty 1.5.0)
+			isn't too useful with caching enabled.
 			</para>
 			<para>
 			If you supply the "script" attribute, this php script will be
@@ -1828,19 +1823,18 @@ index.tpl
 			is the case where the insert function may not exist yet, and a php
 			script must be included first to make it work. The path can be
 			either absolute, or relative to $trusted_dir. When security is
-			enabled, the script must reside in $trusted_dir. (added to Smarty
-			1.5.2)
+			enabled, the script must reside in $trusted_dir.
 			</para>
 			<para>
 			The Smarty object is passed as the second argument. This way you
 			can reference and modify information in the Smarty object from
-			within the insert function. (added in 1.4.5)
+			within the insert function.
 			</para>
 			<note>
 			<title>Technical Note</title>
 			<para>
             It is possible to have portions of the template not
-            cached. If you have <link linkend="features.caching">caching</link>
+            cached. If you have <link linkend="caching">caching</link>
             turned on, insert tags will not be cached. They will run
             dynamically every time the page is created, even within cached
             pages. This works good for things like banners, polls, live
@@ -1986,8 +1980,7 @@ OUTPUT:
 			php tags allow php to be embedded directly into the template. They
 			will not be escaped, regardless of the <link
 			linkend="variable.php.handling">$php_handling</link> setting. This
-			is for advanced users only, not normally needed. This was added to
-			1.4.0.
+			is for advanced users only, not normally needed.
 			</para>
 <example>
 <title>php tags</title>
@@ -2044,7 +2037,7 @@ OUTPUT:
 						seven values in the loop array and start is -2, the
 						start index is 5. Invalid values (values outside of the
 						length of the loop array) are automatically truncated
-						to the closest valid value. (Added to Smarty 1.4.4.)</entry>
+						to the closest valid value.</entry>
                     </row>
                     <row>
                         <entry>step</entry>
@@ -2054,7 +2047,7 @@ OUTPUT:
 						<entry>The step value that will be used to traverse the
 						loop array. For example, step=2 will loop on index
 						0,2,4, etc. If step is negative, it will step through
-						the array backwards. (Added to Smarty 1.4.4.)</entry>
+						the array backwards.</entry>
                     </row>
                     <row>
                         <entry>max</entry>
@@ -2062,7 +2055,7 @@ OUTPUT:
                         <entry>No</entry>
                         <entry><emphasis>1</emphasis></entry>
 						<entry>Sets the maximum number of times the section
-						will loop. (Added to Smarty 1.4.4.)</entry>
+						will loop.</entry>
                     </row>
                     <row>
                         <entry>show</entry>
@@ -2342,9 +2335,6 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			NOTE: This is not affected by the section properties start, step and
 			max, unlike the index property.
 			</para>
-			<para>
-			This was added to Smarty 1.4.4.
-			</para>
 	<example>
 	<title>section property iteration</title>
 	<programlisting>
@@ -2525,9 +2515,6 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			total is used to display the number of iterations that this section
 			will loop. This can be used inside or after the section.
 			</para>
-			<para>
-			This was added to Smarty 1.4.4.
-			</para>
 	<example>
 	<title>section property total</title>
 	<programlisting>
@@ -2641,9 +2628,6 @@ OUTPUT:
 			assign is used for assigning template variables during the execution
 			of the template.
 			</para>
-			<para>
-			NOTE: This was added to Smarty 1.4.3.
-			</para>
 <example>
 <title>assign</title>
 <programlisting>
@@ -2727,12 +2711,12 @@ The value of $name is Bob.</programlisting>
 			and the direction of the count, as well as determine whether or not
 			to print the value. You can run multiple counters concurrently by
 			supplying a unique id for each one. If you do not supply a name, the
-			name 'default' will be used. counter was added to Smarty 1.4.0.
+			name 'default' will be used.
 			</para>
 			<para>
 			If you supply the special "assign" attribute, the output of the
 			counter function will be assigned to this template variable instead of
-			being output to the template. (new in Smarty 1.5.0)
+			being output to the template.
 			</para>
 <example>
 <title>counter</title>
@@ -3106,8 +3090,7 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 
 
 {* an alternative method is to pass the values & output as an associative array into
-   options. $customer_options is an associative array in this example. This
-   functionality was added to Smarty 1.3.0 *}
+   options. $customer_options is an associative array in this example. *}
 
 &lt;select name=customer_id&gt;
 	{html_options options=$customer_options selected=$customer_id}
@@ -3315,11 +3298,6 @@ OUTPUT:
 			<para>
 			html_select_date is a custom function that creates date dropdowns
 			for you. It can display any or all of year, month, and day.
-			</para>
-			<para>
-			NOTE: reverse_years, field_array, day_size, month_size, year_size,
-			all_extra, day_extra, month_extra, year_extra, field_order,
-			field_separator added in Smarty 1.4.5.
 			</para>
 <example>
 <title>html_select_date</title>
