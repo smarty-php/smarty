@@ -1,3 +1,6 @@
+Version 2.6.0 (Nov 19, 2003)
+----------------------------
+
   - move Smarty::quote_replace() to Smarty_Compiler::_quote_replace() (messju)
   - remove import of of attributes of {include_php} to php's namespace.
     use $params[name] instead (messju)
