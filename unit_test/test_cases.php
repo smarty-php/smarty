@@ -307,6 +307,45 @@ class SmartyTest extends PHPUnit_TestCase {
         $this->assertEquals('\\r\\n\\\\', $string);
     }
 
+
+    function test_core_is_secure_file_exists() {
+        $file = SMARTY_DIR . 'core/core.is_secure.php';
+        $this->assertTrue(file_exists($file));
+    }
+
+    function test_core_is_secure_file_include() {
+        $file = SMARTY_DIR . 'core/core.is_secure.php';
+        $this->assertTrue(include($file));
+    }
+
+    function test_core_is_secure_function_exists() {
+        $this->assertTrue(function_exists('smarty_core_is_secure'));
+    }
+
+    function test_core_is_secure_function_is_secure_true() {
+        $security = $this->smarty->security;
+        $this->smarty->security = true;
+
+        /* check if index.tpl is secure (should be true) */
+        $params = array('resource_type' => 'file',
+                        'resource_base_path' => dirname(__FILE__) . '/templates',
+                        'resource_name' => dirname(__FILE__) . '/templates/index.tpl');
+        $this->assertTrue(smarty_core_is_secure($params, $this->smarty));
+        $this->smarty->security = $security;
+    }
+
+    function test_core_is_secure_function_is_secure_false() {
+        $security = $this->smarty->security;
+        $this->smarty->security = true;
+        /* check if test_cases.php is secure (should be false) */
+        $params = array('resource_type' => 'file',
+                        'resource_base_path' => dirname(__FILE__) . '/templates',
+                        'resource_name' => __FILE__);
+        $this->assertFalse(smarty_core_is_secure($params, $this->smarty));
+        $this->smarty->security = $security;
+
+    }
     
   }
+
 ?>
