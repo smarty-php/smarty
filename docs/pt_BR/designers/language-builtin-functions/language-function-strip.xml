@@ -3,53 +3,57 @@
 		<sect1 id="language.function.strip">
 			<title>strip</title>
 			<para>
-			 Várias vezes web designers tem problemas com espaços em branco e
-			 carriage returns afetam a saída do HTML (browser
-			"features"), assim você tem que colocar todas as suas tags juntas para ter 
-			os resultados desejados. Isto normalmente termina em um
-			template ilegível ou que não se consegue ler.
+             Muitas vezes web designers tem problemas com espaços em branco e 
+			 caracteres especiais (carriage returns) afetam a exibição do HTML 
+			 ("características" do navegador), assim você é obrigado à colocar todas 
+			 as suas tags juntas para obter os resultados esperados. Isso geralmente 
+			 acaba tornando o template ilegível ou não manipulável.
 			</para>
 			<para>
-			 Tudo dentro de {strip}{/strip} no Smarty tem retirados os espaços em branco
-			 e carriage returns no inicio e final das linhas
-			 antes que sejam mostrados. Deste modo você pode manter seu template
-			 legível, e não se preocupar com o espaço estra causando 
+			 Tudo entre as tags {strip}{/strip} no Smarty tem seus espaços extras 
+			 ou caracteres especiais (carriage returns) removidos no início e fim das 
+			 linhas antes de elas serem exibidas. Deste modo você pode manter seu 
+			 template legível, e não se preocupar com espaços extras causando 
 			 problemas.
 			</para>
 			<note>
 			<title>Nota Técnica</title>
 			<para>
 			{strip}{/strip} não afeta o conteúdo das variáveis de template.
-			Veja <link linkend="language.modifier.strip">strip modifier
-			function</link>.
+			Veja <link linkend="language.modifier.strip">modificador strip</link>.
 			</para>
 			</note>
 <example>
 <title>strip tags</title>
 <programlisting>
-{* o seguinte estará tudo junto em uma linha na saída *}
+<![CDATA[
+{* o código abaixo será convertido em uma linha na hora da exibição *}
 {strip}
-&lt;table border=0&gt;
-	&lt;tr&gt;
-		&lt;td&gt;
-			&lt;A HREF="{$url}"&gt;
-			&lt;font color="red"&gt;This is a test&lt;/font&gt;
-			&lt;/A&gt;
-		&lt;/td&gt;
-	&lt;/tr&gt;
-&lt;/table&gt;
+<table border=0>
+	<tr>
+		<td>
+			<A HREF="{$url}">
+			<font color="red">Isto é um teste</font>
+			</A>
+		</td>
+	</tr>
+</table>
 {/strip}
-
-
-MOSTRA:
-
-&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;&lt;A HREF="http://my.domain.com"&gt;&lt;font color="red"&gt;This is a test&lt;/font&gt;&lt;/A&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</programlisting>
+]]>
+</programlisting>
+<para>MOSTRARÁ:</para>
+<programlisting>
+<![CDATA[
+<table border=0><tr><td><A HREF="http://meu.dominio.com"><font color="red">Isto é um teste</font></A></td></tr></table>
+]]>
+</programlisting>
 </example>
 		<para>
-		 Note que no exemplo acima, todas as linhas começam e terminam
-		 com tags HTML. Tenha cuidado que todas as linhas ficam juntas.
-		 Se você tiver texto simples no inicio ou no final de uma linha,
-		 ele estará junto, e pode não ser o resultado desejado.
+		 Observe que no exemplo acima, todas as linhas começam e terminam com tags HTML. 
+		 Esteja ciente para que todas as linhas fiquem juntas. 
+		 Se você tiver texto simples no início ou final de uma linha, 
+		 ele será juntado na hora da conversão e pode causar resultados 
+		 não desejados.
 		</para>
 </sect1>
 <!-- Keep this comment at the end of the file

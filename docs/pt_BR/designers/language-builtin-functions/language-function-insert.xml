@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -23,14 +23,14 @@
                         <entry>name</entry>
                         <entry>string</entry>
                         <entry>Sim</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>O nome da função insert (insert_name)</entry>
                     </row>
                     <row>
                         <entry>assign</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>O nome da variável que
                         irá receber a saída</entry>
                     </row>
@@ -38,7 +38,7 @@
                         <entry>script</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>O nome de um script php que será incluido
                         antes que a função insert seja chamada</entry>
                     </row>
@@ -46,7 +46,7 @@
                         <entry>[var ...]</entry>
                         <entry>[var type]</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>Variável para passar para a função insert</entry>
                     </row>
                 </tbody>
@@ -59,18 +59,18 @@
 			executada a cada invocação do template.
 			</para>
             <para>
-             Vamos dizer que você tenha um template com um banner em cima. O
-             banner pode conter qualquer mistura de html, imagens, flash, etc.
-             Assin nós não podemos usar uma ligação estatica aqui, e nós não 
-             queremos que este conteúdo fique no cache com a página. Aqui vem a tag 
+             Digamos que você tenha um template com um banner no topo da página. O
+             banner pode conter uma mistura de html, imagens, flash, etc.
+             Assim nós não podemos usar um link estatico aqui, e nós não 
+             queremos que este conteúdo fique no cache junto com a página. E aí que entra a tag 
              insert: o template conhece os valores #banner_location_id# e
              #site_id# (obtidos de um arquivo de configuração), e precisa chamar
              uma função para obter o conteúdo do banner.
 			</para>
 <example>
-<title>function insert</title>
+<title>função insert</title>
 <programlisting>
-{* example of fetching a banner *}
+{* exemplo de como obter um banner *}
 {insert name="getBanner" lid=#banner_location_id# sid=#site_id#}</programlisting>
 </example>
 			<para>
@@ -82,28 +82,34 @@
 			 aplicação devem ser precedidas por "insert_" para prevenir possíveis
 			 problemas com nomes de funções repetidos. Sua função insert_getBanner()
 			 deve fazer alguma coisa com os valores passados e retornar os resultados.
-			 Estes resultados são mostrados no template em lugar da tag insert.
+			 Estes resultados são mostrados no template no lugar da tag insert.
 			 Neste exemplo, o Smarty irá chamar esta função:
 			 insert_getBanner(array("lid" => "12345","sid" => "67890"));
 			 e mostrar o resultado retornado no lugar da tag insert.
 			</para>
 			<para>
-			 Se você der o atributo "assign", a saída da tag insert será
+			 Se você passar o atributo "assign", a saída da tag insert será
 			 dada para esta variável ao invés de ser mostrada
-			 no template. Nota: definir a saída para uma variável não é
-			 útil quando o cache esta ativo.
-			</para>
+			 no template.
+            </para>
+			<note>
+			 <title>Nota</title>
+			  <para>
+			   definir a saída para uma variável não é
+			   útil quando o cache esta ativo.
+			  </para>
+			</note>
 			<para>
-			 Se você der o atributo "script", este script php será incluido
+			 Se você passar o atributo "script", este script php será incluido
 			 (apenas uma vez) antes da execução da função insert. Este
 			 é o caso onde a função insert não existe ainda, e um script
 			 php deve ser incluído antes para faze-la funcionar. O caminho pode
-			 ser absoluto ou relativo a $trusted_dir. Quando a segurança esta
-			 ativada, o script deve estar em $trusted_dir.
+			 ser absoluto ou relativo à variável $trusted_dir. Quando a segurança esta
+			 ativada, o script deve estar no local definido na variável $trusted_dir.
 			</para>
 			<para>
-			 O objeto Smarty é passado como segundo argumento. Desde modo
-			 pocê pode refenciar o objeto Smarty
+			 O objeto Smarty é passado como segundo argumento. Deste modo
+			 você pode refenciar o objeto Smarty
 			 de dentro da função.
 			</para>
 			<note>
@@ -114,7 +120,7 @@
              ativado, tags insert não estarão no cache. Ela será executada
              dinamicamente a cada vez que a página seja criada, mesmo com
              páginas em cache. Isto funciona bem para coisas como banners, pesquisa,
-             clima, resultados de pesquisa, areas de opnião do usuário, etc.
+             previsões do tempo, resultados de pesquisa, áreas de opnião do usuário, etc.
 			</para>
 			</note>
 </sect1>

@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -23,14 +23,14 @@
                         <entry>name</entry>
                         <entry>string</entry>
                         <entry>Sim</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>O nome da seção</entry>
                     </row>
                     <row>
                         <entry>loop</entry>
                         <entry>[$variable_name]</entry>
                         <entry>Sim</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>O nome da variável para determinar o
                         número de interações</entry>
                     </row>
@@ -41,10 +41,10 @@
 						<entry><emphasis>0</emphasis></entry> <entry>A posição
 						do índice que a seção vai começar.  Se o valor 
 						é negativo, a posição de inicio é calculada a partir 
-						do final da matriz. For exemplo, se houverem
-						sete valores na matriz e start for -2, o
+						do final da matriz. Por exemplo, se houverem
+						sete valores na matriz e 'start' for -2, o
 						índice inicial é 5. Valores inválidos (valores fora do
-						tamanho da matriz) são automaticamente truncados
+						tamanho da matriz) são automaticamente corrigidos 
 						para o valor válido mais próximo.</entry>
                     </row>
                     <row>
@@ -52,8 +52,8 @@
                         <entry>integer</entry>
                         <entry>Não</entry>
                         <entry><emphasis>1</emphasis></entry>
-						<entry>O valor do passo que será usado para o loop
-						na matriz. Por exemplo, step=2 irá realizar o loop com
+						<entry>O valor do passo que será usado para percorrer 
+						a matriz. Por exemplo, step=2 irá percorrer 
 						os índices 0,2,4, etc. Se step for negativo, ele irá caminhar
 						pela matriz de trás para frente.</entry>
                     </row>
@@ -76,149 +76,170 @@
                 </tgroup>
             </informaltable>
 			<para>
-			 sections de template são usada para realizar um loop por uma matriz. Todas as tags
-			 <emphasis>section</emphasis> devem ter as suas
-             <emphasis>/section</emphasis>. Parâmetros requeridos são
-             <emphasis>name</emphasis> e <emphasis>loop</emphasis>. O nome 
-             de section pode ser o que você quiser, feito de letras,
-             números e sublinhados. Sections podem ser aninhadas, e os nomes das section
-             aninhadas devem ser diferentes um dos outros. A variável do loop
-             (normalmente uma matriz de valores) determina o número de vezes do
-             loop da section. Quando estiver mostrando uma variável dentro de uma section,
-             o nome da section deve estar ao lado da variável dentro de conchetes
-             []. <emphasis>sectionelse</emphasis> é
-             executado quando não houverem valores para a variável de loop.
+			 Os 'sections' de template são usados para percorrer os dados de uma matriz. 
+			 Todas as tags <emphasis>section</emphasis> devem ser finalizadas com <emphasis>/section</emphasis>. 
+			 Os parâmetros obrigatórios são <emphasis>name</emphasis> e <emphasis>loop</emphasis>. 
+			 O nome da 'section' pode ser o que você quiser, contendo letras, números e sublinhados. 
+			 As 'sections' podem ser aninhadas, e os nomes das sections devem ser únicos. A variável 
+			 'loop' (normalmente uma matriz de valores) determina o número de vezes que a section 
+			 será percorrida. Quando estiver exibindo uma variável dentro de uma section, 
+			 o nome da section deve estar ao lado da variável dentro de conchetes []. 
+			 <emphasis>sectionelse</emphasis> é executado quando não houver valores na 
+			 variável 'loop'.
 			</para>
 <example>
 <title>section</title>
 <programlisting>
-
-{* este exemplo irá mostrar todos os valores de $custid array *}
-{section name=customer loop=$custid}
-	id: {$custid[customer]}&lt;br&gt;
+<![CDATA[
+{* este exemplo irá mostrar todos os valores da matriz $custid *}
+{section name=consumidor loop=$custid}
+	id: {$custid[consumidor]}<br>
 {/section}
-
-MOSTRA:
-
-id: 1000&lt;br&gt;
-id: 1001&lt;br&gt;
-id: 1002&lt;br&gt;</programlisting>
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+id: 1000<br>
+id: 1001<br>
+id: 1002<br>
+]]>
+</programlisting>
 </example>
 
 <example>
 <title>loop de variável section</title>
 <programlisting>
-{* a variável de loo´p determina o número de vezes do loop.
-   Vocâ pode acessar qualquer variável do template dentro da section.
-   Este exemplo assume que $custid, $name e $address são todas
+<![CDATA[
+{* a variável 'loop' somente determina o número de vezes que irá percorrer a matriz. 
+   Você pode acessar qualquer variável do template dentro da section. 
+   Este exemplo assume que $custid, $nome e $endereco são todas 
    matrizes contendo o mesmo número de valores *}
-{section name=customer loop=$custid}
-	id: {$custid[customer]}&lt;br&gt;
-	name: {$name[customer]}&lt;br&gt;
-	address: {$address[customer]}&lt;br&gt;
-	&lt;p&gt;
+
+{section name=consumidor loop=$custid}
+	id: {$custid[consumidor]}<br>
+	nome: {$nome[consumidor]}<br>
+	endereço: {$endereco[customer]}<br>
+	<p>
 {/section}
-
-
-MOSTRA:
-
-id: 1000&lt;br&gt;
-name: John Smith&lt;br&gt;
-address: 253 N 45th&lt;br&gt;
-&lt;p&gt;
-id: 1001&lt;br&gt;
-name: Jack Jones&lt;br&gt;
-address: 417 Mulberry ln&lt;br&gt;
-&lt;p&gt;
-id: 1002&lt;br&gt;
-name: Jane Munson&lt;br&gt;
-address: 5605 apple st&lt;br&gt;
-&lt;p&gt;</programlisting>
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+id: 1000<br>
+nome: John Smith<br>
+endereço: 253 N 45th<br>
+<p>
+id: 1001<br>
+nome: Jack Jones<br>
+endereço: 417 Mulberry ln<br>
+<p>
+id: 1002<br>
+nome: Jane Munson<br>
+endereço: 5605 apple st<br>
+<p>
+]]>
+</programlisting>
 </example>
 
 <example>
 <title>Nomes de section</title>
 <programlisting>
-{* o nome de section pode ser o que você quiser,
-   e é usado para referenciar os dados dentro da section *}
-{section name=mydata loop=$custid}
-	id: {$custid[mydata]}&lt;br&gt;
-	name: {$name[mydata]}&lt;br&gt;
-	address: {$address[mydata]}&lt;br&gt;
-	&lt;p&gt;
-{/section}</programlisting>
+<![CDATA[
+{* o nome da seção pode ser o que você qusier, 
+   e é usado para referenciar os dados contido na seção *}
+
+{section name=meusdados loop=$custid}
+	id: {$custid[meusdados]}<br>
+	nome: {$nome[meusdados]}<br>
+	endereço: {$endereco[meusdados]}<br>
+	<p>
+{/section}
+]]>
+</programlisting>
 </example>
 
 <example>
 <title>sections aninhadas</title>
 <programlisting>
-{* sections podem ser aninhadas tão profundamente quanto você quiser. Com sections aninhadas,
-   você pode acessar estruturas de dados complexas, como matriz multi-dimensionais.
-   Neste exemplo, $contact_type[customer] é uma matriz de
-   tipos de contato para o custumer atual. *}
+<![CDATA[
+{* sections podem ser aninhadas até o nível que você quiser. Com sections aninhadas, 
+   você pode acessar complexas estruturas de dados, tais como matrizes multi-dimensionais. 
+   Neste exemplo, $contact_type[customer] é uma matriz contendo os tipos de contatos 
+   do consumidor atualmente selecionado. *}
+
 {section name=customer loop=$custid}
-	id: {$custid[customer]}&lt;br&gt;
-	name: {$name[customer]}&lt;br&gt;
-	address: {$address[customer]}&lt;br&gt;
+	id: {$custid[customer]}<br>
+	name: {$name[customer]}<br>
+	address: {$address[customer]}<br>
 	{section name=contact loop=$contact_type[customer]}
-		{$contact_type[customer][contact]}: {$contact_info[customer][contact]}&lt;br&gt;
+		{$contact_type[customer][contact]}: {$contact_info[customer][contact]}<br>
 	{/section}
-	&lt;p&gt;
+	<p>
 {/section}
-
-
-MOSTRA:
-
-id: 1000&lt;br&gt;
-name: John Smith&lt;br&gt;
-address: 253 N 45th&lt;br&gt;
-home phone: 555-555-5555&lt;br&gt;
-cell phone: 555-555-5555&lt;br&gt;
-e-mail: john@mydomain.com&lt;br&gt;
-&lt;p&gt;
-id: 1001&lt;br&gt;
-name: Jack Jones&lt;br&gt;
-address: 417 Mulberry ln&lt;br&gt;
-home phone: 555-555-5555&lt;br&gt;
-cell phone: 555-555-5555&lt;br&gt;
-e-mail: jack@mydomain.com&lt;br&gt;
-&lt;p&gt;
-id: 1002&lt;br&gt;
-name: Jane Munson&lt;br&gt;
-address: 5605 apple st&lt;br&gt;
-home phone: 555-555-5555&lt;br&gt;
-cell phone: 555-555-5555&lt;br&gt;
-e-mail: jane@mydomain.com&lt;br&gt;
-&lt;p&gt;</programlisting>
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+id: 1000<br>
+name: John Smith<br>
+address: 253 N 45th<br>
+home phone: 555-555-5555<br>
+cell phone: 555-555-5555<br>
+e-mail: john@mydomain.com<br>
+<p>
+id: 1001<br>
+name: Jack Jones<br>
+address: 417 Mulberry ln<br>
+home phone: 555-555-5555<br>
+cell phone: 555-555-5555<br>
+e-mail: jack@mydomain.com<br>
+<p>
+id: 1002<br>
+name: Jane Munson<br>
+address: 5605 apple st<br>
+home phone: 555-555-5555<br>
+cell phone: 555-555-5555<br>
+e-mail: jane@mydomain.com<br>
+<p>
+]]>
+</programlisting>
 </example>
 
 <example>
 <title>sections e matrizes associativas</title>
 <programlisting>
-{* Este é um exemplo de mostrar os dados de matriz associativa
-   dentro da section *}
-{section name=customer loop=$contacts}
-	name: {$contacts[customer].name}&lt;br&gt;
-	home: {$contacts[customer].home}&lt;br&gt;
-	cell: {$contacts[customer].cell}&lt;br&gt;
-	e-mail: {$contacts[customer].email}&lt;p&gt;
+<![CDATA[
+{* Este é um exemplo de exibição de uma matriz associativa 
+   dentro de uma seção *}
+
+{section name=consumidor loop=$contatos}
+	nome: {$contatos[consumidor].nome}<br>
+	telefone: {$contatos[consumidor].telefone}<br>
+	celular: {$contatos[consumidor].celular}<br>
+	e-mail: {$contatos[consumidor].email}<p>
 {/section}
-
-
-MOSTRA:
-
-name: John Smith&lt;br&gt;
-home: 555-555-5555&lt;br&gt;
-cell: 555-555-5555&lt;br&gt;
-e-mail: john@mydomain.com&lt;p&gt;
-name: Jack Jones&lt;br&gt;
-home phone: 555-555-5555&lt;br&gt;
-cell phone: 555-555-5555&lt;br&gt;
-e-mail: jack@mydomain.com&lt;p&gt;
-name: Jane Munson&lt;br&gt;
-home phone: 555-555-5555&lt;br&gt;
-cell phone: 555-555-5555&lt;br&gt;
-e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+name: John Smith<br>
+home: 555-555-5555<br>
+cell: 555-555-5555<br>
+e-mail: john@mydomain.com<p>
+name: Jack Jones<br>
+home phone: 555-555-5555<br>
+cell phone: 555-555-5555<br>
+e-mail: jack@mydomain.com<p>
+name: Jane Munson<br>
+home phone: 555-555-5555<br>
+cell phone: 555-555-5555<br>
+e-mail: jane@mydomain.com<p>
+]]>
+</programlisting>
 </example>
 
 
@@ -226,52 +247,61 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 <example>
 <title>sectionelse</title>
 <programlisting>
-{* sectionelse irá executar se não houverem mais valores $custid *}
-{section name=customer loop=$custid}
-	id: {$custid[customer]}&lt;br&gt;
+<![CDATA[
+{* sectionelse irá executar se não houverem mais valores em $custid *}
+
+{section name=consumidor loop=$custid}
+	id: {$custid[consumidor]}<br>
 {sectionelse}
-	there are no values in $custid.
-{/section}</programlisting>
+	não há valores em $custid.
+{/section}
+]]>
+</programlisting>
 </example>
 		<para>
-		 Sections também tem as suas próprias variáveis que manipulam as propriedaes section.
-		 Estas são indicadas assim: {$smarty.section.sectionname.varname}
+		 Sections também tem as suas próprias variáveis que manipulam as propriedades da section.
+		 Estas são indicadas assim: {$smarty.section.nomesection.nomevariavel}
 		</para>
-		<para>
-		NOTA: a partir do Smarty 1.5.0, a sintaxe para as variáveis de propriedades de section
-		mudou de {%sectionname.varname%} para
-		{$smarty.section.sectionname.varname}. A sintaxe antiga ainda é suportada,
-		mas você irá ver referencias apenas a nova sintaxe nos
-		exemplos do manual.
-		</para>
+        <note>
+         <title>Nota</title>
+          <para>
+		   A partir do Smarty 1.5.0, a sintaxe para as variáveis de propriedades da section 
+		   mudou de {%nomesecao.nomevariavel%} para {$smarty.section.nomesection.nomevariavel}. A 
+		   sintaxe antiga ainda é suportada, mas você verá referências somente à nova sintaxe no 
+		   manual.
+          </para>
+        </note>
 			<sect2 id="section.property.index">	
 			<title>index</title>
 			<para>
 			index é usado para mostrar o índice atual do loop, começando em zero
-			(ou pelo atributo start se dado), e incrementando por um (ou pelo
-			atributo step se dado).
+			(ou pelo atributo start caso tenha sido definido), e incrementado por um 
+			(ou pelo atributo step caso tenha sido definido).
 			</para>
 			<note>
-				<title>Nota Técnica</title>
+				<title>Nota Técnica:</title>
 				<para>
-				 Se as propriedades section não for modificada,
-				 então isto funciona igual a propriedade iteration da section,
-				 exceto que começa em 0 ao invés de 1.
+                 Se as propriedades 'start' e 'step' da section não foram modificadas, 
+				 elas irão funcionar da mesma maneira que a propriedade 'interation' da 
+				 section funcionam, exceto que ela começa do 0 ao invés de 1.
 				</para>
 			</note>
 	<example>
-	<title>section property index</title>
+	<title>propriedade index da section</title>
 	<programlisting>
-	{section name=customer loop=$custid}
-	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
-	{/section}
-
-
-	MOSTRA:
-
-	0 id: 1000&lt;br&gt;
-	1 id: 1001&lt;br&gt;
-	2 id: 1002&lt;br&gt;
+<![CDATA[
+{section name=consumidor loop=$custid}
+	{$smarty.section.consumidor.index} id: {$custid[consumidor]}<br>
+{/section}
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+0 id: 1000<br>
+1 id: 1001<br>
+2 id: 1002<br>
+]]>
 </programlisting>
 	</example>
 			</sect2>
@@ -279,28 +309,31 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			<title>index_prev</title>
 			<para>
 			index_prev é usado para mostrar o índice anterior do loop.
-        	No primeiro loop, isto é definido como -1.
+        	No primeiro loop, o valor dele é -1.
 			</para>
 	<example>
-	<title>section property index_prev</title>
+	<title>propriedade index_prev da section</title>
 	<programlisting>
-	{section name=customer loop=$custid}
-	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
-	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-	{if $custid[customer.index_prev] ne $custid[customer.index]}
-    	The customer id changed&lt;br&gt;
+<![CDATA[
+{section name=consumidor loop=$custid}
+	{$smarty.section.consumidor.index} id: {$custid[consumidor]}<br>
+	{* Para sua informação, $custid[consumidor.index] e $custid[consumidor] tem o mesmo significado *}
+	{if $custid[consumidor.index_prev] ne $custid[consumidor.index]}
+		O id do consumidor irá mudar<br>
 	{/if}
-	{/section}
-
-
-	MOSTRA:
-
-	0 id: 1000&lt;br&gt;
-    	The customer id changed&lt;br&gt;
-	1 id: 1001&lt;br&gt;
-    	The customer id changed&lt;br&gt;
-	2 id: 1002&lt;br&gt;
-    	The customer id changed&lt;br&gt;
+{/section}
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+0 id: 1000<br>
+   	O id do consumidor irá mudar<br>
+1 id: 1001<br>
+   	O id do consumidor irá mudar<br>
+2 id: 1002<br>
+   	O id do consumidor irá mudar<br>
+]]>
 </programlisting>
 	</example>
 			</sect2>
@@ -309,28 +342,31 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			<para>
         	 index_next é usado para mostrar o próximo indice do loop. No último loop,
         	 isto ainda é um mais o índice atual( respeitando a definição
-        	 do atributo step, se dado.)
+        	 do atributo step, caso tenha sido definido.)
 			</para>
 	<example>
-	<title>section property index_next</title>
+	<title>propriedade index_next section</title>
 	<programlisting>
-	{section name=customer loop=$custid}
-	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
-	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-	{if $custid[customer.index_next] ne $custid[customer.index]}
-    	The customer id will change&lt;br&gt;
+<![CDATA[
+{section name=consumidor loop=$custid}
+	{$smarty.section.consumidor.index} id: {$custid[consumidor]}<br>
+	{* Para sua informação, $custid[consumidor.index] e $custid[consumidor] tem o mesmo significado *}
+	{if $custid[consumidor.index_next] ne $custid[consumidor.index]}
+    	O id do consumidor irá mudar<br>
 	{/if}
-	{/section}
-
-
-	MOSTRA:
-
-	0 id: 1000&lt;br&gt;
-    	The customer id will change&lt;br&gt;
-	1 id: 1001&lt;br&gt;
-    	The customer id will change&lt;br&gt;
-	2 id: 1002&lt;br&gt;
-    	The customer id will change&lt;br&gt;
+{/section}
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+0 id: 1000<br>
+   	O id do consumidor irá mudar<br>
+1 id: 1001<br>
+   	O id do consumidor irá mudar<br>
+2 id: 1002<br>
+   	O id do consumidor irá mudar<br>
+]]>
 </programlisting>
 	</example>
 			</sect2>
@@ -339,36 +375,42 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			<para>
         	iteration é usado para mostrar a interação atual do loop.
 			</para>
-			<para>
-			NOTA: isto não é afetado pelas propriedades start, step e
-			max, diferentemente das propriedade index. Iteration também começa com 1
-			ao invés de 0 como index. rownum é um apelido para iteration,
-			elas funcionam de modo identico.
-			</para>
+			<note>
+			 <title>Nota:</title>
+			  <para>
+			   'interation' não é afetado pelas propriedades start, step e max da section, 
+			   diferentemente da propriedade index. Interation diferente de 'index' começa 
+			   com 1 ao invés de 0. 'rownum' é um sinônimo de 'interation', eles exercem a 
+			   mesma função.
+			  </para>
+			 </note>
 	<example>
-	<title>section property iteration</title>
+	<title>propriedade interation da section</title>
 	<programlisting>
-	{section name=customer loop=$custid start=5 step=2}
-	current loop iteration: {$smarty.section.customer.iteration}&lt;br&gt;
-	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
-	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-	{if $custid[customer.index_next] ne $custid[customer.index]}
-    	The customer id will change&lt;br&gt;
+<![CDATA[
+{section name=consumidor loop=$custid start=5 step=2}
+	interação atual do loop: {$smarty.section.consumidor.iteration}<br>
+	{$smarty.section.consumidor.index} id: {$custid[consumidor]}<br>
+	{* Para sua informação, $custid[consumidor.index] e $custid[consumidor] tem o mesmo significado *}
+	{if $custid[consumidor.index_next] ne $custid[consumidor.index]}
+    	O id do consumidor irá mudar<br>
 	{/if}
-	{/section}
-
-
-	MOSTRA:
-
-	current loop iteration: 1
-	5 id: 1000&lt;br&gt;
-    	The customer id will change&lt;br&gt;
-	current loop iteration: 2
-	7 id: 1001&lt;br&gt;
-    	The customer id will change&lt;br&gt;
-	current loop iteration: 3
-	9 id: 1002&lt;br&gt;
-    	The customer id will change&lt;br&gt;
+{/section}
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+interação atual do loop: 1
+5 id: 1000<br>
+   	O id do consumidor irá mudar<br>
+interação atual do loop: 2
+7 id: 1001<br>
+   	O id do consumidor irá mudar<br>
+interação atual do loop: 3
+9 id: 1002<br>
+   	O id do consumidor irá mudar<br>
+]]>
 </programlisting>
 	</example>
 			</sect2>
@@ -379,62 +421,66 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
         	 é a primeira.
 			</para>
 	<example>
-	<title>section property first</title>
+	<title>propriedade first da section</title>
 	<programlisting>
-	{section name=customer loop=$custid}
-	{if $smarty.section.customer.first}
-    	&lt;table&gt;
+<![CDATA[
+{section name=consumidor loop=$custid}
+	{if $smarty.section.consumidor.first}
+    	<table>
 	{/if}
 
-	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
-        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+	<tr><td>{$smarty.section.consumidor.index} id: {$custid[consumidor]}</td></tr>
 
-	{if $smarty.section.customer.last}
-    	&lt;/table&gt;
+	{if $smarty.section.consumidor.last}
+    	</table>
 	{/if}
-	{/section}
-
-
-	MOSTRA:
-
-	&lt;table&gt;
-	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
-	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
-	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
-	&lt;/table&gt;
+{/section}
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+<table>
+	<tr><td>0 id: 1000</td></tr>
+	<tr><td>1 id: 1001</td></tr>
+	<tr><td>2 id: 1002</td></tr>
+</table>
+]]>
 </programlisting>
 	</example>
 			</sect2>
 			<sect2 id="section.property.last">
 			<title>last</title>
 			<para>
-        	last é definido como true de a interação atual da 
+        	last é definido como true se a interação atual da 
         	section é a última.
 			</para>
 	<example>
-	<title>section property last</title>
+	<title>propriedade last da section</title>
 	<programlisting>
-	{section name=customer loop=$custid}
-	{if $smarty.section.customer.first}
-    	&lt;table&gt;
+<![CDATA[
+{section name=consumidor loop=$custid}
+	{if $smarty.section.consumidor.first}
+    	<table>
 	{/if}
 
-	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
-        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
+	<tr><td>{$smarty.section.consumidor.index} id: {$custid[consumidor]}</td></tr>
 
-	{if $smarty.section.customer.last}
-    	&lt;/table&gt;
+	{if $smarty.section.consumidor.last}
+    	</table>
 	{/if}
-	{/section}
-
-
-	MOSTRA:
-
-	&lt;table&gt;
-	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
-	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
-	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
-	&lt;/table&gt;
+{/section}
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+<table>
+	<tr><td>0 id: 1000</td></tr>
+	<tr><td>1 id: 1001</td></tr>
+	<tr><td>2 id: 1002</td></tr>
+</table>
+]]>
 </programlisting>
 	</example>
 			</sect2>
@@ -442,106 +488,120 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 			<title>rownum</title>
 			<para>
 			rownum é usado para mostrar a interação atual do loop,
-			começando em um. É um apelido para iteration,
-			elas funcionam de modo identico.
+			começando em um. É um sinônimo de iteration, 
+			eles exercem a mesma função.
 			</para>
 	<example>
-	<title>section property rownum</title>
+	<title>propriedade rownum da section</title>
 	<programlisting>
-	{section name=customer loop=$custid}
-	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
-	{/section}
-
-
-	MOSTRA:
-
-	1 id: 1000&lt;br&gt;
-	2 id: 1001&lt;br&gt;
-	3 id: 1002&lt;br&gt;
+<![CDATA[
+{section name=consumidor loop=$custid}
+	{$smarty.section.consumidor.rownum} id: {$custid[consumidor]}<br>
+{/section}
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+1 id: 1000<br>
+2 id: 1001<br>
+3 id: 1002<br>
+]]>
 </programlisting>
 	</example>
 			</sect2>
 			<sect2 id="section.property.loop">	
 			<title>loop</title>
 			<para>
-			loop é usado para mostrar o último número do índice do loop desta
-			section. Isto pode ser usado dentro ou depois de section.
+			loop é usado para exibir o número do último índice que a section percorreu. 
+			Ele pode ser usado dentro ou após o término da section.
 			</para>
 	<example>
-	<title>section property index</title>
+	<title>propridade index da section</title>
 	<programlisting>
-	{section name=customer loop=$custid}
-	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
-	{/section}
+<![CDATA[
+{section name=consumidor loop=$custid}
+	{$smarty.section.consumidor.index} id: {$custid[consumidor]}<br>
+{/section}
 
-	There were {$smarty.section.customer.loop} customers shown above.
+	Foram mostrados {$smarty.section.customer.loop} consumidores acima.
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+0 id: 1000<br>
+1 id: 1001<br>
+2 id: 1002<br>
 
-	MOSTRA:
-
-	0 id: 1000&lt;br&gt;
-	1 id: 1001&lt;br&gt;
-	2 id: 1002&lt;br&gt;
-
-	There were 3 customers shown above.
+Foram mostrados 3 consumidores acima.
+]]>
 </programlisting>
 	</example>
 			</sect2>
 			<sect2 id="section.property.show">	
 			<title>show</title>
 			<para>
-        	<emphasis>show</emphasis> é usado como parâmetro para section.
-        	<emphasis>show</emphasis> é um valor booleano, true ou false. Se
-        	false, a section não será mostrada. Se existir um sectionelse
-        	presente, esta será alternativamente mostrado.
+            <emphasis>show</emphasis> é usado como um parâmetro da section. <emphasis>show</emphasis> 
+			é um valor booleano, verdadeiro ou falso. Caso seja falso, a section não será mostrada. 
+			Se existir uma sectionelse presente, ela será exibida.
 			</para>
 	<example>
-	<title>section attribute show</title>
+	<title>atributo show da section</title>
 	<programlisting>
-	{* $show_customer_info deve ser passada da aplicação PHP,
-	   para regular quando mostrar ou não mostrar esta section *}
-	{section name=customer loop=$custid show=$show_customer_info}
-	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
-	{/section}
+<![CDATA[
+{* $mostrar_info_consumidor talvez tenha que ser enviada pela 
+   aplicação PHP, para decidir quando mostrar ou não mostrar esta section *}
 
-	{if $smarty.section.customer.show}
-	the section was shown.
-	{else}
-	the section was not shown.
-	{/if}
+{section name=consumidor loop=$custid show=$mostrar_info_consumidor}
+	{$smarty.section.consumidor.rownum} id: {$custid[consumidor]}<br>
+{/section}
 
+{if $smarty.section.consumidor.show}
+	a section foi mostrada.
+{else}
+	a section não foi mostrada.
+{/if}
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+1 id: 1000<br>
+2 id: 1001<br>
+3 id: 1002<br>
 
-	MOSTRA:
-
-	1 id: 1000&lt;br&gt;
-	2 id: 1001&lt;br&gt;
-	3 id: 1002&lt;br&gt;
-
-	the section was shown.
+a section foi mostrada.
+]]>
 </programlisting>
 	</example>
 			</sect2>
 			<sect2 id="section.property.total">	
 			<title>total</title>
 			<para>
-			total é usado para mostrar o número de interações que esta section terá.
-			Isto pode ser usado dentro ou depois da section.
+			total é usado para exibir o número de interações que esta section irá percorrer. 
+			Ela pode ser usada dentro ou após a section.
 			</para>
 	<example>
-	<title>section property total</title>
+	<title>propriedade total da section</title>
 	<programlisting>
-	{section name=customer loop=$custid step=2}	
-	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
-	{/section}
+<![CDATA[
+{section name=consumidor loop=$custid step=2}	
+	{$smarty.section.consumidor.index} id: {$custid[consumidor]}<br>
+{/section}
 
-	There were {$smarty.section.customer.total} customers shown above.
+	Foram mostrados {$smarty.section.customer.loop} consumidores acima.
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+0 id: 1000<br>
+2 id: 1001<br>
+4 id: 1002<br>
 
-	MOSTRA:
-
-	0 id: 1000&lt;br&gt;
-	2 id: 1001&lt;br&gt;
-	4 id: 1002&lt;br&gt;
-
-	There were 3 customers shown above.
+Foram mostrados 3 consumidores acima.
+]]>
 </programlisting>
 	</example>
 			</sect2>

@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -23,14 +23,14 @@
                         <entry>from</entry>
                         <entry>string</entry>
                         <entry>Sim</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>O nome da matriz que você estará pegando os elementos</entry>
                     </row>
                     <row>
                         <entry>item</entry>
                         <entry>string</entry>
                         <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
                         <entry>O nome da variável
                         que é o elemento atual</entry>
                     </row>
@@ -38,14 +38,14 @@
                         <entry>key</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-						<entry><emphasis>n/a</emphasis></entry>
+						<entry><emphasis>n/d</emphasis></entry>
 						<entry>O nome da variável que é a chave atual</entry>
                     </row>
                     <row>
                         <entry>name</entry>
                         <entry>string</entry>
                         <entry>Não</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry><emphasis>n/d</emphasis></entry>
 						<entry>O nome do loop foreach para acessar as 
 						propriedades foreach</entry>
                     </row>
@@ -55,7 +55,7 @@
 			<para>
 			Loops <emphasis>foreach</emphasis> são uma alternativa para loops
 			<emphasis>section</emphasis>. <emphasis>foreach</emphasis> é usado
-			para pegar cada elemento de uma matriz associativa simples.
+			para pegar cada elemento de uma matriz associativa simples. 
 			A sintaxe para <emphasis>foreach</emphasis> é muito mais simples do que
 			<emphasis>section</emphasis>, mas tem a desvantagem de poder ser usada
 			apenas para uma única matriz. Tags <emphasis>foreach</emphasis> devem ter
@@ -73,49 +73,58 @@
 <example>
 <title>foreach</title>
 <programlisting>
-
+<![CDATA[
 {* este exemplo irá mostrar todos os valores da matriz $custid *}
 {foreach from=$custid item=curr_id}
-	id: {$curr_id}&lt;br&gt;
+	id: {$curr_id}<br>
 {/foreach}
-
-MOSTRA:
-
-id: 1000&lt;br&gt;
-id: 1001&lt;br&gt;
-id: 1002&lt;br&gt;</programlisting>
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+id: 1000<br>
+id: 1001<br>
+id: 1002<br>
+]]>
+</programlisting>
 </example>
 
 <example>
 <title>foreach key</title>
 <programlisting>
+<![CDATA[
 {* A key contém a chave para cada valor do loop
 
-A definição é alo assim:
+A definição se parece com isso:
 
-$smarty->assign("contacts", array(array("phone" =&gt; "1", "fax" =&gt; "2", "cell" =&gt; "3"),
-      array("phone" =&gt; "555-4444", "fax" =&gt; "555-3333", "cell" =&gt; "760-1234")));
+$smarty->assign("contacts", array(array("phone" => "1", "fax" => "2", "cell" => "3"),
+      array("phone" => "555-4444", "fax" => "555-3333", "cell" => "760-1234")));
 
 *}
 
 {foreach name=outer item=contact from=$contacts}
   {foreach key=key item=item from=$contact}
-    {$key}: {$item}&lt;br&gt;
+    {$key}: {$item}<br>
   {/foreach}
 {/foreach}
-
-MOSTRA:
-
-phone: 1&lt;br&gt;
-fax: 2&lt;br&gt;
-cell: 3&lt;br&gt;
-phone: 555-4444&lt;br&gt;
-fax: 555-3333&lt;br&gt;
-cell: 760-1234&lt;br&gt;</programlisting>
+]]>
+</programlisting>
+<para>MOSTRA:</para>
+<programlisting>
+<![CDATA[
+phone: 1<br>
+fax: 2<br>
+cell: 3<br>
+phone: 555-4444<br>
+fax: 555-3333<br>
+cell: 760-1234<br>
+]]>
+</programlisting>
 </example>
 
 		<para>
-		Loop foreach também tem as suas próprias variáveis para manipilar a as propriedades
+		Loop foreach também tem as suas próprias variáveis para manipilar as propriedades
 		foreach. Estas são indicadas assim: {$smarty.foreach.foreachname.varname} com
 		foreachname sendo o nome especificado no atributo
 		<emphasis>name</emphasis> do foreach.

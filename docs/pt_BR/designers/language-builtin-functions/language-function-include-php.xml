@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>       
+                        <entry>Obrigatório</entry>       
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -45,18 +45,29 @@
                 </tbody>
                 </tgroup>
             </informaltable>
+			<note>
+			<title>Nota Técnica</title>
+			<para>
+			include_php está quase sendo retirado do Smarty, você pode obter a mesma funcionalidade 
+			usando uma função customizada em um template. A única razão para usar o include_php é 
+			se você realmente precisar deixar função php fora do diretório de plugin ou código da 
+			sua aplicação. Veja a seção 
+			<link linkend="tips.componentized.templates">templates componentizados</link> 
+			para mais detalhes.
+			</para>
+			</note>
 			<para>
 			Tags include_php são usadas para incluir um script php no seu template.
 			Se a segurança estiver ativada, então o script php deve estar localizado
-			no caminho $trusted_dir. A tag include_php deve ter o atributo
-			"file", o qual contém o caminho para o arquivo php a ser incluído,
-			ou relativo a $trusted_dir, ou um caminho absoluto.
+			no diretório especificado na variável $trusted_dir. A tag include_php 
+			deve ter o atributo	"file", o qual contém o caminho para o arquivo php  
+			incluído, pode ser um camiho tanto absoluto ou relativo a $trusted_dir.
 			</para>
 			<para>
-			include_php é um bom meio de manipular templates com componentes,
-			e mante o código PHP separado dos arquivos de template. Vamos dizer
+			include_php é um bom meio de manipular templates componentizados,
+			e manter o código PHP separado dos arquivos de template. Digamos 
 			que você tenha um template que mostre a navegação do seu site, o qual
-			é prenchido automaticamente a partir de um banco de dados. Você pode 
+			é preenchido automaticamente a partir de um banco de dados. Você pode 
 			manter a sua lógica PHP que obtém os dados em um diretório separado,
 			e inclui-la no topo do template. Agora você pode incluir este template
 			em qualquer lugar sem se preocupar se a informação do banco de dados foi
@@ -82,29 +93,32 @@
 <example>
 <title>Função include_php</title>
 <programlisting>
+<![CDATA[
 load_nav.php
 -------------
 
-&lt;?php
+<?php
 
-	// carrega variáveis de um banco de dados mysql e define ela para o template
+	// carrega variáveis de um banco de dados mysql e define elas para o template
 	require_once("MySQL.class.php");
 	$sql = new MySQL;
 	$sql->query("select * from site_nav_sections order by name",SQL_ALL);
 	$this->assign('sections',$sql->record);
 
-?&gt;
+?>
 
 
 index.tpl
 ---------
 
 {* caminho absoluto ou relativo a $trusted_dir *}
-{include_php file="/path/to/load_nav.php"}
+{include_php file="/caminho/para/load_nav.php"}
 
 {foreach item="curr_section" from=$sections}
-	&lt;a href="{$curr_section.url}"&gt;{$curr_section.name}&lt;/a&gt;&lt;br&gt;
-{/foreach}</programlisting>
+	<a href="{$curr_section.url}">{$curr_section.name}</a><br>
+{/foreach}
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

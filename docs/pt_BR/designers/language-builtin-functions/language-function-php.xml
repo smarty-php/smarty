@@ -3,19 +3,22 @@
 		<sect1 id="language.function.php">
 			<title>php</title>
 			<para>
-			 Tags php permitem que você adicione código php diretamente no template.
-			 Não será escapado, não importando a definição de <link
-			linkend="variable.php.handling">$php_handling</link>. Isto
-			é apenas para usuários avançados e normalmente não é necessário.
+             Tags php permitem que códigos php sejam embutidos diretamente nos templates. 
+			 Eles não serão interpretados, não importando a definição de 
+			 <link linkend="variable.php.handling">$php_handling</link>. Esta opção é 
+			 somente para usuários avançados e normalmente não é necessária.
 			</para>
 <example>
 <title>Tags php</title>
 <programlisting>
+<![CDATA[
 {php}
 		// incluindo um script php
 		// diretamente no template.
-		include("/path/to/display_weather.php");
-{/php}</programlisting>
+		include("/caminho/para/condicoes_do_tempo.php");
+{/php}
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -13,7 +13,7 @@
                     <row>
                         <entry>Nome do Atributo</entry>
                         <entry>Tipo</entry>
-                        <entry>Requerido</entry>
+                        <entry>Obrigatório</entry>
                         <entry>Padrão</entry>
                         <entry>Descrição</entry>
                     </row>
@@ -40,7 +40,7 @@
        capture é usado para coletar toda a saída do template em uma variável ao invés
        de mostra-lo. Qualquer conteúdo entre {capture
        name="foo"} e {/capture} coletado na variável especificada no atributo name.
-       O conteúdo capturado pode ser usado no template a apertir da variável especial
+       O conteúdo capturado pode ser usado no template a partir da variável especial
        $smarty.capture.foo aonde foo é o valor passado para o atributo name. Se você não
        passar um atributo name, então será usado "default". Todos os comandos
        {capture} devem ter o seu {/capture}. Você pode aninhar(colocar um dentro de outro)
@@ -66,17 +66,20 @@
        <example>
         <title>capturando conteúdo do template</title>
         <programlisting>
-{* we don't want to print a table row unless content is displayed *}
+<![CDATA[
+{* nós não queremos mostrar uma linha de tabela à não ser que haja conteúdo para ela *}
 {capture name=banner}
-{include file="get_banner.tpl"}
+{include file="pegar_banner.tpl"}
 {/capture}
 {if $smarty.capture.banner ne ""}
-	&lt;tr&gt;
-		&lt;td&gt;
+	<tr>
+		<td>
 			{$smarty.capture.banner}
-		&lt;/td&gt;
-	&lt;/tr&gt;
-{/if}</programlisting>
+		</td>
+	</tr>
+{/if}
+]]>
+</programlisting>
        </example>
       </para>
 </sect1>

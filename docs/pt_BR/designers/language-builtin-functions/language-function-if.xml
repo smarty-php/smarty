@@ -3,20 +3,134 @@
 		<sect1 id="language.function.if">
 			<title>if,elseif,else</title>
 			<para>
-			 Comandos if no Smarty tem muito da mesma flexibilidade do php,
-			 com algumas adições para a ferramenta de template.
+			 Comandos {if} no Smarty tem muito da mesma flexibilidade do php,
+			 com algumas características à mais para o sistema de template. 
 			 Todo <emphasis>if</emphasis> deve ter o seu 
 			<emphasis>/if</emphasis>. <emphasis>else</emphasis> e
-			<emphasis>elseif</emphasis> também são permitidos. "eq", "ne","neq",
-			"gt", "lt", "lte", "le", "gte" "ge","is even","is odd", "is not
-			even","is not odd","not","mod","div by","even by","odd
-			by","==","!=","&gt;", "&lt;","&lt;=","&gt;=" são todos os qualificadores
-			de condição válidos, e ddevem estar separados
-			dos elementos em roda por espaço.
+			<emphasis>elseif</emphasis> também são permitidos. Todos os 
+			condicionais do PHP são reconhecidos, tais como ||, or, &&, and, etc.
 			</para>
+
+			<para>
+			 A seguir está uma lsita dos qualificadores, que devem estar separados dos elementos 
+			 por espaço. Note que itens listado entre [conchetes] são opcionais. Os equivalentes 
+			 em PHP são mostrados quando aplicáveis.
+			</para>
+            <informaltable frame="all">
+                <tgroup cols="4">
+                <colspec colname="qualifier" align="center" />
+                <colspec colname="alternates" align="center" />
+				<colspec colname="example" />
+                <colspec colname="meaning" />
+                <colspec colname="php" />
+                <thead>
+                    <row>
+                        <entry>Qualificador</entry>
+                        <entry>Alternativas</entry>
+                        <entry>Exemplo de sintaxe</entry>
+                        <entry>Significado</entry>
+                        <entry>Equivalente no PHP</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>==</entry>
+                        <entry>eq</entry>
+                        <entry>$a eq $b</entry>
+                        <entry>iguais</entry>
+                        <entry>==</entry>
+                    </row>
+                    <row>
+                        <entry>!=</entry>
+                        <entry>ne, neq</entry>
+                        <entry>$a neq $b</entry>
+                        <entry>não iguais</entry>
+                        <entry>!=</entry>
+                    </row>
+                    <row>
+                        <entry>&gt;</entry>
+                        <entry>gt</entry>
+                        <entry>$a gt $b</entry>
+                        <entry>maior que</entry>
+                        <entry>&gt;</entry>
+                    </row>
+                    <row>
+                        <entry>&lt;</entry>
+                        <entry>lt</entry>
+                        <entry>$a lt $b</entry>
+                        <entry>menor que</entry>
+                        <entry>&lt;</entry>
+                    </row>
+                    <row>
+                        <entry>&gt;=</entry>
+                        <entry>gte, ge</entry>
+                        <entry>$a ge $b</entry>
+                        <entry>maior ou igual à</entry>
+                        <entry>&gt;=</entry>
+                    </row>
+                    <row>
+                        <entry>&lt;=</entry>
+                        <entry>lte, le</entry>
+                        <entry>$a le $b</entry>
+                        <entry>menor ou igual à</entry>
+                        <entry>&lt;=</entry>
+                    </row>
+                    <row>
+                        <entry>!</entry>
+                        <entry>not</entry>
+                        <entry>not $a</entry>
+                        <entry>negação (unary)</entry>
+                        <entry>!</entry>
+                    </row>
+                    <row>
+                        <entry>%</entry>
+                        <entry>mod</entry>
+                        <entry>$a mod $b</entry>
+                        <entry>módulo</entry>
+                        <entry>%</entry>
+                    </row>
+                    <row>
+                        <entry>is [not] div by</entry>
+                        <entry></entry>
+                        <entry>$a is not div by 4</entry>
+                        <entry>divisível por</entry>
+                        <entry>$a % $b == 0</entry>
+                    </row>
+                    <row>
+                        <entry>is [not] even</entry>
+                        <entry></entry>
+                        <entry>$a is not even</entry>
+                        <entry>[not] an even number (unary)</entry>
+                        <entry>$a % 2 == 0</entry>
+                    </row>
+                    <row>
+                        <entry>is [not] even by</entry>
+                        <entry></entry>
+                        <entry>$a is not even by $b</entry>
+                        <entry>grouping level [not] even</entry>
+                        <entry>($a / $b) % 2 == 0</entry>
+                    </row>
+                    <row>
+                        <entry>is [not] odd</entry>
+                        <entry></entry>
+                        <entry>$a is not odd</entry>
+                        <entry>[not] an odd number (unary)</entry>
+                        <entry>$a % 2 != 0</entry>
+                    </row>
+                    <row>
+                        <entry>is [not] odd by</entry>
+                        <entry></entry>
+                        <entry>$a is not odd by $b</entry>
+                        <entry>[not] an odd grouping</entry>
+                        <entry>($a / $b) % 2 != 0</entry>
+                    </row>
+                </tbody>
+		  </tgroup>
+	</informaltable>
 <example>
 <title>comandos if</title>
 <programlisting>
+<![CDATA[
 {if $name eq "Fred"}
 	Welcome Sir.
 {elseif $name eq "Wilma"}
@@ -43,7 +157,7 @@
 
 
 {* parenteses são permitidos *}
-{if ( $amount &lt; 0 or $amount &gt; 1000 ) and $volume >= #minVolAmt#}
+{if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
 	...
 {/if}
 
@@ -63,7 +177,7 @@
 	...
 {/if}
 
-{* test if var is divisible by 4 *}
+{* verifica se a variável é divisível por 4 *}
 {if $var is div by 4}
 	...
 {/if}
@@ -77,7 +191,9 @@
 {* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
 {if $var is even by 3}
 	...
-{/if}</programlisting>
+{/if}
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file
