@@ -47,7 +47,7 @@ function smarty_function_counter($params, &$smarty)
         $printval[$name]=$print;
     
     if (!empty($assign)) {
-        $printval[$name] = false;
+        if (!isset($print)) $printval[$name] = false;
         $smarty->assign($assign, $count[$name]);
     }
 
