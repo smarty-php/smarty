@@ -2448,25 +2448,32 @@ index.tpl
 		<sect1 id="language.function.if">
 			<title>if,elseif,else</title>
 			<para>
-			if statements in Smarty have much the same flexibility as php if
+			<emphasis>{if}</emphasis> statements in Smarty have much the same flexibility as PHP if
 			statements, with a few added features for the template engine.
 			Every <emphasis>{if}</emphasis> must be paired with an
 			<emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> and
-			<emphasis>{elseif}</emphasis> are also permitted. The following lists
-			the recognized conditional qualifiers, which must be separated from
-			surrounding elements by spaces.</para>
+			<emphasis>{elseif}</emphasis> are also permitted. All PHP conditionals
+			are recognized, such as <emphasis>||</emphasis>, <emphasis>or</emphasis>,
+            <emphasis>&&</emphasis>, <emphasis>and</emphasis>, etc.
+			</para>
+
+			<para>
+            The following is a list of recognized qualifiers, which must be
+            separated from surrounding elements by spaces. Note that items listed
+            in [brackets] are optional. PHP equivalents are shown where applicable.
+            </para>
 
             <informaltable frame="all">
                 <tgroup cols="4">
                 <colspec colname="qualifier" align="center" />
                 <colspec colname="alternates" align="center" />
-                <colspec colname="common" align="center" />
                 <colspec colname="meaning" />
+                <colspec colname="example" />
                 <thead>
                     <row>
-			<entry>qualifier</entry>
-                        <entry>Alternatives</entry>
-                        <entry>Common Name</entry>
+                        <entry>Qualifier</entry>
+                        <entry>Alternates</entry>
+                        <entry>Syntax Example</entry>
                         <entry>Meaning</entry>
                     </row>
                 </thead>
@@ -2474,96 +2481,83 @@ index.tpl
                     <row>
                         <entry>==</entry>
                         <entry>eq</entry>
-                        <entry>equals</entry>
-                        <entry>same as PHP ==</entry>
+                        <entry>$a eq $b</entry>
+                        <entry>equals <emphasis>(PHP: ==)</emphasis></entry>
                     </row>
                     <row>
                         <entry>!=</entry>
                         <entry>ne, neq</entry>
-                        <entry>not equals</entry>
-                        <entry>same as PHP !=</entry>
+                        <entry>$a neq $b</entry>
+                        <entry>not equals <emphasis>(PHP: !=)</emphasis></entry>
                     </row>
                     <row>
                         <entry>&gt;</entry>
                         <entry>gt</entry>
-                        <entry>greater than</entry>
-                        <entry>same as PHP &gt;</entry>
+                        <entry>$a gt $b</entry>
+                        <entry>greater than <emphasis>(PHP: &gt;)</emphasis></entry>
                     </row>
                     <row>
                         <entry>&lt;</entry>
                         <entry>lt</entry>
-                        <entry>less than</entry>
-                        <entry>same as PHP &lt;</entry>
+                        <entry>$a lt $b</entry>
+                        <entry>less than <emphasis>(PHP: &lt;)</emphasis></entry>
                     </row>
                     <row>
                         <entry>&gt;=</entry>
                         <entry>gte, ge</entry>
-                        <entry>greater than or equal</entry>
-                        <entry>same as PHP &gt;=</entry>
+                        <entry>$a ge $b</entry>
+                        <entry>greater than or equal <emphasis>(PHP: &gt;=)</emphasis></entry>
                     </row>
                     <row>
                         <entry>&lt;=</entry>
                         <entry>lte, le</entry>
-                        <entry>less than or equal</entry>
-                        <entry>same as PHP &lt;=</entry>
+                        <entry>$a le $b</entry>
+                        <entry>less than or equal <emphasis>(PHP: &lt;=)</emphasis></entry>
                     </row>
                     <row>
-                        <entry>is even</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>even number</entry>
-                        <entry>compared value is an even number</entry>
-                    </row>
-                    <row>
-                        <entry>is not even</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>not an even number</entry>
-                        <entry>compared value is not an even number</entry>
-                    </row>
-                    <row>
-                        <entry>is odd</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>odd number</entry>
-                        <entry>compared value is an odd number</entry>
-                    </row>
-                    <row>
-                        <entry>is not odd</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>not an odd number</entry>
-                        <entry>compared value is an not an odd number</entry>
-                    </row>
-                    <row>
+                        <entry>!</entry>
                         <entry>not</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>unary-negation</entry>
-                        <entry>same as PHP !</entry>
+                        <entry>not $a</entry>
+                        <entry>negation (unary) <emphasis>(PHP: !)</emphasis></entry>
                     </row>
                     <row>
                         <entry>%</entry>
                         <entry>mod</entry>
-                        <entry>modulous</entry>
-                        <entry>same as PHP %</entry>
+                        <entry>$a mod $b</entry>
+                        <entry>modulous <emphasis>(PHP: %)</emphasis></entry>
                     </row>
                     <row>
-                        <entry>div by</entry>
+                        <entry>is [not] div by</entry>
                         <entry>&nbsp;</entry>
-                        <entry>divisible by</entry>
-                        <entry>same as PHP $a % $b == 0</entry>
+                        <entry>$a is not div by 4</entry>
+                        <entry>divisible by <emphasis>(PHP: $a % $b == 0)</emphasis></entry>
                     </row>
                     <row>
-                        <entry>even by</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>division results in an even number</entry>
+                      <entry>is [not] even</entry>
+                      <entry>&nbsp;</entry>
+                      <entry>$a is not even</entry>
+                      <entry>[not] an even number (unary)</entry>
                     </row>
                     <row>
-                        <entry>odd by</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>&nbsp;</entry>
-                        <entry>division results in an odd number</entry>
+                      <entry>is [not] even by</entry>
+                      <entry>&nbsp;</entry>
+                      <entry>$a is not even by $b</entry>
+                      <entry>[not] an even grouping</entry>
                     </row>
-
-		</tbody>
-		</tgroup>
+                    <row>
+                      <entry>is [not] odd</entry>
+                      <entry>&nbsp;</entry>
+                      <entry>$a is not odd</entry>
+                      <entry>[not] an odd number (unary)</entry>
+                    </row>
+                    <row>
+                      <entry>is [not] odd by</entry>
+                      <entry>&nbsp;</entry>
+                      <entry>$a is not odd by $b</entry>
+                      <entry>[not] an odd grouping</entry>
+                    </row>
+                </tbody>
+		  </tgroup>
 	</informaltable>
 <example>
 <title>if statements</title>
