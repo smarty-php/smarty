@@ -1546,7 +1546,7 @@ function _run_insert_handler($args)
             // cache expired, regenerate
             return false;
             }
-        } elseif ($this->caching == 1) {
+        } else {
             // caching by lifetime
             if ($this->cache_lifetime > -1 && (time() - $this->_cache_info['timestamp'] > $this->cache_lifetime)) {
             // cache expired, regenerate

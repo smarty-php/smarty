@@ -1,12 +1,18 @@
 {* Smarty *}
 
-{* debug.tpl, last updated version 1.4.6 *}
+{* debug.tpl, last updated version 2.0.1 *}
 
 {assign_debug_info}
 
 <SCRIPT language=javascript>
-	_smarty_console = window.open("","console","width=560,height=600,resizable,scrollbars=yes");
-	_smarty_console.document.write("<HTML><TITLE>Smarty Debug Console</TITLE><BODY bgcolor=#ffffff>");
+	if( self.name == '' ) {ldelim}
+	   var title = 'Console';
+	{rdelim}
+	else {ldelim}
+	   var title = 'Console_' + self.name;
+	{rdelim}
+	_smarty_console = window.open("",title.value,"width=680,height=600,resizable,scrollbars=yes");
+	_smarty_console.document.write("<HTML><TITLE>Smarty Debug Console_"+self.name+"</TITLE><BODY bgcolor=#ffffff>");
 	_smarty_console.document.write("<table border=0 width=100%>");
 	_smarty_console.document.write("<tr bgcolor=#cccccc><th colspan=2>Smarty Debug Console</th></tr>");
 	_smarty_console.document.write("<tr bgcolor=#cccccc><td colspan=2><b>included templates & config files (load time in seconds):</b></td></tr>");

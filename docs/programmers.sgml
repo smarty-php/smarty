@@ -1,12 +1,9 @@
   <part id="smarty.for.programmersr">
    <title>Smarty For Programmers</title>
-   <chapter id="api">
-    <title>Smarty API</title>
-
-    <sect1 id="api.variables">
+    <chapter id="api.variables">
      <title>Variables</title>
 
-     <sect2 id="variable.template.dir">
+     <sect1 id="variable.template.dir">
       <title>$template_dir</title>
       <para>
        This is the name of the default template directory. If you do
@@ -22,8 +19,8 @@
     	   the web server document root.
     	   </para>
 	  </note>
-     </sect2>		
-     <sect2 id="variable.compile.dir">
+     </sect1>		
+     <sect1 id="variable.compile.dir">
       <title>$compile_dir</title>
       <para>
        This is the name of the directory where compiled templates are
@@ -46,8 +43,8 @@
        the web server document root.
       </para>
 	 </note>
-     </sect2>
-     <sect2 id="variable.config.dir">
+     </sect1>
+     <sect1 id="variable.config.dir">
       <title>$config_dir</title>
       <para>
        This is the directory used to store config files used in the
@@ -62,8 +59,8 @@
        the web server document root.
       </para>
 	 </note>
-     </sect2>
-     <sect2 id="variable.plugins.dir">
+     </sect1>
+     <sect1 id="variable.plugins.dir">
       <title>$plugins_dir</title>
       <para>
        This is the directory where Smarty will look for the plugins that
@@ -71,8 +68,8 @@
        Smarty itself is installed. Default is "plugins". There can be
        only one plugins directory.
       </para>
-     </sect2>
-     <sect2 id="variable.debugging">
+     </sect1>
+     <sect1 id="variable.debugging">
       <title>$debugging</title>
       <para>
        This enables the <link
@@ -84,8 +81,8 @@
       <para>
        NOTE: This was added to Smarty 1.4.3.
       </para>
-     </sect2>
-     <sect2 id="variable.debug.tpl">
+     </sect1>
+     <sect1 id="variable.debug.tpl">
       <title>$debug_tpl</title>
       <para>
        This is the name of the template file used for the debugging
@@ -94,8 +91,8 @@
       <para>
        NOTE: This was added to Smarty 1.4.3.
       </para>
-     </sect2>
-     <sect2 id="variable.debugging.ctrl">
+     </sect1>
+     <sect1 id="variable.debugging.ctrl">
       <title>$debugging_ctrl</title>
       <para>
        This allows alternate ways to enable debugging. NONE means no
@@ -107,8 +104,8 @@
       <para>
        NOTE: This was added to Smarty 1.4.4.
       </para>
-     </sect2>
-     <sect2 id="variable.global.assign">
+     </sect1>
+     <sect1 id="variable.global.assign">
       <title>$global_assign</title>
       <para>
        This is a list of variables that are always implicitly assigned
@@ -130,16 +127,16 @@
        <link linkend="language.variables.smarty">$smarty</link> variable.
       </para>
 	 </note>
-     </sect2>
-     <sect2 id="variable.undefined">
+     </sect1>
+     <sect1 id="variable.undefined">
       <title>$undefined</title>
       <para>
        This sets the value of $undefined for Smarty, default is null.
        Currently this is only used to set undefined variables in
        $global_assign to a default value.
       </para>
-     </sect2>
-     <sect2 id="variable.compile.check">
+     </sect1>
+     <sect1 id="variable.compile.check">
       <title>$compile_check</title>
       <para>
        Upon each invocation of the PHP application, Smarty tests to
@@ -159,8 +156,8 @@
         linkend="variable.force.compile">$force_compile</link> or <link
         linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
       </para>
-     </sect2>
-     <sect2 id="variable.force.compile">
+     </sect1>
+     <sect1 id="variable.force.compile">
       <title>$force_compile</title>
       <para>
        This forces Smarty to (re)compile templates on every
@@ -169,8 +166,8 @@
        It should never be used in a production environment. If caching
        is enabled, the cache file(s) will be regenerated every time.
       </para>
-     </sect2>
-     <sect2 id="variable.caching">
+     </sect1>
+     <sect1 id="variable.caching">
       <title>$caching</title>
       <para>
 	   This tells Smarty whether or not to cache the output of the templates.
@@ -186,13 +183,13 @@
 	   linkend="api.is.cached">is_cached</link>.
       </para>
       <para>
-       If $compile_check is enabled, the cached content will be
-       regenerated if any of the involved templates are changed. (new
-       to 1.4.6). If $force_compile is enabled, the cached content
-       will always be regenerated. (added to Smarty 1.4.7)
+	   If $compile_check is enabled, the cached content will be regenerated if
+	   any of the templates or config files that are part of this cache are
+	   changed. If $force_compile is enabled, the cached content will always be
+	   regenerated.
       </para>
-     </sect2>
-     <sect2 id="variable.cache.dir">
+     </sect1>
+     <sect1 id="variable.cache.dir">
       <title>$cache_dir</title>
       <para>
        This is the name of the directory where template caches are
@@ -216,8 +213,8 @@
     	   the web server document root.
     	  </para>
 	  </note>
-     </sect2>
-     <sect2 id="variable.cache.lifetime">
+     </sect1>
+     <sect1 id="variable.cache.lifetime">
       <title>$cache_lifetime</title>
       <para>
 	   This is the length of time in seconds that a template cache is valid.
@@ -230,16 +227,16 @@
 	   better off setting caching=false.) If $caching = 2, then the cache
 	   expiration time is saved along with the template.
       </para>
-     </sect2>
-     <sect2 id="variable.cache.handler.func">
+     </sect1>
+     <sect1 id="variable.cache.handler.func">
       <title>$cache_handler_func</title>
       <para>
        You can supply a custom function to handle cache files instead
        of using the built-in method using the $cache_dir. See the
        custom cache handler function section for details.
       </para>
-     </sect2>
-     <sect2 id="variable.cache.modified.check">
+     </sect1>
+     <sect1 id="variable.cache.modified.check">
       <title>$cache_modified_check</title>
       <para>
        If set to true, Smarty will respect the If-Modified-Since
@@ -248,15 +245,15 @@
        header will be sent instead of the content. This works only on
        cached content without <command>insert</command> tags.
       </para>
-     </sect2>
-     <sect2 id="variable.default.template.handler.func">
+     </sect1>
+     <sect1 id="variable.default.template.handler.func">
       <title>$default_template_handler_func</title>
       <para>
        This function is called when a template cannot be obtained from
        its resource. (added to Smarty 1.5.2)
       </para>
-     </sect2>
-     <sect2 id="variable.php.handling">
+     </sect1>
+     <sect1 id="variable.php.handling">
       <title>$php_handling</title>
       <para>
        This tells Smarty how to handle PHP code embedded in the
@@ -279,8 +276,8 @@
        Use <link linkend="language.custom.functions">custom functions</link> or
        <link linkend="language.modifiers">modifiers</link> instead.
       </para>
-     </sect2>
-     <sect2 id="variable.security">
+     </sect1>
+     <sect1 id="variable.security">
       <title>$security</title>
       <para>
        $security true/false, default is false. Security is good for
@@ -306,15 +303,15 @@
       <para>
        NOTE: Security features were added to Smarty 1.4.3.
       </para>
-     </sect2>
-     <sect2 id="variable.secure.dir">
+     </sect1>
+     <sect1 id="variable.secure.dir">
       <title>$secure_dir</title>
       <para>
        This is an array of all local directories that are considered
        secure. {include} and {fetch} use this when security is enabled.
       </para>
-     </sect2>
-     <sect2 id="variable.security.settings">
+     </sect1>
+     <sect1 id="variable.security.settings">
       <title>$security_settings</title>
       <para>
        These are used to override or specify the security settings when
@@ -333,8 +330,8 @@
        <listitem><para>MODIFIER_FUNCS - This is an array of the names of permitted
          PHP functions used as variable modifiers.</para></listitem>
       </itemizedlist>
-     </sect2>
-     <sect2 id="variable.trusted.dir">
+     </sect1>
+     <sect1 id="variable.trusted.dir">
       <title>$trusted_dir</title>
       <para>
 	   $trusted_dir is only for use when $security is enabled. This is an array
@@ -342,63 +339,63 @@
 	   where you keep php scripts that are executed directly from the templates
 	   with <link linkend="language.function.include.php">{include_php}</link>.
       </para>
-     </sect2>
-     <sect2 id="variable.left.delimiter">
+     </sect1>
+     <sect1 id="variable.left.delimiter">
       <title>$left_delimiter</title>
       <para>
        This is the left delimiter used by the template language.
        Default is "{".			
       </para>
-     </sect2>
-     <sect2 id="variable.right.delimiter">
+     </sect1>
+     <sect1 id="variable.right.delimiter">
       <title>$right_delimiter</title>
       <para>
        This is the right delimiter used by the template language.
        Default is "}".			
       </para>
-     </sect2>
-     <sect2 id="variable.show.info.header">
+     </sect1>
+     <sect1 id="variable.show.info.header">
       <title>$show_info_header</title>
       <para>
        Shows an HTML comment at the beginning of the templates output,
        displaying smarty version and date generated. Default is false.
       </para>
-     </sect2>
-     <sect2 id="variable.show.info.include">
+     </sect1>
+     <sect1 id="variable.show.info.include">
       <title>$show_info_include</title>
       <para>
        Shows an HTML comment before and after each included template.
        Default is false.
       </para>
-     </sect2>
-     <sect2 id="variable.compiler.class">
+     </sect1>
+     <sect1 id="variable.compiler.class">
       <title>$compiler_class</title>
       <para>
        Specifies the name of the compiler class that Smarty will use
        to compile the templates. The default is 'Smarty_Compiler'. For
        advanced users only.
       </para>
-     </sect2>
-     <sect2 id="variable.request.vars.order">
+     </sect1>
+     <sect1 id="variable.request.vars.order">
       <title>$request_vars_order</title>
       <para>
        The order in which request variables are registered, similar to
        variables_order in php.ini
       </para>
-     </sect2>
-     <sect2 id="variable.compile.id">
+     </sect1>
+     <sect1 id="variable.compile.id">
       <title>$compile_id</title>
       <para>
        Persistant compile identifier. As an alternative to passing the
        same compile_id to each and every function call, you can set this
        compile_id and it will be used implicitly thereafter.
       </para>
-     </sect2>
-    </sect1>
+     </sect1>
+    </chapter>
 
-   <sect1 id="api.functions">
+   <chapter id="api.functions">
      <title>Methods</title>
-     <sect2 id="api.assign">
+     <sect1 id="api.assign">
       <title>assign</title>
       <funcsynopsis>
        <funcprototype>
@@ -426,8 +423,8 @@ $smarty->assign("Address",$address);
 // passing an associative array
 $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
 </example>
-		</sect2>
-        <sect2 id="api.append">
+		</sect1>
+        <sect1 id="api.append">
          <title>append</title>
          <funcsynopsis>
           <funcprototype>
@@ -455,8 +452,8 @@ $smarty->append("Address",$address);
 // passing an associative array
 $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.clear.assign">
+		</sect1>
+		<sect1 id="api.clear.assign">
 			<title>clear_assign</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -478,8 +475,8 @@ $smarty->clear_assign("Name");
 // clear multiple variables
 $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.clear.all.assign">
+		</sect1>
+		<sect1 id="api.clear.all.assign">
 			<title>clear_all_assign</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -496,8 +493,8 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 // clear all assigned variables
 $smarty->clear_all_assign();</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.clear.cache">
+		</sect1>
+		<sect1 id="api.clear.cache">
 			<title>clear_cache</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -522,8 +519,8 @@ $smarty->clear_cache("index.tpl");
 // clear the cache for a particular cache id in an multiple-cache template
 $smarty->clear_cache("index.tpl","CACHEID");</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.clear.all.cache">
+		</sect1>
+		<sect1 id="api.clear.all.cache">
 			<title>clear_all_cache</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -541,8 +538,8 @@ $smarty->clear_cache("index.tpl","CACHEID");</programlisting>
 // clear the entire cache
 $smarty->clear_all_cache();</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.clear.compiled.tpl">
+		</sect1>
+		<sect1 id="api.clear.compiled.tpl">
 			<title>clear_compiled_tpl</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -564,8 +561,8 @@ $smarty->clear_compiled_tpl("index.tpl");
 // clear entire compile directory
 $smarty->clear_compiled_tpl();</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.register.function">
+		</sect1>
+		<sect1 id="api.register.function">
 			<title>register_function</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -594,8 +591,8 @@ function print_current_date ($params) {
 // now you can use this in Smarty to print the current date: {date_now}
 // or, {date_now format="%Y/%m/%d"} to format it.</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.unregister.function">
+		</sect1>
+		<sect1 id="api.unregister.function">
          <title>unregister_function</title>
          <funcsynopsis>
           <funcprototype>
@@ -614,8 +611,8 @@ function print_current_date ($params) {
 
 $smarty->unregister_function("fetch");</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.register.modifier">
+		</sect1>
+		<sect1 id="api.register.modifier">
          <title>register_modifier</title>
          <funcsynopsis>
           <funcprototype>
@@ -638,8 +635,8 @@ $smarty->register_modifier("sslash","stripslashes");
 
 // now you can use {$var|sslash} to strip slashes from variables</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.unregister.modifier">
+		</sect1>
+		<sect1 id="api.unregister.modifier">
          <title>unregister_modifier</title>
          <funcsynopsis>
           <funcprototype>
@@ -658,8 +655,8 @@ $smarty->register_modifier("sslash","stripslashes");
 
 $smarty->unregister_modifier("strip_tags");</programlisting>
 </example>
-		</sect2>
-        <sect2 id="api.register.resource">
+		</sect1>
+        <sect1 id="api.register.resource">
          <title>register_resource</title>
          <funcsynopsis>
           <funcprototype>
@@ -684,8 +681,8 @@ $smarty->register_resource("db", array("db_get_template",
                                        "db_get_secure",
                                        "db_get_trusted"));</programlisting>
 </example>
-		</sect2>
-        <sect2 id="api.unregister.resource">
+		</sect1>
+        <sect1 id="api.unregister.resource">
          <title>unregister_resource</title>
          <funcsynopsis>
           <funcprototype>
@@ -702,8 +699,8 @@ $smarty->register_resource("db", array("db_get_template",
 <programlisting>
 $smarty->unregister_resource("db");</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.register.prefilter">
+		</sect1>
+		<sect1 id="api.register.prefilter">
 			<title>register_prefilter</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -717,8 +714,8 @@ $smarty->unregister_resource("db");</programlisting>
                 linkend="advanced.features.prefilters">template prefilters</link> for
                 more information on how to setup a prefiltering function.
 			</para>
-		</sect2>
-		<sect2 id="api.unregister.prefilter">
+		</sect1>
+		<sect1 id="api.unregister.prefilter">
 			<title>unregister_prefilter</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -729,8 +726,8 @@ $smarty->unregister_resource("db");</programlisting>
 			<para>
                 Use this to dynamically unregister a prefilter.
 			</para>
-		</sect2>
-		<sect2 id="api.register.postfilter">
+		</sect1>
+		<sect1 id="api.register.postfilter">
 			<title>register_postfilter</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -744,8 +741,8 @@ $smarty->unregister_resource("db");</programlisting>
                 linkend="advanced.features.postfilters">template postfilters</link> for
                 more information on how to setup a postfiltering function.
 			</para>
-		</sect2>
-		<sect2 id="api.unregister.postfilter">
+		</sect1>
+		<sect1 id="api.unregister.postfilter">
 			<title>unregister_postfilter</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -756,8 +753,8 @@ $smarty->unregister_resource("db");</programlisting>
 			<para>
                 Use this to dynamically unregister a postfilter.
 			</para>
-		</sect2>
-		<sect2 id="api.register.compiler.function">
+		</sect1>
+		<sect1 id="api.register.compiler.function">
 			<title>register_compiler_function</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -771,8 +768,8 @@ $smarty->unregister_resource("db");</programlisting>
                 Pass in the compiler function name, followed by the PHP
                 function that implements it.
 			</para>
-		</sect2>
-        <sect2 id="api.unregister.compiler.function">
+		</sect1>
+        <sect1 id="api.unregister.compiler.function">
          <title>unregister_compiler_function</title>
          <funcsynopsis>
           <funcprototype>
@@ -784,8 +781,8 @@ $smarty->unregister_resource("db");</programlisting>
           Use this to dynamically unregister a compiler function. Pass in
           the name of the compiler function.
          </para>
-        </sect2>
-        <sect2 id="api.trigger.error">
+        </sect1>
+        <sect1 id="api.trigger.error">
          <title>trigger_error</title>
          <funcsynopsis>
           <funcprototype>
@@ -801,9 +798,9 @@ $smarty->unregister_resource("db");</programlisting>
           E_USER_WARNING, etc. By default it's E_USER_WARNING. This function
           was added to Smarty 2.0.
          </para>
-        </sect2>
+        </sect1>
 
-		<sect2 id="api.is.cached">
+		<sect1 id="api.is.cached">
 			<title>is_cached</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -844,8 +841,8 @@ if(!$smarty->is_cached("index.tpl","FrontPage")) {
 
 $smarty->display("index.tpl","FrontPage");</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.get.template.vars">
+		</sect1>
+		<sect1 id="api.get.template.vars">
 			<title>get_template_vars</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -865,8 +862,8 @@ $tpl_vars = $smarty->get_template_vars();
 // take a look at them
 var_dump($tpl_vars);</programlisting>
 </example>
-		</sect2>
-		<sect2 id="api.display">
+		</sect1>
+		<sect1 id="api.display">
 			<title>display</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -938,8 +935,8 @@ $smarty->display("file:C:/www/pub/templates/header.tpl");
 $smarty->display("db:header.tpl");</programlisting>
 </example>
 
-		</sect2>
-		<sect2 id="api.fetch">
+		</sect1>
+		<sect1 id="api.fetch">
 			<title>fetch</title>
 			<funcsynopsis>
 			<funcprototype>
@@ -996,9 +993,8 @@ $output = $smarty->fetch("index.tpl");
 
 echo $output;</programlisting>
 </example>
-		</sect2>
-       </sect1>
-      </chapter>
+		</sect1>
+       </chapter>
 
   <chapter id="advanced.features">
    <title>Advanced Features</title>
@@ -1570,7 +1566,7 @@ function smarty_function_eightball($params, &amp;$smarty)
     $answers = array('Yes',
                      'No',
                      'No way',
-                     'Outlook no so good',
+                     'Outlook not so good',
                      'Ask again soon',
                      'Maybe in your reality');
 
