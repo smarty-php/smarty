@@ -1,3 +1,17 @@
+2003-07-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.process_compiled_include.php
+      libs/core/core.read_cache_file.php:
+      improved checking of compiled_include against cached-template with
+      non-cached-chunks
+
+    * libs/core/core.write_compiled_include.php:
+      fixed too short open-tag
+
+    * libs/plugins/function.eval.php:
+      fixed assign parameter for eval (must have gotton lost on its way to 2.5.0)
+      cleaned up indentiation
+
 2003-07-03  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
