@@ -3,12 +3,6 @@
 /**
  * Config_File class.
  *
- * @version 2.4.0
- * @author Andrei Zmievski <andrei@php.net>
- * @access public
- * 
- * Copyright: 2001,2002 ispi of Lincoln, Inc.
- *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -24,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * You may contact the author of Config_File by e-mail at:
- * andrei@php.net
+ * {@link andrei@php.net}
  *
  * Or, write to:
  * Andrei Zmievski
@@ -34,51 +28,52 @@
  *
  * The latest version of Config_File can be obtained from:
  * http://www.phpinsider.com
+ *
+ * @link http://www.phpinsider.com
+ * @version 2.4.0
+ * @copyright Copyright: 2001,2002 ispi of Lincoln, Inc.
+ * @author Andrei Zmievski <andrei@php.net>
+ * @access public
  */
 
 class Config_File {
-	/* Options */
+	/**#@+
+     * Options
+     * @var boolean
+     */
 	/**
 	 * Controls whether variables with the same name overwrite each other.
-	 * 
-	 * @access public
 	 */
 	var $overwrite		=	true;
 
 	/**
 	 * Controls whether config values of on/true/yes and off/false/no get
 	 * converted to boolean values automatically.
-	 *
-	 * @access public
 	 */
 	var $booleanize		=	true;
 
 	/**
 	 * Controls whether hidden config sections/vars are read from the file.
-	 *
-	 * @access public
 	 */
 	var $read_hidden 	=	true;
 
 	/**
 	 * Controls whether or not to fix mac or dos formatted newlines.
 	 * If set to true, \r or \r\n will be changed to \n.
-	 *
-	 * @access public
 	 */
-	var $fix_newlines =	true;	
+	var $fix_newlines =	true;
+    /**#@-*/
 	
-	/* Private variables */
+	/** @access private */
 	var $_config_path	= "";
 	var $_config_data	= array();
 	var $_separator		= "";
-
+    /**#@-*/
 
 	/**
 	 * Constructs a new config file class.
 	 *
-	 * @param $config_path string (optional) path to the config files
-	 * @access public
+	 * @param string $config_path (optional) path to the config files
 	 */
 	function Config_File($config_path = NULL)
 	{
@@ -95,8 +90,7 @@ class Config_File {
 	/**
 	 * Set the path where configuration files can be found.
 	 *
-	 * @param $config_path string  path to the config files
-	 * @access public
+	 * @param string $config_path path to the config files
 	 */
 	function set_path($config_path)
 	{
@@ -114,11 +108,10 @@ class Config_File {
 	/**
 	 * Retrieves config info based on the file, section, and variable name.
 	 *
-	 * @access public
-	 * @param $file_name string config file to get info for
-	 * @param $section_name string (optional) section to get info for
-	 * @param $var_name string (optional) variable to get info for
-	 * @return mixed a value or array of values
+	 * @param string $file_name config file to get info for
+	 * @param string $section_name (optional) section to get info for
+	 * @param string $var_name (optional) variable to get info for
+	 * @return string|array a value or array of values
 	 */
 	function &get($file_name, $section_name = NULL, $var_name = NULL)
 	{
@@ -156,9 +149,9 @@ class Config_File {
 	/**
 	 * Retrieves config info based on the key.
 	 *
-	 * @access public
 	 * @param $file_name string config key (filename/section/var)
-	 * @return mixed a value or array of values
+	 * @return string|array same as get()
+     * @uses get() retrieves information from config file and returns it
 	 */
 	function &get_key($config_key)
 	{
@@ -170,7 +163,6 @@ class Config_File {
 	/**
 	 * Get all loaded config file names.
 	 *
-	 * @access public
 	 * @return array an array of loaded config file names
 	 */
 	function get_file_names()
@@ -182,8 +174,7 @@ class Config_File {
 	/**
 	 * Get all section names from a loaded file.
 	 *
-	 * @access public
-	 * @param  $file_name string config file to get section names from
+	 * @param string $file_name config file to get section names from
 	 * @return array an array of section names from the specified file
 	 */
 	function get_section_names($file_name)
@@ -201,9 +192,8 @@ class Config_File {
 	/**
 	 * Get all global or section variable names.
 	 *
-	 * @access public
-	 * @param $file_name string config file to get info for
-	 * @param $section_name string (optional) section to get info for
+	 * @param string $file_name config file to get info for
+	 * @param string $section_name (optional) section to get info for
 	 * @return array an array of variables names from the specified file/section
 	 */
 	function get_var_names($file_name, $section = NULL)
@@ -226,8 +216,7 @@ class Config_File {
 	/**
 	 * Clear loaded config data for a certain file or all files.
 	 *
-	 * @access public
-	 * @param  $file_name string file to clear config data for
+	 * @param string $file_name file to clear config data for
 	 */
 	function clear($file_name = NULL)
 	{
@@ -241,9 +230,9 @@ class Config_File {
 	/**
 	 * Load a configuration file manually.
 	 *
-	 * @access public
-	 * @param  $file_name string file name to load
-	 * @param  $prepend_path boolean whether current config path should be prepended to the filename
+	 * @param string $file_name file name to load
+	 * @param boolean $prepend_path whether current config path should be
+     *                              prepended to the filename
 	 */
 	function load_file($file_name, $prepend_path = true)
 	{
@@ -290,7 +279,10 @@ class Config_File {
 		return true;
 	}
 
-	
+	/**#@+ @access private */
+    /**
+     * @var string $config_block
+     */
 	function _parse_config_block($config_block)
 	{
 		$vars = array();
@@ -316,6 +308,13 @@ class Config_File {
 		return $vars;
 	}
 	
+    /**
+     * @param array &$container
+     * @param string $var_name
+     * @param mixed $var_value
+     * @param boolean $booleanize determines whether $var_value is converted to
+     *                            to true/false
+     */
 	function _set_config_var(&$container, $var_name, $var_value, $booleanize)
 	{
 		if ($var_name{0} == '.') {
@@ -345,10 +344,16 @@ class Config_File {
 		}
 	}
 
+    /**
+     * @uses trigger_error() creates a PHP warning/error
+     * @param string $error_msg
+     * @param integer $error_type one of 
+     */
 	function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING)
 	{
 		trigger_error("Config_File error: $error_msg", $error_type);
 	}
+    /**#@-*/
 }
 
 ?>

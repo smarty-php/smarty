@@ -1,3 +1,8 @@
+2003-02-02  Greg Beaver  <cellog@php.net>
+
+    * Config_File.class.php
+      fix phpdoc comments, add phpDocumentor docblock templates
+
 2003-02-02  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php
