@@ -1,3 +1,4 @@
+  - fix interpretation of $smarty->security in {html_image} (messju)
   - add caching of requested paths to _assemble_plugin_filepath() (messju)
   - fix handling of comments inside {php}- and {literal}-blocks (messju)
   - fix bug handling triple-quotes in config-files (BRDude, messju)

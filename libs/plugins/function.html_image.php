@@ -48,12 +48,6 @@ function smarty_function_html_image($params, &$smarty)
     $suffix = '';
     $server_vars = ($smarty->request_use_auto_globals) ? $_SERVER : $GLOBALS['HTTP_SERVER_VARS'];
     $basedir = isset($server_vars['DOCUMENT_ROOT']) ? $server_vars['DOCUMENT_ROOT'] : '';
-    if(strstr($server_vars['HTTP_USER_AGENT'], 'Mac')) {
-        $dpi_default = 72;
-    } else {
-        $dpi_default = 96;
-    }
-
     foreach($params as $_key => $_val) {
         switch($_key) {
             case 'file':
@@ -101,7 +95,13 @@ function smarty_function_html_image($params, &$smarty)
     }
 
     if(!isset($params['width']) || !isset($params['height'])) {
-        if(!$_image_data = @getimagesize($_image_path)) {
+        if ($smarty->security &&
+            ($_params = array('resource_type' => 'file', 'resource_name' => $_image_path)) &&
+            (require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.is_secure.php')) &&
+            (!smarty_core_is_secure($_params, $smarty)) ) {
+            $smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);
+
+        } elseif (!$_image_data = @getimagesize($_image_path)) {
             if(!file_exists($_image_path)) {
                 $smarty->trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);
                 return;
@@ -130,6 +130,11 @@ function smarty_function_html_image($params, &$smarty)
     }
 
     if(isset($params['dpi'])) {
+        if(strstr($server_vars['HTTP_USER_AGENT'], 'Mac')) {
+            $dpi_default = 72;
+        } else {
+            $dpi_default = 96;
+        }
         $_resize = $dpi_default/$params['dpi'];
         $width = round($width * $_resize);
         $height = round($height * $_resize);
