@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <part id="getting.started">
  <title>Приступая к работе</title>
 
@@ -152,7 +152,7 @@ Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
 /plugins/*.php (все файлы)
-/core/*.php (все файлы)
+/internals/*.php (все файлы)
 ]]>
      </screen>
     </example>
@@ -284,7 +284,7 @@ $smarty = new Smarty;
 /usr/local/lib/php/Smarty/Smarty_Compiler.class.php
 /usr/local/lib/php/Smarty/Config_File.class.php
 /usr/local/lib/php/Smarty/debug.tpl
-/usr/local/lib/php/Smarty/core/*.php
+/usr/local/lib/php/Smarty/internals/*.php
 /usr/local/lib/php/Smarty/plugins/*.php
 
 /web/www.mydomain.com/smarty/guestbook/templates/
