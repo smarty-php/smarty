@@ -4,7 +4,7 @@
 <sect1 id="language.modifier.nl2br">
  <title>nl2br</title>
  <para>
-  Заменяет все переносы строк на тэг &lt;br /&gt; в заданной 
+  Заменяет все переносы строк на тэг &lt;br /&gt; в заданной
   переменной. Это эквивалент PHP функции nl2br().
  </para>
  <example>

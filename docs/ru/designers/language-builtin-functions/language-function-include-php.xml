@@ -14,7 +14,7 @@
    <row>
     <entry>Имя атрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -32,7 +32,7 @@
     <entry>boolean</entry>
     <entry>Нет</entry>
     <entry><emphasis>true</emphasis></entry>
-    <entry>Указывает подключать файл или нет, 
+    <entry>Указывает подключать файл или нет,
     если он уже был однажды подключен</entry>
    </row>
    <row>
@@ -40,7 +40,7 @@
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Название переменной, которой будет 
+    <entry>Название переменной, которой будет
     присвоен вывод include_php</entry>
    </row>
   </tbody>
@@ -49,8 +49,8 @@
  <para>
   Тэг include_php используется для подключения php скрипта в шаблон.
   Если security включен, то php скрипт должен быть расположен в папке
-  $trusted_dir. Тэг include_php должен иметь атрибут "file", который 
-  указывает путь подключаемого php файла (относительный к 
+  $trusted_dir. Тэг include_php должен иметь атрибут "file", который
+  указывает путь подключаемого php файла (относительный к
   $trusted_dir или абсолютный путь).
  </para>
  <para>
@@ -63,7 +63,7 @@
   месте, не волнуясь о происхождении информации (база данных или нет).
  </para>
  <para>
-  По умолчанию, php файлы подключаются только один раз, даже если 
+  По умолчанию, php файлы подключаются только один раз, даже если
   вызываются несколько раз в шаблоне. Можно указать, что файл должен
   быть подключен каждый раз, указав атрибут <emphasis>once</emphasis>.
   Установив once в ложь (false) указывает, что файл должен быть
@@ -71,7 +71,7 @@
  </para>
  <para>
   Можно указать опциональный атрибут <emphasis>assign</emphasis>,
-  который указывает имя переменной, которой будет присвоен вывод 
+  который указывает имя переменной, которой будет присвоен вывод
   <emphasis>include_php</emphasis> вместо отображения.
  </para>
  <para>
@@ -104,7 +104,7 @@ index.tpl
 {foreach item="curr_section" from=$sections}
 	<a href="{$curr_section.url}">{$curr_section.name}</a><br>
 {/foreach}
-]]> 
+]]>
   </programlisting>
  </example>
 </sect1>

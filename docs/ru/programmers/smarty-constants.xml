@@ -3,7 +3,7 @@
 <!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <chapter id="smarty.constants">
  <title>Константы</title>
- 
+
  <sect1 id="constant.smarty.dir">
   <title>SMARTY_DIR</title>
   <para>

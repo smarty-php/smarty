@@ -14,7 +14,7 @@
     <row>
      <entry>Позиция параметра</entry>
      <entry>Тип</entry>
-     <entry>Обязателен</entry>       
+     <entry>Обязателен</entry>
      <entry>По умолчанию</entry>
      <entry>Описание</entry>
     </row>
@@ -38,10 +38,10 @@
   </tgroup>
  </informaltable>
 	<para>
-		Формирует дату и время по заданному формату strftime(). Даты могут 
+		Формирует дату и время по заданному формату strftime(). Даты могут
  	быть в виде unix timestamps, mysql timestamps или в любом другом виде,
-		который поймет strtotime(). Проектировщики шаблонов могут использовать 
-		date_format для контроля над форматом выводимых дат. Если дата, 
+		который поймет strtotime(). Проектировщики шаблонов могут использовать
+		date_format для контроля над форматом выводимых дат. Если дата,
 		переданная модификатору, пуста, то второй параметр используется как дата.
 	</para>
  <example>
@@ -85,31 +85,31 @@ Monday, February 5, 2001
 
 %c - формат даты и времени по умолчанию для текущей локали
 
-%C - номер века (год, деленный на 100, представленный в виде целого в промежутке от 00 до 99) 
+%C - номер века (год, деленный на 100, представленный в виде целого в промежутке от 00 до 99)
 
-%d - день месяца в десятичном формате (от 00 до 31) 
+%d - день месяца в десятичном формате (от 00 до 31)
 
-%D - синоним %m/%d/%y 
+%D - синоним %m/%d/%y
 
-%e - день месяца в десятичном формате без ведущего нуля (от 1 до 31) 
+%e - день месяца в десятичном формате без ведущего нуля (от 1 до 31)
 
 %g - Week-based year within century [00,99]
 
 %G - Week-based year, including the century [0000,9999]
 
-%h - синоним %b 
+%h - синоним %b
 
-%H - часы по 24-часовым часам (от 00 до 23) 
+%H - часы по 24-часовым часам (от 00 до 23)
 
-%I - часы по 12-часовым часам (от 01 до 12) 
+%I - часы по 12-часовым часам (от 01 до 12)
 
-%j - день года (от 001 до 366) 
+%j - день года (от 001 до 366)
 
 %k - часы по 24-часовым часам без ведущего нуля (от 0 до 23)
 
 %l - часы по 12-часовым часам без ведущего нуля (от 1 до 12)
 
-%m - номер месяца (от 01 до 12) 
+%m - номер месяца (от 01 до 12)
 
 %M - минуты
 
@@ -117,39 +117,39 @@ Monday, February 5, 2001
 
 %p - `am' или `pm', в зависимости от заданного формата времени и текущей локали.
 
-%r - time in a.m. and p.m. notation 
+%r - time in a.m. and p.m. notation
 
-%R - time in 24 hour notation 
+%R - time in 24 hour notation
 
 %S - секунды
 
 %t - символ табуляции
 
-%T - время в формате %H:%M:%S 
+%T - время в формате %H:%M:%S
 
 %u - номер дня недели [1,7], где 1-ый день - понедельник
 
-%U - номер недели в году, считая первое воскресенья года первым днем первой недели 
+%U - номер недели в году, считая первое воскресенья года первым днем первой недели
 
 %V - номер недели в году (по ISO 8601:1988) в диапазоне от 01 до 53, где первая неделя
-     та, у которой хотя бы 4 дня находятся в данном году. Понедельник считается 
-	    первым днем недели. 
+     та, у которой хотя бы 4 дня находятся в данном году. Понедельник считается
+	    первым днем недели.
 
 %w - номер дня недели, где 0 - воскресенье
 
 %W - номер недели в году, считаю первый понедельник первым днем первой недели.
 
-%x - preferred date representation for the current locale without the time 
+%x - preferred date representation for the current locale without the time
 
-%X - preferred time representation for the current locale without the date 
+%X - preferred time representation for the current locale without the date
 
-%y - year as a decimal number without a century (range 00 to 99) 
+%y - year as a decimal number without a century (range 00 to 99)
 
-%Y - year as a decimal number including the century 
+%Y - year as a decimal number including the century
 
-%Z - time zone or name or abbreviation 
+%Z - time zone or name or abbreviation
 
-%% - a literal `%' character 
+%% - a literal `%' character
 
 
 ЗАМЕЧАНИЕ ДЛЯ ПРОГРАММИСТОВ: date_format - это обертка для функции strftime(),

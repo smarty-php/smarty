@@ -5,11 +5,11 @@
  <title>Встроенные функции</title>
  <para>
   В smarty включены несколько встроенных функций. Встроенные функции
-  интегрированы в язык шаблонов. Нельзя создавать пользовательские 
-  функции с такими же названиями или как-либо модифицировать 
+  интегрированы в язык шаблонов. Нельзя создавать пользовательские
+  функции с такими же названиями или как-либо модифицировать
   встроенные функции..
  </para>
- 
+
 &designers.language-builtin-functions.language-function-capture;
 &designers.language-builtin-functions.language-function-config-load;
 &designers.language-builtin-functions.language-function-foreach;

@@ -4,25 +4,25 @@
 <sect1 id="section.template.cache.handler.func">
  <title>Управление кэшированием</title>
  <para>
-  Вместо стандартного механизма кэширования, использующего файлы, 
+  Вместо стандартного механизма кэширования, использующего файлы,
   вы можете использовать свои функции для чтения, записи и очистки кэшированных шаблонов.
  </para>
  <para>
   Добавьте в ваше приложение функцию, которую Smarty сможет использовать для
-  управления кэшем. Укажите её имя в переменной класса 
-  <link linkend="variable.cache.handler.func">$cache_handler_func</link>. 
+  управления кэшем. Укажите её имя в переменной класса
+  <link linkend="variable.cache.handler.func">$cache_handler_func</link>.
   Теперь Smarty будет использовать её для операций с кэшированным содержимым.
-  Первый параметр вашей функции - действие, принимает значения 
-  'read', 'write' или 'clear' (соответственно, 'прочитать', 'записать' 
-  или 'очистить'). Вторым параметром передаётся объект smarty. Третьим - данные для 
-  кэширования. 
-  Третий параметр используется только при чтении и записи. При записи Smarty передаёт 
+  Первый параметр вашей функции - действие, принимает значения
+  'read', 'write' или 'clear' (соответственно, 'прочитать', 'записать'
+  или 'очистить'). Вторым параметром передаётся объект smarty. Третьим - данные для
+  кэширования.
+  Третий параметр используется только при чтении и записи. При записи Smarty передаёт
   через него кэшированный контент. При чтении предполагается, что через него
-  передаётся ссылка на переменную, в которую контент будет загружен. 
-  При очистке значение третьего параметра не обрабатывается. 
+  передаётся ссылка на переменную, в которую контент будет загружен.
+  При очистке значение третьего параметра не обрабатывается.
   Четвёртый параметр - имя файла с шаблоном (используется при чтении/записи),
-  пятый - идентификатор кэша (опционально), шестой - идентификатор компиляции (опционально, 
-  используется для построения разных кэшей для одного шаблона), 
+  пятый - идентификатор кэша (опционально), шестой - идентификатор компиляции (опционально,
+  используется для построения разных кэшей для одного шаблона),
   седьмой - срок годности кэша (опционально).
 
   Примечание: последний параметр ($exp_time) добавлен в Smarty 2.6.0.
@@ -46,7 +46,7 @@ $smarty->display('index.tpl');
 
 
 код для MySQL таблицы:
-	
+
 create database SMARTY_CACHE;
 
 create table CACHE_PAGES(
@@ -65,10 +65,10 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	$db_name = 'SMARTY_CACHE';
 	// установите в true для использования gzip компрессии кэшированных данных
 	$use_gzip = false;
-	
+
 	// создаём уникальный идентификатор кэша
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
-	
+
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
 		$smarty_obj->_trigger_error_msg("cache_handler: не могу подключиться к базе данных");
 		return false;
@@ -80,10 +80,10 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			// чтение кэша из базы
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");			
+				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");
 			}
-			$row = mysql_fetch_array($results,MYSQL_ASSOC);	
-			
+			$row = mysql_fetch_array($results,MYSQL_ASSOC);
+
 			if($use_gzip && function_exists("gzuncompress")) {
 				$cache_content = gzuncompress($row["CacheContents"]);
 			} else {
@@ -93,7 +93,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			break;
 		case 'write':
 			// сохранение кэша в базе
-			
+
 			if($use_gzip && function_exists("gzcompress")) {
 				// сжимаем контент чтобы сэкономить место
 				$contents = gzcompress($cache_content);
@@ -105,7 +105,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 							'".addslashes($contents)."')
 						");
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");			
+				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");
 			}
 			$return = $results;
 			break;
@@ -113,12 +113,12 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			// очистка кэша
 			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
 				// clear them all
-				$results = mysql_query("delete from CACHE_PAGES");			
+				$results = mysql_query("delete from CACHE_PAGES");
 			} else {
-				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
+				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");
 			}
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");			
+				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");
 			}
 			$return = $results;
 			break;
@@ -130,7 +130,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	}
 	mysql_close($link);
 	return $return;
-	
+
 }
 
 ?>

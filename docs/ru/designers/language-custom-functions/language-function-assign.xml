@@ -14,7 +14,7 @@
    <row>
     <entry>Имя атрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -39,7 +39,7 @@
   </tgroup>
  </informaltable>
  <para>
-  assign используется для установки значения переменной в 
+  assign используется для установки значения переменной в
   процессе выполнения шаблона.
  </para>
  <example>

@@ -14,7 +14,7 @@
    <row>
     <entry>Имя атрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -75,7 +75,7 @@
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
-    <entry>дополнительные атрибуты тэга tr (если указан 
+    <entry>дополнительные атрибуты тэга tr (если указан
     массив, то его элементы циклически повторяются)</entry>
    </row>
    <row>
@@ -83,7 +83,7 @@
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
-    <entry>дополнительные атрибуты тэга td (если указан 
+    <entry>дополнительные атрибуты тэга td (если указан
     массив, то его элементы циклически повторяются)</entry>
    </row>
    <row>
@@ -124,9 +124,9 @@
   указывает количество колонок. Атрибуты <emphasis>table_attr</emphasis>,
   <emphasis>tr_attr</emphasis> и <emphasis>td_attr</emphasis> указывают
   дополнительные атрибуты тэгов table, tr и td. Если значение
-  <emphasis>tr_attr</emphasis> или <emphasis>td_attr</emphasis> - массив, 
+  <emphasis>tr_attr</emphasis> или <emphasis>td_attr</emphasis> - массив,
   то кго значения циклический повторяются. Атрибут
-  <emphasis>trailpad</emphasis> устанавливает значения для остаточных 
+  <emphasis>trailpad</emphasis> устанавливает значения для остаточных
   ячеек на последней строке таблицы.
  </para>
  <example>

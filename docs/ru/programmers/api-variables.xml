@@ -34,12 +34,12 @@
   &programmers.api-variables.variable-right-delimiter;
   &programmers.api-variables.variable-compiler-class;
   &programmers.api-variables.variable-request-vars-order;
-  &programmers.api-variables.variable-request-use-auto-globals;  
+  &programmers.api-variables.variable-request-use-auto-globals;
   &programmers.api-variables.variable-error-reporting;
   &programmers.api-variables.variable-compile-id;
   &programmers.api-variables.variable-use-sub-dirs;
   &programmers.api-variables.variable-default-modifiers;
-  &programmers.api-variables.variable-default-resource-type;  
+  &programmers.api-variables.variable-default-resource-type;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

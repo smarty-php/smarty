@@ -24,12 +24,12 @@
   вы выводите страницу с прогнозом погоды, которая может меняться с каждой
   минутой, то кэшировать её не имеет смысла.
  </para>
- 
+
  &programmers.caching.caching-setting-up;
  &programmers.caching.caching-multiple-caches;
  &programmers.caching.caching-groups;
  &programmers.caching.caching-cacheable;
- 
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -38,13 +38,13 @@
   </tgroup>
  </informaltable>
  <para>
-  ¬ставл€ет в начало каждой строки заданное количество 
+  ¬ставл€ет в начало каждой строки заданное количество
   заданных символов. ѕо умолчанию вставл€етс€ 4 пробела.
  </para>
  <example>
   <title>indent</title>
   <programlisting>
-<![CDATA[   
+<![CDATA[
 index.php:
 
 $smarty = new Smarty;

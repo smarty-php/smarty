@@ -4,10 +4,10 @@
 <chapter id="language.custom.functions">
  <title>ѕользовательские ‘ункции</title>
  <para>
-  Smarty поставл€етс€ с несколькими пользовательскими 
+  Smarty поставл€етс€ с несколькими пользовательскими
   функци€ми, которые вы можете использовать в шаблонах.
  </para>
- 
+
 &designers.language-custom-functions.language-function-assign;
 &designers.language-custom-functions.language-function-counter;
 &designers.language-custom-functions.language-function-cycle;
