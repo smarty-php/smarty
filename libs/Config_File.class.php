@@ -271,7 +271,7 @@ class Config_File {
 		foreach ($match[1] as $section) {
 			if ($section{0} == '.' && !$this->read_hidden)
 				continue;
-			if (preg_match("/\[".preg_quote($section)."\](.*?)(\n\[|\Z)/s", $contents, $match))
+			if (preg_match("/\[".preg_quote($section, '/')."\](.*?)(\n\[|\Z)/s", $contents, $match))
 				if ($section{0} == '.')
 					$section = substr($section, 1);
 				$config_data["sections"][$section]["vars"] = $this->_parse_config_block($match[1]);
