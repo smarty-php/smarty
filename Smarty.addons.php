@@ -205,18 +205,21 @@ function smarty_mod_default($string, $default="")
     Function: smarty_func_assign
     Purpose:  assign a value to a template variable
 \*======================================================================*/
-function smarty_func_assign($vars,&$smarty_obj)
+function smarty_func_assign($args, &$smarty_obj)
 {
-	extract($vars);
-	if(empty($var)) {
+	extract($args);
+
+	if (empty($var)) {
     	trigger_error("assign: missing 'var' parameter");
     	return;
 	}
-	if(empty($value)) {
+
+	if (empty($value)) {
     	trigger_error("assign: missing 'value' parameter");
     	return;
 	}
-	$smarty_obj->assign($var,$value);
+
+	$smarty_obj->assign($var, $value);
 	return true;
 }
 

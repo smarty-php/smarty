@@ -161,8 +161,8 @@ class Smarty
     var $_sections              =   array();    // keeps track of sections
     var $_conf_obj              =   null;       // configuration object
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
-    var $_version               =   '1.4.2';  // Smarty version number    
-	var $_extract				=	false; 	// flag for custom functions
+    var $_version               =   '1.4.2';    // Smarty version number    
+	var $_extract				=	false; 	    // flag for custom functions
 	
 /*======================================================================*\
     Function: Smarty
