@@ -1,6 +1,8 @@
+    - made cache reading process more efficient (Monte)
+    - fixed bug, is_cached() now supports new 1.4.6 caching behavior (Monte)
     - update FAQ with mailing list Reply-To header FAQ (Monte)
     - supress error messages for fopen(), fix cache to regenerate if cache
-      file is not available due to race condition (Monte)
+      file is not available (i.e. cluster race condition) (Monte)
     - added index key example to QUICKSTART guide (Monte)
 
 Version 1.4.6

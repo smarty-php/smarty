@@ -442,8 +442,13 @@ class Smarty
 
         if (file_exists($cache_file) &&
             ($this->cache_lifetime == 0 ||
-             (time() - filemtime($cache_file) <= $this->cache_lifetime)))
-            return true;
+             (time() - filemtime($cache_file) <= $this->cache_lifetime))) {			
+				if($this->compile_check) {
+					return $this->_read_cache_file($cache_file,$results);
+				} else {
+            		return true;
+				}
+			}
         else
             return false;
 
@@ -803,7 +808,6 @@ function _generate_debug_output() {
                     return false;
                 }
                 // if security is on, make sure template comes from a $secure_dir
-
                 if ($this->security && !$this->security_settings['INCLUDE_ANY']) {
                     $resource_is_secure = false;
                     foreach ($this->secure_dir as $curr_dir) {
@@ -835,7 +839,6 @@ function _generate_debug_output() {
                 }
                 break;
         }
-
         return true;
     }
 
@@ -1031,22 +1034,22 @@ function _run_insert_handler($args)
     Function: _run_mod_handler
     Purpose:  Handle modifiers
 \*======================================================================*/
-function _run_mod_handler()
-{
-    $args = func_get_args();
-    list($func_name, $map_array) = array_splice($args, 0, 2);
-    $var = $args[0];
+	function _run_mod_handler()
+	{
+    	$args = func_get_args();
+    	list($func_name, $map_array) = array_splice($args, 0, 2);
+    	$var = $args[0];
 
-    if ($map_array && is_array($var)) {
-        foreach ($var as $key => $val) {
-            $args[0] = $val;
-            $var[$key] = call_user_func_array($func_name, $args);
-        }
-        return $var;
-    } else {
-        return call_user_func_array($func_name, $args);
-    }
-}
+    	if ($map_array && is_array($var)) {
+        	foreach ($var as $key => $val) {
+            	$args[0] = $val;
+            	$var[$key] = call_user_func_array($func_name, $args);
+        	}
+        	return $var;
+    	} else {
+        	return call_user_func_array($func_name, $args);
+    	}
+	}
 
 
 /*======================================================================*\
@@ -1065,17 +1068,41 @@ function _run_mod_handler()
 
 /*======================================================================*\
     Function:   _read_file()
-    Purpose:    read in a file
+    Purpose:    read in a file from line $start to line $end.
+				read the entire file if $start and $end are null
 \*======================================================================*/
-    function _read_file($filename)
-
+    function _read_file($filename,$start=null,$end=null)
     {
         if (!($fd = @fopen($filename, 'r'))) {
             $this->_trigger_error_msg("problem reading '$filename.'");
             return false;
         }
         flock($fd, LOCK_SH);
-        $contents = fread($fd, filesize($filename));
+		if($start == null && $end == null) {
+			// read the entire file
+        	$contents = fread($fd, filesize($filename));
+		} else {
+			if( $start > 1 ) {
+				// skip the first lines before $start
+				for ($loop=1; $loop < $start; $loop++) {
+					fgets($fd,65536);
+				}
+			}
+			if( $end == null ) {
+				// read the rest of the file
+				while(!feof($fd)) {
+					$contents .= fgets($fd,65536);
+				}
+			} else {
+				// read up to $end lines
+				for ($loop=$start; $loop <= $end; $loop++) {
+					$contents .= fgets($fd,65536);
+					if(feof($fd)) {
+						break;
+					}
+				}				
+			}
+		}
         fclose($fd);
         return $contents;
     }
@@ -1225,18 +1252,12 @@ function _run_mod_handler()
 \*======================================================================*/
     function _read_cache_file($cache_file,&$results)
     {
-        $results = $this->_read_file($cache_file);
-
-		if(empty($results)) {
+        if( !($cache_header = $this->_read_file($cache_file,1,1) )) {
 			return false;
 		}
 		
-        // get the files involved with this cache from the first line
-        $contents = explode("\n", $results, 2);
-
-        if (substr($contents[0], 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {
-            $cache_info = unserialize(substr($contents[0], 24));
-            $results = $contents[1];
+        if (substr($cache_header, 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {
+            $cache_info = unserialize(substr($cache_header, 24));
 
             if ($this->compile_check) {
                 $cache_filemtime = filemtime($cache_file);
@@ -1259,8 +1280,13 @@ function _run_mod_handler()
                             break;
                     }
                 }
+				
             }
-        }
+			$results = $this->_read_file($cache_file,2);
+        } else {
+			// no cache info header, pre Smarty 1.4.6 format
+			$results = $this->_read_file($cache_file);
+		}
 
         return true;
     }
