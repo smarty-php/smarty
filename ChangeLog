@@ -1,3 +1,9 @@
+2002-07-29  mohrt  <mohrt@pb1.pair.com>
+
+    * plugins/function.html_select_time.php
+      docs/designers.sgml
+      NEWS: added paramters to html_select_time plugin
+
 2002-07-25  Andrei Zmievski  <andrei@pb1.pair.com>
 
     * TODO: *** empty log message ***
