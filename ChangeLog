@@ -1,3 +1,23 @@
+2003-11-19  Monte Ohrt  <monte@ispi.net>
+
+    * (Smarty_2_6_0)
+      NEWS:
+      update NEWS file
+
+    * (Smarty_2_6_0)
+      docs/designers.sgml
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      change version numbers to 2.6.0
+
+2003-11-19  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml
+      docs/de/designers.sgml
+      docs/fr/designers.sgml:
+      fix examples of escape-modifier (in docs, docs/de and docs/fr !)
+
 2003-11-18  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
