@@ -2,9 +2,36 @@
 
 /*
  * Project:		Smarty: the PHP compiled template engine
- * File:		Smarty.functions.php
+ * File:		Smarty.addons.php
  * Author:		Monte Ohrt <monte@ispi.net>
  *				Andrei Zmievski <andrei@ispi.net>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * You may contact the authors of Smarty by e-mail at:
+ * monte@ispi.net
+ * andrei@ispi.net
+ *
+ * Or, write to:
+ * Monte Ohrt
+ * CTO, ispi
+ * 237 S. 70th suite 220
+ * Lincoln, NE 68510
+ *
+ * The latest version of Smarty can be obtained from:
+ * http://www.phpinsider.com
  *
  */
 

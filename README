@@ -1,7 +1,8 @@
 NAME:
 
-    Smarty - the PHP compiling template engine v0.9
-    
+    Smarty - the PHP compiling template engine
+
+VERSION: 1.0
 
 AUTHORS:
     
@@ -28,8 +29,6 @@ DESCRIPTION:
     compiles the templates into native php scripts upon the first
     execution. After that, it just executes the compiled PHP scripts.
     Therefore, there is no costly template file parsing for each request.
-    Smarty also has built-in page caching to minimize the regeneration
-    of unchanged content.
 
     Some of Smarty's features:
 
@@ -42,519 +41,42 @@ DESCRIPTION:
       the template language is extremely extensible.
     * configurable template delimiter tag syntax, so you can use
       {}, {{}}, <!--{}-->, or whatever you like.
-    * template if/else/endif constructs are passed to the PHP parser,
-      so the if syntax can be as simple or as complex as you like
+    * template if/elseif/else/endif constructs are passed to the PHP parser,
+      so the if syntax can be as simple or as complex as you like.
     * unlimited nesting of sections,ifs, etc. allowed
     * it is possible to imbed PHP code right in your template files,
-      although doubtfully needed since the engine is so customizable.
+      although not recommended and doubtfully needed since the engine
+      is so customizable.
     
     
 REQUIREMENTS:
 
-    Smarty requires PHP 4.0.4 or later (4.0.3 and earlier contain
-    a bug in preg_grep() that won't allow the parser to function
-    properly.)
-
-VARIABLE TYPES:
-
-    Smarty has three different syntaxes for variables. One for script
-    variables (prefixed with $), one for config file variables
-    which are surrounded by # symbols, and one for variables that
-    are internal to the template language, which are surrounded by
-    % symbols.
-
-    Variable examples:
-    {$Name}                      <-- prints the value of $Name
-    {#tableBgColor#}             <-- prints variable from config file
-    {if %News.index% is even}    <-- checks if the index is even
-        ...
-    {/if}
-
-CLASS METHODS:
-
-    assign($var,$val)
-    -----------------
-    Assign variables to be used in the template engine.
-        
-    append($var,$val)
-    -----------------
-    Append values to assigned variables
-
-    display($tpl_file)
-    ----------------------
-    Print the results of a parsed template file
-                
-    fetch($tpl_file)
-    --------------------------
-    Return the results of a parsed template file
-
-    clear_assign($var)
-    ------------------    
-    Clear an assigned template variable.        
-
-    clear_all_assign()
-    ------------------
-    Clear all the assigned template variables.
-
-    get_template_vars()
-    ------------------
-    returns an array containing assigned template variables
-
-
-CLASS VARIABLES:    (default value in parenthesis)
-
-    $compile_check        Whether or not to check for a needed compile.
-                To optimize performance, set this to
-                false once development is complete and
-                the scripts are initially compiled.
-                (true)
-
-    $template_dir        Name of directory containing templates
-
-    $compile_dir_ext    Extention to give the name of the compile
-                        directory. For example, if your templates
-                        are stored in a directory named
-                        "templates", then all compiled template
-                        files will be kept in "templates_c" in the
-                        same directory. (_c)
-
-    $tpl_file_ext        The extention used on template files. (.tpl)
-                        All other files in the template directory
-                        without this extention are ignored.
-
-    $max_recursion_depth    The maximum recursion depth for template
-                            files includes. This is to help catch an
-                            infinite loop. 0 == unlimited. (10)
-
-    $allow_php            Whether or not to allow PHP code in your
-                        templates. If set to false, PHP code is
-                        escaped. (false)
-    
-    
-    $left_delimiter        The left delimiter of the template syntax.
-                        For some development tools, it may be handy
-                        to change the delimiters to something like
-                        "<!-- {" and "} -->" respectfully. ({)
-    
-    $right_delimiter    The right delimiter of the template syntax. (})
-    
-    $config_dir         The name of the directory containing config files
-
-    $custom_tags        An array containing the names of custom functions
-                        and what function each are mapped to.
-
-    $modifiers          An array containing the names of variable modifiers
-                        and what function each are mapped to.
-
-    $global_assign      An array contiaining the names of variables
-                        that are implicitly assigned to the templates.
-
+    Smarty requires PHP 4 or later. Smarty was developed and tested
+    with 4.0.4pl1.
 
 INSTALLATION:
 
-* copy the Smarty.class.php and Smarty.addons.php scripts to a
-  directory that is accessible by PHP. NOTE: Smarty will need to
-  create a directory for the compiled templates. Be sure that the
-  web server user (or which ever user the PHP parser is run as)
-  can write to the directory. You will see appropriate error
-  messages if the directory creation or php file creation fails.
+* copy the Smarty.class.php, Smarty.addons.php and Config_File.class.php
+  scripts to a directory that is in your PHP include path.
+  
+* in the same directory as your php application,
+  create a "templates" directory and a "templates_c" directory.
+  Be sure the "templates_c" directory is writable by your
+  web server user (usually nobody), or chmod 777 the directory if
+  you are not sure.
 
 * setup your php and template files. A good working example is
   included to get you started.
 
-
-EXAMPLE:
-
-A simple example, built out of a few files:
-
-index.php
----------
-
-<?
-
-require("Smarty.class.php");
-
-$smarty = new Smarty;
-
-// simulate some variable assignments. Normally this
-// would come from a database or other data source.
-
-$smarty->assign("Name","Gomer Pyle");
-$smarty->assign("loopvar",array("one","two","three","four"));
-$smarty->assign("loopvar2",array("one","two","three","<four>"));
-
-// now simply display the template
-$smarty->display("./templates/index.tpl");
-
-?>
-
-templates/header.tpl
---------------------
-
-<HTML>
-<BODY>
-<TITLE>My Homepage</TITLE>
-
-
-templates/footer.tpl
---------------------
-
-</BODY>
-</HTML>
-
-
-templates/index.tpl
--------------------
-
-{* include the header.tpl file here *}
-{include header.tpl}
-hello, my name is {$Name}.<br>
-{if $Name eq "Joe"}
-    I am Joe.<br>
-{else}
-    I am not Joe.<br>
-{/if} 
-{* now lets test a section loop *}
-<p>
-testing a loop:<br>
-{* $loopvar is used to determine the number
-   of times the section is looped *}
-{section name="outside" loop=$loopvar}
-    {* show the current loop iteration *}
-    current loop iteration is {$outside/rownum}<br>
-    {* show the current index value of $loopvar
-           within the "outside" section *}
-    loop var is {$outside/loopvar}<br>
-    {* now we'll loop through a nested section *}
-    {section name="inside" loop=$loopvar}
-        {* show the current index value of $loopvar
-                   within the "inside" section *}
-        inside loop: {$inside/loopvar}<br>
-    {/section}
-    <p>
-{/section}
-
-<p>
-{* display $Name as HTML escaped *}
-Hello, my name is {$Name|htmlesc}
-{* include the footer.tpl file here *}
-{include footer.tpl}
-
-
-INCLUDE LOGIC:
-
-Smarty supports including other template files.
-
-* you must supply the relative path to the
-  included template file from the default
-  template directory path.
-
-  {include file="header.tpl"} 
-
-* you can pass local variables to an included
-  template. The included template inherits all current
-  template variables, in addition to the given
-  ones:
-
-  {include file="header.tpl" title="main menu" border="yes"}
-
-IF/ELSE LOGIC:
-
-Smarty supports if/else logic like so:
-
-{if $Name eq "John"}
-    I am John!
-{elseif $Name eq "Joe"}
-    I am Joe!
-{else}
-    I don't know who I am.
-{/if}
-
-* "eq", "ne","neq", "gt", "lt", "lte", "le", "gte" "ge",
-  "==","!=",">","<","<=",">=" are all valid conditional
-  qualifiers.
-
-SECTIONS:
-
-Sections are portions of the template that are meant to be looped.
-
-Example:
-
-(Assuming $LastName, $MiddleName and $FirstName have been assigned):
-
-{section name="employees" loop=$LastName}
-    This employee is {$employees/LastName},{$employees/FirstName}
-        {$employees/MiddleName}<br>
-{/section}
-
-The "name" attribute of a section is the name of the section.
-The "loop" attribute is the name of an array that determines
-the number of times the section will be looped. In this example
-if $LastName has four elements, the section will loop four times.
-
-* ALL sections must be given a name
-* Nested sections names MUST have unique names from one another
-* All variables meant to be looped within a section
-  MUST have the section name prepended to the name
-  like so: {$section_name/variable_name}
-* It is OK to mention variables of parent sections
-  within nested child sections.
-* nothing in the section will display if the
-  looping array is unset.
-  
-Sections can be nested, like so:
-
-{section name="employees" loop=$LastName}
-    This employee is {$employees/LastName},
-        {$employees/FirstName} {$employees/MiddleName}<br>
-    {section name="employee_jobs" loop=$JobDescription}
-        Available jobs for {$employees/FirstName}:
-            {$employee_jobs/JobDescription}<br>
-    {/section}
-{/section}
-
-SPECIAL FUNCTIONALITY:
-
-There are some special functions that determine the
-current loop iteration of a section. These are surrounded
-with "%" characters, and they are:
-
-rownum:        current row, first row treated as 1
-index:        current row, first row treated as 0
-
-The following are possible "is" expression types
-for these functions:
-
-odd:        true if value is odd
-even:        true if value is even
-mod:        true if value is divisible by X
-
-Examples:
-
-{section name=month loop=$var}
-    {if %month.rownum% eq 4}
-        {* in 4th row of section loop *}
-    {/if}
-    {if %month.rownum% is even}
-        {* current rownum is even *}
-    {/if}
-    {if %month.rownum% is odd}
-        {* current rownum is odd *}
-    {/if}
-    {if %month.rownum% is even by 3}
-        {* each even row, grouped by 3.
-           so rows 1,2,3 are true (even),
-           4,5,6 are odd (false), etc *}
-    {/if}
-    {if %month.rownum% is odd by 3}
-        {* each odd row, grouped by 3.
-           so rows 1,2,3 are true (odd),
-           4,5,6 are even (false), etc *}
-    {/if}
-    {if %month.rownum% is mod 4}
-        {* true if current row is divisible by 4 *}
-    {/if}
-{/section}
-
-THE {strip} TAG:
-
-A special tag called {strip} can be used to strip out
-extra space, tabs or newlines at the beginning and end
-of each template row within {strip} and {/strip}.
-For example:
-
-<TR>
-<TD>
-    <TT>
-        {section name=row loop=$weekday}
-            {$row/weekday}&nbsp;
-        {/section}
-    </TT>
-</TD>
-</TR>
-
-This will return unwanted results because of
-the extra tabs and newlines contained within the <TT></TT>
-tags. Normally to remedy this, you must run all
-the lines together in the template:
-
-<TR>
-<TD>
-<TT>{section name=row loop=$weekday}{$row/weekday}&nbsp;{/section}</TT>
-</TD>
-</TR>
-
-
-As you can see, this quickly makes the template unreadable.
-An alternate solution is to use the {strip} tag:
-
-<TR>
-<TD>
-    {strip}
-    <TT>
-        {section name=row loop=$weekday}
-            {%row.weekday%}&nbsp;
-        {/section}
-    </TT>
-    {/strip}
-</TD>
-</TR>
-
-
-What this will do is strip out tabs, spaces and newlines
-at the beginning and end of each line before outputting
-the results. This helps keep the template file readable
-without affecting the output. Only text between {strip}
-and {/strip} is affected.
-
-{ldelim} AND {rdelim} TAGS:
-
-These are used in the template to output the literal
-left and right delimiters. Normally these are
-"{" and "}" if you are using the default delimiters.
-
-VARIABLE MODIFIERS:
-
-Optionally, you can modify variables on-the-fly by passing
-them through variable modifiers. Several variable modifiers
-come with the default template engine. For example, if you
-want a variable to be all uppercase when it is displayed,
-you can do the following:
-
-{$Name|upper}
-
-This will display the value of $Name in uppercase.
-Notice the vertical pipe "|" between the variable name
-and the modifier. This is how the template parser
-distinguishes that you want to pass the variable through
-a modifier before being displayed. Anything to the right
-of the variable name after a pipe "|" is a variable
-modifier.
-
-Here is an example of printing the variable $Name
-as HTML escaped:
-
-{$Name|escape}
-
-You are also allowed to mix any variable modifiers
-on a single variable:
-
-{$Name|upper|escape}
-
-Variable modifiers are read from left to right. In the
-above example, the variable will first be uppercased,
-then HTML escaped, then finally displayed.
-
-Variable modifiers are passed the value of of the
-variable (or the results of the previous modifier)
-as the first argument. They can also be passed additional
-arguments by specifying them in context, separated by
-colons. For example, lets say you want to display only
-the first 40 characters of a variable:
-
-{$article|length:40}
-
-This will print out the first 40 characters of the
-variable $article.
-
-Variable modifiers are also allowed within template logic
-constructs, such as {if ...} tags. Example:
-
-{if $Name|upper eq "JOE"}
-    His name is JOE.
-{else}
-    His name is not JOE.
-{/if}
-
-You may also use PHP functions as variable
-modifiers. If a modifier is not found in the registered
-template modifiers, it will be assumed that it is a PHP
-function, and will be passed as so. Be careful though,
-all modifiers must take the input as the first value
-and return a value, otherwise it won't do much good!
-
-Example of using a PHP function:
-
-<PRE>
-{$article|wordwrap:72}
-</PRE>
-
-This will print the value of $article wordwrapped at 72 chars.
-
-TIP: For PHP functions that do not expect the variable
-arguments in the correct order, you can write a variable
-modifier "wrapper" that passes them in the correct order.
-For instance, strftime() expects the date format first,
-followed by the date. Smarty comes with a wrapper that passes
-them in the correct order:
-
-{$date|date_format:"%Y-%m-%d"}
-
-This will pass the value of $date, followed by the specified
-date format to your variable modifier "date_format". This
-can in turn pass the values to strftime() in the correct
-order, then return the results.
-
-HINT: always pass dates to Smarty in a unix
-timestamp format. Smarty can then use this to format the
-date in countless ways with date_format.
-
-
-CUSTOM FUNCTIONS:
-
-You may create your own custom template functions. There are two
-functions that come bundled with Smarty, which are the following:
-
-{html_options ...}          creates HTML options for dropdowns
-{html_select_date ...}	    creates HTML date dropdowns
-
-CONFIG FILES:
-
-Smarty allows variables to be pulled in from config files to
-Be used in the templates. Section names are optional. NOTE:
-config file sections are not related to template looping
-sections. They are two different things.
-
-{config_load file="filename"}
-{config_load file="filename" section="sectionname"}
-
-Config files have the following format:
-
-var = "value"
-
-[ sectionname ]
-var = "value"
-
-[ sectionname2 ]
-var = "value"
-
-example:
-
-index.tpl
----------
-
-{config_load file="index.conf"}
-
-<IMG SRC="{#imagePath#}/icon.gif">
-
-index.conf
-----------
-
-title = "My Homepage"
-imagePath = "/images"
-
-
-creating your own:
-
-To create your own custom functions or modifiers, do the following:
-
-* edit the Smarty.addons.php file, add your function. Be sure
-  the function name does not interfere with the namespace of other
-  functions.
-* edit the Smarty.class.php file, add your custom function name to the
-  appropriate array, and map it to a Smarty function or modifier.
-* make a mention of your custom function in a template, like so:
-  {function_name [arguments]}, or {$var|modifier_name[:arg1:arg2]}
+BUGS:
+
+    There are no known bugs with Smarty, although there are some
+    bugs in PHP that cause problems with Smarty. preg_grep() previous
+    to 4.0.4 has a bug which Smarty has a built-in workaround for.
+    PHP 4.0.4 has a bug with user callbacks which would cause this
+    syntax in Smarty to crash PHP: {$varname|@modname}
+    Use PHP 4.0.4pl1 to fix this, or avoid using the "@" with
+    modifiers.
 
 COPYRIGHT:
     Copyright(c) 2000,2001 ispi. All rights reserved.

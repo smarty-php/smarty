@@ -2,8 +2,18 @@
 <book>
 <bookinfo>
 	<title>Smarty - the compiling PHP template engine</title>
-	<author><firstname>Monte</firstname><surname>Ohrt</surname></author>
-	<author><firstname>Andrei</firstname><surname>Zmievski</surname></author>
+	<author>
+		<firstname>Monte</firstname><surname>Ohrt</surname>
+		<affiliation>
+			<address><email>monte@ispi.net</email></address>
+		</affiliation>
+	</author>
+	<author>
+		<firstname>Andrei</firstname><surname>Zmievski</surname>
+		<affiliation>
+			<address><email>andrei@ispi.net</email></address>
+		</affiliation>
+	</author>
 	<copyright><year>2001</year><holder>ispi, Inc.</holder></copyright>
 </bookinfo>
 <chapter>
@@ -12,10 +22,11 @@
 		It is undoubtedly one of the most asked questions on the PHP mailing
 		lists: how do I make my PHP scripts independent of the layout? While
 		PHP is billed as "HTML embedded scripting language", after writing a
-		couple of projects that mixed PHP and HTML freely one comes up with
-		the idea that separation of form and content is a Good Thing [TM]. In
+		couple of projects that mixed PHP and HTML freely one comes up with the
+		idea that separation of form and content is a Good Thing [TM]. In
 		addition, in many companies the roles of layout designer and programmer
-		are separate. Consequently, the search for a templating solution ensues.
+		are separate. Consequently, the search for a templating solution
+		ensues.
 		</para>
 		<para>
 		In our company for example, the development of an application goes on
@@ -28,22 +39,20 @@
 		between programming/HTML a couple of times. Thus, it's important to
 		have good template support because programmers don't want anything to
 		do with HTML and don't want HTML designers mucking around with PHP
-		code, and designers need support for config files, dynamic blocks and
-		other stuff, but they don't want to have to deal with intricacies of
-		the PHP programming language.
+		code. Designers need support for config files, dynamic blocks and other
+		stuff, but they don't want to have to deal with intricacies of the PHP
+		programming language.
 		</para>
 		<para>
 		Looking at many templating solutions available for PHP today, most of
 		them provide a rudimentary way of substituting variables into templates
-		and do a limited form of dynamic block functionality (a section of a
-		template that is looped over and over with a set of indexed variables.)
-		But our needs required a bit more than that. We didn't want programmers
-		to be dealing with HTML layout at ALL, but this was almost inevitable.
-		For instance, if a designer wanted background colors to alternate on
-		dynamic blocks, this had to be worked out with the programmer in
-		advance. We also needed designers to be able to use their own
-		configuration files, and pull variables from them into the templates.
-		The list goes on.
+		and do a limited form of dynamic block functionality. But our needs
+		required a bit more than that. We didn't want programmers to be dealing
+		with HTML layout at ALL, but this was almost inevitable. For instance,
+		if a designer wanted background colors to alternate on dynamic blocks,
+		this had to be worked out with the programmer in advance. We also
+		needed designers to be able to use their own configuration files, and
+		pull variables from them into the templates. The list goes on.
 		</para>
 		<para>
 		We started out writing out a spec for a template engine about a year
@@ -63,9 +72,9 @@
 		expressions and the code turned out to be rather, shall we say,
 		impenetrable. It was also noticably slow in large applications from all
 		the parsing and regular expression work it had to do on each
-		invocation. But the main problem from programmer's point of view was
-		that you had to do a lot of work in the PHP script to setup and process
-		templates and dynamic blocks especially.
+		invocation. The biggest problem from a programmer's point of view was
+		all the necessary work in the PHP script to setup and process templates
+		and dynamic blocks. How do we make this easier?
 		</para>
 		<para>
 		Then came the vision of what ultimately became Smarty. We know how fast
@@ -103,7 +112,7 @@
 			as you like.</para></listitem>
 		<listitem><para>Unlimited nesting of sections, ifs, etc. allowed.</para></listitem>
 		<listitem><para>It is possible to embed PHP code right in your template files,
-			although this may not be needed (and definately not recommended)
+			although this may not be needed (nor recommended)
 			since the engine is so customizable.</para></listitem>
 		</itemizedlist>
 	</sect1>
@@ -133,33 +142,30 @@
 	<sect1>
 		<title>Requirements</title>
 		<para>
-		Smarty requires PHP 4 or later. 4.0.4 contains a bug that crashes PHP when
-		the "@" modifier, such as {$var|@count}. 4.0.3
-		and earlier contain a bug in preg_grep() that won't allow the parser to
-		function properly, so to preserve performance Smarty will automatically
-		use built-in preg_grep() when it can and use en emulated version of it
-		otherwise.
+		Smarty requires PHP 4 or later. See the
+		<link linkend="bugs">BUGS</link> section for caveats.
 		</para>
 	</sect1>
 	<sect1>
 		<title>Installing Smarty</title>
 		<para>
-		Installing Smarty is fairly straightforward, there is just one thing you
-		must be aware of. Remember that Smarty creates compiled versions of the
-		template code.  This usually means allowing user "nobody" (or whomever
-		the web server runs as) to have permission to write the files. Each
-		installation of a Smarty application minimally needs a templates
+		Installing Smarty is fairly straightforward, there is just one thing
+		you must be aware of. Remember that Smarty creates compiled versions of
+		the template code.  This usually means allowing user "nobody" (or
+		whomever the web server runs as) to have permission to write the files.
+		Each installation of a Smarty application minimally needs a templates
 		directory and a compiled templates directory. If you use configuration
 		files you will also need a directory for those. By default these are
 		named "templates", and "templates_c" and "configs" respectively.
 		</para>
 		<para>
-		Copy the Smarty.class.php and Smarty.addons.php scripts to a directory
-		that is in your PHP include_path. NOTE: PHP will try to create a
-		directory alongside the executing script called "templates_c". Be sure
-		that directory permissions allow this to happen. You will see PHP error
-		messages if this fails. You can also create the directory yourself
-		before hand, and change the file ownership accordingly. See below.
+		Copy the Smarty.class.php, Smarty.addons.php and Config_File.class.php
+		scripts to a directory that is in your PHP include_path. NOTE: PHP will
+		try to create a directory alongside the executing script called
+		"templates_c". Be sure that directory permissions allow this to happen.
+		You will see PHP error messages if this fails. You can also create the
+		directory yourself before hand, and change the file ownership
+		accordingly. See below.
 		</para>
 		<example>
 			<title>Example of installing Smarty</title>
@@ -181,9 +187,9 @@ chown nobody:nobody templates_c
 <chapter>
 	<title>Setting up Smarty</title>
 		<para>
-		There are several variables that are at the top of the Smarty.class.php file. You
-		can usually get away with leaving these at their default settings. This is a list
-		of them and what each one does.
+		There are several variables that are at the top of the Smarty.class.php
+		file. You can usually get away with leaving these at their default
+		settings. This is a list of them and what each one does.
 		</para>
 	<sect1>
 		<title>Configuration variables</title>
@@ -193,8 +199,8 @@ chown nobody:nobody templates_c
 			<para>
 				Upon each invocation of the PHP application, Smarty recursively
 				traverses the template directory and its subdirectories and
-				searches for all the files with the template extension that have
-				changed (later time stamp) since the last time they were
+				searches for all the files with the template extension that
+				have changed (later time stamp) since the last time they were
 				compiled. For each one that has changed, it recompiles that
 				template. By default this variable is set to true. The compile
 				check has very minimal impact on the application performance.
@@ -226,8 +232,9 @@ chown nobody:nobody templates_c
 		<sect2>
 			<title>$tpl_file_ext</title>
 			<para>
-				This is the extention used for template files. By default this is ".tpl".
-				All other files in the template directory are ignored.
+				This is the extention used for template files. By default this
+				is ".tpl". All other files in the template directory are
+				ignored.
 			</para>
 		</sect2>
 		<sect2>
@@ -236,7 +243,7 @@ chown nobody:nobody templates_c
 				Whether or not to allow PHP code in the templates. If set to
 				false, PHP code is escaped and not interpreted. Embedding PHP
 				code into templates is highly discouraged. Use custom functions
-				or modifiers instead. Default is "false".
+				or <link linkend="variable.modifiers">modifiers</link> instead. Default is "false".
 			</para>
 		</sect2>
 		<sect2>
@@ -268,7 +275,8 @@ chown nobody:nobody templates_c
 		<sect2>
 			<title>$custom_mods</title>
 			<para>
-				This is a mapping of the names of variable modifiers in the template to
+				This is a mapping of the names of variable
+				<link linkend="variable.modifiers">modifiers</link> in the template to
 				the names of functions in PHP. These are usually kept in Smarty.addons.php.			
 			</para>
 		</sect2>
@@ -499,7 +507,7 @@ Your last login was on January 11th, 2001.
 				Config file variables cannot be displayed until
 				after they are loaded in from a config file. This procedure is
 				explained later in this document under
-				<link linkend="builtin.functions.config_load">config_load</link>.
+				<link linkend="builtin.functions.configload">config_load</link>.
 				</para>
 			</sect3>
 			<sect3>
@@ -537,8 +545,8 @@ Your last login was on January 11th, 2001.
 </programlisting>
 </example>
 			<para>
-			Both built-in functions and custom functions work exactly the same
-			way syntactically.
+			Both built-in functions and custom functions have the same syntax in
+			the templates.
 			</para>
 		</sect2>
 		<sect2>
@@ -560,9 +568,9 @@ Your last login was on January 11th, 2001.
 
 {include file=#includeFile#}
 
-<SELECT name=company>
+&lt;SELECT name=company&gt;
 {html_options values=$vals selected=$selected output=$output}
-</SELECT>
+&lt;/SELECT&gt;
 </programlisting>
 </example>
 		</sect2>
@@ -588,9 +596,9 @@ Your last login was on January 11th, 2001.
 {include file=#includeFile#}
 
 {* display dropdown lists *}
-<SELECT name=company>
+&lt;SELECT name=company&gt;
 {html_options values=$vals selected=$selected output=$output}
-</SELECT>
+&lt;/SELECT&gt;
 </programlisting>
 </example>
 		</sect2>
@@ -605,8 +613,8 @@ Your last login was on January 11th, 2001.
 		and change the colors. With a config file, the colors can
 		be kept in one place, and only one file needs to be updated.
         Note that to use config files, you must include the Config_File.class.php
-		In your PHP include path. The Config_File class can be found at
-        http://www.phpinsider.com. Smarty will implicitly include the file if you
+		In your PHP include path. Config_File.class.php comes bundled with
+		Smarty. Smarty will implicitly include the file if you
 		don't already include it in your application.
 		</para>
 <example>
@@ -650,7 +658,7 @@ Intro = """This is a value that spans more
 			</para>
 			<para>
 			Config files are loaded into templates with the built-in function
-			called <link linkend="builtin.functions.config_load">config_load</link>.
+			called <link linkend="builtin.functions.configload">config_load</link>.
 			</para>
 	</sect1>
 	<sect1 id="builtin.functions">
@@ -660,7 +668,7 @@ Intro = """This is a value that spans more
 		are integral to the template language. You cannot create custom
 		functions with the same names, nor can you modify built-in functions.
 		</para>
-		<sect2 id="builtin.functions.config_load">
+		<sect2 id="builtin.functions.configload">
 			<title>config_load</title>
 			<para>
 			This function is used for loading in variables from a
@@ -788,9 +796,9 @@ Intro = """This is a value that spans more
 			parameters #banner_location_id# and #site_id#. Smarty will look
 			for a function named insert_getBanner() in your PHP application, passing
 			the values of #banner_location_id# and #site_id# as the first argument
-			in an indexed array. (All insert function names in
+			in an indexed array. All insert function names in
 			your application must be prepended with "insert_" to remedy possible
-			function name-space conflicts.) Your insert_getBanner() function should
+			function name-space conflicts. Your insert_getBanner() function should
 			do something with the passed values and return the results. These results
 			are then displayed in the template in place of the insert tag.
 			In this example, Smarty would call this function:
@@ -837,7 +845,7 @@ Intro = """This is a value that spans more
 	...
 {/if}
 
-{* you can also imbed php function calls, where appropriate *}
+{* you can also imbed php function calls *}
 {if count($var) gt 0}
 	...
 {/if}
@@ -933,7 +941,7 @@ OUTPUT:
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id="builtin.functions.sections">
+		<sect2 id="builtin.functions.section">
 			<title>section,sectionelse</title>
 			<para>
 			Template sections are used for looping over arrays of data.
@@ -942,8 +950,7 @@ OUTPUT:
 			section can be anything you like, made up of letters, numbers
 			and underscores. Sections can be nested, and the nested
 			section names must be unique from each other. The loop variable
-			determines the number of times the section will loop. sectionelse
-			will be used if there are no values in the loop variable.
+			determines the number of times the section will loop.
 			When printing a variable within a section, the section name
 			must be prepended to the variable name, separated by a slash (/).
 			sectionelse is executed when there are no values in the loop
@@ -1197,8 +1204,8 @@ the section was shown.
 		<sect2>
 			<title>strip</title>
 			<para>
-			Strip is another nice feature of the template engine. Many times
-			you run into the issue where white space and carriage returns
+			Many times web designers
+			run into the issue where white space and carriage returns
 			affect the output of the rendered HTML (browser "features"), so you
 			must run all your tags together in the template to get the
 			desired results. This usually ends up in unreadable or
@@ -1432,7 +1439,8 @@ OUTPUT:
 	<sect1 id="variable.modifiers">
 		<title>Variable Modifiers</title>
 		<para>
-		Variable modifiers are a bit different than custom functions.
+		Variable modifiers are a bit different than
+		<link linkend="custom.functions">custom functions</link>.
 		They do just what they sound like, they modify variables before
 		they are displayed to the template. The best way to explain
 		these are by example.
@@ -1668,7 +1676,7 @@ is the first week that has at least 4 days in the current year, and with Monday 
 			<para>
 			This truncates a variable to a character length, default is 80. As
 			an optional second parameter, you can specify a string of text
-			to display at the end if the variable was indeed truncated. The
+			to display at the end if the variable was truncated. The
 			characters in the string are included with the original truncation length.
 			By default, truncate will attempt to cut off at a word boundary. If
 			you want to cut off at the exact character length, pass the optional
@@ -1711,6 +1719,8 @@ is the first week that has at least 4 days in the current year, and with Monday 
 		As of now, Smarty is not a validating template parser. This means that
 		the parser will blindly convert the template to PHP scripts, irregardless
 		of any syntax errors in the markup tags that may be present in the template.
+		Smarty can catch certain template errors like missing attributes to
+		functions, but not syntax errors like missing close tags.
 		These types of errors can end up in PHP run-time errors.
 		When you encounter a PHP error when attempting to display the
 		template in a browser, the error line number will correspond to the
@@ -1724,16 +1734,16 @@ is the first week that has at least 4 days in the current year, and with Monday 
 		</para>
 	</sect1>
 </chapter>
-<chapter>
-	<title>Syntax Highlighting in editors</title>
+<chapter id="bugs">
+	<title>BUGS</title>
 	<para>
-	We have created some syntax highlighting for Nedit, a freely downloadable
-	text editor for X windows. You can find the files and instructions on the
-	Smarty web site.
+    There are no known bugs with Smarty, although there are some
+    bugs in PHP that can cause problems with Smarty. preg_grep() previous
+    to 4.0.4 has a bug which Smarty accomodates with a built-in workaround.
+    PHP 4.0.4 has a bug with user callbacks which would cause this
+    syntax in Smarty to crash PHP: {$varname|@modname}
+    Use PHP 4.0.4pl1 to fix this, or avoid using the "@" with
+    <link linkend="variable.modifiers">modifiers</link>.	
 	</para>
-</chapter>
-<chapter>
-	<title>FAQ</title>
-	<para></para>
 </chapter>
 </book>

@@ -1,9 +1,12 @@
 {config_load file=test.conf section="my foo"}
 {include file=header.tpl title=foo}
 
+<PRE>
+
 Title: {#title#|capitalize}
 
-{$SCRIPT_NAME}
+
+the value of $SCRIPT_NAME is {$SCRIPT_NAME}
 
 {* A simple variable test *}
 hello, my name is {$Name|upper}
@@ -35,3 +38,5 @@ testing strip tags
 	</tr>
 </table>
 {/strip}
+
+</PRE>
