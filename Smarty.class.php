@@ -514,9 +514,8 @@ class Smarty
                                           '{literal}', $template_contents);
 
         /* Gather all template tags. */
-        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}(\n)?!s", $template_contents, $match);
+        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_contents, $match);
         $template_tags = $match[1];
-        $template_newlines = $match[2];
         /* Split content by template tags to obtain non-template content. */
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_contents);
 
@@ -616,7 +615,7 @@ class Smarty
     {
         /* Matched comment. */
         if ($template_tag{0} == '*' && $template_tag{strlen($template_tag)-1} == '*')
-            return "";
+            return '';
 
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
@@ -635,7 +634,7 @@ class Smarty
             preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tag_command)) {    // or a section property
             settype($tag_command, 'array');
             $this->_parse_vars_props($tag_command);
-            return "<?php echo $tag_command[0]; ?>";
+            return "<?php echo $tag_command[0]; ?>\n";
         }
 
         switch ($tag_command) {
@@ -738,7 +737,7 @@ class Smarty
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        return "<?php echo _smarty_insert_handler(array(".implode(', ', (array)$arg_list)."), \$this->caching, \$this->_smarty_md5); ?>";
+        return "<?php echo _smarty_insert_handler(array(".implode(', ', (array)$arg_list)."), \$this->caching, \$this->_smarty_md5); ?>\n";
     }   
  
 
@@ -803,7 +802,7 @@ class Smarty
                     "       include \"\$file_name.php\";\n" .
                     "   }\n" .
                     "}\n" .
-                    "$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."));\n?>\n";
+                    "$include_func_name(\"$include_file_name\", get_defined_vars(), array(".implode(',', (array)$arg_list)."));\n?>";
         } else
              return '<?php include "'.$this->compile_dir.'/'.$attrs['file'].'.php"; ?>';
     }
@@ -864,7 +863,7 @@ class Smarty
                  {$section_props}['index']++):\n";
         $output .= "{$section_props}['rownum'] = {$section_props}['index'] + 1;\n";
 
-        $output .= "?>\n";
+        $output .= "?>";
 
         return $output;
     }
