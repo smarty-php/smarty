@@ -246,13 +246,19 @@ class Smarty
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $key => $val) {
-                if (!empty($key)) {
-                    (array)$this->_tpl_vars[$key][] = $val;
+                if ($key != '') {
+					if(!is_array($this->_tpl_vars[$key])) {
+						settype($this->_tpl_vars[$key],'array');
+					}
+                    $this->_tpl_vars[$key][] = $val;
                 }
             }
         } else {
-            if (!empty($tpl_var) && isset($value)) {
-                (array)$this->_tpl_vars[$tpl_var][] = $value;
+            if ($tpl_var != '' && isset($value)) {
+				if(!is_array($this->_tpl_vars[$tpl_var])) {
+					settype($this->_tpl_vars[$tpl_var],'array');
+				}
+                $this->_tpl_vars[$tpl_var][] = $value;
             }
         }
         $this->_extract = true;
