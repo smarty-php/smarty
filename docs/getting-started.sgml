@@ -153,7 +153,7 @@ $smarty = new Smarty;</screen>
 	<para>
 	Now that the library files are in place, it's time to setup the Smarty
 	directories for your application. Smarty requires four directories which
-	are (by default) named <emphasis>tempalates</emphasis>,
+	are (by default) named <emphasis>templates</emphasis>,
 	<emphasis>templates_c</emphasis>, <emphasis>configs</emphasis> and
 	<emphasis>cache</emphasis>. Each of these are definable by the Smarty class
 	properties <emphasis>$template_dir</emphasis>,
@@ -278,7 +278,7 @@ Hello, {$name}!</screen>
      <title>Editing /web/www.mydomain.com/docs/guestbook/index.php</title>
      <screen>
 // load Smarty library
-require(Smarty.class.php');
+require('Smarty.class.php');
 
 $smarty = new Smarty;
 
@@ -334,7 +334,7 @@ $smarty->display('index.tpl');</screen>
     <screen>
 
 // load Smarty library
-require(Smarty.class.php');
+require('Smarty.class.php');
 
 // The setup.php file is a good place to load
 // required application library files, and you

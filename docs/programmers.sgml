@@ -346,7 +346,7 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <title>$php_handling</title>
       <para>
        This tells Smarty how to handle PHP code embedded in the
-       tempalates. There are four possible settings, default being
+       templates. There are four possible settings, default being
        SMARTY_PHP_PASSTHRU. Note that this does NOT affect php code
        within <link linkend="language.function.php">{php}{/php}</link>
        tags in the template.
