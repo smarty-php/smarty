@@ -53,7 +53,7 @@ web: FORCE
 pdf: FORCE
 	${FOP} -xml manual.xml -xsl xsl/fo.xsl -pdf manual.pdf
 
-chm: html
+chm: html FORCE
 	chm/make_chm.bat $(LANG)
 
 test:
