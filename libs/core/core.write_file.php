@@ -25,7 +25,7 @@ function smarty_core_write_file($params, &$smarty)
 
     // write to tmp file, then rename it to avoid
     // file locking race condition
-    $_tmp_file = $_dirname . DIRECTORY_SEPARATOR . uniqid('');
+    $_tmp_file = tempnam($_dirname, 'write_');
 
     if (!($fd = @fopen($_tmp_file, 'w'))) {
         $smarty->trigger_error("problem writing temporary file '$_tmp_file'");
@@ -33,11 +33,16 @@ function smarty_core_write_file($params, &$smarty)
     }
 
     fwrite($fd, $params['contents']);
+
+    // Set the file's mtime
     if (isset($params['timestamp'])) {
        touch($_tmp_file, $params['timestamp']);
     }
     fclose($fd);
-    if(file_exists($params['filename'])) {
+
+    // Delete the file if it allready exists (this is needed on Win,
+    // because it cannot overwrite files with rename()
+    if (file_exists($params['filename'])) {
         @unlink($params['filename']);
     }
     @rename($_tmp_file, $params['filename']);
