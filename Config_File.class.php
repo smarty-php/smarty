@@ -88,13 +88,13 @@ class Config_File extends PEAR {
 	 */
 	function set_path($config_path)
 	{
-		if (!is_string($config_path) ||
-			(!is_dir($config_path))) {
-			return new Config_File_Error("Bad config file path '$config_path'");
-		}
+		if (!empty($config_path)) {
+			if (!is_string($config_path) || !file_exists($config_path) || !is_dir($config_path)) {
+				return new Config_File_Error("Bad config file path '$config_path'");
+			}
 
-		if ($config_path != "")
 			$this->_config_path = $config_path . $this->_separator;
+		}
 	}
 
 	
