@@ -1022,7 +1022,7 @@ $smarty->unregister_modifier("strip_tags");
 			<funcprototype>
 			<funcdef>void <function>register_resource</function></funcdef>
 				<paramdef>string <parameter>resource_name</parameter></paramdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
+				<paramdef>array <parameter>resource_funcs</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
@@ -1036,7 +1036,10 @@ $smarty->unregister_modifier("strip_tags");
 <title>register_resource</title>
 <programlisting>
 
-$smarty->register_resource("db","get_db_template");
+$smarty->register_resource("db", array("db_get_template",
+                                       "db_get_timestamp",
+									   "db_get_secure",
+									   "db_get_trusted"));
 
 </programlisting>
 </example>
@@ -1502,53 +1505,107 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 </example>
         </sect2>
 		<sect2>
-			<title>Templates from a function call</title>
+			<title>Templates from callbacks</title>
 			<para>
-			You can get templates from a custom function call, such as
-			retrieving templates from a database. You do this by first
-			registering your resource handler function, then creating your
-			function to get the template. Smarty expects your function to be of
-			this form: funcname($tpl_name,&amp;$tpl_source,
-			&amp;$tpl_timestamp[, boolean]) {} $tpl_name is passed into the
-			function, and your function should populate $tpl_source and
-			$tpl_timestamp with the template source and the last modified time
-			of the template respectively. The fourth parameter is a boolean
-			value, used for determining if the source should be returned or
-			not. Default this value to true in your function. If false gets
-			passed, you only need to return the timestamp parameter. This was
-			added to Smarty 1.4.6.
-            </para>
+			You can retrieve templates using custom callbacks.  Fetching
+			templates from a database is one of the examples. You do this by
+			creating the resource handler callbacks and then registering
+			them with Smarty.
+			</para>
+
+			<para>
+			There are a total of 4 functions that need to be registered for
+			each type of resource. Every function will receive the resource
+			name as the first parameter and the Smarty object as the last
+			parameter. The rest of parameters depend on the function.
+			</para>
+
+			<para>
+			The first function is supposed to retrieve the resource.  Its
+			second parameter is a variable passed by reference where the
+			source should be stored. The function is supposed to return
+			<literal>true</literal> if it was able to successfully retrieve
+			the source and <literal>false</literal> otherwise.
+			</para>
+
+			<para>
+			The second function is supposed to retrieve the last
+			modification time of the requested resource (as a UNIX
+			timestamp). The second parameter is a by reference variable
+			where the timestamp should be stored. The function is supposed
+			to return <literal>true</literal> if the timestamp could be
+			succesfully determined, and <literal>false</literal> otherwise.
+			</para>
+
+			<para>
+			The third function is supposed to return <literal>true</literal>
+			or <literal>false</literal>, depending on whether the requested
+			resource is secure or not. This function is not used for
+			non-template resources but should still be defined.
+			</para>
+
+			<para>
+			The fourth function is supposed to return
+			<literal>true</literal> or <literal>false</literal>, depending
+			on whether the requested resource is trusted or not. This
+			function is not used for template resources but should still be
+			defined.
+			</para>
 <example>
 
-<title>using templates from a function call</title>
+<title>Using template resource callbacks</title>
 <programlisting>
 
 // from PHP script
 
-// put this function somewhere in your application
-function get_db_template ($tpl_name, &$tpl_source, &$tpl_timestamp,
-	$get_source=true, &amp;$smarty_obj) {
-    
-	if($get_source) {
-    	// do database call here to fetch your template, populating
-    	// $tpl_source and $tpl_timestamp.
-		$sql = new SQL;
-		$sql->query("select tpl_source, tpl_timestamp from my_table
-			where tpl_name='$tpl_name'");
-			extract($sql->record);
-	} else {	
-    	// do database call here to populate $tpl_timestamp.
-		$sql = new SQL;
-		$sql->query("select tpl_timestamp from my_table
-			where tpl_name='$tpl_name'");
-			extract($sql->record);
+// put these function somewhere in your application
+function db_get_template ($tpl_name, &amp;tpl_source, &amp;$smarty_obj)
+{
+	// do database call here to fetch your template,
+	// populating $tpl_source
+	$sql = new SQL;
+	$sql->query("select tpl_source
+	               from my_table
+		          where tpl_name='$tpl_name'");
+	if ($sql->num_rows) {
+		$tpl_source = $sql->record['tpl_source'];
+		return true;
+	} else {
+		return false;
 	}
-    
-    return true;
+}
+
+function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
+{
+	// do database call here to populate $tpl_timestamp.
+	$sql = new SQL;
+	$sql->query("select tpl_timestamp
+	               from my_table
+                  where tpl_name='$tpl_name'");
+	if ($sql->num_rows) {
+		$tpl_timestamp = $sql->record['tpl_timestamp'];
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function db_get_secure($tpl_name, &$smarty_obj)
+{
+    // assume all templates are secure
+	return true;
+}
+
+function db_get_trusted($tpl_name, &$smarty_obj)
+{
+	// not used
 }
 
 // register the resource name "db"
-$smarty->register_resource("db","get_db_template");
+$smarty->register_resource("db", array("db_get_template",
+                                       "db_get_timestamp",
+									   "db_get_secure",
+									   "db_get_trusted"));
 
 // using resource from php script
 $smarty->display("db:index.tpl");
