@@ -1070,7 +1070,7 @@ function _run_mod_handler()
     function _read_file($filename)
 
     {
-        if (!($fd = fopen($filename, 'r'))) {
+        if (!($fd = @fopen($filename, 'r'))) {
             $this->_trigger_error_msg("problem reading '$filename.'");
             return false;
         }
@@ -1089,7 +1089,7 @@ function _run_mod_handler()
         if ($create_dirs)
             $this->_create_dir_structure(dirname($filename));
 
-        if (!($fd = fopen($filename, 'w'))) {
+        if (!($fd = @fopen($filename, 'w'))) {
             $this->_trigger_error_msg("problem writing '$filename.'");
             return false;
         }
@@ -1227,6 +1227,10 @@ function _run_mod_handler()
     {
         $results = $this->_read_file($cache_file);
 
+		if(empty($results)) {
+			return false;
+		}
+		
         // get the files involved with this cache from the first line
         $contents = explode("\n", $results, 2);
 
