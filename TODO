@@ -9,4 +9,3 @@
 * caching all but parts of the template
 * change plugins so $smarty variable always comes first
 * being able to load config files from PHP scripts
-* optimize %section.total% calculation for simple cases
