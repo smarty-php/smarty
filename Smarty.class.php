@@ -98,17 +98,19 @@ class Smarty
                                         // SMARTY_PHP_REMOVE   -> remove php tags
                                         // SMARTY_PHP_ALLOW    -> execute php tags
                                         // default: SMARTY_PHP_PASSTHRU
-	
-	
-	var $security		=	false;		// enable template security (default false)
-	var $secure_dir		=	array("./templates"); // array of directories considered secure
-	var $security_settings	= array(
-									"ALLOW_PHP_HANDLING" 	=> false,
-									"ALLOW_IF_FUNCS"		=> array('count','is_array'),
-									"ALLOW_INCLUDE_ANY"		=> false,
-									"ALLOW_PHP_TAGS"		=> false,
-									"ALLOW_MODIFIER_FUNCS"	=> array('count')
-									);
+    
+    
+    var $security       =   false;      // enable template security (default false)
+    var $secure_dir     =   array("./templates"); // array of directories considered secure
+    var $security_settings  = array(
+                                    'PHP_HANDLING'    => false,
+                                    'IF_FUNCS'        => array('array', 'list',
+                                                               'isset', 'empty',
+                                                               'count', 'in_array'),
+                                    'INCLUDE_ANY'     => false,
+                                    'PHP_TAGS'        => false,
+                                    'MODIFIER_FUNCS'  => array('count')
+                                   );
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
@@ -121,8 +123,8 @@ class Smarty
                                     'html_select_time'  => 'smarty_func_html_select_time',
                                     'math'              => 'smarty_func_math',
                                     'fetch'             => 'smarty_func_fetch',
-									'counter'			=> 'smarty_func_counter',
-									'assign'			=> 'smarty_func_assign'
+                                    'counter'           => 'smarty_func_counter',
+                                    'assign'            => 'smarty_func_assign'
                                  );
     
     var $custom_mods     =  array(  'lower'             => 'strtolower',
@@ -162,8 +164,8 @@ class Smarty
     var $_conf_obj              =   null;       // configuration object
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
     var $_version               =   '1.4.2';    // Smarty version number    
-	var $_extract				=	false; 	    // flag for custom functions
-	
+    var $_extract               =   false;      // flag for custom functions
+    
 /*======================================================================*\
     Function: Smarty
     Purpose:  Constructor
@@ -205,7 +207,7 @@ class Smarty
             if (!empty($tpl_var) && isset($value))
                 $this->_tpl_vars[$tpl_var] = $value;
         }
-		$this->_extract = true;
+        $this->_extract = true;
     }
 
     
@@ -230,7 +232,7 @@ class Smarty
                 $this->_tpl_vars[$tpl_var][] = $value;
             }
         }
-		$this->_extract = true;
+        $this->_extract = true;
     }
 
 
@@ -426,8 +428,8 @@ class Smarty
 
 /*======================================================================*\
     Function:   clear_compile_dir()
-	Purpose:    clears compiled version of specified template resource,
-				or all compiled template files if one is not specified.
+    Purpose:    clears compiled version of specified template resource,
+                or all compiled template files if one is not specified.
                 This function is for advanced use only, not normally needed.
 \*======================================================================*/
     function clear_compile_dir($tpl_file = null)
@@ -435,23 +437,23 @@ class Smarty
         if (!is_dir($this->compile_dir))
             return false;
 
-		if (isset($tpl_file)) {
-			// remove compiled template file if it exists
-			$tpl_file = urlencode($tpl_file).'.php';
+        if (isset($tpl_file)) {
+            // remove compiled template file if it exists
+            $tpl_file = urlencode($tpl_file).'.php';
             if (file_exists($this->compile_dir.'/'.$tpl_file)) {
                 unlink($this->compile_dir.'/'.$tpl_file);
-			}
-		} else {
-			// remove everything in $compile_dir
-        	$dir_handle = opendir($this->compile_dir);
-        	while ($curr_file = readdir($dir_handle)) {
-            	if ($curr_file == '.' || $curr_dir == '..' ||
-                	!is_file($this->compile_dir.'/'.$curr_file)) {
+            }
+        } else {
+            // remove everything in $compile_dir
+            $dir_handle = opendir($this->compile_dir);
+            while ($curr_file = readdir($dir_handle)) {
+                if ($curr_file == '.' || $curr_dir == '..' ||
+                    !is_file($this->compile_dir.'/'.$curr_file)) {
                         continue;
                     }
-            	unlink($this->compile_dir.'/'.$curr_file);
-			}
-        	closedir($dir_handle);
+                unlink($this->compile_dir.'/'.$curr_file);
+            }
+            closedir($dir_handle);
         }
 
         return true;
@@ -634,7 +636,7 @@ class Smarty
     Purpose:    fetch the template source and timestamp
 \*======================================================================*/
     function _fetch_template_source($tpl_path, &$template_source, &$template_timestamp)
-    {		
+    {       
         // split tpl_path by the first colon
         $tpl_path_parts = explode(':', $tpl_path, 2);
         
@@ -653,20 +655,20 @@ class Smarty
                     // relative pathname to $template_dir
                     $resource_name = $this->template_dir.'/'.$resource_name;   
                 }
-				// if security is on, make sure template comes from a $secure_dir
-				if($this->security && !$this->security_settings["ALLOW_INCLUDE_ANY"]) {
-					$resource_is_secure = false;
-					foreach($this->secure_dir as $curr_dir) {
-						if(substr(realpath($resource_name),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-							$resource_is_secure = true;
-							break;
-						}
-					}
-					if(!$resource_is_secure) {
-                    	$this->_trigger_error_msg("(secure mode) including \"$resource_name\" is not allowed");
-                    	return false;
-					}				
-				}
+                // if security is on, make sure template comes from a $secure_dir
+                if ($this->security && !$this->security_settings['INCLUDE_ANY']) {
+                    $resource_is_secure = false;
+                    foreach ($this->secure_dir as $curr_dir) {
+                        if (substr(realpath($resource_name),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                            $resource_is_secure = true;
+                            break;
+                        }
+                    }
+                    if (!$resource_is_secure) {
+                        $this->_trigger_error_msg("(secure mode) including \"$resource_name\" is not allowed");
+                        return false;
+                    }               
+                }
                 if (file_exists($resource_name) && is_readable($resource_name)) {
                     $template_source = $this->_read_file($resource_name);
                     $template_timestamp = filemtime($resource_name);
@@ -721,8 +723,8 @@ class Smarty
         $smarty_compiler->_version          = $this->_version;
         $smarty_compiler->prefilter_funcs   = $this->prefilter_funcs;
         $smarty_compiler->compiler_funcs    = $this->compiler_funcs;
-        $smarty_compiler->security    		= $this->security;
-        $smarty_compiler->secure_dir 		= $this->secure_dir;
+        $smarty_compiler->security          = $this->security;
+        $smarty_compiler->secure_dir        = $this->secure_dir;
         $smarty_compiler->security_settings = $this->security_settings;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
@@ -818,10 +820,10 @@ class Smarty
             $this->_trigger_error_msg("problem writing '$filename.'");
             return false;
         }
-		
-		// flock doesn't seem to work on several windows platforms (98, NT4, NT5, ?),
-		// so we'll not use it at all in windows.
-		
+        
+        // flock doesn't seem to work on several windows platforms (98, NT4, NT5, ?),
+        // so we'll not use it at all in windows.
+        
         if ( strtoupper(substr(PHP_OS,0,3)) == 'WIN' || (flock($fd, LOCK_EX)) ) { 
             fwrite( $fd, $contents );
             fclose($fd);

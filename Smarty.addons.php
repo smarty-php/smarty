@@ -210,12 +210,12 @@ function smarty_func_assign($args, &$smarty_obj)
 	extract($args);
 
 	if (empty($var)) {
-    	trigger_error("assign: missing 'var' parameter");
+    	$smarty_obj->_trigger_error_msg("assign: missing 'var' parameter");
     	return;
 	}
 
 	if (empty($value)) {
-    	trigger_error("assign: missing 'value' parameter");
+    	$smarty_obj->_trigger_error_msg("assign: missing 'value' parameter");
     	return;
 	}
 
@@ -423,12 +423,10 @@ function smarty_func_html_select_time()
     Function: smarty_func_math
     Purpose:  allow math computations in template
 \*======================================================================*/
-function smarty_func_math() {
-        $args=func_get_arg(0);
-
+function smarty_func_math($args, $smarty_obj) {
         // be sure equation parameter is present
         if(empty($args["equation"])) {
-            trigger_error("math: missing equation parameter");
+            $smarty_obj->_trigger_error_msg("math: missing equation parameter");
             return;
         }
                 
@@ -436,7 +434,7 @@ function smarty_func_math() {
         
         // make sure parenthesis are balanced    
         if(substr_count($equation,"(") != substr_count($equation,")")) {
-            trigger_error("math: unbalanced parenthesis");
+            $smarty_obj->_trigger_error_msg("math: unbalanced parenthesis");
             return;
         }
                         
@@ -445,9 +443,10 @@ function smarty_func_math() {
         
         foreach($match[0] as $curr_var) {
             if(!in_array($curr_var,array_keys($args)) &&
-                    !in_array($curr_var,array('int','abs','ceil','cos','exp','floor','log','log10',
-                        'max','min','pi','pow','rand','round','sin','sqrt','srand','tan')) ) {
-                trigger_error("math: parameter $curr_var not passed as argument");
+                    !in_array($curr_var,
+                              array('int','abs','ceil','cos','exp','floor','log','log10',
+                                    'max','min','pi','pow','rand','round','sin','sqrt','srand','tan'))) {
+                $smarty_obj->_trigger_error_msg("math: parameter $curr_var not passed as argument");
                 return;
             }       
         }
@@ -456,11 +455,11 @@ function smarty_func_math() {
             if($key != "equation" && $key != "format") {
                 // make sure value is not empty
                 if(strlen($val)==0) {
-                    trigger_error("math: parameter $key is empty");
+                    $smarty_obj->_trigger_error_msg("math: parameter $key is empty");
                     return;                                        
                 }
                 if(!is_numeric($val)) {
-                    trigger_error("math: parameter $key: is not numeric");
+                    $smarty_obj->_trigger_error_msg("math: parameter $key: is not numeric");
                     return;                    
                 }
                 $equation = preg_replace("/\b$key\b/",$val,$equation);       
@@ -479,26 +478,28 @@ function smarty_func_math() {
     Function: smarty_func_fetch
     Purpose:  fetch file, web or ftp data and display results
 \*======================================================================*/
-function smarty_func_fetch($args,&$smarty_obj) {
+function smarty_func_fetch($args, &$smarty_obj) {
     extract($args);
 	
-    if(empty($file)) {
-        trigger_error("parameter 'file' cannot be empty");
+    if (empty($file)) {
+        $smarty_obj->_trigger_error_msg("parameter 'file' cannot be empty");
         return;                    
     }
-	if($smarty_obj->security && !preg_match("/^(http|ftp):\/\//",$file)) {
+
+	if ($smarty_obj->security && !preg_match('!^(http|ftp)://!', $file)) {
 		// make sure fetched file comes from secure directory
-		foreach($smarty_obj->secure_dir as $curr_dir) {
-			if(substr(realpath($file),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+		foreach ($smarty_obj->secure_dir as $curr_dir) {
+			if (substr(realpath($file), 0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
 				$resource_is_secure = true;
 				break;
 			}
 		}
-		if(!$resource_is_secure) {
-        	trigger_error("(secure mode) fetching '$file' is not allowed");
+		if (!$resource_is_secure) {
+        	$smarty_obj->_trigger_error_msg("(secure mode) fetching '$file' is not allowed");
         	return;
 		}				
-	}		
+	}
+
     readfile($file);
 }
 
