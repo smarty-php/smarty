@@ -2523,9 +2523,65 @@ OUTPUT:
 	<sect1 id="custom.functions">
 		<title>Custom Functions</title>
 		<para>
-		Custom functions in Smarty work much the same as the built-in functions
-		syntactically.
+		Custom functions in Smarty work much the same as the built-in functions,
+		except that built-in functions cannot be modified. Custom functions are
+		located in Smarty.addons.php, built-in functions are not.
 		</para>
+		<sect2 id="custom.functions.assign">
+			<title>assign</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>val</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The name of the variable being assigned</entry>
+                    </row>
+                    <row>
+                        <entry>value</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The value being assigned</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			assign is used for assigning template variables during the execution
+			of the template. assign was added to Smarty 1.4.3.
+			</para>
+<example>
+<title>assign</title>
+<programlisting>
+
+{assign var="name" value="Bob"}
+
+The value of $name is {$name}.
+
+OUTPUT:
+
+The value of $name is Bob.
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2>
 			<title>counter</title>
             <informaltable frame=all>
@@ -4175,6 +4231,27 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 {* the short way *}
 
 {$title|default:"&amp;nbsp;"}
+
+</programlisting>
+</example>
+	</sect1>
+	<sect1>
+		<title>Default Variable Handling</title>
+		<para>
+		If a variable is used frequently throughout your templates, applying
+		the default modifier every time it is mentioned can get a bit ugly. You
+		can remedy this by assigning the variable its default value with the
+		<link linkend="custom.functions.assign">assign</link> function.
+		</para>
+<example>
+<title>Assigning a template variable its default value</title>
+<programlisting>
+
+{* do this somewhere at the top of your template *}
+{assign var="title" value=$title|default:"no title"}
+
+{* if $title was empty, it now contains the value "no title" when you print it *}
+{$title}
 
 </programlisting>
 </example>

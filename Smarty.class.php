@@ -121,8 +121,7 @@ class Smarty
                                     'math'              => 'smarty_func_math',
                                     'fetch'             => 'smarty_func_fetch',
 									'counter'			=> 'smarty_func_counter',
-									'assign'			=> 'smarty_func_assign',
-									'unassign'			=> 'smarty_func_unassign'
+									'assign'			=> 'smarty_func_assign'
                                  );
     
     var $custom_mods     =  array(  'lower'             => 'strtolower',
@@ -245,7 +244,6 @@ class Smarty
                 unset($this->_tpl_vars[$curr_var]);
         else
             unset($this->_tpl_vars[$tpl_var]);
-		$this->_extract = true;
     }
 
     
