@@ -56,7 +56,7 @@ function smarty_function_html_select_date($params, &$smarty)
     extract($params);
 
 	// If $time is not in format yyyy-mm-dd
-	if (!preg_match('/\d{4}-\d{2}-\d{2}/', $time)) {
+	if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $time)) {
 		// then $time is empty or unix timestamp or mysql timestamp
 		// using smarty_make_timestamp to get an unix timestamp and
 		// strftime to make yyyy-mm-dd
