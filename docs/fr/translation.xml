@@ -8,6 +8,8 @@
  </intro>
  
  <translators>
+  <person name="Gérald Croës" email="gerald@php.net" nick="gerald" cvs="yes" editor="yes" />
+  <person name="Arnaud Cogoluègnes" email="arnaud@php.net" nick="nono" cvs="yes" />
   <person name="Mehdi Achour" email="didou@php.net"  nick="didou"  cvs="yes" />
   <person name="Raoul Lourse" email="nobody@php.net" nick="nobody" cvs="yes" />
  </translators>
