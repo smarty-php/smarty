@@ -3594,6 +3594,13 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                         <entry><emphasis>empty</emphasis></entry>
                         <entry>string of text to separate each checkbox item</entry>
                     </row>
+                    <row>
+                        <entry>labels</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>add &lt;label&gt;-tags to the output</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>

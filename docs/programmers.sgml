@@ -455,6 +455,21 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
        variables_order in php.ini
       </para>
      </sect1>
+     <sect1 id="variable.request.use.auto.globals">
+      <title>$request_use_auto_globals</title>
+
+      <para>
+	   Specifies if Smarty should use php's $HTTP_*_VARS[]
+	   ($request_use_auto_globals=false which is the default value) or
+	   $_*[] ($request_use_auto_globals=true). This affects templates
+	   that make use of {$smarty.request.*}, {$smarty.get.*} etc. .
+	   Caution: If you set $request_use_auto_globals to true, <link
+	   linkend="variable.request.vars.order">variable.request.vars.order
+	   </link> has no effect but php's configuration value
+	   <literal>gpc_order</literal> is used.
+
+      </para>
+     </sect1>
      <sect1 id="variable.compile.id">
       <title>$compile_id</title>
       <para>
@@ -1096,14 +1111,29 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 			<funcprototype>
 			<funcdef>void <function>register_block</function></funcdef>
 				<paramdef>string <parameter>name</parameter></paramdef>
-				<paramdef>string <parameter>impl</parameter></paramdef>
+				<paramdef>mixed <parameter>impl</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
              Use this to dynamically register block functions plugins.
              Pass in the block function name, followed by the PHP
-             function name that implements it.
+             function callback that implements it.
 			</para>
+
+			<para>
+			 The php-function callback <parameter>impl</parameter> can be either (a) a string
+			 containing the function name or (b) an array of the form
+			 <literal>array(&$object, $method)</literal> with
+			 <literal>&$object</literal> being a reference to an
+			 object and <literal>$method</literal> being a string
+			 containing the mehod-name or (c) an array of the form
+			 <literal>array(&$class, $method)</literal> with
+			 <literal>$class</literal> being a classname and
+			 <literal>$method</literal> being a class method of that
+			 class.
+			</para>
+
+
 <example>
 <title>register_block</title>
 <programlisting>
@@ -2573,8 +2603,9 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
      block function {func} .. {/func}.
     </para>
     <para>
-     Your function implementation is called twice by Smarty:
-     once for the opening tag, and once for the closing tag.
+     By default your function implementation is called twice by
+     Smarty: once for the opening tag, and once for the closing tag
+     (see <literal>&$repeat</literal> below how to change this).
     </para>
     <para>
      Only the opening tag of the block function may have attributes. All
@@ -2595,6 +2626,23 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
      Smarty, so all you will receive is the template output, not the
      template source.
     </para>
+
+    <para>
+     The parameter <parameter>&$repeat</parameter> is passed by
+     reference to the function implementation and provides a
+     possibility for it to control how many times the block is
+     displayed. By default <parameter>$repeat</parameter> is
+     <literal>true</literal> at the first call of the block-function
+     (the block opening tag) and <literal>false</literal> on all
+     subsequent calls to the block function (the block's closing tag).
+     Each time the function implementation returns with
+     <parameter>&$repeat</parameter> being true, the contents between
+     {func} .. {/func} are evaluated and the function implementation
+     is called again with the new block contents in the parameter
+     <parameter>$content</parameter>.
+
+	</para>
+
     <para>
      If you have nested block functions, it's possible to find out what the
      parent block function is by accessing
