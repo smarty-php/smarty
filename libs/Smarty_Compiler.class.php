@@ -359,8 +359,7 @@ class Smarty_Compiler extends Smarty {
                 
         if (empty($attrs['file'])) {
             $this->_syntax_error("missing 'file' attribute in include tag");
-        } else
-            $attrs['file'] = $this->_dequote($attrs['file']);
+        }
 
 		foreach ($attrs as $arg_name => $arg_value) {
 			if ($arg_name == 'file') {
@@ -377,7 +376,7 @@ class Smarty_Compiler extends Smarty {
 			"unset(\$_smarty_defined_vars['_smarty_include_tpl_file']);\n" .
 			"unset(\$_smarty_defined_vars['_smarty_def_vars']);\n" .
 			"unset(\$_smarty_defined_vars['_smarty_include_vars']);\n" .
-			"\$this->_smarty_include(\"".$_smarty_include_tpl_file."\", \$_smarty_defined_vars, array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
+			"\$this->_smarty_include(".$_smarty_include_tpl_file.", \$_smarty_defined_vars, array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
     }
 
 /*======================================================================*\
