@@ -139,7 +139,7 @@ class Smarty_Compiler extends Smarty {
         // "text"
         $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_num_const_regexp . '|' . $this->_qstr_regexp . ')';
 
-        // matches valid object call (no objects allowed in parameters):
+        // matches valid object call (one level of object nesting allowed in parameters):
         // $foo->bar
         // $foo->bar()
         // $foo->bar("text")
@@ -147,6 +147,9 @@ class Smarty_Compiler extends Smarty {
         // $foo->bar($foo, "foo")
         // $foo->bar->foo()
         // $foo->bar->foo->bar()
+        // $foo->bar($foo->bar)
+        // $foo->bar($foo->bar())
+        // $foo->bar($foo->bar($blah,$foo,44,"foo",$foo[0].bar))
         $this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
         $this->_obj_params_regexp = '\((?:\w+|(?:'
                 . $this->_var_regexp . '(?:' . $this->_obj_ext_regexp . '(?:\((?:' . $this->_var_regexp
