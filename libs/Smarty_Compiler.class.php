@@ -137,7 +137,7 @@ class Smarty_Compiler extends Smarty {
         // #foo#
         // "text"
         // "text"
-        $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_num_const_regexp . '|' . $this->_qstr_regexp . ')';
+        $this->_var_regexp = '(?:' . $this->_avar_regexp . '|' . $this->_qstr_regexp . ')';
 
         // matches valid object call (no objects allowed in parameters):
         // $foo->bar
@@ -401,7 +401,7 @@ class Smarty_Compiler extends Smarty {
             return '';
 
         /* Split tag into two three parts: command, command modifiers and the arguments. */
-        if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp
+        if(! preg_match('/^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
                 . '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
                       (?:\s+(.*))?$
                     /xs', $template_tag, $match)) {
@@ -412,7 +412,7 @@ class Smarty_Compiler extends Smarty {
         $tag_modifier = isset($match[2]) ? $match[2] : null;
         $tag_args = isset($match[3]) ? $match[3] : null;
 
-        if (preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '$!', $tag_command)) {
+        if (preg_match('!^' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '$!', $tag_command)) {
             /* tag name is a variable or object */
             $_return = $this->_parse_var_props($tag_command . $tag_modifier, $this->_parse_attrs($tag_args));
             if(isset($_tag_attrs['assign'])) {
