@@ -1,3 +1,4 @@
+    - ignore case in IF statements (Rainer Collet, Monte)
     - treat undefined constants as null (Ferdinand Beyer, Monte)
     - fix problem with inserts and nested fetches
       (Rainer Collet, Monte)

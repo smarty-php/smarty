@@ -1103,7 +1103,7 @@ class Smarty_Compiler extends Smarty {
 
             $token = &$tokens[$i];
 			
-            switch ($token) {
+            switch (strtolower($token)) {
                 case '!':
                 case '%':
                 case '!==':
