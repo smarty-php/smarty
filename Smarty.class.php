@@ -22,6 +22,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
+ * For questions, help, comments, discussion, etc., please join the
+ * Smarty mailing list. Send a blank e-mail to smarty-subscribe@lists.ispi.net
+ *
  * You may contact the authors of Smarty by e-mail at:
  * monte@ispi.net
  * andrei@ispi.net
@@ -47,6 +50,11 @@ define("SMARTY_PHP_ALLOW",3);
 class Smarty
 {
 
+/**************************************************************************/
+/* BEGIN SMARTY CONFIGURATION SECTION                                     */    
+/* Set the following config variables to your liking.                     */
+/**************************************************************************/
+
     // public vars
     var $template_dir    =  './templates';     // name of directory for templates  
     var $compile_dir     =  './templates_c';   // name of directory for compiled templates 
@@ -62,17 +70,17 @@ class Smarty
                                         // during development. true/false default true.
 
     var $force_compile   =  false;      // force templates to compile every time.
-                                        // if cache file exists, it will
+                                        // if caching is on, a cached file will
                                         // override compile_check and force_compile.
                                         // true/false. default false.
+
     var $caching         =  false;      // whether to use caching or not. true/false
     var $cache_dir       =  './cache';  // name of directory for template cache
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
 
-    var $tpl_file_ext    =  '.tpl';     // template file extention
-    
-    var $php_handling    =  SMARTY_PHP_PASSTHRU; // how smarty handles php tags
+    var $php_handling    =  SMARTY_PHP_PASSTHRU;
+                                        // how smarty handles php tags in the templates
                                         // possible values:
                                         // SMARTY_PHP_PASSTHRU -> echo tags as is
                                         // SMARTY_PHP_QUOTE    -> escape tags as entities
@@ -107,10 +115,16 @@ class Smarty
                                     'count_paragraphs' => 'smarty_mod_count_paragraphs'
                                  );
                                  
+    var $template_resource_handlers  =  array(); // where resource handlers are mapped
 
     var $version               =   "1.3.2";  // Smarty version number                     
-    var $show_info_header      =   true;        // display info header at top of page output
+    var $show_info_header      =   true;     // display info header at top of page output
 
+/**************************************************************************/
+/* END SMARTY CONFIGURATION SECTION                                       */    
+/* There should be no need to touch anything below this line.             */
+/**************************************************************************/
+    
     // internal vars
     var $_error_msg             =   false;      // error messages. true/false
     var $_tpl_vars              =   array();
@@ -351,28 +365,27 @@ class Smarty
             }
         }
 
-        // compile files
-        $this->_compile($this->template_dir);
-        //assemble compile directory path to file
-        $_compile_file = $this->compile_dir."/".$tpl_file.".php";
-
         extract($this->_tpl_vars);
 
         if($this->show_info_header)
-            $info_header = '<!-- Smarty '.$this->version.' '.strftime("%Y-%m-%d %H:%M:%S").' -->'."\n\n";
+            $info_header = '<!-- Smarty '.$this->version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
         else
             $info_header = "";            
 
+        $this->_fetch_compile_path($tpl_file,$compile_path);
+        
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($display && !$this->caching) {
             echo $info_header;
-            include($_compile_file);
+            $this->_process_template($tpl_file,$compile_path);
+            include($compile_path);
         }
         else {
             ob_start();
             echo $info_header;
-            include($_compile_file);
+            $this->_process_template($tpl_file,$compile_path);
+            include($compile_path);
             $results = ob_get_contents();
             ob_end_clean();
         }
@@ -389,41 +402,172 @@ class Smarty
             if(isset($results)) { return $results; }
         }
     }   
+
+/*======================================================================*\
+    Function:   _process_template()
+    Purpose:    
+\*======================================================================*/
+    function _process_template($tpl_file,&$compile_path)
+    {
+        // get path to where compiled template is (to be) saved
+        $this->_fetch_compile_path($tpl_file,$compile_path);
+        // test if template needs to be compiled
+        if(!$this->force_compile && $this->_compiled_template_exists($compile_path)) {
+            if(!$this->compile_check) {
+                // no need to check if the template needs recompiled
+                return true;                
+            } else {               
+                // get template source and timestamp
+                $this->_fetch_template_source($tpl_file,$template_source,$template_timestamp);
+                if($template_timestamp <= $this->_fetch_compiled_template_timestamp($compile_path)) {
+                    // template not expired, no recompile
+                    return true;
+                } else {
+                    // compile template   
+                    $this->_compile_template($tpl_file,$template_source,$template_compiled);
+                    $this->_write_compiled_template($compile_path,$template_compiled);
+                    return true;
+                }
+            }
+        } else {
+            // compiled template does not exist, or forced compile
+            $this->_fetch_template_source($tpl_file,$template_source,$template_timestamp);
+            $this->_compile_template($tpl_file,$template_source,$template_compiled);
+            $this->_write_compiled_template($compile_path,$template_compiled);
+            return true;
+        }
+    }    
     
 /*======================================================================*\
-    Function:   compile()
-    Purpose:    called to compile the templates
+    Function:   _fetch_compile_path()
+    Purpose:    fetch the path to save the comiled template
 \*======================================================================*/
-    function _compile($tpl_dir)
+    function _fetch_compile_path($tpl_file,&$compile_path)
     {
-        if($this->compile_check || $this->force_compile)
-        {
-            include_once("Smarty_Compiler.class.php");
-            
-            $smarty_compile = new Smarty_Compiler;
+        // for now, everything is in $compile_dir
+        $compile_path = $this->compile_dir.'/'.md5($tpl_file).'.php';
+        return true;
+    }    
 
-            $smarty_compile->template_dir = $this->template_dir;            
-            $smarty_compile->compile_dir = $this->compile_dir;            
-            $smarty_compile->config_dir = $this->config_dir;            
-            $smarty_compile->force_compile = $this->force_compile;            
-            $smarty_compile->caching = $this->caching;            
-            $smarty_compile->tpl_file_ext = $this->tpl_file_ext;            
-            $smarty_compile->php_handling = $this->php_handling;            
-            $smarty_compile->left_delimiter = $this->left_delimiter;  
-            $smarty_compile->right_delimiter = $this->right_delimiter;            
-            $smarty_compile->custom_funcs = $this->custom_funcs;            
-            $smarty_compile->custom_mods = $this->custom_mods;           
-            
-            if($smarty_compile->_traverse_files($tpl_dir, 0))
-                return true;
-            else {
-                $this->_error_msg = $smarty_compile->_error_msg;
+/*======================================================================*\
+    Function:   _compiled_template_exists
+    Purpose:    
+\*======================================================================*/
+    function _compiled_template_exists($include_path)
+    {
+        // for now, everything is in $compile_dir
+        return file_exists($include_path);
+    }    
+
+/*======================================================================*\
+    Function:   _fetch_compiled_template_timestamp
+    Purpose:    
+\*======================================================================*/
+    function _fetch_compiled_template_timestamp($include_path)
+    {
+        // for now, everything is in $compile_dir
+        return filemtime($include_path);
+    }    
+
+/*======================================================================*\
+    Function:   _write_compiled_template
+    Purpose:    
+\*======================================================================*/
+    function _write_compiled_template($compile_path,$template_compiled)
+    {
+        // for now, we save everything into $compile_dir
+        $this->_write_file($compile_path,$template_compiled);
+        return true;
+    }    
+
+/*======================================================================*\
+    Function:   _fetch_template_source()
+    Purpose:    fetch the template source and timestamp
+\*======================================================================*/
+    function _fetch_template_source($tpl_path,&$template_source,&$template_timestamp)
+    {
+        // split tpl_path by the first colon
+        $tpl_path_parts = preg_split("/:/",$tpl_path,2);
+        
+        if(count($tpl_path_parts) == 1) {
+            // no resource type, treat as flat file from template_dir
+            $resource_type = "file";
+            $filename = $this->template_dir.'/'.$tpl_path_parts[0];
+        } else {
+            $resource_type = $tpl_path_parts[0];   
+            $filename = $tpl_path_parts[1];
+        }  
+        
+        switch($resource_type) {
+            case "file":
+                if (file_exists($filename)) {
+                    $template_source = $this->_read_file($filename);
+                    $template_timestamp = filemtime($filename);
+                    return true;
+                } else {
+                    $this->_set_error_msg("unable to read template resource: \"$filename.\"");
+                    $this->_trigger_error_msg();
+                    return false;
+                }
+                break;
+            default:
+                $this->_set_error_msg("unknown resource type: \"$resource_type.\"");
+                $this->_trigger_error_msg();
                 return false;
-            }
-        } else
-            return false;
+                break;
+        }
+        return true;
+
     }
 
+        
+/*======================================================================*\
+    Function:   _compile_template()
+    Purpose:    called to compile the templates
+\*======================================================================*/
+    function _compile_template($tpl_file,$template_source,&$template_compiled)
+    {
+
+        include_once("Smarty_Compiler.class.php");
+
+        $smarty_compile = new Smarty_Compiler;
+
+        $smarty_compile->template_dir = $this->template_dir;            
+        $smarty_compile->compile_dir = $this->compile_dir;            
+        $smarty_compile->config_dir = $this->config_dir;            
+        $smarty_compile->force_compile = $this->force_compile;            
+        $smarty_compile->caching = $this->caching;            
+        $smarty_compile->php_handling = $this->php_handling;            
+        $smarty_compile->left_delimiter = $this->left_delimiter;  
+        $smarty_compile->right_delimiter = $this->right_delimiter;            
+        $smarty_compile->custom_funcs = $this->custom_funcs;            
+        $smarty_compile->custom_mods = $this->custom_mods;
+        $smarty_compile->version = $this->version;
+
+        if($smarty_compile->_compile_file($tpl_file,$template_source, $template_compiled))
+            return true;
+        else {
+            $this->_error_msg = $smarty_compile->_error_msg;
+            return false;
+        }
+    }
+
+/*======================================================================*\
+    Function:   _smarty_include()
+    Purpose:    called for included templates
+\*======================================================================*/
+    function _smarty_include($_smarty_include_tpl_file,$_smarty_def_vars,
+                $_smarty_include_vars,&$parent_smarty_config)
+    {
+        extract($_smarty_def_vars);
+        extract($_smarty_include_vars);
+                
+        $this->_fetch_compile_path($_smarty_include_tpl_file,$compile_path);
+        $this->_process_template($_smarty_include_tpl_file,$compile_path);
+        include($compile_path);
+            
+    }
+        
 /*======================================================================*\
     Function: _process_cached_inserts
     Purpose:  Replace cached inserts with the actual results
@@ -473,6 +617,7 @@ class Smarty
     {
         if (!($fd = fopen($filename, 'r'))) {
             $this->_set_error_msg("problem reading '$filename.'");
+            $this->_trigger_error_msg();
             return false;
         }
         flock($fd, LOCK_SH);
@@ -492,15 +637,14 @@ class Smarty
         
         if (!($fd = fopen($filename, 'a'))) {
             $this->_set_error_msg("problem writing '$filename.'");
+            $this->_trigger_error_msg();
             return false;
         }
-        flock($fd, LOCK_EX);
-
-        $fd_safe = fopen($filename, 'w');
-
-        fwrite($fd_safe, $contents);
-        fclose($fd_safe);
-        fclose($fd);
+        if (flock($fd, LOCK_EX) && ftruncate( $fd, 0) ){ 
+            fwrite( $fd, $contents );
+            fclose($fd);
+            chmod($filename,0644);             
+        }
 
         return true;
     }    
@@ -553,8 +697,9 @@ class Smarty
             $new_dir = ($dir{0} == '/') ? '/' : '';
             foreach ($dir_parts as $dir_part) {
                 $new_dir .= $dir_part;
-                if (!file_exists($new_dir) && !mkdir($new_dir, 0755)) {
+                if (!file_exists($new_dir) && !mkdir($new_dir, 0701)) {
                     $this->_set_error_msg("problem creating directory \"$dir\"");
+                    $this->_trigger_error_msg();
                     return false;               
                 }
                 $new_dir .= '/';
@@ -577,9 +722,18 @@ class Smarty
 \*======================================================================*/
     function _set_error_msg($error_msg)
     {
-        $this->_error_msg="smarty error: $error_msg";
+        $this->_error_msg="Smarty error: $error_msg";
         return true;
     }
+/*======================================================================*\
+    Function: _trigger_error_msg
+    Purpose:  trigger Smarty error
+\*======================================================================*/
+    function _trigger_error_msg($error_type = E_USER_ERROR)
+    {
+        trigger_error($this->_error_msg, $error_type);
+    }
+
 }
 
 /* vim: set expandtab: */

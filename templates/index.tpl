@@ -67,3 +67,5 @@ This is an example of the html_options function:
 {html_options values=$option_values selected=$option_selected output=$option_output}
 </select>
 </form>
+
+{include file="footer.tpl"}

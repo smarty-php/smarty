@@ -46,82 +46,6 @@ class Smarty_Compiler extends Smarty {
     var $_current_file          =   null;       // the current template being compiled
     var $_current_line_no       =   1;          // line number for error messages
         
-/*======================================================================*\
-    Function:   _traverse_files()
-    Purpose:    traverse the template files & process each one
-\*======================================================================*/
-    function _traverse_files($tpl_dir, $depth)
-    {
-        $retval = true;
-
-        if (is_dir($tpl_dir)) {
-            $dir_handle = opendir($tpl_dir);
-            while ($curr_file = readdir($dir_handle)) {
-                if ($curr_file == '.' || $curr_file == '..')
-                    continue;
-
-                $filepath = $tpl_dir.'/'.$curr_file;
-                if (is_readable($filepath)) {
-                    if (is_file($filepath) && substr($curr_file, -strlen($this->tpl_file_ext)) == $this->tpl_file_ext) {
-                        if (!$this->_process_file($filepath)) {
-                            $retval = false;
-                            break;
-                        }
-                    } else if (is_dir($filepath)) {
-                        if (!$this->_traverse_files($filepath, $depth + 1)) {
-                            $retval = false;
-                            break;
-                        }
-                    } else {
-                        // invalid file type, skipping
-                        $this->_set_error_msg("Invalid filetype for $filepath, skipping");
-                        continue;
-                    }
-                }
-            }
-
-            closedir($dir_handle);
-            return $retval;
-        } else {
-            $this->_set_error_msg("Directory \"$tpl_dir\" does not exist or is not a directory.");
-            return false;
-        }
-    }
-
-/*======================================================================*\
-    Function:   _process_file()
-    Input:      test template files for modifications
-                and execute the compilation for each
-                one requiring it.
-\*======================================================================*/
-    function _process_file($filepath)
-    {
-        if(preg_match("/^(.+)\/([^\/]+)$/", $filepath, $match)) {
-            $tpl_file_dir = $match[1];          
-            $tpl_file_name = $match[2] . '.php';
-
-            $compile_dir = preg_replace('!^' . preg_quote($this->template_dir, '!') . '!',
-                                        $this->compile_dir, $match[1]);
-
-            //create directory if none exists
-            $this->_create_dir_structure($compile_dir);
-
-            // compile the template file if none exists or has been modified or recompile is forced
-            if ($this->force_compile || !file_exists($compile_dir."/".$tpl_file_name) ||
-                ($this->_modified_file($filepath, $compile_dir."/".$tpl_file_name))) {
-                if (!$this->_compile_file($filepath, $compile_dir."/".$tpl_file_name))
-                    return false;
-            } else {
-                // no compilation needed
-                return true;
-            }
-        } else {
-            $this->_set_error_msg("problem matching \"$filepath.\"");
-            return false;
-        }
-
-        return true;
-    }
 
 /*======================================================================*\
     Function:   _modified_file()
@@ -138,27 +62,25 @@ class Smarty_Compiler extends Smarty {
     Function:   _compile_file()
     Input:      compile a template file
 \*======================================================================*/
-    function _compile_file($filepath, $compilepath)
+    function _compile_file($tpl_file, $template_source, &$template_compiled)
     {
-        if (!($template_contents = $this->_read_file($filepath)))
-            return false;
-
-        $this->_current_file = str_replace($this->template_dir . '/', '', $filepath);
+                
+        $this->_current_file = $template_source;
         $this->_current_line_no = 1;
         $ldq = preg_quote($this->left_delimiter, '!');
         $rdq = preg_quote($this->right_delimiter, '!');
 
         /* Pull out the literal blocks. */
-        preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_contents, $match);
+        preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $match);
         $this->_literal_blocks = $match[1];
-        $template_contents = preg_replace("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s",
-                                        $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_contents);
+        $template_source = preg_replace("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s",
+                                        $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_source);
 
         /* Gather all template tags. */
-        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_contents, $match);
+        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_source, $match);
         $template_tags = $match[1];
         /* Split content by template tags to obtain non-template content. */
-        $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_contents);
+        $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_source);
 
         /* TODO: speed up the following with preg_replace and /F once we require that version of PHP */
 
@@ -199,27 +121,29 @@ class Smarty_Compiler extends Smarty {
             $this->_current_line_no += substr_count($template_tags[$i], "\n");
         }
 
-        $compiled_contents = '';
+        $template_compiled = '';
 
         /* Interleave the compiled contents and text blocks to get the final result. */
         for ($i = 0; $i < count($compiled_tags); $i++) {
-            $compiled_contents .= $text_blocks[$i].$compiled_tags[$i];
+            $template_compiled .= $text_blocks[$i].$compiled_tags[$i];
         }
-        $compiled_contents .= $text_blocks[$i];
+        $template_compiled .= $text_blocks[$i];
 
         /* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
-        if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_contents, $match)) {
+        if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $template_compiled, $match)) {
             $strip_tags = $match[0];
             $strip_tags_modified = preg_replace("!{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+!m", '', $strip_tags);
             $strip_tags_modified = preg_replace('![\r\n]+!m', '', $strip_tags_modified);
             for ($i = 0; $i < count($strip_tags); $i++)
-                $compiled_contents = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
-                                                  $strip_tags_modified[$i], $compiled_contents, 1);
+                $template_compiled = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
+                                                  $strip_tags_modified[$i], $template_compiled, 1);
         }
 
-        if(!$this->_write_file($compilepath, $compiled_contents))
-            return false;
-
+        // put header at the top of the compiled template
+        $template_header = "<?php /* Smarty version ".$this->version.", created on ".strftime("%Y-%m-%d %H:%M:%S")."\n";
+        $template_header .= "         compiled from ".$tpl_file." */ ?>\n";
+        $template_compiled = $template_header.$template_compiled;
+        
         return true;
     }
 
@@ -405,13 +329,13 @@ class Smarty_Compiler extends Smarty {
                    "    include_once 'Config_File.class.php';\n" .
                    "if (!is_object(\$GLOBALS['_smarty_conf_obj']) || get_class(\$GLOBALS['_smarty_conf_obj']) != 'config_file')\n" .
                    "    \$GLOBALS['_smarty_conf_obj'] = new Config_File('".$this->config_dir."');\n" .
-				   "if (isset(\$_smarty_config_parent) && $update_parent)\n" .
-				   "	\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n" .
+				   "if (isset(\$parent_smarty_config) && $update_parent)\n" .
+				   "	\$parent_smarty_config = array_merge((array)\$parent_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n" .
                    "\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file']."));\n";
 
         if (!empty($attrs['section'])) {
-			$output	.=	"if (isset(\$_smarty_config_parent) && $update_parent)\n" .
-						"	\$_smarty_config_parent = array_merge((array)\$_smarty_config_parent, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n" .
+			$output	.=	"if (isset(\$parent_smarty_config) && $update_parent)\n" .
+						"	\$parent_smarty_config = array_merge((array)\$parent_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n" .
             		  	"\$_smarty_config = array_merge((array)\$_smarty_config, \$GLOBALS['_smarty_conf_obj']->get(".$attrs['file'].", ".$attrs['section']."));\n";
 		}
 
@@ -427,41 +351,28 @@ class Smarty_Compiler extends Smarty {
     function _compile_include_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
-
+                
         if (empty($attrs['file'])) {
             $this->_syntax_error("missing 'file' attribute in include tag");
         } else
             $attrs['file'] = $this->_dequote($attrs['file']);
 
-		$include_func_name = uniqid("_include_");
-		if ($attrs['file']{0} == '$')
-			$include_file_name = '"'.$this->compile_dir.'/".'.$attrs['file'];
-		else
-			$include_file_name = '"'.$this->compile_dir.'/'.$attrs['file'].'"';
-
-
 		foreach ($attrs as $arg_name => $arg_value) {
-			if ($arg_name == 'file') continue;
+			if ($arg_name == 'file') {
+                $_smarty_include_tpl_file = $arg_value;
+                continue;
+            }
 			if (is_bool($arg_value))
 				$arg_value = $arg_value ? 'true' : 'false';
 			$arg_list[] = "'$arg_name' => $arg_value";
 		}
 
 		return  "<?php " .
-				"if (!function_exists('$include_func_name')) {\n".
-				"   function $include_func_name(\$_smarty_file_name, \$_smarty_def_vars," .
-				"								\$_smarty_include_vars, &\$_smarty_config_parent)\n" .
-				"   {\n" .
-				"       extract(\$_smarty_def_vars);\n" .
-				"       extract(\$_smarty_include_vars);\n" .
-				"       include \"\$_smarty_file_name.php\";\n" .
-				"   }\n" .
-				"}\n" .
-				"\$_smarty_defined_vars = get_defined_vars();\n" .
-				"unset(\$_smarty_defined_vars['_smarty_file_name']);\n" .
-				"unset(\$_smarty_defined_vars['_smarty_def_vars']);\n" .
-				"unset(\$_smarty_defined_vars['_smarty_include_vars']);\n" .
-				"$include_func_name($include_file_name, \$_smarty_defined_vars, array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
+			"\$_smarty_defined_vars = get_defined_vars();\n" .
+			"unset(\$_smarty_defined_vars['_smarty_include_tpl_file']);\n" .
+			"unset(\$_smarty_defined_vars['_smarty_def_vars']);\n" .
+			"unset(\$_smarty_defined_vars['_smarty_include_vars']);\n" .
+			"\$this->_smarty_include(\"".$_smarty_include_tpl_file."\", \$_smarty_defined_vars, array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n?>";
     }
 
 /*======================================================================*\
@@ -765,22 +676,6 @@ class Smarty_Compiler extends Smarty {
     }
 
 /*======================================================================*\
-    Function: _preg_grep
-    Purpose:  Emulate PHP's preg_grep()
-\*======================================================================*/
-    function _preg_grep($pattern, $array)
-    {
-        $result = array();
-
-        foreach ($array as $key => $entry) {
-            if (preg_match($pattern, $entry))
-                $result[$key] = $entry;
-        }
-
-        return $result;
-    }
-
-/*======================================================================*\
     Function: _parse_vars_props
     Purpose:
 \*======================================================================*/
@@ -788,18 +683,9 @@ class Smarty_Compiler extends Smarty {
     {        
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
-        /* preg_grep() was fixed to return keys properly in 4.0.4 and later. To
-           allow people to use older versions of PHP we emulate preg_grep() and
-           use the version check to see what function to call. */
-        if (strnatcmp(PHP_VERSION, '4.0.4') >= 0) {
-            $var_exprs = preg_grep('!^\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
-            $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
-            $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
-        } else {
-            $var_exprs = $this->_preg_grep('!^\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
-            $conf_var_exprs = $this->_preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
-            $sect_prop_exprs = $this->_preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
-        }
+        $var_exprs = preg_grep('!^\$(\w+(\.\w+)?/)*\w+(?>\.\w+)*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
+        $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(?>' . $qstr_regexp . '|[^|]+))*)*$!', $tokens);
+        $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(?>' .  $qstr_regexp .  '|[^|]+))*)*$!', $tokens);
 
         if (count($var_exprs)) {
             foreach ($var_exprs as $expr_index => $var_expr) {
