@@ -9,17 +9,17 @@
 	 <sect1 id="constant.smarty.dir">
       <title>SMARTY_DIR</title>
       <para>
-      Il doit s'agir du chemin complet du répertoire où
+      Il doit s'agir du chemin complet du rTpertoire oú
       se trouvent les fichiers classes de Smarty.
-      S'il n'est pas défini, Smarty essaiera alors d'en
-      déterminer automatiquement la valeur.
-      S'il est défini, le chemin doit se terminer par un slash.
+      S'il n'est pas dTfini, Smarty essaiera alors d'en
+      dTterminer automatiquement la valeur.
+      S'il est dTfini, le chemin doit se terminer par un slash.
       </para>
 
       <example>
        <title>SMARTY_DIR</title>
        <programlisting>
-// définit le chemin du répertoire de Smarty
+// dTfinit le chemin du rTpertoire de Smarty
 define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
 
 require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
@@ -33,18 +33,18 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
      <sect1 id="variable.template.dir">
       <title>$template_dir</title>
       <para>
-      C'est le nom par défaut du répertoire des templates.
-      Si vous ne spécifiez aucun chemin lors de l'utilisation de templates, Smarty
-      les cherchera à cet emplacement.
-      Par défaut, il s'agit de "./templates", ce qui signifie
-      qu'il va chercher le répertoire templates
-      dans le répertoire où se trouve le script PHP en cours d'exécution.
+      C'est le nom par dTfaut du rTpertoire des templates.
+      Si vous ne spTcifiez aucun chemin lors de l'utilisation de templates, Smarty
+      les cherchera a cet emplacement.
+      Par dTfaut, il s'agit de "./templates", ce qui signifie
+      qu'il va chercher le rTpertoire templates
+      dans le rTpertoire oú se trouve le script PHP en cours d'exTcution.
       </para>
 
 	   <note>
 		   <title>Note technique</title>
          <para>
-         Il n'est pas conseillé de mettre ce répertoire
+         Il n'est pas conseillT de mettre ce rTpertoire
          dans l'arborescence Web.
          </para>
 	  </note>
@@ -52,22 +52,22 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
      <sect1 id="variable.compile.dir">
       <title>$compile_dir</title>
       <para>
-      C'est le nom du répertoire où se trouvent les templates
-      compilés. Par défaut, il s'agit de "./templates_c",
-      ce qui signifie que Smarty va chercher ce répertoire
-      dans le même répertoire que le script PHP en cours d'exécution.
+      C'est le nom du rTpertoire oú se trouvent les templates
+      compilTs. Par dTfaut, il s'agit de "./templates_c",
+      ce qui signifie que Smarty va chercher ce rTpertoire
+      dans le mOme rTpertoire que le script PHP en cours d'exTcution.
       </para>
 	 <note>
 	 <title>Note technique</title>
 	 <para>
-	 Ce réglage doit être soit un chemin absolu, soit un chemin
-	 relatif. include_path n'est pas utilisé pour écrire des fichiers.
+	 Ce rTglage doit Otre soit un chemin absolu, soit un chemin
+	 relatif. include_path n'est pas utilisT pour Tcrire des fichiers.
 	 </para>
 	 </note>
 	 <note>
 	 <title>Note technique</title>
 	 <para>
-	 Il n'est pas conseillé de mettre ce répertoire
+	 Il n'est pas conseillT de mettre ce rTpertoire
     sous la racine de l'arborescence Web.
 	 </para>
 	 </note>
@@ -75,16 +75,16 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
      <sect1 id="variable.config.dir">
       <title>$config_dir</title>
       <para>
-      Il s'agit du répertoire utilisé pour stocker les
-      fichiers de configuration utilisés dans les templates.
-      La valeur par défaut est "./configs", ce qui signifie
-      que Smarty va chercher ce répertoire
-      dans le même répertoire que le script PHP qui s'exécute.
+      Il s'agit du rTpertoire utilisT pour stocker les
+      fichiers de configuration utilisTs dans les templates.
+      La valeur par dTfaut est "./configs", ce qui signifie
+      que Smarty va chercher ce rTpertoire
+      dans le mOme rTpertoire que le script PHP qui s'exTcute.
       </para>
 	 <note>
 	 <title>Note technique</title>
 	 <para>
-       Il n'est pas conseillé de mettre ce répertoire
+       Il n'est pas conseillT de mettre ce rTpertoire
       sous la racine de l'arborescence Web.
     </para>
 	 </note>
@@ -92,19 +92,19 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
      <sect1 id="variable.plugins.dir">
       <title>$plugins_dir</title>
       <para>
-      Ce sont les répertoire dans lesquels Smarty ira chercher les plugins
-      dont il a besoin. La valeur par défaut est "plugins" sous le
-      répertoire SMARTY_DIR. Si vous donnez un chemin relatif, Smarty
-      regardera d'abord relativement au SMARTY_DIR, puis relativement au rtc (répertoire
-      de travail courant), puis relativement à chaque entrée de votre répertoire
+      Ce sont les rTpertoire dans lesquels Smarty ira chercher les plugins
+      dont il a besoin. La valeur par dTfaut est "plugins" sous le
+      rTpertoire SMARTY_DIR. Si vous donnez un chemin relatif, Smarty
+      regardera d'abord relativement au SMARTY_DIR, puis relativement au rtc (rTpertoire
+      de travail courant), puis relativement a chaque entrTe de votre rTpertoire
       d'inclusion PHP.
       </para>
 	  <note>
 	  <title>Note technique</title>
 	  <para>
-	  Pour des raisons de performances, ne réglez pas votre plugins_dir
+	  Pour des raisons de performances, ne rTglez pas votre plugins_dir
 	  pour qu'il utilise votre include_path PHP. Utilisez un
-	  chemin absolu ou un chemin relatif à SMARTY_DIR ou au rtc.
+	  chemin absolu ou un chemin relatif a SMARTY_DIR ou au rtc.
 	  </para>
 	  </note>
      </sect1>
@@ -113,50 +113,50 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
       <para>
       Cela active la
       <link
-        linkend="chapter.debugging.console">console de débogage</link>.
-      La console est une fenêtre javascript qui vous informe des templates
-      inclus et des variables assignées dans la page courante.
+        linkend="chapter.debugging.console">console de dTbogage</link>.
+      La console est une fenOtre javascript qui vous informe des templates
+      inclus et des variables assignTes dans la page courante.
       </para>
      </sect1>
      <sect1 id="variable.debug.tpl">
       <title>$debug_tpl</title>
       <para>
-      C'est le nom du fichier template utilisé pour la
-      console de débuggage. Par défaut debug.tpl, il se situe dans <link
+      C'est le nom du fichier template utilisT pour la
+      console de dTbuggage. Par dTfaut debug.tpl, il se situe dans <link
 	   linkend="constant.smarty.dir">SMARTY_DIR</link>
       </para>
      </sect1>
      <sect1 id="variable.debugging.ctrl">
       <title>$debugging_ctrl</title>
       <para>
-      Cela permet d'avoir différents moyens pour activer
-      le débogage. URL signifie que si SMARTY_DEBUG se
-      trouve dans QUERY_STRING, le débuggage
-      est activé à l'invocation du script. Si $debugging
-      est à vrai, cette valeur est sans effet.
+      Cela permet d'avoir diffTrents moyens pour activer
+      le dTbogage. URL signifie que si SMARTY_DEBUG se
+      trouve dans QUERY_STRING, le dTbuggage
+      est activT a l'invocation du script. Si $debugging
+      est a vrai, cette valeur est sans effet.
       </para>
      </sect1>
      <sect1 id="variable.global.assign">
       <title>$global_assign</title>
       <para>
       C'est une liste de variable qui sont toujours
-      implicitement assignées au moteur de templates.
+      implicitement assignTes au moteur de templates.
       Ceci est commode pour rendre des variables globales
-      ou des variables du serveur accessibles à tous les templates
-      plutôt que de devoir les assigner à la main. Chaque élément
-      de $global_assign doit être soit le nom de la variable
-      globale, soit une paire clef/valeur, où clef est le
+      ou des variables du serveur accessibles a tous les templates
+      plut(t que de devoir les assigner a la main. Chaque TlTment
+      de $global_assign doit Otre soit le nom de la variable
+      globale, soit une paire clef/valeur, oú clef est le
       nom du tableau global et valeur le tableau de variable
-      assignées depuis ce tableau global.
-      $SCRIPT_NAME est globalement assigné par défaut depuis
+      assignTes depuis ce tableau global.
+      $SCRIPT_NAME est globalement assignT par dTfaut depuis
       $HTTP_SERVER_VARS.
       </para>
 	 <note>
 	 <title>Note technique</title>
 	 <para>
-	 On peut accéder aux variables du serveur avec la variable
+	 On peut accTder aux variables du serveur avec la variable
 	 $smarty, par exemple {$smarty.server.SCRIPT_NAME}.
-	 Se reporter à la section sur la variable
+	 Se reporter a la section sur la variable
 	 <link linkend="language.variables.smarty">$smarty</link>.
 	 </para>
 	 </note>
@@ -164,17 +164,17 @@ require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
      <sect1 id="variable.undefined">
       <title>$undefined</title>
       <para>
-      Cela règle la valeur de $undefined, null par défaut.
-      N'est actuellement utilisé que pour initialiser
-      des variables non-définies dans $global_assign à des
-      valeurs par défaut.
+      Cela rFgle la valeur de $undefined, null par dTfaut.
+      N'est actuellement utilisT que pour initialiser
+      des variables non-dTfinies dans $global_assign a des
+      valeurs par dTfaut.
       </para>
      </sect1>
      <sect1 id="variable.autoload.filters">
       <title>$autoload_filters</title>
       <para>
-      Si vous désirez charger des filtres à chaque invocation
-      de templates, vous pouvez le spécifier en utilisant cette
+      Si vous dTsirez charger des filtres a chaque invocation
+      de templates, vous pouvez le spTcifier en utilisant cette
       variable. Les types de filtres et les valeurs sont des
       tableaux comportant le nom des filtres.
        <informalexample>
@@ -189,21 +189,21 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
       <title>$compile_check</title>
       <para>
       A chaque invocation de l'application PHP, Smarty fait
-      un test pour voir si le template courant a été modifié
-      (date de dernière modification différente) depuis sa
-      dernière compilation. S'il a changé, le template est recompilé.
-      Si le template n'a pas encore été compilé, il le sera
-      quelle que soit la valeur ce réglage.
-      Par défaut cette valeur est à vrai. Quand
+      un test pour voir si le template courant a TtT modifiT
+      (date de derniFre modification diffTrente) depuis sa
+      derniFre compilation. S'il a changT, le template est recompilT.
+      Si le template n'a pas encore TtT compilT, il le sera
+      quelle que soit la valeur ce rTglage.
+      Par dTfaut cette valeur est a vrai. Quand
       une application est mise en production (les templates
-      ne changent plus), cette vérification n'est pas nécessaire.
-      Assurez-vous de mettre $compile_check à "false" pour des performances
-      maximales. Notez que si vous mettez ce paramètre à "false" et qu'un
-      template est modifié, vous ne verrez *pas* le changement
-      car le template ne sera *pas* recompilé. Si le processus de cache
-      est activé et que $compile_check l'est aussi, alors les fichiers
-      du cache seront regénérés si un template concerné ou un fichier de
-      configuration concerné est modifié. Voir aussi <link
+      ne changent plus), cette vTrification n'est pas nTcessaire.
+      Assurez-vous de mettre $compile_check a "false" pour des performances
+      maximales. Notez que si vous mettez ce paramFtre a "false" et qu'un
+      template est modifiT, vous ne verrez *pas* le changement
+      car le template ne sera *pas* recompilT. Si le processus de cache
+      est activT et que $compile_check l'est aussi, alors les fichiers
+      du cache seront regTnTrTs si un template concernT ou un fichier de
+      configuration concernT est modifiT. Voir aussi <link
 	   linkend="variable.force.compile">$force_compile</link> ou <link
 	   linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
       </para>
@@ -212,57 +212,57 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.force.compile">
       <title>$force_compile</title>
       <para>
-      Cela oblige Smarty à (re)compiler les templates à chaque
-      invocation. Ce réglage supplante $compile_check. Par défaut, il
-      est désactivé. Ceci est commode pour le développement et le
-      débogage mais ne devrait jamais être utilisé dans un environnment
-      de production. Si le système de cache est actif, les
-      fichiers du cache seront regénérés à chaque appel.
+      Cela oblige Smarty a (re)compiler les templates a chaque
+      invocation. Ce rTglage supplante $compile_check. Par dTfaut, il
+      est dTsactivT. Ceci est commode pour le dTveloppement et le
+      dTbogage mais ne devrait jamais Otre utilisT dans un environnment
+      de production. Si le systFme de cache est actif, les
+      fichiers du cache seront regTnTrTs a chaque appel.
       </para>
      </sect1>
      <sect1 id="variable.caching">
       <title>$caching</title>
       <para>
-      Ce paramètre demande à Smarty de mettre ou non en cache la sortie des
+      Ce paramFtre demande a Smarty de mettre ou non en cache la sortie des
       templates.
-      Par défaut ce réglage est à 0 (désactivé). Si vos templates
-      génèrent du contenu redondant, il est conseillé d'activer le
-      cache. Cela permettra un gain de performance conséquent.
-      Vous pouvez aussi avoir de nombreux fichiers de cache pour un même template.
-      Une valeur de 1 ou 2 active le cache. 1 indique à Smarty d'utiliser
-      la variable $cache_lifetime pour déterminer si le fichier de cache a expiré.
-      Une valeur de 2 indique à Smarty d'utiliser la valeur
-      $cache_lifetime spécifiée à la génération du cache. Ainsi vous pouvez régler
-      la durée de vie d'un fichier de cache avant de récupérer le template pour avoir
-      un certain contrôle quand ce fichier en particulier expire. Voir
+      Par dTfaut ce rTglage est a 0 (dTsactivT). Si vos templates
+      gTnFrent du contenu redondant, il est conseillT d'activer le
+      cache. Cela permettra un gain de performance consTquent.
+      Vous pouvez aussi avoir de nombreux fichiers de cache pour un mOme template.
+      Une valeur de 1 ou 2 active le cache. 1 indique a Smarty d'utiliser
+      la variable $cache_lifetime pour dTterminer si le fichier de cache a expirT.
+      Une valeur de 2 indique a Smarty d'utiliser la valeur
+      $cache_lifetime spTcifiTe a la gTnTration du cache. Ainsi vous pouvez rTgler
+      la durTe de vie d'un fichier de cache avant de rTcupTrer le template pour avoir
+      un certain contr(le quand ce fichier en particulier expire. Voir
       aussi <link linkend="api.is.cached">is_cached</link>.
       </para>
       <para>
-      Si $compile_check est actif, le contenu du cache sera regénéré
+      Si $compile_check est actif, le contenu du cache sera regTnTrT
       si un des templates ou un des fichiers de configuration qui fait partie
-      de ce fichier de cache a été modifié. Si $force_compile est actif, le contenu
-      du cache est toujours regénéré.
+      de ce fichier de cache a TtT modifiT. Si $force_compile est actif, le contenu
+      du cache est toujours regTnTrT.
       </para>
      </sect1>
      <sect1 id="variable.cache.dir">
       <title>$cache_dir</title>
       <para>
-      Il s'agit du nom du répertoire où les caches des templates
-      sont stockés. Par défaut il s'agit de "./cache", ce qui signifie
-      que Smarty va chercher ce répertoire
-      dans le même répertoire que le script PHP en cours d'exécution.
+      Il s'agit du nom du rTpertoire oú les caches des templates
+      sont stockTs. Par dTfaut il s'agit de "./cache", ce qui signifie
+      que Smarty va chercher ce rTpertoire
+      dans le mOme rTpertoire que le script PHP en cours d'exTcution.
       </para>
 	 <note>
 	 <title>Note technique</title>
 	 <para>
-       Ce réglage doit être soit un chemin absolu, soit un chemin
-	 relatif. include_path n'a aucune influence lors de l'écriture des fichiers.
+       Ce rTglage doit Otre soit un chemin absolu, soit un chemin
+	 relatif. include_path n'a aucune influence lors de l'Tcriture des fichiers.
       </para>
 	  </note>
 	  <note>
 		  <title>Technical Note</title>
 		  <para>
-         Il n'est pas conseillé de mettre ce répertoire
+         Il n'est pas conseillT de mettre ce rTpertoire
          dans l'arborescence Web.
     	  </para>
 	  </note>
@@ -270,32 +270,32 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.cache.lifetime">
       <title>$cache_lifetime</title>
       <para>
-      Il s'agit de la durée en secondes pendant laquelle un cache de template
-      est valide. Une fois cette durée dépassée, le cache est regénéré.
-      $caching doit être à "true" pour que $cache_lifetime ait une
-      quelconque utilité. Avec une valeur de -1, le cache n'expire jamais.
-      Avec une valeur de 0, le cache est toujours regénéré (utile
-      à des fins de tests seulement. Une meilleure façon de désactiver
+      Il s'agit de la durTe en secondes pendant laquelle un cache de template
+      est valide. Une fois cette durTe dTpassTe, le cache est regTnTrT.
+      $caching doit Otre a "true" pour que $cache_lifetime ait une
+      quelconque utilitT. Avec une valeur de -1, le cache n'expire jamais.
+      Avec une valeur de 0, le cache est toujours regTnTrT (utile
+      a des fins de tests seulement. Une meilleure faton de dTsactiver
       le cache est de mettre <link
-	   linkend="variable.caching">$caching</link> à "false").
+	   linkend="variable.caching">$caching</link> a "false").
       </para>
       <para>
       Si <link linkend="variable.force.compile">$force_compile</link> est
-      activé, les fichiers du cache seront regénérés à chaque fois,
-      désactivant ainsi le cache. Vous pouvez effacer tous les fichiers du cache
+      activT, les fichiers du cache seront regTnTrTs a chaque fois,
+      dTsactivant ainsi le cache. Vous pouvez effacer tous les fichiers du cache
       avec la function
       <link linkend="api.clear.all.cache">clear_all_cache()</link>
-      ou de façon individuelle (ou groupée)
+      ou de faton individuelle (ou groupTe)
       avec la fonction <link
 	   linkend="api.clear.cache">clear_cache()</link>.
       </para>
 	  <note>
 	  <title>Note technique</title>
 	  <para>
-	  Si vous souhaitez donner à certains templates leur propre durée de vie
-	  en cache, vous pouvez le faire en réglant
-	  <link linkend="variable.caching">$caching</link> à 2,
-	  puis $cache_lifetime à une unique valeur juste avant d'appeler
+	  Si vous souhaitez donner a certains templates leur propre durTe de vie
+	  en cache, vous pouvez le faire en rTglant
+	  <link linkend="variable.caching">$caching</link> a 2,
+	  puis $cache_lifetime a une unique valeur juste avant d'appeler
 	  display ou fetch().
 	  </para>
 	  </note>
@@ -303,19 +303,19 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.cache.handler.func">
       <title>$cache_handler_func</title>
       <para>
-      Vous pouvez utiliser votre propre fonction de gestion du cache plutôt que
-      d'utiliser celle livrée avec Smarty.
-      Référez-vous à la section sur la fonction de gestion de cache
-      personnalisée pour plus de détails.
+      Vous pouvez utiliser votre propre fonction de gestion du cache plut(t que
+      d'utiliser celle livrTe avec Smarty.
+      RTfTrez-vous a la section sur la fonction de gestion de cache
+      personnalisTe pour plus de dTtails.
       </para>
      </sect1>
      <sect1 id="variable.cache.modified.check">
       <title>$cache_modified_check</title>
       <para>
-      Si cette variable est à vrai, Smarty respectera l'en-tête
-      If-Modified-Since envoyé par le client. Si la date de dernière
-      modification du fichier de cache n'a pas changé depuis la dernière
-      visite, alors un en-tête "304 Not Modified" sera envoyé à la place
+      Si cette variable est a vrai, Smarty respectera l'en-tOte
+      If-Modified-Since envoyT par le client. Si la date de derniFre
+      modification du fichier de cache n'a pas changT depuis la derniFre
+      visite, alors un en-tOte "304 Not Modified" sera envoyT a la place
       du contenu. Cela ne fonctionne qu'avec du contenu mis en cache hors de la
       balise <command>insert</command>.
       </para>
@@ -323,73 +323,73 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.config.overwrite">
       <title>$config_overwrite</title>
       <para>
-      Si cette variable est à vrai, les variables lues dans les fichiers
-      de configuration peuvent s'écraser entre elles. Sinon les variables
-      seront mises dans un tableau. Très utile si vous voulez stocker
-      des tableaux de données dans des fichiers de configuration, listez
-      simplement chaque élément plusieurs fois. Mise à faux par défaut.
+      Si cette variable est a vrai, les variables lues dans les fichiers
+      de configuration peuvent s'Tcraser entre elles. Sinon les variables
+      seront mises dans un tableau. TrFs utile si vous voulez stocker
+      des tableaux de donnTes dans des fichiers de configuration, listez
+      simplement chaque TlTment plusieurs fois. Mise a faux par dTfaut.
       </para>
      </sect1>
      <sect1 id="variable.config.booleanize">
       <title>$config_booleanize</title>
       <para>
-      Si cette variable est à vrai, les valeurs on/true/yes et off/false/no
+      Si cette variable est a vrai, les valeurs on/true/yes et off/false/no
       dans les fichiers de configuration sont automitiquement converties
-      en booléen. De cette façon vous pouvez utiliser ces valeurs dans le
-      template de la façon suivante : {if #foobar#} ... {/if}. Si foobar
-      est à on, true ou yes, l'instruction {if} sera exécutée. vrai
-      par défaut.
+      en boolTen. De cette faton vous pouvez utiliser ces valeurs dans le
+      template de la faton suivante : {if #foobar#} ... {/if}. Si foobar
+      est a on, true ou yes, l'instruction {if} sera exTcutTe. vrai
+      par dTfaut.
       </para>
      </sect1>
      <sect1 id="variable.config.read.hidden">
       <title>$config_read_hidden</title>
       <para>
-      Si cette variable est à vrai, les sections cachés (dont les noms
+      Si cette variable est a vrai, les sections cachTs (dont les noms
       commencent par un point) dans les fichiers de configuration peuvent
-      être lues depuis les templates. On laisse habituellement cela à faux, de
-      cette façon vous pouvez stocker des données sensibles dans les fichiers
-      de configuration, comme par exemple des paramètres de base de données,
-      sans vous soucier de la façon dont les templates les chargent.
-      Mise à faux par défaut.
+      Otre lues depuis les templates. On laisse habituellement cela a faux, de
+      cette faton vous pouvez stocker des donnTes sensibles dans les fichiers
+      de configuration, comme par exemple des paramFtres de base de donnTes,
+      sans vous soucier de la faton dont les templates les chargent.
+      Mise a faux par dTfaut.
       </para>
      </sect1>
      <sect1 id="variable.config.fix.newlines">
       <title>$config_fix_newlines</title>
       <para>
-      Si cette variable est mise à vrai, les caractères de nouvelles lignes mac et dos
-      (\r et \r\n) sont convertis en \n quand ils sont analysés. vrai par défaut.
+      Si cette variable est mise a vrai, les caractFres de nouvelles lignes mac et dos
+      (\r et \r\n) sont convertis en \n quand ils sont analysTs. vrai par dTfaut.
       </para>
      </sect1>
      <sect1 id="variable.default.template.handler.func">
       <title>$default_template_handler_func</title>
       <para>
-      Cette fonction est appelée quand un template ne peut pas être
+      Cette fonction est appelTe quand un template ne peut pas Otre
       obtenu avec sa ressource.
       </para>
      </sect1>
      <sect1 id="variable.php.handling">
       <title>$php_handling</title>
       <para>
-      Indique à Smarty comment interpréter le code PHP
-      intégré dans les templates. Il y a quatre valeurs possibles, par
-      défaut SMARTY_PHP_PASSTHRU. Notez que cela n'affecte PAS le code
-      PHP entouré des balises
+      Indique a Smarty comment interprTter le code PHP
+      intTgrT dans les templates. Il y a quatre valeurs possibles, par
+      dTfaut SMARTY_PHP_PASSTHRU. Notez que cela n'affecte PAS le code
+      PHP entourT des balises
       <link linkend="language.function.php">{php}{/php}</link>
       dans le template.
       </para>
       <itemizedlist>
-       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty écrit les balises
+       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty Tcrit les balises
        telles quelles.</para></listitem>
        <listitem><para>SMARTY_PHP_QUOTE - Smarty transforme les balises
-       en entités HTML.</para></listitem>
+       en entitTs HTML.</para></listitem>
        <listitem><para>SMARTY_PHP_REMOVE - Smarty supprime les balises
        des templates.</para></listitem>
-       <listitem><para>SMARTY_PHP_ALLOW - Smarty exécute les balises
+       <listitem><para>SMARTY_PHP_ALLOW - Smarty exTcute les balises
        comme du code PHP.</para></listitem>
       </itemizedlist>
       <para>
-      NOTE : Intégrer du code PHP dans les templates est vivement
-      déconseillé. Préférez les
+      NOTE : IntTgrer du code PHP dans les templates est vivement
+      dTconseillT. PrTfTrez les
       <link linkend="language.custom.functions">fonctions utilisateurs</link>
       ou les <link linkend="language.modifiers">modificateurs de variables</link>.
       </para>
@@ -397,128 +397,128 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
      <sect1 id="variable.security">
       <title>$security</title>
       <para>
-      Cette variable est à faux par défaut. $security est de rigueur
-      quand vous n'êtes pas complètement sûr des personnes qui éditent les templates
-      (par ftp par exemple) et que vous voulez réduire le risque que
-      la sécurité du système soit compromise par le language de template.
-      Activer cette option de sécurité applique les règles suivantes
-      au langage de template, à moins que $security_settings ne spécifie
+      Cette variable est a faux par dTfaut. $security est de rigueur
+      quand vous n'Otes pas complFtement svr des personnes qui Tditent les templates
+      (par ftp par exemple) et que vous voulez rTduire le risque que
+      la sTcuritT du systFme soit compromise par le language de template.
+      Activer cette option de sTcuritT applique les rFgles suivantes
+      au langage de template, a moins que $security_settings ne spTcifie
       le contraire :
       </para>
       <itemizedlist>
-       <listitem><para>Si $php_handling est réglée à SMARTY_PHP_ALLOW,
-         cela est implicitement changé à SMARTY_PHP_PASSTHRU.</para></listitem>
-       <listitem><para>Les fonctions PHP ne sont pas autorisées dans les
-         instructions IF, à part celles déclarées dans
+       <listitem><para>Si $php_handling est rTglTe a SMARTY_PHP_ALLOW,
+         cela est implicitement changT a SMARTY_PHP_PASSTHRU.</para></listitem>
+       <listitem><para>Les fonctions PHP ne sont pas autorisTes dans les
+         instructions IF, a part celles dTclarTes dans
          $security_settings.</para></listitem>
-       <listitem><para>Les templates ne peuvent être inclus que depuis
-         des répertoires listés dans le tableau $security_dir.</para></listitem>
-       <listitem><para>Les fichiers locaux ne peuvent être récupérés que depuis
-         les répertoires listés dans le tableau $security_dir en
+       <listitem><para>Les templates ne peuvent Otre inclus que depuis
+         des rTpertoires listTs dans le tableau $security_dir.</para></listitem>
+       <listitem><para>Les fichiers locaux ne peuvent Otre rTcupTrTs que depuis
+         les rTpertoires listTs dans le tableau $security_dir en
          utilisant {fetch}.</para></listitem>
-       <listitem><para>Les balises {php}{/php} ne sont pas autorisées.</para></listitem>
-       <listitem><para>Les fonctions PHP ne sont pas autorisées en tant
-         modificateurs, à part celles spécifiées dans $security_settings.</para></listitem>
+       <listitem><para>Les balises {php}{/php} ne sont pas autorisTes.</para></listitem>
+       <listitem><para>Les fonctions PHP ne sont pas autorisTes en tant
+         modificateurs, a part celles spTcifiTes dans $security_settings.</para></listitem>
       </itemizedlist>
      </sect1>
      <sect1 id="variable.secure.dir">
       <title>$secure_dir</title>
       <para>
-      Il s'agit d'un tableau contenant tous les répertoires locaux qui sont
-      considérés comme sécurisés. {include} et {fetch} l'utilisent quand
-      la sécurité est activée.
+      Il s'agit d'un tableau contenant tous les rTpertoires locaux qui sont
+      considTrTs comme sTcurisTs. {include} et {fetch} l'utilisent quand
+      la sTcuritT est activTe.
       </para>
      </sect1>
      <sect1 id="variable.security.settings">
       <title>$security_settings</title>
       <para>
-      Ces réglages servent à écraser ou spécifier les paramètres de sécurité
-      quand celle-ci est activée. Les réglages possibles sont les suivants :
+      Ces rTglages servent a Tcraser ou spTcifier les paramFtres de sTcuritT
+      quand celle-ci est activTe. Les rTglages possibles sont les suivants :
       </para>
       <itemizedlist>
        <listitem><para>PHP_HANDLING - true/false. Si vrai, le
-       réglage $php_handling n'est pas vérifié.</para></listitem>
+       rTglage $php_handling n'est pas vTrifiT.</para></listitem>
        <listitem><para>IF_FUNCS - Le tableau des noms de fonctions
-       PHP autorisées dans les intructions IF.</para></listitem>
+       PHP autorisTes dans les intructions IF.</para></listitem>
        <listitem><para>INCLUDE_ANY - true/false. Si vrai,
-       les templates peuvent être inclus de n'importe où, quelque soit
+       les templates peuvent Otre inclus de n'importe oú, quelque soit
        le contenu de $secure_dir.</para></listitem>
        <listitem><para>PHP_TAGS - true/false. Si vrai,
-       les balises {php}{/php} sont autorisées dans les templates.</para></listitem>
+       les balises {php}{/php} sont autorisTes dans les templates.</para></listitem>
        <listitem><para>MODIFIER_FUNCS - Le tableau des noms de fonctions
-       autorisées à être utilisées comme modificateurs de variables.</para></listitem>
+       autorisTes a Otre utilisTes comme modificateurs de variables.</para></listitem>
       </itemizedlist>
      </sect1>
      <sect1 id="variable.trusted.dir">
       <title>$trusted_dir</title>
       <para>
-      $trusted_dir n'est utilisée lorsque $security est activée. C'est un
-      tableau de tous les répertoires qui peuvent être considérés comme sûrs.
-      Les répertoires sûrs sont ceux qui contiennent des scripts PHP qui
-      sont exécutés directement depuis les templates avec
+      $trusted_dir n'est utilisTe lorsque $security est activTe. C'est un
+      tableau de tous les rTpertoires qui peuvent Otre considTrTs comme svrs.
+      Les rTpertoires svrs sont ceux qui contiennent des scripts PHP qui
+      sont exTcutTs directement depuis les templates avec
       <link linkend="language.function.include.php">{include_php}</link>.
       </para>
      </sect1>
      <sect1 id="variable.left.delimiter">
       <title>$left_delimiter</title>
       <para>
-      Il s'agit du délimiteur gauche utilisé par le moteur de templates. La
-      valeur par défaut est "{".
+      Il s'agit du dTlimiteur gauche utilisT par le moteur de templates. La
+      valeur par dTfaut est "{".
       </para>
      </sect1>
      <sect1 id="variable.right.delimiter">
       <title>$right_delimiter</title>
       <para>
-      Il s'agit du délimiteur droit utilisé par le moteur de templates.
-      La valeur par défaut est "}".
+      Il s'agit du dTlimiteur droit utilisT par le moteur de templates.
+      La valeur par dTfaut est "}".
       </para>
      </sect1>
      <sect1 id="variable.compiler.class">
       <title>$compiler_class</title>
       <para>
-      Spécifie le nom de la classe du compilateur qui va être utilisée pour
-      compiler les templates. Le compilateur par défaut est
-      'Smarty_Compiler'. Réservé aux utilisateurs avancés.
+      SpTcifie le nom de la classe du compilateur qui va Otre utilisTe pour
+      compiler les templates. Le compilateur par dTfaut est
+      'Smarty_Compiler'. RTservT aux utilisateurs avancTs.
       </para>
      </sect1>
      <sect1 id="variable.request.vars.order">
       <title>$request_vars_order</title>
       <para>
-      L'ordre dans lequel les variables de requêtes sont enregistrées,
-      identique à variables_order dans php.ini.
+      L'ordre dans lequel les variables de requOtes sont enregistrTes,
+      identique a variables_order dans php.ini.
       </para>
      </sect1>
      <sect1 id="variable.compile.id">
       <title>$compile_id</title>
       <para>
-      Identifiant persistant du compilateur. On peut passer le même compile_id
-      à chaque appel de fonction mais une alternative consiste à régler ce
-      compile_id, qui sera utilisé implicitement.
+      Identifiant persistant du compilateur. On peut passer le mOme compile_id
+      a chaque appel de fonction mais une alternative consiste a rTgler ce
+      compile_id, qui sera utilisT implicitement.
       </para>
      </sect1>
      <sect1 id="variable.use.sub.dirs">
       <title>$use_sub_dirs</title>
       <para>
-      Régler cela à faux si votre environnement PHP n'autorise pas Smarty à créer
-      des sous-répertoires. Les sous-répertoires sont efficaces, utilisez-les quand
+      RTgler cela a faux si votre environnement PHP n'autorise pas Smarty a crTer
+      des sous-rTpertoires. Les sous-rTpertoires sont efficaces, utilisez-les quand
       vous le pouvez.
       </para>
      </sect1>
      <sect1 id="variable.default.modifiers">
       <title>$default_modifiers</title>
       <para>
-      Il s'agit d'un tableau de modificateurs utilisé pour assigner
-      une valeur par défaut à chaque variable dans un template.
-      Par exemple, pour par défaut échapper les caractères HTML de chaque variable,
-      utilisez array('escape:"htmlall"'); Pour rendre une variable indépendante
-      des modificateurs par défaut, passez-lui en paramètre le modificateur
+      Il s'agit d'un tableau de modificateurs utilisT pour assigner
+      une valeur par dTfaut a chaque variable dans un template.
+      Par exemple, pour par dTfaut Tchapper les caractFres HTML de chaque variable,
+      utilisez array('escape:"htmlall"'); Pour rendre une variable indTpendante
+      des modificateurs par dTfaut, passez-lui en paramFtre le modificateur
       "nodefaults" : {$var|nodefaults}.
       </para>
      </sect1>
     </chapter>
 
    <chapter id="api.functions">
-     <title>Méthodes</title>
+     <title>MTthodes</title>
         <sect1 id="api.append">
          <title>append</title>
          <funcsynopsis>
@@ -539,21 +539,21 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour ajouter un élément à un tableau assigné. Si vous utilisez
-         cette fonction avec une chaîne de caractère, elle est convertie en
-         tableau auquel on ajoute ensuite l'élément. Vous pouvez explicitement passer
-         des paires nom/valeur. Si vous passez le troisième paramètre
-         (optionel) à vrai, la valeur sera fusionnée avec le tableau plutôt que
-         d'être ajoutée.
+         UtilisTe pour ajouter un TlTment a un tableau assignT. Si vous utilisez
+         cette fonction avec une chaene de caractFre, elle est convertie en
+         tableau auquel on ajoute ensuite l'TlTment. Vous pouvez explicitement passer
+         des paires nom/valeur. Si vous passez le troisiFme paramFtre
+         (optionel) a vrai, la valeur sera fusionnTe avec le tableau plut(t que
+         d'Otre ajoutTe.
          </para>
 		 <note>
 		 <title>Note technique</title>
 		 <para>
-		 Le paramètre de fusion respecte les clés des tableaux, ainsi si vous
-		 fusionnez deux tableaux indexés numériquement, ils pourront s'écraser
-		 l'un l'autre ou donner des clés qui ne se suivent pas. Cela diffère
-		 donc de la fonction PHP array_merge() qui supprime les clés numériques
-		 et les renumérote.
+		 Le paramFtre de fusion respecte les clTs des tableaux, ainsi si vous
+		 fusionnez deux tableaux indexTs numTriquement, ils pourront s'Tcraser
+		 l'un l'autre ou donner des clTs qui ne se suivent pas. Cela diffFre
+		 donc de la fonction PHP array_merge() qui supprime les clTs numTriques
+		 et les renumTrote.
 		 </para>
 		 </note>
          <example>
@@ -583,23 +583,23 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
        </funcprototype>
       </funcsynopsis>
       <para>
-      Utilisée pour ajouter des valeurs à un template par référence plutôt que
-      par copie. Si vous ajoutez une variable par référence puis changez sa
-      valeur, le changement est aussi répercuté sur la valeur assignée.
-      Pour les objets, append_by_ref ne fait pas de copie en mémoire de l'objet
-      assigné. Voir la documentation PHP pour plus d'informations sur les
-      références de variable.
-      Si vous passez le troisième paramètre à vrai, la valeur sera fusionnée
-      avec le tableau courant plutôt que d'être ajoutée.
+      UtilisTe pour ajouter des valeurs a un template par rTfTrence plut(t que
+      par copie. Si vous ajoutez une variable par rTfTrence puis changez sa
+      valeur, le changement est aussi rTpercutT sur la valeur assignTe.
+      Pour les objets, append_by_ref ne fait pas de copie en mTmoire de l'objet
+      assignT. Voir la documentation PHP pour plus d'informations sur les
+      rTfTrences de variable.
+      Si vous passez le troisiFme paramFtre a vrai, la valeur sera fusionnTe
+      avec le tableau courant plut(t que d'Otre ajoutTe.
       </para>
 	  <note>
 	  <title>Note technique</title>
      <para>
-       Le paramètre de fusion respecte les clés des tableaux, ainsi si vous
-      fusionnez deux tableaux indexés numériquement, ils pourront s'écraser
-      l'un l'autre ou donner des clés qui ne se suivent pas. Cela diffère
-      donc de la fonction PHP array_merge() qui supprime les clés numériques
-      et les renumérote.
+       Le paramFtre de fusion respecte les clTs des tableaux, ainsi si vous
+      fusionnez deux tableaux indexTs numTriquement, ils pourront s'Tcraser
+      l'un l'autre ou donner des clTs qui ne se suivent pas. Cela diffFre
+      donc de la fonction PHP array_merge() qui supprime les clTs numTriques
+      et les renumTrote.
      </para>
 	  </note>
       <example>
@@ -624,7 +624,7 @@ $smarty->append_by_ref("Address",$address);</programlisting>
        </funcprototype>
       </funcsynopsis>
       <para>
-      Utilisée pour assigner des valeurs aux templates. Vous pouvez
+      UtilisTe pour assigner des valeurs aux templates. Vous pouvez
       explicitement passer des paires nom/valeur, ou des tableaux
       associatifs contenant des paires nom/valeur.
       </para>
@@ -649,18 +649,18 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
        </funcprototype>
       </funcsynopsis>
       <para>
-      Utilisée pour assigner des valeurs aux templates par référence plutôt
-      que par copie. Référez-vous au manuel PHP pour une explication plus précise
-      sur les références des variables.
+      UtilisTe pour assigner des valeurs aux templates par rTfTrence plut(t
+      que par copie. RTfTrez-vous au manuel PHP pour une explication plus prTcise
+      sur les rTfTrences des variables.
       </para>
 	  <note>
 	  <title>Note technique</title>
 	  <para>
-	    Si vous assignez une variable par référence puis changez sa
-      valeur, le changement est aussi répercuté sur la valeur assignée.
-      Pour les objets, assign_by_ref ne fait pas de copie en mémoire de l'objet
-      assigné. Référez-vous au manuel PHP pour une explication plus précise sur
-      les références de variable.
+	    Si vous assignez une variable par rTfTrence puis changez sa
+      valeur, le changement est aussi rTpercutT sur la valeur assignTe.
+      Pour les objets, assign_by_ref ne fait pas de copie en mTmoire de l'objet
+      assignT. RTfTrez-vous au manuel PHP pour une explication plus prTcise sur
+      les rTfTrences de variable.
 	  </para>
 	  </note>
       <example>
@@ -680,12 +680,12 @@ $smarty->assign_by_ref("Address",$address);</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour effacer les valeurs de toutes les variables assignées.
+			UtilisTe pour effacer les valeurs de toutes les variables assignTes.
 			</para>
 <example>
 <title>clear_all_assign</title>
 <programlisting>
-// efface toutes les variables assignées
+// efface toutes les variables assignTes
 $smarty->clear_all_assign();</programlisting>
 </example>
 		</sect1>
@@ -698,9 +698,9 @@ $smarty->clear_all_assign();</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-         Utilisée pour effacer les fichiers de cache des templates. Vous pouvez passer un
-         paramètre optionnel afin d'indiquer l'âge minimun que doivent avoir
-         les fichiers  de cache pour qu'ils soient effacés.
+         UtilisTe pour effacer les fichiers de cache des templates. Vous pouvez passer un
+         paramFtre optionnel afin d'indiquer l'Gge minimun que doivent avoir
+         les fichiers  de cache pour qu'ils soient effacTs.
 			</para>
 <example>
 <title>clear_all_cache</title>
@@ -718,7 +718,7 @@ $smarty->clear_all_cache();</programlisting>
 			</funcprototype>
 			</funcsynopsis>
          <para>
-         Efface la valeur d'une variable assignée. Il peut s'agir
+         Efface la valeur d'une variable assignTe. Il peut s'agir
          d'une simple valeur ou d'un tableau de valeur.
          </para>
 <example>
@@ -743,17 +743,17 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour nettoyer le(s) fichier(s) de cache d'un template en particulier.
+			UtilisTe pour nettoyer le(s) fichier(s) de cache d'un template en particulier.
 			Si vous avez plusieurs fichiers de cache pour ce template vous
-			pouvez en spécifier un en  particulier en passant son identifiant
-			en deuxième paramètre. Vous pouvez aussi passer un identifiant
-			de compilation en troisième paramètre. Vous pouvez grouper des
-			templates ensemble afin qu'ils puissent être supprimés en groupe.
-			Référez-vous à la section sur le
+			pouvez en spTcifier un en  particulier en passant son identifiant
+			en deuxiFme paramFtre. Vous pouvez aussi passer un identifiant
+			de compilation en troisiFme paramFtre. Vous pouvez grouper des
+			templates ensemble afin qu'ils puissent Otre supprimTs en groupe.
+			RTfTrez-vous a la section sur le
 			<link linkend="caching">cache</link>
-			pour plus d'informations. Vous pouvez passer un quatrième paramètre
-			pour indiquer un âge minimum en secondes que le fichier en cache doit
-			avoir avant d'être effacé.
+			pour plus d'informations. Vous pouvez passer un quatriFme paramFtre
+			pour indiquer un Gge minimum en secondes que le fichier en cache doit
+			avoir avant d'Otre effacT.
 			</para>
 <example>
 <title>clear_cache</title>
@@ -761,7 +761,7 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 // efface le fichier de cache de ce template
 $smarty->clear_cache("index.tpl");
 
-// efface un fichier de cache grâce à son identifiant de cache
+// efface un fichier de cache grGce a son identifiant de cache
 $smarty->clear_cache("index.tpl","CACHEID");</programlisting>
 </example>
 		</sect1>
@@ -774,17 +774,17 @@ $smarty->clear_cache("index.tpl","CACHEID");</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour effacer la version compilée du template spécifié ou
-			de tous les templates si aucun n'est spécifié. Cette fonction
-			est destinée à un usage avancé et n'est pas habituellement utilisée.
+			UtilisTe pour effacer la version compilTe du template spTcifiT ou
+			de tous les templates si aucun n'est spTcifiT. Cette fonction
+			est destinTe a un usage avancT et n'est pas habituellement utilisTe.
 			</para>
 <example>
 <title>clear_compiled_tpl</title>
 <programlisting>
-// efface la version compilée du template spécifié
+// efface la version compilTe du template spTcifiT
 $smarty->clear_compiled_tpl("index.tpl");
 
-// efface tout le contenu du répertoire des templates compilés
+// efface tout le contenu du rTpertoire des templates compilTs
 $smarty->clear_compiled_tpl();</programlisting>
 </example>
 		</sect1>
@@ -797,14 +797,14 @@ $smarty->clear_compiled_tpl();</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-         Utilisée pour effacer toutes les variables de configuration s'étant
-         vues assigner une valeur. Si une variable est spécifiée, seule cette
-         variable est effacée.
+         UtilisTe pour effacer toutes les variables de configuration s'Ttant
+         vues assigner une valeur. Si une variable est spTcifiTe, seule cette
+         variable est effacTe.
 			</para>
 <example>
 <title>clear_config</title>
 <programlisting>
-// efface toutes les variables de configuration assignées
+// efface toutes les variables de configuration assignTes
 $smarty->clear_config();
 
 // efface une seule variable
@@ -821,19 +821,19 @@ $smarty->clear_config('foobar');</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour charger des données d'un fichier de config et les
-			assigner à un template. Cette fonction fonctionne exactement comme
+			UtilisTe pour charger des donnTes d'un fichier de config et les
+			assigner a un template. Cette fonction fonctionne exactement comme
 			la fonction de template <link
 			linkend="language.function.config.load">config_load</link>.
 			</para>
 		  <note>
 		  <title>Note technique</title>
 		  <para>
-		  Comme pour Smarty 2.4.0, les variables de templates assignées
-        sont conservées entre chaque appel à fetch et display.
-		  Les variables de configuration chargées avec config_load sont
-        globales. Les fichiers de config sont aussi compilés pour une
-        exécution plus rapide et respecte les réglages de <link
+		  Comme pour Smarty 2.4.0, les variables de templates assignTes
+        sont conservTes entre chaque appel a fetch et display.
+		  Les variables de configuration chargTes avec config_load sont
+        globales. Les fichiers de config sont aussi compilTs pour une
+        exTcution plus rapide et respecte les rTglages de <link
 		   linkend="variable.force.compile">force_compile</link> et de <link
 		   linkend="variable.compile.check">compile_check</link>.
 		  </para>
@@ -859,23 +859,23 @@ $smarty->config_load('my.conf','foobar');</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-         Utilisée pour afficher un template. Il faut fournir un type et un
+         UtilisTe pour afficher un template. Il faut fournir un type et un
          chemin de <link
                 linkend="template.resources">ressource template</link>
-         valides. Vous pouvez passer en second paramètre un identifiant
-         de fichier de cache. Reportez-vous à la section
+         valides. Vous pouvez passer en second paramFtre un identifiant
+         de fichier de cache. Reportez-vous a la section
          <link linkend="caching">cache</link> pour plus de renseignements.
 			</para>
 			<para>
-			Le troisième paramètre optionnel est un identifiant de compilation.
-         Cela s'avère utile quand vous voulez compiler différentes versions
-         d'un même template, pour par exemple avoir des templates
-         compilés séparés pour différents langages. Une autre utilité de ce
-         paramètre est le cas où vous utilisez plus d'un $template_dir mais un seul
-         $compile_dir, car certains templates avec le même nom s'écraseraient
-         entre eux. Vous pouvez aussi régler la variable <link
+			Le troisiFme paramFtre optionnel est un identifiant de compilation.
+         Cela s'avFre utile quand vous voulez compiler diffTrentes versions
+         d'un mOme template, pour par exemple avoir des templates
+         compilTs sTparTs pour diffTrents langages. Une autre utilitT de ce
+         paramFtre est le cas oú vous utilisez plus d'un $template_dir mais un seul
+         $compile_dir, car certains templates avec le mOme nom s'Tcraseraient
+         entre eux. Vous pouvez aussi rTgler la variable <link
 			linkend="variable.compile.id">$compile_id</link> une seule
-			fois au lieu de la passer à chaque appel.
+			fois au lieu de la passer a chaque appel.
 			</para>
 <example>
 <title>affichage</title>
@@ -884,12 +884,12 @@ include("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->caching = true;
 
-// ne fait un appel à la base de données que si le fichier
+// ne fait un appel a la base de donnTes que si le fichier
 // de cache n'existe pas
 if(!$smarty->is_cached("index.tpl"))
 {
 
-    // quelques données
+    // quelques donnTes
     $address = "245 N 50th";
     $db_data = array(
 	    "City" => "Lincoln",
@@ -909,7 +909,7 @@ $smarty->display("index.tpl");</programlisting>
          <para>
          Utilisez la syntaxe des <link
 			linkend="template.resources">ressources templates</link>
-         pour afficher des fichiers en-dehors du répertoire
+         pour afficher des fichiers en-dehors du rTpertoire
          $template_dir
          </para>
 
@@ -922,10 +922,10 @@ $smarty->display("/usr/local/include/templates/header.tpl");
 // chemin absolu (pareil)
 $smarty->display("file:/usr/local/include/templates/header.tpl");
 
-// chemin absolu Windows (on DOIT utiliser le préfixe "file:")
+// chemin absolu Windows (on DOIT utiliser le prTfixe "file:")
 $smarty->display("file:C:/www/pub/templates/header.tpl");
 
-// inclue à partir de la ressource template "db"
+// inclue a partir de la ressource template "db"
 $smarty->display("db:header.tpl");</programlisting>
 </example>
 
@@ -941,23 +941,23 @@ $smarty->display("db:header.tpl");</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour renvoyer le résultat du template plutôt que de l'afficher.
+			UtilisTe pour renvoyer le rTsultat du template plut(t que de l'afficher.
          Il faut passer un type et un chemin de <link
          linkend="template.resources">ressource template</link>
-         valides. Vous pouvez passer un identifiant de cache en deuxième
-         paramètre. Reportez-vous à la section <link linkend="caching">cache
+         valides. Vous pouvez passer un identifiant de cache en deuxiFme
+         paramFtre. Reportez-vous a la section <link linkend="caching">cache
          </link> pour plus de renseignements.
 			</para>
 			<para>
-         Un troisième paramètre optionnel est un identifiant de compilation.
-         Cela s'avère utile quand vous voulez compiler différentes versions
-         d'un même template, pour par exemple avoir des templates
-         compilés séparés pour différents langages. Une autre utilité de ce
-         paramètre est le cas où vous utilisez plus d'un $template_dir
-         mais un seul $compile_dir, car certains templates avec le même nom
-         s'écraseraient entre eux. Vous pouvez aussi régler la variable <link
+         Un troisiFme paramFtre optionnel est un identifiant de compilation.
+         Cela s'avFre utile quand vous voulez compiler diffTrentes versions
+         d'un mOme template, pour par exemple avoir des templates
+         compilTs sTparTs pour diffTrents langages. Une autre utilitT de ce
+         paramFtre est le cas oú vous utilisez plus d'un $template_dir
+         mais un seul $compile_dir, car certains templates avec le mOme nom
+         s'Tcraseraient entre eux. Vous pouvez aussi rTgler la variable <link
 			linkend="variable.compile.id">$compile_id</link> une seule
-			fois plutôt que de la passer à chaque appel.
+			fois plut(t que de la passer a chaque appel.
 			</para>
 <example>
 <title>fetch</title>
@@ -967,12 +967,12 @@ $smarty = new Smarty;
 
 $smarty->caching = true;
 
-// ne fait un appel à la base de données que si le fichier
+// ne fait un appel a la base de donnTes que si le fichier
 // de cache n'existe pas
 if(!$smarty->is_cached("index.tpl"))
 {
 
-    // quelques données
+    // quelques donnTes
     $address = "245 N 50th";
     $db_data = array(
 	    "City" => "Lincoln",
@@ -986,7 +986,7 @@ if(!$smarty->is_cached("index.tpl"))
 
 }
 
-// récupère le résultat
+// rTcupFre le rTsultat
 $output = $smarty->fetch("index.tpl");
 
 // fait quelque chose avec $output
@@ -1003,20 +1003,20 @@ echo $output;</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Retourne la valeur de la variable de configuration passée en paramètre.
-			Si aucun paramètre n'est donné, un tableau de toutes les variables de
-			configuration chargées est renvoyé.
+			Retourne la valeur de la variable de configuration passTe en paramFtre.
+			Si aucun paramFtre n'est donnT, un tableau de toutes les variables de
+			configuration chargTes est renvoyT.
 			</para>
 <example>
 <title>get_config_vars</title>
 <programlisting>
-// récupère la variable de configuration chargée 'foo'
+// rTcupFre la variable de configuration chargTe 'foo'
 $foo = $smarty->get_config_vars('foo');
 
-// récupère toutes les variables de configuration chargées
+// rTcupFre toutes les variables de configuration chargTes
 $config_vars = $smarty->get_config_vars();
 
-// les affiche à l'écran
+// les affiche a l'Tcran
 print_r($config_vars);</programlisting>
 </example>
 		</sect1>
@@ -1029,8 +1029,8 @@ print_r($config_vars);</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Retourne la référence d'un objet enregistré. Utile quand vous
-			voulez accéder directement à un objet enregistré avec une
+			Retourne la rTfTrence d'un objet enregistrT. Utile quand vous
+			voulez accTder directement a un objet enregistrT avec une
 			fonction utilisateur.
 			</para>
 <example>
@@ -1038,9 +1038,9 @@ print_r($config_vars);</programlisting>
 <programlisting>
 function smarty_block_foo($params, &amp;$smarty) {
 	if (isset[$params['object']]) {
-      // récupère la référence de l'objet enregistré
+      // rTcupFre la rTfTrence de l'objet enregistrT
    		$obj_ref =&amp; $smarty->get_registered_object($params['object']);
-   	// $obj_ref est maintenant une référence vers l'objet
+   	// $obj_ref est maintenant une rTfTrence vers l'objet
 	}
 }</programlisting>
 </example>
@@ -1054,21 +1054,21 @@ function smarty_block_foo($params, &amp;$smarty) {
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Retourne la valeur assignée passée en paramètre. Si aucun paramètre
-			n'est donné, un tableau de toutes les variables assignées est
-			renvoyé.
+			Retourne la valeur assignTe passTe en paramFtre. Si aucun paramFtre
+			n'est donnT, un tableau de toutes les variables assignTes est
+			renvoyT.
 			</para>
 <example>
 <title>get_template_vars</title>
 <programlisting>
-// récupère la variable 'foo' assignée au template
+// rTcupFre la variable 'foo' assignTe au template
 // get assigned template var 'foo'
 $foo = $smarty->get_template_vars('foo');
 
-// récupère toutes les variables assignées à ce template
+// rTcupFre toutes les variables assignTes a ce template
 $tpl_vars = $smarty->get_template_vars();
 
-// les affiche à l'écran
+// les affiche a l'Tcran
 print_r($tpl_vars);</programlisting>
 </example>
 		</sect1>
@@ -1084,7 +1084,7 @@ print_r($tpl_vars);</programlisting>
 			<para>
 			Retourne vrai s'il y a un fichier de cache valide pour ce template.
 			Cela fonctionne seulement si <link
-         linkend="variable.caching">caching</link> est à vrai.
+         linkend="variable.caching">caching</link> est a vrai.
 			</para>
 <example>
 <title>is_cached</title>
@@ -1092,15 +1092,15 @@ print_r($tpl_vars);</programlisting>
 $smarty->caching = true;
 
 if(!$smarty->is_cached("index.tpl")) {
-    // faire des requêtes base de données et assigner
+    // faire des requOtes base de donnTes et assigner
     // des variables ici.
 }
 
 $smarty->display("index.tpl");</programlisting>
 </example>
             <para>
-            Vous pouvez aussi passer en second paramètre un identifiant
-            de cache au cas où vous voudriez plusieurs fichiers de cache
+            Vous pouvez aussi passer en second paramFtre un identifiant
+            de cache au cas oú vous voudriez plusieurs fichiers de cache
             pour ce template.
             </para>
 <example>
@@ -1109,7 +1109,7 @@ $smarty->display("index.tpl");</programlisting>
 $smarty->caching = true;
 
 if(!$smarty->is_cached("index.tpl","FrontPage")) {
-    // faire des requêtes base de données et assigner
+    // faire des requOtes base de donnTes et assigner
     // des variables ici.
 }
 
@@ -1126,17 +1126,17 @@ $smarty->display("index.tpl","FrontPage");</programlisting>
           </funcprototype>
          </funcsynopsis>
          <para>
-         Cette fonction peut être utilisée pour charger un plugin
-         de filtrage. Le premier argument spécifie le type du filtre
+         Cette fonction peut Otre utilisTe pour charger un plugin
+         de filtrage. Le premier argument spTcifie le type du filtre
          et peut prendre l'une des valeurs suivantes : 'pre', 'post'
-         ou 'output'. Le second argument spécifie le nom du plugin
+         ou 'output'. Le second argument spTcifie le nom du plugin
          de filtrage, par exemple 'trim'.
          </para>
 <example>
 <title>Chargement de plugins de filtrage</title>
 <programlisting>
 $smarty->load_filter('pre', 'trim'); // charge le filtre 'trim' de type 'pre'
-$smarty->load_filter('pre', 'datefooter'); // charge un autre filtre de type 'pre' appelé 'datefooter'
+$smarty->load_filter('pre', 'datefooter'); // charge un autre filtre de type 'pre' appelT 'datefooter'
 $smarty->load_filter('output', 'compress'); // charge le filtre 'compress' de type 'output'</programlisting>
 </example>
         </sect1>
@@ -1150,9 +1150,9 @@ $smarty->load_filter('output', 'compress'); // charge le filtre 'compress' de ty
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-         Utilisée pour déclarrer dynamiquement des plugins de fonction
-         de blocs. Il faut passer en paramètre le nom de la fonction
-         de blocs, suivi du nom de la fonction PHP qui l'implémente.
+         UtilisTe pour dTclarrer dynamiquement des plugins de fonction
+         de blocs. Il faut passer en paramFtre le nom de la fonction
+         de blocs, suivi du nom de la fonction PHP qui l'implTmente.
          </para>
 <example>
 <title>register_block</title>
@@ -1160,7 +1160,7 @@ $smarty->load_filter('output', 'compress'); // charge le filtre 'compress' de ty
 /* PHP */
 $smarty->register_block("translate", "do_translation");
 
-function do_translation ($params, $content, &$smarty) {
+function do_translation ($params, $content, &amp;$smarty) {
     if ($content) {
         $lang = $params['lang'];
         // fait de la traduction avec la variable $content
@@ -1184,10 +1184,10 @@ function do_translation ($params, $content, &$smarty) {
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour déclarer dynamiquement un plugin de fonction
-			de compilation. Il faut passer en paramètres le nom de la fonction
+			UtilisTe pour dTclarer dynamiquement un plugin de fonction
+			de compilation. Il faut passer en paramFtres le nom de la fonction
 			de compilation, suivi par la fonction PHP qui
-			l'implémente.
+			l'implTmente.
 			</para>
 		</sect1>
 		<sect1 id="api.register.function">
@@ -1200,9 +1200,9 @@ function do_translation ($params, $content, &$smarty) {
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour déclarer dynamiquement des plugins de fonction
-			de templates. Il faut passer en paramètres le nom de la fonction
-			de templates, suivi par le nom de la fonction PHP qui l'implémente.
+			UtilisTe pour dTclarer dynamiquement des plugins de fonction
+			de templates. Il faut passer en paramFtres le nom de la fonction
+			de templates, suivi par le nom de la fonction PHP qui l'implTmente.
 			</para>
 <example>
 <title>register_function</title>
@@ -1231,14 +1231,14 @@ function print_current_date ($params) {
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour déclarer dynamiquement un plugin de modificateur.
-         Il faut passer en paramètre le nom du modificateur de variables,
-         suivi de la fonction PHP qui l'implémente.
+         UtilisTe pour dTclarer dynamiquement un plugin de modificateur.
+         Il faut passer en paramFtre le nom du modificateur de variables,
+         suivi de la fonction PHP qui l'implTmente.
          </para>
 <example>
 <title>register_modifier</title>
 <programlisting>
-// associons la fonction PHP stripslashes à un modificateur Smarty.
+// associons la fonction PHP stripslashes a un modificateur Smarty.
 
 $smarty->register_modifier("sslash","stripslashes");
 
@@ -1257,8 +1257,8 @@ $smarty->register_modifier("sslash","stripslashes");
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour enregistrer un objet à utiliser dans un template.
-			Reportez-vous à la section
+			UtilisTe pour enregistrer un objet a utiliser dans un template.
+			Reportez-vous a la section
          <link linkend="advanced.features.objects">objet</link> de
          ce manuel pour des exemples.
          </para>
@@ -1272,9 +1272,9 @@ $smarty->register_modifier("sslash","stripslashes");
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour déclarer dynamiquement des filtres de sortie, pour
-			agir sur la sortie d'un template avant qu'elle ne soit affichée.
-			Reportez-vous à la section <link linkend="advanced.features.outputfilters">
+			UtilisTe pour dTclarer dynamiquement des filtres de sortie, pour
+			agir sur la sortie d'un template avant qu'elle ne soit affichTe.
+			Reportez-vous a la section <link linkend="advanced.features.outputfilters">
          filtres de sortie</link> pour plus d'information sur le sujet.
 			</para>
 		</sect1>
@@ -1287,11 +1287,11 @@ $smarty->register_modifier("sslash","stripslashes");
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-         Utilisée pour déclarer dynamiquement des filtres de post-compilation pour y faire
-         passer des templates une fois qu'ils ont été compilés. Reportez-vous
-         à la section
+         UtilisTe pour dTclarer dynamiquement des filtres de post-compilation pour y faire
+         passer des templates une fois qu'ils ont TtT compilTs. Reportez-vous
+         a la section
           <link linkend="advanced.features.postfilters">filtres de post-compilation de templates</link>
-         pour avoir plus de renseignements sur la façon de paramétrer les fonctions
+         pour avoir plus de renseignements sur la faton de paramTtrer les fonctions
          de post-compilation.
 			</para>
 		</sect1>
@@ -1304,12 +1304,12 @@ $smarty->register_modifier("sslash","stripslashes");
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour déclarer dynamiquement des filtres de pré-compilation pour y faire
-         passer des templates avant qu'ils ne soient compilés. Reportez-vous
-         à la section
-          <link linkend="advanced.features.postfilters">filtres de pré-compilation de templates</link>
-         pour avoir plus de renseignements sur la façon de paramétrer les fonctions
-         de pré-compilation.
+			UtilisTe pour dTclarer dynamiquement des filtres de prT-compilation pour y faire
+         passer des templates avant qu'ils ne soient compilTs. Reportez-vous
+         a la section
+          <link linkend="advanced.features.postfilters">filtres de prT-compilation de templates</link>
+         pour avoir plus de renseignements sur la faton de paramTtrer les fonctions
+         de prT-compilation.
 			</para>
 		</sect1>
         <sect1 id="api.register.resource">
@@ -1322,12 +1322,12 @@ $smarty->register_modifier("sslash","stripslashes");
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour déclarer dynamiquement une ressource plugin
-         dans Smarty. Il faut passer en paramètre le nom de la ressource
-         et le tableau des fonctions PHP qui l'implémentent. Reportez-vous
-         à la section <link linkend="template.resources">ressources templates</link>
-         pour avoir plus d'informations sur la façon de paramétrer une fonction
-         récupérant des templates.
+         UtilisTe pour dTclarer dynamiquement une ressource plugin
+         dans Smarty. Il faut passer en paramFtre le nom de la ressource
+         et le tableau des fonctions PHP qui l'implTmentent. Reportez-vous
+         a la section <link linkend="template.resources">ressources templates</link>
+         pour avoir plus d'informations sur la faton de paramTtrer une fonction
+         rTcupTrant des templates.
          </para>
 <example>
 <title>register_resource</title>
@@ -1348,10 +1348,10 @@ $smarty->register_resource("db", array("db_get_template",
           </funcprototype>
          </funcsynopsis>
          <para>
-         Cette fonction peut-être utilisée pour afficher un message d'erreur
-         en utilisant Smarty. Le paramètre <parameter>level</parameter>
-         peut prendre l'une des valeures utilisées par la fonction PHP
-         trigger_error, i.e. E_USER_NOTICE, E_USER_WARNING, etc. Par défaut
+         Cette fonction peut-Otre utilisTe pour afficher un message d'erreur
+         en utilisant Smarty. Le paramFtre <parameter>level</parameter>
+         peut prendre l'une des valeures utilisTes par la fonction PHP
+         trigger_error, i.e. E_USER_NOTICE, E_USER_WARNING, etc. Par dTfaut
          il s'agit de E_USER_WARNING.
          </para>
         </sect1>
@@ -1365,9 +1365,9 @@ $smarty->register_resource("db", array("db_get_template",
           </funcprototype>
          </funcsynopsis>
          <para>
-         Cette fonction vérifie si le template spécifié existe. Elle accepte
+         Cette fonction vTrifie si le template spTcifiT existe. Elle accepte
          soit un chemin vers le template, soit une ressource de type
-         chaîne de caractères précisant le nom du template.
+         chaene de caractFres prTcisant le nom du template.
          </para>
         </sect1>
         <sect1 id="api.unregister.block">
@@ -1379,8 +1379,8 @@ $smarty->register_resource("db", array("db_get_template",
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour désallouer dynamiquement un plugin de fonction
-         de blocs. Passez en paramètre le nom du bloc.
+         UtilisTe pour dTsallouer dynamiquement un plugin de fonction
+         de blocs. Passez en paramFtre le nom du bloc.
          </para>
 		</sect1>
         <sect1 id="api.unregister.compiler.function">
@@ -1392,8 +1392,8 @@ $smarty->register_resource("db", array("db_get_template",
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour désallouer dynamiquement un fonction de compilation.
-         Passez en paramètre le nom de la fonction de compilation.
+         UtilisTe pour dTsallouer dynamiquement un fonction de compilation.
+         Passez en paramFtre le nom de la fonction de compilation.
          </para>
         </sect1>
 		<sect1 id="api.unregister.function">
@@ -1405,14 +1405,14 @@ $smarty->register_resource("db", array("db_get_template",
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour désallouer dynamiquement un plugin de fonction
-         de templates. Passez en paramètres le nom de la fonction de templates.
+         UtilisTe pour dTsallouer dynamiquement un plugin de fonction
+         de templates. Passez en paramFtres le nom de la fonction de templates.
          </para>
 <example>
 <title>unregister_function</title>
 <programlisting>
-// nous ne voulons pas que les designers de templates aient accès
-// au système de fichiers.
+// nous ne voulons pas que les designers de templates aient accFs
+// au systFme de fichiers.
 
 $smarty->unregister_function("fetch");</programlisting>
 </example>
@@ -1426,14 +1426,14 @@ $smarty->unregister_function("fetch");</programlisting>
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour désallouer dynamiquement un plugin modificateur de variable.
-         Passez en paramètre le nom du modificateur de templates.
+         UtilisTe pour dTsallouer dynamiquement un plugin modificateur de variable.
+         Passez en paramFtre le nom du modificateur de templates.
          </para>
 <example>
 <title>unregister_modifier</title>
 <programlisting>
 // nous ne voulons pas que les designers de templates
-// suppriment les balises des élements
+// suppriment les balises des Tlements
 
 $smarty->unregister_modifier("strip_tags");</programlisting>
 </example>
@@ -1447,7 +1447,7 @@ $smarty->unregister_modifier("strip_tags");</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour désallouer un objet.
+			UtilisTe pour dTsallouer un objet.
          </para>
 		</sect1>
 		<sect1 id="api.unregister.outputfilter">
@@ -1459,7 +1459,7 @@ $smarty->unregister_modifier("strip_tags");</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour désallouer dynamiquement un filtre de sortie.
+			UtilisTe pour dTsallouer dynamiquement un filtre de sortie.
 			</para>
 		</sect1>
 		<sect1 id="api.unregister.postfilter">
@@ -1471,7 +1471,7 @@ $smarty->unregister_modifier("strip_tags");</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour désallouer dynamiquement un filtre de post-compilation.
+			UtilisTe pour dTsallouer dynamiquement un filtre de post-compilation.
 			</para>
 		</sect1>
 		<sect1 id="api.unregister.prefilter">
@@ -1483,7 +1483,7 @@ $smarty->unregister_modifier("strip_tags");</programlisting>
 			</funcprototype>
 			</funcsynopsis>
 			<para>
-			Utilisée pour désallouer dynamiquement un filtre de pré-compilation.
+			UtilisTe pour dTsallouer dynamiquement un filtre de prT-compilation.
 			</para>
 		</sect1>
         <sect1 id="api.unregister.resource">
@@ -1495,8 +1495,8 @@ $smarty->unregister_modifier("strip_tags");</programlisting>
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour désallouer dynamiquement un plugin ressource.
-         Passez en paramètre le nom de la ressource.
+         UtilisTe pour dTsallouer dynamiquement un plugin ressource.
+         Passez en paramFtre le nom de la ressource.
          </para>
 <example>
 <title>unregister_resource</title>
@@ -1509,31 +1509,31 @@ $smarty->unregister_resource("db");</programlisting>
   <chapter id="caching">
    <title>Cache</title>
    <para>
-   Le cache est utilisée pour accélérer l'appel de <link
+   Le cache est utilisTe pour accTlTrer l'appel de <link
    linkend="api.display">display()</link> ou de <link
-   linkend="api.fetch">fetch()</link> en sauvegardant leur résultat
+   linkend="api.fetch">fetch()</link> en sauvegardant leur rTsultat
    dans un fichier. Si un fichier de cache est disponible lors d'un appel,
-   il sera affiché sans qu'il ne soit nécessaire de regénérer le résultat.
-   Le système de cache
-   peut accélérer les traitements de façon impressionnante, en particulier les
-   templates dont la compilation est très longue. Comme le résultat de
+   il sera affichT sans qu'il ne soit nTcessaire de regTnTrer le rTsultat.
+   Le systFme de cache
+   peut accTlTrer les traitements de faton impressionnante, en particulier les
+   templates dont la compilation est trFs longue. Comme le rTsultat de
    display() ou de fetch() est dans le cache, un fichier de cache peut
-   être composé de plusieurs fichiers de templates, plusieurs fichiers
+   Otre composT de plusieurs fichiers de templates, plusieurs fichiers
    de configuration, etc.
    </para>
    <para>
    Comme les templates sont dynamiques, il est important de faire attention
-   à la façon dont les fichiers de cache sont générés, et pour combien de temps.
+   a la faton dont les fichiers de cache sont gTnTrTs, et pour combien de temps.
    Si par exemple vous affichez la page d'accueil de votre site Web dont le
-   contenu ne change pas souvent, il peut être intéressant de mettre cette page
+   contenu ne change pas souvent, il peut Otre intTressant de mettre cette page
    dans le cache pour une heure ou plus. A l'inverse, si vous affichez une page
-   de météo mises à jour toutes les minutes, mettre cette page en cache
+   de mTtTo mises a jour toutes les minutes, mettre cette page en cache
    n'a aucun sens.
    </para>
    <sect1 id="caching.setting.up">
-   <title>Paramétrer le cache</title>
+   <title>ParamTtrer le cache</title>
    <para>
-   La première chose à faire est d'activer le cache. Cela est fait en
+   La premiFre chose a faire est d'activer le cache. Cela est fait en
    mettant <link linkend="variable.caching">$caching</link> = true
    (ou 1).
    </para>
@@ -1548,50 +1548,50 @@ $smarty->caching = true;
 $smarty->display('index.tpl');</programlisting>
     </example>
     <para>
-    Avec le cache activé, la fonction display('index.tpl') va afficher
-    le template mais sauvegardera par la même occasion une copie du résultat
-    dans un fichier (de cache) du répertoire
+    Avec le cache activT, la fonction display('index.tpl') va afficher
+    le template mais sauvegardera par la mOme occasion une copie du rTsultat
+    dans un fichier (de cache) du rTpertoire
     <link linkend="variable.cache.dir">$cache_dir</link>. Au prochain appel de
-    display('index.tpl'), le fichier de cache sera préféré à la réutilisation
+    display('index.tpl'), le fichier de cache sera prTfTrT a la rTutilisation
     du template.
     </para>
 	<note>
 	<title>Note technique</title>
 	<para>
-	Les fichiers situés dans $cache_dir sont nommés de la même façon que les templates.
-	Bien qu'ils aient une extension ".php", ils ne sont pas vraiment exécutable.
-	N'éditez surtout pas ces fichiers !
+	Les fichiers situTs dans $cache_dir sont nommTs de la mOme faton que les templates.
+	Bien qu'ils aient une extension ".php", ils ne sont pas vraiment exTcutable.
+	N'Tditez surtout pas ces fichiers !
 	</para>
 	</note>
 	<para>
-	Tout fichier de cache à une durée de vie limitée déterminée par <link
+	Tout fichier de cache a une durTe de vie limitTe dTterminTe par <link
 	linkend="variable.cache.lifetime">$cache_lifetime</link>. La valeur par
-	défaut est 3600 secondes, i.e. 1 heure. Une fois que cette durée est
-	dépassée, le cache est regénéré. Il est possible de donner
-   une durée d'expiration propre à chaque fichier de cache en réglant
+	dTfaut est 3600 secondes, i.e. 1 heure. Une fois que cette durTe est
+	dTpassTe, le cache est regTnTrT. Il est possible de donner
+   une durTe d'expiration propre a chaque fichier de cache en rTglant
    $caching = 2.
-   Se reporter à la documentation de <link
+   Se reporter a la documentation de <link
 	linkend="variable.cache.lifetime">$cache_lifetime</link> pour plus de
-	détails.
+	dTtails.
 	</para>
     <example>
-     <title>réglage individuel de cache_lifetime</title>
+     <title>rTglage individuel de cache_lifetime</title>
      <programlisting>
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 2; // régler la durée de vie individuellement
+$smarty->caching = 2; // rTgler la durTe de vie individuellement
 
-// régle la durée de vie du cache à 15 minutes pour index.tpl
+// rTgle la durTe de vie du cache a 15 minutes pour index.tpl
 $smarty->cache_lifetime = 300;
 $smarty->display('index.tpl');
 
-// régle la durée de vie du cache à 1 heure pour home.tpl
+// rTgle la durTe de vie du cache a 1 heure pour home.tpl
 $smarty->cache_lifetime = 3600;
 $smarty->display('home.tpl');
 
-// NOTE : le réglage suivant ne fonctionne pas quand $caching = 2. La durée de vie
-// du fichier de cache de home.tpl a déjà été réglée à 1 heure et ne respectera
+// NOTE : le rTglage suivant ne fonctionne pas quand $caching = 2. La durTe de vie
+// du fichier de cache de home.tpl a dTja TtT rTglTe a 1 heure et ne respectera
 // plus la valeur de $cache_lifetime. Le cache de home.tpl expirera toujours
 // dans 1 heure.
 $smarty->cache_lifetime = 30; // 30 secondes
@@ -1600,10 +1600,10 @@ $smarty->display('home.tpl');</programlisting>
   <para>
   Si <link linkend="variable.compile.check">$compile_check</link> est actif,
   chaque fichier de template et de configuration qui a un rapport
-  avec le fichier de cache sera vérifié pour détecter une éventuelle
-  modification. Si l'un de ces fichiers a été modifié depuis que le fichier de cache a été
-  généré, le cache est immédiatement regénéré. Ce processus est coûteux, donc,
-  pour des raisons de performances, mettez ce paramètre à false pour une application
+  avec le fichier de cache sera vTrifiT pour dTtecter une Tventuelle
+  modification. Si l'un de ces fichiers a TtT modifiT depuis que le fichier de cache a TtT
+  gTnTrT, le cache est immTdiatement regTnTrT. Ce processus est covteux, donc,
+  pour des raisons de performances, mettez ce paramFtre a false pour une application
   en production.
   </para>
     <example>
@@ -1619,16 +1619,16 @@ $smarty->display('index.tpl');</programlisting>
 	</example>
    <para>
    Si <link linkend="variable.force.compile">$force_compile</link> est actif,
-   les fichiers de cache sont toujours regénérés. Ceci revient finalement à
-   désactiver le cache. $force_compile est utilisé à des fins de débogage,
-   un moyen plus efficace de désactiver le cache est de régler
+   les fichiers de cache sont toujours regTnTrTs. Ceci revient finalement a
+   dTsactiver le cache. $force_compile est utilisT a des fins de dTbogage,
+   un moyen plus efficace de dTsactiver le cache est de rTgler
    <link	linkend="variable.caching">$caching</link> = false (ou 0).
    </para>
    <para>
    La fonction <link linkend="api.is.cached">is_cached()</link> permet
    de tester si un template a ou non un fichier de cache valide.
-   Si vous disposez d'un template en cache qui requiert une requête
-   à une base de données, vous pouvez utiliser cette méthode plutôt
+   Si vous disposez d'un template en cache qui requiert une requOte
+   a une base de donnTes, vous pouvez utiliser cette mTthode plut(t
    que $compile_check.
    </para>
     <example>
@@ -1651,16 +1651,16 @@ $smarty->display('index.tpl');</programlisting>
     Vous pouvez rendre dynamiques seulement certaines parties d'une
     page avec la fonction de templates <link
     linkend="language.function.insert">insert</link>.
-    Imaginons que toute une page doit être mise en cache à part
-    une bannière en bas à droite. En utilisant une fonction insert pour la
-    bannière, vous pouvez garder cet élément dynamique dans le contenu qui
-    est en cache. Reportez-vous à la documentation
-    <link linkend="language.function.insert">insert</link> pour plus de détails
+    Imaginons que toute une page doit Otre mise en cache a part
+    une banniFre en bas a droite. En utilisant une fonction insert pour la
+    banniFre, vous pouvez garder cet TlTment dynamique dans le contenu qui
+    est en cache. Reportez-vous a la documentation
+    <link linkend="language.function.insert">insert</link> pour plus de dTtails
     et des exemples.
     </para>
     <para>
     Vous pouvez effacer tous les fichiers du cache avec la fonction <link
-	 linkend="api.clear.all.cache">clear_all_cache(),</link> ou de façon
+	 linkend="api.clear.all.cache">clear_all_cache(),</link> ou de faton
 	 individuelle (ou par groupe) avec la fonction <link
 	 linkend="api.clear.cache">clear_cache()</link>.
     </para>
@@ -1684,15 +1684,15 @@ $smarty->display('index.tpl');</programlisting>
    <sect1 id="caching.multiple.caches">
    <title>Caches multiples pour une seule page</title>
    <para>
-   Vous pouvez avoir plusieurs fichiers de caches pour un même appel
-   aux fonctions display() ou fetch(). Imaginons qu'un appel à display('index.tpl')
-   puisse avoir plusieurs résultats, en fonction de certaines conditions, et que
-   vous vouliez des fichiers de cache séparés pour chacun d'eux. Vous
+   Vous pouvez avoir plusieurs fichiers de caches pour un mOme appel
+   aux fonctions display() ou fetch(). Imaginons qu'un appel a display('index.tpl')
+   puisse avoir plusieurs rTsultats, en fonction de certaines conditions, et que
+   vous vouliez des fichiers de cache sTparTs pour chacun d'eux. Vous
    pouvez faire cela en passant un identifiant de cache (cache_id) en
-   deuxième paramètre à l'appel de fonction.
+   deuxiFme paramFtre a l'appel de fonction.
    </para>
     <example>
-     <title>Passage d'un cache_id à display()</title>
+     <title>Passage d'un cache_id a display()</title>
      <programlisting>
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -1704,10 +1704,10 @@ $my_cache_id = $_GET['article_id'];
 $smarty->display('index.tpl',$my_cache_id);</programlisting>
     </example>
     <para>
-    Nous passons ci-dessus la variable $my_cache_id à display() comme
+    Nous passons ci-dessus la variable $my_cache_id a display() comme
     identifiant de cache. Pour chaque valeur distincte de $my_cache_id,
-    un fichier de cache distinct va être créé. Dans cet exemple,
-    "article_id" a été passé dans l'URL et est utilisé en tant qu'identifiant
+    un fichier de cache distinct va Otre crTT. Dans cet exemple,
+    "article_id" a TtT passT dans l'URL et est utilisT en tant qu'identifiant
     de cache.
     </para>
  	<note>
@@ -1715,25 +1715,25 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
 	<para>
 	Soyez prudent en passant des valeurs depuis un client (navigateur Web)
 	vers Smarty (ou vers n'importe quelle application PHP). Bien que l'exemple
-	ci-dessus consistant à utiliser article_id depuis l'URL puisse paraître
-	commode, le résultat peut s'avérer mauvais. L'identifiant
-	de cache est utilisé pour créer un répertoire sur le système de fichiers,
-	donc si l'utilisateur décide de donner une très grande valeur à article_id
-	ou d'écrire un script qui envoie des article_id de façon aléatoire,
-	cela pourra causer des problèmes coté serveur. Assurez-vous de bien
-	tester toute donnée passée en paramètre avant de l'utiliser. Dans cet
-	exemple, peut-être savez-vous que article_id a une longueur de 10
-   caractères, est exclusivement composé de caractères alph-numériques et
-   doit avoir une valeur contenue dans la base de données. Vérifiez-le bien !
+	ci-dessus consistant a utiliser article_id depuis l'URL puisse paraetre
+	commode, le rTsultat peut s'avTrer mauvais. L'identifiant
+	de cache est utilisT pour crTer un rTpertoire sur le systFme de fichiers,
+	donc si l'utilisateur dTcide de donner une trFs grande valeur a article_id
+	ou d'Tcrire un script qui envoie des article_id de faton alTatoire,
+	cela pourra causer des problFmes cotT serveur. Assurez-vous de bien
+	tester toute donnTe passTe en paramFtre avant de l'utiliser. Dans cet
+	exemple, peut-Otre savez-vous que article_id a une longueur de 10
+   caractFres, est exclusivement composT de caractFres alph-numTriques et
+   doit avoir une valeur contenue dans la base de donnTes. VTrifiez-le bien !
 	</para>
 	</note>
 	<para>
-	Assurez-vous de bien passer le même identifiant aux fonctions
+	Assurez-vous de bien passer le mOme identifiant aux fonctions
    <link linkend="api.is.cached">is_cached()</link> et
 	<link linkend="api.clear.cache">clear_cache()</link>.
 	</para>
 	<example>
-     <title>passer un  cache_id à is_cached()</title>
+     <title>passer un  cache_id a is_cached()</title>
      <programlisting>
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -1752,8 +1752,8 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
     </example>
     <para>
     Vous pouvez effacer tous les fichiers de cache pour un identifiant
-    de cache particulier en passant null en tant que premier paramètre
-    à clear_cache().
+    de cache particulier en passant null en tant que premier paramFtre
+    a clear_cache().
     </para>
 	<example>
      <title>effacement de tous les fichiers de cache pour un identifiant de cache particulier</title>
@@ -1769,17 +1769,17 @@ $smarty->clear_cache(null,"sports");
 $smarty->display('index.tpl',"sports");</programlisting>
     </example>
     <para>
-    De cette manière vous pouvez "grouper" vos fichiers de cache en leur
-    donnant le même identifiant.
+    De cette maniFre vous pouvez "grouper" vos fichiers de cache en leur
+    donnant le mOme identifiant.
     </para>
    </sect1>
    <sect1 id="caching.groups">
     <title>groupes de fichiers de cache</title>
     <para>
-    Vous pouvez faire des groupements plus élaborés en paramétrant les
-    groupes d'identifiant de cache. Il suffit de séparer chaque sous-groupes
+    Vous pouvez faire des groupements plus TlaborTs en paramTtrant les
+    groupes d'identifiant de cache. Il suffit de sTparer chaque sous-groupes
     avec une barre verticale "|" dans la valeur de l'identifiant de cache.
-    Vous pouvez faire autant de sous-groupes que vous le désirez.
+    Vous pouvez faire autant de sous-groupes que vous le dTsirez.
     </para>
 	<example>
      <title>groupes d'identifiants de cache</title>
@@ -1802,11 +1802,11 @@ $smarty->display('index.tpl',"sports|basketball");</programlisting>
    <note>
    <title>Note technique</title>
    <para>
-   Le système de cache n'utilise PAS le chemin vers le template en quoi
+   Le systFme de cache n'utilise PAS le chemin vers le template en quoi
    que ce soit pour l'identifiant de cache.  Si par exemple vous
    faites display('themes/blue/index.tpl'), vous ne pouvez pas effacer tous
-   les fichiers de cache dans le répertoire "theme/blue". Si vous voulez
-   faire cela, vous devez les grouper avec un même identifiant de cache,
+   les fichiers de cache dans le rTpertoire "theme/blue". Si vous voulez
+   faire cela, vous devez les grouper avec un mOme identifiant de cache,
    display('themes/blue/index.tpl','themes|blue'). Vous pouvez ensuite effacer les
    fichiers de cache pour blue et theme avec clear_cache(null,'theme|blue').
    </para>
@@ -1815,49 +1815,49 @@ $smarty->display('index.tpl',"sports|basketball");</programlisting>
   </chapter>
 
   <chapter id="advanced.features">
-   <title>Fonctionnalités avancées</title>
+   <title>FonctionnalitTs avancTes</title>
    <sect1 id="advanced.features.objects">
     <title>Objets</title>
     <para>
-    Smarty donne l'accès aux objets PHP à travers les templates. Il y
-    a 2 moyens d'y avoir accès. Le premier consiste à allouer les objets
-    au template puis de les utiliser avec une syntaxe similaire à celles
-    des fonctions personnalisées. Le deuxième moyen consiste à allouer
+    Smarty donne l'accFs aux objets PHP a travers les templates. Il y
+    a 2 moyens d'y avoir accFs. Le premier consiste a allouer les objets
+    au template puis de les utiliser avec une syntaxe similaire a celles
+    des fonctions personnalisTes. Le deuxiFme moyen consiste a allouer
     des objets aux templates et de les utiliser comme n'importe quelle
-    variable. La première méthode a une syntaxe beaucoup plus sympathique.
-    Elle est aussi plus sécurisée, puisqu'un objet alloué ne peut avoir accès
-    qu'à certaines méthodes et propriétés. Néanmoins, un objet alloué
-    ne peut pas avoir de lien sur lui-même ou être mis dans un tableau
-    d'objet, etc. Vous devez choisir la méthode qui correspond à vos
-    besoins, mais tâchez d'utiliser la première méthode autant que possible
-    afin de réduire la syntaxe des templates au minimum.
+    variable. La premiFre mTthode a une syntaxe beaucoup plus sympathique.
+    Elle est aussi plus sTcurisTe, puisqu'un objet allouT ne peut avoir accFs
+    qu'a certaines mTthodes et propriTtTs. NTanmoins, un objet allouT
+    ne peut pas avoir de lien sur lui-mOme ou Otre mis dans un tableau
+    d'objet, etc. Vous devez choisir la mTthode qui correspond a vos
+    besoins, mais tGchez d'utiliser la premiFre mTthode autant que possible
+    afin de rTduire la syntaxe des templates au minimum.
     </para>
     <para>
-    Si l'option de sécurité est activée, aucune méthode ou fonctions privées
-    n'est accessible (commençant par "_"). S'il existe une méthode et une
-    propriété du même nom, c'est la méthode qui sera utilisée.
+    Si l'option de sTcuritT est activTe, aucune mTthode ou fonctions privTes
+    n'est accessible (commentant par "_"). S'il existe une mTthode et une
+    propriTtT du mOme nom, c'est la mTthode qui sera utilisTe.
     </para>
     <para>
-    Vous pouvez restreindre l'accès aux méthodes et aux propriétés en
-    les listant dans un tableau en tant que troisième paramètre
+    Vous pouvez restreindre l'accFs aux mTthodes et aux propriTtTs en
+    les listant dans un tableau en tant que troisiFme paramFtre
     d'allocation.
     </para>
 	<para>
-	Par défaut, les paramètres passés aux objets depuis le templates le sont de la
-  même façon que les fonctions utilisateurs les récupèrent.
-  Le premier paramètre correspond à un tableau associatif, le second à l'objet
-  Smarty. Si vous souhaitez que les paramètres soient passées un à un, comme
-  dans un appel traditionnel, définissez registration, quatrième paramètre optionnel,
-  à false.
+	Par dTfaut, les paramFtres passTs aux objets depuis le templates le sont de la
+  mOme faton que les fonctions utilisateurs les rTcupFrent.
+  Le premier paramFtre correspond a un tableau associatif, le second a l'objet
+  Smarty. Si vous souhaitez que les paramFtres soient passTes un a un, comme
+  dans un appel traditionnel, dTfinissez registration, quatriFme paramFtre optionnel,
+  a false.
 	</para>
     <example>
-     <title>utilisation d'un objet alloué ou assigné</title>
+     <title>utilisation d'un objet allouT ou assignT</title>
      <programlisting>
 &lt;?php
 // la classe
 
 class My_Object() {
-	function meth1($params, &$smarty_obj) {
+	function meth1($params, &amp;$smarty_obj) {
 		return "this is my meth1";
 	}
 }
@@ -1865,12 +1865,12 @@ class My_Object() {
 $myobj = new My_Object;
 // enregistre l'objet
 $smarty->register_object("foobar",$myobj);
-// on restreint l'accès à certaines méthodes et propriétés en les listant
+// on restreint l'accFs a certaines mTthodes et propriTtTs en les listant
 $smarty->register_object("foobar",$myobj,array('meth1','meth2','prop1'));
-// pour utiliser le format habituel de paramètre objet, passez le booléen = false
+// pour utiliser le format habituel de paramFtre objet, passez le boolTen = false
 $smarty->register_object("foobar",$myobj,null,false);
 
-// on peut aussi assigner des objets. Assignez par référence quand c'est possible
+// on peut aussi assigner des objets. Assignez par rTfTrence quand c'est possible
 $smarty->assign_by_ref("myobj", $myobj);
 
 $smarty->display("index.tpl");
@@ -1878,7 +1878,7 @@ $smarty->display("index.tpl");
 
 TEMPLATE:
 
-{* accès à notre objet enregistré *}
+{* accFs a notre objet enregistrT *}
 {foobar->meth1 p1="foo" p2=$bar}
 
 {* on peut aussi assigner la sortie *}
@@ -1890,38 +1890,38 @@ the output was {$output)
     </example>
   </sect1>
    <sect1 id="advanced.features.prefilters">
-    <title>Filtres de pré-compilation</title>
+    <title>Filtres de prT-compilation</title>
     <para>
-    Les filtres de pré-compilation sont des fonctions PHP que vos templates
-    exécutent avant qu'ils ne soient compilés. Cela peut être utile
-    pour pré-traiter vos templates afin d'enlever les commentaires
+    Les filtres de prT-compilation sont des fonctions PHP que vos templates
+    exTcutent avant qu'ils ne soient compilTs. Cela peut Otre utile
+    pour prT-traiter vos templates afin d'enlever les commentaires
     inutiles, garder un oeil sur ce que les gens mettent dans leurs templates, etc.
-    Les filtre de pré-compilations peuvent être soit
-    <link linkend="api.register.prefilter">déclarés</link> soit chargés
-    à partir des répertoires de plugins en utilisant la fonction
-    <link linkend="api.load.filter">load_filter()</link> ou en réglant
+    Les filtre de prT-compilations peuvent Otre soit
+    <link linkend="api.register.prefilter">dTclarTs</link> soit chargTs
+    a partir des rTpertoires de plugins en utilisant la fonction
+    <link linkend="api.load.filter">load_filter()</link> ou en rTglant
     la variable
      <link linkend="variable.autoload.filters">$autoload_filters</link>.
-     Smarty passera à la fonction le code source en tant que premier argument,
-     et attendra en retour le code modifié.
+     Smarty passera a la fonction le code source en tant que premier argument,
+     et attendra en retour le code modifiT.
     </para>
     <example>
-     <title>Utilisation un filtre de pré-compilation de template</title>
+     <title>Utilisation un filtre de prT-compilation de template</title>
      <programlisting>
 &lt;?php
 // mettre ceci dans votre application
-function remove_dw_comments($tpl_source, &$smarty)
+function remove_dw_comments($tpl_source, &amp;$smarty)
 {
     return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
 }
 
-// enregistrer le filtre de pré-compilation
+// enregistrer le filtre de prT-compilation
 $smarty->register_prefilter("remove_dw_comments");
 $smarty->display("index.tpl");
 ?&gt;
 
 {* template Smarty index.tpl *}
-&lt;!--# cette ligne va être supprimée par le filtre de pré-compilation --&gt;</programlisting>
+&lt;!--# cette ligne va Otre supprimTe par le filtre de prT-compilation --&gt;</programlisting>
     </example>
    </sect1>
 
@@ -1929,20 +1929,20 @@ $smarty->display("index.tpl");
     <title>Filtres de post-compilation</title>
     <para>
     Les filtres de post-compilation sont des fonctions PHP que vos templates
-    exécutent après avoir été compilés. Les filtres de post-compilation peuvent
-    être soit <link linkend="api.register.postfilter">déclarés</link> soit chargés
-    depuis les répertoires des plugins en utilisant la fonction
-    <link linkend="api.load.filter">load_filter()</link> ou en réglant
+    exTcutent aprFs avoir TtT compilTs. Les filtres de post-compilation peuvent
+    Otre soit <link linkend="api.register.postfilter">dTclarTs</link> soit chargTs
+    depuis les rTpertoires des plugins en utilisant la fonction
+    <link linkend="api.load.filter">load_filter()</link> ou en rTglant
     la variable <link linkend="variable.autoload.filters">$autoload_filters</link>.
-    Smarty passera le template compilé en tant que premier paramètre et attendra
-    de la fonction qu'elle retourne le résultat de l'exécution.
+    Smarty passera le template compilT en tant que premier paramFtre et attendra
+    de la fonction qu'elle retourne le rTsultat de l'exTcution.
     </para>
     <example>
      <title>utilisation d'un filtre de post-compilation de templates</title>
      <programlisting>
 &lt;?php
 // mettez cela dans votre application
-function add_header_comment($tpl_source, &$smarty)
+function add_header_comment($tpl_source, &amp;$smarty)
 {
     return "&lt;?php echo \"&lt;!-- Created by Smarty! --&gt;\n\" ?&gt;\n".$tpl_source;
 }
@@ -1952,7 +1952,7 @@ $smarty->register_postfilter("add_header_comment");
 $smarty->display("index.tpl");
 ?&gt;
 
-{* template Smarty compilé index.tpl *}
+{* template Smarty compilT index.tpl *}
 &lt;!-- Created by Smarty! --&gt;
 {* reste du contenu du template... *}</programlisting>
     </example>
@@ -1961,28 +1961,28 @@ $smarty->display("index.tpl");
   <sect1 id="advanced.features.outputfilters">
    <title>Filtres de sortie</title>
    <para>
-   Quand le template est appelé via les fonctions display() ou fetch(),
-   sa sortie est envoyée à travers un ou plusieurs filtres de sorties.
-   Ils diffèrent des filtres de post-compilation dans le sens ou ils agissent
-   sur la sortie des templates, une fois exécutés, et non sur les sources
+   Quand le template est appelT via les fonctions display() ou fetch(),
+   sa sortie est envoyTe a travers un ou plusieurs filtres de sorties.
+   Ils diffFrent des filtres de post-compilation dans le sens ou ils agissent
+   sur la sortie des templates, une fois exTcutTs, et non sur les sources
    des templates.
    </para>
    <para>
-   Les filtres de sortie peuvent être soit
-   <link linkend="api.register.outputfilter">déclarés</link> soit
-   chargés depuis les répertoires des plugins en utilisant la fonction
+   Les filtres de sortie peuvent Otre soit
+   <link linkend="api.register.outputfilter">dTclarTs</link> soit
+   chargTs depuis les rTpertoires des plugins en utilisant la fonction
    <link linkend="api.load.filter">load_filter()</link>
-   ou en réglant la variable
+   ou en rTglant la variable
    <link linkend="variable.autoload.filters">$autoload_filters</link>.
    Smarty passera la sortie du template en premier argument et attendra
-   de la fonction qu'elle retourne le résultat de l'exécution.
+   de la fonction qu'elle retourne le rTsultat de l'exTcution.
    </para>
    <example>
     <title>utilisation d'un filtre de sortie</title>
     <programlisting>
 &lt;?php
 // mettez ceci dans votre application
-function protect_email($tpl_output, &$smarty)
+function protect_email($tpl_output, &amp;$smarty)
 {
     $tpl_output =
        preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
@@ -1994,7 +1994,7 @@ function protect_email($tpl_output, &$smarty)
 $smarty->register_outputfilter("protect_email");
 $smarty->display("index.tpl");
 
-// dorénavant toute occurence d'un adresse email dans le résultat du template
+// dorTnavant toute occurence d'un adresse email dans le rTsultat du template
 // aura un protection simple contre les robots spammers
 ?&gt;</programlisting>
    </example>
@@ -2003,25 +2003,25 @@ $smarty->display("index.tpl");
   <sect1 id="section.template.cache.handler.func">
    <title>Fonction de gestion du cache</title>
    <para>
-   Une alternative au mécanisme de cache par défaut (basé sur des fichiers
-   de cache) consiste à spécifier une fonction de gestion de cache utilisateur
-   qui sera utilisée pour lire, écrire et effacer les fichiers de cache.
+   Une alternative au mTcanisme de cache par dTfaut (basT sur des fichiers
+   de cache) consiste a spTcifier une fonction de gestion de cache utilisateur
+   qui sera utilisTe pour lire, Tcrire et effacer les fichiers de cache.
    </para>
    <para>
-   Il suffit de créer dans votre application une fonction que Smarty
+   Il suffit de crTer dans votre application une fonction que Smarty
    utilisera pour la gestion du cache et d'assigner le nom de cette
-   fonction à la variable de classe
+   fonction a la variable de classe
    <link linkend="variable.cache.handler.func">$cache_handler_func</link>.
-   Smarty utilisera alors cette fonction pour gérer les données du cache.
+   Smarty utilisera alors cette fonction pour gTrer les donnTes du cache.
    Le premier argument est l'action, qui sera 'read', 'write' ou 'clear'.
-   Le second paramètre est l'objet Smarty. Le troisième est le contenu
-   du cache. Pour écrire, Smarty passe le contenu du cache dans ces paramètres.
-   Pour lire, Smarty s'attend à ce que votre fonction accepte ce paramètre
-   par référence et que vous le remplissiez avec les données du cache. Pour effacer,
-   il suffit de passer une variable fictive car cette dernière n'est pas utilisée.
-   Le quatrième paramètre est le nom du fichier de template (utile pour
-   lire/écrire), le cinquième paramètre est l'identifiant de cache (optionnel)
-   et le sixième est l'identifiant de compilation.
+   Le second paramFtre est l'objet Smarty. Le troisiFme est le contenu
+   du cache. Pour Tcrire, Smarty passe le contenu du cache dans ces paramFtres.
+   Pour lire, Smarty s'attend a ce que votre fonction accepte ce paramFtre
+   par rTfTrence et que vous le remplissiez avec les donnTes du cache. Pour effacer,
+   il suffit de passer une variable fictive car cette derniFre n'est pas utilisTe.
+   Le quatriFme paramFtre est le nom du fichier de template (utile pour
+   lire/Tcrire), le cinquiFme paramFtre est l'identifiant de cache (optionnel)
+   et le sixiFme est l'identifiant de compilation.
    </para>
    <example>
     <title>exemple d'utilisation de MySQL pour la source du cache</title>
@@ -2051,16 +2051,16 @@ CacheContents MEDIUMTEXT NOT NULL
 
 */
 
-function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
+function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
 {
-	// l'hôte de la bd, l'utilisateur, et le mot de passe
+	// l'h(te de la bd, l'utilisateur, et le mot de passe
 	$db_host = 'localhost';
 	$db_user = 'myuser';
 	$db_pass = 'mypass';
 	$db_name = 'SMARTY_CACHE';
 	$use_gzip = false;
 	
-	// crée un identifiant de cache unique
+	// crTe un identifiant de cache unique
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
 	
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
@@ -2071,14 +2071,14 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 
 	switch ($action) {
 		case 'read':
-			// récupère le cache dans la base de données
+			// rTcupFre le cache dans la base de donnTes
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
 				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
 			}
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 			
-			if($use_gzip && function_exists("gzuncompress")) {
+			if($use_gzip &amp;&amp; function_exists("gzuncompress")) {
 				$cache_contents = gzuncompress($row["CacheContents"]);
 			} else {
 				$cache_contents = $row["CacheContents"];
@@ -2086,9 +2086,9 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			$return = $results;
 			break;
 		case 'write':
-			// sauvegarde le cache dans la base de données
+			// sauvegarde le cache dans la base de donnTes
 			
-			if($use_gzip && function_exists("gzcompress")) {
+			if($use_gzip &amp;&amp; function_exists("gzcompress")) {
 				// compresse le contenu pour gagner de la place
 				$contents = gzcompress($cache_content);
 			} else {
@@ -2104,8 +2104,8 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			$return = $results;
 			break;
 		case 'clear':
-         // efface les données du cache
-			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
+         // efface les donnTes du cache
+			if(empty($cache_id) &amp;&amp; empty($compile_id) &amp;&amp; empty($tpl_file)) {
 				// les efface toutes
 				$results = mysql_query("delete from CACHE_PAGES");			
 			} else {
@@ -2134,19 +2134,19 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
   <sect1 id="template.resources">  
    <title>Ressources</title>
    <para>
-   Les templates peuvent provenir d'une grande variété de ressources. Quand vous
-   affichez ou récupérez un template, ou quand vous incluez un template
+   Les templates peuvent provenir d'une grande variTtT de ressources. Quand vous
+   affichez ou rTcupTrez un template, ou quand vous incluez un template
    dans un autre template, vous fournissez un type de ressource, suivi
-   par le chemin approprié et le nom du template.
+   par le chemin appropriT et le nom du template.
    </para>
       <sect2 id="templates.from.template.dir">
     <title>Templates depuis $template_dir</title>
     <para>
-    Les templates du répertoire $template_dir n'ont pas
+    Les templates du rTpertoire $template_dir n'ont pas
     besoin d'une ressource template, bien que vous puissiez utiliser
-    la ressource "file" pour être cohérent. Vous n'avez qu'à fournir
+    la ressource "file" pour Otre cohTrent. Vous n'avez qu'a fournir
     le chemin vers le template que vous voulez utiliser, relatif
-    au répertoire racine $template_dir.
+    au rTpertoire racine $template_dir.
     </para>    
     <example>
      <title>Utilisation de templates depuis $template_dir</title>
@@ -2154,22 +2154,22 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 // le script PHP
 $smarty->display("index.tpl");
 $smarty->display("admin/menu.tpl");
-$smarty->display("file:admin/menu.tpl"); // le même que celui ci-dessus
+$smarty->display("file:admin/menu.tpl"); // le mOme que celui ci-dessus
 
 {* le template Smarty *}
 {include file="index.tpl"}
-{include file="file:index.tpl"} {* le même que celui ci-dessus *}</programlisting>
+{include file="file:index.tpl"} {* le mOme que celui ci-dessus *}</programlisting>
     </example>
    </sect2>
    <sect2 id="templates.from.any.dir">
-    <title>Templates à partir de n'importe quel répertoire</title>
+    <title>Templates a partir de n'importe quel rTpertoire</title>
     <para>
-    Les templates en-dehors du répertoire $template_dir nécessitent
+    Les templates en-dehors du rTpertoire $template_dir nTcessitent
     le type de ressource template, suivi du chemin absolu et du nom du
     template.
     </para>    
     <example>
-     <title>utilisation d'un template depuis n'importe quel répertoire</title>
+     <title>utilisation d'un template depuis n'importe quel rTpertoire</title>
      <programlisting>
 // le script PHP
 $smarty->display("file:/export/templates/index.tpl");
@@ -2183,9 +2183,9 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
      <title>Chemin de fichiers Windows</title>
      <para>
      Si vous utilisez Windows, les chemins de fichiers sont la plupart
-     du temps sur un disque identifié par une lettre (c:) au début du chemin.
-     Assurez-vous de bien mettre "file:" dans le chemin pour éviter des
-     conflits d'espace de nommage et obtenir les résultats escomptés.
+     du temps sur un disque identifiT par une lettre (c:) au dTbut du chemin.
+     Assurez-vous de bien mettre "file:" dans le chemin pour Tviter des
+     conflits d'espace de nommage et obtenir les rTsultats escomptTs.
      </para>
      <example>
       <title>utilisation de templates avec des chemins de fichiers Windows</title>
@@ -2203,20 +2203,20 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
    <sect2 id="templates.from.elsewhere">
     <title>Templates depuis d'autres sources</title>
     <para>
-    Vous pouvez récupérer les templates à partir n'importe quelle
-    source à laquelle vous avez accès avec PHP : base de données,
-    sockets, LDAP et ainsi de suite. Il suffit d'écrire les fonctions
-    de ressource plugins et de les enregistrer auprès de Smarty. 
+    Vous pouvez rTcupTrer les templates a partir n'importe quelle
+    source a laquelle vous avez accFs avec PHP : base de donnTes,
+    sockets, LDAP et ainsi de suite. Il suffit d'Tcrire les fonctions
+    de ressource plugins et de les enregistrer auprFs de Smarty. 
     </para>
     <para>
-    Reportez-vous à la section <link linkend="plugins.resources">ressource plugins</link>
-    pour plus d'informations sur les fonctions que vous êtes censé fournir.
+    Reportez-vous a la section <link linkend="plugins.resources">ressource plugins</link>
+    pour plus d'informations sur les fonctions que vous Otes censT fournir.
     </para>
     <note>
      <para>
-     Notez que vous ne pouvez pas écraser la ressource <literal>file</literal> native,
-     toutefois, vous pouvez fournir une ressource qui récupère un template depuis
-     le système de fichier par un autre moyen en l'enregistrant sous un autre
+     Notez que vous ne pouvez pas Tcraser la ressource <literal>file</literal> native,
+     toutefois, vous pouvez fournir une ressource qui rTcupFre un template depuis
+     le systFme de fichier par un autre moyen en l'enregistrant sous un autre
      nom de ressource.
      </para>
     </note>
@@ -2228,7 +2228,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 // mettez ces fonctions quelque part dans votre application
 function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
 {
-    // requête BD pour récupérer le template
+    // requOte BD pour rTcupTrer le template
     // et remplir $tpl_source
     $sql = new SQL;
     $sql->query("select tpl_source
@@ -2244,7 +2244,7 @@ function db_get_template ($tpl_name, &amp;$tpl_source, &amp;$smarty_obj)
 
 function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
 {
-    // requête BD pour remplir $tpl_timestamp
+    // requOte BD pour remplir $tpl_timestamp
     $sql = new SQL;
     $sql->query("select tpl_timestamp
                    from my_table
@@ -2257,15 +2257,15 @@ function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
     }
 }
 
-function db_get_secure($tpl_name, &$smarty_obj)
+function db_get_secure($tpl_name, &amp;$smarty_obj)
 {
-    // on suppose que tous les templates sont sûrs
+    // on suppose que tous les templates sont svrs
     return true;
 }
 
-function db_get_trusted($tpl_name, &$smarty_obj)
+function db_get_trusted($tpl_name, &amp;$smarty_obj)
 {
-    // pas utilisée pour les templates dans notre cas
+    // pas utilisTe pour les templates dans notre cas
 }
 
 // enregistre le nom de ressource "db"
@@ -2283,15 +2283,15 @@ $smarty->display("db:index.tpl");
    </sect2>
 
    <sect2 id="default.template.handler.function">
-    <title>Fonction de gestion de template par défaut</title>
+    <title>Fonction de gestion de template par dTfaut</title>
     <para>
-    Vous pouvez spécifier une fonction qui sera utilisée pour
-    récupérer le contenu d'un template dans le cas où le template
-    ne peut pas être récupéré depuis sa ressource. Une utilisation possible est
-    la création de templates à la volée.
+    Vous pouvez spTcifier une fonction qui sera utilisTe pour
+    rTcupTrer le contenu d'un template dans le cas oú le template
+    ne peut pas Otre rTcupTrT depuis sa ressource. Une utilisation possible est
+    la crTation de templates a la volTe.
     </para>
     <example>
-     <title>utilisation de la fonction de gestion de template par défaut</title>
+     <title>utilisation de la fonction de gestion de template par dTfaut</title>
      <programlisting>
 &lt;?php
 // mettez cette fonction quelque part dans votre application
@@ -2300,7 +2300,7 @@ function make_template ($resource_type, $resource_name, &amp;$template_source, &
 {
 	if( $resource_type == 'file' ) {
 		if ( ! is_readable ( $resource_name )) {
-			// crée le fichier de template et renvoie le contenu
+			// crTe le fichier de template et renvoie le contenu
 			$template_source = "This is a new template.";
 			$template_timestamp = time();
 			$smarty_obj->_write_file($resource_name,$template_source);
@@ -2312,7 +2312,7 @@ function make_template ($resource_type, $resource_name, &amp;$template_source, &
     }
 }
 
-// régle la fonction par défaut
+// rTgle la fonction par dTfaut
 $smarty->default_template_handler_func = 'make_template';
 ?&gt;</programlisting>
     </example>
@@ -2324,48 +2324,48 @@ $smarty->default_template_handler_func = 'make_template';
   <title>Etendre Smarty avec des plugins</title>
   <para>
   La version 2.0 a introduit l'architecture de plugin qui est
-  utilisée pour pratiquement toute les fonctionnalités
+  utilisTe pour pratiquement toute les fonctionnalitTs
   personnalisables de Smarty. Ceci comprend : 
-  <itemizedlist spacing=compact>
+  <itemizedlist spacing="compact">
     <listitem><simpara>les fonctions</simpara></listitem>
     <listitem><simpara>les modificateurs</simpara></listitem>
     <listitem><simpara>les fonctions de blocs</simpara></listitem>
     <listitem><simpara>les fonctions de compilation</simpara></listitem>
-    <listitem><simpara>les filtres de pré-compilation</simpara></listitem>
+    <listitem><simpara>les filtres de prT-compilation</simpara></listitem>
     <listitem><simpara>les filtres de post-compilation</simpara></listitem>
     <listitem><simpara>les filtres de sorties</simpara></listitem>
     <listitem><simpara>les ressources</simpara></listitem>
     <listitem><simpara>les insertions</simpara></listitem>
   </itemizedlist>
-  A part pour les ressources, la compatibilité avec les anciennes
-  façons d'enregistrer les fonctions de gestion avec l'API register_
-  est conservée. Si vous n'avez pas utilisé cette API et que vous avez
-  à la place directement modifié les variables de classes 
+  A part pour les ressources, la compatibilitT avec les anciennes
+  fatons d'enregistrer les fonctions de gestion avec l'API register_
+  est conservTe. Si vous n'avez pas utilisT cette API et que vous avez
+  a la place directement modifiT les variables de classes 
   <literal>$custom_funcs</literal>, <literal>$custom_mods</literal> et
   d'autres, vous devez alors modifier vos scripts pour utiliser
-  l'API ou convertir vos fonctionnalités personnalisées en plugins.
+  l'API ou convertir vos fonctionnalitTs personnalisTes en plugins.
   </para>
      
   <sect1>
    <title>Comment fonctionnent les plugins</title>
    <para>
-   Les plugins sont toujours chargés à la demande. Seuls les modificateurs
-   de variables, les ressources, etc invoqués dans les scripts de templates
-   seront chargés. De plus, chaque plugin n'est chargé qu'une fois, et ce
-   même si vous avez plusieurs instances de Smarty qui tournent dans
-   la même requête.
+   Les plugins sont toujours chargTs a la demande. Seuls les modificateurs
+   de variables, les ressources, etc invoquTs dans les scripts de templates
+   seront chargTs. De plus, chaque plugin n'est chargT qu'une fois, et ce
+   mOme si vous avez plusieurs instances de Smarty qui tournent dans
+   la mOme requOte.
    </para>
    <para>
-   Les filtres de post/pré-compilation et les filtres de sortie sont des cas
-   un peu spéciaux.
-   Comme ils ne sont pas mentionnés dans les templates, ils doivent être déclarés
-   ou chargés explicitement via les fonctions de l'API avant que le template
-   ne soit exécuté. L'ordre dans lequel les filtres multiples d'un même type
-   sont exécutés dépend de l'ordre dans lequel ils sont enregistrés ou chargés.
+   Les filtres de post/prT-compilation et les filtres de sortie sont des cas
+   un peu spTciaux.
+   Comme ils ne sont pas mentionnTs dans les templates, ils doivent Otre dTclarTs
+   ou chargTs explicitement via les fonctions de l'API avant que le template
+   ne soit exTcutT. L'ordre dans lequel les filtres multiples d'un mOme type
+   sont exTcutTs dTpend de l'ordre dans lequel ils sont enregistrTs ou chargTs.
    </para>
    <para>
-   Il n'existe qu'un seul répertoire de plugin (pour des raisons de performances).
-   Pour installer un plugin, copiez-le simplement dans le répertoire et Smarty
+   Il n'existe qu'un seul rTpertoire de plugin (pour des raisons de performances).
+   Pour installer un plugin, copiez-le simplement dans le rTpertoire et Smarty
    l'utilisera automatiquement.
    </para>   
   </sect1>
@@ -2374,10 +2374,10 @@ $smarty->default_template_handler_func = 'make_template';
     <title>Conventions de nommage</title>
     <para>
     Les fichiers et les fonctions de plugins doivent suivre une convention
-    de nommage très spécifique pour être localisés par Smarty.
+    de nommage trFs spTcifique pour Otre localisTs par Smarty.
     </para>
     <para>
-    Les fichiers de plugins doivent être nommés de la façon suivante :
+    Les fichiers de plugins doivent Otre nommTs de la faton suivante :
     <blockquote>
       <para>
        <filename>
@@ -2387,8 +2387,8 @@ $smarty->default_template_handler_func = 'make_template';
      </blockquote>
     </para>
     <para>
-    Où <literal>type</literal> est l'une des valeurs suivantes :
-    <itemizedlist spacing=compact>
+    Oú <literal>type</literal> est l'une des valeurs suivantes :
+    <itemizedlist spacing="compact">
       <listitem><simpara>function</simpara></listitem>
       <listitem><simpara>modifier</simpara></listitem>
       <listitem><simpara>block</simpara></listitem>
@@ -2401,7 +2401,7 @@ $smarty->default_template_handler_func = 'make_template';
      </itemizedlist>
     </para>
     <para>
-    Et <literal>nom</literal> doit être un identifiant valide (lettres, nombres
+    Et <literal>nom</literal> doit Otre un identifiant valide (lettres, nombres
     et underscore seulement).
     </para>
     <para>
@@ -2410,8 +2410,8 @@ $smarty->default_template_handler_func = 'make_template';
     <literal>modifier.spacify.php</literal>.
     </para>
     <para>
-    Les fonctions de plugins dans les fichiers de plugins doivent être
-    nommées de la façon suivante :
+    Les fonctions de plugins dans les fichiers de plugins doivent Otre
+    nommTes de la faton suivante :
     <blockquote>
       <para>
        <function>smarty_<replaceable>type</replaceable>_<replaceable>nom</replaceable></function>
@@ -2419,40 +2419,40 @@ $smarty->default_template_handler_func = 'make_template';
      </blockquote> 
     </para>
     <para>
-    Les significations de <literal>type</literal> et de <literal>nom</literal> sont les mêmes
-    que précédemment.
+    Les significations de <literal>type</literal> et de <literal>nom</literal> sont les mOmes
+    que prTcTdemment.
     </para>
     <para>
-    Smarty donnera des messages d'erreur approprié si le fichier de plugin
-    n'est pas trouvé, ou si le fichier ou la fonction de plugin ne sont
-    pas nommés correctement.
+    Smarty donnera des messages d'erreur appropriT si le fichier de plugin
+    n'est pas trouvT, ou si le fichier ou la fonction de plugin ne sont
+    pas nommTs correctement.
     </para>
     </sect1>
 
    <sect1 id="plugins.writing">
     <title>Ecrire des plugins</title>
     <para>
-    Les plugins peuvent être soit chargés automatiquement par Smarty
-    depuis le système de fichier, soit être déclarés
-    pendant l'exécution via une fonction register_* de l'API. Ils peuvent
-    aussi être désalloués en utilisant une fonction unregister_* de
+    Les plugins peuvent Otre soit chargTs automatiquement par Smarty
+    depuis le systFme de fichier, soit Otre dTclarTs
+    pendant l'exTcution via une fonction register_* de l'API. Ils peuvent
+    aussi Otre dTsallouTs en utilisant une fonction unregister_* de
     l'API.
     </para>
     <para>
-    Pour les plugins qui ne sont pas enregistrés pendant l'exécution, le nom
-    des fonctions n'ont pas à suivre la convention de nommage.
+    Pour les plugins qui ne sont pas enregistrTs pendant l'exTcution, le nom
+    des fonctions n'ont pas a suivre la convention de nommage.
     </para>
     <para>
-    Si certaines fonctionnalités d'un plugin dépendent d'un autre plugin
-    (comme c'est le cas de certains plugins accompagnant Smarty), alors la manière appropriée
+    Si certaines fonctionnalitTs d'un plugin dTpendent d'un autre plugin
+    (comme c'est le cas de certains plugins accompagnant Smarty), alors la maniFre appropriTe
     de charger le plugin est la suivante :
     </para>
     
     <programlisting>
 require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
     <para>
-    Une règle générale est que chaque objet Smarty est toujours passé au plugin
-    en tant que dernier paramètre (à part pour les modificateurs).
+    Une rFgle gTnTrale est que chaque objet Smarty est toujours passT au plugin
+    en tant que dernier paramFtre (a part pour les modificateurs).
     </para>    
    </sect1>
 
@@ -2461,30 +2461,30 @@ require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
      <funcprototype>
       <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
-    Tous les attributs passés aux fonctions de template à partir du template
+    Tous les attributs passTs aux fonctions de template a partir du template
     sont contenus dans le tableau associatif <parameter>$params</parameter>.
-    Vous pouvez accéder à ces valeurs soit directement, par exemple
+    Vous pouvez accTder a ces valeurs soit directement, par exemple
     <varname>$params['start']</varname>, soit en utilisant
     <varname>extract($params)</varname> pour les importer dans la table
     des symboles.
     </para>
     <para>
-    Le retour de la fonction sera substituée à la balise de fonction
+    Le retour de la fonction sera substituTe a la balise de fonction
     du template (fonction <function>fetch</function> par exemple). Sinon,
-    la fonction peut simplement accomplir une autre tâche sans sortie
+    la fonction peut simplement accomplir une autre tGche sans sortie
     (la fonction <function>assign</function> par exemple)
     </para>
     <para>
     Si la fonction a besoin d'assigner des variables aux templates ou d'utiliser
-    d'autres fonctionnalités fournies par Smarty, elle peut recevoir un
+    d'autres fonctionnalitTs fournies par Smarty, elle peut recevoir un
     objet <parameter>$smarty</parameter> pour cela.
     </para>
     <para>
-     Référez-vous aussi à :
+     RTfTrez-vous aussi a :
      <link linkend="api.register.function">register_function()</link>,
      <link linkend="api.unregister.function">unregister_function()</link>.
     </para>
@@ -2499,7 +2499,7 @@ require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
  * Fichier :  function.eightball.php
  * Type :     fonction
  * Nom :      eightball
- * Rôle :     renvoie une phrase magique au hasard
+ * R(le :     renvoie une phrase magique au hasard
  * -------------------------------------------------------------
  */
 function smarty_function_eightball($params, &amp;$smarty)
@@ -2518,7 +2518,7 @@ function smarty_function_eightball($params, &amp;$smarty)
      </example>
     </para>
     <para>
-     peut être utilisée dans le template de la façon suivante :
+     peut Otre utilisTe dans le template de la faton suivante :
     </para>
     <programlisting>
 Question: Will we ever have time travel?
@@ -2534,7 +2534,7 @@ Answer: {eightball}.</programlisting>
  * Fichier :  function.assign.php
  * Type :     fonction
  * Nom :      assign
- * Purpose :  assigne une valeur à une variable de template
+ * Purpose :  assigne une valeur a une variable de template
  * -------------------------------------------------------------
  */
 function smarty_function_assign($params, &amp;$smarty)
@@ -2560,9 +2560,9 @@ function smarty_function_assign($params, &amp;$smarty)
 
    <sect1 id="plugins.modifiers"><title>Modificateurs</title>
     <para>
-    Les modificateurs sont des petites fonctions appliquées à une variable
-    de template avant qu'elle ne soit affichée ou utilisée dans un autre contexte.
-    Les modificateurs peuvent être chaînés entre eux.
+    Les modificateurs sont des petites fonctions appliquTes a une variable
+    de template avant qu'elle ne soit affichTe ou utilisTe dans un autre contexte.
+    Les modificateurs peuvent Otre chaenTs entre eux.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -2572,13 +2572,13 @@ function smarty_function_assign($params, &amp;$smarty)
      </funcprototype>
     </funcsynopsis>
     <para>
-    Le premier paramètre passé au modificateur est la valeur
-    sur laquelle le modificateur est supposé opérer. Les autres paramètres
-    peuvent être optionnels, dépendant de quel genre d'opération doit être
-    effectué.
+    Le premier paramFtre passT au modificateur est la valeur
+    sur laquelle le modificateur est supposT opTrer. Les autres paramFtres
+    peuvent Otre optionnels, dTpendant de quel genre d'opTration doit Otre
+    effectuT.
     </para>
     <para>
-    Le modificateur doit retourner le résultat de son exécution.
+    Le modificateur doit retourner le rTsultat de son exTcution.
     </para>
     <para>
     Regardez aussi
@@ -2588,8 +2588,8 @@ function smarty_function_assign($params, &amp;$smarty)
     <example>
      <title>plugin modificateur simple</title>
      <para>
-     Ce plugin est un alias d'une fonction PHP. Il n'a aucun paramètre
-     supplémentaires.
+     Ce plugin est un alias d'une fonction PHP. Il n'a aucun paramFtre
+     supplTmentaires.
      </para>
      <programlisting>
 &lt;?php
@@ -2599,7 +2599,7 @@ function smarty_function_assign($params, &amp;$smarty)
  * Fichier :  modifier.capitalize.php
  * Type :     modificateur
  * Name :     capitalize
- * Rôle :     met une majuscule aux mots d'une phrase
+ * R(le :     met une majuscule aux mots d'une phrase
  * -------------------------------------------------------------
  */
 function smarty_modifier_capitalize($string)
@@ -2619,9 +2619,9 @@ function smarty_modifier_capitalize($string)
  * Fichier :  modifier.truncate.php
  * Type :     modificateur
  * Name :     truncate
- * Rôle :     Tronque une chaîne à une certaine longueur si
- *            nécessaire, la coupe optionnellement au milieu
- *            d'un mot et ajoute la chaîne $etc 
+ * R(le :     Tronque une chaene a une certaine longueur si
+ *            nTcessaire, la coupe optionnellement au milieu
+ *            d'un mot et ajoute la chaene $etc 
  * -------------------------------------------------------------
  */
 function smarty_modifier_truncate($string, $length = 80, $etc = '...',
@@ -2651,45 +2651,45 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
       <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>mixed <parameter>$content</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
     Les fonctions de blocs sont des fonctions de la forme {func} .. {/func}.
-    En d'autres mots, elles englobent des blocs de template et opèrent sur les
-    contenus de ces blocs. Les fonctions de blocs ont la priorité sur les
-    fonctions utilisateurs de même nom, ce qui signifie que vous ne
+    En d'autres mots, elles englobent des blocs de template et opFrent sur les
+    contenus de ces blocs. Les fonctions de blocs ont la prioritT sur les
+    fonctions utilisateurs de mOme nom, ce qui signifie que vous ne
     pouvez avoir une fonction utilisateur {func} et une fonction de bloc
     {func} .. {/func}.
     </para>
     <para>
-    L'implémentation de votre fonction est appelée deux fois par Smarty :
+    L'implTmentation de votre fonction est appelTe deux fois par Smarty :
     une fois pour la balise ouvrante et une autre fois pour la balise
     fermante.
     </para>
     <para>
     Seule la balise ouvrante d'une fonction de bloc peut avoir des attributs.
-    Tous les attributs passés par le template aux fonctions de templates sont
+    Tous les attributs passTs par le template aux fonctions de templates sont
     contenues dans le tableau associatif <parameter>$params</parameter>.
-    Vous pouvez accéder à ces valeurs soit directement, par exemple
+    Vous pouvez accTder a ces valeurs soit directement, par exemple
     <varname>$params['start']</varname>, soit en utilisant
     <varname>extract($params)</varname> pour les importer dans la table
-    des symboles. Votre fonction a aussi accès aux attributs de la balise
-    ouvrante quand c'est la balise fermante qui est exécutée.     
+    des symboles. Votre fonction a aussi accFs aux attributs de la balise
+    ouvrante quand c'est la balise fermante qui est exTcutTe.     
     </para>
     <para>
-    La valeur de la variable <parameter>$content</parameter> est différente
-    selon si votre fonction est appelée pour la balise ouvrante ou la
-    balise fermante. Si c'est pour la balise ouvrante, elle sera à
+    La valeur de la variable <parameter>$content</parameter> est diffTrente
+    selon si votre fonction est appelTe pour la balise ouvrante ou la
+    balise fermante. Si c'est pour la balise ouvrante, elle sera a
     <literal>null</literal> et si c'est la balise fermante elle sera
-    égale au contenu du bloc de template. Notez que le bloc de template
-    aura déjà été exécuté par Smarty, vous recevrez donc la sortie du
+    Tgale au contenu du bloc de template. Notez que le bloc de template
+    aura dTja TtT exTcutT par Smarty, vous recevrez donc la sortie du
     template et non sa source.    
     </para>
     <para>
-    Si vous imbriqué des fonctions de bloc, il est possible de connaître
-    la fonction de bloc parente grâce à la variable <varname>$smarty->_tag_stack</varname>.
-    Faites un var_dump() dessus et la structure devrait apparaître.
+    Si vous imbriquT des fonctions de bloc, il est possible de connaetre
+    la fonction de bloc parente grGce a la variable <varname>$smarty->_tag_stack</varname>.
+    Faites un var_dump() dessus et la structure devrait apparaetre.
     </para>    
     <para>
      Regardez aussi :
@@ -2706,7 +2706,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
  * Fichier :  block.translate.php
  * Type :     bloc
  * Nom :      translate
- * Rôle :     traduire un bloc de texte
+ * R(le :     traduire un bloc de texte
  * -------------------------------------------------------------
  */
 function smarty_block_translate($params, $content, &amp;$smarty)
@@ -2722,24 +2722,24 @@ function smarty_block_translate($params, $content, &amp;$smarty)
 
    <sect1 id="plugins.compiler.functions"><title>Fonctions de compilation</title>
     <para>
-    Les fonctions de compilation sont appelées durant la compilation du template.
+    Les fonctions de compilation sont appelTes durant la compilation du template.
     Elles sont utiles pour injecter du code PHP ou du contenu "statique variant
     avec le temps" (bandeau de pub par ex.). Si une fonction de compilation et
-    une fonction personnalisée ont le même
-    nom, la fonction de compilation a priorité. 
+    une fonction personnalisTe ont le mOme
+    nom, la fonction de compilation a prioritT. 
     </para>
     <funcsynopsis>
      <funcprototype>
       <funcdef>mixed <function>smarty_compiler_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$tag_arg</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
-    Les fonctions de compilation ont deux paramètres : une chaîne contenant
-    la balise - en gros, tout, depuis le nom de la fonction jusqu'au délimiteur de fin - et
-    l'objet Smarty. Elles sont censées retourner le code PHP qui doit être
-    injecté dans le template compilé.
+    Les fonctions de compilation ont deux paramFtres : une chaene contenant
+    la balise - en gros, tout, depuis le nom de la fonction jusqu'au dTlimiteur de fin - et
+    l'objet Smarty. Elles sont censTes retourner le code PHP qui doit Otre
+    injectT dans le template compilT.
     </para>
     <para>
      Regardez aussi
@@ -2756,23 +2756,23 @@ function smarty_block_translate($params, $content, &amp;$smarty)
  * Fichier :   compiler.tplheader.php
  * Type :      compilation
  * Nom :       tplheader
- * Rôle :      Renvoie l'en-tête contenant le nom du fichier
+ * R(le :      Renvoie l'en-tOte contenant le nom du fichier
  *             source et le temps de compilation.
  * -------------------------------------------------------------
  */
-function smarty_compiler_tplheader($tag_arg, &$smarty)
+function smarty_compiler_tplheader($tag_arg, &amp;$smarty)
 {
     return "\necho '" . $smarty-&gt;_current_file . " compiled at " . date('Y-m-d H:M'). "';";
 }
 ?&gt;</programlisting>
      <para>
-     Cette fonction peut-être appelé depuis le template comme suivant :
+     Cette fonction peut-Otre appelT depuis le template comme suivant :
      </para>     
      <programlisting>
-{* cette fonction n'est executée que lors de la compilation *}
+{* cette fonction n'est executTe que lors de la compilation *}
 {tplheader}</programlisting>
      <para>
-     Le code PHP résultant dans les templates compilés ressemblerait à ça :
+     Le code PHP rTsultant dans les templates compilTs ressemblerait a ta :
      </para>
      <programlisting>
 &lt;php
@@ -2782,41 +2782,41 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
    </sect1>
 
    <sect1 id="plugins.prefilters.postfilters">
-    <title>filtres de pré-compilation/filtres de post-compilation</title>
+    <title>filtres de prT-compilation/filtres de post-compilation</title>
     <para>
-    Les filtres de pré-compilation et les filtres de post-compilation ont des concepts très
-    proches. Ils différent dans leur exécution, plus précisément dans le
-    moment où ils sont exécutés.
+    Les filtres de prT-compilation et les filtres de post-compilation ont des concepts trFs
+    proches. Ils diffTrent dans leur exTcution, plus prTcisTment dans le
+    moment oú ils sont exTcutTs.
     </para>
     <funcsynopsis>
      <funcprototype>
       <funcdef>string <function>smarty_prefilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$source</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
-    Les filtres de pré-compilation sont utilisés pour transformer la source d'un template
-    juste avant la compilation. Le premier paramètre passé à la fonction
-    de filtre de pré-compilation est la source du template, éventuellement modifiée par
-    d'autres filtre de pré-compilations. Le plugin est supposé retourner la source modifiée.
-    Notez que cette source n'est sauvegardée nulle part, elle est seulement
-    utilisé pour la compilation.
+    Les filtres de prT-compilation sont utilisTs pour transformer la source d'un template
+    juste avant la compilation. Le premier paramFtre passT a la fonction
+    de filtre de prT-compilation est la source du template, Tventuellement modifiTe par
+    d'autres filtre de prT-compilations. Le plugin est supposT retourner la source modifiTe.
+    Notez que cette source n'est sauvegardTe nulle part, elle est seulement
+    utilisT pour la compilation.
     </para>
     <funcsynopsis>
      <funcprototype>
       <funcdef>string <function>smarty_postfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$compiled</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
-    Les filtres de post-compilation sont utilisés pour modifier la sortie du template
-    (le code PHP) juste après que la compilation a été faite mais juste
-    avant que le template ne soit sauvegardé sur le système de fichiers.
-    Le premier paramètre passé à la fonction de filtre de post-compilation est le code
-    du template compilé, éventuellement déjà modifié par d'autres filtre de post-compilations.
-    Le plugin est censé retourner la version modifié du code.
+    Les filtres de post-compilation sont utilisTs pour modifier la sortie du template
+    (le code PHP) juste aprFs que la compilation a TtT faite mais juste
+    avant que le template ne soit sauvegardT sur le systFme de fichiers.
+    Le premier paramFtre passT a la fonction de filtre de post-compilation est le code
+    du template compilT, Tventuellement dTja modifiT par d'autres filtre de post-compilations.
+    Le plugin est censT retourner la version modifiT du code.
     </para>
     <example>
      <title>plugin de filtre de post-compilation</title>
@@ -2826,12 +2826,12 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Smarty plugin
  * -------------------------------------------------------------
  * Fichier :  prefilter.pre01.php
- * Type :     filtre de pré-compilation
+ * Type :     filtre de prT-compilation
  * Nom :      pre01
- * Rôle :     Passe les balises HTML en minuscules.
+ * R(le :     Passe les balises HTML en minuscules.
  * -------------------------------------------------------------
  */
- function smarty_prefilter_pre01($source, &$smarty)
+ function smarty_prefilter_pre01($source, &amp;$smarty)
  {
      return preg_replace('!&lt;(\w+)[^&gt;]+&gt;!e', 'strtolower("$1")', $source);
  }
@@ -2848,11 +2848,11 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  postfilter.post01.php
  * Type:      filtre de post-compilation
  * Nom :      post01
- * Rôle :     Renvoie du code qui liste toutes les variables
+ * R(le :     Renvoie du code qui liste toutes les variables
  *            du template.
  * -------------------------------------------------------------
  */
- function smarty_postfilter_post01($compiled, &$smarty)
+ function smarty_postfilter_post01($compiled, &amp;$smarty)
  {
      $compiled = "&lt;pre&gt;\n&lt;?php print_r(\$this-&gt;get_template_vars()); ?&gt;\n&lt;/pre&gt;" . $compiled;
      return $compiled;
@@ -2863,22 +2863,22 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
 
    <sect1 id="plugins.outputfilters"><title>Filtres de sortie</title>
     <para>
-    Les plugins de filtres de sortie opèrent sur la sortie du template,
-    après que le template a été chargé et exécuté, mais avant que
-    la sortie ne soit affichée.
+    Les plugins de filtres de sortie opFrent sur la sortie du template,
+    aprFs que le template a TtT chargT et exTcutT, mais avant que
+    la sortie ne soit affichTe.
     </para>    
     <funcsynopsis>
      <funcprototype>
       <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$template_output</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
-    Le premier paramètre passé à la fonction du filtre de sortie est la
-    sortie du template qui doit être modifiée et le second paramètre
-    est l'instance de Smarty appelant le plugin. Le plugin est supposé
-    faire un traitement et en retourner le résultat.
+    Le premier paramFtre passT a la fonction du filtre de sortie est la
+    sortie du template qui doit Otre modifiTe et le second paramFtre
+    est l'instance de Smarty appelant le plugin. Le plugin est supposT
+    faire un traitement et en retourner le rTsultat.
     </para>
     <example>
      <title>plugin de filtre de sortie</title>
@@ -2889,11 +2889,11 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  outputfilter.protect_email.php
  * Type :     filtre de sortie
  * Nom :      protect_email
- * Rôle:     Convertie les @ en %40 pour protéger des 
+ * R(le:     Convertie les @ en %40 pour protTger des 
  *           robots spammers.
  * -------------------------------------------------------------
  */
- function smarty_outputfilter_protect_email($output, &$smarty)
+ function smarty_outputfilter_protect_email($output, &amp;$smarty)
  {
      return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
                          '$1%40$2', $output);
@@ -2904,72 +2904,72 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
 
    <sect1 id="plugins.resources"><title>Ressources</title>
     <para>
-    Les plugins ressources sont un moyen générique de fournir des sources
-    de templates ou des composants de scripts PHP à Smarty. Quelques exemples
-    de ressources : bases de données, LDAP, mémoire partagée, sockets, et ainsi
+    Les plugins ressources sont un moyen gTnTrique de fournir des sources
+    de templates ou des composants de scripts PHP a Smarty. Quelques exemples
+    de ressources : bases de donnTes, LDAP, mTmoire partagTe, sockets, et ainsi
     de suite.
     </para>
     <para>
-    Il y au total 4 fonctions qui ont besoin d'être enregistrées pour
-    chaque type de ressource. Chaque fonction reçoit le nom de la ressource demandée
-    comme premier paramètre et l'objet Smarty comme dernier paramètre.
-    Les autres paramètres dépendent de la fonction.
+    Il y au total 4 fonctions qui ont besoin d'Otre enregistrTes pour
+    chaque type de ressource. Chaque fonction retoit le nom de la ressource demandTe
+    comme premier paramFtre et l'objet Smarty comme dernier paramFtre.
+    Les autres paramFtres dTpendent de la fonction.
     </para>
     <funcsynopsis>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>string <parameter>&$source</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>string <parameter>&amp;$source</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>int <parameter>&$timestamp</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
 
     <para>
-    La première fonction est supposée récupérer la ressource. Son second
-    paramètre est une variable passée par référence où le résultat doit être
-    stocké. La fonction est supposée retourner <literal>true</literal> si
-    elle réussi à récupérer la ressource et <literal>false</literal> sinon.
+    La premiFre fonction est supposTe rTcupTrer la ressource. Son second
+    paramFtre est une variable passTe par rTfTrence oú le rTsultat doit Otre
+    stockT. La fonction est supposTe retourner <literal>true</literal> si
+    elle rTussi a rTcupTrer la ressource et <literal>false</literal> sinon.
     </para>
 
     <para>
-    La seconde fonction est supposée récupérer la date de dernière modification 
-    de la ressource demandée (comme un timestamp UNIX). Le second paramètre
-    est une variable passée par référence dans laquelle la date doit
-    être stockée. La fonction est supposée renvoyer <literal>true</literal> si elle
-    a réussi à récupérer la date et <literal>false</literal> sinon.
+    La seconde fonction est supposTe rTcupTrer la date de derniFre modification 
+    de la ressource demandTe (comme un timestamp UNIX). Le second paramFtre
+    est une variable passTe par rTfTrence dans laquelle la date doit
+    Otre stockTe. La fonction est supposTe renvoyer <literal>true</literal> si elle
+    a rTussi a rTcupTrer la date et <literal>false</literal> sinon.
     </para>
 
     <para>
-    La troisième fonction est supposée retourner <literal>true</literal>
-    ou <literal>false</literal> selon si la ressource demandée est sûre
-    ou non. La fonction est utilisée seulement pour les ressources templates
-    mais doit tout de même être définie.
+    La troisiFme fonction est supposTe retourner <literal>true</literal>
+    ou <literal>false</literal> selon si la ressource demandTe est svre
+    ou non. La fonction est utilisTe seulement pour les ressources templates
+    mais doit tout de mOme Otre dTfinie.
     </para>
 
     <para>
-    La quatrième fonction est supposée retourner <literal>true</literal>
+    La quatriFme fonction est supposTe retourner <literal>true</literal>
     ou <literal>false</literal> selon si on peut faire confiance ou
-    non à la ressource demandée. Cette fonction est utilisée seulement
-    pour les composants de scripts PHP demandés par les balises
+    non a la ressource demandTe. Cette fonction est utilisTe seulement
+    pour les composants de scripts PHP demandTs par les balises
     <command>include_php</command> ou <command>insert</command>
     ayant un attribut <structfield>src</structfield>. Quoiqu'il en soit,
-    elle doit être définie pour les ressources templates.
+    elle doit Otre dTfinie pour les ressources templates.
     </para>
 
     <para>
@@ -2987,12 +2987,12 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  resource.db.php
  * Type :     ressource
  * Nom :      db
- * Rôle :     Récupère des templates depuis une base de données
+ * R(le :     RTcupFre des templates depuis une base de donnTes
  * -------------------------------------------------------------
  */
 function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
 {
-    // fait des requêtes BD pour récupérer votre template
+    // fait des requOtes BD pour rTcupTrer votre template
     // et remplir $tpl_source
     $sql = new SQL;
     $sql->query("select tpl_source
@@ -3008,7 +3008,7 @@ function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
 
 function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty)
 {
-    // fait des requêtes BD pour remplir $tpl_timestamp
+    // fait des requOtes BD pour remplir $tpl_timestamp
     $sql = new SQL;
     $sql->query("select tpl_timestamp
                    from my_table
@@ -3023,13 +3023,13 @@ function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smar
 
 function smarty_resource_db_secure($tpl_name, &amp;$smarty)
 {
-    // suppose que tous les templates sont sûrs
+    // suppose que tous les templates sont svrs
     return true;
 }
 
 function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
 {
-    // inutilisée pour les templates
+    // inutilisTe pour les templates
 }
 ?&gt;</programlisting>
     </example>
@@ -3037,8 +3037,8 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
 
    <sect1 id="plugins.inserts"><title>Insertions</title>
     <para>
-    Les plugins d'insertion sont utilisés pour implémenter les fonctions
-    qui sont appelées par les balises 
+    Les plugins d'insertion sont utilisTs pour implTmenter les fonctions
+    qui sont appelTes par les balises 
     <link linkend="language.function.insert"><command>insert</command></link>
     dans les templates.
     </para>
@@ -3046,19 +3046,19 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
      <funcprototype>
       <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
-    Le premier paramètre passé à la fonction est une tableau associatif
-    d'attributs. Vous pouvez accéder à ces valeurs soit directement, par exemple
+    Le premier paramFtre passT a la fonction est une tableau associatif
+    d'attributs. Vous pouvez accTder a ces valeurs soit directement, par exemple
     <varname>$params['start']</varname>, soit en utilisant
     <varname>extract($params)</varname> pour les importer dans la table
     des symboles.
     </para>
     <para>
-    La fonction d'insertion est supposée retourner le résultat qui sera
-    substitué à la balise <command>insert</command> dans le template.
+    La fonction d'insertion est supposTe retourner le rTsultat qui sera
+    substituT a la balise <command>insert</command> dans le template.
     </para>    
     <example>
      <title>plugin d'insertion</title>
@@ -3070,7 +3070,7 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
  * Fichier :  insert.time.php
  * Type :     temps
  * Nom :      time
- * Rôle :     Insert la date/heure courante conformément
+ * R(le :     Insert la date/heure courante conformTment
  *            au format
  * -------------------------------------------------------------
  */

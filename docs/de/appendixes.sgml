@@ -52,7 +52,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
    </sect1>
 </chapter>
 <chapter id="tips">
-   <title>Tips & Tricks</title>
+   <title>Tips &amp; Tricks</title>
    <para>
    </para>
    <sect1 id="tips.blank.var.handling">
@@ -186,7 +186,7 @@ AUSGABE:
 2001/01/04
 
 
-{if $datum1 < $datum2}
+{if $datum1 &lt; $datum2}
 	...
 {/if}</programlisting>
 </example>
@@ -304,7 +304,7 @@ Einfach, oder?
 {php}
 
 	// unsere funktion um die b&ouml;rsenkurse zu holen
-	function fetch_ticker($symbol,&$ticker_name,&$ticker_price) {
+	function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) {
 		// hier wird $ticker_name und $ticker_price zugewiesen
 	}
 
@@ -332,7 +332,7 @@ load_ticker.php
 
 &lt;?php
 	// unsere funktion um die b&ouml;rsenkurse zu holen
-	function fetch_ticker($symbol,&$ticker_name,&$ticker_price) {
+	function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) {
 		// hier wird $ticker_name und $ticker_price zugewiesen
 	}
 

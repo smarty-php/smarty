@@ -562,13 +562,13 @@ Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.count.characters">
 			<title>count_characters</title>
-            <informaltable frame=all>
-                <tgroup cols=6>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -616,13 +616,13 @@ Cold Wave Linked to Temperatures.
 		</sect1>
 		<sect1 id="language.modifier.cat">
 			<title>cat</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=cat align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="cat" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -744,13 +744,13 @@ Dealers Will Hear Car Talk at Noon.
 		</sect1>
 		<sect1 id="language.modifier.date.format">
 			<title>date_format</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -905,13 +905,13 @@ system's manpage for a full list of valid specifiers.</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.default">
 			<title>default</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -960,14 +960,14 @@ no title</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.escape">
 			<title>escape</title>
-            <informaltable frame=all>
-                <tgroup cols=6>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=possible align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="6">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="possible" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -1030,13 +1030,13 @@ href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74"&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&a
 		</sect1>
 		<sect1 id="language.modifier.indent">
 			<title>indent</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -1160,13 +1160,13 @@ Sun or rain expected&lt;br /&gt;today, dark tonight</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.regex.replace">
 			<title>regex_replace</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc"/>
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -1223,13 +1223,13 @@ Infertility unlikely to be passed on, experts say.</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.replace">
 			<title>replace</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc"/>
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -1284,13 +1284,13 @@ Child's   Stool   Great   for   Use   in   Garden.</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.spacify">
 			<title>spacify</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc"/>
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -1340,13 +1340,13 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^
 		</sect1>
 		<sect1 id="language.modifier.string.format">
 			<title>string_format</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc"/>
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -1456,13 +1456,13 @@ Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.truncate">
 			<title>truncate</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc"/>
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -1565,13 +1565,13 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.wordwrap">
 			<title>wordwrap</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param>
-                <colspec colname=type>
-                <colspec colname=required>
-                <colspec colname=default>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc"/>
                 <thead>
                     <row>
                         <entry>Parameter Position</entry>
@@ -1706,13 +1706,13 @@ s m o k e r s   a r e   p. . .</programlisting>
      </para>
      <sect1 id="language.function.capture">
       <title>capture</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -1786,13 +1786,13 @@ s m o k e r s   a r e   p. . .</programlisting>
      </sect1>
 		<sect1 id="language.function.config.load">
 			<title>config_load</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -1904,13 +1904,13 @@ s m o k e r s   a r e   p. . .</programlisting>
 		</sect1>
 		<sect1 id="language.function.foreach">
 			<title>foreach,foreachelse</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -2076,13 +2076,13 @@ cell: 760-1234&lt;br&gt;</programlisting>
 		</sect1>
 		<sect1 id="language.function.include">
 			<title>include</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -2178,13 +2178,13 @@ cell: 760-1234&lt;br&gt;</programlisting>
 		</sect1>
 		<sect1 id="language.function.include.php">
 			<title>include_php</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -2285,13 +2285,13 @@ index.tpl
 		</sect1>
 		<sect1 id="language.function.insert">
 			<title>insert</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -2411,7 +2411,7 @@ index.tpl
 			<emphasis>elseif</emphasis> are also permitted. "eq", "ne","neq",
 			"gt", "lt", "lte", "le", "gte" "ge","is even","is odd", "is not
 			even","is not odd","not","mod","div by","even by","odd
-			by","==","!=",">", "<","<=",">=" are all valid conditional
+			by","==","!=","&gt;", "&lt;","&lt;=","&gt;=" are all valid conditional
             qualifiers, and must be separated from surrounding elements by
             spaces.
 			</para>
@@ -2444,7 +2444,7 @@ index.tpl
 
 
 {* parenthesis are allowed *}
-{if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
+{if ( $amount &lt; 0 or $amount &gt; 1000 ) and $volume >= #minVolAmt#}
 	...
 {/if}
 
@@ -2553,13 +2553,13 @@ OUTPUT:
 		</sect1>
 		<sect1 id="language.function.section">
 			<title>section,sectionelse</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3159,13 +3159,13 @@ OUTPUT:
         </para>
 		<sect1 id="language.function.assign">
 			<title>assign</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3211,13 +3211,13 @@ The value of $name is Bob.</programlisting>
 		</sect1>
 		<sect1 id="language.function.counter">
 			<title>counter</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3308,13 +3308,13 @@ OUTPUT:
 		</sect1>
 		<sect1 id="language.function.cycle">
 			<title>cycle</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3422,13 +3422,13 @@ OUTPUT:
 		</sect1>
 		<sect1 id="language.function.debug">
 			<title>debug</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3460,13 +3460,13 @@ OUTPUT:
 		</sect1>
 		<sect1 id="language.function.eval">
 			<title>eval</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3557,13 +3557,13 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 		</sect1>
 		<sect1 id="language.function.fetch">
 			<title>fetch</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3642,13 +3642,13 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
 		</sect1>
 		<sect1 id="language.function.html.checkboxes">
 			<title>html_checkboxes</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3767,13 +3767,13 @@ OUTPUT: (both examples)
 		</sect1>
 		<sect1 id="language.function.html.image">
 			<title>html_image</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3888,13 +3888,13 @@ OUTPUT: (possible)
 		</sect1>
 		<sect1 id="language.function.html.options">
 			<title>html_options</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -3963,7 +3963,7 @@ OUTPUT: (possible)
 			All parameters that are not in the list above are printed as
 			name/value-pairs inside the &lt;select&gt;-tag. They are ignored if
 			the optional <emphasis>name</emphasis> is not given.
-			</para
+			</para>
 <example>
 <title>html_options</title>
 <programlisting>
@@ -4015,13 +4015,13 @@ OUTPUT: (both examples)
 		</sect1>
 		<sect1 id="language.function.html.radios">
 			<title>html_radios</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -4086,7 +4086,7 @@ OUTPUT: (both examples)
 			<para>
 			All parameters that are not in the list above are printed as
 			name/value-pairs inside each of the created &lt;input&gt;-tags.
-			</para
+			</para>
 
 <example>
 <title>html_radios</title>
@@ -4135,13 +4135,13 @@ OUTPUT: (both examples)
 		</sect1>
 		<sect1 id="language.function.html.select.date">
 			<title>html_select_date</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -4429,13 +4429,13 @@ OUTPUT: (current year is 2000)
 		</sect1>
 		<sect1 id="language.function.html.select.time">
 			<title>html_select_time</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -4730,13 +4730,13 @@ OUTPUT:
 		</sect1>
 		<sect1 id="language.function.html.table">
 			<title>html_table</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -4857,13 +4857,13 @@ OUTPUT:
 		</sect1>
 		<sect1 id="language.function.math">
 			<title>math</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -4981,13 +4981,13 @@ OUTPUT:
 		</sect1>
 		<sect1 id="language.function.mailto">
 			<title>mailto</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -5137,13 +5137,13 @@ OUTPUT:
 		</sect1>
 		<sect1 id="language.function.popup">
 			<title>popup</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>
@@ -5544,13 +5544,13 @@ text="&lt;UL&gt;&lt;LI&gt;links&lt;LI&gt;pages&lt;LI&gt;images&lt;/UL&gt;" snapx
 		</sect1>
 		<sect1 id="language.function.textformat">
 			<title>textformat</title>
-            <informaltable frame=all>
-                <tgroup cols=5>
-                <colspec colname=param align=center>
-                <colspec colname=type align=center>
-                <colspec colname=required align=center>
-                <colspec colname=default align=center>
-                <colspec colname=desc>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
                 <thead>
                     <row>
                         <entry>Attribute Name</entry>

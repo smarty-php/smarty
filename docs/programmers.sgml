@@ -1132,11 +1132,11 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 			<para>
              The php-function callback <parameter>impl</parameter> can be either (a) a string
              containing the function name or (b) an array of the form
-             <literal>array(&$object, $method)</literal> with
-             <literal>&$object</literal> being a reference to an
+             <literal>array(&amp;$object, $method)</literal> with
+             <literal>&amp;$object</literal> being a reference to an
              object and <literal>$method</literal> being a string
              containing the mehod-name or (c) an array of the form
-             <literal>array(&$class, $method)</literal> with
+             <literal>array(&amp;$class, $method)</literal> with
              <literal>$class</literal> being a classname and
              <literal>$method</literal> being a class method of that
              class.
@@ -1150,7 +1150,7 @@ $smarty->load_filter('output', 'compress'); // load output filter named 'compres
 /* PHP */
 $smarty->register_block("translate", "do_translation");
 
-function do_translation ($params, $content, &$smarty, &amp;$repeat) {
+function do_translation ($params, $content, &amp;$smarty, &amp;$repeat) {
     if (isset($content)) {
         $lang = $params['lang'];
         // do some translation with $content
@@ -1182,11 +1182,11 @@ function do_translation ($params, $content, &$smarty, &amp;$repeat) {
 			<para>
                 The php-function callback <parameter>impl</parameter> can be either (a) a string
 		containing the function name or (b) an array of the form
-		<literal>array(&$object, $method)</literal> with
-		<literal>&$object</literal> being a reference to an
+		<literal>array(&amp;$object, $method)</literal> with
+		<literal>&amp;$object</literal> being a reference to an
 		object and <literal>$method</literal> being a string
 		containing the mehod-name or (c) an array of the form
-		<literal>array(&$class, $method)</literal> with
+		<literal>array(&amp;$class, $method)</literal> with
 		<literal>$class</literal> being a classname and
 		<literal>$method</literal> being a class method of that
 		class.
@@ -1216,11 +1216,11 @@ function do_translation ($params, $content, &$smarty, &amp;$repeat) {
 			<para>
              The php-function callback <parameter>impl</parameter> can be either (a) a string
              containing the function name or (b) an array of the form
-	     <literal>array(&$object, $method)</literal> with
-             <literal>&$object</literal> being a reference to an
+	     <literal>array(&amp;$object, $method)</literal> with
+             <literal>&amp;$object</literal> being a reference to an
              object and <literal>$method</literal> being a string
              containing the mehod-name or (c) an array of the form
-             <literal>array(&$class, $method)</literal> with
+             <literal>array(&amp;$class, $method)</literal> with
              <literal>$class</literal> being a classname and
              <literal>$method</literal> being a class method of that
              class.
@@ -1261,11 +1261,11 @@ function print_current_date ($params) {
          <para>
 	  The php-function callback <parameter>impl</parameter> can be either (a) a string
 	  containing the function name or (b) an array of the form
-	  <literal>array(&$object, $method)</literal> with
-	  <literal>&$object</literal> being a reference to an
+	  <literal>array(&amp;$object, $method)</literal> with
+	  <literal>&amp;$object</literal> being a reference to an
 	  object and <literal>$method</literal> being a string
 	  containing the mehod-name or (c) an array of the form
-	  <literal>array(&$class, $method)</literal> with
+	  <literal>array(&amp;$class, $method)</literal> with
 	  <literal>$class</literal> being a classname and
 	  <literal>$method</literal> being a class method of that
 	  class.
@@ -1317,11 +1317,11 @@ $smarty->register_modifier("sslash","stripslashes");
                 <para>
                  The php-function callback <parameter>function</parameter> can be either (a) a string
                  containing the function name or (b) an array of the form
-                 <literal>array(&$object, $method)</literal> with
-                 <literal>&$object</literal> being a reference to an
+                 <literal>array(&amp;$object, $method)</literal> with
+                 <literal>&amp;$object</literal> being a reference to an
                  object and <literal>$method</literal> being a string
                  containing the mehod-name or (c) an array of the form
-                 <literal>array(&$class, $method)</literal> with
+                 <literal>array(&amp;$class, $method)</literal> with
                  <literal>$class</literal> being a classname and
                  <literal>$method</literal> being a class method of that
                  class.
@@ -1344,11 +1344,11 @@ $smarty->register_modifier("sslash","stripslashes");
             <para>
                 The php-function callback <parameter>function</parameter> can be either (a) a string
                 containing the function name or (b) an array of the form
-                <literal>array(&$object, $method)</literal> with
-                <literal>&$object</literal> being a reference to an
+                <literal>array(&amp;$object, $method)</literal> with
+                <literal>&amp;$object</literal> being a reference to an
                 object and <literal>$method</literal> being a string
                 containing the mehod-name or (c) an array of the form
-                <literal>array(&$class, $method)</literal> with
+                <literal>array(&amp;$class, $method)</literal> with
                 <literal>$class</literal> being a classname and
                 <literal>$method</literal> being a class method of that
                 class.
@@ -1371,11 +1371,11 @@ $smarty->register_modifier("sslash","stripslashes");
                         <para>
                 The php-function callback <parameter>function</parameter> can be either (a) a string
                 containing the function name or (b) an array of the form
-                <literal>array(&$object, $method)</literal> with
-                <literal>&$object</literal> being a reference to an
+                <literal>array(&amp;$object, $method)</literal> with
+                <literal>&amp;$object</literal> being a reference to an
                 object and <literal>$method</literal> being a string
                 containing the mehod-name or (c) an array of the form
-                <literal>array(&$class, $method)</literal> with
+                <literal>array(&amp;$class, $method)</literal> with
                 <literal>$class</literal> being a classname and
                 <literal>$method</literal> being a class method of that
                 class.
@@ -1903,7 +1903,7 @@ require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
 
-function remaining_seconds($params, &$smarty) {
+function remaining_seconds($params, &amp;$smarty) {
     $remain = $params['endtime'] - time();
     if ($remain >=0)
         return $remain . " second(s)";
@@ -1939,7 +1939,7 @@ require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->caching = true;
 
-function smarty_block_dynamic($param, $content, &$smarty) {
+function smarty_block_dynamic($param, $content, &amp;$smarty) {
     return $content;
 }
 $smarty->register_block('dynamic', 'smarty_block_dynamic', false);
@@ -2009,8 +2009,8 @@ When reloading the page you will notice that both dates differ. One is "dynamic"
 	parameters for block-function-plugins: They get 4 parameters
 	<parameter>$params</parameter>,
 	<parameter>$content</parameter>,
-	<parameter>&$smarty</parameter> and
-	<parameter>&$repeat</parameter> and they also behave like
+	<parameter>&amp;$smarty</parameter> and
+	<parameter>&amp;$repeat</parameter> and they also behave like
 	block-function-plugins.
 	</para>
     <example>
@@ -2020,7 +2020,7 @@ When reloading the page you will notice that both dates differ. One is "dynamic"
 // the object
 
 class My_Object {
-	function meth1($params, &$smarty_obj) {
+	function meth1($params, &amp;$smarty_obj) {
 		return "this is my meth1";
 	}
 }
@@ -2072,7 +2072,7 @@ the output was {$output}
      <programlisting>
 &lt;?php
 // put this in your application
-function remove_dw_comments($tpl_source, &$smarty)
+function remove_dw_comments($tpl_source, &amp;$smarty)
 {
     return preg_replace("/&lt;!--#.*--&gt;/U","",$tpl_source);
 }
@@ -2106,7 +2106,7 @@ $smarty->display("index.tpl");
      <programlisting>
 &lt;?php
 // put this in your application
-function add_header_comment($tpl_source, &$smarty)
+function add_header_comment($tpl_source, &amp;$smarty)
 {
     return "&lt;?php echo \"&lt;!-- Created by Smarty! --&gt;\n\" ?&gt;\n".$tpl_source;
 }
@@ -2147,7 +2147,7 @@ $smarty->display("index.tpl");
     <programlisting>
 &lt;?php
 // put this in your application
-function protect_email($tpl_output, &$smarty)
+function protect_email($tpl_output, &amp;$smarty)
 {
     $tpl_output =
        preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
@@ -2215,7 +2215,7 @@ CacheContents MEDIUMTEXT NOT NULL
 
 */
 
-function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
+function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
 {
 	// set db host, user and pass here
 	$db_host = 'localhost';
@@ -2242,7 +2242,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			}
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 			
-			if($use_gzip && function_exists("gzuncompress")) {
+			if($use_gzip &amp;&amp; function_exists("gzuncompress")) {
 				$cache_contents = gzuncompress($row["CacheContents"]);
 			} else {
 				$cache_contents = $row["CacheContents"];
@@ -2252,7 +2252,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 		case 'write':
 			// save cache to database
 			
-			if($use_gzip && function_exists("gzcompress")) {
+			if($use_gzip &amp;&amp; function_exists("gzcompress")) {
 				// compress the contents for storage efficiency
 				$contents = gzcompress($cache_content);
 			} else {
@@ -2269,7 +2269,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			break;
 		case 'clear':
 			// clear cache info
-			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
+			if(empty($cache_id) &amp;&amp; empty($compile_id) &amp;&amp; empty($tpl_file)) {
 				// clear them all
 				$results = mysql_query("delete from CACHE_PAGES");			
 			} else {
@@ -2425,13 +2425,13 @@ function db_get_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty_obj)
     }
 }
 
-function db_get_secure($tpl_name, &$smarty_obj)
+function db_get_secure($tpl_name, &amp;$smarty_obj)
 {
     // assume all templates are secure
     return true;
 }
 
-function db_get_trusted($tpl_name, &$smarty_obj)
+function db_get_trusted($tpl_name, &amp;$smarty_obj)
 {
     // not used for templates
 }
@@ -2493,7 +2493,7 @@ $smarty->default_template_handler_func = 'make_template';
   <para>
    Version 2.0 introduced the plugin architecture that is used
    for almost all the customizable functionality of Smarty. This includes:
-   <itemizedlist spacing=compact>
+   <itemizedlist spacing="compact">
     <listitem><simpara>functions</simpara></listitem>
     <listitem><simpara>modifiers</simpara></listitem>
     <listitem><simpara>block functions</simpara></listitem>
@@ -2553,7 +2553,7 @@ $smarty->default_template_handler_func = 'make_template';
     </para>
     <para>
      Where <literal>type</literal> is one of these plugin types:
-     <itemizedlist spacing=compact>
+     <itemizedlist spacing="compact">
       <listitem><simpara>function</simpara></listitem>
       <listitem><simpara>modifier</simpara></listitem>
       <listitem><simpara>block</simpara></listitem>
@@ -2626,7 +2626,7 @@ require_once $smarty->_get_plugin_filepath('function', 'html_options');</program
      <funcprototype>
       <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -2816,7 +2816,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
       <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>mixed <parameter>$content</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -2914,7 +2914,7 @@ function smarty_block_translate($params, $content, &amp;$smarty)
      <funcprototype>
       <funcdef>mixed <function>smarty_compiler_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$tag_arg</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -2942,7 +2942,7 @@ function smarty_block_translate($params, $content, &amp;$smarty)
  *           the time it was compiled.
  * -------------------------------------------------------------
  */
-function smarty_compiler_tplheader($tag_arg, &$smarty)
+function smarty_compiler_tplheader($tag_arg, &amp;$smarty)
 {
     return "\necho '" . $smarty-&gt;_current_file . " compiled at " . date('Y-m-d H:M'). "';";
 }
@@ -2974,7 +2974,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_prefilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$source</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -2988,7 +2988,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_postfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$compiled</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -3012,7 +3012,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Purpose:  Convert html tags to be lowercase.
  * -------------------------------------------------------------
  */
- function smarty_prefilter_pre01($source, &$smarty)
+ function smarty_prefilter_pre01($source, &amp;$smarty)
  {
      return preg_replace('!&lt;(\w+)[^&gt;]+&gt;!e', 'strtolower("$1")', $source);
  }
@@ -3032,7 +3032,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Purpose:  Output code that lists all current template vars.
  * -------------------------------------------------------------
  */
- function smarty_postfilter_post01($compiled, &$smarty)
+ function smarty_postfilter_post01($compiled, &amp;$smarty)
  {
      $compiled = "&lt;pre&gt;\n&lt;?php print_r(\$this-&gt;get_template_vars()); ?&gt;\n&lt;/pre&gt;" . $compiled;
      return $compiled;
@@ -3050,7 +3050,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$template_output</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -3072,7 +3072,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  *           a simple protection against spambots
  * -------------------------------------------------------------
  */
- function smarty_outputfilter_protect_email($output, &$smarty)
+ function smarty_outputfilter_protect_email($output, &amp;$smarty)
  {
      return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
                          '$1%40$2', $output);
@@ -3099,24 +3099,24 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>string <parameter>&$source</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>string <parameter>&amp;$source</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>int <parameter>&$timestamp</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
 
@@ -3226,7 +3226,7 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
      <funcprototype>
       <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
