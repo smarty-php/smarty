@@ -602,7 +602,8 @@ Psychics predict world didn't end yesterday.</programlisting>
 index.php:
 
 $smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.');
+$smarty-&gt;assign('articleTitle', "War Dims Hope for Peace. Child's Death Ruins
+Couple's Holiday.\n\nMan is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.");
 $smarty-&gt;display('index.tpl');
 
 index.tpl:
