@@ -4,6 +4,10 @@
      <title>Methods</title>
      <titleabbrev></titleabbrev>
      <partintro>
+     <section>
+      <title />
+      <para></para>
+     </section>
      </partintro>      
 &programmers.api-functions.api-append;
 &programmers.api-functions.api-append-by-ref;
