@@ -657,7 +657,7 @@ class Smarty
             $_smarty_results = ob_get_contents();
             ob_end_clean();
 
-            foreach ($this->_plugins['outputfilter'] as $output_filter) {
+            foreach ((array)$this->_plugins['outputfilter'] as $output_filter) {
                 $_smarty_results = $output_filter[0]($_smarty_results, $this);
             }
         }
@@ -816,13 +816,9 @@ function _generate_debug_output() {
 				$readable = true;
 			} else {
 				// test for file in include_path
-            	$include_paths = preg_split('![:;]!', ini_get('include_path'));
-            	foreach ($include_paths as $path) {
-                	if (@is_file($path . DIRECTORY_SEPARATOR . $resource_name)) {
-                    	$readable = true;
-                    	break;
-                	}
-            	}
+				if($this->_get_include_path($resource_name,$_include_path)) {
+					$readable = true;
+				}
 			}
         } else if ($resource_type != 'file') {
             $readable = true;
@@ -947,12 +943,16 @@ function _generate_debug_output() {
                 // relative pathname to $file_base_path
                 // use the first directory where the file is found
                 foreach ((array)$file_base_path as $curr_path) {
-                    if (@is_file($curr_path.DIR_SEP.$resource_name)) {
-                        $resource_name = $curr_path.DIR_SEP.$resource_name;
+                    if (@is_file($curr_path . DIR_SEP . $resource_name)) {
+                        $resource_name = $curr_path . DIR_SEP . $resource_name;
                         return true;
                     }
+                	// didn't find the file, try include_path
+					if($this->_get_include_path($curr_path . DIR_SEP . $resource_name, $_include_path)) {
+						$resource_name = $_include_path;
+						return true;
+					}
                 }
-                // didn't find the file
                 return false;
             }
         }
@@ -973,13 +973,11 @@ function _generate_debug_output() {
         if ($this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name)) {
             switch ($resource_type) {
                 case 'file':
-                    if (@is_file($resource_name)) {
-                        if ($get_source) {
-                            $template_source = $this->_read_file($resource_name);
-                        }
-                        $template_timestamp = filemtime($resource_name);
-                        $_return = true;
+                    if ($get_source) {
+                        $template_source = $this->_read_file($resource_name);
                     }
+                    $template_timestamp = filemtime($resource_name);
+                    $_return = true;
                     break;
 
                 default:
@@ -996,7 +994,7 @@ function _generate_debug_output() {
                     break;
             }
         }
-
+		
         if (!$_return) {
             // see if we can get a template with the default template handler
             if (!empty($this->default_template_handler_func)) {
@@ -1010,8 +1008,9 @@ function _generate_debug_output() {
         }
 
         if (!$_return) {
-            if (!$quiet)
+            if (!$quiet) {
                 $this->trigger_error("unable to read template resource: \"$tpl_path\"");
+			}
         } else if ($_return && $this->security && !$this->_is_secure($resource_type, $resource_name)) {
             if (!$quiet)
                 $this->trigger_error("(secure mode) accessing \"$tpl_path\" is not allowed");
@@ -1137,14 +1136,21 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _config_load($file, $section, $scope)
     {
+		if(@is_dir($this->config_dir)) {
+			$_config_dir = $this->config_dir;			
+		} else {
+			// config_dir not found, try include_path
+			$this->_get_include_path($this->config_dir,$_config_dir);
+		}
+		
         if ($this->_conf_obj === null) {
             /* Prepare the configuration object. */
             if (!class_exists('Config_File'))
                 require_once SMARTY_DIR.'Config_File.class.php';
-            $this->_conf_obj = new Config_File($this->config_dir);
+            $this->_conf_obj = new Config_File($_config_dir);
             $this->_conf_obj->read_hidden = false;
         } else {
-            $this->_conf_obj->set_path($this->config_dir);
+            $this->_conf_obj->set_path($_config_dir);
         }
 
         if ($this->debugging) {
@@ -1416,7 +1422,13 @@ function _run_insert_handler($args)
 			}
 		}
 		
-        $res = $auto_base . DIR_SEP;
+		if(@is_dir($auto_base)) {
+        	$res = $auto_base . DIR_SEP;
+		} else {
+			// auto_base not found, try include_path
+			$this->_get_include_path($auto_base,$_include_path);
+			$res = $_include_path . DIR_SEP;
+		}
 		
 		if(isset($auto_id)) {
 			// make auto_id safe for directory names
@@ -1881,6 +1893,21 @@ function _run_insert_handler($args)
         return ($mtime);
     }
 
+/*======================================================================*\
+    Function:   _get_include_path
+    Purpose:    Get path to file from include_path
+\*======================================================================*/
+    function _get_include_path($file_path,&$new_file_path)
+    {
+        foreach (preg_split('![:;]!', ini_get('include_path')) as $_include_path) {
+            if (@file_exists($_include_path . DIR_SEP . $file_path)) {
+               	$new_file_path = $_include_path . DIR_SEP . $file_path;
+				return true;
+            }
+        }
+		return false;
+	}	
+	
 }
 
 /* vim: set expandtab: */
