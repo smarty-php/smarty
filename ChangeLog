@@ -1,3 +1,10 @@
+2004-02-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Config_File.class.php:
+      fixed slurping of a the next line following a triple-quoted value in a
+      config-file
+
 2004-02-07  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Config_File.class.php:
