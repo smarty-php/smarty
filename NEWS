@@ -1,3 +1,5 @@
+    - fix Config_File class to not error when there are no
+      sections (Peter Kmet, Monte)
     - add default modifier logic (Monte)
     - updated popup_init to be xhtml compliant (Tom Oram, Monte)
     - fix filename bug with windows (Gary Loescher, Monte)

@@ -124,17 +124,23 @@ class Config_File {
 		}
 		
 		if (!empty($var_name)) {
-			if (empty($section_name))
-			{
+			if (empty($section_name)) {
 				return $this->_config_data[$file_name]["vars"][$var_name];
+			} else {
+				if(isset($this->_config_data[$file_name]["sections"][$section_name]["vars"][$var_name]))
+					return $this->_config_data[$file_name]["sections"][$section_name]["vars"][$var_name];
+				else
+					return array();
 			}
-			else
-				return $this->_config_data[$file_name]["sections"][$section_name]["vars"][$var_name];
 		} else {
-			if (empty($section_name))
+			if (empty($section_name)) {
 				return (array)$this->_config_data[$file_name]["vars"];
-			else
-				return (array)$this->_config_data[$file_name]["sections"][$section_name]["vars"];
+			} else {
+				if(isset($this->_config_data[$file_name]["sections"][$section_name]["vars"]))
+					return (array)$this->_config_data[$file_name]["sections"][$section_name]["vars"];
+				else
+					return array();
+			}
 		}
 	}
 	
