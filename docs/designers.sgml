@@ -3450,19 +3450,17 @@ The value of $name is Bob.</programlisting>
 <title>counter</title>
 <programlisting>
 {* initialize the count *}
-{counter start=0 skip=2 print=false}
-
-{counter}&lt;br&gt;
+{counter start=0 skip=2}&lt;br&gt;
 {counter}&lt;br&gt;
 {counter}&lt;br&gt;
 {counter}&lt;br&gt;
 
 OUTPUT:
 
+0&lt;br&gt;
 2&lt;br&gt;
 4&lt;br&gt;
-6&lt;br&gt;
-8&lt;br&gt;</programlisting>
+6&lt;br&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.cycle">
