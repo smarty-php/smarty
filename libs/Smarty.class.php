@@ -510,8 +510,6 @@ class Smarty
         /* Split content by template tags to obtain non-template content. */
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_contents);
 
-        $special_tags = preg_match_all('!(<\?[^?]*?\?>)!i',$text_blocks,$sp_match);
-
         /* TODO: speed up the following with preg_replace and /F once we require that version of PHP */
 
         /* loop through text blocks */
@@ -521,11 +519,11 @@ class Smarty
                 /* found at least one match, loop through each one */
                 foreach($sp_match[0] as $curr_sp) {
                     if(!$this->allow_php) {
-                        /* we don't allow php, so echo anything in <? ?> */
+                        /* we don't allow php, so echo everything */
                         $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.str_replace("'","\'",$curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
                     }                    
                     elseif(!preg_match("!^(<\?(php | )|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!i",$curr_sp))
-                        /* we allow php, so echo only non-php such as <?xml ?> */
+                        /* we allow php, so echo only non-php tags */
                         $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.str_replace("'","\'",$curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
                 }
             }
