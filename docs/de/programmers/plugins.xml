@@ -24,7 +24,7 @@
     
   </para>
   
-  <sect1>
+  <sect1 id="plugins.howto">
    <title>Wie Plugins funktionieren</title>
    <para>
     Plugins werden immer erst bei Bedarf geladen. Nur die im Template

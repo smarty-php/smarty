@@ -24,7 +24,7 @@
    funcionalidade customizadas em plugins.
   </para>
    
-  <sect1>
+  <sect1 id="plugins.howto">
    <title>Como os Plugins Funcionam</title>
    <para>
     Plugins são sempre lidos quando requisitados. Apenas os modificadores específicos,

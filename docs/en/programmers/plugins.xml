@@ -24,7 +24,7 @@
    use the API or convert your custom functionality into plugins.
   </para>
    
-  <sect1>
+  <sect1 id="plugins.howto">
    <title>How Plugins Work</title>
    <para>
     Plugins are always loaded on demand. Only the specific modifiers,

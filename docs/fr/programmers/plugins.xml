@@ -26,7 +26,7 @@
   l'API ou convertir vos fonctionnalités personnalisées en plugins.
   </para>
      
-  <sect1>
+  <sect1 id="plugins.howto">
    <title>Comment fonctionnent les plugins</title>
    <para>
    Les plugins sont toujours chargés a la demande. Seuls les modificateurs
