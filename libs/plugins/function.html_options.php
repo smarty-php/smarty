@@ -26,27 +26,31 @@ function smarty_function_html_options($params, &$smarty)
 
    $extra = '';
   
-   foreach($params as $_key => $_val) {	
-      switch($_key) {
-      case 'name':
-	 $$_key = (string)$_val;
-	 break;
+	foreach($params as $_key => $_val) {	
+		switch($_key) {
+			case 'name':
+			$$_key = (string)$_val;
+			break;
 
-      case 'options':
-	 $$_key = (array)$_val;
-	 break;
+		case 'options':
+			$$_key = (array)$_val;
+			break;
 
-      case 'selected':
-      case 'values':
-      case 'output':
-	 $$_key = array_values((array)$_val);      
-	 break;
+		case 'selected':
+		case 'values':
+		case 'output':
+			$$_key = array_values((array)$_val);      
+			break;
 
-      default:
-	 $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-	 break;					
-      }
-   }
+		default:
+			if(!is_array($_val)) {
+				$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+			} else {
+				$smarty->trigger_error("html_options: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+			}
+			break;					
+		}
+	}
 
    if (!isset($options) && !isset($values))
       return ''; /* raise error here? */

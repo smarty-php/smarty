@@ -67,7 +67,11 @@ function smarty_function_html_checkboxes($params, &$smarty)
          break;
 
       default:
-         $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars((string)$_val).'"';
+		if(!is_array($_val)) {
+			$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+		} else {
+			$smarty->trigger_error("html_checkboxes: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+		}
          break;
       }
    }

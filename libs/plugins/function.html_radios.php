@@ -71,7 +71,11 @@ function smarty_function_html_radios($params, &$smarty)
 
 
 		default:
-			$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars((string)$_val).'"';
+			if(!is_array($_val)) {
+				$extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+			} else {
+				$smarty->trigger_error("html_radios: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+			}
 			break;
 		}
    }
