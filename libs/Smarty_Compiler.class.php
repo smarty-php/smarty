@@ -377,7 +377,7 @@ class Smarty_Compiler extends Smarty {
             $_plugins_params = "array('plugins' => array(";
             foreach ($this->_plugin_info as $plugin_type => $plugins) {
                 foreach ($plugins as $plugin_name => $plugin_info) {
-                    $_plugins_params .= "array('$plugin_type', '$plugin_name', '$plugin_info[0]', $plugin_info[1], ";
+                    $_plugins_params .= "array('$plugin_type', '$plugin_name', '" . strtr($plugin_info[0], array("'" => "\\'", "\\" => "\\\\")) . "', $plugin_info[1], ";
                     $_plugins_params .= $plugin_info[2] ? 'true),' : 'false),';
                 }
             }

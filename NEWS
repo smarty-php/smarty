@@ -1,3 +1,5 @@
+  - fix escaping in the generated code that calls smarty_core_load_plugins
+    (jes5199, messju)
   - fix invalid HTML issue with popup (Stefanos Harhalakis,
     Monte)
   - fixed {popup} to properly handle inarray and function parameters and added
