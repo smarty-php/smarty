@@ -1,3 +1,9 @@
+2003-12-16  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      fix headers sent erroneously with cache_modified_check and fetch()
+
 2003-12-12  Monte Ohrt  <monte@ispi.net>
 
     * libs/plugins/function.config_load.php:
