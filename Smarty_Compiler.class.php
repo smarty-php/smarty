@@ -7,7 +7,6 @@ class Smarty_Compiler extends Smarty {
     var $_literal_blocks        =   array();    // keeps literal template blocks
     var $_current_file          =   null;       // the current template being compiled
     var $_current_line_no       =   1;          // line number for error messages
-    var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
         
 /*======================================================================*\
     Function:   _traverse_files()
@@ -209,7 +208,6 @@ class Smarty_Compiler extends Smarty {
 
         return $results;
     }   
-
 
 /*======================================================================*\
     Function: _compile_tag

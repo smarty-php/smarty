@@ -105,6 +105,7 @@ class Smarty
     // internal vars
     var $_error_msg             =   false;      // error messages. true/false
     var $_tpl_vars              =   array();
+    var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
     
 /*======================================================================*\
     Function: Smarty
@@ -417,7 +418,9 @@ class Smarty
         list($cached_inserts, $insert_args) = $match;
 
         for ($i = 0; $i < count($cached_inserts); $i++) {
+
             $args = unserialize($insert_args[$i]);
+
             $name = $args['name'];
             unset($args['name']);
 
