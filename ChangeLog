@@ -1,3 +1,23 @@
+2004-01-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      mention SCRIPT_NAME below {$smarty} reserved variable because it got
+      lost in the docs for $smarty->global_assign
+
+    * docs/designers.sgml:
+      added docs for {$smarty.version} special variable
+
+    * docs/programmers.sgml:
+      removed docs for $global_assign
+
+    * docs/programmers.sgml:
+      added docs for tpl_error_reporting
+
+    * docs/designers.sgml:
+      added docs for year_empty-, month_empty- and day_emtpy-attributes of
+      html_select_date. maybe an example is needed to better explain empty
+      values in YYY-MM-DD.
+
 2004-01-10  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
