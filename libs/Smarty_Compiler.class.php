@@ -335,7 +335,7 @@ class Smarty_Compiler extends Smarty {
             $strip_tags = $_match[0];
             $_strip_search = array(
                 '%([^\\\\]\?>)\n%', // remove newlines after PHP close tags
-                "!{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+!m", // remove leading/trailing space chars
+                "!{$ldq}/?strip{$rdq}|\s+$|^\s+!m", // remove leading/trailing space chars
                 '%[\r\n]+%m', // remove CRs and newlines
                 '%([^\\\\]\?>)%'); // replace newlines after PHP close tags
             $_strip_replace = array(
