@@ -1,3 +1,7 @@
+2002-06-17  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: swapped around cache_id and compile_id order
+
 2002-06-14  Monte Ohrt  <monte@ispi.net>
 
     * docs/programmers.sgml
