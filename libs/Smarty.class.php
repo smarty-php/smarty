@@ -205,6 +205,7 @@ class Smarty
             if (!empty($tpl_var) && isset($value))
                 $this->_tpl_vars[$tpl_var] = $value;
         }
+		$this->_extract = true;
     }
 
     
@@ -229,6 +230,7 @@ class Smarty
                 $this->_tpl_vars[$tpl_var][] = $value;
             }
         }
+		$this->_extract = true;
     }
 
 
@@ -243,6 +245,7 @@ class Smarty
                 unset($this->_tpl_vars[$curr_var]);
         else
             unset($this->_tpl_vars[$tpl_var]);
+		$this->_extract = true;
     }
 
     

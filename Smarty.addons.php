@@ -209,7 +209,6 @@ function smarty_func_assign($vars,&$smarty_obj)
 {
 	extract($vars);
 	$smarty_obj->assign($var,$val);
-	$smarty_obj->_extract = true;
 	return true;
 }
 
@@ -221,7 +220,6 @@ function smarty_func_unassign($vars,&$smarty_obj)
 {
 	extract($vars);
 	$smarty_obj->clear_assign($var);
-	$smarty_obj->_extract = true;
 	return true;
 }
 
