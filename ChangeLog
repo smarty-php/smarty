@@ -1,3 +1,10 @@
+2004-06-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      changed version-number to 2.6.4-dev
+
 2004-06-16  Monte Ohrt  <monte@ispi.net>
 
     * (Smarty_2_6_3)
