@@ -911,6 +911,9 @@ class Smarty
         if (!isset($compile_id))
             $compile_id = $this->compile_id;
 
+	if (!isset($tpl_file))
+	    $compile_id = null;
+
 	$_auto_id = $this->_get_auto_id($cache_id, $compile_id);
 
         if (!empty($this->cache_handler_func)) {
