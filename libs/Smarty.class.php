@@ -1752,6 +1752,7 @@ class Smarty
         list($_func_name, $_tpl_file, $_tpl_line) =
             $this->_plugins['modifier'][$_modifier_name];
 
+        $_var = $_args[0];
         foreach ($_var as $_key => $_val) {
             $_args[0] = $_val;
             $_var[$_key] = call_user_func_array($_func_name, $_args);
