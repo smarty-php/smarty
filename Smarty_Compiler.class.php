@@ -1780,16 +1780,6 @@ class Smarty_Compiler extends Smarty {
 				$compiled_ref = '(defined("' . substr($indexes[0],1) . '") ? ' . substr($indexes[0],1) . ' : null)';
                 break;
 
-			case 'object':
-				array_shift($indexes);
-				$compiled_ref = '$this->_reg_objects["' . substr($indexes[0],1) . '"][0]';
-				break;
-
-			case 'objref':
-				array_shift($indexes);
-				$compiled_ref = '&$this->_reg_objects["' . substr($indexes[0],1) . '"][0]';
-				break;
-				
             default:
                 $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
                 break;
