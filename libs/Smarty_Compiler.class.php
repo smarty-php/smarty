@@ -358,7 +358,7 @@ class Smarty_Compiler extends Smarty {
         if(! preg_match('/^(?:(' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
                       (?:\s+(.*))?$
                     /xs', $template_tag, $match)) {
-			$this->_syntax_error("unrecognized tag: $template_tag");
+			$this->_syntax_error("unrecognized tag: $template_tag", E_USER_ERROR, __FILE__, __LINE__);
 		}
 
         $tag_command = $match[1];
@@ -446,7 +446,7 @@ class Smarty_Compiler extends Smarty {
 
             case 'php':
                 if ($this->security && !$this->security_settings['PHP_TAGS']) {
-                    $this->_syntax_error("(secure mode) php tags not permitted", E_USER_WARNING);
+                    $this->_syntax_error("(secure mode) php tags not permitted", E_USER_WARNING, __FILE__, __LINE__);
                     return;
                 }
                 list (,$php_block) = each($this->_php_blocks);
@@ -517,7 +517,7 @@ class Smarty_Compiler extends Smarty {
             if ($have_function) {
                 $output = '<?php ' . $plugin_func($tag_args, $this) . ' ?>';
             } else {
-                $this->_syntax_error($message, E_USER_WARNING);
+                $this->_syntax_error($message, E_USER_WARNING, __FILE__, __LINE__);
             }
             return true;
         } else {
@@ -574,7 +574,7 @@ class Smarty_Compiler extends Smarty {
         if (!$found) {
             return false;
         } else if (!$have_function) {
-            $this->_syntax_error($message, E_USER_WARNING);
+            $this->_syntax_error($message, E_USER_WARNING, __FILE__, __LINE__);
             return true;
         }
 
@@ -645,7 +645,7 @@ class Smarty_Compiler extends Smarty {
         $name = $this->_dequote($attrs['name']);
 
         if (empty($name)) {
-            $this->_syntax_error("missing insert name");
+            $this->_syntax_error("missing insert name", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         if (!empty($attrs['script'])) {
@@ -675,7 +675,7 @@ class Smarty_Compiler extends Smarty {
         $attrs = $this->_parse_attrs($tag_args);
 
         if (empty($attrs['file'])) {
-            $this->_syntax_error("missing 'file' attribute in config_load tag");
+            $this->_syntax_error("missing 'file' attribute in config_load tag", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         if (empty($attrs['section'])) {
@@ -687,7 +687,7 @@ class Smarty_Compiler extends Smarty {
             if ($scope != 'local' &&
                 $scope != 'parent' &&
                 $scope != 'global') {
-                $this->_syntax_error("invalid 'scope' attribute value");
+                $this->_syntax_error("invalid 'scope' attribute value", E_USER_ERROR, __FILE__, __LINE__);
             }
         } else {
             if (isset($attrs['global']) && $attrs['global'])
@@ -710,7 +710,7 @@ class Smarty_Compiler extends Smarty {
         $arg_list = array();
 
         if (empty($attrs['file'])) {
-            $this->_syntax_error("missing 'file' attribute in include tag");
+            $this->_syntax_error("missing 'file' attribute in include tag", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         foreach ($attrs as $arg_name => $arg_value) {
@@ -757,7 +757,7 @@ class Smarty_Compiler extends Smarty {
         $attrs = $this->_parse_attrs($tag_args);
 
         if (empty($attrs['file'])) {
-            $this->_syntax_error("missing 'file' attribute in include_php tag");
+            $this->_syntax_error("missing 'file' attribute in include_php tag", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         $assign_var = $this->_dequote($attrs['assign']);
@@ -780,7 +780,7 @@ class Smarty_Compiler extends Smarty {
         $output = '<?php ';
         $section_name = $attrs['name'];
         if (empty($section_name)) {
-            $this->_syntax_error("missing section name");
+            $this->_syntax_error("missing section name", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         $output .= "if (isset(\$this->_sections[$section_name])) unset(\$this->_sections[$section_name]);\n";
@@ -814,7 +814,7 @@ class Smarty_Compiler extends Smarty {
                     break;
 
                 default:
-                    $this->_syntax_error("unknown section attribute - '$attr_name'");
+                    $this->_syntax_error("unknown section attribute - '$attr_name'", E_USER_ERROR, __FILE__, __LINE__);
                     break;
             }
         }
@@ -881,11 +881,11 @@ class Smarty_Compiler extends Smarty {
         $arg_list = array();
 
         if (empty($attrs['from'])) {
-            $this->_syntax_error("missing 'from' attribute");
+            $this->_syntax_error("missing 'from' attribute", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         if (empty($attrs['item'])) {
-            $this->_syntax_error("missing 'item' attribute");
+            $this->_syntax_error("missing 'item' attribute", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         $from = $attrs['from'];
@@ -975,10 +975,10 @@ class Smarty_Compiler extends Smarty {
 				
         $tokens = $match[0];
 
-	// make sure we have balanced parenthesis
+		// make sure we have balanced parenthesis
 		$token_count = array_count_values($tokens);
 		if(isset($token_count['(']) && $token_count['('] != $token_count[')']) {
-			$this->_syntax_error("unbalanced parenthesis");					
+			$this->_syntax_error("unbalanced parenthesis in if statement", E_USER_ERROR, __FILE__, __LINE__);
 		}
 												
         $is_arg_stack = array();
@@ -1082,7 +1082,7 @@ class Smarty_Compiler extends Smarty {
 							// function call	
                     		if($this->security &&
                     		   !in_array($token, $this->security_settings['IF_FUNCS'])) {
-                        		$this->_syntax_error("(secure mode) '$token' not allowed in if statement");
+                        		$this->_syntax_error("(secure mode) '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);
 							}							
 					} elseif(preg_match('!^' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)$!', $token)) {
 						// variable
@@ -1093,7 +1093,7 @@ class Smarty_Compiler extends Smarty {
 					} elseif(is_numeric($token)) {
 						// number, skip it
 					} else {
-                		$this->_syntax_error("unidentified token '$token'");						
+                		$this->_syntax_error("unidentified token '$token'", E_USER_ERROR, __FILE__, __LINE__);
 					}
                     break;
             }
@@ -1146,12 +1146,12 @@ class Smarty_Compiler extends Smarty {
                     $expr_arg = $tokens[$expr_end++];
                     $expr = "!($is_arg % " . $this->_parse_var_props($expr_arg) . ")";
                 } else {
-                    $this->_syntax_error("expecting 'by' after 'div'");
+                    $this->_syntax_error("expecting 'by' after 'div'", E_USER_ERROR, __FILE__, __LINE__);
                 }
                 break;
 
             default:
-                $this->_syntax_error("unknown 'is' expression - '$expr_type'");
+                $this->_syntax_error("unknown 'is' expression - '$expr_type'", E_USER_ERROR, __FILE__, __LINE__);
                 break;
         }
 
@@ -1195,7 +1195,7 @@ class Smarty_Compiler extends Smarty {
                         $attr_name = $token;
                         $state = 1;
                     } else
-                        $this->_syntax_error("invalid attribute name - '$token'");
+                        $this->_syntax_error("invalid attribute name - '$token'", E_USER_ERROR, __FILE__, __LINE__);
                     break;
 
                 case 1:
@@ -1203,7 +1203,7 @@ class Smarty_Compiler extends Smarty {
                     if ($token == '=') {
                         $state = 2;
                     } else
-                        $this->_syntax_error("expecting '=' after attribute name");
+                        $this->_syntax_error("expecting '=' after attribute name", E_USER_ERROR, __FILE__, __LINE__);
                     break;
 
                 case 2:
@@ -1225,7 +1225,7 @@ class Smarty_Compiler extends Smarty {
                         $attrs[$attr_name] = $token;
                         $state = 0;
                     } else
-                        $this->_syntax_error("'=' cannot be an attribute value");
+                        $this->_syntax_error("'=' cannot be an attribute value", E_USER_ERROR, __FILE__, __LINE__);
                     break;
             }
         }
@@ -1373,7 +1373,7 @@ class Smarty_Compiler extends Smarty {
                     $output .= "['" . substr($index, 1) . "']";
             } else if (substr($index,0,2) == '->') {
 				if($this->security && substr($index,2,1) == '_') {
-					$this->_syntax_error('(secure) call to private object member is not allowed');
+					$this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
 				} else {
 					// parse each parameter to the object
 					if(preg_match('!(?:\->\w+)+(?:(' . $this->_parenth_param_regexp . '))?!', $index, $match)) {
@@ -1525,14 +1525,14 @@ class Smarty_Compiler extends Smarty {
             case 'now':
                 $compiled_ref = 'time()';
                 if (count($indexes) > 1) {
-                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference');
+                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
                 }
                 break;
 
             case 'foreach':
             case 'section':
                 if ($indexes[1]{0} != '.') {
-                    $this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference');
+                    $this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
                 }
                 $name = substr($indexes[1], 1);
                 array_shift($indexes);
@@ -1602,7 +1602,7 @@ class Smarty_Compiler extends Smarty {
             case 'template':
                 $compiled_ref = "'$this->_current_file'";
                 if (count($indexes) > 1) {
-                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference');
+                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
                 }
                 break;
 				
@@ -1613,13 +1613,13 @@ class Smarty_Compiler extends Smarty {
 			case 'const':
                 array_shift($indexes);
 				if(!defined(substr($indexes[0],1))) {
-                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an undefined constant');
+                    $this->_syntax_error('$smarty' . implode('', $indexes) .' is an undefined constant', E_USER_ERROR, __FILE__, __LINE__);
 				}
                 $compiled_ref = substr($indexes[0],1);
                 break;
 
             default:
-                $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference');
+                $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
                 break;
         }
 
@@ -1657,10 +1657,15 @@ class Smarty_Compiler extends Smarty {
     Function: _syntax_error
     Purpose:  display Smarty syntax error
 \*======================================================================*/
-    function _syntax_error($error_msg, $error_type = E_USER_ERROR)
+    function _syntax_error($error_msg, $error_type = E_USER_ERROR, $file=null, $line=null)
     {
-        trigger_error("Smarty: [in " . $this->_current_file . " line " .
-                      $this->_current_line_no . "]: syntax error: $error_msg", $error_type);
+		if(isset($file) && isset($line)) {
+			$info = ' ('.basename($file).", line $line)";
+		} else {
+			$info = null;
+		}
+        trigger_error('Smarty: [in ' . $this->_current_file . ' line ' .
+                      $this->_current_line_no . "]: syntax error: $error_msg$info", $error_type);
     }
 }
 
