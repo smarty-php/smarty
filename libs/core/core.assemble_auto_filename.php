@@ -15,14 +15,14 @@
  * @staticvar string|null
  * @staticvar string|null
  */    
-function smarty_core_assemble_auto_filename($params, &$this)
+function smarty_core_assemble_auto_filename($params, &$smarty)
 {	
     static $_dir_sep = null;
     static $_dir_sep_enc = null;
 
     if(!isset($_dir_sep)) {
         $_dir_sep_enc = urlencode(DIRECTORY_SEPARATOR);
-        if($this->use_sub_dirs) {
+        if($smarty->use_sub_dirs) {
             $_dir_sep = DIRECTORY_SEPARATOR;
         } else {
             $_dir_sep = '^';
@@ -35,7 +35,7 @@ function smarty_core_assemble_auto_filename($params, &$this)
         // auto_base not found, try include_path
 		$_params = array('file_path' => $params['auto_base']);
 		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
-        smarty_core_get_include_path($_params, $this);
+        smarty_core_get_include_path($_params, $smarty);
         $_return = isset($_params['new_file_path']) ? $_params['new_file_path'] . DIRECTORY_SEPARATOR : null;
     }
 
@@ -49,7 +49,7 @@ function smarty_core_assemble_auto_filename($params, &$this)
 
     if(isset($params['auto_source'])) {
         // make source name safe for filename
-        if($this->use_sub_dirs) {
+        if($smarty->use_sub_dirs) {
             $_filename = urlencode(basename($params['auto_source']));
             $_crc32 = crc32($params['auto_source']) . $_dir_sep;
             // prepend %% to avoid name conflicts with

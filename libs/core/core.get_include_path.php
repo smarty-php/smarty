@@ -16,7 +16,7 @@
 
 //  $file_path, &$new_file_path
      
-function smarty_core_get_include_path(&$params, &$this)
+function smarty_core_get_include_path(&$params, &$smarty)
 {
     static $_path_array = null;
 

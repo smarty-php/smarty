@@ -13,7 +13,7 @@
 
 // $dir
  
-function smarty_core_create_dir_structure($params, &$this)
+function smarty_core_create_dir_structure($params, &$smarty)
 {
     if (!file_exists($params['dir'])) {
         $_open_basedir_ini = ini_get('open_basedir');
@@ -65,8 +65,8 @@ function smarty_core_create_dir_structure($params, &$this)
                 $_make_new_dir = true;                    
             }
 
-            if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, $this->_dir_perms)) {
-                $this->trigger_error("problem creating directory '" . $_new_dir . "'");
+            if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, $smarty->_dir_perms)) {
+                $smarty->trigger_error("problem creating directory '" . $_new_dir . "'");
                 return false;
             }
             $_new_dir .= '/';

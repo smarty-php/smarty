@@ -12,12 +12,12 @@
  * @param string $name
  * @return string|false
  */    
-function smarty_core_assemble_plugin_filepath($params, &$this)
+function smarty_core_assemble_plugin_filepath($params, &$smarty)
 {
 
     $_plugin_filename = $params['type'] . '.' . $params['name'] . '.php';
 		
-    foreach ((array)$this->plugins_dir as $_plugin_dir) {
+    foreach ((array)$smarty->plugins_dir as $_plugin_dir) {
 
         $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
 		
@@ -44,7 +44,7 @@ function smarty_core_assemble_plugin_filepath($params, &$this)
 
 				$_params = array('file_path' => $_plugin_filepath);
 				require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
-            	if(smarty_core_get_include_path($_params, $this)) {				
+            	if(smarty_core_get_include_path($_params, $smarty)) {				
 					return $_params['new_file_path'];
                 }
             }

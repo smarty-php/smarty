@@ -12,22 +12,22 @@
  * @return boolean
  */
  
-function smarty_core_write_cache_paths_file($params, &$this)
+function smarty_core_write_cache_paths_file($params, &$smarty)
 {
 	// see if there is an pruning to do
-	foreach($this->_cache_paths_max as $_max_key => $_max_val) {
-		if(isset($this->_cache_paths[$_max_key])
-			&& count($this->_cache_paths[$_max_key]) > $_max_val) {
+	foreach($smarty->_cache_paths_max as $_max_key => $_max_val) {
+		if(isset($smarty->_cache_paths[$_max_key])
+			&& count($smarty->_cache_paths[$_max_key]) > $_max_val) {
 			// remove the oldest (first) value
-			array_unshift($this->_cache_paths[$_max_key]);
+			array_unshift($smarty->_cache_paths[$_max_key]);
 		}
 	}
 
-	$_compiled_content = function_exists('var_export') ? var_export($this->_cache_paths, true) : "unserialize('" . serialize($this->_cache_paths) . "')";
-	$_compiled_content = '<?php $this->_cache_paths = ' . $_compiled_content . '; ?>';
-	$_params = array('compile_path' => $this->_cache_paths_file, 'compiled_content' => $_compiled_content, 'resource_timestamp' => time());
+	$_compiled_content = function_exists('var_export') ? var_export($smarty->_cache_paths, true) : "unserialize('" . serialize($smarty->_cache_paths) . "')";
+	$_compiled_content = '<?php $smarty->_cache_paths = ' . $_compiled_content . '; ?>';
+	$_params = array('compile_path' => $smarty->_cache_paths_file, 'compiled_content' => $_compiled_content, 'resource_timestamp' => time());
 	require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_resource.php');
-	smarty_core_write_compiled_resource($_params, $this);
+	smarty_core_write_compiled_resource($_params, $smarty);
 return $_return;
 }
 
