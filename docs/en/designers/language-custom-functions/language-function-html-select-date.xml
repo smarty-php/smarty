@@ -251,7 +251,7 @@ OUTPUT:
 &lt;option value="9"&gt;September&lt;/option&gt;
 &lt;option value="10"&gt;October&lt;/option&gt;
 &lt;option value="11"&gt;November&lt;/option&gt;
-&lt;option value="12" selected&gt;December&lt;/option&gt;
+&lt;option value="12" selected="selected"&gt;December&lt;/option&gt;
 &lt;/select&gt;
 &lt;select name="Date_Day"&gt;
 &lt;option value="1"&gt;01&lt;/option&gt;
@@ -266,7 +266,7 @@ OUTPUT:
 &lt;option value="10"&gt;10&lt;/option&gt;
 &lt;option value="11"&gt;11&lt;/option&gt;
 &lt;option value="12"&gt;12&lt;/option&gt;
-&lt;option value="13" selected&gt;13&lt;/option&gt;
+&lt;option value="13" selected="selected"&gt;13&lt;/option&gt;
 &lt;option value="14"&gt;14&lt;/option&gt;
 &lt;option value="15"&gt;15&lt;/option&gt;
 &lt;option value="16"&gt;16&lt;/option&gt;
@@ -287,7 +287,7 @@ OUTPUT:
 &lt;option value="31"&gt;31&lt;/option&gt;
 &lt;/select&gt;
 &lt;select name="Date_Year"&gt;
-&lt;option value="2001" selected&gt;2001&lt;/option&gt;
+&lt;option value="2001" selected="selected"&gt;2001&lt;/option&gt;
 &lt;/select&gt;</programlisting>
 </example>
 
@@ -313,15 +313,15 @@ OUTPUT: (current year is 2000)
 &lt;option value="9"&gt;September&lt;/option&gt;
 &lt;option value="10"&gt;October&lt;/option&gt;
 &lt;option value="11"&gt;November&lt;/option&gt;
-&lt;option value="12" selected&gt;December&lt;/option&gt;
+&lt;option value="12" selected="selected"&gt;December&lt;/option&gt;
 &lt;/select&gt;
 &lt;select name="StartDateYear"&gt;
-&lt;option value="1999"&gt;1995&lt;/option&gt;
-&lt;option value="1999"&gt;1996&lt;/option&gt;
-&lt;option value="1999"&gt;1997&lt;/option&gt;
-&lt;option value="1999"&gt;1998&lt;/option&gt;
+&lt;option value="1995"&gt;1995&lt;/option&gt;
+&lt;option value="1996"&gt;1996&lt;/option&gt;
+&lt;option value="1997"&gt;1997&lt;/option&gt;
+&lt;option value="1998"&gt;1998&lt;/option&gt;
 &lt;option value="1999"&gt;1999&lt;/option&gt;
-&lt;option value="2000" selected&gt;2000&lt;/option&gt;
+&lt;option value="2000" selected="selected"&gt;2000&lt;/option&gt;
 &lt;option value="2001"&gt;2001&lt;/option&gt;
 &lt;/select&gt;</programlisting>
 </example>
