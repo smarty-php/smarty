@@ -233,8 +233,6 @@ class Config_File {
 	 */
 	function load_file($file_name, $prepend_path = true)
 	{
-		global	$php_errormsg;
-
 		if ($prepend_path && $this->_config_path != "")
 			$config_file = $this->_config_path . $file_name;
 		else
@@ -243,7 +241,7 @@ class Config_File {
 		ini_set('track_errors', true);
 		$fp = @fopen($config_file, "r");
 		if (!is_resource($fp)) {
-			$this->_trigger_error_msg($php_errormsg);
+			$this->_trigger_error_msg("Could not open config file '$config_file'");
 			return;
 		}
 
