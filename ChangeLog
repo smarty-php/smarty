@@ -1,3 +1,10 @@
+2003-11-03  andreas halter  <phpcvs@andreashalter.ch>
+
+    * docs/designers.sgml
+      docs/de/designers.sgml
+      docs/fr/designers.sgml:
+      - changed Smarty.php.class occurences to Smarty.class.php
+
 2003-10-29  boots  <jayboots@yahoo.com>
 
     * docs/appendixes.sgml
