@@ -241,32 +241,31 @@ class Smarty_Compiler extends Smarty {
         $template_tags = $match[1];
         /* Split content by template tags to obtain non-template content. */
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_source);
-
+		
         /* loop through text blocks */
         for ($curr_tb = 0, $for_max = count($text_blocks); $curr_tb < $for_max; $curr_tb++) {
-            /* match anything within <? ?> */
-            if (preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)!is', $text_blocks[$curr_tb], $sp_match)) {
-                /* found at least one match, loop through each one */
+            /* match anything resembling php tags */
+            if (preg_match_all('!(<\?(?:\w+|=)?|\?>|language\s*=\s*[\"\']?php[\"\']?)!is', $text_blocks[$curr_tb], $sp_match)) {
+				/* replace tags with placeholders to prevent recursive replacements */
+                for ($curr_sp = 0, $for_max2 = count($sp_match[1]); $curr_sp < $for_max2; $curr_sp++) {
+					$text_blocks[$curr_tb] = str_replace($sp_match[1][$curr_sp],'%%%SMARTYSP'.$curr_sp.'%%%',$text_blocks[$curr_tb]);
+				}
+                /* process each one */
                 for ($curr_sp = 0, $for_max2 = count($sp_match[0]); $curr_sp < $for_max2; $curr_sp++) {
-                    if (preg_match('!^(<\?(php\s|\s|=\s)|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!is', $sp_match[0][$curr_sp])) {
-                        /* php tag */
-                        if ($this->php_handling == SMARTY_PHP_PASSTHRU) {
-                            /* echo php contents */
-                            $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp], '<?php echo \''.str_replace("'", "\'", $sp_match[0][$curr_sp]).'\'; ?>'."\n", $text_blocks[$curr_tb]);
-                       } else if ($this->php_handling == SMARTY_PHP_QUOTE) {
-                            /* quote php tags */
-                            $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp], htmlspecialchars($sp_match[0][$curr_sp]), $text_blocks[$curr_tb]);
-                        } else if ($this->php_handling == SMARTY_PHP_REMOVE) {
-                            /* remove php tags */
-                            if (substr($sp_match[0][$curr_sp], 0, 2) == '<?')
-                                $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp], '', $text_blocks[$curr_tb]);
-                            else
-                                /* attempt to remove everything between <script ...> and </script> */
-                                $text_blocks[$curr_tb] = preg_replace('!'.preg_quote($sp_match[0][$curr_sp], '!').'.*?</script\s*>!is', '', $text_blocks[$curr_tb]);
-                        }
-                    } else
-                        /* echo the non-php tags */
-                        $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp], '<?php echo \''.str_replace("'", "\'", $sp_match[0][$curr_sp]).'\'; ?>'."\n", $text_blocks[$curr_tb]);
+                    if ($this->php_handling == SMARTY_PHP_PASSTHRU) {
+                        /* echo php contents */
+                        $text_blocks[$curr_tb] = str_replace('%%%SMARTYSP'.$curr_sp.'%%%', '<?php echo \''.str_replace("'", "\'", $sp_match[1][$curr_sp]).'\'; ?>'."\n", $text_blocks[$curr_tb]);
+                    } else if ($this->php_handling == SMARTY_PHP_QUOTE) {
+                        /* quote php tags */
+                        $text_blocks[$curr_tb] = str_replace('%%%SMARTYSP'.$curr_sp.'%%%', htmlspecialchars($sp_match[1][$curr_sp]), $text_blocks[$curr_tb]);
+                    } else if ($this->php_handling == SMARTY_PHP_REMOVE) {
+                        /* remove php tags */
+                        $text_blocks[$curr_tb] = str_replace('%%%SMARTYSP'.$curr_sp.'%%%', '', $text_blocks[$curr_tb]);
+                    } else {
+						/* SMARTY_PHP_ALLOW, but echo non php starting tags */
+						$sp_match[1][$curr_sp] = preg_replace('%(<\?(?!php|=|$))%i', '<?php echo \'\\1\'?>'."\n", $sp_match[1][$curr_sp]);
+						$text_blocks[$curr_tb] = str_replace('%%%SMARTYSP'.$curr_sp.'%%%',$sp_match[1][$curr_sp],$text_blocks[$curr_tb]);
+					}
                 }
             }
         }

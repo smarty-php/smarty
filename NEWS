@@ -1,3 +1,5 @@
+    - fix known problems with php tag handling in templates
+      (recursion, echoing <?xml tags) (Monte)
     - add support for object registration (Monte)
     - add debug template to secure dir, add template_dir
       to secure_dir by default (Ferdinand Beyer, Monte)
