@@ -39,7 +39,7 @@
    content down to text and variables only.
   </para>
   <para>
-   One of the unique aspects about Smarty is the template compling. This means
+   One of the unique aspects about Smarty is the template compiling. This means
    Smarty reads the template files and creates PHP scripts from them. Once
    they are created, they are executed from then on. Therefore there is no
    costly template file parsing for each request, and each template can take
@@ -170,7 +170,7 @@ debug.tpl
    <para>
     Here is how you create an instance of Smarty in your PHP scripts:
    </para>
-   
+
    <example>
     <title>Create Smarty instance of Smarty</title>
     <programlisting role="php">
@@ -202,7 +202,7 @@ $smarty = new Smarty;
    </example>
 
    <example>
-    <title>Add library directory to php_include path</title>
+    <title>Add library directory to PHP include_path</title>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -263,7 +263,7 @@ $smarty = new Smarty;
     and place it in a subdirectory under the document root called
     "/guestbook/".
    </para>
-    
+
    <note>
     <title>Technical Note</title>
     <para>
@@ -275,7 +275,7 @@ $smarty = new Smarty;
      entry with a space.)
     </para>
    </note>
-    
+
    <para>
     Lets take a look at the file structure so far:
    </para>
@@ -445,9 +445,9 @@ require('Smarty.class.php');
 
 class Smarty_GuestBook extends Smarty {
 
-   function Smarty_GuestBook() 
+   function Smarty_GuestBook()
    {
-   
+
         // Class Constructor. These automatically get set with each new instance.
 
         $this->Smarty();
@@ -455,8 +455,8 @@ class Smarty_GuestBook extends Smarty {
         $this->template_dir = '/web/www.mydomain.com/smarty/guestbook/templates/';
         $this->compile_dir = '/web/www.mydomain.com/smarty/guestbook/templates_c/';
         $this->config_dir = '/web/www.mydomain.com/smarty/guestbook/configs/';
-        $this->cache_dir = '/web/www.mydomain.com/smarty/guestbook/cache/'; 
-        
+        $this->cache_dir = '/web/www.mydomain.com/smarty/guestbook/cache/';
+
         $this->caching = true;
         $this->assign('app_name','Guest Book');
    }
@@ -470,7 +470,7 @@ class Smarty_GuestBook extends Smarty {
   <para>
    Now lets alter the index.php file to use setup.php:
   </para>
-   
+
   <example>
    <title>Editing /web/www.mydomain.com/docs/guestbook/index.php</title>
    <programlisting role="php">
@@ -493,7 +493,7 @@ $smarty->display('index.tpl');
    Now you see it is quite simple to bring up an instance of Smarty, just use
    Smarty_GuestBook which automatically initializes everything for our application.
   </para>
-   
+
   </sect1>
 
  </chapter>
