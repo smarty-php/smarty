@@ -1,8 +1,12 @@
+  - add table of explanation for {if} qualifiers in docs (boots)
   - fix bug when comparing array-keys to "selected" in html_options
     and html_checkboxes (messju)
   - add better checks for correctly nested tags when compiling (messju)
   - remove {$SCRIPT_NAME}. use {$smarty.server.SCRIPT_NAME} instead (messju)
   - remove $global_assign. assign global variables explicitly instead (messju)
+  - fix example for count_characters in docs (boots)
+  - add section new basic syntax section "Escaping Smarty Parsing" in docs (boots)
+  - fix error handler call in config_load (boots)
   - remove warning in debug_print_var on php-resources (messju)
   - move function.assign.php to compiler.assign.php (messju)
   - add property $tpl_error_reporting (messju)
@@ -104,7 +108,7 @@ Version 2.6.0-RC1 (August 11, 2003)
     (messju)
   - corrected output with {strip} and PHP tag newlines (Monte)
   - added possibility to register function-callbacks as "array(&$obj, 'method)"
-    this affects register_function(), -block, -compiler_function, -modifier, 
+    this affects register_function(), -block, -compiler_function, -modifier,
     -prefilter, -postfilter, -outputfilter-functions() and $cache_handler_func
     (messju)
   - added <labels> to html_checkboxes and html_radios (Philippe, messju)
@@ -120,7 +124,7 @@ Version 2.5.0 (April 11, 2003)
    - recognize $foo[][] syntax inside embedded quotes without
      backtics (Monte)
    - name=123 is passed as an integer (not a string) to plugins now (messju)
-   - $length is now propagated to sub-values in debug_print_var (messju) 
+   - $length is now propagated to sub-values in debug_print_var (messju)
 
 Version 2.5.0-RC2 (March 26, 2003)
 ----------------------------------
@@ -226,7 +230,7 @@ Version 2.5.0-RC1 (March 5, 2003)
       use $this->config_class for loading class name (Monte)
     - fix html_options to not escape already escaped entities (Monte)
     - send Last-Modified header on cache creation (Monte)
-    - check strict syntax of function attributes (Monte) 
+    - check strict syntax of function attributes (Monte)
     - dropped support for modifers on object parameters,
       added support for objects as modifier parameters (Monte)
     - fixed bug with decimal numbers in if statements (Monte)
@@ -364,7 +368,7 @@ Version 2.2.0 (July 11, 2002)
       (Grigory V. Kareev, Monte)
     - optimized for loops with count() function calls (Monte)
     - add month_value_format attribute to html_select_date
-      plugin (Gary Loescher, Monte) 
+      plugin (Gary Loescher, Monte)
     - made it possible to use simple variables inside [] for
       indexing. (Andrei)
     - added "once" attribute to {include_php}. (Monte)
@@ -549,7 +553,7 @@ Version 1.4.4
 -------------
     - fixed problem with including insecure templates with security enabled.
       (Monte)
-    - numerous documentation updates. (Monte) 
+    - numerous documentation updates. (Monte)
     - added ENT_QUOTES to escapement of html. (Monte, Sam Beckwith)
     - implemented access to request variables via auto-assigned $smarty
       template variable. (Andrei)
@@ -610,7 +614,7 @@ Version 1.4.1
 Version 1.4.0
 -------------
     - added {capture}{/capture} function, documented (Monte)
-    - added {counter} function, documented (Monte) 
+    - added {counter} function, documented (Monte)
 
 Version 1.4.0b2
 ---------------
