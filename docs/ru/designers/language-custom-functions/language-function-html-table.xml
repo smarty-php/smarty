@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.table">
  <title>html_table</title>
  <informaltable frame="all">
@@ -32,24 +32,37 @@
     <entry>integer</entry>
     <entry>Нет</entry>
     <entry><emphasis>3</emphasis></entry>
-                    <entry>количество колонок в таблице. если аттрибут cols не указан, но указан rows, тогда кол-во колонок вычисляется исходя из кол-ва строк и кол-ва элементов, которые необходимо отобразить. если оба аттрибута, rows и cols, не указаны, cols по умолчанию равен 3.</entry>
+    <entry>
+     количество колонок в таблице. если аттрибут cols не указан, но указан
+     rows, тогда кол-во колонок вычисляется исходя из кол-ва строк и кол-ва
+     элементов, которые необходимо отобразить. если оба аттрибута, rows и
+     cols, не указаны, cols по умолчанию равен 3.
+    </entry>
    </row>
    <row>
     <entry>rows</entry>
     <entry>integer</entry>
     <entry>Нет</entry>
     <entry><emphasis>empty</emphasis></entry>
-                    <entry>количество строк в таблице. если аттрибут rows не указан, но указан cols, тогда кол-во строк вічисляется исходя из кол-ва колонок и кол-ва элементов, которые необходимо отобразить.</entry>
+    <entry>
+     количество строк в таблице. если аттрибут rows не указан, но указан cols,
+     тогда кол-во строк вічисляется исходя из кол-ва колонок и кол-ва
+     элементов, которые необходимо отобразить.
+    </entry>
    </row>
-
-                    <row>
-                        <entry>inner</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>cols</emphasis></entry>
-                        <entry>direction of consecutive elements in the loop-array to be rendered. <emphasis>cols</emphasis> means elements are displayed col-by-col. <emphasis>rows</emphasis> means elements are displayed row-by-row.</entry>
-                    </row>
-
+   <row>
+    <entry>inner</entry>
+    <entry>string</entry>
+    <entry>No</entry>
+    <entry><emphasis>cols</emphasis></entry>
+    <entry>
+     направление последовательного отображения элементов из массива loop.
+     <emphasis>cols</emphasis> означает, что элементы отображаются колонка
+     за колонкой.
+     <emphasis>rows</emphasis> означает, что элементы отображаются строка
+     за строкой.
+    </entry>
+   </row>
    <row>
     <entry>table_attr</entry>
     <entry>string</entry>
@@ -78,23 +91,29 @@
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>&amp;nbsp;</emphasis></entry>
-       <entry>значение остаточных ячеек на последней 
-       строке табилцы</entry>
+    <entry>значение остаточных ячеек на последней строке табилцы</entry>
    </row>
-   
    <row>
     <entry>hdir</entry>
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>right</emphasis></entry>
-    <entry>направление отображения каждого ряда. допустимые значения: <emphasis>left</emphasis> (слева направо), <emphasis>right</emphasis> (справа налево)</entry>
+    <entry>
+     направление отображения каждого ряда. допустимые значения:
+     <emphasis>left</emphasis> (слева направо),
+     <emphasis>right</emphasis> (справа налево)
+    </entry>
    </row>
    <row>
     <entry>vdir</entry>
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>down</emphasis></entry>
-    <entry>направление отображение каждой колонки. допустимые значения: <emphasis>down</emphasis> (сверху вниз), <emphasis>up</emphasis> (снизу вверх)</entry>
+    <entry>
+     направление отображение каждой колонки. допустимые значения:
+     <emphasis>down</emphasis> (сверху вниз),
+     <emphasis>up</emphasis> (снизу вверх)
+    </entry>
    </row>
   </tbody>
   </tgroup>
@@ -112,24 +131,29 @@
  </para>
  <example>
   <title>html_table</title>
-  <programlisting>
+  <programlisting role="php">
 <![CDATA[
-index.php:
-
-require('Smarty.php.class');
+<?php
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
 $smarty->display('index.tpl');
-
-index.tpl:
-
+?>
+]]>
+  </programlisting>
+  <programlisting>
+<![CDATA[
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
 {html_table loop=$data cols=4 tr_attr=$tr}
-
-OUTPUT:
-
+]]>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
 <table border="1">
 <tr><td>1</td><td>2</td><td>3</td></tr>
 <tr><td>4</td><td>5</td><td>6</td></tr>
@@ -146,7 +170,7 @@ OUTPUT:
 <tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table>
 ]]>
-  </programlisting>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
