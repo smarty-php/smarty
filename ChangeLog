@@ -1,3 +1,12 @@
+2004-01-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      removed use of temporary var $_params in compiled code of block-plugins
+
+    * NEWS
+      libs/plugins/function.popup.php:
+      fixed quoting of values in smarty_function_popup()
+
 2004-01-25  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/programmers.sgml:
