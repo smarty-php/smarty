@@ -2726,6 +2726,89 @@ OUTPUT:
 8&lt;br&gt;</programlisting>
 </example>
 		</sect1>
+		<sect1 id="language.function.cycle">
+			<title>cycle</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>id</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>default</emphasis></entry>
+                        <entry>The id of the cycle</entry>
+                    </row>
+                    <row>
+                        <entry>values</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>N/A</emphasis></entry>
+                        <entry>The values to cycle through, delimited by comma,
+						or specified in delimiter attribute</entry>
+                    </row>
+                    <row>
+                        <entry>print</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>Whether to print the value or not</entry>
+                    </row>
+                    <row>
+                        <entry>advance</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>Whether or not to advance to the next value</entry>
+                    </row>
+                    <row>
+                        <entry>delimiter</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>,</emphasis></entry>
+                        <entry>The value delimiter</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			cycle is used to cycle though a set of values. This makes it easy to
+			alternate colors in a table, or even cycle through several of them.
+			</para>
+			<para>
+			If you supply the special "assign" attribute, the output of the
+			cycle function will be assigned to this template variable instead of
+			being output to the template.
+			</para>
+<example>
+<title>cycle</title>
+<programlisting>
+{* initialize the count *}
+{cycle values="#eeeeee,#d0d0d0"}
+{cycle values="#eeeeee,#d0d0d0"}
+{cycle values="#eeeeee,#d0d0d0"}
+
+
+OUTPUT:
+
+#eeeeee
+#d0d0d0
+#eeeeee</programlisting>
+</example>
+		</sect1>
 		<sect1 id="language.function.eval">
 			<title>eval</title>
             <informaltable frame=all>
