@@ -1,3 +1,13 @@
+2003-01-24  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty_Compiler.class.php:
+      fix compiling problem with {foreach} tags
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php:
+      put objects in own array, add object param format support, change
+      object syntax from foo.bar to foo->bar
+
 2003-01-23  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
