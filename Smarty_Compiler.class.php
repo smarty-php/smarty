@@ -67,7 +67,7 @@ class Smarty_Compiler extends Smarty {
         if (is_array($this->prefilter_funcs) && count($this->prefilter_funcs) > 0) {
             foreach ($this->prefilter_funcs as $prefilter) {
                 if (function_exists($prefilter)) {
-                    $template_source = $prefilter($template_source);
+                    $template_source = $prefilter($template_source, $this);
                 } else {
                     $this->_trigger_error_msg("prefilter function $prefilter does not exist.");
                 }

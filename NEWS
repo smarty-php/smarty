@@ -1,3 +1,5 @@
+    - modified Smarty to pass itself to prefilter functions as the second
+      parameter. (Andrei)
     - fixed syntax error when including a non-existant template with security
       enabled. (Monte)
     - fixed comments handling to allow commenting out template blocks. (Andrei)
