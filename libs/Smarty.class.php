@@ -1168,7 +1168,7 @@ class Smarty
             require_once(SMARTY_CORE_DIR . 'core.read_cache_file.php');
             if (smarty_core_read_cache_file($_params, $this)) {
                 $_smarty_results = $_params['results'];
-                if (@count($this->_cache_info['insert_tags'])) {
+                if (!empty($this->_cache_info['insert_tags'])) {
                     $_params = array('plugins' => $this->_cache_info['insert_tags']);
                     require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
                     smarty_core_load_plugins($_params, $this);
@@ -1176,7 +1176,7 @@ class Smarty
                     require_once(SMARTY_CORE_DIR . 'core.process_cached_inserts.php');
                     $_smarty_results = smarty_core_process_cached_inserts($_params, $this);
                 }
-                if (@count($this->_cache_info['cache_serials'])) {
+                if (!empty($this->_cache_info['cache_serials'])) {
                     $_params = array('results' => $_smarty_results);
                     require_once(SMARTY_CORE_DIR . 'core.process_compiled_include.php');
                     $_smarty_results = smarty_core_process_compiled_include($_params, $this);
