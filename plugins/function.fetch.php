@@ -29,16 +29,16 @@ function smarty_function_fetch($params, &$smarty)
             $smarty->_trigger_plugin_error("(secure mode) fetch '$file' is not allowed");
             return;
         }
-        if (!@is_readable($file)) {
-            $smarty->_trigger_plugin_error("fetch cannot read file '$file'");
-            return;
-        }
 		// fetch the file
-		$fp = fopen($file,'r');
-		while(!feof($fp)) {
-			$content .= fgets ($fp,4096);
+		if($fp = @fopen($file,'r')) {
+			while(!feof($fp)) {
+				$content .= fgets ($fp,4096);
+			}
+			fclose($fp);
+		} else {
+            $smarty->_trigger_plugin_error("fetch cannot read file '$file'");
+            return;			
 		}
-		fclose($fp);
     } else {
 		// not a local file
 		if(preg_match('!^http://!i',$file)) {
@@ -127,12 +127,6 @@ function smarty_function_fetch($params, &$smarty)
             					return;									
 							}
 							break;
-						case "cluster_host":
-							if(!empty($param_value)
-								&& (gethostbyname($param_value) != $param_value)) {
-                                $server_name = $param_value;
-							}
-							break;
 						default:
             				$smarty->_trigger_plugin_error("unrecognized attribute '".$param_key."'");
             				return;
@@ -194,11 +188,15 @@ function smarty_function_fetch($params, &$smarty)
 			}
 		} else {
 			// ftp fetch
-			$fp = fopen($file,'r');
-			while(!feof($fp)) {
-				$content .= fgets ($fp,4096);
+			if($fp = @fopen($file,'r')) {
+				while(!feof($fp)) {
+					$content .= fgets ($fp,4096);
+				}
+				fclose($fp);
+			} else {
+            	$smarty->_trigger_plugin_error("fetch cannot read file '$file'");
+            	return;			
 			}
-			fclose($fp);			
 		}
 		
 	}
