@@ -1,41 +1,42 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.inserts"><title>Inserts</title>
-    <para>
-     Insert plugins are used to implement functions that are invoked by
-     <link linkend="language.function.insert"><command>insert</command></link>
-     tags in the template.
-    </para>
-    <funcsynopsis>
-     <funcprototype>
-      <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
-      <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-    </funcsynopsis>
-    <para>
-     The first parameter to the function is an associative array of
-     attributes passed to the insert. Either access those values directly,
-     e.g. <varname>$params['start']</varname> or use
-     <varname>extract($params)</varname> to import them into the symbol
-     table.
-    </para>
-    <para>
-     The insert function is supposed to return the result which will be
-     substituted in place of the <command>insert</command> tag in the
-     template.
-    </para>
-    <example>
-     <title>insert plugin</title>
-     <programlisting>
-&lt;?php
+<!-- EN-Revision: 1.1 -->
+<sect1 id="plugins.inserts">
+ <title>Âñòàâêè</title>
+ <para>
+  Ïëàãèíû âñòàâîê èñïîëüçóþòñÿ äëÿ èñïîëíåíèÿ ôóíêöèé, âûçûâàåìûõ òýãîì
+  <link linkend="language.function.insert"><command>insert</command></link>
+  â øàáëîíå.
+ </para>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
+   <paramdef>array <parameter>$params</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Ïåðâûé ïàðàìåòð ôóíêöèè ïðåäñòàâëÿåò ñîáîé àññîöèàòèâíûé ìàññèâ àòðèáóòîâ,
+  ïåðåäàíûõ äëÿ âñòàâêè. Äîñòóï ê ýòèì çíà÷åíèÿì ìîæíî ïîëó÷èòü êàê íàïðÿìóþ:
+  ò.å. <varname>$params['start']</varname> òàê è èñïîëüçóÿ
+  <varname>extract($params)</varname> äëÿ èìïîðòà.
+ </para>
+ <para>
+  Ôóíêöèÿ âñòàâêè âîçâðàùàåò ðåçóëüòàò, êîòîðûì áóäåò
+  çàìåíåí òýã <command>insert</command> â øàáëîíå.
+ </para>
+ <example>
+  <title>Ïëàãèí âñòàâêè</title>
+  <programlisting>
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * ------------------------------------------------------------- 
- * File:     insert.time.php
- * Type:     time
- * Name:     time
- * Purpose:  Inserts current date/time according to format
+ * Ôàéë:     insert.time.php
+ * Òèï:     time
+ * Èìÿ:     time
+ * Íàçíà÷åíèå:  Âñòàâêà òåêóùåé äàòû/âðåìåíè â îïðåäåëåííîì ôîðìàòå
  * -------------------------------------------------------------
  */
 function smarty_insert_time($params, &amp;$smarty)
@@ -48,8 +49,10 @@ function smarty_insert_time($params, &amp;$smarty)
     $datetime = strftime($params['format']);
     return $datetime;
 }
-?&gt;</programlisting>
-    </example>
+?> 
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

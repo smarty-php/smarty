@@ -1,77 +1,83 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.block.functions"><title>Block Functions</title>
-    <funcsynopsis>
-     <funcprototype>
-      <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
-      <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>mixed <parameter>$content</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-    </funcsynopsis>
-    <para>
-     Block functions are functions of the form: {func} .. {/func}. In other
-     words, they enclose a template block and operate on the contents of
-     this block. Block functions take precedence over custom functions of
-     the same name, that is, you cannot have both custom function {func} and
-     block function {func} .. {/func}.
-    </para>
-    <para>
-     Your function implementation is called twice by Smarty:
-     once for the opening tag, and once for the closing tag.
-    </para>
-    <para>
-     Only the opening tag of the block function may have attributes. All
-     attributes passed to template functions from the template are contained
-     in the <parameter>$params</parameter> as an associative array. You can
-     either access those values directly, e.g.
-     <varname>$params['start']</varname> or use
-     <varname>extract($params)</varname> to import them into the symbol
-     table. The opening tag attributes are also accessible to your function
-     when processing the closing tag.
-    </para>
-    <para>
-     The value of <parameter>$content</parameter> variable depends on
-     whether your function is called for the opening or closing tag. In case
-     of the opening tag, it will be <literal>null</literal>, and in case of
-     the closing tag it will be the contents of the template block.
-     Note that the template block will have already been processed by
-     Smarty, so all you will receive is the template output, not the
-     template source.
-    </para>
-    <para>
-     If you have nested block functions, it's possible to find out what the
-     parent block function is by accessing
-     <varname>$smarty->_tag_stack</varname> variable. Just do a var_dump()
-     on it and the structure should be apparent.
-    </para>
-    <para>
-     See also:
-     <link linkend="api.register.block">register_block()</link>,
-     <link linkend="api.unregister.block">unregister_block()</link>.
-    </para>
-    <example>
-     <title>block function</title>
-     <programlisting>
-&lt;?php
+<!-- EN-Revision: 1.1 -->
+<sect1 id="plugins.block.functions">
+ <title>Áëîêîâûå ôóíêöèè</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
+   <paramdef>array <parameter>$params</parameter></paramdef>
+   <paramdef>mixed <parameter>$content</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Áëîêîâûå ôóíêöèè âûãëÿäÿò ñëåäóþùèì îáðàçîì: {func} .. {/func}. Äðóãèìè ñëîâàìè,
+  îíè çàêëþ÷åíû â îïðåäåëåííîì áëîêå øàáëîíà è îïåðèðóþò ñîäåðæèìûì ýòîãî áëîêà.
+  Áëîêîâûå ôóíêöèè èìåþò ïðèîðèòåò ïåðåä ïîëüçîâàòåëüñêèìè ôóíêöèÿìè, èìåþùèìè òî æå èìÿ,
+  ïîýòîìó, âû íå ñìîæåòå èñïîëüçîâàòü îäíîâðåìåííî ñâîè ôóíêöèè âèäà {func} è
+  áëîêîâûå ôóíêöèè {func} .. {/func}.
+ </para>
+ <para>
+  Smarty âûçûâàåò âàøè ôóíêöèè äâàæäû:
+  ïåðâûé ðàç ïðè îòêðûòèè òýãà è âòîðîé ðàç ïðè çàêðûòèè òýãà.
+ </para>
+ <para>
+  Òîëüêî îòêðûâàþùèé òýã áëîêîâîé ôóíêöèè ìîæåò èìåòü àòðèáóòû. Âñå
+  àòðèáóòû, ïåðåäàííûå â ôóíêöèþ èç øàáëîíà ñîõðàíÿþòñÿ
+  â <parameter>$params</parameter> â âèäå àññîöèàòèâíîãî ìàññèâà. Âû ìîæåòå
+  ïîëó÷èòü ïðÿìîé äîñòóï ê èõ çíà÷åíèÿì:
+  <varname>$params['start']</varname> èëè èñïîëüçîâàòü
+  <varname>extract($params)</varname> äëÿ èìïîðòà.
+  Àòðèáóòû, ïåðåäàííûå â îòêðûâàþùåì òýãå äîñòóïíû äëÿ âàøåé ôóíêöèè
+   äî îáðàáîòêè çàêðûâàþùåãî òýãà âêëþ÷èòåëüíî.
+ </para>
+ <para>
+  Çíà÷åíèå ïåðåìåííîé <parameter>$content</parameter> çàâèñèò îò òîãî,
+  âûçûâàåòñÿ ëè âàøà ôóíêöèÿ äëÿ îòðûâàþùåãî òýãà èëè âûçîâ ïðîèñõîäèò ïðè çàêðûòèè òýãà.
+  Â ñëó÷àå ñ îòêðûâàþùèì òýãîì, ýòî çíà÷åíèå áóäåò ðàâíî <literal>null</literal>, à â ñëó÷àå
+  çàêðûâàþùåãî òýãà, çíà÷åíèå áóäåò ðàâíî ñîäåðæèìîìó áëîêà â øàáëîíå.
+  Çàìåòüòå, ÷òî ýòîò áëîê øàáëîíà óæå áóäåò îáðàáîòàí 
+  Smarty è íà âûâîäå âû ïîëó÷èòå ðåçóëüòàò îáðàáîòêè, à íå
+  èñõîäíûé êîä øàáëîíà.
+ </para>
+ <para>
+  Åñëè âû èñïîëüçóåòå âëîæåííûå áëîêîâûå ôóíêöèè, åñòü âîçìîæíîñòü îïðåäåëÿòü ðîäèòåëüñêèå
+  áëîêîâûå ôóíêöèè. Äîñòàòî÷íî ïîëó÷èòü çíà÷åíèå ïåðåìåííîé
+  <varname>$smarty->_tag_stack</varname>. Çàòåì îñòàíåòñÿ òîëüêî ïðèìåíèòü var_dump()
+  äëÿ íåå è ñòðóêòóðà áóäåò âèäíà.
+ </para>
+ <para>
+  Ñìîòðèòå òàêæå:
+  <link linkend="api.register.block">register_block()</link>,
+  <link linkend="api.unregister.block">unregister_block()</link>.
+ </para>
+ <example>
+  <title>Áëîêîâàÿ ôóíêöèÿ</title>
+  <programlisting>
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
- * File:     block.translate.php
- * Type:     block
- * Name:     translate
- * Purpose:  translate a block of text
+ * Ôàéë:     block.translate.php
+ * Òèï:     block
+ * Èìÿ:     translate
+ * Íàçíà÷åíèå:  ïåðåâåñòè áëîê (êóñîê) òåêñòà
  * -------------------------------------------------------------
  */
 function smarty_block_translate($params, $content, &amp;$smarty)
 {
     if ($content) {
         $lang = $params['lang'];
-        // do some intelligent translation thing here with $content
+        // çäåñü âûïîëíèòü èíòåëëåêòóàëüíûé ïåðåâîä ñòðîêè $content
         echo $translation;
     }
-}</programlisting>
-    </example>
+} 
+?>    
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

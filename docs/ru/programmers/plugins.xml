@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
 <chapter id="plugins">
- <title>Extending Smarty With Plugins</title>
+ <title>Плагины - расширение функционала Smarty</title>
 
  <para>
-  Version 2.0 introduced the plugin architecture that is used
-  for almost all the customizable functionality of Smarty. This includes:
+  Архитектура версии 2.0 позволяет внедрять плагины, которыми являются
+  практически все настраиваемые элементы функционала Smarty. Сюда входят:
   <itemizedlist spacing="compact">
-   <listitem><simpara>functions</simpara></listitem>
-   <listitem><simpara>modifiers</simpara></listitem>
-   <listitem><simpara>block functions</simpara></listitem>
-   <listitem><simpara>compiler functions</simpara></listitem>
-   <listitem><simpara>prefilters</simpara></listitem>
-   <listitem><simpara>postfilters</simpara></listitem>
-   <listitem><simpara>outputfilters</simpara></listitem>
-   <listitem><simpara>resources</simpara></listitem>
-   <listitem><simpara>inserts</simpara></listitem>
+   <listitem><simpara>функции</simpara></listitem>
+   <listitem><simpara>модификаторы</simpara></listitem>
+   <listitem><simpara>блоковые функции</simpara></listitem>
+   <listitem><simpara>функции компилятора</simpara></listitem>
+   <listitem><simpara>префильтры</simpara></listitem>
+   <listitem><simpara>постфильтры</simpara></listitem>
+   <listitem><simpara>фильтры вывода</simpara></listitem>
+   <listitem><simpara>ресурсы</simpara></listitem>
+   <listitem><simpara>вставки</simpara></listitem>
   </itemizedlist>
-  With the exception of resources, backwards compatibility with the old
-  way of registering handler functions via register_* API is preserved. If
-  you did not use the API but instead modified the class variables
-  <literal>$custom_funcs</literal>, <literal>$custom_mods</literal>, and
-  other ones directly, then you will need to adjust your scripts to either
-  use the API or convert your custom functionality into plugins.
+  За исключением ресурсов, в целях обратной совместимости с предыдущими версиями, сохранена 
+  возможность регистрации функций посредством register_* API.
+  Если вы не используете  API, а вместо этого модифицируете 
+  <literal>$custom_funcs</literal>, <literal>$custom_mods</literal> и некоторые другие
+  переменные напрямую, тогда вам придется подогнать ваши скрипты под использование
+  API или преобразовать добавленную вами функциональность в плагины.
  </para>
    
  <sect1>
-  <title>How Plugins Work</title>
+  <title>Как работают плагины</title>
   <para>
-   Plugins are always loaded on demand. Only the specific modifiers,
-   functions, resources, etc invoked in the templates scripts will be
-   loaded. Moreover, each plugin is loaded only once, even if you have
-   several different instances of Smarty running within the same request.
+   Плагины загружаются только при необходимости. Загруженными окажутся 
+   только только те модификаторы, функции,ресурсы и т.п., которые 
+   определены в скрипте шаблона. Более того, каждый плагин загружается 
+   лишь один раз, даже если у вас имеется несколько различных экземпляров 
+   объекта Smarty, выполняемых внутри одного запроса.
   </para>
   <para>
-   Pre/postfilters and output filters are a bit of a special case. Since
-   they are not mentioned in the templates, they must be registered or
-   loaded explicitly via API functions before the template is processed.
-   The order in which multiple filters of the same type are executed
-   depends on the order in which they are registered or loaded.
+   Пре/постфильтры и фильтры вывода - это отдельный случай. Так как
+   они не упоминаются в шаблонах, их необходимо зарегистрировать
+   или явно загрузить с помощью API-функций перед обработкой шаблона.
+   Порядок исполнения множественных фильтров зависит от порядка, в котором 
+   они были зарегистрированы или загружены.
   </para>
   <para>
-   There is only one plugins directory (for performance reasons). To
-   install a plugin, simply place it in the directory and Smarty will use
-   it automatically.
+   В целях оптимизации производительности, под плагины отведена одна 
+   специальная директория. Чтобы установить плагин, просто поместите его 
+   в эту директорию и Smarty будет использовать его в автоматическом режиме.
   </para>
  </sect1>
   

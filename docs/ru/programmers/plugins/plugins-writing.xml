@@ -1,28 +1,30 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.writing">
-    <title>Writing Plugins</title>
-    <para>
-     Plugins can be either loaded by Smarty automatically from the
-     filesystem or they can be registered at runtime via one of the
-     register_* API functions. They can also be unregistered by using
-     unregister_* API functions.
-    </para>
-    <para>
-     For the plugins that are registered at runtime, the name of the plugin
-     function(s) does not have to follow the naming convention.
-    </para>
-    <para>
-     If a plugin depends on some functionality provided by another plugin
-     (as is the case with some plugins bundled with Smarty), then the proper
-     way to load the needed plugin is this:
-    </para>
-    <programlisting>
-require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
-    <para>
-     As a general rule, Smarty object is always passed to the plugins as the last
-     parameter (except for modifiers).
-    </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="plugins.writing">
+ <title>Íàïèñàíèå ïëàãèíîâ</title>
+ <para>
+  Smarty ìîæåò ïîäãðóæàòü ïëàãèíû àâòîìàòè÷åñêè èç
+  ôàéëîâîé ñèñòåìû èëè ðåãèñòðèðîâàòü èõ âî âðåìÿ âûïîëíåíèÿ 
+  (at runtime) ïîñðåäñòâîì îäíîé èç register_* API ôóíêöèé. 
+  Èõ òàêæå ìîæíî äåðåãèñòðèðîâàòü, èñïîëüçóÿ unregister_* API ôóíêöèè.
+ </para>
+ <para>
+  Ïëàãèíàì, êîòîðûå ðåãèñòðèðóþòñÿ âî âðåìÿ âûïîëíåíèÿ, 
+  ìîãóò ïðèñâàèâàòüñÿ èìåíà íå ñîîòâåòñòâóþùèå ïðàâèëàì ñîãëàøåíèÿ îá èìåíàõ.
+ </para>
+ <para>
+  Åñëè ïëàãèí çàâèñèò îò íåêîòîðûõ ôóíêöèé äðóãîãî ïëàãèíà
+  (êàê â íåêîòîðûõ ñëó÷àÿõ ñ ïëàãèíàìè, ïîñòàâëÿåìûìè âìåñòå ñî Smarty), òî
+  òàêîé ïëàãèí ìîæíî çàãðóçèòü ñëåäóþùèì îáðàçîì:
+ </para>
+ <programlisting>
+  require_once SMARTY_DIR . 'plugins/function.html_options.php';
+ </programlisting>
+ <para>
+  Âàæíî çíàòü, ÷òî îáúåêò Smarty âñåãäà ïîñûëàåòñÿ â ïëàãèí êàê ïîñëåäíèé
+  ïàðàìåòåð (çà èñêëþ÷åíèåì ìîäèôèêàòîðîâ).
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

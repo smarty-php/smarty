@@ -1,42 +1,44 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.functions"><title>Template Functions</title>
-    <funcsynopsis>
-     <funcprototype>
-      <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
-      <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-    </funcsynopsis>
-    <para>
-     All attributes passed to template functions from the template are
-     contained in the <parameter>$params</parameter> as an associative
-     array. Either access those values directly, e.g.
-     <varname>$params['start']</varname> or use
-     <varname>extract($params)</varname> to import them into the symbol
-     table.
-    </para>
-    <para>
-	 The output (return value) of the function will be substituted in place of the
-     function tag in the template (<function>fetch</function> function, for
-     example). Alternatively, the function can simply perform some other
-     task without any output (<function>assign</function> function).
-    </para>
-    <para>
-     If the function needs to assign some variables to the template or use
-     some other Smarty-provided functionality, it can use the supplied
-     <parameter>$smarty</parameter> object to do so.
-    </para>
-    <para>
-     See also:
-     <link linkend="api.register.function">register_function()</link>,
-     <link linkend="api.unregister.function">unregister_function()</link>.
-    </para>
-    <para>
-     <example>
-      <title>function plugin with output</title>
-      <programlisting>
-&lt;?php
+<!-- EN-Revision: 1.1 -->
+<sect1 id="plugins.functions">
+ <title>Ôóíêöèè øàáëîíà</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
+   <paramdef>array <parameter>$params</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Âñå àòðèáóòû, ïåðåäàâàåìûå â ôóíêöèè øàáëîíà èç ñàìîãî øàáëîíà,
+  õðàíÿòñÿ â <parameter>$params</parameter> â âèäå àññîöèàòèâíîãî ìàññèâà.
+  Ïîëó÷èòü äîñòóï ê åãî çíà÷åíèÿì ìîæíî íàïðÿìóþ:
+  <varname>$params['start']</varname> èëè èñïîëüçóÿ
+  <varname>extract($params)</varname> äëÿ èìïîðòà â òàáëèöó.
+ </para>
+ <para>
+  Âûâîä (âîçâðàùàåìîå çíà÷åíèå) ôóíêöèè áóäåò ïîäñòàâëåí â ìåñòî ðàñïîëîæåíèÿ
+  òåãà ôóíêöèè â øàáëîíå (ôóíêöèÿ <function>fetch</function>  íàïðèìåð). 
+  Â êà÷åñòâå àëüòåðíàòèâû, ôóíêöèÿ ìîæåò âûïîëíÿòü êàêèå ëèáî äåéñòâèÿ
+  áåç êàêîãî-ëèáî âûâîäà (<function>assign</function> ôóíêöèÿ).
+ </para>
+ <para>
+  Åñëè ôóíêöèÿ äîëæíà ïðèñâîèòü(assign) çíà÷åíèÿ  íåêîòîðûì ïåðåìåííûì â øàáëîíå èëè
+  èñïîëüçîâàòü èíûå âîçìîæíîñòè Smarty, òî ìîæíî ðàáîòàòü ñ îáúåêòîì
+  <parameter>$smarty</parameter> êàê îáû÷íî.
+ </para>
+ <para>
+  Ñì. òàêæå:
+  <link linkend="api.register.function">register_function()</link>,
+  <link linkend="api.unregister.function">unregister_function()</link>.
+ </para>
+ <para>
+  <example>
+   <title>Ôóíêöèÿ-ïëàãèí ñ âûâîäîì</title>
+   <programlisting>
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -48,30 +50,36 @@
  */
 function smarty_function_eightball($params, &amp;$smarty)
 {
-    $answers = array('Yes',
-                     'No',
-                     'No way',
-                     'Outlook not so good',
-                     'Ask again soon',
-                     'Maybe in your reality');
+    $answers = array('Äà',
+                     'Íåò',
+                     'Íèêîèì îáðàçîì',
+                     'Ïåðñïåêòèâà òàê ñåáå...',
+                     'Ñïðîñèòå ïîçæå',
+                     'Âñå ìîæåò áûòü');
 
     $result = array_rand($answers);
     return $answers[$result];
 }
-?&gt;</programlisting>
-     </example>
-    </para>
-    <para>
-     which can be used in the template as:
-    </para>
+?> 
+]]>
+   </programlisting>
+  </example>
+ </para>
+ <para>
+  êîòîðàÿ ìîæåò áûòü èñïîëüçîâàíà â øàáëîíå ñëåäóþùèì îáðàçîì:
+ </para>
+  <programlisting>
+<![CDATA[
+Âîïðîñ: Ìû êîãäà-íèáóäü íàéäåì âðåìÿ äëÿ îòïóñêà?
+Îòâåò: {eightball}. 
+]]>
+  </programlisting>
+  <para>
+   <example>
+    <title>Ôóíêöèÿ-ïëàãèí áåç âûâîäà</title>
     <programlisting>
-Question: Will we ever have time travel?
-Answer: {eightball}.</programlisting>
-    <para>
-     <example>
-      <title>function plugin without output</title>
-      <programlisting>
-&lt;?php
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -97,9 +105,11 @@ function smarty_function_assign($params, &amp;$smarty)
 
     $smarty->assign($var, $value);
 }
-?&gt;</programlisting>
-     </example>
-    </para>
+?> 
+]]>
+   </programlisting>
+  </example>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

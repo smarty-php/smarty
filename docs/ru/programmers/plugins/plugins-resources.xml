@@ -1,99 +1,101 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.resources"><title>Resources</title>
-    <para>
-     Resource plugins are meant as a generic way of providing template
-     sources or PHP script components to Smarty. Some examples of resources:
-     databases, LDAP, shared memory, sockets, and so on.
-    </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="plugins.resources">
+ <title>Ðåñóðñû</title>
+ <para>
+  Ïëàãèíû ðåñóðñîâ îïèñûâàþò èñòî÷íèêè äàííûõ, èç êîòîðûõ áåðåòñÿ èñõîäíûé
+  êîä øàáëîíà èëè êîìïîíåíòû PHP-ñêðèïòà äëÿ Smarty. Âîò ïðèìåðû ðåñóðñîâ:
+  áàçû äàííûõ, LDAP, ðàçäåëÿåìàÿ ïàìÿòü (shared memory), ñîêåòû, è ïðî÷åå.
+ </para>
 
-    <para>
-     There are a total of 4 functions that need to be registered for each
-     type of resource. Every function will receive the requested resource as
-     the first parameter and the Smarty object as the last parameter. The
-     rest of parameters depend on the function.
-    </para>
+ <para>
+  Íåîáõîäèìî 4 ôóíêöèè äëÿ òîãî, ÷òîáû çàðåãåñòðèðîâàòü
+  êàæäûé òèï ðåñóðñà. Êàæäàÿ òàêàÿ ôóíêöèÿ ïîëó÷àåò çàïðàøèâàåìûé ðåñóðñ â êà÷åñòâå
+  ïåðâîãî ïàðàìåòðà è îáúåêò Smarty êàê ïîñëåäíèé ïàðàìåòð. 
+  Îñòàëüíûå ïàðàìåòðû çàâèñÿò îò ôóíêöèè.
+ </para>
 
-    <funcsynopsis>
-     <funcprototype>
-      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
-      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>string <parameter>&amp;$source</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-     <funcprototype>
-      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
-      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-     <funcprototype>
-      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
-      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-     <funcprototype>
-      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
-      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
-     </funcprototype>
-    </funcsynopsis>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
+   <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
+   <paramdef>string <parameter>&amp;$source</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+  <funcprototype>
+   <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
+   <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
+   <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+  <funcprototype>
+   <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
+   <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+  <funcprototype>
+   <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
+   <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
 
-    <para>
-     The first function is supposed to retrieve the resource. Its second
-     parameter is a variable passed by reference where the result should be
-     stored. The function is supposed to return <literal>true</literal> if
-     it was able to successfully retrieve the resource and
-     <literal>false</literal> otherwise.
-    </para>
+ <para>
+  Ïåðâàÿ ôóíêöèÿ ïîëó÷àåò ðåñóðñ. Åå ïåðâûé
+  ïàðàìåòð, ýòî ïåðåìåííàÿ, ïåðåäàííàÿ ïî ññûëêå. Â íåå áóäåò ñîõðàíåí ðåçóëüòàò.
+  Ôóíêöèÿ âåðíåò <literal>true</literal> åñëè
+  ñìîæåò óäà÷íî ïîëó÷èòü ðåñóðñ è
+  <literal>false</literal> â èíîì ñëó÷àå.
+ </para>
 
-    <para>
-     The second function is supposed to retrieve the last modification time
-     of the requested resource (as a UNIX timestamp). The second parameter
-     is a variable passed by reference where the timestamp should be stored.
-     The function is supposed to return <literal>true</literal> if the
-     timestamp could be succesfully determined, and <literal>false</literal>
-     otherwise.
-    </para>
+ <para>
+  Âòîðàÿ ôóíêöèÿ ïîëó÷àåò âðåìÿ ïîñëåäíåé ìîäèôèêàöèè
+  çàïðîøåííîãî ðåñóðñà (â âèäå UNIX timestamp). Âòîðîé ïàðàìåòð
+  ïðåäñòàâëÿåò ñîáîé ïåðåìåííóþ, ïåðåäàííóþ ïî ññûëêå, â êîòîðîé è áóäåò ñîõðàíåíî âðåìÿ.
+  Ôóíêöèÿ âåðíåò <literal>true</literal> åñëè
+  timestamp áóäåò îïðåäåëåí â ïðàâèëüíîé ôîðìå, è <literal>false</literal>
+  â èíîì ñëó÷àå.
+ </para>
 
-    <para>
-     The third function is supposed to return <literal>true</literal> or
-     <literal>false</literal>, depending on whether the requested resource
-     is secure or not. This function is used only for template resources but
-     should still be defined.
-    </para>
+ <para>
+  Òðåòüÿ ôóíêöèÿ âîçâðàùàåò <literal>true</literal> èëè
+  <literal>false</literal> â çàâèñèìîñòè îò òîãî, ÿâëÿåòñÿ ëè 
+  çàïðàøèâàåìûé ðåñóðñ áåçîïàñíûì. Ýòà ôóíêöèÿ èñïîëüçóåòñÿ òîëüêî äëÿ ðåñóðñîâ øàáëîíà, íî
+  â ëþáîì ñëó÷àå äîëæíà áûòü îïðåäåëåíà.
+ </para>
 
-    <para>
-     The fourth function is supposed to return <literal>true</literal> or
-     <literal>false</literal>, depending on whether the requested resource
-     is trusted or not. This function is used for only for PHP script
-     components requested by <command>include_php</command> tag or
-     <command>insert</command> tag with <structfield>src</structfield>
-     attribute. However, it should still be defined even for template
-     resources.
-    </para>
-    <para>
-     See also
-     <link linkend="api.register.resource">register_resource()</link>,
-     <link linkend="api.unregister.resource">unregister_resource()</link>.
-    </para>
-    <example>
-     <title>resource plugin</title>
-     <programlisting>
-&lt;?php
+ <para>
+  ×åòâåðòàÿ ôóíêöèÿ âîçâðàùàåò <literal>true</literal> èëè
+  <literal>false</literal> â çàâèñèìîñòè îò òîãî, çàñëóæèâàåò ëè çàïðàøèâàåìûé ðåñóðñ äîâåðèÿ
+  (is trusted) èëè íåò. Ýòà ôóíêöèÿ èñïîëüçóåòñÿ òîëüêî äëÿ êîìïîíåíòîâ PHP-ñêðèïòà,
+  çàïðîøåííûõ òýãîì <command>include_php</command> èëè
+  <command>insert</command> ñ <structfield>src</structfield>
+  àòðèáóòîì. Òåì íå ìåíåå, îíà äîëæíà îáúÿâëÿòüñÿ äàæå äëÿ ðåñóðñîâ øàáëîíà.
+ </para>
+ <para>
+  Ñìîòðèòå òàêæå:
+  <link linkend="api.register.resource">register_resource()</link>,
+  <link linkend="api.unregister.resource">unregister_resource()</link>.
+ </para>
+ <example>
+  <title>Ïëàãèí ðåñóðñà</title>
+   <programlisting>
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * ------------------------------------------------------------- 
- * File:     resource.db.php
- * Type:     resource
- * Name:     db
- * Purpose:  Fetches templates from a database
+ * Ôàéë:     resource.db.php
+ * Òèï:     resource
+ * Èìÿ:     db
+ * Íàçíà÷åíèå:  Ïîëó÷àåò øàáëîí èç áàçû äàííûõ
  * -------------------------------------------------------------
  */
-function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
+ function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
 {
-    // do database call here to fetch your template,
-    // populating $tpl_source
+    // âûïîëíÿåì îáðàùåíèå ê áàçå äàííûõ äëÿ ïîëó÷åíèÿ øàáëîíà
+    // è çàíåñåíèÿ ïîëó÷åííîãî ðåçóëüòàòà â â $tpl_source
     $sql = new SQL;
     $sql->query("select tpl_source
                    from my_table
@@ -106,9 +108,9 @@ function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
     }
 }
 
-function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smarty)
+function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
 {
-    // do database call here to populate $tpl_timestamp.
+    // âûïîëíÿåì îáðàùåíèå ê áàçå äàííûõ äëÿ ïðèñâîåíèÿ çíà÷åíèÿ $tpl_timestamp.
     $sql = new SQL;
     $sql->query("select tpl_timestamp
                    from my_table
@@ -121,18 +123,20 @@ function smarty_resource_db_timestamp($tpl_name, &amp;$tpl_timestamp, &amp;$smar
     }
 }
 
-function smarty_resource_db_secure($tpl_name, &amp;$smarty)
+function smarty_resource_db_secure($tpl_name, &$smarty)
 {
-    // assume all templates are secure
+    // ïðåäïîëàãàåì, ÷òî øàáëîíû áåçîïàñíû
     return true;
 }
 
-function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
+function smarty_resource_db_trusted($tpl_name, &$smarty)
 {
-    // not used for templates
+    // íå èñïîëüçóåòñÿ äëÿ øàáëîíîâ
 }
-?&gt;</programlisting>
-    </example>
+?> 
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,69 +1,73 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.modifiers"><title>Modifiers</title>
-    <para>
-     Modifiers are little functions that are applied to a variable in the
-     template before it is displayed or used in some other context.
-     Modifiers can be chained together.
-    </para>
-    <funcsynopsis>
-     <funcprototype>
-      <funcdef>mixed <function>smarty_modifier_<replaceable>name</replaceable></function></funcdef>
-      <paramdef>mixed <parameter>$value</parameter></paramdef>
-      <paramdef>[mixed <parameter>$param1</parameter>, ...]</paramdef>
-     </funcprototype>
-    </funcsynopsis>
-    <para>
-     The first parameter to the modifier plugin is the value on which
-     the modifier is supposed to operate. The rest of the parameters can be
-     optional, depending on what kind of operation is supposed to be
-     performed.
-    </para>
-    <para>
-     The modifier has to return the result of its processing.
-    </para>
-    <para>
-     See also
-     <link linkend="api.register.modifier">register_modifier()</link>,
-     <link linkend="api.unregister.modifier">unregister_modifier()</link>.
-    </para>
-    <example>
-     <title>simple modifier plugin</title>
-     <para>
-      This plugin basically aliases one of the built-in PHP functions. It
-      does not have any additional parameters.
-     </para>
-     <programlisting>
-&lt;?php
+<!-- EN-Revision: 1.1 -->
+<sect1 id="plugins.modifiers">
+ <title>Ìîäèôèêàòîðû</title>
+ <para>
+  Ìîäèôèêàòîðû - ýòî ìàëåíüêèå ôóíêöèè, êîòîðûå âîçäåéñòâóþò íà ïåðåìåííûå â
+  øàáëîíå ïåðåä òåì, êàê òå áóäóò âûâåäåíû íà ýêðàí èëè èñïîëüçîâàíû â èíîì êîíòåêñòå.
+  Äëÿ êàæäîé ïåðåìåííîé øàáëîíà, îäíîâðåìåííî ìîãóò áûòü èñïîëüçîâàíû íåñêîëüêî ìîäèôèêàòîðîâ.
+ </para>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>mixed <function>smarty_modifier_<replaceable>name</replaceable></function></funcdef>
+   <paramdef>mixed <parameter>$value</parameter></paramdef>
+   <paramdef>[mixed <parameter>$param1</parameter>, ...]</paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Ïåðâûé ïàðàìåòð ïëàãèíà-ìîäèôèêàòîðà ýòî çíà÷åíèå â îòíîøåíèè êîòîðîãî
+  ìîäèôèêàòîð áóäåò ïðèìåíåí. Îñòàëüíûå ïàðàìåòðû ìîãóò áûòü
+  ïðîèçâîëüíûìè, â çàâèñèìîñòè îò îïåðàöèé, êîòîðûå îíè îñóùåñòâëÿþò.
+ </para>
+ <para>
+  Ìîäèôèêàòîð äîëæåí âîçâðàùàòü ðåçóëüòàò, ïîëó÷åííûé â ïðîöåññå ñâîåãî âûïîëíåíèÿ.
+ </para>
+ <para>
+  Ñìîòðèòå òàêæå:
+  <link linkend="api.register.modifier">register_modifier()</link>,
+  <link linkend="api.unregister.modifier">unregister_modifier()</link>.
+ </para>
+ <example>
+  <title>Ïðîñòîé ïëàãèí-ìîäèôèêàòîð</title>
+  <para>
+   Ýòîò ïëàãèí â ñâîåé îñíîâå ÿâëÿåòñÿ àíàëîãîì îäíîé èç PHP-ôóíêöèé. Îí
+   íå èìååò íèêàêèõ äîïîëíèòåëüíûõ ïàðàìåòðîâ.
+  </para>
+  <programlisting>
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
- * File:     modifier.capitalize.php
- * Type:     modifier
- * Name:     capitalize
- * Purpose:  capitalize words in the string
+ * Ôàéë:     modifier.capitalize.php
+ * Òèï:     modifier
+ * Èìÿ:     capitalize
+ * Íàçíà÷åíèå:  Ñäåëàòü ïåðâóþ áóêâó êàæäîãî ñëîâà â
+ * ñòðîêå ïðîïèñíîé
  * -------------------------------------------------------------
  */
 function smarty_modifier_capitalize($string)
 {
     return ucwords($string);
 }
-?&gt;</programlisting>
-    </example>
-    <para></para>
-    <example>
-     <title>more complex modifier plugin</title>
-     <programlisting>
-&lt;?php
+?>
+]]>
+  </programlisting>
+ </example>
+ <example>
+  <title>Áîëåå ñëîæíûé ìîäèôèêàòîð</title>
+  <programlisting>
+  <![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
- * File:     modifier.truncate.php
- * Type:     modifier
- * Name:     truncate
- * Purpose:  Truncate a string to a certain length if necessary,
- *           optionally splitting in the middle of a word, and 
- *           appending the $etc string.
+ * Ôàéë:     modifier.truncate.php
+ * Òèï:     modifier
+ * Èìÿ:     truncate
+ * Íàçíà÷åíèå:  Óðåçàòü ñòðîêó äî îïðåäåëåííîé äëèíû,
+ *           ïðè íåîáõîäèìîñòè îáðåçàòü ñëîâî íà ïîëîâèíå è ïðèñîåäåíèòü ñòðîêó $etc.
  * -------------------------------------------------------------
  */
 function smarty_modifier_truncate($string, $length = 80, $etc = '...',
@@ -83,8 +87,10 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     } else
         return $string;
 }
-?&gt;</programlisting>
-    </example>
+?> 
+]]>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

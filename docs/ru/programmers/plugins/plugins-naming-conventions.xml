@@ -1,61 +1,61 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.naming.conventions">
-    <title>Naming Conventions</title>
-    <para>
-     Plugin files and functions must follow a very specific naming
-     convention in order to be located by Smarty.
-    </para>
-    <para>
-     The plugin files must be named as follows:
-     <blockquote>
-      <para>
-       <filename>
-        <replaceable>type</replaceable>.<replaceable>name</replaceable>.php
-       </filename>
-      </para>
-     </blockquote>
-    </para>
-    <para>
-     Where <literal>type</literal> is one of these plugin types:
-     <itemizedlist spacing="compact">
-      <listitem><simpara>function</simpara></listitem>
-      <listitem><simpara>modifier</simpara></listitem>
-      <listitem><simpara>block</simpara></listitem>
-      <listitem><simpara>compiler</simpara></listitem>
-      <listitem><simpara>prefilter</simpara></listitem>
-      <listitem><simpara>postfilter</simpara></listitem>
-      <listitem><simpara>outputfilter</simpara></listitem>
-      <listitem><simpara>resource</simpara></listitem>
-      <listitem><simpara>insert</simpara></listitem>
-     </itemizedlist>
-    </para>
-    <para>
-     And <literal>name</literal> should be a valid identifier (letters,
-     numbers, and underscores only).
-    </para>
-    <para>
-     Some examples: <literal>function.html_select_date.php</literal>,
-     <literal>resource.db.php</literal>,
-     <literal>modifier.spacify.php</literal>.
-    </para>
-    <para>
-     The plugin functions inside the plugin files must be named as follows:
-     <blockquote>
-      <para>
-       <function>smarty_<replaceable>type</replaceable>_<replaceable>name</replaceable></function>
-      </para>
-     </blockquote>
-    </para>
-    <para>
-     The meanings of <literal>type</literal> and <literal>name</literal> are
-     the same as before.
-    </para>
-    <para>
-     Smarty will output appropriate error messages if the plugin file it
-     needs is not found, or if the file or the plugin function are named
-     improperly.
-    </para>
+<!-- EN-Revision: 1.1 -->
+<sect1 id="plugins.naming.conventions">
+ <title>Ñîãëàøåíèå îá èìåíàõ</title>
+ <para>
+  Ïðè ïðèñâîåíèè èìåí ôàéëàì è ôóíêöèÿì ïëàãèíîâ, íåîáõîäèìî ïðèäåðæèâàòüñÿ îïðåäåëåííûõ
+  ïðàâèë, ÷òîáû Smarty íàõîäèë è ìîã èñïîëüçîâàòü ýòè ïëàãèíû.
+ </para>
+ <para>
+  Èìåíà ôàéëîâ ïëàãèíîâ äîëæíû ôîðìèðîâàòüñÿ ïî ñëåäóþùåé ñõåìå:
+  <blockquote>
+   <para>
+    <filename>
+     <replaceable>type</replaceable>.<replaceable>name</replaceable>.php
+    </filename>
+   </para>
+  </blockquote>
+ </para>
+ <para>
+  Ãäå <literal>type (òèï)</literal> ýòî îäèí èç ñëåäóþùèõ òèïîâ ïëàãèíîâ:
+  <itemizedlist spacing="compact">
+   <listitem><simpara>function</simpara></listitem>
+   <listitem><simpara>modifier</simpara></listitem>
+   <listitem><simpara>block</simpara></listitem>
+   <listitem><simpara>compiler</simpara></listitem>
+   <listitem><simpara>prefilter</simpara></listitem>
+   <listitem><simpara>postfilter</simpara></listitem>
+   <listitem><simpara>outputfilter</simpara></listitem>
+   <listitem><simpara>resource</simpara></listitem>
+   <listitem><simpara>insert</simpara></listitem>
+  </itemizedlist>
+ </para>
+ <para>
+  è <literal>name (èìÿ)</literal> ñîîòâåòñòâóåò ïðàâèëàì íàèìåíîâàíèÿ èäåíòèôèêàòîðîâ â PHP 
+  (òîëüêî áóêâû, öèôðû è çíàê ïîä÷åðêèâàíèÿ).
+ </para>
+ <para>
+  Íåñêîëüêî ïðèìåðîâ: <literal>function.html_select_date.php</literal>,
+  <literal>resource.db.php</literal>,
+  <literal>modifier.spacify.php</literal>.
+ </para>
+ <para>
+  Ôóíêöèè, íàõîäÿùèåñÿ âíóòðè ôàéëîâ ïëàãèíîâ, äîëæíû èìåíîâàòüñÿ ñëåäóþùèì îáðàçîì:
+  <blockquote>
+   <para>
+    <function>smarty_<replaceable>type</replaceable>_<replaceable>name</replaceable></function>
+   </para>
+  </blockquote>
+ </para>
+ <para>
+  Çíà÷åíèÿ  <literal>type</literal> è <literal>name</literal> òå æå, ÷òî ïðåæäå.
+ </para>
+ <para>
+  Smarty âûäàñò ñîîáùåíèå îá îøèáêå, åñëè íåîáõîäèìûé ôàéë ïëàãèíà
+  íå áóäåò íàéäåí, èëè ôàéë ïëàãèíà, à òàê æå ôóíêöèÿ ïëàãèíà
+  áóäóò íàçâàíû íåïðàâèëüíî.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
