@@ -692,13 +692,13 @@ class Smarty_Compiler extends Smarty {
         $attrs = $this->_parse_attrs($tag_args);
         $arg_list = $this->_compile_arg_list('function', $tag_command, $attrs, $_cache_attrs='');
 
-	    $_return = $_cache_attrs . $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', $arg_list)."), \$this)";
+	    $_return = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', $arg_list)."), \$this)";
 		if($tag_modifier != '') {
 			$this->_parse_modifiers($_return, $tag_modifier);
 		}
         
 		if($_return != '') {
-            $_return =  '<?php ' . $_cacheable_state . 'echo ' . $_return . ';'
+            $_return =  '<?php ' . $_cacheable_state . $_cache_attrs . 'echo ' . $_return . ';'
                 . $this->_pop_cacheable_state('function', $tag_command) . "?>\n";
 		}
         
