@@ -1,3 +1,5 @@
+  - fix bug when comparing array-keys to "selected" in html_options
+    and html_checkboxes (messju)
   - add better checks for correctly nested tags when compiling (messju)
   - remove {$SCRIPT_NAME}. use {$smarty.server.SCRIPT_NAME} instead (messju)
   - remove $global_assign. assign global variables explicitly instead (messju)

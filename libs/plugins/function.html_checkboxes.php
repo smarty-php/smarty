@@ -122,7 +122,7 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
         . smarty_function_escape_special_chars($name) . '[]" value="'
         . smarty_function_escape_special_chars($value) . '"';
 
-    if (in_array($value, $selected)) {
+    if (in_array($value, $selected, true)) {
         $_output .= ' checked="checked"';
     }
     $_output .= $extra . ' />' . $output;
