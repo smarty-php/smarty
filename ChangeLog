@@ -1,3 +1,41 @@
+2003-06-17  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS:
+      fix name
+
+    * libs/Smarty_Compiler.class.php:
+      change varnames to follow coding methods
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      add math patch to core
+
+2003-06-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.smarty_include.php:
+      switched _process_template() to _is_compiled()-logic
+
+2003-06-17  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty.class.php:
+      fix _is_compiled logic
+
+    * NEWS:
+      update news file
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      fix _run_mod_handler routine
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.display_debug_console.php
+      libs/core/core.fetch_file_info.php
+      libs/core/core.parse_file_path.php
+      libs/core/core.write_compiled_template.php
+      libs/plugins/function.config_load.php:
+      fix path problems, rename some varibles from "template" to "file"
+
 2003-06-16  Monte Ohrt  <monte@ispi.net>
 
     * libs/core/core.fetch_file_info.php
