@@ -816,7 +816,7 @@ Intro = """This is a value that spans more
 		<sect2>
 			<title>if,elseif,else</title>
 			<para>
-			if statements in Smarty have much the same flexability as php if statements,
+			if statements in Smarty have much the same flexibility as php if statements,
 			with a few added features for the template engine.
 			Every if must be paired with /if. else and elseif are also permitted.
 			"eq", "ne","neq", "gt", "lt", "lte", "le", "gte" "ge","is even","is odd",
