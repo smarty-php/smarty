@@ -34,7 +34,7 @@
 
 <!-- ==========================   TOC   =================================== -->
 
-<xsl:param name="toc.section.depth">0</xsl:param>
+<xsl:param name="toc.section.depth">1</xsl:param>
 
 <!-- Supress the ",figure,example,equation" -->
 <xsl:param name="generate.toc">
