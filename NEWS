@@ -1,6 +1,6 @@
     - add support for appending key=>value vars (messju, Monte)
     - change embedded variable logic to only recognize $foo and
-      $foo[0][bar] syntax (Monte)
+      $foo[0][bar] and $smarty.foo.bar syntax (Monte)
     - allow null as function attribute value
       (André Rabold, Monte)
     - support $foo->bar[index] syntax (Monte)

@@ -1446,7 +1446,7 @@ class Smarty_Compiler extends Smarty {
     function _expand_quoted_text($var_expr)
     {
 		// if contains unescaped $, expand it
-		if(preg_match_all('|(?<!\\\\)\$\w+(?:' . $this->_var_bracket_regexp . ')*|', $var_expr, $match)) {
+		if(preg_match_all('%(?<!\\\\)\$(?:smarty(?:\.\w+)+|\w+(?:' . $this->_var_bracket_regexp . ')*)%', $var_expr, $match)) {
 			rsort($match[0]);
 			reset($match[0]);
 			foreach($match[0] as $var) {
