@@ -5,15 +5,29 @@ IMPORTANT NOTICE
 
 Smarty now has a new syntax for accessing elements within section loops. The
 new syntax is easier to use and nicely handles data structures of any
-complexity. Consequently, this breaks the old syntax. To fix your current
-templates, we have provided a script that will adjust the syntax for you.
-Located in misc/fix_vars.php, run this script from the the command line, giving
-each template as an argument. Be sure to use absolute pathnames, or pathnames
-relative to the executing script. Probably the easiest way to do this is to
-copy the fix_vars.php script into your template directory and run 'php -q
-fix_vars.php *.tpl' Be sure you have proper write permission, and backup your
-scripts first to be safe! The examples in the 1.4.0 documentation have been
-updated to reflect the changes.
+complexity. Consequently, this breaks the old syntax.
+
+Here is an example of the syntax change:
+
+old syntax:
+{$sec1/sec2/sec3/customer.phone}
+
+new syntax:
+{$customer[$sec1][$sec2][$sec3].phone}
+
+The section names used to come first, followed by the variable name. Now the
+variable name always comes first, followed by the section names in brackets.
+You can access variable indexes anywhere, depending on how you passed the
+variables in.
+
+To fix your current templates, we have provided a script that will adjust the
+syntax for you. Located in misc/fix_vars.php, run this script from the the
+command line, giving each template as an argument. Be sure to use absolute
+pathnames, or pathnames relative to the executing script. Probably the easiest
+way to do this is to copy the fix_vars.php script into your template directory
+and run 'php -q fix_vars.php *.tpl' Be sure you have proper write permission,
+and backup your scripts first to be safe! The examples in the 1.4.0
+documentation have been updated to reflect the changes.
 
 cd /path/to/templates
 cp /path/to/fix_vars.php .
@@ -81,7 +95,10 @@ symbol and specifying the property name after it, e.g. $foo->bar.
 
 {php}{/php} tags were added to embed php into the templates. Not normally
 needed, but some circumstances may call for it. Check out the "componentized
-templates" tip in the documentation for an example of needed usage.
+templates" tip in the documentation for an example.
+
+{capture}{/capture} and {counter} functions were added. See the documentation
+for a complete description and examples.
 
 UPGRADE NOTES
 

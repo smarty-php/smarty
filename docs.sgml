@@ -1225,7 +1225,7 @@ $smarty->display("db:index.tpl");
         </sect2>
     </sect1>
 	<sect1 id="section.template.prefilters">
-		<title>Template Preilters</title>
+		<title>Template Prefilters</title>
         <para>
 		Template prefilters are PHP functions that your templates are ran through
 		before they are compiled. This is good for preprocessing your templates
@@ -1558,6 +1558,41 @@ Intro = """This is a value that spans more
 		are integral to the template language. You cannot create custom
 		functions with the same names, nor can you modify built-in functions.
 		</para>
+		<sect2 id="builtin.function.capture">
+			<title>capture</title>
+			<para>
+			capture is used to collect the output of the template into a
+			variable instead of displaying it. Any content between {capture} and
+			{/capture} is collected into the special $return variable, which can
+			be used in the template from that point on. All {capture} commands
+			must be paired with {/capture}. You can nest capture commands, but
+			be aware that each iteration will overwrite the last value of
+			$return. capture was added to Smarty 1.4.0.
+			</para>
+			<para>
+			TECHNICAL NOTE: Be careful when capturing {insert} output. If you
+			have caching turned on and you have {insert} commands that you
+			expect to run within cached content, do not capture this content.
+			</para>
+<example>
+<title>capturing template content</title>
+<programlisting>
+
+{* we don't want to print a table row unless content is displayed *}
+{capture}
+{include file="get_banner.tpl"}
+{/capture}
+{if $return ne ""}
+	&lt;tr&gt;
+		&lt;td&gt;
+			{$return}
+		&lt;/td&gt;
+	&lt;/tr&gt;
+{/if}
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2 id="builtin.functions.configload">
 			<title>config_load</title>
             <informaltable frame=all>
@@ -1922,7 +1957,7 @@ OUTPUT:
 </programlisting>
 </example>
 		</sect2>
-		<sect2 id="builtin.funciton.literal">
+		<sect2 id="builtin.function.literal">
 			<title>literal</title>
 			<para>
 			Literal tags allow a block of data to be taken literally,
@@ -2497,6 +2532,93 @@ OUTPUT:
 		Custom functions in Smarty work much the same as the built-in functions
 		syntactically.
 		</para>
+		<sect2>
+			<title>counter</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>id</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>default</emphasis></entry>
+                        <entry>The id of the counter</entry>
+                    </row>
+                    <row>
+                        <entry>start</entry>
+                        <entry>number</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+                        <entry>The initial number to start counting from</entry>
+                    </row>
+                    <row>
+                        <entry>skip</entry>
+                        <entry>number</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+                        <entry>The interval to count by</entry>
+                    </row>
+                    <row>
+                        <entry>direction</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>up</emphasis></entry>
+                        <entry>the direction to count (up/down)</entry>
+                    </row>
+                    <row>
+                        <entry>print</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>Whether or not to print the value</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			counter is used to print out a count. counter will remember the
+			count on each iteration. You can adjust the number, the interval
+			and the direction of the count, as well as determine whether or not
+			to print the value. You can run multiple counters concurrently by
+			supplying a unique id for each one. If you do not supply an id, the
+			default id will be used. counter was added to Smarty 1.4.0.
+			</para>
+<example>
+<title>counter</title>
+<programlisting>
+
+{* initialize the count *}
+{counter start=0 skip=2 print=false}
+
+{counter}&lt;br&gt;
+{counter}&lt;br&gt;
+{counter}&lt;br&gt;
+{counter}&lt;br&gt;
+
+OUTPUT:
+
+2&lt;br&gt;
+4&lt;br&gt;
+6&lt;br&gt;
+8&lt;br&gt;
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2>
 			<title>fetch</title>
             <informaltable frame=all>

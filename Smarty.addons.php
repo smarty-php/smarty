@@ -514,6 +514,54 @@ function smarty_mod_count_paragraphs($string,$include_spaces=false) {
     return count( preg_split("/[\r\n]+/",$string) );
 }
 
+/*======================================================================*\
+    Function: smarty_func_counter
+    Purpose:  print out a counter value
+\*======================================================================*/
+function smarty_func_counter() {
+    
+	static $count = array();
+	static $skipval = array();
+	static $dir = array();
+	static $id = "default";
+	static $printval = array();
+	
+    extract(func_get_arg(0));
+
+	if(!isset($id))
+		$id = "default";
+	
+	if(isset($start))
+		$count[$id] = $start;	
+	elseif(!isset($count[$id]))
+		$count[$id]=1;
+
+	if(!isset($print))
+		$printval[$id]=true;
+	else
+		$printval[$id]=$print;
+
+	if($printval[$id])
+		echo $count[$id];
+	
+	if(isset($skip))
+		$skipval[$id] = $skip;
+	elseif(!isset($skipval))
+		$skipval[$id] = 1;
+	
+	if(isset($direction))
+		$dir[$id] = $direction;
+	elseif(!isset($dir[$id]))
+		$dir[$id] = "up";
+	
+	if($dir[$id] == "down")
+		$count[$id] -= $skipval[$id];
+	else
+		$count[$id] += $skipval[$id];
+
+    return true;
+}
+
 /* vim: set expandtab: */
 
 ?>

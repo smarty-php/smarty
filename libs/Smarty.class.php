@@ -109,7 +109,8 @@ class Smarty
                                     'html_select_date'  => 'smarty_func_html_select_date',
                                     'html_select_time'  => 'smarty_func_html_select_time',
                                     'math'              => 'smarty_func_math',
-                                    'fetch'             => 'smarty_func_fetch'
+                                    'fetch'             => 'smarty_func_fetch',
+									'counter'			=> 'smarty_func_counter'
                                  );
     
     var $custom_mods     =  array(  'lower'             => 'strtolower',
@@ -645,7 +646,7 @@ class Smarty
                         $funcname($resource_name, $template_source, $template_timestamp);
                         return true;
                     } else {
-                        $this->_trigger_error_msg("function: resource function \"$funcname\" does not exist for resource type: \"$resource_type\".");
+                        $this->_trigger_error_msg("resource function: \"$funcname\" does not exist for resource type: \"$resource_type\".");
                         return false;
                     }
                 } else {
@@ -776,7 +777,11 @@ class Smarty
             $this->_trigger_error_msg("problem writing '$filename.'");
             return false;
         }
-        if (flock($fd, LOCK_EX) && ftruncate($fd, 0)) { 
+		
+		// flock doesn't seem to work on several windows platforms (98, NT4, NT5, ?),
+		// so we'll not use it at all in windows.
+		
+        if ( strtoupper(substr(PHP_OS,0,3)) == 'WIN' || (flock($fd, LOCK_EX)) ) { 
             fwrite( $fd, $contents );
             fclose($fd);
             chmod($filename,0644);
@@ -784,7 +789,6 @@ class Smarty
 
         return true;
     }    
-
 
 /*======================================================================*\
     Function: _clear_tpl_cache_dir
