@@ -7,6 +7,9 @@ INSTALLATION (quick):
 
 * copy the files under the libs/ directory to a directory that is in your PHP
   include_path, or set the SMARTY_DIR constant and put them in this directory.
+  (if you upgrade from versions before 2.5.0 be aware that up to Smarty 2.4.2
+  all necessary files where in the distribution's root directory, but are now
+  in libs/.)
 
 * for each application using Smarty, create a "templates", "configs", and a
   "templates_c" directory, be sure to set the appropriate directory settings in
