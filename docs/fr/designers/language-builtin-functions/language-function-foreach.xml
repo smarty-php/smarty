@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+		<sect1 id="language.function.foreach">
+			<title>foreach,foreachelse</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Nom attribut</entry>
+                        <entry>Type</entry>
+                        <entry>Requis</entry>
+                        <entry>Defaut</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>from</entry>
+                        <entry>chaîne de caractère</entry>
+                        <entry>oui</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>Le nom du tableau à parcourir</entry>
+                    </row>
+                    <row>
+                        <entry>item</entry>
+                        <entry>chaîne de caractère</entry>
+                        <entry>Oui</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>Le nom de la variable "élément courant"</entry>
+                    </row>
+                    <row>
+                        <entry>key</entry>
+                        <entry>chaîne de caractère</entry>
+                        <entry>Non</entry>
+						<entry><emphasis>n/a</emphasis></entry>
+						<entry>Le nom de la variable représentant la clef courante.</entry>
+                    </row>
+                    <row>
+                        <entry>name</entry>
+                        <entry>chaîne de caractère</entry>
+                        <entry>Non</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>Le nom de la boucle foreach, qui nous permettra
+                         d'accéder à ses propriétés.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			Les boucles <emphasis>foreach</emphasis> sont une alternative aux boucles
+			<emphasis>section</emphasis>. Les boucles <emphasis>foreach</emphasis>
+			sont utilisées pour parcourir des tableaux associatifs simples.
+         La syntaxe des boucles <emphasis>foreach</emphasis> est bien plus simple
+         que celle des boucles <emphasis>section</emphasis>, mais en contrepartie,
+         elles ne peuvent être utilisées que pour des tableaux associatifs simples.
+         La balise <emphasis>foreach</emphasis> doit toujours être accompagnée
+         de la balise <emphasis>/foreach</emphasis>. Les paramètres requis sont
+         <emphasis>from</emphasis> et <emphasis>item</emphasis>. Le nom des boucles
+         foreach doit être composés exclusivement de lettres,
+         chiffres et underscores, selon vos préférences. Les boucles
+         <emphasis>foreach</emphasis> peuvent être imbriquées.
+         La variable <emphasis>from</emphasis> (généralement le tableau à
+         parcourir) détermine le nombre de fois que <emphasis>foreach</emphasis>
+         sera exécuté. <emphasis>foreachelse</emphasis> est exécuté si aucune
+         valeur n'est présente dans la variable donnée à l'attribut
+         <emphasis>from</emphasis>.
+			</para>
+<example>
+<title>foreach</title>
+<programlisting>
+
+{* Cet exemple affiche toutes les valeurs du tableau $custid *}
+{foreach from=$custid item=curr_id}
+	id: {$curr_id}&lt;br&gt;
+{/foreach}
+
+SORTIE:
+
+id: 1000&lt;br&gt;
+id: 1001&lt;br&gt;
+id: 1002&lt;br&gt;</programlisting>
+</example>
+
+<example>
+<title>foreach key</title>
+<programlisting>
+{* key contient la clef de chaque élément parcouru
+
+l'attribution des élément est de la forme:
+
+$smarty->assign("contacts", array(array("tel" =&gt; "1", "fax" =&gt; "2", "portable" =&gt; "3"),
+      array("tel" =&gt; "555-4444", "fax" =&gt; "555-3333", "portable" =&gt; "760-1234")));
+
+*}
+
+{foreach name=outer item=contact from=$contacts}
+  {foreach key=key item=item from=$contact}
+    {$key}: {$item}&lt;br&gt;
+  {/foreach}
+{/foreach}
+
+SORTIE:
+
+tel: 1&lt;br&gt;
+fax: 2&lt;br&gt;
+portable: 3&lt;br&gt;
+tel: 555-4444&lt;br&gt;
+fax: 555-3333&lt;br&gt;
+portable: 760-1234&lt;br&gt;</programlisting>
+</example>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

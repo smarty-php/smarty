@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- $Revision$ -->
+		<sect1 id="language.modifier.escape">
+			<title>escape</title>
+            <informaltable frame="all">
+                <tgroup cols="6">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="possible" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Position du paramètre</entry>
+                        <entry>Type</entry>
+                        <entry>Requis</entry>
+                        <entry>Valeurs possibles</entry>
+                        <entry>Defaut</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>chaîne de caractère</entry>
+                        <entry>Non</entry>
+                        <entry>html, htmlall, url, quotes, hex, hexentity,
+                         javascript</entry>
+                        <entry>html</entry>
+                        <entry>Format d'échappement à utiliser.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+         "Echappe" les caractères spéciaux html, d'url, pour
+         les quotes d'une chaîne, les valeurs
+         hexadécimales, les entités hexadécimales ou javascript.
+         Par défaut, ce paramètre est html.
+			</para>
+<example>
+<title>escape</title>
+<programlisting>
+index.php:
+
+$smarty = new Smarty;
+$smarty-&gt;assign('TitreArticle', "'Stiff Opposition Expected to Casketless Funeral Plan'");
+$smarty-&gt;display('index.tpl');
+
+index.tpl:
+
+{$titreArticle}
+{$titreArticle|escape}
+{$titreArticle|escape:"html"}    {* escapes  &amp; &quot; &#039; &lt; &gt; *}
+{$titreArticle|escape:"htmlall"} {* escapes ALL html entities *}
+{$titreArticle|escape:"url"}
+{$titreArticle|escape:"quotes"}
+&lt;a href="mailto:{$EmailAddress|escape:"hex"}"&gt;{$EmailAddress|escape:"hexentity"}&lt;/a&gt;
+
+SORTIE:
+
+'Stiff Opposition Expected to Casketless Funeral Plan'
+&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
+&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
+&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
+%27Stiff+Opposition+Expected+to+Casketless+Funeral+Plan%27
+\'Stiff Opposition Expected to Casketless Funeral Plan\'
+&lt;a href=&quot;mailto:%62%6f%62%40%6d%65%2e%6e%65%74&quot;&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
+</example>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->
