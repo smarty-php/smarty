@@ -1,3 +1,15 @@
+2002-04-16  Andrei Zmievski  <andrei@php.net>
+
+    * Smarty.class.php: Add register/unregister API for output filters.
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      TODO:
+    Changed the way filters are loaded, which now has to be done explicitly,
+    either through load_filter() API or by filling in $autoload_filters variable.
+    Also renamed internal variable to avoid namespace pollution.
+
 2002-04-15  Andrei Zmievski  <andrei@php.net>
 
     * Smarty.class.php:
