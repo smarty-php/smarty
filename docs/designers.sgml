@@ -59,10 +59,10 @@
 
 {include file="header.tpl"}
 
-{if $name eq "Fred"}
-	You are not allowed here
+{if $highlight_name}
+	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;	
 {else}
-	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
+	Welcome, {$name}!
 {/if}
 
 {include file="footer.tpl"}</programlisting>
