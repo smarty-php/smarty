@@ -1,3 +1,4 @@
+    - fixed notice in popup function (Nagger, Monte)
     - fix "once" var compiling for include_php (Monte)
     - added nl2br modifier to distribution (Monte)
     - added html_image to distribution (Monte)
