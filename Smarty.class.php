@@ -1,44 +1,44 @@
-<?php
-/*
- * Project:     Smarty: the PHP compiling template engine
- * File:        Smarty.class.php
- * Author:      Monte Ohrt <monte@ispi.net>
- *              Andrei Zmievski <andrei@php.net>
- *
- * Version:     1.4.6
- * Copyright:   2001 ispi of Lincoln, Inc.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * For questions, help, comments, discussion, etc., please join the
- * Smarty mailing list. Send a blank e-mail to smarty-subscribe@lists.ispi.net
- *
- * You may contact the authors of Smarty by e-mail at:
- * monte@ispi.net
- * andrei@php.net
- *
- * Or, write to:
- * Monte Ohrt
- * Director of Technology, ispi
- * 237 S. 70th suite 220
- * Lincoln, NE 68510
- *
- * The latest version of Smarty can be obtained from:
- * http://www.phpinsider.com/
- *
- */
+    <?php
+    /*
+     * Project:     Smarty: the PHP compiling template engine
+     * File:        Smarty.class.php
+     * Author:      Monte Ohrt <monte@ispi.net>
+     *              Andrei Zmievski <andrei@php.net>
+     *
+     * Version:     1.4.6
+     * Copyright:   2001 ispi of Lincoln, Inc.
+     *
+     * This library is free software; you can redistribute it and/or
+     * modify it under the terms of the GNU Lesser General Public
+     * License as published by the Free Software Foundation; either
+     * version 2.1 of the License, or (at your option) any later version.
+     *
+     * This library is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     * Lesser General Public License for more details.
+     *
+     * You should have received a copy of the GNU Lesser General Public
+     * License along with this library; if not, write to the Free Software
+     * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+     *
+     * For questions, help, comments, discussion, etc., please join the
+     * Smarty mailing list. Send a blank e-mail to smarty-subscribe@lists.ispi.net
+     *
+     * You may contact the authors of Smarty by e-mail at:
+     * monte@ispi.net
+     * andrei@php.net
+     *
+     * Or, write to:
+     * Monte Ohrt
+     * Director of Technology, ispi
+     * 237 S. 70th suite 220
+     * Lincoln, NE 68510
+     *
+     * The latest version of Smarty can be obtained from:
+     * http://www.phpinsider.com/
+     *
+     */
 
 // set SMARTY_DIR to absolute path to Smarty library files.
 // if not defined, include_path will be used.
@@ -180,6 +180,8 @@ class Smarty
     var $request_vars_order    = "EGPCS";   // the order in which request variables are
                                             // registered, similar to variables_order
                                             // in php.ini
+
+    var $compile_id            = null;      // persistent compile identifier
 
 /**************************************************************************/
 /* END SMARTY CONFIGURATION SECTION                                       */
@@ -417,11 +419,19 @@ class Smarty
 \*======================================================================*/
     function clear_cache($tpl_file = null, $cache_id = null, $compile_id = null)
     {
+        if (!isset($compile_id))
+            $compile_id = $this->compile_id;
+
+        if (isset($compile_id) && isset($cache_id))
+            $auto_id = $compile_id . $cache_id;
+        else
+            $auto_id = null;
+        
         if (!empty($this->cache_handler_func)) {
 			$funcname = $this->cache_handler_func;
             return $funcname('clear', $this, $dummy, $tpl_file, $cache_id, $compile_id);
         } else {
-            return $this->_rm_auto($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+            return $this->_rm_auto($this->cache_dir, $tpl_file, $auto_id);
         }
     }
 
@@ -450,6 +460,8 @@ class Smarty
         if (!$this->caching)
             return false;
 
+        if (!isset($compile_id))
+            $compile_id = $this->compile_id;
         return $this->_read_cache_file($tpl_file, $cache_id, $compile_id, $results);
     }
 
@@ -471,6 +483,8 @@ class Smarty
 \*======================================================================*/
     function clear_compiled_tpl($tpl_file = null, $compile_id = null)
     {
+        if (!isset($compile_id))
+            $compile_id = $this->compile_id;
         return $this->_rm_auto($this->compile_dir, $tpl_file, $compile_id);
     }
 
@@ -515,7 +529,9 @@ class Smarty
             $included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
 
-        $this->_compile_id = $smarty_compile_id;
+        if (!isset($compile_id))
+            $compile_id = $this->compile_id;
+
         $this->_inclusion_depth = 0;
 
 
@@ -1171,10 +1187,10 @@ function _run_insert_handler($args)
         if (!is_dir($auto_base))
           return false;
 
-        if (empty($auto_source)) {
+        if (!isset($auto_source)) {
             $res = $this->_rmdir($auto_base, 0);
         } else {
-            if (!empty($auto_id)) {
+            if (isset($auto_id)) {
                 $tname = $this->_get_auto_filename($auto_base, $auto_source, $auto_id);
                 $res = is_file($tname) && unlink( $tname);
             } else {
@@ -1253,7 +1269,12 @@ function _run_insert_handler($args)
             return $funcname('write', $this, $results, $tpl_file, $cache_id, $compile_id);
         } else {    
             // use local cache file
-            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+            if (isset($compile_id) && isset($cache_id))
+                $auto_id = $compile_id . $cache_id;
+            else
+                $auto_id = null;
+
+            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $auto_id);
             $this->_write_file($cache_file, $results, true);
             return true;
         }
@@ -1279,8 +1300,12 @@ function _run_insert_handler($args)
 
         } else {
             // use local file cache
+            if (isset($compile_id) && isset($cache_id))
+                $auto_id = $compile_id . $cache_id;
+            else
+                $auto_id = null;
 
-            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
+            $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $auto_id);
             $results = $this->_read_file($cache_file);
 
         }
