@@ -1225,7 +1225,7 @@ function _run_mod_handler()
     {
         $results = $this->_read_file($cache_file);
 
-        // get the templates involved with this cache from the first line
+        // get the files involved with this cache from the first line
         $contents = explode("\n", $results, 2);
 
         if (substr($contents[0], 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {

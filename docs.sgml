@@ -1382,14 +1382,19 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 		<sect2>
 			<title>Templates from a function call</title>
 			<para>
-            You can get templates from a custom function call, such as
-            retrieving templates from a database. You do this by first
-            registering your resource handler function, then creating your
-            function to get the template. Smarty expects your function to be of
-            this form: funcname($tpl_name,&amp;$tpl_source, &amp;$tpl_timestamp)
-            {} $tpl_name is passed into the function, and your function should
-            populate $tpl_source and $tpl_timestamp with the template source
-            and the last modified time of the template respectively.
+			You can get templates from a custom function call, such as
+			retrieving templates from a database. You do this by first
+			registering your resource handler function, then creating your
+			function to get the template. Smarty expects your function to be of
+			this form: funcname($tpl_name,&amp;$tpl_source,
+			&amp;$tpl_timestamp[, boolean]) {} $tpl_name is passed into the
+			function, and your function should populate $tpl_source and
+			$tpl_timestamp with the template source and the last modified time
+			of the template respectively. The fourth parameter is a boolean
+			value, used for determining if the source should be returned or
+			not. Default this value to true in your function. If false gets
+			passed, you only need to return the timestamp parameter. This was
+			added to Smarty 1.4.6.
             </para>
 <example>
 
@@ -1399,12 +1404,18 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 // from PHP script
 
 // put this function somewhere in your application
-function get_db_template ($tpl_name, &$tpl_source, &$tpl_timestamp) {
-    // do database calls (or whatever) here to fetch your template, populating
-    // $tpl_source and $tpl_timestamp.
+function get_db_template ($tpl_name, &$tpl_source, &$tpl_timestamp,
+	$get_source=true) {
     
-    $tpl_source = "This is a simulation of a template fetched from a db.";
-    $tpl_timestamp = mktime();
+	if($get_source) {
+    	// do database calls (or whatever) here to fetch your template, populating
+    	// $tpl_source and $tpl_timestamp.
+    	$tpl_source = "This is a simulation of a template fetched from a db.";
+    	$tpl_timestamp = mktime();
+	} else {	
+    	// just populate $tpl_timestamp.
+    	$tpl_timestamp = mktime();
+	}
     
     return true;
 }
