@@ -23,8 +23,9 @@ function smarty_make_timestamp($string)
     }
 
     // couldn't recognize it, try to return a time
-    if ((int) $time > 0)
-		return (int) $time;
+    $time = (int) $string;
+    if ($time > 0)
+		return $time;
 	else
 		return time();
 }
