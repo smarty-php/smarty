@@ -1534,14 +1534,16 @@ class Smarty_Compiler extends Smarty {
         $val = trim($val);
 
         if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(' . $this->_mod_regexp . '*)$!', $val, $match)) {
-                // $ variable or object
-                $return = $this->_parse_var($match[1]);
-                if($match[2] != '') {
-                    $this->_parse_modifiers($return, $match[2]);
-                }
-                return $return;
+            // $ variable or object
+            $return = $this->_parse_var($match[1]);
+            $modifiers = $match[2];
+            if (!empty($this->default_modifiers) && !preg_match('!(^|\|)smarty:nodefaults($|\|)!',$modifiers)) {
+                $_default_mod_string = implode('|',(array)$this->default_modifiers);
+                $modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
             }
-        elseif(preg_match('!^' . $this->_db_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
+            $this->_parse_modifiers($return, $modifiers);
+            return $return;
+        } elseif (preg_match('!^' . $this->_db_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
                 // double quoted text
                 preg_match('!^(' . $this->_db_qstr_regexp . ')('. $this->_mod_regexp . '*)$!', $val, $match);
                 $return = $this->_expand_quoted_text($match[1]);

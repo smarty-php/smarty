@@ -1,3 +1,4 @@
+  - reactivate $smarty->default_modifiers (messju)
   - add cookie persistance to debug console (Monte)
   - allow single-digit days and months without smarty_make_timestamp()
     in html_select_date (messju)
