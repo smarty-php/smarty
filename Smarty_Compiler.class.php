@@ -75,13 +75,13 @@ class Smarty_Compiler extends Smarty {
         preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $match);
         $this->_literal_blocks = $match[1];
         $template_source = preg_replace("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s",
-        	$this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_source);
+										$this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_source);
 
         /* Pull out the php code blocks. */
         preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $template_source, $match);
         $this->_php_blocks = $match[1];
         $template_source = preg_replace("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s",
-        	$this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $template_source);		
+										$this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $template_source);		
 		
         /* Gather all template tags. */
         preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_source, $match);
