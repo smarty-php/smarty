@@ -1621,7 +1621,7 @@ class Smarty
                 } else {
                     $_return = call_user_func_array(
                         $this->default_template_handler_func,
-                        array($_resource_type, $_resource_name, &$params['source_content'], &$params['resource_timestamp'], &$this));
+                        array($_params['resource_type'], $_params['resource_name'], &$params['source_content'], &$params['resource_timestamp'], &$this));
                 }
             }
         }
