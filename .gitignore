@@ -9,4 +9,5 @@ docs/entities/version.ent
 docs/html
 docs/manual.xml
 docs/phpweb
+docs/scripts/file-entities.php
 /templates_c
