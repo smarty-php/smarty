@@ -670,7 +670,7 @@ no title</programlisting>
                         <entry>1</entry>
                         <entry>string</entry>
                         <entry>No</entry>
-                        <entry>html,url,quotes,hex,hexentity</entry>
+                        <entry>html,htmlall,url,quotes,hex,hexentity</entry>
                         <entry>html</entry>
                         <entry>This is the escape format to use.</entry>
                     </row>
@@ -678,12 +678,12 @@ no title</programlisting>
                 </tgroup>
             </informaltable>
 			<para>
-			This is used to html (or htmlall) escape, url escape, escape single
-			quotes on a variable not already escaped, hex escape or hexentity
-			escape. hex and hexentity escape can be used in conjunction to hide
-			"mailto:" links on a page from web spiders (spam collectors) and
-			yet keep them readable and linkable. By default, the variable is
-			html escaped.
+			This is used to html escape, url escape, escape single quotes on a
+			variable not already escaped, hex escape or hexentity escape. hex
+			and hexentity escape can be used in conjunction to hide "mailto:"
+			links on a page from web spiders (spam collectors) and yet keep
+			them readable and linkable. By default, the variable is html
+			escaped.
 			</para>
 <example>
 <title>escape</title>
@@ -1195,8 +1195,8 @@ Blind woman gets new kidney&lt;br&gt;
 from dad she hasn't seen in years.
 
 Blind woman gets new kidney fr
-om dad she hasn't seen in
-years.</programlisting>
+om dad she hasn't seen in year
+s.</programlisting>
 </example>
         </sect1>
 

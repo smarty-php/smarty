@@ -152,6 +152,9 @@ class Smarty
 											// sub directories are more efficient, but
 											// you can set this to false if your PHP environment
 											// does not allow the creation of them.
+	var $default_modifiers		= '';
+											// modifier string to implicitly append to every var
+											// example: '|escape:"htmlall"'
 
 /**************************************************************************/
 /* END SMARTY CONFIGURATION SECTION                                       */
@@ -1073,6 +1076,7 @@ function _generate_debug_output() {
         $smarty_compiler->trusted_dir       = $this->trusted_dir;
         $smarty_compiler->_plugins          = &$this->_plugins;
         $smarty_compiler->_tpl_vars         = &$this->_tpl_vars;
+        $smarty_compiler->default_modifiers = $this->default_modifiers;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;

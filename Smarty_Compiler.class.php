@@ -1109,6 +1109,13 @@ class Smarty_Compiler extends Smarty {
         $var_ref = $parts[0];
         $modifiers = isset($parts[1]) ? $parts[1] : '';
 
+		
+		if(!empty($this->default_modifiers) && !strstr($modifiers,'smarty:nodefaults')) {
+			$modifiers = empty($modifiers) ? $this->default_modifiers : $this->default_modifiers . '|' . $modifiers;
+		}
+		
+		$modifiers = str_replace(array('smarty:nodefaults','||'),array('','|'),$modifiers);
+			
         preg_match_all('!\[(?:\$\w+|\w+(\.\w+)?)\]|(->|\.)\$?\w+|^\w+!', $var_ref, $match);
         $indexes = $match[0];
         $var_name = array_shift($indexes);
