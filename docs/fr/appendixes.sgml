@@ -1,0 +1,408 @@
+<part id="appendixes">
+ <title>Appendices</title>
+<chapter id="troubleshooting">
+   <title>Diagnostic des erreurs</title>
+   <para></para>
+   <sect1 id="smarty.php.errors">
+       <title>Erreurs Smarty/PHP</title>
+       <para>
+       Smarty peut identifier de nombreuses erreurs comme des attributs de
+       balises manquants ou de noms de variables malformés. Dans ce cas-là,
+       vous verrez apparaître une erreur semblable à :
+       </para>
+<example>
+<title>erreurs Smarty</title>
+<programlisting>
+Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
+        in /path/to/smarty/Smarty.class.php on line 1041
+
+Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
+        in /path/to/smarty/Smarty.class.php on line 1041</programlisting>
+</example>
+
+       <para>
+       Smarty vous indique le nom du template, le numéro de la ligne et l'erreur.
+       Après cela, vous pouvez connaître le numéro de ligne où il y a eu erreur dans
+       la définition de la classe Smarty.
+       </para>
+       
+       <para>
+       Il y a certaines erreurs que Smarty ne peut pas détecter, comme les 
+       balises fermantes manquantes. Ce type d'erreurs est la plupart du temps
+       repéré dans la phase de compilation PHP du template compilé.
+       </para>              
+       
+<example>
+<title>erreur d'analyse PHP</title>
+<programlisting>
+Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75</programlisting>
+</example>
+       
+       <para>
+       Quand vous rencontrez une erreur d'analyse PHP, le numéro de la ligne
+       indiqué est celui du fichier PHP compilé et non du template. Vous pouvez alors
+       regarder le template et détecter l'erreur. Voici quelques erreurs fréquentes :
+       balises fermantes pour {if}{/if} ou {section}{/section} manquantes, ou 
+       syntaxe logique incorrecte dans une instruction {if}. Si vous ne trouvez pas l'erreur,
+       vous devrez alors ouvrir le fichier PHP compilé et aller à la ligne correspondante pour
+       trouver d'où vient l'erreur.
+       </para>
+   </sect1>
+</chapter>
+<chapter id="tips">
+   <title>Trucs et astuces</title>
+   <para>
+   </para>
+   <sect1 id="tips.blank.var.handling">
+		<title>Gestion des variables non-assignées</title>
+		<para>
+		Peut-être voudrez-vous des fois afficher une valeur par défaut pour
+		une variable qui n'a pas été assignée, comme pour afficher "&amp;nbsp;"
+		afin que les couleurs de fond des tableaux fonctionnent. Beaucoup utiliseraient
+		une instruction {if} pour gérer cela, mais il existe un moyen plus facile dans
+		Smarty, l'utilisation du modificateur de variable <emphasis>default</emphasis>.
+		</para>		
+<example>
+<title>afficher &amp;nbsp; quand une variable est vide</title>
+<programlisting>
+
+{* la méthode pas adaptée *}
+
+{if $title eq ""}
+	&amp;nbsp;
+{else}
+	{$title}
+{/if}
+
+
+{* la bonne méthode *}
+
+{$title|default:"&amp;nbsp;"}</programlisting>
+</example>
+	</sect1>
+
+    <sect1 id="tips.default.var.handling">
+		<title>Gestion des variables par défaut</title>
+		<para>
+		Si une variable est utilisée fréquemment dans vos templates,
+		lui appliquer le modificateur par défaut peut être un peu fastidieux.
+		Vous pouvez remédier à cela en lui assignant une valeur par défaut
+		avec la fonction <link linkend="language.function.assign">assign</link>.
+		</para>
+<example>
+<title>assigner une valeur par défaut à une variable de template</title>
+<programlisting>
+{* faites cela qq part en haut de votre template *}
+{assign var="title" value=$title|default:"no title"}
+
+{* si $title est vide, il contiendra alors no "no title" *}
+{$title}</programlisting>
+</example>
+	</sect1>
+    <sect1 id="tips.passing.vars">
+		<title>Passage du titre à un template d'en-tête</title>
+		<para>
+		Quand la majorité de vos templates utilisent les mêmes en-tête et pied-de-page,
+		il est d'usage de les mettre dans leurs propres templates et de les inclure.
+		Mais comment faire si l'en-tête doit avoir un titre différent, selon la page
+		d'où on vient ? Vous pouvez passer le titre à l'en-tête quand il est inclus.
+		</para>
+<example>
+<title>passer le titre au template d'en-tête</title>
+<programlisting>
+
+mainpage.tpl
+------------
+
+{include file="header.tpl" title="Main Page"}
+{* le corps du template va ici *}
+{include file="footer.tpl"}
+
+
+archives.tpl
+------------
+
+{config_load file="archive_page.conf"}
+{include file="header.tpl" title=#archivePageTitle#}
+{* le corps du template va ici *}
+{include file="footer.tpl"}
+
+
+header.tpl
+----------
+&lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;{$title|default:"BC News"}&lt;/TITLE&gt;
+&lt;/HEAD&gt;
+&lt;BODY&gt;
+
+
+footer.tpl
+----------
+&lt;/BODY&gt;
+&lt;/HTML&gt;</programlisting>
+</example>
+	<para>
+	Quand la page principale est conçue, le titre "Main page" est passé à header.tpl
+	et sera donc utilisé pour le titre. Quand la page d'archive est conçue,
+	le titre sera "Archives". Notez que dans l'exemple des archives, on utilise
+	le fichier archives_page.conf plutôt que des variables codées en dur.
+	Remarquez aussi que "BC News" est affichée si la variable $title
+	n'est pas définie, grâce au modificateur de variable <emphasis>default</emphasis>.
+	</para>	
+	</sect1>
+    <sect1 id="tips.dates">
+       <title>Dates</title>
+       <para>
+       De façon générale, essayez de toujours passer les dates à Smarty
+       sous forme de timestamp. Cela permet aux designers de templates d'utiliser
+       <link linkend="language.modifier.date.format">date_format</link>
+       pour avoir un contrôle total sur le formatage des dates et de comparer
+       facilement les dates entre elles.
+       </para>
+       <para>
+       NOTE : à partir Smarty 1.4.0, vous pouvez passer les dates à Smarty
+       sous la forme de timestamps Unix ou MySQL, ou tout autre format de dates
+       que comprend strtotime().
+       </para>
+<example>
+<title>utilisation de date_format</title>
+<programlisting>
+{$startDate|date_format}
+
+OUTPUT:
+
+Jan 4, 2001
+
+
+{$startDate|date_format:"%Y/%m/%d"}
+
+OUTPUT:
+
+2001/01/04
+
+
+{if $date1 < $date2}
+	...
+{/if}</programlisting>
+</example>
+      <para>
+      En utilisant la fonction {html_select_date} dans un template, le programmeur
+      veut en général convertir le résultat d'un formulaire en un timestamp.
+      Voici une fonction qui devrait vous être utile.
+      </para>
+<example>
+<title>conversion des éléments date d'un formulaire en timestamp</title>
+<programlisting>
+// cela suppose que vos éléments de formulaire soient nommés
+// startDate_Day, startDate_Month, startDate_Year
+
+$startDate = makeTimeStamp($startDate_Year,$startDate_Month,$startDate_Day);
+
+function makeTimeStamp($year="",$month="",$day="")
+{
+	if(empty($year))
+		$year = strftime("%Y");
+	if(empty($month))
+		$month = strftime("%m");
+	if(empty($day))
+		$day = strftime("%d");
+
+	return mktime(0,0,0,$month,$day,$year);
+}</programlisting>
+</example>
+	</sect1>
+    <sect1 id="tips.wap">
+		<title>WAP/WML</title>
+		<para>
+		Les templates WAP/WML nécessitent un en-tête "Content-Type" qui doit être
+		passé avec le template. Le moyen le plus facile de faire cela est d'écrire
+		une fonction utilisateur qui écrit l'en-tête. Si vous utilisez le cache,
+		cela ne fonctionnera pas. Nous utiliserons donc une balise d'insertion
+    (rappelez-vous que les balises d'insertion ne sont pas mises en cache !).
+    Assurez-vous qu'aucune sortie
+		rien n'est transmise au navigateur avant l'appel du template, sans quoi
+    la modification de l'en-tête échouera.
+		</para>
+<example>
+<title>utilisation d'insert pour écrire un en-tête Content-Type WML</title>
+<programlisting>
+// assurez-vous que Apache est configuré pour les extensions .wml !
+// mettez cette fonction qq part dans votre applications
+// ou dans Smarty.addons.php
+function insert_header() {
+    // cette fonction attend un argument $content
+    extract(func_get_arg(0));
+    if(empty($content))
+        return;
+    header($content);
+    return;
+}
+
+// votre template Smarty DOIT commencer avec la balise d'insertion
+
+&lt;?xml version="1.0"?&gt;  
+&lt;!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"&gt; 
+
+&lt;!-- begin new wml deck --&gt; 
+&lt;wml&gt; 
+&lt;!-- begin first card --&gt; 
+&lt;card&gt; 
+&lt;do type="accept"&gt; 
+&lt;go href="#two"/&gt; 
+&lt;/do&gt;  
+&lt;p&gt; 
+Welcome to WAP with Smarty!
+Press OK to continue...  
+&lt;/p&gt; 
+&lt;/card&gt;  
+&lt;!-- begin second card --&gt; 
+&lt;card id="two"&gt;  
+&lt;p&gt; 
+Pretty easy isn't it?
+&lt;/p&gt; 
+&lt;/card&gt; 
+&lt;/wml&gt;</programlisting>
+</example>
+	</sect1>
+	<sect1 id="tips.componentized.templates">
+		<title>Templates composants</title>
+		<para>
+		Cette astuce tient plus du hack qu'autre chose mais n'en demeure pas
+		moins une idée plutôt chouette. Utilisez-la à vos propres risques. ;-)
+		</para>
+		<para>
+		Traditionnellemnt, la programmation avec des templates dans les applications
+		se déroule de la façon suivante : d'abord vous récupérez vos variables
+      dans l'application PHP (peut-être avec des requêtes en base de données), puis
+      vous instanciez votre objet Smarty, assignez les variables et affichez le
+      template. Disons par exemple que nous avons un téléscripteur dans
+      notre template. Nous récupérerions les données dans notre application,
+      puis les assignerions ensuite pour les afficher. Mais ne serait-ce pas
+      mieux de pouvoir ajouter ce téléscripteur à n'importe quelle application
+      en incluant directement le template sans avoir à se soucier de la récupération
+      des données.
+		</para>
+		<para>
+		Vous pouvez intégrer du PHP dans vos templates avec les balises
+		{php}{/php}. Avec cette méthode, vous pouvez inclure des templates complets,
+    dans la mesure où ils récupèrent leurs propres données pour les assigner
+    à leurs propres variables. Avec le traitement intégré
+      de cette façon, vous pouvez garder le template et le traitement ensemble.
+      Ainsi, on ne se soucie plus d'où vient le contenu du template,
+      tout vient comme un seul et unique composant.
+		</para>
+<example>
+<title>template composant</title>
+<programlisting>
+{* Smarty *}
+
+{php}
+
+   // notre fonction pour récupérer les données
+	function fetch_ticker($symbol,&$ticker_name,&$ticker_price) {
+      // du traitement qui récupère $ticker_name
+      // $ticker_price
+	}
+
+   // appelle la fonction
+	fetch_ticker("YHOO",$ticker_name,$ticker_price);
+	
+	// assigne les variables
+  $this->assign("ticker_name",$ticker_name);
+  $this->assign("ticker_price",$ticker_price);
+
+{/php}
+
+Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
+</example>
+        <para>
+        A partir de Smarty 1.5.0, il y a même un moyen plus propre. Vous
+        pouvez inclure du PHP dans votre template avec la balise {include_php ...}.
+        De cette façon, vous pouvez garder séparée la logique applicative
+        de la logique de présentation. Reportez-vous à la fonction <link
+	     linkend="language.function.include.php">include_php</link> pour plus
+    	  d'informations.
+        </para>
+<example>
+<title>template composant avec include_php</title>
+<programlisting>
+load_ticker.php
+---------------
+
+&lt;?php
+	// notre fonction pour récupérer les données
+	function fetch_ticker($symbol,&$ticker_name,&$ticker_price) {
+		// put logic here that fetches $ticker_name
+		// and $ticker_price from some resource
+	}
+
+	// appelle la fonction
+	fetch_ticker("YHOO",$ticker_name,$ticker_price);
+	
+	// assigne les variables
+   $this->assign("ticker_name",$ticker_name);
+   $this->assign("ticker_price",$ticker_price);
+?&gt;
+
+
+index.tpl
+---------
+
+{* Smarty *}
+
+{include_php file="load_ticker.php"}
+
+Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
+</example>
+	</sect1>
+	<sect1 id="tips.obfuscating.email">
+		<title>Dissimuler les adresses email</title>
+		<para>
+		Vous-êtes vous déjà demandé pourquoi vos adresses emails sont sur autant
+		de mailing listes de spam ? Une façon pour les spammers de récupérer les
+		adresses est de parcourir les pages Web. Voici une façon de remédier
+		à ce problème : mettre votre adresse email dans du Javascript brouillé
+		au milieu de votre source HTML, sans que cela ne gêne l'affichage sur le
+		navigateur Web. Cela est fait grâce au plugin mailto.
+		</para>
+<example>
+<title>exemple de dissimulation d'une adresse email</title>
+<programlisting>
+
+index.tpl
+---------
+
+Send inquiries to
+{mailto address=$EmailAddress encode="javascript" subject="Hello"}
+
+</programlisting>
+</example>
+	<note>
+	<title>Note technique</title>
+	<para>
+	Cette méthode n'est pas infaillible. Un spammer peut programmer son
+	collecteur d'email pour passer outre cette astuce, mais c'est cependant
+	peu probable.
+	</para>
+	</note>
+	</sect1>
+</chapter>
+<chapter id="resources">
+	<title>Ressources</title>
+	<para>
+	La page Web de Smarty se trouve à l'adresse suivante : http://smarty.php.net/.
+	Vous pouvez souscrire à la mailing liste en envoyant un email à
+	smarty-general-subscribe@lists.php.net.
+	Les archives de la mailing list se trouvent à l'adresse suivante :
+	http://marc.theaimsgroup.com/?l=smarty&amp;r=1&amp;w=2
+	</para>
+</chapter>
+<chapter id="bugs">
+	<title>BUGS</title>
+	<para>
+	Vérifiez le fichier de BUGS fourni avec la dernière version de Smarty ou
+	consultez le site Web.
+	</para>
+</chapter>
+</part>
