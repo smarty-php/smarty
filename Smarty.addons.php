@@ -686,21 +686,21 @@ function smarty_func_counter() {
 function smarty_func_assign_debug_info($args, &$smarty_obj) {
 	$assigned_vars = $smarty_obj->_tpl_vars;
 	ksort($assigned_vars);
-	if(is_array($smarty_obj->_config[0])) {
+	if (is_array($smarty_obj->_config[0])) {
 		$config_vars = $smarty_obj->_config[0];
 		ksort($config_vars);
-		$smarty_obj->assign("_debug_config_keys",array_keys($config_vars));
-		$smarty_obj->assign("_debug_config_vals",array_values($config_vars));
+		$smarty_obj->assign("_debug_config_keys", array_keys($config_vars));
+		$smarty_obj->assign("_debug_config_vals", array_values($config_vars));
 	}	
 	
 	$included_templates = $smarty_obj->_smarty_debug_info;
 	
-	$smarty_obj->assign("_debug_expand",$smarty_obj->_smarty_debug_expand);	
+	$smarty_obj->assign("_debug_expand", $smarty_obj->_smarty_debug_expand);	
 	
-	$smarty_obj->assign("_debug_keys",array_keys($assigned_vars));
-	$smarty_obj->assign("_debug_vals",array_values($assigned_vars));
+	$smarty_obj->assign("_debug_keys", array_keys($assigned_vars));
+	$smarty_obj->assign("_debug_vals", array_values($assigned_vars));
 	
-	$smarty_obj->assign("_debug_tpls",$included_templates);
+	$smarty_obj->assign("_debug_tpls", $included_templates);
 	return true;
 }
 
@@ -708,24 +708,24 @@ function smarty_func_assign_debug_info($args, &$smarty_obj) {
     Function: smarty_func_debug_print_var
     Purpose:  prints variable (or array) contents to the console
 \*======================================================================*/
-function smarty_mod_debug_print_var($var,$depth=0,$length=40) {
-	if(is_array($var)) {
-		$results = "<b>Array (".count($var).")</b>".'<br>\r'.$results;
+function smarty_mod_debug_print_var($var, $depth=0, $length=40) {
+	if (is_array($var)) {
+		$results = "<b>Array (".count($var).")</b>";
 		foreach ($var as $curr_key => $curr_val) {
-			$return = smarty_mod_debug_print_var($curr_val,$depth+1);
-			$results .= str_repeat('&nbsp;',$depth*2)."<b>$curr_key</b> =&gt; $return".'<br>\r';
+			$return = smarty_mod_debug_print_var($curr_val, $depth+1);
+			$results .= '<br>\r'.str_repeat('&nbsp;', $depth*2)."<b>$curr_key</b> =&gt; $return";
 		}
 		return $results;
 	} else {
-		if(empty($var)) {
+		if (empty($var)) {
 			return '<i>empty</i>';
 		}
-		if( strlen($var) > $length ) {
-			$results = substr($var,0,$length-3).'...';
+		if (strlen($var) > $length ) {
+			$results = substr($var, 0, $length-3).'...';
 		} else {
 			$results = $var;
 		}
-		$results = preg_replace("![\r\t\n]!"," ",$results);
+		$results = preg_replace("![\r\t\n]!", " ", $results);
 		$results = htmlspecialchars($results);
 		return $results;
 	}
