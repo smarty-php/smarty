@@ -1,3 +1,9 @@
+2004-09-28  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      bumped up version number to reflect incompatibility in tempfiles of
+      'core' vs. 'internals'
+
 2004-09-24  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_select_date.php:
