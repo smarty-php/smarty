@@ -1,3 +1,21 @@
+2003-03-05  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      RELEASE_NOTES:
+      update NEWS file
+
+    * libs/plugins/modifier.string_format.php:
+      fix argument order, erroneously swapped a while back
+
+    * (Smarty_2_5_0_RC1)
+      NEWS
+      README
+      RELEASE_NOTES
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      commit final changes for 2.5.0-RC1
+
 2003-03-04  Monte Ohrt  <monte@ispi.net>
 
     * docs/programmers.sgml:
