@@ -9,25 +9,17 @@
   <title />
   <methodsynopsis>
    <type>void</type><methodname>register_object</methodname>
-   <methodparam><type>string</type><parameter>obj_name</parameter></methodparam>
+   <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
    <methodparam><type>object</type><parameter>object</parameter></methodparam>
+   <methodparam><type>array</type><parameter>allowed_methods_properties</parameter></methodparam>
+   <methodparam><type>boolean</type><parameter>format</parameter></methodparam>
+   <methodparam><type>array</type><parameter>block_methods</parameter></methodparam>
   </methodsynopsis>
   <para>
-    Register an object with SmartyValidate for use in isCustom criteria.
-    Typically do this right after issuing <link linkend="api.connect">connect()</link>.
-    See the <link linkend="api.register.criteria">register_criteria()</link>
-    method for more details.
+   This is to register an object for use in the templates. See the
+   <link linkend="advanced.features.objects">object section</link>
+   of the manual for examples.
   </para>
-  <example>
-   <title>register_object</title>
-   <programlisting role="php">
-<![CDATA[
-<?php
-SmartyValidate::register_object('myobj',$myobj);
-?>
-]]>
-   </programlisting>
-  </example>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file
