@@ -1,3 +1,41 @@
+2003-10-11  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/shared.make_timestamp.php:
+      tightened check for YYYYMMDDHHMMSS-format. thanks konstantin for
+      pointing this out.
+      
+      removed a few tabs.
+
+    * libs/Smarty_Compiler.class.php:
+      fix precedence of simple-math-operators before modifiers.
+      thanks dominik!
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.assemble_plugin_filepath.php
+      libs/core/core.assign_smarty_interface.php
+      libs/core/core.create_dir_structure.php
+      libs/core/core.display_debug_console.php
+      libs/core/core.get_include_path.php
+      libs/core/core.get_microtime.php
+      libs/core/core.get_php_resource.php
+      libs/core/core.is_secure.php
+      libs/core/core.is_trusted.php
+      libs/core/core.load_plugins.php
+      libs/core/core.load_resource_plugin.php
+      libs/core/core.process_cached_inserts.php
+      libs/core/core.process_compiled_include.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.rm_auto.php
+      libs/core/core.rmdir.php
+      libs/core/core.run_insert_handler.php
+      libs/core/core.smarty_include_php.php
+      libs/core/core.write_compiled_include.php
+      libs/core/core.write_compiled_resource.php
+      libs/core/core.write_file.php:
+      removed tabs from the main and the core/*.php files
+
 2003-10-08  Monte Ohrt  <monte@ispi.net>
 
     * (Smarty_2_6_0-RC2)
