@@ -922,6 +922,7 @@ class Smarty_Compiler extends Smarty {
         $assign_var = (empty($attrs['assign'])) ? '' : $this->_dequote($attrs['assign']);
         $once_var = (empty($attrs['once']) || $attrs['once']=='false') ? 'false' : 'true';
 
+        $arg_list = array();
         foreach($attrs as $arg_name => $arg_value) {
             if($arg_name != 'file' AND $arg_name != 'once' AND $arg_name != 'assign') {
                 if(is_bool($arg_value))
@@ -930,7 +931,7 @@ class Smarty_Compiler extends Smarty {
             }
         }
 
-        $_params = "array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."))";
+        $_params = "array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', $arg_list)."))";
 
         return "<?php require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.smarty_include_php.php');\nsmarty_core_smarty_include_php($_params, \$this); ?>" . $this->_additional_newline;
     }
@@ -1587,6 +1588,7 @@ class Smarty_Compiler extends Smarty {
         if(count($_math_vars) > 1) {
             $_first_var = "";
             $_complete_var = "";
+            $_output = "";
             // simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
             foreach($_math_vars as $_k => $_math_var) {
                 $_math_var = $_math_vars[$_k];
