@@ -239,6 +239,19 @@ chmod 700 cache
         file. The default settings work for all of the examples and tutorials.
 		</para>
 	<sect1>
+		<title>Constants</title>
+		<para></para>
+		<sect2 id="constant.smarty.dir">
+			<title>SMARTY_DIR</title>
+			<para>
+			This should be the full system path to the location of the Smarty
+			class files. If this is not defined, then the include_path will be
+			used to locate the files. If defined, the path must end with a
+			slash.
+			</para>
+		</sect2>		
+	</sect1>
+	<sect1>
 		<title>Configuration variables</title>
 		<para></para>
 		<sect2 id="setting.template.dir">
@@ -2174,6 +2187,29 @@ OUTPUT:
                         iterations</entry>
                     </row>
                     <row>
+                        <entry>start</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+						<entry><emphasis>0</emphasis></entry> <entry>The index
+						position that the section will begin looping. If the
+						value is negative, the start position is calculated
+						from the end of the array. For example, if there are
+						seven values in the loop array and start is -2, the
+						start index is 5. Invalid values (values outside of the
+						length of the loop array) are automatically truncated
+						to the closest valid value. (Added to Smarty 1.4.4.)</entry>
+                    </row>
+                    <row>
+                        <entry>step</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>1</emphasis></entry>
+						<entry>The step value that will be used to traverse the
+						loop array. For example, step=2 will loop on index
+						0,2,4, etc. If step is negative, it will step through
+						the array backwards. (Added to Smarty 1.4.4.)</entry>
+                    </row>
+                    <row>
                         <entry>show</entry>
                         <entry>boolean</entry>
                         <entry>No</entry>
@@ -2369,8 +2405,14 @@ e-mail: jane@mydomain.com&lt;p&gt;
 			<sect3>	
 			<title>index</title>
 			<para>
-			index is used to display the current loop iteration,
-			starting with zero.
+			index is used to display the current loop index, starting with zero
+			(or the start attribute if given), and incrementing by one (or by
+			the step attribute if given.)
+			</para>
+			<para>
+			TECHNICAL NOTE: If the step and start section properties are not
+			modified, then this works the same as the iteration section
+			property.
 			</para>
 <example>
 <title>section property index</title>
@@ -2392,7 +2434,7 @@ OUTPUT:
 			<sect3>	
 			<title>index_prev</title>
 			<para>
-			index_prev is used to display the previous loop iteration.
+			index_prev is used to display the previous loop index.
             on the first loop, this is set to -1.
 			</para>
 <example>
@@ -2422,8 +2464,9 @@ OUTPUT:
 			<sect3>
 			<title>index_next</title>
 			<para>
-            index_next is used to display the next loop iteration. On the last
-            loop, this is still one more than the current index.
+            index_next is used to display the next loop index. On the last
+            loop, this is still one more than the current index (respecting the
+			setting of the step attribute, if given.)
 			</para>
 <example>
 <title>section property index_next</title>
@@ -2444,6 +2487,46 @@ OUTPUT:
 1 id: 1001&lt;br&gt;
         The customer id will change&lt;br&gt;
 2 id: 1002&lt;br&gt;
+        The customer id will change&lt;br&gt;
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>
+			<title>iteration</title>
+			<para>
+            iteration is used to display the current loop iteration.
+			</para>
+			<para>
+			NOTE: This is not affected by the section properties start, step and
+			max, unlike the index property.
+			</para>
+			<para>
+			This was added to Smarty 1.4.4.
+			</para>
+<example>
+<title>section property iteration</title>
+<programlisting>
+{section name=customer loop=$custid start=5 step=2}
+	current loop iteration: {%customer.iteration%}&lt;br&gt;
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+    {* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+    {if $custid[customer.index_next] ne $custid[customer.index]}
+        The customer id will change&lt;br&gt;
+    {/if}
+{/section}
+
+
+OUTPUT:
+
+current loop iteration: 1
+5 id: 1000&lt;br&gt;
+        The customer id will change&lt;br&gt;
+current loop iteration: 2
+7 id: 1001&lt;br&gt;
+        The customer id will change&lt;br&gt;
+current loop iteration: 3
+9 id: 1002&lt;br&gt;
         The customer id will change&lt;br&gt;
 
 </programlisting>
@@ -2543,9 +2626,8 @@ OUTPUT:
 			<sect3>	
 			<title>loop</title>
 			<para>
-			loop is used to display the total number
-			of iterations this section is looped. This can be used
-			inside or after the section.
+			loop is used to display the last index number that this section
+			looped. This can be used inside or after the section.
 			</para>
 <example>
 <title>section property index</title>
@@ -2598,6 +2680,35 @@ OUTPUT:
 3 id: 1002&lt;br&gt;
 
 the section was shown.
+
+</programlisting>
+</example>
+			</sect3>
+			<sect3>	
+			<title>total</title>
+			<para>
+			total is used to display the number of iterations that this section
+			will loop. This can be used inside or after the section.
+			</para>
+			<para>
+			This was added to Smarty 1.4.4.
+			</para>
+<example>
+<title>section property total</title>
+<programlisting>
+{section name=customer loop=$custid step=2}	
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+{/section}
+
+There were {%customer.total%} customers shown above.
+
+OUTPUT:
+
+0 id: 1000&lt;br&gt;
+2 id: 1001&lt;br&gt;
+4 id: 1002&lt;br&gt;
+
+There were 3 customers shown above.
 
 </programlisting>
 </example>
@@ -3516,6 +3627,435 @@ OUTPUT:
 </programlisting>
 </example>
 		</sect2>
+		<sect2 id="custom.functions.popup.init">
+			<title>popup_init</title>
+			<para>
+			popup is an integration of overLib, a library used for popup
+			windows. These are used for context sensitive information, such as
+			help windows or tooltips. popup_init must be called once at the
+			top of any page you plan on using the <link
+			linkend="custom.functions.popup">popup</link> function. overLib
+			was written by Erik Bosrup, and the homepage is located at
+			http://www.bosrup.com/web/overlib/.
+			</para>
+			<para>
+			This was added to Smarty 1.4.4.
+			</para>
+		</sect2>
+		<sect2 id="custom.functions.popup">
+			<title>popup</title>
+            <informaltable frame=all>
+                <tgroup cols=3>
+                <colspec colname=param>
+                <colspec colname=type>
+                <colspec colname=required>
+                <colspec colname=default>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>text</entry>
+                        <entry>string</entry>
+                        <entry>Yes</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the text/html to display in the popup window</entry>
+                    </row>
+                    <row>
+                        <entry>trigger</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>onMouseOver</emphasis></entry>
+                        <entry>What is used to trigger the popup window. Can be
+						one of onMouseOver or onClick</entry>
+                    </row>
+                    <row>
+                        <entry>sticky</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>Makes the popup stick around until closed</entry>
+                    </row>
+                    <row>
+                        <entry>caption</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the caption to title</entry>
+                    </row>
+                    <row>
+                        <entry>fgcolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>color of the inside of the popup box</entry>
+                    </row>
+                    <row>
+                        <entry>bgcolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>color of the border of the popup box</entry>
+                    </row>
+                    <row>
+                        <entry>textcolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the color of the text inside the box</entry>
+                    </row>
+                    <row>
+                        <entry>capcolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets color of the box's caption</entry>
+                    </row>
+                    <row>
+                        <entry>closecolor</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the color of the close text</entry>
+                    </row>
+                    <row>
+                        <entry>textfont</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the font to be used by the main text</entry>
+                    </row>
+                    <row>
+                        <entry>captionfont</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the font of the caption</entry>
+                    </row>
+                    <row>
+                        <entry>closefont</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the font for the "Close" text</entry>
+                    </row>
+                    <row>
+                        <entry>textsize</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the size of the main text's font</entry>
+                    </row>
+                    <row>
+                        <entry>captionsize</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the size of the caption's font</entry>
+                    </row>
+                    <row>
+                        <entry>closesize</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the size of the "Close" text's font</entry>
+                    </row>
+                    <row>
+                        <entry>width</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the width of the box</entry>
+                    </row>
+                    <row>
+                        <entry>height</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the height of the box</entry>
+                    </row>
+                    <row>
+                        <entry>left</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go to the left of the mouse</entry>
+                    </row>
+                    <row>
+                        <entry>right</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go to the right of the mouse</entry>
+                    </row>
+                    <row>
+                        <entry>center</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go to the center of the mouse</entry>
+                    </row>
+                    <row>
+                        <entry>above</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go above the mouse. NOTE: only
+						possible when height has been set</entry>
+                    </row>
+                    <row>
+                        <entry>below</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>false</emphasis></entry>
+                        <entry>makes the popups go below the mouse</entry>
+                    </row>
+                    <row>
+                        <entry>border</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>makes the border of the popups thicker or thinner</entry>
+                    </row>
+                    <row>
+                        <entry>offsetx</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>how far away from the pointer the popup will show
+						up, horizontally</entry>
+                    </row>
+                    <row>
+                        <entry>offsety</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>how far away from the pointer the popup will show
+						up, vertically</entry>
+                    </row>
+                    <row>
+                        <entry>fgbackground</entry>
+                        <entry>url to image</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>defines a picture to use instead of color for the
+						inside of the popup.</entry>
+                    </row>
+                    <row>
+                        <entry>bgbackground</entry>
+                        <entry>url to image</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>defines a picture to use instead of color for the
+						border of the popup. NOTE: You will want to set bgcolor
+						to "" or the color will show as well. NOTE: When having
+						a Close link, Netscape will re-render the table cells,
+						making things look incorrect</entry>
+                    </row>
+                    <row>
+                        <entry>closetext</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the "Close" text to something else</entry>
+                    </row>
+                    <row>
+                        <entry>noclose</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>does not display the "Close" text on stickies
+						with a caption</entry>
+                    </row>
+                    <row>
+                        <entry>status</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the text in the browsers status bar</entry>
+                    </row>
+                    <row>
+                        <entry>autostatus</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the status bar's text to the popup's text.
+						NOTE: overrides status setting</entry>
+                    </row>
+                    <row>
+                        <entry>autostatuscap</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets the status bar's text to the caption's text.
+						NOTE: overrides status and autostatus settings</entry>
+                    </row>
+                    <row>
+                        <entry>inarray</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>tells overLib to read text from this index in
+						the ol_text array, located in overlib.js. This
+						parameter can be used instead of text</entry>
+                    </row>
+                    <row>
+                        <entry>caparray</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>tells overLib to read the caption from this index
+						in the ol_caps array</entry>
+                    </row>
+                    <row>
+                        <entry>capicon</entry>
+                        <entry>url</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>displays the image given before the popup caption</entry>
+                    </row>
+                    <row>
+                        <entry>snapx</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>snaps the popup to an even position in a
+						horizontal grid</entry>
+                    </row>
+                    <row>
+                        <entry>snapy</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>snaps the popup to an even position in a
+						vertical grid</entry>
+                    </row>
+                    <row>
+                        <entry>fixx</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>locks the popups horizontal position Note:
+						overrides all other horizontal placement</entry>
+                    </row>
+                    <row>
+                        <entry>fixy</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>locks the popups vertical position Note:
+						overrides all other vertical placement</entry>
+                    </row>
+                    <row>
+                        <entry>background</entry>
+                        <entry>url</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>sets image to be used instead of table box
+						background</entry>
+                    </row>
+                    <row>
+                        <entry>padx</entry>
+                        <entry>integer,integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>pads the background image with horizontal
+						whitespace for text placement. Note: this is a two
+						parameter command</entry>
+                    </row>
+                    <row>
+                        <entry>pady</entry>
+                        <entry>integer,integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>pads the background image with vertical
+						whitespace for text placement. Note: this is a two
+						parameter command</entry>
+                    </row>
+                    <row>
+                        <entry>fullhtml</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>allows you to control the html over a background
+						picture completely. The html code is expected in the "text"
+						attribute</entry>
+                    </row>
+                    <row>
+                        <entry>frame</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>controls popups in a different frame. See the
+						overlib page for more info on this function</entry>
+                    </row>
+                    <row>
+                        <entry>timeout</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>calls the specified javascript function and takes
+						the return value as the text that should be displayed in
+						the popup window</entry>
+                    </row>
+                    <row>
+                        <entry>delay</entry>
+                        <entry>integer</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>makes that popup behave like a tooltip. It will
+						popup only after this delay in milliseconds</entry>
+                    </row>
+                    <row>
+                        <entry>hauto</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>automatically determine if the popup should be to
+						the left or right of the mouse.</entry>
+                    </row>
+                    <row>
+                        <entry>vauto</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+						<entry>automatically determine if the popup should be
+						above or below the mouse.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
+			<para>
+			popup is used to create javascript popup windows.
+			</para>
+<example>
+<title>popup</title>
+<programlisting>
+
+{* popup_init must be called once at the top of the page *}
+{popup_init}
+
+{* create a link with a popup window when you move your mouse over *}
+&lt;A href="mypage.html" {popup text="This link takes you to my page!}&gt;mypage&lt;/A&gt;
+
+{* you can use html, links, etc in your popup text *}
+&lt;A href="mypage.html" {popup sticky=true caption="mypage contents"
+text="&lt;UL&gt;&lt;LI&gt;links&lt;LI&gt;pages&lt;LI&gt;images&lt;/UL&gt;" snapx=10 snapy=10}&gt;mypage&lt;/A&gt;
+
+OUTPUT:
+
+(See the Smarty official web site for working examples.)
+
+</programlisting>
+</example>
+		</sect2>
 		<sect2>
 			<title>Creating your own Custom Functions</title>
 			<para>
@@ -3897,7 +4437,7 @@ no title
                         <entry>1</entry>
                         <entry>string</entry>
                         <entry>No</entry>
-                        <entry>html,url</entry>
+                        <entry>html,url,quotes</entry>
                         <entry>html</entry>
                         <entry>This is the escape format to use.</entry>
                     </row>
@@ -3905,8 +4445,9 @@ no title
                 </tgroup>
             </informaltable>
 			<para>
-			This is used to html or url escape a variable. By default,
-			the variable is html escaped.
+			This is used to html escape, url escape, or escape single quotes on
+			a variable not already escaped. By default, the variable is html
+			escaped.
 			</para>
 <example>
 <title>escape</title>
@@ -3916,13 +4457,15 @@ no title
 {$articleTitle|escape}
 {$articleTitle|escape:"html"}
 {$articleTitle|escape:"url"}
+{$articleTitle|escape:"quotes"}
 
 OUTPUT:
 
-Stiff Opposition Expected to Casketless Funeral Plan
-Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan
-Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan
-Stiff+Opposition+Expected+to+Casketless+Funeral+Plan
+'Stiff Opposition Expected to Casketless Funeral Plan'
+'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
+'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
+'Stiff+Opposition+Expected+to+Casketless+Funeral+Plan'
+\'Stiff Opposition Expected to Casketless Funeral Plan\'
 
 </programlisting>
 </example>
@@ -4353,7 +4896,7 @@ s m o k e r s   a r e   p. . .
    for the current page. To disable the debugging console, set $debugging to
    false. You can also temporarily turn on the debugging console by putting
    SMARTY_DEBUG in the URL if you enable this option with <link
-   linkend="api.debugging.ctrl">$debugging_ctrl</link>.
+   linkend="setting.debugging.ctrl">$debugging_ctrl</link>.
    </para>
    <para>
    TECHNICAL NOTE: The debugging console does not work when you use the fetch()

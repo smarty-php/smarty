@@ -40,7 +40,14 @@
  *
  */
 
-require_once 'Smarty.addons.php';
+// set SMARTY_DIR to absolute path to Smarty library files.
+// if not defined, include_path will be used.
+
+if(!defined("SMARTY_DIR")) {
+define("SMARTY_DIR","");
+}
+
+require_once SMARTY_DIR.'Smarty.addons.php';
 
 define("SMARTY_PHP_PASSTHRU",0);
 define("SMARTY_PHP_QUOTE",1);
@@ -132,8 +139,8 @@ class Smarty
                                     'fetch'             => 'smarty_func_fetch',
                                     'counter'           => 'smarty_func_counter',
                                     'assign'            => 'smarty_func_assign',
-                                    'overlib_init'      => 'smarty_func_overlib_init',
-                                    'overlib'           => 'smarty_func_overlib',
+                                    'popup_init'      	=> 'smarty_func_overlib_init',
+                                    'popup'           	=> 'smarty_func_overlib',
                                     'assign_debug_info' => 'smarty_func_assign_debug_info'            
                                  );
     
@@ -764,7 +771,7 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _compile_template($tpl_file, $template_source, &$template_compiled)
     {
-        include_once $this->compiler_class . '.class.php';
+        include_once SMARTY_DIR.$this->compiler_class . '.class.php';
 
         $smarty_compiler = new $this->compiler_class;
 
