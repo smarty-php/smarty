@@ -199,15 +199,10 @@
                         <entry>null</entry>
                         <entry>If supplied then the first element of the year's select-box has this
                         value as it's label and "" as it's value. This is useful to make the
-                        select-box read "Please select a year" for example.</entry>
-                    </row>
-                    <row>
-                        <entry>day_empty</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>If supplied then the first element of the day's select-box has this
-                        value as it's label and "" as it's value.</entry>
+                        select-box read "Please select a year" for example.
+
+                        Note that you can use values like "-MM-DD" as time-attribute to indicate
+                        an unselected year.</entry>
                     </row>
                     <row>
                         <entry>month_empty</entry>
@@ -215,7 +210,19 @@
                         <entry>No</entry>
                         <entry>null</entry>
                         <entry>If supplied then the first element of the month's select-box has this
-                        value as it's label and "" as it's value. .</entry>
+                        value as it's label and "" as it's value. .
+                        Note that you can use values like "YYYY--DD" as time-attribute to indicate
+                        an unselected month.</entry>
+                    </row>
+                    <row>
+                        <entry>day_empty</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>null</entry>
+                        <entry>If supplied then the first element of the day's select-box has this
+                        value as it's label and "" as it's value.
+                        Note that you can use values like "YYYY-MM-" as time-attribute to indicate
+                        an unselected day.</entry>
                     </row>
                 </tbody>
                 </tgroup>
