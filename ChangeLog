@@ -1,3 +1,30 @@
+2005-02-03  Monte Ohrt  <monte@ohrt.com>
+
+    * QUICK_START:
+      fix example
+
+    * QUICK_START:
+      initial commit
+
+    * RELEASE_NOTES
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update version numbers in cvs
+
+    * (Smarty_2_6_7)
+      NEWS
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      commit version numbers for new release
+
+2005-02-03  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * (Smarty_2_6_7)
+      libs/plugins/function.html_image.php:
+      fixed comment (thanks to CirTap)
+
 2005-02-01  Monte Ohrt  <monte@ohrt.com>
 
     * libs/plugins/function.html_image.php:
