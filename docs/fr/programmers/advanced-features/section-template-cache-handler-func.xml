@@ -26,8 +26,9 @@
   </para>
   <example>
    <title>exemple d'utilisation de MySQL pour la source du cache</title>
-<programlisting>
-&lt;?php
+   <programlisting>
+    <![CDATA[
+ <?php
 /*
 
 exemple d'usage :
@@ -36,9 +37,9 @@ include('Smarty.class.php');
 include('mysql_cache_handler.php');
 
 $smarty = new Smarty;
-$smarty-&gt;cache_handler_func = 'mysql_cache_handler';
+$smarty-i>cache_handler_func = 'mysql_cache_handler';
 
-$smarty-&gt;display('index.tpl');
+$smarty->display('index.tpl');
 
 
 la base mysql est attendu dans ce format :
@@ -52,7 +53,7 @@ CacheContents MEDIUMTEXT NOT NULL
 
 */
 
-function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
+function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
 {
 	// l'h(te de la bd, l'utilisateur, et le mot de passe
 	$db_host = 'localhost';
@@ -65,7 +66,7 @@ function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tp
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
 	
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
-		$smarty_obj-&gt;_trigger_error_msg("cache_handler: could not connect to database");
+ $smarty_obj->_trigger_error_msg("cache_handler: could not connect to database");
 		return false;
 	}
 	mysql_select_db($db_name);
@@ -75,21 +76,21 @@ function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tp
 			// récupère le cache dans la base de données
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+   $smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
 			}
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 			
-			if($use_gzip &amp;&amp; function_exists("gzuncompress")) {
-				$cache_contents = gzuncompress($row["CacheContents"]);
+			if($use_gzip && function_exists("gzuncompress")) {
+				$cache_content = gzuncompress($row["CacheContents"]);
 			} else {
-				$cache_contents = $row["CacheContents"];
+				$cache_content = $row["CacheContents"];
 			}
 			$return = $results;
 			break;
 		case 'write':
 			// sauvegarde le cache dans la base de données
 			
-			if($use_gzip &amp;&amp; function_exists("gzcompress")) {
+  	if($use_gzip && function_exists("gzcompress")) {
 				// compresse le contenu pour gagner de la place
 				$contents = gzcompress($cache_content);
 			} else {
@@ -100,26 +101,26 @@ function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tp
 							'".addslashes($contents)."')
 						");
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+   $smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
 			}
 			$return = $results;
 			break;
 		case 'clear':
          // efface les données du cache
-			if(empty($cache_id) &amp;&amp; empty($compile_id) &amp;&amp; empty($tpl_file)) {
+         if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
 				// les efface toutes
 				$results = mysql_query("delete from CACHE_PAGES");			
 			} else {
 				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
 			}
 			if(!$results) {
-				$smarty_obj-&gt;_trigger_error_msg("cache_handler: query failed.");			
+   $smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
 			}
 			$return = $results;
 			break;
 		default:
 			// erreur, action inconnue
-			$smarty_obj-&gt;_trigger_error_msg("cache_handler: unknown action \"$action\"");
+   $smarty_obj->_trigger_error_msg("cache_handler: unknown action \"$action\"");
 			$return = false;
 			break;
 	}
@@ -128,7 +129,9 @@ function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tp
 	
 }
 
-?&gt;</programlisting>
+?>
+]]>
+</programlisting>
   </example>
  </sect1>
  <!-- Keep this comment at the end of the file
