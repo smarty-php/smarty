@@ -72,11 +72,36 @@
 
   <sect1 id="installing.smarty.basic">
     <title>Basis Installation</title>
+	<note>
+	<title>Technische Bemerkung</title>
 	<para>
-	Installieren Sie die Smarty Library Dateien aus dem /libs/ Verzeichnis
-	der Distribution. Diese PHP Dateien sollten NICHT angepasst werden. Sie
-	werden zwischen den verschieden Applikationen die Smarty verwenden geteilt.
-	Diese Dateien werden bei einem upgrade ersetzt.
+	Dieser Leitfaden geht davon aus, dass Sie Ihr Webserver- und PHP-Setup kennen
+	und mit den Namenskonventionen f&uuml;r Dateien und Verzeichnisse Ihres Betriebssystems
+	vertraut sind. Im Folgenden wird ein Unix-Dateisystem verwendet, stellen Sie also
+	sicher, dass sie die f&uuml;r Ihr Betriebssystem n&ouml;tigen &Auml;nderungen vornehmen.
+	</para>
+	<para>
+	Das Beispiel geht davon aus, dass '/php/includes' in Ihrem PHP-'include_path'
+	liegt. Konsultieren Sie das PHP-Manual f&uuml;r weiterf&uuml;hrende Informationen hierzu.
+	</para>
+	</note>
+	<para>
+	Installieren Sie als erstes die Smarty-Library Dateien. Diese Dateien
+	sollten von Ihnen NICHT editiert und von allen Applikationen
+	verwendet werden. Sie werden nur erneuert, wenn Sie eine neue Version von Smarty installieren.
+	</para>
+	<note>
+	 <title>Technische Bemerkung</title>
+	 <para>
+	 Wir empfehlen keine &Auml;nderungen an den Smarty-Library Dateien vorzunehmen.
+	 Dies macht ein m&ouml;gliches Upgrade wesentlich einfacher. Sie m&uuml;ssen
+	 diese Dateien auch nicht anpassen, um Smarty zu konfigurieren! Benutzen Sie für
+     diesen Zwecke eine Instanz der Smarty-Klasse.
+	</para>
+	</note>
+
+	<para>
+	Folgende Library Dateien werden mit Smarty geliefert und werden ben&ouml;tigt:
 	</para>
 	<example>
      <title>Smarty-Library Dateiliste</title>
@@ -85,93 +110,106 @@ Smarty.class.php
 Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
-/plugins/*.php (alle Dateien!)</screen>
+/core/*.php (alle)
+/plugins/*.php (alle)</screen>
+</screen>
 	</example>
 
 	<para>
-	Smarty verwendet eine PHP Konstante namens <link linkend="constant.smarty.dir">SMARTY_DIR</link>
-	die den Systempfad zu den Library Dateien enth&auml;lt. Wenn Ihre Applikation keine
-	Probleme hat die Library Dateien zu finden, m&uuml;ssen Sie diese Konstante nicht zuweisen,
-	und Smarty wird alle ben&ouml;tigten Dateien finden. Falls <emphasis>Smarty.class.php</emphasis>
-	nicht in Ihrem 'include_path' ist und Sie nicht den absoluten Pfad angeben, m&uuml;ssen Sie
-	SMARTY_DIR manuell zuweisen. SMARTY_DIR <emphasis>must</emphasis> muss mit einem '/'-Zeichen (slash) enden.
+	Sie k&ouml;nnen diese Dateien entweder in Ihrem PHP-'include_path' oder
+	auch in irgend einem anderen Verzeichnis ablegen, solange die Konstante
+	<link linkend="constant.smarty.dir">SMARTY_DIR</link> auf den korrekten
+	Pfad zeigt. Im Folgenden werden Beispiele f&uuml;r beide F&auml;lle aufgezeigt.
 	</para>
 	<para>
 	So erzeugt man eine Instanz der Smarty-Klasse im PHP-Skript:
 	</para>
 
 	<example>
-     <title>Smarty Instanz aus 'include_path' erstellen:</title>
+     <title>Smarty Instanz erstellen:</title>
      <screen>
 require('Smarty.class.php');
 $smarty = new Smarty;</screen>
 	</example>
 
-	<para>
-	Versuchen Sie das oben gezeigte Script auszuf&uuml;hren. Wenn Sie einen Fehler erhalten ('<emphasis>Smarty.class.php</emphasis> file could not be found'),
-	m&uuml;ssen Sie wie folgt vorgehen:
-	</para>
+        <para>
+	Versuchen Sie das Skript auszuf&uuml;hren. Wenn Sie eine Fehlermeldung erhalten dass
+	<emphasis>Smarty.class.php</emphasis> nicht gefunden werden konnte, versuchen Sie folgendes:
+        </para>
 
-	<example>
-       <title>&Uuml;bergeben Sie den vollen Pfad</title>
-      <screen>
- require('/usr/local/lib/php/Smarty/Smarty.class.php');
- $smarty = new Smarty;</screen>
-       </example>
+        <example>
+     <title>Absoluter Pfad &uuml;bergeben</title>
+     <screen>
+require('/usr/local/lib/php/Smarty/Smarty.class.php');
+$smarty = new Smarty;</screen>
+        </example>
 
-       <example>
-      <title>F&uuml;gen Sie den Library Pfad Ihrem PHP-'include_path' hinzu</title>
-      <screen>
- // Editieren Sie die php.ini Datei und f&uuml;gen Sie den Library Pfad Ihrem PHP-'include_path' hinzu
- // Danach sollte folgendes funktionieren.
- require('Smarty.class.php');
- $smarty = new Smarty;</screen>
-       </example>
+        <example>
+     <title>Library Verzeichnis dem Include-Pfad hinzuf&uuml;gen</title>
+     <screen>
+// editieren Sie php.ini, f&uuml;gen Sie das Smarty
+// Verzeichnis Ihrem include_path hinzu, und starten Sie den Webserver neu
+// Danach sollte folgendes Funktionieren.
+require('Smarty.class.php');
+$smarty = new Smarty;</screen>
+        </example>
 
-       <example>
-      <title>Setzen Sie SMARTY_DIR manuell</title>
-       <screen>
+        <example>
+     <title>SMARTY_DIR manuell setzen</title>
+     <screen>
 define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
 require(SMARTY_DIR.'Smarty.class.php');
 $smarty = new Smarty;</screen>
-	</example>
+        </example>
+
 
 	<para>
 	Jetzt, wo die Library Dateien an ihrem Platz sind, wird es
-	Zeit, die Smarty Verzeichnisse zu erstellen. Smarty ben&ouml;tigt 4 Verzeichnisse
-	welche (normerweise) <emphasis>templates</emphasis>, <emphasis>templates_c</emphasis>, <emphasis>configs</emphasis>
-	und <emphasis>cache</emphasis> heissen. Jedes kann jedoch &uuml;ber die
-	Smarty Attribute <emphasis>$template_dir</emphasis>, <emphasis>$compile_dir</emphasis>, <emphasis>$config_dir</emphasis>,
-	und <emphasis>$cache_dir</emphasis> definiert werden. Es wird empfohlen f&uuml;r jede Applikation die Smarty verwenden
-	soll eigene Verzeichnisse einzurichten.
+	Zeit, die Smarty Verzeichnisse zu erstellen.
 	</para>
 	<para>
-	Stellen Sie sicher dass Sie die DocumentRoot Ihres Webservers kennen.
-	In unserem Beispiel verwenden wir "/web/www.mydomain.com/docs/". Alle
-	Smarty-Verzeichnisse werden immer nur von Smarty aufgerufen, nie vom Browser
-	direkt. Deshalb wird empfohlen diese Verzeichnisse <emphasis>ausserhalb</emphasis>
-	der DocumentRoot einzurichten.
+	F&uuml;r unser Beispiel werden wir die Smarty Umgebung f&uuml;r eine
+	G&auml;stebuch-Applikation konfigurieren. Wir verwenden den Applikationsnamen
+	nur, um die Verzeichnis-Struktur zu verdeutlichen. Sie k&ouml;nnen die selbe
+	Umgebung f&uuml;r alle Ihre Applikationen verwenden indem Sie 'guestbook'
+	durch dem Namen Ihrer Applikation ersetzen.
 	</para>
-
 	<para>
-	F&uuml;r unser installations-Beispiel werden wir die Umgebung f&uuml;r eine
-	G&auml;stebuchapplikation einrichten. Wir verwenden dies nur als Beispiel,
-	falls Sie ihre eigene Applikationsumgebung einrichten, ersetzen sie '/guestbook/'
-	einfach durch den Namen Ihrer eigener Applikation. Unsere Dateien werden unter
-	"/web/www.mydomain.com/smarty/guestbook/" abgelegt.
-
+	Stellen Sie sicher, dass Sie die DocumentRoot Ihres Webservers kennen.
+	In unserem Beispiel lautet sie '/web/www.domain.com/docs/'.
 	</para>
+	<para>
+	Die Smarty Verzeichnisse werden in den Klassen-Variablen $template_dir,
+	$compile_dir, $config_dir und $cache_dir definiert. Die Standardwerte sind:
+	"templates", "templates_c", "configs" und "cache". F&uuml;r unser Beispiel
+	legen wir alle diese Verzeichnisse unter '/web/www.domain.com/smarty/guestbook/' an.
+	</para>
+
+	<note>
+	<title>Technische Bemerkung</title>
+	<para>
+	Wir empfehlen, diese Verzeichnisse ausserhalb der DocumentRoot anzulegen,
+	um m&ouml;gliche Direktzugriffe zu verhindern.
+	</para>
+	</note>
+
 	<para>
 	In Ihrer DocumentRoot muss mindestens eine Datei liegen, die f&uuml;r Browser
 	zug&auml;nglich ist. Wir nennen dieses Skript 'index.php', und legen
 	es in das Verzeichnis '/guestbook/' in unserer DocumentRoot.
+	</para>
+	
+	<note>
+	<title>Technische Bemerkung</title>
+	<para>
 	Bequem ist es, den Webserver so zu konfigurieren, dass 'index.php' als
 	Standard-Verzeichnis-Index verwendet wird. Somit kann man das Skript
 	direkt mit 'http://www.domain.com/guestbook/' aufrufen. Falls Sie Apache
 	verwenden, l&auml;sst sich dies konfigurieren indem Sie 'index.php'
 	als letzten Eintrag f&uuml;r DirectoryIndex verwenden. (Jeder Eintrag muss
 	mit einem Leerzeichen abgetrennt werden). 
-	</para>
+    </para>
+	</note>
 	
 	<para>
 	Die Dateistruktur bis jetzt:
@@ -185,6 +223,7 @@ $smarty = new Smarty;</screen>
 /usr/local/lib/php/Smarty/Config_File.class.php
 /usr/local/lib/php/Smarty/debug.tpl
 /usr/local/lib/php/Smarty/plugins/*.php
+/usr/local/lib/php/Smarty/core/*.php
 
 /web/www.mydomain.com/smarty/guestbook/templates/
 /web/www.mydomain.com/smarty/guestbook/templates_c/
@@ -194,11 +233,21 @@ $smarty = new Smarty;</screen>
 /web/www.mydomain.com/docs/guestbook/index.php</screen>
 	</example>
 
+	<note>
+	 <title>Technische Bemerkung</title>
+	 <para>
+	 Falls Sie kein Caching und keine Konfigurationsdateien verwenden, ist es nicht
+	 erforderlich die Verzeichnisse '$config_dir' und '$cache_dir' zu erstellen.
+	 Es wird jedoch trotzdem empfohlen, da diese Funktionalit&auml;ten eventuell sp&auml;ter
+	 genutzt werden sollen.
+     </para>
+	</note>
+
 	<para>
 	Smarty ben&ouml;tigt Schreibzugriff auf die Verzeichnisse '$compile_dir' und '$cache_dir'.
 	Stellen Sie also sicher, dass der Webserver-Benutzer (normalerweise Benutzer 'nobody' und Gruppe 'nogroup')
-	in diese Verzeichnisse schreiben kann. (In OS X lautet der Benutzer normalerweise 'web' und
-	ist in der Gruppe 'web'). Wenn Sie Apache verwenden, k&ouml;nnen Sie in der httpd.conf (gewöhnlich in '/usr/local/apache/conf/')
+	in diese Verzeichnisse schreiben kann. (In OS X lautet der Benutzer normalerweise 'www' und
+	ist in der Gruppe 'www'). Wenn Sie Apache verwenden, k&ouml;nnen Sie in der httpd.conf (gewöhnlich in '/usr/local/apache/conf/')
 	nachsehen, unter welchem Benutzer Ihr Server l&auml;uft.
 	</para>
 
@@ -206,11 +255,11 @@ $smarty = new Smarty;</screen>
      <title>Dateirechte einrichten</title>
      <screen>
 
-chown nobody:nobody /web/www.mydomain.com/smarty/templates_c/
-chmod 770 /web/www.mydomain.com/smarty/templates_c/
+chown nobody:nobody /web/www.mydomain.com/smarty/guestbook/templates_c/
+chmod 770 /web/www.mydomain.com/smarty/guestbook/templates_c/
 
-chown nobody:nobody /web/www.mydomain.com/smarty/cache/
-chmod 770 /web/www.mydomain.com/smarty/cache/</screen>
+chown nobody:nobody /web/www.mydomain.com/smarty/guestbook/cache/
+chmod 770 /web/www.mydomain.com/smarty/guestbook/cache/</screen>
 	</example>
 
 	<note>
@@ -229,7 +278,7 @@ chmod 770 /web/www.mydomain.com/smarty/cache/</screen>
 	</para>
 
 	<example>
-     <title>Editieren von /web/www.mydomain.com/smarty/templates/index.tpl</title>
+     <title>Editieren von /web/www.mydomain.com/smarty/guestbook/templates/index.tpl</title>
      <screen>
 
 {* Smarty *}
@@ -252,17 +301,14 @@ Hallo, {$name}!</screen>
 	<para>
 	Als n&auml;chstes editieren wir die Datei 'index.php'. Wir erzeugen eine
 	Smarty-Instanz, weisen dem Template eine Variable zu und geben 'index.tpl' aus.
-	In unserem Beispiel ist '/usr/local/lib/php/Smarty' in unserem PHP-'include_path',
-	stellen Sie sicher dass dies bei Ihrer Installation auch der Fall ist, oder
-	verwenden Sie ansonsten aboslute Pfade.
 	</para>
 
 	<example>
      <title>Editieren von /web/www.mydomain.com/docs/guestbook/index.php</title>
      <screen>
 
-// Smarty laden
-require('Smarty.class.php');
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
+require(SMARTY_DIR.'Smarty.class.php');
 
 $smarty = new Smarty;
 
@@ -306,8 +352,7 @@ $smarty->display('index.tpl');</screen>
    eine eigene Smarty-Umgebung zu initialisieren. Anstatt immer wieder
    die Verzeichnisse zu definieren, kann diese Aufgabe auch in einer einzigen
    Datei erledigt werden. Beginnen wir, indem wir ein neues Verzeichnis namens '/php/includes/guestbook/'
-   erstellen und eine Datei namens 'setup.php' darin anlegen. In unserem Beispiel ist '/php/includes'
-   im PHP-'include_path'. Stellen Sie sicher dass das auch bei Ihnen der Fall ist, oder benutzen Sie absolute Pfadnamen.
+   erstellen und eine Datei namens 'setup.php' darin anlegen.
    </para>
 
    <example>
@@ -315,9 +360,10 @@ $smarty->display('index.tpl');</screen>
     <screen>
 
 // Smarty Library Dateien laden
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
 require(SMARTY_DIR.'Smarty.class.php');
 
-// steup.php ist auch ein guter Platz um Applikations spezifische Libraries zu laden
+// ein guter Platz um Applikations spezifische Libraries zu laden
 // require('guestbook/guestbook.lib.php');
 
 class Smarty_GuestBook extends Smarty {
@@ -340,6 +386,18 @@ class Smarty_GuestBook extends Smarty {
 
 }</screen>
    </example>
+
+   <note>
+	<title>Technische Bemerkung</title>
+	<para>
+	In unserem Beispiel werden die Library Dateien ausserhalb der DocumentRoot
+	abgelegt. Diese Dateien k&ouml;nnten sensitive Informationen enthalten,
+	die wir nicht zug&auml;nglich machen m&ouml;chten.
+	Deshalb legen wir alle Library Dateien in '/php/includes/guestbook/' ab
+	und laden sie in unserem 'setup.php' Skript, wie Sie im oben gezeigten
+	Beispiel sehen k&ouml;nnen.
+	</para>
+   </note>
 
   <para>
   Nun passen wir 'index.php' an, um 'setup.php' zu verwenden:

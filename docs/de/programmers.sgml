@@ -390,6 +390,20 @@
     Normalerweise '}'.
    </para>
   </sect1>
+  <sect1 id="variable.show.info.header">
+   <title>$show_info_header</title>
+   <para>
+    Gibt am Anfang der HTML-Seite die Smarty Version und das Kompilier-Datum des Templates
+    als Kommentar aus. Normalerweise 'false'.
+   </para>
+  </sect1>
+  <sect1 id="variable.show.info.include">
+   <title>$show_info_include</title>
+   <para>
+    Gibt am Anfang und am Ende jedes eingebundenen Templates einen HTML-Kommentar aus.
+    Normalerweise 'false'.
+   </para>
+  </sect1>
   <sect1 id="variable.compiler.class">
    <title>$compiler_class</title>
    <para>
@@ -403,6 +417,16 @@
    <para>
     Die Reihenfolge in welcher die Request-Variblen zugewiesen werden.
     Verh&auml;lt sich wie 'variables_order' in der php.ini.
+   </para>
+  </sect1>
+  <sect1 id="variable.request.use.auto.globals">
+   <title>$request_use_auto_globals</title>
+   <para>
+   Definiert ob Smarty php's $HTTP_*_VARS[] ($request_use_auto_globals=false welches
+   der Standardwert ist) oder $_*[] ($request_use_auto_globals=true) verwenden soll.
+   Dies betrifft Templates die {$smarty.request.*}, {$smarty.get.*}, etc... verwenden.
+   Achtung: wenn $request_use_auto_globals auf TRUE gesetzt ist, hat <link linkend="variable.request.vars.order">variable.request.vars.order </link>
+   keine Auswirkungen, da php's Konfigurationswert <literal>gpc_order</literal> verwendet wird.
    </para>
   </sect1>
   <sect1 id="variable.compile.id">
@@ -428,8 +452,18 @@
     Definiert ein Array von Variablen-Modifikatoren, die auf jeder Variable anzuwenden sind.
     Wenn Sie zum Beispiel alle Variablen standardm&auml;ssig HTML-Maskieren wollen,
     k&ouml;nnen Sie array('escape:"htmlall"'); verwenden. Um eine Variable von dieser
-    Behandlung auszuschliessen, k&ouml;nnen Sie ihr den Modifikator 'nodefaults' &uuml;bergeben.
+    Behandlung auszuschliessen, k&ouml;nnen Sie ihr den Parameter 'smarty' mit dem Modifikator 'nodefaults'
+    &uuml;bergeben. Als Beispiel: {$var|smarty:nodefaults}.
     Zum Beispiel: {$var|nodefaults}.
+   </para>
+  </sect1>
+  <sect1 id="variable.default.resource.type">
+   <title>$default_resource_type</title>
+   <para>
+    Definiert den Ressourcentyp der von Smarty implizitverwendet werden soll. Standartwert
+    ist 'file', was dazu f&uuml;hrt dass $smarty->display('index.tpl'); und
+    $smarty->display('file:index.tpl'); identisch sind. Konsultieren Sie das
+    <link linkend="template.resources">Resource</link> Kapitel f&uuml;r weitere Informationen.
    </para>
   </sect1>
  </chapter>
@@ -447,27 +481,12 @@
      <paramdef>string <parameter>varname</parameter></paramdef>
      <paramdef>mixed <parameter>var</parameter></paramdef>
     </funcprototype>
-    <funcprototype>
-     <funcdef>void <function>append</function></funcdef>
-     <paramdef>string <parameter>varname</parameter></paramdef>
-     <paramdef>mixed <parameter>var</parameter></paramdef>
-     <paramdef>boolean <parameter>merge</parameter></paramdef>
-    </funcprototype>
    </funcsynopsis>
    <para>
     Wird verwendet, um an Template-Variablen weitere Daten anzuh&auml;ngen. Sie
     k&ouml;nnen entweder ein Namen/Wert-Paar oder assoziative Arrays,
-    die mehrere Namen/Wert-Paare enthalten, &uuml;bergeben. Wenn Sie als dritten Parameter
-    'true' &uuml;bergeben werden die beiden Arrays zusammengef&uuml;gt.
+    die mehrere Namen/Wert-Paare enthalten, &uuml;bergeben.
    </para>
-   <note>
-    <title>Technical Note</title>
-    <para>
-    Der Parameter 'merge' &uuml;berschreibt bestehende Schl&uuml;ssel, falls
-    im zweiten Array die selben Schl&uuml;ssel wie im ersten vorkommen.
-    Diese Funktion ist ungelich 'array_merge()' aus PHP.
-    </para>
-   </note>
    <example>
     <title>append (anh&auml;ngen)</title>
     <programlisting>
@@ -488,27 +507,20 @@
      <paramdef>string <parameter>varname</parameter></paramdef>
      <paramdef>mixed <parameter>var</parameter></paramdef>
     </funcprototype>
-    <funcprototype>
-     <funcdef>void <function>append_by_ref</function></funcdef>
-     <paramdef>string <parameter>varname</parameter></paramdef>
-     <paramdef>mixed <parameter>var</parameter></paramdef>
-     <paramdef>boolean <parameter>merge</parameter></paramdef>
-    </funcprototype>
    </funcsynopsis>
    <para>
     Wird verwendet, um an Template-Variablen Werte via Referenz (pass by reference) anstatt via Kopie
-    anzuh&auml;ngen. Wenn Sie eine Variable via Referenz anh&auml;ngen und sie nachtr&auml;glich
-    ge&auml;ndert wird, wird auch der angeh&auml;ngte Wert ge&auml;ndert. Bei Objekten kann so
-    das kopieren derselben vermieden werden. Konsultieren Sie das PHP-Manual betreffend Variablenreferenzierung
-    f&uuml;r weitere Erkl&auml;rungen. Wenn Sie als dritten Parameter 'true' &uuml;bergeben wird das anzuh&auml;ngende Array
-    mit dem bestehenden zusammengef&uml;gt.
+    anzuh&auml;ngen. Konsultieren Sie das PHP-Manual zum Thema 'variable referencing'
+    f&uuml;r weitere Erkl&auml;rungen.
    </para>
    <note>
     <title>Technische Bemerkung</title>
     <para>
-    Der Parameter 'merge' &uuml;berschreibt bestehende Schl&uuml;ssel, falls
-    im zweiten Array die selben Schl&uuml;ssel wie im ersten vorkommen.
-    Diese Funktion ist ungelich 'array_merge()' aus PHP.
+     'append_by_ref()' ist effizienter als 'append()', da keine Kopie der Variable
+     erzeugt, sondern auf die Variable im Speicher referenziert wird. Beachten Sie
+     dabei, dass eine nachtr&auml;gliche &auml;nderung Original-Variable auch die zugewiesene Variable
+     &auml;ndert. PHP5 wird die Referenzierung automatisch &uuml;bernehmen, diese
+     Funktion dient als Workaround.
     </para>
    </note>
    <example>
@@ -567,11 +579,11 @@
    <note>
     <title>Technical Note</title>
     <para>
-    Wird verwendet, um an Template-Variablen Werte via Referenz (pass by reference) anstatt via Kopie
-    anzuh&auml;ngen. Wenn Sie eine Variable via Referenz anh&auml;ngen und sie nachtr&auml;glich
-    ge&auml;ndert wird, wird auch der angeh&auml;ngte Wert ge&auml;ndert. Bei Objekten kann so
-    das kopieren derselben vermieden werden. Konsultieren Sie das PHP-Manual betreffend Variablenreferenzierung
-    f&uuml;r weitere Erkl&auml;rungen.
+     'assign_by_ref()' ist effizienter als 'assign()', da keine Kopie der Variable
+     erzeugt wird, sondern auf die Variable im Speicher referenziert wird. Beachten Sie
+     dabei, dass eine nachtr&auml;gliche &auml;nderung Original-Variable auch die zugewiesene Variable
+     &auml;ndert. PHP5 wird die Referenzierung automatisch &uuml;bernehmen, diese
+     Funktion dient als Workaround.
     </para>
    </note>
    <example>
@@ -853,80 +865,27 @@
      echo $output;</programlisting>
    </example>
   </sect1>
-  <sect1 id="api.get.config.vars">
-   <title>get_config_vars</title>
-   <funcsynopsis>
-    <funcprototype>
-    <funcdef>array <function>get_config_vars</function></funcdef>
-     <paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
-    </funcprototype>
-   </funcsynopsis>
-   <para>
-    Gibt die definierte Variable aus einer Konfigurationsdatei zur&uuml;ck,
-    wenn kein Parameter &uuml;bergeben wird, wird ein Array aller Variablen
-    zur&uuml;ckgegeben.
-   </para>
- <example>
- <title>get_config_vars</title>
- <programlisting>
- // Vriable 'foo' aus Konfigurationsdatei lesen
- $foo = $smarty->get_config_vars('foo');
-
- // alle Variablen aus der Konfigurationsdatei lesen
- $config_vars = $smarty->get_config_vars();
-
- // ausgeben
- print_r($config_vars);</programlisting>
- </example>
-               </sect1>
-               <sect1 id="api.get.registered.object">
-                       <title>get_registered_object</title>
-                       <funcsynopsis>
-                       <funcprototype>
-                       <funcdef>array <function>get_registered_object</function></funcdef>
-                               <paramdef>string <parameter>object_name</parameter></paramdef>
-                       </funcprototype>
-                       </funcsynopsis>
-                       <para>
-                               This returns a reference to a registered object. This is useful
-                               from within a custom function when you need direct access to a
-                               registered object.
-                       </para>
- <example>
- <title>get_registered_object</title>
- <programlisting>
- function smarty_block_foo($params, &amp;$smarty) {
-       if (isset[$params['object']]) {
-               // get reference to registered object
-               $obj_ref =&amp; $smarty->&amp;get_registered_object($params['object']);
-               // use $obj_ref is now a reference to the object
-       }
- }</programlisting>
- </example>
-  </sect1>
   <sect1 id="api.get.template.vars">
    <title>get_template_vars (Template-Variablen extrahieren)</title>
    <funcsynopsis>
     <funcprototype>
      <funcdef>array <function>get_template_vars</function></funcdef>
-     <paramdef>string <parameter><optional>varname</optional></parameter></paramdef>
+     <paramdef><parameter></parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
    <para>
-   Gibt den Wert der &uuml;bergebenen Template-Variable zur&uuml;ck. Wenn kein Parameter
-   &uuml;bergeben wird, besteht die R&uuml;ckgabe aus einem Array aller zugewiesener Variablen.
+    Gibt ein Array der zugewiesenen Template-Variablen zur&uuml;ck.
    </para>
    <example>
     <title>get_template_vars (Template-Variablen extrahieren)</title>
     <programlisting>
- // Template-Variable 'foo' extrahieren
- $foo = $smarty->get_template_vars('foo');
-  
- // alle zugewiesenen Template-Variablen extrahieren
- $tpl_vars = $smarty->get_template_vars();
      
- // Anschauen
- print_r($tpl_vars);</programlisting>
+     // alle zugewiesenen Template-Variablen extrahieren
+     $tpl_vars = $smarty->get_template_vars();
+     
+     
+     // Anschauen
+     var_dump($tpl_vars);</programlisting>
    </example>
   </sect1>
   <sect1 id="api.is.cached">
@@ -1000,13 +959,24 @@
     <funcprototype>
      <funcdef>void <function>register_block</function></funcdef>
      <paramdef>string <parameter>name</parameter></paramdef>
-     <paramdef>string <parameter>impl</parameter></paramdef>
+     <paramdef>mixed <parameter>impl</parameter></paramdef>
+     <paramdef>bool <parameter>cacheable</parameter></paramdef>
+     <paramdef>array or null <parameter>cache_attrs</parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
    <para>
     Wird verwendet, um Block-Funktion-Plugins dynamisch zu registrieren.
     &Uuml;bergeben Sie dazu den Namen der Block-Funktion und den Namen der
-    PHP-Funktion, die die entsprechende Funktionalit&auml;t bereitstellt.
+    PHP-Callback-Funktion, die die entsprechende Funktionalit&auml;t bereitstellt.
+    </para>
+    <para>
+    Der Parameter <parameter>impl</parameter> kann als (a) einen Funktionnamen oder (b) einem Array der Form <literal>array(&$object, $method)</literal>,
+    wobei <literal>&$object</literal> eine Referenz zu einem Objekt und <literal>$method</literal> der Name der Methode die aufgerufen werden soll ist,
+    oder als Array der Form <literal>array(&$class, $method)</literal>, wobei <literal>$class</literal> der Name der Klasse und <literal>$method</literal>
+    der Name der Methode ist die aufgerufen werden soll, &uuml;bergeben werden.
+    </para>
+    <para>
+    <parameter>$cacheable</parameter> und <parameter>$cache_attrs</parameter> k&ouml;nnen in den meisten F&auml;llen weggelassen werden. Konsultieren Sie <link linkend="caching.cacheable">Die Ausgabe von cachebaren Plugins Kontrollieren</link> f&uuml;r weitere Informationen. 
    </para>
    <example>
     <title>register_block (Block-Funktion registrieren)</title>
@@ -1014,12 +984,12 @@
      /* PHP */
      $smarty->register_block("translate", "do_translation");
      
-     function do_translation ($params, $content, &$smarty) {
-     if ($content) {
+     function do_translation ($params, $content, &$smarty, &amp;$repeat) {
+     if (isset($content)) {
      $lang = $params['lang'];
      
      // &uuml;bersetze den Inhalt von '$content'
-     echo $translation;
+     return $translation;
      }
      }
      
@@ -1035,13 +1005,23 @@
     <funcprototype>
      <funcdef>void <function>register_compiler_function</function></funcdef>
      <paramdef>string <parameter>name</parameter></paramdef>
-     <paramdef>string <parameter>impl</parameter></paramdef>
+     <paramdef>mixed <parameter>impl</parameter></paramdef>
+     <paramdef>bool <parameter>cacheable</parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
    <para>
     Wird verwendet, um Compiler-Funktion-Plugins dynamisch zu
     registrieren. &Uuml;bergeben Sie dazu den Namen der Compiler-Funktion und den Namen der
     PHP-Funktion, die die entsprechende Funktionalit&auml;t bereitstellt.
+   </para>
+    <para>
+    Der Parameter <parameter>impl</parameter> kann als (a) einen Funktionnamen oder (b) einem Array der Form <literal>array(&$object, $method)</literal>,
+    wobei <literal>&$object</literal> eine Referenz zu einem Objekt und <literal>$method</literal> der Name der Methode die aufgerufen werden soll ist,
+    oder als Array der Form <literal>array(&$class, $method)</literal>, wobei <literal>$class</literal> der Name der Klasse und <literal>$method</literal>
+    der Name der Methode ist die aufgerufen werden soll, &uuml;bergeben werden.
+    </para>
+    <para>
+    <parameter>$cacheable</parameter> und <parameter>$cache_attrs</parameter> k&ouml;nnen in den meisten F&auml;llen weggelassen werden. Konsultieren Sie <link linkend="caching.cacheable">Die Ausgabe von cachebaren Plugins Kontrollieren</link> f&uuml;r weitere Informationen.
    </para>
   </sect1>
   <sect1 id="api.register.function">
@@ -1050,14 +1030,24 @@
     <funcprototype>
      <funcdef>void <function>register_function</function></funcdef>
      <paramdef>string <parameter>name</parameter></paramdef>
-     <paramdef>string <parameter>impl</parameter></paramdef>
+     <paramdef>mixed <parameter>impl</parameter></paramdef>
+     <paramdef>bool <parameter>cacheable</parameter></paramdef>
+     <paramdef>array or null <parameter>cache_attrs</parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
    <para>
     Wird verwendet, um Template-Funktion-Plugins dynamisch zu
     registrieren. &Uuml;bergeben Sie dazu den Namen der Template-Funktion 
     und den Namen der PHP-Funktion, die die entsprechende Funktionalit&auml;t bereitstellt.
-    
+   </para>
+    <para>
+    Der Parameter <parameter>impl</parameter> kann als (a) einen Funktionnamen oder (b) einem Array der Form <literal>array(&$object, $method)</literal>,
+    wobei <literal>&$object</literal> eine Referenz zu einem Objekt und <literal>$method</literal> der Name der Methode die aufgerufen werden soll ist,
+    oder als Array der Form <literal>array(&$class, $method)</literal>, wobei <literal>$class</literal> der Name der Klasse und <literal>$method</literal>
+    der Name der Methode ist die aufgerufen werden soll, &uuml;bergeben werden.
+    </para>
+    <para>
+    <parameter>$cacheable</parameter> und <parameter>$cache_attrs</parameter> k&ouml;nnen in den meisten F&auml;llen weggelassen werden. Konsultieren Sie <link linkend="caching.cacheable">Die Ausgabe von cachebaren Plugins Kontrollieren</link> f&uuml;r weitere Informationen.
    </para>
    <example>
     <title>register_function (Funktion registrieren)</title>
@@ -1068,7 +1058,7 @@
      extract($params);
      if(empty($format))
      $format="%b %e, %Y";
-     echo strftime($format,time());
+     return strftime($format,time());
      }
 
      // Von nun an k&ouml;nnen Sie {date_now} verwenden, um das aktuelle Datum auszugeben.
@@ -1081,7 +1071,7 @@
     <funcprototype>
      <funcdef>void <function>register_modifier</function></funcdef>
      <paramdef>string <parameter>name</parameter></paramdef>
-     <paramdef>string <parameter>impl</parameter></paramdef>
+     <paramdef>mixed <parameter>impl</parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
    <para>
@@ -1090,6 +1080,12 @@
     und den Namen der PHP-Funktion, die die entsprechende Funktionalit&auml;t 
     bereitstellt.
    </para>
+    <para>
+    Der Parameter <parameter>impl</parameter> kann als (a) einen Funktionnamen oder (b) einem Array der Form <literal>array(&$object, $method)</literal>,
+    wobei <literal>&$object</literal> eine Referenz zu einem Objekt und <literal>$method</literal> der Name der Methode die aufgerufen werden soll ist,
+    oder als Array der Form <literal>array(&$class, $method)</literal>, wobei <literal>$class</literal> der Name der Klasse und <literal>$method</literal>
+    der Name der Methode ist die aufgerufen werden soll, &uuml;bergeben werden.
+    </para>
    <example>
     <title>register_modifier (Modifikator-Plugin registrieren)</title>
     <programlisting>
@@ -1103,27 +1099,50 @@
      // um "\"-Zeichen (Backslash) aus Zeichenketten zu entfernen. ('\\' wird zu '\',...)</programlisting>
    </example>
   </sect1>
+  <sect1 id="api.register.object">
+  <title>register_object</title>
+  <funcsynopsis>
+   <funcprototype>
+   <funcdef>void <function>register_object</function></funcdef>
+   <paramdef>string <parameter>object_name</parameter></paramdef>
+   <paramdef>object <parameter>$object</parameter></paramdef>
+   <paramdef>array <parameter>allowed methods/properties</parameter></paramdef>
+   <paramdef>boolean <parameter>format</parameter></paramdef>
+   <paramdef>array <parameter>block methods</parameter></paramdef>
+   </funcprototype>
+  </funcsynopsis>
+  <para>
+  Wird verwendet um ein Objekt zu registrieren. Konsultieren Sie den Abschnitt <link linkend="advanced.features.objects">Objekte</link>
+  f&uuml;r weitere Informationen und Beispiele.
+  </para>
+  </sect1>
   <sect1 id="api.register.outputfilter">
    <title>register_outputfilter (Ausgabefilter registrieren)</title>
    <funcsynopsis>
     <funcprototype>
      <funcdef>void <function>register_outputfilter</function></funcdef>
-     <paramdef>string <parameter>function_name</parameter></paramdef>
+     <paramdef>mixed <parameter>function</parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
-   <para>
-    Wird verwendet, um Ausgabefilter dynamisch zu registrieren.
-    Ausgabefilter ver&auml;ndern die Ausgabe, 
-    bevor sie angezeigt wird. Konsultieren Sie dazu den
-    Abschnitt <link linkend="advanced.features.outputfilters">template output filters</link>
-   </para>
+  <para>
+  Verwenden Sie diese Funktion um dynamisch Ausgabefilter zu registrieren, welche
+  die Template Ausgabe verarbeiten bevor sie angezeigt wird. Konsultieren Sie
+  den Abschnitt &uuml;ber <link linkend="advanced.features.outputfilters">Ausgabefilter</link>
+  f&uuml;r mehr Informationen.
+  </para>
+  <para>
+   Der Parameter <parameter>function</parameter> kann als (a) einen Funktionnamen oder (b) einem Array der Form <literal>array(&$object, $method)</literal>,
+   wobei <literal>&$object</literal> eine Referenz zu einem Objekt und <literal>$method</literal> der Name der Methode die aufgerufen werden soll ist,
+   oder als Array der Form <literal>array(&$class, $method)</literal>, wobei <literal>$class</literal> der Name der Klasse und <literal>$method</literal>
+   der Name der Methode ist die aufgerufen werden soll, &uuml;bergeben werden. 
+  </para>
   </sect1>
   <sect1 id="api.register.postfilter">
    <title>register_postfilter ('post'-Filter registrieren)</title>
    <funcsynopsis>
     <funcprototype>
      <funcdef>void <function>register_postfilter</function></funcdef>
-     <paramdef>string <parameter>function_name</parameter></paramdef>
+     <paramdef>mixed <parameter>function</parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
    <para>
@@ -1131,20 +1150,31 @@
     auf das kompilierte Template angewendet. Konsultieren Sie dazu den
     Abschnitt <link linkend="advanced.features.postfilters">template postfilters</link>.
    </para>
+  <para>
+   Der Parameter <parameter>function</parameter> kann als (a) einen Funktionnamen oder (b) einem Array der Form <literal>array(&$object, $method)</literal>,
+   wobei <literal>&$object</literal> eine Referenz zu einem Objekt und <literal>$method</literal> der Name der Methode die aufgerufen werden soll ist,
+   oder als Array der Form <literal>array(&$class, $method)</literal>, wobei <literal>$class</literal> der Name der Klasse und <literal>$method</literal>
+   der Name der Methode ist die aufgerufen werden soll, &uuml;bergeben werden.
+  </para>
   </sect1>
   <sect1 id="api.register.prefilter">
    <title>register_prefilter ('pre'-Filter registrieren)</title>
    <funcsynopsis>
     <funcprototype>
      <funcdef>void <function>register_prefilter</function></funcdef>
-     <paramdef>string <parameter>function_name</parameter></paramdef>
+     <paramdef>mixed <parameter>function</parameter></paramdef>
     </funcprototype>
    </funcsynopsis>
    <para>
     Wird verwendet, um 'pre'-Filter dynamisch zu registrieren. 'pre'-Filter werden
     vor der Kompilierung auf das Template angewendet. Konsultieren Sie dazu den
-    Abschnitt <link linkend="advanced.features.prefilters">template prefilters</link>.
-    
+    Abschnitt <link linkend="advanced.features.prefilters">'pre'-Filter</link>.
+   </para>
+   <para>
+    Der Parameter <parameter>function</parameter> kann als (a) einen Funktionnamen oder (b) einem Array der Form <literal>array(&$object, $method)</literal>,
+    wobei <literal>&$object</literal> eine Referenz zu einem Objekt und <literal>$method</literal> der Name der Methode die aufgerufen werden soll ist,
+    oder als Array der Form <literal>array(&$class, $method)</literal>, wobei <literal>$class</literal> der Name der Klasse und <literal>$method</literal>
+    der Name der Methode ist die aufgerufen werden soll, &uuml;bergeben werden.
    </para>
   </sect1>
   <sect1 id="api.register.resource">
@@ -1162,6 +1192,18 @@
     das Array mit den Namen der PHP-Funktionen, die die Funktionalit&auml;t implementieren.
     Konsultieren Sie den Abschnitt <link linkend="template.resources">template resources</link>
     f&uuml;r weitere Informationen zum Thema.
+   </para>
+   <note>
+   <title>Technische Bemerkung</title>
+   <para>
+   Ein Ressourcename muss mindestens 2 Zeichen lang sein. Namen mit einem (1) Zeichen
+   werden ignoriert und als Teil des Pfades verwenden, wie in $smarty->display('c:/path/to/index.tpl');.
+   </para>
+   </note>
+   <para>
+   Der Parameter <parameter>resource_funcs</parameter> muss aus 4 oder 5 Elementen bestehen. Wenn 4 Elemente &uuml;bergeben werden,
+   werden diese als Ersatz Callback-Funktionen f&uuml; "source", "timestamp", "secure" und "trusted" verwendet. Mit 5 Elementen
+   muss der erste Parameter eine Referenz auf das Objekt oder die Klasse sein, welche die ben&ouml;tigten Methoden bereitstellt.
    </para>
    <example>
     <title>register_resource (Ressource registrieren)</title>
@@ -1397,7 +1439,7 @@
      $smarty->caching = 2; // Lebensdauer ist pro Cache
      
      
-     // Standardwert f&uuml;r '$cache_lifetime' auf 15 Minuten setzen
+     // Standardwert f&uuml;r '$cache_lifetime' auf 5 Minuten setzen
      $smarty->cache_lifetime = 300;
      $smarty->display('index.tpl');
      
@@ -1622,9 +1664,170 @@
     </para>
    </note>
   </sect1>
+  <sect1 id="caching.cacheable">
+   <title>Die Ausgabe von cachebaren Plugins Kontrollieren</title>
+      <para>
+      Seit Smarty-2.6.0 kann bei der Registrierung angegeben werden ob ein Plugin
+      cached werden soll. Der dritte Parameter f&uuml;r register_block, register_compiler_function
+      und register_function heisst <parameter>$cacheable</parameter>, der Standardwert ist TRUE, was in Smarty vor
+      Version 2.6.0 &uuml;blich war.
+      </para>
+      <para>
+       Wenn ein Plugin mit $cacheable=false registriert wird, wird er bei jedem Besuch der Seite aufgerufen, selbst wenn die Site aus dem Cache stammt. Die Pluginfunktion verh&auml;lt sich ein wenig wie <link linkend="plugins.inserts">insert</link>.
+      </para>
+      <para>
+       Im Gegensatz zu <link linkend="language.function.insert">{insert}</link> werden die Attribute standartm&auml;ssig nicht gecached. Sie k&ouml;nnen das caching jedoch mit dem vierten Parameter <parameter>$cache_attrs</parameter> kontrollieren. <parameter>$cache_attrs</parameter> ist ein Array aller Attributnamen die gecached wertden sollen.
+      </para>
+     <example>
+     <title>Preventing a plugin's output from being cached</title>
+     <programlisting>
+index.php:
+
+require('Smarty.class.php');
+$smarty = new Smarty;
+$smarty->caching = true;
+
+function remaining_seconds($params, &$smarty) {
+    $remain = $params['endtime'] - time();
+    if ($remain >=0)
+        return $remain . " second(s)";
+    else
+        return "done";
+}
+
+$smarty->register_function('remaining', 'remaining_seconds', false, array('endtime'));
+
+if (!$smarty->is_cached('index.tpl')) {
+    // objekt $obj aus datenbank dem template zuweisen
+    $smarty->assign_by_ref('obj', $obj);
+}
+
+$smarty->display('index.tpl');
+
+
+index.tpl:
+
+Time Remaining: {remain endtime=$obj->endtime}</programlisting>
+    <para>
+    Der Wert von $obj->endtime &auml;ndert bei jeder Anzeige der Seite, selbst wenn die Seite gecached wurde. Das Objekt $obj wird nur geladen wenn die Seite nicht gecached wurde.
+    </para>
+   </example>
+   <example>
+   <title>Verhindern dass Template Bl&ouml;cke gecached werden</title>
+   <programlisting>
+index.php:
+
+require('Smarty.class.php');
+$smarty = new Smarty;
+$smarty->caching = true;
+
+function smarty_block_dynamic($param, $content, &$smarty) {
+    return $content;
+}
+$smarty->register_block('dynamic', 'smarty_block_dynamic', false);
+
+$smarty->display('index.tpl');
+
+
+index.tpl:
+
+Page created: {"0"|date_format:"%D %H:%M:%S"}
+
+{dynamic}
+
+Now is: {"0"|date_format:"%D %H:%M:%S"}
+
+... do other stuff ...
+
+{/dynamic}</programlisting>
+    </example>
+    <para>
+Um sicherzustellen dass ein Teil eines Templates nicht gecached werden soll, kann dieser Abschnitt in einen {dynamic}...{/dynamic} Block verpackt werden.
+    </para>
+ </sect1>
  </chapter>
  <chapter id="advanced.features">
   <title>Advanced Features</title>
+   <sect1 id="advanced.features.objects">
+    <title>Objekte</title>
+    <para>
+     Smarty erlaubt es, auf PHP Objekt durch das Template zuzugreiffen. Daf&uuml;r gitbt es
+     zwei Wege. Der erste ist, Objekte zu registrieren und wie auf eigene Funktionen zuzugreiffen.
+     Der andere Weg ist, das Objekt dem Template zuzuweisen und darauf wie auf andere Variablen
+     zuzugreiffen. Die erste Methode hat eine nettere Template Syntax und ist sicherer da der Zugriff
+     auf ein registriertes Objekt mit Sicherheitseinstellungen kontrolliert werden kann. Der Nachteil
+     ist, dass registrierte Objekte nicht in Loops verwendet werden können. Welchen Weg Sie einschlagen
+     wird von Ihren Bed&uuml;rfnissen definiert, die erste Methode ist jedoch zu bevorzugen.
+    </para>
+    <para>
+    Wenn Sicherheit eingeschaltet ist, k&ouml;nnen keine private Methoden (solche die einen '_'-Prefix tragen)
+    aufgerufen werden. Wenn eine Methode und eine Eigeschaft mit dem gleichen Namen existieren wird die Methode
+    verwendet.
+    </para>
+    <para>
+    Sie k&ouml;nnen den Zugriff auf Methoden und Eigenschaften einschr&auml;nken
+    indem Sie sie als Array als dritten Registrationsparameter &uuml;bergeben.
+    </para>
+    <para>
+    Normalerweise werden Parameter welche einem Objekt via Template &uuml;bergeben
+    werden genau so &uuml;bergeben wie dies bei normalen eigenen Funktionen der Fall ist.
+    Das erste Objekt ist ein assoziatives Array und das zweite das Smarty Objekt selbst.
+    Wenn Sie die Parameter einzeln erhalten m&ouml;chten k&ouml;nnen Sie den vierten
+    Parameter auf FALSE setzen.
+    </para>
+    <para>
+    Der optional f&uuml;nfte Parameter hat nur einen Effekt wenn 
+    <parameter>format</parameter> <literal>true</literal> ist und eine Liste von
+    Methoden enth&auml;lt die als Block verarbeitet werden sollen.
+    Das bedeutet dass solche Methoden ein schliessendes Tag im Template
+    enthalten m&uuml;ssen (<literal>{foobar->meth2}...{/foobar->meth2}</literal>)
+    und die Parameter zu den Funktionen die selbe Syntax haben wie block-function-plugins:
+    sie erhalten 4 Parameter
+    <parameter>$params</parameter>,
+    <parameter>$content</parameter>,
+    <parameter>&$smarty</parameter> und
+    <parameter>&$repeat</parameter>
+    und sich auch wie block-function-plugins verhalten.
+    </para>
+    <example>
+     <title>ein registiertes oder zugewiesenes Objekt verwenden</title>
+     <programlisting>
+&lt;?php
+// das objekt
+
+class My_Object {
+        function meth1($params, &$smarty_obj) {
+                return "meine meth1";
+        }
+}
+
+$myobj = new My_Object;
+// objekt registrieren (referenz)
+$smarty->register_object("foobar",$myobj);
+// zugriff auf methoden und eigeschaften einschr&auml;nken
+$smarty->register_object("foobar",$myobj,array('meth1','meth2','prop1'));
+// wenn wir das traditionelle parameter format verwenden wollen, &uuml;bergeben wir false f&uuml;r den parameter format
+$smarty->register_object("foobar",$myobj,null,false);
+
+// objekte zuweisen (auch via referenz m&ouml;glich)
+$smarty->assign_by_ref("myobj", $myobj);
+
+$smarty->display("index.tpl");
+?&gt;
+
+TEMPLATE:
+
+{* zugriff auf ein registriertes objekt *}
+{foobar->meth1 p1="foo" p2=$bar}
+
+{* ausgabe zuweisen *}
+{foobar->meth1 p1="foo" p2=$bar assign="output"}
+ausgabe war: {$output}
+
+{* auf unser zugewiesenes objekt zugreiffen *}
+{$myobj->meth1("foo",$bar)}</programlisting>
+    </example>
+  </sect1>
   <sect1 id="advanced.features.prefilters">
    <title>'pre'-Filter</title>
    <para>
@@ -1878,7 +2081,9 @@
     ein Template mit 'display()' ausgeben, die Ausgabe mit 'fetch()' 
     in einer Variablen speichern oder innnerhalb eines Template ein
     weiteres Template einbinden, m&uuml;ssen Sie den Ressourcen-Typ, 
-    gefolgt von Pfad und Template-Namen angeben.
+    gefolgt von Pfad und Template-Namen angeben. Wenn kein Resourcetyp angegeben
+    wird, wird <link linkend="variable.default.resource.type">$default_resource_type</link>
+    verwendet.
    </para>
    <sect2 id="templates.from.template.dir">
     <title>Templates aus dem '$template_dir'</title>
@@ -2116,9 +2321,9 @@
     entspricht der Reihenfolge in der sie geladen/registriert wurden.
    </para>
    <para>
-    Aus Performancegr&uuml;nden existiert nur ein Plugin-Verzeichnis. Um ein Plugin
-    zu installieren, speichern Sie es einfach in diesem Verzeichnis. Smarty wird
-    es danach automatisch erkennen.
+    Die <link linkend="variable.plugins.dir">plugins directory</link> Variable kann eine Zeichenkette,
+    oder ein Array mit Verzeichnisnamen sein. Um einen Plugin zu installieren k&ouml;nnen Sie ihn einfach
+    in einem der Verzeichnisse ablegen.
    </para>
   </sect1>
   
@@ -2198,10 +2403,11 @@
     folgender Weg gew&auml;hlt werden, um das ben&ouml;tigte Plugin zu laden:
    </para>
    <programlisting>
-    require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
+    require_once $smarty->_get_plugin_filepath('function', 'html_options');</programlisting>
     <para>
      Das Smarty Objekt wird jedem Plugin immer als letzter Parameter
-     &uuml;bergeben (ausser bei Variablen-Modifikatoren).
+     &uuml;bergeben (ausser bei Variablen-Modifikatoren und bei Bl&uuml;cken wird
+     <parameter>&amp;$repeat</parameter> nach dem Smarty Objekt &uuml;bergeben um R&uuml;ckw&auml;rtskompatibel zu bleiben).
     </para>
   </sect1>
   
@@ -2413,7 +2619,8 @@
    <para>
     Ihre Funktions-Implementation wird von Smarty zweimal
     aufgerufen: einmal f&uuml;r das &ouml;ffnende und einmal
-    f&uuml;r das schliessende Tag.
+    f&uuml;r das schliessende Tag. (konsultieren Sie den Abschnitt zu <literal>&amp;$repeat</literal>
+    um zu erfahren wie Sie dies &auml;ndern k&ouml;nnen.)
    </para>
    <para>
     Nur das &Ouml;ffnungs-Tag kann Attribute enthalten. Alle so &uuml;bergebenen Attribute
@@ -2430,6 +2637,15 @@
     f&uuml;r das schliessende Tag ist es der Inhalt des Template-Abschnitts.
     Achtung: Der Template-Abschnitt den Sie erhalten, wurde bereits von
     Smarty bearbeitet. Sie erhalten also die Template-Ausgabe, nicht den Template-Quelltext.
+   </para>
+   <para>
+    Der Parameter <parameter>&amp;$repeat</parameter> wird als Referenz &uuml;bergeben und
+    kontrolliert wie oft ein Block dargestellt werden soll. Standardwert von <parameter>$repeat</parameter>
+    ist beim ersten Aufruf (f&uuml;r das &ouml;ffnende Tag) <literal>true</literal>, danach immer
+    <literal>false</literal>.
+    Jedes Mal wenn eine Funktion f&uuml;r <parameter>&amp;$repeat</parameter> TRUE zur&uum;ck gibt,
+    wird der Inhalt zwischen {func} .. {/func} erneut mit dem ver&auml;nderten
+    Inhalt als <parameter>$content</parameter> Parameter aufgerufen.
    </para>
    <para>
     Wenn Sie verschachtelte Block-Funktionen haben, k&ouml;nnen Sie 
@@ -2458,11 +2674,11 @@
      */
      function smarty_block_translate($params, $content, &amp;$smarty)
      {
-     if ($content) {
+     if (isset($content)) {
      $lang = $params['lang'];
      
      // den $content irgendwie intelligent &uuml;bersetzuen
-     echo $translation;
+     return $translation;
      }
      }</programlisting>
    </example>
