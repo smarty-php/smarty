@@ -1,3 +1,9 @@
+2003-12-08  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      add better checks for correctly nested tags when compiling
+
 2003-12-04  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
