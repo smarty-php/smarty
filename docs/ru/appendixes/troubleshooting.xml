@@ -1,53 +1,60 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<chapter id="troubleshooting">
- <title>Troubleshooting</title>
- <sect1 id="smarty.php.errors">
-  <title>Smarty/PHP errors</title>
-  <para>
-   Smarty can catch many errors such as missing tag attributes
-   or malformed variable names. If this happens, you will see an error
-   similar to the following:
-  </para>
-  <example>
-   <title>Smarty errors</title>
-   <programlisting>
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+ <chapter id="troubleshooting">
+  <title>Решение проблем</title>
+  <para></para>
+  <sect1 id="smarty.php.errors">
+   <title>Ошибки Smarty/PHP</title>
+   <para>
+    Smarty может ловить многие ошибки, например отсутствующие аттрибуты
+    тэгов или недопустимые имена переменных. Если это произойдет, вы увидите
+    ошибку наподобие следующей:
+   </para>
+   <example>
+    <title>Ошибка Smarty</title>
+    <screen>
+<![CDATA[
 Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
-in /path/to/smarty/Smarty.class.php on line 1041
+       in /path/to/smarty/Smarty.class.php on line 1041
 
 Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
-in /path/to/smarty/Smarty.class.php on line 1041
-   </programlisting>
-  </example>
-  <para>
-   Smarty shows you the template name, the line number and the error.
-   After that, the error consists of the actual line number in the Smarty
-   class that the error occured.
-  </para>
-  
-  <para>
-   There are certain errors that Smarty cannot catch, such as missing
-   close tags. These types of errors usually end up in PHP compile-time
-   parsing errors.
-  </para>
-  <example>
-   <title>PHP parsing errors</title>
-   <programlisting>
+       in /path/to/smarty/Smarty.class.php on line 1041
+]]>
+    </screen>
+   </example>
+   <para>
+    Smarty покажет вам имя шаблона, номер строки и ошибку.
+    Далее сообщение об ошибке состоит из фактического номера строки в классе
+    Smarty, где возникла ошибка.
+   </para>
+
+   <para>
+    Есть определенные ошибки, которые не может поймать Smarty, например
+    отсутствующие закрывающие тэги. Такие ошибки обычно приводят к ошибкам
+    разбора PHP на этапе компиляции.
+   </para>
+
+   <example>
+    <title>Ошибки разбора PHP</title>
+    <screen>
+<![CDATA[
 Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
-   </programlisting>
-  </example>
-  
-  <para>
-   When you encounter a PHP parsing error, the error line number will
-   correspond to the compiled PHP script, not the template itself. Usually
-   you can look at the template and spot the syntax error. Here are some
-   common things to look for: missing close tags for {if}{/if} or
-   {section}{/section}, or syntax of logic within an {if} tag. If you
-   can't find the error, you might have to open the compiled PHP file and
-   go to the line number to figure out where the corresponding error is in
-   the template.
-  </para>
- </sect1>
+]]>
+    </screen>
+   </example>
+
+   <para>
+    Когда вы встречаетесь с ошибкой разбора PHP, номер строки, в которой
+    допущена ошибка, будет соответствовать скомпилированному PHP-скрипту,
+    а не самому шаблону. Обычно вы можете посмотреть на шаблон и увидить
+    синтаксическую ошибку. Типичные ошибки: отсутствующие закрывающие тэги
+    для {if}{/if} или {section}{/section}, или синтаксис логики внутри тэга {if}.
+    Если вы не можете найти ошибку, вам может понадобиться открыть скомпилированный
+    PHP-файл и перейти к номеру строки чтобы выяснить, в чём заключается ошибка
+    в шаблоне.
+   </para>
+  </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

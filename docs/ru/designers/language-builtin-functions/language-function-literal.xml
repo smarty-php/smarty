@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: tony2001 Status: ready -->
 <sect1 id="language.function.literal">
  <title>literal</title>
  <para>
-  Тэг Literal позволяет указать блок данных, который не должен
-  быть обработан Smarty. Это удобно для вывода javascript кода,
-  когда символы { и } могут быть не правильно поняты парсером
-  шаблонов. Все, что окружено тэгами {literal} и {/literal} 
-  не обрабатывается и просто отображается как есть.
+  Тэги literal позволяют воспринимать блоки данных буквально.
+  Обычно они используются вместе с javascript или таблицами стилей, в которых
+  фигурные скобки конфликтуют с синтаксисом разделителей.
+  Весь текст внутри тэгов {literal}{/literal} не интерпретируется, а выводится
+  "как есть". Если вам нужно вставить тэги шаблонов в блок literal, вам следует
+  пойти по другому пути и использовать <link
+  linkend="language.function.ldelim">{ldelim}{rdelim}</link> для экранирования
+  отдельных разделителей.
  </para>
  <example>
   <title>тэг literal</title>
@@ -19,7 +22,7 @@
 
         	<!--
                 	function isblank(field) {
-                	if (field.value == '') 
+                	if (field.value == '')
                         	{ return false; }
                 	else
                         	{
@@ -55,4 +58,3 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
-

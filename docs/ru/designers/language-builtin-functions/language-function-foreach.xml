@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <sect1 id="language.function.foreach">
  <title>foreach,foreachelse</title>
 
@@ -15,7 +15,7 @@
    <row>
     <entry>Имя аттрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -23,17 +23,17 @@
   <tbody>
    <row>
     <entry>from</entry>
-    <entry>строка (string)</entry>
+    <entry>массив (array)</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя массива, по которому надо пройтись</entry>
+    <entry>Массив, по которому надо пройтись</entry>
    </row>
    <row>
     <entry>item</entry>
     <entry>строка (string)</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя переменной, которая будет выступать в 
+    <entry>Имя переменной, которая будет выступать в
     качестве значения текущего елемента</entry>
    </row>
    <row>
@@ -41,7 +41,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя переменной, которая будет выступать в 
+    <entry>Имя переменной, которая будет выступать в
     качестве ключа текущего елемента</entry>
    </row>
    <row>
@@ -49,7 +49,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Название цикла foreach для доступа к его 
+    <entry>Название цикла foreach для доступа к его
     свойствам</entry>
    </row>
   </tbody>
@@ -58,17 +58,17 @@
 
 	<para>
   Циклы <emphasis>foreach</emphasis> являются альтернативой
-  циклам <emphasis>section</emphasis>. Циклы 
-  <emphasis>foreach</emphasis> используются для прохождения 
-  по одному массиву. Синтаксис <emphasis>foreach</emphasis> 
-  намного проще, чем <emphasis>section</emphasis>, но его 
+  циклам <emphasis>section</emphasis>. Циклы
+  <emphasis>foreach</emphasis> используются для прохождения
+  по одному массиву. Синтаксис <emphasis>foreach</emphasis>
+  намного проще, чем <emphasis>section</emphasis>, но его
   можно использовать только для одного массива.
-  Тэг <emphasis>foreach</emphasis> должен иметь в пару тэг 
-  <emphasis>/foreach</emphasis>. Обязательные параметры - 
+  Тэг <emphasis>foreach</emphasis> должен иметь в пару тэг
+  <emphasis>/foreach</emphasis>. Обязательные параметры -
   <emphasis>from</emphasis> и <emphasis>item</emphasis>. Название
-  цикла foreach может быть любой последовательностью букв, цифр 
+  цикла foreach может быть любой последовательностью букв, цифр
   и знаков подчеркиваний _. Циклы <emphasis>foreach</emphasis>
-  могут быть вложенные, и имена вложенных циклов должны быть 
+  могут быть вложенные, и имена вложенных циклов должны быть
   уникальные. Переменная <emphasis>from</emphasis> (обычно
   массив значений) указывает количество итераций цикла.
   <emphasis>foreachelse</emphasis> выполняется, если нету значений
@@ -154,20 +154,20 @@ cell: 760-1234<br>
 		</para>
 	</sect2>
 
-	<sect2 id="foreach.property.show">	
+	<sect2 id="foreach.property.show">
 		<title>show</title>
 		<para>
-   Аттрибут <emphasis>show</emphasis> может принимать логические 
+   Аттрибут <emphasis>show</emphasis> может принимать логические
    значения (истина или ложь). Если ложь, то цикл foreach не будет
    отображаться. Если присутствует тэг foreachelse, то он будет
    отображен.
  	</para>
  </sect2>
- 
-	<sect2 id="foreach.property.total">	
+
+	<sect2 id="foreach.property.total">
  	<title>total</title>
 		<para>
-	 	<emphasis>total</emphasis> хранит количество итераций цикла. 
+	 	<emphasis>total</emphasis> хранит количество итераций цикла.
 			Может быть использовано как в цикле, так и вне его..
 		</para>
  </sect2>

@@ -1,23 +1,25 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+     <sect1 id="variable.plugins.dir">
      <sect1 id="variable.security.settings">
       <title>$security_settings</title>
       <para>
-       These are used to override or specify the security settings when
-       security is enabled. These are the possible settings:
-      </para>
+       Ýòî èñïîëüçóåòñÿ äëÿ èçìåíåíèÿ èëè óêàçàíèÿ íàñòðîåê áåçîïàñíîñòè
+       êîãäà áåçîïàñíîñèòü (security) âêëþ÷åíà. Äîïóñòèìûå çíà÷åíèÿ:
+       /para>
       <itemizedlist>
-       <listitem><para>PHP_HANDLING - true/false. If set to true, the
-         $php_handling setting is not checked for security.</para></listitem>
-       <listitem><para>IF_FUNCS - This is an array of the names of permitted
-         PHP functions in IF statements.</para></listitem>
-       <listitem><para>INCLUDE_ANY - true/false. If set to true, any
-         template can be included from the file system, regardless of the
-         $secure_dir list.</para></listitem>
-       <listitem><para>PHP_TAGS - true/false. If set to true, {php}{/php}
-         tags are permitted in the templates.</para></listitem>
-       <listitem><para>MODIFIER_FUNCS - This is an array of the names of permitted
-         PHP functions used as variable modifiers.</para></listitem>
+       <listitem><para>PHP_HANDLING - true/false. Åñëè óñòàíîâëåíî â true, ïàðàìåòð
+         $php_handling íå ïðîâåðÿåòñÿ íà áåçîïàñíîñòü.</para></listitem>
+       <listitem><para>IF_FUNCS - Ýòî ìàññèâ èì¸í PHP-ôóíêöèé, ðàçðåøåííûõ
+         ê èñïîëüçîâàíèþ â óñëîâèÿõ IF.</para></listitem>
+       <listitem><para>INCLUDE_ANY - true/false. Åñëè óñòàíîâëåíî â true, ëþáîé
+         øàáëîí ìîæåò áûòü ïîäêëþ÷åí èç ôàéëîâîé ñèñòåìû, íåçàâèñèìî îò ñïèñêà
+         $secure_dir.</para></listitem>
+       <listitem><para>PHP_TAGS - true/false. Åñëè óñòàíîâëåíî â true, òýãè {php}{/php}
+         ðàçðåøåíû ê èñïîëüçîâàíèþ â øàáëîíàõ.</para></listitem>
+       <listitem><para>MODIFIER_FUNCS - Ýòî ìàññèâ èì¸í PHP-ôóíêöèé, ðàçðåøåííûõ
+         ê èñïîëüçîâàíèþ â êà÷åñòâå ìîäèôèêàòîðîâ ïåðåìåííûõ.</para></listitem>
       </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file
