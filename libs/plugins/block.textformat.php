@@ -70,9 +70,8 @@ function smarty_block_textformat($params, $content, &$this)
 	if($assign != null) {
 		$this->assign($assign,$output);
 	} else {
-		echo $output;
+		return $output;
 	}
-	//echo $content;
 }
 
 /* vim: set expandtab: */

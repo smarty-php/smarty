@@ -1281,7 +1281,7 @@ class Smarty
      * @param string $scope
      */    
     function config_load($file, $section = null, $scope = 'global')
-    {        
+    {
 		require_once($this->_get_plugin_filepath('function', 'config_load'));    
 		smarty_function_config_load(array('file' => $file, 'section' => $section, 'scope' => $scope), $this);
     }
