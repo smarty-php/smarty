@@ -1,3 +1,4 @@
+    - fixed errormessage in _compile_smarty_ref() (messju)
     - updated docs for html_image "name" -> "file" (messju)
     - fixed bug with html_options-optgroups (Nichlas Löfdahl, messju)
     - cleaned up calls to readdir() (messju)

@@ -1764,7 +1764,7 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             default:
-                $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
+                $this->_syntax_error('$smarty.' . $_ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
                 break;
         }
 
