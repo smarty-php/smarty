@@ -33,7 +33,7 @@
  * {table loop=$data cols=4 tr_attr='"bgcolor=red"'}
  * {table loop=$data cols=4 tr_attr=$colors}
  * </pre>
- * @author   Monte Ohrt <monte@ohrt.com>
+ * @author   Monte Ohrt <monte at ohrt dot com>
  * @version  1.0
  * @link http://smarty.php.net/manual/en/language.function.html.table.php {html_table}
  *          (Smarty online manual)

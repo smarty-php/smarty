@@ -17,7 +17,7 @@
  * Example:  {$var|cat:"foo"}
  * @link http://smarty.php.net/manual/en/language.modifier.cat.php cat
  *          (Smarty online manual)
- * @author   Monte Ohrt <monte@ohrt.com>
+ * @author   Monte Ohrt <monte at ohrt dot com>
  * @version 1.0
  * @param string
  * @param string

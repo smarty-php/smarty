@@ -32,7 +32,7 @@
  * </pre>
  * @link http://smarty.php.net/manual/en/language.function.cycle.php {cycle}
  *       (Smarty online manual)
- * @author Monte Ohrt <monte@ohrt.com>
+ * @author Monte Ohrt <monte at ohrt dot com>
  * @author credit to Mark Priatel <mpriatel@rogers.com>
  * @author credit to Gerard <gerard@interfold.com>
  * @author credit to Jason Sweat <jsweat_php@yahoo.com>
