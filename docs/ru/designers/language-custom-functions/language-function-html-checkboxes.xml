@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.checkboxes">
  <title>html_checkboxes</title>
  <informaltable frame="all">
@@ -42,7 +42,7 @@
     <entry>массив названий флажков</entry>
    </row>
    <row>
-    <entry>selected/checked</entry>
+    <entry>selected</entry>
     <entry>string/array</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
@@ -74,13 +74,13 @@
  </informaltable>
  <para>
   Пользовательская функция html_checkboxes генерирует группу
-  HTML фложков по указанной информации. Также заботится об
-  флажках, которые выбраны по умолчанию. параметры vslues и output
-  обязательны, если не указан атрибут options. Весь вывод
+  HTML флажков по указанной информации. Также заботится о
+  флажках, которые выбраны по умолчанию. Параметры values и output
+  являются обязательными, если не указан атрибут options. Весь вывод
   совместим с XHTML.
  </para>
  <para>
-  Все параметры, которые не указаны в списке выводятся в виде
+  Все параметры, которые не указаны в списке, выводятся в виде
   пар name/value в каждом созданном тэге &lt;input&gt;.
  </para>
  <example>
@@ -128,7 +128,7 @@ $smarty->display('index.tpl');
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="&lt;br /&gt;"}
+{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="<br />"}
 ]]>
   </programlisting>
   <para>
