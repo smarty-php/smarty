@@ -1,3 +1,21 @@
+2003-06-23  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.write_cache_paths_file.php:
+      make cache_path per resource, fix a couple directory path issues
+
+2003-06-23  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      removed warning when compiling empty template
+
+    * libs/core/core.write_compiled_include.php:
+      fixed bug in write_compiled_include
+
+    * libs/core/core.assemble_plugin_filepath.php:
+      fixed warning
+
 2003-06-22  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.eval.php:
