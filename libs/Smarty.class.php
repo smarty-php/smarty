@@ -39,7 +39,7 @@
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.4.2
+ * @version 2.5.0-RC1
  */
 
 /**
@@ -460,7 +460,7 @@ class Smarty
      *
      * @var string
      */
-    var $_version              = '2.4.2';
+    var $_version              = '2.5.0-RC1';
 
     /**
      * current template inclusion depth

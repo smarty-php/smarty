@@ -1,3 +1,17 @@
+2.5.0-RC1
+---------
+
+Release Candidate 1. All $smarty vars can now by dynamic, such as
+$smarty.get.$foo. A new class function get_function_object() gets you a
+reference to an assigned object, useful within your own custom functions.
+append() can now merge as well as append with a third optional attribute. A new
+class function get_config_vars() was added, and get_template_vars() can now be
+used to get individual vars. Full variable syntax is now supported within
+double quotes via a backtick (`) syntax. Files created by smarty are now
+written to a tmp file then renamed to avoid file lock retention. html_radios,
+html_checkboxes, html_table, html_image, nl2br functions added, see the NEWS
+file for full details.
+
 2.4.2
 -----
 Another point release. Added support for dynamic object reference syntax

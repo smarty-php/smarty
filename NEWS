@@ -1,3 +1,6 @@
+Version 2.5.0-RC1 (March 5, 2003)
+---------------------------------
+
     - fixed notice in popup function (Nagger, Monte)
     - fix "once" var compiling for include_php (Monte)
     - added nl2br modifier to distribution (Monte)
@@ -26,8 +29,6 @@
       Monte)
     - fix cache groups with compile_id set (Monte)
     - add support for merging appended vars (messju, Monte)
-    - change embedded variable logic to only recognize $foo and
-      $foo[0][bar] and $smarty.foo.bar syntax (Monte)
     - allow null as function attribute value
       (André Rabold, Monte)
     - support $foo->bar[index] syntax (Monte)

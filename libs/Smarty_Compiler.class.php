@@ -33,7 +33,7 @@
  * @link http://www.phpinsider.com/
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
- * @version 2.4.2
+ * @version 2.5.0-RC1
  * @copyright 2001,2002 ispi of Lincoln, Inc.
  * @package Smarty
  */
