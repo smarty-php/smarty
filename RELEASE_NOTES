@@ -1,3 +1,27 @@
+2.2.0
+-----
+
+Smarty now allows an array of paths for the $plugin_dir class variable. The
+directories will be searched in the order they are given, so for efficiency keep
+the most-used plugins at the top. Also, absolute paths to the plugin directories are
+more efficient than relying on the PHP include_path.
+
+Cache files can now be grouped with the cache_id. See the documentation under
+the new "Caching" section for details. compile_id also respects the same
+grouping syntax. The cache/compile file structure changed, so be sure to clear
+out all your cache and compile files when upgrading Smarty. Also if you are
+using PHP-accelerator, restart apache. I've seen some quirky things happen if
+the phpa files do not get cleared (known issue with phpa and parent
+class-member changes, so just clear 'em.)
+
+Smarty now correctly respects the PHP include_path for $template_dir, $compile_dir,
+$cache_dir, $config_dir and $plugin_dir. Be aware that relying on the
+include_path is an overhead, try to use absolute pathnames when possible
+(or relative to working directory.)
+
+Many misc. bug fixes and enhancements, see the full ChangeLog (NEWS file) for
+details.
+
 2.1.1
 -----
 
