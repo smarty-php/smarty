@@ -348,14 +348,14 @@ class Smarty_Compiler extends Smarty {
             }
             $_plugins_params .= '))';
 			$_plugin_filepath = $this->_get_plugin_filepath('core', 'load_plugins');
-			$plugins_code = "<?php require_once('$_plugin_filepath');\nsmarty_core_load_plugins($_plugins_params, \$this); ?>";
+			$plugins_code = "<?php require_once('$_plugin_filepath');\nsmarty_core_load_plugins($_plugins_params, \$this); ?>\n";
             $template_header .= $plugins_code;
             $this->_plugin_info = array();
         }
 
         if ($this->_init_smarty_vars) {
 			$_plugin_filepath = $this->_get_plugin_filepath('core', 'assign_smarty_interface');
-            $template_header .= "<?php require_once('$_plugin_filepath');\nsmarty_core_assign_smarty_interface(null, \$this); ?>";
+            $template_header .= "<?php require_once('$_plugin_filepath');\nsmarty_core_assign_smarty_interface(null, \$this); ?>\n";
             $this->_init_smarty_vars = false;
         }
 
@@ -394,9 +394,9 @@ class Smarty_Compiler extends Smarty {
         if (preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '$!', $tag_command)) {
             $_return = $this->_parse_var_props($tag_command . $tag_modifier, $this->_parse_attrs($tag_args));
 			if(isset($_tag_attrs['assign'])) {
-				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $_return ); ?>";  
+				return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $_return ); ?>\n";  
 			} else {
-            	return "<?php echo $_return; ?>";
+            	return "<?php echo $_return; ?>\n";
 			}
 		}
 		
@@ -468,7 +468,7 @@ class Smarty_Compiler extends Smarty {
             case 'literal':
                 list (,$literal_block) = each($this->_literal_blocks);
                 $this->_current_line_no += substr_count($literal_block, "\n");
-                return "<?php echo '".str_replace("'", "\'", str_replace("\\", "\\\\", $literal_block))."'; ?>";
+                return "<?php echo '".str_replace("'", "\'", str_replace("\\", "\\\\", $literal_block))."'; ?>\n";
 
             case 'php':
                 if ($this->security && !$this->security_settings['PHP_TAGS']) {
@@ -678,7 +678,7 @@ class Smarty_Compiler extends Smarty {
 			$this->_parse_modifiers($return, $tag_modifier);
 		}
 		
-        return '<?php echo ' . $return . " ; ?>";
+        return '<?php echo ' . $return . " ; ?>\n";
     }
 
 	/**
@@ -770,7 +770,7 @@ class Smarty_Compiler extends Smarty {
             $output = '';
         }
 
-        return '<?php ' . $prefix . $output . $postfix . "?>";
+        return '<?php ' . $prefix . $output . $postfix . "?>\n";
     }
 
 	/**
@@ -805,7 +805,7 @@ class Smarty_Compiler extends Smarty {
 		$_params = "array('args' => array(".implode(', ', (array)$arg_list)."))";
 		$_plugin_filepath = $this->_get_plugin_filepath('core', 'run_insert_handler');
 		
-        return "<?php require_once('$_plugin_filepath');\necho smarty_core_run_insert_handler($_params, \$this); ?>";
+        return "<?php require_once('$_plugin_filepath');\necho smarty_core_run_insert_handler($_params, \$this); ?>\n";
     }
 
 	/**
@@ -891,7 +891,7 @@ class Smarty_Compiler extends Smarty {
     	$_params = "array('smarty_file' => " . $attrs['file'] . ", 'smarty_assign' => '$assign_var', 'smarty_once' => $once_var, 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."))";
 		$_plugin_filepath = $this->_get_plugin_filepath('core', 'smarty_include_php');
 		
-		return "<?php require_once('$_plugin_filepath');\nsmarty_core_smarty_include_php($_params, \$this); ?>";
+		return "<?php require_once('$_plugin_filepath');\nsmarty_core_smarty_include_php($_params, \$this); ?>\n";
     }
 	
 
