@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.count.words">
  <title>count_words</title>
  <para>
@@ -8,22 +8,35 @@
  </para>
  <example>
   <title>count_words</title>
-<programlisting>
-index.php:
+<programlisting role="php">
+<![CDATA[
+<?php
 
 $smarty = new Smarty;
-$smarty-&gt;assign('TitreArticle', 'Un anneau pour les gouverner tous.');
-$smarty-&gt;display('index.tpl');
+$smarty->assign('TitreArticle', 'Un anneau pour les gouverner tous.');
+$smarty->display('index.tpl');
 
-index.tpl:
-
+?>
+]]>
+</programlisting>
+<para>
+ Ou index.tpl est:
+</para>
+<programlisting>
+<![CDATA[
 {$titreArticle}
 {$titreArticle|count_words}
-
-SORTIE:
-
+]]>
+</programlisting>
+<para>
+ Donne à l'écran:
+</para>
+<screen>
+<![CDATA[
 Un anneau pour les gouverner tous.
-6</programlisting>
+6
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

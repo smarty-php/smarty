@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.cat">
  <title>cat</title>
  <informaltable frame="all">
@@ -35,20 +35,31 @@
  </para>
  <example>
   <title>cat</title>
-<programlisting>
-index.php:
-
+   <programlisting role="php">
+<![CDATA[
+<?php    
 $smarty = new Smarty;
-$smarty-&gt;assign('TitreArticle', 'Les devins ont prévus que le monde existera toujours ');
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-{$TitreArticle|cat:" demain."}
-
-SORTIE:
-
-Les devins ont prévus que le monde existera toujours demain.</programlisting>
+$smarty->assign('articleTitle', "'Les devins ont prévus que le monde existera toujours");
+$smarty->display('index.tpl');
+?>
+]]>
+   </programlisting>
+   <para>
+    Ou index.tpl est:
+   </para>
+   <programlisting>
+<![CDATA[
+{$articleTitle|cat:" demain."}
+]]>
+   </programlisting>
+   <para>
+    Donne à l'écran:
+   </para>
+   <screen>
+<![CDATA[    
+Les devins ont prévus que le monde existera toujours demain.
+]]>
+   </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

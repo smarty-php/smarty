@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.count.sentences">
  <title>count_sentences</title>
  <para>
@@ -8,26 +8,38 @@
  </para>
  <example>
   <title>count_sentences</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('TitreArticle', 'Deux navires rentrent en
+$smarty->assign('TitreArticle', 'Deux navires rentrent en
 collision - Un des deux coule. Des vaches enragées blessent un fermier à
 coups de haches.');
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+ Where index.tpl is:
+</para>
+<programlisting>
+<![CDATA[
 {$TitreArticle}
 {$TitreArticle|count_sentences}
-
-SORTIE:
+]]>
+</programlisting>
+<para>
+ Donne à l'écran:
+</para>
+<screen>
+<![CDATA[
 Deux navires rentrent en collision
 - Un des deux coule. Des vaches enragées blessent un fermier
 à coups de haches.
 
-2</programlisting>
+2
+]]>
+</screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
