@@ -111,7 +111,7 @@ class Smarty_Compiler extends Smarty {
         // $foo[$bar]
         // $foo[5][blah]
         // $foo[5].bar[$foobar][4]
-        $this->_dvar_math_regexp = '[\+\-\*\/\%]';
+        $this->_dvar_math_regexp = '[\+\*\/\%]|-(?!>)';
         $this->_dvar_math_var_regexp = '[\$\w\.\+\-\*\/\%\d\>\[\]]';
         $this->_dvar_guts_regexp = '\w+(?:' . $this->_var_bracket_regexp
                 . ')*(?:\.\$?\w+(?:' . $this->_var_bracket_regexp . ')*)*(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?';
@@ -148,7 +148,7 @@ class Smarty_Compiler extends Smarty {
         // $foo->bar->foo()
         // $foo->bar->foo->bar()
         $this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
-        $this->_obj_params_regexp = '\((?:\w+|'
+        $this->_obj_params_regexp = '\((?:-?\d|\w+|'
                 . $this->_var_regexp . '(?:\s*,\s*(?:(?:\w+|'
                 . $this->_var_regexp . ')))*)?\)';
         $this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
@@ -246,7 +246,7 @@ class Smarty_Compiler extends Smarty {
         }
 
         /* fetch all special blocks */
-        $search = "!{$ldq}\*(.*?)\*{$rdq}|{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}|{$ldq}\s*php\s*{$rdq}(.*?){$ldq}\s*/php\s*{$rdq}!s";
+        $search = "~{$ldq}\*(.*?)\*{$rdq}|{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}|{$ldq}\s*php\s*{$rdq}(.*?){$ldq}\s*/php\s*{$rdq}~s";
 
         preg_match_all($search, $source_content, $match,  PREG_SET_ORDER);
         $this->_folded_blocks = $match;
@@ -261,15 +261,15 @@ class Smarty_Compiler extends Smarty {
                                        , $source_content);
 
         /* Gather all template tags. */
-        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $source_content, $_match);
+        preg_match_all("~{$ldq}\s*(.*?)\s*{$rdq}~s", $source_content, $_match);
         $template_tags = $_match[1];
         /* Split content by template tags to obtain non-template content. */
-        $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $source_content);
+        $text_blocks = preg_split("~{$ldq}.*?{$rdq}~s", $source_content);
 
         /* loop through text blocks */
         for ($curr_tb = 0, $for_max = count($text_blocks); $curr_tb < $for_max; $curr_tb++) {
             /* match anything resembling php tags */
-            if (preg_match_all('!(<\?(?:\w+|=)?|\?>|language\s*=\s*[\"\']?php[\"\']?)!is', $text_blocks[$curr_tb], $sp_match)) {
+            if (preg_match_all('~(<\?(?:\w+|=)?|\?>|language\s*=\s*[\"\']?php[\"\']?)~is', $text_blocks[$curr_tb], $sp_match)) {
                 /* replace tags with placeholders to prevent recursive replacements */
                 $sp_match[1] = array_unique($sp_match[1]);
                 usort($sp_match[1], '_smarty_sort_length');
@@ -289,7 +289,7 @@ class Smarty_Compiler extends Smarty {
                         $text_blocks[$curr_tb] = str_replace('%%%SMARTYSP'.$curr_sp.'%%%', '', $text_blocks[$curr_tb]);
                     } else {
                         /* SMARTY_PHP_ALLOW, but echo non php starting tags */
-                        $sp_match[1][$curr_sp] = preg_replace('%(<\?(?!php|=|$))%i', '<?php echo \'\\1\'?>'."\n", $sp_match[1][$curr_sp]);
+                        $sp_match[1][$curr_sp] = preg_replace('~(<\?(?!php|=|$))~i', '<?php echo \'\\1\'?>'."\n", $sp_match[1][$curr_sp]);
                         $text_blocks[$curr_tb] = str_replace('%%%SMARTYSP'.$curr_sp.'%%%', $sp_match[1][$curr_sp], $text_blocks[$curr_tb]);
                     }
                 }
@@ -315,19 +315,19 @@ class Smarty_Compiler extends Smarty {
         for ($i = 0, $for_max = count($compiled_tags); $i < $for_max; $i++) {
             if ($compiled_tags[$i] == '') {
                 // tag result empty, remove first newline from following text block
-                $text_blocks[$i+1] = preg_replace('!^(\r\n|\r|\n)!', '', $text_blocks[$i+1]);
+                $text_blocks[$i+1] = preg_replace('~^(\r\n|\r|\n)~', '', $text_blocks[$i+1]);
             }
             $compiled_content .= $text_blocks[$i].$compiled_tags[$i];
         }
         $compiled_content .= $text_blocks[$i];
 
         /* Reformat data between 'strip' and '/strip' tags, removing spaces, tabs and newlines. */
-        if (preg_match_all("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s", $compiled_content, $_match)) {
+        if (preg_match_all("~{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}~s", $compiled_content, $_match)) {
             $strip_tags = $_match[0];
-            $strip_tags_modified = preg_replace("!{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+!m", '', $strip_tags);
-            $strip_tags_modified = preg_replace('![\r\n]+!m', '', $strip_tags_modified);
+            $strip_tags_modified = preg_replace("~{$ldq}/?strip{$rdq}|[\t ]+$|^[\t ]+~m", '', $strip_tags);
+            $strip_tags_modified = preg_replace('~[\r\n]+~m', '', $strip_tags_modified);
             for ($i = 0, $for_max = count($strip_tags); $i < $for_max; $i++)
-                $compiled_content = preg_replace("!{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}!s",
+                $compiled_content = preg_replace("~{$ldq}strip{$rdq}.*?{$ldq}/strip{$rdq}~s",
                                                   $this->_quote_replace($strip_tags_modified[$i]),
                                                   $compiled_content, 1);
         }
@@ -342,7 +342,7 @@ class Smarty_Compiler extends Smarty {
         }
 
         // remove unnecessary close/open tags
-        $compiled_content = preg_replace('!\?>\n?<\?php!', '', $compiled_content);
+        $compiled_content = preg_replace('~\?>\n?<\?php~', '', $compiled_content);
 
         // run compiled template through postfilter functions
         if (count($this->_plugins['postfilter']) > 0) {
@@ -401,10 +401,10 @@ class Smarty_Compiler extends Smarty {
             return '';
 
         /* Split tag into two three parts: command, command modifiers and the arguments. */
-        if(! preg_match('/^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
+        if(! preg_match('~^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
                 . '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
                       (?:\s+(.*))?$
-                    /xs', $template_tag, $match)) {
+                    ~xs', $template_tag, $match)) {
             $this->_syntax_error("unrecognized tag: $template_tag", E_USER_ERROR, __FILE__, __LINE__);
         }
 
@@ -412,7 +412,7 @@ class Smarty_Compiler extends Smarty {
         $tag_modifier = isset($match[2]) ? $match[2] : null;
         $tag_args = isset($match[3]) ? $match[3] : null;
 
-        if (preg_match('!^' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '$!', $tag_command)) {
+        if (preg_match('~^' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '$~', $tag_command)) {
             /* tag name is a variable or object */
             $_return = $this->_parse_var_props($tag_command . $tag_modifier, $this->_parse_attrs($tag_args));
             if(isset($_tag_attrs['assign'])) {
@@ -423,7 +423,7 @@ class Smarty_Compiler extends Smarty {
         }
 
         /* If the tag name is a registered object, we process it. */
-        if (preg_match('!^\/?' . $this->_reg_obj_regexp . '$!', $tag_command)) {
+        if (preg_match('~^\/?' . $this->_reg_obj_regexp . '$~', $tag_command)) {
             return $this->_compile_registered_object_tag($tag_command, $this->_parse_attrs($tag_args), $tag_modifier);
         }
 
@@ -1130,13 +1130,13 @@ class Smarty_Compiler extends Smarty {
             return $this->_syntax_error("foreach: missing 'item' attribute", E_USER_ERROR, __FILE__, __LINE__);
         }
         $item = $this->_dequote($attrs['item']);
-        if (!preg_match('!^\w+$!', $item)) {
+        if (!preg_match('~^\w+$~', $item)) {
             return $this->_syntax_error("'foreach: item' must be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         if (isset($attrs['key'])) {
             $key  = $this->_dequote($attrs['key']);
-            if (!preg_match('!^\w+$!', $key)) {
+            if (!preg_match('~^\w+$~', $key)) {
                 return $this->_syntax_error("foreach: 'key' must to be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
             }
             $key_part = "\$this->_tpl_vars['$key'] => ";
@@ -1220,13 +1220,13 @@ class Smarty_Compiler extends Smarty {
     {
 
         /* Tokenize args for 'if' tag. */
-        preg_match_all('/(?>
+        preg_match_all('~(?>
                 ' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)? | # valid object call
                 ' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)?    | # var or quoted string
                 \-?0[xX][0-9a-fA-F]+|\-?\d+(?:\.\d+)?|\.\d+|!==|===|==|!=|<>|<<|>>|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@    | # valid non-word token
                 \b\w+\b                                                        | # valid word token
                 \S+                                                           # anything else
-                )/x', $tag_args, $match);
+                )~x', $tag_args, $match);
 
         $tokens = $match[0];
 
@@ -1346,13 +1346,13 @@ class Smarty_Compiler extends Smarty {
                     break;
 
                 default:
-                    if(preg_match('!^' . $this->_func_regexp . '$!', $token) ) {
+                    if(preg_match('~^' . $this->_func_regexp . '$~', $token) ) {
                             // function call
                             if($this->security &&
                                !in_array($token, $this->security_settings['IF_FUNCS'])) {
                                 $this->_syntax_error("(secure mode) '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);
                             }
-                    } elseif(preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)$!', $token)) {
+                    } elseif(preg_match('~^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)$~', $token)) {
                         // object or variable
                         $token = $this->_parse_var_props($token);
                     } elseif(is_numeric($token)) {
@@ -1476,10 +1476,10 @@ class Smarty_Compiler extends Smarty {
     {
 
         /* Tokenize tag attributes. */
-        preg_match_all('/(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . ' | (?>[^"\'=\s]+)
+        preg_match_all('~(?:' . $this->_obj_call_regexp . '|' . $this->_qstr_regexp . ' | (?>[^"\'=\s]+)
                          )+ |
                          [=]
-                        /x', $tag_args, $match);
+                        ~x', $tag_args, $match);
         $tokens       = $match[0];
 
         $attrs = array();
@@ -1494,7 +1494,7 @@ class Smarty_Compiler extends Smarty {
                 case 0:
                     /* If the token is a valid identifier, we set attribute name
                        and go to state 1. */
-                    if (preg_match('!^\w+$!', $token)) {
+                    if (preg_match('~^\w+$~', $token)) {
                         $attr_name = $token;
                         $state = 1;
                     } else
@@ -1515,15 +1515,15 @@ class Smarty_Compiler extends Smarty {
                     if ($token != '=') {
                         /* We booleanize the token if it's a non-quoted possible
                            boolean value. */
-                        if (preg_match('!^(on|yes|true)$!', $token)) {
+                        if (preg_match('~^(on|yes|true)$~', $token)) {
                             $token = 'true';
-                        } else if (preg_match('!^(off|no|false)$!', $token)) {
+                        } else if (preg_match('~^(off|no|false)$~', $token)) {
                             $token = 'false';
                         } else if ($token == 'null') {
                             $token = 'null';
-                        } else if (preg_match('!^-?([0-9]+|0[xX][0-9a-fA-F]+)$!', $token)) {
+                        } else if (preg_match('~^-?([0-9]+|0[xX][0-9a-fA-F]+)$~', $token)) {
                             /* treat integer literally */
-                        } else if (!preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')*$!', $token)) {
+                        } else if (!preg_match('~^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')*$~', $token)) {
                             /* treat as a string, double-quote it escaping quotes */
                             $token = '"'.addslashes($token).'"';
                         }
@@ -1575,46 +1575,46 @@ class Smarty_Compiler extends Smarty {
     {
         $val = trim($val);
 
-        if(preg_match('!^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(' . $this->_mod_regexp . '*)$!', $val, $match)) {
+        if(preg_match('~^(' . $this->_obj_call_regexp . '|' . $this->_dvar_regexp . ')(' . $this->_mod_regexp . '*)$~', $val, $match)) {
             // $ variable or object
             $return = $this->_parse_var($match[1]);
             $modifiers = $match[2];
-            if (!empty($this->default_modifiers) && !preg_match('!(^|\|)smarty:nodefaults($|\|)!',$modifiers)) {
+            if (!empty($this->default_modifiers) && !preg_match('~(^|\|)smarty:nodefaults($|\|)~',$modifiers)) {
                 $_default_mod_string = implode('|',(array)$this->default_modifiers);
                 $modifiers = empty($modifiers) ? $_default_mod_string : $_default_mod_string . '|' . $modifiers;
             }
             $this->_parse_modifiers($return, $modifiers);
             return $return;
-        } elseif (preg_match('!^' . $this->_db_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
+        } elseif (preg_match('~^' . $this->_db_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$~', $val)) {
                 // double quoted text
-                preg_match('!^(' . $this->_db_qstr_regexp . ')('. $this->_mod_regexp . '*)$!', $val, $match);
+                preg_match('~^(' . $this->_db_qstr_regexp . ')('. $this->_mod_regexp . '*)$~', $val, $match);
                 $return = $this->_expand_quoted_text($match[1]);
                 if($match[2] != '') {
                     $this->_parse_modifiers($return, $match[2]);
                 }
                 return $return;
             }
-        elseif(preg_match('!^' . $this->_num_const_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
+        elseif(preg_match('~^' . $this->_num_const_regexp . '(?:' . $this->_mod_regexp . '*)$~', $val)) {
                 // numerical constant
-                preg_match('!^(' . $this->_num_const_regexp . ')('. $this->_mod_regexp . '*)$!', $val, $match);
+                preg_match('~^(' . $this->_num_const_regexp . ')('. $this->_mod_regexp . '*)$~', $val, $match);
                 if($match[2] != '') {
                     $this->_parse_modifiers($match[1], $match[2]);
                     return $match[1];
                 }
             }
-        elseif(preg_match('!^' . $this->_si_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
+        elseif(preg_match('~^' . $this->_si_qstr_regexp . '(?:' . $this->_mod_regexp . '*)$~', $val)) {
                 // single quoted text
-                preg_match('!^(' . $this->_si_qstr_regexp . ')('. $this->_mod_regexp . '*)$!', $val, $match);
+                preg_match('~^(' . $this->_si_qstr_regexp . ')('. $this->_mod_regexp . '*)$~', $val, $match);
                 if($match[2] != '') {
                     $this->_parse_modifiers($match[1], $match[2]);
                     return $match[1];
                 }
             }
-        elseif(preg_match('!^' . $this->_cvar_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
+        elseif(preg_match('~^' . $this->_cvar_regexp . '(?:' . $this->_mod_regexp . '*)$~', $val)) {
                 // config var
                 return $this->_parse_conf_var($val);
             }
-        elseif(preg_match('!^' . $this->_svar_regexp . '(?:' . $this->_mod_regexp . '*)$!', $val)) {
+        elseif(preg_match('~^' . $this->_svar_regexp . '(?:' . $this->_mod_regexp . '*)$~', $val)) {
                 // section var
                 return $this->_parse_section_prop($val);
             }
@@ -1634,19 +1634,19 @@ class Smarty_Compiler extends Smarty {
     function _expand_quoted_text($var_expr)
     {
         // if contains unescaped $, expand it
-        if(preg_match_all('%(?:\`(?<!\\\\)\$' . $this->_dvar_guts_regexp . '\`)|(?:(?<!\\\\)\$\w+(\[[a-zA-Z0-9]+\])*)%', $var_expr, $_match)) {
+        if(preg_match_all('~(?:\`(?<!\\\\)\$' . $this->_dvar_guts_regexp . '\`)|(?:(?<!\\\\)\$\w+(\[[a-zA-Z0-9]+\])*)~', $var_expr, $_match)) {
             $_match = $_match[0];
             rsort($_match);
             reset($_match);
             foreach($_match as $_var) {
                 $var_expr = str_replace ($_var, '".(' . $this->_parse_var(str_replace('`','',$_var)) . ')."', $var_expr);
             }
-            $_return = preg_replace('%\.""|(?<!\\\\)""\.%', '', $var_expr);
+            $_return = preg_replace('~\.""|(?<!\\\\)""\.~', '', $var_expr);
         } else {
             $_return = $var_expr;
         }
         // replace double quoted literal string with single quotes
-        $_return = preg_replace('!^"([\s\w]+)"$!',"'\\1'",$_return);
+        $_return = preg_replace('~^"([\s\w]+)"$~',"'\\1'",$_return);
         return $_return;
     }
 
@@ -1660,52 +1660,46 @@ class Smarty_Compiler extends Smarty {
     function _parse_var($var_expr)
     {
         $_has_math = false;
-        $_math_vars = preg_split('!('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
+        
+        if(!preg_match('~^' . $this->_obj_call_regexp . '$~', $var_expr)) {
+            // not an object call, see if there is math to parse
+            $_math_vars = preg_split('~('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')~', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-        if(count($_math_vars) > 1) {
-            $_first_var = "";
-            $_complete_var = "";
-            $_output = "";
-            // simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
-            foreach($_math_vars as $_k => $_math_var) {
-                $_math_var = $_math_vars[$_k];
+            if(count($_math_vars) > 1) {
+                $_first_var = '';
+                $_complete_var = '';
+                $_output = '';
+                // simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
+                foreach($_math_vars as $_k => $_math_var) {
+                    $_math_var = $_math_vars[$_k];
 
-                if(!empty($_math_var) || is_numeric($_math_var)) {
-                    // hit a math operator, so process the stuff which came before it
-                    if(preg_match('!^' . $this->_dvar_math_regexp . '$!', $_math_var)) {
-                        $_has_math = true;
-                        if(!empty($_complete_var) || is_numeric($_complete_var)) {
-                            $_output .= $this->_parse_var($_complete_var);
-                        }
-
-                        // just output the math operator to php
-                        $_output .= $_math_var;
-
-                        if(empty($_first_var))
-                            $_first_var = $_complete_var;
-
-                        $_complete_var = "";
-                    } else {
-                        // fetch multiple -> (like $foo->bar->baz ) which wouldn't get fetched else, because it would only get $foo->bar and treat the ->baz as "-" ">baz" then
-                        for($_i = $_k + 1; $_i <= count($_math_vars); $_i += 2) {
-                            // fetch -> because it gets splitted at - and move it back together
-                            if( /* prevent notice */ (isset($_math_vars[$_i]) && isset($_math_vars[$_i+1])) && ($_math_vars[$_i] === '-' && $_math_vars[$_i+1]{0} === '>')) {
-                                $_math_var .= $_math_vars[$_i].$_math_vars[$_i+1];
-                                $_math_vars[$_i] = $_math_vars[$_i+1] = '';
-                            } else {
-                                break;
+                    if(!empty($_math_var) || is_numeric($_math_var)) {
+                        // hit a math operator, so process the stuff which came before it
+                        if(preg_match('~^' . $this->_dvar_math_regexp . '$~', $_math_var)) {
+                            $_has_math = true;
+                            if(!empty($_complete_var) || is_numeric($_complete_var)) {
+                                $_output .= $this->_parse_var($_complete_var);
                             }
+
+                            // just output the math operator to php
+                            $_output .= $_math_var;
+
+                            if(empty($_first_var))
+                                $_first_var = $_complete_var;
+
+                            $_complete_var = '';
+                        } else {
+                            $_complete_var .= $_math_var;
                         }
-                        $_complete_var .= $_math_var;
                     }
                 }
-            }
-            if($_has_math) {
-                if(!empty($_complete_var) || is_numeric($_complete_var))
-                    $_output .= $this->_parse_var($_complete_var);
+                if($_has_math) {
+                    if(!empty($_complete_var) || is_numeric($_complete_var))
+                        $_output .= $this->_parse_var($_complete_var);
 
-                // get the modifiers working (only the last var from math + modifier is left)
-                $var_expr = $_complete_var;
+                    // get the modifiers working (only the last var from math + modifier is left)
+                    $var_expr = $_complete_var;
+                }
             }
         }
 
@@ -1714,12 +1708,12 @@ class Smarty_Compiler extends Smarty {
             $_var_ref = $var_expr;
         else
             $_var_ref = substr($var_expr, 1);
-
+        
         if(!$_has_math) {
             // get [foo] and .foo and ->foo and (...) pieces
-            preg_match_all('!(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+!', $_var_ref, $match);
-
-            $_indexes = $match[0];
+            preg_match_all('~(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+~', $_var_ref, $_match);
+            
+            $_indexes = $_match[0];
             $_var_name = array_shift($_indexes);
 
             /* Handle $smarty.* variable references as a special case. */
@@ -1803,7 +1797,7 @@ class Smarty_Compiler extends Smarty {
      */
     function _parse_parenth_args($parenth_args)
     {
-        preg_match_all('!' . $this->_param_regexp . '!',$parenth_args, $match);
+        preg_match_all('~' . $this->_param_regexp . '~',$parenth_args, $match);
         $orig_vals = $match = $match[0];
         $this->_parse_vars_props($match);
         $replace = array();
@@ -1866,7 +1860,7 @@ class Smarty_Compiler extends Smarty {
      */
     function _parse_modifiers(&$output, $modifier_string)
     {
-        preg_match_all('!\|(@?\w+)((?>:(?:'. $this->_qstr_regexp . '|[^|]+))*)!', '|' . $modifier_string, $_match);
+        preg_match_all('~\|(@?\w+)((?>:(?:'. $this->_qstr_regexp . '|[^|]+))*)~', '|' . $modifier_string, $_match);
         list(, $_modifiers, $modifier_arg_strings) = $_match;
 
         for ($_i = 0, $_for_max = count($_modifiers); $_i < $_for_max; $_i++) {
@@ -1877,7 +1871,7 @@ class Smarty_Compiler extends Smarty {
                 continue;
             }
 
-            preg_match_all('!:(' . $this->_qstr_regexp . '|[^:]+)!', $modifier_arg_strings[$_i], $_match);
+            preg_match_all('~:(' . $this->_qstr_regexp . '|[^:]+)~', $modifier_arg_strings[$_i], $_match);
             $_modifier_args = $_match[1];
 
             if ($_modifier_name{0} == '@') {
@@ -1957,7 +1951,7 @@ class Smarty_Compiler extends Smarty {
         /* Extract the reference name. */
         $_ref = substr($indexes[0], 1);
         foreach($indexes as $_index_no=>$_index) {
-            if ($_index{0} != '.' && $_index_no<2 || !preg_match('!^(\.|\[|->)!', $_index)) {
+            if ($_index{0} != '.' && $_index_no<2 || !preg_match('~^(\.|\[|->)~', $_index)) {
                 $this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
             }
         }
