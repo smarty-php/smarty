@@ -54,7 +54,7 @@ $smarty->display('index.tpl');</programlisting>
 	<para>
 	Les fichiers situés dans $cache_dir sont nommés de la même faton que les templates.
 	Bien qu'ils aient une extension ".php", ils ne sont pas vraiment exécutable.
-	N'Tditez surtout pas ces fichiers !
+	N'éditez surtout pas ces fichiers !
 	</para>
 	</note>
 	<para>
@@ -85,7 +85,7 @@ $smarty->cache_lifetime = 3600;
 $smarty->display('home.tpl');
 
 // NOTE : le réglage suivant ne fonctionne pas quand $caching = 2. La durée de vie
-// du fichier de cache de home.tpl a déja Tté réglée a 1 heure et ne respectera
+// du fichier de cache de home.tpl a déja été réglée a 1 heure et ne respectera
 // plus la valeur de $cache_lifetime. Le cache de home.tpl expirera toujours
 // dans 1 heure.
 $smarty->cache_lifetime = 30; // 30 secondes
@@ -94,8 +94,8 @@ $smarty->display('home.tpl');</programlisting>
   <para>
   Si <link linkend="variable.compile.check">$compile_check</link> est actif,
   chaque fichier de template et de configuration qui a un rapport
-  avec le fichier de cache sera vérifié pour détecter une Tventuelle
-  modification. Si l'un de ces fichiers a Tté modifié depuis que le fichier de cache a Tté
+  avec le fichier de cache sera vérifié pour détecter une éventuelle
+  modification. Si l'un de ces fichiers a été modifié depuis que le fichier de cache a été
   généré, le cache est immédiatement regénéré. Ce processus est covteux, donc,
   pour des raisons de performances, mettez ce paramétre a false pour une application
   en production.
@@ -147,7 +147,7 @@ $smarty->display('index.tpl');</programlisting>
     linkend="language.function.insert">insert</link>.
     Imaginons que toute une page doit être mise en cache a part
     une banniére en bas a droite. En utilisant une fonction insert pour la
-    banniére, vous pouvez garder cet Tlément dynamique dans le contenu qui
+    banniére, vous pouvez garder cet élément dynamique dans le contenu qui
     est en cache. Reportez-vous a la documentation
     <link linkend="language.function.insert">insert</link> pour plus de détails
     et des exemples.
@@ -200,8 +200,8 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
     <para>
     Nous passons ci-dessus la variable $my_cache_id a display() comme
     identifiant de cache. Pour chaque valeur distincte de $my_cache_id,
-    un fichier de cache distinct va être créT. Dans cet exemple,
-    "article_id" a Tté passé dans l'URL et est utilisé en tant qu'identifiant
+    un fichier de cache distinct va être créé. Dans cet exemple,
+    "article_id" a été passé dans l'URL et est utilisé en tant qu'identifiant
     de cache.
     </para>
  	<note>
@@ -213,12 +213,12 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
 	commode, le résultat peut s'avérer mauvais. L'identifiant
 	de cache est utilisé pour créer un répertoire sur le systéme de fichiers,
 	donc si l'utilisateur décide de donner une trés grande valeur a article_id
-	ou d'Tcrire un script qui envoie des article_id de faton aléatoire,
+	ou d'écrire un script qui envoie des article_id de faton aléatoire,
 	cela pourra causer des problémes coté serveur. Assurez-vous de bien
 	tester toute donnée passée en paramétre avant de l'utiliser. Dans cet
 	exemple, peut-être savez-vous que article_id a une longueur de 10
    caractéres, est exclusivement composé de caractéres alph-numériques et
-   doit avoir une valeur contenue dans la base de données. VTrifiez-le bien !
+   doit avoir une valeur contenue dans la base de données. Vérifiez-le bien !
 	</para>
 	</note>
 	<para>
@@ -270,7 +270,7 @@ $smarty->display('index.tpl',"sports");</programlisting>
    <sect1 id="caching.groups">
     <title>groupes de fichiers de cache</title>
     <para>
-    Vous pouvez faire des groupements plus Tlaborés en paramétrant les
+    Vous pouvez faire des groupements plus élaborés en paramétrant les
     groupes d'identifiant de cache. Il suffit de séparer chaque sous-groupes
     avec une barre verticale "|" dans la valeur de l'identifiant de cache.
     Vous pouvez faire autant de sous-groupes que vous le désirez.

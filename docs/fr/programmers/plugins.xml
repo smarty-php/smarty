@@ -164,7 +164,7 @@ require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
     objet <parameter>$smarty</parameter> pour cela.
     </para>
     <para>
-     RTférez-vous aussi a :
+     Référez-vous aussi a :
      <link linkend="api.register.function">register_function()</link>,
      <link linkend="api.unregister.function">unregister_function()</link>.
     </para>
@@ -179,7 +179,7 @@ require_once SMARTY_DIR . 'plugins/function.html_options.php';</programlisting>
  * Fichier :  function.eightball.php
  * Type :     fonction
  * Nom :      eightball
- * R(le :     renvoie une phrase magique au hasard
+ * Rôle :     renvoie une phrase magique au hasard
  * -------------------------------------------------------------
  */
 function smarty_function_eightball($params, &amp;$smarty)
@@ -279,7 +279,7 @@ function smarty_function_assign($params, &amp;$smarty)
  * Fichier :  modifier.capitalize.php
  * Type :     modificateur
  * Name :     capitalize
- * R(le :     met une majuscule aux mots d'une phrase
+ * Rôle :     met une majuscule aux mots d'une phrase
  * -------------------------------------------------------------
  */
 function smarty_modifier_capitalize($string)
@@ -299,7 +299,7 @@ function smarty_modifier_capitalize($string)
  * Fichier :  modifier.truncate.php
  * Type :     modificateur
  * Name :     truncate
- * R(le :     Tronque une chaene a une certaine longueur si
+ * Rôle :     Tronque une chaene a une certaine longueur si
  *            nécessaire, la coupe optionnellement au milieu
  *            d'un mot et ajoute la chaene $etc 
  * -------------------------------------------------------------
@@ -362,8 +362,8 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     selon si votre fonction est appelée pour la balise ouvrante ou la
     balise fermante. Si c'est pour la balise ouvrante, elle sera a
     <literal>null</literal> et si c'est la balise fermante elle sera
-    Tgale au contenu du bloc de template. Notez que le bloc de template
-    aura déja Tté exécuté par Smarty, vous recevrez donc la sortie du
+    égale au contenu du bloc de template. Notez que le bloc de template
+    aura déjà été exécuté par Smarty, vous recevrez donc la sortie du
     template et non sa source.    
     </para>
     <para>
@@ -386,7 +386,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
  * Fichier :  block.translate.php
  * Type :     bloc
  * Nom :      translate
- * R(le :     traduire un bloc de texte
+ * Rôle :     traduire un bloc de texte
  * -------------------------------------------------------------
  */
 function smarty_block_translate($params, $content, &amp;$smarty)
@@ -436,7 +436,7 @@ function smarty_block_translate($params, $content, &amp;$smarty)
  * Fichier :   compiler.tplheader.php
  * Type :      compilation
  * Nom :       tplheader
- * R(le :      Renvoie l'en-tête contenant le nom du fichier
+ * Rôle :      Renvoie l'en-tête contenant le nom du fichier
  *             source et le temps de compilation.
  * -------------------------------------------------------------
  */
@@ -478,7 +478,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     <para>
     Les filtres de pré-compilation sont utilisés pour transformer la source d'un template
     juste avant la compilation. Le premier paramétre passé a la fonction
-    de filtre de pré-compilation est la source du template, Tventuellement modifiée par
+    de filtre de pré-compilation est la source du template, éventuellement modifiée par
     d'autres filtre de pré-compilations. Le plugin est supposé retourner la source modifiée.
     Notez que cette source n'est sauvegardée nulle part, elle est seulement
     utilisé pour la compilation.
@@ -492,10 +492,10 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     </funcsynopsis>
     <para>
     Les filtres de post-compilation sont utilisés pour modifier la sortie du template
-    (le code PHP) juste aprés que la compilation a Tté faite mais juste
+    (le code PHP) juste aprés que la compilation a été faite mais juste
     avant que le template ne soit sauvegardé sur le systéme de fichiers.
     Le premier paramétre passé a la fonction de filtre de post-compilation est le code
-    du template compilé, Tventuellement déja modifié par d'autres filtre de post-compilations.
+    du template compilé, éventuellement déja modifié par d'autres filtre de post-compilations.
     Le plugin est censé retourner la version modifié du code.
     </para>
     <example>
@@ -508,7 +508,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  prefilter.pre01.php
  * Type :     filtre de pré-compilation
  * Nom :      pre01
- * R(le :     Passe les balises HTML en minuscules.
+ * Rôle :     Passe les balises HTML en minuscules.
  * -------------------------------------------------------------
  */
  function smarty_prefilter_pre01($source, &amp;$smarty)
@@ -528,7 +528,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  postfilter.post01.php
  * Type:      filtre de post-compilation
  * Nom :      post01
- * R(le :     Renvoie du code qui liste toutes les variables
+ * Rôle :     Renvoie du code qui liste toutes les variables
  *            du template.
  * -------------------------------------------------------------
  */
@@ -544,7 +544,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
    <sect1 id="plugins.outputfilters"><title>Filtres de sortie</title>
     <para>
     Les plugins de filtres de sortie opérent sur la sortie du template,
-    aprés que le template a Tté chargé et exécuté, mais avant que
+    aprés que le template a été chargé et exécuté, mais avant que
     la sortie ne soit affichée.
     </para>    
     <funcsynopsis>
@@ -569,7 +569,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  outputfilter.protect_email.php
  * Type :     filtre de sortie
  * Nom :      protect_email
- * R(le:     Convertie les @ en %40 pour protéger des 
+ * Rôle:     Convertie les @ en %40 pour protéger des 
  *           robots spammers.
  * -------------------------------------------------------------
  */
@@ -667,7 +667,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  * Fichier :  resource.db.php
  * Type :     ressource
  * Nom :      db
- * R(le :     RTcupére des templates depuis une base de données
+ * Rôle :     Récupére des templates depuis une base de données
  * -------------------------------------------------------------
  */
 function smarty_resource_db_source($tpl_name, &amp;$tpl_source, &amp;$smarty)
@@ -750,7 +750,7 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
  * Fichier :  insert.time.php
  * Type :     temps
  * Nom :      time
- * R(le :     Insert la date/heure courante conformément
+ * Rôle :     Insert la date/heure courante conformément
  *            au format
  * -------------------------------------------------------------
  */

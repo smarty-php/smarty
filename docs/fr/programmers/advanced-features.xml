@@ -12,7 +12,7 @@
     des objets aux templates et de les utiliser comme n'importe quelle
     variable. La première méthode a une syntaxe beaucoup plus sympathique.
     Elle est aussi plus sécurisée, puisqu'un objet alloué ne peut avoir accès
-    qu'a certaines méthodes et propriétés. NTanmoins, un objet alloué
+    qu'a certaines méthodes et propriétés. Néanmoins, un objet alloué
     ne peut pas avoir de lien sur lui-même ou être mis dans un tableau
     d'objet, etc. Vous devez choisir la méthode qui correspond a vos
     besoins, mais tGchez d'utiliser la première méthode autant que possible
@@ -115,7 +115,7 @@ $smarty->display("index.tpl");
     <title>Filtres de post-compilation</title>
     <para>
     Les filtres de post-compilation sont des fonctions PHP que vos templates
-    exécutent après avoir Tté compilés. Les filtres de post-compilation peuvent
+    exécutent après avoir été compilés. Les filtres de post-compilation peuvent
     être soit <link linkend="api.register.postfilter">déclarés</link> soit chargés
     depuis les répertoires des plugins en utilisant la fonction
     <link linkend="api.load.filter">load_filter()</link> ou en réglant
@@ -191,7 +191,7 @@ $smarty->display("index.tpl");
    <para>
    Une alternative au mécanisme de cache par défaut (basé sur des fichiers
    de cache) consiste a spécifier une fonction de gestion de cache utilisateur
-   qui sera utilisée pour lire, Tcrire et effacer les fichiers de cache.
+   qui sera utilisée pour lire, écrire et effacer les fichiers de cache.
    </para>
    <para>
    Il suffit de créer dans votre application une fonction que Smarty
@@ -201,12 +201,12 @@ $smarty->display("index.tpl");
    Smarty utilisera alors cette fonction pour gérer les données du cache.
    Le premier argument est l'action, qui sera 'read', 'write' ou 'clear'.
    Le second paramètre est l'objet Smarty. Le troisième est le contenu
-   du cache. Pour Tcrire, Smarty passe le contenu du cache dans ces paramètres.
+   du cache. Pour écrire, Smarty passe le contenu du cache dans ces paramètres.
    Pour lire, Smarty s'attend a ce que votre fonction accepte ce paramètre
    par référence et que vous le remplissiez avec les données du cache. Pour effacer,
    il suffit de passer une variable fictive car cette dernière n'est pas utilisée.
    Le quatrième paramètre est le nom du fichier de template (utile pour
-   lire/Tcrire), le cinquième paramètre est l'identifiant de cache (optionnel)
+   lire/écrire), le cinquième paramètre est l'identifiant de cache (optionnel)
    et le sixième est l'identifiant de compilation.
    </para>
    <example>
@@ -370,7 +370,7 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
      <para>
      Si vous utilisez Windows, les chemins de fichiers sont la plupart
      du temps sur un disque identifié par une lettre (c:) au début du chemin.
-     Assurez-vous de bien mettre "file:" dans le chemin pour Tviter des
+     Assurez-vous de bien mettre "file:" dans le chemin pour éviter des
      conflits d'espace de nommage et obtenir les résultats escomptés.
      </para>
      <example>
@@ -391,7 +391,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
     <para>
     Vous pouvez récupérer les templates a partir n'importe quelle
     source a laquelle vous avez accès avec PHP : base de données,
-    sockets, LDAP et ainsi de suite. Il suffit d'Tcrire les fonctions
+    sockets, LDAP et ainsi de suite. Il suffit d'écrire les fonctions
     de ressource plugins et de les enregistrer auprès de Smarty. 
     </para>
     <para>
@@ -400,7 +400,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
     </para>
     <note>
      <para>
-     Notez que vous ne pouvez pas Tcraser la ressource <literal>file</literal> native,
+     Notez que vous ne pouvez pas écraser la ressource <literal>file</literal> native,
      toutefois, vous pouvez fournir une ressource qui récupère un template depuis
      le système de fichier par un autre moyen en l'enregistrant sous un autre
      nom de ressource.

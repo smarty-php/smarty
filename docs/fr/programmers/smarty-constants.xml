@@ -16,11 +16,17 @@
 
       <example>
        <title>SMARTY_DIR</title>
-       <programlisting>
+       <programlisting role="php">
+<![CDATA[
+<?php
+
 // définit le chemin du répertoire de Smarty
 define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
 
-require_once(SMARTY_DIR."Smarty.class.php");</programlisting>
+require_once(SMARTY_DIR."Smarty.class.php");
+?>
+]]>
+       </programlisting>
       </example>
 	 </sect1>
 </chapter>

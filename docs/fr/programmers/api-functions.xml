@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
    <chapter id="api.functions">
-     <title>MTthodes</title>
+     <title>Méthodes</title>
         <sect1 id="api.append">
          <title>append</title>
          <funcsynopsis>
@@ -22,9 +22,9 @@
           </funcprototype>
          </funcsynopsis>
          <para>
-         Utilisée pour ajouter un Tlément a un tableau assigné. Si vous utilisez
-         cette fonction avec une chaene de caractère, elle est convertie en
-         tableau auquel on ajoute ensuite l'Tlément. Vous pouvez explicitement passer
+         Utilisée pour ajouter un élément a un tableau assigné. Si vous utilisez
+         cette fonction avec une chaîne de caractères, elle est convertie en
+         tableau auquel on ajoute ensuite l'élément. Vous pouvez explicitement passer
          des paires nom/valeur. Si vous passez le troisième paramètre
          (optionel) a vrai, la valeur sera fusionnée avec le tableau plut(t que
          d'être ajoutée.
@@ -33,7 +33,7 @@
 		 <title>Note technique</title>
 		 <para>
 		 Le paramètre de fusion respecte les clés des tableaux, ainsi si vous
-		 fusionnez deux tableaux indexés numériquement, ils pourront s'Tcraser
+		 fusionnez deux tableaux indexés numériquement, ils pourront s'écraser
 		 l'un l'autre ou donner des clés qui ne se suivent pas. Cela diffère
 		 donc de la fonction PHP array_merge() qui supprime les clés numériques
 		 et les renumérote.
@@ -79,7 +79,7 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
 	  <title>Note technique</title>
      <para>
        Le paramètre de fusion respecte les clés des tableaux, ainsi si vous
-      fusionnez deux tableaux indexés numériquement, ils pourront s'Tcraser
+      fusionnez deux tableaux indexés numériquement, ils pourront s'écraser
       l'un l'autre ou donner des clés qui ne se suivent pas. Cela diffère
       donc de la fonction PHP array_merge() qui supprime les clés numériques
       et les renumérote.
@@ -133,7 +133,7 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
       </funcsynopsis>
       <para>
       Utilisée pour assigner des valeurs aux templates par référence plut(t
-      que par copie. RTférez-vous au manuel PHP pour une explication plus précise
+      que par copie. Référez-vous au manuel PHP pour une explication plus précise
       sur les références des variables.
       </para>
 	  <note>
@@ -142,7 +142,7 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
 	    Si vous assignez une variable par référence puis changez sa
       valeur, le changement est aussi répercuté sur la valeur assignée.
       Pour les objets, assign_by_ref ne fait pas de copie en mémoire de l'objet
-      assigné. RTférez-vous au manuel PHP pour une explication plus précise sur
+      assigné. Référez-vous au manuel PHP pour une explication plus précise sur
       les références de variable.
 	  </para>
 	  </note>
@@ -230,7 +230,7 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 			en deuxième paramètre. Vous pouvez aussi passer un identifiant
 			de compilation en troisième paramètre. Vous pouvez grouper des
 			templates ensemble afin qu'ils puissent être supprimés en groupe.
-			RTférez-vous a la section sur le
+			Référez-vous a la section sur le
 			<link linkend="caching">cache</link>
 			pour plus d'informations. Vous pouvez passer un quatrième paramètre
 			pour indiquer un Gge minimum en secondes que le fichier en cache doit
@@ -276,7 +276,7 @@ $smarty->clear_compiled_tpl();</programlisting>
     <methodparam choice="opt"><type>string</type><parameter>var</parameter></methodparam>
    </methodsynopsis>
 			<para>
-         Utilisée pour effacer toutes les variables de configuration s'Ttant
+         Utilisée pour effacer toutes les variables de configuration s'étant
          vues assigner une valeur. Si une variable est spécifiée, seule cette
          variable est effacée.
 			</para>
@@ -347,7 +347,7 @@ $smarty->config_load('my.conf','foobar');</programlisting>
          d'un même template, pour par exemple avoir des templates
          compilés séparés pour différents langages. Une autre utilité de ce
          paramètre est le cas oú vous utilisez plus d'un $template_dir mais un seul
-         $compile_dir, car certains templates avec le même nom s'Tcraseraient
+         $compile_dir, car certains templates avec le même nom s'écraseraient
          entre eux. Vous pouvez aussi régler la variable <link
 			linkend="variable.compile.id">$compile_id</link> une seule
 			fois au lieu de la passer a chaque appel.
@@ -428,7 +428,7 @@ $smarty->display("db:header.tpl");</programlisting>
          compilés séparés pour différents langages. Une autre utilité de ce
          paramètre est le cas oú vous utilisez plus d'un $template_dir
          mais un seul $compile_dir, car certains templates avec le même nom
-         s'Tcraseraient entre eux. Vous pouvez aussi régler la variable <link
+         s'écraseraient entre eux. Vous pouvez aussi régler la variable <link
 			linkend="variable.compile.id">$compile_id</link> une seule
 			fois plut(t que de la passer a chaque appel.
 			</para>
@@ -487,7 +487,7 @@ $foo = $smarty->get_config_vars('foo');
 // récupère toutes les variables de configuration chargées
 $config_vars = $smarty->get_config_vars();
 
-// les affiche a l'Tcran
+// les affiche a l'écran
 print_r($config_vars);</programlisting>
 </example>
 		</sect1>
@@ -537,7 +537,7 @@ $foo = $smarty->get_template_vars('foo');
 // récupère toutes les variables assignées a ce template
 $tpl_vars = $smarty->get_template_vars();
 
-// les affiche a l'Tcran
+// les affiche a l'écran
 print_r($tpl_vars);</programlisting>
 </example>
 		</sect1>
@@ -757,7 +757,7 @@ $smarty->register_modifier("sslash","stripslashes");
 			</funcsynopsis>
 			<para>
          Utilisée pour déclarer dynamiquement des filtres de post-compilation pour y faire
-         passer des templates une fois qu'ils ont Tté compilés. Reportez-vous
+         passer des templates une fois qu'ils ont été compilés. Reportez-vous
          a la section
           <link linkend="advanced.features.postfilters">filtres de post-compilation de templates</link>
          pour avoir plus de renseignements sur la faton de paramétrer les fonctions
@@ -902,7 +902,7 @@ $smarty->unregister_function("fetch");</programlisting>
 <title>unregister_modifier</title>
 <programlisting>
 // nous ne voulons pas que les designers de templates
-// suppriment les balises des Tlements
+// suppriment les balises des élements
 
 $smarty->unregister_modifier("strip_tags");</programlisting>
 </example>
