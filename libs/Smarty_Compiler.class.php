@@ -558,9 +558,12 @@ class Smarty_Compiler extends Smarty {
                     return $output;
                 } else if ($this->_compile_block_tag($tag_command, $tag_args, $tag_modifier, $output)) {
                     return $output;
+                } else if ($this->_compile_custom_tag($tag_command, $tag_args, $tag_modifier, $output)) {
+                    return $output;                    
                 } else {
-                    return $this->_compile_custom_tag($tag_command, $tag_args, $tag_modifier);
+                    $this->_syntax_error("unrecognized tag '$tag_command'", E_USER_WARNING, __FILE__, __LINE__);
                 }
+
         }
     }
 
@@ -733,25 +736,68 @@ class Smarty_Compiler extends Smarty {
      * @param string $tag_modifier
      * @return string
      */
-    function _compile_custom_tag($tag_command, $tag_args, $tag_modifier)
+    function _compile_custom_tag($tag_command, $tag_args, $tag_modifier, &$output)
     {
+        $found = false;
+        $have_function = true;
+
+        /*
+         * First we check if the custom function has already been registered
+         * or loaded from a plugin file.
+         */
+        if (isset($this->_plugins['function'][$tag_command])) {
+            $found = true;
+            $plugin_func = $this->_plugins['function'][$tag_command][0];
+            if (!is_callable($plugin_func)) {
+                $message = "custom function '$tag_command' is not implemented";
+                $have_function = false;
+            }
+        }
+        /*
+         * Otherwise we need to load plugin file and look for the function
+         * inside it.
+         */
+        else if ($plugin_file = $this->_get_plugin_filepath('function', $tag_command)) {
+            $found = true;
+
+            include_once $plugin_file;
+
+            $plugin_func = 'smarty_function_' . $tag_command;
+            if (!function_exists($plugin_func)) {
+                $message = "plugin function $plugin_func() not found in $plugin_file\n";
+                $have_function = false;
+            } else {
+                $this->_plugins['function'][$tag_command] = array($plugin_func, null, null, null, true);
+
+            }
+        }
+
+        if (!$found) {
+            return false;
+        } else if (!$have_function) {
+            $this->_syntax_error($message, E_USER_WARNING, __FILE__, __LINE__);
+            return true;
+        }
+
+        /* declare plugin to be loaded on display of the template that
+           we compile right now */
         $this->_add_plugin('function', $tag_command);
 
         $_cacheable_state = $this->_push_cacheable_state('function', $tag_command);
         $attrs = $this->_parse_attrs($tag_args);
         $arg_list = $this->_compile_arg_list('function', $tag_command, $attrs, $_cache_attrs='');
 
-        $_return = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', $arg_list)."), \$this)";
+        $output = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', $arg_list)."), \$this)";
         if($tag_modifier != '') {
-            $this->_parse_modifiers($_return, $tag_modifier);
+            $this->_parse_modifiers($output, $tag_modifier);
         }
 
-        if($_return != '') {
-            $_return =  '<?php ' . $_cacheable_state . $_cache_attrs . 'echo ' . $_return . ';'
+        if($output != '') {
+            $output =  '<?php ' . $_cacheable_state . $_cache_attrs . 'echo ' . $output . ';'
                 . $this->_pop_cacheable_state('function', $tag_command) . "?>" . $this->_additional_newline;
         }
 
-        return $_return;
+        return true;
     }
 
     /**
