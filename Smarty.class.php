@@ -106,6 +106,10 @@ class Smarty
                                     'count_sentences' => 'smarty_mod_count_sentences',
                                     'count_paragraphs' => 'smarty_mod_count_paragraphs'
                                  );
+                                 
+
+    var $version               =   "3.0.1pl1";  // Smarty version number                     
+    var $show_info_header      =   true;        // display info header at top of page output
 
     // internal vars
     var $_error_msg             =   false;      // error messages. true/false
@@ -354,12 +358,20 @@ class Smarty
 
         extract($this->_tpl_vars);
 
+        if($this->show_info_header)
+            $info_header = '<!-- Smarty '.$this->version.' '.strftime("%Y-%m-%d %H:%M:%S").' -->'."\n\n";
+        else
+            $info_header = "";            
+
         // if we just need to display the results, don't perform output
         // buffering - for speed
-        if ($display && !$this->caching)
+        if ($display && !$this->caching) {
+            echo $info_header;
             include($_compile_file);
+        }
         else {
             ob_start();
+            echo $info_header;
             include($_compile_file);
             $results = ob_get_contents();
             ob_end_clean();
@@ -369,7 +381,7 @@ class Smarty
             $this->_write_file($cache_file, $results, true);
             $results = $this->_process_cached_inserts($results);
         }
-
+                
         if ($display) {
             if(isset($results)) { echo $results; }
             return;

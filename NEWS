@@ -1,3 +1,4 @@
+    - added optional HTML header to output (Monte)
     - significantly improved config_load performance. (Andrei)
     - added format attribute to math function. (Monte)
     - added html_select_time custom function. (Andrei)
