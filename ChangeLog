@@ -1,3 +1,20 @@
+2004-01-25  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/programmers.sgml:
+      documented parameters of Smarty::clear_compiled_tpl()
+
+    * libs/Smarty_Compiler.class.php:
+      Smarty_Compiler::_syntax_error() uses Smarty::_trigger_fatal_error() now
+      instead of the trigger_error()-function
+
+    * libs/Smarty.class.php:
+      Smarty::_trigger_fatal_error() uses Smarty::trigger_error() now,
+      instead of the native trigger_error()-function
+
+    * libs/Smarty_Compiler.class.php:
+      unrecognized custom-functions trigger an error at compile now, not at
+      display-time.
+
 2004-01-23  Monte Ohrt  <monte@ispi.net>
 
     * docs/getting-started.sgml:
