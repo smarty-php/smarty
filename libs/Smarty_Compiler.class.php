@@ -858,17 +858,17 @@ class Smarty_Compiler extends Smarty {
 
 		$once_var = ( $attrs['once'] === false ) ? 'false' : 'true';
 
-    foreach($attrs as $arg_name => $arg_value) {
-        if($arg_name != 'file' AND $arg_name != 'once' AND $arg_name != 'assign') {
-            if(is_bool($arg_value))
-                $arg_value = $arg_value ? 'true' : 'false';
-            $arg_list[] = "'$arg_name' => $arg_value";
-        }
-    }
+    	foreach($attrs as $arg_name => $arg_value) {
+        	if($arg_name != 'file' AND $arg_name != 'once' AND $arg_name != 'assign') {
+            	if(is_bool($arg_value))
+                	$arg_value = $arg_value ? 'true' : 'false';
+            	$arg_list[] = "'$arg_name' => $arg_value";
+        	}
+    	}
 
-    $output =
-        "<?php \$this->_smarty_include_php($attrs[file], '$assign_var', $once_var, " .
-        "array(".implode(',', (array)$arg_list).")); ?>";
+    	$output =
+        	"<?php \$this->_smarty_include_php($attrs[file], '$assign_var', $once_var, " .
+        	"array(".implode(',', (array)$arg_list).")); ?>";
 				
 		return $output;
     }
@@ -1084,7 +1084,7 @@ class Smarty_Compiler extends Smarty {
         preg_match_all('/(?>
 				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*) | # valid object call
 				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)	| # var or quoted string
-				\-?\d+|!==|<=>|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%	| # valid non-word token
+				\-?\d+|!==|<=>|==|!=|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|<|>|\||\%|\+|\-|\/|\*	| # valid non-word token
 				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
