@@ -255,9 +255,15 @@ class Config_File {
 
         $config_data = array();
 
+        /* replace all multi-line values by placeholders */
+        if (preg_match_all('/"""(.*)"""/Us', $contents, $match)) {
+            $_triple_quotes = $match[1];
+            $_i = 0;
+            $contents = preg_replace('/""".*"""/Use', '"\x1b\x1b\x1b".$_i++."\x1b\x1b\x1b"', $contents);
+        }
         /* Get global variables first. */
         if ($contents{0} != '[' && preg_match("/^(.*?)(\n\[|\Z)/s", $contents, $match))
-            $config_data["vars"] = $this->_parse_config_block($match[1]);
+            $config_data["vars"] = $this->_parse_config_block($match[1], $_triple_quotes);
 
         /* Get section variables. */
         $config_data["sections"] = array();
@@ -268,7 +274,7 @@ class Config_File {
             if (preg_match("/\[".preg_quote($section, '/')."\](.*?)(\n\[|\Z)/s", $contents, $match))
                 if ($section{0} == '.')
                     $section = substr($section, 1);
-                $config_data["sections"][$section]["vars"] = $this->_parse_config_block($match[1]);
+                $config_data["sections"][$section]["vars"] = $this->_parse_config_block($match[1], $_triple_quotes);
         }
 
         $this->_config_data[$config_file] = $config_data;
@@ -280,16 +286,16 @@ class Config_File {
     /**
      * @var string $config_block
      */
-    function _parse_config_block($config_block)
+    function _parse_config_block($config_block, $triple_quotes)
     {
         $vars = array();
 
         /* First we grab the multi-line values. */
-        if (preg_match_all("/^([^=\n]+)=\s*\"{3}(.*?)\"{3}\s*$/ms", $config_block, $match, PREG_SET_ORDER)) {
+        if (preg_match_all("/^([^=\n]+)=\s*\x1b\x1b\x1b(\d+)\x1b\x1b\x1b\s*$/ms", $config_block, $match, PREG_SET_ORDER)) {
             for ($i = 0; $i < count($match); $i++) {
-                $this->_set_config_var($vars, trim($match[$i][1]), $match[$i][2], false);
+                $this->_set_config_var($vars, trim($match[$i][1]), $triple_quotes[$match[$i][2]], false);
             }
-            $config_block = preg_replace("/^[^=\n]+=\s*\"{3}.*?\"{3}\s*$/ms", "", $config_block);
+            $config_block = preg_replace("/^[^=\n]+=\s*\x1b\x1b\x1b\d+\x1b\x1b\x1b\s*$/ms", "", $config_block);
         }
 
 
