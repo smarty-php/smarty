@@ -475,6 +475,7 @@ class Smarty_Compiler extends Smarty {
         }
 		
 		$this->_parse_file_path($this->trusted_dir, $this->_dequote($attrs['file']), $resource_type, $resource_name);
+		
 		if ($this->security) {
 			if( $resource_type != 'file' || !@is_file($resource_name)) {
             	$this->_syntax_error("include_php: $resource_type: $resource_name is not readable");

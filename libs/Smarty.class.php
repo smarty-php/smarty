@@ -100,7 +100,7 @@ class Smarty
                                         // this will tell Smarty not to look for
                                         // insert tags, thus speeding up cached page
                                         // fetches. true/false default true.
-    var $cache_handler_func   = null;     // function used for cached content. this is
+    var $cache_handler_func   = null;   // function used for cached content. this is
                                         // an alternative to using the built-in file
 										// based caching.
 
@@ -131,7 +131,7 @@ class Smarty
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count')
                                    );
-	var $trusted_dir		= ''; 	// directory where trusted templates
+	var $trusted_dir		= array(); 	// directories where trusted templates
 									// reside ($security is disabled during their
 									// execution).
 
@@ -729,11 +729,16 @@ function _is_trusted($resource_type, $resource_name)
 		// disable security during the execution of the template.
 
 		if ($resource_type == 'file') {
-			if (is_readable ($this->trusted_dir)) {				
-                if (substr(realpath($resource_name), 0, strlen(realpath($this->trusted_dir))) == realpath($this->trusted_dir)) {
-                    $_smarty_trusted = true;
-                }
-            }				
+			if (!empty($this->trusted_dir)) {
+				foreach ((array)$this->trusted_dir as $curr_dir) {
+					if ( !empty($curr_dir) && is_readable ($curr_dir)) {
+                		if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                    		$_smarty_trusted = true;
+                    		break;
+						}
+					}
+                }				
+			}
 		} else {
 			// resource is not on local file system
 			$_smarty_trusted = false;
@@ -858,7 +863,7 @@ function _is_trusted($resource_type, $resource_name)
     Function:   _parse_file_path
     Purpose:	parse out the type and name from the template resource
 \*======================================================================*/
-function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resource_name) {
+	function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resource_name) {
 	
         // split tpl_path by the first colon
         $file_path_parts = explode(':', $file_path, 2);
@@ -871,14 +876,25 @@ function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resour
             $resource_type = $file_path_parts[0];
             $resource_name = $file_path_parts[1];
         }
-
+		
 		if ($resource_type == 'file') {		
         	if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
             	// relative pathname to $file_base_path
-            	$resource_name = $file_base_path.'/'.$resource_name;
+				// use the first directory where the file is found
+				foreach((array)$file_base_path as $curr_path) {
+					if(@is_file($curr_path.'/'.$resource_name)) {
+            			$resource_name = $curr_path.'/'.$resource_name;
+						return true;
+					}
+				}
+				// didn't find the file
+				return false;
         	}
 		}
-}	
+		
+		// resource type != file
+		return true;
+	}	
 	
 	
 /*======================================================================*\
@@ -889,64 +905,50 @@ function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resour
     function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source=true)
     {
 
-		$this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name);
+        $_return = false;
+		if($this->_parse_file_path($this->template_dir, $tpl_path, $resource_type, $resource_name)) {
+        	switch ($resource_type) {
+            	case 'file':				
+                	if (@is_file($resource_name)) {
+                    	if ($get_source) {
+                        	$template_source = $this->_read_file($resource_name);
+                    	}
+                    	$template_timestamp = filemtime($resource_name);
+						$_return = true;
+                	}
+                	break;
+            	default:
+                	if (isset($this->resource_funcs[$resource_type])) {
+                    	$funcname = $this->resource_funcs[$resource_type];
+                    	if (function_exists($funcname)) {
+                        	// call the function to fetch the template
+                        	$_return = $funcname($resource_name, $template_source, $template_timestamp, $get_source, $this);
+                    	}
+                	}
+                	break;
+        	}		
+		}
+		if(!$_return) {
+			// see if we can get a template with the default template handler
+			if(!empty($this->default_template_handler_func)) {
+				if(!function_exists($this->default_template_handler_func)) {
+                    $this->_trigger_error_msg("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
+                    $_return = false;
+				}
+				$funcname = $this->default_template_handler_func;
+				$_return = $funcname($resource_type, $resource_name, $template_source, $template_timestamp, $this);
+			}			
+		}
 		
-        if ($this->security && !$this->_is_secure($resource_type, $resource_name) && !$this->_is_trusted($resource_type, $resource_name)) {
+		if(!$_return) {
+			$this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");			
+		} elseif ($_return && $this->security && !$this->_is_secure($resource_type, $resource_name) && !$this->_is_trusted($resource_type, $resource_name)) {
             $this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
-            return false;
+			$template_source = null;
+			$template_timestamp = null;
+			return false;
         }
-        switch ($resource_type) {
-            case 'file':
-
-				$_is_file = false;
-
-                if (!@is_file($resource_name)) {
-					if(!empty($this->default_template_handler_func)) {
-						if(!function_exists($this->default_template_handler_func)) {
-                    		$this->_trigger_error_msg("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
-                    		return false;
-						}
-						// call default template handler function
-						$funcname = $this->default_template_handler_func;
-						if($funcname($resource_type, $resource_name)) {
-							// test for file once more
-							if(@is_file($resource_name)) {
-								$_is_file = true;
-							}
-						}
-					}
-				} else {
-					$_is_file = true;
-				}				
-
-                if ($_is_file) {
-                    if ($get_source) {
-                        $template_source = $this->_read_file($resource_name);
-                    }
-                    $template_timestamp = filemtime($resource_name);
-                } else {
-                    $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
-                    return false;
-                }
-                break;
-            default:
-                if (isset($this->resource_funcs[$resource_type])) {
-                    $funcname = $this->resource_funcs[$resource_type];
-                    if (function_exists($funcname)) {
-                        // call the function to fetch the template
-                        $funcname($resource_name, $template_source, $template_timestamp, $get_source);
-                        return true;
-                    } else {
-                        $this->_trigger_error_msg("resource function: \"$funcname\" does not exist for resource type: \"$resource_type\".");
-                        return false;
-                    }
-                } else {
-                    $this->_trigger_error_msg("unknown resource type: \"$resource_type\". Register this resource first.");
-                    return false;
-                }
-                break;
-        }
-        return true;
+        return $_return;
     }
 
 
@@ -1041,7 +1043,6 @@ function _parse_file_path($file_base_path, $file_path, &$resource_type, &$resour
             $this->_cache_info[] = array('template', $_smarty_include_tpl_file);
         }
     }
-
 
 /*======================================================================*\
     Function: _config_load
