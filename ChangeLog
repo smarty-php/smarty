@@ -1,3 +1,10 @@
+2003-01-23  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+      add support for object registration
+
 2003-01-22  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php:
