@@ -1,3 +1,22 @@
+2003-12-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.html_select_date.php:
+      added day_empty, month_empty, year_empty and all_empty attributes
+      to pass an undefined date use {html_select_date time="--" ...}
+
+    * libs/plugins/function.html_select_date.php:
+      removed extract()-call
+
+    * libs/plugins/function.html_select_date.php:
+      fixed indetiation
+
+2003-12-10  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      docs/designers.sgml:
+      Added table to language.function.if to describe qualifiers
+
 2003-12-09  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_checkboxes.php
