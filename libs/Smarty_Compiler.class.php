@@ -423,12 +423,8 @@ class Smarty_Compiler extends Smarty {
 
         if (preg_match('~^' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '$~', $tag_command)) {
             /* tag name is a variable or object */
-            $_return = $this->_parse_var_props($tag_command . $tag_modifier, $this->_parse_attrs($tag_args));
-            if(isset($_tag_attrs['assign'])) {
-                return "<?php \$this->assign('" . $this->_dequote($_tag_attrs['assign']) . "', $_return ); ?>\n";
-            } else {
-                return "<?php echo $_return; ?>" . $this->_additional_newline;
-            }
+            $_return = $this->_parse_var_props($tag_command . $tag_modifier);
+            return "<?php echo $_return; ?>" . $this->_additional_newline;
         }
 
         /* If the tag name is a registered object, we process it. */
