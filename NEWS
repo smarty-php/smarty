@@ -1,3 +1,4 @@
+  - change default for use_sub_dirs to false (messju)
   - fix quoting of values in smarty_function_popup() (messju)
   - fix handling of hidden sections in Config_File (messju)
   - add handling of resources for {config_load} (messju)

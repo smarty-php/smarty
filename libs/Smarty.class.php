@@ -307,7 +307,7 @@ class Smarty
      * @var boolean
      *
      */
-    var $use_sub_dirs          = true;
+    var $use_sub_dirs          = false;
 
     /**
      * This is a list of the modifiers to apply to all template variables.
