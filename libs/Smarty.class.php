@@ -2142,7 +2142,7 @@ class Smarty
             } else {
                 // remove matching file names
                 $handle = opendir($auto_base);
-                while ($filename = readdir($handle)) {
+                while (false !== ($filename = readdir($handle))) {
                     if($filename == '.' || $filename == '..') {
                         continue;    
                     } elseif (substr($auto_base . DIR_SEP . $filename,0,strlen($tname)) == $tname) {
@@ -2168,7 +2168,7 @@ class Smarty
 
        if($handle = @opendir($dirname)) {
 
-            while (null != ($entry = readdir($handle))) {
+            while (false !== ($entry = readdir($handle))) {
                 if ($entry != '.' && $entry != '..') {
                     if (@is_dir($dirname . DIR_SEP . $entry)) {
                         $this->_rmdir($dirname . DIR_SEP . $entry, $level + 1, $exp_time);
