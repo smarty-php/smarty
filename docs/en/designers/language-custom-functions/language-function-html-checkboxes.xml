@@ -96,7 +96,7 @@ $smarty->assign('customer_id', 1001);
 $smarty->display('index.tpl');
 
 ?>
-]]
+]]>
   </programlisting>
   <para>
    where index.tpl is:
@@ -104,7 +104,7 @@ $smarty->display('index.tpl');
   <programlisting>
 <![CDATA[
 {html_checkboxes name="id" values=$cust_ids selected=$customer_id output=$cust_names separator="<br />"}
-]]
+]]>
   </programlisting>
   <programlisting role="php">
 <![CDATA[
