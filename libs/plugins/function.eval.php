@@ -17,15 +17,15 @@ function smarty_function_eval($params, &$this)
         return;
     }
 
-	$this->_compile_template("eval_var",$var,$source);
+	$this->_compile_template("evaluated template", $var, $source);
 	
     if (!empty($assign)) {
         ob_start();
-		eval('?>'.$source);
-        $this->assign($assign,ob_get_contents());
+		eval('?>' . $source);
+        $this->assign($assign, ob_get_contents());
         ob_end_clean();
     } else {
-		eval('?>'.$source);
+		eval('?>' . $source);
     }
 }
 

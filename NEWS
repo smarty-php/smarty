@@ -1,6 +1,7 @@
 Version 2.0
 -----------
-    - added "eval" plugin for evaluating variables as templates (Monte)
+    - added "eval" function plugin for evaluating variables as templates.
+      (Monte)
     - removed $tpl_file_ext class variable, no longer used. (Monte)
     - added "hex" and "hexentity" escape types to escape modifier. (Monte)
     - removed dependency on PEAR. (Andrei)

@@ -2712,13 +2712,6 @@ The value of $name is Bob.</programlisting>
 			counter function will be assigned to this template variable instead of
 			being output to the template. (new in Smarty 1.5.0)
 			</para>
-			<note>
-				<para>
-				evaluated variables follow the same rules as templates, so for
-				instance PHP tags are escaped by default, or if you have
-				security enabled then embedding PHP is not allowed.
-				</para>
-			</note>
 <example>
 <title>counter</title>
 <programlisting>
@@ -2763,6 +2756,14 @@ OUTPUT:
                         <entry>Yes</entry>
                         <entry><emphasis>n/a</emphasis></entry>
                         <entry>variable (or string) to evaluate</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>the template variable the output will be assigned
+						to</entry>
                     </row>
                 </tbody>
                 </tgroup>
