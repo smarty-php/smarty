@@ -1948,7 +1948,7 @@ function _run_insert_handler($args)
     Function: _trigger_plugin_error
     Purpose:  trigger Smarty plugin error
 \*======================================================================*/
-    function _trigger_plugin_error($error_msg, $tpl_file = null, $tpl_line = null, $error_type = E_USER_WARNING)
+    function _trigger_plugin_error($error_msg, $tpl_file = null, $tpl_line = null, $error_type = E_USER_ERROR)
     {
         if (isset($tpl_line) && isset($tpl_file)) {
             trigger_error("Smarty plugin error: [in " . $tpl_file . " line " .

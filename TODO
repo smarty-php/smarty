@@ -2,7 +2,6 @@
 * correctly capture nested php tag syntax in templates:
   <?php echo "<?php exit(); ?>"; ?>
 * support implementations of prefiltes, mods, and others as class methods.
-* possibly implement default modifiers that apply to variables upon display
 * ability to concatenate values/strings together
 * fix all E_NOTICE warnings
 * make simple math easier
@@ -10,7 +9,7 @@
 * change plugins so $smarty variable always comes first
 * being able to load config files from PHP scripts
 * get cache ttl with function call
-
+* make Config_File booleanize configurable through Smarty
 FIX: make inserts use normal functions before plugins
 UPD: change it so that if template comes from some resource,
      that resource stays as the default, no need to specify it

@@ -1,3 +1,5 @@
+    - changed default warning type for plugin errors from
+      E_USER_WARNING to E_USER_ERROR (Monte)
     - added $all_extra, $hour_extra, $minute_extra,
       $second_extra and $meridian_extra parameters to
       html_select_time function (Rainer Collet, Monte)
