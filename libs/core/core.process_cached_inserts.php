@@ -45,7 +45,12 @@ function smarty_core_process_cached_inserts($params, &$smarty)
         }
 
         $function_name = $smarty->_plugins['insert'][$name][0];
-        $replace = $function_name($args, $smarty);
+        if (empty($args['assign'])) {
+            $replace = $function_name($args, $smarty);
+        } else {
+            $smarty->assign($args['assign'], $function_name($args, $smarty));
+            $replace = '';
+        }
 
         $params['results'] = str_replace($cached_inserts[$i], $replace, $params['results']);
         if ($smarty->debugging) {
