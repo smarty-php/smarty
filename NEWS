@@ -11,12 +11,12 @@ Version 1.0b
 ------------
 	- fixed the bug that prevented using non-array values for 'loop' attribute.
 	  (Andrei)
-	- many misc documentation changes & additions (monte)
+	- many misc documentation changes & additions (Monte)
 
 Version 1.0a
 ------------
-    - fixed bug that caused templates to recompile every time (monte)
+    - fixed bug that caused templates to recompile every time (Monte)
 
 Version 1.0
 ------------
-    - initial release (monte)
+    - initial release
