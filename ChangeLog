@@ -1,3 +1,9 @@
+2004-04-20  Mehdi Achour  <didou@keliglia.com>
+
+    * docs/manual.xml.in:
+      added the language-snippets.ent file and started using entities for notes
+      under en/programmers/api-functions
+
 2004-04-18  Mehdi Achour  <didou@keliglia.com>
 
     * docs/de/getting-started.xml
