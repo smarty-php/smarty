@@ -206,13 +206,13 @@ class Smarty_Compiler extends Smarty {
 	/**
 	 * compile a template file
 	 *
-     * sets $template_compiled to the compiled source
+     * sets $file_compiled to the compiled source
 	 * @param string $tpl_file
-	 * @param string $template_source
-	 * @param string $template_compiled
+	 * @param string $file_source
+	 * @param string $file_compiled
      * @return true
 	 */
-    function _compile_file($tpl_file, $template_source, &$template_compiled)
+    function _compile_file($tpl_file, $file_source, &$file_compiled)
     {
 		
         if ($this->security) {
@@ -235,8 +235,8 @@ class Smarty_Compiler extends Smarty {
             foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
                 if ($prefilter === false) continue;
                 if ($prefilter[3] || $this->_plugin_implementation_exists($prefilter[0])) {
-                    $template_source = call_user_func_array($prefilter[0],
-                                                            array($template_source, &$this));
+                    $file_source = call_user_func_array($prefilter[0],
+                                                            array($file_source, &$this));
                     $this->_plugins['prefilter'][$filter_name][3] = true;
                 } else {
                     $this->_trigger_fatal_error("[plugin] prefilter '$filter_name' is not implemented");
@@ -245,27 +245,27 @@ class Smarty_Compiler extends Smarty {
         }
 		
         /* Annihilate the comments. */
-        $template_source = preg_replace("!({$ldq})\*(.*?)\*({$rdq})!se",
+        $file_source = preg_replace("!({$ldq})\*(.*?)\*({$rdq})!se",
                                         "'\\1*'.str_repeat(\"\n\", substr_count('\\2', \"\n\")) .'*\\3'",
-                                        $template_source);
+                                        $file_source);
 
         /* Pull out the literal blocks. */
-        preg_match_all("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s", $template_source, $_match);
+        preg_match_all("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s", $file_source, $_match);
         $this->_literal_blocks = $_match[1];
-        $template_source = preg_replace("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s",
-                                        $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $template_source);
+        $file_source = preg_replace("!{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}!s",
+                                        $this->quote_replace($this->left_delimiter.'literal'.$this->right_delimiter), $file_source);
 
         /* Pull out the php code blocks. */
-        preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $template_source, $_match);
+        preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $file_source, $_match);
         $this->_php_blocks = $_match[1];
-        $template_source = preg_replace("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s",
-                                        $this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $template_source);
+        $file_source = preg_replace("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s",
+                                        $this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $file_source);
 		
         /* Gather all template tags. */
-        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_source, $_match);
+        preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $file_source, $_match);
         $template_tags = $_match[1];
         /* Split content by template tags to obtain non-template content. */
-        $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_source);
+        $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $file_source);
 		
         /* loop through text blocks */
         for ($curr_tb = 0, $for_max = count($text_blocks); $curr_tb < $for_max; $curr_tb++) {
@@ -305,7 +305,7 @@ class Smarty_Compiler extends Smarty {
             $this->_current_line_no += substr_count($template_tags[$i], "\n");
         }
 
-        $template_compiled = '';		
+        $file_compiled = '';		
 	
         /* Interleave the compiled contents and text blocks to get the final result. */
         for ($i = 0, $for_max = count($compiled_tags); $i < $for_max; $i++) {
@@ -313,25 +313,25 @@ class Smarty_Compiler extends Smarty {
 				// tag result empty, remove first newline from following text block
 				$text_blocks[$i+1] = preg_replace('!^(\r\n|\r|\n)!', '', $text_blocks[$i+1]);
 			}
-            $template_compiled .= $text_blocks[$i].$compiled_tags[$i];
+            $file_compiled .= $text_blocks[$i].$compiled_tags[$i];
         }
-        $template_compiled .= $text_blocks[$i];
+        $file_compiled .= $text_blocks[$i];
 
         // remove \n from the end of the file, if any
-        if ($template_compiled{strlen($template_compiled) - 1} == "\n" ) {
-            $template_compiled = substr($template_compiled, 0, -1);
+        if ($file_compiled{strlen($file_compiled) - 1} == "\n" ) {
+            $file_compiled = substr($file_compiled, 0, -1);
         }
 
         // remove unnecessary close/open tags
-        $template_compiled = preg_replace('!\?>\n?<\?php!', '', $template_compiled);
+        $file_compiled = preg_replace('!\?>\n?<\?php!', '', $file_compiled);
 
         // run compiled template through postfilter functions
         if (count($this->_plugins['postfilter']) > 0) {
             foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
                 if ($postfilter === false) continue;
                 if ($postfilter[3] || $this->_plugin_implementation_exists($postfilter[0])) {
-                    $template_compiled = call_user_func_array($postfilter[0],
-                                                              array($template_compiled, &$this));
+                    $file_compiled = call_user_func_array($postfilter[0],
+                                                              array($file_compiled, &$this));
                     $this->_plugins['postfilter'][$filter_name][3] = true;
                 } else {
                     $this->_trigger_fatal_error("Smarty plugin error: postfilter '$filter_name' is not implemented");
@@ -363,7 +363,7 @@ class Smarty_Compiler extends Smarty {
             $this->_init_smarty_vars = false;
         }
 
-        $template_compiled = $template_header . $template_compiled;
+        $file_compiled = $template_header . $file_compiled;
 
         return true;
     }

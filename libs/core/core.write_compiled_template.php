@@ -9,12 +9,12 @@
  * write the compiled template
  *
  * @param string $compile_path
- * @param string $template_compiled
- * @param integer $template_timestamp
+ * @param string $file_compiled
+ * @param integer $file_timestamp
  * @return true
  */    
 function smarty_core_write_compiled_template($params, &$this)
-{
+{	
 	if(!@is_writable($this->compile_dir)) {
 		// compile_dir not writable, see if it exists
 		if(!@is_dir($this->compile_dir)) {
@@ -25,10 +25,10 @@ function smarty_core_write_compiled_template($params, &$this)
 		return false;
 	}
 	
-	$_params = array('filename' => $params['compile_path'], 'contents' => $params['template_compiled'], 'create_dirs' => true);
+	$_params = array('filename' => $params['compile_path'], 'contents' => $params['file_compiled'], 'create_dirs' => true);
 	require_once(SMARTY_DIR . 'core/core.write_file.php');
 	smarty_core_write_file($_params, $this);	
-    touch($params['compile_path'], $params['template_timestamp']);
+    touch($params['compile_path'], $params['file_timestamp']);
     return true;
 }
 

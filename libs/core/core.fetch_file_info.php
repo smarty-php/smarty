@@ -19,11 +19,9 @@
  * @return boolean
  */
 
-// $tpl_path, &$template_source, &$template_timestamp, $get_source = true, $quiet = false
-
 function smarty_core_fetch_file_info(&$params, &$this)
 {
-		
+			
 	if(!isset($params['get_source'])) { $params['get_source'] = true; }
 	if(!isset($params['quiet'])) { $params['quiet'] = false; }
 	
@@ -60,7 +58,7 @@ function smarty_core_fetch_file_info(&$params, &$this)
                 break;
         }
     }
-
+	
     if (!$_return) {
         // see if we can get a template with the default template handler
         if (!empty($this->default_template_handler_func)) {
@@ -77,7 +75,7 @@ function smarty_core_fetch_file_info(&$params, &$this)
 	require_once(SMARTY_DIR . 'core/core.is_secure.php');
     if (!$_return) {
         if (!$params['quiet']) {
-            $this->trigger_error('unable to read template resource: "' . $params['file_path'] . '"');
+            $this->trigger_error('unable to read file resource: "' . $params['file_path'] . '"');
         }
     } else if ($_return && $this->security && !smarty_core_is_secure($_params, $this)) {
         if (!$params['quiet'])

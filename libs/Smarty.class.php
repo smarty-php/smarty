@@ -1245,20 +1245,19 @@ reques     * @var string
         	}
         }
 
-		$_template_file_path = $this->template_dir . '/' . $tpl_file;		
-        $_smarty_compile_path = $this->_get_compile_path($_template_file_path);
+        $_smarty_compile_path = $this->_get_compile_path($tpl_file);
 		
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
-            if (!$this->_file_needs_compiling($_template_file_path, $_smarty_compile_path)
+            if (!$this->_is_compiled($tpl_file, $_smarty_compile_path)
 					|| $this->_compile_template($tpl_file, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
             }
         } else {
             ob_start();
-            if (!$this->_file_needs_compiling($_template_file_path, $_smarty_compile_path)
+            if (!$this->_is_compiled($tpl_file, $_smarty_compile_path)
 					|| $this->_compile_template($tpl_file, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
@@ -1410,7 +1409,7 @@ reques     * @var string
      * @param string $compile_path
      * @return boolean
      */    
-    function _file_needs_compiling($file_path, $compile_path)
+    function _is_compiled($file_path, $compile_path)
     {
         if (!$this->force_compile && file_exists($compile_path)) {
             if (!$this->compile_check) {
@@ -1425,7 +1424,7 @@ reques     * @var string
                 }
 				$_file_source = $_params['file_source'];
 				$_file_timestamp = $_params['file_timestamp'];
-                if ($_template_timestamp <= filemtime($compile_path)) {
+                if ($_file_timestamp <= filemtime($compile_path)) {
                     // template not expired, no recompile
                     return false;
                 } else {
@@ -1448,8 +1447,9 @@ reques     * @var string
      */    
     function _compile_template($tpl_file, $compile_path)
     {
+		
         // compiled template does not exist, or forced compile
-		$_params = array('file_path' => $this->template_dir . '/' . $tpl_file);
+		$_params = array('file_path' => $tpl_file);
 		require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
         if (!smarty_core_fetch_file_info($_params, $this)) {
             return false;
@@ -1491,7 +1491,7 @@ reques     * @var string
         $smarty_compiler->request_use_auto_globals  = $this->request_use_auto_globals;
 
         if ($smarty_compiler->_compile_file($tpl_file, $_file_source, $_file_compiled)) {
-			$_params = array('compile_path' => $compile_path, 'template_compiled' => $_file_compiled, 'template_timestamp' => $_file_timestamp);
+			$_params = array('compile_path' => $compile_path, 'file_compiled' => $_file_compiled, 'file_timestamp' => $_file_timestamp);
 			require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
 			smarty_core_write_compiled_template($_params, $this);
             return true;

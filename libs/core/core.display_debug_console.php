@@ -33,13 +33,11 @@ function smarty_core_display_debug_console($params, &$this)
 	$this->left_delimiter = '{';
 	$this->right_delimiter = '}';
 
-	$_force_compile_orig = $this->force_compile;
-	$this->force_compile = true;
 	$_compile_id_orig = $this->_compile_id;
 	$this->_compile_id = null;
 
 	$_compile_path = $this->_get_compile_path($this->debug_tpl);
-	if ($this->_process_template($this->debug_tpl, $_compile_path))
+	if ($this->_compile_template($this->debug_tpl, $_compile_path))
 	{
 		ob_start();
 		include($_compile_path);
@@ -49,7 +47,6 @@ function smarty_core_display_debug_console($params, &$this)
 		$_results = '';
 	}
 	
-	$this->force_compile = $_force_compile_orig;
 	$this->_compile_id = $_compile_id_orig;
 
 	$this->left_delimiter = $_ldelim_orig;

@@ -63,12 +63,13 @@ function smarty_function_config_load($params, &$smarty)
 			$_config_dir = $_params['new_file_path'];
         }
 
-		$_compile_file = $smarty->_get_compile_path($_config_dir . '/' . $_file);
+		$_file_path = $_config_dir . '/' . $_file;
+		$_compile_file = $smarty->_get_compile_path($_file_path);
 		
 		if($smarty->force_compile
 				|| !file_exists($_compile_file)
 				|| ($smarty->compile_check
-					&& $smarty->_file_needs_compiling($_config_dir . '/' . $_file, $_compile_file))) {
+					&& $smarty->_is_compiled($_file_path, $_compile_file))) {
 			// compile config file
         	if(!is_object($smarty->_conf_obj)) {
             	require_once SMARTY_DIR . $smarty->config_class . '.class.php';
@@ -86,7 +87,7 @@ function smarty_function_config_load($params, &$smarty)
 			} else {
 				$_output = '<?php $_config_vars = unserialize(' . serialize($_config_vars) . '); ?>';
 			}
-			$_params = (array('compile_path' => $_compile_file, 'template_compiled' => $_output));
+			$_params = (array('compile_path' => $_compile_file, 'file_compiled' => $_output, 'file_timestamp' => filemtime($_file_path)));
 			require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
 			smarty_core_write_compiled_template($_params, $smarty);
 		} else {
