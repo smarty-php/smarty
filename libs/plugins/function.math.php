@@ -11,12 +11,12 @@
 function smarty_function_math($params, &$smarty)
 {
     // be sure equation parameter is present
-    if (empty($params["equation"])) {
+    if (empty($params['equation'])) {
         $smarty->trigger_error("math: missing equation parameter");
         return;
     }
 
-    $equation = $params["equation"];
+    $equation = $params['equation'];
 
     // make sure parenthesis are balanced
     if (substr_count($equation,"(") != substr_count($equation,")")) {
@@ -53,17 +53,17 @@ function smarty_function_math($params, &$smarty)
 
     eval("\$smarty_math_result = ".$equation.";");
 
-    if (empty($params["format"])) {
-        if (empty($params["assign"])) {
+    if (empty($params['format'])) {
+        if (empty($params['assign'])) {
             echo $smarty_math_result;
         } else {
-            $smarty->assign($params["assign"],$smarty_math_result);
+            $smarty->assign($params['assign'],$smarty_math_result);
         }
     } else {
-        if (empty($params["assign"])){
-            printf($params["format"],$smarty_math_result);
+        if (empty($params['assign'])){
+            printf($params['format'],$smarty_math_result);
         } else {
-            $smarty->assign($assign,sprintf($params["format"],$smarty_math_result));
+            $smarty->assign($params['assign'],sprintf($params['format'],$smarty_math_result));
         }
     }
 }
