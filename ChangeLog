@@ -1,3 +1,15 @@
+2004-03-16  Mehdi Achour  <didou@keliglia.com>
+
+    * docs/appendixes.sgml
+      docs/getting-started.sgml
+      docs/preface.sgml:
+      adding editor comments
+
+    * docs/appendixes.sgml
+      docs/getting-started.sgml:
+      cleaning words spacing, killing tabulations, using roles for
+      programlisting..
+
 2004-03-15  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php:
