@@ -7,9 +7,9 @@
 	_smarty_console.document.write("<HTML><TITLE>Smarty Debug Console</TITLE><BODY bgcolor=#ffffff>");
 	_smarty_console.document.write("<table border=0 width=100%>");
 	_smarty_console.document.write("<tr bgcolor=#cccccc><th colspan=2>Smarty Debug Console</th></tr>");
-	_smarty_console.document.write("<tr bgcolor=#cccccc><td colspan=2><b>included templates:</b></td></tr>");
+	_smarty_console.document.write("<tr bgcolor=#cccccc><td colspan=2><b>included templates & config files:</b></td></tr>");
 	{section name=templates loop=$_debug_tpls}
-		_smarty_console.document.write("<tr bgcolor={if %templates.index% is even}#eeeeee{else}#fafafa{/if}><td colspan=2><tt>{section name=indent loop=$_debug_tpls[templates].depth}&nbsp;&nbsp;&nbsp;{/section}<font color=brown>{$_debug_tpls[templates].template}</font></tt></td></tr>");
+		_smarty_console.document.write("<tr bgcolor={if %templates.index% is even}#eeeeee{else}#fafafa{/if}><td colspan=2><tt>{section name=indent loop=$_debug_tpls[templates].depth}&nbsp;&nbsp;&nbsp;{/section}<font color={if $_debug_tpls[templates].type eq "template"}brown{else}green{/if}>{$_debug_tpls[templates].filename}</font></tt></td></tr>");
 	{sectionelse}
 		_smarty_console.document.write("<tr bgcolor=#eeeeee><td colspan=2><tt><i>no templates included</i></tt></td></tr>");	
 	{/section}

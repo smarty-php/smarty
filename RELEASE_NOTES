@@ -1,3 +1,9 @@
+1.4.5
+-----
+
+Mostly bug fixes and minor improvements. Added compile id for separate compiled
+versions of the same script. See the ChangeLog for detailed changes.
+
 1.4.4
 -----
 

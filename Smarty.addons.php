@@ -4,7 +4,7 @@
  * File:        Smarty.addons.php
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
- * Version:     1.4.4
+ * Version:     1.4.5
  * Copyright:   2001 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -685,6 +685,7 @@ function smarty_func_assign_debug_info($args, &$smarty_obj) {
 	$config_vars = $smarty_obj->_config[0];
 	ksort($config_vars);
 	$included_templates = $smarty_obj->_included_tpls;
+	
 	$smarty_obj->assign("_debug_keys",array_keys($assigned_vars));
 	$smarty_obj->assign("_debug_vals",array_values($assigned_vars));
 	$smarty_obj->assign("_debug_config_keys",array_keys($config_vars));

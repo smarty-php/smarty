@@ -5,7 +5,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:             1.4.4
+ * Version:             1.4.5
  * Copyright:           2001 ispi of Lincoln, Inc.
  *              
  * This library is free software; you can redistribute it and/or
@@ -143,7 +143,7 @@ class Smarty
                                     'assign'            => 'smarty_func_assign',
                                     'popup_init'      	=> 'smarty_func_overlib_init',
                                     'popup'           	=> 'smarty_func_overlib',
-                                    'assign_debug_info' => 'smarty_func_assign_debug_info'            
+                                    'assign_debug_info' => 'smarty_func_assign_debug_info'
                                  );
     
     var $custom_mods     =  array(  'lower'             => 'strtolower',
@@ -190,7 +190,7 @@ class Smarty
     var $_conf_obj             =   null;       // configuration object
     var $_config               =   array();    // loaded configuration settings
     var $_smarty_md5           =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
-    var $_version              =   '1.4.4';    // Smarty version number    
+    var $_version              =   '1.4.5';    // Smarty version number    
     var $_extract              =   false;      // flag for custom functions
     var $_included_tpls        =   array();    // list of run-time included templates
     var $_inclusion_depth      =   0;          // current template inclusion depth
@@ -471,7 +471,8 @@ class Smarty
         $this->_inclusion_depth = 0;
         $this->_included_tpls = array();
 
-        $this->_included_tpls[] = array('template'  => $tpl_file,
+        $this->_included_tpls[] = array('type' => 'template',
+										'filename'  => $tpl_file,
                                         'depth'    => 0);
         
         if ($this->caching) {
@@ -805,7 +806,8 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _smarty_include($_smarty_include_tpl_file, $_smarty_include_vars)
     {
-        $this->_included_tpls[] = array('template' => $_smarty_include_tpl_file,
+        $this->_included_tpls[] = array('type' => 'template',
+										'filename' => $_smarty_include_tpl_file,
                                         'depth'    => ++$this->_inclusion_depth);
 
         $this->_tpl_vars = array_merge($this->_tpl_vars, $_smarty_include_vars);
@@ -836,6 +838,11 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _config_load($file, $section, $scope)
     {
+		$this->_included_tpls[] = array('type' => 'config',
+								'filename' => $file,
+                            	'depth'    => $this->_inclusion_depth);
+
+		
         $this->_config[0] = array_merge($this->_config[0], $this->_conf_obj->get($file));
         if ($scope == 'parent') {
             if (count($this->_config) > 0)

@@ -6,7 +6,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:             1.4.4
+ * Version:             1.4.5
  * Copyright:           2001 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or
