@@ -1,0 +1,7 @@
+Version 1.0a
+------------
+    - fixed bug that caused templates to recompile every time (monte)
+
+Version 1.0
+------------
+    - initial release (monte)
