@@ -3,3 +3,4 @@
   for performance gains on php execution
 * do way with Smarty.addons.php and make drop-in plugin
   directory for functions and modifiers
+* handle asp style tags in $php_handler
