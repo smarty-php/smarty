@@ -30,16 +30,12 @@ function smarty_core_parse_file_path(&$params, &$this)
     } else {
 		if(strlen($_file_path_parts[0]) == 1) {
 			// 1 char is not resource type, but part of filepath
-        	$params['resource_type'] = $this->default_resource_type;
+        	$params['resource_type'] = 'file';
         	$params['resource_name'] = $params['file_path'];			
 		} else {
         	$params['resource_type'] = $_file_path_parts[0];
         	$params['resource_name'] = $_file_path_parts[1];
 		}
-        if ($params['resource_type'] != 'file') {
-			$_params = array('type' => $params['resource_type']);
-			$this->_execute_core_function('load_resource_plugin', $_params);
-        }
     }	
 	
     if ($params['resource_type'] == 'file') {
@@ -63,9 +59,11 @@ function smarty_core_parse_file_path(&$params, &$this)
             }
             return false;
         }
+	} else {
+		$_params = array('type' => $params['resource_type']);
+		$this->_execute_core_function('load_resource_plugin', $_params);
     }
 
-    // resource type != file
     return true;
 }
 
