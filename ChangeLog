@@ -1,3 +1,14 @@
+2002-06-25  Monte Ohrt  <monte@ispi.net>
+
+    * docs/programmers.sgml
+      docs/getting-started.sgml: update installation docs
+
+    * debug.tpl
+      docs/getting-started.sgml
+      templates/debug.tpl
+      NEWS
+      Smarty.class.php: move debug.tpl to SMARTY_DIR, add to constructor
+
 2002-06-24  Monte Ohrt  <monte@ispi.net>
 
     * plugins/function.assign_debug_info.php
