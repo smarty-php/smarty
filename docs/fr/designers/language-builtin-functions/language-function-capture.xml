@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.capture">
  <title>capture</title>
+            <informaltable frame="all">
+                <tgroup cols="5">
+                <colspec colname="param" align="center" />
+                <colspec colname="type" align="center" />
+                <colspec colname="required" align="center" />
+                <colspec colname="default" align="center" />
+                <colspec colname="desc" />
+                <thead>
+                    <row>
+                        <entry>Attribut</entry>
+                        <entry>Type</entry>
+                        <entry>Requis</entry>
+                        <entry>Defaut</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>non</entry>
+                        <entry><emphasis>default</emphasis></entry>
+                        <entry>Le nom du bloc capturé</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>non</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>Le nom de la variable à laquelle la sortie sera assignée</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
  <para>
   Capture est utilisé pour récupérer la sortie d'éléments dans une variable
   au lieu de les afficher. Tout contenu situé entre {capture
