@@ -1,3 +1,24 @@
+2003-07-03  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      resurrected $foo->$bar syntax
+
+    * libs/Smarty_Compiler.class.php:
+      i'm so stupid. kick me.
+
+    * libs/Smarty_Compiler.class.php:
+      fixed initialisation of $this->_plugins in compile_block_tag()
+
+2003-07-03  Monte Ohrt  <monte@ispi.net>
+
+    * libs/Config_File.class.php:
+      add preg_quote delimiter
+
+2003-07-03  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      applied fix for {$var1->p1|modifier:$var2->p2}-syntax - thanks Dominik
+
 2003-07-02  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
