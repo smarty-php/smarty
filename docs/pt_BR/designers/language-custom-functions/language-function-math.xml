@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.2 Maintainer: thomasgm Status: ready -->
 		<sect1 id="language.function.math">
 			<title>math</title>
             <informaltable frame="all">
