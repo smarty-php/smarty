@@ -1,3 +1,9 @@
+2003-07-25  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.create_dir_structure.php:
+      weakend race-condition and removed bogus error-message caused by that
+      in smarty_core_create_dir_structure().
+
 2003-07-23  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
