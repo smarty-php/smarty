@@ -247,7 +247,7 @@ chmod 770 /web/www.mydomain.com/smarty/cache/</screen>
 	</para>
 
 	<example>
-     <title>Editing /web/www.mydomain.com/smarty/templates/index.tpl</title>
+     <title>Editing /web/www.mydomain.com/smarty/guestbook/templates/index.tpl</title>
      <screen>
 
 {* Smarty *}
