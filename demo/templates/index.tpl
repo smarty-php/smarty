@@ -46,3 +46,5 @@ testing strip tags
 {/strip}
 
 </PRE>
+
+test: {$now|date_format:"%I:%M %p"}

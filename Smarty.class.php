@@ -223,14 +223,12 @@ class Smarty
 							(mktime() - filectime($cache_file) <= $this->cache_expire)
 						)))
 			{
-				echo "DEBUG: using cache<br>\n";
 					$results = $this->_read_file($cache_file);
 					$results = $this->_process_cached_inserts($results);
 					return $results;
 			}	
 		}
 
-		echo "DEBUG: not using cache<br>\n";
 		if($this->allow_url_compile && $HTTP_GET_VARS["compile_force"])
 			$this->compile_force = true;
 
