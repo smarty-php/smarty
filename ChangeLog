@@ -1,3 +1,9 @@
+2004-08-19  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/function.fetch.php:
+      fix bug with fetch, passing user/pass in url did not work
+
 2004-08-13  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
