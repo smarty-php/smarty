@@ -1697,11 +1697,11 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 		<sect2>
 			<title>Variables internal to template</title>
 			<para>
-			Variables that are internal to the templates are displayed by enclosing
-			them with percent signs (%) and enclosing the variable in delimiters
-			like so: {%varname%} So far, section properties are the only internal
-			variables used in Smarty, which can be found later in this document under
-			<link linkend="builtin.functions.section">section</link>.
+			Variables that are internal to the templates are displayed by using
+			the special variable {$smarty}. For instance, you can reference the
+			current date/time with {$smarty.now}, or <link
+			linkend="builtin.functions.section">section loops</link> have
+			properties that are internal variables.
 			</para>
 		</sect2>
 		<sect2>
@@ -2688,8 +2688,14 @@ e-mail: jane@mydomain.com&lt;p&gt;
 </example>
 		<para>
 		Sections also have their own variables that handle section properties.
-		These are indicated by percent signs around the variable name, like so:
-		%sectionname.varname%
+		These are indicated like so: {$smarty.section.sectionname.varname}
+		</para>
+		<para>
+		NOTE: As of Smarty 1.5.0, the syntax for section property variables has
+		been changed from {%sectionname.varname%} to
+		{$smarty.section.sectionname.varname}. The old syntax is still
+		supported, but you will only see reference to the new syntax in the
+		manual examples.
 		</para>
 			<sect3>	
 			<title>index</title>
@@ -2707,7 +2713,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property index</title>
 	<programlisting>
 	{section name=customer loop=$custid}
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
 	{/section}
 
 
@@ -2730,7 +2736,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property index_prev</title>
 	<programlisting>
 	{section name=customer loop=$custid}
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
 	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
 	{if $custid[customer.index_prev] ne $custid[customer.index]}
     	The customer id changed&lt;br&gt;
@@ -2761,7 +2767,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property index_next</title>
 	<programlisting>
 	{section name=customer loop=$custid}
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
 	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
 	{if $custid[customer.index_next] ne $custid[customer.index]}
     	The customer id will change&lt;br&gt;
@@ -2797,8 +2803,8 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property iteration</title>
 	<programlisting>
 	{section name=customer loop=$custid start=5 step=2}
-	current loop iteration: {%customer.iteration%}&lt;br&gt;
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	current loop iteration: {$smarty.section.customer.iteration}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
 	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
 	{if $custid[customer.index_next] ne $custid[customer.index]}
     	The customer id will change&lt;br&gt;
@@ -2831,14 +2837,14 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property first</title>
 	<programlisting>
 	{section name=customer loop=$custid}
-	{if %customer.first%}
+	{if $smarty.section.customer.first}
     	&lt;table&gt;
 	{/if}
 
-	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
+	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
         	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
 
-	{if %customer.last%}
+	{if $smarty.section.customer.last}
     	&lt;/table&gt;
 	{/if}
 	{/section}
@@ -2865,14 +2871,14 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property last</title>
 	<programlisting>
 	{section name=customer loop=$custid}
-	{if %customer.first%}
+	{if $smarty.section.customer.first}
     	&lt;table&gt;
 	{/if}
 
-	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
+	&lt;tr&gt;&lt;td&gt;{$smarty.section.customer.index} id:
         	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
 
-	{if %customer.last%}
+	{if $smarty.section.customer.last}
     	&lt;/table&gt;
 	{/if}
 	{/section}
@@ -2899,7 +2905,7 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property rownum</title>
 	<programlisting>
 	{section name=customer loop=$custid}
-	{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
+	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
 	{/section}
 
 
@@ -2922,10 +2928,10 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property index</title>
 	<programlisting>
 	{section name=customer loop=$custid}
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
 	{/section}
 
-	There were {%customer.loop%} customers shown above.
+	There were {$smarty.section.customer.loop} customers shown above.
 
 	OUTPUT:
 
@@ -2952,10 +2958,10 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	{* $show_customer_info may have been passed from the PHP
 	application, to regulate whether or not this section shows *}
 	{section name=customer loop=$custid show=$show_customer_info}
-	{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
+	{$smarty.section.customer.rownum} id: {$custid[customer]}&lt;br&gt;
 	{/section}
 
-	{if %customer.show%}
+	{if $smarty.section.customer.show}
 	the section was shown.
 	{else}
 	the section was not shown.
@@ -2986,10 +2992,10 @@ e-mail: jane@mydomain.com&lt;p&gt;
 	<title>section property total</title>
 	<programlisting>
 	{section name=customer loop=$custid step=2}	
-	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
 	{/section}
 
-	There were {%customer.total%} customers shown above.
+	There were {$smarty.section.customer.total} customers shown above.
 
 	OUTPUT:
 

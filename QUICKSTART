@@ -1,9 +1,9 @@
 SMARTY QUICKSTART GUIDE
 -----------------------
 
-So you don't like reading documentation either? This guide is to help you
-immediately get your feet wet in Smarty, get a feel for how it works and if it
-will work for you.
+Welcome to the Smarty QUICKSTART guide. This guide is to help you immediately
+get your feet wet in Smarty, get a feel for how it works and if it will work
+for you.
 
 We make a few assumptions here, such as you already have PHP installed on your
 web server, you know the basics of unix file permissions, the basics of PHP and
@@ -15,9 +15,11 @@ INSTALLATION
 
 Unpack the Smarty tarball. You will see four class files: Smarty.class.php,
 Smarty.addons.php, Smarty_Compiler.class.php and Config_File.class.php. You
-will need to have all three of these files somewhere in your PHP include path,
+will need to have all four of these files somewhere in your PHP include path,
 so when you call require("Smarty.class.php") from within your application, it
-can find the class.
+can find the class. Alternatively, you can set the SMARTY_DIR constant in your
+application, and Smarty will use that directory as the path to the Smarty
+class files. Be sure the path ends with a slash!
 
 Smarty uses the PEAR libraries for some of its error handling routines. PEAR
 libraries come with the distribution of PHP. Be sure that the path to these
@@ -68,8 +70,8 @@ to PEAR.php (named like this in some distributions?)
 
 Now we need to create two files, index.php and templates/index.tpl. index.php
 is the file that we will be calling from our web browser. index.tpl is the file
-that Smarty will use as its template file. (.tpl files are never called
-directly from the browser, only Smarty calls them.)
+that Smarty will use as its template file. (Smarty template files are never
+accessed directly from the browser, only the Smarty class accesses them.)
 
 
 --------- index.php --------
@@ -96,7 +98,8 @@ http://your.host.com/Smarty/index.php
 You should see "Hello, Ned!" in your browser. If not, retrace the steps above
 and make sure you follow the instructions exactly as they say. Also check the
 installation instructions in the documenation, and check your installation of
-PHP to be sure things are setup properly.
+PHP to be sure things are setup properly. If your still having problems, ask a
+question on the mailing list, which you can find in the FAQ.
 
 You see "Hello, Ned!" in your browser? Good!
 
@@ -108,16 +111,13 @@ templates_c directory. Out of sight, out of mind. You don't need to worry about
 it, Smarty takes care of this technical stuff. Out of curiosity, you can see
 how your templates look as compiled php scripts, but please don't edit them!
 
-Now that we have Smarty functioning properly, let's get into the guts of Smarty
-and learn what thing is all about. I'll try to briefly show examples to cover
-the most important features of Smarty.
-
+Now that we have Smarty functioning properly, let's take a look at a few
+features of the template language.
 
 ASSIGNING VARIABLES
 -------------------
 
-Assigning variables to the template is very similar to the ways other template
-engines do it. Example:
+Assigning variables to the template is fairly straight forward. Example:
 
 
 --------- index.php --------
@@ -195,10 +195,11 @@ $smarty->display("index.tpl");
 Notice we are passing the variable "title" when we include the header.tpl file.
 You can pass as many variables as you want. The included file inherits all the
 current template vars, plus any that are passed to it. The passed variables are
-only available within the scope of the included file. Also notice the way the
-$title variable is printed to the template. It uses a variable modifier called
-"default". Printing {$title|default:"no title"} means that if the value of
-$title is empty, the text "no title" will be printed instead of nothing.
+only available within the scope of the included file (and any files it may
+include.) Also notice the way the $title variable is printed to the template.
+It uses a variable modifier called "default". Printing {$title|default:"no
+title"} means that if the value of $title is empty, the text "no title" will be
+printed instead of nothing.
 
 IF/ELSEIF/ELSE
 --------------
@@ -242,22 +243,23 @@ $smarty->display("index.tpl");
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
     {section name=people loop=$FirstName}
-        {%people.rownum%} {$FirstName[people]} {$LastName[people]}<br>
+        {$smarty.section.people.rownum} {$FirstName[people]} {$LastName[people]}<br>
     {sectionelse}
         There are no values to loop through.
     {/section}
     <p>
-    There were {%people.loop%} names in this list.
+    There were {$smarty.section.people.loop} names in this list.
 {include file="footer.tpl"}
 
-
-Notice that when printing variables inside of the section, the section name must
-be referenced in the name of the variable being displayed. This lets Smarty
-understand that you want to print the value in the array postion indexed by the
-current loop value. There are also internal template variables available within
-the section that display the loop iteration and the total number of times the
-section is looped. Also note the {sectionelse}. This would have been displayed
-had the loop array $FirstName been empty.
+Here we are introducing the {$smarty} variable, which is used to reference
+values internal to the template. Notice that when printing variables inside of
+the section, the section name must be referenced in the name of the variable
+being displayed. This lets Smarty understand that you want to print the value
+in the array postion indexed by the current loop value. There are also internal
+template variables available within the section that display the loop iteration
+and the total number of times the section is looped. Also note the
+{sectionelse}. This would have been displayed if looped array $FirstName was
+empty.
 
 You can access keys of arrays with this syntax:
 
@@ -282,7 +284,7 @@ $smarty->display("index.tpl");
         There are no values to loop through.
     {/section}
     <p>
-    There were {%people.loop%} names in this list.
+    There were {$smarty.section.people.loop} names in this list.
 {include file="footer.tpl"}
 
 
@@ -311,22 +313,67 @@ $smarty->display("index.tpl");
 --------- templates/index.tpl --------
 {include file="header.tpl" title="Home Page"}
     {section name=people loop=$FirstName}
-        {%people.rownum%} {$FirstName[people]} {$LastName[people]}<br>
+        {$smarty.section.people.rownum} {$FirstName[people]} {$LastName[people]}<br>
         {section name=contacts loop=$ContactNames[people]}
             {* for fun, lets bold every other row *}
-            {if %contacts.rownum% is even}<b>{/if}
+            {if $smarty.section.contacts.rownum is even}<b>{/if}
                 {$ContactNames[people][contacts]}: {$ContactVals[people][contacts]}<br>
-            {if %contacts.rownum% is even}</b>{/if}
+            {if $smarty.section.contacts.rownum is even}</b>{/if}
         {/section}
         <br>
     {sectionelse}
         There are no values to loop through.
     {/section}
     <p>
-    There were {%people.loop%} names in this list.
+    There were {$smarty.sectin.people.loop} names in this list.
 {include file="footer.tpl"}
+
+
+FOREACH
+-------
+
+There is also an alternative way to loop through associative arrays that may be
+a bit easier for you, especially if you only need to loop over one variable.
+
+Here's an example that works with the default index.php that comes with Smarty:
+
+{foreach name=outer item=contact from=$contacts}
+  {foreach key=key item=item from=$contact}
+    {$smarty.foreach.outer.iteration}. contact {$key}: {$item}
+  {/foreach}
+{foreachelse}
+  no contacts
+{/foreach}
+
+Possible attributes:
+
+from: the array you are looping through
+item: the name of the variable that is the current element
+key:  the name of the variable that is the current key (optional)
+name: the name of the of foreach (optional)
+
+The 'name' has to be used if you want to refer to any of the foreach
+properties.
+
+Properties (if 'name' is used):
+
+name: the name of foreach
+iteration: current iteration
+total: total number of iterations
+first: if it's first iteration
+last: it it's last iteration
+show: if foreach was shown at all
+
+Here's another neat example, dumps all properties of foreach:
+
+{foreach name=outer item=contact from=$contacts}
+  {foreach key=key item=item from=$smarty.foreach.outer}
+    {$key}: {$item}
+  {/foreach}
+{/foreach}
 
 
 This should be enough to get your feet wet. Also, check out config file
 variables, built-in functions, custom functions, variable modifiers, all sorts
-of good stuff. Now go read the documentation, and Good Luck!
+of good stuff. Now go read the documentation, join the mailing list and have
+fun!

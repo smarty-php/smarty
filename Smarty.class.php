@@ -127,6 +127,9 @@ class Smarty
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count')
                                    );
+	var $trusted_dir		= array(); 	// array of directories where trusted templates
+										// reside ($security is disabled during their
+										// execution.)
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
@@ -212,6 +215,18 @@ class Smarty
 \*======================================================================*/
     function Smarty()
     {
+		$this->template_dir = SMARTY_DIR.$this->template_dir;
+		$this->config_dir = SMARTY_DIR.$this->config_dir;
+		$this->compile_dir = SMARTY_DIR.$this->compile_dir;
+		$this->cache_dir = SMARTY_DIR.$this->cache_dir;
+		
+		for($x=0; $x < count($this->secure_dir); $x++) {
+			$this->secure_dir[$x] = SMARTY_DIR.$this->secure_dir[$x];
+		}
+		for($x=0; $x < count($this->trusted_dir); $x++) {
+			$this->trusted_dir[$x] = SMARTY_DIR.$this->trusted_dir[$x];
+		}
+		
         foreach ($this->global_assign as $key => $var_name) {
             if (is_array($var_name)) {
                 foreach ($var_name as $var) {
@@ -511,7 +526,7 @@ class Smarty
     Function:   fetch()
     Purpose:    executes & returns or displays the template results
 \*======================================================================*/
-    function fetch($smarty_tpl_file, $smarty_cache_id = null, $smarty_compile_id = null, $smarty_display = false)
+    function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false)
     {
         global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
@@ -524,27 +539,24 @@ class Smarty
             // capture time for debugging info
             $debug_start_time = $this->_get_microtime();
             $this->_smarty_debug_info[] = array('type'      => 'template',
-                                                'filename'  => $smarty_tpl_file,
+                                                'filename'  => $_smarty_tpl_file,
                                                 'depth'     => 0);
             $included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
-
-        if (!isset($compile_id))
-            $compile_id = $this->compile_id;
-
+        $this->_compile_id = $_smarty_compile_id;
         $this->_inclusion_depth = 0;
 
 
         if ($this->caching) {
 
-            $this->_cache_info[] = array('template', $smarty_tpl_file);
+            $this->_cache_info[] = array('template', $_smarty_tpl_file);
 
-            if ($this->_read_cache_file($smarty_tpl_file, $smarty_cache_id, $smarty_compile_id, $smarty_results)) {
+            if ($this->_read_cache_file($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_results)) {
                 if ($this->insert_tag_check) {
-                    $smarty_results = $this->_process_cached_inserts($smarty_results);
+                    $_smarty_results = $this->_process_cached_inserts($_smarty_results);
                 }
-                if ($smarty_display) {
-                    echo $smarty_results;
+                if ($_smarty_display) {
+                    echo $_smarty_results;
                     if ($this->debugging)
                     {
                         // capture time for debugging info
@@ -554,7 +566,7 @@ class Smarty
                     }
                     return;
                 } else {
-                    return $smarty_results;
+                    return $_smarty_results;
                 }
             }
         }
@@ -577,51 +589,66 @@ class Smarty
                                      'files' => array()));
 
         if ($this->show_info_header) {
-            $info_header = '<!-- Smarty '.$this->_version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
+            $_smarty_info_header = '<!-- Smarty '.$this->_version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
         } else {
-            $info_header = '';
+            $_smarty_info_header = '';
         }
 
-        $compile_path = $this->_get_compile_path($smarty_tpl_file);
+        $compile_path = $this->_get_compile_path($_smarty_tpl_file);
 
+		if($this->security && $this->_is_trusted($_smarty_tpl_file)) {
+			$_smarty_trusted = true;
+			$this->security = false;
+		} else {
+			$_smarty_trusted = false;
+		}
         // if we just need to display the results, don't perform output
         // buffering - for speed
-        if ($smarty_display && !$this->caching) {
-            echo $info_header;
-            if ($this->_process_template($smarty_tpl_file, $compile_path))
+        if ($_smarty_display && !$this->caching) {
+            echo $_smarty_info_header;
+            if ($this->_process_template($_smarty_tpl_file, $compile_path))
             {
                 if ($this->show_info_include) {
-                    echo "\n<!-- SMARTY_BEGIN: ".$smarty_tpl_file." -->\n";
+                    echo "\n<!-- SMARTY_BEGIN: ".$_smarty_tpl_file." -->\n";
                 }
-                include($compile_path);
+				if($this->security && $this->_is_trusted($_smarty_tpl_file)) {
+					$this->security = false;
+                	include($compile_path);
+					$this->security = true;
+				} else {					
+                	include($compile_path);
+				}
                 if ($this->show_info_include) {
-                    echo "\n<!-- SMARTY_END: ".$smarty_tpl_file." -->\n";
+                    echo "\n<!-- SMARTY_END: ".$_smarty_tpl_file." -->\n";
                 }
             }
         } else {
             ob_start();
-            echo $info_header;
-            if ($this->_process_template($smarty_tpl_file, $compile_path))
+            echo $_smarty_info_header;
+            if ($this->_process_template($_smarty_tpl_file, $compile_path))
             {
                 if ($this->show_info_include) {
-                    echo "\n<!-- SMARTY_BEGIN: ".$smarty_tpl_file." -->\n";
+                    echo "\n<!-- SMARTY_BEGIN: ".$_smarty_tpl_file." -->\n";
                 }
-                include($compile_path);
+                	include($compile_path);
                 if ($this->show_info_include) {
-                    echo "\n<!-- SMARTY_END: ".$smarty_tpl_file." -->\n";
+                    echo "\n<!-- SMARTY_END: ".$_smarty_tpl_file." -->\n";
                 }
             }
-            $smarty_results = ob_get_contents();
+            $_smarty_results = ob_get_contents();
             ob_end_clean();
         }
+		if($_smarty_trusted) {
+			$this->security = true;
+		}
 
         if ($this->caching) {
-            $this->_write_cache_file($smarty_tpl_file, $smarty_cache_id, $smarty_compile_id, $smarty_results);
-            $smarty_results = $this->_process_cached_inserts($smarty_results);
+            $this->_write_cache_file($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_results);
+            $_smarty_results = $this->_process_cached_inserts($_smarty_results);
         }
 
-        if ($smarty_display) {
-            if (isset($smarty_results)) { echo $smarty_results; }
+        if ($_smarty_display) {
+            if (isset($_smarty_results)) { echo $_smarty_results; }
             if ($this->debugging)
                 {
                     // capture time for debugging info
@@ -631,7 +658,7 @@ class Smarty
                 }
             return;
         } else {
-            if (isset($smarty_results)) { return $smarty_results; }
+            if (isset($_smarty_results)) { return $_smarty_results; }
         }
     }
 
@@ -700,12 +727,107 @@ function _generate_debug_output() {
 }
 
 /*======================================================================*\
+    Function:   _is_trusted()
+    Purpose:	determins if a template is trusted or not. If trusted,
+				$security is disabled during its execution.
+\*======================================================================*/
+function _is_trusted($tpl_file) {
+
+	static $_trusted_tpls = array();
+
+	if(in_array($tpl_file,$_trusted_tpls)) {
+		return true;
+	}
+
+	$_smarty_trusted = false;
+	if($this->security && !empty($this->trusted_dir)) {
+		// see if template file is within a trusted directory. If so,
+		// disable security during the execution of the template.
+
+		// if template is on local file system, check if trusted
+		$tpl_path_parts = explode(':', $tpl_file, 2);
+        if (count($tpl_path_parts) == 1) {
+            // no resource type, treat as type "file"
+            $resource_type = 'file';
+            $resource_name = $tpl_path_parts[0];
+        } else {
+            $resource_type = $tpl_path_parts[0];
+            $resource_name = $tpl_path_parts[1];
+        }
+		if ($resource_type == 'file') {
+ 			if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/",$resource_name)) {
+                // relative pathname to $template_dir
+                $resource_name = $this->template_dir.'/'.$resource_name;   
+            }
+            foreach ($this->trusted_dir as $curr_dir) {
+                if (substr(realpath($resource_name),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                    $_smarty_trusted = true;
+					$_trusted_tpls[] = $tpl_file;
+                    break;
+                }
+            }				
+		} else {
+			// resource is not on local file system
+			$_smarty_trusted = false;
+		}
+	}
+	return $_smarty_trusted;
+}		
+
+/*======================================================================*\
+    Function:   _is_secure()
+    Purpose:	determins if a template is secure or not.
+\*======================================================================*/
+function _is_secure($tpl_file) {
+	
+	static $_secure_tpls = array();
+
+	if(!$this->security || $this->security_settings['INCLUDE_ANY'] || in_array($tpl_file,$_secure_tpls)) {
+		return true;
+	}
+
+	$_smarty_secure = false;
+	// if template is on local file system, check if secure
+	$tpl_path_parts = explode(':', $tpl_file, 2);
+    if (count($tpl_path_parts) == 1) {
+        // no resource type, treat as type "file"
+        $resource_type = 'file';
+        $resource_name = $tpl_path_parts[0];
+    } else {
+        $resource_type = $tpl_path_parts[0];
+        $resource_name = $tpl_path_parts[1];
+    }
+
+	if ($resource_type == 'file') {
+			if(!empty($this->secure_dir)) {
+ 				if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/",$resource_name)) {
+                    // relative pathname to $template_dir
+                    $resource_name = $this->template_dir.'/'.$resource_name;   
+                }				
+				foreach ($this->secure_dir as $curr_dir) {
+                	if (substr(realpath($resource_name),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                    	$_smarty_secure = true;
+						$_secure_tpls[] = $tpl_file;
+                    	break;
+                }
+			}
+		}				
+	} else {
+		// resource is not on local file system
+		$_smarty_secure = true;
+	}
+	
+	return $_smarty_secure;
+}		
+
+
+/*======================================================================*\
     Function:   _process_template()
     Purpose:
 \*======================================================================*/
     function _process_template($tpl_file, $compile_path)
-    {
-        // test if template needs to be compiled
+    {		
+		// test if template needs to be compiled
         if (!$this->force_compile && $this->_compiled_template_exists($compile_path)) {
             if (!$this->compile_check) {
                 // no need to check if the template needs recompiled
@@ -787,6 +909,11 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _fetch_template_info($tpl_path, &$template_source, &$template_timestamp, $get_source=true)
     {
+        if ($this->security && !$this->_is_secure($tpl_path) && !$this->_is_trusted($tpl_path)) {
+            $this->_trigger_error_msg("(secure mode) accessing \"$tpl_path\" is not allowed");
+            return false;
+        }
+
         // split tpl_path by the first colon
         $tpl_path_parts = explode(':', $tpl_path, 2);
 
@@ -813,20 +940,6 @@ function _generate_debug_output() {
                 } else {
                     $this->_trigger_error_msg("unable to read template resource: \"$tpl_path\"");
                     return false;
-                }
-                // if security is on, make sure template comes from a $secure_dir
-                if ($this->security && !$this->security_settings['INCLUDE_ANY']) {
-                    $resource_is_secure = false;
-                    foreach ($this->secure_dir as $curr_dir) {
-                        if (substr(realpath($resource_name),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-                            $resource_is_secure = true;
-                            break;
-                        }
-                    }
-                    if (!$resource_is_secure) {
-                        $this->_trigger_error_msg("(secure mode) including \"$resource_name\" is not allowed");
-                        return false;
-                    }
                 }
                 break;
             default:
@@ -905,17 +1018,27 @@ function _generate_debug_output() {
 
         array_unshift($this->_config, $this->_config[0]);
         $compile_path = $this->_get_compile_path($_smarty_include_tpl_file);
+
+		if($this->security && $this->_is_trusted($_smarty_include_tpl_file)) {
+			$_smarty_trusted = true;
+			$this->security = false;
+		} else {
+			$_smarty_trusted = false;
+		}
+		
         if ($this->_process_template($_smarty_include_tpl_file, $compile_path)) {
             if ($this->show_info_include) {
                 echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
             }
-
             include($compile_path);
-
             if ($this->show_info_include) {
                 echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
             }
         }
+		
+		if ($_smarty_trusted) {
+			$this->security = true;
+		}
 
         array_shift($this->_config);
         $this->_inclusion_depth--;
