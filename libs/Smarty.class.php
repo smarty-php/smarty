@@ -1193,7 +1193,7 @@ class Smarty
 
 		if(!$this->force_compile
 			&& file_exists($this->_cache_paths_file)) {
-			include_once($this->_cache_paths_file);
+			include($this->_cache_paths_file);
 		}		
 				
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
