@@ -24,7 +24,6 @@ Topic: {$topic|truncate:40:"..."}
 
 {* apply modifier to a custom function *}
 {mailto|upper address="me@domain.dom"}
-r
 ]]>
   </programlisting>
  </example>
