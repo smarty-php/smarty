@@ -60,7 +60,7 @@
 {include file="header.tpl"}
 
 {if $highlight_name}
-	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;	
+	Welcome, &lt;font color="{#fontColor#}"&gt;{$name}!&lt;/font&gt;
 {else}
 	Welcome, {$name}!
 {/if}
@@ -141,13 +141,13 @@ PRACTICAL EXAMPLES:
     </para>
     <example>
      <title>math examples</title>
-     <programlisting>	 
+     <programlisting>
 {$foo+1}
 
 {$foo*$bar}
-	 
+
 {* some more complicated examples *}
-	 
+
 {$foo-&gt;bar-$bar[1]*$baz-&gt;foo-&gt;bar()-3*7}
 
 {if ($foo+$bar.test%$baz*134232+10+$b+10)}
@@ -158,6 +158,52 @@ PRACTICAL EXAMPLES:
 </example>
 	</sect1>
 
+   <sect1 id="language.escaping">
+    <title>Escaping Smarty Parsing</title>
+    <para>
+	It is sometimes desirable or even necessary to have Smarty ignore sections it
+	would otherwise parse. A classic example is embedding Javascript or CSS code in
+    a template. The problem arises as those languages use the { and } characters
+    which are also the default delimiters for Smarty.
+    </para>
+
+    <para>
+    The simplest thing is to avoid the situation altogether by separating your Javascript
+    and CSS code into their own files and then using standard HTML methods to access them.
+    </para>
+
+    <para>Including literal content is possible using <link linkend="language.function.literal">{literal} .. {/literal}</link> blocks.
+    Similar to HTML entity usage, you can use <link linkend="language.function.ldelim">{ldelim}</link> and <link linkend="language.function.ldelim">{rdelim}</link>
+    to display the current deliminters.
+    </para>
+
+    <para>
+    It is often convenient to simply change Smarty's <link linkend="variable.left.delimiter">$left_delimiter</link> and
+    <link linkend="variable.right.delimiter">$right_delimiter</link>.
+    </para>
+    <example>
+     <title>changing delimiters example</title>
+     <programlisting>
+
+$smarty = new Smarty;
+$smarty->left_delimiter = '&lt;!--{';
+$smarty->right_delimiter = '}--&gt;';
+$smarty->assign('foo', 'bar');
+$smarty->display('example.tpl');
+
+--- example.tpl
+&lt;script language="javascript"&gt;
+var foo = &lt;!--{$foo}--&gt;;
+function dosomething() {
+    alert("foo is " + foo);
+}
+dosomething();
+&lt;/script&gt;
+
+</programlisting>
+</example>
+
+	</sect1>
   </chapter>
 
   <chapter id="language.variables">
@@ -166,7 +212,7 @@ PRACTICAL EXAMPLES:
 	Smarty has several different types of variables. The type of the variable
 	depends on what symbol it is prefixed with (or enclosed within).
    </para>
-   
+
    <para>
     Variables in Smarty can be either displayed directly or used as arguments
     for function attributes and modifiers, inside conditional expressions,
@@ -686,7 +732,7 @@ index.tpl:
 
 OUTPUT:
 
-War Dims Hope for Peace. Child's Death Ruins Couple's Holiday. 
+War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.
 
 Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 2</programlisting>
@@ -755,7 +801,7 @@ Dealers Will Hear Car Talk at Noon.
                     <row>
                         <entry>Parameter Position</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -818,82 +864,82 @@ Monday, February 5, 2001
 <example>
 <title>date_format conversion specifiers</title>
 <programlisting>
-%a - abbreviated weekday name according to the current locale 
+%a - abbreviated weekday name according to the current locale
 
-%A - full weekday name according to the current locale 
+%A - full weekday name according to the current locale
 
-%b - abbreviated month name according to the current locale 
+%b - abbreviated month name according to the current locale
 
-%B - full month name according to the current locale 
+%B - full month name according to the current locale
 
-%c - preferred date and time representation for the current locale 
+%c - preferred date and time representation for the current locale
 
-%C - century number (the year divided by 100 and truncated to an integer, range 00 to 99) 
+%C - century number (the year divided by 100 and truncated to an integer, range 00 to 99)
 
-%d - day of the month as a decimal number (range 00 to 31) 
+%d - day of the month as a decimal number (range 00 to 31)
 
-%D - same as %m/%d/%y 
+%D - same as %m/%d/%y
 
 %e - day of the month as a decimal number, a single digit is preceded by a
-space (range 1 to 31) 
+space (range 1 to 31)
 
 %g - Week-based year within century [00,99]
 
 %G - Week-based year, including the century [0000,9999]
 
-%h - same as %b 
+%h - same as %b
 
-%H - hour as a decimal number using a 24-hour clock (range 00 to 23) 
+%H - hour as a decimal number using a 24-hour clock (range 00 to 23)
 
-%I - hour as a decimal number using a 12-hour clock (range 01 to 12) 
+%I - hour as a decimal number using a 12-hour clock (range 01 to 12)
 
-%j - day of the year as a decimal number (range 001 to 366) 
+%j - day of the year as a decimal number (range 001 to 366)
 
 %k - Hour (24-hour clock) single digits are preceded by a blank. (range 0 to 23)
 
 %l - hour as a decimal number using a 12-hour clock, single digits preceeded by
 a space (range 1 to 12)
 
-%m - month as a decimal number (range 01 to 12) 
+%m - month as a decimal number (range 01 to 12)
 
-%M - minute as a decimal number 
+%M - minute as a decimal number
 
-%n - newline character 
+%n - newline character
 
-%p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale 
+%p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale
 
-%r - time in a.m. and p.m. notation 
+%r - time in a.m. and p.m. notation
 
-%R - time in 24 hour notation 
+%R - time in 24 hour notation
 
-%S - second as a decimal number 
+%S - second as a decimal number
 
-%t - tab character 
+%t - tab character
 
-%T - current time, equal to %H:%M:%S 
+%T - current time, equal to %H:%M:%S
 
-%u - weekday as a decimal number [1,7], with 1 representing Monday 
+%u - weekday as a decimal number [1,7], with 1 representing Monday
 
-%U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week 
+%U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week
 
 %V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1
-is the first week that has at least 4 days in the current year, and with Monday as the first day of the week. 
+is the first week that has at least 4 days in the current year, and with Monday as the first day of the week.
 
-%w - day of the week as a decimal, Sunday being 0 
+%w - day of the week as a decimal, Sunday being 0
 
-%W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week 
+%W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week
 
-%x - preferred date representation for the current locale without the time 
+%x - preferred date representation for the current locale without the time
 
-%X - preferred time representation for the current locale without the date 
+%X - preferred time representation for the current locale without the date
 
-%y - year as a decimal number without a century (range 00 to 99) 
+%y - year as a decimal number without a century (range 00 to 99)
 
-%Y - year as a decimal number including the century 
+%Y - year as a decimal number including the century
 
-%Z - time zone or name or abbreviation 
+%Z - time zone or name or abbreviation
 
-%% - a literal `%' character 
+%% - a literal `%' character
 
 
 PROGRAMMERS NOTE: date_format is essentially a wrapper to PHP's strftime()
@@ -916,7 +962,7 @@ system's manpage for a full list of valid specifiers.</programlisting>
                     <row>
                         <entry>Parameter Position</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -1676,7 +1722,7 @@ $smarty-&gt;assign('articleTitle', 'Smokers are Productive, but Death Cuts Effic
 $smarty-&gt;display('index.tpl');
 
 index.tpl:
-		 
+
 {$articleTitle}
 {$articleTitle|upper|spacify}
 {$articleTitle|lower|spacify|truncate}
@@ -1715,7 +1761,7 @@ s m o k e r s   a r e   p. . .</programlisting>
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -1795,7 +1841,7 @@ s m o k e r s   a r e   p. . .</programlisting>
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -1913,7 +1959,7 @@ s m o k e r s   a r e   p. . .</programlisting>
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -2049,7 +2095,7 @@ cell: 760-1234&lt;br&gt;</programlisting>
 			</para>
 			</sect2>
 
-			<sect2 id="foreach.property.show">	
+			<sect2 id="foreach.property.show">
 			<title>show</title>
 			<para>
         	<emphasis>show</emphasis> is used as a parameter to foreach.
@@ -2059,7 +2105,7 @@ cell: 760-1234&lt;br&gt;</programlisting>
 			</para>
 
 			</sect2>
-			<sect2 id="foreach.property.total">	
+			<sect2 id="foreach.property.total">
 			<title>total</title>
 			<para>
 			<emphasis>total</emphasis> is used to display the number of iterations that this foreach
@@ -2085,7 +2131,7 @@ cell: 760-1234&lt;br&gt;</programlisting>
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -2187,7 +2233,7 @@ cell: 760-1234&lt;br&gt;</programlisting>
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -2294,7 +2340,7 @@ index.tpl
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -2482,7 +2528,7 @@ index.tpl
 		<sect1 id="language.function.ldelim">
 			<title>ldelim,rdelim</title>
 			<para>
-			ldelim and rdelim are used for displaying the literal delimiter, in 
+			ldelim and rdelim are used for displaying the literal delimiter, in
 			our case "{" or "}". The template engine always tries to interpret
 			delimiters, so this is the way around that.
 			</para>
@@ -2517,7 +2563,7 @@ OUTPUT:
 
         	&lt;!--
                 	function isblank(field) {
-                	if (field.value == '') 
+                	if (field.value == '')
                         	{ return false; }
                 	else
                         	{
@@ -2562,7 +2608,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -2793,7 +2839,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 		supported, but you will only see reference to the new syntax in the
 		manual examples.
 		</para>
-			<sect2 id="section.property.index">	
+			<sect2 id="section.property.index">
 			<title>index</title>
 			<para>
 			index is used to display the current loop index, starting with zero
@@ -2824,7 +2870,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2 id="section.property.index.prev">	
+			<sect2 id="section.property.index.prev">
 			<title>index_prev</title>
 			<para>
 			index_prev is used to display the previous loop index.
@@ -2987,7 +3033,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2 id="section.property.rownum">	
+			<sect2 id="section.property.rownum">
 			<title>rownum</title>
 			<para>
 			rownum is used to display the current loop iteration,
@@ -3010,7 +3056,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2 id="section.property.loop">	
+			<sect2 id="section.property.loop">
 			<title>loop</title>
 			<para>
 			loop is used to display the last index number that this section
@@ -3035,7 +3081,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2 id="section.property.show">	
+			<sect2 id="section.property.show">
 			<title>show</title>
 			<para>
         	<emphasis>show</emphasis> is used as a parameter to section.
@@ -3069,7 +3115,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 </programlisting>
 	</example>
 			</sect2>
-			<sect2 id="section.property.total">	
+			<sect2 id="section.property.total">
 			<title>total</title>
 			<para>
 			total is used to display the number of iterations that this section
@@ -3078,7 +3124,7 @@ e-mail: jane@mydomain.com&lt;p&gt;</programlisting>
 	<example>
 	<title>section property total</title>
 	<programlisting>
-	{section name=customer loop=$custid step=2}	
+	{section name=customer loop=$custid step=2}
 	{$smarty.section.customer.index} id: {$custid[customer]}&lt;br&gt;
 	{/section}
 
@@ -3168,7 +3214,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -3220,7 +3266,7 @@ The value of $name is Bob.</programlisting>
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -3317,7 +3363,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -3431,7 +3477,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -3469,7 +3515,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -3566,7 +3612,7 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -3651,7 +3697,7 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -3776,7 +3822,7 @@ OUTPUT: (both examples)
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -3855,7 +3901,7 @@ OUTPUT: (both examples)
 				html_image requires a hit to the disk to read the image and
 				calculate the height and width. If you don't use template
 				caching, it is generally better to avoid html_image and leave
-				image tags static for optimal performance.			
+				image tags static for optimal performance.
             	</para>
 			</note>
 <example>
@@ -3897,7 +3943,7 @@ OUTPUT: (possible)
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -4024,7 +4070,7 @@ OUTPUT: (both examples)
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -4144,7 +4190,7 @@ OUTPUT: (both examples)
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -4438,7 +4484,7 @@ OUTPUT: (current year is 2000)
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -4739,7 +4785,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -4866,7 +4912,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -4990,7 +5036,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -5146,7 +5192,7 @@ OUTPUT:
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
@@ -5553,7 +5599,7 @@ text="&lt;UL&gt;&lt;LI&gt;links&lt;LI&gt;pages&lt;LI&gt;images&lt;/UL&gt;" snapx
                     <row>
                         <entry>Attribute Name</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>Default</entry>
                         <entry>Description</entry>
                     </row>
