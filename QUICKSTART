@@ -259,6 +259,33 @@ the section that display the loop iteration and the total number of times the
 section is looped. Also note the {sectionelse}. This would have been displayed
 had the loop array $FirstName been empty.
 
+You can access keys of arrays with this syntax:
+
+--------- index.php --------
+<?php
+require("Smarty.class.php");
+$smarty = new Smarty;
+$smarty->assign(array("ContactInfo" => array(
+				array("FirstName" => "Ned","LastName" => "Flanders"),
+				array("FirstName" => "Monty","LastName" => "Burns")
+				)
+			));
+$smarty->display("index.tpl");
+?>
+
+--------- templates/index.tpl --------
+{include file="header.tpl" title="Home Page"}
+    {section name=people loop=$ContactInfo}
+        {$ContactInfo[people].FirstName}
+		{$ContactInfo[people].LastName}<br>
+    {sectionelse}
+        There are no values to loop through.
+    {/section}
+    <p>
+    There were {%people.loop%} names in this list.
+{include file="footer.tpl"}
+
+
 You can also do complex nested sections, like so:
 
 --------- index.php --------

@@ -812,7 +812,7 @@ $smarty->clear_all_cache();
 			<title>clear_compiled_tpl</title>
 			<funcsynopsis>
 			<funcprototype>
-			<funcdef>void <function>clear_all_cache</function></funcdef>
+			<funcdef>void <function>clear_compiled_tpl</function></funcdef>
 				<paramdef>string <parameter>tpl_file</parameter></paramdef>
 			</funcprototype>
 			</funcsynopsis>
