@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: andreas Status: ready -->
-   <reference id="api.functions">
-     <title>Methoden</title>
-     <titleabbrev></titleabbrev>
-     <partintro>
-     <section>
-      <title />
-      <para></para>
-     </section>
-     </partintro>
+<!-- EN-Revision: 1.9 Maintainer: andreas Status: ready -->
+<chapter id="api.functions">
+ <title>Methoden</title>
 &programmers.api-functions.api-append;
 &programmers.api-functions.api-append-by-ref;
 &programmers.api-functions.api-assign;
@@ -49,7 +42,7 @@
 &programmers.api-functions.api-unregister-postfilter;
 &programmers.api-functions.api-unregister-prefilter;
 &programmers.api-functions.api-unregister-resource;
-</reference>
+</chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
