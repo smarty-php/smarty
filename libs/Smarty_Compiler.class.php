@@ -804,7 +804,7 @@ class Smarty_Compiler extends Smarty {
 
         $output .=  
             "\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
-			"\$_params = array('smarty_include_tpl_file' => '" . $this->_dequote($include_file) . "', 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."));\n" .
+			"\$_params = array('smarty_include_tpl_file' => " . $include_file . ", 'smarty_include_vars' => array(".implode(',', (array)$arg_list)."));\n" .
             "\$this->_execute_core_function('smarty_include', \$_params);\n" .
             "\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
             "unset(\$_smarty_tpl_vars);\n";
