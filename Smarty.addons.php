@@ -695,8 +695,6 @@ function smarty_func_assign_debug_info($args, &$smarty_obj) {
 	
 	$included_templates = $smarty_obj->_smarty_debug_info;
 	
-	$smarty_obj->assign("_debug_expand", $smarty_obj->_smarty_debug_expand);	
-	
 	$smarty_obj->assign("_debug_keys", array_keys($assigned_vars));
 	$smarty_obj->assign("_debug_vals", array_values($assigned_vars));
 	

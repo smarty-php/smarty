@@ -669,7 +669,7 @@ function _generate_debug_output() {
     ob_start();
     $force_compile_orig = $this->force_compile;
     $this->force_compile = true;
-    $compile_path = $this->_get_compile_path($tpl_file);
+    $compile_path = $this->_get_compile_path($this->debug_tpl);
     if ($this->_process_template($this->debug_tpl, $compile_path))
     {
         if ($this->show_info_include) {
