@@ -1,3 +1,21 @@
+2003-08-14  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.read_cache_file.php:
+      fixed timestamp-check of config-files in smarty_core_read_cache_file()
+
+    * libs/Smarty.class.php:
+      fixed typecasting for arrays in _parse_resource_name()
+
+    * NEWS
+      libs/plugins/function.config_load.php:
+      fixes in config_load:
+      - handling of section-attribute
+      - reusing the same config-file multiple times
+      - serialization of config-data for php<4.2.0 (no var_export)
+      
+      many thanks to atu for pointing this out and for testing
+
 2003-08-13  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty.class.php
