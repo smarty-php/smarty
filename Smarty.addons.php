@@ -476,14 +476,18 @@ function smarty_func_math() {
     Function: smarty_func_fetch
     Purpose:  fetch file, web or ftp data and display results
 \*======================================================================*/
-function smarty_func_fetch() {
-    extract(func_get_arg(0));
-
-        if(empty($file)) {
-            trigger_error("parameter 'file' cannot be empty");
-            return;                    
-        }
-        readfile($file);
+function smarty_func_fetch($args,&$smarty_obj) {
+    extract($args);
+	
+    if(empty($file)) {
+        trigger_error("parameter 'file' cannot be empty");
+        return;                    
+    }
+	if($smarty_obj->security && !preg_match("/^(http|ftp):\/\//",$file)) {
+        trigger_error("(secure mode) file must start with http:// or ftp://");
+        return;
+	}		
+    readfile($file);
 }
 
 /*======================================================================*\
