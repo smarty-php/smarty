@@ -1,3 +1,13 @@
+2004-01-22  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.config_load.php:
+      removed emission of unnecessary notices for unavailable config-files
+      in config_load()
+
+    * NEWS
+      libs/Config_File.class.php:
+      fixed handling of hidden sections in Config_File
+
 2004-01-21  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
