@@ -1,3 +1,6 @@
+Version 2.6.8 (Mar 21, 2005)
+----------------------------
+
   - remove e-modifier from regex_replace modifier (messju)
   - remove cast of object to array in foreach's from-attribute (messju)
   - add "null" as a valid token for {if} when security is enabled (messju)
