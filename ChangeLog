@@ -1,3 +1,12 @@
+2003-01-25  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php
+      Smarty_Compiler.class.php:
+      add support for restriction to registered methods
+
+    * plugins/outputfilter.trimwhitespace.php:
+      update with textarea support
+
 2003-01-24  Monte Ohrt  <monte@ispi.net>
 
     * Smarty_Compiler.class.php:
