@@ -1495,7 +1495,7 @@ class Smarty_Compiler extends Smarty {
 		
         $indexes = $match[0];
         $var_name = array_shift($indexes);
-		
+				
         /* Handle $smarty.* variable references as a special case. */
         if ($var_name == 'smarty') {
             /*
@@ -1513,8 +1513,7 @@ class Smarty_Compiler extends Smarty {
             $output = "\$this->_tpl_vars['$var_name']";
         }
 
-        foreach ($indexes as $index) {
-			
+        foreach ($indexes as $index) {			
             if ($index{0} == '[') {
                 $index = substr($index, 1, -1);
                 if (is_numeric($index)) {
@@ -1538,9 +1537,19 @@ class Smarty_Compiler extends Smarty {
 				} elseif($this->security && substr($index,2,1) == '_') {
 					$this->_syntax_error('(secure) call to private object member is not allowed', E_USER_ERROR, __FILE__, __LINE__);
 				} else {
-					// parse each parameter to the object
-					if(preg_match('!(?:' . $this->_obj_ext_regexp . ')+(?:(' . $this->_obj_params_regexp . '))?!', $index, $match)) {
-						$index = str_replace($match[1], $this->_parse_parenth_args($match[1]), $index);
+					if(preg_match('!((?:' . $this->_obj_ext_regexp . ')+)(' . $this->_obj_params_regexp . ')?!', $index, $match)) {
+						if(!empty($match[2])) {
+							// parse object parameters
+							$index = str_replace($match[2], $this->_parse_parenth_args($match[2]), $index);
+						}
+						if(preg_match_all('!' . $this->_dvar_regexp . '!', $match[1], $_dvar_match)) {
+							// parse embedded variables
+							$_match_replace = $match[1];
+							foreach($_dvar_match[0] as $_curr_var) {
+								$_match_replace = str_replace($_curr_var, '{' . $this->_parse_var($_curr_var) . '}', $_match_replace);
+							}
+							$index = str_replace($match[1], $_match_replace, $index);
+						}
 					}
 					$output .= $index;
 				}
