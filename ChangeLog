@@ -1,3 +1,15 @@
+2002-11-01  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.html_options.php:
+    added label attribute to all option outputs, cover w3c spec.
+
+    * NEWS: update NEWS file
+
+    * docs/designers.sgml: update docs for optgroup output
+
+    * plugins/function.html_options.php:
+    make html_options work with optgroup, make func modular and recursive.
+
 2002-10-29  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
