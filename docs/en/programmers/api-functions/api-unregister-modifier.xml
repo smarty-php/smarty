@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.unregister.modifier">
-         <title>unregister_modifier</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>unregister_modifier</function></funcdef>
-           <paramdef>string <parameter>name</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          Use this to dynamically unregister modifier plugin. Pass in the
-          template modifier name.
-         </para>
-<example>
-<title>unregister_modifier</title>
-<programlisting role="php">
+<refentry id="api.unregister.modifier">
+ <refnamediv>
+  <refname>unregister_modifier</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>unregister_modifier</methodname>
+   <methodparam><type>string</type><parameter>name</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Use this to dynamically unregister modifier plugin. Pass in the
+   template modifier name.
+  </para>
+  <example>
+   <title>unregister_modifier</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 // we don't want template designers to strip tags from elements
@@ -22,9 +25,10 @@
 $smarty->unregister_modifier("strip_tags");
 ?>
 ]]>
-</programlisting>
-</example>
-</sect1>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

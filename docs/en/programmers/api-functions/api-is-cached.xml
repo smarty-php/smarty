@@ -1,56 +1,60 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.is.cached">
-			<title>is_cached</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>boolean <function>is_cached</function></funcdef>
-				<paramdef>string <parameter>template</parameter></paramdef>
-				<paramdef>[string <parameter>cache_id</parameter>]</paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                This returns true if there is a valid cache for this template.
-                This only works if <link
-                linkend="variable.caching">caching</link> is set to true.
-			</para>
-<example>
-<title>is_cached</title>
-<programlisting role="php">
+<refentry id="api.is.cached">
+ <refnamediv>
+  <refname>is_cached</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>bool</type><methodname>is_cached</methodname>
+   <methodparam><type>string</type><parameter>template</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   This returns &true; if there is a valid cache for this template.
+   This only works if <link
+   linkend="variable.caching">caching</link> is set to true.
+  </para>
+  <example>
+   <title>is_cached</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 $smarty->caching = true;
 
 if(!$smarty->is_cached("index.tpl")) {
-    // do database calls, assign vars here
+// do database calls, assign vars here
 }
 
 $smarty->display("index.tpl");
 ?>
 ]]>
-</programlisting>
-</example>
-            <para>
-                You can also pass a cache id as an optional second parameter
-                in case you want multiple caches for the given template.
-            </para>
-<example>
-<title>is_cached with multiple-cache template</title>
-<programlisting role="php">
+   </programlisting>
+  </example>
+  <para>
+   You can also pass a cache id as an optional second parameter
+   in case you want multiple caches for the given template.
+  </para>
+  <example>
+   <title>is_cached with multiple-cache template</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 $smarty->caching = true;
 
-if(!$smarty->is_cached("index.tpl","FrontPage")) {
-    // do database calls, assign vars here
+if(!$smarty->is_cached("index.tpl", "FrontPage")) {
+  // do database calls, assign vars here
 }
 
-$smarty->display("index.tpl","FrontPage");
+$smarty->display("index.tpl", "FrontPage");
 ?>
 ]]>
-</programlisting>
-</example>
-</sect1>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

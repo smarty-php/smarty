@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.unregister.prefilter">
-			<title>unregister_prefilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_prefilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister a prefilter.
-			</para>
-</sect1>
+<refentry id="api.unregister.prefilter">
+ <refnamediv>
+  <refname>unregister_prefilter</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>unregister_prefilter</methodname>
+   <methodparam><type>string</type><parameter>function_name</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Use this to dynamically unregister a prefilter.
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

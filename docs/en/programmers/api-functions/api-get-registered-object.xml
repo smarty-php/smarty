@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.get.registered.object">
-			<title>get_registered_object</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>array <function>get_registered_object</function></funcdef>
-				<paramdef>string <parameter>object_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-				This returns a reference to a registered object. This is useful
-				from within a custom function when you need direct access to a
-				registered object.
-			</para>
-<example>
-<title>get_registered_object</title>
-<programlisting role="php">
+<refentry id="api.get.registered.object">
+ <refnamediv>
+  <refname>get_registered_object</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>array</type><methodname>get_registered_object</methodname>
+   <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   This returns a reference to a registered object. This is useful
+   from within a custom function when you need direct access to a
+   registered object.
+  </para>
+  <example>
+   <title>get_registered_object</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
-function smarty_block_foo($params, &$smarty) {
-	if (isset($params['object'])) {
-		// get reference to registered object
-   		$obj_ref = &$smarty->get_registered_object($params['object']);
-		// use $obj_ref is now a reference to the object
-	}
+function smarty_block_foo($params, &$smarty) 
+{
+  if (isset($params['object'])) {
+    // get reference to registered object
+    $obj_ref = &$smarty->get_registered_object($params['object']);
+    // use $obj_ref is now a reference to the object
+  }
 }
 ?>
 ]]>
-</programlisting>
-</example>
-</sect1>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.config.load">
-			<title>config_load</title>
-			<methodsynopsis>
-			<type>void</type><methodname>config_load</methodname>
-				<methodparam><type>string</type><parameter>file</parameter></methodparam>
-				<methodparam choice="opt"><type>string</type><parameter>section</parameter></methodparam>
-			</methodsynopsis>
-			<para>
-			This loads config file data and assigns it to the template. This
-			works identical to the template <link
-			linkend="language.function.config.load">config_load</link>
-			function.
-			</para>
-		  <note>
-		  <title>Technical Note</title>
-    	  <para>
-		   As of Smarty 2.4.0, assigned template variables are kept across
-		   invocations of fetch() and display(). Config vars loaded from
-		   config_load() are always global scope. Config files are also
-		   compiled for faster execution, and respect the <link
-		   linkend="variable.force.compile">force_compile</link> and <link
-		   linkend="variable.compile.check">compile_check</link> settings.
-    	  </para>
-		  </note>
-<example>
-<title>config_load</title>
-<programlisting role="php">
+<refentry id="api.config.load">
+ <refnamediv>
+  <refname>config_load</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>config_load</methodname>
+   <methodparam><type>string</type><parameter>file</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>section</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   This loads config <parameter>file</parameter> data and assigns it to
+   the template. This works identical to the template <link
+   linkend="language.function.config.load">config_load</link>
+   function.
+  </para>
+  <note>
+   <title>Technical Note</title>
+   <para>
+    As of Smarty 2.4.0, assigned template variables are kept across
+    invocations of fetch() and display(). Config vars loaded from
+    config_load() are always global scope. Config files are also
+    compiled for faster execution, and respect the <link
+    linkend="variable.force.compile">force_compile</link> and <link
+    linkend="variable.compile.check">compile_check</link> settings.
+   </para>
+  </note>
+  <example>
+   <title>config_load</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 // load config variables and assign them
 $smarty->config_load('my.conf');
 
 // load a section
-$smarty->config_load('my.conf','foobar');
+$smarty->config_load('my.conf', 'foobar');
 ?>
 ]]>
-</programlisting>
-</example>
-</sect1>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

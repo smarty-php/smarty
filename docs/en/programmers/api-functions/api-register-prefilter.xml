@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.register.prefilter">
-			<title>register_prefilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>register_prefilter</function></funcdef>
-				<paramdef>mixed <parameter>function</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically register prefilters to run templates
-                through before they are compiled. See <link
-                linkend="advanced.features.prefilters">template prefilters</link> for
-                more information on how to setup a prefiltering function.
-			</para>
-                        <para>
-                The php-function callback <parameter>function</parameter> can be either (a) a string
-                containing the function name or (b) an array of the form
-                <literal>array(&amp;$object, $method)</literal> with
-                <literal>&amp;$object</literal> being a reference to an
-                object and <literal>$method</literal> being a string
-                containing the mehod-name or (c) an array of the form
-                <literal>array(&amp;$class, $method)</literal> with
-                <literal>$class</literal> being a classname and
-                <literal>$method</literal> being a class method of that
-                class.
-                        </para>
-</sect1>
+<refentry id="api.register.prefilter">
+ <refnamediv>
+  <refname>register_prefilter</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>register_prefilter</methodname>
+   <methodparam><type>mixed</type><parameter>function</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Use this to dynamically register prefilters to run templates
+   through before they are compiled. See <link
+   linkend="advanced.features.prefilters">template prefilters</link> for
+   more information on how to setup a prefiltering function.
+  </para>
+  <para>
+   The php-function callback <parameter>function</parameter> can be either (a) a string
+   containing the function name or (b) an array of the form
+   <literal>array(&amp;$object, $method)</literal> with
+   <literal>&amp;$object</literal> being a reference to an
+   object and <literal>$method</literal> being a string
+   containing the mehod-name or (c) an array of the form
+   <literal>array(&amp;$class, $method)</literal> with
+   <literal>$class</literal> being a classname and
+   <literal>$method</literal> being a class method of that
+   class.
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

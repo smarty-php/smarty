@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-        <sect1 id="api.append">
-         <title>append</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>void <function>append</function></funcdef>
-           <paramdef>mixed <parameter>var</parameter></paramdef>
-          </funcprototype>
-          <funcprototype>
-           <funcdef>void <function>append</function></funcdef>
-           <paramdef>string <parameter>varname</parameter></paramdef>
-           <paramdef>mixed <parameter>var</parameter></paramdef>
-          </funcprototype>
-          <funcprototype>
-           <funcdef>void <function>append</function></funcdef>
-           <paramdef>string <parameter>varname</parameter></paramdef>
-           <paramdef>mixed <parameter>var</parameter></paramdef>
-           <paramdef>boolean <parameter>merge</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-		  This is used to append an element to an assigned array. If you append
-		  to a string value, it is converted to an array value and then
-		  appended to. You can explicitly pass name/value pairs, or associative
-		  arrays containing the name/value pairs. If you pass the optional third
-		  parameter of true, the value will be merged with the current array
-		  instead of appended.
-         </para>
-		 <note>
-		 <title>Technical Note</title>
-		 <para>
-		 The merge parameter respects array keys, so if you merge two
-		 numerically indexed arrays, they may overwrite each other or result in
-		 non-sequential keys. This is unlike the array_merge() function of PHP
-		 which wipes out numerical keys and renumbers them.
-		 </para>
-		 </note>
-         <example>
-          <title>append</title>
-          <programlisting role="php">
+<refentry id="api.append">
+ <refnamediv>
+  <refname>append</refname>
+  <refpurpose></refpurpose>
+ </refnamediv> 
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>append</methodname>
+   <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
+  </methodsynopsis>
+  <methodsynopsis>
+   <type>void</type><methodname>append</methodname>
+   <methodparam><type>string</type><parameter>varname</parameter></methodparam>
+   <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
+   <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   This is used to append an element to an assigned array. If you append
+   to a string value, it is converted to an array value and then
+   appended to. You can explicitly pass name/value pairs, or associative
+   arrays containing the name/value pairs. If you pass the optional third
+   parameter of true, the value will be merged with the current array
+   instead of appended.
+  </para>
+  <note>
+   <title>Technical Note</title>
+   <para>
+    The merge parameter respects array keys, so if you merge two
+    numerically indexed arrays, they may overwrite each other or result in
+    non-sequential keys. This is unlike the array_merge() function of PHP
+    which wipes out numerical keys and renumbers them.
+   </para>
+  </note>
+  <example>
+   <title>append</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 // passing name/value pairs
-$smarty->append("Name","Fred");
-$smarty->append("Address",$address);
+$smarty->append("Name", "Fred");
+$smarty->append("Address", $address);
 
 // passing an associative array
-$smarty->append(array("city" => "Lincoln","state" => "Nebraska"));
+$smarty->append(array("city" => "Lincoln", "state" => "Nebraska"));
 ?>
 ]]>
-</programlisting>
-</example>
-</sect1>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

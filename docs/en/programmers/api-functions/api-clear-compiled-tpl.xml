@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.compiled.tpl">
-			<title>clear_compiled_tpl</title>
-			<methodsynopsis>
-			<type>void</type><methodname>clear_compiled_tpl</methodname>
-				<methodparam choice="opt"><type>string</type><parameter>tpl_file</parameter></methodparam>
-				<methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
-				<methodparam choice="opt"><type>int</type><parameter>exp_time</parameter></methodparam>
-			</methodsynopsis>
-			<para>
-			This clears the compiled version of the specified template
-			resource, or all compiled template files if one is not specified.
-			if you pass a compile_id only the compiled template for this
-			specific compile_id is cleared. if you pass an exp_time, then only
-			compiled templates older than exp_time seconds are cleared, by
-			default all compiled templates are cleared regardless of their age.
-			This function is for advanced use only, not normally needed.
-			</para>
-<example>
-<title>clear_compiled_tpl</title>
-<programlisting role="php">
+<refentry id="api.clear.compiled.tpl">
+ <refnamediv>
+  <refname>clear_compiled_tpl</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_compiled_tpl</methodname>
+   <methodparam choice="opt"><type>string</type><parameter>tpl_file</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>int</type><parameter>exp_time</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   This clears the compiled version of the specified template
+   resource, or all compiled template files if one is not specified.
+   if you pass a compile_id only the compiled template for this
+   specific compile_id is cleared. if you pass an exp_time, then only
+   compiled templates older than exp_time seconds are cleared, by
+   default all compiled templates are cleared regardless of their age.
+   This function is for advanced use only, not normally needed.
+  </para>
+  <example>
+   <title>clear_compiled_tpl</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 // clear a specific template resource
@@ -29,9 +34,10 @@ $smarty->clear_compiled_tpl("index.tpl");
 $smarty->clear_compiled_tpl();
 ?>
 ]]>
-</programlisting>
-</example>
-</sect1>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

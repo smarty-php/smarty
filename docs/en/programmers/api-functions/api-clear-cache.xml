@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.cache">
-			<title>clear_cache</title>
-			<methodsynopsis>
-			<type>void</type><methodname>clear_cache</methodname>
-				<methodparam choice="opt"><type>string</type><parameter>template</parameter></methodparam>
-				<methodparam choice="opt"><type>string</type><parameter>cache id</parameter></methodparam>
-				<methodparam choice="opt"><type>string</type><parameter>compile id</parameter></methodparam>
-				<methodparam choice="opt"><type>int</type><parameter>expire time</parameter></methodparam>
-			</methodsynopsis>
-			<para>
-				This clears the cache for a specific template. If you have
-				multiple caches for this template, you can clear a specific
-				cache by supplying the cache id as the second parameter. You
-				can also pass a compile id as a third parameter. You can "group"
-				templates together so they can be removed as a group. See the
-				<link linkend="caching">caching section</link> for more
-				information. As an optional fourth parameter, you can supply a
-				minimum age in seconds the cache file must be before it will
-				get cleared.
-			</para>
-<example>
-<title>clear_cache</title>
-<programlisting role="php">
+<refentry id="api.clear.cache">
+ <refnamediv>
+  <refname>clear_cache</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>clear_cache</methodname>
+   <methodparam><type>string</type><parameter>template</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   This clears the cache for a specific <parameter>template</parameter>. 
+   If you have multiple caches for this template, you can clear a specific
+   cache by supplying the <parameter>cache_id</parameter> as the second 
+   parameter. 
+   You can also pass a <parameter>compile_id</parameter> as a third parameter.
+   You can "group" templates together so they can be removed as a group. See the
+   <link linkend="caching">caching section</link> for more
+   information. As an optional fourth parameter, you can supply a
+   minimum age in seconds the cache file must be before it will
+   get cleared.
+  </para>
+  <example>
+   <title>clear_cache</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 // clear the cache for a template
 $smarty->clear_cache("index.tpl");
 
 // clear the cache for a particular cache id in an multiple-cache template
-$smarty->clear_cache("index.tpl","CACHEID");
+$smarty->clear_cache("index.tpl", "CACHEID");
 ?>
 ]]>
-</programlisting>
-</example>
-</sect1>
+   </programlisting>
+  </example>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

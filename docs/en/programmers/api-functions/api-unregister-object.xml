@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.unregister.object">
-			<title>unregister_object</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_object</function></funcdef>
-				<paramdef>string <parameter>object_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to unregister an object.
-			</para>
-</sect1>
+<refentry id="api.unregister.object">
+ <refnamediv>
+  <refname>unregister_object</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>unregister_object</methodname>
+   <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Use this to unregister an object.
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

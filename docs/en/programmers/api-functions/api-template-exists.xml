@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-        <sect1 id="api.template.exists">
-         <title>template_exists</title>
-         <funcsynopsis>
-          <funcprototype>
-           <funcdef>bool <function>template_exists</function></funcdef>
-           <paramdef>string <parameter>template</parameter></paramdef>
-          </funcprototype>
-         </funcsynopsis>
-         <para>
-          This function checks whether the specified template exists. It can
-          accept either a path to the template on the filesystem or a
-          resource string specifying the template.
-         </para>
-</sect1>
+<refentry id="api.template.exists">
+ <refnamediv>
+  <refname>template_exists</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>bool</type><methodname>template_exists</methodname>
+   <methodparam><type>string</type><parameter>template</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   This function checks whether the specified template exists. It can
+   accept either a path to the template on the filesystem or a
+   resource string specifying the template.
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

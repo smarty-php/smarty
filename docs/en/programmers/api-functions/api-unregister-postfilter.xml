@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.unregister.postfilter">
-			<title>unregister_postfilter</title>
-			<funcsynopsis>
-			<funcprototype>
-			<funcdef>void <function>unregister_postfilter</function></funcdef>
-				<paramdef>string <parameter>function_name</parameter></paramdef>
-			</funcprototype>
-			</funcsynopsis>
-			<para>
-                Use this to dynamically unregister a postfilter.
-			</para>
-</sect1>
+<refentry id="api.unregister.postfilter">
+ <refnamediv>
+  <refname>unregister_postfilter</refname>
+  <refpurpose></refpurpose>
+ </refnamediv>
+ <refsect1>
+  <title />
+  <methodsynopsis>
+   <type>void</type><methodname>unregister_postfilter</methodname>
+   <methodparam><type>string</type><parameter>function_name</parameter></methodparam>
+  </methodsynopsis>
+  <para>
+   Use this to dynamically unregister a postfilter.
+  </para>
+ </refsect1>
+</refentry>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
