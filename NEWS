@@ -1,3 +1,9 @@
+Version 2.6.9 (Mar 31, 2005)
+----------------------------
+
+  - disallow variable function calls in {if} statements (messju, monte)
+  - disallow variable function calls in {math} equations (messju, monte)
+
 Version 2.6.8 (Mar 21, 2005)
 ----------------------------
 
