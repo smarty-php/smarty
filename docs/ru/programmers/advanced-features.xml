@@ -91,7 +91,8 @@ the output was {$output)
     <example>
      <title>using a template prefilter</title>
      <programlisting>
-&lt;?php
+<![CDATA[
+<?php
 // put this in your application
 function remove_dw_comments($tpl_source, &$smarty)
 {
@@ -101,10 +102,11 @@ function remove_dw_comments($tpl_source, &$smarty)
 // register the prefilter
 $smarty->register_prefilter("remove_dw_comments");
 $smarty->display("index.tpl");
-?&gt;
+?>
 
 {* Smarty template index.tpl *}
-&lt;!--# this line will get removed by the prefilter --&gt;</programlisting>
+&lt;!--# this line will get removed by the prefilter --&gt;
+]]></programlisting>
     </example>
    </sect1>
 
@@ -125,6 +127,7 @@ $smarty->display("index.tpl");
     <example>
      <title>using a template postfilter</title>
      <programlisting>
+<![CDATA[
 &lt;?php
 // put this in your application
 function add_header_comment($tpl_source, &$smarty)
@@ -139,7 +142,9 @@ $smarty->display("index.tpl");
 
 {* compiled Smarty template index.tpl *}
 &lt;!-- Created by Smarty! --&gt;
-{* rest of template content... *}</programlisting>
+{* rest of template content... *}
+]]>
+</programlisting>
     </example>
   </sect1>
 
@@ -166,6 +171,7 @@ $smarty->display("index.tpl");
    <example>
     <title>using a template outputfilter</title>
     <programlisting>
+<![CDATA[
 &lt;?php
 // put this in your application
 function protect_email($tpl_output, &$smarty)
@@ -182,7 +188,8 @@ $smarty->display("index.tpl");
 
 // now any occurrence of an email address in the template output will have
 // a simple protection against spambots
-?&gt;</programlisting>
+?&gt;
+]]></programlisting>
    </example>
   </sect1>
 
@@ -211,6 +218,7 @@ $smarty->display("index.tpl");
    <example>
     <title>example using MySQL as a cache source</title>
     <programlisting>
+<![CDATA[
 &lt;?php
 /*
 
@@ -312,7 +320,8 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	
 }
 
-?&gt;</programlisting>
+?&gt;
+]]></programlisting>
     </example>
   </sect1>
 
@@ -410,6 +419,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
     <example>
      <title>using custom resources</title>
      <programlisting>
+<![CDATA[
 // from PHP script
 
 // put these function somewhere in your application
@@ -465,7 +475,8 @@ $smarty->register_resource("db", array("db_get_template",
 $smarty->display("db:index.tpl");
 
 {* using resource from within Smarty template *}
-{include file="db:/extras/navigation.tpl"}</programlisting>
+{include file="db:/extras/navigation.tpl"}
+]]></programlisting>
     </example>
    </sect2>
 

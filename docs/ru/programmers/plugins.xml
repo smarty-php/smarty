@@ -324,7 +324,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
       <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>mixed <parameter>$content</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -404,7 +404,7 @@ function smarty_block_translate($params, $content, &amp;$smarty)
      <funcprototype>
       <funcdef>mixed <function>smarty_compiler_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$tag_arg</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -421,6 +421,7 @@ function smarty_block_translate($params, $content, &amp;$smarty)
     <example>
      <title>simple compiler function</title>
      <programlisting>
+<![CDATA[
 &lt;?php
 /*
  * Smarty plugin
@@ -436,7 +437,8 @@ function smarty_compiler_tplheader($tag_arg, &$smarty)
 {
     return "\necho '" . $smarty-&gt;_current_file . " compiled at " . date('Y-m-d H:M'). "';";
 }
-?&gt;</programlisting>
+?&gt;
+]]></programlisting>
      <para>
       This function can be called from the template as:
      </para>
@@ -464,7 +466,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_prefilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$source</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -478,7 +480,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_postfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$compiled</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -492,6 +494,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     <example>
      <title>prefilter plugin</title>
      <programlisting>
+<![CDATA[
 &lt;?php
 /*
  * Smarty plugin
@@ -506,12 +509,15 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
  {
      return preg_replace('!&lt;(\w+)[^&gt;]+&gt;!e', 'strtolower("$1")', $source);
  }
-?&gt;</programlisting>
+?&gt;
+]]>
+ </programlisting>
     </example>
     <para></para>
     <example>
      <title>postfilter plugin</title>
      <programlisting>
+<![CDATA[
 &lt;?php
 /*
  * Smarty plugin
@@ -527,7 +533,9 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      $compiled = "&lt;pre&gt;\n&lt;?php print_r(\$this-&gt;get_template_vars()); ?&gt;\n&lt;/pre&gt;" . $compiled;
      return $compiled;
  }
-?&gt;</programlisting>
+?&gt;
+]]>
+ </programlisting>
     </example>
    </sect1>
 
@@ -540,7 +548,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$template_output</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -551,7 +559,9 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     </para>
     <example>
      <title>output filter plugin</title>
-     <programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -567,6 +577,8 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
                          '$1%40$2', $output);
  }
+?>
+]]>
      </programlisting>
     </example>
    </sect1>
@@ -589,24 +601,24 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>string <parameter>&$source</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>string <parameter>&amp;$source</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>int <parameter>&$timestamp</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
 
@@ -716,7 +728,7 @@ function smarty_resource_db_trusted($tpl_name, &amp;$smarty)
      <funcprototype>
       <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&$smarty</parameter></paramdef>
+      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>

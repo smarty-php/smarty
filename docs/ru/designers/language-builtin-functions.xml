@@ -683,6 +683,7 @@ index.tpl
 <example>
 <title>кострукция if</title>
 <programlisting>
+<![CDATA[
 {if $name eq "Fred"}
 	Welcome Sir.
 {elseif $name eq "Wilma"}
@@ -743,7 +744,9 @@ index.tpl
 {* 0=четно, 1=четно, 2=четно, 3=нечетно, 4=нечетно, 5=нечетно, и т.д. *}
 {if $var is even by 3}
 	...
-{/if}</programlisting>
+{/if}
+]]>
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.ldelim">

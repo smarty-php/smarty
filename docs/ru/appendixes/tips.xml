@@ -233,13 +233,14 @@ Pretty easy isn't it?
         You can embed PHP into your templates with the {php}{/php} tags.
         With this, you can setup self contained templates with their own
         data structures for assigning their own variables. With the logic
-        embedded like this, you can keep the template & logic together. This
+        embedded like this, you can keep the template &amp; logic together. This
         way no matter where the template source is coming from, it is always
         together as one component.
         </para>
 <example>
 <title>componentized template</title>
 <programlisting>
+<![CDATA[
 {* Smarty *}
 
 {php}
@@ -259,7 +260,8 @@ Pretty easy isn't it?
 
 {/php}
 
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
+Stock Name: {$ticker_name} Stock Price: {$ticker_price}
+]]></programlisting>
 </example>
         <para>
 		As of Smarty 1.5.0, there is even a cleaner way. You can include php in
@@ -271,6 +273,7 @@ Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
 <example>
 <title>componentized template with include_php</title>
 <programlisting>
+<![CDATA[
 load_ticker.php
 ---------------
 
@@ -297,7 +300,8 @@ index.tpl
 
 {include_php file="load_ticker.php"}
 
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}</programlisting>
+Stock Name: {$ticker_name} Stock Price: {$ticker_price}
+]]></programlisting>
 </example>
 	</sect1>
 	<sect1 id="tips.obfuscating.email">
