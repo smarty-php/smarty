@@ -16,8 +16,8 @@
  
 function smarty_core_write_compiled_include($params, &$smarty)
 {
-    $_tag_start = 'if \(\$smarty->caching\) \{ echo \'\{nocache\:('.$params['cache_serial'].')#(\d+)\}\';\}';
-    $_tag_end   = 'if \(\$smarty->caching\) \{ echo \'\{/nocache\:(\\2)#(\\3)\}\';\}';
+    $_tag_start = 'if \(\$this->caching\) \{ echo \'\{nocache\:('.$params['cache_serial'].')#(\d+)\}\';\}';
+    $_tag_end   = 'if \(\$this->caching\) \{ echo \'\{/nocache\:(\\2)#(\\3)\}\';\}';
 
     preg_match_all('!('.$_tag_start.'(.*)'.$_tag_end.')!Us', 
                    $params['compiled_content'], $_match_source, PREG_SET_ORDER);
@@ -30,15 +30,15 @@ function smarty_core_write_compiled_include($params, &$smarty)
 
     $_compile_path = $params['include_file_path'];
 
-    $smarty->_cache_serials[$_compile_path] = $smarty->_cache_serial;
-    $_include_compiled .= "\$smarty->_cache_serials['".$smarty->_cache_include."'] = '".$smarty->_cache_serial."';\n\n?>";
+    $smarty->_cache_serials[$_compile_path] = $smarty->params['cache_serial'];
+    $_include_compiled .= "\$this->_cache_serials['".$_compile_path."'] = '".$params['cache_serial']."';\n\n?>";
 
     $_include_compiled .= $params['plugins_code'];
     $_include_compiled .= "<?";
     for ($_i = 0, $_for_max = count($_match_source); $_i < $_for_max; $_i++) {
         $_match =& $_match_source[$_i];
         $_include_compiled .= "
-function _smarty_tplfunc_$_match[2]_$_match[3](&\$smarty)
+function _smarty_tplfunc_$_match[2]_$_match[3](&\$this)
 {
 $_match[4]
 }
