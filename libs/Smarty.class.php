@@ -709,6 +709,7 @@ class Smarty
 						 [=]
 					    /x', $tag_args, $match);
 		$tokens = $match[0];
+		$var_delims = array('$', '#', '%');
 
 		$attrs = array();
 		/* Parse state:
@@ -755,7 +756,7 @@ class Smarty
 						/* If the token is not variable (doesn't start with
 						   '$', '#', or '%') and not enclosed in single or
 						   double quotes we single-quote it. */
-						else if (!in_array($token{0}, array('$', '#', '%')) &&
+						else if (!in_array($token{0}, $var_delims) &&
 								 !(($token{0} == '"' || $token[0] == "'") &&
 								 $token{strlen($token)-1} == $token{0}))
 							$token = "'".$token."'";

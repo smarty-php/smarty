@@ -18,4 +18,4 @@ My interests are:
 	none
 {/section}
 
-{html_options values=$LastName output=$FirstName|replace:"a":"@"}
+{html_options values=#title# output=$FirstName|replace:"a":"@"}
