@@ -305,10 +305,6 @@ class Smarty
 		
 		var_dump($compiled_tags);
 
-		// replace literal delimiter tags
-		$compiled_contents = preg_replace('/{ldelim}/', $this->left_delimiter,  $compiled_contents);
-		$compiled_contents = preg_replace('/{rdelim}/', $this->right_delimiter, $compiled_contents);
-
 		if(!($this->_write_file($compilepath, $compiled_contents)))
 			return false;
 
@@ -317,34 +313,29 @@ class Smarty
 
 	function _compile_tag($template_tag)
 	{
-		/* Tokenize the tag. */
-		preg_match_all('/(?:
-						 "[^"\\\\]*(?:\\\\.[^"\\\\]*)*" 		| # match all double quoted strings allowed escaped double quotes
-						 \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'		| # match all single quoted strings allowed escaped single quotes
-						 [()]									| # match parentheses
-						 [^"\'\s()]+							  # match any other token that is not any of the above
-						)/x', $template_tag, $match);
-		$tokens = $match[0];
-
 		/* Matched comment. */
-		if ($tokens[0] == '*' && $tokens[count($tokens)-1] == '*')
+		if ($template_tag{0} == '*' && $template_tag{strlen($tokens)-1} == '*')
 			return "";
 
-		/* Parse variables and section properties. */
-		if (preg_match('!^\$(\w+/)*\w+(?>\|\w+(:[^|]+)?)*$!', $tokens[0]) ||	// if a variable
-			preg_match('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tokens[0])) {   	// or a section property
-			$this->_parse_vars_props($tokens);
-			return "<?php print $tokens[0]; ?>";
+		/* Split tag into two parts: command and the arguments. */
+		list($tag_command, $tag_args) = preg_split('!\s+!', $template_tag, 2);
+
+		/* If the tag name matches a variable or section property definition,
+		   we simply process it. */
+		if (preg_match('!^\$(\w+/)*\w+(?>\|\w+(:[^|]+)?)*$!', $tag_command) ||	// if a variable
+			preg_match('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tag_command)) {   	// or a section property
+			settype($tag_command, 'array');
+			$this->_parse_vars_props($tag_command);
+			return "<?php print $tag_command; ?>";
 		}
 
-		switch ($tokens[0]) {
+		switch ($tag_command) {
 			case 'include':
 				/* TODO parse file= attribute */
 				return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$tokens[1].'"; ?>';
 
 			case 'if':
-				array_shift($tokens);
-				return $this->_compile_if_tag($tokens);
+				return $this->_compile_if_tag($tag_args);
 
 			case 'else':
 				return '<?php else: ?>';
@@ -359,7 +350,7 @@ class Smarty
 				return $this->right_delimiter;
 
 			case 'section':
-				break;
+				return $this->_compile_section_start($tag_args);
 
 			case '/section':
 				break;
@@ -370,8 +361,22 @@ class Smarty
 		}
 	}
 
-	function _compile_if_tag(&$tokens)
+	function _compile_section_start($tokens)
 	{
+		$attrs = $this->_parse_attrs($tokens);
+	}
+
+	function _compile_if_tag($tag_args)
+	{
+		/* Tokenize args for 'if' tag. */
+		preg_match_all('/(?:
+						 "[^"\\\\]*(?:\\\\.[^"\\\\]*)*" 		| # match all double quoted strings allowed escaped double quotes
+						 \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'		| # match all single quoted strings allowed escaped single quotes
+						 [()]									| # match parentheses
+						 [^"\'\s()]+							  # match any other token that is not any of the above
+						)/x', $tag_args, $match);
+		$tokens = $match[0];
+
 		$this->_parse_vars_props($tokens);
 
 		$is_arg_stack = array();
@@ -506,6 +511,74 @@ class Smarty
 		array_splice($tokens, 0, $expr_end, $expr);
 
 		return $tokens;
+	}
+
+	function _compile_section_start($tag_args)
+	{
+		$attrs = $this->_parse_attrs($tag_args);
+
+	}
+	
+	function _parse_attrs($tag_args)
+	{
+		/* Tokenize tag attributes. */
+		preg_match_all('/(?:
+						 "[^"\\\\]*(?:\\\\.[^"\\\\]*)*" 		| # match all double quoted strings allowed escaped double quotes
+						 \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'		| # match all single quoted strings allowed escaped single quotes
+						 [=]									| # match equal sign
+						 [^"\'\s=]+							 	  # match any other token that is not any of the above
+						)/x', $tag_args, $match);
+		$tokens = $match[0];
+
+		$this->_parse_vars_props($tokens);
+		$attrs = array();
+		/* Parse state:
+		   	0 - expecting attr name
+			1 - expecting '=' or another attr name
+			2 - expecting attr value (not '=') */
+		$state = 0;
+
+		for ($tokens as $token) {
+			switch ($state) {
+				case 0:
+					/* If the token is a valid identifier, we set attribute name
+					   and go to state 1. */
+					if (preg_match('!\w+!', $token)) {
+						$attr_name = $token;
+						$state = 1;
+					} else
+						/* TODO syntax error: invalid attr name */;
+					break;
+
+				case 1:
+					/* If the token is a valid identifier, the previously set
+					   attribute name does not need an argument. We put it in
+					   the attrs array, set the new attribute name to the
+					   current token and don't switch state.
+
+					   If the token is '=', then we go to state 2. */
+					if (preg_match('!\w+!', $token)) {
+						$attrs[$attr_name] = "";
+						$attr_name = $token;
+					} else if ($token == '=') {
+						$state = 2;
+					} else
+						/* TODO syntax error: expecting attr name or '=' */;
+					break;
+
+				case 2:
+					/* If token is not '=', we set the attribute value and go to
+					   state 0. */
+					if ($token != '=') {
+						$attrs[$attr_name] = $token;
+						$state = 0;
+					} else
+						/* TODO syntax error: '=' can't be a value */;
+					break;
+			}
+		}
+
+		return $attrs;
 	}
 	
 	function _parse_vars_props(&$tokens)
