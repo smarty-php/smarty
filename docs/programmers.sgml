@@ -78,18 +78,13 @@
        included templates and assigned variables for the current
        template page.
       </para>
-      <para>
-       NOTE: This was added to Smarty 1.4.3.
-      </para>
      </sect1>
      <sect1 id="variable.debug.tpl">
       <title>$debug_tpl</title>
       <para>
-       This is the name of the template file used for the debugging
-       console.
-      </para>
-      <para>
-       NOTE: This was added to Smarty 1.4.3.
+	   This is the name of the template file used for the debugging console. By
+	   default, it is named debug.tpl and is located in the <link
+	   linkend="constant.smarty.dir">SMARTY_DIR</link>.
       </para>
      </sect1>
      <sect1 id="variable.debugging.ctrl">
@@ -100,9 +95,6 @@
        SMARTY_DEBUG is found in the QUERY_STRING, debugging is enabled
        for that invocation of the script. If $debugging is true, this
        value is ignored.
-      </para>
-      <para>
-       NOTE: This was added to Smarty 1.4.4.
       </para>
      </sect1>
      <sect1 id="variable.global.assign">
