@@ -122,6 +122,9 @@ class Smarty
     var $version               =   '1.3.2';  // Smarty version number                     
     var $show_info_header      =   true;     // display info header at top of page output
 
+    var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
+                                                      // Smarty to compile templates
+
 /**************************************************************************/
 /* END SMARTY CONFIGURATION SECTION                                       */    
 /* There should be no need to touch anything below this line.             */
@@ -533,19 +536,19 @@ class Smarty
     {
         include_once "Smarty_Compiler.class.php";
 
-        $smarty_compiler = new Smarty_Compiler;
+        $smarty_compiler = new $this->compiler_class;
 
-        $smarty_compiler->template_dir = $this->template_dir;
-        $smarty_compiler->compile_dir = $this->compile_dir;
-        $smarty_compiler->config_dir = $this->config_dir;
-        $smarty_compiler->force_compile = $this->force_compile;
-        $smarty_compiler->caching = $this->caching;
-        $smarty_compiler->php_handling = $this->php_handling;
-        $smarty_compiler->left_delimiter = $this->left_delimiter;
-        $smarty_compiler->right_delimiter = $this->right_delimiter;
-        $smarty_compiler->custom_funcs = $this->custom_funcs;
-        $smarty_compiler->custom_mods = $this->custom_mods;
-        $smarty_compiler->version = $this->version;
+        $smarty_compiler->template_dir      = $this->template_dir;
+        $smarty_compiler->compile_dir       = $this->compile_dir;
+        $smarty_compiler->config_dir        = $this->config_dir;
+        $smarty_compiler->force_compile     = $this->force_compile;
+        $smarty_compiler->caching           = $this->caching;
+        $smarty_compiler->php_handling      = $this->php_handling;
+        $smarty_compiler->left_delimiter    = $this->left_delimiter;
+        $smarty_compiler->right_delimiter   = $this->right_delimiter;
+        $smarty_compiler->custom_funcs      = $this->custom_funcs;
+        $smarty_compiler->custom_mods       = $this->custom_mods;
+        $smarty_compiler->version           = $this->version;
 
         if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;
@@ -721,7 +724,7 @@ class Smarty
 \*======================================================================*/
     function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING)
     {
-        trigger_error($error_msg, $error_type);
+        trigger_error("Smarty error: $error_msg", $error_type);
     }
 
 }

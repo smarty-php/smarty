@@ -1,3 +1,5 @@
+    - added $compiler_class variable to allow specifying a different compiler
+      class. (Andrei)
     - changed Smarty to compile templates at runtime, allowing for arbitrary
       template resources. Also added fix for LOCK_EX under windows and changed
       a couple file permissions for security. (Monte)
