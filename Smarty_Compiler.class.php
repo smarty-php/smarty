@@ -49,7 +49,6 @@ class Smarty_Compiler extends Smarty {
     var $_current_line_no       =   1;          // line number for error messages
     var $_capture_stack         =   array();    // keeps track of nested capture buffers
     var $_plugin_info           =   array();    // keeps track of plugins to load
-    var $_filters_loaded        =   false;
     var $_init_smarty_vars      =   false;
 
 
@@ -67,10 +66,7 @@ class Smarty_Compiler extends Smarty {
             }
         }
 
-        if (!$this->_filters_loaded) {
-            $this->_load_filters();
-            $this->_filters_loaded = true;
-        }
+        $this->_load_filters();
 
         $this->_current_file = $tpl_file;
         $this->_current_line_no = 1;
@@ -1355,38 +1351,31 @@ class Smarty_Compiler extends Smarty {
         return $compiled_ref;
     }
 
+
 /*======================================================================*\
     Function: _load_filters
     Purpose:  load pre- and post-filters
 \*======================================================================*/
     function _load_filters()
     {
-        $plugins_dir = SMARTY_DIR . $this->plugins_dir;
-        $handle = opendir($plugins_dir);
-        while ($entry = readdir($handle)) {
-            $parts = explode('.', $entry, 3);
-            if ($entry == '.' ||
-                $entry == '..' ||
-                count($parts) < 3 ||
-                $parts[2] != 'php' ||
-                ($parts[0] != 'prefilter' &&
-                 $parts[0] != 'postfilter') ||
-                (isset($this->_plugins[$parts[0]][$parts[1]]) &&
-                 $this->_plugins[$parts[0]][$parts[1]] === false))
-                continue;
-
-            $plugin_file = $plugins_dir . DIR_SEP . $entry;
-            include_once $plugin_file;
-            $plugin_func = 'smarty_' . $parts[0] . '_' . $parts[1];
-            if (!function_exists($plugin_func)) {
-                $this->_trigger_plugin_error("Smarty plugin error: plugin function $plugin_func() not found in $plugin_file");
-            } else {
-                $this->_plugins[$parts[0]][$parts[1]] = array($plugin_func, null, null, true);
+        if (count($this->_plugins['prefilter']) > 0) {
+            foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
+                if ($prefilter === false) {
+                    unset($this->_plugins['prefilter'][$filter_name]);
+                    $this->_load_plugins(array(array('prefilter', $filter_name, null, null, false)));
+                }
             }
         }
-        closedir($handle);
+        if (count($this->_plugins['postfilter']) > 0) {
+            foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
+                if ($postfilter === false) {
+                    unset($this->_plugins['postfilter'][$filter_name]);
+                    $this->_load_plugins(array(array('postfilter', $filter_name, null, null, false)));
+                }
+            }
+        }
     }
-    
+
 
 /*======================================================================*\
     Function: _syntax_error

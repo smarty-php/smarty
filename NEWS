@@ -1,3 +1,6 @@
+    - introduced output filters. (Andrei)
+    - changed the way filters are loaded, added load_filter()
+      API function and $autoload_filters variable. (Andrei)
     - added caching logic for expire times per cache file
       (Norbert Rocher, Monte)
     - fixed html_select_date when field separator is "/"

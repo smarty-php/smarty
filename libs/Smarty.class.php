@@ -83,6 +83,8 @@ class Smarty
                                         // to all templates
     var $undefined       =  null;       // undefined variables in $global_assign will be
                                         // created with this value
+    var $autoload_filters = array();    // indicates which filters will be auto-loaded
+
     var $compile_check   =  true;       // whether to check for compiling step or not:
                                         // This is generally set to false once the
                                         // application is entered into production and
@@ -170,14 +172,15 @@ class Smarty
     var $_smarty_debug_info    = array();    // debugging information for debug console
     var $_cache_info           = array();    // info that makes up a cache file
     var $_plugins              = array(      // table keeping track of plugins
-                                       'modifier'  => array(),
-                                       'function'  => array(),
-                                       'block'     => array(),
-                                       'compiler'  => array(),
-                                       'prefilter' => array(),
-                                       'postfilter'=> array(),
-                                       'resource'  => array(),
-                                       'insert'    => array());
+                                       'modifier'      => array(),
+                                       'function'      => array(),
+                                       'block'         => array(),
+                                       'compiler'      => array(),
+                                       'prefilter'     => array(),
+                                       'postfilter'    => array(),
+                                       'outputfilter'  => array(),
+                                       'resource'      => array(),
+                                       'insert'        => array());
 
 
 /*======================================================================*\
@@ -407,6 +410,25 @@ class Smarty
     }
 
 /*======================================================================*\
+    Function:   load_filter()
+    Purpose:    load a filter of specified type and name
+\*======================================================================*/
+    function load_filter($type, $name)
+    {
+        switch ($type) {
+            case 'output':
+                $this->_load_plugins(array(array($type . 'filter', $name, null, null, false)));
+                break;
+
+            case 'pre':
+            case 'post':
+                if (!isset($this->_plugins[$type . 'filter'][$name]))
+                    $this->_plugins[$type . 'filter'][$name] = false;
+                break;
+        }
+    }
+
+/*======================================================================*\
     Function:   clear_cache()
     Purpose:    clear cached content for the given template and cache id
 \*======================================================================*/
@@ -588,23 +610,30 @@ class Smarty
         $this->_config = array(array('vars'  => array(),
                                      'files' => array()));
 
-        $compile_path = $this->_get_compile_path($_smarty_tpl_file);
+        if (count($this->autoload_filters))
+            $this->_autoload_filters();
+
+        $_smarty_compile_path = $this->_get_compile_path($_smarty_tpl_file);
 
         // if we just need to display the results, don't perform output
         // buffering - for speed
-        if ($_smarty_display && !$this->caching) {
-            if ($this->_process_template($_smarty_tpl_file, $compile_path))
+        if ($_smarty_display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
+            if ($this->_process_template($_smarty_tpl_file, $_smarty_compile_path))
             {
-                include($compile_path);
+                include($_smarty_compile_path);
             }
         } else {
             ob_start();
-            if ($this->_process_template($_smarty_tpl_file, $compile_path))
+            if ($this->_process_template($_smarty_tpl_file, $_smarty_compile_path))
             {
-                include($compile_path);
+                include($_smarty_compile_path);
             }
             $_smarty_results = ob_get_contents();
             ob_end_clean();
+
+            foreach ($this->_plugins['outputfilter'] as $output_filter) {
+                $_smarty_results = $output_filter[0]($_smarty_results, $this);
+            }
         }
 
         if ($this->caching) {
@@ -1017,10 +1046,10 @@ function _generate_debug_output() {
         extract($this->_tpl_vars);
 
         array_unshift($this->_config, $this->_config[0]);
-        $compile_path = $this->_get_compile_path($_smarty_include_tpl_file);
+        $_smarty_compile_path = $this->_get_compile_path($_smarty_include_tpl_file);
 
-        if ($this->_process_template($_smarty_include_tpl_file, $compile_path)) {
-            include($compile_path);
+        if ($this->_process_template($_smarty_include_tpl_file, $_smarty_compile_path)) {
+            include($_smarty_compile_path);
         }
 
         array_shift($this->_config);
@@ -1722,8 +1751,17 @@ function _run_insert_handler($args)
         }
     }
 
-    function _init_conf_obj()
+/*======================================================================*\
+    Function:   _autoload_filters()
+    Purpose:    automatically load a set of filters
+\*======================================================================*/
+    function _autoload_filters()
     {
+        foreach ($this->autoload_filters as $filter_type => $filters) {
+            foreach ($filters as $filter) {
+                $this->load_filter($filter_type, $filter);
+            }
+        }
     }
 
 /*======================================================================*\
