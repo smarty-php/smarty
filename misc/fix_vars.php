@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * This script is for upgrading from 1.3.2 -> 1.4.0.
  * This script will convert Smarty variable references from the old format to
  * the new one. For example, what used to look like $section1/foo.bar will now
  * be $foo[section1].bar. This allows for more readable syntax and also allows

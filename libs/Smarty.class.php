@@ -624,7 +624,7 @@ class Smarty
         
         switch ($resource_type) {
             case 'file':
-                if ($resource_name{0} != '/') {
+                if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/",$resource_name)) {
                     // relative pathname to $template_dir
                     $resource_name = $this->template_dir.'/'.$resource_name;   
                 }
@@ -637,7 +637,6 @@ class Smarty
                     return false;
                 }
                 break;
-
             default:
                 if (isset($this->resource_funcs[$resource_type])) {
                     $funcname = $this->resource_funcs[$resource_type];

@@ -13,8 +13,8 @@ Version 1.4.0
     - updated GLOBAL_ASSIGN to take SCRIPT_NAME from HTTP_SERVER_VARS
       instead of global variable. You can also assign several variables
       in one shot with an array. (Monte, Roman Neuhauser)
-    - added template filters, register_filer() and unregister_filter() API
-      functions. (Monte)
+	- added template prefilters, register_prefilter() and
+	  unregister_prefilter() API functions. (Monte)
     - added RELEASE_NOTES file to distribution. (Monte)
     - moved CREDITS out of manual into its own file. (Monte)
     - added register_resource() and unregister_resource() API functions. (Monte)

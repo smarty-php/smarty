@@ -54,10 +54,10 @@ bit smarter at this. It will take a unix timestamp, a mysql timestamp, or any
 date string that is parsable by strtotime, such as 10/01/2001 or 2001-10-01,
 etc. Just give some formats a try and see what works.
 
-Smarty now has template filters, meaning that you can run your templates
+Smarty now has template prefilters, meaning that you can run your templates
 through custom functions before they are compiled. This is good for things like
 removing unwanted comments, keeping an eye on words or functionality people are
-putting in templates, translating XML -> HTML, etc. See the register_filter
+putting in templates, translating XML -> HTML, etc. See the register_prefilter
 documentation for more info.
 
 Another addition are the so-called compiler functions. These are custom
@@ -65,7 +65,7 @@ functions registered by the user that are executed at compilation time of the
 template. They can be used to inject PHP code or time-sensitive static content
 into the compiled template.
 
-The run-time custom functions are now passed Smarty object as the second
+The run-time custom functions are now passed the Smarty object as the second
 parameter. This can be used, for example, to assign or clear template variables
 from inside the custom function.
 
@@ -73,7 +73,7 @@ clear_compile_dir() was added for clearing out compiled versions of your
 templates. Not something normally needed, but you may have a need for this if
 you have $compile_check set to false and you periodically update templates via
 some automated process. As of 1.4.0, uncompiled templates _always_ get
-compiled, regardless of $compile_check setting, although they won't be checked
+compiled regardless of $compile_check setting, although they won't be checked
 for recompile if $compile_check is set to false.
 
 You can now refer to properties of objects assigned from PHP by using the '->'
@@ -89,9 +89,9 @@ The format of the files created in the $compile_dir are now a bit different.
 The compiled template filename is the template resource name url-encoded.
 Therefore, all compiled files are now in the top directory of $compile_dir.
 This was done to make way for arbitrary template resources. Each compiled
-template has a header that states what template resource was used to create it.
-From a unix command prompt, you can use "head -2 *" to see the first two lines
-of each file.
+template also has a header that states what template resource was used to
+create it. From a unix command prompt, you can use "head -2 *" to see the first
+two lines of each file.
 
 When upgrading to 1.4.0, you will want to clear out all your old files in the
 $compile_dir. If you have $compile_check set to false and the compiled template
