@@ -127,7 +127,7 @@ $smarty = new Smarty;</screen>
 	</para>
 
 	<example>
-     <title>Supply absolute path to library directory</title>
+     <title>Supply absolute path to library file</title>
      <screen>
 require('/usr/local/lib/php/Smarty/Smarty.class.php');
 $smarty = new Smarty;</screen>
