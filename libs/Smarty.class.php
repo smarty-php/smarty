@@ -1885,7 +1885,7 @@ function _run_insert_handler($args)
             if (isset($plugin)) {
                 if (!$plugin[3]) {
                     if (!function_exists($plugin[0])) {
-                        $this->_trigger_plugin_error("$type '$name' is not implemented", $tpl_file, $tpl_line);
+                        $this->_trigger_plugin_error("$type '$name' is not implemented", $tpl_file, $tpl_line, __FILE__, __LINE__);
                     } else {
                         $plugin[1] = $tpl_file;
                         $plugin[2] = $tpl_line;
@@ -1921,7 +1921,7 @@ function _run_insert_handler($args)
 
                 $plugin_func = 'smarty_' . $type . '_' . $name;
                 if (!function_exists($plugin_func)) {
-                    $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file", $tpl_file, $tpl_line);
+                    $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file", $tpl_file, $tpl_line, __FILE__, __LINE__);
                     continue;
                 }
             }
@@ -1966,7 +1966,7 @@ function _run_insert_handler($args)
                 $this->_plugins[$type][$name] = array($plugin_func, $tpl_file, $tpl_line, true);
             } else {
                 // output error
-                $this->_trigger_plugin_error($message, $tpl_file, $tpl_line);
+                $this->_trigger_plugin_error($message, $tpl_file, $tpl_line, __FILE__, __LINE__);
             }
         }
     }
@@ -1997,7 +1997,7 @@ function _run_insert_handler($args)
             }
 
             if (!$plugin[1]) {
-                $this->_trigger_plugin_error("resource '$type' is not implemented");
+                $this->_trigger_plugin_error("resource '$type' is not implemented", null, null, __FILE__, __LINE__);
             }
 
             return;
@@ -2020,7 +2020,7 @@ function _run_insert_handler($args)
             foreach ($resource_ops as $op) {
                 $plugin_func = 'smarty_resource_' . $type . '_' . $op;
                 if (!function_exists($plugin_func)) {
-                    $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file");
+                    $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file", null, null, __FILE__, __LINE__);
                     return;
                 } else {
                     $resource_funcs[] = $plugin_func;
@@ -2058,13 +2058,19 @@ function _run_insert_handler($args)
     Function: _trigger_plugin_error
     Purpose:  trigger Smarty plugin error
 \*======================================================================*/
-    function _trigger_plugin_error($error_msg, $tpl_file = null, $tpl_line = null, $error_type = E_USER_ERROR)
+    function _trigger_plugin_error($error_msg, $tpl_file = null, $tpl_line = null,
+			$file = null, $line = null, $error_type = E_USER_ERROR)
     {
+		if(isset($file) && isset($line)) {
+			$info = ' ('.basename($file).", line $line)";
+		} else {
+			$info = null;
+		}
         if (isset($tpl_line) && isset($tpl_file)) {
             trigger_error("Smarty plugin error: [in " . $tpl_file . " line " .
-                          $tpl_line . "]: $error_msg", $error_type);
+                          $tpl_line . "]: $error_msg$info", $error_type);
         } else {
-            trigger_error("Smarty plugin error: $error_msg", $error_type);
+            trigger_error("Smarty plugin error: $error_msg$info", $error_type);
         }
     }
 
