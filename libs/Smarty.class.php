@@ -129,7 +129,7 @@ class Smarty
                                    );
 	var $trusted_dir		= array(); 	// array of directories where trusted templates
 										// reside ($security is disabled during their
-										// execution.)
+										// execution).
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
@@ -220,10 +220,10 @@ class Smarty
 		$this->compile_dir = SMARTY_DIR.$this->compile_dir;
 		$this->cache_dir = SMARTY_DIR.$this->cache_dir;
 		
-		for($x=0; $x < count($this->secure_dir); $x++) {
+		for ($x=0; $x < count($this->secure_dir); $x++) {
 			$this->secure_dir[$x] = SMARTY_DIR.$this->secure_dir[$x];
 		}
-		for($x=0; $x < count($this->trusted_dir); $x++) {
+		for ($x=0; $x < count($this->trusted_dir); $x++) {
 			$this->trusted_dir[$x] = SMARTY_DIR.$this->trusted_dir[$x];
 		}
 		
@@ -543,9 +543,11 @@ class Smarty
                                                 'depth'     => 0);
             $included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
-        $this->_compile_id = $_smarty_compile_id;
-        $this->_inclusion_depth = 0;
 
+        if (!isset($_smarty_compile_id))
+            $_smarty_compile_id = $this->compile_id;
+
+        $this->_inclusion_depth = 0;
 
         if ($this->caching) {
 
@@ -596,7 +598,7 @@ class Smarty
 
         $compile_path = $this->_get_compile_path($_smarty_tpl_file);
 
-		if($this->security && $this->_is_trusted($_smarty_tpl_file)) {
+		if ($this->security && $this->_is_trusted($_smarty_tpl_file)) {
 			$_smarty_trusted = true;
 			$this->security = false;
 		} else {
@@ -611,7 +613,7 @@ class Smarty
                 if ($this->show_info_include) {
                     echo "\n<!-- SMARTY_BEGIN: ".$_smarty_tpl_file." -->\n";
                 }
-				if($this->security && $this->_is_trusted($_smarty_tpl_file)) {
+				if ($this->security && $this->_is_trusted($_smarty_tpl_file)) {
 					$this->security = false;
                 	include($compile_path);
 					$this->security = true;
@@ -638,7 +640,7 @@ class Smarty
             $_smarty_results = ob_get_contents();
             ob_end_clean();
         }
-		if($_smarty_trusted) {
+		if ($_smarty_trusted) {
 			$this->security = true;
 		}
 
@@ -735,12 +737,12 @@ function _is_trusted($tpl_file) {
 
 	static $_trusted_tpls = array();
 
-	if(in_array($tpl_file,$_trusted_tpls)) {
+	if (in_array($tpl_file, $_trusted_tpls)) {
 		return true;
 	}
 
 	$_smarty_trusted = false;
-	if($this->security && !empty($this->trusted_dir)) {
+	if ($this->security && !empty($this->trusted_dir)) {
 		// see if template file is within a trusted directory. If so,
 		// disable security during the execution of the template.
 
@@ -755,12 +757,12 @@ function _is_trusted($tpl_file) {
             $resource_name = $tpl_path_parts[1];
         }
 		if ($resource_type == 'file') {
- 			if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/",$resource_name)) {
+ 			if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
                 // relative pathname to $template_dir
                 $resource_name = $this->template_dir.'/'.$resource_name;   
             }
             foreach ($this->trusted_dir as $curr_dir) {
-                if (substr(realpath($resource_name),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
                     $_smarty_trusted = true;
 					$_trusted_tpls[] = $tpl_file;
                     break;
@@ -782,7 +784,7 @@ function _is_secure($tpl_file) {
 	
 	static $_secure_tpls = array();
 
-	if(!$this->security || $this->security_settings['INCLUDE_ANY'] || in_array($tpl_file,$_secure_tpls)) {
+	if (!$this->security || $this->security_settings['INCLUDE_ANY'] || in_array($tpl_file, $_secure_tpls)) {
 		return true;
 	}
 
@@ -799,13 +801,13 @@ function _is_secure($tpl_file) {
     }
 
 	if ($resource_type == 'file') {
-			if(!empty($this->secure_dir)) {
- 				if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/",$resource_name)) {
+			if (!empty($this->secure_dir)) {
+ 				if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
                     // relative pathname to $template_dir
                     $resource_name = $this->template_dir.'/'.$resource_name;   
                 }				
 				foreach ($this->secure_dir as $curr_dir) {
-                	if (substr(realpath($resource_name),0,strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                	if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
                     	$_smarty_secure = true;
 						$_secure_tpls[] = $tpl_file;
                     	break;
@@ -928,7 +930,7 @@ function _is_secure($tpl_file) {
 
         switch ($resource_type) {
             case 'file':
-                if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/",$resource_name)) {
+                if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $resource_name)) {
                     // relative pathname to $template_dir
                     $resource_name = $this->template_dir.'/'.$resource_name;
                 }
@@ -1019,7 +1021,7 @@ function _is_secure($tpl_file) {
         array_unshift($this->_config, $this->_config[0]);
         $compile_path = $this->_get_compile_path($_smarty_include_tpl_file);
 
-		if($this->security && $this->_is_trusted($_smarty_include_tpl_file)) {
+		if ($this->security && $this->_is_trusted($_smarty_include_tpl_file)) {
 			$_smarty_trusted = true;
 			$this->security = false;
 		} else {
@@ -1228,18 +1230,18 @@ function _run_insert_handler($args)
             if ( $start > 1 ) {
                 // skip the first lines before $start
                 for ($loop=1; $loop < $start; $loop++) {
-                    fgets($fd,65536);
+                    fgets($fd, 65536);
                 }
             }
             if ( $lines == null ) {
                 // read the rest of the file
                 while (!feof($fd)) {
-                    $contents .= fgets($fd,65536);
+                    $contents .= fgets($fd, 65536);
                 }
             } else {
                 // read up to $lines lines
                 for ($loop=0; $loop < $lines; $loop++) {
-                    $contents .= fgets($fd,65536);
+                    $contents .= fgets($fd, 65536);
                     if (feof($fd)) {
                         break;
                     }
@@ -1267,10 +1269,10 @@ function _run_insert_handler($args)
         // flock doesn't seem to work on several windows platforms (98, NT4, NT5, ?),
         // so we'll not use it at all in windows.
 
-        if ( strtoupper(substr(PHP_OS,0,3)) == 'WIN' || (flock($fd, LOCK_EX)) ) {
+        if ( strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' || (flock($fd, LOCK_EX)) ) {
             fwrite( $fd, $contents );
             fclose($fd);
-            chmod($filename,0644);
+            chmod($filename, 0644);
         }
 
         return true;
@@ -1433,12 +1435,12 @@ function _run_insert_handler($args)
 
         }
 		
-		if(empty($results)) {
+		if (empty($results)) {
 			// nothing to parse (error?), regenerate cache
 			return false;
 		}
 				
-        $cache_split = explode("\n",$results,2);
+        $cache_split = explode("\n", $results, 2);
         $cache_header = $cache_split[0];
 
         if (substr($cache_header, 0, 24) == 'SMARTY_CACHE_INFO_HEADER') {

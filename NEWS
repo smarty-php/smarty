@@ -1,10 +1,9 @@
-    - added trusted_dir functionality (Monte)
-    - consolidated security tests to one function (Monte)
-    - prepend SMARTY_DIR to default directories in class constructor (Monte,
+    - added trusted_dir functionality. (Monte)
+    - consolidated security tests to one function. (Monte)
+    - prepend SMARTY_DIR to default directories in class constructor. (Monte,
       Ricard Pillosu)
     - append _smarty_ to variable names in fetch() class function to avoid
-      namespace conflicts (Monte)
-    - fixed bug in _rm_auto with catendated null values (Monte, Thomas Pundt)
+      namespace conflicts. (Monte)
     - introduced $compile_id class variable that can be used to set persistent
       compile identifier across multiple display calls. (Andrei)
     - fixed bug with concatenated null cache and compile identifiers. (Andrei)
