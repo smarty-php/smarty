@@ -563,6 +563,10 @@ reques     * @var string
                                        'resource'      => array(),
                                        'insert'        => array());
 
+
+    var $_cache_serial = null;
+    var $_cache_serials = array();
+
     /**#@-*/
     /**
      * The class constructor.
@@ -708,10 +712,10 @@ reques     * @var string
      * @param string $function the name of the template function
      * @param string $function_impl the name of the PHP function to register
      */    
-    function register_function($function, $function_impl)
+    function register_function($function, $function_impl, $cacheable=true)
     {
         $this->_plugins['function'][$function] =
-            array($function_impl, null, null, false);
+            array($function_impl, null, null, false, $cacheable);
     }
 
     /**
@@ -758,10 +762,10 @@ reques     * @var string
      * @param string $block name of template block
      * @param string $block_impl PHP function to register
      */    
-    function register_block($block, $block_impl)
+    function register_block($block, $block_impl, $cacheable=true)
     {
         $this->_plugins['block'][$block] =
-            array($block_impl, null, null, false);
+            array($block_impl, null, null, false, $cacheable);
     }
 
     /**
@@ -1195,6 +1199,13 @@ reques     * @var string
 					require_once(SMARTY_DIR . 'core/core.process_cached_inserts.php');
                     $_smarty_results = smarty_core_process_cached_inserts($_params, $this);
                 }
+                if (@count($this->_cache_info['cache_serials'])) {
+                    $_params = array('results' => $_smarty_results);
+                    require_once(SMARTY_DIR . 'core/core.process_compiled_include.php');
+                    $_smarty_results = smarty_core_process_compiled_include($_params, $this);
+                }
+
+
                 if ($display) {
                     if ($this->debugging)
                     {
@@ -1209,6 +1220,7 @@ reques     * @var string
                         $_last_modified_date = substr($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 0, strpos($GLOBALS['HTTP_SERVER_VARS']['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
                         $_gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
                         if (@count($this->_cache_info['insert_tags']) == 0
+                            && !$this->_cache_serials
                             && $_gmt_mtime == $_last_modified_date) {
                             header("HTTP/1.1 304 Not Modified");
                         } else {
@@ -1279,6 +1291,13 @@ reques     * @var string
 			smarty_core_write_cache_file($_params, $this);
 			require_once(SMARTY_DIR . 'core/core.process_cached_inserts.php');
 			$_smarty_results = smarty_core_process_cached_inserts($_params, $this);
+
+            if ($this->_cache_serials) {
+                // strip nocache-tags from output
+                $_smarty_results = preg_replace('!(\{/?nocache\:[0-9a-f]{32}#\d+\})!s'
+                                                ,''
+                                                ,$_smarty_results);
+            }
             // restore initial cache_info
             $this->_cache_info = array_pop($_cache_info);
         }
@@ -1490,10 +1509,21 @@ reques     * @var string
 
         $smarty_compiler->request_use_auto_globals  = $this->request_use_auto_globals;
 
+        $smarty_compiler->_cache_serial = null;
+        $smarty_compiler->_cache_include    = substr($compile_path, 0, -4).'.inc';
+
         if ($smarty_compiler->_compile_file($tpl_file, $_file_source, $_file_compiled)) {
 			$_params = array('compile_path' => $compile_path, 'file_compiled' => $_file_compiled, 'file_timestamp' => $_file_timestamp);
 			require_once(SMARTY_DIR . 'core/core.write_compiled_template.php');
 			smarty_core_write_compiled_template($_params, $this);
+
+            // if a _cache_serial was set, we also have to write an include-file:
+            if ($this->_cache_serial = $smarty_compiler->_cache_serial) {
+                $_params['plugins_code'] = $smarty_compiler->_plugins_code;
+                $_params['include_file_path'] = $smarty_compiler->_cache_include;              
+                require_once(SMARTY_DIR . 'core/core.write_compiled_include.php');
+                smarty_core_write_compiled_include($_params, $this);
+            }          
             return true;
         } else {
             $this->trigger_error($smarty_compiler->_error_msg);
@@ -1719,14 +1749,31 @@ reques     * @var string
     }
 
     /**
-     * check if the function or method exists     * @return bool
-     */       
+     * check if the function or method exists
+     * @return bool
+     */
     function _plugin_implementation_exists($function)
     {
         return (is_array($function)) ?
             method_exists($function[0], $function[1]) : function_exists($function);
     }
     /**#@-*/
+
+
+
+    /**
+     * callback function for preg_replace, to call a non-cacheable block
+     * @return string
+     */
+    function _process_compiled_include_callback($match) {
+        $_func = '_smarty_tplfunc_'.$match[2].'_'.$match[3];
+        ob_start();
+        $_func($this);
+        $_ret = ob_get_contents();
+        ob_end_clean();
+        return $_ret;
+    }
+
 }
 
 /* vim: set expandtab: */

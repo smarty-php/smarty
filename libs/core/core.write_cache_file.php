@@ -20,7 +20,7 @@
  
 function smarty_core_write_cache_file($params, &$this)
 {
-	
+
 	if(!@is_writable($this->cache_dir)) {
 		// cache_dir not writable, see if it exists
 		if(!@is_dir($this->cache_dir)) {
@@ -41,6 +41,14 @@ function smarty_core_write_cache_file($params, &$this)
         $this->_cache_info['expires'] = -1;
     }
 
+    // collapse {nocache...}-tags
+    $params['results'] = preg_replace('!((\{nocache\:([0-9a-f]{32})#(\d+)\})'
+                                      .'.*'
+                                      .'{/nocache\:\\3#\\4\})!Us'
+                                      ,'\\2'
+                                      ,$params['results']);
+    $this->_cache_info['cache_serials'] = $this->_cache_serials;
+
     // prepend the cache header info into cache file
     $params['results'] = serialize($this->_cache_info)."\n".$params['results'];
 
@@ -54,7 +62,7 @@ function smarty_core_write_cache_file($params, &$this)
         $_cache_file = $this->_get_auto_filename($this->cache_dir, $params['tpl_file'], $_auto_id);
 		$_params = array('filename' => $_cache_file, 'contents' => $params['results'], 'create_dirs' => true);
 		require_once(SMARTY_DIR . 'core/core.write_file.php');
-		smarty_core_write_file($_params, $this);
+        smarty_core_write_file($_params, $this);
         return true;
     }
 }

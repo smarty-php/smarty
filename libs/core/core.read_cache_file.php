@@ -81,7 +81,7 @@ function smarty_core_read_cache_file(&$params, &$this)
         if (isset($this->_cache_info['config'])) {
 			require_once(SMARTY_DIR . 'core/core.fetch_file_info.php');
             foreach (array_keys($this->_cache_info['config']) as $_config_dep) {
-				$_params = array('file_path' => $this->config_dir . '/' . $_config_dep);
+				$_params = array('file_path' => $_config_dep);
 				smarty_core_fetch_file_info($_params, $this);
             	if ($this->_cache_info['timestamp'] < $_params['file_timestamp']) {
                 	// config file has changed, regenerate cache
@@ -90,6 +90,9 @@ function smarty_core_read_cache_file(&$params, &$this)
             }
         }
     }
+
+    $this->_cache_serials = array_merge($this->_cache_serials,
+                                        $this->_cache_info['cache_serials']);
 
     $params['results'] = $cache_split[1];
     $content_cache[$params['tpl_file'].','.$params['cache_id'].','.$params['compile_id']] = array($params['results'], $this->_cache_info);

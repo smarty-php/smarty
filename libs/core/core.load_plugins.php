@@ -38,6 +38,7 @@ function smarty_core_load_plugins($params, &$this)
                     $_plugin[1] = $_tpl_file;
                     $_plugin[2] = $_tpl_line;
                     $_plugin[3] = true;
+                    $_plugin[4] = true; /* cacheable */
                 }
             }
             continue;
@@ -48,7 +49,7 @@ function smarty_core_load_plugins($params, &$this)
              */
             $_plugin_func = 'insert_' . $_name;
             if (function_exists($_plugin_func)) {
-                $_plugin = array($_plugin_func, $_tpl_file, $_tpl_line, true);
+                $_plugin = array($_plugin_func, $_tpl_file, $_tpl_line, true, false);
                 continue;
             }
         }
@@ -111,7 +112,7 @@ function smarty_core_load_plugins($params, &$this)
         }
 
         if ($_found) {
-            $this->_plugins[$_type][$_name] = array($_plugin_func, $_tpl_file, $_tpl_line, true);
+            $this->_plugins[$_type][$_name] = array($_plugin_func, $_tpl_file, $_tpl_line, true, true);
         } else {
             // output error
             $this->_trigger_fatal_error('[plugin] ' . $_message, $_tpl_file, $_tpl_line, __FILE__, __LINE__);
