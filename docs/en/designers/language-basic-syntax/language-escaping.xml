@@ -18,8 +18,11 @@
   Including literal content is possible using <link 
   linkend="language.function.literal">{literal} .. {/literal}</link> blocks.
   Similar to HTML entity usage, you can use <link 
-  linkend="language.function.ldelim">{ldelim}</link> and <link 
-  linkend="language.function.ldelim">{rdelim}</link> to display the current delimiters.
+  linkend="language.function.ldelim">{ldelim}</link>,<link 
+  linkend="language.function.ldelim">{rdelim}</link> or <link 
+  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>,<link
+  linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
+  to display the current delimiters.
  </para>
 
  <para>
