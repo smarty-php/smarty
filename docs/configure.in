@@ -221,6 +221,7 @@ dnl }}}
 dnl {{{ language specific stuff
 
 AC_MSG_CHECKING(for language)
+BUILD_DATE=`date '+%Y-%m-%d'`
 
 AC_ARG_WITH(lang,
 [  --with-lang=LANG        choose a language to work with],[
@@ -243,6 +244,7 @@ AC_ARG_WITH(lang,
   AC_MSG_RESULT([en (default)])
 ])
 AC_SUBST(LANG)
+AC_SUBST(BUILD_DATE)
 
 case "$LANG" in
   ru) ENCODING="windows-1251";;
