@@ -14,8 +14,8 @@
  *                and end year values. (Monte)
  * -------------------------------------------------------------
  */
-require_once SMARTY_DIR . 'plugins/shared.make_timestamp.php';
-require_once SMARTY_DIR . 'plugins/function.html_options.php';
+require_once SMARTY_DIR . $this->plugins_dir . '/shared.make_timestamp.php';
+require_once SMARTY_DIR . $this->plugins_dir . '/function.html_options.php';
 function smarty_function_html_select_date($params, &$smarty)
 {
     /* Default values. */
