@@ -1640,7 +1640,7 @@ class Smarty_Compiler extends Smarty {
 				if($output{0} == '$') {
 					$output = '@' . $output;
 				}
-				if($_modifier_args[0]{0} == '$') {
+				if(isset($_modifier_args[0]) && $_modifier_args[0]{0} == '$') {
 					$_modifier_args[0] = '@' . $_modifier_args[0];
 				}
 			}
