@@ -3599,7 +3599,7 @@ Vous devez spécifier un &lt;b&gt;département&lt;/b&gt;.
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('id_client', array(1000,1001,1002,1003));
 $smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
@@ -3615,7 +3615,7 @@ index.tpl:
 
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_checkboxes', array(
 			1001 =&gt; 'Joe Schmoe',
@@ -3733,7 +3733,7 @@ SORTIE: (pour les deux exemples)
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;display('index.tpl');
 
@@ -3838,7 +3838,7 @@ SORTIE: (possible)
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('id_client', array(1000,1001,1002,1003));
 $smarty-&gt;assign('nom_client', array('Joe Schmoe','Jack Smith','Jane
@@ -3855,7 +3855,7 @@ index.tpl:
 
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_options', array(
 			1001 =&gt; 'Joe Schmoe',
@@ -3968,7 +3968,7 @@ SORTIE: (valable pour les deux exemples)
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('id_client', array(1000,1001,1002,1003));
 $smarty-&gt;assign('nom_client', array('Joe Schmoe','Jack Smith','Jane
@@ -3984,7 +3984,7 @@ index.tpl:
 
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_radios', array(
 			1001 =&gt; 'Joe Schmoe',
@@ -4698,7 +4698,7 @@ SORTIE:
 <programlisting>
 index.php:
 
-require('Smarty.php.class');
+require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty-&gt;assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty-&gt;assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
