@@ -1,3 +1,9 @@
+2003-06-02  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/function.counter.php:
+      fixed assign for {counter}
+
 2003-05-30  Monte Ohrt  <monte@ispi.net>
 
     * libs/plugins/core.write_cache_file.php
