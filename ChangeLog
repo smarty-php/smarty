@@ -1,3 +1,19 @@
+2003-06-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.smarty_include.php
+      libs/core/core.smarty_include_php.php
+      libs/plugins/function.eval.php:
+      removed $this from smarty_include and smarty_include_php
+      added cleaner handling of $this to {eval}
+
+    * libs/core/core.load_resource_plugin.php:
+      fixed inlude_once-call
+
+    * docs/de/designers.sgml
+      docs/fr/designers.sgml:
+      fixed examples of html_radios and html_checkboxes in german and french docs
+
 2003-06-25  Monte Ohrt  <monte@ispi.net>
 
     * libs/core/core.assemble_auto_filename.php
