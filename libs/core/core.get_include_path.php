@@ -31,7 +31,7 @@ function smarty_core_get_include_path(&$params, &$smarty)
         }
     }
     foreach ($_path_array as $_include_path) {
-        if (file_exists($_include_path . DIRECTORY_SEPARATOR . $params['file_path'])) {
+        if (@is_readable($_include_path . DIRECTORY_SEPARATOR . $params['file_path'])) {
                $params['new_file_path'] = $_include_path . DIRECTORY_SEPARATOR . $params['file_path'];
             return true;
         }
