@@ -26,7 +26,7 @@ function smarty_function_config_load($params, &$smarty)
 {
         if ($smarty->debugging) {
             $_params = array();
-            require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
+            require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
             $_debug_start_time = smarty_core_get_microtime($_params, $smarty);
         }
 
@@ -101,7 +101,7 @@ function smarty_function_config_load($params, &$smarty)
                 $_output = '<?php $_config_vars = unserialize(\'' . strtr(serialize($_config_vars),array('\''=>'\\\'', '\\'=>'\\\\')) . '\'); ?>';
             }
             $_params = (array('compile_path' => $_compile_file, 'compiled_content' => $_output, 'resource_timestamp' => $_params['resource_timestamp']));
-            require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_resource.php');
+            require_once(SMARTY_CORE_DIR . 'core.write_compiled_resource.php');
             smarty_core_write_compiled_resource($_params, $smarty);
         } else {
             include($_compile_file);
@@ -126,7 +126,7 @@ function smarty_function_config_load($params, &$smarty)
 
         if ($smarty->debugging) {
             $_params = array();
-            require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
+            require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
             $smarty->_smarty_debug_info[] = array('type'      => 'config',
                                                 'filename'  => $_file.' ['.$_section.'] '.$_scope,
                                                 'depth'     => $smarty->_inclusion_depth,

@@ -19,7 +19,7 @@ function smarty_core_write_file($params, &$smarty)
 
     if ($params['create_dirs']) {
         $_params = array('dir' => $_dirname);
-        require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.create_dir_structure.php');
+        require_once(SMARTY_CORE_DIR . 'core.create_dir_structure.php');
         smarty_core_create_dir_structure($_params, $smarty);
     }
 

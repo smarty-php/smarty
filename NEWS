@@ -1,3 +1,4 @@
+  - moved /libs/core to /libs/internals (boots)
   - fixed more parsing problems (messju)
 
 Version 2.6.5 (Sept 13, 2004)

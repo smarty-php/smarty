@@ -32,7 +32,7 @@ function smarty_core_rmdir($params, &$smarty)
                         'level' => $params['level'] + 1,
                         'exp_time' => $params['exp_time']
                     );
-                    require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.rmdir.php');
+                    require_once(SMARTY_CORE_DIR . 'core.rmdir.php');
                     smarty_core_rmdir($_params, $smarty);
                 }
                 else {
