@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!-- $Revision$ -->
+<!-- EN-Revision: 1.4 $ -->
 <part id="getting.started">
  <title>Приступая к работе</title>
 
@@ -158,7 +161,7 @@ debug.tpl
      SMARTY_DIR <emphasis>должен</emphasis> включать завершающий слэш.
     </para>
     <para>
-     Как надо следует инстанциировать объект Smarty в ваших PHP-скриптах:
+     Как следует инстанциировать объект Smarty в ваших PHP-скриптах:
     </para>
 	   <example>
      <title>Создание обекта Smarty</title>
@@ -214,8 +217,8 @@ $smarty = new Smarty;
      установки директорий Smarty в вашем приложении. Smarty требует 
      четыре директории, которые по умолчанию называются
      <emphasis>templates</emphasis>,	<emphasis>templates_c</emphasis>, 
-     <emphasis>configs</emphasis> и <emphasis>cache</emphasis>. Каждый из 
-     них определяется свойствами класса Smarty <emphasis>$template_dir</emphasis>,
+     <emphasis>configs</emphasis> и <emphasis>cache</emphasis>. Каждая из 
+     них определяется свойствами класса Smarty: <emphasis>$template_dir</emphasis>,
      <emphasis>$compile_dir</emphasis>, <emphasis>$config_dir</emphasis>, и
      <emphasis>$cache_dir</emphasis> соответственно. Настойчиво рекомендуется
      использовать разные наборы этих директорий для каждого приложения,
@@ -228,17 +231,17 @@ $smarty = new Smarty;
      рекомендуется вынести директории Smarty <emphasis>за пределы</emphasis> 
      DOCUMENT_ROOT, чтобы избежать лишнего беспокойства.
     </para>
-
-    <!-- TO BE TRANSLATED ASAP! -->
-    
     <para>
-     For our installation example, we will be setting up the Smarty environment
-     for a guest book application. We picked an application only for the purpose
-     of a directory naming convention. You can use the same environment for any
-     application, just replace "guestbook" with the name of your app. We'll
-     place our Smarty directories under
+     В нашем примере мы будем устанавливать Smarty для некоторой гостевой
+     книги. Приложение было выбрано только для того, чтобы использовать его
+     имя в именах директорий. Вы можете использовать те же настройки с любым
+     другим приложением, просто меняя "guestbook" на имя вашего приложения.
+     Мы же выбрали путь к директориям Smarty такой:
      "/web/www.mydomain.com/smarty/guestbook/".
     </para>
+    
+    <!-- TO BE TRANSLATED ASAP! -->
+
     <para>
      You will need as least one file under your document root, and that is the
      script accessed by the web browser. We will call our script "index.php",
@@ -370,7 +373,6 @@ $smarty->display('index.tpl');
      You have completed the basic setup for Smarty!
     </para>
    </sect1>
-   
    <sect1 id="installing.smarty.extended">
     <title>Extended Setup</title>
 
