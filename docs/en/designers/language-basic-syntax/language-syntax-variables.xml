@@ -17,12 +17,22 @@
 {$foo}        <-- displaying a simple variable (non array/object)
 {$foo[4]}     <-- display the 5th element of a zero-indexed array
 {$foo.bar}    <-- display the "bar" key value of an array, similar to PHP $foo['bar']
-{$foo.$bar}   <-- display the key value of an array denoted by the value $bar
+{$foo.$bar}   <-- display variable key value of an array, similar to PHP $foo[$bar]
 {$foo->bar}   <-- display the object property "bar"
-{$foo->bar()} <-- display the object method return value for "bar"
+{$foo->bar()} <-- display the object method "bar"
 {#foo#}       <-- display the config file variable "foo"
 {$smarty.config.foo} <-- synonym for {#foo#}
 {$foo[bar]}   <-- syntax only valid in a section loop, see {section}
+
+Many other combinations are allowed
+
+{$foo.bar.baz}
+{$foo.$bar.$baz}
+{$foo[4].baz}
+{$foo[4].$baz}
+{$foo.bar.baz[4]}
+{$foo->bar($baz,2,$bar)} <-- passing parameters
+{"foo"}       <-- static values are allowed
 ]]>
   </programlisting>
  </example>
