@@ -1,3 +1,5 @@
+    - modified Smarty to pass itself to insert functions as the second
+      parameter. (Andrei)
     - modified Smarty to pass itself to prefilter functions as the second
       parameter. (Andrei)
     - fixed syntax error when including a non-existant template with security

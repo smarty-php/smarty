@@ -38,42 +38,8 @@
 
 
 /*============================================*\
-  Inserts handler
-\*============================================*/
-
-function _smarty_insert_handler($args, $caching, $delimiter)
-{
-    if ($caching) {
-        $arg_string = serialize($args);
-        return "$delimiter{insert_cache $arg_string}$delimiter";
-    } else {
-        $function_name = 'insert_'.$args['name'];
-        return $function_name($args);
-    }
-}
-
-
-/*============================================*\
   Modifiers
 \*============================================*/
-
-function _smarty_mod_handler()
-{
-    $args = func_get_args();
-    list($func_name, $map_array) = array_splice($args, 0, 2);
-    $var = $args[0];
-
-    if ($map_array && is_array($var)) {
-        foreach ($var as $key => $val) {
-            $args[0] = $val;
-            $var[$key] = call_user_func_array($func_name, $args);
-        }
-        return $var;
-    } else {
-        return call_user_func_array($func_name, $args);
-    }
-}
-
 
 /*======================================================================*\
     Function: smarty_mod_escape

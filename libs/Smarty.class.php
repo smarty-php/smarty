@@ -934,13 +934,52 @@ function _generate_debug_output() {
             unset($args['name']);
 
             $function_name = 'insert_' . $name;
-            $replace = $function_name($args);
+            $replace = $function_name($args, $this);
 
             $results = str_replace($cached_inserts[$i], $replace, $results);
         }
 
         return $results;
     } 
+
+
+/*======================================================================*\
+    Function: _run_insert_handler
+    Purpose:  Handle insert tags
+\*======================================================================*/
+function _run_insert_handler($args)
+{
+    if ($this->caching) {
+        $arg_string = serialize($args);
+        return $this->_smarty_md5."{insert_cache $arg_string}".$this->_smarty_md5;
+    } else {
+        $function_name = 'insert_'.$args['name'];
+        return $function_name($args, $this);
+    }
+}
+
+
+/*======================================================================*\
+    Function: _run_mod_handler
+    Purpose:  Handle modifiers
+\*======================================================================*/
+function _run_mod_handler()
+{
+    $args = func_get_args();
+    list($func_name, $map_array) = array_splice($args, 0, 2);
+    $var = $args[0];
+
+    if ($map_array && is_array($var)) {
+        foreach ($var as $key => $val) {
+            $args[0] = $val;
+            $var[$key] = call_user_func_array($func_name, $args);
+        }
+        return $var;
+    } else {
+        return call_user_func_array($func_name, $args);
+    }
+}
+
     
 /*======================================================================*\
     Function: _dequote

@@ -336,7 +336,7 @@ class Smarty_Compiler extends Smarty {
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        return "<?php echo _smarty_insert_handler(array(".implode(', ', (array)$arg_list)."), \$this->caching, \$this->_smarty_md5); ?>\n";
+        return "<?php echo \$this->_run_insert_handler(array(".implode(', ', (array)$arg_list).")); ?>\n";
     }   
  
 
@@ -947,7 +947,7 @@ class Smarty_Compiler extends Smarty {
             else
                 $modifier_args = '';
 
-            $output = "_smarty_mod_handler('$mod_func_name', $map_array, $output$modifier_args)";
+            $output = "\$this->_run_mod_handler('$mod_func_name', $map_array, $output$modifier_args)";
         }
     }
 
