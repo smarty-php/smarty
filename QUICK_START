@@ -55,13 +55,18 @@ Edit the index.php file to look like the following:
 require('/usr/local/lib/php/Smarty/lib/Smarty.lib.php');
 $smarty = new Smarty();
 
+$smarty->template_dir = '/web/www.domain.com/smarty/templates';
+$smarty->compile_dir = '/web/www.domain.com/smarty/templates_c';
+$smarty->cache_dir = '/web/www.domain.com/smarty/cache';
+$smarty->config_dir = '/web/www.domain.com/smarty/configs';
+
 $smarty->assign('name', 'Ned');
 $smarty->display('index.tpl');
 
 ?>
 
 
-SET SMARTY TEMPLATE
+SETUP SMARTY TEMPLATE
 
 $> vi /web/www.domain.com/smarty/templates/index.tpl
 
