@@ -1864,9 +1864,8 @@ class Smarty_Compiler extends Smarty {
     {
         /* Extract the reference name. */
         $_ref = substr($indexes[0], 1);
-
-		foreach($indexes as $_index) {		
-        	if ($_index{0} != '.') {
+        foreach($indexes as $_index_no=>$_index) {
+            if ($_index{0} != '.' && $_index_no<2 || !preg_match('!^(\.|\[|->)!', $_index)) {
             	$this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference', E_USER_ERROR, __FILE__, __LINE__);
         	}
 		}
