@@ -103,7 +103,7 @@ function smarty_function_html_radios($params, &$smarty)
 
     $_html_result = array();
 
-    if (isset($options))) {
+    if (isset($options)) {
 
         foreach ($options as $_key=>$_val)
             $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels);
