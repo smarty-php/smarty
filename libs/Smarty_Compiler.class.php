@@ -157,7 +157,7 @@ class Smarty_Compiler extends Smarty {
 		// |foo:"bar":$foobar
 		// |foo|bar
 		// |foo:$foo->bar
-		$this->_mod_regexp = '(?:\|@?\w+(?::(?>\w+|'
+		$this->_mod_regexp = '(?:\|@?\w+(?::(?>-?\w+|'
 		   . $this->_obj_call_regexp . '|' . $this->_avar_regexp . '|' . $this->_qstr_regexp .'))*)';		
 				
 		// matches valid function name:
@@ -1103,7 +1103,7 @@ class Smarty_Compiler extends Smarty {
         preg_match_all('/(?>
 				' . $this->_obj_call_regexp . '(?:' . $this->_mod_regexp . '*)? | # valid object call
 				' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)?	| # var or quoted string
-				\-?\d+(?:\.\d+)?|\.\d+|!==|===|==|!=|<>|<<|>>|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@	| # valid non-word token
+				\-?0[xX][0-9a-fA-F]+|\-?\d+(?:\.\d+)?|\.\d+|!==|===|==|!=|<>|<<|>>|<=|>=|\&\&|\|\||\(|\)|,|\!|\^|=|\&|\~|<|>|\||\%|\+|\-|\/|\*|\@	| # valid non-word token
 				\b\w+\b														| # valid word token
 				\S+                                                           # anything else
 				)/x', $tag_args, $match);
@@ -1367,7 +1367,7 @@ class Smarty_Compiler extends Smarty {
                             $token = 'false';
 						} else if ($token == 'null') {
                             $token = 'null';
-						} else if (preg_match('!^-?[0-9]+$!', $token)) {
+						} else if (preg_match('!^-?([0-9]+|0[xX][0-9a-fA-F]+)$!', $token)) {
                             /* treat integer literally */
 						} else if (!preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')*$!', $token)) {
                         	/* treat as a string, double-quote it escaping quotes */

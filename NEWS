@@ -1,4 +1,7 @@
-  - fixed bug with passing $smarty as reference in Smarty.compiler.class (messju)
+  - enabled hex-constants (0x...) as function-attributes, inside if-statements
+    and as modifier-parameters (messju)
+  - fixed bug with passing $smarty as reference in Smarty.compiler.class
+    (messju)
   - corrected output with {strip} and PHP tag newlines (Monte)
   - added possibility to register function-callbacks as "array(&$obj, 'method)"
     this affects register_function(), -block, -compiler_function, -modifier, 
