@@ -1589,7 +1589,7 @@ class Smarty_Compiler extends Smarty {
 		// inform the calling expression the return type (php, static)
 		$this->_output_type = 'php';
 
-		$_math_vars = preg_split('!('.$this->_dvar_math_regexp.'|\".*?\")!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$_math_vars = preg_split('!('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')!', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
 		if(count($_math_vars) > 1)
 		{
 			$_output = "";
