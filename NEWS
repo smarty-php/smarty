@@ -1,3 +1,6 @@
+  - make html_select_date work with negative timestamps, also
+    force year range to include given date unless explicitly
+    set (Garo, Monte)
   - fix bug with fetch, passing user/pass in url did not work
     (Monte)
   - fix occasional wrong error messages on mismatched tags when

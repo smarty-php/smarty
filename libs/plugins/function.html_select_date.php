@@ -122,6 +122,10 @@ function smarty_function_html_select_date($params, &$smarty)
         }
     }
 
+    if(preg_match('!^-\d+$!',$time)) {
+        // negative timestamp, use date()
+        $time = date('Y-m-d',$time);
+    }
     // If $time is not in format yyyy-mm-dd
     if (!preg_match('/^\d{0,4}-\d{0,2}-\d{0,2}$/', $time)) {
         // then $time is empty or unix timestamp or mysql timestamp
@@ -131,7 +135,7 @@ function smarty_function_html_select_date($params, &$smarty)
     }
     // Now split this in pieces, which later can be used to set the select
     $time = explode("-", $time);
-
+    
     // make syntax "+N" or "-N" work with start_year and end_year
     if (preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match)) {
         if ($match[1] == '+') {
@@ -146,6 +150,14 @@ function smarty_function_html_select_date($params, &$smarty)
         } else {
             $start_year = strftime('%Y') - $match[2];
         }
+    }
+    if($start_year > $time[0] && !isset($params['start_year'])) {
+        // force start year to include given date if not explicitly set
+        $start_year = $time[0];
+    }
+    if($end_year < $time[0] && !isset($params['end_year'])) {
+        // force end year to include given date if not explicitly set
+        $end_year = $time[0];
     }
 
     $field_order = strtoupper($field_order);
