@@ -1,3 +1,9 @@
+2003-10-20  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      elements inside `` are bracketed now inside the compiled-tpl. this
+      fixes some issues with simple-math inside backticks.
+
 2003-10-16  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml:
