@@ -1,3 +1,40 @@
+2004-03-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.is_secure.php:
+      removed merging of $smarty->template_dir into $smarty->secure_dir
+      
+      the resource_base_path is considerd secure instead. this change should
+      have absolutely no impact on smarty's security's behaviour
+
+2004-03-18  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/configure.in:
+      correcting non-existent var
+
+    * docs/.cvsignore
+      docs/Makefile.in
+      docs/configure.in
+      docs/manual.xml.in
+      docs/version.ent.in:
+      generate build date
+
+    * docs/.cvsignore
+      docs/Makefile.in
+      docs/README
+      docs/configure.in
+      docs/manual.xml.in:
+      new build/test system
+
+2004-03-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      moved setting of a default resource_base_path from
+      Smarty::_parse_resource_name() to Smarty::_fetch_resource_info()
+      
+      this shouldn't affect anything, since all calls to
+      _parse_resource_name() that are not done from within
+      _fetch_resource_info() all pass their own resource_base_path
+
 2004-03-17  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
