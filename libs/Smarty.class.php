@@ -1053,12 +1053,12 @@ class Smarty
     /**
      * executes & returns or displays the template results
      *
-     * @param string $_smarty_tpl_file
-     * @param string $_smarty_cache_id
-     * @param string $_smarty_compile_id
-     * @param boolean $_smarty_display
-     */    
-    function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false)
+     * @param string $tpl_file
+     * @param string $cache_id
+     * @param string $compile_id
+     * @param boolean $display
+     */
+    function fetch($tpl_file, $cache_id = null, $compile_id = null, $display = false)
     {
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
 
@@ -1077,16 +1077,16 @@ class Smarty
             // capture time for debugging info
             $debug_start_time = $this->_get_microtime();
             $this->_smarty_debug_info[] = array('type'      => 'template',
-                                                'filename'  => $_smarty_tpl_file,
+                                                'filename'  => $tpl_file,
                                                 'depth'     => 0);
             $included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
 
-        if (!isset($_smarty_compile_id)) {
-            $_smarty_compile_id = $this->compile_id;
+        if (!isset($compile_id)) {
+            $compile_id = $this->compile_id;
         }
 
-        $this->_compile_id = $_smarty_compile_id;
+        $this->_compile_id = $compile_id;
         $this->_inclusion_depth = 0;
 
         if ($this->caching) {
@@ -1095,12 +1095,12 @@ class Smarty
                 $_cache_info = $this->_cache_info;
                 $this->_cache_info = array();
             }
-            if ($this->_read_cache_file($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_results)) {
+            if ($this->_read_cache_file($tpl_file, $cache_id, $compile_id, $_smarty_results)) {
                 if (@count($this->_cache_info['insert_tags'])) {
                     $this->_load_plugins($this->_cache_info['insert_tags']);
                     $_smarty_results = $this->_process_cached_inserts($_smarty_results);
                 }
-                if ($_smarty_display) {
+                if ($display) {
                     if ($this->debugging)
                     {
                         // capture time for debugging info
@@ -1128,7 +1128,7 @@ class Smarty
                     return $_smarty_results;
                 }
             } else {
-                $this->_cache_info['template'][] = $_smarty_tpl_file;
+                $this->_cache_info['template'][] = $tpl_file;
                 if ($this->cache_modified_check) {
                     header("Last-Modified: ".gmdate('D, d M Y H:i:s', time()).' GMT');
                 }
@@ -1143,18 +1143,18 @@ class Smarty
             $this->_autoload_filters();
         }
 
-        $_smarty_compile_path = $this->_get_compile_path($_smarty_tpl_file);
+        $_smarty_compile_path = $this->_get_compile_path($tpl_file);
 
         // if we just need to display the results, don't perform output
         // buffering - for speed
-        if ($_smarty_display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
-            if ($this->_process_template($_smarty_tpl_file, $_smarty_compile_path))
+        if ($display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
+            if ($this->_process_template($tpl_file, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
             }
         } else {
             ob_start();
-            if ($this->_process_template($_smarty_tpl_file, $_smarty_compile_path))
+            if ($this->_process_template($tpl_file, $_smarty_compile_path))
             {
                 include($_smarty_compile_path);
             }
@@ -1167,11 +1167,11 @@ class Smarty
         }
 
         if ($this->caching) {
-            $this->_write_cache_file($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_results);
+            $this->_write_cache_file($tpl_file, $cache_id, $compile_id, $_smarty_results);
             $_smarty_results = $this->_process_cached_inserts($_smarty_results);
         }
 
-        if ($_smarty_display) {
+        if ($display) {
             if (isset($_smarty_results)) { echo $_smarty_results; }
             if ($this->debugging) {
                 // capture time for debugging info
@@ -2369,6 +2369,12 @@ class Smarty
         return true;
     }
 
+    /**
+     * returns an auto_id for auto-file-functions
+     *
+     * @param string $cache_id
+     * @param string $compile_id
+     */
     function _get_auto_id($cache_id=null, $compile_id=null) {
 	if (isset($cache_id))
 	    return (isset($compile_id)) ? $cache_id . '|' . $compile_id  : $cache_id;

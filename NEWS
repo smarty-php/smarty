@@ -1,3 +1,4 @@
+    - applied local-var-naming-scheme to fetch() (messju)
     - renamed $localvars to $_localvars in cache-file-handling-functions,
       added _get_auto_id()-function (messju)
     - swapped compile_id and cache_id in read_cache_file and write_cache_file
