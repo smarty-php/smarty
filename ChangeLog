@@ -1,3 +1,8 @@
+2004-09-24  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_select_date.php:
+      fixed $start_year when no value for the year in $time is given.
+
 2004-09-21  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_table.php:
