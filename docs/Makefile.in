@@ -46,6 +46,7 @@ web: FORCE
 	@test -d phpweb || mkdir phpweb
 	$(JADE) $(CATALOG) -d $(PHPWEB_STYLESHEET) -V use-output-dir -t sgml $(XMLDCL) manual.xml
 	$(PHP) scripts/generate_web.php
+	$(PHP) scripts/html_syntax.php php phpweb/
 
 test:
 	$(NSGMLS) -i lang-$(LANG) -s $(XMLDCL) manual.xml 
