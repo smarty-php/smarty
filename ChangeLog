@@ -1,3 +1,8 @@
+2005-02-04  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_radios.php:
+      fixed syntax error. shame on me.
+
 2005-02-03  Monte Ohrt  <monte@ohrt.com>
 
     * QUICK_START:
