@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer:gerald Status: ready -->
 <chapter id="troubleshooting">
  <title>Diagnostic des erreurs</title>
  <para></para>
@@ -13,12 +13,15 @@
   </para>
   <example>
    <title>erreurs Smarty</title>
-<programlisting>
+    <screen>
+<![CDATA[
 Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
-        in /path/to/smarty/Smarty.class.php on line 1041
+       in /path/to/smarty/Smarty.class.php on line 1041
 
 Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
-        in /path/to/smarty/Smarty.class.php on line 1041</programlisting>
+       in /path/to/smarty/Smarty.class.php on line 1041
+]]>
+    </screen>
   </example>
   
   <para>
@@ -35,8 +38,11 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
   
   <example>
    <title>erreur d'analyse PHP</title>
-<programlisting>
-Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75</programlisting>
+    <screen>
+<![CDATA[
+Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
+]]>
+    </screen>
   </example>
   
   <para>
