@@ -455,9 +455,11 @@ class Smarty
         if (!isset($compile_id))
             $compile_id = $this->compile_id;
 
-        if (isset($compile_id) || isset($cache_id))
-            $auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
-        else
+        if (isset($cache_id))
+            $auto_id = (isset($compile_id)) ? $cache_id . '|' . $compile_id : $cache_id;
+        elseif(isset($compile_id))
+			$auto_id = $compile_id;
+		else
             $auto_id = null;
 
         if (!empty($this->cache_handler_func)) {
@@ -1546,9 +1548,11 @@ function _run_insert_handler($args)
             return $funcname('write', $this, $results, $tpl_file, $cache_id, $compile_id);
         } else {
             // use local cache file
-            if (isset($compile_id) || isset($cache_id))
-            	$auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
-            else
+            if (isset($cache_id))
+            	$auto_id = (isset($compile_id)) ? $cache_id . '|' . $compile_id : $cache_id;
+            elseif(isset($compile_id))
+				$auto_id = $compile_id;
+			else
                 $auto_id = null;
 
             $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $auto_id);
@@ -1581,10 +1585,12 @@ function _run_insert_handler($args)
             $funcname = $this->cache_handler_func;
             $funcname('read', $this, $results, $tpl_file, $cache_id, $compile_id);
         } else {
-            // use local file cache
-            if (isset($compile_id) || isset($cache_id))
-            	$auto_id = (isset($compile_id)) ? $compile_id . '|' . $cache_id : $cache_id;
-            else
+            // use local cache file
+            if (isset($cache_id))
+            	$auto_id = (isset($compile_id)) ? $cache_id . '|' . $compile_id : $cache_id;
+            elseif(isset($compile_id))
+				$auto_id = $compile_id;
+			else
                 $auto_id = null;
 
             $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $auto_id);
