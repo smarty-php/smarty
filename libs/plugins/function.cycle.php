@@ -44,7 +44,7 @@ function smarty_function_cycle($params, &$smarty)
     }		
 	
     if (!in_array('values', array_keys($params))) {
-        $smarty->trigger_error("assign: missing 'values' parameter");
+        $smarty->trigger_error("cycle: missing 'values' parameter");
         return;
     }
 	
