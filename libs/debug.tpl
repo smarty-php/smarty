@@ -47,13 +47,13 @@
 	{/section}
 	_smarty_console.document.write("<tr bgcolor=#cccccc><td colspan=2><b>assigned template variables:</b></td></tr>");
 	{section name=vars loop=$_debug_keys}
-		_smarty_console.document.write("<tr bgcolor={if %vars.index% is even}#eeeeee{else}#fafafa{/if}><td valign=top><tt><font color=blue>{ldelim}${$_debug_keys[vars]}{rdelim}</font></tt></td><td nowrap><tt><font color=green>{$_debug_vals[vars]|@debug_print_var}</font></tt></td></tr>");
+		_smarty_console.document.write("<tr bgcolor={if %vars.index% is even}#eeeeee{else}#fafafa{/if}><td valign=top><tt><font color=blue>{ldelim}${$_debug_keys[vars]}{rdelim}</font></tt></td><td nowrap><tt><font color=green>{$_debug_vals[vars]|@debug_print_var|escape:javascript}</font></tt></td></tr>");
 	{sectionelse}
 		_smarty_console.document.write("<tr bgcolor=#eeeeee><td colspan=2><tt><i>no template variables assigned</i></tt></td></tr>");	
 	{/section}
 	_smarty_console.document.write("<tr bgcolor=#cccccc><td colspan=2><b>assigned config file variables (outer template scope):</b></td></tr>");
 	{section name=config_vars loop=$_debug_config_keys}
-		_smarty_console.document.write("<tr bgcolor={if %config_vars.index% is even}#eeeeee{else}#fafafa{/if}><td valign=top><tt><font color=maroon>{ldelim}#{$_debug_config_keys[config_vars]}#{rdelim}</font></tt></td><td><tt><font color=green>{$_debug_config_vals[config_vars]|@debug_print_var}</font></tt></td></tr>");
+		_smarty_console.document.write("<tr bgcolor={if %config_vars.index% is even}#eeeeee{else}#fafafa{/if}><td valign=top><tt><font color=maroon>{ldelim}#{$_debug_config_keys[config_vars]}#{rdelim}</font></tt></td><td><tt><font color=green>{$_debug_config_vals[config_vars]|@debug_print_var|escape:javascript}</font></tt></td></tr>");
 	{sectionelse}
 		_smarty_console.document.write("<tr bgcolor=#eeeeee><td colspan=2><tt><i>no config vars assigned</i></tt></td></tr>");	
 	{/section}

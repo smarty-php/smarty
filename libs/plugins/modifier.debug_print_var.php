@@ -21,13 +21,12 @@
  */
 function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
 {
-	$_search = array("!\n!", "!\r!", "!\t!");
-	$_replace = array('<i>&#92;n</i>', '<i>&#92;r</i>', '<i>&#92;t</i>');
+	$_replace = array("\n"=>'<i>&#92;n</i>', "\r"=>'<i>&#92;r</i>', "\t"=>'<i>&#92;t</i>');
     if (is_array($var)) {
         $results = "<b>Array (".count($var).")</b>";
         foreach ($var as $curr_key => $curr_val) {
             $return = smarty_modifier_debug_print_var($curr_val, $depth+1, $length);
-            $results .= '<br>\r'.str_repeat('&nbsp;', $depth*2)."<b>".preg_replace($_search, $_replace, $curr_key)."</b> =&gt; $return";
+            $results .= "<br>".str_repeat('&nbsp;', $depth*2)."<b>".strtr($curr_key, $_replace)."</b> =&gt; $return";
         }
         return $results;
     } else if (is_object($var)) {
@@ -35,7 +34,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
         $results = "<b>".get_class($var)." Object (".count($object_vars).")</b>";
         foreach ($object_vars as $curr_key => $curr_val) {
             $return = smarty_modifier_debug_print_var($curr_val, $depth+1, $length);
-            $results .= '<br>\r'.str_repeat('&nbsp;', $depth*2)."<b>$curr_key</b> =&gt; $return";
+            $results .= "<br>".str_repeat('&nbsp;', $depth*2)."<b>$curr_key</b> =&gt; $return";
         }
         return $results;
     } else {
@@ -48,7 +47,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
             $results = $var;
         }
         $results = htmlspecialchars($results);
-        $results = preg_replace($_search, $_replace, $results);
+        $results = strtr($results, $_replace);
         return $results;
     }
 }
