@@ -70,12 +70,15 @@ function smarty_function_html_table($params, &$smarty)
                 break;
 
             case 'table_attr':
-            case 'tr_attr':
-            case 'td_attr':
             case 'trailpad':
             case 'hdir':
             case 'vdir':
                 $$_key = (string)$_value;
+                break;
+
+            case 'tr_attr':
+            case 'td_attr':
+                $$_key = $_value;
                 break;
         }
     }
