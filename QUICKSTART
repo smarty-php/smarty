@@ -14,7 +14,7 @@ INSTALLATION
 ------------
 
 Unpack the Smarty tarball. You will see four class files: Smarty.class.php,
-Smarty.addons.php, Smarty_Compiler.class.php and Config_File.class.php and a
+Smarty_Compiler.class.php and Config_File.class.php and a
 "plugins" directory. You will need to have all four of these files somewhere in
 your PHP include path, so when you call require("Smarty.class.php") from within
 your application, it can find the class. Alternatively, you can set the
