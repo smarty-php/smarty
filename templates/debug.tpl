@@ -1,5 +1,7 @@
 {* Smarty *}
 
+{* debug.tpl, last updated version 1.4.6 *}
+
 {assign_debug_info}
 
 <SCRIPT language=javascript>

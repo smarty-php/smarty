@@ -236,8 +236,9 @@ class Smarty
     {
         if (is_array($tpl_var)){
             foreach ($tpl_var as $key => $val) {
-                if (!empty($key))
+                if (!empty($key) && isset($val)) {
                     $this->_tpl_vars[$key] = $val;
+				}
             }
         } else {
             if (!empty($tpl_var) && isset($value))
@@ -650,7 +651,7 @@ class Smarty
                 $smarty['request'] = array_merge($smarty['request'], $smarty[$egpcs[$c]]);
             }
         }
-        $smarty['request'] = array_merge($smarty['request'], $smarty['session']);
+        $smarty['request'] = @array_merge($smarty['request'], $smarty['session']);
 
         $smarty['now'] = time();
 
@@ -1193,7 +1194,7 @@ function _run_mod_handler()
             $new_dir = ($dir{0} == '/') ? '/' : '';
             foreach ($dir_parts as $dir_part) {
                 $new_dir .= $dir_part;
-                if (!file_exists($new_dir) && !mkdir($new_dir, 0701)) {
+                if (!file_exists($new_dir) && !mkdir($new_dir, 0771)) {
                     $this->_trigger_error_msg("problem creating directory \"$dir\"");
                     return false;
                 }

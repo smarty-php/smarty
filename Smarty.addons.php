@@ -193,7 +193,7 @@ function smarty_func_assign($args, &$smarty_obj)
         return;
     }
 
-    if (empty($value)) {
+    if (!isset($value)) {
         $smarty_obj->_trigger_error_msg("assign: missing 'value' parameter");
         return;
     }

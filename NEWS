@@ -1,3 +1,5 @@
+    - fixed bug with {assign ...} when passing an empty value (Monte)
+    - add more warning message fixes (Monte, Tara Johnson)
     - documentation updates. (Monte)
     - update fetch function to give proper warning when fetching a non-readable
       or non-existant file. (Monte)
