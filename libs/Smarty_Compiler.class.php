@@ -703,7 +703,7 @@ class Smarty_Compiler extends Smarty {
         }
 	    $_return = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', (array)$arg_list)."), \$this)";
 		if($tag_modifier != '') {
-			$this->_parse_modifiers($return, $tag_modifier);
+			$this->_parse_modifiers($_return, $tag_modifier);
 		}
 
 		if($_return != '') {
