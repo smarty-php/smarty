@@ -1,3 +1,5 @@
+    - implemented access to request variables via auto-assigned $smarty
+      template variable.  (Andrei)
     - fixed a bug with parsing function arguments inside {if} tags if a comma
       was present. (Andrei)
     - updated debug console with config file vars. (Monte)

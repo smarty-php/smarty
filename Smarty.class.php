@@ -172,22 +172,26 @@ class Smarty
     var $prefilter_funcs       =  array();  // what functions templates are prefiltered through
                                             // before being compiled
 
+    var $request_vars_order    = "EGPCS";   // the order in which request variables are
+                                            // registered, similar to variables_order
+                                            // in php.ini
+
 /**************************************************************************/
 /* END SMARTY CONFIGURATION SECTION                                       */    
 /* There should be no need to touch anything below this line.             */
 /**************************************************************************/
  
     // internal vars
-    var $_error_msg             =   false;      // error messages. true/false
-    var $_tpl_vars              =   array();    // where assigned template vars are kept
-    var $_sections              =   array();    // keeps track of sections
-    var $_conf_obj              =   null;       // configuration object
-    var $_config                =   array();    // loaded configuration settings
-    var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
-    var $_version               =   '1.4.3';    // Smarty version number    
-    var $_extract               =   false;      // flag for custom functions
-    var $_included_tpls         =   array();    // list of run-time included templates
-    var $_inclusion_depth       =   0;          // current template inclusion depth
+    var $_error_msg            =   false;      // error messages. true/false
+    var $_tpl_vars             =   array();    // where assigned template vars are kept
+    var $_sections             =   array();    // keeps track of sections
+    var $_conf_obj             =   null;       // configuration object
+    var $_config               =   array();    // loaded configuration settings
+    var $_smarty_md5           =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
+    var $_version              =   '1.4.3';    // Smarty version number    
+    var $_extract              =   false;      // flag for custom functions
+    var $_included_tpls        =   array();    // list of run-time included templates
+    var $_inclusion_depth      =   0;          // current template inclusion depth
     
 
 /*======================================================================*\
@@ -538,6 +542,8 @@ class Smarty
             }
         }
 
+        $this->_assign_smarty_interface();
+
         if ($this->_conf_obj === null) {
             /* Prepare the configuration object. */
             if (!class_exists('Config_File'))
@@ -597,6 +603,54 @@ class Smarty
             if (isset($results)) { return $results; }
         }
     }
+
+    
+/*======================================================================*\
+    Function: _assign_smarty_interface
+    Purpose:  assign $smarty interface variable 
+\*======================================================================*/
+    function _assign_smarty_interface()
+    { 
+        $smarty = array('get'      => $GLOBALS['HTTP_GET_VARS'],
+                        'post'     => $GLOBALS['HTTP_POST_VARS'],
+                        'cookies'  => $GLOBALS['HTTP_COOKIE_VARS'],
+                        'session'  => $GLOBALS['HTTP_SESSION_VARS'],
+                        'server'   => $GLOBALS['HTTP_SERVER_VARS'],
+                        'env'      => $GLOBALS['HTTP_ENV_VARS']);
+
+        $smarty['request'] = array();
+        foreach (preg_split('!!', $this->request_vars_order) as $c) {
+            switch (strtolower($c)) {
+                case 'p':
+                    $smarty['request'] = array_merge($smarty['request'],
+                                                     $GLOBALS['HTTP_POST_VARS']);
+                    break;
+
+                case 'c':
+                    $smarty['request'] = array_merge($smarty['request'],
+                                                     $GLOBALS['HTTP_COOKIE_VARS']);
+                    break;
+
+                case 'g':
+                    $smarty['request'] = array_merge($smarty['request'],
+                                                     $GLOBALS['HTTP_GET_VARS']);
+                    break;
+
+                case 'e':
+                    $smarty['request'] = array_merge($smarty['request'],
+                                                     $GLOBALS['HTTP_ENV_VARS']);
+                    break;
+
+                case 's':
+                    $smarty['request'] = array_merge($smarty['request'],
+                                                     $GLOBALS['HTTP_SERVER_VARS']);
+                    break;
+            }
+        }
+        
+        $this->assign('smarty', $smarty);
+    }
+
 
 /*======================================================================*\
     Function:   _generate_debug_output()
