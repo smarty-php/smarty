@@ -1,0 +1,291 @@
+NAME:
+
+	Smarty - the PHP compiling template engine v0.9
+	
+SYNOPSIS:
+
+	require("smarty.class.php");
+
+	$smarty = new Smarty;
+
+	$smarty->assign("Title","My Homepage");
+	$smarty->assign("Names",array("John","Gary","Gregg","James"));
+
+	$smarty->spew("./templates/index.tpl");
+
+DESCRIPTION:
+
+	What is Smarty?
+	
+	Smarty is a template engine for PHP. One of the unique aspects about
+	Smarty that sets it apart from other template solutions is that it
+	precompiles the templates to native php scripts once, then executes
+	the php scripts from that point forward. There is no costly template
+	file parsing for each request!
+
+	Some of Smarty's features:
+
+	* it works.... FAST!
+	* it's simple, it lets PHP do the work.
+	* no template parsing overhead, only compiles once.
+	* it is smart about only recompiling template files that
+	  have changed.
+	* you can make custom template functions, so it is
+	  infinitely extensible.
+	* configurable template delimiter syntax, so you can have
+	  {}, {{}}, <!--{}-->, etc.
+	* uses native PHP if/else/endif, so template
+	  code is simpler
+	* uses PHP for/endfor loops for sections, so
+	  template code is simpler
+	* infinitely nested sections allowed
+	* imbedded PHP code in your template files is
+	  possible (escaped by default.)
+	
+	
+REQUIREMENTS:
+
+	Smarty requires PHP with PCRE (Perl Compatible Regular Expressions)
+	Smarty was developed and tested with PHP 4.0.2.
+
+CLASS METHODS:
+
+	assign($var,$val)
+	-----------------
+	Assign variables to be used in the template engine.
+		
+	spew($tpl_file)
+	----------------------
+	Print the results of a parsed template file
+				
+	fetch($tpl_file)
+	--------------------------
+	Return the results of a parsed template file
+
+	clear_assign($var)
+	------------------	
+	Clear an assigned template variable.		
+
+	clear_all_assign()
+	------------------
+	Clear all the assigned template variables.
+
+
+CLASS VARIABLES:	(default value in parenthesis)
+
+	$compile_check		Whether or not to check for a needed compile.
+						To optimize performance, set this to
+						false once development is complete and
+						the scripts are initially compiled.
+						(true)
+
+	$compile_dir_ext	Extention to give the name of the compile
+						directory. For example, if your templates
+						are stored in a directory named
+						"templates", then all compiled template
+						files will be kept in "templates_c" in the
+						same directory. (_c)
+
+	$tpl_file_ext		the extention used on template files. (.tpl)
+
+	$max_recursion_depth	The maximum recursion depth for template
+							files includes. This is to help catch an
+							infinite loop. 0 == unlimited. (10)
+
+	$allow_php			Whether or not to allow PHP code in your
+						templates. If set to false, PHP code is
+						escaped. (false)
+	
+	
+	$left_delimiter		The left delimiter of the template syntax.
+						For some development tools, it may be handy
+						to change the delimiters to something like
+						"<!-- {" and "} -->" respectfully. ({)
+	
+	$right_delimiter	The right delimiter of the template syntax. (})
+	
+	$registered_functions	Names of the custom template functions.
+							To add your own, add them to the array
+							here, and add the actual functions to the
+							smarty.functions.php file.
+					(array(	"htmlesc","urlesc","default","config" );)
+
+
+INSTALLATION:
+
+* copy the smarty.class.php and smarty.functions.php scripts to a
+  directory that is accessible by PHP. NOTE: Smarty will need to
+  create a directory for the compiled templates. Be sure that the
+  web server user (or which ever user the PHP parser is run as)
+  can write to the directory. You will see appropriate error
+  messages if the directory creation fails.
+
+* setup your php and template files. A good working example is
+  included to get you started.
+
+
+EXAMPLE:
+
+A simple example, built out of a few files:
+
+index.php
+---------
+
+<?
+
+require("smarty.class.php");
+
+$smarty = new Smarty;
+
+$smarty->assign("Name","Gomer Pyle");
+$smarty->assign("loopvar",array("one","two","three","four"));
+$smarty->assign("loopvar2",array("one","two","three","<four>"));
+
+$smarty->spew("./templates/index.tpl");
+
+?>
+
+templates/header.tpl
+--------------------
+
+<HTML>
+<BODY>
+<TITLE>My Homepage</TITLE>
+
+
+templates/footer.tpl
+--------------------
+
+</BODY>
+</HTML>
+
+
+templates/index.php
+-------------------
+
+{include header.tpl}
+{* This is a template comment *}
+hello, my name is {$Name}.<br>
+{if $Name == "Joe"}
+	I am Joe.<br>
+{else}
+	I am not Joe.<br>
+{/if} 
+{* This is a template comment *}
+<p>
+testing a loop:<br>
+{section name="outside" $loopvar}
+	loop var is {$outside.loopvar}<br>
+	{section name="inside" $loopvar}
+		inside loop: {$inside.loopvar}<br>
+	{/section}
+	<p>
+{/section}
+
+{* This is a template comment *}
+<p>
+Hello, my name is {htmlesc $Name}
+{* This is a template comment *}
+{include footer.tpl}
+
+
+IF/ELSE LOGIC:
+
+Smarty supports if/else logic like so:
+
+{if $Name == "John"}
+	I am John!
+{else}
+	I am not John.
+{/if}
+
+A few important things to know:
+* arguments to {if ..} are passed "as is" to the php parser.
+
+SECTIONS:
+
+Sections are portions of the template that are meant to be looped.
+
+Example:
+
+(Assuming $LastName, $MiddleName and $FirstName have been assigned):
+
+{section name="employees" $LastName}
+	This employee is {$employees.LastName},{$employees.FirstName}
+		{$employees.MiddleName}<br>
+{/section}
+
+The first argument to a section is the name of the section.
+The second argument is the name of a variable (usually
+an array) that determines the number of times the section
+will be looped.
+
+A few important things to know:
+* ALL sections must be given a name.
+* ALL section names MUST be unique from one another.
+* All variables meant to be looped within a section
+  MUST have the section name prepended to the name
+  like so: {$section_name.variable_name}
+* It is OK to mention variables of parent sections
+  within nested child sections.
+  
+Sections can be nested, like so:
+
+{section name="employees" $LastName}
+	This employee is {$employees.LastName},
+		{$employees.FirstName} {$employees.MiddleName}<br>
+	{section name="employee_jobs" $JobDescription}
+		Available jobs for {$employees.FirstName}:
+			{$employee_jobs.JobDescription}<br>
+	{/section}
+{/section}
+
+
+CUSTOM FUNCTIONS:
+
+You may create your own custom template functions. There are four
+functions that come bundled with Smarty, which are the following:
+
+{htmlesc $var}					prints a variable html escaped.
+{urlesc $var}					prints a variable url escaped.
+{default $var,"default value"}	prints the default value if
+								$var is empty.
+{config "file.conf","var"}		prints the value of a variable
+								from a config file.
+
+For this config function, config files are kept in a "config" directory.
+Config files also must be in the following syntax:
+
+var = "value"
+
+example:
+
+index.tpl
+---------
+
+{config "config/index.conf","title"}
+
+index.conf
+----------
+
+title = "My Homepage"
+Name = "Gomer Pyle"
+
+
+creating your own:
+
+To create your own custom functions, do the following:
+
+* edit the smarty.functions.php file, add your custom function. Be sure
+  the function name is prepended with "smarty_". The template engine
+  will print anything that is returned from this function.
+* edit the smarty.class.php file, add your custom function name to the
+  array (leave off the smarty_ prefix.)
+* make a mention of your custom function in a template, like so:
+  {function_name [arguments]}
+* The arguments are passed "as is" to the custom function.
+
+COPYRIGHT:
+	Copyright(c) 2000 ispi. All rights reserved.
+	This software is released under the GNU General Public License.
+	Please read the disclaimer at the top of the Smarty.class.php file.
