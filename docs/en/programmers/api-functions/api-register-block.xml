@@ -53,7 +53,13 @@ function do_translation ($params, $content, &$smarty, &$repeat)
   }
 }
 ?>
-
+]]>
+   </programlisting>
+   <para>
+    where the template is:
+   </para>
+   <programlisting>
+<![CDATA[
 {* template *}
 {translate lang="br"}
 Hello, world!

@@ -31,8 +31,6 @@
    <title>Preventing a plugin's output from being cached</title>
    <programlisting role="php">
 <![CDATA[
-index.php:
-
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -55,10 +53,12 @@ if (!$smarty->is_cached('index.tpl')) {
 
 $smarty->display('index.tpl');
 ?>
-
-
-index.tpl:
-
+   </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
 Time Remaining: {remain endtime=$obj->endtime}
 ]]>
    </programlisting>
@@ -89,10 +89,13 @@ $smarty->register_block('dynamic', 'smarty_block_dynamic', false);
 
 $smarty->display('index.tpl');
 ?>
-
-
-index.tpl:
-
+]]>
+   </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
+<![CDATA[
 Page created: {"0"|date_format:"%D %H:%M:%S"}
 
 {dynamic}
