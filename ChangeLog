@@ -1,3 +1,10 @@
+2002-06-13  Andrei Zmievski  <andrei@php.net>
+
+    * TODO: done.
+
+    * Smarty_Compiler.class.php:
+    Optimize the calculation of section 'total' property.
+
 2002-06-11  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
