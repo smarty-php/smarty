@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: uptodate -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <part id="getting.started">
  <title>Pour commencer</title>
  
@@ -181,7 +181,8 @@ $smarty = new Smarty;
 require('Smarty.class.php');
 $smarty = new Smarty;
 ?>
-]]>   </example>
+]]></programlisting>
+</example>
    
    <example>
     <title>Définir explicitement la constante SMARTY_DIR</title>
@@ -287,7 +288,6 @@ $smarty = new Smarty;
    
    <example>
     <title>régler les permissions d'accès</title>
-    <screen>
     <programlisting role="shell">
 <![CDATA[
 chown nobody:nobody /web/www.mydomain.com/smarty/livredor/templates_c/
@@ -297,7 +297,6 @@ chown nobody:nobody /web/www.mydomain.com/smarty/livredor/cache/
 chmod 770 /web/www.mydomain.com/smarty/livredor/cache/
 ]]>
     </programlisting>
-</screen>
    </example>
    
    <note>
@@ -367,7 +366,6 @@ Hello, {$name}!
      $smarty->assign('name','Ned');
      
     $smarty->display('index.tpl');
-?>
 ?>
 ]]>
     </screen>
