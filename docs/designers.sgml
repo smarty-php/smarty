@@ -523,7 +523,12 @@ OUTPUT: (same for both examples)
              processed.
 			</para>
 		</sect2>
-
+		<sect2 id="language.variables.smarty.version">
+			<title>{$smarty.version}</title>
+			<para>
+             This variable contains the version of Smarty the template was compiled with.
+			</para>
+		</sect2>
 		</sect1>
 	</chapter>
 
