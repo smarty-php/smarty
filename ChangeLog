@@ -1,3 +1,9 @@
+2004-04-30  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      libs/plugins/modifier.escape.php:
+      add 'mail' attribute to escape modifier
+
 2004-04-20  Mehdi Achour  <didou@keliglia.com>
 
     * docs/manual.xml.in:
