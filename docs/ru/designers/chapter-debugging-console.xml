@@ -14,7 +14,7 @@
   отладки, установите $debugging в false. Можно также опционально включить консоль
   отладки, добавив SMARTY_DEBUG в URL, если включена опция <link
   linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
-</para>
+ </para>
 <note>
  <para>
   Консоль отладки не работает, когда используется функция API fetch(). 
