@@ -113,12 +113,6 @@ function smarty_function_html_image($params, &$smarty)
                 return;
             }
         }
-        $_params = array('resource_type' => 'file', 'resource_name' => $_image_path);
-        require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.is_secure.php');
-        if(!$smarty->security && !smarty_core_is_secure($_params, $smarty)) {
-            $smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);
-            return;
-        }
 
         if(!isset($params['width'])) {
             $width = $_image_data[0];
