@@ -568,7 +568,7 @@ class Smarty
 		foreach ($attrs as $attr_name => $attr_value) {
 			switch ($attr_name) {
 				case 'loop':
-					$output .= "{$section_props}['loop'] = count($attr_value);\n";
+					$output .= "{$section_props}['loop'] = is_array($attr_value) ? count($attr_value) : $attr_value;\n";
 					break;
 
 				case 'show':

@@ -15,7 +15,7 @@ the value of $SCRIPT_NAME is {$SCRIPT_NAME}
 hello, my name is {$Name|upper}
 
 My interests are:
-{section name=outer loop=$FirstName}
+{section name=outer loop=2}
 	{if %outer.index% is odd by 2}
 		{%outer.rownum%} . {$outer/FirstName} {$outer/LastName}
 	{else}
