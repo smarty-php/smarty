@@ -1,3 +1,5 @@
+  - fix escapement of special chars for key vals in debug
+    console (Monte)
   - fixed debug timing logic for config_load (Tom Sommer, Monte)
   - all in-code doc comments converted to phpDocumentor format (Greg)
   - moved strip from smarty core to plugin (Monte)
