@@ -260,7 +260,10 @@ class Config_File {
             $_triple_quotes = $match[1];
             $_i = 0;
             $contents = preg_replace('/""".*"""/Use', '"\x1b\x1b\x1b".$_i++."\x1b\x1b\x1b"', $contents);
+        } else {
+            $_triple_quotes = null;
         }
+
         /* Get global variables first. */
         if ($contents{0} != '[' && preg_match("/^(.*?)(\n\[|\Z)/s", $contents, $match))
             $config_data["vars"] = $this->_parse_config_block($match[1], $_triple_quotes);
