@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.table">
  <title>html_table</title>
  <informaltable frame="all">
@@ -32,26 +32,24 @@
     <entry>integer</entry>
     <entry>Нет</entry>
     <entry><emphasis>3</emphasis></entry>
-    <entry>количество колонок таблицы</entry>
-   </row>
-   <row>
-    <entry>cols</entry>
-    <entry>integer</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>3</emphasis></entry>
-    <entry>количество колонок таблицы,
-    данные заполняют ячецки слева направо,
-    сверху вниз.</entry>
+                    <entry>количество колонок в таблице. если аттрибут cols не указан, но указан rows, тогда кол-во колонок вычисляется исходя из кол-ва строк и кол-ва элементов, которые необходимо отобразить. если оба аттрибута, rows и cols, не указаны, cols по умолчанию равен 3.</entry>
    </row>
    <row>
     <entry>rows</entry>
     <entry>integer</entry>
     <entry>Нет</entry>
     <entry><emphasis>empty</emphasis></entry>
-    <entry>количество рядов таблицы, данные заполняют
-    ячецки слева направо, сверху вниз. Этот аттрибут -
-    взаимоисключающийся с аттрибутом "cols".</entry>
+                    <entry>количество строк в таблице. если аттрибут rows не указан, но указан cols, тогда кол-во строк вічисляется исходя из кол-ва колонок и кол-ва элементов, которые необходимо отобразить.</entry>
    </row>
+
+                    <row>
+                        <entry>inner</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>cols</emphasis></entry>
+                        <entry>direction of consecutive elements in the loop-array to be rendered. <emphasis>cols</emphasis> means elements are displayed col-by-col. <emphasis>rows</emphasis> means elements are displayed row-by-row.</entry>
+                    </row>
+
    <row>
     <entry>table_attr</entry>
     <entry>string</entry>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: tony2001 Status: in-progress -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <chapter id="tips">
  <title>Советы</title>
   <sect1 id="tips.blank.var.handling">
@@ -112,34 +112,48 @@ footer.tpl
   для полного контроля над форматированием даты и также делает легким 
 		сравнение дат там, где это необходимо.
  </para>
- <para>
-  ЗАМЕЧАНИЕ: Начиная с версии Smarty 1.4.0 вы можете передавать дату в виде
-  временной метки Unix (Unix timestamp), временной метки MySQL или в любом
-  другом виде, который подерживается функцией PHP strtotime().
- </para>
-<example>
- <title>Использование date_format</title>
-<programlisting>
+   <note>
+    <para>
+     Начиная с версии Smarty 1.4.0, вы можете передавать даты в Smarty в виде
+     меток времени Unix (unix timestamps), mysql, или в любом другом виде, который принимает strtotime().
+    </para>
+   </note>
+   <example>
+    <title>using date_format</title>
+    <programlisting>
 <![CDATA[
 {$startDate|date_format}
-
-ВЫВОД:
-
+]]>
+    </programlisting>
+    <para>
+     Результат работы:
+    </para>
+    <screen>
+<![CDATA[
 Jan 4, 2001
-
-
+]]>
+    </screen>
+    <programlisting>
+<![CDATA[
 {$startDate|date_format:"%Y/%m/%d"}
-
-ВЫВОД:
-
+]]>
+    </programlisting>
+    <para>
+     Результат работы:
+    </para>
+    <screen>
+<![CDATA[
 2001/01/04
-
-
+]]>
+    </screen>
+    <programlisting>
+<![CDATA[
 {if $date1 < $date2}
-	...
+   ...
 {/if}
-]]></programlisting>
-</example>
+]]>
+    </programlisting>
+   </example>
 <para>
  Когда {html_select_date} используется в шаблоне, программистам может
  понадобиться получить дату виде временной метки. Вот функция, которая поможет это
@@ -147,26 +161,32 @@ Jan 4, 2001
 </para>
 <example>
 <title>Преобразование элементов формы ввода даты назад к временной метке</title>
-<programlisting>
+    <programlisting role="php">
 <![CDATA[
+<?php
+
 // Предполагается, что ваши элементы формы названы
 // startDate_Day, startDate_Month, startDate_Year
 
-$startDate = makeTimeStamp($startDate_Year,$startDate_Month,$startDate_Day);
+$startDate = makeTimeStamp($startDate_Year, $startDate_Month, $startDate_Day);
 
-function makeTimeStamp($year="",$month="",$day="")
+function makeTimeStamp($year="", $month="", $day="")
 {
-	if(empty($year))
-		$year = strftime("%Y");
-	if(empty($month))
-		$month = strftime("%m");
-	if(empty($day))
-		$day = strftime("%d");
+   if(empty($year)) {
+       $year = strftime("%Y");
+   }
+   if(empty($month)) {
+       $month = strftime("%m");
+   }
+   if(empty($day)) {
+       $day = strftime("%d");
+   }
 
-	return mktime(0,0,0,$month,$day,$year);
- }
+   return mktime(0, 0, 0, $month, $day, $year);
+}
+?>
 ]]>
-</programlisting>
+    </programlisting>
 </example>
 </sect1>
 <sect1 id="tips.wap">
@@ -181,19 +201,30 @@ function makeTimeStamp($year="",$month="",$day="")
  </para>
 <example>
  <title>Использование insert для записи WML Content-Type заголовков</title>
-<programlisting>
+    <programlisting role="php">
 <![CDATA[
-// поместите эту функцию в приложение, или в  Smarty.addons.php
-function insert_header() {
-    // this function expects $content argument
-    extract(func_get_arg(0));
-    if(empty($content))
-        return;
-    header($content);
-    return;
+<?php
+
+// убедитесь, что apache настроен на обработку расширений .wml!                                    
+// добавьте эту функцию в своё приложение или в Smarty.addons.php
+function insert_header($params) 
+{
+   // эта функция ожидает аргумент $content
+   if (empty($params['content'])) {
+       return;
+   }
+   header($params['content']);
+   return;
 }
 
-// шаблон ДОЛЖЕН начинаться с тэга insert. Пример:
+?>
+]]>
+    </programlisting>
+    <para>
+     ваш шаблон Smarty <emphasis>должен</emphasis> начинаться с тэга insert:
+    </para>
+    <programlisting>
+<![CDATA[
 {insert name=header content="Content-Type: text/vnd.wap.wml"}
 
 <?xml version="1.0"?>  
@@ -219,130 +250,101 @@ Pretty easy isn't it?
 </card> 
 </wml>
 ]]>
-</programlisting>
+    </programlisting>
 </example>
 </sect1>
-<sect1 id="tips.componentized.templates">
- <title>Составные шаблоны</title>
- <para>
-  This tip is a bit of a hack, but still a neat idea. Use at your own
-  risk. ;-)
- </para>
- <para>
-  Traditionally, programming templates into your applications goes as
-  follows: First, you accumulate your variables within your PHP
-  application, (maybe with database queries.) Then, you instantiate your
-  Smarty object, assign the variables and display the template. So lets
-  say for example we have a stock ticker on our template. We would
-  collect the stock data in our application, then assign these variables
-  in the template and display it. Now wouldn't it be nice if you could
-  add this stock ticker to any application by merely including the
-  template, and not worry about fetching the data up front?
- </para>
- <para>
-  You can embed PHP into your templates with the {php}{/php} tags.
-  With this, you can setup self contained templates with their own
-  data structures for assigning their own variables. With the logic
-  embedded like this, you can keep the template &amp; logic together. This
-  way no matter where the template source is coming from, it is always
-  together as one component.
- </para>
-<example>
-<title>componentized template</title>
-<programlisting>
+  <sect1 id="tips.componentized.templates">
+   <title>Составные шаблоны</title>
+   <para>
+    По традиции, программирование шаблонов в вашем приложении идёт следующим
+    путём: Сначала вы формируете переменные внутри вашего приложения PHP
+    (возможно используя запросы к базе данных). Затем вы создаёте экземпляр
+    объекта Smarty, назначаете переменные и отображаете шаблон.
+    Давайте представим себе такую ситуацию: К примеру, у нас есть котировщик
+    ценных бумаг в нашем шаблоне. Мы собираем данные о котировках ценных бумаг
+    в нашем приложении, затем передаём эти переменные в шаблон и отображаем
+    его. Правда, было бы здорово, если бы этот котировщик можно было перенести
+    в другое приложение, просто подключив к нему шаблон, не беспокоясь об
+    источнике данных.
+   </para>
+   <para>
+    Вы можете сделать это, написав собственный плагин для получения данных и
+    присваивания их переменной шаблона.
+   </para>
+   <example>
+    <title>составной шаблон</title>
+    <programlisting role="php">
 <![CDATA[
-{* Smarty *}
+<?php
 
-{php}
+// поместите файл "function.load_ticker.php" в директорию плагинов
 
-	// setup our function for fetching stock data
-	function fetch_ticker($symbol,&$ticker_name,&$ticker_price) {
-		// put logic here that fetches $ticker_name
-		// and $ticker_price from some resource
-	}
+// настраиваем нашу функцию для получения информации о ценных бумагах
+function fetch_ticker($symbol) 
+{
+   // здесь находится логика формирования $ticker_info
+   // из какого-то источника
+   return $ticker_info;
+}
 
-	// call the function
-	fetch_ticker("YHOO",$ticker_name,$ticker_price);
-	
-	// assign template variables
-    $this->assign("ticker_name",$ticker_name);
-    $this->assign("ticker_price",$ticker_price);
-
-{/php}
-
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}
-]]></programlisting>
-</example>
- <para>
-  As of Smarty 1.5.0, there is even a cleaner way. You can include php in
-  your templates with the {include_php ...} tag. This way you can keep
-  your PHP logic separated from the template logic. See the <link
-  linkend="language.function.include.php">include_php</link> function for
-  more information.
- </para>
-<example>
-<title>componentized template with include_php</title>
-<programlisting>
+function smarty_function_load_ticker($params, &$smarty) 
+{
+   // вызываем функцию
+   $ticker_info = fetch_ticker($params['symbol']);
+   
+   // присваиваем переменную шаблона
+   $smarty->assign($params['assign'], $ticker_info);
+}
+?>
+]]>
+    </programlisting>
+    <programlisting>
 <![CDATA[
-load_ticker.php
----------------
-
-&lt;?php
-	// setup our function for fetching stock data
-	function fetch_ticker($symbol,&$ticker_name,&$ticker_price) {
-		// put logic here that fetches $ticker_name
-		// and $ticker_price from some resource
-	}
-
-	// call the function
-	fetch_ticker("YHOO",$ticker_name,$ticker_price);
-	
-	// assign template variables
-    $this->assign("ticker_name",$ticker_name);
-    $this->assign("ticker_price",$ticker_price);
-?&gt;
-
-
 index.tpl
 ---------
 
 {* Smarty *}
 
-{include_php file="load_ticker.php"}
+{load_ticker symbol="YHOO" assign="ticker"}
 
-Stock Name: {$ticker_name} Stock Price: {$ticker_price}
-]]></programlisting>
-</example>
-</sect1>
-<sect1 id="tips.obfuscating.email">
- <title>Obfuscating E-mail Addresses</title>
- <para>
-  Do you ever wonder how your E-mail address gets on so many spam mailing
-  lists? One way spammers collect E-mail addresses is from web pages. To
-  help combat this problem, you can make your E-mail address show up in
-  scrambled javascript in the HTML source, yet it it will look and work
-  correctly in the browser. This is done with the mailto plugin.
- </para>
-<example>
-<title>Example of Obfuscating an E-mail Address</title>
-<programlisting>
+Название ценной бумаги: {$ticker.name} Цена ценной бумаги: {$ticker.price}
+]]>
+    </programlisting>
+   </example>
+  </sect1>
+  <sect1 id="tips.obfuscating.email">
+   <title>Сокрытие E-mail адреса</title>
+   <para>
+    Вы когда-нибудь удивлялись, как ваш e-mail адрес попадает в такое
+    количество спамерских рассылок? Один из способов сбора e-mail адресов
+    заключается в просмотре веб-страниц. Чтобы помочь предотвратить эту
+    проблему, вы можете сделать так, чотбы ваш e-mail адрес отображался
+    в скрытом за javascript'ом виде в HTML-исходниках, в то же время
+    выглядя и работая корректно в браузере. Это можно совершить при помощи
+    плагина mailto.
+   </para>
+   <example>
+    <title>Пример сокрытия e-mail адреса</title>
+    <programlisting>
 <![CDATA[
 index.tpl
 ---------
 
-Send inquiries to
+По вопросам обращайтесь на
 {mailto address=$EmailAddress encode="javascript" subject="Hello"}
 ]]>
-</programlisting>
-</example>
-<note>
- <title>Technical Note</title>
- <para>
- This method isn't 100% foolproof. A spammer could conceivably program his
- e-mail collector to decode these values, but not likely.
- </para>
-</note>
-</sect1>
+    </programlisting>
+   </example>
+   <note>
+    <title>Техническое Замечание</title>
+    <para>
+     Этот метод не может гарантировать 100% защиты.
+     Существует вероятность, что спамер запрограммирует свой
+     сборщик e-mail адресов на раскодирование этих значений,
+     но это маловероятно.
+    </para>
+   </note>
+  </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
@@ -364,4 +366,3 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
-

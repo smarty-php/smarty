@@ -80,7 +80,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>addresses to follow up to.
+    <entry>адреса для дальнейшего перенаправления.
     Адреса разделяются запятыми.</entry>
    </row>
    <row>
