@@ -33,7 +33,7 @@
 	<para>
 	 The optional fifth parameter has only effect with
 	 <parameter>format</parameter> being <literal>true</literal>
-	 and contains a list ob methods that should be treated as
+	 and contains a list of methods that should be treated as
 	 blocks. That means these methods have a closing tag in the
 	 template
 	 (<literal>{foobar->meth2}...{/foobar->meth2}</literal>) and
