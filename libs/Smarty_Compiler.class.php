@@ -1641,7 +1641,8 @@ class Smarty_Compiler extends Smarty {
             else
                 $modifier_args = '';
 
-            $output = "\$this->_run_mod_handler('$modifier_name', $map_array, $output$modifier_args)";
+						
+            $output = "@\$this->_run_mod_handler('$modifier_name', $map_array, $output$modifier_args)";
         }
     }
 
