@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: nobody Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: nobody Status: ready -->
  <bookinfo id="bookinfo">
   <title>Smarty - a ferramenta para compilar templates para PHP</title>
   <authorgroup id="authors">
@@ -27,7 +27,7 @@
   </authorgroup>
   <pubdate>&build-date;</pubdate>
   <copyright>
-   <year>2001-2004</year>
+   <year>2001-2005</year>
    <holder>New Digital Group, Inc.</holder>
   </copyright>
  </bookinfo>
