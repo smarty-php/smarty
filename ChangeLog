@@ -1,3 +1,17 @@
+2003-12-03  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      remove $global_assign property from Smarty and $global_assign-handling
+      from the constructor. the only visible change is, that $SCRIPT_NAME is
+      not available in the tempates anymore. $smarty.server.SCRIPT_NAME has
+      to be used from now.
+
+2003-12-03  boots  <jayboots@yahoo.com>
+
+    * docs/designers.sgml:
+      Fixed example for count_characters
+
 2003-12-01  boots  <jayboots@yahoo.com>
 
     * docs/designers.sgml:
