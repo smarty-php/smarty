@@ -194,7 +194,7 @@ class Smarty
     var $_cache_info           = array();    // info that makes up a cache file
 	var $_file_perms		   = 0644;       // default file permissions
 	var $_dir_perms		       = 0771;       // default dir permissions
-	var $_object_wrapper	   = false;      // default object params structure
+	var $_reg_objects		   = array();    // registered objects
     var $_plugins              = array(      // table keeping track of plugins
                                        'modifier'      => array(),
                                        'function'      => array(),
@@ -338,10 +338,10 @@ class Smarty
     Function: register_object
     Purpose:  Registers object to be used in templates
 \*======================================================================*/
-    function register_object($object, &$object_impl)
-    {
-        $this->_plugins['object'][$object] =
-            array(&$object_impl, null, null, false);
+    function register_object($object, &$object_impl, $smarty_args = true)
+    {		
+        $this->_reg_objects[$object] =
+            array(&$object_impl, $smarty_args);		
     }
 
 /*======================================================================*\
@@ -350,7 +350,7 @@ class Smarty
 \*======================================================================*/
     function unregister_object($object)
     {
-        unset($this->_plugins['object'][$object]);
+        unset($this->_reg_objects[$object]);
     }
 	
 	
@@ -1138,6 +1138,7 @@ function _generate_debug_output() {
         $smarty_compiler->secure_dir        = $this->secure_dir;
         $smarty_compiler->security_settings = $this->security_settings;
         $smarty_compiler->trusted_dir       = $this->trusted_dir;
+        $smarty_compiler->_reg_objects      = &$this->_reg_objects;
         $smarty_compiler->_plugins          = &$this->_plugins;
         $smarty_compiler->_tpl_vars         = &$this->_tpl_vars;
         $smarty_compiler->default_modifiers = $this->default_modifiers;
@@ -1904,13 +1905,10 @@ function _run_insert_handler($args)
              * whether the dynamically registered plugin function has been
              * checked for existence yet or not.
              */
-            if (isset($plugin)) {			
+            if (isset($plugin)) {
                 if (!$plugin[3]) {
-					// no line number, see if it is valid
-                    if ($type == 'function' && !function_exists($plugin[0])) {
-                        $this->_trigger_plugin_error("$type '$name' is not implemented", $tpl_file, $tpl_line, __FILE__, __LINE__);
-					} elseif ($type == 'object' && !is_object($plugin[0])) {
-                        $this->_trigger_plugin_error("$type '$name' is not an object", $tpl_file, $tpl_line, __FILE__, __LINE__);
+                    if (!function_exists($plugin[0])) {
+                        $this->_trigger_plugin_error("$type '$name' is not implemented", $tpl_file, $tpl_line);
                     } else {
                         $plugin[1] = $tpl_file;
                         $plugin[2] = $tpl_line;

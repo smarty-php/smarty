@@ -147,7 +147,7 @@ class Smarty_Compiler extends Smarty {
 
 		// matches valid registered object:
 		// foo.bar
-		$this->_reg_obj_regexp = '[a-zA-Z_]\w*\.[a-zA-Z_]\w*';
+		$this->_reg_obj_regexp = '[a-zA-Z_]\w*->[a-zA-Z_]\w*';
 				
 		// matches valid parameter values:
 		// true
@@ -647,8 +647,7 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_registered_object_tag($tag_command, $attrs, $tag_modifier)
     {
-		list($object, $obj_comp) = explode('.', $tag_command);
-        $this->_add_plugin('object', $object);
+		list($object, $obj_comp) = explode('->', $tag_command);
 
         $arg_list = array();
 		if(count($attrs)) {
@@ -656,6 +655,7 @@ class Smarty_Compiler extends Smarty {
         	foreach ($attrs as $arg_name => $arg_value) {
 				if($arg_name == 'assign') {
 					$_assign_var = $arg_value;
+					unset($attrs['assign']);
 					continue;
 				}
             	if (is_bool($arg_value))
@@ -663,15 +663,21 @@ class Smarty_Compiler extends Smarty {
             	$arg_list[] = "'$arg_name' => $arg_value";
         	}
 		}
-
-		if(!$this->_plugins['object'][$object][0]) {
-			$this->_trigger_plugin_error("Smarty error: Registered '$object' is not an object");
-		} elseif(method_exists($this->_plugins['object'][$object][0], $obj_comp)) {
+		
+		if(!$this->_reg_objects[$object][0]) {
+			$this->trigger_error("Smarty error: registered '$object' is not an object");
+		} elseif(method_exists($this->_reg_objects[$object][0], $obj_comp)) {
 			// method
-			$return = "\$this->_plugins['object']['$object'][0]->$obj_comp(array(".implode(',', (array)$arg_list)."), \$this)";
+			if($this->_reg_objects[$object][1]) {
+				// smarty object argument format
+				$return = "\$this->_reg_objects['$object'][0]->$obj_comp(array(".implode(',', (array)$arg_list)."), \$this)";
+			} else {
+				// traditional argument format
+				$return = "\$this->_reg_objects['$object'][0]->$obj_comp(".implode(',', array_values($attrs)).")";
+			}
 		} else {
 			// property
-			$return = "\$this->_plugins['object']['$object'][0]->$obj_comp";
+			$return = "\$this->_reg_objects['$object'][0]->$obj_comp";
 		}
 		
 		if($tag_modifier != '') {
@@ -681,7 +687,7 @@ class Smarty_Compiler extends Smarty {
 		if($_assign_var) {
 			return "<?php \$this->assign('" . $this->_dequote($_assign_var) ."',  $return); ?>\n";
 		} else {
-        	return '<?php echo ' . $return . " ; ?>\n";
+        	return '<?php echo ' . $return . "; ?>\n";
 		}
     }
 	
