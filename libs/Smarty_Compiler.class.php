@@ -159,7 +159,7 @@ class Smarty_Compiler extends Smarty {
         $this->_obj_params_regexp = '\((?:' . $this->_obj_single_param_regexp
                 . '(?:\s*,\s*' . $this->_obj_single_param_regexp . ')*)?\)';
         $this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
-        $this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?)';
+        $this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?)';
         
         // matches valid modifier syntax:
         // |foo
@@ -406,7 +406,7 @@ class Smarty_Compiler extends Smarty {
         /* Matched comment. */
         if ($template_tag{0} == '*' && $template_tag{strlen($template_tag) - 1} == '*')
             return '';
-
+        
         /* Split tag into two three parts: command, command modifiers and the arguments. */
         if(! preg_match('~^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
                 . '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
@@ -414,7 +414,7 @@ class Smarty_Compiler extends Smarty {
                     ~xs', $template_tag, $match)) {
             $this->_syntax_error("unrecognized tag: $template_tag", E_USER_ERROR, __FILE__, __LINE__);
         }
-
+        
         $tag_command = $match[1];
         $tag_modifier = isset($match[2]) ? $match[2] : null;
         $tag_args = isset($match[3]) ? $match[3] : null;
@@ -1667,46 +1667,42 @@ class Smarty_Compiler extends Smarty {
     function _parse_var($var_expr)
     {
         $_has_math = false;
-        
-        if(!preg_match('~^' . $this->_obj_call_regexp . '$~', $var_expr)) {
-            // not an object call, see if there is math to parse
-            $_math_vars = preg_split('~('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')~', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $_math_vars = preg_split('~('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')~', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-            if(count($_math_vars) > 1) {
-                $_first_var = '';
-                $_complete_var = '';
-                $_output = '';
-                // simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
-                foreach($_math_vars as $_k => $_math_var) {
-                    $_math_var = $_math_vars[$_k];
+        if(count($_math_vars) > 1) {
+            $_first_var = "";
+            $_complete_var = "";
+            $_output = "";
+            // simple check if there is any math, to stop recursion (due to modifiers with "xx % yy" as parameter)
+            foreach($_math_vars as $_k => $_math_var) {
+                $_math_var = $_math_vars[$_k];
 
-                    if(!empty($_math_var) || is_numeric($_math_var)) {
-                        // hit a math operator, so process the stuff which came before it
-                        if(preg_match('~^' . $this->_dvar_math_regexp . '$~', $_math_var)) {
-                            $_has_math = true;
-                            if(!empty($_complete_var) || is_numeric($_complete_var)) {
-                                $_output .= $this->_parse_var($_complete_var);
-                            }
-
-                            // just output the math operator to php
-                            $_output .= $_math_var;
-
-                            if(empty($_first_var))
-                                $_first_var = $_complete_var;
-
-                            $_complete_var = '';
-                        } else {
-                            $_complete_var .= $_math_var;
+                if(!empty($_math_var) || is_numeric($_math_var)) {
+                    // hit a math operator, so process the stuff which came before it
+                    if(preg_match('~^' . $this->_dvar_math_regexp . '$~', $_math_var)) {
+                        $_has_math = true;
+                        if(!empty($_complete_var) || is_numeric($_complete_var)) {
+                            $_output .= $this->_parse_var($_complete_var);
                         }
+
+                        // just output the math operator to php
+                        $_output .= $_math_var;
+
+                        if(empty($_first_var))
+                            $_first_var = $_complete_var;
+
+                        $_complete_var = "";
+                    } else {
+                        $_complete_var .= $_math_var;
                     }
                 }
-                if($_has_math) {
-                    if(!empty($_complete_var) || is_numeric($_complete_var))
-                        $_output .= $this->_parse_var($_complete_var);
+            }
+            if($_has_math) {
+                if(!empty($_complete_var) || is_numeric($_complete_var))
+                    $_output .= $this->_parse_var($_complete_var);
 
-                    // get the modifiers working (only the last var from math + modifier is left)
-                    $var_expr = $_complete_var;
-                }
+                // get the modifiers working (only the last var from math + modifier is left)
+                $var_expr = $_complete_var;
             }
         }
 
@@ -1717,10 +1713,11 @@ class Smarty_Compiler extends Smarty {
             $_var_ref = substr($var_expr, 1);
         
         if(!$_has_math) {
-            // get [foo] and .foo and ->foo and (...) pieces
-            preg_match_all('~(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+~', $_var_ref, $_match);
             
-            $_indexes = $_match[0];
+            // get [foo] and .foo and ->foo and (...) pieces
+            preg_match_all('~(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+~', $_var_ref, $match);
+                        
+            $_indexes = $match[0];
             $_var_name = array_shift($_indexes);
 
             /* Handle $smarty.* variable references as a special case. */
