@@ -5,7 +5,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@php.net>
  *
- * Version:             1.4.1
+ * Version:             1.4.2
  * Copyright:           2001 ispi of Lincoln, Inc.
  *              
  * This library is free software; you can redistribute it and/or
@@ -149,7 +149,7 @@ class Smarty
     var $_sections              =   array();    // keeps track of sections
     var $_conf_obj              =   null;       // configuration object
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
-    var $_version               =   '1.4.1';  // Smarty version number                     
+    var $_version               =   '1.4.2';  // Smarty version number                     
     
 
 /*======================================================================*\

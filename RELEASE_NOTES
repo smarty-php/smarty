@@ -1,3 +1,10 @@
+1.4.2
+-----
+
+This was mostly one bug fix with variable scoping within included templates
+and a few documentation changes and updates. See the ChangeLog file for full
+details.
+
 1.4.1
 -----
 
