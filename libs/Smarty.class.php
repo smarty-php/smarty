@@ -40,7 +40,7 @@
  *
  */
 
-require('Smarty.addons.php');
+require_once dirname(__FILE__) . '/Smarty.addons.php';
 
 define("SMARTY_PHP_PASSTHRU",0);
 define("SMARTY_PHP_QUOTE",1);
@@ -665,7 +665,7 @@ class Smarty
 \*======================================================================*/
     function _compile_template($tpl_file, $template_source, &$template_compiled)
     {
-        include_once "Smarty_Compiler.class.php";
+        include_once dirname(__FILE__) . '/Smarty_Compiler.class.php';
 
         $smarty_compiler = new $this->compiler_class;
 
