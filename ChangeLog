@@ -1,3 +1,10 @@
+2002-10-18  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php: added proper support for open_basedir setting
+
+    * docs/designers.sgml: clear up docs on index, iteration and rownum
+
 2002-10-16  Monte Ohrt  <monte@ispi.net>
 
     * plugins/modifier.default.php: fix warning message in default modifier
