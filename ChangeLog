@@ -1,3 +1,23 @@
+2002-07-17  mohrt  <mohrt@pb1.pair.com>
+
+    * Smarty_Compiler.class.php: fix default modifier to work with config vars
+
+    * Smarty_Compiler.class.php: got args to strstr backwards...
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+    change default modifiers to array instead of string
+
+    * Smarty_Compiler.class.php
+      docs/designers.sgml
+      Smarty.class.php: add default modifier logic, minor doc updates
+
+    * NEWS
+      Smarty.class.php
+      plugins/function.popup_init.php:
+    make popup_init xhtml compliant, minor variable name changes for consistancy
+
 2002-07-16  mohrt  <mohrt@pb1.pair.com>
 
     * NEWS: update NEWS file
