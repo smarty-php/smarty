@@ -479,6 +479,13 @@ Dealers Will Hear Car Talk at Noon.
                         <entry>%b %e, %Y</entry>
                         <entry>This is the format for the outputted date.</entry>
                     </row>
+                    <row>
+                        <entry>2</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry>n/a</entry>
+                        <entry>This is the default date if the input is empty.</entry>
+                    </row>
                 </tbody>
                 </tgroup>
             </informaltable>
@@ -487,7 +494,9 @@ Dealers Will Hear Car Talk at Noon.
             Dates can be passed to Smarty as unix timestamps, mysql timestamps
             or any string made up of month day year (parsable by strtotime).
             Designers can then use date_format to have complete control of the
-            formatting of the date.
+            formatting of the date. If the date passed to date_format is empty
+			and a second paramter is passed, that will be used as the date to
+			format.
 			</para>
 <example>
 <title>date_format</title>
@@ -495,12 +504,15 @@ Dealers Will Hear Car Talk at Noon.
 {$currentDate}
 {$currentDate|date_format:"%A, %B %e, %Y"}
 {$currentDate|date_format:"%H:%M:%S"}
+{* format current time if $currentDate is empty *}
+{$currentDate|date_format:"%H:%M:%S":"now"}
 
 OUTPUT:
 
 Feb 6, 2001
 Tuesday, February 6, 2001
-14:33:00</programlisting>
+14:33:00
+22:23:12</programlisting>
 </example>
 <example>
 <title>date_format conversion specifiers</title>
