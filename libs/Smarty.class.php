@@ -2000,6 +2000,30 @@ class Smarty
 
 
     /**
+     * get or set an array of cached attributes for function that is
+     * not cacheable
+     * @return array
+     */
+    function &_smarty_cache_attrs($cache_serial, $count) {
+        $_cache_attrs =& $this->_cache_info['cache_attrs'][$cache_serial][$count];
+
+        if ($this->_cache_including) {
+            /* return next set of cache_attrs */
+            $_return =& current($_cache_attrs);
+            next($_cache_attrs);
+            return $_return;
+
+        } else {
+            /* add a reference to a new set of cache_attrs */
+            $_cache_attrs[] = array();
+            return $_cache_attrs[count($_cache_attrs)-1];
+
+        }
+
+    }
+
+
+    /**
      * wrapper for include() retaining $this
      * @return mixed
      */

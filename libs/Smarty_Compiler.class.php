@@ -1294,7 +1294,7 @@ class Smarty_Compiler extends Smarty {
             /* we have a list of parameters that should be cached */
             $_cache_attrs = $this->_plugins[$type][$name][5];
             $_count = $this->_cache_attrs_count++;
-            $cache_code = "\$_cache_attrs =& \$this->_cache_info['cache_attrs']['$this->_cache_serial'][$_count];";
+            $cache_code = "\$_cache_attrs =& \$this->_smarty_cache_attrs('$this->_cache_serial','$_count');";
 
         } else {
             /* no parameters are cached */
