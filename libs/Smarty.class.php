@@ -798,7 +798,7 @@ class Smarty
      */    
     function register_resource($type, $functions)
     {
-        if (sizeof($functions)==4) {
+        if (sizeof($functions)<5) {
             $this->_plugins['resource'][$type] =
                 array($functions, false);
 
