@@ -59,7 +59,7 @@ revcheck: FORCE
 
 clean:
 	rm -f Makefile config.* manual.xml configure entities/version.ent *.fot dsssl/html-common.dsl
-	rm -f revcheck.html file-entities.php entities/file-entities.ent
+	rm -f revcheck.html file-entities.php entities/file-entities.ent scripts/file-entities.php
 	rm -fr autom4te.cache html phpweb
 
 # }}}
