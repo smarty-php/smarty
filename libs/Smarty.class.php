@@ -101,7 +101,7 @@ class Smarty
                                         // fetches. true/false default true.
     var $cache_handler_func   = '';     // function used for cached content. this is
                                         // an alternative to using the built-in file
-										// based caching. See docs for usage.
+										// based caching.
 
     var $tpl_file_ext    =  '.tpl';     // template file extention (deprecated)
 
@@ -127,9 +127,9 @@ class Smarty
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count')
                                    );
-	var $trusted_dir		= array(); 	// array of directories where trusted templates
-										// reside ($security is disabled during their
-										// execution).
+	var $trusted_dir		= ''; 	// directory where trusted templates
+									// reside ($security is disabled during their
+									// execution).
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
@@ -220,12 +220,10 @@ class Smarty
 			$this->config_dir = SMARTY_DIR.$this->config_dir;
 			$this->compile_dir = SMARTY_DIR.$this->compile_dir;
 			$this->cache_dir = SMARTY_DIR.$this->cache_dir;
+			$this->trusted_dir = SMARTY_DIR.$this->trusted_dir;
 
 			for ($x=0; $x < count($this->secure_dir); $x++) {
 				$this->secure_dir[$x] = SMARTY_DIR.$this->secure_dir[$x];
-			}
-			for ($x=0; $x < count($this->trusted_dir); $x++) {
-				$this->trusted_dir[$x] = SMARTY_DIR.$this->trusted_dir[$x];
 			}
 		}
 		
@@ -729,24 +727,20 @@ function _generate_debug_output() {
 
 /*======================================================================*\
     Function:   _is_trusted()
-    Purpose:	determins if a template is trusted or not. If trusted,
-				$security is disabled during its execution.
+    Purpose:	determines if a template is within the trusted_dir or not.
 \*======================================================================*/
 function _is_trusted($resource_type, $resource_name) {
 
 	$_smarty_trusted = false;
-	if ($this->security && !empty($this->trusted_dir)) {
+	if (!empty($this->trusted_dir)) {
 		// see if template file is within a trusted directory. If so,
 		// disable security during the execution of the template.
 
 		if ($resource_type == 'file') {
-            foreach ($this->trusted_dir as $curr_dir) {
-				if ( !empty($curr_dir) && is_readable ($curr_dir)) {				
-                	if (substr(realpath($resource_name),0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-                    	$_smarty_trusted = true;
-                    	break;
-                	}
-				}
+			if (is_readable ($this->trusted_dir)) {				
+                if (substr(realpath($resource_name),0, strlen(realpath($this->trusted_dir))) == realpath($this->trusted_dir)) {
+                    $_smarty_trusted = true;
+                }
             }				
 		} else {
 			// resource is not on local file system
