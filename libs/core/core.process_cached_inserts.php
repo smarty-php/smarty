@@ -38,9 +38,9 @@ function smarty_core_process_cached_inserts($params, &$smarty)
 
 
             if ($resource_type == 'file') {
-                $smarty->smarty_include($php_resource, true);
+                $smarty->_include($php_resource, true);
             } else {
-                $smarty->smarty_eval($php_resource);
+                $smarty->_eval($php_resource);
             }
         }
 

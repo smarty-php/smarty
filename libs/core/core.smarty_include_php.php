@@ -31,17 +31,17 @@ function smarty_core_smarty_include_php($params, &$smarty)
     if (!empty($params['smarty_assign'])) {
         ob_start();
         if ($_smarty_resource_type == 'file') {
-            $smarty->smarty_include($_smarty_php_resource, $params['smarty_once']);
+            $smarty->_include($_smarty_php_resource, $params['smarty_once']);
         } else {
-            $smarty->smarty_eval($_smarty_php_resource);
+            $smarty->_eval($_smarty_php_resource);
         }
         $smarty->assign($params['smarty_assign'], ob_get_contents());
         ob_end_clean();
     } else {
         if ($_smarty_resource_type == 'file') {
-            $smarty->smarty_include($_smarty_php_resource, $params['smarty_once']);
+            $smarty->_include($_smarty_php_resource, $params['smarty_once']);
         } else {
-            $smarty->smarty_eval($_smarty_php_resource);
+            $smarty->_eval($_smarty_php_resource);
         }
     }
 }

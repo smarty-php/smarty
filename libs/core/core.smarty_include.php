@@ -38,7 +38,7 @@ function smarty_core_smarty_include($params, &$smarty)
     if ($smarty->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
         || $smarty->_compile_resource($params['smarty_include_tpl_file'], $_smarty_compile_path))
     {
-        $smarty->smarty_include($_smarty_compile_path);
+        $smarty->_include($_smarty_compile_path);
     }
 
     // pop the local vars off the front of the stack

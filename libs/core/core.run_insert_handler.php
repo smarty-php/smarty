@@ -40,9 +40,9 @@ function smarty_core_run_insert_handler($params, &$smarty)
 			}
 
             if ($_params['resource_type'] == 'file') {
-                $smarty->smarty_include_once($_params['php_resource']);
+                $smarty->_include($_params['php_resource'], true);
             } else {
-                $smarty->smarty_eval($_params['php_resource']);
+                $smarty->_eval($_params['php_resource']);
             }
             unset($params['args']['script']);
         }

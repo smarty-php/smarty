@@ -32,7 +32,7 @@ function smarty_function_eval($params, &$smarty)
     $smarty->_compile_source('evaluated template', $params['var'], $_var_compiled);
 
     ob_start();
-    $smarty->smarty_eval('?>' . $_var_compiled);
+    $smarty->_eval('?>' . $_var_compiled);
     $_contents = ob_get_contents();
     ob_end_clean();
 

@@ -68,10 +68,9 @@ function smarty_core_read_cache_file(&$params, &$smarty)
     }
 
     if ($smarty->compile_check) {
-		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.fetch_resource_info.php');
         foreach (array_keys($smarty->_cache_info['template']) as $_template_dep) {
 			$_params = array('resource_name' => $_template_dep);
-			smarty_core_fetch_resource_info($_params, $smarty);
+			$smarty->_fetch_resource_info($_params);
             if ($smarty->_cache_info['timestamp'] < $_params['resource_timestamp']) {
                 // template file has changed, regenerate cache
                 return false;
@@ -79,10 +78,9 @@ function smarty_core_read_cache_file(&$params, &$smarty)
         }
 
         if (isset($smarty->_cache_info['config'])) {
-			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.fetch_resource_info.php');
             foreach (array_keys($smarty->_cache_info['config']) as $_config_dep) {
 				$_params = array('resource_name' => $_config_dep);
-				smarty_core_fetch_resource_info($_params, $smarty);
+				$smarty->_fetch_resource_info($_params);
             	if ($smarty->_cache_info['timestamp'] < $_params['resource_timestamp']) {
                 	// config file has changed, regenerate cache
                 	return false;
@@ -93,7 +91,7 @@ function smarty_core_read_cache_file(&$params, &$smarty)
 
     foreach ($smarty->_cache_info['cache_serials'] as $_include_file_path=>$_cache_serial) {
         if (empty($smarty->_cache_serials[$_include_file_path])) {
-            $smarty->smarty_include($_include_file_path, true);
+            $smarty->_include($_include_file_path, true);
         }
         
         if ($smarty->_cache_serials[$_include_file_path] != $_cache_serial) {

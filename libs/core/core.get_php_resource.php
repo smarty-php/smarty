@@ -19,8 +19,7 @@ function smarty_core_get_php_resource(&$params, &$smarty)
 {
 	
 	$params['resource_base_path'] = $smarty->trusted_dir;	
-	require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.parse_resource_name.php');
-	smarty_core_parse_resource_name($params, $smarty);
+	$smarty->_parse_resource_name($params, $smarty);
 		
     /*
      * Find out if the resource exists.
