@@ -3894,7 +3894,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{html_checkboxes values=$cust_ids checked=$customer_id output=$cust_names separator="&lt;br /&gt;"}
+{html_checkboxes name="id" values=$cust_ids checked=$customer_id output=$cust_names separator="&lt;br /&gt;"}
 
 
 index.php:
@@ -3916,10 +3916,10 @@ index.tpl:
 
 OUTPUT: (both examples)
 
-&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1000" /&gt;Joe Schmoe&lt;/label&gt;&lt;br /&gt;
-&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1001" checked="checked" /&gt;Jack Smith&lt;/label&gt;&lt;br /&gt;
-&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1002" /&gt;Jane Johnson&lt;/label&gt;&lt;br /&gt;
-&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1003" /&gt;Charlie Brown&lt;/label&gt;&lt;br /&gt;</programlisting>
+&lt;label&gt;&lt;input type="checkbox" name="id[]" value="1000" /&gt;Joe Schmoe&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="id[]" value="1001" checked="checked" /&gt;Jack Smith&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="id[]" value="1002" /&gt;Jane Johnson&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="id[]" value="1003" /&gt;Charlie Brown&lt;/label&gt;&lt;br /&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.html.image">
