@@ -3,15 +3,15 @@
 
 IMPORTANT NOTICE: Smarty now has a new syntax for accessing elements within
 section loops. The new syntax is easier to use for complex data structures.
-Consequently, this breaks the old syntax. To fix your old templates, we have
-provided a script that will fix the syntax for you. Located in
+Consequently, this breaks the old syntax. To fix your current templates, we
+have provided a script that will adjust the syntax for you. Located in
 misc/fix_vars.php, run this script from the the command line, giving each
 template as an argument. Be sure to use absolute pathnames, or pathnames
 relative to the executing script. Probably the easiest way to do this is to
 copy the fix_vars.php script into your template directory and run 'php -q
-fix_vars.php *.tpl' For each template, this will create a temporary file with
-the fixes, then move the temp file over top the original. Backup your scripts
-first to be safe!
+fix_vars.php *.tpl' Be sure you have proper write permission, and backup your
+scripts first to be safe! The examples in the 1.4.0 documentation have been
+updated to reflect the changes.
 
 Smarty 1.4.0 also has a new compilation process. Instead of compiling all the
 templates up front, it now compiles them at runtime. This has several
@@ -21,13 +21,11 @@ directories or even database calls. This also speeds the performance of Smarty
 when $compile_check is enabled, since it is only checking the template that is
 being executed instead of everything found in the template directory. The
 $tpl_file_ext is no longer needed, but kept for backward compatability.
-Templates can now be named anything you like with any extension. Smarty makes
-use of the PEAR database abstraction class for obtaining templates from
-databases.
+Templates can now be named anything you like with any extension.
 
-We also added a workaround for LOCK_EX on Windows systems, and changed a couple
-of file permissions for better security on public servers. Thanks goes to
-Fernando Nunes for his code contributions.
+A workaround for LOCK_EX on Windows systems was added, and changed a couple of
+file permissions for better security on public servers. Thanks goes to Fernando
+Nunes for his code contributions.
 
 date_format, html_select_date and html_select_time used to require a unix
 timestamp as the format of the date passed into the template. Smarty is now a
@@ -35,14 +33,19 @@ bit smarter at this. It will take a unix timestamp, a mysql timestamp, or any
 date string that is parsable by strtotime, such as 10/01/2001 or 2001-10-01,
 etc. Just give some formats a try and see what works.
 
+The format of the files created in the $compile_dir are now a bit different.
+Instead of reflecting the name and path of the source template, it uses an
+encoded file name, all in the top level directory. This was done to make way
+for arbitrary template resources. Each compiled template has a header that
+states what template resource was used to create it. From a unix command
+prompt, you can use "head -2 *" to see the first two lines of each file.
+
 When upgrading to 1.4.0, you will want to first clear out all your files in the
-$compile_dir, since it now uses a new format. Since templates can come from any
-source, the compiled versions have encoded names. Each file has a comment at
-the top that states which resource was used as the source file. In unix, "head
--2 *" shows the first two lines of each file. If you have $compile_check set to
+$compile_dir, since it now uses a new format. If you have $compile_check set to
 false and the compiled template does not yet exist, it will compile it
-regardless of this setting. Once it is compiled though, it will not check to see
-if recompilation is necessary.
+regardless of this setting. This way you can clear out the $compile_dir and not
+worry about setting $compile_check to true to get the inital compilation under
+way.
 
 1.3.2
 -----

@@ -4,7 +4,7 @@
  * File:        Smarty.addons.php
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@ispi.net>
- * Version:     1.3.2
+ * Version:     1.4.0
  * Copyright:   2001 ispi of Lincoln, Inc.
  *
  * This library is free software; you can redistribute it and/or

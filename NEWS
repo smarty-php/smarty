@@ -1,3 +1,9 @@
+Version 1.4.0
+-------------
+    - added RELEASE_NOTES file to distribution (Monte)
+    - added register_resource() and unregister_resource() functions (Monte)
+    - changed syntax of variables called within section loops,
+      supplied fix_vars.php script to fix old syntax (Andrei)
     - added $check_cached_insert_tags to speed up cached pages if
       {insert ...} is not used (Monte)
     - added $compiler_class variable to allow specifying a different compiler

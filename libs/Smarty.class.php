@@ -5,7 +5,7 @@
  * Author:      Monte Ohrt <monte@ispi.net>
  *              Andrei Zmievski <andrei@ispi.net>
  *
- * Version:             1.3.2
+ * Version:             1.4.0
  * Copyright:           2001 ispi of Lincoln, Inc.
  *              
  * This library is free software; you can redistribute it and/or
@@ -123,9 +123,7 @@ class Smarty
                                     'count_paragraphs'  => 'smarty_mod_count_paragraphs'
                                  );
                                  
-    var $template_resource_handlers  =  array(); // where resource handlers are mapped
-
-    var $version               =   '1.3.2';  // Smarty version number                     
+    var $version               =   '1.4.0';  // Smarty version number                     
     var $show_info_header      =   true;     // display info header at top of page output
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
@@ -140,6 +138,7 @@ class Smarty
     var $_error_msg             =   false;      // error messages. true/false
     var $_tpl_vars              =   array();
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
+    var $_resource_handlers  =  array(); // what functions resource handlers are mapped to
     
 /*======================================================================*\
     Function: Smarty
@@ -246,6 +245,24 @@ class Smarty
     function unregister_modifier($modifier)
     {
         unset($this->custom_mods[$modifier]);
+    }
+
+/*======================================================================*\
+    Function: register_resource
+    Purpose:  Registers a resource to fetch a template
+\*======================================================================*/
+    function register_resource($name, $function_name)
+    {
+        $this->_resource_handlers[$name] = $function_name;
+    }
+
+/*======================================================================*\
+    Function: unregister_resource
+    Purpose:  Unregisters a resource
+\*======================================================================*/
+    function unregister_resource($name)
+    {
+        unset($this->_resource_handlers[$name]);
     }
 
     
@@ -525,10 +542,21 @@ class Smarty
                     return false;
                 }
                 break;
-
             default:
-                $this->_trigger_error_msg("unknown resource type: \"$resource_type.\"");
-                return false;
+                if(isset($this->_resource_handlers[$resource_type])) {
+                    $funcname = $this->_resource_handlers[$resource_type];
+                    if(function_exists($funcname)) {
+                        // call the function to fetch the template
+                        $funcname($resource_name,$template_source,$template_timestamp);
+                        return true;
+                    } else {
+                        $this->_trigger_error_msg("function: \"$funcname\" does not exist for resource type: \"$resource_type\".");
+                        return false;                        
+                    }
+                } else {
+                    $this->_trigger_error_msg("unknown resource type: \"$resource_type\". Register this resource first.");
+                    return false;
+                }
                 break;
         }
 
