@@ -54,7 +54,7 @@ directly from the browser, only Smarty calls them.)
 <?php
 require("Smarty.class.php");
 $smarty = new Smarty;
-$smarty->assign("Name","Fred");
+$smarty->assign("Name","Ned");
 $smarty->display("./templates/index.tpl");
 ?>
 
@@ -71,19 +71,19 @@ $smarty->display("./templates/index.tpl");
 Now, view the index.php file from your web browser:
 http://your.host.com/Smarty/index.php
 
-You should see "Hello, Fred!" in your browser. If not, retrace the steps above
+You should see "Hello, Ned!" in your browser. If not, retrace the steps above
 and make sure you follow the instructions exactly as they say. Also check the
 installation instructions in the documenation, and check your installation of
 PHP to be sure things are setup properly.
 
-You see "Hello, Fred!" in your browser? Good!
+You see "Hello, Ned!" in your browser? Good!
 
 What happened here is Smarty took the index.tpl file and compiled it into a php
 script which you can take a look at in the templates_c directory. Smarty will
 continue to use this compiled script until the index.tpl file is changed, then
 it will automatically recompile. What this means for you: forget about the
-templates_c directory. Out of site, out of mind. You don't need to worry about
-it, Smarty takes care of this technical stuff. Out of curiosity you can see how
+templates_c directory. Out of sight, out of mind. You don't need to worry about
+it, Smarty takes care of this technical stuff. Out of curiosity, you can see how
 your templates look as compiled php scripts, but please don't touch them!
 
 Now that we have Smarty functioning properly, let's get into the guts of Smarty
@@ -94,17 +94,17 @@ the most important features of Smarty.
 ASSIGNING VARIABLES
 -------------------
 
-Assigning variables to the template are very similar to the ways you see other
-template engines assign them. Example:
+Assigning variables to the template is very similar to the ways other template
+engines do it. Example:
 
 
 --------- index.php --------
 <?php
 require("Smarty.class.php");
 $smarty = new Smarty;
-$smarty->assign("Name","Fred");
+$smarty->assign("Name","Ned");
 $smarty->assign(array(
-					"FirstName" => "Fred",
+					"FirstName" => "Ned",
 					"LastName" => "Flanders",
 					"Address" => "Springfield"
 					));
@@ -125,7 +125,7 @@ $smarty->display("./templates/index.tpl");
 </HTML>
 
 
-You can assign variables either single fasion, or as an associative array. There
+You can assign variables either one by one, or as an associative array. There
 is also a way to append to assigned variables. See the documentation for
 details.
 
@@ -141,9 +141,9 @@ templates/footer.tpl.
 <?php
 require("Smarty.class.php");
 $smarty = new Smarty;
-$smarty->assign("Name","Fred");
+$smarty->assign("Name","Ned");
 $smarty->assign(array(
-					"FirstName" => "Fred",
+					"FirstName" => "Ned",
 					"LastName" => "Flanders",
 					"Address" => "Springfield"
 					));
@@ -181,7 +181,7 @@ $title is empty, the text "Home Page" will be printed instead of nothing.
 IF/ELSEIF/ELSE
 --------------
 
-This systax is very straight forward. The documention goes into depth on this
+This syntax is very straightforward. The documention goes into depth on this
 one, so you should be able to do just about anything you want to with it.
 Example:
 
@@ -189,8 +189,8 @@ Example:
 {include file="header.tpl" title="Home Page"}
 	{if $Name eq ""}
 		Hello, Noname!<br>
-	{elseif $Name eq "Fred"}
-		Hello, Frederick!<br>
+	{elseif $Name eq "Ned"}
+		Hello, Neddy!<br>
 	{else}
 		Hello, {$Name}<br>
 	{/if}
@@ -212,7 +212,7 @@ times the section will loop.
 <?php
 require("Smarty.class.php");
 $smarty = new Smarty;
-$smarty->assign("FirstName",array("Fred","Bart","Montgomery"));
+$smarty->assign("FirstName",array("Ned","Bart","Montgomery"));
 $smarty->assign("LastName",array("Flanders","Simpson","Burns"));
 $smarty->display("./templates/index.tpl");
 ?>
@@ -243,7 +243,7 @@ You can also do complex nested sections, like so:
 <?php
 require("Smarty.class.php");
 $smarty = new Smarty;
-$smarty->assign("FirstName",array("Fred","Bart","Montgomery"));
+$smarty->assign("FirstName",array("Ned","Bart","Montgomery"));
 $smarty->assign("LastName",array("Flanders","Simpson","Burns"));
 $smarty->assign("ContactNames",array(
 							   array("email","home","cell"),
@@ -278,6 +278,6 @@ $smarty->display("./templates/index.tpl");
 {include file="footer.tpl"}
 
 
-This should be enough to get your feet wet. Also check out config file
+This should be enough to get your feet wet. Also, check out config file
 variables, built-in functions, custom functions, variable modifiers, all sorts
 of good stuff. Now go read the documentation, and Good Luck!
