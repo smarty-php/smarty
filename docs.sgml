@@ -2712,12 +2712,10 @@ OUTPUT:
             include a trailing slash on your web page fetches where necessary.
             </para>
             <para>
-            TECHNICAL NOTE: This function may be a security concern if you are
-            allowing third parties to modify templates. i.e., they can access
-            files on your system out side of the template directory. To disable
-            this function, <link
-            linkend="api.unregister.function">unregister</link> it in your
-            application.
+			TECHNICAL NOTE: If template security is turned on and you are
+			fetching a file from the local file system, this will only allow
+			files from within one of the defined secure directories.
+			($secure_dir)
             </para>
 <example>
 <title>fetch</title>
