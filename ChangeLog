@@ -1,3 +1,23 @@
+2004-04-12  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Config_File.class.php
+      libs/Smarty.class.php:
+      removed unused functionality to load a subset of lines from a file in
+      Smarty::_read_file()
+      
+      additionally removed a warning that is emitted since php-4.3.5 when
+      fread() is called on an empty file (with filesize()==0). thanks to
+      Andreas Streichardt who pointed this out.
+
+    * NEWS
+      libs/core/core.is_secure.php:
+      smarty_core_is_secure() only checks the file for readability now, not
+      the directory where is in.
+
+    * libs/Smarty.class.php:
+      removed unused security_setting 'ALLOW_CONSTANTS'
+
 2004-04-07  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.assign_debug_info.php
