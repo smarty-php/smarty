@@ -455,13 +455,19 @@ $output = $smarty->fetch("./templates/index.tpl");
 
 Hello {$firstname}, glad to see you could make it.
 &lt;p&gt;
-Your last login was on {$lastLoginDate}
+Your last login was on {$lastLoginDate}.
+
+OUTPUT:
+
+Hello Doug, glad to see you could make it.
+&lt;p&gt;
+Your last login was on January 11th, 2001.
 </programlisting>
 </example>
 				<para>
 				There are also variables within looping sections that are displayed
-				a bit differently, with the section name prepended like so: {$secname/varname}.
-				Those are exaplained later in this document under Built-in Functions.
+				a bit differently. Those are exaplained later in this document under
+				<link linkend="builtin.functions">Built-in Functions</link>.
 				</para>
 			</sect3>
 			<sect3>
@@ -492,7 +498,8 @@ Your last login was on {$lastLoginDate}
 				<para>
 				Config file variables cannot be displayed until
 				after they are loaded in from a config file. This procedure is
-				explained later in this document under Built-in Functions.
+				explained later in this document under
+				<link linkend="builtin.functions.config_load">config_load</link>.
 				</para>
 			</sect3>
 			<sect3>
@@ -500,10 +507,9 @@ Your last login was on {$lastLoginDate}
 				<para>
 				Variables that are internal to the templates are displayed by enclosing
 				them with percent signs (%) and enclosing the variable in delimiters
-				like so: {%varname%} These are usually used in looping sections, so
-				you will most likely see the variable prepended with the section name
-				like so: {%secname.varname%}. These are explained in detail later
-				in this document under Built-in Functions.
+				like so: {%varname%} So far, section properties are the only internal
+				variables used in Smarty, which can be found later in this document under
+				<link linkend="builtin.functions.section">section</link>.
 				</para>
 			</sect3>
 		</sect2>
@@ -539,8 +545,8 @@ Your last login was on {$lastLoginDate}
 			<title>Attributes</title>
 			<para>
 			Attributes to functions are much like HTML attributes. Static
-			values don't have to be enclosed in quotes, but is recommended.
-			If not quoted, you may use a syntax that Smarty may confuse
+			values don't have to be enclosed in quotes, but it is recommended
+			for literal strings. If not quoted, you may use a syntax that Smarty may confuse
 			with another function, such as a boolean value. Variables may
 			also be used, and should not be in parenthesis.
 			</para>
@@ -554,7 +560,9 @@ Your last login was on {$lastLoginDate}
 
 {include file=#includeFile#}
 
+<SELECT name=company>
 {html_options values=$vals selected=$selected output=$output}
+</SELECT>
 </programlisting>
 </example>
 		</sect2>
@@ -580,12 +588,14 @@ Your last login was on {$lastLoginDate}
 {include file=#includeFile#}
 
 {* display dropdown lists *}
+<SELECT name=company>
 {html_options values=$vals selected=$selected output=$output}
+</SELECT>
 </programlisting>
 </example>
 		</sect2>
 	</sect1>
-	<sect1>
+	<sect1 id="configfiles">
 		<title>Config Files</title>
 		<para>
 		Config files are handy for designers to manage global
@@ -594,6 +604,10 @@ Your last login was on {$lastLoginDate}
 		you would have to go through each and every template file
 		and change the colors. With a config file, the colors can
 		be kept in one place, and only one file needs to be updated.
+        Note that to use config files, you must include the Config_File.class.php
+		In your PHP include path. The Config_File class can be found at
+        http://www.phpinsider.com. Smarty will implicitly include the file if you
+		don't already include it in your application.
 		</para>
 <example>
 <title>Example of config file syntax</title>
@@ -636,21 +650,23 @@ Intro = """This is a value that spans more
 			</para>
 			<para>
 			Config files are loaded into templates with the built-in function
-			called config_load. See Built-In functions for examples.
+			called <link linkend="builtin.functions.config_load">config_load</link>.
 			</para>
 	</sect1>
-	<sect1>
+	<sect1 id="builtin.functions">
 		<title>Built-in Functions</title>
 		<para>
 		Smarty comes with several built-in functions. Built-in functions
 		are integral to the template language. You cannot create custom
 		functions with the same names, nor can you modify built-in functions.
 		</para>
-		<sect2>
+		<sect2 id="builtin.functions.config_load">
 			<title>config_load</title>
 			<para>
 			This function is used for loading in variables from a
-			configuration file into the template.
+			configuration file into the template. You must have the Config_file.class.php
+			file somewhere in your PHP include path for config_load to work properly.
+			See <link linkend="configfiles">Config Files</link> for more info.
 			</para>
 <example>
 <title>Template example of function config_load</title>
@@ -724,13 +740,15 @@ Intro = """This is a value that spans more
 			These will be passed to the template along with the current
 			template variables. Attribute variables override template
 			variables, in the case they are named alike. You can
-			pass either static content or other variables to included templates.
+			pass either static values or variables to included templates
+			(although it doesn't make much sense to pass anything other than
+			static values since variables are inherited anyways).
 			</para>
 <example>
 <title>Template example of function include passing variables</title>
 <programlisting>
 
-{include file="header.tpl" title="Main Menu" company=$companyName}
+{include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
 
 {* body of template goes here *}
 
@@ -746,38 +764,42 @@ Intro = """This is a value that spans more
 			run into the situation where it is impossible to pass data to a template
 			before the template is executed because there is info in the template
 			needed to aquire the data, kind of a catch 22. The insert tag is a way
-			to callback a function in PHP during runtime of the template.
+			to callback a function in PHP during runtime of the template. (This is much
+			like the functionality of Server Side Includes in a static html page.)
 			</para>
 			<para>
-			Let's say you have a page with a banner slot at the top. The template
-			has banner_id  and page_id values, and needs to call a function to get the banner.
+			Let's say you have a template with a banner slot at the top of the page. The
+			banner can contain any mixture of HTML, images, flash, etc. so we can't just
+			use a static link here. In comes the insert tag: the template
+			knows #banner_location_id# and #site_id# values (gathered from a config file),
+			and needs to call a function to get the banner's contents.
 			</para>
 <example>
 <title>Template example of function insert</title>
 <programlisting>
 
 {* example of fetching a banner *}
-{insert name="getBanner" banner_id=#banner_id# page_id=#page_id#}
+{insert name="getBanner" lid=#banner_location_id# sid=#site_id#}
 
 </programlisting>
 </example>
 			<para>
-			In this example, we are using the name "getBanner" and passing #banner_id#
-			and #page_id# (which was pulled out of a configuration file). Smarty will look
+			In this example, we are using the name "getBanner" and passing the
+			parameters #banner_location_id# and #site_id#. Smarty will look
 			for a function named insert_getBanner() in your PHP application, passing
-			the value of #banner_id# and #page_id# as the first argument in an indexed
-			array. All insert function names in
-			your application must be prepended with "insert_" to be sure there are
-			no function name-space conflicts. Your insert_getBanner() function should
+			the values of #banner_location_id# and #site_id# as the first argument
+			in an indexed array. (All insert function names in
+			your application must be prepended with "insert_" to remedy possible
+			function name-space conflicts.) Your insert_getBanner() function should
 			do something with the passed values and return the results. These results
-			are then displayed in the template in place of the insert tag. All values
-			passed to an insert function are passed as the first argument in an indexed
-			array. In this example, it would call
+			are then displayed in the template in place of the insert tag.
+			In this example, Smarty would call this function:
 			insert_getBanner(array("banner_id" => "12345","page_id" => "67890"));
+			and display the returned results in place of the insert tag.
 			</para>
 			<para>
 			Another thing to keep in mind for the insert tag is caching. Smarty does not
-			currently support caching but if we decide to implement that, insert
+			currently support caching but if that is eventually implemented, insert
 			tags will not be cached. They will run dynamically every time the page
 			is created. This works good for things like banners, polls, live weather,
 			user feedback areas, etc.
@@ -911,7 +933,7 @@ OUTPUT:
 </programlisting>
 </example>
 		</sect2>
-		<sect2>
+		<sect2 id="builtin.functions.sections">
 			<title>section,sectionelse</title>
 			<para>
 			Template sections are used for looping over arrays of data.
