@@ -289,7 +289,9 @@ class Config_File {
         $lines = $match[0];
         for ($i=0, $count=count($lines); $i<$count; $i++) {
             $line = $lines[$i];
-            if ( @($line{0} == '[') && preg_match('!^\[(.*?)\]!', $line, $match) ) {
+            if (empty($line)) continue;
+
+            if ( $line{0} == '[' && preg_match('!^\[(.*?)\]!', $line, $match) ) {
                 /* section found */
                 if ($match[1]{0} == '.') {
                     /* hidden section */
