@@ -476,7 +476,7 @@ class Smarty_Compiler extends Smarty {
                          "[^"\\\\]*(?:\\\\.[^"\\\\]*)*"         | # match all double quoted strings allowed escaped double quotes
                          \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     | # match all single quoted strings allowed escaped single quotes
                          [()]                                   | # match parentheses
-                         [^"\'\s()]+                              # match any other token that is not any of the above
+                         [^\s()]+                                 # match any other token that is not any of the above
                         )/x', $tag_args, $match);
         $tokens = $match[0];
 

@@ -1,5 +1,7 @@
-    - added security features for third party template editing (Monte,Andrei)
-    - added assign custom function, documented (Monte)
+    - fixed a bug with passing quoted arguments to modifiers inside {if}
+      statements. (Andrei, Sam Beckwith)
+    - added security features for third party template editing. (Monte, Andrei)
+    - added assign custom function, documented. (Monte)
     - fixed a problem with putting $ followed by numbers inside {strip} and
       {/strip} tags. (Andrei)
     - fixed Config_File class to allow empty config paths (defaults to current
