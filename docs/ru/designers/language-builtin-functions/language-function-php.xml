@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.php">
  <title>php</title>
  <para>
   Тэг php позволяет вставлять php код прямо в шаблон. Он не 
   будет как-либо изменен, независимо от <link
   linkend="variable.php.handling">$php_handling</link> настроек. 
-  Этот тэг тко для продвинутых пользователей, так как обычно
+  Этот тэг только для продвинутых пользователей, так как обычно
   не требуется.
  </para>
  <example>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.textformat">
  <title>textformat</title>
  <informaltable frame="all">
@@ -12,9 +12,9 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
-    <entry>Обязателен</entry>       
+    <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
     <entry>Описание</entry>
    </row>
@@ -46,7 +46,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry><emphasis>(single space)</emphasis></entry>
-    <entry>символ, которым заполняеться отступ строк.</entry>
+    <entry>символ, которым заполняется отступ строк.</entry>
    </row>
    <row>
     <entry>wrap</entry>
@@ -68,8 +68,8 @@
     <entry>Нет</entry>
     <entry><emphasis>false</emphasis></entry>
     <entry>
-     Переносить текст по символам (то есть точно 
-     по указанной длине строки) (true), или по 
+     Переносить текст по символам (то есть точно
+     по указанной длине строки) (true), или по
      границам слов (false)
     </entry>
    </row>
@@ -84,8 +84,8 @@
   </tgroup>
  </informaltable>
  <para>
-  функция textformat используеться для форматирования текст, 
-  заключенного внтури ее. В основном убирает лишние пробелы и 
+  функция textformat используется для форматирования текста,
+  заключенного внтури ее. В основном, убирает лишние пробелы и
   специальные символы, а так же форматирует абзацы, делает отступы,
   переносит слова.
  </para>

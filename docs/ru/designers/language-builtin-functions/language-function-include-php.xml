@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.include.php">
  <title>include_php</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -54,7 +54,7 @@
   $trusted_dir или абсолютный путь).
  </para>
  <para>
-  include_php это хороший путь для управления компонентными шаблонами,
+  include_php это хороший способ для управления компонентными шаблонами,
   держать PHP код вне файлов шаблонов. Допустим, у вас есть шаблон,
   который выводит навигацию сайта, информация о которой динамически
   загружается из базы данных. Вы можете хранить php файл, который

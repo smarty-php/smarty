@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.include">
  <title>include</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -49,11 +49,11 @@
  <para>
   Тэги include используются для включения других шаблонов в текущий.
   Любые переменные, доступные в текущем шаблоне, доступны и во 
-  включаемом. Тэг include должен иметь аттрибут "file", который 
+  включаемом. Тэг include должен иметь атрибут "file", который 
   указывает имя ресурса шаблона.
  </para>
  <para>
-  Опциональный аттрибут <emphasis>assign</emphasis> указывает, что 
+  Опциональный атрибут <emphasis>assign</emphasis> указывает, что 
   вывод шаблона будет присвоен переменной вместо отображения.
  </para>
  <example>

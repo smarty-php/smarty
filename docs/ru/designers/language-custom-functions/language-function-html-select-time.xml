@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.select.time">
  <title>html_select_time</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -96,7 +96,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>указывает дополнительные аттрибуты для 
+    <entry>указывает дополнительные атрибуты для 
     всех тэгов select/input</entry>
    </row>
    <row>
@@ -104,7 +104,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>указывает дополнительные аттрибуты для 
+    <entry>указывает дополнительные атрибуты для 
     тэгов select/input для выбора часов</entry>
    </row>
    <row>
@@ -112,7 +112,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>указывает дополнительные аттрибуты для 
+    <entry>указывает дополнительные атрибуты для 
     тэгов select/input для выбора минут</entry>
    </row>
    <row>
@@ -120,7 +120,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>указывает дополнительные аттрибуты для 
+    <entry>указывает дополнительные атрибуты для 
     тэгов select/input для выбора секунд</entry>
    </row>
    <row>
@@ -128,7 +128,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>указывает дополнительные аттрибуты для 
+    <entry>указывает дополнительные атрибуты для 
     тэгов select/input для выбора меридиан</entry>
    </row>
   </tbody>

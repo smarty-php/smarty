@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.options">
  <title>html_options</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -23,14 +23,14 @@
    <row>
     <entry>values</entry>
     <entry>массив</entry>
-    <entry>Да, если не указан аттрибут options</entry>
+    <entry>Да, если не указан атрибут options</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>массив значений для выпадающего списка</entry>
    </row>
    <row>
     <entry>output</entry>
     <entry>массив</entry>
-    <entry>Да, если не указан аттрибут options</entry>
+    <entry>Да, если не указан атрибут options</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>массив названий для выпадающего списка</entry>
    </row>
@@ -44,7 +44,7 @@
    <row>
     <entry>options</entry>
     <entry>ассоциативный массив</entry>
-    <entry>Да, если не указаны аттрибуты values и output</entry>
+    <entry>Да, если не указаны атрибуты values и output</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>ассоциативный массив значений и названий</entry>
    </row>
@@ -61,8 +61,8 @@
  <para>
   пользовательская функция html_options генерирует группу html тэгов
   option по указанной информации. Также заботится о выбранных по
-  умолчанию элементах. Аттрибуты values и output обязательны, если не 
-  указан аттрибут options.
+  умолчанию элементах. Атрибуты values и output обязательны, если не 
+  указан атрибут options.
  </para>
  <para>
   Если данное значение - массив, то оно будет представлено в виде
@@ -70,15 +70,15 @@
   совместим с XHTML.
  </para>
  <para>
-  Если указан необязательный аттрибут <emphasis>name</emphasis>,
+  Если указан необязательный атрибут <emphasis>name</emphasis>,
   то группа опций заключится в тэг &lt;select 
   name="groupname"&gt; и &lt;/select&gt;, иначе сгенерируется только 
   группа опций.
  </para>
  <para>
   Все параметры, которые не указаны выше, выводятся в виде
-  пары name/value внутри тэга &lt;select&gt;-tag. Они игнорируются,
-  если аттрибут <emphasis>name</emphasis> не указан.
+  пары name/value внутри тэга &lt;select&gt;. Они игнорируются,
+  если атрибут <emphasis>name</emphasis> не указан.
  </para>
  <example>
   <title>html_options</title>

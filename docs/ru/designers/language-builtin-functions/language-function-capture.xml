@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.capture">
  <title>capture</title>
  <para>
@@ -9,7 +9,7 @@
   name="foo"} и {/capture} сохраняется в переменную, указанную в 
   атрибуте name. Затем его можно использовать в шаблоне с помощью
   специальной переменной $smarty.capture.foo, где foo - значение, 
-  переданное атрибуту name. Если аттрибут name не указан, то 
+  переданное атрибуту name. Если атрибут name не указан, то 
   используется default. Каждая комманда {capture} должна иметь пару
   {/capture}. capture поддерживает вложение.
  </para>

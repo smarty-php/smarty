@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 	<sect1 id="language.function.cycle">
 	 <title>cycle</title>
             <informaltable frame="all">
@@ -12,7 +12,7 @@
                 <colspec colname="desc" />
                 <thead>
                     <row>
-                        <entry>Имя аттрибута</entry>
+                        <entry>Имя атрибута</entry>
                         <entry>Тип</entry>
                         <entry>Обязателен</entry>       
                         <entry>По умолчанию</entry>
@@ -55,7 +55,7 @@
                         <entry>строка (string)</entry>
                         <entry>Нет</entry>
                         <entry><emphasis>,</emphasis></entry>
-                        <entry>Разделитель, используемый в аттрибуте values.</entry>
+                        <entry>Разделитель, используемый в атрибуте values.</entry>
                     </row>
                     <row>
                         <entry>assign</entry>
@@ -75,19 +75,19 @@
 			</para>
 			<para>
 			Можно проходить через несколько множеств значений одновременно,
-			указав аттрибут name. Имена должны быть уникальными.
+			указав атрибут name. Имена должны быть уникальными.
 			</para>
 			<para>
-			Можно не отображать данный элемент, установив аттрибут print в 
+			Можно не отображать данный элемент, установив атрибут print в 
 			ложь (false). Удобно для пропуска значения, без его вывода.
 			</para>
 			<para>
-			Аттрибут advance используется для повтора значения. Если 
+			Атрибут advance используется для повтора значения. Если 
 			установлен в истина (true), то при следующем вызове cycle
 			будет выведено то же значение.
 			</para>
 			<para>
-			Если указан специальный аттрибут "assign", то вывод cycle 
+			Если указан специальный атрибут "assign", то вывод cycle 
 			присваивается переменной, вместо отображения.
 			</para>
 <example>

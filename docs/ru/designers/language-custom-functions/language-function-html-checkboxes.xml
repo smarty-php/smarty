@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>
     <entry>По умолчанию</entry>
@@ -30,14 +30,14 @@
    <row>
     <entry>values</entry>
     <entry>array</entry>
-    <entry>Да, если не указан аттрибут options</entry>
+    <entry>Да, если не указан атрибут options</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>Массив значений для флажков</entry>
    </row>
    <row>
     <entry>output</entry>
     <entry>array</entry>
-    <entry>Да, если не указан аттрибут options</entry>
+    <entry>Да, если не указан атрибут options</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>массив названий флажков</entry>
    </row>
@@ -51,7 +51,7 @@
    <row>
     <entry>options</entry>
     <entry>associative array</entry>
-    <entry>Да, если не указаны аттрибуты values и output</entry>
+    <entry>Да, если не указаны атрибуты values и output</entry>
     <entry><emphasis>n/a</emphasis></entry>
     <entry>Ассоциативнй массив значений и названий</entry>
    </row>
@@ -76,7 +76,7 @@
   Пользовательская функция html_checkboxes генерирует группу
   HTML фложков по указанной информации. Также заботится об
   флажках, которые выбраны по умолчанию. параметры vslues и output
-  обязательны, если не указан аттрибут options. Весь вывод
+  обязательны, если не указан атрибут options. Весь вывод
   совместим с XHTML.
  </para>
  <para>

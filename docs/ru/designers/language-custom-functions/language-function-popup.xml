@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.popup">
  <title>popup</title>
   <informaltable frame="all">
@@ -12,7 +12,7 @@
    <colspec colname="desc" />
    <thead>
     <row>
-     <entry>Имя аттрибута</entry>
+     <entry>Имя атрибута</entry>
      <entry>Тип</entry>
      <entry>Обязателен</entry>       
      <entry>По умолчанию</entry>
@@ -83,7 +83,7 @@
      <entry>строка (string)</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>цвет текста текста "Close" (Закрыть)</entry>
+     <entry>цвет текста "Close" (Закрыть)</entry>
     </row>
     <row>
      <entry>textfont</entry>
@@ -168,7 +168,7 @@
      <entry>Нет</entry>
      <entry><emphasis>false</emphasis></entry>
      <entry>создает окно выше курсора мыши. ЗАМЕЧАНИЕ: возможно 
-     только если указан аттрибут height</entry>
+     только если указан атрибут height</entry>
     </row>
     <row>
      <entry>below</entry>
@@ -215,7 +215,7 @@
      вместо bgcolor.  ЗАМЕЧАНИЕ: Может понадобиться установить 
      bgcolor в "" или будет показан цвет, а не зиображение. 
      ЗАМЕЧАНИЕ: При наличии ссылки "Close" Netscape перерисовывает
-     ячейки таблицы, что приводит к некоректному отображению.</entry>
+     ячейки таблицы, что приводит к некорректному отображению.</entry>
     </row>
     <row>
      <entry>closetext</entry>
@@ -340,7 +340,7 @@
      <entry>логический (boolean)</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Позволяет полностью контролировать HMTL над 
+     <entry>Позволяет полностью контролировать HTML над 
      фоновым изображением. HTML код ожидается в 
      параметре text</entry>
     </row>
@@ -358,7 +358,7 @@
      <entry>строка (string)</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>вызывает цказанную javascript функцию и 
+     <entry>вызывает указанную javascript функцию и 
      использует результат как текст окна</entry>
     </row>
     <row>
@@ -366,8 +366,8 @@
      <entry>целое (integer)</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>врремя жизни окна в милисекундах. Позволяет
-     реализовывать высплываюющие подсказки.</entry>
+     <entry>время жизни окна в милисекундах. Позволяет
+     реализовывать высплывающие подсказки.</entry>
     </row>
     <row>
      <entry>hauto</entry>
@@ -389,7 +389,7 @@
   </tgroup>
  </informaltable>
  <para>
-  функция popup используеться для генерации javascript кода, 
+  функция popup используется для генерации javascript кода, 
   который создаст высплывающее окно.
  </para>
  <example>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.mailto">
  <title>mailto</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -72,7 +72,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>в какие конференции передовать.
+    <entry>в какие конференции передавать.
      конференции разделяются запятыми.</entry>
    </row>
    <row>
@@ -88,7 +88,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Дополнительный аттрибуты, передаваемые в ссылку
+    <entry>Дополнительный атрибуты, передаваемые в ссылку
     такие как стили (style)</entry>
    </row>
   </tbody>

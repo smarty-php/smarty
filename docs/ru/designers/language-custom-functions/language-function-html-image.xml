@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.image">
  <title>html_image</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -56,7 +56,14 @@
     <entry>папка, от которой указаны относительные пути</entry>
    </row>
    <row>
-    <entry>link</entry>
+    <entry>alt</entry>
+    <entry>строка (string)</entry>
+    <entry>Нет</entry>
+    <entry><emphasis>""</emphasis></entry>
+    <entry>альтернативное описание изображения</entry>
+   </row>
+   <row>
+    <entry>href</entry>
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
@@ -77,15 +84,15 @@
   безопасных папок.
  </para>
  <para>
-  Аттрибут link указывает, куда ссылается изображение. Аттрибут 
-  link устанавливает значение аттрибута href тэга А. Если указан 
-  аттрибут link, то изображение окружается выражениями &lt;a 
+  Атрибут link указывает, куда ссылается изображение. Атрибут 
+  link устанавливает значение атрибута href тэга А. Если указан 
+  атрибут link, то изображение окружается выражениями &lt;a 
   href="LINKVALUE"&gt; и &lt;a&gt;.
  </para>
  <note>
   <title>Техническое Замечание</title>
   <para>
-   html_image требует обращение к диску lzk чтения изображения
+   html_image требует обращение к диску для чтения изображения
    и вычисления его размеров. Если не используется кэширование
    шаблонов, то тогда лушче не пользоваться тэгом html_image 
    и вставлять статические тэги изображений, для достижения 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.select.date">
  <title>html_select_date</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -48,7 +48,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>аналогично start_year</entry>
-    <entry>Конечный год в вырадающем списке. Либо указывается
+    <entry>Конечный год в выпадающем списке. Либо указывается
     явно, либо относительно текущего года (+/- N)</entry>
    </row>
    <row>
@@ -122,7 +122,7 @@ name[Day], name[Year], name[Month].
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>Устанавливает аттрибут size тэга select 
+    <entry>Устанавливает атрибут size тэга select 
     для дней</entry>
    </row>
    <row>
@@ -130,7 +130,7 @@ name[Day], name[Year], name[Month].
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>Устанавливает аттрибут size тэга select 
+    <entry>Устанавливает атрибут size тэга select 
     для месяцев</entry>
    </row>
    <row>
@@ -138,7 +138,7 @@ name[Day], name[Year], name[Month].
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>Устанавливает аттрибут size тэга select 
+    <entry>Устанавливает атрибут size тэга select 
     для лет</entry>
    </row>
    <row>
@@ -146,7 +146,7 @@ name[Day], name[Year], name[Month].
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>Устанавливает дополнительные аттрибуты для 
+    <entry>Устанавливает дополнительные атрибуты для 
     всех тэгов select/input</entry>
    </row>
    <row>
@@ -154,7 +154,7 @@ name[Day], name[Year], name[Month].
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>Устанавливает дополнительные аттрибуты тэгов 
+    <entry>Устанавливает дополнительные атрибуты тэгов 
     select/input для дней</entry>
    </row>
    <row>
@@ -162,7 +162,7 @@ name[Day], name[Year], name[Month].
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>Устанавливает дополнительные аттрибуты тэгов 
+    <entry>Устанавливает дополнительные атрибуты тэгов 
     select/input для месяцев</entry>
    </row>
    <row>
@@ -170,7 +170,7 @@ name[Day], name[Year], name[Month].
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>null</entry>
-    <entry>Устанавливает дополнительные аттрибуты тэгов 
+    <entry>Устанавливает дополнительные атрибуты тэгов 
     select/input для лет</entry>
    </row>
    <row>
@@ -185,7 +185,7 @@ name[Day], name[Year], name[Month].
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry>\n</entry>
-    <entry>текст, раздляющий поля</entry>
+    <entry>текст, разделяющий поля</entry>
    </row>
    <row>
     <entry>month_value_format</entry>

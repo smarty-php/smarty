@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.config.load">
  <title>config_load</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -56,8 +56,8 @@
      <entry><emphasis>No</emphasis></entry>
      <entry>
       Доступны ли переменные из родительского шаблона.
-      Аналогичен scope=parent. ЗАМЕЧАНИЕ: Этот аттрибут 
-      перекрывается аттрибутом scope, но все еще 
+      Аналогичен scope=parent. ЗАМЕЧАНИЕ: Этот атрибут 
+      перекрывается атрибутом scope, но все еще 
       поддерживается. Если scope указан, то это значение 
       игнорируется.
      </entry>
@@ -94,7 +94,7 @@
  </example>
 	<para>
   Файлы конфигурации также могут содержать секции. Можно загрузить
-  переменные из определенной секции, указав аттрибут 
+  переменные из определенной секции, указав атрибут 
   <emphasis>section</emphasis>.
  </para>
  <note>

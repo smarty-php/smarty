@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -33,9 +33,9 @@
     <entry>Нет</entry>
     <entry><emphasis>3</emphasis></entry>
     <entry>
-     количество колонок в таблице. если аттрибут cols не указан, но указан
+     количество колонок в таблице. если атрибут cols не указан, но указан
      rows, тогда кол-во колонок вычисляется исходя из кол-ва строк и кол-ва
-     элементов, которые необходимо отобразить. если оба аттрибута, rows и
+     элементов, которые необходимо отобразить. если оба атрибута, rows и
      cols, не указаны, cols по умолчанию равен 3.
     </entry>
    </row>
@@ -45,7 +45,7 @@
     <entry>Нет</entry>
     <entry><emphasis>empty</emphasis></entry>
     <entry>
-     количество строк в таблице. если аттрибут rows не указан, но указан cols,
+     количество строк в таблице. если атрибут rows не указан, но указан cols,
      тогда кол-во строк вічисляется исходя из кол-ва колонок и кол-ва
      элементов, которые необходимо отобразить.
     </entry>
@@ -68,23 +68,23 @@
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>border="1"</emphasis></entry>
-    <entry>дополнительные аттрибуты тэга table</entry>
+    <entry>дополнительные атрибуты тэга table</entry>
    </row>
    <row>
     <entry>tr_attr</entry>
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
-    <entry>дополнительные аттрибуты тэга tr (если указан 
-    массив, то его элементы циклически повторяються)</entry>
+    <entry>дополнительные атрибуты тэга tr (если указан 
+    массив, то его элементы циклически повторяются)</entry>
    </row>
    <row>
     <entry>td_attr</entry>
     <entry>string</entry>
     <entry>Нет</entry>
     <entry><emphasis>пусто</emphasis></entry>
-    <entry>дополнительные аттрибуты тэга td (если указан 
-    массив, то его элементы циклически повторяються)</entry>
+    <entry>дополнительные атрибуты тэга td (если указан 
+    массив, то его элементы циклически повторяются)</entry>
    </row>
    <row>
     <entry>trailpad</entry>
@@ -120,10 +120,10 @@
  </informaltable>
  <para>
   Пользовательская функция <emphasis>html_table</emphasis> выводит
-  массив в виде HTML таблицы. Аттрибут <emphasis>cols</emphasis>
-  указывает количество колонок. Аттрибуты <emphasis>table_attr</emphasis>,
+  массив в виде HTML таблицы. Атрибут <emphasis>cols</emphasis>
+  указывает количество колонок. Атрибуты <emphasis>table_attr</emphasis>,
   <emphasis>tr_attr</emphasis> и <emphasis>td_attr</emphasis> указывают
-  дополнительные аттрибуты тэго table, tr и td. Если значение
+  дополнительные атрибуты тэгов table, tr и td. Если значение
   <emphasis>tr_attr</emphasis> или <emphasis>td_attr</emphasis> - массив, 
   то кго значения циклический повторяются. Атрибут
   <emphasis>trailpad</emphasis> устанавливает значения для остаточных 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.insert">
  <title>insert</title>
  <informaltable frame="all">
@@ -12,7 +12,7 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя аттрибута</entry>
+    <entry>Имя атрибута</entry>
     <entry>Тип</entry>
     <entry>Обязателен</entry>       
     <entry>По умолчанию</entry>
@@ -40,7 +40,7 @@
     <entry>строка (string)</entry>
     <entry>Нет</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Bмя php файла, который будет подключен
+    <entry>Имя php файла, который будет подключен
     перед вызовом функции вставки</entry>
    </row>
    <row>
@@ -93,17 +93,17 @@
   insert.
 	</para>
 	<para>
-  Если указан аттрибут "assign", то вывод функции вставки будет 
+  Если указан атрибут "assign", то вывод функции вставки будет 
   присвоен указанной переменной вместо отображения. ЗАМЕЧАНИЕ:
   присвоение вывода тэга insert переменной шаблона не очень 
   полезно, когда кеширование включено.
 	</para>
 	<para>
-  Если указан аттрибут "script", то указанный php файл будет
+  Если указан атрибут "script", то указанный php файл будет
   подключен (только однажды) перед вызовом функции вставки. 
   Это удобно, когда функция может не сущетсвовать, и должен быть
   подключен php файл, чтобы определить функцию. Путь к файлу
-  должен быть либо абслотныю, либо относительным относительно
+  должен быть либо абсолтным, либо относительным относительно
   $trusted_dir. Когда security активирована, то php файл должен 
   быть в папке $trusted_dir.
 	</para>
