@@ -1,4 +1,4 @@
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
+<!dOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
 <book>
 <bookinfo>
 	<title>Smarty - the compiling PHP template engine</title>
@@ -639,7 +639,7 @@ Intro = """This is a value that spans more
 </programlisting>
 </example>
 			<para>
-			Values of config file variables can be in qoutes, but not necessary.
+			Values of config file variables can be in quotes, but not necessary.
 			You can use either single or double quotes. If you have a value that
 			spans more than one line, enclose the entire value with triple quotes
 			("""). You can put comments into config files by any syntax that is
@@ -861,7 +861,7 @@ Intro = """This is a value that spans more
 	...
 {/if}
 
-{* test if var is divisable by 4 *}
+{* test if var is divisible by 4 *}
 {if $var is div by 4}
 	...
 {/if}
