@@ -28,11 +28,10 @@
                     </row>
                     <row>
                         <entry>loop</entry>
-                        <entry>[$variable_name]</entry>
+                        <entry>mixed</entry>
                         <entry>Yes</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>The name of the variable to determine # of loop
-                        iterations</entry>
+                        <entry>Value to determine the number of loop iterations</entry>
                     </row>
                     <row>
                         <entry>start</entry>
