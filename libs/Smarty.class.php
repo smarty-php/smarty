@@ -343,13 +343,6 @@ class Smarty
     var $global_assign   =  array('HTTP_SERVER_VARS' => array('SCRIPT_NAME'));
 
     /**
-     * The value of "undefined". Leave it alone :-)
-     *
-     * @var null
-     */
-    var $undefined       =  null;
-
-    /**
      * This indicates which filters are automatically loaded into Smarty.
      *
      * @var array array of filter names
@@ -602,14 +595,14 @@ class Smarty
                     if (isset($GLOBALS[$key][$var])) {
                         $this->assign($var, $GLOBALS[$key][$var]);
                     } else {
-                        $this->assign($var, $this->undefined);
+                        $this->assign($var, null);
                     }
                 }
             } else {
                 if (isset($GLOBALS[$var_name])) {
                     $this->assign($var_name, $GLOBALS[$var_name]);
                 } else {
-                    $this->assign($var_name, $this->undefined);
+                    $this->assign($var_name, null);
                 }
             }
         }
