@@ -183,13 +183,20 @@ $smarty = new Smarty;</screen>
 	You will need as least one file under your document root, and that is the
 	script accessed by the web browser. We will call our script "index.php",
 	and place it in a subdirectory under the document root called
-	"/guestbook/". It is convenient to setup the web server so that "index.php"
-	can be identified as the default directory index, so if you access
+	"/guestbook/".
+	</para>
+	
+	<note>
+	<title>Technical Note</title>
+	<para>
+	It is convenient to setup the web server so that "index.php" can be
+	identified as the default directory index, so if you access
 	"http://www.mydomain.com/guestbook/", the index.php script will be executed
 	without "index.php" in the URL. In Apache you can set this up by adding
 	"index.php" onto the end of your DirectoryIndex setting (separate each
 	entry with a space.)
 	</para>
+	</note>
 	
 	<para>
 	Lets take a look at the file structure so far:
@@ -202,6 +209,7 @@ $smarty = new Smarty;</screen>
 /usr/local/lib/php/Smarty/Smarty_Compiler.class.php
 /usr/local/lib/php/Smarty/Config_File.class.php
 /usr/local/lib/php/Smarty/debug.tpl
+/usr/local/lib/php/Smarty/core/*.php
 /usr/local/lib/php/Smarty/plugins/*.php
 
 /web/www.mydomain.com/smarty/guestbook/templates/
