@@ -380,7 +380,7 @@ ausgabe war: {$output}
       {include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
     </example>
     
-    <sect3>
+    <sect3 id="templates.windows.filepath">
      <title>Windows Dateipfade</title>
      <para>
       Wenn Sie auf einer Windows-Maschine arbeiten, enthalten absoluten Dateipfade

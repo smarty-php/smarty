@@ -381,7 +381,7 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 {include file="file:/usr/local/share/templates/navigation.tpl"}</programlisting>
     </example>
 
-    <sect3>
+    <sect3 id="templates.windows.filepath">
      <title>Caminhos de arquivos do Windows</title>
      <para>
       Se você está usando uma máquina windows, caminhos de arquivos normalmente incluem uma letra

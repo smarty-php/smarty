@@ -404,7 +404,7 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 </programlisting>
     </example>
 
-    <sect3>
+    <sect3 id="templates.windows.filepath">
      <title>Windows Filepaths</title>
      <para>
       If you are using a Windows machine, filepaths usually include a
