@@ -1,3 +1,10 @@
+2004-12-21  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/bookinfo.xml
+      docs/fr/getting-started.xml
+      docs/fr/translation.xml:
+      sync with EN
+
 2004-12-17  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
