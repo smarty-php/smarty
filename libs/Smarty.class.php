@@ -100,26 +100,26 @@ class Smarty
                                     'fetch'             => 'smarty_func_fetch'
                                  );
     
-    var $custom_mods     =  array(  'lower'         => 'strtolower',
-                                    'upper'         => 'strtoupper',
-                                    'capitalize'    => 'ucwords',
-                                    'escape'        => 'smarty_mod_escape',
-                                    'truncate'      => 'smarty_mod_truncate',
-                                    'spacify'       => 'smarty_mod_spacify',
-                                    'date_format'   => 'smarty_mod_date_format',
-                                    'string_format' => 'smarty_mod_string_format',
-                                    'replace'       => 'smarty_mod_replace',
-                                    'strip_tags'    => 'smarty_mod_strip_tags',
-                                    'default'       => 'smarty_mod_default',
-                                    'count_characters' => 'smarty_mod_count_characters',
-                                    'count_words'   => 'smarty_mod_count_words',
-                                    'count_sentences' => 'smarty_mod_count_sentences',
-                                    'count_paragraphs' => 'smarty_mod_count_paragraphs'
+    var $custom_mods     =  array(  'lower'             => 'strtolower',
+                                    'upper'             => 'strtoupper',
+                                    'capitalize'        => 'ucwords',
+                                    'escape'            => 'smarty_mod_escape',
+                                    'truncate'          => 'smarty_mod_truncate',
+                                    'spacify'           => 'smarty_mod_spacify',
+                                    'date_format'       => 'smarty_mod_date_format',
+                                    'string_format'     => 'smarty_mod_string_format',
+                                    'replace'           => 'smarty_mod_replace',
+                                    'strip_tags'        => 'smarty_mod_strip_tags',
+                                    'default'           => 'smarty_mod_default',
+                                    'count_characters'  => 'smarty_mod_count_characters',
+                                    'count_words'       => 'smarty_mod_count_words',
+                                    'count_sentences'   => 'smarty_mod_count_sentences',
+                                    'count_paragraphs'  => 'smarty_mod_count_paragraphs'
                                  );
                                  
     var $template_resource_handlers  =  array(); // where resource handlers are mapped
 
-    var $version               =   "1.3.2";  // Smarty version number                     
+    var $version               =   '1.3.2';  // Smarty version number                     
     var $show_info_header      =   true;     // display info header at top of page output
 
 /**************************************************************************/
@@ -374,19 +374,17 @@ class Smarty
         else
             $info_header = "";            
 
-        $this->_fetch_compile_path($tpl_file,$compile_path);
-        
         // if we just need to display the results, don't perform output
         // buffering - for speed
         if ($display && !$this->caching) {
             echo $info_header;
-            $this->_process_template($tpl_file,$compile_path);
+            $this->_process_template($tpl_file, $compile_path);
             include($compile_path);
         }
         else {
             ob_start();
             echo $info_header;
-            $this->_process_template($tpl_file,$compile_path);
+            $this->_process_template($tpl_file, $compile_path);
             include($compile_path);
             $results = ob_get_contents();
             ob_end_clean();
@@ -409,33 +407,34 @@ class Smarty
     Function:   _process_template()
     Purpose:    
 \*======================================================================*/
-    function _process_template($tpl_file,&$compile_path)
+    function _process_template($tpl_file, &$compile_path)
     {
         // get path to where compiled template is (to be) saved
-        $this->_fetch_compile_path($tpl_file,$compile_path);
+        $this->_fetch_compile_path($tpl_file, $compile_path);
+
         // test if template needs to be compiled
-        if(!$this->force_compile && $this->_compiled_template_exists($compile_path)) {
-            if(!$this->compile_check) {
+        if (!$this->force_compile && $this->_compiled_template_exists($compile_path)) {
+            if (!$this->compile_check) {
                 // no need to check if the template needs recompiled
                 return true;                
             } else {               
                 // get template source and timestamp
-                $this->_fetch_template_source($tpl_file,$template_source,$template_timestamp);
-                if($template_timestamp <= $this->_fetch_compiled_template_timestamp($compile_path)) {
+                $this->_fetch_template_source($tpl_file, $template_source, $template_timestamp);
+                if ($template_timestamp <= $this->_fetch_compiled_template_timestamp($compile_path)) {
                     // template not expired, no recompile
                     return true;
                 } else {
-                    // compile template   
-                    $this->_compile_template($tpl_file,$template_source,$template_compiled);
-                    $this->_write_compiled_template($compile_path,$template_compiled);
+                    // compile template
+                    $this->_compile_template($tpl_file, $template_source, $template_compiled);
+                    $this->_write_compiled_template($compile_path, $template_compiled);
                     return true;
                 }
             }
         } else {
             // compiled template does not exist, or forced compile
-            $this->_fetch_template_source($tpl_file,$template_source,$template_timestamp);
-            $this->_compile_template($tpl_file,$template_source,$template_compiled);
-            $this->_write_compiled_template($compile_path,$template_compiled);
+            $this->_fetch_template_source($tpl_file, $template_source, $template_timestamp);
+            $this->_compile_template($tpl_file, $template_source, $template_compiled);
+            $this->_write_compiled_template($compile_path, $template_compiled);
             return true;
         }
     }    
@@ -444,7 +443,7 @@ class Smarty
     Function:   _fetch_compile_path()
     Purpose:    fetch the path to save the comiled template
 \*======================================================================*/
-    function _fetch_compile_path($tpl_file,&$compile_path)
+    function _fetch_compile_path($tpl_file, &$compile_path)
     {
         // for now, everything is in $compile_dir
         $compile_path = $this->compile_dir.'/'.md5($tpl_file).'.php';
@@ -475,10 +474,10 @@ class Smarty
     Function:   _write_compiled_template
     Purpose:    
 \*======================================================================*/
-    function _write_compiled_template($compile_path,$template_compiled)
+    function _write_compiled_template($compile_path, $template_compiled)
     {
         // for now, we save everything into $compile_dir
-        $this->_write_file($compile_path,$template_compiled);
+        $this->_write_file($compile_path, $template_compiled);
         return true;
     }    
 
@@ -486,44 +485,43 @@ class Smarty
     Function:   _fetch_template_source()
     Purpose:    fetch the template source and timestamp
 \*======================================================================*/
-    function _fetch_template_source($tpl_path,&$template_source,&$template_timestamp)
+    function _fetch_template_source($tpl_path, &$template_source, &$template_timestamp)
     {
         // split tpl_path by the first colon
-        $tpl_path_parts = preg_split("/:/",$tpl_path,2);
+        $tpl_path_parts = explode(':', $tpl_path, 2);
         
-        if(count($tpl_path_parts) == 1) {
+        if (count($tpl_path_parts) == 1) {
             // no resource type, treat as type "file"
-            $resource_type = "file";
-            $filename = $tpl_path_parts[0];
+            $resource_type = 'file';
+            $resource_name = $tpl_path_parts[0];
         } else {
             $resource_type = $tpl_path_parts[0];   
-            $filename = $tpl_path_parts[1];
-        }  
+            $resource_name = $tpl_path_parts[1];
+        }
         
-        switch($resource_type) {
-            case "file":
-                if(substr($filename,0,1) != "/") {
+        switch ($resource_type) {
+            case 'file':
+                if ($resource_name{0} != '/') {
                     // relative pathname to $template_dir
-                    $filename = $this->template_dir.'/'.$filename;   
+                    $resource_name = $this->template_dir.'/'.$resource_name;   
                 }
-                if (file_exists($filename)) {
-                    $template_source = $this->_read_file($filename);
-                    $template_timestamp = filemtime($filename);
+                if (file_exists($resource_name)) {
+                    $template_source = $this->_read_file($resource_name);
+                    $template_timestamp = filemtime($resource_name);
                     return true;
                 } else {
-                    $this->_set_error_msg("unable to read template resource: \"$tpl_path.\"");
-                    $this->_trigger_error_msg();
+                    $this->_trigger_error_msg("unable to read template resource: \"$tpl_path.\"");
                     return false;
                 }
                 break;
+
             default:
-                $this->_set_error_msg("unknown resource type: \"$resource_type.\"");
-                $this->_trigger_error_msg();
+                $this->_trigger_error_msg("unknown resource type: \"$resource_type.\"");
                 return false;
                 break;
         }
-        return true;
 
+        return true;
     }
 
         
@@ -531,29 +529,28 @@ class Smarty
     Function:   _compile_template()
     Purpose:    called to compile the templates
 \*======================================================================*/
-    function _compile_template($tpl_file,$template_source,&$template_compiled)
+    function _compile_template($tpl_file, $template_source, &$template_compiled)
     {
+        include_once "Smarty_Compiler.class.php";
 
-        include_once("Smarty_Compiler.class.php");
+        $smarty_compiler = new Smarty_Compiler;
 
-        $smarty_compile = new Smarty_Compiler;
+        $smarty_compiler->template_dir = $this->template_dir;
+        $smarty_compiler->compile_dir = $this->compile_dir;
+        $smarty_compiler->config_dir = $this->config_dir;
+        $smarty_compiler->force_compile = $this->force_compile;
+        $smarty_compiler->caching = $this->caching;
+        $smarty_compiler->php_handling = $this->php_handling;
+        $smarty_compiler->left_delimiter = $this->left_delimiter;
+        $smarty_compiler->right_delimiter = $this->right_delimiter;
+        $smarty_compiler->custom_funcs = $this->custom_funcs;
+        $smarty_compiler->custom_mods = $this->custom_mods;
+        $smarty_compiler->version = $this->version;
 
-        $smarty_compile->template_dir = $this->template_dir;            
-        $smarty_compile->compile_dir = $this->compile_dir;            
-        $smarty_compile->config_dir = $this->config_dir;            
-        $smarty_compile->force_compile = $this->force_compile;            
-        $smarty_compile->caching = $this->caching;            
-        $smarty_compile->php_handling = $this->php_handling;            
-        $smarty_compile->left_delimiter = $this->left_delimiter;  
-        $smarty_compile->right_delimiter = $this->right_delimiter;            
-        $smarty_compile->custom_funcs = $this->custom_funcs;            
-        $smarty_compile->custom_mods = $this->custom_mods;
-        $smarty_compile->version = $this->version;
-
-        if($smarty_compile->_compile_file($tpl_file,$template_source, $template_compiled))
+        if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
             return true;
         else {
-            $this->_error_msg = $smarty_compile->_error_msg;
+            $this->_trigger_error_msg($smarty_compiler->_error_msg);
             return false;
         }
     }
@@ -562,16 +559,14 @@ class Smarty
     Function:   _smarty_include()
     Purpose:    called for included templates
 \*======================================================================*/
-    function _smarty_include($_smarty_include_tpl_file,$_smarty_def_vars,
-                $_smarty_include_vars,&$_smarty_config_parent)
+    function _smarty_include($_smarty_include_tpl_file ,$_smarty_def_vars,
+                             $_smarty_include_vars, &$_smarty_config_parent)
     {
         extract($_smarty_def_vars);
         extract($_smarty_include_vars);
                 
-        $this->_fetch_compile_path($_smarty_include_tpl_file,$compile_path);
-        $this->_process_template($_smarty_include_tpl_file,$compile_path);
+        $this->_process_template($_smarty_include_tpl_file, $compile_path);
         include($compile_path);
-            
     }
         
 /*======================================================================*\
@@ -622,8 +617,7 @@ class Smarty
 
     {
         if (!($fd = fopen($filename, 'r'))) {
-            $this->_set_error_msg("problem reading '$filename.'");
-            $this->_trigger_error_msg();
+            $this->_trigger_error_msg("problem reading '$filename.'");
             return false;
         }
         flock($fd, LOCK_SH);
@@ -638,18 +632,17 @@ class Smarty
 \*======================================================================*/
     function _write_file($filename, $contents, $create_dirs = false)
     {
-        if($create_dirs)
+        if ($create_dirs)
             $this->_create_dir_structure(dirname($filename));
         
         if (!($fd = fopen($filename, 'a'))) {
-            $this->_set_error_msg("problem writing '$filename.'");
-            $this->_trigger_error_msg();
+            $this->_trigger_error_msg("problem writing '$filename.'");
             return false;
         }
-        if (flock($fd, LOCK_EX) && ftruncate( $fd, 0) ){ 
+        if (flock($fd, LOCK_EX) && ftruncate($fd, 0)) { 
             fwrite( $fd, $contents );
             fclose($fd);
-            chmod($filename,0644);             
+            chmod($filename,0644);
         }
 
         return true;
@@ -704,8 +697,7 @@ class Smarty
             foreach ($dir_parts as $dir_part) {
                 $new_dir .= $dir_part;
                 if (!file_exists($new_dir) && !mkdir($new_dir, 0701)) {
-                    $this->_set_error_msg("problem creating directory \"$dir\"");
-                    $this->_trigger_error_msg();
+                    $this->_trigger_error_msg("problem creating directory \"$dir\"");
                     return false;               
                 }
                 $new_dir .= '/';
@@ -722,22 +714,14 @@ class Smarty
         return preg_replace('![\\$]\d!', '\\\\\\0', $string);
     }
 
-/*======================================================================*\
-    Function:   _set_error_msg()
-    Purpose:    set the error message
-\*======================================================================*/
-    function _set_error_msg($error_msg)
-    {
-        $this->_error_msg="Smarty error: $error_msg";
-        return true;
-    }
+
 /*======================================================================*\
     Function: _trigger_error_msg
     Purpose:  trigger Smarty error
 \*======================================================================*/
-    function _trigger_error_msg($error_type = E_USER_ERROR)
+    function _trigger_error_msg($error_msg, $error_type = E_USER_WARNING)
     {
-        trigger_error($this->_error_msg, $error_type);
+        trigger_error($error_msg, $error_type);
     }
 
 }
