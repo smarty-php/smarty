@@ -6110,6 +6110,91 @@ s m o k e r s   a r e   p. . .
        </sect2>
    </sect1>    
 </chapter>
+<chapter id="chapter.plugins">
+   <title>Plugins</title>
+   <para>
+   </para>
+   <sect1>
+   		<title>How Plugins Work</title>
+		<para>
+		</para>
+   </sect1>
+	<sect1>
+		<title>Making Custom Plugins</title>
+		<para>
+		</para>
+		<sect2 id=section.plugins.custom.functions><title>custom functions</title>
+			<para>
+			</para>
+<example>
+<title>custom function plugin</title>
+<programlisting>
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id=section.plugins.modifiers><title>modifiers</title>
+			<para>
+			</para>
+<example>
+<title>modifier plugin</title>
+<programlisting>
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id=section.plugins.compiler.functions><title>compiler functions</title>
+			<para>
+			</para>
+<example>
+<title>compiler function plugin</title>
+<programlisting>
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id=section.plugins.prefilters><title>prefilters</title>
+			<para>
+			</para>
+<example>
+<title>prefilter plugin</title>
+<programlisting>
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id=section.plugins.postfilters><title>postfilters</title>
+			<para>
+			</para>
+<example>
+<title>postfilter plugin</title>
+<programlisting>
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id=section.plugins.template.resources><title>template resources</title>
+			<para>
+			</para>
+<example>
+<title>template resource plugin</title>
+<programlisting>
+
+</programlisting>
+</example>
+		</sect2>
+		<sect2 id=section.plugins.inserts><title>inserts</title>
+			<para>
+			</para>
+<example>
+<title>insert plugin</title>
+<programlisting>
+
+</programlisting>
+</example>
+		</sect2>
+	</sect1>
+</chapter>
 <chapter id="chapter.debugging.console">
    <title>Debugging Console</title>
    <para>
