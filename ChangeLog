@@ -1,3 +1,11 @@
+2003-09-10  andreas halter  <phpcvs@andreashalter.ch>
+
+    * docs/de/designers.sgml
+      docs/de/getting-started.sgml
+      docs/de/programmers.sgml:
+      - minor fixes (2 rep), slight wording changes
+      - jade transform problem fixed
+
 2003-09-08  andreas halter  <phpcvs@andreashalter.ch>
 
     * docs/de/designers.sgml
