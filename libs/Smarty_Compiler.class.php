@@ -228,8 +228,8 @@ class Smarty_Compiler extends Smarty {
         if (count($this->_plugins['prefilter']) > 0) {
             foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
                 if ($prefilter === false) continue;
-                if ($prefilter[3] || function_exists($prefilter[0])) {
-                    $template_source = $prefilter[0]($template_source, $this);
+                if ($prefilter[3] || $this->_plugin_implementation_exists($prefilter[0])) {
+                    $template_source = call_user_func($prefilter[0], $template_source, $this);
                     $this->_plugins['prefilter'][$filter_name][3] = true;
                 } else {
                     $this->_trigger_fatal_error("[plugin] prefilter '$filter_name' is not implemented");
@@ -326,8 +326,8 @@ class Smarty_Compiler extends Smarty {
         if (count($this->_plugins['postfilter']) > 0) {
             foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
                 if ($postfilter === false) continue;
-                if ($postfilter[3] || function_exists($postfilter[0])) {
-                    $template_compiled = $postfilter[0]($template_compiled, $this);
+                if ($postfilter[3] || $this->_plugin_implementation_exists($postfilter[0])) {
+                    $template_compiled = call_user_func($postfilter[0], $template_compiled, $this);
                     $this->_plugins['postfilter'][$filter_name][3] = true;
                 } else {
                     $this->_trigger_fatal_error("Smarty plugin error: postfilter '$filter_name' is not implemented");
@@ -519,7 +519,7 @@ class Smarty_Compiler extends Smarty {
         if (isset($this->_plugins['compiler'][$tag_command])) {
             $found = true;
             $plugin_func = $this->_plugins['compiler'][$tag_command][0];
-            if (!function_exists($plugin_func)) {
+            if (!$this->_plugin_implementation_exists($plugin_func)) {
                 $message = "compiler function '$tag_command' is not implemented";
                 $have_function = false;
             }
@@ -534,7 +534,7 @@ class Smarty_Compiler extends Smarty {
             include_once $plugin_file;
 
             $plugin_func = 'smarty_compiler_' . $tag_command;
-            if (!function_exists($plugin_func)) {
+            if (!$this->_plugin_implementation_exists($plugin_func)) {
                 $message = "plugin function $plugin_func() not found in $plugin_file\n";
                 $have_function = false;
             } else {
@@ -550,7 +550,7 @@ class Smarty_Compiler extends Smarty {
          */
         if ($found) {
             if ($have_function) {
-                $output = '<?php ' . $plugin_func($tag_args, $this) . ' ?>';
+                $output = '<?php ' . call_user_func($plugin_func, $tag_args, $this) . ' ?>';
             } else {
                 $this->_syntax_error($message, E_USER_WARNING, __FILE__, __LINE__);
             }
@@ -588,7 +588,7 @@ class Smarty_Compiler extends Smarty {
         if (isset($this->_plugins['block'][$tag_command])) {
             $found = true;
             $plugin_func = $this->_plugins['block'][$tag_command][0];
-            if (!function_exists($plugin_func)) {
+            if (!$this->_plugin_implementation_exists($plugin_func)) {
                 $message = "block function '$tag_command' is not implemented";
                 $have_function = false;
             }
@@ -634,10 +634,10 @@ class Smarty_Compiler extends Smarty {
                 $arg_list[] = "'$arg_name' => $arg_value";
             }
 
-            $output = "<?php \$this->_tag_stack[] = array('$tag_command', array(".implode(',', (array)$arg_list).")); \$this->_plugins['block']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), null, \$this); ob_start(); ?>";
+            $output = "<?php \$this->_tag_stack[] = array('$tag_command', array(".implode(',', (array)$arg_list).")); ".$this->_compile_plugin_call('block', $tag_command).'(array('.implode(',', (array)$arg_list)."), null, \$this); ob_start(); ?>";
         } else {
             $output = "<?php \$this->_block_content = ob_get_contents(); ob_end_clean(); ";
-			$out_tag_text = "\$this->_plugins['block']['$tag_command'][0](\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$this->_block_content, \$this)";
+			$out_tag_text = $this->_compile_plugin_call('block', $tag_command)."(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$this->_block_content, \$this)";
 			if($tag_modifier != '') {
 				$this->_parse_modifiers($out_tag_text, $tag_modifier);
 			}
@@ -671,8 +671,8 @@ class Smarty_Compiler extends Smarty {
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 		
-		$return = "\$this->_plugins['function']['$tag_command'][0](array(".implode(',', (array)$arg_list)."), \$this)";
-		
+	    $return = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', (array)$arg_list)."), \$this)";
+        
 		if($tag_modifier != '') {
 			$this->_parse_modifiers($return, $tag_modifier);
 		}
@@ -1779,6 +1779,34 @@ class Smarty_Compiler extends Smarty {
 
         array_shift($indexes);
         return $compiled_ref;
+    }
+
+    /**
+     * compiles call to plugin of type $type with name $name
+     * returns a string containing the function-name or method call
+     * without the paramter-list that would have follow to make the
+     * call valid php-syntax
+     *
+     * @param string $type
+     * @param string $name
+     */
+    function _compile_plugin_call($type, $name) {
+        if (isset($this->_plugins[$type][$name])) {
+            /* plugin loaded */
+            if (is_array($this->_plugins[$type][$name][0])) {
+                /* method callback */
+                return "\$this->_plugins['$type']['$name'][0][0]->".$this->_plugins[$type][$name][0][1];
+                
+            } else {
+                /* function callback */
+                return $this->_plugins[$type][$name][0];
+                
+            }
+        } else {
+            /* plugin not loaded -> auto-loadable-plugin */
+            return 'smarty_'.$type.'_'.$name;
+            
+        }
     }
 
 

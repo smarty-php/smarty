@@ -820,7 +820,8 @@ class Smarty
      */    
     function register_prefilter($function)
     {
-        $this->_plugins['prefilter'][$function]
+	$_name = (is_array($function)) ? $function[1] : $function;
+        $this->_plugins['prefilter'][$_name]
             = array($function, null, null, false);
     }
 
@@ -842,7 +843,8 @@ class Smarty
      */    
     function register_postfilter($function)
     {
-        $this->_plugins['postfilter'][$function]
+	$_name = (is_array($function)) ? $function[1] : $function;
+        $this->_plugins['postfilter'][$_name]
             = array($function, null, null, false);
     }
 
@@ -864,7 +866,8 @@ class Smarty
      */    
     function register_outputfilter($function)
     {
-        $this->_plugins['outputfilter'][$function]
+	$_name = (is_array($function)) ? $function[1] : $function;
+        $this->_plugins['outputfilter'][$_name]
             = array($function, null, null, false);
     }
 
@@ -919,8 +922,8 @@ class Smarty
 	$_auto_id = $this->_get_auto_id($cache_id, $compile_id);
 
         if (!empty($this->cache_handler_func)) {
-            $_funcname = $this->cache_handler_func;
-            return $_funcname('clear', $this, $dummy, $tpl_file, $cache_id, $compile_id);
+            return call_user_func_array($this->cache_handler_func,
+                                  array('clear', &$this, &$dummy, $tpl_file, $cache_id, $compile_id));
         } else {
             return $this->_rm_auto($this->cache_dir, $tpl_file, $_auto_id, $exp_time);
         }
@@ -936,8 +939,8 @@ class Smarty
     function clear_all_cache($exp_time = null)
     {
         if (!empty($this->cache_handler_func)) {
-            $funcname = $this->cache_handler_func;
-            return $funcname('clear', $this, $dummy);
+            call_user_func_array($this->cache_handler_func,
+                           array('clear', &$this, &$dummy));
         } else {
             return $this->_rm_auto($this->cache_dir,null,null,$exp_time);
         }
@@ -1167,7 +1170,7 @@ class Smarty
             ob_end_clean();
 
             foreach ((array)$this->_plugins['outputfilter'] as $output_filter) {
-                $_smarty_results = $output_filter[0]($_smarty_results, $this);
+                $_smarty_results = call_user_func_array($output_filter[0], array($_smarty_results, &$this));
             }
         }
 
@@ -2283,8 +2286,8 @@ class Smarty
 
         if (!empty($this->cache_handler_func)) {
             // use cache_handler function
-            $_funcname = $this->cache_handler_func;
-            return $_funcname('write', $this, $results, $tpl_file, $cache_id, $compile_id);
+            call_user_func_array($this->cache_handler_func,
+                           array('write', &$this, &$results, $tpl_file, $cache_id, $compile_id));
         } else {
             // use local cache file
             $_auto_id = $this->_get_auto_id($cache_id, $compile_id);
@@ -2319,8 +2322,8 @@ class Smarty
 
         if (!empty($this->cache_handler_func)) {
             // use cache_handler function
-            $_funcname = $this->cache_handler_func;
-            $_funcname('read', $this, $results, $tpl_file, $cache_id, $compile_id);
+            call_user_func_array($this->cache_handler_func,
+                                 array('read', &$this, &$results, $tpl_file, $cache_id, $compile_id));
         } else {
             // use local cache file
             $_auto_id = $this->_get_auto_id($cache_id, $compile_id);
@@ -2447,7 +2450,7 @@ class Smarty
         foreach ($plugins as $plugin_info) {            
             list($type, $name, $tpl_file, $tpl_line, $delayed_loading) = $plugin_info;
             $plugin = &$this->_plugins[$type][$name];
-            
+
             /*
              * We do not load plugin more than once for each instance of Smarty.
              * The following code checks for that. The plugin can also be
@@ -2460,7 +2463,7 @@ class Smarty
              */
             if (isset($plugin)) {
                 if (!$plugin[3]) {
-                    if (!function_exists($plugin[0])) {
+                    if (!$this->_plugin_implementation_exists($plugin[0])) {
                         $this->_trigger_fatal_error("[plugin] $type '$name' is not implemented", $tpl_file, $tpl_line, __FILE__, __LINE__);
                     } else {
                         $plugin[1] = $tpl_file;
@@ -2496,7 +2499,7 @@ class Smarty
                 include_once $plugin_file;
 
                 $plugin_func = 'smarty_' . $type . '_' . $name;
-                if (!function_exists($plugin_func)) {
+                if (!$this->_plugin_implementation_exists($plugin_func)) {
                     $this->_trigger_fatal_error("[plugin] function $plugin_func() not found in $plugin_file", $tpl_file, $tpl_line, __FILE__, __LINE__);
                     continue;
                 }
@@ -2697,6 +2700,16 @@ class Smarty
         }
         return false;
     }    
+
+    /**
+     * check if the function or method exists
+     * @return bool
+     */       
+    function _plugin_implementation_exists($function)
+    {
+        return (is_array($function)) ?
+            method_exists($function[0], $function[1]) : function_exists($function);
+    }
     /**#@-*/
 }
 

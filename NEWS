@@ -1,3 +1,7 @@
+  - added possibility to register function-callbacks as "array(&$obj, 'method)"
+    this affects register_function(), -block, -compiler_function, -modifier, 
+    -prefilter, -postfilter, -outputfilter-functions() and $cache_handler_func
+    (messju)
   - added <labels> to html_checkboxes and html_radios (Philippe, messju)
   - added "labels"-options to turn off labels in html_checkboxes and _radios
     (messju)
