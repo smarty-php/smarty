@@ -1,3 +1,19 @@
+2005-03-30  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.math.php:
+      re-enabled hex-constant. i hope in a sane way this time.
+
+2005-03-30  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/plugins/function.math.php:
+      fix function testing logic
+
+    * libs/Smarty_Compiler.class.php:
+      disable variable func calls completely
+
+    * libs/Smarty_Compiler.class.php:
+      disallow variable func calls when security is enabled
+
 2005-03-22  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
