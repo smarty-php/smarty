@@ -1462,10 +1462,9 @@ s.</programlisting>
        <chapter id="language.combining.modifiers">
         <title>Combining Modifiers</title>
         <para>
-         You can apply as many modifiers as you like to a variable. The modifiers
-         will be applied to the variable in the order they are combined, from left
-         to right. The modifier have to be separated with a <literal>|</literal>
-         (pipe) symbol.
+		 You can apply any number of modifiers to a variable. They will be
+		 applied in the order they are combined, from left to right. They must
+		 be separated with a <literal>|</literal> (pipe) character.
         </para>
         <example>
          <title>combining modifiers</title>
@@ -3107,17 +3106,24 @@ OUTPUT:
 <example>
 <title>cycle</title>
 <programlisting>
-{* initialize the values *}
-{cycle values="#eeeeee,#d0d0d0"}
-{cycle}
-{cycle}
-
+{section name=rows loop=$data}
+&lt;tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}"&gt;
+   &lt;td&gt;{$data[rows]}&lt;/td&gt;
+&lt;/tr&gt;
+{/section}
 
 OUTPUT:
 
-#eeeeee
-#d0d0d0
-#eeeeee</programlisting>
+&lt;tr bgcolor="#eeeeee"&gt;
+   &lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr bgcolor="#d0d0d0"&gt;
+   &lt;td&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr bgcolor="#eeeeee"&gt;
+   &lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.debug">
