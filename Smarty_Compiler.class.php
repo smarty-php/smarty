@@ -171,7 +171,8 @@ class Smarty_Compiler extends Smarty {
                       )
                       (?:\s+(.*))?
                     /xs', $template_tag, $match);
-        list(, $tag_command, $tag_args) = $match;
+		$tag_command = $match[1];
+		$tag_args = isset($match[2]) ? $match[2] : '';
 
         /* If the tag name matches a variable or section property definition,
            we simply process it. */
@@ -722,7 +723,9 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _parse_var($var_expr)
     {
-        list($var_ref, $modifiers) = explode('|', substr($var_expr, 1), 2);
+		$parts = explode('|', substr($var_expr, 1), 2);
+		$var_ref = $parts[0];
+		$modifiers = isset($parts[1]) ? $parts[1] : '';
 
 		preg_match_all('!\[\w+(\.\w+)?\]|(->|\.)\w+|^\w+!', $var_ref, $match);
 		$indexes = $match[0];
@@ -732,9 +735,9 @@ class Smarty_Compiler extends Smarty {
 
 		foreach ($indexes as $index) {
 			if ($index{0} == '[') {
-				list($section, $section_prop) = explode('.', substr($index, 1, -1));
-				if (!isset($section_prop))
-					$section_prop = 'index';
+				$parts = explode('.', substr($index, 1, -1));
+				$section = $parts[0];
+				$section_prop = isset($parts[1]) ? $parts[1] : 'index';
 				$output .= "[\$_smarty_sections['$section']['properties']['$section_prop']]";
 			} else if ($index{0} == '.') {
 				$output .= "['" . substr($index, 1) . "']";
@@ -754,7 +757,9 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _parse_conf_var($conf_var_expr)
     {
-        list($var_ref, $modifiers) = explode('|', $conf_var_expr, 2);
+        $parts = explode('|', $conf_var_expr, 2);
+		$var_ref = $parts[0];
+		$modifiers = isset($parts[1]) ? $parts[1] : '';
 
         $var_name = substr($var_ref, 1, -1);
 
@@ -771,7 +776,9 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _parse_section_prop($section_prop_expr)
     {
-        list($var_ref, $modifiers) = explode('|', $section_prop_expr, 2);
+        $parts = explode('|', $section_prop_expr, 2);
+		$var_ref = $parts[0];
+		$modifiers = isset($parts[1]) ? $parts[1] : '';
 
         preg_match('!%(\w+)\.(\w+)%!', $var_ref, $match);
         $section_name = $match[1];
