@@ -693,8 +693,6 @@ function smarty_func_assign_debug_info($args, &$smarty_obj) {
 	
 	$smarty_obj->assign("_debug_keys",array_keys($assigned_vars));
 	$smarty_obj->assign("_debug_vals",array_values($assigned_vars));
-	$smarty_obj->assign("_debug_times_keys",$smarty_obj->_smarty_debug_times['var']);
-	$smarty_obj->assign("_debug_times_vals",$smarty_obj->_smarty_debug_times['val']);
 	
 	$smarty_obj->assign("_debug_tpls",$included_templates);
 	return true;

@@ -1,3 +1,4 @@
+    - added DEBUG execution times to included files (Monte)
     - added support for hidden config variables that cannot be read by
       templates. (Andrei)
     - added execution time to DEBUG console, total and inserts. (Monte)

@@ -505,15 +505,15 @@ class Smarty
 		{
 			// capture time for debugging info
 			$debug_start_time = $this->_get_microtime();	
+        	$this->_included_tpls[] = array('type' => 'template',
+											'filename'  => $tpl_file,
+                                        	'depth'    => 0);
+			$included_tpls_idx = count($this->_included_tpls) - 1;
 		}
 			
 		$this->_compile_id = $compile_id;
         $this->_inclusion_depth = 0;
-        $this->_included_tpls = array();
-
-        $this->_included_tpls[] = array('type' => 'template',
-										'filename'  => $tpl_file,
-                                        'depth'    => 0);
+		
         
         if ($this->caching) {
             $cache_file = $this->_get_auto_filename($this->cache_dir, $tpl_file, $compile_id . $cache_id);
@@ -530,8 +530,7 @@ class Smarty
 					if ($this->debugging)
 					{
 						// capture time for debugging info
-						$this->_smarty_debug_times['var'][] = 'TOTAL';
-						$this->_smarty_debug_times['val'][] = $this->_get_microtime() - $debug_start_time;	
+						$this->_included_tpls[$included_tpls_idx]['exec_time'] = $this->_get_microtime() - $debug_start_time;
 
 						echo $this->_generate_debug_output();
 					}
@@ -605,9 +604,8 @@ class Smarty
             if ($this->debugging)
 				{
 					// capture time for debugging info
-					$this->_smarty_debug_times['var'][] = 'TOTAL';
-					$this->_smarty_debug_times['val'][] = $this->_get_microtime() - $debug_start_time;	
-
+					$this->_included_tpls[$included_tpls_idx]['exec_time'] = ($this->_get_microtime() - $debug_start_time);
+					
 					echo $this->_generate_debug_output();
 				}
             return;
@@ -864,9 +862,14 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _smarty_include($_smarty_include_tpl_file, $_smarty_include_vars)
     {
-        $this->_included_tpls[] = array('type' => 'template',
-										'filename' => $_smarty_include_tpl_file,
-                                        'depth'    => ++$this->_inclusion_depth);
+		if($this->debugging) {
+			$debug_start_time = $this->_get_microtime();
+        	$this->_included_tpls[] = array('type' => 'template',
+											'filename' => $_smarty_include_tpl_file,
+                                        	'depth'    => ++$this->_inclusion_depth);
+			$included_tpls_idx = count($this->_included_tpls) - 1;
+		}
+
 
         $this->_tpl_vars = array_merge($this->_tpl_vars, $_smarty_include_vars);
         extract($this->_tpl_vars);
@@ -887,6 +890,13 @@ function _generate_debug_output() {
 
         array_shift($this->_config);
         $this->_inclusion_depth--;
+		
+		if ($this->debugging) {
+			// capture time for debugging info
+			$this->_included_tpls[$included_tpls_idx]['exec_time'] = $this->_get_microtime() - $debug_start_time;
+		}
+
+		
     }
         
     
@@ -896,10 +906,9 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _config_load($file, $section, $scope)
     {
-		$this->_included_tpls[] = array('type' => 'config',
-								'filename' => $file,
-                            	'depth'    => $this->_inclusion_depth);
-
+		if($this->debugging) {
+			$debug_start_time = $this->_get_microtime();
+		}
 		
         $this->_config[0] = array_merge($this->_config[0], $this->_conf_obj->get($file));
         if ($scope == 'parent') {
@@ -918,6 +927,13 @@ function _generate_debug_output() {
                 for ($i = 1; $i < count($this->_config); $i++)
                     $this->_config[$i] = array_merge($this->_config[$i], $this->_conf_obj->get($file, $section));
         }
+		if($this->debugging) {
+			$debug_start_time = $this->_get_microtime();
+			$this->_included_tpls[] = array('type' => 'config',
+									'filename' => $file,
+                            		'depth'    => $this->_inclusion_depth,
+									'exec_time' => $this->_get_microtime() - $debug_start_time);
+		}
     }
 
 
@@ -927,8 +943,9 @@ function _generate_debug_output() {
 \*======================================================================*/
     function _process_cached_inserts($results)
     {
-		if($this->debugging)
-		{ $debug_start_time = $this->_get_microtime(); }
+		if($this->debugging) {
+			$debug_start_time = $this->_get_microtime();
+		}
 				
         preg_match_all('!'.$this->_smarty_md5.'{insert_cache (.*)}'.$this->_smarty_md5.'!Uis',
                        $results, $match);
@@ -946,8 +963,10 @@ function _generate_debug_output() {
 
             $results = str_replace($cached_inserts[$i], $replace, $results);
         	if ($this->debugging) {
-				$this->_smarty_debug_times['var'][] = 'insert_'.$name;
-		 		$this->_smarty_debug_times['val'][] = $this->_get_microtime() - $debug_start_time;
+        	$this->_included_tpls[] = array('type' => 'insert',
+											'filename' => 'insert_'.$name,
+                                        	'depth'    => ++$this->_inclusion_depth,
+											'exec_time' => $this->_get_microtime() - $debug_start_time);
 			}
         }
 
@@ -962,8 +981,9 @@ function _generate_debug_output() {
 \*======================================================================*/
 function _run_insert_handler($args)
 {
-	if($this->debugging)
-	{ $debug_start_time = $this->_get_microtime(); }
+	if($this->debugging) {
+		$debug_start_time = $this->_get_microtime();
+	}
 
     if ($this->caching) {
         $arg_string = serialize($args);
@@ -971,9 +991,11 @@ function _run_insert_handler($args)
     } else {
         $function_name = 'insert_'.$args['name'];
         $content = $function_name($args, $this);
-		if ($this->debugging) {
-			$this->_smarty_debug_times['var'][] = 'insert_'.$args['name'];
-			$this->_smarty_debug_times['val'][] = $this->_get_microtime() - $debug_start_time;
+        if ($this->debugging) {
+        $this->_included_tpls[] = array('type' => 'insert',
+										'filename' => 'insert_'.$args['name'],
+                                        'depth'    => ++$this->_inclusion_depth,
+										'exec_time' => $this->_get_microtime() - $debug_start_time);
 		}
 		return $content;
     }
