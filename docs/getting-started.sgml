@@ -168,8 +168,8 @@ $smarty = new Smarty;</screen>
 	example, the document root is "/web/www.mydomain.com/docs/". The Smarty
 	directories are only accessed by the Smarty library and never accessed
 	directly by the web browser. Therefore to avoid any security concerns, it
-	is recommended to place these directories in a directory
-	<emphasis>off</emphasis> the document root.
+	is recommended to place these directories <emphasis>outside</emphasis> of
+	the document root.
 	</para>
 	<para>
 	For our installation example, we will be setting up the Smarty environment
