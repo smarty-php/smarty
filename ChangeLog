@@ -1,3 +1,14 @@
+2004-04-18  Mehdi Achour  <didou@keliglia.com>
+
+    * docs/de/getting-started.xml
+      docs/fr/getting-started.xml:
+      new global entity for zend and php-accelerator
+
+    * docs/fr/bookinfo.xml
+      docs/fr/getting-started.xml
+      docs/fr/preface.xml:
+      added myself as translator and added vim comments and xml tags
+
 2004-04-16  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS:
