@@ -1,3 +1,12 @@
+2002-07-09  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php: make debug.tpl work with any delimiter
+
+    * NEWS
+      Smarty.class.php:
+    change tests in append and assign to != '' instead of empty(), which is more accurate
+
 2002-07-08  Monte Ohrt  <monte@ispi.net>
 
     * docs/designers.sgml: minor doc update
