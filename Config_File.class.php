@@ -30,7 +30,7 @@
  * http://www.phpinsider.com
  *
  * @link http://www.phpinsider.com
- * @version 2.4.0
+ * @version 2.4.1
  * @copyright Copyright: 2001,2002 ispi of Lincoln, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
