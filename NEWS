@@ -1,3 +1,4 @@
+  - fix capitalize modifier, don't rely on buggy ucwords (Monte)
   - make html_select_date work with negative timestamps, also
     force year range to include given date unless explicitly
     set (Garo, Monte)

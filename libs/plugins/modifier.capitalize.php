@@ -19,7 +19,7 @@
  */
 function smarty_modifier_capitalize($string)
 {
-    return ucwords($string);
+    return preg_replace_callback('!\b[a-z]!', create_function('$_x', 'return strtoupper($_x[0]);'), $string);
 }
 
 ?>
