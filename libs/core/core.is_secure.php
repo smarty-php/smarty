@@ -25,24 +25,20 @@ function smarty_core_is_secure($params, &$smarty)
         $_rp = realpath($params['resource_name']);
         if (isset($params['resource_base_path'])) {
             foreach ((array)$params['resource_base_path'] as $curr_dir) {
-                if ( !empty($curr_dir) && is_readable ($curr_dir)) {
-                    $_cd = realpath($curr_dir);
-                    if (strncmp($_rp, $_cd, strlen($_cd)) == 0
-                        && $_rp{strlen($_cd)} == DIRECTORY_SEPARATOR ) {
-                        return true;
-                    }
+                if ( ($_cd = realpath($curr_dir)) !== false &&
+                     strncmp($_rp, $_cd, strlen($_cd)) == 0 &&
+                     $_rp{strlen($_cd)} == DIRECTORY_SEPARATOR ) {
+                    return true;
                 }
             }
         }
         if (!empty($smarty->secure_dir)) {
             foreach ((array)$smarty->secure_dir as $curr_dir) {
-                if ( !empty($curr_dir) && is_readable ($curr_dir)) {
-                    $_cd = realpath($curr_dir);
-                    if (strncmp($_rp, $_cd, strlen($_cd)) == 0
-                        && $_rp{strlen($_cd)} == DIRECTORY_SEPARATOR ) {
-                        return true;
-                    }
-                }
+                if ( ($_cd = realpath($curr_dir)) !== false &&
+                     strncmp($_rp, $_cd, strlen($_cd)) == 0 &&
+                     $_rp{strlen($_cd)} == DIRECTORY_SEPARATOR ) {
+                    return true;
+                }            
             }
         }
     } else {
