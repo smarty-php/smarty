@@ -587,20 +587,6 @@ class Smarty
      */
     var $_cache_including = false;
 
-    /**
-     * cached file paths
-     *
-     * @var array
-     */
-    var $_cache_paths = null;
-
-    /**
-     * cached file pathname (set in constructor)
-     *
-     * @var array
-     */
-    var $_cache_paths_file = null;
-		
     /**#@-*/
     /**
      * The class constructor.
@@ -1182,21 +1168,6 @@ class Smarty
     {
         static $_cache_info = array();
 
-		$_compile_dir_sep =  $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
-		
-		$this->_cache_paths_file =
-				$this->compile_dir
-				. DIRECTORY_SEPARATOR
-				. '_smarty_cached_paths'
-				. $_compile_dir_sep
-				. urlencode($resource_name)
-				. '.php';
-
-		if(!$this->force_compile
-			&& file_exists($this->_cache_paths_file)) {
-			include($this->_cache_paths_file);
-		}		
-				
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(error_reporting() & ~E_NOTICE);
 
         if($this->security && !in_array($this->template_dir, $this->secure_dir)) {
@@ -1439,26 +1410,12 @@ class Smarty
      * @param string $type
      * @param string $name
      * @return string|false
-     */    
+     */
     function _get_plugin_filepath($type, $name)
     {
-		$_cache_paths_key = $type . '/' . $name;
-		if (isset($this->_cache_paths['plugins'][$_cache_paths_key])) {
-			return $this->_cache_paths['plugins'][$_cache_paths_key];
-		}
-		
 		$_params = array('type' => $type, 'name' => $name);
 		require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.assemble_plugin_filepath.php');
-		$_return = smarty_core_assemble_plugin_filepath($_params, $this);
-						
-		if ($_return !== false) {
-			$this->_cache_paths['plugins'][$_cache_paths_key] = $_return;
-			require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_cache_paths_file.php');
-			smarty_core_write_cache_paths_file(null, $this);
-			return $_return;
-		}
-		
-        return false;
+		return smarty_core_assemble_plugin_filepath($_params, $this);
     }	
 	
    /**
@@ -1572,11 +1529,7 @@ class Smarty
         $smarty_compiler->default_modifiers = $this->default_modifiers;
         $smarty_compiler->compile_id        = $this->_compile_id;
         $smarty_compiler->_config			= $this->_config;
-
         $smarty_compiler->request_use_auto_globals  = $this->request_use_auto_globals;
-
-        $smarty_compiler->_cache_paths   	= $this->_cache_paths;
-        $smarty_compiler->_cache_paths_file	= $this->_cache_paths_file;
 
         $smarty_compiler->_cache_serial = null;
         $smarty_compiler->_cache_include = $cache_include_path;
