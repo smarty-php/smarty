@@ -11,10 +11,9 @@ A: Most other template engines for PHP provide basic variable substitution and
    template engine, adding features such as configuration files, template
    functions, variable modifiers (see the docs!) and making all of this
    functionality as easy as possible to use for both programmers and template
-   designers. See the documentation for a full list of features. Smarty also
-   compiles the templates into PHP scripts, eliminating the need to parse the
-   templates on every invocation, making Smarty extremely scalable and
-   managable for large application needs.
+   designers. Smarty also compiles the templates into PHP scripts, eliminating
+   the need to parse the templates on every invocation, making Smarty extremely
+   scalable and managable for large application needs.
 
 Q: What do you mean "Compiled PHP Scripts" ?
 A: What this means is that Smarty reads the template files and creates PHP
@@ -29,7 +28,7 @@ TROUBLESHOOTING
 
 Q: Smarty doesn't work.
 A: You must be using PHP 4.0.4pl1 or later to fix all known problems
-   Smarty has with PHP. Read the BUGS section of the documentation.
+   Smarty has with PHP. Read the BUGS file for more info.
 
 Q: Smarty is recompiling my templates on every invocation.
 A: This is a bug that was fixed in 1.0a, grab the latest tarball.
