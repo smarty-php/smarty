@@ -39,7 +39,8 @@
      <entry>No</entry>
      <entry><emphasis>none</emphasis></entry>
      <entry>How to encode the e-mail. Can be one of <literal>none</literal>,
-     <literal>hex</literal> or <literal>javascript</literal>.</entry>
+     <literal>hex</literal>, <literal>javascript</literal>
+     or <literal>javascript_charcode</literal>.</entry>
     </row>
     <row>
      <entry>cc</entry>
@@ -111,6 +112,8 @@
 {mailto address="me@example.com" subject="Hello to you!"}
 {mailto address="me@example.com" cc="you@example.com,they@example.com"}
 {mailto address="me@example.com" extra='class="email"'}
+{mailto address="me@example.com" encode="javascript_charcode"}
+
 
 OUTPUT:
 
@@ -123,7 +126,12 @@ OUTPUT:
 &lt;a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" &gt;&#x6d;&#x65;&#x40;&#x64;&#x6f;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;&lt;/a&gt;
 &lt;a href="mailto:me@example.com?subject=Hello%20to%20you%21" &gt;me@example.com&lt;/a&gt;
 &lt;a href="mailto:me@example.com?cc=you@example.com%2Cthey@example.com" &gt;me@example.com&lt;/a&gt;
-&lt;a href="mailto:me@example.com" class="email"&gt;me@example.com&lt;/a&gt;</programlisting>
+&lt;a href="mailto:me@example.com" class="email"&gt;me@example.com&lt;/a&gt;
+&lt;script type="text/javascript" language="javascript"&gt;
+&lt;!--
+{document.write(String.fromCharCode(60,97,32,104,114,101,102,61,34,109,97,105,108,116,111,58,109,101,64,101,120,97,109,112,108,101,46,99,111,109,34,32,62,109,101,64,101,120,97,109,112,108,101,46,99,111,109,60,47,97,62))}
+//--&gt;
+&lt;/script&gt;</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file
