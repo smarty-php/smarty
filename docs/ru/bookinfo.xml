@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
  <bookinfo id="bookinfo">
-  <title>Smarty - ìàøèíà ñáîðêè PHP øàáëîíîâ</title>
+  <title>Smarty - êîìïèëèðóþùèé îáðàáîò÷èê øàáëîíîâ</title>
   <authorgroup id="authors">
    <author>
     <firstname>Monte</firstname><surname>Ohrt &lt;monte@ispi.net&gt;</surname>

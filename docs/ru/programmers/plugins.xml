@@ -44,7 +44,8 @@
     install a plugin, simply place it in the directory and Smarty will use
     it automatically.
    </para>
-
+  </sect1>
+  
 &programmers.plugins.plugins-naming-conventions;
 
 &programmers.plugins.plugins-writing;

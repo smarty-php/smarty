@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
    <sect1 id="language.syntax.comments">
     <title>Êîììåíòàðèè</title>
@@ -11,6 +11,7 @@
     <example>
      <title>Êîììåíòàðèè</title>
      <programlisting>
+<![CDATA[
 {* øàáëîí Smarty *}
 
 {* ïîäêëþ÷àåì øàïêó øàáëîíà *}
@@ -21,9 +22,11 @@
 {include file=#includeFile#}
 
 {* âûïàäàþùèé ñïèñîê *}
-&lt;SELECT name=company&gt;
+<SELECT name=company>
 {html_options values=$vals selected=$selected output=$output}
-&lt;/SELECT&gt;</programlisting>
+</SELECT>
+]]>
+     </programlisting>
     </example>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-        <sect1 id="language.variables.smarty">
-         <title>çàðåçåðâèðîâàííàÿ ïåðåìåííàÿ {$smarty}</title>
-         <para>
-          Çàðåçåðâèðîâàííàÿ ïåðåìåííàÿ {$smarty} èñïîëüçóåòñÿ äëÿ äîñòóïà
-          ê íåñêîëüêèì ñïåöèàëüíûì ïåðåìåííûì. Äàëåå ñëåäóåò ïîëíûé èõ ñïèñîê.
-         </para>
+<sect1 id="language.variables.smarty">
+ <title>Çàðåçåðâèðîâàííàÿ ïåðåìåííàÿ {$smarty}</title>
+  <para>
+   Çàðåçåðâèðîâàííàÿ ïåðåìåííàÿ {$smarty} èñïîëüçóåòñÿ äëÿ äîñòóïà
+   ê íåñêîëüêèì ñïåöèàëüíûì ïåðåìåííûì. Äàëåå ñëåäóåò ïîëíûé èõ ñïèñîê.
+  </para>
 
-         <sect2 id="language.variables.smarty.request">
-          <title>Ïåðåìåííûå çàïðîñà.</title>
-          <para>
-          Ê ïåðåìåííûì èç òàêèõ ìàññèâîâ, êàê _GET, _POST, _COOKIES, _SERVER,
-          _ENV è _SESSION, ìîæíî îáðàùàòüñÿ àíàëîãè÷íî íèæåïðèâåäåííûì ïðèìåðàì.
-          </para>
-          <example>
-
-           <title>Âûâîä ïåðåìåííûõ çàïðîñà</title>
-           <programlisting>
+  <sect2 id="language.variables.smarty.request">
+   <title>Ïåðåìåííûå çàïðîñà.</title>
+   <para>
+    Ê ïåðåìåííûì èç òàêèõ ìàññèâîâ, êàê _GET, _POST, _COOKIES, _SERVER,
+    _ENV è _SESSION, ìîæíî îáðàùàòüñÿ àíàëîãè÷íî íèæåïðèâåäåííûì ïðèìåðàì.
+   </para>
+   <example>
+    <title>Âûâîä ïåðåìåííûõ çàïðîñà</title>
+    <programlisting>
+<![CDATA[
 {* Âûâîä çíà÷åíèÿ $page èç URL (GET) http://www.domain.com/index.php?page=foo *}
 {$smarty.get.page}
 
@@ -36,79 +36,84 @@
 {$smarty.session.id}
 
 {* Âûâîä ïåðåìåííîé "username" èç îáúåäèíåííîãî ìàññèâà get/post/cookies/server/env *}
-{$smarty.request.username}</programlisting>
-</example>
-		</sect2>
+{$smarty.request.username}
+]]>
+    </programlisting>
+   </example>
+  </sect2>
 
-        <sect2 id="language.variables.smarty.now">
-			<title>{$smarty.now}</title>
-			<para>
-			Ê òåêóùåìó timestamp (øòàì âðåìåíè) ìîæíî îáðàòèòüñÿ ÷åðåç 
-			{$smarty.now}. Îíî ñîäåðæèò ÷èñëî ñåêóíä ñ íà÷àëà òàê 
-			íàçûâàåìîé Ýïîõè (Epoch, 1 ÿíâàðÿ 1970 ãîäà) è ìîæåò áûòü 
-			ïåðåäàíî ïðÿìî ìîäèôèêàòîðó	date_format äëÿ âûâîäà òåêóùåé 
-			äàòû.
-			</para>
-<example>
-
-<title>èñïîëüçîâàíèå {$smarty.now}</title>
-<programlisting>
+  <sect2 id="language.variables.smarty.now">
+   <title>{$smarty.now}</title>
+   <para>
+    Ê òåêóùåìó timestamp (øòàì âðåìåíè) ìîæíî îáðàòèòüñÿ ÷åðåç 
+    {$smarty.now}. Îíî ñîäåðæèò ÷èñëî ñåêóíä ñ íà÷àëà òàê 
+    íàçûâàåìîé Ýïîõè (Epoch, 1 ÿíâàðÿ 1970 ãîäà) è ìîæåò áûòü 
+    ïåðåäàíî ïðÿìî ìîäèôèêàòîðó	date_format äëÿ âûâîäà òåêóùåé 
+    äàòû.
+   </para>
+   <example>
+    <title>èñïîëüçîâàíèå {$smarty.now}</title>
+     <programlisting>
+<![CDATA[
 {* âûâîäèì òåêóùåå âðåìÿ è äàòó ñ ïîìîùüþ ìîäèôèêàòîðà date_format *}
-{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}</programlisting>
-</example>
-		</sect2>
-        <sect2 id="language.variables.smarty.const">
-			<title>{$smarty.const}</title>
-			<para>
-			Ðåàëèçóåò äîñòóï ê êîíñòàíòàì PHP.
-			</para>
-<example>
+{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
+]]>
+     </programlisting>
+   </example>
+  </sect2>
+  
+  <sect2 id="language.variables.smarty.const">
+   <title>{$smarty.const}</title>
+   <para>
+    Ðåàëèçóåò äîñòóï ê êîíñòàíòàì PHP.
+   </para>
+   <example>
+    <title>èñïîëüçîâàíèå {$smarty.const}</title>
+    <programlisting>
+    {$smarty.const._MY_CONST_VAL}
+    </programlisting>
+   </example>
+  </sect2>
 
-<title>èñïîëüçîâàíèå {$smarty.const}</title>
-<programlisting>
-{$smarty.const._MY_CONST_VAL}</programlisting>
-</example>
-		</sect2>
+  <sect2 id="language.variables.smarty.capture">
+   <title>{$smarty.capture}</title>
+   <para>
+    Äîñòóï ê âûâîäó, ñîõðàíåííîìó ñ ïîìîùüþ òýãîâ
+    {capture}..{/capture}, ìîæíî ïîëó÷èòü èñïîëüçóÿ ïåðåìåííóþ
+    {$smarty}. Ñìîòðèòå ðàçäåë <link
+    linkend="language.function.capture">capture</link> äëÿ ïðèìåðà.
+   </para>
+  </sect2>
 
-		<sect2 id="language.variables.smarty.capture">
-			<title>{$smarty.capture}</title>
-			<para>
-			Äîñòóï ê âûâîäó, ñîõðàíåííîìó ñ ïîìîùüþ òýãîâ
-			{capture}..{/capture}, ìîæíî ïîëó÷èòü èñïîëüçóÿ ïåðåìåííóþ
-			{$smarty}. Ñìîòðè ðàçäåë <link
-			linkend="language.function.capture">capture</link> äëÿ ïðèìåðà.
-			</para>
-		</sect2>
+  <sect2 id="language.variables.smarty.config">
+   <title>{$smarty.config}</title>
+   <para>
+    Ïåðåìåííàÿ {$smarty} ìîæåò áûòü èñïîëüçîâàíà äëÿ ïîëó÷åíèÿ çíà÷åíèé
+    ïåðåìåííûõ èç ôàéëîâ êîíôèãóðàöèé. {$smarty.config.foo} 
+    ÿâëÿåòñÿ ñèíîíèìîì äëÿ {#foo#}. Ñìîòðèòå ðàçäåë <link
+    linkend="language.function.config.load">config_load</link>
+    äëÿ ïðèìåðà.
+   </para>
+  </sect2>
 
-		<sect2 id="language.variables.smarty.config">
-			<title>{$smarty.config}</title>
-			<para>
-			Ïåðåìåííàÿ {$smarty} ìîæåò áûòü èñïîëüçîâàíà äëÿ ññûëàíèÿ
-			íà ïåðåìåííûå èç ôàéëîâ êîíôèãóðàöèé. {$smarty.config.foo} 
-			ÿâëÿåòñÿ ñèíîíèìîì äëÿ {#foo#}. Ñìîòðè ðàçäåë <link
-			linkend="language.function.config.load">config_load</link>
-			äëÿ ïðèìåðà.
-			</para>
-		</sect2>
+  <sect2 id="language.variables.smarty.loops">
+   <title>{$smarty.section}, {$smarty.foreach}</title>
+   <para>
+    Ïåðåìåííàÿ {$smarty} ìîæåò áûòü èñïîëüçîâàíà äëÿ èñïïîëüçîâàíèÿ
+    ñâîéñòâ ñòðóêòóð 'section' è 'foreach'. Ñìîòðè ðàçäåëû ïî
+    <link linkend="language.function.section">section</link> è
+    <link linkend="language.function.foreach">foreach</link>.
+   </para>
+  </sect2>
 
-        <sect2 id="language.variables.smarty.loops">
-			<title>{$smarty.section}, {$smarty.foreach}</title>
-			<para>
-			Ïåðåìåííàÿ {$smarty} ìîæåò áûòü èñïîëüçîâàíà äëÿ èñïïîëüçîâàíèÿ
-			ñâîéñòâ ñòðóêòóð 'section' è 'foreach'. Ñìîòðè ðàçäåëû ïî
-			<link linkend="language.function.section">section</link> è
-			<link linkend="language.function.foreach">foreach</link>.
-			</para>
-		</sect2>
+  <sect2 id="language.variables.smarty.template">
+   <title>{$smarty.template}</title>
+   <para>
+    Ýòà ïåðåìåííàÿ ñîäåðæèò èìÿ òåêóùåãî øàáëîíà.
+   </para>
+  </sect2>
 
-		<sect2 id="language.variables.smarty.template">
-			<title>{$smarty.template}</title>
-			<para>
-			Ýòà ïåðåìåííàÿ ñîäåðæèò èìÿ òåêóùåãî øàáëîíà.
-			</para>
-		</sect2>
-
-</sect1>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

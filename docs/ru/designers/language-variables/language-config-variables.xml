@@ -1,18 +1,20 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-       <sect1 id="language.config.variables">
-			<title>Ïåðåìåííûå ôàéëîâ êîíôèãóðàöèè</title>
-			<para>
-			 Äëÿ èñïîëüçîâàíèÿ ïåðåìåííûõ, ïîëó÷åííûõ èç ôàéëîâ êîíôèãóðàèè, 
-			 íåîáõîäèìî çàêëþ÷èòü èõ èìÿ ìåæäó çíàêàìè # èëè ÷åðåç ïåðåìåííóþ 
-			 <link linkend="language.variables.smarty.config">$smarty.config</link>.
-			 Äëÿ óïîòðåáëåíèÿ èõ â êà÷åñòâå âíåäðåííûûõ ïåðåìåííûõ ìîæíî 
-			 èñïîëüçîâàòü òîëüêî âòîðîé ñïîñîá.
-			</para>
-<example>
 
-<title>Ïåðåìåííûå èç ôàéëîâ êîíôèãóðàöèè</title>
-<programlisting>
+<sect1 id="language.config.variables">
+ <title>Ïåðåìåííûå ôàéëîâ êîíôèãóðàöèè</title>
+ <para>
+  Äëÿ èñïîëüçîâàíèÿ ïåðåìåííûõ, ïîëó÷åííûõ èç ôàéëîâ êîíôèãóðàèè, 
+  íåîáõîäèìî çàêëþ÷èòü èõ èìÿ ìåæäó çíàêàìè # èëè ÷åðåç ïåðåìåííóþ 
+  <link linkend="language.variables.smarty.config">$smarty.config</link>.
+  Äëÿ óïîòðåáëåíèÿ èõ â êà÷åñòâå âíåäðåííûûõ ïåðåìåííûõ ìîæíî 
+  èñïîëüçîâàòü òîëüêî âòîðîé ñïîñîá.
+ </para>
+ <example>
+  <title>Ïåðåìåííûå èç ôàéëîâ êîíôèãóðàöèè</title>
+   <programlisting>
+<![CDATA[
+ 
 foo.conf:
 
 pageTitle = "This is mine"
@@ -24,56 +26,58 @@ rowBgColor = "#cccccc"
 index.tpl:
 
 {config_load file="foo.conf"}
-&lt;html&gt;
-&lt;title&gt;{#pageTitle#}&lt;/title&gt;
-&lt;body bgcolor="{#bodyBgColor#}"&gt;
-&lt;table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}"&gt;
-&lt;tr bgcolor="{#rowBgColor#}"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<html>
+<title>{#pageTitle#}</title>
+<body bgcolor="{#bodyBgColor#}">
+<table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
+<tr bgcolor="{#rowBgColor#}">
+<td>First</td>
+<td>Last</td>
+<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
 
 index.tpl: (alternate syntax)
 
 {config_load file="foo.conf"}
-&lt;html&gt;
-&lt;title&gt;{$smarty.config.pageTitle}&lt;/title&gt;
-&lt;body bgcolor="{$smarty.config.bodyBgColor}"&gt;
-&lt;table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}"&gt;
-&lt;tr bgcolor="{$smarty.config.rowBgColor}"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<html>
+<title>{$smarty.config.pageTitle}</title>
+<body bgcolor="{$smarty.config.bodyBgColor}">
+<table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}">
+<tr bgcolor="{$smarty.config.rowBgColor}">
+<td>First</td>
+<td>Last</td>
+<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
 
 
 OUTPUT: (same for both examples)
 
-&lt;html&gt;
-&lt;title&gt;This is mine&lt;/title&gt;
-&lt;body bgcolor="#eeeeee"&gt;
-&lt;table border="3" bgcolor="#bbbbbb"&gt;
-&lt;tr bgcolor="#cccccc"&gt;
-	&lt;td&gt;First&lt;/td&gt;
-	&lt;td&gt;Last&lt;/td&gt;
-	&lt;td&gt;Address&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</programlisting>
-</example>
-			<para>
-			Ïåðåìåííûå èç ôàéëîâ êîíôèãóðàöèè íå ìîãóò áûòü èñïîëüçîâàíû,
-			ïîêà îíè íå áóäóò çàãðóæåíû. Ýòà ïðîöåäóðà îïèñàíà äàëåå
-			â äàííîì ðóêîâîäñòâå (<command>config_load</command>).
-			</para>
+<html>
+<title>This is mine</title>
+<body bgcolor="#eeeeee">
+<table border="3" bgcolor="#bbbbbb">
+<tr bgcolor="#cccccc">
+<td>First</td>
+<td>Last</td>
+<td>Address</td>
+</tr>
+</table>
+</body>
+</html>
+]]>
+   </programlisting>
+ </example>
+ <para>
+  Ïåðåìåííûå èç ôàéëîâ êîíôèãóðàöèè íå ìîãóò áûòü èñïîëüçîâàíû,
+  ïîêà îíè íå áóäóò çàãðóæåíû. Ýòà ïðîöåäóðà îïèñàíà äàëåå
+  â äàííîì ðóêîâîäñòâå (<command>config_load</command>).
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

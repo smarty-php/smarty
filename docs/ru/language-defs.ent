@@ -1,6 +1,6 @@
 <!-- $Revision$ -->
 
-<!ENTITY SMARTYManual      "Smarty Manual">
-<!ENTITY SMARTYDesigners   "Smarty For Template Designers">
-<!ENTITY SMARTYProgrammers "Smarty For Programmers">
+<!ENTITY SMARTYManual      "Руководство по Smarty">
+<!ENTITY SMARTYDesigners   "Smarty для дизайнеров шаблонов">
+<!ENTITY SMARTYProgrammers "Smarty для программистов">
 <!ENTITY Appendixes        "Приложения">
