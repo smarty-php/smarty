@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.section">
  <title>section,sectionelse</title>
  <informaltable frame="all">
@@ -29,11 +29,10 @@
    </row>
    <row>
     <entry>loop</entry>
-    <entry>[$variable_name]</entry>
+    <entry>mixed</entry>
     <entry>Да</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя переменной цикла, для определения
-    количества итераций цикла.</entry>
+    <entry>Значение, определяющее количество итераций цикла.</entry>
    </row>
    <row>
     <entry>start</entry>
