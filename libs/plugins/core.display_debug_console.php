@@ -21,9 +21,9 @@ function smarty_core_display_debug_console($params, &$this)
 
 	if(empty($this->debug_tpl)) {
 		// set path to debug template from SMARTY_DIR
-		$this->debug_tpl = 'file:' . SMARTY_DIR . 'debug.tpl';
+		$this->debug_tpl = SMARTY_DIR . 'debug.tpl';
 		if($this->security && is_file($this->debug_tpl)) {
-    		$secure_dir[] = $this->debug_tpl;
+    		$this->secure_dir[] = $this->debug_tpl;
 		}
 	}
 
@@ -45,6 +45,8 @@ function smarty_core_display_debug_console($params, &$this)
 		include($_compile_path);
 		$_results = ob_get_contents();
 		ob_end_clean();
+	} else {
+		$_results = '';
 	}
 	
 	$this->force_compile = $_force_compile_orig;
