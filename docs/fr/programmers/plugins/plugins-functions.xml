@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="plugins.functions"><title>Les fonctions de templates</title>
-<funcsynopsis>
- <funcprototype>
-  <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
-  <paramdef>array <parameter>$params</parameter></paramdef>
-  <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
- </funcprototype>
-</funcsynopsis>
-<para>
- Tous les attributs passés aux fonctions de template a partir du template
- sont contenus dans le tableau associatif <parameter>$params</parameter>.
- Vous pouvez accéder a ces valeurs soit directement, par exemple
- <varname>$params['start']</varname>, soit en utilisant
- <varname>extract($params)</varname> pour les importer dans la table
- des symboles.
-</para>
-<para>
- Le retour de la fonction sera substituée a la balise de fonction
- du template (fonction <function>fetch</function> par exemple). Sinon,
- la fonction peut simplement accomplir une autre tGche sans sortie
- (la fonction <function>assign</function> par exemple)
-</para>
-<para>
- Si la fonction a besoin d'assigner des variables aux templates ou d'utiliser
- d'autres fonctionnalités fournies par Smarty, elle peut recevoir un
- objet <parameter>$smarty</parameter> pour cela.
-</para>
-<para>
- Référez-vous aussi a :
- <link linkend="api.register.function">register_function()</link>,
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<sect1 id="plugins.functions">
+ <title>Les fonctions de templates</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
+   <paramdef>array <parameter>$params</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Tous les attributs passés aux fonctions de template à partir du template
+  sont contenus dans le tableau associatif <parameter>$params</parameter>.
+ </para>
+ <para>
+  Le retour de la fonction sera substituée à la balise de fonction
+  du template (fonction <function>fetch</function> par exemple). Sinon,
+  la fonction peut simplement accomplir une autre tâche sans sortie
+  (la fonction <function>assign</function> par exemple).
+ </para>
+ <para>
+  Si la fonction a besoin d'assigner des variables aux templates ou d'utiliser
+  d'autres fonctionnalités fournies par Smarty, elle peut recevoir un
+  objet <parameter>$smarty</parameter> pour celà.
+ </para>
+ <para>
+  Référez-vous aussi à :
+  <link linkend="api.register.function">register_function()</link>,
   <link linkend="api.unregister.function">unregister_function()</link>.
-  </para>
-  <para>
-   <example>
-    <title>fonction de plugin avec sortie</title>
-<programlisting>
-&lt;?php
+ </para>
+ <para>
+  <example>
+   <title>Fonction de plugin avec sortie</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -47,7 +45,7 @@
  * Rôle :     renvoie une phrase magique au hasard
  * -------------------------------------------------------------
  */
-function smarty_function_eightball($params, &amp;$smarty)
+function smarty_function_eightball($params, &$smarty)
 {
     $answers = array('Yes',
                      'No',
@@ -59,20 +57,24 @@ function smarty_function_eightball($params, &amp;$smarty)
     $result = array_rand($answers);
     return $answers[$result];
 }
-?&gt;</programlisting>
-   </example>
-  </para>
-  <para>
-   peut être utilisée dans le template de la faton suivante :
-  </para>
-<programlisting>
+?>
+]]>
+   </programlisting>
+  </example>
+ </para>
+ <para>
+  peut être utilisée dans le template de la façon suivante :
+ </para>
+ <programlisting>
 Question: Will we ever have time travel?
-Answer: {eightball}.</programlisting>
-  <para>
-   <example>
-    <title>fonction de plugin sans sortie</title>
-<programlisting>
-&lt;?php
+Answer: {eightball}.
+ </programlisting>
+ <para>
+  <example>
+   <title>Fonction de plugin sans sortie</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -82,7 +84,7 @@ Answer: {eightball}.</programlisting>
  * Purpose :  assigne une valeur a une variable de template
  * -------------------------------------------------------------
  */
-function smarty_function_assign($params, &amp;$smarty)
+function smarty_function_assign($params, &$smarty)
 {
     extract($params);
 
@@ -98,10 +100,12 @@ function smarty_function_assign($params, &amp;$smarty)
 
     $smarty->assign($var, $value);
 }
-?&gt;</programlisting>
-   </example>
-  </para>
- </sect1>
+?>
+]]>
+   </programlisting>
+  </example>
+ </para>
+</sect1>
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml

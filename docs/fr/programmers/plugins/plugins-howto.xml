@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
 <sect1 id="plugins.howto">
  <title>Comment fonctionnent les plugins</title>
  <para>
-  Les plugins sont toujours chargés a la demande. Seuls les modificateurs
+  Les plugins sont toujours chargés à la demande. Seuls les modificateurs
   de variables, les ressources, etc invoqués dans les scripts de templates
   seront chargés. De plus, chaque plugin n'est chargé qu'une fois, et ce
   même si vous avez plusieurs instances de Smarty qui tournent dans
@@ -19,9 +19,10 @@
   sont exécutés dépend de l'ordre dans lequel ils sont enregistrés ou chargés.
  </para>
  <para>
-  Il n'existe qu'un seul répertoire de plugin (pour des raisons de performances).
-  Pour installer un plugin, copiez-le simplement dans le répertoire et Smarty
-  l'utilisera automatiquement.
+  Le <link linkend="variable.plugins.dir">répertoire de plugin</link> peut
+  être une chaîne de caractères contenant un chemin ou un tableau contenant
+  de multiples chemins. Pour installer un plugin, placez-le simplement
+  dans un de ces dossiers et Smarty l'utilisera automatiquement.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

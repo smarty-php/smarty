@@ -57,7 +57,7 @@ $smarty->display('index.tpl',$my_cache_id);
   <link linkend="api.clear.cache">clear_cache()</link>.
  </para>
  <example>
-  <title>passer un  cache_id a is_cached()</title>
+  <title>Passer un  cache_id a is_cached()</title>
   <programlisting>
 <![CDATA[
 require('Smarty.class.php');
@@ -68,9 +68,9 @@ $smarty->caching = true;
 $my_cache_id = $_GET['article_id'];
 
 if(!$smarty->is_cached('index.tpl',$my_cache_id)) {
-	// pas de fichier de cache dispo, on assigne donc les variables
-	$contents = get_database_contents();
-	$smarty->assign($contents);
+  // pas de fichier de cache dispo, on assigne donc les variables
+  $contents = get_database_contents();
+  $smarty->assign($contents);
 }
 
 $smarty->display('index.tpl',$my_cache_id);
@@ -83,7 +83,7 @@ $smarty->display('index.tpl',$my_cache_id);
   a clear_cache().
  </para>
  <example>
-  <title>effacement de tous les fichiers de cache pour un identifiant de cache particulier</title>
+  <title>Effacement de tous les fichiers de cache pour un identifiant de cache particulier</title>
   <programlisting>
 <![CDATA[
 require('Smarty.class.php');

@@ -1,61 +1,79 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="plugins.block.functions"><title>Fonctions de blocs</title>
-<funcsynopsis>
- <funcprototype>
-  <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
-  <paramdef>array <parameter>$params</parameter></paramdef>
-  <paramdef>mixed <parameter>$content</parameter></paramdef>
-  <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
- </funcprototype>
-</funcsynopsis>
-<para>
- Les fonctions de blocs sont des fonctions de la forme {func} .. {/func}.
- En d'autres mots, elles englobent des blocs de template et opérent sur les
- contenus de ces blocs. Les fonctions de blocs ont la priorité sur les
- fonctions utilisateurs de même nom, ce qui signifie que vous ne
- pouvez avoir une fonction utilisateur {func} et une fonction de bloc
- {func} .. {/func}.
-</para>
-<para>
- L'implémentation de votre fonction est appelée deux fois par Smarty :
- une fois pour la balise ouvrante et une autre fois pour la balise
- fermante.
-</para>
-<para>
- Seule la balise ouvrante d'une fonction de bloc peut avoir des attributs.
- Tous les attributs passés par le template aux fonctions de templates sont
- contenues dans le tableau associatif <parameter>$params</parameter>.
- Vous pouvez accéder a ces valeurs soit directement, par exemple
- <varname>$params['start']</varname>, soit en utilisant
- <varname>extract($params)</varname> pour les importer dans la table
- des symboles. Votre fonction a aussi accés aux attributs de la balise
- ouvrante quand c'est la balise fermante qui est exécutée.
-</para>
-<para>
- La valeur de la variable <parameter>$content</parameter> est différente
- selon si votre fonction est appelée pour la balise ouvrante ou la
- balise fermante. Si c'est pour la balise ouvrante, elle sera a
- <literal>null</literal> et si c'est la balise fermante elle sera
- égale au contenu du bloc de template. Notez que le bloc de template
- aura déjà été exécuté par Smarty, vous recevrez donc la sortie du
- template et non sa source.
-</para>
-<para>
- Si vous imbriqué des fonctions de bloc, il est possible de connaetre
- la fonction de bloc parente grGce a la variable <varname>$smarty->_tag_stack</varname>.
- Faites un var_dump() dessus et la structure devrait apparaetre.
-</para>
-<para>
- Regardez aussi :
- <link linkend="api.register.block">register_block()</link>,
+<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<sect1 id="plugins.block.functions">
+ <title>Fonctions de blocs</title>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
+   <paramdef>array <parameter>$params</parameter></paramdef>
+   <paramdef>mixed <parameter>$content</parameter></paramdef>
+   <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Les fonctions de blocs sont des fonctions de la forme {func} .. {/func}.
+  En d'autres mots, elles englobent des blocs de template et opèrent sur les
+  contenus de ces blocs. Les fonctions de blocs ont la priorité sur les
+  fonctions utilisateurs de même nom, ce qui signifie que vous ne
+  pouvez avoir une fonction utilisateur {func} et une fonction de bloc
+  {func} .. {/func}.
+ </para>
+ <para>
+  Par défaut, l'implémentation de votre fonction est appelée deux fois par Smarty :
+  une fois pour la balise ouvrante et une autre fois pour la balise
+  fermante (voir <literal>&amp;$repeat</literal> ci-dessous 
+  sur la façon de modifier ce comportement).
+ </para>
+ <para>
+  Seule la balise ouvrante d'une fonction de bloc peut avoir des attributs.
+  Tous les attributs passés par le template aux fonctions de templates sont
+  contenus dans le tableau associatif <parameter>$params</parameter>.
+  Vous pouvez accéder à ces valeurs directement par
+  <varname>$params['start']</varname>.
+  Votre fonction a aussi accès aux attributs de la balise
+  ouvrante quand c'est la balise fermante qui est exécutée.
+ </para>
+ <para>
+  La valeur de la variable <parameter>$content</parameter> est différente
+  selon si votre fonction est appelée pour la balise ouvrante ou la
+  balise fermante. Si c'est pour la balise ouvrante, elle sera à
+  <literal>null</literal> et si c'est la balise fermante, elle sera
+  égale au contenu du bloc de template. Notez que le bloc de template
+  aura déjà été exécuté par Smarty, vous recevrez donc la sortie du
+  template et non sa source.
+ </para>
+
+  <para>
+   Le paramètre <parameter>&amp;$repeat</parameter> est passé
+   par référence à la fonction d'implémentation et fournit la possibilité
+   de contrôler le nombre d'affichage du bloc. Par défaut, 
+   <parameter>$repeat</parameter> vaut <literal>true</literal>
+   lors du premier appel à la fonction de bloc (le bloc d'ouverture du tag) et
+   <literal>false</literal> lors de tous les autres appels à la fonction
+   de bloc (le bloc de fermeture du tag). Chaque fois que la fonction
+   d'implémentation retourne avec le paramètre 
+   <parameter>&amp;$repeat</parameter> vallant true, le contenu situé
+   entre {func} .. {/func} est évalué et la fonction d'implémentation est appelé
+   une nouvelle fois avec le nouveau bloc de contenu en tant que paramètre
+   <parameter>$content</parameter>.
+ </para>
+
+ <para>
+  Si vous imbriqué des fonctions de bloc, il est possible de connaître
+  la fonction de bloc parente grâce à la variable <varname>$smarty->_tag_stack</varname>.
+  Faîtes un var_dump() dessus et la structure devrait apparaître.
+ </para>
+ <para>
+  Regardez aussi :
+  <link linkend="api.register.block">register_block()</link>,
   <link linkend="api.unregister.block">unregister_block()</link>.
-  </para>
-  <example>
-   <title>fonction de bloc</title>
-<programlisting>
-&lt;?php
+ </para>
+ <example>
+  <title>Fonction de bloc</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -72,9 +90,12 @@ function smarty_block_translate($params, $content, &amp;$smarty)
         // fait une traduction de $content
         echo $translation;
     }
-}</programlisting>
-  </example>
- </sect1>
+}
+?>
+]]>
+  </programlisting>
+ </example>
+</sect1>
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml

@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
-<sect1 id="plugins.modifiers"><title>Modificateurs</title>
-<para>
- Les modificateurs sont des petites fonctions appliquées a une variable
- de template avant qu'elle ne soit affichée ou utilisée dans un autre contexte.
- Les modificateurs peuvent être chaenés entre eux.
-</para>
-<funcsynopsis>
- <funcprototype>
-  <funcdef>mixed <function>smarty_modifier_<replaceable>name</replaceable></function></funcdef>
-  <paramdef>mixed <parameter>$value</parameter></paramdef>
-  <paramdef>[mixed <parameter>$param1</parameter>, ...]</paramdef>
- </funcprototype>
-</funcsynopsis>
-<para>
- Le premier paramétre passé au modificateur est la valeur
- sur laquelle le modificateur est supposé opérer. Les autres paramétres
- peuvent être optionnels, dépendant de quel genre d'opération doit être
- effectué.
-</para>
-<para>
- Le modificateur doit retourner le résultat de son exécution.
-</para>
-<para>
- Regardez aussi
- <link linkend="api.register.modifier">register_modifier()</link>,
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<sect1 id="plugins.modifiers">
+ <title>Modificateurs</title>
+ <para>
+  Les modificateurs sont des petites fonctions appliquées à une variable
+  de template avant qu'elle ne soit affichée ou utilisée dans un autre contexte.
+  Les modificateurs peuvent être chaînés entre eux.
+ </para>
+ <funcsynopsis>
+  <funcprototype>
+   <funcdef>mixed <function>smarty_modifier_<replaceable>name</replaceable></function></funcdef>
+   <paramdef>mixed <parameter>$value</parameter></paramdef>
+   <paramdef>[mixed <parameter>$param1</parameter>, ...]</paramdef>
+  </funcprototype>
+ </funcsynopsis>
+ <para>
+  Le premier paramètre passé au modificateur est la valeur
+  sur laquelle le modificateur est supposé opérer. Les autres paramétres
+  peuvent être optionnels, dépendant de quel genre d'opération doit être
+  effectué.
+ </para>
+ <para>
+  Le modificateur doit retourner le résultat de son exécution.
+ </para>
+ <para>
+  Lisez également
+  <link linkend="api.register.modifier">register_modifier()</link> et
   <link linkend="api.unregister.modifier">unregister_modifier()</link>.
+ </para>
+ <example>
+  <title>Plugin modificateur simple</title>
+  <para>
+   Ce plugin est un alias d'une fonction PHP. Il n'a aucun paramètre
+   supplémentaires.
   </para>
-  <example>
-   <title>plugin modificateur simple</title>
-   <para>
-    Ce plugin est un alias d'une fonction PHP. Il n'a aucun paramétre
-    supplémentaires.
-   </para>
-<programlisting>
-&lt;?php
+  <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -49,13 +51,16 @@ function smarty_modifier_capitalize($string)
 {
     return ucwords($string);
 }
-?&gt;</programlisting>
-  </example>
-  <para></para>
-  <example>
-   <title>un plugin modificateur un peu plus complexe</title>
-<programlisting>
-&lt;?php
+?>
+]]>
+  </programlisting>
+ </example>
+ <para></para>
+ <example>
+  <title>Un plugin modificateur un peu plus complexe</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -84,9 +89,11 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     } else
         return $string;
 }
-?&gt;</programlisting>
-  </example>
- </sect1>
+?>
+]]>
+  </programlisting>
+ </example>
+</sect1>
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
 <sect1 id="plugins.naming.conventions">
  <title>Conventions de nommage</title>
  <para>
   Les fichiers et les fonctions de plugins doivent suivre une convention
-  de nommage trés spécifique pour être localisés par Smarty.
+  de nommage très spécifique pour être localisés par Smarty.
  </para>
  <para>
-  Les fichiers de plugins doivent être nommés de la faton suivante :
+  Les fichiers de plugins doivent être nommés de la façon suivante :
   <blockquote>
    <para>
     <filename>
@@ -18,7 +18,7 @@
   </blockquote>
  </para>
  <para>
-  Oú <literal>type</literal> est l'une des valeurs suivantes :
+  Où <literal>type</literal> est l'une des valeurs suivantes :
   <itemizedlist spacing="compact">
    <listitem><simpara>function</simpara></listitem>
    <listitem><simpara>modifier</simpara></listitem>
@@ -42,7 +42,7 @@
  </para>
  <para>
   Les fonctions de plugins dans les fichiers de plugins doivent être
-  nommées de la faton suivante :
+  nommées de la façon suivante :
   <blockquote>
    <para>
     <function>smarty_<replaceable>type</replaceable>_<replaceable>nom</replaceable></function>
@@ -54,8 +54,8 @@
   que précédemment.
  </para>
  <para>
-  Smarty donnera des messages d'erreur approprié si le fichier de plugin
-  n'est pas trouvé, ou si le fichier ou la fonction de plugin ne sont
+  Smarty donnera des messages d'erreurs appropriés si le fichier de plugin
+  n'est pas trouvé ou si le fichier ou la fonction de plugin ne sont
   pas nommés correctement.
  </para>
 </sect1>

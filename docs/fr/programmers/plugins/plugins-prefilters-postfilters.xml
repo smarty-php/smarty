@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
 <sect1 id="plugins.prefilters.postfilters">
  <title>filtres de pré-compilation/filtres de post-compilation</title>
  <para>
-  Les filtres de pré-compilation et les filtres de post-compilation ont des concepts trés
+  Les filtres de pré-compilation et les filtres de post-compilation ont des concepts très
   proches. Ils différent dans leur exécution, plus précisément dans le
-  moment oú ils sont exécutés.
+  moment où ils sont exécutés.
  </para>
  <funcsynopsis>
   <funcprototype>
@@ -17,9 +17,9 @@
  </funcsynopsis>
  <para>
   Les filtres de pré-compilation sont utilisés pour transformer la source d'un template
-  juste avant la compilation. Le premier paramétre passé a la fonction
+  juste avant la compilation. Le premier paramètre passé à la fonction
   de filtre de pré-compilation est la source du template, éventuellement modifiée par
-  d'autres filtre de pré-compilations. Le plugin est supposé retourner la source modifiée.
+  d'autres filtres de pré-compilations. Le plugin est supposé retourner la source modifiée.
   Notez que cette source n'est sauvegardée nulle part, elle est seulement
   utilisé pour la compilation.
  </para>
@@ -32,16 +32,17 @@
  </funcsynopsis>
  <para>
   Les filtres de post-compilation sont utilisés pour modifier la sortie du template
-  (le code PHP) juste aprés que la compilation a été faite mais juste
-  avant que le template ne soit sauvegardé sur le systéme de fichiers.
-  Le premier paramétre passé a la fonction de filtre de post-compilation est le code
-  du template compilé, éventuellement déja modifié par d'autres filtre de post-compilations.
-  Le plugin est censé retourner la version modifié du code.
+  (le code PHP) juste après que la compilation a été faîte mais juste
+  avant que le template ne soit sauvegardé sur le système de fichiers.
+  Le premier paramètre passé à la fonction de filtre de post-compilation est le code
+  du template compilé, éventuellement déja modifié par d'autres filtres de post-compilations.
+  Le plugin est censé retourner la version modifiée du code.
  </para>
  <example>
-  <title>plugin de filtre de post-compilation</title>
-<programlisting>
-&lt;?php
+  <title>Plugin de filtre de post-compilation</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -51,17 +52,19 @@
  * Rôle :     Passe les balises HTML en minuscules.
  * -------------------------------------------------------------
  */
- function smarty_prefilter_pre01($source, &amp;$smarty)
+ function smarty_prefilter_pre01($source, &$smarty)
  {
-     return preg_replace('!&lt;(\w+)[^&gt;]+&gt;!e', 'strtolower("$1")', $source);
+     return preg_replace('!<(\w+)[^>]+>!e', 'strtolower("$1")', $source);
  }
-?&gt;</programlisting>
+?>
+]]>
+  </programlisting>
  </example>
  <para></para>
  <example>
-  <title>plugin de filtre de post-compilation</title>
-<programlisting>
-&lt;?php
+  <title>Plugin de filtre de post-compilation</title>
+  <programlisting role="php">
+<![CDATA[
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -72,12 +75,14 @@
  *            du template.
  * -------------------------------------------------------------
  */
- function smarty_postfilter_post01($compiled, &amp;$smarty)
+ function smarty_postfilter_post01($compiled, &$smarty)
  {
-     $compiled = "&lt;pre&gt;\n&lt;?php print_r(\$this-&gt;get_template_vars()); ?&gt;\n&lt;/pre&gt;" . $compiled;
+     $compiled = "<pre>\n<?php print_r(\$this->get_template_vars()); ?>\n</pre>" . $compiled;
      return $compiled;
  }
-?&gt;</programlisting>
+?>
+]]>
+  </programlisting>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
