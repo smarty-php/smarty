@@ -1,3 +1,5 @@
+    - enable error messages for config_load errors,
+      use $this->config_class for loading class name (Monte)
     - fix html_options to not escape already escaped entities (Monte)
     - send Last-Modified header on cache creation (Monte)
     - check strict syntax of function attributes (Monte) 

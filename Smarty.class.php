@@ -1269,14 +1269,14 @@ class Smarty
         if($_compile_config) {
             if(!is_object($this->_conf_obj)) {
                 require_once SMARTY_DIR . $this->config_class . '.class.php';
-                $this->_conf_obj = new Config_File($_config_dir);
+                $this->_conf_obj = new $this->config_class($_config_dir);
                 $this->_conf_obj->overwrite = $this->config_overwrite;
                 $this->_conf_obj->booleanize = $this->config_booleanize;
                 $this->_conf_obj->read_hidden = $this->config_read_hidden;
                 $this->_conf_obj->fix_newlines = $this->config_fix_newlines;
                 $this->_conf_obj->set_path = $_config_dir;
             }
-            if($_config_vars = @array_merge($this->_conf_obj->get($file),
+            if($_config_vars = array_merge($this->_conf_obj->get($file),
                     $this->_conf_obj->get($file, $section))) {
                 if(function_exists('var_export')) {
                     $_compile_data = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; return true; ?>';                    
