@@ -1,5 +1,6 @@
+    - added nl2br modifier to distribution (Monte)
     - added html_image to distribution (Monte)
-    - added cat modifier (Monte)
+    - added cat modifier to distribution (Monte)
     - added << >> <> support to if statments (SMK, Monte)
     - fix _assign_smarty_interface to not overwrite keys
       other than 'request' (Jerome Poudevigne, Monte)
