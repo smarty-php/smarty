@@ -1,3 +1,13 @@
+2003-02-18  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php:
+      support foo->bar[index] syntax
+
+    * Smarty_Compiler.class.php:
+      allow $foo->bar[0] syntax
+
 2003-02-17  Monte Ohrt  <monte@ispi.net>
 
     * plugins/modifier.escape.php:
