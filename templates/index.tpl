@@ -9,6 +9,8 @@
 Title: {#title#|capitalize}
 {if #bold#}</b>{/if}
 
+Tooltip example: Move your mouse over the <A HREF="" {tooltip id="help"} onclick="return false;">Help</A> link to see a tooltip pop-up.
+
 the value of $SCRIPT_NAME is {$SCRIPT_NAME} 
 
 {* A simple variable test. print $Name in uppercase *}

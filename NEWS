@@ -1,3 +1,7 @@
+    - added overLib functionality (Monte)
+    - updated debug console with config file vars (Monte)
+    - added debugging url control (Monte)
+    - added 'quotes' type to escape modifier (Monte, Mike Krus)
     - added 'total' and 'iteration' section properties. (Andrei)
     - added 'start', 'max', and step section attributes/properties. (Andrei)
     - fixed a bug with security checking of functions inside {if} tags. (Andrei)

@@ -1,7 +1,17 @@
+1.4.4
+-----
+
+A few bug fixes, debugging console function for control via URL, and overLib
+integration.
+
 1.4.3
 -----
-The major additions were the security system and the debugging console. Several
-bugs were fixed. See Changelog for more details.
+
+This release has a few bug fixes and several enhancements. Smarty now supports
+template security for third-party template editing. These features disallow the
+ability for someone to execute commands or PHP code from the template language.
+Smarty also now has a built-in debugging console, which is a javascript pop-up
+window that displays all the included template names and assigned variables.
 
 1.4.2
 -----

@@ -309,6 +309,19 @@ chmod 700 cache
                 NOTE: This was added to Smarty 1.4.3.
 			</para>
 		</sect2>
+		<sect2 id="setting.debugging.ctrl">
+			<title>$debugging_ctrl</title>
+			<para>
+				This allows alternate ways to enable debugging. NONE means no
+				alternate methods are allowed. URL means when the keyword
+				SMARTY_DEBUG is found in the QUERY_STRING, debugging is enabled
+				for that invocation of the script. If $debugging is true, this
+				value is ignored.
+			</para>
+			<para>
+                NOTE: This was added to Smarty 1.4.4.
+			</para>
+		</sect2>
 		<sect2 id="setting.global.assign">
 			<title>$global_assign</title>
 			<para>
@@ -3560,7 +3573,7 @@ OUTPUT:
         NOTE: if you apply a modifier to an array instead of a single value
         variable, the modifier will be applied to every value in that array. If
         you really want the entire array passed to the modifier, you must
-        prepend it with an "@" sign like so: {$articleTitle} (this will
+        prepend it with an "@" sign like so: {$articleTitle|@count} (this will
         print out the number of elements in the $articleTitle array.)
 		</para>
 		<sect2>
@@ -4330,14 +4343,17 @@ s m o k e r s   a r e   p. . .
    <title>Debugging Console</title>
    <para>
    There is a dubugging console included with Smarty. The console informs you
-   of all the included templates and assigned variables for the current
-   invocation of the template. A template named "debug.tpl" is included with
-   the distribution of Smarty which controls the formatting of the console. Set
-   $debugging to true in Smarty, and if needed set $debug_tpl to the template
-   resource path for debug.tpl (this is in $template_dir by default.) When you
-   load the page, a javascript console window should pop up and give you the
-   names of all the included templates and assigned variables for the current
-   page. To disable the debugging console, set $debugging to false.
+   of all the included templates, assigned variables and config file variables
+   for the current invocation of the template. A template named "debug.tpl" is
+   included with the distribution of Smarty which controls the formatting of
+   the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
+   to the template resource path for debug.tpl (this is in $template_dir by
+   default.) When you load the page, a javascript console window should pop up
+   and give you the names of all the included templates and assigned variables
+   for the current page. To disable the debugging console, set $debugging to
+   false. You can also temporarily turn on the debugging console by putting
+   SMARTY_DEBUG in the URL if you enable this option with <link
+   linkend="api.debugging.ctrl">$debugging_ctrl</link>.
    </para>
    <para>
    TECHNICAL NOTE: The debugging console does not work when you use the fetch()

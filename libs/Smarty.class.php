@@ -62,7 +62,11 @@ class Smarty
 
     var $debugging       =  false;             // enable debugging console true/false
     var $debug_tpl       =  'file:debug.tpl';  // path to debug console template
-        
+	var $debugging_ctrl	 =  'NONE';			   // Possible values:
+											   // NONE - no debug control allowed
+											   // URL - enable debugging when keyword
+											   //       SMARTY_DEBUG is found in $QUERY_STRING
+	        
     var $global_assign   =  array( 'HTTP_SERVER_VARS' => array( 'SCRIPT_NAME' )
                                  );     // variables from the GLOBALS array
                                         // that are implicitly assigned
@@ -128,6 +132,8 @@ class Smarty
                                     'fetch'             => 'smarty_func_fetch',
                                     'counter'           => 'smarty_func_counter',
                                     'assign'            => 'smarty_func_assign',
+                                    'overlib_init'      => 'smarty_func_overlib_init',
+                                    'overlib'           => 'smarty_func_overlib',
                                     'assign_debug_info' => 'smarty_func_assign_debug_info'            
                                  );
     
@@ -578,7 +584,7 @@ class Smarty
 
         if ($display) {
             if (isset($results)) { echo $results; }
-            if ($this->debugging) { echo $this->_generate_debug_output(); }
+            if ($this->debugging || ($this->debugging_ctrl == 'URL' && (!empty($QUERY_STRING) && strstr('SMARTY_DEBUG',$QUERY_STRING)))) { echo $this->_generate_debug_output(); }
             return;
         } else {
             if (isset($results)) { return $results; }
