@@ -139,7 +139,7 @@ class Smarty
     function Smarty()
     {
         foreach ($this->global_assign as $var_name) {
-            if(isset($GLOBALS[$var_name])) {
+            if (isset($GLOBALS[$var_name])) {
                 $this->assign($var_name, $GLOBALS[$var_name]);
             }
         }
@@ -194,8 +194,8 @@ class Smarty
 \*======================================================================*/
     function clear_assign($tpl_var)
     {
-        if(is_array($tpl_var))
-            foreach($tpl_var as $curr_var)
+        if (is_array($tpl_var))
+            foreach ($tpl_var as $curr_var)
                 unset($this->_tpl_vars[$curr_var]);
         else
             unset($this->_tpl_vars[$tpl_var]);
@@ -369,7 +369,7 @@ class Smarty
 
         extract($this->_tpl_vars);
 
-        if($this->show_info_header)
+        if ($this->show_info_header)
             $info_header = '<!-- Smarty '.$this->version.' '.strftime("%Y-%m-%d %H:%M:%S %Z").' -->'."\n\n";
         else
             $info_header = "";            
@@ -390,16 +390,16 @@ class Smarty
             ob_end_clean();
         }
 
-        if($this->caching) {
+        if ($this->caching) {
             $this->_write_file($cache_file, $results, true);
             $results = $this->_process_cached_inserts($results);
         }
                 
         if ($display) {
-            if(isset($results)) { echo $results; }
+            if (isset($results)) { echo $results; }
             return;
         } else {
-            if(isset($results)) { return $results; }
+            if (isset($results)) { return $results; }
         }
     }   
 

@@ -1,19 +1,19 @@
 1.4.0
 -----
 
-The most significant change to Smarty 1.4.0 is the parse engine. Instead of
-compiling all the templates up front, it now compiles them at runtime. This has
-several advantages. First off, there is no longer a need to have a single
+The most significant change to Smarty 1.4.0 is the compilation process. Instead
+of compiling all the templates up front, it now compiles them at runtime. This
+has several advantages. First off, there is no longer a need to have a single
 template directory. You can now have arbitrary template sources, such as
-multiple directories or even database calls. This also speeds the performance
-of Smarty when $compile_check is enabled, since it is only checking the
-template that is being executed instead of everything found in the template
-directory. The $tpl_file_ext variable was removed since this is no longer
-needed, so templates can be named anything you like with any extension. Smarty
-makes use of the PEAR database abstraction class for obtaining templates from
-databases. Now aren't you glad we require PEAR :-)
+multiple directories or even database calls. This also speeds the performance of
+Smarty when $compile_check is enabled, since it is only checking the template
+that is being executed instead of everything found in the template directory.
+The $tpl_file_ext variable was removed since this is no longer needed, so
+templates can be named anything you like with any extension. Smarty makes use of
+the PEAR database abstraction class for obtaining templates from databases. Now
+aren't you glad we require PEAR :-)
 
-We also added a workaround for LOCK_EX on windows systems, and change a couple
+We also added a workaround for LOCK_EX on Windows systems, and changed a couple
 of file permissions for better security on public servers. Thanks goes to
 Fernando Nunes for his code contributions.
 
@@ -29,7 +29,7 @@ source, the compiled versions have encoded names. Each file has a comment at
 the top that states which resource was used as the source file. In unix, "head
 -2 *" shows the first two lines of each file. If you have $compile_check set to
 false and the compiled template does not yet exist, it will compile it
-regardless of this setting. Once it is compiled though, it will not check to
-see if recompilation is necessary.
+regardless of this setting. Once it is compiled though, it will not check to see
+if recompilation is necessary.
 
 -Monte
