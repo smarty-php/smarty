@@ -1,3 +1,13 @@
+2002-06-24  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.assign_debug_info.php
+      NEWS: fixed warning message in function.assign_debug_info
+
+    * Smarty.class.php: update include_path fixes
+
+    * NEWS:
+    fixed $template_dir, $compile_dir, $cache_dir, $config_dir to respect include_path
+
 2002-06-23  Monte Ohrt  <monte@ispi.net>
 
     * plugins/shared.make_timestamp.php:
