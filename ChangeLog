@@ -1,3 +1,17 @@
+2003-03-31  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      added missing compile_id inside Smarty_Compiler
+
+    * libs/Smarty_Compiler.class.php:
+      fixed flaw when generating an error for missing postfilter
+
+2003-03-31  Monte Ohrt  <monte@ispi.net>
+
+    * docs/getting-started.sgml
+      docs/programmers.sgml:
+      fix typos
+
 2003-03-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
