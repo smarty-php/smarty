@@ -1082,12 +1082,16 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'foreach':
+            case 'section':
                 if ($indexes[1]{0} != '.') {
                     $this->_syntax_error('$smarty' . implode('', array_slice($indexes, 0, 2)) . ' is an invalid reference');
                 }
                 $name = substr($indexes[1], 1);
                 array_shift($indexes);
-                $compiled_ref = "\$this->_foreach['$name']";
+                if ($ref == 'foreach')
+                    $compiled_ref = "\$this->_foreach['$name']";
+                else
+                    $compiled_ref = "\$this->_sections['$name']";
                 break;
 
             /* These cases have to be handled at run-time. */
