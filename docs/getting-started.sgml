@@ -116,16 +116,16 @@
   <sect1 id="installing.smarty">
    <title>Installing Smarty</title>
    <para>
-    Installing Smarty is fairly straightforward, there are a few things to
-    be aware of. Smarty creates PHP scripts from the templates. This
-    usually means allowing user "nobody" (or whomever the web server runs
-    as) to have permission to write the files. Each installation of a
-    Smarty application minimally needs a templates directory and a compiled
-    templates directory. If you use configuration files you will also need
-    a directory for those. By default these are named "templates",
-    "templates_c" and "configs" respectively. If you plan on using caching,
-    you will need to create a "cache" directory, also with permission to
-    write files.
+	Installing Smarty is fairly straightforward, there are a few things to be
+	aware of. Smarty creates PHP scripts from the templates. This usually means
+	allowing user "nobody" (or whomever the web server runs as) to have
+	permission to write the files. Each installation of a Smarty application
+	minimally needs a templates directory and a compiled templates directory.
+	If you use configuration files you will also need a directory for those. By
+	default these are named "templates", "templates_c" and "configs"
+	respectively. "templates_c" needs to be writable by the web server user. If
+	you plan on using caching, you will need to create a "cache" directory,
+	also with permission to write files.
    </para>
    <note>
 	<title>Technical Note</title>

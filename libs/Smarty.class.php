@@ -1092,7 +1092,7 @@ function _generate_debug_output() {
     Function:   _smarty_include_php()
     Purpose:    called for included templates
 \*======================================================================*/
-    function _smarty_include_php($_smarty_include_php_file, $_smarty_assign)
+    function _smarty_include_php($_smarty_include_php_file, $_smarty_assign, $_smarty_once)
     {
         $this->_get_php_resource($_smarty_include_php_file, $_smarty_resource_type,
                                  $_smarty_php_resource);
@@ -1100,7 +1100,11 @@ function _generate_debug_output() {
         if (!empty($_smarty_assign)) {
             ob_start();
             if ($_smarty_resource_type == 'file') {
-                include_once($_smarty_php_resource);
+				if($_smarty_once) {
+                	include_once($_smarty_php_resource);
+				} else {
+                	include($_smarty_php_resource);					
+				}
             } else {
                 eval($_smarty_php_resource);
             }
@@ -1108,7 +1112,11 @@ function _generate_debug_output() {
             ob_end_clean();
         } else {
             if ($_smarty_resource_type == 'file') {
-                include_once($_smarty_php_resource);
+				if($_smarty_once) {
+                	include_once($_smarty_php_resource);
+				} else {
+                	include($_smarty_php_resource);					
+				}
             } else {
                 eval($_smarty_php_resource);
             }

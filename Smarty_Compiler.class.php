@@ -632,8 +632,10 @@ class Smarty_Compiler extends Smarty {
         }
 
         $assign_var = $this->_dequote($attrs['assign']);
-		
-		return "<?php \$this->_smarty_include_php($attrs[file], '$assign_var'); ?>";
+
+		$once_var = ( $attrs['once'] === false ) ? 'false' : 'true';
+				
+		return "<?php \$this->_smarty_include_php($attrs[file], '$assign_var', $once_var); ?>";
     }
 	
 

@@ -1638,6 +1638,14 @@ cell: 760-1234&lt;br&gt;</programlisting>
                         <entry>The name of the php file to include</entry>
                     </row>
                     <row>
+                        <entry>once</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>true</emphasis></entry>
+                        <entry>whether or not to include the php file more than
+						once if included multiple times</entry>
+                    </row>
+                    <row>
                         <entry>assign</entry>
                         <entry>string</entry>
                         <entry>No</entry>
@@ -1664,6 +1672,13 @@ cell: 760-1234&lt;br&gt;</programlisting>
 			of the template. Now you can include this template anywhere without
 			worrying if the database information was assigned by the application
 			before hand.
+			</para>
+			<para>
+			By default, php files are only included once even if called
+			multiple times in the template. You can specify that it should be
+			included every time with the <emphasis>once</emphasis> attribute.
+			Setting once to true will include the php script each time it is
+			included.
 			</para>
 			<para>
 			You can optionally pass the <emphasis>assign</emphasis> attribute,
@@ -2786,8 +2801,23 @@ OUTPUT:
                 </tgroup>
             </informaltable>
 			<para>
-			cycle is used to cycle though a set of values. This makes it easy to
-			alternate colors in a table, or even cycle through several of them.
+			Cycle is used to cycle though a set of values. This makes it easy
+			to alternate between two or more colors in a table, or cycle
+			through an array of values.
+			</para>
+			<para>
+			You can cycle through more than one set of values in your template
+			by supplying a name attribute. Give each set of values a unique
+			name.
+			</para>
+			<para>
+			You can force the current value not to print with the print
+			attribute set to false. This would be useful for silently skipping
+			a value.
+			</para>
+			<para>
+			The advance attribute is used to repeat a value. When set to true,
+			the next call to cycle will print the same value.
 			</para>
 			<para>
 			If you supply the special "assign" attribute, the output of the
@@ -2797,7 +2827,7 @@ OUTPUT:
 <example>
 <title>cycle</title>
 <programlisting>
-{* initialize the count *}
+{* initialize the values *}
 {cycle values="#eeeeee,#d0d0d0"}
 {cycle}
 {cycle}
