@@ -2985,8 +2985,8 @@ The value of $name is Bob.</programlisting>
 			count on each iteration. You can adjust the number, the interval
 			and the direction of the count, as well as determine whether or not
 			to print the value. You can run multiple counters concurrently by
-			supplying a unique id for each one. If you do not supply a name, the
-			name 'default' will be used.
+			supplying a unique name for each one. If you do not supply a name,
+            the name 'default' will be used.
 			</para>
 			<para>
 			If you supply the special "assign" attribute, the output of the

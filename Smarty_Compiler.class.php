@@ -1358,7 +1358,7 @@ class Smarty_Compiler extends Smarty {
                             $token = true;
 						} else if (preg_match('!^(off|no|false)$!', $token)) {
                             $token = false;
-						} else if (preg_match('!^[\w\.]+$!', $token)) {
+						} else if (preg_match('!^[\w\.-]+$!', $token)) {
                         	/* If the token is just a string,
                         	   we double-quote it. */
                             $token = '"'.$token.'"';
