@@ -230,7 +230,6 @@ class Smarty_Compiler extends Smarty {
                 return $this->_compile_insert_tag($tag_args);
 
             default:
-				var_dump($tag_command);
 				if (isset($this->compiler_funcs[$tag_command])) {
 					return $this->_compile_compiler_tag($tag_command, $tag_args);
 				} else if (isset($this->custom_funcs[$tag_command])) {
