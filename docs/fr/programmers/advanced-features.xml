@@ -13,7 +13,7 @@
     variable. La première méthode a une syntaxe beaucoup plus sympathique.
     Elle est aussi plus sécurisée, puisqu'un objet alloué ne peut avoir accès
     qu'a certaines méthodes et propriétés. NTanmoins, un objet alloué
-    ne peut pas avoir de lien sur lui-même ou Otre mis dans un tableau
+    ne peut pas avoir de lien sur lui-même ou être mis dans un tableau
     d'objet, etc. Vous devez choisir la méthode qui correspond a vos
     besoins, mais tGchez d'utiliser la première méthode autant que possible
     afin de réduire la syntaxe des templates au minimum.
@@ -79,10 +79,10 @@ the output was {$output)
     <title>Filtres de pré-compilation</title>
     <para>
     Les filtres de pré-compilation sont des fonctions PHP que vos templates
-    exécutent avant qu'ils ne soient compilés. Cela peut Otre utile
+    exécutent avant qu'ils ne soient compilés. Cela peut être utile
     pour pré-traiter vos templates afin d'enlever les commentaires
     inutiles, garder un oeil sur ce que les gens mettent dans leurs templates, etc.
-    Les filtre de pré-compilations peuvent Otre soit
+    Les filtre de pré-compilations peuvent être soit
     <link linkend="api.register.prefilter">déclarés</link> soit chargés
     a partir des répertoires de plugins en utilisant la fonction
     <link linkend="api.load.filter">load_filter()</link> ou en réglant
@@ -107,7 +107,7 @@ $smarty->display("index.tpl");
 ?&gt;
 
 {* template Smarty index.tpl *}
-&lt;!--# cette ligne va Otre supprimée par le filtre de pré-compilation --&gt;</programlisting>
+&lt;!--# cette ligne va être supprimée par le filtre de pré-compilation --&gt;</programlisting>
     </example>
    </sect1>
 
@@ -116,7 +116,7 @@ $smarty->display("index.tpl");
     <para>
     Les filtres de post-compilation sont des fonctions PHP que vos templates
     exécutent après avoir Tté compilés. Les filtres de post-compilation peuvent
-    Otre soit <link linkend="api.register.postfilter">déclarés</link> soit chargés
+    être soit <link linkend="api.register.postfilter">déclarés</link> soit chargés
     depuis les répertoires des plugins en utilisant la fonction
     <link linkend="api.load.filter">load_filter()</link> ou en réglant
     la variable <link linkend="variable.autoload.filters">$autoload_filters</link>.
@@ -154,7 +154,7 @@ $smarty->display("index.tpl");
    des templates.
    </para>
    <para>
-   Les filtres de sortie peuvent Otre soit
+   Les filtres de sortie peuvent être soit
    <link linkend="api.register.outputfilter">déclarés</link> soit
    chargés depuis les répertoires des plugins en utilisant la fonction
    <link linkend="api.load.filter">load_filter()</link>
@@ -330,7 +330,7 @@ function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tp
     <para>
     Les templates du répertoire $template_dir n'ont pas
     besoin d'une ressource template, bien que vous puissiez utiliser
-    la ressource "file" pour Otre cohérent. Vous n'avez qu'a fournir
+    la ressource "file" pour être cohérent. Vous n'avez qu'a fournir
     le chemin vers le template que vous voulez utiliser, relatif
     au répertoire racine $template_dir.
     </para>    
@@ -473,7 +473,7 @@ $smarty->display("db:index.tpl");
     <para>
     Vous pouvez spécifier une fonction qui sera utilisée pour
     récupérer le contenu d'un template dans le cas oú le template
-    ne peut pas Otre récupéré depuis sa ressource. Une utilisation possible est
+    ne peut pas être récupéré depuis sa ressource. Une utilisation possible est
     la création de templates a la volée.
     </para>
     <example>

@@ -12,14 +12,14 @@
    peut accélérer les traitements de faton impressionnante, en particulier les
    templates dont la compilation est trés longue. Comme le résultat de
    display() ou de fetch() est dans le cache, un fichier de cache peut
-   Otre composé de plusieurs fichiers de templates, plusieurs fichiers
+   être composé de plusieurs fichiers de templates, plusieurs fichiers
    de configuration, etc.
    </para>
    <para>
    Comme les templates sont dynamiques, il est important de faire attention
    a la faton dont les fichiers de cache sont générés, et pour combien de temps.
    Si par exemple vous affichez la page d'accueil de votre site Web dont le
-   contenu ne change pas souvent, il peut Otre intéressant de mettre cette page
+   contenu ne change pas souvent, il peut être intéressant de mettre cette page
    dans le cache pour une heure ou plus. A l'inverse, si vous affichez une page
    de météo mises a jour toutes les minutes, mettre cette page en cache
    n'a aucun sens.
@@ -145,7 +145,7 @@ $smarty->display('index.tpl');</programlisting>
     Vous pouvez rendre dynamiques seulement certaines parties d'une
     page avec la fonction de templates <link
     linkend="language.function.insert">insert</link>.
-    Imaginons que toute une page doit Otre mise en cache a part
+    Imaginons que toute une page doit être mise en cache a part
     une banniére en bas a droite. En utilisant une fonction insert pour la
     banniére, vous pouvez garder cet Tlément dynamique dans le contenu qui
     est en cache. Reportez-vous a la documentation
@@ -200,7 +200,7 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
     <para>
     Nous passons ci-dessus la variable $my_cache_id a display() comme
     identifiant de cache. Pour chaque valeur distincte de $my_cache_id,
-    un fichier de cache distinct va Otre créT. Dans cet exemple,
+    un fichier de cache distinct va être créT. Dans cet exemple,
     "article_id" a Tté passé dans l'URL et est utilisé en tant qu'identifiant
     de cache.
     </para>
@@ -216,7 +216,7 @@ $smarty->display('index.tpl',$my_cache_id);</programlisting>
 	ou d'Tcrire un script qui envoie des article_id de faton aléatoire,
 	cela pourra causer des problémes coté serveur. Assurez-vous de bien
 	tester toute donnée passée en paramétre avant de l'utiliser. Dans cet
-	exemple, peut-Otre savez-vous que article_id a une longueur de 10
+	exemple, peut-être savez-vous que article_id a une longueur de 10
    caractéres, est exclusivement composé de caractéres alph-numériques et
    doit avoir une valeur contenue dans la base de données. VTrifiez-le bien !
 	</para>

@@ -38,7 +38,7 @@
    <para>
    Les filtres de post/pré-compilation et les filtres de sortie sont des cas
    un peu spéciaux.
-   Comme ils ne sont pas mentionnés dans les templates, ils doivent Otre déclarés
+   Comme ils ne sont pas mentionnés dans les templates, ils doivent être déclarés
    ou chargés explicitement via les fonctions de l'API avant que le template
    ne soit exécuté. L'ordre dans lequel les filtres multiples d'un même type
    sont exécutés dépend de l'ordre dans lequel ils sont enregistrés ou chargés.
@@ -54,10 +54,10 @@
     <title>Conventions de nommage</title>
     <para>
     Les fichiers et les fonctions de plugins doivent suivre une convention
-    de nommage trés spécifique pour Otre localisés par Smarty.
+    de nommage trés spécifique pour être localisés par Smarty.
     </para>
     <para>
-    Les fichiers de plugins doivent Otre nommés de la faton suivante :
+    Les fichiers de plugins doivent être nommés de la faton suivante :
     <blockquote>
       <para>
        <filename>
@@ -81,7 +81,7 @@
      </itemizedlist>
     </para>
     <para>
-    Et <literal>nom</literal> doit Otre un identifiant valide (lettres, nombres
+    Et <literal>nom</literal> doit être un identifiant valide (lettres, nombres
     et underscore seulement).
     </para>
     <para>
@@ -90,7 +90,7 @@
     <literal>modifier.spacify.php</literal>.
     </para>
     <para>
-    Les fonctions de plugins dans les fichiers de plugins doivent Otre
+    Les fonctions de plugins dans les fichiers de plugins doivent être
     nommées de la faton suivante :
     <blockquote>
       <para>
@@ -112,10 +112,10 @@
    <sect1 id="plugins.writing">
     <title>Ecrire des plugins</title>
     <para>
-    Les plugins peuvent Otre soit chargés automatiquement par Smarty
-    depuis le systéme de fichier, soit Otre déclarés
+    Les plugins peuvent être soit chargés automatiquement par Smarty
+    depuis le systéme de fichier, soit être déclarés
     pendant l'exécution via une fonction register_* de l'API. Ils peuvent
-    aussi Otre désalloués en utilisant une fonction unregister_* de
+    aussi être désalloués en utilisant une fonction unregister_* de
     l'API.
     </para>
     <para>
@@ -198,7 +198,7 @@ function smarty_function_eightball($params, &amp;$smarty)
      </example>
     </para>
     <para>
-     peut Otre utilisée dans le template de la faton suivante :
+     peut être utilisée dans le template de la faton suivante :
     </para>
     <programlisting>
 Question: Will we ever have time travel?
@@ -242,7 +242,7 @@ function smarty_function_assign($params, &amp;$smarty)
     <para>
     Les modificateurs sont des petites fonctions appliquées a une variable
     de template avant qu'elle ne soit affichée ou utilisée dans un autre contexte.
-    Les modificateurs peuvent Otre chaenés entre eux.
+    Les modificateurs peuvent être chaenés entre eux.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -254,7 +254,7 @@ function smarty_function_assign($params, &amp;$smarty)
     <para>
     Le premier paramétre passé au modificateur est la valeur
     sur laquelle le modificateur est supposé opérer. Les autres paramétres
-    peuvent Otre optionnels, dépendant de quel genre d'opération doit Otre
+    peuvent être optionnels, dépendant de quel genre d'opération doit être
     effectué.
     </para>
     <para>
@@ -418,7 +418,7 @@ function smarty_block_translate($params, $content, &amp;$smarty)
     <para>
     Les fonctions de compilation ont deux paramétres : une chaene contenant
     la balise - en gros, tout, depuis le nom de la fonction jusqu'au délimiteur de fin - et
-    l'objet Smarty. Elles sont censées retourner le code PHP qui doit Otre
+    l'objet Smarty. Elles sont censées retourner le code PHP qui doit être
     injecté dans le template compilé.
     </para>
     <para>
@@ -446,7 +446,7 @@ function smarty_compiler_tplheader($tag_arg, &amp;$smarty)
 }
 ?&gt;</programlisting>
      <para>
-     Cette fonction peut-Otre appelé depuis le template comme suivant :
+     Cette fonction peut-être appelé depuis le template comme suivant :
      </para>     
      <programlisting>
 {* cette fonction n'est executée que lors de la compilation *}
@@ -556,7 +556,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     </funcsynopsis>
     <para>
     Le premier paramétre passé a la fonction du filtre de sortie est la
-    sortie du template qui doit Otre modifiée et le second paramétre
+    sortie du template qui doit être modifiée et le second paramétre
     est l'instance de Smarty appelant le plugin. Le plugin est supposé
     faire un traitement et en retourner le résultat.
     </para>
@@ -590,7 +590,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     de suite.
     </para>
     <para>
-    Il y au total 4 fonctions qui ont besoin d'Otre enregistrées pour
+    Il y au total 4 fonctions qui ont besoin d'être enregistrées pour
     chaque type de ressource. Chaque fonction retoit le nom de la ressource demandée
     comme premier paramétre et l'objet Smarty comme dernier paramétre.
     Les autres paramétres dépendent de la fonction.
@@ -622,7 +622,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
 
     <para>
     La premiére fonction est supposée récupérer la ressource. Son second
-    paramétre est une variable passée par référence oú le résultat doit Otre
+    paramétre est une variable passée par référence oú le résultat doit être
     stocké. La fonction est supposée retourner <literal>true</literal> si
     elle réussi a récupérer la ressource et <literal>false</literal> sinon.
     </para>
@@ -631,7 +631,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     La seconde fonction est supposée récupérer la date de derniére modification 
     de la ressource demandée (comme un timestamp UNIX). Le second paramétre
     est une variable passée par référence dans laquelle la date doit
-    Otre stockée. La fonction est supposée renvoyer <literal>true</literal> si elle
+    être stockée. La fonction est supposée renvoyer <literal>true</literal> si elle
     a réussi a récupérer la date et <literal>false</literal> sinon.
     </para>
 
@@ -639,7 +639,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     La troisiéme fonction est supposée retourner <literal>true</literal>
     ou <literal>false</literal> selon si la ressource demandée est svre
     ou non. La fonction est utilisée seulement pour les ressources templates
-    mais doit tout de même Otre définie.
+    mais doit tout de même être définie.
     </para>
 
     <para>
@@ -649,7 +649,7 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
     pour les composants de scripts PHP demandés par les balises
     <command>include_php</command> ou <command>insert</command>
     ayant un attribut <structfield>src</structfield>. Quoiqu'il en soit,
-    elle doit Otre définie pour les ressources templates.
+    elle doit être définie pour les ressources templates.
     </para>
 
     <para>

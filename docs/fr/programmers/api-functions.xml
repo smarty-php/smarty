@@ -27,7 +27,7 @@
          tableau auquel on ajoute ensuite l'Tlément. Vous pouvez explicitement passer
          des paires nom/valeur. Si vous passez le troisième paramètre
          (optionel) a vrai, la valeur sera fusionnée avec le tableau plut(t que
-         d'Otre ajoutée.
+         d'être ajoutée.
          </para>
 		 <note>
 		 <title>Note technique</title>
@@ -73,7 +73,7 @@ $smarty->append(array("city" => "Lincoln","state" => "Nebraska"));</programlisti
       assigné. Voir la documentation PHP pour plus d'informations sur les
       références de variable.
       Si vous passez le troisième paramètre a vrai, la valeur sera fusionnée
-      avec le tableau courant plut(t que d'Otre ajoutée.
+      avec le tableau courant plut(t que d'être ajoutée.
       </para>
 	  <note>
 	  <title>Note technique</title>
@@ -229,12 +229,12 @@ $smarty->clear_assign(array("Name","Address","Zip"));</programlisting>
 			pouvez en spécifier un en  particulier en passant son identifiant
 			en deuxième paramètre. Vous pouvez aussi passer un identifiant
 			de compilation en troisième paramètre. Vous pouvez grouper des
-			templates ensemble afin qu'ils puissent Otre supprimés en groupe.
+			templates ensemble afin qu'ils puissent être supprimés en groupe.
 			RTférez-vous a la section sur le
 			<link linkend="caching">cache</link>
 			pour plus d'informations. Vous pouvez passer un quatrième paramètre
 			pour indiquer un Gge minimum en secondes que le fichier en cache doit
-			avoir avant d'Otre effacé.
+			avoir avant d'être effacé.
 			</para>
 <example>
 <title>clear_cache</title>
@@ -595,7 +595,7 @@ $smarty->display("index.tpl","FrontPage");</programlisting>
           </funcprototype>
          </funcsynopsis>
          <para>
-         Cette fonction peut Otre utilisée pour charger un plugin
+         Cette fonction peut être utilisée pour charger un plugin
          de filtrage. Le premier argument spécifie le type du filtre
          et peut prendre l'une des valeurs suivantes : 'pre', 'post'
          ou 'output'. Le second argument spécifie le nom du plugin
@@ -817,7 +817,7 @@ $smarty->register_resource("db", array("db_get_template",
           </funcprototype>
          </funcsynopsis>
          <para>
-         Cette fonction peut-Otre utilisée pour afficher un message d'erreur
+         Cette fonction peut-être utilisée pour afficher un message d'erreur
          en utilisant Smarty. Le paramètre <parameter>level</parameter>
          peut prendre l'une des valeures utilisées par la fonction PHP
          trigger_error, i.e. E_USER_NOTICE, E_USER_WARNING, etc. Par défaut
