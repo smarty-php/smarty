@@ -712,8 +712,8 @@ class Smarty_Compiler extends Smarty {
             $output .= $this->_compile_plugin_call('block', $tag_command).'($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat=true);';
             $output .= 'while ($_block_repeat) { ob_start(); ?>';
         } else {
-            $output = '<?php $this->_block_content = ob_get_contents(); ob_end_clean(); ';
-            $_out_tag_text = $this->_compile_plugin_call('block', $tag_command).'($this->_tag_stack[count($this->_tag_stack)-1][1], $this->_block_content, $this, $_block_repeat=false)';
+            $output = '<?php $_block_content = ob_get_contents(); ob_end_clean(); ';
+            $_out_tag_text = $this->_compile_plugin_call('block', $tag_command).'($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat=false)';
             if ($tag_modifier != '') {
                 $this->_parse_modifiers($_out_tag_text, $tag_modifier);
             }
@@ -860,8 +860,8 @@ class Smarty_Compiler extends Smarty {
                     $return = null;
                     $postfix = '';
             } else {
-                    $prefix = "\$this->_obj_block_content = ob_get_contents(); ob_end_clean(); ";
-                    $return = "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$this->_obj_block_content, \$this, \$_block_repeat=false)";
+                    $prefix = "\$_obj_block_content = ob_get_contents(); ob_end_clean(); ";
+                    $return = "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$_obj_block_content, \$this, \$_block_repeat=false)";
                     $postfix = "} array_pop(\$this->_tag_stack);";
                 }
             } else {

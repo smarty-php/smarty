@@ -1,3 +1,5 @@
+  - make block functions and registered objects' block methods use a
+    local variable for block_content instead of a property of $smarty (messju)
   - fix escaping in the generated code that calls smarty_core_load_plugins
     (jes5199, messju)
   - fix invalid HTML issue with popup (Stefanos Harhalakis,
