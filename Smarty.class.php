@@ -39,6 +39,11 @@
 
 require('Smarty.addons.php');
 
+define("SMARTY_PHP_PASSTHRU",0);
+define("SMARTY_PHP_QUOTE",1);
+define("SMARTY_PHP_REMOVE",2);
+define("SMARTY_PHP_ALLOW",3);
+
 class Smarty
 {
 
@@ -67,9 +72,13 @@ class Smarty
 
     var $tpl_file_ext    =  '.tpl';     // template file extention
     
-    var $allow_php       =  false;      // whether or not to allow embedded php
-                                        // in the templates. By default, php tags
-                                        // are escaped. true/false. default false.
+    var $php_handling    =  SMARTY_PHP_PASSTHRU; // how smarty handles php tags
+                                        // possible values:
+                                        // SMARTY_PHP_PASSTHRU -> echo tags as is
+                                        // SMARTY_PHP_QUOTE    -> escape tags as entities
+                                        // SMARTY_PHP_REMOVE   -> remove php tags
+                                        // SMARTY_PHP_ALLOW    -> execute php tags
+                                        // default: SMARTY_PHP_PASSTHRU
 
     var $left_delimiter  =  '{';        // template tag delimiters.
     var $right_delimiter =  '}';
@@ -512,20 +521,35 @@ class Smarty
         $text_blocks = preg_split("!{$ldq}.*?{$rdq}!s", $template_contents);
 
         /* TODO: speed up the following with preg_replace and /F once we require that version of PHP */
-
+        
         /* loop through text blocks */
         for($curr_tb = 0; $curr_tb <= count($text_blocks); $curr_tb++) {
             /* match anything within <? ?> */
-            if(preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)(\n)?!i',$text_blocks[$curr_tb],$sp_match)) {
+            if(preg_match_all('!(<\?[^?]*?\?>|<script\s+language\s*=\s*[\"\']?php[\"\']?\s*>)!is',$text_blocks[$curr_tb],$sp_match)) {
                 /* found at least one match, loop through each one */
-                for($curr_sp = 0; $curr_sp <= count($sp_match[0]); $curr_sp++) {
-                    if(!$this->allow_php) {
-                        /* we don't allow php, so echo everything */
-                        $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],'<?php echo \''.str_replace("'","\'",$sp_match[0][$curr_sp]).'\'; ?>',$text_blocks[$curr_tb]);
+                for($curr_sp = 0; $curr_sp < count($sp_match[0]); $curr_sp++) {
+                    if(preg_match("!^(<\?(php\s|\s|=\s)|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!is",$sp_match[0][$curr_sp])) {
+                        /* php tag */
+                        if($this->php_handling == SMARTY_PHP_PASSTHRU) {
+                            /* echo php contents */
+                            $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],'<?php echo \''.str_replace("'","\'",$sp_match[0][$curr_sp]).'\'; ?>'."\n",$text_blocks[$curr_tb]);
+                       }                    
+                        elseif($this->php_handling == SMARTY_PHP_QUOTE) {
+                            /* quote php tags */
+                            $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],htmlspecialchars($sp_match[0][$curr_sp]), $text_blocks[$curr_tb]);
+                        }                    
+                        elseif($this->php_handling == SMARTY_PHP_REMOVE) {
+                            /* remove php tags */
+                            if(substr($sp_match[0][$curr_sp],0,2) == "<?")
+                                $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],"", $text_blocks[$curr_tb]);
+                            else
+                                /* attempt to remove everything between <script ...> and </script> */
+                                $text_blocks[$curr_tb] = preg_replace("/".preg_quote($sp_match[0][$curr_sp]).".*<\/script\s*>/is","", $text_blocks[$curr_tb]);
+                        }
                     }                    
-                    elseif(!preg_match("!^(<\?(php | )|<script\s*language\s*=\s*[\"\']?php[\"\']?\s*>)!i",$curr_sp))
-                        /* we allow php, so echo only non-php tags */
-                        $text_blocks[$curr_tb] = str_replace($curr_sp,'<?php echo \''.str_replace("'","\'",$curr_sp).'\'; ?>',$text_blocks[$curr_tb]);
+                    else
+                        /* echo the non-php tags */
+                        $text_blocks[$curr_tb] = str_replace($sp_match[0][$curr_sp],'<?php echo \''.str_replace("'","\'",$sp_match[0][$curr_sp]).'\'; ?>'."\n",$text_blocks[$curr_tb]);
                 }
             }
         }
