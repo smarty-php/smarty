@@ -1,3 +1,14 @@
+2003-01-30  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty_Compiler.class.php
+      TODO:
+      fix order of php tag comparisons
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      fix known php tag handling problems
+
 2003-01-29  Monte Ohrt  <monte@ispi.net>
 
     * Smarty.class.php
