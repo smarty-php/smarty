@@ -1,3 +1,16 @@
+2002-05-07  Monte Ohrt  <monte@ispi.net>
+
+    * plugins/function.cycle.php: remove \n from cycle function
+
+    * docs/designers.sgml
+      plugins/function.cycle.php
+      README
+      RELEASE_NOTES
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      NEWS:
+    update cycle function to handle array as input, update files to 2.1.1
+
 2002-05-06  Monte Ohrt  <monte@ispi.net>
 
     * plugins/function.fetch.php:
