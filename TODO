@@ -9,8 +9,7 @@
 * support implementations of prefiltes, mods, and others as class methods.
 * possibly implement default modifiers that apply to variables upon display
 * possibly implement undefined template tags custom handling
-* think about possibility of supporting something like {$data[foo].{$key[bar]}}
+* think about possibility of supporting something like {$data[foo].$key[bar]}
 * allow {custom} .. {/custom} style of custom functions
 * ability to concatenate values/strings together
-* don't load globals more than once from the same config file
 * fix all E_NOTICE warnings
