@@ -469,6 +469,15 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
 	   <literal>gpc_order</literal> is used.
       </para>
      </sect1>
+     <sect1 id="variable.tpl.error.reporting">
+      <title>$tpl_error_reporting</title>
+      <para>
+           When this value is set to a non-null-value it's value is
+           used as php's error_reporting-level inside of display() and
+           fetch(). When debugging is enabled this value is ignored
+           and the error-level is left untouched.
+      </para>
+     </sect1>
      <sect1 id="variable.compile.id">
       <title>$compile_id</title>
       <para>
