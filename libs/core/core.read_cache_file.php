@@ -78,8 +78,9 @@ function smarty_core_read_cache_file(&$params, &$smarty)
         }
 
         if (isset($smarty->_cache_info['config'])) {
+            $_params = array('resource_base_path' => $smarty->config_dir); 
             foreach (array_keys($smarty->_cache_info['config']) as $_config_dep) {
-				$_params = array('resource_name' => $_config_dep);
+                $_params['resource_name'] = $_config_dep;
 				$smarty->_fetch_resource_info($_params);
             	if ($smarty->_cache_info['timestamp'] < $_params['resource_timestamp']) {
                 	// config file has changed, regenerate cache
