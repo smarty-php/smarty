@@ -1,3 +1,36 @@
+2003-06-22  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.eval.php:
+      fixed propagation of $this into evald code in smarty_function_eval()
+
+    * libs/core/core.write_cache_paths_file.php
+      libs/core/core.write_compiled_include.php:
+      fix in compiled-include-handling
+
+    * libs/core/core.assemble_auto_filename.php
+      libs/core/core.assemble_plugin_filepath.php
+      libs/core/core.assign_smarty_interface.php
+      libs/core/core.create_dir_structure.php
+      libs/core/core.fetch_resource_info.php
+      libs/core/core.get_include_path.php
+      libs/core/core.get_microtime.php
+      libs/core/core.get_php_resource.php
+      libs/core/core.is_secure.php
+      libs/core/core.is_trusted.php
+      libs/core/core.load_plugins.php
+      libs/core/core.load_resource_plugin.php
+      libs/core/core.parse_resource_name.php
+      libs/core/core.read_cache_file.php
+      libs/core/core.rm_auto.php
+      libs/core/core.rmdir.php
+      libs/core/core.write_cache_file.php
+      libs/core/core.write_cache_paths_file.php
+      libs/core/core.write_compiled_include.php
+      libs/core/core.write_compiled_resource.php
+      libs/core/core.write_file.php
+      libs/plugins/modifier.date_format.php:
+      started moving from $this to $smarty in core.*.php
+
 2003-06-21  Monte Ohrt  <monte@ispi.net>
 
     * libs/core/core.create_dir_structure.php
