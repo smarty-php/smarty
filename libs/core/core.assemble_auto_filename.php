@@ -18,6 +18,8 @@
 function smarty_core_assemble_auto_filename($params, &$smarty)
 {	
 
+	$_compile_dir_sep =  $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
+		
     if(@is_dir($params['auto_base'])) {
         $_return = $params['auto_base'] . DIRECTORY_SEPARATOR;
     } else {
@@ -32,17 +34,17 @@ function smarty_core_assemble_auto_filename($params, &$smarty)
         // make auto_id safe for directory names
         $params['auto_id'] = str_replace('%7C','|',(urlencode($params['auto_id'])));
         // split into separate directories
-        $params['auto_id'] = str_replace('|', SMARTY_COMPILE_DIR_SEP, $params['auto_id']);
-        $_return .= $params['auto_id'] . SMARTY_COMPILE_DIR_SEP;
+        $params['auto_id'] = str_replace('|', $_compile_dir_sep, $params['auto_id']);
+        $_return .= $params['auto_id'] . $_compile_dir_sep;
     }
 
     if(isset($params['auto_source'])) {
         // make source name safe for filename
         $_filename = urlencode(basename($params['auto_source']));
-        $_crc32 = crc32($params['auto_source']) . SMARTY_COMPILE_DIR_SEP;
+        $_crc32 = crc32($params['auto_source']) . $_compile_dir_sep;
         // prepend %% to avoid name conflicts with
         // with $params['auto_id'] names
-        $_crc32 = '%%' . substr($_crc32,0,3) . SMARTY_COMPILE_DIR_SEP . '%%' . $_crc32;
+        $_crc32 = '%%' . substr($_crc32,0,3) . $_compile_dir_sep . '%%' . $_crc32;
         $_return .= $_crc32 . $_filename;
     }
 	

@@ -1165,13 +1165,13 @@ class Smarty
     {
         static $_cache_info = array();
 
-		define('SMARTY_COMPILE_DIR_SEP', $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^');
+		$_compile_dir_sep =  $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
 		
 		$this->_cache_paths_file =
 				$this->compile_dir
 				. DIRECTORY_SEPARATOR
 				. '_smarty_cached_paths'
-				. SMARTY_COMPILE_DIR_SEP
+				. $_compile_dir_sep
 				. urlencode($resource_name)
 				. '.php';
 
