@@ -3,10 +3,14 @@
  * Project:		Smarty: the PHP compiled template engine
  * File:		Smarty.class.php
  * Author:		Monte Ohrt <monte@ispi.net>
+ *				original idea and implementation
+ *
+ *				Andrei Zmievski <andrei@ispi.net>
+ *				parser rewrite and optimizations
  *
  */
 
-require("Smarty.functions.php");
+require("Smarty.addons.php");
 
 class Smarty
 {
@@ -45,6 +49,10 @@ class Smarty
 											"configprint",
 											"configset"
 											 );
+
+	var $_modifiers				=	array(	"lower"		=> "smarty_mod_lower",
+											"upper"		=> "smarty_mod_upper"
+										 );
 
 	// internal vars
 	var $errorMsg				=	false;		// error messages
@@ -110,7 +118,8 @@ class Smarty
 			$compile_file = preg_replace("/([\.\/]*[^\/]+)(.*)/","\\1".preg_quote($this->compile_dir_ext,"/")."\\2",$tpl_file);
 			
 			extract($this->_tpl_vars);		
-			include($compile_file);
+			/* TODO remove comments */
+			/* include($compile_file); */
 		}
 	}
 
@@ -232,7 +241,8 @@ class Smarty
 					return false;				
 				}
 			// compile the template file if none exists or has been modified
-			if(!file_exists($compile_dir."/".$tpl_file_name) ||
+			/* TODO remove 1 from test */
+			if(!file_exists($compile_dir."/".$tpl_file_name) || 1 ||
 				($this->_modified_file($filepath,$compile_dir."/".$tpl_file_name)))
 			{
 				if(!$this->_compile_file($filepath,$compile_dir."/".$tpl_file_name))
@@ -271,143 +281,312 @@ class Smarty
 
 	function _compile_file($filepath,$compilepath)
 	{
-		//echo "compiling $compilepath.<br>\n";
 		if(!($template_contents = $this->_read_file($filepath)))
 			return false;
 
-		/* if(preg_match("/^(.+)\/([^\/]+)$/",$compilepath,$match))
-		{
-			$ctpl_file_dir = $match[1];			
-			$ctpl_file_name = $match[2];
-		} */
+		$ldq = preg_quote($this->left_delimiter, "/");
+		$rdq = preg_quote($this->right_delimiter, "/");
 
-		if(!$this->allow_php)
-		{
-			// escape php tags in templates
-			$search = array(	"/\<\?/i",
-								"/\?\>/i"
-							);
-			$replace = array(	"&lt;?",
-								"?&gt;"
-							);
-			$template_contents = preg_replace($search,$replace,$template_contents);
+		/* Gather all template tags. */
+		preg_match_all("/$ldq\s*(.*?)\s*$rdq/s", $template_contents, $match);
+		$template_tags = $match[1];
+		/* Split content by template tags to obtain non-template content. */
+		$text_blocks = preg_split("/$ldq.*?$rdq/s", $template_contents);
+
+		$compiled_tags = array();
+		foreach ($template_tags as $template_tag) {
+			$compiled_tags[] = $this->_compile_tag($template_tag);
 		}
 
-		$search = array();
-		$replace = array();
-
-		$ld = preg_quote($this->left_delimiter,"/");
-		$rd = preg_quote($this->right_delimiter,"/");
-
-		$search[] =			"/^".$ld."\*.*\*".$rd."$/U"; // remove template comments
-		$replace[] =		"";
-		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.even\.([\d]+)/"; // replace section rownum.even.digit
-		$replace[] =		"((\\1_secvar / \\2) % 2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.odd\.([\d]+)/"; // replace section rownum.even.digit
-		$replace[] =		"!((\\1_secvar / \\2) % 2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.index\.even\.([\d]+)/"; // replace section index.even.digit
-		$replace[] =		"!((\\1_secvar) % \\2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.index\.odd\.([\d]+)/"; // replace section index.even.digit
-		$replace[] =		"((\\1_secvar) % \\2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.mod\.([\d]+)/"; // replace section rownum.even.digit
-		$replace[] =		"!((\\1_secvar+1) % \\2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.index\.mod\.([\d]+)/"; // replace section rownum.even.digit
-		$replace[] =		"!((\\1_secvar) % \\2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.even/"; // replace section rownum.even
-		$replace[] =		"!((\\1_secvar+1) % 2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.rownum\.odd/"; // replace section rownum.odd
-		$replace[] =		"((\\1_secvar+1) % 2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.index\.even/"; // replace section index.even
-		$replace[] =		"!((\\1_secvar) % 2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.index\.odd/"; // replace section index.odd
-		$replace[] =		"((\\1_secvar) % 2)";
-		$search[] =			"/(\\\$[\w\d\_]+)\.rownum/"; // replace section rownum
-		$replace[] =		"\\1_secvar+1";
-		$search[] =			"/(\\\$[\w\d\_]+)\.index/"; // replace section index
-		$replace[] =		"\\1_secvar";
-		$search[] =			"/(\\\$[\w\d\_]+)\.([\w\d\_]+)/"; // replace section vars
-		$replace[] =		"\$\\2[\\1_secvar]";
-		$search[] =			"/\beq\b/i"; // replace eq with ==
-		$replace[] =		"==";
-		$search[] =			"/\blt\b/i"; // replace lt with <
-		$replace[] =		"<";
-		$search[] =			"/\bgt\b/i"; // replace gt with >
-		$replace[] =		">";
-		$search[] =			"/\bl(t)?e\b/i"; // replace le or lte with <=
-		$replace[] =		"<=";
-		$search[] =			"/\bg(t)?e\b/i"; // replace ge or gte with >=
-		$replace[] =		">=";
-		$search[] =			"/\bne(q)?\b/i"; // replace ne or neq with !=
-		$replace[] =		"!=";
-		$search[] =			"/\band\b/i"; // replace and with &&
-		$replace[] =		"&&";
-		$search[] =			"/\bmod\b/i"; // replace mod with %
-		$replace[] =		"%";
-		$search[] =			"/\bor\b/i"; // replace or with ||
-		$replace[] =		"||";
-		$search[] =			"/\bnot\b/i"; // replace not with !
-		$replace[] =		"!";
-		$search[] =			"/^".$ld."if (.*)".$rd."$/Ui"; // replace if tags
-		$replace[] =		"<?php if(\\1): ?>";
-		$search[] =			"/^".$ld."\s*else\s*".$rd."$/i"; // replace else tags
-		$replace[] =		"<?php else: ?>";
-		$search[] =			"/^".$ld."\s*\/if\s*".$rd."$/i"; // replace /if tags
-		$replace[] =		"<?php endif; ?>";
-		$search[] =			"/^".$ld."\s*include\s*\"?([^\s]+)\"?".$rd."$/i";		// replace include tags
-		/* $replace[] =		"<?php include(\"".$ctpl_file_dir."/\\1\"); ?>"; */
-		$replace[] =		"<?php include(\"./".$this->template_dir.$this->compile_dir_ext."/\\1\"); ?>";
-		$search[] =			"/^".$ld."\s*section\s+name\s*=\s*\"?([\w\d\_]+)\"?\s+\\\$([^\s]+)\s*".$rd."$/i"; // replace section tags
-		$replace[] =		"<?php for(\$\\1_secvar=0; \$\\1_secvar<count(\$\\2); \$\\1_secvar++): ?>";
-		$search[] =			"/^".$ld."\s*\/section\s*".$rd."$/i"; // replace /section tags
-		$replace[] =		"<?php endfor; ?>";
-		// registered functions
-		if(count($this->registered_functions) > 0)
-		{
-			$funcs = implode("|",$this->registered_functions);
-			// user functions without args
-			$search[]  = 	"/^".$ld."\s*(".$funcs.")\s*".$rd."$/i";
-			$replace[] =	"<?php smarty_\\1(); ?>";
-			// user functions with args
-			$search[]  = 	"/^".$ld."\s*(".$funcs.")\s+(.*)".$rd."$/i";
-			$replace[] =	"<?php smarty_\\1(\\2); ?>";
-		}			
-		$search[] =			"/^".$ld."\s*(\\\$[^\s]+)\s*".$rd."$/";	// replace vars							
-		$replace[] =		"<?php print \\1; ?>";
-
-		// collect all the tags in the template
-				
-		preg_match_all("/".$ld.".*".$rd."/U",$template_contents,$match);
-		$template_tags = $match[0];
+		for ($i = 0; $i < count($compiled_tags); $i++) {
+			$compiled_contents .= $text_blocks[$i].$compiled_tags[$i];
+		}
+		$compiled_contents .= $text_blocks[$i];
 		
-		$template_tags_modified = preg_replace($search,$replace,$template_tags);
-
-		// replace the tags in the template
-		for($tagloop=0; $tagloop<count($template_tags); $tagloop++)
-			$template_contents = preg_replace("/".preg_quote($template_tags[$tagloop],"/")."/",$template_tags_modified[$tagloop],$template_contents);
-
-		
-		// reformat data within {strip}{/strip} tags, removing spaces, tabs and newlines
-		preg_match_all("/\{strip\}.*\{\/strip\}/Usi",$template_contents,$match);
-		$strip_tags = $match[0];
-			
-		$search = array( "/\{\/?strip\}/i","/[\t ]+$/m","/^[\t ]+/m","/[\r\n]+/" );
-		$replace = array ("","",""," ");
-		$strip_tags_modified = preg_replace($search,$replace,$strip_tags);
-				
-		// replace the tags in the template
-		for($tagloop=0; $tagloop<count($strip_tags); $tagloop++)
-			$template_contents = preg_replace("/".preg_quote($strip_tags[$tagloop],"/")."/",$strip_tags_modified[$tagloop],$template_contents);
+		var_dump($compiled_tags);
 
 		// replace literal delimiter tags
-		$template_contents = preg_replace("/{ldelim}/",$this->left_delimiter,$template_contents);
-		$template_contents = preg_replace("/{rdelim}/",$this->right_delimiter,$template_contents);
-								
-		if(!($this->_write_file($compilepath,$template_contents)))
+		$compiled_contents = preg_replace('/{ldelim}/', $this->left_delimiter,  $compiled_contents);
+		$compiled_contents = preg_replace('/{rdelim}/', $this->right_delimiter, $compiled_contents);
+
+		if(!($this->_write_file($compilepath, $compiled_contents)))
 			return false;
-		
+
 		return true;
 	}
 
+	function _compile_tag($template_tag)
+	{
+		/* Tokenize the tag. */
+		preg_match_all('/(?:
+						 "[^"\\\\]*(?:\\\\.[^"\\\\]*)*" 		| # match all double quoted strings allowed escaped double quotes
+						 \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'		| # match all single quoted strings allowed escaped single quotes
+						 [()]									| # match parentheses
+						 [^"\'\s()]+							  # match any other token that is not any of the above
+						)/x', $template_tag, $match);
+		$tokens = $match[0];
+
+		/* Matched comment. */
+		if ($tokens[0] == '*' && $tokens[count($tokens)-1] == '*')
+			return "";
+
+		/* Parse variables and section properties. */
+		if (preg_match('!^\$(\w+/)*\w+(?>\|\w+(:[^|]+)?)*$!', $tokens[0]) ||	// if a variable
+			preg_match('!^%\w+\.\w+%(?>\|\w+(:[^|]+)?)*$!', $tokens[0])) {   	// or a section property
+			$this->_parse_vars_props($tokens);
+			return "<?php print $tokens[0]; ?>";
+		}
+
+		switch ($tokens[0]) {
+			case 'include':
+				/* TODO parse file= attribute */
+				return '<?php include "'.$this->template_dir.$this->compile_dir_ext.'/'.$tokens[1].'"; ?>';
+
+			case 'if':
+				array_shift($tokens);
+				return $this->_compile_if_tag($tokens);
+
+			case 'else':
+				return '<?php else: ?>';
+
+			case '/if':
+				return '<?php endif; ?>';
+
+			case 'ldelim':
+				return $this->left_delimiter;
+
+			case 'rdelim':
+				return $this->right_delimiter;
+
+			case 'section':
+				break;
+
+			case '/section':
+				break;
+
+			default:
+				/* TODO capture custom functions here */
+				break;
+		}
+	}
+
+	function _compile_if_tag(&$tokens)
+	{
+		$this->_parse_vars_props($tokens);
+
+		$is_arg_stack = array();
+		
+		for ($i = 0; $i < count($tokens); $i++) {
+			$token = &$tokens[$i];
+			switch ($token) {
+				case 'eq':
+					$token = '==';
+					break;
+
+				case 'ne':
+				case 'neq':
+					$token = '!=';
+					break;
+
+				case 'lt':
+					$token = '<';
+					break;
+
+				case 'le':
+				case 'lte':
+					$token = '<=';
+					break;
+
+				case 'gt':
+					$token = '>';
+					break;
+				
+				case 'ge':
+				case 'gte':
+					$token = '>=';
+					break;
+
+				case 'and':
+					$token = '&&';
+					break;
+
+				case 'or':
+					$token = '||';
+					break;
+
+				case 'not':
+					$token = '!';
+					break;
+
+				case 'mod':
+					$token = '%';
+					break;
+
+				case '(':
+					array_push($is_arg_stack, $i);
+					break;
+
+				case 'is':
+					/* If last token was a ')', we operate on the parenthesized
+					   expression. The start of the expression is on the stack.
+					   Otherwise, we operate on the last encountered token. */
+					if ($tokens[$i-1] == ')')
+						$is_arg_start = array_pop($is_arg_stack);
+					else
+						$is_arg_start = $i-1;
+					/* Construct the argument for 'is' expression, so it knows
+					   what to operate on. */
+					$is_arg = implode(' ', array_slice($tokens, $is_arg_start, $i - $is_arg_start));
+
+					/* Pass all tokens from next one until the end to the
+					   'is' expression parsing function. The function will
+					   return modified tokens, where the first one is the result
+					   of the 'is' expression and the rest are the tokens it
+					   didn't touch. */
+					$new_tokens = $this->_parse_is_expr($is_arg, array_slice($tokens, $i+1));
+
+					/* Replace the old tokens with the new ones. */
+					array_splice($tokens, $is_arg_start, count($tokens), $new_tokens);
+
+					/* Adjust argument start so that it won't change from the
+					   current position for the next iteration. */
+					$i = $is_arg_start;
+					break;
+			}
+		}
+
+		return '<?php if ('.implode(' ', $tokens).'): ?>';
+	}
+
+	function _parse_is_expr($is_arg, $tokens)
+	{
+		$expr_end = 0;
+
+		if (($first_token = array_shift($tokens)) == 'not') {
+			$negate_expr = true;
+			$expr_type = array_shift($tokens);
+		} else
+			$expr_type = $first_token;
+
+		switch ($expr_type) {
+			case 'even':
+				if ($tokens[$expr_end] == 'by') {
+					$expr_end++;
+					$expr_arg = $tokens[$expr_end++];
+					$expr = "(($is_arg / $expr_arg) % $expr_arg)";
+				}
+				else
+					$expr = "!($is_arg % 2)";
+				break;
+
+			case 'odd':
+				if ($tokens[$expr_end] == 'by') {
+					$expr_end++;
+					$expr_arg = $tokens[$expr_end++];
+					$expr = "!(($is_arg / $expr_arg) % $expr_arg)";
+				}
+				else
+					$expr = "($is_arg % 2)";
+				break;
+
+			case 'mod':
+				$expr_arg = $tokens[$expr_end++];
+				$expr = "!($is_arg % $expr_arg)";
+				break;
+
+			default:
+				/* TODO strict syntax checking */
+				break;
+		}
+
+		if ($negate_expr) {
+			$expr = "!($expr)";
+		}
+
+		array_splice($tokens, 0, $expr_end, $expr);
+
+		return $tokens;
+	}
+	
+	function _parse_vars_props(&$tokens)
+	{
+		$var_exprs = preg_grep('!^\$(\w+/)*\w+(\|\w+(:[^|]+)?)*$!', $tokens);
+		$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(\|\w+(:[^|]+)?)*$!', $tokens);
+
+		if (count($var_exprs)) {
+			foreach ($var_exprs as $expr_index => $var_expr) {
+				$tokens[$expr_index] = $this->_parse_var($var_expr);
+			}
+		}
+		if (count($sect_prop_exprs)) {
+			foreach ($section_prop_exprs as $expr_index => $section_prop_expr) {
+				$tokens[$expr_index] = $this->_parse_section_prop($section_prop_expr);
+			}
+		}
+	}
+
+	function _parse_var($var_expr)
+	{
+		$modifiers = explode('|', substr($var_expr, 1));
+
+		$sections = explode('/', array_shift($modifiers));
+		$var_name = array_pop($sections);
+
+		$output = "\$$var_name";
+
+		foreach ($sections as $section) {
+			$output .= "[\$_sections['$section']['properties']['index']]";
+		}
+
+		$this->_parse_modifiers($output, $modifiers);
+
+		return $output;
+	}
+
+	function _parse_section_prop($section_prop_expr)
+	{
+		$modifiers = explode('|', $section_prop_expr);
+
+		preg_match('!%(\w+)\.(\w+)%!', array_shift($modifiers), $match);
+		$section_name = $match[1];
+		$prop_name = $match[2];
+
+		$output = "\$_sections['$section_name']['properties']['$prop_name']";
+
+		$this->_parse_modifiers($output, $modifiers);
+
+		return $output;
+	}
+
+	function _parse_modifiers(&$output, $modifiers)
+	{
+		foreach ($modifiers as $modifier) {
+			$modifier = explode(':', $modifier);
+			$modifier_name = array_shift($modifier);
+
+			/*
+			 * First we lookup the modifier function name in the registered
+			 * modifiers table.
+			 */
+			$mod_func_name = $this->_modifiers[$modifier_name];
+
+			/*
+			 * If we don't find that modifier there, we assume it's just a PHP
+			 * function name.
+			 */
+			/* TODO strict syntax check */
+			if (!isset($mod_func_name))
+				$mod_func_name = $modifier_name;
+
+			if (count($modifier) > 0)
+				$modifier_args = ", ".implode(', ', $modifier);
+			else
+				$modifier_args = "";
+
+			$output = "$mod_func_name($output$modifier_args)";
+		}
+	}
+	
 /*======================================================================*\
 	Function:	_read_file()
 	Purpose:	read in a file
