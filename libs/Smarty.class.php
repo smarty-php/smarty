@@ -553,9 +553,9 @@ class Smarty
 
         /* If the tag name matches a variable or section property definition,
            we simply process it. */
-        if (preg_match('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command) ||   // if a variable
-            preg_match('!^#(\w+)#(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command)     ||  // or a configuration variable
-            preg_match('!^%\w+\.\w+%(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command)) {    // or a section property
+        if (preg_match('!^\$(\w+/)*\w+(?>\.\w+)*(\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command) ||   // if a variable
+            preg_match('!^#(\w+)#(\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command)     ||  // or a configuration variable
+            preg_match('!^%\w+\.\w+%(\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tag_command)) {    // or a section property
             settype($tag_command, 'array');
             $this->_parse_vars_props($tag_command);
             return "<?php echo $tag_command[0]; ?>";
@@ -1019,13 +1019,13 @@ class Smarty
            allow people to use older versions of PHP we emulate preg_grep() and
            use the version check to see what function to call. */
         if (strnatcmp(PHP_VERSION, '4.0.4') >= 0) {
-            $var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
-            $conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tokens);
-            $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
+            $var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(\|@?\w+(:(' .  $qstr_regexp . '|[^|]+))?)*$!', $tokens);
+            $conf_var_exprs = preg_grep('!^#(\w+)#(\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tokens);
+            $sect_prop_exprs = preg_grep('!^%\w+\.\w+%(\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
         } else {
-            $var_exprs = $this->_preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
-            $conf_var_exprs = $this->_preg_grep('!^#(\w+)#(?>\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tokens);
-            $sect_prop_exprs = $this->_preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
+            $var_exprs = $this->_preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
+            $conf_var_exprs = $this->_preg_grep('!^#(\w+)#(\|@?\w+(:(' . $qstr_regexp . '|[^|]+))?)*$!', $tokens);
+            $sect_prop_exprs = $this->_preg_grep('!^%\w+\.\w+%(\|@?\w+(:(' .  $qstr_regexp .  '|[^|]+))?)*$!', $tokens);
         }
 
         if (count($var_exprs)) {
