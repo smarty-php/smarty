@@ -698,9 +698,10 @@ class Smarty
     function _smarty_include($_smarty_include_tpl_file, $_smarty_include_vars,
                              &$_smarty_config_parent)
     {
+        $_smarty_config = $_smarty_config_parent;
         $this->_tpl_vars = array_merge($this->_tpl_vars, $_smarty_include_vars);
         extract($this->_tpl_vars);
-                
+ 
         $this->_process_template($_smarty_include_tpl_file, $compile_path);
         include($compile_path);
     }

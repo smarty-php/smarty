@@ -373,8 +373,6 @@ class Smarty_Compiler extends Smarty {
 
 		return  "<?php " .
 			"\$_smarty_tpl_vars = \$this->_tpl_vars;\n" .
-			"unset(\$_smarty_defined_vars['_smarty_include_tpl_file']);\n" .
-			"unset(\$_smarty_defined_vars['_smarty_include_vars']);\n" .
 			"\$this->_smarty_include(".$_smarty_include_tpl_file.", array(".implode(',', (array)$arg_list)."), \$_smarty_config);\n" .
 			"\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
 			"unset(\$_smarty_tpl_vars); ?>";
