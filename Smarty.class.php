@@ -210,8 +210,11 @@ class Smarty
                 }
             }
         }
-		// look for debug template in the SMARTY_DIR
-		$this->debug_tpl = SMARTY_DIR.'debug.tpl';
+
+		if(empty($this->debug_tpl)) {
+			// set path to debug template from SMARTY_DIR
+			$this->debug_tpl = SMARTY_DIR.'debug.tpl';
+		}
     }
 
 
