@@ -1444,7 +1444,7 @@ function _run_insert_handler($args)
     function _load_plugins($plugins)
     {
         foreach ($plugins as $plugin_info) {
-            list($type, $name, $tpl_file, $tpl_line) = $plugin_info;
+            list($type, $name, $tpl_file, $tpl_line, $delayed_loading) = $plugin_info;
             $plugin = &$this->_plugins[$type][$name];
 
             /*
@@ -1507,6 +1507,14 @@ function _run_insert_handler($args)
                     $this->_trigger_plugin_error("plugin function $plugin_func() not found in $plugin_file", $tpl_file, $tpl_line);
                     continue;
                 }
+            }
+            /*
+             * In case of insert plugins, their code may be loaded later via
+             * 'script' attribute.
+             */
+            else if ($type == 'insert' && $delayed_loading) {
+                $plugin_func = 'smarty_' . $type . '_' . $name;
+                $found = true;
             }
 
             /*

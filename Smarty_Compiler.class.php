@@ -194,7 +194,8 @@ class Smarty_Compiler extends Smarty {
             $plugins_code = '<?php $this->_load_plugins(array(';
             foreach ($this->_plugin_info as $plugin_type => $plugins) {
                 foreach ($plugins as $plugin_name => $plugin_info) {
-                    $plugins_code .= "\narray('$plugin_type', '$plugin_name', '$plugin_info[0]', $plugin_info[1]),";
+                    $plugins_code .= "\narray('$plugin_type', '$plugin_name', '$plugin_info[0]', $plugin_info[1], ";
+                    $plugins_code .= $plugin_info[2] ? 'true),' : 'false),';
                 }
             }
             $plugins_code .= ")); ?>";
@@ -408,10 +409,7 @@ class Smarty_Compiler extends Smarty {
 \*======================================================================*/
     function _compile_custom_tag($tag_command, $tag_args)
     {
-        $this->_add_plugin('function',
-                           $tag_command,
-                           $this->_current_file,
-                           $this->_current_line_no);
+        $this->_add_plugin('function', $tag_command);
 
         $arg_list = array();
         $attrs = $this->_parse_attrs($tag_args);
@@ -438,13 +436,17 @@ class Smarty_Compiler extends Smarty {
             $this->_syntax_error("missing insert name");
         }
 
+        if (!empty($attrs['script'])) {
+            $delayed_loading = true;
+        }
+
         foreach ($attrs as $arg_name => $arg_value) {
             if (is_bool($arg_value))
                 $arg_value = $arg_value ? 'true' : 'false';
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 
-        $this->_add_plugin('insert', $name);
+        $this->_add_plugin('insert', $name, $delayed_loading);
 
         return "<?php echo \$this->_run_insert_handler(array(".implode(', ', (array)$arg_list).")); ?>\n";
     }
@@ -1173,14 +1175,15 @@ class Smarty_Compiler extends Smarty {
     Function: _add_plugin
     Purpose:  
 \*======================================================================*/
-    function _add_plugin($type, $name)
+    function _add_plugin($type, $name, $delayed_loading = null)
     {
         if (!isset($this->_plugin_info[$type])) {
             $this->_plugin_info[$type] = array();
         }
         if (!isset($this->_plugin_info[$type][$name])) {
             $this->_plugin_info[$type][$name] = array($this->_current_file,
-                                                      $this->_current_line_no);
+                                                      $this->_current_line_no,
+                                                      $delayed_loading);
         }
     }
     
