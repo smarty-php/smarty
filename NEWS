@@ -1,7 +1,11 @@
+    - can now pass modifiers to static content,
+      among other minor syntax features (monte)
+    - fix up regex code in compiler, make much more flexible
+      (Monte)
     - added support for object method access (Monte)
     - added day_value_format to html_select_date (Marcus
       Bointon, Monte)
-    - assigned variables are not longer in global
+    - assigned variables are no longer in global
       namespace, saving extract() calls and speeding
       up fetch() and display() linearly with no. of
       assigned variables (Monte)

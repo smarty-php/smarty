@@ -141,7 +141,8 @@ class Smarty
                                                                'in_array', 'is_array'),
                                     'INCLUDE_ANY'     => false,
                                     'PHP_TAGS'        => false,
-                                    'MODIFIER_FUNCS'  => array('count')
+                                    'MODIFIER_FUNCS'  => array('count'),
+									'ALLOW_CONSTANTS' => false
                                    );
     var $trusted_dir        = array();  // directories where trusted templates & php scripts
                                         // reside ($security is disabled during their
@@ -190,6 +191,8 @@ class Smarty
     var $_smarty_debug_id      = 'SMARTY_DEBUG'; // text in URL to enable debug mode
     var $_smarty_debug_info    = array();    // debugging information for debug console
     var $_cache_info           = array();    // info that makes up a cache file
+	var $_file_perms		   = 0644;     // default file permissions
+	var $_dir_perms		       = 0771;     // default dir permissions
     var $_plugins              = array(      // table keeping track of plugins
                                        'modifier'      => array(),
                                        'function'      => array(),
@@ -1501,7 +1504,7 @@ function _run_insert_handler($args)
         if ( strtoupper(substr(PHP_OS, 0, 3)) == 'WIN' || (flock($fd, LOCK_EX)) ) {
             fwrite( $fd, $contents );
             fclose($fd);
-            chmod($filename, 0644);
+            chmod($filename, $this->_file_perms);
         }
 
         return true;
@@ -1675,7 +1678,7 @@ function _run_insert_handler($args)
                 	$_make_new_dir = true;					
 				}
 
-                if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, 0771)) {
+                if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, $this->_dir_perms)) {
                     $this->trigger_error("problem creating directory \"$dir\"");
                     return false;
                 }
