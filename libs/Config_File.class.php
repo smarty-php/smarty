@@ -19,7 +19,7 @@
  *
  * @link http://smarty.php.net/
  * @version 2.6.6-dev
- * @copyright Copyright: 2001-2004 ispi of Lincoln, Inc.
+ * @copyright Copyright: 2001-2005 ispi of Lincoln, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty

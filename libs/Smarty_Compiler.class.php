@@ -22,7 +22,7 @@
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
  * @version 2.6.6-dev
- * @copyright 2001-2004 ispi of Lincoln, Inc.
+ * @copyright 2001-2005 ispi of Lincoln, Inc.
  * @package Smarty
  */
 
