@@ -53,7 +53,7 @@ class Smarty_Compiler extends Smarty {
     var $_capture_stack         =   array();    // keeps track of nested capture buffers
     var $_plugin_info           =   array();    // keeps track of plugins to load
     var $_init_smarty_vars      =   false;
-	var $_permitted_tokens		=	array('true','false','yes','no','on','off');
+	var $_permitted_tokens		=	array('true','false','yes','no','on','off','null');
     var $_db_qstr_regexp		=	null;		// regexps are setup in the constructor
     var $_si_qstr_regexp		=	null;
     var $_qstr_regexp			=	null;
@@ -659,9 +659,12 @@ class Smarty_Compiler extends Smarty {
 
         $arg_list = array();
         $attrs = $this->_parse_attrs($tag_args);
+
         foreach ($attrs as $arg_name => $arg_value) {
             if (is_bool($arg_value))
                 $arg_value = $arg_value ? 'true' : 'false';
+            if (is_null($arg_value))
+                $arg_value = 'null';
             $arg_list[] = "'$arg_name' => $arg_value";
         }
 		
@@ -1342,9 +1345,11 @@ class Smarty_Compiler extends Smarty {
                         /* We booleanize the token if it's a non-quoted possible
                            boolean value. */
                         if (preg_match('!^(on|yes|true)$!', $token)) {
-                            $token = true;
+                            $token = 'true';
 						} else if (preg_match('!^(off|no|false)$!', $token)) {
-                            $token = false;
+                            $token = 'false';
+						} else if ($token == 'null') {
+                            $token = 'null';
 						} else if (!preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')?$!', $token)) {
                         	/* treat as a string, double-quote it escaping quotes */
                             $token = '"'.addslashes($token).'"';
@@ -1368,7 +1373,7 @@ class Smarty_Compiler extends Smarty {
 		}
 		
         $this->_parse_vars_props($attrs);
-
+		
         return $attrs;
     }
 

@@ -1,3 +1,5 @@
+    - allow null as function attribute value
+      (André Rabold, Monte)
     - support $foo->bar[index] syntax (Monte)
     - add get_registered_object function (messju, Monte)
     - treat unrecognized param attribute syntax as string (Monte)
