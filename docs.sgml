@@ -4084,7 +4084,7 @@ OUTPUT:
 {popup_init}
 
 {* create a link with a popup window when you move your mouse over *}
-&lt;A href="mypage.html" {popup text="This link takes you to my page!}&gt;mypage&lt;/A&gt;
+&lt;A href="mypage.html" {popup text="This link takes you to my page!"}&gt;mypage&lt;/A&gt;
 
 {* you can use html, links, etc in your popup text *}
 &lt;A href="mypage.html" {popup sticky=true caption="mypage contents"
