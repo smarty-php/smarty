@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.escaping">
  <title>Désactiver l'analyse de Smarty</title>
  <para>
-  Il est quelquesfois bien ou même nécessaire de faire ignorer certaines sections
-  à Smarty qu'il analyserait sinon. Un exemple classique est l'incorporation de code
+  Il est quelques fois utile voir nécessaire de demander à Smarty d'ignorer certaines sections
+  que seraient analysées sinon. Un exemple classique est l'incorporation de code
   Javascript ou CSS dans les templates. Le problème est que ces langages utilisent
-  les caractères { et } qui sont aussi les délimiteurs par défaut de Smarty.
+  les caractères { et }, qui sont aussi les délimiteurs Smarty par défaut.
  </para>
  
  <para>
-  Le plus simple est d'éviter une telle situation en séparant votre code Javascript et CSS
-  dans des fichiers séparés et d'utiliser les méthodes standard HTML pour y accéder.
+  Le plus simple pour éviter une telle situation est de placer vos codes Javascript et CSS
+  dans des fichiers séparés, puis d'utiliser les méthodes standards HTML pour y accéder.
  </para>
  
  <para>
-  Inclure du contenu litéral est possible en utilisant les blocs <link
+  Inclure du contenu tel quel est possible en utilisant les blocs <link
   linkend="language.function.literal">{literal} .. {/literal}</link>.
   Similairement à l'utilisation d'entités HTML, vous pouvez utiliser <link
   linkend="language.function.ldelim">{ldelim}</link> et <link
@@ -30,7 +30,7 @@
   </para>
   <example>
    <title>Exemple de changement de délimiteur</title>
-   <programlisting role="php">
+<programlisting role="php">
 <![CDATA[
 <?php
 
@@ -41,19 +41,24 @@ $smarty->assign('foo', 'bar');
 $smarty->display('example.tpl');
 
 ?>
-
---- example.tpl
+]]>
+  </programlisting>
+  <para>
+   Ou example.tpl est:
+  </para>
+  <programlisting>
+<![CDATA[
 <script language="javascript">
 var foo = <!--{$foo}-->;
 function dosomething() {
-    alert("foo is " + foo);
+    alert("foo = " + foo);
 }
 dosomething();
 </script>
 ]]>
-   </programlisting>
-  </example>
- </sect1>
+  </programlisting>
+ </example>
+</sect1>
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml
