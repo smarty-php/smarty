@@ -24,9 +24,6 @@
 <xsl:param name="refentry.generate.name" select="'0'"/>
 <xsl:param name="refentry.generate.title" select="1"/>
 
-<!-- Make copyright year ranges (like 1999-2004) -->
-<xsl:param name="make.year.ranges" select="1"/>
-
 <!-- PROTOTYPES: PHP-Version without semicolon, etc. 
      note: methodparams are separated in html-common and fo -->
 <xsl:template match="methodsynopsis">
