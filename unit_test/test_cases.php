@@ -407,12 +407,11 @@ foo:foo:b',   $this->smarty->fetch('assign_obj.tpl'));
     function test_core_is_secure_function_smarty_var_const_not_allowed() {
         $security = $this->smarty->security;
         $this->smarty->security = true;
-        /* save old error_handler */
+        /* catch errors: */
         $this->errorlevel = null;
-        $error_handler = set_error_handler(array(&$this, 'error_handler'));
+        set_error_handler(array(&$this, 'error_handler'));
         $this->smarty->fetch('constant.tpl', null, 'var_const_not_allowed');
-        /* restore old error_handler */
-        if ($error_handler) set_error_handler($error_handler);
+        restore_error_handler();
 
         $this->assertEquals( $this->errorlevel, E_USER_WARNING);
         $this->smarty->security = $security;
