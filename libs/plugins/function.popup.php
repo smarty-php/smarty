@@ -31,7 +31,7 @@ function smarty_function_popup($params, &$smarty)
             case 'caption':
             case 'closetext':
             case 'status':
-                $append .= ',' . strtoupper($_key) . "','" . str_replace("'","\'",$_value) . "'";
+                $append .= ',' . strtoupper($_key) . ",'" . str_replace("'","\'",$_value) . "'";
                 break;
 
             case 'fgcolor':
@@ -65,7 +65,8 @@ function smarty_function_popup($params, &$smarty)
             case 'frame':
             case 'timeout':
             case 'delay':
-                $append .= ',' . strtoupper($_key) . "','$_value'";
+            case 'function':
+                $append .= ',' . strtoupper($_key) . ",'$_value'";
                 break;
 
             case 'sticky':
@@ -81,10 +82,6 @@ function smarty_function_popup($params, &$smarty)
             case 'hauto':
             case 'vauto':
                 if ($_value) $append .= ',' . strtoupper($_key);
-                break;
-
-            case 'function':
-                $append .= ',' . strtoupper($_key) . "',$_value";
                 break;
 
             default:
