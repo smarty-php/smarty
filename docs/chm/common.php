@@ -61,7 +61,7 @@ function convertCharset($buf)
 // Returns the name of character set in the given document
 function detectDocumentCharset($doc)
 {
-    if (preg_match("/<META\\s+HTTP-EQUIV=\"CONTENT-TYPE\"\\s+CONTENT=\"TEXT\\/HTML;\\s+CHARSET=([\\w\\d-]*)\"\\s*>/iU", $doc, $reg)) {
+    if (preg_match('/<META[^>]+CHARSET=["\'\s]?([\w\d-]+)["\'\s]?\s*>/iS', $doc, $reg)) {
         return $reg[1];
     }
     return false;
