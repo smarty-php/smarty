@@ -109,6 +109,16 @@ class Smarty
     var $cache_modified_check = false;  // respect If-Modified-Since headers on cached content
 
 
+	var $config_overwrite = true;		// whether config file variables of the
+										// same name overwrite each other or not
+	var $config_booleanize = true;		// whether config file values of
+										// on/true/yes and off/false/no get converted
+										// to boolean values automatically
+	var $config_read_hidden = false;	// whether hidden sections [.foobar]
+										// are readable from the templates or not
+	var $config_fix_newlines = true;	// whether or not to fix mac or dos formatted
+										// newlines [\r\n] -> \n
+	
     var $default_template_handler_func = ''; // function to handle missing templates
 
     var $php_handling    =  SMARTY_PHP_PASSTHRU;
@@ -142,6 +152,8 @@ class Smarty
 
     var $compiler_class        =   'Smarty_Compiler'; // the compiler class used by
                                                       // Smarty to compile templates
+    var $config_class          =   'Config_File';     // the config class used by
+                                                      // Smarty to load config vars
 
     var $request_vars_order    = "EGPCS";   // the order in which request variables are
                                             // registered, similar to variables_order
@@ -169,7 +181,8 @@ class Smarty
     var $_foreach              = array();    // keeps track of foreach blocks
     var $_tag_stack            = array();    // keeps track of tag hierarchy
     var $_conf_obj             = null;       // configuration object
-    var $_config               = array();    // loaded configuration settings
+    var $_config               = array(		 // loaded configuration settings
+											array('vars'  => array(), 'files' => array()));
     var $_smarty_md5           = 'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'
     var $_version              = '2.3.1';    // Smarty version number
     var $_extract              = false;      // flag for custom functions
@@ -670,8 +683,10 @@ class Smarty
         extract($this->_tpl_vars);
 
         /* Initialize config array. */
+		/*
         $this->_config = array(array('vars'  => array(),
                                      'files' => array()));
+		*/
 
         if (count($this->autoload_filters))
             $this->_autoload_filters();
@@ -1104,9 +1119,9 @@ function _generate_debug_output() {
         $smarty_compiler->_tpl_vars         = &$this->_tpl_vars;
         $smarty_compiler->default_modifiers = $this->default_modifiers;
 
-        if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled))
+        if ($smarty_compiler->_compile_file($tpl_file, $template_source, $template_compiled)) {
             return true;
-        else {
+		} else {
             $this->trigger_error($smarty_compiler->_error_msg);
             return false;
         }
@@ -1129,14 +1144,19 @@ function _generate_debug_output() {
         $this->_tpl_vars = array_merge($this->_tpl_vars, $_smarty_include_vars);
         extract($this->_tpl_vars);
 
+		// config vars are treated as local, so push a copy of the
+		// current ones onto the front of the stack
         array_unshift($this->_config, $this->_config[0]);
+
         $_smarty_compile_path = $this->_get_compile_path($_smarty_include_tpl_file);
 
         if ($this->_process_template($_smarty_include_tpl_file, $_smarty_compile_path)) {
             include($_smarty_compile_path);
         }
 
+		// pop the local vars off the front of the stack
         array_shift($this->_config);
+
         $this->_inclusion_depth--;
 
         if ($this->debugging) {
@@ -1184,11 +1204,28 @@ function _generate_debug_output() {
         }
     }
 
+	
 /*======================================================================*\
-    Function: _config_load
+    Function: clear_config
+    Purpose:  clear configuration values
+\*======================================================================*/
+    function clear_config($var = null)
+    {
+		if(!isset($var)) {
+			// clear all values
+        	$this->_config = array(array('vars'  => array(),
+                                    	 'files' => array()));
+		} else {
+			unset($this->_config[0]['vars'][$var]);			
+		}
+	}	
+	
+	
+/*======================================================================*\
+    Function: config_load
     Purpose:  load configuration values
 \*======================================================================*/
-    function _config_load($file, $section, $scope)
+    function config_load($file, $section = null, $scope = 'global')
     {
 		if(@is_dir($this->config_dir)) {
 			$_config_dir = $this->config_dir;			
@@ -1196,17 +1233,35 @@ function _generate_debug_output() {
 			// config_dir not found, try include_path
 			$this->_get_include_path($this->config_dir,$_config_dir);
 		}
-		
-        if ($this->_conf_obj === null) {
-            /* Prepare the configuration object. */
-            if (!class_exists('Config_File'))
-                require_once SMARTY_DIR.'Config_File.class.php';
-            $this->_conf_obj = new Config_File($_config_dir);
-            $this->_conf_obj->read_hidden = false;
-        } else {
-            $this->_conf_obj->set_path($_config_dir);
-        }
 
+		$_file_path = $_config_dir . '/' . $file;
+		
+        if(!is_object($this->_conf_obj)) {
+            require_once SMARTY_DIR . $this->config_class . '.class.php';
+        	$this->_conf_obj = new Config_File($_config_dir);
+            $this->_conf_obj->overwrite = $this->config_overwrite;
+            $this->_conf_obj->booleanize = $this->config_booleanize;
+            $this->_conf_obj->read_hidden = $this->config_read_hidden;
+            $this->_conf_obj->fix_newlines = $this->config_fix_newlines;
+		}
+		
+		if(!isset($this->_config[0]['files'][$file])) {
+			// get path to compiled object file
+       		$_cache_file = $this->_get_auto_filename($this->cache_dir, $file, 'SMARTY_CONFIG');
+
+			// see if cache file is up to date
+			if(@filemtime($_cache_file) == @filemtime($_file_path)) {
+				// load cache file
+				$this->_conf_obj = unserialize($this->_read_file($_cache_file));
+			} else {
+				// load file and save cache
+				$this->_conf_obj->load_file($file);
+				$_conf_obj_file_contents = serialize($this->_conf_obj);
+				$this->_write_file($_cache_file, $_conf_obj_file_contents, true);
+				touch($_cache_file,filemtime($_file_path));
+        	}
+		}
+		
         if ($this->debugging) {
             $debug_start_time = $this->_get_microtime();
         }
@@ -1216,30 +1271,32 @@ function _generate_debug_output() {
         }
 
         if (!isset($this->_config[0]['files'][$file])) {
-            $this->_config[0]['vars'] = array_merge($this->_config[0]['vars'], $this->_conf_obj->get($file));
+            $this->_config[0]['vars'] = @array_merge($this->_config[0]['vars'], $this->_conf_obj->get($file));
             $this->_config[0]['files'][$file] = true;
         }
+
         if ($scope == 'parent') {
             if (count($this->_config) > 0 && !isset($this->_config[1]['files'][$file])) {
-                $this->_config[1]['vars'] = array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file));
+                $this->_config[1]['vars'] = @array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file));
                 $this->_config[1]['files'][$file] = true;
             }
-        } else if ($scope == 'global')
+        } else if ($scope == 'global') {
             for ($i = 1, $for_max = count($this->_config); $i < $for_max; $i++) {
                 if (!isset($this->_config[$i]['files'][$file])) {
-                    $this->_config[$i]['vars'] = array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file));
+                    $this->_config[$i]['vars'] = @array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file));
                     $this->_config[$i]['files'][$file] = true;
                 }
             }
-
+		}
+		
         if (!empty($section)) {
-            $this->_config[0]['vars'] = array_merge($this->_config[0]['vars'], $this->_conf_obj->get($file, $section));
+            $this->_config[0]['vars'] = @array_merge($this->_config[0]['vars'], $this->_conf_obj->get($file, $section));
             if ($scope == 'parent') {
                 if (count($this->_config) > 0)
-                    $this->_config[1]['vars'] = array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file, $section));
+                    $this->_config[1]['vars'] = @array_merge($this->_config[1]['vars'], $this->_conf_obj->get($file, $section));
             } else if ($scope == 'global')
                 for ($i = 1, $for_max = count($this->_config); $i < $for_max; $i++)
-                    $this->_config[$i]['vars'] = array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file, $section));
+                    $this->_config[$i]['vars'] = @array_merge($this->_config[$i]['vars'], $this->_conf_obj->get($file, $section));
         }
 
         if ($this->debugging) {
@@ -1249,6 +1306,7 @@ function _generate_debug_output() {
                                                 'depth'     => $this->_inclusion_depth,
                                                 'exec_time' => $this->_get_microtime() - $debug_start_time);
         }
+		
     }
 
 

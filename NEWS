@@ -1,3 +1,8 @@
+    - added caching to config file loading (Monte)
+    - added "extra" parameter to mailto function (Monte,
+      Massimiliano Perantoni)
+    - added mailto function to default plugin list (Monte)
+
 Version 2.3.1
 -------------
 

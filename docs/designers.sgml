@@ -3138,10 +3138,10 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                     </row>
                     <row>
                         <entry>selected</entry>
-                        <entry>string</entry>
+                        <entry>string/array</entry>
                         <entry>No</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>the selected array element</entry>
+                        <entry>the selected array element(s)</entry>
                     </row>
                     <row>
                         <entry>options</entry>

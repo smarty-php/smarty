@@ -555,7 +555,7 @@ class Smarty_Compiler extends Smarty {
                 $scope = 'local';
         }
 
-        $output  = '<?php $this->_config_load(' . $attrs['file'] . ', ' . $attrs['section'] . ", '$scope'); ?>";
+        $output  = '<?php $this->config_load(' . $attrs['file'] . ', ' . $attrs['section'] . ", '$scope'); ?>";
 
         return $output;
     }
