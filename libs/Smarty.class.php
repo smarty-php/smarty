@@ -798,8 +798,22 @@ class Smarty
      */    
     function register_resource($type, $functions)
     {
-        $this->_plugins['resource'][$type] =
-            array((array)$functions, false);
+        if (sizeof($functions)==4) {
+            $this->_plugins['resource'][$type] =
+                array($functions, false);
+
+        } elseif (sizeof($functions)==5 && is_object($functions[0])) {
+            $this->_plugins['resource'][$type] =
+                array(array(array(&$functions[0], $functions[1])
+                            ,array(&$functions[0], $functions[2])
+                            ,array(&$functions[0], $functions[3])
+                            ,array(&$functions[0], $functions[4]))
+                      ,false);
+
+        } else {
+            $this->trigger_error("malformed function-list for '$type' in register_resource");
+
+        }
     }
 
     /**
@@ -1338,8 +1352,8 @@ class Smarty
             }
         } else {
             // resource is not on local file system
-            $resource_func = $this->_plugins['resource'][$resource_type][0][3];
-            $_smarty_trusted = $resource_func($resource_name, $this);
+            $_smarty_trusted = call_user_func_array($this->_plugins['resource'][$resource_type][0][3],
+                                                    array($resource_name, $this));
         }
 
         return $_smarty_trusted;
@@ -1373,8 +1387,9 @@ class Smarty
             }
         } else {
             // resource is not on local file system
-            $resource_func = $this->_plugins['resource'][$resource_type][0][2];
-            $_smarty_secure = $resource_func($resource_name, $_smarty_secure, $this);
+            $_smarty_secure = call_user_func_array(
+                $this->_plugins['resource'][$resource_type][0][2],
+                array($resource_name, &$_smarty_secure, &$this));
         }
 
         return $_smarty_secure;
@@ -1593,16 +1608,20 @@ class Smarty
                     $_return = true;
                     break;
 
-                default:
+                default:                    
                     // call resource functions to fetch the template source and timestamp
                     if ($get_source) {
-                        $resource_func = $this->_plugins['resource'][$resource_type][0][0];
-                        $_source_return = $resource_func($resource_name, $template_source, $this);
+                        $_source_return = isset($this->_plugins['resource'][$resource_type]) &&
+                            call_user_func_array($this->_plugins['resource'][$resource_type][0][0],
+                                                 array($resource_name, &$template_source, &$this));
                     } else {
                         $_source_return = true;
                     }
-                    $resource_func = $this->_plugins['resource'][$resource_type][0][1];
-                    $_timestamp_return = $resource_func($resource_name, $template_timestamp, $this);
+
+                    $_timestamp_return = isset($this->_plugins['resource'][$resource_type]) &&
+                        call_user_func_array($this->_plugins['resource'][$resource_type][0][1],
+                                             array($resource_name, &$template_timestamp, &$this));
+
                     $_return = $_source_return && $_timestamp_return;
                     break;
             }
@@ -1611,11 +1630,12 @@ class Smarty
         if (!$_return) {
             // see if we can get a template with the default template handler
             if (!empty($this->default_template_handler_func)) {
-                if (!function_exists($this->default_template_handler_func)) {
+                if (!$this->_plugin_implementation_exists($this->default_template_handler_func)) {
                     $this->trigger_error("default template handler function \"$this->default_template_handler_func\" doesn't exist.");
                 } else {
-                	$funcname = $this->default_template_handler_func;
-                	$_return = $funcname($resource_type, $resource_name, $template_source, $template_timestamp, $this);
+                	$_return = call_user_func_array(
+                        $this->default_template_handler_func,
+                        array($resource_type, $resource_name, &$template_source, &$template_timestamp, &$this));
 				}
             }
         }
@@ -2523,8 +2543,8 @@ class Smarty
         if (isset($plugin)) {
             if (!$plugin[1] && count($plugin[0])) {
                 $plugin[1] = true;
-                foreach ($plugin[0] as $plugin_func) {
-                    if (!function_exists($plugin_func)) {
+                foreach ($plugin[0] as $plugin_func) {                 
+                    if (!$this->_plugin_implementation_exists($plugin_func)) {
                         $plugin[1] = false;
                         break;
                     }

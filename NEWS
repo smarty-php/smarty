@@ -1,3 +1,7 @@
+  - enabled array(&$obj. 'source', 'timestamp', 'secure', 'trusted')
+    as callback for register_resource() (messju);
+  - enabled array(&$obj, 'method') as callback for
+    $default_template_handler_func (messju)
   - made plugin-names case-insensitive. this affects compiler/block/custom-
     functions and modifers. (messju)
   - remove unnecessary close/open tags from compiled templates
