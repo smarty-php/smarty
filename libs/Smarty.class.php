@@ -271,8 +271,6 @@ class Smarty
 
 	function _process_file($filepath)
 	{
-		var_dump($filepath);
-
 		if(preg_match("/^(.+)\/([^\/]+)$/", $filepath, $match)) {
 			$tpl_file_dir = $match[1];			
 			$tpl_file_name = $match[2] . ".php";
