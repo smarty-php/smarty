@@ -1,3 +1,22 @@
+2003-02-05  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      treat undefined constants as null
+
+    * NEWS
+      Smarty.class.php:
+      fix problem with inserts and nested fetches
+
+    * Smarty_Compiler.class.php:
+      fix "if" regex for math tokens
+
+    * NEWS
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      docs/getting-started.sgml:
+      added support for extracting params to include_php
+
 2003-02-04  Monte Ohrt  <monte@ispi.net>
 
     * RELEASE_NOTES:
