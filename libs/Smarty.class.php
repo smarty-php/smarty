@@ -257,6 +257,22 @@ class Smarty
 	}
 
 /*======================================================================*\
+	Function:	clear_all_cache()
+	Purpose:	clear all the cached template files.
+\*======================================================================*/
+
+	function clear_all_cache()
+	{
+		while($curr_file = readdir($this->cache_dir)) {
+			if ($curr_file == '.' || $curr_file == '..')
+				continue;
+			if(substr($curr_file,-4) == '.che')
+				unlink($curr_file);
+		}		
+	}
+	
+	
+/*======================================================================*\
 	Function:	compile()
 	Purpose:	called to compile the templates
 \*======================================================================*/

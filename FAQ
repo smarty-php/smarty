@@ -21,8 +21,42 @@ A: Smarty reads the template files and creates PHP scripts from them. Once
    the template files again. If you change a template file, Smarty will
    recreate the PHP script for it. All this is done automatically by Smarty.
    Template designers never need to mess with the generated PHP scripts or even
-   know of their existance.
+   know of their existance. (NOTE: you can turn off this compile checking step
+   in Smarty for increased performance.)
 
+Q: Why can't I just use APC <http://apc.communityconnect.com/> (or Zend Cache)?
+A: Smarty and these cache solutions have nothing in common. What APC does is
+   caches compiled bytecode of your PHP scripts in shared memory or in a file.
+   This speeds up server response and saves the compilation step. Smarty
+   creates PHP scripts (which APC will cache nicely) and also has it's own
+   internal caching mechanism for the output of the template contents. For
+   example, if you have a template that requires several database queries,
+   Smarty can cache this output, saving the need to call the database every
+   time. APC cannot help you here. Smarty and APC (or Zend Cache) actually
+   complement each other nicely. If performance is of the utmost importance, we
+   would recommend using one of these with any PHP application, using Smarty or
+   not.
+
+Q: Is Smarty faster than <insert other PHP template engine>?
+A: This would mostly depend on the other template engine, but as a
+   general rule of thumb: Without a PHP caching solution like APC or
+   Zend Cache, Smarty is most likely as fast, or possibly slower. With
+   APC, Smarty is mostly like as fast or much faster. The reason is
+   this: Smarty generates PHP scripts from your templates. The more
+   templates your application has, the more PHP scripts Smarty
+   generates. This in turn requires more time for the PHP parser to
+   compile the PHP scripts. With APC, this compilation step is cached.
+   So as the complexity of the templates increase, the performance
+   savings go up accordingly. Also, most other template solutions parse
+   the template files on each invocation. The more complex the
+   templates are, the longer they take to parse them.
+   
+   The above comparison assumes that you are not using Smarty's
+   built-in ability to cache templates. If you are, that makes this
+   comparison pretty useless since Smarty will basically be displaying
+   static content instead of generating templates, which of course will
+   be magnitudes faster.
+   
 Q: Do you have a mailing list?
 A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net. This
    is also archived at http://marc.theaimsgroup.com/ under www/smarty
