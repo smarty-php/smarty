@@ -1,3 +1,4 @@
+  - fix permission handling with security and config_load (messju)
   - removed '.' from the list of default template locations in
     _parse_resource_name() (messju)
   - fix avoid warning with template_exists() on an absolute paths (messju)

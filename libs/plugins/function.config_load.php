@@ -53,7 +53,9 @@ function smarty_function_config_load($params, &$smarty)
             }
         }
 
-        $_params = array('resource_name' => $_file, 'resource_base_path' => $smarty->config_dir);
+        $_params = array('resource_name' => $_file,
+                         'resource_base_path' => $smarty->config_dir,
+                         'get_source' => false);
         $smarty->_parse_resource_name($_params);
         $_file_path = $_params['resource_type'] . ':' . $_params['resource_name'];
         if (isset($_section))
@@ -61,10 +63,19 @@ function smarty_function_config_load($params, &$smarty)
         else
             $_compile_file = $smarty->_get_compile_path($_file_path);
 
-        if($smarty->force_compile
-                || !file_exists($_compile_file)
-                || ($smarty->compile_check
-                    && !$smarty->_is_compiled($_file_path, $_compile_file))) {
+        if($smarty->force_compile || !file_exists($_compile_file)) {
+            $_compile = true;
+        } elseif ($smarty->compile_check) {
+            $_params = array('resource_name' => $_file,
+                             'resource_base_path' => $smarty->config_dir,
+                             'get_source' => false);
+            $_compile = $smarty->_fetch_resource_info($_params) &&
+                $_params['resource_timestamp'] > filemtime($_compile_file);
+        } else {
+            $_compile = false;
+        }
+
+        if($_compile) {
             // compile config file
             if(!is_object($smarty->_conf_obj)) {
                 require_once SMARTY_DIR . $smarty->config_class . '.class.php';
@@ -74,7 +85,10 @@ function smarty_function_config_load($params, &$smarty)
                 $smarty->_conf_obj->read_hidden = $smarty->config_read_hidden;
                 $smarty->_conf_obj->fix_newlines = $smarty->config_fix_newlines;
             }
-            $_params = array('resource_name' => $_file, 'resource_base_path' => $smarty->config_dir);
+
+            $_params = array('resource_name' => $_file,
+                             'resource_base_path' => $smarty->config_dir,
+                             $_params['get_source'] = true);
             if (!$smarty->_fetch_resource_info($_params)) {
                 return;
             }
