@@ -1521,22 +1521,24 @@ reques     * @var string
      * @param array|null $map_array
      * @return string result of modifiers
      */
-    function _run_mod_handler($_modifier_name, $_map_array, $_modifier_args)
-	{
-        $_func_name = $this->_plugins['modifier'][$_modifier_name][0];
-		$_var = $_modifier_args[0];
+    function _run_mod_handler()
+    {
+        $_args = func_get_args();
+        list($_modifier_name, $_map_array) = array_splice($_args, 0, 2);
+        list($_func_name, $_tpl_file, $_tpl_line) =
+            $this->_plugins['modifier'][$_modifier_name];
+        $_var = $_args[0];
 
         if ($_map_array && is_array($_var)) {
             foreach ($_var as $_key => $_val) {
-                $_modifier_args[0] = $_val;
-                $_var[$_key] = call_user_func_array($_func_name, $_modifier_args);
+                $_args[0] = $_val;
+                $_var[$_key] = call_user_func_array($_func_name, $_args);
             }
             return $_var;
         } else {
-            return call_user_func_array($_func_name, $_modifier_args);
+            return call_user_func_array($_func_name, $_args);
         }
     }
-
 
     /**
      * Remove starting and ending quotes from the string

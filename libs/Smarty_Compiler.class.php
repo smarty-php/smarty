@@ -1689,7 +1689,6 @@ class Smarty_Compiler extends Smarty {
         }
     }
 
-
 	/**
 	 * add plugin
 	 *
