@@ -79,6 +79,8 @@ class Smarty
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
                                         // 0 = never expires. default is one hour (3600)
 
+    var $tpl_file_ext    =  '.tpl';     // template file extention
+
     var $php_handling    =  SMARTY_PHP_PASSTHRU;
                                         // how smarty handles php tags in the templates
                                         // possible values:

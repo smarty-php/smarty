@@ -359,6 +359,33 @@ chmod 700 cache
 				added to Smarty 1.3.0.
 			</para>
 		</sect2>
+        <sect2 id="setting.tpl.file.ext">
+            <title>$tpl_file_ext</title>
+            <para>
+                This is the extention used for template files. By default this
+                is ".tpl". All other files in the template directory are
+                ignored.
+            </para>
+            <para>
+                NOTE: $tpl_file_ext is no longer needed in 1.4.0. This is kept
+                for backward compatability.
+            </para>
+        </sect2>
+        <sect2 id="setting.allow.php">
+            <title>$allow_php</title>
+            <para>
+                Whether or not to allow PHP code in the templates. If set to
+                false, PHP code is escaped and not interpreted. Embedding PHP
+                code into templates is highly discouraged. Use <link
+                linkend="custom.functions">custom functions</link> or <link
+                linkend="variable.modifiers">modifiers</link> instead. Default
+                is "false".
+            </para>
+            <para>
+                NOTE: $allow_php was removed in 1.3.0, and replaced with
+                $php_handling.
+            </para>
+        </sect2>
 		<sect2 id="setting.php.handling">
 			<title>$php_handling</title>
 			<para>
@@ -3693,11 +3720,9 @@ OUTPUT:
 </programlisting>
 </example>
 		<para>
-		{html_select_date}, an included custom function with Smarty, also
-		expects a timestamp as the default value. When using {html_select_date}
-		in a template, The programmer will most likely want to convert the
-		output from the form back into timestamp format. Here is a function to
-		help you with that.
+        When using {html_select_date} in a template, The programmer will most
+        likely want to convert the output from the form back into timestamp
+        format. Here is a function to help you with that.
 		</para>
 <example>
 <title>converting form date elements back to a timestamp</title>
@@ -3706,7 +3731,7 @@ OUTPUT:
 // this assumes your form elements are named
 // startDate_Day, startDate_Month, startDate_Year
 
-$startDate = makeTimestamp($startDate_Year,$startDate_Month,$startDate_day);
+$startDate = makeTimeStamp($startDate_Year,$startDate_Month,$startDate_day);
 
 function makeTimeStamp($year="",$month="",$day="")
 {
