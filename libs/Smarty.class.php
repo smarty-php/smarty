@@ -392,7 +392,7 @@ class Smarty
 
 		/* If the tag name matches a variable or section property definition,
 		   we simply process it. */
-		if (preg_match('!^\$(\w+/)*\w+(?>\|@?\w+(:[^|]+)?)*$!', $tag_command) ||	// if a variable
+		if (preg_match('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:[^|]+)?)*$!', $tag_command) ||	// if a variable
 			preg_match('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tag_command)		||  // or a configuration variable
 			preg_match('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tag_command)) {    // or a section property
 			settype($tag_command, 'array');
@@ -854,11 +854,11 @@ class Smarty
 		   allow people to use older versions of PHP we emulate preg_grep() and
 		   use the version check to see what function to call. */
 		if (strnatcmp($PHP_VERSION, '4.0.4') >= 0) {
-			$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+			$var_exprs = preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 			$conf_var_exprs = preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 			$sect_prop_exprs = preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 		} else {
-			$var_exprs = $this->_preg_grep('!^\$(\w+/)*\w+(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
+			$var_exprs = $this->_preg_grep('!^\$(\w+/)*\w+(?>\.\w+)*(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 			$conf_var_exprs = $this->_preg_grep('!^#(\w+)#(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 			$sect_prop_exprs = $this->_preg_grep('!^%\w+\.\w+%(?>\|@?\w+(:[^|]+)?)*$!', $tokens);
 		}
@@ -887,12 +887,16 @@ class Smarty
 		$modifiers = explode('|', substr($var_expr, 1));
 
 		$sections = explode('/', array_shift($modifiers));
-		$var_name = array_pop($sections);
+		$props = explode('.', array_pop($sections));
+		$var_name = array_shift($props);
 
 		$output = "\$$var_name";
 
 		foreach ($sections as $section) {
 			$output .= "[\$_sections['$section']['properties']['index']]";
+		}
+		foreach ($props as $prop) {
+			$output .= "['$prop']";
 		}
 
 		$this->_parse_modifiers($output, $modifiers);

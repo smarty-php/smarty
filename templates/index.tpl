@@ -25,13 +25,12 @@ My interests are:
 	none
 {/section}
 
-Contacts: {$Contacts}<br>
 testing
-{$Contacts["phone"]["cell"]}<br>
-{$Contacts["phone"]["fax"]}<br>
-{$Contacts["phone"]["home"]}<br>
-{$Contacts["phone"]["work"]}<br>
-{$Contacts["fax"]}<br>
+{section name=sec1 loop=$contacts}
+	phone: {$sec1/contacts.phone}
+	fax: {$sec1/contacts.fax}
+	cell: {$sec1/contacts.cell}
+{/section}
 
 <p>
 
