@@ -1,3 +1,18 @@
+2002-07-03  Monte Ohrt  <monte@ispi.net>
+
+    * Smarty.class.php: one more N
+
+    * Smarty.class.php:
+    prepend "N" to filenames to avoid possible OS issues with dir names starting with "-"
+
+    * Smarty.class.php: only set $debug_tpl in constructor if empty
+
+    * Smarty.class.php
+      docs/designers.sgml
+      docs/getting-started.sgml
+      docs/programmers.sgml:
+    make use_sub_dirs go back to crc32 for subdir separation
+
 2002-06-29  Monte Ohrt  <monte@ispi.net>
 
     * plugins/function.eval.php: do nothing if $val is empty
