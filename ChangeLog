@@ -1,3 +1,9 @@
+2003-10-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fix handling of simple-math-operators inside modifiers
+
 2003-10-25  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
