@@ -1,3 +1,4 @@
+   - change backtic syntax from $`foo` to `$foo` (Monte)
    - recognize $foo[][] syntax inside embedded quotes without
      backtics (Monte)
    - name=123 is passed as an integer (not a string) to plugins now (messju)

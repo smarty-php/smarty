@@ -110,6 +110,30 @@
 &lt;/SELECT&gt;</programlisting>
 </example>
 		</sect1>
+   <sect1 id="language.syntax.quotes">
+    <title>Embedding Vars in Double Quotes</title>
+    <para>
+	Smarty will recognize assigned variables embedded in double quotes so long
+	as the variables contain only numbers, letters, underscores and brackets
+	[]. With any other characters (period, object reference, etc.) the variable
+	must be surrounded by backticks.
+    </para>
+    <example>
+     <title>embedded quotes syntax</title>
+     <programlisting>
+SYNTAX EXAMPLES:
+{func var="test $foo test"}       &lt-- sees $foo
+{func var="test $foo_bar test"}   &lt-- sees $foo_bar
+{func var="test $foo[0] test"}    &lt-- sees $foo[0]
+{func var="test $foo[bar] test"}  &lt-- sees $foo[bar]
+{func var="test $foo.bar test"}   &lt-- sees $foo (not $foo.bar)
+{func var="test `$foo.bar` test"} &lt-- sees $foo.bar
+
+PRACTICAL EXAMPLES:
+{include file="subdir/$tpl_name.tpl"} &lt-- will replace $tpl_name with value
+{cycle values="one,two,`$smarty.config.myval`"} &lt-- must have backticks</programlisting>
+</example>
+		</sect1>
 
   </chapter>
 
