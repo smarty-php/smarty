@@ -540,7 +540,7 @@ class Smarty
 		}
 
 		if (isset($attrs['loop'])) {
-			$loop_check_code = "count({$section_props}['loop']) > 0 && ";
+			$loop_check_code = "{$section_props}['loop'] > 0 && ";
 		} else {
 			$output .= "{$section_props}['loop'] = 1;\n";
 		}
