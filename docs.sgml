@@ -1982,14 +1982,20 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 		<sect2>
 			<title>{$smarty} reserved variable</title>
 			<para>
-			You can access reserved variables in Smarty via the special
-			variable {$smarty}. You can access request variables such as get,
-			post, cookies, server, env and session variables with the syntax in
-			the following examples.
+			The reserved {$smarty} variable can be used to access several
+			special template variables. The full list of them follows.
 			</para>
 			<para>
 			The special variable {$smarty} was added to Smarty 1.4.4.
 			</para>
+
+		<sect3>
+		<title>Request variables</title>
+		<para>
+		The request variables such as get, post, cookies, server,
+		environment, and session variables can be accessed as demonstrated
+		in the examples below:
+		</para>
 <example>
 
 <title>displaying request variables</title>
@@ -2018,21 +2024,49 @@ email: zaphod@slartibartfast.com&lt;br&gt;
 
 </programlisting>
 </example>
+		</sect3>
+
+		<sect3>
+			<title>Current timestamp</title>
 			<para>
-			The current date can be displayed with {$smarty.now}. This is a unix
-			timestamp of the current date/time.
+			The current timestamp can be accessed with {$smarty.now}. The
+			number reflects the number of seconds passed since the so-called
+			Epoch (January 1, 1970) and can be passed directly to
+			date_format modifier for display purposes.
 			</para>
 <example>
 
-<title>displaying current date</title>
+<title>using {$smarty.now}</title>
 <programlisting>
 
-{* use the date_formate modifier to format the date *}
+{* use the date_format modifier to show current date and time *}
 {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
 
 </programlisting>
 </example>
+		</sect3>
+
+		<sect3>
+			<title>Output capture buffer</title>
+			<para>
+			The output captured via {capture}..{/capture} construct can be
+			accessed using {$smarty} variable. See section on
+			<link linkend="builtin.functions.capture">capture</link> for an example.
+			</para>
+		</sect3>
+
+		<sect3>
+			<title>Loop properties</title>
+			<para>
+			{$smarty} variable can be used to refer to 'section' and
+			'foreach' loop properties. See docs for
+			<link linkend="builtin.functions.section">section</link> and
+			<link linkend="builtin.function.foreach">foreach</link>.
+			</para>
+		</sect3>
+
 		</sect2>
+
 		<sect2>
 			<title>Functions</title>
 			<para>
@@ -3530,7 +3564,7 @@ $smarty->assign("contacts", array(array("phone" =&gt; "1", "fax" =&gt; "2", "cel
 *}
 
 {foreach name=outer item=contact from=$contacts}
-  {foreach key=key item=item from=$smarty.foreach.outer}
+  {foreach key=key item=item from=$contact}
     {$key}: {$item}&lt;br&gt;
   {/foreach}
 {/foreach}
