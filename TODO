@@ -10,3 +10,8 @@
 * change plugins so $smarty variable always comes first
 * being able to load config files from PHP scripts
 * get cache ttl with function call
+
+FIX: make inserts use normal functions before plugins
+UPD: change it so that if template comes from some resource,
+     that resource stays as the default, no need to specify it
+     in includes.
