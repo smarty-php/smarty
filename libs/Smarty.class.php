@@ -1407,7 +1407,7 @@ class Smarty
             } else {
                 // get file source and timestamp
                 $_params = array('resource_name' => $resource_name, 'get_source'=>false);
-                if (!$this->_fetch_resource_info($_params, $this)) {
+                if (!$this->_fetch_resource_info($_params)) {
                     return false;
                 }
                 if ($_params['resource_timestamp'] <= filemtime($compile_path)) {
