@@ -1,7 +1,8 @@
+    - added "hex" and "hexentity" attributes to escape modifier (Monte)
     - removed dependency on PEAR. (Andrei)
     - update popup_init to accept src attribute. (Monte, Duncan Forrest)
     - implemented several optimizations, speeding up Smarty significantly in
-      most cases. (Andrei)
+      most cases. (Andrei,Monte)
     - implemented plugin architecture. (Andrei)
     - added modifiers wordwrap and indent. (Monte)
     - added support for 'If-Modified-Since' headers for cached content. (Monte)

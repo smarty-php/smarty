@@ -5513,8 +5513,11 @@ no title
                 </tgroup>
             </informaltable>
 			<para>
-			This is used to html escape, url escape, or escape single quotes on
-			a variable not already escaped. By default, the variable is html
+			This is used to html escape, url escape, escape single quotes on a
+			variable not already escaped, hex escape or hexentity escape. hex
+			and hexentity escape can be used in conjunction to hide "mailto:"
+			links on a page from web spiders (spam collectors) and yet keep
+			them readable and linkable. By default, the variable is html
 			escaped.
 			</para>
 <example>
@@ -5526,6 +5529,7 @@ no title
 {$articleTitle|escape:"html"}
 {$articleTitle|escape:"url"}
 {$articleTitle|escape:"quotes"}
+<a href="mailto:{$EmailAddress|escape:"hex"}">{$EmailAddress|escape:"hexentity"}</a>
 
 OUTPUT:
 
@@ -5534,6 +5538,7 @@ OUTPUT:
 'Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan'
 'Stiff+Opposition+Expected+to+Casketless+Funeral+Plan'
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
+<a href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74">&#x62;&#x6f;&#x62;&#x40;&#x6d;&#x65;&#x2e;&#x6e;&#x65;&#x74;</a>
 
 </programlisting>
 </example>

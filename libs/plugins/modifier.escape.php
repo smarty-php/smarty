@@ -21,6 +21,17 @@ function smarty_modifier_escape($string, $esc_type = 'html')
             // escape unescaped single quotes
             return preg_replace("%(?<!\\\\)'%", "\\'", $string);
 
+		case 'hex':
+			// escape every character into hex
+			for ($x=0; $x<strlen($string); $x++) {
+				$return .= '%'.bin2hex($string[$x]);
+			}
+			return $return;
+		case 'hexentity':
+			for ($x=0; $x<strlen($string); $x++) {
+				$return .= '&#x'.bin2hex($string[$x]).';';
+			}
+			return $return;
         default:
             return $string;
     }
