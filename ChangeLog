@@ -1,3 +1,32 @@
+2003-02-21  Monte Ohrt  <monte@ispi.net>
+
+    * INSTALL:
+      update wording
+
+    * INSTALL:
+      update install instructions
+
+    * AUTHORS
+      BUGS
+      CREDITS
+      QUICKSTART
+      README
+      RESOURCES
+      TESTIMONIALS:
+      remove some files already in docs or elsewhere
+
+    * demo/index.php:
+      add templates_c to repository
+
+    * index.php:
+      move demo files to demo directory
+
+    * Config_File.class.php
+      Smarty.class.php
+      Smarty_Compiler.class.php
+      debug.tpl:
+      moved lib files under libs directory
+
 2003-02-20  Monte Ohrt  <monte@ispi.net>
 
     * NEWS
