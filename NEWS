@@ -1,4 +1,5 @@
-    - fixed bug with $smarty.cookies and $smarty.server. (Andrei).
+    - fixed behavior of inserts with script attribute. (Andrei)
+    - fixed bug with $smarty.cookies and $smarty.server. (Andrei)
     - wordwrap and indent are missing from 2.0 release, now fixed. (Monte)
     - removed show_info_header and show_info_include variables. (Monte)
 
