@@ -47,7 +47,7 @@ function smarty_function_html_image($params, &$smarty)
     $prefix = '';
     $suffix = '';
     $basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
-        ? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '/';
+        ? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '';
     if(strstr($GLOBALS['HTTP_SERVER_VARS']['HTTP_USER_AGENT'], 'Mac')) {
         $dpi_default = 72;
     } else {
@@ -61,6 +61,7 @@ function smarty_function_html_image($params, &$smarty)
             case 'height':
             case 'width':
             case 'dpi':
+            case 'basedir':
                 $$_key = $_val;
                 break;
 
