@@ -495,6 +495,15 @@ $smarty-&gt;autoload_filters = array('pre' =&gt; array('trim', 'stamp'),
 	  {$var|smarty:nodefaults}.
       </para>
      </sect1>
+     <sect1 id="variable.default.resource.type">
+      <title>$default_resource_type</title>
+      <para>
+	  This tells smarty what resource type to use implicitly. The default value
+	  is 'file', meaning that $smarty->display('index.tpl'); and
+	  $smarty->display('file:index.tpl'); are identical in meaning. See the
+	  <link linkend="template.resources">resource</link> chapter for details.
+      </para>
+     </sect1>
     </chapter>
 
    <chapter id="api.functions">
@@ -1388,6 +1397,14 @@ $smarty->register_modifier("sslash","stripslashes");
           for more information on how to setup a function for fetching
           templates.
          </para>
+		 <note>
+		 <title>Technical Note</title>
+		 <para>
+		 A resource name must be at least two characters in length. One
+		 character resource names will be ignored and used as part of the file
+		 path, such as $smarty->display('c:/path/to/index.tpl');
+		 </para>
+		 </note>
          <para>
           The php-function-array <parameter>resource_funcs</parameter>
           must have 4 or 5 elements. With 4 elements the elements are
@@ -2265,10 +2282,12 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
   <sect1 id="template.resources">
    <title>Resources</title>
    <para>
-    The templates may come from a variety of sources. When you display or
-    fetch a template, or when you include a template from within another
-    template, you supply a resource type, followed by the appropriate path
-    and template name.
+	The templates may come from a variety of sources. When you display or fetch
+	a template, or when you include a template from within another template,
+	you supply a resource type, followed by the appropriate path and template
+	name. If a resource is not explicitly given the value of <link
+	linkend="variable.default.resource.type">$default_resource_type</link> is
+	assumed.
    </para>
    <sect2 id="templates.from.template.dir">
     <title>Templates from $template_dir</title>
