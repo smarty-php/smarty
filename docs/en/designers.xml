@@ -1069,7 +1069,7 @@ index.tpl:
 
 {$articleTitle}
 {$articleTitle|escape}
-{$articleTitle|escape:"html"}    {* escapes  &amp; &quot; &#039; &lt; &gt; *}
+{$articleTitle|escape:"html"}    {* escapes  & &quot; &#039; &lt; &gt; *}
 {$articleTitle|escape:"htmlall"} {* escapes ALL html entities *}
 {$articleTitle|escape:"url"}
 {$articleTitle|escape:"quotes"}
@@ -1078,12 +1078,12 @@ index.tpl:
 OUTPUT:
 
 'Stiff Opposition Expected to Casketless Funeral Plan'
-&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
-&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
-&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
+&#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
+&#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
+&#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
 %27Stiff+Opposition+Expected+to+Casketless+Funeral+Plan%27
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
-&lt;a href=&quot;mailto:%62%6f%62%40%6d%65%2e%6e%65%74&quot;&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
+&lt;a href=&quot;mailto:%62%6f%62%40%6d%65%2e%6e%65%74&quot;&gt;&#x62;&#x6f;&#x62;&#x40;&#x6d;&#x65;&#x2e;&#x6e;&#x65;&#x74;&lt;/a&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.modifier.indent">
@@ -1267,7 +1267,7 @@ $smarty-&gt;display('index.tpl');
 
 index.tpl:
 
-{* replace each carriage return, tab &amp; new line with a space *}
+{* replace each carriage return, tab & new line with a space *}
 
 {$articleTitle}
 {$articleTitle|regex_replace:"/[\r\t\n]/":" "}
@@ -1477,14 +1477,14 @@ index.tpl:
 
 {$articleTitle}
 {$articleTitle|strip}
-{$articleTitle|strip:"&amp;nbsp;"}
+{$articleTitle|strip:"&nbsp;"}
 
 OUTPUT:
 
 Grandmother of
 eight makes        hole in one.
 Grandmother of eight makes hole in one.
-Grandmother&amp;nbsp;of&amp;nbsp;eight&amp;nbsp;makes&amp;nbsp;hole&amp;nbsp;in&amp;nbsp;one.</programlisting>
+Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.modifier.strip.tags">
@@ -2480,7 +2480,7 @@ index.tpl
 			<emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> and
 			<emphasis>{elseif}</emphasis> are also permitted. All PHP conditionals
 			are recognized, such as <emphasis>||</emphasis>, <emphasis>or</emphasis>,
-            <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>, etc.
+            <emphasis>&&</emphasis>, <emphasis>and</emphasis>, etc.
 			</para>
 
 			<para>
@@ -3731,7 +3731,7 @@ index.tpl
 OUTPUT:
 
 This is the contents of foo.
-Welcome to Foobar Pub &amp; Grill's home page!
+Welcome to Foobar Pub & Grill's home page!
 You must supply a &lt;b&gt;city&lt;/b&gt;.
 You must supply a &lt;b&gt;state&lt;/b&gt;.
 
@@ -5007,7 +5007,7 @@ OUTPUT:
                         <entry>trailpad</entry>
                         <entry>string</entry>
                         <entry>No</entry>
-                        <entry><emphasis>&amp;nbsp;</emphasis></entry>
+                        <entry><emphasis>&nbsp;</emphasis></entry>
                         <entry>value to pad the trailing cells on last row with
 						(if any)</entry>
                     </row>
@@ -5067,12 +5067,12 @@ OUTPUT:
 &lt;table border="0"&gt;
 &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;table border="1"&gt;
 &lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
 &lt;tr bgcolor="#dddddd"&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor="#eeeeee"&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;</programlisting>
 </example>
 		</sect1>
@@ -5325,8 +5325,8 @@ OUTPUT:
 9%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%64%6f%6d%
 61%69%6e%2e%63%6f%6d%22%20%3e%6d%65%40%64%6f%6d%61%69%6e%2e%63%6f%6d%3c%2f%61%3e
 %27%29%3b'))&lt;/script&gt;
-&lt;a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" &gt;&amp;#x6d;&amp;#x65;&amp;#x40;&amp;#x64;&amp;
-#x6f;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6e;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;
+&lt;a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" &gt;&#x6d;&#x65;&#x40;&#x64;&
+#x6f;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;&lt;/a&gt;
 &lt;a href="mailto:me@domain.com?subject=Hello%20to%20you%21" &gt;me@domain.com&lt;/a&gt;
 &lt;a href="mailto:me@domain.com?cc=you@domain.com%2Cthey@domain.com" &gt;me@domain.com&lt;/a&gt;
 &lt;a href="mailto:me@domain.com" class="email"&gt;me@domain.com&lt;/a&gt;</programlisting>

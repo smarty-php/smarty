@@ -58,26 +58,26 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
   </sect1>
  </chapter>
  <chapter id="tips">
-  <title>Tips &amp; Tricks</title>
+  <title>Tips & Tricks</title>
   <para>
   </para>
   <sect1 id="tips.blank.var.handling">
    <title>Blank Variable Handling</title>
    <para>
     There may be times when you want to print a default value for an empty
-    variable instead of printing nothing, such as printing "&amp;nbsp;" so that
+    variable instead of printing nothing, such as printing "&nbsp;" so that
     table backgrounds work properly. Many would use an {if} statement to
     handle this, but there is a shorthand way with Smarty, using the
     <emphasis>default</emphasis> variable modifier.
    </para>
    <example>
-    <title>Printing &amp;nbsp; when a variable is empty</title>
+    <title>Printing &nbsp; when a variable is empty</title>
     <programlisting>
 <![CDATA[
 {* the long way *}
 
 {if $title eq ""}
-   &amp;nbsp;
+   &nbsp;
 {else}
    {$title}
 {/if}
@@ -85,7 +85,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 
 {* the short way *}
 
-{$title|default:"&amp;nbsp;"}
+{$title|default:"&nbsp;"}
 ]]>
     </programlisting>
    </example>
@@ -144,17 +144,17 @@ archives.tpl
 
 header.tpl
 ----------
-&lt;HTML&gt;
-&lt;HEAD&gt;
-&lt;TITLE&gt;{$title|default:"BC News"}&lt;/TITLE&gt;
-&lt;/HEAD&gt;
-&lt;BODY&gt;
+<HTML>
+<HEAD>
+<TITLE>{$title|default:"BC News"}</TITLE>
+</HEAD>
+<BODY>
 
 
 footer.tpl
 ----------
-&lt;/BODY&gt;
-&lt;/HTML&gt;
+</BODY>
+</HTML>
 ]]>
     </programlisting>
    </example>
@@ -199,7 +199,7 @@ OUTPUT:
 2001/01/04
 
 
-{if $date1 &lt; $date2}
+{if $date1 < $date2}
    ...
 {/if}
 ]]>
@@ -270,28 +270,28 @@ function insert_header($params) {
 <![CDATA[
 {insert name=header content="Content-Type: text/vnd.wap.wml"}
 
-&lt;?xml version="1.0"?&gt;  
-&lt;!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"&gt; 
+<?xml version="1.0"?>  
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"> 
 
-&lt;!-- begin new wml deck --&gt; 
-&lt;wml&gt; 
-&lt;!-- begin first card --&gt; 
-&lt;card&gt; 
-&lt;do type="accept"&gt; 
-&lt;go href="#two"/&gt; 
-&lt;/do&gt;  
-&lt;p&gt; 
+<!-- begin new wml deck --> 
+<wml> 
+<!-- begin first card --> 
+<card> 
+<do type="accept"> 
+<go href="#two"/> 
+</do>  
+<p> 
 Welcome to WAP with Smarty!
 Press OK to continue...  
-&lt;/p&gt; 
-&lt;/card&gt;  
-&lt;!-- begin second card --&gt; 
-&lt;card id="two"&gt;  
-&lt;p&gt; 
+</p> 
+</card>  
+<!-- begin second card --> 
+<card id="two">  
+<p> 
 Pretty easy isn't it?
-&lt;/p&gt; 
-&lt;/card&gt; 
-&lt;/wml&gt;
+</p> 
+</card> 
+</wml>
 ]]>
     </programlisting>
    </example>
@@ -328,7 +328,7 @@ function fetch_ticker($symbol) {
    return $ticker_info;
 }
 
-function smarty_function_load_ticker($params, &amp;$smarty) {
+function smarty_function_load_ticker($params, &$smarty) {
    // call the function
    $ticker_info = fetch_ticker($params['symbol']);
    
