@@ -28,11 +28,13 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty)
             // relative path, see if it is in the SMARTY_DIR
             if (@is_readable(SMARTY_DIR . $_plugin_filepath)) {
                 $_return = SMARTY_DIR . $_plugin_filepath;
+                break;
             }
         }
         // try relative to cwd (or absolute)
         if (@is_readable($_plugin_filepath)) {
             $_return = $_plugin_filepath;
+            break;
         }
     }
 

@@ -1,3 +1,5 @@
+  - fixed bug in traversal of $smarty->plugins_dir-array. now the
+    first matching plugin is taken (messju)
   - moved {strip} back into the compiler (messju)
   - fixed config_load: handling of section-attribute and use of
     multiple config-files in one template (atu, messju)
