@@ -161,7 +161,8 @@ class Smarty
                                     'count_characters'  => 'smarty_mod_count_characters',
                                     'count_words'       => 'smarty_mod_count_words',
                                     'count_sentences'   => 'smarty_mod_count_sentences',
-                                    'count_paragraphs'  => 'smarty_mod_count_paragraphs'
+                                    'count_paragraphs'  => 'smarty_mod_count_paragraphs',
+                                    'debug_print_var'   => 'smarty_mod_debug_print_var'
                                  );
 
     var $show_info_header      =   false;     // display HTML info header at top of page output

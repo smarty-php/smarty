@@ -695,12 +695,42 @@ function smarty_func_assign_debug_info($args, &$smarty_obj) {
 	
 	$included_templates = $smarty_obj->_smarty_debug_info;
 	
+	$smarty_obj->assign("_debug_expand",$smarty_obj->_smarty_debug_expand);	
+	
 	$smarty_obj->assign("_debug_keys",array_keys($assigned_vars));
 	$smarty_obj->assign("_debug_vals",array_values($assigned_vars));
 	
 	$smarty_obj->assign("_debug_tpls",$included_templates);
 	return true;
 }
+
+/*======================================================================*\
+    Function: smarty_func_debug_print_var
+    Purpose:  prints variable (or array) contents to the console
+\*======================================================================*/
+function smarty_mod_debug_print_var($var,$depth=0,$length=40) {
+	if(is_array($var)) {
+		$results = "<b>Array (".count($var).")</b>".'<br>\r'.$results;
+		foreach ($var as $curr_key => $curr_val) {
+			$return = smarty_mod_debug_print_var($curr_val,$depth+1);
+			$results .= str_repeat('&nbsp;',$depth*2)."<b>$curr_key</b> =&gt; $return".'<br>\r';
+		}
+		return $results;
+	} else {
+		if(empty($var)) {
+			return '<i>empty</i>';
+		}
+		if( strlen($var) > $length ) {
+			$results = substr($var,0,$length-3).'...';
+		} else {
+			$results = $var;
+		}
+		$results = preg_replace("![\r\t\n]!"," ",$results);
+		$results = htmlspecialchars($results);
+		return $results;
+	}
+}
+
 
 /*======================================================================*\
     Function: smarty_func_overlib_init
