@@ -19,7 +19,16 @@
  */
 function smarty_modifier_capitalize($string)
 {
-    return preg_replace_callback('!\b[a-z]!', create_function('$_x', 'return strtoupper($_x[0]);'), $string);
+    return preg_replace_callback('!\b\w+\b!', 'smarty_modifier_capitalize_ucfirst', $string);    
 }
+
+function smarty_modifier_capitalize_ucfirst($string)
+{
+    if(!preg_match('!\d!',$string[0]))
+        return ucfirst($string[0]);
+    else
+        return $string[0];
+}
+
 
 ?>
