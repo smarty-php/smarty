@@ -173,14 +173,17 @@
      <sect2 id="variable.caching">
       <title>$caching</title>
       <para>
-       This tells Smarty whether or not to cache the output of the
-       templates. By default this is set to false. If your templates
-       generate redundant redundant content over and over again and
-       again repeatedly, it is advisable to turn on caching. This will
-       result in significant performance gains. You can also have
-       multiple caches for the same template. See <link
-        linkend="api.is.cached">is_cached</link> for details. This was
-       added to Smarty 1.3.0.
+	   This tells Smarty whether or not to cache the output of the templates.
+	   By default this is set to 0, or disabled. If your templates generate
+	   redundant redundant content, it is advisable to turn on caching. This
+	   will result in significant performance gains. You can also have multiple
+	   caches for the same template. A value of 1 or 2 enables caching. 1 tells
+	   Smarty to use the current $cache_lifetime variable to determine if the
+	   cache has expired. A value of 2 tells Smarty to use the cache_lifetime
+	   value at the time the cache was generated. This way you can set the
+	   cache_lifetime just before fetching the template to have granular
+	   control over when that particular cache expires. See also <link
+	   linkend="api.is.cached">is_cached</link>.
       </para>
       <para>
        If $compile_check is enabled, the cached content will be
@@ -217,14 +220,15 @@
      <sect2 id="variable.cache.lifetime">
       <title>$cache_lifetime</title>
       <para>
-       This is the length of time in seconds that a template cache is
-       valid. Once this time has expired, the cache will be
-       regenerated. $caching must be set to "true" for this setting to
-       work. You can also force the cache to expire with <link
-        linkend="api.clear.all.cache">clear_all_cache</link>. A setting
-		of -1 will force the cache to never expire. A setting of 0 will cause
-		the cache to always regenerate (which doesn't make much sense, you'd be
-		better off setting caching=false.)
+	   This is the length of time in seconds that a template cache is valid.
+	   Once this time has expired, the cache will be regenerated. $caching must
+	   be set to "true" for this setting to work. You can also force the cache
+	   to expire with <link
+	   linkend="api.clear.all.cache">clear_all_cache</link>. A setting of -1
+	   will force the cache to never expire. A setting of 0 will cause the
+	   cache to always regenerate (which doesn't make much sense, you'd be
+	   better off setting caching=false.) If $caching = 2, then the cache
+	   expiration time is saved along with the template.
       </para>
      </sect2>
      <sect2 id="variable.cache.handler.func">

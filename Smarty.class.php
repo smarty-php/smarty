@@ -13,7 +13,7 @@
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful,
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
@@ -92,7 +92,11 @@ class Smarty
     var $force_compile   =  false;      // force templates to compile every time,
                                         // overrides cache settings. default false.
 
-    var $caching         =  false;      // enable caching. true/false default false.
+    var $caching         =  0;     		// enable caching. can be one of 0/1/2.
+										// 0 = no caching
+										// 1 = use class cache_lifetime value
+										// 2 = use cache_lifetime in cache file
+										// default = 0.
     var $cache_dir       =  'cache';    // name of directory for template cache files
     var $cache_lifetime  =  3600;       // number of seconds cached content will persist.
 										// 0 = always regenerate cache,
@@ -1414,7 +1418,14 @@ function _run_insert_handler($args)
     {
         // put timestamp in cache header
         $this->_cache_info['timestamp'] = time();
-        
+        if ($this->cache_lifetime > -1){
+            // expiration set
+            $this->_cache_info['expires'] = $this->_cache_info['timestamp'] + $this->cache_lifetime;
+        } else {
+            // cache will never expire
+            $this->_cache_info['expires'] = -1;
+        }
+
         // prepend the cache header info into cache file
         $results = serialize($this->_cache_info)."\n".$results;
 
@@ -1479,9 +1490,18 @@ function _run_insert_handler($args)
 
         $this->_cache_info = unserialize($cache_header);
 
-        if ($this->cache_lifetime > -1 && (time() - $this->_cache_info['timestamp'] > $this->cache_lifetime)) {
+        if ($this->caching == 2 && isset ($this->_cache_info['expires'])){
+            // caching by expiration time
+            if ($this->_cache_info['expires'] > -1 && (time() > $this->_cache_info['expires'])) {
             // cache expired, regenerate
             return false;
+            }
+        } elseif ($this->caching == 1) {
+            // caching by lifetime
+            if ($this->cache_lifetime > -1 && (time() - $this->_cache_info['timestamp'] > $this->cache_lifetime)) {
+            // cache expired, regenerate
+            return false;
+            }
         }
 
         if ($this->compile_check) {
