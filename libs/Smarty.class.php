@@ -1865,9 +1865,7 @@ class Smarty
             }
 
             $args = unserialize($insert_args[$i]);
-
             $name = $args['name'];
-            unset($args['name']);
 
             if (isset($args['script'])) {
                 if (!$this->_get_php_resource($this->_dequote($args['script']), $resource_type, $php_resource)) {
@@ -1879,7 +1877,6 @@ class Smarty
                 } else {
                     eval($php_resource);
                 }
-                unset($args['script']);
             }
 
             $function_name = $this->_plugins['insert'][$name][0];
