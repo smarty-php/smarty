@@ -965,7 +965,7 @@ function _generate_debug_output() {
         	if ($this->debugging) {
         	$this->_included_tpls[] = array('type' => 'insert',
 											'filename' => 'insert_'.$name,
-                                        	'depth'    => ++$this->_inclusion_depth,
+                                        	'depth'    => $this->_inclusion_depth,
 											'exec_time' => $this->_get_microtime() - $debug_start_time);
 			}
         }
@@ -994,7 +994,7 @@ function _run_insert_handler($args)
         if ($this->debugging) {
         $this->_included_tpls[] = array('type' => 'insert',
 										'filename' => 'insert_'.$args['name'],
-                                        'depth'    => ++$this->_inclusion_depth,
+                                        'depth'    => $this->_inclusion_depth,
 										'exec_time' => $this->_get_microtime() - $debug_start_time);
 		}
 		return $content;
