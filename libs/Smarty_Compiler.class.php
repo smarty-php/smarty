@@ -47,7 +47,7 @@ class Smarty_Compiler extends Smarty {
     var $_current_file          =   null;       // the current template being compiled
     var $_current_line_no       =   1;          // line number for error messages
     var $_capture_stack         =   array();    // keeps track of nested capture buffers
-        
+
 
 /*======================================================================*\
     Function:   _compile_file()
@@ -62,7 +62,7 @@ class Smarty_Compiler extends Smarty {
                 $this->php_handling = SMARTY_PHP_PASSTHRU;
             }
         }
-        
+
         // run template source through prefilter functions
         if (is_array($this->prefilter_funcs) && count($this->prefilter_funcs) > 0) {
             foreach ($this->prefilter_funcs as $prefilter) {
@@ -73,7 +73,7 @@ class Smarty_Compiler extends Smarty {
                 }
             }
         }
-                
+
         $this->_current_file = $tpl_file;
         $this->_current_line_no = 1;
         $ldq = preg_quote($this->left_delimiter, '!');
@@ -83,7 +83,7 @@ class Smarty_Compiler extends Smarty {
         $template_source = preg_replace("!({$ldq})\*(.*?)\*({$rdq})!se",
                                         "'\\1*'.str_repeat(\"\n\", substr_count('\\2', \"\n\")) .'*\\3'",
                                         $template_source);
-        
+
         /* Pull out the literal blocks. */
         preg_match_all("!{$ldq}literal{$rdq}(.*?){$ldq}/literal{$rdq}!s", $template_source, $match);
         $this->_literal_blocks = $match[1];
@@ -94,8 +94,8 @@ class Smarty_Compiler extends Smarty {
         preg_match_all("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s", $template_source, $match);
         $this->_php_blocks = $match[1];
         $template_source = preg_replace("!{$ldq}php{$rdq}(.*?){$ldq}/php{$rdq}!s",
-                                        $this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $template_source);        
-        
+                                        $this->quote_replace($this->left_delimiter.'php'.$this->right_delimiter), $template_source);
+
         /* Gather all template tags. */
         preg_match_all("!{$ldq}\s*(.*?)\s*{$rdq}!s", $template_source, $match);
         $template_tags = $match[1];
@@ -163,10 +163,10 @@ class Smarty_Compiler extends Smarty {
         $template_header .= "         compiled from ".$tpl_file." */ ?>\n";
         $template_compiled = $template_header.$template_compiled;
 
-		// remove \n from the end of the file, if any
-		if ( $template_compiled{strlen($template_compiled)-1} == "\n" ) {
-			$template_compiled = substr($template_compiled,0,-1);
-		}
+        // remove \n from the end of the file, if any
+        if ($template_compiled{strlen($template_compiled) - 1} == "\n" ) {
+            $template_compiled = substr($template_compiled, 0, -1);
+        }
 
         // run compiled template through postfilter functions
         if (is_array($this->postfilter_funcs) && count($this->postfilter_funcs) > 0) {
@@ -178,7 +178,7 @@ class Smarty_Compiler extends Smarty {
                 }
             }
         }
-        
+
         return true;
     }
 
@@ -232,10 +232,10 @@ class Smarty_Compiler extends Smarty {
 
             case 'capture':
                 return $this->_compile_capture_tag(true, $tag_args);
-                
+
             case '/capture':
                 return $this->_compile_capture_tag(false);
-                
+
             case 'ldelim':
                 return $this->left_delimiter;
 
@@ -276,7 +276,7 @@ class Smarty_Compiler extends Smarty {
                 list (,$php_block) = each($this->_php_blocks);
                 $this->_current_line_no += substr_count($php_block, "\n");
                 return '<?php '.$php_block.' ?>';
-                
+
             case 'insert':
                 return $this->_compile_insert_tag($tag_args);
 
@@ -355,8 +355,8 @@ class Smarty_Compiler extends Smarty {
         }
 
         return "<?php echo \$this->_run_insert_handler(array(".implode(', ', (array)$arg_list).")); ?>\n";
-    }   
- 
+    }
+
 
 /*======================================================================*\
     Function: _compile_config_load_tag
@@ -401,7 +401,7 @@ class Smarty_Compiler extends Smarty {
     function _compile_include_tag($tag_args)
     {
         $attrs = $this->_parse_attrs($tag_args);
-                
+
         if (empty($attrs['file'])) {
             $this->_syntax_error("missing 'file' attribute in include tag");
         }
@@ -485,7 +485,7 @@ class Smarty_Compiler extends Smarty {
             $output .= "{$section_props}['max'] = {$section_props}['loop'];\n";
         else
             $output .= "if ({$section_props}['max'] < 0)\n" .
-                       "    {$section_props}['max'] = {$section_props}['loop'];\n";   
+                       "    {$section_props}['max'] = {$section_props}['loop'];\n";
 
         if (!isset($attrs['step']))
             $output .= "{$section_props}['step'] = 1;\n";
@@ -568,7 +568,7 @@ class Smarty_Compiler extends Smarty {
         $is_arg_stack = array();
 
         for ($i = 0; $i < count($tokens); $i++) {
-                        
+
             $token = &$tokens[$i];
             switch ($token) {
                 case 'eq':
@@ -644,13 +644,13 @@ class Smarty_Compiler extends Smarty {
                        current position for the next iteration. */
                     $i = $is_arg_start;
                     break;
-                    
+
                 default:
                     if($this->security &&
                        $tokens[$i+1] == '(' &&
                        preg_match('!^[a-zA-Z_]\w+$!', $tokens[$i]) &&
                        !in_array($tokens[$i], $this->security_settings['IF_FUNCS'])) {
-                        $this->_syntax_error("(secure mode) '".$tokens[$i]."' not allowed in if statement");                
+                        $this->_syntax_error("(secure mode) '".$tokens[$i]."' not allowed in if statement");
                     }
                     break;
             }
@@ -731,7 +731,7 @@ class Smarty_Compiler extends Smarty {
     function _parse_attrs($tag_args, $quote = true)
     {
         /* Tokenize tag attributes. */
-        preg_match_all('/(?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"       | 
+        preg_match_all('/(?:"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"       |
                           \'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'     | (?>[^"\'=\s]+)
                          )+ |
                          [=]
@@ -797,14 +797,14 @@ class Smarty_Compiler extends Smarty {
         return $attrs;
     }
 
-    
+
 /*======================================================================*\
     Function: _parse_vars_props
     Purpose:  compile variables and section properties tokens into
               PHP code
 \*======================================================================*/
     function _parse_vars_props(&$tokens)
-    {        
+    {
         $qstr_regexp = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'';
 
         $var_exprs = preg_grep('!^\$\w+(?>(\[(\d+|\w+(\.\w+)?)\])|((\.|->)\w+))*(?>\|@?\w+(:(?>' .  $qstr_regexp . '|[^|]+))*)*$!', $tokens);
