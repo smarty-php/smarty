@@ -1521,6 +1521,14 @@ OUTPUT:
 
 24.02
 
+{* print "Home Page" if $title is empty *}
+{$title|default:"Home Page"}
+
+OUTPUT:
+
+Home Page
+
+
 </programlisting>
 </example>
 		<para>
@@ -1630,6 +1638,14 @@ is the first week that has at least 4 days in the current year, and with Monday 
 </programlisting>
 </example>
 
+		</sect2>
+		<sect2>
+			<title>default</title>
+			<para>
+			This is used to set a default value for a variable. If the variable
+			is empty or unset, the given default value is printed instead.
+			Default takes one argument, the value to use as the default value.
+			</para>
 		</sect2>
 		<sect2>
 			<title>escape</title>
