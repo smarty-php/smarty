@@ -3729,7 +3729,7 @@ OUTPUT:
             variables used in the equation are passed as parameters, which can
             be template variables or static values. +, -, /, *, abs, ceil, cos,
             exp, floor, log, log10, max, min, pi, pow, rand, round, sin, sqrt,
-            srans and tan are all valid operators. Check the PHP documenation
+            srans and tan are all valid operators. Check the PHP documentation
             for further information on these math functions.
 			</para>
 			<para>

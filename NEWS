@@ -1,5 +1,7 @@
-    - fixed cycle function to respect delimiter setting
-      after initial setting (Monte)
+    - fixed bug with 304 Not Modified response sending
+      content (Monte)
+    - fixed cycle function to respect delimiter after
+      initial setting (Monte)
     - update $GLOBALS references to work properly with
       track_globals settings (Michal Prinke, Monte)
     - fixed bug in math function with call to assign

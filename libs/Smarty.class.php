@@ -607,9 +607,9 @@ class Smarty
                             header("HTTP/1.1 304 Not Modified");
                         } else {
                             header("Last-Modified: ".$gmt_mtime);
+                    		echo $_smarty_results;
                         }
                     }
-                    echo $_smarty_results;
                     error_reporting($_smarty_old_error_level);
                     return true;    
                 } else {
