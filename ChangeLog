@@ -1,3 +1,9 @@
+2005-02-25  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS
+      libs/plugins/function.mailto.php:
+      add javascript_charcode option to mailto
+
 2005-02-24  Monte Ohrt  <monte@ohrt.com>
 
     * NEWS:
