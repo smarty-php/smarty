@@ -65,7 +65,7 @@ function smarty_core_create_dir_structure($params, &$smarty)
                 $_make_new_dir = true;                    
             }
 
-            if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, $smarty->_dir_perms)) {
+            if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, $smarty->_dir_perms) && !is_dir($_new_dir)) {
                 $smarty->trigger_error("problem creating directory '" . $_new_dir . "'");
                 return false;
             }
