@@ -2179,7 +2179,7 @@ class Smarty_Compiler extends Smarty {
 
     /**
      * push opening tag-name, file-name and line-number on the tag-stack
-     * @param: string the opening tag's name
+     * @param string the opening tag's name
      */
     function _push_tag($open_tag)
     {
@@ -2189,8 +2189,8 @@ class Smarty_Compiler extends Smarty {
     /**
      * pop closing tag-name
      * raise an error if this stack-top doesn't match with the closing tag
-     * @param: string the closing tag's name
-     * @return: string the opening tag's name
+     * @param string the closing tag's name
+     * @return string the opening tag's name
      */
     function _pop_tag($close_tag)
     {

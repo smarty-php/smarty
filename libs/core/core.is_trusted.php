@@ -5,9 +5,6 @@
  * @subpackage plugins
  */
 
-/**#@+
- * @access private
- */
 /**
  * determines if a resource is trusted or not
  *
