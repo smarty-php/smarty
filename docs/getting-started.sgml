@@ -25,12 +25,16 @@
 	templates without breaking application logic.
 	</para>
 	<para>
-	Now for a short word on what Smarty does NOT do. Smarty does not attempt to
-	completely separate logic from the templates. There is no problem with
-	logic in your templates under the condition that this logic is strictly for
-	presentation. A word of advice: keep application logic out of the
-	templates, and presentation logic out of the application. This will most
-	definately keep things manageable and scalable for the foreseeable future.
+    One design goal of Smarty is the separation of business logic and
+    presentation logic. This means templates can certainly contain logic under
+    the condition that it is for presentation only. Things such as including
+    other templates, altering table row colors, upper-casing a variable,
+    looping over an array of data and displaying it, etc. are all examples of
+    presentation logic. This does not mean that Smarty forces a separation of
+    business and presentation logic. Smarty has no knowledge of which is which,
+    so placing business logic in the template is your own doing. Also, if you
+    desire NO logic in your templates you certainly can do so by boiling the
+    content down to text and variables only.
 	</para>
 	<para>
 	One of the unique aspects about Smarty is the template compling. This means
