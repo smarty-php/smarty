@@ -1,133 +1,157 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: messju Status: ready -->
-		<sect1 id="language.function.html.table">
-			<title>html_table</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Attribute Name</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>loop</entry>
-                        <entry>array</entry>
-                        <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>array of data to loop through</entry>
-                    </row>
-                    <row>
-                        <entry>cols</entry>
-                        <entry>integer</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>3</emphasis></entry>
-                        <entry>number of columns in the table. if the cols-attribute is empty, but rows are given, then the number of cols is computed by the number of rows and the number of elements to display to be just enough cols to display all elements. If both, rows and cols, are omitted cols defaults to 3.</entry>
-                    </row>
-                    <row>
-                        <entry>rows</entry>
-                        <entry>integer</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>number of rows in the table. if the rows-attribute is empty, but cols are given, then the number of rows is computed by the number of cols and the number of elements to display to be just enough rows to display all elements.</entry>
-                    </row>
+<sect1 id="language.function.html.table">
+ <title>html_table</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Attribute Name</entry>
+     <entry>Type</entry>
+     <entry>Required</entry>
+     <entry>Default</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>loop</entry>
+     <entry>array</entry>
+     <entry>Yes</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>array of data to loop through</entry>
+    </row>
+    <row>
+     <entry>cols</entry>
+     <entry>integer</entry>
+     <entry>No</entry>
+     <entry><emphasis>3</emphasis></entry>
+     <entry>
+      number of columns in the table. if the cols-attribute is empty,
+      but rows are given, then the number of cols is computed by the number
+      of rows and the number of elements to display to be just enough cols to
+      display all elements. If both, rows and cols, are omitted cols defaults
+      to 3.
+     </entry>
+    </row>
+    <row>
+     <entry>rows</entry>
+     <entry>integer</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>
+      number of rows in the table. if the rows-attribute is empty, but
+      cols are given, then the number of rows is computed by the number of
+      cols and the number of elements to display to be just enough rows to
+      display all elements.
+     </entry>
+    </row>
+    <row>
+     <entry>inner</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>cols</emphasis></entry>
+     <entry>
+      direction of consecutive elements in the loop-array to be
+      rendered. <emphasis>cols</emphasis> means elements are displayed
+      col-by-col. <emphasis>rows</emphasis> means elements are displayed
+      row-by-row.
+     </entry>
+    </row>
+    <row>
+     <entry>table_attr</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>border="1"</emphasis></entry>
+     <entry>attributes for table tag</entry>
+    </row>
+    <row>
+     <entry>tr_attr</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>attributes for tr tag (arrays are cycled)</entry>
+    </row>
+    <row>
+     <entry>td_attr</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>attributes for td tag (arrays are cycled)</entry>
+    </row>
+    <row>
+     <entry>trailpad</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>&amp;nbsp;</emphasis></entry>
+     <entry>value to pad the trailing cells on last row with (if any)</entry>
+    </row>
+    <row>
+     <entry>hdir</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>right</emphasis></entry>
+     <entry>
+      direction of each row to be rendered. possible values:
+      <emphasis>left</emphasis> (left-to-right), <emphasis>right</emphasis>
+      (right-to-left)
+     </entry>
+    </row>
+    <row>
+     <entry>vdir</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>down</emphasis></entry>
+     <entry>
+      direction of each column to be rendered. possible values:
+      <emphasis>down</emphasis> (top-to-bottom), <emphasis>up</emphasis>
+      (bottom-to-top)
+     </entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  <emphasis>html_table</emphasis> is a custom function that dumps an array of
+  data into an HTML table. The <emphasis>cols</emphasis> attribute determines
+  how many columns will be in the table. The <emphasis>table_attr</emphasis>,
+  <emphasis>tr_attr</emphasis> and <emphasis>td_attr</emphasis> values
+  determine the attributes given to the table, tr and td tags. If
+  <emphasis>tr_attr</emphasis> or <emphasis>td_attr</emphasis> are arrays,
+  they will be cycled through. <emphasis>trailpad</emphasis> is the value put
+  into the trailing cells on the last table row if there are any present.
+ </para>
 
-                    <row>
-                        <entry>inner</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>cols</emphasis></entry>
-                        <entry>direction of consecutive elements in the loop-array to be rendered. <emphasis>cols</emphasis> means elements are displayed col-by-col. <emphasis>rows</emphasis> means elements are displayed row-by-row.</entry>
-                    </row>
-
-                    <row>
-                        <entry>table_attr</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>border="1"</emphasis></entry>
-                        <entry>attributes for table tag</entry>
-                    </row>
-                    <row>
-                        <entry>tr_attr</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>attributes for tr tag (arrays are cycled)</entry>
-                    </row>
-                    <row>
-                        <entry>td_attr</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>attributes for td tag (arrays are cycled)</entry>
-                    </row>
-                    <row>
-                        <entry>trailpad</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>&amp;nbsp;</emphasis></entry>
-                        <entry>value to pad the trailing cells on last row with
-						(if any)</entry>
-                    </row>
-
-                    <row>
-                        <entry>hdir</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>right</emphasis></entry>
-                        <entry>direction of each row to be rendered. possible values: <emphasis>left</emphasis> (left-to-right), <emphasis>right</emphasis> (right-to-left)</entry>
-                    </row>
-                    <row>
-                        <entry>vdir</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>down</emphasis></entry>
-                        <entry>direction of each column to be rendered. possible values: <emphasis>down</emphasis> (top-to-bottom), <emphasis>up</emphasis> (bottom-to-top)</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			<emphasis>html_table</emphasis> is a custom function that dumps an
-			array of data into an HTML table. The <emphasis>cols</emphasis>
-			attribute determines how many columns will be in the table. The
-			<emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis> and
-			<emphasis>td_attr</emphasis> values determine the attributes given
-			to the table, tr and td tags. If <emphasis>tr_attr</emphasis> or
-			<emphasis>td_attr</emphasis> are arrays, they will be cycled through.
-			<emphasis>trailpad</emphasis> is the value put into the trailing
-			cells on the last table row if there are any present.
-			</para>
-<example>
-<title>html_table</title>
-<programlisting>
+ <example>
+  <title>html_table</title>
+  <programlisting role="php">
 <![CDATA[
-index.php:
-
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
 $smarty->display('index.tpl');
-
-index.tpl:
-
+?>
+]]>
+  </programlisting>
+  <programlisting>
+<![CDATA[
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
 {html_table loop=$data cols=4 tr_attr=$tr}
-
-OUTPUT:
-
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
 <table border="1">
 <tr><td>1</td><td>2</td><td>3</td></tr>
 <tr><td>4</td><td>5</td><td>6</td></tr>
@@ -143,9 +167,11 @@ OUTPUT:
 <tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table>
-]]></programlisting>
-</example>
+]]>
+  </screen>
+ </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
