@@ -67,11 +67,6 @@ A: Be sure you set $compile_check=false once your templates are initially
    it doesn't do unnecessary work (like db calls) if a cached page is
    available. See the documentation for examples.
    
-Q: Can I use Macromedia's Dreamweaver to edit my templates?
-A: Certainly. You might want to change your tag delimiters from {} to something
-   that resembles valid HTML, like <!--{ }--> or <{ }> or something similar.
-   This way the editor won't view the template tags as errors.
-   
 Q: Do you have a mailing list?
 A: Yes. Subscribe by sending an e-mail to subscribe-smarty@lists.ispi.net. This
    is also archived at http://marc.theaimsgroup.com/?l=smarty&r=1&w=2
@@ -144,3 +139,17 @@ A: The easiest thing to do is grab all of PEAR and install it locally for your
    own use. There's nothing that says PEAR must be installed in its default
    directory. There won't be a version of Smarty that runs without PEAR, as it
    dependant on it, and may become moreso in the future.
+
+DREAMWEAVER
+-----------
+
+Q: Can I use Macromedia's Dreamweaver to edit my templates?
+A: Certainly. You might want to change your tag delimiters from {} to something
+   that resembles valid HTML, like <!--{ }--> or <{ }> or something similar.
+   This way the editor won't view the template tags as errors.
+
+Q: Dreamweaver is urlencoding the template delimiters when they are in a SRC or
+   HREF link. How do I get around this?
+A: In Edit - Properties - Rewrite HTML you can specify if Dreamweaver should
+   change special letters to %-equivalent or not. The default is on which
+   produces this error.

@@ -650,7 +650,7 @@ $smarty->assign(array("city" => "Lincoln","state" => "Nebraska"));
 				console</link>, and should probably never be used directly.
 			</para>
 <example>
-<title>assign</title>
+<title>assign_debug_info</title>
 <programlisting>
 
 // passing name/value pairs
@@ -876,7 +876,7 @@ function print_current_date ($params) {
 
 // we don't want template designers to have access to system files
 
-$smarty->unregister_modifier("fetch");
+$smarty->unregister_function("fetch");
 
 </programlisting>
 </example>
@@ -2443,317 +2443,317 @@ e-mail: jane@mydomain.com&lt;p&gt;
 		These are indicated by percent signs around the variable name, like so:
 		%sectionname.varname%
 		</para>
-		</sect2>
-		<sect2>	
-		<title>index</title>
-		<para>
-		index is used to display the current loop index, starting with zero
-		(or the start attribute if given), and incrementing by one (or by
-		the step attribute if given.)
-		</para>
-		<para>
-		TECHNICAL NOTE: If the step and start section properties are not
-		modified, then this works the same as the iteration section
-		property.
-		</para>
-<example>
-<title>section property index</title>
-<programlisting>
-{section name=customer loop=$custid}
-{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-{/section}
+			<sect3>	
+			<title>index</title>
+			<para>
+			index is used to display the current loop index, starting with zero
+			(or the start attribute if given), and incrementing by one (or by
+			the step attribute if given.)
+			</para>
+			<para>
+			TECHNICAL NOTE: If the step and start section properties are not
+			modified, then this works the same as the iteration section
+			property.
+			</para>
+	<example>
+	<title>section property index</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{/section}
 
 
-OUTPUT:
+	OUTPUT:
 
-0 id: 1000&lt;br&gt;
-1 id: 1001&lt;br&gt;
-2 id: 1002&lt;br&gt;
+	0 id: 1000&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+	2 id: 1002&lt;br&gt;
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2>	
-		<title>index_prev</title>
-		<para>
-		index_prev is used to display the previous loop index.
-        on the first loop, this is set to -1.
-		</para>
-<example>
-<title>section property index_prev</title>
-<programlisting>
-{section name=customer loop=$custid}
-{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-{if $custid[customer.index_prev] ne $custid[customer.index]}
-    The customer id changed&lt;br&gt;
-{/if}
-{/section}
-
-
-OUTPUT:
-
-0 id: 1000&lt;br&gt;
-    The customer id changed&lt;br&gt;
-1 id: 1001&lt;br&gt;
-    The customer id changed&lt;br&gt;
-2 id: 1002&lt;br&gt;
-    The customer id changed&lt;br&gt;
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2>
-		<title>index_next</title>
-		<para>
-        index_next is used to display the next loop index. On the last
-        loop, this is still one more than the current index (respecting the
-		setting of the step attribute, if given.)
-		</para>
-<example>
-<title>section property index_next</title>
-<programlisting>
-{section name=customer loop=$custid}
-{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-{if $custid[customer.index_next] ne $custid[customer.index]}
-    The customer id will change&lt;br&gt;
-{/if}
-{/section}
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>index_prev</title>
+			<para>
+			index_prev is used to display the previous loop index.
+        	on the first loop, this is set to -1.
+			</para>
+	<example>
+	<title>section property index_prev</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_prev] ne $custid[customer.index]}
+    	The customer id changed&lt;br&gt;
+	{/if}
+	{/section}
 
 
-OUTPUT:
+	OUTPUT:
 
-0 id: 1000&lt;br&gt;
-    The customer id will change&lt;br&gt;
-1 id: 1001&lt;br&gt;
-    The customer id will change&lt;br&gt;
-2 id: 1002&lt;br&gt;
-    The customer id will change&lt;br&gt;
+	0 id: 1000&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+    	The customer id changed&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+    	The customer id changed&lt;br&gt;
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2>
-		<title>iteration</title>
-		<para>
-        iteration is used to display the current loop iteration.
-		</para>
-		<para>
-		NOTE: This is not affected by the section properties start, step and
-		max, unlike the index property.
-		</para>
-		<para>
-		This was added to Smarty 1.4.4.
-		</para>
-<example>
-<title>section property iteration</title>
-<programlisting>
-{section name=customer loop=$custid start=5 step=2}
-current loop iteration: {%customer.iteration%}&lt;br&gt;
-{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
-{if $custid[customer.index_next] ne $custid[customer.index]}
-    The customer id will change&lt;br&gt;
-{/if}
-{/section}
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>
+			<title>index_next</title>
+			<para>
+        	index_next is used to display the next loop index. On the last
+        	loop, this is still one more than the current index (respecting the
+			setting of the step attribute, if given.)
+			</para>
+	<example>
+	<title>section property index_next</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_next] ne $custid[customer.index]}
+    	The customer id will change&lt;br&gt;
+	{/if}
+	{/section}
 
 
-OUTPUT:
+	OUTPUT:
 
-current loop iteration: 1
-5 id: 1000&lt;br&gt;
-    The customer id will change&lt;br&gt;
-current loop iteration: 2
-7 id: 1001&lt;br&gt;
-    The customer id will change&lt;br&gt;
-current loop iteration: 3
-9 id: 1002&lt;br&gt;
-    The customer id will change&lt;br&gt;
+	0 id: 1000&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+    	The customer id will change&lt;br&gt;
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2>
-		<title>first</title>
-		<para>
-        first is set to true if the current section iteration is the first
-        one.
-		</para>
-<example>
-<title>section property first</title>
-<programlisting>
-{section name=customer loop=$custid}
-{if %customer.first%}
-    &lt;table&gt;
-{/if}
-
-&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
-        {$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
-
-{if %customer.last%}
-    &lt;/table&gt;
-{/if}
-{/section}
-
-
-OUTPUT:
-
-&lt;table&gt;
-&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2>
-		<title>last</title>
-		<para>
-        last is set to true if the current section iteration is the last
-        one.
-		</para>
-<example>
-<title>section property last</title>
-<programlisting>
-{section name=customer loop=$custid}
-{if %customer.first%}
-    &lt;table&gt;
-{/if}
-
-&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
-        {$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
-
-{if %customer.last%}
-    &lt;/table&gt;
-{/if}
-{/section}
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>
+			<title>iteration</title>
+			<para>
+        	iteration is used to display the current loop iteration.
+			</para>
+			<para>
+			NOTE: This is not affected by the section properties start, step and
+			max, unlike the index property.
+			</para>
+			<para>
+			This was added to Smarty 1.4.4.
+			</para>
+	<example>
+	<title>section property iteration</title>
+	<programlisting>
+	{section name=customer loop=$custid start=5 step=2}
+	current loop iteration: {%customer.iteration%}&lt;br&gt;
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{* FYI, $custid[customer.index] and $custid[customer] are identical in meaning *}
+	{if $custid[customer.index_next] ne $custid[customer.index]}
+    	The customer id will change&lt;br&gt;
+	{/if}
+	{/section}
 
 
-OUTPUT:
+	OUTPUT:
 
-&lt;table&gt;
-&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
+	current loop iteration: 1
+	5 id: 1000&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	current loop iteration: 2
+	7 id: 1001&lt;br&gt;
+    	The customer id will change&lt;br&gt;
+	current loop iteration: 3
+	9 id: 1002&lt;br&gt;
+    	The customer id will change&lt;br&gt;
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2>	
-		<title>rownum</title>
-		<para>
-		rownum is used to display the current loop iteration,
-		starting with one.
-		</para>
-<example>
-<title>section property rownum</title>
-<programlisting>
-{section name=customer loop=$custid}
-{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
-{/section}
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>
+			<title>first</title>
+			<para>
+        	first is set to true if the current section iteration is the first
+        	one.
+			</para>
+	<example>
+	<title>section property first</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{if %customer.first%}
+    	&lt;table&gt;
+	{/if}
 
+	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
+        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
 
-OUTPUT:
-
-1 id: 1000&lt;br&gt;
-2 id: 1001&lt;br&gt;
-3 id: 1002&lt;br&gt;
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2>	
-		<title>loop</title>
-		<para>
-		loop is used to display the last index number that this section
-		looped. This can be used inside or after the section.
-		</para>
-<example>
-<title>section property index</title>
-<programlisting>
-{section name=customer loop=$custid}
-{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-{/section}
-
-There were {%customer.loop%} customers shown above.
-
-OUTPUT:
-
-0 id: 1000&lt;br&gt;
-1 id: 1001&lt;br&gt;
-2 id: 1002&lt;br&gt;
-
-There were 3 customers shown above.
-
-</programlisting>
-</example>
-		</sect2>
-		<sect2>	
-		<title>show</title>
-		<para>
-        <emphasis>show</emphasis> is used as a parameter to section.
-        <emphasis>show</emphasis> is a boolean value, true or false. If
-        false, the section will not be displayed. If there is a sectionelse
-        present, that will be alternately displayed.
-		</para>
-<example>
-<title>section attribute show</title>
-<programlisting>
-{* $show_customer_info may have been passed from the PHP
-application, to regulate whether or not this section shows *}
-{section name=customer loop=$custid show=$show_customer_info}
-{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
-{/section}
-
-{if %customer.show%}
-the section was shown.
-{else}
-the section was not shown.
-{/if}
+	{if %customer.last%}
+    	&lt;/table&gt;
+	{/if}
+	{/section}
 
 
-OUTPUT:
+	OUTPUT:
 
-1 id: 1000&lt;br&gt;
-2 id: 1001&lt;br&gt;
-3 id: 1002&lt;br&gt;
+	&lt;table&gt;
+	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
 
-the section was shown.
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>
+			<title>last</title>
+			<para>
+        	last is set to true if the current section iteration is the last
+        	one.
+			</para>
+	<example>
+	<title>section property last</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{if %customer.first%}
+    	&lt;table&gt;
+	{/if}
 
-</programlisting>
-</example>
-		</sect2>
-		<sect2>	
-		<title>total</title>
-		<para>
-		total is used to display the number of iterations that this section
-		will loop. This can be used inside or after the section.
-		</para>
-		<para>
-		This was added to Smarty 1.4.4.
-		</para>
-<example>
-<title>section property total</title>
-<programlisting>
-{section name=customer loop=$custid step=2}	
-{%customer.index%} id: {$custid[customer]}&lt;br&gt;
-{/section}
+	&lt;tr&gt;&lt;td&gt;{%customer.index%} id:
+        	{$custid[customer]}&lt;/td&gt;&lt;/tr&gt;
 
-There were {%customer.total%} customers shown above.
+	{if %customer.last%}
+    	&lt;/table&gt;
+	{/if}
+	{/section}
 
-OUTPUT:
 
-0 id: 1000&lt;br&gt;
-2 id: 1001&lt;br&gt;
-4 id: 1002&lt;br&gt;
+	OUTPUT:
 
-There were 3 customers shown above.
+	&lt;table&gt;
+	&lt;tr&gt;&lt;td&gt;0 id: 1000&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;1 id: 1001&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;2 id: 1002&lt;/td&gt;&lt;/tr&gt;
+	&lt;/table&gt;
 
-</programlisting>
-</example>
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>rownum</title>
+			<para>
+			rownum is used to display the current loop iteration,
+			starting with one.
+			</para>
+	<example>
+	<title>section property rownum</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+
+	OUTPUT:
+
+	1 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	3 id: 1002&lt;br&gt;
+
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>loop</title>
+			<para>
+			loop is used to display the last index number that this section
+			looped. This can be used inside or after the section.
+			</para>
+	<example>
+	<title>section property index</title>
+	<programlisting>
+	{section name=customer loop=$custid}
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	There were {%customer.loop%} customers shown above.
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+	1 id: 1001&lt;br&gt;
+	2 id: 1002&lt;br&gt;
+
+	There were 3 customers shown above.
+
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>show</title>
+			<para>
+        	<emphasis>show</emphasis> is used as a parameter to section.
+        	<emphasis>show</emphasis> is a boolean value, true or false. If
+        	false, the section will not be displayed. If there is a sectionelse
+        	present, that will be alternately displayed.
+			</para>
+	<example>
+	<title>section attribute show</title>
+	<programlisting>
+	{* $show_customer_info may have been passed from the PHP
+	application, to regulate whether or not this section shows *}
+	{section name=customer loop=$custid show=$show_customer_info}
+	{%customer.rownum%} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	{if %customer.show%}
+	the section was shown.
+	{else}
+	the section was not shown.
+	{/if}
+
+
+	OUTPUT:
+
+	1 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	3 id: 1002&lt;br&gt;
+
+	the section was shown.
+
+	</programlisting>
+	</example>
+			</sect3>
+			<sect3>	
+			<title>total</title>
+			<para>
+			total is used to display the number of iterations that this section
+			will loop. This can be used inside or after the section.
+			</para>
+			<para>
+			This was added to Smarty 1.4.4.
+			</para>
+	<example>
+	<title>section property total</title>
+	<programlisting>
+	{section name=customer loop=$custid step=2}	
+	{%customer.index%} id: {$custid[customer]}&lt;br&gt;
+	{/section}
+
+	There were {%customer.total%} customers shown above.
+
+	OUTPUT:
+
+	0 id: 1000&lt;br&gt;
+	2 id: 1001&lt;br&gt;
+	4 id: 1002&lt;br&gt;
+
+	There were 3 customers shown above.
+
+	</programlisting>
+	</example>
+			</sect3>
 		</sect2>
 		<sect2>
 			<title>strip</title>
@@ -3400,7 +3400,7 @@ OUTPUT:
 <title>html_select_time</title>
 <programlisting>
 
-{html_select_time use_24_hours=false}
+{html_select_time use_24_hours=true}
 
 
 OUTPUT:

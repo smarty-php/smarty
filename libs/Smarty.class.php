@@ -568,25 +568,29 @@ class Smarty
         // buffering - for speed
         if ($display && !$this->caching) {
             echo $info_header;
-            $this->_process_template($tpl_file, $compile_path);
-            if ($this->show_info_include) {
-                echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
-            }
-            include($compile_path);
-            if ($this->show_info_include) {
-                echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
-            }
+            if($this->_process_template($tpl_file, $compile_path))
+			{
+            	if ($this->show_info_include) {
+                	echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
+            	}
+            	include($compile_path);
+            	if ($this->show_info_include) {
+                	echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
+            	}
+			}
         } else {
             ob_start();
             echo $info_header;
-            $this->_process_template($tpl_file, $compile_path);
-            if ($this->show_info_include) {
-                echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
-            }
-            include($compile_path);
-            if ($this->show_info_include) {
-                echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
-            }
+            if($this->_process_template($tpl_file, $compile_path))
+			{
+            	if ($this->show_info_include) {
+                	echo "\n<!-- SMARTY_BEGIN: ".$tpl_file." -->\n";
+            	}
+            	include($compile_path);
+            	if ($this->show_info_include) {
+                	echo "\n<!-- SMARTY_END: ".$tpl_file." -->\n";
+            	}
+			}
             $results = ob_get_contents();
             ob_end_clean();
         }
@@ -660,14 +664,16 @@ class Smarty
 
 function _generate_debug_output() {
     ob_start();
-    $this->_process_template($this->debug_tpl, $compile_path);
-    if ($this->show_info_include) {
-        echo "\n<!-- SMARTY_BEGIN: ".$this->debug_tpl." -->\n";
-    }
-    include($compile_path);
-    if ($this->show_info_include) {
-        echo "\n<!-- SMARTY_END: ".$this->debug_tpl." -->\n";
-    }   
+    if($this->_process_template($this->debug_tpl, $compile_path))
+	{
+		if ($this->show_info_include) {
+		  echo "\n<!-- SMARTY_BEGIN: ".$this->debug_tpl." -->\n";
+		}
+		include($compile_path);
+		if ($this->show_info_include) {
+		  echo "\n<!-- SMARTY_END: ".$this->debug_tpl." -->\n";
+		}
+	}   
     $results = ob_get_contents();
     ob_end_clean();
     return $results;
@@ -689,7 +695,9 @@ function _generate_debug_output() {
                 return true;
             } else { 
                 // get template source and timestamp
-                $this->_fetch_template_source($tpl_file, $template_source, $template_timestamp);
+                if(!$this->_fetch_template_source($tpl_file, $template_source, $template_timestamp)) {
+					return false;
+				}
                 if ($template_timestamp <= $this->_fetch_compiled_template_timestamp($compile_path)) {
                     // template not expired, no recompile
                     return true;
@@ -702,7 +710,9 @@ function _generate_debug_output() {
             }
         } else {
             // compiled template does not exist, or forced compile
-            $this->_fetch_template_source($tpl_file, $template_source, $template_timestamp);
+			if(!$this->_fetch_template_source($tpl_file, $template_source, $template_timestamp)) {
+				return false;
+			}
             $this->_compile_template($tpl_file, $template_source, $template_compiled);
             $this->_write_compiled_template($compile_path, $template_compiled);
             return true;
@@ -869,17 +879,18 @@ function _generate_debug_output() {
 
         array_unshift($this->_config, $this->_config[0]);
  
-        $this->_process_template($_smarty_include_tpl_file, $compile_path);
+        if($this->_process_template($_smarty_include_tpl_file, $compile_path))
+		{
+        	if ($this->show_info_include) {
+            	echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
+        	}
 
-        if ($this->show_info_include) {
-            echo "\n<!-- SMARTY_BEGIN: ".$_smarty_include_tpl_file." -->\n";
-        }
+        	include($compile_path);
 
-        include($compile_path);
-
-        if ($this->show_info_include) {
-            echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
-        }
+        	if ($this->show_info_include) {
+            	echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
+        	}
+		}
 
         array_shift($this->_config);
         $this->_inclusion_depth--;
