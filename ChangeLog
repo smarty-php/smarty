@@ -1,3 +1,15 @@
+2005-01-30  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed handling of hashed opening php-tags inside strip-blocks
+      (reported by titi_rafa)
+
+2005-01-30  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/fr/language-snippets.ent:
+      fix build
+
 2005-01-28  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
