@@ -123,7 +123,7 @@ function smarty_function_html_select_date($params, &$smarty)
     }
 
     // If $time is not in format yyyy-mm-dd
-    if (!preg_match('/^\d{4}-\d{1,2}-\d{1,2}$/', $time) && $time!='--') {
+    if (!preg_match('/^\d{0,4}-\d{0,2}-\d{0,2}$/', $time)) {
         // then $time is empty or unix timestamp or mysql timestamp
         // using smarty_make_timestamp to get an unix timestamp and
         // strftime to make yyyy-mm-dd
@@ -160,8 +160,8 @@ function smarty_function_html_select_date($params, &$smarty)
             $month_values[''] = '';
         }
         for ($i = 1; $i <= 12; $i++) {
-            $month_names[] = strftime($month_format, mktime(0, 0, 0, $i, 1, 2000));
-            $month_values[] = strftime($month_value_format, mktime(0, 0, 0, $i, 1, 2000));
+            $month_names[$i] = strftime($month_format, mktime(0, 0, 0, $i, 1, 2000));
+            $month_values[$i] = strftime($month_value_format, mktime(0, 0, 0, $i, 1, 2000));
         }
 
         $month_result .= '<select name=';
@@ -183,7 +183,7 @@ function smarty_function_html_select_date($params, &$smarty)
 
         $month_result .= smarty_function_html_options(array('output'     => $month_names,
                                                             'values'     => $month_values,
-                                                            'selected'   => $month_values[$time[1]-1],
+                                                            'selected'   => $month_values[(int)$time[1]],
                                                             'print_result' => false),
                                                       $smarty);
 
