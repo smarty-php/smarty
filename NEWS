@@ -1,3 +1,5 @@
+    - add month_value_format attribute to html_select_date
+      plugin (Gary Loescher, Monte) 
     - made it possible to use simple variables inside [] for
       indexing. (Andrei)
     - added "once" attribute to {include_php}. (Monte)
