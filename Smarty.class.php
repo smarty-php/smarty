@@ -643,6 +643,8 @@ class Smarty
         }
         $smarty['request'] = array_merge($smarty['request'], $smarty['session']);
 
+		$smarty['now'] = time();
+		
         $this->assign('smarty', $smarty);
     }
 

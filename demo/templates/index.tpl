@@ -9,6 +9,8 @@
 Title: {#title#|capitalize}
 {if #bold#}</b>{/if}
 
+The current date and time is {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
+
 Tooltip example: Move your mouse over the <A HREF="" {popup sticky=true caption="Smarty pop-up text" delay=400 text="This is an example of a tooltip. Tooltips are handy for context sensitive information, and extremely easy to add to your templates with Smarty and the integration of <a href='http://www.bosrup.com/web/overlib/'>overLIB</a> by Erik Bosrup"} onclick="return false;">Help</A> link to see an example of a tooltip using Smarty's popup function.
 
 The value of global assigned variable $SCRIPT_NAME is {$SCRIPT_NAME}
