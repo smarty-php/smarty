@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
 <sect1 id="language.assigned.variables">
  <title>Variables assignées depuis PHP</title>
  <para>
@@ -67,7 +67,7 @@ $smarty->display('index.tpl');
 ]]>
     </programlisting>
     <para>
-     Cela va afficher :
+     Ce qui donne en sortie :
     </para>
     <screen>
 <![CDATA[
@@ -88,31 +88,42 @@ zaphod@slartibartfast.com<br />
    </para>
    <example>
     <title>Accès aux tableaux grâce à l'index</title>
-<programlisting>
-index.php:
-
+<programlisting role="php">
+<![CDATA[
+<?php
 $smarty = new Smarty;
-$smarty-&gt;assign('Contacts',
+$smarty->assign('Contacts',
     array('555-222-9876',
           'zaphod@slartibartfast.com',
           array('555-444-3333',
                 '555-111-1234')));
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-{$Contacts[0]}&lt;br&gt;
-{$Contacts[1]}&lt;br&gt;
-{* you can print arrays of arrays as well *}
-{$Contacts[2][0]}&lt;br&gt;
-{$Contacts[2][1]}&lt;br&gt;
-
-SORTIE:
-
-555-222-9876&lt;br&gt;
-zaphod@slartibartfast.com&lt;br&gt;
-555-444-3333&lt;br&gt;
-555-111-1234&lt;br&gt;</programlisting>
+$smarty->display('index.tpl');
+?>
+]]>
+</programlisting>
+<para>
+Ou index.tpl est :
+</para>
+<programlisting>
+<![CDATA[
+{$Contacts[0]}<br />
+{$Contacts[1]}<br />
+{* Vous pouvez également afficher des tableaux *}
+{$Contacts[2][0]}<br />
+{$Contacts[2][1]}<br />
+]]>
+</programlisting>
+<para>
+ce qui donne en sortie :
+</para>
+<screen>
+<![CDATA[
+555-222-9876<br />
+zaphod@slartibartfast.com<br />
+555-444-3333<br />
+555-111-1234<br />
+]]>
+</screen>
    </example>
   </sect2>
   <sect2 id="language.variables.objects">
@@ -124,13 +135,20 @@ zaphod@slartibartfast.com&lt;br&gt;
    <example>
     <title>accéder aux attributs des objets</title>
 <programlisting>
-nom: {$person-&gt;name}&lt;br&gt;
-email: {$person-&gt;email}&lt;br&gt;
-
-SORTIE:
-
-nom: Zaphod Beeblebrox&lt;br&gt;
-email: zaphod@slartibartfast.com&lt;br&gt;</programlisting>
+<![CDATA[
+nom: {$person->name}<br />
+email: {$person->email}<br />
+]]>
+</programlisting>
+<para>
+Ce qui donne en sortie : 
+</para>
+<screen>
+<![CDATA[
+nom: Zaphod Beeblebrox<br />
+email: zaphod@slartibartfast.com<br />
+]]>
+</screen>
    </example>
   </sect2>
  </sect1>
