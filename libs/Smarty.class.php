@@ -160,7 +160,7 @@ class Smarty
 /* END SMARTY CONFIGURATION SECTION                                       */    
 /* There should be no need to touch anything below this line.             */
 /**************************************************************************/
-    
+ 
     // internal vars
     var $_error_msg             =   false;      // error messages. true/false
     var $_tpl_vars              =   array();    // where assigned template vars are kept
@@ -170,8 +170,10 @@ class Smarty
     var $_smarty_md5            =   'f8d698aea36fcbead2b9d5359ffca76f'; // md5 checksum of the string 'Smarty'    
     var $_version               =   '1.4.2';    // Smarty version number    
     var $_extract               =   false;      // flag for custom functions
-    var $_included_tpls            =    array();    // list of included templates
+    var $_included_tpls         =   array();    // list of run-time included templates
+    var $_inclusion_depth       =   0;          // current template inclusion depth
     
+
 /*======================================================================*\
     Function: Smarty
     Purpose:  Constructor
@@ -492,7 +494,11 @@ class Smarty
     {
         global $HTTP_SERVER_VARS, $QUERY_STRING, $HTTP_COOKIE_VARS;
 
-        $this->_included_tpls[] = $tpl_file;
+        $this->_inclusion_depth = 0;
+        $this->_included_tpls = array();
+
+        $this->_included_tpls[] = array('template'  => $tpl_file,
+                                        'depth'    => 0);
         
         if ($this->caching) {
             // cache name = template path + cache_id
@@ -765,6 +771,9 @@ class Smarty
 \*======================================================================*/
     function _smarty_include($_smarty_include_tpl_file, $_smarty_include_vars)
     {
+        $this->_included_tpls[] = array('template' => $_smarty_include_tpl_file,
+                                        'depth'    => ++$this->_inclusion_depth);
+
         $this->_tpl_vars = array_merge($this->_tpl_vars, $_smarty_include_vars);
         extract($this->_tpl_vars);
 
@@ -782,9 +791,8 @@ class Smarty
             echo "\n<!-- SMARTY_END: ".$_smarty_include_tpl_file." -->\n";
         }
 
-        $this->_included_tpls[] = $_smarty_include_tpl_file;
-        
         array_shift($this->_config);
+        $this->_inclusion_depth--;
     }
         
     

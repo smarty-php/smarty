@@ -9,7 +9,7 @@
 	_smarty_console.document.write("<tr bgcolor=#cccccc><th colspan=2>Smarty Debug Console</th></tr>");
 	_smarty_console.document.write("<tr bgcolor=#cccccc><td colspan=2><b>included templates:</b></td></tr>");
 	{section name=templates loop=$_debug_tpls}
-		_smarty_console.document.write("<tr bgcolor={if %templates.index% is even}#eeeeee{else}#fafafa{/if}><td colspan=2><tt><font color=blue>{$_debug_tpls[templates]}</font></tt></td></tr>");
+		_smarty_console.document.write("<tr bgcolor={if %templates.index% is even}#eeeeee{else}#fafafa{/if}><td colspan=2><tt>{section name=indent loop=$_debug_tpls[templates].depth}&nbsp;&nbsp;&nbsp;{/section}<font color=blue>{$_debug_tpls[templates].template}</font></tt></td></tr>");
 	{/section}
 	_smarty_console.document.write("<tr bgcolor=#cccccc><td colspan=2><b>assigned template variables:</b></td></tr>");
 	{section name=vars loop=$_debug_keys}
