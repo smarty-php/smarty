@@ -1,3 +1,4 @@
+    - treat unrecognized param attribute syntax as string (Monte)
     - support $smarty.const.$foo syntax (messju, Monte)
     - remove E_NOTICE warnings from debug.tpl,
       escape modifier (Kanstantin, Monte)

@@ -1348,12 +1348,9 @@ class Smarty_Compiler extends Smarty {
                             $token = true;
 						} else if (preg_match('!^(off|no|false)$!', $token)) {
                             $token = false;
-						} else if ($quote && preg_match('!^[\w\.-]+$!', $token)) {
-                        	/* If the token is just a string,
-                        	   we double-quote it. */
-                            $token = '"'.$token.'"';
 						} else if (!preg_match('!^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . ')?$!', $token)) {
-                        	$this->_syntax_error("invalid attribute value: '$token'", E_USER_ERROR, __FILE__, __LINE__);
+                        	/* treat as a string, double-quote it escaping quotes */
+                            $token = '"'.addslashes($token).'"';
 						}
 
                         $attrs[$attr_name] = $token;
@@ -1783,6 +1780,16 @@ class Smarty_Compiler extends Smarty {
 				$compiled_ref = '(defined("' . substr($indexes[0],1) . '") ? ' . substr($indexes[0],1) . ' : null)';
                 break;
 
+			case 'object':
+				array_shift($indexes);
+				$compiled_ref = '$this->_reg_objects["' . substr($indexes[0],1) . '"][0]';
+				break;
+
+			case 'objref':
+				array_shift($indexes);
+				$compiled_ref = '&$this->_reg_objects["' . substr($indexes[0],1) . '"][0]';
+				break;
+				
             default:
                 $this->_syntax_error('$smarty.' . $ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
                 break;
