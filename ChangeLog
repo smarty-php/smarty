@@ -1,3 +1,15 @@
+2003-02-12  Monte Ohrt  <monte@ispi.net>
+
+    * NEWS
+      Smarty_Compiler.class.php:
+      dropped support for modifiers on object parameters,
+      added support for objects as modifier parameters
+
+    * NEWS
+      Smarty_Compiler.class.php
+      docs/designers.sgml:
+      fix bug with decimal numbers in if statements, misc doc updates
+
 2003-02-11  Monte Ohrt  <monte@ispi.net>
 
     * (Smarty_2_4_2)
