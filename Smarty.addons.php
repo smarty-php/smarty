@@ -54,8 +54,8 @@ function smarty_mod_escape($string, $esc_type = 'html')
         case 'url':
             return urlencode($string);
 
-		case 'quotes':
-        	// escape unescaped single quotes
+        case 'quotes':
+            // escape unescaped single quotes
             return preg_replace("%(?<!\\\\)'%", "\\'", $string);
 
         default:
@@ -112,20 +112,20 @@ function smarty_mod_date_format($string, $format="%b %e, %Y")
               from a string of characters.
 \*======================================================================*/
 function smarty_make_timestamp($string)
-{        
+{
     $time = strtotime($string);
-    if(is_numeric($time) && $time != -1)
+    if (is_numeric($time) && $time != -1)
         return $time;
-    
+
     // is mysql timestamp format of YYYYMMDDHHMMSS?
-    if(is_numeric($string) && strlen($string) == 14) {
+    if (is_numeric($string) && strlen($string) == 14) {
         $time = mktime(substr($string,8,2),substr($string,10,2),substr($string,12,2),
                substr($string,4,2),substr($string,6,2),substr($string,0,4));
-        
+
         return $time;
     }
 
-    // can decipher, must be timestamp already?    
+    // can decipher, must be timestamp already?
     return $string;
 }
 
@@ -174,7 +174,7 @@ function smarty_mod_strip_tags($string, $replace_with_space = true)
 \*======================================================================*/
 function smarty_mod_default($string, $default="")
 {
-    if(empty($string))
+    if (empty($string))
         return $default;
     else
         return $string;
@@ -186,20 +186,20 @@ function smarty_mod_default($string, $default="")
 \*======================================================================*/
 function smarty_func_assign($args, &$smarty_obj)
 {
-	extract($args);
+    extract($args);
 
-	if (empty($var)) {
-    	$smarty_obj->_trigger_error_msg("assign: missing 'var' parameter");
-    	return;
-	}
+    if (empty($var)) {
+        $smarty_obj->_trigger_error_msg("assign: missing 'var' parameter");
+        return;
+    }
 
-	if (empty($value)) {
-    	$smarty_obj->_trigger_error_msg("assign: missing 'value' parameter");
-    	return;
-	}
+    if (empty($value)) {
+        $smarty_obj->_trigger_error_msg("assign: missing 'value' parameter");
+        return;
+    }
 
-	$smarty_obj->assign($var, $value);
-	return true;
+    $smarty_obj->assign($var, $value);
+    return true;
 }
 
 /*============================================*\
@@ -239,7 +239,7 @@ function smarty_func_html_options()
                 $html_result .= " value=\"".$values[$i]."\"";
             else
                 $sel_check = $output[$i];       /* if more outputs than values, then
-                                                   check output against $selected */        
+                                                   check output against $selected */
             if (in_array($sel_check, $selected))
                 $html_result .= " selected";
             $html_result .= ">".$output[$i]."</option>\n";
@@ -281,7 +281,7 @@ function smarty_func_html_select_date()
     $day_size        = null;
     $month_size      = null;
     $year_size       = null;
-    /* Unparsed attributes common to *ALL* the <select>/<input> tags.   
+    /* Unparsed attributes common to *ALL* the <select>/<input> tags.
        An example might be in the template: all_extra ='class ="foo"'. */
     $all_extra       = null;
     /* Separate attributes for the tags. */
@@ -293,12 +293,12 @@ function smarty_func_html_select_date()
     $field_order      = 'MDY';
     /* String printed between the different fields. */
     $field_separator = "\n";
-    
+
     extract(func_get_arg(0));
 
     $time = smarty_make_timestamp($time);
     $field_order = strtoupper($field_order);
-        
+
     $html_result = $month_result = $day_result = $year_result = "";
 
     if ($display_months) {
@@ -405,11 +405,11 @@ function smarty_func_html_select_date()
         case 'D':
             $html_result .= $day_result;
             break;
-            
+
         case 'M':
             $html_result .= $month_result;
             break;
-            
+
         case 'Y':
             $html_result .= $year_result;
             break;
@@ -438,13 +438,13 @@ function smarty_func_html_select_time()
     $use_24_hours        = true;
     $minute_interval    = 1;
     $second_interval    = 1;
-    
+
     extract(func_get_arg(0));
-    
+
     $time = smarty_make_timestamp($time);
 
     $html_result = '';
-    
+
     if ($display_hours) {
         $hours       = $use_24_hours ? range(0, 23) : range(1, 12);
         $hour_fmt = $use_24_hours ? '%H' : '%I';
@@ -457,7 +457,7 @@ function smarty_func_html_select_time()
                                                        'print_result' => false));
         $html_result .= "</select>\n";
     }
-    
+
     if ($display_minutes) {
         $all_minutes = range(0, 59);
         for ($i = 0; $i < count($all_minutes); $i+= $minute_interval)
@@ -470,7 +470,7 @@ function smarty_func_html_select_time()
                                                        'print_result' => false));
         $html_result .= "</select>\n";
     }
-    
+
     if ($display_seconds) {
         $all_seconds = range(0, 59);
         for ($i = 0; $i < count($all_seconds); $i+= $second_interval)
@@ -483,7 +483,7 @@ function smarty_func_html_select_time()
                                                        'print_result' => false));
         $html_result .= "</select>\n";
     }
-    
+
     if ($display_meridian && !$use_24_hours) {
         $html_result .= '<select name="'.$prefix.'Meridian">'."\n";
         $html_result .= smarty_func_html_options(array('output'          => array('AM', 'PM'),
@@ -492,7 +492,7 @@ function smarty_func_html_select_time()
                                                        'print_result' => false));
         $html_result .= "</select>\n";
     }
-    
+
     print $html_result;
 }
 
@@ -503,49 +503,49 @@ function smarty_func_html_select_time()
 \*======================================================================*/
 function smarty_func_math($args, $smarty_obj) {
         // be sure equation parameter is present
-        if(empty($args["equation"])) {
+        if (empty($args["equation"])) {
             $smarty_obj->_trigger_error_msg("math: missing equation parameter");
             return;
         }
-                
+
         $equation = $args["equation"];
-        
-        // make sure parenthesis are balanced    
-        if(substr_count($equation,"(") != substr_count($equation,")")) {
+
+        // make sure parenthesis are balanced
+        if (substr_count($equation,"(") != substr_count($equation,")")) {
             $smarty_obj->_trigger_error_msg("math: unbalanced parenthesis");
             return;
         }
-                        
+
         // match all vars in equation, make sure all are passed
         preg_match_all("![a-zA-Z][a-zA-Z0-9]*!",$equation,$match);
         $allowed_funcs = array('int','abs','ceil','cos','exp','floor','log','log10',
                                'max','min','pi','pow','rand','round','sin','sqrt','srand','tan');
-        
+
         foreach($match[0] as $curr_var) {
-            if(!in_array($curr_var,array_keys($args)) && !in_array($curr_var, $allowed_funcs)) {
+            if (!in_array($curr_var,array_keys($args)) && !in_array($curr_var, $allowed_funcs)) {
                 $smarty_obj->_trigger_error_msg("math: parameter $curr_var not passed as argument");
                 return;
-            }       
-        }
-       
-        foreach($args as $key => $val) {
-            if($key != "equation" && $key != "format") {
-                // make sure value is not empty
-                if(strlen($val)==0) {
-                    $smarty_obj->_trigger_error_msg("math: parameter $key is empty");
-                    return;                                        
-                }
-                if(!is_numeric($val)) {
-                    $smarty_obj->_trigger_error_msg("math: parameter $key: is not numeric");
-                    return;                    
-                }
-                $equation = preg_replace("/\b$key\b/",$val,$equation);       
             }
         }
-               
+
+        foreach($args as $key => $val) {
+            if ($key != "equation" && $key != "format") {
+                // make sure value is not empty
+                if (strlen($val)==0) {
+                    $smarty_obj->_trigger_error_msg("math: parameter $key is empty");
+                    return;
+                }
+                if (!is_numeric($val)) {
+                    $smarty_obj->_trigger_error_msg("math: parameter $key: is not numeric");
+                    return;
+                }
+                $equation = preg_replace("/\b$key\b/",$val,$equation);
+            }
+        }
+
     eval("\$smarty_math_result = ".$equation.";");
 
-    if(empty($args["format"]))
+    if (empty($args["format"]))
         echo $smarty_math_result;
     else
         printf($args["format"],$smarty_math_result);
@@ -557,29 +557,29 @@ function smarty_func_math($args, $smarty_obj) {
 \*======================================================================*/
 function smarty_func_fetch($args, &$smarty_obj) {
     extract($args);
-	
+
     if (empty($file)) {
         $smarty_obj->_trigger_error_msg("parameter 'file' cannot be empty");
-        return;                    
+        return;
     }
 
-	if ($smarty_obj->security && !preg_match('!^(http|ftp)://!', $file)) {
-		// make sure fetched file comes from secure directory
-		foreach ($smarty_obj->secure_dir as $curr_dir) {
-			if (substr(realpath($file), 0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
-				$resource_is_secure = true;
-				break;
-			}
-		}
-		if (!$resource_is_secure) {
-        	$smarty_obj->_trigger_error_msg("(secure mode) fetch '$file' is not allowed");
-        	return;
-		}
-	}
-	if (!@is_readable($file)) {
-    	$smarty_obj->_trigger_error_msg("fetch cannot read file '$file'");
-    	return;			
-	}				
+    if ($smarty_obj->security && !preg_match('!^(http|ftp)://!', $file)) {
+        // make sure fetched file comes from secure directory
+        foreach ($smarty_obj->secure_dir as $curr_dir) {
+            if (substr(realpath($file), 0, strlen(realpath($curr_dir))) == realpath($curr_dir)) {
+                $resource_is_secure = true;
+                break;
+            }
+        }
+        if (!$resource_is_secure) {
+            $smarty_obj->_trigger_error_msg("(secure mode) fetch '$file' is not allowed");
+            return;
+        }
+    }
+    if (!@is_readable($file)) {
+        $smarty_obj->_trigger_error_msg("fetch cannot read file '$file'");
+        return;
+    }
 
     readfile($file);
 }
@@ -589,10 +589,10 @@ function smarty_func_fetch($args, &$smarty_obj) {
     Purpose:  count the number of characters in a text
 \*======================================================================*/
 function smarty_mod_count_characters($string,$include_spaces=false) {
-    
-    if($include_spaces)
+
+    if ($include_spaces)
        return(strlen($string));
-            
+
     return preg_match_all("/[^\s]/",$string,$match);
 }
 
@@ -601,12 +601,12 @@ function smarty_mod_count_characters($string,$include_spaces=false) {
     Purpose:  count the number of words in a text
 \*======================================================================*/
 function smarty_mod_count_words($string) {
-    
+
     // split text by ' ',\r,\n,\f,\t
     $split_array = preg_split("/\s+/",$string);
     // count matches that contain alphanumerics
     $word_count = preg_grep("/[a-zA-Z0-9]/",$split_array);
-    
+
     return count($word_count);
 }
 
@@ -615,10 +615,10 @@ function smarty_mod_count_words($string) {
     Purpose:  count the number of sentences in a text
 \*======================================================================*/
 function smarty_mod_count_sentences($string,$include_spaces=false) {
-    
-    // find periods with a word before but not after.    
+
+    // find periods with a word before but not after.
     return preg_match_all("/[^\s]\.(?!\w)/",$string,$match);
-    
+
 }
 
 /*======================================================================*\
@@ -626,7 +626,7 @@ function smarty_mod_count_sentences($string,$include_spaces=false) {
     Purpose:  count the number of sentences in a text
 \*======================================================================*/
 function smarty_mod_count_paragraphs($string,$include_spaces=false) {
-    
+
     // count \r or \n characters
     return count( preg_split("/[\r\n]+/",$string) );
 }
@@ -636,45 +636,45 @@ function smarty_mod_count_paragraphs($string,$include_spaces=false) {
     Purpose:  print out a counter value
 \*======================================================================*/
 function smarty_func_counter() {
-    
-	static $count = array();
-	static $skipval = array();
-	static $dir = array();
-	static $id = "default";
-	static $printval = array();
-	
+
+    static $count = array();
+    static $skipval = array();
+    static $dir = array();
+    static $id = "default";
+    static $printval = array();
+
     extract(func_get_arg(0));
 
-	if(!isset($id))
-		$id = "default";
-	
-	if(isset($start))
-		$count[$id] = $start;	
-	elseif(!isset($count[$id]))
-		$count[$id]=1;
+    if (!isset($id))
+        $id = "default";
 
-	if(!isset($print))
-		$printval[$id]=true;
-	else
-		$printval[$id]=$print;
+    if (isset($start))
+        $count[$id] = $start;
+    elseif (!isset($count[$id]))
+        $count[$id]=1;
 
-	if($printval[$id])
-		echo $count[$id];
-	
-	if(isset($skip))
-		$skipval[$id] = $skip;
-	elseif(!isset($skipval))
-		$skipval[$id] = 1;
-	
-	if(isset($direction))
-		$dir[$id] = $direction;
-	elseif(!isset($dir[$id]))
-		$dir[$id] = "up";
-	
-	if($dir[$id] == "down")
-		$count[$id] -= $skipval[$id];
-	else
-		$count[$id] += $skipval[$id];
+    if (!isset($print))
+        $printval[$id]=true;
+    else
+        $printval[$id]=$print;
+
+    if ($printval[$id])
+        echo $count[$id];
+
+    if (isset($skip))
+        $skipval[$id] = $skip;
+    elseif (!isset($skipval))
+        $skipval[$id] = 1;
+
+    if (isset($direction))
+        $dir[$id] = $direction;
+    elseif (!isset($dir[$id]))
+        $dir[$id] = "up";
+
+    if ($dir[$id] == "down")
+        $count[$id] -= $skipval[$id];
+    else
+        $count[$id] += $skipval[$id];
 
     return true;
 }
@@ -684,22 +684,22 @@ function smarty_func_counter() {
     Purpose:  assign debug info to the template
 \*======================================================================*/
 function smarty_func_assign_debug_info($args, &$smarty_obj) {
-	$assigned_vars = $smarty_obj->_tpl_vars;
-	ksort($assigned_vars);
-	if(is_array($smarty_obj->_config[0])) {
-		$config_vars = $smarty_obj->_config[0];
-		ksort($config_vars);
-		$smarty_obj->assign("_debug_config_keys",array_keys($config_vars));
-		$smarty_obj->assign("_debug_config_vals",array_values($config_vars));
-	}	
-	
-	$included_templates = $smarty_obj->_included_tpls;
-	
-	$smarty_obj->assign("_debug_keys",array_keys($assigned_vars));
-	$smarty_obj->assign("_debug_vals",array_values($assigned_vars));
-	
-	$smarty_obj->assign("_debug_tpls",$included_templates);
-	return true;
+    $assigned_vars = $smarty_obj->_tpl_vars;
+    ksort($assigned_vars);
+    if (is_array($smarty_obj->_config[0])) {
+        $config_vars = $smarty_obj->_config[0];
+        ksort($config_vars);
+        $smarty_obj->assign("_debug_config_keys",array_keys($config_vars));
+        $smarty_obj->assign("_debug_config_vals",array_values($config_vars));
+    }
+
+    $included_templates = $smarty_obj->_included_tpls;
+
+    $smarty_obj->assign("_debug_keys",array_keys($assigned_vars));
+    $smarty_obj->assign("_debug_vals",array_values($assigned_vars));
+
+    $smarty_obj->assign("_debug_tpls",$included_templates);
+    return true;
 }
 
 /*======================================================================*\
@@ -707,12 +707,12 @@ function smarty_func_assign_debug_info($args, &$smarty_obj) {
     Purpose:  initialize use of overlib
 \*======================================================================*/
 function smarty_func_overlib_init($args, &$smarty_obj) {
-	// be sure to place overlib.js where Smarty can locate it.
-	// overlib.js came with the distribution of Smarty.
-	echo '<DIV ID="overDiv" STYLE="position:absolute; visibility:hidden; z-index:1000;"></DIV>'."\n".'<SCRIPT LANGUAGE=javascript>'."\n".'<!--'."\n";
-	readfile(SMARTY_DIR."overlib.js",1);	
-	echo '// -->'."\n".'</SCRIPT>'."\n";
-	return;
+    // be sure to place overlib.js where Smarty can locate it.
+    // overlib.js came with the distribution of Smarty.
+    echo '<DIV ID="overDiv" STYLE="position:absolute; visibility:hidden; z-index:1000;"></DIV>'."\n".'<SCRIPT LANGUAGE=javascript>'."\n".'<!--'."\n";
+    readfile(SMARTY_DIR."overlib.js",1);
+    echo '// -->'."\n".'</SCRIPT>'."\n";
+    return;
 }
 
 /*======================================================================*\
@@ -720,64 +720,64 @@ function smarty_func_overlib_init($args, &$smarty_obj) {
     Purpose:  make text pop up in windows via overlib
 \*======================================================================*/
 function smarty_func_overlib($args, &$smarty_obj) {
-	extract($args);
-	if (empty($text)) {
+    extract($args);
+    if (empty($text)) {
         $smarty_obj->_trigger_error_msg("overlib: attribute 'text' required");
-		return false;
-	}
-	
-	if(empty($trigger)) { $trigger = "onMouseOver"; }
-	
-	echo $trigger.'="return overlib(\''.str_replace("'","\'",$text).'\'';
-	if($sticky) { echo ",STICKY"; }
-	if(!empty($caption)) { echo ",CAPTION,'".str_replace("'","\'",$caption)."'"; }
-	if(!empty($fgcolor)) { echo ",FGCOLOR,'$fgcolor'"; }
-	if(!empty($bgcolor)) { echo ",BGCOLOR,'$bgcolor'"; }
-	if(!empty($textcolor)) { echo ",TEXTCOLOR,'$textcolor'"; }
-	if(!empty($capcolor)) { echo ",CAPCOLOR,'$capcolor'"; }
-	if(!empty($closecolor)) { echo ",CLOSECOLOR,'$closecolor'"; }
-	if(!empty($textfont)) { echo ",TEXTFONT,'$textfont'"; }
-	if(!empty($captionfont)) { echo ",CAPTIONFONT,'$captionfont'"; }
-	if(!empty($closefont)) { echo ",CLOSEFONT,'$closefont'"; }
-	if(!empty($textsize)) { echo ",TEXTSIZE,'$textsize'"; }
-	if(!empty($captionsize)) { echo ",CAPTIONSIZE,'$captionsize'"; }
-	if(!empty($closesize)) { echo ",CLOSESIZE,'$closesize'"; }
-	if(!empty($width)) { echo ",WIDTH,'$width'"; }
-	if(!empty($height)) { echo ",HEIGHT,'$height'"; }
-	if(!empty($left)) { echo ",LEFT"; }
-	if(!empty($right)) { echo ",RIGHT"; }
-	if(!empty($center)) { echo ",CENTER"; }
-	if(!empty($above)) { echo ",ABOVE"; }
-	if(!empty($below)) { echo ",BELOW"; }
-	if(!empty($border)) { echo ",BORDER,'$border'"; }
-	if(!empty($offsetx)) { echo ",OFFSETX,'$offsetx'"; }
-	if(!empty($offsety)) { echo ",OFFSETY,'$offsetxy'"; }
-	if(!empty($fgbackground)) { echo ",FGBACKGROUND,'$fgbackground'"; }
-	if(!empty($bgbackground)) { echo ",BGBACKGROUND,'$bgbackground'"; }
-	if(!empty($closetext)) { echo ",CLOSETEXT,'".str_replace("'","\'",$closetext)."'"; }
-	if(!empty($noclose)) { echo ",NOCLOSE"; }
-	if(!empty($status)) { echo ",STATUS,'".str_replace("'","\'",$status)."'"; }
-	if(!empty($autostatus)) { echo ",AUTOSTATUS"; }
-	if(!empty($autostatuscap)) { echo ",AUTOSTATUSCAP"; }
-	if(!empty($inarray)) { echo ",INARRAY,'$inarray'"; }
-	if(!empty($caparray)) { echo ",CAPARRAY,'$caparray'"; }
-	if(!empty($capicaon)) { echo ",CAPICON,'$capicon'"; }
-	if(!empty($snapx)) { echo ",SNAPX,'$snapx'"; }
-	if(!empty($snapy)) { echo ",SNAPY,'$snapy'"; }
-	if(!empty($fixx)) { echo ",FIXX,'$fixx'"; }
-	if(!empty($fixy)) { echo ",FIXY,'$fixy'"; }
-	if(!empty($background)) { echo ",BACKGROUND,'$background'"; }
-	if(!empty($padx)) { echo ",PADX,'$padx'"; }
-	if(!empty($pady)) { echo ",PADY,'$pady'"; }
-	if(!empty($fullhtml)) { echo ",FULLHTML"; }
-	if(!empty($frame)) { echo ",FRAME,'$frame'"; }
-	if(!empty($timeout)) { echo ",TIMEOUT,'$timeout'"; }
-	if(!empty($function)) { echo ",FUNCTION,'$function'"; }
-	if(!empty($delay)) { echo ",DELAY,'$delay'"; }
-	if(!empty($hauto)) { echo ",HAUTO"; }
-	if(!empty($vauto)) { echo ",VAUTO"; }
-	echo ');" onMouseOut="nd();"';	
-	return;
+        return false;
+    }
+
+    if (empty($trigger)) { $trigger = "onMouseOver"; }
+
+    echo $trigger.'="return overlib(\''.str_replace("'","\'",$text).'\'';
+    if ($sticky) { echo ",STICKY"; }
+    if (!empty($caption)) { echo ",CAPTION,'".str_replace("'","\'",$caption)."'"; }
+    if (!empty($fgcolor)) { echo ",FGCOLOR,'$fgcolor'"; }
+    if (!empty($bgcolor)) { echo ",BGCOLOR,'$bgcolor'"; }
+    if (!empty($textcolor)) { echo ",TEXTCOLOR,'$textcolor'"; }
+    if (!empty($capcolor)) { echo ",CAPCOLOR,'$capcolor'"; }
+    if (!empty($closecolor)) { echo ",CLOSECOLOR,'$closecolor'"; }
+    if (!empty($textfont)) { echo ",TEXTFONT,'$textfont'"; }
+    if (!empty($captionfont)) { echo ",CAPTIONFONT,'$captionfont'"; }
+    if (!empty($closefont)) { echo ",CLOSEFONT,'$closefont'"; }
+    if (!empty($textsize)) { echo ",TEXTSIZE,'$textsize'"; }
+    if (!empty($captionsize)) { echo ",CAPTIONSIZE,'$captionsize'"; }
+    if (!empty($closesize)) { echo ",CLOSESIZE,'$closesize'"; }
+    if (!empty($width)) { echo ",WIDTH,'$width'"; }
+    if (!empty($height)) { echo ",HEIGHT,'$height'"; }
+    if (!empty($left)) { echo ",LEFT"; }
+    if (!empty($right)) { echo ",RIGHT"; }
+    if (!empty($center)) { echo ",CENTER"; }
+    if (!empty($above)) { echo ",ABOVE"; }
+    if (!empty($below)) { echo ",BELOW"; }
+    if (!empty($border)) { echo ",BORDER,'$border'"; }
+    if (!empty($offsetx)) { echo ",OFFSETX,'$offsetx'"; }
+    if (!empty($offsety)) { echo ",OFFSETY,'$offsetxy'"; }
+    if (!empty($fgbackground)) { echo ",FGBACKGROUND,'$fgbackground'"; }
+    if (!empty($bgbackground)) { echo ",BGBACKGROUND,'$bgbackground'"; }
+    if (!empty($closetext)) { echo ",CLOSETEXT,'".str_replace("'","\'",$closetext)."'"; }
+    if (!empty($noclose)) { echo ",NOCLOSE"; }
+    if (!empty($status)) { echo ",STATUS,'".str_replace("'","\'",$status)."'"; }
+    if (!empty($autostatus)) { echo ",AUTOSTATUS"; }
+    if (!empty($autostatuscap)) { echo ",AUTOSTATUSCAP"; }
+    if (!empty($inarray)) { echo ",INARRAY,'$inarray'"; }
+    if (!empty($caparray)) { echo ",CAPARRAY,'$caparray'"; }
+    if (!empty($capicaon)) { echo ",CAPICON,'$capicon'"; }
+    if (!empty($snapx)) { echo ",SNAPX,'$snapx'"; }
+    if (!empty($snapy)) { echo ",SNAPY,'$snapy'"; }
+    if (!empty($fixx)) { echo ",FIXX,'$fixx'"; }
+    if (!empty($fixy)) { echo ",FIXY,'$fixy'"; }
+    if (!empty($background)) { echo ",BACKGROUND,'$background'"; }
+    if (!empty($padx)) { echo ",PADX,'$padx'"; }
+    if (!empty($pady)) { echo ",PADY,'$pady'"; }
+    if (!empty($fullhtml)) { echo ",FULLHTML"; }
+    if (!empty($frame)) { echo ",FRAME,'$frame'"; }
+    if (!empty($timeout)) { echo ",TIMEOUT,'$timeout'"; }
+    if (!empty($function)) { echo ",FUNCTION,'$function'"; }
+    if (!empty($delay)) { echo ",DELAY,'$delay'"; }
+    if (!empty($hauto)) { echo ",HAUTO"; }
+    if (!empty($vauto)) { echo ",VAUTO"; }
+    echo ');" onMouseOut="nd();"';
+    return;
 }
 
 /* vim: set expandtab: */
