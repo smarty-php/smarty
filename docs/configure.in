@@ -117,7 +117,15 @@ AC_ARG_WITH(jade,
 if test $JADE = "no"; then
   AC_MSG_ERROR([can't find jade or openjade])
 fi
+
+if test ${JADE:0:18} = "../../phpdoc-tools"; then
+  WINJADE=1
+else
+  WINJADE=0
+fi 
+
 AC_SUBST(JADE)
+AC_SUBST(WINJADE)
 
 dnl }}}
 

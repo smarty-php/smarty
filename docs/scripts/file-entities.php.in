@@ -39,39 +39,22 @@ set_time_limit(0);
 
 // ......:ARGUMENT PARSING:.....................................................
 
-// when php complied on cygwin, the working path have to be /cygdrive..
-// the below preg_replace have to be done only using binary php complied on MSVC.
-// let's find if php was complied by cygwin:
-$cygwin_complied = eregi("CYGWIN",php_uname()) ? true : false;
-	
-// The output directory, which we need to parse for windows specific
-// things, and correct all problems is needed.
-// Also use absolute path to have meaningful error messages
-$out_dir = abs_path(strip_cygdrive("@WORKDIR@"));
+$not_windows = !eregi('WIN',PHP_OS);
 
-// this path if used for saving the ent file:
-$script_out_dir = $cygwin_complied ? "@WORKDIR@" : $out_dir;
+// The dir for PHP. If the cygwin wasn't compiled on Cygwin, the path needs to be striped.
+$out_dir = ($not_windows || eregi('CYGWIN',php_uname()))? "@WORKDIR@" : abs_path(strip_cygdrive("@WORKDIR@"));
 
-// The source directory is passed in the 5th argument counting from backwards.
-$srcdir = abs_path("@SRCDIR@");
-
-// The translation dir is passed as the 6th argument, counting
-// from the end of the argument list
-$trans_dir = "$srcdir/@LANG@";
-
-// The original directory is in the base directory, and named "en"
-$orig_dir = "$srcdir/en";
 
 // ......:ENTITY CREATION:......................................................
 
 // Put all the file entitites info $entities
 $entities = array();
-file_entities($orig_dir, $trans_dir, $orig_dir, $entities);
+file_entities("$out_dir/en", "$out_dir/@LANG@", "$out_dir/en", $entities);
 
 // Open file for appending and write out all entitities
-$fp = fopen("$script_out_dir/entities/file-entities.ent", "w");
+$fp = fopen("$out_dir/entities/file-entities.ent", "w");
 if (!$fp) {
-    die("ERROR: Failed to open $script_out_dir/entities/file-entities.ent for writing\n");
+    die("ERROR: Failed to open $out_dir/entities/file-entities.ent for writing\n");
 }
 
 echo "\ncreating entities/file-entities.ent...\n";
@@ -276,7 +259,7 @@ function entstr($entname, $filename)
     if ($filename == "") {
         return sprintf("<!ENTITY %-40s        ''>\n", $entname);
     } else {
-        return sprintf("<!ENTITY %-40s SYSTEM '%s'>\n", $entname, strip_cygdrive($filename));
+        return sprintf("<!ENTITY %-40s SYSTEM '%s'>\n", $entname, file2jade($filename));
     }
 }
 
@@ -284,7 +267,24 @@ function entstr($entname, $filename)
  * Return windows style path for cygwin.
  * 
  * @param string $path Orginal path
+ * @return string windows style path
  */
 function strip_cygdrive($path){
-	return preg_replace("!^/cygdrive/(\\w)/!", "\\1:/", $path);
+    return preg_replace(array('!^/cygdrive/(\w)/!', '@^/home/.+$@'), array('\1:/', strtr(dirname(dirname(__FILE__)), '\\', '/')), $path);
 }
+
+
+/* Converts a path to the appropriate style for Jade */
+function file2jade($path) {
+
+    if ($GLOBALS['not_windows'])
+	return $path;
+
+    if ((bool)@WINJADE@) {
+        return strip_cygdrive($path);
+    } else {
+        return preg_replace('@^([a-zA-Z]):/@S', '/cygdrive/$1/', $path);
+    }
+}
+
+?>
