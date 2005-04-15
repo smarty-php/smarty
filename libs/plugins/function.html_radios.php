@@ -137,7 +137,7 @@ function smarty_function_html_radios_output($name, $value, $output, $selected, $
 
    if ($labels) $_output .= ' id="' . $_id . '"';
 
-    if ($value==$selected) {
+    if ((string)$value==$selected) {
         $_output .= ' checked="checked"';
     }
     $_output .= $extra . ' />' . $output;

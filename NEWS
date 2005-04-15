@@ -1,3 +1,5 @@
+  - cast selected value to string for comparison in html_radios
+    (Exeption, monte)
   - updated html_select_date's year_as_text-feature to be xhtml compliant
     (Mark West, messju)
   - fix handling of selected month html_select_date (Yuri Weseman, messju)
