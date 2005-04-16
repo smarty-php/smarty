@@ -1,3 +1,9 @@
+2005-04-15  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS
+      libs/plugins/function.html_radios.php:
+      cast selected value to string for comparison in html_radios
+
 2005-04-07  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
