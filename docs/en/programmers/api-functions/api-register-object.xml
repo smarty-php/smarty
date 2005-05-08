@@ -20,8 +20,12 @@
    <link linkend="advanced.features.objects">object section</link>
    of the manual for examples.
   </para>
+  <para>
+   See Also <link linkend="api.unregister.object">unregister_object</link>.
+  </para>
  </refsect1>
 </refentry>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

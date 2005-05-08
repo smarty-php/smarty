@@ -86,7 +86,7 @@
 		<sect2 id="language.variables.smarty.capture">
 			<title>{$smarty.capture}</title>
 			<para>
-		 	The output captured via {capture}..{/capture} construct can be
+		 	The output captured via 	<link linkend="language.function.capture">{capture}..{/capture}</link> construct can be
 		 	accessed using {$smarty} variable. See section on
 		 	<link linkend="language.function.capture">capture</link> for an example.
 			</para>

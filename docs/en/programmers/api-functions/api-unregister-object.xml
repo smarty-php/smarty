@@ -14,6 +14,7 @@
   <para>
    Use this to unregister an object.
   </para>
+ <para>See also <link linkend="api.register.object">register_object</link> <link linkend="advanced.features.objects">object section</link></para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

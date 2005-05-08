@@ -62,9 +62,9 @@
   $security_settings['MODIFIER_FUNCS']</link>-array.
  </para>
 
+ &designers.language-modifiers.language-modifier-cat;
  &designers.language-modifiers.language-modifier-capitalize;
  &designers.language-modifiers.language-modifier-count-characters;
- &designers.language-modifiers.language-modifier-cat;
  &designers.language-modifiers.language-modifier-count-paragraphs;
  &designers.language-modifiers.language-modifier-count-sentences;
  &designers.language-modifiers.language-modifier-count-words;

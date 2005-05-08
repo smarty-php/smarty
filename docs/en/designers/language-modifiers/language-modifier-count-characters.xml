@@ -67,6 +67,11 @@ Cold Wave Linked to Temperatures.
 ]]>
    </screen>
   </example>
+   <para>See also <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> 
+   			<link linkend="language.modifier.count.sentences">count_sentences</link>
+			<link linkend="language.modifier.count.words">count_words</link>
+			
+			</para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

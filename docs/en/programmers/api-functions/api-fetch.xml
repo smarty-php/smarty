@@ -61,8 +61,13 @@ echo $output;
     </programlisting>
    </example>
   </para>
+  <para>
+   See also <link linkend="api.display">display()</link> and
+   <link linkend="api.template.exists">template_exists</link>.
+  </para>
  </refsect1>
 </refentry>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

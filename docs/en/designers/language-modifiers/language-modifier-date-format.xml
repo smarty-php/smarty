@@ -203,8 +203,9 @@ Monday, February 5, 2001
    <note>
     <title>Programmers note</title>
     <para>
-     date_format is essentially a wrapper to PHP's strftime()
-     function. You may have more or less conversion specifiers available depending
+     date_format is essentially a wrapper to PHP's
+     <ulink url="&url.php-manual;strftime">strftime()</ulink> function.
+     You may have more or less conversion specifiers available depending
      on your system's strftime() function where PHP was compiled. Check your
      system's manpage for a full list of valid specifiers.
     </para>

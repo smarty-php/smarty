@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.error.reporting">
-      <title>$error_reporting</title>
-      <para>
-           When this value is set to a non-null-value it's value is
-           used as php's error_reporting-level inside of display() and
-           fetch(). When debugging is enabled this value is ignored
-           and the error-level is left untouched.
-      </para>
+<sect1 id="variable.error.reporting">
+ <title>$error_reporting</title>
+ <para>
+  When this value is set to a non-null-value it's value is used as php's
+  error_reporting-level inside of <link linkend="api.display">display()</link>
+  and <link linkend="api.fetch">fetch()</link>. When <link
+   linkend="chapter.debugging.console">debugging</link> is enabled this value
+  is ignored and the error-level is left untouched.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

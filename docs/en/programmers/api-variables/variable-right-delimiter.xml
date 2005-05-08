@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.right.delimiter">
-      <title>$right_delimiter</title>
-      <para>
-       This is the right delimiter used by the template language.
-       Default is "}".			
-      </para>
+<sect1 id="variable.right.delimiter">
+ <title>$right_delimiter</title>
+ <para>
+  This is the right delimiter used by the template language.
+  Default is "}".			
+ </para>
+ <para>
+  See also <link linkend="variable.left.delimiter">$left_delimiter</link>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -5,7 +5,7 @@
  <para>
   All Smarty template tags are enclosed within delimiters. By
   default, these delimiters are <literal>{</literal> and
-  <literal>}</literal>, but they can be changed.
+  <literal>}</literal>, but they can be <link linkend="variable.left.delimiter">changed</link>.
  </para>
  <para>
   For these examples, we will assume that you are using the default

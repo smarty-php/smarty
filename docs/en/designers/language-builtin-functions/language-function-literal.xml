@@ -35,6 +35,7 @@
 ]]>
    </programlisting>
   </example>
+  <para>See also <link linkend="language.escaping">Escaping Smarty Parsing</link> </para>
  </sect1>
 
 <!-- Keep this comment at the end of the file

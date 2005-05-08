@@ -10,6 +10,9 @@
 <!ENTITY url.php-accelerator 'http://www.php-accelerator.co.uk'>
 <!ENTITY url.zend            'http://www.zend.com/'>
 
+<!-- to use like <ulink url="&url.php-manual;some_function"> -->
+<!ENTITY url.php-manual      'http://php.net/'>
+
 <!-- The three special language constants -->
 <!ENTITY true  '<constant>TRUE</constant>'>
 <!ENTITY false '<constant>FALSE</constant>'>

@@ -124,6 +124,11 @@
 ]]>
   </programlisting>
  </example>
+
+ <para>
+  See also <link linkend="config.files">Config Files</link> and
+  <link linkend="language.function.config.load">Config Load</link>.
+ </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file
