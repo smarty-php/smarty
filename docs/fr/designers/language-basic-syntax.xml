@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <chapter id="language.basic.syntax">
  <title>Bases syntaxiques</title>
  <para>
   Toutes les balises Smarty sont entourées de délimiteurs. Par défaut,
   ces délimiteurs sont <literal>{</literal> et
-  <literal>}</literal>, mais ils peuvent être modifiés.
+  <literal>}</literal>, mais ils peuvent être <link linkend="variable.left.delimiter">modifiés</link>.
  </para>
  <para>
   Pour ces exemples, nous supposons que vous utiliserez leur valeur par défaut.

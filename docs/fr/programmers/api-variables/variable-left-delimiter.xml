@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
 <sect1 id="variable.left.delimiter">
  <title>$left_delimiter</title>
  <para>
   Il s'agit du délimiteur gauche utilisé par le moteur de templates. La
   valeur par défaut est "{".
+ </para>
+ <para>
+  Voir aussi
+  <link linkend="variable.right.delimiter">$right_delimiter</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

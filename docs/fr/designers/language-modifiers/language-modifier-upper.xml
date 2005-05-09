@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.upper">
  <title>upper</title>
  <para>
@@ -8,7 +8,7 @@
  </para>
  <example>
   <title>upper</title>
-<programlisting role="php">
+  <programlisting role="php">
 <![CDATA[
 <?php
 $smarty = new Smarty;
@@ -17,24 +17,29 @@ rapidement, celà risque de durer longtemps.");
 $smarty->display('index.tpl');
 ?>
 ]]>
-</programlisting>
-<para>
-Ou index.tpl est:
-</para>
-<programlisting>
+  </programlisting>
+  <para>
+   Où index.tpl est:
+  </para>
+  <programlisting>
 <![CDATA[
 {$titreArticle}
 {$titreArticle|upper}
 ]]>
-</programlisting>
-<para>
-Ce qui donne en sortie :
-</para>
-<screen>
+  </programlisting>
+  <para>
+   Affichera :
+  </para>
+  <screen>
 Si l'attaque n'est pas mise en place rapidement, celà risque de durer longtemps.
 SI L'ATTAQUE N'EST PAS MISE EN PLACE RAPIDEMENT, CELÀ RISQUE DE DURER LONGTEMPS.
-</screen>
+  </screen>
  </example>
+ <para>
+  Voir aussi
+  <link linkend="language.modifier.lower">lower</link> et
+  <link linkend="language.modifier.capitalize">capitalize</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

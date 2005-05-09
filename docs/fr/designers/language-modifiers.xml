@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.15 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.16 Maintainer: gerald Status: ready -->
 <chapter id="language.modifiers">
  <title>Modificateurs de variables</title>
  <para>
@@ -66,9 +66,9 @@
   $security_settings['MODIFIER_FUNCS']</link>.
  </para>
 
+ &designers.language-modifiers.language-modifier-cat;
  &designers.language-modifiers.language-modifier-capitalize;
  &designers.language-modifiers.language-modifier-count-characters;
- &designers.language-modifiers.language-modifier-cat;
  &designers.language-modifiers.language-modifier-count-paragraphs;
  &designers.language-modifiers.language-modifier-count-sentences;
  &designers.language-modifiers.language-modifier-count-words;
@@ -87,7 +87,7 @@
  &designers.language-modifiers.language-modifier-truncate;
  &designers.language-modifiers.language-modifier-upper;
  &designers.language-modifiers.language-modifier-wordwrap;
- 
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

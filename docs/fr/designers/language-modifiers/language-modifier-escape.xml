@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.escape">
  <title>escape</title>
  <informaltable frame="all">
@@ -17,7 +17,7 @@
      <entry>Type</entry>
      <entry>Requis</entry>
      <entry>Valeurs possibles</entry>
-     <entry>Defaut</entry>
+     <entry>Défaut</entry>
      <entry>Description</entry>
     </row>
    </thead>
@@ -52,7 +52,7 @@ $smarty->display('index.tpl');
 ]]>
 </programlisting>
 <para>
-Ou index.tpl est:
+Où index.tpl est:
 </para>
 <programlisting>
 <![CDATA[
@@ -79,7 +79,11 @@ Ce qui donne à l'écran:
 <a href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74">&#x62;&#x6f;&#x62;&#x40;&#x6d;&#x65;&#x2e;&#x6e;&#x65;&#x74;</a>
 ]]>
 </screen>
- </example>
+</example>
+<para>
+ Voir aussi la
+ <link linkend="language.escaping">désactivation de l'analyse de Smarty</link>.
+</para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

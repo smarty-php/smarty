@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.count.paragraphs">
  <title>count_paragraphs</title>
  <para>
@@ -8,7 +8,7 @@
  </para>
  <example>
   <title>count_paragraphs</title>
-<programlisting role="php">
+  <programlisting role="php">
 <![CDATA[
 <?php
 $smarty = new Smarty;
@@ -16,23 +16,29 @@ $smarty-&gt;assign('TitreArticle', 'La guerre apporte la paix, au prix de la vie
 $smarty-&gt;display('index.tpl');
 ?>
 ]]>
-</programlisting>
-<para>
-  Ou index.tpl est:
-</para>
-<programlisting>
+  </programlisting>
+  <para>
+   Où index.tpl est:
+  </para>
+  <programlisting>
 <![CDATA[
 {$TitreArticle}
 {$TitreArticle|count_paragraphs}
 ]]>
-</programlisting>
-<screen>
+  </programlisting>
+  <screen>
 <![CDATA[
 La guerre apporte la paix, au prix de la vie des innocents.
 1
 ]]>
-</screen>
+  </screen>
  </example>
+ <para>
+  Voir aussi
+  <link linkend="language.modifier.count.characters">count_characters</link>,
+  <link linkend="language.modifier.count.sentences">count_sentences</link> et
+  <link linkend="language.modifier.count.words">count_words</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

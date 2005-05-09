@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
 <refentry id="api.unregister.object">
  <refnamediv>
   <refname>unregister_object</refname>
@@ -14,6 +14,11 @@
   </methodsynopsis>
   <para>
    Utilisée pour désallouer un objet.
+  </para>
+  <para>
+   Voir aussi
+   <link linkend="api.register.object">register_object</link> et
+   <link linkend="advanced.features.objects">object section</link>.
   </para>
  </refsect1>
 </refentry>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.config.load">
  <title>config_load</title>
  <informaltable frame="all">
@@ -15,7 +15,7 @@
      <entry>Nom attribut</entry>
      <entry>Type</entry>
      <entry>Requis</entry>
-     <entry>Defaut</entry>
+     <entry>Défaut</entry>
      <entry>Description</entry>
     </row>
    </thead>
@@ -80,11 +80,11 @@
 <title>{#pageTitle#}</title>
 <body bgcolor="{#bodyBgColor#}">
 <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
-	<tr bgcolor="{#rowBgColor#}">
-		<td>First</td>
-		<td>Last</td>
-		<td>Address</td>
-	</tr>
+  <tr bgcolor="{#rowBgColor#}">
+    <td>First</td>
+    <td>Last</td>
+    <td>Address</td>
+  </tr>
 </table>
 </body>
 </html>
@@ -113,17 +113,23 @@
 <title>{#pageTitle#}</title>
 <body bgcolor="{#bodyBgColor#}">
 <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
-	<tr bgcolor="{#rowBgColor#}">
-		<td>First</td>
-		<td>Last</td>
-		<td>Address</td>
-	</tr>
+  <tr bgcolor="{#rowBgColor#}">
+    <td>First</td>
+    <td>Last</td>
+    <td>Address</td>
+  </tr>
 </table>
 </body>
 </html>
 ]]>
   </programlisting>
  </example>
+
+ <para>
+  Voir aussi 
+  <link linkend="config.files">les fichiers de configuration</link> et
+  <link linkend="language.function.config.load">config_load</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

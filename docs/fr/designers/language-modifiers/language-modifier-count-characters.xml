@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.count.characters">
  <title>count_characters</title>
-  <informaltable frame="all">
-   <tgroup cols="5">
-    <colspec colname="param" align="center" />
-    <colspec colname="type" align="center" />
-    <colspec colname="required" align="center" />
-    <colspec colname="default" align="center" />
-    <colspec colname="desc" />
-    <thead>
-     <row>
-      <entry>Position du paramètre</entry>
-      <entry>Type</entry>
-      <entry>Requis</entry>
-      <entry>Defaut</entry>
-      <entry>Description</entry>
-     </row>
-    </thead>
-    <tbody>
-     <row>
-      <entry>1</entry>
-      <entry>boolean</entry>
-      <entry>Non</entry>
-      <entry>false</entry>
-      <entry>Si l'on doit inclure les espaces dans le compte.</entry>
-     </row>
-    </tbody>
-   </tgroup>
-  </informaltable>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Position du paramètre</entry>
+     <entry>Type</entry>
+     <entry>Requis</entry>
+     <entry>Defaut</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>1</entry>
+     <entry>boolean</entry>
+     <entry>Non</entry>
+     <entry>false</entry>
+     <entry>Si l'on doit inclure les espaces dans le compte.</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
  <para>
   Compte le nombre de caractères dans une variable.
  </para>
  <example>
   <title>count_characters</title>
-<programlisting role="php">
+  <programlisting role="php">
 <![CDATA[
 <?php
 
@@ -45,28 +45,34 @@ $smarty->display('index.tpl');
 
 ?>
 ]]>
- </programlisting>
- <para>
-  Ou index.tpl est:
- </para>
- <programlisting>
+  </programlisting>
+  <para>
+   Où index.tpl est:
+  </para>
+  <programlisting>
 <![CDATA[
 {$titreArticle}
 {$titreArticle|count_characters}
 {$titreArticle|count_characters:true}
 ]]>
- </programlisting>
- <para>
-  Ce qui donne en sortie :
- </para>
-<screen>
+  </programlisting>
+  <para>
+   Ce qui donne en sortie :
+  </para>
+  <screen>
 <![CDATA[
 Vagues de froid liées à la température.
 33
 39
 ]]>
-</screen>
+  </screen>
  </example>
+ <para>
+  Voir aussi 
+  <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>,
+  <link linkend="language.modifier.count.sentences">count_sentences</link> et
+  <link linkend="language.modifier.count.words">count_words</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

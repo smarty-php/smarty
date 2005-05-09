@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <sect1 id="language.variables.smarty">
  <title>Variable réservée {$smarty}</title>
  <para>
   La variable réservée {$smarty} peut être utilisée pour accéder à plusieurs
   variables spéciales du template. En voici la liste complète.
  </para>
- 
+
  <sect2 id="language.variables.smarty.request">
   <title>Variables de requête</title>
   <para>
@@ -15,9 +15,8 @@
    et SESSION peuvent être utilisées comme dans l'exemple suivant:
   </para>
   <example>
-   
    <title>Afficher des variables de requête</title>
-<programlisting>
+   <programlisting>
 <![CDATA[
 {* Affiche la valeur de page dans l'url (GET) http://www.example.com/index.php?page=foo *}
 {$smarty.get.page}
@@ -40,10 +39,10 @@
 {* affiche la variable "utilisateur" du regroupement de get/post/cookies/server/env *}
 {$smarty.request.utilisateur}
 ]]>
-</programlisting>
+   </programlisting>
   </example>
  </sect2>
- 
+
  <sect2 id="language.variables.smarty.now">
   <title>{$smarty.now}</title>
   <para>
@@ -53,14 +52,13 @@
    de variable date à des fins d'affichage.
   </para>
   <example>
-   
    <title>utilisation de {$smarty.now}</title>
-<programlisting>
+   <programlisting>
 <![CDATA[
 {* utilise le modificateur de variable date_format pour afficher la date et heure *}
 {$smarty.now|date_format:"%d-%m-%Y %H:%M:%S"}
 ]]>
-</programlisting>
+   </programlisting>
   </example>
  </sect2>
  <sect2 id="language.variables.smarty.const">
@@ -69,26 +67,26 @@
    Vous pouvez directement accéder aux constantes PHP.
   </para>
   <example>
-   
    <title>Utiliser {$smarty.const}</title>
-<programlisting>
+   <programlisting>
 <![CDATA[
 {$smarty.const._MA_CONSTANTE_}
 ]]>
-</programlisting>
+   </programlisting>
   </example>
  </sect2>
- 
+
  <sect2 id="language.variables.smarty.capture">
   <title>{$smarty.capture}</title>
   <para>
-   La capture réalisée via {capture}..{/capture} peut être récupérée
-   par l'intermédiaire de la variable {$smarty}. Voir la section
+   La capture réalisée via 
+   <link linkend="language.function.capture">{capture}..{/capture}</link> 
+   peut être récupérée par l'intermédiaire de la variable {$smarty}. Voir la section
    sur <link linkend="language.function.capture">capture</link> pour un
    exemple à ce sujet.
   </para>
  </sect2>
- 
+
  <sect2 id="language.variables.smarty.config">
   <title>{$smarty.config}</title>
   <para>
@@ -99,7 +97,7 @@
    pour un exemple à ce sujet.
   </para>
  </sect2>
- 
+
  <sect2 id="language.variables.smarty.loops">
   <title>{$smarty.section}, {$smarty.foreach}</title>
   <para>
@@ -109,7 +107,7 @@
    <link linkend="language.function.foreach">foreach</link>.
   </para>
  </sect2>
-   
+
  <sect2 id="language.variables.smarty.template">
   <title>{$smarty.template}</title>
   <para>

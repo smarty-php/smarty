@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.date.format">
  <title>date_format</title>
  <informaltable frame="all">
@@ -15,7 +15,7 @@
      <entry>Position du paramètre</entry>
      <entry>Type</entry>
      <entry>Requis</entry>
-     <entry>Defaut</entry>
+     <entry>Défaut</entry>
      <entry>Description</entry>
     </row>
    </thead>
@@ -59,7 +59,7 @@ $smarty->display('index.tpl');
 ]]>
 </programlisting>
 <para>
- ou index.tpl est:
+ Où index.tpl est:
 </para>
 <programlisting>
 <![CDATA[
@@ -210,10 +210,11 @@ en tant que premier jour de la première semaine.
    <note>
     <title>Note aux développeurs</title>
     <para>
-     NOTE AUX DEVELOPPEURS: date_format est un alias de la fonction
-     PHP strftime(). Il est probable que vous disposiez de plus ou moins d'options
-     disponibles selon le système sur lequel PHP a été compilé (strftime ()).
-     Reportez vous à l'aide de votre système pour une liste complète des
+     date_format est un alias de la fonction
+     PHP <ulink url="&url.php-manual;strftime">strftime()</ulink>. 
+     Il est probable que vous disposiez de plus ou moins d'options
+     disponibles selon le système sur lequel PHP a été compilé.
+     Reportez-vous à l'aide de votre système pour une liste complète des
      paramètres disponibles.
     </para>
    </note>
