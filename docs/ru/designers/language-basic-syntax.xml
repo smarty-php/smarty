@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <chapter id="language.basic.syntax">
  <title>Базовый синтаксис</title>
  <para>
   Все тэги шаблонов Smarty располагаются между специальными
   разделителями. По умолчанию это <literal>{</literal> и
-  <literal>}</literal>, но они могут быть изменены.
+  <literal>}</literal>, но они могут быть <link linkend="variable.left.delimiter">изменены</link>.
  </para>
  <para>
   Для наших примеров мы будем использовать стандартные разделители.
-  Smarty все содержимое вне разделителей отображает как статическое
-  содержание, без изменений. Когда Smarty встречает тэги, то пытается
+  Smarty все содержимое вне разделителей отображает как статический
+  контент, без изменений. Когда Smarty встречает тэги шаблона, то пытается
   интерпретировать их и вывести вместо них соответствующий результат.
  </para>
 

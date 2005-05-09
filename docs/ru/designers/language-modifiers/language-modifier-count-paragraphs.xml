@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="language.modifier.count.paragraphs">
 	<title>count_paragraphs</title>
 	<para>
@@ -28,6 +28,12 @@ War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.
 Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 2</programlisting>
  </example>
+ <para>
+  См. также
+  <link linkend="language.modifier.count.characters">count_characters</link>,
+  <link linkend="language.modifier.count.sentences">count_sentences</link> и
+  <link linkend="language.modifier.count.words">count_words</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.15 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.16 Maintainer: freespace Status: ready -->
 <chapter id="language.modifiers">
  <title>Модификаторы переменных</title>
  <para>
@@ -44,9 +44,9 @@
   количество елементов в массиве $articleTitle.
  </para>
 
+&designers.language-modifiers.language-modifier-cat;
 &designers.language-modifiers.language-modifier-capitalize;
 &designers.language-modifiers.language-modifier-count-characters;
-&designers.language-modifiers.language-modifier-cat;
 &designers.language-modifiers.language-modifier-count-paragraphs;
 &designers.language-modifiers.language-modifier-count-sentences;
 &designers.language-modifiers.language-modifier-count-words;

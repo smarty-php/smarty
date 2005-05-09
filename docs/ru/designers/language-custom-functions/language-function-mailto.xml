@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.mailto">
  <title>mailto</title>
  <informaltable frame="all">
@@ -41,8 +41,9 @@
     <entry>Нет</entry>
     <entry><emphasis>none</emphasis></entry>
     <entry>Способ кодирования e-mail.
-     Может быть одним из none,
-     hex или javascript.</entry>
+     Может быть <literal>none</literal>,
+     <literal>hex</literal>, <literal>javascript</literal> или
+     <literal>javascript_charcode</literal>.</entry>
    </row>
    <row>
     <entry>cc</entry>
@@ -119,20 +120,26 @@
 {mailto address="me@example.com" subject="Hello to you!"}
 {mailto address="me@example.com" cc="you@example.com,they@example.com"}
 {mailto address="me@example.com" extra='class="email"'}
+{mailto address="me@example.com" encode="javascript_charcode"}
 
 OUTPUT:
 
 <a href="mailto:me@example.com" >me@example.com</a>
 <a href="mailto:me@example.com" >send me some mail</a>
-<SCRIPT language="javascript">eval(unescape('%64%6f%63%75%6d%65%6e%74%2e%77%72%6
+<script type="text/javascript" language="javascript">eval(unescape('%64%6f%63%75%6d%65%6e%74%2e%77%72%6
 9%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%64%6f%6d%
 61%69%6e%2e%63%6f%6d%22%20%3e%6d%65%40%64%6f%6d%61%69%6e%2e%63%6f%6d%3c%2f%61%3e
-%27%29%3b'))</SCRIPT>
+%27%29%3b'))</script>
 <a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" >&#x6d;&#x65;&#x40;&#x64;&
 #x6f;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;</a>
 <a href="mailto:me@example.com?subject=Hello%20to%20you%21" >me@example.com</a>
 <a href="mailto:me@example.com?cc=you@example.com%2Cthey@example.com" >me@example.com</a>
 <a href="mailto:me@example.com" class="email">me@example.com</a>
+<script type="text/javascript" language="javascript">
+<!--
+{document.write(String.fromCharCode(60,97,32,104,114,101,102,61,34,109,97,105,108,116,111,58,109,101,64,101,120,97,109,112,108,101,46,99,111,109,34,32,62,109,101,64,101,120,97,109,112,108,101,46,99,111,109,60,47,97,62))}
+//-->
+</script>
 ]]>
   </programlisting>
  </example>

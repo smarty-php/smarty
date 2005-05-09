@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="variable.error.reporting">
  <title>$error_reporting</title>
  <para>
   Если это свойство имеет ненулевое значние, то оно используется
-  в качестве значения error_reporting внутри display() и
-  fetch(). При включенном режиме отладки это значение игнорируется
-  и уровень обработки ошибок не меняется.
+  в качестве значения error_reporting внутри
+  <link linkend="api.display">display()</link> и
+  <link linkend="api.fetch">fetch()</link>.
+  При включенном режиме <link
+  linkend="chapter.debugging.console">отладки</link> это значение
+  игнорируется и уровень обработки ошибок не меняется.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

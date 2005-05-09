@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.variables.smarty">
  <title>Зарезервированная переменная {$smarty}</title>
   <para>
@@ -80,8 +80,8 @@
    <title>{$smarty.capture}</title>
    <para>
     Доступ к выводу, сохраненному с помощью тэгов
-    {capture}..{/capture}, можно получить используя переменную
-    {$smarty}. Смотрите раздел <link
+    <link linkend="language.function.capture">{capture}..{/capture}</link>,
+    можно получить используя переменную {$smarty}. Смотрите раздел <link
     linkend="language.function.capture">capture</link> для примера.
    </para>
   </sect2>

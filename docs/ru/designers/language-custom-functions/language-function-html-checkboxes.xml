@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.checkboxes">
  <title>html_checkboxes</title>
  <informaltable frame="all">
@@ -85,6 +85,9 @@
  </para>
  <example>
   <title>html_checkboxes</title>
+  <para>
+   Где PHP код:
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -100,13 +103,16 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   шаблон index.tpl:
+   и шаблон index.tpl:
   </para>
   <programlisting>
 <![CDATA[
 {html_checkboxes name="id" values=$cust_ids selected=$customer_id output=$cust_names separator="<br />"}
 ]]>
   </programlisting>
+  <para>
+   или где PHP код:
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -124,7 +130,7 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   шаблон index.tpl:
+   и шаблон index.tpl:
   </para>
   <programlisting>
 <![CDATA[

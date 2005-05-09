@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <refentry id="api.register.object">
  <refnamediv>
   <refname>register_object</refname>
@@ -18,8 +18,12 @@
   </methodsynopsis>
   <para>
   Функция регестрирует объект для использования в шаблоне. Обратитесь к
-  <link linkend="advanced.features.objects">разделу "Объекты"</link>
+  разделу <link linkend="advanced.features.objects">Объекты</link>
   за примерами.
+  </para>
+  <para>
+   См. также
+   <link linkend="api.unregister.object">unregister_object</link>.
   </para>
  </refsect1>
 </refentry>

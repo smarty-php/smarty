@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.ldelim">
  <title>ldelim,rdelim</title>
  <para>
   ldelim и rdelim используются для отображения разделителей.
-  В нашем случае это "{" и "}". Вы можете использовать блок <link
-    linkend="language.function.literal">{literal}{/literal}</link> для
+  В нашем случае это "{" и "}". Вы можете использовать блок
+  <link linkend="language.function.literal">{literal}{/literal}</link> для
   экранирования блоков текста.
-    См. также <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
-    и <link linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
+  См. также
+  <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link> и
+  <link linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
  </para>
  <example>
   <title>ldelim, rdelim</title>
@@ -19,17 +20,21 @@
 
 {ldelim}funcname{rdelim} is how functions look in Smarty!
 ]]>
-   </programlisting>
-   <para>
-    Результат выполнения данного примера:
-   </para>
-   <screen>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
 <![CDATA[
 {funcname} is how functions look in Smarty!
 ]]>
-   </screen>
-  </example>
- </sect1>
+  </screen>
+ </example>
+ <para>
+  См. также
+  <link linkend="language.escaping">Предотвращение обработки Smarty</link>
+ </para>
+</sect1>
 
 <!-- Keep this comment at the end of the file
 Local variables:

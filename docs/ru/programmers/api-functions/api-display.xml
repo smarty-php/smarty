@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.display">
  <refnamediv>
   <refname>display</refname>
@@ -18,8 +18,9 @@
   Функция отоброжает шаблон. Укажите верный тип <link
   linkend="template.resources">ресурса шаблонов</link>
   и путь. В качестве необязательного второго параметра,
-  вы можете передать cache id. Смотрите <link linkend="caching">раздел
-  "Кэширование"</link> для дополнительной информации.
+  вы можете передать cache id. Смотрите раздел
+  <link linkend="caching">Кэширование</link>
+  для дополнительной информации.
  </para>
  &parameter.compileid;
  <example>
@@ -80,6 +81,11 @@ $smarty->display("db:header.tpl");
 ]]>
    </programlisting>
   </example>
+  <para>
+   См. также
+   <link linkend="api.fetch">fetch()</link> и
+   <link linkend="api.template.exists">template_exists</link>.
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file
