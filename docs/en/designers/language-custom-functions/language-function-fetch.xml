@@ -82,7 +82,7 @@
 {* assign the fetched contents to a template variable *}
 {fetch file="http://www.myweather.com/68502/" assign="weather"}
 {if $weather ne ""}
-	<b>{$weather}</b>
+  <b>{$weather}</b>
 {/if}
 ]]>
   </programlisting>

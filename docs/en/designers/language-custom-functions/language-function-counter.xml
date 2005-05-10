@@ -59,8 +59,7 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>the template variable the output will be assigned
-						to</entry>
+     <entry>the template variable the output will be assigned to</entry>
     </row>
    </tbody>
   </tgroup>

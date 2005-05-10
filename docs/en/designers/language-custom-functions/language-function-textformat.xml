@@ -1,236 +1,269 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.textformat">
-			<title>textformat</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Attribute Name</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>style</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>preset style</entry>
-                    </row>
-                    <row>
-                        <entry>indent</entry>
-                        <entry>number</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>0</emphasis></entry>
-                        <entry>The number of chars to indent every line</entry>
-                    </row>
-                    <row>
-                        <entry>indent_first</entry>
-                        <entry>number</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>0</emphasis></entry>
-                        <entry>The number of chars to indent the first line</entry>
-                    </row>
-                    <row>
-                        <entry>indent_char</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>(single space)</emphasis></entry>
-                        <entry>The character (or string of chars) to indent with</entry>
-                    </row>
-                    <row>
-                        <entry>wrap</entry>
-                        <entry>number</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>80</emphasis></entry>
-                        <entry>How many characters to wrap each line to</entry>
-                    </row>
-                    <row>
-                        <entry>wrap_char</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>\n</emphasis></entry>
-                        <entry>The character (or string of chars) to break each
-						line with</entry>
-                    </row>
-                    <row>
-                        <entry>wrap_cut</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>false</emphasis></entry>
-                        <entry>If true, wrap will break the line at the exact
-						character instead of at a word boundary</entry>
-                    </row>
-                    <row>
-                        <entry>assign</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>the template variable the output will be assigned
-						to</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			textformat is a block function used to format text. It basically
-			cleans up spaces and special characters, and formats paragraphs by
-			wrapping at a boundary and indenting lines.
-			</para>
-			<para>
-			You can set the parameters explicitly, or use a preset style.
-			Currently "email" is the only available style.
-			</para>
-<example>
-<title>textformat</title>
-<programlisting>
-{textformat wrap=40}
+<sect1 id="language.function.textformat">
+ <title>textformat</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Attribute Name</entry>
+     <entry>Type</entry>
+     <entry>Required</entry>
+     <entry>Default</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>style</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>preset style</entry>
+    </row>
+    <row>
+     <entry>indent</entry>
+     <entry>number</entry>
+     <entry>No</entry>
+     <entry><emphasis>0</emphasis></entry>
+     <entry>The number of chars to indent every line</entry>
+    </row>
+    <row>
+     <entry>indent_first</entry>
+     <entry>number</entry>
+     <entry>No</entry>
+     <entry><emphasis>0</emphasis></entry>
+     <entry>The number of chars to indent the first line</entry>
+    </row>
+    <row>
+     <entry>indent_char</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>(single space)</emphasis></entry>
+     <entry>The character (or string of chars) to indent with</entry>
+    </row>
+    <row>
+     <entry>wrap</entry>
+     <entry>number</entry>
+     <entry>No</entry>
+     <entry><emphasis>80</emphasis></entry>
+     <entry>How many characters to wrap each line to</entry>
+    </row>
+    <row>
+     <entry>wrap_char</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>\n</emphasis></entry>
+     <entry>The character (or string of chars) to break each
+      line with</entry>
+    </row>
+    <row>
+     <entry>wrap_cut</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry><emphasis>false</emphasis></entry>
+     <entry>If true, wrap will break the line at the exact
+      character instead of at a word boundary</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>the template variable the output will be assigned
+      to</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  textformat is a block function used to format text. It basically
+  cleans up spaces and special characters, and formats paragraphs by
+  wrapping at a boundary and indenting lines.
+ </para>
+ <para>
+  You can set the parameters explicitly, or use a preset style.
+  Currently "email" is the only available style.
+ </para>
+ <example>
+  <title>textformat</title>
+  <programlisting>
+<![CDATA[
+   {textformat wrap=40}
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-This is bar.
+   This is bar.
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-{/textformat}
+   {/textformat}
 
-OUTPUT:
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
 
-This is foo. This is foo. This is foo.
-This is foo. This is foo. This is foo.
+   This is foo. This is foo. This is foo.
+   This is foo. This is foo. This is foo.
 
-This is bar.
+   This is bar.
 
-bar foo bar foo foo. bar foo bar foo
-foo. bar foo bar foo foo. bar foo bar
-foo foo. bar foo bar foo foo. bar foo
-bar foo foo. bar foo bar foo foo.
+   bar foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo bar
+   foo foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat wrap=40 indent=4}
 
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-{textformat wrap=40 indent=4}
+   This is bar.
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-This is bar.
+   {/textformat}
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
 
-{/textformat}
+   This is foo. This is foo. This is
+   foo. This is foo. This is foo. This
+   is foo.
 
-OUTPUT:
+   This is bar.
 
-    This is foo. This is foo. This is
-    foo. This is foo. This is foo. This
-    is foo.
+   bar foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo.
+   bar foo bar foo foo. bar foo bar
+   foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat wrap=40 indent=4 indent_first=4}
 
-    This is bar.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-    bar foo bar foo foo. bar foo bar foo
-    foo. bar foo bar foo foo. bar foo
-    bar foo foo. bar foo bar foo foo.
-    bar foo bar foo foo. bar foo bar
-    foo foo.
+   This is bar.
 
-{textformat wrap=40 indent=4 indent_first=4}
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   {/textformat}
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
 
-This is bar.
+   This is foo. This is foo. This
+   is foo. This is foo. This is foo.
+   This is foo.
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+   This is bar.
 
-{/textformat}
+   bar foo bar foo foo. bar foo bar
+   foo foo. bar foo bar foo foo. bar
+   foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo
+   bar foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat style="email"}
 
-OUTPUT:
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-        This is foo. This is foo. This
-    is foo. This is foo. This is foo.
-    This is foo.
+   This is bar.
 
-        This is bar.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-        bar foo bar foo foo. bar foo bar
-    foo foo. bar foo bar foo foo. bar
-    foo bar foo foo. bar foo bar foo
-    foo. bar foo bar foo foo. bar foo
-    bar foo foo.
+   {/textformat}
 
-{textformat style="email"}
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   This is foo. This is foo. This is foo. This is foo. This is foo. This is
+   foo.
 
-This is bar.
+   This is bar.
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+   bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
+   foo.
 
-{/textformat}
-
-OUTPUT:
-
-This is foo. This is foo. This is foo. This is foo. This is foo. This is
-foo.
-
-This is bar.
-
-bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
-bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
-foo.
-
-</programlisting>
-</example>
+]]>
+  </screen>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

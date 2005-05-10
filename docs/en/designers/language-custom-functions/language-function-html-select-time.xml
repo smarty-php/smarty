@@ -95,7 +95,7 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>adds extra attributes to select/input tags if
-						given</entry>
+      given</entry>
     </row>
     <row>
      <entry>hour_extra</entry>
@@ -103,7 +103,7 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>adds extra attributes to select/input tags if
-						given</entry>
+      given</entry>
     </row>
     <row>
      <entry>minute_extra</entry>
@@ -111,7 +111,7 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>adds extra attributes to select/input tags if
-						given</entry>
+      given</entry>
     </row>
     <row>
      <entry>second_extra</entry>
@@ -119,7 +119,7 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>adds extra attributes to select/input tags if
-						given</entry>
+      given</entry>
     </row>
     <row>
      <entry>meridian_extra</entry>
@@ -127,7 +127,7 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>adds extra attributes to select/input tags if
-						given</entry>
+      given</entry>
     </row>
    </tbody>
   </tgroup>
