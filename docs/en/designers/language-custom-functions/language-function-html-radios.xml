@@ -72,7 +72,7 @@
  </para>
  <para>
   All parameters that are not in the list above are printed as
-  name/value-pairs inside each of the created <input>-tags.
+  name/value-pairs inside each of the created &lt;input&gt;-tags.
  </para>
 
  <example>
