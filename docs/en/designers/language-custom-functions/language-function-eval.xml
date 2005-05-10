@@ -1,101 +1,110 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.eval">
-			<title>eval</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Attribute Name</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>var</entry>
-                        <entry>mixed</entry>
-                        <entry>Yes</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>variable (or string) to evaluate</entry>
-                    </row>
-                    <row>
-                        <entry>assign</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>the template variable the output will be assigned
-						to</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			eval is used to evaluate a variable as a template. This can be used
-			for things like embedding template tags/variables into variables or
-			tags/variables into config file variables.
-			</para>
-			<para>
-			If you supply the special "assign" attribute, the output of the
-			eval function will be assigned to this template variable instead of
-			being output to the template.
-			</para>
-			<note>
-			<title>Technical Note</title>
-			<para>
-			Evaluated variables are treated the same as templates. They follow
-			the same escapement and security features just as if they were
-			templates.
-			</para>
-			</note>
-			<note>
-			<title>Technical Note</title>
-			<para>
-			Evaluated variables are compiled on every invocation, the compiled
-			versions are not saved! However if you have caching enabled, the
-			output will be cached with the rest of the template.
-			</para>
-			</note>
-<example>
-<title>eval</title>
-<programlisting>
-setup.conf
-----------
+<sect1 id="language.function.eval">
+ <title>eval</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Attribute Name</entry>
+     <entry>Type</entry>
+     <entry>Required</entry>
+     <entry>Default</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>var</entry>
+     <entry>mixed</entry>
+     <entry>Yes</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>variable (or string) to evaluate</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>the template variable the output will be assigned
+      to</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  eval is used to evaluate a variable as a template. This can be used
+  for things like embedding template tags/variables into variables or
+  tags/variables into config file variables.
+ </para>
+ <para>
+  If you supply the special "assign" attribute, the output of the
+  eval function will be assigned to this template variable instead of
+  being output to the template.
+ </para>
+ <note>
+  <title>Technical Note</title>
+  <para>
+   Evaluated variables are treated the same as templates. They follow
+   the same escapement and security features just as if they were
+   templates.
+  </para>
+ </note>
+ <note>
+  <title>Technical Note</title>
+  <para>
+   Evaluated variables are compiled on every invocation, the compiled
+   versions are not saved! However if you have caching enabled, the
+   output will be cached with the rest of the template.
+  </para>
+ </note>
+ <example>
+  <title>eval</title>
+  <programlisting>
+<![CDATA[
+   setup.conf
+   ----------
 
-emphstart = &lt;b&gt;
-emphend = &lt;/b&gt;
-title = Welcome to {$company}'s home page!
-ErrorCity = You must supply a {#emphstart#}city{#emphend#}.
-ErrorState = You must supply a {#emphstart#}state{#emphend#}.
+   emphstart = <strong>
+   emphend = </strong>
+   title = Welcome to {$company}'s home page!
+   ErrorCity = You must supply a {#emphstart#}city{#emphend#}.
+   ErrorState = You must supply a {#emphstart#}state{#emphend#}.
+]]>
+  </programlisting>
+  <para>
+   Where index.tpl is:
+  </para>
+  <programlisting>
+<![CDATA[
+   {config_load file="setup.conf"}
 
+   {eval var=$foo}
+   {eval var=#title#}
+   {eval var=#ErrorCity#}
+   {eval var=#ErrorState# assign="state_error"}
+   {$state_error}
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
 
-index.tpl
----------
+   This is the contents of foo.
+   Welcome to Foobar Pub & Grill's home page!
+   You must supply a <strong>city</strong>.
+   You must supply a <strong>state</strong>.
 
-{config_load file="setup.conf"}
-
-{eval var=$foo}
-{eval var=#title#}
-{eval var=#ErrorCity#}
-{eval var=#ErrorState# assign="state_error"}
-{$state_error}
-
-OUTPUT:
-
-This is the contents of foo.
-Welcome to Foobar Pub &amp; Grill's home page!
-You must supply a &lt;b&gt;city&lt;/b&gt;.
-You must supply a &lt;b&gt;state&lt;/b&gt;.
-
-</programlisting>
-</example>
+]]>
+  </screen>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
