@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerlad Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerlad Status: ready -->
 <sect1 id="language.function.strip">
  <title>strip</title>
  <para>
@@ -22,15 +22,15 @@
   <para>
    {strip}{/strip} n'affecte en aucun cas le contenu des variables de
    template. Voir le  <link linkend="language.modifier.strip">modificateur
-   strip</link> pour un rendu identique pour les variables.
+    strip</link> pour un rendu identique pour les variables.
   </para>
  </note>
  <example>
-  <title>balises strip</title>
-<programlisting>
+  <title>Balises strip</title>
+  <programlisting>
+<![CDATA[
 {* la suite sera affichée sur une seule ligne *}
 {strip}
-<![CDATA[
 <table border=0>
  <tr>
   <td>
@@ -41,14 +41,17 @@
  </tr>
 </table>
 {/strip}
-
-
-SORTIE:
-
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
 <table border=0><tr><td><A HREF="http://mon.example.com"><font color="red">Un test</font></A></td></tr></table>
 ]]>
-</programlisting>
-</example>
+  </screen>
+ </example>
  <para>
   Notez que dans l'exemple ci-dessus, toutes les lignes commencent et
   se terminent par des	balises HTML. Sachez que si vous avez du texte

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: didou Status: ready -->
 <chapter id="tips">
  <title>Trucs et astuces</title>
  <para></para>
@@ -11,7 +11,8 @@
    défaut pour une variable qui n'a pas été assignée, comme
    pour afficher "&amp;nbsp;" afin que les couleurs de fond
    des tableaux fonctionnent. Beaucoup utiliseraient une
-   instruction {if} pour gérer celà, mais il existe un moyen
+   instruction <link linkend="language.function.if">{if}</link> 
+   pour gérer celà, mais il existe un moyen
    plus facile dans Smarty : l'utilisation du modificateur
    de variable <emphasis>default</emphasis>.
   </para>
@@ -34,8 +35,13 @@
 ]]>
    </programlisting>
   </example>
+  <para>
+   Voir aussi 
+   <link linkend="language.modifier.default">default</link> et
+   <link linkend="tips.default.var.handling">la gestion des variables par défaut</link>.
+  </para>
  </sect1>
- 
+
  <sect1 id="tips.default.var.handling">
   <title>Gestion des variables par défaut</title>
   <para>
@@ -56,6 +62,11 @@
 ]]>
    </programlisting>
   </example>
+  <para>
+   Voir aussi
+   <link linkend="language.modifier.default">default</link> et
+   <link linkend="tips.blank.var.handling">la gestion des variables non-assignées</link>.
+  </para>
  </sect1>
  <sect1 id="tips.passing.vars">
   <title>Passage du titre à un template d'en-tête</title>
@@ -124,7 +135,7 @@ footer.tpl
     <para>
      A partir Smarty 1.4.0, vous pouvez passer les dates à Smarty
      sous la forme de timestamps Unix ou MySQL, ou tout autre format de dates
-     que comprend strtotime().
+     que comprend <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
     </para>
    </note>
    <example>
@@ -164,7 +175,8 @@ Jan 4, 2001
     </programlisting>
    </example>
    <para>
-    En utilisant la fonction {html_select_date} dans un template, le programmeur
+    En utilisant la fonction <link linkend="language.function.html.select.date">{html_select_date}</link> 
+    dans un template, le programmeur
     veut en général convertir le résultat d'un formulaire en un timestamp.
     Voici une fonction qui devrait vous être utile.
    </para>
@@ -271,7 +283,8 @@ function insert_header()
     Traditionnellemnt, la programmation avec des templates dans les applications
     se déroule de la façon suivante : d'abord vous récupérez vos variables
     dans l'application PHP (peut-être avec des requêtes en base de données), puis
-    vous instanciez votre objet Smarty, assignez les variables et affichez le
+    vous instanciez votre objet Smarty, <link linkend="api.assign">assignez</link> 
+    les variables et <link linkend="api.display">affichez</link> le
     template. Disons par exemple que nous avons un téléscripteur dans
     notre template. Nous récupérerions les données dans notre application,
     puis les assignerions ensuite pour les afficher. Mais ne serait-ce pas
@@ -320,6 +333,12 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
 ]]>
     </programlisting>
    </example>
+   <para>
+    Voir aussi
+    <link linkend="language.function.include.php">{include_php}</link>,
+    <link linkend="language.function.include">{include}</link> et
+    <link linkend="language.function.php">{php}</link>.
+   </para>
   </sect1>
   <sect1 id="tips.obfuscating.email">
    <title>Dissimuler les adresses email</title>
@@ -350,6 +369,10 @@ Send inquiries to
      peu probable.
     </para>
    </note>
+   <para>
+    Voir aussi
+    <link linkend="language.modifier.escape">escape</link>.
+   </para>
   </sect1>
  </chapter>
  <!-- Keep this comment at the end of the file

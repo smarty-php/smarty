@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.foreach">
  <title>foreach,foreachelse</title>
  <informaltable frame="all">
@@ -54,7 +54,8 @@
  </informaltable>
  <para>
   Les boucles <emphasis>foreach</emphasis> sont une alternative aux boucles
-  <emphasis>section</emphasis>. Les boucles <emphasis>foreach</emphasis>
+  <link linkend="language.function.section"><emphasis>section</emphasis></link>.
+  Les boucles <emphasis>foreach</emphasis>
   sont utilisées pour parcourir des tableaux associatifs simples.
   La syntaxe des boucles <emphasis>foreach</emphasis> est bien plus simple
   que celle des boucles <emphasis>section</emphasis>, mais en contrepartie,
@@ -73,47 +74,116 @@
  </para>
  <example>
   <title>foreach</title>
-<programlisting>
-
+  <programlisting>
+<![CDATA[
 {* Cet exemple affiche toutes les valeurs du tableau $custid *}
 {foreach from=$custid item=curr_id}
-	id: {$curr_id}&lt;br&gt;
+  id: {$curr_id}<br />
 {/foreach}
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
 
-SORTIE:
-
-id: 1000&lt;br&gt;
-id: 1001&lt;br&gt;
-id: 1002&lt;br&gt;</programlisting>
+id: 1000<br />
+id: 1001<br />
+id: 1002<br />
+]]>
+  </screen>
  </example>
- 
+
  <example>
   <title>foreach key</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 {* key contient la clef de chaque élément parcouru
 
 l'attribution des élément est de la forme:
 
-$smarty->assign("contacts", array(array("tel" =&gt; "1", "fax" =&gt; "2", "portable" =&gt; "3"),
-      array("tel" =&gt; "555-4444", "fax" =&gt; "555-3333", "portable" =&gt; "760-1234")));
+$smarty->assign("contacts", array(array("tel" => "1", "fax" => "2", "portable" => "3"),
+      array("tel" => "555-4444", "fax" => "555-3333", "portable" => "760-1234")));
 
 *}
 
 {foreach name=outer item=contact from=$contacts}
   {foreach key=key item=item from=$contact}
-    {$key}: {$item}&lt;br&gt;
+    {$key}: {$item}<br />
   {/foreach}
 {/foreach}
-
-SORTIE:
-
-tel: 1&lt;br&gt;
-fax: 2&lt;br&gt;
-portable: 3&lt;br&gt;
-tel: 555-4444&lt;br&gt;
-fax: 555-3333&lt;br&gt;
-portable: 760-1234&lt;br&gt;</programlisting>
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
+tel: 1<br />
+fax: 2<br />
+portable: 3<br />
+tel: 555-4444<br />
+fax: 555-3333<br />
+portable: 760-1234<br />
+]]>
+  </screen>
  </example>
+
+ <para>
+  Les boucles Foreach ont également leurs propres variables qui gèrent les propriétés
+  de foreach. Elles sont indiquées par : {$smarty.foreach.foreachname.varname} 
+  où foreachname est le nom spécifié par l'attribut <emphasis>name</emphasis>
+  de foreach.
+ </para>
+
+ <sect2 id="foreach.property.iteration">
+  <title>iteration</title>
+  <para>
+   <emphasis>iteration</emphasis> est utilisé pour afficher l'itération de la boucle courante.
+  </para>
+  <para>
+   <emphasis>iteration</emphasis> commence toujours par 1 et est incrémenté
+   à chaque itération.
+  </para>
+ </sect2>
+
+ <sect2 id="foreach.property.first">
+  <title>first</title>
+  <para>
+   <emphasis>first</emphasis> est défini à true si l'itération courante de foreach est la première.
+  </para>
+ </sect2>
+
+ <sect2 id="foreach.property.last">
+  <title>last</title>
+  <para>
+   <emphasis>last</emphasis> est défini à true si l'itération courante de foreach est la dernière.
+  </para>
+ </sect2>
+
+ <sect2 id="foreach.property.show">
+  <title>show</title>
+  <para>
+   <emphasis>show</emphasis> est utilisé en tant que paramètre de foreach.
+   <emphasis>show</emphasis> est un booléen (true ou false). 
+   S'il vaut false, foreach ne sera pas affiché. Si foreachelse est présent,
+   il sera affiché alternativement.
+  </para>
+  
+ </sect2>
+ <sect2 id="foreach.property.total">
+  <title>total</title>
+  <para>
+   <emphasis>total</emphasis> est utilisé pour afficher le nombre d'itérations
+   bouclées par ce foreach. Il peut être utilisé dans ou après le foreach.
+  </para>
+  <para>
+   Voir aussi 
+   <link linkend="language.function.section">{section}</link> et
+   <link linkend="language.variables.smarty.loops">$smarty.foreach</link>.
+  </para>
+ </sect2>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
