@@ -36,6 +36,8 @@ Many other combinations are allowed
 ]]>
   </programlisting>
  </example>
+ <para>See also <link linkend="language.variables.smarty">$smarty reserved variables</link> 
+and <link linkend="language.config.variables">Config Variables</link></para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

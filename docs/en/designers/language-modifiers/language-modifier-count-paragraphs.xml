@@ -38,8 +38,8 @@ Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 ]]>
    </screen>
   </example>
-     <para>See also <link linkend="language.modifier.count.characters">count_characters</link> 
-   			<link linkend="language.modifier.count.sentences">count_sentences</link>
+     <para>See also <link linkend="language.modifier.count.characters">count_characters</link>, 
+   			<link linkend="language.modifier.count.sentences">count_sentences</link> and
 			<link linkend="language.modifier.count.words">count_words</link>
 			
 			</para>

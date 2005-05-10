@@ -37,9 +37,9 @@
    </tgroup>
   </informaltable>
   <para>
-   This formats a date and time into the given strftime() format.
+   This formats a date and time into the given <ulink url="&url.php-manual;strftime">strftime()</ulink> format.
    Dates can be passed to Smarty as unix timestamps, mysql timestamps
-   or any string made up of month day year (parsable by strtotime).
+   or any string made up of month day year (parsable by <ulink url="&url.php-manual;strtotime">strtotime</ulink>).
    Designers can then use date_format to have complete control of the
    formatting of the date. If the date passed to date_format is empty
    and a second parameter is passed, that will be used as the date to
@@ -211,6 +211,7 @@ Monday, February 5, 2001
     </para>
    </note>
   </para>
+  <para>See also <link linkend="language.variables.smarty.now">$smarty.now</link>, <link linkend="language.function.html.select.date">{html_select_date}</link> and <link linkend="tips.dates">date tips</link></para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

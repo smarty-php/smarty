@@ -127,7 +127,7 @@
 
  <para>
   See also <link linkend="config.files">Config Files</link> and
-  <link linkend="language.function.config.load">Config Load</link>.
+  <link linkend="language.config.variables">Config variables</link>.
  </para>
 </sect1>
 

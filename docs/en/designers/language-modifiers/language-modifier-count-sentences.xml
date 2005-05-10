@@ -37,8 +37,8 @@ Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
 ]]>
    </screen>
   </example>
-       <para>See also <link linkend="language.modifier.count.characters">count_characters</link> 
-   			<link linkend="language.modifier.count.paragraphs">count_paragraphs</link>
+       <para>See also <link linkend="language.modifier.count.characters">count_characters</link>,
+   			<link linkend="language.modifier.count.paragraphs">count_paragraphs</link> and
 			<link linkend="language.modifier.count.words">count_words</link>
 			
 			</para>

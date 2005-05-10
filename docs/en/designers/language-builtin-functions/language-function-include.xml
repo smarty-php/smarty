@@ -84,7 +84,7 @@
 			<para>
 			Use the syntax for <link
 			linkend="template.resources">template resources</link> to
-			include files outside of the $template_dir directory.
+			include files outside of the <link linkend="variable.template.dir">$template_dir</link> directory.
 			</para>
 <example>
 <title>function include template resource examples</title>
@@ -101,6 +101,7 @@
 {* include from template resource named "db" *}
 {include file="db:header.tpl"}</programlisting>
 </example>
+<para>See also <link linkend="language.function.include.php">{include_php}</link>, <link linkend="language.function.php">{php}</link>   <link linkend="template.resources">Template Resources</link> and <link linkend="tips.componentized.templates">Componentized Templates</link></para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

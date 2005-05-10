@@ -54,8 +54,10 @@
  </informaltable>
  <para>
   <emphasis>foreach</emphasis> loops are an alternative to
-  <emphasis>section</emphasis> loops. <emphasis>foreach</emphasis> is
-  used to loop over a single associative array. The syntax for
+  <link
+   linkend="language.function.section"><emphasis>section</emphasis></link>
+  loops. <emphasis>foreach</emphasis> is used to loop over a single
+  associative array. The syntax for
   <emphasis>foreach</emphasis> is much easier than
   <emphasis>section</emphasis>, but as a tradeoff it can only be used
   for a single array. <emphasis>foreach</emphasis> tags must be
@@ -177,6 +179,10 @@
   <para>
    <emphasis>total</emphasis> is used to display the number of iterations that this foreach
    will loop. This can be used inside or after the foreach.
+  </para>
+  <para>
+   See also <link linkend="language.function.section">{section}</link> and
+   <link linkend="language.variables.smarty.loops">$smarty.foreach</link>.
   </para>
  </sect2>
 </sect1>

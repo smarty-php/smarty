@@ -17,6 +17,7 @@
 		include("/path/to/display_weather.php");
 {/php}</programlisting>
 </example>
+	<para>See also <link linkend="language.function.include.php">{include_php}</link>, <link linkend="language.function.include">{include}</link> and <link linkend="tips.componentized.templates">Componentized Templates</link></para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

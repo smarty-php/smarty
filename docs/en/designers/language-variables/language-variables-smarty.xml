@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
   <sect1 id="language.variables.smarty">
-   <title>{$smarty} reserved variable</title>
+   <title>{$smarty} reserved variables</title>
    <para>
     The reserved {$smarty} variable can be used to access several
     special template variables. The full list of them follows.
@@ -56,7 +56,7 @@
 			 The current timestamp can be accessed with {$smarty.now}. The
 			 number reflects the number of seconds passed since the so-called
 			 Epoch (January 1, 1970) and can be passed directly to
-			 date_format modifier for display purposes.
+			 <link linkend="language.modifier.date.format">date_format</link> modifier for display purposes.
 			</para>
    <example>
     <title>using {$smarty.now}</title>
@@ -137,6 +137,7 @@
     This variable is used for printing the right-delimiter value literally.
     See also <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
 			</para>
+			<para>See also <link linkend="language.syntax.variables">Variables</link> and <link linkend="language.config.variables">Config Variables</link></para>
 		</sect2>
 
 </sect1>

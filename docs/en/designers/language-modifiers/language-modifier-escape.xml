@@ -76,12 +76,12 @@ $smarty->display('index.tpl');
 &#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
 %27Stiff+Opposition+Expected+to+Casketless+Funeral+Plan%27
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
-<a href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74">&#x62;&#x6f;&#x62;&#x40;&#x6d;&#x65;&#x2e;&#x6e;&#x65;&#x74;</a>
+<a href="mailto:%62%6f%..snip..%65%74">&#x62;&#x6f;&#x62..snip..&#x65;&#x74;</a>
 ]]>
    </screen>
   </example>
   <para>
-   See also <link linkend="language.escaping">Escaping Smarty Parsing</link>.
+   See also <link linkend="language.escaping">Escaping Smarty Parsing</link> and <link linkend="tips.obfuscating.email">Obfuscating E-mail Addresses</link>.
   </para>
  </sect1>
 

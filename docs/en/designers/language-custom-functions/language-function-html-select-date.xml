@@ -1,247 +1,241 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.html.select.date">
-			<title>html_select_date</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Attribute Name</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>prefix</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>Date_</entry>
-                        <entry>what to prefix the var name with</entry>
-                    </row>
-                    <row>
-                        <entry>time</entry>
-                        <entry>timestamp/YYYY-MM-DD</entry>
-                        <entry>No</entry>
-                        <entry>current time in unix timestamp or YYYY-MM-DD
-						format</entry>
-                        <entry>what date/time to use</entry>
-                    </row>
-                    <row>
-                        <entry>start_year</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>current year</entry>
-                        <entry>the first year in the dropdown, either
-						year number, or relative to current year (+/- N)</entry>
-                    </row>
-                    <row>
-                        <entry>end_year</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>same as start_year</entry>
-                        <entry>the last year in the dropdown, either
-						year number, or relative to current year (+/- N)</entry>
-                    </row>
-                    <row>
-                        <entry>display_days</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry>true</entry>
-                        <entry>whether to display days or not</entry>
-                    </row>
-                    <row>
-                        <entry>display_months</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry>true</entry>
-                        <entry>whether to display months or not</entry>
-                    </row>
-                    <row>
-                        <entry>display_years</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry>true</entry>
-                        <entry>whether to display years or not</entry>
-                    </row>
-                    <row>
-                        <entry>month_format</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>%B</entry>
-                        <entry>what format the month should be in (strftime)</entry>
-                    </row>
-                    <row>
-                        <entry>day_format</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>%02d</entry>
-                        <entry>what format the day output should be in (sprintf)</entry>
-                    </row>
-                    <row>
-                        <entry>day_value_format</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>%d</entry>
-                        <entry>what format the day value should be in (sprintf)</entry>
-                    </row>
-                    <row>
-                        <entry>year_as_text</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry>false</entry>
-                        <entry>whether or not to display the year as text</entry>
-                    </row>
-                    <row>
-                        <entry>reverse_years</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry>false</entry>
-                        <entry>display years in reverse order</entry>
-                    </row>
-                    <row>
-                        <entry>field_array</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>
-							if a name is given, the select boxes will be drawn
-							such that the results will be returned to PHP in the
-							form of name[Day], name[Year], name[Month].
-						</entry>
-                    </row>
-                    <row>
-                        <entry>day_size</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>adds size attribute to select tag if given</entry>
-                    </row>
-                    <row>
-                        <entry>month_size</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>adds size attribute to select tag if given</entry>
-                    </row>
-                    <row>
-                        <entry>year_size</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>adds size attribute to select tag if given</entry>
-                    </row>
-                    <row>
-                        <entry>all_extra</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>adds extra attributes to all select/input tags if
-						given</entry>
-                    </row>
-                    <row>
-                        <entry>day_extra</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>adds extra attributes to select/input tags if
-						given</entry>
-                    </row>
-                    <row>
-                        <entry>month_extra</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>adds extra attributes to select/input tags if
-						given</entry>
-                    </row>
-                    <row>
-                        <entry>year_extra</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>adds extra attributes to select/input tags if
-						given</entry>
-                    </row>
-                    <row>
-                        <entry>field_order</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>MDY</entry>
-                        <entry>the order in which to display the fields</entry>
-                    </row>
-                    <row>
-                        <entry>field_separator</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>\n</entry>
-                        <entry>string printed between different fields</entry>
-                    </row>
-                    <row>
-                        <entry>month_value_format</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>%m</entry>
-						<entry>strftime format of the month values, default is
-						%m for month numbers.</entry>
-                    </row>
-                    <row>
-                        <entry>year_empty</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>If supplied then the first element of the year's select-box has this
-                        value as it's label and "" as it's value. This is useful to make the
-                        select-box read "Please select a year" for example.
-
-                        Note that you can use values like "-MM-DD" as time-attribute to indicate
-                        an unselected year.</entry>
-                    </row>
-                    <row>
-                        <entry>month_empty</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>If supplied then the first element of the month's select-box has this
-                        value as it's label and "" as it's value. .
-                        Note that you can use values like "YYYY--DD" as time-attribute to indicate
-                        an unselected month.</entry>
-                    </row>
-                    <row>
-                        <entry>day_empty</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry>null</entry>
-                        <entry>If supplied then the first element of the day's select-box has this
-                        value as it's label and "" as it's value.
-                        Note that you can use values like "YYYY-MM-" as time-attribute to indicate
-                        an unselected day.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			html_select_date is a custom function that creates date dropdowns
-			for you. It can display any or all of year, month, and day.
-			</para>
-<example>
-<title>html_select_date</title>
-<programlisting>
+<sect1 id="language.function.html.select.date">
+ <title>html_select_date</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Attribute Name</entry>
+     <entry>Type</entry>
+     <entry>Required</entry>
+     <entry>Default</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>prefix</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>Date_</entry>
+     <entry>what to prefix the var name with</entry>
+    </row>
+    <row>
+     <entry>time</entry>
+     <entry>timestamp/YYYY-MM-DD</entry>
+     <entry>No</entry>
+     <entry>current time in unix timestamp or YYYY-MM-DD format</entry>
+     <entry>what date/time to use</entry>
+    </row>
+    <row>
+     <entry>start_year</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>current year</entry>
+     <entry>the first year in the dropdown, either
+      year number, or relative to current year (+/- N)</entry>
+    </row>
+    <row>
+     <entry>end_year</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>same as start_year</entry>
+     <entry>the last year in the dropdown, either
+      year number, or relative to current year (+/- N)</entry>
+    </row>
+    <row>
+     <entry>display_days</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry>true</entry>
+     <entry>whether to display days or not</entry>
+    </row>
+    <row>
+     <entry>display_months</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry>true</entry>
+     <entry>whether to display months or not</entry>
+    </row>
+    <row>
+     <entry>display_years</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry>true</entry>
+     <entry>whether to display years or not</entry>
+    </row>
+    <row>
+     <entry>month_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%B</entry>
+     <entry>what format the month should be in (strftime)</entry>
+    </row>
+    <row>
+     <entry>day_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%02d</entry>
+     <entry>what format the day output should be in (sprintf)</entry>
+    </row>
+    <row>
+     <entry>day_value_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%d</entry>
+     <entry>what format the day value should be in (sprintf)</entry>
+    </row>
+    <row>
+     <entry>year_as_text</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry>false</entry>
+     <entry>whether or not to display the year as text</entry>
+    </row>
+    <row>
+     <entry>reverse_years</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry>false</entry>
+     <entry>display years in reverse order</entry>
+    </row>
+    <row>
+     <entry>field_array</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>
+      if a name is given, the select boxes will be drawn
+      such that the results will be returned to PHP in the
+      form of name[Day], name[Year], name[Month].
+     </entry>
+    </row>
+    <row>
+     <entry>day_size</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>adds size attribute to select tag if given</entry>
+    </row>
+    <row>
+     <entry>month_size</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>adds size attribute to select tag if given</entry>
+    </row>
+    <row>
+     <entry>year_size</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>adds size attribute to select tag if given</entry>
+    </row>
+    <row>
+     <entry>all_extra</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>adds extra attributes to all select/input tags if given</entry>
+    </row>
+    <row>
+     <entry>day_extra</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>adds extra attributes to select/input tags if given</entry>
+    </row>
+    <row>
+     <entry>month_extra</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>adds extra attributes to select/input tags if given</entry>
+    </row>
+    <row>
+     <entry>year_extra</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>adds extra attributes to select/input tags if given</entry>
+    </row>
+    <row>
+     <entry>field_order</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>MDY</entry>
+     <entry>the order in which to display the fields</entry>
+    </row>
+    <row>
+     <entry>field_separator</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>\n</entry>
+     <entry>string printed between different fields</entry>
+    </row>
+    <row>
+     <entry>month_value_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%m</entry>
+     <entry>strftime format of the month values, default is
+      %m for month numbers.</entry>
+    </row>
+    <row>
+     <entry>year_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>If supplied then the first element of the year's select-box has this
+     value as it's label and "" as it's value. This is useful to make the
+     select-box read "Please select a year" for example.
+     Note that you can use values like "-MM-DD" as time-attribute to indicate
+     an unselected year.</entry>
+    </row>
+    <row>
+     <entry>month_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>If supplied then the first element of the month's select-box has this
+     value as it's label and "" as it's value. .
+     Note that you can use values like "YYYY--DD" as time-attribute to indicate
+     an unselected month.</entry>
+    </row>
+    <row>
+     <entry>day_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>If supplied then the first element of the day's select-box has this
+     value as it's label and "" as it's value.
+     Note that you can use values like "YYYY-MM-" as time-attribute to indicate
+     an unselected day.</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  html_select_date is a custom function that creates date dropdowns
+  for you. It can display any or all of year, month, and day.
+ </para>
+ <example>
+  <title>html_select_date</title>
+  <programlisting>
 <![CDATA[
 {html_select_date}
 ]]>
-</programlisting>
-<para>
-This will output:
-</para>
-<screen>
+  </programlisting>
+  <para>
+   This will output:
+  </para>
+  <screen>
 <![CDATA[
 <select name="Date_Month">
 <option value="1">January</option>
@@ -294,21 +288,21 @@ This will output:
 <option value="2001" selected="selected">2001</option>
 </select>
 ]]>
-</screen>
-</example>
+  </screen>
+ </example>
 
-<example>
-<title>html_select_date</title>
-<programlisting>
+ <example>
+  <title>html_select_date</title>
+  <programlisting>
 <![CDATA[
 {* start and end year can be relative to current year *}
 {html_select_date prefix="StartDate" time=$time start_year="-5" end_year="+1" display_days=false}
 ]]>
-</programlisting>
-<para>
-This will output: (current year is 2000)
-</para>
-<screen>
+  </programlisting>
+  <para>
+   This will output: (current year is 2000)
+  </para>
+  <screen>
 <![CDATA[
 <select name="StartDateMonth">
 <option value="1">January</option>
@@ -334,9 +328,16 @@ This will output: (current year is 2000)
 <option value="2001">2001</option>
 </select>
 ]]>
-</screen>
-</example>
+  </screen>
+ </example>
+ <para>
+  See also <link linkend="language.function.html.select.time">html_select_time</link>,
+  <link linkend="language.modifier.date.format">date_format</link>,
+  <link linkend="language.variables.smarty.now">$smarty.now</link>
+  and <link linkend="tips.dates">date tips</link>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

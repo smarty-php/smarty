@@ -37,8 +37,8 @@ Dealers Will Hear Car Talk at Noon.
 ]]>
    </screen>
   </example>
-         <para>See also <link linkend="language.modifier.count.characters">count_characters</link> 
-   			<link linkend="language.modifier.count.paragraphs">count_paragraphs</link>
+         <para>See also <link linkend="language.modifier.count.characters">count_characters</link>, 
+   			<link linkend="language.modifier.count.paragraphs">count_paragraphs</link> and
 			<link linkend="language.modifier.count.sentences">count_sentences</link>
 			
 			</para>
