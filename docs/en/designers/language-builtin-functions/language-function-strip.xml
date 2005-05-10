@@ -1,59 +1,62 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.function.strip">
-			<title>strip</title>
-			<para>
-			Many times web designers run into the issue where white space and
-			carriage returns affect the output of the rendered HTML (browser
-			"features"), so you must run all your tags together in the template
-			to get the desired results. This usually ends up in unreadable or
-			unmanageable templates.
-			</para>
-			<para>
-			Anything within {strip}{/strip} tags in Smarty are stripped of the
-			extra spaces or carriage returns at the beginnings and ends of the
-			lines before they are displayed. This way you can keep your
-			templates readable, and not worry about extra white space causing
-			problems.
-			</para>
-			<note>
-			<title>Technical Note</title>
-			<para>
-			{strip}{/strip} does not affect the contents of template variables.
-			See the <link linkend="language.modifier.strip">strip modifier
-			function</link>.
-			</para>
-			</note>
-<example>
-<title>strip tags</title>
-<programlisting>
+<sect1 id="language.function.strip">
+ <title>strip</title>
+ <para>
+  Many times web designers run into the issue where white space and
+  carriage returns affect the output of the rendered HTML (browser
+  "features"), so you must run all your tags together in the template
+  to get the desired results. This usually ends up in unreadable or
+  unmanageable templates.
+ </para>
+ <para>
+  Anything within {strip}{/strip} tags in Smarty are stripped of the
+  extra spaces or carriage returns at the beginnings and ends of the
+  lines before they are displayed. This way you can keep your
+  templates readable, and not worry about extra white space causing
+  problems.
+ </para>
+ <note>
+  <title>Technical Note</title>
+  <para>
+   {strip}{/strip} does not affect the contents of template variables.
+   See the <link linkend="language.modifier.strip">strip modifier
+    function</link>.
+  </para>
+ </note>
+ <example>
+  <title>strip tags</title>
+  <programlisting>
 <![CDATA[
 {* the following will be all run into one line upon output *}
 {strip}
 <table border=0>
-	<tr>
-		<td>
-			<A HREF="{$url}">
-			<font color="red">This is a test</font>
-			</A>
-		</td>
-	</tr>
+ <tr>
+  <td>
+   <A HREF="{$url}">
+    <font color="red">This is a test</font>
+   </A>
+  </td>
+ </tr>
 </table>
 {/strip}
-
-
-OUTPUT:
-
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
 <table border=0><tr><td><A HREF="http://my.example.com"><font color="red">This is a test</font></A></td></tr></table>
 ]]>
-</programlisting>
-</example>
-		<para>
-		Notice that in the above example, all the lines begin and end
-		with HTML tags. Be aware that all the lines are run together.
-		If you have plain text at the beginning or end of any line,
-		they will be run together, and may not be desired results.
-		</para>
+  </screen>
+ </example>
+ <para>
+  Notice that in the above example, all the lines begin and end
+  with HTML tags. Be aware that all the lines are run together.
+  If you have plain text at the beginning or end of any line,
+  they will be run together, and may not be desired results.
+ </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file

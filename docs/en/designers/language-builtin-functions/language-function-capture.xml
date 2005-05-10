@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="language.function.capture">
-      <title>capture</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Attribute Name</entry>
-                        <entry>Type</entry>
-                        <entry>Required</entry>
-                        <entry>Default</entry>
-                        <entry>Description</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>name</entry>
-                        <entry>string</entry>
-                        <entry>no</entry>
-                        <entry><emphasis>default</emphasis></entry>
-                        <entry>The name of the captured block</entry>
-                    </row>
-                    <row>
-                        <entry>assign</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>The variable name where to assign the captured output to</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-      <para>
-       capture is used to collect the output of the template into a
-       variable instead of displaying it. Any content between {capture
-       name="foo"} and {/capture} is collected into the variable specified
-       in the name attribute. The captured content can be used in the
-       template from the special variable $smarty.capture.foo where foo is
-       the value passed in the name attribute. If you do not supply a name
-       attribute, then "default" will be used. All {capture} commands must
-       be paired with {/capture}. You can nest capture commands.
-      </para>
-	  <note>
-	  <title>Technical Note</title>
-      <para>
-       Smarty 1.4.0 - 1.4.4 placed the captured content into the
-       variable named $return. As of 1.4.5, this behavior was changed to use
-       the name attribute, so update your templates accordingly.
-      </para>
-	  </note>
-      <caution>
-       <para>
-        Be careful when capturing <command>insert</command> output. If
-        you have caching turned on and you have <command>insert</command>
-        commands that you expect to run within cached content, do not
-        capture this content.
-       </para>
-      </caution>
-      <para>
-       <example>
-        <title>capturing template content</title>
-        <programlisting>
+<sect1 id="language.function.capture">
+ <title>capture</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Attribute Name</entry>
+     <entry>Type</entry>
+     <entry>Required</entry>
+     <entry>Default</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>name</entry>
+     <entry>string</entry>
+     <entry>no</entry>
+     <entry><emphasis>default</emphasis></entry>
+     <entry>The name of the captured block</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>The variable name where to assign the captured output to</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  capture is used to collect the output of the template into a
+  variable instead of displaying it. Any content between {capture
+  name="foo"} and {/capture} is collected into the variable specified
+  in the name attribute. The captured content can be used in the
+  template from the special variable $smarty.capture.foo where foo is
+  the value passed in the name attribute. If you do not supply a name
+  attribute, then "default" will be used. All {capture} commands must
+  be paired with {/capture}. You can nest capture commands.
+ </para>
+ <note>
+  <title>Technical Note</title>
+  <para>
+   Smarty 1.4.0 - 1.4.4 placed the captured content into the
+   variable named $return. As of 1.4.5, this behavior was changed to use
+   the name attribute, so update your templates accordingly.
+  </para>
+ </note>
+ <caution>
+  <para>
+   Be careful when capturing <command>insert</command> output. If
+   you have caching turned on and you have <command>insert</command>
+   commands that you expect to run within cached content, do not
+   capture this content.
+  </para>
+ </caution>
+ <para>
+  <example>
+   <title>capturing template content</title>
+   <programlisting>
 <![CDATA[
 {* we don't want to print a table row unless content is displayed *}
 {capture name=banner}
 {include file="get_banner.tpl"}
 {/capture}
 {if $smarty.capture.banner ne ""}
-	<tr>
-		<td>
-			{$smarty.capture.banner}
-		</td>
-	</tr>
+<tr>
+ <td>
+  {$smarty.capture.banner}
+ </td>
+</tr>
 {/if}
 ]]>
-</programlisting>
-       </example>
-      </para>
+   </programlisting>
+  </example>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
