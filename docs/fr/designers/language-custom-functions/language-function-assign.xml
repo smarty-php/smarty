@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.assign">
  <title>assign</title>
  <informaltable frame="all">
@@ -42,14 +42,20 @@
  </para>
  <example>
   <title>assign</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 {assign var="name" value="Bob"}
 
 La valeur de $name est {$name}.
-
-SORTIE:
-
-La valeur de $name est Bob.</programlisting>
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
+La valeur de $name est Bob.]]>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

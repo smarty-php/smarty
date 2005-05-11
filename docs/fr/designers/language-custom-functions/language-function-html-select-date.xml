@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: partial -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: partial -->
 <sect1 id="language.function.html.select.date">
  <title>html_select_date</title>
  <informaltable frame="all">
@@ -15,7 +15,7 @@
      <entry>Nom attribut</entry>
      <entry>Type</entry>
      <entry>Requis</entry>
-     <entry>Defaut</entry>
+     <entry>Défaut</entry>
      <entry>Description</entry>
     </row>
    </thead>
@@ -210,7 +210,6 @@
     affiche le texte donné en tant que libellé et dispose de la valeur "".
     Utile par exemple lorsque vous souhaitez que la boite de sélection affiche
     "Sélectionnez une année".
-
     A savoir que vous pouvez spécifier des valeurs de la forme "-MM-JJ" pour
     l'attribut time afin d'indiquer une année non sélectionnée.</entry>
    </row>
@@ -221,7 +220,6 @@
     <entry>null</entry>
     <entry>S'il est renseigné, le premier élément de la boite de sélection
     affiche le texte donné en tant que libellé et dispose de la valeur "".
-    
     A savoir que vous pouvez spécifier des valeurs de la forme "AAAA--JJ" pour
     l'attribut time afin d'indiquer qu'il manque le moi.</entry>
    </row>
@@ -232,7 +230,6 @@
     <entry>null</entry>
     <entry>S'il est renseigné, le premier élément de la boite de sélection
     affiche le texte donné en tant que libellé et dispose de la valeur "".
-    
     A savoir que vous pouvez spécifier des valeurs de la forme "AAAA-MM-" pour
     l'attribut time afin d'indiquer qu'il manque le jour.
     </entry>
@@ -247,15 +244,15 @@
  </para>
  <example>
   <title>html_select_date</title>
-<programlisting>
+  <programlisting>
 <![CDATA[
 {html_select_date}
 ]]>
-</programlisting>
-<para>
-Ce qui donne en sortie : 
-</para>
-<screen>
+  </programlisting>
+  <para>
+   Ce qui donne en sortie :
+  </para>
+  <screen>
 <![CDATA[
 <select name="Date_Month">
   <option value="1">January</option>
@@ -309,20 +306,20 @@ Ce qui donne en sortie :
 </select>
 
 ]]>
-</screen>
+  </screen>
  </example>
  <example>
   <title>html_select_date</title>
-<programlisting>
+  <programlisting>
 <![CDATA[
 {* le démarage et la fin de l'année peuvent être relatif à l'année courante *}
 {html_select_date prefix="StartDate" time=$time start_year="-5" end_year="+1" display_days=false}
 ]]>
-</programlisting>
-<para>
-Ce qui donne en sortie: (L'année courante est 2000)
-</para>
-<screen>
+  </programlisting>
+  <para>
+   Ce qui donne en sortie: (L'année courante est 2000)
+  </para>
+  <screen>
 <![CDATA[
 <select name="StartDateMonth">
   <option value="1">January</option>
@@ -348,8 +345,15 @@ Ce qui donne en sortie: (L'année courante est 2000)
   <option value="2001">2001</option>
 </select>
 ]]>
-</screen>
+  </screen>
  </example>
+ <para>
+  Voir aussi
+  <link linkend="language.function.html.select.time">html_select_time</link>,
+  <link linkend="language.modifier.date.format">date_format</link>,
+  <link linkend="language.variables.smarty.now">$smarty.now</link> et
+  les <link linkend="tips.dates">astuces sur les dates</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

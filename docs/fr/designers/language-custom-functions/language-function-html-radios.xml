@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.radios">
  <title>html_radios</title>
  <informaltable frame="all">
@@ -81,50 +81,78 @@
   affichés en tant que paires nom / valeur dans chaque balise &lt;input&gt;
   créée.
  </para>
- 
+
  <example>
-  <title>html_radios</title>
+  <title>html_radios : Exemple 1</title>
   <programlisting>
-index.php:
+<![CDATA[
+   index.php:
+   ----------
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('id_client', array(1000,1001,1002,1003));
-$smarty-&gt;assign('nom_client', array('Joe Schmoe','Jack Smith','Jane
+$smarty->assign('id_client', array(1000,1001,1002,1003));
+$smarty->assign('nom_client', array('Joe Schmoe','Jack Smith','Jane
 Johnson','Charlie Brown'));
-$smarty-&gt;assign('client_id', 1001);
-$smarty-&gt;display('index.tpl');
+$smarty->assign('client_id', 1001);
+$smarty->display('index.tpl');
 
+]]>
+  </programlisting>
+  <para>
+   Où index.tpl est :
+  </para>
+  <programlisting>
+<![CDATA[
 
-index.tpl:
+{html_radios name="id" values=$id_client checked=$client_id output=$nom_client separator="<br />"}
 
-{html_radios name="id" values=$id_client checked=$client_id output=$nom_client separator="&lt;br /&gt;"}
-
-
-index.php:
+]]>
+  </programlisting>
+  <para>
+   Exemple 2 :
+  </para>
+  <programlisting>
+<![CDATA[
+   index.php:
+   ----------
 
 require('Smarty.class.php');
 $smarty = new Smarty;
-$smarty-&gt;assign('cust_radios', array(
-			1000 =&gt; 'Joe Schmoe',
-			1001 =&gt; 'Jack Smith',
-			1002 =&gt; 'Jane Johnson',
-			1003 =&gt; 'Charlie Brown'));
-$smarty-&gt;assign('client_id', 1001);
-$smarty-&gt;display('index.tpl');
+$smarty->assign('cust_radios', array(
+    1000 => 'Joe Schmoe',
+    1001 => 'Jack Smith',
+    1002 => 'Jane Johnson',
+    1003 => 'Charlie Brown'));
+$smarty->assign('client_id', 1001);
+$smarty->display('index.tpl');
 
 
-index.tpl:
+]]>
+  </programlisting>
+  <para>
+   Où index.tpl est :
+  </para>
+  <programlisting>
+<![CDATA[
 
-{html_radios name="id" options=$cust_radios checked=$client_id separator="&lt;br /&gt;"}
+{html_radios name="id" options=$cust_radios checked=$client_id separator="<br />"}
 
 
-SORTIE: (pour les deux exemples)
+]]>
+  </programlisting>
+  <para>
+   Les deux exemples ci-dessus afficheront :
+  </para>
+  <screen>
+<![CDATA[
 
-&lt;label for="id_1000"&gt;&lt;input type="radio" name="id" value="1000" id="id_1000" /&gt;Joe Schmoe&lt;/label&gt;&lt;br /&gt;
-&lt;label for="id_1001"&gt;&lt;input type="radio" name="id" value="1001" id="id_1001" checked="checked" /&gt;Jack Smith&lt;/label&gt;&lt;br /&gt;
-&lt;label for="id_1002"&gt;&lt;input type="radio" name="id" value="1002" id="id_1002" /&gt;Jane Johnson&lt;/label&gt;&lt;br /&gt;
-&lt;label for="id_1003"&gt;&lt;input type="radio" name="id" value="1003" id="id_1003" /&gt;Charlie Brown&lt;/label&gt;&lt;br /&gt;</programlisting>
+<label for="id_1000"><input type="radio" name="id" value="1000" id="id_1000" />Joe Schmoe</label><br />
+<label for="id_1001"><input type="radio" name="id" value="1001" id="id_1001" checked="checked" />Jack Smith</label><br />
+<label for="id_1002"><input type="radio" name="id" value="1002" id="id_1002" />Jane Johnson</label><br />
+<label for="id_1003"><input type="radio" name="id" value="1003" id="id_1003" />Charlie Brown</label><br />
+]]>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

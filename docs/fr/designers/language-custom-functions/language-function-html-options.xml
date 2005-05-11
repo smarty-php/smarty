@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.html.options">
  <title>html_options</title>
  <informaltable frame="all">
@@ -85,13 +85,11 @@
   le paramètre optionnel <emphasis>name</emphasis> n'est pas donné.
  </para>
  <example>
-  <title>html_options</title>
+  <title>html_options : Exemple 1</title>
   <programlisting>
 <![CDATA[
-EXEMPLE 1
----------
-
-index.php:
+   index.php:
+   ----------
 
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -101,16 +99,27 @@ Johnson','Charlie Brown'));
 $smarty->assign('client_id', 1001);
 $smarty->display('index.tpl');
 
-index.tpl:
+]]>
+  </programlisting>
+  <para>
+   Où index.tpl est :
+  </para>
+  <programlisting>
+<![CDATA[
 
 <select name=client_id>
   {html_options values=$id_client selected=$client_id output=$nom_client}
 </select>
 
-EXEMPLE 2
----------
-
-index.php:
+]]>
+  </programlisting>
+  <para>
+   Exemple 2 :
+  </para>
+  <programlisting>
+<![CDATA[
+   index.php:
+   ----------
 
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -122,15 +131,25 @@ $smarty->assign('cust_options', array(
 $smarty->assign('client_id', 1001);
 $smarty->display('index.tpl');
 
-index.tpl:
+]]>
+  </programlisting>
+  <para>
+   Où index.tpl est :
+  </para>
+  <programlisting>
+<![CDATA[
 
 <select name=client_id>
   {html_options options=$cust_options selected=$client_id}
 </select>
 
-
-SORTIE: (valable pour les deux exemples)
------------------------
+]]>
+  </programlisting>
+  <para>
+   Les deux exemples afficheront :
+  </para>
+  <screen>
+<![CDATA[
 
 <select name=client_id>
  <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
@@ -139,7 +158,7 @@ SORTIE: (valable pour les deux exemples)
  <option label="Charlie Brown" value="1003">Charlie Brown</option>
 </select>
 ]]>
-  </programlisting>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

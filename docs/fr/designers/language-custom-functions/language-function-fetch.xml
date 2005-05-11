@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.fetch">
  <title>fetch</title>
  <informaltable frame="all">
@@ -69,7 +69,7 @@
  </note>
  <example>
   <title>fetch</title>
-<programlisting>
+  <programlisting>
 <![CDATA[
 {* Inclus du javascript dans votre template *}
 {fetch file="/export/httpd/www.example.com/docs/navbar.js"}
@@ -86,7 +86,7 @@
   <b>{$weather}</b>
 {/if}
 ]]>
-</programlisting>
+  </programlisting>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

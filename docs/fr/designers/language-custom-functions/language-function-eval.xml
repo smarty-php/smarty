@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.eval">
  <title>eval</title>
  <informaltable frame="all">
@@ -67,20 +67,23 @@
  </note>
  <example>
   <title>eval</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 setup.conf
 ----------
 
-emphstart = &lt;b&gt;
-emphend = &lt;/b&gt;
+emphstart = <strong>
+emphend = </strong>
 titre = Bienvenue sur la homepage de {$company} !
 ErrorVille = Vous devez spécifier un nom de {#emphstart#}ville{#emphend#}.
 ErrorDept = Vous devez spécifier un {#emphstart#}département{#emphend#}.
-
-
-index.tpl
----------
-
+]]>
+  </programlisting>
+  <para>
+   Où index.tpl est :
+  </para>
+  <programlisting>
+<![CDATA[
 {config_load file="setup.conf"}
 
 {eval var=$foo}
@@ -88,15 +91,21 @@ index.tpl
 {eval var=#ErrorVille#}
 {eval var=#ErrorDept# assign="state_error"}
 {$state_error}
-
-SORTIE:
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
 
 Ceci est le contenu de foo.
 Bienvenue sur la homepage de FictifLand.
-Vous devez spécifier un nom de &lt;b&gt;ville&lt;/b&gt;.
-Vous devez spécifier un &lt;b&gt;département&lt;/b&gt;.
+Vous devez spécifier un nom de <strong>ville</strong>.
+Vous devez spécifier un <strong>département</strong>.
 
-</programlisting>
+]]>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

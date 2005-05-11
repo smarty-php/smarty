@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.counter">
  <title>counter</title>
  <informaltable frame="all">
@@ -81,7 +81,7 @@
  </para>
  <example>
   <title>counter</title>
-<programlisting>
+  <programlisting>
 <![CDATA[
 {* initialisation du compteur *}
 {counter start=0 skip=2}<br />
@@ -90,8 +90,9 @@
 {counter}<br />
 ]]>
   </programlisting>
-<para>SORTIE:</para>
-
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
   <screen>
 <![CDATA[
 0<br />

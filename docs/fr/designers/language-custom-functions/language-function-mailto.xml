@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.mailto">
  <title>mailto</title>
  <informaltable frame="all">
@@ -102,13 +102,14 @@
  <note>
   <title>Note technique</title>
   <para>
-   javascript n'est certainement pas la forme d'encodage la plus robuste.
+   Javascript n'est certainement pas la forme d'encodage la plus robuste.
    Vous pouvez également utiliser un encodage hexadécimal.
   </para>
  </note>
  <example>
   <title>mailto</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 {mailto address="moi@example.com"}
 {mailto address="moi@example.com" text="send me some mail"}
 {mailto address="moi@example.com" encode="javascript"}
@@ -116,26 +117,32 @@
 {mailto address="moi@example.com" subject="Hello to you!"}
 {mailto address="moi@example.com" cc="you@domain.com,they@domain.com"}
 {mailto address="moi@example.com" extra='class="email"'}
-{mailto address="me@example.com" encode="javascript_charcode"}
-
-SORTIE:
-
-&lt;a href="mailto:moi@example.com" &gt;moi@example.com&lt;/a&gt;
-&lt;a href="mailto:moi@example.com" &gt;send me some mail&lt;/a&gt;
-&lt;script type="text/javascript" language="javascript"&gt;eval(unescape('%64%6f%63%75%6d%65%6e%74%2e%77%72%6
+{mailto address="moi@example.com" encode="javascript_charcode"}
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
+<a href="mailto:moi@example.com" >moi@example.com</a>
+<a href="mailto:moi@example.com" >send me some mail</a>
+<script type="text/javascript" language="javascript">eval(unescape('%64%6f%63%75%6d%65%6e%74%2e%77%72%6
 9%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%64%6f%6d%
 61%69%6e%2e%63%6f%6d%22%20%3e%6d%65%40%64%6f%6d%61%69%6e%2e%63%6f%6d%3c%2f%61%3e
-%27%29%3b'))&lt;/script&gt;
-&lt;a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" &gt;&amp;#x6d;&amp;#x65;&amp;#x40;&amp;#x64;&amp;
-#x6f;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6e;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;
-&lt;a href="mailto:moi@example.com?subject=Hello%20to%20you%21" &gt;moi@example.com&lt;/a&gt;
-&lt;a href="mailto:moi@example.com?cc=you@example.com%2Cthey@example.com" &gt;moi@example.com&lt;/a&gt;
-&lt;a href="mailto:me@example.com" class="email"&gt;me@example.com&lt;/a&gt;
-&lt;script type="text/javascript" language="javascript"&gt;
-&lt;!--
+%27%29%3b'))</script>
+<a href="mailto:%6d%65@%64%6f%6d%61%69%6e.%63%6f%6d" >&#x6d;&#x65;&#x40;&#x64;&
+#x6f;&#x6d;&#x61;&#x69;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;</a>
+<a href="mailto:moi@example.com?subject=Hello%20to%20you%21" >moi@example.com</a>
+<a href="mailto:moi@example.com?cc=you@example.com%2Cthey@example.com" >moi@example.com</a>
+<a href="mailto:moi@example.com" class="email">moi@example.com</a>
+<script type="text/javascript" language="javascript">
+<!--
 {document.write(String.fromCharCode(60,97,32,104,114,101,102,61,34,109,97,105,108,116,111,58,109,101,64,101,120,97,109,112,108,101,46,99,111,109,34,32,62,109,101,64,101,120,97,109,112,108,101,46,99,111,109,60,47,97,62))}
-//--&gt;
-&lt;/script&gt;</programlisting>
+//-->
+</script>
+]]>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
