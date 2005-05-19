@@ -23,7 +23,7 @@
      <entry>output</entry>
      <entry>string</entry>
      <entry>No</entry>
-     <entry><emphasis>html</emphasis></entry>
+     <entry><emphasis>javascript</emphasis></entry>
      <entry>output type, html or javascript</entry>
     </row>
    </tbody>
