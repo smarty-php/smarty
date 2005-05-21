@@ -8,7 +8,8 @@
   that are indexed numerically or non-numerically. You can also reference
   object properties and methods. Config file variables are an exception to the
   dollar sign syntax. They can be referenced with surrounding hashmarks, or
-  with the special $smarty.config variable.
+  with the special
+  <link linkend="language.variables.smarty.config">$smarty.config</link> variable.
  </para>
  <example>
   <title>Variables</title>
@@ -23,6 +24,7 @@
 {#foo#}       <-- display the config file variable "foo"
 {$smarty.config.foo} <-- synonym for {#foo#}
 {$foo[bar]}   <-- syntax only valid in a section loop, see {section}
+{assign var=foo value="baa"}{$foo} <--  displays "baa", see {assign}
 
 Many other combinations are allowed
 
@@ -36,9 +38,12 @@ Many other combinations are allowed
 ]]>
   </programlisting>
  </example>
- <para>See also <link linkend="language.variables.smarty">$smarty reserved variables</link> 
-and <link linkend="language.config.variables">Config Variables</link></para>
+ <para>
+  See also <link linkend="language.variables.smarty">$smarty reserved variables</link>
+  and <link linkend="language.config.variables">Config Variables</link>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

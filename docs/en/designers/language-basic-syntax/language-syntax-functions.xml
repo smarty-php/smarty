@@ -28,15 +28,22 @@
   </programlisting>
  </example>
  <para>
-  Both built-in functions and custom functions have the same syntax in
-  the templates. Built-in functions are the inner workings of Smarty,
-  such as <link linkend="language.function.if"><command>if</command></link>, <link linkend="language.function.section"><command>section</command></link> and
-  <link linkend="language.function.strip"><command>strip</command></link>. They cannot be modified. Custom functions are
-  additional functions implemented via plugins. They can be modified to
-  your liking, or you can add new ones. <link linkend="language.function.html.options"><command>html_options</command></link> and
-  <link linkend="language.function.html.select.date"><command>html_select_date</command></link> are examples of custom functions.
+  Both <link linkend="language.builtin.functions">built-in functions</link>
+  and <link linkend="language.custom.functions">custom functions</link>
+  have the same syntax in the templates. Built-in functions are the
+  inner workings of Smarty, such as
+  <link linkend="language.function.if"><command>if</command></link>,
+  <link linkend="language.function.section"><command>section</command></link> and
+  <link linkend="language.function.strip"><command>strip</command></link>.
+  They cannot be modified. Custom functions are
+  additional functions implemented via <link linkend="plugins">plugins</link>.
+  They can be modified to your liking, or you can add new ones.
+  <link linkend="language.function.html.options"><command>html_options</command></link> and
+  <link linkend="language.function.html.select.date"><command>html_select_date</command></link>
+  are examples of custom functions.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

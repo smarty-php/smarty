@@ -33,8 +33,8 @@ index.tpl:
  <screen>
 <![CDATA[
 Smokers are Productive, but Death Cuts Efficiency.
-S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
-s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
+S M O K E R S   A R ....snip....  H   C U T S   E F F I C I E N C Y .
+s m o k e r s   a r ....snip....  b u t   d e a t h   c u t s...
 s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
 s m o k e r s   a r e   p. . .
 ]]>

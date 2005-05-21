@@ -9,7 +9,8 @@
    <para>
     There may be times when you want to print a default value for an empty
     variable instead of printing nothing, such as printing "&amp;nbsp;" so that
-    table backgrounds work properly. Many would use an <link linkend="language.function.if">{if}</link> statement to
+    table backgrounds work properly. Many would use an
+    <link linkend="language.function.if">{if}</link> statement to
     handle this, but there is a shorthand way with Smarty, using the
     <emphasis>default</emphasis> variable modifier.
    </para>
@@ -32,7 +33,10 @@
 ]]>
     </programlisting>
    </example>
-   <para>See also <link linkend="language.modifier.default">default</link> and  <link linkend="tips.default.var.handling">Default Variable Handling</link></para>
+   <para>
+    See also <link linkend="language.modifier.default">default</link>
+    and <link linkend="tips.default.var.handling">Default Variable Handling</link>.
+   </para>
   </sect1>
 
   <sect1 id="tips.default.var.handling">
@@ -55,8 +59,12 @@
 ]]>
     </programlisting>
    </example>
-    <para>See also <link linkend="language.modifier.default">default</link> and  <link linkend="tips.blank.var.handling">Blank Variable Handling</link></para>
+   <para>
+    See also <link linkend="language.modifier.default">default</link> and
+    <link linkend="tips.blank.var.handling">Blank Variable Handling</link>.
+   </para>
   </sect1>
+
   <sect1 id="tips.passing.vars">
    <title>Passing variable title to header template</title>
    <para>
@@ -125,7 +133,8 @@ footer.tpl
    <note>
     <para>
      As of Smarty 1.4.0, you can pass dates to Smarty as unix
-     timestamps, mysql timestamps, or any date parsable by  <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
+     timestamps, mysql timestamps, or any date parsable by
+     <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
     </para>
    </note>
    <example>
@@ -165,7 +174,8 @@ Jan 4, 2001
     </programlisting>
    </example>
    <para>
-    When using <link linkend="language.function.html.select.date">{html_select_date}</link> in a template, The programmer will most
+    When using <link linkend="language.function.html.select.date">{html_select_date}</link>
+    in a template, The programmer will most
     likely want to convert the output from the form back into timestamp
     format. Here is a function to help you with that.
    </para>
@@ -269,7 +279,8 @@ function insert_header($params)
     Traditionally, programming templates into your applications goes as
     follows: First, you accumulate your variables within your PHP
     application, (maybe with database queries.) Then, you instantiate your
-    Smarty object, <link linkend="api.assign">assign</link> the variables and <link linkend="api.display">display</link> the template. So lets
+    Smarty object, <link linkend="api.assign">assign</link> the variables and
+    <link linkend="api.display">display</link> the template. So lets
     say for example we have a stock ticker on our template. We would
     collect the stock data in our application, then assign these variables
     in the template and display it. Now wouldn't it be nice if you could
@@ -317,8 +328,13 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
 ]]>
     </programlisting>
    </example>
-   	<para>See also <link linkend="language.function.include.php">{include_php}</link>, <link linkend="language.function.include">{include}</link> and <link linkend="language.function.php">{php}</link></para>
+   <para>
+    See also <link linkend="language.function.include.php">{include_php}</link>,
+    <link linkend="language.function.include">{include}</link> and
+    <link linkend="language.function.php">{php}</link>.
+   </para>
   </sect1>
+
   <sect1 id="tips.obfuscating.email">
    <title>Obfuscating E-mail Addresses</title>
    <para>
@@ -346,9 +362,12 @@ Send inquiries to
      e-mail collector to decode these values, but not likely.
     </para>
    </note>
-   <para>See also <link linkend="language.modifier.escape">escape</link></para>
+   <para>
+    See also <link linkend="language.modifier.escape">escape</link>.
+   </para>
   </sect1>
-</chapter>
+ </chapter>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

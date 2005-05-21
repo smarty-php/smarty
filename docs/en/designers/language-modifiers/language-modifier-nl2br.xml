@@ -4,7 +4,8 @@
   <title>nl2br</title>
   <para>
    All linebreaks will be converted to &lt;br /&gt; tags in the given
-   variable. This is equivalent to the PHP <ulink url="&url.php-manual;nl2br">nl2br()</ulink> function.
+   variable. This is equivalent to the PHP
+   <ulink url="&url.php-manual;nl2br">nl2br()</ulink> function.
   </para>
   <example>
    <title>nl2br</title>
@@ -36,8 +37,13 @@ Sun or rain expected<br />today, dark tonight
 ]]>
    </screen>
   </example>
-<para>See also <link linkend="language.modifier.wordwrap">word_wrap</link>, <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> and <link linkend="language.modifier.count.sentences">count_sentences</link></para>
-</sect1>
+  <para>
+   See also <link linkend="language.modifier.wordwrap">word_wrap</link>,
+   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>
+   and <link linkend="language.modifier.count.sentences">count_sentences</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -81,7 +81,8 @@ $smarty->display('index.tpl');
    </screen>
   </example>
   <para>
-   See also <link linkend="language.escaping">Escaping Smarty Parsing</link> and <link linkend="tips.obfuscating.email">Obfuscating E-mail Addresses</link>.
+   See also <link linkend="language.escaping">Escaping Smarty Parsing</link>
+   and <link linkend="tips.obfuscating.email">Obfuscating E-mail Addresses</link>.
   </para>
  </sect1>
 

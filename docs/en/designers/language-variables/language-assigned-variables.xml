@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="language.assigned.variables">
-    <title>Variables assigned from PHP</title>
-    <para>
-   	 Variables that are assigned from PHP are referenced by preceding them with
-   	 a dollar sign <literal>$</literal>. Variables assigned from within the
-   	 template with the <link linkend="language.function.assign">assign</link>
-   	 function are also displayed this way.
-    </para>
-    <example>
-
-     <title>assigned variables</title>
-     <programlisting>
+<sect1 id="language.assigned.variables">
+ <title>Variables assigned from PHP</title>
+ <para>
+  Variables that are assigned from PHP are referenced by preceding them with
+  a dollar sign <literal>$</literal>. Variables assigned from within the
+  template with the <link linkend="language.function.assign">assign</link>
+  function are also displayed this way.
+ </para>
+ <example>
+  <title>assigned variables</title>
+  <programlisting>
 <![CDATA[
 Hello {$firstname}, glad to see you could make it.
 <br />
 Your last login was on {$lastLoginDate}.
 ]]>
-     </programlisting>
-     <para>
-      This will output:
-     </para>
-     <screen>
+  </programlisting>
+  <para>
+   This will output:
+  </para>
+  <screen>
 <![CDATA[
 Hello Doug, glad to see you could make it.
 <br />
 Your last login was on January 11th, 2001.
 ]]>
-     </screen>
-    </example>
-
-		<sect2 id="language.variables.assoc.arrays">
-			<title>Associative arrays</title>
-			<para>
- 			You can also reference associative array variables that are
- 			assigned from PHP by specifying the key after the '.' (period)
- 			symbol.
-			</para>
-   <example>
-    <title>accessing associative array variables</title>
-    <programlisting role="php">
+  </screen>
+ </example>
+ <sect2 id="language.variables.assoc.arrays">
+  <title>Associative arrays</title>
+  <para>
+   You can also reference associative array variables that are
+   assigned from PHP by specifying the key after the '.' (period)
+   symbol.
+  </para>
+  <example>
+   <title>accessing associative array variables</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 $smarty = new Smarty;
@@ -51,11 +49,11 @@ $smarty->assign('Contacts',
 $smarty->display('index.tpl');
 ?>
 ]]>
-    </programlisting>
-    <para>
-     where the content of index.tpl is:
-    </para>
-    <programlisting>
+   </programlisting>
+   <para>
+    where the content of index.tpl is:
+   </para>
+   <programlisting>
 <![CDATA[
 {$Contacts.fax}<br />
 {$Contacts.email}<br />
@@ -63,29 +61,29 @@ $smarty->display('index.tpl');
 {$Contacts.phone.home}<br />
 {$Contacts.phone.cell}<br />
 ]]>
-    </programlisting>
-    <para>
-     this will output:
-    </para>
-    <screen>
+   </programlisting>
+   <para>
+    this will output:
+   </para>
+   <screen>
 <![CDATA[    
 555-222-9876<br />
 zaphod@slartibartfast.com<br />
 555-444-3333<br />
 555-111-1234<br />
 ]]>
-    </screen>
-   </example>
-		</sect2>
-  <sect2 id="language.variables.array.indexes">
-			<title>Array indexes</title>
-			<para>
- 			You can reference arrays by their index, much like native PHP
- 			syntax.
-			</para>
-   <example>
+   </screen>
+  </example>
+ </sect2>
+ <sect2 id="language.variables.array.indexes">
+  <title>Array indexes</title>
+  <para>
+   You can reference arrays by their index, much like native PHP
+   syntax.
+  </para>
+  <example>
    <title>accessing arrays by index</title>
-    <programlisting role="php">
+   <programlisting role="php">
 <![CDATA[
 <?php
 
@@ -99,11 +97,11 @@ $smarty->display('index.tpl');
 
 ?>
 ]]>
-    </programlisting>
-    <para>
-     where index.tpl is:
-    </para>
-    <programlisting>
+   </programlisting>
+   <para>
+    where index.tpl is:
+   </para>
+   <programlisting>
 <![CDATA[
 {$Contacts[0]}<br />
 {$Contacts[1]}<br />
@@ -111,46 +109,48 @@ $smarty->display('index.tpl');
 {$Contacts[2][0]}<br />
 {$Contacts[2][1]}<br />
 ]]>
-     </programlisting>
-     <para>
-      This will output:
-     </para>
-     <screen>
+   </programlisting>
+   <para>
+    This will output:
+   </para>
+   <screen>
 <![CDATA[
 555-222-9876<br />
 zaphod@slartibartfast.com<br />
 555-444-3333<br />
 555-111-1234<br />
 ]]>
-      </screen>
-     </example>
-		 </sect2>
-   <sect2 id="language.variables.objects">
-			 <title>Objects</title>
-			 <para>
-			  Properties of objects assigned from PHP can be referenced
-			  by specifying the property name after the '-&gt;' symbol.
-			 </para>
-    <example>
-     <title>accessing object properties</title>
-     <programlisting>
+   </screen>
+  </example>
+ </sect2>
+ <sect2 id="language.variables.objects">
+  <title>Objects</title>
+  <para>
+   Properties of <link linkend="advanced.features.objects">objects</link>
+   assigned from PHP can be referenced by specifying the property
+   name after the '-&gt;' symbol.
+  </para>
+  <example>
+   <title>accessing object properties</title>
+   <programlisting>
 <![CDATA[
 name: {$person->name}<br />
 email: {$person->email}<br />
 ]]>
-     </programlisting>
-     <para>
-      this will output:
-     </para>
-     <screen>
+   </programlisting>
+   <para>
+    this will output:
+   </para>
+   <screen>
 <![CDATA[
 name: Zaphod Beeblebrox<br />
 email: zaphod@slartibartfast.com<br />
 ]]>
-     </screen>
-    </example>
-		 </sect2>
+   </screen>
+  </example>
+ </sect2>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

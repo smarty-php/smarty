@@ -51,7 +51,8 @@
    to wrap the text to the next line (default is carriage return \n).
    By default, wordwrap will attempt to wrap at a word boundary. If
    you want to cut off at the exact character length, pass the optional
-   third parameter of true.
+   third parameter of true. This is equivalent to the PHP <ulink
+   url="&url.php-manual;wordwrap">wordwrap()</ulink> function.
   </para>
   <example>
    <title>wordwrap</title>
@@ -108,8 +109,11 @@ years.
 ]]>
    </screen>
   </example>
-<para>See also <link linkend="language.modifier.nl2br">nl2br</link></para>
-</sect1>
+  <para>
+   See also <link linkend="language.modifier.nl2br">nl2br</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

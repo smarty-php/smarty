@@ -284,7 +284,8 @@
    <title>Technical Note</title>
    <para>
     If the step and start section properties are not
-    modified, then this works the same as the iteration section
+    modified, then this works the same as the <link 
+    linkend="section.property.iteration">iteration</link> section
     property, except it starts on 0 instead of 1.
    </para>
   </note>
@@ -386,9 +387,10 @@
   <note>
    <para>
     This is not affected by the section properties start, step and
-    max, unlike the index property. Iteration also starts with 1
-    instead of 0 like index. rownum is an alias to iteration, they work
-    identical.
+    max, unlike the <link linkend="section.property.index">index</link>
+    property. Iteration also starts with 1 instead of 0 like index. <link
+    linkend="section.property.rownum">rownum</link> is an alias to iteration,
+    they work identical.
    </para>
   </note>
   <example>
@@ -503,7 +505,8 @@
   <title>rownum</title>
   <para>
    rownum is used to display the current loop iteration,
-   starting with one. It is an alias to iteration, they work
+   starting with one. It is an alias to <link
+   linkend="section.property.iteration">iteration</link>, they work
    identically.
   </para>
   <example>
@@ -627,8 +630,13 @@
 ]]>
    </screen>
   </example>
+  <para>
+   See also <link linkend="language.function.foreach">foreach</link>
+   and <link linkend="language.variables.smarty.loops">$smarty.section</link>.
+  </para>
  </sect2>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

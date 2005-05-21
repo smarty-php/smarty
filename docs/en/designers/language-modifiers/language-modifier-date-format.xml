@@ -211,8 +211,13 @@ Monday, February 5, 2001
     </para>
    </note>
   </para>
-  <para>See also <link linkend="language.variables.smarty.now">$smarty.now</link>, <link linkend="language.function.html.select.date">{html_select_date}</link> and <link linkend="tips.dates">date tips</link></para>
-</sect1>
+  <para>
+   See also <link linkend="language.variables.smarty.now">$smarty.now</link>,
+   <link linkend="language.function.html.select.date">{html_select_date}</link>
+   and <link linkend="tips.dates">date tips</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

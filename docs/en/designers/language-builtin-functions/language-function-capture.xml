@@ -41,10 +41,11 @@
   variable instead of displaying it. Any content between {capture
   name="foo"} and {/capture} is collected into the variable specified
   in the name attribute. The captured content can be used in the
-  template from the special variable $smarty.capture.foo where foo is
-  the value passed in the name attribute. If you do not supply a name
-  attribute, then "default" will be used. All {capture} commands must
-  be paired with {/capture}. You can nest capture commands.
+  template from the special variable <link
+   linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
+  where foo is the value passed in the name attribute. If you do not
+  supply a name attribute, then "default" will be used. All {capture}
+  commands must be paired with {/capture}. You can nest capture commands.
  </para>
  <note>
   <title>Technical Note</title>
@@ -56,10 +57,11 @@
  </note>
  <caution>
   <para>
-   Be careful when capturing <command>insert</command> output. If
-   you have caching turned on and you have <command>insert</command>
-   commands that you expect to run within cached content, do not
-   capture this content.
+   Be careful when capturing <link
+   linkend="language.function.insert"><command>insert</command></link>
+   output. If you have caching turned on and you have
+   <command>insert</command> commands that you expect to run
+   within cached content, do not capture this content.
   </para>
  </caution>
  <para>
@@ -82,7 +84,11 @@
    </programlisting>
   </example>
  </para>
+ <para>
+  See also <link linkend="language.function.assign">assign </link>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

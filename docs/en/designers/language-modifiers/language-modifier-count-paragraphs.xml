@@ -38,12 +38,13 @@ Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 ]]>
    </screen>
   </example>
-     <para>See also <link linkend="language.modifier.count.characters">count_characters</link>, 
-   			<link linkend="language.modifier.count.sentences">count_sentences</link> and
-			<link linkend="language.modifier.count.words">count_words</link>
-			
-			</para>
-</sect1>
+  <para>
+   See also <link linkend="language.modifier.count.characters">count_characters</link>,
+   <link linkend="language.modifier.count.sentences">count_sentences</link> and
+   <link linkend="language.modifier.count.words">count_words</link>.		
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

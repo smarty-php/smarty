@@ -67,9 +67,12 @@ no title
 ]]>
    </screen>
   </example>
-  <para>See also <link linkend="tips.default.var.handling">Default Variable Handling</link> and  <link linkend="tips.blank.var.handling">Blank Variable Handling</link></para>
-  
-</sect1>
+  <para>
+   See also <link linkend="tips.default.var.handling">Default Variable Handling</link>
+   and <link linkend="tips.blank.var.handling">Blank Variable Handling</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

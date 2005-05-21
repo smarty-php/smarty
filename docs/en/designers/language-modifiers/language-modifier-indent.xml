@@ -95,7 +95,12 @@ Statistics show that teen pregnancy drops off significantly after 25.
 ]]>
    </screen>
   </example>
-</sect1>
+  <para>
+   See also <link linkend="language.modifier.strip">strip</link>
+   and <link linkend="language.modifier.spacify">spacify</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -59,13 +59,16 @@
  </note>
  <para>
   include_php tags are used to include a php script in your template.
-  If security is enabled, then the php script must be located in the
-  $trusted_dir path. The include_php tag must have the attribute
+  If <link linkend="variable.security">security is enabled</link>,
+  then the php script must be located in the <link
+  linkend="variable.trusted.dir">$trusted_dir</link> path.
+  The include_php tag must have the attribute
   "file", which contains the path to the included php file, either
   relative to $trusted_dir, or an absolute path.
  </para>
  <para>
-  include_php is a nice way to handle componentized templates, and
+  include_php is a nice way to handle <link
+  linkend="tips.componentized.templates">componentized templates</link>, and
   keep PHP code separate from the template files. Lets say you have a
   template that shows your site navigation, which is pulled
   dynamically from a database. You can keep your PHP logic that grabs

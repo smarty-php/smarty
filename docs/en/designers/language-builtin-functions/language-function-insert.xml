@@ -53,10 +53,11 @@
   </tgroup>
  </informaltable>
  <para>
-  Insert tags work much like include tags, except that insert tags
-  are not cached when you have template <link
-  linkend="caching">caching</link> enabled. They will be
-  executed on every invocation of the template.
+  Insert tags work much like <link
+  linkend="language.function.include">include</link> tags,
+  except that insert tags are not cached when you have
+  template <link linkend="caching">caching</link> enabled. They
+  will be executed on every invocation of the template.
  </para>
  <para>
   Let's say you have a template with a banner slot at the top of
@@ -71,7 +72,8 @@
   <title>function insert</title>
   <programlisting>
    {* example of fetching a banner *}
-   {insert name="getBanner" lid=#banner_location_id# sid=#site_id#}</programlisting>
+   {insert name="getBanner" lid=#banner_location_id# sid=#site_id#}
+  </programlisting>
  </example>
  <para>
   In this example, we are using the name "getBanner" and passing the
@@ -98,8 +100,9 @@
    included (only once) before the insert function is executed. This
    is the case where the insert function may not exist yet, and a php
    script must be included first to make it work. The path can be
-   either absolute, or relative to $trusted_dir. When security is
-   enabled, the script must reside in $trusted_dir.
+   either absolute, or relative to $trusted_dir. When <link
+   linkend="variable.security">security is enabled</link>, the script
+   must reside in <link linkend="variable.trusted.dir">$trusted_dir</link>.
   </para>
   <para>
    The Smarty object is passed as the second argument. This way you
