@@ -36,11 +36,17 @@ $smarty->append("Name", "Fred");
 $smarty->append("Address", $address);
 
 // passing an associative array
-$smarty->append(array("city" => "Lincoln", "state" => "Nebraska"));
+$smarty->append(array('city' => 'Lincoln', 'state' => 'Nebraska'));
 ?>
 ]]>
    </programlisting>
   </example>
+  <para>See also
+  <link linkend="api.append.by.ref">append_by_ref()</link>,
+  <link linkend="api.assign">assign()</link>
+  and
+  <link linkend="api.get.template.vars">get_template_vars()</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

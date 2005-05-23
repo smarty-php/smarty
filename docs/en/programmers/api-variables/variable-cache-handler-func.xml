@@ -4,7 +4,8 @@
       <title>$cache_handler_func</title>
       <para>
        You can supply a custom function to handle cache files instead
-       of using the built-in method using the $cache_dir. See the
+       of using the built-in method using the
+       <link linkend="variable.cache.dir">$cache_dir</link>. See the
        custom  <link linkend="section.template.cache.handler.func">cache
        handler function section</link> for details.
       </para>

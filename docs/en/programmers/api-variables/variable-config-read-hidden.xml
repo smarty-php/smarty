@@ -4,7 +4,9 @@
       <title>$config_read_hidden</title>
       <para>
 	   If set to true, hidden sections (section names beginning with a period)
-	   in config files can be read from templates. Typically you would leave
+	   in
+	   <link linkend="config.files">config files</link>
+	   can be read from templates. Typically you would leave
 	   this false, that way you can store sensitive data in the config files
 	   such as database parameters and not worry about the template loading
 	   them. false by default.

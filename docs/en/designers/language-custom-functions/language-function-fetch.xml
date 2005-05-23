@@ -63,7 +63,7 @@
    If template security is turned on and you are
    fetching a file from the local file system, this will only allow
    files from within one of the defined secure directories.
-   ($secure_dir)
+   (<link linkend="variable.secure.dir">$secure_dir</link>)
   </para>
  </note>
  <example>
@@ -87,6 +87,9 @@
 ]]>
   </programlisting>
  </example>
+ <para>
+ See also <link linkend="api.fetch">api fetch()</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

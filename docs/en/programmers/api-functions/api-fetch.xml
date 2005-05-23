@@ -62,8 +62,12 @@ echo $output;
    </example>
   </para>
   <para>
-   See also <link linkend="api.display">display()</link> and
-   <link linkend="api.template.exists">template_exists</link>.
+   See also
+   <link linkend="language.function.fetch">{fetch}</link>
+   <link linkend="api.display">display()</link>,
+   <link linkend="language.function.eval">{eval}</link>,
+   and
+   <link linkend="api.template.exists">template_exists()</link>.
   </para>
  </refsect1>
 </refentry>

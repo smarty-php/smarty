@@ -24,8 +24,9 @@
      <para>
       If you want to give certain templates their own cache lifetime, you could
       do this by setting <link linkend="variable.caching">$caching</link> = 2,
-      then set $cache_lifetime to a unique value just before calling display()
-      or fetch().
+      then set $cache_lifetime to a unique value just before calling
+      <link linkend="api.display">display()</link>
+      or <link linkend="api.fetch">fetch()</link>.
      </para>
     </note>
    </sect1>

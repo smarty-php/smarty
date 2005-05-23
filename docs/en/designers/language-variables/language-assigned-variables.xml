@@ -5,7 +5,7 @@
  <para>
   Variables that are assigned from PHP are referenced by preceding them with
   a dollar sign <literal>$</literal>. Variables assigned from within the
-  template with the <link linkend="language.function.assign">assign</link>
+  template with the <link linkend="language.function.assign">{assign}</link>
   function are also displayed this way.
  </para>
  <example>

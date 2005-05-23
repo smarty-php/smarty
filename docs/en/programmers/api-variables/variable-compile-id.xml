@@ -9,12 +9,17 @@
  </para>
  <para>
   With a compile_id you can work around the limitation that you cannot
-  use the same compile_dir for different template_dirs.  If you set a
+  use the same
+  <link linkend="variable.compile.dir">$compile_dir</link>
+  for different
+  <link linkend="variable.template.dir">$template_dirs</link>.  If you set a
   distinct compile_id for each template_dir then smarty can tell the
   compiled templates apart by their compile_id.
  </para>
  <para>
-  If you have for example a prefilter that localizes your templates
+  If you have for example a
+  <link linkend="plugins.prefilters.postfilters">prefilter</link>
+  that localizes your templates
   (that is: translates language dependend parts) at compile time, then
   you should use the current language as compile_id and you will get a
   set of compiled templates for each language you use.

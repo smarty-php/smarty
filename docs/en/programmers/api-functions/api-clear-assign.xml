@@ -29,6 +29,13 @@ $smarty->clear_assign(array("Name", "Address", "Zip"));
 ]]>
    </programlisting>
   </example>
+  <para>
+    See also
+    <link linkend="api.clear.all.assign">clear_all_assign()</link>,
+    <link linkend="api.clear.config">clear_config()</link>,
+    <link linkend="api.assign">assign()</link>
+    and <link linkend="api.append">append()</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

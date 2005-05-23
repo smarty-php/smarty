@@ -6,7 +6,9 @@
        This is the name of the directory where template caches are
        stored. By default this is "./cache", meaning that it will look
        for the cache directory in the same directory as the executing
-       php script. You can also use your own custom cache handler
+       php script. You can also use your own
+       <link linkend="section.template.cache.handler.func">
+       custom cache handler</link>
        function to control cache files, which will ignore this
        setting.
       </para>

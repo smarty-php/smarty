@@ -85,42 +85,53 @@
    </listitem>
    <listitem>
     <para>
-     Configurable template delimiter tag syntax, so you can use
+     Configurable template
+     <link linkend="variable.left.delimiter">delimiter tag</link>
+      syntax, so you can use
      {}, {{}}, &lt;!--{}--&gt;, etc.
     </para>
    </listitem>
    <listitem>
     <para>
-     The if/elseif/else/endif constructs are passed to the
+     The <link
+     linkend="language.function.if">if/elseif/else/endif</link>
+     constructs are passed to the
      PHP parser, so the {if ...} expression syntax can be as simple or as 
      complex as you like.
     </para>
    </listitem>
    <listitem>
     <para>
-     Unlimited nesting of sections, ifs, etc. allowed.
+     Unlimited nesting of
+     <link linkend="language.function.section">sections</link>,
+     ifs, etc. allowed.
     </para>
    </listitem>
    <listitem>
     <para>
-     It is possible to embed PHP code right in your template files, although
+     It is possible to
+     <link linkend="language.function.php">embed PHP code</link>
+     right in your template files, although
      this may not be needed (nor recommended) since the engine is so 
      customizable.
     </para>
    </listitem>
    <listitem>
     <para>
-     Built-in caching support
+     Built-in <link linkend="caching">caching</link> support
     </para>
    </listitem>
    <listitem>
     <para>
-     Arbitrary template sources
+     Arbitrary <link
+     linkend="template.resources">template</link> sources
     </para>
    </listitem>
    <listitem>
     <para>
-     Custom cache handling functions
+     Custom <link
+     linkend="section.template.cache.handler.func">cache handling</link>
+     functions
     </para>
    </listitem>
    <listitem>
@@ -241,9 +252,16 @@ $smarty = new Smarty;
     <filename class="directory">templates_c</filename>, <filename 
     class="directory">configs</filename> and <filename 
     class="directory">cache</filename>. Each of these are definable by the 
-    Smarty class properties <varname>$template_dir</varname>,
-    <varname>$compile_dir</varname>, <varname>$config_dir</varname>, and
-    <varname>$cache_dir</varname> respectively. It is highly recommended
+    Smarty class properties
+    <link linkend="variable.template.dir">
+    <varname>$template_dir</varname></link>,
+    <link linkend="variable.compile.dir">
+    <varname>$compile_dir</varname></link>,
+    <link linkend="variable.config.dir">
+    <varname>$config_dir</varname></link>, and
+    <link linkend="variable.cache.dir">
+    <varname>$cache_dir</varname></link> respectively.
+    It is highly recommended
     that you setup a separate set of these directories for each application
     that will use Smarty.
    </para>
@@ -310,8 +328,12 @@ $smarty = new Smarty;
    </example>
 
    <para>
-    Smarty will need write access to the <emphasis>$compile_dir</emphasis> and
-    <emphasis>$cache_dir</emphasis>, so be sure the web server user can write
+    Smarty will need write access to the
+    <link linkend="variable.compile.dir">
+    <emphasis>$compile_dir</emphasis></link> and
+    <link linkend="variable.cache.dir">
+    <emphasis>$cache_dir</emphasis></link>,
+    so be sure the web server user can write
     to them. This is usually user "nobody" and group "nobody". For OS X users,
     the default is user "www" and group "www". If you are using Apache, you can
     look in your httpd.conf file (usually in "/usr/local/apache/conf/") to see

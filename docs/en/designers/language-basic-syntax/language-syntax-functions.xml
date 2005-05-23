@@ -32,14 +32,14 @@
   and <link linkend="language.custom.functions">custom functions</link>
   have the same syntax in the templates. Built-in functions are the
   inner workings of Smarty, such as
-  <link linkend="language.function.if"><command>if</command></link>,
-  <link linkend="language.function.section"><command>section</command></link> and
-  <link linkend="language.function.strip"><command>strip</command></link>.
+  <link linkend="language.function.if">{if}</link>,
+  <link linkend="language.function.section">{section}</link> and
+  <link linkend="language.function.strip">{strip}</link>.
   They cannot be modified. Custom functions are
   additional functions implemented via <link linkend="plugins">plugins</link>.
   They can be modified to your liking, or you can add new ones.
-  <link linkend="language.function.html.options"><command>html_options</command></link> and
-  <link linkend="language.function.html.select.date"><command>html_select_date</command></link>
+  <link linkend="language.function.html.options">{html_options}</link> and
+  <link linkend="language.function.html.select.date">{html_select_date}</link>
   are examples of custom functions.
  </para>
 </sect1>

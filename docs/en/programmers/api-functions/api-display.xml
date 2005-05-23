@@ -17,7 +17,8 @@
    This displays the template. Supply a valid <link
    linkend="template.resources">template resource</link>
    type and path. As an optional second parameter, you can pass a
-   cache id. See the <link linkend="caching">caching
+   $cache id.
+   See the <link linkend="caching">caching
    section</link> for more information.
   </para>
   &parameter.compileid;
@@ -80,7 +81,7 @@ $smarty->display("db:header.tpl");
   </example>
   <para>
    See also <link linkend="api.fetch">fetch()</link> and
-   <link linkend="api.template.exists">template_exists</link>.
+   <link linkend="api.template.exists">template_exists()</link>.
   </para>
  </refsect1>
 </refentry>

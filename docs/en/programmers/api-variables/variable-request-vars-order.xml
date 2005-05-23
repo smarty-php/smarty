@@ -6,6 +6,11 @@
        The order in which request variables are registered, similar to
        variables_order in php.ini
       </para>
+ <para>
+ See also <link linkend="language.variables.smarty">$smarty.request</link>
+ and
+ <link linkend="variable.request.use.auto.globals">$request_use_auto_globals</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

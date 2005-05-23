@@ -37,7 +37,7 @@
   </tgroup>
  </informaltable>
  <para>
-  assign is used for assigning template variables during the execution
+  {assign} is used for assigning template variables during the execution
   of the template.
  </para>
  <example>
@@ -58,6 +58,11 @@ The value of $name is Bob.
 ]]>
   </screen>
  </example>
+ <para>
+ See also <link linkend="api.assign">assign()</link>
+   and
+  <link linkend="api.get.template.vars">get_template_vars()</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

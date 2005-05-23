@@ -16,7 +16,7 @@
   <para>
    This returns &true; if there is a valid cache for this template.
    This only works if <link
-   linkend="variable.caching">caching</link> is set to true.
+   linkend="variable.caching">$caching</link> is set to true.
   </para>
   <example>
    <title>is_cached</title>
@@ -35,11 +35,13 @@ $smarty->display("index.tpl");
    </programlisting>
   </example>
   <para>
-   You can also pass a cache id as an optional second parameter
+   You can also pass a $cache id as an optional second parameter
    in case you want multiple caches for the given template.
   </para>
   <para>
-   You can supply a compile id as an optional third parameter.
+   You can supply a
+   <link linkend="variable.compile.id">$compile id</link>
+   as an optional third parameter.
    If you omit that parameter the persistent 
    <link linkend="variable.compile.id">$compile_id</link> is used.
   </para>
@@ -78,7 +80,7 @@ $smarty->display("index.tpl", "FrontPage");
    display in the example above. This also means calls to
    <link linkend="api.clear.cache">clear_cache()</link>
    and other changes of the cache-settings may have no effect after
-   <literal>is_cached</literal> returned true.
+   is_cached() returned true.
   </para>
   </note>
  </refsect1>

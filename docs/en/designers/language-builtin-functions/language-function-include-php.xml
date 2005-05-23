@@ -64,7 +64,9 @@
   linkend="variable.trusted.dir">$trusted_dir</link> path.
   The include_php tag must have the attribute
   "file", which contains the path to the included php file, either
-  relative to $trusted_dir, or an absolute path.
+  relative to
+  <link linkend="variable.trusted.dir">$trusted_dir</link>,
+  or an absolute path.
  </para>
  <para>
   include_php is a nice way to handle <link
@@ -126,6 +128,16 @@
 ]]>
   </programlisting>
  </example>
+
+ <para>
+  See also
+  <link linkend="language.function.include">{include}</link>,
+   <link linkend="language.function.php">{php}</link>,
+    <link linkend="language.function.capture">{capture}</link>,
+    <link linkend="template.resources">Template Resources</link> and
+    <link linkend="tips.componentized.templates">Componentized Templates</link>
+ </para>
+
 </sect1>
 
 <!-- Keep this comment at the end of the file

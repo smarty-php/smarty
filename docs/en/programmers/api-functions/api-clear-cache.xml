@@ -40,6 +40,10 @@ $smarty->clear_cache("index.tpl", "CACHEID");
 ]]>
    </programlisting>
   </example>
+  <para>
+  See also
+  <link linkend="caching">caching</link>.
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

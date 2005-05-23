@@ -3,9 +3,11 @@
      <sect1 id="variable.trusted.dir">
       <title>$trusted_dir</title>
       <para>
-	   $trusted_dir is only for use when $security is enabled. This is an array
-	   of all directories that are considered trusted. Trusted directories are
-	   where you keep php scripts that are executed directly from the templates
+  $trusted_dir is only for use when
+  <link linkend="variable.security">$security</link> is enabled.
+  This is an array  of all directories that are considered trusted.
+  Trusted directories are where you keep php scripts that are executed
+  directly from the templates
 	   with <link linkend="language.function.include.php">{include_php}</link>.
       </para>
 </sect1>

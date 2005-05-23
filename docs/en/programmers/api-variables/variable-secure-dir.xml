@@ -4,8 +4,18 @@
       <title>$secure_dir</title>
       <para>
        This is an array of all local directories that are considered
-       secure. {include} and {fetch} use this when security is enabled.
+ secure.
+ <link linkend="language.function.include">{include}</link>
+ and <link linkend="language.function.fetch">{fetch}</link>
+ use this when
+ <link linkend="variable.security">security is enabled</link>.
       </para>
+<para>
+ See also
+ <link linkend="variable.security.settings">Security settings</link>,
+ and <link linkend="variable.trusted.dir">$trusted_dir</link>.
+</para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -4,8 +4,10 @@
       <title>$plugins_dir</title>
       <para>
        This is the directory (or directories) where Smarty will look for the
-       plugins that it needs. Default is "plugins" under the SMARTY_DIR. If you
-       supply a relative path, Smarty will first look under the SMARTY_DIR, then
+       plugins that it needs. Default is "plugins" under the
+       <link linkend="constant.smarty.dir">SMARTY_DIR</link>. If you
+       supply a relative path, Smarty will first look under the
+       <link linkend="constant.smarty.dir">SMARTY_DIR</link>, then
        relative to the cwd (current working directory), then relative to the PHP
        include_path. If $plugins_dir is an array of directories, Smarty will
        search for your plugin in each plugin directory in the order they are

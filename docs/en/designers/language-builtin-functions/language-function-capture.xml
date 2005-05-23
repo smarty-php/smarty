@@ -59,7 +59,9 @@
   <para>
    Be careful when capturing <link
    linkend="language.function.insert"><command>insert</command></link>
-   output. If you have caching turned on and you have
+   output. If you have
+   <link linkend="caching">caching</link>
+   turned on and you have
    <command>insert</command> commands that you expect to run
    within cached content, do not capture this content.
   </para>
@@ -85,7 +87,8 @@
   </example>
  </para>
  <para>
-  See also <link linkend="language.function.assign">assign </link>.
+  See also <link linkend="language.function.eval">{eval}</link>
+  and <link linkend="language.function.assign">{assign}</link>.
  </para>
 </sect1>
 

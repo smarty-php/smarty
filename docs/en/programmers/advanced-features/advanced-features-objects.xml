@@ -4,18 +4,22 @@
  <title>Objects</title>
  <para>
   Smarty allows access to PHP objects through the templates. There are
-	 two ways to access them. One way is to register objects to the template,
+ two ways to access them. One way is to
+ <link linkend="api.register.object">register objects</link> to the template,
 	 then use access them via syntax similar to custom functions. The other way
-	 is to assign objects to the templates and access them much like any other
+ is to <link linkend="api.assign">assign objects</link>
+ to the templates and access them much like any other
 	 assigned variable. The first method has a much nicer template syntax. It
 	 is also more secure, as a registered object can be restricted to certain
-	 methods or properties. However, a registered object cannot be looped over
-	 or assigned in arrays of objects, etc. The method you choose will be
+ methods or properties. However,
+ <emphasis role="bold">a registered object cannot be looped over
+ or assigned in arrays of objects</emphasis>, etc. The method you choose will be
 	 determined by your needs, but use the first method whenever possible to
 	 keep template syntax to a minimum.
  </para>
 	<para>
-  If security is enabled, no private methods or functions can be accessed
+  If <link linkend="variable.security">security is enabled</link>,
+  no private methods or functions can be accessed
  	(begininning with "_"). If a method and property of the same name exist,
  	the method will be used.
 	</para>
@@ -25,7 +29,9 @@
 	</para>
 	<para>
 	 By default, parameters passed to objects through the templates are passed
-	 the same way custom functions get them. An associative array is passed
+  the same way
+  <link linkend="language.custom.functions">custom functions</link> get them.
+  An associative array is passed
 	 as the first parameter, and the smarty object as the second. If you want
 	 the parameters passed one at a time for each argument like traditional
 	 object parameter passing, set the fourth registration parameter to false.

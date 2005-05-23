@@ -27,6 +27,12 @@ $smarty->clear_all_cache();
 ]]>
    </programlisting>
   </example>
+  <para>
+  See also
+  <link linkend="api.clear.cache">clear_cache()</link>
+  and
+  <link linkend="caching">caching</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

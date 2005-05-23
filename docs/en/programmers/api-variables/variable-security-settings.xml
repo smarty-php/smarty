@@ -4,23 +4,51 @@
       <title>$security_settings</title>
       <para>
        These are used to override or specify the security settings when
-       security is enabled. These are the possible settings:
+<link linkend="variable.security">security is enabled</link>.
+These are the possible settings:
       </para>
       <itemizedlist>
-       <listitem><para>PHP_HANDLING - true/false. If set to true, the
-         $php_handling setting is not checked for security.</para></listitem>
-       <listitem><para>IF_FUNCS - This is an array of the names of permitted
-         PHP functions in IF statements.</para></listitem>
-       <listitem><para>INCLUDE_ANY - true/false. If set to true, any
+<listitem>
+ <para>
+  PHP_HANDLING - true/false. If set to true, the
+  <link linkend="variable.php.handling">$php_handling</link>
+  setting is not checked for security.
+ </para>
+</listitem>
+<listitem>
+ <para>
+  IF_FUNCS - This is an array of the names of permitted PHP functions in
+  <link linkend="language.function.if">IF</link> statements.
+ </para>
+</listitem>
+<listitem>
+ <para>
+  INCLUDE_ANY - true/false. If set to true, any
          template can be included from the file system, regardless of the
-         $secure_dir list.</para></listitem>
-       <listitem><para>PHP_TAGS - true/false. If set to true, {php}{/php}
-         tags are permitted in the templates.</para></listitem>
-       <listitem><para>MODIFIER_FUNCS - This is an array of the names of permitted
-         PHP functions used as variable modifiers.</para></listitem>
-       <listitem><para>ALLOW_CONSTANTS - true/false. If set to true, constants via
-         {$smarty.const.name} are allowed in the templates. The defaults is set to
-         "false" for security.</para></listitem>
+  <link linkend="variable.secure.dir">$secure_dir</link> list.
+ </para>
+</listitem>
+<listitem>
+ <para>
+  PHP_TAGS - true/false. If set to true,
+  <link linkend="language.function.php">{php}{/php}</link>
+  tags are permitted in the templates.
+ </para>
+</listitem>
+<listitem>
+ <para>
+  MODIFIER_FUNCS - This is an array of the names of permitted
+  PHP functions used as variable modifiers.
+ </para>
+</listitem>
+<listitem>
+ <para>
+  ALLOW_CONSTANTS - true/false. If set to true, constants via
+  <link linkend="language.variables.smarty.const">{$smarty.const.name}</link>
+  are allowed in the templates. The defaults is set to
+  "false" for security.
+ </para>
+</listitem>
       </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file

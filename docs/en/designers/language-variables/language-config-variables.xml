@@ -3,7 +3,9 @@
   <sect1 id="language.config.variables">
 			<title>Variables loaded from config files</title>
 			<para>
-			 Variables that are loaded from the config files are referenced by
+ Variables that are loaded from the
+ <link linkend="config.files">config files</link>
+ are referenced by
 			 enclosing them within hash marks (#), or with the smarty variable
 			 <link
 			 linkend="language.variables.smarty.config">$smarty.config</link>.
@@ -89,7 +91,8 @@ rowBgColor = "#cccccc"
 		 	after they are loaded in from a config file. This procedure is
 		 	explained later in this document under <link linkend="api.config.load"><command>config_load</command></link>.
 			</para>
-			<para>See also <link linkend="language.syntax.variables">Variables</link> and <link linkend="language.variables.smarty">$smarty reserved variables</link></para>
+			<para>See also <link linkend="language.syntax.variables">Variables</link> and <link linkend="language.variables.smarty">$smarty reserved
+			variables</link></para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -3,11 +3,15 @@
 <sect1 id="language.syntax.quotes">
  <title>Embedding Vars in Double Quotes</title>
  <para>
-  Smarty will recognize assigned variables embedded in double quotes so long as
+  Smarty will recognize <link
+  linkend="api.assign">assigned</link>
+  <link   linkend="language.syntax.variables">variables</link>
+  embedded in double quotes so long as
   the variables contain only numbers, letters, underscores and brackets [].
   With any other characters (period, object reference, etc.) the variable must
-  be surrounded by backticks. You cannot embed modifiers, they must always be
-  applied outside of quotes.
+  be surrounded by backticks. You cannot embed
+  <link linkend="language.modifiers">modifiers</link>,
+  they must always be applied outside of quotes.
  </para>
  <example>
   <title>embedded quotes syntax</title>

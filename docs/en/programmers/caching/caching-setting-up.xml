@@ -31,7 +31,9 @@ $smarty->display('index.tpl');
    <note>
     <title>Technical Note</title>
     <para>
-     The files in the $cache_dir are named similar to the template name.
+     The files in the
+     <link linkend="variable.cache.dir">$cache_dir</link>
+     are named similar to the template name.
      Although they end in the ".php" extention, they are not really executable
      php scripts. Do not edit these files!
     </para>
@@ -41,7 +43,9 @@ $smarty->display('index.tpl');
     linkend="variable.cache.lifetime">$cache_lifetime</link>. The default value
     is 3600 seconds, or 1 hour. After that time expires, the cache is
     regenerated. It is possible to give individual caches their own expiration
-    time by setting $caching = 2. See the documentation on <link
+    time by setting
+    <link linkend="variable.caching">$caching</link> = 2.
+    See the documentation on <link
     linkend="variable.cache.lifetime">$cache_lifetime</link> for details.
    </para>
    <example>
@@ -77,7 +81,9 @@ $smarty->display('home.tpl');
     every template file and config file that is involved with the cache file is
     checked for modification. If any of the files have been modified since the
     cache was generated, the cache is immediately regenerated. This is a slight
-    overhead so for optimum performance, leave $compile_check set to false.
+    overhead so for optimum performance, leave
+    <link linkend="variable.compile.check">$compile_check</link>
+    set to false.
    </para>
    <example>
     <title>enabling $compile_check</title>
@@ -98,7 +104,9 @@ $smarty->display('index.tpl');
    <para>
     If <link linkend="variable.force.compile">$force_compile</link> is enabled,
     the cache files will always be regenerated. This effectively turns off
-    caching. $force_compile is usually for debugging purposes only, a more
+    caching.
+    <link linkend="variable.force.compile">$force_compile</link>
+    is usually for debugging purposes only, a more
     efficient way of disabling caching is to set <link
     linkend="variable.caching">$caching</link> = false (or 0.)
    </para>
@@ -131,11 +139,11 @@ $smarty->display('index.tpl');
    </example>
    <para>
     You can keep parts of a page dynamic with the <link
-    linkend="language.function.insert">insert</link> template function. Let's
+    linkend="language.function.insert">{insert}</link> template function. Let's
     say the whole page can be cached except for a banner that is displayed down
     the right side of the page. By using an insert function for the banner, you
     can keep this element dynamic within the cached content. See the
-    documentation on <link linkend="language.function.insert">insert</link> for
+    documentation on <link linkend="language.function.insert">{insert}</link> for
     details and examples.
    </para>
    <para>

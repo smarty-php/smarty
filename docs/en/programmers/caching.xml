@@ -9,7 +9,9 @@
    cached version of the call is available, that is displayed instead of
    regenerating the output. Caching can speed things up tremendously,
    especially templates with longer computation times. Since the output of
-   display() or fetch() is cached, one cache file could conceivably be made up
+   <link linkend="api.display">display()</link> or
+   <link linkend="api.fetch">fetch()</link> is cached,
+   one cache file could conceivably be made up
    of several template files, config files, etc.
    </para>
    <para>

@@ -3,7 +3,9 @@
   <sect1 id="template.resources">
    <title>Resources</title>
    <para>
-	   The templates may come from a variety of sources. When you display or fetch
+  The templates may come from a variety of sources. When you
+  <link linkend="api.display">display()</link> or
+  <link linkend="api.fetch">fetch()</link>
 	   a template, or when you include a template from within another template,
 	   you supply a resource type, followed by the appropriate path and template
    	name. If a resource is not explicitly given the value of <link
@@ -13,10 +15,12 @@
    <sect2 id="templates.from.template.dir">
     <title>Templates from $template_dir</title>
     <para>
-     Templates from the $template_dir do not require a template
+     Templates from the
+     <link linkend="variable.template.dir">$template_dir</link> do not require a template
      resource, although you can use the file: resource for consistancy.
-     Just supply the path to the template you want to use relative to
-     the $template_dir root directory.
+     Just supply the path to the template you want to use relative to the
+     <link linkend="variable.template.dir">$template_dir</link>
+     root directory.
     </para>
     <example>
      <title>using templates from $template_dir</title>
@@ -38,7 +42,9 @@ $smarty->display("file:admin/menu.tpl"); // same as one above
    <sect2 id="templates.from.any.dir">
     <title>Templates from any directory</title>
     <para>
-     Templates outside of the $template_dir require the file: template
+     Templates outside of the
+     <link linkend="variable.template.dir">$template_dir</link>
+     require the file: template
      resource type, followed by the absolute path and name of the
      template.
     </para>
@@ -200,7 +206,8 @@ $smarty->display("db:index.tpl");
 <?php
 // put this function somewhere in your application
 
-function make_template ($resource_type, $resource_name, &$template_source, &$template_timestamp, &$smarty_obj)
+function make_template ($resource_type, $resource_name, &$template_source, &$template_timestamp,
+&$smarty_obj)
 {
 	if( $resource_type == 'file' ) {
 		if ( ! is_readable ( $resource_name )) {
@@ -244,3 +251,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

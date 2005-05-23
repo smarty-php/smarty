@@ -6,8 +6,12 @@
        This allows alternate ways to enable debugging. NONE means no
        alternate methods are allowed. URL means when the keyword
        SMARTY_DEBUG is found in the QUERY_STRING, debugging is enabled
-       for that invocation of the script. If $debugging is true, this
+       for that invocation of the script. If
+       <link linkend="variable.debugging">$debugging</link> is true, this
        value is ignored.
+      </para>
+      <para>
+      See also <link linkend="chapter.debugging.console">Debugging console</link>.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

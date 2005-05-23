@@ -4,10 +4,14 @@
  <title>Variables</title>
  <para>
   Template variables start with a dollar sign. They can contain numbers,
-  letters and underscores, much like a PHP variable. You can reference arrays
+  letters and underscores, much like a
+  <ulink url="&url.php-manual;language.variables">PHP variable</ulink>.
+  You can reference arrays
   that are indexed numerically or non-numerically. You can also reference
-  object properties and methods. Config file variables are an exception to the
-  dollar sign syntax. They can be referenced with surrounding hashmarks, or
+  object properties and methods.
+  <link linkend="language.config.variables">Config file variables</link>
+  are an exception to the dollar sign syntax.
+  They can be referenced with surrounding #hashmarks#, or
   with the special
   <link linkend="language.variables.smarty.config">$smarty.config</link> variable.
  </para>

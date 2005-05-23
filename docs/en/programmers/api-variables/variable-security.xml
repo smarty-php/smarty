@@ -8,20 +8,39 @@
        (via ftp for example) and you want to reduce the risk of system
        security compromises through the template language. Turning on
        security enforces the following rules to the template language,
-       unless specifially overridden with $security_settings:
+ unless specifially overridden with
+ <link linkend="variable.security.settings">$security_settings</link>:
       </para>
       <itemizedlist>
-       <listitem><para>If $php_handling is set to SMARTY_PHP_ALLOW, this is
-         implicitly changed to SMARTY_PHP_PASSTHRU</para></listitem>
-       <listitem><para>PHP functions are not allowed in IF statements,
-         except those specified in the $security_settings</para></listitem>
-       <listitem><para>templates can only be included from directories
-         listed in the $secure_dir array</para></listitem>
-       <listitem><para>local files can only be fetched from directories
-         listed in the $secure_dir array using {fetch}</para></listitem>
-       <listitem><para>{php}{/php} tags are not allowed</para></listitem>
-       <listitem><para>PHP functions are not allowed as modifiers, except
-         those specified in the $security_settings</para></listitem>
+<listitem>
+<para>If <link linkend="variable.php.handling">$php_handling</link>
+is set to SMARTY_PHP_ALLOW, this is
+implicitly changed to SMARTY_PHP_PASSTHRU
+</para></listitem>
+<listitem>
+<para>
+PHP functions are not allowed in <link
+linkend="language.function.if">{if}</link> statements,
+except those specified in the
+<link linkend="variable.security.settings">$security_settings</link>
+</para></listitem>
+<listitem><para>
+templates can only be included from directories
+listed in the
+<link linkend="variable.secure.dir">$secure_dir</link> array
+</para></listitem>
+<listitem><para>
+local files can only be fetched from directories listed in the
+<link linkend="variable.secure.dir">$secure_dir</link>
+array using <link linkend="language.function.fetch">{fetch}</link>
+</para></listitem>
+<listitem><para>
+<link linkend="language.function.php">{php}{/php}</link> tags are not allowed
+</para></listitem>
+<listitem><para>
+PHP functions are not allowed as modifiers, except those specified in the
+<link linkend="variable.security.settings">$security_settings</link>
+</para></listitem>
       </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file

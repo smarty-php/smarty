@@ -32,6 +32,16 @@ print_r($config_vars);
 ]]>
    </programlisting>
   </example>
+  <para>
+   See also
+  <link linkend="api.clear.config">clear_config()</link>,
+   <link linkend="language.function.config.load">{config_load}</link>
+   and
+<link linkend="api.config.load">config_load()</link>,
+
+
+  </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

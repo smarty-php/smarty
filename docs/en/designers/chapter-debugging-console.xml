@@ -4,16 +4,24 @@
  <title>Debugging Console</title>
  <para>
   There is a debugging console included with Smarty. The console informs you
-  of all the included templates, assigned variables and config file variables
+  of all the
+  <link linkend="language.function.include">included</link> templates,
+  <link linkend="api.assign">assigned</link> variables and
+  <link linkend="language.config.variables">config</link>
+  file variables
   for the current invocation of the template. A template named "debug.tpl" is
   included with the distribution of Smarty which controls the formatting of
-  the console. Set $debugging to true in Smarty, and if needed set $debug_tpl
-  to the template resource path for debug.tpl (this is in SMARTY_DIR by
+  the console. Set
+  <link linkend="variable.debugging">$debugging</link> to true in Smarty, and if needed set
+  <link linkend="variable.debug.tpl">$debug_tpl</link>
+  to the template resource path for debug.tpl (this is in
+  <link linkend="constant.smarty.dir">SMARTY_DIR</link> by
   default.) When you load the page, a javascript console window should pop up
   and give you the names of all the included templates and assigned variables
   for the current page. To see the available variables for a particular
   templates, see the <link linkend="language.function.debug">{debug}</link>
-  template function. To disable the debugging console, set $debugging to
+  template function. To disable the debugging console, set
+  <link linkend="variable.debugging">$debugging</link> to
   false. You can also temporarily turn on the debugging console by putting
   SMARTY_DEBUG in the URL if you enable this option with <link
   linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
@@ -21,8 +29,11 @@
  <note>
   <title>Technical Note</title>
   <para>
-   The debugging console does not work when you use the fetch()
-   API, only when using display(). It is a set of javascript statements added
+   The debugging console does not work when you use the
+   <link linkend="api.fetch">fetch()</link>
+   API, only when using
+   <link linkend="api.display">display()</link>.
+   It is a set of javascript statements added
    to the very bottom of the generated template. If you do not like javascript,
    you can edit the debug.tpl template to format the output however you like.
    Debug data is not cached and debug.tpl info is not included in the output of
@@ -57,3 +68,5 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+
+

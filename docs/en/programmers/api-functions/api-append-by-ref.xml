@@ -14,9 +14,11 @@
    <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This is used to append values to the templates by reference.
+   This is used to
+   <link linkend="api.append">append</link> values to the templates by reference.
    If you append a variable by reference then change its
-   value, the appended value sees the change as well. For objects, 
+   value, the appended value sees the change as well. For
+   <link linkend="advanced.features.objects">objects</link>,
    append_by_ref() also avoids an in-memory copy of the appended object.
    See the PHP manual on variable referencing for an in-depth
    explanation. If you pass the optional third parameter of true,
@@ -29,12 +31,17 @@
 <![CDATA[
 <?php
 // appending name/value pairs
-$smarty->append_by_ref("Name", $myname);
-$smarty->append_by_ref("Address", $address);
+$smarty->append_by_ref('Name', $myname);
+$smarty->append_by_ref('Address', $address);
 ?>
 ]]>
    </programlisting>
   </example>
+<para>
+   See also <link linkend="api.append">append()</link> and
+  <link linkend="api.assign">assign()</link>.
+</para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

@@ -4,7 +4,8 @@
  <title>$error_reporting</title>
  <para>
   When this value is set to a non-null-value it's value is used as php's
-  error_reporting-level inside of <link linkend="api.display">display()</link>
+  <ulink url="&url.php-manual;error_reporting">error_reporting</ulink>
+  level inside of <link linkend="api.display">display()</link>
   and <link linkend="api.fetch">fetch()</link>. When <link
    linkend="chapter.debugging.console">debugging</link> is enabled this value
   is ignored and the error-level is left untouched.

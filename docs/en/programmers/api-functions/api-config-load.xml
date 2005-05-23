@@ -13,20 +13,25 @@
    <methodparam choice="opt"><type>string</type><parameter>section</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This loads config <parameter>file</parameter> data and assigns it to
+   This loads
+   <link linkend="config.files">config file</link>
+   data and assigns it to
    the template. This works identical to the template <link
-   linkend="language.function.config.load">config_load</link>
+   linkend="language.function.config.load">{config_load}</link>
    function.
   </para>
   <note>
    <title>Technical Note</title>
    <para>
     As of Smarty 2.4.0, assigned template variables are kept across
-    invocations of fetch() and display(). Config vars loaded from
+    invocations of
+    <link linkend="api.fetch">fetch()</link>
+    and <link linkend="api.display">display()</link>.
+    Config vars loaded from
     config_load() are always global scope. Config files are also
     compiled for faster execution, and respect the <link
-    linkend="variable.force.compile">force_compile</link> and <link
-    linkend="variable.compile.check">compile_check</link> settings.
+    linkend="variable.force.compile">$force_compile</link> and <link
+    linkend="variable.compile.check">$compile_check</link> settings.
    </para>
   </note>
   <example>
@@ -43,6 +48,13 @@ $smarty->config_load('my.conf', 'foobar');
 ]]>
    </programlisting>
   </example>
+  <para>
+  See also
+  <link linkend="language.function.config.load">{config_load}</link>,
+  <link linkend="api.clear.config">clear_config()</link>,
+  and
+  <link linkend="language.config.variables">config variables</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

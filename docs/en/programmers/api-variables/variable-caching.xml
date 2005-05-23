@@ -8,17 +8,22 @@
 	   redundant redundant content, it is advisable to turn on caching. This
 	   will result in significant performance gains. You can also have multiple
 	   caches for the same template. A value of 1 or 2 enables caching. 1 tells
-	   Smarty to use the current $cache_lifetime variable to determine if the
+	   Smarty to use the current
+	   <link linkend="variable.cache.lifetime">$cache_lifetime</link>
+	   variable to determine if the
 	   cache has expired. A value of 2 tells Smarty to use the cache_lifetime
 	   value at the time the cache was generated. This way you can set the
 	   cache_lifetime just before fetching the template to have granular
-	   control over when that particular cache expires. See also <link
-	   linkend="api.is.cached">is_cached</link>.
+	   control over when that particular cache expires.
+	   See also <link linkend="api.is.cached">is_cached()</link>.
       </para>
       <para>
-	   If $compile_check is enabled, the cached content will be regenerated if
+	   If <link linkend="variable.compile.check">$compile_check</link>
+	   is enabled, the cached content will be regenerated if
 	   any of the templates or config files that are part of this cache are
-	   changed. If $force_compile is enabled, the cached content will always be
+	   changed. If
+	   <link linkend="variable.force.compile">$force_compile</link>
+	   is enabled, the cached content will always be
 	   regenerated.
       </para>
 </sect1>
