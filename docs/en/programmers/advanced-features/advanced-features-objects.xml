@@ -18,7 +18,7 @@
 	 keep template syntax to a minimum.
  </para>
 	<para>
-  If <link linkend="variable.security">security is enabled</link>,
+  If <link linkend="variable.security">$security</link> is enabled,
   no private methods or functions can be accessed
  	(begininning with "_"). If a method and property of the same name exist,
  	the method will be used.
@@ -44,7 +44,9 @@
 	 template
 	 (<literal>{foobar->meth2}...{/foobar->meth2}</literal>) and
 	 the parameters to the methods have the same synopsis as the
-	 parameters for block-function-plugins: They get 4 parameters
+  parameters for
+  <link linkend="plugins.block.functions">block-function-plugins</link>:
+ They get 4 parameters
 	 <parameter>$params</parameter>,
 	 <parameter>$content</parameter>,
 	 <parameter>&amp;$smarty</parameter> and
@@ -117,3 +119,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

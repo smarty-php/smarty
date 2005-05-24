@@ -43,6 +43,16 @@ $smarty->register_modifier("sslash", "stripslashes");
 ]]>
    </programlisting>
   </example>
+   <para>
+    See also
+    <link linkend="api.unregister.modifier">unregister_modifier()</link>,
+    <link linkend="api.register.function">register_function()</link>,
+    <link linkend="language.modifiers">modifiers</link>,
+
+    <link linkend="plugins">Extending Smarty with plugins</link>
+    and
+    <link linkend="plugins.modifiers">Plugin modifiers</link>,
+ </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

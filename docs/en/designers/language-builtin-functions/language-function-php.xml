@@ -3,7 +3,7 @@
 <sect1 id="language.function.php">
  <title>php</title>
  <para>
-  php tags allow php to be embedded directly into the template. They
+  {php} tags allow php to be embedded directly into the template. They
   will not be escaped, regardless of the <link
   linkend="variable.php.handling">$php_handling</link> setting. This
   is for advanced users only, not normally needed.
@@ -22,6 +22,7 @@
  </example>
  <para>
   See also
+  <link linkend="variable.php.handling">$php_handling</link>,
   <link linkend="language.function.include.php">{include_php}</link>,
   <link linkend="language.function.include">{include}</link> and 
   <link linkend="tips.componentized.templates">Componentized Templates</link>.

@@ -44,7 +44,7 @@ $smarty->assign_by_ref('Address', $address);
    See also <link linkend="api.assign">assign()</link>,
    <link linkend="api.clear.all.assign">clear_all_assign()</link>,
    <link linkend="api.append">append()</link>
-   and <link linkend="language.function.assign">{assign} function</link>
+   and <link linkend="language.function.assign">{assign}</link>
    </para>
 
  </refsect1>

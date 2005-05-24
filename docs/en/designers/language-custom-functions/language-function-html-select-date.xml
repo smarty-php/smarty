@@ -222,7 +222,7 @@
   </tgroup>
  </informaltable>
  <para>
-  html_select_date is a custom function that creates date dropdowns
+  {html_select_date} is a custom function that creates date dropdowns
   for you. It can display any or all of year, month, and day.
  </para>
  <example>
@@ -331,7 +331,7 @@
   </screen>
  </example>
  <para>
-  See also <link linkend="language.function.html.select.time">html_select_time</link>,
+  See also <link linkend="language.function.html.select.time">{html_select_time}</link>,
   <link linkend="language.modifier.date.format">date_format</link>,
   <link linkend="language.variables.smarty.now">$smarty.now</link>
   and <link linkend="tips.dates">date tips</link>.

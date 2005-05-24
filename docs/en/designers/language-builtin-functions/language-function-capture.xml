@@ -87,7 +87,9 @@
   </example>
  </para>
  <para>
-  See also <link linkend="language.function.eval">{eval}</link>
+  See also <link linkend="language.function.eval">{eval}</link>,
+  <link linkend="language.function.fetch">{fetch}</link>,
+  <link linkend="api.fetch">fetch()</link>
   and <link linkend="language.function.assign">{assign}</link>.
  </para>
 </sect1>

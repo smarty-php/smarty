@@ -3,8 +3,10 @@
    <sect1 id="caching.multiple.caches">
     <title>Multiple Caches Per Page</title>
     <para>
-     You can have multiple cache files for a single call to display() or
-     fetch(). Let's say that a call to display('index.tpl') may have several
+     You can have multiple cache files for a single call to
+     <link linkend="api.display">display()</link>
+     or <link linkend="api.fetch">fetch()</link>.
+     Let's say that a call to display('index.tpl') may have several
      different output contents depending on some condition, and you want
      separate caches for each one. You can do this by passing a cache_id as the
      second parameter to the function call.
@@ -27,7 +29,9 @@ $smarty->display('index.tpl',$my_cache_id);
      </programlisting>
     </example>
     <para>
-     Above, we are passing the variable $my_cache_id to display() as the
+     Above, we are passing the variable $my_cache_id to
+     <link linkend="api.display">display()</link>
+     as the
      cache_id. For each unique value of $my_cache_id, a separate cache will be
      generated for index.tpl. In this example, "article_id" was passed in the
      URL and is used as the cache_id.
@@ -77,7 +81,8 @@ $smarty->display('index.tpl',$my_cache_id);
     </example>
     <para>
      You can clear all caches for a particular cache_id by passing null as the
-     first parameter to clear_cache().
+     first parameter to
+     <link linkend="api.clear.cache">clear_cache()</link>.
     </para>
     <example>
      <title>clearing all caches for a particular cache_id</title>

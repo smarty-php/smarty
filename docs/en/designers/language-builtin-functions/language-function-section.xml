@@ -76,16 +76,16 @@
  </informaltable>
  <para>
   Template sections are used for looping over arrays of data. All
-  <emphasis>section</emphasis> tags must be paired with
-  <emphasis>/section</emphasis> tags. Required parameters are
+  <emphasis>{section}</emphasis> tags must be paired with
+  <emphasis>{/section}</emphasis> tags. Required parameters are
   <emphasis>name</emphasis> and <emphasis>loop</emphasis>. The name
-  of the section can be anything you like, made up of letters,
+  of the {section} can be anything you like, made up of letters,
   numbers and underscores. Sections can be nested, and the nested
   section names must be unique from each other. The loop variable
   (usually an array of values) determines the number of times the
   section will loop. When printing a variable within a section, the
   section name must be given next to variable name within brackets
-  []. <emphasis>sectionelse</emphasis> is
+  []. <emphasis>{sectionelse}</emphasis> is
   executed when there are no values in the loop variable.
  </para>
  <example>
@@ -262,7 +262,8 @@
  </example>
  <para>
   Sections also have their own variables that handle section properties.
-  These are indicated like so: {$smarty.section.sectionname.varname}
+  These are indicated like so:
+  <link linkend="language.variables.smarty.loops">{$smarty.section.sectionname.varname}</link>
  </para>
  <note>
   <para>
@@ -631,7 +632,7 @@
    </screen>
   </example>
   <para>
-   See also <link linkend="language.function.foreach">foreach</link>
+   See also <link linkend="language.function.foreach">{foreach}</link>
    and <link linkend="language.variables.smarty.loops">$smarty.section</link>.
   </para>
  </sect2>

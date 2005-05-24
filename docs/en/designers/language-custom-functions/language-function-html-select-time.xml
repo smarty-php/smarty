@@ -133,7 +133,7 @@
   </tgroup>
  </informaltable>
  <para>
-  html_select_time is a custom function that
+  {html_select_time} is a custom function that
   creates time dropdowns for you. It can display
   any or all of hour, minute, second and
   meridian.
@@ -142,7 +142,8 @@
   The time-attribute can have different
   formats. It can be a unique timestamp or a
   string of the format YYYYMMDDHHMMSS or a string
-  that is parseable by php's strtotime().
+  that is parseable by php's
+  <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
  </para>
  <example>
   <title>html_select_time</title>
@@ -313,6 +314,12 @@
 ]]>
   </screen>
  </example>
+   <para>
+    See also
+    <link linkend="language.variables.smarty.now">$smarty.now</link>,
+    <link linkend="language.function.html.select.date">{html_select_date}</link>
+    and <link linkend="tips.dates">date tips</link>.
+  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

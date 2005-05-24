@@ -35,13 +35,11 @@ print_r($config_vars);
   <para>
    See also
   <link linkend="api.clear.config">clear_config()</link>,
-   <link linkend="language.function.config.load">{config_load}</link>
+   <link linkend="language.function.config.load">{config_load}</link>,
+  <link linkend="api.config.load">config_load()</link>
    and
-<link linkend="api.config.load">config_load()</link>,
-
-
+  <link linkend="api.get.template.vars">get_template_vars()</link>.
   </para>
-
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

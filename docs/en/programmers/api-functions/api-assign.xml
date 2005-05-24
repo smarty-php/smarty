@@ -40,7 +40,7 @@ $smarty->assign(array('city' => 'Lincoln', 'state' => 'Nebraska'));
  See also <link linkend="api.assign.by.ref">assign_by_ref()</link>,
  <link linkend="api.clear.assign">clear_assign()</link>,
  <link linkend="api.append">append()</link>,
- <link linkend="language.function.assign">{assign}</link>.
+ <link linkend="language.function.assign">{assign}</link>,
  and
  <link linkend="api.get.template.vars">get_template_vars()</link>
  </para>

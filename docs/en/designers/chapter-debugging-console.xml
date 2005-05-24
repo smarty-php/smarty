@@ -46,6 +46,13 @@
    fractions thereof.
   </para>
  </note>
+    <para>
+    See also
+    <link linkend="troubleshooting">troubleshooting</link>,
+    <link linkend="variable.error.reporting">$error_reporting</link>
+    and
+    <link linkend="api.trigger.error">trigger_error()</link>.
+   </para>
 </chapter>
 
 <!-- Keep this comment at the end of the file

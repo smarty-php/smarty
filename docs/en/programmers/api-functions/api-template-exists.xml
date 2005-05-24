@@ -16,6 +16,14 @@
    accept either a path to the template on the filesystem or a
    resource string specifying the template.
   </para>
+  <para>
+  See also
+  <link linkend="api.display">display()</link>,
+  <link linkend="api.fetch">fetch()</link>,
+  <link linkend="language.function.include">{include}</link>
+  and
+  <link linkend="language.function.insert">{insert}</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

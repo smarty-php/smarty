@@ -37,9 +37,11 @@
    </tgroup>
   </informaltable>
   <para>
-   This formats a date and time into the given <ulink url="&url.php-manual;strftime">strftime()</ulink> format.
+   This formats a date and time into the given
+   <ulink url="&url.php-manual;strftime">strftime()</ulink> format.
    Dates can be passed to Smarty as unix timestamps, mysql timestamps
-   or any string made up of month day year (parsable by <ulink url="&url.php-manual;strtotime">strtotime</ulink>).
+   or any string made up of month day year (parsable by
+   <ulink url="&url.php-manual;strtotime">strtotime()</ulink>).
    Designers can then use date_format to have complete control of the
    formatting of the date. If the date passed to date_format is empty
    and a second parameter is passed, that will be used as the date to
@@ -173,7 +175,8 @@ Monday, February 5, 2001
      %U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week
     </para></listitem>
     <listitem><para>
-     %V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1 is the first week that has at least 4 days in the current year, and with Monday as the first day of the week.
+     %V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1 is the first week that has at least 4 days in the current
+     year, and with Monday as the first day of the week.
     </para></listitem>
     <listitem><para>
      %w - day of the week as a decimal, Sunday being 0
@@ -238,3 +241,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

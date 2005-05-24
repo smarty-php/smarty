@@ -21,7 +21,7 @@
    of the manual for examples.
   </para>
   <para>
-   See Also <link linkend="api.unregister.object">unregister_object</link>.
+   See Also <link linkend="api.unregister.object">unregister_object()</link>.
   </para>
  </refsect1>
 </refentry>

@@ -38,7 +38,7 @@
   </tgroup>
  </informaltable>
  <para>
-  fetch is used to fetch files from the local file system, http, or
+  {fetch} is used to fetch files from the local file system, http, or
   ftp and display the contents. If the file name begins with
   "http://", the web site page will be fetched and displayed. If the
   file name begins with "ftp://", the file will be fetched from the
@@ -47,7 +47,7 @@
  </para>
  <para>
   If you supply the special "assign" attribute, the output of the
-  fetch function will be assigned to this template variable instead of
+  {fetch} function will be assigned to this template variable instead of
   being output to the template. (new in Smarty 1.5.0)
  </para>
  <note>
@@ -88,7 +88,11 @@
   </programlisting>
  </example>
  <para>
- See also <link linkend="api.fetch">api fetch()</link>.
+ See also
+ <link linkend="language.function.capture">{capture}</link>,
+ <link linkend="language.function.eval">{eval}</link>
+ and
+ <link linkend="api.fetch">fetch()</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

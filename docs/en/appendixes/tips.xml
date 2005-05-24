@@ -45,7 +45,7 @@
     If a variable is used frequently throughout your templates, applying
     the default modifier every time it is mentioned can get a bit ugly. You
     can remedy this by assigning the variable its default value with the
-    <link linkend="language.function.assign">assign</link> function.
+    <link linkend="language.function.assign">{assign}</link> function.
    </para>
    <example>
     <title>Assigning a template variable its default value</title>
@@ -118,7 +118,8 @@ footer.tpl
     archive example, we are using a variable from the archives_page.conf
     file instead of a hard coded variable. Also notice that "BC News" is
     printed if the $title variable is not set, using the
-    <emphasis>default</emphasis> variable modifier.
+    <link linkend="language.modifier.default">default</link>
+    variable modifier.
    </para>
   </sect1>
   <sect1 id="tips.dates">
@@ -208,7 +209,16 @@ function makeTimeStamp($year="", $month="", $day="")
 ]]>
     </programlisting>
    </example>
+
+   <para>
+   See also
+   <link linkend="language.function.html.select.date">{html_select_date}</link>,
+   <link linkend="language.function.html.select.time">{html_select_time}</link>,
+   <link linkend="language.modifier.date.format">date_format</link>
+   and <link linkend="language.variables.smarty.now">$smarty.now</link>,
+   </para>
   </sect1>
+
   <sect1 id="tips.wap">
    <title>WAP/WML</title>
    <para>

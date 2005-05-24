@@ -88,9 +88,11 @@
 		<sect2 id="language.variables.smarty.capture">
 			<title>{$smarty.capture}</title>
 			<para>
-		 	The output captured via 	<link linkend="language.function.capture">{capture}..{/capture}</link> construct can be
+  The output captured via
+  <link linkend="language.function.capture">{capture}..{/capture}</link>
+  construct can be
 		 	accessed using {$smarty} variable. See section on
-		 	<link linkend="language.function.capture">capture</link> for an example.
+  <link linkend="language.function.capture">{capture}</link> for an example.
 			</para>
 		</sect2>
 
@@ -102,7 +104,7 @@
  linkend="language.config.variables">config variables</link>.
 			 {$smarty.config.foo} is a synonym for {#foo#}. See the section on
  <link
- linkend="language.function.config.load">config_load</link> for an example.
+  linkend="language.function.config.load">{config_load}</link> for an example.
 			</para>
 		</sect2>
 
@@ -110,8 +112,8 @@
 			<title>{$smarty.section}, {$smarty.foreach}</title>
 			<para>
   {$smarty} variable can be used to refer to
-  <link linkend="language.function.section">'section'</link> and
-  <link linkend="language.function.foreach">'foreach'</link>
+  <link linkend="language.function.section">{section}</link> and
+  <link linkend="language.function.foreach">{foreach}</link>
   loop properties.
 			</para>
 		</sect2>

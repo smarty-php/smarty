@@ -53,23 +53,24 @@
   </tgroup>
  </informaltable>
  <para>
-  <emphasis>foreach</emphasis> loops are an alternative to
+  <emphasis>{foreach}</emphasis> loops are an alternative to
   <link
-   linkend="language.function.section"><emphasis>section</emphasis></link>
+   linkend="language.function.section"><emphasis>{section}</emphasis></link>
   loops. <emphasis>foreach</emphasis> is used to loop over a single
   associative array. The syntax for
-  <emphasis>foreach</emphasis> is much easier than
-  <emphasis>section</emphasis>, but as a tradeoff it can only be used
-  for a single array. <emphasis>foreach</emphasis> tags must be
-  paired with <emphasis>/foreach</emphasis> tags. Required parameters
+  <emphasis>{foreach}</emphasis> is much easier than
+  <emphasis>{section}</emphasis>, but as a tradeoff it
+  <emphasis role="bold">can only be used
+  for a single array</emphasis>. <emphasis>{foreach}</emphasis> tags must be
+  paired with <emphasis>{/foreach}</emphasis> tags. Required parameters
   are <emphasis>from</emphasis> and <emphasis>item</emphasis>. The
-  name of the foreach loop can be anything you like, made up of
-  letters, numbers and underscores. <emphasis>foreach</emphasis>
-  loops can be nested, and the nested foreach names must be unique
+  name of the {foreach} loop can be anything you like, made up of
+  letters, numbers and underscores. <emphasis>{foreach}</emphasis>
+  loops can be nested, and the nested {foreach} names must be unique
   from each other. The <emphasis>from</emphasis> variable (usually an
   array of values) determines the number of times
-  <emphasis>foreach</emphasis> will loop.
-  <emphasis>foreachelse</emphasis> is executed when there are no
+  <emphasis>{foreach}</emphasis> will loop.
+  <emphasis>{foreachelse}</emphasis> is executed when there are no
   values in the <emphasis>from</emphasis> variable.
  </para>
  <example>
@@ -132,7 +133,9 @@
 
  <para>
   Foreach-loops also have their own variables that handle foreach properties.
-  These are indicated like so: {$smarty.foreach.foreachname.varname} with
+  These are indicated like so:
+  <link linkend="language.variables.smarty.loops">{$smarty.foreach.foreachname.varname}</link>
+  with
   foreachname being the name specified as the <emphasis>name</emphasis>
   attribute of foreach
  </para>

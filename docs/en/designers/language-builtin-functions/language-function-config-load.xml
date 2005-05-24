@@ -91,7 +91,8 @@
   </programlisting>
  </example>
  <para>
-  Config files may also contain sections. You can load variables from
+  <link linkend="config.files">Config Files</link>
+  may also contain sections. You can load variables from
   within a section with the added attribute
   <emphasis>section</emphasis>.
  </para>
@@ -126,8 +127,11 @@
  </example>
 
  <para>
-  See also <link linkend="config.files">Config Files</link> and
-  <link linkend="language.config.variables">Config variables</link>.
+  See also <link linkend="config.files">Config Files</link>,
+  <link linkend="language.config.variables">Config variables</link>,
+  <link linkend="api.get.config.vars">get_config_vars()</link>
+  and
+  <link linkend="api.config.load">config_load()</link>.
  </para>
 </sect1>
 

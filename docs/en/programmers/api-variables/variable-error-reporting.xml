@@ -10,6 +10,13 @@
    linkend="chapter.debugging.console">debugging</link> is enabled this value
   is ignored and the error-level is left untouched.
  </para>
+ <para>
+  See also
+  <link linkend="api.trigger.error">trigger_error()</link>,
+  <link linkend="chapter.debugging.console">debugging</link>
+  and
+  <link linkend="troubleshooting">Troubleshooting</link>.
+ </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file

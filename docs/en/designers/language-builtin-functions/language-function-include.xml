@@ -45,15 +45,15 @@
   </tgroup>
  </informaltable>
  <para>
-  Include tags are used for including other templates in the current
+  {include} tags are used for including other templates in the current
   template. Any variables available in the current template are also
-  available within the included template. The include tag must have
+  available within the included template. The {include} tag must have
   the attribute "file", which contains the template resource path.
  </para>
  <para>
   You can optionally pass the <emphasis>assign</emphasis> attribute,
   which will specify a template variable name that the output of
-  <emphasis>include</emphasis> will be assigned to instead of
+  {include} will be assigned to instead of
   displayed.
  </para>
  <example>
@@ -90,7 +90,8 @@
  <para>
   Use the syntax for <link
   linkend="template.resources">template resources</link> to
-  include files outside of the <link linkend="variable.template.dir">$template_dir</link> directory.
+  include files outside of the <link linkend="variable.template.dir">$template_dir</link>
+  directory.
  </para>
  <example>
   <title>function include template resource examples</title>
@@ -138,3 +139,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

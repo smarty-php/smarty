@@ -7,7 +7,9 @@
   Default is "}".			
  </para>
  <para>
-  See also <link linkend="variable.left.delimiter">$left_delimiter</link>.
+  See also <link linkend="variable.left.delimiter">$left_delimiter</link>
+    and
+  <link linkend="language.escaping">escaping smarty parsing</link>.
  </para>
 </sect1>
 

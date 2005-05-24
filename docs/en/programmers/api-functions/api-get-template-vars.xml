@@ -32,6 +32,14 @@ print_r($tpl_vars);
 ]]>
    </programlisting>
   </example>
+  <para>
+  See also <link linkend="api.assign">assign()</link>,
+  <link linkend="language.function.assign">{assign}</link>,
+  <link linkend="api.clear.assign">clear_assign()</link>
+  and
+  <link linkend="api.get.config.vars">get_config_vars()</link>
+  </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

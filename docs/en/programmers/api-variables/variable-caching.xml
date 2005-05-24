@@ -11,9 +11,13 @@
 	   Smarty to use the current
 	   <link linkend="variable.cache.lifetime">$cache_lifetime</link>
 	   variable to determine if the
-	   cache has expired. A value of 2 tells Smarty to use the cache_lifetime
+   cache has expired. A value of 2 tells Smarty to use the
+   <link linkend="variable.cache.lifetime">$cache_lifetime</link>
 	   value at the time the cache was generated. This way you can set the
-	   cache_lifetime just before fetching the template to have granular
+   <link linkend="variable.cache.lifetime">$cache_lifetime</link>
+   just before
+   <link linkend="api.fetch">fetching</link>
+   the template to have granular
 	   control over when that particular cache expires.
 	   See also <link linkend="api.is.cached">is_cached()</link>.
       </para>

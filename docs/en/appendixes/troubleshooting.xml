@@ -47,11 +47,20 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
     When you encounter a PHP parsing error, the error line number will
     correspond to the compiled PHP script, not the template itself. Usually
     you can look at the template and spot the syntax error. Here are some
-    common things to look for: missing close tags for {if}{/if} or
-    {section}{/section}, or syntax of logic within an {if} tag. If you
+    common things to look for: missing close tags for
+    <link linkend="language.function.if">{if}{/if}</link> or
+    <link linkend="language.function.if">{section}{/section}</link>,
+    or syntax of logic within an {if} tag. If you
     can't find the error, you might have to open the compiled PHP file and
     go to the line number to figure out where the corresponding error is in
     the template.
+   </para>
+   <para>
+   See also
+   <link linkend="chapter.debugging.console">debugging</link>,
+   <link linkend="variable.error.reporting">$error_reporting</link>
+   and
+   <link linkend="api.trigger.error">trigger_error()</link>.
    </para>
   </sect1>
 </chapter>
