@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.debug">
  <title>debug</title>
  <informaltable frame="all">
@@ -24,7 +24,7 @@
      <entry>output</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
-     <entry><emphasis>html</emphasis></entry>
+     <entry><emphasis>javascript</emphasis></entry>
      <entry>Type de sortie, html ou javascript</entry>
     </row>
    </tbody>
@@ -38,6 +38,10 @@
   d'afficher que les variables assignées au template, et non
   les templates en cours d'utilisation. Toutefois, vous voyez toutes
   les variables disponibles pour le template courant.
+ </para>
+ <para>
+  Voir aussi 
+  <link linkend="chapter.debugging.console">la console de débogage</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

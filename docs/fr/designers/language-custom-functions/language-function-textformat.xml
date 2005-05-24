@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.textformat">
  <title>textformat</title>
  <informaltable frame="all">
@@ -99,7 +99,8 @@
  </para>
  <example>
   <title>textformat</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 {textformat wrap=40}
 
 This is foo.
@@ -121,7 +122,13 @@ bar foo bar foo     foo.
 
 {/textformat}
 
-SORTIE:
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
 
 This is foo. This is foo. This is foo.
 This is foo. This is foo. This is foo.
@@ -132,8 +139,10 @@ bar foo bar foo foo. bar foo bar foo
 foo. bar foo bar foo foo. bar foo bar
 foo foo. bar foo bar foo foo. bar foo
 bar foo foo. bar foo bar foo foo.
-
-
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
 {textformat wrap=40 indent=4}
 
 This is foo.
@@ -155,7 +164,13 @@ bar foo bar foo     foo.
 
 {/textformat}
 
-SORTIE:
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
 
     This is foo. This is foo. This is
     foo. This is foo. This is foo. This
@@ -168,7 +183,10 @@ SORTIE:
     bar foo foo. bar foo bar foo foo.
     bar foo bar foo foo. bar foo bar
     foo foo.
-
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
 {textformat wrap=40 indent=4 indent_first=4}
 
 This is foo.
@@ -190,20 +208,29 @@ bar foo bar foo     foo.
 
 {/textformat}
 
-SORTIE:
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
 
-        This is foo. This is foo. This
+    This is foo. This is foo. This
     is foo. This is foo. This is foo.
     This is foo.
 
-        This is bar.
+    This is bar.
 
-        bar foo bar foo foo. bar foo bar
+    bar foo bar foo foo. bar foo bar
     foo foo. bar foo bar foo foo. bar
     foo bar foo foo. bar foo bar foo
     foo. bar foo bar foo foo. bar foo
     bar foo foo.
-
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
 {textformat style="email"}
 
 This is foo.
@@ -225,7 +252,13 @@ bar foo bar foo     foo.
 
 {/textformat}
 
-SORTIE:
+]]>
+  </programlisting>
+  <para>
+   L'exemple ci-dessus affichera :
+  </para>
+  <screen>
+<![CDATA[
 
 This is foo. This is foo. This is foo. This is foo. This is foo. This is
 foo.
@@ -235,10 +268,11 @@ This is bar.
 bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
 bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
 foo.
-
-</programlisting>
+]]>
+  </screen>
  </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: partial -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: partial -->
 <sect1 id="language.function.html.select.date">
  <title>html_select_date</title>
  <informaltable frame="all">
@@ -238,7 +238,7 @@
   </tgroup>
  </informaltable>
  <para>
-  html_select_date est une fonction utilisateur qui crée des listes
+  {html_select_date} est une fonction utilisateur qui crée des listes
   déroulantes pour saisir la date. Elle peut afficher n'importe quel
   jour, mois et année.
  </para>
@@ -349,7 +349,7 @@
  </example>
  <para>
   Voir aussi
-  <link linkend="language.function.html.select.time">html_select_time</link>,
+  <link linkend="language.function.html.select.time">{html_select_time}</link>,
   <link linkend="language.modifier.date.format">date_format</link>,
   <link linkend="language.variables.smarty.now">$smarty.now</link> et
   les <link linkend="tips.dates">astuces sur les dates</link>.
