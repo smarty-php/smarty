@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.literal">
  <title>literal</title>
  <para>
-  Les balises "literal" permettent à un bloc de données d'être pris tel
+  Les balises "{literal}" permettent à un bloc de données d'être pris tel
   quel, sans qu'il ne soit interprété par Smarty. Très pratique lors
   de l'emplois d'éléments tels que javascript, acolades et autres
   qui peuvent confondre le moteur de template. Tout le contenu situé

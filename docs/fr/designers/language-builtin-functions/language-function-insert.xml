@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.insert">
  <title>insert</title>
  <informaltable frame="all">
@@ -53,9 +53,10 @@
   </tgroup>
  </informaltable>
  <para>
-  Les balises insert fonctionnent à peu près comme les balises include,
+  Les balises insert fonctionnent à peu près comme les balises <link
+  linkend="language.function.include">include</link>,
   à l'exception que leur sortie n'est pas placée en cache lorsque
-  <link linkend="caching">le cache [caching]</link> est activé.
+  <link linkend="caching">le cache</link> est activé.
   Les balises insert seront exécutées à chaque appel du template.
  </para>
  <para>
@@ -70,10 +71,11 @@
   fonction pour récupérer le contenu du bandeau.
  </para>
  <example>
-  <title>function insert</title>
+  <title>Fonction insert</title>
   <programlisting>
    {* exemple de récupération d'un bandeau publicitaire *}
-   {insert name="getBanner" lid=#emplacement_bandeau# sid=#id_site#}</programlisting>
+   {insert name="getBanner" lid=#emplacement_bandeau# sid=#id_site#}
+  </programlisting>
  </example>
  <para>
   Dans cet exemple, nous utilisons le nom getBanner et lui passons les
@@ -101,8 +103,9 @@
    Le cas peut survenir lorsque la fonction insert n'existe pas encore,
    et que le script PHP chargé de sa définission doit être inclus. Le
    chemin doit être absolu ou relatif à $trusted_dir.
-   Lorsque "security" est actif, le script doit être situé
-   dans $trusted_dir.
+   Lorsque <link
+   linkend="variable.security">"security" est actif</link>, le script doit être situé
+   dans <link linkend="variable.trusted.dir">$trusted_dir</link>.
   </para>
   <para>
    L'objet Smarty est passé comme second argument. De cette façon, vous

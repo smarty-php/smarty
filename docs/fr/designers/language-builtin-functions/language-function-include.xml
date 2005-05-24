@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.include">
  <title>include</title>
  <informaltable frame="all">
@@ -46,16 +46,16 @@
   </tgroup>
  </informaltable>
  <para>
-  Les balises "include" sont utilisées pour inclure des templates à
+  Les balises "{include}" sont utilisées pour inclure des templates à
   l'intérieur d'autres templates. Toutes les variables disponibles
   dans le template réalisant l'inclusion sont disponibles dans le
-  template inclus. La balise include doit disposer de l'attribut
+  template inclus. La balise {include} doit disposer de l'attribut
   "file", qui contient le chemin de la ressource template.
  </para>
  <para>
   Vous pouvez spécifier un attribut optionnel <emphasis>assign</emphasis>
   qui définit une variable de template dans laquelle la sortie de
-  <emphasis>include</emphasis> sera stockée plutôt qu'affichée.
+  {include} sera stockée plutôt qu'affichée.
  </para>
  <example>
   <title>fonction include</title>
@@ -76,11 +76,14 @@
  <example>
   <title>fonction include, passage de variables</title>
 <programlisting>
+<![CDATA[
 {include file="header.tpl" title="Menu principal" table_bgcolor="#c0c0c0"}
 
 {* Le corps du template vient ici *}
 
-{include file="footer.tpl" logo="http://mon.example.com/logo.gif"}</programlisting>
+{include file="footer.tpl" logo="http://mon.example.com/logo.gif"}
+]]>
+  </programlisting>
  </example>
  <para>
   Utilisez la syntaxe <link
@@ -89,7 +92,8 @@
  </para>
  <example>
   <title>fonction include, exemple de ressource template</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 {* chemin absolu *}
 {include file="/usr/local/include/templates/header.tpl"}
 
@@ -100,8 +104,17 @@
 {include file="file:C:/www/pub/templates/header.tpl"}
 
 {* inclusion d'une ressource template "db" *}
-{include file="db:header.tpl"}</programlisting>
+{include file="db:header.tpl"}
+]]>
+  </programlisting>
  </example>
+ <para>
+  Voir aussi
+  <link linkend="language.function.include.php">{include_php}</link>,
+  <link linkend="language.function.php">{php}</link>,
+  <link linkend="template.resources">les ressources de template</link> et 
+  <link linkend="tips.componentized.templates">les templates composants</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

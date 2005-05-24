@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.php">
  <title>php</title>
  <para>
-  Les balises PHP permettent de rajouter du code PHP directement dans le
+  Les balises {php} permettent de rajouter du code PHP directement dans le
   template. Ils ne seront pas ignorés, quelle que soit la valeur de <link
   linkend="variable.php.handling">$php_handling</link>. Pour les
   utilisateurs avancés seulement, son utilisation n'est normalement pas
@@ -24,6 +24,7 @@
  </example>
  <para>
   Voir aussi
+  <link linkend="variable.php.handling">$php_handling</link>,
   <link linkend="language.function.include.php">{include_php}</link>,
   <link linkend="language.function.include">{include}</link> et
   <link linkend="tips.componentized.templates">les templates composantes</link>.

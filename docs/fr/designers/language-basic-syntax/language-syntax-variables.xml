@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 <sect1 id="language.syntax.variables">
  <title>Variables</title>
  <para>
   Les variables de template commence par un signe dollar (<literal>$</literal>).
   Elles peuvent contenir des nombres, des lettres et des underscores, tout
-  comme une variable PHP. Vous pouvez référencer des tableaux indexés
+  comme une <ulink url="&url.php-manual;language.variables">variable PHP</ulink>. Vous pouvez référencer des tableaux indexés
   numériquement ou non. Vous pouvez aussi référencer des propriétés d'objet 
-  ainsi que des méthodes. Les variables des fichiers de configuration sont
+  ainsi que des méthodes. Les <link linkend="language.config.variables">variables des fichiers de 
+  configuration</link> sont
   une exception à la synthaxe utilisant un signe dollar. Elles peuvent être 
   référencées en les entourant du signe dièse (<literal>#</literal>) ou
-  avec la variable spéciale $smarty.config.
+  avec la variable spéciale <link linkend="language.variables.smarty.config">$smarty.config</link>.
  </para>
  <example>
   <title>Variables</title>
@@ -26,6 +27,7 @@
 {#foo#}       <-- affiche la variable du fichier de configuration "foo"
 {$smarty.config.foo} <-- synonyme pour {#foo#}
 {$foo[bar]}   <-- synthaxe uniquement valide dans une section de boucle, voir {section}
+{assign var=foo value="baa"}{$foo} <--  affiche "baa", voir {assign}
 
 Plusieurs autres combinaisons sont autorisées
 
@@ -45,6 +47,7 @@ Plusieurs autres combinaisons sont autorisées
   <link linkend="language.config.variables">les variables de configuration</link>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

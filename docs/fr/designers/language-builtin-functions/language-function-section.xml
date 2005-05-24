@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.section">
  <title>section, sectionelse</title>
  <informaltable frame="all">
@@ -79,16 +79,16 @@
  <para>
   Les balises <emphasis>section</emphasis> sont utilisées pour
   parcourir un tableau de données. Toutes les balises
-  <emphasis>section</emphasis> doivent être utilisées de paire avec
-  les balises <emphasis>/section</emphasis>. Les paramètres requis
+  <emphasis>{section}</emphasis> doivent être utilisées de paire avec
+  les balises <emphasis>{/section}</emphasis>. Les paramètres requis
   sont <emphasis>name</emphasis> et <emphasis>loop</emphasis>.
-  Le nom de la section est, selon votre choix, composé de lettres,
+  Le nom de la {section} est, selon votre choix, composé de lettres,
   chiffres et underscores. Les sections peuvent être imbriquées,
   mais leurs noms doivent être uniques. La variable de parcours
   (généralement un tableau de données) détermine le nombre de fois
   que la section sera parcourue. Lorsque l'on affiche une variable
   dans une section, le nom de la section doit précéder
-  la variable entre crochets. <emphasis>sectionelse</emphasis>
+  la variable entre crochets. <emphasis>{sectionelse}</emphasis>
   est exécuté lorsqu'aucune valeur n'est trouvée dans la variable à
   parcourir.
  </para>
@@ -267,7 +267,8 @@ e-mail: jane@myexample.com<p>
  </example>
  <para>
   Les sections ont leur propre variable de gestion des propriétés.
-  Elles sont de la forme: {$smarty.section.nomSection.nomVariable}
+  Elles sont de la forme: 
+  <link linkend="language.variables.smarty.loops">{$smarty.section.sectionname.varname}</link>
  </para>
  <para>
   NOTE: Depuis Smarty 1.5.0, la syntaxe pour les propiétés des sections
@@ -287,7 +288,8 @@ e-mail: jane@myexample.com<p>
    <title>Note technique</title>
    <para>
     Si les attributs step et start ne sont pas modifiés, alors index
-    fonctionne de la même façon que iteration, à l'exception qu'il commence
+    fonctionne de la même façon que <link 
+    linkend="section.property.iteration">iteration</link>, à l'exception qu'il commence
     par 0 plutôt que par 1.
    </para>
   </note>
@@ -388,8 +390,10 @@ e-mail: jane@myexample.com<p>
   </para>
   <para>
    NOTE: Cette valeur n'est pas affectée par les attributs start, step et
-   max, à l'inverse de la propriété index. L'itération commence par
-   1 et non par 0 (comme le fait index). rownum est un alias de iteration,
+   max, à l'inverse de la propriété <link linkend="section.property.index">index</link>. 
+   L'itération commence par
+   1 et non par 0 (comme le fait index). <link
+   linkend="section.property.rownum">rownum</link> est un alias de iteration,
    ils fonctionnent de la même façon.
   </para>
   <example>
@@ -502,7 +506,8 @@ e-mail: jane@myexample.com<p>
   <title>rownum</title>
   <para>
    rownum, utilisé pour afficher la valeur courante de l'itération,
-   commence par 1. C'est un alias de iteration, ils fonctionnent de façon
+   commence par 1. C'est un alias de <link
+   linkend="section.property.iteration">iteration</link>, ils fonctionnent de façon
    identique.
   </para>
   <example>
@@ -626,6 +631,11 @@ e-mail: jane@myexample.com<p>
 ]]>
    </screen>
   </example>
+  <para>
+   Voir aussi 
+   <link linkend="language.function.foreach">{foreach}</link> et
+   <link linkend="language.variables.smarty.loops">$smarty.section</link>.
+  </para>
  </sect2>
 </sect1>
 <!-- Keep this comment at the end of the file

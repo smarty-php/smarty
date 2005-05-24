@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <sect1 id="language.syntax.quotes">
  <title>Variables insérées dans des chaînes de caractères</title>
  <para>
-  Smarty est capable d'interpréter les variables insérées à l'intérieur de
+  Smarty est capable d'interpréter les 
+  <link   linkend="language.syntax.variables">variables</link>  <link
+  linkend="api.assign">assignées</link> à l'intérieur de
   chaînes entre guillemets, du moment que leur nom est exclusivement composé
   de chiffres, lettres, underscores et crochets. Si le nom de la variable
   contient tout autre caractère (point, référence à un objet, etc.)
   la variable doit être entourée d'apostrophes inverses (`). Vous ne pouvez jamais
-  insérer de modifieurs, ils doivent toujours être appliquer à l'extérieur des
-  guillemets.
+  insérer de <link linkend="language.modifiers">modifieurs</link>, ils doivent toujours être appliquer à 
+  l'extérieur des guillemets.
  </para>
  <example>
   <title>Syntaxe d'insertion de variables dans des chaînes</title>
@@ -36,6 +38,7 @@ EXEMPLE PRATIQUE:
   <link linkend="language.modifier.escape">escape</link>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.foreach">
  <title>foreach,foreachelse</title>
  <informaltable frame="all">
@@ -53,22 +53,22 @@
   </tgroup>
  </informaltable>
  <para>
-  Les boucles <emphasis>foreach</emphasis> sont une alternative aux boucles
+  Les boucles <emphasis>{foreach}</emphasis> sont une alternative aux boucles
   <link linkend="language.function.section"><emphasis>section</emphasis></link>.
   Les boucles <emphasis>foreach</emphasis>
   sont utilisées pour parcourir des tableaux associatifs simples.
-  La syntaxe des boucles <emphasis>foreach</emphasis> est bien plus simple
-  que celle des boucles <emphasis>section</emphasis>, mais en contrepartie,
-  elles ne peuvent être utilisées que pour des tableaux associatifs simples.
-  La balise <emphasis>foreach</emphasis> doit toujours être accompagnée
-  de la balise <emphasis>/foreach</emphasis>. Les paramètres requis sont
+  La syntaxe des boucles <emphasis>{foreach}</emphasis> est bien plus simple
+  que celle des boucles <emphasis>{section}</emphasis>, mais en contrepartie,
+  <emphasis role="bold">elles ne peuvent être utilisées que pour des tableaux associatifs 
+  simples</emphasis>. La balise <emphasis>{foreach}</emphasis> doit toujours être accompagnée
+  de la balise <emphasis>{/foreach}</emphasis>. Les paramètres requis sont
   <emphasis>from</emphasis> et <emphasis>item</emphasis>. Le nom des boucles
-  foreach doit être composés exclusivement de lettres,
+  {foreach} doit être composés exclusivement de lettres,
   chiffres et underscores, selon vos préférences. Les boucles
-  <emphasis>foreach</emphasis> peuvent être imbriquées.
+  <emphasis>{foreach}</emphasis> peuvent être imbriquées.
   La variable <emphasis>from</emphasis> (généralement le tableau à
-  parcourir) détermine le nombre de fois que <emphasis>foreach</emphasis>
-  sera exécuté. <emphasis>foreachelse</emphasis> est exécuté si aucune
+  parcourir) détermine le nombre de fois que <emphasis>{foreach}</emphasis>
+  sera exécuté. <emphasis>{foreachelse}</emphasis> est exécuté si aucune
   valeur n'est présente dans la variable donnée à l'attribut
   <emphasis>from</emphasis>.
  </para>
@@ -132,7 +132,8 @@ portable: 760-1234<br />
 
  <para>
   Les boucles Foreach ont également leurs propres variables qui gèrent les propriétés
-  de foreach. Elles sont indiquées par : {$smarty.foreach.foreachname.varname} 
+  de foreach. Elles sont indiquées par : 
+  <link linkend="language.variables.smarty.loops">{$smarty.foreach.foreachname.varname}</link>
   où foreachname est le nom spécifié par l'attribut <emphasis>name</emphasis>
   de foreach.
  </para>

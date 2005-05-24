@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.ldelim">
  <title>ldelim,rdelim</title>
  <para>
@@ -8,8 +8,7 @@
   que tels, dans notre cas, "{" ou "}". Vous pouvez toujours utiliser <link
   linkend="language.function.literal">{literal}{/literal}</link> pour échapper
   des blocks de texte.
-  Voir aussi <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
-  et <link linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>.
+  Voir aussi <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>.
  </para>
  <example>
   <title>ldelim, rdelim</title>
