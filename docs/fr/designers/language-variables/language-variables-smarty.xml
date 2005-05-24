@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
 <sect1 id="language.variables.smarty">
  <title>Variable réservée {$smarty}</title>
  <para>
@@ -49,7 +49,8 @@
    Le timestamp courant peut être récupéré grâce à {$smarty.now}.
    Le nombre obtenu correspond au nombre de secondes écoulées depuis
    Epoch (1 Janvier 1970) et peut être passé directement au modificateur
-   de variable date à des fins d'affichage.
+   de variable date <link linkend="language.modifier.date.format">date_format</link> 
+   à des fins d'affichage.
   </para>
   <example>
    <title>utilisation de {$smarty.now}</title>
@@ -65,6 +66,8 @@
   <title>{$smarty.const}</title>
   <para>
    Vous pouvez directement accéder aux constantes PHP.
+   Voir aussi les <link
+   linkend="smarty.constants">constantes smarty</link>.
   </para>
   <example>
    <title>Utiliser {$smarty.const}</title>
@@ -82,7 +85,7 @@
    La capture réalisée via 
    <link linkend="language.function.capture">{capture}..{/capture}</link> 
    peut être récupérée par l'intermédiaire de la variable {$smarty}. Voir la section
-   sur <link linkend="language.function.capture">capture</link> pour un
+   sur <link linkend="language.function.capture">{capture}</link> pour un
    exemple à ce sujet.
   </para>
  </sect2>
@@ -90,10 +93,11 @@
  <sect2 id="language.variables.smarty.config">
   <title>{$smarty.config}</title>
   <para>
-   La variable {$smarty} peut être utilisée pour désigner une variable
-   d'un fichier de configuration. {$smarty.config.foo} est un synonyme de
+   La variable {$smarty} peut être utilisée pour désigner une <link
+   linkend="language.config.variables">variable
+   d'un fichier de configuration</link>. {$smarty.config.foo} est un synonyme de
    {#foo#}. Voir la section <link
-   linkend="language.function.config.load">config_load</link>
+   linkend="language.function.config.load">{config_load}</link>
    pour un exemple à ce sujet.
   </para>
  </sect2>
@@ -103,8 +107,8 @@
   <para>
    La variable {$smarty} peut être utilisée pour accéder aux propriétés
    des boucles 'section' et 'foreach'. Voir la documentation de
-   <link linkend="language.function.section">section</link> et
-   <link linkend="language.function.foreach">foreach</link>.
+   <link linkend="language.function.section">{section}</link> et
+   <link linkend="language.function.foreach">{foreach}</link>.
   </para>
  </sect2>
 
@@ -115,21 +119,20 @@
   </para>
  </sect2>
  <sect2 id="language.variables.smarty.ldelim">
-  <title>{$smarty.ldelim}</title>
+  <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
   <para>
-   Cette variable est utilisée pour afficher le délémiteur gauche. Lisez aussi
+   Cette variable est utilisée pour afficher le délémiteur gauche et le délimiteur droit. Lisez aussi
    la partie <link
    linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
- </sect2>
- <sect2 id="language.variables.smarty.rdelim">
-  <title>{$smarty.rdelim}</title>
   <para>
-   Cette variable est utilisée pour afficher le délémiteur droit. Lisez aussi
-   la partie <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+   Voir aussi les 
+   <link linkend="language.syntax.variables">variables</link> et les
+   <link linkend="language.config.variables">variables de configuration</link>.
   </para>
  </sect2>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

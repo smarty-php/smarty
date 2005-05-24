@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.string.format">
  <title>string_format</title>
  <informaltable frame="all">
@@ -32,7 +32,8 @@
  </informaltable>
  <para>
   Un moyen pour formater les chaînes de caractères, comme par exemple les
-  nombres décimaux. Utilise la syntaxe de sprintf pour formater les éléments.
+  nombres décimaux. Utilise la syntaxe de <ulink url="&url.php-manual;sprintf">sprintf</ulink> 
+  pour formater les éléments.
  </para>
  <example>
   <title>string_format</title>
@@ -65,8 +66,13 @@ Ce qui donne en sortie :
 24
 ]]>
 </screen>
- </example>
+</example>
+<para>
+ Voir aussi 
+ <link linkend="language.modifier.date.format">date_format</link>.
+  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

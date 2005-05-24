@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.count.words">
  <title>count_words</title>
  <para>
@@ -45,6 +45,7 @@ Un anneau pour les gouverner tous.
   <link linkend="language.modifier.count.sentences">count_sentences</link>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

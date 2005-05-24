@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.regex.replace">
  <title>regex_replace</title>
  <informaltable frame="all">
@@ -39,7 +39,8 @@
  </informaltable>
  <para>
   Un rechercher / remplacer avec une expression régulière. Utilise la même
-  syntaxe que la fonction PHP preg_replace.
+  syntaxe que la fonction PHP <ulink
+  url="&url.php-manual;preg_replace">preg_replace()</ulink>.
  </para>
  <example>
   <title>regex_replace</title>
@@ -73,8 +74,14 @@ L'infertilité est un maux grandissant
 L'infertilité est un maux grandissant, disent les experts.
 ]]>
 </screen>
- </example>
+</example>
+<para>
+ Voir aussi 
+ <link linkend="language.modifier.replace">replace</link> et
+ <link linkend="language.modifier.escape">escape</link>.
+  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

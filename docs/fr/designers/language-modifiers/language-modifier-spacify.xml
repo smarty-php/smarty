@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
 <sect1 id="language.modifier.spacify">
  <title>spacify</title>
  <informaltable frame="all">
@@ -63,12 +63,18 @@ Ce qui donne à l'écran :
 <screen>
 <![CDATA[
 Quelquechose s'est mal passé et à provoqué cet accident, disent les experts.
-Q u e l q u e c h o s e   s ' e s t   m a l   p a s s é   e t   à   p r o v o q u é   c e t   a c c i d e n t ,   d i s e n t   l e s   e x p e r t s .
-Q^^u^^e^^l^^q^^u^^e^^c^^h^^o^^s^^e^^ ^^s^^'^^e^^s^^t^^ ^^m^^a^^l^^ ^^p^^a^^s^^s^^é^^ ^^e^^t^^ ^^à^^ ^^p^^r^^o^^v^^o^^q^^u^^é^^ ^^c^^e^^t^^ ^^a^^c^^c^^i^^d^^e^^n^^t^^,^^ ^^d^^i^^s^^e^^n^^t^^ ^^l^^e^^s^^ ^^e^^x^^p^^e^^r^^t^^s^^.
+Q u e l q u e c h o s e   .... snip ....   l e s   e x p e r t s .
+Q^^u^^e^^l^^q^^u.... snip .... ^r^^t^^s^^.
 ]]>
 </screen>
- </example>
+</example>
+<para>
+ Voir aussi 
+ <link linkend="language.modifier.wordwrap">wordwrap</link> et
+ <link linkend="language.modifier.nl2br">nl2br</link>.
+  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
