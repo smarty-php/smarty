@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: didou Status: ready -->
 <part id="getting.started">
  <title>Pour commencer</title>
- 
+
  <chapter id="what.is.smarty">
   <title>Qu'est-ce que Smarty ?</title>
   <para>
@@ -92,12 +92,14 @@
    <listitem>
     <para>
      Syntaxe des templates configurable, vous
-     pouvez utiliser {}, {{}}, &lt;!--{}--&gt;, etc. comme délimiteurs.
+     pouvez utiliser {}, {{}}, &lt;!--{}--&gt;, etc. comme 
+     <link linkend="variable.left.delimiter">délimiteurs tag</link>.
     </para>
    </listitem>
    <listitem>
     <para>
-     Les instructions if/elseif/else/endif
+     Les instructions <link
+     linkend="language.function.if">if/elseif/else/endif</link>
      sont passées au parser PHP, la syntaxe de l'expression {if...}
      peut être aussi simple ou aussi complexe que vous
      le désirez.
@@ -105,29 +107,31 @@
    </listitem>
    <listitem>
     <para>
-     Imbrication illimitée de sections, de 'if', etc. autorisée.
+     Imbrication illimitée de <link linkend="language.function.section">sections</link>, de 'if', etc. autorisée.
     </para>
    </listitem>
    <listitem>
     <para>
-     Il est possible d'inclure du code PHP
+     Il est possible d'inclure du <link linkend="language.function.php">code PHP</link>
      directement dans vos templates, bien que celà ne soit pas obligatoire
      (ni conseillé), vû que le moteur est extensible.
     </para>
    </listitem>
    <listitem>
     <para>
-     Support de cache intégré.
+     Support de <link linkend="caching">cache</link> intégré.
     </para>
    </listitem>
    <listitem>
     <para>
-     Sources de templates arbitraires.
+     Sources de <link
+     linkend="template.resources">templates</link> arbitraires.
     </para>
    </listitem>
    <listitem>
     <para>
-     Fonctions de gestion de cache personnalisables.
+     Fonctions de <link
+     linkend="section.template.cache.handler.func">gestion de cache</link> personnalisables.
     </para>
    </listitem>
    <listitem>
@@ -137,17 +141,17 @@
    </listitem>
   </itemizedlist>
  </chapter>
- 
+
  <chapter id="installation">
   <title>Installation</title>
-  
+
   <sect1 id="installation.requirements">
    <title>Ce dont vous avez besoin</title>
    <para>
     Smarty nécessite un serveur Web utilisant PHP 4.0.6 ou supérieur.
    </para>
   </sect1>
-  
+
   <sect1 id="installing.smarty.basic">
    <title>Installation de base</title>
    <para>
@@ -169,9 +173,9 @@ debug.tpl
 /internals/*.php (tous)
 /plugins/*.php (tous)
 ]]>
-    </screen>   
+    </screen>
    </example>
-   
+
    <para>
     Smarty utilise une constante PHP appelée <link
     linkend="constant.smarty.dir">SMARTY_DIR</link> qui
@@ -185,11 +189,11 @@ debug.tpl
     devez définir SMARTY_DIR explicitement. SMARTY_DIR
     <emphasis>doit</emphasis> avoir être terminé par un slash.
    </para>
-   
+
    <para>
     Voici comment créer une instance de Smarty dans vos scripts PHP :
    </para>
-   
+
    <example>
     <title>créer une instance de Smarty</title>
     <programlisting role="php">
@@ -201,13 +205,13 @@ $smarty = new Smarty;
 ]]>
     </programlisting>
    </example>
-   
+
    <para>
     Essayez de lancer le script ci-dessus. Si vous obtenez une erreur indiquant
     que le fichier <filename>Smarty.class.php</filename> n'est pas trouvé,
     tentez l'une des actions suivantes :
    </para>
-   
+
    <example>
     <title>fournir un chemin absolu vers la bibliothèque Smarty</title>
     <programlisting role="php">
@@ -219,7 +223,7 @@ $smarty = new Smarty;
 ]]>
     </programlisting>
    </example>
-   
+
    <example>
     <title>Ajouter le répertoire de la bibliothèque dans l'include_path de PHP</title>
     <programlisting role="php">
@@ -234,7 +238,7 @@ $smarty = new Smarty;
 ]]>
     </programlisting>
    </example>
-   
+
    <example>
     <title>Définir explicitement la constante SMARTY_DIR</title>
     <programlisting role="php">
@@ -247,7 +251,7 @@ $smarty = new Smarty;
 ]]>
     </programlisting>
    </example>
-   
+
    <para>
     Maintenant que les fichiers de la librairie sont en place,
     il est temps de définir les répertoires de Smarty, pour votre application.
@@ -256,9 +260,13 @@ $smarty = new Smarty;
     <filename class="directory">templates_c</filename>, 
     <filename class="directory">configs</filename> et
     <filename class="directory">cache</filename>. Chacun d'entre eux peut être défini
-    via les attributs <varname>$template_dir</varname>,
-    <varname>$compile_dir</varname>, <varname>$config_dir</varname> et
-    <varname>$cache_dir</varname> respectivement. Il est vivement
+    via les attributs <link linkend="variable.template.dir">
+    <varname>$template_dir</varname></link>,
+    <link linkend="variable.compile.dir">
+    <varname>$compile_dir</varname></link>, <link linkend="variable.config.dir">
+    <varname>$config_dir</varname></link> et
+    <link linkend="variable.cache.dir">
+    <varname>$cache_dir</varname></link> respectivement. Il est vivement
     conseillé que vous régliez ces répertoires séparément pour chaque
     application qui utilise Smarty.
    </para>
@@ -307,7 +315,7 @@ $smarty = new Smarty;
    <para>
     Jetons un coup d'oeil à la structure de fichier obtenue :
    </para>
-   
+
    <example>
     <title>exemple de structure de fichiers</title>
     <screen>
@@ -328,10 +336,12 @@ $smarty = new Smarty;
 ]]>
     </screen>
    </example>
-   
+
    <para>
     Smarty a besoin d'accéder en écriture aux répertoires
-    <emphasis>$compile_dir</emphasis> et <emphasis>$cache_dir</emphasis>,
+    <link linkend="variable.compile.dir">
+    <emphasis>$compile_dir</emphasis></link> et <link linkend="variable.cache.dir">
+    <emphasis>$cache_dir</emphasis></link>,
     assurez-vous donc que le serveur Web dispose de ces droits d'accès.
     Il s'agit généralement de l'utilisateur "nobody" et du group
     "nobody". Pour les utilisateurs de OS X, l'utilisateur par défaut
@@ -340,7 +350,7 @@ $smarty = new Smarty;
     "/usr/local/apache/conf/") pour déterminer quel est l'utilisateur
     et le groupe auquel il appartient.
    </para>
-   
+
    <example>
     <title>régler les permissions d'accès</title>
     <programlisting role="shell">
@@ -353,7 +363,7 @@ chmod 770 /web/www.example.com/smarty/livredor/cache/
 ]]>
     </programlisting>
    </example>
-   
+
    <note>
     <title>Note technique</title>
     <para>
@@ -364,12 +374,12 @@ chmod 770 /web/www.example.com/smarty/livredor/cache/
      vous-même à ces fichiers), vous pouvez lui préférer chmod 775.
     </para>
    </note>
-   
+
    <para>
     Nous devons créer le fichier index.tpl que Smarty va charger.
     Il va se trouver dans $template_dir.
    </para>
-   
+
    <example>
     <title>Edition de  /web/www.example.com/smarty/templates/index.tpl</title>
     <screen>
@@ -381,8 +391,8 @@ Hello, {$name}!
 ]]>
     </screen>
    </example>
-   
-   
+
+
    <note>
     <title>Note technique</title>
     <para>
@@ -394,7 +404,7 @@ Hello, {$name}!
      adapter la coloration syntaxique.
     </para>
    </note>
-   
+
    <para>
     Maintenant passons à l'édition du fichier index.php. Nous allons
     créer une instance de Smarty, assigner une valeur à une variable
@@ -403,30 +413,30 @@ Hello, {$name}!
     include_path. Assurez-vous de faire la même chose ou d'utiliser
     des chemins absolus.
    </para>
-   
+
    <example>
     <title>édition de  /web/www.example.com/docs/livredor/index.php</title>
     <screen>
 <![CDATA[
-<?php     
+<?php
     // charge la bibliothèque Smarty
      require('Smarty.class.php');
-     
+
      $smarty = new Smarty;
-     
+
      $smarty->template_dir = '/web/www.example.com/smarty/livredor/templates/';
      $smarty->compile_dir = '/web/www.example.com/smarty/livredor/templates_c/';
      $smarty->config_dir = '/web/www.example.com/smarty/livredor/configs/';
      $smarty->cache_dir = '/web/www.example.com/smarty/livredor/cache/';
-     
+
      $smarty->assign('name','Ned');
-     
+
     $smarty->display('index.tpl');
 ?>
 ]]>
     </screen>
    </example>
-   
+
    <note>
     <title>Note techique</title>
     <para>
@@ -440,7 +450,7 @@ Hello, {$name}!
      absolus. Celà nous garantit que Smarty récupèrera les bons fichiers.
     </para>
    </note>
-   
+
    <para>
     Et maintenant appelez le fichier <filename>index.php</filename> avec navigateur
     Web. Vous devriez voir "Hello, Ned!".
@@ -451,13 +461,13 @@ Hello, {$name}!
   </sect1>
   <sect1 id="installing.smarty.extended">
    <title>Configuration avancée</title>
-   
+
    <para>
     Ceci est la suite de <link
     linkend="installing.smarty.basic">l'installation de base</link>, veuillez
     lire cette dernière avant de poursuivre.
    </para>
-   
+
    <para>
     Une manière un peu plus commode de configurer Smarty est de faire votre
     propre classe fille et de l'initialiser selon votre environnement.
@@ -468,7 +478,7 @@ Hello, {$name}!
     include_path PHP. Assurez-vous de faire la même chose ou alors d'utiliser
     des chemins absolus.
    </para>
-   
+
    <example>
     <title>édition de /php/includes/livredor/setup.php</title>
     <programlisting role="php">
@@ -476,67 +486,67 @@ Hello, {$name}!
 <?php
      // charge la librairie Smarty
      require('Smarty.class.php');
-     
+
      // le fichier setup.php est un bon
      // endroit pour charger les fichiers
      // de librairies de l'application et vous pouvez
      // faire celà juste ici. Par exemple :
      // require('livredor/livredor.lib.php');
-     
+
      class Smarty_livredor extends Smarty {
-     
+
      function Smarty_livredor() {
-     
+
      // Constructeur de la classe. 
      // Appelé automatiquement à l'instanciation de la classe.
-     
+
      $this->Smarty();
-     
+
      $this->template_dir = '/web/www.example.com/smarty/livredor/templates/';
      $this->compile_dir = '/web/www.example.com/smarty/livredor/templates_c/';
      $this->config_dir = '/web/www.example.com/smarty/livredor/configs/';
      $this->cache_dir = '/web/www.example.com/smarty/livredor/cache/';
-     
+
      $this->caching = true;
      $this->assign('app_name', 'Guest Book');
      }
-     
+
     }
 ?>
 ]]>
     </programlisting>
    </example>
-   
+
    <para>
     Modifions maintenant le fichier index.php pour qu'il utilise "setup.php"
    </para>
-   
+
    <example>
     <title>Edition de /web/www.example.com/docs/livredor/index.php</title>
     <programlisting role="php">
 <![CDATA[
-<?php     
+<?php
      require('livredor/setup.php');
-     
+
      $smarty = new Smarty_livredor;
-     
+
      $smarty->assign('name','Ned');
-     
+
     $smarty->display('index.tpl');
-    
+
 ?>
 ]]>
     </programlisting>   
    </example>
-   
+
    <para>
     Vous savez maintenant qu'il est facile de créer une instance de Smarty,
     correctement configurée, en utilisant Smarty_livredor qui initialise
     automatiquement tout ce qu'il faut pour votre application.
    </para>
-   
+
   </sect1>
-  
+
  </chapter>
 </part>
 
@@ -560,4 +570,3 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
-

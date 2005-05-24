@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: didou Status: ready -->
 <chapter id="tips">
  <title>Trucs et astuces</title>
  <para></para>
@@ -48,7 +48,7 @@
    Si une variable est utilisée fréquemment dans vos templates,
    lui appliquer le modificateur par défaut peut être un peu fastidieux.
    Vous pouvez remédier à celà en lui assignant une valeur par défaut
-   avec la fonction <link linkend="language.function.assign">assign</link>.
+   avec la fonction <link linkend="language.function.assign">{assign}</link>.
   </para>
   <example>
    <title>assigner une valeur par défaut à une variable de template</title>
@@ -119,7 +119,8 @@ footer.tpl
    le titre sera "Archives". Notez que dans l'exemple des archives, on utilise
    le fichier archives_page.conf plutôt que des variables codées en dur.
    Remarquez aussi que "BC News" est affichée si la variable $title
-   n'est pas définie, grâce au modificateur de variable <emphasis>default</emphasis>.
+   n'est pas définie, grâce au modificateur de variable 
+   <link linkend="language.modifier.default">default</link>.
   </para>
  </sect1>
  <sect1 id="tips.dates">
@@ -202,13 +203,22 @@ function makeTimeStamp($year="", $month="", $day="")
    if(empty($day)) {
        $day = strftime("%d");
    }
-   
+
    return mktime(0, 0, 0, $month, $day, $year);
 }
 ?>
 ]]>
     </programlisting>
    </example>
+   
+   <para>
+    Voir aussi
+    <link linkend="language.function.html.select.date">{html_select_date}</link>,
+    <link linkend="language.function.html.select.time">{html_select_time}</link>,
+    <link linkend="language.modifier.date.format">date_format</link>
+    et <link linkend="language.variables.smarty.now">$smarty.now</link>,
+   </para>
+
   </sect1>
   <sect1 id="tips.wap">
    <title>WAP/WML</title>

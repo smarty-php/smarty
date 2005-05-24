@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.16 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.17 Maintainer: gerald Status: ready -->
 <chapter id="language.modifiers">
  <title>Modificateurs de variables</title>
  <para>
@@ -65,6 +65,13 @@
   comme connues dans le tableau <link linkend="variable.security.settings">
   $security_settings['MODIFIER_FUNCS']</link>.
  </para>
+ <para>
+  Voir aussi
+  <link linkend="api.register.modifier">register_modifier()</link>,
+  <link linkend="api.register.function">register_function()</link>,
+  <link linkend="plugins">étendre Smarty avec des plugins</link>
+  et <link linkend="plugins.modifiers">les modifieurs</link>.
+ </para>
 
  &designers.language-modifiers.language-modifier-cat;
  &designers.language-modifiers.language-modifier-capitalize;
@@ -89,6 +96,7 @@
  &designers.language-modifiers.language-modifier-wordwrap;
 
 </chapter>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

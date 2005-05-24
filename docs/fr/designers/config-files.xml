@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <chapter id="config.files">
  <title>Fichiers de configuration</title>
  <para>
@@ -42,8 +42,8 @@ pass=foobar
   </programlisting>
  </example>
  <para>
-  Les valeurs des variables de fichiers de configuration peuvent être entre
-  guillemets, sans que celà soit nécessaire. Si vous vouler utiliser des
+  Les valeurs des <link linkend="language.config.variables">variables de fichiers de configuration</link> 
+  peuvent être entre guillemets, sans que celà soit nécessaire. Si vous vouler utiliser des
   valeurs sur plusieurs lignes, vous devrez les entourer de triples
   guillemets ("""). Vous pouvez insérer des commentaires dans les fichiers de
   configuration en utilisant une syntaxe quelquonque, non valide.
@@ -62,11 +62,14 @@ pass=foobar
   à la fois en tant que globale et à la fois en tant que variable de
   section, la variable de section est prioritaire.
   Si vous appelez deux variables dans une même section de la même façon,
-  la dernière déclarée prime.
+  la dernière déclarée prime. (voir
+  <link linkend="variable.config.overwrite">$config_overwrite</link>)
  </para>
  <para>
-  Les fichiers de configuration sont chargés dans le template grâce à la
-  fonction <command>config_load</command>.
+  Les fichiers de configuration sont chargés dans le template grâce aux
+  fonctions <link
+  linkend="language.function.config.load"><command>{config_load}</command></link>, 
+  et <link linkend="api.config.load"><command>config_load()</command></link>.
  </para>
  <para>
   Vous pouvez masquer des variables ou des sections entières en préfixant

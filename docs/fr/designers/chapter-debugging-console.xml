@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
 <chapter id="chapter.debugging.console">
  <title>Console de débogage</title>
  <para>
   Il existe une console de débogage dans Smarty. La console vous indique
-  toutes les variables incluses, assignées et chargées depuis un fichier de
-  configuration pour le template courant. Un template appelé "debug.tpl"
-  est inclus dans la distribution de Smarty. Si besoin, vous pouvez définir
-  $debug_tpl de façon à ce que ce dernier contienne le chemin
-  du template à utiliser(dans SMARTY_DIR par defaut).
+  toutes les templates <link linkend="language.function.include">incluses</link>, 
+  les variables <link linkend="api.assign">assignées</link> et chargées depuis un fichier de
+  <link linkend="language.config.variables">configuration</link> pour le template courant. 
+  Un template appelé "debug.tpl" est inclus dans la distribution de Smarty qui contrôle
+  le formattage de la console.Définissez <link linkend="variable.debugging">$debugging</link>
+  à true dans Smarty et, si besoin, vous pouvez définir
+  <link linkend="variable.debug.tpl">$debug_tpl</link> de façon à ce que ce dernier 
+  contienne le chemin du template à utiliser(dans
+  <link linkend="constant.smarty.dir">SMARTY_DIR</link> par defaut).
   Lorsque vous chargez la page, une console javascript est censée surgir
   et vous donner les noms de toutes les variables inclues et assignées dans
   votre page courante. Pour voir toutes les variables d'un template particulier,
   voir la fonction <link linkend="language.function.debug">{debug}</link>.
-  Pour désactiver la console de débogage, définissez $debugging à false.
+  Pour désactiver la console de débogage, définissez 
+  <link linkend="variable.debugging">$debugging</link> à false.
   Vous pouvez également temporairement activer le débogage en indiquant
   SMARTY_DEBUG dans l'url si tant est que l'option
   <link linkend="variable.debugging.ctrl">$debugging_ctrl</link> soit activée.
@@ -22,10 +27,11 @@
   <note>
    <title>Note technique</title>
    <para>
-    La console de débogage ne fonctionne pas si vous utilisez l'API fetch (),
-    mais seulement lorsque vous utilisez display (). C'est en effet un jeu
-    d'instructions javascripts à la fin du template qui déclenchent l'ouverture
-    de la fenêtre. Si vous n'aimez pas javascript, vous pouvez modifier
+    La console de débogage ne fonctionne pas si vous utilisez l'API 
+    <link linkend="api.fetch">fetch()</link>,
+    mais seulement lorsque vous utilisez <link linkend="api.display">display()</link>. 
+    C'est en effet un jeu d'instructions javascripts à la fin du template qui déclenchent 
+    l'ouverture de la fenêtre. Si vous n'aimez pas javascript, vous pouvez modifier
     debug.tpl pour formater les données de la façon qui vous conviendra le
     mieux. Les données de débogage ne sont pas mises en cache et les
     informations de debug.tpl ne sont pas incluses dans la sortie de la
@@ -38,6 +44,12 @@
     indiqués en secondes.
    </para>
   </note>
+  <para>
+   Voir aussi
+   <link linkend="troubleshooting">troubleshooting</link>,
+   <link linkend="variable.error.reporting">$error_reporting</link>
+   et <link linkend="api.trigger.error">trigger_error()</link>.
+   </para>
  </chapter>
  <!-- Keep this comment at the end of the file
  Local variables:
