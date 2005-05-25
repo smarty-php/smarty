@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 <refentry id="api.assign.by.ref">
  <refnamediv>
   <refname>assign_by_ref</refname>
@@ -23,7 +23,8 @@
   <para>
    Si vous assignez une variable par référence puis changez sa
    valeur, le changement est aussi répercuté sur la valeur assignée.
-   Pour les objets, assign_by_ref ne fait pas de copie en mémoire de l'objet
+   Pour les <link linkend="advanced.features.objects">objets</link>, 
+   assign_by_ref ne fait pas de copie en mémoire de l'objet
    assigné. Référez-vous au manuel PHP pour une explication plus précise sur
    les références de variable.
   </para>
@@ -40,6 +41,13 @@ $smarty->assign_by_ref("Adresse",$address);
 ]]>
    </programlisting>
   </example>
+  <para>
+   Voir aussi 
+   <link linkend="api.assign">assign()</link>,
+   <link linkend="api.clear.all.assign">clear_all_assign()</link>,
+   <link linkend="api.append">append()</link> et
+   <link linkend="language.function.assign">{assign}</link>.
+   </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file
