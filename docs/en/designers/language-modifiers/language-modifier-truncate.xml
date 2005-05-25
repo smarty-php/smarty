@@ -60,15 +60,13 @@
 <![CDATA[
 <?php
     
-$smarty = new Smarty;
 $smarty->assign('articleTitle', 'Two Sisters Reunite after Eighteen Years at Checkout Counter.');
-$smarty->display('index.tpl');
 
 ?>
 ]]>
    </programlisting>
    <para>
-    where index.tpl is:
+    where template is:
    </para>
    <programlisting>
 <![CDATA[

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.html.options">
- <title>html_options</title>
+ <title>{html_options}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -58,90 +58,90 @@
   </tgroup>
  </informaltable>
  <para>
-  html_options is a custom function that creates html option group
+  {html_options} is a
+  <link linkend="language.custom.functions">custom function</link>
+  that creates html &lt;select&gt;&lt;option&gt; group
   with provided data. It takes care of which item(s) are selected by
   default as well. Required attributes are values and output, unless
   you use options instead.
  </para>
  <para>
-  If a given value is an array, it will treat it as an html OPTGROUP,
-  and display the groups. Recursion is supported with OPTGROUP. All
+  If a given value is an array, it will treat it as an html &lt;optgroup&gt;,
+  and display the groups. Recursion is supported with &lt;optgroup&gt;. All
   output is XHTML compatible.
  </para>
  <para>
   If the optional <emphasis>name</emphasis> attribute is given, the
   &lt;select name="groupname"&gt;&lt;/select&gt; tags will enclose
-  the option list. Otherwise only the option list is generated.
+  the option list. Otherwise only the &lt;option&gt; list is generated.
  </para>
  <para>
   All parameters that are not in the list above are printed as
-  name/value-pairs inside the &lt;select&gt;-tag. They are ignored if
+  name/value-pairs inside the &lt;select&gt; tag. They are ignored if
   the optional <emphasis>name</emphasis> is not given.
  </para>
  <example>
-  <title>html_options : Example 1</title>
-  <programlisting>
+  <title>{html_options}</title>
+  <para>
+  <emphasis role="bold">Example 2:</emphasis>
+  </para>
+  <programlisting role="php">
 <![CDATA[
-   index.php:
-   ----------
+<?php
 
-   require('Smarty.class.php');
-   $smarty = new Smarty;
    $smarty->assign('cust_ids', array(1000,1001,1002,1003));
-   $smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-   Johnson','Charlie Brown'));
+$smarty->assign('cust_names', array(
+                               'Joe Schmoe',
+                               'Jack Smith',
+                               'Jane Johnson',
+                               'Charlie Brown'));
    $smarty->assign('customer_id', 1001);
-   $smarty->display('index.tpl');
+
+?>
 ]]>
   </programlisting>
   <para>
-   Where index.tpl is:
+  Where template is:
   </para>
   <programlisting>
 <![CDATA[
-
    <select name=customer_id>
-   {html_options values=$cust_ids selected=$customer_id output=$cust_names}
+   {html_options values=$cust_ids output=$cust_names selected=$customer_id}
    </select>
 ]]>
   </programlisting>
    <para>
-    Example 2
+  <emphasis role="bold">Example 2:</emphasis>
    </para>
-   <programlisting>
+   <programlisting role="php">
 <![CDATA[
-   index.php:
-   ----------
+<?php
 
-   require('Smarty.class.php');
-   $smarty = new Smarty;
    $smarty->assign('cust_options', array(
    1001 => 'Joe Schmoe',
    1002 => 'Jack Smith',
    1003 => 'Jane Johnson',
    1004 => 'Charlie Brown'));
    $smarty->assign('customer_id', 1001);
-   $smarty->display('index.tpl');
+
+?>
 ]]>
   </programlisting>
   <para>
-   Where index.tpl is:
+where template is:
   </para>
   <programlisting>
 <![CDATA[
-
    <select name=customer_id>
    {html_options options=$cust_options selected=$customer_id}
    </select>
-
 ]]>
   </programlisting>
   <para>
-   Both examples will output:
+   Both the above examples will output:
   </para>
   <screen>
 <![CDATA[
-
    <select name=customer_id>
     <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
     <option label="Jack Smith" value="1001" selected="selected">Jack Smith</option>
@@ -152,6 +152,38 @@
 ]]>
   </screen>
  </example>
+  <example>
+   <title>{html_options} - Database example (eg PEAR or ADODB):</title>
+<programlisting role="php">
+<![CDATA[
+<?php
+
+$sql = 'select type_id, types from types order by type';
+$smarty->assign('types',$db->getAssoc($sql));
+
+$sql = 'select * from contacts where contact_id=12';
+$smarty->assign('contact',$db->getRow($sql));
+
+?>
+]]>
+</programlisting>
+<para>
+where the template is:
+</para>
+<programlisting>
+<![CDATA[
+<select name="type_id">
+    {html_options name="type" options=$types selected=$contact.type_id}
+</select>
+]]>
+  </programlisting>
+ </example>
+   <para>
+    See also
+    <link linkend="language.function.html.checkboxes">{html_checkboxes}</link>
+    and
+    <link linkend="language.function.html.radios">{html_radios}</link>
+ </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file

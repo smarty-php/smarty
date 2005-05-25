@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.if">
- <title>if,elseif,else</title>
+ <title>{if},{elseif},{else}</title>
  <para>
   <emphasis>{if}</emphasis> statements in Smarty have much the same flexibility as PHP if
   statements, with a few added features for the template engine.

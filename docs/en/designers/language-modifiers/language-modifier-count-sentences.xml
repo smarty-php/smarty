@@ -11,15 +11,16 @@
 <![CDATA[
 <?php
     
-$smarty = new Smarty;
-$smarty->assign('articleTitle', 'Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.');
-$smarty->display('index.tpl');
+$smarty->assign('articleTitle',
+                 'Two Soviet Ships Collide - One Dies.
+                 Enraged Cow Injures Farmer with Axe.'
+                 );
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[

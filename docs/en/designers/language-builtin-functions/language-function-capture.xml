@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.capture">
- <title>capture</title>
+ <title>{capture}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -37,13 +37,13 @@
   </tgroup>
  </informaltable>
  <para>
-  capture is used to collect the output of the template into a
+  {capture} is used to collect the output of the template into a
   variable instead of displaying it. Any content between {capture
   name="foo"} and {/capture} is collected into the variable specified
   in the name attribute. The captured content can be used in the
   template from the special variable <link
    linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
-  where foo is the value passed in the name attribute. If you do not
+  where "foo" is the value passed in the name attribute. If you do not
   supply a name attribute, then "default" will be used. All {capture}
   commands must be paired with {/capture}. You can nest capture commands.
  </para>
@@ -58,11 +58,12 @@
  <caution>
   <para>
    Be careful when capturing <link
-   linkend="language.function.insert"><command>insert</command></link>
+   linkend="language.function.insert">{insert}</link>
    output. If you have
    <link linkend="caching">caching</link>
    turned on and you have
-   <command>insert</command> commands that you expect to run
+   <link linkend="language.function.insert">{insert}</link>
+   commands that you expect to run
    within cached content, do not capture this content.
   </para>
  </caution>
@@ -75,12 +76,15 @@
 {capture name=banner}
 {include file="get_banner.tpl"}
 {/capture}
-{if $smarty.capture.banner ne ""}
+
+{if $smarty.capture.banner ne ''}
+<table>
 <tr>
  <td>
   {$smarty.capture.banner}
  </td>
 </tr>
+</table>
 {/if}
 ]]>
    </programlisting>

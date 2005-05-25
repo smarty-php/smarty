@@ -10,15 +10,17 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
-$smarty->assign('articleTitle', "War Dims Hope for Peace. Child's Death Ruins
-Couple's Holiday.\n\nMan is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.");
-$smarty->display('index.tpl');
+
+$smarty->assign('articleTitle',
+                 "War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.\n\n
+                 Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation."
+                );
+
 ?>
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[

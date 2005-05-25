@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.eval">
- <title>eval</title>
+ <title>{eval}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -38,13 +38,13 @@
   </tgroup>
  </informaltable>
  <para>
-  eval is used to evaluate a variable as a template. This can be used
+  {eval} is used to evaluate a variable as a template. This can be used
   for things like embedding template tags/variables into variables or
   tags/variables into config file variables.
  </para>
  <para>
   If you supply the special "assign" attribute, the output of the
-  eval function will be assigned to this template variable instead of
+  {eval} function will be assigned to this template variable instead of
   being output to the template.
  </para>
  <note>
@@ -59,12 +59,14 @@
   <title>Technical Note</title>
   <para>
    Evaluated variables are compiled on every invocation, the compiled
-   versions are not saved! However if you have caching enabled, the
+   versions are not saved! However if you have
+   <link linkend="caching">caching</link>
+   enabled, the
    output will be cached with the rest of the template.
   </para>
  </note>
  <example>
-  <title>eval</title>
+  <title>{eval}</title>
   <programlisting>
 <![CDATA[
    setup.conf
@@ -96,7 +98,6 @@
   </para>
   <screen>
 <![CDATA[
-
    This is the contents of foo.
    Welcome to Foobar Pub & Grill's home page!
    You must supply a <strong>city</strong>.

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.counter">
- <title>counter</title>
+ <title>{counter}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -65,7 +65,7 @@
   </tgroup>
  </informaltable>
  <para>
-  counter is used to print out a count. counter will remember the
+  {counter} is used to print out a count. {counter} will remember the
   count on each iteration. You can adjust the number, the interval
   and the direction of the count, as well as determine whether or not
   to print the value. You can run multiple counters concurrently by

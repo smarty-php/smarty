@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.html.table">
- <title>html_table</title>
+ <title>{html_table}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -117,7 +117,9 @@
   </tgroup>
  </informaltable>
  <para>
-  <emphasis>html_table</emphasis> is a custom function that dumps an array of
+  {html_table} is a
+  <link linkend="language.custom.functions">custom function</link>
+  that dumps an array of
   data into an HTML table. The <emphasis>cols</emphasis> attribute determines
   how many columns will be in the table. The <emphasis>table_attr</emphasis>,
   <emphasis>tr_attr</emphasis> and <emphasis>td_attr</emphasis> values
@@ -131,6 +133,8 @@
   <title>html_table</title>
   <programlisting role="php">
 <![CDATA[
+php code:
+---------
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -142,6 +146,8 @@ $smarty->display('index.tpl');
   </programlisting>
   <programlisting>
 <![CDATA[
+template code:
+--------------
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
 {html_table loop=$data cols=4 tr_attr=$tr}

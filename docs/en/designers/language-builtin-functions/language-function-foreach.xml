@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.foreach">
- <title>foreach,foreachelse</title>
+ <title>{foreach},{foreachelse}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -56,8 +56,8 @@
   <emphasis>{foreach}</emphasis> loops are an alternative to
   <link
    linkend="language.function.section"><emphasis>{section}</emphasis></link>
-  loops. <emphasis>foreach</emphasis> is used to loop over a single
-  associative array. The syntax for
+  loops. <emphasis>{foreach}</emphasis> is used to loop over a
+  <emphasis role="bold">single associative array</emphasis>. The syntax for
   <emphasis>{foreach}</emphasis> is much easier than
   <emphasis>{section}</emphasis>, but as a tradeoff it
   <emphasis role="bold">can only be used
@@ -74,10 +74,17 @@
   values in the <emphasis>from</emphasis> variable.
  </para>
  <example>
-  <title>foreach</title>
+  <title>{foreach} - item</title>
+<programlisting role="php">
+<![CDATA[
+<?php
+ $arr = array( 1001,1002,1003);
+ $smarty->assign('custid', $arr);
+?>
+]]>
+</programlisting>
   <programlisting>
 <![CDATA[
-
    {* this example will print out all the values of the $custid array *}
    {foreach from=$custid item=curr_id}
    id: {$curr_id}<br />
@@ -97,18 +104,25 @@
  </example>
 
  <example>
-  <title>foreach key</title>
+  <title>{foreach} - item and key</title>
+<programlisting role="php">
+<![CDATA[
+// The key contains the key for each looped value
+// assignment looks like this:
+<?php
+ $smarty->assign("contacts", array(
+                              array("phone" => "1",
+                                    "fax" => "2",
+                                    "cell" => "3"),
+                              array("phone" => "555-4444",
+                                    "fax" => "555-3333",
+                                    "cell" => "760-1234"))
+                                    );
+?>
+]]>
+</programlisting>
   <programlisting>
 <![CDATA[
-   {* The key contains the key for each looped value
-
-   assignment looks like this:
-
-   $smarty->assign("contacts", array(array("phone" => "1", "fax" => "2", "cell" => "3"),
-   array("phone" => "555-4444", "fax" => "555-3333", "cell" => "760-1234")));
-
-   *}
-
    {foreach name=outer item=contact from=$contacts}
    {foreach key=key item=item from=$contact}
    {$key}: {$item}<br />
@@ -131,8 +145,28 @@
   </screen>
  </example>
 
+ <example>
+  <title>{foreach} - database example (eg PEAR or ADODB)</title>
+<programlisting role="php">
+<![CDATA[
+<?php
+  $sql = 'select contact_id, name, nick from contacts order by contact';
+  $smarty->assign("contacts", $db->getAssoc($sql));
+?>
+]]>
+</programlisting>
+<programlisting>
+<![CDATA[
+{foreach key=cid item=con from=$contacts}
+ <a href="contact.php?contact_id={$cid}">{$con.name} - {$con.nick}</a><br />
+{/foreach}
+]]>
+</programlisting>
+
+ </example>
+
  <para>
-  Foreach-loops also have their own variables that handle foreach properties.
+  {foreach} loops also have their own variables that handle {foreach} properties.
   These are indicated like so:
   <link linkend="language.variables.smarty.loops">{$smarty.foreach.foreachname.varname}</link>
   with
@@ -143,11 +177,8 @@
  <sect2 id="foreach.property.iteration">
   <title>iteration</title>
   <para>
-   iteration is used to display the current loop iteration.
-  </para>
-  <para>
-   Iteration always starts with 1 and is incremented by one
-   one each iteration.
+   iteration is used to display the current loop iteration.Iteration always
+   starts with 1 and is incremented by one on each iteration.
   </para>
  </sect2>
 

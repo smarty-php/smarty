@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.literal">
- <title>literal</title>
+ <title>{literal}</title>
  <para>
   {literal} tags allow a block of data to be taken literally. This is typically
   used around javascript or stylesheet blocks where curly braces would

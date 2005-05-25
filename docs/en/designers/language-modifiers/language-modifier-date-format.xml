@@ -53,15 +53,13 @@
 <![CDATA[
 <?php
     
-$smarty = new Smarty;
 $smarty->assign('yesterday', strtotime('-1 day'));
-$smarty->display('index.tpl');
     
 ?>
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[
@@ -151,7 +149,8 @@ Monday, February 5, 2001
      %n - newline character
     </para></listitem>
     <listitem><para>
-     %p - either `am' or `pm' according to the given time value, or the corresponding strings for the current locale
+     %p - either `am' or `pm' according to the given time value, or the corresponding strings for the
+     current locale
     </para></listitem>
     <listitem><para>
      %r - time in a.m. and p.m. notation
@@ -172,17 +171,20 @@ Monday, February 5, 2001
      %u - weekday as a decimal number [1,7], with 1 representing Monday
     </para></listitem>
     <listitem><para>
-     %U - week number of the current year as a decimal number, starting with the first Sunday as the first day of the first week
+     %U - week number of the current year as a decimal number, starting with the first Sunday as the first
+     day of the first week
     </para></listitem>
     <listitem><para>
-     %V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week 1 is the first week that has at least 4 days in the current
+     %V - The ISO 8601:1988 week number of the current year as a decimal number, range 01 to 53, where week
+     1 is the first week that has at least 4 days in the current
      year, and with Monday as the first day of the week.
     </para></listitem>
     <listitem><para>
      %w - day of the week as a decimal, Sunday being 0
     </para></listitem>
     <listitem><para>
-     %W - week number of the current year as a decimal number, starting with the first Monday as the first day of the first week
+     %W - week number of the current year as a decimal number, starting with the first Monday as the first
+     day of the first week
     </para></listitem>
     <listitem><para>
      %x - preferred date representation for the current locale without the time
@@ -241,4 +243,5 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+
 

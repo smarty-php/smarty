@@ -38,16 +38,16 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
-$smarty->assign('articleTitle', "Blind Woman Gets <font face=\"helvetica\">New
-Kidney</font> from Dad she Hasn't Seen in <b>years</b>.");
-$smarty->display('index.tpl');
+$smarty->assign('articleTitle',
+                "Blind Woman Gets <font face=\"helvetica\">New
+Kidney</font> from Dad she Hasn't Seen in <b>years</b>."
+               );
 
 ?>
 ]]>
    </programlisting>
    <para>
-    where index.tpl is:
+    where template is:
    </para>
    <programlisting>
 <![CDATA[

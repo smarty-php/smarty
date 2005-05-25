@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.config.load">
- <title>config_load</title>
+ <title>{config_load}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -64,13 +64,14 @@
   </tgroup>
  </informaltable>
  <para>
-  This function is used for loading in variables from a
+  {config_load} is used for loading  config
+  <link linkend="language.config.variables">#variables#</link> from a
   configuration file into the template.
   See <link linkend="config.files">Config Files</link> for more
   info.
  </para>
  <example>
-  <title>function config_load</title>
+  <title>{config_load}</title>
   <programlisting>
 <![CDATA[
 {config_load file="colors.conf"}
@@ -127,8 +128,9 @@
  </example>
 
  <para>
-  See also <link linkend="config.files">Config Files</link>,
+  See also <link linkend="config.files">Config files</link>,
   <link linkend="language.config.variables">Config variables</link>,
+  <link linkend="variable.config.dir">$config_dir</link>,
   <link linkend="api.get.config.vars">get_config_vars()</link>
   and
   <link linkend="api.config.load">config_load()</link>.

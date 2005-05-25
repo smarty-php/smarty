@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
  <sect1 id="language.function.ldelim">
-  <title>ldelim,rdelim</title>
+  <title>{ldelim},{rdelim}</title>
   <para>
    ldelim and rdelim are used for escaping template delimiters, in our case
    "{" or "}". You can also use <link

@@ -10,7 +10,7 @@
    <title>Note</title>
    <para>
     If you want to strip blocks of template text, use the <link
-    linkend="language.function.strip">strip function</link>.
+    linkend="language.function.strip">{strip}</link> function.
    </para>
   </note>
   <example>
@@ -27,7 +27,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    where index.tpl is:
+    where template is:
    </para>
    <programlisting>
 <![CDATA[

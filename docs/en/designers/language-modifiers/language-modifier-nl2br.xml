@@ -13,15 +13,15 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
-$smarty->assign('articleTitle', "Sun or rain expected\ntoday, dark tonight");
-$smarty->display('index.tpl');
+$smarty->assign('articleTitle',
+                "Sun or rain expected\ntoday, dark tonight"
+                );
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[

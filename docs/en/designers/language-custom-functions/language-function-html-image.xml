@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.html.image">
- <title>html_image</title>
+ <title>{html_image}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -65,58 +65,52 @@
   </tgroup>
  </informaltable>
  <para>
-  html_image is a custom function that generates an HTML tag for an
+  {html_image} is a
+  <link linkend="language.custom.functions">custom function</link>
+  that generates an HTML tag for an
   image. The height and width are automatically calculated from the
   image file if none are supplied.
  </para>
  <para>
   basedir is the base directory that relative image paths are based
-  from. If not given, the web server document root (env variable
-  DOCUMENT_ROOT) is used as the base. If security is enabled, the
+  from. If not given, the web server document root (
+  <link linkend="language.variables.smarty">env</link>
+  variable  DOCUMENT_ROOT) is used as the base. If
+  <link linkend="variable.security">$security</link>
+  is enabled, the
   path to the image must be within a secure directory.
  </para>
  <para>
   <parameter>href</parameter> is the href value to link the image to. If link is supplied, an
-  &lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is put around the image tag.
+  &lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is placed around the image tag.
  </para>
  <para>
   All parameters that are not in the list above are printed as
-  name/value-pairs inside the created &lt;img&gt;-tag.
+  name/value-pairs inside the created &lt;img&gt; tag.
  </para>
  <note>
   <title>Technical Note</title>
   <para>
-   html_image requires a hit to the disk to read the image and
+   {html_image} requires a hit to the disk to read the image and
    calculate the height and width. If you don't use template
-   caching, it is generally better to avoid html_image and leave
+   <link linkend="caching">caching</link>,
+   it is generally better to avoid {html_image} and leave
    image tags static for optimal performance.
   </para>
  </note>
  <example>
   <title>html_image example</title>
-  <programlisting role="php">
-<![CDATA[
-<?php
-
-     require('Smarty.class.php');
-     $smarty = new Smarty;
-     $smarty->display('index.tpl');
-
-?>
-  ]]>
-  </programlisting>
-  <para>
-   where index.tpl is:
-  </para>
   <programlisting>
 <![CDATA[
+where index.tpl is:
+-------------------
 {html_image file="pumpkin.jpg"}
 {html_image file="/path/from/docroot/pumpkin.jpg"}
 {html_image file="../path/relative/to/currdir/pumpkin.jpg"}
 ]]>
   </programlisting>
   <para>
-   a possible output would be:
+    possible output would be:
   </para>
   <screen>
 <![CDATA[

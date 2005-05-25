@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.php">
- <title>php</title>
+ <title>{php}</title>
  <para>
   {php} tags allow php to be embedded directly into the template. They
   will not be escaped, regardless of the <link

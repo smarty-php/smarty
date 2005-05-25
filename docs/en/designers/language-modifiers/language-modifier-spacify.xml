@@ -39,14 +39,14 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
+
 $smarty->assign('articleTitle', 'Something Went Wrong in Jet Crash, Experts Say.');
-$smarty->display('index.tpl');
+
 ?>
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[

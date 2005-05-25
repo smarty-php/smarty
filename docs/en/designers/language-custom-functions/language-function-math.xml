@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.math">
- <title>math</title>
+ <title>{math}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -58,7 +58,7 @@
   </tgroup>
  </informaltable>
  <para>
-  math allows the template designer to do math equations in the
+  {math} allows the template designer to do math equations in the
   template. Any numeric template variables may be used in the
   equations, and the result is printed in place of the tag. The
   variables used in the equation are passed as parameters, which can
@@ -75,15 +75,21 @@
  <note>
   <title>Technical Note</title>
   <para>
-   math is an expensive function in performance due to its use of
-   the php eval() function. Doing the math in PHP is much more
+   {math} is an expensive function in performance due to its use of the php
+   <ulink url="&url.php-manual;eval">eval()</ulink> function. Doing the math in PHP is much
+   more
    efficient, so whenever possible do the math calculations in PHP
-   and assign the results to the template. Definately avoid
-   repetitive math function calls, like within section loops.
+   and <link linkend="api.assign">assign()</link>
+   the results to the template. Definately avoid
+   repetitive {math} function calls, eg within
+   <link linkend="language.function.section">{section}</link> loops.
   </para>
  </note>
  <example>
-  <title>math</title>
+  <title>{math}</title>
+  <para>
+  <emphasis role="bold">Example a:</emphasis>
+  </para>
   <programlisting>
 <![CDATA[
    {* $height=4, $width=5 *}
@@ -99,6 +105,9 @@
    9
 ]]>
   </screen>
+  <para>
+    <emphasis role="bold">Example b:</emphasis>
+  </para>
   <programlisting>
 <![CDATA[
    {* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
@@ -117,6 +126,9 @@
    100
 ]]>
   </screen>
+  <para>
+  <emphasis role="bold">Example c:</emphasis>
+  </para>
   <programlisting>
 <![CDATA[
    {* you can use parenthesis *}
@@ -132,6 +144,9 @@
    6
 ]]>
   </screen>
+    <para>
+    <emphasis role="bold">Example d:</emphasis>
+  </para>
   <programlisting>
 <![CDATA[
    {* you can supply a format parameter in sprintf format *}

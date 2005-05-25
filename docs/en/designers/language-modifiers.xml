@@ -70,8 +70,8 @@
   <link linkend="plugins.modifiers">modifiers</link>,
  </para>
 
- &designers.language-modifiers.language-modifier-cat;
  &designers.language-modifiers.language-modifier-capitalize;
+ &designers.language-modifiers.language-modifier-cat;
  &designers.language-modifiers.language-modifier-count-characters;
  &designers.language-modifiers.language-modifier-count-paragraphs;
  &designers.language-modifiers.language-modifier-count-sentences;

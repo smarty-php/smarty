@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.strip">
- <title>strip</title>
+ <title>{strip}</title>
  <para>
   Many times web designers run into the issue where white space and
   carriage returns affect the output of the rendered HTML (browser
@@ -20,8 +20,8 @@
   <title>Technical Note</title>
   <para>
    {strip}{/strip} does not affect the contents of template variables.
-   See the <link linkend="language.modifier.strip">strip modifier
-    function</link>.
+   See the
+   <link linkend="language.modifier.strip">strip modifier</link>.
   </para>
  </note>
  <example>
@@ -47,7 +47,7 @@
   </para>
   <screen>
 <![CDATA[
-<table border=0><tr><td><A HREF="http://my.example.com"><font color="red">This is a test</font></A></td></tr></table>
+<table border=0><tr><td><A HREF="http://w... snipped...</td></tr></table>
 ]]>
   </screen>
  </example>
@@ -56,6 +56,10 @@
   with HTML tags. Be aware that all the lines are run together.
   If you have plain text at the beginning or end of any line,
   they will be run together, and may not be desired results.
+ </para>
+ <para>
+ See also
+ <link linkend="language.modifier.strip">strip modifier</link>
  </para>
 </sect1>
 
@@ -79,3 +83,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.html.select.time">
- <title>html_select_time</title>
+ <title>{html_select_time}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -133,22 +133,24 @@
   </tgroup>
  </informaltable>
  <para>
-  {html_select_time} is a custom function that
-  creates time dropdowns for you. It can display
-  any or all of hour, minute, second and
-  meridian.
+  {html_select_time} is a
+  <link linkend="language.custom.functions">custom function</link>
+  that creates time dropdowns for you. It can display
+  any or all of hour, minute, second and  meridian.
  </para>
  <para>
   The time-attribute can have different
-  formats. It can be a unique timestamp or a
+  formats. It can be a unique timestamp, a
   string of the format YYYYMMDDHHMMSS or a string
   that is parseable by php's
   <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
  </para>
  <example>
-  <title>html_select_time</title>
+  <title>{html_select_time}</title>
   <programlisting>
 <![CDATA[
+template code:
+--------------
 {html_select_time use_24_hours=true}
 ]]>
   </programlisting>

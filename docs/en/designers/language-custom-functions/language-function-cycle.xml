@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.cycle">
- <title>cycle</title>
+ <title>{cycle}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -68,12 +68,12 @@
   </tgroup>
  </informaltable>
  <para>
-  Cycle is used to cycle though a set of values. This makes it easy
-  to alternate between two or more colors in a table, or cycle
+  {cycle} is used to cycle though a set of values. This makes it easy
+  to alternate for example between two or more colors in a table, or cycle
   through an array of values.
  </para>
  <para>
-  You can cycle through more than one set of values in your template
+  You can {cycle} through more than one set of values in your template
   by supplying a name attribute. Give each set of values a unique
   name.
  </para>
@@ -84,11 +84,11 @@
  </para>
  <para>
   The advance attribute is used to repeat a value. When set to false,
-  the next call to cycle will print the same value.
+  the next call to {cycle} will print the same value.
  </para>
  <para>
   If you supply the special "assign" attribute, the output of the
-  cycle function will be assigned to this template variable instead of
+  cycle function will be assigned to a template variable instead of
   being output to the template.
  </para>
  <example>

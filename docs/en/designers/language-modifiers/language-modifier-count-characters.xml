@@ -39,15 +39,13 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->assign('articleTitle', 'Cold Wave Linked to Temperatures.');
-$smarty->display('index.tpl');
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[
@@ -68,9 +66,10 @@ Cold Wave Linked to Temperatures.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>,
+   See also
+   <link linkend="language.modifier.count.words">count_words</link>,
    <link linkend="language.modifier.count.sentences">count_sentences</link> and
-   <link linkend="language.modifier.count.words">count_words</link>.
+   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>.
   </para>
  </sect1>
 

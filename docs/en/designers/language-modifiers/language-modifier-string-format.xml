@@ -40,15 +40,13 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->assign('number', 23.5787446);
-$smarty->display('index.tpl');
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[

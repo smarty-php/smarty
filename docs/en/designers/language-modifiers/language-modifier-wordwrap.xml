@@ -46,10 +46,10 @@
    </tgroup>
   </informaltable>
   <para>
-   This wraps a string to a column width, default is 80. As
+   <command>wordwrap</command> wraps a string to a column width, default is 80. As
    an optional second parameter, you can specify a string of text
    to wrap the text to the next line (default is carriage return \n).
-   By default, wordwrap will attempt to wrap at a word boundary. If
+   By default, {wordwrap} will attempt to wrap at a word boundary. If
    you want to cut off at the exact character length, pass the optional
    third parameter of true. This is equivalent to the PHP <ulink
    url="&url.php-manual;wordwrap">wordwrap()</ulink> function.
@@ -60,15 +60,15 @@
 <![CDATA[
 <?php
     
-$smarty = new Smarty;
-$smarty->assign('articleTitle', "Blind woman gets new kidney from dad she hasn't seen in years.");
-$smarty->display('index.tpl');
+$smarty->assign('articleTitle',
+                "Blind woman gets new kidney from dad she hasn't seen in years."
+               );
 
 ?>
 ]]>
    </programlisting>
    <para>
-    where index.tpl is:
+where template is
    </para>
    <programlisting>
 <![CDATA[ 
@@ -110,7 +110,9 @@ years.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.nl2br">nl2br</link>.
+   See also <link linkend="language.modifier.nl2br">nl2br</link>
+   and
+   <link linkend="language.function.textformat">{textformat}</link>.
   </para>
  </sect1>
 
@@ -134,3 +136,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

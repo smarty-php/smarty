@@ -11,15 +11,18 @@
   <title>combining modifiers</title>
   <programlisting role="php">
 <![CDATA[
-index.php:
 <?php
-$smarty = new Smarty;
+
 $smarty->assign('articleTitle', 'Smokers are Productive, but Death Cuts Efficiency.');
-$smarty->display('index.tpl');
+
 ?>
-
-index.tpl:
-
+]]>
+</programlisting>
+<para>
+where template is:
+</para>
+<programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|upper|spacify}
 {$articleTitle|lower|spacify|truncate}
