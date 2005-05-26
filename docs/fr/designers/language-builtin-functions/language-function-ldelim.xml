@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.ldelim">
- <title>ldelim,rdelim</title>
+ <title>{ldelim},{rdelim}</title>
  <para>
   ldelim et rdelim sont utilisés pour afficher les délimiteurs en tant
   que tels, dans notre cas, "{" ou "}". Vous pouvez toujours utiliser <link
@@ -33,6 +33,7 @@
    <link linkend="language.escaping">désactivation l'analyse de Smarty</link>.
   </para>
  </sect1>
+ 
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

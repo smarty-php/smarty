@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.capture">
- <title>capture</title>
+ <title>{capture}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -38,13 +38,13 @@
   </tgroup>
  </informaltable>
  <para>
-  Capture est utilisé pour récupérer la sortie d'éléments dans une variable
+  {capture} est utilisé pour récupérer la sortie d'éléments dans une variable
   au lieu de les afficher. Tout contenu situé entre {capture
   name="foo"} et {/capture} est intercepté dans une variable dont le nom est
   spécifié dans l'attribut name. Le contenu capturé peut être utilisé dans
   le template par l'intermédiaire de la variable spéciale <link
   linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
-  ou foo est la valeur de l'attribut name. Si vous ne donnez pas de valeur
+  où "foo" est la valeur de l'attribut name. Si vous ne donnez pas de valeur
   à l'attribut name, alors "default" est utilisé. Toutes les commandes
   {capture} doivent être utilisées de paire avec {/capture}. Vous pouvez
   imbriquer les demandes de captures.
@@ -61,9 +61,10 @@
  <caution>
   <para>
    Faîtes attention lorsque vous interceptez la sortie de commandes <link
-   linkend="language.function.insert"><command>insert</command></link>. 
+   linkend="language.function.insert">{insert}</link>.
    Si vous avez configuré le <link linkend="caching">cache</link> pour que ce
-   dernier soit actif, et que vous avez des commandes <command>insert</command>
+   dernier soit actif, et que vous avez des commandes <link
+   linkend="language.function.insert">{insert}</link>
    supposées s'exécuter dans un contenu en cache, ne tentez pas de capturer
    ce contenu.
   </para>
@@ -78,11 +79,13 @@
 {include file="get_banner.tpl"}
 {/capture}
 {if $smarty.capture.banner ne ""}
+<table>
 <tr>
  <td>
   {$smarty.capture.banner}
  </td>
 </tr>
+</table>
 {/if}
 ]]>
    </programlisting>

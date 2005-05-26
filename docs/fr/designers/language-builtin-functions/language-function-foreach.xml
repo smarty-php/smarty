@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.foreach">
- <title>foreach,foreachelse</title>
+ <title>{foreach},{foreachelse}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -55,8 +55,8 @@
  <para>
   Les boucles <emphasis>{foreach}</emphasis> sont une alternative aux boucles
   <link linkend="language.function.section"><emphasis>section</emphasis></link>.
-  Les boucles <emphasis>foreach</emphasis>
-  sont utilisées pour parcourir des tableaux associatifs simples.
+  Les boucles <emphasis>{foreach}</emphasis>
+  sont utilisées pour parcourir des <emphasis role="bold">tableaux associatifs simples</emphasis>.
   La syntaxe des boucles <emphasis>{foreach}</emphasis> est bien plus simple
   que celle des boucles <emphasis>{section}</emphasis>, mais en contrepartie,
   <emphasis role="bold">elles ne peuvent être utilisées que pour des tableaux associatifs 
@@ -74,6 +74,14 @@
  </para>
  <example>
   <title>foreach</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+$arr = array( 1001,1002,1003);
+$smarty->assign('custid', $arr);
+?>
+]]>
+  </programlisting>
   <programlisting>
 <![CDATA[
 {* Cet exemple affiche toutes les valeurs du tableau $custid *}
@@ -97,17 +105,24 @@ id: 1002<br />
 
  <example>
   <title>foreach key</title>
+  <programlisting role="php">
+<![CDATA[
+// key contient la clef de chaque élément parcouru
+// L'assignement ressemble à ceci :
+<?php
+     $smarty->assign("contacts", array(
+         array("phone" => "1",
+         "fax" => "2",
+         "cell" => "3"),
+         array("phone" => "555-4444",
+         "fax" => "555-3333",
+         "cell" => "760-1234"))
+         );
+?>
+]]>
+</programlisting>
   <programlisting>
 <![CDATA[
-{* key contient la clef de chaque élément parcouru
-
-l'attribution des élément est de la forme:
-
-$smarty->assign("contacts", array(array("tel" => "1", "fax" => "2", "portable" => "3"),
-      array("tel" => "555-4444", "fax" => "555-3333", "portable" => "760-1234")));
-
-*}
-
 {foreach name=outer item=contact from=$contacts}
   {foreach key=key item=item from=$contact}
     {$key}: {$item}<br />
@@ -130,9 +145,29 @@ portable: 760-1234<br />
   </screen>
  </example>
 
+ <example>
+  <title>{foreach} - Exemple avec une base de données (eg PEAR ou ADODB)</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+$sql = 'select contact_id, name, nick from contacts order by contact';
+$smarty->assign("contacts", $db->getAssoc($sql));
+?>
+]]>
+  </programlisting>
+  <programlisting>
+<![CDATA[
+{foreach key=cid item=con from=$contacts}
+ <a href="contact.php?contact_id={$cid}">{$con.name} - {$con.nick}</a><br />
+{/foreach}
+]]>
+  </programlisting>
+
+ </example>
+
  <para>
-  Les boucles Foreach ont également leurs propres variables qui gèrent les propriétés
-  de foreach. Elles sont indiquées par : 
+  Les boucles {foreach} ont également leurs propres variables qui gèrent les propriétés
+  de {foreach}. Elles sont indiquées par :
   <link linkend="language.variables.smarty.loops">{$smarty.foreach.foreachname.varname}</link>
   où foreachname est le nom spécifié par l'attribut <emphasis>name</emphasis>
   de foreach.
@@ -142,8 +177,6 @@ portable: 760-1234<br />
   <title>iteration</title>
   <para>
    <emphasis>iteration</emphasis> est utilisé pour afficher l'itération de la boucle courante.
-  </para>
-  <para>
    <emphasis>iteration</emphasis> commence toujours par 1 et est incrémenté
    à chaque itération.
   </para>
@@ -186,6 +219,7 @@ portable: 760-1234<br />
   </para>
  </sect2>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
