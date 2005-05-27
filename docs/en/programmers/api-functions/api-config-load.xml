@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <refentry id="api.config.load">
  <refnamediv>
-  <refname>config_load</refname>
-  <refpurpose></refpurpose>
+  <refname>config_load()</refname>
+  <refpurpose> loads config file  data and assigns it to the template</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>config_load</methodname>
    <methodparam><type>string</type><parameter>file</parameter></methodparam>
@@ -35,7 +35,7 @@
    </para>
   </note>
   <example>
-   <title>config_load</title>
+   <title>config_load()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -51,6 +51,7 @@ $smarty->config_load('my.conf', 'foobar');
   <para>
   See also
   <link linkend="language.function.config.load">{config_load}</link>,
+  <link linkend="api.get.config.vars">get_config_vars()</link>,
   <link linkend="api.clear.config">clear_config()</link>,
   and
   <link linkend="language.config.variables">config variables</link>

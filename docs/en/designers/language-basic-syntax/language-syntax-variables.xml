@@ -3,7 +3,7 @@
 <sect1 id="language.syntax.variables">
  <title>Variables</title>
  <para>
-  Template variables start with a dollar sign. They can contain numbers,
+  Template variables start with a $dollar sign. They can contain numbers,
   letters and underscores, much like a
   <ulink url="&url.php-manual;language.variables">PHP variable</ulink>.
   You can reference arrays

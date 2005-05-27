@@ -10,7 +10,7 @@
   unmanageable templates.
  </para>
  <para>
-  Anything within {strip}{/strip} tags in Smarty are stripped of the
+  Anything within {strip}{/strip} tags  are stripped of the
   extra spaces or carriage returns at the beginnings and ends of the
   lines before they are displayed. This way you can keep your
   templates readable, and not worry about extra white space causing
@@ -25,12 +25,12 @@
   </para>
  </note>
  <example>
-  <title>strip tags</title>
+  <title>{strip} tags</title>
   <programlisting>
 <![CDATA[
 {* the following will be all run into one line upon output *}
 {strip}
-<table border=0>
+<table border='0'>
  <tr>
   <td>
    <A HREF="{$url}">

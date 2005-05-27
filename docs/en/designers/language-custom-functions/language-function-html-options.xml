@@ -83,19 +83,19 @@
  <example>
   <title>{html_options}</title>
   <para>
-  <emphasis role="bold">Example 2:</emphasis>
+  <emphasis role="bold">Example 1:</emphasis>
   </para>
   <programlisting role="php">
 <![CDATA[
 <?php
 
-   $smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
 $smarty->assign('cust_names', array(
-                               'Joe Schmoe',
-                               'Jack Smith',
-                               'Jane Johnson',
-                               'Charlie Brown'));
-   $smarty->assign('customer_id', 1001);
+                              'Joe Schmoe',
+                              'Jack Smith',
+                              'Jane Johnson',
+                              'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
 
 ?>
 ]]>
@@ -105,9 +105,9 @@ $smarty->assign('cust_names', array(
   </para>
   <programlisting>
 <![CDATA[
-   <select name=customer_id>
+<select name=customer_id>
    {html_options values=$cust_ids output=$cust_names selected=$customer_id}
-   </select>
+</select>
 ]]>
   </programlisting>
    <para>
@@ -117,12 +117,13 @@ $smarty->assign('cust_names', array(
 <![CDATA[
 <?php
 
-   $smarty->assign('cust_options', array(
-   1001 => 'Joe Schmoe',
-   1002 => 'Jack Smith',
-   1003 => 'Jane Johnson',
-   1004 => 'Charlie Brown'));
-   $smarty->assign('customer_id', 1001);
+$smarty->assign('cust_options', array(
+                                1000 => 'Joe Schmoe',
+                                1001 => 'Jack Smith',
+                                1002 => 'Jane Johnson',
+                                1003 => 'Charlie Brown')
+                                );
+$smarty->assign('customer_id', 1001);
 
 ?>
 ]]>
@@ -132,9 +133,9 @@ where template is:
   </para>
   <programlisting>
 <![CDATA[
-   <select name=customer_id>
+<select name=customer_id>
    {html_options options=$cust_options selected=$customer_id}
-   </select>
+</select>
 ]]>
   </programlisting>
   <para>
@@ -142,12 +143,12 @@ where template is:
   </para>
   <screen>
 <![CDATA[
-   <select name=customer_id>
+<select name=customer_id>
     <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
     <option label="Jack Smith" value="1001" selected="selected">Jack Smith</option>
     <option label="Jane Johnson" value="1002">Jane Johnson</option>
     <option label="Charlie Brown" value="1003">Charlie Brown</option>
-   </select>
+</select>
 
 ]]>
   </screen>
@@ -161,7 +162,8 @@ where template is:
 $sql = 'select type_id, types from types order by type';
 $smarty->assign('types',$db->getAssoc($sql));
 
-$sql = 'select * from contacts where contact_id=12';
+$sql = 'select contact_id, name, email, type_id
+        from contacts where contact_id='.$contact_id;
 $smarty->assign('contact',$db->getRow($sql));
 
 ?>
@@ -173,6 +175,7 @@ where the template is:
 <programlisting>
 <![CDATA[
 <select name="type_id">
+    <option value='null'>-- none --</option>
     {html_options name="type" options=$types selected=$contact.type_id}
 </select>
 ]]>

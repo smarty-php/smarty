@@ -37,11 +37,12 @@
   </tgroup>
  </informaltable>
  <para>
-  {assign} is used for assigning template variables during the execution
-  of the template.
+  {assign} is used for assigning template variables
+  <emphasis role="bold">during the execution
+  of the template</emphasis>.
  </para>
  <example>
-  <title>assign</title>
+  <title>{assign}</title>
   <programlisting>
 <![CDATA[
 {assign var="name" value="Bob"}
@@ -58,6 +59,63 @@ The value of $name is Bob.
 ]]>
   </screen>
  </example>
+
+ <example>
+  <title>Accessing {assign} variables from a PHP script.</title>
+  <para>
+  To access {assign} variables from php use
+    <link linkend="api.get.template.vars">get_template_vars()</link>.
+    However, the variables are only available after/during template execution
+  as in the following example
+  </para>
+<programlisting>
+<![CDATA[
+{* index.tpl *}
+{assign var="foo" value="Smarty"}
+]]>
+</programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
+
+// this will output nothing as the template has not been executed
+echo $smarty->get_template_vars('foo');
+
+// fetch the template to a dead variable
+$dead = $smarty->fetch('index.tpl');
+
+// this will output 'smarty' as the template has been executed
+echo $smarty->get_template_vars('foo');
+
+$smarty->assign('foo','Even smarter');
+
+// this will output 'Even smarter'
+echo $smarty->get_template_vars('foo');
+
+?>
+]]>
+</programlisting>
+ </example>
+
+
+ <para>
+ The following functions can also <emphasis>optionally</emphasis> assign
+ template variables.
+  </para>
+
+ <para>
+  <link linkend="language.function.capture">{capture}</link>,
+  <link linkend="language.function.include">{include}</link>,
+  <link linkend="language.function.include.php">{include_php}</link>,
+  <link linkend="language.function.insert">{insert}</link>,
+ <link linkend="language.function.counter">{counter}</link>,
+ <link linkend="language.function.cycle">{cycle}</link>,
+ <link linkend="language.function.eval">{eval}</link>,
+ <link linkend="language.function.fetch">{fetch}</link>,
+ <link linkend="language.function.math">{math}</link>,
+ <link linkend="language.function.textformat">{textformat}</link>
+ </para>
+
  <para>
  See also <link linkend="api.assign">assign()</link>
    and

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
    <chapter id="api.functions">
-     <title>Methods</title>
+     <title>Smarty Class Methods()</title>
 &programmers.api-functions.api-append;
 &programmers.api-functions.api-append-by-ref;
 &programmers.api-functions.api-assign;

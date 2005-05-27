@@ -2,46 +2,52 @@
 <!-- $Revision$ -->
 <refentry id="api.clear.cache">
  <refnamediv>
-  <refname>clear_cache</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_cache()</refname>
+  <refpurpose>clears the cache for a specific template</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_cache</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
+   </methodparam>
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This clears the cache for a specific <parameter>template</parameter>. 
-   If you have multiple caches for this template, you can clear a specific
-   cache by supplying the <parameter>cache_id</parameter> as the second 
-   parameter. 
-   You can also pass a <parameter>compile_id</parameter> as a third parameter.
-   You can "group" templates together so they can be removed as a group. See the
+   If you have <link linkend="caching.multiple.caches">multiple caches</link>
+   for a template, you can clear a specific
+   cache by supplying the <parameter>cache_id</parameter> as the second
+   parameter.
+   You can also pass a
+   <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
+   as a third parameter.
+   You can <link linkend="caching.groups">"group"</link> templates
+   together so they can be removed as a group. See the
    <link linkend="caching">caching section</link> for more
    information. As an optional fourth parameter, you can supply a
    minimum age in seconds the cache file must be before it will
    get cleared.
   </para>
   <example>
-   <title>clear_cache</title>
+   <title>clear_cache()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // clear the cache for a template
-$smarty->clear_cache("index.tpl");
+$smarty->clear_cache('index.tpl');
 
 // clear the cache for a particular cache id in an multiple-cache template
-$smarty->clear_cache("index.tpl", "CACHEID");
+$smarty->clear_cache('index.tpl', 'CACHEID');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
   See also
+  <link linkend="api.clear.all.cache">clear_all_cache()</link>
+  and
   <link linkend="caching">caching</link>.
   </para>
  </refsect1>
@@ -66,3 +72,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

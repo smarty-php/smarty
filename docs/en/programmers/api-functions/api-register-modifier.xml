@@ -2,18 +2,18 @@
 <!-- $Revision$ -->
 <refentry id="api.register.modifier">
  <refnamediv>
-  <refname>register_modifier</refname>
-  <refpurpose></refpurpose>
+  <refname>register_modifier()</refname>
+  <refpurpose>dynamically register modifier plugin</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>register_modifier</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>impl</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Use this to dynamically register modifier plugin. Pass in the
+   Pass in the
    template modifier name, followed by the PHP function that it
    implements it.
   </para>
@@ -30,25 +30,33 @@
    class.
   </para>
   <example>
-   <title>register_modifier</title>
-   <programlisting role="php">
+   <title>register_modifier()</title>
+<programlisting role="php">
 <![CDATA[
 <?php
+
 // let's map PHP's stripslashes function to a Smarty modifier.
+$smarty->register_modifier('sslash', 'stripslashes');
 
-$smarty->register_modifier("sslash", "stripslashes");
-
-// now you can use {$var|sslash} to strip slashes from variables
 ?>
 ]]>
-   </programlisting>
+</programlisting>
+<para>template</para>
+<programlisting>
+<![CDATA[
+<?php
+{* use 'sslash' to strip slashes from variables *}
+{$var|sslash}
+?>
+]]>
+</programlisting>
+
   </example>
    <para>
     See also
     <link linkend="api.unregister.modifier">unregister_modifier()</link>,
     <link linkend="api.register.function">register_function()</link>,
     <link linkend="language.modifiers">modifiers</link>,
-
     <link linkend="plugins">Extending Smarty with plugins</link>
     and
     <link linkend="plugins.modifiers">Plugin modifiers</link>,

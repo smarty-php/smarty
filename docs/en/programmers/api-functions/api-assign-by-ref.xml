@@ -2,18 +2,19 @@
 <!-- $Revision$ -->
 <refentry id="api.assign.by.ref">
  <refnamediv>
-  <refname>assign_by_ref</refname>
-  <refpurpose></refpurpose>
+  <refname>assign_by_ref()</refname>
+  <refpurpose>assign values by reference</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>assign_by_ref</methodname>
    <methodparam><type>string</type><parameter>varname</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This is used to assign values to the templates by reference instead of
+   This is used to  <link linkend="api.assign">assign()</link>
+   values to the templates by reference instead of
    making a copy. See the PHP manual on variable referencing for an explanation.
   </para>
   <note>
@@ -29,7 +30,7 @@
    </para>
   </note>
   <example>
-   <title>assign_by_ref</title>
+   <title>assign_by_ref()</title>
    <programlisting role="php">
 <![CDATA[
 <?php

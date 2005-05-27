@@ -2,18 +2,20 @@
 <!-- $Revision$ -->
 <refentry id="api.register.resource">
  <refnamediv>
-  <refname>register_resource</refname>
-  <refpurpose></refpurpose>
+  <refname>register_resource()</refname>
+  <refpurpose>dynamically register resources</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descrption</title>
   <methodsynopsis>
    <type>void</type><methodname>register_resource</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
    <methodparam><type>array</type><parameter>resource_funcs</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Use this to dynamically register a resource plugin with Smarty.
+   Use this to dynamically register a
+   <link linkend="template.resources">resource plugin</link>
+   with Smarty.
    Pass in the name of the resource and the array of PHP functions
    implementing it. See
    <link linkend="template.resources">template resources</link>
@@ -40,18 +42,28 @@
    "secure" and "trusted".
   </para>
   <example>
-   <title>register_resource</title>
+   <title>register_resource()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->register_resource("db", array("db_get_template",
-"db_get_timestamp",
-"db_get_secure",
-"db_get_trusted"));
+$smarty->register_resource('db', array(
+                                'db_get_template',
+                                'db_get_timestamp',
+                                'db_get_secure',
+                                'db_get_trusted')
+                                );
 ?>
 ]]>
    </programlisting>
   </example>
+
+  <para>
+      See also
+      <link linkend="api.unregister.resource">unregister_resource()</link>
+      and
+      <link linkend="template.resources">template resources</link>
+</para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

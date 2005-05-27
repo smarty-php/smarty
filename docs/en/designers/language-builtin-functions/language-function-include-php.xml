@@ -48,28 +48,30 @@
  <note>
   <title>Technical Note</title>
   <para>
-   include_php is pretty much deprecated from Smarty, you can
+   {include_php} is pretty much deprecated from Smarty, you can
    accomplish the same functionality via a custom template function.
-   The only reason to use include_php is if you really have a need to
-   quarantine the php function away from the plugin directory or your
+   The only reason to use {include_php} is if you really have a need to
+   quarantine the php function away from the
+   <link linkend="variable.plugins.dir">plugins</link>
+   directory or your
    application code. See the <link
    linkend="tips.componentized.templates">componentized template
    example</link> for details.
   </para>
  </note>
  <para>
-  include_php tags are used to include a php script in your template.
+  {include_php} tags are used to include a php script in your template.
   If <link linkend="variable.security">security is enabled</link>,
   then the php script must be located in the <link
   linkend="variable.trusted.dir">$trusted_dir</link> path.
-  The include_php tag must have the attribute
+  The {include_php} tag must have the attribute
   "file", which contains the path to the included php file, either
   relative to
   <link linkend="variable.trusted.dir">$trusted_dir</link>,
   or an absolute path.
  </para>
  <para>
-  include_php is a nice way to handle <link
+  {include_php} is a nice way to handle <link
   linkend="tips.componentized.templates">componentized templates</link>, and
   keep PHP code separate from the template files. Lets say you have a
   template that shows your site navigation, which is pulled
@@ -89,7 +91,7 @@
  <para>
   You can optionally pass the <emphasis>assign</emphasis> attribute,
   which will specify a template variable name that the output of
-  <emphasis>include_php</emphasis> will be assigned to instead of
+  <emphasis>{include_php}</emphasis> will be assigned to instead of
   displayed.
  </para>
  <para>
@@ -97,34 +99,32 @@
   include.
  </para>
  <example>
-  <title>function include_php</title>
-  <programlisting>
+  <title>function {include_php}</title>
+  <para>load_nav.php</para>
+  <programlisting role="php">
 <![CDATA[
-   load_nav.php
-   -------------
+<?php
 
-   <?php
+// load in variables from a mysql db and assign them to the template
+require_once("MySQL.class.php");
+$sql = new MySQL;
+$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+$this->assign('sections',$sql->record);
 
-   // load in variables from a mysql db and assign them to the template
-   require_once("MySQL.class.php");
-   $sql = new MySQL;
-   $sql->query("select * from site_nav_sections order by name",SQL_ALL);
-   $this->assign('sections',$sql->record);
-
-    ?>
+?>
 ]]>
   </programlisting>
   <para>
-   Where index.pl is:
+   Where index.tpl is:
   </para>
   <programlisting>
 <![CDATA[
-    {* absolute path, or relative to $trusted_dir *}
-    {include_php file="/path/to/load_nav.php"}
-    
-    {foreach item="curr_section" from=$sections}
-    <a href="{$curr_section.url}">{$curr_section.name}</a><br />
-    {/foreach}
+{* absolute path, or relative to $trusted_dir *}
+{include_php file="/path/to/load_nav.php"}
+
+{foreach item="curr_section" from=$sections}
+  <a href="{$curr_section.url}">{$curr_section.name}</a><br />
+{/foreach}
 ]]>
   </programlisting>
  </example>

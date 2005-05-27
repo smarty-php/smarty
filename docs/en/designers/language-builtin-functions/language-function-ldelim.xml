@@ -3,7 +3,9 @@
  <sect1 id="language.function.ldelim">
   <title>{ldelim},{rdelim}</title>
   <para>
-   ldelim and rdelim are used for escaping template delimiters, in our case
+   {ldelim} and {rdelim} are used for
+   <link linkend="language.escaping">escaping</link>
+   template delimiters, by default
    "{" or "}". You can also use <link
     linkend="language.function.literal">{literal}{/literal}</link> to escape
    blocks of text.
@@ -11,7 +13,7 @@
     linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>.
   </para>
   <example>
-   <title>ldelim, rdelim</title>
+   <title>{ldelim}, {rdelim}</title>
    <programlisting>
 <![CDATA[
 {* this will print literal delimiters out of the template *}

@@ -2,17 +2,17 @@
 <!-- $Revision$ -->
 <refentry id="api.clear.all.cache">
  <refnamediv>
-  <refname>clear_all_cache</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_all_cache()</refname>
+  <refpurpose>clears the entire template cache</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_all_cache</methodname>
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This clears the entire template cache. As an optional
+   As an optional
    parameter, you can supply a minimum age in seconds the cache
    files must be before they will get cleared.
   </para>
@@ -29,7 +29,8 @@ $smarty->clear_all_cache();
   </example>
   <para>
   See also
-  <link linkend="api.clear.cache">clear_cache()</link>
+  <link linkend="api.clear.cache">clear_cache()</link>,
+  <link linkend="api.is.cached">is_cached()</link>
   and
   <link linkend="caching">caching</link>
   </para>

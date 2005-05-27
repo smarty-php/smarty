@@ -2,19 +2,22 @@
 <!-- $Revision$ -->
 <refentry id="api.unregister.object">
  <refnamediv>
-  <refname>unregister_object</refname>
-  <refpurpose></refpurpose>
+  <refname>unregister_object()</refname>
+  <refpurpose>dynamically unregister an object</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>unregister_object</methodname>
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
   </methodsynopsis>
-  <para>
-   Use this to unregister an object.
-  </para>
- <para>See also <link linkend="api.register.object">register_object</link> <link linkend="advanced.features.objects">object section</link></para>
+
+ <para>
+ See also
+ <link linkend="api.register.object">register_object()</link>
+ and
+ <link linkend="advanced.features.objects">objects section</link>
+ </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

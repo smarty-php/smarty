@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <chapter id="smarty.constants">
-   <title>Constants</title>
+<chapter id="smarty.constants">
+<title>Constants</title>
 
-   <sect1 id="constant.smarty.dir">
-    <title>SMARTY_DIR</title>
+<sect1 id="constant.smarty.dir">
+  <title>SMARTY_DIR</title>
     <para>
      This should be the full system path to the location of the Smarty
      class files. If this is not defined, then Smarty will attempt to
      determine the appropriate value automatically. If defined, the path
-     must end with a slash.
+     <emphasis role="bold">must end with a slash</emphasis>.
     </para>
     <example>
      <title>SMARTY_DIR</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-// set path to Smarty directory
-define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
+// set path to Smarty directory *nix style
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/libs/');
 
-require_once(SMARTY_DIR."Smarty.class.php");
+// path to Smarty windows style
+define('SMARTY_DIR','c:/webroot/libs/Smarty/libs/');
+
+// hack that works on both under DOCUMENT _ROOT (not recommended)
+define('SMARTY-DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
+
+// include the smarty class Note 'S' is upper case
+require_once(SMARTY_DIR.'Smarty.class.php');
 ?>
 ]]>
      </programlisting>
     </example>
-        <para>
-        See also
-        <link linkend="language.variables.smarty.const">$smarty.const</link>
-    </para>
-   </sect1>
-   <sect1 id="constant.smarty.core.dir">
+  <para>
+  See also
+  <link linkend="language.variables.smarty.const">$smarty.const</link>
+  and
+  <link
+  linkend="variable.php.handling">$php_handling constants</link>
+  </para>
+</sect1>
+
+<sect1 id="constant.smarty.core.dir">
     <title>SMARTY_CORE_DIR</title>
     <para>
      This should be the full system path to the location of the Smarty core
-     files. If not defined, Smarty will default this constant to the internals/
+     files. If not defined, Smarty will default this constant to the
+     <emphasis>libs/</emphasis>
      sub-directory below
      <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
      If defined, the path must end with a slash.
@@ -44,9 +56,10 @@ require_once(SMARTY_DIR."Smarty.class.php");
      <programlisting role="php">
 <![CDATA[
 <?php
-// load core.get_microtime.php
 
-require_once(SMARTY_CORE_DIR."core.get_microtime.php");
+// load core.get_microtime.php
+require_once(SMARTY_CORE_DIR.'core.get_microtime.php');
+
 ?>
 ]]>
      </programlisting>

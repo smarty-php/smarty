@@ -2,19 +2,28 @@
 <!-- $Revision$ -->
 <refentry id="api.unregister.block">
  <refnamediv>
-  <refname>unregister_block</refname>
-  <refpurpose></refpurpose>
+  <refname>unregister_block()</refname>
+  <refpurpose>dynamically unregister block function plugins</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>unregister_block</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Use this to dynamically unregister block function plugin.
+   Use this to dynamically unregister
+   <link linkend="plugins.block.functions">block function plugins</link>.
    Pass in the block function <parameter>name</parameter>.
   </para>
+
+      <para>
+      See also
+      <link linkend="api.register.block">register_block()</link>
+      and
+      <link linkend="plugins.block.functions">Block Functions Plugins</link>.
+  </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

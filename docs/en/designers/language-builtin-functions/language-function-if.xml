@@ -3,7 +3,8 @@
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
  <para>
-  <emphasis>{if}</emphasis> statements in Smarty have much the same flexibility as PHP if
+  <emphasis>{if}</emphasis> statements in Smarty have much the same flexibility as PHP
+  <ulink url="&url.php-manual;if"><command>if</command></ulink>
   statements, with a few added features for the template engine.
   Every <emphasis>{if}</emphasis> must be paired with an
   <emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> and
@@ -137,70 +138,74 @@
   </tgroup>
  </informaltable>
  <example>
-  <title>if statements</title>
+  <title>{if} statements</title>
   <programlisting>
 <![CDATA[
-   {if $name eq "Fred"}
-   Welcome Sir.
-   {elseif $name eq "Wilma"}
-   Welcome Ma'am.
-   {else}
-   Welcome, whatever you are.
-   {/if}
+{if $name eq "Fred"}
+    Welcome Sir.
+{elseif $name eq "Wilma"}
+    Welcome Ma'am.
+{else}
+    Welcome, whatever you are.
+{/if}
 
-   {* an example with "or" logic *}
-   {if $name eq "Fred" or $name eq "Wilma"}
+{* an example with "or" logic *}
+{if $name eq "Fred" or $name eq "Wilma"}
    ...
-   {/if}
+{/if}
 
-   {* same as above *}
-   {if $name == "Fred" || $name == "Wilma"}
+{* same as above *}
+{if $name == "Fred" || $name == "Wilma"}
    ...
-   {/if}
+{/if}
 
-   {* the following syntax will NOT work, conditional qualifiers
-   must be separated from surrounding elements by spaces *}
-   {if $name=="Fred" || $name=="Wilma"}
+{*
+  the following syntax will NOT work, conditional qualifiers
+  must be separated from surrounding elements by spaces
+*}
+{if $name=="Fred" || $name=="Wilma"}
    ...
-   {/if}
+{/if}
 
 
-   {* parenthesis are allowed *}
-   {if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
+{* parenthesis are allowed *}
+{if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
    ...
-   {/if}
+{/if}
 
-   {* you can also embed php function calls *}
-   {if count($var) gt 0}
+{* you can also embed php function calls *}
+{if count($var) gt 0}
    ...
-   {/if}
+{/if}
 
-   {* test if values are even or odd *}
-   {if $var is even}
+{* test if values are even or odd *}
+{if $var is even}
    ...
-   {/if}
-   {if $var is odd}
+{/if}
+{if $var is odd}
    ...
-   {/if}
-   {if $var is not odd}
+{/if}
+{if $var is not odd}
    ...
-   {/if}
+{/if}
 
-   {* test if var is divisible by 4 *}
-   {if $var is div by 4}
+{* test if var is divisible by 4 *}
+{if $var is div by 4}
    ...
-   {/if}
+{/if}
 
-   {* test if var is even, grouped by two. i.e.,
-   0=even, 1=even, 2=odd, 3=odd, 4=even, 5=even, etc. *}
-   {if $var is even by 2}
+{*
+  test if var is even, grouped by two. i.e.,
+  0=even, 1=even, 2=odd, 3=odd, 4=even, 5=even, etc.
+*}
+{if $var is even by 2}
    ...
-   {/if}
+{/if}
 
-   {* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
-   {if $var is even by 3}
+{* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
+{if $var is even by 3}
    ...
-   {/if}
+{/if}
 ]]>
   </programlisting>
  </example>

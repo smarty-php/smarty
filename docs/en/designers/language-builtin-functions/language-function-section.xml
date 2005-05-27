@@ -140,7 +140,7 @@ id: 1000<br />
 {/section}
 <hr />
 {section name=bar loop=21 max=6 step=-2}
- {$smarty.section.bar.index}
+  {$smarty.section.bar.index}
 {/section}
 ]]>
 </programlisting>
@@ -179,8 +179,8 @@ $smarty->assign('address',$addr);
 <![CDATA[
 {*
   the loop variable only determines the number of times to loop.
-   you can access any variable from the template within the section.
-   This example assumes that $custid, $name and $address are all
+  you can access any variable from the template within the section.
+  This example assumes that $custid, $name and $address are all
   arrays containing the same number of values
 *}
 {section name=customer loop=$custid}
@@ -270,10 +270,10 @@ $smarty->assign('contact_info', $info);
   <programlisting>
 <![CDATA[
 {*
-   sections can be nested as deep as you like. With nested sections,
-   you can access complex data structures, such as multi-dimensional
-   arrays. In this example, $contact_type[customer] is an array of
-   contact types for the current customer.
+  sections can be nested as deep as you like. With nested sections,
+  you can access complex data structures, such as multi-dimensional
+  arrays. In this example, $contact_type[customer] is an array of
+  contact types for the current customer.
 *}
 {section name=customer loop=$custid}
 <hr>
@@ -690,7 +690,7 @@ iteration=6 index=15 id=3015<br />
   {$smarty.section.customer.index} id: {$custid[customer]}<br />
 {/section}
 
-    There were {$smarty.section.customer.loop} customers shown above.
+There were {$smarty.section.customer.loop} customers shown above.
 ]]>
   </programlisting>
   <para>
@@ -702,7 +702,7 @@ iteration=6 index=15 id=3015<br />
 1 id: 1001<br />
 2 id: 1002<br />
 
-    There were 3 customers shown above.
+There were 3 customers shown above.
 ]]>
    </screen>
   </example>

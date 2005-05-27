@@ -3,28 +3,53 @@
 <sect1 id="language.assigned.variables">
  <title>Variables assigned from PHP</title>
  <para>
-  Variables that are assigned from PHP are referenced by preceding them with
-  a dollar sign <literal>$</literal>. Variables assigned from within the
+  Variables that are
+  <link linkend="api.assign">assigned</link> from PHP are referenced by preceding them with
+  a dollar sign <literal>$</literal>. Variables assigned from within a
   template with the <link linkend="language.function.assign">{assign}</link>
   function are also displayed this way.
  </para>
  <example>
   <title>assigned variables</title>
-  <programlisting>
+   <para> php script</para>
+   <programlisting role="php">
 <![CDATA[
-Hello {$firstname}, glad to see you could make it.
-<br />
-Your last login was on {$lastLoginDate}.
+<?php
+
+$smarty = new Smarty;
+
+$smarty->assign('firstname', 'Doug');
+$smarty->assign('lastname', 'Evans');
+$smarty->assign('meetingPlace', 'New York');
+
+$smarty->display('index.tpl');
+
+?>
 ]]>
-  </programlisting>
+     </programlisting>
+     <para>
+      where the content of index.tpl is:
+     </para>
+<programlisting>
+<![CDATA[
+Hello {$firstname} {$lastname}, glad to see you can make it.
+<br />
+{* this will not work as $vars are case sensitive *}
+This weeks meeting is in {$meetingplace}.
+{* this will work *}
+This weeks meeting is in {$meetingPlace}.
+]]>
+   </programlisting>
+
   <para>
    This will output:
   </para>
   <screen>
 <![CDATA[
-Hello Doug, glad to see you could make it.
+Hello Doug Evans, glad to see you can make it.
 <br />
-Your last login was on January 11th, 2001.
+This weeks meeting is in .
+This weeks meeting is in New York.
 ]]>
   </screen>
  </example>
@@ -40,7 +65,6 @@ Your last login was on January 11th, 2001.
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
 $smarty->assign('Contacts',
     array('fax' => '555-222-9876',
           'email' => 'zaphod@slartibartfast.com',
@@ -66,7 +90,7 @@ $smarty->display('index.tpl');
     this will output:
    </para>
    <screen>
-<![CDATA[    
+<![CDATA[
 555-222-9876<br />
 zaphod@slartibartfast.com<br />
 555-444-3333<br />
@@ -87,12 +111,12 @@ zaphod@slartibartfast.com<br />
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
-$smarty->assign('Contacts',
-    array('555-222-9876',
-          'zaphod@slartibartfast.com',
-          array('555-444-3333',
-                '555-111-1234')));
+$smarty->assign('Contacts', array(
+                           '555-222-9876',
+                           'zaphod@slartibartfast.com',
+                            array('555-444-3333',
+                                  '555-111-1234')
+                            ));
 $smarty->display('index.tpl');
 
 ?>

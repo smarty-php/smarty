@@ -229,10 +229,9 @@
  </para>
  <example>
   <title>{html_select_date}</title>
+  <para>Template code</para>
   <programlisting>
 <![CDATA[
-template code:
--------------
 {html_select_date}
 ]]>
   </programlisting>

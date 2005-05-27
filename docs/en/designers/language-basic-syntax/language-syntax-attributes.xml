@@ -3,7 +3,8 @@
 <sect1 id="language.syntax.attributes">
  <title>Attributes</title>
  <para>
-  Most of the functions take attributes that specify or modify
+  Most of the <link linkend="language.syntax.functions">functions</link>
+  take attributes that specify or modify
   their behavior. Attributes to Smarty functions are much like HTML
   attributes. Static values don't have to be enclosed in quotes, but it
   is recommended for literal strings. Variables may also be used, and
@@ -22,14 +23,16 @@
 <![CDATA[
 {include file="header.tpl"}
 
+{include file="header.tpl" attrib_name="attrib value"}
+
 {include file=$includeFile}
 
-{include file=#includeFile#}
+{include file=#includeFile# title="Smarty is cool"}
 
 {html_select_date display_days=yes}
 
 <select name="company">
-{html_options values=$vals selected=$selected output=$output}
+  {html_options options=$choices selected=$selected}
 </select>
 ]]>
   </programlisting>

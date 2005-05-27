@@ -2,24 +2,26 @@
 <!-- $Revision$ -->
 <refentry id="api.get.config.vars">
  <refnamediv>
-  <refname>get_config_vars</refname>
-  <refpurpose></refpurpose>
+  <refname>get_config_vars()</refname>
+  <refpurpose>returns the given loaded config variable value</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>array</type><methodname>get_config_vars</methodname>
    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This returns the given loaded config variable value. If no parameter
-   is given, an array of all loaded config variables is returned.
+   If no parameter is given, an array of all loaded
+   <link linkend="language.config.variables">config variables</link>
+   is returned.
   </para>
   <example>
-   <title>get_config_vars</title>
+   <title>get_config_vars()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
+
 // get loaded config template var 'foo'
 $foo = $smarty->get_config_vars('foo');
 

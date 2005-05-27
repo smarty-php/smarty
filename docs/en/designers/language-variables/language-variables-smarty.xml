@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
   <sect1 id="language.variables.smarty">
-   <title>{$smarty} reserved variables</title>
+   <title>{$smarty} reserved variable</title>
    <para>
     The reserved {$smarty} variable can be used to access several
     special template variables. The full list of them follows.
    </para>
 
-   <sect2 id="language.variables.smarty.request">
-    <title>Request variables</title>
-     <para>
-      The request variables such as get, post, cookies, server,
-      environment, and session variables can be accessed as demonstrated
-      in the examples below:
-     </para>
-     <example>
-      <title>displaying request variables</title>
-      <programlisting>
+<sect2 id="language.variables.smarty.request">
+  <title>Request variables</title>
+  <para>
+  The <ulink url="&url.php-manual;reserved.variables">request variables
+  </ulink> such as $_GET, $_POST, $_COOKIE, $_SERVER, $_ENV and $_SESSION
+  can be accessed as demonstrated in the examples below:
+  </para>
+  <example>
+    <title>displaying request variables</title>
+    <programlisting>
 <![CDATA[
 {* display value of page from URL (GET) http://www.example.com/index.php?page=foo *}
 {$smarty.get.page}
@@ -39,25 +39,27 @@
 {* display the variable "username" from merged get/post/cookies/server/env *}
 {$smarty.request.username}
 ]]>
-      </programlisting>
-     </example>
-     <note>
-      <para>
-	      For historical reasons {$SCRIPT_NAME} can be accessed
-	      directly though {$smarty.server.SCRIPT_NAME} is the
-	      proposed way to access this value.
-      </para>
-     </note>
-		  </sect2>
+    </programlisting>
+   </example>
+   <note>
+   <para>
+     For historical reasons {$SCRIPT_NAME} can be accessed
+     directly, although {$smarty.server.SCRIPT_NAME} is the
+     proposed way to access this value.
+   </para>
+   </note>
+</sect2>
 
-  <sect2 id="language.variables.smarty.now">
-			<title>{$smarty.now}</title>
-			<para>
-			 The current timestamp can be accessed with {$smarty.now}. The
-			 number reflects the number of seconds passed since the so-called
-			 Epoch (January 1, 1970) and can be passed directly to
-			 <link linkend="language.modifier.date.format">date_format</link> modifier for display purposes.
-			</para>
+<sect2 id="language.variables.smarty.now">
+  <title>{$smarty.now}</title>
+  <para>
+  The current <ulink url="&url.php-manual;function.time">timestamp</ulink>
+  can be accessed with {$smarty.now}. The  number reflects the number of
+  seconds passed since the so-called Epoch (January 1, 1970)
+  and can be passed directly to the
+ <link linkend="language.modifier.date.format">date_format</link>
+ modifier for display purposes.
+</para>
    <example>
     <title>using {$smarty.now}</title>
     <programlisting>
@@ -168,4 +170,5 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+
 

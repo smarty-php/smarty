@@ -6,11 +6,16 @@
        This is the name of the directory where template caches are
        stored. By default this is "./cache", meaning that it will look
        for the cache directory in the same directory as the executing
-       php script. You can also use your own
+       php script.
+       <emphasis role="bold">This directory must
+     be writeable by the web server. </emphasis>
+     You can also use your own
        <link linkend="section.template.cache.handler.func">
        custom cache handler</link>
        function to control cache files, which will ignore this
        setting.
+       See also
+       <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
       </para>
       <note>
        <title>Technical Note</title>
@@ -26,7 +31,18 @@
         the web server document root.
        </para>
       </note>
-     </sect1>
+
+  <para>
+  See also
+  <link linkend="variable.caching">$caching</link>,
+  <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>,
+  <link linkend="variable.cache.lifetime">$cache_lifetime</link>,
+  <link linkend="variable.cache.handler.func">$cache_handler_func</link>,
+  <link linkend="variable.cache.modified.check">$cache_modified_check</link>
+  and
+  <link linkend="caching">Caching section</link>.
+  </para>
+</sect1>
 
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -2,28 +2,31 @@
 <!-- $Revision$ -->
 <refentry id="api.clear.compiled.tpl">
  <refnamediv>
-  <refname>clear_compiled_tpl</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_compiled_tpl()</refname>
+  <refpurpose>clears the compiled version of the specified template resource</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_compiled_tpl</methodname>
    <methodparam choice="opt"><type>string</type><parameter>tpl_file</parameter></methodparam>
-   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
+   </methodparam>
    <methodparam choice="opt"><type>int</type><parameter>exp_time</parameter></methodparam>
   </methodsynopsis>
   <para>
    This clears the compiled version of the specified template
    resource, or all compiled template files if one is not specified.
-   if you pass a compile_id only the compiled template for this
-   specific compile_id is cleared. if you pass an exp_time, then only
+   If you pass a <link linkend="variable.compile.id">$compile_id</link>
+   only the compiled template for this
+   specific <link linkend="variable.compile.id">$compile_id</link>
+   is cleared. if you pass an exp_time, then only
    compiled templates older than exp_time seconds are cleared, by
    default all compiled templates are cleared regardless of their age.
    This function is for advanced use only, not normally needed.
   </para>
   <example>
-   <title>clear_compiled_tpl</title>
+   <title>clear_compiled_tpl()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -58,3 +61,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

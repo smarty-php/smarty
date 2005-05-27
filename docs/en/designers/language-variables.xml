@@ -4,12 +4,15 @@
  <title>Variables</title>
  <para>
   Smarty has several different types of variables. The type of the variable
-  depends on what symbol it is prefixed with (or enclosed within).
+  depends on what symbol it is prefixed or enclosed within.
  </para>
  <para>
   Variables in Smarty can be either displayed directly or used as arguments
-  for function attributes and modifiers, inside conditional expressions,
-  etc. To print a variable, simply enclose it in the delimiters so that it
+  for <link linkend="language.syntax.functions">function</link>
+  <link linkend="language.syntax.attributes">attributes</link> and
+  <link linkend="language.modifiers">modifiers</link>, inside conditional expressions,
+  etc. To print a variable, simply enclose it in the
+  <link linkend="variable.left.delimiter">delimiters</link> so that it
   is the only thing contained between them. Examples:
   <programlisting>
 <![CDATA[

@@ -75,20 +75,20 @@
  </para>
  <example>
   <title>{foreach} - item</title>
-<programlisting role="php">
+  <programlisting role="php">
 <![CDATA[
 <?php
- $arr = array( 1001,1002,1003);
- $smarty->assign('custid', $arr);
+$arr = array( 1001,1002,1003);
+$smarty->assign('custid', $arr);
 ?>
 ]]>
-</programlisting>
+  </programlisting>
   <programlisting>
 <![CDATA[
-   {* this example will print out all the values of the $custid array *}
-   {foreach from=$custid item=curr_id}
-   id: {$curr_id}<br />
-   {/foreach}
+{* this example will print out all the values of the $custid array *}
+{foreach from=$custid item=curr_id}
+  id: {$curr_id}<br />
+{/foreach}
 ]]>
   </programlisting>
   <para>
@@ -96,51 +96,54 @@
   </para>
   <screen>
 <![CDATA[
-   id: 1000<br />
-   id: 1001<br />
-   id: 1002<br />
+id: 1000<br />
+id: 1001<br />
+id: 1002<br />
 ]]>
   </screen>
  </example>
 
  <example>
   <title>{foreach} - item and key</title>
-<programlisting role="php">
+  <programlisting role="php">
 <![CDATA[
 // The key contains the key for each looped value
 // assignment looks like this:
 <?php
- $smarty->assign("contacts", array(
-                              array("phone" => "1",
-                                    "fax" => "2",
-                                    "cell" => "3"),
-                              array("phone" => "555-4444",
-                                    "fax" => "555-3333",
-                                    "cell" => "760-1234"))
-                                    );
+ $smarty->assign('contacts', array(
+                             array('phone' => '1',
+                                   'fax' => '2',
+                                   'cell' => '3'),
+                             array('phone' => '555-4444',
+                                   'fax' => '555-3333',
+                                   'cell' => '760-1234')
+                             ));
 ?>
 ]]>
-</programlisting>
+  </programlisting>
   <programlisting>
 <![CDATA[
-   {foreach name=outer item=contact from=$contacts}
-   {foreach key=key item=item from=$contact}
-   {$key}: {$item}<br />
-   {/foreach}
-   {/foreach}
-   ]]>
+{foreach name=outer item=contact from=$contacts}
+  <hr />
+  {foreach key=key item=item from=$contact}
+    {$key}: {$item}<br />
+  {/foreach}
+{/foreach}
+]]>
   </programlisting>
   <para>
    The above example will output:
   </para>
   <screen>
 <![CDATA[
-   phone: 1<br />
-   fax: 2<br />
-   cell: 3<br />
-   phone: 555-4444<br />
-   fax: 555-3333<br />
-   cell: 760-1234<br />
+<hr />
+  phone: 1<br />
+  fax: 2<br />
+  cell: 3<br />
+<hr />
+  phone: 555-4444<br />
+  fax: 555-3333<br />
+  cell: 760-1234<br />
 ]]>
   </screen>
  </example>
@@ -154,14 +157,14 @@
   $smarty->assign("contacts", $db->getAssoc($sql));
 ?>
 ]]>
-</programlisting>
-<programlisting>
+  </programlisting>
+  <programlisting>
 <![CDATA[
 {foreach key=cid item=con from=$contacts}
- <a href="contact.php?contact_id={$cid}">{$con.name} - {$con.nick}</a><br />
+  <a href="contact.php?contact_id={$cid}">{$con.name} - {$con.nick}</a><br />
 {/foreach}
 ]]>
-</programlisting>
+  </programlisting>
 
  </example>
 
@@ -172,6 +175,10 @@
   with
   foreachname being the name specified as the <emphasis>name</emphasis>
   attribute of foreach
+ </para>
+
+ <para>See <link linkend="section.property.index">{section}</link>
+ for examples of the properties below as they are identical
  </para>
 
  <sect2 id="foreach.property.iteration">
@@ -220,6 +227,7 @@
   </para>
  </sect2>
 </sect1>
+
 <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml

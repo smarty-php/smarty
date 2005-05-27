@@ -86,13 +86,17 @@ rowBgColor = "#cccccc"
 ]]>
     </screen>
    </example>
-			<para>
-		 	Config file variables cannot be used until
-		 	after they are loaded in from a config file. This procedure is
-		 	explained later in this document under <link linkend="api.config.load"><command>config_load</command></link>.
-			</para>
-			<para>See also <link linkend="language.syntax.variables">Variables</link> and <link linkend="language.variables.smarty">$smarty reserved
-			variables</link></para>
+<para>
+  Config file variables cannot be used until
+  after they are loaded in from a config file. This procedure is
+  explained later in this document under
+  <link linkend="language.function.config.load"><command>{config_load}</command></link>.
+</para>
+<para>
+  See also <link linkend="language.syntax.variables">Variables</link> and
+  <link linkend="language.variables.smarty">$smarty reserved
+  variables</link>
+</para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

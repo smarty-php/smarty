@@ -2,19 +2,22 @@
 <!-- $Revision$ -->
 <refentry id="api.display">
  <refnamediv>
-  <refname>display</refname>
-  <refpurpose></refpurpose>
+  <refname>display()</refname>
+  <refpurpose>displays the template</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>display</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
+   </methodparam>
   </methodsynopsis>
   <para>
-   This displays the template. Supply a valid <link
+   This displays the template unlike
+   <link linkend="api.fetch">fetch()</link>.
+   Supply a valid <link
    linkend="template.resources">template resource</link>
    type and path. As an optional second parameter, you can pass a
    $cache id.
@@ -23,7 +26,7 @@
   </para>
   &parameter.compileid;
   <example>
-   <title>display</title>
+   <title>display()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -57,24 +60,25 @@ $smarty->display("index.tpl");
   <para>
    Use the syntax for <link
    linkend="template.resources">template resources</link> to
-   display files outside of the $template_dir directory.
+   display files outside of the
+   <link linkend="variable.template.dir">$template_dir</link> directory.
   </para>
   <example>
-   <title>function display template resource examples</title>
+   <title>function display() template resource examples</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // absolute filepath
-$smarty->display("/usr/local/include/templates/header.tpl");
+$smarty->display('/usr/local/include/templates/header.tpl');
 
 // absolute filepath (same thing)
-$smarty->display("file:/usr/local/include/templates/header.tpl");
+$smarty->display('file:/usr/local/include/templates/header.tpl');
 
 // windows absolute filepath (MUST use "file:" prefix)
-$smarty->display("file:C:/www/pub/templates/header.tpl");
+$smarty->display('file:C:/www/pub/templates/header.tpl');
 
 // include from template resource named "db"
-$smarty->display("db:header.tpl");
+$smarty->display('db:header.tpl');
 ?>
 ]]>
    </programlisting>
@@ -106,3 +110,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <refentry id="api.append">
  <refnamediv>
-  <refname>append</refname>
-  <refpurpose></refpurpose>
- </refnamediv> 
+  <refname>append()</refname>
+  <refpurpose>append an element to an assigned array</refpurpose>
+ </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>append</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
@@ -18,7 +18,7 @@
    <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This is used to append an element to an assigned array. If you append
+If you append
    to a string value, it is converted to an array value and then
    appended to. You can explicitly pass name/value pairs, or associative
    arrays containing the name/value pairs. If you pass the optional third

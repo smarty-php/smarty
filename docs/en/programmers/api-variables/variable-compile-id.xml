@@ -21,19 +21,23 @@
   <link linkend="plugins.prefilters.postfilters">prefilter</link>
   that localizes your templates
   (that is: translates language dependend parts) at compile time, then
-  you should use the current language as compile_id and you will get a
+  you should use the current language as $compile_id and you will get a
   set of compiled templates for each language you use.
  </para>
  <para>
   Another example would be to use the same compile directory across
-  multiple domains / multiple vhosts. eg:
+  multiple domains / multiple virtual hosts.
  </para>
  <example>
-  <title>compile_id</title>
+  <title>$compile_id</title>
   <programlisting role="php">
 <![CDATA[
-   $smarty->compile_id = $_SERVER['SERVER_NAME'];
-   $smarty->compile_dir = 'path/to/shared_compile_dir';
+<?php
+
+$smarty->compile_id = $_SERVER['SERVER_NAME'];
+$smarty->compile_dir = 'path/to/shared_compile_dir';
+
+?>
 ]]>
   </programlisting>
  </example>

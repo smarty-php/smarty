@@ -51,20 +51,28 @@
   the attribute "file", which contains the template resource path.
  </para>
  <para>
-  You can optionally pass the <emphasis>assign</emphasis> attribute,
+  You can optionally pass the <emphasis>'assign'</emphasis> attribute,
   which will specify a template variable name that the output of
   {include} will be assigned to instead of
   displayed.
  </para>
  <example>
-  <title>function include</title>
+  <title>function {include}</title>
   <programlisting>
 <![CDATA[
-   {include file="header.tpl"}
+<html>
+<head>
+  <title>{$title}</title>
+</head>
+<body>
+{include file="page_header.tpl"}
 
-   {* body of template goes here *}
+{* body of template goes here *}
+{include file="/$tpl_name.tpl"} <-- will replace $tpl_name with value
 
-   {include file="footer.tpl"}
+{include file="page_footer.tpl"}
+</body>
+</html>
 ]]>
   </programlisting>
  </example>
@@ -76,17 +84,51 @@
   the case they are named alike.
  </para>
  <example>
-  <title>function include passing variables</title>
+  <title>{include} passing variables</title>
   <programlisting>
 <![CDATA[
-   {include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+{include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
 
-   {* body of template goes here *}
+{* body of template goes here *}
 
-   {include file="footer.tpl" logo="http://my.example.com/logo.gif"}
+{include file="footer.tpl" logo="http://my.example.com/logo.gif"}
 ]]>
   </programlisting>
+  <para>where header.tpl could be</para>
+<programlisting>
+<![CDATA[
+<table border='1' width='100%' bgcolor='{$table_bgcolor|default:"#0000FF"}'>
+  <tr><td>
+    <h1>{$title}</h1>
+  </td></tr>
+</table>
+]]>
+</programlisting>
  </example>
+
+
+  <example>
+   <title>{include} and assign to variable</title>
+   <para>This example assign the contents of nav.tpl to a variable
+   and outputs at the top of page and the bottom.
+   </para>
+   <programlisting>
+ <![CDATA[
+<body>
+{include file="nav.tpl" assign="navbar"}
+{include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+{$navbar}
+
+{* body of template goes here *}
+
+{include file="footer.tpl" logo="http://my.example.com/logo.gif"}
+{$navbar}
+</body>
+ ]]>
+   </programlisting>
+ </example>
+
+
  <para>
   Use the syntax for <link
   linkend="template.resources">template resources</link> to
@@ -94,20 +136,20 @@
   directory.
  </para>
  <example>
-  <title>function include template resource examples</title>
+  <title>{include} template resource examples</title>
   <programlisting>
 <![CDATA[
-   {* absolute filepath *}
-   {include file="/usr/local/include/templates/header.tpl"}
+{* absolute filepath *}
+{include file="/usr/local/include/templates/header.tpl"}
 
-   {* absolute filepath (same thing) *}
-   {include file="file:/usr/local/include/templates/header.tpl"}
+{* absolute filepath (same thing) *}
+{include file="file:/usr/local/include/templates/header.tpl"}
 
-   {* windows absolute filepath (MUST use "file:" prefix) *}
-   {include file="file:C:/www/pub/templates/header.tpl"}
+{* windows absolute filepath (MUST use "file:" prefix) *}
+{include file="file:C:/www/pub/templates/header.tpl"}
 
-   {* include from template resource named "db" *}
-   {include file="db:header.tpl"}
+{* include from template resource named "db" *}
+{include file="db:header.tpl"}
 ]]>
   </programlisting>
  </example>
@@ -115,7 +157,7 @@
   See also
   <link linkend="language.function.include.php">{include_php}</link>,
   <link linkend="language.function.php">{php}</link>,
-  <link linkend="template.resources">Template Resources</link> and 
+  <link linkend="template.resources">Template Resources</link> and
   <link linkend="tips.componentized.templates">Componentized Templates</link>.
  </para>
 </sect1>

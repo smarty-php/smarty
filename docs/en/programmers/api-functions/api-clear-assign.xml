@@ -2,29 +2,28 @@
 <!-- $Revision$ -->
 <refentry id="api.clear.assign">
  <refnamediv>
-  <refname>clear_assign</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_assign()</refname>
+  <refpurpose>clears the value of an assigned variable</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_assign</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This clears the value of an assigned variable. This
-   can be a single value, or an array of values.
+This  can be a single value, or an array of values.
   </para>
   <example>
-   <title>clear_assign</title>
+   <title>clear_assign()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // clear a single variable
-$smarty->clear_assign("Name");
+$smarty->clear_assign('Name');
 
-// clear multiple variables
-$smarty->clear_assign(array("Name", "Address", "Zip"));
+// clears multiple variables
+$smarty->clear_assign(array('Name', 'Address', 'Zip'));
 ?>
 ]]>
    </programlisting>
@@ -33,6 +32,7 @@ $smarty->clear_assign(array("Name", "Address", "Zip"));
     See also
     <link linkend="api.clear.all.assign">clear_all_assign()</link>,
     <link linkend="api.clear.config">clear_config()</link>,
+    <link linkend="api.get.template.vars">get_template_vars()</link>,
     <link linkend="api.assign">assign()</link>
     and <link linkend="api.append">append()</link>
   </para>

@@ -2,26 +2,27 @@
 <!-- $Revision$ -->
 <refentry id="api.register.object">
  <refnamediv>
-  <refname>register_object</refname>
-  <refpurpose></refpurpose>
+  <refname>register_object()</refname>
+  <refpurpose>register an object for use in the templates</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>register_object</methodname>
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
    <methodparam><type>object</type><parameter>object</parameter></methodparam>
-   <methodparam><type>array</type><parameter>allowed_methods_properties</parameter></methodparam>
+   <methodparam><type>array</type><parameter>allowed_methods_properties</parameter>
+   </methodparam>
    <methodparam><type>boolean</type><parameter>format</parameter></methodparam>
    <methodparam><type>array</type><parameter>block_methods</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This is to register an object for use in the templates. See the
-   <link linkend="advanced.features.objects">object section</link>
-   of the manual for examples.
+   See the
+   <link linkend="advanced.features.objects">objects section</link>
+   for examples.
   </para>
   <para>
-   See Also <link linkend="api.unregister.object">unregister_object()</link>.
+   See also <link linkend="api.unregister.object">unregister_object()</link>.
   </para>
  </refsect1>
 </refentry>
@@ -46,3 +47,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

@@ -9,22 +9,31 @@
   is for advanced users only, not normally needed.
  </para>
  <example>
-  <title>php tags</title>
-  <programlisting>
+  <title>{php} tags</title>
+  <programlisting role="php">
 <![CDATA[
-   {php}
+{php}
    // including a php script directly
    // from the template.
    include("/path/to/display_weather.php");
-   {/php}
+{/php}
 ]]>
   </programlisting>
  </example>
+<note>
+<title>Technical Note</title>
+<para>
+   To access PHP variables in {php} blocks you may need to use the PHP
+   <ulink url="&url.php-manual;global">global</ulink>
+   keyword.
+</para>
+</note>
+
  <para>
   See also
   <link linkend="variable.php.handling">$php_handling</link>,
   <link linkend="language.function.include.php">{include_php}</link>,
-  <link linkend="language.function.include">{include}</link> and 
+  <link linkend="language.function.include">{include}</link> and
   <link linkend="tips.componentized.templates">Componentized Templates</link>.
  </para>
 </sect1>

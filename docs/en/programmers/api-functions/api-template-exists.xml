@@ -2,18 +2,17 @@
 <!-- $Revision$ -->
 <refentry id="api.template.exists">
  <refnamediv>
-  <refname>template_exists</refname>
-  <refpurpose></refpurpose>
+  <refname>template_exists()</refname>
+  <refpurpose>checks whether the specified template exists</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>bool</type><methodname>template_exists</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This function checks whether the specified template exists. It can
-   accept either a path to the template on the filesystem or a
+   It can  accept either a path to the template on the filesystem or a
    resource string specifying the template.
   </para>
   <para>

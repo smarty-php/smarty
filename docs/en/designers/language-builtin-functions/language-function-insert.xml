@@ -54,8 +54,8 @@
  </informaltable>
  <para>
   Insert tags work much like <link
-  linkend="language.function.include">include</link> tags,
-  except that insert tags are not cached when you have
+  linkend="language.function.include">{include}</link> tags,
+  except that {insert} tags are not cached when you have
   template <link linkend="caching">caching</link> enabled. They
   will be executed on every invocation of the template.
  </para>
@@ -64,57 +64,60 @@
   the page. The banner can contain any mixture of HTML, images,
   flash, etc. so we can't just use a static link here, and we
   don't want this contents cached with the page. In comes the
-  insert tag: the template knows #banner_location_id# and
-  #site_id# values (gathered from a config file), and needs to
+  {insert} tag: the template knows #banner_location_id# and
+  #site_id# values (gathered from a
+  <link linkend="config.files">config file</link>), and needs to
   call a function to get the banner contents.
  </para>
  <example>
-  <title>function insert</title>
-  <programlisting>
-   {* example of fetching a banner *}
-   {insert name="getBanner" lid=#banner_location_id# sid=#site_id#}
-  </programlisting>
+  <title>function {insert}</title>
+<programlisting>
+{* example of fetching a banner *}
+{insert name="getBanner" lid=#banner_location_id# sid=#site_id#}
+</programlisting>
  </example>
  <para>
   In this example, we are using the name "getBanner" and passing the
   parameters #banner_location_id# and #site_id#. Smarty will look
   for a function named insert_getBanner() in your PHP application, passing
   the values of #banner_location_id# and #site_id# as the first argument
-  in an associative array. All insert function names in
+  in an associative array. All {insert} function names in
   your application must be prepended with "insert_" to remedy possible
   function name-space conflicts. Your insert_getBanner() function should
   do something with the passed values and return the results. These results
-  are then displayed in the template in place of the insert tag.
+  are then displayed in the template in place of the {insert} tag.
   In this example, Smarty would call this function:
   insert_getBanner(array("lid" => "12345","sid" => "67890"));
-   and display the returned results in place of the insert tag.
+   and display the returned results in place of the {insert} tag.
   </para>
   <para>
-   If you supply the "assign" attribute, the output of the insert tag
+   If you supply the "assign" attribute, the output of the {insert} tag
    will be assigned to this template variable instead of being output
    to the template. NOTE: assigning the output to a template variable
-   isn't too useful with caching enabled.
+   isn't too useful with
+   <link linkend="variable.caching">caching</link> enabled.
   </para>
   <para>
    If you supply the "script" attribute, this php script will be
-   included (only once) before the insert function is executed. This
+   included (only once) before the {insert} function is executed. This
    is the case where the insert function may not exist yet, and a php
    script must be included first to make it work. The path can be
-   either absolute, or relative to $trusted_dir. When <link
+   either absolute, or relative to
+   <link linkend="variable.trusted.dir">$trusted_dir</link>. When <link
    linkend="variable.security">security is enabled</link>, the script
    must reside in <link linkend="variable.trusted.dir">$trusted_dir</link>.
   </para>
   <para>
    The Smarty object is passed as the second argument. This way you
    can reference and modify information in the Smarty object from
-   within the insert function.
+   within the {insert} function.
   </para>
   <note>
    <title>Technical Note</title>
    <para>
     It is possible to have portions of the template not
     cached. If you have <link linkend="caching">caching</link>
-    turned on, insert tags will not be cached. They will run
+    turned on, {insert} tags will not be cached. They will run
     dynamically every time the page is created, even within cached
     pages. This works good for things like banners, polls, live
     weather, search results, user feedback areas, etc.

@@ -83,13 +83,14 @@
 <![CDATA[
 <?php
 
-   $smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
 $smarty->assign('cust_names', array(
-                                'Joe Schmoe',
-                                'Jack Smith',
-                                'Jane Johnson',
-                                'Charlie Brown'));
-   $smarty->assign('customer_id', 1001);
+                              'Joe Schmoe',
+                              'Jack Smith',
+                              'Jane Johnson',
+                              'Charlie Brown')
+                              );
+$smarty->assign('customer_id', 1001);
 
 ?>
 ]]>
@@ -100,7 +101,7 @@ $smarty->assign('cust_names', array(
   <programlisting>
 <![CDATA[
 {html_radios name="id" values=$cust_ids output=$cust_names
-   selected=$customer_id separator="<br />"}
+       selected=$customer_id separator="<br />"}
    ]]>
   </programlisting>
 </example>
@@ -109,13 +110,13 @@ $smarty->assign('cust_names', array(
 <programlisting role="php">
 <![CDATA[
 <?php
-   
-   $smarty->assign('cust_radios', array(
-   1000 => 'Joe Schmoe',
-   1001 => 'Jack Smith',
-   1002 => 'Jane Johnson',
-   1003 => 'Charlie Brown'));
-   $smarty->assign('customer_id', 1001);
+
+$smarty->assign('cust_radios', array(
+                               1000 => 'Joe Schmoe',
+                               1001 => 'Jack Smith',
+                               1002 => 'Jane Johnson',
+                               1003 => 'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
 
 ?>
 ]]>
@@ -125,7 +126,7 @@ $smarty->assign('cust_names', array(
   </para>
   <programlisting>
 <![CDATA[
-   {html_radios name="id" options=$cust_radios selected=$customer_id separator="<br />"}
+{html_radios name="id" options=$cust_radios selected=$customer_id separator="<br />"}
 ]]>
   </programlisting>
   <para>
@@ -133,7 +134,8 @@ $smarty->assign('cust_names', array(
   </para>
   <screen>
 <![CDATA[
-<label for="id_1000"><input type="radio" name="id" value="1000" id="id_1000" />Joe
+<label for="id_1000">
+<input type="radio" name="id" value="1000" id="id_1000" />Joe
 Schmoe</label><br />
 <label for="id_1001"><input type="radio" name="id" value="1001" id="id_1001"
 checked="checked" />Jack
@@ -154,7 +156,8 @@ Brown</label><br />
 $sql = 'select type_id, types from types order by type';
 $smarty->assign('types',$db->getAssoc($sql));
 
-$sql = 'select * from contacts where contact_id=12';
+$sql = 'select contact_id, name, email, type_id
+        from contacts where contact_id='.$contact_id;
 $smarty->assign('contact',$db->getRow($sql));
 
 ?>

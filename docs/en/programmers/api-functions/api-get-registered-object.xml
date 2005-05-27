@@ -2,26 +2,27 @@
 <!-- $Revision$ -->
 <refentry id="api.get.registered.object">
  <refnamediv>
-  <refname>get_registered_object</refname>
-  <refpurpose></refpurpose>
+  <refname>get_registered_object()</refname>
+  <refpurpose>returns a reference to a registered object</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>array</type><methodname>get_registered_object</methodname>
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This returns a reference to a registered object. This is useful
+   This is useful
    from within a custom function when you need direct access to a
-   registered object.
+   <link linkend="api.register.object">registered object</link>. See
+   <link linkend="advanced.features.objects">objects</link> for more info.
   </para>
   <example>
-   <title>get_registered_object</title>
+   <title>get_registered_object()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-function smarty_block_foo($params, &$smarty) 
+function smarty_block_foo($params, &$smarty)
 {
   if (isset($params['object'])) {
     // get reference to registered object
@@ -33,6 +34,13 @@ function smarty_block_foo($params, &$smarty)
 ]]>
    </programlisting>
   </example>
+  <para>
+  See also
+  <link linkend="api.register.object">register_object()</link>,
+  <link linkend="api.unregister.object">unregister_object()</link>
+  and
+  <link linkend="advanced.features.objects">objects section</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

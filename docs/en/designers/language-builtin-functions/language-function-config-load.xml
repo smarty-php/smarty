@@ -66,18 +66,35 @@
  <para>
   {config_load} is used for loading  config
   <link linkend="language.config.variables">#variables#</link> from a
-  configuration file into the template.
-  See <link linkend="config.files">Config Files</link> for more
-  info.
+  <link linkend="config.files">configuration file</link> into the template.
  </para>
  <example>
   <title>{config_load}</title>
+  <para>
+   example.conf
+  </para>
   <programlisting>
 <![CDATA[
-{config_load file="colors.conf"}
+#this is config file comment
+
+# global variables
+pageTitle = "Main Menu"
+bodyBgColor = #000000
+tableBgColor = #000000
+rowBgColor = #00ff00
+
+#customer variables section
+[Customer]
+pageTitle = "Customer Info"
+]]>
+  </programlisting>
+  <para>and the template</para>
+  <programlisting>
+<![CDATA[
+{config_load file="example.conf"}
 
 <html>
-<title>{#pageTitle#}</title>
+<title>{#pageTitle#|default:"No title"}</title>
 <body bgcolor="{#bodyBgColor#}">
 <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
    <tr bgcolor="{#rowBgColor#}">
@@ -95,21 +112,23 @@
   <link linkend="config.files">Config Files</link>
   may also contain sections. You can load variables from
   within a section with the added attribute
-  <emphasis>section</emphasis>.
+  <emphasis>'section'</emphasis>.
  </para>
  <note>
   <para>
    <emphasis>Config file sections</emphasis> and the built-in
-   template function called <emphasis>section</emphasis> have nothing
+   template function called
+   <link linkend="language.function.section"><emphasis>{section}</emphasis></link>
+   have nothing
    to do with each other, they just happen to share a common naming
    convention.
   </para>
  </note>
  <example>
-  <title>function config_load with section</title>
+  <title>function {config_load} with section</title>
   <programlisting>
 <![CDATA[
-{config_load file="colors.conf" section="Customer"}
+{config_load file="example.conf" section="Customer"}
 
 <html>
 <title>{#pageTitle#}</title>

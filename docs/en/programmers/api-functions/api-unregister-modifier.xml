@@ -2,31 +2,37 @@
 <!-- $Revision$ -->
 <refentry id="api.unregister.modifier">
  <refnamediv>
-  <refname>unregister_modifier</refname>
-  <refpurpose></refpurpose>
+  <refname>unregister_modifier()</refname>
+  <refpurpose>dynamically unregister modifier plugin</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>unregister_modifier</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Use this to dynamically unregister modifier plugin. Pass in the
-   template modifier name.
+   Pass in the template modifier name.
   </para>
   <example>
-   <title>unregister_modifier</title>
+   <title>unregister_modifier()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// we don't want template designers to strip tags from elements
 
-$smarty->unregister_modifier("strip_tags");
+// we don't want template designers to strip tags from elements
+$smarty->unregister_modifier('strip_tags');
+
 ?>
 ]]>
    </programlisting>
   </example>
+ <para>
+  See also
+  <link linkend="api.register.modifier">register_modifier()</link>
+  and
+  <link linkend="plugins.modifiers">Plugin modifiers</link>,
+ </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

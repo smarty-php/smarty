@@ -2,19 +2,21 @@
 <!-- $Revision$ -->
 <refentry id="api.fetch">
  <refnamediv>
-  <refname>fetch</refname>
-  <refpurpose></refpurpose>
+  <refname>fetch()</refname>
+  <refpurpose>returns the template output</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>string</type><methodname>fetch</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>$compile_id</parameter>
+   </methodparam>
   </methodsynopsis>
   <para>
-   This returns the template output instead of displaying it.
+   This returns the template output instead of
+   <link linkend="api.display">displaying</link> it.
    Supply a valid <link
    linkend="template.resources">template resource</link>
    type and path. As an optional second parameter, you can pass a
@@ -22,45 +24,101 @@
    section</link> for more information.
   </para>
   &parameter.compileid;
-  <para>
-   <example>
-    <title>fetch</title>
-    <programlisting role="php">
+
+<para>
+<example>
+<title>fetch()</title>
+<programlisting role="php">
 <![CDATA[
 <?php
-include("Smarty.class.php");
+include('Smarty.class.php');
 $smarty = new Smarty;
 
 $smarty->caching = true;
 
 // only do db calls if cache doesn't exist
-if(!$smarty->is_cached("index.tpl")) {
+if(!$smarty->is_cached('index.tpl')) {
 
   // dummy up some data
-  $address = "245 N 50th";
+  $address = '245 N 50th';
   $db_data = array(
-               "City" => "Lincoln",
-               "State" => "Nebraska",
-               "Zip" => "68502"
+               'City' => 'Lincoln',
+               'State' => 'Nebraska',
+               'Zip' => '68502'
              );
 
-  $smarty->assign("Name","Fred");
-  $smarty->assign("Address",$address);
+  $smarty->assign('Name','Fred');
+  $smarty->assign('Address',$address);
   $smarty->assign($db_data);
 
 }
 
 // capture the output
-$output = $smarty->fetch("index.tpl");
+$output = $smarty->fetch('index.tpl');
 
 // do something with $output here
 
 echo $output;
 ?>
 ]]>
-    </programlisting>
-   </example>
+</programlisting>
+</example>
+</para>
+
+<para>
+<example>
+<title>Using fetch() to send an email</title>
+  <para>
+  The email_body.txt template
   </para>
+<programlisting>
+<![CDATA[
+Dear {$contact.name},
+
+Welcome and thankyou for signing up as a member of our user group,
+
+Click on the link below to login with your user name of '{$contact.login_id}'
+so you can post in our forums.
+
+http://{$smarty.server.SERVER_NAME}/index.php?page=login
+
+List master
+Some user group
+
+{include file="email_disclaimer.txt"}
+]]>
+</programlisting>
+  <para>
+  The email_disclaimer.txt template
+  </para>
+<programlisting>
+<![CDATA[
+ This e-mail is intended for the addressee shown. It contains information
+ ....... etc .......
+]]>
+</programlisting>
+  <para>
+  and the php script using the PHP
+  <ulink url="&url.php-manual;function.mail">mail()</ulink> function
+  </para>
+<programlisting role="php">
+<![CDATA[
+<?php
+
+// get contact from database eg using pear or adodb
+$query  = 'select name, email, login_id from contacts where contact_id='.$contact_id;
+$contact = $db->getRow($sql);
+$smarty->assign('contact', $contact);
+
+mail($contact['email'], 'Subject', $smarty->fetch('email_body.txt'));
+
+?>
+]]>
+</programlisting>
+</example>
+</para>
+
+
   <para>
    See also
    <link linkend="language.function.fetch">{fetch}</link>
@@ -92,3 +150,5 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+
+

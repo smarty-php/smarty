@@ -2,23 +2,41 @@
 <!-- $Revision$ -->
      <sect1 id="variable.use.sub.dirs">
       <title>$use_sub_dirs</title>
-      <para>
-	  Set this to false if your PHP environment does not allow the creation of
-	  sub directories by Smarty. Sub directories are more efficient, so use them
-	  if you can.
-      </para>
+ <para>
+Smarty will create subdirectories under the
+<link linkend="variable.compile.dir">templates_c</link> and
+<link linkend="variable.cache.dir">cache</link>
+directories if $use_sub_dirs is set to true.
+In an environment where there are potentially tens of thousands of files created,
+this may help the filesystem speed.
+On the other hand, some environments do not allow PHP processes to
+create directories, so this must be disabled. The default is false (disabled).
+Sub directories are more efficient, so use them  if you can.
+</para>
+<para>
+Theoretically you get much better perfomance on a filesystem with 10
+directories each having 100 files, than with 1 directory having 1000
+files. This was certainly the case with Solaris 7 (UFS)... with newer
+filesystems such as ext3 and especially reiserfs, the difference is almost
+nothing.
+</para>
+<note>
+<title>Technical Note</title>
+<para>
+$use_sub_dirs=true doesn't work with safe_mode=On, that's why it's
+switchable and  why it's off by default.
+</para>
+</note>
       <note>
-      <title>Technical Note</title>
+      <title>Note</title>
       <para>
           Since Smarty-2.6.2 <varname>$use_sub_dirs</varname> defaults to false.
       </para>
       </note>
  <para>
-  See also <link linkend="variable.template.dir">$template_dir</link>,
+  See also
   <link linkend="variable.compile.dir">$compile_dir</link>,
-  <link linkend="variable.config.dir">$config_dir</link>,
-  <link linkend="variable.plugins.dir">$plugins_dir</link>
-  and
+   and
   <link linkend="variable.cache.dir">$cache_dir</link>.
  </para>
 </sect1>
@@ -42,3 +60,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

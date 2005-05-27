@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <refentry id="api.register.compiler.function">
  <refnamediv>
-  <refname>register_compiler_function</refname>
-  <refpurpose></refpurpose>
+  <refname>register_compiler_function()</refname>
+  <refpurpose>dynamically register a compiler function plugin</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>bool</type><methodname>register_compiler_function</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
@@ -14,17 +14,22 @@
    <methodparam><type>bool</type><parameter>cacheable</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Use this to dynamically register a compiler function plugin.
-   Pass in the compiler function name, followed by the PHP
-   function that implements it.
+   Pass in the
+   <link linkend="plugins.compiler.functions">compiler function</link> name,
+   followed by the PHP  function that implements it.
   </para>
   <para>
-   The php-function callback <parameter>impl</parameter> can be either (a) a string
-   containing the function name or (b) an array of the form
-   <literal>array(&amp;$object, $method)</literal> with
+   The php-function callback <parameter>impl</parameter> can be either:
+   </para>
+   <para>
+   (a) a string containing the function name
+   </para>
+   <para>(b) an array of the form <literal>array(&amp;$object, $method)</literal> with
    <literal>&amp;$object</literal> being a reference to an
    object and <literal>$method</literal> being a string
-   containing the mehod-name or (c) an array of the form
+   containing the mehod-name
+   </para>
+   <para>(c) an array of the form
    <literal>array(&amp;$class, $method)</literal> with
    <literal>$class</literal> being a classname and
    <literal>$method</literal> being a class method of that
@@ -35,6 +40,16 @@
    most cases. See <link linkend="caching.cacheable">Controlling
    Cacheability of Plugins' Output</link> on how to it properly.
   </para>
+
+<para>
+See also
+<link
+linkend="api.unregister.compiler.function">unregister_compiler_function()
+</link>
+and
+<link linkend="plugins.compiler.functions">Plugin Compiler Functions</link>.
+</para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

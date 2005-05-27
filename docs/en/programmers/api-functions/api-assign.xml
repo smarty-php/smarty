@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <refentry id="api.assign">
  <refnamediv>
-  <refname>assign</refname>
-  <refpurpose></refpurpose>
+  <refname>assign()</refname>
+  <refpurpose>assign values to the templates</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>assign</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
@@ -17,13 +17,12 @@
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This is used to assign values to the templates. You can
-   explicitly pass name/value pairs, or associative arrays
+   You can  explicitly pass name/value pairs, or associative arrays
    containing the name/value pairs.
   </para>
   <example>
-   <title>assign</title>
-   <programlisting role="php">
+   <title>assign()</title>
+<programlisting role="php">
 <![CDATA[
 <?php
 // passing name/value pairs
@@ -32,17 +31,42 @@ $smarty->assign('Address', $address);
 
 // passing an associative array
 $smarty->assign(array('city' => 'Lincoln', 'state' => 'Nebraska'));
+
+// passing a row from a database (eg adodb)
+$sql = 'select id, name, email from contacts where contact ='.$id;
+$smarty->assign('contact', $db->getRow($sql));
 ?>
 ]]>
-   </programlisting>
+</programlisting>
+   <para>
+   Access these in the template with
+   </para>
+<programlisting>
+<![CDATA[
+{$Name}
+{$Address}
+{$city}
+{$state}
+
+{$contact.id}, {$contact.name},{$contact.email}
+?>
+]]>
+</programlisting>
   </example>
   <para>
+  For more complex array assignments see
+  <link linkend="language.function.foreach">{foreach}</link>
+  and
+  <link linkend="language.function.section">{section}</link>
+  </para>
+
+  <para>
  See also <link linkend="api.assign.by.ref">assign_by_ref()</link>,
+ <link linkend="api.get.template.vars">get_template_vars()</link>,
  <link linkend="api.clear.assign">clear_assign()</link>,
- <link linkend="api.append">append()</link>,
- <link linkend="language.function.assign">{assign}</link>,
+ <link linkend="api.append">append()</link>
  and
- <link linkend="api.get.template.vars">get_template_vars()</link>
+ <link linkend="language.function.assign">{assign}</link>
  </para>
  </refsect1>
 </refentry>

@@ -4,27 +4,38 @@
  <title>Comments</title>
  <para>
   Template comments are surrounded by asterisks, and that is surrounded
-  by the delimiter tags like so: {* this is a comment *}
-  Smarty comments are not displayed in the final output of the template.
-  They are used for making internal notes in the templates.
+  by the
+  <link linkend="variable.left.delimiter"> delimiter</link>
+  tags like so: {* this is a comment *}
+  Smarty comments are NOT displayed in the final output of the template,
+  unlike &lt;!-- HTML comments --&gt;
+  They are useful for making internal notes in the templates.
  </para>
  <example>
   <title>Comments</title>
   <programlisting>
 <![CDATA[
-{* Smarty *}
+<body>
+{* this multiline
+    comment is
+   not sent to browser
+*}
 
 {* include the header file here *}
 {include file="header.tpl"}
 
+
+{* Dev note:  $includeFile is assigned foo.php script  *}
+<!-- this html comment is sent to browser -->
 {include file=$includeFile}
 
 {include file=#includeFile#}
 
 {* display dropdown lists *}
 <select name="company">
-{html_options values=$vals selected=$selected output=$output}
+  {html_options options=$vals selected=$selected_id}
 </select>
+</body>
 ]]>
   </programlisting>
  </example>
