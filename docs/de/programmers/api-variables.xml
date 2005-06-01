@@ -31,8 +31,6 @@
 &programmers.api-variables.variable-trusted-dir;
 &programmers.api-variables.variable-left-delimiter;
 &programmers.api-variables.variable-right-delimiter;
-&programmers.api-variables.variable-show-info-header;
-&programmers.api-variables.variable-show-info-include;
 &programmers.api-variables.variable-compiler-class;
 &programmers.api-variables.variable-request-vars-order;
 &programmers.api-variables.variable-request-use-auto-globals;
