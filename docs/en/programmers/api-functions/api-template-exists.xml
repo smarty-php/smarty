@@ -49,7 +49,7 @@
 // set the filename eg index.inc.tpl
 $mid_template = $_GET['page'].'inc.tpl';
 
-if( !smarty->template_exists($template_name) ){
+if( !$smarty->template_exists($mid_template) ){
     $mid_template = 'page_not_found.inc.tpl';
 }
 $smarty->assign('page_mid', $mid_template);
