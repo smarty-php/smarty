@@ -109,8 +109,8 @@
 
   <example>
    <title>{include} and assign to variable</title>
-   <para>This example assign the contents of nav.tpl to a variable
-   and outputs at the top of page and the bottom.
+   <para>This example assigns the contents of nav.tpl to the $navbar variable,
+   which is then output at the top and bottom of the page.
    </para>
    <programlisting>
  <![CDATA[
@@ -124,7 +124,7 @@
 {include file="footer.tpl" logo="http://my.example.com/logo.gif"}
 {$navbar}
 </body>
- ]]>
+]]>
    </programlisting>
  </example>
 

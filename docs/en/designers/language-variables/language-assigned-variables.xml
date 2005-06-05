@@ -69,7 +69,9 @@ $smarty->assign('Contacts',
     array('fax' => '555-222-9876',
           'email' => 'zaphod@slartibartfast.com',
           'phone' => array('home' => '555-444-3333',
-                           'cell' => '555-111-1234')));
+                           'cell' => '555-111-1234')
+                           )
+         );
 $smarty->display('index.tpl');
 ?>
 ]]>
@@ -110,7 +112,6 @@ zaphod@slartibartfast.com<br />
    <programlisting role="php">
 <![CDATA[
 <?php
-
 $smarty->assign('Contacts', array(
                            '555-222-9876',
                            'zaphod@slartibartfast.com',
@@ -118,7 +119,6 @@ $smarty->assign('Contacts', array(
                                   '555-111-1234')
                             ));
 $smarty->display('index.tpl');
-
 ?>
 ]]>
    </programlisting>

@@ -29,6 +29,29 @@
 {funcname} is how functions look in Smarty!
 ]]>
    </screen>
+   <para>Another example with some javascript</para>
+   <programlisting>
+<![CDATA[
+<script language="JavaScript">
+function foo() {ldelim}
+    ... code ...
+{rdelim}
+</script>
+]]>
+   </programlisting>
+   <para>
+   will output
+   </para>
+   <screen>
+<![CDATA[
+<script language="JavaScript">
+function foo() {
+    .... code ...
+}
+</script>
+]]>
+   </screen>
+
   </example>
   <para>See also <link linkend="language.escaping">Escaping Smarty Parsing</link> </para>
  </sect1>

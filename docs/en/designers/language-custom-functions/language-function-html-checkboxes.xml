@@ -95,7 +95,8 @@ $smarty->assign('cust_names', array(
                                 'Joe Schmoe',
                                 'Jack Smith',
                                 'Jane Johnson',
-                                'Charlie Brown'));
+                                'Charlie Brown')
+                              );
 $smarty->assign('customer_id', 1001);
 
 ?>
@@ -118,10 +119,11 @@ where template is
 <?php
 
 $smarty->assign('cust_checkboxes', array(
-    1000 => 'Joe Schmoe',
-    1001 => 'Jack Smith',
-    1002 => 'Jane Johnson',
-    1003 => 'Charlie Brown'));
+                                     1000 => 'Joe Schmoe',
+                                     1001 => 'Jack Smith',
+                                     1002 => 'Jane Johnson',
+                                     1003 => 'Charlie Brown')
+                                   );
 $smarty->assign('customer_id', 1001);
 
 ?>
