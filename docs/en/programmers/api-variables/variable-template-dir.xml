@@ -5,9 +5,12 @@
     <para>
      This is the name of the default template directory. If you do
      not supply a resource type when including files, they will be
-     found here. By default this is "./templates", meaning that it
-     will look for the templates directory in the same directory as
-     the executing php script.
+     found here. By default this is
+     <filename class="directory">"./templates"</filename>,
+     meaning that Smarty
+     will look for the
+     <filename class="directory">templates</filename> directory in
+     the same directory as the executing php script.
     </para>
     <note>
      <title>Technical Note</title>

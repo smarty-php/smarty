@@ -17,7 +17,16 @@ $smarty->autoload_filters = array('pre' => array('trim', 'stamp'),
 ?>
 ]]>
         </programlisting>
-       </informalexample> 
+       </informalexample>
+      </para>
+
+      <para>
+      See also
+      <link linkend="api.register.outputfilter">register_outputfilter()</link>,
+      <link linkend="api.register.prefilter">register_prefilter()</link>,
+      <link linkend="api.register.postfilter">register_postfilter()</link>
+      and
+   <link linkend="api.load.filter">load_filter()</link>
       </para>
      </sect1>
 

@@ -25,10 +25,10 @@
   </para>
   &parameter.compileid;
 
-<para>
-<example>
-<title>fetch()</title>
-<programlisting role="php">
+  <para>
+   <example>
+    <title>fetch()</title>
+    <programlisting role="php">
 <![CDATA[
 <?php
 include('Smarty.class.php');
@@ -61,17 +61,17 @@ $output = $smarty->fetch('index.tpl');
 echo $output;
 ?>
 ]]>
-</programlisting>
-</example>
-</para>
-
-<para>
-<example>
-<title>Using fetch() to send an email</title>
-  <para>
-  The email_body.txt template
+    </programlisting>
+   </example>
   </para>
-<programlisting>
+
+  <para>
+   <example>
+    <title>Using fetch() to send an email</title>
+    <para>
+     The email_body.tpl template
+    </para>
+    <programlisting>
 <![CDATA[
 Dear {$contact.name},
 
@@ -85,23 +85,28 @@ http://{$smarty.server.SERVER_NAME}/index.php?page=login
 List master
 Some user group
 
-{include file="email_disclaimer.txt"}
+{include file="email_disclaimer.tpl"}
 ]]>
-</programlisting>
-  <para>
-  The email_disclaimer.txt template
-  </para>
-<programlisting>
+    </programlisting>
+    <para>
+     The email_disclaimer.tpl template which uses the
+     <link linkend="language.function.textformat">{textformat}</link> modifier.
+    </para>
+    <programlisting>
 <![CDATA[
- This e-mail is intended for the addressee shown. It contains information
- ....... etc .......
+{textformat wrap=40}
+Unless you are named "{$contact.name}", you may read only the "odd numbered
+words" (every other word beginning with the first) of the message above. If you have
+violated that, then you hereby owe the sender 10 GBP for each even
+numbered word you have read
+{/textformat}
 ]]>
-</programlisting>
-  <para>
-  and the php script using the PHP
-  <ulink url="&url.php-manual;function.mail">mail()</ulink> function
-  </para>
-<programlisting role="php">
+    </programlisting>
+    <para>
+     and the php script using the PHP
+     <ulink url="&url.php-manual;function.mail">mail()</ulink> function
+    </para>
+    <programlisting role="php">
 <![CDATA[
 <?php
 
@@ -110,14 +115,13 @@ $query  = 'select name, email, login_id from contacts where contact_id='.$contac
 $contact = $db->getRow($sql);
 $smarty->assign('contact', $contact);
 
-mail($contact['email'], 'Subject', $smarty->fetch('email_body.txt'));
+mail($contact['email'], 'Subject', $smarty->fetch('email_body.tpl'));
 
 ?>
 ]]>
-</programlisting>
-</example>
-</para>
-
+    </programlisting>
+   </example>
+  </para>
 
   <para>
    See also
@@ -150,5 +154,3 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
-
-

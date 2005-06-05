@@ -4,10 +4,14 @@
     <title>$compile_dir</title>
     <para>
      This is the name of the directory where compiled templates are
-     located. By default this is "./templates_c", meaning that it
+     located. By default this is
+     <filename class="directory">"./templates_c"</filename>
+     , meaning that it
      will look for the compile directory in the same directory as
      the executing php script. <emphasis role="bold">This directory must
-     be writeable by the web server. </emphasis> See also
+     be writeable by the web server</emphasis>
+     (<link linkend="installing.smarty.basic">see install</link>).
+     Also
      <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
 
     </para>

@@ -12,7 +12,9 @@
     table backgrounds work properly. Many would use an
     <link linkend="language.function.if">{if}</link> statement to
     handle this, but there is a shorthand way with Smarty, using the
-    <emphasis>default</emphasis> variable modifier.
+    <link
+    linkend="language.modifier.default"><emphasis>default</emphasis></link>
+    variable modifier.
    </para>
    <example>
     <title>Printing &amp;nbsp; when a variable is empty</title>
@@ -69,53 +71,71 @@
    <title>Passing variable title to header template</title>
    <para>
     When the majority of your templates use the same headers and footers, it
-    is common to split those out into their own templates and include them.
+    is common to split those out into their own templates and
+    <link linkend="language.function.include">{include}</link> them.
     But what if the header needs to have a different title, depending on
     what page you are coming from? You can pass the title to the header when
     it is included.
    </para>
-   <example>
+
+ <example>
     <title>Passing the title variable to the header template</title>
+
+   <para>
+    <filename>mainpage.tpl</filename>
+    </para>
     <programlisting>
 <![CDATA[
-mainpage.tpl
-------------
 
 {include file="header.tpl" title="Main Page"}
 {* template body goes here *}
 {include file="footer.tpl"}
+]]>
+    </programlisting>
 
-
-archives.tpl
-------------
+    <para>
+    <filename>archives.tpl</filename>
+    </para>
+    <programlisting>
+<![CDATA[
 
 {config_load file="archive_page.conf"}
 {include file="header.tpl" title=#archivePageTitle#}
 {* template body goes here *}
 {include file="footer.tpl"}
-
-
-header.tpl
-----------
-<HTML>
-<HEAD>
-<TITLE>{$title|default:"BC News"}</TITLE>
-</HEAD>
-<BODY>
-
-
-footer.tpl
-----------
-</BODY>
-</HTML>
 ]]>
     </programlisting>
-   </example>
+
+    <para>
+    <filename>header.tpl</filename>
+    </para>
+    <programlisting>
+<![CDATA[
+<html>
+<head>
+<title>{$title|default:"BC News"}</title>
+</head>
+<body>
+]]>
+    </programlisting>
+
+    <para>
+    <filename>footer.tpl</filename>
+    </para>
+    <programlisting>
+<![CDATA[
+</body>
+</html>
+]]>
+    </programlisting>
+ </example>
+
    <para>
     When the main page is drawn, the title of "Main Page" is passed to the
-    header.tpl, and will subsequently be used as the title. When the
+    <filename>header.tpl</filename>, and will subsequently be used as the title. When the
     archives page is drawn, the title will be "Archives". Notice in the
-    archive example, we are using a variable from the archives_page.conf
+    archive example, we are using a variable from the
+    <filename>archives_page.conf</filename>
     file instead of a hard coded variable. Also notice that "BC News" is
     printed if the $title variable is not set, using the
     <link linkend="language.modifier.default">default</link>
@@ -191,7 +211,7 @@ Jan 4, 2001
 
 $startDate = makeTimeStamp($startDate_Year, $startDate_Month, $startDate_Day);
 
-function makeTimeStamp($year="", $month="", $day="")
+function makeTimeStamp($year='', $month='', $day='')
 {
    if(empty($year)) {
        $year = strftime("%Y");
@@ -222,22 +242,27 @@ function makeTimeStamp($year="", $month="", $day="")
   <sect1 id="tips.wap">
    <title>WAP/WML</title>
    <para>
-    WAP/WML templates require a php Content-Type header to be passed along
+    WAP/WML templates require a php
+    <ulink url="&url.php-manual;header">Content-Type header</ulink>
+    to be passed along
     with the template. The easist way to do this would be to write a custom
-    function that prints the header. If you are using caching, that won't
-    work so we'll do it using the insert tag (remember insert tags are not
-    cached!) Be sure that there is nothing output to the browser before the
+    function that prints the header. If you are using
+    <link linkend="caching">caching</link>, that won't
+    work so we'll do it using the
+    <link linkend="language.function.insert">{insert}</link>
+    tag; remember {insert} tags are not
+    cached! Be sure that there is nothing output to the browser before the
     template, or else the header may fail.
    </para>
    <example>
-    <title>using insert to write a WML Content-Type header</title>
+    <title>using {insert} to write a WML Content-Type header</title>
     <programlisting role="php">
 <![CDATA[
 <?php
 
-// be sure apache is configure for the .wml extensions!                                    
+// be sure apache is configure for the .wml extensions!
 // put this function somewhere in your application, or in Smarty.addons.php
-function insert_header($params) 
+function insert_header($params)
 {
    // this function expects $content argument
    if (empty($params['content'])) {
@@ -257,27 +282,27 @@ function insert_header($params)
 <![CDATA[
 {insert name=header content="Content-Type: text/vnd.wap.wml"}
 
-<?xml version="1.0"?>  
-<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"> 
+<?xml version="1.0"?>
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">
 
-<!-- begin new wml deck --> 
-<wml> 
- <!-- begin first card --> 
- <card> 
-  <do type="accept"> 
-   <go href="#two"/> 
-  </do>  
-  <p> 
+<!-- begin new wml deck -->
+<wml>
+ <!-- begin first card -->
+ <card>
+  <do type="accept">
+   <go href="#two"/>
+  </do>
+  <p>
    Welcome to WAP with Smarty!
-   Press OK to continue...  
-  </p> 
- </card>  
- <!-- begin second card --> 
- <card id="two">  
-  <p> 
+   Press OK to continue...
+  </p>
+ </card>
+ <!-- begin second card -->
+ <card id="two">
+  <p>
    Pretty easy isn't it?
-  </p> 
- </card> 
+  </p>
+ </card>
 </wml>
 ]]>
     </programlisting>
@@ -289,8 +314,8 @@ function insert_header($params)
     Traditionally, programming templates into your applications goes as
     follows: First, you accumulate your variables within your PHP
     application, (maybe with database queries.) Then, you instantiate your
-    Smarty object, <link linkend="api.assign">assign</link> the variables and
-    <link linkend="api.display">display</link> the template. So lets
+    Smarty object, <link linkend="api.assign">assign()</link> the variables and
+    <link linkend="api.display">display()</link> the template. So lets
     say for example we have a stock ticker on our template. We would
     collect the stock data in our application, then assign these variables
     in the template and display it. Now wouldn't it be nice if you could
@@ -303,35 +328,39 @@ function insert_header($params)
    </para>
    <example>
     <title>componentized template</title>
+    <para>
+      <filename>function.load_ticker.php</filename> -
+      drop file in
+      <link linkend="variable.plugins.dir">$plugins directory</link>
+    </para>
     <programlisting role="php">
 <![CDATA[
 <?php
 
-// drop file "function.load_ticker.php" in plugin directory
-
 // setup our function for fetching stock data
-function fetch_ticker($symbol) 
+function fetch_ticker($symbol)
 {
    // put logic here that fetches $ticker_info
    // from some ticker resource
    return $ticker_info;
 }
 
-function smarty_function_load_ticker($params, &$smarty) 
+function smarty_function_load_ticker($params, &$smarty)
 {
    // call the function
    $ticker_info = fetch_ticker($params['symbol']);
-   
+
    // assign template variable
    $smarty->assign($params['assign'], $ticker_info);
 }
 ?>
 ]]>
     </programlisting>
+        <para>
+          <filename>index.tpl</filename>
+    </para>
     <programlisting>
 <![CDATA[
-{* in index.tpl *}
-
 {load_ticker symbol="YHOO" assign="ticker"}
 
 Stock Name: {$ticker.name} Stock Price: {$ticker.price}
@@ -352,7 +381,8 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     lists? One way spammers collect E-mail addresses is from web pages. To
     help combat this problem, you can make your E-mail address show up in
     scrambled javascript in the HTML source, yet it it will look and work
-    correctly in the browser. This is done with the mailto plugin.
+    correctly in the browser. This is done with the
+    <link linkend="language.function.mailto">{mailto}</link> plugin.
    </para>
    <example>
     <title>Example of Obfuscating an E-mail Address</title>
@@ -369,11 +399,13 @@ Send inquiries to
     <title>Technical Note</title>
     <para>
      This method isn't 100% foolproof. A spammer could conceivably program his
-     e-mail collector to decode these values, but not likely.
+     e-mail collector to decode these values, but not likely....hopefully.
     </para>
    </note>
    <para>
-    See also <link linkend="language.modifier.escape">escape</link>.
+    See also <link linkend="language.modifier.escape">escape</link>
+    and
+    <link linkend="language.function.mailto">{mailto}</link>.
    </para>
   </sect1>
  </chapter>

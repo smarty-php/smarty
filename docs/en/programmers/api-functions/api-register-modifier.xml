@@ -18,17 +18,30 @@
    implements it.
   </para>
   <para>
-   The php-function callback <parameter>impl</parameter> can be either (a) a string
-   containing the function name or (b) an array of the form
-   <literal>array(&amp;$object, $method)</literal> with
-   <literal>&amp;$object</literal> being a reference to an
-   object and <literal>$method</literal> being a string
-   containing the mehod-name or (c) an array of the form
-   <literal>array(&amp;$class, $method)</literal> with
-   <literal>$class</literal> being a classname and
-   <literal>$method</literal> being a class method of that
-   class.
+   The php-function callback <parameter>impl</parameter> can be either
   </para>
+  <orderedlist numeration="loweralpha">
+  <listitem>
+    <para>a string containing the function name
+    </para>
+  </listitem><listitem>
+    <para>an array of the form <literal>array(&amp;$object,
+    $method)</literal> with   <literal>&amp;$object</literal>
+    being a reference to an
+    object and <literal>$method</literal> being a string
+    containing the mehod-name
+    </para>
+  </listitem><listitem>
+     <para>
+     an array of the form
+     <literal>array(&amp;$class, $method)</literal> with
+     <literal>$class</literal> being a classname and
+     <literal>$method</literal> being a class method of that
+     class.
+    </para>
+  </listitem>
+  </orderedlist>
+
   <example>
    <title>register_modifier()</title>
 <programlisting role="php">
@@ -59,7 +72,7 @@ $smarty->register_modifier('sslash', 'stripslashes');
     <link linkend="language.modifiers">modifiers</link>,
     <link linkend="plugins">Extending Smarty with plugins</link>
     and
-    <link linkend="plugins.modifiers">Plugin modifiers</link>,
+    <link linkend="plugins.modifiers">Creating Plugin modifiers</link>,
  </para>
  </refsect1>
 </refentry>

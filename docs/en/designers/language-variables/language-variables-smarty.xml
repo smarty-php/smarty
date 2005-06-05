@@ -3,7 +3,7 @@
   <sect1 id="language.variables.smarty">
    <title>{$smarty} reserved variable</title>
    <para>
-    The reserved {$smarty} variable can be used to access several
+    The PHP reserved {$smarty} variable can be used to access several
     special template variables. The full list of them follows.
    </para>
 
@@ -12,7 +12,10 @@
   <para>
   The <ulink url="&url.php-manual;reserved.variables">request variables
   </ulink> such as $_GET, $_POST, $_COOKIE, $_SERVER, $_ENV and $_SESSION
-  can be accessed as demonstrated in the examples below:
+  (see <link linkend="variable.request.vars.order">$request_vars_order</link>
+  and <link
+ linkend="variable.request.use.auto.globals">$request_use_auto_globals</link>
+  ) can be accessed as demonstrated in the examples below:
   </para>
   <example>
     <title>displaying request variables</title>

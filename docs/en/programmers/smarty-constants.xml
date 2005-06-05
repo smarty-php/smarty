@@ -22,8 +22,9 @@ define('SMARTY_DIR','/usr/local/lib/php/Smarty/libs/');
 // path to Smarty windows style
 define('SMARTY_DIR','c:/webroot/libs/Smarty/libs/');
 
-// hack that works on both under DOCUMENT _ROOT (not recommended)
-define('SMARTY-DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
+// hack (not recommended) that works on both *nix and wind
+// Smarty is assumend to be in 'includes' dir under script
+define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
 
 // include the smarty class Note 'S' is upper case
 require_once(SMARTY_DIR.'Smarty.class.php');

@@ -15,6 +15,55 @@
    It can  accept either a path to the template on the filesystem or a
    resource string specifying the template.
   </para>
+
+  <example>
+  <title>template_exists()</title>
+    <para>
+    This example uses $_GET['page'] to include a content template. If
+    the template  doesnt exist then an error page is displayed instead.
+    </para>
+    <para>
+    The <filename>page_container.tpl</filename>
+    </para>
+    <programlisting role="php">
+<![CDATA[
+<html>
+<head><title>{$title}</title></head>
+<body>
+{include file='page_top.tpl'}
+
+{* include middle content page *}
+{include file=$page_mid}
+
+{include file='page_footer.tpl'}
+</body>
+]]>
+  </programlisting>
+  <para>
+  and the php script
+  </para>
+  <programlisting role="php">
+<![CDATA[
+<?php
+
+// set the filename eg index.inc.tpl
+$template_name = $_GET['page'].'inc.tpl';
+
+if( !smarty->template_exists($template_name) ){
+    $filename= 'page_not_found.inc.tpl';
+ }
+$smarty->assign('page_mid', $template_name);
+
+$smarty->display('page_container.tpl');
+
+?>
+]]>
+  </programlisting>
+  </example>
+
+
+
+
   <para>
   See also
   <link linkend="api.display">display()</link>,

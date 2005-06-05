@@ -3,7 +3,8 @@
      <sect1 id="variable.caching">
       <title>$caching</title>
       <para>
-	   This tells Smarty whether or not to cache the output of the templates.
+	   This tells Smarty whether or not to cache the output of the templates
+	   to the <link linkend="variable.cache.dir">$cache_dir</link>.
 	   By default this is set to 0, or disabled. If your templates generate
 	   redundant content, it is advisable to turn on $caching. This
 	   will result in significant performance gains. You can also have

@@ -23,8 +23,9 @@ nothing.
 <note>
 <title>Technical Note</title>
 <para>
-$use_sub_dirs=true doesn't work with safe_mode=On, that's why it's
-switchable and  why it's off by default.
+$use_sub_dirs=true doesn't work with
+<ulink url="&url.php-manual;features.safe-mode">safe_mode=On</ulink>,
+that's why it's switchable and  why it's off by default.
 </para>
 </note>
       <note>

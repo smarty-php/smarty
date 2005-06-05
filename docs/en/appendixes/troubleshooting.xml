@@ -27,7 +27,7 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
     After that, the error consists of the actual line number in the Smarty
     class that the error occured.
    </para>
-      
+
    <para>
     There are certain errors that Smarty cannot catch, such as missing
     close tags. These types of errors usually end up in PHP compile-time
@@ -42,7 +42,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 ]]>
     </screen>
    </example>
-      
+
    <para>
     When you encounter a PHP parsing error, the error line number will
     correspond to the compiled PHP script, not the template itself. Usually
@@ -55,6 +55,110 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
     go to the line number to figure out where the corresponding error is in
     the template.
    </para>
+
+
+  <example>
+    <title>Other common errors</title>
+
+  <itemizedlist>
+  <listitem>
+    <screen>
+<![CDATA[
+Warning: Smarty error: unable to read resource: "index.tpl" in...
+or
+Warning: Smarty error: unable to read resource: "site.conf" in...
+]]>
+    </screen>
+    <para>
+    <itemizedlist>
+    <listitem>
+      <para>
+      The <link linkend="variable.template.dir">$template_dir</link>
+      is incorrect, doesn't exist or
+      the file <filename>index.tpl</filename> is not in the
+      <filename class="directory">templates/</filename> directory
+      </para>
+    </listitem>
+     <listitem>
+        <para>
+        A <link linkend="language.function.config.load">{config_load}</link>
+        function is within a template (or
+        <link linkend="api.config.load">config_load()</link>
+        has been called) and either
+        <link linkend="variable.config.dir">$config_dir</link>
+        is incorrent , does not exist or
+        <filename>site.conf</filename> is not in the directory.
+        </para>
+    </listitem>
+
+    </itemizedlist>
+    </para>
+
+  </listitem><listitem>
+
+    <screen>
+<![CDATA[
+Fatal error: Smarty error: the $compile_dir 'templates_c' does not exist,
+or is not a directory...
+]]>
+    </screen>
+    <para>
+    Either the
+    <link linkend="variable.compile.dir">$compile_dir</link>
+    is incorrectly set, the directory does not exist,
+    or <filename>templates_c</filename> is a
+    file and not a directory.
+    </para>
+  </listitem><listitem>
+    <screen>
+<![CDATA[
+Fatal error: Smarty error: unable to write to $compile_dir '....
+]]>
+    </screen>
+    <para>
+    The <link linkend="variable.compile.dir">$compile_dir</link>
+    is not writable by the web server. See the bottom of the
+    <link linkend="installing.smarty.basic">installing smarty</link> page
+    for permissions.
+    </para>
+
+  </listitem><listitem>
+
+    <screen>
+<![CDATA[
+Fatal error: Smarty error: the $cache_dir 'cache' does not exist,
+or is not a directory. in /..
+]]>
+    </screen>
+    <para>
+    This means that
+    <link linkend="variable.caching">$caching</link> is enabled and either;
+    the
+    <link linkend="variable.cache.dir">$cache_dir</link>
+    is incorrectly set, the directory does not exist,
+    or <filename>cache</filename> is a
+    file and not a directory.
+    </para>
+
+  </listitem><listitem>
+
+    <screen>
+<![CDATA[
+Fatal error: Smarty error: unable to write to $cache_dir '/...
+]]>
+    </screen>
+    <para>
+    This means that
+    <link linkend="variable.caching">$caching</link> is enabled and the
+    <link linkend="variable.cache.dir">$cache_dir</link>
+    is not writable by the web server. See the bottom of the
+    <link linkend="installing.smarty.basic">installing smarty</link> page
+    for permissions.
+    </para>
+ </listitem>
+ </itemizedlist>
+ </example>
+
    <para>
    See also
    <link linkend="chapter.debugging.console">debugging</link>,
@@ -84,3 +188,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

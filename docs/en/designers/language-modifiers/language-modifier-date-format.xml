@@ -44,9 +44,9 @@
    or any string made up of month day year, parsable by
    <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
    Designers can then use date_format to have complete control of the
-   formatting of the date. If the date passed to date_format is empty
-   and a second parameter is passed, that will be used as the date to
-   format.
+   formatting of the date. If the date passed to
+   <command>date_format</command> is empty   and a second parameter is passed,
+   that will be used as the date to format.
   </para>
   <example>
    <title>date_format</title>
@@ -60,7 +60,7 @@ $smarty->assign('yesterday', strtotime('-1 day'));
 ]]>
    </programlisting>
    <para>
-    Where template is:
+    Where template is (uses <link linkend="language.variables.smarty.now">$smarty.now</link>):
    </para>
    <programlisting>
 <![CDATA[

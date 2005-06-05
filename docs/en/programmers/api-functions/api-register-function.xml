@@ -22,22 +22,29 @@
   <para>
    The php-function callback <parameter>impl</parameter> can be either
    </para>
-   <para>
-   (a) a string  containing the function name
+   <orderedlist numeration="loweralpha">
+   <listitem>
+     <para>
+     a string  containing the function name
+     </para>
+   </listitem><listitem>
+     <para>
+      an array of the form
+     <literal>array(&amp;$object, $method)</literal> with
+     <literal>&amp;$object</literal> being a reference to an
+     object and <literal>$method</literal> being a string
+     containing the mehod-name
+     </para>
+   </listitem><listitem>
+    <para>
+    an array of the form <literal>array(&amp;$class, $method)</literal>
+    with <literal>$class</literal> being a classname and
+    <literal>$method</literal> being a class method of that
+    class.
     </para>
-   <para>
-   (b) an array of the form
-   <literal>array(&amp;$object, $method)</literal> with
-   <literal>&amp;$object</literal> being a reference to an
-   object and <literal>$method</literal> being a string
-   containing the mehod-name
-      </para>
-   <para>
-   (c) an array of the form <literal>array(&amp;$class, $method)</literal>
-   with <literal>$class</literal> being a classname and
-   <literal>$method</literal> being a class method of that
-   class.
-  </para>
+   </listitem>
+  </orderedlist>
+
   <para>
    <parameter>cacheable</parameter> and <parameter>cache_attrs</parameter> can be
    omitted in most cases. See <link

@@ -8,7 +8,7 @@
        SMARTY_PHP_PASSTHRU. Note that this does NOT affect php code
        within <link linkend="language.function.php">{php}{/php}</link>
        tags in the template.
-      </para>    
+      </para>
       <itemizedlist>
        <listitem><para>SMARTY_PHP_PASSTHRU - Smarty echos tags as-is.</para></listitem>
        <listitem><para>SMARTY_PHP_QUOTE - Smarty quotes the tags as
@@ -21,8 +21,8 @@
       <note>
        <para>
         Embedding PHP code into templates is highly discouraged.
-        Use <link linkend="language.custom.functions">custom functions</link> or
-        <link linkend="language.modifiers">modifiers</link> instead.
+        Use <link linkend="plugins.functions">custom functions</link> or
+        <link linkend="plugins.modifiers">modifiers</link> instead.
        </para>
       </note>
 </sect1>

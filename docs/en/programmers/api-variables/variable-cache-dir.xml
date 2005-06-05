@@ -4,11 +4,13 @@
       <title>$cache_dir</title>
       <para>
        This is the name of the directory where template caches are
-       stored. By default this is "./cache", meaning that it will look
-       for the cache directory in the same directory as the executing
-       php script.
+       stored. By default this is
+       <filename class="directory">"./cache"</filename>, meaning that
+       Smarty will look for the cache directory in the same directory
+       as the executing php script.
        <emphasis role="bold">This directory must
-     be writeable by the web server. </emphasis>
+     be writeable by the web server</emphasis>
+     (<link linkend="installing.smarty.basic">see install</link>).
      You can also use your own
        <link linkend="section.template.cache.handler.func">
        custom cache handler</link>
@@ -64,3 +66,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+
