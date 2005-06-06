@@ -15,7 +15,7 @@
     <para>
       This examples uses
       <link linkend="language.function.cycle">{cycle}</link> to
-      ouput a table with alternating red/green/blue row colors
+      output a table with alternating red/green/blue row colors
       with $config_overwrite = false.
     </para>
     <para>The config file.</para>
