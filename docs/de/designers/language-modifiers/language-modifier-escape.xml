@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-		<sect1 id="language.modifier.escape">
-			<title>escape (Maskieren)</title>
-            <informaltable frame="all">
-                <tgroup cols="6">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="possible" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Parameter Position</entry>
-                        <entry>Typ</entry>
-                        <entry>Erforderlich</entry>
-                        <entry>M&ouml;gliche (erlaubte) Werte</entry>
-                        <entry>Standardwerte</entry>
-                        <entry>Beschreibung</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>Nein</entry>
-                        <entry>html, htmlall, url, quotes, hex, hexentity</entry>
-                        <entry>html</entry>
-                        <entry>Definiert die zu verwendende Maskierung.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			Wird verwendet um eine Variable mit HTML, URL oder
-			einfachen Anf&uuml;hrungszeichen, beziehungsweise Hex oder Hex-Entit&auml;ten
-			zu maskieren. Hex und Hex-Entity kann verwendet werden um "mailto:"
-			-Links so zu ver&auml;ndern, dass sie von Web-Spiders (E-Mail Sammlern)
-			verborgen bleiben und dennoch les-/linkbar f&uuml;r Webbrowser bleiben.
-			Als Standard, wird 'HTML'-Maskierung verwendet.
-			</para>
-<example>
-<title>escape (Maskieren)</title>
-<programlisting>
+ <sect1 id="language.modifier.escape">
+  <title>escape (Maskieren)</title>
+  <informaltable frame="all">
+   <tgroup cols="6">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="possible" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Parameter Position</entry>
+     <entry>Typ</entry>
+     <entry>Erforderlich</entry>
+     <entry>M&ouml;gliche (erlaubte) Werte</entry>
+     <entry>Standardwerte</entry>
+     <entry>Beschreibung</entry>
+    </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>string</entry>
+      <entry>Nein</entry>
+      <entry>html, htmlall, url, quotes, hex, hexentity</entry>
+      <entry>html</entry>
+      <entry>Definiert die zu verwendende Maskierung.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
+  <para>
+   Wird verwendet um eine Variable mit HTML, URL oder
+   einfachen Anf&uuml;hrungszeichen, beziehungsweise Hex oder Hex-Entit&auml;ten
+   zu maskieren. Hex und Hex-Entity kann verwendet werden um "mailto:"
+   -Links so zu ver&auml;ndern, dass sie von Web-Spiders (E-Mail Sammlern)
+   verborgen bleiben und dennoch les-/linkbar f&uuml;r Webbrowser bleiben.
+   Als Standard, wird 'HTML'-Maskierung verwendet.
+  </para>
+  <example>
+   <title>escape (Maskieren)</title>
+   <programlisting>
 index.php:
 
 $smarty = new Smarty;
@@ -68,9 +68,10 @@ AUSGABE:
 &amp;#039;Zwei Unbekannte haben im Lidl in Monheim 24 Pakete Kaffee gestohlen.&amp;#039;
 %27Zwei+Unbekannte+haben+im+Lidl+in+Monheim+24+Pakete+Kaffee+gestohlen.%27
 \'Zwei Unbekannte haben im Lidl in Monheim 24 Pakete Kaffee gestohlen.\'
-&lt;a href=&quot;mailto:%62%6f%62%40%6d%65%2e%6e%65%74&quot;&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;</programlisting>
-</example>
-</sect1>
+&lt;a href=&quot;mailto:%62%6f%62%40%6d%65%2e%6e%65%74&quot;&gt;&amp;#x62;&amp;#x6f;&amp;#x62;&amp;#x40;&amp;#x6d;&amp;#x65;&amp;#x2e;&amp;#x6e;&amp;#x65;&amp;#x74;&lt;/a&gt;
+   </programlisting>
+  </example>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
