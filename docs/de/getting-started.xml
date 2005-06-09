@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: andreas Status: partial -->
 <part id="getting.started">
  <title>Erste Schritte</title>
  <chapter id="what.is.smarty">
@@ -50,14 +50,14 @@
     <listitem><para>Kein Overhead durch Template-Parsing, nur einmaliges kompilieren.</para></listitem>
     <listitem><para>Re-kompiliert nur g&auml;nderte Templates.</para></listitem>
     <listitem><para>Sie k&ouml;nnen die Engine um <link linkend="language.custom.functions">individuelle Funktionen</link> und <link linkend="language.modifiers">Variablen-Modifikatoren</link> erweitern.</para></listitem>
-    <listitem><para>Konfigurierbare Syntax für Template-Tags: Sie k&ouml;nnen {}, {{}}, &lt;!--{}--&gt;, etc. verwenden.</para></listitem>
-    <listitem><para>'if/elseif/else/endif'-Konstrukte werden direkt dem PHP-Parser &uuml;bergeben. Somit k&ouml;nnen {if ...} Ausdrücke sowohl sehr einfach als auch sehr komplex sein.</para></listitem>
-    <listitem><para>Unbegrenzte Verschachtelung von 'section', 'if' und anderen Bl&ouml;cken.</para></listitem>
-    <listitem><para>Erm&ouml;glicht die direkte Einbettung von PHP-Code. (Obwohl es weder ben&ouml;tigt noch empfohlen wird, da die Engine einfach erweiterbar ist.)</para></listitem>
-    <listitem><para>Eingebauter Caching-Support</para></listitem>
-    <listitem><para>Beliebige Template-Quellen</para></listitem>
-    <listitem><para>Eigene Cache-Handling Funktionen</para></listitem>
-    <listitem><para>Plugin Architektur</para></listitem>
+    <listitem><para>Konfigurierbare Syntax für <link linkend="variable.left.delimiter">Template-Tags</link>: Sie k&ouml;nnen {}, {{}}, &lt;!--{}--&gt;, etc. verwenden.</para></listitem>
+    <listitem><para><link linkend="language.function.if">'if/elseif/else/endif'-Konstrukte</link> werden direkt dem PHP-Parser &uuml;bergeben. Somit k&ouml;nnen {if ...} Ausdrücke sowohl sehr einfach als auch sehr komplex sein.</para></listitem>
+    <listitem><para>Unbegrenzte Verschachtelung von <link linkend="language.function.section">'section'</link>, 'if' und anderen Bl&ouml;cken.</para></listitem>
+    <listitem><para>Erm&ouml;glicht die direkte <link linkend="language.function.php">Einbettung von PHP-Code</link>. (Obwohl es weder ben&ouml;tigt noch empfohlen wird, da die Engine einfach erweiterbar ist.)</para></listitem>
+    <listitem><para>Eingebauter <link linkend="caching">Caching-Support</link></para></listitem>
+    <listitem><para>Beliebige <link linkend="template.resources">Template-Quellen</link></para></listitem>
+    <listitem><para>Eigene <link linkend="section.template.cache.handler.func">Cache-Handling Funktionen</link></para></listitem>
+    <listitem><para><link linkend="plugins">Plugin</link> Architektur</para></listitem>
    </itemizedlist>
  </chapter>
  <chapter id="installation">
@@ -103,13 +103,13 @@
 	Folgende Library Dateien werden mit Smarty geliefert und werden ben&ouml;tigt:
 	</para>
 	<example>
-     <title>Smarty-Library Dateiliste</title>
+     <title>Benötigte Smarty-Library Dateien</title>
      <screen>
 Smarty.class.php
 Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
-/core/*.php (alle)
+/internals/*.php (alle)
 /plugins/*.php (alle)</screen>
 	</example>
 
@@ -132,7 +132,7 @@ $smarty = new Smarty;</screen>
 
         <para>
 	Versuchen Sie das Skript auszuf&uuml;hren. Wenn Sie eine Fehlermeldung erhalten dass
-	<emphasis>Smarty.class.php</emphasis> nicht gefunden werden konnte, versuchen Sie folgendes:
+	<filename>Smarty.class.php</filename> nicht gefunden werden konnte, versuchen Sie folgendes:
         </para>
 
         <example>
@@ -177,10 +177,10 @@ $smarty = new Smarty;</screen>
 	In unserem Beispiel lautet sie '/web/www.domain.com/docs/'.
 	</para>
 	<para>
-	Die Smarty Verzeichnisse werden in den Klassen-Variablen $template_dir,
-	$compile_dir, $config_dir und $cache_dir definiert. Die Standardwerte sind:
-	"templates", "templates_c", "configs" und "cache". F&uuml;r unser Beispiel
-	legen wir alle diese Verzeichnisse unter '/web/www.domain.com/smarty/guestbook/' an.
+	Die Smarty Verzeichnisse werden in den Klassen-Variablen <link linkend="variable.template.dir">$template_dir</link>,
+	<link linkend="variable.compile.dir">$compile_dir</link>, <link linkend="variable.config.dir">$config_dir</link> und <link linkend="variable.cache.dir">$cache_dir</link> definiert. Die Standardwerte sind:
+	<filename class="directory">templates</filename>, <filename class="directory">templates_c</filename>, <filename class="directory">configs</filename> und <filename class="directory">cache</filename>. F&uuml;r unser Beispiel
+	legen wir alle diese Verzeichnisse unter <filename class="directory">/web/www.domain.com/smarty/guestbook/</filename> an.
 	</para>
 
 	<note>
@@ -193,18 +193,18 @@ $smarty = new Smarty;</screen>
 
 	<para>
 	In Ihrer DocumentRoot muss mindestens eine Datei liegen, die f&uuml;r Browser
-	zug&auml;nglich ist. Wir nennen dieses Skript 'index.php', und legen
-	es in das Verzeichnis '/guestbook/' in unserer DocumentRoot.
+	zug&auml;nglich ist. Wir nennen dieses Skript <filename>index.php</filename>, und legen
+	es in das Verzeichnis <filename class="directory">/guestbook/</filename> in unserer DocumentRoot.
 	</para>
 	
 	<note>
 	<title>Technische Bemerkung</title>
 	<para>
-	Bequem ist es, den Webserver so zu konfigurieren, dass 'index.php' als
+	Bequem ist es, den Webserver so zu konfigurieren, dass <filename>index.php</filename> als
 	Standard-Verzeichnis-Index verwendet wird. Somit kann man das Skript
 	direkt mit 'http://www.domain.com/guestbook/' aufrufen. Falls Sie Apache
-	verwenden, l&auml;sst sich dies konfigurieren indem Sie 'index.php'
-	als letzten Eintrag f&uuml;r DirectoryIndex verwenden. (Jeder Eintrag muss
+	verwenden, l&auml;sst sich dies konfigurieren indem Sie <filename>index.php</filename>
+	als letzten Eintrag f&uuml;r <emphasis>DirectoryIndex</emphasis> verwenden. (Jeder Eintrag muss
 	mit einem Leerzeichen abgetrennt werden). 
     </para>
 	</note>
@@ -223,12 +223,12 @@ $smarty = new Smarty;</screen>
 /usr/local/lib/php/Smarty/plugins/*.php
 /usr/local/lib/php/Smarty/core/*.php
 
-/web/www.mydomain.com/smarty/guestbook/templates/
-/web/www.mydomain.com/smarty/guestbook/templates_c/
-/web/www.mydomain.com/smarty/guestbook/configs/
-/web/www.mydomain.com/smarty/guestbook/cache/
+/web/www.example.com/smarty/guestbook/templates/
+/web/www.example.com/smarty/guestbook/templates_c/
+/web/www.example.com/smarty/guestbook/configs/
+/web/www.example.com/smarty/guestbook/cache/
 
-/web/www.mydomain.com/docs/guestbook/index.php</screen>
+/web/www.example.com/docs/guestbook/index.php</screen>
 	</example>
 
 	<note>
@@ -242,7 +242,7 @@ $smarty = new Smarty;</screen>
 	</note>
 
 	<para>
-	Smarty ben&ouml;tigt Schreibzugriff auf die Verzeichnisse '$compile_dir' und '$cache_dir'.
+	Smarty ben&ouml;tigt <emphasis role="bold">Schreibzugriff</emphasis> auf die Verzeichnisse <link linkend="variable.compile.dir">$compile_dir</link> und <link linkend="variable.cache.dir">$cache_dir</link>.
 	Stellen Sie also sicher, dass der Webserver-Benutzer (normalerweise Benutzer 'nobody' und Gruppe 'nogroup')
 	in diese Verzeichnisse schreiben kann. (In OS X lautet der Benutzer normalerweise 'www' und
 	ist in der Gruppe 'www'). Wenn Sie Apache verwenden, k&ouml;nnen Sie in der httpd.conf (gewöhnlich in '/usr/local/apache/conf/')
@@ -253,11 +253,11 @@ $smarty = new Smarty;</screen>
      <title>Dateirechte einrichten</title>
      <screen>
 
-chown nobody:nobody /web/www.mydomain.com/smarty/guestbook/templates_c/
-chmod 770 /web/www.mydomain.com/smarty/guestbook/templates_c/
+chown nobody:nobody /web/www.example.com/smarty/guestbook/templates_c/
+chmod 770 /web/www.example.com/smarty/guestbook/templates_c/
 
-chown nobody:nobody /web/www.mydomain.com/smarty/guestbook/cache/
-chmod 770 /web/www.mydomain.com/smarty/guestbook/cache/</screen>
+chown nobody:nobody /web/www.example.com/smarty/guestbook/cache/
+chmod 770 /web/www.example.com/smarty/guestbook/cache/</screen>
 	</example>
 
 	<note>
@@ -271,12 +271,12 @@ chmod 770 /web/www.mydomain.com/smarty/guestbook/cache/</screen>
 	</note>
 
 	<para>
-	Nun m&uuml;ssen wir die 'index.tpl' Datei erstellen, welche Smarty laden soll.
-	Die Datei wird in Ihrem '$template_dir' abgelegt.
+	Nun m&uuml;ssen wir die <filename>index.tpl</filename> Datei erstellen, welche Smarty laden soll.
+	Die Datei wird in Ihrem <link linkend="variable.template.dir">$template_dir</link> abgelegt.
 	</para>
 
 	<example>
-     <title>Editieren von /web/www.mydomain.com/smarty/guestbook/templates/index.tpl</title>
+     <title>Editieren von /web/www.example.com/smarty/guestbook/templates/index.tpl</title>
      <screen>
 
 {* Smarty *}
@@ -288,7 +288,7 @@ Hallo, {$name}!</screen>
 	<note>
 	<title>Technische Bemerkung</title>
 	<para>
-		{* Smarty *} ist ein Template-Kommentar. Der wird zwar nicht ben&ouml;tigt,
+		{* Smarty *} ist ein <link linkend="language.syntax.comments">Template-Kommentar</link>. Der wird zwar nicht ben&ouml;tigt,
 		es ist jedoch eine gute Idee jedes Template mit einem Kommentar zu versehen.
 		Dies erleichtert die Erkennbarkeit des Templates, unabh&auml;ngig von der
 		verwendeten Dateierweiterung. (Zum Beispiel f&uuml;r Editoren die Syntax-Highlighting
@@ -297,12 +297,12 @@ Hallo, {$name}!</screen>
 	</note>
 
 	<para>
-	Als n&auml;chstes editieren wir die Datei 'index.php'. Wir erzeugen eine
-	Smarty-Instanz, weisen dem Template eine Variable zu und geben 'index.tpl' aus.
+	Als n&auml;chstes editieren wir die Datei <filename>index.php</filename>. Wir erzeugen eine
+	Smarty-Instanz, weisen dem Template eine Variable zu und geben <filename>index.tpl</filename> aus.
 	</para>
 
 	<example>
-     <title>Editieren von /web/www.mydomain.com/docs/guestbook/index.php</title>
+     <title>Editieren von /web/www.example.com/docs/guestbook/index.php</title>
      <screen>
 
 define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
@@ -310,10 +310,10 @@ require(SMARTY_DIR.'Smarty.class.php');
 
 $smarty = new Smarty;
 
-$smarty->template_dir = '/web/www.mydomain.com/smarty/guestbook/templates/';
-$smarty->compile_dir = '/web/www.mydomain.com/smarty/guestbook/templates_c/';
-$smarty->config_dir = '/web/www.mydomain.com/smarty/guestbook/configs/';
-$smarty->cache_dir = '/web/www.mydomain.com/smarty/guestbook/cache/';
+$smarty->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
+$smarty->compile_dir = '/web/www.example.com/smarty/guestbook/templates_c/';
+$smarty->config_dir = '/web/www.example.com/smarty/guestbook/configs/';
+$smarty->cache_dir = '/web/www.example.com/smarty/guestbook/cache/';
 
 $smarty->assign('name','Ned');
 
@@ -324,7 +324,7 @@ $smarty->display('index.tpl');</screen>
 	 <title>Technische Bemerkung</title>
 	 <para>
 	 In unserem Beispiel verwenden wir durchwegs absolute Pfadnamen zu den
-	 Smarty-Verzeichnissen. Falls '/web/www.mydomain.com/smarty/guestbook/' in
+	 Smarty-Verzeichnissen. Falls <filename class="directory">/web/www.example.com/smarty/guestbook/</filename> in
 	 Ihrem PHP-'include_path' liegt, w&auml;re dies nicht n&ouml;tig. Es ist jedoch
 	 effizienter und weniger fehleranf&auml;llig die Pfade absolut zu setzen.
 	 Und es garantiert, dass Smarty die Templates aus dem geplanten Verzeichnis l&auml;dt.
@@ -332,7 +332,7 @@ $smarty->display('index.tpl');</screen>
 	</note>
 
 	<para>
-	Wenn Sie 'index.php' nun in Ihrem Webbrowser &ouml;ffnen, sollte 'Hallo, Ned!' ausgegeben werden.
+	Wenn Sie <filename>index.php</filename> nun in Ihrem Webbrowser &ouml;ffnen, sollte 'Hallo, Ned!' ausgegeben werden.
 	</para>
 	<para>
 	Die Basis-Installation von Smarty w&auml;re somit beendet.
@@ -372,10 +372,10 @@ class Smarty_GuestBook extends Smarty {
 
 		$this->Smarty();
 
-		$this->template_dir = '/web/www.mydomain.com/smarty/guestbook/templates/';
-		$this->compile_dir = '/web/www.mydomain.com/smarty/guestbook/templates_c/';
-		$this->config_dir = '/web/www.mydomain.com/smarty/guestbook/configs/';
-		$this->cache_dir = '/web/www.mydomain.com/smarty/guestbook/cache/'; 
+		$this->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
+		$this->compile_dir = '/web/www.example.com/smarty/guestbook/templates_c/';
+		$this->config_dir = '/web/www.example.com/smarty/guestbook/configs/';
+		$this->cache_dir = '/web/www.example.com/smarty/guestbook/cache/'; 
 		
 		$this->caching = true;
 		$this->assign('app_name','Guest Book');
@@ -397,11 +397,11 @@ class Smarty_GuestBook extends Smarty {
    </note>
 
   <para>
-  Nun passen wir 'index.php' an, um 'setup.php' zu verwenden:
+  Nun passen wir <filename>index.php</filename> an, um 'setup.php' zu verwenden:
   </para>
    
    <example>
-    <title>Editieren von /web/www.mydomain.com/docs/guestbook/index.php</title>
+    <title>Editieren von /web/www.example.com/docs/guestbook/index.php</title>
     <screen>
 
 require('guestbook/setup.php');
