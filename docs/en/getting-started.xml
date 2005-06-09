@@ -167,8 +167,8 @@ Smarty.class.php
 Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
-/libs/*.php (all of them)
-/plugins/*.php (all of them)
+/internals/*.php (all of them)
+/plugins/*.php (all of them to be safe, maybe your site only needs a subset)
 ]]>
     </screen>
    </example>
@@ -566,4 +566,3 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
-
