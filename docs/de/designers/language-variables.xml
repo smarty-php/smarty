@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: andreas Status: ready -->
-  <chapter id="language.variables">
-   <title>Variablen</title>
-   <para>
-    Smarty hat verschiedene Variablentypen, welche weiter unten detailliert
-    beschrieben werden. Der Typ der Variable wird durch das Vorzeichen bestimmt.
-   </para>
+<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
+ <chapter id="language.variables">
+  <title>Variablen</title>
+  <para>
+   Smarty hat verschiedene Variablentypen, welche weiter unten
+   detailliert beschrieben werden. Der Typ der Variable wird durch
+   das Vorzeichen bestimmt.
+  </para>
    
-   <para>
-    Variablen k&ouml;nnen in Smarty direkt ausgegeben werden oder als Argumente
-    f&uuml;r Funktionsparameter und Modifikatoren sowie in Bedingungen verwendet werden.
-    Um eine Variable auszugeben, umschliessen Sie sie mit Trennzeichen, so dass
-    die Variable das einzige enthaltene Element ist. Beispiele:
-    <programlisting>
+  <para>
+   Variablen k&ouml;nnen in Smarty direkt ausgegeben werden oder als
+   <link linkend="language.syntax.attributes">Argumente</link>
+   f&uuml;r <link
+   linkend="language.syntax.functions">Funktionsparameter</link> und
+   <link linkend="language.modifiers">Modifikatoren</link> sowie in
+   Bedingungen verwendet werden.  Um eine Variable auszugeben,
+   umschliessen Sie sie mit <link
+   linkend="variable.left.delimiter">Trennzeichen</link>, so dass die
+   Variable das einzige enthaltene Element ist. Beispiele:
+   <programlisting>
 	<![CDATA[
 {$Name}
 
@@ -21,8 +27,8 @@
 
 &lt;body bgcolor="{#bgcolor#}"&gt;
 ]]>
-</programlisting>
-   </para>
+   </programlisting>
+  </para>
 
 &designers.language-variables.language-assigned-variables;
 &designers.language-variables.language-config-variables;
