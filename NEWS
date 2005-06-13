@@ -1,3 +1,4 @@
+  - add "middle" parameter to truncate (monte)
   - make form input label ids optional (monte)
   - add error message for empty if/elseif statements (eykanal,
     monte)
