@@ -1,3 +1,9 @@
+2005-06-13  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS
+      libs/plugins/modifier.truncate.php:
+      add "middle" parameter to truncate modifier
+
 2005-06-10  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/de/livedocs.ent:
