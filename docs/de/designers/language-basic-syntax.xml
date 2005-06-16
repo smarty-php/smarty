@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
-  <chapter id="language.basic.syntax">
-   <title>Grundlegende Syntax</title>
-   <para>
-    Alle Smarty Template-Tags werden mit Trennzeichen umschlossen. Normalerweise
-    sind dies: <literal>{</literal> und <literal>}</literal>, sie k&ouml;nnen aber
-    auch ver&auml;ndert werden.
-   </para>
-   <para>
-    F&uuml;r die folgenden Beispiele wird davon ausgegangen, dass Sie die
-    Standard-Trennzeichen verwenden. Smarty erachtet alle Inhalte ausserhalb
-    der Trennzeichen als statisch und unver&auml;nderbar. Sobald Smarty
-    auf Template-Tags st&ouml;sst, versucht es diese zu interpretieren und die
-    entsprechenden Ausgaben an deren Stelle einzuf&uuml;gen.
-   </para>
-&designers.language-basic-syntax.language-syntax-comments;
-&designers.language-basic-syntax.language-syntax-functions;
-&designers.language-basic-syntax.language-syntax-attributes;
-&designers.language-basic-syntax.language-syntax-quotes;
-&designers.language-basic-syntax.language-math;
-&designers.language-basic-syntax.language-escaping;
+<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
+<chapter id="language.basic.syntax">
+ <title>Grundlegende Syntax</title>
+ <para>
+  Alle Smarty Template-Tags werden mit Trennzeichen umschlossen. Normalerweise
+  sind dies: <literal>{</literal> und <literal>}</literal>, sie können aber
+  auch <link linkend="variable.left.delimiter">verändert</link> werden.
+ </para>
+ <para>
+  Für die folgenden Beispiele wird davon ausgegangen, dass Sie die
+  Standard-Trennzeichen verwenden. Smarty erachtet alle Inhalte ausserhalb
+  der Trennzeichen als statisch und unveränderbar. Sobald Smarty
+  auf Template-Tags stösst, versucht es diese zu interpretieren und die
+  entsprechenden Ausgaben an deren Stelle einzufügen.
+ </para>
+
+ &designers.language-basic-syntax.language-syntax-comments;
+ &designers.language-basic-syntax.language-syntax-variables;
+ &designers.language-basic-syntax.language-syntax-functions;
+ &designers.language-basic-syntax.language-syntax-attributes;
+ &designers.language-basic-syntax.language-syntax-quotes;
+ &designers.language-basic-syntax.language-math;
+ &designers.language-basic-syntax.language-escaping;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
