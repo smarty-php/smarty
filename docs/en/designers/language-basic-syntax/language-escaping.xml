@@ -51,11 +51,11 @@ $smarty->display('example.tpl');
   <programlisting>
 <![CDATA[
 <script language="javascript">
-  var foo = 'bar';
+  var foo = <!--{$foo}-->;
   function dosomething() {
     alert("foo is " + foo);
- }
-dosomething();
+  }
+  dosomething();
 </script>
 ]]>
   </programlisting>
