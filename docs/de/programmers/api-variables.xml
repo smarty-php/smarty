@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
- <chapter id="api.variables">
-  <title>Variablen</title>
-  
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
+<chapter id="api.variables">
+ <title>Smarty Klassenvariablen (Objekteigenschaften)</title>
+
 &programmers.api-variables.variable-template-dir;
 &programmers.api-variables.variable-compile-dir;
 &programmers.api-variables.variable-config-dir;
