@@ -1,23 +1,77 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-      <sect1 id="language.modifier.capitalize">
-       <title>capitalize (in Grossbuchstaben schreiben)</title>
-       <para>
-        Wird verwendet um den Anfangsbuchstaben aller W&ouml;rter in der Variable gross (upper case) zu schreiben.
-       </para>
-       <example>
-        <title>capitalize (in Grossbuchstaben schreiben)</title>
-        <programlisting>
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
+ <sect1 id="language.modifier.capitalize">
+  <title>capitalize (in Grossbuchstaben schreiben)</title>
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc" />
+    <thead>
+     <row>
+      <entry>Parameter Position</entry>
+      <entry>Typ</entry>
+      <entry>Benötigt</entry>
+      <entry>Vorgabe</entry>
+      <entry>Beschreibung</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>boolean</entry>
+      <entry>Nein</entry>
+      <entry>false</entry>
+      <entry>Bestimmt ob Wörter die Ziffern enthalten auch in
+      Großschreibung gewandelt werden</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>  
+  <para>
+   Wird verwendet um den Anfangsbuchstaben aller W&ouml;rter in der
+   Variable gross (upper case) zu schreiben.
+  </para>
+  <example>
+   <title>capitalize (in Grossbuchstaben schreiben)</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty->assign('articleTitle', 'diebe haben in norwegen 20 tonnen streusalz entwendet.');
+
+?>
+]]>
+   </programlisting>
+   <para>
+    Wobei das Template wie folgt aussieht:
+   </para>
+   <programlisting>
+<![CDATA[
 {$artikelTitel}
 {$artikelTitel|capitalize}
-
-AUSGABE:
-
+]]>
+   </programlisting>
+   <para>
+    AUSGABE:
+   </para>
+   <screen>
+<![CDATA[
 diebe haben in norwegen 20 tonnen streusalz entwendet.
 Diebe Haben In Norwegen 20 Tonnen Streusalz Entwendet.</programlisting>
-</example>
-</sect1>
+]]>
+   </screen>
+  </example>
+  <para>
+   Siehe auch <link linkend="language.modifier.lower">lower (in
+   Kleinbuchstaben schreiben)</link> <link
+   linkend="language.modifier.upper">upper (in Grossbuchstaben
+   umwandeln)</link>
+  </para>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
