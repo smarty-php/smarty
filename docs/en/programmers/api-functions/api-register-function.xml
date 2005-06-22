@@ -58,7 +58,7 @@
 <?php
 $smarty->register_function('date_now', 'print_current_date');
 
-function print_current_date($params)
+function print_current_date($params, &$smarty)
 {
   if(empty($params['format'])) {
     $format = "%b %e, %Y";
