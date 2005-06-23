@@ -1,22 +1,146 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-		<sect1 id="language.function.if">
-			<title>if,elseif,else</title>
-			<para>
-			'if'-Statements in Smarty erlauben die selbe Flexibilit&auml;t
-			wie in PHP, bis auf ein paar Erweiterungen f&uuml;r die Template-Engine.
-			Jedes <emphasis>if</emphasis> muss mit einem <emphasis>/if</emphasis>
-			kombiniert sein. <emphasis>else</emphasis> und <emphasis>elseif</emphasis>
-			sind ebenfalls erlaubt. "eq", "ne","neq","gt", "lt", "lte", "le", "gte" "ge",
-			"is even","is odd", "is noteven","is not odd","not","mod","div by","even by",
-			"odd by","==","!=","&gt;", "&lt;","&lt;=","&gt;=" sind alles erlaubte Bedingungen,
-                            und m&uuml;ssen von umgebenden Elementen mit Leerzeichen abgetrennt werden.
-			</para>
-<example>
-<title>if Anweisung</title>
-<programlisting>
-
+<sect1 id="language.function.if">
+ <title>if,elseif,else</title>
+ <para>
+  <emphasis>{if}</emphasis>-Statements in Smarty erlauben die selbe
+  Flexibilität wie in PHP, bis auf ein paar Erweiterungen für die
+  Template-Engine.  Jedes <emphasis>{if}</emphasis> muss mit einem
+  <emphasis>{/if}</emphasis> kombiniert
+  sein. <emphasis>{else}</emphasis> und <emphasis>{elseif}</emphasis>
+  sind ebenfalls erlaubt. Alle PHP Vergleichsoperatoren, wie
+  <emphasis>||</emphasis>, <emphasis>or</emphasis>,
+  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>, etc. sind
+  erlaubt.
+ </para>
+ <para>
+  Hier eine Liste der erlaubten Operatoren. Bedingungsoperatoren
+  müssen von umgebenden Elementen mit Leerzeichen abgetrennt werden.
+  PHP-Äquivalente sind, sofern vorhanden, angeben.
+ </para>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="Operator" align="center" />
+   <colspec colname="Alternativen" align="center" />
+   <colspec colname="Syntax Beispiel" />
+   <colspec colname="Bedeutung" />
+   <colspec colname="PHP Äquivalent" />
+   <thead>
+    <row>
+     <entry>Operator</entry>
+     <entry>Alternativen</entry>
+     <entry>Syntax Beispiel</entry>
+     <entry>Bedeutung</entry>
+     <entry>PHP Äquivalent</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>==</entry>
+     <entry>eq</entry>
+     <entry>$a eq $b</entry>
+     <entry>ist gleich</entry>
+     <entry>==</entry>
+    </row>
+    <row>
+     <entry>!=</entry>
+     <entry>ne, neq</entry>
+     <entry>$a neq $b</entry>
+     <entry>ist ungleich</entry>
+     <entry>!=</entry>
+    </row>
+    <row>
+     <entry>&gt;</entry>
+     <entry>gt</entry>
+     <entry>$a gt $b</entry>
+     <entry>größer als</entry>
+     <entry>&gt;</entry>
+    </row>
+    <row>
+     <entry>&lt;</entry>
+     <entry>lt</entry>
+     <entry>$a lt $b</entry>
+     <entry>kleiner als</entry>
+     <entry>&lt;</entry>
+    </row>
+    <row>
+     <entry>&gt;=</entry>
+     <entry>gte, ge</entry>
+     <entry>$a ge $b</entry>
+     <entry>größer oder gleich</entry>
+     <entry>&gt;=</entry>
+    </row>
+    <row>
+     <entry>&lt;=</entry>
+     <entry>lte, le</entry>
+     <entry>$a le $b</entry>
+     <entry>kleiner oder gleich</entry>
+     <entry>&lt;=</entry>
+    </row>
+    <row>
+     <entry>===</entry>
+     <entry></entry>
+     <entry>$a === 0</entry>
+     <entry>identisch</entry>
+     <entry>===</entry>
+    </row>
+    <row>
+     <entry>!</entry>
+     <entry>not</entry>
+     <entry>not $a</entry>
+     <entry>Negation</entry>
+     <entry>!</entry>
+    </row>
+    <row>
+     <entry>%</entry>
+     <entry>mod</entry>
+     <entry>$a mod $b</entry>
+     <entry>Modulo</entry>
+     <entry>%</entry>
+    </row>
+    <row>
+     <entry>is [not] div by</entry>
+     <entry></entry>
+     <entry>$a is not div by 4</entry>
+     <entry>Ist [nicht] teilbar durch</entry>
+     <entry>$a % $b == 0</entry>
+    </row>
+    <row>
+     <entry>is [not] even</entry>
+     <entry></entry>
+     <entry>$a is not even</entry>
+     <entry>ist [k]eine gerade Zahl</entry>
+     <entry>$a % 2 == 0</entry>
+    </row>
+    <row>
+     <entry>is [not] even by</entry>
+     <entry></entry>
+     <entry>$a is [not] even by $b</entry>
+     <entry>[k]eine gerade Gruppierung</entry>
+     <entry>($a / $b) % 2 == 0</entry>
+    </row>
+    <row>
+     <entry>is [not] odd</entry>
+     <entry></entry>
+     <entry>$a is not odd</entry>
+     <entry>ist [k]eine ungerade Zahl</entry>
+     <entry>$a % 2 != 0</entry>
+    </row>
+    <row>
+     <entry>is [not] odd by</entry>
+     <entry></entry>
+     <entry>$a is not odd by $b</entry>
+     <entry>[k]eine ungerade Gruppierung</entry>
+     <entry>($a / $b) % 2 != 0</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <example>
+  <title>if Anweisung</title>
+  <programlisting>
+<![CDATA[
 {* ein Beispiel mit 'eq' (gleich) *}
 {if $name eq "Fred"}
 	Willkommen der Herr.
@@ -45,12 +169,12 @@
 
 
 {* Klammern sind erlaubt *}
-{if ( $anzahl &lt; 0 or $anzahl &gt; 1000 ) and $menge &gt;= #minMengeAmt#}
+{if ( $anzahl < 0 or $anzahl > 1000 ) and $menge >= #minMengeAmt#}
 	...
 {/if}
 
 
-{* einbetten von php Funktionsaufrufen ('gt' steht f&uuml;r 'gr&ouml;sser als') *}
+{* einbetten von php Funktionsaufrufen ('gt' steht für 'grösser als') *}
 {if count($var) gt 0}
 	...
 {/if}
@@ -83,7 +207,9 @@
 {* 0=gerade, 1=gerade, 2=gerade, 3=ungerade, 4=ungerade, 5=ungerade, etc *}
 {if $var is even by 3}
 	...
-{/if}</programlisting>
+{/if}
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file
