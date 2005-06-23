@@ -71,17 +71,6 @@
   or an absolute path.
  </para>
  <para>
-  {include_php} is a nice way to handle <link
-  linkend="tips.componentized.templates">componentized templates</link>, and
-  keep PHP code separate from the template files. Lets say you have a
-  template that shows your site navigation, which is pulled
-  dynamically from a database. You can keep your PHP logic that grabs
-  database content in a separate directory, and include it at the top
-  of the template. Now you can include this template anywhere without
-  worrying if the database information was assigned by the application
-  before hand.
- </para>
- <para>
   By default, php files are only included once even if called
   multiple times in the template. You can specify that it should be
   included every time with the <emphasis>once</emphasis> attribute.
@@ -128,18 +117,14 @@ $this->assign('sections',$sql->record);
 ]]>
   </programlisting>
  </example>
-
  <para>
-  See also
-  <link linkend="language.function.include">{include}</link>,
-   <link linkend="language.function.php">{php}</link>,
-    <link linkend="language.function.capture">{capture}</link>,
-    <link linkend="template.resources">Template Resources</link> and
-    <link linkend="tips.componentized.templates">Componentized Templates</link>
- </para>
-
+  See also <link linkend="language.function.include">{include}</link>,
+  <link linkend="language.function.php">{php}</link>, <link
+  linkend="language.function.capture">{capture}</link>, <link
+  linkend="template.resources">Template Resources</link> and <link
+  linkend="tips.componentized.templates">Componentized
+  Templates</link> </para>
 </sect1>
-
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
