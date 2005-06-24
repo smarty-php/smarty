@@ -112,7 +112,7 @@ $smarty->assign('custid',$data);
 <hr />
 {*  print out all the values of the $custid array reversed *}
 {section name=foo loop=$custid step=-1}
-  {$custid[foo]}
+  {$custid[foo]}<br />
 {/section}
 ]]>
   </programlisting>
@@ -295,7 +295,7 @@ $smarty->assign('contact_info', $info);
   id: 1000<br />
   name: John Smith<br />
   address: 253 N 45th<br />
-  home phone: 555-555-5555<br />
+    home phone: 555-555-5555<br />
     cell phone: 666-555-5555<br />
     e-mail: john@myexample.com<br />
 <hr>
@@ -304,7 +304,6 @@ $smarty->assign('contact_info', $info);
   address: 417 Mulberry ln<br />
     home phone: 123-456-4<br />
     web: www.example.com<br />
-
 <hr>
   id: 1002<br />
   name: Jane Munson<br />
@@ -316,7 +315,7 @@ $smarty->assign('contact_info', $info);
 
  <example>
   <title>sections and associative arrays</title>
-    <programlisting role="php">
+  <programlisting role="php">
   <![CDATA[
 <?php
 
@@ -332,7 +331,7 @@ $smarty->assign('contacts',$data);
 
 ?>
 ]]>
-</programlisting>
+  </programlisting>
 
   <programlisting>
 <![CDATA[
