@@ -77,7 +77,7 @@
  <para>
   Template sections are used for looping over
   <emphasis role="bold">arrays of data</emphasis>
-  (unlike <link linkend="language.function.foreach">{foreach}</link>). All
+  (just like <link linkend="language.function.foreach">{foreach}</link>). All
   <emphasis>{section}</emphasis> tags must be paired with
   <emphasis>{/section}</emphasis> tags. Required parameters are
   <emphasis>name</emphasis> and <emphasis>loop</emphasis>. The name
