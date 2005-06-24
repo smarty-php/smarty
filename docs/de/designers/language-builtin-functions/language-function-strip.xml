@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
-		<sect1 id="language.function.strip">
-			<title>strip</title>
-			<para>
-			Webdesigner haben oft das Problem, dass Leerzeichen und Zeilenumbr&uuml;che
-			die Ausgabe des erzeugten HTML im Browser beeinflussen. Oft werden deshalb alle
-			Tags aufeinanderfolgend im Template notiert, was aber zu einer schlechten 
-                            Lesbarkeit f&uuml;hrt.
-			</para>
-			<para>
-			Aus dem Inhalt zwischen den {strip}{/strip}-Tags werden alle Leerzeichen und
-			Zeilenumbr&uuml;che entfernt. So k&ouml;nnen Sie Ihre Templates lesbar
-			halten, ohne sich Sorgen um die Leerzeichen zu machen.
-			</para>
-			<note>
-			<title>Technische Bemerkung</title>
-			<para>
-			{strip}{/strip} &auml;ndert nicht den Inhalt einer Template-Variablen.
-			Daf&uuml;r gibt es den <link linkend="language.modifier.strip">strip Modifikator</link>.
-			</para>
-			</note>
-<example>
-<title>strip tags</title>
-<programlisting>
+<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
+<sect1 id="language.function.strip">
+ <title>strip</title>
+ <para>
+  Webdesigner haben oft das Problem, dass Leerzeichen und
+  Zeilenumbrüche die Ausgabe des erzeugten HTML im Browser
+  beeinflussen. Oft werden deshalb alle Tags aufeinanderfolgend im
+  Template notiert, was aber zu einer schlechten Lesbarkeit führt.
+ </para>
+ <para>
+  Aus dem Inhalt zwischen den {strip}{/strip}-Tags werden alle
+  Leerzeichen und Zeilenumbrüche entfernt. So können Sie Ihre
+  Templates lesbar halten, ohne sich Sorgen um die Leerzeichen zu
+  machen.
+ </para>
+ <note>
+  <title>Technische Bemerkung</title>
+  <para>
+   {strip}{/strip} ändert nicht den Inhalt einer Template-Variablen.
+   Dafür gibt es den <link linkend="language.modifier.strip">strip
+   Modifikator</link>.
+  </para>
+ </note>
+ <example>
+  <title>strip tags</title>
+  <programlisting>
 <![CDATA[
 {* der folgende Inhalt wird in einer Zeile ausgegeben *}
 {strip}
 <table border=0>
-	<tr>
-		<td>
-			<A HREF="{$url}">
-			<font color="red">Das ist ein Test.</font>
-			</A>
-		</td>
-	</tr>
+ <tr>
+  <td>
+   <a HREF="{$url}">
+    <font color="red">Das ist ein Test.</font>
+   </a>
+  </td>
+ </tr>
 </table>
 {/strip}
-
-
-AUSGABE:
-
-<table border=0><tr><td><A HREF="http://my.domain.com"><font color="red">Das ist ein Test.</font></A></td></tr></table></programlisting>
 ]]>
-</programlisting>
-</example>
-		<para>
-		Achtung: im obigen Beispiel beginnen und enden alle Zeilen mit HTML-Tags.
-		Falls Sie Abschnitte haben, die nur Text enthalten, werden diese ebenfalls 
-                  zusammengeschlossen. Das kann zu unerw&uuml;nschten Resultaten f&uuml;hren.
-		</para>
+  </programlisting>
+  <para>
+   Ausgebe des obigen Beispiels:
+  </para>
+  <screen>
+<![CDATA[
+<table border=0><tr><td><A HREF="http://my.domain.com"><font color="red">Das ist ein Test.</font></A></td></tr></table>
+]]>
+  </screen>
+ </example>
+ <para>
+  Achtung: im obigen Beispiel beginnen und enden alle Zeilen mit
+  HTML-Tags.  Falls Sie Abschnitte haben, die nur Text enthalten,
+  werden diese ebenfalls zusammengeschlossen. Das kann zu
+  unerwünschten Resultaten führen.
+ </para>
+ <para>
+  Siehe auch <link linkend="language.modifier.strip">strip-Modifikator
+  (Zeichenkette strippen)</link>
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

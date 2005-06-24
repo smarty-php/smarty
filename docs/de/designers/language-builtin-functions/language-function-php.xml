@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-		<sect1 id="language.function.php">
-			<title>php</title>
-			<para>
-			'php'-Tags erlauben es, PHP-Code direkt in das Template einzubetten. Der Inhalt
-			wird nicht 'escaped', egal wie <link linkend="variable.php.handling">$php_handling</link> 
-			konfiguriert ist. 
-                            Dieses Tag ist nur f&uuml;r erfahrene Benutzer gedacht und wird 
-                            auch von diesen normalerweise nicht ben&ouml;tigt.
-			</para>
-<example>
-<title>php-Tags</title>
-<programlisting>
+<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
+<sect1 id="language.function.php">
+ <title>php</title>
+ <para>
+  {php}-Tags erlauben es, PHP-Code direkt in das Template
+  einzubetten. Der Inhalt wird nicht 'escaped', egal wie <link
+  linkend="variable.php.handling">$php_handling</link> konfiguriert
+  ist.  Dieses Tag ist nur für erfahrene Benutzer gedacht und wird
+  auch von diesen normalerweise nicht benötigt.
+ </para>
+ <example>
+  <title>{php}-Tags</title>
+  <programlisting>
+<![CDATA[
 {php}
-		// php Skript direkt von Template einbinden
-		include("/pfad/zu/zeige_weather.php");
-{/php}</programlisting>
-</example>
+  // php Skript direkt von Template einbinden
+  include("/pfad/zu/zeige_weather.php");
+  {/php}
+]]>
+  </programlisting>
+ </example>
+ <note>
+  <title>Technical Note</title>
+  <para>
+   Um auf PHP-Variablen in {php}-Blöcken zugreifen zu können, kann es
+   nötig sein, die Variable als <ulink
+   url="&url.php-manual;global">global</ulink> zu deklarieren. Der
+   {php}-Blöck läuft nämlich nicht in einem globalen Kontext, sondern
+   im Kontext der method des laufenden $smarty-Objektes.
+  </para>
+ </note>
+ <para>
+  Siehe auch <link
+  linkend="variable.php.handling">$php_handling</link>, <link
+  linkend="language.function.include.php">{include_php}</link>, <link
+  linkend="language.function.include">{include}</link> und <link
+  linkend="tips.componentized.templates">Template/Script
+  Komponenten</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

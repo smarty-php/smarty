@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-		<sect1 id="language.function.literal">
-			<title>literal</title>
-			<para>
-			'literal'-Tags erlauben es, einen Block w&ouml;rtlich auszugeben,
-            d.h. von der Interpretation durch Smarty auszuschliessen. 
-            Dies ist vor allem f&uuml;r Javascript- oder andere Bl&ouml;cke 
-            n&uuml;tzlich, die geschwungene Klammern verwenden. Alles 
-            was zwischen den {literal}{/literal} Tags steht, wird direkt 
-            angezeigt.</para>
-<example>
-<title>literal-Tags</title>
-<programlisting>
+<sect1 id="language.function.literal">
+ <title>literal</title>
+ <para>
+  {literal}-Tags erlauben es, einen Block wörtlich auszugeben,
+  d.h. von der Interpretation durch Smarty auszuschliessen.  Dies ist
+  vor allem für Javascript- oder andere Blöcke nützlich, die
+  geschwungene Klammern verwenden. Alles was zwischen den
+  {literal}{/literal} Tags steht, wird direkt angezeigt.  Wenn in
+  einem {literal}-Block temlate-Tags verwendet werden sollen, is es
+  manchmal sinnvoller <link
+  linkend="language.function.ldelim">{ldelim}{rdelim}</link> statt
+  {literal} zu verwenden.
+ </para>
+ <example>
+  <title>literal-Tags</title>
+  <programlisting>
+<![CDATA[
 {literal}
-	&lt;script language=javascript&gt;
-
-        	&lt;!--
-                	function isblank(field) {
-                	if (field.value == '') 
-                        	{ return false; }
-                	else
-                        	{
-                        	document.loginform.submit();
-                        	return true;
-                        	}
-                	}
-        	// --&gt;
-
-	&lt;/script&gt;
-{/literal}</programlisting>
-</example>
+<script language=javascript>
+<!--
+  function isblank(field) {
+    if (field.value == '') {
+      return false;
+    } else {
+      document.loginform.submit();
+      return true;
+    }
+  }
+// -->
+</script>
+{/literal}
+]]>
+  </programlisting>
+ </example>
+ <para>
+  Siehe auch <link linkend="language.escaping">Smarty Parsing
+  umgehen</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
