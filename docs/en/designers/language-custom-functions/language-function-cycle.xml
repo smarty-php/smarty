@@ -64,6 +64,13 @@
      <entry>the template variable the output will be assigned
       to</entry>
     </row>
+    <row>
+     <entry>reset</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry><emphasis>false</emphasis></entry>
+     <entry>The cycle will be set to the first value and not advanced</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
