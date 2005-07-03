@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <!ENTITY note.parameter.merge '<note>
  <title>Note technique</title>
@@ -14,16 +14,16 @@
 </note>'>
 
 <!ENTITY parameter.compileid '<para>
- En tant que troisième paramètre optionnel, vous pouvez passer un 
- identifiant de compilation <parameter>compile_id</parameter>. 
- C&#39;est au cas où vous voudriez compiler plusieurs versions du
- même template, par exemple, pour avoir des templates compilés
- pour différents langages. Une autre utilité pour l&#39;identifiant de compilation
- compile_id est lorsque vous utilisez plus d&#39;un
- <link linkend="variable.template.dir">$template_dir</link> mais
- seulement un <link linkend="variable.compile.dir">$compile_dir</link>. 
- Définissez un <parameter>$compile_id</parameter>
- séparé pour chaque <link linkend="variable.template.dir">$template_dir</link>, 
- sinon, les templates du même nom s&#39;effaceront. Vous pouvez également 
- définir la variable $compile_id une seule fois plutôt que de la passer à chaque appel à la fonction.
-</para>'>
+En tant que troisième paramètre optionnel, vous pouvez passer un
+identifiant de compilation <parameter>$compile_id</parameter>.
+C&#39;est au cas où vous voudriez compiler plusieurs versions du
+même template, par exemple, pour avoir des templates compilés
+pour différents langages. Une autre utilité pour l&#39;identifiant de compilation
+<parameter>$compile_id</parameter> est lorsque vous utilisez plus d&#39;un
+<link linkend="variable.template.dir">$template_dir</link> mais
+seulement un <link linkend="variable.compile.dir">$compile_dir</link>.
+Définissez un <parameter>$compile_id</parameter>
+séparé pour chaque <link linkend="variable.template.dir">$template_dir</link>,
+sinon, les templates du même nom s&#39;effaceront. Vous pouvez également
+définir la variable <link linkend="variable.compile.id">$compile_id</link> une seule 
+fois plutôt que de la passer à chaque appel à la fonction.</para>'>
