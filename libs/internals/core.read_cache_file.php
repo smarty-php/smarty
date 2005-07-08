@@ -90,16 +90,6 @@ function smarty_core_read_cache_file(&$params, &$smarty)
         }
     }
 
-    foreach ($_cache_info['cache_serials'] as $_include_file_path=>$_cache_serial) {
-        if (empty($smarty->_cache_serials[$_include_file_path])) {
-            $smarty->_include($_include_file_path, true);
-        }
-
-        if ($smarty->_cache_serials[$_include_file_path] != $_cache_serial) {
-            /* regenerate */
-            return false;
-        }
-    }
     $content_cache[$params['tpl_file'].','.$params['cache_id'].','.$params['compile_id']] = array($params['results'], $_cache_info);
 
     $smarty->_cache_info = $_cache_info;
