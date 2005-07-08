@@ -1,3 +1,5 @@
+  - add passthru attribute feature to html_select_date (kills,
+    monte)
   - add "middle" parameter to truncate (monte)
   - make form input label ids optional (monte)
   - add error message for empty if/elseif statements (eykanal,
