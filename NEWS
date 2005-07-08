@@ -1,4 +1,4 @@
-  - add passthru attribute feature to html_select_date (kills,
+  - add passthru attribute feature to html_select_date (Sedgar,
     monte)
   - add "middle" parameter to truncate (monte)
   - make form input label ids optional (monte)
