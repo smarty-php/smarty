@@ -1,3 +1,12 @@
+2005-07-08  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS:
+      correct username in NEWS file
+
+    * NEWS
+      libs/plugins/function.html_select_date.php:
+      added passthru attribute feature to html_select_date
+
 2005-07-03  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/language-snippets.ent
