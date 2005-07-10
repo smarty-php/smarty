@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 <sect1 id="language.syntax.variables">
  <title>Variables</title>
  <para>
   Les variables de template commence par un signe dollar (<literal>$</literal>).
   Elles peuvent contenir des nombres, des lettres et des underscores, tout
-  comme une <ulink url="&url.php-manual;language.variables">variable PHP</ulink>. Vous pouvez référencer des tableaux indexés
+  comme une <ulink url="&url.php-manual;language.variables">variable PHP</ulink>. 
+  Vous pouvez référencer des tableaux indexés
   numériquement ou non. Vous pouvez aussi référencer des propriétés d'objet 
-  ainsi que des méthodes. Les <link linkend="language.config.variables">variables des fichiers de 
-  configuration</link> sont
-  une exception à la synthaxe utilisant un signe dollar. Elles peuvent être 
-  référencées en les entourant du signe dièse (<literal>#</literal>) ou
-  avec la variable spéciale <link linkend="language.variables.smarty.config">$smarty.config</link>.
+  ainsi que des méthodes. Les <link linkend="language.config.variables">variables des fichiers de
+  configuration</link> sont une exception à la synthaxe utilisant un signe dollar. Elles peuvent être
+  référencées en les entourant du signe dièse (<literal>#</literal>) ou avec la variable spéciale
+  <link linkend="language.variables.smarty.config">$smarty.config</link>.
  </para>
  <example>
   <title>Variables</title>

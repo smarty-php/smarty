@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <sect1 id="language.escaping">
  <title>Désactiver l'analyse de Smarty</title>
  <para>
@@ -8,7 +8,7 @@
   certaines sections que seraient analysées sinon. Un exemple classique est 
   l'incorporation de code Javascript ou CSS dans les templates. Le problème 
   est que ces langages utilisent les caractères { et }, qui sont aussi les 
-  délimiteurs Smarty par défaut.
+  <link linkend="language.function.ldelim">délimiteurs</link> Smarty par défaut.
  </para>
 
  <para>
@@ -22,8 +22,8 @@
   linkend="language.function.literal">{literal} .. {/literal}</link>.
   Similairement à l'utilisation d'entités HTML, vous pouvez utiliser <link
   linkend="language.function.ldelim">{ldelim}</link> et <link
-  linkend="language.function.ldelim">{rdelim}</link>, ou <link 
-  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link> pour 
+  linkend="language.function.ldelim">{rdelim}</link>, ou <link
+  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link> pour
   afficher les délimiteurs.
  </para>
 
@@ -63,10 +63,11 @@ dosomething();
   </programlisting>
  </example>
  <para>
-  Voir aussi 
+  Voir aussi
   <link linkend="language.modifier.escape">les modifieurs d'échappement</link>.
  </para>
 </sect1>
+
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml
