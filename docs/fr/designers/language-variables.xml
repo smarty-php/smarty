@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 <chapter id="language.variables">
  <title>Variables</title>
  <para>
@@ -9,9 +9,12 @@
  </para>
  <para>
   Les variables de Smarty peuvent être soit affichées directement, soit utilisées
-  comme arguments pour les fonctions et modificateurs, à l'intérieur d'expressions
+  comme <link linkend="language.syntax.attributes">arguments</link> pour les 
+  <link linkend="language.syntax.functions">fonctions</link>
+  et <link linkend="language.modifiers">modificateurs</link>, à l'intérieur d'expressions
   conditionnelles, etc.
-  Pour afficher une variable, il suffit de l'entourer par des délimiteurs de
+  Pour afficher une variable, il suffit de l'entourer par des
+  <link linkend="variable.left.delimiter">délimiteurs</link> de
   telle sorte qu'elle soit la seule chose qu'ils contiennent. Exemple :
   <programlisting>
 <![CDATA[

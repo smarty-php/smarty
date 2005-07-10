@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
 <chapter id="config.files">
  <title>Fichiers de configuration</title>
  <para>
@@ -68,8 +68,8 @@ pass=foobar
  <para>
   Les fichiers de configuration sont chargés dans le template grâce aux
   fonctions <link
-  linkend="language.function.config.load"><command>{config_load}</command></link>, 
-  et <link linkend="api.config.load"><command>config_load()</command></link>.
+  linkend="language.function.config.load"><command>{config_load}</command></link>
+  (voir aussi <link linkend="api.config.load"><command>config_load()</command></link>).
  </para>
  <para>
   Vous pouvez masquer des variables ou des sections entières en préfixant
@@ -80,7 +80,16 @@ pass=foobar
   êtes sûr que ces derniers n'accèderont pas à ces données de configuration
   en les chargeant depuis le template.
  </para>
+ <para>
+  Voir aussi
+  <link linkend="language.function.config.load">{config_load}</link>,
+  <link linkend="variable.config.overwrite">$config_overwrite</link>,
+  <link linkend="api.get.config.vars">get_config_vars()</link>,
+  <link linkend="api.clear.config">clear_config()</link> et
+  <link linkend="api.config.load">config_load()</link>.
+ </para>
 </chapter>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

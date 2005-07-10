@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: didou Status: ready -->
 <part id="getting.started">
  <title>Pour commencer</title>
 
@@ -136,7 +136,7 @@
    </listitem>
    <listitem>
     <para>
-     Architecture de plugins
+     Architecture de <link linkend="plugins">plugins</link>
     </para>
    </listitem>
   </itemizedlist>
@@ -163,7 +163,7 @@
     Smarty.
    </para>
    <example>
-    <title>fichiers de la bibliothèque SMARTY</title>
+    <title>fichiers nécessaires de la bibliothèque SMARTY</title>
     <screen>
 <![CDATA[
 Smarty.class.php
@@ -171,7 +171,7 @@ Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
 /internals/*.php (tous)
-/plugins/*.php (tous)
+/plugins/*.php (tous doivent être sûr, peut-être votre site n'a besoin seulement que d'un sous-ensemble)
 ]]>
     </screen>
    </example>
@@ -182,7 +182,8 @@ debug.tpl
     représente le chemin complet de la bibliothèque Smarty. En fait,
     si votre application trouve le fichier
     <filename>Smarty.class.php</filename>, vous n'aurez pas
-    besoin de définir la variable SMARTY_DIR, Smarty s'en chargera pour vous.
+    besoin de définir la variable <link linkend="constant.smarty.dir">SMARTY_DIR</link>, 
+    Smarty s'en chargera pour vous.
     En revanche, si <filename>Smarty.class.php</filename>
     n'est pas dans votre répertoire d'inclusion ou que vous ne
     donnez pas un chemin absolu à votre application, vous
@@ -255,11 +256,16 @@ $smarty = new Smarty;
    <para>
     Maintenant que les fichiers de la librairie sont en place,
     il est temps de définir les répertoires de Smarty, pour votre application.
+   </para>
+   <para>
     Smarty a besoin de quatre répertoires qui sont (par défaut)
-    <filename class="directory">templates</filename>,
-    <filename class="directory">templates_c</filename>, 
-    <filename class="directory">configs</filename> et
-    <filename class="directory">cache</filename>. Chacun d'entre eux peut être défini
+    <filename class="directory">'templates/'</filename>,
+    <filename class="directory">'templates_c/'</filename>,
+    <filename class="directory">'configs/'</filename> et
+    <filename class="directory">'cache/'</filename>.
+   </para>
+   <para>
+    Chacun d'entre eux peut être défini
     via les attributs <link linkend="variable.template.dir">
     <varname>$template_dir</varname></link>,
     <link linkend="variable.compile.dir">
@@ -296,20 +302,26 @@ $smarty = new Smarty;
     Vous allez avoir besoin d'au moins un fichier à la racine de
     l'arborescence Web,
     il s'agit du script auquel l'internaute a accès. Nous allons l'appeler
-    <filename>index.php</filename> et le placer dans un sous-répertoire
-    appelé <filename class="directory">/livredor/</filename>. 
+    <emphasis>'index.php'</emphasis> et le placer dans un sous-répertoire
+    appelé <filename class="directory">/livredor/</filename>.
    </para>
 
    <note>
     <title>Technical Note</title>
     <para>
      Il est pratique de configurer le serveur Web de
-     sorte que "index.php" soit identifié comme fichier
+     sorte que 'index.php' soit identifié comme fichier
      par défaut de ce répertoire. Aicnsi, si l'on tape
-     "http://www.example.com/livredor/", le script index.php soit
-     exécuté sans que "index.php" ne soit spécifié dans l'URL. Avec Apache
-     vous pouvez régler celà en ajoutant "index.php" à la ligne où se
-     trouve DirectoryIndex (séparez chaque entrée par un espace).
+     'http://www.example.com/livredor/', le script 'index.php' soit
+     exécuté sans que 'index.php' ne soit spécifié dans l'URL. Avec Apache,
+     vous pouvez régler cela en ajoutant 'index.php' à la ligne où se
+     trouve <emphasis>DirectoryIndex</emphasis> (séparez chaque entrée par un espace)
+     dans le httpd.conf.
+    </para>
+    <para>
+     <emphasis>DirectoryIndex
+      index.htm index.html index.php index.php3 default.html index.cgi
+     </emphasis>
     </para>
    </note>
    <para>
@@ -317,7 +329,7 @@ $smarty = new Smarty;
    </para>
 
    <example>
-    <title>exemple de structure de fichiers</title>
+    <title>Exemple de structure de fichiers</title>
     <screen>
 <![CDATA[
 /usr/local/lib/php/Smarty/Smarty.class.php
@@ -338,8 +350,8 @@ $smarty = new Smarty;
    </example>
 
    <para>
-    Smarty a besoin d'accéder en écriture aux répertoires
-    <link linkend="variable.compile.dir">
+    Smarty a besoin d'<emphasis role="bold">accéder en écriture</emphasis>
+    aux répertoires <link linkend="variable.compile.dir">
     <emphasis>$compile_dir</emphasis></link> et <link linkend="variable.cache.dir">
     <emphasis>$cache_dir</emphasis></link>,
     assurez-vous donc que le serveur Web dispose de ces droits d'accès.
@@ -376,8 +388,8 @@ chmod 770 /web/www.example.com/smarty/livredor/cache/
    </note>
 
    <para>
-    Nous devons créer le fichier index.tpl que Smarty va charger.
-    Il va se trouver dans $template_dir.
+    Nous devons créer le fichier 'index.tpl' que Smarty va charger.
+    Il va se trouver dans <link linkend="variable.template.dir">$template_dir</link>.
    </para>
 
    <example>
@@ -396,8 +408,8 @@ Hello, {$name}!
    <note>
     <title>Note technique</title>
     <para>
-     {* Smarty *} est un commentaire de template. Il n'est pas
-     obligatoire mais il est bon de commencer tous vos templates
+     {* Smarty *} est un <link linkend="language.syntax.comments">commentaire</link>
+     de template. Il n'est pas obligatoire mais il est bon de commencer tous vos templates
      avec ce commentaire. Celà rend le fichier facilement
      reconnaissable en plus de son extension. Les éditeurs
      de texte peuvent par exemple reconnaître le fichier et
@@ -406,16 +418,16 @@ Hello, {$name}!
    </note>
 
    <para>
-    Maintenant passons à l'édition du fichier index.php. Nous allons
+    Maintenant passons à l'édition du fichier 'index.php'. Nous allons
     créer une instance de Smarty, assigner une valeur à une variable
-    de template et afficher le résultat avec index.tpl. Dans notre
+    de template et afficher le résultat avec 'index.tpl'. Dans notre
     exemple d'environnement, "/usr/local/lib/php/Smarty" est dans notre
     include_path. Assurez-vous de faire la même chose ou d'utiliser
     des chemins absolus.
    </para>
 
    <example>
-    <title>édition de  /web/www.example.com/docs/livredor/index.php</title>
+    <title>Édition de  /web/www.example.com/docs/livredor/index.php</title>
     <screen>
 <![CDATA[
 <?php
@@ -442,10 +454,10 @@ Hello, {$name}!
     <para>
      Dans notre exemple, nous avons configuré les chemins absolus
      pour chacun des répertoires Smarty. Si
-     <filename 
-     class="directory">/web/www.example.com/smarty/livredor/</filename> 
+     <filename
+     class="directory">/web/www.example.com/smarty/livredor/</filename>
      est dans votre include_path PHP alors ces réglages ne sont pas nécessaires.
-     Quoi qu'il en soit il est plus efficace et (par expérience)
+     Quoi qu'il en soit, il est plus efficace et (par expérience)
      moins générateur d'erreurs de les définir avec des chemins
      absolus. Celà nous garantit que Smarty récupèrera les bons fichiers.
     </para>
@@ -518,11 +530,11 @@ Hello, {$name}!
    </example>
 
    <para>
-    Modifions maintenant le fichier index.php pour qu'il utilise "setup.php"
+    Modifions maintenant le fichier 'index.php' pour qu'il utilise 'setup.php'
    </para>
 
    <example>
-    <title>Edition de /web/www.example.com/docs/livredor/index.php</title>
+    <title>Édition de /web/www.example.com/docs/livredor/index.php</title>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -536,7 +548,7 @@ Hello, {$name}!
 
 ?>
 ]]>
-    </programlisting>   
+    </programlisting>
    </example>
 
    <para>

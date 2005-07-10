@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: didou Status: ready -->
 <chapter id="tips">
  <title>Trucs et astuces</title>
  <para></para>
@@ -14,10 +14,11 @@
    instruction <link linkend="language.function.if">{if}</link> 
    pour gérer celà, mais il existe un moyen
    plus facile dans Smarty : l'utilisation du modificateur
-   de variable <emphasis>default</emphasis>.
+   de variable <link
+    linkend="language.modifier.default"><emphasis>défaut</emphasis></link>.
   </para>
   <example>
-   <title>afficher &amp;nbsp; quand une variable est vide</title>
+   <title>Afficher &amp;nbsp; quand une variable est vide</title>
    <programlisting>
 <![CDATA[
 {* la méthode pas adaptée *}
@@ -68,58 +69,77 @@
    <link linkend="tips.blank.var.handling">la gestion des variables non-assignées</link>.
   </para>
  </sect1>
+
  <sect1 id="tips.passing.vars">
   <title>Passage du titre à un template d'en-tête</title>
   <para>
    Quand la majorité de vos templates utilisent les mêmes en-tête et pied-de-page,
-   il est d'usage de les mettre dans leurs propres templates et de les inclure.
+   il est d'usage de les mettre dans leurs propres templates et de les inclure
+   (<link linkend="language.function.include">{include}</link>).
    Mais comment faire si l'en-tête doit avoir un titre différent, selon la page
    d'où on vient ? Vous pouvez passer le titre à l'en-tête quand il est inclus.
   </para>
+
   <example>
    <title>passer le titre au template d'en-tête</title>
+
+   <para>
+    <filename>mainpage.tpl</filename>
+   </para>
    <programlisting>
 <![CDATA[
-mainpage.tpl
-------------
 
 {include file="header.tpl" title="Main Page"}
 {* le corps du template va ici *}
 {include file="footer.tpl"}
+]]>
+   </programlisting>
 
-
-archives.tpl
-------------
+   <para>
+    <filename>archives.tpl</filename>
+   </para>
+   <programlisting>
+<![CDATA[
 
 {config_load file="archive_page.conf"}
 {include file="header.tpl" title=#archivePageTitle#}
-{* le corps du template va ici *}
+{* template body goes here *}
 {include file="footer.tpl"}
+]]>
+   </programlisting>
 
+   <para>
+    <filename>header.tpl</filename>
+   </para>
+   <programlisting>
+<![CDATA[
+<html>
+ <head>
+  <title>{$title|default:"BC News"}</title>
+ </head>
+ <body>
+  ]]>
+   </programlisting>
 
-header.tpl
-----------
-<HTML>
-<HEAD>
-<TITLE>{$title|default:"BC News"}</TITLE>
-</HEAD>
-<BODY>
-
-
-footer.tpl
-----------
-</BODY>
-</HTML>
+   <para>
+    <filename>footer.tpl</filename>
+   </para>
+   <programlisting>
+<![CDATA[
+</body>
+</html>
 ]]>
    </programlisting>
   </example>
+
   <para>
-   Quand la page principale est conçue, le titre "Main page" est passé à header.tpl
-   et sera donc utilisé pour le titre. Quand la page d'archive est conçue,
-   le titre sera "Archives". Notez que dans l'exemple des archives, on utilise
-   le fichier archives_page.conf plutôt que des variables codées en dur.
-   Remarquez aussi que "BC News" est affichée si la variable $title
-   n'est pas définie, grâce au modificateur de variable 
+   Quand la page principale est conçue, le titre "Main page" est passé à 
+   <filename>header.tpl</filename> et sera donc utilisé pour le titre.
+   Quand la page d'archive est conçue, le titre sera "Archives". 
+   Notez que dans l'exemple des archives, on utilise
+   le fichier <filename>archives_page.conf</filename> plutôt que des
+   variables codées en dur. Remarquez aussi que "BC News" est affichée
+   si la variable $title n'est pas définie, grâce au modificateur de variable
    <link linkend="language.modifier.default">default</link>.
   </para>
  </sect1>
@@ -192,7 +212,7 @@ Jan 4, 2001
 
 $startDate = makeTimeStamp($startDate_Year, $startDate_Month, $startDate_Day);
 
-function makeTimeStamp($year="", $month="", $day="")
+function makeTimeStamp($year='', $month='', $day='')
 {
    if(empty($year)) {
        $year = strftime("%Y");
@@ -210,30 +230,33 @@ function makeTimeStamp($year="", $month="", $day="")
 ]]>
     </programlisting>
    </example>
-   
+
    <para>
     Voir aussi
     <link linkend="language.function.html.select.date">{html_select_date}</link>,
     <link linkend="language.function.html.select.time">{html_select_time}</link>,
-    <link linkend="language.modifier.date.format">date_format</link>
-    et <link linkend="language.variables.smarty.now">$smarty.now</link>,
+    <link linkend="language.modifier.date.format">date_format</link> et
+    <link linkend="language.variables.smarty.now">$smarty.now</link>,
    </para>
 
   </sect1>
   <sect1 id="tips.wap">
    <title>WAP/WML</title>
    <para>
-    Les templates WAP/WML nécessitent un en-tête "Content-Type" qui doit être
+    Les templates WAP/WML nécessitent un en-tête
+    <ulink url="&url.php-manual;header">Content-Type</ulink> qui doit être
     passé avec le template. Le moyen le plus facile de faire celà est d'écrire
-    une fonction utilisateur qui écrit l'en-tête. Si vous utilisez le cache,
+    une fonction utilisateur qui écrit l'en-tête. Si vous utilisez le 
+    <link linkend="caching">cache</link>,
     celà ne fonctionnera pas. Nous utiliserons donc une balise d'insertion
+    (<link linkend="language.function.insert">{insert}</link>)
     (rappelez-vous que les balises d'insertion ne sont pas mises en cache !).
     Assurez-vous qu'aucune sortie
     rien n'est transmise au navigateur avant l'appel du template, sans quoi
     la modification de l'en-tête échouera.
    </para>
    <example>
-    <title>Utilisation d'insert pour écrire un en-tête Content-Type WML</title>
+    <title>Utilisation d'{insert} pour écrire un en-tête Content-Type WML</title>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -261,27 +284,27 @@ function insert_header()
 <![CDATA[
 {insert name=header content="Content-Type: text/vnd.wap.wml"}
 
-<?xml version="1.0"?>  
-<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml"> 
+<?xml version="1.0"?>
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">
 
-<!-- begin new wml deck --> 
-<wml> 
- <!-- begin first card --> 
- <card> 
-  <do type="accept"> 
-   <go href="#two"/> 
-  </do>  
-  <p> 
+<!-- begin new wml deck -->
+<wml>
+ <!-- begin first card -->
+ <card>
+  <do type="accept">
+   <go href="#two"/>
+  </do>
+  <p>
    Welcome to WAP with Smarty!
-   Press OK to continue...  
-  </p> 
- </card>  
- <!-- begin second card --> 
- <card id="two">  
-  <p> 
+   Press OK to continue...
+  </p>
+ </card>
+ <!-- begin second card -->
+ <card id="two">
+  <p>
    Pretty easy isn't it?
-  </p> 
- </card> 
+  </p>
+ </card>
 </wml>
 ]]>
     </programlisting>
@@ -293,8 +316,8 @@ function insert_header()
     Traditionnellemnt, la programmation avec des templates dans les applications
     se déroule de la façon suivante : d'abord vous récupérez vos variables
     dans l'application PHP (peut-être avec des requêtes en base de données), puis
-    vous instanciez votre objet Smarty, <link linkend="api.assign">assignez</link> 
-    les variables et <link linkend="api.display">affichez</link> le
+    vous instanciez votre objet Smarty, <link linkend="api.assign">assign()</link>
+    les variables et <link linkend="api.display">display()</link> le
     template. Disons par exemple que nous avons un téléscripteur dans
     notre template. Nous récupérerions les données dans notre application,
     puis les assignerions ensuite pour les afficher. Mais ne serait-ce pas
@@ -308,11 +331,14 @@ function insert_header()
    </para>
    <example>
     <title>Template composant</title>
+    <para>
+     <filename>function.load_ticker.php</filename> -
+     Efface le fichier du répertoire des
+     <link linkend="variable.plugins.dir">$plugins</link>
+    </para>
     <programlisting role="php">
 <![CDATA[
 <?php
-
-// Efface le fichier "function.load_ticker.php" dans le répertoire des plugins
 
 // notre fonction pour récupérer les données
 function fetch_ticker($symbol,&amp;$ticker_name,&amp;$ticker_price) 
@@ -326,17 +352,18 @@ function smarty_function_load_ticker($params, &$smarty)
 {
    // appel de la fonction
    $ticker_info = fetch_ticker($params['symbol']);
-   
+
    // assignation de la variable de template
    $smarty->assign($params['assign'], $ticker_info);
 }
 ?>
 ]]>
     </programlisting>
+    <para>
+     <filename>index.tpl</filename>
+    </para>
     <programlisting>
 <![CDATA[
-{* in index.tpl *}
-
 {load_ticker symbol="YHOO" assign="ticker"}
 
 Stock Name: {$ticker.name} Stock Price: {$ticker.price}
@@ -358,7 +385,8 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     adresses est de parcourir les pages Web. Voici une façon de remédier
     à ce problème : mettre votre adresse email dans du Javascript brouillé
     au milieu de votre source HTML, sans que celà ne gêne l'affichage sur le
-    navigateur Web. Celà est fait grâce au plugin mailto.
+    navigateur Web. Celà est fait grâce au plugin 
+    <link linkend="language.function.mailto">{mailto}</link>.
    </para>
    <example>
     <title>Exemple de dissimulation d'une adresse email</title>
@@ -381,10 +409,12 @@ Send inquiries to
    </note>
    <para>
     Voir aussi
-    <link linkend="language.modifier.escape">escape</link>.
+    <link linkend="language.modifier.escape">escape</link> et
+    <link linkend="language.function.mailto">{mailto}</link>.
    </para>
   </sect1>
  </chapter>
+
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml
