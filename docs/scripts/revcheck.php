@@ -26,7 +26,7 @@ Check the revision of translated files against
 the actual english xml files, and print statistics
 
   Usage:
-  <?=$argv[0]?> <language-code> [<maintainer>] [><revcheck.html>]
+  <?php echo $argv[0]; ?> <language-code> [<maintainer>] [><revcheck.html>]
 
   <language-code> must be a valid language code used
   in the repository
@@ -189,7 +189,7 @@ function get_file_status($file)
     if (!@file_exists($trans_file)) {
         $files_by_mark[REV_NOTRANS]++;
         $trans_name = substr($trans_file, strlen($DOCDIR) + strlen($LANG) + 1);
-        $size = round(filesize($file)/1024, 1);
+        $size = intval(filesize($file)/1024);
         $missing_files[$trans_name] = array( $size );
         $file_sizes_by_mark[REV_NOTRANS] += $size;
         // compute en-tags just if they're needed in the WIP-Table
@@ -355,6 +355,7 @@ function get_dir_status($dir)
 
 } // get_dir_status() function end
 
+
 // Check for files removed in the EN tree, but still living in the translation
 function get_old_files($dir)
 {
@@ -428,6 +429,7 @@ function get_old_files($dir)
     return $old_files_status;
 
 } // get_old_files() function end
+
 
 // =========================================================================
 // Functions to read in the translation.xml file and process contents
@@ -546,18 +548,6 @@ function parse_translation($DOCDIR, $LANG, $MAINT)
     return array($output_charset, $translation);
 
 } // parse_translation() function end()
-
-// =========================================================================
-// Debug functions for all the functions and code on this page
-// =========================================================================
-
-// Print preformatted (debug function)
-function print_pre($var)
-{
-    print("<pre>");
-    print_r($var);
-    print("</pre>");
-} // print_pre() function end
 
 // =========================================================================
 // Start of the program execution
@@ -839,31 +829,38 @@ END_OF_MULTILINE;
         // If we have a 'numeric' revision diff and it is not zero,
         // make a link to the CVS repository's diff script
         if ($file["revision"][2] != "n/a" && $file["revision"][2] !== 0) {
-            $file["short_name"] = "<a href=\"http://cvs.php.net/diff.php/" .
-                                  preg_replace( "'^".$DOCDIR."'", "smarty/docs/", $file["full_name"]) .
-                                  "?r1=" . $file["revision"][1] . 
-                                  "&amp;r2=" . $file["revision"][0] .
-                                  CVS_OPT . "\">" . $file["short_name"] . "</a>";
+            $url = 'http://cvs.php.net/diff.php/' .
+                   preg_replace( "'^".$DOCDIR."'", 'smarty/docs/', $file['full_name']) .
+                   '?r1=' . $file['revision'][1] . 
+                   '&amp;r2=' . $file['revision'][0] .
+                   CVS_OPT;
+            $url_ws = $url . '&amp;ws=0';
+
+            $file['short_name'] = '<a href="' . $url . '">'. $file["short_name"] . '</a> '.
+                                  '<a href="' . $url_ws . '">[NoWS]</a>';
         }
     
         // Guess the new directory from the full name of the file
         $new_dir = dirname($file["full_name"]);
         
-        // If this is a new directory, put out dir headline
-        if ($new_dir != $prev_dir) {
-            
-            // Drop out the unneeded parts from the dirname...
-            $display_dir = str_replace($DOCDIR."en/", "", dirname($file["full_name"]));
-            
-            // Print out directory header
-            print "<tr class=blue><th colspan=12>$display_dir</th></tr>\n";
-            
+        // If this is a new directory, put out old dir lines
+        if ($new_dir != $prev_dir && isset($lines)) {
+            echo $prev_diplay_dir;
+            echo " ($line_number)</th></tr>";
+    	echo $lines;
+    	
+    	$lines = '';
+    	$line_number = 0;
+
             // Store the new actual directory
             $prev_dir = $new_dir;
         }
+        // Drop out the unneeded parts from the dirname...
+        $display_dir = str_replace($DOCDIR."en/", "", dirname($file["full_name"]));
+        $prev_diplay_dir = "<tr class=blue><th colspan=12>$display_dir";
         
-        // Write out the line for the current file (get file name shorter)
-        print "<tr class={$CSS[$file['mark']]}><td>{$file['short_name']}</td>".
+        // Save the line for the current file (get file name shorter)
+        $lines .= "<tr class={$CSS[$file['mark']]}><td>{$file['short_name']}</td>".
               "<td> {$file['revision'][0]}</td>" .
               "<td> {$file['revision'][1]}</td>".
               "<td class=rb>{$file['revision'][2]} </td>".
@@ -875,9 +872,14 @@ END_OF_MULTILINE;
               "<td class=rb>{$file['date'][2]} </td>".
               "<td class=c>{$file['maintainer']}</td>".
               "<td class=c>".trim($file['status'])."</td></tr>\n";
+         $line_number++;
     
     }
     
+    // echo the last dir and $lines
+    echo "$prev_diplay_dir ($line_number)</th></tr>";
+    echo $lines;
+
     print("</table>\n<p>&nbsp;</p>\n$navbar<p>&nbsp;</p>\n");
 
 }
@@ -1047,6 +1049,7 @@ if ($count > 0) {
     }
     print "</table>\n<p>&nbsp;</p>\n$navbar<p>&nbsp;</p>\n";
 }
+
 
 // All OK, end the file
 print "</body>\n</html>\n";
