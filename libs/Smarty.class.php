@@ -1889,7 +1889,7 @@ class Smarty
 
         if ($this->_cache_including) {
             /* return next set of cache_attrs */
-            $_return =& current($_cache_attrs);
+            $_return = current($_cache_attrs);
             next($_cache_attrs);
             return $_return;
 
