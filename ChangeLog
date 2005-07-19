@@ -1,3 +1,11 @@
+2005-07-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Config_File.class.php:
+      removed E_NOTICE from Config_File::get()
+
+    * libs/Smarty.class.php:
+      removed E_NOTICE
+
 2005-07-10  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/getting-started.xml:
