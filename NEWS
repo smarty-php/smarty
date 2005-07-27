@@ -1,3 +1,6 @@
+  - remove ambiguity for numeric values passed to smarty_make_timestamp()
+    (and thus the date_format modifier). numeric values are treated as
+    timestamps now. (andreas, messju)
   - add passthru attribute feature to html_select_date (Sedgar,
     monte)
   - add "middle" parameter to truncate (monte)
