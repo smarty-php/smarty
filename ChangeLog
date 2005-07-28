@@ -1,3 +1,10 @@
+2005-07-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/shared.make_timestamp.php:
+      removed ambiguity for numeric values passed to smarty_make_timestamp().
+      numeric values are *always* treated as timestamps now.
+
 2005-07-18  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Config_File.class.php:
