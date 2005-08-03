@@ -34,11 +34,14 @@ function smarty_core_is_secure($params, &$smarty)
         }
         if (!empty($smarty->secure_dir)) {
             foreach ((array)$smarty->secure_dir as $curr_dir) {
-                if ( ($_cd = realpath($curr_dir)) !== false &&
-                     strncmp($_rp, $_cd, strlen($_cd)) == 0 &&
+                if ( ($_cd = realpath($curr_dir)) !== false) {
+                    if( strncmp($_rp, $_cd, strlen($_cd)) == 0 &&
                      $_rp{strlen($_cd)} == DIRECTORY_SEPARATOR ) {
-                    return true;
-                }            
+                        return true;
+                    } elseif ($_cd == $_rp) {
+                        return true;
+                    }
+                }
             }
         }
     } else {
