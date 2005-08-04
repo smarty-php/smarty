@@ -1650,7 +1650,7 @@ class Smarty_Compiler extends Smarty {
             }
         elseif(!in_array($val, $this->_permitted_tokens) && !is_numeric($val)) {
             // literal string
-            return $this->_expand_quoted_text('"' . $val .'"');
+            return $this->_expand_quoted_text('"' . strtr($val, array('\\' => '\\\\', '"' => '\\"')) .'"');
         }
         return $val;
     }
