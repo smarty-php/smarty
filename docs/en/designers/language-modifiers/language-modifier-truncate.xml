@@ -32,7 +32,8 @@
       <entry>string</entry>
       <entry>No</entry>
       <entry>...</entry>
-      <entry>This is the text to append if truncation occurs.</entry>
+      <entry>This is a text string that replaces the truncated text. Its length
+      is NOT included in the truncation length setting.</entry>
      </row>
      <row>
       <entry>3</entry>
@@ -41,6 +42,15 @@
       <entry>false</entry>
       <entry>This determines whether or not to truncate at a
        word boundary (false), or at the exact character (true).</entry>
+     </row>
+     <row>
+      <entry>3</entry>
+      <entry>boolean</entry>
+      <entry>No</entry>
+      <entry>false</entry>
+      <entry>This determines whether the truncation happens at the end of the
+      string (false), or in the middle of the string (true). Note that if this
+      setting is true, then word boundaries are ignored.</entry>
      </row>
     </tbody>
    </tgroup>
