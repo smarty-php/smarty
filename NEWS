@@ -1,4 +1,7 @@
-  - allow debug.tpl to work from arbitrary dir (monte)
+  - allow secure_dir to be a filename, not just
+    a directory name (monte)
+  - set debug.tpl as a secure_dir, not the entire
+    SMARTY_DIR (monte)
   - fix proper escaping for literal strings in
     Smarty_Compiler::_parse_var_props() (boots, messju)
   - remove ambiguity for numeric values passed to smarty_make_timestamp()
