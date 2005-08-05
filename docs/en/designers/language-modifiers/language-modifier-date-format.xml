@@ -47,6 +47,24 @@
    formatting of the date. If the date passed to
    <command>date_format</command> is empty   and a second parameter is passed,
    that will be used as the date to format.
+   <note>
+    <para>
+     Since Smarty-2.6.10 numeric values passed to date_format are
+     <emphasis>always</emphasis> (except for mysql timestamps, see
+     below) interpreted as a unix timestamp.
+    </para>
+    <para>
+     Before Smarty-2.6.10 numeric strings that where also parsable by
+     strtotime() in php (like "YYYYMMDD") where sometimes - depending
+     on the underlying implementation of strtotime() - interpreted as
+     date strings and not as timestamps.
+    </para>
+    <para>
+     The only exception are mysql timestamps: They are also numeric
+     only and 14 characters long ("YYYYMMDDHHMMSS"). Mysql timestamps
+     have precedence over unix timestamps.
+    </para>
+   </note>
   </para>
   <example>
    <title>date_format</title>
