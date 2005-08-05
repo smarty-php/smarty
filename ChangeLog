@@ -1,3 +1,19 @@
+2005-08-04  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS:
+      update secure_dir notes
+
+    * NEWS:
+      allow debug.tpl to work from arbitrary dir
+
+2005-08-04  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed proper escaping for literal strings passed to
+      Smarty_Compiler::_expand_quoted_text() by
+      Smarty_Compiler::_parse_var_props()
+
 2005-07-27  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
