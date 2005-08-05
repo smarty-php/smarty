@@ -1,3 +1,6 @@
+Version 2.6.10 (Aug 5, 2005)
+----------------------------
+
   - allow secure_dir to be a filename, not just
     a directory name (monte)
   - set debug.tpl as a secure_dir, not the entire
