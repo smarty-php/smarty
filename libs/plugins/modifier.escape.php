@@ -30,6 +30,9 @@ function smarty_modifier_escape($string, $esc_type = 'html')
         case 'url':
             return rawurlencode($string);
 
+        case 'urlpathinfo':
+            return str_replace('%2F','/',rawurlencode($string));
+            
         case 'quotes':
             // escape unescaped single quotes
             return preg_replace("%(?<!\\\\)'%", "\\'", $string);
