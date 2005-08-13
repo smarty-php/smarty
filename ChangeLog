@@ -1,3 +1,10 @@
+2005-08-12  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS
+      libs/plugins/modifier.escape.php:
+      add "urlpathinfo" escape type to escape modifier. (apache does not like %2F
+      in the PATH_INFO)
+
 2005-08-05  Monte Ohrt  <monte@ohrt.com>
 
     * NEWS
