@@ -1,3 +1,4 @@
+ - fix notice in debug security check (Drakla, monte)
  - return valid reference in get_template_vars() when given var is
    non-existant (monte)
  - add escape type "urlpathinfo" to escape modifier (monte)
