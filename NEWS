@@ -1,4 +1,6 @@
- - add escape type "urlpathinfo" to escape modifier
+ - return valid reference in get_template_vars() when given var is
+   non-existant (monte)
+ - add escape type "urlpathinfo" to escape modifier (monte)
  
 Version 2.6.10 (Aug 5, 2005)
 ----------------------------

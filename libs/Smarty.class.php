@@ -1055,9 +1055,12 @@ class Smarty
     {
         if(!isset($name)) {
             return $this->_tpl_vars;
-        }
-        if(isset($this->_tpl_vars[$name])) {
+        } elseif(isset($this->_tpl_vars[$name])) {
             return $this->_tpl_vars[$name];
+        } else {
+            // var non-existant, return valid reference
+            $_tmp = null
+            return $_tmp;   
         }
     }
 
