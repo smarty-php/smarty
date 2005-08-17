@@ -1059,7 +1059,7 @@ class Smarty
             return $this->_tpl_vars[$name];
         } else {
             // var non-existant, return valid reference
-            $_tmp = null
+            $_tmp = null;
             return $_tmp;   
         }
     }
