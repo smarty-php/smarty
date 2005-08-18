@@ -1,3 +1,16 @@
+2005-08-17  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS:
+      fix notice in debug security check
+
+    * libs/Smarty.class.php:
+      fix typo
+
+    * NEWS
+      libs/Smarty.class.php:
+      return valid reference in get_template_vars() when given var is
+      non-existant
+
 2005-08-12  Monte Ohrt  <monte@ohrt.com>
 
     * NEWS
