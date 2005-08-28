@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <chapter id="language.combining.modifiers">
  <title>Комбинирование модификаторов</title>
  <para>
@@ -12,15 +12,18 @@
   <title>Комбинирование модификаторов</title>
   <programlisting role="php">
 <![CDATA[
-index.php:
 <?php
-$smarty = new Smarty;
-$smarty->assign('articleTitle', 'Smokers are Productive, but Death Cuts Efficiency.');
-$smarty->display('index.tpl');
+
+$smarty->assign('articleTitle', 'Капля никотина убивает лошадь, хомячка разрывает на куски.');
+
 ?>
-
-index.tpl:
-
+]]>
+  </programlisting>
+  <para>
+   Содержимое шаблона:
+  </para>
+  <programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|upper|spacify}
 {$articleTitle|lower|spacify|truncate}
@@ -33,11 +36,11 @@ index.tpl:
  </para>
  <screen>
 <![CDATA[
-Smokers are Productive, but Death Cuts Efficiency.
-S M O K E R S   A R E   P R O D U C T I V E ,   B U T   D E A T H   C U T S   E F F I C I E N C Y .
-s m o k e r s   a r e   p r o d u c t i v e ,   b u t   d e a t h   c u t s...
-s m o k e r s   a r e   p r o d u c t i v e ,   b u t . . .
-s m o k e r s   a r e   p. . .
+Капля никотина убивает лошадь, хомячка разрывает на куски.
+К А П Л Я   Н И К О Т И Н А ...вырезано... В А Е Т   Н А   К У С К И .
+к а п л я   н и к о т и н а ...вырезано... х о м я ч к а...
+к а п л я   н и к о т и н а   у б и в а е т   л о ш а д ь . . .
+к а п л я   н и к о т и н. . .
 ]]>
   </screen>
  </example>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 
 <!ENTITY note.parameter.merge '<note>
  <title>Техническое замечание</title>
@@ -8,21 +8,28 @@
   Пераметр <parameter>merge</parameter> учитывает ключи массива,
   поэтому если вы объединяете массивы с числовыми индексами, то они могут
   наложиться друг на друга или привести к непоследовательному порядку ключей.
-  Результат отличается от действия функции PHP array_merge(), которая
-  заново нумерует элементы в массиве с числовоми ключами.
+  Результат отличается от действия функции PHP
+  <ulink url="&url.php-manual;array_merge">array_merge()</ulink>,
+  которая заново нумерует элементы в массиве с числовоми ключами.
  </para>
 </note>'>
 
 <!ENTITY parameter.compileid '<para>
  В качестве необязательного третьего аргумента вы можете передать
- <parameter>compile_id</parameter>. Это полезно в случае, если вы хотите
+ <parameter>$compile_id</parameter>.
+ Это полезно в случае, если вы хотите
  скомпилировать несколько различных версий одного шаблона, например
  несколько версий одного шаблона на разных языках.
- Другое применение compile_id можно найти, если вы используете
- несколько $template_dir, но только одну $compile_dir.
+ Другое применение
+ <parameter>$compile_id</parameter> можно найти,
+ если вы используете несколько
+ <link linkend="variable.template.dir">$template_dir</link>,
+ но только одну
+ <link linkend="variable.compile.dir">$compile_dir</link>.
  Устанавливайте свой <parameter>compile_id</parameter> для каждой
- $template_dir, иначе шаблоны с одинаковыми именами будут записываться
- поверх друг-друга. Также вы можете один раз указать <link
- linkend="variable.compile.id">$compile_id</link>, вместо того, чтобы каждый
- раз передавать его при вызове этой функции.
+ <link linkend="variable.template.dir">$template_dir</link>,
+ иначе шаблоны с одинаковыми именами будут сохраняться поверх друг друга.
+ Также вы можете один раз указать
+ <link linkend="variable.compile.id">$compile_id</link>,
+ вместо того, чтобы каждый раз передавать его при вызове этой функции.
 </para>'>

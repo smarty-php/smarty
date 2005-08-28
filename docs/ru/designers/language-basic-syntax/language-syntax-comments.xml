@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.comments">
  <title>Комментарии</title>
  <para>
-  Комментарии в шаблонах заключаются в звездочки(*) окруженные .
-  разделителями, например: {* это комментарий *}. Комментарии не
-  отображаются в выводе шаблона. Они используются для внутренних
-  примечаний в шаблонах.
+  Комментарии в шаблонах заключаются в звездочки (*) окруженные
+  <link linkend="variable.left.delimiter">разделителями</link>,
+  например: {* это комментарий *}.
+  Комментарии не отображаются в выводе шаблона, в отличие
+  от &lt;!-- комментариев HTML --&gt;.
+  Они используются для внутренних примечаний в шаблонах.
  </para>
  <example>
   <title>Комментарии</title>
   <programlisting>
 <![CDATA[
-{* шаблон Smarty *}
+<body>
+{* этот многострочный комментарий
+   не отправляется в бразуер
+*}
 
-{* подключаем шапку шаблона *}
+{* здесь включаем заголовок *}
 {include file="header.tpl"}
 
+
+{* Примечание разработчика:  $includeFile назначается в скрипте foo.php *}
+<!-- этот html-комментарий будет отправлен браузеру -->
 {include file=$includeFile}
 
 {include file=#includeFile#}
 
-{* выпадающий список *}
-<SELECT name=company>
-{html_options values=$vals selected=$selected output=$output}
-</SELECT>
+{* отображаем выпадающее меню *}
+<select name="company">
+  {html_options options=$vals selected=$selected_id}
+</select>
+</body>
 ]]>
   </programlisting>
  </example>

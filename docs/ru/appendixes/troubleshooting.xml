@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
- <chapter id="troubleshooting">
-  <title>Решение проблем</title>
-  <para></para>
-  <sect1 id="smarty.php.errors">
-   <title>Ошибки Smarty/PHP</title>
-   <para>
-    Smarty может ловить многие ошибки, например отсутствующие атрибуты
-    тэгов или недопустимые имена переменных. Если это произойдет, вы увидите
-    ошибку наподобие следующей:
-   </para>
-   <example>
-    <title>Ошибка Smarty</title>
-    <screen>
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<chapter id="troubleshooting">
+ <title>Решение проблем</title>
+ <para></para>
+ <sect1 id="smarty.php.errors">
+  <title>Ошибки Smarty/PHP</title>
+  <para>
+   Smarty может ловить многие ошибки, например отсутствующие атрибуты
+   тэгов или недопустимые имена переменных. Если это произойдет, вы увидите
+   ошибку наподобие следующей:
+  </para>
+  <example>
+   <title>Ошибка Smarty</title>
+   <screen>
 <![CDATA[
 Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
        in /path/to/smarty/Smarty.class.php on line 1041
@@ -21,40 +21,152 @@ Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
 Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
        in /path/to/smarty/Smarty.class.php on line 1041
 ]]>
-    </screen>
-   </example>
-   <para>
-    Smarty покажет вам имя шаблона, номер строки и ошибку.
-    Далее сообщение об ошибке состоит из фактического номера строки в классе
-    Smarty, где возникла ошибка.
-   </para>
+   </screen>
+  </example>
+  <para>
+   Smarty покажет вам имя шаблона, номер строки и ошибку.
+   Далее сообщение об ошибке состоит из фактического номера строки в классе
+   Smarty, где возникла ошибка.
+  </para>
 
-   <para>
-    Есть определенные ошибки, которые не может поймать Smarty, например
-    отсутствующие закрывающие тэги. Такие ошибки обычно приводят к ошибкам
-    разбора PHP на этапе компиляции.
-   </para>
+  <para>
+   Есть определенные ошибки, которые не может поймать Smarty, например
+   отсутствующие закрывающие тэги. Такие ошибки обычно приводят к ошибкам
+   разбора PHP на этапе компиляции.
+  </para>
 
-   <example>
-    <title>Ошибки разбора PHP</title>
-    <screen>
+  <example>
+   <title>Ошибки разбора PHP</title>
+   <screen>
 <![CDATA[
 Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 ]]>
-    </screen>
-   </example>
+   </screen>
+  </example>
 
-   <para>
-    Когда вы встречаетесь с ошибкой разбора PHP, номер строки, в которой
-    допущена ошибка, будет соответствовать скомпилированному PHP-скрипту,
-    а не самому шаблону. Обычно вы можете посмотреть на шаблон и увидить
-    синтаксическую ошибку. Типичные ошибки: отсутствующие закрывающие тэги
-    для {if}{/if} или {section}{/section}, или синтаксис логики внутри тэга {if}.
-    Если вы не можете найти ошибку, вам может понадобиться открыть скомпилированный
-    PHP-файл и перейти к номеру строки чтобы выяснить, в чём заключается ошибка
-    в шаблоне.
-   </para>
-  </sect1>
+  <para>
+   Когда вы встречаетесь с ошибкой разбора PHP, номер строки, в которой
+   допущена ошибка, будет соответствовать скомпилированному PHP-скрипту,
+   а не самому шаблону. Обычно вы можете посмотреть на шаблон и увидить
+   синтаксическую ошибку. Типичные ошибки: отсутствующие закрывающие тэги
+   для
+   <link linkend="language.function.if">{if}{/if}</link> или
+   <link linkend="language.function.if">{section}{/section}</link>,
+   или синтаксис логики внутри тэга {if}.
+   Если вы не можете найти ошибку, вам может понадобиться открыть
+   скомпилированный PHP-файл и перейти к номеру строки чтобы выяснить,
+   в чём заключается ошибка в шаблоне.
+  </para>
+
+  <example>
+   <title>Other common errors</title>
+
+   <itemizedlist>
+    <listitem>
+     <screen>
+<![CDATA[
+Warning: Smarty error: unable to read resource: "index.tpl" in...
+or
+Warning: Smarty error: unable to read resource: "site.conf" in...
+]]>
+     </screen>
+     <para>
+      <itemizedlist>
+       <listitem>
+        <para>
+         Значение <link
+         linkend="variable.template.dir">$template_dir</link>
+         неверно, эта директория не существует или файл
+         <filename>index.tpl</filename> находится за пределами директории
+         <filename class="directory">templates/</filename>
+        </para>
+       </listitem>
+       <listitem>
+        <para>
+         В шаблоне присутствует функция <link
+         linkend="language.function.config.load">{config_load}</link>
+         (либо была вызвана функция
+         <link linkend="api.config.load">config_load()</link>)
+         и значение
+         <link linkend="variable.config.dir">$config_dir</link>
+         неверно, эта директория не существует или файл
+         <filename>site.conf</filename> находится за пределами этой
+         директории.
+        </para>
+       </listitem>
+      </itemizedlist>
+     </para>
+    </listitem>
+    <listitem>
+     <screen>
+<![CDATA[
+Fatal error: Smarty error: the $compile_dir 'templates_c' does not exist,
+or is not a directory...
+]]>
+     </screen>
+     <para>
+      Переменная
+      <link linkend="variable.compile.dir">$compile_dir</link>
+      установлена неверно, эта директория не существует
+      или <filename>templates_c</filename> является файлом, а не
+      директорией.
+     </para>
+    </listitem>
+    <listitem>
+     <screen>
+<![CDATA[
+Fatal error: Smarty error: unable to write to $compile_dir '....
+]]>
+     </screen>
+     <para>
+      У веб сервера нет прав на запись в директорию
+      <link linkend="variable.compile.dir">$compile_dir</link>.
+      Смотрите конец страницы
+      <link linkend="installing.smarty.basic">Базовая установка</link>
+      для получения информации о правах доступа.
+     </para>
+    </listitem>
+    <listitem>
+     <screen>
+<![CDATA[
+Fatal error: Smarty error: the $cache_dir 'cache' does not exist,
+or is not a directory. in /..
+]]>
+     </screen>
+     <para>
+      Это означает, что
+      <link linkend="variable.caching">$caching</link> включено и
+      <link linkend="variable.cache.dir">$cache_dir</link>
+      установлена неправильно, директория не существует
+      или <filename>cache</filename> является файлом, а не
+      директорией.
+     </para>
+    </listitem>
+    <listitem>
+     <screen>
+<![CDATA[
+Fatal error: Smarty error: unable to write to $cache_dir '/...
+]]>
+     </screen>
+     <para>
+      Это означает, что
+      <link linkend="variable.caching">$caching</link> включено и
+      у веб сервера нет прав на запись в директорию
+      <link linkend="variable.cache.dir">$cache_dir</link>.
+      Смотрите конец страницы
+      <link linkend="installing.smarty.basic">Базовая установка</link>
+      для получения информации о правах доступа.
+     </para>
+    </listitem>
+   </itemizedlist>
+  </example>
+  <para>
+   См. также
+   <link linkend="chapter.debugging.console">debugging</link>,
+   <link linkend="variable.error.reporting">$error_reporting</link> и
+   <link linkend="api.trigger.error">trigger_error()</link>.
+  </para>
+ </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

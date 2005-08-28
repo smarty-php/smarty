@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.functions">
  <title>Функции</title>
  <para>
   Каждый тэг Smarty либо выводит значение <link
   linkend="language.variables">переменной</link>, либо вызывает
   некоторую функцию. Для вызова функции надо заключить в разделители
-  название функции и ее параметры, например:
+  название функции и ее
+  <link linkend="language.syntax.attributes">параметры</link>,
+  например:
   {funcname attr1="val" attr2="val"}.
  </para>
  <example>
@@ -29,17 +31,27 @@ Welcome, {$name}!
    </programlisting>
  </example>
  <para>
-  И встроенные, и пользовательские функции используются с одинаковым
-  синтаксисом. Встроенные функции реализованы внутри Smarty и не
-  могут быть изменены или переопределены. Это такие функции, как
-  <link linkend="language.function.if"><command>if</command></link>,
-  <link linkend="language.function.section"><command>section</command></link> и
-  <link linkend="language.function.strip"><command>strip</command></link>.
-  Пользовательские функции реализуются через
-  плагины. Они могут быть изменены по вашему желанию, также вы можете
-  написать новые. Примеры пользовательских функций:
-  <link linkend="language.function.html.options"><command>html_options</command></link> и
-  <link linkend="language.function.html.select.date"><command>html_select_date</command></link>.
+  И <link linkend="language.builtin.functions">встроенные</link>,
+  и <link linkend="language.custom.functions">пользовательские функции</link>
+  используются с одинаковым синтаксисом.
+ </para>
+ <para>
+  Встроенные функции обеспечивают
+  <emphasis role="bold">внутреннюю</emphasis> работу Smarty, например
+  <link linkend="language.function.if">{if}</link>,
+  <link linkend="language.function.section">{section}</link> и
+  <link linkend="language.function.strip">{strip}</link>.
+  Они не могут быть модифицированы.
+ </para>
+ <para>
+  Пользовательские функции являются
+  <emphasis role="bold">дополнительными</emphasis> и реализуются через
+  <link linkend="plugins">плагины</link>.
+  Они могут быть изменены по вашему желанию, также вы можете
+  добавить новые.
+  Примерами пользовательских функций могут быть
+  <link linkend="language.function.html.options">{html_options}</link> и
+  <link linkend="language.function.popup">{popup}</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

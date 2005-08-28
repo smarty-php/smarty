@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="language.escaping">
  <title>Предотвращение обработки Smarty</title>
  <para>
@@ -8,7 +8,8 @@
   которая должна по умолчанию обрабатываться. Классическим примером
   такой ситуации является встраивание Javascript или CSS-кода в
   шаблон. Проблема появляется из-за того, что эти языки используют
-  символы { и }, которые так же используются в качестве разделителей
+  символы { и }, которые так же используются в качестве
+  <link linkend="language.function.ldelim">разделителей</link>
   для Smarty.
  </para>
 
@@ -23,9 +24,8 @@
   Подобно тому, как вы используете HTML-сущности (&amp;nbsp; и т.п.), вы можете
   использовать <link
   linkend="language.function.ldelim">{ldelim}</link>,<link
-  linkend="language.function.ldelim">{rdelim}</link> иди <link
-  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>,<link
-  linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
+  linkend="language.function.ldelim">{rdelim}</link> или <link
+  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
   для отображения текущих разделителей.
  </para>
 
@@ -56,15 +56,18 @@ $smarty->display('example.tpl');
   <programlisting>
 <![CDATA[
 <script language="javascript">
-var foo = <!--{$foo}-->;
-function dosomething() {
+  var foo = <!--{$foo}-->;
+  function dosomething() {
     alert("foo is " + foo);
-}
-dosomething();
+  }
+  dosomething();
 </script>
 ]]>
   </programlisting>
  </example>
+ <para>
+  См. также <link linkend="language.modifier.escape">модификатор escape</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

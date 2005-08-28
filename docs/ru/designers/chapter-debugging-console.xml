@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <chapter id="chapter.debugging.console">
  <title>Отладочная консоль</title>
  <para>
-  В Smarty включена консоль для отладки. Консоль позволяет узнать все включенные
-  файлы, присвоенные переменные и настройки из конфигурационных файлов.
+  В Smarty включена консоль для отладки. Консоль позволяет узнать все
+  <link linkend="language.function.include">включенные</link> шаблоны,
+  <link linkend="api.assign">присвоенные</link> переменные и настройки из
+  <link linkend="language.config.variables">конфинурационных файлов</link>
+  для текущего экземпляра Smarty.
   Шаблон "debug.tpl", поставляемый вместе со Smarty, управляет видом консоли.
-  Установите опцию Smarty $debugging в true и, если надо, укажите в $debug_tpl путь
-  к шаблону debug.tpl (по умолчанию это SMARTY_DIR).
-  Когда вы загружаете страницу, должно появиться всплывающие окно и вывести консоль
-  отладки. Для вывода доступных переменных из конкретного шаблона, см. функцию
-  <link linkend="language.function.debug">{debug}</link>. Для отключения консоли
-  отладки, установите $debugging в false. Можно также опционально включить консоль
-  отладки, добавив SMARTY_DEBUG в URL, если включена опция <link
-  linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
+  Установите опцию Smarty
+  <link linkend="variable.debugging">$debugging</link> в true и, если
+  необходимо, укажите в
+  <link linkend="variable.debug.tpl">$debug_tpl</link> путь к шаблону
+  debug.tpl (по умолчанию это
+  <link linkend="constant.smarty.dir">SMARTY_DIR</link>).
+  Когда вы загружаете страницу, должно появиться всплывающие окно и вывести
+  консоль отладки. Для вывода доступных переменных из конкретного шаблона,
+  см. функцию <link linkend="language.function.debug">{debug}</link>.
+  Для отключения консоли отладки, установите
+  <link linkend="variable.debugging">$debugging</link> в false.
+  Можно также опционально включить консоль отладки, добавив SMARTY_DEBUG в
+  URL, если включена опция
+  <link linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
  </para>
 <note>
+ <title>Техническое Примечание</title>
  <para>
-  Консоль отладки не работает, когда используется функция API fetch().
-  Необходимо использовать только функцию display(). Она генерирует
-  javascript код вначале каждой сгенерированной страницы. Если вам не
-  нравится javascript, можно отредатировать debug.tpl для изменения
-  способа отображения по вашему вкусу. Отладочная информация не кэшируется
-  и в отладочную информацию не включается информация о debug.tpl.
+  Консоль отладки не работает, когда используется функция API
+  <link linkend="api.fetch">fetch()</link>.
+  Необходимо использовать только функцию
+  <link linkend="api.display">display()</link>.
+  Она генерирует javascript код вначале каждой сгенерированной страницы.
+  Если вам не нравится javascript, можно отредатировать debug.tpl для
+  изменения способа отображения по вашему вкусу.
+  Отладочная информация не кэшируется и в отладочную информацию не
+  включается информация о debug.tpl.
  </para>
 </note>
 <note>
@@ -32,6 +45,13 @@
   в миллисекундах.
  </para>
 </note>
+<para>
+ См. также
+ <link linkend="troubleshooting">Решение проблем</link>,
+ <link linkend="variable.error.reporting">$error_reporting</link>
+ и
+ <link linkend="api.trigger.error">trigger_error()</link>.
+</para>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

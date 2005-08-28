@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.attributes">
  <title>Параметры</title>
  <para>
-  Большинство функций принимает параметры, которые уточняют или
-  изменяют ее поведение. Параметры в Smarty очень похожи на
-  параметры в HTML. Не обязательно заключать статические значения
-  в кавычки, хотя текст рекомендуется заключать в кавычки. Переменные
+  Большинство
+  <link linkend="language.syntax.functions">функций</link>
+  принимают аргументы, которые уточняют или
+  изменяют ее поведение. Аргументы в Smarty очень похожи на
+  параметры в HTML. Статические значения не обязательно заключать
+  в кавычки, но это рекомендуется для текстовых строк. Переменные
   также могут быть использованы в качестве параметров, и не должны
   заключаться в кавычки.
  </para>
  <para>
-  Некоторые параметры принимают логические значения (правда или ложь).
+  Некоторые параметры принимают логические значения (true или false).
   Они могут быть указаны словами <literal>true</literal>,
-  <literal>on</literal>, и <literal>yes</literal>, или
-  <literal>false</literal>, <literal>off</literal>, и
+  <literal>on</literal> и <literal>yes</literal>, или
+  <literal>false</literal>, <literal>off</literal> и
   <literal>no</literal> без кавычек.
  </para>
  <example>
-  <title>Синтаксис параметров функции</title>
+  <title>синтаксис параметров функции</title>
   <programlisting>
 <![CDATA[
 {include file="header.tpl"}
 
+{include file="header.tpl" attrib_name="attrib value"}
+
 {include file=$includeFile}
 
-{include file=#includeFile#}
+{include file=#includeFile# title="Smarty is cool"}
 
 {html_select_date display_days=yes}
 
-<SELECT name=company>
-{html_options values=$vals selected=$selected output=$output}
-</SELECT>
+<select name="company">
+  {html_options options=$choices selected=$selected}
+</select>
 ]]>
   </programlisting>
  </example>

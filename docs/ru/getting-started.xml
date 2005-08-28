@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
 <part id="getting.started">
  <title>Приступая к работе</title>
 
  <chapter id="what.is.smarty">
    <title>Что такое Smarty?</title>
    <para>
-    Smarty - это компилирующий обработчик шаблонов для PHP и на PHP.
+    Smarty - это компилирующий обработчик шаблонов для PHP.
     Говоря более четко, он предоставляет один из инструментов, которые
     позволяет добиться отделения прикладной логики и данных от
     представления. Это очень удобно в ситуациях, когда программист и
@@ -78,55 +78,62 @@
     <listitem>
      <para>
       Вы можете создавать пользовательские <link
-      linkend="language.custom.functions">функции</link>
-      и <link
-      linkend="language.modifiers">модификаторы</link>, что делает язык
-      шаблонов чрезвычайно расширяемым.
+      linkend="language.custom.functions">функции</link> и
+      <link linkend="language.modifiers">модификаторы</link>,
+      что делает язык шаблонов чрезвычайно расширяемым.
      </para>
     </listitem>
     <listitem>
      <para>
-      Настраиваемые разделители тэгов шаблона, то есть вы можете
-      использовать {}, {{}}, &lt;!--{}--&gt;, и т.д.
+      Настраиваемые
+      <link linkend="variable.left.delimiter">разделители тэгов</link>
+      шаблона, то есть вы можете использовать {}, {{}}, &lt;!--{}--&gt;
+      и т.д.
      </para>
     </listitem>
     <listitem>
      <para>
-      Конструкции if/elseif/else/endif конструкции передаются обработчику PHP,
-      так что синтаксис выражения {if ...} может быть настолько простым или
-      сложным, насколько вам угодно.
+      Конструкции
+      <link linkend="language.function.if">if/elseif/else/endif</link>
+      передаются обработчику PHP, так что синтаксис выражения {if ...} может
+      быть настолько простым или сложным, насколько вам угодно.
      </para>
     </listitem>
     <listitem>
      <para>
-      Допустимо неограниченное вложение секций, условий и т.д.
+      Допустимо неограниченное вложение
+      <link linkend="language.function.section">секций</link>,
+      условий и т.д.
      </para>
     </listitem>
     <listitem>
      <para>
-      Существует возможность включения PHP-кода прямо в ваш шаблон, однако
-      обычно в этом нет необходимости (и это не рекоммендуется), так как
-      движок весьма гибок и расширяем.
+      Существует возможность
+      <link linkend="language.function.php">включения PHP-кода</link>
+      прямо в ваш шаблон, однако обычно в этом нет необходимости
+      (и это не рекоммендуется), так как движок весьма гибок и расширяем.
      </para>
     </listitem>
     <listitem>
      <para>
-      Встроенный механизм кэширования.
+      Встроенный механизм <link linkend="caching">кэширования</link>.
      </para>
     </listitem>
     <listitem>
      <para>
-      Произвольные источники шаблонов.
+      Произвольные источники
+      <link linkend="template.resources">шаблонов</link>.
      </para>
     </listitem>
     <listitem>
      <para>
-      Пользовательские функции кэширования.
+      Пользовательские функции
+      <link linkend="section.template.cache.handler.func">кэширования</link>.
      </para>
     </listitem>
     <listitem>
      <para>
-      Компонентная архитектура.
+      <link linkend="plugins">Компонентная</link> архитектура.
      </para>
     </listitem>
    </itemizedlist>
@@ -151,24 +158,25 @@
      Smarty до новой версии.
     </para>
     <example>
-     <title>Файлы библиотеки Smarty</title>
+     <title>Необходимые файлы библиотеки Smarty</title>
      <screen>
 <![CDATA[
 Smarty.class.php
 Smarty_Compiler.class.php
 Config_File.class.php
 debug.tpl
-/plugins/*.php (все файлы)
 /internals/*.php (все файлы)
+/plugins/*.php (все файлы, но отдельному сайту могут понадобиться не все)
 ]]>
      </screen>
     </example>
     <para>
-     Smarty использует константу PHP <link
-     linkend="constant.smarty.dir">SMARTY_DIR</link>, которая указывает путь к
-     директории библиотеки Smarty. Обычно, если приложение может найти файл
-     <filename>Smarty.class.php</filename>, то нет необходимости устанавливать
-     SMARTY_DIR. Однако, если <filename>Smarty.class.php</filename> не может
+     Smarty использует константу PHP
+     <link linkend="constant.smarty.dir">SMARTY_DIR</link>, которая указывает
+     путь к директории 'libs/' Smarty. Обычно, если ваше приложение может
+     найти файл <filename>Smarty.class.php</filename>, то нет необходимости
+     устанавливать SMARTY_DIR - Smarty сам во всём разберётся. Однако, если
+     <filename>Smarty.class.php</filename> не может
      быть найден в вашем include_path или вы не указывали абсолютный путь к
      нему в приложении, то вы должны определить SMARTY_DIR вручную.
      SMARTY_DIR <emphasis>должен</emphasis> включать завершающий слэш.
@@ -238,14 +246,20 @@ $smarty = new Smarty;
      Теперь, когда все файлы находятся на своих местах, пришло время
      установки директорий Smarty в вашем приложении. Smarty требует
      четыре директории, которые (по умолчанию) называются
-     <filename class="directory">templates</filename>,
-     <filename class="directory">templates_c</filename>,
-     <filename class="directory">configs</filename> и
-     <filename class="directory">cache</filename>. Каждая из
+      <filename class="directory">'templates/'</filename>,
+     <filename class="directory">'templates_c/'</filename>,
+     <filename class="directory">'configs/'</filename> и
+     <filename class="directory">'cache/'</filename>. Каждая из
      них определяется свойствами класса Smarty:
-     <varname>$template_dir</varname>, <varname>$compile_dir</varname>,
-     <varname>$config_dir</varname> и <varname>$cache_dir</varname>
-     соответственно. Настойчиво рекомендуется использовать разные наборы
+     <link linkend="variable.template.dir">
+     <varname>$template_dir</varname></link>,
+     <link linkend="variable.compile.dir">
+     <varname>$compile_dir</varname></link>,
+     <link linkend="variable.config.dir">
+     <varname>$config_dir</varname></link> и
+     <link linkend="variable.cache.dir">
+     <varname>$cache_dir</varname></link> соответственно.
+     Настойчиво рекомендуется использовать разные наборы
      этих директорий для каждого приложения, использующего Smarty.
     </para>
     <para>
@@ -270,7 +284,7 @@ $smarty = new Smarty;
    <para>
     Вам понадобится как минимум один файл в корневой директории для документов
     - это скрипт, к которому обращается веб-браузер. Мы назовём наш скрипт
-    <filename>index.php</filename> и поместим его в поддиректорию
+    <emphasis>'index.php'</emphasis> и поместим его в поддиректорию
     <filename class="directory">/guestbook/</filename> корневой директории
     для документов.
    </para>
@@ -278,12 +292,18 @@ $smarty = new Smarty;
    <note>
     <title>Техническое замечание</title>
     <para>
-     Бывает удобно настроить веб-сервер так, чтобы "index.php" расценивался
+     Бывает удобно настроить веб-сервер так, чтобы 'index.php' расценивался
      как индексный файл дирекотрии по умолчанию, чтобы при запросе страницы
-     "http://www.example.com/guestbook/", вызывался скрипт index.php без
-     "index.php" в конце адресной строки. В веб-сервере Apache вы можете
-     настроить это, добавив "index.php" в конец директивы DirectoryIndex
-     (записи разделяются пробелами).
+     http://www.example.com/guestbook/, вызывался скрипт 'index.php' без
+     'index.php' в конце адресной строки. В веб-сервере Apache вы можете
+     настроить это, добавив "index.php" в конец директивы
+     <emphasis>DirectoryIndex</emphasis> (записи разделяются пробелами),
+     как в примере из httpd.conf
+    </para>
+    <para>
+    <emphasis>DirectoryIndex
+    index.htm index.html index.php index.php3 default.html index.cgi
+    </emphasis>
     </para>
    </note>
 
@@ -313,10 +333,15 @@ $smarty = new Smarty;
    </example>
 
    <para>
-    Smarty понадобятся права на запись в <emphasis>$compile_dir</emphasis> и
-    <emphasis>$cache_dir</emphasis>, так что убедитесь, что у веб-сервера
-    есть эти права. Обычно сервер запущен от имени пользователя "nobody" группы
-    "nobody". Для пользователей OS X пользователем по умолчанию является "www"
+    Smarty понадобятся <emphasis role="bold">права на запись</emphasis>
+    (пользователей Windows это не касается) в
+    <link linkend="variable.compile.dir">
+    <emphasis>$compile_dir</emphasis></link> и
+    <link linkend="variable.cache.dir">
+    <emphasis>$cache_dir</emphasis></link>,
+    так что убедитесь, что у веб-сервера есть эти права.
+    Обычно сервер запущен от имени пользователя "nobody" группы "nobody".
+    Для пользователей OS X пользователем по умолчанию является "www"
     группы "www". Если вы используете Apache, вы можете заглянуть в ваш файл
     httpd.conf (который обычно расположен в "/usr/local/apache/conf/") чтобы
     узнать, какой пользователь и группа используются.
@@ -346,8 +371,9 @@ chmod 770 /web/www.example.com/smarty/guestbook/cache/
    </note>
 
    <para>
-    Нам необходимо создать файл index.tpl, которы будет загружаться Smarty.
-    Он будет расположен в вашей $template_dir.
+    Нам необходимо создать файл 'index.tpl', которы будет загружаться Smarty.
+    Он будет расположен в вашей
+    <link linkend="variable.template.dir">$template_dir</link>.
    </para>
 
    <example>
@@ -365,17 +391,18 @@ Hello, {$name}!
    <note>
     <title>Техническое замечание</title>
     <para>
-     {* Smarty *} - это комментарий шаблона. Он не является обязательным, но
-     его размещение в начале каждого шаблона является хорошим тоном.
-     Это позволяет проще различать файлы независимо от их расширения.
-     К примеру, текстовые редакторы могут узнавать файл и включать особенную
-     подсветку синтаксиса.
+     {* Smarty *} - это
+     <link linkend="language.syntax.comments">комментарий</link> шаблона.
+     Он не является обязательным, но его размещение в начале каждого шаблона
+     является хорошим тоном. Это позволяет проще различать файлы независимо
+     от их расширения. К примеру, текстовые редакторы могут узнавать этот
+     файл и включать особенную подсветку синтаксиса.
     </para>
    </note>
 
    <para>
-    Теперь давайте отредактируем index.php. Мы создадим экземпляр Smarty,
-    присвоим значение переменной шаблона и отобразим файл index.tpl.
+    Теперь давайте отредактируем 'index.php'. Мы создадим экземпляр Smarty,
+    присвоим значение переменной шаблона и отобразим файл 'index.tpl'.
     В условиях нашего примера, мы поместили "/usr/local/lib/php/Smarty" в
     include_path. Убедитесь, что вы сделали то же самое или используете
     абсолютные пути.

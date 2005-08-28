@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.16 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.18 Maintainer: freespace Status: ready -->
 <chapter id="language.modifiers">
  <title>Модификаторы переменных</title>
  <para>
@@ -44,27 +44,36 @@
   количество елементов в массиве $articleTitle.
  </para>
 
-&designers.language-modifiers.language-modifier-cat;
-&designers.language-modifiers.language-modifier-capitalize;
-&designers.language-modifiers.language-modifier-count-characters;
-&designers.language-modifiers.language-modifier-count-paragraphs;
-&designers.language-modifiers.language-modifier-count-sentences;
-&designers.language-modifiers.language-modifier-count-words;
-&designers.language-modifiers.language-modifier-date-format;
-&designers.language-modifiers.language-modifier-default;
-&designers.language-modifiers.language-modifier-escape;
-&designers.language-modifiers.language-modifier-indent;
-&designers.language-modifiers.language-modifier-lower;
-&designers.language-modifiers.language-modifier-nl2br;
-&designers.language-modifiers.language-modifier-regex-replace;
-&designers.language-modifiers.language-modifier-replace;
-&designers.language-modifiers.language-modifier-spacify;
-&designers.language-modifiers.language-modifier-string-format;
-&designers.language-modifiers.language-modifier-strip;
-&designers.language-modifiers.language-modifier-strip-tags;
-&designers.language-modifiers.language-modifier-truncate;
-&designers.language-modifiers.language-modifier-upper;
-&designers.language-modifiers.language-modifier-wordwrap;
+ <para>
+  См. также
+  <link linkend="api.register.modifier">register_modifier()</link>,
+  <link linkend="api.register.function">register_function()</link>,
+  <link linkend="plugins">Плагины - расширение функциональности Smarty</link>
+  и
+  <link linkend="plugins.modifiers">модификаторы</link>,
+ </para>
+
+ &designers.language-modifiers.language-modifier-capitalize;
+ &designers.language-modifiers.language-modifier-cat;
+ &designers.language-modifiers.language-modifier-count-characters;
+ &designers.language-modifiers.language-modifier-count-paragraphs;
+ &designers.language-modifiers.language-modifier-count-sentences;
+ &designers.language-modifiers.language-modifier-count-words;
+ &designers.language-modifiers.language-modifier-date-format;
+ &designers.language-modifiers.language-modifier-default;
+ &designers.language-modifiers.language-modifier-escape;
+ &designers.language-modifiers.language-modifier-indent;
+ &designers.language-modifiers.language-modifier-lower;
+ &designers.language-modifiers.language-modifier-nl2br;
+ &designers.language-modifiers.language-modifier-regex-replace;
+ &designers.language-modifiers.language-modifier-replace;
+ &designers.language-modifiers.language-modifier-spacify;
+ &designers.language-modifiers.language-modifier-string-format;
+ &designers.language-modifiers.language-modifier-strip;
+ &designers.language-modifiers.language-modifier-strip-tags;
+ &designers.language-modifiers.language-modifier-truncate;
+ &designers.language-modifiers.language-modifier-upper;
+ &designers.language-modifiers.language-modifier-wordwrap;
 
 </chapter>
 <!-- Keep this comment at the end of the file

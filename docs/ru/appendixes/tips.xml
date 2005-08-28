@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <chapter id="tips">
  <title>Советы</title>
-  <sect1 id="tips.blank.var.handling">
+ <para></para>
+ <sect1 id="tips.blank.var.handling">
   <title>Обработка пустых переменных</title>
   <para>
    Иногда, например, для того чтобы фон таблицы работал корректно,
    необходимо вывести вместо пустого значения переменной, значение
-   по умолчанию "&amp;nbsp;". Многие бы использовали конструкцию {if},
-   но есть более короткий путь в Smatry используя <emphasis>default</emphasis>
-   модификатор переменной.
+   по умолчанию "&amp;nbsp;". Многие бы использовали конструкцию
+   <link linkend="language.function.if">{if}</link>,
+   но в Smatry есть более короткий путь - используя модификатор переменной
+   <link
+   linkend="language.modifier.default"><emphasis>default</emphasis></link>.
   </para>
-<example>
-<title>Вывод &amp;nbsp;, если переменная пуста</title>
-<programlisting>
+  <example>
+   <title>Вывод &amp;nbsp;, если переменная пуста</title>
+   <programlisting>
 <![CDATA[
 {* длинный путь *}
 
@@ -29,139 +32,172 @@
 
 {$title|default:"&nbsp;"}
 ]]>
-</programlisting>
-</example>
-</sect1>
-<sect1 id="tips.default.var.handling">
- <title>Обработка переменных по умолчанию</title>
- <para>
-  Если переменная встречается часто, то использование модификатора
-  default каждый раз можно избежать, используя функцию
-  <link linkend="language.function.assign">assign</link>.
- </para>
-<example>
-<title>Назначение переменной шаблона значения по умолчанию</title>
-<programlisting>
+   </programlisting>
+  </example>
+  <para>
+   См. также <link linkend="language.modifier.default">default</link> и
+   <link linkend="tips.default.var.handling">Обработка переменных по умолчанию</link>.
+  </para>
+ </sect1>
+
+ <sect1 id="tips.default.var.handling">
+  <title>Обработка переменных по умолчанию</title>
+  <para>
+   Если переменная встречается часто, то использование модификатора
+   default каждый раз можно избежать, используя функцию
+   <link linkend="language.function.assign">{assign}</link>.
+  </para>
+  <example>
+   <title>Назначение переменной шаблона значения по умолчанию</title>
+   <programlisting>
 <![CDATA[
-{* вверху шаблона *}
+{* где-то в начале шаблона *}
 {assign var="title" value=$title|default:"no title"}
 
 {* если переменная $title была пустой, то сейчас она содержит "no title" *}
 {$title}
 ]]>
-</programlisting>
-</example>
-</sect1>
-<sect1 id="tips.passing.vars">
- <title>Присвоение переменной заголовка (title) заголовку шаблона.</title>
+   </programlisting>
+  </example>
+  <para>
+   См. также <link linkend="language.modifier.default">default</link> и
+   <link linkend="tips.blank.var.handling">Обработка пустых переменных</link>.
+  </para>
+ </sect1>
+ 
+ <sect1 id="tips.passing.vars">
+  <title>Присвоение переменной заголовка (title) шаблону-шапке</title>
   <para>
    Если большинство ваших шаблонов имеют похожие верхние и нижние
-   части, то имеет смысл вынести их в отдельные файлы. Но если
+   части, то имеет смысл вынести их в отдельные файлы. Но как быть, если
    шапка должна иметь различные заголовки на различных страницах?
-   Смотрите пример ниже.
+   Вы можете передавать текст заголовка шапке в момент её включения.
   </para>
-<example>
-<title>Присвоение переменной заголовка (title) заголовку шаблона.</title>
-<programlisting>
+  <example>
+   <title>Присвоение переменной заголовка (title) шаблону-шапке</title>
+   <para>
+    <filename>mainpage.tpl</filename>
+   </para>
+   <programlisting>
 <![CDATA[
-mainpage.tpl
-------------
-
 {include file="header.tpl" title="Main Page"}
-{* тело шаблона *}
+{* тут находится тело шаблона *}
 {include file="footer.tpl"}
+]]>
+   </programlisting>
 
-
-archives.tpl
-------------
-
+   <para>
+    <filename>archives.tpl</filename>
+   </para>
+   <programlisting>
+<![CDATA[
 {config_load file="archive_page.conf"}
 {include file="header.tpl" title=#archivePageTitle#}
-{* тело шаблонаe *}
+{* тут находится тело шаблона *}
 {include file="footer.tpl"}
-
-
-header.tpl
-----------
-<HTML>
- <HEAD>
-  <TITLE>{$title|default:"BC News"}</TITLE>
-  </HEAD>
-  <BODY>
-
-
-footer.tpl
-----------
-</BODY>
-</HTML>
 ]]>
-</programlisting>
-</example>
- <para>
-  Если выводится главная страница, то заголовок будет "Main Page",
-  если архивы, то заголовк берется из файла конфигурации. Если
-  заголовок будет пустой, то выведется значение по умолчанию "BC News".
- </para>
-</sect1>
-<sect1 id="tips.dates">
-<title>Даты</title>
- <para>
-  Обычно даты в Smarty всегда передаются как временные метки, что
-  позволяет проектировщикам шаблонов использовать <link
-		linkend="language.modifier.date.format">date_format</link>
-  для полного контроля над форматированием даты и также делает легким
-		сравнение дат там, где это необходимо.
- </para>
-   <note>
-    <para>
-     Начиная с версии Smarty 1.4.0, вы можете передавать даты в Smarty в виде
-     меток времени Unix (unix timestamps), mysql, или в любом другом виде, который принимает strtotime().
-    </para>
-   </note>
-   <example>
-    <title>using date_format</title>
-    <programlisting>
+   </programlisting>
+
+   <para>
+    <filename>header.tpl</filename>
+   </para>
+   <programlisting>
+<![CDATA[
+<html>
+ <head>
+  <title>{$title|default:"BC News"}</title>
+ </head>
+ <body>
+]]>
+   </programlisting>
+
+   <para>
+    <filename>footer.tpl</filename>
+   </para>
+   <programlisting>
+<![CDATA[
+ </body>
+</html>
+]]>
+   </programlisting>
+  </example>
+
+  <para>
+   При отображении главной страниц, строка "Main Page" передаётся в
+   <filename>header.tpl</filename> и в последствии используется как заголовок.
+   При отображении страницы архива, заголовком будет "Archives".
+   Обратите внимание, что в примере с архивом мы используем переменную из
+   файла <filename>archives_page.conf</filename>, вместо того, чтобы жёстко
+   задать её в шаблоне. Также обратите внимание, что в случае, если
+   переменная $title не задана, при помощи модификатора переменной
+   <link linkend="language.modifier.default">default</link>
+   заголовком будет "BC News".
+  </para>
+ </sect1>
+ 
+ <sect1 id="tips.dates">
+  <title>Даты</title>
+  <para>
+   Обычно даты в Smarty всегда передаются как временные метки, что
+   позволяет проектировщикам шаблонов использовать <link
+ 		linkend="language.modifier.date.format">date_format</link>
+   для полного контроля над форматированием даты и также делает легким
+ 		сравнение дат там, где это необходимо.
+  </para>
+  <note>
+   <para>
+    Начиная с версии Smarty 1.4.0, вы можете передавать даты в Smarty в виде
+    меток времени Unix (unix timestamps), mysql, или в любом другом виде,
+    который понимает функция
+    <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
+   </para>
+  </note>
+  <example>
+   <title>using date_format</title>
+   <programlisting>
 <![CDATA[
 {$startDate|date_format}
 ]]>
-    </programlisting>
-    <para>
-     Результат работы:
-    </para>
-    <screen>
+   </programlisting>
+   <para>
+    Результат работы:
+   </para>
+   <screen>
 <![CDATA[
 Jan 4, 2001
 ]]>
-    </screen>
-    <programlisting>
+   </screen>
+   <programlisting>
 <![CDATA[
 {$startDate|date_format:"%Y/%m/%d"}
 ]]>
-    </programlisting>
-    <para>
-     Результат работы:
-    </para>
-    <screen>
+   </programlisting>
+   <para>
+    Результат работы:
+   </para>
+   <screen>
 <![CDATA[
 2001/01/04
 ]]>
-    </screen>
-    <programlisting>
+   </screen>
+   <programlisting>
 <![CDATA[
 {if $date1 < $date2}
-   ...
+    ...
 {/if}
 ]]>
-    </programlisting>
-   </example>
-<para>
- Когда {html_select_date} используется в шаблоне, программистам может
- понадобиться получить дату виде временной метки. Вот функция, которая поможет это
- сделать.
-</para>
-<example>
-<title>Преобразование элементов формы ввода даты назад к временной метке</title>
-    <programlisting role="php">
+   </programlisting>
+  </example>
+  <para>
+   Когда <link
+   linkend="language.function.html.select.date">{html_select_date}</link>
+   используется в шаблоне, программист наверняка захочет преобразовать
+   данные из формы назад в формат метки времени. Вот функция, которая
+   поможет вам сделать это.
+  </para>
+  <example>
+   <title>Преобразование элементов формы ввода даты назад к метке времени</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 
@@ -170,7 +206,7 @@ Jan 4, 2001
 
 $startDate = makeTimeStamp($startDate_Year, $startDate_Month, $startDate_Day);
 
-function makeTimeStamp($year="", $month="", $day="")
+function makeTimeStamp($year='', $month='', $day='')
 {
    if(empty($year)) {
        $year = strftime("%Y");
@@ -186,22 +222,34 @@ function makeTimeStamp($year="", $month="", $day="")
 }
 ?>
 ]]>
-    </programlisting>
-</example>
-</sect1>
-<sect1 id="tips.wap">
- <title>WAP/WML</title>
- <para>
-  WAP/WML шаблоны требуют, чтобы заголовок Content-type был
-  передан вместе с шаблоном. Простейший путь - написать
-  пользовательскую функцию, которая будет выводить заголовки.
-  Так как мы будем пользоваться тэгами insert, то заголовки не будут
-  кэшироваться. Так же ничего не должно выводиться в браузер до
-  шаблона, иначе заголовки могут быть неправильно восприняты.
- </para>
-<example>
- <title>Использование insert для записи WML Content-Type заголовков</title>
-    <programlisting role="php">
+   </programlisting>
+  </example>
+  <para>
+   См. также
+   <link linkend="language.function.html.select.date">{html_select_date}</link>,
+   <link linkend="language.function.html.select.time">{html_select_time}</link>,
+   <link linkend="language.modifier.date.format">date_format</link> и
+   <link linkend="language.variables.smarty.now">$smarty.now</link>
+  </para>
+ </sect1>
+
+ <sect1 id="tips.wap">
+  <title>WAP/WML</title>
+  <para>
+   WAP/WML шаблоны требуют, чтобы
+   <ulink url="&url.php-manual;header">заголовок Content-type</ulink>
+   был передан вместе с шаблоном. Простейший путь - написать
+   пользовательскую функцию, которая будет выводить заголовки.
+   Если вы используете <link linkend="caching">кэширование</link>,
+   это не сработает, так что мы сделаем это с помощью тега
+   <link linkend="language.function.insert">{insert}</link>;
+   не забывайте, что теги {insert} не кэшируются!
+   Убедитесь, что перед шаблоном в браузер ничего не выводится,
+   иначе отправить заголовок не получится.
+  </para>
+  <example>
+   <title>Использование {insert} для записи заголовка Content-Type для WML</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
 
@@ -219,11 +267,11 @@ function insert_header($params)
 
 ?>
 ]]>
-    </programlisting>
-    <para>
-     ваш шаблон Smarty <emphasis>должен</emphasis> начинаться с тэга insert:
-    </para>
-    <programlisting>
+   </programlisting>
+   <para>
+    ваш шаблон Smarty <emphasis>должен</emphasis> начинаться с тэга insert:
+   </para>
+   <programlisting>
 <![CDATA[
 {insert name=header content="Content-Type: text/vnd.wap.wml"}
 
@@ -250,34 +298,38 @@ function insert_header($params)
  </card>
 </wml>
 ]]>
-    </programlisting>
-</example>
-</sect1>
-  <sect1 id="tips.componentized.templates">
-   <title>Составные шаблоны</title>
+   </programlisting>
+  </example>
+ </sect1>
+ 
+ <sect1 id="tips.componentized.templates">
+  <title>Составные шаблоны</title>
+  <para>
+   По традиции, программирование шаблонов в вашем приложении идёт следующим
+   путём: Сначала вы формируете переменные внутри вашего приложения PHP
+   (возможно, используя запросы к базе данных). Затем вы создаёте экземпляр
+   объекта Smarty, назначаете переменные и отображаете шаблон.
+   Давайте представим себе такую ситуацию: К примеру, у нас есть котировщик
+   ценных бумаг в нашем шаблоне. Мы собираем данные о котировках ценных бумаг
+   в нашем приложении, затем передаём эти переменные в шаблон и отображаем
+   его. Правда, было бы здорово, если бы этот котировщик можно было перенести
+   в другое приложение, просто подключив к нему шаблон, не беспокоясь об
+   источнике данных.
+  </para>
+  <para>
+   Вы можете сделать это, написав собственное расширение для получения
+   данных и присваивания их переменной шаблона.
+  </para>
+  <example>
+   <title>составной шаблон</title>
    <para>
-    По традиции, программирование шаблонов в вашем приложении идёт следующим
-    путём: Сначала вы формируете переменные внутри вашего приложения PHP
-    (возможно используя запросы к базе данных). Затем вы создаёте экземпляр
-    объекта Smarty, назначаете переменные и отображаете шаблон.
-    Давайте представим себе такую ситуацию: К примеру, у нас есть котировщик
-    ценных бумаг в нашем шаблоне. Мы собираем данные о котировках ценных бумаг
-    в нашем приложении, затем передаём эти переменные в шаблон и отображаем
-    его. Правда, было бы здорово, если бы этот котировщик можно было перенести
-    в другое приложение, просто подключив к нему шаблон, не беспокоясь об
-    источнике данных.
+     <filename>function.load_ticker.php</filename> -
+     поместите файл в
+     <link linkend="variable.plugins.dir">директорию $plugins</link>
    </para>
-   <para>
-    Вы можете сделать это, написав собственный плагин для получения данных и
-    присваивания их переменной шаблона.
-   </para>
-   <example>
-    <title>составной шаблон</title>
-    <programlisting role="php">
+   <programlisting role="php">
 <![CDATA[
 <?php
-
-// поместите файл "function.load_ticker.php" в директорию плагинов
 
 // настраиваем нашу функцию для получения информации о ценных бумагах
 function fetch_ticker($symbol)
@@ -297,50 +349,63 @@ function smarty_function_load_ticker($params, &$smarty)
 }
 ?>
 ]]>
-    </programlisting>
-    <programlisting>
+   </programlisting>
+   <para>
+    <filename>index.tpl</filename>
+   </para>
+   <programlisting>
 <![CDATA[
-{* in index.tpl *}
-
 {load_ticker symbol="YHOO" assign="ticker"}
 
-Название ценной бумаги: {$ticker.name} Цена ценной бумаги: {$ticker.price}
+Stock Name: {$ticker.name} Stock Price: {$ticker.price}
 ]]>
-    </programlisting>
-   </example>
-  </sect1>
-  <sect1 id="tips.obfuscating.email">
-   <title>Сокрытие E-mail адреса</title>
-   <para>
-    Вы когда-нибудь удивлялись, как ваш e-mail адрес попадает в такое
-    количество спамерских рассылок? Один из способов сбора e-mail адресов
-    заключается в просмотре веб-страниц. Чтобы помочь предотвратить эту
-    проблему, вы можете сделать так, чотбы ваш e-mail адрес отображался
-    в скрытом за javascript'ом виде в HTML-исходниках, в то же время
-    выглядя и работая корректно в браузере. Это можно совершить при помощи
-    плагина mailto.
-   </para>
-   <example>
-    <title>Пример сокрытия e-mail адреса</title>
-    <programlisting>
+   </programlisting>
+  </example>
+  <para>
+   См. также
+   <link linkend="language.function.include.php">{include_php}</link>,
+   <link linkend="language.function.include">{include}</link> и
+   <link linkend="language.function.php">{php}</link>.
+  </para>
+ </sect1>
+ 
+ <sect1 id="tips.obfuscating.email">
+  <title>Сокрытие E-mail адреса</title>
+  <para>
+   Вы когда-нибудь удивлялись, как ваш e-mail адрес попадает в такое
+   количество спамерских рассылок? Один из способов сбора e-mail адресов
+   заключается в просмотре веб-страниц. Чтобы помочь предотвратить эту
+   проблему, вы можете сделать так, чотбы ваш e-mail адрес отображался
+   в скрытом за javascript'ом виде в HTML-исходниках, в то же время
+   выглядя и работая корректно в браузере. Это можно совершить при помощи
+   расширения <link linkend="language.function.mailto">{mailto}</link>.
+  </para>
+  <example>
+   <title>Пример сокрытия e-mail адреса</title>
+   <programlisting>
 <![CDATA[
-{* in index.tpl *}
+{* в index.tpl *}
 
 По вопросам обращайтесь на
 {mailto address=$EmailAddress encode="javascript" subject="Hello"}
 ]]>
-    </programlisting>
-   </example>
-   <note>
-    <title>Техническое Замечание</title>
-    <para>
-     Этот метод не может гарантировать 100% защиты.
-     Существует вероятность, что спамер запрограммирует свой
-     сборщик e-mail адресов на раскодирование этих значений,
-     но это маловероятно.
-    </para>
-   </note>
-  </sect1>
+   </programlisting>
+  </example>
+  <note>
+   <title>Техническое Замечание</title>
+   <para>
+    Этот метод не может гарантировать 100% защиты.
+    Существует вероятность, что спамер запрограммирует свой
+    сборщик e-mail адресов на раскодирование этих значений,
+    но это маловероятно... будем надеяться.
+   </para>
+  </note>
+  <para>
+   См. также
+   <link linkend="language.modifier.escape">escape</link> и
+   <link linkend="language.function.mailto">{mailto}</link>.
+  </para>
+ </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
