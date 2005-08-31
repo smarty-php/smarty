@@ -64,8 +64,8 @@ function print_current_date($params, &$smarty)
     $format = "%b %e, %Y";
   } else {
     $format = $params['format'];
-    return strftime($format,time());
   }
+  return strftime($format,time());
 }
 ?>
 ]]>
