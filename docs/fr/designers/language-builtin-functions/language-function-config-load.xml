@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.config.load">
  <title>{config_load}</title>
  <informaltable frame="all">
@@ -68,17 +68,36 @@
  <para>
   {config_load} est utiliseé pour charger des variables <link
   linkend="language.config.variables">#variables#</link>
-  de configuration dans un template. Voir <link linkend="config.files">
-  Fichiers de configuration</link> pour de plus amples informations.
+  depuis un <link linkend="config.files">fichier de configuration</link>
+  dans un template.
  </para>
  <example>
   <title>fonction {config_load}</title>
+  <para>
+   example.conf
+  </para>
+  <programlisting>
+   <![CDATA[
+#ceci est un commentaire de fichier de configuration
+
+#variables globales
+pageTitle = "Menu principal"
+bodyBgColor = #000000
+tableBgColor = #000000
+rowBgColor = #00ff00
+
+#section de variables personnalisées
+[Customer]
+pageTitle = "Info personnalisée"
+]]>
+  </programlisting>
+  <para>et le template</para>
   <programlisting>
 <![CDATA[
-{config_load file="colors.conf"}
+{config_load file="example.conf"}
 
 <html>
-<title>{#pageTitle#}</title>
+<title>{#pageTitle#|default:"No title"}</title>
 <body bgcolor="{#bodyBgColor#}">
 <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
   <tr bgcolor="{#rowBgColor#}">
@@ -95,20 +114,21 @@
  <para>
   Les <link linkend="config.files">fichiers de configuration</link> peuvent contenir des sections.
   Vous pouvez charger des variables d'une section donnée avec le
-  nouvel attribut <emphasis>section</emphasis>.
+  nouvel attribut <emphasis>'section'</emphasis>.
  </para>
  <note>
   <para>
    Les <emphasis>sections des fichiers de configuration</emphasis>
-   et la fonction native <emphasis>section</emphasis> n'ont rien en
-   commun, il s'avère simplement qu'elles portent le même nom.
+   et la fonction native 
+   <link linkend="language.function.section"><emphasis>{section}</emphasis></link>
+   n'ont rien en commun, il s'avère simplement qu'elles portent le même nom.
   </para>
  </note>
  <example>
-  <title>fonction config_load et section</title>
+  <title>fonction {config_load} avec section</title>
   <programlisting>
 <![CDATA[
-{config_load file="colors.conf" section="client"}
+{config_load file="example.conf" section="Customer"}
 
 <html>
 <title>{#pageTitle#}</title>

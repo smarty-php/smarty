@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.include">
  <title>{include}</title>
  <informaltable frame="all">
@@ -53,18 +53,29 @@
   "file", qui contient le chemin de la ressource template.
  </para>
  <para>
-  Vous pouvez spécifier un attribut optionnel <emphasis>assign</emphasis>
+  Vous pouvez spécifier un attribut optionnel <emphasis>'assign'</emphasis>
   qui définit une variable de template dans laquelle la sortie de
   {include} sera stockée plutôt qu'affichée.
  </para>
  <example>
-  <title>fonction include</title>
-<programlisting>
-{include file="header.tpl"}
+  <title>fonction {include}</title>
+  <programlisting>
+   <![CDATA[
+<html>
+ <head>
+  <title>{$title}</title>
+ </head>
+ <body>
+  {include file="page_header.tpl"}
 
-{* Le corp du template va ici *}
+  {* body of template goes here *}
+  {include file="/$tpl_name.tpl"} <-- remplace $tpl_name avec la valeur
 
-{include file="footer.tpl"}</programlisting>
+  {include file="page_footer.tpl"}
+ </body>
+</html>
+]]>
+  </programlisting>
  </example>
  <para>
   Vous pouvez également passer des variables au template inclus
@@ -74,14 +85,46 @@
   qui auraient le même nom.
  </para>
  <example>
-  <title>fonction include, passage de variables</title>
-<programlisting>
+  <title>fonction {include}, passage de variables</title>
+  <programlisting>
 <![CDATA[
 {include file="header.tpl" title="Menu principal" table_bgcolor="#c0c0c0"}
 
 {* Le corps du template vient ici *}
 
 {include file="footer.tpl" logo="http://mon.example.com/logo.gif"}
+]]>
+  </programlisting>
+  <para>où header.tpl est :</para>
+  <programlisting>
+ <![CDATA[
+<table border='1' width='100%' bgcolor='{$table_bgcolor|default:"#0000FF"}'>
+ <tr><td>
+   <h1>{$title}</h1>
+  </td></tr>
+</table>
+]]>
+  </programlisting>
+ </example>
+
+
+ <example>
+  <title>{include} et assignement à une variable</title>
+  <para>Cet exemple assigne le contenu de nav.tpl à la variable $navbar,
+   qui est alors affichée en haut et en bas de la page.
+  </para>
+  <programlisting>
+<![CDATA[
+<body>
+ {include file="nav.tpl" assign="navbar"}
+ {include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+ {$navbar}
+
+ {* body of template goes here *}
+
+ {include file="footer.tpl" logo="http://my.example.com/logo.gif"}
+ {$navbar}
+</body>
 ]]>
   </programlisting>
  </example>
@@ -91,7 +134,7 @@
   des fichiers situés en dehors du répertoire $template_dir.
  </para>
  <example>
-  <title>fonction include, exemple de ressource template</title>
+  <title>fonction {include}, exemple de ressource template</title>
   <programlisting>
 <![CDATA[
 {* chemin absolu *}
@@ -112,7 +155,7 @@
   Voir aussi
   <link linkend="language.function.include.php">{include_php}</link>,
   <link linkend="language.function.php">{php}</link>,
-  <link linkend="template.resources">les ressources de template</link> et 
+  <link linkend="template.resources">les ressources de template</link> et
   <link linkend="tips.componentized.templates">les templates composants</link>.
  </para>
 </sect1>

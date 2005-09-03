@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
  <para>
   L'instruction <emphasis>{if}</emphasis> dans Smarty dispose de la même flexibilité que l'instruction
-  PHP du même nom, avec quelques fonctionnalités supplémentaires pour le
+  PHP <ulink url="&url.php-manual;if"><command>if</command></ulink>,
+  avec quelques fonctionnalités supplémentaires pour le
   moteur de template. Tous les <emphasis>{if}</emphasis> doivent être
   utilisés de pair avec un <emphasis>{/if}</emphasis>.
   <emphasis>{else}</emphasis> et <emphasis>{elseif}</emphasis> sont également
@@ -138,70 +139,70 @@
   </tgroup>
  </informaltable>
  <example>
-  <title>Instruction if</title>
+  <title>Instruction {if}</title>
   <programlisting>
 <![CDATA[
-   {if $name eq "Fred"}
-   Bienvenue, Monsieur.
-   {elseif $name eq "Wilma"}
-   Bienvenue m'dame.
-   {else}
-   Bienvenue, qui que vous soyez.
-   {/if}
+{if $name eq "Fred"}
+  Bienvenue, Monsieur.
+{elseif $name eq "Wilma"}
+  Bienvenue m'dame.
+{else}
+  Bienvenue, qui que vous soyez.
+{/if}
 
-   {* Un exemple avec l'opérateur or *}
-   {if $name eq "Fred" or $name eq "Wilma"}
-   ...
-   {/if}
+{* Un exemple avec l'opérateur or *}
+{if $name eq "Fred" or $name eq "Wilma"}
+  ...
+{/if}
 
-   {* même chose que ci-dessus *}
-   {if $name == "Fred" || $name == "Wilma"}
-   ...
-   {/if}
+{* même chose que ci-dessus *}
+{if $name == "Fred" || $name == "Wilma"}
+  ...
+{/if}
 
-   {* l'exemple suivant NE fonctionne PAS, les opérateurs
-   doivent être entourés d'espaces. *}
-   {if $name=="Fred" || $name=="Wilma"}
-   ...
-   {/if}
+{* l'exemple suivant NE fonctionne PAS, les opérateurs
+doivent être entourés d'espaces. *}
+{if $name=="Fred" || $name=="Wilma"}
+  ...
+{/if}
 
 
-   {* les parenthèses sont autorisées *}
-   {if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
-   ...
-   {/if}
+{* les parenthèses sont autorisées *}
+{if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
+  ...
+{/if}
 
-   {* vous pouvez également faire appel aux fonctions PHP *}
-   {if count($var) gt 0}
-   ...
-   {/if}
+{* vous pouvez également faire appel aux fonctions PHP *}
+{if count($var) gt 0}
+  ...
+{/if}
 
-   {* teste si les valeurs sont paires(even) ou impaires(odd) *}
-   {if $var is even}
-   ...
-   {/if}
-   {if $var is odd}
-   ...
-   {/if}
-   {if $var is not odd}
-   ...
-   {/if}
+{* teste si les valeurs sont paires(even) ou impaires(odd) *}
+{if $var is even}
+  ...
+{/if}
+{if $var is odd}
+  ...
+{/if}
+{if $var is not odd}
+  ...
+{/if}
 
-   {* teste si la variable est divisible par 4 *}
-   {if $var is div by 4}
-   ...
-   {/if}
+{* teste si la variable est divisible par 4 *}
+{if $var is div by 4}
+  ...
+{/if}
 
-   {* teste si la variable est paire, par groupe de deux i.e.,
-   0=paire, 1=paire, 2=impaire, 3=impaire, 4=paire, 5=paire, etc. *}
-   {if $var is even by 2}
-   ...
-   {/if}
+{* teste si la variable est paire, par groupe de deux i.e.,
+0=paire, 1=paire, 2=impaire, 3=impaire, 4=paire, 5=paire, etc. *}
+{if $var is even by 2}
+  ...
+{/if}
 
-   {* 0=paire, 1=paire, 2=paire, 3=impaire, 4=impaire, 5=impaire, etc. *}
-   {if $var is even by 3}
-   ...
-   {/if}
+{* 0=paire, 1=paire, 2=paire, 3=impaire, 4=impaire, 5=impaire, etc. *}
+{if $var is even by 3}
+  ...
+{/if}
 ]]>
   </programlisting>
  </example>

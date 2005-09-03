@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.capture">
  <title>{capture}</title>
  <informaltable frame="all">
@@ -76,7 +76,7 @@
 <![CDATA[
 {* nous ne voulons afficher une ligne que si cette dernière est activé. *}
 {capture name=banner}
-{include file="get_banner.tpl"}
+  {include file="get_banner.tpl"}
 {/capture}
 {if $smarty.capture.banner ne ""}
 <table>
@@ -92,7 +92,9 @@
   </example>
  </para>
  <para>
-  Voir aussi 
+  Voir aussi
+  <link
+   linkend="language.variables.smarty.capture">$smarty.capture</link>,
   <link linkend="language.function.eval">{eval}</link>,
   <link linkend="language.function.fetch">{fetch}</link>,
   <link linkend="api.fetch">fetch()</link> et

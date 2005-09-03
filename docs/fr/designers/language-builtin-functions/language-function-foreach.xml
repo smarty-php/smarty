@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.foreach">
  <title>{foreach},{foreachelse}</title>
  <informaltable frame="all">
@@ -95,7 +95,6 @@ $smarty->assign('custid', $arr);
   </para>
   <screen>
 <![CDATA[
-
 id: 1000<br />
 id: 1001<br />
 id: 1002<br />
@@ -110,20 +109,21 @@ id: 1002<br />
 // key contient la clef de chaque élément parcouru
 // L'assignement ressemble à ceci :
 <?php
-     $smarty->assign("contacts", array(
-         array("phone" => "1",
-         "fax" => "2",
-         "cell" => "3"),
-         array("phone" => "555-4444",
-         "fax" => "555-3333",
-         "cell" => "760-1234"))
-         );
+$smarty->assign('contacts', array(
+    array('phone' => '1',
+      'fax' => '2',
+      'cell' => '3'),
+    array('phone' => '555-4444',
+      'fax' => '555-3333',
+      'cell' => '760-1234'))
+    );
 ?>
 ]]>
-</programlisting>
+  </programlisting>
   <programlisting>
 <![CDATA[
 {foreach name=outer item=contact from=$contacts}
+  <hr />
   {foreach key=key item=item from=$contact}
     {$key}: {$item}<br />
   {/foreach}
@@ -135,12 +135,14 @@ id: 1002<br />
   </para>
   <screen>
 <![CDATA[
-tel: 1<br />
-fax: 2<br />
-portable: 3<br />
-tel: 555-4444<br />
-fax: 555-3333<br />
-portable: 760-1234<br />
+<hr />
+  phone: 1<br />
+  fax: 2<br />
+  cell: 3<br />
+<hr />
+  phone: 555-4444<br />
+  fax: 555-3333<br />
+  cell: 760-1234<br />
 ]]>
   </screen>
  </example>
@@ -171,6 +173,10 @@ $smarty->assign("contacts", $db->getAssoc($sql));
   <link linkend="language.variables.smarty.loops">{$smarty.foreach.foreachname.varname}</link>
   où foreachname est le nom spécifié par l'attribut <emphasis>name</emphasis>
   de foreach.
+ </para>
+
+ <para>Voir <link linkend="section.property.index">{section}</link>
+  pour des exemples avec les proriétés ci-dessus.
  </para>
 
  <sect2 id="foreach.property.iteration">
@@ -204,7 +210,7 @@ $smarty->assign("contacts", $db->getAssoc($sql));
    S'il vaut false, foreach ne sera pas affiché. Si foreachelse est présent,
    il sera affiché alternativement.
   </para>
-  
+
  </sect2>
  <sect2 id="foreach.property.total">
   <title>total</title>
@@ -213,7 +219,7 @@ $smarty->assign("contacts", $db->getAssoc($sql));
    bouclées par ce foreach. Il peut être utilisé dans ou après le foreach.
   </para>
   <para>
-   Voir aussi 
+   Voir aussi
    <link linkend="language.function.section">{section}</link> et
    <link linkend="language.variables.smarty.loops">$smarty.foreach</link>.
   </para>

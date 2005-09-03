@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
 <sect1 id="language.function.include.php">
  <title>{include_php}</title>
  <informaltable frame="all">
@@ -49,37 +49,24 @@
  <note>
   <title>Technical Note</title>
   <para>
-   include_php est presque obsolète dans Smarty. Vous pouvez obtenir des résultats 
+   {include_php} est presque obsolète dans Smarty. Vous pouvez obtenir des résultats 
    équivalents en utilisant les fonctions utilisateur.
-   La seule raison qui peut vous pousser à utiliser include_php est que 
+   La seule raison qui peut vous pousser à utiliser {include_php} est que 
    vous avez besoin de mettre une de vos fonction en quarantaine vis à vis du 
-   répertoire des plugins ou de votre application. Reportez vous à 
-   l'exemple des <link
+   répertoire des <link linkend="variable.plugins.dir">plugins</link> ou de votre application.
+   Reportez vous à l'exemple des <link
    linkend="tips.componentized.templates"> templates composants</link>
    pour plus de détails.
   </para>
  </note>
 
  <para>
-  Les balises include_php sont utilisées pour inclure directement
+  Les balises {include_php} sont utilisées pour inclure directement
   un script PHP dans vos templates. Si <link linkend="variable.security">"security" est activé</link>, 
-  alors le script
-  à exécuter doit être placé dans le chemin <link
+  alors le script à exécuter doit être placé dans le chemin <link
   linkend="variable.trusted.dir">$trusted_dir</link>. La balise
-  include_php attends l'attribut "file", qui contient le chemin du
+  {include_php} attends l'attribut "file", qui contient le chemin du
   fichier PHP à inclure, relatif à <link linkend="variable.trusted.dir">$trusted_dir</link>, ou absolu.
- </para>
- <para>
-  include_php est un moyen agréable pour gérer des <link
-  linkend="tips.componentized.templates">"composants templates"</link>,
-  tout en conservant le code PHP en dehors du template lui même.
-  Supposons que vous ayez un template reprenant la navigation de votre
-  site, elle même récupérée depuis une base de données. Vous pouvez
-  conserver la logique du code PHP récupérant le contenu de la base dans
-  un emplacement séparé, et l'inclure depuis votre template. Maintenant,
-  vous pouvez utiliser ce template n'importe ou, sans vous inquiéter de
-  savoir si les informations nécessaires ont bien étés assignées
-  par l'application, avant la demande d'affichage.
  </para>
  <para>
   Par défaut, les fichiers PHP ne sont inclus qu'une seule fois, même si
@@ -92,41 +79,39 @@
  <para>
   Vous pouvez donner une valeur à l'attribut optionnel
   <emphasis>assign</emphasis>, pour demander à la fonction
-  <emphasis>include_php</emphasis> d'assigner la sortie du script PHP
+  <emphasis>{include_php}</emphasis> d'assigner la sortie du script PHP
   à la variable spécifiée plutôt que d'en afficher directement le résultat.
  </para>
  <para>
   L'objet Smarty est disponible en tant que $this dans le script PHP inclus.
  </para>
  <example>
-  <title>Fonction include_php</title>
-  <programlisting>
+  <title>Fonction {include_php}</title>
+  <para>load_nav.php</para>
+  <programlisting role="php">
 <![CDATA[
-   load_nav.php
-   -------------
+<?php
 
-   <?php
+// charge des variables depuis une base de données mysql et les assigne au template.
+require_once("MySQL.class.php");
+$sql = new MySQL;
+$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+$this->assign('sections',$sql->record);
 
-   // charge des variables depuis une base de données mysql et les assigne au template.
-   require_once("MySQL.class.php");
-   $sql = new MySQL;
-   $sql->query("select * from site_nav_sections order by name",SQL_ALL);
-   $this->assign('sections',$sql->record);
-
-    ?>
-    ]]>
+?>
+]]>
   </programlisting>
   <para>
    Où index.tpl est :
   </para>
   <programlisting>
 <![CDATA[
-    {* chemin absolu, ou relatif à $trusted_dir *}
-    {include_php file="/chemin/vers/load_nav.php"}
+{* chemin absolu, ou relatif à $trusted_dir *}
+{include_php file="/chemin/vers/load_nav.php"}
 
-    {foreach item="curr_section" from=$sections}
-    <a href="{$curr_section.url}">{$curr_section.name}</a><br />
-    {/foreach}
+{foreach item="curr_section" from=$sections}
+  <a href="{$curr_section.url}">{$curr_section.name}</a><br />
+{/foreach}
 ]]>
   </programlisting>
  </example>
