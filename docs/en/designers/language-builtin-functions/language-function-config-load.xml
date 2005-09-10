@@ -128,7 +128,7 @@ pageTitle = "Customer Info"
   <title>function {config_load} with section</title>
   <programlisting>
 <![CDATA[
-{config_load file="example.conf" section="Customer"}
+{config_load file='example.conf' section='Customer'}
 
 <html>
 <title>{#pageTitle#}</title>

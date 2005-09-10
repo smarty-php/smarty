@@ -33,9 +33,9 @@
 <table border='0'>
  <tr>
   <td>
-   <A HREF="{$url}">
+   <a href="{$url}">
     <font color="red">This is a test</font>
-   </A>
+   </a>
   </td>
  </tr>
 </table>
