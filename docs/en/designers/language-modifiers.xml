@@ -47,10 +47,12 @@
   linkend="variable.plugins.dir">$plugins_dir</link> (also see:
   <link linkend="plugins.naming.conventions">Naming
   Conventions</link>) or can be registered explicitely (see: <link
-  linkend="api.register.modifier">register_modifier</link>). Additionally
+  linkend="api.register.modifier">register_modifier</link>).</para>
+  <para>
+  Additionally
   all php-functions can be used as modifiers implicitly. (The
-  <literal>@count</literal>-example above actually uses php's
-  count-function and not a smarty-modifier). Using php-functions
+  <literal>@count</literal> example above actually uses php's
+  count() function and not a smarty-modifier). Using php-functions
   as modifiers has two little pitfalls: First: Sometimes the order
   of the function-parameters is not the desirable one
   (<literal>{"%2.f"|sprintf:$float}</literal> actually works, but
