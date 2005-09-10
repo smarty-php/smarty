@@ -99,7 +99,7 @@
   being output to the template.
  </para>
  <example>
-  <title>cycle</title>
+  <title>{cycle}</title>
   <programlisting>
 <![CDATA[
 {section name=rows loop=$data}
@@ -123,6 +123,7 @@
 ]]>
   </screen>
  </example>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

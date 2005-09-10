@@ -33,7 +33,8 @@
   {debug} dumps the debug console to the page. This works regardless
   of the <link linkend="chapter.debugging.console">debug</link>
   settings in Smarty. Since this gets executed at runtime, this is
-  only able to show the assigned variables, not the templates that
+  only able to show the <link linkend="api.assign">assigned</link>
+  variables, not the templates that
   are in use. But, you see all the currently available variables
   within the scope of this template.
  </para>
