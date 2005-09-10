@@ -6,7 +6,8 @@
 <sect1 id="constant.smarty.dir">
   <title>SMARTY_DIR</title>
     <para>
-     This should be the full system path to the location of the Smarty
+     This should be the <emphasis role="bold">full system path</emphasis>
+     to the location of the Smarty
      class files. If this is not defined, then Smarty will attempt to
      determine the appropriate value automatically. If defined, the path
      <emphasis role="bold">must end with a slash</emphasis>.
@@ -22,8 +23,8 @@ define('SMARTY_DIR','/usr/local/lib/php/Smarty/libs/');
 // path to Smarty windows style
 define('SMARTY_DIR','c:/webroot/libs/Smarty/libs/');
 
-// hack (not recommended) that works on both *nix and wind
-// Smarty is assumend to be in 'includes' dir under script
+// hack (not recommended) that works on both *nix and windows
+// Smarty is assumend to be in 'includes' dir under current script
 define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
 
 // include the smarty class Note 'S' is upper case
