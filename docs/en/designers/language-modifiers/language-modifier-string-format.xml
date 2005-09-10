@@ -31,7 +31,7 @@
   </informaltable>
   <para>
    This is a way to format strings, such as decimal numbers and such.
-   Use the syntax for <ulink url="&url.php-manual;sprintf">sprintf</ulink>
+   Use the syntax for <ulink url="&url.php-manual;sprintf">sprintf()</ulink>
    for the formatting.
   </para>
   <example>
