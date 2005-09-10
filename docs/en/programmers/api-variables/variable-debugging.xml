@@ -5,9 +5,14 @@
       <para>
        This enables the <link
         linkend="chapter.debugging.console">debugging console</link>.
-       The console is a javascript window that informs you of the
-       included templates and assigned variables for the current
-       template page.
+       The console is a javascript popup window that informs you of the
+       <link linkend="language.function.include">included</link>
+       templates, variables <link linkend="api.assign">assigned</link>
+       from php and
+       <link linkend="language.config.variables">config file variables</link>
+       for the current template page. It does not show variables
+       assigned within a template with 
+       <link linkend="language.function.assign">{assign}</link>.
       </para>
       <para>
       See also
