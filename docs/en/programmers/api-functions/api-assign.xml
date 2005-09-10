@@ -43,13 +43,13 @@ $smarty->assign('contact', $db->getRow($sql));
    </para>
 <programlisting>
 <![CDATA[
+{* note the vars are case sensitive like php *}
 {$Name}
 {$Address}
 {$city}
 {$state}
 
 {$contact.id}, {$contact.name},{$contact.email}
-?>
 ]]>
 </programlisting>
   </example>
