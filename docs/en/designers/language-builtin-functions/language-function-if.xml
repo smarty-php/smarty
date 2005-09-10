@@ -9,8 +9,10 @@
   Every <emphasis>{if}</emphasis> must be paired with an
   <emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> and
   <emphasis>{elseif}</emphasis> are also permitted. All PHP conditionals
+  and functions 
   are recognized, such as <emphasis>||</emphasis>, <emphasis>or</emphasis>,
-  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>, etc.
+  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>, 
+  <emphasis>is_array()</emphasis>, etc.
  </para>
 
  <para>
@@ -205,6 +207,11 @@
 {* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
 {if $var is even by 3}
    ...
+{/if}
+
+{* check for array. *}
+{if is_array($foo) }
+   ...do something
 {/if}
 ]]>
   </programlisting>
