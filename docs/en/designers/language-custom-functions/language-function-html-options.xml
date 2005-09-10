@@ -133,7 +133,8 @@ where template is:
   </para>
   <programlisting>
 <![CDATA[
-<select name=customer_id>
+{* note the php count() function to set size *}
+<select name=customer_id size="{$cust_options|@count}">
    {html_options options=$cust_options selected=$customer_id}
 </select>
 ]]>
