@@ -57,8 +57,8 @@ $smarty->assign('articleTitle', "Child's Stool Great for Use in Garden.");
    <programlisting>
 <![CDATA[
 {$articleTitle}
-{$articleTitle|replace:"Garden":"Vineyard"}
-{$articleTitle|replace:" ":"   "}
+{$articleTitle|replace:'Garden':'Vineyard'}
+{$articleTitle|replace:' ':'   '}
 ]]>
    </programlisting>
    <para>
