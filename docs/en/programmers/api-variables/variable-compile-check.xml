@@ -7,15 +7,17 @@
 	   current template has changed (different time stamp) since the last time
 	   it was compiled. If it has changed, it recompiles that template. If the
 	   template has not been compiled, it will compile regardless of this
-	   setting. By default this variable is set to true. Once an application is
+	   setting. By default this variable is set to true.
+      </para>
+      <para>Once an application is
 	   put into production (templates won't be changing), the compile_check
 	   step is no longer needed. Be sure to set $compile_check to "false" for
 	   maximal performance. Note that if you change this to "false" and a
 	   template file is changed, you will *not* see the change since the
 	   template will not get recompiled. If
-	   <link linkend="variable.caching">caching</link>
+	   <link linkend="variable.caching">$caching</link>
 	   is enabled and
-	   compile_check is enabled, then the cache files will get regenerated if
+	   $compile_check is enabled, then the cache files will get regenerated if
 	   an involved template file or config file was updated. See <link
 	   linkend="variable.force.compile">$force_compile</link> or <link
 	   linkend="api.clear.compiled.tpl">clear_compiled_tpl()</link>.

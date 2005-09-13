@@ -10,7 +10,7 @@
        this is disabled. This is handy for development and
        <link linkend="chapter.debugging.console">debugging</link>.
        It should never be used in a production environment. If
-       <link linkend="variable.caching">caching</link>
+       <link linkend="variable.caching">$caching</link>
        is enabled, the cache file(s) will be regenerated every time.
       </para>
 </sect1>
