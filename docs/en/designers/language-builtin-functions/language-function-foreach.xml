@@ -2,6 +2,28 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.foreach">
  <title>{foreach},{foreachelse}</title>
+  <para>
+   <emphasis>{foreach}</emphasis> loops are an alternative to
+   <link
+    linkend="language.function.section"><emphasis>{section}</emphasis></link>
+   loops. <emphasis>{foreach}</emphasis> is used to loop over a
+   <emphasis role="bold">single associative array</emphasis>. The syntax for
+   <emphasis>{foreach}</emphasis> is much easier than
+   <emphasis>{section}</emphasis>, but as a tradeoff it
+   <emphasis role="bold">can only be used
+   for a single array</emphasis>. <emphasis>{foreach}</emphasis> tags must be
+   paired with <emphasis>{/foreach}</emphasis> tags. Required parameters
+   are <emphasis>from</emphasis> and <emphasis>item</emphasis>. The
+   name of the {foreach} loop can be anything you like, made up of
+   letters, numbers and underscores. <emphasis>{foreach}</emphasis>
+   loops can be nested, and the nested {foreach} names must be unique
+   from each other. The <emphasis>from</emphasis> variable (usually an
+   array of values) determines the number of times
+   <emphasis>{foreach}</emphasis> will loop.
+   <emphasis>{foreachelse}</emphasis> is executed when there are no
+   values in the <emphasis>from</emphasis> variable.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -52,27 +74,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  <emphasis>{foreach}</emphasis> loops are an alternative to
-  <link
-   linkend="language.function.section"><emphasis>{section}</emphasis></link>
-  loops. <emphasis>{foreach}</emphasis> is used to loop over a
-  <emphasis role="bold">single associative array</emphasis>. The syntax for
-  <emphasis>{foreach}</emphasis> is much easier than
-  <emphasis>{section}</emphasis>, but as a tradeoff it
-  <emphasis role="bold">can only be used
-  for a single array</emphasis>. <emphasis>{foreach}</emphasis> tags must be
-  paired with <emphasis>{/foreach}</emphasis> tags. Required parameters
-  are <emphasis>from</emphasis> and <emphasis>item</emphasis>. The
-  name of the {foreach} loop can be anything you like, made up of
-  letters, numbers and underscores. <emphasis>{foreach}</emphasis>
-  loops can be nested, and the nested {foreach} names must be unique
-  from each other. The <emphasis>from</emphasis> variable (usually an
-  array of values) determines the number of times
-  <emphasis>{foreach}</emphasis> will loop.
-  <emphasis>{foreachelse}</emphasis> is executed when there are no
-  values in the <emphasis>from</emphasis> variable.
- </para>
+
  <example>
   <title>{foreach} - item</title>
   <programlisting role="php">

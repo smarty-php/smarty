@@ -2,6 +2,21 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.include.php">
  <title>{include_php}</title>
+  <note>
+   <title>Technical Note</title>
+   <para>
+    {include_php} is pretty much deprecated from Smarty, you can
+    accomplish the same functionality via a custom template function.
+    The only reason to use {include_php} is if you really have a need to
+    quarantine the php function away from the
+    <link linkend="variable.plugins.dir">plugins</link>
+    directory or your
+    application code. See the <link
+    linkend="tips.componentized.templates">componentized template
+    example</link> for details.
+   </para>
+ </note>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -45,20 +60,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <note>
-  <title>Technical Note</title>
-  <para>
-   {include_php} is pretty much deprecated from Smarty, you can
-   accomplish the same functionality via a custom template function.
-   The only reason to use {include_php} is if you really have a need to
-   quarantine the php function away from the
-   <link linkend="variable.plugins.dir">plugins</link>
-   directory or your
-   application code. See the <link
-   linkend="tips.componentized.templates">componentized template
-   example</link> for details.
-  </para>
- </note>
+
  <para>
   {include_php} tags are used to include a php script in your template.
   If <link linkend="variable.security">security is enabled</link>,

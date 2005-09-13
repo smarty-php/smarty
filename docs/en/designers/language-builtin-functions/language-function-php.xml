@@ -15,7 +15,7 @@
 {php}
    // including a php script directly
    // from the template.
-   include("/path/to/display_weather.php");
+   include('/path/to/display_weather.php');
 {/php}
 ]]>
   </programlisting>
@@ -29,6 +29,20 @@
 </para>
 </note>
 
+ <example>
+  <title>{php} tags with global</title>
+  <programlisting role="php">
+<![CDATA[
+{php}
+   global $foo, $bar;
+   if($foo == $bar){
+     // do something
+   }
+{/php}
+]]>
+  </programlisting>
+ </example>
+ 
  <para>
   See also
   <link linkend="variable.php.handling">$php_handling</link>,

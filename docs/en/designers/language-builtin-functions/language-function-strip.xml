@@ -47,7 +47,7 @@
   </para>
   <screen>
 <![CDATA[
-<table border=0><tr><td><A HREF="http://w... snipped...</td></tr></table>
+<table border='0'><tr><td><a href="http://. snipped...</a></td></tr></table>
 ]]>
   </screen>
  </example>

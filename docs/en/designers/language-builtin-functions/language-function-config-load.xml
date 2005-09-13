@@ -2,6 +2,12 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.config.load">
  <title>{config_load}</title>
+  <para>
+   {config_load} is used for loading  config
+   <link linkend="language.config.variables">#variables#</link> from a
+   <link linkend="config.files">configuration file</link> into the template.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -63,11 +69,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {config_load} is used for loading  config
-  <link linkend="language.config.variables">#variables#</link> from a
-  <link linkend="config.files">configuration file</link> into the template.
- </para>
+
  <example>
   <title>{config_load}</title>
   <para>
@@ -145,6 +147,10 @@ pageTitle = "Customer Info"
 ]]>
   </programlisting>
  </example>
+
+<para>
+See <link linkend="variable.config.overwrite">$config_overwrite</link> for arrays of config variables
+</para>
 
  <para>
   See also <link linkend="config.files">Config files</link>,

@@ -2,6 +2,20 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.capture">
  <title>{capture}</title>
+ 
+  <para>
+   {capture} is used to collect the output of the template into a
+   variable instead of displaying it. Any content between {capture
+   name="foo"} and {/capture} is collected into the variable specified
+   in the name attribute. The captured content can be used in the
+   template from the special variable <link
+    linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
+   where "foo" is the value passed in the name attribute. If you do not
+   supply a name attribute, then "default" will be used as the name. All {capture}
+   commands must be paired with {/capture}. You can nest capture commands.
+ </para>
+ 
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -36,17 +50,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {capture} is used to collect the output of the template into a
-  variable instead of displaying it. Any content between {capture
-  name="foo"} and {/capture} is collected into the variable specified
-  in the name attribute. The captured content can be used in the
-  template from the special variable <link
-   linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
-  where "foo" is the value passed in the name attribute. If you do not
-  supply a name attribute, then "default" will be used. All {capture}
-  commands must be paired with {/capture}. You can nest capture commands.
- </para>
+
  <note>
   <title>Technical Note</title>
   <para>
@@ -61,7 +65,7 @@
    linkend="language.function.insert">{insert}</link>
    output. If you have
    <link linkend="caching">caching</link>
-   turned on and you have
+   enabled and you have
    <link linkend="language.function.insert">{insert}</link>
    commands that you expect to run
    within cached content, do not capture this content.
@@ -74,7 +78,7 @@
 <![CDATA[
 {* we don't want to print a table row unless content is displayed *}
 {capture name=banner}
-  {include file="get_banner.tpl"}
+  {include file='get_banner.tpl'}
 {/capture}
 
 {if $smarty.capture.banner ne ''}
@@ -89,6 +93,24 @@
 ]]>
    </programlisting>
   </example>
+  
+    <example>
+     <title>capturing content to a variable</title>
+     <programlisting>
+  <![CDATA[
+  {* we don't want to print a table row unless content is displayed *}
+  {capture name=banner assign=foo}
+    .... some content ....
+  {/capture}
+  
+  {if $condition}
+  {$foo}
+  {/if}
+  ]]>
+     </programlisting>
+  </example>
+  
+  
  </para>
  <para>
   See also

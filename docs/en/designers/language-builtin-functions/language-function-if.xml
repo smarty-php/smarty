@@ -209,10 +209,17 @@
    ...
 {/if}
 
+{* ------- if with php functions ------- *}
 {* check for array. *}
 {if is_array($foo) }
-   ...do something
+   .....
 {/if}
+
+{* check for array. *}
+{if isset($foo) }
+   .....
+{/if}
+
 ]]>
   </programlisting>
  </example>

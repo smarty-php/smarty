@@ -2,6 +2,14 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.insert">
  <title>{insert}</title>
+  <para>
+   {insert} tags work much like <link
+   linkend="language.function.include">{include}</link> tags,
+   except that {insert} tags are NOT cached when you have
+   template <link linkend="caching">caching</link> enabled. They
+   will be executed on every invocation of the template.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -52,13 +60,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Insert tags work much like <link
-  linkend="language.function.include">{include}</link> tags,
-  except that {insert} tags are not cached when you have
-  template <link linkend="caching">caching</link> enabled. They
-  will be executed on every invocation of the template.
- </para>
+
  <para>
   Let's say you have a template with a banner slot at the top of
   the page. The banner can contain any mixture of HTML, images,

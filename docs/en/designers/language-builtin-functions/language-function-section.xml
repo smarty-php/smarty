@@ -2,6 +2,23 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.section">
  <title>{section},{sectionelse}</title>
+  <para>
+   Template sections are used for looping over
+   <emphasis role="bold">arrays of data</emphasis>
+   (just like <link linkend="language.function.foreach">{foreach}</link>). All
+   <emphasis>{section}</emphasis> tags must be paired with
+   <emphasis>{/section}</emphasis> tags. Required parameters are
+   <emphasis>name</emphasis> and <emphasis>loop</emphasis>. The name
+   of the {section} can be anything you like, made up of letters,
+   numbers and underscores. Sections can be nested, and the nested
+   section names must be unique from each other. The loop variable
+   (usually an array of values) determines the number of times the
+   section will loop. When printing a variable within a section, the
+   section name must be given next to variable name within brackets
+   []. <emphasis>{sectionelse}</emphasis> is
+   executed when there are no values in the loop variable.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -74,22 +91,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Template sections are used for looping over
-  <emphasis role="bold">arrays of data</emphasis>
-  (just like <link linkend="language.function.foreach">{foreach}</link>). All
-  <emphasis>{section}</emphasis> tags must be paired with
-  <emphasis>{/section}</emphasis> tags. Required parameters are
-  <emphasis>name</emphasis> and <emphasis>loop</emphasis>. The name
-  of the {section} can be anything you like, made up of letters,
-  numbers and underscores. Sections can be nested, and the nested
-  section names must be unique from each other. The loop variable
-  (usually an array of values) determines the number of times the
-  section will loop. When printing a variable within a section, the
-  section name must be given next to variable name within brackets
-  []. <emphasis>{sectionelse}</emphasis> is
-  executed when there are no values in the loop variable.
- </para>
+
  <example>
   <title>{section}</title>
 

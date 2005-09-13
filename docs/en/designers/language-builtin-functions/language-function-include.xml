@@ -2,6 +2,19 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.include">
  <title>{include}</title>
+  <para>
+   {include} tags are used for including other templates in the current
+   template. Any variables available in the current template are also
+   available within the included template. The {include} tag must have
+   the attribute "file", which contains the template resource path.
+  </para>
+  <para>
+   You can optionally pass the <emphasis>'assign'</emphasis> attribute,
+   which will specify a template variable name that the output of
+   {include} will be assigned to instead of
+   displayed.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -44,18 +57,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {include} tags are used for including other templates in the current
-  template. Any variables available in the current template are also
-  available within the included template. The {include} tag must have
-  the attribute "file", which contains the template resource path.
- </para>
- <para>
-  You can optionally pass the <emphasis>'assign'</emphasis> attribute,
-  which will specify a template variable name that the output of
-  {include} will be assigned to instead of
-  displayed.
- </para>
+
  <example>
   <title>function {include}</title>
   <programlisting>
@@ -65,12 +67,12 @@
   <title>{$title}</title>
 </head>
 <body>
-{include file="page_header.tpl"}
+{include file='page_header.tpl'}
 
 {* body of template goes here *}
-{include file="/$tpl_name.tpl"} <-- will replace $tpl_name with value
+{include file="$tpl_name.tpl"} <-- will replace $tpl_name with value
 
-{include file="page_footer.tpl"}
+{include file='page_footer.tpl'}
 </body>
 </html>
 ]]>
@@ -87,11 +89,11 @@
   <title>{include} passing variables</title>
   <programlisting>
 <![CDATA[
-{include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+{include file='header.tpl' title='Main Menu' table_bgcolor='#c0c0c0'}
 
 {* body of template goes here *}
 
-{include file="footer.tpl" logo="http://my.example.com/logo.gif"}
+{include file='footer.tpl' logo='http://my.example.com/logo.gif'}
 ]]>
   </programlisting>
   <para>where header.tpl could be</para>
@@ -115,13 +117,13 @@
    <programlisting>
  <![CDATA[
 <body>
-{include file="nav.tpl" assign="navbar"}
-{include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+{include file='nav.tpl' assign=navbar}
+{include file='header.tpl' title='Main Menu' table_bgcolor='#effeef'}
 {$navbar}
 
 {* body of template goes here *}
 
-{include file="footer.tpl" logo="http://my.example.com/logo.gif"}
+{include file='footer.tpl' logo='http://my.example.com/logo.gif'}
 {$navbar}
 </body>
 ]]>
@@ -140,16 +142,22 @@
   <programlisting>
 <![CDATA[
 {* absolute filepath *}
-{include file="/usr/local/include/templates/header.tpl"}
+{include file='/usr/local/include/templates/header.tpl'}
 
 {* absolute filepath (same thing) *}
-{include file="file:/usr/local/include/templates/header.tpl"}
+{include file='file:/usr/local/include/templates/header.tpl'}
 
 {* windows absolute filepath (MUST use "file:" prefix) *}
-{include file="file:C:/www/pub/templates/header.tpl"}
+{include file='file:C:/www/pub/templates/header.tpl'}
 
 {* include from template resource named "db" *}
-{include file="db:header.tpl"}
+{include file='db:header.tpl'}
+
+{* include a $variable template - eg $module = 'contacts' *}
+{include file="$module.tpl"} 
+{* wont work as its single quotes ie no variable substitution *}
+{include file='$module.tpl'}
+
 ]]>
   </programlisting>
  </example>
