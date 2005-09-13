@@ -14,7 +14,7 @@
   for different
   <link linkend="variable.template.dir">$template_dirs</link>.  If you set a
   distinct $compile_id for each 
-  <link linkend="variable.template.dir">$template_dir</link> then Amarty can tell the
+  <link linkend="variable.template.dir">$template_dir</link> then Smarty can tell the
   compiled templates apart by their $compile_id.
  </para>
  <para>
