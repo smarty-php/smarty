@@ -2,6 +2,10 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.spacify">
   <title>spacify</title>
+    <para>
+     spacify is a way to insert a space between every character of a variable.
+     You can optionally pass a different character (or string) to insert.
+  </para>
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -30,10 +34,7 @@
      </tbody>
     </tgroup>
   </informaltable>
-  <para>
-   spacify is a way to insert a space between every character of a variable.
-   You can optionally pass a different character (or string) to insert.
-  </para>
+
   <example>
    <title>spacify</title>
    <programlisting role="php">

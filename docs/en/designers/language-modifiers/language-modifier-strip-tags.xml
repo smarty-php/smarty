@@ -2,6 +2,10 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.strip.tags">
   <title>strip_tags</title>
+    <para>
+     This strips out markup tags, basically anything between &lt; and &gt;.
+  </para>
+  
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -29,9 +33,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   This strips out markup tags, basically anything between &lt; and &gt;.
-  </para>
+
   <example>
    <title>strip_tags</title>
    <programlisting role="php">

@@ -2,6 +2,9 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.count.characters">
   <title>count_characters</title>
+    <para>
+     This is used to count the number of characters in a variable.
+  </para>
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -30,9 +33,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   This is used to count the number of characters in a variable.
-  </para>
+
   <example>
    <title>count_characters</title>
    <programlisting role="php">

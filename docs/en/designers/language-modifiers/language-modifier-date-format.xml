@@ -2,6 +2,19 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.date.format">
   <title>date_format</title>
+    <para>
+     This formats a date and time into the given
+     <ulink url="&url.php-manual;strftime">strftime()</ulink> format.
+     Dates can be passed to Smarty as unix
+     <ulink url="&url.php-manual;function.time">timestamps</ulink>, mysql timestamps
+     or any string made up of month day year, parsable by
+     <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
+     Designers can then use date_format to have complete control of the
+     formatting of the date. If the date passed to
+     <command>date_format</command> is empty   and a second parameter is passed,
+     that will be used as the date to format.
+   </para>
+   
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -36,17 +49,8 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   This formats a date and time into the given
-   <ulink url="&url.php-manual;strftime">strftime()</ulink> format.
-   Dates can be passed to Smarty as unix
-   <ulink url="&url.php-manual;function.time">timestamps</ulink>, mysql timestamps
-   or any string made up of month day year, parsable by
-   <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
-   Designers can then use date_format to have complete control of the
-   formatting of the date. If the date passed to
-   <command>date_format</command> is empty   and a second parameter is passed,
-   that will be used as the date to format.
+
+   <para>
    <note>
     <para>
      Since Smarty-2.6.10 numeric values passed to date_format are

@@ -2,6 +2,9 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.cat">
   <title>cat</title>
+    <para>
+     This value is concatenated to the given variable.
+  </para>
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -29,9 +32,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   This value is concatenated to the given variable.
-  </para>
+
   <example>
    <title>cat</title>
    <programlisting role="php">

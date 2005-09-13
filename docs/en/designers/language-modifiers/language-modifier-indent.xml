@@ -2,6 +2,13 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.indent">
   <title>indent</title>
+    <para>
+     This indents a string at each line, default is 4. As
+     an optional parameter, you can specify the number of characters to
+     indent. As an optional second parameter, you can specify the
+     character to use to indent with. (Use "\t" for tabs.)
+  </para>
+  
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -37,12 +44,7 @@
      </tbody>
     </tgroup>
   </informaltable>
-  <para>
-   This indents a string at each line, default is 4. As
-   an optional parameter, you can specify the number of characters to
-   indent. As an optional second parameter, you can specify the
-   character to use to indent with. (Use "\t" for tabs.)
-  </para>
+
   <example>
    <title>indent</title>
    <programlisting role="php">

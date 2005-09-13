@@ -2,6 +2,12 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.default">
   <title>default</title>
+    <para>
+     This is used to set a default value for a variable. If the variable
+     is empty or unset, the given default value is printed instead.
+     Default takes one argument.
+  </para>
+  
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -30,11 +36,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   This is used to set a default value for a variable. If the variable
-   is empty or unset, the given default value is printed instead.
-   Default takes one argument.
-  </para>
+
   <example>
    <title>default</title>
    <programlisting role="php">

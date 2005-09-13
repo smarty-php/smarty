@@ -2,6 +2,11 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.replace">
   <title>replace</title>
+    <para>
+     A simple search and replace on a variable. This is equivalent to the PHP
+     <ulink url="&url.php-manual;str_replace">str_replace()</ulink> function.
+  </para>
+  
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -36,10 +41,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   A simple search and replace on a variable. This is equivalent to the PHP
-   <ulink url="&url.php-manual;str_replace">str_replace()</ulink> function.
-  </para>
+
   <example>
    <title>replace</title>
    <programlisting role="php">

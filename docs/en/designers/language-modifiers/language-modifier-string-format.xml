@@ -2,6 +2,12 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.string.format">
   <title>string_format</title>
+    <para>
+     This is a way to format strings, such as decimal numbers and such.
+     Use the syntax for <ulink url="&url.php-manual;sprintf">sprintf()</ulink>
+     for the formatting.
+  </para>
+  
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -29,11 +35,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   This is a way to format strings, such as decimal numbers and such.
-   Use the syntax for <ulink url="&url.php-manual;sprintf">sprintf()</ulink>
-   for the formatting.
-  </para>
+
   <example>
    <title>string_format</title>
    <programlisting role="php">

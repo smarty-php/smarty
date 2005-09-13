@@ -2,6 +2,16 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.truncate">
   <title>truncate</title>
+    <para>
+     This truncates a variable to a character length, default is 80. As
+     an optional second parameter, you can specify a string of text
+     to display at the end if the variable was truncated. The
+     characters in the string are included with the original truncation length.
+     By default, truncate will attempt to cut off at a word boundary. If
+     you want to cut off at the exact character length, pass the optional
+     third parameter of true.
+  </para>
+  
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -55,15 +65,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   This truncates a variable to a character length, default is 80. As
-   an optional second parameter, you can specify a string of text
-   to display at the end if the variable was truncated. The
-   characters in the string are included with the original truncation length.
-   By default, truncate will attempt to cut off at a word boundary. If
-   you want to cut off at the exact character length, pass the optional
-   third parameter of true.
-  </para>
+
   <example>
    <title>truncate</title>
    <programlisting role="php">

@@ -2,6 +2,9 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.capitalize">
   <title>capitalize</title>
+    <para>
+     This is used to capitalize the first letter of all words in a variable.
+  </para>
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -30,9 +33,6 @@
     </tbody>
    </tgroup>
   </informaltable>  
-  <para>
-   This is used to capitalize the first letter of all words in a variable.
-  </para>
   <example>
    <title>capitalize</title>
    <programlisting role="php">

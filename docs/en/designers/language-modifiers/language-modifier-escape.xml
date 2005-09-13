@@ -2,6 +2,13 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.escape">
   <title>escape</title>
+    <para>
+     This is used to html escape, url escape, escape single quotes on a
+     variable not already escaped, hex escape, hexentity or javascript escape.
+     By default, the variable is html
+     escaped.
+  </para>
+  
   <informaltable frame="all">
    <tgroup cols="6">
     <colspec colname="param" align="center" />
@@ -32,12 +39,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   This is used to html escape, url escape, escape single quotes on a
-   variable not already escaped, hex escape, hexentity or javascript escape.
-   By default, the variable is html
-   escaped.
-  </para>
+
   <example>
    <title>escape</title>
    <programlisting role="php">

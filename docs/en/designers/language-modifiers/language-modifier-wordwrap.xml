@@ -2,6 +2,16 @@
 <!-- $Revision$ -->
  <sect1 id="language.modifier.wordwrap">
   <title>wordwrap</title>
+    <para>
+     <command>wordwrap</command> wraps a string to a column width, default is 80. As
+     an optional second parameter, you can specify a string of text
+     to wrap the text to the next line (default is carriage return \n).
+     By default, {wordwrap} will attempt to wrap at a word boundary. If
+     you want to cut off at the exact character length, pass the optional
+     third parameter of true. This is equivalent to the PHP <ulink
+     url="&url.php-manual;wordwrap">wordwrap()</ulink> function.
+  </para>
+  
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -45,15 +55,7 @@
     </tbody>
    </tgroup>
   </informaltable>
-  <para>
-   <command>wordwrap</command> wraps a string to a column width, default is 80. As
-   an optional second parameter, you can specify a string of text
-   to wrap the text to the next line (default is carriage return \n).
-   By default, {wordwrap} will attempt to wrap at a word boundary. If
-   you want to cut off at the exact character length, pass the optional
-   third parameter of true. This is equivalent to the PHP <ulink
-   url="&url.php-manual;wordwrap">wordwrap()</ulink> function.
-  </para>
+
   <example>
    <title>wordwrap</title>
    <programlisting role="php">
