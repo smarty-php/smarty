@@ -51,14 +51,7 @@
   </tgroup>
  </informaltable>
 
- <note>
-  <title>Technical Note</title>
-  <para>
-   Smarty 1.4.0 - 1.4.4 placed the captured content into the
-   variable named $return. As of 1.4.5, this behavior was changed to use
-   the name attribute, so update your templates accordingly.
-  </para>
- </note>
+
  <caution>
   <para>
    Be careful when capturing <link
@@ -96,16 +89,16 @@
   
     <example>
      <title>capturing content to a variable</title>
+     <para>This example also demonstrates the 
+     <link linkend="language.function.popup">{popup}</link> 
+     function</para>
      <programlisting>
   <![CDATA[
-  {* we don't want to print a table row unless content is displayed *}
-  {capture name=banner assign=foo}
+  {capture name=some_content assign=popText}
     .... some content ....
   {/capture}
   
-  {if $condition}
-  {$foo}
-  {/if}
+  <a href="#" {popup caption='Help' text=$popText}>help</a>
   ]]>
      </programlisting>
   </example>
