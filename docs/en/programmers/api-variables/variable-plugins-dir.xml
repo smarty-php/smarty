@@ -24,6 +24,20 @@
         </note>
 
       <example>
+      <title>Appending a local plugins dir</title>
+      <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty->plugins_dir[] = 'includes/my_smarty_plugins';
+
+?>
+
+]]>
+    </programlisting>
+    </example>
+    
+      <example>
       <title>multiple $plugins_dir</title>
       <programlisting role="php">
 <![CDATA[
