@@ -2,6 +2,12 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.popup">
  <title>{popup}</title>
+  <para>
+   {popup} is used to create javascript popup windows.
+   <link linkend="language.function.popup.init">{popup_init}</link> MUST be called first for
+   this to work.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -390,11 +396,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {popup} is used to create javascript popup windows.
-  <link linkend="language.function.popup.init">{popup_init}</link> MUST be called first for
-  this to work.
- </para>
+
  <example>
   <title>{popup}</title>
   <programlisting>

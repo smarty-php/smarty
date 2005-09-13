@@ -2,6 +2,14 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.html.image">
  <title>{html_image}</title>
+  <para>
+   {html_image} is a
+   <link linkend="language.custom.functions">custom function</link>
+   that generates an HTML tag for an
+   image. The height and width are automatically calculated from the
+   image file if none are supplied.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -64,13 +72,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {html_image} is a
-  <link linkend="language.custom.functions">custom function</link>
-  that generates an HTML tag for an
-  image. The height and width are automatically calculated from the
-  image file if none are supplied.
- </para>
+
  <para>
   basedir is the base directory that relative image paths are based
   from. If not given, the web server document root (

@@ -2,6 +2,15 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.html.radios">
  <title>{html_radios}</title>
+  <para>
+   {html_radios} is a
+   <link linkend="language.custom.functions">custom function</link>
+   that creates html radio button
+   group with provided data. It takes care of which item is selected
+   by default as well. Required attributes are values and output,
+   unless you use options instead. All output is XHTML compatible.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -64,14 +73,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {html_radios} is a
-  <link linkend="language.custom.functions">custom function</link>
-  that creates html radio button
-  group with provided data. It takes care of which item is selected
-  by default as well. Required attributes are values and output,
-  unless you use options instead. All output is XHTML compatible.
- </para>
+
  <para>
   All parameters that are not in the list above are printed as
   name/value-pairs inside each of the created &lt;input&gt;-tags.

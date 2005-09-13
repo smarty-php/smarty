@@ -2,6 +2,18 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.textformat">
  <title>{textformat}</title>
+  <para>
+   {textformat} is a
+   <link linkend="plugins.block.functions">block function</link>
+   used to format text. It basically
+   cleans up spaces and special characters, and formats paragraphs by
+   wrapping at a boundary and indenting lines.
+  </para>
+  <para>
+   You can set the parameters explicitly, or use a preset style.
+   Currently "email" is the only available style.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -81,17 +93,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {textformat} is a
-  <link linkend="plugins.block.functions">block function</link>
-  used to format text. It basically
-  cleans up spaces and special characters, and formats paragraphs by
-  wrapping at a boundary and indenting lines.
- </para>
- <para>
-  You can set the parameters explicitly, or use a preset style.
-  Currently "email" is the only available style.
- </para>
+
  <example>
   <title>{textformat}</title>
   <programlisting>

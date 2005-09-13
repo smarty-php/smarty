@@ -2,6 +2,12 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.assign">
  <title>{assign}</title>
+  <para>
+   {assign} is used for assigning template variables
+   <emphasis role="bold">during the execution
+   of the template</emphasis>.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -36,11 +42,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {assign} is used for assigning template variables
-  <emphasis role="bold">during the execution
-  of the template</emphasis>.
- </para>
+
  <example>
   <title>{assign}</title>
   <programlisting>

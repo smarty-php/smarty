@@ -2,6 +2,20 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.fetch">
  <title>{fetch}</title>
+  <para>
+   {fetch} is used to fetch files from the local file system, http, or
+   ftp and display the contents. If the file name begins with
+   "http://", the web site page will be fetched and displayed. If the
+   file name begins with "ftp://", the file will be fetched from the
+   ftp server and displayed. For local files, the full system file
+   path must be given, or a path relative to the executed php script.
+  </para>
+  <para>
+   If you supply the special "assign" attribute, the output of the
+   {fetch} function will be assigned to this template variable instead of
+   being output to the template. (new in Smarty 1.5.0)
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -37,19 +51,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {fetch} is used to fetch files from the local file system, http, or
-  ftp and display the contents. If the file name begins with
-  "http://", the web site page will be fetched and displayed. If the
-  file name begins with "ftp://", the file will be fetched from the
-  ftp server and displayed. For local files, the full system file
-  path must be given, or a path relative to the executed php script.
- </para>
- <para>
-  If you supply the special "assign" attribute, the output of the
-  {fetch} function will be assigned to this template variable instead of
-  being output to the template. (new in Smarty 1.5.0)
- </para>
+
  <note>
   <title>Technical Note</title>
   <para>

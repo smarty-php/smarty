@@ -2,6 +2,13 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.html.select.time">
  <title>{html_select_time}</title>
+  <para>
+   {html_select_time} is a
+   <link linkend="language.custom.functions">custom function</link>
+   that creates time dropdowns for you. It can display
+   any or all of hour, minute, second and  meridian.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -132,12 +139,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {html_select_time} is a
-  <link linkend="language.custom.functions">custom function</link>
-  that creates time dropdowns for you. It can display
-  any or all of hour, minute, second and  meridian.
- </para>
+
  <para>
   The time-attribute can have different
   formats. It can be a unique timestamp, a

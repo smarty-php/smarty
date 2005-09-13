@@ -2,6 +2,12 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.cycle">
  <title>{cycle}</title>
+  <para>
+   {cycle} is used to cycle though a set of values. This makes it easy
+   to alternate for example between two or more colors in a table, or cycle
+   through an array of values.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -74,11 +80,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {cycle} is used to cycle though a set of values. This makes it easy
-  to alternate for example between two or more colors in a table, or cycle
-  through an array of values.
- </para>
+
  <para>
   You can {cycle} through more than one set of values in your template
   by supplying a name attribute. Give each set of values a unique

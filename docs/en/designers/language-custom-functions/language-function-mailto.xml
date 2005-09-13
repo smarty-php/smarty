@@ -2,6 +2,12 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.mailto">
  <title>{mailto}</title>
+  <para>
+   {mailto} automates the creation of mailto: links and optionally
+   encodes them. Encoding e-mails makes it more difficult for
+   web spiders to lift e-mail addresses off of your site.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -90,11 +96,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {mailto} automates the creation of mailto: links and optionally
-  encodes them. Encoding e-mails makes it more difficult for
-  web spiders to lift e-mail addresses off of your site.
- </para>
+
  <note>
   <title>Technical Note</title>
   <para>

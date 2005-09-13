@@ -2,6 +2,15 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.html.options">
  <title>{html_options}</title>
+  <para>
+   {html_options} is a
+   <link linkend="language.custom.functions">custom function</link>
+   that creates html &lt;select&gt;&lt;option&gt; group
+   with provided data. It takes care of which item(s) are selected by
+   default as well. Required attributes are values and output, unless
+   you use options instead.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -57,14 +66,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {html_options} is a
-  <link linkend="language.custom.functions">custom function</link>
-  that creates html &lt;select&gt;&lt;option&gt; group
-  with provided data. It takes care of which item(s) are selected by
-  default as well. Required attributes are values and output, unless
-  you use options instead.
- </para>
+
  <para>
   If a given value is an array, it will treat it as an html &lt;optgroup&gt;,
   and display the groups. Recursion is supported with &lt;optgroup&gt;. All

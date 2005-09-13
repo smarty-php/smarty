@@ -2,6 +2,13 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.html.select.date">
  <title>{html_select_date}</title>
+  <para>
+   {html_select_date} is a
+   <link linkend="language.custom.functions">custom function</link>
+   that creates date dropdowns
+   for you. It can display any or all of year, month, and day.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -221,12 +228,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {html_select_date} is a
-  <link linkend="language.custom.functions">custom function</link>
-  that creates date dropdowns
-  for you. It can display any or all of year, month, and day.
- </para>
+
  <example>
   <title>{html_select_date}</title>
   <para>Template code</para>

@@ -2,6 +2,19 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.html.table">
  <title>{html_table}</title>
+  <para>
+   {html_table} is a
+   <link linkend="language.custom.functions">custom function</link>
+   that dumps an array of
+   data into an HTML table. The <emphasis>cols</emphasis> attribute determines
+   how many columns will be in the table. The <emphasis>table_attr</emphasis>,
+   <emphasis>tr_attr</emphasis> and <emphasis>td_attr</emphasis> values
+   determine the attributes given to the table, tr and td tags. If
+   <emphasis>tr_attr</emphasis> or <emphasis>td_attr</emphasis> are arrays,
+   they will be cycled through. <emphasis>trailpad</emphasis> is the value put
+   into the trailing cells on the last table row if there are any present.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -116,18 +129,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {html_table} is a
-  <link linkend="language.custom.functions">custom function</link>
-  that dumps an array of
-  data into an HTML table. The <emphasis>cols</emphasis> attribute determines
-  how many columns will be in the table. The <emphasis>table_attr</emphasis>,
-  <emphasis>tr_attr</emphasis> and <emphasis>td_attr</emphasis> values
-  determine the attributes given to the table, tr and td tags. If
-  <emphasis>tr_attr</emphasis> or <emphasis>td_attr</emphasis> are arrays,
-  they will be cycled through. <emphasis>trailpad</emphasis> is the value put
-  into the trailing cells on the last table row if there are any present.
- </para>
+
 
  <example>
   <title>html_table</title>

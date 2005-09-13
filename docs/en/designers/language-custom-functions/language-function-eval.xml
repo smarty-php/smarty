@@ -2,6 +2,17 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.eval">
  <title>{eval}</title>
+  <para>
+   {eval} is used to evaluate a variable as a template. This can be used
+   for things like embedding template tags/variables into variables or
+   tags/variables into config file variables.
+  </para>
+  <para>
+   If you supply the special "assign" attribute, the output of the
+   {eval} function will be assigned to this template variable instead of
+   being output to the template.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -37,16 +48,7 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {eval} is used to evaluate a variable as a template. This can be used
-  for things like embedding template tags/variables into variables or
-  tags/variables into config file variables.
- </para>
- <para>
-  If you supply the special "assign" attribute, the output of the
-  {eval} function will be assigned to this template variable instead of
-  being output to the template.
- </para>
+
  <note>
   <title>Technical Note</title>
   <para>
