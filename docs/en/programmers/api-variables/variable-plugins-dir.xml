@@ -24,7 +24,7 @@
         </note>
 
       <example>
-      <title>Appending a local plugins dir</title>
+      <title>Appending a local plugin dir</title>
       <programlisting role="php">
 <![CDATA[
 <?php
