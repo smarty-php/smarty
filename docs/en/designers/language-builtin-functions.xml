@@ -11,10 +11,10 @@
  &designers.language-builtin-functions.language-function-capture;
  &designers.language-builtin-functions.language-function-config-load;
  &designers.language-builtin-functions.language-function-foreach;
+ &designers.language-builtin-functions.language-function-if;
  &designers.language-builtin-functions.language-function-include;
  &designers.language-builtin-functions.language-function-include-php;
  &designers.language-builtin-functions.language-function-insert;
- &designers.language-builtin-functions.language-function-if;
  &designers.language-builtin-functions.language-function-ldelim;
  &designers.language-builtin-functions.language-function-literal;
  &designers.language-builtin-functions.language-function-php;
