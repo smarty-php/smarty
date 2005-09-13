@@ -11,7 +11,8 @@
  <para>
   Prefilters can be either <link
   linkend="api.register.prefilter">registered</link> or loaded from
-  the plugins directory by using <link
+  the <link linkend="variable.plugins.dir">plugins directory</link>
+  by using <link
   linkend="api.load.filter">load_filter()</link> function or by setting
   the <link linkend="variable.autoload.filters">$autoload_filters</link> 
   variable.
@@ -22,25 +23,31 @@
  </para>
  <example>
   <title>using a template prefilter</title>
+    <para>
+     This will remove all the comments in the template source.
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
 // put this in your application
 function remove_dw_comments($tpl_source, &$smarty)
 {
-    return preg_replace("/<!--#.*-->/U","",$tpl_source);
+    return preg_replace("/<!--#.*-->/U",'',$tpl_source);
 }
 
 // register the prefilter
-$smarty->register_prefilter("remove_dw_comments");
-$smarty->display("index.tpl");
+$smarty->register_prefilter('remove_dw_comments');
+$smarty->display('index.tpl');
 ?>
 ]]>
   </programlisting>
-  <para>
-   This will remove all the comments in the template source.
-  </para>
+
  </example>
+ <para>See also <link linkend="api.register.prefilter">register_prefilter()</link>,
+ <link linkend="advanced.features.postfilters">postfilters</link>
+ and
+ <link linkend="api.load.filter">load_filter()</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
