@@ -16,6 +16,8 @@
   <programlisting>
 <![CDATA[
 <body>
+{* a single line comment *}
+
 {* this multiline
     comment is
    not sent to browser
@@ -25,16 +27,18 @@
 {include file="header.tpl"}
 
 
-{* Dev note:  $includeFile is assigned foo.php script  *}
+{* Dev note:  $includeFile is assigned in foo.php script  *}
 <!-- this html comment is sent to browser -->
 {include file=$includeFile}
 
 {include file=#includeFile#}
 
-{* display dropdown lists *}
+{* this <select> block is redundant *}
+{*
 <select name="company">
   {html_options options=$vals selected=$selected_id}
 </select>
+*}
 </body>
 ]]>
   </programlisting>
