@@ -45,8 +45,8 @@ $smarty->display('index.tpl');
     regenerated. It is possible to give individual caches their own expiration
     time by setting
     <link linkend="variable.caching">$caching</link> = 2.
-    See the documentation on <link
-    linkend="variable.cache.lifetime">$cache_lifetime</link> for details.
+    See <link
+    linkend="variable.cache.lifetime">$cache_lifetime</link> for more details.
    </para>
    <example>
     <title>setting $cache_lifetime per cache</title>
@@ -106,7 +106,10 @@ $smarty->display('index.tpl');
     the cache files will always be regenerated. This effectively turns off
     caching.
     <link linkend="variable.force.compile">$force_compile</link>
-    is usually for debugging purposes only, a more
+    is usually for 
+    <link
+        linkend="chapter.debugging.console">debugging</link> 
+        purposes only, a more
     efficient way of disabling caching is to set <link
     linkend="variable.caching">$caching</link> = false (or 0.)
    </para>
@@ -141,15 +144,19 @@ $smarty->display('index.tpl');
     You can keep parts of a page dynamic with the <link
     linkend="language.function.insert">{insert}</link> template function. Let's
     say the whole page can be cached except for a banner that is displayed down
-    the right side of the page. By using an insert function for the banner, you
+    the right side of the page. By using an 
+    <link    linkend="language.function.insert">{insert}</link> 
+    function for the banner, you
     can keep this element dynamic within the cached content. See the
     documentation on <link linkend="language.function.insert">{insert}</link> for
-    details and examples.
+    more details and examples.
    </para>
    <para>
     You can clear all the cache files with the <link
     linkend="api.clear.all.cache">clear_all_cache()</link> function, or
-    individual cache files (or groups) with the <link
+    individual cache files 
+    <link linkend="caching.groups">(or groups)</link>
+    with the <link
     linkend="api.clear.cache">clear_cache()</link> function.
    </para>
    <example>

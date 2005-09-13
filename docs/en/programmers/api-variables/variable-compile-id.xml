@@ -4,17 +4,18 @@
  <title>$compile_id</title>
  <para>
   Persistant compile identifier. As an alternative to passing the same
-  compile_id to each and every function call, you can set this
-  compile_id and it will be used implicitly thereafter.
+  $compile_id to each and every function call, you can set this
+  $compile_id and it will be used implicitly thereafter.
  </para>
  <para>
-  With a compile_id you can work around the limitation that you cannot
+  With a $compile_id you can work around the limitation that you cannot
   use the same
   <link linkend="variable.compile.dir">$compile_dir</link>
   for different
   <link linkend="variable.template.dir">$template_dirs</link>.  If you set a
-  distinct compile_id for each template_dir then smarty can tell the
-  compiled templates apart by their compile_id.
+  distinct $compile_id for each 
+  <link linkend="variable.template.dir">$template_dir</link> then Amarty can tell the
+  compiled templates apart by their $compile_id.
  </para>
  <para>
   If you have for example a
@@ -29,13 +30,13 @@
   multiple domains / multiple virtual hosts.
  </para>
  <example>
-  <title>$compile_id</title>
+  <title>$compile_id in a virtual host enviroment</title>
   <programlisting role="php">
 <![CDATA[
 <?php
 
 $smarty->compile_id = $_SERVER['SERVER_NAME'];
-$smarty->compile_dir = 'path/to/shared_compile_dir';
+$smarty->compile_dir = '/path/to/shared_compile_dir';
 
 ?>
 ]]>

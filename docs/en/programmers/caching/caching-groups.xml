@@ -41,18 +41,18 @@ $smarty = new Smarty;
 
 $smarty->caching = true;
 
-// clear all caches with "sports|basketball" as the first two cache_id groups
-$smarty->clear_cache(null,"sports|basketball");
+// clear all caches with 'sports|basketball' as the first two cache_id groups
+$smarty->clear_cache(null,'sports|basketball');
 
 // clear all caches with "sports" as the first cache_id group. This would
 // include "sports|basketball", or "sports|(anything)|(anything)|(anything)|..."
-$smarty->clear_cache(null,"sports");
+$smarty->clear_cache(null,'sports');
 
 // clear the foo.tpl cache file with "sports|basketball" as the cache_id
-$smarty->clear_cache("foo.tpl","sports|basketball");
+$smarty->clear_cache('foo.tpl','sports|basketball');
 
 
-$smarty->display('index.tpl',"sports|basketball");
+$smarty->display('index.tpl','sports|basketball');
 ?>
 ]]>
       </programlisting>
