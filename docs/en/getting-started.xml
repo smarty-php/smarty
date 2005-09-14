@@ -154,8 +154,8 @@
   <sect1 id="installing.smarty.basic">
    <title>Basic Installation</title>
    <para>
-    Install the Smarty library files which are in the /libs/ directory of
-    the distribution. These are the PHP files that you SHOULD NOT edit. They
+    Install the Smarty library files which are in the /libs/ sub directory of
+    the distribution. These are PHP files that you SHOULD NOT edit. They
     are shared among all applications and they only get updated when you
     upgrade to a new version of Smarty.
    </para>
@@ -174,18 +174,19 @@ debug.tpl
    </example>
    <para>
     Smarty uses a PHP constant named
-    <link linkend="constant.smarty.dir">SMARTY_DIR</link> which is the system
-    file path to the Smarty 'libs/' directory. Basically, if your application
+    <link linkend="constant.smarty.dir">SMARTY_DIR</link> which is the 
+    <emphasis role="bold">full system file path</emphasis> to the Smarty 'libs/' directory. 
+    Basically, if your application
     can find  the <filename>Smarty.class.php</filename> file, you do not need
-    to set <link linkend="constant.smarty.dir">SMARTY_DIR</link>
+    to set the <link linkend="constant.smarty.dir">SMARTY_DIR</link>,
      Smarty will figure it out on its own. Therefore, if
      <filename>Smarty.class.php</filename> is not in your include_path, or you
     do not supply an absolute path to it in your application, then you must
-    define SMARTY_DIR manually. SMARTY_DIR <emphasis>must</emphasis> include a
-    trailing slash.
+    define SMARTY_DIR manually. SMARTY_DIR <emphasis role="bold">must include a
+    trailing slash</emphasis>.
    </para>
    <para>
-    Here is how you create an instance of Smarty in your PHP scripts:
+    Here's how you create an instance of Smarty in your PHP scripts:
    </para>
 
    <example>
@@ -193,8 +194,9 @@ debug.tpl
     <programlisting role="php">
 <![CDATA[
 <?php
-require('Smarty.class.php');
-$smarty = new Smarty;
+// NOTE: Smarty has a capital 'S'
+require_once('Smarty.class.php');
+$smarty = new Smarty();
 ?>
 ]]>
     </programlisting>
@@ -207,12 +209,39 @@ $smarty = new Smarty;
    </para>
 
    <example>
+    <title>Set SMARTY_DIR constant manually</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
+// *nix style (note capital 'S')
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty-v.e.r/libs/');
+
+// windows style
+define('SMARTY_DIR', 'c:/webroot/libs/Smarty-v.e.r/libs/');
+
+// hack version example that works on both *nix and windows
+// Smarty is assumend to be in 'includes/' dir under current script
+define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
+
+require_once(SMARTY_DIR . 'Smarty.class.php');
+$smarty = new Smarty();
+?>
+]]>
+    </programlisting>
+   </example>
+   
+   <example>
     <title>Supply absolute path to library file</title>
     <programlisting role="php">
 <![CDATA[
 <?php
-require('/usr/local/lib/php/Smarty/Smarty.class.php');
-$smarty = new Smarty;
+// *nix style (note capital 'S')
+require_once('/usr/local/lib/php/Smarty-v.e.r/libs/Smarty.class.php');
+
+// windows style
+require_once('c:/webroot/libs/Smarty-v.e.r/libs/Smarty.class.php');
+
+$smarty = new Smarty();
 ?>
 ]]>
     </programlisting>
@@ -225,33 +254,22 @@ $smarty = new Smarty;
 <?php
 // Edit your php.ini file, add the Smarty library
 // directory to the include_path and restart web server.
-// Then the following should work:
-require('Smarty.class.php');
-$smarty = new Smarty;
+// then the following should work:
+require_once('Smarty.class.php');
+$smarty = new Smarty();
 ?>
 ]]>
     </programlisting>
    </example>
 
-   <example>
-    <title>Set SMARTY_DIR constant manually</title>
-    <programlisting role="php">
-<![CDATA[
-<?php
-define('SMARTY_DIR', '/usr/local/lib/php/Smarty/');
-require(SMARTY_DIR . 'Smarty.class.php');
-$smarty = new Smarty;
-?>
-]]>
-    </programlisting>
-   </example>
+
 
    <para>
     Now that the library files are in place, it's time to setup the Smarty
     directories for your application.</para>
     <para>
     Smarty requires four directories which
-    are (by default) named <filename class="directory">'templates/'</filename>,
+    are by default named <filename class="directory">'templates/'</filename>,
     <filename class="directory">'templates_c/'</filename>, <filename
     class="directory">'configs/'</filename> and <filename
     class="directory">'cache/'</filename>.
@@ -320,12 +338,12 @@ $smarty = new Smarty;
     <title>Example file structure</title>
     <screen>
 <![CDATA[
-/usr/local/lib/php/Smarty/Smarty.class.php
-/usr/local/lib/php/Smarty/Smarty_Compiler.class.php
-/usr/local/lib/php/Smarty/Config_File.class.php
-/usr/local/lib/php/Smarty/debug.tpl
-/usr/local/lib/php/Smarty/internals/*.php
-/usr/local/lib/php/Smarty/plugins/*.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Smarty.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Smarty_Compiler.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Config_File.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/debug.tpl
+/usr/local/lib/php/Smarty-v.e.r/libs/internals/*.php
+/usr/local/lib/php/Smarty-v.e.r/libs/plugins/*.php
 
 /web/www.example.com/smarty/guestbook/templates/
 /web/www.example.com/smarty/guestbook/templates_c/
@@ -376,7 +394,7 @@ chmod 770 /web/www.example.com/smarty/guestbook/cache/
 
    <para>
     We need to create the 'index.tpl' file that Smarty will load. This will be
-    located in your <link linkend="variable.template.dir">$template_dir</link>.
+    located in the <link linkend="variable.template.dir">$template_dir</link>.
    </para>
 
    <example>
@@ -386,7 +404,7 @@ chmod 770 /web/www.example.com/smarty/guestbook/cache/
 
 {* Smarty *}
 
-Hello, {$name}!
+Hello, {$name} and welcome to Smarty!
 ]]>
     </screen>
    </example>
@@ -405,10 +423,10 @@ Hello, {$name}!
    </note>
 
    <para>
-    Now lets edit 'index.php'. We'll create an instance of Smarty, assign a
-    template variable and display the 'index.tpl' file. In our example
-    environment, "/usr/local/lib/php/Smarty" is in our include_path. Be sure you
-    do the same, or use absolute paths.
+    Now lets edit 'index.php'. We'll create an instance of Smarty, 
+    <link linkend="api.assign">assign</link> a
+    template variable and <link linkend="api.display">display</link>
+    the 'index.tpl' file. 
    </para>
 
    <example>
@@ -418,9 +436,9 @@ Hello, {$name}!
 <?php
 
 // load Smarty library
-require('Smarty.class.php');
+require_once(SMARTY_DIR . 'Smarty.class.php');
 
-$smarty = new Smarty;
+$smarty = new Smarty();
 
 $smarty->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
 $smarty->compile_dir = '/web/www.example.com/smarty/guestbook/templates_c/';
@@ -449,7 +467,7 @@ $smarty->display('index.tpl');
    </note>
 
    <para>
-    Now load the <filename>index.php</filename> file from your web browser.
+    Now naviagate to the <filename>index.php</filename> file with the web browser.
     You should see "Hello, Ned!"
    </para>
    <para>
