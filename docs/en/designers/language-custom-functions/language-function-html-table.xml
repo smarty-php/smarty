@@ -111,8 +111,8 @@
      <entry><emphasis>right</emphasis></entry>
      <entry>
       direction of each row to be rendered. possible values:
-      <emphasis>left</emphasis> (left-to-right), <emphasis>right</emphasis>
-      (right-to-left)
+      <emphasis>right</emphasis> (left-to-right), and
+      <emphasis>left</emphasis> (right-to-left)
      </entry>
     </row>
     <row>
