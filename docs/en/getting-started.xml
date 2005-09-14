@@ -221,7 +221,7 @@ define('SMARTY_DIR', 'c:/webroot/libs/Smarty-v.e.r/libs/');
 
 // hack version example that works on both *nix and windows
 // Smarty is assumend to be in 'includes/' dir under current script
-define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
+define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty-v.e.r/libs/');
 
 require_once(SMARTY_DIR . 'Smarty.class.php');
 $smarty = new Smarty();
@@ -404,7 +404,7 @@ chmod 770 /web/www.example.com/smarty/guestbook/cache/
 
 {* Smarty *}
 
-Hello, {$name} and welcome to Smarty!
+Hello {$name}, welcome to Smarty!
 ]]>
     </screen>
    </example>
@@ -468,7 +468,7 @@ $smarty->display('index.tpl');
 
    <para>
     Now naviagate to the <filename>index.php</filename> file with the web browser.
-    You should see "Hello, Ned!"
+    You should see "Hello Ned, welcome to Smarty!"
    </para>
    <para>
     You have completed the basic setup for Smarty!
