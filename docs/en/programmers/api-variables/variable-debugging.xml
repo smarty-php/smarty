@@ -14,6 +14,9 @@
        assigned within a template with 
        <link linkend="language.function.assign">{assign}</link>.
       </para>
+      <para>Also see <link linkend="variable.debugging.ctrl">$debugging_ctrl</link>
+      on how to enable debugging from the url.
+      </para>
       <para>
       See also
       <link linkend="language.function.debug">{debug}</link>,
