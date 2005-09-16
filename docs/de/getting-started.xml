@@ -256,6 +256,7 @@ $smarty = new Smarty;
 define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
 require(SMARTY_DIR.'Smarty.class.php');
 $smarty = new Smarty;
+?>
 ]]>
     </programlisting>
    </example>
@@ -377,7 +378,7 @@ chmod 770 /web/www.example.com/smarty/guestbook/templates_c/
 
 chown nobody:nobody /web/www.example.com/smarty/guestbook/cache/
 chmod 770 /web/www.example.com/smarty/guestbook/cache/</screen>
- ]]>
+]]>
     </programlisting>
    </example>
 
@@ -450,7 +451,7 @@ $smarty->cache_dir = '/web/www.example.com/smarty/guestbook/cache/';
 
 $smarty->assign('name','Ned');
 
-$smarty->display('index.tpl');</screen>
+$smarty->display('index.tpl');
 ?>
 ]]>
     </programlisting>
@@ -527,6 +528,8 @@ class Smarty_GuestBook extends Smarty {
    }
 
 }
+?>
+]]>
     </programlisting>
    </example>
 
@@ -556,10 +559,10 @@ class Smarty_GuestBook extends Smarty {
 require('guestbook/setup.php');
 
 $smarty = new Smarty_GuestBook;
-
 $smarty->assign('name','Ned');
-
 $smarty->display('index.tpl');
+
+?>
 ]]>
    </programlisting>
   </example>
