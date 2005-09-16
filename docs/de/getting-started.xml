@@ -227,7 +227,7 @@ $smarty = new Smarty;
 <![CDATA[
 <?php
 require('/usr/local/lib/php/Smarty/Smarty.class.php');
-$smarty = new Smarty;</screen>
+$smarty = new Smarty;
 ?>
 ]]>
     </programlisting>
@@ -377,7 +377,7 @@ chown nobody:nobody /web/www.example.com/smarty/guestbook/templates_c/
 chmod 770 /web/www.example.com/smarty/guestbook/templates_c/
 
 chown nobody:nobody /web/www.example.com/smarty/guestbook/cache/
-chmod 770 /web/www.example.com/smarty/guestbook/cache/</screen>
+chmod 770 /web/www.example.com/smarty/guestbook/cache/
 ]]>
     </programlisting>
    </example>
