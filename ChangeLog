@@ -1,3 +1,11 @@
+2005-09-16  Nuno Lopes  <nunoplopes@sapo.pt>
+
+    * docs/de/getting-started.xml:
+      more fixes
+
+    * docs/de/getting-started.xml:
+      fix php bug #34520: broken example display (de only)
+
 2005-08-30  Monte Ohrt  <monte@ohrt.com>
 
     * libs/plugins/modifier.escape.php:
