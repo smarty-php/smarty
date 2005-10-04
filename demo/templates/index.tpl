@@ -11,8 +11,6 @@ Title: {#title#|capitalize}
 
 The current date and time is {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
 
-Tooltip example: Move your mouse over the <A HREF="" {popup sticky=true caption="Smarty pop-up text" delay=400 text="This is an example of a tooltip. Tooltips are handy for context sensitive information, and extremely easy to add to your templates with Smarty and the integration of <a href='http://www.bosrup.com/web/overlib/'>overLIB</a> by Erik Bosrup"} onclick="return false;">Help</A> link to see an example of a tooltip using Smarty's popup function.
-
 The value of global assigned variable $SCRIPT_NAME is {$SCRIPT_NAME}
 
 Example of accessing server environment variable SERVER_NAME: {$smarty.server.SERVER_NAME}
@@ -27,10 +25,10 @@ variable modifier example of {ldelim}$Name|upper{rdelim}
 An example of a section loop:
 
 {section name=outer loop=$FirstName}
-{if %outer.index% is odd by 2}
-	{%outer.rownum%} . {$FirstName[outer]} {$LastName[outer]}
+{if $smarty.section.outer.index is odd by 2}
+	{$smarty.section.outer.rownum} . {$FirstName[outer]} {$LastName[outer]}
 {else}
-	{%outer.rownum%} * {$FirstName[outer]} {$LastName[outer]}
+	{$smarty.section.outer.rownum} * {$FirstName[outer]} {$LastName[outer]}
 {/if}
 {sectionelse}
 	none
