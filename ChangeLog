@@ -1,3 +1,8 @@
+2005-10-04  Monte Ohrt  <monte@ohrt.com>
+
+    * demo/templates/index.tpl:
+      remove popup example, update section var syntax
+
 2005-09-16  Nuno Lopes  <nunoplopes@sapo.pt>
 
     * docs/de/getting-started.xml:
