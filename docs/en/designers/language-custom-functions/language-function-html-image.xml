@@ -69,6 +69,13 @@
      <entry><emphasis>n/a</emphasis></entry>
      <entry>href value to link the image to</entry>
     </row>
+    <row>
+     <entry>path_prefix</entry>
+     <entry>string</entry>
+     <entry>no</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>prefix for output path</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
@@ -85,6 +92,10 @@
  <para>
   <parameter>href</parameter> is the href value to link the image to. If link is supplied, an
   &lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is placed around the image tag.
+ </para>
+ <para>
+  <parameter>path_prefix</parameter> is an optional prefix string you can give the output path.
+  This is useful if you want to supply a different server name for the image.
  </para>
  <para>
   All parameters that are not in the list above are printed as
