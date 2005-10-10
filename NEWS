@@ -1,3 +1,6 @@
+ - plugin html_image: fix incorrect secure_dir error when
+   file doesn't exist (monte)
+ - plugin html_image: add path_prefix param (monte)
  - add char_set parameter to escape modifier (Loading, monte)
  - fix notice in debug security check (Drakla, monte)
  - return valid reference in get_template_vars() when given var is
