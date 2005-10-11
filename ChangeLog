@@ -1,3 +1,10 @@
+2005-10-10  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS
+      libs/plugins/function.html_image.php:
+      add path_prefix to html_image, fix incorrect secure_dir error when image
+      file is missing
+
 2005-10-04  Monte Ohrt  <monte@ohrt.com>
 
     * demo/templates/index.tpl:
