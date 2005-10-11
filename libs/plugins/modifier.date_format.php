@@ -21,6 +21,7 @@ require_once $smarty->_get_plugin_filepath('shared','make_timestamp');
  *         - default_date: default date if $string is empty
  * @link http://smarty.php.net/manual/en/language.modifier.date.format.php
  *          date_format (Smarty online manual)
+ * @author   Monte Ohrt <monte at ohrt dot com>
  * @param string
  * @param string
  * @param string

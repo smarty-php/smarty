@@ -13,6 +13,7 @@
  * Purpose:  load config file vars
  * @link http://smarty.php.net/manual/en/language.function.config.load.php {config_load}
  *       (Smarty online manual)
+ * @author Monte Ohrt <monte at ohrt dot com>
  * @param array Format:
  * <pre>
  * array('file' => required config file name,

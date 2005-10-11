@@ -16,6 +16,7 @@
  *           appending the $etc string or inserting $etc into the middle.
  * @link http://smarty.php.net/manual/en/language.modifier.truncate.php
  *          truncate (Smarty online manual)
+ * @author   Monte Ohrt <monte at ohrt dot com>
  * @param string
  * @param integer
  * @param string
