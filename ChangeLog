@@ -1,3 +1,43 @@
+2005-10-11  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/plugins/block.textformat.php
+      libs/plugins/compiler.assign.php
+      libs/plugins/function.assign_debug_info.php
+      libs/plugins/function.config_load.php
+      libs/plugins/function.counter.php
+      libs/plugins/function.eval.php
+      libs/plugins/function.fetch.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_select_date.php
+      libs/plugins/function.html_select_time.php
+      libs/plugins/function.math.php
+      libs/plugins/function.popup.php
+      libs/plugins/function.popup_init.php
+      libs/plugins/modifier.capitalize.php
+      libs/plugins/modifier.count_characters.php
+      libs/plugins/modifier.count_paragraphs.php
+      libs/plugins/modifier.count_sentences.php
+      libs/plugins/modifier.count_words.php
+      libs/plugins/modifier.date_format.php
+      libs/plugins/modifier.debug_print_var.php
+      libs/plugins/modifier.default.php
+      libs/plugins/modifier.escape.php
+      libs/plugins/modifier.indent.php
+      libs/plugins/modifier.lower.php
+      libs/plugins/modifier.regex_replace.php
+      libs/plugins/modifier.replace.php
+      libs/plugins/modifier.spacify.php
+      libs/plugins/modifier.string_format.php
+      libs/plugins/modifier.strip_tags.php
+      libs/plugins/modifier.truncate.php
+      libs/plugins/modifier.upper.php
+      libs/plugins/modifier.wordwrap.php
+      libs/plugins/shared.escape_special_chars.php
+      libs/plugins/shared.make_timestamp.php:
+      Added author title to plugins where they don't exist. I put my name where I
+      was the original or co-author. If there needs to be more credit given
+      somewhere, speak up!
+
 2005-10-10  Monte Ohrt  <monte@ohrt.com>
 
     * NEWS
