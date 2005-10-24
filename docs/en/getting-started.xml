@@ -173,7 +173,7 @@ debug.tpl
     </screen>
    </example>
    <para>
-    Smarty uses a PHP constant named
+    Smarty uses a PHP <ulink url="&url.php-manual;define">constant</ulink>  named
     <link linkend="constant.smarty.dir">SMARTY_DIR</link> which is the 
     <emphasis role="bold">full system file path</emphasis> to the Smarty 'libs/' directory. 
     Basically, if your application
