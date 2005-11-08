@@ -26,7 +26,6 @@
 <![CDATA[
 <?php
 // ponga esto en su aplicación
-
 function protect_email($tpl_output, &$smarty)
 {
     $tpl_output =
@@ -41,7 +40,6 @@ $smarty->display("index.tpl");
 
 // Ahora cualquier ocurrencia de una direcci&oacute;n de email en la salida
 // del template tendra una simple protecci&oacute;n contra spambots
-
 ?>
 ]]>
 </programlisting>

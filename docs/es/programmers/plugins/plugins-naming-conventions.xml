@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
    <sect1 id="plugins.naming.conventions">
-    <title>Nombres convensionales</title>
+    <title>Nombres convencionales</title>
     <para>
     Los archivos y funciones de Plugin deben seguir una convención 
     de apariencia muy especifica a fin de que pueda ser localizada 

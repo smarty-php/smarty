@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <refentry id="api.register.block">
  <refnamediv>
-  <refname>register_block</refname>
-  <refpurpose></refpurpose>
+  <refname>register_block()</refname>
+  <refpurpose>Registra dinamicamente bloques de funciones de plugins </refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción</title>
   <methodsynopsis>
    <type>void</type><methodname>register_block</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
@@ -38,11 +38,11 @@
    plugins </link> para saber como usar las propiedades.
   </para>
   <example>
-   <title>register_block</title>
+   <title>register_block()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->register_block("translate", "do_translation");
+$smarty->register_block('translate', 'do_translation');
 
 function do_translation ($params, $content, &$smarty, &$repeat) 
 {
@@ -67,6 +67,13 @@ Hello, world!
 ]]>
    </programlisting>
   </example>
+    <para>
+    Ver también
+    <link linkend="api.unregister.block">unregister_block()</link>
+    y
+    <link linkend="plugins.block.functions">Plugin Block Functions</link>.
+  </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

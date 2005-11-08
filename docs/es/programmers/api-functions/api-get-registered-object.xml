@@ -2,22 +2,24 @@
 <!-- $Revision$ -->
 <refentry id="api.get.registered.object">
  <refnamediv>
-  <refname>get_registered_object</refname>
-  <refpurpose></refpurpose>
+  <refname>get_registered_object()</refname>
+  <refpurpose>Este retorna una referencia para un objeto registrado.</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción</title>
   <methodsynopsis>
    <type>array</type><methodname>get_registered_object</methodname>
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Este retorna una referencia para un objeto registrado.
    Este es útil dentro de una función habitual cuando usted
-   necesita acesar directamente a un objeto registrado.
+   necesita acesar directamente a un 
+   <link linkend="api.register.object">objeto registrado</link>.
+   Ver <link linkend="advanced.features.objects">objects</link> para mas
+   información;
   </para>
   <example>
-   <title>get_registered_object</title>
+   <title>get_registered_object()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -33,6 +35,13 @@ function smarty_block_foo($params, &$smarty)
 ]]>
    </programlisting>
   </example>
+    <para>
+     Ver también 
+     <link linkend="api.register.object">register_object()</link>,
+     <link linkend="api.unregister.object">unregister_object()</link>
+     y
+     <link linkend="advanced.features.objects">objects section</link>
+     </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

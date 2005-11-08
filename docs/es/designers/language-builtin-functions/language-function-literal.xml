@@ -4,24 +4,16 @@
   <title>literal</title>
   <para>
    Las etiquetas literal permiten que un block de datos sea tomado literalmente,
-   no siendo interpretado por el smarty.
-   Esto es util para cosas como secciones de javascript, en donde pueden
-   haber llaves ("{}")
-   y cosas asi que puedan confundir al interpretador del template.
-   Cualquier cosa dentro las {literal}{/literal} no ser&aacute;
-   interpretado, y sera mostrado tal como esta.
+   no siendo interpretado por el smarty. Esto es generalmente utilizado alrededor 
+   de bloques javascript o stylesheet, en donde pueden haber sintaxis
+   <link linkend="variable.left.delimiter">delimitadoras</link> que puedan 
+   interferir con el template.
 
-
-
-   Las etiquetas literal permiten que un bloque de datos sea tomado
-   literalmente, este es tipicamente usado en ambiente javascript o 
-   stylesheet bloques donde las llaves interfieren con los delimitadores 
-   de sintaxis de Samrty.
    Cualquer cosa dentro de las etiquetas {literal}{/literal} no es
    interpretado, si no desplegado tal como esta. Si usted necesita en su
-   template etiquetas empotradas en su bloque de literal, considere usar
+   template etiquetas incrustadas en su bloque de literal, considere usar
    <link linkend="language.function.ldelim">{ldelim}{rdelim}</link> para
-   escapar delimitadores individuales en lugar  de eso.
+   escapar delimitadores individuales en lugar de eso.
   </para>
   <example>
    <title>Etiqueta literal</title>
@@ -47,6 +39,9 @@
 ]]>
    </programlisting>
   </example>
+   <para>
+      Ver también <link linkend="language.escaping">Escaping Smarty Parsing</link>.
+   </para>
  </sect1>
 
 <!-- Keep this comment at the end of the file

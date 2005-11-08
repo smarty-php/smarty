@@ -4,10 +4,20 @@
       <title>$error_reporting</title>
       <para>
            Cuando este valor es asignado a non-null-value este valor es 
-           usado como error_reporting-level dentro de display() y fetch().
-           Cuando debugging es habilitado este valor es ignorado y el
-           error-level no es tocado.
+           usado como un nivel 
+           <ulink url="&url.php-manual;error_reporting">error_reporting</ulink> 
+           dentro de display() y fetch(). 
+           Cuando <link linkend="chapter.debugging.console">debugging</link> es 
+           habilitado este valor es ignorado y el error-level no es tocado.
       </para>
+ <para>
+  Ver también 
+  <link linkend="api.trigger.error">trigger_error()</link>,
+  <link linkend="chapter.debugging.console">debugging</link>
+  y
+  <link linkend="troubleshooting">Troubleshooting</link>.
+ </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

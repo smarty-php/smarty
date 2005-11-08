@@ -3,10 +3,14 @@
 <sect1 id="language.syntax.quotes">
  <title>Colocando variables entre comillas dobles</title>
  <para>
-  Smarty puede reconocer variables asignadas entre comillas aunque estas 
+  Smarty puede reconocer <link linkend="language.syntax.variables">variables</link> 
+  <link linkend="api.assign">asignadas</link> entre comillas aunque estas 
   solo tengan números, letras, guiones bajos y corchetes[].
   Con cualquier otro carácter(puntos, referencia de objetos, etc.) las 
   variables deben estar entre apostrofos.
+  Usted no puede incrustar <link linkend="language.modifiers">modificadores</link>,
+  Estos deben ser siempre aplicados fuera de las comillas.
+
  </para>
  <example>
   <title>Sintaxis entre comillas</title>
@@ -19,6 +23,7 @@ SYNTAX EXAMPLES:
 {func var="test $foo[bar] test"}  <-- sees $foo[bar]
 {func var="test $foo.bar test"}   <-- sees $foo (not $foo.bar)
 {func var="test `$foo.bar` test"} <-- sees $foo.bar
+{func var="test `$foo.bar` test"|escape} <-- modifiers outside quotes!
 
 PRACTICAL EXAMPLES:
 {include file="subdir/$tpl_name.tpl"} <-- will replace $tpl_name with value
@@ -26,6 +31,10 @@ PRACTICAL EXAMPLES:
 ]]>
   </programlisting>
  </example>
+ <para>
+  Ver también <link linkend="language.modifier.escape">escape</link>.
+ </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

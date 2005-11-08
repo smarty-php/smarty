@@ -7,9 +7,14 @@
        NONE no significa que métodos alternativos son permitidos. 
        URL significa cuando la palabra SMARTY_DEBUG fue encontrada 
        en el QUERY_STRING, que el debug está habilitado para la 
-       llamada del script. Si $debugging es true, ese valor es 
-       ignorado.
+       llamada del script. Si  
+       <link linkend="variable.debugging">$debugging</link> es true, 
+       ese valor es ignorado.
       </para>
+      <para>
+      Ver también <link linkend="chapter.debugging.console">Debugging console</link>.
+      </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

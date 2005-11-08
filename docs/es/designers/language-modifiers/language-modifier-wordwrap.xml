@@ -46,13 +46,13 @@
    </tgroup>
   </informaltable>
   <para>
-   Este corta una cadena para un ancho de columna, el default es 80.
-   Como segundo parámetro opcional, usted puede especificar la cadena
-   que será usada para cortar el texto para la próxima linea (el default 
-   es un retorno de carro \n).
-   Por default, wordwrap intentara cortar al final de una palabra. Si 
-   usted quisiera cortar un tamaño exacto de cacarteres, pase al 
-   tercer parámetro, que es opcional, como true.
+   Este <command>wordwrap</command> corta una cadena para un ancho de columna, 
+   el default es 80. Como segundo parámetro opcional, usted puede especificar 
+   la cadena que será usada para cortar el texto para la próxima linea (el default 
+   es un retorno de carro \n). Por default, (wordwrap) intentara cortar al final 
+   de una palabra. Si usted quisiera cortar un tamaño exacto de cacarteres, 
+   pase al tercer parámetro, que es opcional, como true.
+   Este es equivalente a la función <ulink url="&url.php-manual;wordwrap">wordwrap()</ulink> de PHP.
   </para>
   <example>
    <title>wordwrap</title>
@@ -60,9 +60,7 @@
 <![CDATA[
 <?php
     
-$smarty = new Smarty;
 $smarty->assign('articleTitle', "Blind woman gets new kidney from dad she hasn't seen in years.");
-$smarty->display('index.tpl');
 
 ?>
 ]]>
@@ -109,6 +107,10 @@ years.
 ]]>
    </screen>
   </example>
+    <para>
+     Ver También <link linkend="language.modifier.nl2br">nl2br</link>
+     y <link linkend="language.function.textformat">{textformat}</link>.
+    </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

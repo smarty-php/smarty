@@ -42,16 +42,16 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-    
-$smarty = new Smarty;
-$smarty->assign('articleTitle', "'Stiff Opposition Expected to Casketless Funeral Plan'");
-$smarty->display('index.tpl');
-    
+
+$smarty->assign('articleTitle',
+                "'Stiff Opposition Expected to Casketless Funeral Plan'"
+                );
+
 ?>
 ]]>
    </programlisting>
    <para>
-    Donde index.tpl es:
+    Donde el template es:
    </para>
    <programlisting>
 <![CDATA[
@@ -65,7 +65,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Esta es la Salida:
+    esta es la salida:
    </para>
    <screen>
 <![CDATA[
@@ -75,11 +75,15 @@ $smarty->display('index.tpl');
 &#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
 %27Stiff+Opposition+Expected+to+Casketless+Funeral+Plan%27
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
-<a href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74">&#x62;&#x6f;&#x62;&#x40;&#x6d;&#x65;&#x2e;&#x6e;&#x65;&#x74;</a>
+<a href="mailto:%62%6f%..snip..%65%74">&#x62;&#x6f;&#x62..snip..&#x65;&#x74;</a>
 ]]>
    </screen>
   </example>
-</sect1>
+  <para>
+   Ver también <link linkend="language.escaping">Escaping Smarty Parsing</link>
+   y <link linkend="tips.obfuscating.email">Obfuscating E-mail Addresses</link>.
+  </para>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

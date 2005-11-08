@@ -3,11 +3,17 @@
      <sect1 id="variable.plugins.dir">
       <title>$plugins_dir</title>
       <para>
-    Este es el directorio donde Smarty procurara ir a buscar los plugins 
-    que sean necesarios. El default es "plugins" bajo el SMARTY_DIR.
-    Si usted proporciona un path relativo, Smarty procurara ir primero
-    bajo el SMARTY_DIR, Entonces relativo para el cwd(current working 
-    directory), Entonces relativo para cada entrada de su PHP include path.
+       Este es el directorio (o directorios) donde Smarty procurara ir 
+       a buscar los plugins que sean necesarios. 
+       El default es <filename class="directory">"plugins"</filename> 
+       bajo el <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
+       Si usted proporciona un path relativo, Smarty procurara ir primero
+       bajo el <link linkend="constant.smarty.dir">SMARTY_DIR</link>, 
+       Entonces relativo para el cwd(current working directory),
+       Entonces relativo para cada entrada de su PHP include path.
+       Si $plugins_dir es un arreglo de directorios, Smarty buscara los 
+       plugins para cada directorio de plugins en el orden en el que fueron
+       proporcionados.
       </para>
 	  <note>
 	  <title>Nota Técnica</title>
@@ -17,6 +23,24 @@
    para SMARTY_DIR o el cwd (current working directory).
 	  </para>
 	  </note>
+      <example>
+      <title>multiple $plugins_dir</title>
+      <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty->plugins_dir = array(
+                       'plugins', // the default under SMARTY_DIR
+                       '/path/to/shared/plugins',
+                       '../../includes/my/plugins'
+                       );
+
+?>
+
+]]>
+    </programlisting>
+    </example>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

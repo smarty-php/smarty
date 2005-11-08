@@ -53,7 +53,8 @@
                 </tgroup>
             </informaltable>
 			<para>
-   La etiqueta funciona parecido a las etiquetas include, excepto
+    La etiqueta funciona parecido a las etiquetas <link
+       linkend="language.function.include">{include}</link>, excepto
    que las etiquetas insert no van para el cache cuando
    <link linkend="caching">caching</link> esta activado. 
    Esta sera executada a cada invocación del template.
@@ -63,15 +64,17 @@
              de la pagina. El banner puede contener cualquier mezcla de HTML, imagenes,
              flash, etc.  Así nosotros no podemos usar una liga(link) estatica aquí, 
              y nosotros no queremos que este el contenido oculto con la pagina.
-             Aquí vemos la etiqueta insert: el template conoce los valores 
-             #banner_location_id# y #site_id# (obtenidos de un archivo de configuración), 
+             Aquí vemos la etiqueta {insert}: el template conoce los valores 
+             #banner_location_id# y #site_id# (obtenidos de un <link
+              linkend="config.files">archivo de configuración</link>), 
              y necesita llamar una función para obtener el contenido del banner.
 			</para>
 <example>
-<title>función insert</title>
+ <title>función {insert}</title>
 <programlisting>
 {* ejemplo de traer un banner *}
-{insert name="getBanner" lid=#banner_location_id# sid=#site_id#}</programlisting>
+{insert name="getBanner" lid=#banner_location_id# sid=#site_id#}
+</programlisting>
 </example>
 			<para>
    En este ejemplo, nosotros estamos usando el nombre "getBanner" 
@@ -90,17 +93,19 @@
 			</para>
 			<para>
    Si usted proporciona el atributo "assign", la salida de la etiqueta 
-   insert será dada a esta variable en vez de ser una salida en el template.
-   Nota: definir la salida a una variable no es util cuando el cache esta 
-   activo.
+   {insert} será dada a esta variable en vez de ser una salida en el template.
+   Nota: definir la salida a una variable no es util cuando el  <link
+    linkend="variable.caching">cache</link> esta habilitado.
 			</para>
 			<para>
    Si usted proporciona el atributo "script", este script php será
-   incluido (solo una vez) antes de la ejecución de la función insert.
+   incluido (solo una vez) antes de la ejecución de la función {insert}.
    Este es el caso donde la función insert no exista todavia, y el 
    script php debe ser incluido antes para que pueda funcionar.
-   La ruta puede ser absuluta o relativa a $trusted_dir.
-   Cuando la seguridad esta activada, el script debe estar en $trusted_dir.
+   La ruta puede ser absuluta o relativa a <link
+    linkend="variable.trusted.dir">$trusted_dir</link>.
+   Cuando <link linkend="variable.security">la seguridad esta activada</link>,
+   el script debe estar en <link linkend="variable.trusted.dir">$trusted_dir</link>.
 			</para>
 			<para>
     El objeto Smarty es pasado como segundo argumento. De este modo 

@@ -49,10 +49,111 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
     linea de error corresponde al script PHP compilado, no al template 
     en si. Normalmente usted puede en el template localizar el error de 
     sinxis. Algunas cosas que usted puede buscar: falta de cierre de 
-    etiquetas para {if}{/if} o {section}{/section}, o sintaxis de la 
-    lógica dentro de una etiqueta {if}. Si usted no encuentra el error, 
-    usted tendra que abrir el archivo PHP compilado y dirigirse al número 
-    de linea mostrado, donde el correspondiente error esta en el template.
+    etiquetas para  <link linkend="language.function.if">{if}{/if}}</link> 
+    o <link linkend="language.function.if">{section}{/section}</link>, o 
+    sintaxis de la lógica dentro de una etiqueta {if}. Si usted no encuentra 
+    el error, usted tendra que abrir el archivo PHP compilado y dirigirse al 
+    número de linea mostrado, donde el correspondiente error esta en el template.
+   </para>
+  <example>
+    <title>Otros errores comunes</title>
+
+  <itemizedlist>
+  <listitem>
+    <screen>
+<![CDATA[
+Warning: Smarty error: unable to read resource: "index.tpl" in...
+or
+Warning: Smarty error: unable to read resource: "site.conf" in...
+]]>
+    </screen>
+    <para>
+    <itemizedlist>
+    <listitem>
+      <para>
+      El <link linkend="variable.template.dir">$template_dir</link>
+      no existe o es incorrecto, o
+      el archivo <filename>index.tpl</filename> no esta en la carpeta 
+      <filename class="directory">templates/</filename>
+      </para>
+    </listitem>
+     <listitem>
+        <para>
+        La función <link linkend="language.function.config.load">{config_load}</link>
+        esta dentro del template (o <link linkend="api.config.load">config_load()</link>
+        habia sido llamado)  y cualquira de los dos
+        <link linkend="variable.config.dir">$config_dir</link>
+        es incorrecto, no exista o 
+        <filename>site.conf</filename> no existe en el directorio.
+        </para>
+    </listitem>
+    </itemizedlist>
+    </para>
+
+  </listitem><listitem>
+    <screen>
+<![CDATA[
+Fatal error: Smarty error: the $compile_dir 'templates_c' does not exist,
+or is not a directory...
+]]>
+    </screen>
+    <para>
+    Cualquiera de las dos el
+    <link linkend="variable.compile.dir">$compile_dir</link>
+    es asignado incorrectamente, el directorio no existe,
+    o <filename>templates_c</filename> es un archivo y no un directorio.
+    </para>
+  </listitem><listitem>
+    <screen>
+<![CDATA[
+Fatal error: Smarty error: unable to write to $compile_dir '....
+]]>
+    </screen>
+    <para>
+    El <link linkend="variable.compile.dir">$compile_dir</link>
+    no puede ser reescrito por el servidor web. Vea a fondo la pagina de permisos del
+    <link linkend="installing.smarty.basic">instalación de smarty</link>.
+    </para>
+
+  </listitem><listitem>
+    <screen>
+<![CDATA[
+Fatal error: Smarty error: the $cache_dir 'cache' does not exist,
+or is not a directory. in /..
+]]>
+    </screen>
+    <para>
+    Esto significa que 
+    <link linkend="variable.caching">$caching</link> es habilitado y 
+    cualquiera de los dos; el 
+    <link linkend="variable.cache.dir">$cache_dir</link>
+    es asignado incorrectamente, o el directorio no existe,
+    o <filename>cache</filename> es un archivo y no un directorio.
+    </para>
+
+  </listitem><listitem>
+
+    <screen>
+<![CDATA[
+Fatal error: Smarty error: unable to write to $cache_dir '/...
+]]>
+    </screen>
+    <para>
+    Esto significa que
+    <link linkend="variable.caching">$caching</link> es habilitado y el
+    <link linkend="variable.cache.dir">$cache_dir</link>
+    no puede ser rescrito por el web server. Ver ampliamente la pagina de permisos de 
+    <link linkend="installing.smarty.basic">la instalacion de smarty</link>.
+    </para>
+ </listitem>
+ </itemizedlist>
+ </example>
+
+   <para>
+   Vea también
+   <link linkend="chapter.debugging.console">debugging</link>,
+   <link linkend="variable.error.reporting">$error_reporting</link>
+   y <link linkend="api.trigger.error">trigger_error()</link>.
    </para>
   </sect1>
 </chapter>

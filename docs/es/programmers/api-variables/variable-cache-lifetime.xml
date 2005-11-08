@@ -27,7 +27,8 @@
        vida de cache, usted puede hacer esto asignando 
        <link linkend="variable.caching">$caching</link> = 2, entonces 
        determina $cache_lifetime a un único valor justo antes de llamar 
-       display() o fetch().
+       <link linkend="api.display">display()</link>
+       o <link linkend="api.fetch">fetch()</link>.
      </para>
     </note>
    </sect1>

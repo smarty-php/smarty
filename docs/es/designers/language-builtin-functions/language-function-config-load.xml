@@ -64,16 +64,71 @@
   </tgroup>
  </informaltable>
  <para>
-  Esta función es usada para cargar las variables de un archivo de
-  configuración dentro de un template.
+  Esta función es usada para cargar las <link
+   linkend="language.config.variables">#variables#</link> 
+  de un archivo de configuración dentro de un template.
   Vea <link linkend="config.files">Config Files</link> para mayor 
   información.
  </para>
  <example>
-  <title>función config_load</title>
+  <title>Función {config_load}</title>
+  <para>
+     ejemplo.conf
+  </para>
   <programlisting>
 <![CDATA[
-{config_load file="colors.conf"}
+#this is config file comment
+
+# global variables
+pageTitle = "Main Menu"
+bodyBgColor = #000000
+tableBgColor = #000000
+rowBgColor = #00ff00
+
+#customer variables section
+[Customer]
+pageTitle = "Customer Info"
+]]>
+  </programlisting>
+  <para>y el template</para>
+ <programlisting>
+ <![CDATA[
+ {config_load file="example.conf"}
+
+ <html>
+      <title>{#pageTitle#|default:"No title"}</title>
+      <body bgcolor="{#bodyBgColor#}">
+     <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
+         <tr bgcolor="{#rowBgColor#}">
+             <td>First</td>
+             <td>Last</td>
+             <td>Address</td>
+         </tr>
+     </table>
+     </body>
+ </html>
+ ]]>
+ </programlisting>
+ </example>
+ <para>
+  Los <link linkend="config.files">archivos de configuración</link> 
+  pueden contener secciones también. Usted puede cargar variables de 
+  una sección adicionando el atributo <emphasis>'section'</emphasis>.
+ </para>
+ <note>
+  <para>
+   <emphasis>Config file sections</emphasis> es la función integrada 
+   de template  <link
+    linkend="language.function.section"><emphasis>{section}</emphasis></link> 
+   no tiene nada que ver uno con el otro, ellos justamente por casualidad 
+   tiene en común el convensionalismo del nombre.
+  </para>
+ </note>
+ <example>
+  <title>Función config_load con section</title>
+  <programlisting>
+<![CDATA[
+{config_load file="ejemplo.conf" section="Customer"}
 
 <html>
 <title>{#pageTitle#}</title>
@@ -91,39 +146,12 @@
   </programlisting>
  </example>
  <para>
-  Los archivos de configuración pueden contener secciones también.
-  Usted puede cargar variables de una sección adicionando el atributo
-  <emphasis>section</emphasis>.
+  Vea también <link linkend="config.files">Config files</link>,
+  <link linkend="language.config.variables">Config variables</link>,
+  <link linkend="variable.config.dir">$config_dir</link>,
+  <link linkend="api.get.config.vars">get_config_vars()</link>
+  y <link linkend="api.config.load">config_load()</link>.
  </para>
- <note>
-  <para>
-   <emphasis>Config file sections</emphasis> es la función integrada 
-   de template <emphasis>section</emphasis> no tiene nada que ver
-   uno con el otro, ellos justamente por casualidad tiene en común el
-   convensionalismo del nombre.
-  </para>
- </note>
- <example>
-  <title>Función config_load con section</title>
-  <programlisting>
-<![CDATA[
-{config_load file="colors.conf" section="Customer"}
-
-<html>
-<title>{#pageTitle#}</title>
-<body bgcolor="{#bodyBgColor#}">
-<table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
-   <tr bgcolor="{#rowBgColor#}">
-      <td>First</td>
-      <td>Last</td>
-      <td>Address</td>
-   </tr>
-</table>
-</body>
-</html>
-]]>
-  </programlisting>
- </example>
 </sect1>
 
 <!-- Keep this comment at the end of the file

@@ -88,8 +88,7 @@
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Defíne el color del texto para ser usado
-                          en el texto principal</entry>
+                        <entry>Defíne el color del texto para ser usado en el texto principal</entry>
                     </row>
                     <row>
                         <entry>captionfont</entry>
@@ -263,8 +262,7 @@
                         <entry>integer</entry>
                         <entry>No</entry>
                         <entry><emphasis>n/a</emphasis></entry>
-						<entry>
-      Indica al overLib desde que índice de la
+						<entry> Indica al overLib desde que índice de la
       matriz ol_text debe leer el texto, localizada en overlib.js.  
       Este parámetro puede ser usado en vez del texto
 						</entry>
@@ -396,22 +394,31 @@
                 </tgroup>
             </informaltable>
 			<para>
-   popup es usado para crear ventanas popup con javascript.
+    {popup} es usado para crear ventanas popup con javascript.
+    <link linkend="language.function.popup.init">{popup_init}</link> DEBE ser
+    llamado primero para poder trabajar.
 			</para>
 <example>
 <title>popup</title>
-<programlisting>
+  <programlisting>
+<![CDATA[
 {* popup_init debe ser llamado una vez hasta arriba de la pagina *}
 {popup_init src="/javascripts/overlib.js"}
 
-{* crea un link con una ventana popup que aparece cuando se pasa el mouse
-sobre este *}
-&lt;A href="mypage.html" {popup text="This link takes you to my page!"}&gt;mypage&lt;/A&gt;
+{* crea un link con una ventana popup que aparece cuando se pasa el mouse sobre este *}
+<a href="mypage.html" {popup text="This link takes you to my page!"}>mypage</a>
 
 {* usted puede usar html, links, etc en el texto del popup *}
-&lt;A href="mypage.html" {popup sticky=true caption="mypage contents"
-text="&lt;UL&gt;&lt;LI&gt;links&lt;LI&gt;pages&lt;LI&gt;images&lt;/UL&gt;" snapx=10 snapy=10}&gt;mypage&lt;/A&gt;</programlisting>
-</example>
+<a href="mypage.html" {popup sticky=true caption="mypage contents"
+text="<ul><li>links</li><li>pages</li><li>images</li></ul>"
+snapx=10 snapy=10}>mypage</a>
+]]>
+  </programlisting>
+ </example>
+ <para>
+ Ver también <link linkend="language.function.popup.init">{popup_init}</link>
+ y <ulink url="&url.overLib;">overLib</ulink>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

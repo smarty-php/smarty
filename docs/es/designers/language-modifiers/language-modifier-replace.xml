@@ -37,7 +37,8 @@
    </tgroup>
   </informaltable>
   <para>
-   Una simple busqueda y substituir en la variable.
+   Una simple busqueda y substituir en la variable. Esta es equivalente a la
+   función <ulink url="&url.php-manual;str_replace">str_replace()</ulink> de PHP.
   </para>
   <example>
    <title>replace</title>
@@ -45,9 +46,7 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->assign('articleTitle', "Child's Stool Great for Use in Garden.");
-$smarty->display('index.tpl');
 
 ?>
 ]]>
@@ -73,6 +72,11 @@ Child's   Stool   Great   for   Use   in   Garden.
 ]]>
    </screen>
   </example>
+  <para>
+   ver también <link linkend="language.modifier.regex.replace">regex_replace</link>
+   y <link linkend="language.modifier.escape">escape</link>.
+  </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

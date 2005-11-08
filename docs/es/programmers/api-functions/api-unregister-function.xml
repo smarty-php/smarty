@@ -2,21 +2,20 @@
 <!-- $Revision$ -->
 <refentry id="api.unregister.function">
  <refnamediv>
-  <refname>unregister_function</refname>
-  <refpurpose></refpurpose>
+  <refname>unregister_function()</refname>
+  <refpurpose>des-registrar dinámicamente una función de plugin del template</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title> Descripción</title>
   <methodsynopsis>
    <type>void</type><methodname>unregister_function</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Use esta para des-registrar dinámicamente una función de
-   plugin del template. Pase en el template el nombre de la función.
+   Pase en el template el nombre de la función.
   </para>
   <example>
-   <title>unregister_function</title>
+   <title>unregister_function()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -28,6 +27,10 @@ $smarty->unregister_function("fetch");
 ]]>
    </programlisting>
   </example>
+    <para>
+     Ver también <link linkend="api.register.function">register_function() </link>.
+    </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

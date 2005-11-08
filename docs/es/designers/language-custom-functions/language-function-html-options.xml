@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 		<sect1 id="language.function.html.options">
-			<title>html_options</title>
+   <title>{html_options}</title>
             <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" align="center" />
@@ -58,15 +58,16 @@
                 </tgroup>
             </informaltable>
 			<para>
-   html_options es una función customizada que crea un grupo 
-   html option con los datos proporcionados. Este se encarga de 
-   cuidar cuales datos han sido selecionado por default.
+    {html_options} es una 
+    <link linkend="language.custom.functions">función customizada</link> 
+    que crea un grupo html &lt;select&gt;&lt;option&gt; con los datos proporcionados. 
+    Este se encarga de cuidar cuales datos han sido selecionado por default.
    Los atributos son valores y salidas, a menos que usted utilice
    options en lugar de eso.
 			</para>
 			<para>
-   Si un valor es una matriz, este será tratado como un OPTGROUP html,
-   y mostrara los grupos. La recursión es soportada por OPTGROUP.
+   Si un valor es una matriz, este será tratado como un &lt;optgroup&gt; html,
+   y mostrara los grupos. La recursión es soportada por &lt;optgroup&gt;.
    Todas las salidas son compatibles con XHTML.
 			</para>
 			<para>
@@ -76,58 +77,116 @@
    De otra manera solo es generada la lista de opciones.
 			</para>
 			<para>
-   Todos los par&aacute;metros que no estan en la lista de arriba son 
+   Todos los parámetros que no estan en la lista de arriba son 
    exibidos como name/value-pairs dentro de las etiquetas &lt;select&gt;. 
    Estas son ignoradas si la opcion <emphasis>name</emphasis> no es dada.
 			</para>
 <example>
-<title>html_options</title>
+ <title>{html_options}</title>
+  <para>
+  <emphasis role="bold">Ejemplo 1:</emphasis>
+  </para>
+  <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_names', array(
+                              'Joe Schmoe',
+                              'Jack Smith',
+                              'Jane Johnson',
+                              'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
+
+?>
+]]>
+  </programlisting>
+  <para>
+  donde el template es:
+  </para>
+  <programlisting>
+<![CDATA[
+<select name=customer_id>
+   {html_options values=$cust_ids output=$cust_names selected=$customer_id}
+</select>
+]]>
+  </programlisting>
+   <para>
+  <emphasis role="bold">Ejemplo 2:</emphasis>
+   </para>
+   <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty->assign('cust_options', array(
+                                1000 => 'Joe Schmoe',
+                                1001 => 'Jack Smith',
+                                1002 => 'Jane Johnson',
+                                1003 => 'Charlie Brown')
+                                );
+$smarty->assign('customer_id', 1001);
+
+?>
+]]>
+  </programlisting>
+  <para>
+donde el template es:
+  </para>
+  <programlisting>
+<![CDATA[
+<select name=customer_id>
+   {html_options options=$cust_options selected=$customer_id}
+</select>
+]]>
+  </programlisting>
+  <para>
+   Salida de ambos ejemplos de arriba:
+  </para>
+  <screen>
+<![CDATA[
+<select name=customer_id>
+    <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
+    <option label="Jack Smith" value="1001" selected="selected">Jack Smith</option>
+    <option label="Jane Johnson" value="1002">Jane Johnson</option>
+    <option label="Charlie Brown" value="1003">Charlie Brown</option>
+</select>
+
+]]>
+  </screen>
+ </example>
+  <example>
+   <title>{html_options} - Ejemplo con base de datos (eg PEAR o ADODB):</title>
+<programlisting role="php">
+<![CDATA[
+<?php
+
+$sql = 'select type_id, types from types order by type';
+$smarty->assign('types',$db->getAssoc($sql));
+
+$sql = 'select contact_id, name, email, type_id
+        from contacts where contact_id='.$contact_id;
+$smarty->assign('contact',$db->getRow($sql));
+
+?>
+]]>
+</programlisting>
+<para>
+Donde el template es:
+</para>
 <programlisting>
-index.php:
-
-require('Smarty.class.php');
-$smarty = new Smarty;
-$smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
-$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Carlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-&lt;select name=customer_id&gt;
-	{html_options values=$cust_ids selected=$customer_id output=$cust_names}
-&lt;/select&gt;
-
-
-index.php:
-
-require('Smarty.class.php');
-$smarty = new Smarty;
-$smarty-&gt;assign('cust_options', array(
-			1001 =&gt; 'Joe Schmoe',
-			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson',
-			1004 =&gt; 'Charlie Brown'));
-$smarty-&gt;assign('customer_id', 1001);
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
-&lt;select name=customer_id&gt;
-	{html_options options=$cust_options selected=$customer_id}
-&lt;/select&gt;
-
-
-SALIDA: (Ambos ejemplos)
-
-&lt;select name=customer_id&gt;
-	&lt;option value="1000"&gt;Joe Schmoe&lt;/option&gt;
-	&lt;option value="1001" selected="selected"&gt;Jack Smith&lt;/option&gt;
-	&lt;option value="1002"&gt;Jane Johnson&lt;/option&gt;
-	&lt;option value="1003"&gt;Charlie Brown&lt;/option&gt;
-&lt;/select&gt;</programlisting>
-</example>
+<![CDATA[
+<select name="type_id">
+    <option value='null'>-- none --</option>
+    {html_options name="type" options=$types selected=$contact.type_id}
+</select>
+]]>
+  </programlisting>
+ </example>
+   <para>
+    vea también
+    <link linkend="language.function.html.checkboxes">{html_checkboxes}</link>
+    y <link linkend="language.function.html.radios">{html_radios}</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

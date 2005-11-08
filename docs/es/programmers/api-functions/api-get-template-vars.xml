@@ -2,19 +2,18 @@
 <!-- $Revision$ -->
 <refentry id="api.get.template.vars">
  <refnamediv>
-  <refname>get_template_vars</refname>
-  <refpurpose></refpurpose>
+  <refname>get_template_vars()</refname>
+  <refpurpose>Retorna el valor asignado a una variable</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>descripción</title>
   <methodsynopsis>
    <type>array</type><methodname>get_template_vars</methodname>
    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Este retorna el valor de una variable asignada. Si no tiene un
-   parámetro dado, un arreglo de todas las variables asignadas es 
-   retornado.
+   Si no tiene un parámetro dado, un arreglo de todas las variables 
+   <link linkend="api.assign">asignadas</link> es retornado.
   </para>
   <example>
    <title>get_template_vars</title>
@@ -33,6 +32,17 @@ print_r($tpl_vars);
 ]]>
    </programlisting>
   </example>
+  <para>
+  Ver también <link linkend="api.assign">assign()</link>,
+  <link linkend="language.function.assign">{assign}</link>,
+  <link linkend="api.assign.by.ref">assign_by_ref()</link>,
+  <link linkend="api.append">append()</link>,
+  <link linkend="api.clear.assign">clear_assign()</link>,
+  <link linkend="api.clear.all.assign">clear_all_assign()</link>
+  y
+  <link linkend="api.get.config.vars">get_config_vars()</link>
+  </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

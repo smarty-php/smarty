@@ -7,11 +7,14 @@
   depende de cual simbolo este prefijado(incluido dentro).
  </para>
  <para>
-  Las variables de Smarty no pueden ser mostradas directamente o usadas 
-  como argumentos para atributos de funciones y modificadores, dentro de 
-  expresiones condicionales, etc. Para mostrar una variable, simplesmente 
-  coloque esta entre delimitadores siendo esta la única cosa entre ellos. 
-  Ejemplos:
+  Las variables de Smarty no pueden ser mostradas directamente 
+  o usadas como argumentos para 
+  <link linkend="language.syntax.attributes">atributos</link>,  
+  <link linkend="language.syntax.functions">funciones</link> y  
+  <link linkend="language.modifiers">modificadores</link>, dentro 
+  de expresiones condicionales, etc. Para mostrar una variable, 
+  simplesmente coloque esta entre delimitadores siendo esta la única 
+  cosa entre ellos.  Ejemplos:
   <programlisting>
 <![CDATA[
 {$Name}

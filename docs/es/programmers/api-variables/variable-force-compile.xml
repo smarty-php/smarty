@@ -4,10 +4,14 @@
       <title>$force_compile</title>
       <para>
        Este forza al Smarty a (re)compilar templates en cada llamada.
-       Esta configuración sobrescribe $compile_check. Por default este
-       es desabilitado. Es útil para el desarrollo y debug. Nunca debe ser 
-       usado en ambiente de producción. Si el cache esta habilitado, los 
-       archivo(s) de cache seran regenerados todo el tiempo.
+       Esta configuración sobrescribe 
+       <link linkend="variable.compile.check">$compile_check</link>. 
+       Por default este
+       es desabilitado. Es útil para el desarrollo y 
+       <link linkend="chapter.debugging.console">debug</link>. 
+       Nunca debe ser usado en ambiente de producción. Si el  
+       <link linkend="variable.caching">cache</link> esta habilitado, 
+       los archivo(s) de cache seran regenerados todo el tiempo.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.popup.init">
- <title>popup_init</title>
+ <title>{popup_init}</title>
  <para>
-  popup es una integración de overLib, una biblioteca usada para 
-  ventanas popup. Esta es usada como contexto de infomación sensitiva, 
-  como ventanas de ayuda o herramientas. popup_init debe ser usada una 
-  vez hasta arriba de cada pagina donde usted planea usar la función
+  <link linkend="language.function.popup">{popup}</link> es una integración 
+  de <ulink url="&url.overLib;">overLib</ulink>, una biblioteca usada para 
+  ventanas popup. Esta es usada como contexto de infomación sensitiva, como 
+  ventanas de ayuda o herramientas. {popup_init} debe ser usada una vez hasta 
+  arriba de cada pagina donde usted planea usar la función 
   <link linkend="language.function.popup">popup</link>.
-  overLib fue escrita por Erik Bosrup, y la pagina esta localizada en
-  http://www.bosrup.com/web/overlib/.
+  <ulink url="&url.overLib;">overLib</ulink> fue escrita por Erik Bosrup, y la 
+  pagina esta localizada en <ulink url="&url.overLib;">&url.overLib;</ulink>.
  </para>
  <para>
   A partir da versi&oacute;n 2.1.2 de Smarty, overLib NO viene con la
   distribución. Descargar el overLib, coloque el archivo overlib.js 
   dentro de su document root e indique la ruta relativa en el parámetro 
-  "src" de popup_init.
+  "src" de {popup_init}.
  </para>
  <example>
   <title>popup_init</title>
   <programlisting>
 <![CDATA[
+<head>
 {* popup_init debe ser llamado una sola vez hasta arriba de la pagina *}
 {popup_init src="/javascripts/overlib.js"}
+</head>
 ]]>
   </programlisting>
  </example>

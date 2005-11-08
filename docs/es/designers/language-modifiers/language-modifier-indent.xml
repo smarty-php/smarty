@@ -48,18 +48,19 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-    
-$smarty = new Smarty;
-$smarty->assign('articleTitle', 'NJ judge to rule on nude beach.
+
+$smarty->assign('articleTitle',
+                'NJ judge to rule on nude beach.
 Sun or rain expected today, dark tonight.
-Statistics show that teen pregnancy drops off significantly after 25.');
-$smarty->display('index.tpl');
+Statistics show that teen pregnancy drops off significantly after 25.'
+                );
+
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Donde index.tpl es:
+    Donde el template es:
    </para>
    <programlisting>
 <![CDATA[
@@ -73,7 +74,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Esta es la Salida:
+    esta es la salida:
    </para>
    <screen>
 <![CDATA[
@@ -95,7 +96,11 @@ Statistics show that teen pregnancy drops off significantly after 25.
 ]]>
    </screen>
   </example>
-</sect1>
+  <para>
+   ver también <link linkend="language.modifier.strip">strip</link>
+   y <link linkend="language.modifier.spacify">spacify</link>.
+  </para>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.html.checkboxes">
- <title>html_checkboxes</title>
+ <title>{html_checkboxes}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -41,7 +41,7 @@
      <entry>una matriz de salida para los botones checkbox</entry>
     </row>
     <row>
-     <entry>selected/checked</entry>
+     <entry>selected</entry>
      <entry>string/array</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
@@ -72,8 +72,9 @@
   </tgroup>
  </informaltable>
  <para>
-  html_checkboxes es una función personalizada que crea un grupo 
-  de checkbox con datos privistos. Este cuida cuales items(s) 
+  {html_checkboxes} es una 
+  <link linkend="language.custom.functions">función personalizada</link> 
+  que crea un grupo de checkbox con datos privistos. Este cuida cuales items(s) 
   estan selecionados por default. Los atributos requeridos son 
   values y output, a menos que usted use options.
   Toda la salida es compatible con XHTML.
@@ -84,65 +85,99 @@
   &lt;input&gt; creada.
  </para>
  <example>
-  <title>html_checkboxes</title>
+  <title>{html_checkboxes}</title>
   <programlisting role="php">
 <![CDATA[
 <?php
 
-require('Smarty.class.php');
-$smarty = new Smarty;
 $smarty->assign('cust_ids', array(1000,1001,1002,1003));
-$smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane Johnson','Charlie Brown'));
+$smarty->assign('cust_names', array(
+                                'Joe Schmoe',
+                                'Jack Smith',
+                                'Jane Johnson',
+                                'Charlie Brown')
+                              );
 $smarty->assign('customer_id', 1001);
-$smarty->display('index.tpl');
 
 ?>
-]]
+]]>
   </programlisting>
   <para>
-   where index.tpl is:
+donde el template es
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" values=$cust_ids selected=$customer_id output=$cust_names separator="<br />"}
-]]
+{html_checkboxes name="id" values=$cust_ids output=$cust_names
+   selected=$customer_id  separator="<br />"}
+]]>
   </programlisting>
+  <para>
+   o donde el codigo es:
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
 
-require('Smarty.class.php');
-$smarty = new Smarty;
 $smarty->assign('cust_checkboxes', array(
-			1000 => 'Joe Schmoe',
-			1001 => 'Jack Smith',
-			1002 => 'Jane Johnson',
-			1003 => 'Charlie Brown'));
+                                     1000 => 'Joe Schmoe',
+                                     1001 => 'Jack Smith',
+                                     1002 => 'Jane Johnson',
+                                     1003 => 'Charlie Brown')
+                                   );
 $smarty->assign('customer_id', 1001);
-$smarty->display('index.tpl');
+
 ?>
 ]]>
   </programlisting>
   <para>
-   Donde index.tpl es:
+  y el template es
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="&lt;br /&gt;"}
+{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="<br />"}
 ]]>
   </programlisting>
   <para>
-   Salida (los dos ejemplos):
+   salida de ambos ejemplos:
   </para>
   <screen>
 <![CDATA[
 <label><input type="checkbox" name="id[]" value="1000" />Joe Schmoe</label><br />
-<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><br />
+<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label>
+<br />
 <label><input type="checkbox" name="id[]" value="1002" />Jane Johnson</label><br />
 <label><input type="checkbox" name="id[]" value="1003" />Charlie Brown</label><br />
 ]]>
   </screen>
  </example>
+  <example>
+    <title>
+      ejemplo de base de datos (eg PEAR o ADODB):
+  </title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+
+$sql = 'select type_id, types from types order by type';
+$smarty->assign('types',$db->getAssoc($sql));
+
+$sql = 'select * from contacts where contact_id=12';
+$smarty->assign('contact',$db->getRow($sql));
+
+?>
+]]>
+  </programlisting>
+<programlisting>
+<![CDATA[
+{html_checkboxes name="type" options=$types selected=$contact.type_id separator="<br />"}
+]]>
+</programlisting>
+ </example>
+ <para>
+  Vea también
+  <link linkend="language.function.html.radios">{html_radios}</link>
+  y <link linkend="language.function.html.options">{html_options}</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

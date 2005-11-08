@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <refentry id="api.register.object">
  <refnamediv>
-  <refname>register_object</refname>
-  <refpurpose></refpurpose>
+  <refname>register_object()</refname>
+  <refpurpose>Registr un objeto para usar en el template</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción </title>
   <methodsynopsis>
    <type>void</type><methodname>register_object</methodname>
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
@@ -16,9 +16,13 @@
    <methodparam><type>array</type><parameter>block_methods</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Este es para registrar un objeto para usar en el template.
-   Vea <link linkend="advanced.features.objects">object section</link>
-   del manual para ejemplos.
+   Vea <link linkend="advanced.features.objects">object section</link> para ejemplos.
+  </para>
+  <para>
+   Vea también
+   <link linkend="api.get.registered.object">get_registered_object()</link>,
+   y
+   <link linkend="api.unregister.object">unregister_object()</link>.
   </para>
  </refsect1>
 </refentry>

@@ -13,12 +13,12 @@
     determinar $compile_check a "false" para un mejor funcionamiento.  
     Note que si usted modifica está para "false" y el archivo de template
     está modificado, usted *no* vera los cambios desde el template hasta que 
-    no sea recompilado. Si el cache esta habilitado y compile_check está 
-    habilitado, entonces los archivos de cache tienen que ser regenerados si 
-    el archivo de template es muy complejo o el archivo de configuración fue 
-    actualizado.
+    no sea recompilado. Si el <link linkend="variable.caching">caching</link> 
+    esta habilitado y compile_check está habilitado, entonces los archivos de 
+    cache tienen que ser regenerados si el archivo de template es muy complejo 
+    o el archivo de configuración fue actualizado.
     vea <link linkend="variable.force.compile">$force_compile</link>
-    o <link linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
+    o <link linkend="api.clear.compiled.tpl">clear_compiled_tpl()</link>.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

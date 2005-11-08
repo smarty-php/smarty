@@ -4,7 +4,9 @@
     <title>Multiples caches por pagina</title>
     <para>
      Usted puede tener multiples archivos de cache para una simples llamada 
-     de display() o fetch(). Vamos a decir que una llamada a 
+     de <link linkend="api.display">display()</link>
+     o <link linkend="api.fetch">fetch()</link>.
+     Vamos a decir que una llamada a 
      display('index.tpl') debe tener varios contenidos de salida diferentes 
      dependiendo de alguna condición, y usted quiere separar los caches para 
      cada una. Usted puede hacer esto pasando un cache_id como un segundo 
@@ -28,7 +30,8 @@ $smarty->display('index.tpl',$my_cache_id);
      </programlisting>
     </example>
     <para>
-     Arriba, nosotros pasamos la variable $my_cache_id a display() con 
+     Arriba, nosotros pasamos la variable $my_cache_id a 
+     <link linkend="api.display">display()</link> con 
      el cache_id. Para cada valor unico de $my_cache_id, un cache por 
      separado sera generado para cada index.tpl. En este ejemplo, 
      "article_id" fue pasado en URL y es usado como el cache_id.
@@ -46,7 +49,7 @@ $smarty->display('index.tpl',$my_cache_id);
      posiblemente podría causar problemas a nivel del servidor. Tenga la 
      certeza de limpiar algún dato pasado antes de usarlo. En este ejemplo, 
      tal vez usted sabia que el article_id tiene un largo de 10 caracteres
-     este es constituido solamente de alfanumúricos, y debe ser un article_id 
+     este es constituido solamente de alfanuméricos, y debe ser un article_id 
      valido en la base de datos. Verifique esto!
      </para>
     </note>
@@ -80,7 +83,8 @@ $smarty->display('index.tpl',$my_cache_id);
     </example>
     <para>
      Usted puede limpar todos los caches para un cache_id en particular 
-     pasando el primer parámetro null a clear_cache().
+     pasando el primer parámetro null a 
+     <link linkend="api.clear.cache">clear_cache()</link>..
     </para>
     <example>
      <title> Limpando todos los caches para un cache_id en particular</title>
@@ -101,7 +105,7 @@ $smarty->display('index.tpl',"sports");
      </programlisting>
     </example>
     <para>
-     De esta manera, usted puede "agrupar" sus caches conjuntamente dandoles 
+     De esta manera, usted puede "agrupar" sus caches conjuntamente dando les 
      el mismo cache_id.
     </para>
     

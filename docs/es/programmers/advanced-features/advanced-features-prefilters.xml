@@ -7,12 +7,16 @@
      templates antes de ser compilados. Esto es bueno para procesar 
      por adelantado sus templates y remover comentarios no deseados, 
      vigilando a las personas que coloquen en sus templates, etc.  
+   </para>
+   <para>
      Los Prefilters pueden ser 
      <link linkend="api.register.prefilter">registrado</link>
      o cargado del directorio de plugins usando la función
      <link linkend="api.load.filter">load_filter()</link> o por la
      configuración de la variable
      <link linkend="variable.autoload.filters">$autoload_filters</link>.
+   </para>
+   <para>
      El Smarty pasara el código fuente del template como el primer argumento, 
      y espera que la función le retorne el código fuente del template 
      resultante.
@@ -32,11 +36,11 @@ function remove_dw_comments($tpl_source, &$smarty)
 $smarty->register_prefilter("remove_dw_comments");
 $smarty->display("index.tpl");
 ?>
-
-{* Smarty template index.tpl *}
-<!--# esta linea será eliminada por el prefilter -->
 ]]>
 </programlisting>
+  <para>
+       Esto eliminara todos los comentarios en el codigo del template.
+   </para>
     </example>
 </sect1>
 <!-- Keep this comment at the end of the file

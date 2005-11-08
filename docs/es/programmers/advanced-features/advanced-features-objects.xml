@@ -4,21 +4,24 @@
     <title>Objetos</title>
     <para>
       El Smarty permite acceso a objetos de PHP a través de sus templates.
-  Hay dos formas de accesarlos. Una forma es registrando objetos para el 
-  template, entonces acceselos mediante sintaxis similar a las funciones
-  habituales. La otra es asignar objetos al template y accesarlos como si 
-  fueran una variable asignada. El primer método tiene una sintaxis de 
-  template mucho mas agradable. Y también mas segura, a medida que un 
-  objeto registrado puede ser reescrito a ciertos métodos y propiedades.
-  Sin embargo tanto, un objeto registrado no puede ser puesto en loop o 
-  ser asignado en arreglos de objetos, etc. El método que usted escoja 
-  sera determinado por sus necesidades, pero utilice el primero método si 
-  es posible para mantener un minimo de sintaxis en el template.
+      Hay dos formas de accesarlos. Una forma es 
+      <link linkend="api.register.object">registrando objetos</link> para el 
+      template, entonces acceselos mediante sintaxis similar a las funciones
+      habituales. La otra es <link linkend="api.assign">asignar objetos</link> al 
+      template y accesarlos como si fueran una variable asignada. El primer método 
+      tiene una sintaxis de template mucho mas agradable. Y también mas segura, a 
+      medida que un objeto registrado puede ser reescrito a ciertos métodos y 
+      propiedades. Sin embargo tanto, <emphasis role="bold">un objeto registrado 
+       no puede ser puesto en loop o ser asignado en arreglos de objetos</emphasis>, 
+      etc. El método que usted escoja sera determinado por sus necesidades, pero 
+      utilice el primero método si es posible para mantener un minimo de sintaxis 
+      en el template.
     </para>
 	<para>
-    Si la seguridad esta habilitada, ninguno de los dos métodos privados o
-  funciones pueden ser accesados (comenzando con "_"). Si un metodo y 
-  propiedades de un mismo nombre existe, el método será usado.
+  Si <link linkend="variable.security">$security</link> esta habilitada, 
+  ninguno de los dos métodos privados o funciones pueden ser accesados 
+  (comenzando con "_"). Si un metodo y propiedades de un mismo nombre existe, 
+  el método será usado.
 	</para>
 	<para>
   Usted puede restringir los métodos y propiedades que pueden ser accesados 
@@ -26,12 +29,12 @@
 	</para>
 	<para>
   Por default, los parámetros pasados a los objetos a a través de los 
-  templates son pasados de la misma forma en que las funciones de 
-  costumbre los obtienen. Un arreglo asociativo es pasado como el primer 
-  parámetro, y el objeto smarty como el segundo. Si usted quiere que los 
-  parámetros pasados uno de cada vez por cada argumento pasen como 
-  parámetros de un objeto tradicional, defina el cuarto parámetro de 
-  registro en falso.
+  templates son pasados de la misma forma en que las 
+  <link linkend="language.custom.functions">funciones de costumbre</link> 
+  los obtienen. Un arreglo asociativo es pasado como el primer parámetro, 
+  y el objeto smarty como el segundo. Si usted quiere que los parámetros 
+  pasados uno de cada vez por cada argumento pasen como parámetros de un 
+  objeto tradicional, defina el cuarto parámetro de registro en falso.
 	</para>
 	<para>
   El quinto parámetro opcional solo tiene efecto con
@@ -41,47 +44,48 @@
   etiqueta de cierre en el template 
   (<literal>{foobar->meth2}...{/foobar->meth2}</literal>) y
   los parámetros para los métodos tienen la misma sinopsis como 
-  los parámetros de block-function-plugins: Ellos reciben 4 
-  parámetros <parameter>$params</parameter>,
-  <parameter>$content</parameter>,<parameter>&amp;$smarty</parameter>
-  y <parameter>&amp;$repeat</parameter> también se comportan como
+  los parámetros de <link
+   linkend="plugins.block.functions">block-function-plugins</link>: 
+  Ellos reciben 4 parámetros 
+  <parameter>$params</parameter>,
+  <parameter>$content</parameter>,
+  <parameter>&amp;$smarty</parameter> y 
+  <parameter>&amp;$repeat</parameter> también se comportan como
   block-function-plugins.
 	</para>
     <example>
      <title>usando un objeto registrado o atribuido</title>
-<programlisting role="php">
+  <programlisting role="php">
 <![CDATA[
 <?php
-// El objeto
+// el objeto
 
 class My_Object {
-	function meth1($params, &$smarty_obj) {
-		return "this is my meth1";
-	}
+ function meth1($params, &$smarty_obj) {
+  return "this is my meth1";
+ }
 }
 
 $myobj = new My_Object;
-
 // registrando el objeto (será por referencia)
 $smarty->register_object("foobar",$myobj);
-
-// Si usted quiere restringir acceso a ciertos metodos o propriedades,
-// listelos
+// Si usted quiere restringir acceso a ciertos metodos o propriedades, listelos
 $smarty->register_object("foobar",$myobj,array('meth1','meth2','prop1'));
-
-// Si usted quiere usar el formato de par&aacute;metro del objeto tradicional,
-// pase un booleano en false
+// Si usted quiere usar el formato de parámetro del objeto tradicional, pase un booleano en false
 $smarty->register_object("foobar",$myobj,null,false);
 
-// tambi&eacute;n puede asignar ojetos. Posible cuando se asignan por
-// referencia.
+// también puede asignar ojetos. Posible cuando se asignan por referencia.
 $smarty->assign_by_ref("myobj", $myobj);
 
 $smarty->display("index.tpl");
 ?>
-
-TEMPLATE:
-
+]]>
+  </programlisting>
+  <para>
+   y como debera accesar a su objeto en index.tpl
+  </para>
+  <programlisting>
+<![CDATA[
 {* accesando a nuestro objeto registrado *}
 {foobar->meth1 p1="foo" p2=$bar}
 
@@ -92,8 +96,8 @@ the output was {$output}
 {* accesando a nuestro objeto asignado *}
 {$myobj->meth1("foo",$bar)}
 ]]>
-</programlisting>
-    </example>
+  </programlisting>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

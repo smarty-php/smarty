@@ -8,8 +8,10 @@
   las variables de archivos de configuración de la llamada actual del 
   template. Incluso un template llamado "debug.tpl" viene con la 
   distribución de Smarty el cual controla el formateo de la consola.
-  Defina $debugging en true en el Smarty, y si es necesario defina 
-  $debug_tpl para la ruta del recurso debug.tpl (Esto es SMARTY_DIR por
+  Defina <link linkend="variable.debugging">$debugging</link> en true en 
+  el Smarty, y si es necesario defina 
+  <link linkend="variable.debug.tpl">$debug_tpl</link> para la ruta 
+  del recurso debug.tpl (Esto es SMARTY_DIR por
   default). Cuando usted carga una pagina, una consola en javascript 
   abrira una ventana popup y dara a usted el nombre de todos los templates 
   incluidos y las variables definidas en la pagina actual. Para ver las 
@@ -23,8 +25,10 @@
  <note>
   <title>Nota Técnica</title>
   <para>
-   La consola de debug no funciona cuando usted usa la API fetch(), solo 
-   cuando estuviera usando display(). Es un conjunto de comandos javascript 
+   La consola de debug no funciona cuando usted usa la API <link
+   linkend="api.fetch">fetch()</link>, solo cuando estuviera usando  
+   <link linkend="api.display">display()</link>. 
+   Es un conjunto de comandos javascript 
    adicionados al final del template generado. Si a usted no le gusta el 
    javascript, usted puede editar el template debug.tpl para formatear la 
    salida como usted quiera. Los datos del debug no son guardados en cache 
@@ -37,6 +41,13 @@
    son en segundos, o en fracciones de segundo.
   </para>
  </note>
+    <para>
+    Vea también 
+    <link linkend="troubleshooting">troubleshooting</link>,
+    <link linkend="variable.error.reporting">$error_reporting</link>
+    y <link linkend="api.trigger.error">trigger_error()</link>.
+   </para>
+
 </chapter>
 
 <!-- Keep this comment at the end of the file

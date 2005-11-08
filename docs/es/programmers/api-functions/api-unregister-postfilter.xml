@@ -2,18 +2,21 @@
 <!-- $Revision$ -->
 <refentry id="api.unregister.postfilter">
  <refnamediv>
-  <refname>unregister_postfilter</refname>
-  <refpurpose></refpurpose>
+  <refname>unregister_postfilter()</refname>
+  <refpurpose>Des-registra dinamicamente un postfiltro</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción </title>
   <methodsynopsis>
    <type>void</type><methodname>unregister_postfilter</methodname>
    <methodparam><type>string</type><parameter>function_name</parameter></methodparam>
   </methodsynopsis>
-  <para>
-   Use esto para des-registrar dinámicamente un postfiltro.
-  </para>
+    <para>
+    Ver también 
+    <link linkend="api.unregister.postfilter">register_postfilter()</link>
+    y <link linkend="plugins.prefilters.postfilters">template post filters</link>.
+</para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 		<sect1 id="language.function.eval">
-			<title>eval</title>
+   <title>{eval}</title>
             <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" align="center" />
@@ -37,7 +37,7 @@
                 </tgroup>
             </informaltable>
 			<para>
-   eval es usado para evaluar una variable como de template. Esto puede 
+    {eval} es usado para evaluar una variable como de template. Esto puede 
    ser usado para cosas como incrustar tags(etiquetas)/variables del 
    template dentro de las variables o tags(etiquetas)/variables dentro 
    de las variables de un archivo de configuración.
@@ -60,43 +60,51 @@
 			<para>
    Las variables evaluadas son compiladas en cada invocación, las
    vesiones compiladas no son salvas. Sin embargo, si usted tiene 
-   activado el cache, la salida se va a fijar en la cache junto con 
-   el resto del template.
+   activado el cache, la salida se va a fijar en la  
+   <link linkend="caching">cache</link> junto con el resto del template.
 			</para>
 			</note>
 <example>
-<title>eval</title>
-<programlisting>
-setup.conf
-----------
+ <title>{eval}</title>
+  <programlisting>
+<![CDATA[
+   setup.conf
+   ----------
 
-emphstart = &lt;b&gt;
-emphend = &lt;/b&gt;
-title = Welcome to {$company}'s home page!
-ErrorCity = You must supply a {#emphstart#}city{#emphend#}.
-ErrorState = You must supply a {#emphstart#}state{#emphend#}.
+   emphstart = <strong>
+   emphend = </strong>
+   title = Welcome to {$company}'s home page!
+   ErrorCity = You must supply a {#emphstart#}city{#emphend#}.
+   ErrorState = You must supply a {#emphstart#}state{#emphend#}.
+]]>
+  </programlisting>
+  <para>
+   Where index.tpl is:
+  </para>
+  <programlisting>
+<![CDATA[
+   {config_load file="setup.conf"}
 
+   {eval var=$foo}
+   {eval var=#title#}
+   {eval var=#ErrorCity#}
+   {eval var=#ErrorState# assign="state_error"}
+   {$state_error}
+]]>
+  </programlisting>
+  <para>
+   La salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
+   This is the contents of foo.
+   Welcome to Foobar Pub & Grill's home page!
+   You must supply a <strong>city</strong>.
+   You must supply a <strong>state</strong>.
 
-index.tpl
----------
-
-{config_load file="setup.conf"}
-
-{eval var=$foo}
-{eval var=#title#}
-{eval var=#ErrorCity#}
-{eval var=#ErrorState# assign="state_error"}
-{$state_error}
-
-SALIDA:
-
-This is the contents of foo.
-Welcome to Foobar Pub &amp; Grill's home page!
-You must supply a &lt;b&gt;city&lt;/b&gt;.
-You must supply a &lt;b&gt;state&lt;/b&gt;.
-
-</programlisting>
-</example>
+]]>
+  </screen>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

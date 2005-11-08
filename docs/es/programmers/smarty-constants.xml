@@ -9,22 +9,66 @@
      Esta debe ser la ruta completa del path para la localización 
      de los archivos de clases de Smarty. Si esta no fuera definida, 
      Entonces Smarty intentara determinar el valor apropiado 
-     automáticamente. Si es definido, el path debe finalizar con una 
-     diagonal.
+     automáticamente. Si es definido, el path <emphasis role="bold">
+      debe finalizar con una diagonal</emphasis>.
     </para>
     <example>
      <title>SMARTY_DIR</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-// determinando la ruta del directorio Smarty 
-define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
+// set path to Smarty directory *nix style
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/libs/');
 
-require_once(SMARTY_DIR."Smarty.class.php");
+// path to Smarty windows style
+define('SMARTY_DIR','c:/webroot/libs/Smarty/libs/');
+
+// hack (not recommended) that works on both *nix and wind
+// Smarty is assumend to be in 'includes' dir under script
+define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
+
+// include the smarty class Note 'S' is upper case
+require_once(SMARTY_DIR.'Smarty.class.php');
 ?>
 ]]>
      </programlisting>
     </example>
+  <para>
+  Ver también 
+  <link linkend="language.variables.smarty.const">$smarty.const</link>
+  y
+  <link
+  linkend="variable.php.handling">$php_handling constants</link>
+  </para>
+   </sect1>
+<sect1 id="constant.smarty.core.dir">
+    <title>SMARTY_CORE_DIR</title>
+    <para>
+     Esta debe ser la ruta completa de localización del sistema de archivos 
+     de Smarty core. Si no es definido, Smarty tomara por default esta constante de 
+     <emphasis>libs/</emphasis>
+     bajo el sub-directory <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
+     Si es definida, la ruta debe terminar con una diagonal.
+     Use esta constante cuando necesite incluir manualmente algun archivo de core.*
+    </para>
+    <example>
+     <title>SMARTY_CORE_DIR</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
+
+// load core.get_microtime.php
+require_once(SMARTY_CORE_DIR.'core.get_microtime.php');
+
+?>
+]]>
+     </programlisting>
+    </example>
+
+    <para>
+    Ver también 
+    <link linkend="language.variables.smarty.const">$smarty.const</link>
+    </para>
    </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file

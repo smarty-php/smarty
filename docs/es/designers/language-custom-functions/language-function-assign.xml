@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 		<sect1 id="language.function.assign">
-			<title>assign</title>
+   <title>{assign}</title>
             <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" align="center" />
@@ -37,20 +37,86 @@
                 </tgroup>
             </informaltable>
 			<para>
-   assign es usado para definir valores a las variables de template
-   durante la ejecución del template.
+    {assign} es usado para definir valores a las variables de template
+    <emphasis role="bold">durante la ejecución</emphasis> del template.
 			</para>
 <example>
-<title>assign</title>
-<programlisting>
+ <title>{assign}</title>
+  <programlisting>
+<![CDATA[
 {assign var="name" value="Bob"}
 
 The value of $name is {$name}.
+]]>
+  </programlisting>
+  <para>
+   Salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
+The value of $name is Bob.
+]]>
+  </screen>
+ </example>
 
-SALIDA:
+ <example>
+  <title>Accesando variables desde un script de PHP. {assign}</title>
+  <para>
+  Puedes accesar {assign} variables desde  php usando
+  <link linkend="api.get.template.vars">get_template_vars()</link>.
+  sin embargo, las variables solo estan disponibles despues/durante 
+  la ejecución del template como en el siguiente ejemplo
+  </para>
+<programlisting>
+<![CDATA[
+{* index.tpl *}
+{assign var="foo" value="Smarty"}
+]]>
+</programlisting>
+<programlisting role="php">
+<![CDATA[
+<?php
 
-The value of $name is Bob.</programlisting>
-</example>
+// this will output nothing as the template has not been executed
+echo $smarty->get_template_vars('foo');
+
+// fetch the template to a dead variable
+$dead = $smarty->fetch('index.tpl');
+
+// this will output 'smarty' as the template has been executed
+echo $smarty->get_template_vars('foo');
+
+$smarty->assign('foo','Even smarter');
+
+// this will output 'Even smarter'
+echo $smarty->get_template_vars('foo');
+
+?>
+]]>
+</programlisting>
+ </example>
+
+ <para>
+ La siguiente función <emphasis>optionally</emphasis> también puede asignar variables al template.
+  </para>
+
+ <para>
+  <link linkend="language.function.capture">{capture}</link>,
+  <link linkend="language.function.include">{include}</link>,
+  <link linkend="language.function.include.php">{include_php}</link>,
+  <link linkend="language.function.insert">{insert}</link>,
+  <link linkend="language.function.counter">{counter}</link>,
+  <link linkend="language.function.cycle">{cycle}</link>,
+  <link linkend="language.function.eval">{eval}</link>,
+  <link linkend="language.function.fetch">{fetch}</link>,
+  <link linkend="language.function.math">{math}</link>,
+  <link linkend="language.function.textformat">{textformat}</link>
+ </para>
+
+ <para>
+ Ver también <link linkend="api.assign">assign()</link>
+ y <link linkend="api.get.template.vars">get_template_vars()</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

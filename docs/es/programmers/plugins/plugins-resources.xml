@@ -3,9 +3,8 @@
    <sect1 id="plugins.resources"><title>Fuentes</title>
     <para>
      Las fuentes de los plugins son como una forma generica de suministrar
-     código fuente de template o componentes de script PHP al Smarty. 
-     Algunos ejemplos de fuentes: base de datos, LDAP, memoria compartida, 
-     sockets, etc.
+     código fuente de template o componentes de script PHP al Smarty. Algunos 
+     ejemplos de fuentes: base de datos, LDAP, memoria compartida, sockets, etc.
     </para>
 
     <para>
@@ -41,12 +40,11 @@
     </funcsynopsis>
 
     <para>
-     La primera función debe devolver el recurso.
-     Su segundo parámetro es una variable pasada por referencia donde
-     el resultado debe ser almacenado.
-     La función debe retornar <literal>true</literal> si esta pudo 
-     recuperar satisfactoriamente el recurso y en caso contrario
-     retornara  <literal>false</literal>.
+     La primera función debe devolver el recurso. Su segundo parámetro 
+     es una variable pasada por referencia donde el resultado debe ser 
+     almacenado. La función debe retornar <literal>true</literal> si 
+     esta pudo recuperar satisfactoriamente el recurso y en caso contrario
+     retornara <literal>false</literal>.
     </para>
 
     <para>

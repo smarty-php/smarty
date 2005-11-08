@@ -2,21 +2,20 @@
 <!-- $Revision$ -->
 <refentry id="api.unregister.modifier">
  <refnamediv>
-  <refname>unregister_modifier</refname>
-  <refpurpose></refpurpose>
+  <refname>unregister_modifier()</refname>
+  <refpurpose>des-registrar dinámicamente un modificador de plugin</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción </title>
   <methodsynopsis>
    <type>void</type><methodname>unregister_modifier</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Use este para des-registrar dinámicamente un modificador de plugin.
    Pase en el template el nombre del modificador.
   </para>
   <example>
-   <title>unregister_modifier</title>
+   <title>unregister_modifier()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -28,6 +27,11 @@ $smarty->unregister_modifier("strip_tags");
 ]]>
    </programlisting>
   </example>
+   <para>
+    Ver también <link linkend="api.register.modifier">register_modifier()</link>
+    y <link linkend="plugins.modifiers">Plugin modifiers</link>,
+   </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

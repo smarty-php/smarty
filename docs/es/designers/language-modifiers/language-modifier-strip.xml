@@ -10,7 +10,7 @@
    <title>Nota</title>
    <para>
     Si usted quiere substituir bloques de texto de un template use la
-    función <link linkend="language.function.strip">strip</link>.
+    función <link linkend="language.function.strip">{strip}</link>.
    </para>
   </note>
   <example>

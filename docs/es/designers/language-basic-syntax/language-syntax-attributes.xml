@@ -3,7 +3,8 @@
 <sect1 id="language.syntax.attributes">
  <title>Atributos</title>
  <para>
-  La mayoria de las funciones llevan atributos que especifican o 
+  La mayoria de las <link linkend="language.syntax.functions">funciones</link> 
+  llevan atributos que especifican o 
   cambian su funcionamiento. Los atributos para las funciones de 
   Smarty son muy parecidos a los atributos de HTML. Los valores 
   estaticos no necesitan estar entre comillas, pero si es recomendado 
@@ -23,14 +24,16 @@
 <![CDATA[
 {include file="header.tpl"}
 
+{include file="header.tpl" attrib_name="attrib value"}
+
 {include file=$includeFile}
 
-{include file=#includeFile#}
+{include file=#includeFile# title="Smarty is cool"}
 
 {html_select_date display_days=yes}
 
 <select name="company">
-{html_options values=$vals selected=$selected output=$output}
+  {html_options options=$choices selected=$selected}
 </select>
 ]]>
   </programlisting>

@@ -3,11 +3,12 @@
     <sect1 id="variable.config.dir">
       <title>$config_dir</title>
       <para>
-       Este es el directorio usado para almacenar archivos de
-       configuración usados en los templates. 
-       El default es "./configs", esto significa que lo buscara 
-       en el directorio de templates en el mismo directorio que 
-       esta ejecutando el script php.
+       Este es el directorio usado para almacenar 
+       <link linkend="config.files">archivos de configuración</link> 
+       usados en los templates. 
+       El default es <filename class="directory">"./configs"</filename>, 
+       esto significa que lo buscara en el directorio de templates en 
+       el mismo directorio que esta ejecutando el script php.
       </para>
 	 <note>
 	 <title>Nota Técnica</title>

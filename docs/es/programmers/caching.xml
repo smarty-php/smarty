@@ -10,7 +10,9 @@
    para la llamada, este es mostrado en vez de regresar la salida 
    de datos. Caching puede hacer cosas tremendamente rápidas,
    especialmente templates con largo tiempo de computo.
-   Desde la salida de datos de display() o fetch() está en
+   Desde la salida de datos de 
+   <link linkend="api.display">display()</link> o
+   <link linkend="api.fetch">fetch()</link> está en
    cache, un archivo de cache podría ser compuesto por diversos 
    archivos de templates, archivos de configuración, etc.
    </para>

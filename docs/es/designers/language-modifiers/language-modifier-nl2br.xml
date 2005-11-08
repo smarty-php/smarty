@@ -3,8 +3,9 @@
  <sect1 id="language.modifier.nl2br">
   <title>nl2br</title>
   <para>
-   Todos los saltos de linea seran convertidos a etiquetas &lt;br /&gt; como
-   datos de la variable. Esto equivale a la función nl2br() de PHP.
+   Todos los saltos de linea seran convertidos a etiquetas &lt;br /&gt; 
+   como datos de la variable. Esto equivale a la función  
+   <ulink url="&url.php-manual;nl2br">nl2br()</ulink> de PHP.
   </para>
   <example>
    <title>nl2br</title>
@@ -12,15 +13,15 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
-$smarty->assign('articleTitle', "Sun or rain expected\ntoday, dark tonight");
-$smarty->display('index.tpl');
+$smarty->assign('articleTitle',
+                "Sun or rain expected\ntoday, dark tonight"
+                );
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Donde index.tpl es:
+    Donde el template es:
    </para>
    <programlisting>
 <![CDATA[
@@ -28,7 +29,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Esta es la Salida:
+    esta debe ser la salida:
    </para>
    <screen>
 <![CDATA[
@@ -36,7 +37,12 @@ Sun or rain expected<br />today, dark tonight
 ]]>
    </screen>
   </example>
-</sect1>
+  <para>
+   Ver también <link linkend="language.modifier.wordwrap">word_wrap</link>,
+   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>
+   y <link linkend="language.modifier.count.sentences">count_sentences</link>.
+  </para>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

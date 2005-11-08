@@ -7,25 +7,34 @@
   los delimitadores, así: {* este es un comentario *}.
   Los comentarios en Smarty no son mostrados en la salida final del
   template. 
+ semejantes a  &lt;!-- HTML comments --&gt;
   Estos son usados para hacer notas internas dentro del template.
  </para>
  <example>
   <title>Comentarios</title>
   <programlisting>
 <![CDATA[
-{* Smarty *}
+<body>
+{* this multiline
+    comment is
+   not sent to browser
+*}
 
 {* include the header file here *}
 {include file="header.tpl"}
 
+
+{* Dev note:  $includeFile is assigned foo.php script  *}
+<!-- this html comment is sent to browser -->
 {include file=$includeFile}
 
 {include file=#includeFile#}
 
 {* display dropdown lists *}
 <select name="company">
-{html_options values=$vals selected=$selected output=$output}
+  {html_options options=$vals selected=$selected_id}
 </select>
+</body>
 ]]>
   </programlisting>
  </example>

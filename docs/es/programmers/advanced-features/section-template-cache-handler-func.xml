@@ -3,10 +3,9 @@
   <sect1 id="section.template.cache.handler.func">
    <title>Función manipuladora de cache</title>
    <para>
-    Como una alternativa al uso del mecanismo de caching por default 
-    basado en archivo, usted puede especificar una función habitual 
-    de manipulación de cache que será usada para leer, escribir y 
-    limpar archivos de cache.
+    Como una alternativa al uso del mecanismo de caching por default basado 
+    en archivo, usted puede especificar una función habitual de manipulación 
+    de cache que será usada para leer, escribir y limpar archivos de cache.
    </para>
    <para>
     Cree una función en su aplicación para que Smarty la use como un
@@ -83,9 +82,9 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 			
 			if($use_gzip && function_exists("gzuncompress")) {
-				$cache_contents = gzuncompress($row["CacheContents"]);
+				$cache_content = gzuncompress($row["CacheContents"]);
 			} else {
-				$cache_contents = $row["CacheContents"];
+				$cache_content = $row["CacheContents"];
 			}
 			$return = $results;
 			break;

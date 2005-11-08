@@ -9,20 +9,52 @@
       riesgos de comportamiento de seguridad del sistema a través del 
       lenguaje del template. Al habilitar la seguridad forza las siguientes 
       reglas del lenguaje del template, a menos que especifique control con 
-      $security_settings:
+      <link linkend="variable.security.settings">$security_settings</link>:
       </para>
       <itemizedlist>
-       <listitem><para>Si $php_handling está asignado a SMARTY_PHP_ALLOW, 
-       este es implicitamente cambiado a SMARTY_PHP_PASSTHRU</para></listitem>
-       <listitem><para>Las funciones PHP no son permitidas en sentencias IF,
-       excepto quellas que esten especificadas en $security_settings</para></listitem>
-       <listitem><para>Los templates solo pueden ser incluidos en el
-       directorio listado en $secure_dir array</para></listitem>
-       <listitem><para>Los archivos locales solamente pueden ser traidos del
-       directorio listado en $secure_dir usando el arreglo {fetch}</para></listitem>
-       <listitem><para>Estas etiquetas {php}{/php} no son permitidas</para></listitem>
-       <listitem><para>Las funciones PHP no son permitidas como modificadores,
-       excepto si estan especificados en el $security_settings</para></listitem>
+         <listitem>
+          <para>
+           Si <link linkend="variable.php.handling">$php_handling</link> está 
+           asignado a SMARTY_PHP_ALLOW, este es implicitamente cambiado a 
+           SMARTY_PHP_PASSTHRU
+          </para>
+         </listitem>
+         <listitem>
+          <para>
+           Las funciones PHP no son permitidas en sentencias  
+           <link linkend="language.function.if">{if}</link>,
+           excepto quellas que esten especificadas en 
+           <link linkend="variable.security.settings">$security_settings</link>
+          </para>
+         </listitem>
+         <listitem>
+          <para>
+          Los templates solo pueden ser incluidos en el
+          directorio listado en arreglo 
+          <link linkend="variable.secure.dir">$secure_dir</link>
+          </para>
+         </listitem>
+         <listitem>
+          <para>
+          Los archivos locales solamente pueden ser traidos del
+          directorio listado en 
+          <link linkend="variable.secure.dir">$secure_dir</link> usando 
+          el arreglo <link linkend="language.function.fetch">{fetch}</link>
+          </para>
+         </listitem>
+         <listitem>
+          <para>
+           Estas etiquetas 
+           <link linkend="language.function.php">{php}{/php}</link> no son permitidas
+          </para>
+         </listitem>
+         <listitem>
+          <para>
+          Las funciones PHP no son permitidas como modificadores,
+          excepto si estan especificados en el 
+          <link linkend="variable.security.settings">$security_settings</link>
+          </para>
+         </listitem>
       </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file

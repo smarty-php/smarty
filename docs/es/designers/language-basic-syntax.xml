@@ -5,7 +5,8 @@
  <para>
    Todas las etiquetas del template deben estar marcadas por delimitadores.
    Por default , estos delimitadores son <literal>{</literal>
-   y <literal>}</literal>, sino estos pueden cambiar.
+   y <literal>}</literal>, sino estos pueden 
+   <link linkend="variable.left.delimiter">cambiar</link>.
  </para>
  <para>
    Para estos ejemplos, nosotros asumiremos que usted está usando los
@@ -16,6 +17,7 @@
  </para>
 
  &designers.language-basic-syntax.language-syntax-comments;
+ &designers.language-basic-syntax.language-syntax-variables;
  &designers.language-basic-syntax.language-syntax-functions;
  &designers.language-basic-syntax.language-syntax-attributes;
  &designers.language-basic-syntax.language-syntax-quotes;

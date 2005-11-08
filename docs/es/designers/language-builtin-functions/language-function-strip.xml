@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 		<sect1 id="language.function.strip">
-			<title>strip</title>
+   <title>{strip}</title>
 			<para>
    Muchas veces el diseñador de web tiene problemas con los espacios en
    blanco y retornos de carro que afectan la salida del HTML 
@@ -20,33 +20,36 @@
 			<title>Nota Técnica</title>
 			<para>
     {strip}{/strip} no afeta el contenido de las variables del template.
-    Vea <link linkend="language.modifier.strip">strip modifier function</link>.
+    Vea la función <link linkend="language.modifier.strip">strip modifier</link>.
 			</para>
 			</note>
 <example>
-<title>strip tags</title>
-<programlisting>
+ <title>{strip} tags</title>
+  <programlisting>
 <![CDATA[
 {* El siguiente código se ejecutara todo junto en una sola linea de salida *}
 {strip}
-<table border=0>
-	<tr>
-		<td>
-			<A HREF="{$url}">
-			<font color="red">This is a test</font>
-			</A>
-		</td>
-	</tr>
+<table border='0'>
+ <tr>
+  <td>
+   <A HREF="{$url}">
+    <font color="red">This is a test</font>
+   </A>
+  </td>
+ </tr>
 </table>
 {/strip}
-
-
-SALIDA:
-
-<table border=0><tr><td><A HREF="http://my.domain.com"><font color="red">This is a test</font></A></td></tr></table>
 ]]>
-</programlisting>
-</example>
+  </programlisting>
+  <para>
+   salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
+<table border=0><tr><td><A HREF="http://w... snipped...</td></tr></table>
+]]>
+  </screen>
+ </example>
 		<para>
   Note que en el ejemplo de arriba, todas las lineas comienzan y termina 
   con etiquetas HTML. Tenga cuidado en que todas las lineas corran 
@@ -54,6 +57,9 @@ SALIDA:
   o en el final de una linea, este estaria junto, y puede no ser el 
   resultado deseado.
 		</para>
+   <para>
+     Vea También <link linkend="language.modifier.strip">strip modifier</link>
+   </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file

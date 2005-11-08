@@ -11,8 +11,9 @@
     usted defíne a una variable vacia en vez de imprimir nada, tal 
     como imprimir "&amp;nbsp;" a fin de que el plano del fondo de 
     la tabla funcione correctamente. Muchos usarian una sentencia 
-    {if} para manejar esto, mas existe otra forma con Smarty, usando 
-    el modificador de la variable <emphasis>default</emphasis>.
+    <link linkend="language.function.if">{if}</link> para manejar esto, 
+    mas existe otra forma con Smarty, usando el modificador de la variable 
+    <link linkend="language.modifier.default"><emphasis>default</emphasis></link>.
    </para>
    <example>
     <title>Imprimiendo &amp;nbsp; cuando una variable esta vacia</title>
@@ -33,6 +34,10 @@
 ]]>
     </programlisting>
    </example>
+   <para>
+     Ver tambien <link linkend="language.modifier.default">default</link>
+     y <link linkend="tips.default.var.handling">Default Variable Handling</link>.
+   </para>
   </sect1>
 
   <sect1 id="tips.default.var.handling">
@@ -43,7 +48,7 @@
     mencionado puede evitar un bit desagradable. Usted puede 
     remediar esto con la atribución de un valor por default a 
     la variable con la función 
-    <link linkend="language.function.assign">assign</link>.
+    <link linkend="language.function.assign">{assign}</link>.
    </para>
    <example>
     <title>Atribuyendo el valor por default a una variable en el template</title>
@@ -58,62 +63,79 @@ usted lo exiba *}
 ]]>
     </programlisting>
    </example>
+   <para>
+    Vea tambiéen <link linkend="language.modifier.default">default</link> y
+    <link linkend="tips.blank.var.handling">Blank Variable Handling</link>.
+   </para>
+
   </sect1>
   <sect1 id="tips.passing.vars">
    <title>Pasando la variable titulo a la cabecera del template</title>
    <para>
     Cuando la mayoria de sus templates usan los mismo encabezados y 
     los mismos pies de pagina, es común dividirlos uno en cada template 
-    y entonces incluirlos. Que pasara si el encabezado necesita tener 
-    un titulo diferente, dependiendo de que pagina estas viniendo?  
-    usted puede pasar el titulo en el encabezado cuando este es incluido.
+    y entonces incluirlos <link linkend="language.function.include">{include}</link>. 
+    Que pasara si el encabezado necesita tener un titulo diferente, 
+    dependiendo de que pagina estas viniendo? usted puede pasar el 
+    titulo en el encabezado cuando este es incluido.
    </para>
    <example>
     <title>Pasando la variable titulo al encabezado del template</title>
+    <para>
+    <filename>mainpage.tpl</filename>
+    </para>
     <programlisting>
 <![CDATA[
-mainpage.tpl
-------------
 
 {include file="header.tpl" title="Main Page"}
-{* El cuerpo del template viene aquí *}
+{* template body goes here *}
 {include file="footer.tpl"}
-
-
-archives.tpl
-------------
+]]>
+    </programlisting>
+    <para>
+    <filename>archives.tpl</filename>
+    </para>
+    <programlisting>
+<![CDATA[
 
 {config_load file="archive_page.conf"}
 {include file="header.tpl" title=#archivePageTitle#}
-{* El cuerpo del template viene aquí *}
+{* template body goes here *}
 {include file="footer.tpl"}
-
-
-header.tpl
-----------
-<HTML>
-<HEAD>
-<TITLE>{$title|default:"BC News"}</TITLE>
-</HEAD>
-<BODY>
-
-
-footer.tpl
-----------
-</BODY>
-</HTML>
+]]>
+    </programlisting>
+    <para>
+    <filename>header.tpl</filename>
+    </para>
+    <programlisting>
+<![CDATA[
+<html>
+<head>
+<title>{$title|default:"BC News"}</title>
+</head>
+<body>
+]]>
+    </programlisting>
+    <para>
+    <filename>footer.tpl</filename>
+    </para>
+    <programlisting>
+<![CDATA[
+</body>
+</html>
 ]]>
     </programlisting>
    </example>
    <para>
    Cuando la pagina principal es mostrada, el titulo de la "Página 
-   Principal" es pasado al template header.tpl, y será posteriormente 
-   usado como el titulo. Cuando la pagina de archivo es mostrada, el 
-   titulo sera "Archivos". Observelo en el ejemplo de archivo, nosotros 
-   estamos usando una variable del archivo archives_page.conf en vez de 
-   una variable codificada rigida. Tambien note que "BC news" es mostrada 
-   si la variable $titulo no esta definida, usando el modificador de la 
-   variable <emphasis>default</emphasis>.
+   Principal" es pasado al template <filename>header.tpl</filename>, 
+   y será posteriormente usado como el titulo. Cuando la pagina de archivo 
+   es mostrada, el titulo sera "Archivos". Observelo en el ejemplo de archivo, 
+   nosotros estamos usando una variable del archivo 
+   <filename>archives_page.conf</filename> en vez de una variable codificada 
+   rigida. Tambien note que "BC news" es mostrada si la variable $titulo no 
+   esta definida, usando el modificador de la variable 
+   <link linkend="language.modifier.default">default</link>.
    </para>
   </sect1>
   <sect1 id="tips.dates">
@@ -129,7 +151,7 @@ footer.tpl
     <para>
      En el Smarty 1.4.0, usted puede parsar fechas al Smarty como 
      timestamps unix,mysql, o cualquier otra fecha interpretable 
-     por strtotime().
+     por <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
     </para>
    </note>
    <example>
@@ -169,10 +191,10 @@ Jan 4, 2001
     </programlisting>
    </example>
    <para>
-    Cuando usa {html_select_date} en un template, el programador 
-    normalmente va a querer convertir la salida de un formulario 
-    de vuelta al formato timestamp. Aquí esta una función para 
-    ayudar con esto.
+    Cuando usa <link linkend="language.function.html.select.date">{html_select_date}</link> 
+    en un template, el programador normalmente va a querer convertir 
+    la salida de un formulario de vuelta al formato timestamp. Aquí 
+    esta una función para ayudar con esto.
    </para>
    <example>
     <title>Convirtiendo elementos en forma de fecha de vuelta a un timestamp</title>
@@ -202,18 +224,28 @@ function makeTimeStamp($year="", $month="", $day="")
 ]]>
     </programlisting>
    </example>
+   <para>
+   Vea también 
+   <link linkend="language.function.html.select.date">{html_select_date}</link>,
+   <link linkend="language.function.html.select.time">{html_select_time}</link>,
+   <link linkend="language.modifier.date.format">date_format</link>
+   y <link linkend="language.variables.smarty.now">$smarty.now</link>,
+   </para>
+
   </sect1>
   <sect1 id="tips.wap">
    <title>WAP/WML</title>
    <para>
-    Los templates WAP/WML requieren de un encabezado de Content-Type de 
+    Los templates WAP/WML requieren de un encabezado de 
+    <ulink url="&url.php-manual;header">Content-Type</ulink> de 
     PHP para ser pasado junto con el template. La forma mas fácil de 
     hacer esto seria escribir una función de manera habitual que imprima 
-    el encabezado. Si usted esta usando el sistema de cache, este no 
-    funcionara, entonces nosotros haremos esto usando una etiqueta de 
-    insert (recuerde que las etiquetas insert no son "cacheadas!").
-    Asegurarse que no exista ninguna salida al navegador antes del template, 
-    de otro modo el encabezado fallara.
+    el encabezado. Si usted esta usando el sistema de  
+    <link linkend="caching">cache</link>, este no funcionara, entonces 
+    nosotros haremos esto usando una etiqueta de 
+    <link linkend="language.function.insert">{insert}</link> (recuerde que 
+    las etiquetas insert no son "cacheadas!"). Asegurarse que no exista 
+    ninguna salida al navegador antes del template, de otro modo el encabezado fallara.
    </para>
    <example>
     <title>Usando insert para escribir un encabezado WML Content-Type</title>
@@ -273,12 +305,14 @@ Pretty easy isn't it?
   <sect1 id="tips.componentized.templates">
    <title>Templates con Componetes</title>
    <para>
-    Tradicionalmente, programar templates en sus aplicaciones sigue 
-    esta forma: Primero, usted acumula sus variables dentro de su 
+    Tradicionalmente, programar templates en sus aplicaciones es de  
+    la siguiente forma: Primero, usted acumula sus variables dentro de su 
     aplicación PHP, (talvez como requisiciones de una base de datos).
-    Entonces, usted instancia su objeto Smarty, atribuye valores a 
-    las variables y muestra el template. Por ejemplo nosotros tenemos 
-    un registrador de existencias en nuestro template. Nosotros 
+    Entonces, usted instancia su objeto Smarty 
+    <link linkend="api.assign">assign()</link>, atribuye valores a 
+    las variables y muestra el template 
+    <link linkend="api.display">display()</link>. Por ejemplo nosotros 
+    tenemos un registrador de existencias en nuestro template. Nosotros 
     recolectaremos los datos de las existencias en nuestra aplicación,
     entonces damos valor a estas variables en el template y lo mostramos.
     Ahora esto seria genial si usted adicionara este registrador de
@@ -292,11 +326,16 @@ Pretty easy isn't it?
    </para>
    <example>
     <title>Templates con Componetes</title>
+    <para>
+      <filename>function.load_ticker.php</filename> -
+      deja el archivo en 
+      <link linkend="variable.plugins.dir">$plugins directory</link>
+    </para>
     <programlisting role="php">
 <![CDATA[
 <?php
 
-// drop file "function.load_ticker.php" in plugin directory
+// deja el archivo "function.load_ticker.php" en el directorio de plugins
 
 // configura nuestra funci&oacute;n para traer los datos almacenados
 function fetch_ticker($symbol) 
@@ -317,19 +356,23 @@ function smarty_function_load_ticker($params, &$smarty)
 ?>
 ]]>
     </programlisting>
+    <para>
+          <filename>index.tpl</filename>
+    </para>
     <programlisting>
 <![CDATA[
-index.tpl
----------
-
-{* Smarty *}
-
 {load_ticker symbol="YHOO" assign="ticker"}
 
 Stock Name: {$ticker.name} Stock Price: {$ticker.price}
 ]]>
     </programlisting>
    </example>
+   <para>
+    Vea también <link linkend="language.function.include.php">{include_php}</link>,
+    <link linkend="language.function.include">{include}</link> y
+    <link linkend="language.function.php">{php}</link>.
+   </para>
+
   </sect1>
   <sect1 id="tips.obfuscating.email">
    <title>Ofuscando direcciones de E-mail</title>
@@ -340,14 +383,14 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     combatir este problema, usted puede hacer que su direccion de 
     E-mail aparesca en javascript mostrado en el codigo HTML, este 
     mismo aparecera y funcionara correctamente en el navegador. 
-    Esto se puede hacer con el plugin mailto.
+    Esto se puede hacer con el plugin  
+    <link linkend="language.function.mailto">{mailto}</link>.
    </para>
    <example>
     <title>Ejemplo de ofuscamiento de una direccion de E-mail</title>
     <programlisting>
 <![CDATA[
-index.tpl
----------
+{* in index.tpl *}
 
 Send inquiries to
 {mailto address=$EmailAddress encode="javascript" subject="Hello"}
@@ -362,6 +405,10 @@ Send inquiries to
      valores, mas no es muy común.
     </para>
    </note>
+   <para>
+    Vea también <link linkend="language.modifier.escape">escape</link>
+    y <link linkend="language.function.mailto">{mailto}</link>.
+   </para>
   </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file

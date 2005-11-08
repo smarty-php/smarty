@@ -2,29 +2,43 @@
 <!-- $Revision$ -->
 <refentry id="api.clear.all.assign">
  <refnamediv>
-  <refname>clear_all_assign</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_all_assign()</refname>
+  <refpurpose>>limpia el valor de todas las variables asignadas</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_all_assign</methodname>
    <void />
   </methodsynopsis>
-  <para>
-   Esto limpia el valor de todas las variables asignadas.
-  </para>
   <example>
-   <title>clear_all_assign</title>
+   <title>clear_all_assign()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
+// passing name/value pairs
+$smarty->assign('Name', 'Fred');
+$smarty->assign('Address', $address);
+
+// will output above
+print_r( $smarty->get_template_vars() );
+
 // clear all assigned variables
 $smarty->clear_all_assign();
+
+// will output nothing
+print_r( $smarty->get_template_vars() );
 ?>
 ]]>
    </programlisting>
   </example>
+    <para>
+    Ver también
+    <link linkend="api.clear.assign">clear_assign()</link>,
+    <link linkend="api.clear.config">clear_config()</link>,
+    <link linkend="api.assign">assign()</link>
+    y <link linkend="api.append">append()</link>
+    </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

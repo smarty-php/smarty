@@ -2,22 +2,22 @@
 <!-- $Revision$ -->
 <refentry id="api.get.config.vars">
  <refnamediv>
-  <refname>get_config_vars</refname>
-  <refpurpose></refpurpose>
+  <refname>get_config_vars()</refname>
+  <refpurpose>retorna el valor asignado a la variable de configuración</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción</title>
   <methodsynopsis>
    <type>array</type><methodname>get_config_vars</methodname>
    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Este retona el valor de la variable de configuración dado.
-   Si no tiene un parámetro dado, un arreglo de todas las variables
-   de los archivos de configuración es retornado.
+   Si no tiene un parámetro asignado, un arreglo de todas las  
+   <link linkend="language.config.variables">variables
+    de los archivos de configuración</link> es retornado.
   </para>
   <example>
-   <title>get_config_vars</title>
+   <title>get_config_vars()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -33,6 +33,14 @@ print_r($config_vars);
 ]]>
    </programlisting>
   </example>
+  <para>
+   Ver también
+  <link linkend="api.clear.config">clear_config()</link>,
+   <link linkend="language.function.config.load">{config_load}</link>,
+  <link linkend="api.config.load">config_load()</link>
+   y
+  <link linkend="api.get.template.vars">get_template_vars()</link>.
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

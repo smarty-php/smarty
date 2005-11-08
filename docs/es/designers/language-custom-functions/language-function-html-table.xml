@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 		<sect1 id="language.function.html.table">
-			<title>html_table</title>
+   <title>{html_table}</title>
             <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" align="center" />
@@ -31,13 +31,12 @@
                         <entry>integer</entry>
                         <entry>No</entry>
                         <entry><emphasis>3</emphasis></entry>
-                        <entry>Número de columnas para la tabla. Si el
-                        atributo cols esta vacio, los renglones seran determinados,
-                        entonces el numero de columnas sera calculado por el
-                        numero de renglones y el numero de elementos a mostrar
-                        para ser ajustado a las columnas de todos los
-                        elementos que seran mostrados, si ambos, renglones y
-                        columnas, son omitidos las columnas por default son 3.
+                        <entry>Número de columnas para la tabla. Si el atributo cols esta vacio, 
+                         los renglones seran determinados, entonces el numero de columnas 
+                         sera calculado por el numero de renglones y el numero de elementos a 
+                         mostrar para ser ajustado a las columnas de todos los elementos que seran 
+                         mostrados, si ambos, renglones y columnas, son omitidos las columnas por 
+                         default son 3.
                         </entry>
                     </row>
                     <row>
@@ -45,12 +44,10 @@
                     <entry>integer</entry>
                     <entry>No</entry>
                     <entry><emphasis>empty</emphasis></entry>
-                    <entry> Número de renglones en la tabla. Si el atributo
-                        rows es vacio, las columnas seran determinadas,
-                        entonces el numero de renglones sera calculado por el
-                        numero de columnas y el numero de elementos a mostrar 
-                        para ser ajustado el numero de renglones al total de
-                        elementos a ser mostrados.
+                    <entry> Número de renglones en la tabla. Si el atributo rows es vacio, 
+                     las columnas seran determinadas, entonces el numero de renglones sera 
+                     calculado por el numero de columnas y el numero de elementos a mostrar 
+                     para ser ajustado el numero de renglones al total de elementos a ser mostrados.
                     </entry>
                     </row>
                     <row>
@@ -58,12 +55,10 @@
                     <entry>string</entry>
                     <entry>No</entry>
                     <entry><emphasis>cols</emphasis></entry>
-                    <entry> Dirección consecutiva de los elementos en el
-                            arreglo para ser representados.
-                            <emphasis>cols</emphasis> manera en que los
-                            elementos son mostrados columna por columna. 
-                            <emphasis>rows</emphasis> manera en que los
-                            elementos son mostrados renglon por renglon.
+                    <entry> Dirección consecutiva de los elementos en el arreglo para ser representados.
+                     <emphasis>cols</emphasis> manera en que los elementos son mostrados columna 
+                     por columna.  <emphasis>rows</emphasis> manera en que los elementos son mostrados 
+                     renglon por renglon.
                     </entry>
                     </row>
                     <row>
@@ -101,10 +96,8 @@
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>right</emphasis></entry>
-                        <entry> dirección de una linea para ser representada.
-                          posibles valores: 
-                         <emphasis>left</emphasis> (left-to-right),
-                         <emphasis>right</emphasis> (right-to-left)
+                        <entry> dirección de una linea para ser representada.  posibles valores: 
+                         <emphasis>left</emphasis> (left-to-right), <emphasis>right</emphasis> (right-to-left)
                         </entry>
                     </row>
                     <row>
@@ -112,49 +105,55 @@
                         <entry>string</entry>
                         <entry>No</entry>
                         <entry><emphasis>down</emphasis></entry>
-                        <entry>Dirección de las columnas para ser representadas. 
-                               posibles valores:
-                              <emphasis>down</emphasis> (top-to-bottom),
-                              <emphasis>up</emphasis> (bottom-to-top)
+                        <entry>Dirección de las columnas para ser representadas.  posibles valores:
+                              <emphasis>down</emphasis> (top-to-bottom), <emphasis>up</emphasis> (bottom-to-top)
                         </entry>
                     </row>
                 </tbody>
                 </tgroup>
             </informaltable>
 			<para>
-   <emphasis>html_table</emphasis> Es una función customizada que 
-   transforma un arreglo de datos en una tabla HTML.
-   El atributo <emphasis>cols</emphasis> determina el número de 
-   columnas que tendra la tabla.
-   Los valores <emphasis>table_attr</emphasis>, 
-   <emphasis>tr_attr</emphasis> y <emphasis>td_attr</emphasis>
-   determinan los atributos dados para las etiquetas tabla, tr y td.
-   Si <emphasis>tr_attr</emphasis> o  <emphasis>td_attr</emphasis>
-   son arreglos, ellos entraran en un ciclo.
-   <emphasis>trailpad</emphasis> y el valor depositado dentro de 
-   trailing cells en la ultima linea de la tabla si existe alguna 
-   presente.
+    {html_table} Es una 
+    <link linkend="language.custom.functions">función customizada</link> 
+    que transforma un arreglo de datos en una tabla HTML. El atributo 
+    <emphasis>cols</emphasis> determina el número de columnas que tendra la tabla.
+    Los valores <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis> y 
+    <emphasis>td_attr</emphasis> determinan los atributos dados para las etiquetas 
+    tabla, tr y td. Si <emphasis>tr_attr</emphasis> o  <emphasis>td_attr</emphasis>
+    son arreglos, ellos entraran en un ciclo. <emphasis>trailpad</emphasis> y el 
+    valor depositado dentro de trailing cells en la ultima linea de la tabla si existe 
+    alguna presente.
 			</para>
+
 <example>
 <title>html_table</title>
-<programlisting>
+  <programlisting role="php">
 <![CDATA[
-index.php:
-
+php code:
+---------
+<?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
 $smarty->display('index.tpl');
-
-index.tpl:
-
+?>
+]]>
+  </programlisting>
+  <programlisting>
+<![CDATA[
+template code:
+--------------
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
 {html_table loop=$data cols=4 tr_attr=$tr}
-
-SALIDA:
-
+]]>
+  </programlisting>
+  <para>
+   La salida de ambos ejemplos:
+  </para>
+  <screen>
+<![CDATA[
 <table border="1">
 <tr><td>1</td><td>2</td><td>3</td></tr>
 <tr><td>4</td><td>5</td><td>6</td></tr>
@@ -170,9 +169,11 @@ SALIDA:
 <tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table>
-]]></programlisting>
-</example>
+]]>
+  </screen>
+ </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -11,11 +11,11 @@
     <colspec colname="desc" />
     <thead>
      <row>
-      <entry>Parameter Position</entry>
-      <entry>Type</entry>
-      <entry>Required</entry>
+      <entry>Posiscion del Parametro</entry>
+      <entry>Tipo</entry>
+      <entry>Requerido</entry>
       <entry>cat</entry>
-      <entry>Description</entry>
+      <entry>Descripción</entry>
      </row>
     </thead>
     <tbody>
@@ -36,15 +36,15 @@
    <title>cat</title>
    <programlisting role="php">
 <![CDATA[
-<?php    
-$smarty = new Smarty;
+<?php
+
 $smarty->assign('articleTitle', "Psychics predict world didn't end");
-$smarty->display('index.tpl');
+
 ?>
 ]]>
    </programlisting>
    <para>
-    Donde index.tpl es:
+    Donde el template es:
    </para>
    <programlisting>
 <![CDATA[
@@ -52,10 +52,10 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Salida:
+    Esta es la salida:
    </para>
    <screen>
-<![CDATA[    
+<![CDATA[
 Psychics predict world didn't end yesterday.
 ]]>
    </screen>

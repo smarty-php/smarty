@@ -3,10 +3,10 @@
 <refentry id="api.trigger.error">
  <refnamediv>
   <refname>trigger_error</refname>
-  <refpurpose></refpurpose>
+  <refpurpose>Despliega un mensaje de error</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title> Descripción </title>
   <methodsynopsis>
    <type>void</type><methodname>trigger_error</methodname>
    <methodparam><type>string</type><parameter>error_msg</parameter></methodparam>
@@ -15,10 +15,18 @@
   <para>
    Esta función puede ser usada para la salida de un mensaje de error
    usando Smarty. El parámetro <parameter>level</parameter> es uno de
-   los valores usados para la función de php trigger_error(), 
+   los valores usados para la función de php 
+   <ulink url="&url.php-manual;trigger_error">trigger_error()</ulink>, 
    ex.: E_USER_NOTICE, E_USER_WARNING, etc. 
    Por default es E_USER_WARNING.
   </para>
+   <para>
+    Ver también 
+    <link linkend="variable.error.reporting">$error_reporting</link>,
+    <link linkend="chapter.debugging.console">debugging</link>
+    y
+    <link linkend="smarty.php.errors">Troubleshooting</link>.
+ </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

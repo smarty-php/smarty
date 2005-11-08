@@ -64,16 +64,27 @@ pass=foobar
  </para>
  <para>
   Los archivos de configuración son cargados en el template con una
-  función incrustada <command>config_load</command>.
+  función incrustada <link linkend="language.function.config.load">
+   <command>{config_load}</command></link>.
+  (Ver También <link linkend="api.config.load"><command>config_load()</command></link> ).
+
  </para>
  <para>
-  Usted puede esconder variables o secciones enteras colocando un punto 
+  Usted puede ocultar variables o secciones enteras colocando un punto 
   antes del nombre de la variable. Esto es útil si su aplicación lee los 
   archivos de configuración y los datos sensibles a partir de ellos que 
   la herramienta del template no lo necesita. Si usted tiene a otras 
   personas realizando la edición de templates, usted tendra la certesa 
   que ellos no leeran datos sensibles del archivo de configuración 
   cargando estos en el template.
+ </para>
+ <para>
+  Ver También <link
+  linkend="language.function.config.load">{config_load}</link>, <link
+  linkend="variable.config.overwrite">$config_overwrite</link>, <link
+  linkend="api.get.config.vars">get_config_vars()</link>, <link
+  linkend="api.clear.config">clear_config()</link> y <link
+  linkend="api.config.load">config_load()</link>
  </para>
 </chapter>
 

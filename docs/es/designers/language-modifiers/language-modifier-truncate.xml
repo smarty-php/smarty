@@ -31,7 +31,8 @@
       <entry>string</entry>
       <entry>No</entry>
       <entry>...</entry>
-      <entry>Este es el texto para adicionar si el truncamiento ocurre.</entry>
+      <entry>Este es el texto para adicionar si el truncamiento ocurre. La 
+       longitud NO se incluye para la logitud del truncamiento</entry>
      </row>
      <row>
       <entry>3</entry>
@@ -41,6 +42,15 @@
       <entry>Este determina cuando truncar o no o al final de una
         palabra(false), o un carácter exacto(true).
       </entry>
+     </row>
+     <row>
+      <entry>3</entry>
+      <entry>boolean</entry>
+      <entry>No</entry>
+      <entry>false</entry>
+      <entry>Este determina cuando ocurre el truncamiento al final de la cadena(false),
+      o en el centro de la cadena(true). Nota cuando este es true, 
+      entonces la palabra limite es ignorada.</entry>
      </row>
     </tbody>
    </tgroup>
@@ -60,9 +70,7 @@
 <![CDATA[
 <?php
     
-$smarty = new Smarty;
 $smarty->assign('articleTitle', 'Two Sisters Reunite after Eighteen Years at Checkout Counter.');
-$smarty->display('index.tpl');
 
 ?>
 ]]>

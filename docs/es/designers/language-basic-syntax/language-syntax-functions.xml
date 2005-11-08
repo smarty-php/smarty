@@ -6,7 +6,8 @@
   Cada etiqueta Smarty muestra una
   <link linkend="language.variables">variable</link> o utiliza algún 
   tipo de función. Las funciones son procesadas y mostradas colocando 
-  los atributos de la función entre delimitadores, así: 
+  los <link linkend="language.syntax.attributes">atributos</link> de
+  la función entre delimitadores, así: 
   {funcname attr1="val" attr2="val"}.
  </para>
  <example>
@@ -29,14 +30,20 @@
  </example>
  <para>
   Las funciones internas y las funciones habituales, ambas deben tener 
-  la misma sintaxis dentro del template. Las funciones internas que 
-  funcionan en Smarty, son: <command>if</command>,
-  <command>section</command> y <command>strip</command>.
-  Estas no pueden ser modificadas. Las funciones habituales son 
-  funciones adicionales implementadas por plugins. Estas si pueden
+  la misma sintaxis dentro del template. Las funciones <emphasis
+   role="bold">internas</emphasis> que 
+  funcionan en Smarty, son: 
+  <link linkend="language.function.if">{if}</link>,
+  <link linkend="language.function.section">{section}</link> y
+  <link linkend="language.function.strip">{strip}</link>.
+  Estas no pueden ser modificadas. 
+  Las funciones habituales son 
+  funciones <emphasis role="bold">adicionales</emphasis> implementadas 
+  por <link linkend="plugins">plugins</link>. Estas si pueden
   ser modificadas como usted quiera, o usted también puede 
   adicionar nuevas.
-  <command>html_options</command> y <command>html_select_date</command>
+  <link linkend="language.function.html.options">{html_options}</link> y 
+  <link linkend="language.function.popup">{popup}</link>
   son ejemplos de funciones habituales.
  </para>
 </sect1>

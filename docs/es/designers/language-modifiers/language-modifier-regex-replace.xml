@@ -37,8 +37,8 @@
    </tgroup>
   </informaltable>
   <para>
-   Localiza una expresión regular y la remplaza en la variable.
-   Use la sintaxis para preg_replace() del manual de PHP.
+   Localiza una expresión regular y la remplaza en la variable. Use la sintaxis para 
+   <ulink url="&url.php-manual;preg_replace">preg_replace()</ulink> del manual de PHP.
   </para>
   <example>
    <title>regex_replace</title>
@@ -46,9 +46,7 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->assign('articleTitle', "Infertility unlikely to\nbe passed on, experts say.");
-$smarty->display('index.tpl');
 
 ?>
 ]]>
@@ -65,7 +63,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Esta es la Salida:
+    Esta es la salida:
    </para>
    <screen>
 <![CDATA[
@@ -75,7 +73,11 @@ Infertility unlikely to be passed on, experts say.
 ]]>
    </screen>
   </example>
-</sect1>
+  <para>
+   Vea también <link linkend="language.modifier.replace">replace</link>
+   y <link linkend="language.modifier.escape">escape</link>.
+  </para>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

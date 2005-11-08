@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.counter">
- <title>counter</title>
+ <title>{counter}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -65,7 +65,7 @@
   </tgroup>
  </informaltable>
  <para>
-  counter es usada para mostrar un conteo. counter va a depender del 
+  {counter} es usada para mostrar un conteo. {counter} va a depender del 
   conteo en cada iteración. Usted puede ajustar el número, el intervalo 
   y la dirección del conteo, asi como determinar cuando mostrar o no el 
   conteo. Usted puede tener varios contadores al mismo tiempo, dando un 

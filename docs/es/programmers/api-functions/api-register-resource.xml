@@ -3,17 +3,18 @@
 <refentry id="api.register.resource">
  <refnamediv>
   <refname>register_resource</refname>
-  <refpurpose></refpurpose>
+  <refpurpose>Registra dinamicamente un plugin de recurso</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción </title>
   <methodsynopsis>
    <type>void</type><methodname>register_resource</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
    <methodparam><type>array</type><parameter>resource_funcs</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Use esto para registrar dinámicamente un recurso de plugin con Smarty.
+   Use esto para registrar dinámicamente un 
+   <link linkend="template.resources">recurso de plugin</link> con Smarty.
    Pase el nombre o el recurso y o el arreglo de funciones que implementa
    esto. Vea <link linkend="template.resources">template resources</link>
    para mayor información de como configurar una función para mandar llamar 
@@ -42,14 +43,19 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->register_resource("db", array("db_get_template",
-"db_get_timestamp",
-"db_get_secure",
-"db_get_trusted"));
+$smarty->register_resource('db', array('db_get_template',
+                                       'db_get_timestamp',
+                                       'db_get_secure',
+                                       'db_get_trusted'));
 ?>
 ]]>
    </programlisting>
   </example>
+  <para>
+  Ver también <link linkend="api.unregister.resource">unregister_resource()</link>
+  y <link linkend="template.resources">template resources</link>
+</para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

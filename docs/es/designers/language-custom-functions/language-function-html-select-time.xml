@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.html.select.time">
- <title>html_select_time</title>
+ <title>{html_select_time}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -133,31 +133,27 @@
   </tgroup>
  </informaltable>
  <para>
-  html_select_time es una función customizada 
-  que crea menus dropdowns de tiempo para usted. 
-  Esta puede mostrar algunos valores, o 
-  todo en hora, minuto, segundo y am/pm.
+  {html_select_time} es una 
+  <link linkend="language.custom.functions">función customizada</link>
+  que crea menus dropdowns de tiempo para usted. Esta puede mostrar 
+  algunos valores, o todo en hora, minuto, segundo y am/pm.
  </para>
  <para>
-  Los atributos de time pueden tener diferentes
-  formatos. el puede ser un unico timestamp o 
-  una cadena conteniendo Y-M-D. YYYY-MM-DD puede
-  ser lo mas común. exepto meses y dias con menos
-  de dos digitos también son reconocidos;
-  Si uno de los 3 valores (Y,M,D) es una cadena 
-  vacia, que segun el select-box no es pre-seleccionada
-  del todo. este es especialmente usado con los 
-  atributos empty_teay-, -month- y -day-.
+  Los atributos de time pueden tener diferentes formatos. Este puede ser 
+  un unico timestamp o una cadena conteniendo YYYYMMDDHHMMSS o una cadena
+  parseda por php's <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
  </para>
  <example>
-  <title>html_select_time</title>
+  <title>{html_select_time}</title>
   <programlisting>
 <![CDATA[
+template code:
+--------------
 {html_select_time use_24_hours=true}
 ]]>
   </programlisting>
   <para>
-   Esta es la salidat:
+   Esta es la salida:
   </para>
   <screen>
 <![CDATA[
@@ -318,6 +314,12 @@
 ]]>
   </screen>
  </example>
+   <para>
+    Ver también
+    <link linkend="language.variables.smarty.now">$smarty.now</link>,
+    <link linkend="language.function.html.select.date">{html_select_date}</link>
+    y <link linkend="tips.dates">date tips</link>.
+  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

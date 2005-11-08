@@ -3,12 +3,12 @@
      <sect1 id="variable.config.read.hidden">
       <title>$config_read_hidden</title>
       <para>
-    Si es asignado true, esconde secciones (nombres de secciones comenzando
-    con un periodo) en el archivo de configuración pueden ser leidos del 
-    template. Tipicamente desearia esto como false, de esta forma usted puede
-    almacenar datos sensibles en el archivo de configuración como un parámetro 
-    de base de datos y sin preocuparse que el template los carge. 
-    false es el default.
+       Si es asignado true, esconde secciones (nombres de secciones comenzando con 
+       un periodo) en el <link linkend="config.files">archivo de configuración</link> 
+       pueden ser leidos del template. Tipicamente desearia esto como false, de esta 
+       forma usted puede almacenar datos sensibles en el archivo de configuración 
+       como un parámetro de base de datos y sin preocuparse que el template los carge. 
+       false es el default.
 	   </para>
 </sect1>
 <!-- Keep this comment at the end of the file

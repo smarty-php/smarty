@@ -11,9 +11,7 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->assign('articleTitle', "If Strike isn't Settled Quickly it may Last a While.");
-$smarty->display('index.tpl');
 
 ?>
 ]]>
@@ -37,7 +35,12 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
 ]]>
    </screen>
   </example>
+   <para>
+    Ver también <link linkend="language.modifier.lower">lower</link> y
+    <link linkend="language.modifier.capitalize">capitalize</link>.
+   </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

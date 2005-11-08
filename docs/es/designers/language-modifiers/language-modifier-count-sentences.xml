@@ -10,16 +10,17 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-    
-$smarty = new Smarty;
-$smarty->assign('articleTitle', 'Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.');
-$smarty->display('index.tpl');
+
+$smarty->assign('articleTitle',
+                 'Two Soviet Ships Collide - One Dies.
+                 Enraged Cow Injures Farmer with Axe.'
+                 );
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Donde index.tpl es:
+    Donde el template es:
    </para>
    <programlisting>
 <![CDATA[
@@ -28,7 +29,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Esta es la Salida:
+    esta es la salida:
    </para>
    <screen>
 <![CDATA[
@@ -37,7 +38,12 @@ Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
 ]]>
    </screen>
   </example>
-</sect1>
+  <para>
+   ver también <link linkend="language.modifier.count.characters">count_characters</link>,
+   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> y 
+   <link linkend="language.modifier.count.words">count_words</link>.
+  </para>
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

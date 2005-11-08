@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
  <sect1 id="language.function.ldelim">
-  <title>ldelim,rdelim</title>
+  <title>{ldelim},{rdelim}</title>
   <para>
-   ldelim y rdelim son usados para escapar delimitadores en el template, 
+   {ldelim} y {rdelim} son usados para  
+   <link linkend="language.escaping">escapar</link> delimitadores en el template, 
    en nuestro caso "{" or "}". Usted puede usar solo 
    <link linkend="language.function.literal">{literal}{/literal}</link> para
    escapar bloques de texto.
-   Vea tambien <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link> 
-   y <link linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
+   Vea tambien <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>.
   </para>
   <example>
-   <title>ldelim, rdelim</title>
+   <title>{ldelim}, {rdelim}</title>
    <programlisting>
 <![CDATA[
 {* Esto mostrara los delimitadores del template *}
@@ -27,7 +27,31 @@
 {funcname} is how functions look in Smarty!
 ]]>
    </screen>
+   <para>Otros ejemplos con algunos javascript</para>
+   <programlisting>
+<![CDATA[
+<script language="JavaScript">
+function foo() {ldelim}
+    ... code ...
+{rdelim}
+</script>
+]]>
+   </programlisting>
+   <para>
+   esta es la salida
+   </para>
+   <screen>
+<![CDATA[
+<script language="JavaScript">
+function foo() {
+    .... code ...
+}
+</script>
+]]>
+   </screen>
+
   </example>
+  <para>Vea también <link linkend="language.escaping">Escaping Smarty Parsing</link> </para>
  </sect1>
 
 <!-- Keep this comment at the end of the file

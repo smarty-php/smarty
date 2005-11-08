@@ -2,11 +2,11 @@
 <!-- $Revision$ -->
 <refentry id="api.clear.compiled.tpl">
  <refnamediv>
-  <refname>clear_compiled_tpl</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_compiled_tpl()</refname>
+  <refpurpose>Esto limpia la vesion compilada del recurso de un template especifico</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_compiled_tpl</methodname>
    <methodparam choice="opt"><type>string</type><parameter>tpl_file</parameter></methodparam>
@@ -16,14 +16,16 @@
   <para>
     Esto limpia la versión compilada del recurso del template especificado,
     o todos los archivos de templates compilados si no fueron especificados.
-    si usted lo pasa compile_is es limpiado. si usted lo pasa con ex_time,
-    entonces solo compilara los templates anteriores al exp_time segundo 
-    seran limpiados, por default todos los templates son compilados y
-    limpiados independientemente de su tiempo de vida.
+    si usted pasa <link linkend="variable.compile.id">$compile_id</link> solo
+    sera compilado este template especificado 
+    <link linkend="variable.compile.id">$compile_id</link> es limpiado. 
+    Si usted lo pasa con ex_time, entonces solo compilara los templates 
+    anteriores al exp_time segundo seran limpiados, por default todos los 
+    templates son compilados y limpiados independientemente de su tiempo de vida.
     Esta función es solo para uso avanzado, normalmente no es necesaria.
   </para>
   <example>
-   <title>clear_compiled_tpl</title>
+   <title>clear_compiled_tpl()</title>
    <programlisting role="php">
 <![CDATA[
 <?php

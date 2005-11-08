@@ -3,9 +3,15 @@
      <sect1 id="variable.debug.tpl">
       <title>$debug_tpl</title>
       <para>
-    Este es el nombre del archivo de template usado para el debug 
-    de la consola. Por default, es nombrado debug.tpl y esta 
-    localizado en el <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
+       Este es el nombre del archivo de template usado para el debug de la 
+       consola. Por default, es nombrado <filename>debug.tpl</filename> y esta 
+       localizado en el <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
+      </para>
+      <para>
+      Ver también 
+      <link linkend="variable.debugging">$debugging</link>
+      y
+      <link linkend="chapter.debugging.console">Debugging console</link>
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

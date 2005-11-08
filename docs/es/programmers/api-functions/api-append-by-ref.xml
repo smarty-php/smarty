@@ -3,10 +3,10 @@
 <refentry id="api.append.by.ref">
  <refnamediv>
   <refname>append_by_ref</refname>
-  <refpurpose></refpurpose>
+  <refpurpose>pasando valores por referencia</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descipción</title>
   <methodsynopsis>
    <type>void</type><methodname>append_by_ref</methodname>
    <methodparam><type>string</type><parameter>varname</parameter></methodparam>
@@ -14,9 +14,10 @@
    <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Este es usado para adicionar valores al templete por referencia.
-   Si usted adiciona una variable por referencia entonces cambiara su valor,
-   el valor asignado sufrira el cambio también. Para objetos, append_by_ref() 
+   Este es usado para <link linkend="api.append">pasar</link> valores al 
+   templete por referencia. Si usted pasa una variable por referencia entonces 
+   cambiara su valor, el valor asignado sufrira el cambio también. Para 
+   <link linkend="advanced.features.objects">objetos</link>, append_by_ref() 
    también envia una copia en memoria del objeto adicionado. Vea el manual de 
    PHP en referenciando variables para una mejor explicación del asunto.
    Si usted pasa el tercer parámetro en true, el valor será mezclado con el 
@@ -35,6 +36,11 @@ $smarty->append_by_ref("Address", $address);
 ]]>
    </programlisting>
   </example>
+  <para>
+   Ver también <link linkend="api.append">append()</link> 
+   y <link linkend="api.assign">assign()</link>.
+  </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 		<sect1 id="language.function.include.php">
-			<title>include_php</title>
+   <title>{include_php}</title>
             <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" align="center" />
@@ -48,34 +48,27 @@
 	        <note>
 	        <title>Nota técnica</title>
             <para>
-            include_php es muy desaprovechado desde Smarty, usted puede 
+             {include_php} es muy desaprovechado desde Smarty, usted puede 
             lograr la misma funcionalidad por medio de las funciones de 
             costumbre del template.
-            La unica razón para usar include_php es si usted en realidad tiene
-            la necesidad de poner en cuarentna la funcion de php fuera del
-            directorio de plugin y su codigo de la aplicación. 
+            La unica razón para usar {include_php} es si usted en realidad tiene
+            la necesidad de poner en cuarentena la funcion de php fuera del
+            directorio de <link linkend="variable.plugins.dir">plugins</link> y 
+            su codigo de la aplicación. 
             Vea un <link linkend="tips.componentized.templates">ejemplo</link> 
             de templates componentizados para detalles.
             </para>
 	        </note>
 			<para>
-   Las etiquetas include_php son usadas para incluir un script PHP 
-   dentro de su template. Si la seguridad estuviera activada, entonces 
-   el script PHP debe estar localizado en la ruta $trusted_dir.
+    Las etiquetas {include_php} son usadas para incluir un script PHP 
+   dentro de su template. <link linkend="variable.security">
+   Si la seguridad estuviera activada</link>, entonces 
+   el script PHP debe estar localizado en la ruta <link
+     linkend="variable.trusted.dir">$trusted_dir</link>.
    La etiqueta include_php debe tener el atributo "file", el cual 
    contiene la ruta del archivo PHP a ser incluido, o el relativo 
-   al $trusted_dir, o una ruta absoluta.
-			</para>
-			<para>
-   include_php es un buen medio para manipular templates con componentes,
-   y mantiene el código PHP separado de los archivos del template.
-   Vamos adecir que usted tenga un template que muestre la navegación de 
-   su sitio, el cual es tirado automáticamente a partir de una base de
-   datos. Usted puede mantener su lógica de PHP que obtiene los datos en 
-   un directorio separado, e incluirla arriba del template. Ahora usted 
-   puede incluir este template en cualquier lugar sin preocuparse si la
-   información de la base de datos fue obtenida por la aplicación antes 
-   de usarla.
+   al <link linkend="variable.trusted.dir">$trusted_dir</link>, o 
+   una ruta absoluta.
 			</para>
 			<para>
    Por default, los archivos son incluidos solo una vez a un cuando son
@@ -87,38 +80,50 @@
 			<para>
    Usted puede opcionalmente pasar el atributo <emphasis>assign</emphasis>,
    el cual especificara una variable del template la cual contendra toda la
-   salida del <emphasis>include_php</emphasis> en vez de mostrarla.
+   salida del <emphasis>{include_php}</emphasis> en vez de mostrarla.
 			</para>
 			<para>
    El objeto smarty esta disponible como $this dentro del script php que usted
    incluyo.
 			</para>
 <example>
-<title>funcion include_php</title>
-<programlisting>
-load_nav.php
--------------
+ <title>funcion {include_php}</title>
+  <para>load_nav.php</para>
+  <programlisting role="php">
+<![CDATA[
+<?php
 
-&lt;?php
+// carga variables de una base de datos mysql y defíne esta para el template
+require_once("MySQL.class.php");
+$sql = new MySQL;
+$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+$this->assign('sections',$sql->record);
 
- // carga variables de una base de datos mysql y defíne esta para el template
-	require_once("MySQL.class.php");
-	$sql = new MySQL;
-	$sql->query("select * from site_nav_sections order by name",SQL_ALL);
-	$this->assign('sections',$sql->record);
-
-?&gt;
-
-
-index.tpl
----------
+?>
+]]>
+  </programlisting>
+  <para>
+   Donde index.tpl es:
+  </para>
+  <programlisting>
+<![CDATA[
 {* ruta absoluta o relativa del $trusted_dir *}
 {include_php file="/path/to/load_nav.php"}
 
 {foreach item="curr_section" from=$sections}
-	&lt;a href="{$curr_section.url}"&gt;{$curr_section.name}&lt;/a&gt;&lt;br&gt;
-{/foreach}</programlisting>
+  <a href="{$curr_section.url}">{$curr_section.name}</a><br />
+{/foreach}
+]]>
+  </programlisting>
 </example>
+ <para>
+  Ver también <link linkend="language.function.include">{include}</link>,
+  <link linkend="language.function.php">{php}</link>, <link
+  linkend="language.function.capture">{capture}</link>, <link
+  linkend="template.resources">Template Resources</link> y <link
+  linkend="tips.componentized.templates">Componentized Templates</link> 
+ </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -4,7 +4,9 @@
    <title>Recursos</title>
    <para>
   Los templates pueden venir de una variedad de fuentes. Cuando usted 
-  muestra un template con (display) o (fetch), o incluye un template 
+  muestra un template con 
+  <link linkend="api.display">display()</link> o 
+  <link linkend="api.fetch">fetch()</link>, o incluye un template 
   dentro de otro template, usted suministra un tipo de recurso, seguido 
   por la ruta correcta y el nombre del template.
   Si un recurso no es dado explicitamente el valor de
@@ -12,23 +14,24 @@
   es asumido.
    </para>
    <sect2 id="templates.from.template.dir">
-    <title>Templates partiendo del $template_dir</title>
+    <title>Templates desde $template_dir</title>
     <para>
-     Los templates desde el $template_dir no requieren recursos del 
-     template, aunque usted puede usar el file: resource for 
+     Los templates desde el 
+     <link linkend="variable.template.dir">$template_dir</link> no requieren 
+     recursos del template, aunque usted puede usar el file: resource for 
      consistancy(recurso por consistencia). Justamente proporcionando 
      la ruta(path) del template que usted quiere usar en relación al 
-     directorio root $template_dir.
+     directorio root <link linkend="variable.template.dir">$template_dir</link>.
     </para>
     <example>
-     <title>Usando templates partiendo del $template_dir</title>
+     <title>Usando templates desde $template_dir</title>
      <programlisting role="php">
 <![CDATA[
 <?php
 // desde el script de PHP
 $smarty->display("index.tpl");
 $smarty->display("admin/menu.tpl");
-$smarty->display("file:admin/menu.tpl"); // agual al de arriba
+$smarty->display("file:admin/menu.tpl"); // igual al de arriba
 ?>
 
 {* dentro del template de Smarty *}
@@ -41,12 +44,13 @@ $smarty->display("file:admin/menu.tpl"); // agual al de arriba
    <sect2 id="templates.from.any.dir">
     <title>Templates partiendo de cualquier directorio</title>
     <para>
-     Los templates de fuera del $template_dir requieren el file: tipo 
-     de recurso del template, seguido por la ruta absoluta y el nombre 
-     del template.
+     Los templates de fuera del 
+     <link linkend="variable.template.dir">$template_dir</link> requieren 
+     el file: tipo de recurso del template, seguido por la ruta absoluta 
+     y el nombre del template.
     </para>
     <example>
-     <title>usando templates partiendo de cualquier directorio</title>
+     <title>usando templates desde cualquier directorio</title>
      <programlisting role="php">
 <![CDATA[
 <?php
@@ -54,11 +58,16 @@ $smarty->display("file:admin/menu.tpl"); // agual al de arriba
 $smarty->display("file:/export/templates/index.tpl");
 $smarty->display("file:/path/to/my/templates/menu.tpl");
 ?>
-
-{* desde adentro del template Smarty *}
+]]>
+     </programlisting>
+     <para>
+     dentro del template Smarty: 
+     </para>
+     <programlisting>
+<![CDATA[
 {include file="file:/usr/local/share/templates/navigation.tpl"}
 ]]>
-</programlisting>
+     </programlisting>
     </example>
 
     <sect3 id="templates.windows.filepath">
@@ -79,8 +88,13 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 $smarty->display("file:C:/export/templates/index.tpl");
 $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 ?>
-
-{* dentro del template de Smarty *}
+]]>
+     </programlisting>
+     <para>
+       dentro del template de Smarty
+     </para>
+     <programlisting>
+<![CDATA[
 {include file="file:D:/usr/local/share/templates/navigation.tpl"}
 ]]>
 </programlisting>
@@ -118,7 +132,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 // ponga estas funciones en algun lugar de su aplicación
 function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
 {
-    // ejecutar la base de datos madar llamar aquí su template,
+    // llame su base de datos parta traer los datos al template,
     // poblando el $tpl_source
 
     $sql = new SQL;
@@ -135,8 +149,7 @@ function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
 
 function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
 {
-    // ejecutar la base de datos llamar aquí para poblar
-    // $tpl_timestamp.
+    // llame su base de datos para traer los datos y poblar el $tpl_timestamp.
     $sql = new SQL;
     $sql->query("select tpl_timestamp
                    from my_table
@@ -169,11 +182,16 @@ $smarty->register_resource("db", array("db_get_template",
 // usando el recurso a partir del script PHP
 $smarty->display("db:index.tpl");
 ?>
-
-{* usando el recurso dentro del template de Smarty *}
-{include file="db:/extras/navigation.tpl"}
 ]]>
 </programlisting>
+     <para>
+        usando el recurso dentro del template de Smarty 
+     </para>
+     <programlisting>
+<![CDATA[
+{include file="db:/extras/navigation.tpl"}
+]]>
+     </programlisting>
     </example>
    </sect2>
 

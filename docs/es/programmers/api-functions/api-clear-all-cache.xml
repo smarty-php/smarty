@@ -3,7 +3,7 @@
 <refentry id="api.clear.all.cache">
  <refnamediv>
   <refname>clear_all_cache</refname>
-  <refpurpose></refpurpose>
+  <refpurpose>limpia completamente el cache del template</refpurpose>
  </refnamediv>
  <refsect1>
   <title />
@@ -12,9 +12,8 @@
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Esto limpia completamente el cache del template. Como un parámetro
-   opcional, usted puede proporcionar un periodo minimo en segundos 
-   que el archivo de cache debe tener antes de ser anulado.
+   Como un parámetro opcional, usted puede proporcionar un periodo minimo 
+   en segundos que el archivo de cache debe tener antes de ser anulado.
   </para>
   <example>
    <title>clear_all_cache</title>
@@ -27,6 +26,13 @@ $smarty->clear_all_cache();
 ]]>
    </programlisting>
   </example>
+  <para>
+  Ver también 
+  <link linkend="api.clear.cache">clear_cache()</link>,
+  <link linkend="api.is.cached">is_cached()</link>
+  y
+  <link linkend="caching">caching</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

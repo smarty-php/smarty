@@ -2,7 +2,7 @@
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.9 Maintainer: ramirez Status: ready -->
 <chapter id="api.functions">
- <title>Metodos</title>
+ <title>La clase Methods() de Smarty</title>
 &programmers.api-functions.api-append;
 &programmers.api-functions.api-append-by-ref;
 &programmers.api-functions.api-assign;

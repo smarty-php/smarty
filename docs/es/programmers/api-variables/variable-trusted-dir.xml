@@ -3,7 +3,8 @@
      <sect1 id="variable.trusted.dir">
       <title>$trusted_dir</title>
       <para>
-    $trusted_dir  solamente es usado cuando $security está habilitado.
+       $trusted_dir  solamente es usado cuando 
+       <link linkend="variable.security">$security</link> está habilitado.
     Este es un arreglo de todos los directorios que son considerados
     confiables. Los directorios confiables son de donde usted extraera 
     sus script PHP que son ejecutados directamente desde el template con 

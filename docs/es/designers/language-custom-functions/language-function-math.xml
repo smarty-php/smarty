@@ -58,15 +58,15 @@
                 </tgroup>
             </informaltable>
 			<para>
-            math permite diseñar ecuaciones matemáticas dentro del template.
-            Cualquier variable numérica del template puede ser usada en
-            ecuaciones, y el resultado es mostrado en lugar de la etiqueta.
-            Las variables usadas en ecuaciones son pasadas como parámetros, 
-            que pueden ser variables de template o valores estáticos.
-            +, -, /, *, abs, ceil, cos, exp, floor, log, log10, max, min, 
-            pi, pow, rand, round, sin, sqrt, srans y tan son todos los 
-            operadores validos. Verifique la documentación de PHP para mas
-            información acerca de estas funciones matemáticas.
+    {math} permite diseñar ecuaciones matemáticas dentro del template.
+    Cualquier variable numérica del template puede ser usada en
+    ecuaciones, y el resultado es mostrado en lugar de la etiqueta.
+    Las variables usadas en ecuaciones son pasadas como parámetros, 
+    que pueden ser variables de template o valores estáticos.
+    +, -, /, *, abs, ceil, cos, exp, floor, log, log10, max, min, 
+    pi, pow, rand, round, sin, sqrt, srans y tan son todos los 
+    operadores validos. Verifique la documentación de PHP para mas
+    información acerca de estas funciones matemáticas.
 			</para>
 			<para>
    Si usted proporciona el atributo especial "assign", la salida de la
@@ -76,56 +76,93 @@
 			<note>
 				<title>Nota Técnica</title>
 				<para>
-    math es una función de muy alto rendimiento debido a que se
-    puede usar con la función eval() de PHP.
-    Hacer las matemáticas en PHP es mucho mas eficiente, asi en 
-    cualquier momento es posible hacer calculos matemáticos en PHP 
-    asignarlos a una variable y lanzar los resultados al template.
-    Defínitivamente evite llamadas repetitivas de funciones 
-    matemáticas, dentro de los ciclos section.
-            	</para>
+     {math} es una función de muy alto rendimiento debido a que se puede 
+     usar con la función <ulink url="&url.php-manual;eval">eval()</ulink> 
+     de PHP. Hacer las matemáticas en PHP es mucho mas eficiente, asi en 
+     cualquier momento es posible hacer calculos matemáticos en PHP asignarlos 
+     a una variable y lanzar los resultados al template. Defínitivamente evite 
+     llamadas repetitivas de funciones matemáticas, dentro de los ciclos 
+     <link linkend="language.function.section">{section}</link>.
+     </para>
 			</note>
 <example>
-<title>math</title>
-<programlisting>
-{* $height=4, $width=5 *}
+ <title>{math}</title>
+  <para>
+  <emphasis role="bold">Ejemplo a:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* $height=4, $width=5 *}
 
-{math equation="x + y" x=$height y=$width}
+   {math equation="x + y" x=$height y=$width}
+]]>
+  </programlisting>
+  <para>
+   Salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
+   9
+]]>
+  </screen>
+  <para>
+    <emphasis role="bold">Ejemplo b:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
 
-SALIDA:
+   {math equation="height * width / division"
+   height=$row_height
+   width=$row_width
+   division=#col_div#}
+]]>
+  </programlisting>
+  <para>
+   Salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
+   100
+]]>
+  </screen>
+  <para>
+  <emphasis role="bold">Ejemplo c:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* you can use parenthesis *}
 
-9
+   {math equation="(( x + y ) / z )" x=2 y=10 z=2}
+]]>
+  </programlisting>
+  <para>
+   Salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
+   6
+]]>
+  </screen>
+    <para>
+    <emphasis role="bold">Ejemplo d:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* you can supply a format parameter in sprintf format *}
 
-
-{* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
-
-{math equation="height * width / division"
-      height=$row_height
-      width=$row_width
-      division=#col_div#}
-
-SALIDA:
-
-100
-
-
-{* Usted puede usar parentesis *}
-
-{math equation="(( x + y ) / z )" x=2 y=10 z=2}
-
-SALIDA:
-
-6
-
-
-{* Usted puede asignar un parámetro de formato en sprintf *}
-
-{math equation="x + y" x=4.4444 y=5.0000 format="%.2f"}
-
-SALIDA:
-
-9.44</programlisting>
-</example>
+   {math equation="x + y" x=4.4444 y=5.0000 format="%.2f"}
+   ]]>
+  </programlisting>
+  <para>
+   Salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
+   9.44
+]]>
+  </screen>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -6,6 +6,11 @@
       Este es el delimitador izquierdo usado por el lenguaje de template. 
       El default es "{".
       </para>
+ <para>
+  Ver también  <link linkend="variable.right.delimiter">$right_delimiter</link>
+  y <link linkend="language.escaping">escaping smarty parsing</link>.
+ </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

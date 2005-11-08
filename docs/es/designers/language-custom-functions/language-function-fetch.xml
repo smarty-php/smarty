@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 <sect1 id="language.function.fetch">
- <title>fetch</title>
+ <title>{fetch}</title>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -37,7 +37,7 @@
   </tgroup>
  </informaltable>
  <para>
-  fetch es usado para obtener archivos de sistema local, http o ftp, y 
+  {fetch} es usado para obtener archivos de sistema local, http o ftp, y 
   mostrar el contenido. Si el nombre del archivo comienza con "http://", 
   la página del web site sera traida y mostrada. Si el nombre del archivo 
   comienza con "ftp://", el archivo será obtenido del servidor ftp y 
@@ -46,13 +46,13 @@
  </para>
  <para>
   Si usted indica el atributo especial "assign", la salida de la función
- fetch se ira a una variable de template en vez de ser mostrada en el
+  {fetch} se ira a una variable de template en vez de ser mostrada en el
  template.  (nuevo en Smarty 1.5.0)
  </para>
  <note>
   <title>Nota Técnica</title>
   <para>
-   Esto no soporta redirecionamento http, tenga la certeza de incluir 
+   Esto no soporta redirecionamento http, tenga la certeza de incluirlo 
    en la barra el seguimiento para ir a buscar donde sea necesario.
   </para>
  </note>
@@ -62,30 +62,35 @@
    Si tiene activada la seguridad en su template y usted estuviera
    recibiendo un archivo del sistema de archivos local, esto permitira 
    que solo archivos de uno de los directorios estuviera definido como 
-   seguro. ($secure_dir)
+   seguro. (<link linkend="variable.secure.dir">$secure_dir</link>)
   </para>
  </note>
  <example>
   <title>fetch</title>
   <programlisting>
 <![CDATA[
-{* Incluye algunos javascript en su template *}
-{fetch file="/export/httpd/www.domain.com/docs/navbar.js"}
+{* include some javascript in your template *}
+{fetch file="/export/httpd/www.example.com/docs/navbar.js"}
 
-{* Incrusta algun texto sobre el template desde otro sitio web *}
+{* embed some weather text in your template from another web site *}
 {fetch file="http://www.myweather.com/68502/"}
 
-{* Obtiene un archivo de noticias via ftp *}
-{fetch file="ftp://user:password@ftp.domain.com/path/to/currentheadlines.txt"}
+{* fetch a news headline file via ftp *}
+{fetch file="ftp://user:password@ftp.example.com/path/to/currentheadlines.txt"}
 
-{* coloca el contenido en una variable de template *}
+{* assign the fetched contents to a template variable *}
 {fetch file="http://www.myweather.com/68502/" assign="weather"}
 {if $weather ne ""}
-	<b>{$weather}</b>
+  <b>{$weather}</b>
 {/if}
 ]]>
   </programlisting>
  </example>
+ <para>
+ Ver también <link linkend="language.function.capture">{capture}</link>,
+ <link linkend="language.function.eval">{eval}</link>
+ y <link linkend="api.fetch">fetch()</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

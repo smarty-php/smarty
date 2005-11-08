@@ -5,7 +5,8 @@
       <para>
        Usted puede proporcionar una función por default para manipular
        archivos de cache en vez de usar el metodo incrustado usando el 
-       $cache_dir. Para mayor detalle vea la sección
+       <link linkend="variable.cache.dir">$cache_dir</link>. 
+       Para mas detalles vea la sección
        <link linkend="section.template.cache.handler.func">
        cache handler function section</link>.
       </para>

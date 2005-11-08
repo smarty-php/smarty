@@ -5,10 +5,9 @@
       <para>
    Este anuncia a Smarty el tipo de recurso a usar implicitamente.
    El valor por default es 'file', significa que 
-   $smarty-&#62;display('index.tpl'); y 
-   $smarty-&#62;display('file:index.tpl'); son identicos en el significado.
-   Para mas detalles vea el capitulo 
-   <link linkend="template.resources">resource</link>.
+   $smarty->display('index.tpl'); y 
+   $smarty->display('file:index.tpl'); son identicos en el significado.
+   Para mas detalles vea el capitulo <link linkend="template.resources">resource</link>.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

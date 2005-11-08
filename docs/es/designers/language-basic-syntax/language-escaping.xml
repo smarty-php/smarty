@@ -7,7 +7,8 @@
   ingonar sections o algun otro tipo analisis de sintaxis. Un ejemplo clasico 
   es con el codigo JavaScript o CSS incrustado en el template. El problema se
   origina cuando aquellos lenguajes que utilizan los caracteres { y } los
-  cuales son también los delimitadores por default para Smarty.
+  cuales son también los <link
+  linkend="language.function.ldelim">delimitadores</link> por default para Smarty.
  </para>
 
  <para>
@@ -22,8 +23,7 @@
   Similar a usar entidades HTML, usted puede usar <link 
   linkend="language.function.ldelim">{ldelim}</link>,<link 
   linkend="language.function.ldelim">{rdelim}</link> o <link 
-  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>,<link
-  linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
+  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
   para mostrar los delimitadores actuales.
  </para>
 
@@ -62,6 +62,9 @@ dosomething();
 ]]>
   </programlisting>
  </example>
+  <para>
+     Ver También <link linkend="language.modifier.escape">escape modifier</link>
+  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

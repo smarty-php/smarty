@@ -2,18 +2,21 @@
 <!-- $Revision$ -->
 <refentry id="api.unregister.prefilter">
  <refnamediv>
-  <refname>unregister_prefilter</refname>
-  <refpurpose></refpurpose>
+  <refname>unregister_prefilter()</refname>
+  <refpurpose>Des-registra dinamicamente un prefiltro</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Descripción </title>
   <methodsynopsis>
    <type>void</type><methodname>unregister_prefilter</methodname>
    <methodparam><type>string</type><parameter>function_name</parameter></methodparam>
   </methodsynopsis>
   <para>
-  Use esto para des-registrar dinámicamente un prefiltro.
+    Ver también 
+    <link linkend="api.register.prefilter">register_prefilter()</link>
+    y <link linkend="plugins.prefilters.postfilters">pre filters</link>.
   </para>
+
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

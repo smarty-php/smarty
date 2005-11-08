@@ -6,10 +6,11 @@
     Especifica si el Smarty debe usar variables globales del php 
     $HTTP_*_VARS[] ($request_use_auto_globals=false valor por default) 
     o $_*[] ($request_use_auto_globals=true). Esto afecta a los templates 
-    que hacen uso de {$smarty.request.*}, {$smarty.get.*} etc. .
+    que hacen uso de 
+    <link linkend="language.variables.smarty">{$smarty.request.*}, {$smarty.get.*}</link> etc. .
     Atención: Si usted asigna $request_use_auto_globals a true,
-    <link linkend="variable.request.vars.order">variable.request.vars.order
-    </link> no tendran efecto los valores de configuracion de php 
+    <link linkend="variable.request.vars.order">variable.request.vars.order </link> 
+    no tendran efecto los valores de configuracion de php 
     <literal>gpc_order</literal> sera usados.
       </para>
 </sect1>

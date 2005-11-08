@@ -4,9 +4,15 @@
     <title>$compile_dir</title>
     <para>
      Ese es el nombre del directorio donde los templates compilados
-     están localizados, Por default están en "./templates_c", esto 
+     están localizados, Por default están en  
+     <filename class="directory">"./templates_c"</filename> , esto 
      significa que lo buscara en el directorio de templates en el 
      mismo directorio que esta ejecutando el script php.
+     <emphasis role="bold">Este directorio debe tener permiso de 
+      escritura para el servidor web</emphasis>
+     (<link linkend="installing.smarty.basic">ver la instalación</link>).
+     también <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
+
     </para>
     <note>
      <title>Nota Técnica</title>
@@ -22,6 +28,11 @@
        document root de su servidor web.
       </para>
      </note>
+     <para>
+     Ver también <link linkend="variable.compile.id">$compile_id</link>
+     y <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
+     </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

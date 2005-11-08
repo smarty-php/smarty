@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
 		<sect1 id="language.function.textformat">
-			<title>textformat</title>
+   <title>{textformat}</title>
             <informaltable frame="all">
                 <tgroup cols="5">
                 <colspec colname="param" align="center" />
@@ -81,157 +81,194 @@
                 </tgroup>
             </informaltable>
 			<para>
-    textformat es una función de bloque usada para formatear texto.
-    Básicamente limpa espacios y caracteres especiales, y formatea
-    los párrafos cortando el texto al final de la palabra y endentando 
-    lineas.
+    {textformat} es una <link linkend="plugins.block.functions">función de bloque</link> 
+    usada para formatear texto. Básicamente limpa espacios y caracteres especiales, y 
+    formatea los párrafos cortando el texto al final de la palabra y endentando lineas.
 			</para>
 			<para>
-   Usted puede definir los parámetros explícitamente, o usar un
-   estilo pre-definido. 
+   Usted puede definir los parámetros explícitamente, o usar un estilo pre-definido. 
    Actualmente el único estilo disponible es "email".
 			</para>
 <example>
-<title>textformat</title>
-<programlisting>
-{textformat wrap=40}
+ <title>{textformat}</title>
+  <programlisting>
+<![CDATA[
+   {textformat wrap=40}
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-This is bar.
+   This is bar.
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-{/textformat}
+   {/textformat}
 
-SALIDA:
+]]>
+  </programlisting>
+  <para>
+   Salida del ajemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
 
-This is foo. This is foo. This is foo.
-This is foo. This is foo. This is foo.
+   This is foo. This is foo. This is foo.
+   This is foo. This is foo. This is foo.
 
-This is bar.
+   This is bar.
 
-bar foo bar foo foo. bar foo bar foo
-foo. bar foo bar foo foo. bar foo bar
-foo foo. bar foo bar foo foo. bar foo
-bar foo foo. bar foo bar foo foo.
+   bar foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo bar
+   foo foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat wrap=40 indent=4}
 
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-{textformat wrap=40 indent=4}
+   This is bar.
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-This is bar.
+   {/textformat}
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+]]>
+  </programlisting>
+  <para>
+   Salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
 
-{/textformat}
+   This is foo. This is foo. This is
+   foo. This is foo. This is foo. This
+   is foo.
 
-SALIDA:
+   This is bar.
 
-    This is foo. This is foo. This is
-    foo. This is foo. This is foo. This
-    is foo.
+   bar foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo.
+   bar foo bar foo foo. bar foo bar
+   foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat wrap=40 indent=4 indent_first=4}
 
-    This is bar.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-    bar foo bar foo foo. bar foo bar foo
-    foo. bar foo bar foo foo. bar foo
-    bar foo foo. bar foo bar foo foo.
-    bar foo bar foo foo. bar foo bar
-    foo foo.
+   This is bar.
 
-{textformat wrap=40 indent=4 indent_first=4}
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   {/textformat}
+]]>
+  </programlisting>
+  <para>
+   Salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
 
-This is bar.
+   This is foo. This is foo. This
+   is foo. This is foo. This is foo.
+   This is foo.
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+   This is bar.
 
-{/textformat}
+   bar foo bar foo foo. bar foo bar
+   foo foo. bar foo bar foo foo. bar
+   foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo
+   bar foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat style="email"}
 
-SALIDA:
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-        This is foo. This is foo. This
-    is foo. This is foo. This is foo.
-    This is foo.
+   This is bar.
 
-        This is bar.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-        bar foo bar foo foo. bar foo bar
-    foo foo. bar foo bar foo foo. bar
-    foo bar foo foo. bar foo bar foo
-    foo. bar foo bar foo foo. bar foo
-    bar foo foo.
+   {/textformat}
 
-{textformat style="email"}
+]]>
+  </programlisting>
+  <para>
+   Salida del ejemplo de arriba:
+  </para>
+  <screen>
+<![CDATA[
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   This is foo. This is foo. This is foo. This is foo. This is foo. This is
+   foo.
 
-This is bar.
+   This is bar.
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+   bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
+   foo.
 
-{/textformat}
+]]>
+  </screen>
+ </example>
+  <para>
+  Ver también
+   <link linkend="language.function.strip">{strip}</link>
+  y <link linkend="language.modifier.wordwrap">{wordwrap}</link>.
+ </para>
 
-SALIDA:
-
-This is foo. This is foo. This is foo. This is foo. This is foo. This is
-foo.
-
-This is bar.
-
-bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
-bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
-foo.
-
-</programlisting>
-</example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

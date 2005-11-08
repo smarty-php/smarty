@@ -38,9 +38,9 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
+
 $smarty->assign('articleTitle', 'Something Went Wrong in Jet Crash, Experts Say.');
-$smarty->display('index.tpl');
+
 ?>
 ]]>
    </programlisting>
@@ -65,6 +65,10 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ ^^W^^e^^n^^t^^ ^^W^^r^^o^^n^^g^^ ^^i^^n^^ ^^J^^e^^t^
 ]]>
    </screen>
   </example>
+    <para>
+    Ver también <link linkend="language.modifier.wordwrap">wordwrap</link>
+    y <link linkend="language.modifier.nl2br">nl2br</link>.
+    </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

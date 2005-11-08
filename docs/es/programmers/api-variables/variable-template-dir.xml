@@ -5,9 +5,11 @@
     <para>
      Este es el nombre por default del directorio del template. Si 
      usted no proporciona un tipo de recurso que incluya archivos, 
-     entonces estos se encontraran aquí. Por default "./templates", 
-     esto significa que lo buscara en el directorio del templates 
-     en el mismo directorio que esta ejecutando el script PHP.
+     entonces estos se encontraran aquí. 
+     Por default <filename class="directory">"./templates"</filename>, 
+     esto significa que lo buscara en el directorio del 
+     <filename class="directory">templates</filename> en el mismo 
+     directorio que esta ejecutando el script PHP.
     </para>
     <note>
      <title>Nota Técnica</title>

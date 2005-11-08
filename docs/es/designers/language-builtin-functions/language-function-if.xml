@@ -3,10 +3,12 @@
 		<sect1 id="language.function.if">
 			<title>if,elseif,else</title>
 			<para>
-   Los comandos if del Smarty tiene mucho de la flexibilidad del comando 
-   if de php, con algunas adiciones para la herramienta de template.
+    Los comandos <emphasis>{if}</emphasis> del Smarty tiene mucho de la 
+    flexibilidad del comando 
+    <ulink url="&url.php-manual;if"><command>if</command></ulink> de php, 
+    con algunas adiciones para la herramienta de template.
 			Todo <emphasis>{if}</emphasis> debe tener su <emphasis>{/if}</emphasis>. 
-   <emphasis>{else}</emphasis> y <emphasis>{elseif}</emphasis> tambien son
+   <emphasis>{else}</emphasis> y <emphasis>{elseif}</emphasis> también son
    permitidos. 
    Toda las condicionales de PHP son reconcidas, tal como 
    <emphasis>||</emphasis>, <emphasis>or</emphasis>,
@@ -80,6 +82,13 @@
                         <entry>&lt;=</entry>
                     </row>
                     <row>
+                      <entry>===</entry>
+                      <entry></entry>
+                      <entry>$a === 0</entry>
+                      <entry>Igual e indentico</entry>
+                      <entry>===</entry>
+                    </row>
+                    <row>
                         <entry>!</entry>
                         <entry>not</entry>
                         <entry>not $a</entry>
@@ -134,6 +143,7 @@
 <example>
 <title>sentencia if</title>
 <programlisting>
+<![CDATA[
 {if $name eq "Fred"}
 	Welcome Sir.
 {elseif $name eq "Wilma"}
@@ -160,7 +170,7 @@
 
 
 {* los parentesis son permitidos *}
-{if ( $amount &lt; 0 or $amount &gt; 1000 ) and $volume >= #minVolAmt#}
+{if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
 	...
 {/if}
 
@@ -194,7 +204,9 @@
 {* 0=even, 1=even, 2=even, 3=odd, 4=odd, 5=odd, etc. *}
 {if $var is even by 3}
 	...
-{/if}</programlisting>
+{/if}
+]]>
+</programlisting>
 </example>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -9,6 +9,13 @@
        sobre los archivos del template incluidos y las variables 
        destinadas a la pagina del template actual.
       </para>
+      <para>
+      Ver también 
+      <link linkend="language.function.debug">{debug}</link>,
+      <link linkend="variable.debug.tpl">$debug_tpl</link>,
+      y <link linkend="variable.debugging.ctrl">$debugging_ctrl</link>
+      </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

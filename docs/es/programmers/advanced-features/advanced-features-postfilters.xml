@@ -29,12 +29,17 @@ function add_header_comment($tpl_source, &$smarty)
 $smarty->register_postfilter("add_header_comment");
 $smarty->display("index.tpl");
 ?>
-
-{* compiled Smarty template index.tpl *}
-<!-- Created by Smarty! -->
-{* rest of template content... *}
 ]]>
 </programlisting>
+  <para>
+   Observe como hacer la compilacion para Smarty del template index.tpl:
+  </para>
+    <screen>
+     <![CDATA[
+     <!-- Created by Smarty! -->
+     {* rest of template content... *}
+     ]]>
+       </screen>
     </example>
 </sect1>
 <!-- Keep this comment at the end of the file

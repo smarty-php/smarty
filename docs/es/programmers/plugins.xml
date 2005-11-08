@@ -17,12 +17,11 @@
     <listitem><simpara>inserts</simpara></listitem>
    </itemizedlist>
    Con la excepción de recursos, la compatibildad con la forma antigua 
-   de funciones de manipulación de registro via register_* API es 
-   conservada. Si usted no uso el API en lugar de eso modifico las 
-   variables de clase <literal>$custom_funcs</literal>, 
-   <literal>$custom_mods</literal>, y otras directamente, entonces usted 
-   va a necesitar ajustar sus scripts para cualquiera que use el API o 
-   convertir sus funciones habituales en plugins.
+   de funciones de manipulación de registro via register_* API es conservada. 
+   Si usted no uso el API en lugar de eso modifico las variables de clase 
+   <literal>$custom_funcs</literal>, <literal>$custom_mods</literal>, y otras 
+   directamente, entonces usted va a necesitar ajustar sus scripts para 
+   cualquiera que use el API o convertir sus funciones habituales en plugins.
   </para>
    
 &programmers.plugins.plugins-howto;

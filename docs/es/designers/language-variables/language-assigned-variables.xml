@@ -3,60 +3,84 @@
    <sect1 id="language.assigned.variables">
     <title>Variables definidas desde PHP</title>
     <para>
-     Las variables que son definidas desde PHP son referenciadas precedendo 
-     estas con una señal de cifrado  <literal>$</literal>. Las variables 
-     definidas dentro del template como una función
+     Las variables que son <link linkend="api.assign">asignadas</link> desde PHP 
+     son referenciadas precedidas estas con una señal de cifrado <literal>$</literal>. 
+     Las variables definidas dentro del template como una función
      <link linkend="language.function.assign">assign</link> también son 
      mostradas de esta manera.
     </para>
     <example>
 
      <title>variables definidas</title>
-     <programlisting>
+   <para> php script</para>
+   <programlisting role="php">
 <![CDATA[
-Hello {$firstname}, glad to see you could make it.
-<br />
-Your last login was on {$lastLoginDate}.
+<?php
+
+$smarty = new Smarty;
+
+$smarty->assign('firstname', 'Doug');
+$smarty->assign('lastname', 'Evans');
+$smarty->assign('meetingPlace', 'New York');
+
+$smarty->display('index.tpl');
+
+?>
 ]]>
      </programlisting>
      <para>
-      This will output:
+      Donde el contenido de index.tpl es:
      </para>
-     <screen>
+<programlisting>
 <![CDATA[
-Hello Doug, glad to see you could make it.
+Hello {$firstname} {$lastname}, glad to see you can make it.
 <br />
-Your last login was on January 11th, 2001.
+{* this will not work as $vars are case sensitive *}
+This weeks meeting is in {$meetingplace}.
+{* this will work *}
+This weeks meeting is in {$meetingPlace}.
 ]]>
-     </screen>
-    </example>
+   </programlisting>
 
-		<sect2 id="language.variables.assoc.arrays">
-			<title>Arreglos asociativos</title>
-			<para>
+  <para>
+   esta es la salida:
+  </para>
+  <screen>
+<![CDATA[
+Hello Doug Evans, glad to see you can make it.
+<br />
+This weeks meeting is in .
+This weeks meeting is in New York.
+]]>
+  </screen>
+ </example>
+ <sect2 id="language.variables.assoc.arrays">
+   <title>Arreglos asociativos</title>
+   <para>
     Usted también puede referenciar matrices asociativas en variables
-    que son definidas desde PHP especificando la clave después del 
+    que son definidas desde PHP especificando la clave después del
     simbolo '.'(punto).
-			</para>
+   </para>
    <example>
     <title>Accesando variables de matriz asociativa</title>
-    <programlisting role="php">
+   <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
 $smarty->assign('Contacts',
     array('fax' => '555-222-9876',
           'email' => 'zaphod@slartibartfast.com',
           'phone' => array('home' => '555-444-3333',
-                           'cell' => '555-111-1234')));
+                           'cell' => '555-111-1234')
+                           )
+         );
 $smarty->display('index.tpl');
 ?>
 ]]>
-    </programlisting>
-    <para>
-     where the content of index.tpl is:
-    </para>
-    <programlisting>
+   </programlisting>
+   <para>
+    Donde el contenido de index.tpl es:
+   </para>
+   <programlisting>
 <![CDATA[
 {$Contacts.fax}<br />
 {$Contacts.email}<br />
@@ -64,47 +88,45 @@ $smarty->display('index.tpl');
 {$Contacts.phone.home}<br />
 {$Contacts.phone.cell}<br />
 ]]>
-    </programlisting>
-    <para>
-     this will output:
-    </para>
-    <screen>
-<![CDATA[    
+   </programlisting>
+   <para>
+    esta es la salida:
+   </para>
+   <screen>
+<![CDATA[
 555-222-9876<br />
 zaphod@slartibartfast.com<br />
 555-444-3333<br />
 555-111-1234<br />
 ]]>
-    </screen>
-   </example>
-		</sect2>
-  <sect2 id="language.variables.array.indexes">
-			<title>Índices de Matrices</title>
-			<para>
+   </screen>
+  </example>
+ </sect2>
+ <sect2 id="language.variables.array.indexes">
+  <title>Índices de Matrices</title>
+   <para>
     Usted podra referencia matrizes por su índice, muy semejantes a la
     sintaxis de PHP.
-			</para>
+   </para>
    <example>
    <title>Accesando matrices por sus índices</title>
-    <programlisting role="php">
+   <programlisting role="php">
 <![CDATA[
 <?php
-
-$smarty = new Smarty;
-$smarty->assign('Contacts',
-    array('555-222-9876',
-          'zaphod@slartibartfast.com',
-          array('555-444-3333',
-                '555-111-1234')));
+$smarty->assign('Contacts', array(
+                           '555-222-9876',
+                           'zaphod@slartibartfast.com',
+                            array('555-444-3333',
+                                  '555-111-1234')
+                            ));
 $smarty->display('index.tpl');
-
 ?>
 ]]>
-    </programlisting>
-    <para>
-     where index.tpl is:
-    </para>
-    <programlisting>
+   </programlisting>
+   <para>
+    Donde index.tpl es:
+   </para>
+   <programlisting>
 <![CDATA[
 {$Contacts[0]}<br />
 {$Contacts[1]}<br />
@@ -112,47 +134,48 @@ $smarty->display('index.tpl');
 {$Contacts[2][0]}<br />
 {$Contacts[2][1]}<br />
 ]]>
-     </programlisting>
-     <para>
-      This will output:
-     </para>
-     <screen>
+   </programlisting>
+   <para>
+    esta es la salida:
+   </para>
+   <screen>
 <![CDATA[
 555-222-9876<br />
 zaphod@slartibartfast.com<br />
 555-444-3333<br />
 555-111-1234<br />
 ]]>
-      </screen>
-     </example>
-		 </sect2>
-   <sect2 id="language.variables.objects">
-			 <title>Objetos</title>
-			 <para>
-     Las propiedades de los objetos definidos desde PHP pueden ser
-     referenciados especificando el nombre de la propiedad despué;s 
-     del simbolo '-&gt;'.
-			 </para>
-    <example>
-     <title>Accesando propiedades de objetos</title>
-     <programlisting>
+   </screen>
+  </example>
+ </sect2>
+ <sect2 id="language.variables.objects">
+  <title>Objects</title>
+    <para>
+     Las propiedades de los <link linkend="advanced.features.objects">objetos</link> 
+     definidos desde PHP pueden ser referenciados especificando el nombre de la propiedad 
+     después del simbolo '-&gt;'.
+    </para>
+  <example>
+   <title>Accesando propiedades de los Objetos</title>
+   <programlisting>
 <![CDATA[
 name: {$person->name}<br />
 email: {$person->email}<br />
 ]]>
-     </programlisting>
-     <para>
-      this will output:
-     </para>
-     <screen>
+   </programlisting>
+   <para>
+    esta es la salida:
+   </para>
+   <screen>
 <![CDATA[
 name: Zaphod Beeblebrox<br />
 email: zaphod@slartibartfast.com<br />
 ]]>
-     </screen>
-    </example>
-		 </sect2>
+   </screen>
+  </example>
+ </sect2>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

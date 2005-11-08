@@ -38,12 +38,14 @@
                 </tgroup>
             </informaltable>
       <para>
-       capture es usado para recolectar toda la salida del template en una
+       {capture} es usado para recolectar toda la salida del template en una
        variable en lugar de mostrarla. 
        Cualquier contenido entre {capture name="foo"} y {/capture} es 
        recoletado en una variable especificada y el atributo name. El 
        contenido capturado puede ser usado en el template a partir de la 
-       variable especial $smarty.capture.foo en donde foo es el valor 
+       variable especial 
+       <link linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
+       en donde foo es el valor 
        pasado para el atributo name. Si usted no pasa un atributo name, 
        entonces será usado "default". Todos lo comandos {capture} deben 
        estar entre {/capture}. Usted puede anidar(colocar uno dentro de 
@@ -61,9 +63,10 @@
       <caution>
        <para>
         Tenga cuidado cuando capture la salida del comando
-        <command>insert</command>. Si tuviera activo el cache y tuviera 
-        comandos <command>insert</command> y usted espera que funcione 
-        con contenido de cache, no se capturara este contenido.
+        <link linkend="language.function.insert">{insert}</link>. 
+        Si tuviera activo el <link linkend="caching">cache</link> y tuviera 
+        comandos <link linkend="language.function.insert">{insert}</link> y 
+        usted espera que funcione con contenido de cache, no se capturara este contenido.
        </para>
       </caution>
       <para>
@@ -87,6 +90,15 @@
 </programlisting>
        </example>
       </para>
+ <para>
+  Ver También
+  <link linkend="language.variables.smarty.capture">$smarty.capture</link>,
+   <link linkend="language.function.eval">{eval}</link>,
+  <link linkend="language.function.fetch">{fetch}</link>,
+  <link linkend="api.fetch">fetch()</link>
+  y <link linkend="language.function.assign">{assign}</link>.
+ </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

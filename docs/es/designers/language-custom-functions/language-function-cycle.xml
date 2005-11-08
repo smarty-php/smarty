@@ -63,16 +63,23 @@
      <entry><emphasis>n/a</emphasis></entry>
      <entry>La variable del template que recibirá la salida</entry>
     </row>
+    <row>
+     <entry>reset</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry><emphasis>false</emphasis></entry>
+     <entry>Este coloca al ciclo en el primer valor y no le permite avanzar</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
  <para>
-  Cycle es usado para hacer un ciclo a trav&eacute;s de un conjunto 
+  {Cycle} es usado para hacer un ciclo a través de un conjunto 
   de valores. Esto hace mas fácil alternar entre dos o mas colores 
   en una tabla, o ciclos a travéz de una matriz de valores.
  </para>
  <para>
-  Usted puede usar el cycle en mas de un conjunto de valores en su 
+  Usted puede usar el {cycle} en mas de un conjunto de valores en su 
   template supliendo el atributo name. De cada uno de los conjuntos 
   de valores.
  </para>

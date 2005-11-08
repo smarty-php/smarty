@@ -10,11 +10,14 @@
    <sect2 id="language.variables.smarty.request">
     <title>Solicitud de Variables</title>
      <para>
-     La solicitud de variables como get, post, cookies, server, environment, y
-     session pueden ser accesadas como se muestra en los ejemplos de abajo:
+      La <ulink url="&url.php-manual;reserved.variables">solicitud de variables</ulink> 
+      como $_GET, $_POST, $_COOKIE, $_SERVER, $_ENV y $_SESSION 
+      (Ver <link linkend="variable.request.vars.order">$request_vars_order</link>
+       y <link linkend="variable.request.use.auto.globals">$request_use_auto_globals</link>)
+       pueden ser accesadas como se muestra en los ejemplos de abajo:
      </para>
      <example>
-      <title>Mostrando peticiones de variables</title>
+      <title>Mostrando solicitud de variables</title>
       <programlisting>
 <![CDATA[
 {* display value of page from URL (GET) http://www.domain.com/index.php?page=foo *}
@@ -52,10 +55,12 @@
   <sect2 id="language.variables.smarty.now">
 			<title>{$smarty.now}</title>
 			<para>
-    El timestamp actual puede ser accesado con {$smarty.now}.
-    El número refleja el número de segundos pasados desde la
-    llamada Epoca (1 de Enero de 1970) y puede ser pasado directamente 
-    para el modificador date_format para mostrar la fecha.
+    El <ulink url="&url.php-manual;function.time">timestamp</ulink> 
+    actual puede ser accesado con {$smarty.now}. El número refleja el 
+    número de segundos pasados desde la llamada Epoca (1 de Enero de 1970) 
+    y puede ser pasado directamente para el modificador 
+    <link linkend="language.modifier.date.format">date_format</link> para 
+    mostrar la fecha.
 			</para>
    <example>
     <title>Usando {$smarty.now}</title>
@@ -70,7 +75,9 @@
   <sect2 id="language.variables.smarty.const">
 			<title>{$smarty.const}</title>
 			<para>
-		 	Usted puede accesar el valor de constantes PHP directamente.
+		 	Usted puede accesar al valor de constantes PHP directamente.
+    Ver también <link linkend="smarty.constants">smarty constants</link>
+
 			</para>
    <example>
     <title>Usando {$smarty.const}</title>
@@ -85,9 +92,10 @@
 		<sect2 id="language.variables.smarty.capture">
 			<title>{$smarty.capture}</title>
 			<para>
-    La salida capturada via {capture}..{/capture} puede ser accesada 
-    usando la variable {$smarty}. 
-    vea la sección <link linkend="language.function.capture">capture</link>
+    La salida capturada via  
+    <link linkend="language.function.capture">{capture}..{/capture}</link> 
+    puede ser accesada usando la variable {$smarty}. 
+    vea la sección <link linkend="language.function.capture">{capture}</link>
     para un ejemplo.
 			</para>
 		</sect2>
@@ -95,10 +103,10 @@
 		<sect2 id="language.variables.smarty.config">
 			<title>{$smarty.config}</title>
 			<para>
-    La variable {$smarty} puede ser usada para referir variables de
-    configuración cargadas. 
-    {$smarty.config.foo} es un sinónimo para {#foo#}. vea la sección
-    sobre <link linkend="language.function.config.load">config_load</link> 
+    La variable {$smarty} puede ser usada para referir 
+    <link linkend="language.config.variables">variables de configuración</link> 
+    cargadas. {$smarty.config.foo} es un sinónimo para {#foo#}. vea la sección
+    sobre <link linkend="language.function.config.load">{config_load}</link> 
     para un ejemplo.
 			</para>
 		</sect2>
@@ -123,25 +131,20 @@
 		<sect2 id="language.variables.smarty.version">
 			<title>{$smarty.version}</title>
 			<para>
-    Esta variable contiene la versión Smarty con que es compilado el
-    template.
+    Esta variable contiene la versión Smarty con que es compilado el template.
 			</para>
 		</sect2>
 		<sect2 id="language.variables.smarty.ldelim">
-			<title>{$smarty.ldelim}</title>
+   <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
 			<para>
-    Esta variable es usada para imprimir literalmente el valor left-delimiter.  
+    Esta variable es usada para imprimir literalmente el valor left-delimiter y right-delimiter.  
     Ver tambien <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
 			</para>
+   <para>
+    Ver también <link linkend="language.syntax.variables">Variables</link> 
+    y <link linkend="language.config.variables">Config Variables</link>
+   </para>
 		</sect2>
-		<sect2 id="language.variables.smarty.rdelim">
-			<title>{$smarty.rdelim}</title>
-			<para>
-    Esta variable es usada para imprimir literalmente el valor right-delimiter.
-    Ver tambien <link linkend="language.function.ldelim">{rdelim},{rdelim}</link>.
-			</para>
-		</sect2>
-
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

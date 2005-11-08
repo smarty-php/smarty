@@ -15,12 +15,11 @@
      </funcprototype>
     </funcsynopsis>
     <para>
-     Los Prefilters son usados para procesar el fuente del template
-     inmediatamente antes de la compilación. El primer parámetro de 
-     la función del prefilter es el fuente del template, posiblemente
-     modificado por algunos otros prefilters. El Plugin es supuesto 
-     que retorne el fuente modificado. Observe que este código no
-     es salvado en ningun lugar, este es solo usado para la compilación.
+     Los Prefilters son usados para procesar el fuente del template inmediatamente 
+     antes de la compilación. El primer parámetro de la función del prefilter es el 
+     fuente del template, posiblemente modificado por algunos otros prefilters. 
+     El Plugin es supuesto que retorne el fuente modificado. Observe que este código 
+     no es salvado en ningun lugar, este es solo usado para la compilación.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -30,13 +29,12 @@
      </funcprototype>
     </funcsynopsis>
     <para>
-     Los Postfilters son usados para procesar la salida compilada del 
-     template (el código PHP) inmediatamente después de que la compilacion 
-     es terminada pero antes de que el template compilado sea salvado en 
-     el sistema de archivos. El primer parámetro para la función postfilter 
-     es el código del template compilado, posiblemente modificado por otros
-     postfilters. El plugin es supuesto que retorne la versión modificada 
-     de este codigo.
+     Los Postfilters son usados para procesar la salida compilada del template 
+     (el código PHP) inmediatamente después de que la compilacion es terminada 
+     pero antes de que el template compilado sea salvado en el sistema de archivos. 
+     El primer parámetro para la función postfilter es el código del template 
+     compilado, posiblemente modificado por otros postfilters. 
+     El plugin se supone retornara la versión modificada de este código. 
     </para>
     <example>
      <title>prefilter plugin</title>
