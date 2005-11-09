@@ -1077,6 +1077,10 @@ class Smarty
             return $this->_config[0]['vars'];
         } else if(isset($this->_config[0]['vars'][$name])) {
             return $this->_config[0]['vars'][$name];
+        } else {
+            // var non-existant, return valid reference
+            $_tmp = null;
+            return $_tmp;
         }
     }
 
