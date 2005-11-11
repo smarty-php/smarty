@@ -54,7 +54,7 @@
        word boundary (false), or at the exact character (true).</entry>
      </row>
      <row>
-      <entry>3</entry>
+      <entry>4</entry>
       <entry>boolean</entry>
       <entry>No</entry>
       <entry>false</entry>
