@@ -1,3 +1,5 @@
+ - replace {} string access with equivalent substr() to avoid E_STRICT
+   warnings in PHP 5.1 (boots)
  - return valid reference in get_config_vars() when given var is
    non-existant (Thomas Schulz, boots)
  - plugin html_image: fix incorrect secure_dir error when
@@ -8,7 +10,7 @@
  - return valid reference in get_template_vars() when given var is
    non-existant (monte)
  - add escape type "urlpathinfo" to escape modifier (monte)
- 
+
 Version 2.6.10 (Aug 5, 2005)
 ----------------------------
 

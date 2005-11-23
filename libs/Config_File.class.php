@@ -285,9 +285,9 @@ class Config_File {
             $line = $lines[$i];
             if (empty($line)) continue;
 
-            if ( $line{0} == '[' && preg_match('!^\[(.*?)\]!', $line, $match) ) {
+            if ( substr($line, 0, 1) == '[' && preg_match('!^\[(.*?)\]!', $line, $match) ) {
                 /* section found */
-                if ($match[1]{0} == '.') {
+                if (substr($match[1], 0, 1) == '.') {
                     /* hidden section */
                     if ($this->read_hidden) {
                         $section_name = substr($match[1], 1);
@@ -347,7 +347,7 @@ class Config_File {
      */
     function _set_config_var(&$container, $var_name, $var_value, $booleanize)
     {
-        if ($var_name{0} == '.') {
+        if (substr($var_name, 0, 1) == '.') {
             if (!$this->read_hidden)
                 return;
             else

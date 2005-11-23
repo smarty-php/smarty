@@ -1698,8 +1698,8 @@ class Smarty
      */
     function _dequote($string)
     {
-        if (($string{0} == "'" || $string{0} == '"') &&
-            $string{strlen($string)-1} == $string{0})
+        if ((substr($string, 0, 1) == "'" || substr($string, 0, 1) == '"') &&
+            substr($string, -1) == substr($string, 0, 1))
             return substr($string, 1, -1);
         else
             return $string;
