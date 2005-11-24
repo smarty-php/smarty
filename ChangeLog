@@ -1,3 +1,13 @@
+2005-11-23  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/plugins/modifier.escape.php:
+      replace {} string access with equivalent substr() to avoid E_STRICT
+      warnings in PHP 5.1
+
 2005-11-09  boots  <jayboots@yahoo.com>
 
     * NEWS
