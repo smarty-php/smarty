@@ -14,6 +14,7 @@
  * @link http://smarty.php.net/manual/en/language.function.config.load.php {config_load}
  *       (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
+ * @author messju mohr <messju at lammfellpuschen dot de> (added use of resources)
  * @param array Format:
  * <pre>
  * array('file' => required config file name,
