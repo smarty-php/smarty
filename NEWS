@@ -1,3 +1,4 @@
+ - fix handling of multiple identical inserts in one display()-call (messju)
  - replace {} string access with equivalent substr() to avoid E_STRICT
    warnings in PHP 5.1 (boots)
  - return valid reference in get_config_vars() when given var is
