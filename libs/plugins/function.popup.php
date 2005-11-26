@@ -89,6 +89,7 @@ function smarty_function_popup($params, &$smarty)
             case 'vauto':
             case 'mouseoff':
             case 'followmouse':
+            case 'closeclick':
                 if ($_value) $append .= ',' . strtoupper($_key);
                 break;
 
