@@ -1,3 +1,19 @@
+2005-11-26  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS:
+      fixed handling of multiple identical calls to {insert}.
+      
+      the function was called multiple times, but all inserts where replaced
+      by the results of the first call to the insert function.
+
+    * libs/plugins/compiler.assign.php
+      libs/plugins/function.config_load.php:
+      added credits
+
+    * libs/plugins/function.popup.php:
+      added "closeclick" from
+      http://www.bosrup.com/web/overlib/?Command_Reference
+
 2005-11-23  boots  <jayboots@yahoo.com>
 
     * NEWS
