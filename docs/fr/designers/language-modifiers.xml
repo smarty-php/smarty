@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.18 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.19 Maintainer: gerald Status: ready -->
+
 <chapter id="language.modifiers">
  <title>Modificateurs de variables</title>
  <para>
@@ -47,14 +48,16 @@
   (Affiche le nombre d'élements du tableau $titreArticle.)
  </para>
   <para>
-  Les modificateurs sont chargés automatiquement depuis votre répertoire 
+  Les modificateurs sont chargés automatiquement depuis votre répertoire
   de plugin <link linkend="variable.plugins.dir">$plugins_dir</link> (voir aussi:
-  <link linkend="plugins.naming.conventions">convention de nommage</link>) 
+  <link linkend="plugins.naming.conventions">convention de nommage</link>)
   ou peuvent être enregistrés explicitement (voir: <link
-  linkend="api.register.modifier">register_modifier</link>). 
-  De même, toutes les fonction php peuvent être utilisées comme modificateur, 
-  sans autre déclaration. (L'exemple avec 
-  <literal>@count</literal> ci dessus utilise la fonction count, et non un modificateur
+  linkend="api.register.modifier">register_modifier</link>).
+ </para>
+ <para>
+  De même, toutes les fonction php peuvent être utilisées comme modificateur,
+  sans autre déclaration. (L'exemple avec
+  <literal>@count</literal> ci dessus utilise la fonction count(), et non un modificateur
   Smarty. Utiliser des fonctions PHP en tant que modificateur comporte deux 
   risques: Premièrement: il arrive que l'ordre des paramètres ne soit pas
   celui attendu (<literal>{"%2.f"|sprintf:$float}</literal> fonctionne,
