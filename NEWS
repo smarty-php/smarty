@@ -1,3 +1,5 @@
+ - fixed code generation of non-cacheable blocks to play well with php's
+   "Alternative syntax for control structures" (kihara, messju)
  - fix handling of multiple identical inserts in one display()-call (messju)
  - replace {} string access with equivalent substr() to avoid E_STRICT
    warnings in PHP 5.1 (boots)
