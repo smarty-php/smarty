@@ -15,8 +15,8 @@
 
 function smarty_core_write_compiled_include($params, &$smarty)
 {
-    $_tag_start = 'if \(\$this->caching && \!\$this->_cache_including\) \{ echo \'\{nocache\:('.$params['cache_serial'].')#(\d+)\}\';\}';
-    $_tag_end   = 'if \(\$this->caching && \!\$this->_cache_including\) \{ echo \'\{/nocache\:(\\2)#(\\3)\}\';\}';
+    $_tag_start = 'if \(\$this->caching && \!\$this->_cache_including\) \{ echo \'\{nocache\:('.$params['cache_serial'].')#(\d+)\}\'; \};';
+    $_tag_end   = 'if \(\$this->caching && \!\$this->_cache_including\) \{ echo \'\{/nocache\:(\\2)#(\\3)\}\'; \};';
 
     preg_match_all('!('.$_tag_start.'(.*)'.$_tag_end.')!Us',
                    $params['compiled_content'], $_match_source, PREG_SET_ORDER);
