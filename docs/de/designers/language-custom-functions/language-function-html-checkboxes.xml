@@ -1,110 +1,116 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
-                <sect1 id="language.function.html.checkboxes">
-                        <title>html_checkboxes (Ausgabe von HTML-CHECKBOX Tag)</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Attribut Name</entry>
-                        <entry>Typ</entry>
-                        <entry>Erforderlich</entry>
-                        <entry>Standardwert</entry>
-                        <entry>Beschreibung</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>name</entry>
-                        <entry>string</entry>
-                        <entry>Nein</entry>
-                        <entry><emphasis>checkbox</emphasis></entry>
-                        <entry>Name der checkbox Liste</entry>
-                    </row>
-                    <row>
-                        <entry>values</entry>
-                        <entry>array</entry>
-                        <entry>ja, ausser wenn das option Attribut verwendet wird</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ein Array mit Werten f&uuml;r die checkboxes</entry>
-                    </row>
-                    <row>
-                        <entry>output</entry>
-                        <entry>array</entry>
-                        <entry>ja, ausser wenn das option Attribut verwendet wird</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ein Array mit Werten f&uuml;r checkbox Kn&ouml;pfe</entry>
-                    </row>
-                    <row>
-                        <entry>selected</entry>
-                        <entry>string/array</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>das/die ausgew&auml;hlten checkbox Elemente</entry>
-                    </row>
-                    <row>
-                        <entry>options</entry>
-                        <entry>assoziatives array</entry>
-                        <entry>Ja, ausser values/output wird verwendet</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>ein assoziatives Array mit Werten und Ausgaben</entry>
-                    </row>
-                    <row>
-                        <entry>separator</entry>
-                        <entry>string</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>empty</emphasis></entry>
-                        <entry>Zeichenkette die zwischen den checkbox Elementen eingef&uuml;gt werden soll</entry>
-                    </row>
-                    <row>
-                        <entry>labels</entry>
-                        <entry>boolean</entry>
-                        <entry>No</entry>
-                        <entry><emphasis>true</emphasis></entry>
-                        <entry>f&uuml;gt der Ausgabe &lt;label&gt;-Tags hinzu</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-                        <para>
-            html_checkboxes ist eine Funktion die aus den &uuml;bergebenen Daten html checkbox
-	    Elemente erstellt und k&uuml;mmert sich darum welche Elemente ausgew&auml;hlt sind.
-	    Erforderliche Attribute sind Wert/Ausgabe oder Options. Die Ausgabe ist XHTML kompatibel
-                        </para>
-                        <para>
-			Alle Parameter die nicht in der Liste erw&auml;hnt werden, werden ausgegeben.
-                        </para>
-<example>
-<title>html_checkboxes</title>
-<programlisting>
+<!-- EN-Revision: 1.11 Maintainer: andreas Status: ready -->
+<sect1 id="language.function.html.checkboxes">
+ <title>{html_checkboxes} (Ausgabe von HTML-Checkbox Tag)</title>
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Attribut Name</entry>
+     <entry>Typ</entry>
+     <entry>Erforderlich</entry>
+     <entry>Standardwert</entry>
+     <entry>Beschreibung</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>name</entry>
+     <entry>string</entry>
+     <entry>Nein</entry>
+     <entry><emphasis>checkbox</emphasis></entry>
+     <entry>Name der checkbox Liste</entry>
+    </row>
+    <row>
+     <entry>values</entry>
+     <entry>array</entry>
+     <entry>ja, ausser wenn das option Attribut verwendet wird</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>ein Array mit Werten für die checkboxes</entry>
+    </row>
+    <row>
+     <entry>output</entry>
+     <entry>array</entry>
+     <entry>ja, ausser wenn das option Attribut verwendet wird</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>ein Array mit Werten für checkbox Knöpfe</entry>
+    </row>
+    <row>
+     <entry>selected</entry>
+     <entry>string/array</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>das/die ausgewählten checkbox Elemente</entry>
+    </row>
+    <row>
+     <entry>options</entry>
+     <entry>assoziatives array</entry>
+     <entry>Ja, ausser values/output wird verwendet</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>ein assoziatives Array mit Werten und Ausgaben</entry>
+    </row>
+    <row>
+     <entry>separator</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>Zeichenkette die zwischen den checkbox Elementen eingefügt werden soll</entry>
+    </row>
+    <row>
+     <entry>labels</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry><emphasis>true</emphasis></entry>
+     <entry>fügt der Ausgabe &lt;label&gt;-Tags hinzu</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ <para>
+  html_checkboxes ist eine <link
+  linkend="language.custom.functions">Funktion</link> die aus den
+  übergebenen Daten html checkbox Elemente erstellt und kümmert sich
+  darum welche Elemente ausgewählt sind.  Erforderliche Attribute sind
+  Wert/Ausgabe oder Options. Die Ausgabe ist XHTML kompatibel
+ </para>
+ <para>
+  Alle Parameter die nicht in der Liste erwähnt werden, werden ausgegeben.
+ </para>
+ <example>
+  <title>{html_checkboxes}</title>
+  <programlisting role="php">
 <![CDATA[
 <?php
 
 require('Smarty.class.php');
 $smarty = new Smarty;
 $smarty->assign('cust_ids', array(1000,1001,1002,1003));
-$smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane Johnson','Charlie Brown'));
+$smarty->assign('cust_names', array('Joe Schmoe',
+				    'Jack Smith',
+				    'Jane Johnson',
+				    'Charlie Brown'));
 $smarty->assign('customer_id', 1001);
-$smarty->display('index.tpl');
 
 ?>
-]]
+]]>
   </programlisting>
   <para>
-   where index.tpl is:
+   Wobei index.tpl wie folgt aussieht:
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" values=$cust_ids selected=$customer_id output=$cust_names separator=
-"<br />"}
-]]
+{html_checkboxes name="id" values=$cust_ids selected=$customer_id output=$cust_names separator="<br />"}
+]]>
   </programlisting>
+  <para>
+   Oder mit folgendem PHP-Code:
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -126,8 +132,7 @@ $smarty->display('index.tpl');
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="&lt;br /&g
-t;"}
+{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="<br />"}
 ]]>
   </programlisting>
   <para>
@@ -136,8 +141,7 @@ t;"}
   <screen>
 <![CDATA[
 <label><input type="checkbox" name="id[]" value="1000" />Joe Schmoe</label><br />
-<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><b
-r />
+<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><br />
 <label><input type="checkbox" name="id[]" value="1002" />Jane Johnson</label><br />
 <label><input type="checkbox" name="id[]" value="1003" />Charlie Brown</label><br />
 ]]>
