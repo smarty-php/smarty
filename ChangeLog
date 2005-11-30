@@ -1,3 +1,16 @@
+2005-11-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed code generation of non-cacheable blocks to play well with php's
+      "Alternative syntax" used for example in compiled {if}..{else}..{/if}
+      blocks.
+      
+      (see: http://php.net/manual/en/control-structures.alternative-syntax.php
+      on "Alternative syntax")
+      
+      thanks to kihara from the forum.
+
 2005-11-26  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS:
