@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.function.insert">
  <title>{insert}</title>
+
+ <para>
+  Les balises {insert} fonctionnent à peu près comme les balises
+  <link linkend="language.function.include">include</link>,
+  à l'exception que leur sortie n'est PAS placée en cache lorsque
+  <link linkend="caching">le cache</link> est activé.
+  Les balises {insert} seront exécutées à chaque appel du template.
+ </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -53,28 +63,21 @@
   </tgroup>
  </informaltable>
  <para>
-  Les balises insert fonctionnent à peu près comme les balises <link
-  linkend="language.function.include">include</link>,
-  à l'exception que leur sortie n'est pas placée en cache lorsque
-  <link linkend="caching">le cache</link> est activé.
-  Les balises insert seront exécutées à chaque appel du template.
- </para>
- <para>
   Supposons que vous avez un template avec un emplacement
   pour un bandeau publicitaire en haut de page.
   Ce bandeau publicitaire peut contenir toutes sortes de contenus
   HTML, images, flash, etc. Nous ne pouvons pas placer du contenu
   statique à cet endroit. Nous ne voulons pas non plus que ce
-  contenu fasse partie du cache. Arrive alors la balise insert.
+  contenu fasse partie du cache. Arrive alors la balise {insert}.
   Le template connais #emplacement_bandeau# et #id_site# (récupérés
-  depuis un fichier de configuration), et à besoin d'un appel de
-  fonction pour récupérer le contenu du bandeau.
+  depuis un <link linkend="config.files">fichier de configuration</link>),
+  et à besoin d'un appel de fonction pour récupérer le contenu du bandeau.
  </para>
  <example>
-  <title>Fonction insert</title>
+  <title>Fonction {insert}</title>
   <programlisting>
-   {* exemple de récupération d'un bandeau publicitaire *}
-   {insert name="getBanner" lid=#emplacement_bandeau# sid=#id_site#}
+{* exemple de récupération d'un bandeau publicitaire *}
+{insert name="getBanner" lid=#emplacement_bandeau# sid=#id_site#}
   </programlisting>
  </example>
  <para>
@@ -82,27 +85,28 @@
   paramètres #emplacement_bandeau# et #id_site#. Smarty va rechercher une
   fonction appelée insert_getBanner () dans votre application PHP, et lui
   passer les valeurs #banner_location_id# et #site_id# comme premier
-  paramètre, dans un tableau associatif. Tous les noms des fonctions insert
+  paramètre, dans un tableau associatif. Tous les noms des fonctions {insert}
   de votre application doivent être prefixées de "insert_" pour remédier
   à d'éventuels conflits de nommage. Votre fonction insert_getBanner ()
   est supposée traiter les valeurs passées et retourner
   un résultat. Ces résultats sont affichés dans le template en lieu et
   place de la balise. Dans cet exemple, Smarty appellera cette fonction
   insert_getBanner(array("lid" => "12345","sid" => "67890")); et affichera
-   le résultat retourné à la place de la balise insert.
+   le résultat retourné à la place de la balise {insert}.
   </para>
   <para>
    Si vous donnez une valeur à l'attribut "assign", la sortie de la balise
-   insert sera assigné à une variable de template de ce nom au lieu d'être
+   {insert} sera assigné à une variable de template de ce nom au lieu d'être
    affichée	directement. NOTE: assigner la sortie à une variable n'est pas
-   très utile lorsque le cache est activé.
+   très utile lorsque le <link linkend="variable.caching">cache</link> est activé.
   </para>
   <para>
    Si vous donnez une valeur à l'attribut "script", ce script PHP sera
-   inclus (une seule fois) avant l'exécution de la fonction insert.
-   Le cas peut survenir lorsque la fonction insert n'existe pas encore,
+   inclus (une seule fois) avant l'exécution de la fonction {insert}.
+   Le cas peut survenir lorsque la fonction {insert} n'existe pas encore,
    et que le script PHP chargé de sa définission doit être inclus. Le
-   chemin doit être absolu ou relatif à $trusted_dir.
+   chemin doit être absolu ou relatif à
+   <link linkend="variable.trusted.dir">$trusted_dir</link>.
    Lorsque <link
    linkend="variable.security">"security" est actif</link>, le script doit être situé
    dans <link linkend="variable.trusted.dir">$trusted_dir</link>.
@@ -110,14 +114,14 @@
   <para>
    L'objet Smarty est passé comme second argument. De cette façon, vous
    pouvez utiliser ou modifier des informations sur l'objet Smarty,
-   directement depuis votre fonction d'insertion.
+   directement depuis votre fonction {insert}.
   </para>
   <note>
    <title>Note technique</title>
    <para>
     Il est possible d'avoir des portions de template qui ne soient pas
     gérables par le cache. Même si vous avez activé l'option
-    <link linkend="caching">caching</link>, les balises insert
+    <link linkend="caching">caching</link>, les balises {insert}
     ne feront pas partie du cache. Elles retourneront un contenu dynamique
     à chaque invocation de la page. Cette méthode est très pratique pour
     des éléments tels que les bandeaux publicitaires, les enquêtes,

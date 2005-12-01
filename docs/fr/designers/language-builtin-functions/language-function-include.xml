@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.function.include">
  <title>{include}</title>
+
+ <para>
+  Les balises "{include}" sont utilisées pour inclure des templates à
+  l'intérieur d'autres templates. Toutes les variables disponibles
+  dans le template réalisant l'inclusion sont disponibles dans le
+  template inclus. La balise {include} doit disposer de l'attribut
+  "file", qui contient le chemin de la ressource template.
+ </para>
+ <para>
+  Vous pouvez spécifier un attribut optionnel <emphasis>'assign'</emphasis>
+  qui définit une variable de template dans laquelle la sortie de
+  {include} sera stockée plutôt qu'affichée.
+ </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -45,18 +60,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Les balises "{include}" sont utilisées pour inclure des templates à
-  l'intérieur d'autres templates. Toutes les variables disponibles
-  dans le template réalisant l'inclusion sont disponibles dans le
-  template inclus. La balise {include} doit disposer de l'attribut
-  "file", qui contient le chemin de la ressource template.
- </para>
- <para>
-  Vous pouvez spécifier un attribut optionnel <emphasis>'assign'</emphasis>
-  qui définit une variable de template dans laquelle la sortie de
-  {include} sera stockée plutôt qu'affichée.
- </para>
  <example>
   <title>fonction {include}</title>
   <programlisting>
@@ -66,12 +69,12 @@
   <title>{$title}</title>
  </head>
  <body>
-  {include file="page_header.tpl"}
+  {include file='page_header.tpl'}
 
   {* body of template goes here *}
-  {include file="/$tpl_name.tpl"} <-- remplace $tpl_name avec la valeur
+  {include file='$tpl_name.tpl'} <-- remplace $tpl_name avec la valeur
 
-  {include file="page_footer.tpl"}
+  {include file='page_footer.tpl'}
  </body>
 </html>
 ]]>
@@ -88,11 +91,11 @@
   <title>fonction {include}, passage de variables</title>
   <programlisting>
 <![CDATA[
-{include file="header.tpl" title="Menu principal" table_bgcolor="#c0c0c0"}
+{include file='header.tpl' title='Menu principal' table_bgcolor='#c0c0c0'}
 
 {* Le corps du template vient ici *}
 
-{include file="footer.tpl" logo="http://mon.example.com/logo.gif"}
+{include file='footer.tpl' logo='http://mon.example.com/logo.gif'}
 ]]>
   </programlisting>
   <para>où header.tpl est :</para>
@@ -116,13 +119,13 @@
   <programlisting>
 <![CDATA[
 <body>
- {include file="nav.tpl" assign="navbar"}
- {include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+ {include file='nav.tpl' assign=navbar}
+ {include file='header.tpl' title='Main Menu' table_bgcolor='#c0c0c0'}
  {$navbar}
 
  {* body of template goes here *}
 
- {include file="footer.tpl" logo="http://my.example.com/logo.gif"}
+ {include file='footer.tpl' logo='http://my.example.com/logo.gif'}
  {$navbar}
 </body>
 ]]>
@@ -138,16 +141,21 @@
   <programlisting>
 <![CDATA[
 {* chemin absolu *}
-{include file="/usr/local/include/templates/header.tpl"}
+{include file='/usr/local/include/templates/header.tpl'}
 
 {* chemin absolu (même chose) *}
-{include file="file:/usr/local/include/templates/header.tpl"}
+{include file='file:/usr/local/include/templates/header.tpl'}
 
 {* chemin absolu windows (DOIT utiliser le préfixe "file:") *}
-{include file="file:C:/www/pub/templates/header.tpl"}
+{include file='file:C:/www/pub/templates/header.tpl'}
 
 {* inclusion d'une ressource template "db" *}
-{include file="db:header.tpl"}
+{include file='db:header.tpl'}
+
+{* inclusion d'un template $variable - eg $module = 'contacts' *}
+{include file="$module.tpl"}
+{* ne fonctionne pas avec des simples guillemets ie aucun substitution de variables *}
+{include file='$module.tpl'}
 ]]>
   </programlisting>
  </example>

@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.function.foreach">
  <title>{foreach},{foreachelse}</title>
+
+ <para>
+  Les boucles <emphasis>{foreach}</emphasis> sont une alternative aux boucles
+  <link linkend="language.function.section"><emphasis>section</emphasis></link>.
+  Les boucles <emphasis>{foreach}</emphasis>
+  sont utilisées pour parcourir des <emphasis role="bold">tableaux associatifs simples</emphasis>.
+  La syntaxe des boucles <emphasis>{foreach}</emphasis> est bien plus simple
+  que celle des boucles <emphasis>{section}</emphasis>, mais en contrepartie,
+  <emphasis role="bold">elles ne peuvent être utilisées que pour des tableaux associatifs 
+   simples</emphasis>. La balise <emphasis>{foreach}</emphasis> doit toujours être accompagnée
+  de la balise <emphasis>{/foreach}</emphasis>. Les paramètres requis sont
+  <emphasis>from</emphasis> et <emphasis>item</emphasis>. Le nom des boucles
+  {foreach} doit être composés exclusivement de lettres,
+  chiffres et underscores, selon vos préférences. Les boucles
+  <emphasis>{foreach}</emphasis> peuvent être imbriquées.
+  La variable <emphasis>from</emphasis> (généralement le tableau à
+  parcourir) détermine le nombre de fois que <emphasis>{foreach}</emphasis>
+  sera exécuté. <emphasis>{foreachelse}</emphasis> est exécuté si aucune
+  valeur n'est présente dans la variable donnée à l'attribut
+  <emphasis>from</emphasis>.
+ </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -52,26 +75,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Les boucles <emphasis>{foreach}</emphasis> sont une alternative aux boucles
-  <link linkend="language.function.section"><emphasis>section</emphasis></link>.
-  Les boucles <emphasis>{foreach}</emphasis>
-  sont utilisées pour parcourir des <emphasis role="bold">tableaux associatifs simples</emphasis>.
-  La syntaxe des boucles <emphasis>{foreach}</emphasis> est bien plus simple
-  que celle des boucles <emphasis>{section}</emphasis>, mais en contrepartie,
-  <emphasis role="bold">elles ne peuvent être utilisées que pour des tableaux associatifs 
-  simples</emphasis>. La balise <emphasis>{foreach}</emphasis> doit toujours être accompagnée
-  de la balise <emphasis>{/foreach}</emphasis>. Les paramètres requis sont
-  <emphasis>from</emphasis> et <emphasis>item</emphasis>. Le nom des boucles
-  {foreach} doit être composés exclusivement de lettres,
-  chiffres et underscores, selon vos préférences. Les boucles
-  <emphasis>{foreach}</emphasis> peuvent être imbriquées.
-  La variable <emphasis>from</emphasis> (généralement le tableau à
-  parcourir) détermine le nombre de fois que <emphasis>{foreach}</emphasis>
-  sera exécuté. <emphasis>{foreachelse}</emphasis> est exécuté si aucune
-  valeur n'est présente dans la variable donnée à l'attribut
-  <emphasis>from</emphasis>.
- </para>
  <example>
   <title>foreach</title>
   <programlisting role="php">

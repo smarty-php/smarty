@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
  <para>
@@ -10,9 +11,10 @@
   moteur de template. Tous les <emphasis>{if}</emphasis> doivent être
   utilisés de pair avec un <emphasis>{/if}</emphasis>.
   <emphasis>{else}</emphasis> et <emphasis>{elseif}</emphasis> sont également
-  des balises autorisées. Toutes les conditions PHP sont reconnues, 
+  des balises autorisées. Toutes les conditions et fonctions PHP sont reconnues,
   comme <emphasis>||</emphasis>, <emphasis>or</emphasis>,
-  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>, etc.
+  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>,
+  <emphasis>is_array()</emphasis>, etc.
  </para>
  <para>
   La liste suivante présente les opérateurs reconnus, qui doivent être entourés d'espaces.
@@ -203,6 +205,18 @@ doivent être entourés d'espaces. *}
 {if $var is even by 3}
   ...
 {/if}
+
+{* ------- if avec des fonctions PHP ------- *}
+{* check for array. *}
+{if is_array($foo) }
+.....
+{/if}
+
+{* vérification du tableau. *}
+{if isset($foo) }
+.....
+{/if}
+
 ]]>
   </programlisting>
  </example>

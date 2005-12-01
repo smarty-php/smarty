@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.function.literal">
  <title>{literal}</title>
  <para>
@@ -10,28 +11,28 @@
   qui peuvent confondre le moteur de template. Tout le contenu situé
   entre les balises {literal}{/literal} ne sera pas interprété, et
   affiché comme du contenu statique. Si vous voulez inclure des tags de template
-  dans votre block litéral, utilisez plutôt <link
+  dans votre block {literal}, utilisez plutôt <link
   linkend="language.function.ldelim">{ldelim}{rdelim}</link> pour échapper
   les délimiteurs individuels.
  </para>
  <example>
-  <title>Balises literal</title>
+  <title>Balises {literal}</title>
   <programlisting>
 <![CDATA[
 {literal}
 <script language=javascript>
 
- <!--
-     function isblank(field) {
-     if (field.value == '') 
-     { return false; }
-     else
-     {
-     document.loginform.submit();
-     return true;
-     }
-     }
-     // -->
+<!--
+ function isblank(field) {
+   if (field.value == '')
+    { return false; }
+   else
+    {
+      document.loginform.submit();
+      return true;
+    }
+ }
+// -->
 
 </script>
 {/literal}

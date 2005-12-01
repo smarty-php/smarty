@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.function.php">
  <title>{php}</title>
  <para>
@@ -11,17 +12,39 @@
   nécessaire.
  </para>
  <example>
-  <title>balises php</title>
-  <programlisting>
+  <title>Balises {php}</title>
+  <programlisting role="php">
 <![CDATA[
-   {php}
+{php}
    // inclusion directe d'un script PHP
    // depuis le template.
-   include("/path/to/display_weather.php");
-   {/php}
+   include('/chemin/vers/display_weather.php');
+{/php}
 ]]>
   </programlisting>
  </example>
+ <note>
+  <title>Notes techniques</title>
+  <para>
+   Pour accéder aux variables PHP dans les blocks {php}, vous devriez avoir besoin
+   d'utiliser le mot clé PHP <ulink url="&url.php-manual;global">global</ulink>.
+  </para>
+ </note>
+
+ <example>
+  <title>Balises {php} avec le mot clé global</title>
+  <programlisting role="php">
+<![CDATA[
+{php}
+   global $foo, $bar;
+   if($foo == $bar){
+      // do something
+   }
+{/php}
+]]>
+  </programlisting>
+ </example>
+
  <para>
   Voir aussi
   <link linkend="variable.php.handling">$php_handling</link>,

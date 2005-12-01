@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.function.include.php">
  <title>{include_php}</title>
+
+ <note>
+  <title>Notes techniques</title>
+  <para>
+   {include_php} est presque obsolète dans Smarty. Vous pouvez obtenir des résultats 
+   équivalents en utilisant les fonctions utilisateur.
+   La seule raison qui peut vous pousser à utiliser {include_php} est que 
+   vous avez besoin de mettre une de vos fonction en quarantaine vis à vis du 
+   répertoire des <link linkend="variable.plugins.dir">plugins</link> ou de votre application.
+   Reportez-vous à l'exemple des
+   <link linkend="tips.componentized.templates"> templates composants</link>
+   pour plus de détails.
+  </para>
+ </note>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -46,19 +62,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <note>
-  <title>Technical Note</title>
-  <para>
-   {include_php} est presque obsolète dans Smarty. Vous pouvez obtenir des résultats 
-   équivalents en utilisant les fonctions utilisateur.
-   La seule raison qui peut vous pousser à utiliser {include_php} est que 
-   vous avez besoin de mettre une de vos fonction en quarantaine vis à vis du 
-   répertoire des <link linkend="variable.plugins.dir">plugins</link> ou de votre application.
-   Reportez vous à l'exemple des <link
-   linkend="tips.componentized.templates"> templates composants</link>
-   pour plus de détails.
-  </para>
- </note>
 
  <para>
   Les balises {include_php} sont utilisées pour inclure directement

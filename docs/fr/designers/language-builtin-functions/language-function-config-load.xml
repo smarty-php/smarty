@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.function.config.load">
  <title>{config_load}</title>
+
+ <para>
+  {config_load} est utiliseé pour charger des variables
+  <link linkend="language.config.variables">#variables#</link>
+  depuis un <link linkend="config.files">fichier de configuration</link>
+  dans un template.
+ </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -65,19 +74,13 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {config_load} est utiliseé pour charger des variables <link
-  linkend="language.config.variables">#variables#</link>
-  depuis un <link linkend="config.files">fichier de configuration</link>
-  dans un template.
- </para>
  <example>
   <title>fonction {config_load}</title>
   <para>
    example.conf
   </para>
   <programlisting>
-   <![CDATA[
+<![CDATA[
 #ceci est un commentaire de fichier de configuration
 
 #variables globales
@@ -94,7 +97,7 @@ pageTitle = "Info personnalisée"
   <para>et le template</para>
   <programlisting>
 <![CDATA[
-{config_load file="example.conf"}
+{config_load file='example.conf'}
 
 <html>
 <title>{#pageTitle#|default:"No title"}</title>
@@ -128,7 +131,7 @@ pageTitle = "Info personnalisée"
   <title>fonction {config_load} avec section</title>
   <programlisting>
 <![CDATA[
-{config_load file="example.conf" section="Customer"}
+{config_load file='example.conf' section='Customer'}
 
 <html>
 <title>{#pageTitle#}</title>
@@ -145,6 +148,11 @@ pageTitle = "Info personnalisée"
 ]]>
   </programlisting>
  </example>
+
+ <para>
+  Voir aussi <link linkend="variable.config.overwrite">$config_overwrite</link>
+  pour les tableaux de variables de configuration.
+</para>
 
  <para>
   Voir aussi
