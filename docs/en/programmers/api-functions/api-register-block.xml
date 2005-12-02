@@ -26,7 +26,7 @@
    <literal>array(&amp;$object, $method)</literal> with
    <literal>&amp;$object</literal> being a reference to an
    object and <literal>$method</literal> being a string
-   containing the mehod-name or (c) an array of the form
+   containing the method-name or (c) an array of the form
    <literal>array(&amp;$class, $method)</literal> with
    <literal>$class</literal> being a classname and
    <literal>$method</literal> being a class method of that

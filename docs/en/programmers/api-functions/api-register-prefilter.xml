@@ -33,7 +33,7 @@
      <literal>array(&amp;$object, $method)</literal> with
      <literal>&amp;$object</literal> being a reference to an
      object and <literal>$method</literal> being a string
-     containing the mehod-name
+     containing the method-name
      </para>
    </listitem><listitem>
      <para>
