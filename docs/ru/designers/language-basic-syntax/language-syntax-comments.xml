@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.comments">
  <title>Комментарии</title>
  <para>
@@ -16,6 +16,8 @@
   <programlisting>
 <![CDATA[
 <body>
+{* однострочный комментарий *}
+
 {* этот многострочный комментарий
    не отправляется в бразуер
 *}
@@ -25,15 +27,17 @@
 
 
 {* Примечание разработчика:  $includeFile назначается в скрипте foo.php *}
-<!-- этот html-комментарий будет отправлен браузеру -->
+<!-- этот HTML-комментарий будет отправлен браузеру -->
 {include file=$includeFile}
 
 {include file=#includeFile#}
 
-{* отображаем выпадающее меню *}
+{* этот блок <select> ненужен *}
+{*
 <select name="company">
   {html_options options=$vals selected=$selected_id}
 </select>
+*}
 </body>
 ]]>
   </programlisting>

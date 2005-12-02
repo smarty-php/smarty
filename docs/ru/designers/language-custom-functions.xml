@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <chapter id="language.custom.functions">
  <title>Пользовательские Функции</title>
  <para>
@@ -21,10 +21,10 @@
 &designers.language-custom-functions.language-function-html-select-date;
 &designers.language-custom-functions.language-function-html-select-time;
 &designers.language-custom-functions.language-function-html-table;
-&designers.language-custom-functions.language-function-math;
 &designers.language-custom-functions.language-function-mailto;
-&designers.language-custom-functions.language-function-popup-init;
+&designers.language-custom-functions.language-function-math;
 &designers.language-custom-functions.language-function-popup;
+&designers.language-custom-functions.language-function-popup-init;
 &designers.language-custom-functions.language-function-textformat;
 
 </chapter>

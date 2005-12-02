@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.attributes">
  <title>Параметры</title>
  <para>
@@ -24,18 +24,20 @@
   <title>синтаксис параметров функции</title>
   <programlisting>
 <![CDATA[
-{include file="header.tpl"}
+{include file='header.tpl'}
 
-{include file="header.tpl" attrib_name="attrib value"}
+{include file='header.tpl' attrib_name='attrib value'}
 
 {include file=$includeFile}
 
-{include file=#includeFile# title="Smarty is cool"}
+{include file=#includeFile# title='Smarty is cool'}
 
 {html_select_date display_days=yes}
 
-<select name="company">
-  {html_options options=$choices selected=$selected}
+{mailto address='smarty@example.com'}
+
+<select name='company_id'>
+  {html_options options=$companies selected=$company_id}
 </select>
 ]]>
   </programlisting>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.18 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.19 Maintainer: freespace Status: ready -->
 <chapter id="language.modifiers">
  <title>Модификаторы переменных</title>
  <para>
@@ -43,6 +43,27 @@
   <literal>@</literal>. Пример: <literal>{$articleTitle|@count}</literal> выведет
   количество елементов в массиве $articleTitle.
  </para>
+ 
+ <para>
+  Модификаторы могут автоматически загружаться из вашей директории
+  <link linkend="variable.plugins.dir">$plugins_dir</link> (см. также:
+  <link linkend="plugins.naming.conventions">Соглашение об именах</link>)
+  или могут регистрироваться явно (см.: <link
+  linkend="api.register.modifier">register_modifier</link>).
+ </para>
+
+ <para>
+  К тому же, любая PHP-функция может быть явно использована в качестве модификатора.
+  (Предыдущий пример с <literal>@count</literal> на самом деле использует функцию
+  PHP, а не модификатор Smarty). Использование PHP-функций в качестве модификаторов
+  имеет две маленькие "ловушки": Во-первых, иногда порядок аргументов функции
+  не самый удобный (<literal>{"%2.f"|sprintf:$float}</literal> - это рабочий, но
+  не совсем удобный вариант. Больше подойдет <literal>{$float|string_format:"%2.f"}</literal>,
+  который обеспечивается дистрибутивом Smarty). Во-вторых, в случае включения <link
+  linkend="variable.security">$security</link>, все PHP-функции, которые будут
+  использованы как модификаторы, должны быть объявлены "безопасными"
+  в массиве <link linkend="variable.security.settings">$security_settings['MODIFIER_FUNCS']</link>.
+ </para>
 
  <para>
   См. также
@@ -50,7 +71,7 @@
   <link linkend="api.register.function">register_function()</link>,
   <link linkend="plugins">Плагины - расширение функциональности Smarty</link>
   и
-  <link linkend="plugins.modifiers">модификаторы</link>,
+  <link linkend="plugins.modifiers">модификаторы</link>.
  </para>
 
  &designers.language-modifiers.language-modifier-capitalize;

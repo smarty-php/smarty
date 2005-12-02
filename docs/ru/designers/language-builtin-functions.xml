@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <chapter id="language.builtin.functions">
  <title>Встроенные функции</title>
  <para>
@@ -13,10 +13,10 @@
 &designers.language-builtin-functions.language-function-capture;
 &designers.language-builtin-functions.language-function-config-load;
 &designers.language-builtin-functions.language-function-foreach;
+&designers.language-builtin-functions.language-function-if;
 &designers.language-builtin-functions.language-function-include;
 &designers.language-builtin-functions.language-function-include-php;
 &designers.language-builtin-functions.language-function-insert;
-&designers.language-builtin-functions.language-function-if;
 &designers.language-builtin-functions.language-function-ldelim;
 &designers.language-builtin-functions.language-function-literal;
 &designers.language-builtin-functions.language-function-php;
