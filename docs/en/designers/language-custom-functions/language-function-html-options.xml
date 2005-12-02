@@ -107,7 +107,7 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-<select name=customer_id>
+<select name="customer_id">
    {html_options values=$cust_ids output=$cust_names selected=$customer_id}
 </select>
 ]]>
@@ -135,10 +135,7 @@ where template is:
   </para>
   <programlisting>
 <![CDATA[
-{* note the php count() function to set size *}
-<select name=customer_id size="{$cust_options|@count}">
-   {html_options options=$cust_options selected=$customer_id}
-</select>
+   {html_options name=customer_id options=$cust_options selected=$customer_id}
 ]]>
   </programlisting>
   <para>
@@ -146,7 +143,7 @@ where template is:
   </para>
   <screen>
 <![CDATA[
-<select name=customer_id>
+<select name="customer_id">
     <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
     <option label="Jack Smith" value="1001" selected="selected">Jack Smith</option>
     <option label="Jane Johnson" value="1002">Jane Johnson</option>
