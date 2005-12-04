@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <refentry id="api.append">
  <refnamediv>
-  <refname>append</refname>
-  <refpurpose></refpurpose>
+  <refname>append()</refname>
+  <refpurpose>Ajoute un élément à un tableau assigné</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>append</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
@@ -19,12 +20,11 @@
    <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Utilisée pour ajouter un élément à un tableau assigné. Si vous utilisez
-   cette fonction avec une chaîne de caractères, elle est convertie en
-   tableau auquel on ajoute ensuite l'élément. Vous pouvez explicitement 
-   passer des paires nom/valeur. Si vous passez le troisième paramètre
-   (optionel) à <literal>true</literal>, la valeur sera fusionnée avec le 
-   tableau plutôt que d'être ajoutée.
+   Si vous utilisez cette fonction avec une chaîne de caractères, elle est
+   convertie en tableau auquel on ajoute ensuite l'élément. Vous pouvez
+   explicitement passer des paires nom/valeur. Si vous passez le troisième
+   paramètre (optionel) à <literal>true</literal>, la valeur sera fusionnée
+   avec le tableau plutôt que d'être ajoutée.
   </para>
   &note.parameter.merge;
   <example>

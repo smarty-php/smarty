@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <refentry id="api.clear.assign">
  <refnamediv>
-  <refname>clear_assign</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_assign()</refname>
+  <refpurpose>Efface la valeur d'une variable assignée</refpurpose>
  </refnamediv>
  <refsect1>
   <title />
@@ -13,19 +14,18 @@
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Efface la valeur d'une variable assignée. Il peut s'agir
-   d'une simple valeur ou d'un tableau de valeur.
+   Il peut s'agir d'une simple valeur ou d'un tableau de valeur.
   </para>
   <example>
-   <title>Exemple avec clear_assign</title>
+   <title>Exemple avec clear_assign()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // efface une variable
-$smarty->clear_assign("Name");
+$smarty->clear_assign('Name');
 
 // efface plusieurs variables
-$smarty->clear_assign(array("Name","Address","Zip"));
+$smarty->clear_assign(array('Name','Address','Zip'));
 ?>
 ]]>
    </programlisting>
@@ -34,6 +34,7 @@ $smarty->clear_assign(array("Name","Address","Zip"));
    Voir aussi
    <link linkend="api.clear.all.assign">clear_all_assign()</link>,
    <link linkend="api.clear.config">clear_config()</link>,
+   <link linkend="api.get.template.vars">get_template_vars()</link>,
    <link linkend="api.assign">assign()</link> et
    <link linkend="api.append">append()</link>.
   </para>
