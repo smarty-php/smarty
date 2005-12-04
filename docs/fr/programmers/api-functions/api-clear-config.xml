@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <refentry id="api.clear.config">
  <refnamediv>
-  <refname>clear_config</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_config()</refname>
+  <refpurpose>Efface toutes les variables de configuration assignées</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_config</methodname>
    <methodparam choice="opt"><type>string</type><parameter>var</parameter></methodparam>
@@ -18,7 +19,7 @@
    Si un nom de variable est spécifié, seule cette variable sera effacée.
   </para>
   <example>
-   <title>Exemple avec clear_config</title>
+   <title>Exemple avec clear_config()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -33,6 +34,7 @@ $smarty->clear_config('foobar');
   </example>
   <para>
    Voir aussi les
+   <link linkend="api.get.config.vars">get_config_vars()</link>,
    <link linkend="language.config.variables">variables de configuration</link>,
    <link linkend="config.files">config files</link>,
    <link linkend="language.function.config.load">{config_load}</link>,

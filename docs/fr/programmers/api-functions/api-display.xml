@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+
 <refentry id="api.display">
  <refnamediv>
-  <refname>display</refname>
-  <refpurpose></refpurpose>
+  <refname>display()</refname>
+  <refpurpose>Affiche le template</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>display</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
+   </methodparam>
   </methodsynopsis>
   <para>
    Utilisée pour afficher un template. Il faut fournir un type et un
@@ -24,7 +26,7 @@
   </para>
   &parameter.compileid;
   <example>
-   <title>Exemple avec display</title>
+   <title>Exemple avec display()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -60,7 +62,7 @@ $smarty->display("index.tpl");
    Utilisez la syntaxe des <link
    linkend="template.resources">ressources templates</link>
    pour afficher des fichiers en-dehors du répertoire
-   $template_dir.
+   <link linkend="variable.template.dir">$template_dir</link>.
   </para>
   <example>
    <title>Exemples de fonction d'affichage de ressources templates</title>
@@ -68,16 +70,16 @@ $smarty->display("index.tpl");
 <![CDATA[
 <?php
 // chemin absolu
-$smarty->display("/usr/local/include/templates/header.tpl");
+$smarty->display('/usr/local/include/templates/header.tpl');
 
 // chemin absolu (mêm chose)
-$smarty->display("file:/usr/local/include/templates/header.tpl");
+$smarty->display('file:/usr/local/include/templates/header.tpl');
 
 // chemin absolu Windows (on DOIT utiliser le préfixe "file:")
-$smarty->display("file:C:/www/pub/templates/header.tpl");
+$smarty->display('file:C:/www/pub/templates/header.tpl');
 
 // inclue à partir de la ressource template nommée "db"
-$smarty->display("db:header.tpl");
+$smarty->display('db:header.tpl');
 ?>
 ]]>
    </programlisting>

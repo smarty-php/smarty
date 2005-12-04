@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <refentry id="api.get.config.vars">
  <refnamediv>
-  <refname>get_config_vars</refname>
-  <refpurpose></refpurpose>
+  <refname>get_config_vars()</refname>
+  <refpurpose>Retourne la valeur de la variable de configuration passée en paramètre</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>array</type><methodname>get_config_vars</methodname>
    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Retourne la valeur de la variable de configuration passée en paramètre.
    Si aucun paramètre n'est donné, un tableau de toutes les variables de
    configuration chargées est retourné.
   </para>
   <example>
-   <title>Exemple avec get_config_vars</title>
+   <title>Exemple avec get_config_vars()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
+
 // récupère la variable de configuration chargée 'foo'
 $foo = $smarty->get_config_vars('foo');
 

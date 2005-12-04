@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <refentry id="api.is.cached">
  <refnamediv>
-  <refname>is_cached</refname>
-  <refpurpose></refpurpose>
+  <refname>is_cached()</refname>
+  <refpurpose>Retourne &true; s'il y a un fichier de cache valide pour ce template</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>bool</type><methodname>is_cached</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
@@ -15,73 +16,82 @@
    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Retourne &true; s'il y a un fichier de cache valide pour ce template.
-   Celà fonctionne seulement si <link
-   linkend="variable.caching">$caching</link> est défini à <literal>true</literal>.
+  Celà fonctionne seulement si <link linkend="variable.caching">$caching</link>
+  est défini à <literal>true</literal>. Voir aussi la
+  <link linkend="caching">section sur le cache</link>.
   </para>
   <example>
-   <title>Exemple avec is_cached</title>
+   <title>Exemple avec is_cached()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 $smarty->caching = true;
 
-if(!$smarty->is_cached("index.tpl")) {
+if(!$smarty->is_cached('index.tpl')) {
 //aucun appel à la base de donnée
 }
 
-$smarty->display("index.tpl");
+$smarty->display('index.tpl');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
    Vous pouvez aussi passer en second paramètre un identifiant
-   de $cache au cas où vous voudriez plusieurs fichiers de cache
-   pour ce template.
+   de $cache au cas où vous voudriez <link linkend="caching.multiple.caches">plusieurs
+    fichiers</link> de cache pour ce template.
   </para>
   <para>
-   Vous pouvez donner un <link linkend="variable.compile.id">identifiant de compilation</link> 
+   Vous pouvez donner un <link linkend="variable.compile.id">identifiant de compilation</link>
    en tant que troisième paramètre.
    Si vous ne spécifiez pas ce paramètre, le <link linkend="variable.compile.id">$compile_id</link>
    persistant sera utilisé.
   </para>
   <para>
-   Si vous voulez utiliser un identifiant de compilation sans utilisez d'identifiant de cache, 
-   mettez <literal>null</literal> pour l'identifiant de cache.
+   Si vous ne voulez pas passer un identifiant de cache mais plutôt un
+   <link linkend="variable.compile.id">$compile_id</link>, vous devez passer
+   <literal>null</literal> en tant qu'identifiant de cache.
   </para>
   <example>
-   <title>Exemple avec is_cached et plusieurs templates</title>
+   <title>Exemple avec is_cached() et plusieurs templates</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 $smarty->caching = true;
 
-if(!$smarty->is_cached("index.tpl", "FrontPage")) {
+if(!$smarty->is_cached('index.tpl', 'FrontPage')) {
   //appel de la base de données, assignation des variables
 }
 
-$smarty->display("index.tpl", "FrontPage");
+$smarty->display('index.tpl', 'FrontPage');
 ?>
 ]]>
    </programlisting>
   </example>
- 
+
   <note>
    <title>Note technique</title>
    <para>
-    Si <literal>is_cached</literal> retourne vrai, il charge en fait le cache existant et 
+    Si <literal>is_cached()</literal> retourne vrai, il charge en fait le cache existant et 
     le stocke en interne. Tout appel supplémentaire à 
     <link linkend="api.display">display()</link> ou
     <link linkend="api.fetch">fetch()</link> retournera ce contenu stocké en interne
     sans tenter de recharger le fichier en cache. Celà évite des problématiques d'accès concurents, 
-    lorsqu'un second processus efface le cache entre l'appel de is_cached et l'appel à display 
+    lorsqu'un second processus efface le cache entre l'appel de is_cached() et l'appel à
+    <link linkend="api.display">display()</link>
     comme dans l'un de nos exemples ci-dessus. Celà signifie également que les appels à 
     <link linkend="api.clear.cache">clear_cache()</link>
     et les changements de paramètres du cache peuvent n'avoir aucun effet alors que 
-    is_cached a retourné vrai.
+    is_cached() a retourné vrai.
    </para>
   </note>
+
+  <para>
+   Voir aussi
+   <link linkend="api.clear.cache">clear_cache()</link>,
+   <link linkend="api.clear.all.cache">clear_all_cache()</link> et
+   la <link linkend="caching">section sur le cache</link>.
+  </para>
  </refsect1>
 </refentry>
 
