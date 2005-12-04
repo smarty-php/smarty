@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.function.eval">
- <title>eval</title>
+ <title>{eval}</title>
+ <para>
+  {eval} évalue une variable comme si cette dernière était un template.
+  Peut être utile pour embarquer des balises de templates ou des variables
+  de template dans des variables ou des balises/variables dans des
+  variables de fichiers de configuration.
+ </para>
+ <para>
+  Si vous définissez l'attribut "assign", la sortie sera assignée à la
+  variable de template désignée plutôt que d'être affichée dans le
+  template.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -38,17 +50,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  eval évalue une variable comme si cette dernière était un template.
-  Peut être utile pour embarquer des balises de templates ou des variables
-  de template dans des variables ou des balises/variables dans des
-  variables de fichiers de configuration.
- </para>
- <para>
-  Si vous définissez l'attribut "assign", la sortie sera assignée à la
-  variable de template désignée plutôt que d'être affichée dans le
-  template.
- </para>
  <note>
   <title>Note technique</title>
   <para>
@@ -61,12 +62,13 @@
   <title>Note technique</title>
   <para>
    Les variables évaluées sont compilées à chaque invocation, et la version
-   compilée n'est pas sauvegardée ! Toutefois, si le cache est activé,
-   la sortie sera placée en cache avec le reste du template.
+   compilée n'est pas sauvegardée ! Toutefois, si le 
+   <link linkend="caching">cache</link> est activé, la sortie sera placée en
+   cache avec le reste du template.
   </para>
  </note>
  <example>
-  <title>eval</title>
+  <title>{eval}</title>
   <programlisting>
 <![CDATA[
 setup.conf
@@ -98,7 +100,6 @@ ErrorDept = Vous devez spécifier un {#emphstart#}département{#emphend#}.
   </para>
   <screen>
 <![CDATA[
-
 Ceci est le contenu de foo.
 Bienvenue sur la homepage de FictifLand.
 Vous devez spécifier un nom de <strong>ville</strong>.
@@ -108,6 +109,7 @@ Vous devez spécifier un <strong>département</strong>.
   </screen>
  </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

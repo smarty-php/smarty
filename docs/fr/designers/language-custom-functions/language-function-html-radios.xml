@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.function.html.radios">
- <title>html_radios</title>
+ <title>{html_radios}</title>
+ <para>
+  {html_radio} est une
+  <link linkend="language.custom.functions">fonction personnalisée</link>
+  qui crée des boutons radio html à partir des données fournies. Elle prend en
+  charge les éléments sélectionnés par défaut. Les attributs requis sont values
+  et output, à moins que vous n'utilisiez options à la place. La sortie générée est
+  compatible XHTML.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -70,64 +79,54 @@
   </tgroup>
  </informaltable>
  <para>
-  html_radio est une fonction utilisateur qui crée des boutons radio
-  html à partir des données fournies. Elle prend en charge les éléments
-  sélectionnés par défaut. Les attributs requis sont values et output,
-  à moins que vous n'utilisiez options à la place. La sortie générée est
-  compatible XHTML.
- </para>
- <para>
   Tous les paramètres qui ne sont pas dans la liste ci dessus sont
   affichés en tant que paires nom / valeur dans chaque balise &lt;input&gt;
   créée.
  </para>
 
  <example>
-  <title>html_radios : Exemple 1</title>
-  <programlisting>
+  <title>{html_radios} : Exemple 1</title>
+  <programlisting role="php">
 <![CDATA[
-   index.php:
-   ----------
+<?php
 
-require('Smarty.class.php');
-$smarty = new Smarty;
-$smarty->assign('id_client', array(1000,1001,1002,1003));
-$smarty->assign('nom_client', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Charlie Brown'));
-$smarty->assign('client_id', 1001);
-$smarty->display('index.tpl');
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_names', array(
+                                'Joe Schmoe',
+                                'Jack Smith',
+                                'Jane Johnson',
+                                'Charlie Brown')
+                              );
+$smarty->assign('customer_id', 1001);
+
+?>
 
 ]]>
   </programlisting>
   <para>
-   Où index.tpl est :
+   Où le template est :
   </para>
   <programlisting>
 <![CDATA[
-
-{html_radios name="id" values=$id_client checked=$client_id output=$nom_client separator="<br />"}
-
+{html_radios name="id" values=$cust_ids output=$cust_names
+       selected=$customer_id separator="<br />"}
 ]]>
   </programlisting>
-  <para>
-   Exemple 2 :
-  </para>
+ </example>
+ <example>
+ <title>{html_radios} : Exemple 2</title>
   <programlisting>
 <![CDATA[
-   index.php:
-   ----------
+<?php
 
-require('Smarty.class.php');
-$smarty = new Smarty;
 $smarty->assign('cust_radios', array(
-    1000 => 'Joe Schmoe',
-    1001 => 'Jack Smith',
-    1002 => 'Jane Johnson',
-    1003 => 'Charlie Brown'));
-$smarty->assign('client_id', 1001);
-$smarty->display('index.tpl');
+                                1000 => 'Joe Schmoe',
+                                1001 => 'Jack Smith',
+                                1002 => 'Jane Johnson',
+                                1003 => 'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
 
-
+?>
 ]]>
   </programlisting>
   <para>
@@ -135,10 +134,7 @@ $smarty->display('index.tpl');
   </para>
   <programlisting>
 <![CDATA[
-
-{html_radios name="id" options=$cust_radios checked=$client_id separator="<br />"}
-
-
+{html_radios name="id" options=$cust_radios selected=$customer_id separator="<br />"}
 ]]>
   </programlisting>
   <para>
@@ -146,15 +142,51 @@ $smarty->display('index.tpl');
   </para>
   <screen>
 <![CDATA[
-
-<label for="id_1000"><input type="radio" name="id" value="1000" id="id_1000" />Joe Schmoe</label><br />
-<label for="id_1001"><input type="radio" name="id" value="1001" id="id_1001" checked="checked" />Jack Smith</label><br />
-<label for="id_1002"><input type="radio" name="id" value="1002" id="id_1002" />Jane Johnson</label><br />
-<label for="id_1003"><input type="radio" name="id" value="1003" id="id_1003" />Charlie Brown</label><br />
+<label for="id_1000">
+<input type="radio" name="id" value="1000" id="id_1000" />Joe
+Schmoe</label><br />
+<label for="id_1001"><input type="radio" name="id" value="1001" id="id_1001"
+checked="checked" />Jack
+Smith</label><br />
+<label for="id_1002"><input type="radio" name="id" value="1002" id="id_1002" />Jane
+Johnson</label><br />
+<label for="id_1003"><input type="radio" name="id" value="1003" id="id_1003" />Charlie
+Brown</label><br />
 ]]>
   </screen>
  </example>
+ <example>
+  <title>{html_radios} - Exemple avec une base de données (eg PEAR ou ADODB):</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+
+$sql = 'select type_id, types from types order by type';
+$smarty->assign('types',$db->getAssoc($sql));
+
+$sql = 'select contact_id, name, email, type_id
+     from contacts where contact_id='.$contact_id;
+$smarty->assign('contact',$db->getRow($sql));
+
+?>
+]]>
+  </programlisting>
+  <para>
+   et le template :
+  </para>
+  <programlisting>
+<![CDATA[
+{html_radios name="type" options=$types selected=$contact.type_id separator="<br />"}
+]]>
+  </programlisting>
+ </example>
+ <para>
+  Voir aussi
+  <link linkend="language.function.html.checkboxes">{html_checkboxes}</link> et
+  <link linkend="language.function.html.options">{html_options}</link>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.function.popup.init">
- <title>popup_init</title>
+ <title>{popup_init}</title>
  <para>
-  popup est une intégration de overLib, une librairie capable de réaliser
-  des fenêtres surgissantes. (nous parlerons de "popup").
+  <link linkend="language.function.popup">{popup}</link>
+  est une intégration de <ulink url="&url.overLib;">overLib</ulink>,
+  une librairie capable de réaliser des fenêtres surgissantes (nous parlerons de "popup").
   Ce type de fenêtre est utilisé pour apporter des informations
   contextuelles, comme des infobulles d'aides ou astuces.
-  popup_init doit être appelé une fois, en début de page si vous comptez
-  utiliser la fonction <link linkend="language.function.popup">popup</link>.
-  overLib à été écrit par Erik Bosrup. Le site d'overlib est situé à
-  l'adresse http://www.bosrup.com/web/overlib/.
+  {popup_init} doit être appelé une fois, en début de page si vous comptez
+  utiliser la fonction <link linkend="language.function.popup">{popup}</link>.
  </para>
  <para>
-  Comme dans Smarty 2.1.2, overLib n'est PAS fournie dans la distribution.
-  Téléchargez overLib, déposez overlib.js dans votre arborescence web et
-  indiquez le chemin relatif à ce fichier dans l'attribut src de
-  popup_init.
+  <ulink url="&url.overLib;">overLib</ulink>
+  a été écrit par Erik Bosrup, et le site de l'auteur/le téléchargement est disponible à l'adresse sur
+  <ulink url="&url.overLib;">&url.overLib;</ulink>.
  </para>
  <example>
-  <title>popup_init</title>
+  <title>{popup_init}</title>
 <programlisting>
 <![CDATA[
+<head>
 {* popup_init doit être appelé une fois en début de page. *}
 {popup_init src="/javascripts/overlib.js"}
+</head>
 ]]>
 </programlisting>
  </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.function.html.table">
- <title>html_table</title>
+ <title>{html_table}</title>
+ <para>
+  {html_table} est une <link linkend="language.custom.functions">fonction personnalisée</link>
+  qui transforme un tableau de données dans un tabeau HTML. L'attribut
+  <emphasis>cols</emphasis> détermine le nombre de colonne du tableau.
+  Les attributs <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis>
+  et <emphasis>td_attr</emphasis> déterminent les attributs donnés aux
+  balises table, tr et td. Si <emphasis>tr_attr</emphasis> ou
+  <emphasis>td_attr</emphasis> sont des tableaux, ils seront parcourus.
+  <emphasis>trailpad</emphasis> est la valeur avec laquelle cera remplit
+  les cellules restantes de la dernière ligne, s'il y en a.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -101,8 +113,8 @@
      <entry>Non</entry>
      <entry><emphasis>right</emphasis></entry>
      <entry>
-      Direction du rendu. Les valeurs possibles sont <emphasis>left</emphasis> (left-to-right), 
-      <emphasis>right</emphasis> (right-to-left)
+      Direction du rendu. Les valeurs possibles sont <emphasis>right</emphasis> (left-to-right),
+      <emphasis>left</emphasis> (right-to-left)
      </entry>
     </row>
     <row>
@@ -115,26 +127,16 @@
       <emphasis>down</emphasis> (top-to-bottom), <emphasis>up</emphasis>
       (bottom-to-top)
      </entry>
-    </row>    
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  <emphasis>html_table</emphasis> est une fonction utilisateur
-  qui transforme un tableau de données dans un tabeau HTML. L'attribut
-  <emphasis>cols</emphasis> détermine le nombre de colonne du tableau.
-  Les attributs <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis>
-  et <emphasis>td_attr</emphasis> déterminent les attributs donnés aux
-  balises table, tr et td. Si <emphasis>tr_attr</emphasis> ou
-  <emphasis>td_attr</emphasis> sont des tableaux, ils seront parcourus.
-  <emphasis>trailpad</emphasis> est la valeur avec laquelle remplir
-  les cellules restantes de la dernière ligne, s'il y en a une.
- </para>
- 
  <example>
-  <title>html_table</title>
+  <title>{html_table}</title>
   <programlisting role="php">
 <![CDATA[
+Code PHP :
+-------------
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -146,6 +148,8 @@ $smarty->display('index.tpl');
   </programlisting>
   <programlisting>
 <![CDATA[
+Code du template :
+----------------------
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
 {html_table loop=$data cols=4 tr_attr=$tr}

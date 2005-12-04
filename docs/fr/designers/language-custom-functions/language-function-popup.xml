@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.function.popup">
- <title>popup</title>
+ <title>{popup}</title>
+ <para>
+  {popup} est utilisé pour créer une fenêtre popup javascript.
+  <link linkend="language.function.popup.init">{popup_init}</link> DOIT être appelé en premier
+  pour que cela fonctionne.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -401,11 +407,8 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  popup est utilisé pour créer une fenêtre popup javascript.
- </para>
  <example>
-  <title>popup</title>
+  <title>{popup}</title>
   <programlisting>
 <![CDATA[
 {* popup_init doit être appelé en haut de votre page *}
@@ -414,17 +417,20 @@
 {* création d'un lien avec une popup qui apparait sur l'évènement onMouseOver *}
 <A href="mypage.html" {popup text="Ce lien vous amène sur ma page!"}>mypage</A>
 
-{* vous pouvez utiliser du html, des liens, etc dans vos popup *}
-<A href="mypage.html" {popup sticky=true caption="mypage contents"
-text="<UL><LI>links<LI>pages<LI>images</UL>" snapx=10 snapy=10}>mypage</A>
-
-SORTIE:
-
-(allez sur le site officiel de Smarty pour des exemples.)
+{* vous pouvez utiliser du html, des liens, etc. dans vos popup *}
+<a href="mypage.html" {popup sticky=true caption="mypage contents"
+text="<ul><li>links</li><li>pages</li><li>images</li></ul>"
+snapx=10 snapy=10}>mypage</a>
 ]]>
   </programlisting>
  </example>
+ <para>
+  Voir aussi
+  <link linkend="language.function.popup.init">{popup_init}</link> et
+  <ulink url="&url.overLib;">overLib</ulink>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

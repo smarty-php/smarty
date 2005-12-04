@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.function.fetch">
- <title>fetch</title>
+ <title>{fetch}</title>
+ <para>
+  {fetch} est utilisé pour récupérer des fichiers depuis le système de
+  fichier local, depuis un serveur http ou ftp, et en afficher le contenu.
+  Si le nom du fichier commence par "http://", la page internet sera
+  récupérée, puis affichée. Si le nom du fichier commence par "ftp://",
+  le fichier sera récupéré depuis le serveur ftp, et affiché.
+  Pour les fichiers du système local, le chemin doit être absolu ou
+  relatif au chemin d'exécution du script PHP.
+ </para>
+ <para>
+  Vous pouvez spécifier l'attribut optionnel "assign"
+  qui défini une variable de template dans laquelle la sortie
+  sera stockée plutôt que d'être affichée (nouveau dans Smarty 1.5.0).
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -39,20 +54,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {fetch} est utilisé pour récupérer des fichiers depuis le système de
-  fichier local, depuis un serveur http ou ftp, et en afficher le contenu.
-  Si le nom du fichier commence par "http://", la page internet sera
-  récupérée, puis affichée. Si le nom du fichier commence par "ftp://",
-  le fichier sera récupéré depuis le serveur ftp, et affiché.
-  Pour les fichiers du système local, le chemin doit être absolu ou
-  relatif au chemin d'exécution du script PHP.
- </para>
- <para>
-  Vous pouvez spécifier l'attribut optionnel <emphasis>assign</emphasis>
-  qui défini une variable de template dans laquelle la sortie
-  sera stockée plutôt que d'être affichée (nouveau dans Smarty 1.5.0).
- </para>
  <note>
   <title>Note technique</title>
   <para>Ne supporte pas les redirections http. Assurez vous d'inclure les
@@ -95,6 +96,7 @@
   <link linkend="api.fetch">fetch()</link>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

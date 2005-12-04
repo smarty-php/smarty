@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.function.cycle">
- <title>cycle</title>
+ <title>{cycle}</title>
+ <para>
+  {cycle} est utilisé pour boucler sur un ensemble de valeurs. Très pratique
+  pour alterner entre deux ou plusieurs couleurs dans un tableau,
+  ou plus généralement pour boucler sur les valeurs d'un tableau.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -65,16 +71,18 @@
      <entry>La variable de template dans laquelle la sortie
      sera assignée</entry>
     </row>
+    <row>
+     <entry>reset</entry>
+     <entry>booléen</entry>
+     <entry>Non</entry>
+     <entry><emphasis>false</emphasis></entry>
+     <entry>Le cycle sera défini à la première valeur</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
  <para>
-  cycle est utilisé pour boucler sur un ensemble de valeurs. Très pratique
-  pour alterner entre deux ou plusieurs couleurs dans un tableau,
-  ou plus généralement pour boucler sur les valeurs d'un tableau.
- </para>
- <para>
-  Vous pouvez définir plusieurs "cycle" dans votre template, en leur
+  Vous pouvez définir plusieurs {cycle} dans votre template, en leur
   donnant des noms uniques (attribut name).
  </para>
  <para>
@@ -84,14 +92,14 @@
  </para>
  <para>
   L'attribut advance est utilisé pour répéter une valeur. Lorsque
-  définit à false, le prochain appel de cycle ramènera la même valeur.
+  définit à false, le prochain appel de {cycle} ramènera la même valeur.
  </para>
  <para>
   Si vous définissez l'attribut spécial "assign", la sortie de la fonction
   cycle y sera assignée plutôt que d'être directement affichée.
  </para>
  <example>
-  <title>cycle</title>
+  <title>{cycle}</title>
   <programlisting>
 <![CDATA[
 {section name=rows loop=$data}
@@ -116,6 +124,7 @@
   </screen>
  </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
