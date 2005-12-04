@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.escape">
  <title>escape</title>
+ <para>
+  "Echappe" les caractères spéciaux html, d'url, pour
+  les quotes d'une chaîne, les valeurs
+  hexadécimales, les entités hexadécimales ou javascript.
+  Par défaut, ce paramètre est html.
+ </para>
  <informaltable frame="all">
   <tgroup cols="6">
    <colspec colname="param" align="center" />
@@ -34,25 +41,21 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  "Echappe" les caractères spéciaux html, d'url, pour
-  les quotes d'une chaîne, les valeurs
-  hexadécimales, les entités hexadécimales ou javascript.
-  Par défaut, ce paramètre est html.
- </para>
  <example>
   <title>escape</title>
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
-$smarty->assign('TitreArticle', "'Stiff Opposition Expected to Casketless Funeral Plan'");
-$smarty->display('index.tpl');
+
+$smarty->assign('articleTitle',
+                  "'Stiff Opposition Expected to Casketless Funeral Plan'"
+                );
+
 ?>
 ]]>
 </programlisting>
 <para>
-Où index.tpl est:
+Où le template est :
 </para>
 <programlisting>
 <![CDATA[
@@ -82,8 +85,8 @@ Ce qui donne à l'écran:
 </example>
 <para>
  Voir aussi la
- <link linkend="language.escaping">désactivation de l'analyse de Smarty</link>
- et le <link linkend="tips.obfuscating.email">mascage des adresses E-mail</link>.
+ <link linkend="language.escaping">désactivation de l'analyse de Smarty</link> et
+ le <link linkend="tips.obfuscating.email">mascage des adresses E-mail</link>.
 </para>
 </sect1>
 

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.spacify">
  <title>spacify</title>
+ <para>
+  spacify est un moyen pour insérer un espace entre tous les caractères
+  d'une variable. Optionnellement, vous pouvez lui passer un caractère
+  (ou une chaîne) différent de l'espace à insérer.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -30,25 +36,20 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  spacify est un moyen pour insérer un espace entre tous les caractères
-  d'une variable. Optionnellement, vous pouvez lui passer un caractère
-  (ou une chaîne) différent de espace à insérer.
- </para>
  <example>
   <title>spacify</title>
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
+
 $smarty->assign('titreArticle', 'Quelque chose s\'est mal passé et à provoqué
 cet accident, disent les experts');
-$smarty->display('index.tpl');
+
 ?>
 ]]>
 </programlisting>
 <para>
-Ou index.tpl est :
+Où le template est :
 </para>
 <programlisting>
 <![CDATA[

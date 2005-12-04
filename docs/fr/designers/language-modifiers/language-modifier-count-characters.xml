@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.count.characters">
  <title>count_characters</title>
+ <para>
+  Compte le nombre de caractères dans une variable.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -30,24 +34,19 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Compte le nombre de caractères dans une variable.
- </para>
  <example>
   <title>count_characters</title>
   <programlisting role="php">
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->assign('titreArticle', 'Vagues de froid liées à la température.');
-$smarty->display('index.tpl');
 
 ?>
 ]]>
   </programlisting>
   <para>
-   Où index.tpl est:
+   Où le template est :
   </para>
   <programlisting>
 <![CDATA[
@@ -69,9 +68,9 @@ Vagues de froid liées à la température.
  </example>
  <para>
   Voir aussi
-  <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>,
+  <link linkend="language.modifier.count.words">count_words</link>,
   <link linkend="language.modifier.count.sentences">count_sentences</link> et
-  <link linkend="language.modifier.count.words">count_words</link>.
+  <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>.
  </para>
 </sect1>
 

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.regex.replace">
  <title>regex_replace</title>
+ <para>
+  Un rechercher / remplacer avec une expression régulière. Utilise la même
+  syntaxe que la fonction PHP
+  <ulink url="&url.php-manual;preg_replace">preg_replace()</ulink>.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -37,24 +43,19 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Un rechercher / remplacer avec une expression régulière. Utilise la même
-  syntaxe que la fonction PHP <ulink
-  url="&url.php-manual;preg_replace">preg_replace()</ulink>.
- </para>
  <example>
   <title>regex_replace</title>
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
+
 $smarty->assign('TitreArticle', "L'infertilité est un maux grandissant\n, disent les experts.");
-$smarty->display('index.tpl');
+
 ?>
 ]]>
 </programlisting>
 <para>
-Ou index.tpl est : 
+Ou le template est :
 </para>
 <programlisting>
 <![CDATA[
@@ -76,7 +77,7 @@ L'infertilité est un maux grandissant, disent les experts.
 </screen>
 </example>
 <para>
- Voir aussi 
+ Voir aussi
  <link linkend="language.modifier.replace">replace</link> et
  <link linkend="language.modifier.escape">escape</link>.
   </para>

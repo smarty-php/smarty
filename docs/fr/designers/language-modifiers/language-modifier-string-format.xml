@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.string.format">
  <title>string_format</title>
+ <para>
+  Un moyen pour formater les chaînes de caractères, comme par exemple les
+  nombres décimaux. Utilise la syntaxe de <ulink url="&url.php-manual;sprintf">sprintf()</ulink>
+  pour formater les éléments.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -30,24 +36,19 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Un moyen pour formater les chaînes de caractères, comme par exemple les
-  nombres décimaux. Utilise la syntaxe de <ulink url="&url.php-manual;sprintf">sprintf</ulink> 
-  pour formater les éléments.
- </para>
  <example>
   <title>string_format</title>
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
+
 $smarty->assign('nombre', 23.5787446);
-$smarty->display('index.tpl');
+
 ?>
 ]]>
 </programlisting>
 <para>
-ou index.tpl est :
+où le template est :
 </para>
 <programlisting>
 <![CDATA[
@@ -68,7 +69,7 @@ Ce qui donne en sortie :
 </screen>
 </example>
 <para>
- Voir aussi 
+ Voir aussi
  <link linkend="language.modifier.date.format">date_format</link>.
   </para>
 </sect1>

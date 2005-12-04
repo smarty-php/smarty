@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.replace">
  <title>replace</title>
+ <para>
+  Un simple remplacement de chaîne de caractères. Ceci est l'équivalent
+  de la fonction PHP <ulink url="&url.php-manual;str_replace">str_replace()</ulink>.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -37,33 +42,29 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Un simple remplacement de chaîne de caractères. Ceci est l'équivalent
-  dela fonction PHP <ulink url="&url.php-manual;str_replace">str_replace()</ulink>.
- </para>
  <example>
   <title>replace</title>
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
+
 $smarty->assign('titreArticle', "Child's Stool Great for Use in Garden.");
-$smarty->display('index.tpl');
+
 ?>
 ]]>
 </programlisting>
 <para>
-Ou index.tpl est :
+Ou le template est :
 </para>
 <programlisting>
 <![CDATA[
 {$titreArticle}
-{$titreArticle|replace:"Garden":"Vineyard"}
-{$titreArticle|replace:" ":"   "}
+{$titreArticle|replace:'Garden':'Vineyard'}
+{$titreArticle|replace:' ':'   '}
 ]]>
 </programlisting>
 <para>
-Ce qui donne en sortie : 
+Ce qui donne en sortie :
 </para>
 <screen>
 <![CDATA[
@@ -79,6 +80,7 @@ Child's   Stool   Great   for   Use   in   Garden.
  <link linkend="language.modifier.escape">escape</link>.
   </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

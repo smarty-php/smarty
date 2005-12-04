@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.count.sentences">
  <title>count_sentences</title>
  <para>
@@ -11,16 +12,17 @@
   <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
-$smarty->assign('TitreArticle', 'Deux navires rentrent en
-collision - Un des deux coule. Des vaches enragées blessent un fermier à
-coups de haches.');
-$smarty->display('index.tpl');
+
+$smarty->assign('articleTitle',
+               'Two Soviet Ships Collide - One Dies.
+               Enraged Cow Injures Farmer with Axe.'
+             );
+
 ?>
 ]]>
   </programlisting>
   <para>
-   Où index.tpl est :
+   Où le template est :
   </para>
   <programlisting>
 <![CDATA[

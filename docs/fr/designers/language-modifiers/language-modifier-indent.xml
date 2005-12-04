@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.indent">
  <title>indent</title>
+ <para>
+  Indente chacune des lignes d'une chaîne. Comme paramètre optionnel,
+  vous pouvez spécifier le nombre de caractères à utiliser pour l'indentation (4 par défaut).
+  Comme second paramètre optionnel, vous
+  pouvez spécifier le caractère à utiliser pour l'indentation (utilisez
+  "\t" pour les tabulations).
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -37,26 +45,22 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Indente chacune des lignes d'une chaîne. Comme paramètre optionnel,
-  vous pouvez spécifier le nombre de caractères à utiliser pour l'indentation (4 par défaut).
-  Comme second paramètre optionnel, vous
-  pouvez spécifier le caractère à utiliser pour l'indentation (utilisez
-  "\t" pour les tabulations).
- </para>
  <example>
   <title>indent</title>
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
-$smarty->assign('TitreArticle', 'Il fera noir cette nuit.');
-$smarty->display('index.tpl');
+
+$smarty->assign('articleTitle',
+                'NJ judge to rule on nude beach.
+Sun or rain expected today, dark tonight.
+Statistics show that teen pregnancy drops off significantly after 25.'
+                );
 ?>
 ]]>
 </programlisting>
 <para>
-Ou index.tpl est:
+Ou le template est :
 </para>
 <programlisting>
 <![CDATA[
@@ -74,20 +78,28 @@ Ce qui donne à l'écran
 </para>
 <screen>
 <![CDATA[
-Il fera noir cette nuit.
+NJ judge to rule on nude beach.
+Sun or rain expected today, dark tonight.
+Statistics show that teen pregnancy drops off significantly after 25.
 
-    Il fera noir cette nuit.
+    NJ judge to rule on nude beach.
+    Sun or rain expected today, dark tonight.
+    Statistics show that teen pregnancy drops off significantly after 25.
 
-          Il fera noir cette nuit.
+          NJ judge to rule on nude beach.
+          Sun or rain expected today, dark tonight.
+          Statistics show that teen pregnancy drops off significantly after 25.
 
-	Il fera noir cette nuit.
+        NJ judge to rule on nude beach.
+        Sun or rain expected today, dark tonight.
+        Statistics show that teen pregnancy drops off significantly after 25.
 ]]>
 </screen>
 </example>
 <para>
- Voir aussi 
- <link linkend="language.modifier.strip">strip</link>
- et <link linkend="language.modifier.spacify">spacify</link>.
+ Voir aussi
+ <link linkend="language.modifier.strip">strip</link> et
+ <link linkend="language.modifier.spacify">spacify</link>.
   </para>
 </sect1>
 

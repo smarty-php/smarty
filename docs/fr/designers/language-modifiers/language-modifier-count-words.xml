@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.count.words">
  <title>count_words</title>
  <para>
@@ -12,15 +13,13 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->assign('TitreArticle', 'Un anneau pour les gouverner tous.');
-$smarty->display('index.tpl');
 
 ?>
 ]]>
   </programlisting>
   <para>
-   Où index.tpl est:
+   Où le template est :
   </para>
   <programlisting>
 <![CDATA[

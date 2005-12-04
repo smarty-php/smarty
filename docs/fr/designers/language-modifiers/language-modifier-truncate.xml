@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.truncate">
  <title>truncate</title>
+ <para>
+  Tronque une variable à une certaine longueur, par défaut 80.
+  Un second paramètre optionnel permet de spécifier une chaîne à afficher
+  à la fin de la variable une fois tronquée. Les caractères de fin sont
+  inclus dans la longueur de la chaîne à tronquer. Par défaut,
+  truncate tentera de couper la chaîne à la fin d'un mot. Si vous voulez
+  tronquer la chaîne au caractère exact, donnez la valeur true au
+  dernier paramètre optionnel.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -33,8 +43,8 @@
      <entry>chaîne de caractère</entry>
      <entry>Non</entry>
      <entry>...</entry>
-     <entry>Le texte à rajouter lorsque l'on effectue un
-     troncage.</entry>
+     <entry>Le texte qui remplace le texte tronqué. Sa longueur n'est PAS
+      incluse dans la configuration de la longueur à tronquer.</entry>
     </row>
     <row>
      <entry>3</entry>
@@ -45,31 +55,31 @@
       le dernier mot (false), ou au caractère exact (true).
      </entry>
     </row>
+    <row>
+     <entry>4</entry>
+     <entry>booléen</entry>
+     <entry>Non</entry>
+     <entry>false</entry>
+     <entry>Ceci détermine si le troncage intervient à la fin de la
+      chaîne (false), ou au milieu de la chaîne (true). Notez que si
+      ceci vaut true, alors les limites de mots sont ignorées.</entry>
+     </row>
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Tronque une variable à une certaine longueur, par défaut 80.
-  Un second paramètre optionnel permet de spécifier une chaîne à afficher
-  à la fin de la variable une fois tronquée. Les caractères de fin sont
-  inclus dans la longueur de la chaîne à tronquer. Par défaut,
-  truncate tentera de couper la chaîne à la fin d'un mot. Si vous voulez
-  tronquer la chaîne au caractère exact, donnez la valeur true au
-  dernier paramètre optionnel.
- </para>
  <example>
   <title>truncate</title>
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
+
 $smarty->assign('titreArticle', 'Deux soeurs réunies après 18 ans de séparation.');
-$smarty->display('index.tpl');
+
 ?>
 ]]>
 </programlisting>
 <para>
-Ou index.tpl est :
+Où le template est :
 </para>
 <programlisting>
 <![CDATA[
@@ -97,6 +107,7 @@ Deux soeurs réunies après 1...
 </screen>
  </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

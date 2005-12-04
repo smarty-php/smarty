@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.count.paragraphs">
  <title>count_paragraphs</title>
  <para>
@@ -11,14 +12,16 @@
   <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
-$smarty-&gt;assign('TitreArticle', 'La guerre apporte la paix, au prix de la vie de certains innocents.');
-$smarty-&gt;display('index.tpl');
+
+$smarty->assign('articleTitle',
+               "War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.\n\n
+               Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation."
+             );
 ?>
 ]]>
   </programlisting>
   <para>
-   Où index.tpl est:
+   Où le template est :
   </para>
   <programlisting>
 <![CDATA[
@@ -40,6 +43,7 @@ La guerre apporte la paix, au prix de la vie des innocents.
   <link linkend="language.modifier.count.words">count_words</link>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

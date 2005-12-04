@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.strip.tags">
  <title>strip_tags</title>
+ <para>
+  Supprime toutes les balises, et plus généralement tout ce qui se trouve
+  entre &lt; et &gt;.
+ </para>
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -30,43 +35,43 @@
     </tbody>
    </tgroup>
   </informaltable>
- <para>
-  Supprime toutes les balises, et plus généralement tout ce qui se trouve
-  entre &lt; et &gt;.
- </para>
  <example>
   <title>strip_tags</title>
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
-$smarty->assign('titreArticle', "Une femme aveugle obtient un nouveau <font face=\"helvetica\">rein</font> d'un père qu'elle n'a pas vu depuis <b>des années</b>.");
-$smarty->display('index.tpl');
+
+$smarty->assign('articleTitle',
+            "Blind Woman Gets <font face=\"helvetica\">New
+ Kidney</font> from Dad she Hasn't Seen in <b>years</b>."
+               );
+
 ?>
 ]]>
 </programlisting>
 <para>
-Ou index.tpl est :
+Où le template est :
 </para>
 <programlisting>
 <![CDATA[
 {$titreArticle}
-{$titreArticle|strip_tags} {* identique à {$titreArticle|strip_tags:true} *} 
+{$titreArticle|strip_tags} {* identique à {$titreArticle|strip_tags:true} *}
 {$titreArticle|strip_tags:false}
 ]]>
 </programlisting>
 <para>
-Ce qui donne en sortie : 
+Ce qui donne en sortie :
 </para>
 <screen>
 <![CDATA[
-Une femme aveugle obtient un nouveau <font face=\"helvetica\">rein</font> d'un père qu'elle n'a pas vu depuis <b>des années</b>.
-Une femme aveugle obtient un nouveau  rein  d'un père qu'elle n'a pas vu depuis  des années .
-Une femme aveugle obtient un nouveau rein d'un père qu'elle n'a pas vu depuis des années.
+Blind Woman Gets <font face="helvetica">New Kidney</font> from Dad she Hasn't Seen in <b>years</b>.
+Blind Woman Gets  New Kidney  from Dad she Hasn't Seen in  years .
+Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
 ]]>
 </screen>
  </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

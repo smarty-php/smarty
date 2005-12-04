@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.modifier.nl2br">
  <title>nl2br</title>
  <para>
@@ -12,14 +13,16 @@
 <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
-$smarty->assign('TitreArticle', "Pluie ou soleil attendu\naujourd'hui, nuit noire");
-$smarty->display('index.tpl');
+
+$smarty->assign('articleTitle',
+               "Sun or rain expected\ntoday, dark tonight"
+              );
+
 ?>
 ]]>
 </programlisting>
 <para>
-Où index.tpl est :
+Où le template est :
 </para>
 <programlisting>
 <![CDATA[
@@ -36,7 +39,7 @@ Pluie ou soleil attendu<br />aujourd'hui, nuit noire
 </screen>
 </example>
 <para>
- Voir aussi 
+ Voir aussi
  <link linkend="language.modifier.wordwrap">word_wrap</link>,
  <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> et
  <link linkend="language.modifier.count.sentences">count_sentences</link>.
