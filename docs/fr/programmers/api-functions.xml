@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
+
 <chapter id="api.functions">
  <title>Méthodes</title>
  &programmers.api-functions.api-append;
@@ -31,7 +32,7 @@
  &programmers.api-functions.api-register-prefilter;
  &programmers.api-functions.api-register-resource;
  &programmers.api-functions.api-trigger-error;
- 
+
  &programmers.api-functions.api-template-exists;
  &programmers.api-functions.api-unregister-block;
  &programmers.api-functions.api-unregister-compiler-function;
@@ -42,7 +43,7 @@
  &programmers.api-functions.api-unregister-postfilter;
  &programmers.api-functions.api-unregister-prefilter;
  &programmers.api-functions.api-unregister-resource;
- 
+
 </chapter>
 
 <!-- Keep this comment at the end of the file

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+
 <sect1 id="advanced.features.objects">
  <title>Objets</title>
  <para>
-  Smarty donne l'accès aux objets PHP à travers les templates. Il y
-  a 2 moyens d'y avoir accès. Le premier consiste à
+  Smarty donne l'accès aux <ulink url="&url.php-manual;object">objets</ulink>
+  PHP à travers les templates. Il y a 2 moyens d'y avoir accès. Le premier consiste à
   <link linkend="api.register.object">allouer les objets</link>
   au template puis de les utiliser avec une syntaxe similaire a celles
-  des fonctions personnalisées. Le deuxième moyen consiste à 
-  <link linkend="api.assign">assigner des objets</link> 
+  des <link linkend="language.custom.functions">fonctions personnalisées</link>.
+  Le deuxième moyen consiste à <link linkend="api.assign">assigner</link> des objets
   aux templates et de les utiliser comme n'importe quelle
   variable. La première méthode a une syntaxe beaucoup plus sympathique.
   Elle est aussi plus sécurisée, puisqu'un objet alloué ne peut avoir accès
-  qu'a certaines méthodes et propriétés. Néanmoins, 
+  qu'a certaines méthodes et propriétés. Néanmoins,
   <emphasis role="bold">un objet alloué ne peut pas avoir de lien sur lui-même 
-  ou être mis dans un tableau d'objet</emphasis>, etc. 
+  ou être mis dans un tableau d'objet</emphasis>, etc.
   Vous devez choisir la méthode qui correspond a vos
   besoins, mais tGchez d'utiliser la première méthode autant que possible
   afin de réduire la syntaxe des templates au minimum.
@@ -64,22 +65,22 @@
 
 class My_Object() {
   function meth1($params, &$smarty_obj) {
-    return "this is my meth1";
+    return 'Ceci est ma methode 1';
   }
 }
 
 $myobj = new My_Object;
 // enregistre l'objet
-$smarty->register_object("foobar",$myobj);
+$smarty->register_object('foobar',$myobj);
 // on restreint l'accès a certaines méthodes et propriétés en les listant
-$smarty->register_object("foobar",$myobj,array('meth1','meth2','prop1'));
+$smarty->register_object('foobar',$myobj,array('meth1','meth2','prop1'));
 // pour utiliser le format habituel de paramètre objet, passez le booléen = false
-$smarty->register_object("foobar",$myobj,null,false);
+$smarty->register_object('foobar',$myobj,null,false);
 
 // on peut aussi assigner des objets. Assignez par référence quand c'est possible
-$smarty->assign_by_ref("myobj", $myobj);
+$smarty->assign_by_ref('myobj', $myobj);
 
-$smarty->display("index.tpl");
+$smarty->display('index.tpl');
 ?>
 
 ?>
@@ -102,6 +103,11 @@ the output was {$output)
 ]]>
   </programlisting>
  </example>
+ <para>
+  Voir aussi
+  <link linkend="api.register.object">register_object()</link> et
+  <link linkend="api.assign">assign()</link>.
+ </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file

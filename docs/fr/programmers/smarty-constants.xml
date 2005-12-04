@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+
 <chapter id="smarty.constants">
  <title>Constantes</title>
 
  <sect1 id="constant.smarty.dir">
   <title>SMARTY_DIR</title>
   <para>
-   Il doit s'agir du chemin complet du répertoire où
-   se trouvent les fichiers classes de Smarty.
+   Il doit s'agir du <emphasis role="bold">chemin complet</emphasis>
+   du répertoire où se trouvent les fichiers classes de Smarty.
    S'il n'est pas défini, Smarty essaiera alors d'en
    déterminer automatiquement la valeur.
-   S'il est défini, le chemin doit se terminer par un slash.
+   S'il est défini, le chemin <emphasis role="bold">doit se terminer par un slash</emphasis>.
   </para>
   <example>
    <title>SMARTY_DIR</title>
    <programlisting role="php">
 <![CDATA[
 <?php
+// définit le chemin du répertoire de Smarty (sur un système *nix)
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/libs/');
 
-// définit le chemin du répertoire de Smarty
-define("SMARTY_DIR","/usr/local/lib/php/Smarty/");
+// définit le chemin du répertoire de Smarty (sur un système Windows)
+define('SMARTY_DIR','c:/webroot/libs/Smarty/libs/');
 
-require_once(SMARTY_DIR."Smarty.class.php");
+// astuce (non recommendé) qui fonctionne sous Windows et sous *nix
+// Smarty est supposé être dans le dossier 'include' du script courant
+define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
+
+// inclut la classe Smarty. Notez le 'S' en majuscule
+require_once(SMARTY_DIR.'Smarty.class.php');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
    Voir aussi
-   <link linkend="language.variables.smarty.const">$smarty.const</link>.
+   <link linkend="language.variables.smarty.const">$smarty.const</link> et
+   <link linkend="variable.php.handling">$php_handling constants</link>.
     </para>
  </sect1>
  <sect1 id="constant.smarty.core.dir">
@@ -38,7 +47,7 @@ require_once(SMARTY_DIR."Smarty.class.php");
    Il doit s'agir du chemin complet du répertoire où
    se trouvent les fichiers internes de Smarty. S'il n'est
    pas défini, Smarty placera comme valeur par défaut la
-   valeur de la constante précédente 
+   valeur de la constante précédente
    <link linkend="constant.smarty.dir">SMARTY_DIR</link>. S'il est
    défini, le chemin doit se terminer par un slash. Utilisez cette
    constante lorsque vous incluez manuellement n'importe
@@ -49,9 +58,10 @@ require_once(SMARTY_DIR."Smarty.class.php");
    <programlisting role="php">
 <![CDATA[
 <?php
-// chargement de core.get_microtime.php
 
-require_once(SMARTY_CORE_DIR."core.get_microtime.php");
+// chargement de core.get_microtime.php
+require_once(SMARTY_CORE_DIR.'core.get_microtime.php');
+
 ?>
 ]]>
    </programlisting>
