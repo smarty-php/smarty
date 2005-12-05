@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.include">
- <title>include</title>
+ <title>{include}</title>
+ <para>
+  Тэги {include} используются для включения других шаблонов в текущий.
+  Любые переменные, доступные в текущем шаблоне, доступны и во
+  включаемом. Тэг {include} должен иметь атрибут "file", который
+  указывает путь к ресурсу шаблона.
+ </para>
+ <para>
+  Опциональный атрибут <emphasis>assign</emphasis> указывает, что
+  результат выполнения {include} будет присвоен переменной вместо отображения.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
   <colspec colname="param" align="center" />
@@ -46,28 +57,26 @@
   </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Тэги include используются для включения других шаблонов в текущий.
-  Любые переменные, доступные в текущем шаблоне, доступны и во
-  включаемом. Тэг include должен иметь атрибут "file", который
-  указывает имя ресурса шаблона.
- </para>
- <para>
-  Опциональный атрибут <emphasis>assign</emphasis> указывает, что
-  вывод шаблона будет присвоен переменной вместо отображения.
- </para>
+
  <example>
-  <title>функция include</title>
+  <title>Функция {include}</title>
   <programlisting>
 <![CDATA[
-{include file="header.tpl"}
-
-{* тело шаблона *}
-
-{include file="footer.tpl"}
+<html>
+ <head>
+  <title>{$title}</title>
+ </head>
+ <body>
+  {include file='page_header.tpl'}
+  {* тут идёт тело шаблона *}
+  {include file="$tpl_name.tpl"} <-- заменит $tpl_name его значением
+  {include file='page_footer.tpl'}
+ </body>
+</html>
 ]]>
   </programlisting>
  </example>
+
  <para>
   Вы также можете передать переменные в подключаемый шаблон в
   виде атрибутов. Любая переменная, переданная в подключаемый
@@ -76,40 +85,90 @@
   существующими переменными с аналогичными именами.
  </para>
  <example>
-  <title>функция include: передача переменных</title>
+  <title>передача переменных в {include}</title>
   <programlisting>
 <![CDATA[
-{include file="header.tpl" title="Main Menu" table_bgcolor="#c0c0c0"}
+{include file='header.tpl' title='Main Menu' table_bgcolor='#c0c0c0'}
 
-{* тело шаблона *}
+{* тут идёт тело шаблона *}
 
-{include file="footer.tpl" logo="http://my.example.com/logo.gif"}
+{include file='footer.tpl' logo='http://my.example.com/logo.gif'}
+]]>
+  </programlisting>
+  <para>где header.tpl может быть</para>
+  <programlisting>
+<![CDATA[
+<table border='1' width='100%' bgcolor='{$table_bgcolor|default:"#0000FF"}'>
+ <tr>
+  <td>
+   <h1>{$title}</h1>
+  </td>
+ </tr>
+</table>
+]]>
+  </programlisting>
+ </example>
+
+ <example>
+  <title>{include} и присвоение переменной</title>
+  <para>
+   Этот пример присвоит содержимое nav.tpl переменной $navbar,
+   которая затем выводится сверху и снизу страницы.
+  </para>
+  <programlisting>
+<![CDATA[
+<body>
+{include file='nav.tpl' assign=navbar}
+{include file='header.tpl' title='Main Menu' table_bgcolor='#effeef'}
+{$navbar}
+
+{* тут идёт тело шаблона *}
+
+{include file='footer.tpl' logo='http://my.example.com/logo.gif'}
+{$navbar}
+</body>
 ]]>
   </programlisting>
  </example>
  <para>
-  Для подключения файлов вне папки $template_dir можно
-  указывать файл с помощью <link
-  linkend="template.resources">ресурсов</link>.
+  Для подключения файлов вне папки
+  <link linkend="variable.template.dir">$template_dir</link>
+  можно указывать файл с помощью
+  <link linkend="template.resources">ресурсов</link>.
  </para>
  <example>
-  <title>функция include: пример использвоания ресурсов</title>
+  <title>Примеры ресурсов шаблонов в {include}</title>
   <programlisting>
 <![CDATA[
-{* абсолютный путь к файлу *}
-{include file="/usr/local/include/templates/header.tpl"}
+{* абсолютные пути *}
+{include file='/usr/local/include/templates/header.tpl'}
 
-{* абсолютный путь к файлу (аналогично) *}
-{include file="file:/usr/local/include/templates/header.tpl"}
+{* абсолютные пути (то же самое) *}
+{include file='file:/usr/local/include/templates/header.tpl'}
 
-{* абсолютный путь к файлу в стиле windows (НЕОБХОДИМО использовать префикс "file:") *}
-{include file="file:C:/www/pub/templates/header.tpl"}
+{* абсолютные пути в windows (ОБЯЗАТЕЛЬНО используйте префикс "file:") *}
+{include file='file:C:/www/pub/templates/header.tpl'}
 
-{* подключить шаблон из ресурса "db" *}
-{include file="db:header.tpl"}
+{* подключение шаблона из ресурса с именем "db" *}
+{include file='db:header.tpl'}
+
+{* подключение шаблона с переменным именем - например, $module = 'contacts' *}
+{include file="$module.tpl"}
+{* не будет работать, т.к. в одинарных кавычках не работает подстановка переменных *}
+{include file='$module.tpl'}
+
 ]]>
   </programlisting>
  </example>
+
+ <para>
+  См. также
+  <link linkend="language.function.include.php">{include_php}</link>,
+  <link linkend="language.function.php">{php}</link>,
+  <link linkend="template.resources">Ресурсы</link> and
+  <link linkend="tips.componentized.templates">Составные шаблоны</link>.
+ </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

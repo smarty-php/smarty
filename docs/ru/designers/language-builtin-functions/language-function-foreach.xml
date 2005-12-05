@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.foreach">
- <title>foreach,foreachelse</title>
+ <title>{foreach},{foreachelse}</title>
+ <para>
+  Циклы <emphasis>{foreach}</emphasis> являются альтернативой
+  циклам <link
+  linkend="language.function.section"><emphasis>{section}</emphasis></link>.
+  <emphasis>{foreach}</emphasis> используется для прохода по
+  <emphasis role="bold">единственному ассоциативному массиву</emphasis>.
+  Синтаксис
+  <emphasis>{foreach}</emphasis> намного проще синтаксиса
+  <emphasis>{section}</emphasis>, но с другой стороны
+  <emphasis role="bold">его можно использовать только для одного массива</emphasis>.
+  Каждый тег <emphasis>{foreach}</emphasis> должен иметь пару
+  <emphasis>{/foreach}</emphasis>. Обязательными параметрами являются
+  <emphasis>from</emphasis> и <emphasis>item</emphasis>.
+  Имя цикла {foreach} может быть любым, состоящим из букв, цифр и знаков
+  подчеркивания. Циклы <emphasis>{foreach}</emphasis> могут быть вложенными
+  и имена вложенных {foreach} должны быть уникакльными между собой.
+  Параметр <emphasis>from</emphasis> (обычно - массив значений)
+  определяет количество итераций цикла <emphasis>{foreach}</emphasis>.
+  <emphasis>{foreachelse}</emphasis> выполняется в том случае, если
+  параметр <emphasis>from</emphasis> не содержит значений.
+ </para>
 
  <informaltable frame="all">
   <tgroup cols="5">
@@ -56,87 +77,121 @@
   </tgroup>
  </informaltable>
 
-	<para>
-  Циклы <emphasis>foreach</emphasis> являются альтернативой
-  циклам <emphasis>section</emphasis>. Циклы
-  <emphasis>foreach</emphasis> используются для прохождения
-  по одному массиву. Синтаксис <emphasis>foreach</emphasis>
-  намного проще, чем <emphasis>section</emphasis>, но его
-  можно использовать только для одного массива.
-  Тэг <emphasis>foreach</emphasis> должен иметь в пару тэг
-  <emphasis>/foreach</emphasis>. Обязательные параметры -
-  <emphasis>from</emphasis> и <emphasis>item</emphasis>. Название
-  цикла foreach может быть любой последовательностью букв, цифр
-  и знаков подчеркиваний _. Циклы <emphasis>foreach</emphasis>
-  могут быть вложенные, и имена вложенных циклов должны быть
-  уникальные. Переменная <emphasis>from</emphasis> (обычно
-  массив значений) указывает количество итераций цикла.
-  <emphasis>foreachelse</emphasis> выполняется, если нету значений
-  в переменной <emphasis>from</emphasis>.
- </para>
-
  <example>
-  <title>foreach</title>
+  <title>{foreach} - предмет</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+$arr = array( 1001,1002,1003);
+$smarty->assign('custid', $arr);
+?>
+]]>
+  </programlisting>
   <programlisting>
 <![CDATA[
-{* выводятся все значния массива $custid *}
+{* этот пример напечатает все переменные массива $custid *}
 {foreach from=$custid item=curr_id}
-	id: {$curr_id}<br>
+    id: {$curr_id}<br />
 {/foreach}
-
-OUTPUT:
-
-id: 1000<br>
-id: 1001<br>
-id: 1002<br>
 ]]>
   </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+id: 1000<br />
+id: 1001<br />
+id: 1002<br />
+]]>
+  </screen>
  </example>
-
+  
  <example>
-  <title>foreach key</title>
+  <title>{foreach} - предмет и ключ</title>
+  <programlisting role="php">
+<![CDATA[
+// Ключ содержит ключ для каждого значения из цикла
+// назначение выглядит примерно так:
+<?php
+$smarty->assign('contacts', array(
+                            array('phone' => '1',
+                                  'fax' => '2',
+                                   'cell' => '3'),
+                            array('phone' => '555-4444',
+                                  'fax' => '555-3333',
+                                  'cell' => '760-1234')
+                            ));
+?>
+]]>
+  </programlisting>
   <programlisting>
 <![CDATA[
-{* The key contains the key for each looped value
-
-assignment looks like this:
-
-$smarty->assign("contacts", array(array("phone" => "1", "fax" => "2", "cell" => "3"),
-      array("phone" => "555-4444", "fax" => "555-3333", "cell" => "760-1234")));
-
-*}
-
 {foreach name=outer item=contact from=$contacts}
-  {foreach key=key item=item from=$contact}
-    {$key}: {$item}<br>
-  {/foreach}
+    <hr />
+    {foreach key=key item=item from=$contact}
+        {$key}: {$item}&lt;br&gt;
+        {$key}: {$item}<br />
+    {/foreach}
 {/foreach}
-
-OUTPUT:
-
-phone: 1<br>
-fax: 2<br>
-cell: 3<br>
-phone: 555-4444<br>
-fax: 555-3333<br>
-cell: 760-1234<br>
 ]]>
   </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+<hr />
+    phone: 1<br />
+    fax: 2<br />
+    cell: 3<br />
+<hr />
+    phone: 555-4444<br />
+    fax: 555-3333<br />
+    cell: 760-1234<br />
+]]>
+  </screen>
  </example>
+  
+ <example>
+  <title>{foreach} - базы данных (к примеру, PEAR или ADODB)</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+  $sql = 'select contact_id, name, nick from contacts order by contact';
+  $smarty->assign("contacts", $db->getAssoc($sql));
+?>
+]]>
+  </programlisting>
+  <programlisting>
+<![CDATA[
+{foreach key=cid item=con from=$contacts}
+    <a href="contact.php?contact_id={$cid}">{$con.name} - {$con.nick}</a><br />
+{/foreach}
+]]>
+  </programlisting>
+ </example>  
 
 	<para>
-		Циклы foreach имеют свои свойства, доступ к которым реализуется через
-		{$smarty.foreach.foreachname.varname}, где foreachname это название цикла
-		(значение атрибута <emphasis>name</emphasis>), а varname - имя свойства.
+		Циклы {foreach} также имеют собственные переменные, которые содержат свойства
+		{foreach}.
+		Они обозначаются так:
+		<link linkend="language.variables.smarty.loops">{$smarty.foreach.foreachname.varname}</link>
+		{$smarty.foreach.foreachname.varname}, где foreachname - это название цикла
+		(значение атрибута <emphasis>name</emphasis>).
 	</para>
+	
+ <para>
+  См. <link linkend="section.property.index">{section}</link>
+  для примеров следующих свойств, так как они идентичны.
+ </para>
 
 	<sect2 id="foreach.property.iteration">
 		<title>iteration</title>
 		<para>
-  	Количество отработанных итераций.
-		</para>
-		<para>
-			Отсчет начинается с 1 и увеличивается на единицу на каждой итерации.
+   iteration используется для отображения текущего номера итерации цикла.
+   Итерации всегда начинаются с 1 и увеличиваются на одну при каждом
+   прохождении цикла.
 		</para>
 	</sect2>
 
@@ -168,11 +223,16 @@ cell: 760-1234<br>
  	<title>total</title>
 		<para>
 	 	<emphasis>total</emphasis> хранит количество итераций цикла.
-			Может быть использовано как в цикле, так и вне его..
+			Может быть использовано как в цикле, так и вне его.
 		</para>
- </sect2>
 
+  <para>
+   См. также <link linkend="language.function.section">{section}</link> и
+   <link linkend="language.variables.smarty.loops">$smarty.foreach</link>.
+  </para>
+ </sect2>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

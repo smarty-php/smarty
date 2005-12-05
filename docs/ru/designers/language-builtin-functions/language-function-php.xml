@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.php">
- <title>php</title>
+ <title>{php}</title>
  <para>
-  Тэг php позволяет вставлять php код прямо в шаблон. Он не
+  Тэг {php} позволяет вставлять PHP-код прямо в шаблон. Он не
   будет как-либо изменен, независимо от <link
   linkend="variable.php.handling">$php_handling</link> настроек.
   Этот тэг только для продвинутых пользователей, так как обычно
   не требуется.
  </para>
  <example>
- <title>тэг php</title>
+ <title>тэги {php}</title>
  <programlisting>
 <![CDATA[
 {php}
-		// подключение php скрипта прямо
-		// из шаблона
-		include("/path/to/display_weather.php");
+    // подключение php скрипта прямо
+		  // из шаблона
+		  include('/path/to/display_weather.php');
 {/php}
 ]]>
   </programlisting>
  </example>
+ 
+ <note>
+  <title>Техническое замечание</title>
+  <para>
+   Для доступа к переменным PHP внутри блоков {php}, вам может понадобится
+   использовать ключевое слово PHP
+   <ulink url="&url.php-manual;global">global</ulink>
+  </para>
+ </note>
+
+ <example>
+  <title>Тэги {php} с глобальными переменными</title>
+  <programlisting role="php">
+<![CDATA[
+{php}
+   global $foo, $bar;
+   if($foo == $bar){
+     // что-нить делаем
+   }
+{/php}
+]]>
+  </programlisting>
+ </example>
+
+ <para>
+  См. также
+  <link linkend="variable.php.handling">$php_handling</link>,
+  <link linkend="language.function.include.php">{include_php}</link>,
+  <link linkend="language.function.include">{include}</link>
+  и
+  <link linkend="tips.componentized.templates">Компонентные шаблоны</link>.
+ </para>
+ 
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

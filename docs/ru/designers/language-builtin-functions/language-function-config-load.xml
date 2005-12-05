@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.config.load">
- <title>config_load</title>
+ <title>{config_load}</title>
+ <para>
+  {config_load} используется для загрузки конфигурационных переменных
+  (<link linkend="language.config.variables">#variable#</link>) из
+  <link linkend="config.files">конфигурационных файлов</link> в шаблон.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
   <colspec colname="param" align="center" />
@@ -65,70 +70,96 @@
    </tbody>
   </tgroup>
  </informaltable>
-	<para>
-  Эта функция используется для загрузки переменных в
-  шаблон из файлов конфигруации. Смотри
-  <link linkend="config.files">Файлы конфигурации</link>
-  для дополнительной информации.
-	</para>
  <example>
-  <title>функция config_load</title>
+  <title>{config_load}</title>
+	 <para>example.conf</para>
+	 <programlisting>
+<![CDATA[
+#это комментарий конфигурационного файла
+
+# глобальные переменные
+pageTitle = "Main Menu"
+bodyBgColor = #000000
+tableBgColor = #000000
+rowBgColor = #00ff00
+
+#секция переменных customer
+[Customer]
+pageTitle = "Customer Info"
+]]>
+  </programlisting>
+  <para>и шаблон</para>
   <programlisting>
 <![CDATA[
-{config_load file="colors.conf"}
+{config_load file="example.conf"}
 
 <html>
-<title>{#pageTitle#}</title>
-<body bgcolor="{#bodyBgColor#}">
-<table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
-	<tr bgcolor="{#rowBgColor#}">
-		<td>First</td>
-		<td>Last</td>
-		<td>Address</td>
-	</tr>
-</table>
-</body>
+ <head>
+  <title>{#pageTitle#|default:"No title"}</title>
+ </head>
+ <body bgcolor="{#bodyBgColor#}">
+  <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
+	  <tr bgcolor="{#rowBgColor#}">
+		  <td>First</td>
+		  <td>Last</td>
+		  <td>Address</td>
+	  </tr>
+  </table>
+ </body>
 </html>
 ]]>
   </programlisting>
  </example>
 	<para>
-  Файлы конфигурации также могут содержать секции. Можно загрузить
+	 <link linkend="config.files">Конфигурационные файлы</link>
+  могут также содержать секции. Вы можете загружать
   переменные из определенной секции, указав атрибут
-  <emphasis>section</emphasis>.
+  <emphasis>'section'</emphasis>.
  </para>
  <note>
   <para>
    <emphasis>Секции файлов конфигурации</emphasis> и встроенная
-   функция <emphasis>section</emphasis> не имеют ничего общего, кроме
-   схожего названия.
+   функция
+   <link linkend="language.function.section"><emphasis>{section}</emphasis></link>
+   не имеют ничего общего, кроме схожего названия.
   </para>
  </note>
  <example>
-  <title>функция config_load с указанием секции</title>
+  <title>функция {config_load} с секцией</title>
   <programlisting>
 <![CDATA[
-{config_load file="colors.conf" section="Customer"}
+{config_load file='example.conf' section='Customer'}
 
 <html>
-<title>{#pageTitle#}</title>
-<body bgcolor="{#bodyBgColor#}">
-<table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
-	<tr bgcolor="{#rowBgColor#}">
-		<td>First</td>
-		<td>Last</td>
-		<td>Address</td>
-	</tr>
-</table>
-</body>
+ <head>
+  <title>{#pageTitle#|default:"No title"}</title>
+ </head>
+ <body bgcolor="{#bodyBgColor#}">
+  <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
+	  <tr bgcolor="{#rowBgColor#}">
+		  <td>First</td>
+		  <td>Last</td>
+		  <td>Address</td>
+	  </tr>
+  </table>
+ </body>
 </html>
 ]]>
   </programlisting>
  </example>
- 
+
  <para>
-  См. также <link linkend="config.files">Конфигурационные файлы</link> и
-  <link linkend="language.function.config.load">config_load</link>.
+  См. <link linkend="variable.config.overwrite">$config_overwrite</link>
+  для массивов конфигурационных переменных.
+ </para>
+
+ <para>
+  См. также <link linkend="config.files">Конфигурационные файлы</link>,
+  <link linkend="language.config.variables">Конфигурационные переменные</link>,
+  <link linkend="variable.config.dir">$config_dir</link>,
+  <link linkend="api.get.config.vars">get_config_vars()</link>
+  и
+  <link linkend="language.function.config.load">config_load()</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

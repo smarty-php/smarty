@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.include.php">
- <title>include_php</title>
+ <title>{include_php}</title>
+ <note>
+  <title>Техническое замечание</title>
+  <para>
+   {include_php} достаточно устарела в Smarty, вы можете достичь этой
+   функциональности при помощи собственных функций шаблона.
+   Единственная причина для использования {include_php} - это серьёзная
+   необходимость отделить PHP-функцию от директории 
+   <link linkend="variable.plugins.dir">plugins</link>
+   или кода вашего приложения. См. <link
+   linkend="tips.componentized.templates">примеры составных шаблонов</link>
+   для дополнительной информации.
+  </para>
+ </note>
+
  <informaltable frame="all">
   <tgroup cols="5">
   <colspec colname="param" align="center" />
@@ -46,24 +60,19 @@
   </tbody>
   </tgroup>
  </informaltable>
+
  <para>
-  Тэг include_php используется для подключения php скрипта в шаблон.
-  Если security включен, то php скрипт должен быть расположен в папке
-  $trusted_dir. Тэг include_php должен иметь атрибут "file", который
-  указывает путь подключаемого php файла (относительный к
-  $trusted_dir или абсолютный путь).
+  Тэги {include_php} используются для подключения PHP-скрипта в шаблон.
+  Если режим <link linkend="variable.security">security</link> включен,
+  то PHP-скрипт должен быть расположен в директории
+  <link linkend="variable.trusted.dir">$trusted_dir</link>.
+  Тэг {include_php} должен иметь атрибут "file", который
+  указывает путь к подключаемому PHP-файлу, либо относительный к
+  <link linkend="variable.trusted.dir">$trusted_dir</link>,
+  либо абсолютный путь.
  </para>
  <para>
-  include_php это хороший способ для управления компонентными шаблонами,
-  держать PHP код вне файлов шаблонов. Допустим, у вас есть шаблон,
-  который выводит навигацию сайта, информация о которой динамически
-  загружается из базы данных. Вы можете хранить php файл, который
-  получает данные из базы данных, в отдельной папке и подключать его
-  в начале шаблона. Теперь можно подключать этот файл шаблона в любом
-  месте, не волнуясь о происхождении информации (база данных или нет).
- </para>
- <para>
-  По умолчанию, php файлы подключаются только один раз, даже если
+  По умолчанию, PHP-файлы подключаются только один раз, даже если
   вызываются несколько раз в шаблоне. Можно указать, что файл должен
   быть подключен каждый раз, указав атрибут <emphasis>once</emphasis>.
   Установив once в ложь (false) указывает, что файл должен быть
@@ -72,41 +81,48 @@
  <para>
   Можно указать опциональный атрибут <emphasis>assign</emphasis>,
   который указывает имя переменной, которой будет присвоен вывод
-  <emphasis>include_php</emphasis> вместо отображения.
+  <emphasis>{include_php}</emphasis>, вместо отображения.
  </para>
  <para>
-  Объект smarty доступен в подключаемом php файле как $this.
+  Объект smarty доступен в подключаемом PHP-файле как $this.
  </para>
  <example>
-  <title>функция include_php</title>
-  <programlisting>
+  <title>Функция {include_php}</title>
+  <para>load_nav.php</para>
+  <programlisting role="php">
 <![CDATA[
-load_nav.php
--------------
-
 <?php
 
-	// Загрузка переменных из базы данных mysql и передача их в шаблон
-	require_once("MySQL.class.php");
-	$sql = new MySQL;
-	$sql->query("select * from site_nav_sections order by name",SQL_ALL);
-	$this->assign('sections',$sql->record);
+// загружает переменные из БД MySQL и присваивает их шаблону
+require_once("MySQL.class.php");
+$sql = new MySQL;
+$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+$this->assign('sections',$sql->record);
 
 ?>
-
-
-index.tpl
----------
-
-{* абсолютный путь или относительный относительно $trusted_dir *}
+]]>
+  </programlisting>
+  <para>index.tpl</para>
+  <programlisting>
+<![CDATA[
+{* абсолютный путь, либо относительный к $trusted_dir *}
 {include_php file="/path/to/load_nav.php"}
-
 {foreach item="curr_section" from=$sections}
-	<a href="{$curr_section.url}">{$curr_section.name}</a><br>
+    <a href="{$curr_section.url}">{$curr_section.name}</a><br />
 {/foreach}
 ]]>
   </programlisting>
  </example>
+
+ <para>
+  См. также
+  <link linkend="language.function.include">{include}</link>,
+  <link linkend="language.function.php">{php}</link>,
+  <link linkend="language.function.capture">{capture}</link>,
+  <link linkend="template.resources">Ресурсы</link>
+  и
+  <link linkend="tips.componentized.templates">Составные шаблоны</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

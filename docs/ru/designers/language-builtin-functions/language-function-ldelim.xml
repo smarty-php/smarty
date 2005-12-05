@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.ldelim">
- <title>ldelim,rdelim</title>
+ <title>{ldelim},{rdelim}</title>
  <para>
-  ldelim и rdelim используются для отображения разделителей.
-  В нашем случае это "{" и "}". Вы можете использовать блок
+  {ldelim} и {rdelim} используются для
+  <link linkend="language.escaping">предотвращения обработки</link> разделителей,
+  по-умолчанию "{" и "}". Вы также можете использовать блок
   <link linkend="language.function.literal">{literal}{/literal}</link> для
-  экранирования блоков текста.
+  предотвращения обработки блоков текста.
   См. также
-  <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link> и
-  <link linkend="language.variables.smarty.rdelim">{$smarty.rdelim}</link>
+  <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
  </para>
  <example>
-  <title>ldelim, rdelim</title>
+  <title>{ldelim}, {rdelim}</title>
   <programlisting>
 <![CDATA[
 {* будут выведены разделители в шаблоне *}
@@ -29,6 +29,27 @@
 {funcname} is how functions look in Smarty!
 ]]>
   </screen>
+  <para>Другой пример и немного javascript'а</para>
+  <programlisting>
+<![CDATA[
+<script language="JavaScript">
+function foo() {ldelim}
+    ... code ...
+{rdelim}
+</script>
+]]>
+  </programlisting>
+  <para>выведет</para>
+  <screen>
+<![CDATA[
+<script language="JavaScript">
+function foo() {
+    .... code ...
+}
+</script>
+]]>
+  </screen>
+
  </example>
  <para>
   См. также

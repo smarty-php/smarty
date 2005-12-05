@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: freespace Status: ready -->
 <part id="getting.started">
  <title>Приступая к работе</title>
 
@@ -152,8 +152,8 @@
   <sect1 id="installing.smarty.basic">
     <title>Базовая установка</title>
     <para>
-     Скопируйте файлы Smarty, которые находятся в директории /libs/
-     дистрибутива. Редактировать эти файлы НЕ СЛЕДУЕТ. Они должны
+     Скопируйте файлы Smarty, которые находятся в субдиректории /libs/
+     дистрибутива. Редактировать эти PHP-файлы НЕ СЛЕДУЕТ. Они должны
      использоваться всеми приложениями и изменяться только при обновлении
      Smarty до новой версии.
     </para>
@@ -171,15 +171,16 @@ debug.tpl
      </screen>
     </example>
     <para>
-     Smarty использует константу PHP
+     Smarty использует <ulink url="&url.php-manual;define">константу</ulink> PHP
      <link linkend="constant.smarty.dir">SMARTY_DIR</link>, которая указывает
-     путь к директории 'libs/' Smarty. Обычно, если ваше приложение может
+     <emphasis role="bold">полный путь</emphasis> к директории 'libs/' Smarty.
+     Обычно, если ваше приложение может
      найти файл <filename>Smarty.class.php</filename>, то нет необходимости
      устанавливать SMARTY_DIR - Smarty сам во всём разберётся. Однако, если
      <filename>Smarty.class.php</filename> не может
      быть найден в вашем include_path или вы не указывали абсолютный путь к
      нему в приложении, то вы должны определить SMARTY_DIR вручную.
-     SMARTY_DIR <emphasis>должен</emphasis> включать завершающий слэш.
+     SMARTY_DIR <emphasis role="bold">должен включать завершающий слэш</emphasis>.
     </para>
     <para>
      Вот как следует создавать экземпляр объекта Smarty в ваших PHP-скриптах:
@@ -189,8 +190,9 @@ debug.tpl
      <programlisting role="php">
 <![CDATA[
 <?php
-require('Smarty.class.php');
-$smarty = new Smarty;
+// Обратите внимание: в слове Smarty буква 'S' должна быть заглавной
+require_once('Smarty.class.php');
+$smarty = new Smarty();
 ?>
 ]]>
      </programlisting>
@@ -203,40 +205,54 @@ $smarty = new Smarty;
     </para>
 
     <example>
-     <title>Укажите абсолютный путь к директории Smarty</title>
+     <title>Ручная установка константы SMARTY_DIR</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-require('/usr/local/lib/php/Smarty/Smarty.class.php');
-$smarty = new Smarty;
+// стиль *nix (не забывайте о заглавной 'S')
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty-v.e.r/libs/');
+
+// стиль windows
+define('SMARTY_DIR', 'c:/webroot/libs/Smarty-v.e.r/libs/');
+
+// пример хака для работы одновременно с *nix и windows
+// предполагается, что Smarty находится в директории 'includes/' относительно текущего скрипта
+define('SMARTY_DIR', str_replace("\\", "/", getcwd()).'/includes/Smarty-v.e.r/libs/');
+
+require_once(SMARTY_DIR . 'Smarty.class.php');
+$smarty = new Smarty();
 ?>
 ]]>
      </programlisting>
     </example>
 
    	<example>
-     <title>Добавьте директорию Smarty к include_path</title>
+     <title>Передача абсолютного пути к файлам библиотеки</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-// Отредактируйте ваш файл php.ini, добавьте путь к Smarty
-// в include_path и перезапустите веб сервер.
-// Следующий код должен работать без ошибок:
-require('Smarty.class.php');
-$smarty = new Smarty;
+// стиль *nix (не забывайте о заглавной 'S')
+require_once('/usr/local/lib/php/Smarty-v.e.r/libs/Smarty.class.php');
+
+// стиль windows
+require_once('c:/webroot/libs/Smarty-v.e.r/libs/Smarty.class.php');
+
+$smarty = new Smarty();
 ?>
 ]]>
      </programlisting>
     </example>
 
 	   <example>
-     <title>Установите значение константы SMARTY_DIR вручную</title>
+	    <title>Добавление файлов библиотеки к include_path PHP</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
-require(SMARTY_DIR.'Smarty.class.php');
-$smarty = new Smarty;
+// Отредактируйте ваш файл php.ini, добавив директорию
+// библиотеки Smarty в include_path и перезапустите веб-сервер.
+// затем, следующий код должен работать:
+require_once('Smarty.class.php');
+$smarty = new Smarty();
 ?>
 ]]>
      </programlisting>
@@ -245,7 +261,7 @@ $smarty = new Smarty;
    <para>
      Теперь, когда все файлы находятся на своих местах, пришло время
      установки директорий Smarty в вашем приложении. Smarty требует
-     четыре директории, которые (по умолчанию) называются
+     четыре директории, которые по умолчанию называются
       <filename class="directory">'templates/'</filename>,
      <filename class="directory">'templates_c/'</filename>,
      <filename class="directory">'configs/'</filename> и
@@ -315,12 +331,12 @@ $smarty = new Smarty;
     <title>Файловая структура примера</title>
     <screen>
 <![CDATA[
-/usr/local/lib/php/Smarty/Smarty.class.php
-/usr/local/lib/php/Smarty/Smarty_Compiler.class.php
-/usr/local/lib/php/Smarty/Config_File.class.php
-/usr/local/lib/php/Smarty/debug.tpl
-/usr/local/lib/php/Smarty/internals/*.php
-/usr/local/lib/php/Smarty/plugins/*.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Smarty.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Smarty_Compiler.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Config_File.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/debug.tpl
+/usr/local/lib/php/Smarty-v.e.r/libs/internals/*.php
+/usr/local/lib/php/Smarty-v.e.r/libs/plugins/*.php
 
 /web/www.example.com/smarty/guestbook/templates/
 /web/www.example.com/smarty/guestbook/templates_c/
@@ -372,7 +388,7 @@ chmod 770 /web/www.example.com/smarty/guestbook/cache/
 
    <para>
     Нам необходимо создать файл 'index.tpl', которы будет загружаться Smarty.
-    Он будет расположен в вашей
+    Он будет расположен в
     <link linkend="variable.template.dir">$template_dir</link>.
    </para>
 
@@ -383,7 +399,7 @@ chmod 770 /web/www.example.com/smarty/guestbook/cache/
 
 {* Smarty *}
 
-Hello, {$name}!
+Привет, {$name}! Добро пожаловать в Smarty!
 ]]>
     </screen>
    </example>
@@ -402,10 +418,8 @@ Hello, {$name}!
 
    <para>
     Теперь давайте отредактируем 'index.php'. Мы создадим экземпляр Smarty,
-    присвоим значение переменной шаблона и отобразим файл 'index.tpl'.
-    В условиях нашего примера, мы поместили "/usr/local/lib/php/Smarty" в
-    include_path. Убедитесь, что вы сделали то же самое или используете
-    абсолютные пути.
+    <link linkend="api.assign">присвоим</link> значение переменной шаблона и
+    <link linkend="api.display">отобразим</link> файл 'index.tpl'.
    </para>
 
    <example>
@@ -415,16 +429,16 @@ Hello, {$name}!
 <?php
 
 // загружаем библиотеку Smarty
-require('Smarty.class.php');
+require_once(SMARTY_DIR . 'Smarty.class.php');
 
-$smarty = new Smarty;
+$smarty = new Smarty();
 
 $smarty->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
 $smarty->compile_dir = '/web/www.example.com/smarty/guestbook/templates_c/';
 $smarty->config_dir = '/web/www.example.com/smarty/guestbook/configs/';
 $smarty->cache_dir = '/web/www.example.com/smarty/guestbook/cache/';
 
-$smarty->assign('name','Ned');
+$smarty->assign('name', 'Кристина');
 
 $smarty->display('index.tpl');
 ?>
@@ -446,8 +460,9 @@ $smarty->display('index.tpl');
    </note>
 
    <para>
-    Теперь загрузите файл <filename>index.php</filename> из вашего
-    веб-браузера. Вы должны увидеть надпись "Hello, Ned!"
+    Теперь перейдите к файлу <filename>index.php</filename> при помощи вашего
+    веб-браузера. Вы должны увидеть надпись
+    "Привет, Кристина! Добро пожаловать в Smarty!"
    </para>
    <para>
     Вы закончили базовую установку Smarty!

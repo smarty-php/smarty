@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.if">
- <title>if,elseif,else</title>
+ <title>{if},{elseif},{else}</title>
  <para>
   Конструкция <emphasis>{if}</emphasis> в Smarty такая же гибкая, как и
-  аналогичная конструкциия в PHP, только с несколько расширенными
-  возможностями.
+  конструкция
+  <ulink url="&url.php-manual;if"><command>if</command></ulink> в PHP,
+  только с несколькими дополнительными возможностями для шаблонов.
   Каждый тэг <emphasis>{if}</emphasis> должен иметь пару
   <emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> и
   <emphasis>{elseif}</emphasis> так же допустимы. Досутпны все квалификаторы
+  и функции
   из PHP, такие как <emphasis>||</emphasis>, <emphasis>or</emphasis>,
-  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis> и т.д.
+  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>,
+  <emphasis>is_array()</emphasis> и т.д.
  </para>
  
  <para>
@@ -141,11 +144,11 @@
  </informaltable>
  
  <example>
-  <title>Конструкция if</title>
-   <programlisting>
+  <title>{if} statements</title>
+  <programlisting>
 <![CDATA[
 {if $name eq "Fred"}
-    Welcome Sir.
+	Welcome Sir.
 {elseif $name eq "Wilma"}
     Welcome Ma'am.
 {else}
@@ -162,15 +165,17 @@
 	...
 {/if}
 
-{* следующий пример НЕ будет работать, квалификаторы условий следует
-   отделять от окружающих элементов пробелами *}
+{*
+  следующий пример НЕ будет работать, квалификаторы условий следует
+  отделять от окружающих элементов пробелами
+*}
 {if $name=="Fred" || $name=="Wilma"}
 	...
 {/if}
 
 
 {* скобки разрешены *}
-{if ( $amount > 0 or $amount < 1000 ) and $volume >= #minVolAmt#}
+{if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
 	...
 {/if}
 
@@ -195,8 +200,10 @@
 	...
 {/if}
 
-{* проверяет, является ли $var чётным двум, например
-0=чётно, 1=чётно, 2=нечётно, 3=нечётно, 4=чётно, 5=чётно и т.д. *}
+{*
+  проверяет, является ли $var чётным двум, например
+  0=чётно, 1=чётно, 2=нечётно, 3=нечётно, 4=чётно, 5=чётно и т.д.
+*}
 {if $var is even by 2}
 	...
 {/if}
@@ -205,6 +212,18 @@
 {if $var is even by 3}
 	...
 {/if}
+
+{* ------- if с функциями PHP ------- *}
+{* check for array. *}
+{if is_array($foo) }
+    .....
+{/if}
+
+{* проверка на существование *}
+{if isset($foo) }
+    .....
+{/if}
+
 ]]>
   </programlisting>
  </example>
