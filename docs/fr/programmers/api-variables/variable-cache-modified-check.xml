@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: didou Status: ready -->
+
 <sect1 id="variable.cache.modified.check">
  <title>$cache_modified_check</title>
  <para>
@@ -9,9 +10,17 @@
   modification du fichier de cache n'a pas changé depuis la dernière
   visite, alors un en-tête "304 Not Modified" sera envoyé à la place
   du contenu. Celà ne fonctionne qu'avec du contenu mis en cache hors de la
-  balise <command>insert</command>.
+  balise <link linkend="language.function.insert"><command>{insert}</command></link>.
+ </para>
+ <para>
+  Voir aussi
+  <link linkend="variable.caching">$caching</link>,
+  <link linkend="variable.cache.lifetime">$cache_lifetime</link>,
+  <link linkend="variable.cache.handler.func">$cache_handler_func</link> et
+  la <link linkend="caching">section sur le cache</link>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

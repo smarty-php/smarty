@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: didou Status: ready -->
+
 <sect1 id="variable.cache.dir">
  <title>$cache_dir</title>
  <para>
   Il s'agit du nom du répertoire où les caches des templates
-  sont stockés. Par défaut il s'agit de "./cache", ce qui signifie
+  sont stockés. Par défaut il s'agit de
+  <filename class="directory">"./cache"</filename>, ce qui signifie
   que Smarty va chercher ce répertoire
   dans le même répertoire que le script PHP en cours d'exécution.
+  <emphasis role="bold">Ce dossier doit être accessible en écriture par
+   le serveur web</emphasis>
+  (<link linkend="installing.smarty.basic">Voir l'installation</link>).
+  Vouspouvez aussi utiliser votre propre fonction de
+  <link linkend="section.template.cache.handler.func">gestion de cache
+  personnalisé</link> pour contrôler les fichiers de cache, qui ignorera
+  cette configuration.
+  Voir aussi <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
  </para>
  <note>
   <title>Note technique</title>
@@ -23,7 +33,17 @@
    dans l'arborescence Web.
   </para>
  </note>
+ <para>
+  Voir aussi
+  <link linkend="variable.caching">$caching</link>,
+  <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>,
+  <link linkend="variable.cache.lifetime">$cache_lifetime</link>,
+  <link linkend="variable.cache.handler.func">$cache_handler_func</link>,
+  <link linkend="variable.cache.modified.check">$cache_modified_check</link> et
+  la <link linkend="caching">section sur le cache</link>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
