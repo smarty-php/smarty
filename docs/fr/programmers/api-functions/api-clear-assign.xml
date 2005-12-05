@@ -8,7 +8,7 @@
   <refpurpose>Efface la valeur d'une variable assignée</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_assign</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>

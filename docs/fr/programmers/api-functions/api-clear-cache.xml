@@ -8,7 +8,7 @@
   <refpurpose>Efface le cache d'un template spécifique</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_cache</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
