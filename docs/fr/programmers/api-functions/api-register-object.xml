@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+
 <refentry id="api.register.object">
  <refnamediv>
-  <refname>register_object</refname>
-  <refpurpose></refpurpose>
+  <refname>register_object()</refname>
+  <refpurpose>Enregistre un objet à utiliser dans un template</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>register_object</methodname>
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
    <methodparam><type>object</type><parameter>object</parameter></methodparam>
-   <methodparam><type>array</type><parameter>allowed_methods_properties</parameter></methodparam>
+   <methodparam><type>array</type><parameter>allowed_methods_properties</parameter>
+   </methodparam>
    <methodparam><type>boolean</type><parameter>format</parameter></methodparam>
    <methodparam><type>array</type><parameter>block_methods</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Utilisée pour enregistrer un objet à utiliser dans un template.
    Reportez-vous à la section
    <link linkend="advanced.features.objects">objet</link> de
    ce manuel pour des exemples.
   </para>
   <para>
-   Voir aussi 
+   Voir aussi
+   <link linkend="api.get.registered.object">get_registered_object()</link> et
    <link linkend="api.unregister.object">unregister_object()</link>.
   </para>
  </refsect1>

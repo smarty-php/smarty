@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <refentry id="api.register.compiler.function">
  <refnamediv>
-  <refname>register_compiler_function</refname>
-  <refpurpose></refpurpose>
+  <refname>register_compiler_function()</refname>
+  <refpurpose>Déclare dynamiquement un plugin de fonction de compilation</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>bool</type><methodname>register_compiler_function</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
@@ -15,29 +16,45 @@
    <methodparam><type>bool</type><parameter>cacheable</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Utilisée pour déclarer dynamiquement un plugin de fonction
-   de compilation. Il faut passer en paramètres le nom de la fonction
-   de compilation, suivi par la fonction PHP qui
-   l'implémente.
+   Il faut passer en paramètres le nom de la <link linkend="plugins.compiler.functions">fonction
+   de compilation</link>, suivi par la fonction PHP qui l'implémente.
   </para>
   <para>
-   La fonction PHP <parameter>impl</parameter> peut être soit (a) une 
-   chaîne de caractères contenant le nom de la fonction, soit (b) un tableau
-   de la forme <literal>array(&amp;$object, $method)</literal> où
-   <literal>&amp;$object</literal> est une référence à un objet et
-   <literal>$method</literal> est le nom de la méthode, soit (c) un
-   tableau de la forme <literal>array(&amp;$class, $method)</literal> où
-   <literal>$class</literal> est le nom de la classe et 
-   <literal>$method</literal> est une méthode de cette classe.
+   La fonction PHP <parameter>impl</parameter> peut être soit :
   </para>
+  <orderedlist numeration="loweralpha">
+   <listitem>
+     <para>
+      une chaîne de caractères contenant le nom de la fonction
+     </para>
+   </listitem><listitem>
+    <para>
+     un tableau de la forme <literal>array(&amp;$object, $method)</literal> où
+   <literal>&amp;$object</literal> est une référence à un objet et
+   <literal>$method</literal> est le nom de la méthode
+  </para>
+ </listitem><listitem>
+    <para>
+     soit (c) un tableau de la forme <literal>array(&amp;$class, $method)</literal> où
+     <literal>$class</literal> est le nom de la classe et 
+     <literal>$method</literal> est une méthode de cette classe.
+    </para>
+   </listitem>
+  </orderedlist>
   <para>
    Le paramètre <parameter>cacheable</parameter> peut être omis dans la
    plupart des cas. Voir <link 
    linkend="caching.cacheable">Contrôler la mise en cache des sorties des Plugins</link>
    pour plus d'informations concernant cette utilisation.
   </para>
+  <para>
+   Voir aussi
+   <link linkend="api.unregister.compiler.function">unregister_compiler_function()</link> et
+   les <link linkend="plugins.compiler.functions">plugins de fonction de compilation</link>.
+  </para>
  </refsect1>
 </refentry>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

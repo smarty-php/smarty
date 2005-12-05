@@ -1,43 +1,65 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+
 <refentry id="api.register.modifier">
  <refnamediv>
-  <refname>register_modifier</refname>
-  <refpurpose></refpurpose>
+  <refname>register_modifier()</refname>
+  <refpurpose>Déclare dynamiquement un plugin de modificateur</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>register_modifier</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>impl</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Utilisée pour déclarer dynamiquement un plugin de modificateur.
    Il faut passer en paramètre le nom du modificateur de variables,
    suivi de la fonction PHP qui l'implémente.
   </para>
   <para>
-   La fonction PHP <parameter>impl</parameter> peut être soit (a) une 
-   chaîne de caractères contenant le nom de la fonction, soit (b) un tableau
-   de la forme <literal>array(&amp;$object, $method)</literal> où
-   <literal>&amp;$object</literal> est une référence à un objet et
-   <literal>$method</literal> est le nom de la méthode, soit (c) un
-   tableau de la forme <literal>array(&amp;$class, $method)</literal> où
-   <literal>$class</literal> est le nom de la classe et 
-   <literal>$method</literal> est une méthode de cette classe.
+   La fonction PHP <parameter>impl</parameter> peut être soit :
   </para>
+  <orderedlist numeration="loweralpha">
+   <listitem>
+    <para>
+     une chaîne de caractères contenant le nom de la fonction
+    </para>
+   </listitem><listitem>
+    <para>
+     un tableau de la forme <literal>array(&amp;$object, $method)</literal> où
+     <literal>&amp;$object</literal> est une référence à un objet et
+     <literal>$method</literal> est le nom de la méthode
+    </para>
+   </listitem><listitem>
+     <para>
+      un tableau de la forme <literal>array(&amp;$class, $method)</literal> où
+      <literal>$class</literal> est le nom de la classe et 
+      <literal>$method</literal> est une méthode de cette classe.
+     </para>
+   </listitem>
+  </orderedlist>
   <example>
-   <title>register_modifier</title>
+   <title>register_modifier()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// associons la fonction PHP stripslashes a un modificateur Smarty.
 
+// associons la fonction PHP stripslashes a un modificateur Smarty.
 $smarty->register_modifier("sslash","stripslashes");
 
-// vous pouvez maintenant utiliser {$var|sslash} pour supprimer les slash des variables
+?>
+]]>
+   </programlisting>
+   <para>
+    Où le template est :
+   </para>
+   <programlisting>
+<![CDATA[
+<?php
+{* utiliser 'sslash' pour utiliser la fonction PHP strislashes() *}
+{$var|sslash}
 ?>
 ]]>
    </programlisting>
@@ -48,7 +70,7 @@ $smarty->register_modifier("sslash","stripslashes");
    <link linkend="api.register.function">register_function()</link>,
    <link linkend="language.modifiers">les modifieurs</link>,
    <link linkend="plugins">l'extension de Smarty avec des plugins</link> et
-   <link linkend="plugins.modifiers">les plugins modifieurs</link>.
+   la <link linkend="plugins.modifiers">création de plugins modifieurs</link>.
  </para>
  </refsect1>
 </refentry>

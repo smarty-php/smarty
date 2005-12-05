@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <refentry id="api.trigger.error">
  <refnamediv>
-  <refname>trigger_error</refname>
-  <refpurpose></refpurpose>
+  <refname>trigger_error()</refname>
+  <refpurpose>Affiche un message d'erreur</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>trigger_error</methodname>
    <methodparam><type>string</type><parameter>error_msg</parameter></methodparam>
