@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
 <sect1 id="language.syntax.comments">
  <title>Kommentare</title>
  <para>
@@ -18,8 +18,9 @@
   <title>Kommentare</title>
   <programlisting>
 <![CDATA[
-{* Smarty *}
 <body>
+{* Dies ist ein einzeiliger Kommentar *}
+
 {* dies ist ein mehrzeiliger
    Kommentar, der nicht zum
    Browser gesandt wird.
@@ -29,15 +30,18 @@
 {* einbinden des Header-Templates *}
 {include file="header.tpl"}
 
-{* Entwicklernotiz: $includeFile enthält 'foo.php' *}
+{* Entwicklernotiz: $includeFile wurde in 'foo.php' zugewiesen *}
 {include file=$includeFile}
 
 {include file=#includeFile#}
 
 {* Ausgabe der drop-down Liste *}
+{* Dieser <select> Block ist überflüssig *}
+{*
 <select name=firma>
 {html_options options=$vals selected=$selected}
 </select>
+*}
 ]]>
   </programlisting>
  </example>
