@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: andreas Status: ready -->
 <part id="getting.started">
  <title>Erste Schritte</title>
  <chapter id="what.is.smarty">
@@ -161,10 +161,11 @@
     </para>
    </note>
    <para>
-    Installieren Sie als erstes die Smarty-Library Dateien. Diese
-    Dateien sollten von Ihnen NICHT editiert und von allen
-    Applikationen verwendet werden. Sie werden nur erneuert, wenn Sie
-    eine neue Version von Smarty installieren.
+    Installieren Sie als erstes die Smarty-Library Dateien (den
+    /libs/-Ordner der Smarty Distribution). Diese Dateien sollten von
+    Ihnen NICHT editiert und von allen Applikationen verwendet
+    werden. Sie werden nur erneuert, wenn Sie eine neue Version von
+    Smarty installieren.
    </para>
    <note>
     <title>Technische Bemerkung</title>
@@ -196,9 +197,12 @@ debug.tpl
    <para>
     Sie k&ouml;nnen diese Dateien entweder in Ihrem PHP-'include_path'
     oder auch in irgend einem anderen Verzeichnis ablegen, solange die
-    Konstante <link linkend="constant.smarty.dir">SMARTY_DIR</link>
-    auf den korrekten Pfad zeigt. Im Folgenden werden Beispiele
-    f&uuml;r beide F&auml;lle aufgezeigt.
+    <ulink url="&url.php-manual;define">Konstante</ulink> <link
+    linkend="constant.smarty.dir">SMARTY_DIR</link> auf den korrekten
+    Pfad zeigt. Im Folgenden werden Beispiele f&uuml;r beide
+    F&auml;lle aufgezeigt. SMARTY_DIR <emphasis role="bold">muss in jedem
+    Fall </emphasis> am Ende einen Slash ("/", unter Windows ggf. einen
+    Backslash "\") enthalten.
    </para>
    <para>
     So erzeugt man eine Instanz der Smarty-Klasse im PHP-Skript:
@@ -220,6 +224,28 @@ $smarty = new Smarty;
     Fehlermeldung erhalten dass <filename>Smarty.class.php</filename>
     nicht gefunden werden konnte, versuchen Sie folgendes:
    </para>
+
+   <example>
+    <title>Manuelles setzen der SMARTY_DIR-Konstanten</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
+// *nix-Stil
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty-v.e.r/libs/');
+
+// Windows-Stil
+define('SMARTY_DIR', 'c:/webroot/libs/Smarty-v.e.r/libs/');
+
+// Ein kleiner Hack der unter *nix und Windows funktioniert wenn Smarty
+// in einem Verzeichnis 'includes/' unterhalb des Beispielskriptes liegt
+define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty-v.e.r/libs/');
+
+require_once(SMARTY_DIR . 'Smarty.class.php');
+$smarty = new Smarty();
+?>
+]]>
+    </programlisting>
+   </example>
 
    <example>
     <title>Absoluter Pfad &uuml;bergeben</title>
@@ -429,8 +455,9 @@ Hallo, {$name}!
    <para>
     Als n&auml;chstes editieren wir die Datei
     <filename>index.php</filename>. Wir erzeugen eine Smarty-Instanz,
-    weisen dem Template eine Variable zu und geben
-    <filename>index.tpl</filename> aus.
+    weisen dem Template mit <link linkend="api.assign">assign()</link>
+    eine Variable zu und geben <filename>index.tpl</filename> mit
+    <link linkend="api.display">display</link> aus.
    </para>
 
    <example>
@@ -442,7 +469,7 @@ Hallo, {$name}!
 define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
 require(SMARTY_DIR.'Smarty.class.php');
 
-$smarty = new Smarty;
+$smarty = new Smarty();
 
 $smarty->template_dir = '/web/www.example.com/smarty/guestbook/templates/';
 $smarty->compile_dir = '/web/www.example.com/smarty/guestbook/templates_c/';

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.18 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.19 Maintainer: andreas Status: ready -->
 <chapter id="language.modifiers">
  <title>Variablen-Modifikatoren</title>
  <para>
@@ -50,14 +50,16 @@
   geladen (sehen Sie dazu auch <link
   linkend="plugins.naming.conventions">Naming Conventions</link>) oder
   explizit registriert werden (<link
-  linkend="api.register.modifier">register_modifier</link>).  Zudem
-  können alle PHP-Funktionen implizit als Modifikatoren verwendet
-  werden. (Das Beispiel mit dem <literal>@count</literal> Modifier
-  verwendet die Funktion 'count' von PHP und keinen Smarty
+  linkend="api.register.modifier">register_modifier</link>).
+ </para>
+ <para>
+  Zudem können alle PHP-Funktionen implizit als Modifikatoren
+  verwendet werden. (Das Beispiel mit dem <literal>@count</literal>
+  Modifier verwendet die Funktion 'count()' von PHP und keinen Smarty
   Modifikator) PHP Funktionen zu verwenden eröffnet zwei Probleme:
   erstens: manchmal ist die Parameter Reiehnfolge nicht
-  erwünscht. (<literal>{"%2.f"|sprintf:$float}</literal>
-  funktioniert zwar, sieht aber als
+  erwünscht. (<literal>{"%2.f"|sprintf:$float}</literal> funktioniert
+  zwar, sieht aber als
   <literal>{$float|string_format:"%2.f"}</literal> das durch Smarty
   geliefert wird, besser aus. Zweitens: wenn <link
   linkend="variable.security">$security</link> auf TRUE gesetzt ist,
