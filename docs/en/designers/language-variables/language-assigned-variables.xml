@@ -67,7 +67,7 @@ This weeks meeting is in New York.
 <?php
 $smarty->assign('Contacts',
     array('fax' => '555-222-9876',
-          'email' => 'zaphod@slartibartfast.com',
+          'email' => 'zaphod@slartibartfast.example.com',
           'phone' => array('home' => '555-444-3333',
                            'cell' => '555-111-1234')
                            )
@@ -94,7 +94,7 @@ $smarty->display('index.tpl');
    <screen>
 <![CDATA[
 555-222-9876<br />
-zaphod@slartibartfast.com<br />
+zaphod@slartibartfast.example.com<br />
 555-444-3333<br />
 555-111-1234<br />
 ]]>
@@ -114,7 +114,7 @@ zaphod@slartibartfast.com<br />
 <?php
 $smarty->assign('Contacts', array(
                            '555-222-9876',
-                           'zaphod@slartibartfast.com',
+                           'zaphod@slartibartfast.example.com',
                             array('555-444-3333',
                                   '555-111-1234')
                             ));
@@ -140,7 +140,7 @@ $smarty->display('index.tpl');
    <screen>
 <![CDATA[
 555-222-9876<br />
-zaphod@slartibartfast.com<br />
+zaphod@slartibartfast.example.com<br />
 555-444-3333<br />
 555-111-1234<br />
 ]]>
@@ -168,7 +168,7 @@ email: {$person->email}<br />
    <screen>
 <![CDATA[
 name: Zaphod Beeblebrox<br />
-email: zaphod@slartibartfast.com<br />
+email: zaphod@slartibartfast.example.com<br />
 ]]>
    </screen>
   </example>
