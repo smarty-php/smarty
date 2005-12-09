@@ -2,19 +2,25 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.include">
  <title>{include}</title>
-  <para>
-   {include} tags are used for including other templates in the current
-   template. Any variables available in the current template are also
-   available within the included template. The {include} tag must have
-   the attribute "file", which contains the template resource path.
-  </para>
-  <para>
-   You can optionally pass the <emphasis>'assign'</emphasis> attribute,
-   which will specify a template variable name that the output of
-   {include} will be assigned to instead of
-   displayed.
+ <para>
+  {include} tags are used for including other templates in the current
+  template. Any variables available in the current template are also
+  available within the included template. The {include} tag must have
+  the attribute "file", which contains the template resource path.
  </para>
- 
+ <para>
+  You can optionally pass the <emphasis>'assign'</emphasis> attribute,
+  which will specify a template variable name that the output of
+  {include} will be assigned to instead of
+  displayed.
+ </para>
+ <para>
+  All assigned variables' values are restored after the scope of the
+  included template is left. This means you can use all variables from
+  the including template inside the included template. But changes to
+  variables inside the included template are not visible inside the
+  including template after the {include} statement.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
