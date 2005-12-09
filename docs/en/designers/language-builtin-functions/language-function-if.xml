@@ -14,7 +14,11 @@
   <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>, 
   <emphasis>is_array()</emphasis>, etc.
  </para>
-
+ <para>
+  If <link linkend="variable.security">$security</link> is enabled
+  then <emphasis>IF_FUNCS</emphasis> array in the <link
+  linkend="variable.security.settings">$security_settings</link> array.
+ </para>
  <para>
   The following is a list of recognized qualifiers, which must be
   separated from surrounding elements by spaces. Note that items listed
@@ -161,24 +165,28 @@
    ...
 {/if}
 
-{*
-  the following syntax will NOT work, conditional qualifiers
-  must be separated from surrounding elements by spaces
-*}
-{if $name=="Fred" || $name=="Wilma"}
-   ...
-{/if}
-
 
 {* parenthesis are allowed *}
 {if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
    ...
 {/if}
 
+
 {* you can also embed php function calls *}
 {if count($var) gt 0}
    ...
 {/if}
+
+{* check for array. *}
+{if is_array($foo) }
+   .....
+{/if}
+
+{* check for not null. *}
+{if isset($foo) }
+   .....
+{/if}
+
 
 {* test if values are even or odd *}
 {if $var is even}
@@ -191,10 +199,12 @@
    ...
 {/if}
 
+
 {* test if var is divisible by 4 *}
 {if $var is div by 4}
    ...
 {/if}
+
 
 {*
   test if var is even, grouped by two. i.e.,
@@ -208,18 +218,6 @@
 {if $var is even by 3}
    ...
 {/if}
-
-{* ------- if with php functions ------- *}
-{* check for array. *}
-{if is_array($foo) }
-   .....
-{/if}
-
-{* check for array. *}
-{if isset($foo) }
-   .....
-{/if}
-
 ]]>
   </programlisting>
  </example>
