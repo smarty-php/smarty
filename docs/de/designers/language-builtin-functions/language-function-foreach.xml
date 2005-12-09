@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.foreach">
  <title>{foreach}, {foreachelse}</title>
+ <para>
+   Die <emphasis>foreach</emphasis> Schleife ist eine Alternative zu
+   <link
+   linkend="language.function.section"><emphasis>section</emphasis></link>.
+   <emphasis>foreach</emphasis> wird verwendet, um ein assoziatives
+   Array zu durchlaufen. Die Syntax von
+   <emphasis>foreach</emphasis>-Schleifen ist viel einfacher als die
+   von <emphasis>section</emphasis>. <emphasis>{foreach}</emphasis>
+   Tags müssen mit <emphasis>{/foreach}</emphasis> tags kombiniert
+   werden. Erforderliche Parameter sind: <emphasis>from</emphasis> und
+   <emphasis>item</emphasis>. Der Name der {foreach}-Schleife kann
+   frei vergeben werden und sowohl Buchstaben, Zahlen als auch
+   Unterstriche enthalten.  <emphasis>foreach</emphasis>-Schleifen
+   können verschachtelt werden, dabei ist zu beachten, dass sich die
+   definierten Namen voneinander unterscheiden.  Die
+   <emphasis>from</emphasis> Variable (normalerweise ein assoziatives
+   Array) definiert die Anzahl der von <emphasis>foreach</emphasis> zu
+   durchlaufenen Iterationen. <emphasis>foreachelse</emphasis> wird
+   ausgeführt wenn keine Werte in der <emphasis>from</emphasis>
+   Variable übergeben wurden.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -51,28 +72,6 @@
     </tbody>
    </tgroup>
   </informaltable>
- <para>
-
-   Die <emphasis>foreach</emphasis> Schleife ist eine Alternative zu
-   <link
-   linkend="language.function.section"><emphasis>section</emphasis></link>.
-   <emphasis>foreach</emphasis> wird verwendet, um ein assoziatives
-   Array zu durchlaufen. Die Syntax von
-   <emphasis>foreach</emphasis>-Schleifen ist viel einfacher als die
-   von <emphasis>section</emphasis>. <emphasis>{foreach}</emphasis>
-   Tags müssen mit <emphasis>{/foreach}</emphasis> tags kombiniert
-   werden. Erforderliche Parameter sind: <emphasis>from</emphasis> und
-   <emphasis>item</emphasis>. Der Name der {foreach}-Schleife kann
-   frei vergeben werden und sowohl Buchstaben, Zahlen als auch
-   Unterstriche enthalten.  <emphasis>foreach</emphasis>-Schleifen
-   können verschachtelt werden, dabei ist zu beachten, dass sich die
-   definierten Namen voneinander unterscheiden.  Die
-   <emphasis>from</emphasis> Variable (normalerweise ein assoziatives
-   Array) definiert die Anzahl der von <emphasis>foreach</emphasis> zu
-   durchlaufenen Iterationen. <emphasis>foreachelse</emphasis> wird
-   ausgeführt wenn keine Werte in der <emphasis>from</emphasis>
-   Variable übergeben wurden.
-  </para>
  <example>
   <title>{foreach} - item</title>
   <programlisting role="php">

@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.13 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.section">
  <title>section,sectionelse</title>
+ <para>
+  Template-{sections} werden verwendet, um durch <emphasis
+  role="bold">Arrays</emphasis> zu iterieren (ähnlich wie <link
+  linkend="language.function.foreach">{foreach}</link>).  Jedes
+  <emphasis>section</emphasis>-Tag muss mit einem
+  <emphasis>/section</emphasis>-Tag kombiniert
+  werden. <emphasis>name</emphasis> und <emphasis>loop</emphasis> sind
+  erforderliche Parameter. Der Name der 'section' kann frei gewählt
+  werden, muss jedoch aus Buchstaben, Zahlen oder Unterstrichen
+  bestehen. {sections} können verschachtelt werden. Dabei ist zu
+  beachten, dass sich ihre Namen unterscheiden. Aus der
+  'loop'-Variable (normalerweise ein Array von Werten) resultiert die
+  Anzahl der Iterationen, die durchlaufen werden.  Wenn ein Wert aus
+  der 'loop'-Variable innerhalb der {section} ausgegeben werden soll,
+  muss der 'section-name' umschlossen mit [] angefügt werden.
+  <emphasis>sectionelse</emphasis> wird ausgeführt, wenn keine Werte
+  in der 'loop'-Variable enthalten sind.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -76,24 +94,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Template-{sections} werden verwendet, um durch <emphasis
-  role="bold">Arrays</emphasis> zu iterieren (ähnlich wie <link
-  linkend="language.function.foreach">{foreach}</link>).  Jedes
-  <emphasis>section</emphasis>-Tag muss mit einem
-  <emphasis>/section</emphasis>-Tag kombiniert
-  werden. <emphasis>name</emphasis> und <emphasis>loop</emphasis> sind
-  erforderliche Parameter. Der Name der 'section' kann frei gewählt
-  werden, muss jedoch aus Buchstaben, Zahlen oder Unterstrichen
-  bestehen. {sections} können verschachtelt werden. Dabei ist zu
-  beachten, dass sich ihre Namen unterscheiden. Aus der
-  'loop'-Variable (normalerweise ein Array von Werten) resultiert die
-  Anzahl der Iterationen, die durchlaufen werden.  Wenn ein Wert aus
-  der 'loop'-Variable innerhalb der {section} ausgegeben werden soll,
-  muss der 'section-name' umschlossen mit [] angefügt werden.
-  <emphasis>sectionelse</emphasis> wird ausgeführt, wenn keine Werte
-  in der 'loop'-Variable enthalten sind.
- </para>
  <example>
   <title>section</title>
   <programlisting role="php">

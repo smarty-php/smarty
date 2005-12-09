@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.if">
- <title>if,elseif,else</title>
+ <title>{if},{elseif},{else}</title>
  <para>
   <emphasis>{if}</emphasis>-Statements in Smarty erlauben die selbe
   Flexibilität wie in PHP, bis auf ein paar Erweiterungen für die
   Template-Engine.  Jedes <emphasis>{if}</emphasis> muss mit einem
   <emphasis>{/if}</emphasis> kombiniert
   sein. <emphasis>{else}</emphasis> und <emphasis>{elseif}</emphasis>
-  sind ebenfalls erlaubt. Alle PHP Vergleichsoperatoren, wie
+  sind ebenfalls erlaubt. Alle PHP Vergleichsoperatoren und Funktionen, wie
   <emphasis>||</emphasis>, <emphasis>or</emphasis>,
-  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>, etc. sind
-  erlaubt.
+  <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>,
+  <emphasis>is_array()</emphasis>, etc. sind erlaubt.
+ </para>
+ <para>
+  Wenn <link linkend="variable.security">$security</link> angeschaltet
+  wurde, dann müssen alle verwendeten PHP-Funktionen im
+  <emphasis>IF_FUNCS</emphasis>-Array in dem <link
+  linkend="variable.security.settings">$security_settings</link>-Array
+  deklariert werden.
  </para>
  <para>
   Hier eine Liste der erlaubten Operatoren. Bedingungsoperatoren
@@ -160,12 +167,13 @@
 	...
 {/if}
 
-{* die foldende Syntax ist nicht korrekt, da die Elemente welche die
-   Bedingung umfassen nicht mit Leerzeichen abgetrennt sind*}
+{*
+  die foldende Syntax ist nicht korrekt, da die Elemente welche die
+  Bedingung umfassen nicht mit Leerzeichen abgetrennt sind
+*}
 {if $name=="Fred" || $name=="Wilma"}
 	...
 {/if}
-
 
 
 {* Klammern sind erlaubt *}
@@ -178,6 +186,17 @@
 {if count($var) gt 0}
 	...
 {/if}
+
+{* Auf "ist array" überprüfen. *}
+{if is_array($foo) }
+   .....
+{/if}
+
+{* Auf "ist nicht null" überprüfen. *}
+{if isset($foo) }
+   .....
+{/if}
+
 
 
 {* testen ob eine Zahl gerade (even) oder ungerade (odd) ist *}

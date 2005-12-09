@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.config.load">
- <title>config_load (Konfiguration laden)</title>
+ <title>{config_load} (Konfiguration laden)</title>
+ <para>
+  Diese Funktion wird verwendet, um <link
+  linkend="language.config.variables">Variablen aus einer
+  Konfigurationsdatei</link> in das Template zu laden. Sehen sie
+  <link linkend="config.files">Config Files
+  (Konfigurationsdateien)</link> für weitere Informationen.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -64,15 +71,8 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Diese Funktion wird verwendet, um <link
-  linkend="language.config.variables">Variablen aus einer
-  Konfigurationsdatei</link> in das Template zu laden. Sehen sie
-  <link linkend="config.files">Config Files
-  (Konfigurationsdateien)</link> für weitere Informationen.
- </para>
  <example>
-  <title>Funktion config_load</title>
+  <title>Funktion {config_load}</title>
   <para>
    beispiel.conf
   </para>
@@ -94,7 +94,7 @@ seitenTitel = "Kundeninfo"
   <para>and the template</para>
   <programlisting>
 <![CDATA[
-{config_load file="example.conf"}
+{config_load file='example.conf'}
 
 <html>
 <title>{#seitenTitel#}</title>
@@ -124,7 +124,7 @@ seitenTitel = "Kundeninfo"
  </para>
 
  <example>
-  <title>Funktion config_load mit Abschnitten</title>
+  <title>Funktion {config_load} mit Abschnitten</title>
   <programlisting>
 <![CDATA[
 {config_load file="beispiel.conf" section="Kunde"}
@@ -143,7 +143,11 @@ seitenTitel = "Kundeninfo"
 ]]>
   </programlisting>
  </example>
-
+ <para>
+  Siehe <link
+  linkend="variable.config.overwrite">$config_overwrite</link>
+  bezüglich Arrays von Konfigurationsvariablen.
+ </para>
  <para>
   Siehe auch <link
   linkend="config.files">Konfigurationsdateien</link>, <link

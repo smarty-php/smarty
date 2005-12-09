@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.php">
  <title>php</title>
  <para>
@@ -16,7 +16,7 @@
 <![CDATA[
 {php}
   // php Skript direkt von Template einbinden
-  include("/pfad/zu/zeige_weather.php");
+  include('/pfad/zu/zeige_weather.php');
   {/php}
 ]]>
   </programlisting>
@@ -31,6 +31,19 @@
    im Kontext der method des laufenden $smarty-Objektes.
   </para>
  </note>
+ <example>
+  <title>{php} mit Verwendung von global</title>
+  <programlisting role="php">
+<![CDATA[
+{php}
+   global $foo, $bar;
+   if($foo == $bar){
+     // tue irgendwas
+   }
+{/php}
+]]>
+  </programlisting>
+ </example>
  <para>
   Siehe auch <link
   linkend="variable.php.handling">$php_handling</link>, <link

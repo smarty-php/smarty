@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.include">
  <title>include (einbinden)</title>
+ <para>
+  {include}-Tags werden verwendet, um andere Templates in das aktuelle
+  Template einzubinden.  Alle Variablen des aktuellen Templates sind
+  auch im eingebundenen Template verfügbar.  Das {include}-Tag muss ein
+  'file' Attribut mit dem Pfad zum einzubindenden Template enthalten.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -45,12 +51,6 @@
   </tgroup>
  </informaltable>
  <para>
-  Include Tags werden verwendet, um andere Templates in das aktuelle
-  Template einzubinden.  Alle Variablen des aktuellen Templates sind
-  auch im eingebundenen Template verfügbar.  Das include-Tag muss ein
-  'file' Attribut mit dem Pfad zum einzubindenden Template enthalten.
- </para>
- <para>
   Optional kann mit dem <emphasis>assign</emphasis> Attribut definiert
   werden, in welcher Variable die Ausgabe des mit
   <emphasis>include</emphasis> eingebundenen Templates abgelegt werden
@@ -65,12 +65,12 @@
   <title>{$title}</title>
 </head>
 <body>
-{include file="page_header.tpl"}
+{include file='page_header.tpl'}
 
 {* hier kommt der body des Templates *}
-{include file="/$tpl_name.tpl"} <-- $tpl_name wird durch eine Wert ersetzt
+{include file="$tpl_name.tpl"} <-- $tpl_name wird durch eine Wert ersetzt
 
-{include file="page_footer.tpl"}
+{include file='page_footer.tpl'}
 </body>
 </html>
 ]]>
@@ -87,11 +87,11 @@
   <title>include-Funktion und Variablen Übergabe</title>
   <programlisting>
 <![CDATA[
-{include file="header.tpl" title="Hauptmenu" table_bgcolor="#c0c0c0"}
+{include file='header.tpl' title='Hauptmenu' table_bgcolor='#c0c0c0'}
 
 {* hier kommt der body des Templates *}
 
-{include file="footer.tpl" logo="http://my.domain.com/logo.gif"}
+{include file='footer.tpl' logo='http://my.domain.com/logo.gif'}
 ]]>
   </programlisting>
  </example>
@@ -105,16 +105,24 @@
   <programlisting>
 <![CDATA[
 {* absoluter Dateipfad *}
-{include file="/usr/local/include/templates/header.tpl"}
+{include file='/usr/local/include/templates/header.tpl'}
 
 {* absoluter Dateipfad (gleich) *}
-{include file="file:/usr/local/include/templates/header.tpl"}
+{include file='file:/usr/local/include/templates/header.tpl'}
 
 {* absoluter Dateipfad unter Windows ("file:"-Prefix MUSS übergeben werden) *}
-{include file="file:C:/www/pub/templates/header.tpl"}
+{include file='file:C:/www/pub/templates/header.tpl'}
 
 {* einbinden aus Template-Ressource namens 'db' *}
-{include file="db:header.tpl"}
+{include file='db:header.tpl'}
+
+{* einbinden eines Variablen Templates - z.B. $module = 'contacts' *}
+{include file="$module.tpl"} 
+{*
+  Dies hier Funktioniert nicht, da Variablen innerhalb einfacher
+  Anführungszeichen nicht interpoliert werden.
+*}
+{include file='$module.tpl'}
 ]]>
   </programlisting>
  </example>

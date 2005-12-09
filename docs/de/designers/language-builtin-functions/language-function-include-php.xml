@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.include.php">
  <title>include_php (PHP-Code einbinden)</title>
+ <para>
+  Die Verwendung von {include_php} wird nicht mehr empfohlen, die
+  gleiche funktionalität kann auch mit <link
+  linkend="tips.componentized.templates">Template/Script
+  Komponenten</link> erreicht werden.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -44,12 +50,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Die Verwendung von {include_php} wird nicht mehr empfohlen, die
-  gleiche funktionalität kann auch mit <link
-  linkend="tips.componentized.templates">Template/Script
-  Komponenten</link> erreicht werden.
- </para>
  <para>
   Falls <link linkend="variable.security">Sicherheit</link> aktiviert
   ist, muss das einzubindende Skript im <link
