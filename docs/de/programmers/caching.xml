@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
  <chapter id="caching">
   <title>Caching</title>
   <para>
@@ -9,8 +9,10 @@
     der Ausgabe in einer Datei zu beschleunigen. Falls eine gecachte Version
     des Aufrufs existiert, wird diese ausgegeben, anstatt die Ausgabe neu zu generieren.
     Caching kann die Performance vor allem dann deutlich verbessern, wenn Templates
-    l&auml;ngere Rechenzeit beanspruchen. Weil die Ausgabe von display() und fetch() gecached
-    wird, kann ein Cache verschiedene Templates, Konfigurationsdateien usw. enthalten.
+    l&auml;ngere Rechenzeit beanspruchen. Weil die Ausgabe von <link
+    linkend="api.display">display()</link> und <link
+    linkend="api.fetch">fetch()</link> gecached wird, kann ein Cache
+    verschiedene Templates, Konfigurationsdateien usw. enthalten.
   </para>
   <para>
    Da Templates dynamisch sind ist es wichtig darauf zu achten, welche Inhalte
