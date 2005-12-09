@@ -18,17 +18,13 @@
 <![CDATA[
 <?php
 // set path to Smarty directory *nix style
-define('SMARTY_DIR','/usr/local/lib/php/Smarty/libs/');
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
 
 // path to Smarty windows style
-define('SMARTY_DIR','c:/webroot/libs/Smarty/libs/');
-
-// hack (not recommended) that works on both *nix and windows
-// Smarty is assumend to be in 'includes' dir under current script
-define('SMARTY_DIR',str_replace("\\","/",getcwd()).'/includes/Smarty/libs/');
+define('SMARTY_DIR', 'c:/webroot/libs/Smarty/libs/');
 
 // include the smarty class Note 'S' is upper case
-require_once(SMARTY_DIR.'Smarty.class.php');
+require_once(SMARTY_DIR . 'Smarty.class.php');
 ?>
 ]]>
      </programlisting>
@@ -47,7 +43,7 @@ require_once(SMARTY_DIR.'Smarty.class.php');
     <para>
      This should be the full system path to the location of the Smarty core
      files. If not defined, Smarty will default this constant to the
-     <emphasis>libs/</emphasis>
+     <emphasis>internals/</emphasis>
      sub-directory below
      <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
      If defined, the path must end with a slash.
@@ -60,7 +56,7 @@ require_once(SMARTY_DIR.'Smarty.class.php');
 <?php
 
 // load core.get_microtime.php
-require_once(SMARTY_CORE_DIR.'core.get_microtime.php');
+require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
 
 ?>
 ]]>
