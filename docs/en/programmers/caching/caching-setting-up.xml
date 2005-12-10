@@ -4,7 +4,7 @@
    <title>Setting Up Caching</title>
    <para>
     The first thing to do is enable caching  by setting <link
-    linkend="variable.caching">$caching</link> = true (or 1.)
+    linkend="variable.caching">$caching</link> = 1 (or 2).
    </para>
    <example>
     <title>enabling caching</title>
