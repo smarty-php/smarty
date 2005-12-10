@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+
 <sect1 id="variable.config.overwrite">
  <title>$config_overwrite</title>
  <para>
-  Si cette variable est a vrai, les variables lues dans les fichiers
-  de configuration peuvent s'écraser entre elles. Sinon les variables
+  Si cette variable est à vrai, les variables lues dans les
+  <link linkend="config.files">fichiers de configuration</link>
+  peuvent s'écraser entre elles. Sinon les variables
   seront mises dans un tableau. Très utile si vous voulez stocker
   des tableaux de données dans des fichiers de configuration, listez
-  simplement chaque élément plusieurs fois. Mise a faux par défaut.
+  simplement chaque élément plusieurs fois.
  </para>
+
+ <example>
+  <title>Tableau de variables de configuration</title>
+  <para>
+   Cet exemple utilise
+   <link linkend="language.function.cycle">{cycle}</link> pour afficher
+   un tableau dont les lignes sont alternativement rouge/verte/bleu
+   avec $config_overwrite = false.
+  </para>
+  <para>Le fichier de configuration</para>
+  <programlisting>
+<![CDATA[
+# couleur des lignes
+rowColors = #FF0000
+rowColors = #00FF00
+rowColors = #0000FF
+]]>
+  </programlisting>
+  <para>
+   Le template avec une boucle
+   <link linkend="language.function.section">{section}</link>.
+  </para>
+  <programlisting>
+<![CDATA[
+<table>
+ {section name=r loop=$rows}
+ <tr bgcolor="{cycle values=#rowColors#}">
+  <td> ....etc.... </td>
+ </tr>
+ {/section}
+</table>
+]]>
+  </programlisting>
+ </example>
+ <para>
+  Voir aussi
+  <link linkend="language.function.config.load">{config_load}</link>,
+  les <link linkend="config.files">fichiers de configuration</link>,
+  <link linkend="api.get.config.vars">get_config_vars()</link>,
+  <link linkend="api.clear.config">clear_config()</link> et
+  <link linkend="api.config.load">config_load()</link>.
+  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

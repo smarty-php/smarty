@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: didou Status: ready -->
+
 <sect1 id="variable.error.reporting">
  <title>$error_reporting</title>
  <para>
   Lorsque cette valeur est configurée à une valeur non nulle,
-  sa valeur est utilisée comme le error_reporting-level de PHP
-  à l'intérieur de <link linkend="api.display">display()</link> 
+  sa valeur est utilisée comme le
+  <ulink url="&url.php-manual;error_reporting">error_reporting</ulink>-level
+  de PHP à l'intérieur de <link linkend="api.display">display()</link>
   et <link linkend="api.fetch">fetch()</link>. Lorsque le <link
   linkend="chapter.debugging.console">déboguage</link>
   est ignoré, cette valeur est ignorée et error-level est non-modifié.
  </para>
+ <para>
+  Voir aussi
+  <link linkend="api.trigger.error">trigger_error()</link>,
+  le <link linkend="chapter.debugging.console">débogage</link> et
+  <link linkend="troubleshooting">Troubleshooting</link>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
