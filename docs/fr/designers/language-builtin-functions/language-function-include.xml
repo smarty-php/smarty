@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.include">
  <title>{include}</title>
@@ -16,6 +16,13 @@
   Vous pouvez spécifier un attribut optionnel <emphasis>'assign'</emphasis>
   qui définit une variable de template dans laquelle la sortie de
   {include} sera stockée plutôt qu'affichée.
+ </para>
+ <para>
+  Toutes les valeurs des variables assignées sont restaurées lorsque
+  le template inclus est terminé. Ceci signifie que vous pouvez utiliser
+  toutes les variables d'un template inclus dans le template qui l'inclut.
+  Mais les modifications des variables dans le template inclus ne sont pas
+  visibles dans le template qui l'inclut après l'instruction {include}.
  </para>
 
  <informaltable frame="all">

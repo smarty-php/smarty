@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: yannick Status: ready -->
+
 <part id="getting.started">
  <title>Pour commencer</title>
 
@@ -155,7 +156,7 @@
   <sect1 id="installing.smarty.basic">
    <title>Installation de base</title>
    <para>
-    Copiez les fichiers bibliothèques de Smarty du répertoire
+    Copiez les fichiers bibliothèques de Smarty du sous-dossier
     /libs/ de la distribution à un emplacement accessible à PHP.
     Ce sont des fichiers PHP que vous NE DEVEZ PAS
     modifier. Ils sont partagés par toutes les applications et ne seront
@@ -177,18 +178,18 @@ debug.tpl
    </example>
 
    <para>
-    Smarty utilise une constante PHP appelée <link
+    Smarty utilise une <ulink url="&url.php-manual;define">constante</ulink> PHP appelée <link
     linkend="constant.smarty.dir">SMARTY_DIR</link> qui
-    représente le chemin complet de la bibliothèque Smarty. En fait,
+    représente le <emphasis role="bold">chemin complet</emphasis> de la bibliothèque Smarty. En fait,
     si votre application trouve le fichier
     <filename>Smarty.class.php</filename>, vous n'aurez pas
-    besoin de définir la variable <link linkend="constant.smarty.dir">SMARTY_DIR</link>, 
+    besoin de définir la variable <link linkend="constant.smarty.dir">SMARTY_DIR</link>,
     Smarty s'en chargera pour vous.
     En revanche, si <filename>Smarty.class.php</filename>
     n'est pas dans votre répertoire d'inclusion ou que vous ne
     donnez pas un chemin absolu à votre application, vous
     devez définir SMARTY_DIR explicitement. SMARTY_DIR
-    <emphasis>doit</emphasis> avoir être terminé par un slash.
+    <emphasis role="bold">doit</emphasis> avoir être terminé par un slash.
    </para>
 
    <para>
@@ -200,8 +201,9 @@ debug.tpl
     <programlisting role="php">
 <![CDATA[
 <?php
-require('Smarty.class.php');
-$smarty = new Smarty;
+// Note : Smarty a un 'S' majuscule
+require_once('Smarty.class.php');
+$smarty = new Smarty();
 ?>
 ]]>
     </programlisting>
@@ -214,40 +216,50 @@ $smarty = new Smarty;
    </para>
 
    <example>
-    <title>fournir un chemin absolu vers la bibliothèque Smarty</title>
+    <title>Définition manuelle de la constante SMARTY_DIR</title>
     <programlisting role="php">
 <![CDATA[
 <?php
-require('/usr/local/lib/php/Smarty/Smarty.class.php');
-$smarty = new Smarty;
+// Style *nix (notez le 'S' majuscule)
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty-v.e.r/libs/');
+
+// Style Windows
+define('SMARTY_DIR', 'c:/webroot/libs/Smarty-v.e.r/libs/');
+
+require_once(SMARTY_DIR . 'Smarty.class.php');
+$smarty = new Smarty();
 ?>
 ]]>
     </programlisting>
    </example>
 
    <example>
-    <title>Ajouter le répertoire de la bibliothèque dans l'include_path de PHP</title>
+    <title>Définir le chemin absolu au fichier de la bibliothèque</title>
     <programlisting role="php">
 <![CDATA[
 <?php
-// Editez votre fichier php.ini file, ajoutez le chemin de la 
-// bibliothèque Smarty et redémarrez les serveur web.
-// la ligne suivante doit alors fonctionner :
-require('Smarty.class.php');
-$smarty = new Smarty;
+// Style *nix (notez le 'S' majuscule)
+require_once('/usr/local/lib/php/Smarty-v.e.r/libs/Smarty.class.php');
+
+// Style Windows
+require_once('c:/webroot/libs/Smarty-v.e.r/libs/Smarty.class.php');
+
+$smarty = new Smarty();
 ?>
 ]]>
     </programlisting>
    </example>
 
    <example>
-    <title>Définir explicitement la constante SMARTY_DIR</title>
+    <title>Ajout du dossier contenant la bibliothèque à l'include_path de PHP</title>
     <programlisting role="php">
 <![CDATA[
 <?php
-define('SMARTY_DIR', '/usr/local/lib/php/Smarty/');
-require(SMARTY_DIR . 'Smarty.class.php');
-$smarty = new Smarty;
+// Editez votre fichier php.ini, ajoutez le dossier contenant la
+// bibliothèque Smarty à l'include_path et redémarrez le serveur web.
+// Puis, ce qui suit devrait fonctionner :
+require_once('Smarty.class.php');
+$smarty = new Smarty();
 ?>
 ]]>
     </programlisting>
@@ -258,7 +270,7 @@ $smarty = new Smarty;
     il est temps de définir les répertoires de Smarty, pour votre application.
    </para>
    <para>
-    Smarty a besoin de quatre répertoires qui sont (par défaut)
+    Smarty a besoin de quatre répertoires qui sont, par défaut,
     <filename class="directory">'templates/'</filename>,
     <filename class="directory">'templates_c/'</filename>,
     <filename class="directory">'configs/'</filename> et
@@ -332,19 +344,19 @@ $smarty = new Smarty;
     <title>Exemple de structure de fichiers</title>
     <screen>
 <![CDATA[
-/usr/local/lib/php/Smarty/Smarty.class.php
-/usr/local/lib/php/Smarty/Smarty_Compiler.class.php
-/usr/local/lib/php/Smarty/Config_File.class.php
-/usr/local/lib/php/Smarty/debug.tpl
-/usr/local/lib/php/Smarty/internals/*.php
-/usr/local/lib/php/Smarty/plugins/*.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Smarty.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Smarty_Compiler.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/Config_File.class.php
+/usr/local/lib/php/Smarty-v.e.r/libs/debug.tpl
+/usr/local/lib/php/Smarty-v.e.r/libs/internals/*.php
+/usr/local/lib/php/Smarty-v.e.r/libs/plugins/*.php
 
-/web/www.example.com/smarty/livredor/templates/
-/web/www.example.com/smarty/livredor/templates_c/
-/web/www.example.com/smarty/livredor/configs/
-/web/www.example.com/smarty/livredor/cache/
+/web/www.example.com/smarty/guestbook/templates/
+/web/www.example.com/smarty/guestbook/templates_c/
+/web/www.example.com/smarty/guestbook/configs/
+/web/www.example.com/smarty/guestbook/cache/
 
-/web/www.example.com/docs/livredor/index.php
+/web/www.example.com/docs/guestbook/index.php
 ]]>
     </screen>
    </example>
@@ -389,7 +401,7 @@ chmod 770 /web/www.example.com/smarty/livredor/cache/
 
    <para>
     Nous devons créer le fichier 'index.tpl' que Smarty va charger.
-    Il va se trouver dans <link linkend="variable.template.dir">$template_dir</link>.
+    Il va se trouver dans le dossier <link linkend="variable.template.dir">$template_dir</link>.
    </para>
 
    <example>
@@ -399,7 +411,7 @@ chmod 770 /web/www.example.com/smarty/livredor/cache/
 
 {* Smarty *}
 
-Hello, {$name}!
+Bonjour, {$name}, Bienvenue dans Smarty !
 ]]>
     </screen>
    </example>
@@ -419,34 +431,32 @@ Hello, {$name}!
 
    <para>
     Maintenant passons à l'édition du fichier 'index.php'. Nous allons
-    créer une instance de Smarty, assigner une valeur à une variable
-    de template et afficher le résultat avec 'index.tpl'. Dans notre
-    exemple d'environnement, "/usr/local/lib/php/Smarty" est dans notre
-    include_path. Assurez-vous de faire la même chose ou d'utiliser
-    des chemins absolus.
+    créer une instance de Smarty, <link linkend="api.assign">assigner</link>
+    une valeur à une variable de template et
+    <link linkend="api.display">afficher</link> le résultat avec 'index.tpl'.
    </para>
 
    <example>
     <title>Édition de  /web/www.example.com/docs/livredor/index.php</title>
-    <screen>
+    <programlisting role="php">
 <![CDATA[
 <?php
-    // charge la bibliothèque Smarty
-     require('Smarty.class.php');
+// charge la bibliothèque Smarty
+require_once(SMARTY_DIR . 'Smarty.class.php');
 
-     $smarty = new Smarty;
+$smarty = new Smarty();
 
-     $smarty->template_dir = '/web/www.example.com/smarty/livredor/templates/';
-     $smarty->compile_dir = '/web/www.example.com/smarty/livredor/templates_c/';
-     $smarty->config_dir = '/web/www.example.com/smarty/livredor/configs/';
-     $smarty->cache_dir = '/web/www.example.com/smarty/livredor/cache/';
+$smarty->template_dir = '/web/www.example.com/smarty/livredor/templates/';
+$smarty->compile_dir = '/web/www.example.com/smarty/livredor/templates_c/';
+$smarty->config_dir = '/web/www.example.com/smarty/livredor/configs/';
+$smarty->cache_dir = '/web/www.example.com/smarty/livredor/cache/';
 
-     $smarty->assign('name','Ned');
+$smarty->assign('name','Ned');
 
-    $smarty->display('index.tpl');
+$smarty->display('index.tpl');
 ?>
 ]]>
-    </screen>
+    </programlisting>
    </example>
 
    <note>
@@ -465,7 +475,7 @@ Hello, {$name}!
 
    <para>
     Et maintenant appelez le fichier <filename>index.php</filename> avec navigateur
-    Web. Vous devriez voir "Hello, Ned!".
+    Web. Vous devriez voir "Bonjour, Ned, Bienvenue dans Smarty !".
    </para>
    <para>
     Vous venez de terminer l'installation de base de Smarty !

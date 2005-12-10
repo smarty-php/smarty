@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.variables.smarty">
  <title>Variable réservée {$smarty}</title>
  <para>
-  La variable réservée {$smarty} peut être utilisée pour accéder à plusieurs
+  La variable PHP réservée {$smarty} peut être utilisée pour accéder à plusieurs
   variables spéciales du template. En voici la liste complète.
  </para>
 
  <sect2 id="language.variables.smarty.request">
   <title>Variables de requête</title>
   <para>
-   Les variables de requête comme GET, POST, COOKIES, SERVER, ENVIRONNEMENT
-   et SESSION peuvent être utilisées comme dans l'exemple suivant:
+   Les <ulink url="&url.php-manual;reserved.variables">variables de requête</ulink>
+   comme $_GET, $_POST, $_COOKIE, $_SERVER, $_ENV and $_SESSION
+   (voir <link linkend="variable.request.vars.order">$request_vars_order</link>
+   et <link linkend="variable.request.use.auto.globals">$request_use_auto_globals</link>)
+   peuvent être utilisées comme dans l'exemple suivant:
   </para>
   <example>
    <title>Afficher des variables de requête</title>
    <programlisting>
 <![CDATA[
-{* Affiche la valeur de page dans l'url (GET) http://www.example.com/index.php?page=foo *}
+{* Affiche la valeur de page dans l'url ($_GET) http://www.example.com/index.php?page=foo *}
 {$smarty.get.page}
 
-{* affiche la variable "page" récupérée depuis un formulaire (POST) *}
+{* affiche la variable "page" récupérée depuis un formulaire ($_POST['page']) *}
 {$smarty.post.page}
 
-{* affiche la valeur du cookie "utilisateur" *}
+{* affiche la valeur du cookie "utilisateur" ($_COOKIE['username']) *}
 {$smarty.cookies.utilisateur}
 
-{* affiche la variable serveur "SERVER_NAME" *}
+{* affiche la variable serveur "SERVER_NAME" ($_SERVER['SERVER_NAME']) *}
 {$smarty.server.SERVER_NAME}
 
 {* affiche la variable d'environnement "PATH" *}
 {$smarty.env.PATH}
 
-{* affiche la variable de session PHP "id" *}
+{* affiche la variable de session PHP "id" ($_SESSION['id']) *}
 {$smarty.session.id}
 
 {* affiche la variable "utilisateur" du regroupement de get/post/cookies/server/env *}
@@ -41,19 +45,27 @@
 ]]>
    </programlisting>
   </example>
+  <note>
+   <para>
+    Pour des raisons historiques, {$SCRIPT_NAME} peut être accédé
+    directement, cependant, {$smarty.server.SCRIPT_NAME} est
+    la solution proposée pour accéder à cette valeur.
+   </para>
+  </note>
  </sect2>
 
  <sect2 id="language.variables.smarty.now">
   <title>{$smarty.now}</title>
   <para>
-   Le timestamp courant peut être récupéré grâce à {$smarty.now}.
+   Le <ulink url="&url.php-manual;function.time">timestamp</ulink>
+   courant peut être récupéré grâce à {$smarty.now}.
    Le nombre obtenu correspond au nombre de secondes écoulées depuis
    Epoch (1 Janvier 1970) et peut être passé directement au modificateur
    de variable date <link linkend="language.modifier.date.format">date_format</link> 
    à des fins d'affichage.
   </para>
   <example>
-   <title>utilisation de {$smarty.now}</title>
+   <title>Utilisation de {$smarty.now}</title>
    <programlisting>
 <![CDATA[
 {* utilise le modificateur de variable date_format pour afficher la date et heure *}
@@ -62,12 +74,12 @@
    </programlisting>
   </example>
  </sect2>
+
  <sect2 id="language.variables.smarty.const">
   <title>{$smarty.const}</title>
   <para>
    Vous pouvez directement accéder aux constantes PHP.
-   Voir aussi les <link
-   linkend="smarty.constants">constantes smarty</link>.
+   Voir aussi les <link linkend="smarty.constants">constantes smarty</link>.
   </para>
   <example>
    <title>Utiliser {$smarty.const}</title>
@@ -82,7 +94,7 @@
  <sect2 id="language.variables.smarty.capture">
   <title>{$smarty.capture}</title>
   <para>
-   La capture réalisée via 
+   La capture réalisée via
    <link linkend="language.function.capture">{capture}..{/capture}</link> 
    peut être récupérée par l'intermédiaire de la variable {$smarty}. Voir la section
    sur <link linkend="language.function.capture">{capture}</link> pour un
@@ -93,11 +105,10 @@
  <sect2 id="language.variables.smarty.config">
   <title>{$smarty.config}</title>
   <para>
-   La variable {$smarty} peut être utilisée pour désigner une <link
-   linkend="language.config.variables">variable
-   d'un fichier de configuration</link>. {$smarty.config.foo} est un synonyme de
-   {#foo#}. Voir la section <link
-   linkend="language.function.config.load">{config_load}</link>
+   La variable {$smarty} peut être utilisée pour désigner une
+   <link linkend="language.config.variables">variable d'un fichier de configuration</link>.
+   {$smarty.config.foo} est un synonyme de {#foo#}. Voir la section
+   <link linkend="language.function.config.load">{config_load}</link>
    pour un exemple à ce sujet.
   </para>
  </sect2>
@@ -118,17 +129,24 @@
    Cette variable contient le nom du template en cours de traitement.
   </para>
  </sect2>
+
+ <sect2 id="language.variables.smarty.version">
+  <title>{$smarty.version}</title>
+  <para>
+   Cette variable contient la version de Smarty utilisée pour compiler un template.
+  </para>
+ </sect2>
+
  <sect2 id="language.variables.smarty.ldelim">
   <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
   <para>
    Cette variable est utilisée pour afficher le délémiteur gauche et le délimiteur droit. Lisez aussi
-   la partie <link
-   linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+   la partie <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
   <para>
-   Voir aussi les 
-   <link linkend="language.syntax.variables">variables</link> et les
-   <link linkend="language.config.variables">variables de configuration</link>.
+   Voir aussi
+   les <link linkend="language.syntax.variables">variables</link> et
+   les <link linkend="language.config.variables">variables de configuration</link>.
   </para>
  </sect2>
 </sect1>

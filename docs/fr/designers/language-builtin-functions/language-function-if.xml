@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
@@ -15,6 +15,11 @@
   comme <emphasis>||</emphasis>, <emphasis>or</emphasis>,
   <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>,
   <emphasis>is_array()</emphasis>, etc.
+ </para>
+ <para>
+  Si <link linkend="variable.security">$security</link> est actif,
+  alors le tableau <emphasis>IF_FUNCS</emphasis> dans le tableau
+  <link linkend="variable.security.settings">$security_settings</link> (?!).
  </para>
  <para>
   La liste suivante présente les opérateurs reconnus, qui doivent être entourés d'espaces.
@@ -162,13 +167,6 @@
   ...
 {/if}
 
-{* l'exemple suivant NE fonctionne PAS, les opérateurs
-doivent être entourés d'espaces. *}
-{if $name=="Fred" || $name=="Wilma"}
-  ...
-{/if}
-
-
 {* les parenthèses sont autorisées *}
 {if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
   ...
@@ -177,6 +175,16 @@ doivent être entourés d'espaces. *}
 {* vous pouvez également faire appel aux fonctions PHP *}
 {if count($var) gt 0}
   ...
+{/if}
+
+{* Vérifie si c'est un tableau. *}
+{if is_array($foo) }
+.....
+{/if}
+
+{* Vérifie si la variable est nulle. *}
+{if isset($foo) }
+  .....
 {/if}
 
 {* teste si les valeurs sont paires(even) ou impaires(odd) *}
@@ -204,17 +212,6 @@ doivent être entourés d'espaces. *}
 {* 0=paire, 1=paire, 2=paire, 3=impaire, 4=impaire, 5=impaire, etc. *}
 {if $var is even by 3}
   ...
-{/if}
-
-{* ------- if avec des fonctions PHP ------- *}
-{* check for array. *}
-{if is_array($foo) }
-.....
-{/if}
-
-{* vérification du tableau. *}
-{if isset($foo) }
-.....
 {/if}
 
 ]]>
