@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+
 <sect1 id="variable.secure.dir">
  <title>$secure_dir</title>
  <para>
   Il s'agit d'un tableau contenant tous les répertoires locaux qui sont
-  considérés comme sécurisés. {include} et {fetch} l'utilisent quand
-  la sécurité est activée.
+  considérés comme sécurisés.
+  <link linkend="language.function.include">{include}</link> et
+  <link linkend="language.function.fetch">{fetch}</link> l'utilisent quand
+  la <link linkend="variable.security">sécurité est activée</link>.
  </para>
+ <para>
+  Voir aussi
+  la <link linkend="variable.security.settings">configuration pour la sécurité</link>et
+  <link linkend="variable.trusted.dir">$trusted_dir</link>.
+</para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
