@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.include">
  <title>include (einbinden)</title>
  <para>
@@ -8,6 +8,19 @@
   Template einzubinden.  Alle Variablen des aktuellen Templates sind
   auch im eingebundenen Template verfügbar.  Das {include}-Tag muss ein
   'file' Attribut mit dem Pfad zum einzubindenden Template enthalten.
+ </para>
+ <para>
+  Optional kann mit dem <emphasis>assign</emphasis> Attribut definiert
+  werden, in welcher Variable die Ausgabe des mit
+  <emphasis>include</emphasis> eingebundenen Templates abgelegt werden
+  soll statt sie auszugeben.
+ </para>
+ <para>
+  Die Werte aller zugewiesenen Variablen werden wiederhergestellt, sobald
+  ein eingebundenes Template wieder verlassen wurde. Das bedeutet, dass in
+  einem eingebundenen Template alle Variablen des einbindenden Template
+  verwendet und verändert werden können, diese Änderungen aber verloren sind,
+  sobald das {include} abgearbeitet wurde.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -50,12 +63,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Optional kann mit dem <emphasis>assign</emphasis> Attribut definiert
-  werden, in welcher Variable die Ausgabe des mit
-  <emphasis>include</emphasis> eingebundenen Templates abgelegt werden
-  soll statt sie auszugeben.
- </para>
  <example>
   <title>function include (einbinden)</title>
   <programlisting>
