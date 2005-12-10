@@ -1,33 +1,65 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+
 <sect1 id="variable.security">
  <title>$security</title>
  <para>
-  Cette variable est a faux par défaut. $security est de rigueur
+  Cette variable vaut false par défaut. $security est de rigueur
   quand vous n'êtes pas complétement sûr des personnes qui éditent les templates
   (par ftp par exemple) et que vous voulez réduire le risque que
   la sécurité du système soit compromise par le langage de template.
   Activer cette option de sécurité applique les régles suivantes
-  au langage de template, à moins que $security_settings ne spécifie
+  au langage de template, à moins que
+  <link linkend="variable.security.settings">$security_settings</link> ne spécifie
   le contraire :
  </para>
  <itemizedlist>
-  <listitem><para>Si $php_handling est réglée a SMARTY_PHP_ALLOW,
-  celà est implicitement changé a SMARTY_PHP_PASSTHRU.</para></listitem>
-  <listitem><para>Les fonctions PHP ne sont pas autorisées dans les
-   instructions IF, a part celles déclarées dans
-  $security_settings.</para></listitem>
-  <listitem><para>Les templates ne peuvent être inclus que depuis
-  des répertoires listés dans le tableau $security_dir.</para></listitem>
-  <listitem><para>Les fichiers locaux ne peuvent être récupérés que depuis
-   les répertoires listés dans le tableau $security_dir en
-  utilisant {fetch}.</para></listitem>
-  <listitem><para>Les balises {php}{/php} ne sont pas autorisées.</para></listitem>
-  <listitem><para>Les fonctions PHP ne sont pas autorisées en tant
-  modificateurs, à part celles spécifiées dans $security_settings.</para></listitem>
+  <listitem>
+   <para>
+    Si <link linkend="variable.php.handling">$php_handling</link> est réglée
+    à SMARTY_PHP_ALLOW, celà est implicitement changé a SMARTY_PHP_PASSTHRU.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Les fonctions PHP ne sont pas autorisées dans les
+    instructions <link linkend="language.function.if">{if}</link>,
+    à part celles déclarées dans
+    <link linkend="variable.security.settings">$security_settings</link>.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Les templates ne peuvent être inclus que depuis
+    des répertoires listés dans le tableau
+    <link linkend="variable.secure.dir">$secure_dir</link>.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Les fichiers locaux ne peuvent être récupérés que depuis
+    les répertoires listés dans le tableau
+    <link linkend="variable.secure.dir">$secure_dir</link> en
+    utilisant <link linkend="language.function.fetch">{fetch}</link>.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Les balises <link linkend="language.function.php">{php}{/php}</link>
+    ne sont pas autorisées.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Les fonctions PHP ne sont pas autorisées en tant
+    modificateurs, à part celles spécifiées dans
+    <link linkend="variable.security.settings">$security_settings</link>.
+   </para>
+  </listitem>
  </itemizedlist>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

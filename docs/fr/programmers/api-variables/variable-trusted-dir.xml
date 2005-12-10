@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+
 <sect1 id="variable.trusted.dir">
  <title>$trusted_dir</title>
  <para>
-  $trusted_dir n'est utilisée lorsque $security est activée. C'est un
+  $trusted_dir n'est utilisée lorsque
+  <link linkend="variable.security">$security</link> est activée. C'est un
   tableau de tous les répertoires qui peuvent être considérés comme svrs.
   Les répertoires svrs sont ceux qui contiennent des scripts PHP qui
   sont exécutés directement depuis les templates avec
   <link linkend="language.function.include.php">{include_php}</link>.
   </para>
  </sect1>
+
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml

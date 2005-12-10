@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+
 <sect1 id="variable.template.dir">
  <title>$template_dir</title>
  <para>
   C'est le nom par défaut du répertoire des templates.
   Si vous ne spécifiez aucun chemin lors de l'utilisation de templates, Smarty
-  les cherchera a cet emplacement.
-  Par défaut, il s'agit de "./templates", ce qui signifie
-  qu'il va chercher le répertoire templates
+  les cherchera à cet emplacement. Par défaut, il s'agit de
+  <filename class="directory">"./templates"</filename>, ce qui signifie
+  qu'il va chercher le répertoire <filename class="directory">templates</filename>
   dans le répertoire où se trouve le script PHP en cours d'exécution.
  </para>
- 
+
  <note>
   <title>Note technique</title>
   <para>
-   Il n'est pas conseillé de mettre ce répertoire
-   dans l'arborescence Web.
+   Il n'est pas conseillé de mettre ce répertoire dans l'arborescence Web.
   </para>
  </note>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
