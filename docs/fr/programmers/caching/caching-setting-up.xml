@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="caching.setting.up">
  <title>Paramétrer le cache</title>
  <para>
   La première chose à faire est d'activer le cache en
-  mettant <link linkend="variable.caching">$caching</link> = true
-  (ou 1).
+  mettant <link linkend="variable.caching">$caching</link> = 1
+  (ou 2).
  </para>
  <example>
   <title>Activation du cache</title>
