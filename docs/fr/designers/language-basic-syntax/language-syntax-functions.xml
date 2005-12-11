@@ -46,7 +46,7 @@
   Elles peuvent être modifiées pour correspondre
   à vos besoins, et vous pouvez en créer de nouvelles.
   <link linkend="language.function.html.options">{html_options}</link> et
-  <link linkend="language.function.html.popup">{popup}</link> 
+  <link linkend="language.function.popup">{popup}</link>
   sont deux exemples de fonctions utilisateurs.
  </para>
 </sect1>
