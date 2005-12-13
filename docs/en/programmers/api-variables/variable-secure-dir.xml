@@ -3,7 +3,7 @@
      <sect1 id="variable.secure.dir">
       <title>$secure_dir</title>
       <para>
-       This is an array of all local directories that are considered
+       This is an array of all local files and directories that are considered
  secure.
  <link linkend="language.function.include">{include}</link>
  and <link linkend="language.function.fetch">{fetch}</link>
