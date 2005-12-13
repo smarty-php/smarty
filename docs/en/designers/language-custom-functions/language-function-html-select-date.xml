@@ -228,7 +228,11 @@
    </tbody>
   </tgroup>
  </informaltable>
-
+ <para>
+  All parameters that are not in the list above are printed as
+  name/value-pairs inside the &lt;select&gt; tags of day, month and
+  year.
+ </para>
  <example>
   <title>{html_select_date}</title>
   <para>Template code</para>
