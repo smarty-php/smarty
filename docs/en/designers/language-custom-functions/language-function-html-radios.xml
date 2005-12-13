@@ -137,21 +137,16 @@ $smarty->assign('customer_id', 1001);
   <screen>
 <![CDATA[
 <label for="id_1000">
-<input type="radio" name="id" value="1000" id="id_1000" />Joe
-Schmoe</label><br />
-<label for="id_1001"><input type="radio" name="id" value="1001" id="id_1001"
-checked="checked" />Jack
-Smith</label><br />
-<label for="id_1002"><input type="radio" name="id" value="1002" id="id_1002" />Jane
-Johnson</label><br />
-<label for="id_1003"><input type="radio" name="id" value="1003" id="id_1003" />Charlie
-Brown</label><br />
+<input type="radio" name="id" value="1000" id="id_1000" />Joe Schmoe</label><br />
+<label for="id_1001"><input type="radio" name="id" value="1001" id="id_1001" checked="checked" />Jack Smith</label><br />
+<label for="id_1002"><input type="radio" name="id" value="1002" id="id_1002" />Jane Johnson</label><br />
+<label for="id_1003"><input type="radio" name="id" value="1003" id="id_1003" />Charlie Brown</label><br />
 ]]>
   </screen>
  </example>
-  <example>
+ <example>
   <title>{html_radios}- Database example (eg PEAR or ADODB):</title>
-<programlisting role="php">
+  <programlisting role="php">
 <![CDATA[
 <?php
 
@@ -164,24 +159,23 @@ $smarty->assign('contact',$db->getRow($sql));
 
 ?>
 ]]>
-</programlisting>
-<para>
-and the template:
-</para>
-<programlisting>
+  </programlisting>
+  <para>
+   and the template:
+  </para>
+  <programlisting>
 <![CDATA[
 {html_radios name="type" options=$types selected=$contact.type_id separator="<br />"}
 ]]>
-</programlisting>
+  </programlisting>
  </example>
-  <para>
-   See also
-   <link linkend="language.function.html.checkboxes">{html_checkboxes}</link>
-   and
-   <link linkend="language.function.html.options">{html_options}</link>
+ <para>
+  See also <link
+  linkend="language.function.html.checkboxes">{html_checkboxes}</link>
+  and <link
+  linkend="language.function.html.options">{html_options}</link>
  </para>
 </sect1>
-
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
