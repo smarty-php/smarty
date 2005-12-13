@@ -32,9 +32,18 @@
       <entry>1</entry>
       <entry>string</entry>
       <entry>No</entry>
-      <entry>html,htmlall,url,quotes,hex,hexentity,javascript</entry>
-      <entry>html</entry>
+      <entry><literal>html</literal>,<literal>htmlall</literal>,<literal>url</literal>,<literal>urlpathinfo</literal>,<literal>quotes</literal>,<literal>hex</literal>,<literal>hexentity</literal>,<literal>javascript</literal></entry>
+      <entry><literal>html</literal></entry>
       <entry>This is the escape format to use.</entry>
+     </row>
+     <row>
+      <entry>2</entry>
+      <entry>string</entry>
+      <entry>No</entry>
+      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... any character set supportet by <ulink url="&url.php-manual;sprintf">htmlentities()</ulink>
+</entry>
+      <entry><literal>ISO-8859-1</literal></entry>
+      <entry>The character set encoding passed to htmlentities() et. al.</entry>
      </row>
     </tbody>
    </tgroup>
