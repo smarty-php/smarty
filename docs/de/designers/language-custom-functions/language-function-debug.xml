@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.debug">
  <title>{debug}</title>
  <informaltable frame="all">
@@ -35,7 +35,8 @@
   linkend="chapter.debugging.console">$debug</link> hat darauf keinen
   Einfluss. Da die Ausgabe zur Laufzeit geschieht, können die
   Template-Namen hier nicht ausgegeben werden. Sie erhalten jedoch
-  eine Liste aller zugewiesenen Variablen und deren Werten.
+  eine Liste aller mit <link linkend="api.assign">assigned</link>
+  zugewiesenen Variablen und deren Werten.
  </para>
  <para>
   Siehe auch <link linkend="chapter.debugging.console">Debugging Konsole</link>

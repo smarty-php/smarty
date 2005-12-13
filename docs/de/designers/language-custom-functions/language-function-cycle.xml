@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.cycle">
  <title>{cycle} (Zyklus)</title>
+ <para>
+  {cycle} wird verwendet um durch ein Set von Werten zu zirkulieren.
+  Dies vereinfacht die Handhabung von zwei oder mehr Farben in einer
+  Tabelle, oder um einen Array zu durchlaufen.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -78,11 +83,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {cycle} wird verwendet um durch ein Set von Werten zu zirkulieren.
-  Dies vereinfacht die Handhabung von zwei oder mehr Farben in einer
-  Tabelle, oder um einen Array zu durchlaufen.
- </para>
  <para>
   Sie können durch mehrere Sets gleichzeitig iterieren, indem Sie den
   Sets einmalige Namen geben.
