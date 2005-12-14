@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.select.date">
  <title>{html_select_date}</title>
@@ -244,6 +244,11 @@
    </tbody>
   </tgroup>
  </informaltable>
+ <para>
+  Tous les paramètres non présents dans la liste ci-dessus sont affichés
+  en tant que paires nom/valeur dans la balise &lt;select&gt; du jour, mois
+  et année.
+ </para>
  <example>
   <title>{html_select_date}</title>
   <para>Code du template</para>
