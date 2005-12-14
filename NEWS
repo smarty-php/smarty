@@ -1,3 +1,6 @@
+Version 2.6.11 (Dec 14, 2005)
+-----------------------------
+
  - fixed code generation of non-cacheable blocks to play well with php's
    "Alternative syntax for control structures" (kihara, messju)
  - fix handling of multiple identical inserts in one display()-call (messju)
