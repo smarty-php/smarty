@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
  <sect1 id="language.modifier.capitalize">
   <title>capitalize (in Grossbuchstaben schreiben)</title>
+  <para>
+   Wird verwendet um den Anfangsbuchstaben aller Wörter in der
+   Variable gross (upper case) zu schreiben.
+  </para>
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -31,10 +35,6 @@
     </tbody>
    </tgroup>
   </informaltable>  
-  <para>
-   Wird verwendet um den Anfangsbuchstaben aller W&ouml;rter in der
-   Variable gross (upper case) zu schreiben.
-  </para>
   <example>
    <title>capitalize (in Grossbuchstaben schreiben)</title>
    <programlisting role="php">
