@@ -1,3 +1,19 @@
+2005-12-14  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS:
+      fixed iso-latin1 special chars
+
+2005-12-14  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update version numbers
+
+    * (Smarty_2_6_11)
+      NEWS:
+      commit NEWS file for 2.6.11
+
 2005-12-08  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/de/getting-started.xml:
