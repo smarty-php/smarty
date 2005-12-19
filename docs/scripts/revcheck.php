@@ -37,7 +37,8 @@ the actual english xml files, and print statistics
   If you specify ><revcheck.html>, the output is an html file.
   
   Read more about Revision comments and related
-  funcionality in the PHP Documentation Howto.
+  functionality in the PHP Documentation Howto:
+    http://php.net/manual/howto/translation-revtrack.html
    
   Authors: Thomas Schöfbeck <tom@php.net>
            Gabor Hojtsy <goba@php.net>
@@ -82,9 +83,9 @@ $CSS = array(
   REV_WIP      => "wip",
 );
 
-// Option for the link to cvs.php.net: normal: "&f=h"
-// long diff: "&f=h&num=10", unified (text): "&f=u"
-define("CVS_OPT", "&amp;ty=u");
+// Option for the link to cvs.php.net:
+define('CVS_OPT', '&amp;view=patch');
+define('CVS_OPT_NOWS', '&amp;view=diff&amp;diff_format=h');
 
 // Initializing variables from parameters
 $LANG = $argv[1];
@@ -368,7 +369,10 @@ function get_old_files($dir)
 
     $special_files = array(
       // french
-     'translation.xml'
+      'LISEZ_MOI.txt',
+      'TRADUCTIONS.txt',
+      'Translators',
+      'translation.xml'
 
       // todo: add all missing languages
     );
@@ -640,7 +644,7 @@ print ($navbar);
 if (!empty($translation["intro"])) {
     print '<a name="intro"></a>';
     print '<table width="800" align="center"><tr><td class=c>' .
-           $translation['intro'] . '</td></tr></table><p></p>';
+           $translation['intro'] . '</td></tr></table>';
 }
 
 // =========================================================================
@@ -816,33 +820,33 @@ END_OF_MULTILINE;
 
     // This was the previous directory [first]
     $prev_dir = $new_dir = $DOCDIR."en";
-    
+
     // Go through all files collected
     foreach ($files_status as $num => $file) {
-    
+
         // Make the maintainer a link, if we have that maintainer in the list
         if (isset($maint_by_nick[$file["maintainer"]])) {
           $file["maintainer"] = '<a href="#maint' . $maint_by_nick[$file["maintainer"]] .
                                 '">' . $file["maintainer"] . '</a>';
         }
-    
+
         // If we have a 'numeric' revision diff and it is not zero,
         // make a link to the CVS repository's diff script
         if ($file["revision"][2] != "n/a" && $file["revision"][2] !== 0) {
-            $url = 'http://cvs.php.net/diff.php/' .
+            $url = 'http://cvs.php.net/viewcvs.cgi/' .
                    preg_replace( "'^".$DOCDIR."'", 'smarty/docs/', $file['full_name']) .
-                   '?r1=' . $file['revision'][1] . 
-                   '&amp;r2=' . $file['revision'][0] .
-                   CVS_OPT;
-            $url_ws = $url . '&amp;ws=0';
+                   '?tr1=' . $file['revision'][1] . '&amp;tr2=' . $file['revision'][0] .
+                   '&amp;r1=text&amp;r2=text';
+            $url_ws = $url . CVS_OPT_NOWS;
+            $url   .= CVS_OPT;
 
             $file['short_name'] = '<a href="' . $url . '">'. $file["short_name"] . '</a> '.
                                   '<a href="' . $url_ws . '">[NoWS]</a>';
         }
-    
+
         // Guess the new directory from the full name of the file
         $new_dir = dirname($file["full_name"]);
-        
+
         // If this is a new directory, put out old dir lines
         if ($new_dir != $prev_dir && isset($lines)) {
             echo $prev_diplay_dir;
@@ -851,7 +855,7 @@ END_OF_MULTILINE;
     	
     	$lines = '';
     	$line_number = 0;
-
+            
             // Store the new actual directory
             $prev_dir = $new_dir;
         }
@@ -879,10 +883,11 @@ END_OF_MULTILINE;
     // echo the last dir and $lines
     echo "$prev_diplay_dir ($line_number)</th></tr>";
     echo $lines;
-
+    
     print("</table>\n<p>&nbsp;</p>\n$navbar<p>&nbsp;</p>\n");
-
+    
 }
+
 
 // =========================================================================
 // Work in progress table goes here
@@ -1012,7 +1017,7 @@ if ($count > 0) {
             $prev_dir = $new_dir;
         }
 
-        print "<tr class=wip><td><a href=\"http://cvs.php.net/co.php/smarty/docs/en/$file\">$short_file</a></td>" .
+        print "<tr class=wip><td><a href=\"http://cvs.php.net/viewcvs.cgi/smarty/docs/en/$file?view=markup\">$short_file</a></td>" .
               "<td class=r>$info[0]</td></tr>\n";
     }
     print "</table>\n<p>&nbsp;</p>\n$navbar<p>&nbsp;</p>\n";
@@ -1024,7 +1029,7 @@ $count = count($old_files);
 if ($count > 0) {
     print "<a name=\"oldfiles\"></a>" .
           "<table width=\"400\" border=\"0\" cellpadding=\"3\" cellspacing=\"1\" align=\"center\">\n" .
-          "<tr class=blue><th><a name=\"avail\" class=\"ref\">" .
+          "<tr class=blue><th><a name=\"notEn\" class=\"ref\">" .
           " Not in EN Tree</a> ($count files):</th><th>kB</th></tr>\n";
 
     foreach($old_files as $file => $info) {
@@ -1033,13 +1038,13 @@ if ($count > 0) {
 
         // Guess the new directory from the full name of the file
         $new_dir = dirname($file);
-
+    
         // If this is a new directory, put out dir headline
         if ($new_dir != $prev_dir) {
-
+        
             // Print out directory header if not "."
             print "<tr class=blue><th colspan=2>$new_dir</th></tr>\n";
-
+        
             // Store the new actual directory
             $prev_dir = $new_dir;
         }
@@ -1048,6 +1053,10 @@ if ($count > 0) {
               "<td class=r>$info[0]</td></tr>\n";
     }
     print "</table>\n<p>&nbsp;</p>\n$navbar<p>&nbsp;</p>\n";
+
+
+
+
 }
 
 
