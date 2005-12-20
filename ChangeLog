@@ -1,3 +1,9 @@
+2005-12-19  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.math.php:
+      fixed problem with math in certain LC_NUMERIC locales.
+      thanks to wiebren for providing problem+solution.
+
 2005-12-14  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS:
