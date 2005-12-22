@@ -1,3 +1,11 @@
+2005-12-21  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      Fix improper tokenization of certain inline math expressions.
+      
+      Thanks to gerard at forums for reporting this.
+
 2005-12-19  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.math.php:
