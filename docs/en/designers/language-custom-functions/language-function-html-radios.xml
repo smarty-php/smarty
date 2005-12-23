@@ -124,7 +124,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Where index.tpl is:
+   Where template is:
   </para>
   <programlisting>
 <![CDATA[
