@@ -7,7 +7,7 @@
   is an integration of
   <ulink url="&url.overLib;">overLib</ulink>, a library used for popup
   windows. These are used for context sensitive information, such as
-  help windows or tooltips.{popup_init} must be called once at the
+  help windows or tooltips. {popup_init} must be called once at the
   top of any page you plan on using the
   <link linkend="language.function.popup">{popup}</link> function.
   </para>
