@@ -7,7 +7,7 @@
   Секции используются для обхода
   <emphasis role="bold">массивов данных</emphasis>
   (так же, как и <link linkend="language.function.foreach">{foreach}</link>).
-  Каждый тег <emphasis>{section}</emphasis> должен иметь пару
+  Каждый тэг <emphasis>{section}</emphasis> должен иметь пару
   <emphasis>{/section}</emphasis>. Обязательными параметрами являются
   <emphasis>name</emphasis> и <emphasis>loop</emphasis>. Имя цикла
   {section} может быть любым, состоящим из букв, цифр и знаков

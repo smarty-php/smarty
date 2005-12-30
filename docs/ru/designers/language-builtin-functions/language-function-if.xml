@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
  <para>
@@ -15,6 +15,12 @@
   из PHP, такие как <emphasis>||</emphasis>, <emphasis>or</emphasis>,
   <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>,
   <emphasis>is_array()</emphasis> и т.д.
+ </para>
+ 
+ <para>
+  Если <link linkend="variable.security">$security</link> включена,
+  то массив <emphasis>IF_FUNCS</emphasis> в массиве <link
+  linkend="variable.security.settings">$security_settings</link>.
  </para>
  
  <para>
@@ -165,15 +171,6 @@
 	...
 {/if}
 
-{*
-  следующий пример НЕ будет работать, квалификаторы условий следует
-  отделять от окружающих элементов пробелами
-*}
-{if $name=="Fred" || $name=="Wilma"}
-	...
-{/if}
-
-
 {* скобки разрешены *}
 {if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
 	...
@@ -182,6 +179,16 @@
 {* вы также можете использовать функции php *}
 {if count($var) gt 0}
 	...
+{/if}
+
+{* проверка на массив *}
+{if is_array($foo) }
+ ...
+{/if}
+  	 
+{* проверка на существование *}
+{if isset($foo) }
+ ...
 {/if}
 
 {* проверяет чётность значений *}
@@ -212,18 +219,6 @@
 {if $var is even by 3}
 	...
 {/if}
-
-{* ------- if с функциями PHP ------- *}
-{* check for array. *}
-{if is_array($foo) }
-    .....
-{/if}
-
-{* проверка на существование *}
-{if isset($foo) }
-    .....
-{/if}
-
 ]]>
   </programlisting>
  </example>

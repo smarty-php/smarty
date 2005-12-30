@@ -13,7 +13,7 @@
   <emphasis>{foreach}</emphasis> намного проще синтаксиса
   <emphasis>{section}</emphasis>, но с другой стороны
   <emphasis role="bold">его можно использовать только для одного массива</emphasis>.
-  Каждый тег <emphasis>{foreach}</emphasis> должен иметь пару
+  Каждый тэг <emphasis>{foreach}</emphasis> должен иметь пару
   <emphasis>{/foreach}</emphasis>. Обязательными параметрами являются
   <emphasis>from</emphasis> и <emphasis>item</emphasis>.
   Имя цикла {foreach} может быть любым, состоящим из букв, цифр и знаков

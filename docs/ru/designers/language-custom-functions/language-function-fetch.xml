@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.fetch">
- <title>fetch</title>
+ <title>{fetch}</title>
+ <para>
+  fetch используется для отображения содержимого локальных файлов,
+  http- или ftp-страниц.
+  Если имя файла начинается с "http://", то веб-страница будет получена и
+  выведена.
+  Если имя файла начинается с "ftp://", то файл будет получен с ftp-сервера и
+  выведен. Для локальных файлов должен быть указан абсолютный путь,
+  либо путь относительно выполняемого PHP-файла.
+ </para>
+ <para>
+  Если указать специалньый атрибут "assign", то вывод функции {fetch}
+  будет присвоен переменной шаблона, вместо отображения. Добавлено в
+  Smarty версии 1.5.0.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
   <colspec colname="param" align="center" />
@@ -37,19 +52,7 @@
   </tbody>
   </tgroup>
  </informaltable>
- <para>
-  fetch используется для отображения локальных файлов, http или ftp
-  страниц. Если файл начинается с "http://", то вебстраница будет
-  получена и выведена. Если файл начинается с "ftp://", то файл будет
-  получен с ftp сервера и выведен. Для локальных файлов должен быть
-  указан либо абсолютный путь, либо путь относительно выполняемого
-  php файла.
- </para>
- <para>
-  Если указать специалньый атрибут "assign", то вывод функции fetch
-  будет присвоен переменной вместо отображения. Добавлено в
-  Smarty версии 1.5.0.
- </para>
+
  <note>
   <title>Техническое Замечание</title>
   <para>
@@ -62,11 +65,12 @@
   <para>
    Если включена security и указан файл из локальной файловой
    системы, то отобразятся лишь файлы, который находятся в
-   указаных безопасных папках ($secure_dir).
+   указаных безопасных папках
+   (<link linkend="variable.secure.dir">$secure_dir</link>).
   </para>
  </note>
  <example>
-  <title>fetch</title>
+  <title>{fetch}</title>
   <programlisting>
 <![CDATA[
 {* включаем javascript в шаблон *}
@@ -81,11 +85,19 @@
 {* присваиваем полученный файл переменной *}
 {fetch file="http://www.myweather.com/68502/" assign="weather"}
 {if $weather ne ""}
-	&lt;b&gt;{$weather}&lt;/b&gt;
+  <b>{$weather}</b>
 {/if}
 ]]>
   </programlisting>
  </example>
+ 
+ <para>
+ См. также
+ <link linkend="language.function.capture">{capture}</link>,
+ <link linkend="language.function.eval">{eval}</link>
+ и
+ <link linkend="api.fetch">fetch()</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

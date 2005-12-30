@@ -4,7 +4,7 @@
 <sect1 id="language.modifier.strip.tags">
  <title>strip_tags</title>
  <para>
-  Вырезает HTML теги, обычно все между &lt; и &gt;.
+  Вырезает HTML тэги, обычно все между &lt; и &gt;.
  </para>
  <example>
   <title>strip_tags</title>

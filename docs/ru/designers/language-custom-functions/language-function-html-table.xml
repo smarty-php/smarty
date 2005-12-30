@@ -1,147 +1,154 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.table">
- <title>html_table</title>
+ <title>{html_table}</title>
+  <para>
+   {html_table} является
+  <link linkend="language.custom.functions">пользовательской функцией</link>,
+  которая распечатывает массив данных в HTML-тэг table.
+  Атрибут <emphasis>cols</emphasis> указывает, сколько в таблице будет колонок.
+  Атрибуты <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis> и
+  <emphasis>td_attr</emphasis> определяют атрибуты соответствующих элементов
+  таблицы - тэгов table, tr и td. Если параметры <emphasis>tr_attr</emphasis>
+  или <emphasis>td_attr</emphasis> являются массивами, их значения будут
+  использоваться циклически. <emphasis>trailpad</emphasis> - это значение,
+  помещаемое в пустые ячейки последней строки, если такие будут.
+ </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
-  <colspec colname="param" align="center" />
-  <colspec colname="type" align="center" />
-  <colspec colname="required" align="center" />
-  <colspec colname="default" align="center" />
-  <colspec colname="desc" />
-  <thead>
-   <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
-   </row>
-  </thead>
-  <tbody>
-   <row>
-    <entry>loop</entry>
-    <entry>array</entry>
-    <entry>Да</entry>
-    <entry><emphasis>n/a</emphasis></entry>
-    <entry>массив данных, по которому будет произведен обход</entry>
-   </row>
-   <row>
-    <entry>cols</entry>
-    <entry>integer</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>3</emphasis></entry>
-    <entry>
-     количество колонок в таблице. если атрибут cols не указан, но указан
-     rows, тогда кол-во колонок вычисляется исходя из кол-ва строк и кол-ва
-     элементов, которые необходимо отобразить. если оба атрибута, rows и
-     cols, не указаны, cols по умолчанию равен 3.
-    </entry>
-   </row>
-   <row>
-    <entry>rows</entry>
-    <entry>integer</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>empty</emphasis></entry>
-    <entry>
-     количество строк в таблице. если атрибут rows не указан, но указан cols,
-     тогда кол-во строк вічисляется исходя из кол-ва колонок и кол-ва
-     элементов, которые необходимо отобразить.
-    </entry>
-   </row>
-   <row>
-    <entry>inner</entry>
-    <entry>string</entry>
-    <entry>No</entry>
-    <entry><emphasis>cols</emphasis></entry>
-    <entry>
-     направление последовательного отображения элементов из массива loop.
-     <emphasis>cols</emphasis> означает, что элементы отображаются колонка
-     за колонкой.
-     <emphasis>rows</emphasis> означает, что элементы отображаются строка
-     за строкой.
-    </entry>
-   </row>
-   <row>
-    <entry>table_attr</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>border="1"</emphasis></entry>
-    <entry>дополнительные атрибуты тэга table</entry>
-   </row>
-   <row>
-    <entry>tr_attr</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>пусто</emphasis></entry>
-    <entry>дополнительные атрибуты тэга tr (если указан
-    массив, то его элементы циклически повторяются)</entry>
-   </row>
-   <row>
-    <entry>td_attr</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>пусто</emphasis></entry>
-    <entry>дополнительные атрибуты тэга td (если указан
-    массив, то его элементы циклически повторяются)</entry>
-   </row>
-   <row>
-    <entry>trailpad</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>&amp;nbsp;</emphasis></entry>
-    <entry>значение остаточных ячеек на последней строке табилцы</entry>
-   </row>
-   <row>
-    <entry>hdir</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>right</emphasis></entry>
-    <entry>
-     направление отображения каждого ряда. допустимые значения:
-     <emphasis>left</emphasis> (слева направо),
-     <emphasis>right</emphasis> (справа налево)
-    </entry>
-   </row>
-   <row>
-    <entry>vdir</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>down</emphasis></entry>
-    <entry>
-     направление отображение каждой колонки. допустимые значения:
-     <emphasis>down</emphasis> (сверху вниз),
-     <emphasis>up</emphasis> (снизу вверх)
-    </entry>
-   </row>
-  </tbody>
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Имя атрибута</entry>
+     <entry>Тип</entry>
+     <entry>Обязателен</entry>
+     <entry>По умолчанию</entry>
+     <entry>Описание</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>loop</entry>
+     <entry>array</entry>
+     <entry>Да</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>массив данных для обработки</entry>
+    </row>
+    <row>
+     <entry>cols</entry>
+     <entry>integer</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>3</emphasis></entry>
+     <entry>
+      количество колонок в таблице. Если этот атрибут не указан, но указан
+      атрибут rows, то количество колонок автоматически вычисляется исходя
+      из количества строк и количества элементов для отображения, чтобы как
+      раз уместить все элементы. Если оба параметра (и rows, и cols) опущены,
+      cols принимает значение по умолчанию, равное 3.
+     </entry>
+    </row>
+    <row>
+     <entry>rows</entry>
+     <entry>integer</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>
+      количество строк в таблице. Если этот атрибут не указан, но указан
+      атрибут cols, то количество строк автоматически вычисляется исходя
+      из кооичества колонок и количества элементов для отображения, чтобы как
+      раз уместить все элементы.
+     </entry>
+    </row>
+    <row>
+     <entry>inner</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>cols</emphasis></entry>
+     <entry>
+      направление заполнения элементов таблицы из массива.
+      <emphasis>cols</emphasis> означает заполнение элементов колонки за колонкой.
+      <emphasis>rows</emphasis> означает заполнение элементов строка за строкой.
+     </entry>
+    </row>
+    <row>
+     <entry>table_attr</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>border="1"</emphasis></entry>
+     <entry>атрибуты для тэга table</entry>
+    </row>
+    <row>
+     <entry>tr_attr</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>атрибуты для тэга tr (значения массива отображаются циклично)</entry>
+    </row>
+    <row>
+     <entry>td_attr</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>атрибуты для тэга td (значения массива отображаются циклично)</entry>
+    </row>
+    <row>
+     <entry>trailpad</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>&amp;nbsp;</emphasis></entry>
+     <entry>значение для заполнения пустых ячеек последней строки (если такие есть)</entry>
+    </row>
+    <row>
+     <entry>hdir</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>right</emphasis></entry>
+     <entry>
+      направления заполнения каждой строки. доступные значения:
+      <emphasis>right</emphasis> (слева-направо)
+      и
+      <emphasis>left</emphasis> (справа-налево)
+     </entry>
+    </row>
+    <row>
+     <entry>vdir</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>down</emphasis></entry>
+     <entry>
+      направление заполнения каждой колонки. доступные значения:
+      <emphasis>down</emphasis> (сверху-вниз)
+      и
+      <emphasis>up</emphasis> (снизу-вверх)
+     </entry>
+    </row>
+   </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Пользовательская функция <emphasis>html_table</emphasis> выводит
-  массив в виде HTML таблицы. Атрибут <emphasis>cols</emphasis>
-  указывает количество колонок. Атрибуты <emphasis>table_attr</emphasis>,
-  <emphasis>tr_attr</emphasis> и <emphasis>td_attr</emphasis> указывают
-  дополнительные атрибуты тэгов table, tr и td. Если значение
-  <emphasis>tr_attr</emphasis> или <emphasis>td_attr</emphasis> - массив,
-  то кго значения циклический повторяются. Атрибут
-  <emphasis>trailpad</emphasis> устанавливает значения для остаточных
-  ячеек на последней строке таблицы.
- </para>
+
+
  <example>
-  <title>html_table</title>
+  <title>{html_table}</title>
   <programlisting role="php">
 <![CDATA[
 <?php
-require('Smarty.class.php');
-$smarty = new Smarty;
+
 $smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
 $smarty->display('index.tpl');
+
 ?>
 ]]>
   </programlisting>
+  <para>
+   Шаблон:
+  </para>
   <programlisting>
 <![CDATA[
 {html_table loop=$data}
@@ -173,6 +180,7 @@ $smarty->display('index.tpl');
   </screen>
  </example>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

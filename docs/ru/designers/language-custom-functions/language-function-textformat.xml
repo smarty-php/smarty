@@ -1,240 +1,283 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.textformat">
- <title>textformat</title>
+ <title>{textformat}</title>
+  <para>
+   {textformat} - это
+   <link linkend="plugins.block.functions">блоковая функция</link>,
+   используемая для форматирования текста. Проще говоря, она убирает
+   лишние пробелы и спецсимволы, а так же форматирует параграфы добавляя
+   разрывы строк и отступы.
+  </para>
+  <para>
+   Вы можете указать параметры явно, либо использовать предустановленный
+   стиль.
+   На данный момент, единственным таким стилем является "email".
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
-  <colspec colname="param" align="center" />
-  <colspec colname="type" align="center" />
-  <colspec colname="required" align="center" />
-  <colspec colname="default" align="center" />
-  <colspec colname="desc" />
-  <thead>
-   <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
-   </row>
-  </thead>
-  <tbody>
-   <row>
-    <entry>style</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>n/a</emphasis></entry>
-    <entry>предустановленный стиль</entry>
-   </row>
-   <row>
-    <entry>indent</entry>
-    <entry>number</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>0</emphasis></entry>
-    <entry>отступ строки</entry>
-   </row>
-   <row>
-    <entry>indent_first</entry>
-    <entry>number</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>0</emphasis></entry>
-    <entry>отступ первой строки</entry>
-   </row>
-   <row>
-    <entry>indent_char</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>(single space)</emphasis></entry>
-    <entry>символ, которым заполняется отступ строк.</entry>
-   </row>
-   <row>
-    <entry>wrap</entry>
-    <entry>number</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>80</emphasis></entry>
-    <entry>количество символов в строке</entry>
-   </row>
-   <row>
-    <entry>wrap_char</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>\n</emphasis></entry>
-    <entry>текст, разделяющий каждую строку</entry>
-   </row>
-   <row>
-    <entry>wrap_cut</entry>
-    <entry>boolean</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>false</emphasis></entry>
-    <entry>
-     Переносить текст по символам (то есть точно
-     по указанной длине строки) (true), или по
-     границам слов (false)
-    </entry>
-   </row>
-   <row>
-    <entry>assign</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>n/a</emphasis></entry>
-    <entry>переменная шаблона, которой будет присвоен вывод</entry>
-   </row>
-  </tbody>
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Имя атрибута</entry>
+     <entry>Тип</entry>
+     <entry>Обязателен</entry>
+     <entry>По умолчанию</entry>
+     <entry>Описание</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>style</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>предустановленный стиль</entry>
+    </row>
+    <row>
+     <entry>indent</entry>
+     <entry>number</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>0</emphasis></entry>
+     <entry>Количество символов для отступа на каждой строке</entry>
+    </row>
+    <row>
+     <entry>indent_first</entry>
+     <entry>number</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>0</emphasis></entry>
+     <entry>Количество символов для отступа на первой строке</entry>
+    </row>
+    <row>
+     <entry>indent_char</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>(один пробел)</emphasis></entry>
+     <entry>Символ (или набор символов), при помощи которых будет
+     осуществляться отступ</entry>
+    </row>
+    <row>
+     <entry>wrap</entry>
+     <entry>number</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>80</emphasis></entry>
+     <entry>Максимальное количество символов, после которого будет вставлен
+     перенос строки</entry>
+    </row>
+    <row>
+     <entry>wrap_char</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>\n</emphasis></entry>
+     <entry>Символ (или набор символов), при помощи которых будет
+     осуществляться перенос строки</entry>
+    </row>
+    <row>
+     <entry>wrap_cut</entry>
+     <entry>boolean</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>false</emphasis></entry>
+     <entry>Если true, перенос строки будет разбивать строку на любом символе,
+     а не только на границе слов</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>переменная шаблона для присвоения результата работы функции</entry>
+    </row>
+   </tbody>
   </tgroup>
  </informaltable>
- <para>
-  функция textformat используется для форматирования текста,
-  заключенного внтури ее. В основном, убирает лишние пробелы и
-  специальные символы, а так же форматирует абзацы, делает отступы,
-  переносит слова.
- </para>
- <para>
-  Можно указывать параметры явно, или использовать предустановленные стили.
-  На данный момент существует только стиль "email".
- </para>
+
  <example>
-  <title>textformat</title>
+  <title>{textformat}</title>
   <programlisting>
 <![CDATA[
-{textformat wrap=40}
+   {textformat wrap=40}
 
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
 
-This is bar.
+   This is bar.
 
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
 
-{/textformat}
+   {/textformat}
 
-OUTPUT:
-
-This is foo. This is foo. This is foo.
-This is foo. This is foo. This is foo.
-
-This is bar.
-
-bar foo bar foo foo. bar foo bar foo
-foo. bar foo bar foo foo. bar foo bar
-foo foo. bar foo bar foo foo. bar foo
-bar foo foo. bar foo bar foo foo.
-
-
-{textformat wrap=40 indent=4}
-
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-
-This is bar.
-
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-
-{/textformat}
-
-OUTPUT:
-
-    This is foo. This is foo. This is
-    foo. This is foo. This is foo. This
-    is foo.
-
-    This is bar.
-
-    bar foo bar foo foo. bar foo bar foo
-    foo. bar foo bar foo foo. bar foo
-    bar foo foo. bar foo bar foo foo.
-    bar foo bar foo foo. bar foo bar
-    foo foo.
-
-{textformat wrap=40 indent=4 indent_first=4}
-
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-
-This is bar.
-
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-
-{/textformat}
-
-OUTPUT:
-
-        This is foo. This is foo. This
-    is foo. This is foo. This is foo.
-    This is foo.
-
-        This is bar.
-
-        bar foo bar foo foo. bar foo bar
-    foo foo. bar foo bar foo foo. bar
-    foo bar foo foo. bar foo bar foo
-    foo. bar foo bar foo foo. bar foo
-    bar foo foo.
-
-{textformat style="email"}
-
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-This is foo.
-
-This is bar.
-
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-bar foo bar foo     foo.
-
-{/textformat}
-
-OUTPUT:
-
-This is foo. This is foo. This is foo. This is foo. This is foo. This is
-foo.
-
-This is bar.
-
-bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
-bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
-foo.
 ]]>
   </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+
+   This is foo. This is foo. This is foo.
+   This is foo. This is foo. This is foo.
+
+   This is bar.
+
+   bar foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo bar
+   foo foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat wrap=40 indent=4}
+
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+
+   This is bar.
+
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+
+   {/textformat}
+
+]]>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+
+   This is foo. This is foo. This is
+   foo. This is foo. This is foo. This
+   is foo.
+
+   This is bar.
+
+   bar foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo.
+   bar foo bar foo foo. bar foo bar
+   foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat wrap=40 indent=4 indent_first=4}
+
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+
+   This is bar.
+
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+
+   {/textformat}
+]]>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+
+   This is foo. This is foo. This
+   is foo. This is foo. This is foo.
+   This is foo.
+
+   This is bar.
+
+   bar foo bar foo foo. bar foo bar
+   foo foo. bar foo bar foo foo. bar
+   foo bar foo foo. bar foo bar foo
+   foo. bar foo bar foo foo. bar foo
+   bar foo foo.
+]]>
+  </screen>
+  <programlisting>
+<![CDATA[
+   {textformat style="email"}
+
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+   This is foo.
+
+   This is bar.
+
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+   bar foo bar foo     foo.
+
+   {/textformat}
+
+]]>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+
+   This is foo. This is foo. This is foo. This is foo. This is foo. This is
+   foo.
+
+   This is bar.
+
+   bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo
+   bar foo foo. bar foo bar foo foo. bar foo bar foo foo. bar foo bar foo
+   foo.
+
+]]>
+  </screen>
  </example>
+  <para>
+  См. также
+  <link linkend="language.function.strip">{strip}</link>
+  и
+  <link linkend="language.modifier.wordwrap">{wordwrap}</link>.
+ </para>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

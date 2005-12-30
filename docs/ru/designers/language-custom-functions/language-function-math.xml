@@ -1,135 +1,170 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.math">
- <title>math</title>
+ <title>{math}</title>
+  <para>
+   {math} позволяет дизайнерам шаблонов проводить математические вычисления
+   в шаблоне. Любые числовые переменные шаблона могут быть использованы в
+   уравнениях, и результат будет выведен на месте этого тега.
+   Переменные, используемые в уравнении, передаются в виде параметров,
+   которые могут быть переменными шаблона или статическими значениями.
+   +, -, /, *, abs, ceil, cos, exp, floor, log, log10, max, min, pi, pow,
+   rand, round, sin, sqrt, srans и tan являются доступными операторами.
+   Обратитесь к документации PHP для получения дополнительной информации
+   по этим математическим функциям.
+  </para>
+  <para>
+   Если вы указываете специальный параметр "assign", результат выполнения
+   функции {math} будет присвоен переменной шаблона вместо вывода в шаблон.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
-  <colspec colname="param" align="center" />
-  <colspec colname="type" align="center" />
-  <colspec colname="required" align="center" />
-  <colspec colname="default" align="center" />
-  <colspec colname="desc" />
-  <thead>
-   <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
-   </row>
-  </thead>
-  <tbody>
-   <row>
-    <entry>equation</entry>
-    <entry>string</entry>
-    <entry>Да</entry>
-    <entry><emphasis>n/a</emphasis></entry>
-    <entry>математической выражение</entry>
-   </row>
-   <row>
-    <entry>format</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>n/a</emphasis></entry>
-    <entry>формат рузультата (sprintf)</entry>
-   </row>
-   <row>
-    <entry>var</entry>
-    <entry>numeric</entry>
-    <entry>Да</entry>
-    <entry><emphasis>n/a</emphasis></entry>
-    <entry>переменная выражения</entry>
-   </row>
-   <row>
-    <entry>assign</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>n/a</emphasis></entry>
-    <entry>
-     переменная шаблона, которой будет присвоен
-     вывод
-    </entry>
-   </row>
-   <row>
-    <entry>[var ...]</entry>
-    <entry>numeric</entry>
-    <entry>Да</entry>
-    <entry><emphasis>n/a</emphasis></entry>
-    <entry>дополнительные переменные выражения</entry>
-   </row>
-  </tbody>
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Имя атрибута</entry>
+     <entry>Тип</entry>
+     <entry>Обязателен</entry>
+     <entry>По умолчанию</entry>
+     <entry>Описание</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>equation</entry>
+     <entry>string</entry>
+     <entry>Да</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>уравнение для выполнения</entry>
+    </row>
+    <row>
+     <entry>format</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>формат результата (sprintf)</entry>
+    </row>
+    <row>
+     <entry>var</entry>
+     <entry>numeric</entry>
+     <entry>Да</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>значение переменной уравнения</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>имя переменной шаблона для сохранения результата</entry>
+    </row>
+    <row>
+     <entry>[var ...]</entry>
+     <entry>numeric</entry>
+     <entry>Да</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>значение переменной уравнения</entry>
+    </row>
+   </tbody>
   </tgroup>
  </informaltable>
- <para>
-  пользовательская функция math позволяет дизайнерам шаблонов
-  вычислять математические выражения в шаблоне. Любая численная
-  переменная шаблона может быть использована в выражении. Переменные,
-  используемые в выражении, передаются в качестве параметров,
-  которыми могут быть как и переменные шаблона, так и статические
-  значения. Допустимые операторы: +, -, /, *, abs, ceil, cos,
-  exp, floor, log, log10, max, min, pi, pow, rand, round, sin, sqrt,
-  srans и tan. Ознакомтесь с php документацией под данным функциям.
- </para>
- <para>
-  Если указан атрибут "assign", то вывод будет присвоен переменной,
-  вместо отображения.
- </para>
+
  <note>
   <title>Техническое Замечание</title>
   <para>
-   использование функции math значительно сказывается на
-   времени выполнения программы, так как реализована с помощью
-   php функции eval(). Выполнение математических операций в php
-   программе более эффективно, то есть везде, где возможно,
-   следует делать вычисления в программе и передавать результат
-   в шаблон. Следует также избегать повторяющегося вызова функции
-   math (например, в циклах).
+   {math} - это очень ресурсоёмкая функция из-за использования ею функции PHP
+   <ulink url="&url.php-manual;eval">eval()</ulink>.
+   Выполнение математических операций в PHP намного эффективнее, так что
+   по возможности используйте PHP для математических рассчетов и
+   <link linkend="api.assign">присваивайте</link> результат шаблону.
+   При любых обстоятельствах, избегайте повторяющихся вызовов функции {math},
+   например внутри циклов
+   <link linkend="language.function.section">{section}</link>.
   </para>
  </note>
-  <example>
-   <title>math</title>
-   <programlisting>
+ <example>
+  <title>{math}</title>
+  <para>
+  <emphasis role="bold">Пример №1:</emphasis>
+  </para>
+  <programlisting>
 <![CDATA[
-{* $height=4, $width=5 *}
+   {* $height=4, $width=5 *}
 
-{math equation="x + y" x=$height y=$width}
-
-OUTPUT:
-
-9
-
-
-{* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
-
-{math equation="height * width / division"
-      height=$row_height
-      width=$row_width
-      division=#col_div#}
-
-OUTPUT:
-
-100
-
-
-{* можно использовать скобки *}
-
-{math equation="(( x + y ) / z )" x=2 y=10 z=2}
-
-OUTPUT:
-
-6
-
-
-{* можно указать формат результата (sprintf) *}
-
-{math equation="x + y" x=4.4444 y=5.0000 format="%.2f"}
-
-OUTPUT:
-
-9.44
+   {math equation="x + y" x=$height y=$width}
 ]]>
   </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+   9
+]]>
+  </screen>
+  <para>
+    <emphasis role="bold">Пример №2:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
+
+   {math equation="height * width / division"
+   height=$row_height
+   width=$row_width
+   division=#col_div#}
+]]>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+   100
+]]>
+  </screen>
+  <para>
+  <emphasis role="bold">Пример №3:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* вы можете использовать скобки *}
+
+   {math equation="(( x + y ) / z )" x=2 y=10 z=2}
+]]>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+   6
+]]>
+  </screen>
+    <para>
+    <emphasis role="bold">Пример №4:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* вы можете указать формат sprintf в параметре format *}
+
+   {math equation="x + y" x=4.4444 y=5.0000 format="%.2f"}
+   ]]>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+   9.44
+]]>
+  </screen>
  </example>
 </sect1>
 <!-- Keep this comment at the end of the file

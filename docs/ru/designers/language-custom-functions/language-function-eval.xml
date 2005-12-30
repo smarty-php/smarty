@@ -1,100 +1,110 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
-	<sect1 id="language.function.eval">
-	 <title>eval</title>
-            <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" align="center" />
-                <colspec colname="type" align="center" />
-                <colspec colname="required" align="center" />
-                <colspec colname="default" align="center" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Имя атрибута</entry>
-                        <entry>Тип</entry>
-                        <entry>Обязателен</entry>
-                        <entry>По умолчанию</entry>
-                        <entry>Описание</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>var</entry>
-                        <entry>mixed</entry>
-                        <entry>Да</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Переменная (или строка) для обработки</entry>
-                    </row>
-                    <row>
-                        <entry>assign</entry>
-                        <entry>string</entry>
-                        <entry>Нет</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Имя переменной, которой будет присвоен вывод</entry>
-                    </row>
-                </tbody>
-                </tgroup>
-            </informaltable>
-			<para>
-			eval используется для обработки переменной, как шаблона. Можно
-			использовать для таких вещей, как хранение шаблонных
-			тэгов/переменных в переменной или в файлах конфигруации.
-			</para>
-			<para>
-			Если указан специальный атрибут "assign", то вывод тэга eval
-			присваивается переменной, вместо отображения.
-			</para>
-			<note>
-			<title>Техническое Замечание</title>
-			<para>
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<sect1 id="language.function.eval">
+	<title>{eval}</title>
+ <para>
+		{eval} используется для обработки переменной, как шаблона.
+		Можно использовать для таких вещей, как хранение шаблонных
+		тэгов/переменных в переменной или в файлах конфигруации.
+	</para>
+	<para>
+		Если указан специальный атрибут "assign", то вывод тэга eval
+		присваивается переменной, вместо отображения.
+	</para>
+
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Имя атрибута</entry>
+     <entry>Тип</entry>
+     <entry>Обязателен</entry>
+     <entry>По умолчанию</entry>
+     <entry>Описание</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>var</entry>
+     <entry>mixed</entry>
+     <entry>Да</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Переменная (или строка) для обработки</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Имя переменной, которой будет присвоен вывод</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+
+	<note>
+		<title>Техническое Замечание</title>
+		<para>
 			Переменные шаблоны обрабатываются так же, как и обычные шаблоны.
 			Они подвластны тем же правилам и ограничениям безопасности.
-			</para>
-			</note>
-			<note>
-			<title>Техническое Замечание</title>
-			<para>
-			Переменные шаблоны компилируются при каждом обращении.
-			Откомпилированные версии не сохраняются! Однако, если
-			кэширование включено, то вывод будет закэширован с
-			остальной частью шаблона.
-			</para>
-			</note>
-<example>
-<title>eval</title>
-<programlisting>
-setup.conf
-----------
+		</para>
+	</note>
 
-emphstart = &lt;b&gt;
-emphend = &lt;/b&gt;
-title = Welcome to {$company}'s home page!
-ErrorCity = You must supply a {#emphstart#}city{#emphend#}.
-ErrorState = You must supply a {#emphstart#}state{#emphend#}.
+	<note>
+		<title>Техническое Замечание</title>
+		<para>
+			Переменные шаблоны компилируются при каждом вызове,	скомпилированные версии
+			не сохраняются!
+			Однако, если <link linkend="caching">кэширование</link> включено,
+			вывод будет кэширован вместе с остальной частью шаблона.
+		</para>
+	</note>
+ <example>
+  <title>{eval}</title>
+  <programlisting>
+<![CDATA[
+   setup.conf
+   ----------
 
+   emphstart = <strong>
+   emphend = </strong>
+   title = Welcome to {$company}'s home page!
+   ErrorCity = You must supply a {#emphstart#}city{#emphend#}.
+   ErrorState = You must supply a {#emphstart#}state{#emphend#}.
+]]>
+  </programlisting>
+  <para>
+   index.tpl:
+  </para>
+  <programlisting>
+<![CDATA[
+   {config_load file="setup.conf"}
 
-index.tpl
----------
-
-{config_load file="setup.conf"}
-
-{eval var=$foo}
-{eval var=#title#}
-{eval var=#ErrorCity#}
-{eval var=#ErrorState# assign="state_error"}
-{$state_error}
-
-OUTPUT:
-
-This is the contents of foo.
-Welcome to Foobar Pub &amp; Grill's home page!
-You must supply a &lt;b&gt;city&lt;/b&gt;.
-You must supply a &lt;b&gt;state&lt;/b&gt;.
-
-</programlisting>
-</example>
+   {eval var=$foo}
+   {eval var=#title#}
+   {eval var=#ErrorCity#}
+   {eval var=#ErrorState# assign="state_error"}
+   {$state_error}
+]]>
+  </programlisting>
+  <para>
+   Результат выполнения данного примера:
+  </para>
+  <screen>
+<![CDATA[
+   This is the contents of foo.
+   Welcome to Foobar Pub & Grill's home page!
+   You must supply a <strong>city</strong>.
+   You must supply a <strong>state</strong>.
+]]>
+  </screen>
+ </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

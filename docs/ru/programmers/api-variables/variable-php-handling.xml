@@ -14,7 +14,7 @@
        <listitem><para>SMARTY_PHP_PASSTHRU - Smarty показывает тэги без обработки.</para></listitem>
        <listitem><para>SMARTY_PHP_QUOTE - Smarty превращает спецсимволы тэгов в HTML-сущности.</para></listitem>
        <listitem><para>SMARTY_PHP_REMOVE - Smarty удаляет тэги из шалона.</para></listitem>
-       <listitem><para>SMARTY_PHP_ALLOW - Smarty будет выполнять теги как PHP-код.</para></listitem>
+       <listitem><para>SMARTY_PHP_ALLOW - Smarty будет выполнять тэги как PHP-код.</para></listitem>
       </itemizedlist>
       <note>
        <para>

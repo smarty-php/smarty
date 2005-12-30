@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.popup.init">
- <title>popup_init</title>
+ <title>{popup_init}</title>
  <para>
-  функция popup реализует интеграцию с библиотекой overLib, которая
-  используется для создания всплывающих окон. Они могут использоваться
-  для вывода контекстно-зависимой информации, такой как контекстная
-  помощь или всплывающие подсказки. Функция popup_init должна быть
-  вызвана один раз в начале страницы, где планируется вызов функции
-  <link linkend="language.function.popup">popup</link>. Библиотеку
-  overLib написал Эрик Босрап (Erik Bosrup). Домашняя страница расположена
-  по адресу http://www.bosrup.com/web/overlib/.
+  <link linkend="language.function.popup">{popup}</link> -
+  это функция для интеграции
+  <ulink url="&url.overLib;">overLib</ulink>, библиотеки, которая
+  используется для отображения всплывающих окон. Они используются для
+  контекстно-чувствительной информации, такой как окна справки и всплывающие
+  подсказки. {popup_init} должна быть вызвана один раз в начале страницы,
+  если вы собираетесь использовать на ней функцию
+  <link linkend="language.function.popup">{popup}</link>.
+  </para>
+  <para>
+  <ulink url="&url.overLib;">overLib</ulink>
+  написана Эриком Босрупом (Erik Bosrup) и её домашняя страница находится по
+  адресу <ulink url="&url.overLib;">&url.overLib;</ulink>.
  </para>
- <para>
-  Начиная со Smarty версии 2.1.2, библиотека overLib не включается
-  в релиз. Скачайте библиотеку overLib, поместите файл overlib.js
-  в корень документов (DOCUMENT_ROOT) или глубже. При вызове функции
-  popup_init передайте относительный путь к этому файлу в качестве
-  параметра src.
- </para>
+ 
  <example>
-  <title>popup_init</title>
+  <title>{popup_init}</title>
   <programlisting>
 <![CDATA[
- {* popup_init должен быть вызван один раз в начале страницы *}
- {popup_init src="/javascripts/overlib.js"}
+<head>
+{* popup_init должна быть вызвана один раз в начале страницы *}
+{popup_init src="javascripts/overlib.js"}
+</head>
 ]]>
   </programlisting>
  </example>

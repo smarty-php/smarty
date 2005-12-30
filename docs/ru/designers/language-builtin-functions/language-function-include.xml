@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.include">
  <title>{include}</title>
  <para>
@@ -13,7 +13,13 @@
   Опциональный атрибут <emphasis>assign</emphasis> указывает, что
   результат выполнения {include} будет присвоен переменной вместо отображения.
  </para>
- 
+ <para>
+  Все значения присвоенных переменных восстанавливаются после того,
+  как подключаемый шаблон отработал. Это значит, что вы можете использовать
+  все переменные из подключающего шаблона в подключаемом, но изменения
+  переменных внутри подключаемого шаблона не будут видны внутри подключающего
+  шаблона после команды {include}.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
   <colspec colname="param" align="center" />

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.select.date">
- <title>html_select_date</title>
+ <title>{html_select_date}</title>
+ <para>
+  {html_select_date} является
+  <link linkend="language.custom.functions">пользовательской функцией</link>,
+  которая создает выпадающее меню для выбора даты.
+  Она может отображать поля для года, месяца и дня.
+ </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
   <colspec colname="param" align="center" />
@@ -206,32 +213,70 @@
      По умолчанию - %m (номер месяца).
     </entry>
    </row>
+    <row>
+     <entry>year_empty</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry>null</entry>
+     <entry>
+      Если указан, первый пункт элемента для выбора года станет такой надписью
+      с пустым ("") значением.
+      Это удобно для создания надписей вроде "Пожалуйста, выберите год" в
+      качестве первого пункта выпадающего меню.
+      Обратите внимание, что вы можете использовать значения типа "-MM-DD"
+      для атрибута time, чтобы не выбирать год заранее.
+     </entry>
+    </row>
+    <row>
+     <entry>month_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>
+      Если указан, первый пункт элемента для выбора месяца станет такой надписью
+      с пустым ("") значением.
+      Обратите внимание, что вы можете использовать значения типа "YYYY--DD"
+      для атрибута time, чтобы не выбирать месяц заранее.
+     </entry>
+    </row>
+    <row>
+     <entry>day_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>
+      Если указан, первый пункт элемента для выбора дня станет такой надписью
+      с пустым ("") значением.
+      Обратите внимание, что вы можете использовать значения типа "YYY-MM-"
+      для атрибута time, чтобы не выбирать день заранее.
+     </entry>
+    </row>
   </tbody>
   </tgroup>
  </informaltable>
  <para>
-  пользовательская функция html_select_date генерирует поля выбора
-  даты.
+  Все параметры, которые не указаны в списке, выводятся в виде
+  пар name/value в каждом созданном тэге &lt;select&gt; для дня,
+  месяца и года.
  </para>
  <example>
-  <title>html_select_date</title>
+  <title>{html_select_date}</title>
+  <para>Шаблон:</para>
   <programlisting>
 <![CDATA[
 {html_select_date}
-
-
-ВЫВОД:
-
+]]>
+  </programlisting>
+  <para>
+   Результат обработки шаблона:
+  </para>
+  <screen>
+<![CDATA[
 <select name="Date_Month">
 <option value="1">January</option>
 <option value="2">February</option>
 <option value="3">March</option>
-<option value="4">April</option>
-<option value="5">May</option>
-<option value="6">June</option>
-<option value="7">July</option>
-<option value="8">August</option>
-<option value="9">September</option>
+  ..... snipped .....
 <option value="10">October</option>
 <option value="11">November</option>
 <option value="12" selected="selected">December</option>
@@ -240,31 +285,13 @@
 <option value="1">01</option>
 <option value="2">02</option>
 <option value="3">03</option>
-<option value="4">04</option>
-<option value="5">05</option>
-<option value="6">06</option>
-<option value="7">07</option>
-<option value="8">08</option>
-<option value="9">09</option>
-<option value="10">10</option>
+  ..... snipped .....
 <option value="11">11</option>
 <option value="12">12</option>
 <option value="13" selected="selected">13</option>
 <option value="14">14</option>
 <option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-<option value="24">24</option>
-<option value="25">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
+  ..... snipped .....
 <option value="29">29</option>
 <option value="30">30</option>
 <option value="31">31</option>
@@ -273,18 +300,23 @@
 <option value="2001" selected="selected">2001</option>
 </select>
 ]]>
-  </programlisting>
+  </screen>
  </example>
 
  <example>
-  <title>html_select_date</title>
+  <title>{html_select_date}</title>
   <programlisting>
 <![CDATA[
-{* год начала и конца могут быть заданы относительно текущего года *}
-{html_select_date prefix="StartDate" time=$time start_year="-5" end_year="+1" display_days=false}
-
-ВЫВОД: (текущий год - 2000)
-
+{* года начала и конца могут быть заданы относительно текущего года *}
+{html_select_date prefix="StartDate" time=$time start_year="-5"
+   end_year="+1" display_days=false}
+]]>
+  </programlisting>
+  <para>
+   Результатом обработки шаблона будет: (текущий год - 2000)
+  </para>
+  <screen>
+<![CDATA[
 <select name="StartDateMonth">
 <option value="1">January</option>
 <option value="2">February</option>
@@ -309,10 +341,18 @@
 <option value="2001">2001</option>
 </select>
 ]]>
-  </programlisting>
+  </screen>
  </example>
-
+ <para>
+  См. также
+  <link linkend="language.function.html.select.time">{html_select_time}</link>,
+  <link linkend="language.modifier.date.format">date_format</link>,
+  <link linkend="language.variables.smarty.now">$smarty.now</link>
+  и
+  <link linkend="tips.dates">Советы относительно дат</link>.
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

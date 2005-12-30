@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.options">
- <title>html_options</title>
+ <title>{html_options}</title>
+ <para>{html_options} является
+  <link linkend="language.custom.functions">пользовательской функцией</link>,
+  которая создает группу HTML-тэгов option по указанной информации.
+  Также она обеспечивает выбор элемента по умолчанию.
+  Параметры values и output являются обязательными, если не указан атрибут
+  options.
+ </para>
+ 
  <informaltable frame="all">
   <tgroup cols="5">
   <colspec colname="param" align="center" />
@@ -58,86 +66,128 @@
   </tbody>
   </tgroup>
  </informaltable>
+
  <para>
-  пользовательская функция html_options генерирует группу html тэгов
-  option по указанной информации. Также заботится о выбранных по
-  умолчанию элементах. Атрибуты values и output обязательны, если не
-  указан атрибут options.
+  Если переданное значение - массив, оно будет принято за HTML-тэг &lt;optgroup&gt;
+  и отображено в виде групп. В элементе &lt;optgroup&gt; поддерживается рекурсия.
+  Весь вывод совместим с XHTML.
  </para>
  <para>
-  Если данное значение - массив, то оно будет представлено в виде
-  html OPTGROUP. Рекурсия с OPTGROUP поддерживается. Весь вывод
-  совместим с XHTML.
- </para>
- <para>
-  Если указан необязательный атрибут <emphasis>name</emphasis>,
-  то группа опций заключится в тэг &lt;select
-  name="groupname"&gt; и &lt;/select&gt;, иначе сгенерируется только
-  группа опций.
+  Если указан необязательный параметр <emphasis>name</emphasis>, список будет
+  окружен тэгом &lt;select name="groupname"&gt;&lt;/select&gt;.
+  В противном случае будут сгенерированы лишь элементы &lt;option&gt;.
  </para>
  <para>
   Все параметры, которые не указаны выше, выводятся в виде
-  пары name/value внутри тэга &lt;select&gt;. Они игнорируются,
-  если атрибут <emphasis>name</emphasis> не указан.
+  пар name/value в тэге &lt;select&gt;. Если необязательный
+  параметр <emphasis>name</emphasis> не указан, они игнорируются.
  </para>
  <example>
-  <title>html_options</title>
+  <title>{html_options}</title>
+  <para>
+   <emphasis role="bold">Пример №1:</emphasis>
+  </para>
+  <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty->assign('cust_ids', array(1000,1001,1002,1003));
+$smarty->assign('cust_names', array(
+                              'Joe Schmoe',
+                              'Jack Smith',
+                              'Jane Johnson',
+                              'Charlie Brown'));
+$smarty->assign('customer_id', 1001);
+
+?>
+]]>
+  </programlisting>
+  <para>
+   Шаблон:
+  </para>
   <programlisting>
 <![CDATA[
-ПРИМЕР 1
---------
-
-index.php:
-
-require('Smarty.php.class');
-$smarty = new Smarty;
-$smarty->assign('cust_ids', array(1000,1001,1002,1003));
-$smarty->assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Charlie Brown'));
-$smarty->assign('customer_id', 1001);
-$smarty->display('index.tpl');
-
-index.tpl:
-
-<select name=customer_id>
- {html_options values=$cust_ids selected=$customer_id output=$cust_names}
+<select name="customer_id">
+   {html_options values=$cust_ids output=$cust_names selected=$customer_id}
 </select>
+]]>
+  </programlisting>
+  <para>
+   <emphasis role="bold">Пример №2:</emphasis>
+  </para>
+  <programlisting role="php">
+<![CDATA[
+<?php
 
-ПРИМЕР 2
---------
-
-index.php:
-
-require('Smarty.php.class');
-$smarty = new Smarty;
 $smarty->assign('cust_options', array(
-   1001 => 'Joe Schmoe',
-   1002 => 'Jack Smith',
-   1003 => 'Jane Johnson',
-   1004 => 'Charlie Brown'));
+                                1000 => 'Joe Schmoe',
+                                1001 => 'Jack Smith',
+                                1002 => 'Jane Johnson',
+                                1003 => 'Charlie Brown')
+                                );
 $smarty->assign('customer_id', 1001);
-$smarty->display('index.tpl');
 
-index.tpl:
-
-<select name=customer_id>
- {html_options options=$cust_options selected=$customer_id}
+?>
+]]>
+  </programlisting>
+  <para>
+   Шаблон:
+  </para>
+  <programlisting>
+<![CDATA[
+   {html_options name=customer_id options=$cust_options selected=$customer_id}
+]]>
+  </programlisting>
+  <para>
+   Результат выполнения обоих примеров будет следующим:
+  </para>
+  <screen>
+<![CDATA[
+<select name="customer_id">
+    <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
+    <option label="Jack Smith" value="1001" selected="selected">Jack Smith</option>
+    <option label="Jane Johnson" value="1002">Jane Johnson</option>
+    <option label="Charlie Brown" value="1003">Charlie Brown</option>
 </select>
+]]>
+  </screen>
+ </example>
+ <example>
+  <title>{html_options} - Пример с базой данных (к примеру, PEAR или ADODB):</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
 
+$sql = 'select type_id, types from types order by type';
+$smarty->assign('types',$db->getAssoc($sql));
 
-РЕЗУЛЬТАТ: (оба примера)
-------------------------
+$sql = 'select contact_id, name, email, type_id
+        from contacts where contact_id='.$contact_id;
+$smarty->assign('contact',$db->getRow($sql));
 
-<select name=customer_id>
- <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
- <option label="Jack Smith" value="1001" selected="selected">Jack Smith</option>
- <option label="Jane Johnson" value="1002">Jane Johnson</option>
- <option label="Charlie Brown" value="1003">Charlie Brown</option>
+?>
+]]>
+  </programlisting>
+  <para>
+   Шаблон:
+  </para>
+  <programlisting>
+<![CDATA[
+<select name="type_id">
+    <option value='null'>-- none --</option>
+    {html_options name="type" options=$types selected=$contact.type_id}
 </select>
 ]]>
   </programlisting>
  </example>
+ <para>
+  См. также
+  <link linkend="language.function.html.checkboxes">{html_checkboxes}</link>
+  и
+  <link linkend="language.function.html.radios">{html_radios}</link>
+ </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
