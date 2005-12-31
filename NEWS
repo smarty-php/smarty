@@ -1,3 +1,4 @@
+ - make Smarty::_read_file() work on latest php (messju)
  - fixed improper tokenization of certain inline math expressions (boots)
 
 Version 2.6.11 (Dec 14, 2005)

@@ -1715,7 +1715,10 @@ class Smarty
     function _read_file($filename)
     {
         if ( file_exists($filename) && ($fd = @fopen($filename, 'rb')) ) {
-            $contents = ($size = filesize($filename)) ? fread($fd, $size) : '';
+            $contents = '';
+            while (!feof($fd)) {
+                $contents .= fread($fd, 8192);
+            }
             fclose($fd);
             return $contents;
         } else {
