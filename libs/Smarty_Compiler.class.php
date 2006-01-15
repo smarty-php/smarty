@@ -726,17 +726,18 @@ class Smarty_Compiler extends Smarty {
         if ($start_tag) {
             $output = '<?php ' . $this->_push_cacheable_state('block', $tag_command);
             $attrs = $this->_parse_attrs($tag_args);
-            $arg_list = $this->_compile_arg_list('block', $tag_command, $attrs, $_cache_attrs='');
+            $_cache_attrs='';
+            $arg_list = $this->_compile_arg_list('block', $tag_command, $attrs, $_cache_attrs);
             $output .= "$_cache_attrs\$this->_tag_stack[] = array('$tag_command', array(".implode(',', $arg_list).')); ';
-            $output .= $this->_compile_plugin_call('block', $tag_command).'($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat=true);';
+            $output .= '$_block_repeat=true;' . $this->_compile_plugin_call('block', $tag_command).'($this->_tag_stack[count($this->_tag_stack)-1][1], null, $this, $_block_repeat);';
             $output .= 'while ($_block_repeat) { ob_start(); ?>';
         } else {
             $output = '<?php $_block_content = ob_get_contents(); ob_end_clean(); ';
-            $_out_tag_text = $this->_compile_plugin_call('block', $tag_command).'($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat=false)';
+            $_out_tag_text = $this->_compile_plugin_call('block', $tag_command).'($this->_tag_stack[count($this->_tag_stack)-1][1], $_block_content, $this, $_block_repeat)';
             if ($tag_modifier != '') {
                 $this->_parse_modifiers($_out_tag_text, $tag_modifier);
             }
-            $output .= 'echo '.$_out_tag_text.'; } ';
+            $output .= '$_block_repeat=false;echo ' . $_out_tag_text . '; } ';
             $output .= " array_pop(\$this->_tag_stack); " . $this->_pop_cacheable_state('block', $tag_command) . '?>';
         }
 
@@ -801,7 +802,8 @@ class Smarty_Compiler extends Smarty {
 
         $_cacheable_state = $this->_push_cacheable_state('function', $tag_command);
         $attrs = $this->_parse_attrs($tag_args);
-        $arg_list = $this->_compile_arg_list('function', $tag_command, $attrs, $_cache_attrs='');
+        $_cache_attrs = '';
+        $arg_list = $this->_compile_arg_list('function', $tag_command, $attrs, $_cache_attrs);
 
         $output = $this->_compile_plugin_call('function', $tag_command).'(array('.implode(',', $arg_list)."), \$this)";
         if($tag_modifier != '') {
@@ -874,13 +876,13 @@ class Smarty_Compiler extends Smarty {
                 // block method
                 if ($start_tag) {
                     $prefix = "\$this->_tag_stack[] = array('$obj_comp', $args); ";
-                    $prefix .= "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], null, \$this, \$_block_repeat=true); ";
+                    $prefix .= "\$_block_repeat=true; \$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], null, \$this, \$_block_repeat); ";
                     $prefix .= "while (\$_block_repeat) { ob_start();";
                     $return = null;
                     $postfix = '';
             } else {
                     $prefix = "\$_obj_block_content = ob_get_contents(); ob_end_clean(); ";
-                    $return = "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$_obj_block_content, \$this, \$_block_repeat=false)";
+                    $return = "\$_block_repeat=false; \$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$_obj_block_content, \$this, \$_block_repeat)";
                     $postfix = "} array_pop(\$this->_tag_stack);";
                 }
             } else {

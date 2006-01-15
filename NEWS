@@ -1,3 +1,5 @@
+ - fix improper use of references in the compiler handling cached
+   attributes and in compiled code handling block plugins (messju)
  - make Smarty::_read_file() work on latest php (messju)
  - fixed improper tokenization of certain inline math expressions (boots)
 
