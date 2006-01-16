@@ -1,3 +1,13 @@
+2006-01-15  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed use of references $cache_attrs and $repeat in Smarty_Compiler.
+      
+      php does not allow to pass an assigned by reference to a function. since
+      php-5.1.2
+      the reference to the lval gets lost when passing an assignment.
+
 2005-12-31  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
