@@ -1,3 +1,14 @@
+2006-01-18  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update version numbers
+
+    * (Smarty_2_6_12)
+      NEWS:
+      commit 2.6.12 release
+
 2006-01-15  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
