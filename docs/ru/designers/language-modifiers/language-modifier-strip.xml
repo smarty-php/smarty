@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="language.modifier.strip">
- <title>strip</title>
- <para>
-  Заменяет все повторные пробелы, новые строки и знаки табуляции на
-  одиночный пробел или на заданную строку.
- </para>
- <note>
-  <title>Замечание</title>
-  <para>
-   Если вы хотите сделать аналогичную операцию над частью
-   текста шаблона, то используйте функцию <link
-   linkend="language.function.strip">strip</link>.
-  </para>
- </note>
- <example>
+<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+ <sect1 id="language.modifier.strip">
   <title>strip</title>
-  <programlisting>
-index.php:
+  <para>
+   Заменяет все повторяющиеся пробелы, переводы строк и символы табуляции
+   одним пробелом (или другой указанной строкой).
+  </para>
+  <note>
+   <title>Обратите внимание</title>
+   <para>
+    Если вы хотите обработать блоки текста в шаблоне аналогичным образом,
+    воспользуйтесь функцией <link
+    linkend="language.function.strip">{strip}</link>.
+   </para>
+  </note>
+  <example>
+   <title>strip</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 
-$smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', "Grandmother of\neight makes\t    hole in one.");
-$smarty-&gt;display('index.tpl');
+$smarty->assign('articleTitle', "Grandmother of\neight makes\t    hole in one.");
 
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|strip}
-{$articleTitle|strip:"&amp;nbsp;"}
-
-OUTPUT:
-
+{$articleTitle|strip:"&nbsp;"}
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
 Grandmother of
 eight makes        hole in one.
 Grandmother of eight makes hole in one.
-Grandmother&amp;nbsp;of&amp;nbsp;eight&amp;nbsp;makes&amp;nbsp;hole&amp;nbsp;in&amp;nbsp;one.
-  </programlisting>
- </example>
+Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
+]]>
+   </screen>
+  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

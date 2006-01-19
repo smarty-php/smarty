@@ -1,79 +1,97 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="language.modifier.wordwrap">
- <title>wordwrap</title>
- <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" />
-                <colspec colname="type" />
-                <colspec colname="required" />
-                <colspec colname="default" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Позиция параметра</entry>
-                        <entry>Тип</entry>
-                        <entry>Обязателен</entry>
-                        <entry>По умолчанию</entry>
-                        <entry>Описание</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>integer</entry>
-                        <entry>Нет</entry>
-                        <entry>80</entry>
-						<entry>Количество столбцов для переноса.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>string</entry>
-                        <entry>Нет</entry>
-                        <entry>\n</entry>
-                        <entry>Строка, которая вставляется на месте переноса.</entry>
-                    </row>
-                    <row>
-                        <entry>3</entry>
-                        <entry>boolean</entry>
-                        <entry>Нет</entry>
-                        <entry>false</entry>
-                        <entry>Указывает, переносить по словам (false) или нет (true).</entry>
-                    </row>
-                </tbody>
-                </tgroup>
- </informaltable>
- <para>
-  Переносит строку по количеству столбцов (по умолчанию 80). Можно
-  указать строку, которая будет вставлятся на месте переноса (по
-  умолчанию символ новой строки). По умолчанию wordwrap пытается
-  переносить по словам, но если указать третим параметром true, то
-  переноситься будет по конкретному символу.
- </para>
- <example>
+ <sect1 id="language.modifier.wordwrap">
   <title>wordwrap</title>
-  <programlisting>
-index.php:
+  <para>
+   <command>wordwrap</command> вставляет переводы строк на определенной ширине
+   колонки, по умолчанию - 80 символов. В качестве необязательного второго
+   аргумента вы можете передать текстовую строку, используемую в качестве
+   перевода строки (по умолчанию - символ перевода строки \n).
+   По умолчанию, wordwrap попытается вставить перевод строки в промежуток между
+   словами. Если вы хотите, чтобы строка обрывалась строго на определенной
+   длинне, передайте в третий необязательный параметр значение true.
+   Это эквивалент функции PHP <ulink
+   url="&url.php-manual;wordwrap">wordwrap()</ulink>.
+  </para>
+  
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc"/>
+    <thead>
+     <row>
+      <entry>Позиция параметра</entry>
+      <entry>Тип</entry>
+      <entry>Обязателен</entry>
+      <entry>По умолчанию</entry>
+      <entry>Описание</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>integer</entry>
+      <entry>Нет</entry>
+      <entry>80</entry>
+      <entry>Определяет количество колонок, после которых текст будет переведен
+      на новую строку.</entry>
+     </row>
+     <row>
+      <entry>2</entry>
+      <entry>string</entry>
+      <entry>Нет</entry>
+      <entry>\n</entry>
+      <entry>Эта строка используется в качестве символа перевода строки.</entry>
+     </row>
+     <row>
+      <entry>3</entry>
+      <entry>boolean</entry>
+      <entry>Нет</entry>
+      <entry>false</entry>
+      <entry>Определяет, переводить ли строку в промежутках между словами
+      (false), или строго на заданой длинне строки (true).</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
 
-$smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', "Blind woman gets new kidney from dad she hasn't seen in years.");
-$smarty-&gt;display('index.tpl');
+  <example>
+   <title>wordwrap</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+    
+$smarty->assign('articleTitle',
+                "Blind woman gets new kidney from dad she hasn't seen in years."
+               );
 
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[ 
 {$articleTitle}
 
 {$articleTitle|wordwrap:30}
-
+    
 {$articleTitle|wordwrap:20}
-
-{$articleTitle|wordwrap:30:"&lt;br&gt;\n"}
-
+    
+{$articleTitle|wordwrap:30:"<br />\n"}
+    
 {$articleTitle|wordwrap:30:"\n":true}
-
-OUTPUT:
-
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
 Blind woman gets new kidney from dad she hasn't seen in years.
 
 Blind woman gets new kidney
@@ -85,15 +103,23 @@ kidney from dad she
 hasn't seen in
 years.
 
-Blind woman gets new kidney&lt;br&gt;
-from dad she hasn't seen in years.
+Blind woman gets new kidney<br />
+from dad she hasn't seen in<br />
+years.
 
-Blind woman gets new kidney fr
-om dad she hasn't seen in year
-s.
-  </programlisting>
- </example>
-</sect1>
+Blind woman gets new kidney
+from dad she hasn't seen in
+years.
+]]>
+   </screen>
+  </example>
+  <para>
+   См. также <link linkend="language.modifier.nl2br">nl2br</link>
+   и
+   <link linkend="language.function.textformat">{textformat}</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
@@ -114,3 +140,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

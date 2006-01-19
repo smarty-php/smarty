@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.modifier.count.words">
 	<title>count_words</title>
 	<para>
-		Возвращает количество слов.
+		Подсчитывает количество слов в переменной.
 	</para>
- <example>
-  <title>count_words</title>
-  <programlisting>
-index.php:
+  <example>
+   <title>count_words</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+    
+$smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
 
-$smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
-$smarty-&gt;display('index.tpl');
-
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|count_words}
-
-OUTPUT:
-
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <screen>
+<![CDATA[
 Dealers Will Hear Car Talk at Noon.
 7
-  </programlisting>
- </example>
- <para>
-  См. также
-  <link linkend="language.modifier.count.characters">count_characters</link>,
-  <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> и
-  <link linkend="language.modifier.count.sentences">count_sentences</link>
- </para>
-</sect1>
+]]>
+   </screen>
+  </example>
+  <para>
+   See also <link linkend="language.modifier.count.characters">count_characters</link>,
+   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> and
+   <link linkend="language.modifier.count.sentences">count_sentences</link>.
+  </para>		
+ </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

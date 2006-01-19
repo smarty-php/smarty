@@ -1,70 +1,87 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="language.modifier.truncate">
- <title>truncate</title>
- <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" />
-                <colspec colname="type" />
-                <colspec colname="required" />
-                <colspec colname="default" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Позиция параметра</entry>
-                        <entry>Тип</entry>
-                        <entry>Обязателен</entry>
-                        <entry>По умолчанию</entry>
-                        <entry>Описание</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>integer</entry>
-                        <entry>Нет</entry>
-                        <entry>80</entry>
-                        <entry>Количество символов для обрезания
-                        to.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>string</entry>
-                        <entry>Нет</entry>
-                        <entry>...</entry>
-                        <entry>Текст, который добавляется, если произошло обрезание.</entry>
-                    </row>
-                    <row>
-                        <entry>3</entry>
-                        <entry>boolean</entry>
-                        <entry>Нет</entry>
-                        <entry>false</entry>
-                        <entry>Указывает, надо ли обрезать по границе слова (false) или
-                        по символу (true).</entry>
-                    </row>
-                </tbody>
-                </tgroup>
- </informaltable>
- <para>
-  Обрезает переменную по указанной длине (по умолчанию 80). Вторым
-  параметром можно указать текст, который будет добавлен в конец
-  обрезанной строки. По умолчанию truncate будет пытаться вырезать
-  слово, которой лежит на вырезаемой границе, целиком. Можно указать
-  третий параметр true, если надо обрезать строку точно по
-  определенному символу.
- </para>
- <example>
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+ <sect1 id="language.modifier.truncate">
   <title>truncate</title>
-  <programlisting>
-index.php:
+  <para>
+   Обрезает переменную до определенной длинны, по умолчанию - 80 символов.
+   В качестве необязательного второго параметра, вы можете передать строку
+   текста, которая будет отображатся в конце обрезанной переменной.
+   Символы этой строки не включаются в общую длинну обрезаемой строки.
+   По умолчанию, truncate попытается обрезать строку в промежутке между словами.
+   Если вы хотите обрезать строку строго на указаной длинне, передайте в третий
+   необязательный параметр значение true.
+  </para>
+  
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc"/>
+    <thead>
+     <row>
+      <entry>Позиция параметра</entry>
+      <entry>Тип</entry>
+      <entry>Обязателен</entry>
+      <entry>По умолчанию</entry>
+      <entry>Описание</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>integer</entry>
+      <entry>Нет</entry>
+      <entry>80</entry>
+      <entry>Определяет максимальную длинну обрезаемой строки.</entry>
+     </row>
+     <row>
+      <entry>2</entry>
+      <entry>string</entry>
+      <entry>Нет</entry>
+      <entry>...</entry>
+      <entry>Текстовая строка, которая заменяет обрезанный текст. Её длинна
+      НЕ включена в максимальную длинну обрезаемой строки.</entry>
+     </row>
+     <row>
+      <entry>3</entry>
+      <entry>boolean</entry>
+      <entry>Нет</entry>
+      <entry>false</entry>
+      <entry>Определяет, обрезать ли строку в промежутке между словами (false)
+      или строго на указаной длинне (true).</entry>
+     </row>
+     <row>
+      <entry>4</entry>
+      <entry>boolean</entry>
+      <entry>Нет</entry>
+      <entry>false</entry>
+      <entry>Определяет, нужно ли обрезать строку в конце (false) или в
+      середине строки (true). Обратите внимание, что при включении этой
+      опции, промежутки между словами игнорируются.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
 
-$smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'Two Sisters Reunite after Eighteen Years at Checkout Counter.');
-$smarty-&gt;display('index.tpl');
+  <example>
+   <title>truncate</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+    
+$smarty->assign('articleTitle', 'Two Sisters Reunite after Eighteen Years at Checkout Counter.');
 
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle}
 {$articleTitle|truncate}
 {$articleTitle|truncate:30}
@@ -72,9 +89,13 @@ index.tpl:
 {$articleTitle|truncate:30:"---"}
 {$articleTitle|truncate:30:"":true}
 {$articleTitle|truncate:30:"...":true}
-
-OUTPUT:
-
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
 Two Sisters Reunite after Eighteen Years at Checkout Counter.
 Two Sisters Reunite after Eighteen Years at Checkout Counter.
 Two Sisters Reunite after...
@@ -82,8 +103,9 @@ Two Sisters Reunite after
 Two Sisters Reunite after---
 Two Sisters Reunite after Eigh
 Two Sisters Reunite after E...
-  </programlisting>
- </example>
+]]>
+   </screen>
+  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

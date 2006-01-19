@@ -1,77 +1,86 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
-<sect1 id="language.modifier.escape">
- <title>escape</title>
- <informaltable frame="all">
-  <tgroup cols="6">
-   <colspec colname="param" align="center" />
-   <colspec colname="type" align="center" />
-   <colspec colname="required" align="center" />
-   <colspec colname="possible" align="center" />
-   <colspec colname="default" align="center" />
-   <colspec colname="desc" />
-   <thead>
-    <row>
-     <entry>Позиция параметра</entry>
-     <entry>Тип</entry>
-     <entry>Обязателен</entry>
-     <entry>Возможные значения</entry>
-     <entry>По умолчанию</entry>
-     <entry>Описание</entry>
-    </row>
-   </thead>
-   <tbody>
-    <row>
-     <entry>1</entry>
-     <entry>string</entry>
-     <entry>Нет</entry>
-     <entry>html,htmlall,url,quotes,hex,hexentity,javascript</entry>
-     <entry>html</entry>
-     <entry>Формат защиты (escape).</entry>
-    </row>
-   </tbody>
-  </tgroup>
- </informaltable>
- <para>
-		"Защищает" специальные символы в переменной. Используется для
-		защиты специальных символов html, защиты специальных символов
-		url, защиты одиночных кавычек, конвертации в шестандцатеричный
-		вид (hex), конвертации каждого символа в шестандцатеричное
-		html представление (hexentity), защита специальных символов
-		javascript. По умолчанию используется защита спецсимволов html.
-	</para>
- <example>
+<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
+ <sect1 id="language.modifier.escape">
   <title>escape</title>
-  <programlisting role="php">
+  <para>
+    Используется для экранирования спецсимволов html, url, одинарных кавычек
+    на переменной, если они ещё не экранированы; шестнадцатиричное кодирование,
+    шестнадцатиричное кодирование в HTML-entities и javascript-экранирование.
+    По умолчанию активирован режим экранирования HTML.
+  </para>
+  
+  <informaltable frame="all">
+   <tgroup cols="6">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="possible" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc" />
+    <thead>
+     <row>
+      <entry>Позиция параметра</entry>
+      <entry>Тип</entry>
+      <entry>Обязателен</entry>
+      <entry>Possible Values</entry>
+      <entry>По умолчанию</entry>
+      <entry>Описание</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>string</entry>
+      <entry>Нет</entry>
+      <entry><literal>html</literal>,<literal>htmlall</literal>,<literal>url</literal>,<literal>urlpathinfo</literal>,<literal>quotes</literal>,<literal>hex</literal>,<literal>hexentity</literal>,<literal>javascript</literal></entry>
+      <entry><literal>html</literal></entry>
+      <entry>формат экранирования</entry>
+     </row>
+     <row>
+      <entry>2</entry>
+      <entry>string</entry>
+      <entry>Нет</entry>
+      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... любая кодировка, поддерживаемая функцией <ulink url="&url.php-manual;htmlentities">htmlentities()</ulink>
+</entry>
+      <entry><literal>ISO-8859-1</literal></entry>
+      <entry>Кодировка для экранирования, передаваемая в htmlentities() и т.д.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
+
+  <example>
+   <title>escape</title>
+   <programlisting role="php">
 <![CDATA[
 <?php
     
-$smarty = new Smarty;
-$smarty->assign('articleTitle', "'Stiff Opposition Expected to Casketless Funeral Plan'");
-$smarty->display('index.tpl');
+$smarty->assign('articleTitle',
+                "'Stiff Opposition Expected to Casketless Funeral Plan'"
+                );
     
 ?>
 ]]>
-  </programlisting>
-  <para>
-   Где index.tpl:
-  </para>
-  <programlisting>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
 <![CDATA[
 {$articleTitle}
 {$articleTitle|escape}
-{$articleTitle|escape:"html"}    {* escapes  & " ' < > *}
-{$articleTitle|escape:"htmlall"} {* escapes ALL html entities *}
+{$articleTitle|escape:"html"}    {* экранирует  & " ' < > *}
+{$articleTitle|escape:"htmlall"} {* экранирует все html entities *}
 {$articleTitle|escape:"url"}
 {$articleTitle|escape:"quotes"}
 <a href="mailto:{$EmailAddress|escape:"hex"}">{$EmailAddress|escape:"hexentity"}</a>
 ]]>
-  </programlisting>
-  <para>
-   Результатом будет:
-  </para>
-  <screen>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
 <![CDATA[
 'Stiff Opposition Expected to Casketless Funeral Plan'
 &#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
@@ -79,15 +88,18 @@ $smarty->display('index.tpl');
 &#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
 %27Stiff+Opposition+Expected+to+Casketless+Funeral+Plan%27
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
-<a href="mailto:%62%6f%62%40%6d%65%2e%6e%65%74">&#x62;&#x6f;&#x62;&#x40;&#x6d;&#x65;&#x2e;&#x6e;&#x65;&#x74;</a>
+<a href="mailto:%62%6f%..snip..%65%74">&#x62;&#x6f;&#x62..snip..&#x65;&#x74;</a>
 ]]>
-  </screen>
- </example>
- <para>
-  См. также
-  <link linkend="language.escaping">Предотвращение обработки Smarty</link>
- </para>
-</sect1>
+   </screen>
+  </example>
+  <para>
+   См. также
+   <link linkend="language.escaping">Предотвращение обработки Smarty</link>
+   и
+   <link linkend="tips.obfuscating.email">Сокрытие E-mail адреса</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

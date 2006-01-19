@@ -1,31 +1,76 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
-<sect1 id="language.modifier.strip.tags">
- <title>strip_tags</title>
- <para>
-  Вырезает HTML тэги, обычно все между &lt; и &gt;.
- </para>
- <example>
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+ <sect1 id="language.modifier.strip.tags">
   <title>strip_tags</title>
-  <programlisting>
-index.php:
+  <para>
+   Удаляет тэги разметки. Грубо говоря, всё, что находится между &lt; и &gt;,
+   включительно.
+  </para>
+  
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc"/>
+    <thead>
+     <row>
+      <entry>Позиция параметра</entry>
+      <entry>Тип</entry>
+      <entry>Обязателен</entry>
+      <entry>По умолчанию</entry>
+      <entry>Описание</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>bool</entry>
+      <entry>Нет</entry>
+      <entry>true</entry>
+      <entry>Определяет, будут тэги заменяться на ' ' или на ''</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
 
-$smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', "Blind Woman Gets &lt;font face=\"helvetica\"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.");
-$smarty-&gt;display('index.tpl');
+  <example>
+   <title>strip_tags</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 
-index.tpl:
+$smarty->assign('articleTitle',
+                "Blind Woman Gets <font face=\"helvetica\">New
+Kidney</font> from Dad she Hasn't Seen in <b>years</b>."
+               );
 
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle}
-{$articleTitle|strip_tags}
-
-OUTPUT:
-
-Blind Woman Gets &lt;font face="helvetica"&gt;New Kidney&lt;/font&gt; from Dad she Hasn't Seen in &lt;b&gt;years&lt;/b&gt;.
+{$articleTitle|strip_tags} {* то же самое, что и {$articleTitle|strip_tags:true} *} 
+{$articleTitle|strip_tags:false}
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
+Blind Woman Gets <font face="helvetica">New Kidney</font> from Dad she Hasn't Seen in <b>years</b>.
+Blind Woman Gets  New Kidney  from Dad she Hasn't Seen in  years .
 Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
-  </programlisting>
- </example>
+]]>
+   </screen>
+  </example>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

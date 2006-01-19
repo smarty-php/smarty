@@ -1,58 +1,71 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
-<sect1 id="language.modifier.indent">
- <title>indent</title>
- <informaltable frame="all">
-  <tgroup cols="5">
-  <colspec colname="param" />
-  <colspec colname="type" />
-  <colspec colname="required" />
-  <colspec colname="default" />
-  <colspec colname="desc" />
-  <thead>
-   <row>
-    <entry>Позиция параметра</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
-   </row>
-  </thead>
-  <tbody>
-   <row>
-    <entry>1</entry>
-    <entry>integer</entry>
-    <entry>Нет</entry>
-    <entry>4</entry>
-    <entry>Количество символов для вставки.</entry>
-   </row>
-   <row>
-    <entry>2</entry>
-    <entry>string</entry>
-    <entry>Нет</entry>
-    <entry>(один пробел)</entry>
-    <entry>Символ для вставки.</entry>
-   </row>
-  </tbody>
-  </tgroup>
- </informaltable>
- <para>
-  Вставляет в начало каждой строки заданное количество
-  заданных символов. По умолчанию вставляется 4 пробела.
- </para>
- <example>
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+ <sect1 id="language.modifier.indent">
   <title>indent</title>
-  <programlisting>
+  <para>
+   Создает отступы в начале каждой строки, по умолчанию - 4 пробела.
+   В качестве необязательных аргументов можно указать количество повторений
+   символа и сам символ, который будет использоваться для создания отступов.
+   (используйте "\t" для табуляции).
+  </para>
+  
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc" />
+    <thead>
+     <row>
+      <entry>Позиция параметра</entry>
+      <entry>Тип</entry>
+      <entry>Обязателен</entry>
+      <entry>По умолчанию</entry>
+      <entry>Описание</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>integer</entry>
+      <entry>Нет</entry>
+      <entry>4</entry>
+      <entry>Определяет количество повторений символа при создании отступа.</entry>
+      </row>
+      <row>
+       <entry>2</entry>
+       <entry>string</entry>
+       <entry>Нет</entry>
+       <entry>(один пробел)</entry>
+       <entry>Символ, который используется при создании отступа.</entry>
+      </row>
+     </tbody>
+    </tgroup>
+  </informaltable>
+
+  <example>
+   <title>indent</title>
+   <programlisting role="php">
 <![CDATA[
-index.php:
+<?php
+    
+$smarty->assign('articleTitle',
+                'NJ judge to rule on nude beach.
+Sun or rain expected today, dark tonight.
+Statistics show that teen pregnancy drops off significantly after 25.'
+                );
 
-$smarty = new Smarty;
-$smarty->assign('articleTitle', 'NJ judge to rule on nude beach.');
-$smarty->display('index.tpl');
 
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle}
 
 {$articleTitle|indent}
@@ -60,9 +73,13 @@ index.tpl:
 {$articleTitle|indent:10}
 
 {$articleTitle|indent:1:"\t"}
-
-OUTPUT:
-
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
 NJ judge to rule on nude beach.
 Sun or rain expected today, dark tonight.
 Statistics show that teen pregnancy drops off significantly after 25.
@@ -75,13 +92,20 @@ Statistics show that teen pregnancy drops off significantly after 25.
           Sun or rain expected today, dark tonight.
           Statistics show that teen pregnancy drops off significantly after 25.
 
-	NJ judge to rule on nude beach.
-	Sun or rain expected today, dark tonight.
- Statistics show that teen pregnancy drops off significantly after 25.
+        NJ judge to rule on nude beach.
+        Sun or rain expected today, dark tonight.
+        Statistics show that teen pregnancy drops off significantly after 25.
 ]]>
-  </programlisting>
- </example>
-</sect1>
+   </screen>
+  </example>
+  <para>
+   См. также
+   <link linkend="language.modifier.strip">strip</link>
+   и
+   <link linkend="language.modifier.spacify">spacify</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

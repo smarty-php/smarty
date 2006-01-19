@@ -1,68 +1,88 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="language.modifier.replace">
- <title>replace</title>
- <informaltable frame="all">
-                <tgroup cols="5">
-                <colspec colname="param" />
-                <colspec colname="type" />
-                <colspec colname="required" />
-                <colspec colname="default" />
-                <colspec colname="desc" />
-                <thead>
-                    <row>
-                        <entry>Позиция параметра</entry>
-                        <entry>Тип</entry>
-                        <entry>Обязателен</entry>
-                        <entry>По умолчанию</entry>
-                        <entry>Описание</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>1</entry>
-                        <entry>string</entry>
-                        <entry>Да</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Строка для поиска.</entry>
-                    </row>
-                    <row>
-                        <entry>2</entry>
-                        <entry>string</entry>
-                        <entry>Да</entry>
-                        <entry><emphasis>n/a</emphasis></entry>
-                        <entry>Строка для замены.</entry>
-                    </row>
-                </tbody>
-                </tgroup>
- </informaltable>
-	<para>
-		Выполняеться простой поиск и замена строки.
-	</para>
- <example>
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+ <sect1 id="language.modifier.replace">
   <title>replace</title>
-  <programlisting>
-index.php:
+  <para>
+   Простой поиск и замена в переменной. Это эквивалент функции PHP
+   <ulink url="&url.php-manual;str_replace">str_replace()</ulink>.
+  </para>
+  
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc"/>
+    <thead>
+     <row>
+      <entry>Позиция параметра</entry>
+      <entry>Тип</entry>
+      <entry>Обязателен</entry>
+      <entry>По умолчанию</entry>
+      <entry>Описание</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>string</entry>
+      <entry>Да</entry>
+      <entry><emphasis>n/a</emphasis></entry>
+      <entry>Строка текста, которую следует заменить.</entry>
+     </row>
+     <row>
+      <entry>2</entry>
+      <entry>string</entry>
+      <entry>Yes</entry>
+      <entry><emphasis>n/a</emphasis></entry>
+      <entry>Строка текста, на которую следует заменить.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
 
-$smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', "Child's Stool Great for Use in Garden.");
-$smarty-&gt;display('index.tpl');
+  <example>
+   <title>replace</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 
-index.tpl:
+$smarty->assign('articleTitle', "Child's Stool Great for Use in Garden.");
 
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle}
-{$articleTitle|replace:"Garden":"Vineyard"}
-{$articleTitle|replace:" ":"   "}
-
-OUTPUT:
-
+{$articleTitle|replace:'Garden':'Vineyard'}
+{$articleTitle|replace:' ':'   '}
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
 Child's Stool Great for Use in Garden.
 Child's Stool Great for Use in Vineyard.
 Child's   Stool   Great   for   Use   in   Garden.
-  </programlisting>
- </example>
-</sect1>
+]]>
+   </screen>
+  </example>
+  <para>
+   См. также
+   <link linkend="language.modifier.regex.replace">regex_replace</link>
+   и
+   <link linkend="language.modifier.escape">escape</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

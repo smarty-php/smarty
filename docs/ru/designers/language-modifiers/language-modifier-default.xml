@@ -1,61 +1,80 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="language.modifier.default">
- <title>default</title>
- <informaltable frame="all">
-  <tgroup cols="5">
-   <colspec colname="param" align="center" />
-   <colspec colname="type" align="center" />
-   <colspec colname="required" align="center" />
-   <colspec colname="default" align="center" />
-   <colspec colname="desc" />
-   <thead>
-    <row>
-     <entry>Позиция параметра</entry>
-     <entry>Тип</entry>
-     <entry>Обязателен</entry>
-     <entry>По умолчанию</entry>
-     <entry>Описание</entry>
-    </row>
-   </thead>
-   <tbody>
-    <row>
-     <entry>1</entry>
-     <entry>string</entry>
-     <entry>Нет</entry>
-     <entry><emphasis>пусто</emphasis></entry>
-     <entry>Значение по умолчанию для пустой переменной.</entry>
-    </row>
-   </tbody>
-  </tgroup>
- </informaltable>
-	<para>
-		Используется для установки значения по умолчанию для переменной. Если
-		переменная оказывается пустой, то выводиться значение по умолчанию.
-		Модификатор принимает один параметр.
-	</para>
- <example>
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+ <sect1 id="language.modifier.default">
   <title>default</title>
-  <programlisting>
-index.php:
+   <para>
+     Используется для установки значения по умолчанию для переменной.
+     Если переменная пуста или не установлена, указанное значение по умолчанию
+     будет подставлено вместо неё.
+   </para>
+  
+  <informaltable frame="all">
+   <tgroup cols="5">
+    <colspec colname="param" align="center" />
+    <colspec colname="type" align="center" />
+    <colspec colname="required" align="center" />
+    <colspec colname="default" align="center" />
+    <colspec colname="desc" />
+    <thead>
+     <row>
+      <entry>Позиция параметра</entry>
+      <entry>Тип</entry>
+      <entry>Обязателен</entry>
+      <entry>По умолчанию</entry>
+      <entry>Описание</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>1</entry>
+      <entry>string</entry>
+      <entry>Нет</entry>
+      <entry><emphasis>empty</emphasis></entry>
+      <entry>Это значение по умолчанию для вывода, если переменная пуста.</entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </informaltable>
 
-$smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
-$smarty-&gt;display('index.tpl');
+  <example>
+   <title>default</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 
-index.tpl:
+$smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
 
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle|default:"no title"}
 {$myTitle|default:"no title"}
-
-OUTPUT:
-
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
 Dealers Will Hear Car Talk at Noon.
 no title
-  </programlisting>
- </example>
-</sect1>
+]]>
+   </screen>
+  </example>
+  <para>
+  См. также
+  <link linkend="tips.default.var.handling">Обработка переменных по умолчанию</link>
+  и
+  <link linkend="tips.blank.var.handling">Обработка пустых переменных</link>.
+  </para>
+ </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

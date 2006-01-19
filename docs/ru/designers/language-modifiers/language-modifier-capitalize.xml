@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="language.modifier.capitalize">
  <title>capitalize</title>
+ <para>
+  Преобразовывает первые буквы каждого в переменной слова в заглавные.
+ </para>
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -31,24 +34,19 @@
     </tbody>
    </tgroup>
   </informaltable>
- <para>
-  Первые буквы каждого слова преобразуются в заглавные.
- </para>
  <example>
   <title>capitalize</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->assign('articleTitle', 'next x-men film, x3, delayed.');
-$smarty->display('index.tpl');
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Шаблон index.tpl:
+    Шаблон:
    </para>
    <programlisting>
 <![CDATA[
@@ -70,7 +68,8 @@ Next X-Men Film, X3, Delayed.
   </example>
  <para>
   См. также
-  <link linkend="language.modifier.lower">lower</link> и
+  <link linkend="language.modifier.lower">lower</link>
+  и
   <link linkend="language.modifier.upper">upper</link>
  </para>
 </sect1>

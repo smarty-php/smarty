@@ -1,30 +1,52 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
-<sect1 id="language.modifier.nl2br">
- <title>nl2br</title>
- <para>
-  Заменяет все переносы строк на тэг &lt;br /&gt; в заданной
-  переменной. Это эквивалент PHP функции nl2br().
- </para>
- <example>
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+ <sect1 id="language.modifier.nl2br">
   <title>nl2br</title>
-<programlisting>
-index.php:
+  <para>
+   Превращает каждый перевод строки в тэг &lt;br /&gt; в указанной переменной.
+   Это эквивалент функции PHP
+   <ulink url="&url.php-manual;nl2br">nl2br()</ulink>.
+  </para>
+  <example>
+   <title>nl2br</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
 
-$smarty = new Smarty;
-$smarty-&gt;assign('articleTitle', "Sun or rain expected\ntoday, dark tonight");
-$smarty-&gt;display('index.tpl');
+$smarty->assign('articleTitle',
+                "Sun or rain expected\ntoday, dark tonight"
+                );
 
-index.tpl:
-
+?>
+]]>
+   </programlisting>
+   <para>
+    Шаблон:
+   </para>
+   <programlisting>
+<![CDATA[
 {$articleTitle|nl2br}
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
+Sun or rain expected<br />today, dark tonight
+]]>
+   </screen>
+  </example>
+  <para>
+   См. также
+   <link linkend="language.modifier.wordwrap">word_wrap</link>,
+   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>
+   и
+   <link linkend="language.modifier.count.sentences">count_sentences</link>.
+  </para>
+ </sect1>
 
-OUTPUT:
-
-Sun or rain expected&lt;br /&gt;today, dark tonight</programlisting>
- </example>
-</sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
