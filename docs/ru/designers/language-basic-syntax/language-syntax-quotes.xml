@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.quotes">
  <title>Внедренные переменные в двойных кавычках</title>
  <para>
@@ -8,7 +8,7 @@
   <link linkend="api.assign">присвоенные</link>
   <link linkend="language.syntax.variables">переменные</link>,
   если они встречаются в строках, заключенных в двойные кавычки,
-  если переменные состоят из цифр, букв, знака подчёркивания и
+  если имена переменных состоят из цифр, букв, знака подчёркивания и
   квадратных скобок.
   В случае, если переменная содержит другие символы
   (точки, ссыки на объекты и т.д.), переменную необходимо заключить
