@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.radios">
  <title>{html_radios}</title>
@@ -130,7 +130,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Où index.tpl est :
+   Où le template est :
   </para>
   <programlisting>
 <![CDATA[

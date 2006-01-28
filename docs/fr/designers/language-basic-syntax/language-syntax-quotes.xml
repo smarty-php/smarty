@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.syntax.quotes">
  <title>Variables insérées dans des chaînes de caractères</title>
  <para>

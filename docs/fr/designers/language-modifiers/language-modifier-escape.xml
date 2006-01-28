@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.escape">
  <title>escape</title>
@@ -42,7 +42,7 @@
      <entry>chaîne de caractère</entry>
      <entry>Non</entry>
      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... n'importe quel jeu de
-      caractères supporté par <ulink url="&url.php-manual;sprintf">htmlentities()</ulink>
+      caractères supporté par <ulink url="&url.php-manual;htmlentities">htmlentities()</ulink>
      </entry>
      <entry><literal>ISO-8859-1</literal></entry>
      <entry>Le jeu de caractères passé à htmlentities()</entry>
@@ -78,7 +78,7 @@ Où le template est :
 ]]>
 </programlisting>
 <para>
-Ce qui donne à l'écran: 
+Ce qui donne à l'écran:
 </para>
 <screen>
 <![CDATA[
