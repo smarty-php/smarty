@@ -1253,7 +1253,7 @@ class Smarty_Compiler extends Smarty {
         $tokens = $match[0];
 
         if(empty($tokens)) {
-            $_error_msg .= $elseif ? "'elseif'" : "'if'";
+            $_error_msg = $elseif ? "'elseif'" : "'if'";
             $_error_msg .= ' statement requires arguments'; 
             $this->_syntax_error($_error_msg, E_USER_ERROR, __FILE__, __LINE__);
         }
