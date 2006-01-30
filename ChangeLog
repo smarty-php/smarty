@@ -1,3 +1,9 @@
+2006-01-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty_Compiler.class.php:
+      removed possiblity for E_NOTICE on an undefined variable in
+      Smarty_Compiler::_compile_if_tag() - thanks to sbeh
+
 2006-01-18  Monte Ohrt  <monte@ohrt.com>
 
     * libs/Config_File.class.php
