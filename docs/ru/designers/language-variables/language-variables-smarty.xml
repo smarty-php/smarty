@@ -1,134 +1,151 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: freespace Status: ready -->
 <sect1 id="language.variables.smarty">
  <title>Зарезервированная переменная {$smarty}</title>
+ <para>
+  Зарезервированная переменная {$smarty} может быть использована для получения
+  доступа к нескольким специальным переменным шаблона. Далее следует их полный
+  список.
+ </para>
+ <sect2 id="language.variables.smarty.request">
+  <title>Переменные запроса</title>
   <para>
-   Зарезервированная переменная {$smarty} используется для доступа
-   к нескольким специальным переменным. Далее следует полный их список.
+   <ulink url="&url.php-manual;reserved.variables">К переменным запроса</ulink>,
+   таким как $_GET, $_POST, $_COOKIE, $_SERVER, $_ENV и $_SESSION
+   (см. <link linkend="variable.request.vars.order">$request_vars_order</link>
+   и <link
+   linkend="variable.request.use.auto.globals">$request_use_auto_globals</link>
+   ), можно получить доступ, как показано в следующем примере:
   </para>
-
-  <sect2 id="language.variables.smarty.request">
-   <title>Переменные запроса.</title>
-   <para>
-    К переменным из таких массивов, как _GET, _POST, _COOKIES, _SERVER,
-    _ENV и _SESSION, можно обращаться аналогично нижеприведенным примерам.
-   </para>
-   <example>
-    <title>Вывод переменных запроса</title>
-    <programlisting>
+  <example>
+   <title>Отображение переменных запроса</title>
+   <programlisting>
 <![CDATA[
-{* Вывод значения $page из URL (GET) http://www.example.com/index.php?page=foo *}
+{* отображение параметра page из URL ($_GET) http://www.example.com/index.php?page=foo *}
 {$smarty.get.page}
 
-{* Вывод переменной "page" из формы (POST) *}
+{* отображение параметра "page" из формы ($_POST['page']) *}
 {$smarty.post.page}
 
-{* Вывод значения cookie "username" *}
+{* отображение значения cookie "username" ($_COOKIE['username']) *}
 {$smarty.cookies.username}
 
-{* Вывод переменное сервера "SERVER_NAME" *}
+{* отображение серверной переменной "SERVER_NAME" ($_SERVER['SERVER_NAME'])*}
 {$smarty.server.SERVER_NAME}
 
-{* Вывод переменной окружения "PATH" *}
+{* отображение переменной системного окружения "PATH" *}
 {$smarty.env.PATH}
 
-{* Вывод переменной сессии "id" *}
+{* отображение переменной сессии PHP "id" ($_SESSION['id']) *}
 {$smarty.session.id}
 
-{* Вывод переменной "username" из объединенного массива get/post/cookies/server/env *}
+{* отображение переменной "username" из смешенных get/post/cookies/server/env *}
 {$smarty.request.username}
 ]]>
-    </programlisting>
-   </example>
-  </sect2>
-
-  <sect2 id="language.variables.smarty.now">
-   <title>{$smarty.now}</title>
+   </programlisting>
+  </example>
+  <note>
    <para>
-    К текущему timestamp (штам времени) можно обратиться через
-    {$smarty.now}. Оно содержит число секунд с начала так
-    называемой Эпохи (Epoch, 1 января 1970 года) и может быть
-    передано прямо модификатору	date_format для вывода текущей
-    даты.
+    По историческим соображениям, доступ к переменной {$SCRIPT_NAME} можно
+    получить непосредственно, хотя предпочтительным способом является обращение
+    {$smarty.server.SCRIPT_NAME}.
    </para>
-   <example>
-    <title>использование {$smarty.now}</title>
-     <programlisting>
+  </note>
+ </sect2>
+ <sect2 id="language.variables.smarty.now">
+  <title>{$smarty.now}</title>
+  <para>
+   Текущая <ulink url="&url.php-manual;function.time">временная метка</ulink>
+   содержится в переменной {$smarty.now}. Это число отображает количество
+   секунд, которые прошли с момента наступления так называемой Эпохи
+   (1 января 1970 года). Её можно прямо передавать модификатору
+   <link linkend="language.modifier.date.format">date_format</link>
+   для отображения текущей даты/времени.
+  </para>
+  <example>
+   <title>Использование {$smarty.now}</title>
+   <programlisting>
 <![CDATA[
-{* выводим текущее время и дату с помощью модификатора date_format *}
+{* использование модификатора date_format для отображения текущей даты/времени*}
 {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
 ]]>
-     </programlisting>
-   </example>
-  </sect2>
+   </programlisting>
+  </example>
+ </sect2>
+ <sect2 id="language.variables.smarty.const">
+  <title>{$smarty.const}</title>
+  <para>
+   Вы можете обращаться к константам PHP напрямую. См. также <link
+   linkend="smarty.constants">Константы Smarty</link>
+  </para>
+  <example>
+   <title>Использование {$smarty.const}</title>
+   <programlisting>
+<![CDATA[
+{$smarty.const._MY_CONST_VAL}
+]]>
+   </programlisting>
+  </example>
+ </sect2>
 
-  <sect2 id="language.variables.smarty.const">
-   <title>{$smarty.const}</title>
-   <para>
-    Реализует доступ к константам PHP.
-   </para>
-   <example>
-    <title>использование {$smarty.const}</title>
-    <programlisting>
-    {$smarty.const._MY_CONST_VAL}
-    </programlisting>
-   </example>
-  </sect2>
+ <sect2 id="language.variables.smarty.capture">
+  <title>{$smarty.capture}</title>
+  <para>
+   Результат захвата конструкции <link
+   linkend="language.function.capture">{capture}..{/capture}</link>
+   доступен при помощи переменной {$smarty}. См. раздел о
+   <link linkend="language.function.capture">{capture}</link>
+   для получения примера.
+  </para>
+ </sect2>
 
-  <sect2 id="language.variables.smarty.capture">
-   <title>{$smarty.capture}</title>
-   <para>
-    Доступ к выводу, сохраненному с помощью тэгов
-    <link linkend="language.function.capture">{capture}..{/capture}</link>,
-    можно получить используя переменную {$smarty}. Смотрите раздел <link
-    linkend="language.function.capture">capture</link> для примера.
-   </para>
-  </sect2>
+ <sect2 id="language.variables.smarty.config">
+  <title>{$smarty.config}</title>
+  <para>
+   Переменная {$smarty} может использоваться для обращения к загруженным <link
+   linkend="language.config.variables">конфигурационным переменным</link>.
+   {$smarty.config.foo} является синонимом {#foo#}. См. раздел о
+   <link linkend="language.function.config.load">{config_load}</link>
+   для получения примера.
+  </para>
+ </sect2>
 
-  <sect2 id="language.variables.smarty.config">
-   <title>{$smarty.config}</title>
-   <para>
-    Переменная {$smarty} может быть использована для получения значений
-    переменных из файлов конфигураций. {$smarty.config.foo}
-    является синонимом для {#foo#}. Смотрите раздел <link
-    linkend="language.function.config.load">config_load</link>
-    для примера.
-   </para>
-  </sect2>
+ <sect2 id="language.variables.smarty.loops">
+  <title>{$smarty.section}, {$smarty.foreach}</title>
+  <para>
+   Переменную {$smarty} можно использовать для обращения к свойствам циклов
+   <link linkend="language.function.section">{section}</link> и
+   <link linkend="language.function.foreach">{foreach}</link>.
+  </para>
+ </sect2>
 
-  <sect2 id="language.variables.smarty.loops">
-   <title>{$smarty.section}, {$smarty.foreach}</title>
-   <para>
-    Переменная {$smarty} может быть использована для исппользования
-    свойств структур 'section' и 'foreach'. Смотри разделы по
-    <link linkend="language.function.section">section</link> и
-    <link linkend="language.function.foreach">foreach</link>.
-   </para>
-  </sect2>
-
-  <sect2 id="language.variables.smarty.template">
-   <title>{$smarty.template}</title>
-   <para>
-    Эта переменная содержит имя текущего шаблона.
-   </para>
-  </sect2>
-		<sect2 id="language.variables.smarty.ldelim">
-			<title>{$smarty.ldelim}</title>
-			<para>
-    Эта переменная используется для вставки символа левого разделителя.
-    См. также <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
-			</para>
-		</sect2>
-		<sect2 id="language.variables.smarty.rdelim">
-			<title>{$smarty.rdelim}</title>
-			<para>
-    Эта переменная используется для вставки символа правого разделителя.
-    См. также <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
-			</para>
-		</sect2>
-
- </sect1>
+ <sect2 id="language.variables.smarty.template">
+  <title>{$smarty.template}</title>
+  <para>
+   Эта переменная содержит имя текущего обрабатываемого шаблона.
+  </para>
+ </sect2>
+ <sect2 id="language.variables.smarty.version">
+  <title>{$smarty.version}</title>
+  <para>
+   Эта переменная содержит версию Smarty, с которой был скомпилирован шаблон.
+  </para>
+ </sect2>
+ <sect2 id="language.variables.smarty.ldelim">
+  <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
+  <para>
+   Эти переменные используются для отображения левого и правого ограничителей.
+   См. <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+  </para>
+  <para>
+   См. также
+   <link linkend="language.syntax.variables">Переменные</link>
+   и
+   <link linkend="language.config.variables">Конфигурационные переменные</link>
+  </para>
+ </sect2>
+</sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

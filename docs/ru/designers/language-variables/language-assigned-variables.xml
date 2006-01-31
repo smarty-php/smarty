@@ -1,133 +1,180 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
- <sect1 id="language.assigned.variables">
-  <title>Переменные, установленные в PHP</title>
-  <para>
-   Переменные, установленные в PHP, употребляются со знаком доллар
-   <literal>$</literal> перед ним. Переменные, установленные в
-   шаблоне с помощью функции <link
-   linkend="language.function.assign">assign</link> употребляются
-   аналогичным образом.
-  </para>
-  <example>
-   <title>Установленные переменные</title>
-    <programlisting>
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<sect1 id="language.assigned.variables">
+ <title>Переменные, назначенные из PHP</title>
+ <para>
+  К переменным, которые были
+  <link linkend="api.assign">назначены</link> из PHP можно обратиться,
+  указав перед их именем знак доллара (<literal>$</literal>).
+  Переменные, назначенные внутри шаблона при помощи функции
+  <link linkend="language.function.assign">{assign}</link>
+  работают таким же образом.
+ </para>
+ <example>
+  <title>Назначенные переменные</title>
+  <para>PHP-скрипт</para>
+  <programlisting role="php">
 <![CDATA[
-Привет {$firstname}, мы рады снова тебя видеть.
-<p>
-Последний раз ты посещал нас {$lastLoginDate}.
+<?php
 
-OUTPUT:
+$smarty = new Smarty;
 
-Привет Петя, мы рады снова тебя видеть.
-<p>
-Последний раз ты посещал нас January 11th, 2001.
+$smarty->assign('firstname', 'Doug');
+$smarty->assign('lastname', 'Evans');
+$smarty->assign('meetingPlace', 'New York');
+
+$smarty->display('index.tpl');
+
+?>
 ]]>
-    </programlisting>
-  </example>
-
+  </programlisting>
+  <para>
+   Содержимое index.tpl:
+  </para>
+  <programlisting>
+<![CDATA[
+Hello {$firstname} {$lastname}, glad to see you can make it.
+<br />
+{* это не сработает, потому что переменные чувствительны к регистру *}
+This weeks meeting is in {$meetingplace}.
+{* а это - сработает *}
+This weeks meeting is in {$meetingPlace}.
+]]>
+  </programlisting>
+  <para>
+   Результат обработки:
+  </para>
+  <screen>
+<![CDATA[
+Hello Doug Evans, glad to see you can make it.
+<br />
+This weeks meeting is in .
+This weeks meeting is in New York.
+]]>
+  </screen>
+ </example>
  <sect2 id="language.variables.assoc.arrays">
   <title>Ассоциативные массивы</title>
   <para>
-   Чтобы использовать переменную из ассоциативного массива,
-   надо указать ключ элемента после знака '.' (точка).
+   Вы можете также обращаться к ассоциативным массивам, которые
+   назначены из PHP, указав ключ после символа '.' (точка).
   </para>
   <example>
-   <title>доступ к переменным ассоциативного массива</title>
-   <programlisting>
+   <title>Обращение к ассоциативному массиву</title>
+   <programlisting role="php">
 <![CDATA[
-index.php:
-
-$smarty = new Smarty;
+<?php
 $smarty->assign('Contacts',
-  array('fax' => '555-222-9876',
-        'email' => 'zaphod@slartibartfast.com',
-        'phone' => array('home' => '555-444-3333',
-                         'cell' => '555-111-1234')));
+    array('fax' => '555-222-9876',
+          'email' => 'zaphod@slartibartfast.example.com',
+          'phone' => array('home' => '555-444-3333',
+                           'cell' => '555-111-1234')
+                           )
+         );
 $smarty->display('index.tpl');
-
-index.tpl:
-
-{$Contacts.fax}<br>
-{$Contacts.email}<br>
-{* you can print arrays of arrays as well *}
-{$Contacts.phone.home}<br>
-{$Contacts.phone.cell}<br>
-
-OUTPUT:
-
-555-222-9876<br>
-zaphod@slartibartfast.com<br>
-555-444-3333<br>
-555-111-1234<br>
+?>
 ]]>
    </programlisting>
+   <para>
+    Содержимое index.tpl:
+   </para>
+   <programlisting>
+<![CDATA[
+{$Contacts.fax}<br />
+{$Contacts.email}<br />
+{* you can print arrays of arrays as well *}
+{$Contacts.phone.home}<br />
+{$Contacts.phone.cell}<br />
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
+555-222-9876<br />
+zaphod@slartibartfast.example.com<br />
+555-444-3333<br />
+555-111-1234<br />
+]]>
+   </screen>
   </example>
  </sect2>
-
  <sect2 id="language.variables.array.indexes">
-  <title>Индексированные массивы</title>
+  <title>Индексы массивов</title>
   <para>
-  Можно использовать переменную из массива по е индексу.
-  Синтаксис аналогичен PHP.
+   Вы можете обращаться к массивам по их индексам примерно так же,
+   как и в самом PHP.
   </para>
   <example>
-   <title>доступ к елементу массива по его индексу</title>
-    <programlisting>
+   <title>Обращение к массиву по индексу</title>
+   <programlisting role="php">
 <![CDATA[
-index.php:
-
-$smarty = new Smarty;
-$smarty->assign('Contacts',
-  array('555-222-9876',
-        'zaphod@slartibartfast.com',
-        array('555-444-3333',
-              '555-111-1234')));
+<?php
+$smarty->assign('Contacts', array(
+                           '555-222-9876',
+                           'zaphod@slartibartfast.example.com',
+                            array('555-444-3333',
+                                  '555-111-1234')
+                            ));
 $smarty->display('index.tpl');
-
-index.tpl:
-
-{$Contacts[0]}<br>
-{$Contacts[1]}<br>
-{* you can print arrays of arrays as well *}
-{$Contacts[2][0]}<br>
-{$Contacts[2][1]}<br>
-
-OUTPUT:
-
-555-222-9876<br>
-zaphod@slartibartfast.com<br>
-555-444-3333<br>
-555-111-1234<br>
+?>
 ]]>
-    </programlisting>
+   </programlisting>
+   <para>
+    Содержимое index.tpl:
+   </para>
+   <programlisting>
+<![CDATA[
+{$Contacts[0]}<br />
+{$Contacts[1]}<br />
+{* you can print arrays of arrays as well *}
+{$Contacts[2][0]}<br />
+{$Contacts[2][1]}<br />
+]]>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
+555-222-9876<br />
+zaphod@slartibartfast.example.com<br />
+555-444-3333<br />
+555-111-1234<br />
+]]>
+   </screen>
   </example>
  </sect2>
-
  <sect2 id="language.variables.objects">
   <title>Объекты</title>
   <para>
-   Чтобы использовать свойства обьектов, надо указать перед именем
-   атрибута знак `->'.
+   К свойствам <link linkend="advanced.features.objects">объектов</link>,
+   назначенных из PHP, можно обратиться, указав имя свойства после символов
+   '-&gt;'.
   </para>
   <example>
-   <title>доступ к свойствам объекта</title>
-    <programlisting>
+   <title>Обращение к свойствам объекта</title>
+   <programlisting>
 <![CDATA[
-name: {$person->name}<br>
-email: {$person->email}<br>
-
-OUTPUT:
-
-name: Zaphod Beeblebrox<br>
-email: zaphod@slartibartfast.com<br>
+name: {$person->name}<br />
+email: {$person->email}<br />
 ]]>
-    </programlisting>
+   </programlisting>
+   <para>
+    Результат обработки:
+   </para>
+   <screen>
+<![CDATA[
+name: Zaphod Beeblebrox<br />
+email: zaphod@slartibartfast.example.com<br />
+]]>
+   </screen>
   </example>
  </sect2>
-
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

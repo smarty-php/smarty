@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="language.config.variables">
  <title>Переменные файлов конфигурации</title>
  <para>
-  Для использования переменных, полученных из файлов конфигураии,
+  Для использования переменных, полученных из
+  <link linkend="config.files">конфигурационных файлов</link>,
   необходимо заключить их имя между знаками # или через переменную
   <link linkend="language.variables.smarty.config">$smarty.config</link>.
   Для употребления их в качестве внедренныых переменных можно
@@ -23,11 +24,17 @@ tableBorderSize = "3"
 tableBgColor = "#bbbbbb"
 rowBgColor = "#cccccc"
 ]]>
+
   </programlisting>
+
   <para>
+
    index.tpl:
+
   </para>
+
   <programlisting>
+
 <![CDATA[
 {config_load file="foo.conf"}
 <html>
@@ -43,11 +50,17 @@ rowBgColor = "#cccccc"
 </body>
 </html>
 ]]>
+
   </programlisting>
+
   <para>
+
    index.tpl: (альтернативный синтаксис)
+
   </para>
+
     <programlisting>
+
 <![CDATA[
 {config_load file="foo.conf"}
 <html>
@@ -63,11 +76,16 @@ rowBgColor = "#cccccc"
 </body>
 </html>
 ]]>
+
   </programlisting>
+
   <para>
    результат выполнения обоих примеров:
+
   </para>
+
   <screen>
+
 <![CDATA[
 <html>
 <title>This is mine</title>
@@ -89,6 +107,12 @@ rowBgColor = "#cccccc"
   пока они не будут загружены. Эта процедура описана далее
   в данном руководстве (<command>config_load</command>).
  </para>
+ <para>
+  См. также
+  <link linkend="language.syntax.variables">Переменные</link>
+  и
+  <link linkend="language.variables.smarty">Зарезервированная переменная
+  $smarty</link>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
