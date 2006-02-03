@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.date.format">
   <title>date_format</title>
     <para>
@@ -133,7 +133,7 @@ Monday, February 5, 2001
     %C - номер века (год, деленный на 100, представленный в виде целого в промежутке от 00 до 99)
    </para></listitem>
    <listitem><para>
-    %d - день месяца в десятичном формате (от 00 до 31)
+    %d - день месяца в десятичном формате (от 01 до 31)
    </para></listitem>
    <listitem><para>
     %D - синоним %m/%d/%y
