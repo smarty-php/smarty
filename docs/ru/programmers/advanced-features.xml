@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <chapter id="advanced.features">
  <title>Расширенные возможности</title>
-  &programmers.advanced-features.advanced-features-objects;
-  &programmers.advanced-features.advanced-features-prefilters;
-  &programmers.advanced-features.advanced-features-postfilters;
-  &programmers.advanced-features.advanced-features-outputfilters;
-  &programmers.advanced-features.section-template-cache-handler-func;
-  &programmers.advanced-features.template-resources;
+ &programmers.advanced-features.advanced-features-objects;
+ &programmers.advanced-features.advanced-features-prefilters;
+ &programmers.advanced-features.advanced-features-postfilters;
+ &programmers.advanced-features.advanced-features-outputfilters;
+ &programmers.advanced-features.section-template-cache-handler-func;
+ &programmers.advanced-features.template-resources;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
