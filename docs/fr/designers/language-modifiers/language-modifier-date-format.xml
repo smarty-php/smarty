@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.date.format">
  <title>date_format</title>
@@ -131,7 +131,7 @@ Monday, February 5, 2001
     %C - Siècle, (L'année divisée par 100 et tronquée comme un entier, de 00 à 99)
     </para></listitem>
     <listitem><para>
-    %d - Jour du mois, en tant que nombre décimal (de 00 à 31)
+    %d - Jour du mois, en tant que nombre décimal (de 01 à 31)
     </para></listitem>
     <listitem><para>
     %D - même chose que %m/%d/%y
