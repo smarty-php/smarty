@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: didou Status: ready -->
 
 <sect1 id="caching.cacheable">
  <title>Contrôler la mise en cache des sorties des Plugins</title>
@@ -43,10 +43,11 @@ $smarty->caching = true;
 
 function remaining_seconds($params, &$smarty) {
     $remain = $params['endtime'] - time();
-    if ($remain >=0)
+    if ($remain >=0) {
         return $remain . " second(s)";
-    else
+    } else {
         return "done";
+    }
 }
 
 $smarty->register_function('remaining', 'remaining_seconds', false, array('endtime'));

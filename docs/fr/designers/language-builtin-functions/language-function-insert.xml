@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.insert">
  <title>{insert}</title>
@@ -108,7 +108,7 @@
    chemin doit être absolu ou relatif à
    <link linkend="variable.trusted.dir">$trusted_dir</link>.
    Lorsque <link
-   linkend="variable.security">"security" est actif</link>, le script doit être situé
+   linkend="variable.security">"security"</link> est actif, le script doit être situé
    dans <link linkend="variable.trusted.dir">$trusted_dir</link>.
   </para>
   <para>
@@ -128,6 +128,10 @@
     la météo, les résultats de recherche, retours utilisateurs, etc.
    </para>
   </note>
+  <para>
+   Voir aussi
+   <link linkend="language.function.include">{include}</link>
+  </para>
  </sect1>
 
  <!-- Keep this comment at the end of the file

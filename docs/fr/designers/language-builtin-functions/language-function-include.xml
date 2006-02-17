@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.include">
  <title>{include}</title>
@@ -89,10 +89,10 @@
  </example>
  <para>
   Vous pouvez également passer des variables au template inclus
-  sous forme d'attributs. Les variables passées au template par ce moyen
-  ne sont accessibles que dans la portée de ce dernier. Les variables
-  passées en tant qu'attribut remplacent les variables déjà définies,
-  qui auraient le même nom.
+  sous forme d'<link linkend="language.syntax.attributes">attributs</link>.
+  Les variables passées au template par ce moyen ne sont accessibles que
+  dans la portée de ce dernier. Les variables passées en tant qu'attribut
+  remplacent les variables déjà définies, qui auraient le même nom.
  </para>
  <example>
   <title>fonction {include}, passage de variables</title>
