@@ -106,7 +106,7 @@
    script must be included first to make it work. The path can be
    either absolute, or relative to
    <link linkend="variable.trusted.dir">$trusted_dir</link>. When <link
-   linkend="variable.security">security is enabled</link>, the script
+   linkend="variable.security">$security</link> is enabled, the script
    must reside in <link linkend="variable.trusted.dir">$trusted_dir</link>.
   </para>
   <para>
@@ -125,6 +125,10 @@
     weather, search results, user feedback areas, etc.
    </para>
   </note>
+   <para>
+    See also
+  <link linkend="language.function.include">{include}</link>
+  </para>
  </sect1>
  <!-- Keep this comment at the end of the file
 Local variables:

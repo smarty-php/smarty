@@ -47,7 +47,8 @@
   See also
   <link linkend="variable.php.handling">$php_handling</link>,
   <link linkend="language.function.include.php">{include_php}</link>,
-  <link linkend="language.function.include">{include}</link> and
+  <link linkend="language.function.include">{include}</link>,
+  <link linkend="language.function.insert">{insert}</link> and
   <link linkend="tips.componentized.templates">Componentized Templates</link>.
  </para>
 </sect1>

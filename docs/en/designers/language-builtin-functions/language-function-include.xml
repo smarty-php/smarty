@@ -85,7 +85,8 @@
   </programlisting>
  </example>
  <para>
-  You can also pass variables to included templates as attributes.
+  You can also pass variables to included templates as 
+  <link linkend="language.syntax.attributes">attributes</link>.
   Any variables explicitly passed to an included template as
   attributes are only available within the scope of the included
   file. Attribute variables override current template variables, in
@@ -170,6 +171,7 @@
  <para>
   See also
   <link linkend="language.function.include.php">{include_php}</link>,
+  <link linkend="language.function.insert.php">{insert}</link>,
   <link linkend="language.function.php">{php}</link>,
   <link linkend="template.resources">Template Resources</link> and
   <link linkend="tips.componentized.templates">Componentized Templates</link>.

@@ -67,7 +67,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
 	
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
-		$smarty_obj->_trigger_error_msg("cache_handler: could not connect to database");
+		$smarty_obj->_trigger_error_msg('cache_handler: could not connect to database');
 		return false;
 	}
 	mysql_select_db($db_name);
@@ -77,14 +77,14 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			// read cache from database
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg('cache_handler: query failed.');			
 			}
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 			
-			if($use_gzip && function_exists("gzuncompress")) {
-				$cache_content = gzuncompress($row["CacheContents"]);
+			if($use_gzip && function_exists('gzuncompress')) {
+				$cache_content = gzuncompress($row['CacheContents']);
 			} else {
-				$cache_content = $row["CacheContents"];
+				$cache_content = $row['CacheContents'];
 			}
 			$return = $results;
 			break;
@@ -102,7 +102,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 							'".addslashes($contents)."')
 						");
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg('cache_handler: query failed.');			
 			}
 			$return = $results;
 			break;
@@ -110,12 +110,12 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			// clear cache info
 			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
 				// clear them all
-				$results = mysql_query("delete from CACHE_PAGES");			
+				$results = mysql_query('delete from CACHE_PAGES');			
 			} else {
 				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");			
 			}
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("cache_handler: query failed.");			
+				$smarty_obj->_trigger_error_msg('cache_handler: query failed.');			
 			}
 			$return = $results;
 			break;

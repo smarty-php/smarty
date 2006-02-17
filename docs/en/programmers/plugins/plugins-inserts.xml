@@ -3,7 +3,7 @@
    <sect1 id="plugins.inserts"><title>Inserts</title>
     <para>
      Insert plugins are used to implement functions that are invoked by
-     <link linkend="language.function.insert"><command>insert</command></link>
+     <link linkend="language.function.insert">{insert}</link>
      tags in the template.
     </para>
     <funcsynopsis>
@@ -19,7 +19,7 @@
     </para>
     <para>
      The insert function is supposed to return the result which will be
-     substituted in place of the <command>insert</command> tag in the
+     substituted in place of the <command>{insert}</command> tag in the
      template.
     </para>
     <example>

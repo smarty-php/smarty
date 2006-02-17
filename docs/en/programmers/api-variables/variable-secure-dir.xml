@@ -8,7 +8,7 @@
  <link linkend="language.function.include">{include}</link>
  and <link linkend="language.function.fetch">{fetch}</link>
  use this when
- <link linkend="variable.security">security is enabled</link>.
+ <link linkend="variable.security">$security</link> is enabled.
       </para>
 <para>
  See also

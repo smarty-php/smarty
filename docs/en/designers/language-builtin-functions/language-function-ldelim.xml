@@ -6,9 +6,9 @@
    {ldelim} and {rdelim} are used for
    <link linkend="language.escaping">escaping</link>
    template delimiters, by default
-   "{" or "}". You can also use <link
+   "{" and "}". You can also use <link
     linkend="language.function.literal">{literal}{/literal}</link> to escape
-   blocks of text.
+   blocks of text eg Javascript or css.
     See also <link
     linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>.
   </para>

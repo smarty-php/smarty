@@ -4,7 +4,7 @@
       <title>$security_settings</title>
       <para>
        These are used to override or specify the security settings when
-<link linkend="variable.security">security is enabled</link>.
+<link linkend="variable.security">$security</link> is enabled.
 These are the possible settings:
       </para>
       <itemizedlist>
@@ -18,7 +18,7 @@ These are the possible settings:
 <listitem>
  <para>
   IF_FUNCS - This is an array of the names of permitted PHP functions in
-  <link linkend="language.function.if">IF</link> statements.
+  <link linkend="language.function.if">{if}</link> statements.
  </para>
 </listitem>
 <listitem>

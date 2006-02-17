@@ -39,10 +39,11 @@ $smarty->caching = true;
 
 function remaining_seconds($params, &$smarty) {
     $remain = $params['endtime'] - time();
-    if ($remain >=0)
-        return $remain . " second(s)";
-    else
-        return "done";
+    if($remain >= 0){
+        return $remain . ' second(s)';
+    }else{
+        return 'done';
+    }
 }
 
 $smarty->register_function('remaining', 'remaining_seconds', false, array('endtime'));
