@@ -40,6 +40,7 @@ $smarty = new Smarty;
 $smarty->left_delimiter = '<!--{';
 $smarty->right_delimiter = '}-->';
 $smarty->assign('foo', 'bar');
+$smarty->assign('name', 'Albert');
 $smarty->display('example.tpl');
 
 ?>
@@ -50,6 +51,7 @@ $smarty->display('example.tpl');
   </para>
   <programlisting>
 <![CDATA[
+Welcome <!--{$name}--> to Smarty
 <script language="javascript">
   var foo = <!--{$foo}-->;
   function dosomething() {

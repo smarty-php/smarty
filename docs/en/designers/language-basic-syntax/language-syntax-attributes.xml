@@ -11,8 +11,9 @@
   should not be in quotes.
  </para>
  <para>
-  Some attributes require boolean values (true or false). These can be
-  specified as either unquoted <literal>true</literal>,
+  Some attributes require boolean values (true or false). These 
+  <link linkend="variable.config.booleanize">can be specified</link>
+  as either unquoted <literal>true</literal>,
   <literal>on</literal>, and <literal>yes</literal>, or
   <literal>false</literal>, <literal>off</literal>, and
   <literal>no</literal>.

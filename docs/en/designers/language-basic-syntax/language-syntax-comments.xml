@@ -6,10 +6,10 @@
   Template comments are surrounded by asterisks, and that is surrounded
   by the
   <link linkend="variable.left.delimiter"> delimiter</link>
-  tags like so: {* this is a comment *}
+  tags like so: <emphasis>{* this is a comment *}</emphasis>
   Smarty comments are NOT displayed in the final output of the template,
   unlike &lt;!-- HTML comments --&gt;
-  They are useful for making internal notes in the templates.
+  and are useful for making internal notes in the templates.
  </para>
  <example>
   <title>Comments</title>
@@ -24,7 +24,7 @@
 *}
 
 {* include the header file here *}
-{include file="header.tpl"}
+{include file='header.tpl'}
 
 
 {* Dev note:  $includeFile is assigned in foo.php script  *}
@@ -39,6 +39,7 @@
   {html_options options=$vals selected=$selected_id}
 </select>
 *}
+
 </body>
 ]]>
   </programlisting>

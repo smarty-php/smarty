@@ -8,7 +8,8 @@
   <link   linkend="language.syntax.variables">variables</link>
   embedded in double quotes so long as the variable name contains only numbers,
   letters, underscores and brackets []. With any other characters (period,
-  object reference, etc.) the variable must be surrounded by backticks. You
+  object reference, etc.) the variable must be surrounded by 
+  <link linkend="language.syntax.quotes">backticks</link>. You
   cannot embed
   <link linkend="language.modifiers">modifiers</link>,
   they must always be applied outside of quotes.
