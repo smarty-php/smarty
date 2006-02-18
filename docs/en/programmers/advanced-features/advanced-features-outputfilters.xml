@@ -9,7 +9,7 @@
     sent through one or more output filters. This differs from 
     <link linkend="advanced.features.postfilters">postfilters</link>
     because postfilters operate on compiled templates before they are saved to
-    the disk, wheras output filters operate on the template output when it is
+    the disk, whereas output filters operate on the template output when it is
     executed.
    </para>
 
