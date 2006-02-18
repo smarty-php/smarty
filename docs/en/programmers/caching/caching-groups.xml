@@ -3,16 +3,17 @@
    <sect1 id="caching.groups">
     <title>Cache Groups</title>
      <para>
-      You can do more elaborate grouping by setting up cache_id groups. This is
+      You can do more elaborate grouping by setting up $cache_id groups. This is
       accomplished by separating each sub-group with a vertical bar "|" in the
-      cache_id value. You can have as many sub-groups as you like.
+      $cache_id value. You can have as many sub-groups as you like.
      </para>
      <para>
       You can think of cache groups like a directory hierarchy. For instance, a
       cache group of "a|b|c" could be thought of as the directory structure
-      "/a/b/c/". clear_cache(null,"a|b|c") would be like removing the files
+      "/a/b/c/". <link linkend="api.clear.cache">clear_cache</link>(null,"a|b|c") 
+      would be like removing the files
       "/a/b/c/*". clear_cache(null,"a|b") would be like removing the files
-      "/a/b/*". If you specify a compile_id such as
+      "/a/b/*". If you specify a <link linkend="variable.compile.id">$compile_id</link> such as
       clear_cache(null,"a|b","foo") it is treated as an appended cache group
       "/a/b/c/foo/". If you specify a template name such as
       clear_cache("foo.tpl","a|b|c") then Smarty will attempt to remove
