@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <refentry id="api.is.cached">
  <refnamediv>
@@ -17,7 +17,7 @@
   </methodsynopsis>
   <para>
   Celà fonctionne seulement si <link linkend="variable.caching">$caching</link>
-  est défini à <literal>true</literal>. Voir aussi la
+  est défini à <literal>true</literal> ; voir aussi la
   <link linkend="caching">section sur le cache</link>.
   </para>
   <example>
@@ -85,7 +85,6 @@ $smarty->display('index.tpl', 'FrontPage');
     is_cached() a retourné vrai.
    </para>
   </note>
-
   <para>
    Voir aussi
    <link linkend="api.clear.cache">clear_cache()</link>,

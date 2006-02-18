@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: didou Status: ready -->
+
 <chapter id="tips">
  <title>Trucs et astuces</title>
  <para></para>
@@ -22,8 +23,7 @@
    <programlisting>
 <![CDATA[
 {* la méthode pas adaptée *}
-
-{if $title eq ""}
+{if $title eq ''}
    &nbsp;
 {else}
    {$title}
@@ -31,8 +31,7 @@
 
 
 {* la bonne méthode *}
-
-{$title|default:"&nbsp;"}
+{$title|default:'&nbsp;'}
 ]]>
    </programlisting>
   </example>
@@ -55,8 +54,8 @@
    <title>assigner une valeur par défaut à une variable de template</title>
 <programlisting>
 <![CDATA[
-{* faites celà quelque part en haut de votre template *}
-{assign var="title" value=$title|default:"no title"}
+{* faites cela quelque part en haut de votre template *}
+{assign var='title' value=$title|default:'no title'}
 
 {* si $title est vide, il contiendra alors la valeur "no title" *}
 {$title}
@@ -77,45 +76,50 @@
    il est d'usage de les mettre dans leurs propres templates et de les inclure
    (<link linkend="language.function.include">{include}</link>).
    Mais comment faire si l'en-tête doit avoir un titre différent, selon la page
-   d'où on vient ? Vous pouvez passer le titre à l'en-tête quand il est inclus.
+   d'où on vient ? Vous pouvez passer le titre à l'en-tête en tant qu'
+   <link linkend="language.syntax.attributes">attribut</link> quand il est inclus.
   </para>
 
   <example>
    <title>passer le titre au template d'en-tête</title>
 
    <para>
-    <filename>mainpage.tpl</filename>
+    <filename>mainpage.tpl</filename> - Lorsque la page principal est construite,
+    le titre 'Man Page' est passé au <filename>header.tpl</filename> et sera utilisé
+    en tant que titre.
    </para>
    <programlisting>
 <![CDATA[
-
-{include file="header.tpl" title="Main Page"}
+{include file='header.tpl' title='Main Page'}
 {* le corps du template va ici *}
-{include file="footer.tpl"}
+{include file='footer.tpl'}
 ]]>
    </programlisting>
 
    <para>
-    <filename>archives.tpl</filename>
+    <filename>archives.tpl</filename> - Lorsque la page principal est construite, le titre
+    sera 'Archives'. Notez que dans cet exemple, nous utilisons une variable du fichier
+    <filename>archives_page.conf</filename> au lieu d'une variable classique.
    </para>
    <programlisting>
 <![CDATA[
-
-{config_load file="archive_page.conf"}
-{include file="header.tpl" title=#archivePageTitle#}
-{* template body goes here *}
-{include file="footer.tpl"}
+{config_load file='archive_page.conf'}
+{include file='header.tpl' title=#archivePageTitle#}
+{* corps du template ici *}
+{include file='footer.tpl'}
 ]]>
    </programlisting>
 
    <para>
-    <filename>header.tpl</filename>
+    <filename>header.tpl</filename> - Notez que "BC News" est affiché si la variable
+    $title n'est pas définie, en utilisant le modificateur de variable par
+    <link linkend="language.modifier.default">défaut</link>.
    </para>
    <programlisting>
 <![CDATA[
 <html>
  <head>
-  <title>{$title|default:"BC News"}</title>
+  <title>{$title|default:'BC News'}</title>
  </head>
  <body>
   ]]>
@@ -131,23 +135,14 @@
 ]]>
    </programlisting>
   </example>
-
-  <para>
-   Quand la page principale est conçue, le titre "Main page" est passé à 
-   <filename>header.tpl</filename> et sera donc utilisé pour le titre.
-   Quand la page d'archive est conçue, le titre sera "Archives". 
-   Notez que dans l'exemple des archives, on utilise
-   le fichier <filename>archives_page.conf</filename> plutôt que des
-   variables codées en dur. Remarquez aussi que "BC News" est affichée
-   si la variable $title n'est pas définie, grâce au modificateur de variable
-   <link linkend="language.modifier.default">default</link>.
-  </para>
  </sect1>
+
  <sect1 id="tips.dates">
   <title>Dates</title>
   <para>
    De façon générale, essayez de toujours passer les dates à Smarty
-   sous forme de timestamp. Celà permet aux designers de templates d'utiliser
+   sous forme de <ulink url="&url.php-manual;time">timestamp</ulink>.
+   Celà permet aux designers de templates d'utiliser
    <link linkend="language.modifier.date.format">date_format</link>
     pour avoir un contrôle total sur le formatage des dates et de comparer
     facilement les dates entre elles.
@@ -197,8 +192,8 @@ Jan 4, 2001
    </example>
    <para>
     En utilisant la fonction <link linkend="language.function.html.select.date">{html_select_date}</link> 
-    dans un template, le programmeur
-    veut en général convertir le résultat d'un formulaire en un timestamp.
+    dans un template, le programmeur veut en général convertir le
+    résultat d'un formulaire en un timestamp.
     Voici une fonction qui devrait vous être utile.
    </para>
    <example>
@@ -238,8 +233,8 @@ function makeTimeStamp($year='', $month='', $day='')
     <link linkend="language.modifier.date.format">date_format</link> et
     <link linkend="language.variables.smarty.now">$smarty.now</link>,
    </para>
-
   </sect1>
+
   <sect1 id="tips.wap">
    <title>WAP/WML</title>
    <para>

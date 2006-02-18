@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <sect1 id="advanced.features.postfilters">
  <title>Filtres de post-compilation</title>
@@ -42,7 +42,7 @@ $smarty->display('index.tpl');
   </screen>
  </example>
  <para>
-  Voir aussi 
+  Voir aussi
   <link linkend="api.register.postfilter">register_postfilter()</link>,
   <link linkend="advanced.features.prefilters">les pré-filtres</link> et
   <link linkend="api.load.filter">load_filter()</link>.

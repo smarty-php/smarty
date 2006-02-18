@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.include">
  <title>{include}</title>
@@ -10,7 +10,8 @@
   l'intérieur d'autres templates. Toutes les variables disponibles
   dans le template réalisant l'inclusion sont disponibles dans le
   template inclus. La balise {include} doit disposer de l'attribut
-  "file", qui contient le chemin de la ressource template.
+  <emphasis>'file'</emphasis>, qui contient le chemin de la
+  ressource template.
  </para>
  <para>
   Vous pouvez spécifier un attribut optionnel <emphasis>'assign'</emphasis>

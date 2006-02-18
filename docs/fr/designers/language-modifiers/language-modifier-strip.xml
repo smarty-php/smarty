@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.strip">
  <title>strip</title>
@@ -17,7 +17,7 @@
  </note>
  <example>
   <title>strip</title>
-<programlisting role="php">
+  <programlisting role="php">
 <![CDATA[
 <?php
 $smarty = new Smarty;
@@ -26,21 +26,21 @@ est toujours agréable.");
 $smarty->display('index.tpl');
 ?>
 ]]>
-</programlisting>
-<para>
-Où le template est :
-</para>
-<programlisting>
+  </programlisting>
+  <para>
+   Où le template est :
+  </para>
+  <programlisting>
 <![CDATA[
 {$titreArticle}
 {$titreArticle|strip}
-{$titreArticle|strip:"&nbsp;"}
+{$titreArticle|strip:'&nbsp;'}
 ]]>
-</programlisting>
-<para>
-Ce qui donne en sortie :
-</para>
-<screen>
+  </programlisting>
+  <para>
+   Ce qui donne en sortie :
+  </para>
+  <screen>
  <![CDATA[
 Une réunion autour
  d'un feu de cheminée     est toujours agréable.
@@ -48,7 +48,7 @@ Une réunion autour d'un feu de cheminée est toujours agréable.
 Une&nbsp;réunion&nbsp;autour&nbsp;d'un&nbsp;feu&nbsp;de&nbsp;cheminée&nbsp;est&nbsp;toujours
 &nbsp;agréable.
 ]]>
-</screen>
+  </screen>
  </example>
 </sect1>
 

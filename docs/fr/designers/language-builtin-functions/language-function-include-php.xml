@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.include.php">
  <title>{include_php}</title>
@@ -65,7 +65,7 @@
 
  <para>
   Les balises {include_php} sont utilisées pour inclure directement
-  un script PHP dans vos templates. Si <link linkend="variable.security">"security" est activé</link>, 
+  un script PHP dans vos templates. Si <link linkend="variable.security">$security</link> est activé,
   alors le script à exécuter doit être placé dans le chemin <link
   linkend="variable.trusted.dir">$trusted_dir</link>. La balise
   {include_php} attends l'attribut "file", qui contient le chemin du
@@ -96,9 +96,9 @@
 <?php
 
 // charge des variables depuis une base de données mysql et les assigne au template.
-require_once("MySQL.class.php");
+require_once('MySQL.class.php');
 $sql = new MySQL;
-$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+$sql->query('select * from site_nav_sections order by name',SQL_ALL);
 $this->assign('sections',$sql->record);
 
 ?>
@@ -110,7 +110,7 @@ $this->assign('sections',$sql->record);
   <programlisting>
 <![CDATA[
 {* chemin absolu, ou relatif à $trusted_dir *}
-{include_php file="/chemin/vers/load_nav.php"}
+{include_php file='/chemin/vers/load_nav.php'}
 
 {foreach item="curr_section" from=$sections}
   <a href="{$curr_section.url}">{$curr_section.name}</a><br />
