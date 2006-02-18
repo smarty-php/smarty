@@ -7,9 +7,9 @@
   after they are compiled. Postfilters can be either
   <link linkend="api.register.postfilter">registered</link> or loaded
   from the <link linkend="variable.plugins.dir">plugins directory</link>
-  by using
+  by using the 
   <link linkend="api.load.filter">load_filter()</link> function or by
-  setting
+  setting the
   <link linkend="variable.autoload.filters">$autoload_filters</link>
   variable. Smarty will pass the compiled template code as the first
   argument, and expect the function to return the result of the

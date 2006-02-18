@@ -54,7 +54,7 @@ $smarty->display('index.tpl');
    <link linkend="api.load.filter">load_filter()</link>,
    <link linkend="variable.autoload.filters">$autoload_filters</link>
    <link linkend="advanced.features.postfilters">postfilters</link> and
-   <link linkend="variable.plugins.dir">plugins directory</link>.
+   <link linkend="variable.plugins.dir">$plugins_dir</link>.
    </para>
 </sect1>
 <!-- Keep this comment at the end of the file
