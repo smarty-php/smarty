@@ -57,7 +57,7 @@
    Be careful when capturing <link
    linkend="language.function.insert">{insert}</link>
    output. If you have
-   <link linkend="caching">caching</link>
+   <link linkend="caching">$caching</link>
    enabled and you have
    <link linkend="language.function.insert">{insert}</link>
    commands that you expect to run
@@ -93,13 +93,13 @@
      <link linkend="language.function.popup">{popup}</link> 
      function</para>
      <programlisting>
-  <![CDATA[
-  {capture name=some_content assign=popText}
-    .... some content ....
-  {/capture}
-  
-  <a href="#" {popup caption='Help' text=$popText}>help</a>
-  ]]>
+<![CDATA[
+{capture name=some_content assign=popText}
+.... some popup content ....
+{/capture}
+
+<a href="#" {popup caption='Help' text=$popText}>help</a>
+]]>
      </programlisting>
   </example>
   

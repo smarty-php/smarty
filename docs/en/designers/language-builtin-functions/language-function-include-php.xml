@@ -63,7 +63,7 @@
 
  <para>
   {include_php} tags are used to include a php script in your template.
-  If <link linkend="variable.security">security is enabled</link>,
+  If <link linkend="variable.security">$security</link> is enabled,
   then the php script must be located in the <link
   linkend="variable.trusted.dir">$trusted_dir</link> path.
   The {include_php} tag must have the attribute
@@ -97,9 +97,9 @@
 <?php
 
 // load in variables from a mysql db and assign them to the template
-require_once("MySQL.class.php");
+require_once('MySQL.class.php');
 $sql = new MySQL;
-$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+$sql->query('select * from site_nav_sections order by name',SQL_ALL);
 $this->assign('sections',$sql->record);
 
 ?>
@@ -111,7 +111,7 @@ $this->assign('sections',$sql->record);
   <programlisting>
 <![CDATA[
 {* absolute path, or relative to $trusted_dir *}
-{include_php file="/path/to/load_nav.php"}
+{include_php file='/path/to/load_nav.php'}
 
 {foreach item="curr_section" from=$sections}
   <a href="{$curr_section.url}">{$curr_section.name}</a><br />

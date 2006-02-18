@@ -8,11 +8,11 @@
      or <link linkend="api.fetch">fetch()</link>.
      Let's say that a call to display('index.tpl') may have several
      different output contents depending on some condition, and you want
-     separate caches for each one. You can do this by passing a cache_id as the
+     separate caches for each one. You can do this by passing a $cache_id as the
      second parameter to the function call.
     </para>
     <example>
-     <title>passing a cache_id to display()</title>
+     <title>passing a $cache_id to display()</title>
      <programlisting role="php">
 <![CDATA[
 <?php

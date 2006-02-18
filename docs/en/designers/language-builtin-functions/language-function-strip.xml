@@ -19,9 +19,9 @@
  <note>
   <title>Technical Note</title>
   <para>
-   {strip}{/strip} does not affect the contents of template variables.
-   See the
-   <link linkend="language.modifier.strip">strip modifier</link>.
+   {strip}{/strip} does not affect the contents of template variables,
+   see the
+   <link linkend="language.modifier.strip">strip modifier</link> instead.
   </para>
  </note>
  <example>

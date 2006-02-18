@@ -33,7 +33,7 @@ $smarty->display('index.tpl');
 <![CDATA[
 {$articleTitle}
 {$articleTitle|strip}
-{$articleTitle|strip:"&nbsp;"}
+{$articleTitle|strip:'&nbsp;'}
 ]]>
    </programlisting>
    <para>

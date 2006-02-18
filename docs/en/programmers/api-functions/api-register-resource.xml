@@ -6,7 +6,7 @@
   <refpurpose>dynamically register resources</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Descrption</title>
+  <title>Description</title>
   <methodsynopsis>
    <type>void</type><methodname>register_resource</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>

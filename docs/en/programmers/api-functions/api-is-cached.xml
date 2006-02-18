@@ -16,7 +16,7 @@
   </methodsynopsis>
   <para>
    This only works if <link
-   linkend="variable.caching">$caching</link> is set to true. See also the
+   linkend="variable.caching">$caching</link> is set to true; see the
    <link linkend="caching">caching section</link>.
   </para>
   <example>

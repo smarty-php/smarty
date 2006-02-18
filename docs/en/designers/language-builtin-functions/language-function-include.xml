@@ -6,7 +6,8 @@
   {include} tags are used for including other templates in the current
   template. Any variables available in the current template are also
   available within the included template. The {include} tag must have
-  the attribute "file", which contains the template resource path.
+  the attribute <emphasis>'file'</emphasis>, 
+  which contains the template resource path.
  </para>
  <para>
   You can optionally pass the <emphasis>'assign'</emphasis> attribute,
