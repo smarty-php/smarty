@@ -62,6 +62,17 @@ The value of $name is Bob.
   </screen>
  </example>
 
+<example>
+  <title>{assign} with some maths</title>
+<para>This complex example must have the variables in backticks</para>
+  <programlisting>
+<![CDATA[
+{assign var=running_total value=`$running_total+$some_array[loop].some_value`}
+]]>
+  </programlisting>
+
+ </example>
+ 
  <example>
   <title>Accessing {assign} variables from a PHP script.</title>
   <para>
