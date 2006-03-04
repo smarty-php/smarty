@@ -1,3 +1,11 @@
+2006-03-03  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/plugins/modifier.regex_replace.php:
+      use preg_replace to cover any space chars
+
+    * libs/plugins/modifier.regex_replace.php:
+      fix problem with allowing "e" modifier
+
 2006-01-29  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Smarty_Compiler.class.php:
