@@ -99,7 +99,8 @@ Statistics show that teen pregnancy drops off significantly after 25.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.strip">strip</link>
+   See also <link linkend="language.modifier.strip">strip</link>,
+   <link linkend="language.modifier.wordwrap">wordwrap</link>
    and <link linkend="language.modifier.spacify">spacify</link>.
   </para>
  </sect1>

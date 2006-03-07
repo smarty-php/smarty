@@ -44,6 +44,7 @@
 <?php
 
 $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
+$smarty->assign('email','');
 
 ?>
 ]]>
@@ -53,8 +54,9 @@ $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
    </para>
    <programlisting>
 <![CDATA[
-{$articleTitle|default:"no title"}
-{$myTitle|default:"no title"}
+{$articleTitle|default:'no title'}
+{$myTitle|default:'no title'}
+{$email|default:'No email address available'}
 ]]>
    </programlisting>
    <para>
@@ -64,6 +66,7 @@ $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
 <![CDATA[
 Dealers Will Hear Car Talk at Noon.
 no title
+No email address available
 ]]>
    </screen>
   </example>
