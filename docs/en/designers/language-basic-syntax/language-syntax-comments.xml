@@ -16,22 +16,23 @@
   <programlisting>
 <![CDATA[
 <body>
-{* a single line comment *}
+{* I am a smarty comment ... I dont exist in your html output ;-) *}
 
-{* this multiline
+{* another single smarty line comment, me not even in the compiled template  *}
+<!-- Yep me the another html comment and me sent to le browser -->
+
+{* this multiline smarty 
     comment is
    not sent to browser
 *}
 
-{* include the header file here *}
+{* include the header file here which is not *}
 {include file='header.tpl'}
 
 
 {* Dev note:  $includeFile is assigned in foo.php script  *}
 <!-- this html comment is sent to browser -->
 {include file=$includeFile}
-
-{include file=#includeFile#}
 
 {* this <select> block is redundant *}
 {*
