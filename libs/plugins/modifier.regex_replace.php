@@ -22,7 +22,8 @@
  */
 function smarty_modifier_regex_replace($string, $search, $replace)
 {
-    if (preg_match('!\W([\w\s]+)$!s', $search, $match) && (strpos($match[1], 'e') !== false)) {
+    $_delimq = preg_quote($string[0]);
+    if (preg_match('!' . $_delimq . '([a-zA-Z\s]+)$!s', $search, $match) && (strpos($match[1], 'e') !== false)) {
         /* remove eval-modifier from $search */
         $search = substr($search, 0, -strlen($match[1])) . preg_replace('![e\s]+!', '', $match[1]);
     }
