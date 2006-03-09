@@ -1,3 +1,11 @@
+2006-03-08  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/plugins/modifier.regex_replace.php:
+      remove delim quote
+
+    * libs/plugins/modifier.regex_replace.php:
+      fix delimiter issue
+
 2006-03-03  Monte Ohrt  <monte@ohrt.com>
 
     * libs/plugins/modifier.regex_replace.php:
