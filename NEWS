@@ -1,3 +1,8 @@
+Version 2.6.13 (March 9th, 2006)
+--------------------------------
+
+ - update regex_replace, removing possible use of "e" modifier
+
 Version 2.6.12 (Jan 18th, 2006)
 -------------------------------
 
