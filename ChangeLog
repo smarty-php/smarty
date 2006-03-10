@@ -1,3 +1,9 @@
+2006-03-09  Monte Ohrt  <monte@ohrt.com>
+
+    * (Smarty_2_6_13)
+      NEWS:
+      update for release
+
 2006-03-08  Monte Ohrt  <monte@ohrt.com>
 
     * libs/plugins/modifier.regex_replace.php:
