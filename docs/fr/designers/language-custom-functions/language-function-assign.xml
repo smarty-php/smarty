@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.assign">
  <title>{assign}</title>
@@ -58,6 +58,16 @@ La valeur de $name est {$name}.
 La valeur de $name est Bob.
 ]]>
   </screen>
+ </example>
+
+ <example>
+  <title>{assign} avec quelques fonctions mathématiques</title>
+  <para>Cet exemple complexe doit avoir ces variables entre crochets.</para>
+  <programlisting>
+<![CDATA[
+{assign var=running_total value=`$running_total+$some_array[loop].some_value`}
+]]>
+  </programlisting>
  </example>
 
  <example>

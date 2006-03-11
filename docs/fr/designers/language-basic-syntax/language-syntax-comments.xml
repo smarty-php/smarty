@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.syntax.comments">
  <title>Commentaires</title>
@@ -18,21 +18,22 @@
   <programlisting>
 <![CDATA[
 <body>
-{* un commentaire sur une seule ligne *}
+{* Je suis un commentaire Smarty, je n'existe pas dans la sortie compilée *}
+
+{* un autre commentaire Smarty sur une seule ligne *}
+<!-- Un commentaire Html qui sera envoyé au navigateur -->
 
 {* ces multi-lignes sont des commentaires
      qui ne sont pas envoyées au navigateur
 *}
 
-{* Inclusion de l'en tête *}
+{* Inclusion du fichier d'en tête *}
 {include file='header.tpl'}
 
 
 {* Note aux développeurs :  $includeFile est assigné au script foo.php  *}
-<!-- ce commentaire html est envoyé au navigateur -->
+<!-- Affichage du bloc principal -->
 {include file=$includeFile}
-
-{include file=#includeFile#}
 
 {* Ce block <select> est redondant *}
 {*

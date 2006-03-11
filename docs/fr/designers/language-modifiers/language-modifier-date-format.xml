@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.date.format">
  <title>date_format</title>
@@ -77,6 +77,9 @@
 <![CDATA[
 <?php
 
+$config['date'] = '%I:%M %p';
+$config['time'] = '%H:%M:%S';
+$smarty->assign('config',$config);
 $smarty->assign('hier', strtotime('-1 day'));
 
 ?>
@@ -89,10 +92,10 @@ $smarty->assign('hier', strtotime('-1 day'));
 <![CDATA[
 {$smarty.now|date_format}
 {$smarty.now|date_format:"%D"}
-{$smarty.now|date_format:"%I:%M %p"}
+{$smarty.now|date_format:$config.date}
 {$yesterday|date_format}
 {$yesterday|date_format:"%A, %B %e, %Y"}
-{$yesterday|date_format:"%H:%M:%S"}
+{$yesterday|date_format:$config.time}
 ]]>
    </programlisting>
    <para>

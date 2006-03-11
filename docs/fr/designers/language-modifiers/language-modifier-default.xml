@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.default">
  <title>default</title>
@@ -32,44 +32,49 @@
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
      <entry>La valeur par défaut de la sortie si la variable
-     d'entrée est vide.</entry>
+      d'entrée est vide.</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
  <example>
-  <title>default</title>
-<programlisting role="php">
+  <title>Défaut</title>
+  <programlisting role="php">
 <![CDATA[
 <?php
 
 $smarty->assign('TitreArticle', 'Les portes de la moria restent fermées.');
+$smarty->assign('email','');
 
 ?>
 ]]>
-</programlisting>
-<para>
-Où le template est :
-</para>
-<programlisting>
-<![CDATA[
-{$TitreArticle|default:"pas de titre"}
-{$monTitre|default:"pas de titre"}
-]]>
-</programlisting>
-<para>
-Ce qui donne à l'écran :
-</para>
-<screen>
-Les portes de la moria restent fermées.
-pas de titre
-</screen>
-</example>
-<para>
- Voir aussi
- <link linkend="tips.default.var.handling">la gestion des variables par défaut</link>
- et <link linkend="tips.blank.var.handling">la gestion de l'effacement des variables</link>.
+  </programlisting>
+  <para>
+   Où le template est :
   </para>
+  <programlisting>
+<![CDATA[
+{$articleTitle|default:'Aucun titre'}
+{$myTitle|default:'Aucun titre'}
+{$email|default:'Aucune adresse email disponible'}
+]]>
+  </programlisting>
+  <para>
+   Ce qui donne à l'écran :
+  </para>
+  <screen>
+<![CDATA[
+Les portes de la moria restent fermées.
+Aucun titre
+Aucune adresse email disponible
+]]>
+  </screen>
+ </example>
+ <para>
+  Voir aussi
+  <link linkend="tips.default.var.handling">la gestion des variables par défaut</link>
+  et <link linkend="tips.blank.var.handling">la gestion de l'effacement des variables</link>.
+ </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file

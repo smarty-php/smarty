@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.indent">
  <title>indent</title>
@@ -98,7 +98,8 @@ Statistics show that teen pregnancy drops off significantly after 25.
 </example>
 <para>
  Voir aussi
- <link linkend="language.modifier.strip">strip</link> et
+ <link linkend="language.modifier.strip">strip</link>,
+ <link linkend="language.modifier.wordwrap">wordwrap</link> et
  <link linkend="language.modifier.spacify">spacify</link>.
   </para>
 </sect1>
