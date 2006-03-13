@@ -152,7 +152,7 @@ $smarty->assign('customer_id', 1001);
 <?php
 
 $sql = 'select type_id, types from contact_types order by type';
-$smarty->assign('types',$db->getAssoc($sql));
+$smarty->assign('contact_types',$db->getAssoc($sql));
 
 $sql = 'select contact_id, name, email, contact_type_id '
         .'from contacts where contact_id='.$contact_id;
