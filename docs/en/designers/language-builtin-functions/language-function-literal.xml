@@ -38,26 +38,45 @@
  </example>
  
  <example>
-   <title>Javascript = ecma</title>
+   <title>Javascript function example</title>
    <programlisting>
- <![CDATA[
+<![CDATA[
 <script language="JavaScript" type="text/javascript">
 {literal}
-function myJsFunction(name){
-        if(name){
-                alert('The servers name is: ' + name);
-        }
-        return false;
+function myJsFunction(name, ip){
+   alert("The server name\n" + name + "\n" + ip);
 }
 {/literal}
 </script>
-<a href="javascript:myJsFunction('{$smarty.server.SERVER_NAME}')">Click here for Server Name</a>
+<a href="javascript:myJsFunction('{$smarty.server.SERVER_NAME}','{$smarty.server.SERVER_ADDR}')">Click here for the Server Info</a>
  ]]>
    </programlisting>
  </example>
+
+ <example>
+  <title>Some css in a template</title>
+  <programlisting>
+<![CDATA[
+{* included this style .. as an experiment *}
+<style type="text/css">
+{literal}
+/* this is an intersting idea for this section */
+.madIdea{
+    border: 3px outset #ffffff;
+    margin: 2 3 4 5px;
+    background-color: #001122;
+}
+{/literal}
+</style>
+<div class="madIdea">With smarty you can embed css in the template</div>
+]]>
+</programlisting>
+</example>
  
  <para>
   See also
+  <link linkend="language.function.ldelim">{ldelim} {rdelim}</link>
+  and 
   <link linkend="language.escaping">Escaping Smarty Parsing</link>.
  </para>
 </sect1>

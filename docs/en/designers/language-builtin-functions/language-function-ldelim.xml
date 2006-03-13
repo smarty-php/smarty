@@ -53,7 +53,26 @@ function foo() {
    </screen>
 
   </example>
-  <para>See also <link linkend="language.escaping">Escaping Smarty Parsing</link> </para>
+  
+  <example>
+     <title>another Javascript example</title>
+<programlisting>
+<![CDATA[
+<script language="JavaScript" type="text/javascript">
+    function myJsFunction(){ldelim}
+        alert("The server name\n{$smarty.server.SERVER_NAME}\n{$smarty.server.SERVER_ADDR}");
+    {rdelim}
+</script>
+<a href="javascript:myJsFunction()">Click here for Server Info</a>
+]]>
+</programlisting>
+ </example>
+ 
+  <para>See also 
+  <link linkend="language.function.literal">{literal}</link>
+  and
+  <link linkend="language.escaping">Escaping Smarty Parsing</link> 
+  </para>
  </sect1>
 
 <!-- Keep this comment at the end of the file
