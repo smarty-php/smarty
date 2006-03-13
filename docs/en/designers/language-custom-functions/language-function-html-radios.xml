@@ -151,11 +151,11 @@ $smarty->assign('customer_id', 1001);
 <![CDATA[
 <?php
 
-$sql = 'select type_id, types from types order by type';
+$sql = 'select type_id, types from contact_types order by type';
 $smarty->assign('types',$db->getAssoc($sql));
 
-$sql = 'select contact_id, name, email, contact_type_id
-        from contacts where contact_id='.$contact_id;
+$sql = 'select contact_id, name, email, contact_type_id '
+        .'from contacts where contact_id='.$contact_id;
 $smarty->assign('contact',$db->getRow($sql));
 
 ?>
@@ -166,7 +166,7 @@ $smarty->assign('contact',$db->getRow($sql));
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name='contact_type_type' options=$types 
+{html_radios name='contact_type_id' options=$contact_types 
      selected=$contact.contact_type_id separator='<br />'}
 ]]>
   </programlisting>

@@ -144,7 +144,8 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name='id' options=$cust_checkboxes selected=$customer_id separator='<br />'}
+{html_checkboxes name='id' options=$cust_checkboxes 
+   selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
   <para>
@@ -172,7 +173,7 @@ $sql = 'select type_id, types from contact_types order by type';
 $smarty->assign('contact_types',$db->getAssoc($sql));
 
 $sql = 'select contact_id, contact_type_id, contact '
-       ,'from contacts where contact_id=12';
+       .'from contacts where contact_id=12';
 $smarty->assign('contact',$db->getRow($sql));
 
 ?>
