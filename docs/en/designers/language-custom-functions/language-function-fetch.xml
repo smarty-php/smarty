@@ -63,7 +63,7 @@
   <title>Technical Note</title>
   <para>
    If template <link linkend="variable.security">$security</link>
-   is turned on and you are
+   is enabled and you are
    fetching a file from the local file system, {fetch} will only allow
    files from within one of the defined 
    <link linkend="variable.secure.dir">secure directories</link>.
