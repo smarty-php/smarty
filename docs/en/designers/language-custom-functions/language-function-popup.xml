@@ -402,18 +402,20 @@
   <programlisting>
 <![CDATA[
 {* popup_init must be called once at the top of the page *}
-{popup_init src="/javascripts/overlib.js"}
+{popup_init src='/javascripts/overlib.js'}
 
 {* create a link with a popup window when you move your mouse over *}
-<a href="mypage.html" {popup text="This link takes you to my page!"}>mypage</a>
+<a href="mypage.html" {popup text='This link takes you to my page!'}>mypage</a>
 
 {* you can use html, links, etc in your popup text *}
-<a href="mypage.html" {popup sticky=true caption="mypage contents"
+<a href="mypage.html" {popup sticky=true caption='mypage contents'
 text="<ul><li>links</li><li>pages</li><li>images</li></ul>"
-snapx=10 snapy=10}>mypage</a>
+snapx=10 snapy=10 trigger='onClick'}>mypage</a>
 ]]>
   </programlisting>
  </example>
+ <para>There is another good example on the 
+ <link linkend="language.function.capture">{capture}</link> page.</para>
  <para>
  See also
   <link linkend="language.function.popup.init">{popup_init}</link>

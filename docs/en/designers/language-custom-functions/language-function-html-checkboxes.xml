@@ -9,7 +9,7 @@
    group with provided data. It takes care of which item(s) are
    selected by default as well. Required attributes are values and
    output, unless you use options instead. All output is XHTML
-   compatible.
+   compliant.
  </para>
  
  <informaltable frame="all">
@@ -117,8 +117,8 @@ where template is
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" values=$cust_ids output=$cust_names
-   selected=$customer_id  separator="<br />"}
+{html_checkboxes name='id' values=$cust_ids output=$cust_names
+   selected=$customer_id  separator='<br />'}
 ]]>
   </programlisting>
   <para>
@@ -144,7 +144,7 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="<br />"}
+{html_checkboxes name='id' options=$cust_checkboxes selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
   <para>
@@ -168,10 +168,11 @@ $smarty->assign('customer_id', 1001);
 <![CDATA[
 <?php
 
-$sql = 'select type_id, types from types order by type';
-$smarty->assign('types',$db->getAssoc($sql));
+$sql = 'select type_id, types from contact_types order by type';
+$smarty->assign('contact_types',$db->getAssoc($sql));
 
-$sql = 'select * from contacts where contact_id=12';
+$sql = 'select contact_id, contact_type_id, contact '
+       ,'from contacts where contact_id=12';
 $smarty->assign('contact',$db->getRow($sql));
 
 ?>
@@ -179,7 +180,8 @@ $smarty->assign('contact',$db->getRow($sql));
   </programlisting>
 <programlisting>
 <![CDATA[
-{html_checkboxes name="type" options=$types selected=$contact.type_id separator="<br />"}
+{html_checkboxes name='contact_type_id' options=$contact_types 
+        selected=$contact.contact_type_id separator='<br />'}
 ]]>
 </programlisting>
  </example>

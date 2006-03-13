@@ -23,7 +23,7 @@
 <![CDATA[
 <head>
 {* popup_init must be called once at the top of the page *}
-{popup_init src="javascripts/overlib.js"}
+{popup_init src='javascripts/overlib/overlib.js'}
 </head>
 ]]>
   </programlisting>

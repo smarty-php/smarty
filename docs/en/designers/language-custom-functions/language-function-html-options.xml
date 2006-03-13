@@ -159,10 +159,10 @@ where template is:
 <![CDATA[
 <?php
 
-$sql = 'select type_id, types from types order by type';
-$smarty->assign('types',$db->getAssoc($sql));
+$sql = 'select type_id, types from contact_types order by type';
+$smarty->assign('contact_types',$db->getAssoc($sql));
 
-$sql = 'select contact_id, name, email, type_id
+$sql = 'select contact_id, name, email, contact_type_id
         from contacts where contact_id='.$contact_id;
 $smarty->assign('contact',$db->getRow($sql));
 
@@ -176,7 +176,8 @@ where the template is:
 <![CDATA[
 <select name="type_id">
     <option value='null'>-- none --</option>
-    {html_options name="type" options=$types selected=$contact.type_id}
+    {html_options name='contact_type_type' options=$contact_types 
+        selected=$contact.type_id}
 </select>
 ]]>
   </programlisting>
