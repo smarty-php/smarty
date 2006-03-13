@@ -13,6 +13,7 @@
   linkend="language.function.ldelim">{ldelim}{rdelim}</link> to escape the
   individual delimiters instead.
  </para>
+ 
  <example>
   <title>{literal} tags</title>
   <programlisting>
@@ -35,6 +36,26 @@
 ]]>
   </programlisting>
  </example>
+ 
+ <example>
+   <title>Javascript = ecma</title>
+   <programlisting>
+ <![CDATA[
+<script language="JavaScript" type="text/javascript">
+{literal}
+function myJsFunction(name){
+        if(name){
+                alert('The servers name is: ' + name);
+        }
+        return false;
+}
+{/literal}
+</script>
+<a href="javascript:myJsFunction('{$smarty.server.SERVER_NAME}')">Click here for Server Name</a>
+ ]]>
+   </programlisting>
+ </example>
+ 
  <para>
   See also
   <link linkend="language.escaping">Escaping Smarty Parsing</link>.
