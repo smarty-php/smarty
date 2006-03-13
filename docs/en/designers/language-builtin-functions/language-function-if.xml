@@ -147,21 +147,21 @@
   <title>{if} statements</title>
   <programlisting>
 <![CDATA[
-{if $name eq "Fred"}
+{if $name eq 'Fred'}
     Welcome Sir.
-{elseif $name eq "Wilma"}
+{elseif $name eq 'Wilma'}
     Welcome Ma'am.
 {else}
     Welcome, whatever you are.
 {/if}
 
 {* an example with "or" logic *}
-{if $name eq "Fred" or $name eq "Wilma"}
+{if $name eq 'Fred' or $name eq 'Wilma'}
    ...
 {/if}
 
 {* same as above *}
-{if $name == "Fred" || $name == "Wilma"}
+{if $name == 'Fred' || $name == 'Wilma'}
    ...
 {/if}
 
@@ -221,6 +221,25 @@
 ]]>
   </programlisting>
  </example>
+ 
+ 
+ <example>
+   <title>{if} with more examples</title>
+<programlisting>
+ <![CDATA[
+{if isset($name) && $name = 'Blog'}
+     {* do something *}
+{elseif $name == $foo}
+    {* do something *}
+{/if}
+
+{if is_array($foo) && count($foo) > 0)
+    {* do a foreach loop *}
+{/if}
+  ]]>
+</programlisting>
+ </example>
+ 
 </sect1>
 <!-- Keep this comment at the end of the file
      Local variables:
