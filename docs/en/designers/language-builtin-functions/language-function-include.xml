@@ -172,7 +172,7 @@
  <para>
   See also
   <link linkend="language.function.include.php">{include_php}</link>,
-  <link linkend="language.function.insert.php">{insert}</link>,
+  <link linkend="language.function.insert">{insert}</link>,
   <link linkend="language.function.php">{php}</link>,
   <link linkend="template.resources">Template Resources</link> and
   <link linkend="tips.componentized.templates">Componentized Templates</link>.
