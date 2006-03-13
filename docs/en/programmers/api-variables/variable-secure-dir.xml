@@ -10,6 +10,21 @@
  use this when
  <link linkend="variable.security">$security</link> is enabled.
       </para>
+      
+      
+<example>
+<title>$secure_dir example</title>
+<programlisting role="php">
+<![CDATA[
+<?php
+$secure_dirs[] = '/path/to/site/root/templates/';
+$secure_dirs[] = '/path/to/includes/';
+$smarty->secure_dir = $secure_dirs;
+?>
+]]>
+</programlisting>
+</example>
+  
 <para>
  See also
  <link linkend="variable.security.settings">Security settings</link>,
