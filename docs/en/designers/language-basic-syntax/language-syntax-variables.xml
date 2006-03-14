@@ -48,8 +48,12 @@ Many other combinations are allowed
  </para>
  
  <para>
-  See also <link linkend="language.variables.smarty">$smarty reserved variables</link>
-  and <link linkend="language.config.variables">Config Variables</link>.
+  See also <link linkend="language.variables.smarty">$smarty reserved variables</link>,
+  <link linkend="language.config.variables">Config Variables</link>
+  <link linkend="language.function.assign">{assign}</link>
+  and
+  <link linkend="api.assign">assign()</link>.
+  and .
  </para>
 </sect1>
 
