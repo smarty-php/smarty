@@ -42,6 +42,11 @@ Many other combinations are allowed
 ]]>
   </programlisting>
  </example>
+ 
+ <para>Request variables such as get, post, session etc are also available, see the
+ <link linkend="language.variables.smarty">$smarty</link> reserved variable for more details.
+ </para>
+ 
  <para>
   See also <link linkend="language.variables.smarty">$smarty reserved variables</link>
   and <link linkend="language.config.variables">Config Variables</link>.
