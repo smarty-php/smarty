@@ -39,6 +39,9 @@ Many other combinations are allowed
 {$foo.bar.baz[4]}
 {$foo->bar($baz,2,$bar)} <-- passing parameters
 {"foo"}       <-- static values are allowed
+
+{* display the server variable "SERVER_NAME" ($_SERVER['SERVER_NAME'])*}
+{$smarty.server.SERVER_NAME}
 ]]>
   </programlisting>
  </example>
