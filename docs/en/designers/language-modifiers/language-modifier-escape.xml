@@ -90,7 +90,17 @@ $smarty->assign('articleTitle',
 <a href="mailto:%62%6f%..snip..%65%74">&#x62;&#x6f;&#x62..snip..&#x65;&#x74;</a>
 ]]>
    </screen>
+   <para>Remember that native PHP functions can be used as modifiers so this will work</para>
+   <screen>
+<![CDATA[
+{* rewind get var registers the current location *}
+<a href="{$SCRIPT_NAME}?page=foo&rewind={$smarty.server.REQUEST_URI|urlencode}">click here</a>
+]]>
+   </screen>   
   </example>
+  
+  
+  
   <para>
    See also <link linkend="language.escaping">Escaping Smarty Parsing</link>
    and <link linkend="tips.obfuscating.email">Obfuscating E-mail Addresses</link>.
