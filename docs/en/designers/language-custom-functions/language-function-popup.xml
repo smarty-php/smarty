@@ -361,7 +361,7 @@
      overlib page for more info on this function</entry>
     </row>
     <row>
-     <entry>timeout</entry>
+     <entry>function</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
