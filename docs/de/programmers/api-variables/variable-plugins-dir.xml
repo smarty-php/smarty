@@ -1,23 +1,61 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
   <sect1 id="variable.plugins.dir">
-   <title>$plugins_dir</title>
-   <para>
-    Definiert das Verzeichnis in welchem Smarty die zu ladenden Plugins sucht.
-    Normalerweise ist dies 'plugins' im SMARTY_DIR Pfad. Wenn Sie einen relativen
-    Pfad angeben, wird Smarty zuerst versuchen das Plugin von SMARTY_DIR aus zu erreichen,
-    danach relativ zum aktuellen Verzeichnis (mit 'cwd' - current working directory)
-    und zum Schluss in jedem Eintrag des PHP-'include_path'.
-   </para>
-   <note>
-    <title>Technische Bemerkung</title>
+    <title>$plugins_dir</title>
     <para>
-     F&uuml;r optimale Performance ist es sinnvoll, 'plugins_dir'
-     absolut oder relativ zu SMARTY_DIR bzw. dem aktuellen Verzeichnis zu definieren.
-     Von der Definition des Verzeichnisses im PHP-'include_path' wird abgeraten.
+      Definiert das Verzeichnis (bzw. die Verzeichnisse) in dem Smarty die zu ladenden Plugins sucht.
+      Die Voreinstellung ist '<filename class="directory">"plugins"</filename>
+      unterhalb des <link linkend="constant.smarty.dir">SMARTY_DIR</link>-Verzeichnisses.
+      Wenn Sie einen relativen Pfad angeben, wird Smarty zuerst versuchen das Plugin von
+      <link linkend="constant.smarty.dir">SMARTY_DIR</link> aus zu erreichen,
+      danach relativ zum aktuellen Verzeichnis (mit 'cwd' - current working directory)
+      und zum Schluss in jedem Eintrag des PHP-'include_path'.
+      Wenn $plugins_dir ein Array von Verzeichnissen ist
+      wird Smarty jedes der angegebenen Verzeichnisse
+      in der angegebenen Reihenfolge nach dem Plugin durchsuchen.
     </para>
-   </note>
+    <note>
+      <title>Technische Bemerkung</title>
+      <para>
+        F&uuml;r optimale Performance sollte $plugins_dir entweder absolut
+        oder relativ zu SMARTY_DIR bzw. dem aktuellen Verzeichnis zu definieren.
+        Von der Definition des Verzeichnisses im PHP-'include_path' wird abgeraten.
+      </para>
+    </note>
+
+    <example>
+      <title>Ein lokales Plugin-Verzeichnis hinzuf&uuml;gen</title>
+      <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty->plugins_dir[] = 'includes/my_smarty_plugins';
+
+?>
+
+]]>
+      </programlisting>
+    </example>
+
+    <example>
+      <title>Mehrere Verzeichnisse im $plugins_dir</title>
+      <programlisting role="php">
+<![CDATA[
+<?php
+
+$smarty->plugins_dir = array(
+                       'plugins', // the default under SMARTY_DIR
+                       '/path/to/shared/plugins',
+                       '../../includes/my/plugins'
+                       );
+
+?>
+
+]]>
+      </programlisting>
+    </example>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-  <sect1 id="variable.secure.dir">
-   <title>$secure_dir</title>
-   <para>
-    Definiert die als 'sicher' geltenden Verzeichnisse als Array.
-    {include} und {fetch} verwenden diese Verzeichnisse, wenn '$security'
-    eingeschaltet ist.
-   </para>
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
+<sect1 id="variable.secure.dir">
+  <title>$secure_dir</title>
+  <para>
+    Dies ist ein Array das alle Dateien und Verzeichnisse enth&auml;lt,
+    die als sicher angesehen werden.
+    <link linkend="language.function.include">{include}</link>
+    und <link linkend="language.function.fetch">{fetch}</link>
+    verwenden diese Daten wenn
+    <link linkend="variable.security">$security</link> eingeschaltet ist.
+  </para>
+  <para>
+    Siehe auch
+    <link linkend="variable.security.settings">Security settings</link>,
+    und <link linkend="variable.trusted.dir">$trusted_dir</link>.
+  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

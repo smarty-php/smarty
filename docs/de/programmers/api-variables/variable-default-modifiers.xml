@@ -7,7 +7,7 @@
     Definiert ein Array von Variablen-Modifikatoren, die auf jeder Variable anzuwenden sind.
     Wenn Sie zum Beispiel alle Variablen standardm&auml;ssig HTML-Maskieren wollen,
     k&ouml;nnen Sie array('escape:"htmlall"'); verwenden. Um eine Variable von dieser
-    Behandlung auszuschliessen, k&ouml;nnen Sie ihr den Parameter 'smarty' mit dem Modifikator 'nodefaults'
+    Behandlung auszuschliessen, k&ouml;nnen Sie ihr den Modifikator 'smarty' mit dem Parameter 'nodefaults'
     &uuml;bergeben. Als Beispiel: {$var|smarty:nodefaults}.
     Zum Beispiel: {$var|nodefaults}.
    </para>

@@ -4,10 +4,11 @@
   <sect1 id="variable.default.resource.type">
    <title>$default_resource_type</title>
    <para>
-    Definiert den Ressourcentyp der von Smarty implizitverwendet werden soll. Standartwert
+    Definiert den Ressourcentyp der von Smarty implizit verwendet werden soll. Standardwert
     ist 'file', was dazu f&uuml;hrt dass $smarty->display('index.tpl'); und
-    $smarty->display('file:index.tpl'); identisch sind. Konsultieren Sie das
-    <link linkend="template.resources">Resource</link> Kapitel f&uuml;r weitere Informationen.
+    $smarty->display('file:index.tpl'); identisch sind.
+    Weitere Informationen finden Sie im
+    <link linkend="template.resources">Resource</link>-Kapitel.
    </para>
 </sect1>
 <!-- Keep this comment at the end of the file

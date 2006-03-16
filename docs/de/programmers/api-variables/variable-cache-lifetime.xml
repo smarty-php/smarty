@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
   <sect1 id="variable.cache.lifetime">
    <title>$cache_lifetime</title>
    <para>
@@ -26,7 +26,8 @@
      Falls Sie bestimmten Templates eine eigene Cache-Lifetime geben wollen,
      k&ouml;nnen Sie dies tun indem Sie <link linkend="variable.caching">$caching</link>
      auf 2 stellen und '$cache_lifetime' einen einmaligen Wert zuweisen, bevor Sie
-     'display()' oder 'fetch()' aufrufen.
+      <link linkend="api.display">display()</link>
+      oder <link linkend="api.fetch">fetch()</link> aufrufen.
     </para>
    </note>
 </sect1>

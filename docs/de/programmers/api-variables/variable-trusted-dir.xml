@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-  <sect1 id="variable.trusted.dir">
-   <title>$trusted_dir</title>
-   <para>
-    '$trusted_dir' wird nur verwendet wenn die Sicherheit eingeschaltet ist. Der Wert
-    ist ein Array aller Verzeichnisse, die als vertrauensw&uuml;rdig gelten.
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+<sect1 id="variable.trusted.dir">
+  <title>$trusted_dir</title>
+  <para>
+    $trusted_dir wird nur verwendet wenn
+    <link linkend="variable.security">$security</link> eingeschaltet ist.
+    Der Wert ist ein Array aller Verzeichnisse, die als vertrauensw&uuml;rdig gelten.
     In diesen Verzeichnissen k&ouml;nnen PHP-Skripte, die man direkt aus einem Template
     mit <link linkend="language.function.include.php">{include_php}</link> aufruft,
     abgelegt werden.

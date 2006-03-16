@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-  <sect1 id="variable.security.settings">
-   <title>$security_settings</title>
-   <para>
-    Wird verwendet um spezifische Sicherheits-Einstellungen zu
-    &auml;ndern, wenn '$security' eingeschaltet ist.
-   </para>
-   <itemizedlist>
-    <listitem><para>PHP_HANDLING - true/false. Wenn auf 'true' gesetzt wird '$php_handling' ignoriert.</para></listitem>
-    <listitem><para>IF_FUNCS - Ist ein Array aller erlaubter Funktionen in IF-Statements.</para></listitem>
-    <listitem><para>INCLUDE_ANY - true/false. Wenn 'true', kann jedes Template geladen werden, auch ausserhalb der '$secure_dir'-Liste.</para></listitem>
-    <listitem><para>PHP_TAGS - true/false. Wenn 'true', sind keine {php}{/php}-Tags erlaubt.</para></listitem>
-    <listitem><para>MODIFIER_FUNCS - Ist ein Array aller Funktionen die als Variablen-Modifikatoren verwendet werden d&uuml;rfen.</para></listitem>
-   </itemizedlist>
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
+<sect1 id="variable.security.settings">
+  <title>$security_settings</title>
+  <para>
+    Wird verwendet um spezifische Sicherheits-Einstellungen zu &auml;ndern,
+    wenn <link linkend="variable.security">$security</link> eingeschaltet ist.
+  </para>
+  <itemizedlist>
+    <listitem>
+      <para>
+        PHP_HANDLING - true/false.
+        Wenn auf 'true' gesetzt, wird <link linkend="variable.php.handling">$php_handling</link> ignoriert.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        IF_FUNCS - Ein Array aller erlaubter Funktionen in
+        <link linkend="language.function.if">{if}</link>-Statements.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        INCLUDE_ANY - true/false.
+        Wenn 'true', kann das Template aus jedem beliebigen Verzeichnis geladen werden,
+        auch au&szlig;erhalb der <link linkend="variable.secure.dir">$secure_dir</link>-Liste.</para>
+    </listitem>
+    <listitem>
+      <para>
+        PHP_TAGS - true/false.
+        Wenn 'true', sind <link linkend="language.function.php">{php}{/php}</link>-Tags
+        in Templates erlaubt.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        MODIFIER_FUNCS - Ein Array aller PHP-Funktionen
+        die als Variablen-Modifikatoren verwendet werden d&uuml;rfen.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        ALLOW_CONSTANTS - true/false.
+        Wenn 'true', ist die Verwendung von Konstanten via
+        <link linkend="language.variables.smarty.const">{$smarty.const.name}</link>
+        in Template zul&auml;ssig.
+        Aus Sicherheitsgr&uuml;nden ist die Voreinstellung 'false'.
+      </para>
+    </listitem>
+  </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

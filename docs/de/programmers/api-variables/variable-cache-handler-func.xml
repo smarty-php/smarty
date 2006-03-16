@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: andreas Status: ready -->
   <sect1 id="variable.cache.handler.func">
    <title>$cache_handler_func</title>
    <para>
     Sie k&ouml;nnen auch eine eigene Cache-Handler Funktion definieren.
+    statt nur mit der <link linkend="variable.cache.dir">$cache_dir</link>-Variable
+    ein eigenes Verzeichnis festzulegen.
     Siehe Abschnitt zur <link linkend="section.template.cache.handler.func">custom cache handler</link> Funktion.
    </para>
 </sect1>

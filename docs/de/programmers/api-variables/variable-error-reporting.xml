@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-     <sect1 id="variable.error.reporting">
-      <title>$error_reporting</title>
-      <para>
-	  	Wenn dieser Wert nicht 0 ist, wird er benutzt um das error_reporting-Level von PHP zu bestimmen. Wenn debugging eingeschaltet ist, wird der Wert ignoriert und das Error-Level bleibt unver&auml;ndert.
-      </para>
-</sect1>
+<!-- EN-Revision: 1.4 Maintainer: andreas Status: ready -->
+  <sect1 id="variable.error.reporting">
+    <title>$error_reporting</title>
+
+    <para>
+      Wenn dieser Wert nicht 0 ist, dann setzt er den Wert f&uuml;r das
+      <ulink url="&url.php-manual;error_reporting">error_reporting</ulink>
+      von PHP beim Aufruf von <link linkend="api.display">display()</link>
+      und <link linkend="api.fetch">fetch()</link>.
+      Wenn <link linkend="chapter.debugging.console">debugging</link>
+      aktiviert ist, dann wird dieser Wert ignoriert.
+    </para>
+    <para>
+      Siehe auch
+      <link linkend="api.trigger.error">trigger_error()</link>,
+      <link linkend="chapter.debugging.console">debugging</link>
+      und
+      <link linkend="troubleshooting">Troubleshooting</link>.
+    </para>
+  </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

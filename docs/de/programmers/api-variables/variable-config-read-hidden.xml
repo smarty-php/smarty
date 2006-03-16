@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-     <sect1 id="variable.config.read.hidden">
-      <title>$config_read_hidden</title>
-      <para>
-	   Definiert ob Abschnitte die mit einem '.' beginnen aus Konfigurationsdateien gelesen werden sollen. Normalerweise sollte man dies auf false belassen, da man so sensitive Daten in der Konfiguration laden kann, die nicht dem Template zugewiesen werden. Standardwert: false
-	   </para>
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+   <sect1 id="variable.config.read.hidden">
+    <title>$config_read_hidden</title>
+    <para>
+	   Definiert ob Templates versteckte Abschnitte (deren Name mit einem '.' beginnt) aus
+	   <link linkend="config.files">Konfigurationsdateien</link> lesen d&uuml;rfen.
+	   Der Standardwert ist false.
+	   Normalerweise beh&auml;lt man den Standardwert bei,
+	   da man so sensible Daten (wie z.B. Datenbankzugriffsdaten)
+	   in den Konfigurationsdateien unterbringen kann,
+	   die nicht durch Templates ausgelesen werden k&ouml;nnen.
+	  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

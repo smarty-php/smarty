@@ -1,24 +1,63 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: andreas Status: ready -->
-  <sect1 id="variable.security">
-   <title>$security</title>
-   <para>
+<!-- EN-Revision: 1.2 Maintainer: andreas Status: ready -->
+<sect1 id="variable.security">
+  <title>$security</title>
+  <para>
     '$security' ein-/ausschalten. Normalerweise 'false' (ausgeschaltet).
-    Die Sicherheitseinstellung ist wertvoll, wenn nicht vertrauensw&uuml;rdigen
+    Aktiviert spezielle Sicherheitseinstellungen.
+    M&ouml;gliche Werte f&uuml;r $security sind 'true' und 'false',
+    wobei 'false' die Voreinstellung ist.
+    Die Sicherheitseinstellungen sind sinnvoll, wenn nicht vertrauensw&uuml;rdigen
     Parteien Zugriff auf die Templates gegeben wird (zum Beispiel via FTP).
     Mit aktivierter '$security' kann verhindert werden, dass diese das System 
-    via Template-Engine kompromittieren. Die '$security' einzuschalten halt folgende
-    Auswirkungen auf die Template-Language (ausser sie werden mit '$security_settings'
-    &uuml;berschrieben):
-   </para>
-   <itemizedlist>
-       <listitem><para>Wenn '$php_handling' auf SMARTY_PHP_ALLOW geschaltet ist, wird der Wert auf SMARTY_PHP_PASSTHRU ge&auml;ndert.</para></listitem>
-    <listitem><para>Ausser den in '$security_settings' definierten, sind keine Funktionen in IF-Statements aufrufbar.</para></listitem>
-    <listitem><para>Templates k&ouml;nnen nur aus den im '$secure_dir'-Array definierten Verzeichnissen geladen werden.</para></listitem>
-    <listitem><para>'fetch()' kann nur verwendet werden um Dateien aus '$secure_dir' zu laden.</para></listitem>
-    <listitem><para>{php}{/php}-Tags sind nicht erlaubt.</para></listitem>
-    <listitem><para>Ausser den in '$security_settings' definierten, sind keine PHP-Funktionen direkt als Variablen-Modifikatoren aufrufbar.</para></listitem>
+    via Template-Engine kompromittieren. Die '$security' einzuschalten hat folgende
+    Auswirkungen auf die Template-Language (ausser sie werden explizit mit
+    <link linkend="variable.security.settings">$security_settings</link> &uuml;berschrieben):
+  </para>
+
+  <itemizedlist>
+    <listitem>
+      <para>
+        Wenn <link linkend="variable.php.handling">$php_handling</link> auf
+        SMARTY_PHP_ALLOW gesetzt ist, dann wird der Wert auf SMARTY_PHP_PASSTHRU ge&auml;ndert.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        In <link linkend="language.function.if">{if}</link>-Statements sind keine
+        PHP-Funktionen zugelassen, die nicht explizit &uuml;ber die
+        <link linkend="variable.security.settings">$security_settings</link>
+        angegeben wurden.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Templates k&ouml;nnen nur aus den im
+        <link linkend="variable.secure.dir">$secure_dir</link>-Array
+        definierten Verzeichnissen geladen werden.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Dateien k&ouml;nnen mit <link linkend="language.function.fetch">{fetch}</link>
+        nur aus den in <link linkend="variable.secure.dir">$secure_dir</link>
+        angegebenen Verzeichnissen geladen werden.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        <link linkend="language.function.php">{php}{/php}</link>-Tags sind nicht erlaubt.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        PHP-Funktionen k&ouml;nnen nicht als Variablen-Modifikatoren verwendet werden,
+        wenn sie nicht explizit in
+        <link linkend="variable.security.settings">$security_settings</link>
+        angegeben wurden.
+      </para>
+    </listitem>
    </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file
