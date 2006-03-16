@@ -40,6 +40,7 @@ $use_sub_dirs=true on Windows can cause problems.
  <para>
   See also
   <link linkend="variable.compile.dir">$compile_dir</link>,
+  <link linkend="variable.compile.id">$compile_id</link>
    and
   <link linkend="variable.cache.dir">$cache_dir</link>.
  </para>
