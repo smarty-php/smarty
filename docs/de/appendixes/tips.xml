@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- EN-Revision: 1.9 Maintainer: andreas Status: ready -->
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.10 Maintainer: messju Status: ready -->
  <chapter id="tips">
   <title>Tips &amp; Tricks</title>
   <para>
@@ -20,18 +20,16 @@
     <title>"&amp;nbsp;" ausgeben wenn eine Variable nicht zugewiesen ist</title>
     <programlisting>
 <![CDATA[
-{* kompliziert *}
-
+{* die lange Variante: *}
 {if $titel eq ""}
-&amp;nbsp;
+   &nbsp;
 {else}
-{$titel}
+   {$titel}
 {/if}
 
 
-{* einfach *}
-
-{$titel|default:"&amp;nbsp;"}
+{* kürzer: *}
+{$titel|default:"&nbsp;"}
 ]]>
     </programlisting>
    </example>
@@ -84,16 +82,19 @@
     linkend="language.function.include">{include}</link> ein. Was
     geschieht aber wenn der Header einen seitenspezifischen Titel
     haben soll?  Smarty bietet die Möglichkeit, dem eingebundenen
-    Template, Variablen zu übergeben.
+    Template, Variablen als <link 
+    linkend="language.syntax.attributes">Attribute</link> zu
+    übergeben.
    </para>
    <example>
     <title>Die Titel-Variable dem Header-Template zuweisen</title>
     <para>
-     <filename>mainpage.tpl</filename>
+     <filename>mainpage.tpl</filename> - Beim Aufbau der Hauptseite
+     wird der Titel "Hauptseite" an <filename>header.tpl</filename>
+     übergeben und dort verwendet.
     </para>
     <programlisting>
 <![CDATA[
-
 {include file="header.tpl" title="Hauptseite"}
 {* template body hier *}
 {include file="footer.tpl"}
@@ -112,7 +113,10 @@
 ]]>
     </programlisting>
    <para>
-    <filename>header.tpl</filename>
+    <filename>header.tpl</filename> - Zur Info: wenn kein $titel
+    übergeben wurde wird hier mittels des <link
+    linkend="language.modifier.default">default</link>-Modifikator der
+    Titel "Nachrichten" verwendet.
    </para>
    <programlisting>
 <![CDATA[
@@ -133,26 +137,14 @@
 ]]>
     </programlisting>
    </example>
-   <para>
-    Sobald die erste Seite geparsed wird, wird der Titel 'Erste Seite'
-    dem <filename>header.tpl</filename> übergeben und fortan als Titel
-    verwendet. Wenn die Archivseite ausgegeben wird, wird der Titel
-    'Archive' ausgegeben.  Wie Sie sehen können, wird der Wert dafür
-    aus der Datei <filename>'archiv_page.conf'</filename> geladen und
-    nicht von einem übergebenen Wert. Der Standardwert 'Nachrichten'
-    wird verwendet, wenn die '$titel' leer ist.  Erneut wird dafür der
-    <link
-    linkend="language.modifier.default">default</link>-Modifikator
-    angewandt.
-   </para>
   </sect1>
   <sect1 id="tips.dates">
    <title>Zeitangaben</title>
    <para>
     Um dem Template Designer höchstmögliche Kontrolle über die Ausgabe
     von Zeitangaben/Daten zu ermöglichen, ist es empfehlenswert Daten
-    immer als Timestamp zu übergeben. Der Designer kann danach die
-    Funktion <link
+    immer als <ulink url="&url.php-manual;time">Timestamp</ulink> zu
+    übergeben. Der Designer kann danach die Funktion <link
     linkend="language.modifier.date.format">date_format</link> für die
     Formatierung verwenden.
    </para>
