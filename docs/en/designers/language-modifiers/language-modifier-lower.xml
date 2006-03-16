@@ -3,7 +3,7 @@
  <sect1 id="language.modifier.lower">
   <title>lower</title>
   <para>
-   This is used to lowercase a variable.This is equivalent to the PHP
+   This is used to lowercase a variable. This is equivalent to the PHP
    <ulink url="&url.php-manual;strtolower">strtolower()</ulink> function.
   </para>
   <example>
