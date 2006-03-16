@@ -6,7 +6,7 @@
 Smarty will create subdirectories under the
 <link linkend="variable.compile.dir">templates_c</link> and
 <link linkend="variable.cache.dir">cache</link>
-directories if $use_sub_dirs is set to true.
+directories if $use_sub_dirs is set to true (default is false).
 In an environment where there are potentially tens of thousands of files created,
 this may help the filesystem speed.
 On the other hand, some environments do not allow PHP processes to
@@ -26,6 +26,9 @@ nothing.
 $use_sub_dirs=true doesn't work with
 <ulink url="&url.php-manual;features.safe-mode">safe_mode=On</ulink>,
 that's why it's switchable and  why it's off by default.
+</para>
+<para>
+$use_sub_dirs=true on Windows can cause problems.
 </para>
 </note>
       <note>
