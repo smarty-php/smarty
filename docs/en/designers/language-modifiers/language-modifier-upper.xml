@@ -3,7 +3,8 @@
  <sect1 id="language.modifier.upper">
   <title>upper</title>
   <para>
-   This is used to uppercase a variable.
+   This is used to uppercase a variable. This is equivalent to the PHP
+   <ulink url="&url.php-manual;strtoupper">strtoupper()</ulink> function.
   </para>
   <example>
    <title>upper</title>
