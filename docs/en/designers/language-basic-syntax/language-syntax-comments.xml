@@ -49,8 +49,8 @@ Multi line comment block with credits block
 </select>
 *}
 
-{*  for cvs/svn users - here's the tag for the template *}
-{* $Id$ *}
+{* cvs tag for a template *}
+{* &#36;Id: Exp &#36; *}
 
 </body>
 ]]>
