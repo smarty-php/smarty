@@ -411,6 +411,9 @@
 <a href="mypage.html" {popup sticky=true caption='mypage contents'
 text="<ul><li>links</li><li>pages</li><li>images</li></ul>"
 snapx=10 snapy=10 trigger='onClick'}>mypage</a>
+
+{* a popup  over a table cell *}
+<tr><td {popup caption='Part details' text=$part_long_description}>{$part_number}</td></tr>
 ]]>
   </programlisting>
  </example>
