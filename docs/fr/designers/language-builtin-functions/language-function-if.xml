@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
@@ -149,21 +149,21 @@
   <title>Instruction {if}</title>
   <programlisting>
 <![CDATA[
-{if $name eq "Fred"}
+{if $name eq 'Fred'}
   Bienvenue, Monsieur.
-{elseif $name eq "Wilma"}
+{elseif $name eq 'Wilma'}
   Bienvenue m'dame.
 {else}
   Bienvenue, qui que vous soyez.
 {/if}
 
 {* Un exemple avec l'opérateur or *}
-{if $name eq "Fred" or $name eq "Wilma"}
+{if $name eq 'Fred' or $name eq 'Wilma'}
   ...
 {/if}
 
 {* même chose que ci-dessus *}
-{if $name == "Fred" || $name == "Wilma"}
+{if $name == 'Fred' || $name == 'Wilma'}
   ...
 {/if}
 
@@ -215,6 +215,22 @@
 {/if}
 
 ]]>
+  </programlisting>
+ </example>
+ <example>
+  <title>Plus d'exemples avec {if}</title>
+  <programlisting>
+<![CDATA[
+{if isset($name) && $name = 'Blog'}
+   {* faire quelque chose *}
+{elseif $name == $foo}
+   {* faire quelque chose *}
+{/if}
+
+{if is_array($foo) && count($foo) > 0)
+   {* faire une boucle foreach *}
+   {/if}
+   ]]>
   </programlisting>
  </example>
 </sect1>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 <sect1 id="language.syntax.functions">
  <title>Fonctions</title>
  <para>
@@ -8,22 +8,23 @@
   ou invoquent une fonction. Les fonctions sont appelées
   lorsqu'elles sont entourées, ainsi que leurs
   <link linkend="language.syntax.attributes">paramètres</link>, des délimiteurs Smarty.
-  Par exemple : {nomfonction par1="val" par2="val"}.
+  Par exemple : {nomfonction attr1='val' attr2='val'}.
  </para>
  <example>
   <title>syntaxe des fonctions</title>
   <programlisting>
 <![CDATA[
-{config_load file="colors.conf"}
-{include file="header.tpl"}
+{config_load file='colors.conf'}
+{include file='header.tpl'}
+{insert file='banner_ads.tpl'}
 
-{if $name eq "Fred"}
-   Vous êtes admis dans cette zone
+{if $highlight_name}
+   Bonjour, <font color="{#fontColor#}">{$name}!</font>
 {else}
-   Bienvenue, <font color="{#fontColor#}">{$name} !</font>
+   Bonjour, {$name}!
 {/if}
 
-{include file="footer.tpl"}
+{include file='footer.tpl'}
 ]]>
   </programlisting>
  </example>
@@ -38,7 +39,7 @@
   comme <link linkend="language.function.if">{if}</link>,
   <link linkend="language.function.section">{section}</link> et
   <link linkend="language.function.strip">{strip}</link>.
-  Elles ne peuvent être modifiées.
+  Elles ne devraient pas être modifiées.
  </para>
  <para>
   Les fonctions utilisateurs sont des fonctions <emphasis role="bold">additionnelles</emphasis>,

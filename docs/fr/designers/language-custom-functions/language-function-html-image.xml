@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.image">
  <title>{html_image}</title>
@@ -109,9 +109,9 @@
 <![CDATA[
 Où index.tpl est :
 -------------------
-{html_image file="pumpkin.jpg"}
-{html_image file="/path/from/docroot/pumpkin.jpg"}
-{html_image file="../path/relative/to/currdir/pumpkin.jpg"}
+{html_image file='pumpkin.jpg'}
+{html_image file='/path/from/docroot/pumpkin.jpg'}
+{html_image file='../path/relative/to/currdir/pumpkin.jpg'}
 ]]>
   </programlisting>
   <para>

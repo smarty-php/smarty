@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.include">
  <title>{include}</title>
@@ -170,6 +170,7 @@
  <para>
   Voir aussi
   <link linkend="language.function.include.php">{include_php}</link>,
+  <link linkend="language.function.insert">{insert}</link>,
   <link linkend="language.function.php">{php}</link>,
   <link linkend="template.resources">les ressources de template</link> et
   <link linkend="tips.componentized.templates">les templates composants</link>.

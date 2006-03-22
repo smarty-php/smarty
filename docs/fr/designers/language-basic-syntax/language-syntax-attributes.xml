@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.syntax.attributes">
  <title>Paramètres</title>
@@ -15,10 +15,9 @@
  </para>
  <para>
   Certains paramètres requièrent des valeurs booléennes (true / false).
-  Elles <link linkend="variable.config.booleanize">peuvent être spécifiées</link>
-  par l'une des valeures suivantes, sans guillemet: <literal>true</literal>,
-  <literal>on</literal>, et <literal>yes</literal>, ou <literal>false</literal>,
-  <literal>off</literal>, et <literal>no</literal>.
+  Elles peuvent être spécifiées par l'une des valeures suivantes, sans guillemet:
+  <literal>true</literal>, <literal>on</literal>, et <literal>yes</literal>,
+  ou <literal>false</literal>, <literal>off</literal>, et <literal>no</literal>.
  </para>
  <example>
   <title>Paramètres de fonction, syntaxe</title>

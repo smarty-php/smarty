@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.syntax.comments">
  <title>Commentaires</title>
@@ -24,12 +24,19 @@
 <!-- Un commentaire Html qui sera envoyé au navigateur -->
 
 {* ces multi-lignes sont des commentaires
-     qui ne sont pas envoyées au navigateur
+qui ne sont pas envoyées au navigateur
 *}
+
+{*********************************************************
+Un bloc de commentaires multilignes contenant les crédits
+@ author:         bg@example.com
+@ maintainer:     support@example.com
+@ para:           var that sets block style
+@ css:            the style output
+**********************************************************}
 
 {* Inclusion du fichier d'en tête *}
 {include file='header.tpl'}
-
 
 {* Note aux développeurs :  $includeFile est assigné au script foo.php  *}
 <!-- Affichage du bloc principal -->
@@ -41,6 +48,8 @@
  {html_options options=$vals selected=$selected_id}
 </select>
 *}
+{* Balise cvs pour un template *}
+{* &#36;Id: Exp &#36; *}
 
 </body>
 ]]>

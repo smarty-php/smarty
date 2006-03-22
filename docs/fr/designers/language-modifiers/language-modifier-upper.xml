@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.upper">
  <title>upper</title>
  <para>
-  Met une variable en majuscules.
+  Met une variable en majuscules. C'est l'équivalent de la fonction PHP
+  <ulink url="&url.php-manual;strtoupper">strtoupper()</ulink>.
  </para>
  <example>
   <title>upper</title>
   <programlisting role="php">
 <![CDATA[
 <?php
-
 $smarty->assign('titreArticle', "Si l'attaque n'est pas mise en place
 rapidement, celà risque de durer longtemps.");
-
 ?>
 ]]>
   </programlisting>

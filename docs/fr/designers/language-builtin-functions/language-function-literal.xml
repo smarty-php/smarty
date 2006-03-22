@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.literal">
  <title>{literal}</title>
@@ -39,11 +39,49 @@
 ]]>
   </programlisting>
  </example>
+
+ <example>
+  <title>Exemple avec Javascript</title>
+  <programlisting>
+<![CDATA[
+<script language="JavaScript" type="text/javascript">
+ {literal}
+ function myJsFunction(name, ip){
+ alert("Le nom du serveur\n" + name + "\n" + ip);
+ }
+ {/literal}
+</script>
+<a href="javascript:myJsFunction('{$smarty.server.SERVER_NAME}','{$smarty.server.SERVER_ADDR}')">Cliquez ici pour plus d'informations sur le serveur</a>
+]]>
+  </programlisting>
+ </example>
+
+ <example>
+  <title>Un peu de css dans un template</title>
+  <programlisting>
+<![CDATA[
+{* inclure ce style... comme une expérimentation ! *}
+<style type="text/css">
+ {literal}
+ /* C'est une idée intéressante pour cette section */
+ .madIdea{
+ border: 3px outset #ffffff;
+ margin: 2 3 4 5px;
+ background-color: #001122;
+ }
+ {/literal}
+</style>
+<div class="madIdea">Avec Smarty, vous pouvez inclure du css dans le template</div>
+]]>
+  </programlisting>
+ </example>
  <para>
-  Voir aussi la
-  <link linkend="language.escaping">désactivation de l'analyse de Smarty</link>.
+  Voir aussi
+  <link linkend="language.function.ldelim">{ldelim}, {rdelim}</link> et
+  la <link linkend="language.escaping">désactivation de l'analyse de Smarty</link>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

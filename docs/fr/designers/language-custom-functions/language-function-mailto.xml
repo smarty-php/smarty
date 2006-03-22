@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.mailto">
  <title>{mailto}</title>
@@ -108,13 +108,13 @@
   </para>
  </note>
  <example>
-  <title>{mailto}</title>
+  <title>Exemple avec {mailto}</title>
   <programlisting>
    <![CDATA[
 {mailto address="moi@example.com"}
 <a href="mailto:moi@example.com" >moi@example.com</a>
 
-{mailto address="moi@example.com" text="envoie-moi un email"}
+{mailto address="moi@example.com" text="envoie moi un email"}
 <a href="mailto:moi@example.com" >envoie-moi un email</a>
 
 {mailto address="moi@example.com" encode="javascript"}
@@ -136,10 +136,10 @@
 
 {mailto address="moi@example.com" encode="javascript_charcode"}
 <script type="text/javascript" language="javascript">
- <!--
-     {document.write(String.fromCharCode(60,97, ... coupé ....60,47,97,62))}
-     //-->
-   </script>
+<!--
+{document.write(String.fromCharCode(60,97, ... coupé ....60,47,97,62))}
+//-->
+</script>
 ]]>
   </programlisting>
  </example>

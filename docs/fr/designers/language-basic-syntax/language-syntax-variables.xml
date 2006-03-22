@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
 <sect1 id="language.syntax.variables">
  <title>Variables</title>
  <para>
@@ -38,13 +38,25 @@ Plusieurs autres combinaisons sont autorisées
 {$foo.bar.baz[4]}
 {$foo->bar($baz,2,$bar)} <-- passage de paramètres
 {"foo"}       <-- les valeurs statiques sont autorisées
+
+{* affiche la variable serveur "SERVER_NAME" ($_SERVER['SERVER_NAME'])*}
+{$smarty.server.SERVER_NAME}
 ]]>
   </programlisting>
  </example>
+
+ <para>
+  Les variables spéciales comme get, post, session, etc. sont également disponibles,
+  lisez le chapitre sur les variables réservées
+  <link linkend="language.variables.smarty">$smarty</link> pour plus de détails.
+ </para>
+
  <para>
   Voir aussi
-  <link linkend="language.variables.smarty">les variables réservées $smarty</link> et
-  <link linkend="language.config.variables">les variables de configuration</link>.
+  <link linkend="language.variables.smarty">$smarty reserved variables</link>,
+  <link linkend="language.config.variables">Config Variables</link>,
+  <link linkend="language.function.assign">{assign}</link> et
+  <link linkend="api.assign">assign()</link>.
  </para>
 </sect1>
 

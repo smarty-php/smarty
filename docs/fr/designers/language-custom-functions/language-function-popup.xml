@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.popup">
  <title>{popup}</title>
@@ -371,7 +371,7 @@
      sur cette fonction.</entry>
     </row>
     <row>
-     <entry>timeout</entry>
+     <entry>function</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
@@ -412,18 +412,25 @@
   <programlisting>
 <![CDATA[
 {* popup_init doit être appelé en haut de votre page *}
-{popup_init src="/javascripts/overlib.js"}
+{popup_init src='/javascripts/overlib.js'}
 
 {* création d'un lien avec une popup qui apparait sur l'évènement onMouseOver *}
-<A href="mypage.html" {popup text="Ce lien vous amène sur ma page!"}>mypage</A>
+<A href="mypage.html" {popup text='Ce lien vous amène sur ma page!'}>mypage</A>
 
 {* vous pouvez utiliser du html, des liens, etc. dans vos popup *}
-<a href="mypage.html" {popup sticky=true caption="mypage contents"
+<a href="mypage.html" {popup sticky=true caption='Contenu de la page'
 text="<ul><li>links</li><li>pages</li><li>images</li></ul>"
-snapx=10 snapy=10}>mypage</a>
+snapx=10 snapy=10 trigger='onClick'}>ma page</a>
+
+{* un popup via une cellule du tableau *}
+<tr><td {popup caption='Détails de cette partie' text=$part_long_description}>{$part_number}</td></tr>
 ]]>
   </programlisting>
  </example>
+ <para>
+  Il y a également un autre bon exemple sur la page de la documentation de
+ <link linkend="language.function.capture">{capture}</link>.
+ </para>
  <para>
   Voir aussi
   <link linkend="language.function.popup.init">{popup_init}</link> et

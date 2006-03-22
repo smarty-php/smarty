@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.ldelim">
  <title>{ldelim},{rdelim}</title>
@@ -20,17 +20,17 @@
 {ldelim}nomFonction{rdelim} est la façon dont sont appelées les fonctions dans Smarty !
 ]]>
    </programlisting>
-   <para>
-    Affichera :
-   </para>
-   <screen>
+  <para>
+   Affichera :
+  </para>
+  <screen>
 <![CDATA[
 {nomFonction} est la façon dont sont appelées les fonctions dans Smarty !
 ]]>
-   </screen>
+  </screen>
 
-   <para>Un autre exemple avec du javascript</para>
-   <programlisting>
+  <para>Un autre exemple avec du javascript</para>
+  <programlisting>
 <![CDATA[
 <script language="JavaScript">
  function foo() {ldelim}
@@ -38,11 +38,11 @@
    {rdelim}
 </script>
 ]]>
-   </programlisting>
-   <para>
-    affichera :
-   </para>
-   <screen>
+  </programlisting>
+  <para>
+   affichera :
+  </para>
+  <screen>
 <![CDATA[
 <script language="JavaScript">
  function foo() {
@@ -50,14 +50,28 @@
  }
 </script>
 ]]>
-   </screen>
+  </screen>
+ </example>
 
-  </example>
-  <para>
-   Voir aussi la
-   <link linkend="language.escaping">désactivation de l'analyse de Smarty</link>.
-  </para>
- </sect1>
+ <example>
+  <title>un autre exemple avec Javascript</title>
+  <programlisting>
+<![CDATA[
+<script language="JavaScript" type="text/javascript">
+   function myJsFunction(){ldelim}
+     alert("Le nom du serveur\n{$smarty.server.SERVER_NAME}\n{$smarty.server.SERVER_ADDR}");
+   {rdelim}
+</script>
+<a href="javascript:myJsFunction()">Cliquez ici pour des informations sur le serveur</a>
+             ]]>
+  </programlisting>
+ </example>
+ <para>
+  Voir aussi
+  <link linkend="language.function.literal">{literal}</link> et
+  la <link linkend="language.escaping">désactivation de l'analyse de Smarty</link>.
+ </para>
+</sect1>
 
 <!-- Keep this comment at the end of the file
 Local variables:

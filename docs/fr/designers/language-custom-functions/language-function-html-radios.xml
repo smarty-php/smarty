@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.radios">
  <title>{html_radios}</title>
@@ -10,7 +10,7 @@
   qui crée des boutons radio html à partir des données fournies. Elle prend en
   charge les éléments sélectionnés par défaut. Les attributs requis sont values
   et output, à moins que vous n'utilisiez options à la place. La sortie générée est
-  compatible XHTML.
+  conforme au XHTML.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -108,8 +108,8 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name="id" values=$cust_ids output=$cust_names
-       selected=$customer_id separator="<br />"}
+{html_radios name='id' values=$cust_ids output=$cust_names
+       selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
  </example>
@@ -134,7 +134,8 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name="id" options=$cust_radios selected=$customer_id separator="<br />"}
+{html_radios name='id' options=$cust_radios
+   selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
   <para>
@@ -151,15 +152,15 @@ $smarty->assign('customer_id', 1001);
   </screen>
  </example>
  <example>
-  <title>{html_radios} - Exemple avec une base de données (eg PEAR ou ADODB):</title>
+  <title>{html_radios} - Exemple avec une base de données (e.g. PEAR ou ADODB):</title>
   <programlisting role="php">
 <![CDATA[
 <?php
 
-$sql = 'select type_id, types from types order by type';
+$sql = 'select type_id, types from contact_types order by type';
 $smarty->assign('types',$db->getAssoc($sql));
 
-$sql = 'select contact_id, name, email, type_id
+$sql = 'select contact_id, name, email, contact_type_id
      from contacts where contact_id='.$contact_id;
 $smarty->assign('contact',$db->getRow($sql));
 
@@ -171,7 +172,8 @@ $smarty->assign('contact',$db->getRow($sql));
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name="type" options=$types selected=$contact.type_id separator="<br />"}
+{html_radios name='contact_type_id' options=$types
+   selected=$contact.contact_type_id separator='<br />'}
 ]]>
   </programlisting>
  </example>

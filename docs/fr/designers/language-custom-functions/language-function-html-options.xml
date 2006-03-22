@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.options">
  <title>{html_options}</title>
@@ -163,10 +163,10 @@ $smarty->assign('customer_id', 1001);
 <![CDATA[
 <?php
 
-$sql = 'select type_id, types from types order by type';
-$smarty->assign('types',$db->getAssoc($sql));
+$sql = 'select type_id, types from contact_types order by type';
+$smarty->assign('contact_types',$db->getAssoc($sql));
 
-$sql = 'select contact_id, name, email, type_id
+$sql = 'select contact_id, name, email, contact_type_id
      from contacts where contact_id='.$contact_id;
 $smarty->assign('contact',$db->getRow($sql));
 
@@ -180,7 +180,7 @@ $smarty->assign('contact',$db->getRow($sql));
 <![CDATA[
 <select name="type_id">
  <option value='null'>-- none --</option>
- {html_options name="type" options=$types selected=$contact.type_id}
+ {html_options name='contact_type' options=$contact_types selected=$contact.type_id}
 </select>
 ]]>
   </programlisting>

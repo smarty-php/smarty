@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.checkboxes">
  <title>{html_checkboxes}</title>
@@ -10,7 +10,7 @@
   qui crée un groupe de cases à cocher avec les données fournies. Elle prend
   en compte la liste des éléments sélectionnés par défaut. Les attributs requis
   sont values et output, à moins que vous n'utilisiez options à la place.
-  La sortie générée est compatible XHTML.
+  La sortie générée est conforme au XHTML.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -84,6 +84,13 @@
      <entry><emphasis>true</emphasis></entry>
      <entry>ajoute la balise &lt;label&gt;- à la sortie</entry>
     </row>
+    <row>
+     <entry>assign</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>assigne la sortie à un tableau dont chaque checkbox est un élément.</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
@@ -114,8 +121,8 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" values=$cust_ids output=$cust_names
-   selected=$customer_id  separator="<br />"}
+{html_checkboxes name='id' values=$cust_ids output=$cust_names
+   selected=$customer_id  separator='<br />'}
 ]]>
   </programlisting>
   <para>
@@ -141,7 +148,8 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="id" options=$cust_checkboxes selected=$customer_id separator="<br />"}
+{html_checkboxes name='id' options=$cust_checkboxes
+   selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
   <para>
@@ -165,10 +173,10 @@ $smarty->assign('customer_id', 1001);
 <![CDATA[
 <?php
 
-$sql = 'select type_id, types from types order by type';
-$smarty->assign('types',$db->getAssoc($sql));
+$sql = 'select type_id, types from contact_types order by type';
+$smarty->assign('contact_types',$db->getAssoc($sql));
 
-$sql = 'select * from contacts where contact_id=12';
+$sql = 'select contact_id, contact_type, contact from contacts where contact_id=12';
 $smarty->assign('contact',$db->getRow($sql));
 
 ?>
