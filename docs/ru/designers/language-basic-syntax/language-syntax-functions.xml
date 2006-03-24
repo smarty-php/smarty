@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.functions">
  <title>Функции</title>
  <para>
@@ -10,15 +10,16 @@
   название функции и ее
   <link linkend="language.syntax.attributes">параметры</link>,
   например:
-  {funcname attr1="val" attr2="val"}.
+  {funcname attr1='val' attr2='val'}.
  </para>
  <example>
   <title>Синтаксис функций</title>
    <programlisting>
 <![CDATA[
-{config_load file="colors.conf"}
+{config_load file='colors.conf'}
 
-{include file="header.tpl"}
+{include file='header.tpl'}
+{insert file='banner_ads.tpl'}
 
 {if $highlight_name}
 Welcome, <font color="{#fontColor#}">{$name}!</font>
@@ -26,7 +27,7 @@ Welcome, <font color="{#fontColor#}">{$name}!</font>
 Welcome, {$name}!
 {/if}
 
-{include file="footer.tpl"}
+{include file='footer.tpl'}
 ]]>
    </programlisting>
  </example>
@@ -41,14 +42,14 @@ Welcome, {$name}!
   <link linkend="language.function.if">{if}</link>,
   <link linkend="language.function.section">{section}</link> и
   <link linkend="language.function.strip">{strip}</link>.
-  Они не могут быть модифицированы.
+  Они не должны быть модифицированы.
  </para>
  <para>
   Пользовательские функции являются
   <emphasis role="bold">дополнительными</emphasis> и реализуются через
   <link linkend="plugins">плагины</link>.
   Они могут быть изменены по вашему желанию, также вы можете
-  добавить новые.
+  создать новые.
   Примерами пользовательских функций могут быть
   <link linkend="language.function.html.options">{html_options}</link> и
   <link linkend="language.function.popup">{popup}</link>.

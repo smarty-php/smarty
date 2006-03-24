@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.comments">
  <title>Комментарии</title>
  <para>
   Комментарии в шаблонах заключаются в звездочки (*) окруженные
   <link linkend="variable.left.delimiter">разделителями</link>,
-  например: {* это комментарий *}.
+  например: <emphasis>{* это комментарий *}</emphasis>.
   Комментарии не отображаются в выводе шаблона, в отличие
-  от &lt;!-- комментариев HTML --&gt;.
-  Они используются для внутренних примечаний в шаблонах.
+  от &lt;!-- комментариев HTML --&gt;,
+  и они используются для внутренних примечаний в шаблонах.
  </para>
  <example>
   <title>Комментарии</title>
   <programlisting>
 <![CDATA[
 <body>
-{* однострочный комментарий *}
+{* Я - простой комментарий Smarty, я не существую в скомпилированном выводе *}
+
+{* другой однострочный комментарий Smarty *}
+<!-- HTML-комментарий, который будет отправлен браузеру -->
 
 {* этот многострочный комментарий
    не отправляется в бразуер
 *}
 
+{*********************************************************
+ Многострочный блок комментариев с информацие об авторе 
+  @ author:         bg@example.com
+  @ maintainer:     support@example.com
+  @ para:           var that sets block style
+  @ css:            the style output
+**********************************************************}
+
 {* здесь включаем заголовок *}
-{include file="header.tpl"}
+{include file='header.tpl'}
 
 
 {* Примечание разработчика:  $includeFile назначается в скрипте foo.php *}
-<!-- этот HTML-комментарий будет отправлен браузеру -->
+<!-- Отображает блок комментариев главного контента -->
 {include file=$includeFile}
-
-{include file=#includeFile#}
 
 {* этот блок <select> ненужен *}
 {*
@@ -38,6 +47,10 @@
   {html_options options=$vals selected=$selected_id}
 </select>
 *}
+
+{* cvs-тэг шаблона *}
+{* &#36;Id: Exp &#36; *}
+
 </body>
 ]]>
   </programlisting>

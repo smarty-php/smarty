@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
 <chapter id="tips">
  <title>Советы</title>
  <para></para>
@@ -20,8 +20,7 @@
    <programlisting>
 <![CDATA[
 {* длинный путь *}
-
-{if $title eq ""}
+{if $title eq ''}
  &nbsp;
 {else}
 	{$title}
@@ -29,8 +28,7 @@
 
 
 {* короткий путь *}
-
-{$title|default:"&nbsp;"}
+{$title|default:'&nbsp;'}
 ]]>
    </programlisting>
   </example>
@@ -52,7 +50,7 @@
    <programlisting>
 <![CDATA[
 {* где-то в начале шаблона *}
-{assign var="title" value=$title|default:"no title"}
+{assign var='title' value=$title|default:'no title'}
 
 {* если переменная $title была пустой, то сейчас она содержит "no title" *}
 {$title}
@@ -71,30 +69,36 @@
    Если большинство ваших шаблонов имеют похожие верхние и нижние
    части, то имеет смысл вынести их в отдельные файлы. Но как быть, если
    шапка должна иметь различные заголовки на различных страницах?
-   Вы можете передавать текст заголовка шапке в момент её включения.
+   Вы можете передавать текст заголовка шапке в качестве <link
+   linkend="language.syntax.attributes">атрибута</link> в момент её включения.
   </para>
   <example>
    <title>Присвоение переменной заголовка (title) шаблону-шапке</title>
    <para>
-    <filename>mainpage.tpl</filename>
+    <filename>mainpage.tpl</filename> - когда отображается главная страница,
+    заголовок "Main Page" передается в <filename>header.tpl</filename>,
+    и будет в последствии использован в качестве заголовка.
    </para>
    <programlisting>
 <![CDATA[
-{include file="header.tpl" title="Main Page"}
+{include file='header.tpl' title='Main Page'}
 {* тут находится тело шаблона *}
-{include file="footer.tpl"}
+{include file='footer.tpl'}
 ]]>
    </programlisting>
 
    <para>
-    <filename>archives.tpl</filename>
+    <filename>archives.tpl</filename> - когда отображается страница архива,
+    заголовок будет "Archives". Обратите внимание, что в этом примере мы
+    используем переменную из <filename>archives_page.conf</filename>, вместо
+    того, чтобы жестко прописать её в шаблоне.
    </para>
    <programlisting>
 <![CDATA[
-{config_load file="archive_page.conf"}
-{include file="header.tpl" title=#archivePageTitle#}
+{config_load file='archive_page.conf'}
+{include file='header.tpl' title=#archivePageTitle#}
 {* тут находится тело шаблона *}
-{include file="footer.tpl"}
+{include file='footer.tpl'}
 ]]>
    </programlisting>
 
@@ -105,7 +109,7 @@
 <![CDATA[
 <html>
  <head>
-  <title>{$title|default:"BC News"}</title>
+  <title>{$title|default:'BC News'}</title>
  </head>
  <body>
 ]]>
@@ -121,24 +125,13 @@
 ]]>
    </programlisting>
   </example>
-
-  <para>
-   При отображении главной страниц, строка "Main Page" передаётся в
-   <filename>header.tpl</filename> и в последствии используется как заголовок.
-   При отображении страницы архива, заголовком будет "Archives".
-   Обратите внимание, что в примере с архивом мы используем переменную из
-   файла <filename>archives_page.conf</filename>, вместо того, чтобы жёстко
-   задать её в шаблоне. Также обратите внимание, что в случае, если
-   переменная $title не задана, при помощи модификатора переменной
-   <link linkend="language.modifier.default">default</link>
-   заголовком будет "BC News".
-  </para>
  </sect1>
  
  <sect1 id="tips.dates">
   <title>Даты</title>
   <para>
-   Обычно даты в Smarty всегда передаются как временные метки, что
+   Обычно даты в Smarty всегда передаются как
+   <ulink url="&url.php-manual;time">временные метки</ulink>, что
    позволяет проектировщикам шаблонов использовать <link
  		linkend="language.modifier.date.format">date_format</link>
    для полного контроля над форматированием даты и также делает легким

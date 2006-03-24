@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.quotes">
  <title>Внедренные переменные в двойных кавычках</title>
  <para>
@@ -12,7 +12,7 @@
   квадратных скобок.
   В случае, если переменная содержит другие символы
   (точки, ссыки на объекты и т.д.), переменную необходимо заключить
-  в обратные кавычки.
+  в <link linkend="language.syntax.quotes">обратные кавычки</link>.
   В данном случае вы не можете использовать
   <link linkend="language.modifiers">модификаторы</link>,
   их следует применять вне кавычек.

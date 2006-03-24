@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.escaping">
  <title>Предотвращение обработки Smarty</title>
  <para>
@@ -45,6 +45,7 @@ $smarty = new Smarty;
 $smarty->left_delimiter = '<!--{';
 $smarty->right_delimiter = '}-->';
 $smarty->assign('foo', 'bar');
+$smarty->assign('name', 'Albert');
 $smarty->display('example.tpl');
 
 ?>
@@ -55,6 +56,7 @@ $smarty->display('example.tpl');
   </para>
   <programlisting>
 <![CDATA[
+Welcome <!--{$name}--> to Smarty
 <script language="javascript">
   var foo = <!--{$foo}-->;
   function dosomething() {

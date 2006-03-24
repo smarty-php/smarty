@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.variables">
  <title>Переменные</title>
  <para>
@@ -38,12 +38,25 @@
 {$foo.bar.baz[4]}
 {$foo->bar($baz,2,$bar)} <-- передача параметра
 {"foo"}       <-- статические значения также разрешены
+
+{* отображает серверную переменную "SERVER_NAME" ($_SERVER['SERVER_NAME'])*}
+{$smarty.server.SERVER_NAME}
 ]]>
   </programlisting>
  </example>
+
  <para>
-  См. также <link linkend="language.variables.smarty">Зарезервированная переменная $smarty</link>
-  и <link linkend="language.config.variables">Переменные файлов конфигурации</link>.
+  Переменные запроса, такие как GET, POST, SESSION и т.д. также доступны, см.
+  описание зарезервированной переменной <link
+  linkend="language.variables.smarty">$smarty</link> для дополнительной информации.
+ </para>
+ 
+ <para>
+  См. также <link linkend="language.variables.smarty">Зарезервированная переменная $smarty</link>,
+  <link linkend="language.config.variables">Переменные файлов конфигурации</link>,
+  <link linkend="language.function.assign">{assign}</link>
+  и
+  <link linkend="api.assign">assign()</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
