@@ -82,7 +82,7 @@
   See also
   <link linkend="api.register.modifier">register_modifier()</link>,
   <link linkend="api.register.function">register_function()</link>,
-  <link linkend="plugins">Extending Smarty with plugins</link>
+  <link linkend="plugins">extending Smarty with plugins</link>
   and
   <link linkend="plugins.modifiers">modifiers</link>,
  </para>
