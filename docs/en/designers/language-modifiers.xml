@@ -38,7 +38,7 @@
 {mailto|upper address='smarty@example.com'}
 
 {* using  php's str_repeat *}
-{'=':str_repeat:80}
+{'='|str_repeat:80}
 
 {* php's count *}
 {$myArray|@count}
@@ -57,24 +57,26 @@
   elements in the $articleTitle array.)
  </para>
  <para>
-  Modifiers can be autoloaded from your <link
+  Modifiers are autoloaded from the <link
   linkend="variable.plugins.dir">$plugins_dir</link> 
   or can be registered explicitely with <link
-  linkend="api.register.modifier">register_modifier()</link>.</para>
+  linkend="api.register.modifier">register_modifier()</link>;
+  this is useful for sharing a function in a php script and smarty templates.
+  </para>
   
   <para>
   All php-functions can be used as modifiers implicitly. (The
   <literal>@count</literal> example above actually uses php's
   count() function and not a smarty-modifier). Using php-functions
-  as modifiers has two little pitfalls: Firstly: Sometimes the order
+  as modifiers has two little pitfalls: First; sometimes the order
   of the function-parameters is not the desirable one
   (<literal>{"%2.f"|sprintf:$float}</literal> actually works, but
   asks for the more intuitive. For example:<literal>{$float|string_format:"%2.f"}</literal>
-  that is provided by the Smarty distribution). Second: with <link
-  linkend="variable.security">$security</link> turned on all
+  that is provided by the Smarty distribution). Second; with <link
+  linkend="variable.security">$security</link> enabled all
   php-functions that are to be used as modifiers have to be
   declared trusted in the <link linkend="variable.security.settings">
-  $security_settings['MODIFIER_FUNCS']</link>-array.
+  $security_settings['MODIFIER_FUNCS']</link> array.
  </para>
  <para>
   See also
