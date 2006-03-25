@@ -3,34 +3,48 @@
 <chapter id="language.modifiers">
  <title>Variable Modifiers</title>
  <para>
-  Variable modifiers can be applied to variables, custom functions or strings. To
-  apply a modifier, specify the value followed by the <literal>|</literal>
+  Variable modifiers can be applied to 
+  <link linkend="language.syntax.variables">variables</link>, 
+  <link linkend="language.custom.functions">custom functions</link> or strings. To
+  apply a modifier, specify the value followed by a <literal>|</literal>
   (pipe) and the modifier name. A modifier may accept additional parameters
   that affect its behavior. These parameters follow the modifer name and are
-  separated by <literal>:</literal> (colon).
+  separated by a <literal>:</literal> (colon). Additionally
+  all php-functions can be used as modifiers implicitly; more below.
  </para>
  <example>
-  <title>modifier example</title>
+  <title>modifier examples</title>
   <programlisting>
 <![CDATA[
 {* apply modifier to a variable *}
 {$title|upper}
+
 {* modifier with parameters *}
-{$title|truncate:40:"..."}
+{$title|truncate:40:'...'}
 
 {* apply modifier to a function parameter *}
 {html_table loop=$myvar|upper}
+
 {* with parameters *}
-{html_table loop=$myvar|truncate:40:"..."}
+{html_table loop=$myvar|truncate:40:'...'}
 
 {* apply modifier to literal string *}
-{"foobar"|upper}
+{'foobar'|upper}
 
 {* using date_format to format the current date *}
 {$smarty.now|date_format:"%Y/%m/%d"}
 
 {* apply modifier to a custom function *}
-{mailto|upper address="me@domain.dom"}
+{mailto|upper address='smarty@example.com'}
+
+{* using  php's str_repeat *}
+{'=':str_repeat:80}
+
+{* php's count *}
+{$myArray|@count}
+
+{* php's shuffle on servers's ip *}
+{$smarty.server.SERVER_ADDR|shuffle}
 ]]>
   </programlisting>
  </example>
@@ -44,16 +58,15 @@
  </para>
  <para>
   Modifiers can be autoloaded from your <link
-  linkend="variable.plugins.dir">$plugins_dir</link> (also see:
-  <link linkend="plugins.naming.conventions">Naming
-  Conventions</link>) or can be registered explicitely (see: <link
-  linkend="api.register.modifier">register_modifier</link>).</para>
+  linkend="variable.plugins.dir">$plugins_dir</link> 
+  or can be registered explicitely with <link
+  linkend="api.register.modifier">register_modifier()</link>.</para>
+  
   <para>
-  Additionally
-  all php-functions can be used as modifiers implicitly. (The
+  All php-functions can be used as modifiers implicitly. (The
   <literal>@count</literal> example above actually uses php's
   count() function and not a smarty-modifier). Using php-functions
-  as modifiers has two little pitfalls: First: Sometimes the order
+  as modifiers has two little pitfalls: Firstly: Sometimes the order
   of the function-parameters is not the desirable one
   (<literal>{"%2.f"|sprintf:$float}</literal> actually works, but
   asks for the more intuitive. For example:<literal>{$float|string_format:"%2.f"}</literal>
