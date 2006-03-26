@@ -110,13 +110,13 @@ You must supply a <strong>state</strong>.
  
   <example>
    <title>another {eval} example</title>
-   <para>This example outputs the server name and IP. 
-   The variable $str could be from a database for example.</para>
+   <para>This outputs the server name (in uppercase)  and IP. 
+   The variable $str could be from a database query also.</para>
    <programlisting role="php">
  <![CDATA[
 // php script
 $str = 'The server name is {$smarty.server.SERVER_NAME|upper} '
-       'at {$smarty.server.SERVER_ADDR}';
+       .'at {$smarty.server.SERVER_ADDR}';
 $smarty->assign('foo',$str);
  ]]>
    </programlisting>
