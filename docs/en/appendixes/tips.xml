@@ -110,7 +110,7 @@
     </programlisting>
 
     <para>
-    <filename>header.tpl</filename> - Notice that "BC News" is
+    <filename>header.tpl</filename> - Notice that "Smarty News" is
     printed if the $title variable is not set, using the
     <link linkend="language.modifier.default">default</link>
     variable modifier.
@@ -119,7 +119,7 @@
 <![CDATA[
 <html>
 <head>
-<title>{$title|default:'BC News'}</title>
+<title>{$title|default:'Smarty News'}</title>
 </head>
 <body>
 ]]>
@@ -357,7 +357,7 @@ function smarty_function_load_ticker($params, &$smarty)
     </para>
     <programlisting>
 <![CDATA[
-{load_ticker symbol="YHOO" assign="ticker"}
+{load_ticker symbol='SMARTY' assign='ticker'}
 
 Stock Name: {$ticker.name} Stock Price: {$ticker.price}
 ]]>
@@ -384,10 +384,10 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     <title>Example of Obfuscating an E-mail Address</title>
     <programlisting>
 <![CDATA[
-{* in index.tpl *}
-
-Send inquiries to
-{mailto address=$EmailAddress encode="javascript" subject="Hello"}
+{* in the template *}
+<div id="contact">Send inquiries to
+{mailto address=$EmailAddress encode='javascript' subject='Hello'}
+</div>
 ]]>
     </programlisting>
    </example>
@@ -395,7 +395,7 @@ Send inquiries to
     <title>Technical Note</title>
     <para>
      This method isn't 100% foolproof. A spammer could conceivably program his
-     e-mail collector to decode these values, but not likely....hopefully.
+     e-mail collector to decode these values, but not likely....hopefully..yet ...  wheres that quantum computer :-?.
     </para>
    </note>
    <para>
