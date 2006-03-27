@@ -3,13 +3,13 @@
 <sect1 id="language.syntax.functions">
  <title>Functions</title>
  <para>
-  Each Smarty tag either prints a
+  Every Smarty tag either prints a
   <link linkend="language.variables">variable</link> or invokes some sort
-  of function. Functions are processed and displayed by enclosing the
+  of function. These are processed and displayed by enclosing the
   function and its
   <link linkend="language.syntax.attributes">attributes</link>
-  into delimiters like so: {funcname
-  attr1='val1' attr2='val2'}.
+  within delimiters like so: {funcname
+  attr1='val1' attrto='val2'}.
  </para>
  <example>
   <title>function syntax</title>
@@ -20,10 +20,10 @@
 {include file='header.tpl'}
 {insert file='banner_ads.tpl'}
 
-{if $highlight_name}
+{if $logged_in}
     Welcome, <font color="{#fontColor#}">{$name}!</font>
 {else}
-    Welcome, {$name}!
+    hi, {$name}
 {/if}
 
 {include file='footer.tpl'}
@@ -40,7 +40,7 @@
   <link linkend="language.function.if">{if}</link>,
   <link linkend="language.function.section">{section}</link> and
   <link linkend="language.function.strip">{strip}</link>.
-  They should not be modified.
+  There should be no need to change or modify them.
   </para>
   <para>Custom functions are <emphasis role="bold">additional</emphasis>
   functions implemented via <link linkend="plugins">plugins</link>.
@@ -48,6 +48,10 @@
   <link linkend="language.function.html.options">{html_options}</link> and
   <link linkend="language.function.popup">{popup}</link>
   are examples of custom functions.
+ </para>
+ 
+ <para>
+ See also <link linkend="api.register.function">register_function()</link>
  </para>
 </sect1>
 

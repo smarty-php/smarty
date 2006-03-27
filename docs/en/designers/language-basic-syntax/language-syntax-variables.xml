@@ -3,16 +3,17 @@
 <sect1 id="language.syntax.variables">
  <title>Variables</title>
  <para>
-  Template variables start with a $dollar sign. They can contain numbers,
+  Template variables start with the $dollar sign. They can contain numbers,
   letters and underscores, much like a
   <ulink url="&url.php-manual;language.variables">PHP variable</ulink>.
   You can reference arrays
-  that are indexed numerically or non-numerically. You can also reference
-  object properties and methods.
+  by index numerically or non-numerically. Also reference
+  object properties and methods.</para>
+  <para>
   <link linkend="language.config.variables">Config file variables</link>
-  are an exception to the dollar sign syntax.
-  They can be referenced with surrounding #hashmarks#, or
-  with the special
+  are an exception to the $dollar syntax.
+  and are instead referenced with surrounding #hashmarks#, or
+  via the 
   <link linkend="language.variables.smarty.config">$smarty.config</link> variable.
  </para>
  <example>
@@ -28,7 +29,7 @@
 {#foo#}       <-- display the config file variable "foo"
 {$smarty.config.foo} <-- synonym for {#foo#}
 {$foo[bar]}   <-- syntax only valid in a section loop, see {section}
-{assign var=foo value="baa"}{$foo} <--  displays "baa", see {assign}
+{assign var=foo value='baa'}{$foo} <--  displays "baa", see {assign}
 
 Many other combinations are allowed
 
@@ -46,8 +47,8 @@ Many other combinations are allowed
   </programlisting>
  </example>
  
- <para>Request variables such as get, post, session etc are also available, see the
- <link linkend="language.variables.smarty">$smarty</link> reserved variable for more details.
+ <para>Request variables such as $_GET, $_SESSION etc are available with the <emphasis role="bold">
+ <link linkend="language.variables.smarty">$smarty</link></emphasis> reserved variable.
  </para>
  
  <para>

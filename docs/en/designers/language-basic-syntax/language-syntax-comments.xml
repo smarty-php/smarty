@@ -5,18 +5,21 @@
  <para>
   Template comments are surrounded by asterisks, and that is surrounded
   by the
-  <link linkend="variable.left.delimiter"> delimiter</link>
+  <link linkend="variable.left.delimiter">delimiter</link>
   tags like so: <emphasis>{* this is a comment *}</emphasis>
   Smarty comments are NOT displayed in the final output of the template,
   unlike &lt;!-- HTML comments --&gt;
-  and are useful for making internal notes in the templates.
+  these are useful for making internal notes in the templates which no one will see;-).
  </para>
  <example>
-  <title>Comments</title>
+  <title>Comments within a template</title>
   <programlisting>
 <![CDATA[
-<body>
 {* I am a Smarty comment, I don't exist in the compiled output  *}
+<html>
+<title>{$title}</title>
+</html>
+<body>
 
 {* another single line smarty comment  *}
 <!-- HTML comment that is sent to the browser -->
@@ -34,11 +37,11 @@ Multi line comment block with credits block
   @ css:            the style output
 **********************************************************}
  
-{* include the header file  *}
+{* The header file with the main logo and stuff  *}
 {include file='header.tpl'}
 
 
-{* Dev note:  the $includeFile is assigned in foo.php script  *}
+{* Dev note:  the $includeFile var is assigned in foo.php script  *}
 <!-- Displays main content block -->
 {include file=$includeFile}
 
@@ -49,9 +52,10 @@ Multi line comment block with credits block
 </select>
 *}
 
-{* cvs tag for a template *}
+{* cvs tag for a template, below the 36 SHOULD be an american currency 
+. however its converted in cvs.. *}
 {* &#36;Id: Exp &#36; *}
-
+{* $Id: *}
 </body>
 ]]>
   </programlisting>
