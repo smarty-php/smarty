@@ -7,6 +7,14 @@
      is empty or unset, the given default value is printed instead.
      Default takes one argument.
   </para>
+     <para>
+     <note>
+      <para>
+       With error_reporting(E_ALL), undeclared variables will always throw an error within the template. This function
+       is useful for replacing null or zero length strings. 
+    </para>
+    </note>
+    </para>
   
   <informaltable frame="all">
    <tgroup cols="5">

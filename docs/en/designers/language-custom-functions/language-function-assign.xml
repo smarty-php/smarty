@@ -5,7 +5,7 @@
   <para>
    {assign} is used for assigning template variables
    <emphasis role="bold">during the execution
-   of the template</emphasis>.
+   of a template</emphasis>.
  </para>
  
  <informaltable frame="all">
@@ -76,7 +76,7 @@ The value of $name is Bob.
  <example>
   <title>Accessing {assign} variables from a PHP script.</title>
   <para>
-  To access {assign} variables from php use
+  To access {assign} variables from the php script use
     <link linkend="api.get.template.vars">get_template_vars()</link>.
     However, the variables are only available after/during template execution
   as in the following example

@@ -3,11 +3,20 @@
 <chapter id="language.builtin.functions">
  <title>Built-in Functions</title>
  <para>
-  Smarty comes with several built-in functions. Built-in functions
-  are integral to the template language. You cannot create custom
-  functions with the same names, nor can you modify built-in functions.
+  Smarty comes with several built-in functions. These built-in functions 
+  are the integral part of the smarty template engine. You cannot create your own
+  <link linkend="language.custom.functions">custom functions</linkend>
+  with the same name; and you  should  not need to 
+  modify the built-in functions.
+ </para>
+ <para>
+ A few on these functions have an <emphasis role="bold">assign</emphasis> 
+ attribute which collects
+ the result the function to a named variable within a template instead of being output;
+ much like the <link linkend="language.function.assign">{assign}</link> function.
  </para>
 
+ 
  &designers.language-builtin-functions.language-function-capture;
  &designers.language-builtin-functions.language-function-config-load;
  &designers.language-builtin-functions.language-function-foreach;

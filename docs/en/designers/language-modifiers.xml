@@ -45,6 +45,11 @@
 
 {* php's shuffle on servers's ip *}
 {$smarty.server.SERVER_ADDR|shuffle}
+
+(* this will uppercase and truncate the whole array *}
+<select name="name_id">
+{html_options output=$myArray|upper|truncate:20}
+</select>
 ]]>
   </programlisting>
  </example>

@@ -3,9 +3,8 @@
  <sect1 id="language.modifier.escape">
   <title>escape</title>
     <para>
-     This is used to html escape, url escape, escape single quotes on a
-     variable not already escaped, hex escape, hexentity or javascript escape.
-     By default, the variable is html
+     This is used to encode/escape and a variable to html url single quotes, hex escape, hexentity, javascript and mail escape.
+     By default its html
      escaped.
   </para>
   
@@ -69,12 +68,12 @@ $smarty->assign('EmailAddress','smarty@example.com');
 <![CDATA[
 {$articleTitle}
 {$articleTitle|escape}
-{$articleTitle|escape:"html"}    {* escapes  & " ' < > *}
-{$articleTitle|escape:"htmlall"} {* escapes ALL html entities *}
-{$articleTitle|escape:"url"}
-{$articleTitle|escape:"quotes"}
+{$articleTitle|escape:'html'}    {* escapes  & " ' < > *}
+{$articleTitle|escape:'htmlall'} {* escapes ALL html entities *}
+{$articleTitle|escape:'url'}
+{$articleTitle|escape:'quotes'}
 <a href="mailto:{$EmailAddress|escape:"hex"}">{$EmailAddress|escape:"hexentity"}</a>
-{$EmailAddress|escape:'mail'}
+{$EmailAddress|escape:'mail'}    {* this converts to email to text *}
 ]]>
    </programlisting>
    <para>
@@ -92,19 +91,28 @@ $smarty->assign('EmailAddress','smarty@example.com');
 smarty [AT] example [DOT] com
 ]]>
    </screen>
-   <para>Remember that native PHP functions can be used as modifiers so this will work</para>
+   <para>Note that native PHP functions can be used as modifiers so this will work</para>
    <screen>
 <![CDATA[
 {* rewind get var registers the current location *}
 <a href="{$SCRIPT_NAME}?page=foo&rewind={$smarty.server.REQUEST_URI|urlencode}">click here</a>
 ]]>
-   </screen>   
+   </screen>
+      <para>And this is very useful for emails but see also 
+      <link linkend="language.function.mailto">{mailto}</link></para>
+      <screen>
+   <![CDATA[
+   {* email address mangled *}
+   <a href="mailto:{$EmailAddress|escape:'hex'}">{$EmailAddress:escape'mail'}</a>
+   ]]>
+   </screen>  
   </example>
   
   
   
   <para>
-   See also <link linkend="language.escaping">Escaping Smarty Parsing</link>
+   See also <link linkend="language.escaping">Escaping Smarty Parsing</link>,
+   <link linkend="language.function.mailto">{mailto}</link>
    and <link linkend="tips.obfuscating.email">Obfuscating E-mail Addresses</link>.
   </para>
  </sect1>
