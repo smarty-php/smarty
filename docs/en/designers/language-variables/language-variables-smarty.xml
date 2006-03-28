@@ -4,7 +4,7 @@
  <title>{$smarty} reserved variable</title>
  <para>
   The PHP reserved {$smarty} variable can be used to access several
-  special template variables. The full list of them follows.
+  enviroment and request variables. The full list of them follows.
  </para>
  <sect2 id="language.variables.smarty.request">
   <title>Request variables</title>
@@ -49,17 +49,24 @@
     directly, although {$smarty.server.SCRIPT_NAME} is the
     proposed way to access this value.
    </para>
+<programlisting>
+<![CDATA[
+<a href="{$SCRIPT_NAME}?page=smarty">click me</a>
+<a href="{$smarty.server.SCRIPT_NAME}?page=smarty">click me</a>
+]]>
+</programlisting>
   </note>
  </sect2>
  <sect2 id="language.variables.smarty.now">
   <title>{$smarty.now}</title>
   <para>
    The current <ulink url="&url.php-manual;function.time">timestamp</ulink>
-   can be accessed with {$smarty.now}. The  number reflects the number of
+   can be accessed with {$smarty.now}. The  value reflects the number of
    seconds passed since the so-called Epoch (January 1, 1970)
    and can be passed directly to the
    <link linkend="language.modifier.date.format">date_format</link>
-   modifier for display purposes.
+   modifier for display purposes. Note that time() is called each invocation. 
+   ie a script that takes 3 seconds to execute with $smarty.now at start and end will show the 3 seconds difference.
   </para>
   <example>
    <title>using {$smarty.now}</title>
@@ -78,21 +85,26 @@
    linkend="smarty.constants">smarty constants</link>
   </para>
   <example>
-   <title>using {$smarty.const}</title>
-   <programlisting>
+   <title>using {$smarty.const} to access constants</title>
+<programlisting role="php">
+<![CDATA[
+define('_MY_CONST_VAL','CHERRIES');
+]]>
+</programlisting>
+<programlisting>
 <![CDATA[
 {$smarty.const._MY_CONST_VAL}
 ]]>
-   </programlisting>
+</programlisting>
   </example>
  </sect2>
 
  <sect2 id="language.variables.smarty.capture">
   <title>{$smarty.capture}</title>
   <para>
-   The output captured via <link
+   Template output captured via the <link
    linkend="language.function.capture">{capture}..{/capture}</link>
-   construct can be accessed using {$smarty} variable. See section on
+   construct can be accessed using the {$smarty.capture} variable. See the section on
    <link linkend="language.function.capture">{capture}</link> for an
    example.
   </para>
@@ -115,28 +127,51 @@
    {$smarty} variable can be used to refer to
    <link linkend="language.function.section">{section}</link> and
    <link linkend="language.function.foreach">{foreach}</link>
-   loop properties.
+   loop properties. These has very useful values such as .first .index etc
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.template">
   <title>{$smarty.template}</title>
   <para>
-   This variable contains the name of the current template being
-   processed.
+   Returns the name of the current template being
+   processed. This example shows the container.tpl and the included banner.tpl 
+   with {$smarty.template} within both
   </para>
+<programlisting>
+<![CDATA[
+<b>Main container is {$smarty.template}</b>
+{include file='banner.tpl}
+]]>
+</programlisting>
+will output
+<programlisting>
+<![CDATA[
+<b>Main page if container.tpl</b>
+banner.tpl
+]]>
+</programlisting>
  </sect2>
+ 
+ 
  <sect2 id="language.variables.smarty.version">
   <title>{$smarty.version}</title>
   <para>
-   This variable contains the version of Smarty the template was compiled with.
+   Returns the version of Smarty the template was compiled with.
   </para>
+<programlisting>
+<![CDATA[
+<div id="footer">Powered by Smarty {$smarty.version}</div>
+]]>
+</programlisting>
+  
+  
  </sect2>
  <sect2 id="language.variables.smarty.ldelim">
   <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
   <para>
-   This variable is used for printing the left-delimiter and right-delimiter value literally.
-   See <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+   These variables are used for printing the left-delimiter and right-delimiter value literally,
+   the same as <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
   <para>
    See also
