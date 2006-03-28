@@ -3,14 +3,14 @@
 <sect1 id="language.function.php">
  <title>{php}</title>
  <para>
-  {php} tags allow php to be embedded directly into the template. They
+  The {php} tags allow PHP code to be embedded directly into the template. They
   will not be escaped, regardless of the <link
   linkend="variable.php.handling">$php_handling</link> setting. This
-  is for advanced users only, not normally needed.
+  is for advanced users only, not normally needed and not recommended.
  </para>
  <example>
   <title>{php} tags</title>
-  <programlisting role="php">
+  <programlisting>
 <![CDATA[
 {php}
    // including a php script directly
@@ -30,15 +30,19 @@
 </note>
 
  <example>
-  <title>{php} tags with global</title>
+  <title>{php} tags with global and assigning a variable</title>
   <programlisting role="php">
 <![CDATA[
 {php}
    global $foo, $bar;
    if($foo == $bar){
-     // do something
+     echo 'This will come out in the template';
    }
+
+$this->assign('varX','Strawberry');
+
 {/php}
+<strong>{$varX}</strong> is my fav ice cream
 ]]>
   </programlisting>
  </example>
