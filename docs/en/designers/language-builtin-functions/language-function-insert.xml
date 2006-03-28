@@ -5,8 +5,8 @@
   <para>
    {insert} tags work much like <link
    linkend="language.function.include">{include}</link> tags,
-   except that {insert} tags are NOT cached when you have
-   template <link linkend="caching">caching</link> enabled. They
+   except that {insert} tags are NOT cached when 
+   template <link linkend="caching">caching</link> is enabled. They
    will be executed on every invocation of the template.
  </para>
  
@@ -60,6 +60,11 @@
    </tbody>
   </tgroup>
  </informaltable>
+
+<para>
+Variables passed to {insert} will be cached by the calling script. Instead reference a variable within the inserted file!! 
+ie {insert foo='baa'} will be cached, wheras $foo within the {insert}ed template will not. 
+</para>
 
  <para>
   Let's say you have a template with a banner slot at the top of
