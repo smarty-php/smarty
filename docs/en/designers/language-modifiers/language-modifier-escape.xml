@@ -105,7 +105,7 @@ mail [AT] example [DOT] com
       <screen>
    <![CDATA[
    {* email address mangled *}
-   <a href="mailto:{$EmailAddress|escape:'hex'}">{$EmailAddress|escape'mail'}</a>
+   <a href="mailto:{$EmailAddress|escape:'hex'}">{$EmailAddress|escape:'mail'}</a>
    ]]>
    </screen>  
   </example>
