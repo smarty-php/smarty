@@ -17,8 +17,9 @@
 <![CDATA[
 {* I am a Smarty comment, I don't exist in the compiled output  *}
 <html>
+<head>
 <title>{$title}</title>
-</html>
+</head>
 <body>
 
 {* another single line smarty comment  *}
@@ -57,6 +58,7 @@ Multi line comment block with credits block
 {* &#36;Id: Exp &#36; *}
 {* $Id: *}
 </body>
+</html>
 ]]>
   </programlisting>
  </example>
