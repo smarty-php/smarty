@@ -38,14 +38,20 @@
    if($foo == $bar){
      echo 'This will come out in the template';
    }
-
 $this->assign('varX','Strawberry');
-
 {/php}
 <strong>{$varX}</strong> is my fav ice cream
 ]]>
   </programlisting>
- </example>
+  <para>The following seriously NOT recommended as its in the template scope</para>
+<programlisting 
+<![CDATA[
+{php}
+print_r($some_array);
+{/php}
+]]>
+</programlisting>
+</example>
  
  <para>
   See also
