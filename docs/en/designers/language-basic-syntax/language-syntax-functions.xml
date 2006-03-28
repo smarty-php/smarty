@@ -9,7 +9,7 @@
   function and its
   <link linkend="language.syntax.attributes">attributes</link>
   within delimiters like so: {funcname
-  attr1='val1' attrto='val2'}.
+  attr1='val1' attr2='val2'}.
  </para>
  <example>
   <title>function syntax</title>
@@ -18,7 +18,7 @@
 {config_load file='colors.conf'}
 
 {include file='header.tpl'}
-{insert file='banner_ads.tpl'}
+{insert file='banner_ads.tpl' title='Smarty is cool'}
 
 {if $logged_in}
     Welcome, <font color="{#fontColor#}">{$name}!</font>
@@ -26,7 +26,7 @@
     hi, {$name}
 {/if}
 
-{include file='footer.tpl'}
+{include file='footer.tpl' ad=$random_id}
 ]]>
   </programlisting>
  </example>

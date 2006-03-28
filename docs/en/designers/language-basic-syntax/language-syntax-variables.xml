@@ -47,7 +47,7 @@ Many other combinations are allowed
   </programlisting>
  </example>
  
- <para>Request variables such as $_GET, $_SESSION etc are available with the <emphasis role="bold">
+ <para>Request variables such as $_GET, $_SESSION etc are available via the <emphasis role="bold">
  <link linkend="language.variables.smarty">$smarty</link></emphasis> reserved variable.
  </para>
  

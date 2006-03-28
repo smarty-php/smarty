@@ -13,8 +13,9 @@
    template from the variable <link
     linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
    where "foo" is the value passed in the name attribute. If you do not
-   supply a name attribute, then "default" will be used as in $smarty.capture.default. 
-   You can nest capture commands.
+   supply a name attribute, then "default" will be used as the name 
+   ie $smarty.capture.default </para>
+   <para>{capture}'s can be nested.
  </para>
  
  

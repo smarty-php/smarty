@@ -3,7 +3,7 @@
  <sect1 id="language.modifier.escape">
   <title>escape</title>
     <para>
-     This is used to encode/escape and a variable to html url single quotes, hex escape, hexentity, javascript and mail escape.
+     This is used to encode/escape a variable to html url single quotes, hex escape, hexentity, javascript and mail escape.
      By default its html
      escaped.
   </para>
@@ -74,6 +74,7 @@ $smarty->assign('EmailAddress','smarty@example.com');
 {$articleTitle|escape:'quotes'}
 <a href="mailto:{$EmailAddress|escape:"hex"}">{$EmailAddress|escape:"hexentity"}</a>
 {$EmailAddress|escape:'mail'}    {* this converts to email to text *}
+{'mail@example.com'|escape:'mail'}
 ]]>
    </programlisting>
    <para>
@@ -89,6 +90,7 @@ $smarty->assign('EmailAddress','smarty@example.com');
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
 <a href="mailto:%62%6f%..snip..%65%74">&#x62;&#x6f;&#x62..snip..&#x65;&#x74;</a>
 smarty [AT] example [DOT] com
+mail [AT] example [DOT] com
 ]]>
    </screen>
    <para>Note that native PHP functions can be used as modifiers so this will work</para>
