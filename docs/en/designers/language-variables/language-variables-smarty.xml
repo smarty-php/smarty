@@ -88,11 +88,13 @@
    <title>using {$smarty.const} to access constants</title>
 <programlisting role="php">
 <![CDATA[
+// the constant defined in php
 define('_MY_CONST_VAL','CHERRIES');
 ]]>
 </programlisting>
 <programlisting>
 <![CDATA[
+{* the output of php constant in the template *}
 {$smarty.const._MY_CONST_VAL}
 ]]>
 </programlisting>

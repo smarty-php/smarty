@@ -21,7 +21,7 @@ $smarty->assign('articleTitle',
 ]]>
    </programlisting>
    <para>
-    Where template is:
+    Where the template is:
    </para>
    <programlisting>
 <![CDATA[
@@ -29,7 +29,7 @@ $smarty->assign('articleTitle',
 ]]>
    </programlisting>
    <para>
-    This should output:
+    will output:
    </para>
    <screen>
 <![CDATA[
