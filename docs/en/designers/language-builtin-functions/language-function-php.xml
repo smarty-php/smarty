@@ -44,7 +44,7 @@ $this->assign('varX','Strawberry');
 ]]>
   </programlisting>
   <para>The following seriously NOT recommended as its in the template scope</para>
-<programlisting 
+<programlisting> 
 <![CDATA[
 {php}
 print_r($some_array);
