@@ -61,10 +61,6 @@
   </tgroup>
  </informaltable>
 
-<para>
-Variables passed to {insert} will be cached by the calling script. Instead reference a variable within the inserted file!! 
-ie {insert foo='baa'} will be cached, wheras $foo within the {insert}ed template will not. 
-</para>
 
  <para>
   Let's say you have a template with a banner slot at the top of
