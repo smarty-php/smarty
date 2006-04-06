@@ -4,7 +4,7 @@
   <title>default</title>
     <para>
      This is used to set a default value for a variable. If the variable
-     is empty or unset, the given default value is printed instead.
+     is unset or an empty string, the given default value is printed instead.
      Default takes one argument.
   </para>
      <para>
