@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.php">
  <title>{php}</title>
@@ -9,11 +9,11 @@
   template. Ils ne seront pas ignorés, quelle que soit la valeur de <link
   linkend="variable.php.handling">$php_handling</link>. Pour les
   utilisateurs avancés seulement, son utilisation n'est normalement pas
-  nécessaire.
+  nécessaire et n'est pas recommandée.
  </para>
  <example>
   <title>Balises {php}</title>
-  <programlisting role="php">
+  <programlisting>
 <![CDATA[
 {php}
    // inclusion directe d'un script PHP
@@ -32,14 +32,26 @@
  </note>
 
  <example>
-  <title>Balises {php} avec le mot clé global</title>
+  <title>Balises {php} avec le mot clé global et assignement d'une variable</title>
   <programlisting role="php">
 <![CDATA[
 {php}
    global $foo, $bar;
    if($foo == $bar){
-      // do something
+     echo 'Ceci apparaîtera dans le template';
    }
+$this->assign('varX','Strawberry');
+{/php}
+<strong>{$varX}</strong> est ma glâce favorite
+]]>
+  </programlisting>
+  <para>
+   Ce qui suit n'est vrament PAS recommandé, vu que c'est dans le contexte du template.
+  </para>
+  <programlisting>
+<![CDATA[
+{php}
+print_r($some_array);
 {/php}
 ]]>
   </programlisting>

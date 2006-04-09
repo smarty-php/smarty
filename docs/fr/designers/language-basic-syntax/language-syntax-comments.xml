@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.syntax.comments">
  <title>Commentaires</title>
@@ -10,15 +10,18 @@
   de cette façon : <emphasis>{* voici un commentaire *}</emphasis>
   Les commentaires Smarty ne sont PAS affichés dans la sortie finale du
   template, différemment des &lt;!-- commentaires HTML --&gt;
-  et sont utilisés pour des notes internes, dans le template, pour aider
-  les développeurs à en comprendre le fonctionnement.
+  et sont utilisés pour des notes internes, dans le template que personne ne verra ;)
  </para>
  <example>
-  <title>Commentaires</title>
+  <title>Commentaires dans un template</title>
   <programlisting>
 <![CDATA[
-<body>
 {* Je suis un commentaire Smarty, je n'existe pas dans la sortie compilée *}
+<html>
+ <head>
+  <title>{$title}</title>
+ </head>
+ <body>
 
 {* un autre commentaire Smarty sur une seule ligne *}
 <!-- Un commentaire Html qui sera envoyé au navigateur -->
@@ -35,7 +38,7 @@ Un bloc de commentaires multilignes contenant les crédits
 @ css:            the style output
 **********************************************************}
 
-{* Inclusion du fichier d'en tête *}
+{* Inclusion du fichier d'en-tête contenant le logo principal *}
 {include file='header.tpl'}
 
 {* Note aux développeurs :  $includeFile est assigné au script foo.php  *}
@@ -48,10 +51,13 @@ Un bloc de commentaires multilignes contenant les crédits
  {html_options options=$vals selected=$selected_id}
 </select>
 *}
-{* Balise cvs pour un template *}
-{* &#36;Id: Exp &#36; *}
 
+{* Balise cvs pour un template, ci-dessous, le 36 DOIT ÊTRE une devise américaine sinon,
+il sera converti en cvs.. *}
+{* &#36;Id: Exp &#36; *}
+{* $Id: *}
 </body>
+</html>
 ]]>
 </programlisting>
  </example>

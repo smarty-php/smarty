@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.capture">
  <title>{capture}</title>
@@ -8,14 +8,19 @@
  <para>
   {capture} est utilisé pour récupérer la sortie d'éléments dans une variable
   au lieu de les afficher. Tout contenu situé entre {capture
-  name="foo"} et {/capture} est intercepté dans une variable dont le nom est
-  spécifié dans l'attribut name. Le contenu capturé peut être utilisé dans
+  name='foo'} et {/capture} est intercepté dans une variable dont le nom est
+  spécifié dans l'attribut name.
+ </para>
+ <para>
+  Le contenu capturé peut être utilisé dans
   le template par l'intermédiaire de la variable spéciale
   <link linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
   où "foo" est la valeur de l'attribut name. Si vous ne donnez pas de valeur
-  à l'attribut name, alors "default" est utilisé. Toutes les commandes
-  {capture} doivent être utilisées de paire avec {/capture}. Vous pouvez
-  imbriquer les demandes de captures.
+  à l'attribut name, alors "default" est utilisé en tant que nom, i.e.
+  $smarty.capture.default.
+ </para>
+ <para>
+  {capture} peut être imbriqué.
  </para>
 
  <informaltable frame="all">
@@ -65,38 +70,32 @@
  </caution>
  <para>
   <example>
-   <title>Capturer le contenu d'un template.</title>
+   <title>{capture} avec le nom de l'attribut</title>
    <programlisting>
 <![CDATA[
-{* nous ne voulons afficher une ligne que si cette dernière est activé. *}
+{* nous ne voulons afficher une balise div que si le contenu est affiché. *}
 {capture name=banner}
   {include file='get_banner.tpl'}
 {/capture}
 {if $smarty.capture.banner ne ""}
-<table>
-<tr>
- <td>
-  {$smarty.capture.banner}
- </td>
-</tr>
-</table>
+<div id="banner">{$smarty.capture.banner}</div>
 {/if}
 ]]>
    </programlisting>
   </example>
 
   <example>
-   <title>Capturer le contenu dans une variable</title>
+   <title>{capture} dans une variable de template</title>
    <para>Cet exemple démontre également la fonction
     <link linkend="language.function.popup">{popup}</link>
    </para>
    <programlisting>
 <![CDATA[
 {capture name=some_content assign=popText}
-.... du contenu ....
+Le serveur est {$smarty.server.SERVER_NAME|upper} sur {$smarty.server.SERVER_ADDR}<br>
+Votre IP est {$smarty.server.REMOTE_ADDR}.
 {/capture}
-
-<a href="#" {popup caption='Help' text=$popText}>help</a>
+<a href="#" {popup caption='Information sur le serveur' text=$popText}>Aide</a>
 ]]>
    </programlisting>
   </example>

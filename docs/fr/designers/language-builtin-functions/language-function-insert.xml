@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.insert">
  <title>{insert}</title>
@@ -9,7 +9,7 @@
   Les balises {insert} fonctionnent à peu près comme les balises
   <link linkend="language.function.include">include</link>,
   à l'exception que leur sortie n'est PAS placée en cache lorsque
-  <link linkend="caching">le cache</link> est activé.
+  <link linkend="caching">le cache</link> du template est activé.
   Les balises {insert} seront exécutées à chaque appel du template.
  </para>
 

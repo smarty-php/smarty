@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.variables.smarty">
  <title>Variable réservée {$smarty}</title>
  <para>
   La variable PHP réservée {$smarty} peut être utilisée pour accéder à plusieurs
-  variables spéciales du template. En voici la liste complète.
+  variables d'environnements. En voici la liste complète.
  </para>
 
  <sect2 id="language.variables.smarty.request">
@@ -51,6 +51,12 @@
     directement, cependant, {$smarty.server.SCRIPT_NAME} est
     la solution proposée pour accéder à cette valeur.
    </para>
+   <programlisting>
+<![CDATA[
+<a href="{$SCRIPT_NAME}?page=smarty">click me</a>
+<a href="{$smarty.server.SCRIPT_NAME}?page=smarty">click me</a>
+]]>
+   </programlisting>
   </note>
  </sect2>
 
@@ -59,10 +65,12 @@
   <para>
    Le <ulink url="&url.php-manual;function.time">timestamp</ulink>
    courant peut être récupéré grâce à {$smarty.now}.
-   Le nombre obtenu correspond au nombre de secondes écoulées depuis
+   La valeur correspond au nombre de secondes écoulées depuis
    Epoch (1 Janvier 1970) et peut être passé directement au modificateur
    de variable date <link linkend="language.modifier.date.format">date_format</link> 
-   à des fins d'affichage.
+   à des fins d'affichage. Notez que time() est appelé à chaque invocation, i.e.
+   un script qui prend 3 secondes à s'exécuter avec $smarty.now au début et à la fin montrera
+   les 3 secondes de différence.
   </para>
   <example>
    <title>Utilisation de {$smarty.now}</title>
@@ -82,9 +90,16 @@
    Voir aussi les <link linkend="smarty.constants">constantes smarty</link>.
   </para>
   <example>
-   <title>Utiliser {$smarty.const}</title>
+   <title>Utiliser {$smarty.const} pour accéder aux constantes</title>
+   <programlisting role="php">
+<![CDATA[
+// la constante définie dans PHP
+define('_MY_CONST_VAL','CHERRIES');
+]]>
+   </programlisting>
    <programlisting>
 <![CDATA[
+{* la sortie de la constante PHP dans le template *}
 {$smarty.const._MA_CONSTANTE_}
 ]]>
    </programlisting>
@@ -94,9 +109,9 @@
  <sect2 id="language.variables.smarty.capture">
   <title>{$smarty.capture}</title>
   <para>
-   La capture réalisée via
+   La sortie du template réalisée via
    <link linkend="language.function.capture">{capture}..{/capture}</link> 
-   peut être récupérée par l'intermédiaire de la variable {$smarty}. Voir la section
+   peut être récupérée par l'intermédiaire de la variable {$smarty.capture}. Voir la section
    sur <link linkend="language.function.capture">{capture}</link> pour un
    exemple à ce sujet.
   </para>
@@ -120,27 +135,47 @@
    des boucles 'section' et 'foreach'. Voir la documentation de
    <link linkend="language.function.section">{section}</link> et
    <link linkend="language.function.foreach">{foreach}</link>.
+   Ils ont des valeurs vraiment utiles comme .first, .index, etc.
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.template">
   <title>{$smarty.template}</title>
   <para>
-   Cette variable contient le nom du template en cours de traitement.
+   Retourne le nom du template courant. Cet exemple montre le container.tpl
+   ainsi que le banner.tpl inclu avec {$smarty.template}.
   </para>
+  <programlisting>
+<![CDATA[
+<b>Le conteneur principal est {$smarty.template}</b>
+{include file='banner.tpl}
+ ]]>
+</programlisting>
+Affichera :
+<programlisting>
+ <![CDATA[
+<b>Le conteneur principal est container.tpl</b>
+   banner.tpl
+   ]]>
+  </programlisting>
  </sect2>
 
  <sect2 id="language.variables.smarty.version">
   <title>{$smarty.version}</title>
   <para>
-   Cette variable contient la version de Smarty utilisée pour compiler un template.
+   Retourne la version de Smarty ayant servie à compiler le template.
   </para>
+  <programlisting>
+<![CDATA[
+<div id="footer">Généré par Smarty {$smarty.version}</div>
+]]>
+</programlisting>
  </sect2>
 
  <sect2 id="language.variables.smarty.ldelim">
   <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
   <para>
-   Cette variable est utilisée pour afficher le délémiteur gauche et le délimiteur droit. Lisez aussi
+   Ces variables sont utilisées pour afficher le délémiteur gauche et le délimiteur droit. Lisez aussi
    la partie <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
   <para>

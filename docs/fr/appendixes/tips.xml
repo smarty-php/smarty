@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: didou Status: ready -->
 
 <chapter id="tips">
  <title>Trucs et astuces</title>
@@ -111,7 +111,7 @@
    </programlisting>
 
    <para>
-    <filename>header.tpl</filename> - Notez que "BC News" est affiché si la variable
+    <filename>header.tpl</filename> - Notez que "Smarty News" est affiché si la variable
     $title n'est pas définie, en utilisant le modificateur de variable par
     <link linkend="language.modifier.default">défaut</link>.
    </para>
@@ -119,7 +119,7 @@
 <![CDATA[
 <html>
  <head>
-  <title>{$title|default:'BC News'}</title>
+  <title>{$title|default:'Smarty News'}</title>
  </head>
  <body>
   ]]>
@@ -359,7 +359,7 @@ function smarty_function_load_ticker($params, &$smarty)
     </para>
     <programlisting>
 <![CDATA[
-{load_ticker symbol="YHOO" assign="ticker"}
+{load_ticker symbol='SMARTY' assign="ticker"}
 
 Stock Name: {$ticker.name} Stock Price: {$ticker.price}
 ]]>
@@ -387,10 +387,9 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     <title>Exemple de dissimulation d'une adresse email</title>
 <programlisting>
 <![CDATA[
-{* in index.tpl *}
-
-Send inquiries to
-{mailto address=$EmailAddress encode="javascript" subject="Hello"}
+{* dans le template *}
+<div id="contact">Envoyer une demande à
+{mailto address=$EmailAddress encode='javascript' subject='Bonjour'}
 ]]>
     </programlisting>
    </example>

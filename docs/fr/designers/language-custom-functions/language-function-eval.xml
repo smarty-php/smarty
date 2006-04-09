@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.eval">
  <title>{eval}</title>
@@ -71,9 +71,8 @@
   <title>{eval}</title>
   <programlisting>
 <![CDATA[
-setup.conf
-----------
-
+#setup.conf
+#----------
 emphstart = <strong>
 emphend = </strong>
 titre = Bienvenue sur la homepage de {$company} !
@@ -82,16 +81,16 @@ ErrorDept = Vous devez spécifier un {#emphstart#}département{#emphend#}.
 ]]>
   </programlisting>
   <para>
-   Où index.tpl est :
+   Où le template est :
   </para>
   <programlisting>
 <![CDATA[
-{config_load file="setup.conf"}
+{config_load file='setup.conf'}
 
 {eval var=$foo}
 {eval var=#titre#}
 {eval var=#ErrorVille#}
-{eval var=#ErrorDept# assign="state_error"}
+{eval var=#ErrorDept# assign='state_error'}
 {$state_error}
 ]]>
   </programlisting>
@@ -104,9 +103,32 @@ Ceci est le contenu de foo.
 Bienvenue sur la homepage de FictifLand.
 Vous devez spécifier un nom de <strong>ville</strong>.
 Vous devez spécifier un <strong>département</strong>.
-
 ]]>
   </screen>
+ </example>
+
+ <example>
+  <title>un autre exemple avec {eval}</title>
+  <para>
+   Ceci va afficher le nom du serveur (en majuscule) et son IP.
+   La variable $str également venir d'une requête de base de données.
+  </para>
+  <programlisting role="php">
+<![CDATA[
+// script php
+$str = 'Le nom du serveur est {$smarty.server.SERVER_NAME|upper} '
+.'at {$smarty.server.SERVER_ADDR}';
+$smarty->assign('foo',$str);
+   ]]>
+  </programlisting>
+  <para>
+   Où le template est :
+  </para>
+  <programlisting>
+<![CDATA[
+{eval var=$foo}
+]]>
+  </programlisting>
  </example>
 </sect1>
 

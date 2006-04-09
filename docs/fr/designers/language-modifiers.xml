@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.19 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.23 Maintainer: gerald Status: ready -->
 
 <chapter id="language.modifiers">
  <title>Modificateurs de variables</title>
  <para>
-  Les modificateurs de variables peuvent être appliqués aux variables,
-  fonctions utilisateurs ou chaînes de caractères. Pour appliquer un modificateur
+  Les modificateurs de variables peuvent être appliqués aux
+  <link linkend="language.syntax.variables">variables</link>,
+  <link linkend="language.custom.functions">fonctions utilisateurs</link>
+  ou chaînes de caractères. Pour appliquer un modificateur
   de variable, tappez une valeure suivie de <literal>|</literal>
   (pipe) et du nom du modificateur. Un modificateur de variable
   est succeptible d'accepter des paramètres additionnels, qui en affectent
   le comportement. Ces paramètres suivent le nom du modificateur et
   sont séparés par un <literal>:</literal> (deux points).
+  De plus, toutes les fonctions PHP peuvent être utilisées en tant que modifieurs
+  implicitement.
  </para>
  <example>
   <title>Exemple de modificateur</title>
@@ -21,21 +25,35 @@
 {$titre|upper}
 
 {* modificateur avec paramètres *}
-{$titre|truncate:40:"..."}
+{$titre|truncate:40:'...'}
 
 {* applique un modificateur à un paramètre de fonction *}
 {html_table loop=$mavariable|upper}
 {* avec paramètres *}
-{html_table loop=$mavariable|truncate:40:"..."}
+{html_table loop=$mavariable|truncate:40:'...'}
 
 {* applique un modificateur à une chaine de caractères *}
-{"foobar"|upper}
+{'foobar'|upper}
 
 {* utilise date_format pour mettre en forme la date *}
 {$smarty.now|date_format:"%d/%m/%Y"}
 
 {* applique un modificateur à une fonction utilisateur *}
-{mailto|upper address="moi@domaine.dom"}
+{mailto|upper address='smarty@example.com'}
+
+{* utilisation de la fonction PHP str_repeat *}
+{'='|str_repeat:80}
+
+{* Compteur PHP *}
+{$myArray|@count}
+
+{* mélange aléatoire des IP du serveur grâce à PHP *}
+{$smarty.server.SERVER_ADDR|shuffle}
+
+(* ceci va mettre en majuscule et tronque le tableau *}
+<select name="name_id">
+ {html_options output=$myArray|upper|truncate:20}
+</select>
 ]]>
   </programlisting>
  </example>
@@ -49,21 +67,21 @@
  </para>
   <para>
   Les modificateurs sont chargés automatiquement depuis votre répertoire
-  de plugin <link linkend="variable.plugins.dir">$plugins_dir</link> (voir aussi:
-  <link linkend="plugins.naming.conventions">convention de nommage</link>)
-  ou peuvent être enregistrés explicitement (voir: <link
-  linkend="api.register.modifier">register_modifier</link>).
+  de plugin <link linkend="variable.plugins.dir">$plugins_dir</link>
+  ou peuvent être enregistrés explicitement avec <link
+  linkend="api.register.modifier">register_modifier()</link> ; ceci est utile
+  pour partager une fonction dans un scirpt PHP et les templates Smarty.
  </para>
  <para>
-  De même, toutes les fonction php peuvent être utilisées comme modificateur,
+  Toutes les fonction PHP peuvent être utilisées comme modificateur,
   sans autre déclaration. (L'exemple avec
-  <literal>@count</literal> ci dessus utilise la fonction count(), et non un modificateur
+  <literal>@count</literal> ci-dessus utilise la fonction count(), et non un modificateur
   Smarty. Utiliser des fonctions PHP en tant que modificateur comporte deux 
   risques: Premièrement: il arrive que l'ordre des paramètres ne soit pas
   celui attendu (<literal>{"%2.f"|sprintf:$float}</literal> fonctionne,
   mais demande une syntaxe plus naturelle, par exemple<literal>{$float|string_format:"%2.f"}</literal>
   fourni dans la distribution Smarty). Deuxièmement : lorsque <link
-  linkend="variable.security">$security</link> est activé, les fonctions php
+  linkend="variable.security">$security</link> est activé, les fonctions PHP
   utilisées en tant que modificateur doivent être explicitement déclarées 
   comme connues dans le tableau <link linkend="variable.security.settings">
   $security_settings['MODIFIER_FUNCS']</link>.

@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
 
 <chapter id="language.builtin.functions">
  <title>Fonctions natives</title>
  <para>
   Smarty est fourni en standard avec plusieurs fonctions natives.
-  Les fonctions natives sont partie intégrante du language de template.
-  Vous ne pouvez pas créer de fonctions utilisateurs qui portent le même nom
-  qu'une fonction native. Vous ne pouvez pas non plus en modifier le
-  comportement.
+  Ces fonctions natives sont partie intégrante du moteur de Smarty.
+  Vous ne pouvez pas créer de
+  <link linkend="language.custom.functions">fonctions utilisateurs</link>
+  qui portent le même nom qu'une fonction native et vous ne pouvez pas non
+  plus en modifier le comportement.
+ </para>
+ <para>
+  Quelques-unes de ces fonctions ont un attribut
+  <emphasis role="bold">assign</emphasis> qui récupère le résultat de la
+  fonction et la place dans une variable nommée dans le template plutôt que
+  de l'afficher.tout comme la fonction
+  <link linkend="language.function.assign">{assign}</link>.
  </para>
 
  &designers.language-builtin-functions.language-function-capture;

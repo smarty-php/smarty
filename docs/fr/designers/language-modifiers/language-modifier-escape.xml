@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.escape">
  <title>escape</title>
  <para>
-  "Echappe" les caractères spéciaux html, d'url, pour
-  les quotes d'une chaîne, les valeurs
-  hexadécimales, les entités hexadécimales ou javascript.
+  Utile pour encoder / échapper une variable pour quelles soient compatibles
+  pour les URL Html, pour les hexadécimaux, pour les entités hexadécimales, pour javascript
+  et pour les e-mails.
   Par défaut, ce paramètre est html.
  </para>
  <informaltable frame="all">
@@ -76,12 +76,13 @@ $smarty->assign('EmailAddress','smarty@example.com');
 <![CDATA[
 {$titreArticle}
 {$titreArticle|escape}
-{$titreArticle|escape:"html"}    {* escapes  &amp; &quot; &#039; &lt; &gt; *}
-{$titreArticle|escape:"htmlall"} {* escapes ALL html entities *}
-{$titreArticle|escape:"url"}
-{$titreArticle|escape:"quotes"}
+{$titreArticle|escape:'html'}    {* escapes  &amp; &quot; &#039; &lt; &gt; *}
+{$titreArticle|escape:'htmlall'} {* escapes ALL html entities *}
+{$titreArticle|escape:'url'}
+{$titreArticle|escape:'quotes'}
 <a href="mailto:{$EmailAddress|escape:"hex"}">{$EmailAddress|escape:"hexentity"}</a>
-{$EmailAddress|escape:'mail'}
+{$EmailAddress|escape:'mail'}    {* ceci convertit l'e-mail en texte *}
+{'mail@example.com'|escape:'mail'}
 ]]>
   </programlisting>
   <para>
@@ -97,6 +98,7 @@ $smarty->assign('EmailAddress','smarty@example.com');
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
 <a href="mailto:%62%6f%..snip..%65%74">&#x62;&#x6f;&#x62..snip..&#x65;&#x74;</a>
 smarty [AT] example [DOT] com
+mail [AT] example [DOT] com
 ]]>
   </screen>
   <para>
@@ -108,11 +110,21 @@ smarty [AT] example [DOT] com
 <a href="{$SCRIPT_NAME}?page=foo&rewind={$smarty.server.REQUEST_URI|urlencode}">click here</a>
 ]]>
   </screen>
+  <para>
+   Et ceci est utile pour les e-mails, mais lisez plutôt la documentation de
+   <link linkend="language.function.mailto">{mailto}</link></para>
+<screen>
+ <![CDATA[
+{* email address mangled *}
+<a href="mailto:{$EmailAddress|escape:'hex'}">{$EmailAddress|escape:'mail'}</a>
+]]>
+   </screen>
  </example>
  <para>
   Voir aussi la
-  <link linkend="language.escaping">désactivation de l'analyse de Smarty</link> et
-  le <link linkend="tips.obfuscating.email">mascage des adresses E-mail</link>.
+  l'<link linkend="language.escaping">anayse Smarty d'échappement</link>,
+   <link linkend="language.function.mailto">{mailto}</link> et
+  le <link linkend="tips.obfuscating.email">mascage des adresses e-mail</link>.
  </para>
 </sect1>
 

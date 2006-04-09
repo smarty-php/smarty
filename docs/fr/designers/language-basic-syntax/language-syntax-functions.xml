@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+
 <sect1 id="language.syntax.functions">
  <title>Fonctions</title>
  <para>
   Les balises Smarty affichent une <link linkend="language.variables">variable</link>
-  ou invoquent une fonction. Les fonctions sont appelées
+  ou invoquent une fonction. Elles sont appelées
   lorsqu'elles sont entourées, ainsi que leurs
   <link linkend="language.syntax.attributes">paramètres</link>, des délimiteurs Smarty.
   Par exemple : {nomfonction attr1='val' attr2='val'}.
@@ -16,15 +17,15 @@
 <![CDATA[
 {config_load file='colors.conf'}
 {include file='header.tpl'}
-{insert file='banner_ads.tpl'}
+{insert file='banner_ads.tpl' title='Smarty est cool !'}
 
-{if $highlight_name}
+{if $logged_in}
    Bonjour, <font color="{#fontColor#}">{$name}!</font>
 {else}
    Bonjour, {$name}!
 {/if}
 
-{include file='footer.tpl'}
+{include file='footer.tpl' ad=$random_id}
 ]]>
   </programlisting>
  </example>
@@ -39,7 +40,7 @@
   comme <link linkend="language.function.if">{if}</link>,
   <link linkend="language.function.section">{section}</link> et
   <link linkend="language.function.strip">{strip}</link>.
-  Elles ne devraient pas être modifiées.
+  Il n'y a aucune raison à ce qu'elles soient modifiées ou changées.
  </para>
  <para>
   Les fonctions utilisateurs sont des fonctions <emphasis role="bold">additionnelles</emphasis>,
@@ -49,6 +50,11 @@
   <link linkend="language.function.html.options">{html_options}</link> et
   <link linkend="language.function.popup">{popup}</link>
   sont deux exemples de fonctions utilisateurs.
+ </para>
+
+ <para>
+  Voir aussi
+  <link linkend="api.register.function">register_function()</link>.
  </para>
 </sect1>
 

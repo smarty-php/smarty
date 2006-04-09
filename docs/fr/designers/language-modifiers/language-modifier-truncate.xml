@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.truncate">
  <title>truncate</title>
@@ -90,6 +90,7 @@ Où le template est :
 {$titreArticle|truncate:30:"---"}
 {$titreArticle|truncate:30:"":true}
 {$titreArticle|truncate:30:"...":true}
+{$articleTitle|truncate:30:'..':true:true}
 ]]>
 </programlisting>
 <para>
@@ -103,6 +104,7 @@ Deux soeurs réunies après
 Deux soeurs réunies après---
 Deux soeurs réunies après 18 a
 Deux soeurs réunies après 1...
+Deux soeurs ... de séparation.
 ]]>
 </screen>
  </example>

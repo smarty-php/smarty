@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.assign">
  <title>{assign}</title>
  <para>
-  {assign} est utilisé pour déclarer ou modifier des variables de template.
+  {assign} est utilisé pour déclarer des variables de template
+  <emphasis role="bold">durant l'exécution du template</emphasis>.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -73,7 +74,7 @@ La valeur de $name est Bob.
  <example>
   <title>Accès aux variables {assign} depuis un script PHP.</title>
   <para>
-   Pour accéder aux variables {assign} depuis PHP, utilisez
+   Pour accéder aux variables {assign} depuis le script PHP, utilisez
    <link linkend="api.get.template.vars">get_template_vars()</link>.
    Cependant, les variables ne sont disponibles qu'après ou pendant l'exécution du
    template, comme le montre l'exemple suivant :
