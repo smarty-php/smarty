@@ -146,7 +146,9 @@ define('_MY_CONST_VAL','CHERRIES');
 {include file='banner.tpl}
 ]]>
 </programlisting>
-will output
+    <para>
+    will output
+    </para>
 <programlisting>
 <![CDATA[
 <b>Main page if container.tpl</b>
