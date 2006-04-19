@@ -176,8 +176,7 @@ where the template is:
 <![CDATA[
 <select name="type_id">
     <option value='null'>-- none --</option>
-    {html_options name='contact_type_type' options=$contact_types 
-        selected=$contact.type_id}
+    {html_options options=$contact_types selected=$contact.type_id}
 </select>
 ]]>
   </programlisting>
