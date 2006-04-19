@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.15 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.variables.smarty">
  <title>Variable réservée {$smarty}</title>
@@ -149,14 +149,16 @@ define('_MY_CONST_VAL','CHERRIES');
 <![CDATA[
 <b>Le conteneur principal est {$smarty.template}</b>
 {include file='banner.tpl}
- ]]>
-</programlisting>
-Affichera :
-<programlisting>
- <![CDATA[
+]]>
+  </programlisting>
+  <para>
+   Affichera :
+  </para>
+  <programlisting>
+<![CDATA[
 <b>Le conteneur principal est container.tpl</b>
-   banner.tpl
-   ]]>
+banner.tpl
+]]>
   </programlisting>
  </sect2>
 
@@ -169,7 +171,7 @@ Affichera :
 <![CDATA[
 <div id="footer">Généré par Smarty {$smarty.version}</div>
 ]]>
-</programlisting>
+  </programlisting>
  </sect2>
 
  <sect2 id="language.variables.smarty.ldelim">

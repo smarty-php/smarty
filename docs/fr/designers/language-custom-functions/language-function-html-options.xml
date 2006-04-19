@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.13 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.options">
  <title>{html_options}</title>
@@ -180,7 +180,7 @@ $smarty->assign('contact',$db->getRow($sql));
 <![CDATA[
 <select name="type_id">
  <option value='null'>-- none --</option>
- {html_options name='contact_type' options=$contact_types selected=$contact.type_id}
+ {html_options options=$contact_types selected=$contact.type_id}
 </select>
 ]]>
   </programlisting>
