@@ -11,7 +11,7 @@
   object properties and methods.</para>
   <para>
   <link linkend="language.config.variables">Config file variables</link>
-  are an exception to the $dollar syntax.
+  are an exception to the $dollar syntax
   and are instead referenced with surrounding #hashmarks#, or
   via the 
   <link linkend="language.variables.smarty.config">$smarty.config</link> variable.
