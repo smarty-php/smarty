@@ -1,38 +1,57 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.19 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.23 Maintainer: freespace Status: ready -->
 <chapter id="language.modifiers">
  <title>Модификаторы переменных</title>
  <para>
-  Модификаторы переменных могут быть прмменены к переменным, пользовательским
-  функциям или строкам. Для их применения надо после модифицируемого значения
+  Модификаторы переменных могут быть прмменены к
+  <link linkend="language.syntax.variables">переменным</link>,
+  <link linkend="language.custom.functions">пользовательским функциям</link>
+  или строкам. Для их применения надо после модифицируемого значения
   указать символ <literal>|</literal> (вертикальная черта) и название модификатора.
   Так же модификаторы могут принимать параметры, которые влияют на их поведение.
   Эти параметры следуют за названием модификатора и разделяются
-  <literal>:</literal> (двоеточием).
+  <literal>:</literal> (двоеточием). Кроме того, все функции PHP могут быть
+  использованы в качестве модификаторов - об этом дальше.
  </para>
  <example>
-  <title>Пример модификатора</title>
+  <title>Примеры модификаторов</title>
   <programlisting>
 <![CDATA[
 {* применение модификатора к переменной *}
 {$title|upper}
+
 {* модификатор с параметрами *}
-{$title|truncate:40:"..."}
+{$title|truncate:40:'...'}
 
 {* применение модификатора к аргументу функции *}
 {html_table loop=$myvar|upper}
+
 {* с параметрами *}
-{html_table loop=$myvar|truncate:40:"..."}
+{html_table loop=$myvar|truncate:40:'...'}
 
 {* применение модификатора к строке *}
-{"foobar"|upper}
+{'foobar'|upper}
 
 {* использование date_format для форматирования текущей даты *}
 {$smarty.now|date_format:"%Y/%m/%d"}
 
 {* применение модификатора к функции *}
-{mailto|upper address="me@domain.dom"}
+{mailto|upper address='smarty@example.com'}
+
+{* использование функции PHP str_repeat *}
+{'='|str_repeat:80}
+
+{* функция PHP count *}
+{$myArray|@count}
+
+{* функция PHP shuffle, применяемая к IP адресу сервера *}
+{$smarty.server.SERVER_ADDR|shuffle}
+
+(* это приведет в верхний регистр букв и обрежет пробелы у всех элементов массива *}
+<select name="name_id">
+    {html_options output=$myArray|upper|truncate:20}
+</select>
 ]]>
   </programlisting>
  </example>
@@ -45,15 +64,15 @@
  </para>
  
  <para>
-  Модификаторы могут автоматически загружаться из вашей директории
-  <link linkend="variable.plugins.dir">$plugins_dir</link> (см. также:
-  <link linkend="plugins.naming.conventions">Соглашение об именах</link>)
-  или могут регистрироваться явно (см.: <link
-  linkend="api.register.modifier">register_modifier</link>).
+  Модификаторы автоматически загружаются из директории
+  <link linkend="variable.plugins.dir">$plugins_dir</link>
+  или могут быть явно зарегистрированы при помощи
+  <link linkend="api.register.modifier">register_modifier()</link>;
+  это удобно для использования функции как в PHP-коде, так и в шаблоне.
  </para>
 
  <para>
-  К тому же, любая PHP-функция может быть явно использована в качестве модификатора.
+  Любая PHP-функция может быть явно использована в качестве модификатора.
   (Предыдущий пример с <literal>@count</literal> на самом деле использует функцию
   PHP, а не модификатор Smarty). Использование PHP-функций в качестве модификаторов
   имеет две маленькие "ловушки": Во-первых, иногда порядок аргументов функции
@@ -62,7 +81,8 @@
   который обеспечивается дистрибутивом Smarty). Во-вторых, в случае включения <link
   linkend="variable.security">$security</link>, все PHP-функции, которые будут
   использованы как модификаторы, должны быть объявлены "безопасными"
-  в массиве <link linkend="variable.security.settings">$security_settings['MODIFIER_FUNCS']</link>.
+  в массиве
+  <link linkend="variable.security.settings">$security_settings['MODIFIER_FUNCS']</link>.
  </para>
 
  <para>

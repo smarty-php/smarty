@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.functions">
  <title>Функции</title>
  <para>
   Каждый тэг Smarty либо выводит значение <link
   linkend="language.variables">переменной</link>, либо вызывает
-  некоторую функцию. Для вызова функции надо заключить в разделители
-  название функции и ее
-  <link linkend="language.syntax.attributes">параметры</link>,
-  например:
+  некоторую функцию. Они обрабатываются путём заключения функции  и ее
+  <link linkend="language.syntax.attributes">параметров</link>
+  в разделители, например:
   {funcname attr1='val' attr2='val'}.
  </para>
  <example>
@@ -19,15 +18,15 @@
 {config_load file='colors.conf'}
 
 {include file='header.tpl'}
-{insert file='banner_ads.tpl'}
+{insert file='banner_ads.tpl' title='Smarty - это круто'}
 
-{if $highlight_name}
-Welcome, <font color="{#fontColor#}">{$name}!</font>
+{if $logged_in}
+    Welcome, <font color="{#fontColor#}">{$name}!</font>
 {else}
-Welcome, {$name}!
+    Hi, {$name}!
 {/if}
 
-{include file='footer.tpl'}
+{include file='footer.tpl' ad=$random_id}
 ]]>
    </programlisting>
  </example>
@@ -42,7 +41,7 @@ Welcome, {$name}!
   <link linkend="language.function.if">{if}</link>,
   <link linkend="language.function.section">{section}</link> и
   <link linkend="language.function.strip">{strip}</link>.
-  Они не должны быть модифицированы.
+  У вас не должно быть причин для их модификации.
  </para>
  <para>
   Пользовательские функции являются
@@ -53,6 +52,11 @@ Welcome, {$name}!
   Примерами пользовательских функций могут быть
   <link linkend="language.function.html.options">{html_options}</link> и
   <link linkend="language.function.popup">{popup}</link>.
+ </para>
+ 
+ <para>
+  См. также
+  <link linkend="api.register.function">register_function()</link>
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

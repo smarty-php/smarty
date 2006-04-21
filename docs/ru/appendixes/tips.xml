@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <chapter id="tips">
  <title>Советы</title>
  <para></para>
@@ -103,13 +103,15 @@
    </programlisting>
 
    <para>
-    <filename>header.tpl</filename>
+    <filename>header.tpl</filename> - Обратите внимание, что "Smarty News"
+    отображается тогда, когда $title не задан, благодаря модификатору
+    <link linkend="language.modifier.default">default</link>.
    </para>
    <programlisting>
 <![CDATA[
 <html>
  <head>
-  <title>{$title|default:'BC News'}</title>
+  <title>{$title|default:'Smarty News'}</title>
  </head>
  <body>
 ]]>
@@ -348,7 +350,7 @@ function smarty_function_load_ticker($params, &$smarty)
    </para>
    <programlisting>
 <![CDATA[
-{load_ticker symbol="YHOO" assign="ticker"}
+{load_ticker symbol='SMARTY' assign='ticker'}
 
 Stock Name: {$ticker.name} Stock Price: {$ticker.price}
 ]]>
@@ -377,7 +379,7 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
    <title>Пример сокрытия e-mail адреса</title>
    <programlisting>
 <![CDATA[
-{* в index.tpl *}
+{* в шаблоне *}
 
 По вопросам обращайтесь на
 {mailto address=$EmailAddress encode="javascript" subject="Hello"}
@@ -390,7 +392,8 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     Этот метод не может гарантировать 100% защиты.
     Существует вероятность, что спамер запрограммирует свой
     сборщик e-mail адресов на раскодирование этих значений,
-    но это маловероятно... будем надеяться.
+    но это маловероятно... будем надеяться... пока что...
+    куда я там дел свой квантовый компьютер :-?.
    </para>
   </note>
   <para>

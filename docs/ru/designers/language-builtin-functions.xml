@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <chapter id="language.builtin.functions">
  <title>Встроенные функции</title>
  <para>
-  В smarty включены несколько встроенных функций. Встроенные функции
-  интегрированы в язык шаблонов. Нельзя создавать пользовательские
-  функции с такими же названиями или как-либо модифицировать
-  встроенные функции..
+  В smarty включены несколько встроенных функций. Эти встроенные функции
+  интегрированы в язык шаблонов. Нельзя создавать
+  <link linkend="language.custom.functions">пользовательские функции</link>
+  с такими же названиями и вам не следует модифицировать встроенные функции.
+ </para>
+ 
+ <para>
+  Некоторые эти функции имеют атрибут <emphasis role="bold">assign</emphasis>,
+  который помещает результати их выполнения в переменную шаблона, вместо вывода
+  в браузер, практически как функция
+  <link linkend="language.function.assign">{assign}</link>.
  </para>
 
 &designers.language-builtin-functions.language-function-capture;

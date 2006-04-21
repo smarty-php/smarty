@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.variables">
  <title>Переменные</title>
  <para>
   Переменные шаблона начинаются со знака $доллара. Они могут состоять из цифр,
   букв, знаков подчёркивания - как и обычные
   <ulink url="&url.php-manual;language.variables">PHP variable</ulink>.
-  Вы можете обращаться к массивам, имеющим числовые и нечисловые индексы.
+  Вы можете обращаться к массивам по числовым и нечисловым индексам.
   Вы также можете обращаться к свойствам и методам объектов.
   <link linkend="language.config.variables">Переменные конфигурационного файла</link>
-  - это исключения из долларового синтаксиса. К ним можно обращаться, окружив
+  - это исключения из долларового синтаксиса; к ним можно обращаться, окружив
   их #решетками# или воспользовавшись специальной переменной
   <link linkend="language.variables.smarty.config">$smarty.config</link>.
  </para>
@@ -27,7 +27,7 @@
 {#foo#}       <-- отображает переменную "foo" конфигурационного файла
 {$smarty.config.foo} <-- синоним для {#foo#}
 {$foo[bar]}   <-- синтаксис доступен только в цикле section, см. {section}
-{assign var=foo value="baa"}{$foo} <--  отображает "baa", см. {assign}
+{assign var=foo value='baa'}{$foo} <--  отображает "baa", см. {assign}
 
 Также доступно множество других комбинаций
 
@@ -46,9 +46,9 @@
  </example>
 
  <para>
-  Переменные запроса, такие как GET, POST, SESSION и т.д. также доступны, см.
-  описание зарезервированной переменной <link
-  linkend="language.variables.smarty">$smarty</link> для дополнительной информации.
+  Переменные запроса, такие как $_GET, $_SESSION и т.д. также доступны, см.
+  описание зарезервированной переменной <emphasis role="bold"><link
+  linkend="language.variables.smarty">$smarty</link></emphasis> для дополнительной информации.
  </para>
  
  <para>
