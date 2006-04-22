@@ -880,9 +880,9 @@ class Smarty_Compiler extends Smarty {
                     $prefix .= "while (\$_block_repeat) { ob_start();";
                     $return = null;
                     $postfix = '';
-            } else {
-                    $prefix = "\$_obj_block_content = ob_get_contents(); ob_end_clean(); ";
-                    $return = "\$_block_repeat=false; \$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$_obj_block_content, \$this, \$_block_repeat)";
+                } else {
+                    $prefix = "\$_obj_block_content = ob_get_contents(); ob_end_clean(); \$_block_repeat=false;";
+                    $return = "\$this->_reg_objects['$object'][0]->$obj_comp(\$this->_tag_stack[count(\$this->_tag_stack)-1][1], \$_obj_block_content, \$this, \$_block_repeat)";
                     $postfix = "} array_pop(\$this->_tag_stack);";
                 }
             } else {
