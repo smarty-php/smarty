@@ -1,3 +1,10 @@
+2006-04-22  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fix handling of block-methods of registered objects
+      thanks to El Hombre Gris
+
 2006-04-04  Monte Ohrt  <monte@ohrt.com>
 
     * libs/plugins/function.html_select_date.php:
