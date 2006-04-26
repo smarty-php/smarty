@@ -45,7 +45,7 @@
     </row>
     <row>
      <entry>selected</entry>
-     <entry>string</entry>
+     <entry>string/array</entry>
      <entry>Nein</entry>
      <entry><emphasis>empty</emphasis></entry>
      <entry>Das ausgewählte Array Element.</entry>
