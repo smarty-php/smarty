@@ -5,11 +5,11 @@
     <para>
      This is the length of time in seconds that a template cache is valid.
      Once this time has expired, the cache will be regenerated. $caching must
-     be set to "true" for $cache_lifetime to have any purpose. A value of -1
-     will force the cache to never expire. A value of 0 will cause the cache
-     to always regenerate (good for testing only, to disable caching a more
-     efficient method is to set <link
-     linkend="variable.caching">$caching</link> = false.)
+     be turned on (either 1 or 2) for $cache_lifetime to have any purpose. A
+     value of -1 will force the cache to never expire. A value of 0 will cause
+     the cache to always regenerate (good for testing only, to disable caching
+     a more efficient method is to set <link
+     linkend="variable.caching">$caching</link> = 0.)
     </para>
     <para>
      If <link linkend="variable.force.compile">$force_compile</link> is

@@ -3,7 +3,7 @@
   <sect1 id="caching.setting.up">
    <title>Setting Up Caching</title>
    <para>
-    The first thing to do is enable caching  by setting <link
+    The first thing to do is enable caching by setting <link
     linkend="variable.caching">$caching</link> = 1 (or 2).
    </para>
    <example>
@@ -14,7 +14,7 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->caching = 1;
 
 $smarty->display('index.tpl');
 ?>
@@ -34,8 +34,8 @@ $smarty->display('index.tpl');
      The files in the
      <link linkend="variable.cache.dir">$cache_dir</link>
      are named similar to the template name.
-     Although they end in the ".php" extention, they are not really executable
-     php scripts. Do not edit these files!
+     Although they end in the ".php" extention, they are not intended to be
+     directly executable. Do not edit these files!
     </para>
    </note>
    <para>
@@ -81,9 +81,9 @@ $smarty->display('home.tpl');
     every template file and config file that is involved with the cache file is
     checked for modification. If any of the files have been modified since the
     cache was generated, the cache is immediately regenerated. This is a slight
-    overhead so for optimum performance, leave
+    overhead so for optimum performance, set
     <link linkend="variable.compile.check">$compile_check</link>
-    set to false.
+    to false.
    </para>
    <example>
     <title>enabling $compile_check</title>
@@ -93,7 +93,7 @@ $smarty->display('home.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->caching = 1;
 $smarty->compile_check = true;
 
 $smarty->display('index.tpl');
@@ -111,7 +111,7 @@ $smarty->display('index.tpl');
         linkend="chapter.debugging.console">debugging</link> 
         purposes only, a more
     efficient way of disabling caching is to set <link
-    linkend="variable.caching">$caching</link> = false (or 0.)
+    linkend="variable.caching">$caching</link> = 0.
    </para>
    <para>
     The <link linkend="api.is.cached">is_cached()</link> function
@@ -127,7 +127,7 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->caching = 1;
 
 if(!$smarty->is_cached('index.tpl')) {
     // No cache available, do variable assignments here.
@@ -145,7 +145,7 @@ $smarty->display('index.tpl');
     linkend="language.function.insert">{insert}</link> template function. Let's
     say the whole page can be cached except for a banner that is displayed down
     the right side of the page. By using an 
-    <link    linkend="language.function.insert">{insert}</link> 
+    <link linkend="language.function.insert">{insert}</link> 
     function for the banner, you
     can keep this element dynamic within the cached content. See the
     documentation on <link linkend="language.function.insert">{insert}</link> for
@@ -167,7 +167,7 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->caching = 1;
 
 // clear out all cache files
 $smarty->clear_all_cache();
