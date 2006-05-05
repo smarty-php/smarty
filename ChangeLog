@@ -1,3 +1,11 @@
+2006-05-04  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/plugins/function.popup_init.php:
+      changed {popup_init} to only emit code once during a request
+      
+      Thanks to TGKnIght from forums
+
 2006-04-22  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
