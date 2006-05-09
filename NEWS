@@ -1,4 +1,3 @@
-- changed {popup_init} to only emit code once during a request (TGKnIght, boots)
 - fix handling of block-methods of registered objects (El Hombre Gris,
   messju)
 
