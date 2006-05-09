@@ -1,3 +1,4 @@
+- separate handling of comment blocks from 'special blocks' (boots)
 - fix handling of block-methods of registered objects (El Hombre Gris,
   messju)
 

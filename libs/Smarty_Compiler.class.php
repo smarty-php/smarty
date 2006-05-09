@@ -240,6 +240,9 @@ class Smarty_Compiler extends Smarty {
         $ldq = preg_quote($this->left_delimiter, '~');
         $rdq = preg_quote($this->right_delimiter, '~');
 
+        /* kill comments */
+        $source_content = preg_replace("~{$ldq}\*(.*?)\*{$rdq}~", '', $source_content);
+
         // run template source through prefilter functions
         if (count($this->_plugins['prefilter']) > 0) {
             foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
@@ -255,7 +258,7 @@ class Smarty_Compiler extends Smarty {
         }
 
         /* fetch all special blocks */
-        $search = "~{$ldq}\*(.*?)\*{$rdq}|{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}|{$ldq}\s*php\s*{$rdq}(.*?){$ldq}\s*/php\s*{$rdq}~s";
+        $search = "~{$ldq}\s*literal\s*{$rdq}(.*?){$ldq}\s*/literal\s*{$rdq}|{$ldq}\s*php\s*{$rdq}(.*?){$ldq}\s*/php\s*{$rdq}~s";
 
         preg_match_all($search, $source_content, $match,  PREG_SET_ORDER);
         $this->_folded_blocks = $match;
