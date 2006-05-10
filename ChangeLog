@@ -1,3 +1,13 @@
+2006-05-09  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      separate handling of comment blocks from "special blocks"
+
+    * NEWS
+      libs/plugins/function.popup_init.php:
+      reverted {popup_init} as proposed change to insertion behviour was not BC
+
 2006-05-04  boots  <jayboots@yahoo.com>
 
     * NEWS
