@@ -70,6 +70,13 @@
      <entry><emphasis>empty</emphasis></entry>
      <entry>string of text to separate each radio item</entry>
     </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>assign radio tags to an array instead of output (separator ignored)</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>

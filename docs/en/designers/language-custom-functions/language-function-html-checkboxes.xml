@@ -72,6 +72,13 @@
      <entry>string of text to separate each checkbox item</entry>
     </row>
     <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>assign checkbox tags to an array instead of output (separator ignored)</entry>
+    </row>
+    <row>
      <entry>labels</entry>
      <entry>boolean</entry>
      <entry>No</entry>
