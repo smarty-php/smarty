@@ -39,7 +39,7 @@
       <entry>2</entry>
       <entry>string</entry>
       <entry>No</entry>
-      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... any character set supportet by <ulink url="&url.php-manual;htmlentities">htmlentities()</ulink>
+      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... any character set supported by <ulink url="&url.php-manual;htmlentities">htmlentities()</ulink>
 </entry>
       <entry><literal>ISO-8859-1</literal></entry>
       <entry>The character set encoding passed to htmlentities() et. al.</entry>
