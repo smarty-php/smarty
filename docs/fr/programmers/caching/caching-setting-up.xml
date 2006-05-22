@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="caching.setting.up">
  <title>Paramétrer le cache</title>
@@ -17,7 +17,7 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->caching = 1;
 
 $smarty->display('index.tpl');
 ?>
@@ -37,7 +37,7 @@ $smarty->display('index.tpl');
   <para>
    Les fichiers situés dans <link linkend="variable.cache.dir">$cache_dir</link>
    sont nommés de la même façon que les templates.
-   Bien qu'ils aient une extension ".php", ils ne sont pas vraiment exécutable.
+   Bien qu'ils aient une extension ".php", ils ne sont pas vraiment directement exécutable.
    N'éditez surtout pas ces fichiers !
   </para>
  </note>
@@ -97,7 +97,7 @@ $smarty->display('home.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->caching = 1;
 $smarty->compile_check = true;
 
 $smarty->display('index.tpl');
@@ -111,7 +111,7 @@ $smarty->display('index.tpl');
   désactiver le cache. <link linkend="variable.force.compile">$force_compile</link>
   est utilisé à des fins de <link linkend="chapter.debugging.console">débogage</link>,
   un moyen plus efficace de désactiver le cache est de régler
-  <link linkend="variable.caching">$caching</link> = false (ou 0).
+  <link linkend="variable.caching">$caching</link> = 0.
  </para>
  <para>
   La fonction <link linkend="api.is.cached">is_cached()</link> permet
@@ -128,7 +128,7 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->caching = 1;
 
 if(!$smarty->is_cached('index.tpl')) {
    // pas de cache disponible, on assigne
@@ -167,7 +167,7 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->caching = 1;
 
 // efface tous les fichiers du cache
 $smarty->clear_all_cache();

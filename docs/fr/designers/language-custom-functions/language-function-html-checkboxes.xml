@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.16 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.checkboxes">
  <title>{html_checkboxes}</title>
@@ -76,6 +76,13 @@
      <entry><emphasis>empty</emphasis></entry>
      <entry>chaîne de caractère pour séparer chaque case
      à cocher</entry>
+   </row>
+   <row>
+    <entry>assign</entry>
+    <entry>chaîne de caractères</entry>
+    <entry>Non</entry>
+    <entry><emphasis>empty</emphasis></entry>
+    <entry>Assigne les balises d'un checkbox à un tableau plutôt que de les afficher</entry>
     </row>
     <row>
      <entry>labels</entry>
