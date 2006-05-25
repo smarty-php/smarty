@@ -1,4 +1,4 @@
-- separate handling of comment blocks from 'special blocks' (boots)
+- un-hide hidden xml open tags (boots)
 - fix handling of block-methods of registered objects (El Hombre Gris,
   messju)
 
