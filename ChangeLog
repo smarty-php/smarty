@@ -1,3 +1,9 @@
+2006-05-25  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      un-hide hidden xml open tags
+
 2006-05-09  boots  <jayboots@yahoo.com>
 
     * NEWS
