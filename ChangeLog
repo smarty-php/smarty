@@ -1,3 +1,11 @@
+2006-05-28  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update version numbers
+
 2006-05-25  boots  <jayboots@yahoo.com>
 
     * NEWS
