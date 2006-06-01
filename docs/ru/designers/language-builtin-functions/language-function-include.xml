@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.include">
  <title>{include}</title>
  <para>
   Тэги {include} используются для включения других шаблонов в текущий.
   Любые переменные, доступные в текущем шаблоне, доступны и во
-  включаемом. Тэг {include} должен иметь атрибут "file", который
-  указывает путь к ресурсу шаблона.
+  включаемом. Тэг {include} должен иметь атрибут <emphasis>'file'</emphasis>,
+  который указывает путь к ресурсу шаблона.
  </para>
  <para>
   Опциональный атрибут <emphasis>assign</emphasis> указывает, что
@@ -85,7 +85,8 @@
 
  <para>
   Вы также можете передать переменные в подключаемый шаблон в
-  виде атрибутов. Любая переменная, переданная в подключаемый
+  виде <link linkend="language.syntax.attributes">атрибутов</link>.
+  Любая переменная, переданная в подключаемый
   шаблон, доступны только в области видимости подключаемого
   файла. Переданные переменные имеют преимущество перед
   существующими переменными с аналогичными именами.
@@ -170,6 +171,7 @@
  <para>
   См. также
   <link linkend="language.function.include.php">{include_php}</link>,
+  <link linkend="language.function.insert">{insert}</link>,
   <link linkend="language.function.php">{php}</link>,
   <link linkend="template.resources">Ресурсы</link> and
   <link linkend="tips.componentized.templates">Составные шаблоны</link>.

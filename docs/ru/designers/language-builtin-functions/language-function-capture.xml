@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.13 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.capture">
  <title>capture</title>
  <para>
-  {capture} используется для того, чтобы собрать результат работы шаблона
+  {capture} используется для того, чтобы собрать результат обработки
+  части шаблона между тэгами
   в какую-то переменную, вместо того, чтобы вывести результат браузеру.
-  Любое содержимое между {capture name="foo"} и {/capture} сохраняется в
-  переменную, указанную в атрибуте name. Затем его можно использовать в
-  шаблоне при помощи специальной переменной $smarty.capture.foo,
+  Любое содержимое между {capture name='foo'} и {/capture} сохраняется в
+  переменную, указанную в атрибуте name.
+ </para>
+ <para>
+  Захваченные данные могут в дальнейшем использоваться в
+  шаблоне при помощи специальной переменной <link
+  linkend="language.variables.smarty.capture">$smarty.capture.foo</link>,
   где "foo" - значение, переданное атрибуту name. Если атрибут name не указан,
-  то используется "default". Каждая комманда {capture} должна иметь пару
-  {/capture}. Команда capture поддерживает вложенность.
+  то используется "default".
+ </para>
+ 
+ <para>
+  Команда capture поддерживает вложенность.
  </para>
 
  <caution>
@@ -28,18 +36,12 @@
    <title>Сохранение вывода шаблона</title>
    <programlisting>
 <![CDATA[
-{* мы не хотим выводить строку таблицы, если содержимое не отображается *}
+{* мы не хотим выводить слой div, если содержимое не отображается *}
 {capture name=banner}
   {include file='get_banner.tpl'}
 {/capture}
 {if $smarty.capture.banner ne ''}
-<table>
-    <tr>
-        <td>
- 			        {$smarty.capture.banner}
-		      </td>
-	   </tr>
-</table>
+<div id="banner">{$smarty.capture.banner}</div>
 {/if}
 ]]>
    </programlisting>
@@ -54,10 +56,11 @@
    <programlisting>
 <![CDATA[
 {capture name=some_content assign=popText}
-    .... some content ....
+The server is {$smarty.server.SERVER_NAME|upper} at {$smarty.server.SERVER_ADDR}<br />
+Your ip is {$smarty.server.REMOTE_ADDR}.
 {/capture}
 
-<a href="#" {popup caption='Help' text=$popText}>help</a>
+<a href="#" {popup caption='Server Info' text=$popText}>help</a>
 ]]>
    </programlisting>
   </example>
@@ -91,4 +94,3 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
-

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.insert">
  <title>{insert}</title>
  <para>
@@ -105,8 +105,9 @@
   Это удобно, когда функция может не сущетсвовать, и должен быть
   подключен PHP-файл, чтобы определить функцию. Путь к файлу
   должен быть либо абсолтным, либо относительным относительно
-  $trusted_dir. Когда security активирована, то PHP-файл должен
-  быть в папке $trusted_dir.
+  $trusted_dir. Когда включен режим <link
+  linkend="variable.security">$security</link>, PHP-файл должен
+  быть в папке <link linkend="variable.trusted.dir">$trusted_dir</link>.
 	</para>
 	<para>
   Обьект Smarty передается в функцию как второй параметр.
@@ -125,6 +126,11 @@
    и т.д.
 		</para>
 	</note>
+	
+ <para>
+  См. также
+  <link linkend="language.function.include">{include}</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

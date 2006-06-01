@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.literal">
  <title>{literal}</title>
  <para>
@@ -13,8 +13,9 @@
   linkend="language.function.ldelim">{ldelim}{rdelim}</link> для экранирования
   отдельных разделителей.
  </para>
+ 
  <example>
-  <title>тэги literal</title>
+  <title>Тэги {literal}</title>
   <programlisting>
 <![CDATA[
 {literal}
@@ -35,8 +36,47 @@
 ]]>
   </programlisting>
  </example>
+ 
+ <example>
+  <title>Пример функции Javascript</title>
+  <programlisting>
+<![CDATA[
+<script language="JavaScript" type="text/javascript">
+{literal}
+function myJsFunction(name, ip){
+   alert("The server name\n" + name + "\n" + ip);
+}
+{/literal}
+</script>
+<a href="javascript:myJsFunction('{$smarty.server.SERVER_NAME}','{$smarty.server.SERVER_ADDR}')">Click here for the Server Info</a>
+ ]]>
+  </programlisting>
+ </example>
+
+ <example>
+  <title>Немного CSS в шаблоне</title>
+  <programlisting>
+<![CDATA[
+{* включаем этот стиль... в качестве эксперимента *}
+<style type="text/css">
+{literal}
+/* это интересная идея для этого раздела */
+.madIdea{
+    border: 3px outset #ffffff;
+    margin: 2 3 4 5px;
+    background-color: #001122;
+}
+{/literal}
+</style>
+<div class="madIdea">With smarty you can embed css in the template</div>
+]]>
+  </programlisting>
+ </example>
+ 
  <para>
   См. также
+  <link linkend="language.function.ldelim">{ldelim} {rdelim}</link>
+  и
   <link linkend="language.escaping">Предотвращение обработки Smarty</link>
  </para>
 </sect1>

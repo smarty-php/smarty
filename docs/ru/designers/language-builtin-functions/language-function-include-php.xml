@@ -63,7 +63,7 @@
 
  <para>
   Тэги {include_php} используются для подключения PHP-скрипта в шаблон.
-  Если режим <link linkend="variable.security">security</link> включен,
+  Если режим <link linkend="variable.security">$security</link> включен,
   то PHP-скрипт должен быть расположен в директории
   <link linkend="variable.trusted.dir">$trusted_dir</link>.
   Тэг {include_php} должен иметь атрибут "file", который
@@ -94,9 +94,9 @@
 <?php
 
 // загружает переменные из БД MySQL и присваивает их шаблону
-require_once("MySQL.class.php");
+require_once('MySQL.class.php');
 $sql = new MySQL;
-$sql->query("select * from site_nav_sections order by name",SQL_ALL);
+$sql->query('select * from site_nav_sections order by name',SQL_ALL);
 $this->assign('sections',$sql->record);
 
 ?>
@@ -106,7 +106,7 @@ $this->assign('sections',$sql->record);
   <programlisting>
 <![CDATA[
 {* абсолютный путь, либо относительный к $trusted_dir *}
-{include_php file="/path/to/load_nav.php"}
+{include_php file='/path/to/load_nav.php'}
 {foreach item="curr_section" from=$sections}
     <a href="{$curr_section.url}">{$curr_section.name}</a><br />
 {/foreach}

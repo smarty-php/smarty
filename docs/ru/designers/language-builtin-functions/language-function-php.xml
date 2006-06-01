@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.php">
  <title>{php}</title>
  <para>
@@ -8,7 +8,7 @@
   будет как-либо изменен, независимо от <link
   linkend="variable.php.handling">$php_handling</link> настроек.
   Этот тэг только для продвинутых пользователей, так как обычно
-  не требуется.
+  не требуется и не рекоммендуется.
  </para>
  <example>
  <title>тэги {php}</title>
@@ -33,24 +33,39 @@
  </note>
 
  <example>
-  <title>Тэги {php} с глобальными переменными</title>
+  <title>Тэги {php} с глобальными переменными и назначение переменных</title>
   <programlisting role="php">
 <![CDATA[
 {php}
    global $foo, $bar;
    if($foo == $bar){
-     // что-нить делаем
+        echo 'This will come out in the template';
    }
+   
+   $this->assign('varX','Strawberry');
 {/php}
+<strong>{$varX}</strong> is my fav ice cream
 ]]>
   </programlisting>
- </example>
+  <para>
+   Следующее действие действительно НЕ рекоммендуется,
+   так как оно происходит в области видимости шаблона
+ </para>
+<programlisting> 
+<![CDATA[
+{php}
+print_r($some_array);
+{/php}
+]]>
+</programlisting>
+</example>
 
  <para>
   См. также
   <link linkend="variable.php.handling">$php_handling</link>,
   <link linkend="language.function.include.php">{include_php}</link>,
-  <link linkend="language.function.include">{include}</link>
+  <link linkend="language.function.include">{include}</link>,
+  <link linkend="language.function.insert">{insert}</link>
   и
   <link linkend="tips.componentized.templates">Компонентные шаблоны</link>.
  </para>

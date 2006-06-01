@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.ldelim">
  <title>{ldelim},{rdelim}</title>
  <para>
@@ -8,7 +8,7 @@
   <link linkend="language.escaping">предотвращения обработки</link> разделителей,
   по-умолчанию "{" и "}". Вы также можете использовать блок
   <link linkend="language.function.literal">{literal}{/literal}</link> для
-  предотвращения обработки блоков текста.
+  предотвращения обработки блоков текста, например кода Javascript или CSS.
   См. также
   <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
  </para>
@@ -51,10 +51,26 @@ function foo() {
   </screen>
 
  </example>
+
+ <example>
+  <title>another Javascript example</title>
+  <programlisting>
+<![CDATA[
+<script language="JavaScript" type="text/javascript">
+    function myJsFunction(){ldelim}
+        alert("The server name\n{$smarty.server.SERVER_NAME}\n{$smarty.server.SERVER_ADDR}");
+    {rdelim}
+</script>
+<a href="javascript:myJsFunction()">Click here for Server Info</a>
+]]>
+  </programlisting>
+ </example>
  <para>
   См. также
-  <link linkend="language.escaping">Предотвращение обработки Smarty</link>
- </para>
+  <link linkend="language.function.literal">{literal}</link>
+  и
+  <link linkend="language.escaping">Предотвращение обработки Smarty</link> 
+  </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file
