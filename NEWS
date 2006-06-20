@@ -1,3 +1,4 @@
+- emulate %l in the date_format modifier on windows (boots) 
 - fix handling of apostrophes in capitalize modifier (Alec Smecher, boots)
 
 Version 2.6.14 (May 28th, 2006)
