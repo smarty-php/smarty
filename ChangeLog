@@ -1,3 +1,28 @@
+2006-06-20  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/plugins/function.mailto.php:
+      update mailto function plugin to work around a firefox/thunderbird escaping
+      bug
+      
+      Thanks to elijahlofgren from the forums for reporting this and providing
+      the necessary patch
+
+    * NEWS
+      libs/plugins/modifier.date_format.php:
+      emulate %l in the date_format modifier on windows
+      
+      thanks to Gibberish from the forums for reporting this
+
+2006-06-14  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/plugins/modifier.capitalize.php:
+      Fix handling of apostrophes in the capitalize modifier.
+      
+      Thanks to asmecher from the forums for reporting this and providing a
+      partial solution.
+
 2006-05-28  Monte Ohrt  <monte@ohrt.com>
 
     * NEWS
