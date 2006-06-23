@@ -1,3 +1,4 @@
+- fixed ordering of replacements in trimwhitespace output filter (Getty, boots)
 - update mailto function plugin to work around a firefox/thunderbird
   escaping bug (elijahlofgren, boots)
 - emulate %l in the date_format modifier on windows (boots) 
