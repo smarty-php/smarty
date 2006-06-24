@@ -1,3 +1,14 @@
+2006-06-23  boots  <jayboots@yahoo.com>
+
+    * libs/plugins/outputfilter.trimwhitespace.php:
+      fix comments in outputfilter.trimwhitespace
+
+    * NEWS
+      libs/plugins/outputfilter.trimwhitespace.php:
+      fixed ordering of replacements in trimwhitespace output filter
+      
+      Thanks to Getty from IRC for reporting this.
+
 2006-06-20  boots  <jayboots@yahoo.com>
 
     * NEWS
