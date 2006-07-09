@@ -1,3 +1,23 @@
+2006-07-08  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/plugins/function.html_table.php:
+      fix occasional notices on undefined variables
+
+2006-07-08  boots  <jayboots@yahoo.com>
+
+    * libs/plugins/function.html_table.php:
+      Added ability to specify column headings in {html_table}
+      
+      Added th_attrs attribute which works similary to td_attr and tr_attr but
+      for TH elements. Changes the cols attribute to allow mixed values; a
+      numeric still specifies the number of columns to render but now an array
+      of values can be used to specify TH column values. The number of columns
+      is determine from the size of the array. Further, a comma-separated
+      string of column names can be used which is internally coverted to an
+      array and used as if it was specified as a normal array.
+      
+      Thanks for lynlyn for the feature request.
+
 2006-06-23  boots  <jayboots@yahoo.com>
 
     * libs/plugins/outputfilter.trimwhitespace.php:
