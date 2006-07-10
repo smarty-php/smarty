@@ -41,15 +41,17 @@
     </row>
     <row>
      <entry>cols</entry>
-     <entry>integer</entry>
+     <entry>mixed</entry>
      <entry>No</entry>
      <entry><emphasis>3</emphasis></entry>
      <entry>
-      number of columns in the table. if the cols-attribute is empty,
+      number of columns in the table or a comma-separated list of column heading
+      names or an array of column heading names.if the cols-attribute is empty,
       but rows are given, then the number of cols is computed by the number
       of rows and the number of elements to display to be just enough cols to
       display all elements. If both, rows and cols, are omitted cols defaults
-      to 3.
+      to 3. if given as a list or array, the number of columns is computed from
+      the number of elements in the list or array.
      </entry>
     </row>
     <row>
@@ -77,11 +79,27 @@
      </entry>
     </row>
     <row>
+     <entry>caption</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>
+      text to be used for the caption element of the table.
+     </entry>
+    </row>
+    <row>
      <entry>table_attr</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>border="1"</emphasis></entry>
      <entry>attributes for table tag</entry>
+    </row>
+    <row>
+     <entry>th_attr</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>attributes for th tag (arrays are cycled)</entry>
     </row>
     <row>
      <entry>tr_attr</entry>
@@ -152,7 +170,7 @@ template code:
 --------------
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
-{html_table loop=$data cols=4 tr_attr=$tr}
+{html_table loop=$data cols="first,second,third,fourth" tr_attr=$tr}
 ]]>
   </programlisting>
   <para>
@@ -161,19 +179,30 @@ template code:
   <screen>
 <![CDATA[
 <table border="1">
+<tbody>
 <tr><td>1</td><td>2</td><td>3</td></tr>
 <tr><td>4</td><td>5</td><td>6</td></tr>
 <tr><td>7</td><td>8</td><td>9</td></tr>
+</tbody>
 </table>
 <table border="0">
+<tbody>
 <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
 <tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</tbody>
 </table>
 <table border="1">
+<thead>
+<tr>
+<th>first</th><th>second</th><th>third</th><th>fourth</th>
+</tr>
+</thead>
+<tbody>
 <tr bgcolor="#eeeeee"><td>1</td><td>2</td><td>3</td><td>4</td></tr>
 <tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</tbody>
 </table>
 ]]>
   </screen>

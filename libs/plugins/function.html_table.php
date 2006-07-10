@@ -34,10 +34,12 @@
  * <pre>
  * {table loop=$data}
  * {table loop=$data cols=4 tr_attr='"bgcolor=red"'}
- * {table loop=$data cols=4 tr_attr=$colors}
+ * {table loop=$data cols="first,second,third" tr_attr=$colors}
  * </pre>
  * @author   Monte Ohrt <monte at ohrt dot com>
- * @version  1.0
+ * @author credit to Messju Mohr <messju at lammfellpuschen dot de>
+ * @author credit to boots <smarty dot boots at yahoo dot com>
+ * @version  1.1
  * @link http://smarty.php.net/manual/en/language.function.html.table.php {html_table}
  *          (Smarty online manual)
  * @param array
@@ -122,13 +124,15 @@ function smarty_function_html_table($params, &$smarty)
     }
 
     if (is_array($cols)) {
+        $cols = ($hdir == 'right') ? $cols : array_reverse($cols);
         $output .= "<thead><tr>\n";
+
         for ($r=0; $r<$cols_count; $r++) {
             $output .= '<th' . smarty_function_html_table_cycle('th', $th_attr, $r) . '>';
             $output .= $cols[$r];
-            $output .= "</tr></th>\n";
+            $output .= "</th>\n";
         }
-        $output .= "</thead>\n";
+        $output .= "</tr></thead>\n";
     }
 
     $output .= "<tbody>\n";

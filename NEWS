@@ -1,3 +1,5 @@
+- added support for column headings and caption element to html_table and
+  updated the output to use thead/tbody elements (boots)
 - fixed ordering of replacements in trimwhitespace output filter (Getty, boots)
 - update mailto function plugin to work around a firefox/thunderbird
   escaping bug (elijahlofgren, boots)
