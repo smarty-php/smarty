@@ -1,3 +1,13 @@
+2006-07-10  boots  <jayboots@yahoo.com>
+
+    * libs/plugins/function.html_table.php:
+      fixed email address in comments
+
+    * NEWS
+      libs/plugins/function.html_table.php:
+      html_table: fixed th/tr output, added hdir support for column
+      headings,update docs to reflect new features
+
 2006-07-08  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/function.html_table.php:
