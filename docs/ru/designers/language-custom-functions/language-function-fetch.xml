@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.fetch">
  <title>{fetch}</title>
  <para>
@@ -14,8 +14,7 @@
  </para>
  <para>
   Если указать специалньый атрибут "assign", то вывод функции {fetch}
-  будет присвоен переменной шаблона, вместо отображения. Добавлено в
-  Smarty версии 1.5.0.
+  будет присвоен переменной шаблона, вместо отображения.
  </para>
  
  <informaltable frame="all">
@@ -63,29 +62,31 @@
  <note>
   <title>Техническое Замечание</title>
   <para>
-   Если включена security и указан файл из локальной файловой
-   системы, то отобразятся лишь файлы, который находятся в
-   указаных безопасных папках
-   (<link linkend="variable.secure.dir">$secure_dir</link>).
+   Если включён режим <link linkend="variable.security">$security</link>
+   и указан файл из локальной файловой системы, то файл обработается лишь в
+   том случае, если он находятся в одной из указаных
+   <link linkend="variable.secure.dir">безопасных папках</link>.
   </para>
  </note>
  <example>
-  <title>{fetch}</title>
+  <title>Пример {fetch}</title>
   <programlisting>
 <![CDATA[
 {* включаем javascript в шаблон *}
-{fetch file="/export/httpd/www.example.com/docs/navbar.js"}
+{fetch file='/export/httpd/www.example.com/docs/navbar.js'}
 
 {* Добавляем немного прогноза погоды с сервера погоды *}
-{fetch file="http://www.myweather.com/68502/"}
+{fetch file='http://www.myweather.com/68502/'}
 
 {* новостную ленту берем с ftp сервера *}
-{fetch file="ftp://user:password@ftp.example.com/path/to/currentheadlines.txt"}
+{fetch file='ftp://user:password@ftp.example.com/path/to/currentheadlines.txt'}
+{* как в предыдущем примере, но с переменными *}
+{fetch file="ftp://`$user`:`$password`@`$server`/`$path`"}
 
 {* присваиваем полученный файл переменной *}
-{fetch file="http://www.myweather.com/68502/" assign="weather"}
-{if $weather ne ""}
-  <b>{$weather}</b>
+{fetch file='http://www.myweather.com/68502/' assign='weather'}
+{if $weather ne ''}
+  <div id="weather">{$weather}</div>
 {/if}
 ]]>
   </programlisting>
@@ -94,7 +95,8 @@
  <para>
  См. также
  <link linkend="language.function.capture">{capture}</link>,
- <link linkend="language.function.eval">{eval}</link>
+ <link linkend="language.function.eval">{eval}</link>,
+ <link linkend="language.function.assign">{assign}</link>
  и
  <link linkend="api.fetch">fetch()</link>.
  </para>

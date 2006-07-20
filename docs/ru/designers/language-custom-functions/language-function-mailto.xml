@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.mailto">
  <title>{mailto}</title>
   <para>
@@ -113,38 +113,38 @@
   </para>
  </note>
  <example>
-  <title>{mailto}</title>
+  <title>Примеры использования {mailto} и результаты их обработки</title>
   <programlisting>
 <![CDATA[
-   {mailto address="me@example.com"}
+{mailto address="me@example.com"}
 <a href="mailto:me@example.com" >me@example.com</a>
 
-   {mailto address="me@example.com" text="send me some mail"}
+{mailto address="me@example.com" text="send me some mail"}
 <a href="mailto:me@example.com" >send me some mail</a>
 
-   {mailto address="me@example.com" encode="javascript"}
+{mailto address="me@example.com" encode="javascript"}
 <script type="text/javascript" language="javascript">
  eval(unescape('%64%6f% ... snipped ...%61%3e%27%29%3b'))
 </script>
 
-   {mailto address="me@example.com" encode="hex"}
+{mailto address="me@example.com" encode="hex"}
 <a href="mailto:%6d%65.. snipped..3%6f%6d">&#x6d;&..snipped...#x6f;&#x6d;</a>
 
-   {mailto address="me@example.com" subject="Hello to you!"}
-   <a href="mailto:me@example.com?subject=Hello%20to%20you%21" >me@example.com</a>
+{mailto address="me@example.com" subject="Hello to you!"}
+<a href="mailto:me@example.com?subject=Hello%20to%20you%21" >me@example.com</a>
 
 {mailto address="me@example.com" cc="you@example.com,they@example.com"}
-   <a href="mailto:me@example.com?cc=you@example.com%2Cthey@example.com" >me@example.com</a>
+<a href="mailto:me@example.com?cc=you@example.com%2Cthey@example.com" >me@example.com</a>
 
 {mailto address="me@example.com" extra='class="email"'}
-   <a href="mailto:me@example.com" class="email">me@example.com</a>
+<a href="mailto:me@example.com" class="email">me@example.com</a>
 
 {mailto address="me@example.com" encode="javascript_charcode"}
-   <script type="text/javascript" language="javascript">
-   <!--
+<script type="text/javascript" language="javascript">
+<!--
 {document.write(String.fromCharCode(60,97, ... snipped ....60,47,97,62))}
-   //-->
-   </script>
+//-->
+</script>
 ]]>
   </programlisting>
  </example>

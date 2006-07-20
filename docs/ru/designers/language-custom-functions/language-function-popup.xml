@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.popup">
  <title>{popup}</title>
   <para>
@@ -361,7 +361,7 @@
      функции</entry>
     </row>
     <row>
-     <entry>timeout</entry>
+     <entry>function</entry>
      <entry>string</entry>
      <entry>Нет</entry>
      <entry><emphasis>n/a</emphasis></entry>
@@ -401,20 +401,27 @@
   <programlisting>
 <![CDATA[
 {* popup_init должна быть вызвана один раз в начале страницы *}
-{popup_init src="/javascripts/overlib.js"}
+{popup_init src='/javascripts/overlib.js'}
 
 {* создает ссылку со всплывающим окном, когда вы наводите на неё курсор *}
-<a href="mypage.html" {popup text="This link takes you to my page!"}>mypage</a>
+<a href="mypage.html" {popup text='This link takes you to my page!'}>mypage</a>
 
 {* вы можете использовать HTML, ссылки и т.д. в тексте *}
-<a href="mypage.html" {popup sticky=true caption="mypage contents"
+<a href="mypage.html" {popup sticky=true caption='mypage contents'
 text="<ul><li>links</li><li>pages</li><li>images</li></ul>"
-snapx=10 snapy=10}>mypage</a>
+snapx=10 snapy=10 trigger='onClick'}>mypage</a>
+
+{* всплывающее окно над ячейкой таблицы *}
+<tr><td {popup caption='Part details' text=$part_long_description}>{$part_number}</td></tr>
 ]]>
   </programlisting>
  </example>
  <para>
- См. также
+  Другой хороший пример можно найти на в описании тэга
+  <link linkend="language.function.capture">{capture}</link>.
+ </para>
+ <para>
+  См. также
   <link linkend="language.function.popup.init">{popup_init}</link>
   и
   <ulink url="&url.overLib;">overLib</ulink>.

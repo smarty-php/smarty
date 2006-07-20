@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.assign">
  <title>{assign}</title>
  <para>
@@ -64,9 +64,19 @@
  </example>
  
  <example>
+  <title>{assign} и арифметика</title>
+  <para>В этом сложном примере переменные должны заключаться в обратные кавычки</para>
+  <programlisting>
+<![CDATA[
+{assign var=running_total value=`$running_total+$some_array[loop].some_value`}
+]]>
+  </programlisting>
+ </example>
+ 
+ <example>
   <title>Доступ к переменным {assign} из PHP-скрипта.</title>
   <para>
-   Чтобы получить доступ к переменным {assign} из PHP используйте функцию
+   Чтобы получить доступ к переменным {assign} из PHP-скрипта, используйте функцию
    <link linkend="api.get.template.vars">get_template_vars()</link>.
    Обратите внимание, что переменные доступны только во время и после
    выполнения шаблона, как видно из следующего примера:

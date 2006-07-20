@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.image">
  <title>{html_image}</title>
  <para>
@@ -114,22 +114,18 @@
   </para>
  </note>
  <example>
-  <title>{html_image}</title>
+  <title>Пример работы html_image</title>
   <programlisting>
 <![CDATA[
-{html_image file="pumpkin.jpg"}
-{html_image file="/path/from/docroot/pumpkin.jpg"}
-{html_image file="../path/relative/to/currdir/pumpkin.jpg"}
-
-OUTPUT: (possible)
-
-<img src="pumpkin.jpg" width="44" height="68">
-<img src="/path/under/docroot/pumpkin.jpg" width="44" height="68">
-<img src="../path/relative/to/currdir/pumpkin.jpg" width="44" height="68">
+index.tpl:
+-------------------
+{html_image file='pumpkin.jpg'}
+{html_image file='/path/from/docroot/pumpkin.jpg'}
+{html_image file='../path/relative/to/currdir/pumpkin.jpg'}
 ]]>
   </programlisting>
   <para>
-   возможный результат:
+    Возможный результат обработки шаблона:
   </para>
   <screen>
 <![CDATA[

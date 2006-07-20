@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.16 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.radios">
  <title>{html_radios}</title>
 <para>{html_radios} является
@@ -8,7 +8,7 @@
   которая создает группу радиокнопок в HTML по указанной информации.
   Также она обеспечивает выбор радиокнопки по умолчанию.
   Параметры values и output являются обязательными, если не указан атрибут
-  options. Весь вывод совместим с XHTML.
+  options. Весь вывод идет в формате XHTML.
  </para>
  
  <informaltable frame="all">
@@ -71,6 +71,13 @@
              <entry><emphasis>пусто</emphasis></entry>
              <entry>текст, разделяющий элементы выбора</entry>
          </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>пусто</emphasis></entry>
+     <entry>сохраняет тэги radio в массив, вместо вывода в шаблон</entry>
+    </row>
      </tbody>
      </tgroup>
  </informaltable>
@@ -81,7 +88,7 @@
  </para>
 
  <example>
-  <title>{html_radios}: Пример №1</title>
+  <title>{html_radios} - пример №1</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -103,13 +110,13 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name="id" values=$cust_ids output=$cust_names
-       selected=$customer_id separator="<br />"}
+{html_radios name='id' values=$cust_ids output=$cust_names
+       selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
  </example>
  <example>
-  <title>{html_radios}: Пример №2</title>
+  <title>{html_radios} - пример №2</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -133,7 +140,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Both examples will output:
+   Оба примера выведут следующее:
   </para>
   <screen>
 <![CDATA[
@@ -146,16 +153,16 @@ $smarty->assign('customer_id', 1001);
   </screen>
  </example>
  <example>
-  <title>{html_radios}- Пример с базой данных (к примеру, PEAR или ADODB):</title>
+  <title>{html_radios} - пример с базой данных (к примеру, PEAR или ADODB):</title>
   <programlisting role="php">
 <![CDATA[
 <?php
 
-$sql = 'select type_id, types from types order by type';
-$smarty->assign('types',$db->getAssoc($sql));
+$sql = 'select type_id, types from contact_types order by type';
+$smarty->assign('contact_types',$db->getAssoc($sql));
 
-$sql = 'select contact_id, name, email, type_id
-        from contacts where contact_id='.$contact_id;
+$sql = 'select contact_id, name, email, contact_type_id '
+        .'from contacts where contact_id='.$contact_id;
 $smarty->assign('contact',$db->getRow($sql));
 
 ?>
@@ -166,7 +173,8 @@ $smarty->assign('contact',$db->getRow($sql));
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name="type" options=$types selected=$contact.type_id separator="<br />"}
+{html_radios name='contact_type_id' options=$contact_types 
+     selected=$contact.contact_type_id separator='<br />'}
 ]]>
   </programlisting>
  </example>

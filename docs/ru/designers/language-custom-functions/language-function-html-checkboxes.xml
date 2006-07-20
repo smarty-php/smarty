@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.16 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.checkboxes">
  <title>{html_checkboxes}</title>
  <para>
@@ -9,7 +9,7 @@
   которая создает группу флажков в HTML по указанной информации.
   Также она обеспечивает отметку флажков по умолчанию.
   Параметры values и output являются обязательными, если не указан атрибут
-  options. Весь вывод совместим с XHTML.
+  options. Весь вывод идет в формате XHTML.
  </para>
  
  <informaltable frame="all">
@@ -77,6 +77,13 @@
     <entry>Нет</entry>
     <entry><emphasis>true</emphasis></entry>
     <entry>добавляет &lt;label&gt;-тэги к выводу</entry>
+   </row>
+   <row>
+    <entry>assign</entry>
+    <entry>string</entry>
+    <entry>Нет</entry>
+    <entry><emphasis>пусто</emphasis></entry>
+    <entry>сохранить тэги флажков в массив вместо вывода</entry>
    </row>
   </tbody>
   </tgroup>

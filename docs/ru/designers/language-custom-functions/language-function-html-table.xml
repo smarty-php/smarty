@@ -42,7 +42,7 @@
     </row>
     <row>
      <entry>cols</entry>
-     <entry>integer</entry>
+     <entry>mixed</entry>
      <entry>Нет</entry>
      <entry><emphasis>3</emphasis></entry>
      <entry>
@@ -51,6 +51,8 @@
       из количества строк и количества элементов для отображения, чтобы как
       раз уместить все элементы. Если оба параметра (и rows, и cols) опущены,
       cols принимает значение по умолчанию, равное 3.
+      Если параметр является списком или массивом, кол-во колонок рассчитывается
+      исходя из кол-ва элементов в списке или массиве.
      </entry>
     </row>
     <row>
@@ -77,6 +79,15 @@
      </entry>
     </row>
     <row>
+     <entry>caption</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>пусто</emphasis></entry>
+     <entry>
+      текст, используемый в качестве заголовка таблицы.
+     </entry>
+    </row>
+    <row>
      <entry>table_attr</entry>
      <entry>string</entry>
      <entry>Нет</entry>
@@ -84,17 +95,24 @@
      <entry>атрибуты для тэга table</entry>
     </row>
     <row>
+     <entry>th_attr</entry>
+     <entry>string</entry>
+     <entry>Нет</entry>
+     <entry><emphasis>пусто</emphasis></entry>
+     <entry>атрибуты для тэга th (значения массива отображаются циклично)</entry>
+    </row>
+    <row>
      <entry>tr_attr</entry>
      <entry>string</entry>
      <entry>Нет</entry>
-     <entry><emphasis>empty</emphasis></entry>
+     <entry><emphasis>пусто</emphasis></entry>
      <entry>атрибуты для тэга tr (значения массива отображаются циклично)</entry>
     </row>
     <row>
      <entry>td_attr</entry>
      <entry>string</entry>
      <entry>Нет</entry>
-     <entry><emphasis>empty</emphasis></entry>
+     <entry><emphasis>пусто</emphasis></entry>
      <entry>атрибуты для тэга td (значения массива отображаются циклично)</entry>
     </row>
     <row>
@@ -153,7 +171,7 @@ $smarty->display('index.tpl');
 <![CDATA[
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
-{html_table loop=$data cols=4 tr_attr=$tr}
+{html_table loop=$data cols="first,second,third,fourth" tr_attr=$tr}
 ]]>
   </programlisting>
   <para>
@@ -162,19 +180,30 @@ $smarty->display('index.tpl');
   <screen>
 <![CDATA[
 <table border="1">
+<tbody>
 <tr><td>1</td><td>2</td><td>3</td></tr>
 <tr><td>4</td><td>5</td><td>6</td></tr>
 <tr><td>7</td><td>8</td><td>9</td></tr>
+</tbody>
 </table>
 <table border="0">
+<tbody>
 <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
 <tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</tbody>
 </table>
 <table border="1">
+<thead>
+<tr>
+<th>first</th><th>second</th><th>third</th><th>fourth</th>
+</tr>
+</thead>
+<tbody>
 <tr bgcolor="#eeeeee"><td>1</td><td>2</td><td>3</td><td>4</td></tr>
 <tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</tbody>
 </table>
 ]]>
   </screen>
