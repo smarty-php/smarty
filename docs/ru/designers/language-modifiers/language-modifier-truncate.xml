@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.truncate">
   <title>truncate</title>
   <para>
@@ -89,6 +89,7 @@ $smarty->assign('articleTitle', 'Two Sisters Reunite after Eighteen Years at Che
 {$articleTitle|truncate:30:"---"}
 {$articleTitle|truncate:30:"":true}
 {$articleTitle|truncate:30:"...":true}
+{$articleTitle|truncate:30:'..':true:true}
 ]]>
    </programlisting>
    <para>
@@ -103,6 +104,7 @@ Two Sisters Reunite after
 Two Sisters Reunite after---
 Two Sisters Reunite after Eigh
 Two Sisters Reunite after E...
+Two Sisters Re..ckout Counter.
 ]]>
    </screen>
   </example>

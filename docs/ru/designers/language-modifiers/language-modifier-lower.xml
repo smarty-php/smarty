@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.lower">
   <title>lower</title>
   <para>
-   Переводит строку в нижний регистр.
+   Переводит строку в нижний регистр. Является эквивалентом функции PHP
+   <ulink url="&url.php-manual;strtolower">strtolower()</ulink>.
   </para>
   <example>
    <title>lower</title>

@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.default">
   <title>default</title>
    <para>
      Используется для установки значения по умолчанию для переменной.
-     Если переменная пуста или не установлена, указанное значение по умолчанию
-     будет подставлено вместо неё.
+     Если переменная не установлена или является пустой строкой, указанное
+     значение по умолчанию будет подставлено вместо неё.
    </para>
+  
+  <para>
+   <note>
+    <para>
+     Если директива error_reporting установлена в E_ALL, необъявленные переменные
+     всегда будут отображать ошибку в шаблоне. Эта функция полезна для замены
+     пустых значений или строк нулевой длинны.
+    </para>
+   </note>
+  </para>
   
   <informaltable frame="all">
    <tgroup cols="5">
@@ -44,6 +54,7 @@
 <?php
 
 $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
+$smarty->assign('email','');
 
 ?>
 ]]>
@@ -53,8 +64,9 @@ $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
    </para>
    <programlisting>
 <![CDATA[
-{$articleTitle|default:"no title"}
-{$myTitle|default:"no title"}
+{$articleTitle|default:'no title'}
+{$myTitle|default:'no title'}
+{$email|default:'No email address available'}
 ]]>
    </programlisting>
    <para>
@@ -64,6 +76,7 @@ $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
 <![CDATA[
 Dealers Will Hear Car Talk at Noon.
 no title
+No email address available
 ]]>
    </screen>
   </example>

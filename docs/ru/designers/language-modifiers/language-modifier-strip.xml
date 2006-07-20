@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.strip">
   <title>strip</title>
   <para>
@@ -33,7 +33,7 @@ $smarty->assign('articleTitle', "Grandmother of\neight makes\t    hole in one.")
 <![CDATA[
 {$articleTitle}
 {$articleTitle|strip}
-{$articleTitle|strip:"&nbsp;"}
+{$articleTitle|strip:'&nbsp;'}
 ]]>
    </programlisting>
    <para>
@@ -48,6 +48,12 @@ Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
 ]]>
    </screen>
   </example>
+  <para>
+   См. также
+   <link linkend="language.function.strip">{strip}</link>
+   и
+   <link linkend="language.modifier.truncate">truncate</link>.
+  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

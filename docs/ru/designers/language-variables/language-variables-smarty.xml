@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.12 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.15 Maintainer: freespace Status: ready -->
 <sect1 id="language.variables.smarty">
  <title>Зарезервированная переменная {$smarty}</title>
  <para>
   Зарезервированная переменная {$smarty} может быть использована для получения
-  доступа к нескольким специальным переменным шаблона. Далее следует их полный
+  доступа к нескольким переменным окружения и запроса. Далее следует их полный
   список.
  </para>
  <sect2 id="language.variables.smarty.request">
@@ -51,17 +51,26 @@
     получить непосредственно, хотя предпочтительным способом является обращение
     {$smarty.server.SCRIPT_NAME}.
    </para>
+   <programlisting>
+<![CDATA[
+<a href="{$SCRIPT_NAME}?page=smarty">click me</a>
+<a href="{$smarty.server.SCRIPT_NAME}?page=smarty">click me</a>
+]]>
+   </programlisting>
   </note>
  </sect2>
  <sect2 id="language.variables.smarty.now">
   <title>{$smarty.now}</title>
   <para>
    Текущая <ulink url="&url.php-manual;function.time">временная метка</ulink>
-   содержится в переменной {$smarty.now}. Это число отображает количество
+   содержится в переменной {$smarty.now}. Это значение отражает количество
    секунд, которые прошли с момента наступления так называемой Эпохи
    (1 января 1970 года). Её можно прямо передавать модификатору
    <link linkend="language.modifier.date.format">date_format</link>
-   для отображения текущей даты/времени.
+   для отображения текущей даты/времени. Обратите внимание,
+   что time() вызывается при каджом обращении; к примеру, скрипт, работающий
+   три секунды и вызывающий $smarty.now в начале и в конце работы, покажет
+   разницу в три секунды.
   </para>
   <example>
    <title>Использование {$smarty.now}</title>
@@ -80,9 +89,16 @@
    linkend="smarty.constants">Константы Smarty</link>
   </para>
   <example>
-   <title>Использование {$smarty.const}</title>
-   <programlisting>
+   <title>Использование {$smarty.const} для доступа к константам</title>
+   <programlisting role="php">
 <![CDATA[
+// константа определена в PHP
+define('_MY_CONST_VAL','CHERRIES');
+]]>
+</programlisting>
+<programlisting>
+<![CDATA[
+{* вывод константы PHP в шаблоне *}
 {$smarty.const._MY_CONST_VAL}
 ]]>
    </programlisting>
@@ -92,9 +108,9 @@
  <sect2 id="language.variables.smarty.capture">
   <title>{$smarty.capture}</title>
   <para>
-   Результат захвата конструкции <link
-   linkend="language.function.capture">{capture}..{/capture}</link>
-   доступен при помощи переменной {$smarty}. См. раздел о
+   Результат обработки шаблона, сохраненный конструкцией <link
+   linkend="language.function.capture">{capture}..{/capture}</link>,
+   доступен при помощи переменной {$smarty.capture}. См. раздел о
    <link linkend="language.function.capture">{capture}</link>
    для получения примера.
   </para>
@@ -117,26 +133,49 @@
    Переменную {$smarty} можно использовать для обращения к свойствам циклов
    <link linkend="language.function.section">{section}</link> и
    <link linkend="language.function.foreach">{foreach}</link>.
+   Это очень полезные значения вроде .first, .index и т.д.
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.template">
   <title>{$smarty.template}</title>
   <para>
-   Эта переменная содержит имя текущего обрабатываемого шаблона.
+   Возвращает имя текущего обрабатываемого шаблона. Этот пример показывает
+   container.tpl и включенные в него banner.tpl, оба имеют вызов
+   {$smarty.template}
   </para>
+  <programlisting>
+<![CDATA[
+<b>Main container is {$smarty.template}</b>
+{include file='banner.tpl}
+]]>
+  </programlisting>
+  <para>
+   результат обработки шаблона:
+  </para>
+<programlisting>
+<![CDATA[
+<b>Main page if container.tpl</b>
+banner.tpl
+]]>
+  </programlisting>
  </sect2>
  <sect2 id="language.variables.smarty.version">
   <title>{$smarty.version}</title>
   <para>
-   Эта переменная содержит версию Smarty, с которой был скомпилирован шаблон.
+   Возвращает версию Smarty, с которой был скомпилирован шаблон.
   </para>
+  <programlisting>
+<![CDATA[
+<div id="footer">Powered by Smarty {$smarty.version}</div>
+]]>
+  </programlisting>  
  </sect2>
  <sect2 id="language.variables.smarty.ldelim">
   <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
   <para>
-   Эти переменные используются для отображения левого и правого ограничителей.
-   См. <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+   Эти переменные используются для отображения левого и правого ограничителей -
+   так же, как и <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
   <para>
    См. также
