@@ -122,7 +122,7 @@
 {mailto address="me@example.com" encode="hex"}
 <a href="mailto:%6d%65.. snipped..3%6f%6d">&#x6d;&..snipped...#x6f;&#x6d;</a>
 
-mailto address="me@example.com" subject="Hello to you!"}
+{mailto address="me@example.com" subject="Hello to you!"}
 <a href="mailto:me@example.com?subject=Hello%20to%20you%21" >me@example.com</a>
 
 {mailto address="me@example.com" cc="you@example.com,they@example.com"}
