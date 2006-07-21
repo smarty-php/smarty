@@ -1,3 +1,36 @@
+2006-07-20  George Miroshnikov  <support@infinity.com.ua>
+
+    * docs/ru/designers/language-custom-functions/language-function-html-table.xml
+      docs/ru/designers/language-custom-functions/language-function-mailto.xml:
+      incrementing EN-Revision
+
+    * docs/ru/designers/language-custom-functions/language-function-assign.xml
+      docs/ru/designers/language-custom-functions/language-function-eval.xml
+      docs/ru/designers/language-custom-functions/language-function-fetch.xml
+      docs/ru/designers/language-custom-functions/language-function-html-checkboxes.xml
+      docs/ru/designers/language-custom-functions/language-function-html-image.xml
+      docs/ru/designers/language-custom-functions/language-function-html-options.xml
+      docs/ru/designers/language-custom-functions/language-function-html-radios.xml
+      docs/ru/designers/language-custom-functions/language-function-html-table.xml
+      docs/ru/designers/language-custom-functions/language-function-mailto.xml
+      docs/ru/designers/language-custom-functions/language-function-popup-init.xml
+      docs/ru/designers/language-custom-functions/language-function-popup.xml
+      docs/ru/designers/language-modifiers/language-modifier-date-format.xml
+      docs/ru/designers/language-modifiers/language-modifier-default.xml
+      docs/ru/designers/language-modifiers/language-modifier-escape.xml
+      docs/ru/designers/language-modifiers/language-modifier-indent.xml
+      docs/ru/designers/language-modifiers/language-modifier-lower.xml
+      docs/ru/designers/language-modifiers/language-modifier-nl2br.xml
+      docs/ru/designers/language-modifiers/language-modifier-strip.xml
+      docs/ru/designers/language-modifiers/language-modifier-truncate.xml
+      docs/ru/designers/language-modifiers/language-modifier-upper.xml
+      docs/ru/designers/language-modifiers/language-modifier-wordwrap.xml
+      docs/ru/designers/language-variables/language-variables-smarty.xml:
+      sync with EN
+
+    * docs/en/designers/language-custom-functions/language-function-mailto.xml:
+      typo
+
 2006-07-10  boots  <jayboots@yahoo.com>
 
     * libs/plugins/function.html_table.php:
