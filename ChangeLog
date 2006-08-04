@@ -1,3 +1,10 @@
+2006-08-03  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fix false replacement of "$t" inside double quotes
+      thanks to checat for reporting this
+
 2006-07-20  George Miroshnikov  <support@infinity.com.ua>
 
     * docs/ru/designers/language-custom-functions/language-function-html-table.xml
