@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.table">
  <title>{html_table}</title>
@@ -41,16 +41,18 @@
     </row>
     <row>
      <entry>cols</entry>
-     <entry>entier</entry>
+     <entry>mixed</entry>
      <entry>Non</entry>
      <entry><emphasis>3</emphasis></entry>
      <entry>
-      nombre de colonnes de la table. Si l'attribut "cols" est vide,
+      nombre de colonnes de la table ou une liste de noms de colonnes séparés par une
+      virgule ou un tableau contenant les noms des colonnes. Si l'attribut "cols" est vide,
       mais que des lignes sont données, alors le nombre de colonnes sera calculé
       en utilisant le nombre de lignes et le nombre d'éléments à afficher pour qu'il y 
       ait juste assez de colonnes pour afficher tous les éléments. Si les lignes et 
       les colonnes sont omis tous les deux, la valeur par défaut de "cols" sera appliquée,
-      à savoir 3.
+      à savoir 3. Si fourni en tant que liste ou tableau, le nombre de colonnes
+      est calculé par rapport au nombre d'éléments de la liste ou du tableau.
      </entry>
     </row>
     <row>
@@ -79,11 +81,27 @@
      </entry>
     </row>
     <row>
+     <entry>caption</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>
+      texte à utiliser pour l'élément caption du tableau.
+     </entry>
+    </row>
+    <row>
      <entry>table_attr</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>border="1"</emphasis></entry>
      <entry>attributs pour la balise table</entry>
+    </row>
+    <row>
+     <entry>th_attr</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>No</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>attributs pour les balises th (les tableaux sont parcourus)</entry>
     </row>
     <row>
      <entry>tr_attr</entry>
@@ -152,7 +170,7 @@ Code du template :
 ----------------------
 {html_table loop=$data}
 {html_table loop=$data cols=4 table_attr='border="0"'}
-{html_table loop=$data cols=4 tr_attr=$tr}
+{html_table loop=$data cols="first,second,third,fourth" tr_attr=$tr}
 ]]>
   </programlisting>
   <para>
@@ -161,19 +179,30 @@ Code du template :
   <screen>
 <![CDATA[
 <table border="1">
+<tbody>
 <tr><td>1</td><td>2</td><td>3</td></tr>
 <tr><td>4</td><td>5</td><td>6</td></tr>
 <tr><td>7</td><td>8</td><td>9</td></tr>
+</tbody>
 </table>
 <table border="0">
+<tbody>
 <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
 <tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</tbody>
 </table>
 <table border="1">
+ <thead>
+  <tr>
+   <th>first</th><th>second</th><th>third</th><th>fourth</th>
+  </tr>
+ </thead>
+<tbody>
 <tr bgcolor="#eeeeee"><td>1</td><td>2</td><td>3</td><td>4</td></tr>
 <tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
 <tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</tbody>
 </table>
 ]]>
   </screen>
