@@ -1,3 +1,8 @@
+2006-08-19  Peter 'Mash' Morgan  <pmm@daffodil.uk.com>
+
+    * docs/en/designers/language-custom-functions/language-function-popup-init.xml:
+      avoid dupes and added remote paths
+
 2006-08-06  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/designers/language-custom-functions/language-function-html-table.xml
