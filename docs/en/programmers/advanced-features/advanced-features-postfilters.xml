@@ -46,8 +46,7 @@ $smarty->display('index.tpl');
  See also <link linkend="api.register.postfilter">register_postfilter()</link>,
  <link linkend="advanced.features.prefilters">prefilters</link>
  and
- <link linkend="api.load.filter">load_filter()</link>
- 
+ <link linkend="api.load.filter">load_filter()</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
