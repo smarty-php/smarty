@@ -52,7 +52,7 @@ $smarty->display('index.tpl');
    See also 
    <link linkend="api.register.outputfilter">register_outpurfilter()</link>, 
    <link linkend="api.load.filter">load_filter()</link>,
-   <link linkend="variable.autoload.filters">$autoload_filters</link>
+   <link linkend="variable.autoload.filters">$autoload_filters</link>,
    <link linkend="advanced.features.postfilters">postfilters</link> and
    <link linkend="variable.plugins.dir">$plugins_dir</link>.
    </para>
