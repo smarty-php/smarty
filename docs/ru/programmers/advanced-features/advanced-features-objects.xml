@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="advanced.features.objects">
  <title>Объекты</title>
  <para>
-  Smarty позволяет использовать в шаблонах объекты PHP.
-  Существуют два способа их вызова. Первый - зарегистрировать объект для
-  шаблона, затем вызвать его примерно так же, как и пользовательскую
-  функцию. Второй - присвоить объект шаблону и использовать его,
+  Smarty позволяет использовать в шаблонах
+  <ulink url="&url.php-manual;object">объекты</ulink> PHP.
+  Существуют два способа их вызова. Первый -
+  <link linkend="api.register.object">зарегистрировать объект</link> для
+  шаблона, затем вызвать его примерно так же, как и
+  <link linkend="language.custom.functions">пользовательские функции</link>.
+  Второй - <link linkend="api.assign">назначить</link> объект шаблону и использовать его,
   как любую другую присвоенную переменную. Первый метод гораздо аккуратнее
   и безопаснее, так как у зарегистрированного объекта можно ограничить
-  свойства и методы. Но, в тоже время, зарегистрированный объект
-  нельзя использовать в циклах, нельзя помещать в массив объектов
+  свойства и методы. Но, в тоже время, <emphasis role="bold">зарегистрированный объект
+  нельзя использовать в циклах, нельзя помещать в массив объектов</emphasis>,
   и так далее. Выбор способа за вами, но используйте по
   возможности первый, чтобы максимально упростить синтаксис шаблона.
  </para>
  <para>
-  В безопасном режиме недоступны приватные методы и
-  функции (имена которых начинаются с "_").
+  В <link linkend="variable.security">безопасном режиме</link>
+  недоступны приватные методы и функции (имена которых начинаются с "_").
   Если существует и метод, и свойство с одинаковыми именами,
   то будет использован метод.
  </para>
@@ -28,10 +31,27 @@
  </para>
  <para>
   По умолчанию, параметры из шаблона передаются объекту точно так же,
-  как и пользовательской функции. Первым параметром передаётся
+  как и
+  <link linkend="language.custom.functions">пользовательской функции</link>.
+  Первым параметром передаётся
   ассоциативный массив, вторым - объект Smarty. Если вы хотите передавать
   параметры по одному, как при традиционном обращении с объектами, установите
   четвёртый параметр вызова в false.
+ </para>
+ <para>
+  Необязательный пятый параметр вступает в силу только в том случае, если
+  свойство <parameter>format</parameter> равно <literal>true</literal>.
+  Он содержит список методов, которые должны обрабатываться как блоки.
+  Это означает, что в шаблоне у методы будут иметь закрывающие тэги
+  (<literal>{foobar->meth2}...{/foobar->meth2}</literal>) и параметры
+  методов будут иметь такие же синопсисы, как и параметры для
+  <link linkend="plugins.block.functions">block-function-plugins</link>:
+  <parameter>$params</parameter>,
+  <parameter>$content</parameter>,
+  <parameter>&amp;$smarty</parameter>
+  и
+  <parameter>&amp;$repeat</parameter>. Кроме того, они ведут себя так же, как и
+  block-function-plugins.
  </para>
  <example>
   <title>использование зарегистрированного или присвоенного объекта</title>
@@ -40,45 +60,50 @@
 <?php
 // сам объект
 
-class My_Object() {
+class My_Object {
 	function meth1($params, &$smarty_obj) {
-		return "это мой метод meth1";
+		return 'this is my meth1';
 	}
 }
 
 $myobj = new My_Object;
-// регистрируем объект (будет доступен по ссылке)
-$smarty->register_object("foobar",$myobj);
-// если мы хотим ограничиться определёнными методами или свойствами, перечисляем их при регистрации
-$smarty->register_object("foobar",$myobj,array('meth1','meth2','prop1'));
-// если мы хотим использовать традиционный способ передачи параметров объекту, регистрируем объект с соответствующим
-// флагом, установленным в false
-$smarty->register_object("foobar",$myobj,null,false);
+// регистрация объекта (по ссылке)
+$smarty->register_object('foobar',$myobj);
+// если мы хотим ограничить доступ к определенным методам или свойствам, перечисляем их
+$smarty->register_object('foobar',$myobj,array('meth1','meth2','prop1'));
+// если мы хотим использовать традиционный формат параметров объекта, передаем false
+$smarty->register_object('foobar',$myobj,null,false);
 
-// Так же мы можем присвоить объект. Желательно присваивать объект по ссылке.
-$smarty->assign_by_ref("myobj", $myobj);
+// Мы так же можем назначать объекты. Назначение идёт по ссылке, если это возможно.
+$smarty->assign_by_ref('myobj', $myobj);
 
-$smarty->display("index.tpl");
+$smarty->display('index.tpl');
 ?>
 ]]>
   </programlisting>
   <para>
-   Вот так нужно обращаться к вашим объектам в index.tpl:
+   А вот так можно получить доступ к объекту в index.tpl:
   </para>
   <programlisting>
 <![CDATA[
-{* вызываем зарегистрированный объект *}
-{foobar->meth1 p1="foo" p2=$bar}
+{* обращаемся к нашему зарегистрированному объекту *}
+{foobar->meth1 p1='foo' p2=$bar}
 
-{* результат можно поместить в переменную *}
-{foobar->meth1 p1="foo" p2=$bar assign="output"}
-в результате получаем {$output}
+{* вывод объекта можно сохранить в переменную *}
+{foobar->meth1 p1='foo' p2=$bar assign='output'}
+the output was {$output}
 
-{* вызываем присвоенный объект *}
-{$myobj->meth1("foo",$bar)}
+{* обращаемся к нашему назначенному объекту *}
+{$myobj->meth1('foo',$bar)}
 ]]>
   </programlisting>
  </example>
+ <para>
+  См. также
+  <link linkend="api.register.object">register_object()</link>
+  и
+  <link linkend="api.assign">assign()</link>
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

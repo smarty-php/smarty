@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="template.resources">
  <title>Ресурсы</title>
  <para>
-  Шаблоны можно получать из самых разных источников. Когда вы отображаете,
-  вызываете или подключаете один шаблон из другого, вы указываете тип ресурса,
+  Шаблоны можно получать из самых разных источников. Когда вы
+  <link linkend="api.display">отображаете</link> или
+  <link linkend="api.fetch">вызываете</link> шаблон,
+  либо когда вы подключаете один шаблон к другому, вы указываете тип ресурса,
   вместе с соответствующим путём и названием шаблона.
+  Если тип ресурса явно не задан, используется значения свойства
+  <link linkend="variable.default.resource.type">$default_resource_type</link>.
  </para>
 
  <sect2 id="templates.from.template.dir">
   <title>Шаблоны из папки $template_dir</title>
   <para>
-   Шаблоны, лежащие в папке $template_dir, не требуют при вызове указания
+   Шаблоны, которые находятся в папке
+   <link linkend="variable.template.dir">$template_dir</link>,
+   не требуют при вызове указания
    типа ресурса, хотя вы можете использовать префикс file: для сохранения
-   стиля. Для вызова просто укажите относительный от $template_dir путь к
-   шаблону.
+   стиля. Для вызова просто укажите относительный от
+   <link linkend="variable.template.dir">$template_dir</link>
+   путь к шаблону.
   </para>
   <example>
    <title>Вызов шаблона из папки $template_dir</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->display("index.tpl");
-$smarty->display("admin/menu.tpl");
-$smarty->display("file:admin/menu.tpl"); // тоже самое, что и строкой выше
+$smarty->display('index.tpl');
+$smarty->display('admin/menu.tpl');
+$smarty->display('file:admin/menu.tpl'); // тоже самое, что и строкой выше
+?>
 
-{* код в шаблоне *}
+{* код в шаблоне Smarty *}
 {include file="index.tpl"}
 {include file="file:index.tpl"} {* тоже самое, что и строкой выше *}
 ]]>
@@ -37,17 +45,18 @@ $smarty->display("file:admin/menu.tpl"); // тоже самое, что и строкой выше
  <sect2 id="templates.from.any.dir">
   <title>Шаблоны из произвольной папки</title>
   <para>
-   Для вызова шаблонов из папки вне $template_dir необходимо
-   использовать префикс file: с последующим указанием асболютного
+   Для вызова шаблонов из папки вне
+   <link linkend="variable.template.dir">$template_dir</link>
+   необходимо использовать префикс file: с последующим указанием асболютного
    пути и имени шаблона.
   </para>
   <example>
    <title>Вызов шаблона из произвольной папки</title>
-   <programlisting>
+   <programlisting role="php">
 <![CDATA[
-// PHP скрипт
-$smarty->display("file:/export/templates/index.tpl");
-$smarty->display("file:/path/to/my/templates/menu.tpl");
+<?php
+$smarty->display('file:/export/templates/index.tpl');
+$smarty->display('file:/path/to/my/templates/menu.tpl');
 ?>
 ]]>
    </programlisting>
@@ -75,8 +84,8 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
 <![CDATA[
 <?php
 // PHP скрипт
-$smarty->display("file:C:/export/templates/index.tpl");
-$smarty->display("file:F:/path/to/my/templates/menu.tpl");
+$smarty->display('file:C:/export/templates/index.tpl');
+$smarty->display('file:F:/path/to/my/templates/menu.tpl');
 ?>
 ]]>
     </programlisting>

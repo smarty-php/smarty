@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="advanced.features.prefilters">
  <title>Префильтры</title>
  <para>
@@ -10,8 +10,10 @@
  </para>
  <para>
   Префильтры могут быть или
-  <link linkend="api.register.prefilter">заргистрированы</link> или загружены
-  из папки с плагинами с помощью функции
+  <link linkend="api.register.prefilter">заргистрированы</link>
+  или загружены из
+  <link linkend="variable.plugins.dir">директории плагинов</link>
+  с помощью функции
   <link linkend="api.load.filter">load_filter()</link> или
   с помощью установки переменной
   <link linkend="variable.autoload.filters">$autoload_filters</link>.
@@ -22,25 +24,32 @@
  </para>
  <example>
   <title>использование префильтра</title>
+  <para>
+   Этот пример удалит все комментарии из исходного текста шаблона.
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
 // код в вашем скрипте
 function remove_dw_comments($tpl_source, &$smarty)
 {
-    return preg_replace("/<!--#.*-->/U","",$tpl_source);
+    return preg_replace('/<!--#.*-->/U','',$tpl_source);
 }
 
 // регистрация префильтра
-$smarty->register_prefilter("remove_dw_comments");
-$smarty->display("index.tpl");
+$smarty->register_prefilter('remove_dw_comments');
+$smarty->display('index.tpl');
 ?>
 ]]>
   </programlisting>
-  <para>
-   Это удалит все комментарии из исходного текста шаблона.
-  </para>
  </example>
+ <para>
+  См. также
+  <link linkend="api.register.prefilter">register_prefilter()</link>,
+  <link linkend="advanced.features.postfilters">постфильтры</link>
+  и
+ <link linkend="api.load.filter">load_filter()</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

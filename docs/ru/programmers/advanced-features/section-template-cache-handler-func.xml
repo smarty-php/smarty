@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="section.template.cache.handler.func">
  <title>Управление кэшированием</title>
  <para>
@@ -70,7 +70,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
 
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
-		$smarty_obj->_trigger_error_msg("cache_handler: не могу подключиться к базе данных");
+		$smarty_obj->_trigger_error_msg('cache_handler: не могу подключиться к базе данных');
 		return false;
 	}
 	mysql_select_db($db_name);
@@ -80,14 +80,14 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			// чтение кэша из базы
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");
+				$smarty_obj->_trigger_error_msg('cache_handler: ошибка запроса.');
 			}
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 
-			if($use_gzip && function_exists("gzuncompress")) {
-				$cache_content = gzuncompress($row["CacheContents"]);
+			if($use_gzip && function_exists('gzuncompress')) {
+				$cache_content = gzuncompress($row['CacheContents']);
 			} else {
-				$cache_content = $row["CacheContents"];
+				$cache_content = $row['CacheContents'];
 			}
 			$return = $results;
 			break;
@@ -105,7 +105,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 							'".addslashes($contents)."')
 						");
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");
+				$smarty_obj->_trigger_error_msg('cache_handler: ошибка запроса.');
 			}
 			$return = $results;
 			break;
@@ -113,18 +113,18 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			// очистка кэша
 			if(empty($cache_id) && empty($compile_id) && empty($tpl_file)) {
 				// clear them all
-				$results = mysql_query("delete from CACHE_PAGES");
+				$results = mysql_query('delete from CACHE_PAGES');
 			} else {
-				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");
+				$results = mysql_query('delete from CACHE_PAGES where CacheID="'.$CacheID.'"');
 			}
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg("ошибка кэша: неверный запрос.");
+				$smarty_obj->_trigger_error_msg('cache_handler: ошибка запроса.');
 			}
 			$return = $results;
 			break;
 		default:
 			// ошибка, указан неизвестный метод
-			$smarty_obj->_trigger_error_msg("ошибка кэша: неизвестный метод \"$action\"");
+			$smarty_obj->_trigger_error_msg('cache_handler: неизвестный метод "'.$action.'"');
 			$return = false;
 			break;
 	}

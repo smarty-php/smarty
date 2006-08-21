@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="advanced.features.outputfilters">
  <title>Фильтры вывода</title>
  <para>
-  Когда шаблон выводится через display() или fetch(), результат может быть
+  Когда шаблон выводится через
+  <link linkend="api.display">display()</link> или
+  <link linkend="api.fetch">fetch()</link>, результат может быть
   пропущен через один или несколько фильтров вывода. Отличие их от
-  постфильтров состоит в том, что постфильтры действуют на уже скомпилированный
+  <link linkend="advanced.features.postfilters">постфильтров</link>
+  состоит в том, что постфильтры действуют на уже скомпилированный
   шаблон, перед его записью на диск, в то время как фильтры вывода обрабатывают
   шаблон в момент его исполнения.
  </para>
@@ -14,7 +17,9 @@
  <para>
   Фильтры вывода могут быть или
   <link linkend="api.register.outputfilter">зарегистрированы</link> или
-  загружены из папки с плагинами с помощью
+  загружены из
+  <link linkend="variable.plugins.dir">папки плагинов</link>
+  с помощью
   функции <link linkend="api.load.filter">load_filter()</link>, или
   с помощью установки переменной
   <link linkend="variable.autoload.filters">$autoload_filters</link>.
@@ -36,8 +41,8 @@ function protect_email($tpl_output, &$smarty)
 }
 
 // регистрация фильтра вывода
-$smarty->register_outputfilter("protect_email");
-$smarty->display("index.tpl");
+$smarty->register_outputfilter('protect_email'); 
+$smarty->display('index.tpl');
 
 // теперь все адреса электронной почты в выводе шаблона будут
 // обработаны несложной функцией защиты от спам-ботов
@@ -45,6 +50,15 @@ $smarty->display("index.tpl");
 ]]>
   </programlisting>
  </example>
+ <para>
+  См. также
+  <link linkend="api.register.outputfilter">register_outpurfilter()</link>, 
+  <link linkend="api.load.filter">load_filter()</link>,
+  <link linkend="variable.autoload.filters">$autoload_filters</link>,
+  <link linkend="advanced.features.postfilters">постфильтрі</link>
+  и
+  <link linkend="variable.plugins.dir">$plugins_dir</link>.
+ </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.popup.init">
  <title>{popup_init}</title>
  <para>
@@ -9,13 +9,16 @@
   <ulink url="&url.overLib;">overLib</ulink>, библиотеки, которая
   используется для отображения всплывающих окон. Они используются для
   контекстно-чувствительной информации, такой как окна справки и всплывающие
-  подсказки. {popup_init} должна быть вызвана один раз в начале страницы,
-  если вы собираетесь использовать на ней функцию
+  подсказки. {popup_init} должна быть вызвана <emphasis>только один раз</emphasis>,
+  желательно в тэге &lt;head&gt; в пределах каждой страницы, на которой вы
+  собираетесь использовать функцию
   <link linkend="language.function.popup">{popup}</link>.
+  Путь может быть задан относительно обрабатываемого скрипта или в виде полного
+  адреса с доменом (но не относительно файла шаблона).
   </para>
   <para>
   <ulink url="&url.overLib;">overLib</ulink>
-  написана Эриком Босрупом (Erik Bosrup) и её домашняя страница находится по
+  написана и поддерживается Эриком Босрупом (Erik Bosrup) и её домашняя страница находится по
   адресу <ulink url="&url.overLib;">&url.overLib;</ulink>.
  </para>
  
@@ -26,6 +29,15 @@
 <head>
 {* popup_init должна быть вызвана один раз в начале страницы *}
 {popup_init src='javascripts/overlib/overlib.js'}
+
+{* пример с полным адресом, включая домен *}
+{popup_init src='http://www.example.com/my_js_libs/overlib/overlib.js'}
+</head>
+
+// результат выполнения первого примера
+<head>
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<script type="text/javascript" language="JavaScript" src="javascripts/overlib/overlib.js"></script>
 </head>
 ]]>
   </programlisting>
