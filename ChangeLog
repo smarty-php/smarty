@@ -1,3 +1,23 @@
+2006-08-21  George Miroshnikov  <support@infinity.com.ua>
+
+    * docs/ru/designers/language-custom-functions/language-function-popup-init.xml
+      docs/ru/programmers/advanced-features/advanced-features-objects.xml
+      docs/ru/programmers/advanced-features/advanced-features-outputfilters.xml
+      docs/ru/programmers/advanced-features/advanced-features-postfilters.xml
+      docs/ru/programmers/advanced-features/advanced-features-prefilters.xml
+      docs/ru/programmers/advanced-features/section-template-cache-handler-func.xml
+      docs/ru/programmers/advanced-features/template-resources.xml:
+      sync with EN
+
+    * docs/en/programmers/advanced-features/advanced-features-prefilters.xml:
+      another missing dot
+
+    * docs/en/programmers/advanced-features/advanced-features-postfilters.xml:
+      missing dot
+
+    * docs/en/programmers/advanced-features/advanced-features-outputfilters.xml:
+      missing comma
+
 2006-08-19  Peter 'Mash' Morgan  <pmm@daffodil.uk.com>
 
     * docs/en/designers/language-custom-functions/language-function-popup-init.xml:
