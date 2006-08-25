@@ -1,3 +1,4 @@
+- fix wrong handling of insert's name attribute. (messju)
 - fix false replacement of "$t" inside double quotes (checat, messju)
 - added support for column headings and caption element to html_table and
   updated the output to use thead/tbody elements (boots)
