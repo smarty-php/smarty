@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.assign">
  <refnamediv>
-  <refname>clear_assign</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_assign()</refname>
+  <refpurpose>очищает назначенную переменную</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Описание</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_assign</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-  Очищает присвоенное ранее значение переменной. Это может быть
-  как обычная переменная, так и массив некоторых значений.
- </para>
- <example>
-  <title>clear_assign</title>
+   Может принимать имя переменной, либо массив с именами переменных.
+  </para>
+  <example>
+   <title>clear_assign()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// очистить значение переменной
-$smarty->clear_assign("Name");
+// очищает одну переменную
+$smarty->clear_assign('Name');
 
-// очистить значения несколько переменных
-$smarty->clear_assign(array("Name", "Address", "Zip"));
+// очищает несколько переменных
+$smarty->clear_assign(array('Name', 'Address', 'Zip'));
 ?>
 ]]>
    </programlisting>
   </example>
+  <para>
+    См. также
+    <link linkend="api.clear.all.assign">clear_all_assign()</link>,
+    <link linkend="api.clear.config">clear_config()</link>,
+    <link linkend="api.get.template.vars">get_template_vars()</link>,
+    <link linkend="api.assign">assign()</link>
+    и
+    <link linkend="api.append">append()</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file

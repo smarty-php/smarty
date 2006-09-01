@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <refentry id="api.display">
  <refnamediv>
-  <refname>display</refname>
-  <refpurpose></refpurpose>
+  <refname>display()</refname>
+  <refpurpose>отображает шаблон</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Описание</title>
   <methodsynopsis>
    <type>void</type><methodname>display</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
+   </methodparam>
   </methodsynopsis>
   <para>
-  Функция отоброжает шаблон. Укажите верный тип <link
-  linkend="template.resources">ресурса шаблонов</link>
-  и путь. В качестве необязательного второго параметра,
-  вы можете передать cache id. Смотрите раздел
-  <link linkend="caching">Кэширование</link>
-  для дополнительной информации.
- </para>
- &parameter.compileid;
- <example>
-  <title>display</title>
+   Данная функция отображает шаблон, в отличие от
+   <link linkend="api.fetch">fetch()</link>.
+   В качестве первого аргумента следуедует указать доступный тип и путь к
+   <link linkend="template.resources">ресурсу шаблона</link>.
+   В качестве второго необязательного аргумета, вы можете передать идентификатор
+   кэша.
+   См. раздел
+   <link linkend="caching">Кэширование</link>
+   для получения дополнительной информации.
+  </para>
+  &parameter.compileid;
+  <example>
+   <title>display()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -32,62 +36,64 @@ include("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->caching = true;
 
-// обращаемся к базе только в случае отсутствия кэша
-if(!$smarty->is_cached("index.tpl"))
-{
+// выполняем запрос к БД только в том случае, если кэш не существует
+if(!$smarty->is_cached("index.tpl")) {
 
-    // подставляем некоторые данные
-    $address = "245 N 50th";
-    $db_data = array(
-	    "City" => "Lincoln",
-	    "State" => "Nebraska",
-	    "Zip" = > "68502"
-	    );
+  // немного данных для примера
+  $address = "245 N 50th";
+  $db_data = array(
+               "City" => "Lincoln",
+               "State" => "Nebraska",
+               "Zip" => "68502"
+             );
 
-    $smarty->assign("Name","Fred");
-    $smarty->assign("Address",$address);
-    $smarty->assign($db_data);
+  $smarty->assign("Name","Fred");
+  $smarty->assign("Address",$address);
+  $smarty->assign($db_data);
 
 }
 
-// отображаем результат
+// выводим результат
 $smarty->display("index.tpl");
 ?>
 ]]>
-  </programlisting>
- </example>
- <para>
-  Используйте синтаксис <link
-  linkend="template.resources">ресурсов шаблонов</link> для
-  отображения файлов, находящихся вне директории $template_dir.
- </para>
- <example>
-  <title>Примеры отображения шаблонов из различных ресурсов</title>
+   </programlisting>
+  </example>
+  <para>
+   Используйте синтаксис <link
+   linkend="template.resources">ресурсов шаблона</link> для отображения файлов
+   за пределами директории
+   <link linkend="variable.template.dir">$template_dir</link>.
+  </para>
+  <example>
+   <title>Пример работы функции display() с ресурсами шаблона</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // абсолютный файловый путь
-$smarty->display("/usr/local/include/templates/header.tpl");
+$smarty->display('/usr/local/include/templates/header.tpl');
 
-// абсолютный файловый путь (тоже самое)
-$smarty->display("file:/usr/local/include/templates/header.tpl");
+// абсолютный файловый путь (тот же результат)
+$smarty->display('file:/usr/local/include/templates/header.tpl');
 
-// абсолютный путь Windows (ОБЯЗАТЕЛЬНО используйте префикс "file:")
-$smarty->display("file:C:/www/pub/templates/header.tpl");
+// абсолютный файловый путь под Windows (префикс "file:" ОБЯЗАТЕЛЕН)
+$smarty->display('file:C:/www/pub/templates/header.tpl');
 
-// вставка из ресурса под названием "db"
-$smarty->display("db:header.tpl");
+// использование ресурса шаблона с именем "db"
+$smarty->display('db:header.tpl');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
    См. также
-   <link linkend="api.fetch">fetch()</link> и
-   <link linkend="api.template.exists">template_exists</link>.
+   <link linkend="api.fetch">fetch()</link>
+   и
+   <link linkend="api.template.exists">template_exists()</link>.
   </para>
  </refsect1>
 </refentry>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml
@@ -108,3 +114,4 @@ vim600: syn=xml fen fdm=syntax fdl=2 si
 vim: et tw=78 syn=sgml
 vi: ts=1 sw=1
 -->
+

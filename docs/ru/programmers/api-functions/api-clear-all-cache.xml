@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.all.cache">
  <refnamediv>
-  <refname>clear_all_cache</refname>
-  <refpurpose></refpurpose>
+  <refname>clear_all_cache()</refname>
+  <refpurpose>полностью очищает кэш шаблонов</refpurpose>
  </refnamediv>
  <refsect1>
-  <title />
+  <title>Описание</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_all_cache</methodname>
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
   <para>
-  Полностью очищает кэш шаблонов. В качестве необязательного
-  параметра, вы можете указать минимальный возраст файлов кэша в секундах,
-  по достижению которого они будут очищены.
- </para>
- <example>
-  <title>clear_all_cache</title>
+   В качестве необязательного параметра, вы можете указать минимальный возраст
+   файлов кэша в секундах, прежде чем они будут очищены.
+  </para>
+  <example>
+   <title>clear_all_cache</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// очистить кэш целиком
+// очищает весь кэш
 $smarty->clear_all_cache();
 ?>
 ]]>
    </programlisting>
   </example>
+  <para>
+  См. также
+  <link linkend="api.clear.cache">clear_cache()</link>,
+  <link linkend="api.is.cached">is_cached()</link>
+  и
+  <link linkend="caching">кэширование</link>
+  </para>
  </refsect1>
 </refentry>
 <!-- Keep this comment at the end of the file
