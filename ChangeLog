@@ -1,3 +1,19 @@
+2006-09-01  George Miroshnikov  <support@infinity.com.ua>
+
+    * docs/ru/programmers/api-functions/api-append-by-ref.xml
+      docs/ru/programmers/api-functions/api-append.xml
+      docs/ru/programmers/api-functions/api-assign-by-ref.xml
+      docs/ru/programmers/api-functions/api-assign.xml
+      docs/ru/programmers/api-functions/api-clear-all-assign.xml
+      docs/ru/programmers/api-functions/api-clear-all-cache.xml
+      docs/ru/programmers/api-functions/api-clear-assign.xml
+      docs/ru/programmers/api-functions/api-clear-cache.xml
+      docs/ru/programmers/api-functions/api-clear-compiled-tpl.xml
+      docs/ru/programmers/api-functions/api-clear-config.xml
+      docs/ru/programmers/api-functions/api-config-load.xml
+      docs/ru/programmers/api-functions/api-display.xml:
+      sync with EN
+
 2006-08-25  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
