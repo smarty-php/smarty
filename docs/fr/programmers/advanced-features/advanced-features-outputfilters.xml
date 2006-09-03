@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="advanced.features.outputfilters">
  <title>Filtres de sortie</title>
@@ -53,11 +53,12 @@ $smarty->display('index.tpl');
   Voir aussi
   <link linkend="api.register.outputfilter">register_outpurfilter()</link>,
   <link linkend="api.load.filter">load_filter()</link>,
-  <link linkend="variable.autoload.filters">$autoload_filters</link>
+  <link linkend="variable.autoload.filters">$autoload_filters</link>,
   les <link linkend="advanced.features.postfilters">filtres de post-compilation</link> et
   <link linkend="variable.plugins.dir">$plugins_dir</link>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

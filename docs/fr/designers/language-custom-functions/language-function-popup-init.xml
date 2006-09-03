@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.popup.init">
  <title>{popup_init}</title>
@@ -10,8 +10,10 @@
   une librairie capable de réaliser des fenêtres surgissantes (nous parlerons de "popup").
   Ce type de fenêtre est utilisé pour apporter des informations
   contextuelles, comme des infobulles d'aides ou astuces.
-  {popup_init} doit être appelé une fois, en début de page si vous comptez
-  utiliser la fonction <link linkend="language.function.popup">{popup}</link>.
+  {popup_init} doit être appelé une <emphasis>seule fois</emphasis>,
+  de préférence dans la balise &lt;head&gt;, dans toutes les pages si vous
+  comptez utiliser la fonction <link linkend="language.function.popup">{popup}</link>.
+  Le chemin est relatif au script exécuté ou un chemin complet (ie non relatif au template).
  </para>
  <para>
   <ulink url="&url.overLib;">overLib</ulink>
@@ -20,14 +22,23 @@
  </para>
  <example>
   <title>{popup_init}</title>
-<programlisting>
+  <programlisting>
 <![CDATA[
 <head>
 {* popup_init doit être appelé une fois en début de page. *}
 {popup_init src='/javascripts/overlib.js'}
+
+{* exemple avec une url complète *}
+{popup_init src='http://myserver.org/my_js_libs/overlib/overlib.js'}
+</head>
+
+// le premier exemple affichera
+<head>
+ <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+ <script type="text/javascript" language="JavaScript" src="javascripts/overlib/overlib.js"></script>
 </head>
 ]]>
-</programlisting>
+  </programlisting>
  </example>
 </sect1>
 
