@@ -1,3 +1,11 @@
+2006-09-03  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/designers/language-custom-functions/language-function-popup-init.xml
+      docs/fr/programmers/advanced-features/advanced-features-outputfilters.xml
+      docs/fr/programmers/advanced-features/advanced-features-postfilters.xml
+      docs/fr/programmers/advanced-features/advanced-features-prefilters.xml:
+      sync with EN
+
 2006-09-01  George Miroshnikov  <support@infinity.com.ua>
 
     * docs/ru/programmers/api-functions/api-append-by-ref.xml
