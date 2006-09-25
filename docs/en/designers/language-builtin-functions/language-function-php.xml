@@ -3,63 +3,60 @@
 <sect1 id="language.function.php">
  <title>{php}</title>
  <para>
-  The {php} tags allow PHP code to be embedded directly into the template. They
+  The <varname>{php}</varname> tags allow PHP code to be embedded directly into the template. They
   will not be escaped, regardless of the <link
-  linkend="variable.php.handling">$php_handling</link> setting. This
+  linkend="variable.php.handling"><parameter>$php_handling</parameter></link> setting. This
   is for advanced users only, not normally needed and not recommended.
  </para>
- <example>
-  <title>{php} tags</title>
-  <programlisting>
-<![CDATA[
-{php}
-   // including a php script directly
-   // from the template.
-   include('/path/to/display_weather.php');
-{/php}
-]]>
-  </programlisting>
- </example>
-<note>
+ <note>
 <title>Technical Note</title>
 <para>
-   To access PHP variables in {php} blocks you may need to use the PHP
+   To access PHP variables in <varname>{php}</varname> blocks you will need to use the PHP
    <ulink url="&url.php-manual;global">global</ulink>
    keyword.
 </para>
 </note>
 
  <example>
+  <title>Example php in {php} tags</title>
+  <programlisting>
+<![CDATA[
+{php}
+   // including a php script directly from the template.
+   include('/path/to/display_weather.php');
+{/php}
+]]>
+  </programlisting>
+ </example>
+
+
+ <example>
   <title>{php} tags with global and assigning a variable</title>
   <programlisting role="php">
 <![CDATA[
+{* this template includes a {php} block that assign's the variable $varX *}
 {php}
    global $foo, $bar;
    if($foo == $bar){
-     echo 'This will come out in the template';
+     echo 'This will be sent to browser';
    }
-$this->assign('varX','Strawberry');
+  // assign a variable to Smarty
+  $this->assign('varX','Toffee');
 {/php}
-<strong>{$varX}</strong> is my fav ice cream
+{* output the variable *}
+<strong>{$varX}</strong> is my fav ice cream :-)
 ]]>
   </programlisting>
-  <para>The following seriously NOT recommended as its in the template scope</para>
-<programlisting> 
-<![CDATA[
-{php}
-print_r($some_array);
-{/php}
-]]>
-</programlisting>
 </example>
- 
+
  <para>
   See also
-  <link linkend="variable.php.handling">$php_handling</link>,
-  <link linkend="language.function.include.php">{include_php}</link>,
-  <link linkend="language.function.include">{include}</link>,
-  <link linkend="language.function.insert">{insert}</link> and
-  <link linkend="tips.componentized.templates">Componentized Templates</link>.
+  <link linkend="variable.php.handling"><parameter>$php_handling</parameter></link>,
+  <link linkend="language.function.include.php"><varname>{include_php}</varname></link>,
+  <link linkend="language.function.include"><varname>{include}</varname></link>,
+  <link linkend="language.function.insert"><varname>{insert}</varname></link>
+  and
+  <link linkend="tips.componentized.templates">componentized templates</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

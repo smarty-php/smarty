@@ -3,14 +3,14 @@
  <sect1 id="language.function.ldelim">
   <title>{ldelim},{rdelim}</title>
   <para>
-   {ldelim} and {rdelim} are used for
+   <varname>{ldelim}</varname> and <varname>{rdelim}</varname> are used for
    <link linkend="language.escaping">escaping</link>
    template delimiters, by default
-   "{" and "}". You can also use <link
-    linkend="language.function.literal">{literal}{/literal}</link> to escape
-   blocks of text eg Javascript or css.
-    See also <link
-    linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>.
+   <emphasis role="bold">{</emphasis> and <emphasis role="bold">}</emphasis>.
+   You can also use <link linkend="language.function.literal"><varname>{literal}{/literal}</varname></link>
+   to escape blocks of text eg Javascript or CSS.
+    See also the complimentary <link
+    linkend="language.variables.smarty.ldelim"><parameter>{$smarty.ldelim}</parameter></link>.
   </para>
   <example>
    <title>{ldelim}, {rdelim}</title>
@@ -29,7 +29,7 @@
 {funcname} is how functions look in Smarty!
 ]]>
    </screen>
-   <para>Another example with some javascript</para>
+   <para>Another example with some Javascript</para>
    <programlisting>
 <![CDATA[
 <script language="JavaScript">
@@ -53,9 +53,9 @@ function foo() {
    </screen>
 
   </example>
-  
+
   <example>
-     <title>another Javascript example</title>
+     <title>Another Javascript example</title>
 <programlisting>
 <![CDATA[
 <script language="JavaScript" type="text/javascript">
@@ -67,11 +67,10 @@ function foo() {
 ]]>
 </programlisting>
  </example>
- 
-  <para>See also 
-  <link linkend="language.function.literal">{literal}</link>
-  and
-  <link linkend="language.escaping">Escaping Smarty Parsing</link> 
+
+  <para>See also
+  <link linkend="language.function.literal"><varname>{literal}</varname></link>
+  and <link linkend="language.escaping">escaping Smarty parsing</link>.
   </para>
  </sect1>
 

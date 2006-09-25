@@ -10,18 +10,16 @@
   unmanageable templates.
  </para>
  <para>
-  Anything within {strip}{/strip} tags  are stripped of the
+  Anything within <varname>{strip}{/strip}</varname> tags  are stripped of the
   extra spaces or carriage returns at the beginnings and ends of the
   lines before they are displayed. This way you can keep your
   templates readable, and not worry about extra white space causing
   problems.
  </para>
  <note>
-  <title>Technical Note</title>
   <para>
-   {strip}{/strip} does not affect the contents of template variables,
-   see the
-   <link linkend="language.modifier.strip">strip modifier</link> instead.
+   <varname>{strip}{/strip}</varname> does not affect the contents of template variables,
+   see the <link linkend="language.modifier.strip">strip modifier</link> instead.
   </para>
  </note>
  <example>
@@ -58,8 +56,8 @@
   they will be run together, and may not be desired results.
  </para>
  <para>
- See also
- <link linkend="language.modifier.strip">strip modifier</link>
+ See also the
+ <link linkend="language.modifier.strip"><varname>strip</varname></link> modifier.
  </para>
 </sect1>
 

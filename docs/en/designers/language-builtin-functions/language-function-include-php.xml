@@ -5,18 +5,18 @@
   <note>
    <title>Technical Note</title>
    <para>
-    {include_php} is pretty much deprecated from Smarty, you can
+    <varname>{include_php}</varname> is pretty much deprecated from Smarty, you can
     accomplish the same functionality via a custom template function.
-    The only reason to use {include_php} is if you really have a need to
+    The only reason to use <varname>{include_php}</varname> is if you really have a need to
     quarantine the php function away from the
-    <link linkend="variable.plugins.dir">plugins</link>
+    <link linkend="variable.plugins.dir"><filename>plugins/</filename></link>
     directory or your
     application code. See the <link
     linkend="tips.componentized.templates">componentized template
     example</link> for details.
    </para>
  </note>
- 
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -45,7 +45,7 @@
      <entry>once</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>true</emphasis></entry>
+     <entry><emphasis>&true;</emphasis></entry>
      <entry>whether or not to include the php file more than
       once if included multiple times</entry>
     </row>
@@ -62,36 +62,35 @@
  </informaltable>
 
  <para>
-  {include_php} tags are used to include a php script in your template.
-  If <link linkend="variable.security">$security</link> is enabled,
+  <varname>{include_php}</varname> tags are used to include a php script in your template.
+  If <link linkend="variable.security"><parameter>$security</parameter></link> is enabled,
   then the php script must be located in the <link
-  linkend="variable.trusted.dir">$trusted_dir</link> path.
-  The {include_php} tag must have the attribute
-  "file", which contains the path to the included php file, either
-  relative to
-  <link linkend="variable.trusted.dir">$trusted_dir</link>,
+  linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link> path.
+  The <varname>{include_php}</varname> tag must have the attribute
+  <parameter>file</parameter>, which contains the path to the included php file, either
+  relative to  <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>,
   or an absolute path.
  </para>
  <para>
   By default, php files are only included once even if called
   multiple times in the template. You can specify that it should be
-  included every time with the <emphasis>once</emphasis> attribute.
-  Setting once to false will include the php script each time it is
+  included every time with the <parameter>once</parameter> attribute.
+  Setting once to &false; will include the php script each time it is
   included in the template.
  </para>
  <para>
-  You can optionally pass the <emphasis>assign</emphasis> attribute,
+  You can optionally pass the <parameter>assign</parameter> attribute,
   which will specify a template variable name that the output of
-  <emphasis>{include_php}</emphasis> will be assigned to instead of
+  <varname>{include_php}</varname> will be assigned to instead of
   displayed.
  </para>
  <para>
-  The smarty object is available as $this within the PHP script that you
-  include.
+  The smarty object is available as <parameter>$this</parameter> within
+  the PHP script that you include.
  </para>
  <example>
   <title>function {include_php}</title>
-  <para>load_nav.php</para>
+  <para>The <filename>load_nav.php</filename> template.</para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -106,26 +105,25 @@ $this->assign('sections',$sql->record);
 ]]>
   </programlisting>
   <para>
-   Where index.tpl is:
+   Where the teamplate is:
   </para>
   <programlisting>
 <![CDATA[
 {* absolute path, or relative to $trusted_dir *}
 {include_php file='/path/to/load_nav.php'}
 
-{foreach item="curr_section" from=$sections}
+{foreach item='curr_section' from=$sections}
   <a href="{$curr_section.url}">{$curr_section.name}</a><br />
 {/foreach}
 ]]>
   </programlisting>
  </example>
  <para>
-  See also <link linkend="language.function.include">{include}</link>,
-  <link linkend="language.function.php">{php}</link>, <link
-  linkend="language.function.capture">{capture}</link>, <link
-  linkend="template.resources">Template Resources</link> and <link
-  linkend="tips.componentized.templates">Componentized
-  Templates</link> </para>
+  See also <link linkend="language.function.include"><varname>{include}</varname></link>,
+  <link linkend="language.function.php"><varname>{php}</varname></link>, <link
+  linkend="language.function.capture"><varname>{capture}</varname></link>, <link
+  linkend="template.resources">template resources</link> and <link
+  linkend="tips.componentized.templates">componentized templates</link> </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

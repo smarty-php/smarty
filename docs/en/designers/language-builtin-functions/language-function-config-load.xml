@@ -3,11 +3,11 @@
 <sect1 id="language.function.config.load">
  <title>{config_load}</title>
   <para>
-   {config_load} is used for loading  config
-   <link linkend="language.config.variables">#variables#</link> from a
-   <link linkend="config.files">configuration file</link> into the template.
+   <varname>{config_load}</varname> is used for loading  config
+   <link linkend="language.config.variables"><parameter>#variables#</parameter></link>
+   from a <link linkend="config.files">configuration file</link> into the template.
  </para>
- 
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -73,7 +73,7 @@
  <example>
   <title>{config_load}</title>
   <para>
-   example.conf
+   The <filename>example.conf</filename> file.
   </para>
   <programlisting>
 <![CDATA[
@@ -114,15 +114,14 @@ pageTitle = "Customer Info"
   <link linkend="config.files">Config Files</link>
   may also contain sections. You can load variables from
   within a section with the added attribute
-  <emphasis>'section'</emphasis>.
+  <parameter>section</parameter>.
  </para>
  <note>
   <para>
-   <emphasis>Config file sections</emphasis> and the built-in
+   Config file <emphasis>sections</emphasis> and the built-in
    template function called
-   <link linkend="language.function.section"><emphasis>{section}</emphasis></link>
-   have nothing
-   to do with each other, they just happen to share a common naming
+   <link linkend="language.function.section"><varname>{section}</varname></link>
+   have nothing  to do with each other, they just happen to share a common naming
    convention.
   </para>
  </note>
@@ -149,16 +148,17 @@ pageTitle = "Customer Info"
  </example>
 
 <para>
-See <link linkend="variable.config.overwrite">$config_overwrite</link> for arrays of config variables
+See <link linkend="variable.config.overwrite"><parameter>$config_overwrite</parameter></link>
+to create arrays of config file variables.
 </para>
 
  <para>
-  See also <link linkend="config.files">Config files</link>,
-  <link linkend="language.config.variables">Config variables</link>,
-  <link linkend="variable.config.dir">$config_dir</link>,
-  <link linkend="api.get.config.vars">get_config_vars()</link>
+  See also the <link linkend="config.files">config files</link> page,
+  <link linkend="language.config.variables">config variables</link> page,
+  <link linkend="variable.config.dir"><parameter>$config_dir</parameter></link>,
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>
   and
-  <link linkend="api.config.load">config_load()</link>.
+  <link linkend="api.config.load"><varname>config_load()</varname></link>.
  </para>
 </sect1>
 

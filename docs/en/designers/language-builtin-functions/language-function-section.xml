@@ -798,8 +798,9 @@ the section was shown.
   </programlisting>
   </example>
   <para>
-   See also <link linkend="language.function.foreach">{foreach}</link>
-   and <link linkend="language.variables.smarty.loops">$smarty.section</link>.
+   See also <link linkend="language.function.foreach"><varname>{foreach}</varname></link>
+   and
+   <link linkend="language.variables.smarty.loops"><parameter>$smarty.section</parameter></link>.
   </para>
  </sect2>
 </sect1>

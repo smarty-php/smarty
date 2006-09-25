@@ -80,7 +80,7 @@
 
    <listitem><para>
    <varname>{foreach}</varname> loops can be nested, and the nested
-   <varname>{foreach}</varname> names MUST be unique from each other.
+   <varname>{foreach}</varname> names must be unique from each other.
    </para></listitem>
 
    <listitem><para>
@@ -95,10 +95,11 @@
 
   <listitem><para>
 	  <varname>{foreach}</varname> loops also have their own variables that handle properties.
-	  These are accessible as:
+	  These are accessed with:
 	  <link linkend="language.variables.smarty.loops">
 	  <parameter>{$smarty.foreach.name.property}</parameter></link> with
-	  <quote>name</quote> being the  <parameter>name</parameter> attribute.
+	  <quote>name</quote> being the
+	  <parameter>name</parameter> attribute.
 	 </para>
 	 <note>
 	 <title>Note</title>
@@ -168,7 +169,7 @@ $smarty->assign('myArray', $arr);
 ]]>
   </programlisting>
    <para>Template to output <parameter>$myArray</parameter> as key/val pair,
-   like PHP's <ulink url="&url.php-manual;foreach">foreach</ulink>.</para>
+   like PHP's <ulink url="&url.php-manual;foreach"><varname>foreach</varname></ulink>.</para>
   <programlisting>
 <![CDATA[
 <ul>
@@ -425,8 +426,8 @@ $smarty->assign('items', $items_list);
   </example>
 
   <para>
-   See also <link linkend="language.function.section">{section}</link> and
-   <link linkend="language.variables.smarty.loops">$smarty.foreach</link>.
+   See also <link linkend="language.function.section"><varname>{section}</varname></link>
+   and  <link linkend="language.variables.smarty.loops"><parameter>$smarty.foreach</parameter></link>.
   </para>
  </sect2>
 </sect1>
