@@ -125,20 +125,19 @@
   where <quote>name</quote> is the attribute <parameter>name</parameter>.
   </para></listitem>
 
-	<listitem><para>
-	<varname>{section}</varname> properties are
-	<link linkend="section.property.index"><parameter>index</parameter></link>,
-	<link linkend="section.property.index.prev"><parameter>index_prev</parameter></link>,
-	<link linkend="section.property.index.next"><parameter>index_next</parameter></link>,
-	<link linkend="section.property.iteration"><parameter>iteration</parameter></link>,
-	<link linkend="section.property.first"><parameter>first</parameter></link>,
-	<link linkend="section.property.last"><parameter>last</parameter></link>,
-	<link linkend="section.property.rownum"><parameter>rownum</parameter></link>,
-	<link linkend="section.property.loop"><parameter>loop</parameter></link>,
-	<link linkend="section.property.show"><parameter>show</parameter></link>,
-	<link linkend="section.property.total"><parameter>total</parameter></link>.
-	</para></listitem>
-
+  <listitem><para>
+  <varname>{section}</varname> properties are
+  <link linkend="section.property.index"><parameter>index</parameter></link>,
+  <link linkend="section.property.index.prev"><parameter>index_prev</parameter></link>,
+  <link linkend="section.property.index.next"><parameter>index_next</parameter></link>,
+  <link linkend="section.property.iteration"><parameter>iteration</parameter></link>,
+  <link linkend="section.property.first"><parameter>first</parameter></link>,
+  <link linkend="section.property.last"><parameter>last</parameter></link>,
+  <link linkend="section.property.rownum"><parameter>rownum</parameter></link>,
+  <link linkend="section.property.loop"><parameter>loop</parameter></link>,
+  <link linkend="section.property.show"><parameter>show</parameter></link>,
+  <link linkend="section.property.total"><parameter>total</parameter></link>.
+  </para></listitem>
 </itemizedlist>
 
  <example>

@@ -94,35 +94,35 @@
    </para></listitem>
 
   <listitem><para>
-	  <varname>{foreach}</varname> loops also have their own variables that handle properties.
-	  These are accessed with:
-	  <link linkend="language.variables.smarty.loops">
-	  <parameter>{$smarty.foreach.name.property}</parameter></link> with
-	  <quote>name</quote> being the
-	  <parameter>name</parameter> attribute.
-	 </para>
-	 <note>
-	 <title>Note</title>
-	 <para>The <parameter>name</parameter> attribute is only required when
-	 you want to access a <varname>{foreach</varname>} property, unlike
-	 <link linkend="language.function.section"><varname>{section}</varname></link>.
-	 Accessing a <varname>{foreach}</varname> property with <parameter>name</parameter>
-	 undefined does not throw an error, but leads to unpredictable results instead.
-	 </para>
-	 </note>
+      <varname>{foreach}</varname> loops also have their own variables that handle properties.
+      These are accessed with:
+      <link linkend="language.variables.smarty.loops">
+      <parameter>{$smarty.foreach.name.property}</parameter></link> with
+      <quote>name</quote> being the
+      <parameter>name</parameter> attribute.
+      </para>
+      <note>
+      <title>Note</title>
+      <para>The <parameter>name</parameter> attribute is only required when
+      you want to access a <varname>{foreach</varname>} property, unlike
+      <link linkend="language.function.section"><varname>{section}</varname></link>.
+      Accessing a <varname>{foreach}</varname> property with <parameter>name</parameter>
+      undefined does not throw an error, but leads to unpredictable results instead.
+      </para>
+      </note>
   </listitem>
 
   <listitem><para>
-	<varname>{foreach}</varname> properties are
-	<link linkend="foreach.property.index"><parameter>index</parameter></link>,
-	<link linkend="foreach.property.iteration"><parameter>iteration</parameter></link>,
-	<link linkend="foreach.property.first"><parameter>first</parameter></link>,
-	<link linkend="foreach.property.last"><parameter>last</parameter></link>,
-	<link linkend="foreach.property.show"><parameter>show</parameter></link>,
-	<link linkend="foreach.property.total"><parameter>total</parameter></link>.
-	</para></listitem>
+    <varname>{foreach}</varname> properties are
+    <link linkend="foreach.property.index"><parameter>index</parameter></link>,
+    <link linkend="foreach.property.iteration"><parameter>iteration</parameter></link>,
+    <link linkend="foreach.property.first"><parameter>first</parameter></link>,
+    <link linkend="foreach.property.last"><parameter>last</parameter></link>,
+    <link linkend="foreach.property.show"><parameter>show</parameter></link>,
+    <link linkend="foreach.property.total"><parameter>total</parameter></link>.
+    </para></listitem>
 
-	</itemizedlist>
+  </itemizedlist>
 
  <example>
   <title>The <parameter>item</parameter> attribute</title>
@@ -200,8 +200,8 @@ $smarty->assign('myArray', $arr);
 <![CDATA[
 <?php
 $items_list = array(23 => array('no' => 2456, 'label' => 'Salad'),
-			        96 => array('no' => 4889, 'label' => 'Cream')
-			        );
+                    96 => array('no' => 4889, 'label' => 'Cream')
+                    );
 $smarty->assign('items', $items_list);
 ?>
 ]]>
