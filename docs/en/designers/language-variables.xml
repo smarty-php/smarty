@@ -8,7 +8,7 @@
  </para>
  <para>
   Variables in Smarty can be either displayed directly or used as arguments
-  for <link linkend="language.syntax.functions">function</link>,
+  for <link linkend="language.syntax.functions">functions</link>,
   <link linkend="language.syntax.attributes">attributes</link> and
   <link linkend="language.modifiers">modifiers</link>, inside conditional expressions,
   etc. To print a variable, simply enclose it in the
