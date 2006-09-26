@@ -5,9 +5,10 @@
  <para>
   The <parameter>merge</parameter> parameter respects array keys, so if
   you merge two numerically indexed arrays, they may overwrite each other
-  or result in non-sequential keys. This is unlike the
-  <ulink url="&url.php-manual;array_merge">array_merge()</ulink> function
-  of PHP which wipes out numerical keys and renumbers them.
+  or result in non-sequential keys. This is unlike the PHP
+  <ulink url="&url.php-manual;array_merge">
+  <varname>array_merge()</varname></ulink> function
+   which wipes out numerical keys and renumbers them.
  </para>
 </note>'>
 
@@ -18,11 +19,36 @@
  the same template, such as having separate templates compiled
  for different languages. Another use for
  <parameter>$compile_id</parameter> is when you use more than one
- <link linkend="variable.template.dir">$template_dir</link>
- but only one <link linkend="variable.compile.dir">$compile_dir</link>.
+ <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>
+ but only one
+ <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link>.
  Set a separate <parameter>$compile_id</parameter> for each
- <link linkend="variable.template.dir">$template_dir</link>, otherwise
- templates of the same name will overwrite each other. You can
- also set the <link linkend="variable.compile.id">$compile_id</link>
- variable once instead of passing this to each call to this function.
+ <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>,
+ otherwise templates of the same name will overwrite each other. You can
+ also set the <link linkend="variable.compile.id">
+ <parameter>$compile_id</parameter></link> variable once instead of passing
+  this to each call to this function.
 </para>'>
+
+<!ENTITY api.register.snippet '<para>
+   The php-function callback <parameter>function</parameter> can be either:
+   <itemizedlist>
+       <listitem><para>
+       A string containing the function <parameter>name</parameter>
+       </para></listitem>
+
+       <listitem><para>
+       An array of the form <literal>array(&amp;$object, $method)</literal> with
+       <literal>&amp;$object</literal> being a reference to an
+       object and <literal>$method</literal> being a string
+       containing the method-name
+       </para></listitem>
+
+       <listitem><para>
+       An array of the form
+       <literal>array(&amp;$class, $method)</literal> with
+       <literal>$class</literal> being the class name and
+       <literal>$method</literal> being a method of the class.
+       </para></listitem>
+   </itemizedlist>
+  </para>'>
