@@ -3,20 +3,33 @@
 <sect1 id="language.function.popup.init">
  <title>{popup_init}</title>
  <para>
-  <link linkend="language.function.popup">{popup}</link>
+  <link linkend="language.function.popup"><varname>{popup}</varname></link>
   is an integration of
   <ulink url="&url.overLib;">overLib</ulink>, a library used for popup
   windows. These are used for context sensitive information, such as
-  help windows or tooltips. {popup_init} must be called <emphasis>only once</emphasis>, preferably within the &lt;head&gt; tag 
- within any page you plan on using the
-  <link linkend="language.function.popup">{popup}</link> function. The path is relative to the executing script or a fully qualified domain path (ie not the relative to the template).
+  help windows or tooltips.
   </para>
-  <para>
-  <ulink url="&url.overLib;">overLib</ulink>
-  is written and maintained by Erik Bosrup, and the homepage/download is located at
+
+  <itemizedlist>
+  <listitem><para>
+  <varname>{popup_init}</varname> must be called
+  <emphasis>only once</emphasis>, preferably within the &lt;head&gt; tag
+ within any page you plan on using the <link linkend="language.function.popup">
+ <varname>{popup}</varname></link> function.
+ </para></listitem>
+
+ <listitem><para>
+ The path is relative to the executing script or a fully qualified domain
+ path, ie not the relative to the template.
+</para></listitem>
+
+  <listitem><para>
+  <ulink url="&url.overLib;">overLib</ulink>  is written and maintained by
+  Erik Bosrup, and the homepage/download is at
   <ulink url="&url.overLib;">&url.overLib;</ulink>.
- </para>
- 
+ </para></listitem>
+</itemizedlist>
+
  <example>
   <title>{popup_init}</title>
   <programlisting>

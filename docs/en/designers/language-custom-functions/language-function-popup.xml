@@ -3,11 +3,11 @@
 <sect1 id="language.function.popup">
  <title>{popup}</title>
   <para>
-   {popup} is used to create javascript popup windows.
-   <link linkend="language.function.popup.init">{popup_init}</link> MUST be called first for
-   this to work.
+   <varname>{popup}</varname> is used to create Javascript popup layer/windows.
+   <link linkend="language.function.popup.init">
+   <varname>{popup_init}</varname></link> MUST be called first for this to work.
  </para>
- 
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -37,15 +37,15 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>onMouseOver</emphasis></entry>
-     <entry>What is used to trigger the popup window. Can be
+     <entry>what is used to trigger the popup window. Can be
      one of onMouseOver or onClick</entry>
     </row>
     <row>
      <entry>sticky</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>false</emphasis></entry>
-     <entry>Makes the popup stick around until closed</entry>
+     <entry><emphasis>&false;</emphasis></entry>
+     <entry>makes the popup stick around until closed</entry>
     </row>
     <row>
      <entry>caption</entry>
@@ -108,7 +108,7 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>sets the font for the "Close" text</entry>
+     <entry>sets the font for the <quote>Close</quote> text</entry>
     </row>
     <row>
      <entry>textsize</entry>
@@ -129,7 +129,7 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>sets the size of the "Close" text's font</entry>
+     <entry>sets the size of the <quote>Close</quote> text's font</entry>
     </row>
     <row>
      <entry>width</entry>
@@ -149,28 +149,28 @@
      <entry>left</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>makes the popups go to the left of the mouse</entry>
     </row>
     <row>
      <entry>right</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>makes the popups go to the right of the mouse</entry>
     </row>
     <row>
      <entry>center</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>makes the popups go to the center of the mouse</entry>
     </row>
     <row>
      <entry>above</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>makes the popups go above the mouse. NOTE: only
      possible when height has been set</entry>
     </row>
@@ -178,7 +178,7 @@
      <entry>below</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>makes the popups go below the mouse</entry>
     </row>
     <row>
@@ -219,7 +219,7 @@
      <entry><emphasis>n/a</emphasis></entry>
      <entry>defines a picture to use instead of color for the
      border of the popup. NOTE: You will want to set bgcolor
-     to "" or the color will show as well. NOTE: When having
+     to <quote></quote> or the color will show as well. NOTE: When having
      a Close link, Netscape will re-render the table cells,
      making things look incorrect</entry>
     </row>
@@ -228,14 +228,14 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>sets the "Close" text to something else</entry>
+     <entry>sets the <quote>Close</quote> text to something else</entry>
     </row>
     <row>
      <entry>noclose</entry>
      <entry>boolean</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>does not display the "Close" text on stickies
+     <entry>does not display the <quote>Close</quote> text on stickies
      with a caption</entry>
     </row>
     <row>
@@ -349,7 +349,7 @@
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>allows you to control the html over a background
-     picture completely. The html code is expected in the "text"
+     picture completely. The html code is expected in the <quote>text</quote>
      attribute</entry>
     </row>
     <row>
@@ -417,13 +417,14 @@ snapx=10 snapy=10 trigger='onClick'}>mypage</a>
 ]]>
   </programlisting>
  </example>
- <para>There is another good example on the 
- <link linkend="language.function.capture">{capture}</link> page.</para>
+ <para>There is another good example on the
+ <link linkend="language.function.capture"><varname>{capture}</varname>
+ </link> page.</para>
  <para>
  See also
-  <link linkend="language.function.popup.init">{popup_init}</link>
-  and
-  <ulink url="&url.overLib;">overLib</ulink>.
+  <link linkend="language.function.popup.init"><varname>{popup_init}</varname></link>
+  and the
+  <ulink url="&url.overLib;">overLib</ulink> homepage.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

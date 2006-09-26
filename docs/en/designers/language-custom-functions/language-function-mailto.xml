@@ -3,11 +3,18 @@
 <sect1 id="language.function.mailto">
  <title>{mailto}</title>
   <para>
-   {mailto} automates the creation of mailto: links and optionally
-   encodes them. Encoding e-mails makes it more difficult for
-   web spiders to lift e-mail addresses off of your site.
+   <varname>{mailto}</varname> automates the creation of mailto: links
+   and optionally encodes them. Encoding e-mails makes it more difficult for
+   web spiders to lift e-mail addresses off of a site.
+  <note>
+  <title>Technical Note</title>
+  <para>
+   Javascript is probably the most thorough form of
+   encoding, although you can use hex encoding too.
+  </para>
+ </note>
  </para>
- 
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -30,14 +37,14 @@
      <entry>string</entry>
      <entry>Yes</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>the e-mail address</entry>
+     <entry>The e-mail address</entry>
     </row>
     <row>
      <entry>text</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>the text to display, default is the e-mail address</entry>
+     <entry>The text to display, default is the e-mail address</entry>
     </row>
     <row>
      <entry>encode</entry>
@@ -53,7 +60,7 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>e-mail addresses to carbon copy. Separate entries by a comma.
+     <entry>Email addresses to carbon copy, separate entries by a comma.
      </entry>
     </row>
     <row>
@@ -61,49 +68,43 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>e-mail addresses to blind carbon copy.
-      Separate entries by a comma.</entry>
+     <entry>Email addresses to blind carbon copy,
+      separate entries by a comma</entry>
     </row>
     <row>
      <entry>subject</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>e-mail subject.</entry>
+     <entry>Email subject</entry>
     </row>
     <row>
      <entry>newsgroups</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>newsgroups to post to. Separate entries by a comma.</entry>
+     <entry>Newsgroups to post to, separate entries by a comma.</entry>
     </row>
     <row>
      <entry>followupto</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>addresses to follow up to. Separate entries by a comma.</entry>
+     <entry>Addresses to follow up to, separate entries by a comma.</entry>
     </row>
     <row>
      <entry>extra</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>any extra information you want passed to the link, such
+     <entry>Any extra information you want passed to the link, such
       as style sheet classes</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
 
- <note>
-  <title>Technical Note</title>
-  <para>
-   javascript is probably the most thorough form of
-   encoding, although you can use hex encoding too.
-  </para>
- </note>
+
  <example>
   <title>{mailto} example lines followed by the result</title>
   <programlisting>
@@ -142,11 +143,10 @@
  </example>
  <para>
  See also
- <link linkend="language.modifier.escape">escape</link>,
- <link linkend="tips.obfuscating.email">Obfuscating E-mail Addresses</link>
- and
- <link linkend="language.function.textformat">{textformat}</link>
-
+ <link linkend="language.modifier.escape"><varname>escape</varname></link>,
+ <link linkend="language.function.textformat"><varname>{textformat}</varname></link>
+ and the
+ <link linkend="tips.obfuscating.email">obfuscating email addresses</link> page.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

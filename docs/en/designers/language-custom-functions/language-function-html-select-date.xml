@@ -3,12 +3,14 @@
 <sect1 id="language.function.html.select.date">
  <title>{html_select_date}</title>
   <para>
-   {html_select_date} is a
+   <varname>{html_select_date}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that creates date dropdowns
-   for you. It can display any or all of year, month, and day.
+   that creates date dropdowns.
+   It can display any or all of year, month, and day.
+  All parameters that are not in the list below are printed as
+  name/value-pairs inside the &lt;select&gt; tags of day, month and  year.
  </para>
- 
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -60,21 +62,21 @@
      <entry>display_days</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>true</entry>
+     <entry>&true;</entry>
      <entry>whether to display days or not</entry>
     </row>
     <row>
      <entry>display_months</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>true</entry>
+     <entry>&true;</entry>
      <entry>whether to display months or not</entry>
     </row>
     <row>
      <entry>display_years</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>true</entry>
+     <entry>&true;</entry>
      <entry>whether to display years or not</entry>
     </row>
     <row>
@@ -102,14 +104,14 @@
      <entry>year_as_text</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>false</entry>
+     <entry>&false;</entry>
      <entry>whether or not to display the year as text</entry>
     </row>
     <row>
      <entry>reverse_years</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>false</entry>
+     <entry>&false;</entry>
      <entry>display years in reverse order</entry>
     </row>
     <row>
@@ -200,9 +202,9 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>If supplied then the first element of the year's select-box has this
-     value as it's label and "" as it's value. This is useful to make the
-     select-box read "Please select a year" for example.
-     Note that you can use values like "-MM-DD" as time-attribute to indicate
+     value as it's label and <quote></quote> as it's value. This is useful to make the
+     select-box read <quote>Please select a year</quote> for example.
+     Note that you can use values like <quote>-MM-DD</quote> as time-attribute to indicate
      an unselected year.</entry>
     </row>
     <row>
@@ -211,8 +213,8 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>If supplied then the first element of the month's select-box has this
-     value as it's label and "" as it's value. .
-     Note that you can use values like "YYYY--DD" as time-attribute to indicate
+     value as it's label and <quote></quote> as it's value. .
+     Note that you can use values like <quote>YYYY--DD</quote> as time-attribute to indicate
      an unselected month.</entry>
     </row>
     <row>
@@ -221,18 +223,22 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>If supplied then the first element of the day's select-box has this
-     value as it's label and "" as it's value.
-     Note that you can use values like "YYYY-MM-" as time-attribute to indicate
-     an unselected day.</entry>
+     value as it's label and <quote></quote> as it's value.
+     Note that you can use values like <quote>YYYY-MM-</quote> as
+     time-attribute to indicate  an unselected day.</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  All parameters that are not in the list above are printed as
-  name/value-pairs inside the &lt;select&gt; tags of day, month and
-  year.
- </para>
+
+ <note>
+  <para>
+   There's an useful php function on the
+   <link linkend="tips.dates">date tips page</link> for converting
+   <varname>{html_select_date}</varname> values to a timestamp.
+  </para>
+ </note>
+
  <example>
   <title>{html_select_date}</title>
   <para>Template code</para>
@@ -278,7 +284,7 @@
  </example>
 
  <example>
-  <title>{html_select_date}</title>
+  <title>{html_select_date} second example</title>
   <programlisting>
 <![CDATA[
 {* start and end year can be relative to current year *}
@@ -287,29 +293,20 @@
 ]]>
   </programlisting>
   <para>
-   This will output: (current year is 2000)
+   With  2000 as the current year the output:
   </para>
   <screen>
 <![CDATA[
 <select name="StartDateMonth">
 <option value="1">January</option>
 <option value="2">February</option>
-<option value="3">March</option>
-<option value="4">April</option>
-<option value="5">May</option>
-<option value="6">June</option>
-<option value="7">July</option>
-<option value="8">August</option>
-<option value="9">September</option>
-<option value="10">October</option>
+.... snipped ....
 <option value="11">November</option>
 <option value="12" selected="selected">December</option>
 </select>
 <select name="StartDateYear">
 <option value="1995">1995</option>
-<option value="1996">1996</option>
-<option value="1997">1997</option>
-<option value="1998">1998</option>
+.... snipped ....
 <option value="1999">1999</option>
 <option value="2000" selected="selected">2000</option>
 <option value="2001">2001</option>
@@ -318,10 +315,11 @@
   </screen>
  </example>
  <para>
-  See also <link linkend="language.function.html.select.time">{html_select_time}</link>,
-  <link linkend="language.modifier.date.format">date_format</link>,
-  <link linkend="language.variables.smarty.now">$smarty.now</link>
-  and <link linkend="tips.dates">date tips</link>.
+  See also
+  <link linkend="language.function.html.select.time"><varname>{html_select_time}</varname></link>,
+  <link linkend="language.modifier.date.format"><varname>date_format</varname></link>,
+  <link linkend="language.variables.smarty.now"><parameter>$smarty.now</parameter></link>
+  and the <link linkend="tips.dates">date tips page</link>.
  </para>
 </sect1>
 

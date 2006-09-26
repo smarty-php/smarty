@@ -3,18 +3,11 @@
 <sect1 id="language.function.html.table">
  <title>{html_table}</title>
   <para>
-   {html_table} is a
+   <varname>{html_table}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that dumps an array of
-   data into an HTML table. The <emphasis>cols</emphasis> attribute determines
-   how many columns will be in the table. The <emphasis>table_attr</emphasis>,
-   <emphasis>tr_attr</emphasis> and <emphasis>td_attr</emphasis> values
-   determine the attributes given to the table, tr and td tags. If
-   <emphasis>tr_attr</emphasis> or <emphasis>td_attr</emphasis> are arrays,
-   they will be cycled through. <emphasis>trailpad</emphasis> is the value put
-   into the trailing cells on the last table row if there are any present.
- </para>
- 
+   that dumps an array of data into an HTML table.
+   </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -148,36 +141,48 @@
   </tgroup>
  </informaltable>
 
+   <itemizedlist>
+   <listitem><para>
+   The <parameter>cols</parameter> attribute determines how many
+   columns will be in the table.
+   </para></listitem>
+
+   <listitem><para>
+   The <parameter>table_attr</parameter>, <parameter>tr_attr</parameter>
+   and <parameter>td_attr</parameter> values  determine the attributes given
+   to the &lt;table&gt;, &lt;tr&gt; and &lt;td&gt; tags.
+   </para></listitem>
+
+   <listitem><para>
+   If <parameter>tr_attr</parameter> or <parameter>td_attr</parameter> are
+   arrays, they will be cycled through.
+   </para></listitem>
+
+   <listitem><para>
+   <parameter>trailpad</parameter> is the value put  into the trailing cells
+   on the last table row if there are any present.
+   </para></listitem>
+   </itemizedlist>
 
  <example>
-  <title>html_table</title>
+  <title>{html_table}</title>
   <programlisting role="php">
 <![CDATA[
-php code:
----------
 <?php
-require('Smarty.class.php');
-$smarty = new Smarty;
 $smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
 $smarty->display('index.tpl');
 ?>
 ]]>
   </programlisting>
+  <para>The variables assigned from php could be displayed as these three
+    examples demonstrate. Each example shows the template followed by output.
+    </para>
   <programlisting>
 <![CDATA[
-template code:
---------------
+{**** Example One ****}
 {html_table loop=$data}
-{html_table loop=$data cols=4 table_attr='border="0"'}
-{html_table loop=$data cols="first,second,third,fourth" tr_attr=$tr}
-]]>
-  </programlisting>
-  <para>
-   The above example will output:
-  </para>
-  <screen>
-<![CDATA[
+
 <table border="1">
 <tbody>
 <tr><td>1</td><td>2</td><td>3</td></tr>
@@ -185,6 +190,11 @@ template code:
 <tr><td>7</td><td>8</td><td>9</td></tr>
 </tbody>
 </table>
+
+
+{**** Example Two ****}
+{html_table loop=$data cols=4 table_attr='border="0"'}
+
 <table border="0">
 <tbody>
 <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
@@ -192,6 +202,11 @@ template code:
 <tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </tbody>
 </table>
+
+
+{**** Example Three ****}
+{html_table loop=$data cols="first,second,third,fourth" tr_attr=$tr}
+
 <table border="1">
 <thead>
 <tr>
@@ -205,7 +220,8 @@ template code:
 </tbody>
 </table>
 ]]>
-  </screen>
+  </programlisting>
+
  </example>
 </sect1>
 

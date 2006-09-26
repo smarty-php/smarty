@@ -3,12 +3,18 @@
 <sect1 id="language.function.html.select.time">
  <title>{html_select_time}</title>
   <para>
-   {html_select_time} is a
+   <varname>{html_select_time}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that creates time dropdowns for you. It can display
-   any or all of hour, minute, second and  meridian.
+   that creates time dropdowns for you.
+   It can display any or all of hour, minute, second and  meridian.
  </para>
- 
+ <para>
+  The <parameter>time</parameter> attribute can have different formats.
+  It can be a unique timestamp, a  string of the format YYYYMMDDHHMMSS
+   or a string  that is parseable by php's
+  <ulink url="&url.php-manual;strtotime"><varname>strtotime()</varname></ulink>.
+ </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -31,85 +37,84 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry>Time_</entry>
-     <entry>what to prefix the var name with</entry>
+     <entry>What to prefix the var name with</entry>
     </row>
     <row>
      <entry>time</entry>
      <entry>timestamp</entry>
      <entry>No</entry>
      <entry>current time</entry>
-     <entry>what date/time to use</entry>
+     <entry>What date/time to use</entry>
     </row>
     <row>
      <entry>display_hours</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>true</entry>
-     <entry>whether or not to display hours</entry>
+     <entry>&true;</entry>
+     <entry>Whether or not to display hours</entry>
     </row>
     <row>
      <entry>display_minutes</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>true</entry>
-     <entry>whether or not to display minutes</entry>
+     <entry>&true;</entry>
+     <entry>Whether or not to display minutes</entry>
     </row>
     <row>
      <entry>display_seconds</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>true</entry>
-     <entry>whether or not to display seconds</entry>
+     <entry>&true;</entry>
+     <entry>Whether or not to display seconds</entry>
     </row>
     <row>
      <entry>display_meridian</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>true</entry>
-     <entry>whether or not to display meridian (am/pm)</entry>
+     <entry>&true;</entry>
+     <entry>Whether or not to display meridian (am/pm)</entry>
     </row>
     <row>
      <entry>use_24_hours</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry>true</entry>
-     <entry>whether or not to use 24 hour clock</entry>
+     <entry>&true;</entry>
+     <entry>Whether or not to use 24 hour clock</entry>
     </row>
     <row>
      <entry>minute_interval</entry>
      <entry>integer</entry>
      <entry>No</entry>
      <entry>1</entry>
-     <entry>number interval in minute dropdown</entry>
+     <entry>Number interval in minute dropdown</entry>
     </row>
     <row>
      <entry>second_interval</entry>
      <entry>integer</entry>
      <entry>No</entry>
      <entry>1</entry>
-     <entry>number interval in second dropdown</entry>
+     <entry>Number interval in second dropdown</entry>
     </row>
     <row>
      <entry>field_array</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>n/a</entry>
-     <entry>outputs values to array of this name</entry>
+     <entry>Outputs values to array of this name</entry>
     </row>
     <row>
      <entry>all_extra</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to select/input tags if
-      given</entry>
+     <entry>Adds extra attributes to select/input tags if given</entry>
     </row>
     <row>
      <entry>hour_extra</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to select/input tags if
+     <entry>Adds extra attributes to select/input tags if
       given</entry>
     </row>
     <row>
@@ -117,7 +122,7 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to select/input tags if
+     <entry>Adds extra attributes to select/input tags if
       given</entry>
     </row>
     <row>
@@ -125,7 +130,7 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to select/input tags if
+     <entry>Adds extra attributes to select/input tags if
       given</entry>
     </row>
     <row>
@@ -133,181 +138,55 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to select/input tags if
+     <entry>Adds extra attributes to select/input tags if
       given</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
 
- <para>
-  The time-attribute can have different
-  formats. It can be a unique timestamp, a
-  string of the format YYYYMMDDHHMMSS or a string
-  that is parseable by php's
-  <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
- </para>
  <example>
   <title>{html_select_time}</title>
   <programlisting>
 <![CDATA[
-template code:
---------------
 {html_select_time use_24_hours=true}
 ]]>
   </programlisting>
   <para>
-   This will output:
+   At 9:20 and 23 seconds in the morning the template above would output:
   </para>
   <screen>
 <![CDATA[
 <select name="Time_Hour">
 <option value="00">00</option>
 <option value="01">01</option>
-<option value="02">02</option>
-<option value="03">03</option>
-<option value="04">04</option>
-<option value="05">05</option>
-<option value="06">06</option>
-<option value="07">07</option>
+... snipped ....
 <option value="08">08</option>
 <option value="09" selected>09</option>
 <option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
+... snipped ....
 <option value="22">22</option>
 <option value="23">23</option>
 </select>
 <select name="Time_Minute">
 <option value="00">00</option>
 <option value="01">01</option>
-<option value="02">02</option>
-<option value="03">03</option>
-<option value="04">04</option>
-<option value="05">05</option>
-<option value="06">06</option>
-<option value="07">07</option>
-<option value="08">08</option>
-<option value="09">09</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
+... snipped ....
 <option value="19">19</option>
 <option value="20" selected>20</option>
 <option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-<option value="24">24</option>
-<option value="25">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
-<option value="29">29</option>
-<option value="30">30</option>
-<option value="31">31</option>
-<option value="32">32</option>
-<option value="33">33</option>
-<option value="34">34</option>
-<option value="35">35</option>
-<option value="36">36</option>
-<option value="37">37</option>
-<option value="38">38</option>
-<option value="39">39</option>
-<option value="40">40</option>
-<option value="41">41</option>
-<option value="42">42</option>
-<option value="43">43</option>
-<option value="44">44</option>
-<option value="45">45</option>
-<option value="46">46</option>
-<option value="47">47</option>
-<option value="48">48</option>
-<option value="49">49</option>
-<option value="50">50</option>
-<option value="51">51</option>
-<option value="52">52</option>
-<option value="53">53</option>
-<option value="54">54</option>
-<option value="55">55</option>
-<option value="56">56</option>
-<option value="57">57</option>
+... snipped ....
 <option value="58">58</option>
 <option value="59">59</option>
 </select>
 <select name="Time_Second">
 <option value="00">00</option>
 <option value="01">01</option>
-<option value="02">02</option>
-<option value="03">03</option>
-<option value="04">04</option>
-<option value="05">05</option>
-<option value="06">06</option>
-<option value="07">07</option>
-<option value="08">08</option>
-<option value="09">09</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
+... snipped ....
 <option value="22">22</option>
 <option value="23" selected>23</option>
 <option value="24">24</option>
-<option value="25">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
-<option value="29">29</option>
-<option value="30">30</option>
-<option value="31">31</option>
-<option value="32">32</option>
-<option value="33">33</option>
-<option value="34">34</option>
-<option value="35">35</option>
-<option value="36">36</option>
-<option value="37">37</option>
-<option value="38">38</option>
-<option value="39">39</option>
-<option value="40">40</option>
-<option value="41">41</option>
-<option value="42">42</option>
-<option value="43">43</option>
-<option value="44">44</option>
-<option value="45">45</option>
-<option value="46">46</option>
-<option value="47">47</option>
-<option value="48">48</option>
-<option value="49">49</option>
-<option value="50">50</option>
-<option value="51">51</option>
-<option value="52">52</option>
-<option value="53">53</option>
-<option value="54">54</option>
-<option value="55">55</option>
-<option value="56">56</option>
-<option value="57">57</option>
+... snipped ....
 <option value="58">58</option>
 <option value="59">59</option>
 </select>
@@ -320,9 +199,9 @@ template code:
  </example>
    <para>
     See also
-    <link linkend="language.variables.smarty.now">$smarty.now</link>,
-    <link linkend="language.function.html.select.date">{html_select_date}</link>
-    and <link linkend="tips.dates">date tips</link>.
+    <link linkend="language.variables.smarty.now"><parameter>$smarty.now</parameter></link>,
+    <link linkend="language.function.html.select.date"><varname>{html_select_date}</varname></link>
+    and the <link linkend="tips.dates">date tips page</link>.
   </para>
 </sect1>
 <!-- Keep this comment at the end of the file

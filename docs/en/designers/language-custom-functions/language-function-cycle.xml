@@ -3,11 +3,11 @@
 <sect1 id="language.function.cycle">
  <title>{cycle}</title>
   <para>
-   {cycle} is used to cycle though a set of values. This makes it easy
-   to alternate for example between two or more colors in a table, or cycle
-   through an array of values.
+   <varname>{cycle}</varname> is used to alternate a set of values.
+   This makes it easy to for example, alternate between two or more colors
+   in a table, or cycle through an array of values.
  </para>
- 
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -39,20 +39,20 @@
      <entry><emphasis>N/A</emphasis></entry>
      <entry>The values to cycle through, either a comma
       delimited list (see delimiter attribute), or an array
-      of values.</entry>
+      of values</entry>
     </row>
     <row>
      <entry>print</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>true</emphasis></entry>
+     <entry><emphasis>&true;</emphasis></entry>
      <entry>Whether to print the value or not</entry>
     </row>
     <row>
      <entry>advance</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>true</emphasis></entry>
+     <entry><emphasis>&true;</emphasis></entry>
      <entry>Whether or not to advance to the next value</entry>
     </row>
     <row>
@@ -60,46 +60,50 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>,</emphasis></entry>
-     <entry>The delimiter to use in the values attribute.</entry>
+     <entry>The delimiter to use in the values attribute</entry>
     </row>
     <row>
      <entry>assign</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>the template variable the output will be assigned
+     <entry>The template variable the output will be assigned
       to</entry>
     </row>
     <row>
      <entry>reset</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>The cycle will be set to the first value and not advanced</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
 
- <para>
-  You can {cycle} through more than one set of values in your template
-  by supplying a name attribute. Give each set of values a unique
-  name.
- </para>
- <para>
-  You can force the current value not to print with the print
-  attribute set to false. This would be useful for silently skipping
-  a value.
- </para>
- <para>
-  The advance attribute is used to repeat a value. When set to false,
-  the next call to {cycle} will print the same value.
- </para>
- <para>
-  If you supply the special "assign" attribute, the output of the
-  cycle function will be assigned to a template variable instead of
-  being output to the template.
- </para>
+<itemizedlist>
+ <listitem><para>
+  You can <varname>{cycle}</varname> through more than one set of values in
+  a template by supplying a <parameter>name</parameter> attribute.
+  Give each <varname>{cycle}</varname> an unique <parameter>name</parameter>.
+ </para></listitem>
+ <listitem><para>
+  You can force the current value not to print with the
+  <parameter>print</parameter>  attribute set to &false;. This would be useful
+  for silently skipping a value.
+ </para></listitem>
+ <listitem><para>
+  The <parameter>advance</parameter> attribute is used to repeat a value.
+  When set to &false;, the next call to <varname>{cycle}</varname> will print
+  the same value.
+ </para></listitem>
+ <listitem><para>
+  If you supply the <parameter>assign</parameter> attribute, the output of the
+  <varname>{cycle}</varname> function will be assigned to a template variable
+  instead of being output to the template.
+ </para></listitem>
+</itemizedlist>
+
  <example>
   <title>{cycle}</title>
   <programlisting>
@@ -111,6 +115,7 @@
 {/section}
 ]]>
   </programlisting>
+  <para>The above template would output:</para>
   <screen>
 <![CDATA[
 <tr bgcolor="#eeeeee">

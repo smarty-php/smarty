@@ -3,14 +3,13 @@
 <sect1 id="language.function.html.radios">
  <title>{html_radios}</title>
   <para>
-   {html_radios} is a
+   <varname>{html_radios}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that creates html radio button
-   group with provided data. It takes care of which item is selected
-   by default as well. Required attributes are values and output,
-   unless you use options instead. All output is XHTML compliant.
- </para>
- 
+   that creates html radio button group.
+   It takes care of which item is selected by default as well.
+   </para>
+
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -81,13 +80,24 @@
   </tgroup>
  </informaltable>
 
- <para>
-  All parameters that are not in the list above are printed as
-  name/value-pairs inside each of the created &lt;input&gt;-tags.
- </para>
+    <itemizedlist>
+    <listitem><para>
+    Required attributes are <parameter>values</parameter> and
+    <parameter>output</parameter>,  unless you use <parameter>options</parameter>
+    instead.
+    </para></listitem>
 
+    <listitem><para>
+    All output is XHTML compliant.
+    </para></listitem>
+
+     <listitem><para>
+      All parameters that are not in the list above are printed as
+      name/value-pairs inside each of the created &lt;input&gt;-tags.
+     </para></listitem>
+    </itemizedlist>
  <example>
-  <title>{html_radios} example 1</title>
+  <title>{html_radios} first example</title>
 <programlisting role="php">
 <![CDATA[
 <?php
@@ -115,7 +125,7 @@ $smarty->assign('customer_id', 1001);
   </programlisting>
 </example>
 <example>
- <title>{html_radios} example 2</title>
+ <title>{html_radios} second example</title>
 <programlisting role="php">
 <![CDATA[
 <?php
@@ -135,7 +145,7 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name='id' options=$cust_radios 
+{html_radios name='id' options=$cust_radios
      selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
@@ -169,20 +179,21 @@ $smarty->assign('contact',$db->getRow($sql));
 ]]>
   </programlisting>
   <para>
-   and the template:
+   The variable assigned from the database above
+   would be output with the template:
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name='contact_type_id' options=$contact_types 
+{html_radios name='contact_type_id' options=$contact_types
      selected=$contact.contact_type_id separator='<br />'}
 ]]>
   </programlisting>
  </example>
  <para>
   See also <link
-  linkend="language.function.html.checkboxes">{html_checkboxes}</link>
+  linkend="language.function.html.checkboxes"><varname>{html_checkboxes}</varname></link>
   and <link
-  linkend="language.function.html.options">{html_options}</link>
+  linkend="language.function.html.options"><varname>{html_options}</varname></link>
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

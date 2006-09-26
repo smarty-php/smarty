@@ -3,15 +3,13 @@
 <sect1 id="language.function.html.checkboxes">
  <title>{html_checkboxes}</title>
   <para>
-   {html_checkboxes} is a
+   <varname>{html_checkboxes}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
    that creates an html checkbox
    group with provided data. It takes care of which item(s) are
-   selected by default as well. Required attributes are values and
-   output, unless you use options instead. All output is XHTML
-   compliant.
- </para>
- 
+   selected by default as well.
+   </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -34,73 +32,86 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>checkbox</emphasis></entry>
-     <entry>name of checkbox list</entry>
+     <entry>Name of checkbox list</entry>
     </row>
     <row>
      <entry>values</entry>
      <entry>array</entry>
      <entry>Yes, unless using options attribute</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an array of values for checkbox buttons</entry>
+     <entry>An array of values for checkbox buttons</entry>
     </row>
     <row>
      <entry>output</entry>
      <entry>array</entry>
      <entry>Yes, unless using options attribute</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an array of output for checkbox buttons</entry>
+     <entry>An array of output for checkbox buttons</entry>
     </row>
     <row>
      <entry>selected</entry>
      <entry>string/array</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>the selected checkbox element(s)</entry>
+     <entry>The selected checkbox element(s)</entry>
     </row>
     <row>
      <entry>options</entry>
      <entry>associative array</entry>
      <entry>Yes, unless using values and output</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an associative array of values and output</entry>
+     <entry>An associative array of values and output</entry>
     </row>
     <row>
      <entry>separator</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>string of text to separate each checkbox item</entry>
+     <entry>String of text to separate each checkbox item</entry>
     </row>
     <row>
      <entry>assign</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>assign checkbox tags to an array instead of output</entry>
+     <entry>Assign checkbox tags to an array instead of output</entry>
     </row>
     <row>
      <entry>labels</entry>
      <entry>boolean</entry>
      <entry>No</entry>
-     <entry><emphasis>true</emphasis></entry>
-     <entry>add &lt;label&gt;-tags to the output</entry>
+     <entry><emphasis>&true;</emphasis></entry>
+     <entry>Add &lt;label&gt;-tags to the output</entry>
     </row>
     <row>
      <entry>assign</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>assign the output to an array with each checkbox's output
+     <entry>Assign the output to an array with each checkbox's output
       as one element.</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
 
- <para>
-  All parameters that are not in the list above are printed as
+   <itemizedlist>
+   <listitem><para>
+   Required attributes are  <parameter>values</parameter> and
+   <parameter>output</parameter>, unless you use <parameter>options</parameter>
+   instead.
+   </para></listitem>
+
+   <listitem><para>
+   All output is XHTML compliant.
+  </para></listitem>
+
+   <listitem><para>
+   All parameters that are not in the list above are printed as
   name/value-pairs inside each of the created &lt;input&gt;-tags.
- </para>
+   </para></listitem>
+  </itemizedlist>
+
  <example>
   <title>{html_checkboxes}</title>
   <programlisting role="php">
@@ -151,7 +162,7 @@ $smarty->assign('customer_id', 1001);
   </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name='id' options=$cust_checkboxes 
+{html_checkboxes name='id' options=$cust_checkboxes
    selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
@@ -186,18 +197,19 @@ $smarty->assign('contact',$db->getRow($sql));
 ?>
 ]]>
   </programlisting>
+  <para>The results of the database queries above would be output with.</para>
 <programlisting>
 <![CDATA[
-{html_checkboxes name='contact_type_id' options=$contact_types 
+{html_checkboxes name='contact_type_id' options=$contact_types
         selected=$contact.contact_type_id separator='<br />'}
 ]]>
 </programlisting>
  </example>
  <para>
   See also
-  <link linkend="language.function.html.radios">{html_radios}</link>
+  <link linkend="language.function.html.radios"><varname>{html_radios}</varname></link>
   and
-  <link linkend="language.function.html.options">{html_options}</link>
+  <link linkend="language.function.html.options"><varname>{html_options}</varname></link>
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

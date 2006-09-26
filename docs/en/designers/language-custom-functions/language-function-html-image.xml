@@ -3,13 +3,13 @@
 <sect1 id="language.function.html.image">
  <title>{html_image}</title>
   <para>
-   {html_image} is a
+   <varname>{html_image}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that generates an HTML tag for an
-   image. The height and width are automatically calculated from the
-   image file if none are supplied.
+   that generates a HTML &lt;img&gt; tag.
+   The <parameter>height</parameter> and <parameter>width</parameter>
+   are automatically calculated from the image file if they are not supplied.
  </para>
- 
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -39,28 +39,28 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>actual image height</emphasis></entry>
-     <entry>height to display image</entry>
+     <entry>Height to display image</entry>
     </row>
     <row>
      <entry>width</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>actual image width</emphasis></entry>
-     <entry>width to display image</entry>
+     <entry>Width to display image</entry>
     </row>
     <row>
      <entry>basedir</entry>
      <entry>string</entry>
      <entry>no</entry>
      <entry><emphasis>web server doc root</emphasis></entry>
-     <entry>directory to base relative paths from</entry>
+     <entry>Directory to base relative paths from</entry>
     </row>
     <row>
      <entry>alt</entry>
      <entry>string</entry>
      <entry>no</entry>
-     <entry><emphasis>""</emphasis></entry>
-     <entry>alternative description of the image</entry>
+     <entry><emphasis><quote></quote></emphasis></entry>
+     <entry>Alternative description of the image</entry>
     </row>
     <row>
      <entry>href</entry>
@@ -74,56 +74,62 @@
      <entry>string</entry>
      <entry>no</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>prefix for output path</entry>
+     <entry>Prefix for output path</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
 
- <para>
-  basedir is the base directory that relative image paths are based
-  from. If not given, the web server document root (
-  <link linkend="language.variables.smarty">env</link>
-  variable  DOCUMENT_ROOT) is used as the base. If
-  <link linkend="variable.security">$security</link>
-  is enabled, the
-  path to the image must be within a secure directory.
- </para>
- <para>
-  <parameter>href</parameter> is the href value to link the image to. If link is supplied, an
-  &lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is placed around the image tag.
- </para>
- <para>
-  <parameter>path_prefix</parameter> is an optional prefix string you can give the output path.
+<itemizedlist>
+<listitem><para>
+  <parameter>basedir</parameter> is the base directory that relative image
+  paths are based from. If not given, the web server's document root
+  <varname>$_ENV['DOCUMENT_ROOT']</varname> is used as the base.
+  If <link linkend="variable.security"><parameter>$security</parameter></link>
+  is enabled, the path to the image must be within a
+  <link linkend="variable.secure.dir">secure directory</link>.
+ </para></listitem>
+
+ <listitem><para>
+  <parameter>href</parameter> is the href value to link the image to.
+  If link is supplied, an &lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is placed
+  around the image tag.
+ </para> </listitem>
+
+ <listitem><para>
+  <parameter>path_prefix</parameter> is an optional prefix string you can give
+  the output path.
   This is useful if you want to supply a different server name for the image.
- </para>
- <para>
+ </para></listitem>
+
+ <listitem><para>
   All parameters that are not in the list above are printed as
   name/value-pairs inside the created &lt;img&gt; tag.
- </para>
+ </para></listitem>
+</itemizedlist>
+
  <note>
   <title>Technical Note</title>
   <para>
-   {html_image} requires a hit to the disk to read the image and
-   calculate the height and width. If you don't use template
+   <varname>{html_image}</varname> requires a hit to the disk to read the
+   image and  calculate the height and width. If you don't use template
    <link linkend="caching">caching</link>,
-   it is generally better to avoid {html_image} and leave
+   it is generally better to avoid <varname>{html_image}</varname> and leave
    image tags static for optimal performance.
   </para>
  </note>
+
  <example>
-  <title>html_image example</title>
+  <title>{html_image} example</title>
   <programlisting>
 <![CDATA[
-where index.tpl is:
--------------------
 {html_image file='pumpkin.jpg'}
 {html_image file='/path/from/docroot/pumpkin.jpg'}
 {html_image file='../path/relative/to/currdir/pumpkin.jpg'}
 ]]>
   </programlisting>
   <para>
-    possible output would be:
+    Example output of the above template would be:
   </para>
   <screen>
 <![CDATA[
@@ -133,6 +139,7 @@ where index.tpl is:
 ]]>
   </screen>
  </example>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

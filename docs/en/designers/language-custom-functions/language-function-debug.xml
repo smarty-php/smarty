@@ -2,6 +2,16 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.debug">
  <title>{debug}</title>
+  <para>
+  <varname>{debug}</varname> dumps the debug console to the page. This works
+  regardless of the <link linkend="chapter.debugging.console">debug</link>
+  settings in the php script. Since this gets executed at runtime, this is
+  only able to show the <link linkend="api.assign">assigned</link>
+  variables; not the templates that
+  are in use. However, you can see all the currently available variables
+  within the scope of a template.
+ </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -29,17 +39,10 @@
    </tbody>
   </tgroup>
  </informaltable>
+
  <para>
-  {debug} dumps the debug console to the page. This works regardless
-  of the <link linkend="chapter.debugging.console">debug</link>
-  settings in Smarty. Since this gets executed at runtime, this is
-  only able to show the <link linkend="api.assign">assigned</link>
-  variables, not the templates that
-  are in use. But, you see all the currently available variables
-  within the scope of this template.
- </para>
- <para>
- See also <link linkend="chapter.debugging.console">Debugging console</link>
+ See also the
+ <link linkend="chapter.debugging.console">debugging console page</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

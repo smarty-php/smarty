@@ -3,14 +3,13 @@
 <sect1 id="language.function.html.options">
  <title>{html_options}</title>
   <para>
-   {html_options} is a
+   <varname>{html_options}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that creates html &lt;select&gt;&lt;option&gt; group
-   with provided data. It takes care of which item(s) are selected by
-   default as well. Required attributes are values and output, unless
-   you use options instead.
- </para>
- 
+   that creates a html &lt;select&gt;&lt;option&gt; group
+   with the assigned data. It takes care of which item(s) are selected by
+   default as well.
+   </para>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -67,94 +66,119 @@
   </tgroup>
  </informaltable>
 
- <para>
+   <itemizedlist>
+   <listitem><para>
+   Required attributes are
+   <parameter>values</parameter> and <parameter>output</parameter>,
+   unless you use the combined <parameter>options</parameter> instead.
+ </para></listitem>
+
+
+ <listitem><para>
+  If the optional <parameter>name</parameter> attribute is given, the
+  &lt;select&gt;&lt;/select&gt; tags are created,
+  otherwise ONLY the &lt;option&gt;'s list are generated.
+ </para></listitem>
+
+  <listitem><para>
   If a given value is an array, it will treat it as an html &lt;optgroup&gt;,
-  and display the groups. Recursion is supported with &lt;optgroup&gt;. All
-  output is XHTML compatible.
- </para>
- <para>
-  If the optional <emphasis>name</emphasis> attribute is given, the
-  &lt;select name="groupname"&gt;&lt;/select&gt; tags will enclose
-  the option list. Otherwise only the &lt;option&gt; list is generated.
- </para>
- <para>
+  and display the groups. Recursion is supported with &lt;optgroup&gt;.
+ </para></listitem>
+
+ <listitem><para>
   All parameters that are not in the list above are printed as
   name/value-pairs inside the &lt;select&gt; tag. They are ignored if
-  the optional <emphasis>name</emphasis> is not given.
- </para>
+  the optional <parameter>name</parameter> is not given.
+ </para></listitem>
+
+	<listitem><para>
+	All output is XHTML compliant.
+	</para></listitem>
+ </itemizedlist>
+
+
  <example>
-  <title>{html_options}</title>
-  <para>
-  <emphasis role="bold">Example 1:</emphasis>
-  </para>
+  <title>Associative array with the <varname>options</varname> attribute</title>
   <programlisting role="php">
 <![CDATA[
 <?php
+$smarty->assign('myOptions', array(
+                                1800 => 'Joe Schmoe',
+                                9904 => 'Jack Smith',
+                                2003 => 'Charlie Brown')
+                                );
+$smarty->assign('mySelect', 9904);
+?>
+]]>
+  </programlisting>
+    <para>
+  The following template will generate a drop-down list.
+  Note the presence of the <parameter>name</parameter> attribute
+  which creates the &lt;select&gt; tags.
+  </para>
+  <programlisting>
+<![CDATA[
+{html_options name=foo options=$myOptions selected=$mySelect}
+]]>
+  </programlisting>
 
-$smarty->assign('cust_ids', array(1000,1001,1002,1003));
+  <para>
+   Output of the above example would be:
+  </para>
+  <screen>
+<![CDATA[
+<select name="foo">
+<option label="Joe Schmoe" value="1800">Joe Schmoe</option>
+<option label="Jack Smith" value="9904" selected="selected">Jack Smith</option>
+<option label="Charlie Brown" value="2003">Charlie Brown</option>
+</select>
+]]>
+</screen>
+</example>
+
+<example>
+<title>Dropdown with seperate arrays for ouptut.</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+$smarty->assign('cust_ids', array(56,92,13));
 $smarty->assign('cust_names', array(
                               'Joe Schmoe',
-                              'Jack Smith',
                               'Jane Johnson',
                               'Charlie Brown'));
-$smarty->assign('customer_id', 1001);
-
+$smarty->assign('customer_id', 92);
 ?>
 ]]>
   </programlisting>
   <para>
-  Where template is:
+  The above arrays would be output with the following template.
+  Note the sneaky use of the php <ulink url="&url.php-manual;function.count">
+  <varname>count()</varname></ulink> function as a modifier
+  to set the select size.
   </para>
   <programlisting>
 <![CDATA[
-<select name="customer_id">
+<select name="customer_id" size="{$cust_names|@count}">
    {html_options values=$cust_ids output=$cust_names selected=$customer_id}
 </select>
 ]]>
   </programlisting>
-   <para>
-  <emphasis role="bold">Example 2:</emphasis>
-   </para>
-   <programlisting role="php">
-<![CDATA[
-<?php
-
-$smarty->assign('cust_options', array(
-                                1000 => 'Joe Schmoe',
-                                1001 => 'Jack Smith',
-                                1002 => 'Jane Johnson',
-                                1003 => 'Charlie Brown')
-                                );
-$smarty->assign('customer_id', 1001);
-
-?>
-]]>
-  </programlisting>
   <para>
-where template is:
-  </para>
-  <programlisting>
-<![CDATA[
-   {html_options name=customer_id options=$cust_options selected=$customer_id}
-]]>
-  </programlisting>
-  <para>
-   Both the above examples will output:
+   The above example would output:
   </para>
   <screen>
 <![CDATA[
 <select name="customer_id">
-    <option label="Joe Schmoe" value="1000">Joe Schmoe</option>
-    <option label="Jack Smith" value="1001" selected="selected">Jack Smith</option>
-    <option label="Jane Johnson" value="1002">Jane Johnson</option>
-    <option label="Charlie Brown" value="1003">Charlie Brown</option>
+    <option label="Joe Schmoe" value="56">Joe Schmoe</option>
+    <option label="Jack Smith" value="92" selected="selected">Jane Johnson</option>
+    <option label="Charlie Brown" value="13">Charlie Brown</option>
 </select>
 
 ]]>
   </screen>
  </example>
   <example>
-   <title>{html_options} - Database example (eg PEAR or ADODB):</title>
+   <title>Database example (eg ADODB or PEAR)</title>
 <programlisting role="php">
 <![CDATA[
 <?php
@@ -170,7 +194,7 @@ $smarty->assign('contact',$db->getRow($sql));
 ]]>
 </programlisting>
 <para>
-where the template is:
+where an example template would be
 </para>
 <programlisting>
 <![CDATA[
@@ -181,11 +205,53 @@ where the template is:
 ]]>
   </programlisting>
  </example>
+
+ <example>
+  <title>Dropdown's with &lt;optgroup&gt; </title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+$arr['Sport'] = array(6 => 'Golf', 9 => 'Cricket',7 => 'Swim');
+$arr['Rest']  = array(3 => 'Sauna',1 => 'Massage');
+$smarty->assign('lookups', $arr);
+$smarty->assign('fav', 7);
+?>
+]]>
+  </programlisting>
+    <para>With the template would be
+
+  </para>
+  <programlisting>
+<![CDATA[
+{html_options name=foo options=$myOptions selected=$mySelect}
+]]>
+  </programlisting>
+
+  <para>
+   Output of the above example would be:
+  </para>
+  <screen>
+<![CDATA[
+<select name="breakTime">
+<optgroup label="Sport">
+<option label="Golf" value="6">Golf</option>
+<option label="Cricket" value="9">Cricket</option>
+<option label="Swim" value="7" selected="selected">Swim</option>
+</optgroup>
+<optgroup label="Rest">
+<option label="Sauna" value="3">Sauna</option>
+<option label="Massage" value="1">Massage</option>
+</optgroup>
+</select>
+]]>
+</screen>
+</example>
+
    <para>
     See also
-    <link linkend="language.function.html.checkboxes">{html_checkboxes}</link>
+    <link linkend="language.function.html.checkboxes"><varname>{html_checkboxes}</varname></link>
     and
-    <link linkend="language.function.html.radios">{html_radios}</link>
+    <link linkend="language.function.html.radios"><varname>{html_radios}</varname></link>
  </para>
 </sect1>
 

@@ -3,21 +3,48 @@
 <sect1 id="language.function.math">
  <title>{math}</title>
   <para>
-   {math} allows the template designer to do math equations in the
-   template. Any numeric template variables may be used in the
-   equations, and the result is printed in place of the tag. The
-   variables used in the equation are passed as parameters, which can
-   be template variables or static values. +, -, /, *, abs, ceil, cos,
-   exp, floor, log, log10, max, min, pi, pow, rand, round, sin, sqrt,
-   srans and tan are all valid operators. Check the PHP documentation
-   for further information on these math functions.
-  </para>
+   <varname>{math}</varname> allows the template designer to do math equations
+   in the template.
+   </para>
+   <itemizedlist>
+   <listitem><para>
+   Any numeric template variables may be used in the
+   equations, and the result is printed in place of the tag.
+   </para></listitem>
+
+   <listitem><para>
+   The variables used in the equation are passed as parameters,
+   which can  be template variables or static values.
+   </para></listitem>
+
+   <listitem><para>+, -, /, *, abs, ceil, cos,  exp, floor, log, log10, max, min,
+   pi, pow, rand, round, sin, sqrt, srans and tan are all valid operators.
+   Check the PHP documentation  for further information on these
+   <ulink url="&url.php-manual;eval">math</ulink> functions.
+  </para></listitem>
+
+  <listitem><para>
+   If you supply the <parameter>assign</parameter> attribute, the output of the
+   <varname>{math}</varname> function will be assigned to this template
+   variable instead of  being output to the template.
+   </para></listitem>
+  </itemizedlist>
+
+   <note>
+  <title>Technical Note</title>
   <para>
-   If you supply the special "assign" attribute, the output of the
-   math function will be assigned to this template variable instead of
-   being output to the template.
- </para>
- 
+   <varname>{math}</varname> is an expensive function in performance due to
+   its use of the php <ulink url="&url.php-manual;eval">
+   <varname>eval()</varname></ulink> function. Doing the math in PHP is much
+   more  efficient, so whenever possible do the math calculations in the script
+   and <link linkend="api.assign"><varname>assign()</varname></link>
+   the results to the template. Definitely avoid  repetitive
+   <varname>{math}</varname> function calls, eg within
+    <link linkend="language.function.section">
+    <varname>{section}</varname></link> loops.
+  </para>
+ </note>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -40,53 +67,41 @@
      <entry>string</entry>
      <entry>Yes</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>the equation to execute</entry>
+     <entry>The equation to execute</entry>
     </row>
     <row>
      <entry>format</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>the format of the result (sprintf)</entry>
+     <entry>The format of the result (sprintf)</entry>
     </row>
     <row>
      <entry>var</entry>
      <entry>numeric</entry>
      <entry>Yes</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>equation variable value</entry>
+     <entry>Equation variable value</entry>
     </row>
     <row>
      <entry>assign</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>template variable the output will be assigned to</entry>
+     <entry>Template variable the output will be assigned to</entry>
     </row>
     <row>
      <entry>[var ...]</entry>
      <entry>numeric</entry>
      <entry>Yes</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>equation variable value</entry>
+     <entry>Equation variable value</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
 
- <note>
-  <title>Technical Note</title>
-  <para>
-   {math} is an expensive function in performance due to its use of the php
-   <ulink url="&url.php-manual;eval">eval()</ulink> function. Doing the math in PHP is much
-   more
-   efficient, so whenever possible do the math calculations in PHP
-   and <link linkend="api.assign">assign()</link>
-   the results to the template. Definately avoid
-   repetitive {math} function calls, eg within
-   <link linkend="language.function.section">{section}</link> loops.
-  </para>
- </note>
+
  <example>
   <title>{math}</title>
   <para>
