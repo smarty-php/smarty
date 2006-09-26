@@ -1,3 +1,29 @@
+2006-09-25  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
+
+    * docs/en/designers/language-builtin-functions/language-function-foreach.xml
+      docs/en/designers/language-builtin-functions/language-function-section.xml:
+      Doh! removing tabs
+
+    * docs/en/designers/language-builtin-functions/language-function-capture.xml
+      docs/en/designers/language-builtin-functions/language-function-config-load.xml
+      docs/en/designers/language-builtin-functions/language-function-foreach.xml
+      docs/en/designers/language-builtin-functions/language-function-if.xml
+      docs/en/designers/language-builtin-functions/language-function-include-php.xml
+      docs/en/designers/language-builtin-functions/language-function-include.xml
+      docs/en/designers/language-builtin-functions/language-function-insert.xml
+      docs/en/designers/language-builtin-functions/language-function-ldelim.xml
+      docs/en/designers/language-builtin-functions/language-function-literal.xml
+      docs/en/designers/language-builtin-functions/language-function-php.xml
+      docs/en/designers/language-builtin-functions/language-function-section.xml
+      docs/en/designers/language-builtin-functions/language-function-strip.xml:
+      A lot of formatting, tagging and tidy up. Some consistency at last
+
+    * docs/en/designers/language-builtin-functions/language-function-section.xml:
+      Major tidy up
+
+    * docs/en/designers/language-builtin-functions/language-function-foreach.xml:
+      Major tidy up, added index property and some examples
+
 2006-09-03  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/designers/language-custom-functions/language-function-popup-init.xml
