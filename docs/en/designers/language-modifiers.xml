@@ -75,7 +75,7 @@
  <listitem><para>
   Modifiers are autoloaded from the <link
   linkend="variable.plugins.dir"><parameter>$plugins_dir</parameter></link>
-  or can be registered explicitely with the <link
+  or can be registered explicitly with the <link
   linkend="api.register.modifier"><varname>register_modifier()</varname></link>
   function. The later is useful for sharing a function between
    php scripts and smarty templates.
