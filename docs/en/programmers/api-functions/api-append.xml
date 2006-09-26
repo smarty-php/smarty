@@ -22,7 +22,7 @@ If you append
    to a string value, it is converted to an array value and then
    appended to. You can explicitly pass name/value pairs, or associative
    arrays containing the name/value pairs. If you pass the optional third
-   parameter of true, the value will be merged with the current array
+   parameter of &true;, the value will be merged with the current array
    instead of appended.
   </para>
   &note.parameter.merge;
@@ -31,9 +31,16 @@ If you append
    <programlisting role="php">
 <![CDATA[
 <?php
-// passing name/value pairs
-$smarty->append("Name", "Fred");
-$smarty->append("Address", $address);
+// This is effectively the same as assign()
+$smarty->append('foo', 'Fred');
+// After this line, foo will now be seen as an array in the template
+$smarty->append('foo', 'Albert');
+
+$array = array(1 => 'one', 2 => 'two');
+$smarty->append('X', $array);
+$array2 = array(3 => 'three', 4 => 'four');
+// The following line will add a second element to the X array
+$smarty->append('X', $array2);
 
 // passing an associative array
 $smarty->append(array('city' => 'Lincoln', 'state' => 'Nebraska'));
@@ -42,10 +49,10 @@ $smarty->append(array('city' => 'Lincoln', 'state' => 'Nebraska'));
    </programlisting>
   </example>
   <para>See also
-  <link linkend="api.append.by.ref">append_by_ref()</link>,
-  <link linkend="api.assign">assign()</link>
+  <link linkend="api.append.by.ref"><varname>append_by_ref()</varname></link>,
+  <link linkend="api.assign"><varname>assign()</varname></link>
   and
-  <link linkend="api.get.template.vars">get_template_vars()</link>
+  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>
   </para>
  </refsect1>
 </refentry>

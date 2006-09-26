@@ -14,7 +14,8 @@
 
 <para>
       See also
-      <link linkend="api.register.prefilter">register_prefilter()</link>
+      <link linkend="api.register.prefilter">
+      <varname>register_prefilter()</varname></link>
       and
       <link linkend="plugins.prefilters.postfilters">pre filters</link>.
 </para>

@@ -14,37 +14,27 @@
    <methodparam><type>bool</type><parameter>cacheable</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>cache_attrs</parameter></methodparam>
   </methodsynopsis>
+
   <para>
    Use this to dynamically register
-   <link linkend="plugins.block.functions">block functions plugins</link>.
-   Pass in the block function name, followed by the PHP
-   function callback that implements it.
+   <link linkend="plugins.block.functions">block function plugins</link>.
+   Pass in the block function <parameter>name</parameter>, followed by the PHP
+   function's name that implements it.
   </para>
-  <para>
-   The php-function callback <parameter>impl</parameter> can be either (a) a string
-   containing the function name or (b) an array of the form
-   <literal>array(&amp;$object, $method)</literal> with
-   <literal>&amp;$object</literal> being a reference to an
-   object and <literal>$method</literal> being a string
-   containing the method-name or (c) an array of the form
-   <literal>array(&amp;$class, $method)</literal> with
-   <literal>$class</literal> being a classname and
-   <literal>$method</literal> being a class method of that
-   class.
-  </para>
+    &api.register.snippet;
+
   <para>
    <parameter>cacheable</parameter> and <parameter>cache_attrs</parameter>
    can be omitted in most cases. See <link
-   linkend="caching.cacheable">Controlling Cacheability of Plugins' Output</link>
-   on how to use them properly.
+    linkend="caching.cacheable">controlling cacheability of plugins' output</link>
+   section on how to implement them properly.
   </para>
   <example>
    <title>register_block()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->register_block('translate', 'do_translation');
-
+// function declaration
 function do_translation ($params, $content, &$smarty, &$repeat)
 {
   if (isset($content)) {
@@ -53,27 +43,27 @@ function do_translation ($params, $content, &$smarty, &$repeat)
     return $translation;
   }
 }
+
+// register with smarty
+$smarty->register_block('translate', 'do_translation');
 ?>
 ]]>
    </programlisting>
    <para>
-    where the template is:
+    Where the template is:
    </para>
    <programlisting>
 <![CDATA[
-{* template *}
-{translate lang="br"}
-Hello, world!
-{/translate}
+{translate lang='br'}Hello, world!{/translate}
 ]]>
    </programlisting>
   </example>
 
     <para>
     See also
-    <link linkend="api.unregister.block">unregister_block()</link>
-    and
-    <link linkend="plugins.block.functions">Plugin Block Functions</link>.
+    <link linkend="api.unregister.block"><varname>unregister_block()</varname></link>
+    and the
+    <link linkend="plugins.block.functions">plugin block functions</link> page.
   </para>
 
  </refsect1>

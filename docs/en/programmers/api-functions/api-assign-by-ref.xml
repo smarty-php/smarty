@@ -13,7 +13,7 @@
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   This is used to  <link linkend="api.assign">assign()</link>
+   This is used to <link linkend="api.assign"><varname>assign()</varname></link>
    values to the templates by reference instead of
    making a copy. See the PHP manual on variable referencing for an explanation.
   </para>
@@ -24,7 +24,8 @@
     If you assign a variable by reference then change its
     value, the assigned value sees the change as well. For
     <link linkend="advanced.features.objects">objects</link>,
-    assign_by_ref() also avoids an in-memory copy of the assigned object.
+    <varname>assign_by_ref()</varname> also avoids an in-memory copy of the
+    assigned object.
     See the PHP manual on variable referencing for an in-depth
     explanation.
    </para>
@@ -42,10 +43,13 @@ $smarty->assign_by_ref('Address', $address);
    </programlisting>
   </example>
    <para>
-   See also <link linkend="api.assign">assign()</link>,
-   <link linkend="api.clear.all.assign">clear_all_assign()</link>,
-   <link linkend="api.append">append()</link>
-   and <link linkend="language.function.assign">{assign}</link>
+   See also
+   <link linkend="api.assign"><varname>assign()</varname></link>,
+   <link linkend="api.clear.all.assign"><varname>clear_all_assign()</varname></link>,
+   <link linkend="api.append"><varname>append()</varname></link>,
+   <link linkend="language.function.assign"><varname>{assign}</varname></link>
+   and
+    <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>.
    </para>
 
  </refsect1>

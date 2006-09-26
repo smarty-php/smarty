@@ -19,36 +19,13 @@
    Pass in the <link linkend="plugins.functions">template function</link>
    name,  followed by the PHP  function name that implements it.
   </para>
-  <para>
-   The php-function callback <parameter>impl</parameter> can be either
-   </para>
-   <orderedlist numeration="loweralpha">
-   <listitem>
-     <para>
-     a string  containing the function name
-     </para>
-   </listitem><listitem>
-     <para>
-      an array of the form
-     <literal>array(&amp;$object, $method)</literal> with
-     <literal>&amp;$object</literal> being a reference to an
-     object and <literal>$method</literal> being a string
-     containing the method-name
-     </para>
-   </listitem><listitem>
-    <para>
-    an array of the form <literal>array(&amp;$class, $method)</literal>
-    with <literal>$class</literal> being a classname and
-    <literal>$method</literal> being a class method of that
-    class.
-    </para>
-   </listitem>
-  </orderedlist>
+   &api.register.snippet;
+
 
   <para>
    <parameter>cacheable</parameter> and <parameter>cache_attrs</parameter> can be
    omitted in most cases. See <link
-   linkend="caching.cacheable">Controlling Cacheability of Plugins' Output</link>
+   linkend="caching.cacheable">controlling cacheability of plugins output</link>
    on how to use them properly.
   </para>
   <example>
@@ -85,10 +62,9 @@ function print_current_date($params, &$smarty)
 
 <para>
 See also
-<link linkend="api.unregister.function">unregister_function()</link>
-and
-<link linkend="plugins.functions">Plugin functions</link>
-.
+<link linkend="api.unregister.function"><varname>unregister_function()</varname></link>
+and the
+<link linkend="plugins.functions">plugin functions</link> section.
 </para>
 
  </refsect1>

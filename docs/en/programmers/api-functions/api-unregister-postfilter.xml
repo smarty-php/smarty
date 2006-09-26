@@ -14,10 +14,10 @@
 
     <para>
     See also
-    <link linkend="api.unregister.postfilter">register_postfilter()</link>
+    <link linkend="api.unregister.postfilter">
+    <varname>register_postfilter()</varname></link>
     and
-    <link linkend="plugins.prefilters.postfilters">template
-    post filters</link>.
+    <link linkend="plugins.prefilters.postfilters">template post filters</link>.
 </para>
 
  </refsect1>

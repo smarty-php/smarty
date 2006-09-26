@@ -12,8 +12,7 @@
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Pass in the
-   name of the resource.
+   Pass in the <parameter>name</parameter> of the resource.
   </para>
   <example>
    <title>unregister_resource()</title>
@@ -30,7 +29,8 @@ $smarty->unregister_resource('db');
 
  <para>
  See also
- <link linkend="api.register.resource">register_resource()</link>
+ <link linkend="api.register.resource">
+ <varname>register_resource()</varname></link>
  and
  <link linkend="template.resources">template resources</link>
 </para>

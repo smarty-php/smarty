@@ -32,6 +32,10 @@ $smarty->assign('Address', $address);
 // passing an associative array
 $smarty->assign(array('city' => 'Lincoln', 'state' => 'Nebraska'));
 
+// passing an array
+$myArray = array('no' => 10, 'label' => 'Peanuts');
+$smarty->assign('foo',$myArray);
+
 // passing a row from a database (eg adodb)
 $sql = 'select id, name, email from contacts where contact ='.$id;
 $smarty->assign('contact', $db->getRow($sql));
@@ -39,7 +43,7 @@ $smarty->assign('contact', $db->getRow($sql));
 ]]>
 </programlisting>
    <para>
-   Access these in the template with
+   These are accessed in the template with
    </para>
 <programlisting>
 <![CDATA[
@@ -49,24 +53,26 @@ $smarty->assign('contact', $db->getRow($sql));
 {$city}
 {$state}
 
+{$foo.no}, {$foo.label}
 {$contact.id}, {$contact.name},{$contact.email}
 ]]>
 </programlisting>
   </example>
   <para>
-  For more complex array assignments see
-  <link linkend="language.function.foreach">{foreach}</link>
+  To access more complex array assignments see
+  <link linkend="language.function.foreach"><varname>{foreach}</varname></link>
   and
-  <link linkend="language.function.section">{section}</link>
+  <link linkend="language.function.section"><varname>{section}</varname></link>
   </para>
 
   <para>
- See also <link linkend="api.assign.by.ref">assign_by_ref()</link>,
- <link linkend="api.get.template.vars">get_template_vars()</link>,
- <link linkend="api.clear.assign">clear_assign()</link>,
- <link linkend="api.append">append()</link>
+ See also
+ <link linkend="api.assign.by.ref"><varname>assign_by_ref()</varname></link>,
+ <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>,
+ <link linkend="api.clear.assign"><varname>clear_assign()</varname></link>,
+ <link linkend="api.append"><varname>append()</varname></link>
  and
- <link linkend="language.function.assign">{assign}</link>
+ <link linkend="language.function.assign"><varname>{assign}</varname></link>
  </para>
  </refsect1>
 </refentry>

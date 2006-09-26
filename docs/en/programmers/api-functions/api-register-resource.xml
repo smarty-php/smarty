@@ -16,31 +16,41 @@
    Use this to dynamically register a
    <link linkend="template.resources">resource plugin</link>
    with Smarty.
-   Pass in the name of the resource and the array of PHP functions
-   implementing it. See
+   Pass in the <parameter>name</parameter> of the resource and the array of
+   PHP functions implementing it. See
    <link linkend="template.resources">template resources</link>
-   for more information on how to setup a function for fetching
-   templates.
-  </para>
-  <note>
+   for more information on how to setup a function for fetching templates.
+     <note>
    <title>Technical Note</title>
    <para>
     A resource name must be at least two characters in length. One
     character resource names will be ignored and used as part of the file
-    path, such as $smarty->display('c:/path/to/index.tpl');
+    path, such as <literal>$smarty->display('c:/path/to/index.tpl');</literal>
    </para>
   </note>
-  <para>
+
+   </para>
+
+  <itemizedlist>
+  <listitem><para>
    The php-function-array <parameter>resource_funcs</parameter>
-   must have 4 or 5 elements. With 4 elements the elements are
-   the functions-callbacks for the respective "source",
-   "timestamp", "secure" and "trusted" functions of the
-   resource. With 5 elements the first element has to be an
+   must have 4 or 5 elements.
+   </para></listitem>
+   <listitem><para>
+   With 4 elements the elements are
+   the functions-callbacks for the respective <literal>source</literal>,
+   <literal>timestamp</literal>, <literal>secure</literal> and
+   <literal>trusted</literal> functions of the resource.
+   </para></listitem>
+   <listitem><para>
+   With 5 elements the first element has to be an
    object reference or a class name of the object or class
    implementing the resource and the 4 following elements have
-   to be the method names implementing "source", "timestamp",
-   "secure" and "trusted".
-  </para>
+   to be the method names implementing <literal>source</literal>,
+   <literal>timestamp</literal>, <literal>secure</literal>
+   and <literal>trusted</literal>.
+  </para></listitem>
+  </itemizedlist>
   <example>
    <title>register_resource()</title>
    <programlisting role="php">
@@ -57,11 +67,11 @@ $smarty->register_resource('db', array(
    </programlisting>
   </example>
 
-  <para>
-      See also
-      <link linkend="api.unregister.resource">unregister_resource()</link>
-      and
-      <link linkend="template.resources">template resources</link>
+<para>
+  See also
+  <link linkend="api.unregister.resource"><varname>unregister_resource()</varname></link>
+  and the
+  <link linkend="template.resources">template resources</link> section.
 </para>
 
  </refsect1>

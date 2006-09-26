@@ -15,21 +15,30 @@
    </methodparam>
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
-  <para>
+
+  <itemizedlist>
+  <listitem><para>
    If you have <link linkend="caching.multiple.caches">multiple caches</link>
    for a template, you can clear a specific
    cache by supplying the <parameter>cache_id</parameter> as the second
    parameter.
+   </para></listitem>
+   <listitem><para>
    You can also pass a
    <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
    as a third parameter.
-   You can <link linkend="caching.groups">"group"</link> templates
-   together so they can be removed as a group. See the
+   You can <link linkend="caching.groups">group templates together</link>
+    so they can be removed as a group, see the
    <link linkend="caching">caching section</link> for more
-   information. As an optional fourth parameter, you can supply a
+   information.
+   </para></listitem>
+   <listitem><para>
+   As an optional fourth parameter, you can supply a
    minimum age in seconds the cache file must be before it will
    get cleared.
-  </para>
+  </para></listitem>
+  </itemizedlist>
+
   <example>
    <title>clear_cache()</title>
    <programlisting role="php">
@@ -39,16 +48,16 @@
 $smarty->clear_cache('index.tpl');
 
 // clear the cache for a particular cache id in an multiple-cache template
-$smarty->clear_cache('index.tpl', 'CACHEID');
+$smarty->clear_cache('index.tpl', 'MY_CACHE_ID');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
   See also
-  <link linkend="api.clear.all.cache">clear_all_cache()</link>
+  <link linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>
   and
-  <link linkend="caching">caching</link>.
+  <link linkend="caching"><varname>caching</varname></link> section.
   </para>
  </refsect1>
 </refentry>

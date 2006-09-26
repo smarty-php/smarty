@@ -15,13 +15,15 @@
   </methodsynopsis>
   <para>
    This is used to
-   <link linkend="api.append">append</link> values to the templates by reference.
+   <link linkend="api.append"><varname>append()</varname></link> values
+   to the templates by reference.
    If you append a variable by reference then change its
    value, the appended value sees the change as well. For
    <link linkend="advanced.features.objects">objects</link>,
-   append_by_ref() also avoids an in-memory copy of the appended object.
+   <varname>append_by_ref()</varname> also avoids an in-memory copy of the
+   appended object.
    See the PHP manual on variable referencing for an in-depth
-   explanation. If you pass the optional third parameter of true,
+   explanation. If you pass the optional third parameter of &true;,
    the value will be merged with the current array instead of appended.
   </para>
   &note.parameter.merge;
@@ -38,8 +40,11 @@ $smarty->append_by_ref('Address', $address);
    </programlisting>
   </example>
 <para>
-   See also <link linkend="api.append">append()</link> and
-  <link linkend="api.assign">assign()</link>.
+   See also
+   <link linkend="api.append"><varname>append()</varname></link>,
+  <link linkend="api.assign"><varname>assign()</varname></link>
+  and
+  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>.
 </para>
 
  </refsect1>

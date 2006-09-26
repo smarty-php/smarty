@@ -13,15 +13,15 @@
   </methodsynopsis>
   <para>
    Use this to dynamically unregister
-   <link linkend="plugins.block.functions">block function plugins</link>.
+   <link linkend="plugins.block.functions">block function plugin</link>.
    Pass in the block function <parameter>name</parameter>.
   </para>
 
       <para>
       See also
-      <link linkend="api.register.block">register_block()</link>
+      <link linkend="api.register.block"><varname>register_block()</varname></link>
       and
-      <link linkend="plugins.block.functions">Block Functions Plugins</link>.
+      <link linkend="plugins.block.functions">block functions plugins</link>.
   </para>
 
  </refsect1>

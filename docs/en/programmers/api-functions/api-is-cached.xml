@@ -14,11 +14,56 @@
    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
    </methodparam>
   </methodsynopsis>
+
+  <itemizedlist>
+  <listitem><para>
+   This only works if <link linkend="variable.caching">
+   <parameter>$caching</parameter></link> is set to &true;, see the
+   <link linkend="caching">caching section</link> for more info.
+  </para></listitem>
+
+    <listitem><para>
+   You can also pass a <parameter>$cache_id</parameter> as an optional second
+   parameter in case you want
+   <link linkend="caching.multiple.caches">multiple caches</link>
+   for the given template.
+  </para></listitem>
+
+  <listitem><para>
+   You can supply a
+   <link linkend="variable.compile.id"><parameter>$compile id</parameter></link>
+   as an optional third parameter. If you omit that parameter the persistent
+   <link linkend="variable.compile.id">
+   <parameter>$compile_id</parameter></link> is used if its set.
+  </para></listitem>
+
+  <listitem><para>
+   If you do not want to pass a <parameter>$cache_id</parameter> but want to
+   pass a <link linkend="variable.compile.id">
+   <parameter>$compile_id</parameter></link> you have to pass
+   &null; as a <parameter>$cache_id</parameter>.
+  </para></listitem>
+  </itemizedlist>
+
+  <note>
+  <title>Technical Note</title>
   <para>
-   This only works if <link
-   linkend="variable.caching">$caching</link> is set to true; see the
-   <link linkend="caching">caching section</link>.
+   If <varname>is_cached()</varname> returns &true; it actually loads the
+   cached output and stores it internally. Any subsequent call to
+   <link linkend="api.display"><varname>display()</varname></link> or
+   <link linkend="api.fetch"><varname>fetch()</varname></link>
+   will return this internally stored output and does not try to reload
+   the cache file. This prevents a race condition that may occur when a
+   second process clears the cache between the calls to
+   <varname>is_cached()</varname> and to
+   <link linkend="api.display"><varname>display()</varname></link>
+   in the example above. This also means calls to
+   <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>
+   and other changes of the cache-settings may have no effect after
+   <varname>is_cached()</varname> returned &true;.
   </para>
+  </note>
+
   <example>
    <title>is_cached()</title>
    <programlisting role="php">
@@ -35,24 +80,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
   </example>
-  <para>
-   You can also pass a $cache id as an optional second parameter
-   in case you want
-   <link linkend="caching.multiple.caches">multiple caches</link>
-   for the given template.
-  </para>
-  <para>
-   You can supply a
-   <link linkend="variable.compile.id">$compile id</link>
-   as an optional third parameter.
-   If you omit that parameter the persistent
-   <link linkend="variable.compile.id">$compile_id</link> is used.
-  </para>
-  <para>
-   If you do not want to pass a cache id but want to pass a
-   <link linkend="variable.compile.id">$compile_id</link>
-   you have to pass <emphasis>null</emphasis> as cache id.
-  </para>
+
   <example>
    <title>is_cached() with multiple-cache template</title>
    <programlisting role="php">
@@ -71,28 +99,10 @@ $smarty->display('index.tpl', 'FrontPage');
   </example>
 
 
-  <note>
-  <title>Technical Note</title>
-  <para>
-   If <literal>is_cached()</literal> returns true it actually loads the
-   cached output and stores it internally. Any subsequent call to
-   <link linkend="api.display">display()</link> or
-   <link linkend="api.fetch">fetch()</link>
-   will return this internally stored output and does not try to reload
-   the cache file. This prevents a race condition that may occur when a
-   second process clears the cache between the calls to is_cached() and to
-   <link linkend="api.display">display()</link>
-   in the example above. This also means calls to
-   <link linkend="api.clear.cache">clear_cache()</link>
-   and other changes of the cache-settings may have no effect after
-   is_cached() returned true.
-  </para>
-  </note>
-
     <para>
     See also
-    <link linkend="api.clear.cache">clear_cache()</link>,
-    <link linkend="api.clear.all.cache">clear_all_cache()</link>,
+    <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>,
+    <link linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>,
     and
     <link linkend="caching">caching section</link>.
   </para>

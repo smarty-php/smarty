@@ -35,10 +35,11 @@ print_r( $smarty->get_template_vars() );
   </example>
   <para>
   See also
-  <link linkend="api.clear.assign">clear_assign()</link>,
-  <link linkend="api.clear.config">clear_config()</link>,
-  <link linkend="api.assign">assign()</link>
-  and <link linkend="api.append">append()</link>
+  <link linkend="api.clear.assign"><varname>clear_assign()</varname></link>,
+  <link linkend="api.clear.config"><varname>clear_config()</varname></link>,
+  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>,
+  <link linkend="api.assign"><varname>assign()</varname></link>
+  and <link linkend="api.append"><varname>append()</varname></link>
   </para>
  </refsect1>
 </refentry>

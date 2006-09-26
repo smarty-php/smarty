@@ -22,26 +22,25 @@
 <![CDATA[
 <?php
 // get assigned template var 'foo'
-$foo = $smarty->get_template_vars('foo');
+$myVar = $smarty->get_template_vars('foo');
 
 // get all assigned template vars
-$tpl_vars = $smarty->get_template_vars();
+$all_tpl_vars = $smarty->get_template_vars();
 
 // take a look at them
-print_r($tpl_vars);
+print_r($all_tpl_vars);
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-  See also <link linkend="api.assign">assign()</link>,
-  <link linkend="language.function.assign">{assign}</link>,
-  <link linkend="api.assign.by.ref">assign_by_ref()</link>,
-  <link linkend="api.append">append()</link>,
-  <link linkend="api.clear.assign">clear_assign()</link>,
-  <link linkend="api.clear.all.assign">clear_all_assign()</link>
+  See also <link linkend="api.assign"><varname>assign()</varname></link>,
+  <link linkend="language.function.assign"><varname>{assign}</varname></link>,
+  <link linkend="api.append"><varname>append()</varname></link>,
+  <link linkend="api.clear.assign"><varname>clear_assign()</varname></link>,
+  <link linkend="api.clear.all.assign"><varname>clear_all_assign()</varname></link>
   and
-  <link linkend="api.get.config.vars">get_config_vars()</link>
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>
   </para>
 
  </refsect1>

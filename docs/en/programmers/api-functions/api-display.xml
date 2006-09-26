@@ -16,13 +16,12 @@
   </methodsynopsis>
   <para>
    This displays the template unlike
-   <link linkend="api.fetch">fetch()</link>.
+   <link linkend="api.fetch"><varname>fetch()</varname></link>.
    Supply a valid <link
    linkend="template.resources">template resource</link>
    type and path. As an optional second parameter, you can pass a
-   $cache id.
-   See the <link linkend="caching">caching
-   section</link> for more information.
+   <parameter>$cache id</parameter>, see the
+   <link linkend="caching">caching section</link> for more information.
   </para>
   &parameter.compileid;
   <example>
@@ -30,12 +29,12 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-include("Smarty.class.php");
-$smarty = new Smarty;
+include(SMARTY_DIR.'Smarty.class.php');
+$smarty = new Smarty();
 $smarty->caching = true;
 
 // only do db calls if cache doesn't exist
-if(!$smarty->is_cached("index.tpl")) {
+if(!$smarty->is_cached('index.tpl')) {
 
   // dummy up some data
   $address = "245 N 50th";
@@ -47,24 +46,26 @@ if(!$smarty->is_cached("index.tpl")) {
 
   $smarty->assign("Name","Fred");
   $smarty->assign("Address",$address);
-  $smarty->assign($db_data);
+  $smarty->assign('data', $db_data);
 
 }
 
 // display the output
-$smarty->display("index.tpl");
+$smarty->display('index.tpl');
 ?>
 ]]>
    </programlisting>
   </example>
-  <para>
+
+  <example>
+   <title>Other display() template resource examples</title>
+     <para>
    Use the syntax for <link
    linkend="template.resources">template resources</link> to
    display files outside of the
-   <link linkend="variable.template.dir">$template_dir</link> directory.
+   <link linkend="variable.template.dir">
+   <parameter>$template_dir</parameter></link> directory.
   </para>
-  <example>
-   <title>function display() template resource examples</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -84,8 +85,8 @@ $smarty->display('db:header.tpl');
    </programlisting>
   </example>
   <para>
-   See also <link linkend="api.fetch">fetch()</link> and
-   <link linkend="api.template.exists">template_exists()</link>.
+   See also <link linkend="api.fetch"><varname>fetch()</varname></link> and
+   <link linkend="api.template.exists"><varname>template_exists()</varname></link>.
   </para>
  </refsect1>
 </refentry>

@@ -16,22 +16,24 @@
    This loads
    <link linkend="config.files">config file</link>
    data and assigns it to
-   the template. This works identical to the template <link
-   linkend="language.function.config.load">{config_load}</link>
-   function.
+   the template. This works identically to the template
+   <link linkend="language.function.config.load">
+   <varname>{config_load}</varname></link> function.
   </para>
   <note>
    <title>Technical Note</title>
    <para>
     As of Smarty 2.4.0, assigned template variables are kept across
     invocations of
-    <link linkend="api.fetch">fetch()</link>
-    and <link linkend="api.display">display()</link>.
+    <link linkend="api.fetch"><varname>fetch()</varname></link>
+    and <link linkend="api.display"><varname>display()</varname></link>.
     Config vars loaded from
-    config_load() are always global scope. Config files are also
-    compiled for faster execution, and respect the <link
-    linkend="variable.force.compile">$force_compile</link> and <link
-    linkend="variable.compile.check">$compile_check</link> settings.
+    <varname>config_load()</varname> are always global in scope.
+    Config files are also  compiled for faster execution, and respect the
+    <link linkend="variable.force.compile">
+    <parameter>$force_compile</parameter></link> and
+    <link linkend="variable.compile.check">
+    <parameter>$compile_check</parameter></link> settings.
    </para>
   </note>
   <example>
@@ -50,11 +52,11 @@ $smarty->config_load('my.conf', 'foobar');
   </example>
   <para>
   See also
-  <link linkend="language.function.config.load">{config_load}</link>,
-  <link linkend="api.get.config.vars">get_config_vars()</link>,
-  <link linkend="api.clear.config">clear_config()</link>,
+  <link linkend="language.function.config.load"><varname>{config_load}</varname></link>,
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>,
+  <link linkend="api.clear.config"><varname>clear_config()</varname></link>,
   and
-  <link linkend="language.config.variables">config variables</link>
+  <link linkend="language.config.variables"><varname>config variables</varname></link>
   </para>
  </refsect1>
 </refentry>

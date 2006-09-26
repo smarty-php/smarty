@@ -33,13 +33,13 @@ $smarty->clear_config('foobar');
   </example>
   <para>
   See also
-  <link linkend="api.get.config.vars">get_config_vars()</link>,
-  <link linkend="language.config.variables">config variables</link>,
-  <link linkend="config.files">config files</link>,
-  <link linkend="language.function.config.load">{config_load}</link>,
-  <link linkend="api.config.load">config_load()</link>
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>,
+  <link linkend="language.config.variables"><varname>config variables</varname></link>,
+  <link linkend="config.files"><varname>config files</varname></link>,
+  <link linkend="language.function.config.load"><varname>{config_load}</varname></link>,
+  <link linkend="api.config.load"><varname>config_load()</varname></link>
   and
-  <link linkend="api.clear.assign">clear_assign()</link>
+  <link linkend="api.clear.assign"><varname>clear_assign()</varname></link>.
   </para>
  </refsect1>
 </refentry>

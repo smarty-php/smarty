@@ -12,7 +12,7 @@
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Pass in the template function name.
+   Pass in the template function <parameter>name</parameter>.
   </para>
   <example>
    <title>unregister_function</title>
@@ -29,10 +29,8 @@ $smarty->unregister_function('fetch');
   </example>
 
   <para>
-  See also
-  <link
-  linkend="api.register.function">register_function()
-  </link>.
+  See also <link linkend="api.register.function">
+  <varname>register_function()</varname></link>.
 </para>
 
  </refsect1>

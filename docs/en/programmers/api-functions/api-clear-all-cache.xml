@@ -23,16 +23,19 @@
 <?php
 // clear the entire cache
 $smarty->clear_all_cache();
+
+// clears all files over one hour old
+$smarty->clear_all_cache(3600);
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
   See also
-  <link linkend="api.clear.cache">clear_cache()</link>,
-  <link linkend="api.is.cached">is_cached()</link>
-  and
-  <link linkend="caching">caching</link>
+  <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>,
+  <link linkend="api.is.cached"><varname>is_cached()</varname></link>
+  and the
+  <link linkend="caching">caching</link> page.
   </para>
  </refsect1>
 </refentry>

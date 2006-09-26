@@ -18,42 +18,20 @@
    linkend="advanced.features.postfilters">template postfilters</link> for
    more information on how to setup a postfiltering function.
   </para>
-  <para>
-   The php-function callback <parameter>function</parameter> can be either
-   </para>
-   <orderedlist numeration="loweralpha">
-   <listitem>
-     <para>
-     a string  containing the function name
-     </para>
-   </listitem><listitem>
-     <para>
-      an array of the form
-     <literal>array(&amp;$object, $method)</literal> with
-     <literal>&amp;$object</literal> being a reference to an
-     object and <literal>$method</literal> being a string
-     containing the method-name
-     </para>
-   </listitem><listitem>
-     <para>
-      an array of the form
-     <literal>array(&amp;$class, $method)</literal> with
-     <literal>$class</literal> being a classname and
-     <literal>$method</literal> being a class method of that
-     class.
-     </para>
-   </listitem>
-   </orderedlist>
+   &api.register.snippet;
+
   <para>
   See also
-  <link linkend="api.unregister.postfilter">unregister_postfilter()</link>,
-  <link linkend="api.register.prefilter">register_prefilter()</link>,
-  <link linkend="api.register.outputfilter">register_ouputfilter()</link>,
-  <link linkend="api.load.filter">load_filter()</link>,
-  <link linkend="variable.autoload.filters">$autoload_filters</link>
-  and
-  <link linkend="advanced.features.outputfilters">template
-  output filters</link>.
+  <link linkend="api.unregister.postfilter">
+  <varname>unregister_postfilter()</varname></link>,
+  <link linkend="api.register.prefilter">
+  <varname>register_prefilter()</varname></link>,
+  <link linkend="api.load.filter"><varname>load_filter()</varname></link>,
+  <link linkend="variable.autoload.filters">
+  <parameter>$autoload_filters</parameter></link>
+  and the
+  <link linkend="advanced.features.outputfilters">template output filters</link>
+  section.
 </para>
 
  </refsect1>

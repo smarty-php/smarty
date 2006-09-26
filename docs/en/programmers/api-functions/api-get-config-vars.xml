@@ -22,25 +22,25 @@
 <![CDATA[
 <?php
 
-// get loaded config template var 'foo'
-$foo = $smarty->get_config_vars('foo');
+// get loaded config template var #foo#
+$myVar = $smarty->get_config_vars('foo');
 
 // get all loaded config template vars
-$config_vars = $smarty->get_config_vars();
+$all_config_vars = $smarty->get_config_vars();
 
 // take a look at them
-print_r($config_vars);
+print_r($all_config_vars);
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
    See also
-  <link linkend="api.clear.config">clear_config()</link>,
-   <link linkend="language.function.config.load">{config_load}</link>,
-  <link linkend="api.config.load">config_load()</link>
+  <link linkend="api.clear.config"><varname>clear_config()</varname></link>,
+   <link linkend="language.function.config.load"><varname>{config_load}</varname></link>,
+  <link linkend="api.config.load"><varname>config_load()</varname></link>
    and
-  <link linkend="api.get.template.vars">get_template_vars()</link>.
+  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>.
   </para>
  </refsect1>
 </refentry>

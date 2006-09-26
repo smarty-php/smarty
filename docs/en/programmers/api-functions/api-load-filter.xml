@@ -13,13 +13,14 @@
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   The first
-   argument specifies the type of the filter to load and can be one
-   of the following: 'pre', 'post', or 'output'. The second argument
-   specifies the name of the filter plugin, for example, 'trim'.
+   The first argument specifies the type of the filter to load and can be one
+   of the following: <literal>pre</literal>, <literal>post</literal> or
+   <literal>output</literal>.
+   The second argument specifies the <parameter>name</parameter> of the
+   filter plugin.
   </para>
   <example>
-   <title>loading filter plugins</title>
+   <title>Loading filter plugins</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -39,12 +40,12 @@ $smarty->load_filter('output', 'compress');
   </example>
   <para>
   See also
-  <link linkend="api.register.prefilter">register_prefilter()</link>,
-  <link linkend="api.register.postfilter">register_postfilter()</link>,
-  <link linkend="api.register.outputfilter">register_outputfilter()</link>,
-  <link linkend="variable.autoload.filters">$autoload_filters</link>
+  <link linkend="api.register.prefilter"><varname>register_prefilter()</varname></link>,
+  <link linkend="api.register.postfilter"><varname>register_postfilter()</varname></link>,
+  <link linkend="api.register.outputfilter"><varname>register_outputfilter()</varname></link>,
+  <link linkend="variable.autoload.filters"><parameter>$autoload_filters</parameter></link>
   and
-  <link linkend="advanced.features">Advanced features</link>.
+  <link linkend="advanced.features">advanced features</link>.
   </para>
  </refsect1>
 </refentry>

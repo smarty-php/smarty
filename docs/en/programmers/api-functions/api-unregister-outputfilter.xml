@@ -17,10 +17,10 @@
 
 <para>
   See also
-  <link linkend="api.register.outputfilter">register_outputfilter()</link>
+  <link linkend="api.register.outputfilter">
+  <varname>register_outputfilter()</varname></link>
   and
-  <link linkend="advanced.features.outputfilters">template
-  output filters</link>.
+  <link linkend="advanced.features.outputfilters">template output filters</link>.
 </para>
  </refsect1>
 </refentry>

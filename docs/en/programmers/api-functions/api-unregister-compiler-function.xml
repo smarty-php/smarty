@@ -18,11 +18,10 @@
 
   <para>
   See also
-  <link
-  linkend="api.register.compiler.function">register_compiler_function()
-  </link>
+  <link linkend="api.register.compiler.function">
+  <varname>register_compiler_function()</varname></link>
   and
-  <link linkend="plugins.compiler.functions">Plugin Compiler Functions</link>.
+  <link linkend="plugins.compiler.functions">plugin compiler functions</link>.
 </para>
 
  </refsect1>

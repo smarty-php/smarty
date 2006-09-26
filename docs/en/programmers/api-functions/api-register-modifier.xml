@@ -13,34 +13,11 @@
    <methodparam><type>mixed</type><parameter>impl</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Pass in the
-   template modifier name, followed by the PHP function that it
+   Pass in the template modifier name, followed by the PHP function that it
    implements it.
   </para>
-  <para>
-   The php-function callback <parameter>impl</parameter> can be either
-  </para>
-  <orderedlist numeration="loweralpha">
-  <listitem>
-    <para>a string containing the function name
-    </para>
-  </listitem><listitem>
-    <para>an array of the form <literal>array(&amp;$object,
-    $method)</literal> with   <literal>&amp;$object</literal>
-    being a reference to an
-    object and <literal>$method</literal> being a string
-    containing the method-name
-    </para>
-  </listitem><listitem>
-     <para>
-     an array of the form
-     <literal>array(&amp;$class, $method)</literal> with
-     <literal>$class</literal> being a classname and
-     <literal>$method</literal> being a class method of that
-     class.
-    </para>
-  </listitem>
-  </orderedlist>
+   &api.register.snippet;
+
 
   <example>
    <title>register_modifier()</title>
@@ -49,17 +26,16 @@
 <?php
 
 // let's map PHP's stripslashes function to a Smarty modifier.
-$smarty->register_modifier('sslash', 'stripslashes');
+$smarty->register_modifier('ss', 'stripslashes');
 
 ?>
 ]]>
 </programlisting>
-<para>template</para>
+<para>In the template, use <literal>ss</literal> to strip slashes.</para>
 <programlisting>
 <![CDATA[
 <?php
-{* use 'sslash' to strip slashes from variables *}
-{$var|sslash}
+{$var|ss}
 ?>
 ]]>
 </programlisting>
@@ -67,12 +43,12 @@ $smarty->register_modifier('sslash', 'stripslashes');
   </example>
    <para>
     See also
-    <link linkend="api.unregister.modifier">unregister_modifier()</link>,
-    <link linkend="api.register.function">register_function()</link>,
-    <link linkend="language.modifiers">modifiers</link>,
-    <link linkend="plugins">Extending Smarty with plugins</link>
+    <link linkend="api.unregister.modifier"><varname>unregister_modifier()</varname></link>,
+    <link linkend="api.register.function"><varname>register_function()</varname></link>,
+    <link linkend="language.modifiers">modifiers</link> section,
+    <link linkend="plugins">extending Smarty with plugins</link>
     and
-    <link linkend="plugins.modifiers">Creating Plugin modifiers</link>,
+    <link linkend="plugins.modifiers">creating plugin modifiers</link>,
  </para>
  </refsect1>
 </refentry>

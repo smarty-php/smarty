@@ -14,8 +14,8 @@
   <para>
    This is useful
    from within a custom function when you need direct access to a
-   <link linkend="api.register.object">registered object</link>. See
-   <link linkend="advanced.features.objects">objects</link> for more info.
+   <link linkend="api.register.object">registered object</link>. See the
+   <link linkend="advanced.features.objects">objects</link> page for more info.
   </para>
   <example>
    <title>get_registered_object()</title>
@@ -36,10 +36,10 @@ function smarty_block_foo($params, &$smarty)
   </example>
   <para>
   See also
-  <link linkend="api.register.object">register_object()</link>,
-  <link linkend="api.unregister.object">unregister_object()</link>
+  <link linkend="api.register.object"><varname>register_object()</varname></link>,
+  <link linkend="api.unregister.object"><varname>unregister_object()</varname></link>
   and
-  <link linkend="advanced.features.objects">objects section</link>
+  <link linkend="advanced.features.objects">objects page</link>
   </para>
  </refsect1>
 </refentry>

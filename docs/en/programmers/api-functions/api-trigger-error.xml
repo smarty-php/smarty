@@ -15,17 +15,18 @@
   <para>
    This function can be used to output an error message using Smarty.
    <parameter>level</parameter> parameter can be one of the values
-   used for the PHP
-   <ulink url="&url.php-manual;trigger_error">trigger_error()</ulink>
-   function, i.e. E_USER_NOTICE,
-   E_USER_WARNING, etc. By default it's E_USER_WARNING.
+   used for the PHP <ulink url="&url.php-manual;trigger_error">
+   <varname>trigger_error()</varname></ulink> function, eg:
+   <literal>E_USER_NOTICE</literal>, <literal>E_USER_WARNING</literal>, etc.
+   By default it's <literal>E_USER_WARNING</literal>.
   </para>
    <para>
     See also
-    <link linkend="variable.error.reporting">$error_reporting</link>,
+    <link linkend="variable.error.reporting">
+    <parameter>$error_reporting</parameter></link>,
     <link linkend="chapter.debugging.console">debugging</link>
     and
-    <link linkend="smarty.php.errors">Troubleshooting</link>.
+    <link linkend="smarty.php.errors">troubleshooting</link>.
  </para>
  </refsect1>
 </refentry>

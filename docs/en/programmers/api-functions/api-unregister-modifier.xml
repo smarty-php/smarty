@@ -12,7 +12,7 @@
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Pass in the template modifier name.
+   Pass in the template modifier <parameter>name</parameter>.
   </para>
   <example>
    <title>unregister_modifier()</title>
@@ -29,9 +29,9 @@ $smarty->unregister_modifier('strip_tags');
   </example>
  <para>
   See also
-  <link linkend="api.register.modifier">register_modifier()</link>
+  <link linkend="api.register.modifier"><varname>register_modifier()</varname></link>
   and
-  <link linkend="plugins.modifiers">Plugin modifiers</link>,
+  <link linkend="plugins.modifiers">plugin modifiers</link>,
  </para>
  </refsect1>
 </refentry>

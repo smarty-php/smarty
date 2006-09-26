@@ -19,11 +19,10 @@
   <example>
   <title>template_exists()</title>
     <para>
-    This example uses $_GET['page'] to include a content template. If
-    the template  doesnt exist then an error page is displayed instead.
-    </para>
-    <para>
-    The <filename>page_container.tpl</filename>
+    This example uses <literal>$_GET['page']</literal> to
+    <link linkend="language.function.include"><varname>{include}</varname></link>
+    a content template. If the template does not exist then an error page
+    is displayed instead. First the <filename>page_container.tpl</filename>
     </para>
     <programlisting role="php">
 <![CDATA[
@@ -33,14 +32,14 @@
 {include file='page_top.tpl'}
 
 {* include middle content page *}
-{include file=$page_mid}
+{include file=$content_template}
 
 {include file='page_footer.tpl'}
 </body>
 ]]>
   </programlisting>
   <para>
-  and the php script
+  And the php script
   </para>
   <programlisting role="php">
 <![CDATA[
@@ -50,9 +49,9 @@
 $mid_template = $_GET['page'].'.inc.tpl';
 
 if( !$smarty->template_exists($mid_template) ){
-    $mid_template = 'page_not_found.inc.tpl';
+    $mid_template = 'page_not_found.tpl';
 }
-$smarty->assign('page_mid', $mid_template);
+$smarty->assign('content_template', $mid_template);
 
 $smarty->display('page_container.tpl');
 
@@ -61,16 +60,13 @@ $smarty->display('page_container.tpl');
   </programlisting>
   </example>
 
-
-
-
   <para>
   See also
-  <link linkend="api.display">display()</link>,
-  <link linkend="api.fetch">fetch()</link>,
-  <link linkend="language.function.include">{include}</link>
+  <link linkend="api.display"><varname>display()</varname></link>,
+  <link linkend="api.fetch"><varname>fetch()</varname></link>,
+  <link linkend="language.function.include"><varname>{include}</varname></link>
   and
-  <link linkend="language.function.insert">{insert}</link>
+  <link linkend="language.function.insert"><varname>{insert}</varname></link>
   </para>
  </refsect1>
 </refentry>

@@ -14,7 +14,7 @@
 
  <para>
  See also
- <link linkend="api.register.object">register_object()</link>
+ <link linkend="api.register.object"><varname>register_object()</varname></link>
  and
  <link linkend="advanced.features.objects">objects section</link>
  </para>

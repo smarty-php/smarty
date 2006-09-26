@@ -19,13 +19,13 @@
   <para>
    See the
    <link linkend="advanced.features.objects">objects section</link>
-   for examples.
+   for more information.
   </para>
   <para>
    See also
-   <link linkend="api.get.registered.object">get_registered_object()</link>,
+   <link linkend="api.get.registered.object"><varname>get_registered_object()</varname></link>,
    and
-   <link linkend="api.unregister.object">unregister_object()</link>.
+   <link linkend="api.unregister.object"><varname>unregister_object()</varname></link>.
   </para>
  </refsect1>
 </refentry>

@@ -20,7 +20,7 @@
    Supply a valid <link
    linkend="template.resources">template resource</link>
    type and path. As an optional second parameter, you can pass a
-   cache id. See the <link linkend="caching">caching
+   <parameter>$cache id</parameter>, see the <link linkend="caching">caching
    section</link> for more information.
   </para>
   &parameter.compileid;
@@ -57,7 +57,6 @@ if(!$smarty->is_cached('index.tpl')) {
 $output = $smarty->fetch('index.tpl');
 
 // do something with $output here
-
 echo $output;
 ?>
 ]]>
@@ -69,7 +68,7 @@ echo $output;
    <example>
     <title>Using fetch() to send an email</title>
     <para>
-     The email_body.tpl template
+     The <filename>email_body.tpl</filename> template
     </para>
     <programlisting>
 <![CDATA[
@@ -80,17 +79,18 @@ Welcome and thankyou for signing up as a member of our user group,
 Click on the link below to login with your user name of '{$contact.login_id}'
 so you can post in our forums.
 
-http://{$smarty.server.SERVER_NAME}/index.php?page=login
+http://{$smarty.server.SERVER_NAME}/login/
 
 List master
 Some user group
 
-{include file="email_disclaimer.tpl"}
+{include file='email_disclaimer.tpl'}
 ]]>
     </programlisting>
     <para>
-     The email_disclaimer.tpl template which uses the
-     <link linkend="language.function.textformat">{textformat}</link> modifier.
+     The <filename>email_disclaimer.tpl</filename> template which uses the
+     <link linkend="language.function.textformat">
+     <varname>{textformat}</varname></link> modifier.
     </para>
     <programlisting>
 <![CDATA[
@@ -103,8 +103,9 @@ numbered word you have read
 ]]>
     </programlisting>
     <para>
-     and the php script using the PHP
-     <ulink url="&url.php-manual;function.mail">mail()</ulink> function
+     The php script using the PHP
+     <ulink url="&url.php-manual;function.mail">
+     <varname>mail()</varname></ulink> function
     </para>
     <programlisting role="php">
 <![CDATA[
@@ -125,11 +126,11 @@ mail($contact['email'], 'Subject', $smarty->fetch('email_body.tpl'));
 
   <para>
    See also
-   <link linkend="language.function.fetch">{fetch}</link>
-   <link linkend="api.display">display()</link>,
-   <link linkend="language.function.eval">{eval}</link>,
+   <link linkend="language.function.fetch"><varname>{fetch}</varname></link>
+   <link linkend="api.display"><varname>display()</varname></link>,
+   <link linkend="language.function.eval"><varname>{eval}</varname></link>,
    and
-   <link linkend="api.template.exists">template_exists()</link>.
+   <link linkend="api.template.exists"><varname>template_exists()</varname></link>.
   </para>
  </refsect1>
 </refentry>
