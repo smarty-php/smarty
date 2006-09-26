@@ -17,18 +17,21 @@
 
  <para>
   Including literal content is possible using <link
-  linkend="language.function.literal">{literal} .. {/literal}</link> blocks.
+  linkend="language.function.literal">
+  <varname>{literal}..{/literal}</varname></link> blocks.
   Similar to HTML entity usage, you can use <link
-  linkend="language.function.ldelim">{ldelim}</link>,<link
-  linkend="language.function.ldelim">{rdelim}</link> or <link
-  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
-  to display the current delimiters.
+  linkend="language.function.ldelim"><varname>{ldelim}</varname></link>,<link
+  linkend="language.function.ldelim"><varname>{rdelim}</varname></link> or <link
+  linkend="language.variables.smarty.ldelim">
+  <varname>{$smarty.ldelim}</varname></link> to display the current delimiters.
  </para>
 
  <para>
   It is often convenient to simply change Smarty's <link
-  linkend="variable.left.delimiter">$left_delimiter</link> and
-  <link linkend="variable.right.delimiter">$right_delimiter</link>.
+  linkend="variable.left.delimiter">
+  <parameter>$left_delimiter</parameter></link> and
+  <link linkend="variable.right.delimiter">
+  <parameter>$right_delimiter</parameter></link>.
  </para>
  <example>
   <title>changing delimiters example</title>
@@ -36,9 +39,9 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->left_delimiter = '<!--{';
 $smarty->right_delimiter = '}-->';
+
 $smarty->assign('foo', 'bar');
 $smarty->assign('name', 'Albert');
 $smarty->display('example.tpl');
@@ -47,7 +50,7 @@ $smarty->display('example.tpl');
 ]]>
   </programlisting>
   <para>
-   Where example.tpl is:
+   Where the template is:
   </para>
   <programlisting>
 <![CDATA[
@@ -62,9 +65,6 @@ Welcome <!--{$name}--> to Smarty
 ]]>
   </programlisting>
  </example>
- <para>
-  See also <link linkend="language.modifier.escape">escape modifier</link>
- </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

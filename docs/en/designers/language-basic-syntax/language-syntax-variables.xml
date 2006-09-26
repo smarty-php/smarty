@@ -13,8 +13,9 @@
   <link linkend="language.config.variables">Config file variables</link>
   are an exception to the $dollar syntax
   and are instead referenced with surrounding #hashmarks#, or
-  via the 
-  <link linkend="language.variables.smarty.config">$smarty.config</link> variable.
+  via the
+  <link linkend="language.variables.smarty.config">
+  <parameter>$smarty.config</parameter></link> variable.
  </para>
  <example>
   <title>Variables</title>
@@ -46,17 +47,20 @@ Many other combinations are allowed
 ]]>
   </programlisting>
  </example>
- 
- <para>Request variables such as $_GET, $_SESSION etc are available via the <emphasis role="bold">
- <link linkend="language.variables.smarty">$smarty</link></emphasis> reserved variable.
+
+ <para>Request variables such as <literal>$_GET</literal>,
+ <literal>$_SESSION</literal>, etc are available via the
+ reserved <link linkend="language.variables.smarty">
+ <parameter>$smarty</parameter></link> variable.
  </para>
- 
+
  <para>
-  See also <link linkend="language.variables.smarty">$smarty reserved variables</link>,
-  <link linkend="language.config.variables">Config Variables</link>
-  <link linkend="language.function.assign">{assign}</link>
+  See also <link linkend="language.variables.smarty">
+  <parameter>$smarty</parameter></link>,
+  <link linkend="language.config.variables">config variables</link>
+  <link linkend="language.function.assign"><varname>{assign}</varname></link>
   and
-  <link linkend="api.assign">assign()</link>.
+  <link linkend="api.assign"><varname>assign()</varname></link>.
  </para>
 </sect1>
 

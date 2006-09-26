@@ -9,7 +9,7 @@
   tags like so: <emphasis>{* this is a comment *}</emphasis>
   Smarty comments are NOT displayed in the final output of the template,
   unlike &lt;!-- HTML comments --&gt;
-  these are useful for making internal notes in the templates which no one will see;-).
+  these are useful for making internal notes in the templates which no one will see ;-)
  </para>
  <example>
   <title>Comments within a template</title>
@@ -25,7 +25,7 @@
 {* another single line smarty comment  *}
 <!-- HTML comment that is sent to the browser -->
 
-{* this multiline smarty 
+{* this multiline smarty
    comment is
    not sent to browser
 *}
@@ -34,10 +34,10 @@
 Multi line comment block with credits block
   @ author:         bg@example.com
   @ maintainer:     support@example.com
-  @ para:           var that sets block style 
+  @ para:           var that sets block style
   @ css:            the style output
 **********************************************************}
- 
+
 {* The header file with the main logo and stuff  *}
 {include file='header.tpl'}
 
@@ -53,7 +53,7 @@ Multi line comment block with credits block
 </select>
 *}
 
-{* cvs tag for a template, below the 36 SHOULD be an american currency 
+{* cvs tag for a template, below the 36 SHOULD be an american currency
 . however its converted in cvs.. *}
 {* &#36;Id: Exp &#36; *}
 {* $Id: *}

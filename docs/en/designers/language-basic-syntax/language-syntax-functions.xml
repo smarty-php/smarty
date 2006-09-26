@@ -8,11 +8,11 @@
   of function. These are processed and displayed by enclosing the
   function and its
   <link linkend="language.syntax.attributes">attributes</link>
-  within delimiters like so: {funcname
-  attr1='val1' attr2='val2'}.
+  within delimiters like so:
+  <literal>{funcname attr1='val1' attr2='val2'}</literal>.
  </para>
  <example>
-  <title>function syntax</title>
+  <title>function syntax </title>
   <programlisting>
 <![CDATA[
 {config_load file='colors.conf'}
@@ -30,28 +30,35 @@
 ]]>
   </programlisting>
  </example>
- <para>
+
+ <itemizedlist>
+ <listitem><para>
   Both <link linkend="language.builtin.functions">built-in functions</link>
   and <link linkend="language.custom.functions">custom functions</link>
   have the same syntax within templates.
-  </para>
-  <para>Built-in functions are the
+  </para></listitem>
+
+  <listitem><para>Built-in functions are the
   <emphasis role="bold">inner</emphasis> workings of Smarty, such as
-  <link linkend="language.function.if">{if}</link>,
-  <link linkend="language.function.section">{section}</link> and
-  <link linkend="language.function.strip">{strip}</link>.
+  <link linkend="language.function.if"><varname>{if}</varname></link>,
+  <link linkend="language.function.section"><varname>{section}</varname></link> and
+  <link linkend="language.function.strip"><varname>{strip}</varname></link>.
   There should be no need to change or modify them.
-  </para>
-  <para>Custom functions are <emphasis role="bold">additional</emphasis>
+  </para></listitem>
+
+  <listitem><para>Custom functions are
+  <emphasis role="bold">additional</emphasis>
   functions implemented via <link linkend="plugins">plugins</link>.
   They can be modified to your liking, or you can create new ones.
-  <link linkend="language.function.html.options">{html_options}</link> and
-  <link linkend="language.function.popup">{popup}</link>
+  <link linkend="language.function.html.options">
+  <varname>{html_options}</varname></link> and
+  <link linkend="language.function.popup"><varname>{popup}</varname></link>
   are examples of custom functions.
- </para>
- 
+ </para></listitem>
+</itemizedlist>
+
  <para>
- See also <link linkend="api.register.function">register_function()</link>
+ See also <link linkend="api.register.function"><varname>register_function()</varname></link>
  </para>
 </sect1>
 
