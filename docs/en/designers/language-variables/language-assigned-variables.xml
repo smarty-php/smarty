@@ -4,19 +4,21 @@
  <title>Variables assigned from PHP</title>
  <para>
   Variables that are
-  <link linkend="api.assign">assigned</link> from PHP are referenced by preceding them with
-  a dollar sign <literal>$</literal>. Variables assigned from within a
-  template with the <link linkend="language.function.assign">{assign}</link>
+  <link linkend="api.assign">assigned</link> from PHP are referenced by
+  preceding them with a dollar sign <literal>$</literal> (like php).
+  Variables assigned from within a  template with the
+  <link linkend="language.function.assign"><varname>{assign}</varname></link>
   function are also displayed this way.
  </para>
+
  <example>
-  <title>assigned variables</title>
+  <title>Assigned variables</title>
    <para> php script</para>
 <programlisting role="php">
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
+$smarty = new Smarty();
 
 $smarty->assign('firstname', 'Doug');
 $smarty->assign('lastname', 'Evans');
@@ -28,13 +30,13 @@ $smarty->display('index.tpl');
 ]]>
 </programlisting>
      <para>
-      where the content of index.tpl is:
+      where the content of <filename>index.tpl</filename> is:
      </para>
 <programlisting>
 <![CDATA[
 Hello {$firstname} {$lastname}, glad to see you can make it.
 <br />
-{* this will not work as $vars are case sensitive *}
+{* this will not work as $variables are case sensitive *}
 This weeks meeting is in {$meetingplace}.
 {* this will work *}
 This weeks meeting is in {$meetingPlace}.
@@ -42,7 +44,7 @@ This weeks meeting is in {$meetingPlace}.
    </programlisting>
 
   <para>
-   This will output:
+   This above would output:
   </para>
   <screen>
 <![CDATA[
@@ -53,6 +55,8 @@ This weeks meeting is in New York.
 ]]>
   </screen>
  </example>
+
+
  <sect2 id="language.variables.assoc.arrays">
   <title>Associative arrays</title>
   <para>
@@ -61,7 +65,7 @@ This weeks meeting is in New York.
    symbol.
   </para>
   <example>
-   <title>accessing associative array variables</title>
+   <title>Accessing associative array variables</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -77,7 +81,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    where the content of index.tpl is:
+    where the content of <filename>index.tpl</filename> is:
    </para>
    <programlisting>
 <![CDATA[
@@ -101,14 +105,15 @@ zaphod@slartibartfast.example.com<br />
    </screen>
   </example>
  </sect2>
+
+
  <sect2 id="language.variables.array.indexes">
   <title>Array indexes</title>
   <para>
-   You can reference arrays by their index, much like native PHP
-   syntax.
+   You can reference arrays by their index, much like native PHP syntax.
   </para>
   <example>
-   <title>accessing arrays by index</title>
+   <title>Accessing arrays by index</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -123,7 +128,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    where index.tpl is:
+    where <filename>index.tpl</filename> is:
    </para>
    <programlisting>
 <![CDATA[
@@ -147,18 +152,20 @@ zaphod@slartibartfast.example.com<br />
    </screen>
   </example>
  </sect2>
+
+
  <sect2 id="language.variables.objects">
   <title>Objects</title>
   <para>
    Properties of <link linkend="advanced.features.objects">objects</link>
    assigned from PHP can be referenced by specifying the property
-   name after the '-&gt;' symbol.
+   name after the <literal>-&gt;</literal> symbol.
   </para>
   <example>
-   <title>accessing object properties</title>
+   <title>Accessing object properties</title>
    <programlisting>
 <![CDATA[
-name: {$person->name}<br />
+name:  {$person->name}<br />
 email: {$person->email}<br />
 ]]>
    </programlisting>
@@ -167,7 +174,7 @@ email: {$person->email}<br />
    </para>
    <screen>
 <![CDATA[
-name: Zaphod Beeblebrox<br />
+name:  Zaphod Beeblebrox<br />
 email: zaphod@slartibartfast.example.com<br />
 ]]>
    </screen>

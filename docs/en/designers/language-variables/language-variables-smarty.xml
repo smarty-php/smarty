@@ -3,21 +3,26 @@
 <sect1 id="language.variables.smarty">
  <title>{$smarty} reserved variable</title>
  <para>
-  The PHP reserved {$smarty} variable can be used to access several
-  enviroment and request variables. The full list of them follows.
+  The PHP reserved <parameter>{$smarty}</parameter> variable can be used to
+  access several enviroment and request variables.
+  The full list of them follows.
  </para>
+
  <sect2 id="language.variables.smarty.request">
   <title>Request variables</title>
   <para>
    The <ulink url="&url.php-manual;reserved.variables">request variables
-   </ulink> such as $_GET, $_POST, $_COOKIE, $_SERVER, $_ENV and $_SESSION
-   (see <link linkend="variable.request.vars.order">$request_vars_order</link>
-   and <link
-   linkend="variable.request.use.auto.globals">$request_use_auto_globals</link>
-   ) can be accessed as demonstrated in the examples below:
+   </ulink> such as <literal>$_GET</literal>, <literal>$_POST</literal>,
+   <literal>$_COOKIE</literal>, <literal>$_SERVER</literal>,
+   <literal>$_ENV</literal> and <literal>$_SESSION</literal>
+   (see <link linkend="variable.request.vars.order">
+   <varname>$request_vars_order</varname></link>
+   and <link  linkend="variable.request.use.auto.globals">
+   <varname>$request_use_auto_globals</varname></link>)
+   can be accessed as demonstrated in the examples below:
   </para>
   <example>
-   <title>displaying request variables</title>
+   <title>Displaying request variables</title>
    <programlisting>
 <![CDATA[
 {* display value of page from URL ($_GET) http://www.example.com/index.php?page=foo *}
@@ -45,8 +50,8 @@
   </example>
   <note>
    <para>
-    For historical reasons {$SCRIPT_NAME} can be accessed
-    directly, although {$smarty.server.SCRIPT_NAME} is the
+    For historical reasons <parameter>{$SCRIPT_NAME}</parameter> can be accessed
+    directly, although <parameter>{$smarty.server.SCRIPT_NAME}</parameter> is the
     proposed way to access this value.
    </para>
 <programlisting>
@@ -57,45 +62,53 @@
 </programlisting>
   </note>
  </sect2>
+
  <sect2 id="language.variables.smarty.now">
   <title>{$smarty.now}</title>
   <para>
    The current <ulink url="&url.php-manual;function.time">timestamp</ulink>
-   can be accessed with {$smarty.now}. The  value reflects the number of
-   seconds passed since the so-called Epoch (January 1, 1970)
+   can be accessed with <parameter>{$smarty.now}</parameter>.
+   The  value reflects the number of
+   seconds passed since the so-called Epoch on January 1, 1970,
    and can be passed directly to the
-   <link linkend="language.modifier.date.format">date_format</link>
-   modifier for display purposes. Note that time() is called each invocation. 
-   ie a script that takes 3 seconds to execute with $smarty.now at start and end will show the 3 seconds difference.
+   <link linkend="language.modifier.date.format"><varname>date_format</varname>
+   </link> modifier for display. Note that
+   <ulink url="&url.php-manual;function.time"><varname>time()</varname></ulink>
+    is called each invocation; eg a script that takes three seconds to execute
+    with a call to <parameter>$smarty.now</parameter> at start and end
+    will show the three second difference.
   </para>
   <example>
-   <title>using {$smarty.now}</title>
+   <title>Using {$smarty.now}</title>
    <programlisting>
 <![CDATA[
 {* use the date_format modifier to show current date and time *}
-{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
+{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}
 ]]>
    </programlisting>
   </example>
  </sect2>
+
  <sect2 id="language.variables.smarty.const">
   <title>{$smarty.const}</title>
   <para>
    You can access PHP constant values directly. See also <link
-   linkend="smarty.constants">smarty constants</link>
+   linkend="smarty.constants">smarty constants</link>.
   </para>
   <example>
-   <title>using {$smarty.const} to access constants</title>
+   <title>Using {$smarty.const} to access a constant</title>
 <programlisting role="php">
 <![CDATA[
+<?php
 // the constant defined in php
-define('_MY_CONST_VAL','CHERRIES');
+define('MY_CONST_VAL','CHERRIES');
+?>
 ]]>
 </programlisting>
+<para>Output the constant in a template with</para>
 <programlisting>
 <![CDATA[
-{* the output of php constant in the template *}
-{$smarty.const._MY_CONST_VAL}
+{$smarty.const.MY_CONST_VAL}
 ]]>
 </programlisting>
   </example>
@@ -104,41 +117,47 @@ define('_MY_CONST_VAL','CHERRIES');
  <sect2 id="language.variables.smarty.capture">
   <title>{$smarty.capture}</title>
   <para>
-   Template output captured via the <link
-   linkend="language.function.capture">{capture}..{/capture}</link>
-   construct can be accessed using the {$smarty.capture} variable. See the section on
-   <link linkend="language.function.capture">{capture}</link> for an
-   example.
+   Template output captured via the built-in
+   <link linkend="language.function.capture">
+   <varname>{capture}..{/capture}</varname></link> function can be accessed
+   using the <parameter>{$smarty.capture}</parameter> variable.
+    See the <link linkend="language.function.capture">
+    <varname>{capture}</varname></link> page for more information.
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.config">
   <title>{$smarty.config}</title>
   <para>
-   {$smarty} variable can be used to refer to loaded <link
-   linkend="language.config.variables">config variables</link>.
-   {$smarty.config.foo} is a synonym for {#foo#}. See the section on
-   <link linkend="language.function.config.load">{config_load}</link>
-   for an example.
+   <parameter>{$smarty.config}</parameter> variable can be used to refer
+   to loaded <link linkend="language.config.variables">config variables</link>.
+   <parameter>{$smarty.config.foo}</parameter> is a synonym for
+   <parameter>{#foo#}</parameter>. See the
+   <link linkend="language.function.config.load">{config_load}</link> page
+   for more info.
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.loops">
   <title>{$smarty.section}, {$smarty.foreach}</title>
   <para>
-   {$smarty} variable can be used to refer to
-   <link linkend="language.function.section">{section}</link> and
-   <link linkend="language.function.foreach">{foreach}</link>
-   loop properties. These has very useful values such as .first .index etc
+   The <parameter>{$smarty.section}</parameter> and
+   <parameter>{$smarty.foreach}</parameter> variables can be used to refer to
+   <link linkend="language.function.section"><varname>{section}</varname></link>
+   and
+   <link linkend="language.function.foreach"><varname>{foreach}</varname></link>
+   loop properties respectfully. These have some very useful values such as
+   <varname>.first</varname>, <varname>.index</varname>, etc.
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.template">
   <title>{$smarty.template}</title>
   <para>
-   Returns the name of the current template being
-   processed. This example shows the container.tpl and the included banner.tpl 
-   with {$smarty.template} within both
+   Returns the name of the current template being  processed.
+   The following example shows the <filename>container.tpl</filename> and the
+   <filename>included banner.tpl</filename> with
+   <parameter>{$smarty.template}</parameter> within both.
   </para>
 <programlisting>
 <![CDATA[
@@ -156,8 +175,7 @@ banner.tpl
 ]]>
 </programlisting>
  </sect2>
- 
- 
+
  <sect2 id="language.variables.smarty.version">
   <title>{$smarty.version}</title>
   <para>
@@ -168,19 +186,19 @@ banner.tpl
 <div id="footer">Powered by Smarty {$smarty.version}</div>
 ]]>
 </programlisting>
-  
-  
  </sect2>
+
  <sect2 id="language.variables.smarty.ldelim">
   <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
   <para>
-   These variables are used for printing the left-delimiter and right-delimiter value literally,
-   the same as <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+   These variables are used for printing the left-delimiter and right-delimiter
+   value literally, the same as <link linkend="language.function.ldelim">
+   <varname>{ldelim},{rdelim}</varname></link>.
   </para>
   <para>
    See also
-   <link linkend="language.syntax.variables">Variables</link> and
-   <link linkend="language.config.variables">Config Variables</link>
+   <link linkend="language.assigned.variables">assigned variables</link> and
+   <link linkend="language.config.variables">config variables</link>
   </para>
  </sect2>
 </sect1>

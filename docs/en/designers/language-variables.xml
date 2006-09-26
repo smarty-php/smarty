@@ -8,22 +8,34 @@
  </para>
  <para>
   Variables in Smarty can be either displayed directly or used as arguments
-  for <link linkend="language.syntax.functions">function</link>
+  for <link linkend="language.syntax.functions">function</link>,
   <link linkend="language.syntax.attributes">attributes</link> and
   <link linkend="language.modifiers">modifiers</link>, inside conditional expressions,
   etc. To print a variable, simply enclose it in the
   <link linkend="variable.left.delimiter">delimiters</link> so that it
-  is the only thing contained between them. Examples:
+  is the only thing contained between them.
+<example>
+<title>Example variables</title>
   <programlisting>
 <![CDATA[
 {$Name}
+
+{$product.part_no} <b>{$product.description}</b>
 
 {$Contacts[row].Phone}
 
 <body bgcolor="{#bgcolor#}">
 ]]>
   </programlisting>
+</example>
+<note>
+<title>Top Tip</title>
+<para>As easy way to examine Smarty variables is with the
+<link linkend="chapter.debugging.console">debugging console</link>.
+</para>
+</note>
  </para>
+
 
  &designers.language-variables.language-assigned-variables;
  &designers.language-variables.language-config-variables;

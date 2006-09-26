@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
   <sect1 id="language.config.variables">
-			<title>Variables loaded from config files</title>
-			<para>
+  <title>Variables loaded from config files</title>
+  <para>
  Variables that are loaded from the
  <link linkend="config.files">config files</link>
- are referenced by
-			 enclosing them within hash marks (#), or with the smarty variable
-			 <link
-			 linkend="language.variables.smarty.config">$smarty.config</link>.
-			 The second syntax is useful for embedding into quoted attribute
-			 values.
-			</para>
+ are referenced by enclosing them within <literal>#hash marks#</literal>,
+ or with the smarty variable
+ <link linkend="language.variables.smarty.config">
+ <parameter>$smarty.config</parameter></link>.
+  The later syntax is useful for embedding into quoted attribute values.
+  </para>
    <example>
     <title>config variables</title>
     <para>
-     foo.conf:
+     Example config file - <filename>foo.conf</filename>:
     </para>
     <programlisting>
 <![CDATA[
 pageTitle = "This is mine"
-bodyBgColor = "#eeeeee"
-tableBorderSize = "3"
+bodyBgColor = '#eeeeee'
+tableBorderSize = 3
 tableBgColor = "#bbbbbb"
 rowBgColor = "#cccccc"
 ]]>
     </programlisting>
     <para>
-     index.tpl:
+     A template demonstrating the <parameter>#hash#</parameter> method:
     </para>
     <programlisting>
 <![CDATA[
-{config_load file="foo.conf"}
+{config_load file='foo.conf'}
 <html>
 <title>{#pageTitle#}</title>
 <body bgcolor="{#bodyBgColor#}">
 <table border="{#tableBorderSize#}" bgcolor="{#tableBgColor#}">
 <tr bgcolor="{#rowBgColor#}">
-	<td>First</td>
-	<td>Last</td>
-	<td>Address</td>
+    <td>First</td>
+    <td>Last</td>
+    <td>Address</td>
 </tr>
 </table>
 </body>
@@ -47,19 +46,21 @@ rowBgColor = "#cccccc"
 ]]>
     </programlisting>
     <para>
-     index.tpl: (alternate syntax)
+     A template demonstrating the
+     <link linkend="language.variables.smarty.config">
+     <parameter>$smarty.config</parameter></link> method:
     </para>
     <programlisting>
 <![CDATA[
-{config_load file="foo.conf"}
+{config_load file='foo.conf'}
 <html>
 <title>{$smarty.config.pageTitle}</title>
 <body bgcolor="{$smarty.config.bodyBgColor}">
 <table border="{$smarty.config.tableBorderSize}" bgcolor="{$smarty.config.tableBgColor}">
 <tr bgcolor="{$smarty.config.rowBgColor}">
-	<td>First</td>
-	<td>Last</td>
-	<td>Address</td>
+    <td>First</td>
+    <td>Last</td>
+    <td>Address</td>
 </tr>
 </table>
 </body>
@@ -67,7 +68,7 @@ rowBgColor = "#cccccc"
 ]]>
     </programlisting>
     <para>
-     this will output for both examples:
+     Both examples would output:
     </para>
     <screen>
 <![CDATA[
@@ -90,7 +91,8 @@ rowBgColor = "#cccccc"
   Config file variables cannot be used until
   after they are loaded in from a config file. This procedure is
   explained later in this document under
-  <link linkend="language.function.config.load"><command>{config_load}</command></link>.
+  <link linkend="language.function.config.load">
+  <varname>{config_load}</varname></link>.
 </para>
 <para>
   See also <link linkend="language.syntax.variables">Variables</link> and
