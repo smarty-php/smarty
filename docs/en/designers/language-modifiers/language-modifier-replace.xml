@@ -3,10 +3,11 @@
  <sect1 id="language.modifier.replace">
   <title>replace</title>
     <para>
-     A simple search and replace on a variable. This is equivalent to the PHP
-     <ulink url="&url.php-manual;str_replace">str_replace()</ulink> function.
+     A simple search and replace on a variable. This is equivalent to the PHP's
+     <ulink url="&url.php-manual;str_replace">
+     <varname>str_replace()</varname></ulink> function.
   </para>
-  
+
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -64,7 +65,7 @@ $smarty->assign('articleTitle', "Child's Stool Great for Use in Garden.");
 ]]>
    </programlisting>
    <para>
-    This should output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -75,8 +76,10 @@ Child's   Stool   Great   for   Use   in   Garden.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.regex.replace">regex_replace</link>
-   and <link linkend="language.modifier.escape">escape</link>.
+   See also
+   <link linkend="language.modifier.regex.replace"><varname>regex_replace</varname></link>
+   and
+   <link linkend="language.modifier.escape"><varname>escape</varname></link>.
   </para>
  </sect1>
 

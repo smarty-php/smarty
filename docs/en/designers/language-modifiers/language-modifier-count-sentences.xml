@@ -10,7 +10,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-    
+
 $smarty->assign('articleTitle',
                  'Two Soviet Ships Collide - One Dies.
                  Enraged Cow Injures Farmer with Axe.'
@@ -29,7 +29,7 @@ $smarty->assign('articleTitle',
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -39,9 +39,11 @@ Two Soviet Ships Collide - One Dies. Enraged Cow Injures Farmer with Axe.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.count.characters">count_characters</link>,
-   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> and
-   <link linkend="language.modifier.count.words">count_words</link>.
+   See also
+   <link linkend="language.modifier.count.characters"><varname>count_characters</varname></link>,
+   <link linkend="language.modifier.count.paragraphs"><varname>count_paragraphs</varname></link>
+   and
+   <link linkend="language.modifier.count.words"><varname>count_words</varname></link>.
   </para>
  </sect1>
 

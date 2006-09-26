@@ -5,17 +5,19 @@
     <para>
      This is used to set a default value for a variable. If the variable
      is unset or an empty string, the given default value is printed instead.
-     Default takes one argument.
+     Default takes the one argument.
   </para>
      <para>
      <note>
       <para>
-       With error_reporting(E_ALL), undeclared variables will always throw an error within the template. This function
-       is useful for replacing null or zero length strings. 
+       With <ulink url="&url.php-manual;error_reporting">
+       <varname>error_reporting(E_ALL)</varname></ulink>,
+       undeclared variables will always throw an error within the template.
+       This function is useful for replacing null or zero length strings.
     </para>
     </note>
     </para>
-  
+
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -52,7 +54,7 @@
 <?php
 
 $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
-$smarty->assign('email','');
+$smarty->assign('email', '');
 
 ?>
 ]]>
@@ -68,7 +70,7 @@ $smarty->assign('email','');
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -79,8 +81,10 @@ No email address available
    </screen>
   </example>
   <para>
-   See also <link linkend="tips.default.var.handling">Default Variable Handling</link>
-   and <link linkend="tips.blank.var.handling">Blank Variable Handling</link>.
+   See also the
+   <link linkend="tips.default.var.handling">default variable handling</link>
+   and the
+   <link linkend="tips.blank.var.handling">blank variable handling</link> pages.
   </para>
  </sect1>
 

@@ -3,12 +3,12 @@
  <sect1 id="language.modifier.indent">
   <title>indent</title>
     <para>
-     This indents a string at each line, default is 4. As
+     This indents a string on each line, default is 4. As
      an optional parameter, you can specify the number of characters to
      indent. As an optional second parameter, you can specify the
-     character to use to indent with. (Use "\t" for tabs.)
+     character to use to indent with eg use <literal>"\t"</literal> for a tab.
   </para>
-  
+
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -50,14 +50,12 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-    
+
 $smarty->assign('articleTitle',
                 'NJ judge to rule on nude beach.
 Sun or rain expected today, dark tonight.
 Statistics show that teen pregnancy drops off significantly after 25.'
                 );
-
-
 ?>
 ]]>
    </programlisting>
@@ -76,7 +74,7 @@ Statistics show that teen pregnancy drops off significantly after 25.'
 ]]>
    </programlisting>
    <para>
-    this will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -99,9 +97,11 @@ Statistics show that teen pregnancy drops off significantly after 25.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.strip">strip</link>,
-   <link linkend="language.modifier.wordwrap">wordwrap</link>
-   and <link linkend="language.modifier.spacify">spacify</link>.
+   See also
+   <link linkend="language.modifier.strip"><varname>strip</varname></link>,
+   <link linkend="language.modifier.wordwrap"><varname>wordwrap</varname></link>
+   and
+   <link linkend="language.modifier.spacify"><varname>spacify</varname></link>.
   </para>
  </sect1>
 

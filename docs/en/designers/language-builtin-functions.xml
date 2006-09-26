@@ -3,20 +3,20 @@
 <chapter id="language.builtin.functions">
  <title>Built-in Functions</title>
  <para>
-  Smarty comes with several built-in functions. These built-in functions 
+  Smarty comes with several built-in functions. These built-in functions
   are the integral part of the smarty template engine. You cannot create your own
   <link linkend="language.custom.functions">custom functions</link>
-  with the same name; and you  should  not need to 
+  with the same name; and you  should  not need to
   modify the built-in functions.
  </para>
  <para>
- A few on these functions have an <emphasis role="bold">assign</emphasis> 
- attribute which collects
- the result the function to a named variable within a template instead of being output;
- much like the <link linkend="language.function.assign">{assign}</link> function.
+ A few on these functions have an <parameter>assign</parameter>
+ attribute which collects the result the function to a named
+ variable within a template instead of being output;
+ much like the <link linkend="language.function.assign">
+ <varname>{assign}</varname></link> function.
  </para>
 
- 
  &designers.language-builtin-functions.language-function-capture;
  &designers.language-builtin-functions.language-function-config-load;
  &designers.language-builtin-functions.language-function-foreach;
@@ -29,7 +29,7 @@
  &designers.language-builtin-functions.language-function-php;
  &designers.language-builtin-functions.language-function-section;
  &designers.language-builtin-functions.language-function-strip;
- 
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

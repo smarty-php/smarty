@@ -10,7 +10,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-    
+
 $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
 
 ?>
@@ -36,10 +36,12 @@ Dealers Will Hear Car Talk at Noon.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.count.characters">count_characters</link>,
-   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> and
-   <link linkend="language.modifier.count.sentences">count_sentences</link>.
-  </para>		
+   See also
+   <link linkend="language.modifier.count.characters"><varname>count_characters</varname></link>,
+   <link linkend="language.modifier.count.paragraphs"><varname>count_paragraphs</varname></link>
+   and
+   <link linkend="language.modifier.count.sentences"><varname>count_sentences</varname></link>.
+  </para>
  </sect1>
 
 <!-- Keep this comment at the end of the file

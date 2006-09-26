@@ -26,7 +26,7 @@
       <entry>1</entry>
       <entry>boolean</entry>
       <entry>No</entry>
-      <entry>false</entry>
+      <entry>&false;</entry>
       <entry>This determines whether or not to include
       whitespace characters in the count.</entry>
      </row>
@@ -56,7 +56,7 @@ $smarty->assign('articleTitle', 'Cold Wave Linked to Temperatures.');
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -68,9 +68,9 @@ Cold Wave Linked to Temperatures.
   </example>
   <para>
    See also
-   <link linkend="language.modifier.count.words">count_words</link>,
-   <link linkend="language.modifier.count.sentences">count_sentences</link> and
-   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>.
+   <link linkend="language.modifier.count.words"><varname>count_words</varname></link>,
+   <link linkend="language.modifier.count.sentences"><varname>count_sentences</varname></link> and
+   <link linkend="language.modifier.count.paragraphs"><varname>count_paragraphs</varname></link>.
   </para>
  </sect1>
 

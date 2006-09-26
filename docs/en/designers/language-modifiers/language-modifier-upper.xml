@@ -4,21 +4,20 @@
   <title>upper</title>
   <para>
    This is used to uppercase a variable. This is equivalent to the PHP
-   <ulink url="&url.php-manual;strtoupper">strtoupper()</ulink> function.
+   <ulink url="&url.php-manual;strtoupper">
+   <varname>strtoupper()</varname></ulink> function.
   </para>
   <example>
    <title>upper</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-
 $smarty->assign('articleTitle', "If Strike isn't Settled Quickly it may Last a While.");
-
 ?>
 ]]>
    </programlisting>
    <para>
-    where template is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[
@@ -27,7 +26,7 @@ $smarty->assign('articleTitle', "If Strike isn't Settled Quickly it may Last a W
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -37,8 +36,10 @@ IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.lower">lower</link> and
-   <link linkend="language.modifier.capitalize">capitalize</link>.
+   See also
+   <link linkend="language.modifier.lower"><varname>lower</varname></link>
+    and
+   <link linkend="language.modifier.capitalize"><varname>capitalize</varname></link>.
   </para>
  </sect1>
 

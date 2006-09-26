@@ -3,8 +3,9 @@
  <sect1 id="language.modifier.spacify">
   <title>spacify</title>
     <para>
-     spacify is a way to insert a space between every character of a variable.
-     You can optionally pass a different character (or string) to insert.
+     <varname>spacify</varname> is a way to insert a space between every
+     character of a variable.
+     You can optionally pass a different character or string to insert.
   </para>
   <informaltable frame="all">
    <tgroup cols="5">
@@ -57,7 +58,7 @@ $smarty->assign('articleTitle', 'Something Went Wrong in Jet Crash, Experts Say.
 ]]>
    </programlisting>
    <para>
-    This should output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -68,8 +69,10 @@ S^^o^^m^^e^^t^^h^^i^^n^^g^^ .... snip .... ^^e^^r^^t^^s^^ ^^S^^a^^y^^.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.wordwrap">wordwrap</link>
-   and <link linkend="language.modifier.nl2br">nl2br</link>.
+   See also
+   <link linkend="language.modifier.wordwrap"><varname>wordwrap</varname></link>
+   and
+   <link linkend="language.modifier.nl2br"><varname>nl2br</varname></link>.
   </para>
  </sect1>
 

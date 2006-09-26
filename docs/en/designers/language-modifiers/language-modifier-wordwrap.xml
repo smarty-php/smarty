@@ -3,15 +3,18 @@
  <sect1 id="language.modifier.wordwrap">
   <title>wordwrap</title>
     <para>
-     <command>wordwrap</command> wraps a string to a column width, default is 80. As
-     an optional second parameter, you can specify a string of text
-     to wrap the text to the next line (default is carriage return \n).
-     By default, {wordwrap} will attempt to wrap at a word boundary. If
-     you want to cut off at the exact character length, pass the optional
-     third parameter of true. This is equivalent to the PHP <ulink
-     url="&url.php-manual;wordwrap">wordwrap()</ulink> function.
+     Wraps a string to a column width,
+     the default is 80. As an optional second parameter,
+     you can specify a string of text
+     to wrap the text to the next line, the default is a carriage return
+     <literal>"\n"</literal>.
+     By default, <varname>wordwrap</varname> will attempt to wrap at a word
+     boundary. If  you want to cut off at the exact character length, pass
+     the optional third parameter as &true;. This is equivalent to the PHP
+     <ulink url="&url.php-manual;wordwrap"><varname>wordwrap()</varname></ulink>
+     function.
   </para>
-  
+
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -48,9 +51,9 @@
       <entry>3</entry>
       <entry>boolean</entry>
       <entry>No</entry>
-      <entry>false</entry>
+      <entry>&false;</entry>
       <entry>This determines whether or not to wrap at a
-       word boundary (false), or at the exact character (true).</entry>
+       word boundary (&false;), or at the exact character (&true;).</entry>
      </row>
     </tbody>
    </tgroup>
@@ -61,7 +64,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-    
+
 $smarty->assign('articleTitle',
                 "Blind woman gets new kidney from dad she hasn't seen in years."
                );
@@ -70,23 +73,23 @@ $smarty->assign('articleTitle',
 ]]>
    </programlisting>
    <para>
-where template is
+    Where template is
    </para>
    <programlisting>
-<![CDATA[ 
+<![CDATA[
 {$articleTitle}
 
 {$articleTitle|wordwrap:30}
-    
+
 {$articleTitle|wordwrap:20}
-    
+
 {$articleTitle|wordwrap:30:"<br />\n"}
-    
+
 {$articleTitle|wordwrap:30:"\n":true}
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -112,9 +115,10 @@ years.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.nl2br">nl2br</link>
+   See also
+   <link linkend="language.modifier.nl2br"><varname>nl2br</varname></link>
    and
-   <link linkend="language.function.textformat">{textformat}</link>.
+   <link linkend="language.function.textformat"><varname>{textformat}</varname></link>.
   </para>
  </sect1>
 

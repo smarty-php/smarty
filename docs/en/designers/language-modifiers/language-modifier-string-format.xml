@@ -4,10 +4,11 @@
   <title>string_format</title>
     <para>
      This is a way to format strings, such as decimal numbers and such.
-     Use the syntax for <ulink url="&url.php-manual;sprintf">sprintf()</ulink>
+     Use the syntax for
+     <ulink url="&url.php-manual;sprintf"><varname>sprintf()</varname></ulink>
      for the formatting.
   </para>
-  
+
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -58,7 +59,7 @@ $smarty->assign('number', 23.5787446);
 ]]>
    </programlisting>
    <para>
-    This should output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -68,8 +69,10 @@ $smarty->assign('number', 23.5787446);
 ]]>
    </screen>
   </example>
+
   <para>
-   See also <link linkend="language.modifier.date.format">date_format</link>.
+   See also
+   <link linkend="language.modifier.date.format"><varname>date_format</varname></link>.
   </para>
  </sect1>
 

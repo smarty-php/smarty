@@ -4,23 +4,24 @@
   <title>lower</title>
   <para>
    This is used to lowercase a variable. This is equivalent to the PHP
-   <ulink url="&url.php-manual;strtolower">strtolower()</ulink> function.
+   <ulink url="&url.php-manual;strtolower">
+   <varname>strtolower()</varname></ulink> function.
   </para>
   <example>
    <title>lower</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-    
+
 $smarty->assign('articleTitle', 'Two Convicts Evade Noose, Jury Hung.');
-    
+
 ?>
 ]]>
    </programlisting>
    <para>
     Where template is:
    </para>
-   <programlisting> 
+   <programlisting>
 <![CDATA[
 {$articleTitle}
 {$articleTitle|lower}
@@ -37,8 +38,10 @@ two convicts evade noose, jury hung.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.upper">upper</link> and
-   <link linkend="language.modifier.capitalize">Capitalize</link>.
+   See also
+   <link linkend="language.modifier.upper"><varname>upper</varname></link>
+   and
+   <link linkend="language.modifier.capitalize"><varname>capitalize</varname></link>.
   </para>
  </sect1>
 

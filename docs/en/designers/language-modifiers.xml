@@ -3,17 +3,20 @@
 <chapter id="language.modifiers">
  <title>Variable Modifiers</title>
  <para>
-  Variable modifiers can be applied to 
-  <link linkend="language.syntax.variables">variables</link>, 
-  <link linkend="language.custom.functions">custom functions</link> or strings. To
-  apply a modifier, specify the value followed by a <literal>|</literal>
+  Variable modifiers can be applied to
+  <link linkend="language.syntax.variables">variables</link>,
+  <link linkend="language.custom.functions">custom functions</link> or strings.
+  To apply a modifier, specify the value followed by a <literal>|</literal>
   (pipe) and the modifier name. A modifier may accept additional parameters
   that affect its behavior. These parameters follow the modifer name and are
-  separated by a <literal>:</literal> (colon). Additionally
-  all php-functions can be used as modifiers implicitly; more below.
+  separated by a <literal>:</literal> (colon). Also,
+  <emphasis>all php-functions can be used as modifiers implicitly</emphasis>
+  (more below) and modifiers can be
+  <link linkend="language.combining.modifiers">combined</link>.
+  .
  </para>
  <example>
-  <title>modifier examples</title>
+  <title>Modifier examples</title>
   <programlisting>
 <![CDATA[
 {* apply modifier to a variable *}
@@ -53,43 +56,61 @@
 ]]>
   </programlisting>
  </example>
- <para>
+ <itemizedlist>
+
+ <listitem><para>
   If you apply a modifier to an array variable instead of a single value variable,
   the modifier will be applied to every value in that array. If you really want
   the modifier to work on an entire array as a value, you must prepend the
-  modifier name with an <literal>@</literal> symbol like so:
-  <literal>{$articleTitle|@count}</literal> (this will print out the number of
-  elements in the $articleTitle array.)
- </para>
- <para>
+  modifier name with a <literal>@</literal> symbol.
+  <note>
+  <title>Example</title>
+  <para><literal>{$articleTitle|@count}</literal> - will print out the number of
+  elements in the <parameter>$articleTitle</parameter> array using the php
+  <ulink url="&url.php-manual;count"><varname>count()</varname></ulink>
+  function as a modifier.
+  </para></note>
+  </para> </listitem>
+
+ <listitem><para>
   Modifiers are autoloaded from the <link
-  linkend="variable.plugins.dir">$plugins_dir</link> 
-  or can be registered explicitely with <link
-  linkend="api.register.modifier">register_modifier()</link>;
-  this is useful for sharing a function in a php script and smarty templates.
-  </para>
-  
-  <para>
-  All php-functions can be used as modifiers implicitly. (The
-  <literal>@count</literal> example above actually uses php's
-  count() function and not a smarty-modifier). Using php-functions
-  as modifiers has two little pitfalls: First; sometimes the order
-  of the function-parameters is not the desirable one
-  (<literal>{"%2.f"|sprintf:$float}</literal> actually works, but
-  asks for the more intuitive. For example:<literal>{$float|string_format:"%2.f"}</literal>
-  that is provided by the Smarty distribution). Second; with <link
-  linkend="variable.security">$security</link> enabled all
-  php-functions that are to be used as modifiers have to be
-  declared trusted in the <link linkend="variable.security.settings">
-  $security_settings['MODIFIER_FUNCS']</link> array.
- </para>
+  linkend="variable.plugins.dir"><parameter>$plugins_dir</parameter></link>
+  or can be registered explicitely with the <link
+  linkend="api.register.modifier"><varname>register_modifier()</varname></link>
+  function. The later is useful for sharing a function between
+   php scripts and smarty templates.
+  </para></listitem>
+
+  <listitem><para>
+  All php-functions can be used as modifiers implicitly, as demonstrated in the
+  example above.
+  However, using php-functions as modifiers has two little pitfalls:
+   <itemizedlist>
+  <listitem><para>First - sometimes the order of the function-parameters is
+   not the desirable one. Formatting <literal>$foo</literal>  with
+   <literal>{"%2.f"|sprintf:$foo}</literal> actually
+   works, but asks for the more intuitive, like
+   <literal>{$foo|string_format:"%2.f"}</literal> that is provided by
+   the Smarty distribution.
+  </para></listitem>
+   <listitem><para>
+   Secondly - if <link linkend="variable.security">
+   <parameter>$security</parameter></link> is enabled, all php-functions that
+   are to be used as modifiers have to be declared trusted in the
+   <literal>MODIFIER_FUNCS</literal> element of the
+   <link linkend="variable.security.settings">
+   <parameter>$security_settings</parameter></link> array.
+  </para></listitem>
+   </itemizedlist>
+ </para></listitem>
+  </itemizedlist>
+
  <para>
   See also
-  <link linkend="api.register.modifier">register_modifier()</link>,
-  <link linkend="api.register.function">register_function()</link>,
-  <link linkend="plugins">extending Smarty with plugins</link>
+  <link linkend="api.register.modifier"><varname>register_modifier()</varname></link>,
+  <link linkend="language.combining.modifiers">combining modifiers</link>.
   and
-  <link linkend="plugins.modifiers">modifiers</link>,
+  <link linkend="plugins">extending smarty with plugins</link>
  </para>
 
  &designers.language-modifiers.language-modifier-capitalize;
@@ -113,7 +134,7 @@
  &designers.language-modifiers.language-modifier-truncate;
  &designers.language-modifiers.language-modifier-upper;
  &designers.language-modifiers.language-modifier-wordwrap;
-  
+
 </chapter>
 
 <!-- Keep this comment at the end of the file

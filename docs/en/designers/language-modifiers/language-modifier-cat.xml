@@ -37,7 +37,7 @@
    <title>cat</title>
    <programlisting role="php">
 <![CDATA[
-<?php    
+<?php
 
 $smarty->assign('articleTitle', "Psychics predict world didn't end");
 
@@ -49,14 +49,14 @@ $smarty->assign('articleTitle', "Psychics predict world didn't end");
    </para>
    <programlisting>
 <![CDATA[
-{$articleTitle|cat:" yesterday."}
+{$articleTitle|cat:' yesterday.'}
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
-<![CDATA[    
+<![CDATA[
 Psychics predict world didn't end yesterday.
 ]]>
    </screen>

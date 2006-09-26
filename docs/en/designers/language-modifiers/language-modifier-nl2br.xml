@@ -3,9 +3,10 @@
  <sect1 id="language.modifier.nl2br">
   <title>nl2br</title>
   <para>
-   All linebreaks will be converted to &lt;br /&gt; tags in the given
-   variable. This is equivalent to the PHP
-   <ulink url="&url.php-manual;nl2br">nl2br()</ulink> function.
+   All <literal>"\n"</literal> line breaks will be converted to html
+   <literal>&lt;br /&gt;</literal> tags in the given variable.
+   This is equivalent to the PHP's <ulink url="&url.php-manual;nl2br">
+   <varname>nl2br()</varname></ulink> function.
   </para>
   <example>
    <title>nl2br</title>
@@ -29,7 +30,7 @@ $smarty->assign('articleTitle',
 ]]>
    </programlisting>
    <para>
-    will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -38,9 +39,11 @@ Sun or rain expected<br />today, dark tonight
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.wordwrap">word_wrap</link>,
-   <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>
-   and <link linkend="language.modifier.count.sentences">count_sentences</link>.
+   See also
+   <link linkend="language.modifier.wordwrap"><varname>word_wrap</varname></link>,
+   <link linkend="language.modifier.count.paragraphs"><varname>count_paragraphs</varname></link>
+   and
+   <link linkend="language.modifier.count.sentences"><varname>count_sentences</varname></link>.
   </para>
  </sect1>
 

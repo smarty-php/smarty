@@ -4,6 +4,8 @@
   <title>capitalize</title>
     <para>
      This is used to capitalize the first letter of all words in a variable.
+     This is similar to the PHP <ulink url="&url.php-manual;ucfirst">
+   <varname>ucfirst()</varname></ulink> function.
   </para>
   <informaltable frame="all">
    <tgroup cols="5">
@@ -26,13 +28,13 @@
       <entry>1</entry>
       <entry>boolean</entry>
       <entry>No</entry>
-      <entry>false</entry>
+      <entry>&false;</entry>
       <entry>This determines whether or not words with
       digits will be uppercased</entry>
      </row>
     </tbody>
    </tgroup>
-  </informaltable>  
+  </informaltable>
   <example>
    <title>capitalize</title>
    <programlisting role="php">
@@ -45,7 +47,7 @@ $smarty->assign('articleTitle', 'next x-men film, x3, delayed.');
 ]]>
    </programlisting>
    <para>
-    Where template is:
+    Where the template is:
    </para>
    <programlisting>
 <![CDATA[
@@ -55,7 +57,7 @@ $smarty->assign('articleTitle', 'next x-men film, x3, delayed.');
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -65,9 +67,11 @@ Next X-Men Film, X3, Delayed.
 ]]>
    </screen>
   </example>
-   <para>See also <link linkend="language.modifier.lower">lower</link> 
+   <para>See also
+   <link linkend="language.modifier.lower"><varname>lower</varname></link>
    and
-   <link linkend="language.modifier.upper">upper</link> </para>
+   <link linkend="language.modifier.upper"><varname>upper</varname></link>
+   </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

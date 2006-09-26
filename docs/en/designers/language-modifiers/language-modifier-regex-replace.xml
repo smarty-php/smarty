@@ -4,10 +4,10 @@
   <title>regex_replace</title>
     <para>
      A regular expression search and replace on a variable. Use the
-     syntax for <ulink
-     url="&url.php-manual;preg_replace">preg_replace()</ulink> from the PHP manual.
+      <ulink url="&url.php-manual;preg_replace">
+     <varname>preg_replace()</varname></ulink> syntax from the PHP manual.
   </para>
-  
+
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -55,7 +55,7 @@ $smarty->assign('articleTitle', "Infertility unlikely to\nbe passed on, experts 
 ]]>
    </programlisting>
    <para>
-    Where index.tpl is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[
@@ -66,7 +66,7 @@ $smarty->assign('articleTitle', "Infertility unlikely to\nbe passed on, experts 
 ]]>
    </programlisting>
    <para>
-    This should output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -77,8 +77,10 @@ Infertility unlikely to be passed on, experts say.
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.replace">replace</link>
-   and <link linkend="language.modifier.escape">escape</link>.
+   See also <link linkend="language.modifier.replace">
+   <varname>replace</varname></link>
+   and
+   <link linkend="language.modifier.escape"><varname>escape</varname></link>.
   </para>
  </sect1>
 

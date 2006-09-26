@@ -29,21 +29,23 @@ $smarty->assign('articleTitle',
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
 War Dims Hope for Peace. Child's Death Ruins Couple's Holiday.
-     
+
 Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
 2
 ]]>
    </screen>
   </example>
   <para>
-   See also <link linkend="language.modifier.count.characters">count_characters</link>,
-   <link linkend="language.modifier.count.sentences">count_sentences</link> and
-   <link linkend="language.modifier.count.words">count_words</link>.		
+   See also
+   <link linkend="language.modifier.count.characters"><varname>count_characters</varname></link>,
+   <link linkend="language.modifier.count.sentences"><varname>count_sentences</varname></link>
+   and
+   <link linkend="language.modifier.count.words"><varname>count_words</varname></link>.
   </para>
  </sect1>
 

@@ -3,9 +3,10 @@
  <sect1 id="language.modifier.strip.tags">
   <title>strip_tags</title>
     <para>
-     This strips out markup tags, basically anything between &lt; and &gt;.
+     This strips out markup tags, basically anything between
+     <literal>&lt;</literal> and <literal>&gt;</literal>.
   </para>
-  
+
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -27,8 +28,8 @@
       <entry>1</entry>
       <entry>bool</entry>
       <entry>No</entry>
-      <entry>true</entry>
-      <entry>This determines wether the tags are replaced by ' ' or by ''</entry>
+      <entry>&true;</entry>
+      <entry>This determines whether the tags are replaced by ' ' or  ''</entry>
      </row>
     </tbody>
    </tgroup>
@@ -49,17 +50,17 @@ Kidney</font> from Dad she Hasn't Seen in <b>years</b>."
 ]]>
    </programlisting>
    <para>
-    where template is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[
 {$articleTitle}
-{$articleTitle|strip_tags} {* same as {$articleTitle|strip_tags:true} *} 
+{$articleTitle|strip_tags} {* same as {$articleTitle|strip_tags:true} *}
 {$articleTitle|strip_tags:false}
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -69,6 +70,12 @@ Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
 ]]>
    </screen>
   </example>
+  <para>
+  See also
+  <link linkend="language.modifier.replace"><varname>replace</varname></link>
+  and
+  <link linkend="language.modifier.regex.replace"><varname>regex_replace</varname></link>.
+  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -194,13 +194,13 @@ $smarty->assign('contact',$db->getRow($sql));
 ]]>
 </programlisting>
 <para>
-where an example template would be
+Where a template could be as follows. Note the use of the truncate modifier.
 </para>
 <programlisting>
 <![CDATA[
 <select name="type_id">
     <option value='null'>-- none --</option>
-    {html_options options=$contact_types selected=$contact.type_id}
+    {html_options options=$contact_types|truncate:20 selected=$contact.type_id}
 </select>
 ]]>
   </programlisting>

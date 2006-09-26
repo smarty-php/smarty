@@ -4,17 +4,18 @@
   <title>date_format</title>
     <para>
      This formats a date and time into the given
-     <ulink url="&url.php-manual;strftime">strftime()</ulink> format.
+     <ulink url="&url.php-manual;strftime"><varname>strftime()</varname></ulink> format.
      Dates can be passed to Smarty as unix
      <ulink url="&url.php-manual;function.time">timestamps</ulink>, mysql timestamps
-     or any string made up of month day year, parsable by
-     <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
-     Designers can then use date_format to have complete control of the
+     or any string made up of month day year, parsable by php's
+     <ulink url="&url.php-manual;strtotime"><varname>strtotime()</varname></ulink>.
+     Designers can then use <varname>date_format</varname> to have complete control of the
      formatting of the date. If the date passed to
-     <command>date_format</command> is empty   and a second parameter is passed,
+     <varname>date_format</varname> is empty  and a second parameter is passed,
      that will be used as the date to format.
    </para>
-   
+
+
   <informaltable frame="all">
    <tgroup cols="5">
     <colspec colname="param" align="center" />
@@ -53,20 +54,32 @@
    <para>
    <note>
     <para>
-     Since Smarty-2.6.10 numeric values passed to date_format are
+     Since Smarty-2.6.10 numeric values passed to <varname>date_format</varname> are
      <emphasis>always</emphasis> (except for mysql timestamps, see
      below) interpreted as a unix timestamp.
     </para>
     <para>
      Before Smarty-2.6.10 numeric strings that where also parsable by
-     strtotime() in php (like "YYYYMMDD") where sometimes - depending
-     on the underlying implementation of strtotime() - interpreted as
-     date strings and not as timestamps.
+     <varname>strtotime()</varname> in php (like <literal>YYYYMMDD</literal>)
+     where sometimes (depending on the underlying implementation of
+     <varname>strtotime()</varname>) interpreted as
+     date strings and NOT as timestamps.
     </para>
     <para>
      The only exception are mysql timestamps: They are also numeric
-     only and 14 characters long ("YYYYMMDDHHMMSS"). Mysql timestamps
-     have precedence over unix timestamps.
+     only and 14 characters long (<literal>YYYYMMDDHHMMSS</literal>),
+     mysql timestamps have precedence over unix timestamps.
+    </para>
+   </note>
+      <note>
+    <title>Programmers note</title>
+    <para>
+     <varname>date_format</varname> is essentially a wrapper to PHP's
+     <ulink url="&url.php-manual;strftime"><varname>strftime()</varname></ulink> function.
+     You may have more or less conversion specifiers available depending
+     on your system's <ulink url="&url.php-manual;strftime"><varname>strftime()</varname></ulink>
+     function where PHP was compiled. Check your
+     system's manpage for a full list of valid specifiers.
     </para>
    </note>
   </para>
@@ -78,14 +91,15 @@
 
 $config['date'] = '%I:%M %p';
 $config['time'] = '%H:%M:%S';
-$smarty->assign('config',$config);
+$smarty->assign('config', $config);
 $smarty->assign('yesterday', strtotime('-1 day'));
 
 ?>
 ]]>
    </programlisting>
    <para>
-    Where template is (uses <link linkend="language.variables.smarty.now">$smarty.now</link>):
+    This template uses <link linkend="language.variables.smarty.now">
+    <parameter>$smarty.now</parameter></link> to get the current time:
    </para>
    <programlisting>
 <![CDATA[
@@ -98,21 +112,22 @@ $smarty->assign('yesterday', strtotime('-1 day'));
 ]]>
    </programlisting>
    <para>
-    This will output:
+    This above will output:
    </para>
    <screen>
 <![CDATA[
-Feb 6, 2001
-02/06/01
+Jan 1, 2022
+01/01/22
 02:33 pm
-Feb 5, 2001
-Monday, February 5, 2001
+Dec 31, 2021
+Monday, December 1, 2021
 14:33:00
 ]]>
    </screen>
   </example>
   <para>
-   <command>date_format</command> conversion specifiers:
+
+  <command>date_format</command> conversion specifiers:
    <itemizedlist>
     <listitem><para>
      %a - abbreviated weekday name according to the current locale
@@ -237,23 +252,13 @@ Monday, February 5, 2001
      %% - a literal `%' character
     </para></listitem>
    </itemizedlist>
-   <note>
-    <title>Programmers note</title>
-    <para>
-     <command>date_format</command> is essentially a wrapper to PHP's
-     <ulink url="&url.php-manual;strftime">strftime()</ulink> function.
-     You may have more or less conversion specifiers available depending
-     on your system's <ulink url="&url.php-manual;strftime">strftime()</ulink>
-     function where PHP was compiled. Check your
-     system's manpage for a full list of valid specifiers.
-    </para>
-   </note>
+
   </para>
   <para>
-   See also <link linkend="language.variables.smarty.now">$smarty.now</link>,
-   <ulink url="&url.php-manual;strftime">php function strftime()</ulink>,
-   <link linkend="language.function.html.select.date">{html_select_date}</link>
-   and <link linkend="tips.dates">date tips</link>.
+   See also <link linkend="language.variables.smarty.now"><parameter>$smarty.now</parameter></link>,
+   <ulink url="&url.php-manual;strftime"><varname>strftime()</varname></ulink>,
+   <link linkend="language.function.html.select.date"><varname>{html_select_date}</varname></link>
+   and the <link linkend="tips.dates">date tips</link> page.
   </para>
  </sect1>
 

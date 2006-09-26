@@ -4,13 +4,13 @@
   <title>strip</title>
   <para>
    This replaces all repeated spaces, newlines and tabs with a single
-   space, or with a supplied string.
+   space, or with the supplied string.
   </para>
   <note>
    <title>Note</title>
    <para>
-    If you want to strip blocks of template text, use the <link
-    linkend="language.function.strip">{strip}</link> function.
+    If you want to strip blocks of template text, use the built-in <link
+    linkend="language.function.strip"><varname>{strip}</varname></link> function.
    </para>
   </note>
   <example>
@@ -18,16 +18,13 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-
-$smarty = new Smarty;
 $smarty->assign('articleTitle', "Grandmother of\neight makes\t    hole in one.");
 $smarty->display('index.tpl');
-
 ?>
 ]]>
    </programlisting>
    <para>
-    where template is:
+    Where template is:
    </para>
    <programlisting>
 <![CDATA[
@@ -37,7 +34,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    This will output:
+    Will output:
    </para>
    <screen>
 <![CDATA[
@@ -48,10 +45,12 @@ Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
 ]]>
    </screen>
   </example>
-  
+
     <para>
-     See also <link linkend="language.function.strip">{strip}</link> and
-     <link linkend="language.modifier.truncate">truncate</link>.
+     See also
+     <link linkend="language.function.strip"><varname>{strip}</varname></link>
+     and
+     <link linkend="language.modifier.truncate"><varname>truncate</varname></link>.
   </para>
 </sect1>
 <!-- Keep this comment at the end of the file
