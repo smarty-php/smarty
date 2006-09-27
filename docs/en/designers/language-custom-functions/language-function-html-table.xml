@@ -5,7 +5,7 @@
   <para>
    <varname>{html_table}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that dumps an array of data into an HTML table.
+   that dumps an array of data into an HTML <literal>&lt;table&gt;</literal>.
    </para>
 
  <informaltable frame="all">
@@ -30,7 +30,7 @@
      <entry>array</entry>
      <entry>Yes</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>array of data to loop through</entry>
+     <entry>Array of data to loop through</entry>
     </row>
     <row>
      <entry>cols</entry>
@@ -38,7 +38,7 @@
      <entry>No</entry>
      <entry><emphasis>3</emphasis></entry>
      <entry>
-      number of columns in the table or a comma-separated list of column heading
+      Number of columns in the table or a comma-separated list of column heading
       names or an array of column heading names.if the cols-attribute is empty,
       but rows are given, then the number of cols is computed by the number
       of rows and the number of elements to display to be just enough cols to
@@ -53,7 +53,7 @@
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
      <entry>
-      number of rows in the table. if the rows-attribute is empty, but
+      Number of rows in the table. if the rows-attribute is empty, but
       cols are given, then the number of rows is computed by the number of
       cols and the number of elements to display to be just enough rows to
       display all elements.
@@ -65,7 +65,7 @@
      <entry>No</entry>
      <entry><emphasis>cols</emphasis></entry>
      <entry>
-      direction of consecutive elements in the loop-array to be
+      Direction of consecutive elements in the loop-array to be
       rendered. <emphasis>cols</emphasis> means elements are displayed
       col-by-col. <emphasis>rows</emphasis> means elements are displayed
       row-by-row.
@@ -76,44 +76,46 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>
-      text to be used for the caption element of the table.
-     </entry>
+     <entry>Text to be used for the <literal>&lt;caption&gt;</literal>
+     element of the table</entry>
     </row>
     <row>
      <entry>table_attr</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>border="1"</emphasis></entry>
-     <entry>attributes for table tag</entry>
+     <entry>Attributes for <literal>&lt;table&gt;</literal> tag</entry>
     </row>
     <row>
      <entry>th_attr</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>attributes for th tag (arrays are cycled)</entry>
+     <entry>Attributes for <literal>&lt;th&gt;</literal> tag
+     (arrays are cycled)</entry>
     </row>
     <row>
      <entry>tr_attr</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>attributes for tr tag (arrays are cycled)</entry>
+     <entry>attributes for <literal>&lt;tr&gt;</literal> tag
+     (arrays are cycled)</entry>
     </row>
     <row>
      <entry>td_attr</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>attributes for td tag (arrays are cycled)</entry>
+     <entry>Attributes for <literal>&lt;td&gt;</literal> tag
+     (arrays are cycled)</entry>
     </row>
     <row>
      <entry>trailpad</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>&amp;nbsp;</emphasis></entry>
-     <entry>value to pad the trailing cells on last row with (if any)</entry>
+     <entry>Value to pad the trailing cells on last row with (if any)</entry>
     </row>
     <row>
      <entry>hdir</entry>
@@ -121,7 +123,7 @@
      <entry>No</entry>
      <entry><emphasis>right</emphasis></entry>
      <entry>
-      direction of each row to be rendered. possible values:
+      Direction of each row to be rendered. possible values:
       <emphasis>right</emphasis> (left-to-right), and
       <emphasis>left</emphasis> (right-to-left)
      </entry>
@@ -132,7 +134,7 @@
      <entry>No</entry>
      <entry><emphasis>down</emphasis></entry>
      <entry>
-      direction of each column to be rendered. possible values:
+      Direction of each column to be rendered. possible values:
       <emphasis>down</emphasis> (top-to-bottom), <emphasis>up</emphasis>
       (bottom-to-top)
      </entry>
@@ -150,7 +152,8 @@
    <listitem><para>
    The <parameter>table_attr</parameter>, <parameter>tr_attr</parameter>
    and <parameter>td_attr</parameter> values  determine the attributes given
-   to the &lt;table&gt;, &lt;tr&gt; and &lt;td&gt; tags.
+   to the <literal>&lt;table&gt;</literal>, <literal>&lt;tr&gt;</literal>
+   and <literal>&lt;td&gt;</literal> tags.
    </para></listitem>
 
    <listitem><para>
@@ -169,8 +172,8 @@
   <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
-$smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
+$smarty->assign( 'data', array(1,2,3,4,5,6,7,8,9) );
+$smarty->assign( 'tr', array('bgcolor="#eeeeee"','bgcolor="#dddddd"') );
 $smarty->display('index.tpl');
 ?>
 ]]>

@@ -5,7 +5,7 @@
   <para>
    <varname>{html_image}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that generates a HTML &lt;img&gt; tag.
+   that generates an HTML <literal>&lt;img&gt;</literal> tag.
    The <parameter>height</parameter> and <parameter>width</parameter>
    are automatically calculated from the image file if they are not supplied.
  </para>
@@ -92,8 +92,8 @@
 
  <listitem><para>
   <parameter>href</parameter> is the href value to link the image to.
-  If link is supplied, an &lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is placed
-  around the image tag.
+  If link is supplied, an <literal>&lt;a href="LINKVALUE"&gt;&lt;a&gt;</literal>
+  tag is placed around the image tag.
  </para> </listitem>
 
  <listitem><para>
@@ -104,7 +104,7 @@
 
  <listitem><para>
   All parameters that are not in the list above are printed as
-  name/value-pairs inside the created &lt;img&gt; tag.
+  name/value-pairs inside the created <literal>&lt;img&gt;</literal> tag.
  </para></listitem>
 </itemizedlist>
 

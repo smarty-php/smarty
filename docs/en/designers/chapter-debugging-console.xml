@@ -8,36 +8,41 @@
   <link linkend="language.function.include">included</link> templates,
   <link linkend="api.assign">assigned</link> variables and
   <link linkend="language.config.variables">config</link>
-  file variables
-  for the current invocation of the template. A template named "debug.tpl" is
-  included with the distribution of Smarty which controls the formatting of
-  the console. Set
-  <link linkend="variable.debugging">$debugging</link> to true in Smarty, and if needed set
-  <link linkend="variable.debug.tpl">$debug_tpl</link>
-  to the template resource path for debug.tpl (this is in
-  <link linkend="constant.smarty.dir">SMARTY_DIR</link> by
-  default.) When you load the page, a javascript console window should pop up
+  file variables for the current invocation of the template. A template file
+  named <literal>debug.tpl</literal> is included with the distribution of
+  Smarty which controls the formatting of the console.
+  </para>
+  <para>
+  Set  <link linkend="variable.debugging"><parameter>$debugging</parameter></link>
+  to &true; in Smarty, and if needed set <link linkend="variable.debug.tpl">
+  <parameter>$debug_tpl</parameter></link> to the template resource path to
+  <literal>debug.tpl</literal> (this is in <link linkend="constant.smarty.dir">
+  <constant>SMARTY_DIR</constant></link> by default).
+  When you load the page, a Javascript console window will pop up
   and give you the names of all the included templates and assigned variables
-  for the current page. To see the available variables for a particular
-  templates, see the <link linkend="language.function.debug">{debug}</link>
-  template function. To disable the debugging console, set
-  <link linkend="variable.debugging">$debugging</link> to
-  false. You can also temporarily turn on the debugging console by putting
-  SMARTY_DEBUG in the URL if you enable this option with <link
-  linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
+  for the current page.</para>
+  <para>To see the available variables for a particular
+  template, see the <link linkend="language.function.debug">
+  <varname>{debug}</varname></link> template function.
+  To disable the debugging console, set
+  <link linkend="variable.debugging"><parameter>$debugging</parameter></link> to
+  &false;. You can also temporarily turn on the debugging console by putting
+  <literal>SMARTY_DEBUG</literal> in the URL if you enable this option with
+  <link linkend="variable.debugging.ctrl"><parameter>$debugging_ctrl</parameter>
+  </link>.
  </para>
  <note>
   <title>Technical Note</title>
   <para>
    The debugging console does not work when you use the
-   <link linkend="api.fetch">fetch()</link>
-   API, only when using
-   <link linkend="api.display">display()</link>.
+   <link linkend="api.fetch"><varname>fetch()</varname></link>
+   API, only when using  <link linkend="api.display">
+   <varname>display()</varname></link>.
    It is a set of javascript statements added
    to the very bottom of the generated template. If you do not like javascript,
-   you can edit the debug.tpl template to format the output however you like.
-   Debug data is not cached and debug.tpl info is not included in the output of
-   the debug console.
+   you can edit the <literal>debug.tpl</literal> template to format the output
+   however you like.  Debug data is not cached and <literal>debug.tpl</literal>
+    info is not included in the output of the debug console.
   </para>
  </note>
  <note>
@@ -49,9 +54,10 @@
     <para>
     See also
     <link linkend="troubleshooting">troubleshooting</link>,
-    <link linkend="variable.error.reporting">$error_reporting</link>
+    <link linkend="variable.error.reporting">
+    <parameter>$error_reporting</parameter></link>
     and
-    <link linkend="api.trigger.error">trigger_error()</link>.
+    <link linkend="api.trigger.error"><varname>trigger_error()</varname></link>.
    </para>
 </chapter>
 

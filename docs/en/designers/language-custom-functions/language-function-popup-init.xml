@@ -12,8 +12,8 @@
 
   <itemizedlist>
   <listitem><para>
-  <varname>{popup_init}</varname> must be called
-  <emphasis>only once</emphasis>, preferably within the &lt;head&gt; tag
+  <varname>{popup_init}</varname> must be called <emphasis>only once</emphasis>,
+  preferably within the <literal>&lt;head&gt;</literal> tag
  within any page you plan on using the <link linkend="language.function.popup">
  <varname>{popup}</varname></link> function.
  </para></listitem>

@@ -8,7 +8,8 @@
    that creates date dropdowns.
    It can display any or all of year, month, and day.
   All parameters that are not in the list below are printed as
-  name/value-pairs inside the &lt;select&gt; tags of day, month and  year.
+  name/value-pairs inside the <literal>&lt;select&gt;</literal> tags
+  of day, month and  year.
  </para>
 
  <informaltable frame="all">
@@ -33,21 +34,21 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry>Date_</entry>
-     <entry>what to prefix the var name with</entry>
+     <entry>What to prefix the var name with</entry>
     </row>
     <row>
      <entry>time</entry>
-     <entry>timestamp/YYYY-MM-DD</entry>
+     <entry>timestamp/ YYYY-MM-DD</entry>
      <entry>No</entry>
      <entry>current time in unix timestamp or YYYY-MM-DD format</entry>
-     <entry>what date/time to use</entry>
+     <entry>What date/time to use</entry>
     </row>
     <row>
      <entry>start_year</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>current year</entry>
-     <entry>the first year in the dropdown, either
+     <entry>The first year in the dropdown, either
       year number, or relative to current year (+/- N)</entry>
     </row>
     <row>
@@ -55,7 +56,7 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry>same as start_year</entry>
-     <entry>the last year in the dropdown, either
+     <entry>The last year in the dropdown, either
       year number, or relative to current year (+/- N)</entry>
     </row>
     <row>
@@ -63,56 +64,56 @@
      <entry>boolean</entry>
      <entry>No</entry>
      <entry>&true;</entry>
-     <entry>whether to display days or not</entry>
+     <entry>Whether to display days or not</entry>
     </row>
     <row>
      <entry>display_months</entry>
      <entry>boolean</entry>
      <entry>No</entry>
      <entry>&true;</entry>
-     <entry>whether to display months or not</entry>
+     <entry>Whether to display months or not</entry>
     </row>
     <row>
      <entry>display_years</entry>
      <entry>boolean</entry>
      <entry>No</entry>
      <entry>&true;</entry>
-     <entry>whether to display years or not</entry>
+     <entry>Whether to display years or not</entry>
     </row>
     <row>
      <entry>month_format</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>%B</entry>
-     <entry>what format the month should be in (strftime)</entry>
+     <entry>What format the month should be in (strftime)</entry>
     </row>
     <row>
      <entry>day_format</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>%02d</entry>
-     <entry>what format the day output should be in (sprintf)</entry>
+     <entry>What format the day output should be in (sprintf)</entry>
     </row>
     <row>
      <entry>day_value_format</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>%d</entry>
-     <entry>what format the day value should be in (sprintf)</entry>
+     <entry>What format the day value should be in (sprintf)</entry>
     </row>
     <row>
      <entry>year_as_text</entry>
      <entry>boolean</entry>
      <entry>No</entry>
      <entry>&false;</entry>
-     <entry>whether or not to display the year as text</entry>
+     <entry>Whether or not to display the year as text</entry>
     </row>
     <row>
      <entry>reverse_years</entry>
      <entry>boolean</entry>
      <entry>No</entry>
      <entry>&false;</entry>
-     <entry>display years in reverse order</entry>
+     <entry>Display years in reverse order</entry>
     </row>
     <row>
      <entry>field_array</entry>
@@ -120,7 +121,7 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>
-      if a name is given, the select boxes will be drawn
+      If a name is given, the select boxes will be drawn
       such that the results will be returned to PHP in the
       form of name[Day], name[Year], name[Month].
      </entry>
@@ -130,70 +131,70 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds size attribute to select tag if given</entry>
+     <entry>Adds size attribute to select tag if given</entry>
     </row>
     <row>
      <entry>month_size</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds size attribute to select tag if given</entry>
+     <entry>Adds size attribute to select tag if given</entry>
     </row>
     <row>
      <entry>year_size</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds size attribute to select tag if given</entry>
+     <entry>Adds size attribute to select tag if given</entry>
     </row>
     <row>
      <entry>all_extra</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to all select/input tags if given</entry>
+     <entry>Adds extra attributes to all select/input tags if given</entry>
     </row>
     <row>
      <entry>day_extra</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to select/input tags if given</entry>
+     <entry>Adds extra attributes to select/input tags if given</entry>
     </row>
     <row>
      <entry>month_extra</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to select/input tags if given</entry>
+     <entry>Adds extra attributes to select/input tags if given</entry>
     </row>
     <row>
      <entry>year_extra</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>null</entry>
-     <entry>adds extra attributes to select/input tags if given</entry>
+     <entry>Adds extra attributes to select/input tags if given</entry>
     </row>
     <row>
      <entry>field_order</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>MDY</entry>
-     <entry>the order in which to display the fields</entry>
+     <entry>The order in which to display the fields</entry>
     </row>
     <row>
      <entry>field_separator</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>\n</entry>
-     <entry>string printed between different fields</entry>
+     <entry>String printed between different fields</entry>
     </row>
     <row>
      <entry>month_value_format</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry>%m</entry>
-     <entry>strftime format of the month values, default is
+     <entry>strftime() format of the month values, default is
       %m for month numbers.</entry>
     </row>
     <row>
@@ -233,9 +234,9 @@
 
  <note>
   <para>
-   There's an useful php function on the
+   There is an useful php function on the
    <link linkend="tips.dates">date tips page</link> for converting
-   <varname>{html_select_date}</varname> values to a timestamp.
+   <varname>{html_select_date}</varname> form values to a timestamp.
   </para>
  </note>
 
@@ -277,7 +278,7 @@
 <option value="31">31</option>
 </select>
 <select name="Date_Year">
-<option value="2001" selected="selected">2001</option>
+<option value="2006" selected="selected">2006</option>
 </select>
 ]]>
   </screen>
@@ -288,8 +289,8 @@
   <programlisting>
 <![CDATA[
 {* start and end year can be relative to current year *}
-{html_select_date prefix="StartDate" time=$time start_year="-5"
-   end_year="+1" display_days=false}
+{html_select_date prefix='StartDate' time=$time start_year='-5'
+   end_year='+1' display_days=false}
 ]]>
   </programlisting>
   <para>

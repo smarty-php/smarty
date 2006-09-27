@@ -10,8 +10,8 @@
  </para>
  <para>
   The <parameter>time</parameter> attribute can have different formats.
-  It can be a unique timestamp, a  string of the format YYYYMMDDHHMMSS
-   or a string  that is parseable by php's
+  It can be a unique timestamp, a  string of the format
+  <literal>YYYYMMDDHHMMSS</literal> or a string  that is parseable by PHP's
   <ulink url="&url.php-manual;strtotime"><varname>strtotime()</varname></ulink>.
  </para>
 

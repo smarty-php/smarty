@@ -74,19 +74,18 @@
    <link linkend="language.modifier.date.format"><varname>date_format</varname>
    </link> modifier for display. Note that
    <ulink url="&url.php-manual;function.time"><varname>time()</varname></ulink>
-    is called each invocation; eg a script that takes three seconds to execute
+    is called on each invocation; eg a script that takes three seconds to execute
     with a call to <parameter>$smarty.now</parameter> at start and end
     will show the three second difference.
-  </para>
-  <example>
-   <title>Using {$smarty.now}</title>
+  <informalexample>
    <programlisting>
 <![CDATA[
 {* use the date_format modifier to show current date and time *}
 {$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}
 ]]>
    </programlisting>
-  </example>
+  </informalexample>
+  </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.const">
@@ -94,9 +93,8 @@
   <para>
    You can access PHP constant values directly. See also <link
    linkend="smarty.constants">smarty constants</link>.
-  </para>
-  <example>
-   <title>Using {$smarty.const} to access a constant</title>
+   </para>
+  <informalexample>
 <programlisting role="php">
 <![CDATA[
 <?php
@@ -105,13 +103,15 @@ define('MY_CONST_VAL','CHERRIES');
 ?>
 ]]>
 </programlisting>
+</informalexample>
 <para>Output the constant in a template with</para>
+<informalexample>
 <programlisting>
 <![CDATA[
 {$smarty.const.MY_CONST_VAL}
 ]]>
 </programlisting>
-  </example>
+</informalexample>
  </sect2>
 
  <sect2 id="language.variables.smarty.capture">
@@ -170,7 +170,7 @@ define('MY_CONST_VAL','CHERRIES');
     </para>
 <programlisting>
 <![CDATA[
-<b>Main page if container.tpl</b>
+<b>Main page is container.tpl</b>
 banner.tpl
 ]]>
 </programlisting>

@@ -3,9 +3,9 @@
 <sect1 id="language.function.mailto">
  <title>{mailto}</title>
   <para>
-   <varname>{mailto}</varname> automates the creation of mailto: links
-   and optionally encodes them. Encoding e-mails makes it more difficult for
-   web spiders to lift e-mail addresses off of a site.
+   <varname>{mailto}</varname> automates the creation of a <literal>mailto:</literal>
+   anchor links and optionally encodes them. Encoding emails makes it more
+   difficult for web spiders to lift email addresses off of a site.
   <note>
   <title>Technical Note</title>
   <para>
@@ -117,7 +117,7 @@
 
 {mailto address="me@example.com" encode="javascript"}
 <script type="text/javascript" language="javascript">
- eval(unescape('%64%6f% ... snipped ...%61%3e%27%29%3b'))
+   eval(unescape('%64%6f% ... snipped ...%61%3e%27%29%3b'))
 </script>
 
 {mailto address="me@example.com" encode="hex"}
@@ -134,9 +134,9 @@
 
 {mailto address="me@example.com" encode="javascript_charcode"}
 <script type="text/javascript" language="javascript">
-<!--
-{document.write(String.fromCharCode(60,97, ... snipped ....60,47,97,62))}
-//-->
+    <!--
+    {document.write(String.fromCharCode(60,97, ... snipped ....60,47,97,62))}
+    //-->
 </script>
 ]]>
 </programlisting>
@@ -145,8 +145,8 @@
  See also
  <link linkend="language.modifier.escape"><varname>escape</varname></link>,
  <link linkend="language.function.textformat"><varname>{textformat}</varname></link>
- and the
- <link linkend="tips.obfuscating.email">obfuscating email addresses</link> page.
+ and
+ <link linkend="tips.obfuscating.email">obfuscating email addresses</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

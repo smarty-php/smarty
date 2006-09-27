@@ -35,50 +35,49 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>preset style</entry>
+     <entry>Preset style</entry>
     </row>
     <row>
      <entry>indent</entry>
      <entry>number</entry>
      <entry>No</entry>
      <entry><emphasis>0</emphasis></entry>
-     <entry>the number of chars to indent every line</entry>
+     <entry>The number of chars to indent every line</entry>
     </row>
     <row>
      <entry>indent_first</entry>
      <entry>number</entry>
      <entry>No</entry>
      <entry><emphasis>0</emphasis></entry>
-     <entry>the number of chars to indent the first line</entry>
+     <entry>The number of chars to indent the first line</entry>
     </row>
     <row>
      <entry>indent_char</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>(single space)</emphasis></entry>
-     <entry>the character (or string of chars) to indent with</entry>
+     <entry>The character (or string of chars) to indent with</entry>
     </row>
     <row>
      <entry>wrap</entry>
      <entry>number</entry>
      <entry>No</entry>
      <entry><emphasis>80</emphasis></entry>
-     <entry>how many characters to wrap each line to</entry>
+     <entry>How many characters to wrap each line to</entry>
     </row>
     <row>
      <entry>wrap_char</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>\n</emphasis></entry>
-     <entry>the character (or string of chars) to break each
-      line with</entry>
+     <entry>The character (or string of chars) to break each line with</entry>
     </row>
     <row>
      <entry>wrap_cut</entry>
      <entry>boolean</entry>
      <entry>No</entry>
      <entry><emphasis>&false;</emphasis></entry>
-     <entry>if &true;, wrap will break the line at the exact
+     <entry>If &true;, wrap will break the line at the exact
       character instead of at a word boundary</entry>
     </row>
     <row>
@@ -86,8 +85,7 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>the template variable the output will be assigned
-      to</entry>
+     <entry>The template variable the output will be assigned to</entry>
     </row>
    </tbody>
   </tgroup>
@@ -269,9 +267,9 @@
  </example>
   <para>
   See also
-   <link linkend="language.function.strip"><varname>{strip}</varname></link>
-   and
-   <link linkend="language.modifier.wordwrap"><varname>wordwrap</varname></link>.
+  <link linkend="language.function.strip"><varname>{strip}</varname></link>
+  and
+  <link linkend="language.modifier.wordwrap"><varname>wordwrap</varname></link>.
  </para>
 
 </sect1>

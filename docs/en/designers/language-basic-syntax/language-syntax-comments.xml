@@ -6,9 +6,9 @@
   Template comments are surrounded by asterisks, and that is surrounded
   by the
   <link linkend="variable.left.delimiter">delimiter</link>
-  tags like so: <emphasis>{* this is a comment *}</emphasis>
+  tags like so: <literal>{* this is a comment *}</literal>
   Smarty comments are NOT displayed in the final output of the template,
-  unlike &lt;!-- HTML comments --&gt;
+  unlike <literal>&lt;!-- HTML comments --&gt;</literal>
   these are useful for making internal notes in the templates which no one will see ;-)
  </para>
  <example>

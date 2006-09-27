@@ -5,7 +5,7 @@
   <para>
    <varname>{html_options}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that creates a html &lt;select&gt;&lt;option&gt; group
+   that creates the html <literal>&lt;select&gt;&lt;option&gt;</literal> group
    with the assigned data. It takes care of which item(s) are selected by
    default as well.
    </para>
@@ -32,35 +32,35 @@
      <entry>array</entry>
      <entry>Yes, unless using options attribute</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an array of values for dropdown</entry>
+     <entry>An array of values for dropdown</entry>
     </row>
     <row>
      <entry>output</entry>
      <entry>array</entry>
      <entry>Yes, unless using options attribute</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an array of output for dropdown</entry>
+     <entry>An array of output for dropdown</entry>
     </row>
     <row>
      <entry>selected</entry>
      <entry>string/array</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>the selected option element(s)</entry>
+     <entry>The selected option element(s)</entry>
     </row>
     <row>
      <entry>options</entry>
      <entry>associative array</entry>
      <entry>Yes, unless using values and output</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an associative array of values and output</entry>
+     <entry>An associative array of values and output</entry>
     </row>
     <row>
      <entry>name</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>name of select group</entry>
+     <entry>Name of select group</entry>
     </row>
    </tbody>
   </tgroup>
@@ -76,18 +76,19 @@
 
  <listitem><para>
   If the optional <parameter>name</parameter> attribute is given, the
-  &lt;select&gt;&lt;/select&gt; tags are created,
-  otherwise ONLY the &lt;option&gt;'s list are generated.
+  <literal>&lt;select&gt;&lt;/select&gt;</literal> tags are created,
+  otherwise ONLY the <literal>&lt;option&gt;</literal> list is generated.
  </para></listitem>
 
   <listitem><para>
-  If a given value is an array, it will treat it as an html &lt;optgroup&gt;,
-  and display the groups. Recursion is supported with &lt;optgroup&gt;.
+  If a given value is an array, it will treat it as an html
+  <literal>&lt;optgroup&gt;</literal>, and display the groups.
+  Recursion is supported with <literal>&lt;optgroup&gt;</literal>.
  </para></listitem>
 
  <listitem><para>
-  All parameters that are not in the list above are printed as
-  name/value-pairs inside the &lt;select&gt; tag. They are ignored if
+  All parameters that are not in the list above are printed as name/value-pairs
+  inside the <literal>&lt;select&gt;</literal> tag. They are ignored if
   the optional <parameter>name</parameter> is not given.
  </para></listitem>
 
@@ -114,7 +115,7 @@ $smarty->assign('mySelect', 9904);
     <para>
   The following template will generate a drop-down list.
   Note the presence of the <parameter>name</parameter> attribute
-  which creates the &lt;select&gt; tags.
+  which creates the <literal>&lt;select&gt;</literal> tags.
   </para>
   <programlisting>
 <![CDATA[
@@ -137,7 +138,8 @@ $smarty->assign('mySelect', 9904);
 </example>
 
 <example>
-<title>Dropdown with seperate arrays for ouptut.</title>
+<title>Dropdown with seperate arrays for <varname>values</varname> and
+<varname>ouptut</varname></title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -151,10 +153,10 @@ $smarty->assign('customer_id', 92);
 ]]>
   </programlisting>
   <para>
-  The above arrays would be output with the following template.
-  Note the sneaky use of the php <ulink url="&url.php-manual;function.count">
+  The above arrays would be output with the following template
+  (note the use of the php <ulink url="&url.php-manual;function.count">
   <varname>count()</varname></ulink> function as a modifier
-  to set the select size.
+  to set the select size).
   </para>
   <programlisting>
 <![CDATA[
@@ -194,7 +196,9 @@ $smarty->assign('contact',$db->getRow($sql));
 ]]>
 </programlisting>
 <para>
-Where a template could be as follows. Note the use of the truncate modifier.
+Where a template could be as follows. Note the use of the
+<link linkend="language.modifier.truncate"><varname>truncate</varname></link>
+modifier.
 </para>
 <programlisting>
 <![CDATA[
@@ -218,8 +222,7 @@ $smarty->assign('fav', 7);
 ?>
 ]]>
   </programlisting>
-    <para>With the template would be
-
+    <para>The script above and the following template
   </para>
   <programlisting>
 <![CDATA[
@@ -228,7 +231,7 @@ $smarty->assign('fav', 7);
   </programlisting>
 
   <para>
-   Output of the above example would be:
+   would output:
   </para>
   <screen>
 <![CDATA[

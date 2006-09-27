@@ -95,7 +95,7 @@ rowBgColor = "#cccccc"
   <varname>{config_load}</varname></link>.
 </para>
 <para>
-  See also <link linkend="language.syntax.variables">Variables</link> and
+  See also <link linkend="language.syntax.variables">variables</link> and
   <link linkend="language.variables.smarty">$smarty reserved
   variables</link>
 </para>

@@ -5,8 +5,8 @@
   <para>
    <varname>{html_radios}</varname> is a
    <link linkend="language.custom.functions">custom function</link>
-   that creates html radio button group.
-   It takes care of which item is selected by default as well.
+   that creates a HTML radio button group.
+   It also takes care of which item is selected by default as well.
    </para>
 
 
@@ -32,49 +32,49 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>radio</emphasis></entry>
-     <entry>name of radio list</entry>
+     <entry>Name of radio list</entry>
     </row>
     <row>
      <entry>values</entry>
      <entry>array</entry>
      <entry>Yes, unless using options attribute</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an array of values for radio buttons</entry>
+     <entry>An array of values for radio buttons</entry>
     </row>
     <row>
      <entry>output</entry>
      <entry>array</entry>
      <entry>Yes, unless using options attribute</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an array of output for radio buttons</entry>
+     <entry>An array of output for radio buttons</entry>
     </row>
     <row>
      <entry>selected</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>the selected radio element</entry>
+     <entry>The selected radio element</entry>
     </row>
     <row>
      <entry>options</entry>
      <entry>associative array</entry>
      <entry>Yes, unless using values and output</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>an associative array of values and output</entry>
+     <entry>An associative array of values and output</entry>
     </row>
     <row>
      <entry>separator</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>string of text to separate each radio item</entry>
+     <entry>String of text to separate each radio item</entry>
     </row>
     <row>
      <entry>assign</entry>
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>assign radio tags to an array instead of output</entry>
+     <entry>Assign radio tags to an array instead of output</entry>
     </row>
    </tbody>
   </tgroup>
@@ -92,8 +92,9 @@
     </para></listitem>
 
      <listitem><para>
-      All parameters that are not in the list above are printed as
-      name/value-pairs inside each of the created &lt;input&gt;-tags.
+      All parameters that are not in the list above are output as
+      name/value-pairs inside each of the created
+      <literal>&lt;input&gt;</literal>-tags.
      </para></listitem>
     </itemizedlist>
  <example>

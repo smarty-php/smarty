@@ -330,15 +330,12 @@ $smarty = new Smarty();
      <literal>index.php</literal> onto the end of your
      <literal>DirectoryIndex</literal> setting (separate
      each entry with a space) as in the following <filename>httpd.conf</filename> example.
-    </para>
-
-    <example>
-    <title>http.conf</title>
-    <programlisting>
-<![CDATA[DirectoryIndex index.htm index.html index.cgi index.php]]>
-    </programlisting>
-    </example>
-
+     <informalexample>
+     <programlisting>
+     <![CDATA[DirectoryIndex index.htm index.html index.cgi index.php]]>
+     </programlisting>
+     </informalexample>
+     </para>
    </note>
 
    <para>
