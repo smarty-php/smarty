@@ -3,15 +3,32 @@
      <sect1 id="variable.debugging.ctrl">
       <title>$debugging_ctrl</title>
       <para>
-       This allows alternate ways to enable debugging. NONE means no
-       alternate methods are allowed. URL means when the keyword
-       SMARTY_DEBUG is found in the QUERY_STRING, debugging is enabled
-       for that invocation of the script. If
-       <link linkend="variable.debugging">$debugging</link> is true, this
-       value is ignored.
+       This allows alternate ways to enable debugging. <literal>NONE</literal>
+        means no  alternate methods are allowed. <literal>URL</literal>
+        means when the keyword <literal>SMARTY_DEBUG</literal> is found in the
+        <literal>QUERY_STRING</literal>, debugging is enabled for that
+        invocation of the script. If <link linkend="variable.debugging">
+        <parameter>$debugging</parameter></link> is &true;, this value is ignored.
       </para>
+ <example>
+  <title>$debugging_ctrl on localhost</title>
+
+<programlisting role="php">
+<![CDATA[
+<?php
+// shows debug console only on localhost ie
+// http://localhost/script.php?foo=bar&SMARTY_DEBUG
+$smarty->debugging = false; // the default
+$smarty->debugging_ctrl = ($_SERVER['SERVER_NAME'] == 'localhost') ? 'URL' : 'NONE';
+?>
+]]>
+</programlisting>
+ </example>
+
       <para>
-      See also <link linkend="chapter.debugging.console">Debugging console</link>.
+      See also <link linkend="chapter.debugging.console">debugging console</link>
+     section and
+     <link linkend="variable.debugging"><parameter>$debugging</parameter></link>.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -5,12 +5,13 @@
       <para>
        This forces Smarty to (re)compile templates on every
        invocation. This setting overrides
-       <link linkend="variable.compile.check">$compile_check</link>.
+       <link linkend="variable.compile.check">
+       <parameter>$compile_check</parameter></link>.
        By default
-       this is disabled. This is handy for development and
+       this is &false;. This is handy for development and
        <link linkend="chapter.debugging.console">debugging</link>.
        It should never be used in a production environment. If
-       <link linkend="variable.caching">$caching</link>
+       <link linkend="variable.caching"><parameter>$caching</parameter></link>
        is enabled, the cache file(s) will be regenerated every time.
       </para>
 </sect1>

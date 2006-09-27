@@ -2,16 +2,23 @@
 <!-- $Revision$ -->
      <sect1 id="variable.request.use.auto.globals">
       <title>$request_use_auto_globals</title>
-      <para>
-	   Specifies if Smarty should use php's $HTTP_*_VARS[]
-	   ($request_use_auto_globals=false) or $_*[] ($request_use_auto_globals=true
-       which is the default value). This affects templates that make use of
- <link linkend="language.variables.smarty">{$smarty.request.*}, {$smarty.get.*}</link> etc. .
-	   Caution: If you set $request_use_auto_globals to true, <link
- linkend="variable.request.vars.order">$request_vars_order
-	   </link> has no effect but php's configuration value
-	   <literal>gpc_order</literal> is used.
+  <para>
+   Specifies if Smarty should use PHP's <literal>$HTTP_*_VARS[]</literal>
+   when &false; or <literal>$_*[]</literal> when
+   &true; which is the default value. This affects templates that make use of
+   <link linkend="language.variables.smarty">
+   <literal>{$smarty.request.*}, {$smarty.get.*}</literal></link> etc.
       </para>
+      <note>
+      <title>Caution</title>
+      <para>
+       If you set <literal>$request_use_auto_globals to true</literal>,
+       <link linkend="variable.request.vars.order">
+       <parameter>$request_vars_order</parameter></link> has no effect but
+       PHP's configuration value  <literal>gpc_order</literal> is used.
+   </para>
+   </note>
+
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

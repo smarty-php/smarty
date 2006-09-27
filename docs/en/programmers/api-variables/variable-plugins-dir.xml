@@ -3,23 +3,25 @@
      <sect1 id="variable.plugins.dir">
       <title>$plugins_dir</title>
       <para>
-       This is the directory (or directories) where Smarty will look for the
+       This is the directory or directories where Smarty will look for the
        plugins that it needs. Default is
-       <filename class="directory">"plugins"</filename> under the
-       <link linkend="constant.smarty.dir">SMARTY_DIR</link>. If you
-       supply a relative path, Smarty will first look under the
-       <link linkend="constant.smarty.dir">SMARTY_DIR</link>, then
-       relative to the cwd (current working directory), then relative to the PHP
-       include_path. If $plugins_dir is an array of directories, Smarty will
-       search for your plugin in each plugin directory in the order they are
-       given.
+       <filename class="directory">plugins/</filename> under the
+       <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>.
+        If you supply a relative path, Smarty will first look under the
+       <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>, then
+       relative to the current working directory, then relative to the PHP
+       include_path. If <parameter>$plugins_dir</parameter>
+        is an array of directories, Smarty will
+       search for your plugin in each plugin directory
+       <emphasis role="bold">in the order they are given</emphasis>.
       </para>
       <note>
          <title>Technical Note</title>
          <para>
-          For best performance, do not setup your $plugins_dir to have to use
-          the PHP include path. Use an absolute pathname, or a path relative
-          to SMARTY_DIR or the cwd.
+          For best performance, do not setup your <parameter>$plugins_dir</parameter>
+          to have to use the PHP include path. Use an absolute pathname,
+          or a path relative  to <constant>SMARTY_DIR</constant> or the current
+           working directory.
           </para>
         </note>
 
@@ -36,9 +38,8 @@ $smarty->plugins_dir[] = 'includes/my_smarty_plugins';
 ]]>
     </programlisting>
     </example>
-    
       <example>
-      <title>multiple $plugins_dir</title>
+      <title>Multiple $plugins_dir</title>
       <programlisting role="php">
 <![CDATA[
 <?php

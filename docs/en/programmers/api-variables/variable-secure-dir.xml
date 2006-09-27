@@ -5,13 +5,13 @@
       <para>
        This is an array of all local files and directories that are considered
  secure.
- <link linkend="language.function.include">{include}</link>
- and <link linkend="language.function.fetch">{fetch}</link>
+ <link linkend="language.function.include"><varname>{include}</varname></link>
+ and <link linkend="language.function.fetch"><varname>{fetch}</varname></link>
  use this when
- <link linkend="variable.security">$security</link> is enabled.
+ <link linkend="variable.security"><parameter>$security</parameter></link> is enabled.
       </para>
-      
-      
+
+
 <example>
 <title>$secure_dir example</title>
 <programlisting role="php">
@@ -24,11 +24,11 @@ $smarty->secure_dir = $secure_dirs;
 ]]>
 </programlisting>
 </example>
-  
+
 <para>
  See also
- <link linkend="variable.security.settings">Security settings</link>,
- and <link linkend="variable.trusted.dir">$trusted_dir</link>.
+ <link linkend="variable.security.settings"><parameter>$security_settings</parameter></link>
+ and <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>.
 </para>
 
 </sect1>

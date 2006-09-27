@@ -4,18 +4,18 @@
  <title>$error_reporting</title>
  <para>
   When this value is set to a non-null-value it's value is used as php's
-  <ulink url="&url.php-manual;error_reporting">error_reporting</ulink>
-  level inside of <link linkend="api.display">display()</link>
-  and <link linkend="api.fetch">fetch()</link>. When <link
-   linkend="chapter.debugging.console">debugging</link> is enabled this value
-  is ignored and the error-level is left untouched.
+  <ulink url="&url.php-manual;error_reporting"><varname>error_reporting</varname></ulink>
+  level inside of <link linkend="api.display"><varname>display()</varname></link>
+  and <link linkend="api.fetch"><varname>fetch()</varname></link>. When <link
+   linkend="chapter.debugging.console"><parameter>debugging</parameter></link>
+   is enabled this value  is ignored and the error-level is left untouched.
  </para>
  <para>
   See also
-  <link linkend="api.trigger.error">trigger_error()</link>,
+  <link linkend="api.trigger.error"><varname>trigger_error()</varname></link>,
   <link linkend="chapter.debugging.console">debugging</link>
   and
-  <link linkend="troubleshooting">Troubleshooting</link>.
+  <link linkend="troubleshooting">troubleshooting</link>.
  </para>
 </sect1>
 

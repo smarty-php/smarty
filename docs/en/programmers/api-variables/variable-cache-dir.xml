@@ -5,19 +5,21 @@
       <para>
        This is the name of the directory where template caches are
        stored. By default this is
-       <filename class="directory">"./cache"</filename>, meaning that
-       Smarty will look for the cache directory in the same directory
-       as the executing php script.
+       <filename class="directory">./cache</filename>, meaning that
+       Smarty will look for the <filename class="directory">cache/</filename> directory
+        in the same directory  as the executing php script.
        <emphasis role="bold">This directory must
-     be writeable by the web server</emphasis>
-     (<link linkend="installing.smarty.basic">see install</link>).
+     be writeable by the web server</emphasis>,
+     <link linkend="installing.smarty.basic">see install</link> for more info.
+     </para>
+     <para>
      You can also use your own
        <link linkend="section.template.cache.handler.func">
        custom cache handler</link>
        function to control cache files, which will ignore this
        setting.
        See also
-       <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
+       <link linkend="variable.use.sub.dirs"><parameter>$use_sub_dirs</parameter></link>.
       </para>
       <note>
        <title>Technical Note</title>
@@ -36,13 +38,13 @@
 
   <para>
   See also
-  <link linkend="variable.caching">$caching</link>,
-  <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>,
-  <link linkend="variable.cache.lifetime">$cache_lifetime</link>,
-  <link linkend="variable.cache.handler.func">$cache_handler_func</link>,
-  <link linkend="variable.cache.modified.check">$cache_modified_check</link>
-  and
-  <link linkend="caching">Caching section</link>.
+  <link linkend="variable.caching"><parameter>$caching</parameter></link>,
+  <link linkend="variable.use.sub.dirs"><parameter>$use_sub_dirs</parameter></link>,
+  <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>,
+  <link linkend="variable.cache.handler.func"><parameter>$cache_handler_func</parameter></link>,
+  <link linkend="variable.cache.modified.check"><parameter>$cache_modified_check</parameter></link>
+  and the
+  <link linkend="caching">caching section</link>.
   </para>
 </sect1>
 

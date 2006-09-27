@@ -4,29 +4,30 @@
  <title>$compile_id</title>
  <para>
   Persistant compile identifier. As an alternative to passing the same
-  $compile_id to each and every function call, you can set this
-  $compile_id and it will be used implicitly thereafter.
+  <parameter>$compile_id</parameter> to each and every function call, you can set this
+  <parameter>$compile_id</parameter> and it will be used implicitly thereafter.
  </para>
  <para>
-  With a $compile_id you can work around the limitation that you cannot
-  use the same
-  <link linkend="variable.compile.dir">$compile_dir</link>
-  for different
-  <link linkend="variable.template.dir">$template_dirs</link>.  If you set a
-  distinct $compile_id for each 
-  <link linkend="variable.template.dir">$template_dir</link> then Smarty can tell the
-  compiled templates apart by their $compile_id.
+  With a <parameter>$compile_id</parameter> you can work around the limitation
+  that you cannot use the same
+  <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link>
+  for different <link linkend="variable.template.dir">
+  <parameter>$template_dirs</parameter></link>.  If you set a distinct
+  <parameter>$compile_id</parameter> for each
+  <link linkend="variable.template.dir"><parameter>$template_dir</parameter>
+  </link> then Smarty can tell the compiled templates apart by their
+  <parameter>$compile_id</parameter>.
  </para>
  <para>
   If you have for example a
   <link linkend="plugins.prefilters.postfilters">prefilter</link>
   that localizes your templates
   (that is: translates language dependend parts) at compile time, then
-  you should use the current language as $compile_id and you will get a
-  set of compiled templates for each language you use.
+  you could use the current language as <parameter>$compile_id</parameter> and
+  you will get a  set of compiled templates for each language you use.
  </para>
  <para>
-  Another example would be to use the same compile directory across
+  Another application would be to use the same compile directory across
   multiple domains / multiple virtual hosts.
  </para>
  <example>

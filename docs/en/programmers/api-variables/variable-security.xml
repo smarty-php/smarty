@@ -3,43 +3,44 @@
      <sect1 id="variable.security">
       <title>$security</title>
       <para>
-       $security true/false, default is false. Security is good for
+       <parameter>$security</parameter> can be &true; or &false;,
+       defaults to &false;. Security is good for
        situations when you have untrusted parties editing the templates
-       (via ftp for example) and you want to reduce the risk of system
+       eg via ftp, and you want to reduce the risk of system
        security compromises through the template language. Turning on
        security enforces the following rules to the template language,
- unless specifially overridden with
- <link linkend="variable.security.settings">$security_settings</link>:
+      unless specifially overridden with <link linkend="variable.security.settings">
+      <parameter>$security_settings</parameter></link>:
       </para>
       <itemizedlist>
 <listitem>
-<para>If <link linkend="variable.php.handling">$php_handling</link>
-is set to SMARTY_PHP_ALLOW, this is
-implicitly changed to SMARTY_PHP_PASSTHRU
+<para>If <link linkend="variable.php.handling"><parameter>$php_handling</parameter></link>
+is set to <constant>SMARTY_PHP_ALLOW</constant>, this is
+implicitly changed to <constant>SMARTY_PHP_PASSTHRU</constant>
 </para></listitem>
 <listitem>
 <para>
 PHP functions are not allowed in <link
-linkend="language.function.if">{if}</link> statements,
+linkend="language.function.if"><varname>{if}</varname></link> statements,
 except those specified in the
-<link linkend="variable.security.settings">$security_settings</link>
+<link linkend="variable.security.settings"><parameter>$security_settings</parameter></link>
 </para></listitem>
 <listitem><para>
-templates can only be included from directories
+Templates can only be included from directories
 listed in the
-<link linkend="variable.secure.dir">$secure_dir</link> array
+<link linkend="variable.secure.dir"><parameter>$secure_dir</parameter></link> array
 </para></listitem>
 <listitem><para>
-local files can only be fetched from directories listed in the
-<link linkend="variable.secure.dir">$secure_dir</link>
-array using <link linkend="language.function.fetch">{fetch}</link>
+Local files can only be fetched from directories listed in the
+<link linkend="variable.secure.dir"><parameter>$secure_dir</parameter></link>
+array using <link linkend="language.function.fetch"><varname>{fetch}</varname></link>
 </para></listitem>
 <listitem><para>
-<link linkend="language.function.php">{php}{/php}</link> tags are not allowed
+<link linkend="language.function.php"><varname>{php}{/php}</varname></link> tags are not allowed
 </para></listitem>
 <listitem><para>
 PHP functions are not allowed as modifiers, except those specified in the
-<link linkend="variable.security.settings">$security_settings</link>
+<link linkend="variable.security.settings"><parameter>$security_settings</parameter></link>
 </para></listitem>
       </itemizedlist>
 </sect1>

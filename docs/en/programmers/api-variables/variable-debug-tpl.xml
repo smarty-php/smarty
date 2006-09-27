@@ -6,13 +6,13 @@
 	   This is the name of the template file used for the debugging console. By
 	   default, it is named <filename>debug.tpl</filename> and is
 	   located in the <link
-	   linkend="constant.smarty.dir">SMARTY_DIR</link>.
+	   linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>.
       </para>
       <para>
       See also
-      <link linkend="variable.debugging">$debugging</link>
-      and
-      <link linkend="chapter.debugging.console">Debugging console</link>
+      <link linkend="variable.debugging"><parameter>$debugging</parameter></link>
+      and the
+      <link linkend="chapter.debugging.console">debugging console</link> section.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

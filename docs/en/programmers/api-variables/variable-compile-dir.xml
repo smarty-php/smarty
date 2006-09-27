@@ -5,16 +5,14 @@
     <para>
      This is the name of the directory where compiled templates are
      located. By default this is
-     <filename class="directory">"./templates_c"</filename>
-     , meaning that it
-     will look for the compile directory in the same directory as
+     <filename class="directory">./templates_c</filename>, meaning that Smarty
+     will look for the <filename class="directory">templates_c/</filename>
+      directory in the same directory as
      the executing php script. <emphasis role="bold">This directory must
-     be writeable by the web server</emphasis>
-     (<link linkend="installing.smarty.basic">see install</link>).
-     Also
-     <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
-
+     be writeable by the web server</emphasis>,
+     <link linkend="installing.smarty.basic">see install</link> for more info.
     </para>
+
     <note>
      <title>Technical Note</title>
       <para>
@@ -30,9 +28,9 @@
       </para>
      </note>
      <para>
-     See also <link linkend="variable.compile.id">$compile_id</link>
+     See also <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
      and
-     <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
+     <link linkend="variable.use.sub.dirs"><parameter>$use_sub_dirs</parameter></link>.
      </para>
 </sect1>
 <!-- Keep this comment at the end of the file

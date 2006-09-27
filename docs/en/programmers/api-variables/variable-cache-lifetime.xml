@@ -4,31 +4,45 @@
     <title>$cache_lifetime</title>
     <para>
      This is the length of time in seconds that a template cache is valid.
-     Once this time has expired, the cache will be regenerated. $caching must
-     be turned on (either 1 or 2) for $cache_lifetime to have any purpose. A
-     value of -1 will force the cache to never expire. A value of 0 will cause
+     Once this time has expired, the cache will be regenerated.
+     </para>
+
+     <itemizedlist>
+     <listitem><para>
+     <parameter>$caching</parameter> must be turned on (either 1 or 2) for
+     <parameter>$cache_lifetime</parameter> to have any purpose.
+     </para></listitem>
+
+     <listitem><para>
+     A value of -1 will force the cache to never expire.
+     </para></listitem>
+
+     <listitem><para>A value of 0 will cause
      the cache to always regenerate (good for testing only, to disable caching
      a more efficient method is to set <link
-     linkend="variable.caching">$caching</link> = 0.)
-    </para>
+     linkend="variable.caching"><parameter>$caching</parameter></link> = 0).
+    </para></listitem>
+
+    <listitem><para>
+      If you want to give certain templates their own cache lifetime, you could
+      do this by setting <link linkend="variable.caching">
+      <parameter>$caching</parameter></link> = 2,
+      then set <parameter>$cache_lifetime</parameter> to a unique value just
+      before calling <link linkend="api.display"><varname>display()</varname>
+      </link> or <link linkend="api.fetch"><varname>fetch()</varname></link>.
+     </para></listitem>
+    </itemizedlist>
+
     <para>
-     If <link linkend="variable.force.compile">$force_compile</link> is
+     If <link linkend="variable.force.compile">
+     <parameter>$force_compile</parameter></link> is
      enabled, the cache files will be regenerated every time, effectively
      disabling caching. You can clear all the cache files with the <link
-     linkend="api.clear.all.cache">clear_all_cache()</link> function, or
-     individual cache files (or groups) with the <link
-     linkend="api.clear.cache">clear_cache()</link> function.
+     linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>
+     function, or individual cache files (or groups) with the <link
+     linkend="api.clear.cache"><varname>clear_cache()</varname></link> function.
     </para>
-    <note>
-     <title>Technical Note</title>
-     <para>
-      If you want to give certain templates their own cache lifetime, you could
-      do this by setting <link linkend="variable.caching">$caching</link> = 2,
-      then set $cache_lifetime to a unique value just before calling
-      <link linkend="api.display">display()</link>
-      or <link linkend="api.fetch">fetch()</link>.
-     </para>
-    </note>
+
    </sect1>
 
 <!-- Keep this comment at the end of the file

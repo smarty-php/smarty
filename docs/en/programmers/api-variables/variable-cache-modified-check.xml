@@ -3,22 +3,22 @@
 <sect1 id="variable.cache.modified.check">
 <title>$cache_modified_check</title>
 <para>
-  If set to true, Smarty will respect the If-Modified-Since
+  If set to &true;, Smarty will respect the If-Modified-Since
   header sent from the client. If the cached file timestamp has
-  not changed since the last visit, then a "304 Not Modified"
+  not changed since the last visit, then a <literal>'304: Not Modified'</literal>
   header will be sent instead of the content. This works only on
   cached content without
-  <link linkend="language.function.insert"><command>{insert}</command></link>
+  <link linkend="language.function.insert"><varname>{insert}</varname></link>
   tags.
 </para>
 
   <para>
   See also
-  <link linkend="variable.caching">$caching</link>,
-   <link linkend="variable.cache.lifetime">$cache_lifetime</link>,
-  <link linkend="variable.cache.handler.func">$cache_handler_func</link>,
-  and
-  <link linkend="caching">Caching section</link>.
+  <link linkend="variable.caching"><parameter>$caching</parameter></link>,
+   <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>,
+  <link linkend="variable.cache.handler.func"><parameter>$cache_handler_func</parameter></link>,
+  and the
+  <link linkend="caching">caching section</link>.
   </para>
 
 </sect1>

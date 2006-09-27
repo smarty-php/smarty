@@ -5,10 +5,12 @@
       <para>
 	  This is an array of modifiers to implicitly apply to every variable in a
 	  template. For example, to HTML-escape every variable by default, use
-	  array('escape:"htmlall"'); To make a variable exempt from default
-	  modifiers, pass the special "smarty" modifier with a parameter value of
-	  "nodefaults" modifier to it, such as
-	  {$var|smarty:nodefaults}.
+	  <literal>array('escape:"htmlall"')</literal>.
+      To make a variable exempt from default
+	  modifiers, pass the special <literal>smarty</literal> modifier with a
+      parameter value of
+	  <literal>nodefaults</literal> modifier to it, such as
+	  <literal>{$var|smarty:nodefaults}</literal>.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

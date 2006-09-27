@@ -10,18 +10,20 @@
        templates, variables <link linkend="api.assign">assigned</link>
        from php and
        <link linkend="language.config.variables">config file variables</link>
-       for the current template page. It does not show variables
-       assigned within a template with 
-       <link linkend="language.function.assign">{assign}</link>.
+       for the current script. It does not show variables
+       assigned within a template with the
+       <link linkend="language.function.assign"><varname>{assign}</varname>
+       </link> function.
       </para>
-      <para>Also see <link linkend="variable.debugging.ctrl">$debugging_ctrl</link>
-      on how to enable debugging from the url.
+      <para>The console can also be enabled from the url with
+      <link linkend="variable.debugging.ctrl">
+      <parameter>$debugging_ctrl</parameter></link>.
       </para>
       <para>
       See also
-      <link linkend="language.function.debug">{debug}</link>,
-      <link linkend="variable.debug.tpl">$debug_tpl</link>,
-      and <link linkend="variable.debugging.ctrl">$debugging_ctrl</link>
+      <link linkend="language.function.debug"><varname>{debug}</varname></link>,
+      <link linkend="variable.debug.tpl"><parameter>$debug_tpl</parameter></link>,
+      and <link linkend="variable.debugging.ctrl"><parameter>$debugging_ctrl</parameter></link>.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

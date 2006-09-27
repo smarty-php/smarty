@@ -4,10 +4,10 @@
  <title>$right_delimiter</title>
  <para>
   This is the right delimiter used by the template language.
-  Default is "}".			
+  Default is <literal>}</literal>.
  </para>
  <para>
-  See also <link linkend="variable.left.delimiter">$left_delimiter</link>
+  See also <link linkend="variable.left.delimiter"><parameter>$left_delimiter</parameter></link>
     and
   <link linkend="language.escaping">escaping smarty parsing</link>.
  </para>
