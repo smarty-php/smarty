@@ -3,37 +3,63 @@
    <sect1 id="caching.groups">
     <title>Cache Groups</title>
      <para>
-      You can do more elaborate grouping by setting up $cache_id groups. This is
-      accomplished by separating each sub-group with a vertical bar "|" in the
-      $cache_id value. You can have as many sub-groups as you like.
+      You can do more elaborate grouping by setting up
+      <parameter>$cache_id</parameter> groups. This is
+      accomplished by separating each sub-group with a vertical bar
+      <literal>|</literal> in the <parameter>$cache_id</parameter> value.
+      You can have as many sub-groups as you like.
      </para>
-     <para>
+
+     <itemizedlist>
+     <listitem><para>
       You can think of cache groups like a directory hierarchy. For instance, a
-      cache group of "a|b|c" could be thought of as the directory structure
-      "/a/b/c/". <link linkend="api.clear.cache">clear_cache</link>(null,"a|b|c") 
+      cache group of <literal>'a|b|c'</literal> could be thought of as the
+      directory structure <literal>'/a/b/c/'</literal>.
+      </para></listitem>
+
+      <listitem><para>
+      <literal>clear_cache(null,'a|b|c')</literal>
       would be like removing the files
-      "/a/b/c/*". clear_cache(null,"a|b") would be like removing the files
-      "/a/b/*". If you specify a <link linkend="variable.compile.id">$compile_id</link> such as
-      clear_cache(null,"a|b","foo") it is treated as an appended cache group
-      "/a/b/c/foo/". If you specify a template name such as
-      clear_cache("foo.tpl","a|b|c") then Smarty will attempt to remove
-      "/a/b/c/foo.tpl". You CANNOT remove a specified template name under
-      multiple cache groups such as "/a/b/*/foo.tpl", the cache grouping works
+      <literal>'/a/b/c/*'</literal>. <literal>clear_cache(null,'a|b')</literal>
+      would be like removing the files <literal>'/a/b/*'</literal>.
+      </para></listitem>
+
+      <listitem><para>
+      If you specify a
+      <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
+      such as <literal>clear_cache(null,'a|b','foo')</literal> it is treated as
+      an appended cache group <literal>'/a/b/c/foo/'</literal>.
+      </para></listitem>
+
+      <listitem><para>
+      If you specify a template name such as
+      <literal>clear_cache('foo.tpl','a|b|c')</literal> then Smarty will attempt
+      to remove <literal>'/a/b/c/foo.tpl'</literal>.
+      </para></listitem>
+
+      <listitem><para>
+      You CANNOT remove a specified template name under
+      multiple cache groups such as <literal>'/a/b/*/foo.tpl'</literal>, the
+      cache grouping works
       left-to-right ONLY. You will need to group your templates under a single
       cache group heirarchy to be able to clear them as a group.
-     </para>
+     </para></listitem>
+     </itemizedlist>
+
      <para>
       Cache grouping should not be confused with your template directory
       heirarchy, the cache grouping has no knowledge of how your templates are
       structured. So for example, if you have a template structure like
-      "themes/blue/index.tpl" and you want to be able to clear all the cache
-      files for the "blue" theme, you will need to create a cache group
+      <filename>themes/blue/index.tpl</filename> and you want to be able to
+      clear all the cache files for the <quote>blue</quote> theme, you will need
+      to create a cache group
       structure that mimics your template file structure, such as
-      display("themes/blue/index.tpl","themes|blue"), then clear them with
-      clear_cache(null,"themes|blue").
+      <literal>display('themes/blue/index.tpl','themes|blue')</literal>, then
+      clear them with
+      <literal>clear_cache(null,'themes|blue')</literal>.
      </para>
      <example>
-      <title>cache_id groups</title>
+      <title>$cache_id groups</title>
       <programlisting role="php">
 <![CDATA[
 <?php
@@ -58,7 +84,7 @@ $smarty->display('index.tpl','sports|basketball');
 ]]>
       </programlisting>
      </example>
-    
+
     </sect1>
 
 <!-- Keep this comment at the end of the file
