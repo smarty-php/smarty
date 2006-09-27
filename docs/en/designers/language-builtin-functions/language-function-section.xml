@@ -79,7 +79,7 @@
      <entry>boolean</entry>
      <entry>No</entry>
      <entry><emphasis>&true;</emphasis></entry>
-     <entry>determines whether or not to show this section</entry>
+     <entry>Determines whether or not to show this section</entry>
     </row>
    </tbody>
   </tgroup>
@@ -142,7 +142,9 @@
 
  <example>
   <title>Looping a simple array with {section}</title>
-<para><link linkend="api.assign">assign()</link> an array to Smarty from the php script</para>
+<para>
+<link linkend="api.assign"><varname>assign()</varname></link> an array to Smarty
+</para>
 <programlisting role="php">
 <![CDATA[
 <?php
@@ -226,9 +228,9 @@ id: 1000<br />
 
 
  <example>
-  <title>Looping an associative array's with {section}</title>
+  <title>Looping an associative array with {section}</title>
   <para>This is an example of printing an associative array
-   of data within a <varname>{section}</varname>. Following is the php script to assign the
+   of data with a <varname>{section}</varname>. Following is the php script to assign the
    <parameter>$contacts</parameter> array to Smarty.</para>
   <programlisting role="php">
   <![CDATA[
@@ -465,7 +467,7 @@ $smarty->assign('contacts', $db->getAll($sql));
   <title>.index</title>
   <para>
    <parameter>index</parameter> contains the current array index, starting with zero
-   or the <parameter>start</parameter> attribute if given It increments by one or by
+   or the <parameter>start</parameter> attribute if given. It increments by one or by
    the <parameter>step</parameter> attribute if given.
   </para>
   <note>
@@ -482,8 +484,8 @@ $smarty->assign('contacts', $db->getAll($sql));
 <title>{section} <varname>index</varname> property</title>
 <para>
 <note><title>FYI</title>
-<para><parameter>$custid[customer.index]</parameter> and <varname>$custid[customer]</varname>
- are identical in meaning.</para>
+<para><literal>$custid[customer.index]</literal> and
+<literal>$custid[customer]</literal> are identical.</para>
 </note>
 </para>
    <programlisting>
@@ -598,8 +600,8 @@ $smarty->assign('arr',$id);
 ?>
 ]]>
 </programlisting>
-<para>Template to output every other element of the <varname>$arr</varname>
-array as <varname>step</varname>=2</para>
+<para>Template to output every other element of the <literal>$arr</literal>
+array as <literal>step=2</literal></para>
    <programlisting>
 <![CDATA[
 {section name=cu loop=$arr start=5 step=2}
@@ -623,10 +625,10 @@ iteration=6 index=15 id=3015<br />
 ]]>
    </screen>
   <para>
-   Another example uses the <parameter>iteration</parameter> property to
-   output a table header block every five rows and
-   uses <link linkend="language.function.if"><varname>{if}</varname></link>
-   with the mod operator.
+   Another example that uses the <parameter>iteration</parameter> property to
+   output a table header block every five rows.
+   Uses the <link linkend="language.function.if"><varname>{if}</varname></link>
+   function with the mod operator.
   </para>
    <programlisting>
 <![CDATA[
@@ -653,8 +655,8 @@ iteration=6 index=15 id=3015<br />
  <sect2 id="section.property.first">
   <title>.first</title>
   <para>
-   <parameter>first</parameter> is set to &true; if the current <varname>{section}</varname>
-   iteration is the initial one.
+   <parameter>first</parameter> is set to &true; if the current
+   <varname>{section}</varname> iteration is the initial one.
   </para>
  </sect2>
 
@@ -715,7 +717,7 @@ iteration=6 index=15 id=3015<br />
    looped. This can be used inside or after the <varname>{section}</varname>.
      </para>
   <example>
-   <title>{section} property <varname>loop</varname>s</title>
+   <title>{section} property <varname>loop</varname></title>
    <programlisting>
 <![CDATA[
 {section name=customer loop=$custid}
@@ -741,8 +743,8 @@ There are 3 customers shown above.
  <sect2 id="section.property.show">
   <title>.show</title>
   <para>
-   <parameter>show</parameter> is used as a parameter to section.
-   <parameter>show</parameter> is a boolean value, &true; or &false;. If
+   <parameter>show</parameter> is used as a parameter to section and is
+   a boolean value. If
    &false;, the section will not be displayed. If there is a
    <varname>{sectionelse}</varname>  present, that will be alternately displayed.
   </para>
