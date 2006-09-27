@@ -2,13 +2,36 @@
 <!-- $Revision$ -->
 <chapter id="resources">
  <title>Resources</title>
- <para>
-  Smarty's homepage is located at <ulink
-  url="&url.smarty;">&url.smarty;</ulink>.
-  You can join the mailing list by sending an e-mail to
-  &ml.general.sub;. An archive of the mailing list can 
-  be viewed at <ulink url="&url.ml.archive;">&url.ml.archive;</ulink>.
+ <para>Smarty's homepage is located at
+ <ulink url="&url.smarty;">&url.smarty;</ulink>
  </para>
+
+  <itemizedlist>
+
+  <listitem><para>
+  You can join the mailing list by sending an e-mail to
+  <literal>&ml.general.sub;</literal>. An archive of the mailing list can
+  be viewed at <ulink url="&url.ml.archive;">here</ulink>
+  </para></listitem>
+
+  <listitem><para>
+  Forums are at <ulink url="&url.forums;">&url.forums;</ulink>
+ </para></listitem>
+
+  <listitem><para>
+  The wiki is located at <ulink url="&url.wiki;">&url.wiki;</ulink>
+ </para></listitem>
+
+   <listitem><para>
+  Join the chat at <ulink url="&url.wiki;">irc.freenode.net#smarty</ulink>
+ </para></listitem>
+
+   <listitem><para>
+  FAQ's are <ulink url="&url.faq_1;">here</ulink> and <ulink url="&url.faq_2;">here</ulink>
+ </para></listitem>
+
+ </itemizedlist>
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:
