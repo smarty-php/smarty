@@ -1,3 +1,114 @@
+2006-09-26  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
+
+    * docs/en/programmers/api-functions/api-append-by-ref.xml
+      docs/en/programmers/api-functions/api-append.xml
+      docs/en/programmers/api-functions/api-assign-by-ref.xml
+      docs/en/programmers/api-functions/api-assign.xml
+      docs/en/programmers/api-functions/api-clear-all-assign.xml
+      docs/en/programmers/api-functions/api-clear-all-cache.xml
+      docs/en/programmers/api-functions/api-clear-assign.xml
+      docs/en/programmers/api-functions/api-clear-cache.xml
+      docs/en/programmers/api-functions/api-clear-compiled-tpl.xml
+      docs/en/programmers/api-functions/api-clear-config.xml
+      docs/en/programmers/api-functions/api-config-load.xml
+      docs/en/programmers/api-functions/api-display.xml
+      docs/en/programmers/api-functions/api-fetch.xml
+      docs/en/programmers/api-functions/api-get-config-vars.xml
+      docs/en/programmers/api-functions/api-get-registered-object.xml
+      docs/en/programmers/api-functions/api-get-template-vars.xml
+      docs/en/programmers/api-functions/api-is-cached.xml
+      docs/en/programmers/api-functions/api-load-filter.xml
+      docs/en/programmers/api-functions/api-register-block.xml
+      docs/en/programmers/api-functions/api-register-compiler-function.xml
+      docs/en/programmers/api-functions/api-register-function.xml
+      docs/en/programmers/api-functions/api-register-modifier.xml
+      docs/en/programmers/api-functions/api-register-object.xml
+      docs/en/programmers/api-functions/api-register-outputfilter.xml
+      docs/en/programmers/api-functions/api-register-postfilter.xml
+      docs/en/programmers/api-functions/api-register-prefilter.xml
+      docs/en/programmers/api-functions/api-register-resource.xml
+      docs/en/programmers/api-functions/api-template-exists.xml
+      docs/en/programmers/api-functions/api-trigger-error.xml
+      docs/en/programmers/api-functions/api-unregister-block.xml
+      docs/en/programmers/api-functions/api-unregister-compiler-function.xml
+      docs/en/programmers/api-functions/api-unregister-function.xml
+      docs/en/programmers/api-functions/api-unregister-modifier.xml
+      docs/en/programmers/api-functions/api-unregister-object.xml
+      docs/en/programmers/api-functions/api-unregister-outputfilter.xml
+      docs/en/programmers/api-functions/api-unregister-postfilter.xml
+      docs/en/programmers/api-functions/api-unregister-prefilter.xml
+      docs/en/programmers/api-functions/api-unregister-resource.xml:
+      Tidy up formatting and examples
+
+    * docs/en/language-snippets.ent:
+      Moved recurring para for register_*
+
+    * docs/en/designers/language-modifiers.xml:
+      Spelling on modifiers
+
+    * docs/en/designers/language-builtin-functions.xml
+      docs/en/designers/language-modifiers.xml
+      docs/en/designers/language-custom-functions/language-function-html-options.xml
+      docs/en/designers/language-modifiers/language-modifier-capitalize.xml
+      docs/en/designers/language-modifiers/language-modifier-cat.xml
+      docs/en/designers/language-modifiers/language-modifier-count-characters.xml
+      docs/en/designers/language-modifiers/language-modifier-count-paragraphs.xml
+      docs/en/designers/language-modifiers/language-modifier-count-sentences.xml
+      docs/en/designers/language-modifiers/language-modifier-count-words.xml
+      docs/en/designers/language-modifiers/language-modifier-date-format.xml
+      docs/en/designers/language-modifiers/language-modifier-default.xml
+      docs/en/designers/language-modifiers/language-modifier-escape.xml
+      docs/en/designers/language-modifiers/language-modifier-indent.xml
+      docs/en/designers/language-modifiers/language-modifier-lower.xml
+      docs/en/designers/language-modifiers/language-modifier-nl2br.xml
+      docs/en/designers/language-modifiers/language-modifier-regex-replace.xml
+      docs/en/designers/language-modifiers/language-modifier-replace.xml
+      docs/en/designers/language-modifiers/language-modifier-spacify.xml
+      docs/en/designers/language-modifiers/language-modifier-string-format.xml
+      docs/en/designers/language-modifiers/language-modifier-strip-tags.xml
+      docs/en/designers/language-modifiers/language-modifier-strip.xml
+      docs/en/designers/language-modifiers/language-modifier-truncate.xml
+      docs/en/designers/language-modifiers/language-modifier-upper.xml
+      docs/en/designers/language-modifiers/language-modifier-wordwrap.xml:
+      Tidying up some markup
+
+    * docs/en/designers/language-variables.xml:
+      typo
+
+    * docs/en/designers/language-variables.xml
+      docs/en/designers/language-variables/language-assigned-variables.xml
+      docs/en/designers/language-variables/language-config-variables.xml
+      docs/en/designers/language-variables/language-variables-smarty.xml:
+      Tidy up formatting on variables
+
+    * docs/en/designers/language-basic-syntax/language-escaping.xml
+      docs/en/designers/language-basic-syntax/language-math.xml
+      docs/en/designers/language-basic-syntax/language-syntax-comments.xml
+      docs/en/designers/language-basic-syntax/language-syntax-functions.xml
+      docs/en/designers/language-basic-syntax/language-syntax-quotes.xml
+      docs/en/designers/language-basic-syntax/language-syntax-variables.xml:
+      Formatting of the basic-syntax dir
+
+    * docs/en/designers/language-custom-functions/language-function-assign.xml
+      docs/en/designers/language-custom-functions/language-function-counter.xml
+      docs/en/designers/language-custom-functions/language-function-cycle.xml
+      docs/en/designers/language-custom-functions/language-function-debug.xml
+      docs/en/designers/language-custom-functions/language-function-eval.xml
+      docs/en/designers/language-custom-functions/language-function-fetch.xml
+      docs/en/designers/language-custom-functions/language-function-html-checkboxes.xml
+      docs/en/designers/language-custom-functions/language-function-html-image.xml
+      docs/en/designers/language-custom-functions/language-function-html-options.xml
+      docs/en/designers/language-custom-functions/language-function-html-radios.xml
+      docs/en/designers/language-custom-functions/language-function-html-select-date.xml
+      docs/en/designers/language-custom-functions/language-function-html-select-time.xml
+      docs/en/designers/language-custom-functions/language-function-html-table.xml
+      docs/en/designers/language-custom-functions/language-function-mailto.xml
+      docs/en/designers/language-custom-functions/language-function-math.xml
+      docs/en/designers/language-custom-functions/language-function-popup-init.xml
+      docs/en/designers/language-custom-functions/language-function-popup.xml
+      docs/en/designers/language-custom-functions/language-function-textformat.xml:
+      More formatting and cleaning up examples
+
 2006-09-25  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
 
     * docs/en/designers/language-builtin-functions/language-function-foreach.xml
