@@ -9,26 +9,25 @@
      </funcprototype>
     </funcsynopsis>
     <para>
-     All attributes passed to template functions from the template are
-     contained in the <parameter>$params</parameter> as an associative
-     array.
+     All <link linkend="language.syntax.attributes">attributes</link> passed to
+     template functions from the template are contained in the
+     <parameter>$params</parameter> as an associative array.
     </para>
     <para>
-	 The output (return value) of the function will be substituted in place of the
-     function tag in the template (<function>fetch</function> function, for
-     example). Alternatively, the function can simply perform some other
-     task without any output (<function>assign</function> function).
+	 The output (return value) of the function will be substituted in place of
+     the function tag in the template, eg the
+     <link linkend="language.function.fetch"><varname>{fetch}</varname></link>
+     function. Alternatively, the function can simply perform some other
+     task without any output, eg the <link linkend="language.function.assign">
+     <varname>{assign}</varname></link> function.
     </para>
     <para>
      If the function needs to assign some variables to the template or use
      some other Smarty-provided functionality, it can use the supplied
-     <parameter>$smarty</parameter> object to do so.
+     <parameter>$smarty</parameter> object to do so eg
+     <literal>$smarty->foo()</literal>.
     </para>
-    <para>
-     See also:
-     <link linkend="api.register.function">register_function()</link>,
-     <link linkend="api.unregister.function">unregister_function()</link>.
-    </para>
+
     <para>
      <example>
       <title>function plugin with output</title>
@@ -101,6 +100,11 @@ function smarty_function_assign($params, &$smarty)
 ]]>
       </programlisting>
      </example>
+    </para>
+        <para>
+     See also:
+     <link linkend="api.register.function"><varname>register_function()</varname></link>,
+     <link linkend="api.unregister.function"><varname>unregister_function()</varname></link>.
     </para>
   </sect1>
 

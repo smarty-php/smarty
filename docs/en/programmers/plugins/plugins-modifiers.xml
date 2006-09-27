@@ -2,9 +2,9 @@
 <!-- $Revision$ -->
    <sect1 id="plugins.modifiers"><title>Modifiers</title>
     <para>
-     Modifiers are little functions that are applied to a variable in the
-     template before it is displayed or used in some other context.
-     Modifiers can be chained together.
+     <link linkend="language.modifiers">Modifiers</link> are little functions
+     that are applied to a variable in the template before it is displayed or
+     used in some other context. Modifiers can be chained together.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -15,20 +15,16 @@
     </funcsynopsis>
     <para>
      The first parameter to the modifier plugin is the value on which
-     the modifier is supposed to operate. The rest of the parameters can be
-     optional, depending on what kind of operation is supposed to be
-     performed.
+     the modifier is to operate. The rest of the parameters are optional,
+     depending on what kind of operation is to be  performed.
     </para>
     <para>
-     The modifier has to return the result of its processing.
+     The modifier has to <ulink url="&url.php-manual;return">return</ulink>
+     the result of its processing.
     </para>
-    <para>
-     See also
-     <link linkend="api.register.modifier">register_modifier()</link>,
-     <link linkend="api.unregister.modifier">unregister_modifier()</link>.
-    </para>
+
     <example>
-     <title>simple modifier plugin</title>
+     <title>A simple modifier plugin</title>
      <para>
       This plugin basically aliases one of the built-in PHP functions. It
       does not have any additional parameters.
@@ -55,7 +51,7 @@ function smarty_modifier_capitalize($string)
     </example>
     <para></para>
     <example>
-     <title>more complex modifier plugin</title>
+     <title>More complex modifier plugin</title>
      <programlisting role="php">
 <![CDATA[
 <?php
@@ -66,7 +62,7 @@ function smarty_modifier_capitalize($string)
  * Type:     modifier
  * Name:     truncate
  * Purpose:  Truncate a string to a certain length if necessary,
- *           optionally splitting in the middle of a word, and 
+ *           optionally splitting in the middle of a word, and
  *           appending the $etc string.
  * -------------------------------------------------------------
  */
@@ -91,6 +87,11 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
 ]]>
      </programlisting>
     </example>
+     <para>
+     See also
+     <link linkend="api.register.modifier"><varname>register_modifier()</varname></link>,
+     <link linkend="api.unregister.modifier"><varname>unregister_modifier()</varname></link>.
+    </para>
    </sect1>
 
 <!-- Keep this comment at the end of the file

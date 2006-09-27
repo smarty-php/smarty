@@ -7,7 +7,7 @@
      convention in order to be located by Smarty.
     </para>
     <para>
-     The plugin files must be named as follows:
+     <emphasis role="bold">plugin files</emphasis> must be named as follows:
      <blockquote>
       <para>
        <filename>
@@ -16,7 +16,9 @@
       </para>
      </blockquote>
     </para>
-    <para>
+
+    <itemizedlist>
+    <listitem><para>
      Where <literal>type</literal> is one of these plugin types:
      <itemizedlist spacing="compact">
       <listitem><simpara>function</simpara></listitem>
@@ -30,27 +32,41 @@
       <listitem><simpara>insert</simpara></listitem>
      </itemizedlist>
     </para>
-    <para>
-     And <literal>name</literal> should be a valid identifier (letters,
-     numbers, and underscores only).
+    </listitem>
+
+    <listitem><para>
+     And <literal>name</literal> should be a valid identifier; letters,
+     numbers, and underscores only, see
+     <ulink url="&url.php-manual;language.variables">php variables</ulink>.
+    </para></listitem>
+
+    <listitem><para>
+     Some examples: <filename>function.html_select_date.php</filename>,
+     <filename>resource.db.php</filename>,
+     <filename>modifier.spacify.php</filename>.
     </para>
+    </listitem>
+    </itemizedlist>
+
+
     <para>
-     Some examples: <literal>function.html_select_date.php</literal>,
-     <literal>resource.db.php</literal>,
-     <literal>modifier.spacify.php</literal>.
-    </para>
-    <para>
-     The plugin functions inside the plugin files must be named as follows:
+     <emphasis role="bold">plugin functions</emphasis> inside the PHP files must be named as follows:
      <blockquote>
       <para>
        <function>smarty_<replaceable>type</replaceable>_<replaceable>name</replaceable></function>
       </para>
      </blockquote>
     </para>
-    <para>
+
+    <itemizedlist>
+     <listitem><para>
      The meanings of <literal>type</literal> and <literal>name</literal> are
-     the same as before.
-    </para>
+     the same as above.
+    </para></listitem>
+      <listitem><para>
+     An example modifier name <varname>foo</varname> would be <literal>function smarty_modifier_foo()</literal>.
+    </para></listitem>
+    </itemizedlist>
     <para>
      Smarty will output appropriate error messages if the plugin file it
      needs is not found, or if the file or the plugin function are named

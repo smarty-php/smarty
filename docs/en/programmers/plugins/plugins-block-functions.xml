@@ -11,62 +11,64 @@
      </funcprototype>
     </funcsynopsis>
     <para>
-     Block functions are functions of the form: {func} .. {/func}. In other
-     words, they enclose a template block and operate on the contents of
-     this block. Block functions take precedence over custom functions of
-     the same name, that is, you cannot have both custom function {func} and
-     block function {func} .. {/func}.
+     Block functions are functions of the form:
+     <literal>{func} .. {/func}</literal>. In other words, they enclose a
+     template block and operate on the contents of
+     this block. Block functions take precedence over
+     <link linkend="language.custom.functions">custom functions</link> of
+     the same name, that is, you cannot have both custom function
+     <literal>{func}</literal> and block function
+     <literal>{func}..{/func}</literal>.
     </para>
-    <para>
+
+    <itemizedlist>
+    <listitem><para>
      By default your function implementation is called twice by
-     Smarty: once for the opening tag, and once for the closing tag
-     (see <literal>&amp;$repeat</literal> below how to change this).
-    </para>
-    <para>
-     Only the opening tag of the block function may have attributes. All
+     Smarty: once for the opening tag, and once for the closing tag.
+     (See <literal>$repeat</literal> below on how to change this.)
+    </para></listitem>
+    <listitem><para>
+     Only the opening tag of the block function may have
+     <link linkend="language.syntax.attributes">attributes</link>. All
      attributes passed to template functions from the template are contained
-     in the <parameter>$params</parameter> as an associative array. You can
-     access those values as e.g. <varname>$params['start']</varname>.
+     in the <parameter>$params</parameter> variable as an associative array.
      The opening tag attributes are also accessible to your function
      when processing the closing tag.
-    </para>
-    <para>
-     The value of <parameter>$content</parameter> variable depends on
+    </para></listitem>
+    <listitem><para>
+     The value of the <parameter>$content</parameter> variable depends on
      whether your function is called for the opening or closing tag. In case
-     of the opening tag, it will be <literal>null</literal>, and in case of
+     of the opening tag, it will be &null;, and in case of
      the closing tag it will be the contents of the template block.
      Note that the template block will have already been processed by
      Smarty, so all you will receive is the template output, not the
      template source.
-    </para>
+    </para></listitem>
 
-    <para>
-     The parameter <parameter>&amp;$repeat</parameter> is passed by
+    <listitem><para>
+     The parameter <parameter>$repeat</parameter> is passed by
      reference to the function implementation and provides a
      possibility for it to control how many times the block is
      displayed. By default <parameter>$repeat</parameter> is
-     <literal>true</literal> at the first call of the block-function
-     (the block opening tag) and <literal>false</literal> on all
-     subsequent calls to the block function (the block's closing tag).
+     &true; at the first call of the block-function (the opening tag)
+     and &false; on all subsequent calls to the block function
+     (the block's closing tag).
      Each time the function implementation returns with
-     <parameter>&amp;$repeat</parameter> being true, the contents between
-     {func} .. {/func} are evaluated and the function implementation
-     is called again with the new block contents in the parameter
+     <parameter>$repeat</parameter> being &true;, the contents between
+     <literal>{func}...{/func}</literal> are evaluated and the function
+     implementation is called again with the new block contents in the parameter
      <parameter>$content</parameter>.
-
-	</para>
+	</para></listitem>
+    </itemizedlist>
 
     <para>
      If you have nested block functions, it's possible to find out what the
      parent block function is by accessing
-     <varname>$smarty->_tag_stack</varname> variable. Just do a var_dump()
+     <literal>$smarty->_tag_stack</literal> variable. Just do a
+     <ulink url="&url.php-manual;var_dump"><varname>var_dump()</varname></ulink>
      on it and the structure should be apparent.
     </para>
-    <para>
-     See also:
-     <link linkend="api.register.block">register_block()</link>,
-     <link linkend="api.unregister.block">unregister_block()</link>.
-    </para>
+
     <example>
      <title>block function</title>
      <programlisting role="php">
@@ -83,16 +85,26 @@
  */
 function smarty_block_translate($params, $content, &$smarty, &$repeat)
 {
-    if (isset($content)) {
-        $lang = $params['lang'];
-        // do some intelligent translation thing here with $content
-        return $translation;
+    // only output on the closing tag
+    if(!$repeat){
+        if (isset($content)) {
+            $lang = $params['lang'];
+            // do some intelligent translation thing here with $content
+            return $translation;
+        }
     }
 }
 ?>
 ]]>
      </programlisting>
     </example>
+
+<para>
+ See also:
+ <link linkend="api.register.block"><varname>register_block()</varname></link>,
+ <link linkend="api.unregister.block"><varname>unregister_block()</varname></link>.
+</para>
+
    </sect1>
 
 <!-- Keep this comment at the end of the file

@@ -8,7 +8,7 @@
     </para>
 
     <para>
-     There are a total of 4 functions that need to be registered for each
+     There are a total of four functions that need to be registered for each
      type of resource. Every function will receive the requested resource as
      the first parameter and the Smarty object as the last parameter. The
      rest of parameters depend on the function.
@@ -39,44 +39,44 @@
      </funcprototype>
     </funcsynopsis>
 
-    <para>
-     The first function is supposed to retrieve the resource. Its second
-     parameter is a variable passed by reference where the result should be
-     stored. The function is supposed to return <literal>true</literal> if
-     it was able to successfully retrieve the resource and
-     <literal>false</literal> otherwise.
-    </para>
+	<itemizedlist>
+	<listitem><para>
+     The first function, <literal>source()</literal> is supposed to retrieve
+     the resource. Its second parameter <parameter>$source</parameter> is a
+     variable passed by reference where the result should be
+     stored. The function is supposed to return &true; if
+     it was able to successfully retrieve the resource and &false; otherwise.
+    </para></listitem>
 
-    <para>
-     The second function is supposed to retrieve the last modification time
-     of the requested resource (as a UNIX timestamp). The second parameter
+    <listitem><para>
+     The second function, <literal>timestamp()</literal> is supposed to
+     retrieve the last modification time of the requested resource, as a UNIX
+     timestamp. The second parameter <parameter>$timestamp</parameter>
      is a variable passed by reference where the timestamp should be stored.
-     The function is supposed to return <literal>true</literal> if the
-     timestamp could be succesfully determined, and <literal>false</literal>
-     otherwise.
-    </para>
+     The function is supposed to return &true; if the timestamp could be
+     succesfully determined, or &false; otherwise.
+    </para></listitem>
 
-    <para>
-     The third function is supposed to return <literal>true</literal> or
-     <literal>false</literal>, depending on whether the requested resource
-     is secure or not. This function is used only for template resources but
+    <listitem><para>
+     The third function, <literal>secure()</literal>is supposed to return
+     &true; or &false;, depending on whether the requested resource is secure
+     or not. This function is used only for template resources but
      should still be defined.
-    </para>
+    </para></listitem>
 
-    <para>
-     The fourth function is supposed to return <literal>true</literal> or
-     <literal>false</literal>, depending on whether the requested resource
+    <listitem><para>
+     The fourth function, <literal>trusted()</literal> is supposed to return
+     &true; or &false;, depending on whether the requested resource
      is trusted or not. This function is used for only for PHP script
-     components requested by <command>include_php</command> tag or
-     <command>insert</command> tag with <structfield>src</structfield>
-     attribute. However, it should still be defined even for template
-     resources.
-    </para>
-    <para>
-     See also
-     <link linkend="api.register.resource">register_resource()</link>,
-     <link linkend="api.unregister.resource">unregister_resource()</link>.
-    </para>
+     components requested by <link linkend="language.function.include.php">
+     <varname>{include_php}</varname></link> tag or
+     <link linkend="language.function.insert"><varname>{insert}</varname></link>
+     tag with the <parameter>src</parameter> attribute. However, it should still
+     be defined even for template resources.
+    </para></listitem>
+    </itemizedlist>
+
+
     <example>
      <title>resource plugin</title>
      <programlisting role="php">
@@ -84,7 +84,7 @@
 <?php
 /*
  * Smarty plugin
- * ------------------------------------------------------------- 
+ * -------------------------------------------------------------
  * File:     resource.db.php
  * Type:     resource
  * Name:     db
@@ -136,6 +136,13 @@ function smarty_resource_db_trusted($tpl_name, &$smarty)
 ]]>
      </programlisting>
     </example>
+
+ <para>
+ See also
+ <link linkend="api.register.resource"><varname>register_resource()</varname></link>,
+ <link linkend="api.unregister.resource"><varname>unregister_resource()</varname></link>.
+</para>
+
    </sect1>
 
 <!-- Keep this comment at the end of the file

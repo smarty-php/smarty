@@ -19,7 +19,7 @@
      the processing and return the results.
     </para>
     <example>
-     <title>output filter plugin</title>
+     <title>An output filter plugin</title>
      <programlisting role="php">
 <![CDATA[
 <?php
@@ -29,7 +29,7 @@
  * File:     outputfilter.protect_email.php
  * Type:     outputfilter
  * Name:     protect_email
- * Purpose:  Converts @ sign in email addresses to %40 as 
+ * Purpose:  Converts @ sign in email addresses to %40 as
  *           a simple protection against spambots
  * -------------------------------------------------------------
  */
@@ -42,6 +42,13 @@
 ]]>
      </programlisting>
     </example>
+            <para>
+     See also
+     <link linkend="api.register.outputfilter">
+     <varname>register_outputfilter()</varname></link>,
+     <link linkend="api.unregister.outputfilter">
+     <varname>unregister_outputfilter()</varname></link>.
+     </para>
    </sect1>
 
 <!-- Keep this comment at the end of the file

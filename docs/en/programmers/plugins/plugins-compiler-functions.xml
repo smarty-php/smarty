@@ -5,8 +5,8 @@
      Compiler functions are called only during compilation of the template.
      They are useful for injecting PHP code or time-sensitive static
      content into the template. If there is both a compiler function and a
-     custom function registered under the same name, the compiler function
-     has precedence.
+     <link linkend="language.custom.functions">custom function</link> registered
+      under the same name, the compiler function has precedence.
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -21,13 +21,9 @@
      delimiter, and the Smarty object. It's supposed to return the PHP code
      to be injected into the compiled template.
     </para>
-    <para>
-     See also
-     <link linkend="api.register.compiler.function">register_compiler_function()</link>,
-     <link linkend="api.unregister.compiler.function">unregister_compiler_function()</link>.
-    </para>
+
     <example>
-     <title>simple compiler function</title>
+     <title>A simple compiler function</title>
      <programlisting role="php">
 <![CDATA[
 <?php
@@ -52,8 +48,10 @@ function smarty_compiler_tplheader($tag_arg, &$smarty)
       This function can be called from the template as:
      </para>
      <programlisting>
+<![CDATA[
 {* this function gets executed at compile time only *}
 {tplheader}
+]]>
      </programlisting>
      <para>
       The resulting PHP code in the compiled template would be something like this:
@@ -66,6 +64,15 @@ echo 'index.tpl compiled at 2002-02-20 20:02';
 ]]>
      </programlisting>
     </example>
+
+    <para>
+     See also
+     <link linkend="api.register.compiler.function">
+     <varname>register_compiler_function()</varname></link>,
+     <link linkend="api.unregister.compiler.function">
+     <varname>unregister_compiler_function()</varname></link>.
+    </para>
+
    </sect1>
 
 <!-- Keep this comment at the end of the file
