@@ -6,11 +6,11 @@
 <sect1 id="constant.smarty.dir">
   <title>SMARTY_DIR</title>
     <para>
-     This should be the <emphasis role="bold">full system path</emphasis>
+     This is the <emphasis role="bold">full system path</emphasis>
      to the location of the Smarty
-     class files. If this is not defined, then Smarty will attempt to
+     class files. If this is not defined in your script, then Smarty will attempt to
      determine the appropriate value automatically. If defined, the path
-     <emphasis role="bold">must end with a slash</emphasis>.
+     <emphasis role="bold">must end with a trailing slash/</emphasis>.
     </para>
     <example>
      <title>SMARTY_DIR</title>
@@ -18,12 +18,12 @@
 <![CDATA[
 <?php
 // set path to Smarty directory *nix style
-define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty-v.e.r/libs/');
 
 // path to Smarty windows style
-define('SMARTY_DIR', 'c:/webroot/libs/Smarty/libs/');
+define('SMARTY_DIR', 'c:/webroot/libs/Smarty-v.e.r/libs/');
 
-// include the smarty class Note 'S' is upper case
+// include the smarty class, note 'S' is upper case
 require_once(SMARTY_DIR . 'Smarty.class.php');
 ?>
 ]]>
@@ -31,22 +31,21 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
     </example>
   <para>
   See also
-  <link linkend="language.variables.smarty.const">$smarty.const</link>
+  <link linkend="language.variables.smarty.const"><parameter>$smarty.const</parameter></link>
   and
   <link
-  linkend="variable.php.handling">$php_handling constants</link>
+  linkend="variable.php.handling"><parameter>$php_handling constants</parameter></link>
   </para>
 </sect1>
 
 <sect1 id="constant.smarty.core.dir">
     <title>SMARTY_CORE_DIR</title>
     <para>
-     This should be the full system path to the location of the Smarty core
+     This if the <emphasis>full system path</emphasis> to the location of the Smarty core
      files. If not defined, Smarty will default this constant to the
-     <emphasis>internals/</emphasis>
-     sub-directory below
-     <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
-     If defined, the path must end with a slash.
+     <filename>internals/</filename>  sub-directory below
+     <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>.
+     If defined, the path must end with a slash/.
      Use this constant when manually including any of the core.* files.
     </para>
     <example>
@@ -65,7 +64,7 @@ require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
 
     <para>
     See also
-    <link linkend="language.variables.smarty.const">$smarty.const</link>
+    <link linkend="language.variables.smarty.const"><parameter>$smarty.const</parameter></link>
     </para>
    </sect1>
 </chapter>
