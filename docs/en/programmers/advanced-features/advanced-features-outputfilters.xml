@@ -3,29 +3,30 @@
   <sect1 id="advanced.features.outputfilters">
    <title>Output Filters</title>
    <para>
-    When the template is invoked via 
-    <link linkend="api.display">display()</link> or 
-    <link linkend="api.fetch">fetch()</link>, its output can be
-    sent through one or more output filters. This differs from 
-    <link linkend="advanced.features.postfilters">postfilters</link>
+    When the template is invoked via
+    <link linkend="api.display"><varname>display()</varname></link> or
+    <link linkend="api.fetch"><varname>fetch()</varname></link>, its output can
+    be  sent through one or more output filters. This differs from
+    <link linkend="advanced.features.postfilters">
+    <varname>postfilters</varname></link>
     because postfilters operate on compiled templates before they are saved to
     the disk, whereas output filters operate on the template output when it is
     executed.
    </para>
 
    <para>
-    Output filters can be either 
+    Output filters can be either
     <link linkend="api.register.outputfilter">registered</link> or loaded
-    from the 
-    <link linkend="variable.plugins.dir">plugins directory</link> by using the 
-    <link linkend="api.load.filter">load_filter()</link> function or by
-    setting the
-    <link linkend="variable.autoload.filters">$autoload_filters</link>
-    variable. Smarty will pass the template output as the first argument,
+    from the
+    <link linkend="variable.plugins.dir">plugins directory</link> by using the
+    <link linkend="api.load.filter"><varname>load_filter()</varname></link>
+    method or by setting the  <link linkend="variable.autoload.filters">
+    <parameter>$autoload_filters</parameter></link> variable.
+    Smarty will pass the template output as the first argument,
     and expect the function to return the result of the processing.
    </para>
    <example>
-    <title>using a template outputfilter</title>
+    <title>Using a template outputfilter</title>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -49,12 +50,12 @@ $smarty->display('index.tpl');
     </programlisting>
    </example>
    <para>
-   See also 
-   <link linkend="api.register.outputfilter">register_outpurfilter()</link>, 
-   <link linkend="api.load.filter">load_filter()</link>,
-   <link linkend="variable.autoload.filters">$autoload_filters</link>,
+   See also
+   <link linkend="api.register.outputfilter"><varname>register_outpurfilter()</varname></link>,
+   <link linkend="api.load.filter"><varname>load_filter()</varname></link>,
+   <link linkend="variable.autoload.filters"><parameter>$autoload_filters</parameter></link>,
    <link linkend="advanced.features.postfilters">postfilters</link> and
-   <link linkend="variable.plugins.dir">$plugins_dir</link>.
+   <link linkend="variable.plugins.dir"><parameter>$plugins_dir</parameter></link>.
    </para>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -4,27 +4,27 @@
  <title>Prefilters</title>
  <para>
   Template prefilters are PHP functions that your templates are ran through
-  before they are compiled. This is good for preprocessing your templates
-  to remove unwanted comments, keeping an eye on what people are putting
-  in their templates, etc. 
+  <emphasis>before they are compiled</emphasis>. This is good for preprocessing
+  your templates to remove unwanted comments, keeping an eye on what people are
+  putting in their templates, etc.
  </para>
  <para>
   Prefilters can be either <link
   linkend="api.register.prefilter">registered</link> or loaded from
   the <link linkend="variable.plugins.dir">plugins directory</link>
   by using <link
-  linkend="api.load.filter">load_filter()</link> function or by setting
-  the <link linkend="variable.autoload.filters">$autoload_filters</link> 
-  variable.
+  linkend="api.load.filter"><varname>load_filter()</varname></link> function or
+  by setting the <link linkend="variable.autoload.filters">
+  <parameter>$autoload_filters</parameter></link> variable.
  </para>
  <para>
   Smarty will pass the template source code as the first argument, and
   expect the function to return the resulting template source code.
  </para>
  <example>
-  <title>using a template prefilter</title>
+  <title>Using a template prefilter</title>
     <para>
-     This will remove all the comments in the template source.
+     This will remove all the html comments in the template source.
   </para>
   <programlisting role="php">
 <![CDATA[
@@ -43,10 +43,11 @@ $smarty->display('index.tpl');
   </programlisting>
 
  </example>
- <para>See also <link linkend="api.register.prefilter">register_prefilter()</link>,
+ <para>See also
+ <link linkend="api.register.prefilter"><varname>register_prefilter()</varname></link>,
  <link linkend="advanced.features.postfilters">postfilters</link>
  and
- <link linkend="api.load.filter">load_filter()</link>.
+ <link linkend="api.load.filter"><varname>load_filter()</varname></link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

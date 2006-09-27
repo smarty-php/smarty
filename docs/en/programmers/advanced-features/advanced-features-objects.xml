@@ -3,17 +3,26 @@
 <sect1 id="advanced.features.objects">
  <title>Objects</title>
  <para>
-  Smarty allows access to PHP 
-  <ulink url="&url.php-manual;object">objects</ulink> through the templates. 
-  There are
- two ways to access them. One way is to
- <link linkend="api.register.object">register objects</link> to the template,
-	 then use access them via syntax similar to 
-         <link linkend="language.custom.functions">custom functions</link>. 
-         The other way
- is to <link linkend="api.assign">assign()</link> objects
- to the templates and access them much like any other
-	 assigned variable. The first method has a much nicer template syntax. It
+  Smarty allows access to PHP
+  <ulink url="&url.php-manual;object">objects</ulink> through the templates.
+  There are two ways to access them.
+  </para>
+
+ <itemizedlist spacing="compact">
+ <listitem><para>
+ One way is to <link linkend="api.register.object">register objects</link> to
+ the template, then use access them via syntax similar to
+ <link linkend="language.custom.functions">custom functions</link>.
+ </para></listitem>
+ <listitem><para>
+ The other way is to <link linkend="api.assign"><varname>assign()</varname>
+ </link> objects to the templates and access them much like any other
+	 assigned variable.
+ </para></listitem>
+ </itemizedlist>
+
+ <para>
+    The first method has a much nicer template syntax. It
 	 is also more secure, as a registered object can be restricted to certain
  methods or properties. However,
  <emphasis role="bold">a registered object cannot be looped over
@@ -22,9 +31,9 @@
 	 keep template syntax to a minimum.
  </para>
 	<para>
-  If <link linkend="variable.security">$security</link> is enabled,
-  no private methods or functions can be accessed
- 	(begininning with "_"). If a method and property of the same name exist,
+  If <link linkend="variable.security"><parameter>$security</parameter></link>
+  is enabled,  no private methods or functions can be accessed
+ 	(begininning with '_'). If a method and property of the same name exist,
  	the method will be used.
 	</para>
 	<para>
@@ -38,19 +47,20 @@
   An associative array is passed
 	 as the first parameter, and the smarty object as the second. If you want
 	 the parameters passed one at a time for each argument like traditional
-	 object parameter passing, set the fourth registration parameter to false.
+	 object parameter passing, set the fourth registration parameter to &false;.
 	</para>
 	<para>
 	 The optional fifth parameter has only effect with
-	 <parameter>format</parameter> being <literal>true</literal>
+	 <parameter>format</parameter> being &true;
 	 and contains a list of methods that should be treated as
 	 blocks. That means these methods have a closing tag in the
 	 template
 	 (<literal>{foobar->meth2}...{/foobar->meth2}</literal>) and
 	 the parameters to the methods have the same synopsis as the
   parameters for
-  <link linkend="plugins.block.functions">block-function-plugins</link>:
- They get 4 parameters
+  <link linkend="plugins.block.functions">
+  <varname>block-function-plugins</varname></link>:
+ They get the four parameters
 	 <parameter>$params</parameter>,
 	 <parameter>$content</parameter>,
 	 <parameter>&amp;$smarty</parameter> and
@@ -58,7 +68,7 @@
 	 block-function-plugins.
 	</para>
  <example>
-  <title>using a registered or assigned object</title>
+  <title>Using a registered or assigned object</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -71,14 +81,17 @@ class My_Object {
 }
 
 $myobj = new My_Object;
+
 // registering the object (will be by reference)
 $smarty->register_object('foobar',$myobj);
+
 // if we want to restrict access to certain methods or properties, list them
 $smarty->register_object('foobar',$myobj,array('meth1','meth2','prop1'));
+
 // if you want to use the traditional object parameter format, pass a boolean of false
 $smarty->register_object('foobar',$myobj,null,false);
 
-// We can also assign objects. Assign by ref when possible.
+// We can also assign objects. assign_by_ref when possible.
 $smarty->assign_by_ref('myobj', $myobj);
 
 $smarty->display('index.tpl');
@@ -86,7 +99,7 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   And here's how to access your objects in index.tpl:
+   And here's how to access your objects in <filename>index.tpl</filename>:
   </para>
   <programlisting>
 <![CDATA[
@@ -104,8 +117,9 @@ the output was {$output}
  </example>
  <para>
   See also <link
-  linkend="api.register.object">register_object()</link> and <link
-  linkend="api.assign">assign()</link>
+  linkend="api.register.object"><varname>register_object()</varname></link>
+  and
+  <link linkend="api.assign"><varname>assign()</varname></link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

@@ -4,37 +4,42 @@
    <title>Resources</title>
    <para>
   The templates may come from a variety of sources. When you
-  <link linkend="api.display">display()</link> or
-  <link linkend="api.fetch">fetch()</link>
+  <link linkend="api.display"><varname>display()</varname></link> or
+  <link linkend="api.fetch"><varname>fetch()</varname></link>
 	   a template, or when you include a template from within another template,
 	   you supply a resource type, followed by the appropriate path and template
    	name. If a resource is not explicitly given the value of <link
-   	linkend="variable.default.resource.type">$default_resource_type</link> is
-   	assumed.
+   	linkend="variable.default.resource.type">
+    <parameter>$default_resource_type</parameter></link> is	assumed.
    </para>
+
    <sect2 id="templates.from.template.dir">
     <title>Templates from $template_dir</title>
     <para>
-     Templates from the
-     <link linkend="variable.template.dir">$template_dir</link> do not require a template
-     resource, although you can use the file: resource for consistancy.
-     Just supply the path to the template you want to use relative to the
-     <link linkend="variable.template.dir">$template_dir</link>
-     root directory.
+     Templates from the <link linkend="variable.template.dir">
+     <parameter>$template_dir</parameter></link> do not require a template
+     resource, although you can use the <literal>file:</literal> resource
+     for consistancy. Just supply the path to the template you want to use
+     relative to the <link linkend="variable.template.dir">
+     <parameter>$template_dir</parameter></link> root directory.
     </para>
     <example>
-     <title>using templates from $template_dir</title>
+     <title>Using templates from the $template_dir</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->display("index.tpl");
-$smarty->display("admin/menu.tpl");
-$smarty->display("file:admin/menu.tpl"); // same as one above
+$smarty->display('index.tpl');
+$smarty->display('admin/menu.tpl');
+$smarty->display('file:admin/menu.tpl'); // same as one above
 ?>
-
-{* from within Smarty template *}
-{include file="index.tpl"}
-{include file="file:index.tpl"} {* same as one above *}
+]]>
+</programlisting>
+<para>From within a Smarty template</para>
+<programlisting>
+<![CDATA[
+{include file='index.tpl'}
+{* below is same as above *}
+{include file='file:index.tpl'}
 ]]>
 </programlisting>
     </example>
@@ -42,28 +47,27 @@ $smarty->display("file:admin/menu.tpl"); // same as one above
    <sect2 id="templates.from.any.dir">
     <title>Templates from any directory</title>
     <para>
-     Templates outside of the
-     <link linkend="variable.template.dir">$template_dir</link>
-     require the file: template
-     resource type, followed by the absolute path and name of the
-     template.
+     Templates outside of the <link linkend="variable.template.dir">
+     <parameter>$template_dir</parameter></link>
+     require the <literal>file:</literal> template resource type, followed by
+     the absolute path to the template.
     </para>
     <example>
-     <title>using templates from any directory</title>
+     <title>Using templates from any directory</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->display("file:/export/templates/index.tpl");
-$smarty->display("file:/path/to/my/templates/menu.tpl");
+$smarty->display('file:/export/templates/index.tpl');
+$smarty->display('file:/path/to/my/templates/menu.tpl');
 ?>
 ]]>
      </programlisting>
      <para>
-      And from within Smarty template:
+      And from within a Smarty template:
      </para>
      <programlisting>
 <![CDATA[
-{include file="file:/usr/local/share/templates/navigation.tpl"}
+{include file='file:/usr/local/share/templates/navigation.tpl'}
 ]]>
      </programlisting>
     </example>
@@ -73,16 +77,16 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
      <para>
       If you are using a Windows machine, filepaths usually include a
       drive letter (C:) at the beginning of the pathname. Be sure to use
-      "file:" in the path to avoid namespace conflicts and get the
-      desired results.
+      <literal>file:</literal> in the path to avoid namespace conflicts and
+      get the desired results.
      </para>
      <example>
-      <title>using templates from windows file paths</title>
+      <title>Using templates from windows file paths</title>
       <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->display("file:C:/export/templates/index.tpl");
-$smarty->display("file:F:/path/to/my/templates/menu.tpl");
+$smarty->display('file:C:/export/templates/index.tpl');
+$smarty->display('file:F:/path/to/my/templates/menu.tpl');
 ?>
 ]]>
      </programlisting>
@@ -91,7 +95,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
      </para>
      <programlisting>
 <![CDATA[
-{include file="file:D:/usr/local/share/templates/navigation.tpl"}
+{include file='file:D:/usr/local/share/templates/navigation.tpl'}
 ]]>
 </programlisting>
      </example>
@@ -116,13 +120,13 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
     <note>
      <para>
       Note that you cannot override the built-in
-      <literal>file</literal> resource, but you can provide a resource
+      <literal>file:</literal> resource, but you can provide a resource
       that fetches templates from the file system in some other way by
       registering under another resource name.
      </para>
     </note>
     <example>
-     <title>using custom resources</title>
+     <title>Using custom resources</title>
      <programlisting role="php">
 <![CDATA[
 <?php
@@ -185,7 +189,7 @@ $smarty->display("db:index.tpl");
      </para>
      <programlisting>
 <![CDATA[
-{include file="db:/extras/navigation.tpl"}
+{include file='db:/extras/navigation.tpl'}
 ]]>
      </programlisting>
     </example>
@@ -200,7 +204,7 @@ $smarty->display("db:index.tpl");
      on-the-fly.
     </para>
     <example>
-     <title>using the default template handler function</title>
+     <title>Using the default template handler function</title>
      <programlisting role="php">
 <![CDATA[
 <?php
