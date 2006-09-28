@@ -1,3 +1,91 @@
+2006-09-27  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
+
+    * docs/en/designers/language-builtin-functions/language-function-section.xml:
+      Minor tweaks and corrections
+
+    * docs/en/getting-started.xml
+      docs/en/designers/chapter-debugging-console.xml
+      docs/en/designers/language-basic-syntax/language-syntax-comments.xml
+      docs/en/designers/language-custom-functions/language-function-html-image.xml
+      docs/en/designers/language-custom-functions/language-function-html-options.xml
+      docs/en/designers/language-custom-functions/language-function-html-radios.xml
+      docs/en/designers/language-custom-functions/language-function-html-select-date.xml
+      docs/en/designers/language-custom-functions/language-function-html-select-time.xml
+      docs/en/designers/language-custom-functions/language-function-html-table.xml
+      docs/en/designers/language-custom-functions/language-function-mailto.xml
+      docs/en/designers/language-custom-functions/language-function-popup-init.xml
+      docs/en/designers/language-custom-functions/language-function-textformat.xml
+      docs/en/designers/language-variables/language-config-variables.xml
+      docs/en/designers/language-variables/language-variables-smarty.xml:
+      Add literal tags to html, general formatting
+
+    * docs/en/getting-started.xml
+      docs/en/appendixes/resources.xml
+      docs/en/appendixes/tips.xml
+      docs/en/appendixes/troubleshooting.xml
+      docs/en/designers/config-files.xml
+      docs/en/programmers/caching.xml
+      docs/en/programmers/smarty-constants.xml
+      docs/en/programmers/advanced-features/advanced-features-objects.xml
+      docs/en/programmers/advanced-features/advanced-features-outputfilters.xml
+      docs/en/programmers/advanced-features/advanced-features-postfilters.xml
+      docs/en/programmers/advanced-features/advanced-features-prefilters.xml
+      docs/en/programmers/advanced-features/section-template-cache-handler-func.xml
+      docs/en/programmers/advanced-features/template-resources.xml
+      docs/en/programmers/api-variables/variable-autoload-filters.xml
+      docs/en/programmers/api-variables/variable-cache-dir.xml
+      docs/en/programmers/api-variables/variable-cache-handler-func.xml
+      docs/en/programmers/api-variables/variable-cache-lifetime.xml
+      docs/en/programmers/api-variables/variable-cache-modified-check.xml
+      docs/en/programmers/api-variables/variable-caching.xml
+      docs/en/programmers/api-variables/variable-compile-check.xml
+      docs/en/programmers/api-variables/variable-compile-dir.xml
+      docs/en/programmers/api-variables/variable-compile-id.xml
+      docs/en/programmers/api-variables/variable-config-booleanize.xml
+      docs/en/programmers/api-variables/variable-config-dir.xml
+      docs/en/programmers/api-variables/variable-config-fix-newlines.xml
+      docs/en/programmers/api-variables/variable-config-overwrite.xml
+      docs/en/programmers/api-variables/variable-config-read-hidden.xml
+      docs/en/programmers/api-variables/variable-debug-tpl.xml
+      docs/en/programmers/api-variables/variable-debugging-ctrl.xml
+      docs/en/programmers/api-variables/variable-debugging.xml
+      docs/en/programmers/api-variables/variable-default-modifiers.xml
+      docs/en/programmers/api-variables/variable-default-resource-type.xml
+      docs/en/programmers/api-variables/variable-error-reporting.xml
+      docs/en/programmers/api-variables/variable-force-compile.xml
+      docs/en/programmers/api-variables/variable-left-delimiter.xml
+      docs/en/programmers/api-variables/variable-php-handling.xml
+      docs/en/programmers/api-variables/variable-plugins-dir.xml
+      docs/en/programmers/api-variables/variable-request-use-auto-globals.xml
+      docs/en/programmers/api-variables/variable-request-vars-order.xml
+      docs/en/programmers/api-variables/variable-right-delimiter.xml
+      docs/en/programmers/api-variables/variable-secure-dir.xml
+      docs/en/programmers/api-variables/variable-security-settings.xml
+      docs/en/programmers/api-variables/variable-security.xml
+      docs/en/programmers/api-variables/variable-template-dir.xml
+      docs/en/programmers/api-variables/variable-trusted-dir.xml
+      docs/en/programmers/api-variables/variable-use-sub-dirs.xml
+      docs/en/programmers/caching/caching-cacheable.xml
+      docs/en/programmers/caching/caching-groups.xml
+      docs/en/programmers/caching/caching-multiple-caches.xml
+      docs/en/programmers/caching/caching-setting-up.xml:
+      Tidy up of formatting
+
+    * docs/entities/global.ent:
+      Adding some more resources
+
+    * docs/en/programmers/plugins/plugins-block-functions.xml
+      docs/en/programmers/plugins/plugins-compiler-functions.xml
+      docs/en/programmers/plugins/plugins-functions.xml
+      docs/en/programmers/plugins/plugins-inserts.xml
+      docs/en/programmers/plugins/plugins-modifiers.xml
+      docs/en/programmers/plugins/plugins-naming-conventions.xml
+      docs/en/programmers/plugins/plugins-outputfilters.xml
+      docs/en/programmers/plugins/plugins-prefilters-postfilters.xml
+      docs/en/programmers/plugins/plugins-resources.xml
+      docs/en/programmers/plugins/plugins-writing.xml:
+      Tidy up some formatting
+
 2006-09-26  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
 
     * docs/en/programmers/api-functions/api-append-by-ref.xml
