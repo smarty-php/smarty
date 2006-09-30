@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.13 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.15 Maintainer: yannick Status: ready -->
 
 <part id="getting.started">
  <title>Pour commencer</title>
@@ -157,8 +157,8 @@
    <title>Installation de base</title>
    <para>
     Copiez les fichiers bibliothèques de Smarty du sous-dossier
-    /libs/ de la distribution à un emplacement accessible à PHP.
-    Ce sont des fichiers PHP que vous NE DEVEZ PAS
+    <filename>/libs/</filename> de la distribution à un emplacement
+    accessible à PHP. Ce sont des fichiers PHP que vous NE DEVEZ PAS
     modifier. Ils sont partagés par toutes les applications et ne seront
     mis à jour que lorsque vous installerez une nouvelle version de
     Smarty.
@@ -179,25 +179,26 @@ debug.tpl
 
    <para>
     Smarty utilise une <ulink url="&url.php-manual;define">constante</ulink> PHP appelée <link
-    linkend="constant.smarty.dir">SMARTY_DIR</link> qui
-    représente le <emphasis role="bold">chemin complet</emphasis> de la bibliothèque Smarty. En fait,
-    si votre application trouve le fichier
+    linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link> qui
+    représente le <emphasis role="bold">chemin complet</emphasis> de la bibliothèque Smarty.
+    En fait, si votre application trouve le fichier
     <filename>Smarty.class.php</filename>, vous n'aurez pas
-    besoin de définir la variable <link linkend="constant.smarty.dir">SMARTY_DIR</link>,
+    besoin de définir la variable
+    <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>,
     Smarty s'en chargera pour vous.
     En revanche, si <filename>Smarty.class.php</filename>
     n'est pas dans votre répertoire d'inclusion ou que vous ne
     donnez pas un chemin absolu à votre application, vous
-    devez définir SMARTY_DIR explicitement. SMARTY_DIR
+    devez définir <constant>SMARTY_DIR</constant> explicitement.
+    <constant>SMARTY_DIR</constant>
     <emphasis role="bold">doit</emphasis> avoir être terminé par un slash.
    </para>
 
-   <para>
-    Voici comment créer une instance de Smarty dans vos scripts PHP :
-   </para>
-
    <example>
-    <title>créer une instance de Smarty</title>
+    <title>Créer une instance de Smarty</title>
+    <para>
+     Voici comment créer une instance de Smarty dans vos scripts PHP :
+    </para>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -305,8 +306,8 @@ $smarty = new Smarty();
     une application principalement pour mettre en évidence une
     convention de nommage des répertoires. Vous pouvez utiliser le même
     environnement pour n'importe quelle autre application, il suffit de
-    remplacer "livredor" avec le nom de votre application. Nous allons
-    mettre nos répertoires Smarty dans
+    remplacer <quote>livredor</quote> avec le nom de votre application.
+    Nous allons mettre nos répertoires Smarty dans
     <filename 
     class="directory">/web/www.example.com/smarty/livredor/</filename>.
    </para>
@@ -322,18 +323,19 @@ $smarty = new Smarty();
     <title>Technical Note</title>
     <para>
      Il est pratique de configurer le serveur Web de
-     sorte que 'index.php' soit identifié comme fichier
+     sorte que <filename>index.php</filename> soit identifié comme fichier
      par défaut de ce répertoire. Aicnsi, si l'on tape
-     'http://www.example.com/livredor/', le script 'index.php' soit
-     exécuté sans que 'index.php' ne soit spécifié dans l'URL. Avec Apache,
-     vous pouvez régler cela en ajoutant 'index.php' à la ligne où se
-     trouve <emphasis>DirectoryIndex</emphasis> (séparez chaque entrée par un espace)
-     dans le httpd.conf.
-    </para>
-    <para>
-     <emphasis>DirectoryIndex
-      index.htm index.html index.php index.php3 default.html index.cgi
-     </emphasis>
+     <literal>http://www.example.com/livredor/</literal>, le script
+     <filename>index.php</filename> soit exécuté sans que
+     <filename>index.php</filename> ne soit spécifié dans l'URL. Avec
+     Apache, vous pouvez régler cela en ajoutant <filename>index.php</filename>
+     à la ligne où se trouve <literal>DirectoryIndex</literal> (séparez chaque entrée
+     par un espace) dans le <filename>httpd.conf</filename>.
+     <informalexample>
+      <programlisting>
+<![CDATA[DirectoryIndex index.htm index.html index.cgi index.php]]>
+      </programlisting>
+     </informalexample>
     </para>
    </note>
    <para>
@@ -341,7 +343,7 @@ $smarty = new Smarty();
    </para>
 
    <example>
-    <title>Exemple de structure de fichiers</title>
+    <title>Structure de fichiers</title>
     <screen>
 <![CDATA[
 /usr/local/lib/php/Smarty-v.e.r/libs/Smarty.class.php
@@ -364,13 +366,13 @@ $smarty = new Smarty();
    <para>
     Smarty a besoin d'<emphasis role="bold">accéder en écriture</emphasis>
     aux répertoires <link linkend="variable.compile.dir">
-    <emphasis>$compile_dir</emphasis></link> et <link linkend="variable.cache.dir">
-    <emphasis>$cache_dir</emphasis></link>,
+     <parameter>$compile_dir</parameter></link> et <link linkend="variable.cache.dir">
+     <parameter>$cache_dir</parameter></link>,
     assurez-vous donc que le serveur Web dispose de ces droits d'accès.
     Il s'agit généralement de l'utilisateur "nobody" et du group
     "nobody". Pour les utilisateurs de OS X, l'utilisateur par défaut
     est "web" et le group "web". Si vous utilisez Apache, vous pouvez
-    parcourir le fichier httpd.conf (en général dans
+    parcourir le fichier <filename>httpd.conf</filename> (en général dans
     "/usr/local/apache/conf/") pour déterminer quel est l'utilisateur
     et le groupe auquel il appartient.
    </para>
@@ -389,7 +391,7 @@ chmod 770 /web/www.example.com/smarty/livredor/cache/
    </example>
 
    <note>
-    <title>Note technique</title>
+    <title>Note</title>
     <para>
      La commande chmod 770 est relativement bien sécurisée, elle donne
      à l'utilisateur "nobody" et au groupe "nobody" les accès en
@@ -400,12 +402,13 @@ chmod 770 /web/www.example.com/smarty/livredor/cache/
    </note>
 
    <para>
-    Nous devons créer le fichier 'index.tpl' que Smarty va charger.
-    Il va se trouver dans le dossier <link linkend="variable.template.dir">$template_dir</link>.
+    Nous devons créer le fichier <filename>index.tpl</filename> que Smarty va charger.
+    Il va se trouver dans le dossier
+    <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>.
    </para>
 
    <example>
-    <title>Edition de  /web/www.example.com/smarty/templates/index.tpl</title>
+    <title>Notre  /web/www.example.com/smarty/templates/index.tpl</title>
     <screen>
 <![CDATA[
 
@@ -420,7 +423,8 @@ Bonjour, {$name}, Bienvenue dans Smarty !
    <note>
     <title>Note technique</title>
     <para>
-     {* Smarty *} est un <link linkend="language.syntax.comments">commentaire</link>
+     <literal>{* Smarty *}</literal> est un
+     <link linkend="language.syntax.comments">commentaire</link>
      de template. Il n'est pas obligatoire mais il est bon de commencer tous vos templates
      avec ce commentaire. Celà rend le fichier facilement
      reconnaissable en plus de son extension. Les éditeurs
@@ -430,10 +434,11 @@ Bonjour, {$name}, Bienvenue dans Smarty !
    </note>
 
    <para>
-    Maintenant passons à l'édition du fichier 'index.php'. Nous allons
-    créer une instance de Smarty, <link linkend="api.assign">assigner</link>
+    Maintenant passons à l'édition du fichier <filename>index.php</filename>. Nous allons
+    créer une instance de Smarty,
+    <link linkend="api.assign"><varname>assigner<varname></link>
     une valeur à une variable de template et
-    <link linkend="api.display">afficher</link> le résultat avec 'index.tpl'.
+    <link linkend="api.display">afficher</link> le résultat avec <filename>index.tpl</filename>.
    </para>
 
    <example>
@@ -495,52 +500,54 @@ $smarty->display('index.tpl');
     propre classe fille et de l'initialiser selon votre environnement.
     De la sorte, nous n'aurons plus besoin de configurer à chaques fois les
     chemins de notre environnement. Créons un nouveau répertoire
-    "/php/includes/livredor/" et un nouveau fichier appelé <filename>setup.php</filename>.
-    Dans notre exemple d'environnement, "/php/includes" est notre
+    <filename>/php/includes/livredor/</filename> et un nouveau fichier
+    appelé <filename>setup.php</filename>.
+    Dans notre exemple d'environnement, <filename>/php/includes</filename> est notre
     include_path PHP. Assurez-vous de faire la même chose ou alors d'utiliser
     des chemins absolus.
    </para>
 
    <example>
-    <title>édition de /php/includes/livredor/setup.php</title>
+    <title>Édition de /php/includes/livredor/setup.php</title>
     <programlisting role="php">
 <![CDATA[
 <?php
-     // charge la librairie Smarty
-     require('Smarty.class.php');
+// charge la librairie Smarty
+require('Smarty.class.php');
 
-     // le fichier setup.php est un bon
-     // endroit pour charger les fichiers
-     // de librairies de l'application et vous pouvez
-     // faire celà juste ici. Par exemple :
-     // require('livredor/livredor.lib.php');
+// le fichier setup.php est un bon
+// endroit pour charger les fichiers
+// de librairies de l'application et vous pouvez
+// faire celà juste ici. Par exemple :
+// require('livredor/livredor.lib.php');
 
-     class Smarty_livredor extends Smarty {
+class Smarty_livredor extends Smarty {
 
-     function Smarty_livredor() {
+ function Smarty_livredor() {
 
-     // Constructeur de la classe. 
-     // Appelé automatiquement à l'instanciation de la classe.
+ // Constructeur de la classe.
+ // Appelé automatiquement à l'instanciation de la classe.
 
-     $this->Smarty();
+ $this->Smarty();
 
-     $this->template_dir = '/web/www.example.com/smarty/livredor/templates/';
-     $this->compile_dir = '/web/www.example.com/smarty/livredor/templates_c/';
-     $this->config_dir = '/web/www.example.com/smarty/livredor/configs/';
-     $this->cache_dir = '/web/www.example.com/smarty/livredor/cache/';
+ $this->template_dir = '/web/www.example.com/smarty/livredor/templates/';
+ $this->compile_dir = '/web/www.example.com/smarty/livredor/templates_c/';
+ $this->config_dir = '/web/www.example.com/smarty/livredor/configs/';
+ $this->cache_dir = '/web/www.example.com/smarty/livredor/cache/';
 
-     $this->caching = true;
-     $this->assign('app_name', 'Guest Book');
-     }
+ $this->caching = true;
+ $this->assign('app_name', 'Guest Book');
+ }
 
-    }
+}
 ?>
 ]]>
     </programlisting>
    </example>
 
    <para>
-    Modifions maintenant le fichier 'index.php' pour qu'il utilise 'setup.php'
+    Modifions maintenant le fichier <filename>index.php</filename> pour qu'il utilise 
+    <filename>setup.php</filename>
    </para>
 
    <example>
@@ -548,13 +555,13 @@ $smarty->display('index.tpl');
     <programlisting role="php">
 <![CDATA[
 <?php
-     require('livredor/setup.php');
+require('livredor/setup.php');
 
-     $smarty = new Smarty_livredor;
+$smarty = new Smarty_livredor();
 
-     $smarty->assign('name','Ned');
+$smarty->assign('name','Ned');
 
-    $smarty->display('index.tpl');
+$smarty->display('index.tpl');
 
 ?>
 ]]>
@@ -563,8 +570,8 @@ $smarty->display('index.tpl');
 
    <para>
     Vous savez maintenant qu'il est facile de créer une instance de Smarty,
-    correctement configurée, en utilisant Smarty_livredor qui initialise
-    automatiquement tout ce qu'il faut pour votre application.
+    correctement configurée, en utilisant <literal>Smarty_livredor()</literal>
+    qui initialise automatiquement tout ce qu'il faut pour votre application.
    </para>
 
   </sect1>

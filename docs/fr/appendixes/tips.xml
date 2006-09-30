@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: didou Status: ready -->
 
 <chapter id="tips">
  <title>Trucs et astuces</title>
@@ -10,13 +10,21 @@
   <para>
    Peut-être voudrez-vous des fois afficher une valeur par
    défaut pour une variable qui n'a pas été assignée, comme
-   pour afficher "&amp;nbsp;" afin que les couleurs de fond
-   des tableaux fonctionnent. Beaucoup utiliseraient une
-   instruction <link linkend="language.function.if">{if}</link> 
+   pour afficher <literal>&amp;nbsp;</literal> afin que les couleurs
+   de fond des tableaux fonctionnent. Beaucoup utiliseraient une
+   instruction <link linkend="language.function.if"><varname>{if}</varname></link> 
    pour gérer celà, mais il existe un moyen
    plus facile dans Smarty : l'utilisation du modificateur
-   de variable <link
-    linkend="language.modifier.default"><emphasis>défaut</emphasis></link>.
+   de variable
+   <link linkend="language.modifier.default"><varname>default</varname></link>.
+   <note>
+    <para>Les erreurs <quote>de variable indéfinie</quote> seront affichés si
+     la fonction PHP
+     <ulink url="&url.php-manual;error_reporting">
+      <varname>error_reporting()</varname></ulink> vaut <constant>E_ALL</constant>
+     et qu'une variable n'a pas été assignée à Smarty.
+    </para>
+    </note>
   </para>
   <example>
    <title>Afficher &amp;nbsp; quand une variable est vide</title>
@@ -36,8 +44,8 @@
    </programlisting>
   </example>
   <para>
-   Voir aussi 
-   <link linkend="language.modifier.default">default</link> et
+   Voir aussi
+   <link linkend="language.modifier.default"><varname>default</varname></link> et
    <link linkend="tips.default.var.handling">la gestion des variables par défaut</link>.
   </para>
  </sect1>
@@ -46,12 +54,14 @@
   <title>Gestion des variables par défaut</title>
   <para>
    Si une variable est utilisée fréquemment dans vos templates,
-   lui appliquer le modificateur par défaut peut être un peu fastidieux.
+   lui appliquer le modificateur
+   <link linkend="language.modifier.default"><varname>default</varname></link>
+   peut être un peu fastidieux.
    Vous pouvez remédier à celà en lui assignant une valeur par défaut
-   avec la fonction <link linkend="language.function.assign">{assign}</link>.
+   avec la fonction <link linkend="language.function.assign"><varname>{assign}</varname></link>.
   </para>
   <example>
-   <title>assigner une valeur par défaut à une variable de template</title>
+   <title>Assigner une valeur par défaut à une variable de template</title>
 <programlisting>
 <![CDATA[
 {* faites cela quelque part en haut de votre template *}
@@ -64,7 +74,7 @@
   </example>
   <para>
    Voir aussi
-   <link linkend="language.modifier.default">default</link> et
+   <link linkend="language.modifier.default"><varname>default</varname></link> et
    <link linkend="tips.blank.var.handling">la gestion des variables non-assignées</link>.
   </para>
  </sect1>
@@ -74,18 +84,18 @@
   <para>
    Quand la majorité de vos templates utilisent les mêmes en-tête et pied-de-page,
    il est d'usage de les mettre dans leurs propres templates et de les inclure
-   (<link linkend="language.function.include">{include}</link>).
+   (<link linkend="language.function.include"><varname>{include}</varname></link>).
    Mais comment faire si l'en-tête doit avoir un titre différent, selon la page
    d'où on vient ? Vous pouvez passer le titre à l'en-tête en tant qu'
    <link linkend="language.syntax.attributes">attribut</link> quand il est inclus.
   </para>
 
   <example>
-   <title>passer le titre au template d'en-tête</title>
+   <title>Passer le titre au template d'en-tête</title>
 
    <para>
     <filename>mainpage.tpl</filename> - Lorsque la page principal est construite,
-    le titre 'Man Page' est passé au <filename>header.tpl</filename> et sera utilisé
+    le titre <quote>Man Page</quote> est passé au <filename>header.tpl</filename> et sera utilisé
     en tant que titre.
    </para>
    <programlisting>
@@ -98,12 +108,13 @@
 
    <para>
     <filename>archives.tpl</filename> - Lorsque la page principal est construite, le titre
-    sera 'Archives'. Notez que dans cet exemple, nous utilisons une variable du fichier
+    sera <quote>Archives</quote>. Notez que dans cet exemple, nous utilisons une variable du fichier
     <filename>archives_page.conf</filename> au lieu d'une variable classique.
    </para>
    <programlisting>
 <![CDATA[
 {config_load file='archive_page.conf'}
+
 {include file='header.tpl' title=#archivePageTitle#}
 {* corps du template ici *}
 {include file='footer.tpl'}
@@ -111,9 +122,9 @@
    </programlisting>
 
    <para>
-    <filename>header.tpl</filename> - Notez que "Smarty News" est affiché si la variable
-    $title n'est pas définie, en utilisant le modificateur de variable par
-    <link linkend="language.modifier.default">défaut</link>.
+    <filename>header.tpl</filename> - Notez que <quote>Smarty News</quote> est affiché
+    si la variable <literal>$title</literal> n'est pas définie, en utilisant le modificateur de variable par
+    <link linkend="language.modifier.default"><varname>default</varname></link>.
    </para>
    <programlisting>
 <![CDATA[
@@ -142,18 +153,11 @@
   <para>
    De façon générale, essayez de toujours passer les dates à Smarty
    sous forme de <ulink url="&url.php-manual;time">timestamp</ulink>.
-   Celà permet aux designers de templates d'utiliser
-   <link linkend="language.modifier.date.format">date_format</link>
+   Cela permet aux designers de templates d'utiliser
+   <link linkend="language.modifier.date.format"><varname>date_format</varname></link>
     pour avoir un contrôle total sur le formatage des dates et de comparer
     facilement les dates entre elles.
    </para>
-   <note>
-    <para>
-     A partir Smarty 1.4.0, vous pouvez passer les dates à Smarty
-     sous la forme de timestamps Unix ou MySQL, ou tout autre format de dates
-     que comprend <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
-    </para>
-   </note>
    <example>
     <title>Utilisation de date_format</title>
     <programlisting>
@@ -166,7 +170,7 @@
     </para>
     <screen>
 <![CDATA[
-Jan 4, 2001
+Jan 4, 2009
 ]]>
     </screen>
     <programlisting>
@@ -179,10 +183,13 @@ Jan 4, 2001
     </para>
     <screen>
 <![CDATA[
-2001/01/04
+2009/01/04
 ]]>
-    </screen>
-    <programlisting>
+     </screen>
+     <para>
+      Les dates peuvent être comparées dans le template en utilisant les timestamps, comme ceci :
+     </para>
+     <programlisting>
 <![CDATA[
 {if $date1 < $date2}
    ...
@@ -191,7 +198,8 @@ Jan 4, 2001
     </programlisting>
    </example>
    <para>
-    En utilisant la fonction <link linkend="language.function.html.select.date">{html_select_date}</link> 
+    En utilisant la fonction
+    <link linkend="language.function.html.select.date"><varname>{html_select_date}</varname></link> 
     dans un template, le programmeur veut en général convertir le
     résultat d'un formulaire en un timestamp.
     Voici une fonction qui devrait vous être utile.
@@ -210,13 +218,13 @@ $startDate = makeTimeStamp($startDate_Year, $startDate_Month, $startDate_Day);
 function makeTimeStamp($year='', $month='', $day='')
 {
    if(empty($year)) {
-       $year = strftime("%Y");
+       $year = strftime('%Y');
    }
    if(empty($month)) {
-       $month = strftime("%m");
+       $month = strftime('%m');
    }
    if(empty($day)) {
-       $day = strftime("%d");
+       $day = strftime('%d');
    }
 
    return mktime(0, 0, 0, $month, $day, $year);
@@ -228,10 +236,10 @@ function makeTimeStamp($year='', $month='', $day='')
 
    <para>
     Voir aussi
-    <link linkend="language.function.html.select.date">{html_select_date}</link>,
-    <link linkend="language.function.html.select.time">{html_select_time}</link>,
-    <link linkend="language.modifier.date.format">date_format</link> et
-    <link linkend="language.variables.smarty.now">$smarty.now</link>,
+    <link linkend="language.function.html.select.date"><varname>{html_select_date}</varname></link>,
+    <link linkend="language.function.html.select.time"><varname>{html_select_time}</varname></link>,
+    <link linkend="language.modifier.date.format"><varname>date_format</varname></link> et
+    <link linkend="language.variables.smarty.now"><parameter>$smarty.now</parameter></link>,
    </para>
   </sect1>
 
@@ -311,8 +319,9 @@ function insert_header()
     Traditionnellemnt, la programmation avec des templates dans les applications
     se déroule de la façon suivante : d'abord vous récupérez vos variables
     dans l'application PHP (peut-être avec des requêtes en base de données), puis
-    vous instanciez votre objet Smarty, <link linkend="api.assign">assign()</link>
-    les variables et <link linkend="api.display">display()</link> le
+    vous instanciez votre objet Smarty,
+    <link linkend="api.assign"><varname>assign()</varname></link>
+    les variables et <link linkend="api.display"><varname>display()</varname></link> le
     template. Disons par exemple que nous avons un téléscripteur dans
     notre template. Nous récupérerions les données dans notre application,
     puis les assignerions ensuite pour les afficher. Mais ne serait-ce pas
@@ -329,7 +338,7 @@ function insert_header()
     <para>
      <filename>function.load_ticker.php</filename> -
      Efface le fichier du répertoire des
-     <link linkend="variable.plugins.dir">$plugins</link>
+     <link linkend="variable.plugins.dir"><parameter>$plugins</parameter></link>
     </para>
     <programlisting role="php">
 <![CDATA[
@@ -367,9 +376,9 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
    </example>
    <para>
     Voir aussi
-    <link linkend="language.function.include.php">{include_php}</link>,
-    <link linkend="language.function.include">{include}</link> et
-    <link linkend="language.function.php">{php}</link>.
+    <link linkend="language.function.include.php"><varname>{include_php}</varname></link>,
+    <link linkend="language.function.include"><varname>{include}</varname></link> et
+    <link linkend="language.function.php"><varname>{php}</varname></link>.
    </para>
   </sect1>
   <sect1 id="tips.obfuscating.email">
@@ -380,14 +389,13 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
     adresses est de parcourir les pages Web. Voici une façon de remédier
     à ce problème : mettre votre adresse email dans du Javascript brouillé
     au milieu de votre source HTML, sans que celà ne gêne l'affichage sur le
-    navigateur Web. Celà est fait grâce au plugin 
-    <link linkend="language.function.mailto">{mailto}</link>.
+    navigateur Web. Cela est fait grâce au plugin 
+    <link linkend="language.function.mailto"><varname>{mailto}</varname></link>.
    </para>
    <example>
     <title>Exemple de dissimulation d'une adresse email</title>
 <programlisting>
 <![CDATA[
-{* dans le template *}
 <div id="contact">Envoyer une demande à
 {mailto address=$EmailAddress encode='javascript' subject='Bonjour'}
 ]]>
@@ -403,8 +411,8 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
    </note>
    <para>
     Voir aussi
-    <link linkend="language.modifier.escape">escape</link> et
-    <link linkend="language.function.mailto">{mailto}</link>.
+    <link linkend="language.modifier.escape"><varname>escape</varname></link> et
+    <link linkend="language.function.mailto"><varname>{mailto}</varname></link>.
    </para>
   </sect1>
  </chapter>

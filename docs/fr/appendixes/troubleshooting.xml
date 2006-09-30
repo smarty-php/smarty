@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer:gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer:gerald Status: ready -->
+
 <chapter id="troubleshooting">
  <title>Diagnostic des erreurs</title>
  <para></para>
@@ -13,15 +14,15 @@
   </para>
   <example>
    <title>erreurs Smarty</title>
-    <screen>
+   <screen>
 <![CDATA[
 Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
-       in /path/to/smarty/Smarty.class.php on line 1041
+in /path/to/smarty/Smarty.class.php on line 1041
 
 Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
-       in /path/to/smarty/Smarty.class.php on line 1041
+in /path/to/smarty/Smarty.class.php on line 1041
 ]]>
-    </screen>
+   </screen>
   </example>
 
   <para>
@@ -38,131 +39,135 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
 
   <example>
    <title>Erreur d'analyse PHP</title>
-    <screen>
+   <screen>
 <![CDATA[
 Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
 ]]>
-    </screen>
+   </screen>
   </example>
-
   <para>
    Quand vous rencontrez une erreur d'analyse PHP, le numéro de la ligne
    indiqué est celui du fichier PHP compilé et non du template. Vous pouvez alors
    regarder le template et détecter l'erreur. Voici quelques erreurs fréquentes :
-   balises fermantes pour <link linkend="language.function.if">{if}{/if}</link> 
-   ou <link linkend="language.function.if">{section}{/section}</link> manquantes, ou
-   syntaxe logique incorrecte dans une instruction {if}. Si vous ne trouvez pas l'erreur,
-   vous devrez alors ouvrir le fichier PHP compilé et aller à la ligne correspondante pour
-   trouver d'où vient l'erreur.
+   balises fermantes pour
+   <link linkend="language.function.if"><varname>{if}{/if}</varname></link> 
+   ou
+   <link linkend="language.function.if"><varname>{section}{/section}</varname></link> 
+   manquantes, ou syntaxe logique incorrecte dans une instruction <varname>{if}</varname>.
+   Si vous ne trouvez pas l'erreur, vous devrez alors ouvrir le fichier PHP compilé et aller à la
+   ligne correspondante pour trouver d'où vient l'erreur.
   </para>
-
-
   <example>
    <title>Autres erreurs communes</title>
-
-   <itemizedlist>
-    <listitem>
-     <screen>
+   <screen>
 <![CDATA[
 Warning: Smarty error: unable to read resource: "index.tpl" in...
 ou
 Warning: Smarty error: unable to read resource: "site.conf" in...
 ]]>
-     </screen>
-     <para>
-      <itemizedlist>
-       <listitem>
-        <para>
-         Le dossier <link linkend="variable.template.dir">$template_dir</link>
-         est incorrect, n'existe pas ou le fichier
-         the file <filename>index.tpl</filename> n'est pas dans le dossier
-         <filename class="directory">templates/</filename>.
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         Une fonction <link linkend="language.function.config.load">{config_load}</link>
-         est dans un template (ou
-         <link linkend="api.config.load">config_load()</link>
-         a été appelé) et soit
-         <link linkend="variable.config.dir">$config_dir</link>
-         est incohérent, n'existe pas, ou
-         <filename>site.conf</filename> n'est pas dans le dossier.
-        </para>
-       </listitem>
-
-      </itemizedlist>
-     </para>
-
-    </listitem><listitem>
-
-     <screen>
-<![CDATA[
-Fatal error: Smarty error: the $compile_dir 'templates_c' does not exist,
-or is not a directory...
-]]>
-     </screen>
+   </screen>
+   <para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       Le dossier
+       <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>
+       est incorrect, n'existe pas ou le fichier
+       the file <filename>index.tpl</filename> n'est pas dans le dossier
+       <filename class="directory">templates/</filename>.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Une fonction
+       <link linkend="language.function.config.load"><varname>{config_load}</varname></link>
+       est dans un template (ou
+       <link linkend="api.config.load"><varname>config_load()</varname></link>
+       a été appelé) et soit
+       <link linkend="variable.config.dir"><varname>$config_dir</varname></link>
+       est incohérent, n'existe pas, ou
+       <filename>site.conf</filename> n'est pas dans le dossier.
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   <screen>
+    <![CDATA[
+             Fatal error: Smarty error: the $compile_dir 'templates_c' does not exist,
+             or is not a directory...
+             ]]>
+   </screen>
+   <itemizedlist>
+    <listitem>
      <para>
       Soit le dossier
-      <link linkend="variable.compile.dir">$compile_dir</link>
+      <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link>
       n'est pas correctement défini, le dossier n'existe pas, ou
       <filename>templates_c</filename> est un fichier et non un dossier.
      </para>
-    </listitem><listitem>
-     <screen>
-<![CDATA[
-Fatal error: Smarty error: unable to write to $compile_dir '....
-]]>
-     </screen>
+    </listitem>
+   </itemizedlist>
+   <screen>
+    <![CDATA[
+             Fatal error: Smarty error: unable to write to $compile_dir '....
+             ]]>
+   </screen>
+   <itemizedlist>
+    <listitem>
      <para>
-      Le dossier <link linkend="variable.compile.dir">$compile_dir</link>
+      Le dossier <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link>
       n'est pas accessible en écriture par le serveur web. Voir le bas
       de la page sur l'<link linkend="installing.smarty.basic">installation de
-      Smarty</link> pour les permissions.
+       Smarty</link> pour les permissions.
      </para>
+    </listitem>
+   </itemizedlist>
 
-    </listitem><listitem>
-
-     <screen>
+   <screen>
 <![CDATA[
 Fatal error: Smarty error: the $cache_dir 'cache' does not exist,
 or is not a directory. in /..
 ]]>
-     </screen>
+   </screen>
+   <itemizedlist>
+    <listitem>
      <para>
       Cela signifie que
-      <link linkend="variable.caching">$caching</link> est activé et soit
+      <link linkend="variable.caching"><parameter>$caching</parameter></link> est activé et soit
       le dossier
-      <link linkend="variable.cache.dir">$cache_dir</link>
+      <link linkend="variable.cache.dir"><parameter>$cache_dir</parameter></link>
       n'est pas correctement défini, le dossier n'existe pas, ou
       <filename>cache</filename> est un fichier et non un dossier.
      </para>
+    </listitem>
+   </itemizedlist>
 
-    </listitem><listitem>
-
-     <screen>
+   <screen>
 <![CDATA[
 Fatal error: Smarty error: unable to write to $cache_dir '/...
 ]]>
-     </screen>
+   </screen>
+   <itemizedlist>
+    <listitem>
      <para>
       Cela signifie que
-      <link linkend="variable.caching">$caching</link> est activé et le dossier
-      <link linkend="variable.cache.dir">$cache_dir</link>
+      <link linkend="variable.caching"><parameter>$caching</parameter></link> est activé et
+      le dossier
+      <link linkend="variable.cache.dir"><parameter>$cache_dir</parameter></link>
       n'est pas accessible en écriture par le serveur web. Voir le bas
       de la page sur l'<link linkend="installing.smarty.basic">installation de
-      Smarty</link> pour les permissions.
+       Smarty</link> pour les permissions.
      </para>
     </listitem>
    </itemizedlist>
- </example>
+  </example>
 
   <para>
    Voir aussi
    <link linkend="chapter.debugging.console">le débogage</link>,
-   <link linkend="variable.error.reporting">$error_reporting</link> et
-   <link linkend="api.trigger.error">trigger_error()</link>.
-   </para>
+   <link linkend="variable.error.reporting"><parameter>$error_reporting</parameter></link> et
+   <link linkend="api.trigger.error"><varname>trigger_error()</varname></link>.
+  </para>
  </sect1>
 </chapter>
 

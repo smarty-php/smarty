@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <!ENTITY note.parameter.merge '<note>
  <title>Note technique</title>
@@ -20,10 +20,33 @@ C&#39;est au cas où vous voudriez compiler plusieurs versions du
 même template, par exemple, pour avoir des templates compilés
 pour différents langages. Une autre utilité pour l&#39;identifiant de compilation
 <parameter>$compile_id</parameter> est lorsque vous utilisez plus d&#39;un
-<link linkend="variable.template.dir">$template_dir</link> mais
-seulement un <link linkend="variable.compile.dir">$compile_dir</link>.
+<link linkend="variable.template.dir"><parameter>$template_dir</parameter></link> mais
+seulement un <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link>.
 Définissez un <parameter>$compile_id</parameter>
-séparé pour chaque <link linkend="variable.template.dir">$template_dir</link>,
+séparé pour chaque
+<link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>,
 sinon, les templates du même nom s&#39;effaceront. Vous pouvez également
 définir la variable <link linkend="variable.compile.id">$compile_id</link> une seule 
 fois plutôt que de la passer à chaque appel à la fonction.</para>'>
+
+<!ENTITY api.register.snippet '<para>
+   La fonction PHP de callback <parameter>function</parameter> peut être soit :
+   <itemizedlist>
+       <listitem><para>
+       Une chaîne de caractères contenant la fonction <parameter>name</parameter>
+       </para></listitem>
+
+       <listitem><para>
+       Un tableau sous la forme <literal>array(&amp;$object, $method)</literal> où
+       <literal>&amp;$object</literal> est une référence d&#39;objet et
+       <literal>$method</literal> une chaîne contenant le nom de la méthode
+       </para></listitem>
+
+       <listitem><para>
+       Un tableau sous la forme
+       <literal>array(&amp;$class, $method)</literal> où
+       <literal>$class</literal> est le nom de la classe et
+       <literal>$method</literal> est une méthode de la classe.
+       </para></listitem>
+   </itemizedlist>
+  </para>'>
