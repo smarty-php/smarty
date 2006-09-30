@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.15 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.syntax.variables">
  <title>Variables</title>
@@ -16,7 +16,7 @@
   Les <link linkend="language.config.variables">variables des fichiers de
   configuration</link> sont une exception à la synthaxe utilisant un signe dollar. Elles peuvent être
   référencées en les entourant du signe dièse (<literal>#</literal>) ou via la variable spéciale
-  <link linkend="language.variables.smarty.config">$smarty.config</link>.
+  <link linkend="language.variables.smarty.config"><parameter>$smarty.config</parameter></link>.
  </para>
  <example>
   <title>Variables</title>
@@ -50,18 +50,18 @@ Plusieurs autres combinaisons sont autorisées
  </example>
 
  <para>
-  Les variables spéciales comme $_GET, $_SESSION, etc. sont également disponibles,
-  lisez le chapitre sur les variables réservées
-  <emphasis><link linkend="language.variables.smarty">$smarty</link></emphasis>
+  Les variables spéciales comme <literal>$_GET</literal>, <literal>$_SESSION</literal>, etc.
+  sont également disponibles, lisez le chapitre sur les variables réservées
+  <emphasis><link linkend="language.variables.smarty"><parameter>$smarty</parameter></link></emphasis>
   pour plus de détails.
  </para>
 
  <para>
   Voir aussi
-  <link linkend="language.variables.smarty">$smarty reserved variables</link>,
-  <link linkend="language.config.variables">Config Variables</link>,
-  <link linkend="language.function.assign">{assign}</link> et
-  <link linkend="api.assign">assign()</link>.
+  <link linkend="language.variables.smarty"><parameter>$smarty</parameter></link>,
+  les <link linkend="language.config.variables">variables de configuration</link>,
+  <link linkend="language.function.assign"><varname>{assign}</varname></link> et
+  <link linkend="api.assign"><varname>assign()</varname></link>.
  </para>
 </sect1>
 

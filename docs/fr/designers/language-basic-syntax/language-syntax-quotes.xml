@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.syntax.quotes">
  <title>Variables insérées dans des chaînes de caractères</title>
@@ -9,11 +9,12 @@
   <link   linkend="language.syntax.variables">variables</link>  <link
   linkend="api.assign">assignées</link> à l'intérieur de
   chaînes entre guillemets, du moment que leur nom est exclusivement composé
-  de chiffres, lettres, underscores et crochets. Si le nom de la variable
+  de chiffres, lettres, underscores et crochets
+  (Voir le <ulink url="&url.php-manual;language.variables">nommage</ulink>). Si le nom de la variable
   contient tout autre caractère (point, référence à un objet, etc.)
   la variable doit être entourée <link linkend="language.syntax.quotes">d'apostrophes
   inverses</link> (`). Vous ne pouvez jamais insérer de
- <link linkend="language.modifiers">modifieurs</link>, ils doivent toujours être appliquer à
+ <link linkend="language.modifiers">modificateurs</link>, ils doivent toujours être appliquer à
   l'extérieur des guillemets.
  </para>
  <example>
@@ -37,7 +38,7 @@ EXEMPLE PRATIQUE:
  </example>
  <para>
   Voir aussi
-  <link linkend="language.modifier.escape">escape</link>.
+  <link linkend="language.modifier.escape"><varname>escape</varname></link>.
  </para>
 </sect1>
 

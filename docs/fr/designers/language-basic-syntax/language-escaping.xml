@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+
 <sect1 id="language.escaping">
  <title>Désactiver l'analyse de Smarty</title>
  <para>
@@ -18,19 +19,19 @@
  </para>
 
  <para>
-  Inclure du contenu tel quel est possible en utilisant les blocs <link
-  linkend="language.function.literal">{literal} .. {/literal}</link>.
-  Similairement à l'utilisation d'entités HTML, vous pouvez utiliser <link
-  linkend="language.function.ldelim">{ldelim}</link> et <link
-  linkend="language.function.ldelim">{rdelim}</link>, ou <link
-  linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link> pour
-  afficher les délimiteurs.
+  Inclure du contenu tel quel est possible en utilisant les blocs
+  <link linkend="language.function.literal"><varname>{literal} .. {/literal}</varname></link>.
+  Similairement à l'utilisation d'entités HTML, vous pouvez utiliser
+  <link linkend="language.function.ldelim"><varname>{ldelim}</varname></link> et
+  <link linkend="language.function.ldelim"><varname>{rdelim}</varname></link>, ou
+  <link linkend="language.variables.smarty.ldelim"><varname>{$smarty.ldelim}</varname></link> 
+  pour afficher les délimiteurs.
  </para>
 
  <para>
-  Il est souvent plus simple de modifier les délimiteurs de Smarty : <link
-  linkend="variable.left.delimiter">$left_delimiter</link> et
-  <link linkend="variable.right.delimiter">$right_delimiter</link>.
+  Il est souvent plus simple de modifier les délimiteurs de Smarty :
+  <link linkend="variable.left.delimiter"><parameter>$left_delimiter</parameter></link> et
+  <link linkend="variable.right.delimiter"><parameter>$right_delimiter</parameter></link>.
   </para>
   <example>
    <title>Exemple de changement de délimiteur</title>
@@ -38,9 +39,9 @@
 <![CDATA[
 <?php
 
-$smarty = new Smarty;
 $smarty->left_delimiter = '<!--{';
 $smarty->right_delimiter = '}-->';
+
 $smarty->assign('foo', 'bar');
 $smarty->assign('name', 'Albert');
 $smarty->display('example.tpl');
@@ -49,7 +50,7 @@ $smarty->display('example.tpl');
 ]]>
   </programlisting>
   <para>
-   Où example.tpl est:
+   Où le template est:
   </para>
   <programlisting>
 <![CDATA[
@@ -64,10 +65,6 @@ dosomething();
 ]]>
   </programlisting>
  </example>
- <para>
-  Voir aussi
-  <link linkend="language.modifier.escape">les modifieurs d'échappement</link>.
- </para>
 </sect1>
 
  <!-- Keep this comment at the end of the file
