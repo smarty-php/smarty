@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
  <para>
-  L'instruction <emphasis>{if}</emphasis> dans Smarty dispose de la même flexibilité que l'instruction
-  PHP <ulink url="&url.php-manual;if"><command>if</command></ulink>,
+  L'instruction <varname>{if}</varname> dans Smarty dispose de la même flexibilité que l'instruction
+  PHP <ulink url="&url.php-manual;if">if</ulink>,
   avec quelques fonctionnalités supplémentaires pour le
-  moteur de template. Tous les <emphasis>{if}</emphasis> doivent être
-  utilisés de pair avec un <emphasis>{/if}</emphasis>.
-  <emphasis>{else}</emphasis> et <emphasis>{elseif}</emphasis> sont également
+  moteur de template. Tous les <varname>{if}</varname> doivent être
+  utilisés de pair avec un <varname>{/if}</varname>.
+  <varname>{else}</varname> et <varname>{elseif}</varname> sont également
   des balises autorisées. Toutes les conditions et fonctions PHP sont reconnues,
   comme <emphasis>||</emphasis>, <emphasis>or</emphasis>,
   <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>,
   <emphasis>is_array()</emphasis>, etc.
  </para>
  <para>
-  Si <link linkend="variable.security">$security</link> est actif,
+  Si <link linkend="variable.security"><parameter>$security</parameter></link> est actif,
   alors le tableau <emphasis>IF_FUNCS</emphasis> dans le tableau
-  <link linkend="variable.security.settings">$security_settings</link> (?!).
+  <link linkend="variable.security.settings"><parameter>$security_settings</parameter></link> (?!).
  </para>
  <para>
   La liste suivante présente les opérateurs reconnus, qui doivent être entourés d'espaces.

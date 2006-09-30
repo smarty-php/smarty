@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.config.load">
  <title>{config_load}</title>
 
  <para>
-  {config_load} est utiliseé pour charger des variables
-  <link linkend="language.config.variables">#variables#</link>
+  <varname>{config_load}</varname> est utiliseé pour charger des variables
+  <link linkend="language.config.variables"><parameter>#variables#</parameter></link>
   depuis un <link linkend="config.files">fichier de configuration</link>
   dans un template.
  </para>
@@ -75,9 +75,9 @@
   </tgroup>
  </informaltable>
  <example>
-  <title>fonction {config_load}</title>
+  <title>Fonction {config_load}</title>
   <para>
-   example.conf
+   Le fichier <filename>example.conf</filename>
   </para>
   <programlisting>
 <![CDATA[
@@ -117,13 +117,13 @@ pageTitle = "Info personnalisée"
  <para>
   Les <link linkend="config.files">fichiers de configuration</link> peuvent contenir des sections.
   Vous pouvez charger des variables d'une section donnée avec le
-  nouvel attribut <emphasis>'section'</emphasis>.
+  nouvel attribut <parameter>section</parameter>.
  </para>
  <note>
   <para>
-   Les <emphasis>sections des fichiers de configuration</emphasis>
-   et la fonction native 
-   <link linkend="language.function.section"><emphasis>{section}</emphasis></link>
+   Les <emphasis>sections</emphasis> des fichiers de configuration
+   et la fonction native
+   <link linkend="language.function.section"><varname>{section}</varname></link>
    n'ont rien en commun, il s'avère simplement qu'elles portent le même nom.
   </para>
  </note>
@@ -150,17 +150,17 @@ pageTitle = "Info personnalisée"
  </example>
 
  <para>
-  Voir aussi <link linkend="variable.config.overwrite">$config_overwrite</link>
+  Voir aussi <link linkend="variable.config.overwrite"><parameter>$config_overwrite</parameter></link>
   pour les tableaux de variables de configuration.
 </para>
 
  <para>
   Voir aussi
-  <link linkend="config.files">les fichiers de configuration</link>,
-  <link linkend="language.config.variables">les variables de configuration</link>,
-  <link linkend="variable.config.dir">$config_dir</link>,
-  <link linkend="api.get.config.vars">get_config_vars()</link> et
-  <link linkend="api.config.load">config_load()</link>.
+  les <link linkend="config.files">fichiers de configuration</link>,
+  les <link linkend="language.config.variables">variables de configuration</link>,
+  <link linkend="variable.config.dir"><parameter>$config_dir</parameter></link>,
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link> et
+  <link linkend="api.config.load"><varname>config_load()</varname></link>.
  </para>
 </sect1>
 

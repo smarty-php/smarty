@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.13 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.capture">
  <title>{capture}</title>
 
  <para>
-  {capture} est utilisé pour récupérer la sortie d'éléments dans une variable
-  au lieu de les afficher. Tout contenu situé entre {capture
-  name='foo'} et {/capture} est intercepté dans une variable dont le nom est
-  spécifié dans l'attribut name.
+  <varname>{capture}</varname> est utilisé pour récupérer la sortie d'éléments dans
+  une variable au lieu de les afficher. Tout contenu situé entre
+  <varname>{capture name='foo'}</varname> et <varname>{/capture}</varname>
+  est intercepté dans une variable dont le nom est spécifié dans l'attribut
+  <parameter>name</parameter>.
  </para>
  <para>
   Le contenu capturé peut être utilisé dans
   le template par l'intermédiaire de la variable spéciale
-  <link linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
-  où "foo" est la valeur de l'attribut name. Si vous ne donnez pas de valeur
-  à l'attribut name, alors "default" est utilisé en tant que nom, i.e.
-  $smarty.capture.default.
+  <link linkend="language.variables.smarty.capture"><parameter>$smarty.capture.foo</parameter></link>
+  où <quote>foo</quote> est la valeur de l'attribut <parameter>name</parameter>.
+  Si vous ne donnez pas de valeur à l'attribut <parameter>name</parameter>, alors
+  <quote>default</quote> est utilisé en tant que nom, i.e.
+  <parameter>$smarty.capture.default</parameter>.
  </para>
  <para>
-  {capture} peut être imbriqué.
+  <varname>{capture}</varname> peut être imbriqué.
  </para>
 
  <informaltable frame="all">
@@ -59,11 +61,11 @@
  </informaltable>
  <caution>
   <para>
-   Faîtes attention lorsque vous interceptez la sortie de commandes <link
-   linkend="language.function.insert">{insert}</link>.
+   Faîtes attention lorsque vous interceptez la sortie de commandes
+   <link linkend="language.function.insert"><varname>{insert}</varname></link>.
    Si vous avez configuré le <link linkend="caching">cache</link> pour que ce
    dernier soit actif, et que vous avez des commandes <link
-   linkend="language.function.insert">{insert}</link>
+   linkend="language.function.insert"><varname>{insert}</varname></link>
    supposées s'exécuter dans un contenu en cache, ne tentez pas de capturer
    ce contenu.
   </para>
@@ -87,7 +89,7 @@
   <example>
    <title>{capture} dans une variable de template</title>
    <para>Cet exemple démontre également la fonction
-    <link linkend="language.function.popup">{popup}</link>
+    <link linkend="language.function.popup"><varname>{popup}</varname></link>
    </para>
    <programlisting>
 <![CDATA[
@@ -103,12 +105,11 @@ Votre IP est {$smarty.server.REMOTE_ADDR}.
  </para>
  <para>
   Voir aussi
-  <link
-   linkend="language.variables.smarty.capture">$smarty.capture</link>,
-  <link linkend="language.function.eval">{eval}</link>,
-  <link linkend="language.function.fetch">{fetch}</link>,
-  <link linkend="api.fetch">fetch()</link> et
-  <link linkend="language.function.assign">{assign}</link>.
+  <link linkend="language.variables.smarty.capture"><parameter>$smarty.capture</parameter></link>,
+  <link linkend="language.function.eval"><varname>{eval}</varname></link>,
+  <link linkend="language.function.fetch"><varname>{fetch}</varname></link>,
+  <link linkend="api.fetch"><varname>fetch()</varname></link> et
+  <link linkend="language.function.assign"><varname>{assign}</varname></link>.
  </para>
 </sect1>
 
