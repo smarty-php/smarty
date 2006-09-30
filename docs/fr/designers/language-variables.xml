@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+
 <chapter id="language.variables">
  <title>Variables</title>
  <para>
@@ -15,7 +16,9 @@
   conditionnelles, etc.
   Pour afficher une variable, il suffit de l'entourer par des
   <link linkend="variable.left.delimiter">délimiteurs</link> de
-  telle sorte qu'elle soit la seule chose qu'ils contiennent. Exemple :
+  telle sorte qu'elle soit la seule chose qu'ils contiennent.
+  <example>
+   <title>Exemple de variables</title>
   <programlisting>
 <![CDATA[
 {$Nom}
@@ -24,13 +27,21 @@
 
 <body bgcolor="{#bgcolor#}">
 ]]>
-  </programlisting>
+</programlisting>
+</example>
+<note>
+ <title>Astuce</title>
+ <para>La façon de la simple d'analyser les variables Smarty est
+  d'utiliser la
+  <link linkend="chapter.debugging.console">console de débogage</link>.
  </para>
- 
+</note>
+ </para>
+
  &designers.language-variables.language-assigned-variables;
  &designers.language-variables.language-config-variables;
  &designers.language-variables.language-variables-smarty;
- 
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

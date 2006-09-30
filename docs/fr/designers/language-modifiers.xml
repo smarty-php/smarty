@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.23 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.25 Maintainer: gerald Status: ready -->
 
 <chapter id="language.modifiers">
  <title>Modificateurs de variables</title>
@@ -14,8 +14,9 @@
   est succeptible d'accepter des paramètres additionnels, qui en affectent
   le comportement. Ces paramètres suivent le nom du modificateur et
   sont séparés par un <literal>:</literal> (deux points).
-  De plus, toutes les fonctions PHP peuvent être utilisées en tant que modifieurs
-  implicitement.
+  <emphasis>Toutes les fonctions PHP peuvent être utilisées en tant que modifieurs
+   implicitement</emphasis> (plus d'informations ci-dessous) et les modificateurs peuvent
+  être <link linkend="language.combining.modifiers">combinés</link>.
  </para>
  <example>
   <title>Exemple de modificateur</title>
@@ -57,41 +58,64 @@
 ]]>
   </programlisting>
  </example>
+ <itemizedlist>
+ <listitem>
  <para>
   Si vous appliquez un modificateur de variable à un tableau plutôt qu'à une
   variable simple, le modificateur sera appliqué à chaque valeur du tableau.
   Si vous souhaitez que le modificateur travaille réellement avec le tableau
   en tant que tel, vous devez préfixer le nom du modificateur avec un symbole
-  <literal>@</literal> comme ceci: <literal>{$titreArticle|@count}</literal>
-  (Affiche le nombre d'élements du tableau $titreArticle.)
+  <literal>@</literal>
+  <note>
+   <title>Exemple</title>
+   <para><literal>{$articleTitle|@count}</literal> - affichera le nombre
+    d'éléments dans le tableau <parameter>$articleTitle</parameter> en utilisant
+    la fonction PHP <ulink url="&url.php-manual;count"><varname>count()</varname></ulink>
+    comme modificateur.
+   </para>
+  </note>
  </para>
+</listitem>
+
+ <listitem>
   <para>
   Les modificateurs sont chargés automatiquement depuis votre répertoire
-  de plugin <link linkend="variable.plugins.dir">$plugins_dir</link>
-  ou peuvent être enregistrés explicitement avec <link
-  linkend="api.register.modifier">register_modifier()</link> ; ceci est utile
-  pour partager une fonction dans un scirpt PHP et les templates Smarty.
+  de plugin <link linkend="variable.plugins.dir"><parameter>$plugins_dir</parameter></link>
+  ou peuvent être enregistrés explicitement avec
+  <link linkend="api.register.modifier"><varname>register_modifier()</varname></link> ;
+  ceci est utile pour partager une fonction dans un scirpt PHP et les templates Smarty.
  </para>
+</listitem>
+
+  <listitem>
  <para>
   Toutes les fonction PHP peuvent être utilisées comme modificateur,
-  sans autre déclaration. (L'exemple avec
-  <literal>@count</literal> ci-dessus utilise la fonction count(), et non un modificateur
-  Smarty. Utiliser des fonctions PHP en tant que modificateur comporte deux 
-  risques: Premièrement: il arrive que l'ordre des paramètres ne soit pas
-  celui attendu (<literal>{"%2.f"|sprintf:$float}</literal> fonctionne,
-  mais demande une syntaxe plus naturelle, par exemple<literal>{$float|string_format:"%2.f"}</literal>
-  fourni dans la distribution Smarty). Deuxièmement : lorsque <link
-  linkend="variable.security">$security</link> est activé, les fonctions PHP
-  utilisées en tant que modificateur doivent être explicitement déclarées 
-  comme connues dans le tableau <link linkend="variable.security.settings">
-  $security_settings['MODIFIER_FUNCS']</link>.
- </para>
+  sans autre déclaration, tel que dans l'exemple ci-dessus.
+  Cepdendant, l'utilisation de fonctions PHP comme modificateurs
+  contient deux petits pièges à éviter :
+  <itemizedlist>
+   <listitem><para>Le premier - quelques fois, l'ordre des paramètres de la fonction
+     n'est pas celui attendu. Le formattage de <literal>$foo</literal>  avec
+     <literal>{"%2.f"|sprintf:$foo}</literal> fonctionne actuellement, mais
+     n'est pas aussi intuitif que
+     <literal>{$foo|string_format:"%2.f"}</literal>, ce qui est fournit par Smarty.
+    </para></listitem>
+   <listitem><para>
+     Le deuxième - Si <link linkend="variable.security">
+      <parameter>$security</parameter></link> est activé, toutes les fonctions PHP
+     qui devront être utilisées comme modificateurs, doivent être déclarées dans l'élément
+     <literal>MODIFIER_FUNCS</literal> du tableau
+     <link linkend="variable.security.settings">
+      <parameter>$security_settings</parameter></link>.
+    </para></listitem>
+  </itemizedlist>
+ </para></listitem>
+  </itemizedlist>
  <para>
   Voir aussi
-  <link linkend="api.register.modifier">register_modifier()</link>,
-  <link linkend="api.register.function">register_function()</link>,
-  <link linkend="plugins">étendre Smarty avec des plugins</link>
-  et <link linkend="plugins.modifiers">les modifieurs</link>.
+  <link linkend="api.register.modifier"><varname>register_modifier()</varname></link>,
+  <link linkend="language.combining.modifiers">les modificateurs combinés</link>.
+  et <link linkend="plugins">étendre Smarty avec des plugins</link>.
  </para>
 
  &designers.language-modifiers.language-modifier-capitalize;

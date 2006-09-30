@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
+
 <chapter id="config.files">
  <title>Fichiers de configuration</title>
  <para>
@@ -63,13 +64,13 @@ pass=foobar
   section, la variable de section est prioritaire.
   Si vous appelez deux variables dans une même section de la même façon,
   la dernière déclarée prime. (voir
-  <link linkend="variable.config.overwrite">$config_overwrite</link>)
+  <link linkend="variable.config.overwrite"><parameter>$config_overwrite</parameter></link>)
  </para>
  <para>
   Les fichiers de configuration sont chargés dans le template grâce aux
   fonctions <link
-  linkend="language.function.config.load"><command>{config_load}</command></link>
-  (voir aussi <link linkend="api.config.load"><command>config_load()</command></link>).
+  linkend="language.function.config.load"><varname>{config_load}</varname></link>
+  (voir aussi <link linkend="api.config.load"><varname>config_load()</varname></link>).
  </para>
  <para>
   Vous pouvez masquer des variables ou des sections entières en préfixant
@@ -82,11 +83,11 @@ pass=foobar
  </para>
  <para>
   Voir aussi
-  <link linkend="language.function.config.load">{config_load}</link>,
-  <link linkend="variable.config.overwrite">$config_overwrite</link>,
-  <link linkend="api.get.config.vars">get_config_vars()</link>,
-  <link linkend="api.clear.config">clear_config()</link> et
-  <link linkend="api.config.load">config_load()</link>.
+  <link linkend="language.function.config.load"><varname>{config_load}</varname></link>,
+  <link linkend="variable.config.overwrite"><parameter>$config_overwrite</parameter></link>,
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>,
+  <link linkend="api.clear.config"><varname>clear_config()</varname></link> et
+  <link linkend="api.config.load"><varname>config_load()</varname></link>.
  </para>
 </chapter>
 
