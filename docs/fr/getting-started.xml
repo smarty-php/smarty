@@ -436,7 +436,7 @@ Bonjour, {$name}, Bienvenue dans Smarty !
    <para>
     Maintenant passons à l'édition du fichier <filename>index.php</filename>. Nous allons
     créer une instance de Smarty,
-    <link linkend="api.assign"><varname>assigner<varname></link>
+    <link linkend="api.assign"><varname>assigner</varname></link>
     une valeur à une variable de template et
     <link linkend="api.display">afficher</link> le résultat avec <filename>index.tpl</filename>.
    </para>
