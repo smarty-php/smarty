@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.php">
  <title>{php}</title>
  <para>
-  Les balises {php} permettent de rajouter du code PHP directement dans le
-  template. Ils ne seront pas ignorés, quelle que soit la valeur de <link
-  linkend="variable.php.handling">$php_handling</link>. Pour les
+  Les balises <varname>{php}</varname> permettent de rajouter du code PHP
+  directement dans le template. Ils ne seront pas ignorés, quelle que soit la valeur de <link
+  linkend="variable.php.handling"><parameter>$php_handling</parameter></link>. Pour les
   utilisateurs avancés seulement, son utilisation n'est normalement pas
   nécessaire et n'est pas recommandée.
  </para>
+ <note>
+  <title>Notes techniques</title>
+  <para>
+   Pour accéder aux variables PHP dans les blocks <varname>{php}</varname>, vous devriez avoir besoin
+   d'utiliser le mot clé PHP <ulink url="&url.php-manual;global">global</ulink>.
+  </para>
+ </note>
  <example>
-  <title>Balises {php}</title>
+  <title>Exemple avec {php}</title>
   <programlisting>
 <![CDATA[
 {php}
-   // inclusion directe d'un script PHP
-   // depuis le template.
+   // inclusion directe d'un script PHP depuis le template.
    include('/chemin/vers/display_weather.php');
 {/php}
 ]]>
   </programlisting>
  </example>
- <note>
-  <title>Notes techniques</title>
-  <para>
-   Pour accéder aux variables PHP dans les blocks {php}, vous devriez avoir besoin
-   d'utiliser le mot clé PHP <ulink url="&url.php-manual;global">global</ulink>.
-  </para>
- </note>
 
  <example>
   <title>Balises {php} avec le mot clé global et assignement d'une variable</title>
   <programlisting role="php">
 <![CDATA[
+{* ce template inclut un bloc {php} qui assigne la variable $varX *}
 {php}
    global $foo, $bar;
    if($foo == $bar){
@@ -42,27 +42,17 @@
    }
 $this->assign('varX','Strawberry');
 {/php}
-<strong>{$varX}</strong> est ma glâce favorite
+{* affichage de la variable *}
+<strong>{$varX}</strong> est ma glâce favorite :-)
 ]]>
   </programlisting>
-  <para>
-   Ce qui suit n'est vrament PAS recommandé, vu que c'est dans le contexte du template.
-  </para>
-  <programlisting>
-<![CDATA[
-{php}
-print_r($some_array);
-{/php}
-]]>
-  </programlisting>
- </example>
 
  <para>
   Voir aussi
-  <link linkend="variable.php.handling">$php_handling</link>,
-  <link linkend="language.function.include.php">{include_php}</link>,
-  <link linkend="language.function.include">{include}</link>,
-  <link linkend="language.function.insert">{insert}</link> et
+  <link linkend="variable.php.handling"><parameter>$php_handling</parameter></link>,
+  <link linkend="language.function.include.php"><varname>{include_php}</varname></link>,
+  <link linkend="language.function.include"><varname>{include}</varname></link>,
+  <link linkend="language.function.insert"><varname>{insert}</varname></link> et
   <link linkend="tips.componentized.templates">les templates composantes</link>.
  </para>
 </sect1>

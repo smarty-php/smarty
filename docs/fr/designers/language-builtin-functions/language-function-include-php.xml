@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.include.php">
  <title>{include_php}</title>
@@ -8,13 +8,13 @@
  <note>
   <title>Notes techniques</title>
   <para>
-   {include_php} est presque obsolète dans Smarty. Vous pouvez obtenir des résultats 
-   équivalents en utilisant les fonctions utilisateur.
-   La seule raison qui peut vous pousser à utiliser {include_php} est que 
-   vous avez besoin de mettre une de vos fonction en quarantaine vis à vis du 
-   répertoire des <link linkend="variable.plugins.dir">plugins</link> ou de votre application.
-   Reportez-vous à l'exemple des
-   <link linkend="tips.componentized.templates"> templates composants</link>
+   <varname>{include_php}</varname> est presque obsolète dans Smarty.
+   Vous pouvez obtenir des résultats équivalents en utilisant les fonctions utilisateur.
+   La seule raison qui peut vous pousser à utiliser <varname>{include_php}</varname>
+   est que vous avez besoin de mettre une de vos fonction en quarantaine vis à vis du 
+   répertoire <link linkend="variable.plugins.dir"><filename>plugins/</filename></link>
+   ou de votre application. Reportez-vous à l'exemple des
+   <link linkend="tips.componentized.templates">templates composants</link>
    pour plus de détails.
   </para>
  </note>
@@ -47,7 +47,7 @@
      <entry>once</entry>
      <entry>boléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>true</emphasis></entry>
+     <entry><emphasis>&true;</emphasis></entry>
      <entry>Inclure plusieurs fois ou non le fichier PHP si
       plusieurs demandes d'inclusions sont faîtes.</entry>
     </row>
@@ -64,33 +64,35 @@
  </informaltable>
 
  <para>
-  Les balises {include_php} sont utilisées pour inclure directement
-  un script PHP dans vos templates. Si <link linkend="variable.security">$security</link> est activé,
-  alors le script à exécuter doit être placé dans le chemin <link
-  linkend="variable.trusted.dir">$trusted_dir</link>. La balise
-  {include_php} attends l'attribut "file", qui contient le chemin du
-  fichier PHP à inclure, relatif à <link linkend="variable.trusted.dir">$trusted_dir</link>, ou absolu.
+  Les balises <varname>{include_php}</varname> sont utilisées pour inclure directement
+  un script PHP dans vos templates. Si
+  <link linkend="variable.security"><parameter>$security</parameter></link> est activé,
+  alors le script à exécuter doit être placé dans le chemin
+  <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>. La balise
+  <varname>{include_php}</varname> attends l'attribut <parameter>file</parameter>,
+  qui contient le chemin du fichier PHP à inclure, relatif à
+  <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>, ou absolu.
  </para>
  <para>
   Par défaut, les fichiers PHP ne sont inclus qu'une seule fois, même si
   la demande d'inclusion survient plusieurs fois dans le template.
   Vous pouvez demander à ce que ce fichier soit inclus à chaque demande
-  grâce à l'attribut <emphasis>once</emphasis>. Mettre l'attribut once à
-  false aura pour effet d'inclure le script PHP à chaque fois que demandé
+  grâce à l'attribut <parameter>once</parameter>. Mettre l'attribut once à
+  &false; aura pour effet d'inclure le script PHP à chaque fois que demandé
   dans le template.
  </para>
  <para>
   Vous pouvez donner une valeur à l'attribut optionnel
-  <emphasis>assign</emphasis>, pour demander à la fonction
-  <emphasis>{include_php}</emphasis> d'assigner la sortie du script PHP
+  <parameter>assign</parameter>, pour demander à la fonction
+  <varname>{include_php}</varname> d'assigner la sortie du script PHP
   à la variable spécifiée plutôt que d'en afficher directement le résultat.
  </para>
  <para>
-  L'objet Smarty est disponible en tant que $this dans le script PHP inclus.
+  L'objet Smarty est disponible en tant que <parameter>$this</parameter> dans le script PHP inclus.
  </para>
  <example>
   <title>Fonction {include_php}</title>
-  <para>load_nav.php</para>
+  <para>Le template <filename>load_nav.php</filename></para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -105,14 +107,14 @@ $this->assign('sections',$sql->record);
 ]]>
   </programlisting>
   <para>
-   Où index.tpl est :
+   Où le template est :
   </para>
   <programlisting>
 <![CDATA[
 {* chemin absolu, ou relatif à $trusted_dir *}
 {include_php file='/chemin/vers/load_nav.php'}
 
-{foreach item="curr_section" from=$sections}
+{foreach item='curr_section' from=$sections}
   <a href="{$curr_section.url}">{$curr_section.name}</a><br />
 {/foreach}
 ]]>
@@ -121,11 +123,11 @@ $this->assign('sections',$sql->record);
 
  <para>
   Voir aussi
-  <link linkend="language.function.include">{include}</link>,
-  <link linkend="language.function.php">{php}</link>,
-  <link linkend="language.function.capture">{capture}</link>, les
+  <link linkend="language.function.include"><varname>{include}</varname></link>,
+  <link linkend="language.function.php"><varname>{php}</varname></link>,
+  <link linkend="language.function.capture"><varname>{capture}</varname></link>, les
   <link linkend="template.resources">ressources de template</link> et les
-  <link linkend="tips.componentized.templates">"composants templates"</link>.
+  <link linkend="tips.componentized.templates">composants de templates</link>.
  </para>
 </sect1>
 

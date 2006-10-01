@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.literal">
  <title>{literal}</title>
  <para>
-  Les balises "{literal}" permettent à un bloc de données d'être pris tel
+  Les balises <varname>{literal}</varname> permettent à un bloc de données
+  d'être pris tel
   quel, sans qu'il ne soit interprété par Smarty. Très pratique lors
   de l'emplois d'éléments tels que javascript, acolades et autres
   qui peuvent confondre le moteur de template. Tout le contenu situé
-  entre les balises {literal}{/literal} ne sera pas interprété, et
+  entre les balises <varname>{literal}{/literal}</varname> ne sera pas interprété, et
   affiché comme du contenu statique. Si vous voulez inclure des tags de template
-  dans votre block {literal}, utilisez plutôt <link
-  linkend="language.function.ldelim">{ldelim}{rdelim}</link> pour échapper
-  les délimiteurs individuels.
+  dans votre block <varname>{literal}</varname>, utilisez plutôt
+  <link linkend="language.function.ldelim"><varname>{ldelim}{rdelim}</varname></link>
+  pour échapper les délimiteurs individuels.
  </para>
  <example>
   <title>Balises {literal}</title>
@@ -77,7 +78,7 @@
  </example>
  <para>
   Voir aussi
-  <link linkend="language.function.ldelim">{ldelim}, {rdelim}</link> et
+  <link linkend="language.function.ldelim"><varname>{ldelim} {rdelim}</varname></link> et
   la <link linkend="language.escaping">désactivation de l'analyse de Smarty</link>.
  </para>
 </sect1>
