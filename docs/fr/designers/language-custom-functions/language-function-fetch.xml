@@ -1,23 +1,61 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.fetch">
  <title>{fetch}</title>
  <para>
-  {fetch} est utilisé pour récupérer des fichiers depuis le système de
+  <varname>{fetch}</varname> est utilisé pour récupérer des fichiers depuis le système de
   fichier local, depuis un serveur http ou ftp, et en afficher le contenu.
-  Si le nom du fichier commence par "http://", la page internet sera
-  récupérée, puis affichée. Si le nom du fichier commence par "ftp://",
-  le fichier sera récupéré depuis le serveur ftp, et affiché.
-  Pour les fichiers du système local, le chemin doit être absolu ou
-  relatif au chemin d'exécution du script PHP.
  </para>
- <para>
-  Vous pouvez spécifier l'attribut optionnel "assign"
-  qui défini une variable de template dans laquelle la sortie
-  sera stockée plutôt que d'être affichée.
- </para>
+
+ <itemizedlist>
+  <listitem>
+   <para>
+    Si le nom du fichier commence par <parameter>http://</parameter>, la page internet sera
+    récupérée, puis affichée.
+    <note>
+     <para>
+      Ceci ne supporte pas les redirections http. Assurez vous d'inclure les
+      slash de fin sur votre page web si nécessaire.
+     </para>
+    </note>
+   </para>
+  </listitem>
+
+  <listitem>
+   <para>
+    Si le nom du fichier commence par <parameter>ftp://</parameter>,
+    le fichier sera récupéré depuis le serveur ftp, et affiché.
+   </para>
+  </listitem>
+
+  <listitem>
+   <para>
+    Pour les fichiers du système local, le chemin doit être absolu ou
+    relatif au chemin d'exécution du script PHP.
+    <note>
+     <para>
+      Si la variable de template <link linkend="variable.security">
+       <parameter>$security</parameter></link>
+      est activée et que vous récupérez un fichier depuis le système
+      de fichiers local, <varname>{fetch}</varname>
+      ne permettra que les fichiers se trouvant dans un des dossiers
+      définis dans les <link linkend="variable.secure.dir">dossiers sécurisés</link>.
+     </para>
+    </note>
+   </para>
+  </listitem>
+
+  <listitem>
+   <para>
+    Si l'attribut <parameter>assign</parameter> est défini, l'affichage
+    de la fonction <varname>{fetch}</varname> sera assignée à cette
+    variable de template au lieu d'être affichée dans le template.
+   </para>
+  </listitem>
+ </itemizedlist>
+
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -40,34 +78,20 @@
      <entry>chaîne de caractères</entry>
      <entry>Oui</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>le fichier, site http ou ftp à récupérer</entry>
+     <entry>Le fichier, site http ou ftp à récupérer</entry>
     </row>
     <row>
      <entry>assign</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>le nom de la variable PHP dans laquelle la sortie
+     <entry>Le nom de la variable PHP dans laquelle la sortie
       sera assignée plutôt que d'être directement affichée.
      </entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
- <note>
-  <title>Note technique</title>
-  <para>Ne supporte pas les redirections http. Assurez vous d'inclure les
-   slash de fin sur votre page web si nécessaire.
-  </para>
- </note>
- <note>
-  <title>Note technique</title>
-  <para>
-   Si la <link linkend="variable.security">sécurité</link> est activée,
-   vous ne pourez récupérer les fichiers du système local que s'ils sont
-   situés dans l'un des <link linkend="variable.secure.dir">répertoires sécurisé</link>.
-  </para>
- </note>
  <example>
   <title>Exempe avec {fetch}</title>
   <programlisting>
@@ -86,17 +110,17 @@
 {* assigne le contenu récupéré à une variable de template *}
 {fetch file='http://www.myweather.com/68502/' assign='weather'}
 {if $weather ne ''}
-   <div id="weather">{$weather}</div>
+<div id="weather">{$weather}</div>
 {/if}
 ]]>
   </programlisting>
  </example>
  <para>
   Voir aussi
-  <link linkend="language.function.capture">{capture}</link>,
-  <link linkend="language.function.assign">{assign}</link>
-  <link linkend="language.function.eval">{eval}</link> et
-  <link linkend="api.fetch">fetch()</link>.
+  <link linkend="language.function.capture"><varname>{capture}</varname></link>,
+  <link linkend="language.function.assign"><varname>{assign}</varname></link>
+  <link linkend="language.function.eval"><varname>{eval}</varname></link> et
+  <link linkend="api.fetch"><varname>fetch()</varname></link>.
  </para>
 </sect1>
 

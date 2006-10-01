@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.image">
  <title>{html_image}</title>
  <para>
-  {html_image} est une fonction utilisateur qui génère la balise
+  <varname>{html_image}</varname> est une
+  <link linkend="language.custom.functions">fonction utilisateur</link> qui génère la balise
   HTML pour une image. La hauteur et la longueur de l'image sont calculés
   automatiquement depuis le fichier image si aucune n'est spécifiée.
  </para>
@@ -52,70 +53,83 @@
      <entry>chaîne de caractères</entry>
      <entry>non</entry>
      <entry><emphasis>racine du serveur web</emphasis></entry>
-     <entry>répertoire depuis lequel baser le calcul des
+     <entry>Répertoire depuis lequel baser le calcul des
      chemins relatifs</entry>
-    </row>
-    <row>
-     <entry>link</entry>
-     <entry>chaîne de caractères</entry>
-     <entry>non</entry>
-     <entry><emphasis>n/a</emphasis></entry>
-     <entry>lien sur lequel l'image pointe</entry>
+   </row>
+   <row>
+    <entry>alt</entry>
+    <entry>chaîne de caractères</entry>
+    <entry>non</entry>
+    <entry><emphasis><quote></quote></emphasis></entry>
+    <entry>Description alternative de l'image</entry>
+   </row>
+   <row>
+    <entry>href</entry>
+    <entry>chaîne de caractères</entry>
+    <entry>non</entry>
+    <entry><emphasis>n/a</emphasis></entry>
+    <entry>valeur de l'attribut href, indiquant le lien vers l'image</entry>
     </row>
     <row>
      <entry>path_prefix</entry>
-     <entry>string</entry>
-     <entry>no</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>préfixe pour le chemin de la sortie</entry>
+     <entry>Préfixe pour le chemin de la sortie</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  basedir est le répertoire de base depuis lequel seront calculés les
-  chemins relatifs. Si non spécifié, la racine du serveur web est utilisé
-  (variable d'<link linkend="language.variables.smarty">environnement</link>
-  DOCUMENT_ROOT). Si <link linkend="variable.security">$security</link>
-  est activé, l'image doit se situer dans un répertoire sécurisé.
- </para>
- <para>
-  <parameter>href</parameter> est la valeur de l'attribut 'href' à laquelle lier l'image. Si link est défini,
-  une balise &lt;a href="LINKVALUE"&gt;&lt;a&gt; est placée autour de
-  l'image.
- </para>
- <para>
-  <parameter>path_prefix</parameter> est un préfixe optionnel que vous ouvez donné pour
-  le chemin de sortie. Ceci est pratique si vous voulez fournir un nom de serveur différent
-  pour l'image.
- </para>
- <para>
-  Tous les paramètres qui ne sont pas listés ci-dessus seront affichés
-  en tant que paires nom/valeur dans la balise &lt;img&gt; créée.
- </para>
+
+ <itemizedlist>
+  <listitem><para>
+    <parameter>basedir</parameter> est le dossier de base dans lequel
+    les images sont basées. S'il n'est pas fourni, la variable d'environnement
+    <varname>$_ENV['DOCUMENT_ROOT']</varname> sera utilisée.
+    Si <link linkend="variable.security"><parameter>$security</parameter></link>
+    est activé, le chemin vers l'image doit être présent dans le
+    <link linkend="variable.secure.dir">dossier de sécurité</link>.
+   </para></listitem>
+
+  <listitem><para>
+    <parameter>href</parameter> est la valeur de l'attribut href de l'image.
+    Si le lien est fourni, une balise <literal>&lt;a href="LINKVALUE"&gt;&lt;a&gt;</literal>
+    sera placée autour de la balise de l'image.
+   </para> </listitem>
+
+  <listitem><para>
+    <parameter>path_prefix</parameter> est un préfixe optionnel que vous pouvez fournir.
+    Il est utile si vous voulez fournir un nom de serveur différent pour l'image.
+   </para></listitem>
+
+  <listitem><para>
+    Tous les paramètres qui ne sont pas dans la liste ci-dessus sont affichés
+    sous la forme d'une paire nom/valeur dans la balise
+    <literal>&lt;img&gt;</literal> créée.
+   </para></listitem>
+</itemizedlist>
+
  <note>
   <title>Note technique</title>
   <para>
-   {html_image} requiert un accès au disque dur pour lire l'image et
+   <varname>{html_image}</varname> requiert un accès au disque dur pour lire l'image et
    calculer ses dimensions. Si vous n'utilisez pas un <link linkend="caching">cache</link>,
-   il est généralement préférable d'éviter d'utiliser html_image
+   il est généralement préférable d'éviter d'utiliser <varname>{html_image}</varname>
    et de laisser les balises images statiques pour de meilleures
    performances.
   </para>
  </note>
  <example>
-  <title>html_image</title>
+  <title>Exemple avec {html_image}</title>
   <programlisting>
 <![CDATA[
-Où index.tpl est :
--------------------
 {html_image file='pumpkin.jpg'}
 {html_image file='/path/from/docroot/pumpkin.jpg'}
 {html_image file='../path/relative/to/currdir/pumpkin.jpg'}
 ]]>
   </programlisting>
   <para>
-   Sortie possible :
+   L'affichage possible du template ci-dessus pourrait être :
   </para>
   <screen>
 <![CDATA[

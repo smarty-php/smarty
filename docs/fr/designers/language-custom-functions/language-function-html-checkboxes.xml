@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.16 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.17 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.checkboxes">
  <title>{html_checkboxes}</title>
  <para>
-  {html_checkboxes} est une 
+  <varname>{html_checkboxes}</varname> est une
   <link linkend="language.custom.functions">fonction utilisateur</link>
   qui crée un groupe de cases à cocher avec les données fournies. Elle prend
-  en compte la liste des éléments sélectionnés par défaut. Les attributs requis
-  sont values et output, à moins que vous n'utilisiez options à la place.
-  La sortie générée est conforme au XHTML.
+  en compte la liste des éléments sélectionnés par défaut.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -40,16 +38,16 @@
      <entry>values</entry>
      <entry>array</entry>
      <entry>Oui, à moins que vous n'utilisiez l'attribut
-     option</entry>
+      option</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>Un tableau de valeurs pour les cases à
-     cocher</entry>
+      cocher</entry>
     </row>
     <row>
      <entry>output</entry>
      <entry>array</entry>
      <entry>Oui, à moins que vous n'utilisiez l'attribut
-     option</entry>
+      option</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>Un tableau de sortie pour les cases à cocher</entry>
     </row>
@@ -64,10 +62,10 @@
      <entry>options</entry>
      <entry>Tableau associatif</entry>
      <entry>Oui, à moins que vous n'utilisiez values et
-     output</entry>
+      output</entry>
      <entry><emphasis>n/a</emphasis></entry>
      <entry>Un tableau associatif de valeurs et
-     sorties</entry>
+      sorties</entry>
     </row>
     <row>
      <entry>separator</entry>
@@ -75,36 +73,55 @@
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
      <entry>chaîne de caractère pour séparer chaque case
-     à cocher</entry>
-   </row>
-   <row>
-    <entry>assign</entry>
-    <entry>chaîne de caractères</entry>
-    <entry>Non</entry>
-    <entry><emphasis>empty</emphasis></entry>
-    <entry>Assigne les balises d'un checkbox à un tableau plutôt que de les afficher</entry>
-    </row>
-    <row>
-     <entry>labels</entry>
-     <entry>booléen</entry>
-     <entry>Non</entry>
-     <entry><emphasis>true</emphasis></entry>
-     <entry>ajoute la balise &lt;label&gt;- à la sortie</entry>
+      à cocher</entry>
     </row>
     <row>
      <entry>assign</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>assigne la sortie à un tableau dont chaque checkbox est un élément.</entry>
+     <entry>Assigne les balises d'un checkbox à un tableau plutôt que de les afficher</entry>
+    </row>
+    <row>
+     <entry>labels</entry>
+     <entry>booléen</entry>
+     <entry>Non</entry>
+     <entry><emphasis>true</emphasis></entry>
+     <entry>Ajoute la balise &lt;label&gt;- à la sortie</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>chaîne de caractères</entry>
+     <entry>Non</entry>
+     <entry><emphasis>empty</emphasis></entry>
+     <entry>Assigne la sortie à un tableau dont chaque checkbox est un élément.</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Tous les paramètres qui ne sont pas listés ci-dessus sont affichés
-  en tant que paires nom/valeur dans chaque balise &lt;input&gt; crée.
- </para>
+
+ <itemizedlist>
+  <listitem>
+   <para>
+    Les attributs requis sont <parameter>values</parameter> et
+    <parameter>output</parameter>, à moins que vous utilisez
+    <parameter>options</parameter> à la place.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Tous les affichages sont conformes XHTML.
+   </para>
+  </listitem>
+  <listitem>
+   <para>
+    Tous les paramètres qui ne sont pas dans la liste ci-dessus
+    sont affichés sous la forme de paires nom/valeur dans chaque
+    balise &lt;input&gt; crées.
+   </para>
+  </listitem>
+ </itemizedlist>
+
  <example>
   <title>{html_checkboxes}</title>
   <programlisting role="php">
@@ -113,11 +130,11 @@
 
 $smarty->assign('cust_ids', array(1000,1001,1002,1003));
 $smarty->assign('cust_names', array(
-                                'Joe Schmoe',
-                                'Jack Smith',
-                                'Jane Johnson',
-                                'Charlie Brown')
-                              );
+'Joe Schmoe',
+'Jack Smith',
+'Jane Johnson',
+'Charlie Brown')
+);
 $smarty->assign('customer_id', 1001);
 
 ?>
@@ -129,7 +146,7 @@ $smarty->assign('customer_id', 1001);
   <programlisting>
 <![CDATA[
 {html_checkboxes name='id' values=$cust_ids output=$cust_names
-   selected=$customer_id  separator='<br />'}
+         selected=$customer_id  separator='<br />'}
 ]]>
   </programlisting>
   <para>
@@ -140,11 +157,11 @@ $smarty->assign('customer_id', 1001);
 <?php
 
 $smarty->assign('cust_checkboxes', array(
-                                1000 => 'Joe Schmoe',
-                                1001 => 'Jack Smith',
-                                1002 => 'Jane Johnson',
-                                1003 => 'Charlie Brown')
-                              );
+1000 => 'Joe Schmoe',
+1001 => 'Jack Smith',
+1002 => 'Jane Johnson',
+1003 => 'Charlie Brown')
+);
 $smarty->assign('customer_id', 1001);
 
 ?>
@@ -156,7 +173,7 @@ $smarty->assign('customer_id', 1001);
   <programlisting>
 <![CDATA[
 {html_checkboxes name='id' options=$cust_checkboxes
-   selected=$customer_id separator='<br />'}
+          selected=$customer_id separator='<br />'}
 ]]>
   </programlisting>
   <para>
@@ -189,16 +206,20 @@ $smarty->assign('contact',$db->getRow($sql));
 ?>
 ]]>
   </programlisting>
+  <para>
+   Le résultat des requêtes de la base de données sera affiché avec :
+  </para>
   <programlisting>
 <![CDATA[
-{html_checkboxes name="type" options=$types selected=$contact.type_id separator="<br />"}
+{html_checkboxes name='contact_type_id' options=$contact_types
+         selected=$contact.contact_type_id separator='<br />'}
 ]]>
   </programlisting>
  </example>
  <para>
   Voir aussi
-  <link linkend="language.function.html.radios">{html_radios}</link> et
-  <link linkend="language.function.html.options">{html_options}</link>.
+  <link linkend="language.function.html.radios"><varname>{html_radios}</varname></link> et
+  <link linkend="language.function.html.options"><varname>{html_options}</varname></link>.
  </para>
 </sect1>
 

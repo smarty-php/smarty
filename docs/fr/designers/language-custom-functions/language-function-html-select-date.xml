@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.select.date">
  <title>{html_select_date}</title>
  <para>
-  {html_select_date} est une
+  <varname>{html_select_date}</varname> est une
   <link linkend="language.custom.functions">fonction personnalisée</link>
   qui crée des listes déroulantes pour saisir la date. Elle peut afficher n'importe
   quel jour, mois et année.
+  Tous les paramètres qui ne sont pas dans la liste ci-dessous sont
+  affichés sous la forme pair nom/valeur dans les balises
+  <literal>&lt;select&gt;</literal> des jours, mois et années.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -40,7 +43,7 @@
      <entry>Non</entry>
      <entry>la date courante au format unix YYYY-MM-DD
      format</entry>
-     <entry>la date / heure à utiliser</entry>
+     <entry>La date / heure à utiliser</entry>
     </row>
     <row>
      <entry>start_year</entry>
@@ -100,7 +103,7 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry>%d</entry>
-     <entry>le format de la valeur du jour (sprintf)</entry>
+     <entry>Le format de la valeur du jour (sprintf)</entry>
     </row>
     <row>
      <entry>year_as_text</entry>
@@ -214,10 +217,10 @@
     <entry>Non</entry>
     <entry>null</entry>
     <entry>S'il est renseigné, alors le premier élément de la boite de sélection
-    affiche le texte donné en tant que libellé et dispose de la valeur "".
+    affiche le texte donné en tant que libellé et dispose de la valeur <quote></quote>.
     Utile par exemple lorsque vous souhaitez que la boite de sélection affiche
-    "Sélectionnez une année".
-    A savoir que vous pouvez spécifier des valeurs de la forme "-MM-JJ" pour
+    <quote>Sélectionnez une année</quote>.
+    A savoir que vous pouvez spécifier des valeurs de la forme <quote>-MM-DD</quote> pour
     l'attribut time afin d'indiquer une année non sélectionnée.</entry>
    </row>
    <row>
@@ -226,9 +229,9 @@
     <entry>Non</entry>
     <entry>null</entry>
     <entry>S'il est renseigné, le premier élément de la boite de sélection
-    affiche le texte donné en tant que libellé et dispose de la valeur "".
-    A savoir que vous pouvez spécifier des valeurs de la forme "AAAA--JJ" pour
-    l'attribut time afin d'indiquer qu'il manque le moi.</entry>
+     affiche le texte donné en tant que libellé et dispose de la valeur <quote></quote>.
+     A savoir que vous pouvez spécifier des valeurs de la forme <quote>YYYY--DD</quote> pour
+     l'attribut time afin d'indiquer qu'il manque le moi.</entry>
    </row>
    <row>
     <entry>day_empty</entry>
@@ -236,21 +239,25 @@
     <entry>Non</entry>
     <entry>null</entry>
     <entry>S'il est renseigné, le premier élément de la boite de sélection
-    affiche le texte donné en tant que libellé et dispose de la valeur "".
-    A savoir que vous pouvez spécifier des valeurs de la forme "AAAA-MM-" pour
+     affiche le texte donné en tant que libellé et dispose de la valeur <quote></quote>.
+     A savoir que vous pouvez spécifier des valeurs de la forme <quote>YYYY-MM-</quote> pour
     l'attribut time afin d'indiquer qu'il manque le jour.
     </entry>
    </row>
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Tous les paramètres non présents dans la liste ci-dessus sont affichés
-  en tant que paires nom/valeur dans la balise &lt;select&gt; du jour, mois
-  et année.
- </para>
+
+ <note>
+  <para>
+   Il y a une fonction PHP utile sur la
+   <link linkend="tips.dates">page des astuces sur les dates</link> pour convertir
+   les valeurs <varname>{html_select_date}</varname> en un timestamp.
+  </para>
+ </note>
+
  <example>
-  <title>{html_select_date}</title>
+  <title>{html_select_date} : Premier exemple</title>
   <para>Code du template</para>
   <programlisting>
 <![CDATA[
@@ -287,14 +294,14 @@
   <option value="31">31</option>
 </select>
 <select name="Date_Year">
-  <option value="2001" selected="selected">2001</option>
+  <option value="2006" selected="selected">2006</option>
 </select>
 
 ]]>
   </screen>
  </example>
  <example>
-  <title>{html_select_date}</title>
+  <title>{html_select_date} : Deuxième exemple</title>
   <programlisting>
 <![CDATA[
 {* le démarage et la fin de l'année peuvent être relatif à l'année courante *}
@@ -310,22 +317,13 @@
 <select name="StartDateMonth">
   <option value="1">January</option>
   <option value="2">February</option>
-  <option value="3">March</option>
-  <option value="4">April</option>
-  <option value="5">May</option>
-  <option value="6">June</option>
-  <option value="7">July</option>
-  <option value="8">August</option>
-  <option value="9">September</option>
-  <option value="10">October</option>
+  ..... coupé .....
   <option value="11">November</option>
   <option value="12" selected="selected">December</option>
 </select>
 <select name="StartDateYear">
-  <option value="1999">1995</option>
-  <option value="1999">1996</option>
-  <option value="1999">1997</option>
-  <option value="1999">1998</option>
+ <option value="1995">1995</option>
+  ..... coupé .....
   <option value="1999">1999</option>
   <option value="2000" selected="selected">2000</option>
   <option value="2001">2001</option>
@@ -335,9 +333,9 @@
  </example>
  <para>
   Voir aussi
-  <link linkend="language.function.html.select.time">{html_select_time}</link>,
-  <link linkend="language.modifier.date.format">date_format</link>,
-  <link linkend="language.variables.smarty.now">$smarty.now</link> et
+  <link linkend="language.function.html.select.time"><varname>{html_select_time}</varname></link>,
+  <link linkend="language.modifier.date.format"><varname>date_format</varname></link>,
+  <link linkend="language.variables.smarty.now"><parameter>$smarty.now</parameter></link> et
   les <link linkend="tips.dates">astuces sur les dates</link>.
  </para>
 </sect1>

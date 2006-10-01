@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.assign">
  <title>{assign}</title>
  <para>
-  {assign} est utilisé pour déclarer des variables de template
+  <varname>{assign}</varname> est utilisé pour déclarer des variables de template
   <emphasis role="bold">durant l'exécution du template</emphasis>.
  </para>
  <informaltable frame="all">
@@ -46,7 +46,7 @@
   <title>{assign}</title>
   <programlisting>
 <![CDATA[
-{assign var="name" value="Bob"}
+{assign var='name' value='Bob'}
 
 La valeur de $name est {$name}.
 ]]>
@@ -72,19 +72,21 @@ La valeur de $name est Bob.
  </example>
 
  <example>
-  <title>Accès aux variables {assign} depuis un script PHP.</title>
+  <title>Accès aux variables {assign} depuis un script PHP</title>
   <para>
-   Pour accéder aux variables {assign} depuis le script PHP, utilisez
-   <link linkend="api.get.template.vars">get_template_vars()</link>.
-   Cependant, les variables ne sont disponibles qu'après ou pendant l'exécution du
-   template, comme le montre l'exemple suivant :
+   Pour accéder aux variables <varname>{assign}</varname> depuis le script PHP, utilisez
+   <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>.
+   Ci-dessous, le template qui crée la variable <parameter>$foo</parameter>.
   </para>
   <programlisting>
 <![CDATA[
-{* index.tpl *}
-{assign var="foo" value="Smarty"}
+{assign var='foo' value='Smarty'}
 ]]>
   </programlisting>
+  <para>
+   Les variables de template ne sont disponibles que après/durant l'exécution du template,
+   comme dans le script ci-dessous.
+  </para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -92,8 +94,8 @@ La valeur de $name est Bob.
 // ceci n'affichera rien car le template n'a pas encore été exécuté
 echo $smarty->get_template_vars('foo');
 
-// Exécution du template
-$dead = $smarty->fetch('index.tpl');
+// Récupère le template dans une variable
+$whole_page = $smarty->fetch('index.tpl');
 
 // Ceci affichera 'smarty' car le template a été exécuté
 echo $smarty->get_template_vars('foo');
@@ -115,21 +117,21 @@ echo $smarty->get_template_vars('foo');
  </para>
 
  <para>
-  <link linkend="language.function.capture">{capture}</link>,
-  <link linkend="language.function.include">{include}</link>,
-  <link linkend="language.function.include.php">{include_php}</link>,
-  <link linkend="language.function.insert">{insert}</link>,
-  <link linkend="language.function.counter">{counter}</link>,
-  <link linkend="language.function.cycle">{cycle}</link>,
-  <link linkend="language.function.eval">{eval}</link>,
-  <link linkend="language.function.fetch">{fetch}</link>,
-  <link linkend="language.function.math">{math}</link> et
-  <link linkend="language.function.textformat">{textformat}</link>.
+  <link linkend="language.function.capture"><varname>{capture}</varname></link>,
+  <link linkend="language.function.include"><varname>{include}</varname></link>,
+  <link linkend="language.function.include.php"><varname>{include_php}</varname></link>,
+  <link linkend="language.function.insert"><varname>{insert}</varname></link>,
+  <link linkend="language.function.counter"><varname>{counter}</varname></link>,
+  <link linkend="language.function.cycle"><varname>{cycle}</varname></link>,
+  <link linkend="language.function.eval"><varname>{eval}</varname></link>,
+  <link linkend="language.function.fetch"><varname>{fetch}</varname></link>,
+  <link linkend="language.function.math"><varname>{math}</varname></link> et
+  <link linkend="language.function.textformat"><varname>{textformat}</varname></link>.
  </para>
  <para>
   Voir aussi
-  <link linkend="api.assign">assign()</link> et
-  <link linkend="api.get.template.vars">get_template_vars()</link>.
+  <link linkend="api.assign"><varname>assign()</varname></link> et
+  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>.
  </para>
 </sect1>
 

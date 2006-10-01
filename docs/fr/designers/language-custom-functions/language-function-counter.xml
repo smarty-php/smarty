@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.counter">
  <title>{counter}</title>
  <para>
-  {counter} affiche un compteur. {counter} retient la valeur
+  <varname>{counter}</varname> affiche un compteur.
+  <varname>{counter}</varname> retient la valeur
   du compte à chaque itération. Vous pouvez adapter le nombre, l'intervale
   et la direction du compteur, ainsi que décider d'afficher ou non
   les valeurs. Vous pouvez lancer plusieurs compteurs simultanément en
   leur donnant des noms uniques. Si vous ne donnez pas de nom à un
-  compteur, 'default' sera utilisé.
+  compteur, <quote>default</quote> sera utilisé.
  </para>
  <para>
-  Si vous donnez une valeur à l'attribut "assign", alors la sortie de la
-  fonction counter sera assignée à la variable de template donnée plutôt
-  que d'être directement affichée.
+  Si vous donnez une valeur à l'attribut <parameter>assign</parameter>,
+  alors la sortie de la fonction <varname>{counter}</varname> sera assignée
+  à la variable de template donnée plutôt que d'être directement affichée.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -66,7 +67,7 @@
      <entry>print</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>true</emphasis></entry>
+     <entry><emphasis>&true;</emphasis></entry>
      <entry>S'il faut afficher cette valeur ou non</entry>
     </row>
     <row>
@@ -81,7 +82,7 @@
   </tgroup>
  </informaltable>
  <example>
-  <title>counter</title>
+  <title>{counter}</title>
   <programlisting>
 <![CDATA[
 {* initialisation du compteur *}

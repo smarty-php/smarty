@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.cycle">
  <title>{cycle}</title>
  <para>
-  {cycle} est utilisé pour boucler sur un ensemble de valeurs. Très pratique
-  pour alterner entre deux ou plusieurs couleurs dans un tableau,
+  <varname>{cycle}</varname> est utilisé pour boucler sur un ensemble de valeurs.
+  Très pratique pour alterner entre deux ou plusieurs couleurs dans un tableau,
   ou plus généralement pour boucler sur les valeurs d'un tableau.
  </para>
  <informaltable frame="all">
@@ -40,20 +40,20 @@
      <entry><emphasis>N/A</emphasis></entry>
      <entry>Les valeurs sur lesquelles boucler, soit une liste
       séparée par des virgules, (voir l'attribut delimiter),
-     soit un tableau de valeurs.</entry>
+     soit un tableau de valeurs</entry>
     </row>
     <row>
      <entry>print</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>true</emphasis></entry>
+     <entry><emphasis>&true;</emphasis></entry>
      <entry>S'il faut afficher ou non cette valeur</entry>
     </row>
     <row>
      <entry>advance</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>true</emphasis></entry>
+     <entry><emphasis>&true;</emphasis></entry>
      <entry>Oui ou non aller à la prochaîne valeur</entry>
     </row>
     <row>
@@ -75,29 +75,33 @@
      <entry>reset</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>Le cycle sera défini à la première valeur</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
+
+ <itemizedlist>
+ <listitem>
  <para>
-  Vous pouvez définir plusieurs {cycle} dans votre template, en leur
-  donnant des noms uniques (attribut name).
- </para>
- <para>
+  Vous pouvez définir plusieurs <varname>{cycle}</varname> dans votre template, en leur
+  donnant des noms uniques (attribut <parameter>name</parameter>).
+ </para></listitem>
+ <listitem><para>
   Vous pouvez empêcher la valeur courante de s'afficher en définissant
-  l'attribut print à false. Ce procédé peut être utile pour discrètement
-  passer outre une valeur de la liste.
- </para>
- <para>
-  L'attribut advance est utilisé pour répéter une valeur. Lorsque
-  définit à false, le prochain appel de {cycle} ramènera la même valeur.
- </para>
- <para>
-  Si vous définissez l'attribut spécial "assign", la sortie de la fonction
-  cycle y sera assignée plutôt que d'être directement affichée.
- </para>
+  l'attribut <parameter>print</parameter> à &false;. Ce procédé peut être
+  utile pour discrètement passer outre une valeur de la liste.
+ </para></listitem>
+ <listitem><para>
+  L'attribut <parameter>advance</parameter> est utilisé pour répéter une valeur. Lorsque
+  définit à &false;, le prochain appel de <varname>{cycle}</varname> ramènera la même valeur.
+ </para></listitem>
+ <listitem><para>
+   Si vous définissez l'attribut spécial <parameter>assign</parameter>, la sortie de la fonction
+   <varname>{cycle}</varname> y sera assignée plutôt que d'être directement affichée.
+  </para></listitem>
+</itemizedlist>
  <example>
   <title>{cycle}</title>
   <programlisting>
@@ -108,7 +112,8 @@
 </tr>
 {/section}
 ]]>
-  </programlisting>
+</programlisting>
+  <para>Le template ci-dessus affichera :</para>
   <screen>
 <![CDATA[
 <tr bgcolor="#eeeeee">

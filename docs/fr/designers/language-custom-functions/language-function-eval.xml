@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.eval">
  <title>{eval}</title>
  <para>
-  {eval} évalue une variable comme si cette dernière était un template.
+  <varname>{eval}</varname> évalue une variable comme si cette dernière
+  était un template.
   Peut être utile pour embarquer des balises de templates ou des variables
   de template dans des variables ou des balises/variables dans des
   variables de fichiers de configuration.
  </para>
  <para>
-  Si vous définissez l'attribut "assign", la sortie sera assignée à la
+  Si vous définissez l'attribut <parameter>assign</parameter>, la sortie sera assignée à la
   variable de template désignée plutôt que d'être affichée dans le
   template.
  </para>
@@ -37,7 +38,7 @@
      <entry>mixed</entry>
      <entry>Oui</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>variable (ou chaîne de caractères) à évaluer</entry>
+     <entry>Variable (ou chaîne de caractères) à évaluer</entry>
     </row>
     <row>
      <entry>assign</entry>
@@ -53,22 +54,25 @@
  <note>
   <title>Note technique</title>
   <para>
+   <itemizedlist>
+  <listitem><para>
    Les variables évaluées sont traitées de la même façon que les templates.
    Elles suivent les mêmes règles de traitement et de sécurité, comme si
    elles étaient réellement des templates.
-  </para>
- </note>
- <note>
-  <title>Note technique</title>
-  <para>
+  </para></listitem>
+
+  <listitem><para>
    Les variables évaluées sont compilées à chaque invocation, et la version
    compilée n'est pas sauvegardée ! Toutefois, si le 
    <link linkend="caching">cache</link> est activé, la sortie sera placée en
    cache avec le reste du template.
-  </para>
+  </para></listitem>
+</itemizedlist>
+</para>
  </note>
  <example>
   <title>{eval}</title>
+<para>Le contenu du fichier de configuration, <filename>setup.conf</filename>.</para>
   <programlisting>
 <![CDATA[
 #setup.conf
@@ -111,14 +115,15 @@ Vous devez spécifier un <strong>département</strong>.
   <title>un autre exemple avec {eval}</title>
   <para>
    Ceci va afficher le nom du serveur (en majuscule) et son IP.
-   La variable $str également venir d'une requête de base de données.
+   La variable <parameter>$str</parameter> également venir d'une requête de base de données.
   </para>
   <programlisting role="php">
 <![CDATA[
-// script php
+<?php
 $str = 'Le nom du serveur est {$smarty.server.SERVER_NAME|upper} '
 .'at {$smarty.server.SERVER_ADDR}';
 $smarty->assign('foo',$str);
+?>
    ]]>
   </programlisting>
   <para>

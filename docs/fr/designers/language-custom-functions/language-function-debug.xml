@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.debug">
  <title>{debug}</title>
+ <para>
+  <varname>{debug}</varname> amène la console de débogage sur la page.
+  Fonctionne quelle que soit la valeur du paramètre
+  <link linkend="chapter.debugging.console">debug</link> de Smarty.
+  Comme ce dernier est appelé lors de l'exécution, il n'est capable
+  d'afficher que les variables <link linkend="api.assign">assignées</link>
+  au template, et non les templates en cours d'utilisation. Toutefois, vous
+  voyez toutes les variables disponibles pour le template courant.
+ </para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -31,15 +40,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  {debug} amène la console de débogage sur la page. Fonctionne
-  quelle que soit la valeur du paramètre <link
-  linkend="chapter.debugging.console">debug</link> de Smarty.
-  Comme ce dernier est appelé lors de l'exécution, il n'est capable
-  d'afficher que les variables <link linkend="api.assign">assignées</link>
-  au template, et non les templates en cours d'utilisation. Toutefois, vous
-  voyez toutes les variables disponibles pour le template courant.
- </para>
  <para>
   Voir aussi
   <link linkend="chapter.debugging.console">la console de débogage</link>.

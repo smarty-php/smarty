@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.16 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.18 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.radios">
  <title>{html_radios}</title>
  <para>
-  {html_radio} est une
+  <varname>{html_radios}</varname> est une
   <link linkend="language.custom.functions">fonction personnalisée</link>
   qui crée des boutons radio html à partir des données fournies. Elle prend en
-  charge les éléments sélectionnés par défaut. Les attributs requis sont values
-  et output, à moins que vous n'utilisiez options à la place. La sortie générée est
-  conforme au XHTML.
+  charge les éléments sélectionnés par défaut.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -34,7 +32,7 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>radio</emphasis></entry>
-     <entry>nom de la liste boutons radio</entry>
+     <entry>Nom de la liste boutons radio</entry>
     </row>
     <row>
      <entry>values</entry>
@@ -65,14 +63,14 @@
      <entry>Oui, à moins que vous n'utilisiez values
      et outputs</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>un tableau associatif valeurs / libellés</entry>
+     <entry>Un tableau associatif valeurs / libellés</entry>
     </row>
     <row>
      <entry>separator</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>chaîne de séparation à placer entre les
+     <entry>Chaîne de séparation à placer entre les
      boutons radio</entry>
    </row>
    <row>
@@ -85,14 +83,27 @@
    </tbody>
   </tgroup>
  </informaltable>
- <para>
-  Tous les paramètres qui ne sont pas dans la liste ci dessus sont
-  affichés en tant que paires nom / valeur dans chaque balise &lt;input&gt;
-  créée.
- </para>
+
+ <itemizedlist>
+  <listitem><para>
+    Les attributs requis sont <parameter>values</parameter> et
+    <parameter>output</parameter>, à moins que vous n'utilisez
+    <parameter>options</parameter> à la place.
+   </para></listitem>
+
+  <listitem><para>
+    Tous les affichages sont conformes XHTML.
+   </para></listitem>
+
+  <listitem><para>
+    Tous les paramètres qui ne sont pas dans la liste ci-dessus sont
+    affichés sous la forme de paire nom/valeur dans la balise
+    <literal>&lt;input&gt;</literal> créées.
+   </para></listitem>
+    </itemizedlist>
 
  <example>
-  <title>{html_radios} : Exemple 1</title>
+  <title>{html_radios} : Première exemple</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -121,7 +132,7 @@ $smarty->assign('customer_id', 1001);
   </programlisting>
  </example>
  <example>
- <title>{html_radios} : Exemple 2</title>
+ <title>{html_radios} : Deuxième exemple</title>
   <programlisting>
 <![CDATA[
 <?php
@@ -175,19 +186,20 @@ $smarty->assign('contact',$db->getRow($sql));
 ]]>
   </programlisting>
   <para>
-   et le template :
+   La variable assignée depuis la base de données ci-dessus sera affichée
+   avec le template :
   </para>
   <programlisting>
 <![CDATA[
-{html_radios name='contact_type_id' options=$types
-   selected=$contact.contact_type_id separator='<br />'}
+{html_radios name='contact_type_id' options=$contact_types
+     selected=$contact.contact_type_id separator='<br />'}
 ]]>
   </programlisting>
  </example>
  <para>
   Voir aussi
-  <link linkend="language.function.html.checkboxes">{html_checkboxes}</link> et
-  <link linkend="language.function.html.options">{html_options}</link>.
+  <link linkend="language.function.html.checkboxes"><varname>{html_checkboxes}</varname></link> et
+  <link linkend="language.function.html.options"><varname>{html_options}</varname></link>.
  </para>
 </sect1>
 
