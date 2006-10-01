@@ -1,3 +1,32 @@
+2006-09-30  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/getting-started.xml:
+      fix build
+
+    * docs/fr/designers/chapter-debugging-console.xml
+      docs/fr/designers/config-files.xml
+      docs/fr/designers/language-builtin-functions.xml
+      docs/fr/designers/language-modifiers.xml
+      docs/fr/designers/language-variables.xml
+      docs/fr/designers/language-basic-syntax/language-escaping.xml
+      docs/fr/designers/language-basic-syntax/language-math.xml
+      docs/fr/designers/language-basic-syntax/language-syntax-comments.xml
+      docs/fr/designers/language-basic-syntax/language-syntax-functions.xml
+      docs/fr/designers/language-basic-syntax/language-syntax-quotes.xml
+      docs/fr/designers/language-basic-syntax/language-syntax-variables.xml
+      docs/fr/designers/language-builtin-functions/language-function-capture.xml
+      docs/fr/designers/language-builtin-functions/language-function-config-load.xml
+      docs/fr/designers/language-builtin-functions/language-function-foreach.xml
+      docs/fr/designers/language-builtin-functions/language-function-if.xml:
+      sync with EN
+
+    * docs/fr/getting-started.xml
+      docs/fr/language-snippets.ent
+      docs/fr/appendixes/resources.xml
+      docs/fr/appendixes/tips.xml
+      docs/fr/appendixes/troubleshooting.xml:
+      sync with EN
+
 2006-09-27  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
 
     * docs/en/designers/language-builtin-functions/language-function-section.xml:
