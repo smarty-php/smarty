@@ -1,3 +1,24 @@
+2006-10-01  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/designers/language-builtin-functions/language-function-include-php.xml
+      docs/fr/designers/language-builtin-functions/language-function-include.xml
+      docs/fr/designers/language-builtin-functions/language-function-insert.xml
+      docs/fr/designers/language-builtin-functions/language-function-ldelim.xml
+      docs/fr/designers/language-builtin-functions/language-function-literal.xml
+      docs/fr/designers/language-builtin-functions/language-function-php.xml
+      docs/fr/designers/language-custom-functions/language-function-assign.xml
+      docs/fr/designers/language-custom-functions/language-function-counter.xml
+      docs/fr/designers/language-custom-functions/language-function-cycle.xml
+      docs/fr/designers/language-custom-functions/language-function-debug.xml
+      docs/fr/designers/language-custom-functions/language-function-eval.xml
+      docs/fr/designers/language-custom-functions/language-function-fetch.xml
+      docs/fr/designers/language-custom-functions/language-function-html-checkboxes.xml
+      docs/fr/designers/language-custom-functions/language-function-html-image.xml
+      docs/fr/designers/language-custom-functions/language-function-html-options.xml
+      docs/fr/designers/language-custom-functions/language-function-html-radios.xml
+      docs/fr/designers/language-custom-functions/language-function-html-select-date.xml:
+      sync with EN
+
 2006-09-30  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/getting-started.xml:
