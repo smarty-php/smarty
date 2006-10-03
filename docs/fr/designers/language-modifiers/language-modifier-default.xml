@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.default">
  <title>default</title>
  <para>
   Utilisé pour définir une valeur par défaut à une variable.
   Si la variable est vide ou indéfinie, la valeur donnée est affichée
-  en lieu et place. Default attends un seul argument.
+  en lieu et place. <literal>default</literal> attends un seul argument.
  </para>
  <para>
   <note>
    <para>
-    Avec error_reporting(E_ALL), les variables non déclarées lanceront toujours une erreur
-    dans le template. Cette fonction est utile pour remplacer les chaînes vides ou de longueurs vides.
+    Avec <ulink url="&url.php-manual;error_reporting">
+       <varname>error_reporting(E_ALL)</varname></ulink>, les variables non
+    déclarées lanceront toujours une erreur dans le template. Cette fonction est
+    utile pour remplacer les chaînes vides ou de longueurs vides.
    </para>
   </note>
  </para>
@@ -68,7 +70,7 @@ $smarty->assign('email','');
 ]]>
   </programlisting>
   <para>
-   Ce qui donne à l'écran :
+   Affichera :
   </para>
   <screen>
 <![CDATA[
@@ -80,8 +82,8 @@ Aucune adresse email disponible
  </example>
  <para>
   Voir aussi
-  <link linkend="tips.default.var.handling">la gestion des variables par défaut</link>
-  et <link linkend="tips.blank.var.handling">la gestion de l'effacement des variables</link>.
+  la <link linkend="tips.default.var.handling">gestion des variables par défaut</link>
+  et la <link linkend="tips.blank.var.handling">gestion de l'effacement des variables</link>.
  </para>
 </sect1>
 

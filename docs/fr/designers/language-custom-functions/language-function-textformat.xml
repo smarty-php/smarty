@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.textformat">
  <title>{textformat}</title>
  <para>
-  {textformat} est une 
+  <varname>{textformat}</varname> est une
   <link linkend="plugins.block.functions">fonction de bloc</link>
   utilisée pour formater du texte.
   Elle nettoie la chaîne de ses espaces et caractères spéciaux, puis
@@ -14,7 +14,7 @@
  </para>
  <para>
   Vous pouvez soit utiliser un style prédéfini, soit définir explicitement
-  chaque attribut. Actuellement, seul le style prédéfini "email" est
+  chaque attribut. Actuellement, seul le style prédéfini <quote>email</quote> est
   disponible.
  </para>
  <informaltable frame="all">
@@ -39,7 +39,7 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>style prédéfini</entry>
+     <entry>Style prédéfini</entry>
     </row>
     <row>
      <entry>indent</entry>
@@ -70,7 +70,7 @@
      <entry>number</entry>
      <entry>Non</entry>
      <entry><emphasis>80</emphasis></entry>
-     <entry>A combien de caractères doit on ajuster chaque
+     <entry>À combien de caractères doit on ajuster chaque
      ligne</entry>
     </row>
     <row>
@@ -85,7 +85,7 @@
      <entry>wrap_cut</entry>
      <entry>boolean</entry>
      <entry>Non</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>Si true, wrap réduira les lignes au caractère exact
      au lieu d'ajuster à la fin d'un mot</entry>
     </row>

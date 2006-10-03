@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.truncate">
  <title>truncate</title>
@@ -9,8 +9,8 @@
   Un second paramètre optionnel permet de spécifier une chaîne à afficher
   à la fin de la variable une fois tronquée. Les caractères de fin sont
   inclus dans la longueur de la chaîne à tronquer. Par défaut,
-  truncate tentera de couper la chaîne à la fin d'un mot. Si vous voulez
-  tronquer la chaîne au caractère exact, donnez la valeur true au
+  <varname>truncate</varname> tentera de couper la chaîne à la fin d'un mot.
+  Si vous voulez tronquer la chaîne au caractère exact, donnez la valeur &true; au
   dernier paramètre optionnel.
  </para>
  <informaltable frame="all">
@@ -50,19 +50,19 @@
      <entry>3</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry>false</entry>
+     <entry>&false;</entry>
      <entry>Détermine si le troncage est effectué sur
-      le dernier mot (false), ou au caractère exact (true).
+      le dernier mot (&false;), ou au caractère exact (&true;).
      </entry>
     </row>
     <row>
      <entry>4</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry>false</entry>
+     <entry>&false;</entry>
      <entry>Ceci détermine si le troncage intervient à la fin de la
-      chaîne (false), ou au milieu de la chaîne (true). Notez que si
-      ceci vaut true, alors les limites de mots sont ignorées.</entry>
+      chaîne (&false;), ou au milieu de la chaîne (&true;). Notez que si
+      ceci vaut &true;, alors les limites de mots sont ignorées.</entry>
      </row>
    </tbody>
   </tgroup>

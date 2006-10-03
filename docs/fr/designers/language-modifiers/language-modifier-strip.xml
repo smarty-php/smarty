@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.strip">
  <title>strip</title>
@@ -12,7 +12,7 @@
   <title>Note</title>
   <para>
    Si vous voulez réaliser cette action sur un bloc complet du template,
-   utilisez la fonction <link linkend="language.function.strip">{strip}</link>.
+   utilisez la fonction <link linkend="language.function.strip"><varname>{strip}</varname></link>.
   </para>
  </note>
  <example>
@@ -20,7 +20,6 @@
   <programlisting role="php">
 <![CDATA[
 <?php
-$smarty = new Smarty;
 $smarty->assign('titreArticle', "Une réunion autour\n d'un feu de cheminée\t
 est toujours agréable.");
 $smarty->display('index.tpl');
@@ -38,7 +37,7 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   Ce qui donne en sortie :
+   Affichera :
   </para>
   <screen>
  <![CDATA[
@@ -52,8 +51,8 @@ Une&nbsp;réunion&nbsp;autour&nbsp;d'un&nbsp;feu&nbsp;de&nbsp;cheminée&nbsp;est&n
  </example>
  <para>
   Voir aussi
-  <link linkend="language.function.strip">{strip}</link> et
-  <link linkend="language.modifier.truncate">truncate</link>.
+  <link linkend="language.function.strip"><varname>{strip}</varname></link> et
+  <link linkend="language.modifier.truncate"><varname>truncate</varname></link>.
   </para>
 </sect1>
 

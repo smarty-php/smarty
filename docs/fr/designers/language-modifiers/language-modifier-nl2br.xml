@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.nl2br">
  <title>nl2br</title>
  <para>
-  Transforme toutes les fins de lignes en balises &lt;br /&gt;.
-  Equivalent à la fonction PHP <ulink url="&url.php-manual;nl2br">nl2br()</ulink>.
+  Transforme toutes les fins de lignes en balises <literal>&lt;br /&gt;</literal>.
+  Équivalent à la fonction PHP
+  <ulink url="&url.php-manual;nl2br"><varname>nl2br()</varname></ulink>.
  </para>
  <example>
   <title>nl2br</title>
@@ -40,9 +41,9 @@ Pluie ou soleil attendu<br />aujourd'hui, nuit noire
  </example>
  <para>
   Voir aussi
-  <link linkend="language.modifier.wordwrap">word_wrap</link>,
-  <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> et
-  <link linkend="language.modifier.count.sentences">count_sentences</link>.
+  <link linkend="language.modifier.wordwrap"><varname>word_wrap</varname></link>,
+  <link linkend="language.modifier.count.paragraphs"><varname>count_paragraphs</varname></link> et
+  <link linkend="language.modifier.count.sentences"><varname>count_sentences</varname></link>.
  </para>
 </sect1>
 

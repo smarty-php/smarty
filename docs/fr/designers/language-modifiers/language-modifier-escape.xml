@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.15 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.16 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.escape">
  <title>escape</title>
  <para>
   Utile pour encoder / échapper une variable pour quelles soient compatibles
-  pour les URL Html, pour les hexadécimaux, pour les entités hexadécimales, pour javascript
+  pour les <literal>url</literal> <literal>html</literal>, pour les hexadécimaux,
+  pour les entités hexadécimales, pour <literal>javascript</literal>
   et pour les e-mails.
-  Par défaut, ce paramètre est html.
+  Par défaut, ce paramètre est <literal>html</literal>.
  </para>
  <informaltable frame="all">
   <tgroup cols="6">
@@ -34,11 +35,11 @@
      <entry>chaîne de caractère</entry>
      <entry>Non</entry>
      <entry>
-      <literal>html</literal>,<literal>htmlall</literal>,
-      <literal>url</literal>,<literal>urlpathinfo</literal>,
-      <literal>quotes</literal>,<literal>hex</literal>,
-      <literal>hexentity</literal>,<literal>javascript</literal>,
-      <literal>mail</literal>
+      <literal>html</literal>, <literal>htmlall</literal>,
+      <literal>url</literal>,
+      <literal>urlpathinfo</literal>, <literal>quotes</literal>,
+      <literal>hex</literal>, <literal>hexentity</literal>,
+      <literal>javascript</literal>, <literal>mail</literal>
      </entry>
      <entry><literal>html</literal></entry>
      <entry>Format d'échappement à utiliser.</entry>
@@ -47,8 +48,10 @@
      <entry>2</entry>
      <entry>chaîne de caractère</entry>
      <entry>Non</entry>
-     <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... n'importe quel jeu de
-      caractères supporté par <ulink url="&url.php-manual;htmlentities">htmlentities()</ulink>
+     <entry>
+      <literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... n'importe quel jeu de
+      caractères supporté par
+      <ulink url="&url.php-manual;htmlentities"><varname>htmlentities()</varname></ulink>
      </entry>
      <entry><literal>ISO-8859-1</literal></entry>
      <entry>Le jeu de caractères passé à htmlentities()</entry>
@@ -86,7 +89,7 @@ $smarty->assign('EmailAddress','smarty@example.com');
 ]]>
   </programlisting>
   <para>
-   Ce qui donne à l'écran :
+   Affichera :
   </para>
   <screen>
 <![CDATA[
@@ -101,18 +104,21 @@ smarty [AT] example [DOT] com
 mail [AT] example [DOT] com
 ]]>
   </screen>
-  <para>
-   Souvenez-vous que les fonctions natives PHP peuvent être utilisées en tant que modificateurs.
+  <title>Autres exemples</title>
+  <para>Les fonctions PHP peuvent être utilisées comme modificateurs, suivant la
+   configuration de
+   <link linkend="variable.security">
+   <varname>$security</varname></link>.
   </para>
   <screen>
 <![CDATA[
-{* On place les variables passées en get à l'emplacement courant *}
+{* le paramètre "rewind" enregistre l'emplacement courant *}
 <a href="{$SCRIPT_NAME}?page=foo&rewind={$smarty.server.REQUEST_URI|urlencode}">click here</a>
 ]]>
   </screen>
   <para>
    Et ceci est utile pour les e-mails, mais lisez plutôt la documentation de
-   <link linkend="language.function.mailto">{mailto}</link></para>
+   <link linkend="language.function.mailto"><varname>{mailto}</varname></link></para>
 <screen>
  <![CDATA[
 {* email address mangled *}
@@ -123,7 +129,7 @@ mail [AT] example [DOT] com
  <para>
   Voir aussi la
   l'<link linkend="language.escaping">anayse Smarty d'échappement</link>,
-   <link linkend="language.function.mailto">{mailto}</link> et
+  <link linkend="language.function.mailto"><varname>{mailto}</varname></link> et
   le <link linkend="tips.obfuscating.email">mascage des adresses e-mail</link>.
  </para>
 </sect1>

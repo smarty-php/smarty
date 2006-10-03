@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.count.words">
  <title>count_words</title>
@@ -39,9 +39,9 @@ Un anneau pour les gouverner tous.
  </example>
  <para>
   Voir aussi
-  <link linkend="language.modifier.count.characters">count_characters</link>,
-  <link linkend="language.modifier.count.paragraphs">count_paragraphs</link> et
-  <link linkend="language.modifier.count.sentences">count_sentences</link>.
+  <link linkend="language.modifier.count.characters"><varname>count_characters</varname></link>,
+  <link linkend="language.modifier.count.paragraphs"><varname>count_paragraphs</varname></link> et
+  <link linkend="language.modifier.count.sentences"><varname>count_sentences</varname></link>.
  </para>
 </sect1>
 

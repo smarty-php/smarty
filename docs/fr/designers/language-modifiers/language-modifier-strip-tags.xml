@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.strip.tags">
  <title>strip_tags</title>
  <para>
   Supprime toutes les balises, et plus généralement tout ce qui se trouve
-  entre &lt; et &gt;.
+  entre <literal>&lt;</literal> et <literal>&gt;</literal>.
  </para>
   <informaltable frame="all">
    <tgroup cols="5">
@@ -29,7 +29,7 @@
       <entry>1</entry>
       <entry>bool</entry>
       <entry>Non</entry>
-      <entry>true</entry>
+      <entry>&true;</entry>
       <entry>Si l'on remplace les éléments par ' ' ou par ''</entry>
      </row>
     </tbody>
@@ -60,7 +60,7 @@ Où le template est :
 ]]>
 </programlisting>
 <para>
-Ce qui donne en sortie :
+Affichera :
 </para>
 <screen>
 <![CDATA[
@@ -69,7 +69,13 @@ Blind Woman Gets  New Kidney  from Dad she Hasn't Seen in  years .
 Blind Woman Gets New Kidney from Dad she Hasn't Seen in years.
 ]]>
 </screen>
- </example>
+</example>
+<para>
+ Voir aussi
+ <link linkend="language.modifier.replace"><varname>replace</varname></link>
+ et
+ <link linkend="language.modifier.regex.replace"><varname>regex_replace</varname></link>.
+  </para>
 </sect1>
 
 <!-- Keep this comment at the end of the file

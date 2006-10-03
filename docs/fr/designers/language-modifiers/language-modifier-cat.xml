@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.cat">
  <title>cat</title>
@@ -46,15 +46,15 @@ $smarty->assign('articleTitle', "'Les devins ont prévus que le monde existera to
 ]]>
    </programlisting>
    <para>
-    Ou le template est :
+    Où le template est :
    </para>
    <programlisting>
 <![CDATA[
-{$articleTitle|cat:" demain."}
+{$articleTitle|cat:' demain.'}
 ]]>
    </programlisting>
    <para>
-    Donne à l'écran:
+    Affichera :
    </para>
    <screen>
 <![CDATA[

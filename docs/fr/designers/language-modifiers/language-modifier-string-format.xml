@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.string.format">
  <title>string_format</title>
  <para>
   Un moyen pour formater les chaînes de caractères, comme par exemple les
-  nombres décimaux. Utilise la syntaxe de <ulink url="&url.php-manual;sprintf">sprintf()</ulink>
+  nombres décimaux. Utilise la syntaxe de
+  <ulink url="&url.php-manual;sprintf"><varname>sprintf()</varname></ulink>
   pour formater les éléments.
  </para>
  <informaltable frame="all">
@@ -48,7 +49,7 @@ $smarty->assign('nombre', 23.5787446);
 ]]>
 </programlisting>
 <para>
-où le template est :
+Où le template est :
 </para>
 <programlisting>
 <![CDATA[
@@ -58,7 +59,7 @@ où le template est :
 ]]>
 </programlisting>
 <para>
-Ce qui donne en sortie :
+Affichera :
 </para>
 <screen>
 <![CDATA[
@@ -70,7 +71,7 @@ Ce qui donne en sortie :
 </example>
 <para>
  Voir aussi
- <link linkend="language.modifier.date.format">date_format</link>.
+ <link linkend="language.modifier.date.format"><varname>date_format</varname></link>.
   </para>
 </sect1>
 

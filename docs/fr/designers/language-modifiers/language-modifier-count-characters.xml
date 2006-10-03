@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.count.characters">
  <title>count_characters</title>
@@ -28,7 +28,7 @@
      <entry>1</entry>
      <entry>boolean</entry>
      <entry>Non</entry>
-     <entry>false</entry>
+     <entry>&false;</entry>
      <entry>Si l'on doit inclure les espaces dans le compte.</entry>
     </row>
    </tbody>
@@ -68,9 +68,9 @@ Vagues de froid liées à la température.
  </example>
  <para>
   Voir aussi
-  <link linkend="language.modifier.count.words">count_words</link>,
-  <link linkend="language.modifier.count.sentences">count_sentences</link> et
-  <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>.
+  <link linkend="language.modifier.count.words"><varname>count_words</varname></link>,
+  <link linkend="language.modifier.count.sentences"><varname>count_sentences</varname></link> et
+  <link linkend="language.modifier.count.paragraphs"><varname>count_paragraphs</varname></link>.
  </para>
 </sect1>
 

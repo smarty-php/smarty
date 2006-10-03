@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.wordwrap">
  <title>wordwrap</title>
  <para>
   Ajuste une chaîne de caractères à une taille de colonne, par défaut 80.
   Un second paramètre optionnel vous permet de spécifier la chaîne à utiliser
-  pour l'ajustement à la nouvelle ligne (retour chariot \n par défaut).
-  Par défaut, wordwrap tente un ajustement à la fin d'un mot. Si vous voulez
-  autoriser le découpage des mots pour un ajustement au caractère près,
-  passez true au troisième paramètre optionnel. Ceci est l'équivalent de la
-  fonction PHP <ulink url="&url.php-manual;wordwrap">wordwrap()</ulink>.
+  pour l'ajustement à la nouvelle ligne (retour chariot <literal>"\n"</literal> par défaut).
+  Par défaut, <varname>wordwrap</varname> tente un ajustement à la fin d'un mot.
+  Si vous voulez autoriser le découpage des mots pour un ajustement au caractère près,
+  passez &true; au troisième paramètre optionnel. Ceci est l'équivalent de la
+  fonction PHP <ulink url="&url.php-manual;wordwrap"><varname>wordwrap()</varname></ulink>.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -48,9 +48,9 @@
      <entry>3</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry>false</entry>
+     <entry>&false;</entry>
      <entry>Détermine si l'ajustement se fait en fin de mot
-     (false) ou au caractère exact (true).</entry>
+     (&false;) ou au caractère exact (&true;).</entry>
     </row>
    </tbody>
   </tgroup>
@@ -113,8 +113,8 @@ n'a pas vu depuis des années.
  </example>
  <para>
   Voir aussi
-  <link linkend="language.modifier.nl2br">nl2br</link> et
-  <link linkend="language.function.textformat">{textformat}</link>.
+  <link linkend="language.modifier.nl2br"><varname>nl2br</varname></link> et
+  <link linkend="language.function.textformat"><varname>{textformat}</varname></link>.
  </para>
 </sect1>
 

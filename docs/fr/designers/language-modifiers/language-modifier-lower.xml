@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.lower">
  <title>lower</title>
  <para>
   Met une variable en minuscules. C'est l'équivalent de la fonction PHP
-  <ulink url="&url.php-manual;strtolower">strtolower()</ulink>.
+  <ulink url="&url.php-manual;strtolower"><varname>strtolower()</varname></ulink>.
  </para>
  <example>
   <title>lower</title>
@@ -38,8 +38,8 @@ deux suspects se sont sauvés.
  </example>
  <para>
   Voir aussi
-  <link linkend="language.modifier.upper">upper</link> et
-  <link linkend="language.modifier.capitalize">Capitalize</link>.
+  <link linkend="language.modifier.upper"><varname>upper</varname></link> et
+  <link linkend="language.modifier.capitalize"><varname>capitalize</varname></link>.
  </para>
 </sect1>
 

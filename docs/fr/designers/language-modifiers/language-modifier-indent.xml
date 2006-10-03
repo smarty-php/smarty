@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.indent">
  <title>indent</title>
@@ -9,7 +9,7 @@
   vous pouvez spécifier le nombre de caractères à utiliser pour l'indentation (4 par défaut).
   Comme second paramètre optionnel, vous
   pouvez spécifier le caractère à utiliser pour l'indentation (utilisez
-  "\t" pour les tabulations).
+  <literal>"\t"</literal> pour les tabulations).
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -60,7 +60,7 @@ Statistics show that teen pregnancy drops off significantly after 25.'
 ]]>
 </programlisting>
 <para>
-Ou le template est :
+Où le template est :
 </para>
 <programlisting>
 <![CDATA[
@@ -74,7 +74,7 @@ Ou le template est :
 ]]>
 </programlisting>
 <para>
-Ce qui donne à l'écran
+Affichera :
 </para>
 <screen>
 <![CDATA[
@@ -98,9 +98,9 @@ Statistics show that teen pregnancy drops off significantly after 25.
 </example>
 <para>
  Voir aussi
- <link linkend="language.modifier.strip">strip</link>,
- <link linkend="language.modifier.wordwrap">wordwrap</link> et
- <link linkend="language.modifier.spacify">spacify</link>.
+ <link linkend="language.modifier.strip"><varname>strip</varname></link>,
+ <link linkend="language.modifier.wordwrap"><varname>wordwrap</varname></link> et
+ <link linkend="language.modifier.spacify"><varname>spacify</varname></link>.
   </para>
 </sect1>
 

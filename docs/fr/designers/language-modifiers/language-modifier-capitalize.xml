@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.capitalize">
  <title>capitalize</title>
  <para>
   Met la première lettre de chaque mot d'une variable en majuscule.
+  C'est l'équivalent de la fonction PHP
+  <ulink url="&url.php-manual;ucfirst">
+  <varname>ucfirst()</varname></ulink>.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -28,7 +31,7 @@
      <entry>1</entry>
      <entry>booléen</entry>
      <entry>No</entry>
-     <entry>false</entry>
+     <entry>&false;</entry>
      <entry>Détermine si oui ou non les mots contenant des chiffres
      doivent être mis en majuscule</entry>
     </row>
@@ -47,7 +50,7 @@ $smarty->assign('titreArticle', 'Le nouveau php5 est vraiment performant !');
 ]]>
    </programlisting>
    <para>
-    Où index.tpl contient :
+    Où le template est :
    </para>
    <programlisting>
 <![CDATA[
@@ -69,8 +72,8 @@ Le Nouveau Php5 Est Vraiment Performant !
   </example>
   <para>
    Voir aussi
-   <link linkend="language.modifier.lower">lower</link> et
-   <link linkend="language.modifier.upper">upper</link>.
+   <link linkend="language.modifier.lower"><varname>lower</varname></link> et
+   <link linkend="language.modifier.upper"><varname>upper</varname></link>.
   </para>
 </sect1>
 

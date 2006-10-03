@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.popup">
  <title>{popup}</title>
  <para>
-  {popup} est utilisé pour créer une fenêtre popup javascript.
-  <link linkend="language.function.popup.init">{popup_init}</link> DOIT être appelé en premier
-  pour que cela fonctionne.
+  <varname>{popup}</varname> est utilisé pour créer une fenêtre popup javascript.
+  <link linkend="language.function.popup.init"><varname>{popup_init}</varname></link>
+  DOIT être appelé en premier pour que cela fonctionne.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -31,7 +31,7 @@
      <entry>chaîne de caractères</entry>
      <entry>Oui</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>le texte/code html à afficher dans la popup</entry>
+     <entry>Le texte/code html à afficher dans la popup</entry>
     </row>
     <row>
      <entry>trigger</entry>
@@ -45,7 +45,7 @@
      <entry>sticky</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>Rends la popup active jusqu'a ce qu'elle soit
      explicitement fermée.</entry>
     </row>
@@ -61,21 +61,21 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>couleur interne de la popup</entry>
+     <entry>Couleur interne de la popup</entry>
     </row>
     <row>
      <entry>bgcolor</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>couleur de la bordure de la popup</entry>
+     <entry>Couleur de la bordure de la popup</entry>
     </row>
     <row>
      <entry>textcolor</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>couleur du texte à l'intérieur de la
+     <entry>Couleur du texte à l'intérieur de la
      popup</entry>
     </row>
     <row>
@@ -83,56 +83,56 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>couleur du libellé de la popup</entry>
+     <entry>Couleur du libellé de la popup</entry>
     </row>
     <row>
      <entry>closecolor</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>couleur du texte de fermeture</entry>
+     <entry>Couleur du texte de fermeture</entry>
     </row>
     <row>
      <entry>textfont</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>la police à utiliser dans le texte principal</entry>
+     <entry>La police à utiliser dans le texte principal</entry>
     </row>
     <row>
      <entry>captionfont</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>la police à utiliser dans le libellé</entry>
+     <entry>La police à utiliser dans le libellé</entry>
     </row>
     <row>
      <entry>closefont</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>la police pour le texte de fermeture</entry>
+     <entry>La police pour le texte de fermeture</entry>
     </row>
     <row>
      <entry>textsize</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>taille de la police texte prinicpal</entry>
+     <entry>Taille de la police texte prinicpal</entry>
     </row>
     <row>
      <entry>captionsize</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>taille de la police du libellé</entry>
+     <entry>Taille de la police du libellé</entry>
     </row>
     <row>
      <entry>closesize</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>taille de la police du bouton "fermer"</entry>
+     <entry>Taille de la police du bouton "fermer"</entry>
     </row>
     <row>
      <entry>width</entry>
@@ -152,29 +152,29 @@
      <entry>left</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>false</emphasis></entry>
-     <entry>la popup va à gauche de la souris</entry>
+     <entry><emphasis>&false;</emphasis></entry>
+     <entry>La popup va à gauche de la souris</entry>
     </row>
     <row>
      <entry>right</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>false</emphasis></entry>
-     <entry>la popup va à droite de la souris</entry>
+     <entry><emphasis>&false;</emphasis></entry>
+     <entry>La popup va à droite de la souris</entry>
     </row>
     <row>
      <entry>center</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>false</emphasis></entry>
-     <entry>la popup est centrée par rapport à la
+     <entry><emphasis>&false;</emphasis></entry>
+     <entry>La popup est centrée par rapport à la
      position de la souris</entry>
     </row>
     <row>
      <entry>above</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>false</emphasis></entry>
+     <entry><emphasis>&false;</emphasis></entry>
      <entry>la popup est au dessus de la souris. NOTE:
      possible uniquement si la hauteur est définie</entry>
     </row>
@@ -182,15 +182,15 @@
      <entry>below</entry>
      <entry>booléen</entry>
      <entry>Non</entry>
-     <entry><emphasis>false</emphasis></entry>
-     <entry>la popup apparait en dessous de la souris</entry>
+     <entry><emphasis>&false;</emphasis></entry>
+     <entry>La popup apparait en dessous de la souris</entry>
     </row>
     <row>
      <entry>border</entry>
      <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>rends la bordure de la popup plus épaisse ou plus
+     <entry>Rends la bordure de la popup plus épaisse ou plus
      fine</entry>
     </row>
     <row>
@@ -198,16 +198,14 @@
      <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>A quelle distance du curseur la popup apparaitra
-     , horizontalement.</entry>
+     <entry>A quelle distance du curseur la popup apparaitra horizontalement.</entry>
     </row>
     <row>
      <entry>offsety</entry>
      <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>A quelle distance du curseur la popup apparaitra
-     , verticalement.</entry>
+     <entry>A quelle distance du curseur la popup apparaitra verticalement.</entry>
     </row>
     <row>
      <entry>fgbackground</entry>
@@ -233,7 +231,7 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>définit le texte de fermeture par autre chose
+     <entry>Définit le texte de fermeture par autre chose
      que "Close"</entry>
     </row>
     <row>
@@ -250,7 +248,7 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>défini le texte de la barre de statut
+     <entry>Défini le texte de la barre de statut
      du navigateur</entry>
     </row>
     <row>
@@ -274,7 +272,7 @@
      <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>indique à overLib de lire le texte à cet index dans le
+     <entry>Indique à overLib de lire le texte à cet index dans le
       tableau ol_text, situé dans overlib.js. Ce paramètre peut être
      utilisé à la place de text.</entry>
     </row>
@@ -283,7 +281,7 @@
      <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>indique à overlib de lire le libellé depuis le
+     <entry>Indique à overlib de lire le libellé depuis le
      tableau ol_caps</entry>
     </row>
     <row>
@@ -291,7 +289,7 @@
      <entry>url</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>affiche l'image spécifiée avant le libellé de la
+     <entry>Affiche l'image spécifiée avant le libellé de la
      popup</entry>
     </row>
     <row>
@@ -313,7 +311,7 @@
      <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>vérrouille la popup à une position horizontale.
+     <entry>Vérrouille la popup à une position horizontale.
       Note:	remplace les autres paramètres de position
      horizontale</entry>
     </row>
@@ -322,7 +320,7 @@
      <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>vérouille la popup à une position verticale
+     <entry>Vérouille la popup à une position verticale
       Note: remplace les autres paramètres de position
      verticale</entry>
     </row>
@@ -331,7 +329,7 @@
      <entry>url</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>défini l'image à utiliser plutôt que le tableau
+     <entry>Défini l'image à utiliser plutôt que le tableau
      de fond</entry>
     </row>
     <row>
@@ -339,7 +337,7 @@
      <entry>entier, entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>écarte l'image de fond du reste des éléments
+     <entry>Écarte l'image de fond du reste des éléments
       avec un espace horizontal, pour le positionnement du texte.
      Note: c'est un attribut à deux paramètres.</entry>
     </row>
@@ -348,7 +346,7 @@
      <entry>entier, entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>écarte l'image de fond du reste des éléments
+     <entry>Écarte l'image de fond du reste des éléments
       avec un espace vertical, pour le positionnement du texte.
      Note: c'est un attribut à deux paramètres.</entry>
     </row>
@@ -357,7 +355,7 @@
      <entry>booléen</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>vous autorise à placer du code html en tant que
+     <entry>Vous autorise à placer du code html en tant que
       contenu de la popup. Le code html est attendu dans
      l'attribut text.</entry>
     </row>
@@ -366,7 +364,7 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>contrôle la popup dans un cadre différent.
+     <entry>Contrôle la popup dans un cadre différent.
       Voir la documentation d'overlib pour plus de détails
      sur cette fonction.</entry>
     </row>
@@ -384,7 +382,7 @@
      <entry>entier</entry>
      <entry>Non</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>la popup se comporte comme une infobulle.
+     <entry>La popup se comporte comme une infobulle.
       Elle disparaitra au bout d'un certain délai, en
      millisecondes.</entry>
     </row>

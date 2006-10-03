@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.count.paragraphs">
  <title>count_paragraphs</title>
@@ -29,6 +29,9 @@ $smarty->assign('articleTitle',
 {$TitreArticle|count_paragraphs}
 ]]>
   </programlisting>
+  <para>
+   Affichera :
+  </para>
   <screen>
 <![CDATA[
 La guerre apporte la paix, au prix de la vie des innocents.
@@ -38,9 +41,9 @@ La guerre apporte la paix, au prix de la vie des innocents.
  </example>
  <para>
   Voir aussi
-  <link linkend="language.modifier.count.characters">count_characters</link>,
-  <link linkend="language.modifier.count.sentences">count_sentences</link> et
-  <link linkend="language.modifier.count.words">count_words</link>.
+  <link linkend="language.modifier.count.characters"><varname>count_characters</varname></link>,
+  <link linkend="language.modifier.count.sentences"><varname>count_sentences</varname></link> et
+  <link linkend="language.modifier.count.words"><varname>count_words</varname></link>.
  </para>
 </sect1>
 
