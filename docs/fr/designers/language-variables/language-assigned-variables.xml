@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.assigned.variables">
  <title>Variables assignées depuis PHP</title>
@@ -8,7 +8,7 @@
   Pour utiliser une variables <link linkend="api.assign">assignées</link> depuis PHP, il
   faut la préfixer par le symbole dollar <literal>$</literal>.
   Les variables asignées depuis un template grâce à la fonction
-  <link linkend="language.function.assign">{assign}</link> sont
+  <link linkend="language.function.assign"><varname>{assign}</varname></link> sont
   manipulées de la même façon.
  </para>
  <example>
@@ -30,7 +30,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    où index.tpl est :
+    Où <filename>index.tpl</filename> est :
    </para>
    <programlisting>
 <![CDATA[
@@ -43,7 +43,7 @@ Cette semaine, le meeting est à {$meetingPlace}.
 ]]>
    </programlisting>
    <para>
-    Celà va afficher:
+    Affichera :
    </para>
   <screen>
 <![CDATA[
@@ -80,7 +80,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    où index.tpl est :
+    Où <filename>index.tpl</filename> est :
    </para>
    <programlisting>
 <![CDATA[
@@ -92,7 +92,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Ce qui donne en sortie :
+    Affichera :
    </para>
    <screen>
 <![CDATA[
@@ -127,7 +127,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Où index.tpl est :
+    Où <filename>index.tpl</filename> est :
    </para>
    <programlisting>
 <![CDATA[
@@ -139,7 +139,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    ce qui donne en sortie :
+    Affichera :
    </para>
    <screen>
 <![CDATA[
@@ -156,10 +156,10 @@ zaphod@slartibartfast.example.com<br />
   <para>
    Les attributs des <link linkend="advanced.features.objects">objets</link> 
    assignés depuis PHP peuvent être utilisées en
-   en spécifiant le nom après le symbole '-&gt;'.
+   en spécifiant le nom après le symbole <literal>-&gt;</literal>.
   </para>
   <example>
-   <title>accéder aux attributs des objets</title>
+   <title>Accéder aux attributs des objets</title>
    <programlisting>
 <![CDATA[
 nom: {$person->name}<br />
@@ -167,7 +167,7 @@ email: {$person->email}<br />
 ]]>
    </programlisting>
    <para>
-    Ce qui donne en sortie :
+    Affichera :
    </para>
    <screen>
 <![CDATA[

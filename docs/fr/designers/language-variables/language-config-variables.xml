@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.config.variables">
  <title>Variables chargées depuis des fichiers de configuration</title>
  <para>
-  Les variables récupérées depuis un <link linkend="config.files">fichier de configuration</link> sont utilisées
+  Les variables récupérées depuis un 
+  <link linkend="config.files">fichier de configuration</link> sont utilisées
   entourées du symbole dièse (#), ou via la variable spéciale smarty
-  <link linkend="language.variables.smarty.config">$smarty.config</link>.
+  <link linkend="language.variables.smarty.config"><parameter>$smarty.config</parameter></link>.
+  La dernière synthaxe est utile pour mettre entre guillemets les valeurs des attributs.
  </para>
  <example>
   <title>variables de fichiers de configuration</title>
   <para>
-   foo.conf
+   Exemple de fichier de configuration - <filename>foo.conf</filename> :
   </para>
   <programlisting>
 <![CDATA[
 pageTitle = "C'est le mien"
-bodyBgColor = "#eeeeee"
-tableBorderSize = "3"
-tableBgColor = "#bbbbbb"
-rowBgColor = "#cccccc"
+bodyBgColor = '#eeeeee'
+tableBorderSize = 3
+tableBgColor = '#bbbbbb'
+rowBgColor = '#cccccc'
 ]]>
   </programlisting>
   <para>
-   index.tpl :
+   Exemple de template :
   </para>
   <programlisting>
 <![CDATA[
-{config_load file="foo.conf"}
+{config_load file='foo.conf'}
 <html>
 <title>{#pageTitle#}</title>
 <body bgcolor="{#bodyBgColor#}">
@@ -44,7 +46,9 @@ rowBgColor = "#cccccc"
 ]]>
   </programlisting>
   <para>
-   index.tpl: (alternate syntax)
+   Un template démontrant la méthode
+   <link linkend="language.variables.smarty.config">
+     <parameter>$smarty.config</parameter></link> :
   </para>
   <programlisting>
 <![CDATA[
@@ -64,7 +68,7 @@ rowBgColor = "#cccccc"
 ]]>
   </programlisting>
   <para>
-   Ce qui donne en sortie, pour les deux exemples :
+   Les deux exemples ci-dessus afficheront :
   </para>
   <screen>
 <![CDATA[
@@ -87,18 +91,7 @@ rowBgColor = "#cccccc"
   Les variables de fichier de configuration ne peuvent être utilisés tant
   qu'elles n'ont pas été chargées. Cette procédure est expliquée
   plus loin dans le document, voir <link
-  linkend="api.config.load"><command>config_load</command></link>.
- </para>
- <para>
-  Voir aussi les
-  <link linkend="language.syntax.variables">variables</link> et les
-  <link linkend="language.variables.smarty">variables réservées $smarty</link>.
- </para>
- <para>
-  Les variables des fichiers de configuration ne peuvent pas être utilisées
-  tant qu'elles n'ont pas été chargées depuis un fichier de configuration. Cette procédure
-  est expliqué plus loin dans cette documentation sous la section
-  <link linkend="language.function.config.load"><command>{config_load}</command></link>.
+  linkend="api.config.load"><varname>{config_load}</varname></link>.
  </para>
  <para>
   Voir aussi
