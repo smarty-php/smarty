@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.html.table">
  <title>{html_table}</title>
  <para>
-  {html_table} est une <link linkend="language.custom.functions">fonction personnalisée</link>
-  qui transforme un tableau de données dans un tabeau HTML. L'attribut
-  <emphasis>cols</emphasis> détermine le nombre de colonne du tableau.
-  Les attributs <emphasis>table_attr</emphasis>, <emphasis>tr_attr</emphasis>
-  et <emphasis>td_attr</emphasis> déterminent les attributs donnés aux
-  balises table, tr et td. Si <emphasis>tr_attr</emphasis> ou
-  <emphasis>td_attr</emphasis> sont des tableaux, ils seront parcourus.
-  <emphasis>trailpad</emphasis> est la valeur avec laquelle cera remplit
-  les cellules restantes de la dernière ligne, s'il y en a.
+  <varname>{html_table}</varname> est une
+  <link linkend="language.custom.functions">fonction personnalisée</link>
+  qui transforme un tableau de données dans un tabeau HTML.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -45,7 +39,7 @@
      <entry>Non</entry>
      <entry><emphasis>3</emphasis></entry>
      <entry>
-      nombre de colonnes de la table ou une liste de noms de colonnes séparés par une
+      Nombre de colonnes de la table ou une liste de noms de colonnes séparés par une
       virgule ou un tableau contenant les noms des colonnes. Si l'attribut "cols" est vide,
       mais que des lignes sont données, alors le nombre de colonnes sera calculé
       en utilisant le nombre de lignes et le nombre d'éléments à afficher pour qu'il y 
@@ -61,7 +55,7 @@
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
      <entry>
-      nombre de lignes de la table. Si l'attribut "rows" est vide, mais que des colonnes
+      Nombre de lignes de la table. Si l'attribut "rows" est vide, mais que des colonnes
       sont données, alors le nombre de lignes sera calculée en utilisant le nombre de colonnes
       et le nombre d'éléments à afficher pour qu'il y ait juste assez de lignes pour afficher
       tous les éléments.
@@ -73,7 +67,7 @@
      <entry>No</entry>
      <entry><emphasis>cols</emphasis></entry>
      <entry>
-      la direction du rendu des éléments consécutifs dans la boucle du tableau.
+      La direction du rendu des éléments consécutifs dans la boucle du tableau.
       <emphasis>cols</emphasis> signifie que les éléments doivent être
       afficher colonnes par colonnes.
       <emphasis>rows</emphasis> signifie que les éléments doivent être
@@ -86,7 +80,7 @@
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
      <entry>
-      texte à utiliser pour l'élément caption du tableau.
+      Texte à utiliser pour l'élément <literal>&lt;caption&gt;</literal> du tableau.
      </entry>
     </row>
     <row>
@@ -94,35 +88,37 @@
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>border="1"</emphasis></entry>
-     <entry>attributs pour la balise table</entry>
+     <entry>attributs pour la balise <literal>&lt;table&gt;</literal></entry>
     </row>
     <row>
      <entry>th_attr</entry>
      <entry>chaîne de caractères</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>attributs pour les balises th (les tableaux sont parcourus)</entry>
+     <entry>Attributs pour les balises <literal>&lt;th&gt;</literal>
+      (les tableaux sont parcourus)</entry>
     </row>
     <row>
      <entry>tr_attr</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>attributs pour les balises tr (les tableaux sont parcourus)</entry>
+     <entry>Attributs pour les balises <literal>&lt;tr&gt;</literal> (les tableaux sont parcourus)</entry>
     </row>
     <row>
      <entry>td_attr</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>attributs pour les balises td (les tableaux sont parcourus)</entry>
+     <entry>Attributs pour les balises <literal>&lt;td&gt;</literal>
+      (les tableaux sont parcourus)</entry>
     </row>
     <row>
      <entry>trailpad</entry>
      <entry>chaîne de caractères</entry>
      <entry>Non</entry>
      <entry><emphasis>&amp;nbsp;</emphasis></entry>
-     <entry>valeur avec laquelle remplir les cellules
+     <entry>Valeur avec laquelle remplir les cellules
      restantes de la dernière ligne (si il y en a)</entry>
     </row>
     <row>
@@ -149,63 +145,89 @@
    </tbody>
   </tgroup>
  </informaltable>
+
+ <itemizedlist>
+  <listitem><para>
+    L'attribut <parameter>cols</parameter> détermine le nombre
+    de colonnes dans le tableau.
+   </para></listitem>
+
+  <listitem><para>
+    Les valeurs <parameter>table_attr</parameter>, <parameter>tr_attr</parameter>
+    et <parameter>td_attr</parameter> déterminent les attributs fournis dans les balises
+    <literal>&lt;table&gt;</literal>, <literal>&lt;tr&gt;</literal>
+    et <literal>&lt;td&gt;</literal>.
+   </para></listitem>
+
+  <listitem><para>
+    Si <parameter>tr_attr</parameter> ou <parameter>td_attr</parameter>
+    est un tableau, il sera parcourru.
+   </para></listitem>
+
+  <listitem><para>
+    <parameter>trailpad</parameter> est la valeur utilisée pour compléter les cellules
+    vides de la dernière ligne s'il y en a.
+   </para></listitem>
+   </itemizedlist>
+
  <example>
   <title>{html_table}</title>
   <programlisting role="php">
 <![CDATA[
-Code PHP :
--------------
 <?php
-require('Smarty.class.php');
-$smarty = new Smarty;
 $smarty->assign('data',array(1,2,3,4,5,6,7,8,9));
 $smarty->assign('tr',array('bgcolor="#eeeeee"','bgcolor="#dddddd"'));
 $smarty->display('index.tpl');
 ?>
 ]]>
   </programlisting>
+  <para>
+   Les variables assignées depuis PHP peuvent être affichées comme le démontre
+   cet exemple.
+  </para>
   <programlisting>
 <![CDATA[
-Code du template :
-----------------------
+{**** Premier exemple ****}
 {html_table loop=$data}
-{html_table loop=$data cols=4 table_attr='border="0"'}
-{html_table loop=$data cols="first,second,third,fourth" tr_attr=$tr}
-]]>
-  </programlisting>
-  <para>
-   Affichera :
-  </para>
-  <screen>
-<![CDATA[
+
 <table border="1">
-<tbody>
-<tr><td>1</td><td>2</td><td>3</td></tr>
-<tr><td>4</td><td>5</td><td>6</td></tr>
-<tr><td>7</td><td>8</td><td>9</td></tr>
-</tbody>
+ <tbody>
+  <tr><td>1</td><td>2</td><td>3</td></tr>
+  <tr><td>4</td><td>5</td><td>6</td></tr>
+  <tr><td>7</td><td>8</td><td>9</td></tr>
+ </tbody>
 </table>
+
+
+{**** Deuxième exemple ****}
+{html_table loop=$data cols=4 table_attr='border="0"'}
+
 <table border="0">
-<tbody>
-<tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-<tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
-<tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-</tbody>
+ <tbody>
+  <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+  <tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+  <tr><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+ </tbody>
 </table>
+
+
+{**** Troisième exemple ****}
+{html_table loop=$data cols="first,second,third,fourth" tr_attr=$tr}
+
 <table border="1">
  <thead>
   <tr>
    <th>first</th><th>second</th><th>third</th><th>fourth</th>
   </tr>
  </thead>
-<tbody>
-<tr bgcolor="#eeeeee"><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-<tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
-<tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-</tbody>
+ <tbody>
+  <tr bgcolor="#eeeeee"><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+  <tr bgcolor="#dddddd"><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+  <tr bgcolor="#eeeeee"><td>9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+ </tbody>
 </table>
 ]]>
-  </screen>
+  </programlisting>
  </example>
 </sect1>
 

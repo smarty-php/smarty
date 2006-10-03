@@ -1,25 +1,54 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.math">
  <title>{math}</title>
  <para>
-  {math} autorise les designers de templates à effectuer des opérations
-  dans le template. Toute valeur numérique peut être utilisée dans une
-  opération, et le résultat sera affiché à la place des balises
-  "equation". Les variables utilisées dans l'opération sont passées en
-  tant que paramètre, et peuvent être des variables de templates ou des
-  valeurs statiques. +, -, /, *, abs, ceil, cos,
-  exp, floor, log, log10, max, min, pi, pow, rand, round, sin, sqrt,
-  srans et tan sont tous des opérateurs valides. Voir la
-  documentation PHP pour plus d'informations sur ces fonctions
-  mathématiques.
+  <varname>{math}</varname> autorise les designers de templates à effectuer
+  des opérations dans le template.
  </para>
- <para>
-  Si vous spécifiez l'attribut assign, la sortie sera assignée à la variable
-  donnée plutôt que d'être directement affichée.
- </para>
+ <itemizedlist>
+  <listitem><para>
+    Toute valeur numérique peut être utilisée dans une
+    opération, et le résultat sera affiché à la place des balises
+    "equation".
+   </para></listitem>
+
+  <listitem><para>
+    Les variables utilisées dans l'opération sont passées en
+    tant que paramètre, et peuvent être des variables de templates ou des
+    valeurs statiques.
+   </para></listitem>
+
+  <listitem><para>+, -, /, *, abs, ceil, cos,
+    exp, floor, log, log10, max, min, pi, pow, rand, round, sin, sqrt,
+    srans et tan sont tous des opérateurs valides. Voir la
+    documentation PHP pour plus d'informations sur ces fonctions
+    <ulink url="&url.php-manual;eval">mathématiques</ulink>.
+   </para></listitem>
+
+  <listitem><para>
+    Si vous spécifiez l'attribut <parameter>assign</parameter>, la sortie
+    de la fonction <varname>{math}</varname> sera assignée à la variable
+    donnée plutôt que d'être directement affichée.
+   </para></listitem>
+  </itemizedlist>
+
+ <note>
+  <title>Note technique</title>
+  <para>
+   <varname>{math}</varname> est une fonction coûteuse en terme de
+   performances, du fait qu'elle utilise la fonction PHP
+   <ulink url="&url.php-manual;eval"><varname>eval()</varname></ulink>.
+   Effectuer les calculs dans votre code PHP est beaucoup plus efficient, donc, chaque fois
+   que possible, effectuez vos calculs directement dans PHP et
+   <link linkend="api.assign">assignez</link> le résultat au template.
+   Evitez coût que coût les appels répétitifs à la fonction <varname>{math}</varname>,
+   comme on pourait le faire une
+   une boucle <link linkend="language.function.section"><varname>{section}</varname></link>.
+  </para>
+ </note>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -76,18 +105,6 @@
    </tbody>
   </tgroup>
  </informaltable>
- <note>
-  <title>Note technique</title>
-  <para>
-   {math} est une fonction coûteuse en terme de performances, du fait
-   qu'elle utilise la fonction PHP <ulink url="&url.php-manual;eval">eval()</ulink>.
-   Effectuer les calculs dans votre code PHP est beaucoup plus efficient, donc, chaque fois
-   que possible, effectuez vos calculs directement dans PHP et <link linkend="api.assign">assignez</link>
-   le résultat au template. Evitez coût que coût les appels
-   répétitifs à la fonction {math}, comme on pourait le faire une
-   une boucle <link linkend="language.function.section">{section}</link>.
-  </para>
- </note>
  <example>
   <title>{math}</title>
   <para>

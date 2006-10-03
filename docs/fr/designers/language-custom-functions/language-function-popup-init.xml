@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.popup.init">
  <title>{popup_init}</title>
@@ -10,16 +10,27 @@
   une librairie capable de réaliser des fenêtres surgissantes (nous parlerons de "popup").
   Ce type de fenêtre est utilisé pour apporter des informations
   contextuelles, comme des infobulles d'aides ou astuces.
-  {popup_init} doit être appelé une <emphasis>seule fois</emphasis>,
-  de préférence dans la balise &lt;head&gt;, dans toutes les pages si vous
-  comptez utiliser la fonction <link linkend="language.function.popup">{popup}</link>.
-  Le chemin est relatif au script exécuté ou un chemin complet (ie non relatif au template).
  </para>
- <para>
-  <ulink url="&url.overLib;">overLib</ulink>
-  a été écrit par Erik Bosrup, et le site de l'auteur/le téléchargement est disponible à l'adresse sur
-  <ulink url="&url.overLib;">&url.overLib;</ulink>.
- </para>
+
+ <itemizedlist>
+  <listitem><para>
+    <varname>{popup_init}</varname> doit être appelé une <emphasis>seule fois</emphasis>,
+    de préférence dans la balise <literal>&lt;head&gt;</literal>, dans toutes les pages si vous
+    comptez utiliser la fonction <link linkend="language.function.popup">
+     <varname>{popup}</varname></link>.
+   </para></listitem>
+
+  <listitem><para>
+    Le chemin est relatif au script exécuté ou un chemin complet (i.e. non relatif au template).
+   </para></listitem>
+
+  <listitem><para>
+    <ulink url="&url.overLib;">overLib</ulink>
+    a été écrit par Erik Bosrup, et le site de l'auteur/le téléchargement est disponible à l'adresse sur
+    <ulink url="&url.overLib;">&url.overLib;</ulink>.
+   </para></listitem>
+</itemizedlist>
+
  <example>
   <title>{popup_init}</title>
   <programlisting>
