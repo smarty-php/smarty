@@ -1,3 +1,38 @@
+2006-10-03  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/designers/language-custom-functions/language-function-html-select-time.xml
+      docs/fr/designers/language-custom-functions/language-function-html-table.xml
+      docs/fr/designers/language-custom-functions/language-function-mailto.xml
+      docs/fr/designers/language-custom-functions/language-function-math.xml
+      docs/fr/designers/language-custom-functions/language-function-popup-init.xml
+      docs/fr/designers/language-custom-functions/language-function-popup.xml
+      docs/fr/designers/language-custom-functions/language-function-textformat.xml
+      docs/fr/designers/language-modifiers/language-modifier-capitalize.xml
+      docs/fr/designers/language-modifiers/language-modifier-cat.xml
+      docs/fr/designers/language-modifiers/language-modifier-count-characters.xml
+      docs/fr/designers/language-modifiers/language-modifier-count-paragraphs.xml
+      docs/fr/designers/language-modifiers/language-modifier-count-sentences.xml
+      docs/fr/designers/language-modifiers/language-modifier-count-words.xml
+      docs/fr/designers/language-modifiers/language-modifier-date-format.xml
+      docs/fr/designers/language-modifiers/language-modifier-default.xml
+      docs/fr/designers/language-modifiers/language-modifier-escape.xml
+      docs/fr/designers/language-modifiers/language-modifier-indent.xml
+      docs/fr/designers/language-modifiers/language-modifier-lower.xml
+      docs/fr/designers/language-modifiers/language-modifier-nl2br.xml
+      docs/fr/designers/language-modifiers/language-modifier-regex-replace.xml
+      docs/fr/designers/language-modifiers/language-modifier-replace.xml
+      docs/fr/designers/language-modifiers/language-modifier-spacify.xml
+      docs/fr/designers/language-modifiers/language-modifier-string-format.xml
+      docs/fr/designers/language-modifiers/language-modifier-strip-tags.xml
+      docs/fr/designers/language-modifiers/language-modifier-strip.xml
+      docs/fr/designers/language-modifiers/language-modifier-truncate.xml
+      docs/fr/designers/language-modifiers/language-modifier-upper.xml
+      docs/fr/designers/language-modifiers/language-modifier-wordwrap.xml
+      docs/fr/designers/language-variables/language-assigned-variables.xml
+      docs/fr/designers/language-variables/language-config-variables.xml
+      docs/fr/designers/language-variables/language-variables-smarty.xml:
+      sync with EN
+
 2006-10-01  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/designers/language-builtin-functions/language-function-include-php.xml
