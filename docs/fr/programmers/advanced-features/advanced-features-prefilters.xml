@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <sect1 id="advanced.features.prefilters">
  <title>Filtres de pré-compilation</title>
  <para>
   Les filtres de pré-compilation sont des fonctions PHP que vos templates
-  exécutent avant qu'ils ne soient compilés. Celà peut être utile
+  exécutent <emphasis>avant qu'ils ne soient compilés</emphasis>. Celà peut être utile
   pour pré-traiter vos templates afin d'enlever les commentaires
   inutiles, garder un oeil sur ce que les gens mettent dans leurs templates, etc.
  </para>
@@ -14,9 +14,9 @@
   Les filtre de pré-compilations peuvent être soit
   <link linkend="api.register.prefilter">déclarés</link>, soit chargés
   à partir des <link linkend="variable.plugins.dir">répertoires de plugins</link>
-  en utilisant la fonction <link linkend="api.load.filter">load_filter()</link> ou
+  en utilisant la fonction <link linkend="api.load.filter"><varname>load_filter()</varname></link> ou
   en réglant la variable
-  <link linkend="variable.autoload.filters">$autoload_filters</link>.
+  <link linkend="variable.autoload.filters"><parameter>$autoload_filters</parameter></link>.
  </para>
  <para>
   Smarty passera à la fonction le code source en tant que premier argument,
@@ -45,9 +45,9 @@ $smarty->display('index.tpl');
  </example>
  <para>
   Voir aussi
-  <link linkend="api.register.prefilter">register_prefilter()</link>,
+  <link linkend="api.register.prefilter"><varname>register_prefilter()</varname></link>,
   les <link linkend="advanced.features.postfilters">post-filtres</link> et
-  <link linkend="api.load.filter">load_filter()</link>.
+  <link linkend="api.load.filter"><varname>load_filter()</varname></link>.
  </para>
 </sect1>
 

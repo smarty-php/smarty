@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="advanced.features.outputfilters">
  <title>Filtres de sortie</title>
  <para>
   Quand le template est appelé via les fonctions
-  <link linkend="api.display">display()</link> ou
-  <link linkend="api.fetch">fetch()</link>,
+  <link linkend="api.display"><varname>display()</varname></link> ou
+  <link linkend="api.fetch"><varname>fetch()</varname></link>,
   sa sortie est envoyée à travers un ou plusieurs filtres de sorties.
   Ils diffèrent des <link linkend="advanced.features.postfilters">filtres
    de post-compilation</link> dans le sens où ils agissent sur la sortie
@@ -19,9 +19,9 @@
   <link linkend="api.register.outputfilter">déclarés</link> soit
   chargés depuis les <link linkend="variable.plugins.dir">répertoires
   des plugins</link> en utilisant la fonction
-  <link linkend="api.load.filter">load_filter()</link>
+  <link linkend="api.load.filter"><varname>load_filter()</varname></link>
   ou en réglant la variable
-  <link linkend="variable.autoload.filters">$autoload_filters</link>.
+  <link linkend="variable.autoload.filters"><parameter>$autoload_filters</parameter></link>.
   Smarty passera la sortie du template en premier argument et attendra
   de la fonction qu'elle retourne le résultat de l'exécution.
  </para>
@@ -51,11 +51,11 @@ $smarty->display('index.tpl');
  </example>
  <para>
   Voir aussi
-  <link linkend="api.register.outputfilter">register_outpurfilter()</link>,
-  <link linkend="api.load.filter">load_filter()</link>,
-  <link linkend="variable.autoload.filters">$autoload_filters</link>,
+  <link linkend="api.register.outputfilter"><varname>register_outpurfilter()</varname></link>,
+  <link linkend="api.load.filter"><varname>load_filter()</varname></link>,
+  <link linkend="variable.autoload.filters"><parameter>$autoload_filters</parameter></link>,
   les <link linkend="advanced.features.postfilters">filtres de post-compilation</link> et
-  <link linkend="variable.plugins.dir">$plugins_dir</link>.
+  <link linkend="variable.plugins.dir"><parameter>$plugins_dir</parameter></link>.
  </para>
 </sect1>
 

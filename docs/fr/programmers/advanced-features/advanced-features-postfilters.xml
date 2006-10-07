@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="advanced.features.postfilters">
  <title>Filtres de post-compilation</title>
  <para>
   Les filtres de post-compilation sont des fonctions PHP que vos templates
-  exécutent après avoir été compilés. Les filtres de post-compilation peuvent
-  être soit <link linkend="api.register.postfilter">déclarés</link>, soit chargés
+  exécutent <emphasis>après avoir été compilés</emphasis>. Les filtres de post-compilation
+  peuvent  être soit <link linkend="api.register.postfilter">déclarés</link>, soit chargés
   depuis les <link linkend="variable.plugins.dir">répertoires des plugins</link>
-  en utilisant la fonction <link linkend="api.load.filter">load_filter()</link> ou en réglant
-  la variable <link linkend="variable.autoload.filters">$autoload_filters</link>.
+  en utilisant la fonction
+  <link linkend="api.load.filter"><varname>load_filter()</varname></link> ou en réglant
+  la variable
+  <link linkend="variable.autoload.filters"><parameter>$autoload_filters</parameter></link>.
   Smarty passera le template compilé en tant que premier paramètre et attendra
   de la fonction qu'elle retourne le résultat de l'exécution.
  </para>
@@ -32,7 +34,7 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   Votre template Smarty index.tpl ressemblera, après compilation à :
+   Votre template Smarty <filename>index.tpl</filename> ressemblera, après compilation à :
   </para>
   <screen>
 <![CDATA[
@@ -43,9 +45,9 @@ $smarty->display('index.tpl');
  </example>
  <para>
   Voir aussi
-  <link linkend="api.register.postfilter">register_postfilter()</link>,
+  <link linkend="api.register.postfilter"><varname>register_postfilter()</varname></link>,
   <link linkend="advanced.features.prefilters">les pré-filtres</link> et
-  <link linkend="api.load.filter">load_filter()</link>.
+  <link linkend="api.load.filter"><varname>load_filter()</varname></link>.
  </para>
 </sect1>
 

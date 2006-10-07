@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <sect1 id="template.resources">
  <title>Ressources</title>
  <para>
   Les templates peuvent provenir d'une grande variété de ressources. Quand vous
-  affichez (<link linkend="api.display">display()</link>) ou 
-  récupérez (<link linkend="api.fetch">fetch()</link>) un template, ou quand vous incluez un template
-  dans un autre template, vous fournissez un type de ressource, suivi
-  par le chemin approprié et le nom du template. Si une ressource n'est pas
-  explicitement donnée, la valeur de la variable <link
-  linkend="variable.default.resource.type">$default_resource_type</link>
+  affichez (<link linkend="api.display"><varname>display()</varname></link>) ou
+  récupérez (<link linkend="api.fetch"><varname>fetch()</varname></link>) un
+  template, ou quand vous incluez un template dans un autre template, vous fournissez
+  un type de ressource, suivi par le chemin approprié et le nom du template.
+  Si une ressource n'est pas explicitement donnée, la valeur de la variable <link
+  linkend="variable.default.resource.type"><parameter>$default_resource_type</parameter></link>
   sera utilisée.
  </para>
  <sect2 id="templates.from.template.dir">
   <title>Templates depuis $template_dir</title>
   <para>
-   Les templates du répertoire 
-   <link linkend="variable.template.dir">$template_dir</link> n'ont pas
+   Les templates du répertoire
+   <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link> n'ont pas
    besoin d'une ressource template, bien que vous puissiez utiliser
    la ressource "file" pour être cohérent. Vous n'avez qu'à fournir
    le chemin vers le template que vous voulez utiliser, relatif
-   au répertoire racine <link linkend="variable.template.dir">$template_dir</link>.
+   au répertoire racine
+   <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>.
   </para>
   <example>
    <title>Utilisation de templates depuis $template_dir</title>
@@ -43,9 +45,9 @@ $smarty->display("file:admin/menu.tpl"); // le même que ci-dessus
  <sect2 id="templates.from.any.dir">
   <title>Templates à partir de n'importe quel répertoire</title>
   <para>
-   Les templates en-dehors du répertoire 
-   <link linkend="variable.template.dir">$template_dir</link> nécessitent
-   le type de ressource template, suivi du chemin absolu et du nom du
+   Les templates en-dehors du répertoire
+   <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>
+   nécessitent le type de ressource template, suivi du chemin absolu et du nom du
    template.
   </para>
   <example>
@@ -53,8 +55,8 @@ $smarty->display("file:admin/menu.tpl"); // le même que ci-dessus
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->display("file:/export/templates/index.tpl");
-$smarty->display("file:/path/to/my/templates/menu.tpl");
+$smarty->display('file:/export/templates/index.tpl');
+$smarty->display('file:/path/to/my/templates/menu.tpl');
 ?>
 ]]>
    </programlisting>
@@ -63,7 +65,7 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
    </para>
    <programlisting>
 <![CDATA[
-{include file="file:/usr/local/share/templates/navigation.tpl"}
+{include file='file:/usr/local/share/templates/navigation.tpl'}
 ]]>
    </programlisting>
   </example>
@@ -73,7 +75,7 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
    <para>
     Si vous utilisez Windows, les chemins de fichiers sont la plupart
     du temps sur un disque identifié par une lettre (c:) au début du chemin.
-    Assurez-vous de bien mettre "file:" dans le chemin pour éviter des
+    Assurez-vous de bien mettre <literal>file:</literal> dans le chemin pour éviter des
     conflits d'espace de noms et obtenir les résultats escomptés.
    </para>
    <example>
@@ -81,8 +83,8 @@ $smarty->display("file:/path/to/my/templates/menu.tpl");
     <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->display("file:C:/export/templates/index.tpl");
-$smarty->display("file:F:/path/to/my/templates/menu.tpl");
+$smarty->display('file:C:/export/templates/index.tpl');
+$smarty->display('file:F:/path/to/my/templates/menu.tpl');
 ?>
 ]]>
     </programlisting>
@@ -91,7 +93,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
     </para>
     <programlisting>
 <![CDATA[
-{include file="file:D:/usr/local/share/templates/navigation.tpl"}
+{include file='file:D:/usr/local/share/templates/navigation.tpl'}
 ]]>
     </programlisting>
    </example>
@@ -114,7 +116,7 @@ $smarty->display("file:F:/path/to/my/templates/menu.tpl");
 
   <note>
    <para>
-    Notez que vous ne pouvez pas écraser la ressource <literal>file</literal> native,
+    Notez que vous ne pouvez pas écraser la ressource <literal>file:</literal> native,
     toutefois, vous pouvez fournir une ressource qui récupère un template depuis
     le système de fichier par un autre moyen en l'enregistrant sous un autre
     nom de ressource.
@@ -184,7 +186,7 @@ $smarty->display("db:index.tpl");
    </para>
    <programlisting>
 <![CDATA[
-{include file="db:/extras/navigation.tpl"}
+{include file='db:/extras/navigation.tpl'}
 ]]>
    </programlisting>
   </example>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
+
 <sect1 id="section.template.cache.handler.func">
  <title>Fonction de gestion du cache</title>
  <para>
@@ -14,25 +15,53 @@
   fonction à la variable de classe
   <link linkend="variable.cache.handler.func">$cache_handler_func</link>.
   Smarty utilisera alors cette fonction pour gérer les données du cache.
-  Le premier argument est l'action, qui sera 'read', 'write' ou 'clear'.
-  Le second paramètre est l'objet Smarty. Le troisième est le contenu
-  du cache. Pour écrire, Smarty passe le contenu du cache dans ces paramètres.
-  Pour lire, Smarty s'attend à ce que votre fonction accepte ce paramètre
-  par référence et que vous le remplissiez avec les données du cache. Pour effacer,
-  il suffit de passer une variable fictive car cette dernière n'est pas utilisée.
-  Le quatrième paramètre est le nom du fichier de template (utile pour
-  lire/écrire), le cinquième paramètre est l'identifiant de cache (optionnel)
-  et le sixième est l'identifiant de compilation (optionnel).
  </para>
- <para>
-  Note: Le dernier paramètre ($exp_time) a été ajouté dans Smarty-2.6.0.
- </para>  
+
+ <itemizedlist>
+ <listitem><para>
+   Le premier argument est l'action, qui sera <literal>read</literal>, <literal>write</literal> and
+   <literal>clear</literal>.
+ </para></listitem>
+
+ <listitem><para>
+   Le second paramètre est l'objet Smarty.
+ </para></listitem>
+
+ <listitem><para>
+   Le troisième est le contenu
+   du cache. Pour écrire, Smarty passe le contenu du cache dans ces paramètres.
+   Pour lire, Smarty s'attend à ce que votre fonction accepte ce paramètre
+   par référence et que vous le remplissiez avec les données du cache. Pour effacer,
+   il suffit de passer une variable fictive car cette dernière n'est pas utilisée.
+ </para></listitem>
+
+ <listitem><para>
+   Le quatrième paramètre est le nom du fichier de template (utile pour
+   lire/écrire).
+ </para></listitem>
+
+ <listitem><para>
+   Le cinquième paramètre est l'identifiant <parameter>$cache_id</parameter>.
+ </para></listitem>
+
+ <listitem><para>
+   Le sixième est l'identifiant optionnel <link linkend="variable.compile.id">
+ <parameter>$compile_id</parameter></link>.
+ </para></listitem>
+
+ <listitem><para>
+   Le septième et dernier paramètre <parameter>$exp_time</parameter>
+   a été ajouté dans Smarty-2.6.0.
+</para></listitem>
+
+</itemizedlist>
+
  <example>
   <title>Exemple d'utilisation de MySQL pour la source du cache</title>
   <programlisting role="php">
 <![CDATA[
 <?php
-/*
+/*****
 
 exemple d'usage :
 
@@ -54,7 +83,7 @@ CacheID char(32) PRIMARY KEY,
 CacheContents MEDIUMTEXT NOT NULL
 );
 
-*/
+*****/
 
 function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null)
 {

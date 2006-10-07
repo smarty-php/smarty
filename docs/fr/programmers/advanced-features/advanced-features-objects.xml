@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <sect1 id="advanced.features.objects">
  <title>Objets</title>
  <para>
   Smarty donne l'accès aux <ulink url="&url.php-manual;object">objets</ulink>
-  PHP à travers les templates. Il y a 2 moyens d'y avoir accès. Le premier consiste à
+  PHP à travers les templates. Il y a 2 moyens d'y avoir accès.
+ </para>
+ <itemizedlist spacing="compact">
+ <listitem><para>
+  Le premier consiste à
   <link linkend="api.register.object">allouer les objets</link>
   au template puis de les utiliser avec une syntaxe similaire a celles
   des <link linkend="language.custom.functions">fonctions personnalisées</link>.
+ </para></listitem>
+ <listitem><para>
   Le deuxième moyen consiste à <link linkend="api.assign">assigner</link> des objets
   aux templates et de les utiliser comme n'importe quelle
-  variable. La première méthode a une syntaxe beaucoup plus sympathique.
+  variable.
+ </para></listitem>
+ </itemizedlist>
+ <para>
+  La première méthode a une syntaxe beaucoup plus sympathique.
   Elle est aussi plus sécurisée, puisqu'un objet alloué ne peut avoir accès
   qu'a certaines méthodes et propriétés. Néanmoins,
   <emphasis role="bold">un objet alloué ne peut pas avoir de lien sur lui-même 
@@ -22,7 +32,7 @@
   afin de réduire la syntaxe des templates au minimum.
  </para>
  <para>
-  Si l'option de <link linkend="variable.security">sécurité</link> 
+  Si l'option de <link linkend="variable.security">sécurité</link>
   est activée, aucune méthode ou fonctions privées
   n'est accessible (commentant par "_"). S'il existe une méthode et une
   propriété du même nom, c'est la méthode qui sera utilisée.
@@ -39,7 +49,7 @@
   Le premier paramètre correspond à un tableau associatif, le second à l'objet
   Smarty. Si vous souhaitez que les paramètres soient passés un à un, comme
   dans un appel traditionnel, définissez registration, quatrième paramètre optionnel,
-  à false.
+  à &false;.
  </para>
  <para>
   Le cinquième paramètre optionnel n'a d'effet que si le paramètre
@@ -47,8 +57,8 @@
   une liste de méthodes qui doivent être traitées comme des blocks. Celà signifie
   que ces méthodes ont un tag fermant dans le template
   (<literal>{foobar->meth2}...{/foobar->meth2}</literal>) et que les paramètres
-  de ces méthodes fonctionnent de la même façon que les paramètres des 
-  <link linkend="plugins.block.functions">blocks de fonctions des plugins</link> : 
+  de ces méthodes fonctionnent de la même façon que les paramètres des
+  <link linkend="plugins.block.functions">blocks de fonctions des plugins</link> :
   Ils contiennent 4 paramètres
   <parameter>$params</parameter>,
   <parameter>$content</parameter>,
@@ -87,7 +97,7 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   Et voici comment accéder à vos objets dans index.tpl:
+   Et voici comment accéder à vos objets dans <filename>index.tpl</filename> :
   </para>
   <programlisting>
 <![CDATA[
@@ -105,8 +115,8 @@ the output was {$output)
  </example>
  <para>
   Voir aussi
-  <link linkend="api.register.object">register_object()</link> et
-  <link linkend="api.assign">assign()</link>.
+  <link linkend="api.register.object"><varname>register_object()</varname></link> et
+  <link linkend="api.assign"><varname>assign()</varname></link>.
  </para>
 </sect1>
 
