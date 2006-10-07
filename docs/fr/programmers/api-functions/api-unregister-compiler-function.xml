@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <refentry id="api.unregister.compiler.function">
  <refnamediv>
@@ -19,7 +19,8 @@
   </para>
   <para>
    Voir aussi
-   <link linkend="api.register.compiler.function">register_compiler_function()</link> et
+   <link linkend="api.register.compiler.function">
+    <varname>register_compiler_function()</varname></link> et
    les <link linkend="plugins.compiler.functions">plugins de fonction de compilation</link>.
   </para>
  </refsect1>

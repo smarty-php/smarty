@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <refentry id="api.assign">
  <refnamediv>
@@ -34,6 +34,10 @@ $smarty->assign("Adresse",$address);
 // passe un tableau associatif
 $smarty->assign(array('Ville' => 'Lincoln','Pays' => 'Nebraska'));
 
+// passe un tableau
+$myArray = array('no' => 10, 'label' => 'Peanuts');
+$smarty->assign('foo',$myArray);
+
 // Passe une ligne d'une base de données (eg adodb)
 $sql = 'select id, name, email from contacts where contact ='.$id;
 $smarty->assign('contact', $db->getRow($sql));
@@ -51,22 +55,23 @@ $smarty->assign('contact', $db->getRow($sql));
 {$city}
 {$state}
 
+{$foo.no}, {$foo.label}
 {$contact.id}, {$contact.name},{$contact.email}
 ]]>
    </programlisting>
   </example>
   <para>
    Pour des assignements plus complexes de tableaux, lisez
-   <link linkend="language.function.foreach">{foreach}</link> et
-   <link linkend="language.function.section">{section}</link>.
+   <link linkend="language.function.foreach"><varname>{foreach}</varname></link> et
+   <link linkend="language.function.section"><varname>{section}</varname></link>.
   </para>
   <para>
    Voir aussi
-   <link linkend="api.assign.by.ref">assign_by_ref()</link>,
-   <link linkend="api.get.template.vars">get_template_vars()</link>,
-   <link linkend="api.clear.assign">clear_assign()</link>,
-   <link linkend="api.append">append()</link> et
-   <link linkend="language.function.assign">{assign}</link>.
+ <link linkend="api.assign.by.ref"><varname>assign_by_ref()</varname></link>,
+ <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>,
+ <link linkend="api.clear.assign"><varname>clear_assign()</varname></link>,
+ <link linkend="api.append"><varname>append()</varname></link> et
+ <link linkend="language.function.assign"><varname>{assign}</varname></link>.
   </para>
  </refsect1>
 </refentry>

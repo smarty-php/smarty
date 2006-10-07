@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <refentry id="api.register.postfilter">
  <refnamediv>
@@ -22,35 +22,16 @@
    pour avoir plus de renseignements sur la façon de paramétrer les fonctions
    de post-compilation.
   </para>
-  <para>
-   La fonction PHP <parameter>function</parameter> peut être soit :
-  </para>
-  <orderedlist numeration="loweralpha">
-   <listitem>
-     <para>
-      une chaîne de caractères contenant le nom de la fonction
-     </para>
-    </listitem><listitem>
-     <para>
-      un tableau de la forme <literal>array(&amp;$object, $method)</literal> où
-      <literal>&amp;$object</literal> est une référence à un objet et
-      <literal>$method</literal> est le nom de la méthode
-     </para>
-    </listitem><listitem>
-     <para>
-      un tableau de la forme <literal>array(&amp;$class, $method)</literal> où
-      <literal>$class</literal> est le nom de la classe et 
-      <literal>$method</literal> est une méthode de cette classe
-     </para>
-    </listitem>
-   </orderedlist>
+   &api.register.snippet;
    <para>
     Voir aussi
-    <link linkend="api.unregister.postfilter">unregister_postfilter()</link>,
-    <link linkend="api.register.prefilter">register_prefilter()</link>,
-    <link linkend="api.register.outputfilter">register_ouputfilter()</link>,
-    <link linkend="api.load.filter">load_filter()</link>,
-    <link linkend="variable.autoload.filters">$autoload_filters</link> et
+    <link linkend="api.unregister.postfilter">
+    <varname>unregister_postfilter()</varname></link>,
+    <link linkend="api.register.prefilter">
+     <varname>register_prefilter()</varname></link>,
+    <link linkend="api.load.filter"><varname>load_filter()</varname></link>,
+    <link linkend="variable.autoload.filters">
+     <parameter>$autoload_filters</parameter></link> et
     les <link linkend="advanced.features.outputfilters">filtres de sortie de template</link>.
    </para>
  </refsect1>

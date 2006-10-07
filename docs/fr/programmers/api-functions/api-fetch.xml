@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <refentry id="api.fetch">
  <refnamediv>
@@ -21,7 +21,7 @@
    l'<link linkend="api.display">afficher</link>.
    Il faut passer un type et un chemin de <link
    linkend="template.resources">ressource template</link>
-   valides. Vous pouvez passer un identifiant de cache en deuxième
+   valides. Vous pouvez passer un identifiant de cache <parameter>$cache id</parameter> en deuxième
    paramètre. Reportez-vous à la section <link linkend="caching">cache
    </link> pour plus de renseignements.
   </para>
@@ -73,7 +73,7 @@ echo $output;
    <example>
     <title>Utilisation de fetch() pour envoyer un email</title>
     <para>
-     Le template email_body.tpl
+     Le template <filename>email_body.tpl</filename> :
     </para>
     <programlisting>
 <![CDATA[
@@ -84,7 +84,7 @@ Bienvenu et merci d'être devenu membre de notre groupe d'utilisateur,
 Cliquez sur le lien ci-dessous pour vous identifier avec votre nom d'utilisateur '{$contact.login_id}'
 et vous pourrez utiliser nos forums.
 
-http://{$smarty.server.SERVER_NAME}/index.php?page=login
+http://{$smarty.server.SERVER_NAME}/login/
 
 Liste principale
 Quelques groupes d'utilisateurs
@@ -93,8 +93,8 @@ Quelques groupes d'utilisateurs
 ]]>
     </programlisting>
     <para>
-     Le template email_disclaimer.tpl qui utilise le modificateur
-     <link linkend="language.function.textformat">{textformat}</link>.
+     Le template <filename>email_disclaimer.tpl</filename> qui utilise le modificateur
+     <link linkend="language.function.textformat"><varname>{textformat}</varname></link>.
     </para>
     <programlisting>
 <![CDATA[
@@ -108,7 +108,7 @@ numbered word you have read
     </programlisting>
     <para>
      et le script PHP utilisant la fonction PHP
-     <ulink url="&url.php-manual;function.mail">mail()</ulink>
+     <ulink url="&url.php-manual;function.mail"><varname>mail()</varname></ulink>
     </para>
     <programlisting role="php">
      <![CDATA[
@@ -128,10 +128,10 @@ mail($contact['email'], 'Subject', $smarty->fetch('email_body.tpl'));
   </para>
   <para>
    Voir aussi
-   <link linkend="language.function.fetch">{fetch}</link>
-   <link linkend="api.display">display()</link>,
-   <link linkend="language.function.eval">{eval}</link> et
-   <link linkend="api.template.exists">template_exists()</link>.
+   <link linkend="language.function.fetch"><varname>{fetch}</varname></link>
+   <link linkend="api.display"><varname>display()</varname></link>,
+   <link linkend="language.function.eval"><varname>{eval}</varname></link> et
+   <link linkend="api.template.exists"><varname>template_exists()</varname></link>.
   </para>
  </refsect1>
 </refentry>

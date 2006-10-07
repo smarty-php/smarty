@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <refentry id="api.register.resource">
  <refnamediv>
@@ -21,7 +21,6 @@
    à la section <link linkend="template.resources">ressources templates</link>
    pour avoir plus d'informations sur la façon de paramétrer une fonction
    récupérant des templates.
-  </para>
   <note>
    <title>Note technique</title>
    <para>
@@ -31,17 +30,30 @@
     $smarty->display('c:/path/to/index.tpl');
    </para>
   </note>
-  <para>
+
+   </para>
+
+  <itemizedlist>
+  <listitem><para>
    Le tableau de fonctions PHP <parameter>resource_funcs</parameter>
-   doit être composé de 4 ou 5 éléments. S'il est composé de 4 éléments,
-   les éléments seront les noms de fonctions pour, respectivement, 
-   "source", "timestamp", "secure" et "trusted" de la ressource.
+   doit être composé de 4 ou 5 éléments.
+   </para></listitem>
+   <listitem><para>
+   S'il est composé de 4 éléments,
+   les éléments seront les noms de fonctions pour, respectivement,
+   <literal>source</literal>, <literal>timestamp</literal>, <literal>secure</literal> et
+   <literal>trusted</literal> de la ressource.
+   </para></listitem>
+   <listitem><para>
    S'il est composé de 5 éléments, le premier élément devra être une
    référence sur un objet ou le nom d'une classe de l'objet ou une classe
    implémentant la ressource et les 4 éléments suivants doivent être
-   les noms des méthodes implémentant "source", "timestamp",
-   "secure" et "trusted".
-  </para>
+   les noms des méthodes implémentant <literal>source</literal>,
+   <literal>timestamp</literal>, <literal>secure</literal>
+   et <literal>trusted</literal>.
+  </para></listitem>
+  </itemizedlist>
+
   <example>
    <title>Exemple avec register_resource()</title>
    <programlisting role="php">
@@ -59,7 +71,7 @@ $smarty->register_resource('db', array(
   </example>
   <para>
    Voir aussi
-   <link linkend="api.unregister.resource">unregister_resource()</link> et
+   <link linkend="api.unregister.resource"><varname>unregister_resource()</varname></link> et
    les <link linkend="template.resources">ressources de template</link>.
   </para>
  </refsect1>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <refentry id="api.display">
  <refnamediv>
@@ -21,7 +21,7 @@
    chemin de <link
    linkend="template.resources">ressource template</link>
    valides. Vous pouvez passer en second paramètre un identifiant
-   de fichier de $cache. Reportez-vous à la section
+   de fichier de <parameter>$cache id</parameter>. Reportez-vous à la section
    <link linkend="caching">cache</link> pour plus de renseignements.
   </para>
   &parameter.compileid;
@@ -30,13 +30,13 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-include("Smarty.class.php");
-$smarty = new Smarty;
+include(SMARTY_DIR.'Smarty.class.php');
+$smarty = new Smarty();
 $smarty->caching = true;
 
 // ne fait un appel à la base de données que si le fichier
 // de cache n'existe pas
-if(!$smarty->is_cached("index.tpl")) {
+if(!$smarty->is_cached('index.tpl')) {
 
     // quelques données
     $address = "245 N 50th";
@@ -53,7 +53,7 @@ if(!$smarty->is_cached("index.tpl")) {
 }
 
 // affichage
-$smarty->display("index.tpl");
+$smarty->display('index.tpl');
 ?>
 ]]>
    </programlisting>
@@ -62,7 +62,7 @@ $smarty->display("index.tpl");
    Utilisez la syntaxe des <link
    linkend="template.resources">ressources templates</link>
    pour afficher des fichiers en-dehors du répertoire
-   <link linkend="variable.template.dir">$template_dir</link>.
+   <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>.
   </para>
   <example>
    <title>Exemples de fonction d'affichage de ressources templates</title>
@@ -86,8 +86,8 @@ $smarty->display('db:header.tpl');
   </example>
   <para>
    Voir aussi
-   <link linkend="api.fetch">fetch()</link> et
-   <link linkend="api.template.exists">template_exists()</link>.
+   <link linkend="api.fetch"><varname>fetch()</varname></link> et
+   <link linkend="api.template.exists"><varname>template_exists()</varname></link>.
   </para>
  </refsect1>
 </refentry>

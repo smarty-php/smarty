@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <refentry id="api.unregister.resource">
  <refnamediv>
@@ -30,7 +30,7 @@ $smarty->unregister_resource("db");
   </example>
   <para>
    Voir aussi
-   <link linkend="api.register.resource">register_resource()</link> et
+   <link linkend="api.register.resource"><varname>register_resource()</varname></link> et
    les <link linkend="template.resources">ressources de template</link>.
   </para>
  </refsect1>

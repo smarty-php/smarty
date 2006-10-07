@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <refentry id="api.unregister.function">
  <refnamediv>
@@ -32,7 +32,7 @@ $smarty->unregister_function('fetch');
   </example>
   <para>
    Voir aussi
-   <link linkend="api.register.function">register_function()</link>.
+   <link linkend="api.register.function"><varname>register_function()</varname></link>.
   </para>
  </refsect1>
 </refentry>

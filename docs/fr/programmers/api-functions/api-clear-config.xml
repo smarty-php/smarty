@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <refentry id="api.clear.config">
  <refnamediv>
@@ -34,12 +34,12 @@ $smarty->clear_config('foobar');
   </example>
   <para>
    Voir aussi les
-   <link linkend="api.get.config.vars">get_config_vars()</link>,
-   <link linkend="language.config.variables">variables de configuration</link>,
-   <link linkend="config.files">config files</link>,
-   <link linkend="language.function.config.load">{config_load}</link>,
-   <link linkend="api.config.load">config_load()</link> et
-   <link linkend="api.clear.assign">clear_assign()</link>.
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>,
+  les <link linkend="language.config.variables">variables de configuration</link>,
+  les <link linkend="config.files">fichiers de configuration</link>,
+  <link linkend="language.function.config.load"><varname>{config_load}</varname></link>,
+  <link linkend="api.config.load"><varname>config_load()</varname></link> et
+  <link linkend="api.clear.assign"><varname>clear_assign()</varname></link>.
   </para>
  </refsect1>
 </refentry>

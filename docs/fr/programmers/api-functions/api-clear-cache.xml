@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <refentry id="api.clear.cache">
  <refnamediv>
@@ -17,18 +17,26 @@
    </methodparam>
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
-  <para>
+
+  <itemizedlist>
+  <listitem><para>
    Si vous avez <link linkend="caching.multiple.caches">plusieurs fichiers de cache</link>
    pour ce template, vous pouvez en spécifier un en particulier en passant son identifiant
    <parameter>cache_id</parameter> en deuxième paramètre.
+   </para></listitem>
+   <listitem><para>
    Vous pouvez aussi passer un identifiant de compilation
    <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
    en  troisième paramètre. Vous pouvez <link linkend="caching.groups">grouper</link>
    des templates ensemble afin qu'ils puissent être supprimés en groupe. Référez-vous à la
    section sur le <link linkend="caching">cache</link> pour plus d'informations.
+   </para></listitem>
+   <listitem><para>
    Vous pouvez passer un quatrième paramètre pour indiquer un âge
    minimum en secondes que le fichier en cache doit avoir avant d'être effacé.
-  </para>
+  </para></listitem>
+  </itemizedlist>
+
   <example>
    <title>Exemple avec clear_cache()</title>
    <programlisting role="php">
@@ -45,8 +53,8 @@ $smarty->clear_cache('index.tpl','CACHEID');
   </example>
   <para>
    Voir aussi le
-   <link linkend="api.clear.all.cache">clear_all_cache()</link> et
-   <link linkend="caching">cache</link>.
+   <link linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link> et
+   la section sur le <link linkend="caching">cache</link>.
   </para>
  </refsect1>
 </refentry>

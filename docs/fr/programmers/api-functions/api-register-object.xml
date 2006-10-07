@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <refentry id="api.register.object">
  <refnamediv>
@@ -21,12 +21,12 @@
   <para>
    Reportez-vous à la section
    <link linkend="advanced.features.objects">objet</link> de
-   ce manuel pour des exemples.
+   ce manuel pour plus d'informations.
   </para>
   <para>
    Voir aussi
-   <link linkend="api.get.registered.object">get_registered_object()</link> et
-   <link linkend="api.unregister.object">unregister_object()</link>.
+   <link linkend="api.get.registered.object"><varname>get_registered_object()</varname></link> et
+   <link linkend="api.unregister.object"><varname>unregister_object()</varname></link>.
   </para>
  </refsect1>
 </refentry>

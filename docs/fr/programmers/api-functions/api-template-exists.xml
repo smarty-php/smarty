@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <refentry id="api.template.exists">
  <refnamediv>
@@ -21,11 +21,9 @@
   <example>
    <title>template_exists()</title>
    <para>
-    Cet exemple utilise $_GET['page'] pour inclure le contenu d'un template.
+    Cet exemple utilise <literal>$_GET['page']</literal> pour inclure le contenu d'un template.
     Si le template n'existe pas, une page d'erreur sera affiché à la place.
-   </para>
-   <para>
-    Le fichier <filename>page_container.tpl</filename>
+    Le fichier <filename>page_container.tpl</filename> :
    </para>
    <programlisting role="php">
 <![CDATA[
@@ -42,7 +40,7 @@
  ]]>
    </programlisting>
    <para>
-    et le script PHP
+    Et le script PHP
    </para>
    <programlisting role="php">
 <![CDATA[
@@ -64,10 +62,10 @@ $smarty->display('page_container.tpl');
   </example>
   <para>
    Voir aussi
-   <link linkend="api.display">display()</link>,
-   <link linkend="api.fetch">fetch()</link>,
-   <link linkend="language.function.include">{include}</link> et
-   <link linkend="language.function.insert">{insert}</link>.
+  <link linkend="api.display"><varname>display()</varname></link>,
+  <link linkend="api.fetch"><varname>fetch()</varname></link>,
+  <link linkend="language.function.include"><varname>{include}</varname></link> et
+  <link linkend="language.function.insert"><varname>{insert}</varname></link>.
   </para>
  </refsect1>
 </refentry>

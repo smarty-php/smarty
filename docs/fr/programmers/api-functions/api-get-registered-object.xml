@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <refentry id="api.get.registered.object">
  <refnamediv>
@@ -38,8 +38,8 @@ function smarty_block_foo($params, &$smarty)
   </example>
   <para>
    Voir aussi
-   <link linkend="api.register.object">register_object()</link>,
-   <link linkend="api.unregister.object">unregister_object()</link> et
+   <link linkend="api.register.object"><varname>register_object()</varname></link>,
+   <link linkend="api.unregister.object"><varname>unregister_object()</varname></link> et
    la <link linkend="advanced.features.objects">section sur les objets</link>.
   </para>
  </refsect1>

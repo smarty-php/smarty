@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <refentry id="api.clear.assign">
  <refnamediv>
@@ -32,11 +32,11 @@ $smarty->clear_assign(array('Name','Address','Zip'));
   </example>
   <para>
    Voir aussi
-   <link linkend="api.clear.all.assign">clear_all_assign()</link>,
-   <link linkend="api.clear.config">clear_config()</link>,
-   <link linkend="api.get.template.vars">get_template_vars()</link>,
-   <link linkend="api.assign">assign()</link> et
-   <link linkend="api.append">append()</link>.
+    <link linkend="api.clear.all.assign"><varname>clear_all_assign()</varname></link>,
+    <link linkend="api.clear.config"><varname>clear_config()</varname></link>,
+    <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>,
+    <link linkend="api.assign"><varname>assign()</varname></link> et
+    <link linkend="api.append"><varname>append()</varname></link>.
   </para>
  </refsect1>
 </refentry>

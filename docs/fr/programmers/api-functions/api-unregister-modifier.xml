@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <refentry id="api.unregister.modifier">
  <refnamediv>
@@ -33,7 +33,7 @@ $smarty->unregister_modifier('strip_tags');
   </example>
   <para>
    Voir aussi
-   <link linkend="api.register.modifier">register_modifier()</link> et
+   <link linkend="api.register.modifier"><varname>register_modifier()</varname></link> et
    les <link linkend="plugins.modifiers">plugins modificateur</link>.
   </para>
  </refsect1>

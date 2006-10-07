@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <refentry id="api.trigger.error">
  <refnamediv>
@@ -18,14 +18,14 @@
    Cette fonction peut-être utilisée pour afficher un message d'erreur
    en utilisant Smarty. Le paramètre <parameter>level</parameter>
    peut prendre l'une des valeures utilisées par la fonction PHP
-   <ulink url="&url.php-manual;trigger_error">trigger_error()</ulink>, 
-   i.e. E_USER_NOTICE, E_USER_WARNING, etc. Par défaut
-   il s'agit de E_USER_WARNING.
+   <ulink url="&url.php-manual;trigger_error"><varname>trigger_error()</varname></ulink>,
+   i.e. <literal>E_USER_NOTICE</literal>, <literal>E_USER_WARNING</literal>, etc. Par défaut
+   il s'agit de <literal>E_USER_WARNING</literal>.
   </para>
   <para>
    Voir aussi
-   <link linkend="variable.error.reporting">$error_reporting</link>,
-   <link linkend="chapter.debugging.console">le débogage</link> et
+   <link linkend="variable.error.reporting"><parameter>$error_reporting</parameter></link>,
+   le <link linkend="chapter.debugging.console">débogage</link> et
    <link linkend="smarty.php.errors">Troubleshooting</link>.
  </para>
  </refsect1>

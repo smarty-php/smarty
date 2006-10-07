@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <refentry id="api.append">
  <refnamediv>
@@ -23,7 +23,7 @@
    Si vous utilisez cette fonction avec une chaîne de caractères, elle est
    convertie en tableau auquel on ajoute ensuite l'élément. Vous pouvez
    explicitement passer des paires nom/valeur. Si vous passez le troisième
-   paramètre (optionel) à <literal>true</literal>, la valeur sera fusionnée
+   paramètre (optionel) à &true;, la valeur sera fusionnée
    avec le tableau plutôt que d'être ajoutée.
   </para>
   &note.parameter.merge;
@@ -36,6 +36,12 @@
 $smarty->append("Nom","Fred");
 $smarty->append("Adresse",$address);
 
+$array = array(1 => 'un', 2 => 'deux');
+$smarty->append('X', $array);
+$array2 = array(3 => 'trois', 4 => 'quatre');
+// La ligne suivante ajoute un second élément au tableau X
+$smarty->append('X', $array2);
+
 // passe un tableau associatif
 $smarty->append(array('Ville' => 'Lincoln','Pays' => 'Nebraska'));
 ?>
@@ -44,9 +50,9 @@ $smarty->append(array('Ville' => 'Lincoln','Pays' => 'Nebraska'));
   </example>
   <para>
    Voir aussi
-   <link linkend="api.append.by.ref">append_by_ref()</link>,
-   <link linkend="api.assign">assign()</link> et
-   <link linkend="api.get.template.vars">get_template_vars()</link>.
+   <link linkend="api.append.by.ref"><varname>append_by_ref()</varname></link>,
+   <link linkend="api.assign"><varname>assign()</varname></link> et
+   <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>.
   </para>
  </refsect1>
 </refentry>

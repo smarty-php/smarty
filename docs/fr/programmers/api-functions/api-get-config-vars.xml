@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <refentry id="api.get.config.vars">
  <refnamediv>
@@ -23,24 +23,24 @@
 <![CDATA[
 <?php
 
-// récupère la variable de configuration chargée 'foo'
+// récupère la variable de configuration chargée #foo#
 $foo = $smarty->get_config_vars('foo');
 
 // récupère toutes les variables de configuration chargées
-$config_vars = $smarty->get_config_vars();
+$all_config_vars = $smarty->get_config_vars();
 
 // les affiche a l'écran
-print_r($config_vars);
+print_r($all_config_vars);
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
    Voir aussi
-   <link linkend="api.clear.config">clear_config()</link>,
-   <link linkend="language.function.config.load">{config_load}</link>,
-   <link linkend="api.config.load">config_load()</link> et
-   <link linkend="api.get.template.vars">get_template_vars()</link>.
+  <link linkend="api.clear.config"><varname>clear_config()</varname></link>,
+   <link linkend="language.function.config.load"><varname>{config_load}</varname></link>,
+  <link linkend="api.config.load"><varname>config_load()</varname></link> et
+  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>.
   </para>
  </refsect1>
 </refentry>

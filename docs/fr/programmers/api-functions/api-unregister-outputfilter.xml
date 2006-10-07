@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <refentry id="api.unregister.outputfilter">
  <refnamediv>
@@ -18,7 +18,7 @@
   </para>
   <para>
    Voir aussi
-   <link linkend="api.register.outputfilter">register_outputfilter()</link> et
+   <link linkend="api.register.outputfilter"><varname>register_outputfilter()</varname></link> et
    les <link linkend="advanced.features.outputfilters">filtres de sortie de template</link>.
   </para>
  </refsect1>

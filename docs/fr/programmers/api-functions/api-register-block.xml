@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <refentry id="api.register.block">
  <refnamediv>
@@ -21,18 +21,9 @@
    de blocs</link>. Il faut passer en paramètre le nom de la fonction
    de blocs, suivi du nom de la fonction PHP qui l'implémente.
   </para>
+    &api.register.snippet;
   <para>
-   La fonction PHP <parameter>impl</parameter> peut être soit (a) une 
-   chaîne de caractères contenant le nom de la fonction, soit (b) un tableau
-   de la forme <literal>array(&amp;$object, $method)</literal> où
-   <literal>&amp;$object</literal> est une référence à un objet et
-   <literal>$method</literal> est le nom de la méthode, soit (c) un
-   tableau de la forme <literal>array(&amp;$class, $method)</literal> où
-   <literal>$class</literal> est le nom de la classe et 
-   <literal>$method</literal> est une méthode de cette classe.
-  </para>
-  <para>
-   Les paramètre <parameter>cacheable</parameter> et 
+   Les paramètre <parameter>cacheable</parameter> et
    <parameter>cache_attrs</parameter> peuvent être omis dans la plupart
    des cas. Voir <link 
    linkend="caching.cacheable">Contrôler la mise en cache des sorties des Plugins</link>
@@ -43,8 +34,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->register_block('translate', 'do_translation');
-
+// Déclaration de la fonction
 function do_translation ($params, $content, &$smarty, &$repeat) {
     if ($content) {
         $lang = $params['lang'];
@@ -52,6 +42,9 @@ function do_translation ($params, $content, &$smarty, &$repeat) {
         echo $translation;
     }
 }
+
+// Enregistrement avec Smarty
+$smarty->register_block('translate', 'do_translation');
 ?>
 ]]>
    </programlisting>
@@ -60,16 +53,13 @@ function do_translation ($params, $content, &$smarty, &$repeat) {
    </para>
    <programlisting>
 <![CDATA[
-{* template *}
-{translate lang="br"}
-Hello, world!
-{/translate}
+{translate lang='br'}Bonjour le monde !{/translate}
 ]]>
    </programlisting>
   </example>
   <para>
    Voir aussi
-   <link linkend="api.unregister.block">unregister_block()</link> et
+   <link linkend="api.unregister.block"><varname>unregister_block()</varname></link> et
    les <link linkend="plugins.block.functions">plugins de fonction de blocs</link>.
   </para>
  </refsect1>

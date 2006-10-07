@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <refentry id="api.register.compiler.function">
  <refnamediv>
@@ -19,28 +19,7 @@
    Il faut passer en paramètres le nom de la <link linkend="plugins.compiler.functions">fonction
    de compilation</link>, suivi par la fonction PHP qui l'implémente.
   </para>
-  <para>
-   La fonction PHP <parameter>impl</parameter> peut être soit :
-  </para>
-  <orderedlist numeration="loweralpha">
-   <listitem>
-     <para>
-      une chaîne de caractères contenant le nom de la fonction
-     </para>
-   </listitem><listitem>
-    <para>
-     un tableau de la forme <literal>array(&amp;$object, $method)</literal> où
-   <literal>&amp;$object</literal> est une référence à un objet et
-   <literal>$method</literal> est le nom de la méthode
-  </para>
- </listitem><listitem>
-    <para>
-     soit (c) un tableau de la forme <literal>array(&amp;$class, $method)</literal> où
-     <literal>$class</literal> est le nom de la classe et 
-     <literal>$method</literal> est une méthode de cette classe.
-    </para>
-   </listitem>
-  </orderedlist>
+   &api.register.snippet;
   <para>
    Le paramètre <parameter>cacheable</parameter> peut être omis dans la
    plupart des cas. Voir <link 
@@ -49,7 +28,8 @@
   </para>
   <para>
    Voir aussi
-   <link linkend="api.unregister.compiler.function">unregister_compiler_function()</link> et
+   <link linkend="api.unregister.compiler.function">
+    <varname>unregister_compiler_function()</varname></link> et
    les <link linkend="plugins.compiler.functions">plugins de fonction de compilation</link>.
   </para>
  </refsect1>

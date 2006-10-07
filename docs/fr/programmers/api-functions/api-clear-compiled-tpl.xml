@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <refentry id="api.clear.compiled.tpl">
  <refnamediv>
@@ -19,9 +19,12 @@
   <para>
    Utilisée pour effacer la version compilée du template spécifié ou
    de tous les templates si aucun n'est spécifié. 
-   Si vous passez uniquement un <link linkend="variable.compile.id">$compile_id</link>,
-   le template compilé correspondant à ce <link linkend="variable.compile.id">$compile_id</link>
-   sera effacé. Si vous passez un exp_time, les templates compilés plus vieux que exp_time secondes
+   Si vous passez uniquement un
+   <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>,
+   le template compilé correspondant à ce
+   <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
+   sera effacé. Si vous passez un exp_time, les templates compilés plus vieux que 
+   <parameter>exp_time</parameter> secondes
    seront effacés, par défaut, tous les templates compilés seront
    effacés au vû de leurs âges. Cette fonction est destinée à un usage 
    avancé et n'est habituellement pas utilisée.
@@ -32,7 +35,7 @@
 <![CDATA[
 <?php
 // efface la version compilée du template spécifié
-$smarty->clear_compiled_tpl("index.tpl");
+$smarty->clear_compiled_tpl('index.tpl');
 
 // efface tout le contenu du répertoire des templates compilés
 $smarty->clear_compiled_tpl();
@@ -40,6 +43,10 @@ $smarty->clear_compiled_tpl();
 ]]>
    </programlisting>
   </example>
+  <para>
+   Voir aussi
+  <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>.
+  </para>
  </refsect1>
 </refentry>
 

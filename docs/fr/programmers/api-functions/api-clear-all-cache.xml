@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <refentry id="api.clear.all.cache">
  <refnamediv>
@@ -24,14 +24,17 @@
 <?php
 // efface le cache
 $smarty->clear_all_cache();
+
+// efface tous les fichiers vieux d'une heure
+$smarty->clear_all_cache(3600);
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
    Voir aussi
-   <link linkend="api.clear.cache">clear_cache()</link>,
-  <link linkend="api.is.cached">is_cached()</link> et
+   <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>,
+  <link linkend="api.is.cached"><varname>is_cached()</varname></link> et
    le <link linkend="caching">cache</link>.
   </para>
  </refsect1>
