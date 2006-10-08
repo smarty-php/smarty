@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
 
 <chapter id="smarty.constants">
  <title>Constantes</title>
@@ -10,7 +10,7 @@
   <para>
    Il doit s'agir du <emphasis role="bold">chemin complet</emphasis>
    du répertoire où se trouvent les fichiers classes de Smarty.
-   S'il n'est pas défini, Smarty essaiera alors d'en
+   S'il n'est pas défini dans votre script, Smarty essaiera alors d'en
    déterminer automatiquement la valeur.
    S'il est défini, le chemin <emphasis role="bold">doit se terminer par un slash</emphasis>.
   </para>
@@ -20,10 +20,10 @@
 <![CDATA[
 <?php
 // définit le chemin du répertoire de Smarty sur un système *nix
-define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty-v.e.r/libs/');
 
 // définit le chemin du répertoire de Smarty sur un système Windows
-define('SMARTY_DIR', 'c:/webroot/libs/Smarty/libs/');
+define('SMARTY_DIR', 'c:/webroot/libs/Smarty-v.e.r/libs/');
 
 // inclut la classe Smarty. Notez le 'S' en majuscule
 require_once(SMARTY_DIR . 'Smarty.class.php');
@@ -33,18 +33,18 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
   </example>
   <para>
    Voir aussi
-   <link linkend="language.variables.smarty.const">$smarty.const</link> et
-   <link linkend="variable.php.handling">$php_handling constants</link>.
+   <link linkend="language.variables.smarty.const"><parameter>$smarty.const</parameter></link> et
+   <link linkend="variable.php.handling"><parameter>$php_handling constants</parameter></link>.
     </para>
  </sect1>
  <sect1 id="constant.smarty.core.dir">
   <title>SMARTY_CORE_DIR</title>
   <para>
-   Il doit s'agir du chemin complet du répertoire où
+   Il doit s'agir du <emphasis>chemin complet</emphasis> du répertoire où
    se trouvent les fichiers internes de Smarty. S'il n'est
    pas défini, Smarty placera comme valeur par défaut la
    valeur de la constante précédente
-   <link linkend="constant.smarty.dir">SMARTY_DIR</link>. S'il est
+   <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>. S'il est
    défini, le chemin doit se terminer par un slash. Utilisez cette
    constante lorsque vous incluez manuellement n'importe
    quel fichier core.*.
@@ -65,7 +65,7 @@ require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
 
   <para>
    Voir aussi
-   <link linkend="language.variables.smarty.const">$smarty.const</link>.
+   <link linkend="language.variables.smarty.const"><parameter>$smarty.const</parameter></link>.
   </para>
  </sect1>
 </chapter>

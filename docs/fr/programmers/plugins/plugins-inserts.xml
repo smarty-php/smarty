@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <sect1 id="plugins.inserts">
  <title>Insertions</title>
  <para>
   Les plugins d'insertion sont utilisés pour implémenter les fonctions
   qui sont appelées par les balises
-  <link linkend="language.function.insert">{insert}</link>
+  <link linkend="language.function.insert"><varname>{insert}</varname></link>
   dans les templates.
  </para>
  <funcsynopsis>
@@ -23,7 +23,7 @@
  </para>
  <para>
   La fonction d'insertion est supposée retourner le résultat qui sera
-  substitué à la balise <command>{insert}</command> dans le template.
+  substitué à la balise <varname>{insert}</varname> dans le template.
  </para>
  <example>
   <title>Plugin d'insertion</title>

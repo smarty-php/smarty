@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+
 <chapter id="caching">
  <title>Cache</title>
  <para>
   Le cache est utilisée pour accélérer l'appel de <link
-  linkend="api.display">display()</link> ou de <link
-  linkend="api.fetch">fetch()</link> en sauvegardant leur résultat
+  linkend="api.display"><varname>display()</varname></link> ou de <link
+  linkend="api.fetch"><varname>fetch()</varname></link> en sauvegardant leur résultat
   dans un fichier. Si un fichier de cache est disponible lors d'un appel,
   il sera affiché sans qu'il ne soit nécessaire de regénérer le résultat.
   Le système de cache peut accélérer les traitements de façon impressionnante, 
   en particulier les templates dont la compilation est très longue. Comme 
-  le résultat de <link linkend="api.display">display()</link> ou de 
-  <link linkend="api.fetch">fetch()</link>est dans le cache, un fichier de cache 
+  le résultat de <link linkend="api.display"><varname>display()</varname></link> ou de 
+  <link linkend="api.fetch"><varname>fetch()</varname></link>est dans le cache, un fichier de cache 
   peut être composé de plusieurs fichiers de templates, plusieurs fichiers
   de configuration, etc.
  </para>

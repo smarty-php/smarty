@@ -1,40 +1,61 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="caching.groups">
  <title>Groupes de fichiers de cache</title>
  <para>
   Vous pouvez faire des groupements plus élaborés en paramétrant les
-  groupes d'identifiant de cache. Il suffit de séparer chaque sous-groupe
-  avec une barre verticale "|" dans la valeur de l'identifiant de cache.
+  groupes de <parameter>$cache_id</parameter>. Il suffit de séparer chaque sous-groupe
+  avec une barre verticale <literal>|</literal> dans la valeur de <parameter>$cache_id</parameter>.
   Vous pouvez faire autant de sous-groupes que vous le désirez.
  </para>
- <para>
-  Vous pouvez voir les groupes de cache comme une hiérarchie de dossiers.
-  Par exemple, un groupe de cache "a|b|c" peut être considéré comme
-  la hiérarchie de dossiers "/a/b/c/". Ainsi,
-  <link linkend="api.clear.cache">clear_cache</link>(null,"a|b|c") supprimerait
-  les fichiers "/a/b/c/*". clear_cache(null,"a|b") supprimerait les fichiers
-  "/a/b/*". Si vous spécifiez un <link linkend="variable.compile.id">$compile_id</link>
-  de cette façon : clear_cache(null,"a|b","foo"), il sera traité comme un groupe de
-  cache apposé "/a/b/c/foo/". Si vous spécifiez un nom de template de cette façon :
-  clear_cache("foo.tpl","a|b|c"), alors Smarty tentera d'effacer "/a/b/c/foo.tpl".
-  Vous ne POUVEZ PAS effacer un nom de template spécifié sous un groupe de
-  cache multiple comme "/a/b/*/foo.tpl", le groupement de cache fonctionne
-  UNIQUEMENT de gauche à droite. Vous pourriez vouloir grouper vos templates
-  sous un groupe de cache simple hiérarchisé pour être capable de les effacer
-  comme un groupe.
- </para>
+
+ <itemizedlist>
+  <listitem><para>
+    Vous pouvez voir les groupes de cache comme une hiérarchie de dossiers.
+    Par exemple, un groupe de cache <literal>'a|b|c'</literal> peut être considéré comme
+    la hiérarchie de dossiers <literal>'/a/b/c/'</literal>.
+   </para></listitem>
+
+  <listitem><para>
+    <literal>clear_cache(null,'a|b|c')</literal>
+    supprimera les fichiers
+    <literal>'/a/b/c/*'</literal>. <literal>clear_cache(null,'a|b')</literal>
+    supprimera les fichiers <literal>'/a/b/*'</literal>.
+   </para></listitem>
+
+  <listitem><para>
+    Si vous spécifiez un
+    <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
+    de cette façon <literal>clear_cache(null,'a|b','foo')</literal> il sera traité comme un groupe de
+    cache apposé <literal>'/a/b/c/foo/'</literal>.
+   </para></listitem>
+
+  <listitem><para>
+    Si vous spécifiez un nom de template de cette façon
+    <literal>clear_cache('foo.tpl','a|b|c')</literal> alors Smarty tentera d'effacer
+    <literal>'/a/b/c/foo.tpl'</literal>.
+   </para></listitem>
+
+  <listitem><para>
+    Vous ne POUVEZ PAS effacer un nom de template spécifié sous un groupe de
+    cache multiple comme <literal>'/a/b/*/foo.tpl'</literal>, le groupement de cache fonctionne
+    UNIQUEMENT de gauche à droite. Vous pourriez vouloir grouper vos templates
+    sous un groupe de cache simple hiérarchisé pour être capable de les effacer
+    comme un groupe.
+   </para></listitem>
+ </itemizedlist>
+
  <para>
   Le groupement de cache ne devrait pas être confondu avec votre hiérarchie
   de dossiers de templates, le groupement de cache n'a aucune connaissance
   de la façon dont vos templates sont structurés. Donc, par exemple, si
-  vous avez une structure de template comme "themes/blue/index.tpl" et
-  que vous voulez être capable d'effacer tous les fichiers de cache pour le thème "blue",
+  vous avez une structure de template comme <filename>themes/blue/index.tpl</filename> et
+  que vous voulez être capable d'effacer tous les fichiers de cache pour le thème <quote>blue</quote>,
   vous devriez créer une structure de groupe de cache qui reflète la structure
-  de fichiers de vos templates, comme display("themes/blue/index.tpl","themes|blue"),
-  et les effacer avec clear_cache(null,"themes|blue").
+  de fichiers de vos templates, comme <literal>display('themes/blue/index.tpl','themes|blue')</literal>,
+  et les effacer avec <literal>clear_cache(null,'themes|blue')</literal>.
  </para>
  <example>
   <title>Groupes d'identifiants de cache</title>

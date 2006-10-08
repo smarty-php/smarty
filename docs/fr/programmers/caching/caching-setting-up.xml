@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <sect1 id="caching.setting.up">
  <title>Paramétrer le cache</title>
  <para>
   La première chose à faire est d'activer le cache en
-  mettant <link linkend="variable.caching">$caching</link> = 1
-  (ou 2).
+  mettant 
+  <link linkend="variable.caching"><parameter>$caching</parameter></link>
+  <literal> = 1 (ou 2)</literal>.
  </para>
  <example>
   <title>Activation du cache</title>
@@ -25,31 +26,32 @@ $smarty->display('index.tpl');
   </programlisting>
  </example>
  <para>
-  Avec le cache activé, la fonction display('index.tpl') va afficher
+  Avec le cache activé, la fonction <literal>display('index.tpl')</literal> va afficher
   le template mais sauvegardera par la même occasion une copie du résultat
   dans un fichier (de cache) du répertoire
-  <link linkend="variable.cache.dir">$cache_dir</link>. Au prochain appel de
-  display('index.tpl'), le fichier de cache sera préféré à la réutilisation
-  du template.
+  <link linkend="variable.cache.dir"><parameter>$cache_dir</parameter></link>.
+  Au prochain appel de <literal>display('index.tpl')</literal>, le fichier de cache sera préféré
+  à la réutilisation du template.
  </para>
  <note>
   <title>Note technique</title>
   <para>
-   Les fichiers situés dans <link linkend="variable.cache.dir">$cache_dir</link>
+   Les fichiers situés dans
+   <link linkend="variable.cache.dir"><parameter>$cache_dir</parameter></link>
    sont nommés de la même façon que les templates.
-   Bien qu'ils aient une extension ".php", ils ne sont pas vraiment directement exécutable.
-   N'éditez surtout pas ces fichiers !
+   Bien qu'ils aient une extension <filename>.php</filename>, ils ne sont pas vraiment
+   directement exécutable. N'éditez surtout pas ces fichiers !
   </para>
  </note>
  <para>
   Tout fichier de cache a une durée de vie limitée déterminée par <link
-  linkend="variable.cache.lifetime">$cache_lifetime</link>. La valeur par
+  linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>. La valeur par
   défaut est 3600 secondes, i.e. 1 heure. Une fois que cette durée est
   dépassée, le cache est regénéré. Il est possible de donner
   une durée d'expiration propre à chaque fichier de cache en réglant
-  <link linkend="variable.caching">$caching</link> = 2.
+  <link linkend="variable.caching"><parameter>$caching</parameter></link><literal>=2</literal>.
   Se reporter à la documentation de <link
-  linkend="variable.cache.lifetime">$cache_lifetime</link> pour plus de
+  linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link> pour plus de
   détails.
  </para>
  <example>
@@ -81,12 +83,13 @@ $smarty->display('home.tpl');
   </programlisting>
  </example>
  <para>
-  Si <link linkend="variable.compile.check">$compile_check</link> est actif,
-  chaque fichier de template et de configuration qui a un rapport
+  Si
+  <link linkend="variable.compile.check"><parameter>$compile_check</parameter></link>
+  est actif, chaque fichier de template et de configuration qui a un rapport
   avec le fichier de cache sera vérifié pour détecter une éventuelle
   modification. Si l'un de ces fichiers a été modifié depuis que le fichier de cache a été
   généré, le cache est immédiatement regénéré. Ce processus est couteux, donc,
-  pour des raisons de performances, mettez ce paramètre à false pour une application
+  pour des raisons de performances, mettez ce paramètre à &false; pour une application
   en production.
  </para>
  <example>
@@ -106,15 +109,15 @@ $smarty->display('index.tpl');
   </programlisting>
  </example>
  <para>
-  Si <link linkend="variable.force.compile">$force_compile</link> est actif,
+  Si <link linkend="variable.force.compile"><parameter>$force_compile</parameter></link> est actif,
   les fichiers de cache sont toujours regénérés. Ceci revient finalement à
-  désactiver le cache. <link linkend="variable.force.compile">$force_compile</link>
+  désactiver le cache. <link linkend="variable.force.compile"><parameter>$force_compile</parameter></link>
   est utilisé à des fins de <link linkend="chapter.debugging.console">débogage</link>,
   un moyen plus efficace de désactiver le cache est de régler
-  <link linkend="variable.caching">$caching</link> = 0.
+  <link linkend="variable.caching"><parameter>$caching</parameter></link><literal> = 0</literal>.
  </para>
  <para>
-  La fonction <link linkend="api.is.cached">is_cached()</link> permet
+  La fonction <link linkend="api.is.cached"><varname>is_cached()</varname></link> permet
   de tester si un template a ou non un fichier de cache valide.
   Si vous disposez d'un template en cache qui requiert une requête
   à une base de données, vous pouvez utiliser cette méthode plutôt
@@ -144,20 +147,20 @@ $smarty->display('index.tpl');
  <para>
   Vous pouvez rendre dynamiques seulement certaines parties d'une
   page avec la fonction de template <link
-  linkend="language.function.insert">{insert}</link>.
+  linkend="language.function.insert"><varname>{insert}</varname></link>.
   Imaginons que toute une page doit être mise en cache à part
   une bannière en bas à droite. En utilisant une fonction
-  <link linkend="language.function.insert">{insert}</link> pour la
+  <link linkend="language.function.insert"><varname>{insert}</varname></link> pour la
   bannière, vous pouvez garder cet élément dynamique dans le contenu qui
   est en cache. Reportez-vous à la documentation
-  <link linkend="language.function.insert">{insert}</link> pour plus de détails
+  <link linkend="language.function.insert"><varname>{insert}</varname></link> pour plus de détails
   ainsi que des exemples.
  </para>
  <para>
   Vous pouvez effacer tous les fichiers du cache avec la fonction <link
-  linkend="api.clear.all.cache">clear_all_cache()</link>, ou de façon
+  linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>, ou de façon
   individuelle <link linkend="caching.groups">(ou par groupe)</link>
-  avec la fonction <link linkend="api.clear.cache">clear_cache()</link>.
+  avec la fonction <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>.
  </para>
  <example>
   <title>Nettoyage du cache</title>
@@ -169,11 +172,11 @@ $smarty = new Smarty;
 
 $smarty->caching = 1;
 
-// efface tous les fichiers du cache
-$smarty->clear_all_cache();
-
 // efface le fichier de cache du template 'index.tpl'
 $smarty->clear_cache('index.tpl');
+
+// efface tous les fichiers du cache
+$smarty->clear_all_cache();
 
 $smarty->display('index.tpl');
 ?>

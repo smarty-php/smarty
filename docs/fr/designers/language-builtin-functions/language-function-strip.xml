@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.strip">
  <title>{strip}</title>
@@ -12,16 +12,15 @@
   code illisible et impossible à maintenir.
  </para>
  <para>
-  Tout contenu situé entre les balises {strip}{/strip} se verra
+  Tout contenu situé entre les balises <varname>{strip}{/strip}</varname> se verra
   allégé des espaces superflus et des retours chariots en début ou en fin
   de ligne, avant qu'il ne soit affiché. De la sorte, vous pouvez
   conserver vos templates lisibles, sans vous soucier des effets
   indésirables que peuvent apporter les espaces superflus.
  </para>
  <note>
-  <title>Note technique</title>
   <para>
-   {strip}{/strip} n'affecte en aucun cas le contenu des variables de
+   <varname>{strip}{/strip}</varname> n'affecte en aucun cas le contenu des variables de
    template. Voir aussi le <link linkend="language.modifier.strip">modificateur
    strip</link> pour un rendu identique pour les variables.
   </para>
@@ -62,7 +61,7 @@
  </para>
  <para>
   Voir aussi
-  le <link linkend="language.modifier.strip">modificateur strip</link>.
+  le <link linkend="language.modifier.strip">modificateur <varname>strip</varname></link>.
  </para>
 </sect1>
 
