@@ -104,6 +104,9 @@ smarty [AT] example [DOT] com
 mail [AT] example [DOT] com
 ]]>
   </screen>
+   </example>
+
+   <example>
   <title>Autres exemples</title>
   <para>Les fonctions PHP peuvent être utilisées comme modificateurs, suivant la
    configuration de

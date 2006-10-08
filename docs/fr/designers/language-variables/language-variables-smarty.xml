@@ -79,7 +79,6 @@
    est appelé à chaque invocation, i.e.
    un script qui prend 3 secondes à s'exécuter avec <parameter>$smarty.now</parameter>
    au début et à la fin montrera les 3 secondes de différence.
-  <informalexample>
   <example>
    <title>Utilisation de {$smarty.now}</title>
    <programlisting>
@@ -88,7 +87,6 @@
 {$smarty.now|date_format:'%d-%m-%Y %H:%M:%S'}
 ]]>
    </programlisting>
-  </informalexample>
   </example>
   </para>
  </sect2>

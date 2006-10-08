@@ -46,7 +46,7 @@ $this->assign('varX','Strawberry');
 <strong>{$varX}</strong> est ma glâce favorite :-)
 ]]>
   </programlisting>
-
+ </example>
  <para>
   Voir aussi
   <link linkend="variable.php.handling"><parameter>$php_handling</parameter></link>,

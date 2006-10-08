@@ -19,7 +19,8 @@
    n'a plus d'effets et la valeur de la directive de configuration
    <literal>gpc_order</literal> de PHP est utilisée.
   </para>
- </sect1>
+ </note>
+</sect1>
 
 <!-- Keep this comment at the end of the file
 Local variables:
