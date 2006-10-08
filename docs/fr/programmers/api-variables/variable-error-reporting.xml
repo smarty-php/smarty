@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: didou Status: ready -->
 
 <sect1 id="variable.error.reporting">
  <title>$error_reporting</title>
  <para>
   Lorsque cette valeur est configurée à une valeur non nulle,
   sa valeur est utilisée comme le
-  <ulink url="&url.php-manual;error_reporting">error_reporting</ulink>-level
-  de PHP à l'intérieur de <link linkend="api.display">display()</link>
-  et <link linkend="api.fetch">fetch()</link>. Lorsque le <link
+  <ulink url="&url.php-manual;error_reporting"><varname>error_reporting</varname></ulink>-level
+  de PHP à l'intérieur de <link linkend="api.display"><varname>display()</varname></link>
+  et <link linkend="api.fetch"><varname>fetch()</varname></link>. Lorsque le <link
   linkend="chapter.debugging.console">déboguage</link>
   est ignoré, cette valeur est ignorée et error-level est non-modifié.
  </para>
  <para>
   Voir aussi
-  <link linkend="api.trigger.error">trigger_error()</link>,
+  <link linkend="api.trigger.error"><varname>trigger_error()</varname></link>,
   le <link linkend="chapter.debugging.console">débogage</link> et
   <link linkend="troubleshooting">Troubleshooting</link>.
  </para>

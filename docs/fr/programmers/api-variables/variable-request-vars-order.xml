@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.request.vars.order">
  <title>$request_vars_order</title>
@@ -10,8 +10,8 @@
  </para>
  <para>
   Voir aussi
-  <link linkend="language.variables.smarty">$smarty.request</link> et
-  <link linkend="variable.request.use.auto.globals">$request_use_auto_globals</link>.
+  <link linkend="language.variables.smarty"><parameter>$smarty.request</parameter></link> et
+  <link linkend="variable.request.use.auto.globals"><parameter>$request_use_auto_globals</parameter></link>.
  </para>
 </sect1>
 

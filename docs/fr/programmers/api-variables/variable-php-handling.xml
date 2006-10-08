@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: didou Status: ready -->
 
 <sect1 id="variable.php.handling">
  <title>$php_handling</title>
  <para>
   Indique à Smarty comment interpréter le code PHP
   intégré dans les templates. Il y a quatre valeurs possibles, par
-  défaut SMARTY_PHP_PASSTHRU. Notez que celà n'affecte PAS le code
-  PHP entouré des balises
-  <link linkend="language.function.php">{php}{/php}</link>
+  défaut <constant>SMARTY_PHP_PASSTHRU</constant>. Notez
+  que celà n'affecte PAS le code PHP entouré des balises
+  <link linkend="language.function.php"><varname>{php}{/php}</varname></link>
   dans le template.
  </para>
  <itemizedlist>
-  <listitem><para>SMARTY_PHP_PASSTHRU - Smarty écrit les balises
+  <listitem><para><constant>SMARTY_PHP_PASSTHRU</constant> - Smarty écrit les balises
    telles quelles.</para></listitem>
-  <listitem><para>SMARTY_PHP_QUOTE - Smarty transforme les balises
+  <listitem><para><constant>SMARTY_PHP_QUOTE</constant> - Smarty transforme les balises
    en entités HTML.</para></listitem>
-  <listitem><para>SMARTY_PHP_REMOVE - Smarty supprime les balises
+  <listitem><para><constant>SMARTY_PHP_REMOVE</constant> - Smarty supprime les balises
    des templates.</para></listitem>
-  <listitem><para>SMARTY_PHP_ALLOW - Smarty exécute les balises
+  <listitem><para><constant>SMARTY_PHP_ALLOW</constant> - Smarty exécute les balises
    comme du code PHP.</para></listitem>
  </itemizedlist>
  <note>

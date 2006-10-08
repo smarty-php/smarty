@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.compile.id">
  <title>$compile_id</title>
  <para>
-  Identifiant persistant du compilateur. On peut passer le même $compile_id
-  a chaque appel de fonction mais une alternative consiste à régler ce
-  $compile_id, qui sera utilisé implicitement.
+  Identifiant persistant du compilateur. On peut passer le même
+  <parameter>$compile_id</parameter> a chaque appel de fonction mais une
+  alternative consiste à régler ce
+  <parameter>$compile_id</parameter>, qui sera utilisé implicitement.
  </para>
  <para>
-  Avec un $compile_id, vous pouvez contourner la limitation qui fait
+  Avec un <parameter>$compile_id</parameter>, vous pouvez contourner la limitation qui fait
   que vous ne pouvez pas utiliser le même
-  <link linkend="variable.compile.dir">$compile_dir</link> pour
-  différents <link linkend="variable.template.dir">$template_dirs</link>.
-  Si vous définissez un $compile_id distinct pour
-  chaque <link linkend="variable.template.dir">$template_dirs</link>,
-  alors Smarty indique aux templates compilés à part par leur $compile_id.
+  <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link> pour
+  différents <link linkend="variable.template.dir"><parameter>$template_dirs</parameter></link>.
+  Si vous définissez un <parameter>$compile_id</parameter> distinct pour
+  chaque <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>,
+  alors Smarty indique aux templates compilés à part par leur
+  <parameter>$compile_id</parameter>.
  </para>
  <para>
   Si vous avez par exemple un <link linkend="plugins.prefilters.postfilters">pré-filtre</link>
   qui traduit vos templates au moment de la compilation, alors, vous devriez utiliser le langage
-  courant comme $compile_id et vous devriez obtenir un jeu
+  courant comme <parameter>$compile_id</parameter> et vous devriez obtenir un jeu
   de templates compilés pour chaque langage que vous utiliserez.
  </para>
  <para>

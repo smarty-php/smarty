@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.config.overwrite">
  <title>$config_overwrite</title>
  <para>
-  Si cette variable est à vrai, les variables lues dans les
+  Si cette variable est à &true; (par défaut), les variables lues dans les
   <link linkend="config.files">fichiers de configuration</link>
   peuvent s'écraser entre elles. Sinon les variables
   seront mises dans un tableau. Très utile si vous voulez stocker
@@ -17,9 +17,9 @@
   <title>Tableau de variables de configuration</title>
   <para>
    Cet exemple utilise
-   <link linkend="language.function.cycle">{cycle}</link> pour afficher
-   un tableau dont les lignes sont alternativement rouge/verte/bleu
-   avec $config_overwrite = false.
+   <link linkend="language.function.cycle"><varname>{cycle}</varname></link>
+   pour afficher un tableau dont les lignes sont alternativement rouge/verte/bleu
+   avec <parameter>$config_overwrite</parameter> = &false;.
   </para>
   <para>Le fichier de configuration</para>
   <programlisting>
@@ -32,7 +32,7 @@ rowColors = #0000FF
   </programlisting>
   <para>
    Le template avec une boucle
-   <link linkend="language.function.section">{section}</link>.
+   <link linkend="language.function.section"><varname>{section}</varname></link>.
   </para>
   <programlisting>
 <![CDATA[
@@ -48,11 +48,11 @@ rowColors = #0000FF
  </example>
  <para>
   Voir aussi
-  <link linkend="language.function.config.load">{config_load}</link>,
-  les <link linkend="config.files">fichiers de configuration</link>,
-  <link linkend="api.get.config.vars">get_config_vars()</link>,
-  <link linkend="api.clear.config">clear_config()</link> et
-  <link linkend="api.config.load">config_load()</link>.
+  <link linkend="language.function.config.load"><varname>{config_load}</varname></link>,
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>,
+  <link linkend="api.clear.config"><varname>clear_config()</varname></link>,
+  <link linkend="api.config.load"><varname>config_load()</varname></link> et
+  les <link linkend="config.files">fichiers de configuration</link>.
   </para>
 </sect1>
 

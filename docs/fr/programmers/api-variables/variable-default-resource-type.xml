@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.2 Maintainer: didou Status: ready -->
+
 <sect1 id="variable.default.resource.type">
  <title>$default_resource_type</title>
  <para>
   Ceci dit à smarty quel type de ressource utiliser implicitement. La valeur
-  par défaut est 'file', signifiant que $smarty->display('index.tpl'); et
-  $smarty->display('file:index.tpl'); sont la même chose. Voyez le chapitre
+  par défaut est <literal>file</literal>, signifiant que
+  <literal>$smarty->display('index.tpl')</literal> et
+  <literal>$smarty->display('file:index.tpl')</literal> sont la même chose. Voyez le chapitre
   <link linkend="template.resources">ressource</link> pour plus de détails.
-  </para>
- </sect1>
+ </para>
+</sect1>
+
  <!-- Keep this comment at the end of the file
  Local variables:
  mode: sgml

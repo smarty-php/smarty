@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.force.compile">
  <title>$force_compile</title>
  <para>
   Celà oblige Smarty à (re)compiler les templates à chaque
   invocation. Ce réglage supplante
-  <link linkend="variable.compile.check">$compile_check</link>.
-  Par défaut, il est désactivé. Ceci est commode pour le développement
+  <link linkend="variable.compile.check"><parameter>$compile_check</parameter></link>.
+  Par défaut, il vaut &false;. Ceci est commode pour le développement
   et le <link linkend="chapter.debugging.console">débogage</link>
   mais ne devrait jamais être utilisé dans un environnment de production.
   Si le système de <link linkend="variable.caching">cache</link> est actif, les

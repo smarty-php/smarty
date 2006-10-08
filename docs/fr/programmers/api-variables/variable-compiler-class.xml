@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.1 Maintainer: yannick Status: ready -->
+
 <sect1 id="variable.compiler.class">
  <title>$compiler_class</title>
  <para>
@@ -9,6 +10,7 @@
   'Smarty_Compiler'. Réservé aux utilisateurs avancés.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

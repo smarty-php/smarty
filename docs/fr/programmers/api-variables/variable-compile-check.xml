@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.compile.check">
  <title>$compile_check</title>
@@ -11,20 +11,20 @@
   dernière compilation. S'il a changé, le template est recompilé.
   Si le template n'a pas encore été compilé, il le sera
   quelque soit la valeur de ce réglage.
-  Par défaut cette valeur est à vrai.
+  Par défaut cette valeur est à &true;.
  </para>
  <para>
  Quand une application est mise en production (les templates
   ne changent plus), cette vérification n'est pas nécessaire.
-  Assurez-vous de mettre $compile_check à "false" pour des performances
-  maximales. Notez que si vous mettez ce paramètre à "false" et qu'un
+  Assurez-vous de mettre <parameter>$compile_check</parameter> à &false;
+  pour des performances maximales. Notez que si vous mettez ce paramètre à &false; et qu'un
   template est modifié, vous ne verrez *pas* le changement
   car le template ne sera *pas* recompilé. Si le processus de cache
-  est activé et que $compile_check l'est aussi, alors les fichiers
+  est activé et que <parameter>$compile_check</parameter> l'est aussi, alors les fichiers
   du cache seront regénérés si un template concerné ou un fichier de
   configuration concerné est modifié. Voir aussi <link
-  linkend="variable.force.compile">$force_compile</link> ou <link
-  linkend="api.clear.compiled.tpl">clear_compiled_tpl</link>.
+  linkend="variable.force.compile"><parameter>$force_compile</parameter></link> ou <link
+  linkend="api.clear.compiled.tpl"><varname>clear_compiled_tpl()</varname></link>.
  </para>
 </sect1>
 

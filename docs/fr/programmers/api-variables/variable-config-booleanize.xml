@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+
 <sect1 id="variable.config.booleanize">
  <title>$config_booleanize</title>
  <para>
-  Si cette variable est a vrai, les valeurs on/true/yes et off/false/no
-  dans les fichiers de configuration sont automitiquement converties
-  en booléen. De cette façon vous pouvez utiliser ces valeurs dans le
-  template de la façon suivante : {if #foobar#} ... {/if}. Si foobar
-  est à on, true ou yes, l'instruction {if} sera exécutée. vrai
-  par défaut.
+  Si cette variable est à &true;, les valeurs <literal>on/true/yes</literal>
+  et <literal>off/false/no</literal> dans
+  <link linkend="config.files">les fichiers de configuration</link>
+  sont automitiquement converties en booléen. De cette façon vous pouvez
+  utiliser ces valeurs dans le template de la façon suivante : <literal>{if #foobar#}...{/if}</literal>.
+  Si foobar est à <literal>on</literal>, <literal>true</literal> ou <literal>yes</literal>,
+  l'instruction <varname>{if}</varname> sera exécutée. &true; par défaut.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

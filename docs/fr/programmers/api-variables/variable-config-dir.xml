@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.config.dir">
  <title>$config_dir</title>
@@ -8,7 +8,7 @@
   Il s'agit du répertoire utilisé pour stocker les
   <link linkend="config.files">fichiers de configuration</link>
   utilisés dans les templates.
-  La valeur par défaut est <filename class="directory">"./configs"</filename>,
+  La valeur par défaut est <filename class="directory">./configs</filename>,
   ce qui signifie que Smarty va chercher ce répertoire
   dans le même répertoire que le script PHP qui s'exécute.
  </para>

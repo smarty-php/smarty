@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.use.sub.dirs">
  <title>$use_sub_dirs</title>
@@ -8,15 +8,15 @@
   Smarty va créer des sous-dossiers dans les dossiers
   <link linkend="variable.compile.dir">templates_c</link> et
   <link linkend="variable.cache.dir">cache</link>
-  si la variable $use_sub_dirs est défini à true (Par défaut, vaut false).
+  si la variable <parameter>$use_sub_dirs</parameter> est défini à &true; (Par défaut, vaut &false;).
   Dans un environnement où il peut y avoir potentiellement des centaines de milliers
   de fichiers de créés, ceci peut rendre le système de fichiers plus rapide.
   D'un autre côté, quelques environnements n'acceptent pas que les processus PHP
-  créent des dossiers, donc, cette variable doit être désactivée. Par défaut,
-  cette variable vaut false (désactivé). Les sous-dossiers sont plus efficaces, utilisez-les
-  donc si vous le pouvez.
+  créent des dossiers, donc, cette variable doit être désactivée par défaut.
  </para>
  <para>
+  Les sous-dossiers sont plus efficaces, utilisez-les
+  donc si vous le pouvez.
   Théoriquement, vous obtiendrez plus de performance sur un système de fichier
   contenant 10 dossiers contenant chaque, 100 fichiers plutôt qu'un dossier
   contenant 1000 fichiers. C'est par exemple le cas avec Solaris 7 (UFS)...
@@ -25,26 +25,27 @@
  </para>
  <note>
   <title>Note technique</title>
-  <para>
-   $use_sub_dirs=true ne fonctionne pas avec
-   <ulink url="&url.php-manual;features.safe-mode">safe_mode=On</ulink>,
-   raison pour laquelle c'est paramétrable et que c'est désactivé par défaut.
-  </para>
-  <para>
-   $use_sub_dirs=true sous Windows peut causer des problèmes.
-</para>
+  <itemizedlist>
+   <listitem>
+    <para><literal>$use_sub_dirs=true</literal> ne fonctionne pas avec
+     <ulink url="&url.php-manual;features.safe-mode">safe_mode=On</ulink>,
+     raison pour laquelle c'est paramétrable et que c'est désactivé par défaut.
+    </para>
+   </listitem>
+   <listitem>
+    <para><literal>$use_sub_dirs=true</literal> sous Windows peut causer des problèmes.</para>
+   </listitem>
+   <listitem>
+    <para>Safe_mode est obsolète depuis PHP6.</para>
+   </listitem>
+  </itemizedlist>
  </note>
- <note>
-  <title>Note</title>
-  <para>
-   Depuis Smarty-2.6.2, <varname>$use_sub_dirs</varname> vaut false par défaut.
-  </para>
- </note>
+
  <para>
   Voir aussi
-  <link linkend="variable.compile.dir">$compile_dir</link>,
-  <link linkend="variable.compile.id">$compile_id</link> et
-  <link linkend="variable.cache.dir">$cache_dir</link>.
+  <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>,
+  <link linkend="variable.cache.dir"><parameter>$cache_dir</parameter></link> et
+  <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link>.
  </para>
 </sect1>
 

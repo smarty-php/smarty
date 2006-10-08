@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: didou Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: didou Status: ready -->
 
 <sect1 id="variable.cache.lifetime">
  <title>$cache_lifetime</title>
  <para>
   Il s'agit de la durée en secondes pendant laquelle un cache de template
   est valide. Une fois cette durée dépassée, le cache est regénéré.
-  $caching doit être activé (soit 1 ou 2) pour que $cache_lifetime ait une
-  quelconque utilité. Avec une valeur de -1, le cache n'expire jamais.
-  Avec une valeur de 0, le cache est toujours regénéré (utile
-  a des fins de tests seulement. Une meilleure façon de désactiver
-  le cache est de mettre <link
-  linkend="variable.caching">$caching</link> = 0).
  </para>
+
+ <itemizedlist>
+  <listitem><para>
+    <parameter>$caching</parameter> doit être activé (soit 1 ou 2) pour que
+    <parameter>$cache_lifetime</parameter> ait une quelconque utilité.
+   </para></listitem>
+
+  <listitem><para>
+    Avec une valeur de -1, le cache n'expire jamais.
+   </para></listitem>
+
+  <listitem><para>Avec une valeur de 0, le cache est toujours regénéré (utile
+    a des fins de tests seulement. Une meilleure façon de désactiver
+    le cache est de mettre <link
+    linkend="variable.caching"><parameter>$caching</parameter></link> = 0).
+   </para></listitem>
+  <listitem><para>
+    Si vous souhaitez donner a certains templates leur propre durée de vie
+    en cache, vous pouvez le faire en réglant <link linkend="variable.caching">
+     <parameter>$caching</parameter></link> à 2,
+    puis <parameter>$cache_lifetime</parameter> à une unique valeur juste avant d'appeler
+    <link linkend="api.display"><varname>display()</varname>
+    </link> ou <link linkend="api.fetch"><varname>fetch()</varname></link>.
+   </para></listitem>
+ </itemizedlist>
+
  <para>
-  Si <link linkend="variable.force.compile">$force_compile</link> est
+  Si <link linkend="variable.force.compile"><parameter>$force_compile</parameter></link> est
   activé, les fichiers du cache seront regénérés a chaque fois,
   désactivant ainsi le cache. Vous pouvez effacer tous les fichiers du cache
   avec la function
-  <link linkend="api.clear.all.cache">clear_all_cache()</link>
+  <link linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>
   ou de façon individuelle (ou groupée) avec la fonction <link
-  linkend="api.clear.cache">clear_cache()</link>.
+  linkend="api.clear.cache"><varname>clear_cache()</varname></link>.
  </para>
- <note>
-  <title>Note technique</title>
-  <para>
-   Si vous souhaitez donner a certains templates leur propre durée de vie
-   en cache, vous pouvez le faire en réglant
-   <link linkend="variable.caching">$caching</link> a 2,
-   puis $cache_lifetime a une unique valeur juste avant d'appeler
-   <link linkend="api.display">display()</link> ou <link linkend="api.fetch">fetch()</link>.
-  </para>
- </note>
 </sect1>
 
 <!-- Keep this comment at the end of the file

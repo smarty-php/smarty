@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nobody Status: partial -->
+<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+
 <sect1 id="variable.default.modifiers">
  <title>$default_modifiers</title>
  <para>
   Il s'agit d'un tableau de modificateurs utilisé pour assigner
   une valeur par défaut a chaque variable dans un template.
   Par exemple, pour par défaut échapper les caractéres HTML de chaque variable,
-  utilisez array('escape:"htmlall"'); Pour rendre une variable indépendante
+  utilisez <literal>array('escape:"htmlall"')</literal>. Pour rendre une variable indépendante
   des modificateurs par défaut, passez-lui en paramètre le modificateur
-  "nodefaults" : {$var|nodefaults}.
+  <literal>nodefaults</literal> : <literal>{$var|smarty:nodefaults}</literal>.
  </para>
 </sect1>
+
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: sgml

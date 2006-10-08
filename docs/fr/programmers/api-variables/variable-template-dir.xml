@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.template.dir">
  <title>$template_dir</title>
@@ -8,8 +8,8 @@
   C'est le nom par défaut du répertoire des templates.
   Si vous ne spécifiez aucun chemin lors de l'utilisation de templates, Smarty
   les cherchera à cet emplacement. Par défaut, il s'agit de
-  <filename class="directory">"./templates"</filename>, ce qui signifie
-  qu'il va chercher le répertoire <filename class="directory">templates</filename>
+  <filename class="directory">./templates</filename>, ce qui signifie
+  qu'il va chercher le répertoire <filename class="directory">templates/</filename>
   dans le répertoire où se trouve le script PHP en cours d'exécution.
  </para>
 

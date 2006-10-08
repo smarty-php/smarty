@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.config.read.hidden">
  <title>$config_read_hidden</title>
  <para>
-  Si cette variable est à vrai, les sections cachées (dont les noms
+  Si cette variable est à &true;, les sections cachées (dont les noms
   commencent par un point) dans les <link linkend="config.files">fichiers de configuration</link>
-  peuvent être lues depuis les templates. On laisse habituellement celà à faux, de
+  peuvent être lues depuis les templates. On laisse habituellement celà à &false;, de
   cette façon vous pouvez stocker des données sensibles dans les fichiers
   de configuration, par exemple des paramètres de base de données,
   sans vous soucier de la façon dont les templates les chargent.
-  Mise à faux par défaut.
+  Mise à &false; par défaut.
  </para>
 </sect1>
 

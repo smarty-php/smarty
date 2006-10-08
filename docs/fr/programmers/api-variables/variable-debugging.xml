@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.debugging">
  <title>$debugging</title>
@@ -11,20 +11,20 @@
   <link linkend="language.function.include">inclus</link> et des variables
   <link linkend="api.assign">assignées</link> depuis PHP et des
   <link linkend="language.config.variables">variables des fichiers de configuration</link>
-  pour la page courante de template. Il ne montre pas les variables assignées
+  pour le script courant. Il ne montre pas les variables assignées
   dans un template avec
-  <link linkend="language.function.assign">{assign}</link>.
+  <link linkend="language.function.assign"><varname>{assign}</varname></link>.
  </para>
  <para>
   Voir aussi
-  <link linkend="variable.debugging.ctrl">$debugging_ctrl</link>
+  <link linkend="variable.debugging.ctrl"><parameter>$debugging_ctrl</parameter></link>
   sur la façon d'activer le débogage depuis l'url.
  </para>
  <para>
   Voir aussi
-  <link linkend="language.function.debug">{debug}</link>,
-  <link linkend="variable.debug.tpl">$debug_tpl</link> et
-  <link linkend="variable.debugging.ctrl">$debugging_ctrl</link>
+  <link linkend="language.function.debug"><varname>{debug}</varname></link>,
+  <link linkend="variable.debug.tpl"><parameter>$debug_tpl</parameter></link> et
+  <link linkend="variable.debugging.ctrl"><parameter>$debugging_ctrl</parameter></link>.
  </para>
 </sect1>
 

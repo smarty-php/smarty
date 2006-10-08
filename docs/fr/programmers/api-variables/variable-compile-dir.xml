@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.compile.dir">
  <title>$compile_dir</title>
  <para>
   C'est le nom du répertoire où se trouvent les templates
-  compilés. Par défaut, il s'agit de <filename class="directory">"./templates_c"</filename>,
+  compilés. Par défaut, il s'agit de <filename class="directory">./templates_c</filename>,
   ce qui signifie que Smarty va chercher ce répertoire
   dans le même répertoire que le script PHP en cours d'exécution.
   <emphasis role="bold">Ce dossier doit être accessible en écriture
   par le serveur web.</emphasis>
-  (<link linkend="installing.smarty.basic">Voir l'installation</link>).
-  Voir aussi <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
+  (<link linkend="installing.smarty.basic">Voir l'installation</link> pour plus d'informations).
  </para>
  <note>
   <title>Note technique</title>
@@ -30,8 +29,8 @@
  </note>
  <para>
   Voir aussi
-  <link linkend="variable.compile.id">$compile_id</link> et
-  <link linkend="variable.use.sub.dirs">$use_sub_dirs</link>.
+  <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link> et
+  <link linkend="variable.use.sub.dirs"><parameter>$use_sub_dirs</parameter></link>.
  </para>
 </sect1>
 

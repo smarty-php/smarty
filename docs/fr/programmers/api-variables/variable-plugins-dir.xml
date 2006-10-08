@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.plugins.dir">
  <title>$plugins_dir</title>
  <para>
   C'est le répertoire (ou les répertoires) dans lequel Smarty ira chercher
   les plugins dont il a besoin. La valeur par défaut est
-  <filename class="directory">"plugins"</filename> sous
-  le répertoire <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
+  <filename class="directory">plugins/</filename> sous
+  le répertoire <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>.
   Si vous donnez un chemin relatif, Smarty
   regardera d'abord relativement au
-  <link linkend="constant.smarty.dir">SMARTY_DIR</link>, puis relativement
-  au rtc (répertoire de travail courant), puis relativement a chaque entrée de votre répertoire
-  d'inclusion PHP. Si $plugins_dir est un tableau de répertoires, Smarty
-  cherchera les plugins dans chaque répertoire de plugins, dans l'ordre donné.
+  <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>, puis relativement
+  au répertoire de travail courant, puis relativement à chaque entrée de votre répertoire
+  d'inclusion PHP. Si <parameter>$plugins_dir</parameter> est un tableau de répertoires, Smarty
+  cherchera les plugins dans chaque répertoire de plugins,
+  <emphasis role="bold">dans l'ordre donné</emphasis>.
  </para>
  <note>
   <title>Note technique</title>
   <para>
-   Pour des raisons de performances, ne réglez pas votre plugins_dir
+   Pour des raisons de performances, ne réglez pas votre <parameter>$plugins_dir</parameter>
    pour qu'il utilise votre include_path PHP. Utilisez un
-   chemin absolu ou un chemin relatif a SMARTY_DIR ou au rtc.
+   chemin absolu ou un chemin relatif a <constant>SMARTY_DIR</constant> ou
+   au répertoire de travail courant.
   </para>
  </note>
 

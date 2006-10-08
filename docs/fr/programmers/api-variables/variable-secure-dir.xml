@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.secure.dir">
  <title>$secure_dir</title>
  <para>
   Il s'agit d'un tableau contenant tous les fichiers et répertoires locaux qui sont
   considérés comme sécurisés.
-  <link linkend="language.function.include">{include}</link> et
-  <link linkend="language.function.fetch">{fetch}</link> l'utilisent quand
+  <link linkend="language.function.include"><varname>{include}</varname></link> et
+  <link linkend="language.function.fetch"><varname>{fetch}</varname></link> l'utilisent quand
   la <link linkend="variable.security">sécurité</link> est activée.
  </para>
  <example>
-  <title>$secure_dir example</title>
+  <title>Exemple avec $secure_dir</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -26,7 +26,7 @@ $smarty->secure_dir = $secure_dirs;
  <para>
   Voir aussi
   la <link linkend="variable.security.settings">configuration pour la sécurité</link>et
-  <link linkend="variable.trusted.dir">$trusted_dir</link>.
+  <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>.
 </para>
 </sect1>
 

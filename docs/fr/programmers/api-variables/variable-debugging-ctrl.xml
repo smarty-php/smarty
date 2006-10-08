@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.debugging.ctrl">
  <title>$debugging_ctrl</title>
  <para>
-  Celà permet d'avoir différents moyens pour activer
-  le débogage. URL signifie que si SMARTY_DEBUG se
-  trouve dans QUERY_STRING, le débogage
-  est activé à l'invocation du script. Si
+  Cela permet d'avoir diffÃ©rents moyens pour activer
+  le dÃ©bogage. <literal>NONE</literal> signifie qu'aucune
+  mÃ©thode alternative n'est autorisÃ©e. <literal>URL</literal>
+  signifie que si <literal>SMARTY_DEBUG</literal> se
+  trouve dans <literal>QUERY_STRING</literal>, le dÃ©bogage
+  est activÃ© Ã  l'invocation du script. Si
   <link linkend="variable.debugging">$debugging</link>
-  est à vrai, cette valeur est sans effet.
+  est Ã  &true;, cette valeur est sans effet.
  </para>
+ <example>
+  <title>$debugging_ctrl sur localhost</title>
+  <programlisting role="php">
+<![CDATA[
+<?php
+// affiche la console de dÃ©bogage uniquement sur localhost ie
+// http://localhost/script.php?foo=bar&SMARTY_DEBUG
+$smarty->debugging = false; // the default
+$smarty->debugging_ctrl = ($_SERVER['SERVER_NAME'] == 'localhost') ? 'URL' : 'NONE';
+?>
+]]>
+  </programlisting>
+ </example>
  <para>
   Voir aussi
-  la <link linkend="chapter.debugging.console">console de débogage</link>.
+  la <link linkend="chapter.debugging.console">console de dÃ©bogage</link> et
+  <link linkend="variable.debugging"><parameter>$debugging</parameter></link>.
  </para>
 </sect1>
 

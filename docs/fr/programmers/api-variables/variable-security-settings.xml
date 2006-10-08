@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: gerald Status: ready -->
 
 <sect1 id="variable.security.settings">
  <title>$security_settings</title>
@@ -12,43 +12,44 @@
  <itemizedlist>
   <listitem>
    <para>
-    PHP_HANDLING - true/false. Si vrai, le
-    réglage <link linkend="variable.php.handling">$php_handling</link>
+    <constant>PHP_HANDLING</constant> - booléen. Si &true;, le
+    réglage <link linkend="variable.php.handling"><parameter>$php_handling</parameter></link>
     n'est pas vérifié.
    </para>
   </listitem>
   <listitem>
    <para>
-    IF_FUNCS - Le tableau des noms de fonctions
-    PHP autorisées dans les intructions <link linkend="language.function.if">{if}</link>.
+    <constant>IF_FUNCS</constant> - Le tableau des noms de fonctions
+    PHP autorisées dans les intructions
+    <link linkend="language.function.if"><varname>{if}</varname></link>.
    </para>
   </listitem>
   <listitem>
    <para>
-    INCLUDE_ANY - true/false. Si vrai,
+    <constant>INCLUDE_ANY</constant> - booléen. Si &true;,
     les templates peuvent être inclus de n'importe où, quelque soit
-    le contenu de <link linkend="variable.secure.dir">$secure_dir</link>.
+    le contenu de <link linkend="variable.secure.dir"><parameter>$secure_dir</parameter></link>.
    </para>
   </listitem>
   <listitem>
    <para>
-    PHP_TAGS - true/false. Si vrai,
-    les balises <link linkend="language.function.php">{php}{/php}</link>
+    <constant>PHP_TAGS</constant> - booléen. Si &true;,
+    les balises <link linkend="language.function.php"><varname>{php}{/php}</varname></link>
     sont autorisées dans les templates.
    </para>
   </listitem>
   <listitem>
    <para>
-    MODIFIER_FUNCS - Le tableau des noms de fonctions
+    <constant>MODIFIER_FUNCS</constant> - Le tableau des noms de fonctions
     autorisées à être utilisées comme modificateurs de
     variables.
    </para>
   </listitem>
   <listitem>
    <para>
-    ALLOW_CONSTANTS - true/false. Si l'accès aux constantes via
+    <constant>ALLOW_CONSTANTS</constant> - booléen. Si l'accès aux constantes via
     la syntaxe <link linkend="language.variables.smarty.const">{$smarty.const.name}</link>
-    est autorisé ou non. Par défaut, pour des raisons de sécurité, le paramètre est à false.
+    est autorisé ou non.
    </para>
   </listitem>
  </itemizedlist>

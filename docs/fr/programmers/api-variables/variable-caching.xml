@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.caching">
  <title>$caching</title>
@@ -10,30 +10,53 @@
   Par défaut, ce réglage est à 0 (désactivé). Si vos templates
   générent du contenu redondant, il est conseillé d'activer le
   cache. Celà permettra un gain de performance conséquent.
+ </para>
+
+ <para>
   Vous pouvez aussi avoir de
-  <link linkend="caching.multiple.caches">nombreux fichiers de cache</link> pour un même template.
-  Une valeur de 1 ou 2 active le cache. 1 indique a Smarty d'utiliser
-  la variable <link linkend="variable.cache.lifetime">$cache_lifetime</link>
-  pour déterminer si le fichier de cache a expiré.
-  Une valeur de 2 indique à Smarty d'utiliser la valeur
-  <link linkend="variable.cache.lifetime">$cache_lifetime</link> spécifiée à la
+  <link linkend="caching.multiple.caches">nombreux fichiers de cache</link>
+  pour un même template.
+ </para>
+
+ <itemizedlist>
+  <listitem><para>
+    Une valeur de 1 ou 2 active le cache.
+   </para></listitem>
+
+  <listitem><para>
+    1 indique a Smarty d'utiliser la variable
+    <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>
+    pour déterminer si le fichier de cache a expiré.
+   </para></listitem>
+  <listitem><para>
+    Une valeur de 2 indique à Smarty d'utiliser la valeur
+    <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>
+    spécifiée à la
   génération du cache. Ainsi vous pouvez régler
   la durée de vie d'un fichier de cache avant de <link linkend="api.fetch">récupérer</link>
-  le template pour avoir un certain contrôle quand ce fichier en particulier expire. Voir
-  aussi <link linkend="api.is.cached">is_cached()</link>.
- </para>
- <para>
-  Si <link linkend="variable.compile.check">$compile_check</link> est actif, le contenu
-  du cache sera regénéré si un des templates ou un des fichiers de configuration qui fait partie
-  de ce fichier de cache a été modifié. Si <link linkend="variable.force.compile">$force_compile</link>
-  est actif, le contenu du cache est toujours regénéré.
- </para>
+    le template pour avoir un certain contrôle quand ce fichier en particulier expire. Voir
+  aussi <link linkend="api.is.cached"><varname>is_cached()</varname></link>.
+   </para></listitem>
+
+  <listitem><para>
+    Si <link linkend="variable.compile.check"><parameter>$compile_check</parameter></link>
+    est actif, le contenu du cache sera regénéré si un des templates ou un des fichiers de
+    configuration qui fait partie de ce fichier de cache a été modifié.
+   </para></listitem>
+  <listitem><para>
+    Si <link linkend="variable.force.compile">
+     <parameter>$force_compile</parameter></link> est actif, le contenu du cache
+    est toujours regénéré.
+   </para></listitem>
+ </itemizedlist>
+
  <para>
   Voir aussi
-  <link linkend="variable.cache.dir">$cache_dir</link>,
-  <link linkend="variable.cache.lifetime">$cache_lifetime</link>,
-  <link linkend="variable.cache.handler.func">$cache_handler_func</link>,
-  <link linkend="variable.cache.modified.check">$cache_modified_check</link> et
+  <link linkend="variable.cache.dir"><parameter>$cache_dir</parameter></link>,
+  <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>,
+  <link linkend="variable.cache.handler.func"><parameter>$cache_handler_func</parameter></link>,
+  <link linkend="variable.cache.modified.check"><parameter>$cache_modified_check</parameter></link>,
+  <link linkend="api.is.cached"><varname>is_cached()</varname></link> et
   la <link linkend="caching">section sur le cache</link>.
  </para>
 </sect1>

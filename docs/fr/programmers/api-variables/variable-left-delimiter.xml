@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.4 Maintainer: yannick Status: ready -->
 
 <sect1 id="variable.left.delimiter">
  <title>$left_delimiter</title>
  <para>
   Il s'agit du délimiteur gauche utilisé par le moteur de templates. La
-  valeur par défaut est "{".
+  valeur par défaut est <literal>{</literal>.
  </para>
  <para>
   Voir aussi
-  <link linkend="variable.right.delimiter">$right_delimiter</link> et
+  <link linkend="variable.right.delimiter"><parameter>$right_delimiter</parameter></link> et
   l'<link linkend="language.escaping">analyse d'échapement Smarty</link>.
  </para>
 </sect1>
