@@ -1,3 +1,51 @@
+2006-10-07  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/programmers/advanced-features/advanced-features-objects.xml
+      docs/fr/programmers/advanced-features/advanced-features-outputfilters.xml
+      docs/fr/programmers/advanced-features/advanced-features-postfilters.xml
+      docs/fr/programmers/advanced-features/advanced-features-prefilters.xml
+      docs/fr/programmers/advanced-features/section-template-cache-handler-func.xml
+      docs/fr/programmers/advanced-features/template-resources.xml
+      docs/fr/programmers/api-functions/api-append-by-ref.xml
+      docs/fr/programmers/api-functions/api-append.xml
+      docs/fr/programmers/api-functions/api-assign-by-ref.xml
+      docs/fr/programmers/api-functions/api-assign.xml
+      docs/fr/programmers/api-functions/api-clear-all-assign.xml
+      docs/fr/programmers/api-functions/api-clear-all-cache.xml
+      docs/fr/programmers/api-functions/api-clear-assign.xml
+      docs/fr/programmers/api-functions/api-clear-cache.xml
+      docs/fr/programmers/api-functions/api-clear-compiled-tpl.xml
+      docs/fr/programmers/api-functions/api-clear-config.xml
+      docs/fr/programmers/api-functions/api-config-load.xml
+      docs/fr/programmers/api-functions/api-display.xml
+      docs/fr/programmers/api-functions/api-fetch.xml
+      docs/fr/programmers/api-functions/api-get-config-vars.xml
+      docs/fr/programmers/api-functions/api-get-registered-object.xml
+      docs/fr/programmers/api-functions/api-get-template-vars.xml
+      docs/fr/programmers/api-functions/api-is-cached.xml
+      docs/fr/programmers/api-functions/api-load-filter.xml
+      docs/fr/programmers/api-functions/api-register-block.xml
+      docs/fr/programmers/api-functions/api-register-compiler-function.xml
+      docs/fr/programmers/api-functions/api-register-function.xml
+      docs/fr/programmers/api-functions/api-register-modifier.xml
+      docs/fr/programmers/api-functions/api-register-object.xml
+      docs/fr/programmers/api-functions/api-register-outputfilter.xml
+      docs/fr/programmers/api-functions/api-register-postfilter.xml
+      docs/fr/programmers/api-functions/api-register-prefilter.xml
+      docs/fr/programmers/api-functions/api-register-resource.xml
+      docs/fr/programmers/api-functions/api-template-exists.xml
+      docs/fr/programmers/api-functions/api-trigger-error.xml
+      docs/fr/programmers/api-functions/api-unregister-block.xml
+      docs/fr/programmers/api-functions/api-unregister-compiler-function.xml
+      docs/fr/programmers/api-functions/api-unregister-function.xml
+      docs/fr/programmers/api-functions/api-unregister-modifier.xml
+      docs/fr/programmers/api-functions/api-unregister-object.xml
+      docs/fr/programmers/api-functions/api-unregister-outputfilter.xml
+      docs/fr/programmers/api-functions/api-unregister-postfilter.xml
+      docs/fr/programmers/api-functions/api-unregister-prefilter.xml
+      docs/fr/programmers/api-functions/api-unregister-resource.xml:
+      sync with EN
+
 2006-10-03  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/designers/language-custom-functions/language-function-html-select-time.xml
