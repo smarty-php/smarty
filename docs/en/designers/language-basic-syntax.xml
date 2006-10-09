@@ -8,7 +8,7 @@
   <literal>}</literal>, but they can be <link linkend="variable.left.delimiter">changed</link>.
  </para>
  <para>
-  For examples, we will assume that you are using the default
+  For the examples in this manual, we will assume that you are using the default
   delimiters. In Smarty, all content outside of delimiters is displayed as
   static content, or unchanged. When Smarty encounters template tags, it
   attempts to interpret them, and displays the appropriate output in their

@@ -528,6 +528,9 @@ $smarty->cache_dir    = '/web/www.example.com/guestbook/cache/';
 
 $smarty->assign('name','Ned');
 
+//** un-comment the following line to show the debug console
+//$smarty->debugging = true;
+
 $smarty->display('index.tpl');
 
 ?>

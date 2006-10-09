@@ -51,6 +51,17 @@
 </programlisting>
  </example>
 
+<note>
+<title>XHTML validation</title>
+<para>The <literal>{popup_init}</literal> does not validate with
+strict and you will get the error
+<literal>document type does not allow element "div" here;</literal>
+(ie a <literal>&lt;div&gt;</literal> tag in the <literal>&lt;head&gt;</literal>).
+
+This means you will need to include the <literal>&lt;script&gt;</literal> and
+<literal>&lt;div&gt;</literal> tags manually.
+</para>
+</note>
 
 </sect1>
 <!-- Keep this comment at the end of the file

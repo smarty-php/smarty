@@ -121,10 +121,10 @@ smarty [AT] example [DOT] com
       <link linkend="language.function.mailto">
       <varname>{mailto}</varname></link></para>
       <screen>
-   <![CDATA[
-   {* email address mangled *}
-   <a href="mailto:{$EmailAddress|escape:'hex'}">{$EmailAddress|escape:'mail'}</a>
-   ]]>
+<![CDATA[
+{* email address mangled *}
+<a href="mailto:{$EmailAddress|escape:'hex'}">{$EmailAddress|escape:'mail'}</a>
+]]>
    </screen>
   </example>
 

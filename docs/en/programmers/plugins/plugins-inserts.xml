@@ -42,9 +42,7 @@ function smarty_insert_time($params, &$smarty)
         $smarty->trigger_error("insert time: missing 'format' parameter");
         return;
     }
-
-    $datetime = strftime($params['format']);
-    return $datetime;
+    return strftime($params['format']);
 }
 ?>
 ]]>

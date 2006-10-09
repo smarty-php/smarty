@@ -37,15 +37,15 @@ $smarty->caching = true;
 if(!$smarty->is_cached('index.tpl')) {
 
   // dummy up some data
-  $address = "245 N 50th";
+  $address = '245 N 50th';
   $db_data = array(
-               "City" => "Lincoln",
-               "State" => "Nebraska",
-               "Zip" => "68502"
+               'City' => 'Lincoln',
+               'State' => 'Nebraska',
+               'Zip' => '68502'
              );
 
-  $smarty->assign("Name","Fred");
-  $smarty->assign("Address",$address);
+  $smarty->assign('Name', 'Fred');
+  $smarty->assign('Address', $address);
   $smarty->assign('data', $db_data);
 
 }
