@@ -1,3 +1,65 @@
+2006-10-08  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/designers/language-builtin-functions/language-function-php.xml
+      docs/fr/designers/language-modifiers/language-modifier-escape.xml
+      docs/fr/designers/language-variables/language-variables-smarty.xml
+      docs/fr/programmers/api-variables/variable-request-use-auto-globals.xml:
+      fix build
+
+    * docs/fr/designers/language-builtin-functions/language-function-strip.xml
+      docs/fr/programmers/caching.xml
+      docs/fr/programmers/smarty-constants.xml
+      docs/fr/programmers/api-variables/variable-autoload-filters.xml
+      docs/fr/programmers/api-variables/variable-cache-dir.xml
+      docs/fr/programmers/api-variables/variable-cache-handler-func.xml
+      docs/fr/programmers/api-variables/variable-cache-lifetime.xml
+      docs/fr/programmers/api-variables/variable-cache-modified-check.xml
+      docs/fr/programmers/api-variables/variable-caching.xml
+      docs/fr/programmers/api-variables/variable-compile-check.xml
+      docs/fr/programmers/api-variables/variable-compile-dir.xml
+      docs/fr/programmers/api-variables/variable-compile-id.xml
+      docs/fr/programmers/api-variables/variable-compiler-class.xml
+      docs/fr/programmers/api-variables/variable-config-booleanize.xml
+      docs/fr/programmers/api-variables/variable-config-dir.xml
+      docs/fr/programmers/api-variables/variable-config-fix-newlines.xml
+      docs/fr/programmers/api-variables/variable-config-overwrite.xml
+      docs/fr/programmers/api-variables/variable-config-read-hidden.xml
+      docs/fr/programmers/api-variables/variable-debug-tpl.xml
+      docs/fr/programmers/api-variables/variable-debugging-ctrl.xml
+      docs/fr/programmers/api-variables/variable-debugging.xml
+      docs/fr/programmers/api-variables/variable-default-modifiers.xml
+      docs/fr/programmers/api-variables/variable-default-resource-type.xml
+      docs/fr/programmers/api-variables/variable-default-template-handler-func.xml
+      docs/fr/programmers/api-variables/variable-error-reporting.xml
+      docs/fr/programmers/api-variables/variable-force-compile.xml
+      docs/fr/programmers/api-variables/variable-left-delimiter.xml
+      docs/fr/programmers/api-variables/variable-php-handling.xml
+      docs/fr/programmers/api-variables/variable-plugins-dir.xml
+      docs/fr/programmers/api-variables/variable-request-use-auto-globals.xml
+      docs/fr/programmers/api-variables/variable-request-vars-order.xml
+      docs/fr/programmers/api-variables/variable-right-delimiter.xml
+      docs/fr/programmers/api-variables/variable-secure-dir.xml
+      docs/fr/programmers/api-variables/variable-security-settings.xml
+      docs/fr/programmers/api-variables/variable-security.xml
+      docs/fr/programmers/api-variables/variable-template-dir.xml
+      docs/fr/programmers/api-variables/variable-trusted-dir.xml
+      docs/fr/programmers/api-variables/variable-use-sub-dirs.xml
+      docs/fr/programmers/caching/caching-cacheable.xml
+      docs/fr/programmers/caching/caching-groups.xml
+      docs/fr/programmers/caching/caching-multiple-caches.xml
+      docs/fr/programmers/caching/caching-setting-up.xml
+      docs/fr/programmers/plugins/plugins-block-functions.xml
+      docs/fr/programmers/plugins/plugins-compiler-functions.xml
+      docs/fr/programmers/plugins/plugins-functions.xml
+      docs/fr/programmers/plugins/plugins-inserts.xml
+      docs/fr/programmers/plugins/plugins-modifiers.xml
+      docs/fr/programmers/plugins/plugins-naming-conventions.xml
+      docs/fr/programmers/plugins/plugins-outputfilters.xml
+      docs/fr/programmers/plugins/plugins-prefilters-postfilters.xml
+      docs/fr/programmers/plugins/plugins-resources.xml
+      docs/fr/programmers/plugins/plugins-writing.xml:
+      sync with EN
+
 2006-10-07  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/programmers/advanced-features/advanced-features-objects.xml
