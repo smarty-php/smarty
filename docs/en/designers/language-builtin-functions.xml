@@ -7,12 +7,12 @@
   are the integral part of the smarty template engine. You cannot create your own
   <link linkend="language.custom.functions">custom functions</link>
   with the same name; and you  should  not need to
-  modify the built-in functions.
- </para>
+  modify the built-in functions.</para>
+
  <para>
- A few on these functions have an <parameter>assign</parameter>
- attribute which collects the result the function to a named
- variable within a template instead of being output;
+ A few of these functions have an <parameter>assign</parameter>
+ attribute which collects the result the function to a named template
+ variable instead of being output;
  much like the <link linkend="language.function.assign">
  <varname>{assign}</varname></link> function.
  </para>

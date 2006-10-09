@@ -4,11 +4,11 @@
  <title>Basic Syntax</title>
  <para>
   All Smarty template tags are enclosed within delimiters. By
-  default, these delimiters are <literal>{</literal> and
+  default these are <literal>{</literal> and
   <literal>}</literal>, but they can be <link linkend="variable.left.delimiter">changed</link>.
  </para>
  <para>
-  For these examples, we will assume that you are using the default
+  For examples, we will assume that you are using the default
   delimiters. In Smarty, all content outside of delimiters is displayed as
   static content, or unchanged. When Smarty encounters template tags, it
   attempts to interpret them, and displays the appropriate output in their
@@ -22,7 +22,7 @@
  &designers.language-basic-syntax.language-syntax-quotes;
  &designers.language-basic-syntax.language-math;
  &designers.language-basic-syntax.language-escaping;
- 
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

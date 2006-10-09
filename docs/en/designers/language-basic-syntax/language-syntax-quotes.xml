@@ -2,24 +2,35 @@
 <!-- $Revision$ -->
 <sect1 id="language.syntax.quotes">
  <title>Embedding Vars in Double Quotes</title>
+
+ <itemizedlist>
+  <listitem>
  <para>
   Smarty will recognize <link
   linkend="api.assign">assigned</link>
   <link   linkend="language.syntax.variables">variables</link>
-  embedded in double quotes so long as the variable name contains only numbers,
-  letters, underscores and brackets[]
-  (see <ulink url="&url.php-manual;language.variables">naming</ulink>).
-  With any other characters (period,
-  object reference, etc.) the variable must be surrounded by
-  `backticks`. You cannot embed
+  embedded in "double quotes" so long as the variable name contains only numbers,
+  letters, under_scores and brackets[].
+  See <ulink url="&url.php-manual;language.variables">naming</ulink>
+  for more detail.
+  </para></listitem>
+
+  <listitem><para>
+  With any other characters, for example a .period or
+  <literal>$object>reference</literal>, then the variable must be
+  surrounded by  <literal>`backticks`</literal>.
+  </para></listitem>
+
+  <listitem><para>You cannot embed
   <link linkend="language.modifiers">modifiers</link>, they must always
   be applied outside of quotes.
- </para>
+ </para></listitem>
+ </itemizedlist>
+
  <example>
-  <title>embedded quotes syntax</title>
+  <title>Syntax examples</title>
   <programlisting>
 <![CDATA[
-SYNTAX EXAMPLES:
 {func var="test $foo test"}       <-- sees $foo
 {func var="test $foo_bar test"}   <-- sees $foo_bar
 {func var="test $foo[0] test"}    <-- sees $foo[0]
@@ -27,13 +38,32 @@ SYNTAX EXAMPLES:
 {func var="test $foo.bar test"}   <-- sees $foo (not $foo.bar)
 {func var="test `$foo.bar` test"} <-- sees $foo.bar
 {func var="test `$foo.bar` test"|escape} <-- modifiers outside quotes!
+]]>
+  </programlisting>
+</example>
 
-PRACTICAL EXAMPLES:
-{include file="subdir/$tpl_name.tpl"} <-- will replace $tpl_name with value
-{cycle values="one,two,`$smarty.config.myval`"} <-- must have backticks
+ <example>
+  <title>Practical examples</title>
+  <programlisting>
+<![CDATA[
+{* will replace $tpl_name with value *}
+{include file="subdir/$tpl_name.tpl"}
+
+{* doesn't replace $tpl_name *}
+{include file='subdir/$tpl_name.tpl'} <--
+
+{* must have backticks as it contains a . *}
+{cycle values="one,two,`$smarty.config.myval`"}
+
+{*  same as $module['contact'].'.tpl' in a php script
+{include file="`$module.contact`.tpl"}
+
+{*  same as $module[$view].'.tpl' in a php script
+{include file="$module.$view.tpl"}
 ]]>
   </programlisting>
  </example>
+
  <para>
   See also <link linkend="language.modifier.escape"><varname>escape</varname></link>.
  </para>

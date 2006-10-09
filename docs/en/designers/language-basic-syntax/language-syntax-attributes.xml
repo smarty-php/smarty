@@ -11,7 +11,7 @@
   should not be in quotes.
  </para>
  <para>
-  Some attributes require boolean values (true or false). These 
+  Some attributes require boolean values (&true; or &false;). These
   can be specified
   as either unquoted <literal>true</literal>,
   <literal>on</literal>, and <literal>yes</literal>, or

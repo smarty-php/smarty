@@ -6,10 +6,19 @@
   Template comments are surrounded by asterisks, and that is surrounded
   by the
   <link linkend="variable.left.delimiter">delimiter</link>
-  tags like so: <literal>{* this is a comment *}</literal>
+  tags like so:
+  </para>
+    <informalexample>
+   <programlisting>
+<![CDATA[
+{* this is a comment *}
+]]>
+   </programlisting>
+  </informalexample>
+  <para>
   Smarty comments are NOT displayed in the final output of the template,
-  unlike <literal>&lt;!-- HTML comments --&gt;</literal>
-  these are useful for making internal notes in the templates which no one will see ;-)
+  unlike <literal>&lt;!-- HTML comments --&gt;</literal>.
+  These are useful for making internal notes in the templates which no one will see ;-)
  </para>
  <example>
   <title>Comments within a template</title>
@@ -52,6 +61,18 @@ Multi line comment block with credits block
   {html_options options=$vals selected=$selected_id}
 </select>
 *}
+
+<!-- Show header from affiliate is disabled -->
+{* $affiliate|upper *}
+
+{* you cannot nest comments *}
+{*
+<select name="company">
+  {* <option value="0">-- none -- </option> *}
+  {html_options options=$vals selected=$selected_id}
+</select>
+*}
+
 
 {* cvs tag for a template, below the 36 SHOULD be an american currency
 . however its converted in cvs.. *}
