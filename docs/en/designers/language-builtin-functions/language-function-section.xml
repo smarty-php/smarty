@@ -97,7 +97,7 @@
     </para></listitem>
 
     <listitem><para>
-    Sections can be nested, and the nested
+    {section}'s can be nested, and the nested
    <varname>{section}</varname> names must be unique from each other.
    </para></listitem>
 
@@ -352,9 +352,9 @@ $smarty->assign('address',$addr);
  <example>
   <title>Nested {section}'s</title>
   <para>
-  Sections can be nested as deep as you like. With nested sections,
+  {section}'s can be nested as deep as you like. With nested {section}'s,
   you can access complex data structures, such as multi-dimensional
-  arrays. This is a php script thats assign's the arrays.
+  arrays. This is an example <filename>.php</filename> script thats assign's the arrays.
   </para>
   <programlisting role="php">
 <![CDATA[

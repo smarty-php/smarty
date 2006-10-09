@@ -56,7 +56,8 @@
  </informaltable>
 
 
- <caution>
+ <note>
+ <title>Caution</title>
   <para>
    Be careful when capturing <link
    linkend="language.function.insert"><varname>{insert}</varname></link>
@@ -67,10 +68,11 @@
    commands that you expect to run
    within cached content, do not capture this content.
   </para>
- </caution>
+ </note>
+
  <para>
   <example>
-   <title>{capture} with a the name attribute</title>
+   <title>{capture} with the name attribute</title>
    <programlisting>
 <![CDATA[
 {* we don't want to print a div tag unless content is displayed *}

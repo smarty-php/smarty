@@ -12,13 +12,13 @@
 <title>Technical Note</title>
 <para>
    To access PHP variables in <varname>{php}</varname> blocks you will need to use the PHP
-   <ulink url="&url.php-manual;global">global</ulink>
+   <ulink url="&url.php-manual;global"><literal>global</literal></ulink>
    keyword.
 </para>
 </note>
 
  <example>
-  <title>Example php in {php} tags</title>
+  <title>php code within {php} tags</title>
   <programlisting>
 <![CDATA[
 {php}
