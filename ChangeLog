@@ -1,3 +1,35 @@
+2006-10-09  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
+
+    * docs/en/getting-started.xml
+      docs/en/designers/language-basic-syntax.xml
+      docs/en/designers/language-custom-functions/language-function-popup-init.xml
+      docs/en/designers/language-modifiers/language-modifier-escape.xml
+      docs/en/programmers/api-functions/api-display.xml
+      docs/en/programmers/plugins/plugins-inserts.xml:
+      Minor changes and corrections
+
+    * docs/en/designers/language-basic-syntax.xml
+      docs/en/designers/language-builtin-functions.xml
+      docs/en/designers/language-basic-syntax/language-syntax-attributes.xml
+      docs/en/designers/language-basic-syntax/language-syntax-comments.xml
+      docs/en/designers/language-basic-syntax/language-syntax-quotes.xml
+      docs/en/designers/language-modifiers/language-modifier-escape.xml:
+      Minor formatting and error correction
+
+    * docs/en/designers/language-builtin-functions/language-function-capture.xml
+      docs/en/designers/language-builtin-functions/language-function-php.xml
+      docs/en/designers/language-builtin-functions/language-function-section.xml:
+      minor formatting and changes
+
+    * docs/en/getting-started.xml:
+      Tidied up formatting so more readable, tidied up the install to the paths
+      are more clear (ta jj)
+
+2006-10-09  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/designers/language-builtin-functions/language-function-section.xml:
+      sync with EN
+
 2006-10-08  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/designers/language-builtin-functions/language-function-php.xml
