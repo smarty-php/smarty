@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.18 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.19 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.section">
  <title>{section},{sectionelse}</title>

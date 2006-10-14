@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <refentry id="api.display">
  <refnamediv>
@@ -39,15 +39,15 @@ $smarty->caching = true;
 if(!$smarty->is_cached('index.tpl')) {
 
     // quelques données
-    $address = "245 N 50th";
+    $address = '245 N 50th';
     $db_data = array(
-                       "Ville" => "Lincoln",
-                       "Pays" => "Nebraska",
-                       "Code postal" = > "68502"
+                       'Ville' => 'Lincoln',
+                       'Pays' => 'Nebraska',
+                       'Code postal' = > '68502'
      );
 
-    $smarty->assign("Nom","Fred");
-    $smarty->assign("Adresse",$address);
+    $smarty->assign('Nom','Fred');
+    $smarty->assign('Adresse',$address);
     $smarty->assign($db_data);
 
 }

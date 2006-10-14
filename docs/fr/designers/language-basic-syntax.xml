@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
+
 <chapter id="language.basic.syntax">
  <title>Bases syntaxiques</title>
  <para>
   Toutes les balises Smarty sont entourées de délimiteurs. Par défaut,
-  ces délimiteurs sont <literal>{</literal> et
+  ils sont <literal>{</literal> et
   <literal>}</literal>, mais ils peuvent être <link linkend="variable.left.delimiter">modifiés</link>.
  </para>
  <para>
-  Pour ces exemples, nous supposons que vous utiliserez leur valeur par défaut.
+  Pour les exemples de ce manuel, nous supposons que vous utiliserez leur valeur par défaut.
   Dans Smarty, le contenu qui est situé en dehors des délimiteurs
   est affiché comme contenu statique, inchangé. Lorsque Smarty rencontre
   des balises de template, il tente de les comprendre et en affiche la sortie
   appropriée, en lieu et place.
  </para>
- 
+
  &designers.language-basic-syntax.language-syntax-comments;
  &designers.language-basic-syntax.language-syntax-variables;
  &designers.language-basic-syntax.language-syntax-functions;
@@ -23,7 +24,7 @@
  &designers.language-basic-syntax.language-syntax-quotes;
  &designers.language-basic-syntax.language-math;
  &designers.language-basic-syntax.language-escaping;
- 
+
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

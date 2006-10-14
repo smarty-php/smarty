@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.syntax.quotes">
  <title>Variables insérées dans des chaînes de caractères</title>
+
+ <itemizedlist>
+  <listitem>
  <para>
   Smarty est capable d'interpréter les
   <link   linkend="language.syntax.variables">variables</link>  <link
   linkend="api.assign">assignées</link> à l'intérieur de
   chaînes entre guillemets, du moment que leur nom est exclusivement composé
   de chiffres, lettres, underscores et crochets
-  (Voir le <ulink url="&url.php-manual;language.variables">nommage</ulink>). Si le nom de la variable
+  Voir le <ulink url="&url.php-manual;language.variables">nommage</ulink> pour plus de détails.
+  </para></listitem>
+
+  <listitem><para>
+  Si le nom de la variable
   contient tout autre caractère (point, référence à un objet, etc.)
   la variable doit être entourée <link linkend="language.syntax.quotes">d'apostrophes
-  inverses</link> (`). Vous ne pouvez jamais insérer de
- <link linkend="language.modifiers">modificateurs</link>, ils doivent toujours être appliquer à
+  inverses</link> (`).
+  </para></listitem>
+
+  <listitem><para>
+  Vous ne pouvez jamais insérer de
+  <link linkend="language.modifiers">modificateurs</link>, ils doivent toujours être appliquer à
   l'extérieur des guillemets.
- </para>
+ </para></listitem>
+ </itemizedlist>
+
  <example>
-  <title>Syntaxe d'insertion de variables dans des chaînes</title>
+  <title>Exemples de synthaxes</title>
   <programlisting>
 <![CDATA[
-EXEMPLE DE SYNTAXE :
 {func var="test $foo test"}       <-- comprends $foo
 {func var="test $foo_bar test"}   <-- comprends $foo_bar
 {func var="test $foo[0] test"}    <-- comprends $foo[0]
@@ -29,13 +41,32 @@ EXEMPLE DE SYNTAXE :
 {func var="test $foo.bar test"}   <-- comprends $foo (not $foo.bar)
 {func var="test `$foo.bar` test"} <-- comprends $foo.bar
 {func var="test `$foo.bar` test"|escape} <-- modifieurs à l'extérieur des guillemets !
+]]>
+  </programlisting>
+</example>
 
-EXEMPLE PRATIQUE:
-{include file="subdir/$tpl_name.tpl"} <-- remplace $tpl_name avec la valeur
-{cycle values="one,two,`$smarty.config.myval`"} <-- doit comporter les apostrophes inverses
+ <example>
+  <title>Exemples pratiques</title>
+  <programlisting>
+<![CDATA[
+{* remplacera $tpl_name par la valeur *}
+{include file="subdir/$tpl_name.tpl"}
+
+{* ne remplacera pas $tpl_name *}
+{include file='subdir/$tpl_name.tpl'} <--
+
+{* doit contenir des apostophes inverses car il contient un . *}
+{cycle values="one,two,`$smarty.config.myval`"}
+
+{* identique à $module['contact'].'.tpl' dans un script PHP
+{include file="`$module.contact`.tpl"}
+
+{* identique à $module[$view].'.tpl' dans un script PHP
+{include file="$module.$view.tpl"}
 ]]>
   </programlisting>
  </example>
+
  <para>
   Voir aussi
   <link linkend="language.modifier.escape"><varname>escape</varname></link>.

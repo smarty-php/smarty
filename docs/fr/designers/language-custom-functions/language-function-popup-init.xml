@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.popup.init">
  <title>{popup_init}</title>
@@ -51,6 +51,19 @@
 ]]>
   </programlisting>
  </example>
+
+<note>
+<title>Validation XHTML</title>
+<para><literal>{popup_init}</literal> ne valide pas en validation stricte et vous devriez
+ obtenir l'erreur :
+<literal>document type does not allow element "div" here;</literal>
+(i.e. une balise <literal>&lt;div&gt;</literal> dans la balise <literal>&lt;head&gt;</literal>).
+
+Ceci signifie que vous devez inclure les balises <literal>&lt;script&gt;</literal> et
+<literal>&lt;div&gt;</literal> manuellement.
+</para>
+</note>
+
 </sect1>
 
 <!-- Keep this comment at the end of the file

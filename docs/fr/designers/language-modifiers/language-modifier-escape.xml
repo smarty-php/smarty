@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.16 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.18 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.escape">
  <title>escape</title>
  <para>
-  Utile pour encoder / échapper une variable pour quelles soient compatibles
-  pour les <literal>url</literal> <literal>html</literal>, pour les hexadécimaux,
-  pour les entités hexadécimales, pour <literal>javascript</literal>
-  et pour les e-mails.
+  <varname>escape</varname> est utilisé pour encoder / échapper
+  une variable pour quelles soient compatibles
+  avec les <literal>url</literal> <literal>html</literal>, avec les hexadécimaux,
+  avec les entités hexadécimales, avec <literal>javascript</literal>
+  et avec les e-mails.
   Par défaut, ce paramètre est <literal>html</literal>.
  </para>
  <informaltable frame="all">
@@ -73,37 +74,36 @@ $smarty->assign('EmailAddress','smarty@example.com');
 ]]>
   </programlisting>
   <para>
-   Où le template est :
+   Voici des exemples de template avec <literal>escape</literal> suivis par l'affichage produit.
   </para>
   <programlisting>
 <![CDATA[
-{$titreArticle}
-{$titreArticle|escape}
-{$titreArticle|escape:'html'}    {* escapes  &amp; &quot; &#039; &lt; &gt; *}
-{$titreArticle|escape:'htmlall'} {* escapes ALL html entities *}
-{$titreArticle|escape:'url'}
-{$titreArticle|escape:'quotes'}
+{$articleTitle}
+'Stiff Opposition Expected to Casketless Funeral Plan'
+
+{$articleTitle|escape}
+&#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
+
+{$articleTitle|escape:'html'}    {* échappe les caractères  & " ' < > *}
+&#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
+
+{$articleTitle|escape:'htmlall'} {* échappe toutes les entités html *}
+&#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
+
+<a href="?title={$articleTitle|escape:'url'}">cliquez-ici</a>
+<a href="?title=%27Stiff+Opposition+Expected+to+Casketless+Funeral+Plan%27">cliquez-ici</a>
+
+{$articleTitle|escape:'quotes'}
+\'Stiff Opposition Expected to Casketless Funeral Plan\'
+
 <a href="mailto:{$EmailAddress|escape:"hex"}">{$EmailAddress|escape:"hexentity"}</a>
-{$EmailAddress|escape:'mail'}    {* ceci convertit l'e-mail en texte *}
+{$EmailAddress|escape:'mail'}    {* ceci convertit un email en texte *}
+<a href="mailto:%62%6f%..snip..%65%74">&#x62;&#x6f;&#x62..snip..&#x65;&#x74;</a>
+
 {'mail@example.com'|escape:'mail'}
+smarty [AT] example [DOT] com
 ]]>
   </programlisting>
-  <para>
-   Affichera :
-  </para>
-  <screen>
-<![CDATA[
-'Stiff Opposition Expected to Casketless Funeral Plan'
-&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
-&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
-&amp;#039;Stiff Opposition Expected to Casketless Funeral Plan&amp;#039;
-%27Stiff+Opposition+Expected+to+Casketless+Funeral+Plan%27
-\'Stiff Opposition Expected to Casketless Funeral Plan\'
-<a href="mailto:%62%6f%..snip..%65%74">&#x62;&#x6f;&#x62..snip..&#x65;&#x74;</a>
-smarty [AT] example [DOT] com
-mail [AT] example [DOT] com
-]]>
-  </screen>
    </example>
 
    <example>
@@ -123,7 +123,7 @@ mail [AT] example [DOT] com
    Et ceci est utile pour les e-mails, mais lisez plutôt la documentation de
    <link linkend="language.function.mailto"><varname>{mailto}</varname></link></para>
 <screen>
- <![CDATA[
+<![CDATA[
 {* email address mangled *}
 <a href="mailto:{$EmailAddress|escape:'hex'}">{$EmailAddress|escape:'mail'}</a>
 ]]>

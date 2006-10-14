@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.13 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.14 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.syntax.comments">
  <title>Commentaires</title>
  <para>
   Les commentaires dans Smarty sont entourés d'asterisques,
   et entourés par le <link linkend="variable.left.delimiter">délimiteurs</link>
-  de cette façon : <literal>{* voici un commentaire *}</literal>
+  de cette façon :
+  </para>
+    <informalexample>
+   <programlisting>
+<![CDATA[
+{* ceci est un comentaire *}
+]]>
+   </programlisting>
+  </informalexample>
+  <para>
   Les commentaires Smarty ne sont PAS affichés dans la sortie finale du
-  template, différemment des <literal>&lt;!-- commentaires HTML --&gt;</literal>
-  et sont utilisés pour des notes internes, dans le template que personne ne verra ;)
+  template, différemment des <literal>&lt;!-- commentaires HTML --&gt;</literal>.
+  Ils sont utilisés pour des notes internes, dans le template que personne ne verra ;)
  </para>
  <example>
   <title>Commentaires dans un template</title>
@@ -49,6 +58,17 @@ Un bloc de commentaires multilignes contenant les crédits
 {*
 <select name="company">
  {html_options options=$vals selected=$selected_id}
+</select>
+*}
+
+<!-- L'affichage de l'en-tête est désactivé -->
+{* $affiliate|upper *}
+
+{* Vous ne pouvez pas imbriquer des commentaires *}
+{*
+<select name="company">
+  {* <option value="0">-- none -- </option> *}
+  {html_options options=$vals selected=$selected_id}
 </select>
 *}
 

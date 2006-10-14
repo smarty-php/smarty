@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.14 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.15 Maintainer: gerald Status: ready -->
 
 <sect1 id="language.function.capture">
  <title>{capture}</title>
@@ -59,7 +59,8 @@
    </tbody>
   </tgroup>
  </informaltable>
- <caution>
+ <note>
+ <title>Attention</title>
   <para>
    Faîtes attention lorsque vous interceptez la sortie de commandes
    <link linkend="language.function.insert"><varname>{insert}</varname></link>.
@@ -69,7 +70,7 @@
    supposées s'exécuter dans un contenu en cache, ne tentez pas de capturer
    ce contenu.
   </para>
- </caution>
+</note>
  <para>
   <example>
    <title>{capture} avec le nom de l'attribut</title>

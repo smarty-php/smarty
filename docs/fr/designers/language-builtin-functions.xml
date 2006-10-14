@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: gerald Status: ready -->
 
 <chapter id="language.builtin.functions">
  <title>Fonctions natives</title>
@@ -16,7 +16,7 @@
   Quelques-unes de ces fonctions ont un attribut
   <parameter>assign</parameter> qui récupère le résultat de la
   fonction et la place dans une variable nommée dans le template plutôt que
-  de l'afficher.tout comme la fonction
+  de l'afficher ; tout comme la fonction
   <link linkend="language.function.assign"><varname>{assign}</varname></link>.
  </para>
 
