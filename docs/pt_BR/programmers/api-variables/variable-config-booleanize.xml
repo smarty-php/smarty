@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.booleanize">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.config.booleanize">
       <title>$config_booleanize</title>
       <para>
 	   Se setado para true, os valores do arquivo de configuração de on/true/yes e off/false/no

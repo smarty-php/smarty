@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="caching.groups">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->   
+<sect1 id="caching.groups">
     <title>Grupos de Cache</title>
 	<para>
 	Você pode fazer agrupamentos mais elaborados configurando grupos de cache_id. Isso é

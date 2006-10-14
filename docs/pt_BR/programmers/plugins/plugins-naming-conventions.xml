@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.naming.conventions">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->   
+<sect1 id="plugins.naming.conventions">
     <title>Convenções de Aparência</title>
     <para>
      Arquivos e funções de Plugin devem seguir uma convenção de aparência muito específica

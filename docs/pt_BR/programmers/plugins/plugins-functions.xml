@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.functions"><title>Funções de Template</title>
+   
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready --><sect1 id="plugins.functions"><title>Funções de Template</title>
     <funcsynopsis>
      <funcprototype>
       <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>

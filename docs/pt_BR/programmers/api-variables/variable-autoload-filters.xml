@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.autoload.filters">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.autoload.filters">
       <title>$autoload_filters</title>
       <para>
        Se há algum filtro que você deseja carregar em cada chamada de template,

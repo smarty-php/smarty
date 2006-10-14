@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.compiler.functions"><title>Funções Compiladoras</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->   
+<sect1 id="plugins.compiler.functions"><title>Funções Compiladoras</title>
     <para>
      Funções compiladoras só são chamadas durante a compilação do template.
      Elas são úteis para injeção de código PHP ou conteúdo estático time-sensitive

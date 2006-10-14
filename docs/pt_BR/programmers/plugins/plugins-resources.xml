@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.resources"><title>Recursos (Resources)</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->   
+<sect1 id="plugins.resources"><title>Recursos (Resources)</title>
     <para>
      Os plugins de Recursos são como uma forma genérica de fornecer códigos fontes de template
      ou componentes de script PHP para a Smarty. Alguns exemplos de recursos:

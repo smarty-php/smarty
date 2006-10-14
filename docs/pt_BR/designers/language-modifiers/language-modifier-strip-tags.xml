@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.strip.tags">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->		
+<sect1 id="language.modifier.strip.tags">
 			<title>strip_tags</title>
 			<para>
 			 Isto retira as tags de marcação, basicamente tudo entre &lt; e &gt;.

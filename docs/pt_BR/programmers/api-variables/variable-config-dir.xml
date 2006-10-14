@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.dir">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.config.dir">
       <title>$config_dir</title>
       <para>
        Este é o diretório usado para armazenar arquivos de configuração usados nos

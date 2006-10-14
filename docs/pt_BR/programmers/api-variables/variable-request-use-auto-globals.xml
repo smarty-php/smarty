@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.request.use.auto.globals">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.request.use.auto.globals">
       <title>$request_use_auto_globals</title>
       <para>
 	   Especifica se a Smarty deve usar variáveis globais do php $HTTP_*_VARS[]

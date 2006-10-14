@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.cache.handler.func">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.cache.handler.func">
       <title>$cache_handler_func</title>
       <para>
        Você pode fornecer uma função padrão para manipular arquivos de cache ao invés de

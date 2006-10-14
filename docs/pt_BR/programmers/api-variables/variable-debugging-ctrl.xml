@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.debugging.ctrl">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.debugging.ctrl">
       <title>$debugging_ctrl</title>
       <para>
        Isso permite caminhos alternativos de habilitar o debug. NONE não significa

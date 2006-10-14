@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <chapter id="api.functions">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->   
+<chapter id="api.functions">
      <title>Métodos</title>
 &programmers.api-functions.api-append;
 &programmers.api-functions.api-append-by-ref;

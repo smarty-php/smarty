@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="caching.cacheable">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->   
+<sect1 id="caching.cacheable">
     <title>Controlling Cacheability of Plugins' Output</title>
 	<para>
 Desde Smarty-2.6.0 os caches de plugins pode ser declarados

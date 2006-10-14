@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="language.modifier.count.characters">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->		
+<sect1 id="language.modifier.count.characters">
 			<title>count_characters</title>
             <informaltable frame="all">
                 <tgroup cols="5">

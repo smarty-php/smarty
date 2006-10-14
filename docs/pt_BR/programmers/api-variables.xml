@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-    <chapter id="api.variables">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->    
+<chapter id="api.variables">
      <title>Variáveis</title>
 
 &programmers.api-variables.variable-template-dir;

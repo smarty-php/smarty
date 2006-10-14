@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.config.fix.newlines">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.config.fix.newlines">
       <title>$config_fix_newlines</title>
       <para>
 	   Se setado para true, mac e dos newlines (\r e \r\n) no arquivo de configuração serão

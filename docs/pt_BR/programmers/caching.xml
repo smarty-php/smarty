@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <chapter id="caching">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->  
+<chapter id="caching">
    <title>Caching</title>
    <para>
    Caching é usado para aumentar a velocidade de chamada para <link

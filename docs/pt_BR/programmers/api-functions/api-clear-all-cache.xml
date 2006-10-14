@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.all.cache">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->		
+<sect1 id="api.clear.all.cache">
 			<title>clear_all_cache</title>
 			<funcsynopsis>
 			<funcprototype>

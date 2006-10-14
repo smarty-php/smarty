@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-  <sect1 id="section.template.cache.handler.func">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->  
+<sect1 id="section.template.cache.handler.func">
    <title>Função Manipuladora de Cache</title>
    <para>
     Como uma alternativa ao uso do mecanismo de caching padrão baseado em arquivo, você pode 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-       <sect1 id="language.config.variables">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->       
+<sect1 id="language.config.variables">
 			<title>Variáveis carregadas de arquivos de configuração</title>
 			<para>
              Variáveis que são carregadas de arquivos de configuração são referenciadas

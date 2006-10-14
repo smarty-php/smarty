@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.template.dir">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.template.dir">
       <title>$template_dir</title>
       <para>
        Este é o nome padrão do diretório de template. Se você não fornecer

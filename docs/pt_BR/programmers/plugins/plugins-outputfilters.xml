@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-   <sect1 id="plugins.outputfilters"><title>Filtros de saída</title>
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->   
+<sect1 id="plugins.outputfilters"><title>Filtros de saída</title>
     <para>
      Filtros de saída operam na saída do template, depois que o template é lido e executado, mas
      antes a saída é mostrada.

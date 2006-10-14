@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-		<sect1 id="api.clear.cache">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->		
+<sect1 id="api.clear.cache">
 			<title>clear_cache</title>
    <methodsynopsis>
    <type>void</type><methodname>clear_cache</methodname>

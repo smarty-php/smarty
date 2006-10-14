@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-     <sect1 id="variable.default.template.handler.func">
+<!-- EN-Revision: 1.1 Maintainer: nobody Status: ready -->     
+<sect1 id="variable.default.template.handler.func">
       <title>$default_template_handler_func</title>
       <para>
        Essa função é chamada quando um template não pode ser obtido
