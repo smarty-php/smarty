@@ -46,7 +46,7 @@
 
        <listitem><para>
        An array of the form
-       <literal>array(&amp;$class, $method)</literal> with
+       <literal>array($class, $method)</literal> with
        <literal>$class</literal> being the class name and
        <literal>$method</literal> being a method of the class.
        </para></listitem>
