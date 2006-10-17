@@ -1,3 +1,8 @@
+2006-10-16  George Miroshnikov  <support@infinity.com.ua>
+
+    * docs/en/language-snippets.ent:
+      minor typo fix - &$class doesn't make sense.
+
 2006-10-14  Yannick Torres  <yannick.torres@keliglia.com>
 
     * docs/fr/designers/language-basic-syntax.xml
