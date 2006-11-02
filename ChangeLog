@@ -1,3 +1,12 @@
+2006-11-01  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/plugins/function.html_select_date.php:
+      make html_select_date work consistently with 0000-00-00 00:00:00 and
+      0000-00-00 inputs
+      
+      Thanks to cybot from forums
+
 2006-10-16  George Miroshnikov  <support@infinity.com.ua>
 
     * docs/en/language-snippets.ent:
