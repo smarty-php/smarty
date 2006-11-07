@@ -1,3 +1,4 @@
+- enhance reporting precision of debug_print_var modifier (cybot, boots) 
 - make html_select_date work consistently with 0000-00-00 00:00:00 and
   0000-00-00 inputs (cybot, boots)
 - fix wrong handling of insert's name attribute. (messju)
