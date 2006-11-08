@@ -1,3 +1,5 @@
+- change file writing semantics in smarty_core_write_file() to unlink() only
+  when rename() fails or a Windows system is detected (c960657, boots) 
 - update debug.tpl to xhtml 1.1 compliance, fix javascript escaping in debug
   output and apply a Smarty based color scheme (cybot, boots)
 - enhance reporting precision of debug_print_var modifier (cybot, boots) 
