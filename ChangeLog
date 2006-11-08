@@ -1,3 +1,22 @@
+2006-11-07  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/debug.tpl:
+      update debug.tpl to xhtml 1.1 compliance, fix javascript escaping in debug
+      output and apply a Smarty based color scheme
+      
+      see: http://www.phpinsider.com/smarty-forum/viewtopic.php?t=7178
+      
+      thanks to cybot from the forums!
+
+    * NEWS
+      libs/plugins/modifier.debug_print_var.php:
+      enhance reporting precision of debug_print_var modifier
+      
+      see: http://www.phpinsider.com/smarty-forum/viewtopic.php?t=9281
+      
+      thanks to cybot from the forums
+
 2006-11-01  boots  <jayboots@yahoo.com>
 
     * NEWS
