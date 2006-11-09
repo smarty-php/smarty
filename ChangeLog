@@ -1,3 +1,15 @@
+2006-11-08  boots  <jayboots@yahoo.com>
+
+    * NEWS
+      libs/internals/core.write_file.php:
+      change file writing semantics in smarty_core_write_file()
+      
+      This avoids unlink() unless rename() fails or a Windows system is detected
+      
+      see: http://www.phpinsider.com/smarty-forum/viewtopic.php?t=6956
+      
+      Thanks to c960657 from the forums.
+
 2006-11-07  boots  <jayboots@yahoo.com>
 
     * NEWS
