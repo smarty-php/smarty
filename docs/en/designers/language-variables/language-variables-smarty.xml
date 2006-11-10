@@ -162,7 +162,7 @@ define('MY_CONST_VAL','CHERRIES');
 <programlisting>
 <![CDATA[
 <b>Main container is {$smarty.template}</b>
-{include file='banner.tpl}
+{include file='banner.tpl'}
 ]]>
 </programlisting>
     <para>
