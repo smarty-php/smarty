@@ -35,6 +35,7 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
                 $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
                     . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
                     . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
+                    $depth--;
             }
             break;
         case 'object' :
@@ -42,8 +43,9 @@ function smarty_modifier_debug_print_var($var, $depth = 0, $length = 40)
             $results = '<b>' . get_class($var) . ' Object (' . count($object_vars) . ')</b>';
             foreach ($object_vars as $curr_key => $curr_val) {
                 $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
-                    . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
+                    . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
                     . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
+                    $depth--;
             }
             break;
         case 'boolean' :
