@@ -337,10 +337,10 @@ include_path = ".;c:\php\includes;c:\webroot\libs\Smarty-v.e.r\libs\"
 <![CDATA[
 <?php
 // *nix
-ini_set('include_path', ini_get('include_path').':/usr/local/lib/Smarty-v.e.r/libs/');
+ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'/usr/local/lib/Smarty-v.e.r/libs/');
 
 // windows
-ini_set('include_path', ini_get('include_path').';c:/webroot/lib/Smarty-v.e.r/libs/');
+ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'c:/webroot/lib/Smarty-v.e.r/libs/');
 ?>
 ]]>
     </programlisting>
