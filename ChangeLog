@@ -1,3 +1,12 @@
+2006-11-22  George Miroshnikov  <support@infinity.com.ua>
+
+    * docs/ru/getting-started.xml
+      docs/ru/language-snippets.ent:
+      sync with EN
+
+    * docs/en/getting-started.xml:
+      replaced hardcoded path separator with PATH_SEPARATOR constant
+
 2006-11-20  boots  <jayboots@yahoo.com>
 
     * libs/plugins/modifier.debug_print_var.php:
