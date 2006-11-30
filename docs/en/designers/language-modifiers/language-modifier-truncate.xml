@@ -43,7 +43,7 @@
       <entry>No</entry>
       <entry>...</entry>
       <entry>This is a text string that replaces the truncated text. Its length
-      is NOT included in the truncation length setting.</entry>
+      is included in the truncation length setting.</entry>
      </row>
      <row>
       <entry>3</entry>
