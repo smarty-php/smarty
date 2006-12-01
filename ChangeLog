@@ -1,3 +1,12 @@
+2006-11-30  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS
+      docs/en/designers/language-modifiers/language-modifier-truncate.xml
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update dev version numbers, fix manual typo
+
 2006-11-22  George Miroshnikov  <support@infinity.com.ua>
 
     * docs/ru/getting-started.xml
