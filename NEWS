@@ -1,3 +1,6 @@
+- fixed replacement bug in trimwhitespace output filter that was introduced
+  in the last release (Spuerhund, boots)
+
 Version 2.6.15 (Nov 30th, 2006)
 -------------------------------
 
