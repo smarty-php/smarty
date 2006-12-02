@@ -1,3 +1,25 @@
+2006-12-01  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      update dev version numbers
+
+2006-12-01  boots  <jayboots@yahoo.com>
+
+    * (Smarty_2_6_16)
+      NEWS:
+      Fixed replacement bug introduced in trimwhitespaces output filter that
+      was introduced in the last release.
+      
+      Thanks to Spuerhund from the forums.
+
+    * (Smarty_2_6_16)
+      libs/plugins/outputfilter.trimwhitespace.php:
+      Fixed replacement bug introduced by last changes.
+      
+      Thanks to Spuerhund from the forums.
+
 2006-11-30  Monte Ohrt  <monte@ohrt.com>
 
     * NEWS
