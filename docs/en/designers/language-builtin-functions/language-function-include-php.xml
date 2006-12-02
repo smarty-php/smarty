@@ -90,36 +90,38 @@
  </para>
  <example>
   <title>function {include_php}</title>
-  <para>The <filename>load_nav.php</filename> template.</para>
+  <para>The <filename>load_nav.php</filename> file:</para>
   <programlisting role="php">
 <![CDATA[
 <?php
 
 // load in variables from a mysql db and assign them to the template
-require_once('MySQL.class.php');
-$sql = new MySQL;
-$sql->query('select * from site_nav_sections order by name',SQL_ALL);
-$this->assign('sections',$sql->record);
+require_once('database.class.php');
+$db = new Db();
+$db->query('select url, name from navigation order by name');
+$this->assign('navigation', $db->getRows());
 
 ?>
 ]]>
   </programlisting>
   <para>
-   Where the teamplate is:
+   where the template is:
   </para>
   <programlisting>
 <![CDATA[
 {* absolute path, or relative to $trusted_dir *}
 {include_php file='/path/to/load_nav.php'}
 
-{foreach item='curr_section' from=$sections}
-  <a href="{$curr_section.url}">{$curr_section.name}</a><br />
+{foreach item='nav' from=$navigation}
+  <a href="{$nav.url}">{$nav.name}</a><br />
 {/foreach}
 ]]>
   </programlisting>
  </example>
  <para>
   See also <link linkend="language.function.include"><varname>{include}</varname></link>,
+  <link linkend="variable.security"><parameter>$security</parameter></link>,
+<link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>,
   <link linkend="language.function.php"><varname>{php}</varname></link>, <link
   linkend="language.function.capture"><varname>{capture}</varname></link>, <link
   linkend="template.resources">template resources</link> and <link
