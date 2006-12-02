@@ -14,7 +14,9 @@
 <!ENTITY url.faq_1           'http://smarty.incutio.com/?page=SmartyFrequentlyAskedQuestions'>
 <!ENTITY url.faq_2           'http://smarty.php.net/faq.php'>
 
-<!ENTITY url.php-accelerator 'http://www.php-accelerator.co.uk'>
+<!ENTITY url.e-accel         'http://eaccelerator.net/'>
+<!ENTITY url.ion-accel       'http://www.php-accelerator.co.uk'>
+<!ENTITY url.mmcache-accel   'http://turck-mmcache.sourceforge.net/'>
 <!ENTITY url.zend            'http://www.zend.com/'>
 <!ENTITY url.overLib         'http://www.bosrup.com/web/overlib/'>
 
