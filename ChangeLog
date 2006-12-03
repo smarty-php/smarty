@@ -1,3 +1,14 @@
+2006-12-02  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
+
+    * docs/en/designers/language-builtin-functions/language-function-include-php.xml:
+      Tidy example, speeling andd add links
+
+    * docs/en/getting-started.xml:
+      Add/correct entities
+
+    * docs/entities/global.ent:
+      Fix entities (strange)
+
 2006-12-01  Monte Ohrt  <monte@ohrt.com>
 
     * libs/Config_File.class.php
