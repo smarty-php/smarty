@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
 
 <!ENTITY note.parameter.merge '<note>
  <title>Note technique</title>
@@ -44,7 +44,7 @@ fois plutôt que de la passer à chaque appel à la fonction.</para>'>
 
        <listitem><para>
        Un tableau sous la forme
-       <literal>array(&amp;$class, $method)</literal> où
+       <literal>array($class, $method)</literal> où
        <literal>$class</literal> est le nom de la classe et
        <literal>$method</literal> est une méthode de la classe.
        </para></listitem>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: gerald Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.function.include.php">
  <title>{include_php}</title>
@@ -92,7 +92,7 @@
  </para>
  <example>
   <title>Fonction {include_php}</title>
-  <para>Le template <filename>load_nav.php</filename></para>
+  <para>Le fichier <filename>load_nav.php</filename></para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -114,8 +114,8 @@ $this->assign('sections',$sql->record);
 {* chemin absolu, ou relatif à $trusted_dir *}
 {include_php file='/chemin/vers/load_nav.php'}
 
-{foreach item='curr_section' from=$sections}
-  <a href="{$curr_section.url}">{$curr_section.name}</a><br />
+{foreach item='nav' from=$navigation}
+  <a href="{$nav.url}">{$nav.name}</a><br />
 {/foreach}
 ]]>
   </programlisting>
@@ -124,6 +124,8 @@ $this->assign('sections',$sql->record);
  <para>
   Voir aussi
   <link linkend="language.function.include"><varname>{include}</varname></link>,
+  <link linkend="variable.security"><parameter>$security</parameter></link>,
+  <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>,
   <link linkend="language.function.php"><varname>{php}</varname></link>,
   <link linkend="language.function.capture"><varname>{capture}</varname></link>, les
   <link linkend="template.resources">ressources de template</link> et les

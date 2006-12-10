@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: yannick Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: yannick Status: ready -->
 
 <sect1 id="language.modifier.truncate">
  <title>truncate</title>
@@ -43,7 +43,7 @@
      <entry>chaîne de caractère</entry>
      <entry>Non</entry>
      <entry>...</entry>
-     <entry>Le texte qui remplace le texte tronqué. Sa longueur n'est PAS
+     <entry>Le texte qui remplace le texte tronqué. Sa longueur est
       incluse dans la configuration de la longueur à tronquer.</entry>
     </row>
     <row>
