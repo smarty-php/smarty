@@ -1,3 +1,14 @@
+2006-12-10  Yannick Torres  <yannick.torres@keliglia.com>
+
+    * docs/fr/getting-started.xml:
+      fix build
+
+    * docs/fr/language-snippets.ent
+      docs/fr/designers/language-builtin-functions/language-function-include-php.xml
+      docs/fr/designers/language-modifiers/language-modifier-truncate.xml
+      docs/fr/designers/language-variables/language-variables-smarty.xml:
+      sync with EN
+
 2006-12-02  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
 
     * docs/en/designers/language-builtin-functions/language-function-include-php.xml:
