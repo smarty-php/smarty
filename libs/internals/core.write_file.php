@@ -15,6 +15,10 @@
  */
 function smarty_core_write_file($params, &$smarty)
 {
+    static $OS;
+    if (is_null($OS)) {
+        $OS = substr(PHP_OS,0,3);
+    }
     $_dirname = dirname($params['filename']);
 
     if ($params['create_dirs']) {
@@ -37,7 +41,7 @@ function smarty_core_write_file($params, &$smarty)
     fwrite($fd, $params['contents']);
     fclose($fd);
 
-    if (PHP_OS == 'Windows' || !@rename($_tmp_file, $params['filename'])) {
+    if ($OS == 'WIN' || !@rename($_tmp_file, $params['filename'])) {
         // On platforms and filesystems that cannot overwrite with rename() 
         // delete the file before renaming it -- because windows always suffers
         // this, it is short-circuited to avoid the initial rename() attempt

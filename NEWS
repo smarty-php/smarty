@@ -1,4 +1,5 @@
-- emulate %R in the date_format modifier on windows (Danilo Buerger, boots) 
+- update smarty_core_write_file() to better recognize Windows (boots)
+- emulate %R in the date_format modifier on Windows (Danilo Buerger, boots)
 
 Version 2.6.16 (Dec 1st, 2006)
 -------------------------------
