@@ -31,7 +31,7 @@ require_once $smarty->_get_plugin_filepath('shared','make_timestamp');
 function smarty_modifier_date_format($string, $format="%b %e, %Y", $default_date=null)
 {
     if (substr(PHP_OS,0,3) == 'WIN') {
-        $hours = strftime('%I', $string);
+        $hours = strftime('%I', smarty_make_time_stamp($string));
         $short_hours = ( $hours < 10 ) ? substr( $hours, -1) : $hours; 
         $_win_from = array ('%e',  '%T',       '%D',        '%l',           '%R');
         $_win_to   = array ('%#d', '%H:%M:%S', '%m/%d/%y',  $short_hours,   '%H:%M');
