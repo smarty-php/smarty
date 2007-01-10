@@ -33,8 +33,8 @@ function smarty_modifier_date_format($string, $format="%b %e, %Y", $default_date
     if (substr(PHP_OS,0,3) == 'WIN') {
         $hours = strftime('%I', $string);
         $short_hours = ( $hours < 10 ) ? substr( $hours, -1) : $hours; 
-        $_win_from = array ('%e',  '%T',       '%D',        '%l');
-        $_win_to   = array ('%#d', '%H:%M:%S', '%m/%d/%y',  $short_hours);
+        $_win_from = array ('%e',  '%T',       '%D',        '%l',           '%R');
+        $_win_to   = array ('%#d', '%H:%M:%S', '%m/%d/%y',  $short_hours,   '%H:%M');
         $format = str_replace($_win_from, $_win_to, $format);
     }
     if($string != '') {
