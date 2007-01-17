@@ -1,3 +1,5 @@
+- fix handling of $etc in the truncate modifier when $etc is longer
+  than $length (Sylvinus, messju)
 - fix handling of %I with mysql timestamps in the date_format modifier
   (Danilo Buerger, boots)
 - update smarty_core_write_file() to better recognize Windows (boots)
