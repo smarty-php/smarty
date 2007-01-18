@@ -1,3 +1,12 @@
+2007-01-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/plugins/modifier.truncate.php:
+      fixed handling of $etc in the truncate modifier when $etc is longer
+      than $length.
+      
+      thanks to Sylvinus!
+
 2007-01-10  boots  <jayboots@yahoo.com>
 
     * NEWS
