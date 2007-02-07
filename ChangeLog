@@ -1,3 +1,8 @@
+2007-02-06  boots  <jayboots@yahoo.com>
+
+    * docs/en/programmers/advanced-features/template-resources.xml:
+      Correct default template handler function example.
+
 2007-01-17  Messju Mohr  <messju@lammfellpuschen.de>
 
     * NEWS
