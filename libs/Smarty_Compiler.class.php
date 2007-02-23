@@ -352,15 +352,17 @@ class Smarty_Compiler extends Smarty {
             }
         }
         $compiled_content = '';
-
+        
         $tmp_id = '{'.md5(uniqid(rand(), true)).'}';
         
         /* Interleave the compiled contents and text blocks to get the final result. */
         for ($i = 0, $for_max = count($compiled_tags); $i < $for_max; $i++) {
+            
             if ($compiled_tags[$i] == '') {
                 // tag result empty, remove first newline from following text block
                 $text_blocks[$i+1] = preg_replace('~^(\r\n|\r|\n)~', '', $text_blocks[$i+1]);
             }
+            
             // replace legit PHP tags with placeholder
             $text_blocks[$i] = str_replace('<?',$tmp_id,$text_blocks[$i]);
             $compiled_tags[$i] = str_replace('<?',$tmp_id,$compiled_tags[$i]);
@@ -368,12 +370,15 @@ class Smarty_Compiler extends Smarty {
             $compiled_content .= $text_blocks[$i].$compiled_tags[$i];
         }
         $compiled_content .= $text_blocks[$i];
-        
-        // escape created php tags        
-        $compiled_content = str_replace('<?',"<?php echo '<?' ?>\n",$compiled_content);
-        // unescape legit tags
-        $compiled_content = str_replace($tmp_id,'<?',$compiled_content);        
 
+        if(count($compiled_tags)>0)
+        {        
+            // escape created php tags        
+            $compiled_content = str_replace('<?',"<?php echo '<?' ?>\n",$compiled_content);
+            // recover legit tags
+            $compiled_content = str_replace($tmp_id,'<?',$compiled_content);        
+        }
+        
         // remove \n from the end of the file, if any
         if (strlen($compiled_content) && (substr($compiled_content, -1) == "\n") ) {
             $compiled_content = substr($compiled_content, 0, -1);
