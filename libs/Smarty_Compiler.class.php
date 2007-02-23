@@ -281,7 +281,7 @@ class Smarty_Compiler extends Smarty {
         /* loop through text blocks */
         for ($curr_tb = 0, $for_max = count($text_blocks); $curr_tb < $for_max; $curr_tb++) {
             /* match anything resembling php tags */
-            if (preg_match_all('~(<\?(?:\w+|=)?|\?>|language\s*=\s*[\"\']?php[\"\']?)~is', $text_blocks[$curr_tb], $sp_match)) {
+            if (preg_match_all('~(<\?(?:\w+|=)?|\?>|language\s*=\s*[\"\']?\s*php\s*[\"\']?)~is', $text_blocks[$curr_tb], $sp_match)) {
                 /* replace tags with placeholders to prevent recursive replacements */
                 $sp_match[1] = array_unique($sp_match[1]);
                 usort($sp_match[1], '_smarty_sort_length');
@@ -307,7 +307,7 @@ class Smarty_Compiler extends Smarty {
                 }
             }
         }
-
+        
         /* Compile the template tags into PHP code. */
         $compiled_tags = array();
         for ($i = 0, $for_max = count($template_tags); $i < $for_max; $i++) {
@@ -369,10 +369,12 @@ class Smarty_Compiler extends Smarty {
         }
         $compiled_content .= str_replace('<?',$tmp_id,$text_blocks[$i]);
 
-        // escape created php tags        
+        // escape php tags created by interleaving
         $compiled_content = str_replace('<?',"<?php echo '<?' ?>\n",$compiled_content);
+        $compiled_content = preg_replace("~(?<!')language\s*=\s*[\"\']?\s*php\s*[\"\']?~","<?php echo 'language=php' ?>\n",$compiled_content);
+        
         // recover legit tags
-        $compiled_content = str_replace($tmp_id,'<?',$compiled_content);        
+        $compiled_content = str_replace($tmp_id,'<?',$compiled_content); 
         
         // remove \n from the end of the file, if any
         if (strlen($compiled_content) && (substr($compiled_content, -1) == "\n") ) {
