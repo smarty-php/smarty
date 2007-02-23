@@ -362,6 +362,7 @@ class Smarty_Compiler extends Smarty {
                 $text_blocks[$i+1] = preg_replace('~^(\r\n|\r|\n)~', '', $text_blocks[$i+1]);
             }
             // replace legit PHP tags with placeholder
+            $text_blocks[$i] = str_replace('<?',$tmp_id,$text_blocks[$i]);
             $compiled_tags[$i] = str_replace('<?',$tmp_id,$compiled_tags[$i]);
             
             $compiled_content .= $text_blocks[$i].$compiled_tags[$i];
