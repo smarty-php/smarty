@@ -1,3 +1,20 @@
+2007-02-23  Monte Ohrt  <monte@ohrt.com>
+
+    * libs/Smarty_Compiler.class.php:
+      escape creating of language=php from interleaving
+
+    * libs/Smarty_Compiler.class.php:
+      add removed line back in
+
+    * libs/Smarty_Compiler.class.php:
+      fix up last patch, remove unnecessary lines
+
+    * libs/Smarty_Compiler.class.php:
+      fix situation when no compiled tags are present
+
+    * libs/Smarty_Compiler.class.php:
+      fix problem with php open tags generated from tag interleaving
+
 2007-02-06  boots  <jayboots@yahoo.com>
 
     * docs/en/programmers/advanced-features/template-resources.xml:
