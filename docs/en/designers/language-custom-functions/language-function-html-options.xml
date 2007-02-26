@@ -226,7 +226,7 @@ $smarty->assign('fav', 7);
   </para>
   <programlisting>
 <![CDATA[
-{html_options name=foo options=$myOptions selected=$mySelect}
+{html_options name=foo options=$lookups selected=$fav}
 ]]>
   </programlisting>
 
@@ -235,7 +235,7 @@ $smarty->assign('fav', 7);
   </para>
   <screen>
 <![CDATA[
-<select name="breakTime">
+<select name="foo">
 <optgroup label="Sport">
 <option label="Golf" value="6">Golf</option>
 <option label="Cricket" value="9">Cricket</option>
