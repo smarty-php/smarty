@@ -85,7 +85,7 @@ Warning: Smarty error: unable to read resource: "site.conf" in...
         <link linkend="api.config.load"><varname>config_load()</varname></link>
         has been called) and either
         <link linkend="variable.config.dir"><parameter>$config_dir</parameter>
-        </link>  is incorrent , does not exist or
+        </link>  is incorrect, does not exist or
         <filename>site.conf</filename> is not in the directory.
         </para>
     </listitem>
