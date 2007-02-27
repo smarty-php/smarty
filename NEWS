@@ -3,8 +3,10 @@
   than $length (Sylvinus, messju)
 - fix handling of %I with mysql timestamps in the date_format modifier
   (danilo, boots)
-- update smarty_core_write_file() to better recognize Windows (boots)
-- emulate %R in the date_format modifier on Windows (danilo, boots)
+- update smarty_core_write_file() and smarty_modifier_date_format() to better
+  recognize Windows (boots, danilo)
+- emulate %h, %n, %r, %R, %t in the date_format modifier on Windows 
+  (danilo, boots)
 
 Version 2.6.16 (Dec 1st, 2006)
 -------------------------------

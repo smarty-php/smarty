@@ -79,7 +79,9 @@
      You may have more or less conversion specifiers available depending
      on your system's <ulink url="&url.php-manual;strftime"><varname>strftime()</varname></ulink>
      function where PHP was compiled. Check your
-     system's manpage for a full list of valid specifiers.
+     system's manpage for a full list of valid specifiers. However, a few of
+     the specifiers are emulated on Windows. These are: %D, %e, %h, %l, %n, 
+     %r, %R, %t, %T.
     </para>
    </note>
   </para>
