@@ -1,3 +1,30 @@
+2007-02-27  Danilo Buerger  <danilo@blizzz.org>
+
+    * NEWS
+      docs/en/designers/language-modifiers/language-modifier-date-format.xml
+      libs/internals/core.write_file.php
+      libs/plugins/modifier.date_format.php:
+      Updated smarty_core_write_file() and smarty_modifier_date_format() to speed
+      up Windows detection.
+      Emulated more parameters for Windows in smarty_modifier_date_format() and
+      fixed some old ones.
+      Updated the docs to tell what parameters are emulated on Windows.
+      Updated NEWS file.
+
+    * NEWS:
+      Updated NEWS file to reflect changes commited in the last revision
+
+2007-02-27  Monte Ohrt  <monte@ohrt.com>
+
+    * docs/en/appendixes/troubleshooting.xml:
+      fix typo
+
+2007-02-27  Danilo Buerger  <danilo@blizzz.org>
+
+    * libs/Smarty_Compiler.class.php:
+      Modified _(push|pop)_cacheable_state() to embedd alternate syntax. See this
+      bug report: http://www.phpinsider.com/smarty-forum/viewtopic.php?t=10502
+
 2007-02-26  Peter 'Mash' Morgan  <pm@daffodil.uk.com>
 
     * docs/en/designers/language-custom-functions/language-function-html-options.xml:
