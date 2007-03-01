@@ -1,3 +1,4 @@
+- fix php handling (monte, boots, danilo)
 - fix handling of plugin tags directly followed by an else tag (Fahr, danilo)
 - fix handling of $etc in the truncate modifier when $etc is longer
   than $length (Sylvinus, messju)

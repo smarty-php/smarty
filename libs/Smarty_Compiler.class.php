@@ -240,9 +240,6 @@ class Smarty_Compiler extends Smarty {
         $ldq = preg_quote($this->left_delimiter, '~');
         $rdq = preg_quote($this->right_delimiter, '~');
 
-        /* un-hide hidden xml open tags  */
-        $source_content = preg_replace("~<({$ldq}(.*?){$rdq}\?)~s", '< \\1', $source_content);
-
         // run template source through prefilter functions
         if (count($this->_plugins['prefilter']) > 0) {
             foreach ($this->_plugins['prefilter'] as $filter_name => $prefilter) {
@@ -353,7 +350,7 @@ class Smarty_Compiler extends Smarty {
         }
         $compiled_content = '';
         
-        $tmp_id = '{'.md5(uniqid(rand(), true)).'}';
+        $tag_guard = '%%%SMARTYOTG' . md5(uniqid(rand(), true)) . '%%%';
         
         /* Interleave the compiled contents and text blocks to get the final result. */
         for ($i = 0, $for_max = count($compiled_tags); $i < $for_max; $i++) {
@@ -362,19 +359,19 @@ class Smarty_Compiler extends Smarty {
                 $text_blocks[$i+1] = preg_replace('~^(\r\n|\r|\n)~', '', $text_blocks[$i+1]);
             }
             // replace legit PHP tags with placeholder
-            $text_blocks[$i] = str_replace('<?',$tmp_id,$text_blocks[$i]);
-            $compiled_tags[$i] = str_replace('<?',$tmp_id,$compiled_tags[$i]);
+            $text_blocks[$i] = str_replace('<?', $tag_guard, $text_blocks[$i]);
+            $compiled_tags[$i] = str_replace('<?', $tag_guard, $compiled_tags[$i]);
             
-            $compiled_content .= $text_blocks[$i].$compiled_tags[$i];
+            $compiled_content .= $text_blocks[$i] . $compiled_tags[$i];
         }
-        $compiled_content .= str_replace('<?',$tmp_id,$text_blocks[$i]);
+        $compiled_content .= str_replace('<?', $tag_guard, $text_blocks[$i]);
 
         // escape php tags created by interleaving
-        $compiled_content = str_replace('<?',"<?php echo '<?' ?>\n",$compiled_content);
-        $compiled_content = preg_replace("~(?<!')language\s*=\s*[\"\']?\s*php\s*[\"\']?~","<?php echo 'language=php' ?>\n",$compiled_content);
-        
+        $compiled_content = str_replace('<?', "<?php echo '<?' ?>\n", $compiled_content);
+        $compiled_content = preg_replace("~(?<!')language\s*=\s*[\"\']?\s*php\s*[\"\']?~", "<?php echo 'language=php' ?>\n", $compiled_content);
+
         // recover legit tags
-        $compiled_content = str_replace($tmp_id,'<?',$compiled_content); 
+        $compiled_content = str_replace($tag_guard, '<?', $compiled_content); 
         
         // remove \n from the end of the file, if any
         if (strlen($compiled_content) && (substr($compiled_content, -1) == "\n") ) {
@@ -385,11 +382,6 @@ class Smarty_Compiler extends Smarty {
             $compiled_content = "<?php \$this->_cache_serials['".$this->_cache_include."'] = '".$this->_cache_serial."'; ?>" . $compiled_content;
         }
 
-/*        
-        // remove unnecessary close/open tags
-        $compiled_content = preg_replace('~\?>\n?<\?php~', '', $compiled_content);
-*/
-        
         // run compiled template through postfilter functions
         if (count($this->_plugins['postfilter']) > 0) {
             foreach ($this->_plugins['postfilter'] as $filter_name => $postfilter) {
