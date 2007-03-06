@@ -1,3 +1,6 @@
+Version 2.6.17 (Mar 5th, 2007)
+------------------------------
+
 - fix php handling (monte, boots, danilo)
 - fix handling of plugin tags directly followed by an else tag (Fahr, danilo)
 - fix handling of $etc in the truncate modifier when $etc is longer
@@ -10,7 +13,7 @@
   (danilo, boots)
 
 Version 2.6.16 (Dec 1st, 2006)
--------------------------------
+------------------------------
 
 - fixed replacement bug in trimwhitespace output filter that was introduced
   in the last release (Spuerhund, boots)
