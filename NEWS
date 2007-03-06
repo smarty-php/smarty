@@ -1,3 +1,6 @@
+- fix html_select_date separator when parts are missing (hayk,
+  monte)
+
 Version 2.6.17 (Mar 5th, 2007)
 ------------------------------
 
