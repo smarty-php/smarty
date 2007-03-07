@@ -104,7 +104,8 @@
    <listitem><para>
    The <parameter>loop</parameter> attribute,
    usually an array of values, determines the number of times the
-   <varname>{section}</varname> will loop.
+   <varname>{section}</varname> will loop. You can also pass an integer
+   as the loop value.
    </para></listitem>
 
    <listitem><para>When printing a variable within a <varname>{section}</varname>, the
