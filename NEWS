@@ -1,5 +1,7 @@
 - fix html_select_date separator when parts are missing (hayk,
   monte)
+- fix broken detection of non-cached blocks introduced in 2.6.17
+  (messju)
 
 Version 2.6.17 (Mar 5th, 2007)
 ------------------------------
