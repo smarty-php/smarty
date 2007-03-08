@@ -1,3 +1,13 @@
+2007-03-07  Monte Ohrt  <monte@ohrt.com>
+
+    * (Smarty_2_6_18)
+      NEWS:
+      update NEWS file with patch
+
+    * (Smarty_2_6_18)
+      docs/en/designers/language-builtin-functions/language-function-section.xml:
+      note the fact that section loop will accept an integer
+
 2007-03-06  Monte Ohrt  <monte@ohrt.com>
 
     * NEWS
