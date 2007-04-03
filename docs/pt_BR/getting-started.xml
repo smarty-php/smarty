@@ -50,7 +50,7 @@
 	uma outra compilação do template novamente. Com isso, os arquivos de template não são 'parseados'(analisados) 
 	toda vez que um template é solicitado, e cada template tem a total vantagem de soluções de cache do 
 	compilador PHP, tais como: Zend Accelerator (<ulink url="&url.zend;">&url.zend;</ulink>) ou PHP Accelerator
-	(<ulink url="&url.php-accelerator;">&url.php-accelerator;</ulink>).
+	(<ulink url="&url.ion-accel;">&url.ion-accel;</ulink>).
    </para>
    <para>
     Algumas das características do Smarty:

@@ -50,7 +50,7 @@
    di conseguenza si evita una costosa analisi dei template ad ogni richiesta, e
    ogni template può avvantaggiarsi pienamente di strumenti per velocizzare 
    l'esecuzione come Zend Accelerator (<ulink url="&url.zend;">&url.zend;</ulink>) 
-   o PHP Accelerator (<ulink url="&url.php-accelerator;">&url.php-accelerator;</ulink>).
+   o PHP Accelerator (<ulink url="&url.ion-accel;">&url.ion-accel;</ulink>).
   </para>
   <para>
    Ecco alcune delle funzionalità di Smarty:
