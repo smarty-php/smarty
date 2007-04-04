@@ -1,3 +1,11 @@
+2007-04-03  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/de/getting-started.xml
+      docs/es/getting-started.xml
+      docs/it/getting-started.xml
+      docs/pt_BR/getting-started.xml:
+      fixed uris for php-accelerator
+
 2007-03-08  Monte Ohrt  <monte@ohrt.com>
 
     * libs/Config_File.class.php
