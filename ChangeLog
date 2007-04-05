@@ -1,3 +1,8 @@
+2007-04-04  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/ru/getting-started.xml:
+      fixed uri for Zend Accelerator
+
 2007-04-03  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/de/getting-started.xml
