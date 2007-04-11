@@ -41,7 +41,7 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
 <sect1 id="constant.smarty.core.dir">
     <title>SMARTY_CORE_DIR</title>
     <para>
-     This if the <emphasis>full system path</emphasis> to the location of the Smarty core
+     This is the <emphasis>full system path</emphasis> to the location of the Smarty core
      files. If not defined, Smarty will default this constant to the
      <filename>internals/</filename>  sub-directory below
      <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>.
