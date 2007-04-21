@@ -331,6 +331,13 @@ AC_ARG_WITH(lang,
        
     BUILD_DATE=`date '+%d-%m-%Y'`
   fi
+
+  case $withval in
+    ja)
+      BUILD_DATE=`date '+%Y/%m/%d'`
+    ;;
+    *)
+  esac
 ],[
   LANG=en
   AC_MSG_RESULT([en (default)])
@@ -341,11 +348,15 @@ AC_SUBST(BUILD_DATE)
 case "$LANG" in
   ru) ENCODING="windows-1251"
       FOP="$FOP -c fop/ru.cfg";;
+  ja) ENCODING="utf-8";;
   *) ENCODING="ISO-8859-1";;
 esac
 
+SP_OPTIONS="SP_ENCODING=XML SP_CHARSET_FIXED=YES"
+
 AC_SUBST(ENCODING)
 AC_SUBST(FOP)
+AC_SUBST(SP_OPTIONS)
 
 dnl }}}
 
