@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE translation SYSTEM "../dtds/translation.dtd">
+<translation>
+ <intro>
+  このファイルは、Smarty 日本語マニュアルの翻訳状況を示すものです。
+  このファイルは、smarty/docs/scripts/revcheck.php によって自動的に作成されます。
+ </intro>
+ 
+ <translators>
+  <person name="Shinsuke Matsuda" email="mat-sh@fj9.so-net.ne.jp" nick="mat-sh" cvs="no" />
+ </translators>
+ <translators>
+  <person name="Daichi Kamemoto" email="daichi@asial.co.jp" nick="daichi" cvs="no" />
+ </translators>
+ <translators>
+  <person name="Joe Morikawa" email="joe@asial.co.jp" nick="joe" cvs="no" />
+ </translators>
+ <translators>
+  <person name="Masahiro Takagi" email="takagi@php.net" nick="takagi" cvs="yes" />
+ </translators>
+ 
+ <work-in-progress>
+ </work-in-progress>
+
+</translation>
