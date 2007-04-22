@@ -3,7 +3,7 @@
 <!-- EN-Revision: 1.4 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
   <chapter id="api.variables">
-   <title>Smarty 繧ｯ繝ｩ繧ｹ螟画焚</title>
+   <title>Smarty クラス変数</title>
 
 &programmers.api-variables.variable-template-dir;
 &programmers.api-variables.variable-compile-dir;

@@ -3,7 +3,7 @@
 <!-- EN-Revision: 1.10 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <chapter id="api.functions">
-     <title>Smarty 繧ｯ繝ｩ繧ｹ繝｡繧ｽ繝?ラ</title>
+     <title>Smarty クラスメソッド</title>
 &programmers.api-functions.api-append;
 &programmers.api-functions.api-append-by-ref;
 &programmers.api-functions.api-assign;
