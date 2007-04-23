@@ -1,3 +1,10 @@
+2007-04-22  TAKAGI Masahiro  <matakagi@osk2.3web.ne.jp>
+
+    * docs/ja/programmers/advanced-features.xml
+      docs/ja/programmers/api-functions.xml
+      docs/ja/programmers/api-variables.xml:
+      corrected the garbled text.
+
 2007-04-21  TAKAGI Masahiro  <matakagi@osk2.3web.ne.jp>
 
     * docs/ja/bookinfo.xml
