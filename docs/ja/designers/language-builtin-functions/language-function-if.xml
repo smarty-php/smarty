@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
@@ -17,9 +17,9 @@
  </para>
  <para>
   <link linkend="variable.security"><parameter>$security</parameter></link>
-  が有効な場合、配列 <link
+  が有効な場合は、 <link
   linkend="variable.security.settings"><parameter>$security_settings</parameter></link>
-  には <emphasis>IF_FUNCS</emphasis> 配列が入ります。
+  の配列 <emphasis>IF_FUNCS</emphasis> に含まれる PHP の関数のみが利用可能となります。
  </para>
  <para>
   以下は認識される条件演算子の一覧です。
@@ -230,7 +230,7 @@
    <title>{if} のその他の例</title>
 <programlisting>
  <![CDATA[
-{if isset($name) && $name = 'Blog'}
+{if isset($name) && $name == 'Blog'}
      {* 何かを行います *}
 {elseif $name == $foo}
     {* 何かを行います *}

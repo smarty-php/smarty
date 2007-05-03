@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <sect1 id="language.modifier.wordwrap">
   <title>wordwrap</title>
@@ -84,7 +84,7 @@ $smarty->assign('articleTitle',
 
 {$articleTitle|wordwrap:30:"<br />\n"}
 
-{$articleTitle|wordwrap:30:"\n":true}
+{$articleTitle|wordwrap:26:"\n":true}
 ]]>
    </programlisting>
    <para>
@@ -107,9 +107,9 @@ Blind woman gets new kidney<br />
 from dad she hasn't seen in<br />
 years.
 
-Blind woman gets new kidney
-from dad she hasn't seen in
-years.
+Blind woman gets new kidn
+ey from dad she hasn't se
+en in years.
 ]]>
    </screen>
   </example>

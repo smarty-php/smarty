@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.11 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 1.12 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.foreach">
  <title>{foreach},{foreachelse}</title>
   <para>
-  <varname>{foreach}</varname> を使用して、
-   <emphasis role="bold">１つの連想配列</emphasis> をループします。
+  <varname>{foreach}</varname> を使用して、通常の数値添字配列と同じように
+   <emphasis role="bold">連想配列</emphasis> をループします。
    <link linkend="language.function.section"><varname>{section}</varname></link>
-  のように、<emphasis role="bold">データの配列</emphasis> をループすることはありません。
+  のように、<emphasis role="bold">数値添字の配列のみ</emphasis> をループさせるということはありません。
    <varname>{foreach}</varname> の構文は
    <link linkend="language.function.section"><varname>{section}</varname></link>
    よりずっと簡単ですが、その代わりに <emphasis role="bold">１つの配列</emphasis>
