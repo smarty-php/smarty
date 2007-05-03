@@ -15,9 +15,10 @@
   <emphasis>is_array()</emphasis>, etc.
  </para>
  <para>
-  If <link linkend="variable.security"><parameter>$security</parameter></link> is enabled
-  then <emphasis>IF_FUNCS</emphasis> array in the <link
-  linkend="variable.security.settings"><parameter>$security_settings</parameter></link> array.
+  If <link linkend="variable.security"><parameter>$security</parameter></link> is enabled,
+  only PHP functions from the <emphasis>IF_FUNCS</emphasis> array from <link
+  linkend="variable.security.settings"><parameter>$security_settings</parameter></link>
+  are allowed.
  </para>
  <para>
   The following is a list of recognized qualifiers, which must be
@@ -227,7 +228,7 @@
    <title>{if} with more examples</title>
 <programlisting>
  <![CDATA[
-{if isset($name) && $name = 'Blog'}
+{if isset($name) && $name == 'Blog'}
      {* do something *}
 {elseif $name == $foo}
     {* do something *}

@@ -156,7 +156,7 @@ define('MY_CONST_VAL','CHERRIES');
   <para>
    Returns the name of the current template being  processed.
    The following example shows the <filename>container.tpl</filename> and the
-   <filename>included banner.tpl</filename> with
+   included <filename>banner.tpl</filename> with
    <parameter>{$smarty.template}</parameter> within both.
   </para>
 <programlisting>

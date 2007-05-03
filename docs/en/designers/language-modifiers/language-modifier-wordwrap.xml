@@ -85,7 +85,7 @@ $smarty->assign('articleTitle',
 
 {$articleTitle|wordwrap:30:"<br />\n"}
 
-{$articleTitle|wordwrap:30:"\n":true}
+{$articleTitle|wordwrap:26:"\n":true}
 ]]>
    </programlisting>
    <para>
@@ -108,9 +108,9 @@ Blind woman gets new kidney<br />
 from dad she hasn't seen in<br />
 years.
 
-Blind woman gets new kidney
-from dad she hasn't seen in
-years.
+Blind woman gets new kidn
+ey from dad she hasn't se
+en in years.
 ]]>
    </screen>
   </example>

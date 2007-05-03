@@ -3,10 +3,10 @@
 <sect1 id="language.function.foreach">
  <title>{foreach},{foreachelse}</title>
   <para>
-  <varname>{foreach}</varname> is used to loop over a
-   <emphasis role="bold">single associative array</emphasis>,
+  <varname>{foreach}</varname> is used to loop over an
+   <emphasis role="bold">associative array</emphasis> as well a numerically-indexed array,
    unlike <link linkend="language.function.section"><varname>{section}</varname></link>
-  which is for looping over <emphasis role="bold">arrays of data</emphasis>.
+  which is for looping over <emphasis role="bold">numerically-indexed arrays only</emphasis>.
   The syntax for
    <varname>{foreach}</varname> is much easier than
    <link linkend="language.function.section"><varname>{section}</varname></link>,

@@ -114,7 +114,9 @@ pageTitle = "Customer Info"
   <link linkend="config.files">Config Files</link>
   may also contain sections. You can load variables from
   within a section with the added attribute
-  <parameter>section</parameter>.
+  <parameter>section</parameter>. Note that global config
+  variables are always loaded along with section variables,
+  and same-named section variables overwrite the globals.
  </para>
  <note>
   <para>
