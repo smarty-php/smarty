@@ -1,3 +1,26 @@
+2007-05-03  TAKAGI Masahiro  <matakagi@osk2.3web.ne.jp>
+
+    * docs/ja/designers/language-variables.xml
+      docs/ja/designers/language-builtin-functions/language-function-config-load.xml
+      docs/ja/designers/language-builtin-functions/language-function-foreach.xml
+      docs/ja/designers/language-builtin-functions/language-function-if.xml
+      docs/ja/designers/language-modifiers/language-modifier-cat.xml
+      docs/ja/designers/language-modifiers/language-modifier-wordwrap.xml
+      docs/ja/designers/language-variables/language-variables-smarty.xml:
+      sync with en.
+
+2007-05-03  Monte Ohrt  <monte@ohrt.com>
+
+    * docs/en/designers/language-variables.xml
+      docs/en/designers/language-builtin-functions/language-function-config-load.xml
+      docs/en/designers/language-builtin-functions/language-function-foreach.xml
+      docs/en/designers/language-builtin-functions/language-function-if.xml
+      docs/en/designers/language-modifiers/language-modifier-cat.xml
+      docs/en/designers/language-modifiers/language-modifier-wordwrap.xml
+      docs/en/designers/language-variables/language-variables-smarty.xml:
+      update documentation corrections from marcello in the forums. Thanks
+      marcello!
+
 2007-04-22  TAKAGI Masahiro  <matakagi@osk2.3web.ne.jp>
 
     * docs/ja/programmers/advanced-features.xml
