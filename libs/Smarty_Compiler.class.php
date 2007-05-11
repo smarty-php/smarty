@@ -869,7 +869,7 @@ class Smarty_Compiler extends Smarty {
             // traditional argument format
             $args = implode(',', array_values($attrs));
             if (empty($args)) {
-                $args = 'null';
+                $args = '';
             }
         }
 

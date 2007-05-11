@@ -1,3 +1,5 @@
+- fix calling registered objects' methods with an empty argument list
+  (marcello, messju)
 - fix html_select_date separator when parts are missing (hayk,
   monte)
 - fix broken detection of non-cached blocks introduced in 2.6.17
