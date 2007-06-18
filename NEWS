@@ -1,5 +1,11 @@
+- fix when (un)registering filters with the same method name but different class
+  name (danilo)
 - fix calling registered objects' methods with an empty argument list
   (marcello, messju)
+ 
+Version 2.6.18 (Mar 7th, 2007)
+------------------------------
+
 - fix html_select_date separator when parts are missing (hayk,
   monte)
 - fix broken detection of non-cached blocks introduced in 2.6.17

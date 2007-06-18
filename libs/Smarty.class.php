@@ -838,69 +838,66 @@ class Smarty
      * Registers a prefilter function to apply
      * to a template before compiling
      *
-     * @param string $function name of PHP function to register
+     * @param callback $function
      */
     function register_prefilter($function)
     {
-    $_name = (is_array($function)) ? $function[1] : $function;
-        $this->_plugins['prefilter'][$_name]
+        $this->_plugins['prefilter'][$this->_get_filter_name($function)]
             = array($function, null, null, false);
     }
 
     /**
      * Unregisters a prefilter function
      *
-     * @param string $function name of PHP function
+     * @param callback $function
      */
     function unregister_prefilter($function)
     {
-        unset($this->_plugins['prefilter'][$function]);
+        unset($this->_plugins['prefilter'][$this->_get_filter_name($function)]);
     }
 
     /**
      * Registers a postfilter function to apply
      * to a compiled template after compilation
      *
-     * @param string $function name of PHP function to register
+     * @param callback $function
      */
     function register_postfilter($function)
     {
-    $_name = (is_array($function)) ? $function[1] : $function;
-        $this->_plugins['postfilter'][$_name]
+        $this->_plugins['postfilter'][$this->_get_filter_name($function)]
             = array($function, null, null, false);
     }
 
     /**
      * Unregisters a postfilter function
      *
-     * @param string $function name of PHP function
+     * @param callback $function
      */
     function unregister_postfilter($function)
     {
-        unset($this->_plugins['postfilter'][$function]);
+        unset($this->_plugins['postfilter'][$this->_get_filter_name($function)]);
     }
 
     /**
      * Registers an output filter function to apply
      * to a template output
      *
-     * @param string $function name of PHP function
+     * @param callback $function
      */
     function register_outputfilter($function)
     {
-    $_name = (is_array($function)) ? $function[1] : $function;
-        $this->_plugins['outputfilter'][$_name]
+        $this->_plugins['outputfilter'][$this->_get_filter_name($function)]
             = array($function, null, null, false);
     }
 
     /**
      * Unregisters an outputfilter function
      *
-     * @param string $function name of PHP function
+     * @param callback $function
      */
     function unregister_outputfilter($function)
     {
-        unset($this->_plugins['outputfilter'][$function]);
+        unset($this->_plugins['outputfilter'][$this->_get_filter_name($function)]);
     }
 
     /**
@@ -1935,6 +1932,25 @@ class Smarty
     {
         return eval($code);
     }
+    
+    /**
+     * Extracts the filter name from the given callback
+     * 
+     * @param callback $function
+     * @return string
+     */
+	function _get_filter_name($function)
+	{
+		if (is_array($function)) {
+			$_class_name = (is_object($function[0]) ?
+				get_class($function[0]) : $function[0]);
+			return $_class_name . '_' . $function[1];
+		}
+		else {
+			return $function;
+		}
+	}
+    
     /**#@-*/
 
 }
