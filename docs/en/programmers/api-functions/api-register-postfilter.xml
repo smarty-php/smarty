@@ -19,7 +19,7 @@
    more information on how to setup a postfiltering function.
   </para>
    &api.register.snippet;
-
+   &note.parameter.function;
   <para>
   See also
   <link linkend="api.unregister.postfilter">

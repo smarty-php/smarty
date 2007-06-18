@@ -12,6 +12,17 @@
  </para>
 </note>'>
 
+<!ENTITY note.parameter.function '<note>
+ <title>Technical Note</title>
+ <para>
+  If the chosen <parameter>function</parameter> callback is of the form 
+  <literal>array(&amp;$object, $method)</literal>, only one instance of the
+  same class and with the same <literal>$method</literal> can be registered. The
+  latest registered <parameter>function</parameter> callback will be used in 
+  such a scenario.
+ </para>
+</note>'>
+
 <!ENTITY parameter.compileid '<para>
  As an optional third parameter, you can pass a
  <parameter>$compile_id</parameter>.

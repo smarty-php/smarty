@@ -21,7 +21,7 @@
    for more information on how to set up an output filter function.
   </para>
    &api.register.snippet;
-
+   &note.parameter.function;
 <para>
 See also
 <link linkend="api.unregister.outputfilter"><varname>unregister_outputfilter()</varname></link>,
