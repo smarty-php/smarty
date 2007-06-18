@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 
 <!ENTITY note.parameter.merge '<note>
@@ -12,6 +12,17 @@
   これは、数値のキーを全て削除した後に再びキーに番号付けを行う、PHP
   の <ulink url="&url.php-manual;array_merge"><varname>array_merge()</varname></ulink>
   関数とは違っています。
+ </para>
+</note>'>
+
+<!ENTITY note.parameter.function '<note>
+ <title>テクニカルノート</title>
+ <para>
+  選択したコールバック <parameter>function</parameter> が
+  <literal>array(&amp;$object, $method)</literal> 形式である場合は、
+  同じ <literal>$method</literal> を持つクラスのインスタンスをひとつだけ登録できます。
+  そのような場合は、最後に登録されたコールバック <parameter>function</parameter>
+  のみが用いられます。
  </para>
 </note>'>
 

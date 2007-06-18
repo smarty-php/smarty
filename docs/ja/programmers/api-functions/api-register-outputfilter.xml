@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.register.outputfilter">
  <refnamediv>
@@ -22,7 +22,7 @@
    の項を参照して下さい。
   </para>
    &api.register.snippet;
-
+   &note.parameter.function;
 <para>
 <link linkend="api.unregister.outputfilter"><varname>unregister_outputfilter()</varname></link>、
 <link linkend="api.load.filter"><varname>load_filter()</varname></link>、
