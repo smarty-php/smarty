@@ -1,3 +1,28 @@
+2007-06-18  TAKAGI Masahiro  <matakagi@osk2.3web.ne.jp>
+
+    * docs/ja/language-snippets.ent
+      docs/ja/programmers/api-functions/api-register-outputfilter.xml
+      docs/ja/programmers/api-functions/api-register-postfilter.xml
+      docs/ja/programmers/api-functions/api-register-prefilter.xml:
+      sync with en.
+
+2007-06-18  Danilo Buerger  <danilo@blizzz.org>
+
+    * docs/en/language-snippets.ent
+      docs/en/programmers/api-functions/api-register-outputfilter.xml
+      docs/en/programmers/api-functions/api-register-postfilter.xml
+      docs/en/programmers/api-functions/api-register-prefilter.xml:
+      Updated docs according to the changes from the previous commit
+
+    * NEWS
+      libs/Smarty.class.php:
+      Added the ability to (un)register multiple filters of the same type with
+      the same method name but different class name. Before it was not possible
+      due to the fact that only the method name was used to distinguish between
+      different filters of the same type. This does however not allow (same as
+      before) to register multiple filters of the same type with the same method
+      and class name (i.e. different instances of the same class).
+
 2007-05-29  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/plugins/compiler.assign.php:
