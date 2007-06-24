@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.13 Maintainer: andreas Status: ready -->
+<!-- EN-Revision: 1.20 Maintainer: messju Status: ready -->
 <part id="getting.started">
  <title>Erste Schritte</title>
  <chapter id="what.is.smarty">
@@ -162,10 +162,20 @@
    </note>
    <para>
     Installieren Sie als erstes die Smarty-Library Dateien (den
-    /libs/-Ordner der Smarty Distribution). Diese Dateien sollten von
-    Ihnen NICHT editiert und von allen Applikationen verwendet
-    werden. Sie werden nur erneuert, wenn Sie eine neue Version von
+    <filename class="directory">/libs/</filename>-Ordner der Smarty Distribution).
+    Diese Dateien sollten von Ihnen NICHT editiert und von allen Applikationen
+    verwendet werden. Sie werden nur erneuert, wenn Sie eine neue Version von
     Smarty installieren.
+   </para>
+   <para>In the examples below the Smarty tarball has been  unpacked to:
+    <itemizedlist>
+     <listitem><para>
+      <filename class="directory">/usr/local/lib/Smarty-v.e.r/</filename>
+       unter *nix-basierten Betriebsystemen</para></listitem>
+     <listitem><para> und
+      <filename class="directory">c:\webroot\libs\Smarty-v.e.r\</filename>
+       unter Windows-Umgebungen.</para></listitem>
+    </itemizedlist>
    </para>
    <note>
     <title>Technische Bemerkung</title>
@@ -248,6 +258,19 @@ $smarty = new Smarty();
    </example>
 
    <example>
+    <title>SMARTY_DIR manuell setzen</title>
+    <programlisting role="php">
+<![CDATA[
+<?php
+define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
+require(SMARTY_DIR.'Smarty.class.php');
+$smarty = new Smarty;
+?>
+]]>
+    </programlisting>
+   </example>
+
+   <example>
     <title>Absoluter Pfad &uuml;bergeben</title>
     <programlisting role="php">
 <![CDATA[
@@ -261,27 +284,32 @@ $smarty = new Smarty;
 
    <example>
     <title>Library Verzeichnis dem Include-Pfad hinzuf&uuml;gen</title>
-    <programlisting role="php">
+     <programlisting role="php">
 <![CDATA[
-<?php
-// editieren Sie php.ini, f&uuml;gen Sie das Smarty
-// Verzeichnis Ihrem include_path hinzu, und starten Sie den Webserver neu
-// Danach sollte folgendes Funktionieren.
-require('Smarty.class.php');
-$smarty = new Smarty;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+; Paths and Directories ;
+;;;;;;;;;;;;;;;;;;;;;;;;;
 
-?>
+; *nix: "/path1:/path2"
+include_path = ".:/usr/share/php:/usr/local/lib/Smarty-v.e.r/libs/"
+
+; Windows: "\path1;\path2"
+include_path = ".;c:\php\includes;c:\webroot\libs\Smarty-v.e.r\libs\"
 ]]>
-    </programlisting>
-   </example>
-   <example>
-    <title>SMARTY_DIR manuell setzen</title>
+</programlisting>
+</example>
+
+<example>
+    <title>Library Verzeichnis dem Include-Pfad mit
+    <literal><ulink url="&url.php-manual;ini-set">ini_set()</ulink></literal> hinzuf&uuml;gen</title>
     <programlisting role="php">
 <![CDATA[
 <?php
-define('SMARTY_DIR','/usr/local/lib/php/Smarty/');
-require(SMARTY_DIR.'Smarty.class.php');
-$smarty = new Smarty;
+// *nix
+ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'/usr/local/lib/Smarty-v.e.r/libs/');
+
+// windows
+ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'c:/webroot/lib/Smarty-v.e.r/libs/');
 ?>
 ]]>
     </programlisting>
@@ -434,7 +462,7 @@ chmod 770 /web/www.example.com/smarty/guestbook/cache/
 
 {* Smarty *}
 
-Hallo, {$name}!
+Hallo {$name}, herzlich Willkommen!
 ]]>
     </screen>
    </example>
@@ -478,6 +506,9 @@ $smarty->cache_dir = '/web/www.example.com/smarty/guestbook/cache/';
 
 $smarty->assign('name','Ned');
 
+//** Die folgende Zeile "einkommentieren" um die Debug-Konsole anzuzeigen
+//$smarty->debugging = true;
+
 $smarty->display('index.tpl');
 ?>
 ]]>
@@ -500,7 +531,7 @@ $smarty->display('index.tpl');
 
    <para>
     Wenn Sie <filename>index.php</filename> nun in Ihrem Webbrowser
-   &ouml;ffnen, sollte 'Hallo, Ned!' ausgegeben werden.
+   &ouml;ffnen, sollte 'Hallo, Ned, herzlich Willkommen!' ausgegeben werden.
    </para>
    <para>
     Die Basis-Installation von Smarty w&auml;re somit beendet.

@@ -23,14 +23,17 @@ all: html
 
 PHP=@PHP@
 LANG=@LANG@
-NSGMLS=@SP_OPTIONS@ @NSGMLS@
-JADE=@SP_OPTIONS@ @JADE@  -D . -wno-idref
+# NSGMLS=@SP_OPTIONS@ @NSGMLS@
+NSGMLS=@NSGMLS@
+# JADE=@SP_OPTIONS@ @JADE@  -D . -wno-idref
+JADE=@JADE@  -D . -wno-idref
 XMLLINT=@XMLLINT@
 FOP=@FOP@
 XMLDCL=./dtds/dbxml-4.1.2/phpdocxml.dcl
 CATALOG=@CATALOG@
 HTML_STYLESHEET=dsssl/html.dsl
 PHPWEB_STYLESHEET=dsssl/php.dsl
+
 
 # }}}
 
