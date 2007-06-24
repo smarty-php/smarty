@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.19 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 1.20 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <part id="getting.started">
  <title>はじめに</title>
@@ -332,7 +332,7 @@ include_path = ".;c:\php\includes;c:\webroot\libs\Smarty-v.e.r\libs\"
 </example>
 
 <example>
-    <title>PHP スクリプト内での <literal><ulink url="&url.e-accel;">ini_set()</ulink></literal>
+    <title>PHP スクリプト内での <literal><ulink url="&url.php-manual;ini-set">ini_set()</ulink></literal>
      によるインクルードパスの追加</title>
     <programlisting role="php">
 <![CDATA[
