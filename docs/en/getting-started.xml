@@ -332,7 +332,7 @@ include_path = ".;c:\php\includes;c:\webroot\libs\Smarty-v.e.r\libs\"
 
 <example>
     <title>Appending the include path in a php script with
-    <literal><ulink url="&url.e-accel;">ini_set()</ulink></literal></title>
+    <literal><ulink url="&url.php-manual;ini-set">ini_set()</ulink></literal></title>
     <programlisting role="php">
 <![CDATA[
 <?php
