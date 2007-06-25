@@ -1,3 +1,20 @@
+2007-06-24  TAKAGI Masahiro  <matakagi@osk2.3web.ne.jp>
+
+    * docs/ja/getting-started.xml:
+      sync with en.
+
+2007-06-24  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/Makefile.in:
+      reverted accidently modified file
+
+    * docs/Makefile.in
+      docs/de/getting-started.xml:
+      sync with en
+
+    * docs/en/getting-started.xml:
+      fixed link to ini_set(). thanks to Lee Yunyoung.
+
 2007-06-18  TAKAGI Masahiro  <matakagi@osk2.3web.ne.jp>
 
     * docs/ja/language-snippets.ent
