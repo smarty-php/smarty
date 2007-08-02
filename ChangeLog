@@ -1,3 +1,9 @@
+2007-08-01  Monte Ohrt  <monte@ohrt.com>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      add append feature to capture
+
 2007-06-24  TAKAGI Masahiro  <matakagi@osk2.3web.ne.jp>
 
     * docs/ja/getting-started.xml:
