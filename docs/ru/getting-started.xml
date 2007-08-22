@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.18 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.19 Maintainer: freespace Status: ready -->
 <part id="getting.started">
  <title>Приступая к работе</title>
 
@@ -111,7 +111,7 @@
     <ulink url="&url.e-accel;">eAccelerator</ulink>,
     <ulink url="&url.ion-accel;">ionCube</ulink>,
     <ulink url="&url.mmcache-accel;">mmCache</ulink>,
-    <ulink url="&url.zend;">Zend Accelerator</ulink>
+    <ulink url="&url.zend-accel;">Zend Accelerator</ulink>
     и прочих.
    </para>
    <para>
