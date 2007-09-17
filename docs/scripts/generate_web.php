@@ -21,6 +21,7 @@
   $Id$
 */
 
+ini_set('pcre.backtrack_limit', 150000); // Default is 100000, available since PHP 5.2.0 
 set_time_limit(0);
 
 $search = array(
