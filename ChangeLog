@@ -1,3 +1,16 @@
+2007-09-17  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/id/bookinfo.xml
+      docs/id/getting-started.xml
+      docs/id/language-defs.ent
+      docs/id/language-snippets.ent
+      docs/id/livedocs.ent
+      docs/id/preface.xml:
+      added indonesian docs - thanks Zaenal Mutaqin
+
+    * docs/scripts/generate_web.php:
+      raise pcre.backtrack_limit - thanks to takagi
+
 2007-09-16  Monte Ohrt  <monte@ohrt.com>
 
     * libs/Smarty_Compiler.class.php:
