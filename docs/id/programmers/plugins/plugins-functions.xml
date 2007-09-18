@@ -16,7 +16,7 @@
     <para>
 	 Output (nilai hasil) atas fungsi akan diganti di tempat tag fungsi dalam
      template, misalnya fungsi
-     <link linkend="language.f unction.fetch"><varname>{fetch}</varname></link>.
+     <link linkend="language.function.fetch"><varname>{fetch}</varname></link>.
      Alternatif lain, fungsi bisa hanya melakukan beberapa tugas tanpa output
      apapun, misalnya fugnsi <link linkend="language.function.assign">
      <varname>{assign}</varname></link>.
