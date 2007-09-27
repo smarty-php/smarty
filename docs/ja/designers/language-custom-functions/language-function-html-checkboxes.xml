@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.17 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 1.18 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.html.checkboxes">
  <title>{html_checkboxes}</title>
@@ -83,13 +83,6 @@
      <entry>No</entry>
      <entry><emphasis>&true;</emphasis></entry>
      <entry>出力に &lt;label&gt; タグを加える</entry>
-    </row>
-    <row>
-     <entry>assign</entry>
-     <entry>string</entry>
-     <entry>No</entry>
-     <entry><emphasis>empty</emphasis></entry>
-     <entry>各チェックボックスの出力をひとつの要素とする配列に格納する</entry>
     </row>
    </tbody>
   </tgroup>
