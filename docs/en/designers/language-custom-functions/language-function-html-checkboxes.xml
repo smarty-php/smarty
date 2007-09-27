@@ -83,14 +83,6 @@
      <entry><emphasis>&true;</emphasis></entry>
      <entry>Add &lt;label&gt;-tags to the output</entry>
     </row>
-    <row>
-     <entry>assign</entry>
-     <entry>string</entry>
-     <entry>No</entry>
-     <entry><emphasis>empty</emphasis></entry>
-     <entry>Assign the output to an array with each checkbox's output
-      as one element.</entry>
-    </row>
    </tbody>
   </tgroup>
  </informaltable>
