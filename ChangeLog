@@ -1,3 +1,13 @@
+2007-09-27  TAKAGI Masahiro  <matakagi@gmail.com>
+
+    * docs/ja/designers/language-custom-functions/language-function-html-checkboxes.xml:
+      sync with en.
+
+2007-09-27  Monte Ohrt  <monte@ohrt.com>
+
+    * docs/en/designers/language-custom-functions/language-function-html-checkboxes.xml:
+      remove redundant attribute
+
 2007-09-18  Messju Mohr  <messju@lammfellpuschen.de>
 
     * docs/id/programmers/plugins/plugins-functions.xml:
