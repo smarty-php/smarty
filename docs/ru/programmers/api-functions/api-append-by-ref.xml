@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <refentry id="api.append.by.ref">
  <refnamediv>
   <refname>append_by_ref()</refname>
-  <refpurpose>добавляет значение по ссылке</refpurpose>
+  <refpurpose>РґРѕР±Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РїРѕ СЃСЃС‹Р»РєРµ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>append_by_ref</methodname>
    <methodparam><type>string</type><parameter>varname</parameter></methodparam>
@@ -15,16 +15,16 @@
    <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Используется для <link linkend="api.append">добавления</link> значений
-   в шаблон по ссылке. Если вы добавляете значение переменной по ссылке и это
-   значение изменяется в шаблоне, эти изменения будут отражены в начальной
-   переменной. Для <link linkend="advanced.features.objects">объектов</link>,
-   append_by_ref() также позволяет избежать внутреннего копирования добавляемого
-   объекта.
-   См. руководство PHP для более подробного описания работы передачи переменных
-   по ссылкам.
-   Если вы укажете необязательный третий аргумент, равный true, значение будет
-   совмещено с существующим массивом, вместо добавления.
+   РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ <link linkend="api.append">РґРѕР±Р°РІР»РµРЅРёСЏ</link> Р·РЅР°С‡РµРЅРёР№
+   РІ С€Р°Р±Р»РѕРЅ РїРѕ СЃСЃС‹Р»РєРµ. Р•СЃР»Рё РІС‹ РґРѕР±Р°РІР»СЏРµС‚Рµ Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ РїРѕ СЃСЃС‹Р»РєРµ Рё СЌС‚Рѕ
+   Р·РЅР°С‡РµРЅРёРµ РёР·РјРµРЅСЏРµС‚СЃСЏ РІ С€Р°Р±Р»РѕРЅРµ, СЌС‚Рё РёР·РјРµРЅРµРЅРёСЏ Р±СѓРґСѓС‚ РѕС‚СЂР°Р¶РµРЅС‹ РІ РЅР°С‡Р°Р»СЊРЅРѕР№
+   РїРµСЂРµРјРµРЅРЅРѕР№. Р”Р»СЏ <link linkend="advanced.features.objects">РѕР±СЉРµРєС‚РѕРІ</link>,
+   append_by_ref() С‚Р°РєР¶Рµ РїРѕР·РІРѕР»СЏРµС‚ РёР·Р±РµР¶Р°С‚СЊ РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РєРѕРїРёСЂРѕРІР°РЅРёСЏ РґРѕР±Р°РІР»СЏРµРјРѕРіРѕ
+   РѕР±СЉРµРєС‚Р°.
+   РЎРј. СЂСѓРєРѕРІРѕРґСЃС‚РІРѕ PHP РґР»СЏ Р±РѕР»РµРµ РїРѕРґСЂРѕР±РЅРѕРіРѕ РѕРїРёСЃР°РЅРёСЏ СЂР°Р±РѕС‚С‹ РїРµСЂРµРґР°С‡Рё РїРµСЂРµРјРµРЅРЅС‹С…
+   РїРѕ СЃСЃС‹Р»РєР°Рј.
+   Р•СЃР»Рё РІС‹ СѓРєР°Р¶РµС‚Рµ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ С‚СЂРµС‚РёР№ Р°СЂРіСѓРјРµРЅС‚, СЂР°РІРЅС‹Р№ true, Р·РЅР°С‡РµРЅРёРµ Р±СѓРґРµС‚
+   СЃРѕРІРјРµС‰РµРЅРѕ СЃ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРј РјР°СЃСЃРёРІРѕРј, РІРјРµСЃС‚Рѕ РґРѕР±Р°РІР»РµРЅРёСЏ.
   </para>
   &note.parameter.merge;
   <example>
@@ -32,7 +32,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-// добавление пар ключ / значение
+// РґРѕР±Р°РІР»РµРЅРёРµ РїР°СЂ РєР»СЋС‡ / Р·РЅР°С‡РµРЅРёРµ
 $smarty->append_by_ref('Name', $myname);
 $smarty->append_by_ref('Address', $address);
 ?>
@@ -40,9 +40,9 @@ $smarty->append_by_ref('Address', $address);
    </programlisting>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="api.append">append()</link>
-   и
+   Рё
    <link linkend="api.assign">assign()</link>.
   </para>
 

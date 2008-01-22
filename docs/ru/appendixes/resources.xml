@@ -1,16 +1,47 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <chapter id="resources">
- <title>���������</title>
+ <title>Источники</title>
  <para>
-  �������� �������� Smarty: <ulink
-  url="&url.smarty;">&url.smarty;</ulink>
-  ��� �������� �� �������, ���� ������� ������ ��
-  &ml.general.sub;.
-  ����� �������� �������� �� 
-  <ulink url="&url.ml.archive;">&url.ml.archive;</ulink>.
+  Домашняя страница Smarty доступна по адресу
+  <ulink url="&url.smarty;">&url.smarty;</ulink>
  </para>
+ 
+ <itemizedlist>
+  <listitem>
+   <para>
+    Вы можете подписаться на список рассылки, отправив e-mail на адрес
+    <literal>&ml.general.sub;</literal>. Архив списка рассылки можно
+    просмотреть <ulink url="&url.ml.archive;">здесь</ulink>.
+   </para>
+  </listitem>
+
+  <listitem>
+   <para>
+    Форумы доступны по адресу <ulink url="&url.forums;">&url.forums;</ulink>
+   </para>
+  </listitem>
+
+  <listitem>
+   <para>
+    Wiki находится по адресу <ulink url="&url.wiki;">&url.wiki;</ulink>
+   </para>
+  </listitem>
+
+  <listitem>
+   <para>
+    Заходите в чат на irc.freenode.net#smarty.
+   </para>
+  </listitem>
+
+  <listitem>
+   <para>
+    ЧаВО находятся <ulink url="&url.faq_1;">тут</ulink> и
+    <ulink url="&url.faq_2;">тут</ulink>.
+   </para>
+  </listitem>
+ </itemizedlist>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

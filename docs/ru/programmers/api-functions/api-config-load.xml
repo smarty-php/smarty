@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.config.load">
  <refnamediv>
   <refname>config_load()</refname>
-  <refpurpose>загружает данные из конфигурационного файла и назначает их шаблону</refpurpose>
+  <refpurpose>Р·Р°РіСЂСѓР¶Р°РµС‚ РґР°РЅРЅС‹Рµ РёР· РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕРіРѕ С„Р°Р№Р»Р° Рё РЅР°Р·РЅР°С‡Р°РµС‚ РёС… С€Р°Р±Р»РѕРЅСѓ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>config_load</methodname>
    <methodparam><type>string</type><parameter>file</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>section</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Эта функция загружает данные из
-   <link linkend="config.files">конфигурационного файла</link>
-   и назначает их шаблону. Работает идентично функции шаблона
+   Р­С‚Р° С„СѓРЅРєС†РёСЏ Р·Р°РіСЂСѓР¶Р°РµС‚ РґР°РЅРЅС‹Рµ РёР·
+   <link linkend="config.files">РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕРіРѕ С„Р°Р№Р»Р°</link>
+   Рё РЅР°Р·РЅР°С‡Р°РµС‚ РёС… С€Р°Р±Р»РѕРЅСѓ. Р Р°Р±РѕС‚Р°РµС‚ РёРґРµРЅС‚РёС‡РЅРѕ С„СѓРЅРєС†РёРё С€Р°Р±Р»РѕРЅР°
    <link linkend="language.function.config.load">{config_load}</link>.
   </para>
   <note>
-   <title>Техническое Замечание</title>
+   <title>РўРµС…РЅРёС‡РµСЃРєРѕРµ Р—Р°РјРµС‡Р°РЅРёРµ</title>
    <para>
-    Начиная с версии Smarty 2.4.0, присвоенные переменные шаблона сохраняются
-    между вызовами методов
+    РќР°С‡РёРЅР°СЏ СЃ РІРµСЂСЃРёРё Smarty 2.4.0, РїСЂРёСЃРІРѕРµРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ С€Р°Р±Р»РѕРЅР° СЃРѕС…СЂР°РЅСЏСЋС‚СЃСЏ
+    РјРµР¶РґСѓ РІС‹Р·РѕРІР°РјРё РјРµС‚РѕРґРѕРІ
     <link linkend="api.fetch">fetch()</link>
-    и
+    Рё
     <link linkend="api.display">display()</link>.
-    Конфигурационные переменные, загруженные через config_load(), всегда
-    находятся в глобальной зоне видимости. Конфигурационные файлы также
-    компилируются для более быстрой обработки, и учитывают настройки
+    РљРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ, Р·Р°РіСЂСѓР¶РµРЅРЅС‹Рµ С‡РµСЂРµР· config_load(), РІСЃРµРіРґР°
+    РЅР°С…РѕРґСЏС‚СЃСЏ РІ РіР»РѕР±Р°Р»СЊРЅРѕР№ Р·РѕРЅРµ РІРёРґРёРјРѕСЃС‚Рё. РљРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ С„Р°Р№Р»С‹ С‚Р°РєР¶Рµ
+    РєРѕРјРїРёР»РёСЂСѓСЋС‚СЃСЏ РґР»СЏ Р±РѕР»РµРµ Р±С‹СЃС‚СЂРѕР№ РѕР±СЂР°Р±РѕС‚РєРё, Рё СѓС‡РёС‚С‹РІР°СЋС‚ РЅР°СЃС‚СЂРѕР№РєРё
     <link linkend="variable.force.compile">$force_compile</link>
-    и
+    Рё
     <link linkend="variable.compile.check">$compile_check</link>.
    </para>
   </note>
@@ -40,22 +40,22 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-// загружаем конфигурационные переменные и присваиваем их шаблону
+// Р·Р°РіСЂСѓР¶Р°РµРј РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ Рё РїСЂРёСЃРІР°РёРІР°РµРј РёС… С€Р°Р±Р»РѕРЅСѓ
 $smarty->config_load('my.conf');
 
-// загружаем секцию
+// Р·Р°РіСЂСѓР¶Р°РµРј СЃРµРєС†РёСЋ
 $smarty->config_load('my.conf', 'foobar');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.function.config.load">{config_load}</link>,
    <link linkend="api.get.config.vars">get_config_vars()</link>,
    <link linkend="api.clear.config">clear_config()</link>,
-   и
-   <link linkend="language.config.variables">конфигурационные переменные</link>.
+   Рё
+   <link linkend="language.config.variables">РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ</link>.
   </para>
  </refsect1>
 </refentry>

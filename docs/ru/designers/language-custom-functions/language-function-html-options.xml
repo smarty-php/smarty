@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.14 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.options">
  <title>{html_options}</title>
- <para>{html_options} является
-  <link linkend="language.custom.functions">пользовательской функцией</link>,
-  которая создает группу HTML-тэгов option по указанной информации.
-  Также она обеспечивает выбор элемента по умолчанию.
-  Параметры values и output являются обязательными, если не указан атрибут
+ <para>{html_options} СЏРІР»СЏРµС‚СЃСЏ
+  <link linkend="language.custom.functions">РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕР№ С„СѓРЅРєС†РёРµР№</link>,
+  РєРѕС‚РѕСЂР°СЏ СЃРѕР·РґР°РµС‚ РіСЂСѓРїРїСѓ HTML-С‚СЌРіРѕРІ option РїРѕ СѓРєР°Р·Р°РЅРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
+  РўР°РєР¶Рµ РѕРЅР° РѕР±РµСЃРїРµС‡РёРІР°РµС‚ РІС‹Р±РѕСЂ СЌР»РµРјРµРЅС‚Р° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.
+  РџР°СЂР°РјРµС‚СЂС‹ values Рё output СЏРІР»СЏСЋС‚СЃСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹РјРё, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚
   options.
  </para>
  
@@ -20,72 +20,72 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
+    <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+    <entry>РўРёРї</entry>
+    <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+    <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+    <entry>РћРїРёСЃР°РЅРёРµ</entry>
    </row>
   </thead>
   <tbody>
    <row>
     <entry>values</entry>
-    <entry>массив</entry>
-    <entry>Да, если не указан атрибут options</entry>
+    <entry>РјР°СЃСЃРёРІ</entry>
+    <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚ options</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>массив значений для выпадающего списка</entry>
+    <entry>РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ РґР»СЏ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР°</entry>
    </row>
    <row>
     <entry>output</entry>
-    <entry>массив</entry>
-    <entry>Да, если не указан атрибут options</entry>
+    <entry>РјР°СЃСЃРёРІ</entry>
+    <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚ options</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>массив названий для выпадающего списка</entry>
+    <entry>РјР°СЃСЃРёРІ РЅР°Р·РІР°РЅРёР№ РґР»СЏ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР°</entry>
    </row>
    <row>
     <entry>selected</entry>
     <entry>string/array</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>пусто</emphasis></entry>
-    <entry>Выбранный элемент(ы)</entry>
+    <entry>РќРµС‚</entry>
+    <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+    <entry>Р’С‹Р±СЂР°РЅРЅС‹Р№ СЌР»РµРјРµРЅС‚(С‹)</entry>
    </row>
    <row>
     <entry>options</entry>
-    <entry>ассоциативный массив</entry>
-    <entry>Да, если не указаны атрибуты values и output</entry>
+    <entry>Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ</entry>
+    <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅС‹ Р°С‚СЂРёР±СѓС‚С‹ values Рё output</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>ассоциативный массив значений и названий</entry>
+    <entry>Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ Рё РЅР°Р·РІР°РЅРёР№</entry>
    </row>
    <row>
     <entry>name</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>пусто</emphasis></entry>
-    <entry>Название выпадающего списка</entry>
+    <entry>РќРµС‚</entry>
+    <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+    <entry>РќР°Р·РІР°РЅРёРµ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР°</entry>
    </row>
   </tbody>
   </tgroup>
  </informaltable>
 
  <para>
-  Если переданное значение - массив, оно будет принято за HTML-тэг &lt;optgroup&gt;
-  и отображено в виде групп. В элементе &lt;optgroup&gt; поддерживается рекурсия.
-  Весь вывод совместим с XHTML.
+  Р•СЃР»Рё РїРµСЂРµРґР°РЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ - РјР°СЃСЃРёРІ, РѕРЅРѕ Р±СѓРґРµС‚ РїСЂРёРЅСЏС‚Рѕ Р·Р° HTML-С‚СЌРі &lt;optgroup&gt;
+  Рё РѕС‚РѕР±СЂР°Р¶РµРЅРѕ РІ РІРёРґРµ РіСЂСѓРїРї. Р’ СЌР»РµРјРµРЅС‚Рµ &lt;optgroup&gt; РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ СЂРµРєСѓСЂСЃРёСЏ.
+  Р’РµСЃСЊ РІС‹РІРѕРґ СЃРѕРІРјРµСЃС‚РёРј СЃ XHTML.
  </para>
  <para>
-  Если указан необязательный параметр <emphasis>name</emphasis>, список будет
-  окружен тэгом &lt;select name="groupname"&gt;&lt;/select&gt;.
-  В противном случае будут сгенерированы лишь элементы &lt;option&gt;.
+  Р•СЃР»Рё СѓРєР°Р·Р°РЅ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ <emphasis>name</emphasis>, СЃРїРёСЃРѕРє Р±СѓРґРµС‚
+  РѕРєСЂСѓР¶РµРЅ С‚СЌРіРѕРј &lt;select name="groupname"&gt;&lt;/select&gt;.
+  Р’ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ Р±СѓРґСѓС‚ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅС‹ Р»РёС€СЊ СЌР»РµРјРµРЅС‚С‹ &lt;option&gt;.
  </para>
  <para>
-  Все параметры, которые не указаны выше, выводятся в виде
-  пар name/value в тэге &lt;select&gt;. Если необязательный
-  параметр <emphasis>name</emphasis> не указан, они игнорируются.
+  Р’СЃРµ РїР°СЂР°РјРµС‚СЂС‹, РєРѕС‚РѕСЂС‹Рµ РЅРµ СѓРєР°Р·Р°РЅС‹ РІС‹С€Рµ, РІС‹РІРѕРґСЏС‚СЃСЏ РІ РІРёРґРµ
+  РїР°СЂ name/value РІ С‚СЌРіРµ &lt;select&gt;. Р•СЃР»Рё РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№
+  РїР°СЂР°РјРµС‚СЂ <emphasis>name</emphasis> РЅРµ СѓРєР°Р·Р°РЅ, РѕРЅРё РёРіРЅРѕСЂРёСЂСѓСЋС‚СЃСЏ.
  </para>
  <example>
   <title>{html_options}</title>
   <para>
-   <emphasis role="bold">Пример №1:</emphasis>
+   <emphasis role="bold">РџСЂРёРјРµСЂ в„–1:</emphasis>
   </para>
   <programlisting role="php">
 <![CDATA[
@@ -103,7 +103,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Шаблон:
+   РЁР°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -113,7 +113,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   <emphasis role="bold">Пример №2:</emphasis>
+   <emphasis role="bold">РџСЂРёРјРµСЂ в„–2:</emphasis>
   </para>
   <programlisting role="php">
 <![CDATA[
@@ -131,7 +131,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Шаблон:
+   РЁР°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -139,7 +139,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Результат выполнения обоих примеров будет следующим:
+   Р РµР·СѓР»СЊС‚Р°С‚ РІС‹РїРѕР»РЅРµРЅРёСЏ РѕР±РѕРёС… РїСЂРёРјРµСЂРѕРІ Р±СѓРґРµС‚ СЃР»РµРґСѓСЋС‰РёРј:
   </para>
   <screen>
 <![CDATA[
@@ -153,7 +153,7 @@ $smarty->assign('customer_id', 1001);
   </screen>
  </example>
  <example>
-  <title>{html_options} - Пример с базой данных (к примеру, PEAR или ADODB):</title>
+  <title>{html_options} - РџСЂРёРјРµСЂ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С… (Рє РїСЂРёРјРµСЂСѓ, PEAR РёР»Рё ADODB):</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -169,7 +169,7 @@ $smarty->assign('contact',$db->getRow($sql));
 ]]>
   </programlisting>
   <para>
-   Шаблон:
+   РЁР°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -181,9 +181,9 @@ $smarty->assign('contact',$db->getRow($sql));
   </programlisting>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.function.html.checkboxes">{html_checkboxes}</link>
-  и
+  Рё
   <link linkend="language.function.html.radios">{html_radios}</link>
  </para>
 </sect1>

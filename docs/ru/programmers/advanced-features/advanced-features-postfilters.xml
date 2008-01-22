@@ -1,53 +1,53 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="advanced.features.postfilters">
- <title>Постфильтры</title>
+ <title>РџРѕСЃС‚С„РёР»СЊС‚СЂС‹</title>
  <para>
-  Постфильтры шаблона - это функции PHP, которые обрабатывают шаблон после его
-  компиляции. Постфильтры могут быть или
-  <link linkend="api.register.postfilter">зарегистрированы</link>
-  или загружены из
-  <link linkend="variable.plugins.dir">директории плагинов</link>
-  при помощи функции
-  <link linkend="api.load.filter">load_filter()</link>, или
-  с помощью установки переменной
+  РџРѕСЃС‚С„РёР»СЊС‚СЂС‹ С€Р°Р±Р»РѕРЅР° - СЌС‚Рѕ С„СѓРЅРєС†РёРё PHP, РєРѕС‚РѕСЂС‹Рµ РѕР±СЂР°Р±Р°С‚С‹РІР°СЋС‚ С€Р°Р±Р»РѕРЅ РїРѕСЃР»Рµ РµРіРѕ
+  РєРѕРјРїРёР»СЏС†РёРё. РџРѕСЃС‚С„РёР»СЊС‚СЂС‹ РјРѕРіСѓС‚ Р±С‹С‚СЊ РёР»Рё
+  <link linkend="api.register.postfilter">Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹</link>
+  РёР»Рё Р·Р°РіСЂСѓР¶РµРЅС‹ РёР·
+  <link linkend="variable.plugins.dir">РґРёСЂРµРєС‚РѕСЂРёРё РїР»Р°РіРёРЅРѕРІ</link>
+  РїСЂРё РїРѕРјРѕС‰Рё С„СѓРЅРєС†РёРё
+  <link linkend="api.load.filter">load_filter()</link>, РёР»Рё
+  СЃ РїРѕРјРѕС‰СЊСЋ СѓСЃС‚Р°РЅРѕРІРєРё РїРµСЂРµРјРµРЅРЅРѕР№
   <link linkend="variable.autoload.filters">$autoload_filters</link>.
-  Smarty передаёт фильтру скомпилированный код шаблона в качестве первого
-  аргумента и предполагает, что функция вернёт результат своей работы.
+  Smarty РїРµСЂРµРґР°С‘С‚ С„РёР»СЊС‚СЂСѓ СЃРєРѕРјРїРёР»РёСЂРѕРІР°РЅРЅС‹Р№ РєРѕРґ С€Р°Р±Р»РѕРЅР° РІ РєР°С‡РµСЃС‚РІРµ РїРµСЂРІРѕРіРѕ
+  Р°СЂРіСѓРјРµРЅС‚Р° Рё РїСЂРµРґРїРѕР»Р°РіР°РµС‚, С‡С‚Рѕ С„СѓРЅРєС†РёСЏ РІРµСЂРЅС‘С‚ СЂРµР·СѓР»СЊС‚Р°С‚ СЃРІРѕРµР№ СЂР°Р±РѕС‚С‹.
  </para>
  <example>
-  <title>использование постфильтра</title>
+  <title>РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РїРѕСЃС‚С„РёР»СЊС‚СЂР°</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// код в вашем скрипте
+// РєРѕРґ РІ РІР°С€РµРј СЃРєСЂРёРїС‚Рµ
 function add_header_comment($tpl_source, &$smarty)
 {
-    return "<?php echo \"<!-- Создано при помощи Smarty! -->;\n\"; ?>\n".$tpl_source;
+    return "<?php echo \"<!-- РЎРѕР·РґР°РЅРѕ РїСЂРё РїРѕРјРѕС‰Рё Smarty! -->;\n\"; ?>\n".$tpl_source;
 }
 
-// регистрация постфильтра
+// СЂРµРіРёСЃС‚СЂР°С†РёСЏ РїРѕСЃС‚С„РёР»СЊС‚СЂР°
 $smarty->register_postfilter('add_header_comment');
 $smarty->display('index.tpl');
 ?>
 ]]>
   </programlisting>
   <para>
-   Теперь скомпилированный шаблон Smarty index.tpl выглядит так:
+   РўРµРїРµСЂСЊ СЃРєРѕРјРїРёР»РёСЂРѕРІР°РЅРЅС‹Р№ С€Р°Р±Р»РѕРЅ Smarty index.tpl РІС‹РіР»СЏРґРёС‚ С‚Р°Рє:
   </para>
   <screen>
 <![CDATA[
-<!-- Создано при помощи Smarty! -->
-{* остальной код шаблона... *}
+<!-- РЎРѕР·РґР°РЅРѕ РїСЂРё РїРѕРјРѕС‰Рё Smarty! -->
+{* РѕСЃС‚Р°Р»СЊРЅРѕР№ РєРѕРґ С€Р°Р±Р»РѕРЅР°... *}
 ]]>
   </screen>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="api.register.postfilter">register_postfilter()</link>,
-  <link linkend="advanced.features.prefilters">префильтры</link>
-  и
+  <link linkend="advanced.features.prefilters">РїСЂРµС„РёР»СЊС‚СЂС‹</link>
+  Рё
   <link linkend="api.load.filter">load_filter()</link>.
  </para>
 </sect1>

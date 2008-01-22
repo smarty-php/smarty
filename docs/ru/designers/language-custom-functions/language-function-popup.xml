@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.popup">
  <title>{popup}</title>
   <para>
-   {popup} используется для создания высплывающих окон при помощи javascript.
-   Для обеспечения работы этой функции, предварительно ДОЛЖНА быть вызвана
-   функция <link linkend="language.function.popup.init">{popup_init}</link>.
+   {popup} РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РІС‹СЃРїР»С‹РІР°СЋС‰РёС… РѕРєРѕРЅ РїСЂРё РїРѕРјРѕС‰Рё javascript.
+   Р”Р»СЏ РѕР±РµСЃРїРµС‡РµРЅРёСЏ СЂР°Р±РѕС‚С‹ СЌС‚РѕР№ С„СѓРЅРєС†РёРё, РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ Р”РћР›Р–РќРђ Р±С‹С‚СЊ РІС‹Р·РІР°РЅР°
+   С„СѓРЅРєС†РёСЏ <link linkend="language.function.popup.init">{popup_init}</link>.
  </para>
  
  <informaltable frame="all">
@@ -18,379 +18,379 @@
    <colspec colname="desc" />
    <thead>
     <row>
-     <entry>Имя атрибута</entry>
-     <entry>Тип</entry>
-     <entry>Обязателен</entry>
-     <entry>По умолчанию</entry>
-     <entry>Описание</entry>
+     <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+     <entry>РўРёРї</entry>
+     <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+     <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+     <entry>РћРїРёСЃР°РЅРёРµ</entry>
     </row>
    </thead>
    <tbody>
     <row>
      <entry>text</entry>
      <entry>string</entry>
-     <entry>Да</entry>
+     <entry>Р”Р°</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>текст/html для отображения во всплывающем окне</entry>
+     <entry>С‚РµРєСЃС‚/html РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІРѕ РІСЃРїР»С‹РІР°СЋС‰РµРј РѕРєРЅРµ</entry>
     </row>
     <row>
      <entry>trigger</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>onMouseOver</emphasis></entry>
      <entry>
-      Какое событие используется для активации всплывающего окна.
-      Может быть onMouseOver или onClick.
+      РљР°РєРѕРµ СЃРѕР±С‹С‚РёРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ Р°РєС‚РёРІР°С†РёРё РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°.
+      РњРѕР¶РµС‚ Р±С‹С‚СЊ onMouseOver РёР»Рё onClick.
       </entry>
     </row>
     <row>
      <entry>sticky</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>false</emphasis></entry>
-     <entry>Всплывающее окно закрывается кликом</entry>
+     <entry>Р’СЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ Р·Р°РєСЂС‹РІР°РµС‚СЃСЏ РєР»РёРєРѕРј</entry>
     </row>
     <row>
      <entry>caption</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает заголовок окна</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ Р·Р°РіРѕР»РѕРІРѕРє РѕРєРЅР°</entry>
     </row>
     <row>
      <entry>fgcolor</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>цвет всплывающего окна</entry>
+     <entry>С†РІРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°</entry>
     </row>
     <row>
      <entry>bgcolor</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>цвет рамки всплывающего окна</entry>
+     <entry>С†РІРµС‚ СЂР°РјРєРё РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°</entry>
     </row>
     <row>
      <entry>textcolor</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает цвет текста внутри всплывающего окна</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С†РІРµС‚ С‚РµРєСЃС‚Р° РІРЅСѓС‚СЂРё РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°</entry>
     </row>
     <row>
      <entry>capcolor</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает цвет заголовка всплывающего окна</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С†РІРµС‚ Р·Р°РіРѕР»РѕРІРєР° РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°</entry>
     </row>
     <row>
      <entry>closecolor</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает цвет надписи "закрыть"</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С†РІРµС‚ РЅР°РґРїРёСЃРё "Р·Р°РєСЂС‹С‚СЊ"</entry>
     </row>
     <row>
      <entry>textfont</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает шрифт для главного текста</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С€СЂРёС„С‚ РґР»СЏ РіР»Р°РІРЅРѕРіРѕ С‚РµРєСЃС‚Р°</entry>
     </row>
     <row>
      <entry>captionfont</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает шрифт дла заголовка</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С€СЂРёС„С‚ РґР»Р° Р·Р°РіРѕР»РѕРІРєР°</entry>
     </row>
     <row>
      <entry>closefont</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает шрифт надписи "Закрыть"</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С€СЂРёС„С‚ РЅР°РґРїРёСЃРё "Р—Р°РєСЂС‹С‚СЊ"</entry>
     </row>
     <row>
      <entry>textsize</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает размер главного текста</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЂР°Р·РјРµСЂ РіР»Р°РІРЅРѕРіРѕ С‚РµРєСЃС‚Р°</entry>
     </row>
     <row>
      <entry>captionsize</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает размер заголовка</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЂР°Р·РјРµСЂ Р·Р°РіРѕР»РѕРІРєР°</entry>
     </row>
     <row>
      <entry>closesize</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает размер надписи "Закрыть"</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЂР°Р·РјРµСЂ РЅР°РґРїРёСЃРё "Р—Р°РєСЂС‹С‚СЊ"</entry>
     </row>
     <row>
      <entry>width</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает ширину всплывающего окна</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С€РёСЂРёРЅСѓ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°</entry>
     </row>
     <row>
      <entry>height</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает высоту всплывающего окна</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РІС‹СЃРѕС‚Сѓ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°</entry>
     </row>
     <row>
      <entry>left</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>false</emphasis></entry>
-     <entry>заставляет всплывающее окно появляться слева от курсора мыши</entry>
+     <entry>Р·Р°СЃС‚Р°РІР»СЏРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ РїРѕСЏРІР»СЏС‚СЊСЃСЏ СЃР»РµРІР° РѕС‚ РєСѓСЂСЃРѕСЂР° РјС‹С€Рё</entry>
     </row>
     <row>
      <entry>right</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>false</emphasis></entry>
-     <entry>заставляет всплывающее окно появляться справа от курсора мыши</entry>
+     <entry>Р·Р°СЃС‚Р°РІР»СЏРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ РїРѕСЏРІР»СЏС‚СЊСЃСЏ СЃРїСЂР°РІР° РѕС‚ РєСѓСЂСЃРѕСЂР° РјС‹С€Рё</entry>
     </row>
     <row>
      <entry>center</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>false</emphasis></entry>
-     <entry>заставляет всплывающее окно появляться по центру курсора мыши</entry>
+     <entry>Р·Р°СЃС‚Р°РІР»СЏРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ РїРѕСЏРІР»СЏС‚СЊСЃСЏ РїРѕ С†РµРЅС‚СЂСѓ РєСѓСЂСЃРѕСЂР° РјС‹С€Рё</entry>
     </row>
     <row>
      <entry>above</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>false</emphasis></entry>
      <entry>
-      Заставляет всплывающее окно появляться сверху от курсора.
-      Внимание: работает только если установлен атрибут height.
+      Р—Р°СЃС‚Р°РІР»СЏРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ РїРѕСЏРІР»СЏС‚СЊСЃСЏ СЃРІРµСЂС…Сѓ РѕС‚ РєСѓСЂСЃРѕСЂР°.
+      Р’РЅРёРјР°РЅРёРµ: СЂР°Р±РѕС‚Р°РµС‚ С‚РѕР»СЊРєРѕ РµСЃР»Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅ Р°С‚СЂРёР±СѓС‚ height.
      </entry>
     </row>
     <row>
      <entry>below</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>false</emphasis></entry>
-     <entry>заставляет всплывающее окно появляться снизу от курсора мыши</entry>
+     <entry>Р·Р°СЃС‚Р°РІР»СЏРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ РїРѕСЏРІР»СЏС‚СЊСЃСЏ СЃРЅРёР·Сѓ РѕС‚ РєСѓСЂСЃРѕСЂР° РјС‹С€Рё</entry>
     </row>
     <row>
      <entry>border</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>делает рамку вокрут всплывающего окна тоньше или толще</entry>
+     <entry>РґРµР»Р°РµС‚ СЂР°РјРєСѓ РІРѕРєСЂСѓС‚ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР° С‚РѕРЅСЊС€Рµ РёР»Рё С‚РѕР»С‰Рµ</entry>
     </row>
     <row>
      <entry>offsetx</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>как далеко от курсора будет отображаться всплывающее окно,
-     по горизонтали</entry>
+     <entry>РєР°Рє РґР°Р»РµРєРѕ РѕС‚ РєСѓСЂСЃРѕСЂР° Р±СѓРґРµС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ,
+     РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё</entry>
     </row>
     <row>
      <entry>offsety</entry>
      <entry>integer</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>как далеко от курсора будет отображаться всплывающее окно,
-     по вертикали</entry>
+     <entry>РєР°Рє РґР°Р»РµРєРѕ РѕС‚ РєСѓСЂСЃРѕСЂР° Р±СѓРґРµС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ,
+     РїРѕ РІРµСЂС‚РёРєР°Р»Рё</entry>
     </row>
     <row>
      <entry>fgbackground</entry>
-     <entry>url к картинке</entry>
-     <entry>Нет</entry>
+     <entry>url Рє РєР°СЂС‚РёРЅРєРµ</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>определяет картинку, которая будет использована вместо цвета для
-     содержимого всплывающего окна.</entry>
+     <entry>РѕРїСЂРµРґРµР»СЏРµС‚ РєР°СЂС‚РёРЅРєСѓ, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅР° РІРјРµСЃС‚Рѕ С†РІРµС‚Р° РґР»СЏ
+     СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°.</entry>
     </row>
     <row>
      <entry>bgbackground</entry>
-     <entry>url к картинке</entry>
+     <entry>url Рє РєР°СЂС‚РёРЅРєРµ</entry>
      <entry>No</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>определяет картинку, которая будет использована вместо цвета для
-     рамки всплывающего окна. Внимание: вам следует установить bgcolor в "",
-     иначе цвет так же будет отображаться. Внимание: когда присутствует ссылка
-     "Закрыть", Netscape будет перерисовывать ячеки таблицы, из-за чего результат
-     может быть неверным</entry>
+     <entry>РѕРїСЂРµРґРµР»СЏРµС‚ РєР°СЂС‚РёРЅРєСѓ, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅР° РІРјРµСЃС‚Рѕ С†РІРµС‚Р° РґР»СЏ
+     СЂР°РјРєРё РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°. Р’РЅРёРјР°РЅРёРµ: РІР°Рј СЃР»РµРґСѓРµС‚ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ bgcolor РІ "",
+     РёРЅР°С‡Рµ С†РІРµС‚ С‚Р°Рє Р¶Рµ Р±СѓРґРµС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ. Р’РЅРёРјР°РЅРёРµ: РєРѕРіРґР° РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ СЃСЃС‹Р»РєР°
+     "Р—Р°РєСЂС‹С‚СЊ", Netscape Р±СѓРґРµС‚ РїРµСЂРµСЂРёСЃРѕРІС‹РІР°С‚СЊ СЏС‡РµРєРё С‚Р°Р±Р»РёС†С‹, РёР·-Р·Р° С‡РµРіРѕ СЂРµР·СѓР»СЊС‚Р°С‚
+     РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅРµРІРµСЂРЅС‹Рј</entry>
     </row>
     <row>
      <entry>closetext</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает текст для надписи "Закрыть"</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С‚РµРєСЃС‚ РґР»СЏ РЅР°РґРїРёСЃРё "Р—Р°РєСЂС‹С‚СЊ"</entry>
     </row>
     <row>
      <entry>noclose</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>не отображать текст "Закрыть" для всплывающих окон с заголовком</entry>
+     <entry>РЅРµ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ С‚РµРєСЃС‚ "Р—Р°РєСЂС‹С‚СЊ" РґР»СЏ РІСЃРїР»С‹РІР°СЋС‰РёС… РѕРєРѕРЅ СЃ Р·Р°РіРѕР»РѕРІРєРѕРј</entry>
     </row>
     <row>
      <entry>status</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает текст в строку статуса браузера</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С‚РµРєСЃС‚ РІ СЃС‚СЂРѕРєСѓ СЃС‚Р°С‚СѓСЃР° Р±СЂР°СѓР·РµСЂР°</entry>
     </row>
     <row>
      <entry>autostatus</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает текст всплывающего окна в строку статуса браузера
-     Внимание: переназначает установку status</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С‚РµРєСЃС‚ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР° РІ СЃС‚СЂРѕРєСѓ СЃС‚Р°С‚СѓСЃР° Р±СЂР°СѓР·РµСЂР°
+     Р’РЅРёРјР°РЅРёРµ: РїРµСЂРµРЅР°Р·РЅР°С‡Р°РµС‚ СѓСЃС‚Р°РЅРѕРІРєСѓ status</entry>
     </row>
     <row>
      <entry>autostatuscap</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает текст заголовка всплывающего окна в строку статуса
-     браузера.
-     NOTE: переназначает установки status и autostatus</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ С‚РµРєСЃС‚ Р·Р°РіРѕР»РѕРІРєР° РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР° РІ СЃС‚СЂРѕРєСѓ СЃС‚Р°С‚СѓСЃР°
+     Р±СЂР°СѓР·РµСЂР°.
+     NOTE: РїРµСЂРµРЅР°Р·РЅР°С‡Р°РµС‚ СѓСЃС‚Р°РЅРѕРІРєРё status Рё autostatus</entry>
     </row>
     <row>
      <entry>inarray</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>говорит overLib прочитать текст по этому индексу в
-     массиве ol_text, расположеном в overlib.js. Этот параметр
-     может быть использован вместо параметра text</entry>
+     <entry>РіРѕРІРѕСЂРёС‚ overLib РїСЂРѕС‡РёС‚Р°С‚СЊ С‚РµРєСЃС‚ РїРѕ СЌС‚РѕРјСѓ РёРЅРґРµРєСЃСѓ РІ
+     РјР°СЃСЃРёРІРµ ol_text, СЂР°СЃРїРѕР»РѕР¶РµРЅРѕРј РІ overlib.js. Р­С‚РѕС‚ РїР°СЂР°РјРµС‚СЂ
+     РјРѕР¶РµС‚ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РІРјРµСЃС‚Рѕ РїР°СЂР°РјРµС‚СЂР° text</entry>
     </row>
     <row>
      <entry>caparray</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>говорит overLib и прочитать заголовок по этому индексу в
-     массиве ol_caps</entry>
+     <entry>РіРѕРІРѕСЂРёС‚ overLib Рё РїСЂРѕС‡РёС‚Р°С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє РїРѕ СЌС‚РѕРјСѓ РёРЅРґРµРєСЃСѓ РІ
+     РјР°СЃСЃРёРІРµ ol_caps</entry>
     </row>
     <row>
      <entry>capicon</entry>
      <entry>url</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>отображает картинку перед заголовком всплывающего окна</entry>
+     <entry>РѕС‚РѕР±СЂР°Р¶Р°РµС‚ РєР°СЂС‚РёРЅРєСѓ РїРµСЂРµРґ Р·Р°РіРѕР»РѕРІРєРѕРј РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°</entry>
     </row>
     <row>
      <entry>snapx</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>прикрепляет всплывающее окно к каждому N-ому пикселю по горизонтали</entry>
+     <entry>РїСЂРёРєСЂРµРїР»СЏРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ Рє РєР°Р¶РґРѕРјСѓ N-РѕРјСѓ РїРёРєСЃРµР»СЋ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё</entry>
     </row>
     <row>
      <entry>snapy</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>прикрепляет всплывающее окно к каждому N-ому пикселю по вертикали</entry>
+     <entry>РїСЂРёРєСЂРµРїР»СЏРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ Рє РєР°Р¶РґРѕРјСѓ N-РѕРјСѓ РїРёРєСЃРµР»СЋ РїРѕ РІРµСЂС‚РёРєР°Р»Рё</entry>
     </row>
     <row>
      <entry>fixx</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>блокирует горизонтальное положение всплывающего окна.
-     Внимание: переназначает всё горизонтальное позиционирование</entry>
+     <entry>Р±Р»РѕРєРёСЂСѓРµС‚ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРµ РїРѕР»РѕР¶РµРЅРёРµ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°.
+     Р’РЅРёРјР°РЅРёРµ: РїРµСЂРµРЅР°Р·РЅР°С‡Р°РµС‚ РІСЃС‘ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРµ РїРѕР·РёС†РёРѕРЅРёСЂРѕРІР°РЅРёРµ</entry>
     </row>
     <row>
      <entry>fixy</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>блокирует вертикальное положение всплывающего окна.
-     Внимание: переназначает всё вертикальное позиционирование</entry>
+     <entry>Р±Р»РѕРєРёСЂСѓРµС‚ РІРµСЂС‚РёРєР°Р»СЊРЅРѕРµ РїРѕР»РѕР¶РµРЅРёРµ РІСЃРїР»С‹РІР°СЋС‰РµРіРѕ РѕРєРЅР°.
+     Р’РЅРёРјР°РЅРёРµ: РїРµСЂРµРЅР°Р·РЅР°С‡Р°РµС‚ РІСЃС‘ РІРµСЂС‚РёРєР°Р»СЊРЅРѕРµ РїРѕР·РёС†РёРѕРЅРёСЂРѕРІР°РЅРёРµ</entry>
     </row>
     <row>
      <entry>background</entry>
      <entry>url</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>устанавливает картинку для использования вместо фона таблицы</entry>
+     <entry>СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РєР°СЂС‚РёРЅРєСѓ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІРјРµСЃС‚Рѕ С„РѕРЅР° С‚Р°Р±Р»РёС†С‹</entry>
     </row>
     <row>
      <entry>padx</entry>
      <entry>integer,integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>делает горизонтальный отступ фоновой картинки для размещения текста.
-     Внимание: это двойная команда</entry>
+     <entry>РґРµР»Р°РµС‚ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ РѕС‚СЃС‚СѓРї С„РѕРЅРѕРІРѕР№ РєР°СЂС‚РёРЅРєРё РґР»СЏ СЂР°Р·РјРµС‰РµРЅРёСЏ С‚РµРєСЃС‚Р°.
+     Р’РЅРёРјР°РЅРёРµ: СЌС‚Рѕ РґРІРѕР№РЅР°СЏ РєРѕРјР°РЅРґР°</entry>
     </row>
     <row>
      <entry>pady</entry>
      <entry>integer,integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>делает вертикальный отступ фоновой картинки для размещения текста.
-     Внимание: это двойная команда</entry>
+     <entry>РґРµР»Р°РµС‚ РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РѕС‚СЃС‚СѓРї С„РѕРЅРѕРІРѕР№ РєР°СЂС‚РёРЅРєРё РґР»СЏ СЂР°Р·РјРµС‰РµРЅРёСЏ С‚РµРєСЃС‚Р°.
+     Р’РЅРёРјР°РЅРёРµ: СЌС‚Рѕ РґРІРѕР№РЅР°СЏ РєРѕРјР°РЅРґР°</entry>
     </row>
     <row>
      <entry>fullhtml</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>дает вам возможность полностью контролировать html поверх фоновой
-     картинки. HTML-код ожидается в атрибуте "text"</entry>
+     <entry>РґР°РµС‚ РІР°Рј РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРѕР»РЅРѕСЃС‚СЊСЋ РєРѕРЅС‚СЂРѕР»РёСЂРѕРІР°С‚СЊ html РїРѕРІРµСЂС… С„РѕРЅРѕРІРѕР№
+     РєР°СЂС‚РёРЅРєРё. HTML-РєРѕРґ РѕР¶РёРґР°РµС‚СЃСЏ РІ Р°С‚СЂРёР±СѓС‚Рµ "text"</entry>
     </row>
     <row>
      <entry>frame</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>контролирует всплывающее окно в другом фрейме.
-     См. домашнюю страницу overlib для дополнительной информации по этой
-     функции</entry>
+     <entry>РєРѕРЅС‚СЂРѕР»РёСЂСѓРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ РІ РґСЂСѓРіРѕРј С„СЂРµР№РјРµ.
+     РЎРј. РґРѕРјР°С€РЅСЋСЋ СЃС‚СЂР°РЅРёС†Сѓ overlib РґР»СЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё РїРѕ СЌС‚РѕР№
+     С„СѓРЅРєС†РёРё</entry>
     </row>
     <row>
      <entry>function</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>вызывает указанную функцию javascript и отображает возвращенное
-     значение во всплывающем окне</entry>
+     <entry>РІС‹Р·С‹РІР°РµС‚ СѓРєР°Р·Р°РЅРЅСѓСЋ С„СѓРЅРєС†РёСЋ javascript Рё РѕС‚РѕР±СЂР°Р¶Р°РµС‚ РІРѕР·РІСЂР°С‰РµРЅРЅРѕРµ
+     Р·РЅР°С‡РµРЅРёРµ РІРѕ РІСЃРїР»С‹РІР°СЋС‰РµРј РѕРєРЅРµ</entry>
     </row>
     <row>
      <entry>delay</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>заставляет всплывающее окно вести себя как всплывающую подсказку.
-     Оно всплывет только после определенной задержки в миллисекундах.</entry>
+     <entry>Р·Р°СЃС‚Р°РІР»СЏРµС‚ РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ РІРµСЃС‚Рё СЃРµР±СЏ РєР°Рє РІСЃРїР»С‹РІР°СЋС‰СѓСЋ РїРѕРґСЃРєР°Р·РєСѓ.
+     РћРЅРѕ РІСЃРїР»С‹РІРµС‚ С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ Р·Р°РґРµСЂР¶РєРё РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С….</entry>
     </row>
     <row>
      <entry>hauto</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>автоматически определять, должна ли всплывающая подсказка быть
-     слева или справа от курсора мыши.</entry>
+     <entry>Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РѕРїСЂРµРґРµР»СЏС‚СЊ, РґРѕР»Р¶РЅР° Р»Рё РІСЃРїР»С‹РІР°СЋС‰Р°СЏ РїРѕРґСЃРєР°Р·РєР° Р±С‹С‚СЊ
+     СЃР»РµРІР° РёР»Рё СЃРїСЂР°РІР° РѕС‚ РєСѓСЂСЃРѕСЂР° РјС‹С€Рё.</entry>
     </row>
     <row>
      <entry>vauto</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>автоматически определять, должна ли всплывающая подсказка быть
-     выше или ниже курсора мыши.</entry>
+     <entry>Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РѕРїСЂРµРґРµР»СЏС‚СЊ, РґРѕР»Р¶РЅР° Р»Рё РІСЃРїР»С‹РІР°СЋС‰Р°СЏ РїРѕРґСЃРєР°Р·РєР° Р±С‹С‚СЊ
+     РІС‹С€Рµ РёР»Рё РЅРёР¶Рµ РєСѓСЂСЃРѕСЂР° РјС‹С€Рё.</entry>
     </row>
    </tbody>
   </tgroup>
@@ -400,30 +400,30 @@
   <title>{popup}</title>
   <programlisting>
 <![CDATA[
-{* popup_init должна быть вызвана один раз в начале страницы *}
+{* popup_init РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РІС‹Р·РІР°РЅР° РѕРґРёРЅ СЂР°Р· РІ РЅР°С‡Р°Р»Рµ СЃС‚СЂР°РЅРёС†С‹ *}
 {popup_init src='/javascripts/overlib.js'}
 
-{* создает ссылку со всплывающим окном, когда вы наводите на неё курсор *}
+{* СЃРѕР·РґР°РµС‚ СЃСЃС‹Р»РєСѓ СЃРѕ РІСЃРїР»С‹РІР°СЋС‰РёРј РѕРєРЅРѕРј, РєРѕРіРґР° РІС‹ РЅР°РІРѕРґРёС‚Рµ РЅР° РЅРµС‘ РєСѓСЂСЃРѕСЂ *}
 <a href="mypage.html" {popup text='This link takes you to my page!'}>mypage</a>
 
-{* вы можете использовать HTML, ссылки и т.д. в тексте *}
+{* РІС‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ HTML, СЃСЃС‹Р»РєРё Рё С‚.Рґ. РІ С‚РµРєСЃС‚Рµ *}
 <a href="mypage.html" {popup sticky=true caption='mypage contents'
 text="<ul><li>links</li><li>pages</li><li>images</li></ul>"
 snapx=10 snapy=10 trigger='onClick'}>mypage</a>
 
-{* всплывающее окно над ячейкой таблицы *}
+{* РІСЃРїР»С‹РІР°СЋС‰РµРµ РѕРєРЅРѕ РЅР°Рґ СЏС‡РµР№РєРѕР№ С‚Р°Р±Р»РёС†С‹ *}
 <tr><td {popup caption='Part details' text=$part_long_description}>{$part_number}</td></tr>
 ]]>
   </programlisting>
  </example>
  <para>
-  Другой хороший пример можно найти на в описании тэга
+  Р”СЂСѓРіРѕР№ С…РѕСЂРѕС€РёР№ РїСЂРёРјРµСЂ РјРѕР¶РЅРѕ РЅР°Р№С‚Рё РЅР° РІ РѕРїРёСЃР°РЅРёРё С‚СЌРіР°
   <link linkend="language.function.capture">{capture}</link>.
  </para>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.function.popup.init">{popup_init}</link>
-  и
+  Рё
   <ulink url="&url.overLib;">overLib</ulink>.
  </para>
 </sect1>

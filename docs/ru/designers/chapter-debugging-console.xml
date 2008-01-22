@@ -1,56 +1,71 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <chapter id="chapter.debugging.console">
- <title>Отладочная консоль</title>
+ <title>РћС‚Р»Р°РґРѕС‡РЅР°СЏ РєРѕРЅСЃРѕР»СЊ</title>
  <para>
-  В Smarty включена консоль для отладки. Консоль позволяет узнать все
-  <link linkend="language.function.include">включенные</link> шаблоны,
-  <link linkend="api.assign">присвоенные</link> переменные и настройки из
-  <link linkend="language.config.variables">конфинурационных файлов</link>
-  для текущего экземпляра Smarty.
-  Шаблон "debug.tpl", поставляемый вместе со Smarty, управляет видом консоли.
-  Установите опцию Smarty
-  <link linkend="variable.debugging">$debugging</link> в true и, если
-  необходимо, укажите в
-  <link linkend="variable.debug.tpl">$debug_tpl</link> путь к шаблону
-  debug.tpl (по умолчанию это
-  <link linkend="constant.smarty.dir">SMARTY_DIR</link>).
-  Когда вы загружаете страницу, должно появиться всплывающие окно и вывести
-  консоль отладки. Для вывода доступных переменных из конкретного шаблона,
-  см. функцию <link linkend="language.function.debug">{debug}</link>.
-  Для отключения консоли отладки, установите
-  <link linkend="variable.debugging">$debugging</link> в false.
-  Можно также опционально включить консоль отладки, добавив SMARTY_DEBUG в
-  URL, если включена опция
-  <link linkend="variable.debugging.ctrl">$debugging_ctrl</link>.
+  Р’ Smarty РІРєР»СЋС‡РµРЅР° РєРѕРЅСЃРѕР»СЊ РґР»СЏ РѕС‚Р»Р°РґРєРё. РљРѕРЅСЃРѕР»СЊ РїРѕР·РІРѕР»СЏРµС‚ СѓР·РЅР°С‚СЊ РІСЃРµ
+  <link linkend="language.function.include">РІРєР»СЋС‡РµРЅРЅС‹Рµ</link> С€Р°Р±Р»РѕРЅС‹,
+  <link linkend="api.assign">РїСЂРёСЃРІРѕРµРЅРЅС‹Рµ</link> РїРµСЂРµРјРµРЅРЅС‹Рµ Рё РЅР°СЃС‚СЂРѕР№РєРё РёР·
+  <link linkend="language.config.variables">РєРѕРЅС„РёРЅСѓСЂР°С†РёРѕРЅРЅС‹С… С„Р°Р№Р»РѕРІ</link>
+  РґР»СЏ С‚РµРєСѓС‰РµРіРѕ СЌРєР·РµРјРїР»СЏСЂР° Smarty.
+  РЁР°Р±Р»РѕРЅ <literal>debug.tpl</literal>, РїРѕСЃС‚Р°РІР»СЏРµРјС‹Р№ РІРјРµСЃС‚Рµ СЃРѕ Smarty,
+  Р·Р°РґР°РµС‚ РІРЅРµС€РЅРёР№ РІРёРґ РєРѕРЅСЃРѕР»Рё.
+ </para>
+ <para>
+  РЈСЃС‚Р°РЅРѕРІРёС‚Рµ РѕРїС†РёСЋ Smarty
+  <link linkend="variable.debugging">
+  <parameter>$debugging</parameter></link> РІ true Рё, РµСЃР»Рё
+  РЅРµРѕР±С…РѕРґРёРјРѕ, СѓРєР°Р¶РёС‚Рµ РІ
+  <link linkend="variable.debug.tpl">
+  <parameter>$debug_tpl</parameter></link> РїСѓС‚СЊ Рє С€Р°Р±Р»РѕРЅСѓ
+  <literal>debug.tpl</literal> (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЌС‚Рѕ
+  <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>).
+  РљРѕРіРґР° РІС‹ Р·Р°РіСЂСѓР¶Р°РµС‚Рµ СЃС‚СЂР°РЅРёС†Сѓ, РґРѕР»Р¶РЅРѕ РїРѕСЏРІРёС‚СЊСЃСЏ РІСЃРїР»С‹РІР°СЋС‰РёРµ РѕРєРЅРѕ Javascript
+  Рё РІС‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє РІСЃРµС… РїРѕРґРєР»СЋС‡РµРЅРЅС‹С… С€Р°Р±Р»РѕРЅРѕРІ Рё РЅР°Р·РЅР°С‡РµРЅРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
+  РґР»СЏ РґР°РЅРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹.
+ </para>
+ <para>
+  Р”Р»СЏ РІС‹РІРѕРґР° РґРѕСЃС‚СѓРїРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… РёР· РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ С€Р°Р±Р»РѕРЅР°,
+  СЃРј. С„СѓРЅРєС†РёСЋ <link linkend="language.function.debug">
+  <varname>{debug}</varname></link>.
+  Р”Р»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ РєРѕРЅСЃРѕР»Рё РѕС‚Р»Р°РґРєРё, СѓСЃС‚Р°РЅРѕРІРёС‚Рµ РїР°СЂР°РјРµС‚СЂ
+  <link linkend="variable.debugging">
+  <parameter>$debugging</parameter></link> РІ false.
+  РњРѕР¶РЅРѕ С‚Р°РєР¶Рµ РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ РІРєР»СЋС‡РёС‚СЊ РєРѕРЅСЃРѕР»СЊ РѕС‚Р»Р°РґРєРё, РґРѕР±Р°РІРёРІ
+  <literal>SMARTY_DEBUG</literal> РІ URL, РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ РІРєР»СЋС‡РёРІ РїР°СЂР°РјРµС‚СЂ
+  <link linkend="variable.debugging.ctrl">
+  <parameter>$debugging_ctrl</parameter></link>.
  </para>
 <note>
- <title>Техническое Примечание</title>
+ <title>РўРµС…РЅРёС‡РµСЃРєРѕРµ РџСЂРёРјРµС‡Р°РЅРёРµ</title>
  <para>
-  Консоль отладки не работает, когда используется функция API
-  <link linkend="api.fetch">fetch()</link>.
-  Необходимо использовать только функцию
-  <link linkend="api.display">display()</link>.
-  Она генерирует javascript код вначале каждой сгенерированной страницы.
-  Если вам не нравится javascript, можно отредатировать debug.tpl для
-  изменения способа отображения по вашему вкусу.
-  Отладочная информация не кэшируется и в отладочную информацию не
-  включается информация о debug.tpl.
+  РљРѕРЅСЃРѕР»СЊ РѕС‚Р»Р°РґРєРё РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РєРѕРіРґР° РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ С„СѓРЅРєС†РёСЏ API
+  <link linkend="api.fetch"><varname>fetch()</varname></link>.
+  РќРµРѕР±С…РѕРґРёРјРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ С„СѓРЅРєС†РёСЋ
+  <link linkend="api.display"><varname>display()</varname></link>.
+  РћРЅР° РіРµРЅРµСЂРёСЂСѓРµС‚ javascript РєРѕРґ РІРЅР°С‡Р°Р»Рµ РєР°Р¶РґРѕР№ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹.
+  Р•СЃР»Рё РІР°Рј РЅРµ РЅСЂР°РІРёС‚СЃСЏ javascript, РјРѕР¶РЅРѕ РѕС‚СЂРµРґР°С‚РёСЂРѕРІР°С‚СЊ
+  <literal>debug.tpl</literal> РґР»СЏ
+  РёР·РјРµРЅРµРЅРёСЏ СЃРїРѕСЃРѕР±Р° РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РїРѕ РІР°С€РµРјСѓ РІРєСѓСЃСѓ.
+  РћС‚Р»Р°РґРѕС‡РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РЅРµ РєСЌС€РёСЂСѓРµС‚СЃСЏ Рё РІ РѕС‚Р»Р°РґРѕС‡РЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ РЅРµ
+  РІРєР»СЋС‡Р°РµС‚СЃСЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ <literal>debug.tpl</literal>.
  </para>
 </note>
 <note>
  <para>
-  Время загрузки каждого шаблона и файла конфигурации выводятся в секундах или
-  в миллисекундах.
+  Р’СЂРµРјСЏ Р·Р°РіСЂСѓР·РєРё РєР°Р¶РґРѕРіРѕ С€Р°Р±Р»РѕРЅР° Рё С„Р°Р№Р»Р° РєРѕРЅС„РёРіСѓСЂР°С†РёРё РІС‹РІРѕРґСЏС‚СЃСЏ РІ СЃРµРєСѓРЅРґР°С… РёР»Рё
+  РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С….
  </para>
 </note>
 <para>
- См. также
- <link linkend="troubleshooting">Решение проблем</link>,
- <link linkend="variable.error.reporting">$error_reporting</link>
- и
- <link linkend="api.trigger.error">trigger_error()</link>.
+ РЎРј. С‚Р°РєР¶Рµ
+ <link linkend="troubleshooting">Р РµС€РµРЅРёРµ РїСЂРѕР±Р»РµРј</link>,
+ <link linkend="variable.error.reporting">
+ <parameter>$error_reporting</parameter></link>
+ Рё
+ <link linkend="api.trigger.error">
+ <varname>trigger_error()</varname></link>.
 </para>
 </chapter>
 <!-- Keep this comment at the end of the file

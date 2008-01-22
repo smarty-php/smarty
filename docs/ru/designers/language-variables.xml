@@ -1,39 +1,43 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <chapter id="language.variables">
- <title>Переменные</title>
+ <title>РџРµСЂРµРјРµРЅРЅС‹Рµ</title>
  <para>
-  Smarty имеет несколько различных типов переменных. Он зависит от
-  символа, с которого начинается, или в какой заключена переменная.
+  Smarty РёРјРµРµС‚ РЅРµСЃРєРѕР»СЊРєРѕ СЂР°Р·Р»РёС‡РЅС‹С… С‚РёРїРѕРІ РїРµСЂРµРјРµРЅРЅС‹С…. РћРЅ Р·Р°РІРёСЃРёС‚ РѕС‚
+  СЃРёРјРІРѕР»Р°, СЃ РєРѕС‚РѕСЂРѕРіРѕ РЅР°С‡РёРЅР°РµС‚СЃСЏ, РёР»Рё РІ РєР°РєРѕР№ Р·Р°РєР»СЋС‡РµРЅР° РїРµСЂРµРјРµРЅРЅР°СЏ.
  </para>
  <para>
-  Variables in Smarty can be either displayed directly or used as arguments
-  for <link linkend="language.syntax.functions">function</link>
-  <link linkend="language.syntax.attributes">attributes</link> and
-  <link linkend="language.modifiers">modifiers</link>, inside conditional expressions,
-  etc. To print a variable, simply enclose it in the
-  <link linkend="variable.left.delimiter">delimiters</link> so that it
-  is the only thing contained between them. Examples:
- 
- 
-  Переменные в Smarty могут быть отображены или использованы как
-  <link linkend="language.syntax.attributes">аргументы</link>
-  <link linkend="language.syntax.functions">функций</link> и
-  <link linkend="language.modifiers">модификаторов</link>,
-  внутри выражений условных операторов и т.д. Для
-  вывода значения переменной необходимо указать имя переменной
-  между <link linkend="variable.left.delimiter">разделителями</link>.
-  Примеры:
-  <programlisting>
+  РџРµСЂРµРјРµРЅРЅС‹Рµ РІ Smarty РјРѕРіСѓС‚ Р±С‹С‚СЊ РѕС‚РѕР±СЂР°Р¶РµРЅС‹ РёР»Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅС‹ РєР°Рє
+  <link linkend="language.syntax.functions">С„СѓРЅРєС†РёРё</link>,
+  <link linkend="language.syntax.attributes">Р°СЂРіСѓРјРµРЅС‚С‹</link>,
+  <link linkend="language.modifiers">РјРѕРґРёС„РёРєР°С‚РѕСЂС‹</link>,
+  РІРЅСѓС‚СЂРё РІС‹СЂР°Р¶РµРЅРёР№ СѓСЃР»РѕРІРЅС‹С… РѕРїРµСЂР°С‚РѕСЂРѕРІ Рё С‚.Рґ. Р”Р»СЏ
+  РІС‹РІРѕРґР° Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРµРјРµРЅРЅРѕР№ РЅРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·Р°С‚СЊ РёРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№
+  РјРµР¶РґСѓ <link linkend="variable.left.delimiter">СЂР°Р·РґРµР»РёС‚РµР»СЏРјРё</link>.
+  
+  <example>
+   <title>РџСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РїРµСЂРµРјРµРЅРЅС‹С…</title>
+   <programlisting>
 <![CDATA[[
 {$Name}
+
+{$product.part_no} <b>{$product.description}</b>
 
 {$Contacts[row].Phone}
 
 <body bgcolor="{#bgcolor#}">
 ]]>
-  </programlisting>
+   </programlisting>
+  </example>
+  <note>
+   <title>РџРѕР»РµР·РЅС‹Р№ СЃРѕРІРµС‚</title>
+   <para>
+    РџСЂРё РїРѕРјРѕС‰Рё
+    <link linkend="chapter.debugging.console">РѕС‚Р»Р°РґРѕС‡РЅРѕР№ РєРѕРЅСЃРѕР»Рё</link>
+    РјРѕР¶РЅРѕ Р»РµРіРєРѕ РїСЂРѕСЃРјРѕС‚СЂРµС‚СЊ Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРµРјРµРЅРЅС‹С… Smarty.
+   </para>
+  </note>
  </para>
 
  &designers.language-variables.language-assigned-variables;

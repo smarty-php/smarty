@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
      <sect1 id="variable.secure.dir">
       <title>$secure_dir</title>
       <para>
-       Это массив всех локальных директори, которые считаются безопасными.
-       {include} и {fetch} используют этот параметр при влюченном безопасном режиме.
+       Р­С‚Рѕ РјР°СЃСЃРёРІ РІСЃРµС… Р»РѕРєР°Р»СЊРЅС‹С… РґРёСЂРµРєС‚РѕСЂРё, РєРѕС‚РѕСЂС‹Рµ СЃС‡РёС‚Р°СЋС‚СЃСЏ Р±РµР·РѕРїР°СЃРЅС‹РјРё.
+       {include} Рё {fetch} РёСЃРїРѕР»СЊР·СѓСЋС‚ СЌС‚РѕС‚ РїР°СЂР°РјРµС‚СЂ РїСЂРё РІР»СЋС‡РµРЅРЅРѕРј Р±РµР·РѕРїР°СЃРЅРѕРј СЂРµР¶РёРјРµ.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

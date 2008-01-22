@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
 <sect1 id="variable.debugging">
  <title>$debugging</title>
  <para>
-  Активирует <link linkend="chapter.debugging.console">debugging
-  console</link> - порожденное при помощи javascript окно браузера,
-  содержащее информацию о подключенных шаблонах и загруженных
-  переменных для текущей страницы.
+  РђРєС‚РёРІРёСЂСѓРµС‚ <link linkend="chapter.debugging.console">debugging
+  console</link> - РїРѕСЂРѕР¶РґРµРЅРЅРѕРµ РїСЂРё РїРѕРјРѕС‰Рё javascript РѕРєРЅРѕ Р±СЂР°СѓР·РµСЂР°,
+  СЃРѕРґРµСЂР¶Р°С‰РµРµ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕРґРєР»СЋС‡РµРЅРЅС‹С… С€Р°Р±Р»РѕРЅР°С… Рё Р·Р°РіСЂСѓР¶РµРЅРЅС‹С…
+  РїРµСЂРµРјРµРЅРЅС‹С… РґР»СЏ С‚РµРєСѓС‰РµР№ СЃС‚СЂР°РЅРёС†С‹.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

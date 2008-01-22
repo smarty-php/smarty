@@ -1,54 +1,54 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.15 Maintainer: freespace Status: ready -->
 <sect1 id="language.variables.smarty">
- <title>Зарезервированная переменная {$smarty}</title>
+ <title>Р—Р°СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ {$smarty}</title>
  <para>
-  Зарезервированная переменная {$smarty} может быть использована для получения
-  доступа к нескольким переменным окружения и запроса. Далее следует их полный
-  список.
+  Р—Р°СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ {$smarty} РјРѕР¶РµС‚ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅР° РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ
+  РґРѕСЃС‚СѓРїР° Рє РЅРµСЃРєРѕР»СЊРєРёРј РїРµСЂРµРјРµРЅРЅС‹Рј РѕРєСЂСѓР¶РµРЅРёСЏ Рё Р·Р°РїСЂРѕСЃР°. Р”Р°Р»РµРµ СЃР»РµРґСѓРµС‚ РёС… РїРѕР»РЅС‹Р№
+  СЃРїРёСЃРѕРє.
  </para>
  <sect2 id="language.variables.smarty.request">
-  <title>Переменные запроса</title>
+  <title>РџРµСЂРµРјРµРЅРЅС‹Рµ Р·Р°РїСЂРѕСЃР°</title>
   <para>
-   <ulink url="&url.php-manual;reserved.variables">К переменным запроса</ulink>,
-   таким как $_GET, $_POST, $_COOKIE, $_SERVER, $_ENV и $_SESSION
-   (см. <link linkend="variable.request.vars.order">$request_vars_order</link>
-   и <link
+   <ulink url="&url.php-manual;reserved.variables">Рљ РїРµСЂРµРјРµРЅРЅС‹Рј Р·Р°РїСЂРѕСЃР°</ulink>,
+   С‚Р°РєРёРј РєР°Рє $_GET, $_POST, $_COOKIE, $_SERVER, $_ENV Рё $_SESSION
+   (СЃРј. <link linkend="variable.request.vars.order">$request_vars_order</link>
+   Рё <link
    linkend="variable.request.use.auto.globals">$request_use_auto_globals</link>
-   ), можно получить доступ, как показано в следующем примере:
+   ), РјРѕР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї, РєР°Рє РїРѕРєР°Р·Р°РЅРѕ РІ СЃР»РµРґСѓСЋС‰РµРј РїСЂРёРјРµСЂРµ:
   </para>
   <example>
-   <title>Отображение переменных запроса</title>
+   <title>РћС‚РѕР±СЂР°Р¶РµРЅРёРµ РїРµСЂРµРјРµРЅРЅС‹С… Р·Р°РїСЂРѕСЃР°</title>
    <programlisting>
 <![CDATA[
-{* отображение параметра page из URL ($_GET) http://www.example.com/index.php?page=foo *}
+{* РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РїР°СЂР°РјРµС‚СЂР° page РёР· URL ($_GET) http://www.example.com/index.php?page=foo *}
 {$smarty.get.page}
 
-{* отображение параметра "page" из формы ($_POST['page']) *}
+{* РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РїР°СЂР°РјРµС‚СЂР° "page" РёР· С„РѕСЂРјС‹ ($_POST['page']) *}
 {$smarty.post.page}
 
-{* отображение значения cookie "username" ($_COOKIE['username']) *}
+{* РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ cookie "username" ($_COOKIE['username']) *}
 {$smarty.cookies.username}
 
-{* отображение серверной переменной "SERVER_NAME" ($_SERVER['SERVER_NAME'])*}
+{* РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРµСЂРІРµСЂРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№ "SERVER_NAME" ($_SERVER['SERVER_NAME'])*}
 {$smarty.server.SERVER_NAME}
 
-{* отображение переменной системного окружения "PATH" *}
+{* РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ СЃРёСЃС‚РµРјРЅРѕРіРѕ РѕРєСЂСѓР¶РµРЅРёСЏ "PATH" *}
 {$smarty.env.PATH}
 
-{* отображение переменной сессии PHP "id" ($_SESSION['id']) *}
+{* РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ СЃРµСЃСЃРёРё PHP "id" ($_SESSION['id']) *}
 {$smarty.session.id}
 
-{* отображение переменной "username" из смешенных get/post/cookies/server/env *}
+{* РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ "username" РёР· СЃРјРµС€РµРЅРЅС‹С… get/post/cookies/server/env *}
 {$smarty.request.username}
 ]]>
    </programlisting>
   </example>
   <note>
    <para>
-    По историческим соображениям, доступ к переменной {$SCRIPT_NAME} можно
-    получить непосредственно, хотя предпочтительным способом является обращение
+    РџРѕ РёСЃС‚РѕСЂРёС‡РµСЃРєРёРј СЃРѕРѕР±СЂР°Р¶РµРЅРёСЏРј, РґРѕСЃС‚СѓРї Рє РїРµСЂРµРјРµРЅРЅРѕР№ {$SCRIPT_NAME} РјРѕР¶РЅРѕ
+    РїРѕР»СѓС‡РёС‚СЊ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ, С…РѕС‚СЏ РїСЂРµРґРїРѕС‡С‚РёС‚РµР»СЊРЅС‹Рј СЃРїРѕСЃРѕР±РѕРј СЏРІР»СЏРµС‚СЃСЏ РѕР±СЂР°С‰РµРЅРёРµ
     {$smarty.server.SCRIPT_NAME}.
    </para>
    <programlisting>
@@ -62,21 +62,21 @@
  <sect2 id="language.variables.smarty.now">
   <title>{$smarty.now}</title>
   <para>
-   Текущая <ulink url="&url.php-manual;function.time">временная метка</ulink>
-   содержится в переменной {$smarty.now}. Это значение отражает количество
-   секунд, которые прошли с момента наступления так называемой Эпохи
-   (1 января 1970 года). Её можно прямо передавать модификатору
+   РўРµРєСѓС‰Р°СЏ <ulink url="&url.php-manual;function.time">РІСЂРµРјРµРЅРЅР°СЏ РјРµС‚РєР°</ulink>
+   СЃРѕРґРµСЂР¶РёС‚СЃСЏ РІ РїРµСЂРµРјРµРЅРЅРѕР№ {$smarty.now}. Р­С‚Рѕ Р·РЅР°С‡РµРЅРёРµ РѕС‚СЂР°Р¶Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ
+   СЃРµРєСѓРЅРґ, РєРѕС‚РѕСЂС‹Рµ РїСЂРѕС€Р»Рё СЃ РјРѕРјРµРЅС‚Р° РЅР°СЃС‚СѓРїР»РµРЅРёСЏ С‚Р°Рє РЅР°Р·С‹РІР°РµРјРѕР№ Р­РїРѕС…Рё
+   (1 СЏРЅРІР°СЂСЏ 1970 РіРѕРґР°). Р•С‘ РјРѕР¶РЅРѕ РїСЂСЏРјРѕ РїРµСЂРµРґР°РІР°С‚СЊ РјРѕРґРёС„РёРєР°С‚РѕСЂСѓ
    <link linkend="language.modifier.date.format">date_format</link>
-   для отображения текущей даты/времени. Обратите внимание,
-   что time() вызывается при каджом обращении; к примеру, скрипт, работающий
-   три секунды и вызывающий $smarty.now в начале и в конце работы, покажет
-   разницу в три секунды.
+   РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С‚РµРєСѓС‰РµР№ РґР°С‚С‹/РІСЂРµРјРµРЅРё. РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ,
+   С‡С‚Рѕ time() РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё РєР°РґР¶РѕРј РѕР±СЂР°С‰РµРЅРёРё; Рє РїСЂРёРјРµСЂСѓ, СЃРєСЂРёРїС‚, СЂР°Р±РѕС‚Р°СЋС‰РёР№
+   С‚СЂРё СЃРµРєСѓРЅРґС‹ Рё РІС‹Р·С‹РІР°СЋС‰РёР№ $smarty.now РІ РЅР°С‡Р°Р»Рµ Рё РІ РєРѕРЅС†Рµ СЂР°Р±РѕС‚С‹, РїРѕРєР°Р¶РµС‚
+   СЂР°Р·РЅРёС†Сѓ РІ С‚СЂРё СЃРµРєСѓРЅРґС‹.
   </para>
   <example>
-   <title>Использование {$smarty.now}</title>
+   <title>РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ {$smarty.now}</title>
    <programlisting>
 <![CDATA[
-{* использование модификатора date_format для отображения текущей даты/времени*}
+{* РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РјРѕРґРёС„РёРєР°С‚РѕСЂР° date_format РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С‚РµРєСѓС‰РµР№ РґР°С‚С‹/РІСЂРµРјРµРЅРё*}
 {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
 ]]>
    </programlisting>
@@ -85,20 +85,20 @@
  <sect2 id="language.variables.smarty.const">
   <title>{$smarty.const}</title>
   <para>
-   Вы можете обращаться к константам PHP напрямую. См. также <link
-   linkend="smarty.constants">Константы Smarty</link>
+   Р’С‹ РјРѕР¶РµС‚Рµ РѕР±СЂР°С‰Р°С‚СЊСЃСЏ Рє РєРѕРЅСЃС‚Р°РЅС‚Р°Рј PHP РЅР°РїСЂСЏРјСѓСЋ. РЎРј. С‚Р°РєР¶Рµ <link
+   linkend="smarty.constants">РљРѕРЅСЃС‚Р°РЅС‚С‹ Smarty</link>
   </para>
   <example>
-   <title>Использование {$smarty.const} для доступа к константам</title>
+   <title>РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ {$smarty.const} РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РєРѕРЅСЃС‚Р°РЅС‚Р°Рј</title>
    <programlisting role="php">
 <![CDATA[
-// константа определена в PHP
+// РєРѕРЅСЃС‚Р°РЅС‚Р° РѕРїСЂРµРґРµР»РµРЅР° РІ PHP
 define('_MY_CONST_VAL','CHERRIES');
 ]]>
 </programlisting>
 <programlisting>
 <![CDATA[
-{* вывод константы PHP в шаблоне *}
+{* РІС‹РІРѕРґ РєРѕРЅСЃС‚Р°РЅС‚С‹ PHP РІ С€Р°Р±Р»РѕРЅРµ *}
 {$smarty.const._MY_CONST_VAL}
 ]]>
    </programlisting>
@@ -108,40 +108,40 @@ define('_MY_CONST_VAL','CHERRIES');
  <sect2 id="language.variables.smarty.capture">
   <title>{$smarty.capture}</title>
   <para>
-   Результат обработки шаблона, сохраненный конструкцией <link
+   Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё С€Р°Р±Р»РѕРЅР°, СЃРѕС…СЂР°РЅРµРЅРЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС†РёРµР№ <link
    linkend="language.function.capture">{capture}..{/capture}</link>,
-   доступен при помощи переменной {$smarty.capture}. См. раздел о
+   РґРѕСЃС‚СѓРїРµРЅ РїСЂРё РїРѕРјРѕС‰Рё РїРµСЂРµРјРµРЅРЅРѕР№ {$smarty.capture}. РЎРј. СЂР°Р·РґРµР» Рѕ
    <link linkend="language.function.capture">{capture}</link>
-   для получения примера.
+   РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РїСЂРёРјРµСЂР°.
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.config">
   <title>{$smarty.config}</title>
   <para>
-   Переменная {$smarty} может использоваться для обращения к загруженным <link
-   linkend="language.config.variables">конфигурационным переменным</link>.
-   {$smarty.config.foo} является синонимом {#foo#}. См. раздел о
+   РџРµСЂРµРјРµРЅРЅР°СЏ {$smarty} РјРѕР¶РµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РґР»СЏ РѕР±СЂР°С‰РµРЅРёСЏ Рє Р·Р°РіСЂСѓР¶РµРЅРЅС‹Рј <link
+   linkend="language.config.variables">РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рј РїРµСЂРµРјРµРЅРЅС‹Рј</link>.
+   {$smarty.config.foo} СЏРІР»СЏРµС‚СЃСЏ СЃРёРЅРѕРЅРёРјРѕРј {#foo#}. РЎРј. СЂР°Р·РґРµР» Рѕ
    <link linkend="language.function.config.load">{config_load}</link>
-   для получения примера.
+   РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РїСЂРёРјРµСЂР°.
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.loops">
   <title>{$smarty.section}, {$smarty.foreach}</title>
   <para>
-   Переменную {$smarty} можно использовать для обращения к свойствам циклов
-   <link linkend="language.function.section">{section}</link> и
+   РџРµСЂРµРјРµРЅРЅСѓСЋ {$smarty} РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РѕР±СЂР°С‰РµРЅРёСЏ Рє СЃРІРѕР№СЃС‚РІР°Рј С†РёРєР»РѕРІ
+   <link linkend="language.function.section">{section}</link> Рё
    <link linkend="language.function.foreach">{foreach}</link>.
-   Это очень полезные значения вроде .first, .index и т.д.
+   Р­С‚Рѕ РѕС‡РµРЅСЊ РїРѕР»РµР·РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РІСЂРѕРґРµ .first, .index Рё С‚.Рґ.
   </para>
  </sect2>
 
  <sect2 id="language.variables.smarty.template">
   <title>{$smarty.template}</title>
   <para>
-   Возвращает имя текущего обрабатываемого шаблона. Этот пример показывает
-   container.tpl и включенные в него banner.tpl, оба имеют вызов
+   Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ С‚РµРєСѓС‰РµРіРѕ РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјРѕРіРѕ С€Р°Р±Р»РѕРЅР°. Р­С‚РѕС‚ РїСЂРёРјРµСЂ РїРѕРєР°Р·С‹РІР°РµС‚
+   container.tpl Рё РІРєР»СЋС‡РµРЅРЅС‹Рµ РІ РЅРµРіРѕ banner.tpl, РѕР±Р° РёРјРµСЋС‚ РІС‹Р·РѕРІ
    {$smarty.template}
   </para>
   <programlisting>
@@ -151,7 +151,7 @@ define('_MY_CONST_VAL','CHERRIES');
 ]]>
   </programlisting>
   <para>
-   результат обработки шаблона:
+   СЂРµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё С€Р°Р±Р»РѕРЅР°:
   </para>
 <programlisting>
 <![CDATA[
@@ -163,7 +163,7 @@ banner.tpl
  <sect2 id="language.variables.smarty.version">
   <title>{$smarty.version}</title>
   <para>
-   Возвращает версию Smarty, с которой был скомпилирован шаблон.
+   Р’РѕР·РІСЂР°С‰Р°РµС‚ РІРµСЂСЃРёСЋ Smarty, СЃ РєРѕС‚РѕСЂРѕР№ Р±С‹Р» СЃРєРѕРјРїРёР»РёСЂРѕРІР°РЅ С€Р°Р±Р»РѕРЅ.
   </para>
   <programlisting>
 <![CDATA[
@@ -174,14 +174,14 @@ banner.tpl
  <sect2 id="language.variables.smarty.ldelim">
   <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
   <para>
-   Эти переменные используются для отображения левого и правого ограничителей -
-   так же, как и <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
+   Р­С‚Рё РїРµСЂРµРјРµРЅРЅС‹Рµ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ Р»РµРІРѕРіРѕ Рё РїСЂР°РІРѕРіРѕ РѕРіСЂР°РЅРёС‡РёС‚РµР»РµР№ -
+   С‚Р°Рє Р¶Рµ, РєР°Рє Рё <link linkend="language.function.ldelim">{ldelim},{rdelim}</link>.
   </para>
   <para>
-   См. также
-   <link linkend="language.syntax.variables">Переменные</link>
-   и
-   <link linkend="language.config.variables">Конфигурационные переменные</link>
+   РЎРј. С‚Р°РєР¶Рµ
+   <link linkend="language.syntax.variables">РџРµСЂРµРјРµРЅРЅС‹Рµ</link>
+   Рё
+   <link linkend="language.config.variables">РљРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ</link>
   </para>
  </sect2>
 </sect1>

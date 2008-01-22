@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <refentry id="api.append">
  <refnamediv>
   <refname>append()</refname>
-  <refpurpose>добавляет элемент к назначенному массиву</refpurpose>
+  <refpurpose>РґРѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ Рє РЅР°Р·РЅР°С‡РµРЅРЅРѕРјСѓ РјР°СЃСЃРёРІСѓ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>append</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
@@ -19,12 +19,12 @@
    <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Если вы добавляете значение к строковому значению, последнее будет
-   предварительно преобразовано в массив. Вы можете явно передавать пары
-   ключей / значений, либо ассоциативный массив, содержащий пары
-   ключей / значений.
-   Если вы укажете необязательный третий аргумент, равный true, значение будет
-   совмещено с существующим массивом, вместо добавления.
+   Р•СЃР»Рё РІС‹ РґРѕР±Р°РІР»СЏРµС‚Рµ Р·РЅР°С‡РµРЅРёРµ Рє СЃС‚СЂРѕРєРѕРІРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ, РїРѕСЃР»РµРґРЅРµРµ Р±СѓРґРµС‚
+   РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРѕ РІ РјР°СЃСЃРёРІ. Р’С‹ РјРѕР¶РµС‚Рµ СЏРІРЅРѕ РїРµСЂРµРґР°РІР°С‚СЊ РїР°СЂС‹
+   РєР»СЋС‡РµР№ / Р·РЅР°С‡РµРЅРёР№, Р»РёР±Рѕ Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ, СЃРѕРґРµСЂР¶Р°С‰РёР№ РїР°СЂС‹
+   РєР»СЋС‡РµР№ / Р·РЅР°С‡РµРЅРёР№.
+   Р•СЃР»Рё РІС‹ СѓРєР°Р¶РµС‚Рµ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ С‚СЂРµС‚РёР№ Р°СЂРіСѓРјРµРЅС‚, СЂР°РІРЅС‹Р№ true, Р·РЅР°С‡РµРЅРёРµ Р±СѓРґРµС‚
+   СЃРѕРІРјРµС‰РµРЅРѕ СЃ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРј РјР°СЃСЃРёРІРѕРј, РІРјРµСЃС‚Рѕ РґРѕР±Р°РІР»РµРЅРёСЏ.
   </para>
   &note.parameter.merge;
   <example>
@@ -32,20 +32,20 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-// передаем пары ключ / значение
+// РїРµСЂРµРґР°РµРј РїР°СЂС‹ РєР»СЋС‡ / Р·РЅР°С‡РµРЅРёРµ
 $smarty->append("Name", "Fred");
 $smarty->append("Address", $address);
 
-// передаем ассоциативный массив
+// РїРµСЂРµРґР°РµРј Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ
 $smarty->append(array('city' => 'Lincoln', 'state' => 'Nebraska'));
 ?>
 ]]>
    </programlisting>
   </example>
-  <para>См. также
+  <para>РЎРј. С‚Р°РєР¶Рµ
   <link linkend="api.append.by.ref">append_by_ref()</link>,
   <link linkend="api.assign">assign()</link>
-  и
+  Рё
   <link linkend="api.get.template.vars">get_template_vars()</link>
   </para>
  </refsect1>

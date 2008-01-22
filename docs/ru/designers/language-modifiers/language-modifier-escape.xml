@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.15 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.escape">
   <title>escape</title>
   <para>
-    Используется для кодирования / экранирования спецсимволов по алгоритмам
-    экранирования HTML, URL'ов, одиночных кавычек, hex-экранирования,
-    hex-сущностей, javascript и экранирования почтовых адресов.
-    По умолчанию активирован режим экранирования HTML.
+    РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РєРѕРґРёСЂРѕРІР°РЅРёСЏ / СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ СЃРїРµС†СЃРёРјРІРѕР»РѕРІ РїРѕ Р°Р»РіРѕСЂРёС‚РјР°Рј
+    СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ HTML, URL'РѕРІ, РѕРґРёРЅРѕС‡РЅС‹С… РєР°РІС‹С‡РµРє, hex-СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ,
+    hex-СЃСѓС‰РЅРѕСЃС‚РµР№, javascript Рё СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ РїРѕС‡С‚РѕРІС‹С… Р°РґСЂРµСЃРѕРІ.
+    РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Р°РєС‚РёРІРёСЂРѕРІР°РЅ СЂРµР¶РёРј СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ HTML.
   </para>
   
   <informaltable frame="all">
@@ -20,31 +20,31 @@
     <colspec colname="desc" />
     <thead>
      <row>
-      <entry>Позиция параметра</entry>
-      <entry>Тип</entry>
-      <entry>Обязателен</entry>
+      <entry>РџРѕР·РёС†РёСЏ РїР°СЂР°РјРµС‚СЂР°</entry>
+      <entry>РўРёРї</entry>
+      <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
       <entry>Possible Values</entry>
-      <entry>По умолчанию</entry>
-      <entry>Описание</entry>
+      <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+      <entry>РћРїРёСЃР°РЅРёРµ</entry>
      </row>
     </thead>
     <tbody>
      <row>
       <entry>1</entry>
       <entry>string</entry>
-      <entry>Нет</entry>
+      <entry>РќРµС‚</entry>
       <entry><literal>html</literal>,<literal>htmlall</literal>,<literal>url</literal>,<literal>urlpathinfo</literal>,<literal>quotes</literal>,<literal>hex</literal>,<literal>hexentity</literal>,<literal>javascript</literal>,<literal>mail</literal></entry>
       <entry><literal>html</literal></entry>
-      <entry>формат экранирования</entry>
+      <entry>С„РѕСЂРјР°С‚ СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ</entry>
      </row>
      <row>
       <entry>2</entry>
       <entry>string</entry>
-      <entry>Нет</entry>
-      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... любая кодировка, поддерживаемая функцией <ulink url="&url.php-manual;htmlentities">htmlentities()</ulink>
+      <entry>РќРµС‚</entry>
+      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>, ... Р»СЋР±Р°СЏ РєРѕРґРёСЂРѕРІРєР°, РїРѕРґРґРµСЂР¶РёРІР°РµРјР°СЏ С„СѓРЅРєС†РёРµР№ <ulink url="&url.php-manual;htmlentities">htmlentities()</ulink>
 </entry>
       <entry><literal>ISO-8859-1</literal></entry>
-      <entry>Кодировка для экранирования, передаваемая в htmlentities() и т.д.</entry>
+      <entry>РљРѕРґРёСЂРѕРІРєР° РґР»СЏ СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ, РїРµСЂРµРґР°РІР°РµРјР°СЏ РІ htmlentities() Рё С‚.Рґ.</entry>
      </row>
     </tbody>
    </tgroup>
@@ -64,23 +64,23 @@ $smarty->assign('EmailAddress','smarty@example.com');
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
 {$articleTitle}
 {$articleTitle|escape}
-{$articleTitle|escape:'html'}    {* экранирует  & " ' < > *}
-{$articleTitle|escape:'htmlall'} {* экранирует ВСЕ HTML-сущности *}
+{$articleTitle|escape:'html'}    {* СЌРєСЂР°РЅРёСЂСѓРµС‚  & " ' < > *}
+{$articleTitle|escape:'htmlall'} {* СЌРєСЂР°РЅРёСЂСѓРµС‚ Р’РЎР• HTML-СЃСѓС‰РЅРѕСЃС‚Рё *}
 {$articleTitle|escape:'url'}
 {$articleTitle|escape:'quotes'}
 <a href="mailto:{$EmailAddress|escape:"hex"}">{$EmailAddress|escape:"hexentity"}</a>
-{$EmailAddress|escape:'mail'}    {* конвертирует e-mail в текст *}
+{$EmailAddress|escape:'mail'}    {* РєРѕРЅРІРµСЂС‚РёСЂСѓРµС‚ e-mail РІ С‚РµРєСЃС‚ *}
 {'mail@example.com'|escape:'mail'}
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -96,17 +96,17 @@ mail [AT] example [DOT] com
 ]]>
    </screen>
    <para>
-    Обратите внимание, что родные функции PHP могут использоваться в качестве
-    модификаторов, так что следующие приёмы сработают
+    РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, С‡С‚Рѕ СЂРѕРґРЅС‹Рµ С„СѓРЅРєС†РёРё PHP РјРѕРіСѓС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РІ РєР°С‡РµСЃС‚РІРµ
+    РјРѕРґРёС„РёРєР°С‚РѕСЂРѕРІ, С‚Р°Рє С‡С‚Рѕ СЃР»РµРґСѓСЋС‰РёРµ РїСЂРёС‘РјС‹ СЃСЂР°Р±РѕС‚Р°СЋС‚
    </para>
    <screen>
 <![CDATA[
-{* GET-переменная rewind передает текущий адрес *}
+{* GET-РїРµСЂРµРјРµРЅРЅР°СЏ rewind РїРµСЂРµРґР°РµС‚ С‚РµРєСѓС‰РёР№ Р°РґСЂРµСЃ *}
 <a href="{$SCRIPT_NAME}?page=foo&rewind={$smarty.server.REQUEST_URI|urlencode}">click here</a>
  ]]>
    </screen>
    <para>
-    Это очень полезно для e-mail'ов, но см. также
+    Р­С‚Рѕ РѕС‡РµРЅСЊ РїРѕР»РµР·РЅРѕ РґР»СЏ e-mail'РѕРІ, РЅРѕ СЃРј. С‚Р°РєР¶Рµ
     <link linkend="language.function.mailto">{mailto}</link>
    </para>
    <screen>
@@ -118,11 +118,11 @@ mail [AT] example [DOT] com
   </example>
   
   <para>
-   См. также
-   <link linkend="language.escaping">Предотвращение обработки Smarty</link>,
+   РЎРј. С‚Р°РєР¶Рµ
+   <link linkend="language.escaping">РџСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёРµ РѕР±СЂР°Р±РѕС‚РєРё Smarty</link>,
    <link linkend="language.function.mailto">{mailto}</link>
-   и
-   <link linkend="tips.obfuscating.email">Сокрытие E-mail адреса</link>.
+   Рё
+   <link linkend="tips.obfuscating.email">РЎРѕРєСЂС‹С‚РёРµ E-mail Р°РґСЂРµСЃР°</link>.
   </para>
  </sect1>
 

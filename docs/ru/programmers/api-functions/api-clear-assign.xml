@@ -1,41 +1,41 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.assign">
  <refnamediv>
   <refname>clear_assign()</refname>
-  <refpurpose>очищает назначенную переменную</refpurpose>
+  <refpurpose>РѕС‡РёС‰Р°РµС‚ РЅР°Р·РЅР°С‡РµРЅРЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_assign</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Может принимать имя переменной, либо массив с именами переменных.
+   РњРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ РёРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№, Р»РёР±Рѕ РјР°СЃСЃРёРІ СЃ РёРјРµРЅР°РјРё РїРµСЂРµРјРµРЅРЅС‹С….
   </para>
   <example>
    <title>clear_assign()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// очищает одну переменную
+// РѕС‡РёС‰Р°РµС‚ РѕРґРЅСѓ РїРµСЂРµРјРµРЅРЅСѓСЋ
 $smarty->clear_assign('Name');
 
-// очищает несколько переменных
+// РѕС‡РёС‰Р°РµС‚ РЅРµСЃРєРѕР»СЊРєРѕ РїРµСЂРµРјРµРЅРЅС‹С…
 $smarty->clear_assign(array('Name', 'Address', 'Zip'));
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-    См. также
+    РЎРј. С‚Р°РєР¶Рµ
     <link linkend="api.clear.all.assign">clear_all_assign()</link>,
     <link linkend="api.clear.config">clear_config()</link>,
     <link linkend="api.get.template.vars">get_template_vars()</link>,
     <link linkend="api.assign">assign()</link>
-    и
+    Рё
     <link linkend="api.append">append()</link>
   </para>
  </refsect1>

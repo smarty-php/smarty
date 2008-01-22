@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="language.modifier.capitalize">
  <title>capitalize</title>
  <para>
-  Преобразовывает первые буквы каждого в переменной слова в заглавные.
+  РџСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµС‚ РїРµСЂРІС‹Рµ Р±СѓРєРІС‹ РєР°Р¶РґРѕРіРѕ РІ РїРµСЂРµРјРµРЅРЅРѕР№ СЃР»РѕРІР° РІ Р·Р°РіР»Р°РІРЅС‹Рµ.
  </para>
   <informaltable frame="all">
    <tgroup cols="5">
@@ -15,21 +15,21 @@
     <colspec colname="desc" />
     <thead>
      <row>
-      <entry>Позиция параметра</entry>
-      <entry>Тип</entry>
-      <entry>Обязателен</entry>
-      <entry>По умолчанию</entry>
-      <entry>Описание</entry>
+      <entry>РџРѕР·РёС†РёСЏ РїР°СЂР°РјРµС‚СЂР°</entry>
+      <entry>РўРёРї</entry>
+      <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+      <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+      <entry>РћРїРёСЃР°РЅРёРµ</entry>
      </row>
     </thead>
     <tbody>
      <row>
       <entry>1</entry>
       <entry>boolean</entry>
-      <entry>Нет</entry>
+      <entry>РќРµС‚</entry>
       <entry>false</entry>
-      <entry>Этот параметр определяет, распространяется ли действие
-      модификатора на слова с цифрами</entry>
+      <entry>Р­С‚РѕС‚ РїР°СЂР°РјРµС‚СЂ РѕРїСЂРµРґРµР»СЏРµС‚, СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµС‚СЃСЏ Р»Рё РґРµР№СЃС‚РІРёРµ
+      РјРѕРґРёС„РёРєР°С‚РѕСЂР° РЅР° СЃР»РѕРІР° СЃ С†РёС„СЂР°РјРё</entry>
      </row>
     </tbody>
    </tgroup>
@@ -46,7 +46,7 @@ $smarty->assign('articleTitle', 'next x-men film, x3, delayed.');
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
@@ -56,7 +56,7 @@ $smarty->assign('articleTitle', 'next x-men film, x3, delayed.');
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -67,9 +67,9 @@ Next X-Men Film, X3, Delayed.
    </screen>
   </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.modifier.lower">lower</link>
-  и
+  Рё
   <link linkend="language.modifier.upper">upper</link>
  </para>
 </sect1>

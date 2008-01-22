@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.select.date">
  <title>{html_select_date}</title>
  <para>
-  {html_select_date} является
-  <link linkend="language.custom.functions">пользовательской функцией</link>,
-  которая создает выпадающее меню для выбора даты.
-  Она может отображать поля для года, месяца и дня.
+  {html_select_date} СЏРІР»СЏРµС‚СЃСЏ
+  <link linkend="language.custom.functions">РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕР№ С„СѓРЅРєС†РёРµР№</link>,
+  РєРѕС‚РѕСЂР°СЏ СЃРѕР·РґР°РµС‚ РІС‹РїР°РґР°СЋС‰РµРµ РјРµРЅСЋ РґР»СЏ РІС‹Р±РѕСЂР° РґР°С‚С‹.
+  РћРЅР° РјРѕР¶РµС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»СЏ РґР»СЏ РіРѕРґР°, РјРµСЃСЏС†Р° Рё РґРЅСЏ.
  </para>
 
  <informaltable frame="all">
@@ -19,212 +19,212 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
+    <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+    <entry>РўРёРї</entry>
+    <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+    <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+    <entry>РћРїРёСЃР°РЅРёРµ</entry>
    </row>
   </thead>
   <tbody>
    <row>
     <entry>prefix</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>Date_</entry>
-    <entry>префикс названий переменных</entry>
+    <entry>РїСЂРµС„РёРєСЃ РЅР°Р·РІР°РЅРёР№ РїРµСЂРµРјРµРЅРЅС‹С…</entry>
    </row>
    <row>
     <entry>time</entry>
-    <entry>timestamp/ГГГГ-ММ-ДД</entry>
-    <entry>Нет</entry>
+    <entry>timestamp/Р“Р“Р“Р“-РњРњ-Р”Р”</entry>
+    <entry>РќРµС‚</entry>
     <entry>
-     текущее время в формате unix timestamp или ГГГГ-ММ-ДД
+     С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ РІ С„РѕСЂРјР°С‚Рµ unix timestamp РёР»Рё Р“Р“Р“Р“-РњРњ-Р”Р”
     </entry>
-    <entry>используемое время</entry>
+    <entry>РёСЃРїРѕР»СЊР·СѓРµРјРѕРµ РІСЂРµРјСЏ</entry>
    </row>
    <row>
     <entry>start_year</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
-    <entry>текущий год</entry>
+    <entry>РќРµС‚</entry>
+    <entry>С‚РµРєСѓС‰РёР№ РіРѕРґ</entry>
     <entry>
-     Начальный год в выпадающем списке. Либо указывается явно, либо
-     относительно текущего года (+/- N)
+     РќР°С‡Р°Р»СЊРЅС‹Р№ РіРѕРґ РІ РІС‹РїР°РґР°СЋС‰РµРј СЃРїРёСЃРєРµ. Р›РёР±Рѕ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ СЏРІРЅРѕ, Р»РёР±Рѕ
+     РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С‚РµРєСѓС‰РµРіРѕ РіРѕРґР° (+/- N)
     </entry>
    </row>
    <row>
     <entry>end_year</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
-    <entry>аналогично start_year</entry>
+    <entry>РќРµС‚</entry>
+    <entry>Р°РЅР°Р»РѕРіРёС‡РЅРѕ start_year</entry>
     <entry>
-     Конечный год в выпадающем списке. Либо указывается явно, либо
-     относительно текущего года (+/- N)
+     РљРѕРЅРµС‡РЅС‹Р№ РіРѕРґ РІ РІС‹РїР°РґР°СЋС‰РµРј СЃРїРёСЃРєРµ. Р›РёР±Рѕ СѓРєР°Р·С‹РІР°РµС‚СЃСЏ СЏРІРЅРѕ, Р»РёР±Рѕ
+     РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С‚РµРєСѓС‰РµРіРѕ РіРѕРґР° (+/- N)
     </entry>
    </row>
    <row>
     <entry>display_days</entry>
     <entry>boolean</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>true</entry>
-    <entry>выводить ли список дней</entry>
+    <entry>РІС‹РІРѕРґРёС‚СЊ Р»Рё СЃРїРёСЃРѕРє РґРЅРµР№</entry>
    </row>
    <row>
     <entry>display_months</entry>
     <entry>boolean</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>true</entry>
-    <entry>выводить ли список месяцев</entry>
+    <entry>РІС‹РІРѕРґРёС‚СЊ Р»Рё СЃРїРёСЃРѕРє РјРµСЃСЏС†РµРІ</entry>
    </row>
    <row>
     <entry>display_years</entry>
     <entry>boolean</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>true</entry>
-    <entry>выводить ли список лет</entry>
+    <entry>РІС‹РІРѕРґРёС‚СЊ Р»Рё СЃРїРёСЃРѕРє Р»РµС‚</entry>
    </row>
    <row>
     <entry>month_format</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>%B</entry>
-    <entry>Формат названия месяцев (strftime)</entry>
+    <entry>Р¤РѕСЂРјР°С‚ РЅР°Р·РІР°РЅРёСЏ РјРµСЃСЏС†РµРІ (strftime)</entry>
    </row>
    <row>
     <entry>day_format</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>%02d</entry>
-    <entry>формат названия дней (sprintf)</entry>
+    <entry>С„РѕСЂРјР°С‚ РЅР°Р·РІР°РЅРёСЏ РґРЅРµР№ (sprintf)</entry>
    </row>
    <row>
     <entry>day_value_format</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>%d</entry>
-    <entry>формат значения дней (sprintf)</entry>
+    <entry>С„РѕСЂРјР°С‚ Р·РЅР°С‡РµРЅРёСЏ РґРЅРµР№ (sprintf)</entry>
    </row>
    <row>
     <entry>year_as_text</entry>
     <entry>boolean</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>false</entry>
-    <entry>Выводить ли значение года текстом</entry>
+    <entry>Р’С‹РІРѕРґРёС‚СЊ Р»Рё Р·РЅР°С‡РµРЅРёРµ РіРѕРґР° С‚РµРєСЃС‚РѕРј</entry>
    </row>
    <row>
     <entry>reverse_years</entry>
     <entry>boolean</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>false</entry>
-    <entry>Выводить года в обратном порядке</entry>
+    <entry>Р’С‹РІРѕРґРёС‚СЊ РіРѕРґР° РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ</entry>
    </row>
    <row>
     <entry>field_array</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>null</entry>
     <entry>
-     название переменной (name), которая будет
-     содержать выбранные значения в виде массива:
+     РЅР°Р·РІР°РЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ (name), РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚
+     СЃРѕРґРµСЂР¶Р°С‚СЊ РІС‹Р±СЂР°РЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РІ РІРёРґРµ РјР°СЃСЃРёРІР°:
      name[Day], name[Year], name[Month].
     </entry>
    </row>
    <row>
     <entry>day_size</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>null</entry>
-    <entry>Устанавливает атрибут size тэга select для дней</entry>
+    <entry>РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ Р°С‚СЂРёР±СѓС‚ size С‚СЌРіР° select РґР»СЏ РґРЅРµР№</entry>
    </row>
    <row>
     <entry>month_size</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>null</entry>
-    <entry>Устанавливает атрибут size тэга select для месяцев</entry>
+    <entry>РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ Р°С‚СЂРёР±СѓС‚ size С‚СЌРіР° select РґР»СЏ РјРµСЃСЏС†РµРІ</entry>
    </row>
    <row>
     <entry>year_size</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>null</entry>
-    <entry>Устанавливает атрибут size тэга select для лет</entry>
+    <entry>РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ Р°С‚СЂРёР±СѓС‚ size С‚СЌРіР° select РґР»СЏ Р»РµС‚</entry>
    </row>
    <row>
     <entry>all_extra</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>null</entry>
     <entry>
-     Устанавливает дополнительные атрибуты для всех тэгов
+     РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ РґР»СЏ РІСЃРµС… С‚СЌРіРѕРІ
      select/input
     </entry>
    </row>
    <row>
     <entry>day_extra</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>null</entry>
     <entry>
-     Устанавливает дополнительные атрибуты тэгов select/input для
-     дней
+     РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ С‚СЌРіРѕРІ select/input РґР»СЏ
+     РґРЅРµР№
     </entry>
    </row>
    <row>
     <entry>month_extra</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>null</entry>
     <entry>
-     Устанавливает дополнительные атрибуты тэгов select/input для месяцев
+     РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ С‚СЌРіРѕРІ select/input РґР»СЏ РјРµСЃСЏС†РµРІ
     </entry>
    </row>
    <row>
     <entry>year_extra</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>null</entry>
     <entry>
-     Устанавливает дополнительные атрибуты тэгов select/input для лет
+     РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ С‚СЌРіРѕРІ select/input РґР»СЏ Р»РµС‚
     </entry>
    </row>
    <row>
     <entry>field_order</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>MDY</entry>
-    <entry>Порядок следования полей (МДГ)</entry>
+    <entry>РџРѕСЂСЏРґРѕРє СЃР»РµРґРѕРІР°РЅРёСЏ РїРѕР»РµР№ (РњР”Р“)</entry>
    </row>
    <row>
     <entry>field_separator</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>\n</entry>
-    <entry>текст, разделяющий поля</entry>
+    <entry>С‚РµРєСЃС‚, СЂР°Р·РґРµР»СЏСЋС‰РёР№ РїРѕР»СЏ</entry>
    </row>
    <row>
     <entry>month_value_format</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry>%m</entry>
     <entry>
-     формат значения месяца (strftime).
-     По умолчанию - %m (номер месяца).
+     С„РѕСЂРјР°С‚ Р·РЅР°С‡РµРЅРёСЏ РјРµСЃСЏС†Р° (strftime).
+     РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - %m (РЅРѕРјРµСЂ РјРµСЃСЏС†Р°).
     </entry>
    </row>
     <row>
      <entry>year_empty</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>null</entry>
      <entry>
-      Если указан, первый пункт элемента для выбора года станет такой надписью
-      с пустым ("") значением.
-      Это удобно для создания надписей вроде "Пожалуйста, выберите год" в
-      качестве первого пункта выпадающего меню.
-      Обратите внимание, что вы можете использовать значения типа "-MM-DD"
-      для атрибута time, чтобы не выбирать год заранее.
+      Р•СЃР»Рё СѓРєР°Р·Р°РЅ, РїРµСЂРІС‹Р№ РїСѓРЅРєС‚ СЌР»РµРјРµРЅС‚Р° РґР»СЏ РІС‹Р±РѕСЂР° РіРѕРґР° СЃС‚Р°РЅРµС‚ С‚Р°РєРѕР№ РЅР°РґРїРёСЃСЊСЋ
+      СЃ РїСѓСЃС‚С‹Рј ("") Р·РЅР°С‡РµРЅРёРµРј.
+      Р­С‚Рѕ СѓРґРѕР±РЅРѕ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РЅР°РґРїРёСЃРµР№ РІСЂРѕРґРµ "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІС‹Р±РµСЂРёС‚Рµ РіРѕРґ" РІ
+      РєР°С‡РµСЃС‚РІРµ РїРµСЂРІРѕРіРѕ РїСѓРЅРєС‚Р° РІС‹РїР°РґР°СЋС‰РµРіРѕ РјРµРЅСЋ.
+      РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, С‡С‚Рѕ РІС‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ С‚РёРїР° "-MM-DD"
+      РґР»СЏ Р°С‚СЂРёР±СѓС‚Р° time, С‡С‚РѕР±С‹ РЅРµ РІС‹Р±РёСЂР°С‚СЊ РіРѕРґ Р·Р°СЂР°РЅРµРµ.
      </entry>
     </row>
     <row>
@@ -233,10 +233,10 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>
-      Если указан, первый пункт элемента для выбора месяца станет такой надписью
-      с пустым ("") значением.
-      Обратите внимание, что вы можете использовать значения типа "YYYY--DD"
-      для атрибута time, чтобы не выбирать месяц заранее.
+      Р•СЃР»Рё СѓРєР°Р·Р°РЅ, РїРµСЂРІС‹Р№ РїСѓРЅРєС‚ СЌР»РµРјРµРЅС‚Р° РґР»СЏ РІС‹Р±РѕСЂР° РјРµСЃСЏС†Р° СЃС‚Р°РЅРµС‚ С‚Р°РєРѕР№ РЅР°РґРїРёСЃСЊСЋ
+      СЃ РїСѓСЃС‚С‹Рј ("") Р·РЅР°С‡РµРЅРёРµРј.
+      РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, С‡С‚Рѕ РІС‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ С‚РёРїР° "YYYY--DD"
+      РґР»СЏ Р°С‚СЂРёР±СѓС‚Р° time, С‡С‚РѕР±С‹ РЅРµ РІС‹Р±РёСЂР°С‚СЊ РјРµСЃСЏС† Р·Р°СЂР°РЅРµРµ.
      </entry>
     </row>
     <row>
@@ -245,30 +245,30 @@
      <entry>No</entry>
      <entry>null</entry>
      <entry>
-      Если указан, первый пункт элемента для выбора дня станет такой надписью
-      с пустым ("") значением.
-      Обратите внимание, что вы можете использовать значения типа "YYY-MM-"
-      для атрибута time, чтобы не выбирать день заранее.
+      Р•СЃР»Рё СѓРєР°Р·Р°РЅ, РїРµСЂРІС‹Р№ РїСѓРЅРєС‚ СЌР»РµРјРµРЅС‚Р° РґР»СЏ РІС‹Р±РѕСЂР° РґРЅСЏ СЃС‚Р°РЅРµС‚ С‚Р°РєРѕР№ РЅР°РґРїРёСЃСЊСЋ
+      СЃ РїСѓСЃС‚С‹Рј ("") Р·РЅР°С‡РµРЅРёРµРј.
+      РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, С‡С‚Рѕ РІС‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ С‚РёРїР° "YYY-MM-"
+      РґР»СЏ Р°С‚СЂРёР±СѓС‚Р° time, С‡С‚РѕР±С‹ РЅРµ РІС‹Р±РёСЂР°С‚СЊ РґРµРЅСЊ Р·Р°СЂР°РЅРµРµ.
      </entry>
     </row>
   </tbody>
   </tgroup>
  </informaltable>
  <para>
-  Все параметры, которые не указаны в списке, выводятся в виде
-  пар name/value в каждом созданном тэге &lt;select&gt; для дня,
-  месяца и года.
+  Р’СЃРµ РїР°СЂР°РјРµС‚СЂС‹, РєРѕС‚РѕСЂС‹Рµ РЅРµ СѓРєР°Р·Р°РЅС‹ РІ СЃРїРёСЃРєРµ, РІС‹РІРѕРґСЏС‚СЃСЏ РІ РІРёРґРµ
+  РїР°СЂ name/value РІ РєР°Р¶РґРѕРј СЃРѕР·РґР°РЅРЅРѕРј С‚СЌРіРµ &lt;select&gt; РґР»СЏ РґРЅСЏ,
+  РјРµСЃСЏС†Р° Рё РіРѕРґР°.
  </para>
  <example>
   <title>{html_select_date}</title>
-  <para>Шаблон:</para>
+  <para>РЁР°Р±Р»РѕРЅ:</para>
   <programlisting>
 <![CDATA[
 {html_select_date}
 ]]>
   </programlisting>
   <para>
-   Результат обработки шаблона:
+   Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё С€Р°Р±Р»РѕРЅР°:
   </para>
   <screen>
 <![CDATA[
@@ -307,13 +307,13 @@
   <title>{html_select_date}</title>
   <programlisting>
 <![CDATA[
-{* года начала и конца могут быть заданы относительно текущего года *}
+{* РіРѕРґР° РЅР°С‡Р°Р»Р° Рё РєРѕРЅС†Р° РјРѕРіСѓС‚ Р±С‹С‚СЊ Р·Р°РґР°РЅС‹ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С‚РµРєСѓС‰РµРіРѕ РіРѕРґР° *}
 {html_select_date prefix="StartDate" time=$time start_year="-5"
    end_year="+1" display_days=false}
 ]]>
   </programlisting>
   <para>
-   Результатом обработки шаблона будет: (текущий год - 2000)
+   Р РµР·СѓР»СЊС‚Р°С‚РѕРј РѕР±СЂР°Р±РѕС‚РєРё С€Р°Р±Р»РѕРЅР° Р±СѓРґРµС‚: (С‚РµРєСѓС‰РёР№ РіРѕРґ - 2000)
   </para>
   <screen>
 <![CDATA[
@@ -344,12 +344,12 @@
   </screen>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.function.html.select.time">{html_select_time}</link>,
   <link linkend="language.modifier.date.format">date_format</link>,
   <link linkend="language.variables.smarty.now">$smarty.now</link>
-  и
-  <link linkend="tips.dates">Советы относительно дат</link>.
+  Рё
+  <link linkend="tips.dates">РЎРѕРІРµС‚С‹ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РґР°С‚</link>.
  </para>
 </sect1>
 

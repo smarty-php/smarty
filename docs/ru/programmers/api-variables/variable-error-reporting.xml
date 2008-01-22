@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="variable.error.reporting">
  <title>$error_reporting</title>
  <para>
-  Если это свойство имеет ненулевое значние, то оно используется
-  в качестве значения error_reporting внутри
-  <link linkend="api.display">display()</link> и
+  Р•СЃР»Рё СЌС‚Рѕ СЃРІРѕР№СЃС‚РІРѕ РёРјРµРµС‚ РЅРµРЅСѓР»РµРІРѕРµ Р·РЅР°С‡РЅРёРµ, С‚Рѕ РѕРЅРѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
+  РІ РєР°С‡РµСЃС‚РІРµ Р·РЅР°С‡РµРЅРёСЏ error_reporting РІРЅСѓС‚СЂРё
+  <link linkend="api.display">display()</link> Рё
   <link linkend="api.fetch">fetch()</link>.
-  При включенном режиме <link
-  linkend="chapter.debugging.console">отладки</link> это значение
-  игнорируется и уровень обработки ошибок не меняется.
+  РџСЂРё РІРєР»СЋС‡РµРЅРЅРѕРј СЂРµР¶РёРјРµ <link
+  linkend="chapter.debugging.console">РѕС‚Р»Р°РґРєРё</link> СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРµ
+  РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ Рё СѓСЂРѕРІРµРЅСЊ РѕР±СЂР°Р±РѕС‚РєРё РѕС€РёР±РѕРє РЅРµ РјРµРЅСЏРµС‚СЃСЏ.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

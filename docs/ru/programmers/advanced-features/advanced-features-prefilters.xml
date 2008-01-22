@@ -1,42 +1,42 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <sect1 id="advanced.features.prefilters">
- <title>Префильтры</title>
+ <title>РџСЂРµС„РёР»СЊС‚СЂС‹</title>
  <para>
-  Префильтры шаблона - это функции PHP, которые обрабатывают шаблон перед его
-  компиляцией. Это удобно для удаления лишних комментариев и прочих ненужных
-  после компиляции данных.
+  РџСЂРµС„РёР»СЊС‚СЂС‹ С€Р°Р±Р»РѕРЅР° - СЌС‚Рѕ С„СѓРЅРєС†РёРё PHP, РєРѕС‚РѕСЂС‹Рµ РѕР±СЂР°Р±Р°С‚С‹РІР°СЋС‚ С€Р°Р±Р»РѕРЅ РїРµСЂРµРґ РµРіРѕ
+  РєРѕРјРїРёР»СЏС†РёРµР№. Р­С‚Рѕ СѓРґРѕР±РЅРѕ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ Р»РёС€РЅРёС… РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ Рё РїСЂРѕС‡РёС… РЅРµРЅСѓР¶РЅС‹С…
+  РїРѕСЃР»Рµ РєРѕРјРїРёР»СЏС†РёРё РґР°РЅРЅС‹С….
  </para>
  <para>
-  Префильтры могут быть или
-  <link linkend="api.register.prefilter">заргистрированы</link>
-  или загружены из
-  <link linkend="variable.plugins.dir">директории плагинов</link>
-  с помощью функции
-  <link linkend="api.load.filter">load_filter()</link> или
-  с помощью установки переменной
+  РџСЂРµС„РёР»СЊС‚СЂС‹ РјРѕРіСѓС‚ Р±С‹С‚СЊ РёР»Рё
+  <link linkend="api.register.prefilter">Р·Р°СЂРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹</link>
+  РёР»Рё Р·Р°РіСЂСѓР¶РµРЅС‹ РёР·
+  <link linkend="variable.plugins.dir">РґРёСЂРµРєС‚РѕСЂРёРё РїР»Р°РіРёРЅРѕРІ</link>
+  СЃ РїРѕРјРѕС‰СЊСЋ С„СѓРЅРєС†РёРё
+  <link linkend="api.load.filter">load_filter()</link> РёР»Рё
+  СЃ РїРѕРјРѕС‰СЊСЋ СѓСЃС‚Р°РЅРѕРІРєРё РїРµСЂРµРјРµРЅРЅРѕР№
   <link linkend="variable.autoload.filters">$autoload_filters</link>.
  </para>
  <para>
-  Smarty передаёт фильтру исходный код шаблона в качестве первого аргумента
-  и предполагает, что функция вернёт результат своей работы.
+  Smarty РїРµСЂРµРґР°С‘С‚ С„РёР»СЊС‚СЂСѓ РёСЃС…РѕРґРЅС‹Р№ РєРѕРґ С€Р°Р±Р»РѕРЅР° РІ РєР°С‡РµСЃС‚РІРµ РїРµСЂРІРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°
+  Рё РїСЂРµРґРїРѕР»Р°РіР°РµС‚, С‡С‚Рѕ С„СѓРЅРєС†РёСЏ РІРµСЂРЅС‘С‚ СЂРµР·СѓР»СЊС‚Р°С‚ СЃРІРѕРµР№ СЂР°Р±РѕС‚С‹.
  </para>
  <example>
-  <title>использование префильтра</title>
+  <title>РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РїСЂРµС„РёР»СЊС‚СЂР°</title>
   <para>
-   Этот пример удалит все комментарии из исходного текста шаблона.
+   Р­С‚РѕС‚ РїСЂРёРјРµСЂ СѓРґР°Р»РёС‚ РІСЃРµ РєРѕРјРјРµРЅС‚Р°СЂРёРё РёР· РёСЃС…РѕРґРЅРѕРіРѕ С‚РµРєСЃС‚Р° С€Р°Р±Р»РѕРЅР°.
   </para>
   <programlisting role="php">
 <![CDATA[
 <?php
-// код в вашем скрипте
+// РєРѕРґ РІ РІР°С€РµРј СЃРєСЂРёРїС‚Рµ
 function remove_dw_comments($tpl_source, &$smarty)
 {
     return preg_replace('/<!--#.*-->/U','',$tpl_source);
 }
 
-// регистрация префильтра
+// СЂРµРіРёСЃС‚СЂР°С†РёСЏ РїСЂРµС„РёР»СЊС‚СЂР°
 $smarty->register_prefilter('remove_dw_comments');
 $smarty->display('index.tpl');
 ?>
@@ -44,10 +44,10 @@ $smarty->display('index.tpl');
   </programlisting>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="api.register.prefilter">register_prefilter()</link>,
-  <link linkend="advanced.features.postfilters">постфильтры</link>
-  и
+  <link linkend="advanced.features.postfilters">РїРѕСЃС‚С„РёР»СЊС‚СЂС‹</link>
+  Рё
  <link linkend="api.load.filter">load_filter()</link>.
  </para>
 </sect1>

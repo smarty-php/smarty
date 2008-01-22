@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
      <sect1 id="variable.request.vars.order">
       <title>$request_vars_order</title>
       <para>
-       Порядок, в котором будут регистрироваться переменные запроса,
-       наподобие variables_order из php.ini
+       РџРѕСЂСЏРґРѕРє, РІ РєРѕС‚РѕСЂРѕРј Р±СѓРґСѓС‚ СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ РїРµСЂРµРјРµРЅРЅС‹Рµ Р·Р°РїСЂРѕСЃР°,
+       РЅР°РїРѕРґРѕР±РёРµ variables_order РёР· php.ini
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

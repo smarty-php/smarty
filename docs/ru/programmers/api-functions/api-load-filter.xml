@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <refentry id="api.load.filter">
@@ -14,19 +14,19 @@
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-  Эта функция может быть использована для загрузки плагина фильтра. Первый аргумент
-  определяет тип загружаемого фильтра и может быть одним из следующих:
-   'pre', 'post' или 'output'. Второй аргумент
-  определяет имя плагина фильтра, к примеру 'trim'.
+  Р­С‚Р° С„СѓРЅРєС†РёСЏ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅР° РґР»СЏ Р·Р°РіСЂСѓР·РєРё РїР»Р°РіРёРЅР° С„РёР»СЊС‚СЂР°. РџРµСЂРІС‹Р№ Р°СЂРіСѓРјРµРЅС‚
+  РѕРїСЂРµРґРµР»СЏРµС‚ С‚РёРї Р·Р°РіСЂСѓР¶Р°РµРјРѕРіРѕ С„РёР»СЊС‚СЂР° Рё РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕРґРЅРёРј РёР· СЃР»РµРґСѓСЋС‰РёС…:
+   'pre', 'post' РёР»Рё 'output'. Р’С‚РѕСЂРѕР№ Р°СЂРіСѓРјРµРЅС‚
+  РѕРїСЂРµРґРµР»СЏРµС‚ РёРјСЏ РїР»Р°РіРёРЅР° С„РёР»СЊС‚СЂР°, Рє РїСЂРёРјРµСЂСѓ 'trim'.
  </para>
  <example>
-  <title>Загрузка плагинов фильтров</title>
+  <title>Р—Р°РіСЂСѓР·РєР° РїР»Р°РіРёРЅРѕРІ С„РёР»СЊС‚СЂРѕРІ</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->load_filter('pre', 'trim'); // загружаем префильтр под названием 'trim'
-$smarty->load_filter('pre', 'datefooter'); // загружаем еще один префильтр - 'datefooter'
-$smarty->load_filter('output', 'compress'); // загружаем фильтр вывода 'compress'
+$smarty->load_filter('pre', 'trim'); // Р·Р°РіСЂСѓР¶Р°РµРј РїСЂРµС„РёР»СЊС‚СЂ РїРѕРґ РЅР°Р·РІР°РЅРёРµРј 'trim'
+$smarty->load_filter('pre', 'datefooter'); // Р·Р°РіСЂСѓР¶Р°РµРј РµС‰Рµ РѕРґРёРЅ РїСЂРµС„РёР»СЊС‚СЂ - 'datefooter'
+$smarty->load_filter('output', 'compress'); // Р·Р°РіСЂСѓР¶Р°РµРј С„РёР»СЊС‚СЂ РІС‹РІРѕРґР° 'compress'
 ?>
 ]]>
    </programlisting>

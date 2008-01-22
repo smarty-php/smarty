@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
 <sect1 id="variable.compiler.class">
  <title>$compiler_class</title>
  <para>
-  Задает имя класса-компилятора, который Smarty будет использовать
-  для компиляции шаблонов. По умолчанию это 'Smarty_Compiler'. Только
-  для продвинутых пользователей.
+  Р—Р°РґР°РµС‚ РёРјСЏ РєР»Р°СЃСЃР°-РєРѕРјРїРёР»СЏС‚РѕСЂР°, РєРѕС‚РѕСЂС‹Р№ Smarty Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
+  РґР»СЏ РєРѕРјРїРёР»СЏС†РёРё С€Р°Р±Р»РѕРЅРѕРІ. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЌС‚Рѕ 'Smarty_Compiler'. РўРѕР»СЊРєРѕ
+  РґР»СЏ РїСЂРѕРґРІРёРЅСѓС‚С‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

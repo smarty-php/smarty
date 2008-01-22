@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.indent">
   <title>indent</title>
   <para>
-   Создает отступы в начале каждой строки, по умолчанию - 4 пробела.
-   В качестве необязательных аргументов можно указать количество повторений
-   символа и сам символ, который будет использоваться для создания отступов.
-   (используйте "\t" для табуляции).
+   РЎРѕР·РґР°РµС‚ РѕС‚СЃС‚СѓРїС‹ РІ РЅР°С‡Р°Р»Рµ РєР°Р¶РґРѕР№ СЃС‚СЂРѕРєРё, РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - 4 РїСЂРѕР±РµР»Р°.
+   Р’ РєР°С‡РµСЃС‚РІРµ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹С… Р°СЂРіСѓРјРµРЅС‚РѕРІ РјРѕР¶РЅРѕ СѓРєР°Р·Р°С‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРІС‚РѕСЂРµРЅРёР№
+   СЃРёРјРІРѕР»Р° Рё СЃР°Рј СЃРёРјРІРѕР», РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РѕС‚СЃС‚СѓРїРѕРІ.
+   (РёСЃРїРѕР»СЊР·СѓР№С‚Рµ "\t" РґР»СЏ С‚Р°Р±СѓР»СЏС†РёРё).
   </para>
   
   <informaltable frame="all">
@@ -19,27 +19,27 @@
     <colspec colname="desc" />
     <thead>
      <row>
-      <entry>Позиция параметра</entry>
-      <entry>Тип</entry>
-      <entry>Обязателен</entry>
-      <entry>По умолчанию</entry>
-      <entry>Описание</entry>
+      <entry>РџРѕР·РёС†РёСЏ РїР°СЂР°РјРµС‚СЂР°</entry>
+      <entry>РўРёРї</entry>
+      <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+      <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+      <entry>РћРїРёСЃР°РЅРёРµ</entry>
      </row>
     </thead>
     <tbody>
      <row>
       <entry>1</entry>
       <entry>integer</entry>
-      <entry>Нет</entry>
+      <entry>РќРµС‚</entry>
       <entry>4</entry>
-      <entry>Определяет количество повторений символа при создании отступа.</entry>
+      <entry>РћРїСЂРµРґРµР»СЏРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРІС‚РѕСЂРµРЅРёР№ СЃРёРјРІРѕР»Р° РїСЂРё СЃРѕР·РґР°РЅРёРё РѕС‚СЃС‚СѓРїР°.</entry>
       </row>
       <row>
        <entry>2</entry>
        <entry>string</entry>
-       <entry>Нет</entry>
-       <entry>(один пробел)</entry>
-       <entry>Символ, который используется при создании отступа.</entry>
+       <entry>РќРµС‚</entry>
+       <entry>(РѕРґРёРЅ РїСЂРѕР±РµР»)</entry>
+       <entry>РЎРёРјРІРѕР», РєРѕС‚РѕСЂС‹Р№ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїСЂРё СЃРѕР·РґР°РЅРёРё РѕС‚СЃС‚СѓРїР°.</entry>
       </row>
      </tbody>
     </tgroup>
@@ -62,7 +62,7 @@ Statistics show that teen pregnancy drops off significantly after 25.'
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
@@ -76,7 +76,7 @@ Statistics show that teen pregnancy drops off significantly after 25.'
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -99,10 +99,10 @@ Statistics show that teen pregnancy drops off significantly after 25.
    </screen>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.modifier.strip">strip</link>,
    <link linkend="language.modifier.wordwrap">wordwrap</link>
-   и
+   Рё
    <link linkend="language.modifier.spacify">spacify</link>.
   </para>
  </sect1>

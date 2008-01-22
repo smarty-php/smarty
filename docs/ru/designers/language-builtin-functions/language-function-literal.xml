@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.literal">
  <title>{literal}</title>
  <para>
-  Тэги {literal} позволяют воспринимать блоки данных буквально.
-  Обычно они используются вместе с javascript или таблицами стилей, в которых
-  фигурные скобки конфликтуют с синтаксисом разделителей.
-  Весь текст внутри тэгов {literal}{/literal} не интерпретируется, а выводится
-  "как есть". Если вам нужно вставить тэги шаблонов в блок {literal},
-  вам следует пойти по другому пути и использовать <link
-  linkend="language.function.ldelim">{ldelim}{rdelim}</link> для экранирования
-  отдельных разделителей.
+  РўСЌРіРё {literal} РїРѕР·РІРѕР»СЏСЋС‚ РІРѕСЃРїСЂРёРЅРёРјР°С‚СЊ Р±Р»РѕРєРё РґР°РЅРЅС‹С… Р±СѓРєРІР°Р»СЊРЅРѕ.
+  РћР±С‹С‡РЅРѕ РѕРЅРё РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РІРјРµСЃС‚Рµ СЃ javascript РёР»Рё С‚Р°Р±Р»РёС†Р°РјРё СЃС‚РёР»РµР№, РІ РєРѕС‚РѕСЂС‹С…
+  С„РёРіСѓСЂРЅС‹Рµ СЃРєРѕР±РєРё РєРѕРЅС„Р»РёРєС‚СѓСЋС‚ СЃ СЃРёРЅС‚Р°РєСЃРёСЃРѕРј СЂР°Р·РґРµР»РёС‚РµР»РµР№.
+  Р’РµСЃСЊ С‚РµРєСЃС‚ РІРЅСѓС‚СЂРё С‚СЌРіРѕРІ {literal}{/literal} РЅРµ РёРЅС‚РµСЂРїСЂРµС‚РёСЂСѓРµС‚СЃСЏ, Р° РІС‹РІРѕРґРёС‚СЃСЏ
+  "РєР°Рє РµСЃС‚СЊ". Р•СЃР»Рё РІР°Рј РЅСѓР¶РЅРѕ РІСЃС‚Р°РІРёС‚СЊ С‚СЌРіРё С€Р°Р±Р»РѕРЅРѕРІ РІ Р±Р»РѕРє {literal},
+  РІР°Рј СЃР»РµРґСѓРµС‚ РїРѕР№С‚Рё РїРѕ РґСЂСѓРіРѕРјСѓ РїСѓС‚Рё Рё РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ <link
+  linkend="language.function.ldelim">{ldelim}{rdelim}</link> РґР»СЏ СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ
+  РѕС‚РґРµР»СЊРЅС‹С… СЂР°Р·РґРµР»РёС‚РµР»РµР№.
  </para>
  
  <example>
-  <title>Тэги {literal}</title>
+  <title>РўСЌРіРё {literal}</title>
   <programlisting>
 <![CDATA[
 {literal}
@@ -38,7 +38,7 @@
  </example>
  
  <example>
-  <title>Пример функции Javascript</title>
+  <title>РџСЂРёРјРµСЂ С„СѓРЅРєС†РёРё Javascript</title>
   <programlisting>
 <![CDATA[
 <script language="JavaScript" type="text/javascript">
@@ -54,13 +54,13 @@ function myJsFunction(name, ip){
  </example>
 
  <example>
-  <title>Немного CSS в шаблоне</title>
+  <title>РќРµРјРЅРѕРіРѕ CSS РІ С€Р°Р±Р»РѕРЅРµ</title>
   <programlisting>
 <![CDATA[
-{* включаем этот стиль... в качестве эксперимента *}
+{* РІРєР»СЋС‡Р°РµРј СЌС‚РѕС‚ СЃС‚РёР»СЊ... РІ РєР°С‡РµСЃС‚РІРµ СЌРєСЃРїРµСЂРёРјРµРЅС‚Р° *}
 <style type="text/css">
 {literal}
-/* это интересная идея для этого раздела */
+/* СЌС‚Рѕ РёРЅС‚РµСЂРµСЃРЅР°СЏ РёРґРµСЏ РґР»СЏ СЌС‚РѕРіРѕ СЂР°Р·РґРµР»Р° */
 .madIdea{
     border: 3px outset #ffffff;
     margin: 2 3 4 5px;
@@ -74,10 +74,10 @@ function myJsFunction(name, ip){
  </example>
  
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.function.ldelim">{ldelim} {rdelim}</link>
-  и
-  <link linkend="language.escaping">Предотвращение обработки Smarty</link>
+  Рё
+  <link linkend="language.escaping">РџСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёРµ РѕР±СЂР°Р±РѕС‚РєРё Smarty</link>
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

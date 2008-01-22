@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <chapter id="language.custom.functions">
- <title>Пользовательские Функции</title>
+ <title>РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ Р¤СѓРЅРєС†РёРё</title>
  <para>
-  Smarty поставляется с несколькими пользовательскими
-  функциями, которые вы можете использовать в шаблонах.
+  Smarty РїРѕСЃС‚Р°РІР»СЏРµС‚СЃСЏ СЃ РЅРµСЃРєРѕР»СЊРєРёРјРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРјРё
+  С„СѓРЅРєС†РёСЏРјРё, РєРѕС‚РѕСЂС‹Рµ РІС‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІ С€Р°Р±Р»РѕРЅР°С….
  </para>
 
 &designers.language-custom-functions.language-function-assign;

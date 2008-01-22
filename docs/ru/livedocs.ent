@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: freespace Status: ready -->
 
-<!ENTITY livedocs.author 'Авторы:<br />'>
-<!ENTITY livedocs.editors 'Редакторы:<br />'>
-<!ENTITY livedocs.copyright 'Авторское право &copy; %s by %s'>
-<!ENTITY livedocs.published 'Опубликовано: %s'>
+<!ENTITY livedocs.author 'РђРІС‚РѕСЂС‹:<br />'>
+<!ENTITY livedocs.editors 'Р РµРґР°РєС‚РѕСЂС‹:<br />'>
+<!ENTITY livedocs.copyright 'РђРІС‚РѕСЂСЃРєРѕРµ РїСЂР°РІРѕ &copy; %s by %s'>
+<!ENTITY livedocs.published 'РћРїСѓР±Р»РёРєРѕРІР°РЅРѕ: %s'>

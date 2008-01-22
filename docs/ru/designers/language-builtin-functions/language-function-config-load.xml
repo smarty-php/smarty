@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.config.load">
  <title>{config_load}</title>
  <para>
-  {config_load} используется для загрузки конфигурационных переменных
-  (<link linkend="language.config.variables">#variable#</link>) из
-  <link linkend="config.files">конфигурационных файлов</link> в шаблон.
+  {config_load} РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ Р·Р°РіСЂСѓР·РєРё РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
+  (<link linkend="language.config.variables">#variable#</link>) РёР·
+  <link linkend="config.files">РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹С… С„Р°Р№Р»РѕРІ</link> РІ С€Р°Р±Р»РѕРЅ.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -17,54 +17,54 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
+    <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+    <entry>РўРёРї</entry>
+    <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+    <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+    <entry>РћРїРёСЃР°РЅРёРµ</entry>
    </row>
   </thead>
   <tbody>
    <row>
     <entry>file</entry>
     <entry>string</entry>
-    <entry>Да</entry>
+    <entry>Р”Р°</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя config файла для загрузки</entry>
+    <entry>РРјСЏ config С„Р°Р№Р»Р° РґР»СЏ Р·Р°РіСЂСѓР·РєРё</entry>
    </row>
    <row>
     <entry>section</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя секции для загрузки</entry>
+    <entry>РРјСЏ СЃРµРєС†РёРё РґР»СЏ Р·Р°РіСЂСѓР·РєРё</entry>
    </row>
    <row>
     <entry>scope</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>local</emphasis></entry>
     <entry>
-     Способ обработки области видимости загруженных
-     переменных. Должен быть одинм из local, parent
-     или global. local означает, что переменные загружены
-     в контекст локального шаблона. parent означает, что
-     переменные загружены в контекст как локального, так
-     и родительского шаблона. global означает, что
-     переменные доступны из любого шаблона.
+     РЎРїРѕСЃРѕР± РѕР±СЂР°Р±РѕС‚РєРё РѕР±Р»Р°СЃС‚Рё РІРёРґРёРјРѕСЃС‚Рё Р·Р°РіСЂСѓР¶РµРЅРЅС‹С…
+     РїРµСЂРµРјРµРЅРЅС‹С…. Р”РѕР»Р¶РµРЅ Р±С‹С‚СЊ РѕРґРёРЅРј РёР· local, parent
+     РёР»Рё global. local РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ РїРµСЂРµРјРµРЅРЅС‹Рµ Р·Р°РіСЂСѓР¶РµРЅС‹
+     РІ РєРѕРЅС‚РµРєСЃС‚ Р»РѕРєР°Р»СЊРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР°. parent РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ
+     РїРµСЂРµРјРµРЅРЅС‹Рµ Р·Р°РіСЂСѓР¶РµРЅС‹ РІ РєРѕРЅС‚РµРєСЃС‚ РєР°Рє Р»РѕРєР°Р»СЊРЅРѕРіРѕ, С‚Р°Рє
+     Рё СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ С€Р°Р±Р»РѕРЅР°. global РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ
+     РїРµСЂРµРјРµРЅРЅС‹Рµ РґРѕСЃС‚СѓРїРЅС‹ РёР· Р»СЋР±РѕРіРѕ С€Р°Р±Р»РѕРЅР°.
      </entry>
     </row>
     <row>
      <entry>global</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>No</emphasis></entry>
      <entry>
-      Доступны ли переменные из родительского шаблона.
-      Аналогичен scope=parent. ЗАМЕЧАНИЕ: Этот атрибут
-      перекрывается атрибутом scope, но все еще
-      поддерживается. Если scope указан, то это значение
-      игнорируется.
+      Р”РѕСЃС‚СѓРїРЅС‹ Р»Рё РїРµСЂРµРјРµРЅРЅС‹Рµ РёР· СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ С€Р°Р±Р»РѕРЅР°.
+      РђРЅР°Р»РѕРіРёС‡РµРЅ scope=parent. Р—РђРњР•Р§РђРќРР•: Р­С‚РѕС‚ Р°С‚СЂРёР±СѓС‚
+      РїРµСЂРµРєСЂС‹РІР°РµС‚СЃСЏ Р°С‚СЂРёР±СѓС‚РѕРј scope, РЅРѕ РІСЃРµ РµС‰Рµ
+      РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ. Р•СЃР»Рё scope СѓРєР°Р·Р°РЅ, С‚Рѕ СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРµ
+      РёРіРЅРѕСЂРёСЂСѓРµС‚СЃСЏ.
      </entry>
     </row>
    </tbody>
@@ -75,20 +75,20 @@
 	 <para>example.conf</para>
 	 <programlisting>
 <![CDATA[
-#это комментарий конфигурационного файла
+#СЌС‚Рѕ РєРѕРјРјРµРЅС‚Р°СЂРёР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕРіРѕ С„Р°Р№Р»Р°
 
-# глобальные переменные
+# РіР»РѕР±Р°Р»СЊРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ
 pageTitle = "Main Menu"
 bodyBgColor = #000000
 tableBgColor = #000000
 rowBgColor = #00ff00
 
-#секция переменных customer
+#СЃРµРєС†РёСЏ РїРµСЂРµРјРµРЅРЅС‹С… customer
 [Customer]
 pageTitle = "Customer Info"
 ]]>
   </programlisting>
-  <para>и шаблон</para>
+  <para>Рё С€Р°Р±Р»РѕРЅ</para>
   <programlisting>
 <![CDATA[
 {config_load file="example.conf"}
@@ -111,21 +111,21 @@ pageTitle = "Customer Info"
   </programlisting>
  </example>
 	<para>
-	 <link linkend="config.files">Конфигурационные файлы</link>
-  могут также содержать секции. Вы можете загружать
-  переменные из определенной секции, указав атрибут
+	 <link linkend="config.files">РљРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ С„Р°Р№Р»С‹</link>
+  РјРѕРіСѓС‚ С‚Р°РєР¶Рµ СЃРѕРґРµСЂР¶Р°С‚СЊ СЃРµРєС†РёРё. Р’С‹ РјРѕР¶РµС‚Рµ Р·Р°РіСЂСѓР¶Р°С‚СЊ
+  РїРµСЂРµРјРµРЅРЅС‹Рµ РёР· РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ СЃРµРєС†РёРё, СѓРєР°Р·Р°РІ Р°С‚СЂРёР±СѓС‚
   <emphasis>'section'</emphasis>.
  </para>
  <note>
   <para>
-   <emphasis>Секции файлов конфигурации</emphasis> и встроенная
-   функция
+   <emphasis>РЎРµРєС†РёРё С„Р°Р№Р»РѕРІ РєРѕРЅС„РёРіСѓСЂР°С†РёРё</emphasis> Рё РІСЃС‚СЂРѕРµРЅРЅР°СЏ
+   С„СѓРЅРєС†РёСЏ
    <link linkend="language.function.section"><emphasis>{section}</emphasis></link>
-   не имеют ничего общего, кроме схожего названия.
+   РЅРµ РёРјРµСЋС‚ РЅРёС‡РµРіРѕ РѕР±С‰РµРіРѕ, РєСЂРѕРјРµ СЃС…РѕР¶РµРіРѕ РЅР°Р·РІР°РЅРёСЏ.
   </para>
  </note>
  <example>
-  <title>функция {config_load} с секцией</title>
+  <title>С„СѓРЅРєС†РёСЏ {config_load} СЃ СЃРµРєС†РёРµР№</title>
   <programlisting>
 <![CDATA[
 {config_load file='example.conf' section='Customer'}
@@ -149,16 +149,16 @@ pageTitle = "Customer Info"
  </example>
 
  <para>
-  См. <link linkend="variable.config.overwrite">$config_overwrite</link>
-  для массивов конфигурационных переменных.
+  РЎРј. <link linkend="variable.config.overwrite">$config_overwrite</link>
+  РґР»СЏ РјР°СЃСЃРёРІРѕРІ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С….
  </para>
 
  <para>
-  См. также <link linkend="config.files">Конфигурационные файлы</link>,
-  <link linkend="language.config.variables">Конфигурационные переменные</link>,
+  РЎРј. С‚Р°РєР¶Рµ <link linkend="config.files">РљРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ С„Р°Р№Р»С‹</link>,
+  <link linkend="language.config.variables">РљРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ</link>,
   <link linkend="variable.config.dir">$config_dir</link>,
   <link linkend="api.get.config.vars">get_config_vars()</link>
-  и
+  Рё
   <link linkend="language.function.config.load">config_load()</link>.
  </para>
 </sect1>

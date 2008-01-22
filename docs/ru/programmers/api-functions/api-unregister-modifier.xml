@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <refentry id="api.unregister.modifier">
@@ -13,16 +13,16 @@
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-  Используйте функцию для динамической дерегистрации
-  плагина модификатора. В качестве аргумента передается
-  имя модификатора.
+  РСЃРїРѕР»СЊР·СѓР№С‚Рµ С„СѓРЅРєС†РёСЋ РґР»СЏ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РґРµСЂРµРіРёСЃС‚СЂР°С†РёРё
+  РїР»Р°РіРёРЅР° РјРѕРґРёС„РёРєР°С‚РѕСЂР°. Р’ РєР°С‡РµСЃС‚РІРµ Р°СЂРіСѓРјРµРЅС‚Р° РїРµСЂРµРґР°РµС‚СЃСЏ
+  РёРјСЏ РјРѕРґРёС„РёРєР°С‚РѕСЂР°.
  </para>
  <example>
   <title>unregister_modifier</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// мы не хотим, чтобы дизайнер шаблонов очищал переменные от тэгов
+// РјС‹ РЅРµ С…РѕС‚РёРј, С‡С‚РѕР±С‹ РґРёР·Р°Р№РЅРµСЂ С€Р°Р±Р»РѕРЅРѕРІ РѕС‡РёС‰Р°Р» РїРµСЂРµРјРµРЅРЅС‹Рµ РѕС‚ С‚СЌРіРѕРІ
 
 $smarty->unregister_modifier("strip_tags");
 ?>

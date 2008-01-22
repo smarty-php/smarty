@@ -1,35 +1,35 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <refentry id="api.assign.by.ref">
  <refnamediv>
   <refname>assign_by_ref()</refname>
-  <refpurpose>назначает переменную по ссылке</refpurpose>
+  <refpurpose>РЅР°Р·РЅР°С‡Р°РµС‚ РїРµСЂРµРјРµРЅРЅСѓСЋ РїРѕ СЃСЃС‹Р»РєРµ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>assign_by_ref</methodname>
    <methodparam><type>string</type><parameter>varname</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Используется для <link linkend="api.assign">назначения</link> переменных
-   шаблонуу по ссылке, вместо создания копии.
-   См. руководство PHP для более подробного описания работы передачи переменных
-   по ссылкам.
+   РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ <link linkend="api.assign">РЅР°Р·РЅР°С‡РµРЅРёСЏ</link> РїРµСЂРµРјРµРЅРЅС‹С…
+   С€Р°Р±Р»РѕРЅСѓСѓ РїРѕ СЃСЃС‹Р»РєРµ, РІРјРµСЃС‚Рѕ СЃРѕР·РґР°РЅРёСЏ РєРѕРїРёРё.
+   РЎРј. СЂСѓРєРѕРІРѕРґСЃС‚РІРѕ PHP РґР»СЏ Р±РѕР»РµРµ РїРѕРґСЂРѕР±РЅРѕРіРѕ РѕРїРёСЃР°РЅРёСЏ СЂР°Р±РѕС‚С‹ РїРµСЂРµРґР°С‡Рё РїРµСЂРµРјРµРЅРЅС‹С…
+   РїРѕ СЃСЃС‹Р»РєР°Рј.
   </para>
   <note>
-   <title>Техническое Замечание</title>
+   <title>РўРµС…РЅРёС‡РµСЃРєРѕРµ Р—Р°РјРµС‡Р°РЅРёРµ</title>
    <para>
-    Эта функция используется для назначения переменных шаблону по ссылке.
-    Если вы назначаете переменную по ссылке и значение этой переменной
-    изменяется в шаблоне, эти изменения будут отражены в начальной переменной.
-    Для <link linkend="advanced.features.objects">объектов</link>,
-    assign_by_ref() также позволяет избежать внутреннего копирования добавляемого
-    объекта.
-    См. руководство PHP для более подробного описания работы передачи переменных
-    по ссылкам.
+    Р­С‚Р° С„СѓРЅРєС†РёСЏ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РЅР°Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРµРјРµРЅРЅС‹С… С€Р°Р±Р»РѕРЅСѓ РїРѕ СЃСЃС‹Р»РєРµ.
+    Р•СЃР»Рё РІС‹ РЅР°Р·РЅР°С‡Р°РµС‚Рµ РїРµСЂРµРјРµРЅРЅСѓСЋ РїРѕ СЃСЃС‹Р»РєРµ Рё Р·РЅР°С‡РµРЅРёРµ СЌС‚РѕР№ РїРµСЂРµРјРµРЅРЅРѕР№
+    РёР·РјРµРЅСЏРµС‚СЃСЏ РІ С€Р°Р±Р»РѕРЅРµ, СЌС‚Рё РёР·РјРµРЅРµРЅРёСЏ Р±СѓРґСѓС‚ РѕС‚СЂР°Р¶РµРЅС‹ РІ РЅР°С‡Р°Р»СЊРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№.
+    Р”Р»СЏ <link linkend="advanced.features.objects">РѕР±СЉРµРєС‚РѕРІ</link>,
+    assign_by_ref() С‚Р°РєР¶Рµ РїРѕР·РІРѕР»СЏРµС‚ РёР·Р±РµР¶Р°С‚СЊ РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РєРѕРїРёСЂРѕРІР°РЅРёСЏ РґРѕР±Р°РІР»СЏРµРјРѕРіРѕ
+    РѕР±СЉРµРєС‚Р°.
+    РЎРј. СЂСѓРєРѕРІРѕРґСЃС‚РІРѕ PHP РґР»СЏ Р±РѕР»РµРµ РїРѕРґСЂРѕР±РЅРѕРіРѕ РѕРїРёСЃР°РЅРёСЏ СЂР°Р±РѕС‚С‹ РїРµСЂРµРґР°С‡Рё РїРµСЂРµРјРµРЅРЅС‹С…
+    РїРѕ СЃСЃС‹Р»РєР°Рј.
    </para>
   </note>
   <example>
@@ -37,7 +37,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-// передача пар ключ / значение
+// РїРµСЂРµРґР°С‡Р° РїР°СЂ РєР»СЋС‡ / Р·РЅР°С‡РµРЅРёРµ
 $smarty->assign_by_ref('Name', $myname);
 $smarty->assign_by_ref('Address', $address);
 ?>
@@ -45,11 +45,11 @@ $smarty->assign_by_ref('Address', $address);
    </programlisting>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="api.assign">assign()</link>,
    <link linkend="api.clear.all.assign">clear_all_assign()</link>,
    <link linkend="api.append">append()</link>
-   и
+   Рё
    <link linkend="language.function.assign">{assign}</link>
   </para>
 

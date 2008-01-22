@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <refentry id="api.register.object">
@@ -17,12 +17,12 @@
    <methodparam><type>array</type><parameter>block_methods</parameter></methodparam>
   </methodsynopsis>
   <para>
-  Функция регестрирует объект для использования в шаблоне. Обратитесь к
-  разделу <link linkend="advanced.features.objects">Объекты</link>
-  за примерами.
+  Р¤СѓРЅРєС†РёСЏ СЂРµРіРµСЃС‚СЂРёСЂСѓРµС‚ РѕР±СЉРµРєС‚ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РІ С€Р°Р±Р»РѕРЅРµ. РћР±СЂР°С‚РёС‚РµСЃСЊ Рє
+  СЂР°Р·РґРµР»Сѓ <link linkend="advanced.features.objects">РћР±СЉРµРєС‚С‹</link>
+  Р·Р° РїСЂРёРјРµСЂР°РјРё.
   </para>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="api.unregister.object">unregister_object</link>.
   </para>
  </refsect1>

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
 <chapter id="api.functions">
- <title>Методы класса Smarty</title>
+ <title>РњРµС‚РѕРґС‹ РєР»Р°СЃСЃР° Smarty</title>
  &programmers.api-functions.api-append;
  &programmers.api-functions.api-append-by-ref;
  &programmers.api-functions.api-assign;

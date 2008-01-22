@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.16 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.checkboxes">
  <title>{html_checkboxes}</title>
  <para>
-  {html_checkboxes} является
-  <link linkend="language.custom.functions">пользовательской функцией</link>,
-  которая создает группу флажков в HTML по указанной информации.
-  Также она обеспечивает отметку флажков по умолчанию.
-  Параметры values и output являются обязательными, если не указан атрибут
-  options. Весь вывод идет в формате XHTML.
+  {html_checkboxes} СЏРІР»СЏРµС‚СЃСЏ
+  <link linkend="language.custom.functions">РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕР№ С„СѓРЅРєС†РёРµР№</link>,
+  РєРѕС‚РѕСЂР°СЏ СЃРѕР·РґР°РµС‚ РіСЂСѓРїРїСѓ С„Р»Р°Р¶РєРѕРІ РІ HTML РїРѕ СѓРєР°Р·Р°РЅРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
+  РўР°РєР¶Рµ РѕРЅР° РѕР±РµСЃРїРµС‡РёРІР°РµС‚ РѕС‚РјРµС‚РєСѓ С„Р»Р°Р¶РєРѕРІ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.
+  РџР°СЂР°РјРµС‚СЂС‹ values Рё output СЏРІР»СЏСЋС‚СЃСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹РјРё, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚
+  options. Р’РµСЃСЊ РІС‹РІРѕРґ РёРґРµС‚ РІ С„РѕСЂРјР°С‚Рµ XHTML.
  </para>
  
  <informaltable frame="all">
@@ -21,77 +21,77 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
+    <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+    <entry>РўРёРї</entry>
+    <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+    <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+    <entry>РћРїРёСЃР°РЅРёРµ</entry>
    </row>
   </thead>
   <tbody>
    <row>
     <entry>name</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>checkbox</emphasis></entry>
-    <entry>название списка флажков</entry>
+    <entry>РЅР°Р·РІР°РЅРёРµ СЃРїРёСЃРєР° С„Р»Р°Р¶РєРѕРІ</entry>
    </row>
    <row>
     <entry>values</entry>
     <entry>array</entry>
-    <entry>Да, если не указан атрибут options</entry>
+    <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚ options</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Массив значений для флажков</entry>
+    <entry>РњР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ РґР»СЏ С„Р»Р°Р¶РєРѕРІ</entry>
    </row>
    <row>
     <entry>output</entry>
     <entry>array</entry>
-    <entry>Да, если не указан атрибут options</entry>
+    <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚ options</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>массив названий флажков</entry>
+    <entry>РјР°СЃСЃРёРІ РЅР°Р·РІР°РЅРёР№ С„Р»Р°Р¶РєРѕРІ</entry>
    </row>
    <row>
     <entry>selected</entry>
     <entry>string/array</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>пусто</emphasis></entry>
-    <entry>выбранный флажок(флажки)</entry>
+    <entry>РќРµС‚</entry>
+    <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+    <entry>РІС‹Р±СЂР°РЅРЅС‹Р№ С„Р»Р°Р¶РѕРє(С„Р»Р°Р¶РєРё)</entry>
    </row>
    <row>
     <entry>options</entry>
     <entry>associative array</entry>
-    <entry>Да, если не указаны атрибуты values и output</entry>
+    <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅС‹ Р°С‚СЂРёР±СѓС‚С‹ values Рё output</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Ассоциативнй массив значений и названий</entry>
+    <entry>РђСЃСЃРѕС†РёР°С‚РёРІРЅР№ РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ Рё РЅР°Р·РІР°РЅРёР№</entry>
    </row>
    <row>
     <entry>separator</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>пусто</emphasis></entry>
-    <entry>строка разделяющая каждый флажок</entry>
+    <entry>РќРµС‚</entry>
+    <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+    <entry>СЃС‚СЂРѕРєР° СЂР°Р·РґРµР»СЏСЋС‰Р°СЏ РєР°Р¶РґС‹Р№ С„Р»Р°Р¶РѕРє</entry>
    </row>
    <row>
     <entry>labels</entry>
     <entry>boolean</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>true</emphasis></entry>
-    <entry>добавляет &lt;label&gt;-тэги к выводу</entry>
+    <entry>РґРѕР±Р°РІР»СЏРµС‚ &lt;label&gt;-С‚СЌРіРё Рє РІС‹РІРѕРґСѓ</entry>
    </row>
    <row>
     <entry>assign</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
-    <entry><emphasis>пусто</emphasis></entry>
-    <entry>сохранить тэги флажков в массив вместо вывода</entry>
+    <entry>РќРµС‚</entry>
+    <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+    <entry>СЃРѕС…СЂР°РЅРёС‚СЊ С‚СЌРіРё С„Р»Р°Р¶РєРѕРІ РІ РјР°СЃСЃРёРІ РІРјРµСЃС‚Рѕ РІС‹РІРѕРґР°</entry>
    </row>
   </tbody>
   </tgroup>
  </informaltable>
 
  <para>
-  Все параметры, которые не указаны в списке, выводятся в виде
-  пар name/value в каждом созданном тэге &lt;input&gt;.
+  Р’СЃРµ РїР°СЂР°РјРµС‚СЂС‹, РєРѕС‚РѕСЂС‹Рµ РЅРµ СѓРєР°Р·Р°РЅС‹ РІ СЃРїРёСЃРєРµ, РІС‹РІРѕРґСЏС‚СЃСЏ РІ РІРёРґРµ
+  РїР°СЂ name/value РІ РєР°Р¶РґРѕРј СЃРѕР·РґР°РЅРЅРѕРј С‚СЌРіРµ &lt;input&gt;.
  </para>
  <example>
   <title>{html_checkboxes}</title>
@@ -112,7 +112,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   шаблон:
+   С€Р°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -121,7 +121,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   или где PHP код:
+   РёР»Рё РіРґРµ PHP РєРѕРґ:
   </para>
   <programlisting role="php">
 <![CDATA[
@@ -141,7 +141,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   шаблон:
+   С€Р°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -149,7 +149,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   оба примера выведут:
+   РѕР±Р° РїСЂРёРјРµСЂР° РІС‹РІРµРґСѓС‚:
   </para>
   <screen>
 <![CDATA[
@@ -162,7 +162,7 @@ $smarty->assign('customer_id', 1001);
  </example>
  <example>
   <title>
-   Пример с базой данных (к примеру, PEAR или ADODB):
+   РџСЂРёРјРµСЂ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С… (Рє РїСЂРёРјРµСЂСѓ, PEAR РёР»Рё ADODB):
   </title>
   <programlisting role="php">
 <![CDATA[
@@ -184,9 +184,9 @@ $smarty->assign('contact',$db->getRow($sql));
 </programlisting>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.function.html.radios">{html_radios}</link>
-  и
+  Рё
   <link linkend="language.function.html.options">{html_options}</link>
  </para>
 </sect1>

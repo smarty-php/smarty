@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <refentry id="api.register.function">
@@ -16,26 +16,26 @@
    <methodparam choice="opt"><type>mixed</type><parameter>cache_attrs</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Используется для динамической регистрации плагинов функций шаблона.
-   Передается наименование функции шаблона и имя функции, реализующей ее.
+   РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ СЂРµРіРёСЃС‚СЂР°С†РёРё РїР»Р°РіРёРЅРѕРІ С„СѓРЅРєС†РёР№ С€Р°Р±Р»РѕРЅР°.
+   РџРµСЂРµРґР°РµС‚СЃСЏ РЅР°РёРјРµРЅРѕРІР°РЅРёРµ С„СѓРЅРєС†РёРё С€Р°Р±Р»РѕРЅР° Рё РёРјСЏ С„СѓРЅРєС†РёРё, СЂРµР°Р»РёР·СѓСЋС‰РµР№ РµРµ.
   </para>
   <para>
-   Функция обратного вызова PHP <parameter>impl</parameter> может быть
-   (a) строка, содержащая имя функции, или (b) массив вида
-   <literal>array(&amp;$object, $method)</literal>, где
-   <literal>&amp;$object</literal> является ссылкой на
-   объект, а <literal>$method</literal> является строкой,
-   содержащей имя метода, или (c) массив в форме
-   <literal>array($class, $method)</literal>, где
-   <literal>$class</literal> является именем класса, а
-   <literal>$method</literal> является методом этого
-   класса.
+   Р¤СѓРЅРєС†РёСЏ РѕР±СЂР°С‚РЅРѕРіРѕ РІС‹Р·РѕРІР° PHP <parameter>impl</parameter> РјРѕР¶РµС‚ Р±С‹С‚СЊ
+   (a) СЃС‚СЂРѕРєР°, СЃРѕРґРµСЂР¶Р°С‰Р°СЏ РёРјСЏ С„СѓРЅРєС†РёРё, РёР»Рё (b) РјР°СЃСЃРёРІ РІРёРґР°
+   <literal>array(&amp;$object, $method)</literal>, РіРґРµ
+   <literal>&amp;$object</literal> СЏРІР»СЏРµС‚СЃСЏ СЃСЃС‹Р»РєРѕР№ РЅР°
+   РѕР±СЉРµРєС‚, Р° <literal>$method</literal> СЏРІР»СЏРµС‚СЃСЏ СЃС‚СЂРѕРєРѕР№,
+   СЃРѕРґРµСЂР¶Р°С‰РµР№ РёРјСЏ РјРµС‚РѕРґР°, РёР»Рё (c) РјР°СЃСЃРёРІ РІ С„РѕСЂРјРµ
+   <literal>array($class, $method)</literal>, РіРґРµ
+   <literal>$class</literal> СЏРІР»СЏРµС‚СЃСЏ РёРјРµРЅРµРј РєР»Р°СЃСЃР°, Р°
+   <literal>$method</literal> СЏРІР»СЏРµС‚СЃСЏ РјРµС‚РѕРґРѕРј СЌС‚РѕРіРѕ
+   РєР»Р°СЃСЃР°.
   </para>
   <para>
-   <parameter>cacheable</parameter> и <parameter>cache_attrs</parameter>
-   в большинстве случаев могут быть опущены. Смотрите <link
-   linkend="caching.cacheable">Управление кэшированием результатов работы плагинов</link>
-   для получения информации об их правильном использовании.
+   <parameter>cacheable</parameter> Рё <parameter>cache_attrs</parameter>
+   РІ Р±РѕР»СЊС€РёРЅСЃС‚РІРµ СЃР»СѓС‡Р°РµРІ РјРѕРіСѓС‚ Р±С‹С‚СЊ РѕРїСѓС‰РµРЅС‹. РЎРјРѕС‚СЂРёС‚Рµ <link
+   linkend="caching.cacheable">РЈРїСЂР°РІР»РµРЅРёРµ РєСЌС€РёСЂРѕРІР°РЅРёРµРј СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ СЂР°Р±РѕС‚С‹ РїР»Р°РіРёРЅРѕРІ</link>
+   РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё РѕР± РёС… РїСЂР°РІРёР»СЊРЅРѕРј РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё.
   </para>
  <example>
   <title>register_function</title>
@@ -53,8 +53,8 @@ function print_current_date($params)
   }
 }
 
-// теперь вы можете использовать ее в Smarty чтобы вывести текущую дату: {date_now}
-// или  {date_now format="%Y/%m/%d"} чтобы задать формат.
+// С‚РµРїРµСЂСЊ РІС‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РµРµ РІ Smarty С‡С‚РѕР±С‹ РІС‹РІРµСЃС‚Рё С‚РµРєСѓС‰СѓСЋ РґР°С‚Сѓ: {date_now}
+// РёР»Рё  {date_now format="%Y/%m/%d"} С‡С‚РѕР±С‹ Р·Р°РґР°С‚СЊ С„РѕСЂРјР°С‚.
 ?>
 ]]>
    </programlisting>

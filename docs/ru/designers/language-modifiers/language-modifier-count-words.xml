@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.modifier.count.words">
 	<title>count_words</title>
 	<para>
-		Подсчитывает количество слов в переменной.
+		РџРѕРґСЃС‡РёС‚С‹РІР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРІ РІ РїРµСЂРµРјРµРЅРЅРѕР№.
 	</para>
   <example>
    <title>count_words</title>
@@ -18,7 +18,7 @@ $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
@@ -27,7 +27,7 @@ $smarty->assign('articleTitle', 'Dealers Will Hear Car Talk at Noon.');
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <screen>
 <![CDATA[

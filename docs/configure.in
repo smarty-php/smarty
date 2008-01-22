@@ -346,7 +346,7 @@ AC_SUBST(LANG)
 AC_SUBST(BUILD_DATE)
 
 case "$LANG" in
-  ru) ENCODING="windows-1251"
+  ru) ENCODING="utf-8"
       FOP="$FOP -c fop/ru.cfg";;
   ja) ENCODING="utf-8";;
   *) ENCODING="ISO-8859-1";;

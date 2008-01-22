@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.fetch">
@@ -15,13 +15,13 @@
    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
   </methodsynopsis>
  <para>
-  Функция возвращает вывод шаблона вместо его отображения на экран.
-  Укажите верный тип  <link
-  linkend="template.resources">ресурса шаблонов</link>
-  и путь. В качестве необязательного второго параметра можно передать
-  cache id. Смотрите раздел
-  <link linkend="caching">Кэширование</link>
-  для получения дополнительной информации.
+  Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ РІС‹РІРѕРґ С€Р°Р±Р»РѕРЅР° РІРјРµСЃС‚Рѕ РµРіРѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° СЌРєСЂР°РЅ.
+  РЈРєР°Р¶РёС‚Рµ РІРµСЂРЅС‹Р№ С‚РёРї  <link
+  linkend="template.resources">СЂРµСЃСѓСЂСЃР° С€Р°Р±Р»РѕРЅРѕРІ</link>
+  Рё РїСѓС‚СЊ. Р’ РєР°С‡РµСЃС‚РІРµ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕРіРѕ РІС‚РѕСЂРѕРіРѕ РїР°СЂР°РјРµС‚СЂР° РјРѕР¶РЅРѕ РїРµСЂРµРґР°С‚СЊ
+  cache id. РЎРјРѕС‚СЂРёС‚Рµ СЂР°Р·РґРµР»
+  <link linkend="caching">РљСЌС€РёСЂРѕРІР°РЅРёРµ</link>
+  РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
 	</para>
  &parameter.compileid;
  <para>
@@ -35,11 +35,11 @@ $smarty = new Smarty;
 
 $smarty->caching = true;
 
-// обращаемся к БД только если отсутствует кэш
+// РѕР±СЂР°С‰Р°РµРјСЃСЏ Рє Р‘Р” С‚РѕР»СЊРєРѕ РµСЃР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РєСЌС€
 if(!$smarty->is_cached("index.tpl"))
 {
 
-    // присваиваем некоторые значения
+    // РїСЂРёСЃРІР°РёРІР°РµРј РЅРµРєРѕС‚РѕСЂС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
     $address = "245 N 50th";
     $db_data = array(
 	    "City" => "Lincoln",
@@ -53,10 +53,10 @@ if(!$smarty->is_cached("index.tpl"))
 
 }
 
-// перехватываем вывод
+// РїРµСЂРµС…РІР°С‚С‹РІР°РµРј РІС‹РІРѕРґ
 $output = $smarty->fetch("index.tpl");
 
-// здесь выполняем какие-либо действия с $output
+// Р·РґРµСЃСЊ РІС‹РїРѕР»РЅСЏРµРј РєР°РєРёРµ-Р»РёР±Рѕ РґРµР№СЃС‚РІРёСЏ СЃ $output
 
 echo $output;
 ?>
@@ -65,8 +65,8 @@ echo $output;
    </example>
   </para>
   <para>
-   См. также
-   <link linkend="api.display">display()</link> и
+   РЎРј. С‚Р°РєР¶Рµ
+   <link linkend="api.display">display()</link> Рё
    <link linkend="api.template.exists">template_exists</link>.
   </para>
  </refsect1>

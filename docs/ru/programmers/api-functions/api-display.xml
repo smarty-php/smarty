@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <refentry id="api.display">
  <refnamediv>
   <refname>display()</refname>
-  <refpurpose>отображает шаблон</refpurpose>
+  <refpurpose>РѕС‚РѕР±СЂР°Р¶Р°РµС‚ С€Р°Р±Р»РѕРЅ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>display</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
@@ -16,15 +16,15 @@
    </methodparam>
   </methodsynopsis>
   <para>
-   Данная функция отображает шаблон, в отличие от
+   Р”Р°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РѕС‚РѕР±СЂР°Р¶Р°РµС‚ С€Р°Р±Р»РѕРЅ, РІ РѕС‚Р»РёС‡РёРµ РѕС‚
    <link linkend="api.fetch">fetch()</link>.
-   В качестве первого аргумента следуедует указать доступный тип и путь к
-   <link linkend="template.resources">ресурсу шаблона</link>.
-   В качестве второго необязательного аргумета, вы можете передать идентификатор
-   кэша.
-   См. раздел
-   <link linkend="caching">Кэширование</link>
-   для получения дополнительной информации.
+   Р’ РєР°С‡РµСЃС‚РІРµ РїРµСЂРІРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р° СЃР»РµРґСѓРµРґСѓРµС‚ СѓРєР°Р·Р°С‚СЊ РґРѕСЃС‚СѓРїРЅС‹Р№ С‚РёРї Рё РїСѓС‚СЊ Рє
+   <link linkend="template.resources">СЂРµСЃСѓСЂСЃСѓ С€Р°Р±Р»РѕРЅР°</link>.
+   Р’ РєР°С‡РµСЃС‚РІРµ РІС‚РѕСЂРѕРіРѕ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕРіРѕ Р°СЂРіСѓРјРµС‚Р°, РІС‹ РјРѕР¶РµС‚Рµ РїРµСЂРµРґР°С‚СЊ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
+   РєСЌС€Р°.
+   РЎРј. СЂР°Р·РґРµР»
+   <link linkend="caching">РљСЌС€РёСЂРѕРІР°РЅРёРµ</link>
+   РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
   </para>
   &parameter.compileid;
   <example>
@@ -36,10 +36,10 @@ include("Smarty.class.php");
 $smarty = new Smarty;
 $smarty->caching = true;
 
-// выполняем запрос к БД только в том случае, если кэш не существует
+// РІС‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ Рє Р‘Р” С‚РѕР»СЊРєРѕ РІ С‚РѕРј СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РєСЌС€ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
 if(!$smarty->is_cached("index.tpl")) {
 
-  // немного данных для примера
+  // РЅРµРјРЅРѕРіРѕ РґР°РЅРЅС‹С… РґР»СЏ РїСЂРёРјРµСЂР°
   $address = "245 N 50th";
   $db_data = array(
                "City" => "Lincoln",
@@ -53,42 +53,42 @@ if(!$smarty->is_cached("index.tpl")) {
 
 }
 
-// выводим результат
+// РІС‹РІРѕРґРёРј СЂРµР·СѓР»СЊС‚Р°С‚
 $smarty->display("index.tpl");
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-   Используйте синтаксис <link
-   linkend="template.resources">ресурсов шаблона</link> для отображения файлов
-   за пределами директории
+   РСЃРїРѕР»СЊР·СѓР№С‚Рµ СЃРёРЅС‚Р°РєСЃРёСЃ <link
+   linkend="template.resources">СЂРµСЃСѓСЂСЃРѕРІ С€Р°Р±Р»РѕРЅР°</link> РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С„Р°Р№Р»РѕРІ
+   Р·Р° РїСЂРµРґРµР»Р°РјРё РґРёСЂРµРєС‚РѕСЂРёРё
    <link linkend="variable.template.dir">$template_dir</link>.
   </para>
   <example>
-   <title>Пример работы функции display() с ресурсами шаблона</title>
+   <title>РџСЂРёРјРµСЂ СЂР°Р±РѕС‚С‹ С„СѓРЅРєС†РёРё display() СЃ СЂРµСЃСѓСЂСЃР°РјРё С€Р°Р±Р»РѕРЅР°</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// абсолютный файловый путь
+// Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ С„Р°Р№Р»РѕРІС‹Р№ РїСѓС‚СЊ
 $smarty->display('/usr/local/include/templates/header.tpl');
 
-// абсолютный файловый путь (тот же результат)
+// Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ С„Р°Р№Р»РѕРІС‹Р№ РїСѓС‚СЊ (С‚РѕС‚ Р¶Рµ СЂРµР·СѓР»СЊС‚Р°С‚)
 $smarty->display('file:/usr/local/include/templates/header.tpl');
 
-// абсолютный файловый путь под Windows (префикс "file:" ОБЯЗАТЕЛЕН)
+// Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ С„Р°Р№Р»РѕРІС‹Р№ РїСѓС‚СЊ РїРѕРґ Windows (РїСЂРµС„РёРєСЃ "file:" РћР‘РЇР—РђРўР•Р›Р•Рќ)
 $smarty->display('file:C:/www/pub/templates/header.tpl');
 
-// использование ресурса шаблона с именем "db"
+// РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЂРµСЃСѓСЂСЃР° С€Р°Р±Р»РѕРЅР° СЃ РёРјРµРЅРµРј "db"
 $smarty->display('db:header.tpl');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="api.fetch">fetch()</link>
-   и
+   Рё
    <link linkend="api.template.exists">template_exists()</link>.
   </para>
  </refsect1>

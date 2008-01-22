@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <bookinfo id="bookinfo">
-  <title>Smarty - компилирующий обработчик шаблонов</title>
+  <title>Smarty - РєРѕРјРїРёР»РёСЂСѓСЋС‰РёР№ РѕР±СЂР°Р±РѕС‚С‡РёРє С€Р°Р±Р»РѕРЅРѕРІ</title>
   <authorgroup id="authors">
    <author>
     <firstname>Monte</firstname>

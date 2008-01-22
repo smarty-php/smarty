@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
      <sect1 id="variable.trusted.dir">
       <title>$trusted_dir</title>
       <para>
-	   $trusted_dir используется только при включенном параметре $security. Это массив
-	   всех директорий, которые считаются надёжными. Надёжные директории - это директории,
-	   в которых вы храните свои php-скрипты, которые включаются прямо в шаблоны при помощи
-	   директивы <link linkend="language.function.include.php">{include_php}</link>.
+	   $trusted_dir РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РїСЂРё РІРєР»СЋС‡РµРЅРЅРѕРј РїР°СЂР°РјРµС‚СЂРµ $security. Р­С‚Рѕ РјР°СЃСЃРёРІ
+	   РІСЃРµС… РґРёСЂРµРєС‚РѕСЂРёР№, РєРѕС‚РѕСЂС‹Рµ СЃС‡РёС‚Р°СЋС‚СЃСЏ РЅР°РґС‘Р¶РЅС‹РјРё. РќР°РґС‘Р¶РЅС‹Рµ РґРёСЂРµРєС‚РѕСЂРёРё - СЌС‚Рѕ РґРёСЂРµРєС‚РѕСЂРёРё,
+	   РІ РєРѕС‚РѕСЂС‹С… РІС‹ С…СЂР°РЅРёС‚Рµ СЃРІРѕРё php-СЃРєСЂРёРїС‚С‹, РєРѕС‚РѕСЂС‹Рµ РІРєР»СЋС‡Р°СЋС‚СЃСЏ РїСЂСЏРјРѕ РІ С€Р°Р±Р»РѕРЅС‹ РїСЂРё РїРѕРјРѕС‰Рё
+	   РґРёСЂРµРєС‚РёРІС‹ <link linkend="language.function.include.php">{include_php}</link>.
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

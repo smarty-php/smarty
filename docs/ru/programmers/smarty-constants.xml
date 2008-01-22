@@ -1,53 +1,53 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <chapter id="smarty.constants">
- <title>Константы</title>
+ <title>РљРѕРЅСЃС‚Р°РЅС‚С‹</title>
 
  <sect1 id="constant.smarty.dir">
   <title>SMARTY_DIR</title>
   <para>
-   Эта константа должна содержать <emphasis role="bold">полный путь</emphasis>
-   к файлам класса Smarty.
-   Если константа не определена, Smarty будет пытаться определить путь
-   самостоятельно. При определении данной константы,
-   <emphasis role="bold">слэш в конце строки обязателен</emphasis>.
+   Р­С‚Р° РєРѕРЅСЃС‚Р°РЅС‚Р° РґРѕР»Р¶РЅР° СЃРѕРґРµСЂР¶Р°С‚СЊ <emphasis role="bold">РїРѕР»РЅС‹Р№ РїСѓС‚СЊ</emphasis>
+   Рє С„Р°Р№Р»Р°Рј РєР»Р°СЃСЃР° Smarty.
+   Р•СЃР»Рё РєРѕРЅСЃС‚Р°РЅС‚Р° РЅРµ РѕРїСЂРµРґРµР»РµРЅР°, Smarty Р±СѓРґРµС‚ РїС‹С‚Р°С‚СЊСЃСЏ РѕРїСЂРµРґРµР»РёС‚СЊ РїСѓС‚СЊ
+   СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ. РџСЂРё РѕРїСЂРµРґРµР»РµРЅРёРё РґР°РЅРЅРѕР№ РєРѕРЅСЃС‚Р°РЅС‚С‹,
+   <emphasis role="bold">СЃР»СЌС€ РІ РєРѕРЅС†Рµ СЃС‚СЂРѕРєРё РѕР±СЏР·Р°С‚РµР»РµРЅ</emphasis>.
   </para>
   <example>
    <title>SMARTY_DIR</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// устанавливает путь к директории Smarty в стиле *nix
+// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РїСѓС‚СЊ Рє РґРёСЂРµРєС‚РѕСЂРёРё Smarty РІ СЃС‚РёР»Рµ *nix
 define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
 
-// путь к директории Smarty в стиле windows
+// РїСѓС‚СЊ Рє РґРёСЂРµРєС‚РѕСЂРёРё Smarty РІ СЃС‚РёР»Рµ windows
 define('SMARTY_DIR', 'c:/webroot/libs/Smarty/libs/');
 
-// подключаем класс Smarty - обратите внимание на заглавную 'S'
+// РїРѕРґРєР»СЋС‡Р°РµРј РєР»Р°СЃСЃ Smarty - РѕР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ РЅР° Р·Р°РіР»Р°РІРЅСѓСЋ 'S'
 require_once(SMARTY_DIR . 'Smarty.class.php');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.variables.smarty.const">$smarty.const</link>
-   и
-   <link linkend="variable.php.handling">константы $php_handling</link>
+   Рё
+   <link linkend="variable.php.handling">РєРѕРЅСЃС‚Р°РЅС‚С‹ $php_handling</link>
   </para>
  </sect1> 
 
  <sect1 id="constant.smarty.core.dir">
   <title>SMARTY_CORE_DIR</title>
   <para>
-   Это полный путь к файлам ядра (core) Smarty.
-   Если он не установлен, Smarty будет использовать значение по умолчанию
-   - путь к поддиректории <emphasis>internals/</emphasis> директории
+   Р­С‚Рѕ РїРѕР»РЅС‹Р№ РїСѓС‚СЊ Рє С„Р°Р№Р»Р°Рј СЏРґСЂР° (core) Smarty.
+   Р•СЃР»Рё РѕРЅ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ, Smarty Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+   - РїСѓС‚СЊ Рє РїРѕРґРґРёСЂРµРєС‚РѕСЂРёРё <emphasis>internals/</emphasis> РґРёСЂРµРєС‚РѕСЂРёРё
    <link linkend="constant.smarty.dir">SMARTY_DIR</link>.
-   Если константа определена, путь должен заканчиваться слэшем.
-   Используйте эту константу, когда вручную подключаете любой из
-   core.* файлов.
+   Р•СЃР»Рё РєРѕРЅСЃС‚Р°РЅС‚Р° РѕРїСЂРµРґРµР»РµРЅР°, РїСѓС‚СЊ РґРѕР»Р¶РµРЅ Р·Р°РєР°РЅС‡РёРІР°С‚СЊСЃСЏ СЃР»СЌС€РµРј.
+   РСЃРїРѕР»СЊР·СѓР№С‚Рµ СЌС‚Сѓ РєРѕРЅСЃС‚Р°РЅС‚Сѓ, РєРѕРіРґР° РІСЂСѓС‡РЅСѓСЋ РїРѕРґРєР»СЋС‡Р°РµС‚Рµ Р»СЋР±РѕР№ РёР·
+   core.* С„Р°Р№Р»РѕРІ.
   </para>
   <example>
    <title>SMARTY_CORE_DIR</title>
@@ -55,7 +55,7 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
 <![CDATA[
 <?php
 
-// загружаем core.get_microtime.php
+// Р·Р°РіСЂСѓР¶Р°РµРј core.get_microtime.php
 require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
 
 ?>
@@ -63,7 +63,7 @@ require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
    </programlisting>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.variables.smarty.const">$smarty.const</link>
   </para>
  </sect1>

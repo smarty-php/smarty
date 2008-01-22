@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.math">
- <title>Арифметические операции</title>
+ <title>РђСЂРёС„РјРµС‚РёС‡РµСЃРєРёРµ РѕРїРµСЂР°С†РёРё</title>
  <para>
-  Арифметические операции могут совершаться непосредственно над значениями переменных.
+  РђСЂРёС„РјРµС‚РёС‡РµСЃРєРёРµ РѕРїРµСЂР°С†РёРё РјРѕРіСѓС‚ СЃРѕРІРµСЂС€Р°С‚СЊСЃСЏ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РЅР°Рґ Р·РЅР°С‡РµРЅРёСЏРјРё РїРµСЂРµРјРµРЅРЅС‹С….
  </para>
  <example>
-  <title>Примеры арифметики</title>
+  <title>РџСЂРёРјРµСЂС‹ Р°СЂРёС„РјРµС‚РёРєРё</title>
   <programlisting>
 <![CDATA[
 {$foo+1}
 
 {$foo*$bar}
 
-{* несколько более сложных примеров *}
+{* РЅРµСЃРєРѕР»СЊРєРѕ Р±РѕР»РµРµ СЃР»РѕР¶РЅС‹С… РїСЂРёРјРµСЂРѕРІ *}
 
 {$foo->bar-$bar[1]*$baz->foo->bar()-3*7}
 
@@ -27,8 +27,9 @@
   </programlisting>
  </example>
  <para>
-  См. также функцию <link linkend="language.function.math">{math}</link> для
-  сложных вычислений.
+  РЎРј. С‚Р°РєР¶Рµ С„СѓРЅРєС†РёСЋ <link linkend="language.function.math">
+  <varname>{math}</varname></link> РґР»СЏ СЃР»РѕР¶РЅС‹С… РІС‹С‡РёСЃР»РµРЅРёР№ Рё
+  <link linkend="language.function.eval"><varname>{eval}</varname></link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

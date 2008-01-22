@@ -1,38 +1,38 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.all.cache">
  <refnamediv>
   <refname>clear_all_cache()</refname>
-  <refpurpose>полностью очищает кэш шаблонов</refpurpose>
+  <refpurpose>РїРѕР»РЅРѕСЃС‚СЊСЋ РѕС‡РёС‰Р°РµС‚ РєСЌС€ С€Р°Р±Р»РѕРЅРѕРІ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_all_cache</methodname>
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
   <para>
-   В качестве необязательного параметра, вы можете указать минимальный возраст
-   файлов кэша в секундах, прежде чем они будут очищены.
+   Р’ РєР°С‡РµСЃС‚РІРµ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕРіРѕ РїР°СЂР°РјРµС‚СЂР°, РІС‹ РјРѕР¶РµС‚Рµ СѓРєР°Р·Р°С‚СЊ РјРёРЅРёРјР°Р»СЊРЅС‹Р№ РІРѕР·СЂР°СЃС‚
+   С„Р°Р№Р»РѕРІ РєСЌС€Р° РІ СЃРµРєСѓРЅРґР°С…, РїСЂРµР¶РґРµ С‡РµРј РѕРЅРё Р±СѓРґСѓС‚ РѕС‡РёС‰РµРЅС‹.
   </para>
   <example>
    <title>clear_all_cache</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// очищает весь кэш
+// РѕС‡РёС‰Р°РµС‚ РІРµСЃСЊ РєСЌС€
 $smarty->clear_all_cache();
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="api.clear.cache">clear_cache()</link>,
   <link linkend="api.is.cached">is_cached()</link>
-  и
-  <link linkend="caching">кэширование</link>
+  Рё
+  <link linkend="caching">РєСЌС€РёСЂРѕРІР°РЅРёРµ</link>
   </para>
  </refsect1>
 </refentry>

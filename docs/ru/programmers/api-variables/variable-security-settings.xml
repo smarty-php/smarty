@@ -1,27 +1,27 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="variable.security.settings">
  <title>$security_settings</title>
  <para>
-  Это используется для изменения или указания настроек безопасности
-  когда безопасносить (security) включена. Допустимые значения:
+  Р­С‚Рѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РёР»Рё СѓРєР°Р·Р°РЅРёСЏ РЅР°СЃС‚СЂРѕРµРє Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё
+  РєРѕРіРґР° Р±РµР·РѕРїР°СЃРЅРѕСЃРёС‚СЊ (security) РІРєР»СЋС‡РµРЅР°. Р”РѕРїСѓСЃС‚РёРјС‹Рµ Р·РЅР°С‡РµРЅРёСЏ:
  </para>
  <itemizedlist>
-  <listitem><para>PHP_HANDLING - true/false. Если установлено в true, параметр
-    $php_handling не проверяется на безопасность.</para></listitem>
-  <listitem><para>IF_FUNCS - Это массив имён PHP-функций, разрешенных
-    к использованию в условиях IF.</para></listitem>
-  <listitem><para>INCLUDE_ANY - true/false. Если установлено в true, любой
-    шаблон может быть подключен из файловой системы, независимо от списка
+  <listitem><para>PHP_HANDLING - true/false. Р•СЃР»Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ РІ true, РїР°СЂР°РјРµС‚СЂ
+    $php_handling РЅРµ РїСЂРѕРІРµСЂСЏРµС‚СЃСЏ РЅР° Р±РµР·РѕРїР°СЃРЅРѕСЃС‚СЊ.</para></listitem>
+  <listitem><para>IF_FUNCS - Р­С‚Рѕ РјР°СЃСЃРёРІ РёРјС‘РЅ PHP-С„СѓРЅРєС†РёР№, СЂР°Р·СЂРµС€РµРЅРЅС‹С…
+    Рє РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЋ РІ СѓСЃР»РѕРІРёСЏС… IF.</para></listitem>
+  <listitem><para>INCLUDE_ANY - true/false. Р•СЃР»Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ РІ true, Р»СЋР±РѕР№
+    С€Р°Р±Р»РѕРЅ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїРѕРґРєР»СЋС‡РµРЅ РёР· С„Р°Р№Р»РѕРІРѕР№ СЃРёСЃС‚РµРјС‹, РЅРµР·Р°РІРёСЃРёРјРѕ РѕС‚ СЃРїРёСЃРєР°
     $secure_dir.</para></listitem>
-  <listitem><para>PHP_TAGS - true/false. Если установлено в true, тэги
-   {php}{/php} разрешены к использованию в шаблонах.</para></listitem>
-  <listitem><para>MODIFIER_FUNCS - Это массив имён PHP-функций, разрешенных
-    к использованию в качестве модификаторов переменных.</para></listitem>
-  <listitem><para>ALLOW_CONSTANTS - true/false. Если установлено в true,
-   разрешается использование констант вида {$smarty.const.name}.
-   По умолчанию равно "false" из соображений безопасности.</para></listitem>
+  <listitem><para>PHP_TAGS - true/false. Р•СЃР»Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ РІ true, С‚СЌРіРё
+   {php}{/php} СЂР°Р·СЂРµС€РµРЅС‹ Рє РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЋ РІ С€Р°Р±Р»РѕРЅР°С….</para></listitem>
+  <listitem><para>MODIFIER_FUNCS - Р­С‚Рѕ РјР°СЃСЃРёРІ РёРјС‘РЅ PHP-С„СѓРЅРєС†РёР№, СЂР°Р·СЂРµС€РµРЅРЅС‹С…
+    Рє РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЋ РІ РєР°С‡РµСЃС‚РІРµ РјРѕРґРёС„РёРєР°С‚РѕСЂРѕРІ РїРµСЂРµРјРµРЅРЅС‹С….</para></listitem>
+  <listitem><para>ALLOW_CONSTANTS - true/false. Р•СЃР»Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ РІ true,
+   СЂР°Р·СЂРµС€Р°РµС‚СЃСЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєРѕРЅСЃС‚Р°РЅС‚ РІРёРґР° {$smarty.const.name}.
+   РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЂР°РІРЅРѕ "false" РёР· СЃРѕРѕР±СЂР°Р¶РµРЅРёР№ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё.</para></listitem>
  </itemizedlist>
 </sect1>
 <!-- Keep this comment at the end of the file

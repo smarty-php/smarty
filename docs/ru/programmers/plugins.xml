@@ -1,30 +1,30 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <chapter id="plugins">
- <title>Плагины - расширение функциональности Smarty</title>
+ <title>РџР»Р°РіРёРЅС‹ - СЂР°СЃС€РёСЂРµРЅРёРµ С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕСЃС‚Рё Smarty</title>
  <para>
-  Архитектура версии 2.0 позволяет внедрять плагины, которыми являются
-  практически все настраиваемые элементы функционала Smarty. Сюда входят:
+  РђСЂС…РёС‚РµРєС‚СѓСЂР° РІРµСЂСЃРёРё 2.0 РїРѕР·РІРѕР»СЏРµС‚ РІРЅРµРґСЂСЏС‚СЊ РїР»Р°РіРёРЅС‹, РєРѕС‚РѕСЂС‹РјРё СЏРІР»СЏСЋС‚СЃСЏ
+  РїСЂР°РєС‚РёС‡РµСЃРєРё РІСЃРµ РЅР°СЃС‚СЂР°РёРІР°РµРјС‹Рµ СЌР»РµРјРµРЅС‚С‹ С„СѓРЅРєС†РёРѕРЅР°Р»Р° Smarty. РЎСЋРґР° РІС…РѕРґСЏС‚:
   <itemizedlist spacing="compact">
-   <listitem><simpara>функции</simpara></listitem>
-   <listitem><simpara>модификаторы</simpara></listitem>
-   <listitem><simpara>блоковые функции</simpara></listitem>
-   <listitem><simpara>функции компилятора</simpara></listitem>
-   <listitem><simpara>префильтры</simpara></listitem>
-   <listitem><simpara>постфильтры</simpara></listitem>
-   <listitem><simpara>фильтры вывода</simpara></listitem>
-   <listitem><simpara>ресурсы</simpara></listitem>
-   <listitem><simpara>вставки</simpara></listitem>
+   <listitem><simpara>С„СѓРЅРєС†РёРё</simpara></listitem>
+   <listitem><simpara>РјРѕРґРёС„РёРєР°С‚РѕСЂС‹</simpara></listitem>
+   <listitem><simpara>Р±Р»РѕРєРѕРІС‹Рµ С„СѓРЅРєС†РёРё</simpara></listitem>
+   <listitem><simpara>С„СѓРЅРєС†РёРё РєРѕРјРїРёР»СЏС‚РѕСЂР°</simpara></listitem>
+   <listitem><simpara>РїСЂРµС„РёР»СЊС‚СЂС‹</simpara></listitem>
+   <listitem><simpara>РїРѕСЃС‚С„РёР»СЊС‚СЂС‹</simpara></listitem>
+   <listitem><simpara>С„РёР»СЊС‚СЂС‹ РІС‹РІРѕРґР°</simpara></listitem>
+   <listitem><simpara>СЂРµСЃСѓСЂСЃС‹</simpara></listitem>
+   <listitem><simpara>РІСЃС‚Р°РІРєРё</simpara></listitem>
   </itemizedlist>
-  За исключением ресурсов, в целях обратной совместимости с
-  предыдущими версиями, сохранена возможность регистрации функций
-  посредством register_* API.
-  Если вы не используете API, а вместо этого модифицируете свойства
-  <literal>$custom_funcs</literal>, <literal>$custom_mods</literal> и
-  некоторые другие напрямую, тогда вам придется подогнать ваши скрипты под
-  использование API или преобразовать добавленную вами функциональность в
-  плагины.
+  Р—Р° РёСЃРєР»СЋС‡РµРЅРёРµРј СЂРµСЃСѓСЂСЃРѕРІ, РІ С†РµР»СЏС… РѕР±СЂР°С‚РЅРѕР№ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ
+  РїСЂРµРґС‹РґСѓС‰РёРјРё РІРµСЂСЃРёСЏРјРё, СЃРѕС…СЂР°РЅРµРЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЂРµРіРёСЃС‚СЂР°С†РёРё С„СѓРЅРєС†РёР№
+  РїРѕСЃСЂРµРґСЃС‚РІРѕРј register_* API.
+  Р•СЃР»Рё РІС‹ РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚Рµ API, Р° РІРјРµСЃС‚Рѕ СЌС‚РѕРіРѕ РјРѕРґРёС„РёС†РёСЂСѓРµС‚Рµ СЃРІРѕР№СЃС‚РІР°
+  <literal>$custom_funcs</literal>, <literal>$custom_mods</literal> Рё
+  РЅРµРєРѕС‚РѕСЂС‹Рµ РґСЂСѓРіРёРµ РЅР°РїСЂСЏРјСѓСЋ, С‚РѕРіРґР° РІР°Рј РїСЂРёРґРµС‚СЃСЏ РїРѕРґРѕРіРЅР°С‚СЊ РІР°С€Рё СЃРєСЂРёРїС‚С‹ РїРѕРґ
+  РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ API РёР»Рё РїСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ РґРѕР±Р°РІР»РµРЅРЅСѓСЋ РІР°РјРё С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕСЃС‚СЊ РІ
+  РїР»Р°РіРёРЅС‹.
  </para>
  &programmers.plugins.plugins-howto;
  &programmers.plugins.plugins-naming-conventions;

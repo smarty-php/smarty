@@ -1,43 +1,82 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.quotes">
- <title>Внедренные переменные в двойных кавычках</title>
+ <title>Р’РЅРµРґСЂРµРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ РІ РґРІРѕР№РЅС‹С… РєР°РІС‹С‡РєР°С…</title>
+ 
+ <itemizedlist>
+ <listitem>
  <para>
-  Smarty распознает
-  <link linkend="api.assign">присвоенные</link>
-  <link linkend="language.syntax.variables">переменные</link>,
-  если они встречаются в строках, заключенных в двойные кавычки,
-  если имена переменных состоят из цифр, букв, знака подчёркивания и
-  квадратных скобок.
-  В случае, если переменная содержит другие символы
-  (точки, ссыки на объекты и т.д.), переменную необходимо заключить
-  в <link linkend="language.syntax.quotes">обратные кавычки</link>.
-  В данном случае вы не можете использовать
-  <link linkend="language.modifiers">модификаторы</link>,
-  их следует применять вне кавычек.
+  Smarty СЂР°СЃРїРѕР·РЅР°РµС‚
+  <link linkend="api.assign">РїСЂРёСЃРІРѕРµРЅРЅС‹Рµ</link>
+  <link linkend="language.syntax.variables">РїРµСЂРµРјРµРЅРЅС‹Рµ</link>,
+  РµСЃР»Рё РѕРЅРё РІСЃС‚СЂРµС‡Р°СЋС‚СЃСЏ РІ СЃС‚СЂРѕРєР°С…, Р·Р°РєР»СЋС‡РµРЅРЅС‹С… РІ "РґРІРѕР№РЅС‹Рµ РєР°РІС‹С‡РєРё",
+  РµСЃР»Рё РёРјРµРЅР° РїРµСЂРµРјРµРЅРЅС‹С… СЃРѕСЃС‚РѕСЏС‚ РёР· С†РёС„СЂ, Р±СѓРєРІ, Р·РЅР°РєР° РїРѕРґ_С‡С‘СЂРєРёРІР°РЅРёСЏ Рё
+  РєРІР°РґСЂР°С‚РЅС‹С… СЃРєРѕР±РѕРє[].
+  РЎРј. С‚Р°РєР¶Рµ <ulink url="&url.php-manual;language.variables">РџРµСЂРµРјРµРЅРЅС‹Рµ</ulink>.
  </para>
+ </listitem>
+ 
+ <listitem>
+ <para>
+  Р’ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РїРµСЂРµРјРµРЅРЅР°СЏ СЃРѕРґРµСЂР¶РёС‚ РґСЂСѓРіРёРµ СЃРёРјРІРѕР»С‹, РЅР°РїСЂРёРјРµСЂ
+  С‚РѕС‡РєРё, СЃСЃС‹РєРё РЅР° РѕР±СЉРµРєС‚С‹ Рё С‚.Рґ., РїРµСЂРµРјРµРЅРЅСѓСЋ РЅРµРѕР±С…РѕРґРёРјРѕ Р·Р°РєР»СЋС‡РёС‚СЊ
+  РІ <literal>`РѕР±СЂР°С‚РЅС‹Рµ РєР°РІС‹С‡РєРё`</literal>.
+  Р’ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ РІС‹ РЅРµ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
+  <link linkend="language.modifiers">РјРѕРґРёС„РёРєР°С‚РѕСЂС‹</link>,
+  РёС… СЃР»РµРґСѓРµС‚ РїСЂРёРјРµРЅСЏС‚СЊ РІРЅРµ РєР°РІС‹С‡РµРє.
+ </para>
+ </listitem>
+ 
+ <listitem>
+  <para>
+   Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
+   <link linkend="language.modifiers">РјРѕРґРёС„РёРєР°С‚РѕСЂС‹</link>
+   РїРѕРґРѕР±РЅС‹Рј РѕР±СЂР°Р·РѕРј - РѕРЅРё РІСЃРµРіРґР° РґРѕР»Р¶РЅС‹ РїСЂРёРјРµРЅСЏС‚СЊСЃСЏ Р·Р° РїСЂРµРґРµР»Р°РјРё РєР°РІС‹С‡РµРє.
+  </para>
+ </listitem>
+ </itemizedlist>
+ 
  <example>
-  <title>Синтаксис внедренных переменных</title>
+  <title>РџСЂРёРјРµСЂС‹ СЃРёРЅС‚Р°РєСЃРёСЃР°</title>
   <programlisting>
 <![CDATA[
-Пример синтаксиса:
-{func var="test $foo test"}       <-- ищет $foo
-{func var="test $foo_bar test"}   <-- ищет $foo_bar
-{func var="test $foo[0] test"}    <-- ищет $foo[0]
-{func var="test $foo[bar] test"}  <-- ищет $foo[bar]
-{func var="test $foo.bar test"}   <-- ищет $foo (не $foo.bar)
-{func var="test `$foo.bar` test"} <-- ищет $foo.bar
-{func var="test `$foo.bar` test"|escape} <-- модификатор вне кавычек!
-
-Практические примеры:
-{include file="subdir/$tpl_name.tpl"} <-- заменит $tpl_name на ее значение
-{cycle values="one,two,`$smarty.config.myval`"} <-- надо заключать в обратные кавычки
+{func var="test $foo test"}       <-- РёС‰РµС‚ $foo
+{func var="test $foo_bar test"}   <-- РёС‰РµС‚ $foo_bar
+{func var="test $foo[0] test"}    <-- РёС‰РµС‚ $foo[0]
+{func var="test $foo[bar] test"}  <-- РёС‰РµС‚ $foo[bar]
+{func var="test $foo.bar test"}   <-- РёС‰РµС‚ $foo (РЅРµ $foo.bar)
+{func var="test `$foo.bar` test"} <-- РёС‰РµС‚ $foo.bar
+{func var="test `$foo.bar` test"|escape} <-- РјРѕРґРёС„РёРєР°С‚РѕСЂ РІРЅРµ РєР°РІС‹С‡РµРє!
 ]]>
   </programlisting>
  </example>
+
+ <example>
+  <title>РџСЂР°РєС‚РёС‡РµСЃРєРёРµ РїСЂРёРјРµСЂС‹</title>
+  <programlisting>
+<![CDATA[
+{* Р·Р°РјРµРЅРёС‚ $tpl_name РµС‘ Р·РЅР°С‡РµРЅРёРµРј *}
+{include file="subdir/$tpl_name.tpl"}
+
+{* РЅРµ Р·Р°РјРµРЅРёС‚ $tpl_name *}
+{include file='subdir/$tpl_name.tpl'} <--
+
+{* РЅСѓР¶РЅС‹ РѕР±СЂР°С‚РЅС‹Рµ РєР°РІС‹С‡РєРё РёР· Р·Р° С‚РѕРіРѕ, С‡С‚Рѕ РёРјСЏ СЃРѕРґРµСЂР¶РёС‚ С‚РѕС‡РєРё *}
+{cycle values="one,two,`$smarty.config.myval`"}
+
+{*  Р°РЅР°Р»РѕРі $module['contact'].'.tpl' РІ PHP *}
+{include file="`$module.contact`.tpl"}
+
+{*  Р°РЅР°Р»РѕРі $module[$view].'.tpl' РІ PHP *}
+{include file="$module.$view.tpl"}
+]]>
+  </programlisting>
+ </example>
+
  <para>
-  См. также <link linkend="language.modifier.escape">escape</link>.
+  РЎРј. С‚Р°РєР¶Рµ
+  <link linkend="language.modifier.escape"><varname>escape</varname></link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

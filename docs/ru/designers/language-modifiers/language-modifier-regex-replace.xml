@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.regex.replace">
   <title>regex_replace</title>
   <para>
-   Поиск и замена при помощи регулярного выражения в переменной.
-   Используйте синтаксис из руководства к функции PHP <ulink
+   РџРѕРёСЃРє Рё Р·Р°РјРµРЅР° РїСЂРё РїРѕРјРѕС‰Рё СЂРµРіСѓР»СЏСЂРЅРѕРіРѕ РІС‹СЂР°Р¶РµРЅРёСЏ РІ РїРµСЂРµРјРµРЅРЅРѕР№.
+   РСЃРїРѕР»СЊР·СѓР№С‚Рµ СЃРёРЅС‚Р°РєСЃРёСЃ РёР· СЂСѓРєРѕРІРѕРґСЃС‚РІР° Рє С„СѓРЅРєС†РёРё PHP <ulink
    url="&url.php-manual;preg_replace">preg_replace()</ulink>.
   </para>
   
@@ -18,27 +18,27 @@
     <colspec colname="desc"/>
     <thead>
      <row>
-      <entry>Позиция параметра</entry>
-      <entry>Тип</entry>
-      <entry>Обязателен</entry>
-      <entry>По умолчанию</entry>
-      <entry>Описание</entry>
+      <entry>РџРѕР·РёС†РёСЏ РїР°СЂР°РјРµС‚СЂР°</entry>
+      <entry>РўРёРї</entry>
+      <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+      <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+      <entry>РћРїРёСЃР°РЅРёРµ</entry>
      </row>
     </thead>
     <tbody>
      <row>
       <entry>1</entry>
       <entry>string</entry>
-      <entry>Да</entry>
+      <entry>Р”Р°</entry>
       <entry><emphasis>n/a</emphasis></entry>
-      <entry>Регулярное выражение для проведения замены.</entry>
+      <entry>Р РµРіСѓР»СЏСЂРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ РґР»СЏ РїСЂРѕРІРµРґРµРЅРёСЏ Р·Р°РјРµРЅС‹.</entry>
      </row>
      <row>
       <entry>2</entry>
       <entry>string</entry>
-      <entry>Да</entry>
+      <entry>Р”Р°</entry>
       <entry><emphasis>n/a</emphasis></entry>
-      <entry>Строка, на которую будет проведена замена.</entry>
+      <entry>РЎС‚СЂРѕРєР°, РЅР° РєРѕС‚РѕСЂСѓСЋ Р±СѓРґРµС‚ РїСЂРѕРІРµРґРµРЅР° Р·Р°РјРµРЅР°.</entry>
      </row>
     </tbody>
    </tgroup>
@@ -56,18 +56,18 @@ $smarty->assign('articleTitle', "Infertility unlikely to\nbe passed on, experts 
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
-{* заменяет каждый возврат каретки, табуляцию и перевод строки на пробел *}
+{* Р·Р°РјРµРЅСЏРµС‚ РєР°Р¶РґС‹Р№ РІРѕР·РІСЂР°С‚ РєР°СЂРµС‚РєРё, С‚Р°Р±СѓР»СЏС†РёСЋ Рё РїРµСЂРµРІРѕРґ СЃС‚СЂРѕРєРё РЅР° РїСЂРѕР±РµР» *}
 
 {$articleTitle}
 {$articleTitle|regex_replace:"/[\r\t\n]/":" "}
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -78,9 +78,9 @@ Infertility unlikely to be passed on, experts say.
    </screen>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.modifier.replace">replace</link>
-   и
+   Рё
    <link linkend="language.modifier.escape">escape</link>.
   </para>
  </sect1>

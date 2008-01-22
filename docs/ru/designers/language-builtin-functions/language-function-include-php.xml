@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.include.php">
  <title>{include_php}</title>
  <note>
-  <title>Техническое замечание</title>
+  <title>РўРµС…РЅРёС‡РµСЃРєРѕРµ Р·Р°РјРµС‡Р°РЅРёРµ</title>
   <para>
-   {include_php} достаточно устарела в Smarty, вы можете достичь этой
-   функциональности при помощи собственных функций шаблона.
-   Единственная причина для использования {include_php} - это серьёзная
-   необходимость отделить PHP-функцию от директории 
+   {include_php} РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СѓСЃС‚Р°СЂРµР»Р° РІ Smarty, РІС‹ РјРѕР¶РµС‚Рµ РґРѕСЃС‚РёС‡СЊ СЌС‚РѕР№
+   С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕСЃС‚Рё РїСЂРё РїРѕРјРѕС‰Рё СЃРѕР±СЃС‚РІРµРЅРЅС‹С… С„СѓРЅРєС†РёР№ С€Р°Р±Р»РѕРЅР°.
+   Р•РґРёРЅСЃС‚РІРµРЅРЅР°СЏ РїСЂРёС‡РёРЅР° РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ {include_php} - СЌС‚Рѕ СЃРµСЂСЊС‘Р·РЅР°СЏ
+   РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ РѕС‚РґРµР»РёС‚СЊ PHP-С„СѓРЅРєС†РёСЋ РѕС‚ РґРёСЂРµРєС‚РѕСЂРёРё 
    <link linkend="variable.plugins.dir">plugins</link>
-   или кода вашего приложения. См. <link
-   linkend="tips.componentized.templates">примеры составных шаблонов</link>
-   для дополнительной информации.
+   РёР»Рё РєРѕРґР° РІР°С€РµРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ. РЎРј. <link
+   linkend="tips.componentized.templates">РїСЂРёРјРµСЂС‹ СЃРѕСЃС‚Р°РІРЅС‹С… С€Р°Р±Р»РѕРЅРѕРІ</link>
+   РґР»СЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
   </para>
  </note>
 
@@ -26,74 +26,74 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
+    <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+    <entry>РўРёРї</entry>
+    <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+    <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+    <entry>РћРїРёСЃР°РЅРёРµ</entry>
    </row>
   </thead>
   <tbody>
    <row>
     <entry>file</entry>
     <entry>string</entry>
-    <entry>Да</entry>
+    <entry>Р”Р°</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя подключаемого php файла</entry>
+    <entry>РРјСЏ РїРѕРґРєР»СЋС‡Р°РµРјРѕРіРѕ php С„Р°Р№Р»Р°</entry>
    </row>
    <row>
     <entry>once</entry>
     <entry>boolean</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>true</emphasis></entry>
-    <entry>Указывает подключать файл или нет,
-    если он уже был однажды подключен</entry>
+    <entry>РЈРєР°Р·С‹РІР°РµС‚ РїРѕРґРєР»СЋС‡Р°С‚СЊ С„Р°Р№Р» РёР»Рё РЅРµС‚,
+    РµСЃР»Рё РѕРЅ СѓР¶Рµ Р±С‹Р» РѕРґРЅР°Р¶РґС‹ РїРѕРґРєР»СЋС‡РµРЅ</entry>
    </row>
    <row>
     <entry>assign</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Название переменной, которой будет
-    присвоен вывод include_php</entry>
+    <entry>РќР°Р·РІР°РЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№, РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚
+    РїСЂРёСЃРІРѕРµРЅ РІС‹РІРѕРґ include_php</entry>
    </row>
   </tbody>
   </tgroup>
  </informaltable>
 
  <para>
-  Тэги {include_php} используются для подключения PHP-скрипта в шаблон.
-  Если режим <link linkend="variable.security">$security</link> включен,
-  то PHP-скрипт должен быть расположен в директории
+  РўСЌРіРё {include_php} РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ PHP-СЃРєСЂРёРїС‚Р° РІ С€Р°Р±Р»РѕРЅ.
+  Р•СЃР»Рё СЂРµР¶РёРј <link linkend="variable.security">$security</link> РІРєР»СЋС‡РµРЅ,
+  С‚Рѕ PHP-СЃРєСЂРёРїС‚ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЂР°СЃРїРѕР»РѕР¶РµРЅ РІ РґРёСЂРµРєС‚РѕСЂРёРё
   <link linkend="variable.trusted.dir">$trusted_dir</link>.
-  Тэг {include_php} должен иметь атрибут "file", который
-  указывает путь к подключаемому PHP-файлу, либо относительный к
+  РўСЌРі {include_php} РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ Р°С‚СЂРёР±СѓС‚ "file", РєРѕС‚РѕСЂС‹Р№
+  СѓРєР°Р·С‹РІР°РµС‚ РїСѓС‚СЊ Рє РїРѕРґРєР»СЋС‡Р°РµРјРѕРјСѓ PHP-С„Р°Р№Р»Сѓ, Р»РёР±Рѕ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹Р№ Рє
   <link linkend="variable.trusted.dir">$trusted_dir</link>,
-  либо абсолютный путь.
+  Р»РёР±Рѕ Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ РїСѓС‚СЊ.
  </para>
  <para>
-  По умолчанию, PHP-файлы подключаются только один раз, даже если
-  вызываются несколько раз в шаблоне. Можно указать, что файл должен
-  быть подключен каждый раз, указав атрибут <emphasis>once</emphasis>.
-  Установив once в ложь (false) указывает, что файл должен быть
-  подключен вне зависимости от того, был ли он подключен раньше.
+  РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, PHP-С„Р°Р№Р»С‹ РїРѕРґРєР»СЋС‡Р°СЋС‚СЃСЏ С‚РѕР»СЊРєРѕ РѕРґРёРЅ СЂР°Р·, РґР°Р¶Рµ РµСЃР»Рё
+  РІС‹Р·С‹РІР°СЋС‚СЃСЏ РЅРµСЃРєРѕР»СЊРєРѕ СЂР°Р· РІ С€Р°Р±Р»РѕРЅРµ. РњРѕР¶РЅРѕ СѓРєР°Р·Р°С‚СЊ, С‡С‚Рѕ С„Р°Р№Р» РґРѕР»Р¶РµРЅ
+  Р±С‹С‚СЊ РїРѕРґРєР»СЋС‡РµРЅ РєР°Р¶РґС‹Р№ СЂР°Р·, СѓРєР°Р·Р°РІ Р°С‚СЂРёР±СѓС‚ <emphasis>once</emphasis>.
+  РЈСЃС‚Р°РЅРѕРІРёРІ once РІ Р»РѕР¶СЊ (false) СѓРєР°Р·С‹РІР°РµС‚, С‡С‚Рѕ С„Р°Р№Р» РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ
+  РїРѕРґРєР»СЋС‡РµРЅ РІРЅРµ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С‚РѕРіРѕ, Р±С‹Р» Р»Рё РѕРЅ РїРѕРґРєР»СЋС‡РµРЅ СЂР°РЅСЊС€Рµ.
  </para>
  <para>
-  Можно указать опциональный атрибут <emphasis>assign</emphasis>,
-  который указывает имя переменной, которой будет присвоен вывод
-  <emphasis>{include_php}</emphasis>, вместо отображения.
+  РњРѕР¶РЅРѕ СѓРєР°Р·Р°С‚СЊ РѕРїС†РёРѕРЅР°Р»СЊРЅС‹Р№ Р°С‚СЂРёР±СѓС‚ <emphasis>assign</emphasis>,
+  РєРѕС‚РѕСЂС‹Р№ СѓРєР°Р·С‹РІР°РµС‚ РёРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№, РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚ РїСЂРёСЃРІРѕРµРЅ РІС‹РІРѕРґ
+  <emphasis>{include_php}</emphasis>, РІРјРµСЃС‚Рѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ.
  </para>
  <para>
-  Объект smarty доступен в подключаемом PHP-файле как $this.
+  РћР±СЉРµРєС‚ smarty РґРѕСЃС‚СѓРїРµРЅ РІ РїРѕРґРєР»СЋС‡Р°РµРјРѕРј PHP-С„Р°Р№Р»Рµ РєР°Рє $this.
  </para>
  <example>
-  <title>Функция {include_php}</title>
+  <title>Р¤СѓРЅРєС†РёСЏ {include_php}</title>
   <para>load_nav.php</para>
   <programlisting role="php">
 <![CDATA[
 <?php
 
-// загружает переменные из БД MySQL и присваивает их шаблону
+// Р·Р°РіСЂСѓР¶Р°РµС‚ РїРµСЂРµРјРµРЅРЅС‹Рµ РёР· Р‘Р” MySQL Рё РїСЂРёСЃРІР°РёРІР°РµС‚ РёС… С€Р°Р±Р»РѕРЅСѓ
 require_once('MySQL.class.php');
 $sql = new MySQL;
 $sql->query('select * from site_nav_sections order by name',SQL_ALL);
@@ -105,7 +105,7 @@ $this->assign('sections',$sql->record);
   <para>index.tpl</para>
   <programlisting>
 <![CDATA[
-{* абсолютный путь, либо относительный к $trusted_dir *}
+{* Р°Р±СЃРѕР»СЋС‚РЅС‹Р№ РїСѓС‚СЊ, Р»РёР±Рѕ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹Р№ Рє $trusted_dir *}
 {include_php file='/path/to/load_nav.php'}
 {foreach item="curr_section" from=$sections}
     <a href="{$curr_section.url}">{$curr_section.name}</a><br />
@@ -115,13 +115,13 @@ $this->assign('sections',$sql->record);
  </example>
 
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.function.include">{include}</link>,
   <link linkend="language.function.php">{php}</link>,
   <link linkend="language.function.capture">{capture}</link>,
-  <link linkend="template.resources">Ресурсы</link>
-  и
-  <link linkend="tips.componentized.templates">Составные шаблоны</link>
+  <link linkend="template.resources">Р РµСЃСѓСЂСЃС‹</link>
+  Рё
+  <link linkend="tips.componentized.templates">РЎРѕСЃС‚Р°РІРЅС‹Рµ С€Р°Р±Р»РѕРЅС‹</link>
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

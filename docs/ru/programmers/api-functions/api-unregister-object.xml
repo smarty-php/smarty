@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <refentry id="api.unregister.object">
@@ -13,12 +13,12 @@
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Используется для дерегистрации объекта.
+   РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РґРµСЂРµРіРёСЃС‚СЂР°С†РёРё РѕР±СЉРµРєС‚Р°.
   </para>
   <para>
-   См. также
-   <link linkend="api.register.object">register_object</link> и раздел
-   <link linkend="advanced.features.objects">Объекты</link>
+   РЎРј. С‚Р°РєР¶Рµ
+   <link linkend="api.register.object">register_object</link> Рё СЂР°Р·РґРµР»
+   <link linkend="advanced.features.objects">РћР±СЉРµРєС‚С‹</link>
   </para>
  </refsect1>
 </refentry>

@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.string.format">
   <title>string_format</title>
   <para>
-   Этот модификатор используется для форматирования строк, таких как десятичные
-   числа и т.д.
-   Используйте синтаксис от
-   <ulink url="&url.php-manual;sprintf">sprintf()</ulink> для форматирования.
+   Р­С‚РѕС‚ РјРѕРґРёС„РёРєР°С‚РѕСЂ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёСЏ СЃС‚СЂРѕРє, С‚Р°РєРёС… РєР°Рє РґРµСЃСЏС‚РёС‡РЅС‹Рµ
+   С‡РёСЃР»Р° Рё С‚.Рґ.
+   РСЃРїРѕР»СЊР·СѓР№С‚Рµ СЃРёРЅС‚Р°РєСЃРёСЃ РѕС‚
+   <ulink url="&url.php-manual;sprintf">sprintf()</ulink> РґР»СЏ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёСЏ.
   </para>
   
   <informaltable frame="all">
@@ -19,20 +19,20 @@
     <colspec colname="desc"/>
     <thead>
      <row>
-      <entry>Позиция параметра</entry>
-      <entry>Тип</entry>
-      <entry>Обязателен</entry>
-      <entry>По умолчанию</entry>
-      <entry>Описание</entry>
+      <entry>РџРѕР·РёС†РёСЏ РїР°СЂР°РјРµС‚СЂР°</entry>
+      <entry>РўРёРї</entry>
+      <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+      <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+      <entry>РћРїРёСЃР°РЅРёРµ</entry>
      </row>
     </thead>
     <tbody>
      <row>
       <entry>1</entry>
       <entry>string</entry>
-      <entry>Да</entry>
+      <entry>Р”Р°</entry>
       <entry><emphasis>n/a</emphasis></entry>
-      <entry>Формат для использования (sprintf).</entry>
+      <entry>Р¤РѕСЂРјР°С‚ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ (sprintf).</entry>
      </row>
     </tbody>
    </tgroup>
@@ -50,7 +50,7 @@ $smarty->assign('number', 23.5787446);
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
@@ -71,7 +71,7 @@ $smarty->assign('number', 23.5787446);
    </screen>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.modifier.date.format">date_format</link>.
   </para>
  </sect1>

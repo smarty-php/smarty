@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.strip">
   <title>strip</title>
   <para>
-   Заменяет все повторяющиеся пробелы, переводы строк и символы табуляции
-   одним пробелом (или другой указанной строкой).
+   Р—Р°РјРµРЅСЏРµС‚ РІСЃРµ РїРѕРІС‚РѕСЂСЏСЋС‰РёРµСЃСЏ РїСЂРѕР±РµР»С‹, РїРµСЂРµРІРѕРґС‹ СЃС‚СЂРѕРє Рё СЃРёРјРІРѕР»С‹ С‚Р°Р±СѓР»СЏС†РёРё
+   РѕРґРЅРёРј РїСЂРѕР±РµР»РѕРј (РёР»Рё РґСЂСѓРіРѕР№ СѓРєР°Р·Р°РЅРЅРѕР№ СЃС‚СЂРѕРєРѕР№).
   </para>
   <note>
-   <title>Обратите внимание</title>
+   <title>РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ</title>
    <para>
-    Если вы хотите обработать блоки текста в шаблоне аналогичным образом,
-    воспользуйтесь функцией <link
+    Р•СЃР»Рё РІС‹ С…РѕС‚РёС‚Рµ РѕР±СЂР°Р±РѕС‚Р°С‚СЊ Р±Р»РѕРєРё С‚РµРєСЃС‚Р° РІ С€Р°Р±Р»РѕРЅРµ Р°РЅР°Р»РѕРіРёС‡РЅС‹Рј РѕР±СЂР°Р·РѕРј,
+    РІРѕСЃРїРѕР»СЊР·СѓР№С‚РµСЃСЊ С„СѓРЅРєС†РёРµР№ <link
     linkend="language.function.strip">{strip}</link>.
    </para>
   </note>
@@ -27,7 +27,7 @@ $smarty->assign('articleTitle', "Grandmother of\neight makes\t    hole in one.")
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
@@ -37,7 +37,7 @@ $smarty->assign('articleTitle', "Grandmother of\neight makes\t    hole in one.")
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -49,9 +49,9 @@ Grandmother&nbsp;of&nbsp;eight&nbsp;makes&nbsp;hole&nbsp;in&nbsp;one.
    </screen>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.function.strip">{strip}</link>
-   и
+   Рё
    <link linkend="language.modifier.truncate">truncate</link>.
   </para>
 </sect1>

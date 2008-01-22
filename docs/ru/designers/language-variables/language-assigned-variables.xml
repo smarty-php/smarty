@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.assigned.variables">
- <title>Переменные, назначенные из PHP</title>
+ <title>РџРµСЂРµРјРµРЅРЅС‹Рµ, РЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РёР· PHP</title>
  <para>
-  К переменным, которые были
-  <link linkend="api.assign">назначены</link> из PHP можно обратиться,
-  указав перед их именем знак доллара (<literal>$</literal>).
-  Переменные, назначенные внутри шаблона при помощи функции
+  Рљ РїРµСЂРµРјРµРЅРЅС‹Рј, РєРѕС‚РѕСЂС‹Рµ Р±С‹Р»Рё
+  <link linkend="api.assign">РЅР°Р·РЅР°С‡РµРЅС‹</link> РёР· PHP РјРѕР¶РЅРѕ РѕР±СЂР°С‚РёС‚СЊСЃСЏ,
+  СѓРєР°Р·Р°РІ РїРµСЂРµРґ РёС… РёРјРµРЅРµРј Р·РЅР°Рє РґРѕР»Р»Р°СЂР° (<literal>$</literal>).
+  РџРµСЂРµРјРµРЅРЅС‹Рµ, РЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РІРЅСѓС‚СЂРё С€Р°Р±Р»РѕРЅР° РїСЂРё РїРѕРјРѕС‰Рё С„СѓРЅРєС†РёРё
   <link linkend="language.function.assign">{assign}</link>
-  работают таким же образом.
+  СЂР°Р±РѕС‚Р°СЋС‚ С‚Р°РєРёРј Р¶Рµ РѕР±СЂР°Р·РѕРј.
  </para>
  <example>
-  <title>Назначенные переменные</title>
-  <para>PHP-скрипт</para>
+  <title>РќР°Р·РЅР°С‡РµРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ</title>
+  <para>PHP-СЃРєСЂРёРїС‚</para>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -30,20 +30,20 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   Содержимое index.tpl:
+   РЎРѕРґРµСЂР¶РёРјРѕРµ index.tpl:
   </para>
   <programlisting>
 <![CDATA[
 Hello {$firstname} {$lastname}, glad to see you can make it.
 <br />
-{* это не сработает, потому что переменные чувствительны к регистру *}
+{* СЌС‚Рѕ РЅРµ СЃСЂР°Р±РѕС‚Р°РµС‚, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РїРµСЂРµРјРµРЅРЅС‹Рµ С‡СѓРІСЃС‚РІРёС‚РµР»СЊРЅС‹ Рє СЂРµРіРёСЃС‚СЂСѓ *}
 This weeks meeting is in {$meetingplace}.
-{* а это - сработает *}
+{* Р° СЌС‚Рѕ - СЃСЂР°Р±РѕС‚Р°РµС‚ *}
 This weeks meeting is in {$meetingPlace}.
 ]]>
   </programlisting>
   <para>
-   Результат обработки:
+   Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
   </para>
   <screen>
 <![CDATA[
@@ -55,13 +55,13 @@ This weeks meeting is in New York.
   </screen>
  </example>
  <sect2 id="language.variables.assoc.arrays">
-  <title>Ассоциативные массивы</title>
+  <title>РђСЃСЃРѕС†РёР°С‚РёРІРЅС‹Рµ РјР°СЃСЃРёРІС‹</title>
   <para>
-   Вы можете также обращаться к ассоциативным массивам, которые
-   назначены из PHP, указав ключ после символа '.' (точка).
+   Р’С‹ РјРѕР¶РµС‚Рµ С‚Р°РєР¶Рµ РѕР±СЂР°С‰Р°С‚СЊСЃСЏ Рє Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Рј РјР°СЃСЃРёРІР°Рј, РєРѕС‚РѕСЂС‹Рµ
+   РЅР°Р·РЅР°С‡РµРЅС‹ РёР· PHP, СѓРєР°Р·Р°РІ РєР»СЋС‡ РїРѕСЃР»Рµ СЃРёРјРІРѕР»Р° '.' (С‚РѕС‡РєР°).
   </para>
   <example>
-   <title>Обращение к ассоциативному массиву</title>
+   <title>РћР±СЂР°С‰РµРЅРёРµ Рє Р°СЃСЃРѕС†РёР°С‚РёРІРЅРѕРјСѓ РјР°СЃСЃРёРІСѓ</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -77,7 +77,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Содержимое index.tpl:
+    РЎРѕРґРµСЂР¶РёРјРѕРµ index.tpl:
    </para>
    <programlisting>
 <![CDATA[
@@ -89,7 +89,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -102,13 +102,13 @@ zaphod@slartibartfast.example.com<br />
   </example>
  </sect2>
  <sect2 id="language.variables.array.indexes">
-  <title>Индексы массивов</title>
+  <title>РРЅРґРµРєСЃС‹ РјР°СЃСЃРёРІРѕРІ</title>
   <para>
-   Вы можете обращаться к массивам по их индексам примерно так же,
-   как и в самом PHP.
+   Р’С‹ РјРѕР¶РµС‚Рµ РѕР±СЂР°С‰Р°С‚СЊСЃСЏ Рє РјР°СЃСЃРёРІР°Рј РїРѕ РёС… РёРЅРґРµРєСЃР°Рј РїСЂРёРјРµСЂРЅРѕ С‚Р°Рє Р¶Рµ,
+   РєР°Рє Рё РІ СЃР°РјРѕРј PHP.
   </para>
   <example>
-   <title>Обращение к массиву по индексу</title>
+   <title>РћР±СЂР°С‰РµРЅРёРµ Рє РјР°СЃСЃРёРІСѓ РїРѕ РёРЅРґРµРєСЃСѓ</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -123,7 +123,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Содержимое index.tpl:
+    РЎРѕРґРµСЂР¶РёРјРѕРµ index.tpl:
    </para>
    <programlisting>
 <![CDATA[
@@ -135,7 +135,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -148,14 +148,14 @@ zaphod@slartibartfast.example.com<br />
   </example>
  </sect2>
  <sect2 id="language.variables.objects">
-  <title>Объекты</title>
+  <title>РћР±СЉРµРєС‚С‹</title>
   <para>
-   К свойствам <link linkend="advanced.features.objects">объектов</link>,
-   назначенных из PHP, можно обратиться, указав имя свойства после символов
+   Рљ СЃРІРѕР№СЃС‚РІР°Рј <link linkend="advanced.features.objects">РѕР±СЉРµРєС‚РѕРІ</link>,
+   РЅР°Р·РЅР°С‡РµРЅРЅС‹С… РёР· PHP, РјРѕР¶РЅРѕ РѕР±СЂР°С‚РёС‚СЊСЃСЏ, СѓРєР°Р·Р°РІ РёРјСЏ СЃРІРѕР№СЃС‚РІР° РїРѕСЃР»Рµ СЃРёРјРІРѕР»РѕРІ
    '-&gt;'.
   </para>
   <example>
-   <title>Обращение к свойствам объекта</title>
+   <title>РћР±СЂР°С‰РµРЅРёРµ Рє СЃРІРѕР№СЃС‚РІР°Рј РѕР±СЉРµРєС‚Р°</title>
    <programlisting>
 <![CDATA[
 name: {$person->name}<br />
@@ -163,7 +163,7 @@ email: {$person->email}<br />
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[

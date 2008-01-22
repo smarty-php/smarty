@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
 <sect1 id="variable.left.delimiter">
  <title>$left_delimiter</title>
  <para>
-  Левый разделитель, используемый в языке шаблонов.
-  По умолчанию равно "{".
+  Р›РµРІС‹Р№ СЂР°Р·РґРµР»РёС‚РµР»СЊ, РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ РІ СЏР·С‹РєРµ С€Р°Р±Р»РѕРЅРѕРІ.
+  РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЂР°РІРЅРѕ "{".
  </para>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="variable.right.delimiter">$right_delimiter</link>.
  </para>
 </sect1>

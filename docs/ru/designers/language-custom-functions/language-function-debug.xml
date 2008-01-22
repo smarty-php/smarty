@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.debug">
@@ -12,37 +12,37 @@
    <colspec colname="desc" />
    <thead>
     <row>
-     <entry>Имя атрибута</entry>
-     <entry>Тип</entry>
-     <entry>Обязателен</entry>
-     <entry>По умолчанию</entry>
-     <entry>Описание</entry>
+     <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+     <entry>РўРёРї</entry>
+     <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+     <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+     <entry>РћРїРёСЃР°РЅРёРµ</entry>
     </row>
    </thead>
    <tbody>
     <row>
      <entry>output</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry><emphasis>javascript</emphasis></entry>
-     <entry>Тип вывода (html или javascript)</entry>
+     <entry>РўРёРї РІС‹РІРѕРґР° (html РёР»Рё javascript)</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
  
 	<para>
-		{debug} выводит консоль отладки. Это работает независимо от
-		значения опции <link linkend="chapter.debugging.console">debug</link>.
-		Так как этот тэг обрабатывается в процесе выполнения, то возможно
-		вывести только <link linkend="api.assign">присвоенные</link> переменные,
-		но не используемые шаблоны.
-		Но вы видите все переменные, доступные в области видимости текущего
-		шаблона.
+		{debug} РІС‹РІРѕРґРёС‚ РєРѕРЅСЃРѕР»СЊ РѕС‚Р»Р°РґРєРё. Р­С‚Рѕ СЂР°Р±РѕС‚Р°РµС‚ РЅРµР·Р°РІРёСЃРёРјРѕ РѕС‚
+		Р·РЅР°С‡РµРЅРёСЏ РѕРїС†РёРё <link linkend="chapter.debugging.console">debug</link>.
+		РўР°Рє РєР°Рє СЌС‚РѕС‚ С‚СЌРі РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚СЃСЏ РІ РїСЂРѕС†РµСЃРµ РІС‹РїРѕР»РЅРµРЅРёСЏ, С‚Рѕ РІРѕР·РјРѕР¶РЅРѕ
+		РІС‹РІРµСЃС‚Рё С‚РѕР»СЊРєРѕ <link linkend="api.assign">РїСЂРёСЃРІРѕРµРЅРЅС‹Рµ</link> РїРµСЂРµРјРµРЅРЅС‹Рµ,
+		РЅРѕ РЅРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ С€Р°Р±Р»РѕРЅС‹.
+		РќРѕ РІС‹ РІРёРґРёС‚Рµ РІСЃРµ РїРµСЂРµРјРµРЅРЅС‹Рµ, РґРѕСЃС‚СѓРїРЅС‹Рµ РІ РѕР±Р»Р°СЃС‚Рё РІРёРґРёРјРѕСЃС‚Рё С‚РµРєСѓС‰РµРіРѕ
+		С€Р°Р±Р»РѕРЅР°.
 	</para>
  <para>
-  См. также
-  <link linkend="chapter.debugging.console">Отладочная консоль</link>.
+  РЎРј. С‚Р°РєР¶Рµ
+  <link linkend="chapter.debugging.console">РћС‚Р»Р°РґРѕС‡РЅР°СЏ РєРѕРЅСЃРѕР»СЊ</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

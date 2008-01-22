@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
 <sect1 id="variable.request.use.auto.globals">
  <title>$request_use_auto_globals</title>
  <para>
- 	Определяет должен ли Smarty использовать $HTTP_*_VARS[]
- 	($request_use_auto_globals=false - значением по умолчанию) или
- 	$_*[] ($request_use_auto_globals=true). Это влияет на поведение шаблонов,
- 	которые используют {$smarty.request.*}, {$smarty.get.*} и т.д.
-  Внимание: если вы установите $request_use_auto_globals в true, <link
+ 	РћРїСЂРµРґРµР»СЏРµС‚ РґРѕР»Р¶РµРЅ Р»Рё Smarty РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ $HTTP_*_VARS[]
+ 	($request_use_auto_globals=false - Р·РЅР°С‡РµРЅРёРµРј РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ) РёР»Рё
+ 	$_*[] ($request_use_auto_globals=true). Р­С‚Рѕ РІР»РёСЏРµС‚ РЅР° РїРѕРІРµРґРµРЅРёРµ С€Р°Р±Р»РѕРЅРѕРІ,
+ 	РєРѕС‚РѕСЂС‹Рµ РёСЃРїРѕР»СЊР·СѓСЋС‚ {$smarty.request.*}, {$smarty.get.*} Рё С‚.Рґ.
+  Р’РЅРёРјР°РЅРёРµ: РµСЃР»Рё РІС‹ СѓСЃС‚Р°РЅРѕРІРёС‚Рµ $request_use_auto_globals РІ true, <link
 	 linkend="variable.request.vars.order">variable.request.vars.order
-	 </link> не учитывается, а вместо него используется значение
- 	<literal>gpc_order</literal> из настроек php.
+	 </link> РЅРµ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ, Р° РІРјРµСЃС‚Рѕ РЅРµРіРѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ Р·РЅР°С‡РµРЅРёРµ
+ 	<literal>gpc_order</literal> РёР· РЅР°СЃС‚СЂРѕРµРє php.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

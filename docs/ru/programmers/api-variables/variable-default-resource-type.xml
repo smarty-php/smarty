@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.1 Maintainer: tony2001 Status: ready -->
 <sect1 id="variable.default.resource.type">
  <title>$default_resource_type</title>
  <para>
-	 Это свойство говорит Smarty, какой тип ресурсов использовать по умолчанию.
-	 Значением этого свойства по умолчанию является 'file', так что
-	 $smarty->display('index.tpl'); и $smarty->display('file:index.tpl');
-	 имеют одинаковый смысл. Обратитесь к главе <link
-	 linkend="template.resources">ресурсы</link> для дополнительной информации.
+	 Р­С‚Рѕ СЃРІРѕР№СЃС‚РІРѕ РіРѕРІРѕСЂРёС‚ Smarty, РєР°РєРѕР№ С‚РёРї СЂРµСЃСѓСЂСЃРѕРІ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.
+	 Р—РЅР°С‡РµРЅРёРµРј СЌС‚РѕРіРѕ СЃРІРѕР№СЃС‚РІР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЏРІР»СЏРµС‚СЃСЏ 'file', С‚Р°Рє С‡С‚Рѕ
+	 $smarty->display('index.tpl'); Рё $smarty->display('file:index.tpl');
+	 РёРјРµСЋС‚ РѕРґРёРЅР°РєРѕРІС‹Р№ СЃРјС‹СЃР». РћР±СЂР°С‚РёС‚РµСЃСЊ Рє РіР»Р°РІРµ <link
+	 linkend="template.resources">СЂРµСЃСѓСЂСЃС‹</link> РґР»СЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

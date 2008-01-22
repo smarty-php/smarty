@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
 <sect1 id="language.modifier.count.paragraphs">
 	<title>count_paragraphs</title>
 	<para>
-		Подсчитывает количество абзацев в переменной.
+		РџРѕРґСЃС‡РёС‚С‹РІР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ Р°Р±Р·Р°С†РµРІ РІ РїРµСЂРµРјРµРЅРЅРѕР№.
 	</para>
  <example>
   <title>count_paragraphs</title>
@@ -21,7 +21,7 @@ $smarty->assign('articleTitle',
 ]]>
   </programlisting>
   <para>
-   Шаблон:
+   РЁР°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -30,7 +30,7 @@ $smarty->assign('articleTitle',
 ]]>
   </programlisting>
   <para>
-   Результат обработки:
+   Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
   </para>
   <screen>
 <![CDATA[
@@ -42,10 +42,10 @@ Man is Fatally Slain. Death Causes Loneliness, Feeling of Isolation.
   </screen>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.modifier.count.characters">count_characters</link>,
   <link linkend="language.modifier.count.sentences">count_sentences</link>
-  и
+  Рё
   <link linkend="language.modifier.count.words">count_words</link>.		
  </para>
 </sect1>

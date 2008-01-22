@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.16 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.radios">
  <title>{html_radios}</title>
-<para>{html_radios} является
-  <link linkend="language.custom.functions">пользовательской функцией</link>,
-  которая создает группу радиокнопок в HTML по указанной информации.
-  Также она обеспечивает выбор радиокнопки по умолчанию.
-  Параметры values и output являются обязательными, если не указан атрибут
-  options. Весь вывод идет в формате XHTML.
+<para>{html_radios} СЏРІР»СЏРµС‚СЃСЏ
+  <link linkend="language.custom.functions">РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕР№ С„СѓРЅРєС†РёРµР№</link>,
+  РєРѕС‚РѕСЂР°СЏ СЃРѕР·РґР°РµС‚ РіСЂСѓРїРїСѓ СЂР°РґРёРѕРєРЅРѕРїРѕРє РІ HTML РїРѕ СѓРєР°Р·Р°РЅРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
+  РўР°РєР¶Рµ РѕРЅР° РѕР±РµСЃРїРµС‡РёРІР°РµС‚ РІС‹Р±РѕСЂ СЂР°РґРёРѕРєРЅРѕРїРєРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.
+  РџР°СЂР°РјРµС‚СЂС‹ values Рё output СЏРІР»СЏСЋС‚СЃСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹РјРё, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚
+  options. Р’РµСЃСЊ РІС‹РІРѕРґ РёРґРµС‚ РІ С„РѕСЂРјР°С‚Рµ XHTML.
  </para>
  
  <informaltable frame="all">
@@ -20,75 +20,75 @@
      <colspec colname="desc" />
      <thead>
          <row>
-             <entry>Имя атрибута</entry>
-             <entry>Тип</entry>
-             <entry>Обязателен</entry>
-             <entry>По умолчанию</entry>
-             <entry>Описание</entry>
+             <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+             <entry>РўРёРї</entry>
+             <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+             <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+             <entry>РћРїРёСЃР°РЅРёРµ</entry>
          </row>
      </thead>
      <tbody>
          <row>
              <entry>name</entry>
              <entry>string</entry>
-             <entry>Нет</entry>
+             <entry>РќРµС‚</entry>
              <entry><emphasis>radio</emphasis></entry>
-             <entry>название элементов выбора</entry>
+             <entry>РЅР°Р·РІР°РЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ РІС‹Р±РѕСЂР°</entry>
          </row>
          <row>
              <entry>values</entry>
-             <entry>массив</entry>
-             <entry>Да, если не указан атрибут options</entry>
+             <entry>РјР°СЃСЃРёРІ</entry>
+             <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚ options</entry>
              <entry><emphasis>n/a</emphasis></entry>
-             <entry>массив значений элементов выбора</entry>
+             <entry>РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ СЌР»РµРјРµРЅС‚РѕРІ РІС‹Р±РѕСЂР°</entry>
          </row>
          <row>
              <entry>output</entry>
-             <entry>массив</entry>
-             <entry>Да, если не указан атрибут options</entry>
+             <entry>РјР°СЃСЃРёРІ</entry>
+             <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅ Р°С‚СЂРёР±СѓС‚ options</entry>
              <entry><emphasis>n/a</emphasis></entry>
-             <entry>массив названий элементов выбора</entry>
+             <entry>РјР°СЃСЃРёРІ РЅР°Р·РІР°РЅРёР№ СЌР»РµРјРµРЅС‚РѕРІ РІС‹Р±РѕСЂР°</entry>
          </row>
          <row>
              <entry>checked</entry>
              <entry>string</entry>
-             <entry>Нет</entry>
-             <entry><emphasis>пусто</emphasis></entry>
-             <entry>Значение выбранного элемента</entry>
+             <entry>РќРµС‚</entry>
+             <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+             <entry>Р—РЅР°С‡РµРЅРёРµ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°</entry>
          </row>
          <row>
              <entry>options</entry>
-             <entry>ассоциативный массив</entry>
-             <entry>Да, если не указаны атрибуты values и output</entry>
+             <entry>Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ</entry>
+             <entry>Р”Р°, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅС‹ Р°С‚СЂРёР±СѓС‚С‹ values Рё output</entry>
              <entry><emphasis>n/a</emphasis></entry>
-             <entry>ассоциативный массив значений и названий
-             элементов выбора</entry>
+             <entry>Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ Рё РЅР°Р·РІР°РЅРёР№
+             СЌР»РµРјРµРЅС‚РѕРІ РІС‹Р±РѕСЂР°</entry>
          </row>
          <row>
              <entry>separator</entry>
              <entry>string</entry>
-             <entry>Нет</entry>
-             <entry><emphasis>пусто</emphasis></entry>
-             <entry>текст, разделяющий элементы выбора</entry>
+             <entry>РќРµС‚</entry>
+             <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+             <entry>С‚РµРєСЃС‚, СЂР°Р·РґРµР»СЏСЋС‰РёР№ СЌР»РµРјРµРЅС‚С‹ РІС‹Р±РѕСЂР°</entry>
          </row>
     <row>
      <entry>assign</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
-     <entry><emphasis>пусто</emphasis></entry>
-     <entry>сохраняет тэги radio в массив, вместо вывода в шаблон</entry>
+     <entry>РќРµС‚</entry>
+     <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+     <entry>СЃРѕС…СЂР°РЅСЏРµС‚ С‚СЌРіРё radio РІ РјР°СЃСЃРёРІ, РІРјРµСЃС‚Рѕ РІС‹РІРѕРґР° РІ С€Р°Р±Р»РѕРЅ</entry>
     </row>
      </tbody>
      </tgroup>
  </informaltable>
 
  <para>
-  Все параметры, которые не указаны в списке, выводятся в виде
-  пар name/value в каждом созданном тэге &lt;input&gt;.
+  Р’СЃРµ РїР°СЂР°РјРµС‚СЂС‹, РєРѕС‚РѕСЂС‹Рµ РЅРµ СѓРєР°Р·Р°РЅС‹ РІ СЃРїРёСЃРєРµ, РІС‹РІРѕРґСЏС‚СЃСЏ РІ РІРёРґРµ
+  РїР°СЂ name/value РІ РєР°Р¶РґРѕРј СЃРѕР·РґР°РЅРЅРѕРј С‚СЌРіРµ &lt;input&gt;.
  </para>
 
  <example>
-  <title>{html_radios} - пример №1</title>
+  <title>{html_radios} - РїСЂРёРјРµСЂ в„–1</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -106,7 +106,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Шаблон:
+   РЁР°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -116,7 +116,7 @@ $smarty->assign('customer_id', 1001);
   </programlisting>
  </example>
  <example>
-  <title>{html_radios} - пример №2</title>
+  <title>{html_radios} - РїСЂРёРјРµСЂ в„–2</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -132,7 +132,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Шаблон:
+   РЁР°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -140,7 +140,7 @@ $smarty->assign('customer_id', 1001);
 ]]>
   </programlisting>
   <para>
-   Оба примера выведут следующее:
+   РћР±Р° РїСЂРёРјРµСЂР° РІС‹РІРµРґСѓС‚ СЃР»РµРґСѓСЋС‰РµРµ:
   </para>
   <screen>
 <![CDATA[
@@ -153,7 +153,7 @@ $smarty->assign('customer_id', 1001);
   </screen>
  </example>
  <example>
-  <title>{html_radios} - пример с базой данных (к примеру, PEAR или ADODB):</title>
+  <title>{html_radios} - РїСЂРёРјРµСЂ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С… (Рє РїСЂРёРјРµСЂСѓ, PEAR РёР»Рё ADODB):</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -169,7 +169,7 @@ $smarty->assign('contact',$db->getRow($sql));
 ]]>
   </programlisting>
   <para>
-   Шаблон:
+   РЁР°Р±Р»РѕРЅ:
   </para>
   <programlisting>
 <![CDATA[
@@ -179,9 +179,9 @@ $smarty->assign('contact',$db->getRow($sql));
   </programlisting>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.function.html.checkboxes">{html_checkboxes}</link>
-  и
+  Рё
   <link linkend="language.function.html.options">{html_options}</link>
  </para>
 </sect1>

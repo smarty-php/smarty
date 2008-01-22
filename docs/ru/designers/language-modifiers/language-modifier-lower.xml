@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.lower">
   <title>lower</title>
   <para>
-   Переводит строку в нижний регистр. Является эквивалентом функции PHP
+   РџРµСЂРµРІРѕРґРёС‚ СЃС‚СЂРѕРєСѓ РІ РЅРёР¶РЅРёР№ СЂРµРіРёСЃС‚СЂ. РЇРІР»СЏРµС‚СЃСЏ СЌРєРІРёРІР°Р»РµРЅС‚РѕРј С„СѓРЅРєС†РёРё PHP
    <ulink url="&url.php-manual;strtolower">strtolower()</ulink>.
   </para>
   <example>
@@ -19,7 +19,7 @@ $smarty->assign('articleTitle', 'Two Convicts Evade Noose, Jury Hung.');
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting> 
 <![CDATA[
@@ -28,7 +28,7 @@ $smarty->assign('articleTitle', 'Two Convicts Evade Noose, Jury Hung.');
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -38,9 +38,9 @@ two convicts evade noose, jury hung.
    </screen>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.modifier.upper">upper</link>
-   и
+   Рё
    <link linkend="language.modifier.capitalize">capitalize</link>.
   </para>
  </sect1>

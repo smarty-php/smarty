@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <chapter id="advanced.features">
- <title>Расширенные возможности</title>
+ <title>Р Р°СЃС€РёСЂРµРЅРЅС‹Рµ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё</title>
  &programmers.advanced-features.advanced-features-objects;
  &programmers.advanced-features.advanced-features-prefilters;
  &programmers.advanced-features.advanced-features-postfilters;

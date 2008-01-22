@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <refentry id="api.unregister.prefilter">
@@ -13,7 +13,7 @@
    <methodparam><type>string</type><parameter>function_name</parameter></methodparam>
   </methodsynopsis>
   <para>
-  Используйте для динамической дерегистрации префильтра.
+  РСЃРїРѕР»СЊР·СѓР№С‚Рµ РґР»СЏ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РґРµСЂРµРіРёСЃС‚СЂР°С†РёРё РїСЂРµС„РёР»СЊС‚СЂР°.
   </para>
  </refsect1>
 </refentry>

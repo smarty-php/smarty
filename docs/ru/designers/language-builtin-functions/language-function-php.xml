@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.php">
  <title>{php}</title>
  <para>
-  Тэг {php} позволяет вставлять PHP-код прямо в шаблон. Он не
-  будет как-либо изменен, независимо от <link
-  linkend="variable.php.handling">$php_handling</link> настроек.
-  Этот тэг только для продвинутых пользователей, так как обычно
-  не требуется и не рекоммендуется.
+  РўСЌРі {php} РїРѕР·РІРѕР»СЏРµС‚ РІСЃС‚Р°РІР»СЏС‚СЊ PHP-РєРѕРґ РїСЂСЏРјРѕ РІ С€Р°Р±Р»РѕРЅ. РћРЅ РЅРµ
+  Р±СѓРґРµС‚ РєР°Рє-Р»РёР±Рѕ РёР·РјРµРЅРµРЅ, РЅРµР·Р°РІРёСЃРёРјРѕ РѕС‚ <link
+  linkend="variable.php.handling">$php_handling</link> РЅР°СЃС‚СЂРѕРµРє.
+  Р­С‚РѕС‚ С‚СЌРі С‚РѕР»СЊРєРѕ РґР»СЏ РїСЂРѕРґРІРёРЅСѓС‚С‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№, С‚Р°Рє РєР°Рє РѕР±С‹С‡РЅРѕ
+  РЅРµ С‚СЂРµР±СѓРµС‚СЃСЏ Рё РЅРµ СЂРµРєРѕРјРјРµРЅРґСѓРµС‚СЃСЏ.
  </para>
  <example>
- <title>тэги {php}</title>
+ <title>С‚СЌРіРё {php}</title>
  <programlisting>
 <![CDATA[
 {php}
-    // подключение php скрипта прямо
-		  // из шаблона
+    // РїРѕРґРєР»СЋС‡РµРЅРёРµ php СЃРєСЂРёРїС‚Р° РїСЂСЏРјРѕ
+		  // РёР· С€Р°Р±Р»РѕРЅР°
 		  include('/path/to/display_weather.php');
 {/php}
 ]]>
@@ -24,16 +24,16 @@
  </example>
  
  <note>
-  <title>Техническое замечание</title>
+  <title>РўРµС…РЅРёС‡РµСЃРєРѕРµ Р·Р°РјРµС‡Р°РЅРёРµ</title>
   <para>
-   Для доступа к переменным PHP внутри блоков {php}, вам может понадобится
-   использовать ключевое слово PHP
+   Р”Р»СЏ РґРѕСЃС‚СѓРїР° Рє РїРµСЂРµРјРµРЅРЅС‹Рј PHP РІРЅСѓС‚СЂРё Р±Р»РѕРєРѕРІ {php}, РІР°Рј РјРѕР¶РµС‚ РїРѕРЅР°РґРѕР±РёС‚СЃСЏ
+   РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєР»СЋС‡РµРІРѕРµ СЃР»РѕРІРѕ PHP
    <ulink url="&url.php-manual;global">global</ulink>
   </para>
  </note>
 
  <example>
-  <title>Тэги {php} с глобальными переменными и назначение переменных</title>
+  <title>РўСЌРіРё {php} СЃ РіР»РѕР±Р°Р»СЊРЅС‹РјРё РїРµСЂРµРјРµРЅРЅС‹РјРё Рё РЅР°Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅС‹С…</title>
   <programlisting role="php">
 <![CDATA[
 {php}
@@ -48,8 +48,8 @@
 ]]>
   </programlisting>
   <para>
-   Следующее действие действительно НЕ рекоммендуется,
-   так как оно происходит в области видимости шаблона
+   РЎР»РµРґСѓСЋС‰РµРµ РґРµР№СЃС‚РІРёРµ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ РќР• СЂРµРєРѕРјРјРµРЅРґСѓРµС‚СЃСЏ,
+   С‚Р°Рє РєР°Рє РѕРЅРѕ РїСЂРѕРёСЃС…РѕРґРёС‚ РІ РѕР±Р»Р°СЃС‚Рё РІРёРґРёРјРѕСЃС‚Рё С€Р°Р±Р»РѕРЅР°
  </para>
 <programlisting> 
 <![CDATA[
@@ -61,13 +61,13 @@ print_r($some_array);
 </example>
 
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="variable.php.handling">$php_handling</link>,
   <link linkend="language.function.include.php">{include_php}</link>,
   <link linkend="language.function.include">{include}</link>,
   <link linkend="language.function.insert">{insert}</link>
-  и
-  <link linkend="tips.componentized.templates">Компонентные шаблоны</link>.
+  Рё
+  <link linkend="tips.componentized.templates">РљРѕРјРїРѕРЅРµРЅС‚РЅС‹Рµ С€Р°Р±Р»РѕРЅС‹</link>.
  </para>
  
 </sect1>

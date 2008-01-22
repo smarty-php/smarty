@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <chapter id="api.variables">
- <title>Переменные класса Smarty</title>
+ <title>РџРµСЂРµРјРµРЅРЅС‹Рµ РєР»Р°СЃСЃР° Smarty</title>
  &programmers.api-variables.variable-template-dir;
  &programmers.api-variables.variable-compile-dir;
  &programmers.api-variables.variable-config-dir;

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.assign">
  <title>{assign}</title>
  <para>
-  {assign} используется для установки значения переменной
-  <emphasis role="bold">в процессе выполнения шаблона</emphasis>.
+  {assign} РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРµРјРµРЅРЅРѕР№
+  <emphasis role="bold">РІ РїСЂРѕС†РµСЃСЃРµ РІС‹РїРѕР»РЅРµРЅРёСЏ С€Р°Р±Р»РѕРЅР°</emphasis>.
  </para>
  
  <informaltable frame="all">
@@ -17,28 +17,28 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
+    <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+    <entry>РўРёРї</entry>
+    <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+    <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+    <entry>РћРїРёСЃР°РЅРёРµ</entry>
    </row>
   </thead>
   <tbody>
    <row>
     <entry>var</entry>
     <entry>string</entry>
-    <entry>Да</entry>
+    <entry>Р”Р°</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя переменной, значение которой будет
-    устанавливаться</entry>
+    <entry>РРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№, Р·РЅР°С‡РµРЅРёРµ РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚
+    СѓСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊСЃСЏ</entry>
    </row>
    <row>
     <entry>value</entry>
     <entry>string</entry>
-    <entry>Да</entry>
+    <entry>Р”Р°</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Устанавливаемое значение</entry>
+    <entry>РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ</entry>
    </row>
   </tbody>
   </tgroup>
@@ -50,22 +50,22 @@
 <![CDATA[
 {assign var="name" value="Bob"}
 
-Значение $name - {$name}.
+Р—РЅР°С‡РµРЅРёРµ $name - {$name}.
 ]]>
   </programlisting>
   <para>
-   Результат выполнения данного примера:
+   Р РµР·СѓР»СЊС‚Р°С‚ РІС‹РїРѕР»РЅРµРЅРёСЏ РґР°РЅРЅРѕРіРѕ РїСЂРёРјРµСЂР°:
   </para>
   <screen>
 <![CDATA[
-Значение $name - Bob.
+Р—РЅР°С‡РµРЅРёРµ $name - Bob.
 ]]>
   </screen>
  </example>
  
  <example>
-  <title>{assign} и арифметика</title>
-  <para>В этом сложном примере переменные должны заключаться в обратные кавычки</para>
+  <title>{assign} Рё Р°СЂРёС„РјРµС‚РёРєР°</title>
+  <para>Р’ СЌС‚РѕРј СЃР»РѕР¶РЅРѕРј РїСЂРёРјРµСЂРµ РїРµСЂРµРјРµРЅРЅС‹Рµ РґРѕР»Р¶РЅС‹ Р·Р°РєР»СЋС‡Р°С‚СЊСЃСЏ РІ РѕР±СЂР°С‚РЅС‹Рµ РєР°РІС‹С‡РєРё</para>
   <programlisting>
 <![CDATA[
 {assign var=running_total value=`$running_total+$some_array[loop].some_value`}
@@ -74,12 +74,12 @@
  </example>
  
  <example>
-  <title>Доступ к переменным {assign} из PHP-скрипта.</title>
+  <title>Р”РѕСЃС‚СѓРї Рє РїРµСЂРµРјРµРЅРЅС‹Рј {assign} РёР· PHP-СЃРєСЂРёРїС‚Р°.</title>
   <para>
-   Чтобы получить доступ к переменным {assign} из PHP-скрипта, используйте функцию
+   Р§С‚РѕР±С‹ РїРѕР»СѓС‡РёС‚СЊ РґРѕСЃС‚СѓРї Рє РїРµСЂРµРјРµРЅРЅС‹Рј {assign} РёР· PHP-СЃРєСЂРёРїС‚Р°, РёСЃРїРѕР»СЊР·СѓР№С‚Рµ С„СѓРЅРєС†РёСЋ
    <link linkend="api.get.template.vars">get_template_vars()</link>.
-   Обратите внимание, что переменные доступны только во время и после
-   выполнения шаблона, как видно из следующего примера:
+   РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, С‡С‚Рѕ РїРµСЂРµРјРµРЅРЅС‹Рµ РґРѕСЃС‚СѓРїРЅС‹ С‚РѕР»СЊРєРѕ РІРѕ РІСЂРµРјСЏ Рё РїРѕСЃР»Рµ
+   РІС‹РїРѕР»РЅРµРЅРёСЏ С€Р°Р±Р»РѕРЅР°, РєР°Рє РІРёРґРЅРѕ РёР· СЃР»РµРґСѓСЋС‰РµРіРѕ РїСЂРёРјРµСЂР°:
   </para>
   <programlisting>
 <![CDATA[
@@ -91,18 +91,18 @@
 <![CDATA[
 <?php
 
-// это не выведет ничего, ведь шаблон ещё не был выполнен
+// СЌС‚Рѕ РЅРµ РІС‹РІРµРґРµС‚ РЅРёС‡РµРіРѕ, РІРµРґСЊ С€Р°Р±Р»РѕРЅ РµС‰С‘ РЅРµ Р±С‹Р» РІС‹РїРѕР»РЅРµРЅ
 echo $smarty->get_template_vars('foo');
 
-// получаем шаблон в переменную-пустышку
+// РїРѕР»СѓС‡Р°РµРј С€Р°Р±Р»РѕРЅ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ-РїСѓСЃС‚С‹С€РєСѓ
 $dead = $smarty->fetch('index.tpl');
 
-// это выведет 'smarty', так как шаблон уже выполнен
+// СЌС‚Рѕ РІС‹РІРµРґРµС‚ 'smarty', С‚Р°Рє РєР°Рє С€Р°Р±Р»РѕРЅ СѓР¶Рµ РІС‹РїРѕР»РЅРµРЅ
 echo $smarty->get_template_vars('foo');
 
 $smarty->assign('foo','Even smarter');
 
-// это выведет 'Even smarter'
+// СЌС‚Рѕ РІС‹РІРµРґРµС‚ 'Even smarter'
 echo $smarty->get_template_vars('foo');
 
 ?>
@@ -111,8 +111,8 @@ echo $smarty->get_template_vars('foo');
  </example>
 
  <para>
-  Следующие функции также могут <emphasis>опционально</emphasis>
-  назначать переменные шаблона.
+  РЎР»РµРґСѓСЋС‰РёРµ С„СѓРЅРєС†РёРё С‚Р°РєР¶Рµ РјРѕРіСѓС‚ <emphasis>РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ</emphasis>
+  РЅР°Р·РЅР°С‡Р°С‚СЊ РїРµСЂРµРјРµРЅРЅС‹Рµ С€Р°Р±Р»РѕРЅР°.
  </para>
 
  <para>
@@ -129,9 +129,9 @@ echo $smarty->get_template_vars('foo');
  </para>
 
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="api.assign">assign()</link>
-  и
+  Рё
   <link linkend="api.get.template.vars">get_template_vars()</link>.
  </para>
 </sect1>

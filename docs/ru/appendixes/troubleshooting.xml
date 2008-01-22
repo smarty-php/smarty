@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <chapter id="troubleshooting">
- <title>Решение проблем</title>
+ <title>Р РµС€РµРЅРёРµ РїСЂРѕР±Р»РµРј</title>
  <para></para>
  <sect1 id="smarty.php.errors">
-  <title>Ошибки Smarty/PHP</title>
+  <title>РћС€РёР±РєРё Smarty/PHP</title>
   <para>
-   Smarty может ловить многие ошибки, например отсутствующие атрибуты
-   тэгов или недопустимые имена переменных. Если это произойдет, вы увидите
-   ошибку наподобие следующей:
+   Smarty РјРѕР¶РµС‚ Р»РѕРІРёС‚СЊ РјРЅРѕРіРёРµ РѕС€РёР±РєРё, РЅР°РїСЂРёРјРµСЂ РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёРµ Р°С‚СЂРёР±СѓС‚С‹
+   С‚СЌРіРѕРІ РёР»Рё РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ РёРјРµРЅР° РїРµСЂРµРјРµРЅРЅС‹С…. Р•СЃР»Рё СЌС‚Рѕ РїСЂРѕРёР·РѕР№РґРµС‚, РІС‹ СѓРІРёРґРёС‚Рµ
+   РѕС€РёР±РєСѓ РЅР°РїРѕРґРѕР±РёРµ СЃР»РµРґСѓСЋС‰РµР№:
   </para>
   <example>
-   <title>Ошибка Smarty</title>
+   <title>РћС€РёР±РєР° Smarty</title>
    <screen>
 <![CDATA[
 Warning: Smarty: [in index.tpl line 4]: syntax error: unknown tag - '%blah'
@@ -24,19 +24,19 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
    </screen>
   </example>
   <para>
-   Smarty покажет вам имя шаблона, номер строки и ошибку.
-   Далее сообщение об ошибке состоит из фактического номера строки в классе
-   Smarty, где возникла ошибка.
+   Smarty РїРѕРєР°Р¶РµС‚ РІР°Рј РёРјСЏ С€Р°Р±Р»РѕРЅР°, РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё Рё РѕС€РёР±РєСѓ.
+   Р”Р°Р»РµРµ СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ СЃРѕСЃС‚РѕРёС‚ РёР· С„Р°РєС‚РёС‡РµСЃРєРѕРіРѕ РЅРѕРјРµСЂР° СЃС‚СЂРѕРєРё РІ РєР»Р°СЃСЃРµ
+   Smarty, РіРґРµ РІРѕР·РЅРёРєР»Р° РѕС€РёР±РєР°.
   </para>
 
   <para>
-   Есть определенные ошибки, которые не может поймать Smarty, например
-   отсутствующие закрывающие тэги. Такие ошибки обычно приводят к ошибкам
-   разбора PHP на этапе компиляции.
+   Р•СЃС‚СЊ РѕРїСЂРµРґРµР»РµРЅРЅС‹Рµ РѕС€РёР±РєРё, РєРѕС‚РѕСЂС‹Рµ РЅРµ РјРѕР¶РµС‚ РїРѕР№РјР°С‚СЊ Smarty, РЅР°РїСЂРёРјРµСЂ
+   РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёРµ Р·Р°РєСЂС‹РІР°СЋС‰РёРµ С‚СЌРіРё. РўР°РєРёРµ РѕС€РёР±РєРё РѕР±С‹С‡РЅРѕ РїСЂРёРІРѕРґСЏС‚ Рє РѕС€РёР±РєР°Рј
+   СЂР°Р·Р±РѕСЂР° PHP РЅР° СЌС‚Р°РїРµ РєРѕРјРїРёР»СЏС†РёРё.
   </para>
 
   <example>
-   <title>Ошибки разбора PHP</title>
+   <title>РћС€РёР±РєРё СЂР°Р·Р±РѕСЂР° PHP</title>
    <screen>
 <![CDATA[
 Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
@@ -45,126 +45,150 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
   </example>
 
   <para>
-   Когда вы встречаетесь с ошибкой разбора PHP, номер строки, в которой
-   допущена ошибка, будет соответствовать скомпилированному PHP-скрипту,
-   а не самому шаблону. Обычно вы можете посмотреть на шаблон и увидить
-   синтаксическую ошибку. Типичные ошибки: отсутствующие закрывающие тэги
-   для
-   <link linkend="language.function.if">{if}{/if}</link> или
-   <link linkend="language.function.if">{section}{/section}</link>,
-   или синтаксис логики внутри тэга {if}.
-   Если вы не можете найти ошибку, вам может понадобиться открыть
-   скомпилированный PHP-файл и перейти к номеру строки чтобы выяснить,
-   в чём заключается ошибка в шаблоне.
+   РљРѕРіРґР° РІС‹ РІСЃС‚СЂРµС‡Р°РµС‚РµСЃСЊ СЃ РѕС€РёР±РєРѕР№ СЂР°Р·Р±РѕСЂР° PHP, РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё, РІ РєРѕС‚РѕСЂРѕР№
+   РґРѕРїСѓС‰РµРЅР° РѕС€РёР±РєР°, Р±СѓРґРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ СЃРєРѕРјРїРёР»РёСЂРѕРІР°РЅРЅРѕРјСѓ PHP-СЃРєСЂРёРїС‚Сѓ,
+   Р° РќР• СЃР°РјРѕРјСѓ С€Р°Р±Р»РѕРЅСѓ. РћР±С‹С‡РЅРѕ РІС‹ РјРѕР¶РµС‚Рµ РїРѕСЃРјРѕС‚СЂРµС‚СЊ РЅР° С€Р°Р±Р»РѕРЅ Рё СѓРІРёРґРёС‚СЊ
+   СЃРёРЅС‚Р°РєСЃРёС‡РµСЃРєСѓСЋ РѕС€РёР±РєСѓ. РўРёРїРёС‡РЅС‹Рµ РѕС€РёР±РєРё: РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‰РёРµ Р·Р°РєСЂС‹РІР°СЋС‰РёРµ С‚СЌРіРё
+   РґР»СЏ
+   <link linkend="language.function.if"><varname>{if}{/if}</varname></link> РёР»Рё
+   <link linkend="language.function.if">
+   <varname>{section}{/section}</varname></link>,
+   РёР»Рё СЃРёРЅС‚Р°РєСЃРёСЃ Р»РѕРіРёРєРё РІРЅСѓС‚СЂРё С‚СЌРіР° <varname>{if}</varname>.
+   Р•СЃР»Рё РІС‹ РЅРµ РјРѕР¶РµС‚Рµ РЅР°Р№С‚Рё РѕС€РёР±РєСѓ, РІР°Рј РјРѕР¶РµС‚ РїРѕРЅР°РґРѕР±РёС‚СЊСЃСЏ РѕС‚РєСЂС‹С‚СЊ
+   СЃРєРѕРјРїРёР»РёСЂРѕРІР°РЅРЅС‹Р№ PHP-С„Р°Р№Р» Рё РїРµСЂРµР№С‚Рё Рє РЅРѕРјРµСЂСѓ СЃС‚СЂРѕРєРё С‡С‚РѕР±С‹ РІС‹СЏСЃРЅРёС‚СЊ,
+   РІ С‡С‘Рј Р·Р°РєР»СЋС‡Р°РµС‚СЃСЏ РѕС€РёР±РєР° РІ С€Р°Р±Р»РѕРЅРµ.
   </para>
 
   <example>
-   <title>Other common errors</title>
-
-   <itemizedlist>
-    <listitem>
-     <screen>
+   <title>Р”СЂСѓРіРёРµ С‡Р°СЃС‚С‹Рµ РѕС€РёР±РєРё</title>
+   <screen>
 <![CDATA[
 Warning: Smarty error: unable to read resource: "index.tpl" in...
 or
 Warning: Smarty error: unable to read resource: "site.conf" in...
 ]]>
-     </screen>
-     <para>
-      <itemizedlist>
-       <listitem>
-        <para>
-         Значение <link
-         linkend="variable.template.dir">$template_dir</link>
-         неверно, эта директория не существует или файл
-         <filename>index.tpl</filename> находится за пределами директории
-         <filename class="directory">templates/</filename>
-        </para>
-       </listitem>
-       <listitem>
-        <para>
-         В шаблоне присутствует функция <link
-         linkend="language.function.config.load">{config_load}</link>
-         (либо была вызвана функция
-         <link linkend="api.config.load">config_load()</link>)
-         и значение
-         <link linkend="variable.config.dir">$config_dir</link>
-         неверно, эта директория не существует или файл
-         <filename>site.conf</filename> находится за пределами этой
-         директории.
-        </para>
-       </listitem>
-      </itemizedlist>
-     </para>
-    </listitem>
-    <listitem>
-     <screen>
+   </screen>
+   <para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       Р—РЅР°С‡РµРЅРёРµ <link
+       linkend="variable.template.dir">
+       <parameter>$template_dir</parameter></link>
+       РЅРµРІРµСЂРЅРѕ, СЌС‚Р° РґРёСЂРµРєС‚РѕСЂРёСЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РёР»Рё С„Р°Р№Р»
+       <filename>index.tpl</filename> РЅРµ РЅР°Р№РґРµРЅ РІ РґРёСЂРµРєС‚РѕСЂРёРё
+       <filename class="directory">templates/</filename>.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Р’ С€Р°Р±Р»РѕРЅРµ РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ С„СѓРЅРєС†РёСЏ <link
+       linkend="language.function.config.load">
+       <varname>{config_load}</varname></link>
+       (Р»РёР±Рѕ Р±С‹Р»Р° РІС‹Р·РІР°РЅР° С„СѓРЅРєС†РёСЏ
+       <link linkend="api.config.load">
+       <varname>config_load()</varname></link>)
+       Рё Р·РЅР°С‡РµРЅРёРµ
+       <link linkend="variable.config.dir">
+       <parameter>$config_dir</parameter></link>
+       РЅРµРІРµСЂРЅРѕ, СЌС‚Р° РґРёСЂРµРєС‚РѕСЂРёСЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РёР»Рё С„Р°Р№Р»
+       <filename>site.conf</filename> РЅР°С…РѕРґРёС‚СЃСЏ Р·Р° РїСЂРµРґРµР»Р°РјРё СЌС‚РѕР№
+       РґРёСЂРµРєС‚РѕСЂРёРё.
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+   
+   <screen>
 <![CDATA[
 Fatal error: Smarty error: the $compile_dir 'templates_c' does not exist,
 or is not a directory...
 ]]>
-     </screen>
+   </screen>
+   
+   <itemizedlist>
+    <listitem>
      <para>
-      Переменная
-      <link linkend="variable.compile.dir">$compile_dir</link>
-      установлена неверно, эта директория не существует
-      или <filename>templates_c</filename> является файлом, а не
-      директорией.
+      РџРµСЂРµРјРµРЅРЅР°СЏ
+      <link linkend="variable.compile.dir">
+      <parameter>$compile_dir</parameter></link>
+      СѓСЃС‚Р°РЅРѕРІР»РµРЅР° РЅРµРІРµСЂРЅРѕ, СЌС‚Р° РґРёСЂРµРєС‚РѕСЂРёСЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
+      РёР»Рё <filename>templates_c</filename> СЏРІР»СЏРµС‚СЃСЏ С„Р°Р№Р»РѕРј, Р° РЅРµ
+      РґРёСЂРµРєС‚РѕСЂРёРµР№.
      </para>
     </listitem>
-    <listitem>
-     <screen>
+   </itemizedlist>
+  
+   <screen>
 <![CDATA[
 Fatal error: Smarty error: unable to write to $compile_dir '....
 ]]>
-     </screen>
+   </screen>
+  
+   <itemizedlist>
+    <listitem>
      <para>
-      У веб сервера нет прав на запись в директорию
-      <link linkend="variable.compile.dir">$compile_dir</link>.
-      Смотрите конец страницы
-      <link linkend="installing.smarty.basic">Базовая установка</link>
-      для получения информации о правах доступа.
+      РЈ РІРµР± СЃРµСЂРІРµСЂР° РЅРµС‚ РїСЂР°РІ РЅР° Р·Р°РїРёСЃСЊ РІ РґРёСЂРµРєС‚РѕСЂРёСЋ
+      <link linkend="variable.compile.dir">
+      <parameter>$compile_dir</parameter></link>.
+      РЎРјРѕС‚СЂРёС‚Рµ РєРѕРЅРµС† СЃС‚СЂР°РЅРёС†С‹
+      <link linkend="installing.smarty.basic">Р‘Р°Р·РѕРІР°СЏ СѓСЃС‚Р°РЅРѕРІРєР°</link>
+      РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂР°РІР°С… РґРѕСЃС‚СѓРїР°.
      </para>
     </listitem>
-    <listitem>
-     <screen>
+   </itemizedlist>
+  
+   <screen>
 <![CDATA[
 Fatal error: Smarty error: the $cache_dir 'cache' does not exist,
 or is not a directory. in /..
 ]]>
-     </screen>
+   </screen>
+  
+   <itemizedlist>
+    <listitem>
      <para>
-      Это означает, что
-      <link linkend="variable.caching">$caching</link> включено и
-      <link linkend="variable.cache.dir">$cache_dir</link>
-      установлена неправильно, директория не существует
-      или <filename>cache</filename> является файлом, а не
-      директорией.
+      Р­С‚Рѕ РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ РїР°СЂР°РјРµС‚СЂ
+      <link linkend="variable.caching">
+      <parameter>$caching</parameter></link> РІРєР»СЋС‡РµРЅ, РЅРѕ РїР°СЂР°РјРµС‚СЂ
+      <link linkend="variable.cache.dir">
+      <parameter>$cache_dir</parameter></link>
+      СѓСЃС‚Р°РЅРѕРІР»РµРЅ РЅРµРїСЂР°РІРёР»СЊРЅРѕ, СЌС‚Р° РґРёСЂРµРєС‚РѕСЂРёСЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
+      РёР»Рё <filename>cache/</filename> СЏРІР»СЏРµС‚СЃСЏ С„Р°Р№Р»РѕРј, Р° РЅРµ
+      РґРёСЂРµРєС‚РѕСЂРёРµР№.
      </para>
     </listitem>
-    <listitem>
-     <screen>
+   </itemizedlist>
+  
+   <screen>
 <![CDATA[
 Fatal error: Smarty error: unable to write to $cache_dir '/...
 ]]>
-     </screen>
+   </screen>
+  
+   <itemizedlist>
+    <listitem>
      <para>
-      Это означает, что
-      <link linkend="variable.caching">$caching</link> включено и
-      у веб сервера нет прав на запись в директорию
-      <link linkend="variable.cache.dir">$cache_dir</link>.
-      Смотрите конец страницы
-      <link linkend="installing.smarty.basic">Базовая установка</link>
-      для получения информации о правах доступа.
+      Р­С‚Рѕ РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ РїР°СЂР°РјРµС‚СЂ 
+      <link linkend="variable.caching">
+      <parameter>$caching</parameter></link> РІРєР»СЋС‡РµРЅ, РЅРѕ
+      Сѓ РІРµР± СЃРµСЂРІРµСЂР° РЅРµС‚ РїСЂР°РІ РЅР° Р·Р°РїРёСЃСЊ РІ РґРёСЂРµРєС‚РѕСЂРёСЋ
+      <link linkend="variable.cache.dir">
+      <parameter>$cache_dir</parameter></link>.
+      РЎРјРѕС‚СЂРёС‚Рµ РєРѕРЅРµС† СЃС‚СЂР°РЅРёС†С‹
+      <link linkend="installing.smarty.basic">Р‘Р°Р·РѕРІР°СЏ СѓСЃС‚Р°РЅРѕРІРєР°</link>
+      РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂР°РІР°С… РґРѕСЃС‚СѓРїР°.
      </para>
     </listitem>
    </itemizedlist>
   </example>
+  
   <para>
-   См. также
-   <link linkend="chapter.debugging.console">debugging</link>,
-   <link linkend="variable.error.reporting">$error_reporting</link> и
-   <link linkend="api.trigger.error">trigger_error()</link>.
+   РЎРј. С‚Р°РєР¶Рµ
+   <link linkend="chapter.debugging.console">РћС‚Р»Р°РґРѕС‡РЅР°СЏ РєРѕРЅСЃРѕР»СЊ</link>,
+   <link linkend="variable.error.reporting">
+   <parameter>$error_reporting</parameter></link> Рё
+   <link linkend="api.trigger.error"><varname>trigger_error()</varname></link>.
   </para>
  </sect1>
 </chapter>

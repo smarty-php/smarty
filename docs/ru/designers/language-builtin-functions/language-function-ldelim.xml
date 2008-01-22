@@ -1,35 +1,35 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.11 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.ldelim">
  <title>{ldelim},{rdelim}</title>
  <para>
-  {ldelim} и {rdelim} используются для
-  <link linkend="language.escaping">предотвращения обработки</link> разделителей,
-  по-умолчанию "{" и "}". Вы также можете использовать блок
-  <link linkend="language.function.literal">{literal}{/literal}</link> для
-  предотвращения обработки блоков текста, например кода Javascript или CSS.
-  См. также
+  {ldelim} Рё {rdelim} РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РґР»СЏ
+  <link linkend="language.escaping">РїСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёСЏ РѕР±СЂР°Р±РѕС‚РєРё</link> СЂР°Р·РґРµР»РёС‚РµР»РµР№,
+  РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ "{" Рё "}". Р’С‹ С‚Р°РєР¶Рµ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р±Р»РѕРє
+  <link linkend="language.function.literal">{literal}{/literal}</link> РґР»СЏ
+  РїСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёСЏ РѕР±СЂР°Р±РѕС‚РєРё Р±Р»РѕРєРѕРІ С‚РµРєСЃС‚Р°, РЅР°РїСЂРёРјРµСЂ РєРѕРґР° Javascript РёР»Рё CSS.
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
  </para>
  <example>
   <title>{ldelim}, {rdelim}</title>
   <programlisting>
 <![CDATA[
-{* будут выведены разделители в шаблоне *}
+{* Р±СѓРґСѓС‚ РІС‹РІРµРґРµРЅС‹ СЂР°Р·РґРµР»РёС‚РµР»Рё РІ С€Р°Р±Р»РѕРЅРµ *}
 
 {ldelim}funcname{rdelim} is how functions look in Smarty!
 ]]>
   </programlisting>
   <para>
-   Результат выполнения данного примера:
+   Р РµР·СѓР»СЊС‚Р°С‚ РІС‹РїРѕР»РЅРµРЅРёСЏ РґР°РЅРЅРѕРіРѕ РїСЂРёРјРµСЂР°:
   </para>
   <screen>
 <![CDATA[
 {funcname} is how functions look in Smarty!
 ]]>
   </screen>
-  <para>Другой пример и немного javascript'а</para>
+  <para>Р”СЂСѓРіРѕР№ РїСЂРёРјРµСЂ Рё РЅРµРјРЅРѕРіРѕ javascript'Р°</para>
   <programlisting>
 <![CDATA[
 <script language="JavaScript">
@@ -39,7 +39,7 @@ function foo() {ldelim}
 </script>
 ]]>
   </programlisting>
-  <para>выведет</para>
+  <para>РІС‹РІРµРґРµС‚</para>
   <screen>
 <![CDATA[
 <script language="JavaScript">
@@ -66,10 +66,10 @@ function foo() {
   </programlisting>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.function.literal">{literal}</link>
-  и
-  <link linkend="language.escaping">Предотвращение обработки Smarty</link> 
+  Рё
+  <link linkend="language.escaping">РџСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёРµ РѕР±СЂР°Р±РѕС‚РєРё Smarty</link> 
   </para>
 </sect1>
 

@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.cache">
  <refnamediv>
   <refname>clear_cache()</refname>
-  <refpurpose>очищает кэш определенного шаблона</refpurpose>
+  <refpurpose>РѕС‡РёС‰Р°РµС‚ РєСЌС€ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР°</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_cache</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
@@ -17,39 +17,39 @@
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Если вы используете
-   <link linkend="caching.multiple.caches">множественное кэширование</link>
-   для шаблона, вы можете очистить определенный кэш, передавая
-   <parameter>cache_id</parameter> в качестве второго аргумента.
-   Также, вы можете педать
+   Р•СЃР»Рё РІС‹ РёСЃРїРѕР»СЊР·СѓРµС‚Рµ
+   <link linkend="caching.multiple.caches">РјРЅРѕР¶РµСЃС‚РІРµРЅРЅРѕРµ РєСЌС€РёСЂРѕРІР°РЅРёРµ</link>
+   РґР»СЏ С€Р°Р±Р»РѕРЅР°, РІС‹ РјРѕР¶РµС‚Рµ РѕС‡РёСЃС‚РёС‚СЊ РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ РєСЌС€, РїРµСЂРµРґР°РІР°СЏ
+   <parameter>cache_id</parameter> РІ РєР°С‡РµСЃС‚РІРµ РІС‚РѕСЂРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°.
+   РўР°РєР¶Рµ, РІС‹ РјРѕР¶РµС‚Рµ РїРµРґР°С‚СЊ
    <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
-   в качестве третьего аргумента.
-   Вы можете <link linkend="caching.groups">"группировать"</link> шаблоны
-   вместе, чтобы их можно было удалять группой.
-   См. раздел <link linkend="caching">Кэширование</link> для получения
-   дополнительной информации.
-   В качестве необязательного четвертого аргумента вы можете передать минимальный
-   возраст файла кэша в секундах, прежде чем он будет очищен.
+   РІ РєР°С‡РµСЃС‚РІРµ С‚СЂРµС‚СЊРµРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°.
+   Р’С‹ РјРѕР¶РµС‚Рµ <link linkend="caching.groups">"РіСЂСѓРїРїРёСЂРѕРІР°С‚СЊ"</link> С€Р°Р±Р»РѕРЅС‹
+   РІРјРµСЃС‚Рµ, С‡С‚РѕР±С‹ РёС… РјРѕР¶РЅРѕ Р±С‹Р»Рѕ СѓРґР°Р»СЏС‚СЊ РіСЂСѓРїРїРѕР№.
+   РЎРј. СЂР°Р·РґРµР» <link linkend="caching">РљСЌС€РёСЂРѕРІР°РЅРёРµ</link> РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ
+   РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
+   Р’ РєР°С‡РµСЃС‚РІРµ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕРіРѕ С‡РµС‚РІРµСЂС‚РѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р° РІС‹ РјРѕР¶РµС‚Рµ РїРµСЂРµРґР°С‚СЊ РјРёРЅРёРјР°Р»СЊРЅС‹Р№
+   РІРѕР·СЂР°СЃС‚ С„Р°Р№Р»Р° РєСЌС€Р° РІ СЃРµРєСѓРЅРґР°С…, РїСЂРµР¶РґРµ С‡РµРј РѕРЅ Р±СѓРґРµС‚ РѕС‡РёС‰РµРЅ.
   </para>
   <example>
    <title>clear_cache()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// очищает кэш шаблона
+// РѕС‡РёС‰Р°РµС‚ РєСЌС€ С€Р°Р±Р»РѕРЅР°
 $smarty->clear_cache('index.tpl');
 
-// очищает определенный идентификатор кэша для шаблонов со множественным кэшированием
+// РѕС‡РёС‰Р°РµС‚ РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєСЌС€Р° РґР»СЏ С€Р°Р±Р»РѕРЅРѕРІ СЃРѕ РјРЅРѕР¶РµСЃС‚РІРµРЅРЅС‹Рј РєСЌС€РёСЂРѕРІР°РЅРёРµРј
 $smarty->clear_cache('index.tpl', 'CACHEID');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="api.clear.all.cache">clear_all_cache()</link>
-   и
-   <link linkend="caching">кэширование</link>.
+   Рё
+   <link linkend="caching">РєСЌС€РёСЂРѕРІР°РЅРёРµ</link>.
   </para>
  </refsect1>
 </refentry>

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.replace">
   <title>replace</title>
   <para>
-   Простой поиск и замена в переменной. Это эквивалент функции PHP
+   РџСЂРѕСЃС‚РѕР№ РїРѕРёСЃРє Рё Р·Р°РјРµРЅР° РІ РїРµСЂРµРјРµРЅРЅРѕР№. Р­С‚Рѕ СЌРєРІРёРІР°Р»РµРЅС‚ С„СѓРЅРєС†РёРё PHP
    <ulink url="&url.php-manual;str_replace">str_replace()</ulink>.
   </para>
   
@@ -17,27 +17,27 @@
     <colspec colname="desc"/>
     <thead>
      <row>
-      <entry>Позиция параметра</entry>
-      <entry>Тип</entry>
-      <entry>Обязателен</entry>
-      <entry>По умолчанию</entry>
-      <entry>Описание</entry>
+      <entry>РџРѕР·РёС†РёСЏ РїР°СЂР°РјРµС‚СЂР°</entry>
+      <entry>РўРёРї</entry>
+      <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+      <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+      <entry>РћРїРёСЃР°РЅРёРµ</entry>
      </row>
     </thead>
     <tbody>
      <row>
       <entry>1</entry>
       <entry>string</entry>
-      <entry>Да</entry>
+      <entry>Р”Р°</entry>
       <entry><emphasis>n/a</emphasis></entry>
-      <entry>Строка текста, которую следует заменить.</entry>
+      <entry>РЎС‚СЂРѕРєР° С‚РµРєСЃС‚Р°, РєРѕС‚РѕСЂСѓСЋ СЃР»РµРґСѓРµС‚ Р·Р°РјРµРЅРёС‚СЊ.</entry>
      </row>
      <row>
       <entry>2</entry>
       <entry>string</entry>
       <entry>Yes</entry>
       <entry><emphasis>n/a</emphasis></entry>
-      <entry>Строка текста, на которую следует заменить.</entry>
+      <entry>РЎС‚СЂРѕРєР° С‚РµРєСЃС‚Р°, РЅР° РєРѕС‚РѕСЂСѓСЋ СЃР»РµРґСѓРµС‚ Р·Р°РјРµРЅРёС‚СЊ.</entry>
      </row>
     </tbody>
    </tgroup>
@@ -55,7 +55,7 @@ $smarty->assign('articleTitle', "Child's Stool Great for Use in Garden.");
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
@@ -65,7 +65,7 @@ $smarty->assign('articleTitle', "Child's Stool Great for Use in Garden.");
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -76,9 +76,9 @@ Child's   Stool   Great   for   Use   in   Garden.
    </screen>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.modifier.regex.replace">regex_replace</link>
-   и
+   Рё
    <link linkend="language.modifier.escape">escape</link>.
   </para>
  </sect1>

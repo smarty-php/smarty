@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <refentry id="api.unregister.function">
@@ -13,15 +13,15 @@
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
-  Используйте функцию для динамической деригистрации плагина функции шаблона.
-  В качестве аргумента передается имя функции шаблона.
+  РСЃРїРѕР»СЊР·СѓР№С‚Рµ С„СѓРЅРєС†РёСЋ РґР»СЏ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РґРµСЂРёРіРёСЃС‚СЂР°С†РёРё РїР»Р°РіРёРЅР° С„СѓРЅРєС†РёРё С€Р°Р±Р»РѕРЅР°.
+  Р’ РєР°С‡РµСЃС‚РІРµ Р°СЂРіСѓРјРµРЅС‚Р° РїРµСЂРµРґР°РµС‚СЃСЏ РёРјСЏ С„СѓРЅРєС†РёРё С€Р°Р±Р»РѕРЅР°.
  </para>
  <example>
   <title>unregister_function</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// мы не хотим давать доступ дизайнеру шаблонов к системным файлам
+// РјС‹ РЅРµ С…РѕС‚РёРј РґР°РІР°С‚СЊ РґРѕСЃС‚СѓРї РґРёР·Р°Р№РЅРµСЂСѓ С€Р°Р±Р»РѕРЅРѕРІ Рє СЃРёСЃС‚РµРјРЅС‹Рј С„Р°Р№Р»Р°Рј
 
 $smarty->unregister_function("fetch");
 ?>

@@ -1,28 +1,28 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.foreach">
  <title>{foreach},{foreachelse}</title>
  <para>
-  Циклы <emphasis>{foreach}</emphasis> являются альтернативой
-  циклам <link
+  Р¦РёРєР»С‹ <emphasis>{foreach}</emphasis> СЏРІР»СЏСЋС‚СЃСЏ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРѕР№
+  С†РёРєР»Р°Рј <link
   linkend="language.function.section"><emphasis>{section}</emphasis></link>.
-  <emphasis>{foreach}</emphasis> используется для прохода по
-  <emphasis role="bold">единственному ассоциативному массиву</emphasis>.
-  Синтаксис
-  <emphasis>{foreach}</emphasis> намного проще синтаксиса
-  <emphasis>{section}</emphasis>, но с другой стороны
-  <emphasis role="bold">его можно использовать только для одного массива</emphasis>.
-  Каждый тэг <emphasis>{foreach}</emphasis> должен иметь пару
-  <emphasis>{/foreach}</emphasis>. Обязательными параметрами являются
-  <emphasis>from</emphasis> и <emphasis>item</emphasis>.
-  Имя цикла {foreach} может быть любым, состоящим из букв, цифр и знаков
-  подчеркивания. Циклы <emphasis>{foreach}</emphasis> могут быть вложенными
-  и имена вложенных {foreach} должны быть уникакльными между собой.
-  Параметр <emphasis>from</emphasis> (обычно - массив значений)
-  определяет количество итераций цикла <emphasis>{foreach}</emphasis>.
-  <emphasis>{foreachelse}</emphasis> выполняется в том случае, если
-  параметр <emphasis>from</emphasis> не содержит значений.
+  <emphasis>{foreach}</emphasis> РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РїСЂРѕС…РѕРґР° РїРѕ
+  <emphasis role="bold">РµРґРёРЅСЃС‚РІРµРЅРЅРѕРјСѓ Р°СЃСЃРѕС†РёР°С‚РёРІРЅРѕРјСѓ РјР°СЃСЃРёРІСѓ</emphasis>.
+  РЎРёРЅС‚Р°РєСЃРёСЃ
+  <emphasis>{foreach}</emphasis> РЅР°РјРЅРѕРіРѕ РїСЂРѕС‰Рµ СЃРёРЅС‚Р°РєСЃРёСЃР°
+  <emphasis>{section}</emphasis>, РЅРѕ СЃ РґСЂСѓРіРѕР№ СЃС‚РѕСЂРѕРЅС‹
+  <emphasis role="bold">РµРіРѕ РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ РґР»СЏ РѕРґРЅРѕРіРѕ РјР°СЃСЃРёРІР°</emphasis>.
+  РљР°Р¶РґС‹Р№ С‚СЌРі <emphasis>{foreach}</emphasis> РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РїР°СЂСѓ
+  <emphasis>{/foreach}</emphasis>. РћР±СЏР·Р°С‚РµР»СЊРЅС‹РјРё РїР°СЂР°РјРµС‚СЂР°РјРё СЏРІР»СЏСЋС‚СЃСЏ
+  <emphasis>from</emphasis> Рё <emphasis>item</emphasis>.
+  РРјСЏ С†РёРєР»Р° {foreach} РјРѕР¶РµС‚ Р±С‹С‚СЊ Р»СЋР±С‹Рј, СЃРѕСЃС‚РѕСЏС‰РёРј РёР· Р±СѓРєРІ, С†РёС„СЂ Рё Р·РЅР°РєРѕРІ
+  РїРѕРґС‡РµСЂРєРёРІР°РЅРёСЏ. Р¦РёРєР»С‹ <emphasis>{foreach}</emphasis> РјРѕРіСѓС‚ Р±С‹С‚СЊ РІР»РѕР¶РµРЅРЅС‹РјРё
+  Рё РёРјРµРЅР° РІР»РѕР¶РµРЅРЅС‹С… {foreach} РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СѓРЅРёРєР°РєР»СЊРЅС‹РјРё РјРµР¶РґСѓ СЃРѕР±РѕР№.
+  РџР°СЂР°РјРµС‚СЂ <emphasis>from</emphasis> (РѕР±С‹С‡РЅРѕ - РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№)
+  РѕРїСЂРµРґРµР»СЏРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РёС‚РµСЂР°С†РёР№ С†РёРєР»Р° <emphasis>{foreach}</emphasis>.
+  <emphasis>{foreachelse}</emphasis> РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РІ С‚РѕРј СЃР»СѓС‡Р°Рµ, РµСЃР»Рё
+  РїР°СЂР°РјРµС‚СЂ <emphasis>from</emphasis> РЅРµ СЃРѕРґРµСЂР¶РёС‚ Р·РЅР°С‡РµРЅРёР№.
  </para>
 
  <informaltable frame="all">
@@ -34,51 +34,51 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
+    <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+    <entry>РўРёРї</entry>
+    <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+    <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+    <entry>РћРїРёСЃР°РЅРёРµ</entry>
    </row>
   </thead>
   <tbody>
    <row>
     <entry>from</entry>
     <entry>array</entry>
-    <entry>Да</entry>
+    <entry>Р”Р°</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Массив, по которому надо пройтись</entry>
+    <entry>РњР°СЃСЃРёРІ, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ РЅР°РґРѕ РїСЂРѕР№С‚РёСЃСЊ</entry>
    </row>
    <row>
     <entry>item</entry>
     <entry>string</entry>
-    <entry>Да</entry>
+    <entry>Р”Р°</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя переменной, которая будет выступать в
-    качестве значения текущего елемента</entry>
+    <entry>РРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РІС‹СЃС‚СѓРїР°С‚СЊ РІ
+    РєР°С‡РµСЃС‚РІРµ Р·РЅР°С‡РµРЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РµР»РµРјРµРЅС‚Р°</entry>
    </row>
    <row>
     <entry>key</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Имя переменной, которая будет выступать в
-    качестве ключа текущего елемента</entry>
+    <entry>РРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РІС‹СЃС‚СѓРїР°С‚СЊ РІ
+    РєР°С‡РµСЃС‚РІРµ РєР»СЋС‡Р° С‚РµРєСѓС‰РµРіРѕ РµР»РµРјРµРЅС‚Р°</entry>
    </row>
    <row>
     <entry>name</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Название цикла foreach для доступа к его
-    свойствам</entry>
+    <entry>РќР°Р·РІР°РЅРёРµ С†РёРєР»Р° foreach РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РµРіРѕ
+    СЃРІРѕР№СЃС‚РІР°Рј</entry>
    </row>
   </tbody>
   </tgroup>
  </informaltable>
 
  <example>
-  <title>{foreach} - предмет</title>
+  <title>{foreach} - РїСЂРµРґРјРµС‚</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -89,14 +89,14 @@ $smarty->assign('custid', $arr);
   </programlisting>
   <programlisting>
 <![CDATA[
-{* этот пример напечатает все переменные массива $custid *}
+{* СЌС‚РѕС‚ РїСЂРёРјРµСЂ РЅР°РїРµС‡Р°С‚Р°РµС‚ РІСЃРµ РїРµСЂРµРјРµРЅРЅС‹Рµ РјР°СЃСЃРёРІР° $custid *}
 {foreach from=$custid item=curr_id}
     id: {$curr_id}<br />
 {/foreach}
 ]]>
   </programlisting>
   <para>
-   Результат выполнения данного примера:
+   Р РµР·СѓР»СЊС‚Р°С‚ РІС‹РїРѕР»РЅРµРЅРёСЏ РґР°РЅРЅРѕРіРѕ РїСЂРёРјРµСЂР°:
   </para>
   <screen>
 <![CDATA[
@@ -108,11 +108,11 @@ id: 1002<br />
  </example>
   
  <example>
-  <title>{foreach} - предмет и ключ</title>
+  <title>{foreach} - РїСЂРµРґРјРµС‚ Рё РєР»СЋС‡</title>
   <programlisting role="php">
 <![CDATA[
-// Ключ содержит ключ для каждого значения из цикла
-// назначение выглядит примерно так:
+// РљР»СЋС‡ СЃРѕРґРµСЂР¶РёС‚ РєР»СЋС‡ РґР»СЏ РєР°Р¶РґРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ РёР· С†РёРєР»Р°
+// РЅР°Р·РЅР°С‡РµРЅРёРµ РІС‹РіР»СЏРґРёС‚ РїСЂРёРјРµСЂРЅРѕ С‚Р°Рє:
 <?php
 $smarty->assign('contacts', array(
                             array('phone' => '1',
@@ -137,7 +137,7 @@ $smarty->assign('contacts', array(
 ]]>
   </programlisting>
   <para>
-   Результат выполнения данного примера:
+   Р РµР·СѓР»СЊС‚Р°С‚ РІС‹РїРѕР»РЅРµРЅРёСЏ РґР°РЅРЅРѕРіРѕ РїСЂРёРјРµСЂР°:
   </para>
   <screen>
 <![CDATA[
@@ -154,7 +154,7 @@ $smarty->assign('contacts', array(
  </example>
   
  <example>
-  <title>{foreach} - базы данных (к примеру, PEAR или ADODB)</title>
+  <title>{foreach} - Р±Р°Р·С‹ РґР°РЅРЅС‹С… (Рє РїСЂРёРјРµСЂСѓ, PEAR РёР»Рё ADODB)</title>
   <programlisting role="php">
 <![CDATA[
 <?php
@@ -173,61 +173,61 @@ $smarty->assign('contacts', array(
  </example>  
 
 	<para>
-		Циклы {foreach} также имеют собственные переменные, которые содержат свойства
+		Р¦РёРєР»С‹ {foreach} С‚Р°РєР¶Рµ РёРјРµСЋС‚ СЃРѕР±СЃС‚РІРµРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ, РєРѕС‚РѕСЂС‹Рµ СЃРѕРґРµСЂР¶Р°С‚ СЃРІРѕР№СЃС‚РІР°
 		{foreach}.
-		Они обозначаются так:
+		РћРЅРё РѕР±РѕР·РЅР°С‡Р°СЋС‚СЃСЏ С‚Р°Рє:
 		<link linkend="language.variables.smarty.loops">{$smarty.foreach.foreachname.varname}</link>
-		{$smarty.foreach.foreachname.varname}, где foreachname - это название цикла
-		(значение атрибута <emphasis>name</emphasis>).
+		{$smarty.foreach.foreachname.varname}, РіРґРµ foreachname - СЌС‚Рѕ РЅР°Р·РІР°РЅРёРµ С†РёРєР»Р°
+		(Р·РЅР°С‡РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р° <emphasis>name</emphasis>).
 	</para>
 	
  <para>
-  См. <link linkend="section.property.index">{section}</link>
-  для примеров следующих свойств, так как они идентичны.
+  РЎРј. <link linkend="section.property.index">{section}</link>
+  РґР»СЏ РїСЂРёРјРµСЂРѕРІ СЃР»РµРґСѓСЋС‰РёС… СЃРІРѕР№СЃС‚РІ, С‚Р°Рє РєР°Рє РѕРЅРё РёРґРµРЅС‚РёС‡РЅС‹.
  </para>
 
 	<sect2 id="foreach.property.iteration">
 		<title>iteration</title>
 		<para>
-   iteration используется для отображения текущего номера итерации цикла.
-   Итерации всегда начинаются с 1 и увеличиваются на одну при каждом
-   прохождении цикла.
+   iteration РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РЅРѕРјРµСЂР° РёС‚РµСЂР°С†РёРё С†РёРєР»Р°.
+   РС‚РµСЂР°С†РёРё РІСЃРµРіРґР° РЅР°С‡РёРЅР°СЋС‚СЃСЏ СЃ 1 Рё СѓРІРµР»РёС‡РёРІР°СЋС‚СЃСЏ РЅР° РѕРґРЅСѓ РїСЂРё РєР°Р¶РґРѕРј
+   РїСЂРѕС…РѕР¶РґРµРЅРёРё С†РёРєР»Р°.
 		</para>
 	</sect2>
 
 	<sect2 id="foreach.property.first">
 		<title>first</title>
 			<para>
-   	<emphasis>first</emphasis> устанавливается в true, если текущая итерация первая.
+   	<emphasis>first</emphasis> СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ РІ true, РµСЃР»Рё С‚РµРєСѓС‰Р°СЏ РёС‚РµСЂР°С†РёСЏ РїРµСЂРІР°СЏ.
 			</para>
 	</sect2>
 
 	<sect2 id="foreach.property.last">
 		<title>last</title>
 		<para>
-  	<emphasis>last</emphasis> устанавливается в true, если текущая итерация последняя.
+  	<emphasis>last</emphasis> СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ РІ true, РµСЃР»Рё С‚РµРєСѓС‰Р°СЏ РёС‚РµСЂР°С†РёСЏ РїРѕСЃР»РµРґРЅСЏСЏ.
 		</para>
 	</sect2>
 
 	<sect2 id="foreach.property.show">
 		<title>show</title>
 		<para>
-   Атрибут <emphasis>show</emphasis> может принимать логические
-   значения (истина или ложь). Если ложь, то цикл foreach не будет
-   отображаться. Если присутствует тэг foreachelse, то он будет
-   отображен.
+   РђС‚СЂРёР±СѓС‚ <emphasis>show</emphasis> РјРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ Р»РѕРіРёС‡РµСЃРєРёРµ
+   Р·РЅР°С‡РµРЅРёСЏ (РёСЃС‚РёРЅР° РёР»Рё Р»РѕР¶СЊ). Р•СЃР»Рё Р»РѕР¶СЊ, С‚Рѕ С†РёРєР» foreach РЅРµ Р±СѓРґРµС‚
+   РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ. Р•СЃР»Рё РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ С‚СЌРі foreachelse, С‚Рѕ РѕРЅ Р±СѓРґРµС‚
+   РѕС‚РѕР±СЂР°Р¶РµРЅ.
  	</para>
  </sect2>
 
 	<sect2 id="foreach.property.total">
  	<title>total</title>
 		<para>
-	 	<emphasis>total</emphasis> хранит количество итераций цикла.
-			Может быть использовано как в цикле, так и вне его.
+	 	<emphasis>total</emphasis> С…СЂР°РЅРёС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РёС‚РµСЂР°С†РёР№ С†РёРєР»Р°.
+			РњРѕР¶РµС‚ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅРѕ РєР°Рє РІ С†РёРєР»Рµ, С‚Р°Рє Рё РІРЅРµ РµРіРѕ.
 		</para>
 
   <para>
-   См. также <link linkend="language.function.section">{section}</link> и
+   РЎРј. С‚Р°РєР¶Рµ <link linkend="language.function.section">{section}</link> Рё
    <link linkend="language.variables.smarty.loops">$smarty.foreach</link>.
   </para>
  </sect2>

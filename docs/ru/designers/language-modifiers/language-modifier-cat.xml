@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
 <sect1 id="language.modifier.cat">
  <title>cat</title>
  <para>
-		Данная строка добавляется к модифицируемому значению переменной.
+		Р”Р°РЅРЅР°СЏ СЃС‚СЂРѕРєР° РґРѕР±Р°РІР»СЏРµС‚СЃСЏ Рє РјРѕРґРёС„РёС†РёСЂСѓРµРјРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ РїРµСЂРµРјРµРЅРЅРѕР№.
 	</para>
  <informaltable frame="all">
                 <tgroup cols="5">
@@ -15,21 +15,21 @@
                 <colspec colname="desc" />
                 <thead>
                     <row>
-                        <entry>Позиция параметра</entry>
-                        <entry>Тип</entry>
-                        <entry>Обязателен</entry>
+                        <entry>РџРѕР·РёС†РёСЏ РїР°СЂР°РјРµС‚СЂР°</entry>
+                        <entry>РўРёРї</entry>
+                        <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
                         <entry>cat</entry>
-                        <entry>Описание</entry>
+                        <entry>РћРїРёСЃР°РЅРёРµ</entry>
                     </row>
                 </thead>
                 <tbody>
                     <row>
                         <entry>1</entry>
                         <entry>string</entry>
-                        <entry>Нет</entry>
-                        <entry><emphasis>пусто</emphasis></entry>
-                        <entry>Данная строка добавляется к
-                        модифицируемому значению.</entry>
+                        <entry>РќРµС‚</entry>
+                        <entry><emphasis>РїСѓСЃС‚Рѕ</emphasis></entry>
+                        <entry>Р”Р°РЅРЅР°СЏ СЃС‚СЂРѕРєР° РґРѕР±Р°РІР»СЏРµС‚СЃСЏ Рє
+                        РјРѕРґРёС„РёС†РёСЂСѓРµРјРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ.</entry>
                     </row>
                 </tbody>
                 </tgroup>
@@ -47,7 +47,7 @@ $smarty->assign('articleTitle', "Psychics predict world didn't end");
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
@@ -55,7 +55,7 @@ $smarty->assign('articleTitle', "Psychics predict world didn't end");
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[    

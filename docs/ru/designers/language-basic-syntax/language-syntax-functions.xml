@@ -1,24 +1,24 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
 <sect1 id="language.syntax.functions">
- <title>Функции</title>
+ <title>Р¤СѓРЅРєС†РёРё</title>
  <para>
-  Каждый тэг Smarty либо выводит значение <link
-  linkend="language.variables">переменной</link>, либо вызывает
-  некоторую функцию. Они обрабатываются путём заключения функции  и ее
-  <link linkend="language.syntax.attributes">параметров</link>
-  в разделители, например:
-  {funcname attr1='val' attr2='val'}.
+  РљР°Р¶РґС‹Р№ С‚СЌРі Smarty Р»РёР±Рѕ РІС‹РІРѕРґРёС‚ Р·РЅР°С‡РµРЅРёРµ <link
+  linkend="language.variables">РїРµСЂРµРјРµРЅРЅРѕР№</link>, Р»РёР±Рѕ РІС‹Р·С‹РІР°РµС‚
+  РЅРµРєРѕС‚РѕСЂСѓСЋ С„СѓРЅРєС†РёСЋ. РћРЅРё РѕР±СЂР°Р±Р°С‚С‹РІР°СЋС‚СЃСЏ РїСѓС‚С‘Рј Р·Р°РєР»СЋС‡РµРЅРёСЏ С„СѓРЅРєС†РёРё  Рё РµРµ
+  <link linkend="language.syntax.attributes">РїР°СЂР°РјРµС‚СЂРѕРІ</link>
+  РІ СЂР°Р·РґРµР»РёС‚РµР»Рё, РЅР°РїСЂРёРјРµСЂ:
+  <literal>{funcname attr1='val1' attr2='val2'}</literal>.
  </para>
  <example>
-  <title>Синтаксис функций</title>
+  <title>РЎРёРЅС‚Р°РєСЃРёСЃ С„СѓРЅРєС†РёР№</title>
    <programlisting>
 <![CDATA[
 {config_load file='colors.conf'}
 
 {include file='header.tpl'}
-{insert file='banner_ads.tpl' title='Smarty - это круто'}
+{insert file='banner_ads.tpl' title='Smarty - СЌС‚Рѕ РєСЂСѓС‚Рѕ'}
 
 {if $logged_in}
     Welcome, <font color="{#fontColor#}">{$name}!</font>
@@ -30,33 +30,47 @@
 ]]>
    </programlisting>
  </example>
+ 
+ <itemizedlist>
+ <listitem>
  <para>
-  И <link linkend="language.builtin.functions">встроенные</link>,
-  и <link linkend="language.custom.functions">пользовательские функции</link>
-  используются с одинаковым синтаксисом.
+  Р <link linkend="language.builtin.functions">РІСЃС‚СЂРѕРµРЅРЅС‹Рµ</link>,
+  Рё <link linkend="language.custom.functions">РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ С„СѓРЅРєС†РёРё</link>
+  РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ СЃ РѕРґРёРЅР°РєРѕРІС‹Рј СЃРёРЅС‚Р°РєСЃРёСЃРѕРј.
  </para>
+ </listitem>
+ 
+ <listitem>
  <para>
-  Встроенные функции обеспечивают
-  <emphasis role="bold">внутреннюю</emphasis> работу Smarty, например
-  <link linkend="language.function.if">{if}</link>,
-  <link linkend="language.function.section">{section}</link> и
-  <link linkend="language.function.strip">{strip}</link>.
-  У вас не должно быть причин для их модификации.
+  Р’СЃС‚СЂРѕРµРЅРЅС‹Рµ С„СѓРЅРєС†РёРё РѕР±РµСЃРїРµС‡РёРІР°СЋС‚
+  <emphasis role="bold">РІРЅСѓС‚СЂРµРЅРЅСЋСЋ</emphasis> СЂР°Р±РѕС‚Сѓ Smarty, РЅР°РїСЂРёРјРµСЂ
+  <link linkend="language.function.if"><varname>{if}</varname></link>,
+  <link linkend="language.function.section">
+  <varname>{section}</varname></link> Рё
+  <link linkend="language.function.strip"><varname>{strip}</varname></link>.
+  РЈ РІР°СЃ РЅРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РїСЂРёС‡РёРЅ РґР»СЏ РёС… РјРѕРґРёС„РёРєР°С†РёРё.
  </para>
+ </listitem>
+ 
+ <listitem>
  <para>
-  Пользовательские функции являются
-  <emphasis role="bold">дополнительными</emphasis> и реализуются через
-  <link linkend="plugins">плагины</link>.
-  Они могут быть изменены по вашему желанию, также вы можете
-  создать новые.
-  Примерами пользовательских функций могут быть
-  <link linkend="language.function.html.options">{html_options}</link> и
-  <link linkend="language.function.popup">{popup}</link>.
+  РџРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ С„СѓРЅРєС†РёРё СЏРІР»СЏСЋС‚СЃСЏ
+  <emphasis role="bold">РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹РјРё</emphasis> Рё СЂРµР°Р»РёР·СѓСЋС‚СЃСЏ С‡РµСЂРµР·
+  <link linkend="plugins">РїР»Р°РіРёРЅС‹</link>.
+  РћРЅРё РјРѕРіСѓС‚ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅС‹ РїРѕ РІР°С€РµРјСѓ Р¶РµР»Р°РЅРёСЋ, С‚Р°РєР¶Рµ РІС‹ РјРѕР¶РµС‚Рµ
+  СЃРѕР·РґР°С‚СЊ РЅРѕРІС‹Рµ.
+  РџСЂРёРјРµСЂР°РјРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… С„СѓРЅРєС†РёР№ РјРѕРіСѓС‚ Р±С‹С‚СЊ
+  <link linkend="language.function.html.options">
+  <varname>{html_options}</varname></link> Рё
+  <link linkend="language.function.popup"><varname>{popup}</varname></link>.
  </para>
+ </listitem>
+ </itemizedlist>
  
  <para>
-  См. также
-  <link linkend="api.register.function">register_function()</link>
+  РЎРј. С‚Р°РєР¶Рµ
+  <link linkend="api.register.function">
+  <varname>register_function()</varname></link>
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

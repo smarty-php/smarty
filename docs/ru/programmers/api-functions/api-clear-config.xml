@@ -1,44 +1,44 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.config">
  <refnamediv>
   <refname>clear_config()</refname>
-  <refpurpose>очищает назначенную конфигурационную переменную</refpurpose>
+  <refpurpose>РѕС‡РёС‰Р°РµС‚ РЅР°Р·РЅР°С‡РµРЅРЅСѓСЋ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_config</methodname>
    <methodparam choice="opt"><type>string</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Очищает все назначенные
-   <link linkend="language.config.variables">конфигурационные переменные</link>.
-   Если указано имя переменной, только эта переменная будет очищена.
+   РћС‡РёС‰Р°РµС‚ РІСЃРµ РЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ
+   <link linkend="language.config.variables">РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ</link>.
+   Р•СЃР»Рё СѓРєР°Р·Р°РЅРѕ РёРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№, С‚РѕР»СЊРєРѕ СЌС‚Р° РїРµСЂРµРјРµРЅРЅР°СЏ Р±СѓРґРµС‚ РѕС‡РёС‰РµРЅР°.
   </para>
   <example>
    <title>clear_config()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// очищает все назначенные конфигурационные переменные
+// РѕС‡РёС‰Р°РµС‚ РІСЃРµ РЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ
 $smarty->clear_config();
 
-// очищает одну конфигурационную переменную
+// РѕС‡РёС‰Р°РµС‚ РѕРґРЅСѓ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ
 $smarty->clear_config('foobar');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="api.get.config.vars">get_config_vars()</link>,
    <link linkend="language.config.variables">config variables</link>,
    <link linkend="config.files">config files</link>,
    <link linkend="language.function.config.load">{config_load}</link>,
    <link linkend="api.config.load">config_load()</link>
-   и
+   Рё
    <link linkend="api.clear.assign">clear_assign()</link>
   </para>
  </refsect1>

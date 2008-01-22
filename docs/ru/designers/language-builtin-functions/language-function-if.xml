@@ -1,33 +1,33 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
  <para>
-  Конструкция <emphasis>{if}</emphasis> в Smarty такая же гибкая, как и
-  конструкция
-  <ulink url="&url.php-manual;if"><command>if</command></ulink> в PHP,
-  только с несколькими дополнительными возможностями для шаблонов.
-  Каждый тэг <emphasis>{if}</emphasis> должен иметь пару
-  <emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> и
-  <emphasis>{elseif}</emphasis> так же допустимы. Досутпны все квалификаторы
-  и функции
-  из PHP, такие как <emphasis>||</emphasis>, <emphasis>or</emphasis>,
+  РљРѕРЅСЃС‚СЂСѓРєС†РёСЏ <emphasis>{if}</emphasis> РІ Smarty С‚Р°РєР°СЏ Р¶Рµ РіРёР±РєР°СЏ, РєР°Рє Рё
+  РєРѕРЅСЃС‚СЂСѓРєС†РёСЏ
+  <ulink url="&url.php-manual;if"><command>if</command></ulink> РІ PHP,
+  С‚РѕР»СЊРєРѕ СЃ РЅРµСЃРєРѕР»СЊРєРёРјРё РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹РјРё РІРѕР·РјРѕР¶РЅРѕСЃС‚СЏРјРё РґР»СЏ С€Р°Р±Р»РѕРЅРѕРІ.
+  РљР°Р¶РґС‹Р№ С‚СЌРі <emphasis>{if}</emphasis> РґРѕР»Р¶РµРЅ РёРјРµС‚СЊ РїР°СЂСѓ
+  <emphasis>{/if}</emphasis>. <emphasis>{else}</emphasis> Рё
+  <emphasis>{elseif}</emphasis> С‚Р°Рє Р¶Рµ РґРѕРїСѓСЃС‚РёРјС‹. Р”РѕСЃСѓС‚РїРЅС‹ РІСЃРµ РєРІР°Р»РёС„РёРєР°С‚РѕСЂС‹
+  Рё С„СѓРЅРєС†РёРё
+  РёР· PHP, С‚Р°РєРёРµ РєР°Рє <emphasis>||</emphasis>, <emphasis>or</emphasis>,
   <emphasis>&amp;&amp;</emphasis>, <emphasis>and</emphasis>,
-  <emphasis>is_array()</emphasis> и т.д.
+  <emphasis>is_array()</emphasis> Рё С‚.Рґ.
  </para>
  
  <para>
-  Если <link linkend="variable.security">$security</link> включена,
-  то массив <emphasis>IF_FUNCS</emphasis> в массиве <link
+  Р•СЃР»Рё <link linkend="variable.security">$security</link> РІРєР»СЋС‡РµРЅР°,
+  С‚Рѕ РјР°СЃСЃРёРІ <emphasis>IF_FUNCS</emphasis> РІ РјР°СЃСЃРёРІРµ <link
   linkend="variable.security.settings">$security_settings</link>.
  </para>
  
  <para>
-  Ниже следует список распознаваемых квалификаторов, которые должны быть
-  отделены от окружающих элементов пробелами. Обратите внимания, что
-  объекты в [квадратных скобках] являются необязательными. Иногда указаны
-  эквиваленты в PHP.
+  РќРёР¶Рµ СЃР»РµРґСѓРµС‚ СЃРїРёСЃРѕРє СЂР°СЃРїРѕР·РЅР°РІР°РµРјС‹С… РєРІР°Р»РёС„РёРєР°С‚РѕСЂРѕРІ, РєРѕС‚РѕСЂС‹Рµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ
+  РѕС‚РґРµР»РµРЅС‹ РѕС‚ РѕРєСЂСѓР¶Р°СЋС‰РёС… СЌР»РµРјРµРЅС‚РѕРІ РїСЂРѕР±РµР»Р°РјРё. РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёСЏ, С‡С‚Рѕ
+  РѕР±СЉРµРєС‚С‹ РІ [РєРІР°РґСЂР°С‚РЅС‹С… СЃРєРѕР±РєР°С…] СЏРІР»СЏСЋС‚СЃСЏ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹РјРё. РРЅРѕРіРґР° СѓРєР°Р·Р°РЅС‹
+  СЌРєРІРёРІР°Р»РµРЅС‚С‹ РІ PHP.
  </para>
  
  <informaltable frame="all">
@@ -39,11 +39,11 @@
    <colspec colname="php" />
    <thead>
     <row>
-     <entry>Квалификатор</entry>
-     <entry>Альтернативы</entry>
-     <entry>Пример синтаксиса</entry>
-     <entry>Описание</entry>
-     <entry>Эквивалент PHP</entry>
+     <entry>РљРІР°Р»РёС„РёРєР°С‚РѕСЂ</entry>
+     <entry>РђР»СЊС‚РµСЂРЅР°С‚РёРІС‹</entry>
+     <entry>РџСЂРёРјРµСЂ СЃРёРЅС‚Р°РєСЃРёСЃР°</entry>
+     <entry>РћРїРёСЃР°РЅРёРµ</entry>
+     <entry>Р­РєРІРёРІР°Р»РµРЅС‚ PHP</entry>
     </row>
    </thead>
    <tbody>
@@ -51,98 +51,98 @@
      <entry>==</entry>
      <entry>eq</entry>
      <entry>$a eq $b</entry>
-     <entry>равно</entry>
+     <entry>СЂР°РІРЅРѕ</entry>
      <entry>==</entry>
     </row>
     <row>
      <entry>!=</entry>
      <entry>ne, neq</entry>
      <entry>$a neq $b</entry>
-     <entry>не равно</entry>
+     <entry>РЅРµ СЂР°РІРЅРѕ</entry>
      <entry>!=</entry>
     </row>
     <row>
      <entry>&gt;</entry>
      <entry>gt</entry>
      <entry>$a gt $b</entry>
-     <entry>больше</entry>
+     <entry>Р±РѕР»СЊС€Рµ</entry>
      <entry>&gt;</entry>
     </row>
     <row>
      <entry>&lt;</entry>
      <entry>lt</entry>
      <entry>$a lt $b</entry>
-     <entry>меньше</entry>
+     <entry>РјРµРЅСЊС€Рµ</entry>
      <entry>&lt;</entry>
     </row>
     <row>
      <entry>&gt;=</entry>
      <entry>gte, ge</entry>
      <entry>$a ge $b</entry>
-     <entry>больше или равно</entry>
+     <entry>Р±РѕР»СЊС€Рµ РёР»Рё СЂР°РІРЅРѕ</entry>
      <entry>&gt;=</entry>
     </row>
     <row>
      <entry>&lt;=</entry>
      <entry>lte, le</entry>
      <entry>$a le $b</entry>
-     <entry>меньше или равно</entry>
+     <entry>РјРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ</entry>
      <entry>&lt;=</entry>
     </row>
     <row>
      <entry>===</entry>
      <entry></entry>
      <entry>$a === 0</entry>
-     <entry>проверка идентичности</entry>
+     <entry>РїСЂРѕРІРµСЂРєР° РёРґРµРЅС‚РёС‡РЅРѕСЃС‚Рё</entry>
      <entry>===</entry>
     </row>
     <row>
      <entry>!</entry>
      <entry>not</entry>
      <entry>not $a</entry>
-     <entry>отрицание</entry>
+     <entry>РѕС‚СЂРёС†Р°РЅРёРµ</entry>
      <entry>!</entry>
     </row>
     <row>
      <entry>%</entry>
      <entry>mod</entry>
      <entry>$a mod $b</entry>
-     <entry>остаток от деления</entry>
+     <entry>РѕСЃС‚Р°С‚РѕРє РѕС‚ РґРµР»РµРЅРёСЏ</entry>
      <entry>%</entry>
     </row>
     <row>
      <entry>is [not] div by</entry>
      <entry></entry>
      <entry>$a is not div by 4</entry>
-     <entry>возможно деление без остатка</entry>
+     <entry>РІРѕР·РјРѕР¶РЅРѕ РґРµР»РµРЅРёРµ Р±РµР· РѕСЃС‚Р°С‚РєР°</entry>
      <entry>$a % $b == 0</entry>
     </row>
     <row>
      <entry>is [not] even</entry>
      <entry></entry>
      <entry>$a is not even</entry>
-     <entry>[не]чётно</entry>
+     <entry>[РЅРµ]С‡С‘С‚РЅРѕ</entry>
      <entry>$a % 2 == 0</entry>
     </row>
     <row>
       <entry>is [not] even by</entry>
       <entry></entry>
       <entry>$a is not even by $b</entry>
-      <entry>[не]чётно значению</entry>
+      <entry>[РЅРµ]С‡С‘С‚РЅРѕ Р·РЅР°С‡РµРЅРёСЋ</entry>
       <entry>($a / $b) % 2 == 0</entry>
     </row>
     <row>
      <entry>is [not] odd</entry>
      <entry></entry>
      <entry>$a is not odd</entry>
-     <entry>[не]нечётно</entry>
+     <entry>[РЅРµ]РЅРµС‡С‘С‚РЅРѕ</entry>
      <entry>$a % 2 != 0</entry>
     </row>
     <row>
      <entry>is [not] odd by</entry>
      <entry></entry>
      <entry>$a is not odd by $b</entry>
-     <entry>[не]нечётно значению</entry>
+     <entry>[РЅРµ]РЅРµС‡С‘С‚РЅРѕ Р·РЅР°С‡РµРЅРёСЋ</entry>
      <entry>($a / $b) % 2 != 0</entry>
     </row>
    </tbody>
@@ -150,7 +150,7 @@
  </informaltable>
  
  <example>
-  <title>примеры использования {if}</title>
+  <title>РїСЂРёРјРµСЂС‹ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ {if}</title>
   <programlisting>
 <![CDATA[
 {if $name eq 'Fred'}
@@ -161,37 +161,37 @@
     Welcome, whatever you are.
 {/if}
 
-{* пример с логикой "или" *}
+{* РїСЂРёРјРµСЂ СЃ Р»РѕРіРёРєРѕР№ "РёР»Рё" *}
 {if $name eq 'Fred' or $name eq 'Wilma'}
 	...
 {/if}
 
-{* то же самое, что и выше *}
+{* С‚Рѕ Р¶Рµ СЃР°РјРѕРµ, С‡С‚Рѕ Рё РІС‹С€Рµ *}
 {if $name == 'Fred' || $name == 'Wilma'}
 	...
 {/if}
 
-{* скобки разрешены *}
+{* СЃРєРѕР±РєРё СЂР°Р·СЂРµС€РµРЅС‹ *}
 {if ( $amount < 0 or $amount > 1000 ) and $volume >= #minVolAmt#}
 	...
 {/if}
 
-{* вы также можете использовать функции php *}
+{* РІС‹ С‚Р°РєР¶Рµ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С„СѓРЅРєС†РёРё php *}
 {if count($var) gt 0}
 	...
 {/if}
 
-{* проверка на массив *}
+{* РїСЂРѕРІРµСЂРєР° РЅР° РјР°СЃСЃРёРІ *}
 {if is_array($foo) }
  ...
 {/if}
   	 
-{* проверка на существование *}
+{* РїСЂРѕРІРµСЂРєР° РЅР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ *}
 {if isset($foo) }
  ...
 {/if}
 
-{* проверяет чётность значений *}
+{* РїСЂРѕРІРµСЂСЏРµС‚ С‡С‘С‚РЅРѕСЃС‚СЊ Р·РЅР°С‡РµРЅРёР№ *}
 {if $var is even}
 	...
 {/if}
@@ -202,20 +202,20 @@
 	...
 {/if}
 
-{* проверяет, делится ли $var на 4 без остатка *}
+{* РїСЂРѕРІРµСЂСЏРµС‚, РґРµР»РёС‚СЃСЏ Р»Рё $var РЅР° 4 Р±РµР· РѕСЃС‚Р°С‚РєР° *}
 {if $var is div by 4}
 	...
 {/if}
 
 {*
-  проверяет, является ли $var чётным двум, например
-  0=чётно, 1=чётно, 2=нечётно, 3=нечётно, 4=чётно, 5=чётно и т.д.
+  РїСЂРѕРІРµСЂСЏРµС‚, СЏРІР»СЏРµС‚СЃСЏ Р»Рё $var С‡С‘С‚РЅС‹Рј РґРІСѓРј, РЅР°РїСЂРёРјРµСЂ
+  0=С‡С‘С‚РЅРѕ, 1=С‡С‘С‚РЅРѕ, 2=РЅРµС‡С‘С‚РЅРѕ, 3=РЅРµС‡С‘С‚РЅРѕ, 4=С‡С‘С‚РЅРѕ, 5=С‡С‘С‚РЅРѕ Рё С‚.Рґ.
 *}
 {if $var is even by 2}
 	...
 {/if}
 
-{* 0=чётно, 1=чётно, 2=чётно, 3=нечётно, 4=нечётно, 5=нечётно и т.д. *}
+{* 0=С‡С‘С‚РЅРѕ, 1=С‡С‘С‚РЅРѕ, 2=С‡С‘С‚РЅРѕ, 3=РЅРµС‡С‘С‚РЅРѕ, 4=РЅРµС‡С‘С‚РЅРѕ, 5=РЅРµС‡С‘С‚РЅРѕ Рё С‚.Рґ. *}
 {if $var is even by 3}
 	...
 {/if}
@@ -224,17 +224,17 @@
  </example>
  
  <example>
-   <title>ещё несколько примеров использования {if}</title>
+   <title>РµС‰С‘ РЅРµСЃРєРѕР»СЊРєРѕ РїСЂРёРјРµСЂРѕРІ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ {if}</title>
    <programlisting>
 <![CDATA[
 {if isset($name) && $name = 'Blog'}
-    {* сделать что-нибудь *}
+    {* СЃРґРµР»Р°С‚СЊ С‡С‚Рѕ-РЅРёР±СѓРґСЊ *}
 {elseif $name == $foo}
-    {* сделать что-нибудь другое *}
+    {* СЃРґРµР»Р°С‚СЊ С‡С‚Рѕ-РЅРёР±СѓРґСЊ РґСЂСѓРіРѕРµ *}
 {/if}
 
 {if is_array($foo) && count($foo) > 0)
-    {* выполнить цикл foreach *}
+    {* РІС‹РїРѕР»РЅРёС‚СЊ С†РёРєР» foreach *}
 {/if}
 ]]>
   </programlisting>

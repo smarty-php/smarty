@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
      <sect1 id="variable.php.handling">
       <title>$php_handling</title>
       <para>
-       Этот параметр говорит Smarty, как обращаться с PHP-кодом, встроенным в
-       шаблоны. Существует четыре возможных значения, значением по умолчанию является
-       SMARTY_PHP_PASSTHRU. Обратите внимание, что это НЕ влияет на PHP-код
-       внутри тэгов <link linkend="language.function.php">{php}{/php}</link>
-       в шаблоне.
+       Р­С‚РѕС‚ РїР°СЂР°РјРµС‚СЂ РіРѕРІРѕСЂРёС‚ Smarty, РєР°Рє РѕР±СЂР°С‰Р°С‚СЊСЃСЏ СЃ PHP-РєРѕРґРѕРј, РІСЃС‚СЂРѕРµРЅРЅС‹Рј РІ
+       С€Р°Р±Р»РѕРЅС‹. РЎСѓС‰РµСЃС‚РІСѓРµС‚ С‡РµС‚С‹СЂРµ РІРѕР·РјРѕР¶РЅС‹С… Р·РЅР°С‡РµРЅРёСЏ, Р·РЅР°С‡РµРЅРёРµРј РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЏРІР»СЏРµС‚СЃСЏ
+       SMARTY_PHP_PASSTHRU. РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ, С‡С‚Рѕ СЌС‚Рѕ РќР• РІР»РёСЏРµС‚ РЅР° PHP-РєРѕРґ
+       РІРЅСѓС‚СЂРё С‚СЌРіРѕРІ <link linkend="language.function.php">{php}{/php}</link>
+       РІ С€Р°Р±Р»РѕРЅРµ.
       </para>
       <itemizedlist>
-       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty показывает тэги без обработки.</para></listitem>
-       <listitem><para>SMARTY_PHP_QUOTE - Smarty превращает спецсимволы тэгов в HTML-сущности.</para></listitem>
-       <listitem><para>SMARTY_PHP_REMOVE - Smarty удаляет тэги из шалона.</para></listitem>
-       <listitem><para>SMARTY_PHP_ALLOW - Smarty будет выполнять тэги как PHP-код.</para></listitem>
+       <listitem><para>SMARTY_PHP_PASSTHRU - Smarty РїРѕРєР°Р·С‹РІР°РµС‚ С‚СЌРіРё Р±РµР· РѕР±СЂР°Р±РѕС‚РєРё.</para></listitem>
+       <listitem><para>SMARTY_PHP_QUOTE - Smarty РїСЂРµРІСЂР°С‰Р°РµС‚ СЃРїРµС†СЃРёРјРІРѕР»С‹ С‚СЌРіРѕРІ РІ HTML-СЃСѓС‰РЅРѕСЃС‚Рё.</para></listitem>
+       <listitem><para>SMARTY_PHP_REMOVE - Smarty СѓРґР°Р»СЏРµС‚ С‚СЌРіРё РёР· С€Р°Р»РѕРЅР°.</para></listitem>
+       <listitem><para>SMARTY_PHP_ALLOW - Smarty Р±СѓРґРµС‚ РІС‹РїРѕР»РЅСЏС‚СЊ С‚СЌРіРё РєР°Рє PHP-РєРѕРґ.</para></listitem>
       </itemizedlist>
       <note>
        <para>
-        Встраивать PHP-код в шаблоны весьма не рекоммендуется.
-        Вместо этого, используется <link linkend="language.custom.functions">пользовательские функции</link> или
-        <link linkend="language.modifiers">модификаторы</link>.
+        Р’СЃС‚СЂР°РёРІР°С‚СЊ PHP-РєРѕРґ РІ С€Р°Р±Р»РѕРЅС‹ РІРµСЃСЊРјР° РЅРµ СЂРµРєРѕРјРјРµРЅРґСѓРµС‚СЃСЏ.
+        Р’РјРµСЃС‚Рѕ СЌС‚РѕРіРѕ, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ <link linkend="language.custom.functions">РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРµ С„СѓРЅРєС†РёРё</link> РёР»Рё
+        <link linkend="language.modifiers">РјРѕРґРёС„РёРєР°С‚РѕСЂС‹</link>.
        </para>
       </note>
 </sect1>

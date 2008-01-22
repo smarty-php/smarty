@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
  <sect1 id="language.modifier.nl2br">
   <title>nl2br</title>
   <para>
-   Превращает каждый перевод строки в тэг &lt;br /&gt; в указанной переменной.
-   Это эквивалент функции PHP
+   РџСЂРµРІСЂР°С‰Р°РµС‚ РєР°Р¶РґС‹Р№ РїРµСЂРµРІРѕРґ СЃС‚СЂРѕРєРё РІ С‚СЌРі &lt;br /&gt; РІ СѓРєР°Р·Р°РЅРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№.
+   Р­С‚Рѕ СЌРєРІРёРІР°Р»РµРЅС‚ С„СѓРЅРєС†РёРё PHP
    <ulink url="&url.php-manual;nl2br">nl2br()</ulink>.
   </para>
   <example>
@@ -22,7 +22,7 @@ $smarty->assign('articleTitle',
 ]]>
    </programlisting>
    <para>
-    Шаблон:
+    РЁР°Р±Р»РѕРЅ:
    </para>
    <programlisting>
 <![CDATA[
@@ -30,7 +30,7 @@ $smarty->assign('articleTitle',
 ]]>
    </programlisting>
    <para>
-    Результат обработки:
+    Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё:
    </para>
    <screen>
 <![CDATA[
@@ -39,10 +39,10 @@ Sun or rain expected<br />today, dark tonight
    </screen>
   </example>
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="language.modifier.wordwrap">word_wrap</link>,
    <link linkend="language.modifier.count.paragraphs">count_paragraphs</link>
-   и
+   Рё
    <link linkend="language.modifier.count.sentences">count_sentences</link>.
   </para>
  </sect1>

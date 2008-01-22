@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.all.assign">
  <refnamediv>
   <refname>clear_all_assign()</refname>
-  <refpurpose>очищает список назначенных переменных</refpurpose>
+  <refpurpose>РѕС‡РёС‰Р°РµС‚ СЃРїРёСЃРѕРє РЅР°Р·РЅР°С‡РµРЅРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>clear_all_assign</methodname>
    <void />
@@ -17,17 +17,17 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-// передача пар ключ / значение
+// РїРµСЂРµРґР°С‡Р° РїР°СЂ РєР»СЋС‡ / Р·РЅР°С‡РµРЅРёРµ
 $smarty->assign('Name', 'Fred');
 $smarty->assign('Address', $address);
 
-// выведет только что назначенные переменные
+// РІС‹РІРµРґРµС‚ С‚РѕР»СЊРєРѕ С‡С‚Рѕ РЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ
 print_r($smarty->get_template_vars());
 
-// очищаем список назначенных переменных
+// РѕС‡РёС‰Р°РµРј СЃРїРёСЃРѕРє РЅР°Р·РЅР°С‡РµРЅРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
 $smarty->clear_all_assign();
 
-// не выведет ничего
+// РЅРµ РІС‹РІРµРґРµС‚ РЅРёС‡РµРіРѕ
 print_r($smarty->get_template_vars());
 
 ?>
@@ -35,11 +35,11 @@ print_r($smarty->get_template_vars());
    </programlisting>
   </example>
   <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="api.clear.assign">clear_assign()</link>,
   <link linkend="api.clear.config">clear_config()</link>,
   <link linkend="api.assign">assign()</link>
-  и
+  Рё
   <link linkend="api.append">append()</link>
   </para>
  </refsect1>

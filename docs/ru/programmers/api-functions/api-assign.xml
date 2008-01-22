@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
 <refentry id="api.assign">
  <refnamediv>
   <refname>assign()</refname>
-  <refpurpose>назначает значение шаблону</refpurpose>
+  <refpurpose>РЅР°Р·РЅР°С‡Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ С€Р°Р±Р»РѕРЅСѓ</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Описание</title>
+  <title>РћРїРёСЃР°РЅРёРµ</title>
   <methodsynopsis>
    <type>void</type><methodname>assign</methodname>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
@@ -18,33 +18,33 @@
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Вы можете явно передавать пары ключей / значений, либо ассоциативный
-   массив, содержащий пары ключей / значений.
+   Р’С‹ РјРѕР¶РµС‚Рµ СЏРІРЅРѕ РїРµСЂРµРґР°РІР°С‚СЊ РїР°СЂС‹ РєР»СЋС‡РµР№ / Р·РЅР°С‡РµРЅРёР№, Р»РёР±Рѕ Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№
+   РјР°СЃСЃРёРІ, СЃРѕРґРµСЂР¶Р°С‰РёР№ РїР°СЂС‹ РєР»СЋС‡РµР№ / Р·РЅР°С‡РµРЅРёР№.
   </para>
   <example>
    <title>assign()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// назначение пар ключ / значение
+// РЅР°Р·РЅР°С‡РµРЅРёРµ РїР°СЂ РєР»СЋС‡ / Р·РЅР°С‡РµРЅРёРµ
 $smarty->assign('Name', 'Fred');
 $smarty->assign('Address', $address);
 
-// передача ассоциативного массива
+// РїРµСЂРµРґР°С‡Р° Р°СЃСЃРѕС†РёР°С‚РёРІРЅРѕРіРѕ РјР°СЃСЃРёРІР°
 $smarty->assign(array('city' => 'Lincoln', 'state' => 'Nebraska'));
 
-// передача строки из базы данных (напр. ADODB)
+// РїРµСЂРµРґР°С‡Р° СЃС‚СЂРѕРєРё РёР· Р±Р°Р·С‹ РґР°РЅРЅС‹С… (РЅР°РїСЂ. ADODB)
 $sql = 'select id, name, email from contacts where contact ='.$id;
 $smarty->assign('contact', $db->getRow($sql));
 ?>
 ]]>
    </programlisting>
    <para>
-    Обращаемся к переменным из шаблона
+    РћР±СЂР°С‰Р°РµРјСЃСЏ Рє РїРµСЂРµРјРµРЅРЅС‹Рј РёР· С€Р°Р±Р»РѕРЅР°
    </para>
    <programlisting>
 <![CDATA[
-{* переменные чувствительны к регистру, как и в PHP *}
+{* РїРµСЂРµРјРµРЅРЅС‹Рµ С‡СѓРІСЃС‚РІРёС‚РµР»СЊРЅС‹ Рє СЂРµРіРёСЃС‚СЂСѓ, РєР°Рє Рё РІ PHP *}
 {$Name}
 {$Address}
 {$city}
@@ -55,19 +55,19 @@ $smarty->assign('contact', $db->getRow($sql));
    </programlisting>
   </example>
   <para>
-   Для более сложных назначений массивов см.
+   Р”Р»СЏ Р±РѕР»РµРµ СЃР»РѕР¶РЅС‹С… РЅР°Р·РЅР°С‡РµРЅРёР№ РјР°СЃСЃРёРІРѕРІ СЃРј.
    <link linkend="language.function.foreach">{foreach}</link>
-   и
+   Рё
    <link linkend="language.function.section">{section}</link>
   </para>
 
   <para>
-   См. также
+   РЎРј. С‚Р°РєР¶Рµ
    <link linkend="api.assign.by.ref">assign_by_ref()</link>,
    <link linkend="api.get.template.vars">get_template_vars()</link>,
    <link linkend="api.clear.assign">clear_assign()</link>,
    <link linkend="api.append">append()</link>
-   и
+   Рё
    <link linkend="language.function.assign">{assign}</link>
   </para>
  </refsect1>

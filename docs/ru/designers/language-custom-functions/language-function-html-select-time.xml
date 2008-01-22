@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.7 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.html.select.time">
  <title>{html_select_time}</title>
  <para>
-  {html_select_time} является
-  <link linkend="language.custom.functions">пользовательской функцией</link>,
-  которая создает выпадающее меню для выбора времени.
-  Она может отображать поля для часа, минуты, секунды и меридиана.
+  {html_select_time} СЏРІР»СЏРµС‚СЃСЏ
+  <link linkend="language.custom.functions">РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕР№ С„СѓРЅРєС†РёРµР№</link>,
+  РєРѕС‚РѕСЂР°СЏ СЃРѕР·РґР°РµС‚ РІС‹РїР°РґР°СЋС‰РµРµ РјРµРЅСЋ РґР»СЏ РІС‹Р±РѕСЂР° РІСЂРµРјРµРЅРё.
+  РћРЅР° РјРѕР¶РµС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ РїРѕР»СЏ РґР»СЏ С‡Р°СЃР°, РјРёРЅСѓС‚С‹, СЃРµРєСѓРЅРґС‹ Рё РјРµСЂРёРґРёР°РЅР°.
  </para>
  
  <informaltable frame="all">
@@ -19,140 +19,140 @@
    <colspec colname="desc" />
    <thead>
     <row>
-     <entry>Имя атрибута</entry>
-     <entry>Тип</entry>
-     <entry>Обязателен</entry>
-     <entry>По умолчанию</entry>
-     <entry>Описание</entry>
+     <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+     <entry>РўРёРї</entry>
+     <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+     <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+     <entry>РћРїРёСЃР°РЅРёРµ</entry>
     </row>
    </thead>
    <tbody>
     <row>
      <entry>prefix</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>Time_</entry>
-     <entry>префикс для имен переменных</entry>
+     <entry>РїСЂРµС„РёРєСЃ РґР»СЏ РёРјРµРЅ РїРµСЂРµРјРµРЅРЅС‹С…</entry>
     </row>
     <row>
      <entry>time</entry>
      <entry>timestamp</entry>
-     <entry>Нет</entry>
-     <entry>текущее время</entry>
-     <entry>какую дату/время использовать</entry>
+     <entry>РќРµС‚</entry>
+     <entry>С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ</entry>
+     <entry>РєР°РєСѓСЋ РґР°С‚Сѓ/РІСЂРµРјСЏ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ</entry>
     </row>
     <row>
      <entry>display_hours</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>true</entry>
-     <entry>отображать ли часы</entry>
+     <entry>РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ Р»Рё С‡Р°СЃС‹</entry>
     </row>
     <row>
      <entry>display_minutes</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>true</entry>
-     <entry>Отображать ли минуты</entry>
+     <entry>РћС‚РѕР±СЂР°Р¶Р°С‚СЊ Р»Рё РјРёРЅСѓС‚С‹</entry>
     </row>
     <row>
      <entry>display_seconds</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>true</entry>
-     <entry>Отображать ли секунды</entry>
+     <entry>РћС‚РѕР±СЂР°Р¶Р°С‚СЊ Р»Рё СЃРµРєСѓРЅРґС‹</entry>
     </row>
     <row>
      <entry>display_meridian</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>true</entry>
-     <entry>отображать ли меридиан (am/pm)</entry>
+     <entry>РѕС‚РѕР±СЂР°Р¶Р°С‚СЊ Р»Рё РјРµСЂРёРґРёР°РЅ (am/pm)</entry>
     </row>
     <row>
      <entry>use_24_hours</entry>
      <entry>boolean</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>true</entry>
-     <entry>использовать ли 24-часовой формат</entry>
+     <entry>РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р»Рё 24-С‡Р°СЃРѕРІРѕР№ С„РѕСЂРјР°С‚</entry>
     </row>
     <row>
      <entry>minute_interval</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>1</entry>
-     <entry>интервал пунктов выпадающего меню минут</entry>
+     <entry>РёРЅС‚РµСЂРІР°Р» РїСѓРЅРєС‚РѕРІ РІС‹РїР°РґР°СЋС‰РµРіРѕ РјРµРЅСЋ РјРёРЅСѓС‚</entry>
     </row>
     <row>
      <entry>second_interval</entry>
      <entry>integer</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>1</entry>
-     <entry>интервал пунктов выпадающего меню секунд</entry>
+     <entry>РёРЅС‚РµСЂРІР°Р» РїСѓРЅРєС‚РѕРІ РІС‹РїР°РґР°СЋС‰РµРіРѕ РјРµРЅСЋ СЃРµРєСѓРЅРґ</entry>
     </row>
     <row>
      <entry>field_array</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>n/a</entry>
-     <entry>присвоить значения массиву с таким именем</entry>
+     <entry>РїСЂРёСЃРІРѕРёС‚СЊ Р·РЅР°С‡РµРЅРёСЏ РјР°СЃСЃРёРІСѓ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј</entry>
     </row>
     <row>
      <entry>all_extra</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>null</entry>
-     <entry>добавляет дополнительные атрибуты к тэгам select/input</entry>
+     <entry>РґРѕР±Р°РІР»СЏРµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ Рє С‚СЌРіР°Рј select/input</entry>
     </row>
     <row>
      <entry>hour_extra</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>null</entry>
-     <entry>добавляет дополнительные атрибуты к тэгу select часа</entry>
+     <entry>РґРѕР±Р°РІР»СЏРµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ Рє С‚СЌРіСѓ select С‡Р°СЃР°</entry>
     </row>
     <row>
      <entry>minute_extra</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>null</entry>
-     <entry>добавляет дополнительные атрибуты к тэгу select минуты</entry>
+     <entry>РґРѕР±Р°РІР»СЏРµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ Рє С‚СЌРіСѓ select РјРёРЅСѓС‚С‹</entry>
     </row>
     <row>
      <entry>second_extra</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>null</entry>
-     <entry>добавляет дополнительные атрибуты к тэгу select секунды</entry>
+     <entry>РґРѕР±Р°РІР»СЏРµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ Рє С‚СЌРіСѓ select СЃРµРєСѓРЅРґС‹</entry>
     </row>
     <row>
      <entry>meridian_extra</entry>
      <entry>string</entry>
-     <entry>Нет</entry>
+     <entry>РќРµС‚</entry>
      <entry>null</entry>
-     <entry>добавляет дополнительные атрибуты к тэгу select меридиана</entry>
+     <entry>РґРѕР±Р°РІР»СЏРµС‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ Рє С‚СЌРіСѓ select РјРµСЂРёРґРёР°РЅР°</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
 
  <para>
-  Атрибут time может иметь разные форматы.
-  Он может быть уникальной временной меткой (Unix timestamp),
-  строкой формата YYYYMMDDHHMMSS или любой другой строкой,
-  которую может обработать функция PHP
+  РђС‚СЂРёР±СѓС‚ time РјРѕР¶РµС‚ РёРјРµС‚СЊ СЂР°Р·РЅС‹Рµ С„РѕСЂРјР°С‚С‹.
+  РћРЅ РјРѕР¶РµС‚ Р±С‹С‚СЊ СѓРЅРёРєР°Р»СЊРЅРѕР№ РІСЂРµРјРµРЅРЅРѕР№ РјРµС‚РєРѕР№ (Unix timestamp),
+  СЃС‚СЂРѕРєРѕР№ С„РѕСЂРјР°С‚Р° YYYYMMDDHHMMSS РёР»Рё Р»СЋР±РѕР№ РґСЂСѓРіРѕР№ СЃС‚СЂРѕРєРѕР№,
+  РєРѕС‚РѕСЂСѓСЋ РјРѕР¶РµС‚ РѕР±СЂР°Р±РѕС‚Р°С‚СЊ С„СѓРЅРєС†РёСЏ PHP
   <ulink url="&url.php-manual;strtotime">strtotime()</ulink>.
  </para>
  <example>
   <title>{html_select_time}</title>
-  <para>Шаблон:</para>
+  <para>РЁР°Р±Р»РѕРЅ:</para>
   <programlisting>
 <![CDATA[
 {html_select_time use_24_hours=true}
 ]]>
   </programlisting>
   <para>
-   Результат обработки шаблона:
+   Р РµР·СѓР»СЊС‚Р°С‚ РѕР±СЂР°Р±РѕС‚РєРё С€Р°Р±Р»РѕРЅР°:
   </para>
   <screen>
 <![CDATA[
@@ -314,11 +314,11 @@
   </screen>
  </example>
  <para>
-  См. также
+  РЎРј. С‚Р°РєР¶Рµ
   <link linkend="language.variables.smarty.now">$smarty.now</link>,
   <link linkend="language.function.html.select.date">{html_select_date}</link>
-  и
-  <link linkend="tips.dates">Советы относительно дат</link>.
+  Рё
+  <link linkend="tips.dates">РЎРѕРІРµС‚С‹ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РґР°С‚</link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file

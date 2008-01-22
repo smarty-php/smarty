@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.8 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.mailto">
  <title>{mailto}</title>
   <para>
-   {mailto} автоматически создает ссылки "mailto:" и опционально кодирует
-   их. Кодирование e-mail'ов на вашем сайте усложняет их обнаружение
-   автоматическими программами-анализаторами и является элементарным
-   способом защиты от спама.
+   {mailto} Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЃРѕР·РґР°РµС‚ СЃСЃС‹Р»РєРё "mailto:" Рё РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ РєРѕРґРёСЂСѓРµС‚
+   РёС…. РљРѕРґРёСЂРѕРІР°РЅРёРµ e-mail'РѕРІ РЅР° РІР°С€РµРј СЃР°Р№С‚Рµ СѓСЃР»РѕР¶РЅСЏРµС‚ РёС… РѕР±РЅР°СЂСѓР¶РµРЅРёРµ
+   Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёРјРё РїСЂРѕРіСЂР°РјРјР°РјРё-Р°РЅР°Р»РёР·Р°С‚РѕСЂР°РјРё Рё СЏРІР»СЏРµС‚СЃСЏ СЌР»РµРјРµРЅС‚Р°СЂРЅС‹Рј
+   СЃРїРѕСЃРѕР±РѕРј Р·Р°С‰РёС‚С‹ РѕС‚ СЃРїР°РјР°.
  </para>
  
  <informaltable frame="all">
@@ -19,101 +19,101 @@
   <colspec colname="desc" />
   <thead>
    <row>
-    <entry>Имя атрибута</entry>
-    <entry>Тип</entry>
-    <entry>Обязателен</entry>
-    <entry>По умолчанию</entry>
-    <entry>Описание</entry>
+    <entry>РРјСЏ Р°С‚СЂРёР±СѓС‚Р°</entry>
+    <entry>РўРёРї</entry>
+    <entry>РћР±СЏР·Р°С‚РµР»РµРЅ</entry>
+    <entry>РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</entry>
+    <entry>РћРїРёСЃР°РЅРёРµ</entry>
    </row>
   </thead>
   <tbody>
    <row>
     <entry>address</entry>
     <entry>string</entry>
-    <entry>Да</entry>
+    <entry>Р”Р°</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>адрес e-mail</entry>
+    <entry>Р°РґСЂРµСЃ e-mail</entry>
    </row>
    <row>
     <entry>text</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>название ссылки. По умолчанию:
-    адрес e-mail</entry>
+    <entry>РЅР°Р·РІР°РЅРёРµ СЃСЃС‹Р»РєРё. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ:
+    Р°РґСЂРµСЃ e-mail</entry>
    </row>
    <row>
     <entry>encode</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>none</emphasis></entry>
-    <entry>Способ кодирования e-mail.
-     Может быть <literal>none</literal>,
-     <literal>hex</literal>, <literal>javascript</literal> или
+    <entry>РЎРїРѕСЃРѕР± РєРѕРґРёСЂРѕРІР°РЅРёСЏ e-mail.
+     РњРѕР¶РµС‚ Р±С‹С‚СЊ <literal>none</literal>,
+     <literal>hex</literal>, <literal>javascript</literal> РёР»Рё
      <literal>javascript_charcode</literal>.</entry>
    </row>
    <row>
     <entry>cc</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>адреса e-mail для точной копии.
-     Адреса разделяются запятыми.</entry>
+    <entry>Р°РґСЂРµСЃР° e-mail РґР»СЏ С‚РѕС‡РЅРѕР№ РєРѕРїРёРё.
+     РђРґСЂРµСЃР° СЂР°Р·РґРµР»СЏСЋС‚СЃСЏ Р·Р°РїСЏС‚С‹РјРё.</entry>
    </row>
    <row>
     <entry>bcc</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>адреса e-mail для "слепой" копии.
-     Адреса разделяются запятыми.</entry>
+    <entry>Р°РґСЂРµСЃР° e-mail РґР»СЏ "СЃР»РµРїРѕР№" РєРѕРїРёРё.
+     РђРґСЂРµСЃР° СЂР°Р·РґРµР»СЏСЋС‚СЃСЏ Р·Р°РїСЏС‚С‹РјРё.</entry>
    </row>
    <row>
     <entry>subject</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>тема письма.</entry>
+    <entry>С‚РµРјР° РїРёСЃСЊРјР°.</entry>
    </row>
    <row>
     <entry>newsgroups</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>в какие конференции передавать.
-     конференции разделяются запятыми.</entry>
+    <entry>РІ РєР°РєРёРµ РєРѕРЅС„РµСЂРµРЅС†РёРё РїРµСЂРµРґР°РІР°С‚СЊ.
+     РєРѕРЅС„РµСЂРµРЅС†РёРё СЂР°Р·РґРµР»СЏСЋС‚СЃСЏ Р·Р°РїСЏС‚С‹РјРё.</entry>
    </row>
    <row>
     <entry>followupto</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>адреса для дальнейшего перенаправления.
-    Адреса разделяются запятыми.</entry>
+    <entry>Р°РґСЂРµСЃР° РґР»СЏ РґР°Р»СЊРЅРµР№С€РµРіРѕ РїРµСЂРµРЅР°РїСЂР°РІР»РµРЅРёСЏ.
+    РђРґСЂРµСЃР° СЂР°Р·РґРµР»СЏСЋС‚СЃСЏ Р·Р°РїСЏС‚С‹РјРё.</entry>
    </row>
    <row>
     <entry>extra</entry>
     <entry>string</entry>
-    <entry>Нет</entry>
+    <entry>РќРµС‚</entry>
     <entry><emphasis>n/a</emphasis></entry>
-    <entry>Дополнительный атрибуты, передаваемые в ссылку
-    такие как стили (style)</entry>
+    <entry>Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ Р°С‚СЂРёР±СѓС‚С‹, РїРµСЂРµРґР°РІР°РµРјС‹Рµ РІ СЃСЃС‹Р»РєСѓ
+    С‚Р°РєРёРµ РєР°Рє СЃС‚РёР»Рё (style)</entry>
    </row>
   </tbody>
   </tgroup>
  </informaltable>
  
  <note>
-  <title>Техническое Замечание</title>
+  <title>РўРµС…РЅРёС‡РµСЃРєРѕРµ Р—Р°РјРµС‡Р°РЅРёРµ</title>
   <para>
-   javascript - скорее всего наиболее полная форма кодирования,
-   хотя вы так же можете использовать шестнадцатиричное
-   кодирование. К сожалению, javascript не поддерживает
-   кодирование русских символов.
+   javascript - СЃРєРѕСЂРµРµ РІСЃРµРіРѕ РЅР°РёР±РѕР»РµРµ РїРѕР»РЅР°СЏ С„РѕСЂРјР° РєРѕРґРёСЂРѕРІР°РЅРёСЏ,
+   С…РѕС‚СЏ РІС‹ С‚Р°Рє Р¶Рµ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С€РµСЃС‚РЅР°РґС†Р°С‚РёСЂРёС‡РЅРѕРµ
+   РєРѕРґРёСЂРѕРІР°РЅРёРµ. Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, javascript РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚
+   РєРѕРґРёСЂРѕРІР°РЅРёРµ СЂСѓСЃСЃРєРёС… СЃРёРјРІРѕР»РѕРІ.
   </para>
  </note>
  <example>
-  <title>Примеры использования {mailto} и результаты их обработки</title>
+  <title>РџСЂРёРјРµСЂС‹ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ {mailto} Рё СЂРµР·СѓР»СЊС‚Р°С‚С‹ РёС… РѕР±СЂР°Р±РѕС‚РєРё</title>
   <programlisting>
 <![CDATA[
 {mailto address="me@example.com"}
@@ -149,10 +149,10 @@
   </programlisting>
  </example>
  <para>
- См. также
+ РЎРј. С‚Р°РєР¶Рµ
  <link linkend="language.modifier.escape">escape</link>,
- <link linkend="tips.obfuscating.email">Сокрытие E-mail адреса</link>
- и
+ <link linkend="tips.obfuscating.email">РЎРѕРєСЂС‹С‚РёРµ E-mail Р°РґСЂРµСЃР°</link>
+ Рё
  <link linkend="language.function.textformat">{textformat}</link>
 
  </para>

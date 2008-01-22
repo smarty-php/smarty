@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
 <refentry id="api.get.template.vars">
@@ -13,21 +13,21 @@
    <methodparam choice="opt"><type>string</type><parameter>varname</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Возвращает значение переменной. Если аргумент не передан,
-   будет возвращен массив всех назначенными переменными.
+   Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№. Р•СЃР»Рё Р°СЂРіСѓРјРµРЅС‚ РЅРµ РїРµСЂРµРґР°РЅ,
+   Р±СѓРґРµС‚ РІРѕР·РІСЂР°С‰РµРЅ РјР°СЃСЃРёРІ РІСЃРµС… РЅР°Р·РЅР°С‡РµРЅРЅС‹РјРё РїРµСЂРµРјРµРЅРЅС‹РјРё.
   </para>
   <example>
    <title>get_template_vars</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// получаем назначенную переменную шаблона 'foo'
+// РїРѕР»СѓС‡Р°РµРј РЅР°Р·РЅР°С‡РµРЅРЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ С€Р°Р±Р»РѕРЅР° 'foo'
 $foo = $smarty->get_template_vars('foo');
 
-// получаем все назначенные переменные шаблона
+// РїРѕР»СѓС‡Р°РµРј РІСЃРµ РЅР°Р·РЅР°С‡РµРЅРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ С€Р°Р±Р»РѕРЅР°
 $tpl_vars = $smarty->get_template_vars();
 
-// поглядим, что из этого вышло
+// РїРѕРіР»СЏРґРёРј, С‡С‚Рѕ РёР· СЌС‚РѕРіРѕ РІС‹С€Р»Рѕ
 print_r($tpl_vars);
 ?>
 ]]>
