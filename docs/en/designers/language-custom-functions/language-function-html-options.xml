@@ -170,7 +170,7 @@ $smarty->assign('customer_id', 92);
   </para>
   <screen>
 <![CDATA[
-<select name="customer_id">
+<select name="customer_id" size="3">
     <option label="Joe Schmoe" value="56">Joe Schmoe</option>
     <option label="Jack Smith" value="92" selected="selected">Jane Johnson</option>
     <option label="Charlie Brown" value="13">Charlie Brown</option>
