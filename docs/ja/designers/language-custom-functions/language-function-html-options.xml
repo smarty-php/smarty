@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.18 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2753 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.html.options">
  <title>{html_options}</title>
@@ -172,7 +172,7 @@ $smarty->assign('customer_id', 92);
   </para>
   <screen>
 <![CDATA[
-<select name="customer_id">
+<select name="customer_id" size="3">
     <option label="Joe Schmoe" value="56">Joe Schmoe</option>
     <option label="Jack Smith" value="92" selected="selected">Jane Johnson</option>
     <option label="Charlie Brown" value="13">Charlie Brown</option>

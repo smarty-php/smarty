@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2752 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
   <sect1 id="advanced.features.outputfilters">
    <title>アウトプットフィルタ</title>
@@ -51,7 +51,7 @@ $smarty->display('index.tpl');
     </programlisting>
    </example>
    <para>
-   <link linkend="api.register.outputfilter"><varname>register_outpurfilter()</varname></link>、
+   <link linkend="api.register.outputfilter"><varname>register_outputfilter()</varname></link>、
    <link linkend="api.load.filter"><varname>load_filter()</varname></link>、
    <link linkend="variable.autoload.filters"><parameter>$autoload_filters</parameter></link>、
    <link linkend="advanced.features.postfilters">ポストフィルタ</link> および
