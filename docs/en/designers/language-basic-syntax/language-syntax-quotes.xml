@@ -59,7 +59,7 @@
 {include file="`$module.contact`.tpl"}
 
 {*  same as $module[$view].'.tpl' in a php script
-{include file="$module.$view.tpl"}
+{include file="`$module.$view`.tpl"}
 ]]>
   </programlisting>
  </example>
