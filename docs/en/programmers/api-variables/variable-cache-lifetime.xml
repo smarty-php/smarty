@@ -14,7 +14,7 @@
      </para></listitem>
 
      <listitem><para>
-     A value of -1 will force the cache to never expire.
+     A <parameter>$cache_lifetime</parameter> value of -1 will force the cache to never expire.
      </para></listitem>
 
      <listitem><para>A value of 0 will cause
