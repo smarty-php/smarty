@@ -121,7 +121,7 @@ function get_tags($file, $val = "en-rev")
     // Check for English CVS revision tag (. is for $ in the preg!),
     // Return if this was needed (it should be there)
     if ($val == "en-rev") {
-        preg_match("/<!-- .Revision: \d+\.(\d+) . -->/", $line, $match);
+        preg_match("/<!-- .Revision: (\d+) . -->/", $line, $match);
         return $match[1];
     }
 
@@ -149,7 +149,7 @@ function get_tags($file, $val = "en-rev")
     $match = array();
     
     // Check for the translations "revision tag"
-    preg_match ("/<!--\s*EN-Revision:\s*\d+\.(\d+)\s*Maintainer:\s*("
+    preg_match ("/<!--\s*EN-Revision:\s*(\d+)\s*Maintainer:\s*("
                 . $val . ")\s*Status:\s*(.+)\s*-->/U", 
                 $line,
                 $match
@@ -195,7 +195,7 @@ function get_file_status($file)
         $file_sizes_by_mark[REV_NOTRANS] += $size;
         // compute en-tags just if they're needed in the WIP-Table
         if($using_rev) {
-        	$missing_files[$trans_name][] = "1.".get_tags($file);
+        	$missing_files[$trans_name][] = get_tags($file);
         }
         return FALSE;
     }
@@ -244,13 +244,11 @@ function get_file_status($file)
     // If we have a numeric revision number (not n/a), compute rev. diff
     if (is_numeric($this_rev)) {
         $rev_diff   = intval($en_rev) - intval($this_rev);
-        $trans_rev  = "1." . $this_rev;
-        $en_rev     = "1." . $en_rev;
+        $trans_rev  = $this_rev;
     } else {
         // If we have no numeric revision, make all revision
         // columns hold the rev from the translated file
         $rev_diff = $trans_rev = $this_rev;
-        $en_rev   = "1." . $en_rev;
     }
 
     // If the file is up-to-date
@@ -833,15 +831,13 @@ END_OF_MULTILINE;
         // If we have a 'numeric' revision diff and it is not zero,
         // make a link to the CVS repository's diff script
         if ($file["revision"][2] != "n/a" && $file["revision"][2] !== 0) {
-            $url = 'http://cvs.php.net/viewcvs.cgi/' .
-                   preg_replace( "'^".$DOCDIR."'", 'smarty/docs/', $file['full_name']) .
-                   '?tr1=' . $file['revision'][1] . '&amp;tr2=' . $file['revision'][0] .
-                   '&amp;r1=text&amp;r2=text';
-            $url_ws = $url . CVS_OPT_NOWS;
-            $url   .= CVS_OPT;
+            $url = 'http://code.google.com/p/smarty-php/source/diff?'
+                 . 'old=' . $file['revision'][1] . '&'
+                 . 'r=' . $file['revision'][0] . '&'
+                 . 'format=side&'
+                 . 'path=' . urlencode('/trunk/' . preg_replace("'^".$DOCDIR."'", 'docs/', $file['full_name']));
 
-            $file['short_name'] = '<a href="' . $url . '">'. $file["short_name"] . '</a> '.
-                                  '<a href="' . $url_ws . '">[NoWS]</a>';
+            $file['short_name'] = '<a href="' . $url . '">'. $file["short_name"] . '</a>';
         }
 
         // Guess the new directory from the full name of the file
@@ -1017,7 +1013,7 @@ if ($count > 0) {
             $prev_dir = $new_dir;
         }
 
-        print "<tr class=wip><td><a href=\"http://cvs.php.net/viewcvs.cgi/smarty/docs/en/$file?view=markup\">$short_file</a></td>" .
+        print "<tr class=wip><td><a href=\"http://code.google.com/p/smarty-php/source/browse/trunk/docs/en/$file\">$short_file</a></td>" .
               "<td class=r>$info[0]</td></tr>\n";
     }
     print "</table>\n<p>&nbsp;</p>\n$navbar<p>&nbsp;</p>\n";
