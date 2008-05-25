@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.10 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 2215 Maintainer: freespace Status: ready -->
 <chapter id="api.functions">
  <title>Методы класса Smarty</title>
  &programmers.api-functions.api-append;

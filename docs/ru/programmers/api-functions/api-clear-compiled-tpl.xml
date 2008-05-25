@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 0 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.compiled.tpl">
  <refnamediv>
   <refname>clear_compiled_tpl()</refname>

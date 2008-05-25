@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.4 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 0 Maintainer: freespace Status: ready -->
 <refentry id="api.clear.assign">
  <refnamediv>
   <refname>clear_assign()</refname>

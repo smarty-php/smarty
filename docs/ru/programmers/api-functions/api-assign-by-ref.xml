@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 0 Maintainer: freespace Status: ready -->
 <refentry id="api.assign.by.ref">
  <refnamediv>
   <refname>assign_by_ref()</refname>

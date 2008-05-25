@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.6 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 0 Maintainer: freespace Status: ready -->
  <sect1 id="caching.cacheable">
   <title>Управление кэшированием результатов работы плагинов</title>
   <para>

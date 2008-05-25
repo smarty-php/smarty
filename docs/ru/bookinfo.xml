@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.9 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 2094 Maintainer: freespace Status: ready -->
 <bookinfo id="bookinfo">
   <title>Smarty - компилирующий обработчик шаблонов</title>
   <authorgroup id="authors">

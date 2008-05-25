@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 0 Maintainer: freespace Status: ready -->
      <sect1 id="variable.plugins.dir">
       <title>$plugins_dir</title>
       <para>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: tony2001 Status: ready -->
+<!-- EN-Revision: 0 Maintainer: tony2001 Status: ready -->
 <refentry id="api.unregister.compiler.function">
  <refnamediv>
   <refname>unregister_compiler_function</refname>
