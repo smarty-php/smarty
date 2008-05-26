@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.3 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2597 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="plugins.prefilters.postfilters">
     <title>プリフィルタ/ポストフィルタプラグイン</title>

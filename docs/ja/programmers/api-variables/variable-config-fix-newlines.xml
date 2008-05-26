@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.2 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2600 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
      <sect1 id="variable.config.fix.newlines">
       <title>$config_fix_newlines</title>
