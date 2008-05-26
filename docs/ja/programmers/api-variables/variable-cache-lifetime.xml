@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.5 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2759 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="variable.cache.lifetime">
     <title>$cache_lifetime</title>
@@ -15,7 +15,7 @@
      </para></listitem>
 
      <listitem><para>
-     この値を -1 にすると、キャッシュを無期限で有効とします。
+     <parameter>$cache_lifetime</parameter> の値を -1 にすると、キャッシュを無期限で有効とします。
      </para></listitem>
 
      <listitem><para>
