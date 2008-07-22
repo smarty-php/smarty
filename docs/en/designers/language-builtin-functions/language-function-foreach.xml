@@ -414,7 +414,7 @@ $smarty->assign('items', $items_list);
 <![CDATA[
 {* show rows returned at end *}
 {foreach from=$items key=part_id item=prod name=foo}
-{$prod.name><hr/>
+{$prod.name}<hr/>
 {if $smarty.foreach.foo.last}
   <div id="total">{$smarty.foreach.foo.total} items</div>
 {/if}
