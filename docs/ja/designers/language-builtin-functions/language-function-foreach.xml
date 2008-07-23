@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2715 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2765 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.foreach">
  <title>{foreach},{foreachelse}</title>
@@ -418,7 +418,7 @@ $smarty->assign('items', $items_list);
 <![CDATA[
 {* 返された行の総数を最後に表示します *}
 {foreach from=$items key=part_id item=prod name=foo}
-{$prod.name><hr/>
+{$prod.name}<hr/>
 {if $smarty.foreach.foo.last}
   <div id="total">{$smarty.foreach.foo.total} items</div>
 {/if}
