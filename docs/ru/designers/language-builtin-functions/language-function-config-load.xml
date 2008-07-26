@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 0 Maintainer: freespace Status: ready -->
+<!-- EN-Revision: 2715 Maintainer: freespace Status: ready -->
 <sect1 id="language.function.config.load">
  <title>{config_load}</title>
  <para>
-  {config_load} используется для загрузки конфигурационных переменных
-  (<link linkend="language.config.variables">#variable#</link>) из
+  <varname>{config_load}</varname> используется для загрузки
+  конфигурационных переменных
+  (<link linkend="language.config.variables"><parameter>#variables#</parameter></link>) из
   <link linkend="config.files">конфигурационных файлов</link> в шаблон.
  </para>
  <informaltable frame="all">
@@ -72,7 +73,9 @@
  </informaltable>
  <example>
   <title>{config_load}</title>
-	 <para>example.conf</para>
+	 <para>
+	   Файл <filename>example.conf</filename>.
+     </para>
 	 <programlisting>
 <![CDATA[
 #это комментарий конфигурационного файла
@@ -114,13 +117,15 @@ pageTitle = "Customer Info"
 	 <link linkend="config.files">Конфигурационные файлы</link>
   могут также содержать секции. Вы можете загружать
   переменные из определенной секции, указав атрибут
-  <emphasis>'section'</emphasis>.
+  <parameter>section</parameter>. Имейте в виду, что глобальные
+  конфигурационные переменные всегда загружаются вместе с секционными
+  переменными, которые могут переопределять их.
  </para>
  <note>
   <para>
    <emphasis>Секции файлов конфигурации</emphasis> и встроенная
    функция
-   <link linkend="language.function.section"><emphasis>{section}</emphasis></link>
+   <link linkend="language.function.section"><varname>{section}</varname></link>
    не имеют ничего общего, кроме схожего названия.
   </para>
  </note>
@@ -149,17 +154,17 @@ pageTitle = "Customer Info"
  </example>
 
  <para>
-  См. <link linkend="variable.config.overwrite">$config_overwrite</link>
+  См. <link linkend="variable.config.overwrite"><parameter>$config_overwrite</parameter></link>
   для массивов конфигурационных переменных.
  </para>
 
  <para>
   См. также <link linkend="config.files">Конфигурационные файлы</link>,
   <link linkend="language.config.variables">Конфигурационные переменные</link>,
-  <link linkend="variable.config.dir">$config_dir</link>,
-  <link linkend="api.get.config.vars">get_config_vars()</link>
+  <link linkend="variable.config.dir"><parameter>$config_dir</parameter></link>,
+  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>
   и
-  <link linkend="language.function.config.load">config_load()</link>.
+  <link linkend="api.config.load"><varname>config_load()</varname></link>.
  </para>
 </sect1>
 <!-- Keep this comment at the end of the file
