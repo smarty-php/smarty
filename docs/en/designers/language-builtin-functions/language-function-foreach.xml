@@ -104,7 +104,7 @@
       <note>
       <title>Note</title>
       <para>The <parameter>name</parameter> attribute is only required when
-      you want to access a <varname>{foreach</varname>} property, unlike
+      you want to access a <varname>{foreach}</varname> property, unlike
       <link linkend="language.function.section"><varname>{section}</varname></link>.
       Accessing a <varname>{foreach}</varname> property with <parameter>name</parameter>
       undefined does not throw an error, but leads to unpredictable results instead.
