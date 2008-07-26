@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2765 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2767 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.foreach">
  <title>{foreach},{foreachelse}</title>
@@ -104,7 +104,7 @@
       <note>
       <title>注意</title>
       <para><parameter>name</parameter> 属性が必要となるのは
-      <varname>{foreach</varname>} のプロパティにアクセスする必要がある場合のみです。
+      <varname>{foreach}</varname> のプロパティにアクセスする必要がある場合のみです。
       これは <link linkend="language.function.section"><varname>{section}</varname></link>
       の場合とは異なります。<varname>{foreach}</varname> のプロパティに対して
       定義されていない <parameter>name</parameter> でアクセスしてもエラーは発生しませんが、
