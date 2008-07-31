@@ -1,3 +1,7 @@
+
+- fix handling of non-empty <pre>-tags and empty <textarea>- and
+  <script>-tags (Spuerhund, messju)
+
 Version 2.6.19 (Feb 11th, 2008)
 -------------------------------
 
