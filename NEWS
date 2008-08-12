@@ -1,4 +1,6 @@
-
+- fix that function results can be used with condition like "is even" in 
+  {if} tags (U.Tews)
+  
 - fix handling of non-empty <pre>-tags and empty <textarea>- and
   <script>-tags (Spuerhund, messju)
 
