@@ -1,6 +1,9 @@
+- fix cache tag bug when multiple cache tags on a page (mankyd,
+  mohrt)
+- fix /e tag checking when using arrays with regex_replace
+  (mohrt)
 - fix that function results can be used with condition like "is even" in 
   {if} tags (U.Tews)
-  
 - fix handling of non-empty <pre>-tags and empty <textarea>- and
   <script>-tags (Spuerhund, messju)
 
