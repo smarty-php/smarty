@@ -73,6 +73,9 @@ class Smarty_Compiler extends Smarty {
 
     var $_strip_depth           =   0;
     var $_additional_newline    =   "\n";
+    
+    var $PHP5 = false;
+
 
     /**#@-*/
     /**
@@ -80,6 +83,8 @@ class Smarty_Compiler extends Smarty {
      */
     function Smarty_Compiler()
     {
+        if (substr(phpversion(),0,1) == '5') $this->PHP5 = true;
+
         // matches double quoted strings:
         // "foobar"
         // "foo\"bar"
@@ -152,16 +157,20 @@ class Smarty_Compiler extends Smarty {
         // $foo->bar($foo->bar)
         // $foo->bar($foo->bar())
         // $foo->bar($foo->bar($blah,$foo,44,"foo",$foo[0].bar))
+        // $foo->getBar()->getFoo()
+        // $foo->getBar()->foo
         $this->_obj_ext_regexp = '\->(?:\$?' . $this->_dvar_guts_regexp . ')';
         $this->_obj_restricted_param_regexp = '(?:'
-                . '(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . ')(?:' . $this->_obj_ext_regexp . '(?:\((?:(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . ')'
-                . '(?:\s*,\s*(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . '))*)?\))?)*)';
-        $this->_obj_single_param_regexp = '(?:\w+|' . $this->_obj_restricted_param_regexp . '(?:\s*,\s*(?:(?:\w+|'
+             . '(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . ')(?:' . $this->_obj_ext_regexp . '(?:\((?:(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . ')'
+             . '(?:\s*,\s*(?:' . $this->_var_regexp . '|' . $this->_num_const_regexp . '))*)?\))?)*)';
+
+       $this->_obj_single_param_regexp = '(?:\w+|' . $this->_obj_restricted_param_regexp . '(?:\s*,\s*(?:(?:\w+|'
                 . $this->_var_regexp . $this->_obj_restricted_param_regexp . ')))*)';
-        $this->_obj_params_regexp = '\((?:' . $this->_obj_single_param_regexp
+
+       $this->_obj_params_regexp = '\((?:' . $this->_obj_single_param_regexp
                 . '(?:\s*,\s*' . $this->_obj_single_param_regexp . ')*)?\)';
-        $this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
-        $this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?)';
+       $this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
+       $this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . '(?:' . $this->_obj_ext_regexp . '(?:'.$this->_obj_params_regexp . ')?)*' . ')?(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?)';
         
         // matches valid modifier syntax:
         // |foo
@@ -1821,6 +1830,10 @@ class Smarty_Compiler extends Smarty {
                             $_output .= '->{(($_var=$this->_tpl_vars[\''.substr($_index,3).'\']) && substr($_var,0,2)!=\'__\') ? $_var : $this->trigger_error("cannot access property \\"$_var\\"")}';
                         }
                     } else {
+                       if (!$this->PHP5) {
+                         $_PHP4_method_chain = true;
+                         $_output .= "; \$_foo = \$_foo";
+                       }
                         $_output .= $_index;
                     }
                 } elseif (substr($_index, 0, 1) == '(') {
@@ -1832,7 +1845,12 @@ class Smarty_Compiler extends Smarty {
             }
         }
 
-        return $_output;
+        if ($_PHP4_method_chain) {
+           $_tmp = str_replace("'","\'",'$_foo = '.$_output.'; return $_foo;');
+           return "eval('".$_tmp."')";
+        } else {
+           return $_output; 
+        }
     }
 
     /**
