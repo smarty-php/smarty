@@ -1,3 +1,7 @@
+- Update of compiler.class.php to allow method chaining for PHP4 and PHP5
+  (U.Tews)
+
+
 - fix cache tag bug when multiple cache tags on a page (mankyd,
   mohrt)
 - fix /e tag checking when using arrays with regex_replace
