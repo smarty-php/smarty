@@ -74,7 +74,7 @@ class Smarty_Compiler extends Smarty {
     var $_strip_depth           =   0;
     var $_additional_newline    =   "\n";
     
-    var $PHP5 = false;
+    var $_phpversion            =   0;
 
 
     /**#@-*/
@@ -83,7 +83,7 @@ class Smarty_Compiler extends Smarty {
      */
     function Smarty_Compiler()
     {
-        if (substr(phpversion(),0,1) == '5') $this->PHP5 = true;
+        $this->_phpversion = substr(phpversion(),0,1);
 
         // matches double quoted strings:
         // "foobar"
@@ -1718,6 +1718,7 @@ class Smarty_Compiler extends Smarty {
     function _parse_var($var_expr)
     {
         $_has_math = false;
+        $_has_php4_method_chaining = false;
         $_math_vars = preg_split('~('.$this->_dvar_math_regexp.'|'.$this->_qstr_regexp.')~', $var_expr, -1, PREG_SPLIT_DELIM_CAPTURE);
 
         if(count($_math_vars) > 1) {
@@ -1830,8 +1831,8 @@ class Smarty_Compiler extends Smarty {
                             $_output .= '->{(($_var=$this->_tpl_vars[\''.substr($_index,3).'\']) && substr($_var,0,2)!=\'__\') ? $_var : $this->trigger_error("cannot access property \\"$_var\\"")}';
                         }
                     } else {
-                       if (!$this->PHP5) {
-                         $_PHP4_method_chain = true;
+                       if ($this->_phpversion < 5) {
+                         $_has_php4_method_chaining = true;
                          $_output .= "; \$_foo = \$_foo";
                        }
                         $_output .= $_index;
@@ -1845,7 +1846,7 @@ class Smarty_Compiler extends Smarty {
             }
         }
 
-        if ($_PHP4_method_chain) {
+        if ($_has_php4_method_chaining) {
            $_tmp = str_replace("'","\'",'$_foo = '.$_output.'; return $_foo;');
            return "eval('".$_tmp."')";
         } else {
