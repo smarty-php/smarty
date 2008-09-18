@@ -18,7 +18,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * @link http://smarty.php.net/
+ * For questions, help, comments, discussion, etc., please join the
+ * Smarty mailing list. Send a blank e-mail to
+ * smarty-discussion-subscribe@googlegroups.com 
+ *
+ * @link http://www.smarty.net/
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
  * @version 2.6.21-dev
@@ -1704,7 +1708,10 @@ class Smarty_Compiler extends Smarty {
             $_return = $var_expr;
         }
         // replace double quoted literal string with single quotes
-        $_return = preg_replace('~^"([\s\w]+)"$~',"'\\1'",$_return);
+        
+        // The follwoing line has been replaced to close a function injection security hole  (U.Tews)
+        // $_return = preg_replace('~^"([\s\w]+)"$~',"'\\1'",$_return);
+        $_return = str_replace('"',"'",$_return);   
         return $_return;
     }
 
