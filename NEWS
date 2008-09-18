@@ -1,3 +1,4 @@
+- fix  function injection security hole closed (U.Tews)
 - fix pass expiration time at cache_handler_fuc call in core.write_cache_file.php
   (U.Tews)
 - Update of compiler.class.php to allow method chaining for PHP4 and PHP5
