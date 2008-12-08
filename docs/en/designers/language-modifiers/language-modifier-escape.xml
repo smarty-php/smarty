@@ -90,7 +90,8 @@ $smarty->assign('EmailAddress','smarty@example.com');
 &#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;
 
 <a href="?title={$articleTitle|escape:'url'}">click here</a>
-<a href="?title=%27Stiff+Opposition+Expected+to+Casketless+Funeral+Plan%27">click here</a>
+<a
+href="?title=%27Stiff%20Opposition%20Expected%20to%20Casketless%20Funeral%20Plan%27">click here</a>
 
 {$articleTitle|escape:'quotes'}
 \'Stiff Opposition Expected to Casketless Funeral Plan\'
