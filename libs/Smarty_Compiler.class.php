@@ -21,7 +21,7 @@
  * @link http://www.smarty.net/
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
- * @version 2.6.21-dev
+ * @version 2.6.23-dev
  * @copyright 2001-2005 New Digital Group, Inc.
  * @package Smarty
  */
