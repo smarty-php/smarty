@@ -473,7 +473,7 @@ function parse_translation($DOCDIR, $LANG, $MAINT)
     // Path to find translation.xml file, set default values,
     // in case we can't find the translation file
     $translation_xml = $DOCDIR.$LANG."/translation.xml";
-    $output_charset  = 'iso-8859-1';
+    $output_charset  = 'UTF-8';
     $translation     = array(
         "intro"    => "",
         "persons"  => array(),
