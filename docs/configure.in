@@ -348,7 +348,13 @@ AC_SUBST(BUILD_DATE)
 case "$LANG" in
   ru) ENCODING="utf-8"
       FOP="$FOP -c fop/ru.cfg";;
+  de) ENCODING="utf-8";;
+  es) ENCODING="utf-8";;
+  fr) ENCODING="utf-8";;
+  id) ENCODING="utf-8";;
+  it) ENCODING="utf-8";;
   ja) ENCODING="utf-8";;
+  pt_BR) ENCODING="utf-8";;
   *) ENCODING="ISO-8859-1";;
 esac
 
