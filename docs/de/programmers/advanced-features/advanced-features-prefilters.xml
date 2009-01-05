@@ -5,13 +5,13 @@
  <title>Prefilter</title>
  <para>
   Template Prefilter sind Filter, welche auf das Template vor dessen Kompilierung
-  angewendet werden. Dies ist nützlich, um zum Beispiel Kommentare zu entfernen
-  oder um den Inhalt des Templates zu analysieren. Prefilter können auf verschiedene 
+  angewendet werden. Dies ist nÃ¼tzlich, um zum Beispiel Kommentare zu entfernen
+  oder um den Inhalt des Templates zu analysieren. Prefilter kÃ¶nnen auf verschiedene 
   Arten geladen werden. Man kann sie <link linkend="api.register.prefilter">registrieren</link>,
   aus dem Plugin-Verzeichnis mit <link linkend="api.load.filter">load_filter()</link> laden
   oder <link linkend="variable.autoload.filters">$autoload_filters</link> verwenden.
-  Smarty übergibt der Funktion als ersten Parameter den Template-Quellcode und erwartet
-  als Rückgabewert den bearbeiteten Quellcode.
+  Smarty Ã¼bergibt der Funktion als ersten Parameter den Template-Quellcode und erwartet
+  als RÃ¼ckgabewert den bearbeiteten Quellcode.
  </para>
  <example>
   <title>Template Prefilter verwenden</title>
@@ -22,7 +22,7 @@
 <![CDATA[
 <?php
      
-// fügen Sie folgende Zeilen in Ihre Applikation ein
+// fÃ¼gen Sie folgende Zeilen in Ihre Applikation ein
 function remove_dw_comments($tpl_source, &$smarty)
 {
     return preg_replace("/<!--#.*-->/U",'',$tpl_source);

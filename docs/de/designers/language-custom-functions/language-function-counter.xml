@@ -2,18 +2,18 @@
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.5 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.counter">
-<title>{counter} (Zähler)</title>
+<title>{counter} (ZÃ¤hler)</title>
  <para>
-  {counter} wird verwendet um eine Zahlenreihe auszugeben. Sie können
-  den Initialwert bestimmen, den Zählinterval, die Richtung in der
-  gezählt werden soll und ob der Wert ausgegeben wird. Sie können
-  mehrere Zähler gleichzeitig laufen lassen, in dem Sie ihnen
-  einmalige Namen geben. Wenn Sie keinen Wert für 'name' übergeben,
+  {counter} wird verwendet um eine Zahlenreihe auszugeben. Sie kÃ¶nnen
+  den Initialwert bestimmen, den ZÃ¤hlinterval, die Richtung in der
+  gezÃ¤hlt werden soll und ob der Wert ausgegeben wird. Sie kÃ¶nnen
+  mehrere ZÃ¤hler gleichzeitig laufen lassen, in dem Sie ihnen
+  einmalige Namen geben. Wenn Sie keinen Wert fÃ¼r 'name' Ã¼bergeben,
   wird 'default' verwendet.
  </para>
  <para>
   Wenn Sie das spezielle 'assign'-Attribut verwenden, wird die Ausgabe
-  des Zählers dieser Template-Variable zugewiesen anstatt ausgegeben
+  des ZÃ¤hlers dieser Template-Variable zugewiesen anstatt ausgegeben
   zu werden.
  </para>
  <informaltable frame="all">
@@ -38,7 +38,7 @@
      <entry>string</entry>
      <entry>Nein</entry>
      <entry><emphasis>default</emphasis></entry>
-     <entry>Der Name des Zählers.</entry>
+     <entry>Der Name des ZÃ¤hlers.</entry>
     </row>
     <row>
      <entry>start</entry>
@@ -79,10 +79,10 @@
   </tgroup>
  </informaltable>
  <example>
-  <title>{counter} (Zähler)</title>
+  <title>{counter} (ZÃ¤hler)</title>
   <programlisting>
 <![CDATA[
-{* zähler initialisieren *}
+{* zÃ¤hler initialisieren *}
 {counter start=0 skip=2}<br />
 {counter}<br />
 {counter}<br />

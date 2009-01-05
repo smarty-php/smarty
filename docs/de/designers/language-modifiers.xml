@@ -4,12 +4,12 @@
 <chapter id="language.modifiers">
  <title>Variablen-Modifikatoren</title>
  <para>
-  Variablen-Modifikatoren können auf alle Variablen angewendet
-  werden, um deren Inhalt zu verändern. Dazu hängen sie einfach
+  Variablen-Modifikatoren kÃ¶nnen auf alle Variablen angewendet
+  werden, um deren Inhalt zu verÃ¤ndern. Dazu hÃ¤ngen sie einfach
   ein <literal>|</literal> (Pipe-Zeichen) und den Modifikatornamen an
-  die entsprechende Variable an. Ein Modifikator über Parameter in
+  die entsprechende Variable an. Ein Modifikator Ã¼ber Parameter in
   seiner Arbeitsweise beinflusst werden. Diese Parameter werden dem
-  Modifikatorname angehängt und mit <literal>:</literal> getrennt.
+  Modifikatorname angehÃ¤ngt und mit <literal>:</literal> getrennt.
  </para>
  <example>
  <title>Modifikator Beispiel</title>
@@ -45,7 +45,7 @@
   des Arrays $artikelTitel aus.)
  </para>
  <para>
-  Modifikatoren können aus Ihrem <link
+  Modifikatoren kÃ¶nnen aus Ihrem <link
   linkend="variable.plugins.dir">$plugins_dir</link> automatisch
   geladen (sehen Sie dazu auch <link
   linkend="plugins.naming.conventions">Naming Conventions</link>) oder
@@ -53,17 +53,17 @@
   linkend="api.register.modifier">register_modifier</link>).
  </para>
  <para>
-  Zudem können alle PHP-Funktionen implizit als Modifikatoren
+  Zudem kÃ¶nnen alle PHP-Funktionen implizit als Modifikatoren
   verwendet werden. (Das Beispiel mit dem <literal>@count</literal>
   Modifier verwendet die Funktion 'count()' von PHP und keinen Smarty
-  Modifikator) PHP Funktionen zu verwenden eröffnet zwei Probleme:
+  Modifikator) PHP Funktionen zu verwenden erÃ¶ffnet zwei Probleme:
   erstens: manchmal ist die Parameter Reiehnfolge nicht
-  erwünscht. (<literal>{"%2.f"|sprintf:$float}</literal> funktioniert
+  erwÃ¼nscht. (<literal>{"%2.f"|sprintf:$float}</literal> funktioniert
   zwar, sieht aber als
   <literal>{$float|string_format:"%2.f"}</literal> das durch Smarty
   geliefert wird, besser aus. Zweitens: wenn <link
   linkend="variable.security">$security</link> auf TRUE gesetzt ist,
-  müssen alle verwendeten PHP Funktionen im <link
+  mÃ¼ssen alle verwendeten PHP Funktionen im <link
   linkend="variable.security.settings">
   $security_settings['MODIFIER_FUNCS']</link>-Array enthalten sein.
  </para>

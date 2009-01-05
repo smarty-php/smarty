@@ -6,7 +6,7 @@
  <para>
   {include}-Tags werden verwendet, um andere Templates in das aktuelle
   Template einzubinden.  Alle Variablen des aktuellen Templates sind
-  auch im eingebundenen Template verfügbar.  Das {include}-Tag muss ein
+  auch im eingebundenen Template verfÃ¼gbar.  Das {include}-Tag muss ein
   'file' Attribut mit dem Pfad zum einzubindenden Template enthalten.
  </para>
  <para>
@@ -19,7 +19,7 @@
   Die Werte aller zugewiesenen Variablen werden wiederhergestellt, sobald
   ein eingebundenes Template wieder verlassen wurde. Das bedeutet, dass in
   einem eingebundenen Template alle Variablen des einbindenden Template
-  verwendet und verändert werden können, diese Änderungen aber verloren sind,
+  verwendet und verÃ¤ndert werden kÃ¶nnen, diese Ã„nderungen aber verloren sind,
   sobald das {include} abgearbeitet wurde.
  </para>
  <informaltable frame="all">
@@ -58,7 +58,7 @@
      <entry>[var typ]</entry>
      <entry>Nein</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Variablen welche dem Template lokal übergeben werden sollen.</entry>
+     <entry>Variablen welche dem Template lokal Ã¼bergeben werden sollen.</entry>
     </row>
    </tbody>
   </tgroup>
@@ -84,14 +84,14 @@
   </programlisting>
  </example>
  <para>
-  Sie können dem einzubindenden Template Variablen als Attribute
-  übergeben. Alle explizit übergebenen Variablen sind nur im
+  Sie kÃ¶nnen dem einzubindenden Template Variablen als Attribute
+  Ã¼bergeben. Alle explizit Ã¼bergebenen Variablen sind nur im
   Anwendungsbereich (scope) dieses Template
-  verfügbar. Attribut-Variablen überschreiben aktuelle
+  verfÃ¼gbar. Attribut-Variablen Ã¼berschreiben aktuelle
   Template-Variablen, falls sie den gleichen Namen haben.
  </para>
  <example>
-  <title>include-Funktion und Variablen Übergabe</title>
+  <title>include-Funktion und Variablen Ãœbergabe</title>
   <programlisting>
 <![CDATA[
 {include file='header.tpl' title='Hauptmenu' table_bgcolor='#c0c0c0'}
@@ -108,7 +108,7 @@
   ausserhalb des '$template_dir' einzubinden:
  </para>
  <example>
-  <title>Beispiele für Template-Ressourcen bei der 'include'-Funktion</title>
+  <title>Beispiele fÃ¼r Template-Ressourcen bei der 'include'-Funktion</title>
   <programlisting>
 <![CDATA[
 {* absoluter Dateipfad *}
@@ -117,7 +117,7 @@
 {* absoluter Dateipfad (gleich) *}
 {include file='file:/usr/local/include/templates/header.tpl'}
 
-{* absoluter Dateipfad unter Windows ("file:"-Prefix MUSS übergeben werden) *}
+{* absoluter Dateipfad unter Windows ("file:"-Prefix MUSS Ã¼bergeben werden) *}
 {include file='file:C:/www/pub/templates/header.tpl'}
 
 {* einbinden aus Template-Ressource namens 'db' *}
@@ -127,7 +127,7 @@
 {include file="$module.tpl"} 
 {*
   Dies hier Funktioniert nicht, da Variablen innerhalb einfacher
-  Anführungszeichen nicht interpoliert werden.
+  AnfÃ¼hrungszeichen nicht interpoliert werden.
 *}
 {include file='$module.tpl'}
 ]]>

@@ -5,16 +5,16 @@
  <title>Variablen</title>
  <para>
   Templatevariablennamen beginnen mit einem $dollar-Zeichen. Sie
-  können Ziffer, Buchstaben und Unterstriche ('_') enthalten, sehr
-  ähnlich den <ulink
+  kÃ¶nnen Ziffer, Buchstaben und Unterstriche ('_') enthalten, sehr
+  Ã¤hnlich den <ulink
   url="&url.php-manual;language.variables">Variablen in PHP</ulink>.
-  Numerische Arrayindizes können referenziert werden und auch
+  Numerische Arrayindizes kÃ¶nnen referenziert werden und auch
   Nichtnumerische.  Zugriff auf Objekteigenschaften und -methoden ist
-  auch möglich.
+  auch mÃ¶glich.
   <link
   linkend="language.config.variables">Konfigurationsvariablen</link>
   sind einer Ausname was die Dollarzeichen-Syntax angeht. Diese werden
-  durch umgebende #Doppelkreuze# oder über die Varible <link
+  durch umgebende #Doppelkreuze# oder Ã¼ber die Varible <link
   linkend="language.variables.smarty.config">$smarty.config</link>
   referenziert.
  </para>
@@ -24,12 +24,12 @@
 <![CDATA[
 {$foo}        <-- Zeigt einfache Variable an (kein Array oder Objekt)
 {$foo[4]}     <-- Zeigt 5. Element von einem Array an, deren Schlussel bei 0 beginnen
-{$foo.bar}    <-- Zeigt das Element zum Schlüssel "bar" des Arrays an (wie PHPs $foo['bar'])
-{$foo.$bar}   <-- Zeigt das Element eines variablen Schlüssels an (wie PHPs $foo[$bar])
+{$foo.bar}    <-- Zeigt das Element zum SchlÃ¼ssel "bar" des Arrays an (wie PHPs $foo['bar'])
+{$foo.$bar}   <-- Zeigt das Element eines variablen SchlÃ¼ssels an (wie PHPs $foo[$bar])
 {$foo->bar}   <-- Zeigt eine Eigenschaft "bar" des Objekts $foo an
-{$foo->bar()} <-- Zeigt den Rückgabewert der Objectmethode "bar" an
+{$foo->bar()} <-- Zeigt den RÃ¼ckgabewert der Objectmethode "bar" an
 {#foo#}       <-- Zeift die Konfigurationsvariable "foo" an
-{$smarty.config.foo} <-- Synonym für {#foo#}
+{$smarty.config.foo} <-- Synonym fÃ¼r {#foo#}
 {$foo[bar]}   <-- Syntax zum zugriff auf Element in einer Section-Schleife, siehe {section}
 {assign var=foo value="baa"}{$foo} <--  Gibt "baa" aus, siehe {assign}
 
@@ -40,7 +40,7 @@ Viele weitere Kombinationen sind erlaubt
 {$foo[4].baz}
 {$foo[4].$baz}
 {$foo.bar.baz[4]}
-{$foo->bar($baz,2,$bar)} <-- Parameter übergeben
+{$foo->bar($baz,2,$bar)} <-- Parameter Ã¼bergeben
 {"foo"}       <-- Statische (konstante) Werte sind auch erlaubt
 ]]>
   </programlisting>

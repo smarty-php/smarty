@@ -2,13 +2,13 @@
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
 <sect1 id="language.function.insert">
- <title>insert (einfügen)</title>
+ <title>insert (einfÃ¼gen)</title>
  <para>
-  {insert}-Tags funktionieren ähnlich den <link
+  {insert}-Tags funktionieren Ã¤hnlich den <link
   linkend="language.function.include">{include}</link>-Tags, werden
   aber nicht gecached, falls <link linkend="caching">caching</link>
   eingeschaltet ist. Sie werden bei jedem Aufruf des Templates
-  ausgeführt.
+  ausgefÃ¼hrt.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -53,16 +53,16 @@
      <entry>[var typ]</entry>
      <entry>Nein</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Variablen die der 'insert'-Funktion übergeben werden sollen.</entry>
+     <entry>Variablen die der 'insert'-Funktion Ã¼bergeben werden sollen.</entry>
     </row>
    </tbody>
    </tgroup>
   </informaltable>
  <para>
-  Stellen Sie sich vor, sie hätten ein Template mit einem
+  Stellen Sie sich vor, sie hÃ¤tten ein Template mit einem
   Werbebanner. Dieser Banner kann verschiedene Arten von Inhalten
-  haben: Bilder, HTML, Flash, etc.  Deshalb können wir nicht einfach
-  einen statischen Link verwenden und müssen vermeiden, dass dieser
+  haben: Bilder, HTML, Flash, etc.  Deshalb kÃ¶nnen wir nicht einfach
+  einen statischen Link verwenden und mÃ¼ssen vermeiden, dass dieser
   Inhalt gecached wird.  Hier kommt das {insert}-Tag ins Spiel. Das
   Template kennt die Variablen '#banner_location_id#' und '#site_id#'
   (zum Beispiel aus einer <link
@@ -78,29 +78,29 @@
  </example>
  <para>
   In diesem Beispiel verwenden wir die Funktion 'getBanner' und
-  übergeben die Parameter '#banner_location_id#' und '#site_id#'.
+  Ã¼bergeben die Parameter '#banner_location_id#' und '#site_id#'.
   Smarty wird daraufhin in Ihrer Applikatiopn nach einer Funktion
   namens 'getBanner' suchen und diese mit den Parametern
   '#banner_location_id#' und '#site_id#' aufrufen. Allen
   'insert'-Funktionen in Ihrer Applikation muss 'insert_'
   vorangestellt werden, um Konflikte im Namensraum zu vermeiden. Ihre
-  'insert_getBanner()'-Funktion sollte etwas mit den übergebenen
-  Parametern unternehmen und das Resultat zurückgeben.  Dieses
+  'insert_getBanner()'-Funktion sollte etwas mit den Ã¼bergebenen
+  Parametern unternehmen und das Resultat zurÃ¼ckgeben.  Dieses
   Resultat wird an der Stelle des 'insert'-Tags in Ihrem Template
-  ausgegeben.  In diesem Beispiel würde Smarty folgende Funktion
+  ausgegeben.  In diesem Beispiel wÃ¼rde Smarty folgende Funktion
   aufrufen: insert_getBanner(array("lid" => "12345","sid" => "67890"))
   und die erhaltenen Resultate an Stelle des 'insert'-Tags ausgeben.
  </para>
  <para>
-  Falls Sie das 'assign'-Attribut übergeben, wird die Ausgabe des
+  Falls Sie das 'assign'-Attribut Ã¼bergeben, wird die Ausgabe des
   'insert'-Tags in dieser Variablen abgelegt.  Bemerkung: dies ist
   nicht sinnvoll, wenn <link linkend="variable.caching">Caching</link>
   eingeschaltet ist.
  </para>
  <para>
-  Falls Sie das 'script'-Attribut übergeben, wird das angegebene
-  PHP-Skript vor der Ausführung der {insert}-Funktion eingebunden.
-  Dies ist nützlich, um die {insert}-Funktion erst in diesem Skript zu
+  Falls Sie das 'script'-Attribut Ã¼bergeben, wird das angegebene
+  PHP-Skript vor der AusfÃ¼hrung der {insert}-Funktion eingebunden.
+  Dies ist nÃ¼tzlich, um die {insert}-Funktion erst in diesem Skript zu
   definieren.  Der Pfad kann absolut oder relativ zu <link
   linkend="variable.trusted.dir">$trusted_dir</link> angegeben werden.
   Wenn Sicherheit eingeschaltet ist, muss das Skript in <link
@@ -108,17 +108,17 @@
  </para>
  <para>
   Als zweites Argument wird der {insert}-Funktion das Smarty-Objekt
-  selbst übergeben. Damit kann dort auf die Informationen im
+  selbst Ã¼bergeben. Damit kann dort auf die Informationen im
   Smarty-Objekt zugegriffen werden.
  </para>
  <note>
   <title>Technische Bemerkung</title>
   <para>
-   Es gibt die Möglichkeit, Teile des Templates nicht zu cachen.  Wenn
+   Es gibt die MÃ¶glichkeit, Teile des Templates nicht zu cachen.  Wenn
    Sie <link linkend="caching">caching</link> eingeschaltet haben,
    werden {insert}-Tags nicht gecached. Sie werden jedesmal
-   ausgeführt, wenn die Seite erstellt wird - selbst innerhalb
-   gecachter Seiten. Dies funktioniert gut für Dinge wie Werbung
+   ausgefÃ¼hrt, wenn die Seite erstellt wird - selbst innerhalb
+   gecachter Seiten. Dies funktioniert gut fÃ¼r Dinge wie Werbung
    (Banner), Abstimmungen, Wetterberichte, Such-Resultate,
    Benutzer-Feedback-Ecke, etc.
   </para>

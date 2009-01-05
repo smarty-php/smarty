@@ -5,21 +5,21 @@
  <title>strip</title>
  <para>
   Webdesigner haben oft das Problem, dass Leerzeichen und
-  Zeilenumbrüche die Ausgabe des erzeugten HTML im Browser
+  ZeilenumbrÃ¼che die Ausgabe des erzeugten HTML im Browser
   beeinflussen. Oft werden deshalb alle Tags aufeinanderfolgend im
-  Template notiert, was aber zu einer schlechten Lesbarkeit führt.
+  Template notiert, was aber zu einer schlechten Lesbarkeit fÃ¼hrt.
  </para>
  <para>
   Aus dem Inhalt zwischen den {strip}{/strip}-Tags werden alle
-  Leerzeichen und Zeilenumbrüche entfernt. So können Sie Ihre
+  Leerzeichen und ZeilenumbrÃ¼che entfernt. So kÃ¶nnen Sie Ihre
   Templates lesbar halten, ohne sich Sorgen um die Leerzeichen zu
   machen.
  </para>
  <note>
   <title>Technische Bemerkung</title>
   <para>
-   {strip}{/strip} ändert nicht den Inhalt einer Template-Variablen.
-   Dafür gibt es den <link linkend="language.modifier.strip">strip
+   {strip}{/strip} Ã¤ndert nicht den Inhalt einer Template-Variablen.
+   DafÃ¼r gibt es den <link linkend="language.modifier.strip">strip
    Modifikator</link>.
   </para>
  </note>
@@ -54,7 +54,7 @@
   Achtung: im obigen Beispiel beginnen und enden alle Zeilen mit
   HTML-Tags.  Falls Sie Abschnitte haben, die nur Text enthalten,
   werden diese ebenfalls zusammengeschlossen. Das kann zu
-  unerwünschten Resultaten führen.
+  unerwÃ¼nschten Resultaten fÃ¼hren.
  </para>
  <para>
   Siehe auch <link linkend="language.modifier.strip">strip-Modifikator

@@ -4,39 +4,39 @@
 <sect1 id="caching.groups">
  <title>Cache-Gruppen</title>
  <para>
-  Sie können auch eine feinere Gruppierung vornehmen, indem Sie
+  Sie kÃ¶nnen auch eine feinere Gruppierung vornehmen, indem Sie
   'cache_id'-Gruppen erzeugen. Dies erreichen Sie, indem Sie jede Cache-Untergruppe
-  durch ein '|'-Zeichen (pipe) in der 'cache_id' abtrennen. Sie können so viele
-  Untergruppen erstellen, wie Sie möchten.
+  durch ein '|'-Zeichen (pipe) in der 'cache_id' abtrennen. Sie kÃ¶nnen so viele
+  Untergruppen erstellen, wie Sie mÃ¶chten.
  </para>
  <para>
 
   Man kann Cache-Gruppen wie eine Verzeichnishierarchie
   betrachten. Zum Beispiel kann man sich die Cache-Gruppe "a|b|c" als
   eine Verzeichnisstruktur "/a/b/c" angesehen weden. clear_cache(null,
-  'a|b|c') würde die Dateien '/a/b/c/*' löschen, clear_cache(null,
-  'a|b') wäre das Löschen der Dateien '/a/b/*'. Wenn eine Compile-Id
+  'a|b|c') wÃ¼rde die Dateien '/a/b/c/*' lÃ¶schen, clear_cache(null,
+  'a|b') wÃ¤re das LÃ¶schen der Dateien '/a/b/*'. Wenn eine Compile-Id
   angegeben wurde, wie clear_cache(null, 'a|b', 'foo'), dann wird die
-  Compile-Id so behandelt, als sei sie an die Cache-Gruppe angehängt,
+  Compile-Id so behandelt, als sei sie an die Cache-Gruppe angehÃ¤ngt,
   also wie die Cache-Gruppe '/a/b/foo'. Wenn ein Templatename
   angegeben wurde, also wie bei clear_cache('foo.tpl', 'a|b|c'), dann
-  wir Smarty auch nur '/a/b/c/foo.tpl' löschen. Es ist NICHT möglich,
+  wir Smarty auch nur '/a/b/c/foo.tpl' lÃ¶schen. Es ist NICHT mÃ¶glich,
   ein Template unterhalb mehrerer Cache-Gruppen (also
-  '/a/b/*/foo.tpl') zu löschen. Das Gruppieren der Cache-Gruppen
+  '/a/b/*/foo.tpl') zu lÃ¶schen. Das Gruppieren der Cache-Gruppen
   funktioniert nur von links nach rechts. Man muss die Templates, die
-  man als eine Gruppe löschen möchte alle unterhalb einer einzigen
-  Gruppenhierarchy anordnen, um sie als eine Gruppe löschen zu können.
+  man als eine Gruppe lÃ¶schen mÃ¶chte alle unterhalb einer einzigen
+  Gruppenhierarchy anordnen, um sie als eine Gruppe lÃ¶schen zu kÃ¶nnen.
  </para>
  <para>
 
-  Cache-Gruppen dürfen nicht mit der Hierarchie des
+  Cache-Gruppen dÃ¼rfen nicht mit der Hierarchie des
   Template-Verzeichnisses verwechselt werden. Die Cache-Gruppen wissen
   nicht, wie die Templatehierarchie strukturiert ist. Wenn man
   z. B. eine Templatestruktur wir "themes/blue/index.tpl" hat und man
-  möchte alle Dateien für des "blue"-Theme löschen, dann muss man
-  händisch eine Cache-Gruppe wie display("themes/blue/index.tpl",
+  mÃ¶chte alle Dateien fÃ¼r des "blue"-Theme lÃ¶schen, dann muss man
+  hÃ¤ndisch eine Cache-Gruppe wie display("themes/blue/index.tpl",
   "themes|blue") und kann diese dann mit
-  clear_cache(null,"themes|blue") löschen.
+  clear_cache(null,"themes|blue") lÃ¶schen.
 
  </para>
  <example>

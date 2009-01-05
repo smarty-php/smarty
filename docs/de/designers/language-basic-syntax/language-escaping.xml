@@ -4,7 +4,7 @@
 <sect1 id="language.escaping">
  <title>Smarty Parsing umgehen</title>
  <para>
-  Manchmal ist es wünschenswert, dass Smarty Teile eines
+  Manchmal ist es wÃ¼nschenswert, dass Smarty Teile eines
   Templates nicht parst. Dies ist zum Beispiel der Fall, wenn
   Javascript oder CSS im Template eingebettet werden.  Da diese
   Sprachen selbst { und } nutzen, erkennt Smarty diese als Start-
@@ -17,10 +17,10 @@
  </para>
 
  <para>
-  Um solche Inhalte trotzdem im gleichen Template einzubetten, können
+  Um solche Inhalte trotzdem im gleichen Template einzubetten, kÃ¶nnen
   Sie <link linkend="language.function.literal">{literal}
-  .. {/literal}</link> Blöcke verwenden.  Die aktuell benutzten
-  Trennzeichen können Sie mit <link
+  .. {/literal}</link> BlÃ¶cke verwenden.  Die aktuell benutzten
+  Trennzeichen kÃ¶nnen Sie mit <link
   linkend="language.function.ldelim">{ldelim}</link>, <link
   linkend="language.function.ldelim">{rdelim}</link>, <link
   linkend="language.variables.smarty.ldelim">{$smarty.ldelim}</link>
@@ -29,7 +29,7 @@
  </para>
 
  <para>
-  Manchmal ist es auch einfacher, die Trennzeichen selbst zu ändern:
+  Manchmal ist es auch einfacher, die Trennzeichen selbst zu Ã¤ndern:
   <link linkend="variable.left.delimiter">$left_delimiter</link> und
   <link linkend="variable.right.delimiter">$right_delimiter</link>
   definieren diese.
@@ -51,7 +51,7 @@ $smarty->display('example.tpl');
 ]]>
   </programlisting>
   <para>
-   example.tpl würde somit wie folgt aussehen:
+   example.tpl wÃ¼rde somit wie folgt aussehen:
   </para>
   <programlisting>
 <![CDATA[

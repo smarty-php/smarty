@@ -5,11 +5,11 @@
  <title>{fetch}</title>
  <para>
   {fetch} wird verwendet um lokale oder via HTTP beziehungsweise FTP
-  verfügbare Inhalte auszugeben. Wenn der Dateiname mit 'http://'
-  anfängt, wird die angegebene Webseite geladen und angezeigt. Wenn
-  der Dateiname mit 'ftp://' anfängt wird die Datei vom FTP-Server
-  geladen und angezeigt. Für lokale Dateien muss der absolute Pfad,
-  oder ein Pfad relativ zum ausgeführten Skript übergeben werden.
+  verfÃ¼gbare Inhalte auszugeben. Wenn der Dateiname mit 'http://'
+  anfÃ¤ngt, wird die angegebene Webseite geladen und angezeigt. Wenn
+  der Dateiname mit 'ftp://' anfÃ¤ngt wird die Datei vom FTP-Server
+  geladen und angezeigt. FÃ¼r lokale Dateien muss der absolute Pfad,
+  oder ein Pfad relativ zum ausgefÃ¼hrten Skript Ã¼bergeben werden.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -46,15 +46,15 @@
    </tgroup>
   </informaltable>
  <para>
-  Wenn Sie das spezielle 'assign'-Attribut übergeben, wird die Ausgabe
+  Wenn Sie das spezielle 'assign'-Attribut Ã¼bergeben, wird die Ausgabe
   der {fetch}-Funktion dieser Template-Variable zugewiesen, anstatt
   ausgegeben zu werden (seit Smarty 1.5.0).
  </para>
  <note>
   <title>Technische Bemerkung</title>
   <para>
-   HTTP-Redirects werden nicht unterstützt, stellen Sie sicher, dass
-   die aufgerufene URL falls nötig durch ein '/'-Zeichen (slash)
+   HTTP-Redirects werden nicht unterstÃ¼tzt, stellen Sie sicher, dass
+   die aufgerufene URL falls nÃ¶tig durch ein '/'-Zeichen (slash)
    beendet wird.
   </para>
  </note>
@@ -62,7 +62,7 @@
   <title>Technische Bemerkung</title>
   <para>
    Wenn Sicherheit eingeschaltet ist, und Dateien vom lokalen System
-   geladen werden sollen, ist dies nur für Dateien erlaubt welche sich
+   geladen werden sollen, ist dies nur fÃ¼r Dateien erlaubt welche sich
    in einem definierten sicheren Verzeichnis befinden.
    (<link linkend="variable.secure.dir">$secure_dir</link>)
   </para>

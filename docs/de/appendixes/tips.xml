@@ -8,12 +8,12 @@
   <sect1 id="tips.blank.var.handling">
    <title>Handhabung unangewiesener Variablen</title>
    <para>
-    Manchmal möchten Sie vielleicht, dass anstatt einer Leerstelle ein
+    Manchmal mÃ¶chten Sie vielleicht, dass anstatt einer Leerstelle ein
     Standardwert ausgegeben wird - zum Beispiel um im
     Tabellenhintergrund "&amp;nbsp;" auszugeben, damit er korrekt
-    angezeigt wird. Damit dafür keine <link
+    angezeigt wird. Damit dafÃ¼r keine <link
     linkend="language.function.if">{if}</link> Anweisung verwendet
-    werden muss, gibt es in Smarty eine Abkürzung: die Verwendung des
+    werden muss, gibt es in Smarty eine AbkÃ¼rzung: die Verwendung des
     <emphasis>default</emphasis> Variablen-Modifikators.
    </para>
    <example>
@@ -28,7 +28,7 @@
 {/if}
 
 
-{* kürzer: *}
+{* kÃ¼rzer: *}
 {$titel|default:"&nbsp;"}
 ]]>
     </programlisting>
@@ -44,10 +44,10 @@
   <sect1 id="tips.default.var.handling">
    <title>Handhabung von Standardwerten</title>
    <para>
-    Wenn eine Variable in einem Template häufig zum Einsatz kommt,
-    kann es ein bisschen störend wirken, den <link
+    Wenn eine Variable in einem Template hÃ¤ufig zum Einsatz kommt,
+    kann es ein bisschen stÃ¶rend wirken, den <link
     linkend="language.modifier.default"><emphasis>default</emphasis></link>-Modifikator
-    jedes mal anzuwenden.  Sie können dies umgehen, indem Sie der
+    jedes mal anzuwenden.  Sie kÃ¶nnen dies umgehen, indem Sie der
     Variable mit der <link
     linkend="language.function.assign">{assign}</link> Funktion einen
     Standardwert zuweisen.
@@ -59,7 +59,7 @@
 {* schreiben sie dieses statement an den Anfang des Templates *}
 {assign var="titel" value=$titel|default:"kein Titel"}
 
-{* falls 'titel' bei der Anweisung leer war, enthält es nun den Wert
+{* falls 'titel' bei der Anweisung leer war, enthÃ¤lt es nun den Wert
    'kein Titel' wenn Sie es ausgeben *}
 {$titel}
 ]]>
@@ -81,17 +81,17 @@
     bindet diese mit<link
     linkend="language.function.include">{include}</link> ein. Was
     geschieht aber wenn der Header einen seitenspezifischen Titel
-    haben soll?  Smarty bietet die Möglichkeit, dem eingebundenen
+    haben soll?  Smarty bietet die MÃ¶glichkeit, dem eingebundenen
     Template, Variablen als <link 
     linkend="language.syntax.attributes">Attribute</link> zu
-    übergeben.
+    Ã¼bergeben.
    </para>
    <example>
     <title>Die Titel-Variable dem Header-Template zuweisen</title>
     <para>
      <filename>mainpage.tpl</filename> - Beim Aufbau der Hauptseite
      wird der Titel "Hauptseite" an <filename>header.tpl</filename>
-     übergeben und dort verwendet.
+     Ã¼bergeben und dort verwendet.
     </para>
     <programlisting>
 <![CDATA[
@@ -114,7 +114,7 @@
     </programlisting>
    <para>
     <filename>header.tpl</filename> - Zur Info: wenn kein $titel
-    übergeben wurde wird hier mittels des <link
+    Ã¼bergeben wurde wird hier mittels des <link
     linkend="language.modifier.default">default</link>-Modifikator der
     Titel "Nachrichten" verwendet.
    </para>
@@ -141,17 +141,17 @@
   <sect1 id="tips.dates">
    <title>Zeitangaben</title>
    <para>
-    Um dem Template Designer höchstmögliche Kontrolle über die Ausgabe
-    von Zeitangaben/Daten zu ermöglichen, ist es empfehlenswert Daten
+    Um dem Template Designer hÃ¶chstmÃ¶gliche Kontrolle Ã¼ber die Ausgabe
+    von Zeitangaben/Daten zu ermÃ¶glichen, ist es empfehlenswert Daten
     immer als <ulink url="&url.php-manual;time">Timestamp</ulink> zu
-    übergeben. Der Designer kann danach die Funktion <link
-    linkend="language.modifier.date.format">date_format</link> für die
+    Ã¼bergeben. Der Designer kann danach die Funktion <link
+    linkend="language.modifier.date.format">date_format</link> fÃ¼r die
     Formatierung verwenden.
    </para>
    <para>
-    Bemerkung: Seit Smarty 1.4.0 ist es möglich jede Timestamp zu
-    übergeben, welche mit strtotime() ausgewertet werden kann. Dazu
-    gehören Unix-Timestamps und MySQL-Timestamps.
+    Bemerkung: Seit Smarty 1.4.0 ist es mÃ¶glich jede Timestamp zu
+    Ã¼bergeben, welche mit strtotime() ausgewertet werden kann. Dazu
+    gehÃ¶ren Unix-Timestamps und MySQL-Timestamps.
    </para>
    <example>
     <title>Die Verwendung von date_format</title>
@@ -193,8 +193,8 @@ AUSGABE:
     Falls <link
     linkend="language.function.html.select.date">{html_select_date}</link>
     in einem Template verwendet wird, hat der Programmierer die
-    Möglichkeit den Wert wieder in ein Timestamp-Format zu
-    ändern. Dies kann zum Beispiel wie folgt gemacht werden:
+    MÃ¶glichkeit den Wert wieder in ein Timestamp-Format zu
+    Ã¤ndern. Dies kann zum Beispiel wie folgt gemacht werden:
    </para>
    <example>
     <title>Formular Datum-Elemente nach Timestamp konvertieren</title>
@@ -236,10 +236,10 @@ function makeTimeStamp($year="",$month="",$day="")
    <title>WAP/WML</title>
    <para>
     WAP/WML Templates verlangen, dass ein Content-Type Header im
-    Template angegeben wird. Der einfachste Weg um dies zu tun, wäre,
+    Template angegeben wird. Der einfachste Weg um dies zu tun, wÃ¤re,
     eine Funktion zu schreiben, welche den Header ausgibt. Falls sie
     den Caching Mechanismus verwenden, sollten Sie auf das
-    'insert'-Tag zurückgreifen ('insert'-Tags werden nicht gecached),
+    'insert'-Tag zurÃ¼ckgreifen ('insert'-Tags werden nicht gecached),
     um ein optimales Ergebnis zu erzielen. Achten Sie darauf, dass vor
     der Ausgabe des Headers keine Daten an den Client gesendet werden,
     da die gesendeten Header-Daten ansonsten von Client verworfen
@@ -309,24 +309,24 @@ function insert_header($params)
     Instanz von Smarty, weisen die Variablen mit <link
     linkend="api.assign">assign()</link> zu und geben das Template mit
     <link linkend="api.display">display()</link> aus.  Wenn wir also
-    zum Beispiel einen Börsenticker in unserem Template haben, stellen
+    zum Beispiel einen BÃ¶rsenticker in unserem Template haben, stellen
     wir die Kursinformationen in unserer Anwendung zusammen, weisen
-    Sie dem Template zu und geben es aus. Wäre es jedoch nicht nett
-    diesen Börsenticker einfach in ein Template einer anderen
-    Applikation einbinden zu können ohne deren Programmcode zu ändern?
+    Sie dem Template zu und geben es aus. WÃ¤re es jedoch nicht nett
+    diesen BÃ¶rsenticker einfach in ein Template einer anderen
+    Applikation einbinden zu kÃ¶nnen ohne deren Programmcode zu Ã¤ndern?
    </para>
    <para>
-    Sie können PHP-Code mit {php}{/php} in Ihre Templates einbetten.
-    So können Sie Templates erstellen, welche die Datenstrukturen zur
+    Sie kÃ¶nnen PHP-Code mit {php}{/php} in Ihre Templates einbetten.
+    So kÃ¶nnen Sie Templates erstellen, welche die Datenstrukturen zur
     Anweisung der eigenen Variablen enthalten. Durch die Bindung von
-    Template und Logik entsteht so eine eigenständig lauffähige
+    Template und Logik entsteht so eine eigenstÃ¤ndig lauffÃ¤hige
     Komponente.
    </para>
    <example>
     <title>Template/Script Komponenten</title>
     <para>
       <filename>function.load_ticker.php</filename> -
-      Diese Datei gehört ins <link
+      Diese Datei gehÃ¶rt ins <link
       linkend="variable.plugins.dir">$plugins directory</link>
     </para>
     <programlisting role="php">
@@ -369,8 +369,8 @@ Stock Name: {$ticker.name} Stock Price: {$ticker.price}
    <para>
     Haben Sie sich auch schon gewundert, wie Ihre E-mail Adresse auf
     so viele Spam-Mailinglisten kommt? Ein Weg, wie Spammer E-mail
-    Adressen sammeln, ist über Webseiten. Um dieses Problem zu
-    bekämpfen, können sie den 'mailto'-Plugin verwenden. Er ändert
+    Adressen sammeln, ist Ã¼ber Webseiten. Um dieses Problem zu
+    bekÃ¤mpfen, kÃ¶nnen sie den 'mailto'-Plugin verwenden. Er Ã¤ndert
     die Zeichenfolge mit Javascript so, dass sie im HTML Quellcode
     nicht lesbar ist, jedoch von jedem Browser wieder zusammengesetzt
     werden kann. Den <link
@@ -392,8 +392,8 @@ senden
     <title>Technische Details</title>
     <para>
      Die Codierung mit Javascript ist nicht sehr sicher, da ein
-     möglicher Spammer die Decodierung in sein Sammelprogramm
-     einbauen könnte. Es wird jedoch damit gerechnet, dass, da
+     mÃ¶glicher Spammer die Decodierung in sein Sammelprogramm
+     einbauen kÃ¶nnte. Es wird jedoch damit gerechnet, dass, da
      Aufwand und Ertrag sich nicht decken, dies nicht oft der Fall
      ist.
     </para>

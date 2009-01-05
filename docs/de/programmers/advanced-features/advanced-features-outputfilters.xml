@@ -25,7 +25,7 @@
 <![CDATA[
 <?php
 
-// fügen Sie folgende Zeilen in Ihre Applikation ein
+// fÃ¼gen Sie folgende Zeilen in Ihre Applikation ein
 function protect_email($tpl_output, &$smarty)
 {
     $tpl_output = preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',

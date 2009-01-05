@@ -11,18 +11,18 @@
    Array zu durchlaufen. Die Syntax von
    <emphasis>foreach</emphasis>-Schleifen ist viel einfacher als die
    von <emphasis>section</emphasis>. <emphasis>{foreach}</emphasis>
-   Tags müssen mit <emphasis>{/foreach}</emphasis> tags kombiniert
+   Tags mÃ¼ssen mit <emphasis>{/foreach}</emphasis> tags kombiniert
    werden. Erforderliche Parameter sind: <emphasis>from</emphasis> und
    <emphasis>item</emphasis>. Der Name der {foreach}-Schleife kann
    frei vergeben werden und sowohl Buchstaben, Zahlen als auch
    Unterstriche enthalten.  <emphasis>foreach</emphasis>-Schleifen
-   können verschachtelt werden, dabei ist zu beachten, dass sich die
+   kÃ¶nnen verschachtelt werden, dabei ist zu beachten, dass sich die
    definierten Namen voneinander unterscheiden.  Die
    <emphasis>from</emphasis> Variable (normalerweise ein assoziatives
    Array) definiert die Anzahl der von <emphasis>foreach</emphasis> zu
    durchlaufenen Iterationen. <emphasis>foreachelse</emphasis> wird
-   ausgeführt wenn keine Werte in der <emphasis>from</emphasis>
-   Variable übergeben wurden.
+   ausgefÃ¼hrt wenn keine Werte in der <emphasis>from</emphasis>
+   Variable Ã¼bergeben wurden.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -53,21 +53,21 @@
      <entry>string</entry>
      <entry>Ja</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Name für das aktuelle Element.</entry>
+     <entry>Name fÃ¼r das aktuelle Element.</entry>
     </row>
     <row>
      <entry>key</entry>
      <entry>string</entry>
      <entry>Nein</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Name für den aktuellen Schlüssel.</entry>
+     <entry>Name fÃ¼r den aktuellen SchlÃ¼ssel.</entry>
      </row>
      <row>
       <entry>name</entry>
       <entry>string</entry>
       <entry>Nein</entry>
       <entry><emphasis>n/a</emphasis></entry>
-      <entry>Name der 'foreach'-Schleife, für die Abfrage der 'foreach'-Eigenschaften.</entry>
+      <entry>Name der 'foreach'-Schleife, fÃ¼r die Abfrage der 'foreach'-Eigenschaften.</entry>
      </row>
     </tbody>
    </tgroup>
@@ -107,7 +107,7 @@ id: 1002<br>
  <title>{foreach} - item und key</title>
   <programlisting role="php">
 <![CDATA[
-// Der Schlüssel enthält den Schlüssel des jeweils iterierten Wertes
+// Der SchlÃ¼ssel enthÃ¤lt den SchlÃ¼ssel des jeweils iterierten Wertes
 // die Zuweisung sieht wie folgt aus:
 <?php
  $smarty->assign('kontakte', array(
@@ -170,7 +170,7 @@ id: 1002<br>
   Foreach-Loops haben auch eigene Variablen welche die Foreach
   Eigenschaften enthalten.  Diese werden wie folgt ausgewiesen:
   {$smarty.foreach.foreachname.varname}. foreachname ist der Name der
-  als <emphasis>name</emphasis> Attribut von Foreach übergeben wurden.
+  als <emphasis>name</emphasis> Attribut von Foreach Ã¼bergeben wurden.
  </para>
 
  <sect2 id="foreach.property.iteration">
@@ -209,7 +209,7 @@ id: 1002<br>
   <title>total</title>
   <para>
    <emphasis>total</emphasis> gibt die Anzahl Iterationen des Foreach
-   Loops aus und kann in- oder nach- Foreach Blöcken verwendet werden.
+   Loops aus und kann in- oder nach- Foreach BlÃ¶cken verwendet werden.
   </para>
  </sect2>
 </sect1>

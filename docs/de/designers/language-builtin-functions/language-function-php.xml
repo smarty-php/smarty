@@ -7,8 +7,8 @@
   {php}-Tags erlauben es, PHP-Code direkt in das Template
   einzubetten. Der Inhalt wird nicht 'escaped', egal wie <link
   linkend="variable.php.handling">$php_handling</link> konfiguriert
-  ist.  Dieses Tag ist nur für erfahrene Benutzer gedacht und wird
-  auch von diesen normalerweise nicht benötigt.
+  ist.  Dieses Tag ist nur fÃ¼r erfahrene Benutzer gedacht und wird
+  auch von diesen normalerweise nicht benÃ¶tigt.
  </para>
  <example>
   <title>{php}-Tags</title>
@@ -24,10 +24,10 @@
  <note>
   <title>Technical Note</title>
   <para>
-   Um auf PHP-Variablen in {php}-Blöcken zugreifen zu können, kann es
-   nötig sein, die Variable als <ulink
+   Um auf PHP-Variablen in {php}-BlÃ¶cken zugreifen zu kÃ¶nnen, kann es
+   nÃ¶tig sein, die Variable als <ulink
    url="&url.php-manual;global">global</ulink> zu deklarieren. Der
-   {php}-Blöck läuft nämlich nicht in einem globalen Kontext, sondern
+   {php}-BlÃ¶ck lÃ¤uft nÃ¤mlich nicht in einem globalen Kontext, sondern
    im Kontext der method des laufenden $smarty-Objektes.
   </para>
  </note>

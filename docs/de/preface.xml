@@ -12,7 +12,7 @@
    Funktionalit&auml;t und Darstellung zu trennen. Dazu kommt, dass in
    vielen Firmen Applikationsentwickler und Designer nicht die selbe
    Person sind. In Konsequenz beginnt die Suche nach einer
-   Template-Lösung.
+   Template-LÃ¶sung.
   </para>
   <para>
    Als Beispiel: In unserer Firma funktioniert die Entwicklung einer
@@ -76,7 +76,7 @@
    vereinfachen?
   </para>
   <para>
-   Dann kam uns die Idee, aus der schließlich Smarty wurde. Wir wussten
+   Dann kam uns die Idee, aus der schlieÃŸlich Smarty wurde. Wir wussten
    wie schnell PHP-Code ohne den Overhead des Template-Parsing ist. Wir wussten
    ebenfalls wie pedantisch PHP aus Sicht eines durchschnittlichen
    Designers ist und dass dies mit einer einfacheren Template-Syntax

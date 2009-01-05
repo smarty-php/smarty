@@ -5,15 +5,15 @@
  <title>Grundlegende Syntax</title>
  <para>
   Alle Smarty Template-Tags werden mit Trennzeichen umschlossen. Normalerweise
-  sind dies: <literal>{</literal> und <literal>}</literal>, sie können aber
-  auch <link linkend="variable.left.delimiter">verändert</link> werden.
+  sind dies: <literal>{</literal> und <literal>}</literal>, sie kÃ¶nnen aber
+  auch <link linkend="variable.left.delimiter">verÃ¤ndert</link> werden.
  </para>
  <para>
-  Für die folgenden Beispiele wird davon ausgegangen, dass Sie die
+  FÃ¼r die folgenden Beispiele wird davon ausgegangen, dass Sie die
   Standard-Trennzeichen verwenden. Smarty erachtet alle Inhalte ausserhalb
-  der Trennzeichen als statisch und unveränderbar. Sobald Smarty
-  auf Template-Tags stösst, versucht es diese zu interpretieren und die
-  entsprechenden Ausgaben an deren Stelle einzufügen.
+  der Trennzeichen als statisch und unverÃ¤nderbar. Sobald Smarty
+  auf Template-Tags stÃ¶sst, versucht es diese zu interpretieren und die
+  entsprechenden Ausgaben an deren Stelle einzufÃ¼gen.
  </para>
 
  &designers.language-basic-syntax.language-syntax-comments;

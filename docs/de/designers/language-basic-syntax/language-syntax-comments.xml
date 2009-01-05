@@ -10,8 +10,8 @@
   Beispiel: {* das ist ein Kommentar *} Smarty-Kommentare werden in
   der Ausgabe nicht dargestellt und vor allem dazu verwendet, die
   Templates verst&auml;ndlicher aufzubauen. Smarty Kommentare werden
-  sind in der engültigen Ausgabe NICHT dargestellt. (im Gegensatz zu
-  &lt;!-- HTML Kommentaren --&gt;). Sie sind nützlich um in den
+  sind in der engÃ¼ltigen Ausgabe NICHT dargestellt. (im Gegensatz zu
+  &lt;!-- HTML Kommentaren --&gt;). Sie sind nÃ¼tzlich um in den
   Templates interne Anmerkungen zu hinterlassen.
  </para>
  <example>
@@ -36,7 +36,7 @@
 {include file=#includeFile#}
 
 {* Ausgabe der drop-down Liste *}
-{* Dieser <select> Block ist überflüssig *}
+{* Dieser <select> Block ist Ã¼berflÃ¼ssig *}
 {*
 <select name=firma>
 {html_options options=$vals selected=$selected}

@@ -55,7 +55,7 @@
      <entry>boolean</entry>
      <entry>Nein</entry>
      <entry><emphasis>true</emphasis></entry>
-     <entry>Definiert ob der nächste Wert automatisch angesprungen
+     <entry>Definiert ob der nÃ¤chste Wert automatisch angesprungen
      werden soll.</entry>
     </row>
     <row>
@@ -78,27 +78,27 @@
      <entry>boolean</entry>
      <entry>No</entry>
      <entry><emphasis>false</emphasis></entry>
-     <entry>Der Zyklus wird auf den ersten Wert zurückgesetzt.</entry>
+     <entry>Der Zyklus wird auf den ersten Wert zurÃ¼ckgesetzt.</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
  <para>
-  Sie können durch mehrere Sets gleichzeitig iterieren, indem Sie den
+  Sie kÃ¶nnen durch mehrere Sets gleichzeitig iterieren, indem Sie den
   Sets einmalige Namen geben.
  </para>
  <para>
   Um den aktuellen Wert nicht auszugeben, kann das 'print' Attribut
-  auf 'false' gesetzt werden. Dies könnte sinnvoll sein, wenn man
-  einen einzelnen Wert überspringen möchte.
+  auf 'false' gesetzt werden. Dies kÃ¶nnte sinnvoll sein, wenn man
+  einen einzelnen Wert Ã¼berspringen mÃ¶chte.
  </para>
  <para>
   Das 'advance'-Attribut wird verwendet um einen Wert zu wiederholen.
-  Wenn auf 'false' gesetzt, wird bei der nächsten Iteration der selbe
+  Wenn auf 'false' gesetzt, wird bei der nÃ¤chsten Iteration der selbe
   Wert erneut ausgegeben.
  </para>
  <para>
-  Wenn sie das spezielle 'assign'-Attribut übergeben, wird die Ausgabe
+  Wenn sie das spezielle 'assign'-Attribut Ã¼bergeben, wird die Ausgabe
   der {cycle}-Funktion in dieser Template-Variable abgelegt, anstatt
   ausgegeben zu werden.
  </para>

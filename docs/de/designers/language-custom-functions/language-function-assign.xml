@@ -65,8 +65,8 @@ Der Wert von $name ist Bob.</programlisting>
   <para>
    Um auf zugewiesene Variablen von php aus zuzugreifen nimmt man
    <link linkend="api.get.template.vars">get_template_vars()</link>.
-   Die zugewiesenen variablen sind jedoch nur wärhend bzw. nach der
-   Ausgabe des Template verfügbar.
+   Die zugewiesenen variablen sind jedoch nur wÃ¤rhend bzw. nach der
+   Ausgabe des Template verfÃ¼gbar.
   </para>
   <programlisting>
 <![CDATA[
@@ -84,7 +84,7 @@ echo $smarty->get_template_vars('foo');
 // das Template in eine ungenutzte Variable ausgeben
 $nix = $smarty->fetch('index.tpl');
 
-// Gibt 'smarty' aus, da die {assign} anweisung im Template ausgeführt
+// Gibt 'smarty' aus, da die {assign} anweisung im Template ausgefÃ¼hrt
 // wurde
 echo $smarty->get_template_vars('foo');
 

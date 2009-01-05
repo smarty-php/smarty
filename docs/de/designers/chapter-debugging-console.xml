@@ -5,29 +5,29 @@
  <title>Debugging Konsole</title>
  <para>
   Smarty wird mit einer eingebauten Debugging Konsole
-  ausgeliefert. Diese Konsole informiert über die im aufgerufenen
+  ausgeliefert. Diese Konsole informiert Ã¼ber die im aufgerufenen
   Template <link
   linkend="language.function.include">eingebundenen</link> Templates,
   die <link linkend="api.assign">zugewiesenen</link> Variablen und die
   <link
   linkend="language.config.variables">Konfigurations-Variablen</link>.
-  Die Formatierung der Konsole wird über das Template <link
+  Die Formatierung der Konsole wird Ã¼ber das Template <link
   linkend="variable.debug.tpl">debug.tpl</link> gesteuert. Um
   debugging zu aktivieren, setzten Sie <link
   linkend="variable.debugging">$debugging</link> auf 'true' und (falls
-  nötig) übergeben in <link
+  nÃ¶tig) Ã¼bergeben in <link
   linkend="variable.debug.tpl">$debug_tpl</link> den Pfad zum
   Debugtemplate (normalerweise <link
   linkend="constant.smarty.dir">SMARTY_DIR</link>debug.tpl). Wenn Sie
-  danach eine Seite laden, sollte ein Javascript-Fenster geöffnet
+  danach eine Seite laden, sollte ein Javascript-Fenster geÃ¶ffnet
   werden in welchem Sie alle Informationen zur aufgerufenen Seite
   finden. Falls Sie die Variablen eines bestimmten Templates ausgeben
-  wollen, können Sie dazu die Funktion <link
+  wollen, kÃ¶nnen Sie dazu die Funktion <link
   linkend="language.function.debug">{debug}</link> verwenden.  Um
-  debugging auszuschalten, können Sie <link
+  debugging auszuschalten, kÃ¶nnen Sie <link
   linkend="variable.debugging">$debugging</link> auf 'false' setzen.
-  Sie können debugging auch temporär aktivieren, in dem Sie der
-  aufgerufenen URL SMARTY_DEBUG mit übergeben, dies muss jedoch
+  Sie kÃ¶nnen debugging auch temporÃ¤r aktivieren, in dem Sie der
+  aufgerufenen URL SMARTY_DEBUG mit Ã¼bergeben, dies muss jedoch
   zuerst mit <link
   linkend="variable.debugging.ctrl">$debugging_ctrl</link> aktiviert
   werden.
@@ -35,12 +35,12 @@
  <note>
   <title>Technische Bemerkung</title>
   <para>
-   Die Debugging Konsole funktioniert nicht für Daten die via <link
+   Die Debugging Konsole funktioniert nicht fÃ¼r Daten die via <link
    linkend="api.fetch">fetch()</link> geladen wurden, sondern nur
-   für Daten die via <link linkend="api.display">display()</link>
+   fÃ¼r Daten die via <link linkend="api.display">display()</link>
    ausgegeben werden. Die Konsole besteht aus ein paar Zeilen
-   Javascript welche am Ende jeder Seite eingefügt werden.  Wenn
-   Sie Javascript nicht mögen, können Sie die Ausgabe in
+   Javascript welche am Ende jeder Seite eingefÃ¼gt werden.  Wenn
+   Sie Javascript nicht mÃ¶gen, kÃ¶nnen Sie die Ausgabe in
    'debug.tpl' selbst definieren. Debug-Ausgaben werden nicht gecached
    und Informationen zu 'debug.tpl' selbst werden nicht ausgegeben.
   </para>

@@ -78,7 +78,7 @@ Tuesday, February 6, 2001
 
 %D - so wie %m/%d/%y
 
-%e - Tag des Monats als Dezimal-Wert, einstelligen Werten wird ein Leerzeichen voran gestellt (Wertebereich ´ 0´ bis ´31´)
+%e - Tag des Monats als Dezimal-Wert, einstelligen Werten wird ein Leerzeichen voran gestellt (Wertebereich Å½ 0Å½ bis Å½31Å½)
 
 %g - wie %G, aber ohne Jahrhundert.
 

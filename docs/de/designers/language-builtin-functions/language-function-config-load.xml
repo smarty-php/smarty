@@ -8,7 +8,7 @@
   linkend="language.config.variables">Variablen aus einer
   Konfigurationsdatei</link> in das Template zu laden. Sehen sie
   <link linkend="config.files">Config Files
-  (Konfigurationsdateien)</link> für weitere Informationen.
+  (Konfigurationsdateien)</link> fÃ¼r weitere Informationen.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -53,7 +53,7 @@
       geladen werden.  'parent' bedeutet, dass die Variablen sowohl in
       den lokalen Context, als auch in den Context des aufrufenden
       Templates eingebunden werden.  'global' bedeutet, dass die
-      Variablen von allen Templates zugänglich sind.
+      Variablen von allen Templates zugÃ¤nglich sind.
      </entry>
     </row>
     <row>
@@ -62,9 +62,9 @@
      <entry>Nein</entry>
      <entry><emphasis>No</emphasis></entry>
      <entry>
-      Definiert, ob die Variablen von allen Templates aus zugänglich
-      sind. WICHTIG: Dieses Attribut wird von 'scope' abgelöst und
-      sollte nicht mehr verwendet werden. Falls 'scope' übergeben
+      Definiert, ob die Variablen von allen Templates aus zugÃ¤nglich
+      sind. WICHTIG: Dieses Attribut wird von 'scope' abgelÃ¶st und
+      sollte nicht mehr verwendet werden. Falls 'scope' Ã¼bergeben
       wurde, wird 'global' ignoriert.
      </entry>
     </row>
@@ -81,7 +81,7 @@
 #Dies ist ein Konfigurationsdateikommentar
 
 # globale Variablen
-seitenTitel = "Hauptmenü"
+seitenTitel = "HauptmenÃ¼"
 bodyHintergrundFarbe = #000000
 tabelleHintergrundFarbe = #000000
 reiheHintergrundFarbe = #00ff00
@@ -112,9 +112,9 @@ seitenTitel = "Kundeninfo"
   </programlisting>
  </example>
  <para>
-  <link linkend="config.files">Konfigurationsdateien</link> können
+  <link linkend="config.files">Konfigurationsdateien</link> kÃ¶nnen
   Abschnitte enthalten. Um Variablen aus einem Abschnitt zu laden,
-  können Sie das Attribut <emphasis>section</emphasis> übergeben.
+  kÃ¶nnen Sie das Attribut <emphasis>section</emphasis> Ã¼bergeben.
  </para>
  <para>
   Bemerkung: <emphasis>Konfigurationdatei-Abschnitte
@@ -146,7 +146,7 @@ seitenTitel = "Kundeninfo"
  <para>
   Siehe <link
   linkend="variable.config.overwrite">$config_overwrite</link>
-  bezüglich Arrays von Konfigurationsvariablen.
+  bezÃ¼glich Arrays von Konfigurationsvariablen.
  </para>
  <para>
   Siehe auch <link

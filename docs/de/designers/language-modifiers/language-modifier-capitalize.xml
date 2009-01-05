@@ -4,7 +4,7 @@
  <sect1 id="language.modifier.capitalize">
   <title>capitalize (in Grossbuchstaben schreiben)</title>
   <para>
-   Wird verwendet um den Anfangsbuchstaben aller Wörter in der
+   Wird verwendet um den Anfangsbuchstaben aller WÃ¶rter in der
    Variable gross (upper case) zu schreiben.
   </para>
   <informaltable frame="all">
@@ -18,7 +18,7 @@
      <row>
       <entry>Parameter Position</entry>
       <entry>Typ</entry>
-      <entry>Benötigt</entry>
+      <entry>BenÃ¶tigt</entry>
       <entry>Standardwert</entry>
       <entry>Beschreibung</entry>
      </row>
@@ -29,8 +29,8 @@
       <entry>boolean</entry>
       <entry>Nein</entry>
       <entry>false</entry>
-      <entry>Bestimmt ob Wörter die Ziffern enthalten auch in
-      Großschreibung gewandelt werden</entry>
+      <entry>Bestimmt ob WÃ¶rter die Ziffern enthalten auch in
+      GroÃŸschreibung gewandelt werden</entry>
      </row>
     </tbody>
    </tgroup>

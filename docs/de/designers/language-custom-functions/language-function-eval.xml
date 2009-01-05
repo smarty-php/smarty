@@ -43,7 +43,7 @@
   </tgroup>
  </informaltable>
  <para>
-  Wenn Sie das spezielle 'assign'-Attribut übergeben, wird die Ausgabe
+  Wenn Sie das spezielle 'assign'-Attribut Ã¼bergeben, wird die Ausgabe
   von 'eval' in dieser Template-Variable gespeichert und nicht
   ausgegeben.
  </para>

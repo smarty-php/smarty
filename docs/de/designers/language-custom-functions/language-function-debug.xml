@@ -33,7 +33,7 @@
  <para>
   {debug} zeigt die 'debugging'-Konsole auf der Seite an. <link
   linkend="chapter.debugging.console">$debug</link> hat darauf keinen
-  Einfluss. Da die Ausgabe zur Laufzeit geschieht, können die
+  Einfluss. Da die Ausgabe zur Laufzeit geschieht, kÃ¶nnen die
   Template-Namen hier nicht ausgegeben werden. Sie erhalten jedoch
   eine Liste aller mit <link linkend="api.assign">assigned</link>
   zugewiesenen Variablen und deren Werten.

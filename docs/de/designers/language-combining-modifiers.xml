@@ -4,10 +4,10 @@
 <chapter id="language.combining.modifiers">
  <title>Kombinieren von Modifikatoren</title>
  <para>
-  Sie können auf eine Variable so viele Modifikatoren anwenden
-  wie Sie möchten.  Die Modifkatoren werden in der Reihenfolge
+  Sie kÃ¶nnen auf eine Variable so viele Modifikatoren anwenden
+  wie Sie mÃ¶chten.  Die Modifkatoren werden in der Reihenfolge
   angewandt, in der sie notiert wurden - von links nach rechts.
-  Kombinierte Modifikatoren müssen mit einem
+  Kombinierte Modifikatoren mÃ¼ssen mit einem
   <literal>|</literal>-Zeichen (pipe) getrennt werden.
  </para>
  <example>
@@ -18,15 +18,15 @@
 
 $smarty->assign('articleTitle',
     'Einem Stadtrat in Salem in Pennsylvania (USA) droht eine
-     zweijährige Haftstrafe, da eine von ihm gehaltene Rede sechs
-     Minuten länger dauerte, als erlaubt. Die Redezeit ist auf maximal
-     fünf Minuten begrenzt.');
+     zweijÃ¤hrige Haftstrafe, da eine von ihm gehaltene Rede sechs
+     Minuten lÃ¤nger dauerte, als erlaubt. Die Redezeit ist auf maximal
+     fÃ¼nf Minuten begrenzt.');
 
 ?>
 ]]>
   </programlisting>
   <para>
-   Wobei das Template dann folgendes entält:
+   Wobei das Template dann folgendes entÃ¤lt:
   </para>
   <programlisting>
 <![CDATA[

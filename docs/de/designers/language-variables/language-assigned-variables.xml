@@ -5,7 +5,7 @@
  <title>Aus einem PHP-Skript zugewiesene Variablen</title>
  <para>
   Variablen die in einem PHP Skript <link
-  linkend="api.assign">assigned</link> mit zugewiesen wurden, müssen
+  linkend="api.assign">assigned</link> mit zugewiesen wurden, mÃ¼ssen
   mit eine Dollar Zeichen <literal>$</literal> versehen werden. Auf
   die gleiche Art werden Variablen ausgegeben, die im Template mit <link
   linkend="language.function.assign">{assign}</link> zugewiesen
@@ -34,7 +34,7 @@ $smarty->display('index.tpl');
   </para>
   <programlisting>
 <![CDATA[
-Hallo {$vorname} {$nachname}, schön, dass Du es einrichten kannst.
+Hallo {$vorname} {$nachname}, schÃ¶n, dass Du es einrichten kannst.
 <br />
 {*
   das hier funktioniert nicht, da bei Variablennamen auf
@@ -51,7 +51,7 @@ Diese Woche findet das Treffen in {$treffpunkt} statt.
   </para>
   <screen>
 <![CDATA[
-Hallo Andreas Halter, schön, dass Du es einrichten kannst.
+Hallo Andreas Halter, schÃ¶n, dass Du es einrichten kannst.
 <br />
 Diese Woche findet das Treffen in  statt.
 Diese Woche findet das Treffen in New York statt.
@@ -61,8 +61,8 @@ Diese Woche findet das Treffen in New York statt.
  <sect2 id="language.variables.assoc.arrays">
   <title>Assoziative Arrays</title>
   <para>
-   Sie können auch auf die Werte eines in PHP zugewiesenen
-   assoziativen Arrays zugreifen, indem Sie den Schlüssel (Indexwert)
+   Sie kÃ¶nnen auch auf die Werte eines in PHP zugewiesenen
+   assoziativen Arrays zugreifen, indem Sie den SchlÃ¼ssel (Indexwert)
    nach einem '.'-Zeichen (Punkt) notieren.
   </para>
   <example>
@@ -88,7 +88,7 @@ $smarty->display('index.tpl');
 <![CDATA[
 {$kontakte.fax}<br />
 {$kontakte.email}<br />
-{* auch multidimensionale Arrays können so angesprochen werden *}
+{* auch multidimensionale Arrays kÃ¶nnen so angesprochen werden *}
 {$kontakte.telefon.privat}<br />
 {$kontakte.telefon.mobil}<br />
 ]]>
@@ -109,11 +109,11 @@ zaphod@slartibartfast.example.com<br />
  <sect2 id="language.variables.array.indexes">
   <title>Array Index</title>
   <para>
-   Arrays können - ähnlich der PHP-Syntax - auch über ihren Index
+   Arrays kÃ¶nnen - Ã¤hnlich der PHP-Syntax - auch Ã¼ber ihren Index
    angesprochen werden.
   </para>
   <example>
-   <title>Zugriff über den Array Index</title>
+   <title>Zugriff Ã¼ber den Array Index</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -134,7 +134,7 @@ $smarty->display('index.tpl');
 <![CDATA[
 {$kontakte[0]}<br />
 {$kontakte[1]}<br />
-{* auch hier sind multidimensionale Arrays möglich *}
+{* auch hier sind multidimensionale Arrays mÃ¶glich *}
 {$kontakte[0][0]}<br />
 {$kontakte[0][1]}<br />
 ]]>
@@ -156,7 +156,7 @@ zaphod@slartibartfast.example.com<br />
  <sect2 id="language.variables.objects">
   <title>Objekte</title>
   <para>
-   Attribute von aus PHP zugewiesenen Objekten können über
+   Attribute von aus PHP zugewiesenen Objekten kÃ¶nnen Ã¼ber
    das '-&gt;'-Symbol erreicht werden.
   </para>
   <example>

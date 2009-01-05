@@ -5,7 +5,7 @@
  <title>include_php (PHP-Code einbinden)</title>
  <para>
   Die Verwendung von {include_php} wird nicht mehr empfohlen, die
-  gleiche funktionalität kann auch mit <link
+  gleiche funktionalitÃ¤t kann auch mit <link
   linkend="tips.componentized.templates">Template/Script
   Komponenten</link> erreicht werden.
  </para>
@@ -54,26 +54,26 @@
   Falls <link linkend="variable.security">Sicherheit</link> aktiviert
   ist, muss das einzubindende Skript im <link
   linkend="variable.trusted.dir">$trusted_dir</link> Pfad
-  liegen. {include_php} muss das Attribut 'file' übergeben werden, das
+  liegen. {include_php} muss das Attribut 'file' Ã¼bergeben werden, das
   den Pfad - entweder relativ zu <link
   linkend="variable.trusted.dir">$trusted_dir</link> oder absolut -
-  zum Skript enthält.
+  zum Skript enthÃ¤lt.
  </para>
  <para>
   Normalerweise wird ein PHP-Skript nur einmal pro Aufruf geladen,
-  selbst wenn es mehrfach eingebunden wird. Sie können dieses
+  selbst wenn es mehrfach eingebunden wird. Sie kÃ¶nnen dieses
   Verhalten durch die Verwendung des <emphasis>once</emphasis>
   Attributs steuern. Wenn Sie 'once' auf 'false' setzen, wird die
   Datei immer wenn sie eingebunden wird auch neu geladen.
  </para>
  <para>
-  Optional kann das <emphasis>assign</emphasis> Attribut übergeben
+  Optional kann das <emphasis>assign</emphasis> Attribut Ã¼bergeben
   werden.  Die Ausgabe von <emphasis>include_php</emphasis> wird dann
-  nicht direkt eingefügt, sondern in der durch assign benannten
+  nicht direkt eingefÃ¼gt, sondern in der durch assign benannten
   Template-Variable abgelegt.
  </para>
  <para>
-   Das Objekt '$smarty' kann in dem eingebundenen PHP-Script über
+   Das Objekt '$smarty' kann in dem eingebundenen PHP-Script Ã¼ber
    '$this' angesprochen werden.
  </para>
  <example>

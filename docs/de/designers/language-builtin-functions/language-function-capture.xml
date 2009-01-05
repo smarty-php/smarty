@@ -7,12 +7,12 @@
   {capture} wird verwendet, um die Template-Ausgabe abzufangen und in
   einer Variable zu speichern. Der Inhalt zwischen {capture
   name="foo"} und {/capture} wird unter der im 'name' Attribut
-  angegebenen Capture-Variablen abgelegt und kann über <link
+  angegebenen Capture-Variablen abgelegt und kann Ã¼ber <link
   linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
-  angesprochen werden. Falls kein 'name'-Attribut übergeben wurde,
+  angesprochen werden. Falls kein 'name'-Attribut Ã¼bergeben wurde,
   wird der Inhalt in 'default' (also $smarty.capture.default)
   abgelegt.  Jede {capture} Sektion muss mit {/capture} beendet
-  werden.  {capture}-Blöcke können verschachtelt sein.
+  werden.  {capture}-BlÃ¶cke kÃ¶nnen verschachtelt sein.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -25,7 +25,7 @@
     <row>
      <entry>Attribut Name</entry>
      <entry>Typ</entry>
-     <entry>Benötigt</entry>
+     <entry>BenÃ¶tigt</entry>
      <entry>Standardwert</entry>
      <entry>Beschreibung</entry>
    </row>

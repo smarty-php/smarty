@@ -5,7 +5,7 @@
  <title>Die Ausgabe von cachebaren Plugins Kontrollieren</title>
  <para>
   Seit Smarty-2.6.0 kann bei der Registrierung angegeben werden ob ein
-  Plugin cached werden soll. Der dritte Parameter für <link
+  Plugin cached werden soll. Der dritte Parameter fÃ¼r <link
   linkend="api.register.block">register_block</link>, <link
   linkend="api.register.compiler.function">register_compiler_function</link>
   und <link linkend="api.register.function">register_function</link>
@@ -16,7 +16,7 @@
   Wenn ein Plugin mit <parameter>$cacheable=false</parameter>
   registriert wird, wird er bei jedem Besuch der Seite aufgerufen,
   selbst wenn die Site aus dem Cache stammt. Die Pluginfunktion
-  verhält sich ein wenig wie <link
+  verhÃ¤lt sich ein wenig wie <link
   linkend="plugins.inserts">{insert}</link>.
  </para>
  <para>
@@ -72,7 +72,7 @@ Verbleibende Zeit: {remain endtime=$obj->endtime}
   </para>
  </example>
  <example>
- <title>Verhindern dass Template Blöcke gecached werden</title>
+ <title>Verhindern dass Template BlÃ¶cke gecached werden</title>
   <programlisting>
 <![CDATA[
 index.php:

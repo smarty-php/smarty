@@ -22,14 +22,14 @@
    Belang, da die Inhalte immer noch genau gleich &uuml;bergeben
    werden. Genauso kann der Designer die Ausgabe der Daten beliebig
    ver&auml;ndern, ohne dass eine &Auml;nderung der Applikation
-   vorgenommen werden muss. Somit können der Programmierer die
+   vorgenommen werden muss. Somit kÃ¶nnen der Programmierer die
    Applikations-Logik und der Designer die Ausgabe frei anpassen, ohne
    sich dabei in die Quere zu kommen.
   </para>
   <para>
    Was Smarty nicht kann: Smarty versucht nicht die gesamte Logik aus
    dem Template zu verbannen. Solange die verwendete Logik
-   ausschließlich f&uuml;r die Ausgabe verwendet wird, kann sie auch
+   ausschlieÃŸlich f&uuml;r die Ausgabe verwendet wird, kann sie auch
    im Template eingebettet werden. Ein Tip: versuchen Sie
    Applikations-Logik aus dem Template und Pr&auml;sentations-Logik
    aus der Applikation herauszuhalten. Nur so bleibt die Applikation
@@ -82,7 +82,7 @@
    </listitem>
    <listitem>
     <para>
-     Konfigurierbare Syntax für <link
+     Konfigurierbare Syntax fÃ¼r <link
      linkend="variable.left.delimiter">Template-Tags</link>: Sie
      k&ouml;nnen {}, {{}}, &lt;!--{}--&gt;, etc. verwenden.
     </para>
@@ -92,7 +92,7 @@
      <link
      linkend="language.function.if">'if/elseif/else/endif'-Konstrukte</link>
      werden direkt dem PHP-Parser &uuml;bergeben. Somit k&ouml;nnen {if
-     ...} Ausdrücke sowohl sehr einfach als auch sehr komplex sein.
+     ...} AusdrÃ¼cke sowohl sehr einfach als auch sehr komplex sein.
     </para>
    </listitem>
    <listitem>
@@ -184,7 +184,7 @@
      Wir empfehlen keine &Auml;nderungen an den Smarty-Library Dateien
      vorzunehmen.  Dies macht ein m&ouml;gliches Upgrade wesentlich
      einfacher. Sie m&uuml;ssen diese Dateien auch nicht anpassen, um
-     Smarty zu konfigurieren! Benutzen Sie für diesen Zwecke eine
+     Smarty zu konfigurieren! Benutzen Sie fÃ¼r diesen Zwecke eine
      Instanz der Smarty-Klasse.
     </para>
    </note>
@@ -192,7 +192,7 @@
     Folgende Library Dateien werden mit Smarty geliefert und werden ben&ouml;tigt:
    </para>
    <example>
-    <title>Benötigte Smarty-Library Dateien</title>
+    <title>BenÃ¶tigte Smarty-Library Dateien</title>
     <screen>
 <![CDATA[
 Smarty.class.php
@@ -420,7 +420,7 @@ ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'c:/webroot/lib/S
     'nobody' und Gruppe 'nogroup') in diese Verzeichnisse schreiben
     kann. (In OS X lautet der Benutzer normalerweise 'www' und ist in
     der Gruppe 'www'). Wenn Sie Apache verwenden, k&ouml;nnen Sie in
-    der httpd.conf (gewöhnlich in '/usr/local/apache/conf/')
+    der httpd.conf (gewÃ¶hnlich in '/usr/local/apache/conf/')
     nachsehen, unter welchem Benutzer Ihr Server l&auml;uft.
    </para>
    <example>

@@ -32,21 +32,21 @@
      <entry>array</entry>
      <entry>ja, ausser wenn das option Attribut verwendet wird</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>ein Array mit Werten für die checkboxes</entry>
+     <entry>ein Array mit Werten fÃ¼r die checkboxes</entry>
     </row>
     <row>
      <entry>output</entry>
      <entry>array</entry>
      <entry>ja, ausser wenn das option Attribut verwendet wird</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>ein Array mit Werten für checkbox Knöpfe</entry>
+     <entry>ein Array mit Werten fÃ¼r checkbox KnÃ¶pfe</entry>
     </row>
     <row>
      <entry>selected</entry>
      <entry>string/array</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>das/die ausgewählten checkbox Elemente</entry>
+     <entry>das/die ausgewÃ¤hlten checkbox Elemente</entry>
     </row>
     <row>
      <entry>options</entry>
@@ -60,14 +60,14 @@
      <entry>string</entry>
      <entry>No</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>Zeichenkette die zwischen den checkbox Elementen eingefügt werden soll</entry>
+     <entry>Zeichenkette die zwischen den checkbox Elementen eingefÃ¼gt werden soll</entry>
     </row>
     <row>
      <entry>labels</entry>
      <entry>boolean</entry>
      <entry>No</entry>
      <entry><emphasis>true</emphasis></entry>
-     <entry>fügt der Ausgabe &lt;label&gt;-Tags hinzu</entry>
+     <entry>fÃ¼gt der Ausgabe &lt;label&gt;-Tags hinzu</entry>
     </row>
    </tbody>
   </tgroup>
@@ -75,12 +75,12 @@
  <para>
   html_checkboxes ist eine <link
   linkend="language.custom.functions">Funktion</link> die aus den
-  übergebenen Daten html checkbox Elemente erstellt und kümmert sich
-  darum welche Elemente ausgewählt sind.  Erforderliche Attribute sind
+  Ã¼bergebenen Daten html checkbox Elemente erstellt und kÃ¼mmert sich
+  darum welche Elemente ausgewÃ¤hlt sind.  Erforderliche Attribute sind
   Wert/Ausgabe oder Options. Die Ausgabe ist XHTML kompatibel
  </para>
  <para>
-  Alle Parameter die nicht in der Liste erwähnt werden, werden ausgegeben.
+  Alle Parameter die nicht in der Liste erwÃ¤hnt werden, werden ausgegeben.
  </para>
  <example>
   <title>{html_checkboxes}</title>

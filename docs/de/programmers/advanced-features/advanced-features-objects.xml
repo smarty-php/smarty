@@ -6,7 +6,7 @@
  <para>
   Smarty erlaubt es, auf <ulink
   url="&url.php-manual;object">PHP-Objekte</ulink> durch das Template
-  zuzugreifen. Dafür gibt es zwei Wege. Der erste ist, Objekte zu
+  zuzugreifen. DafÃ¼r gibt es zwei Wege. Der erste ist, Objekte zu
   <link linkend="api.register.object">registrieren</link> und wie auf
   eine <link linkend="language.custom.functions">eigene
   Funktion</link> zuzugreifen.  Der andere Weg ist, das Objekt dem
@@ -14,40 +14,40 @@
   und darauf wie auf andere Variablen zuzugreifen. Die erste Methode
   hat eine nettere Template Syntax und ist sicherer da der Zugriff auf
   ein registriertes Objekt mit Sicherheitseinstellungen kontrolliert
-  werden kann. Der Nachteil ist, dass über registrierte Objekte nicht
-  in einer Schlaufe gelaufen werden kann und, dass es nicht möglich
+  werden kann. Der Nachteil ist, dass Ã¼ber registrierte Objekte nicht
+  in einer Schlaufe gelaufen werden kann und, dass es nicht mÃ¶glich
   ist, Arrays registrierten Objekten anzulegen. Welchen Weg Sie
-  einschlagen wird von Ihren Bedürfnissen definiert, die erste Methode
+  einschlagen wird von Ihren BedÃ¼rfnissen definiert, die erste Methode
   ist jedoch zu bevorzugen.
  </para>
  <para>
   Wenn die <link
   linkend="variable.security">Sicherheitsfunktionen</link>
-  eingeschaltet sind, können keine private Methoden (solche die einen
+  eingeschaltet sind, kÃ¶nnen keine private Methoden (solche die einen
   '_'-Prefix tragen) aufgerufen werden. Wenn eine Methode und eine
   Eigeschaft mit dem gleichen Namen existieren wird die Methode
   verwendet.
  </para>
  <para>
-  Sie können den Zugriff auf Methoden und Eigenschaften
-  einschränken indem Sie sie als Array als dritten
-  Registrationsparameter übergeben.
+  Sie kÃ¶nnen den Zugriff auf Methoden und Eigenschaften
+  einschrÃ¤nken indem Sie sie als Array als dritten
+  Registrationsparameter Ã¼bergeben.
  </para>
  <para>
   Normalerweise werden Parameter welche einem Objekt via Template
-  übergeben werden genau so übergeben wie dies bei normalen <link
+  Ã¼bergeben werden genau so Ã¼bergeben wie dies bei normalen <link
   linkend="language.custom.functions">eigenen Funktionen</link> der
   Fall ist.  Das erste Objekt ist ein assoziatives Array und das
   zweite das Smarty Objekt selbst.  Wenn Sie die Parameter einzeln
-  erhalten möchten können Sie den vierten Parameter auf
+  erhalten mÃ¶chten kÃ¶nnen Sie den vierten Parameter auf
   <literal>false</literal> setzen.
  </para>
  <para>
-  Der optionale fünfte Parameter hat nur einen Effekt wenn
+  Der optionale fÃ¼nfte Parameter hat nur einen Effekt wenn
   <parameter>format</parameter> = <literal>true</literal> ist und eine
-  Liste von Methoden enthält die als Block verarbeitet werden sollen.
+  Liste von Methoden enthÃ¤lt die als Block verarbeitet werden sollen.
   Das bedeutet, dass solche Methoden ein schliessendes Tag im Template
-  enthalten müssen
+  enthalten mÃ¼ssen
   (<literal>{foobar->meth2}...{/foobar->meth2}</literal>) und die
   Parameter zu den Funktionen die selbe Syntax haben wie
   block-function-plugins: sie erhalten also die 4 Parameter
@@ -73,12 +73,12 @@ class My_Object {
 $myobj = new My_Object;
 // Objekt registrieren (referenz)
 $smarty->register_object("foobar",$myobj);
-// Zugriff auf Methoden und Eigeschaften einschränken
+// Zugriff auf Methoden und Eigeschaften einschrÃ¤nken
 $smarty->register_object("foobar",$myobj,array('meth1','meth2','prop1'));
-// wenn wir das traditionelle Parameterformat verwenden wollen, übergeben wir false für den Parameter format
+// wenn wir das traditionelle Parameterformat verwenden wollen, Ã¼bergeben wir false fÃ¼r den Parameter format
 $smarty->register_object("foobar",$myobj,null,false);
 
-// Objekte zuweisen (auch via Referenz möglich)
+// Objekte zuweisen (auch via Referenz mÃ¶glich)
 $smarty->assign_by_ref("myobj", $myobj);
 
 $smarty->display('index.tpl');
@@ -86,7 +86,7 @@ $smarty->display('index.tpl');
 ]]>
   </programlisting>
   <para>
-   Und hier das dazugehörige index.tpl:
+   Und hier das dazugehÃ¶rige index.tpl:
   </para>
   <programlisting>
 <![CDATA[

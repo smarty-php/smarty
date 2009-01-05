@@ -5,20 +5,20 @@
  <title>section,sectionelse</title>
  <para>
   Template-{sections} werden verwendet, um durch <emphasis
-  role="bold">Arrays</emphasis> zu iterieren (ähnlich wie <link
+  role="bold">Arrays</emphasis> zu iterieren (Ã¤hnlich wie <link
   linkend="language.function.foreach">{foreach}</link>).  Jedes
   <emphasis>section</emphasis>-Tag muss mit einem
   <emphasis>/section</emphasis>-Tag kombiniert
   werden. <emphasis>name</emphasis> und <emphasis>loop</emphasis> sind
-  erforderliche Parameter. Der Name der 'section' kann frei gewählt
+  erforderliche Parameter. Der Name der 'section' kann frei gewÃ¤hlt
   werden, muss jedoch aus Buchstaben, Zahlen oder Unterstrichen
-  bestehen. {sections} können verschachtelt werden. Dabei ist zu
+  bestehen. {sections} kÃ¶nnen verschachtelt werden. Dabei ist zu
   beachten, dass sich ihre Namen unterscheiden. Aus der
   'loop'-Variable (normalerweise ein Array von Werten) resultiert die
   Anzahl der Iterationen, die durchlaufen werden.  Wenn ein Wert aus
   der 'loop'-Variable innerhalb der {section} ausgegeben werden soll,
-  muss der 'section-name' umschlossen mit [] angefügt werden.
-  <emphasis>sectionelse</emphasis> wird ausgeführt, wenn keine Werte
+  muss der 'section-name' umschlossen mit [] angefÃ¼gt werden.
+  <emphasis>sectionelse</emphasis> wird ausgefÃ¼hrt, wenn keine Werte
   in der 'loop'-Variable enthalten sind.
  </para>
  <informaltable frame="all">
@@ -50,7 +50,7 @@
      <entry>[$variable_name]</entry>
      <entry>Ja</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Der Name des Zählers für die Iterationen.</entry>
+     <entry>Der Name des ZÃ¤hlers fÃ¼r die Iterationen.</entry>
     </row>
     <row>
      <entry>start</entry>
@@ -58,12 +58,12 @@
      <entry>Nein</entry>
      <entry><emphasis>0</emphasis></entry>
      <entry>
-      Definiert die Startposition. Falls ein negativer Wert übergeben
+      Definiert die Startposition. Falls ein negativer Wert Ã¼bergeben
       wird, berechnet sich die Startposition ausgehend vom Ende des
       Arrays. Wenn zum Beispiel 7 Werte in einem Array enthalten sind
       und die Startposition -2 ist, ist die berechnete Startposition
-      5. Unerlaubte Werte (Werte ausserhalb der Grösse des Arrays)
-      werden automatisch auf den nächstmöglichen Wert gesetzt.
+      5. Unerlaubte Werte (Werte ausserhalb der GrÃ¶sse des Arrays)
+      werden automatisch auf den nÃ¤chstmÃ¶glichen Wert gesetzt.
      </entry>
     </row>
     <row>
@@ -74,7 +74,7 @@
      <entry>
       Definiert die Schrittweite mit welcher das Array durchlaufen
       wird. 'step=2' iteriert durch 0, 2, 4, etc. Wenn ein negativer
-      Wert übergeben wurde, wird das Array rückwärts durchlaufen.
+      Wert Ã¼bergeben wurde, wird das Array rÃ¼ckwÃ¤rts durchlaufen.
      </entry>
     </row>
     <row>
@@ -169,7 +169,7 @@ id: 1000<br />
   <programlisting>
 <![CDATA[
 {* die 'loop'-Variable definiert nur die Anzahl der Iterationen,
-   Sie können in dieser 'section' auf jeden Wert des Templates
+   Sie kÃ¶nnen in dieser 'section' auf jeden Wert des Templates
    zugreifen. Dieses Beispiel geht davon aus, dass $KundenId, $Namen und
    $Adressen Arrays sind, welche die selbe Anzahl Werte enthalten *}
 {section name=kunde loop=$KundenId}
@@ -187,7 +187,7 @@ address: {$Adressen[kunde]}<br>
 <![CDATA[
 
 id: 1000<br>
-name: Peter Müller <br>
+name: Peter MÃ¼ller <br>
 adresse: 253 N 45th<br>
 <p>
 id: 1001<br>
@@ -255,8 +255,8 @@ $smarty->assign('contact_info', $info);
   <programlisting>
 <![CDATA[
 {*
-  Sections können unbegrenzt tief verschachtelt werden.  Mit
-  verschachtelten 'sections' können Sie auf komplexe Datenstrukturen
+  Sections kÃ¶nnen unbegrenzt tief verschachtelt werden.  Mit
+  verschachtelten 'sections' kÃ¶nnen Sie auf komplexe Datenstrukturen
   zugreifen (wie zum Beispiel multidimensionale Arrays). Im folgenden
   Beispiel ist $contact_type[customer] ein Array mit Kontakttypen des
   aktuellen Kunden.
@@ -333,7 +333,7 @@ e-mail: {$contacts[customer].email}
 </p>
 {/section}
 
-{* Anm. d. übersetzers: Oft ist die Anwendung von 'foreach' kürzer. *}
+{* Anm. d. Ã¼bersetzers: Oft ist die Anwendung von 'foreach' kÃ¼rzer. *}
 
 {foreach item=customer from=$contacts}
 <p>
@@ -400,8 +400,8 @@ keine Werte in $custid gefunden
   <para>
    Bermerkung: Seit Smarty 1.5.0 hat sich die Syntax der 'section'
    Eigenschaften von {%sectionname.varname%} zu
-   {$smarty.section.sectionname.varname} geändert.  Die alte Syntax
-   wird noch immer unterstützt, die Dokumentation erwähnt jedoch nur
+   {$smarty.section.sectionname.varname} geÃ¤ndert.  Die alte Syntax
+   wird noch immer unterstÃ¼tzt, die Dokumentation erwÃ¤hnt jedoch nur
    noch die neue Schreibweise.
   </para>
  </note>
@@ -411,12 +411,12 @@ keine Werte in $custid gefunden
    'index' wird verwendet, um den aktuellen Schleifen-Index
    anzuzeigen. Er startet bei 0 (beziehungsweise der definierten
    Startposition) und inkrementiert in 1-er Schritten (beziehungsweise
-   der definierten Schrittgrösse).
+   der definierten SchrittgrÃ¶sse).
   </para>
   <note>
    <title>Technische Bemerkung</title>
    <para>
-    Wenn 'step' und 'start' nicht übergeben werden, verhält sich der
+    Wenn 'step' und 'start' nicht Ã¼bergeben werden, verhÃ¤lt sich der
     Wert wie die 'section'-Eigenschaft 'iteration', ausser dass er bei
     0 anstatt 1 beginnt.
    </para>
@@ -456,7 +456,7 @@ keine Werte in $custid gefunden
 {$smarty.section.customer.index} id: {$custid[customer]}<br>
 {* zur Information, $custid[customer.index] und $custid[customer] bedeuten das selbe *}
 {if $custid[customer.index_prev] ne $custid[customer.index]}
-    Die Kundennummer hat sich geändert.<br>
+    Die Kundennummer hat sich geÃ¤ndert.<br>
 {/if}
 {/section}
 ]]>
@@ -467,11 +467,11 @@ keine Werte in $custid gefunden
    <programlisting>
 <![CDATA[
 0 id: 1000<br>
-    Die Kundennummer hat sich geändert.<br>
+    Die Kundennummer hat sich geÃ¤ndert.<br>
 1 id: 1001<br>
-    Die Kundennummer hat sich geändert.<br>
+    Die Kundennummer hat sich geÃ¤ndert.<br>
 2 id: 1002<br>
-    Die Kundennummer hat sich geändert.<br>
+    Die Kundennummer hat sich geÃ¤ndert.<br>
 ]]>
    </programlisting>
   </example>
@@ -479,8 +479,8 @@ keine Werte in $custid gefunden
  <sect2 id="section.property.index.next">
   <title>index_next</title>
   <para>
-   'index_next' wird verwendet um den nächsten 'loop'-Index
-   auszugeben. Bei der letzten Iteration ist dieser Wert um 1 grösser
+   'index_next' wird verwendet um den nÃ¤chsten 'loop'-Index
+   auszugeben. Bei der letzten Iteration ist dieser Wert um 1 grÃ¶sser
    als der aktuelle 'loop'-Index (inklusive dem definierten 'step'
    Wert).
   </para>
@@ -492,7 +492,7 @@ keine Werte in $custid gefunden
 {$smarty.section.customer.index} id: {$custid[customer]}<br>
 {* zur Information, $custid[customer.index] und $custid[customer] bedeuten das selbe *}
 {if $custid[customer.index_next] ne $custid[customer.index]}
-    Die Kundennummer wird sich ändern.<br>
+    Die Kundennummer wird sich Ã¤ndern.<br>
 {/if}
 {/section}
 ]]>
@@ -503,12 +503,12 @@ keine Werte in $custid gefunden
    <programlisting>
 <![CDATA[
 0 id: 1000<br>
-    Die Kundennummer wird sich ändern.<br>
+    Die Kundennummer wird sich Ã¤ndern.<br>
 1 id: 1001<br>
-    Die Kundennummer wird sich ändern.<br>
+    Die Kundennummer wird sich Ã¤ndern.<br>
 2 id: 1002<br>
-    Die Kundennummer wird sich ändern.<br>
-]]¦
+    Die Kundennummer wird sich Ã¤ndern.<br>
+]]Å 
    </programlisting>
   </example>
   </sect2>
@@ -521,7 +521,7 @@ keine Werte in $custid gefunden
     Bemerkung: Die Eigenschaften 'start', 'step' und 'max'
     beeinflussen 'iteration' nicht, die Eigenschaft 'index' jedoch
     schon. 'iteration' startet im gegensatz zu 'index' bei 1. 'rownum'
-    ist ein Alias für 'iteration' und arbeitet identisch.
+    ist ein Alias fÃ¼r 'iteration' und arbeitet identisch.
    </para>
   <example>
    <title>'section'-Eigenschaft 'iteration'</title>
@@ -532,7 +532,7 @@ aktuelle loop iteration: {$smarty.section.customer.iteration}<br>
 {$smarty.section.customer.index} id: {$custid[customer]}<br>
 {* zur Information, $custid[customer.index] und $custid[customer] bedeuten das gleiche *}
 {if $custid[customer.index_next] ne $custid[customer.index]}
-    Die Kundennummer wird sich ändern.<br>
+    Die Kundennummer wird sich Ã¤ndern.<br>
 {/if}
 {/section}
 ]]>
@@ -544,13 +544,13 @@ aktuelle loop iteration: {$smarty.section.customer.iteration}<br>
 <![CDATA[
 aktuelle loop iteration: 1
 5 id: 1000<br>
-    Die Kundennummer wird sich ändern.<br>
+    Die Kundennummer wird sich Ã¤ndern.<br>
 aktuelle loop iteration: 2
 7 id: 1001<br>
-    Die Kundennummer wird sich ändern.<br>
+    Die Kundennummer wird sich Ã¤ndern.<br>
 aktuelle loop iteration: 3
 9 id: 1002<br>
-    Die Kundennummer wird sich ändern.<br>
+    Die Kundennummer wird sich Ã¤ndern.<br>
 ]]>
    </programlisting>
   </example>
@@ -635,7 +635,7 @@ aktuelle loop iteration: 3
   <title>rownum</title>
   <para>
    'rownum' wird verwendet um die aktuelle Iteration (startend bei 1)
-   auszugeben.  'rownum' ist ein Alias für 'iteration' und arbeitet
+   auszugeben.  'rownum' ist ein Alias fÃ¼r 'iteration' und arbeitet
    identisch.
   </para>
   <example>

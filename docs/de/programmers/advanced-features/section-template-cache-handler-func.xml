@@ -4,8 +4,8 @@
 <sect1 id="section.template.cache.handler.func">
  <title>Cache Handler Funktion</title>
  <para>
-  Als Alternative zum normalen dateibasierten Caching-Mechanismus können Sie
-  eine eigene Cache-Handler Funktion zum lesen, schreiben und löschen von
+  Als Alternative zum normalen dateibasierten Caching-Mechanismus kÃ¶nnen Sie
+  eine eigene Cache-Handler Funktion zum lesen, schreiben und lÃ¶schen von
   Cache-Dateien definieren.
  </para>
  <para>
@@ -14,17 +14,17 @@
   <link linkend="variable.cache.handler.func">$cache_handler_func</link> zu.
    Smarty wird von da an Ihre Funktion zur Bearbeitung des Caches verwenden.
    Als erster Parameter wird die 'action' mit einem der folgendende Werte
-   übergeben: 'read', 'write' und 'clear'. Als zweiter Parameter
-   wird das Smarty-Objekt übergeben, als dritter der gecachte Inhalt. Bei einem
-   'write' übergibt Smarty den gecachten Inhalt, bei 'read' übergibt Smarty die
+   Ã¼bergeben: 'read', 'write' und 'clear'. Als zweiter Parameter
+   wird das Smarty-Objekt Ã¼bergeben, als dritter der gecachte Inhalt. Bei einem
+   'write' Ã¼bergibt Smarty den gecachten Inhalt, bei 'read' Ã¼bergibt Smarty die
    Variable als Referenz und erwartet, dass Ihre Funktion die Inhalte zuweist.
-   Bei 'clear' können Sie eine dummy-Variable übergeben. Als vierter Parameter
-   wird der Template-Name übergeben (verwendet bei 'write'/'read'), als fünfter
+   Bei 'clear' kÃ¶nnen Sie eine dummy-Variable Ã¼bergeben. Als vierter Parameter
+   wird der Template-Name Ã¼bergeben (verwendet bei 'write'/'read'), als fÃ¼nfter
    Parameter die 'cache_id' (optional) und als sechster die 'compile_id' (auch optional).
  </para>
  <para>
   Der letzte Parameter (<parameter>$exp_time</parameter>) wurde in
-  Smarty-2.6.0 hinzugefügt.
+  Smarty-2.6.0 hinzugefÃ¼gt.
  </para>
  <example>
   <title>Beispiel mit einer MySQL Datenbank als Datenquelle</title>
@@ -112,10 +112,10 @@ function mysql_cache_handler($action, &amp;$smarty_obj, &amp;$cache_content, $tp
       break;
    case 'clear':
       
-      // Cache Informationen löschen
+      // Cache Informationen lÃ¶schen
       if(empty($cache_id) &amp;&amp; empty($compile_id) &amp;&amp; empty($tpl_file)) {
 	 
-	 // alle löschen
+	 // alle lÃ¶schen
 	 $results = mysql_query("delete from CACHE_PAGES");
       } else {
 	 $results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");

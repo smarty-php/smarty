@@ -7,10 +7,10 @@
   Konfigurationsdateien sind ein praktischer Weg um Template-Variablen
   aus einer gemeinsamen Datei zu lesen. Ein Beispiel sind die
   Template-Farben.  Wenn Sie die Farben einer Applikation anpassen
-  wollen, müssen Sie normalerweise alle Templates durcharbeiten,
-  und die entsprechenden Werte ändern.  Mit einer
-  Konfigurationsdatei können Sie alle Definitionen in einer
-  einzigen Datei vornehmen, und somit auch einfach ändern.
+  wollen, mÃ¼ssen Sie normalerweise alle Templates durcharbeiten,
+  und die entsprechenden Werte Ã¤ndern.  Mit einer
+  Konfigurationsdatei kÃ¶nnen Sie alle Definitionen in einer
+  einzigen Datei vornehmen, und somit auch einfach Ã¤ndern.
  </para>
  <example>
   <title>Beispiel der Konfigurationsdatei-Syntax</title>
@@ -28,9 +28,9 @@ pageTitle = "Customer Info"
 [Login]
 pageTitle = "Login"
 focus = "username"
-Intro = """Diese Zeile erstreckt sich über
+Intro = """Diese Zeile erstreckt sich Ã¼ber
 		mehrere Zeilen, und muss deswegen
-			mit dreifachen Anführungszeichen
+			mit dreifachen AnfÃ¼hrungszeichen
 				umschlossen werden."""
 
 # hidden section
@@ -43,17 +43,17 @@ pass=foobar
  </example>
  <para>
   <link linkend="language.config.variables">Die Werte in einer
-  Konfigurationsdatei</link> können in einfachen/doppelten
-  Anführungszeichen notiert werden. Falls Sie einen Wert haben der
-  sich über mehrere Zeilen ausbreitet muss dieser Wert in
-  dreifachen Anführungszeichen (""") eingebettet werden. Die
-  Kommentar-Syntax kann frei gewählt werden, solange sie nicht der
+  Konfigurationsdatei</link> kÃ¶nnen in einfachen/doppelten
+  AnfÃ¼hrungszeichen notiert werden. Falls Sie einen Wert haben der
+  sich Ã¼ber mehrere Zeilen ausbreitet muss dieser Wert in
+  dreifachen AnfÃ¼hrungszeichen (""") eingebettet werden. Die
+  Kommentar-Syntax kann frei gewÃ¤hlt werden, solange sie nicht der
   normalen Syntax entsprechen. Wir empfehlen die Verwendung von
   <literal>#</literal> (Raute) am Anfang jeder Kommentar-Zeile.
  </para>
  <para>
   Dieses Beispiel hat 2 'sections'. 'section'-Namen werden von
-  []-Zeichen umschlossen und können alle Zeichen ausser
+  []-Zeichen umschlossen und kÃ¶nnen alle Zeichen ausser
   <literal>[</literal> und <literal>]</literal> enthalten.  Die vier
   Variablen welche am Anfang der Datei definiert werden sind globale
   Variablen. Diese Variablen werden immer geladen. Wenn eine
@@ -71,13 +71,13 @@ pass=foobar
   geladen.
  </para>
  <para>
-  Sie können Variablen oder auch ganze 'sections' verstecken indem
+  Sie kÃ¶nnen Variablen oder auch ganze 'sections' verstecken indem
   Sie dem Namen ein '.' voranstellen. Dies ist besonders wertvoll wenn
   Ihre Applikation sensitive Informationen aus der Konfigurationsdatei
   liest welche von der Template-Engine nicht verwendet werden. Falls
-  eine Drittpartei eine Änderung an der Konfigurationsdatei
-  vornimmt können Sie so sicherstellen, dass die sensitiven Daten
-  nicht in deren Template geladen werden können.
+  eine Drittpartei eine Ã„nderung an der Konfigurationsdatei
+  vornimmt kÃ¶nnen Sie so sicherstellen, dass die sensitiven Daten
+  nicht in deren Template geladen werden kÃ¶nnen.
  </para>
  <para>
   Siehe auch: <link

@@ -6,9 +6,9 @@
   <para>
    {html_image} ist eine <link
    linkend="language.custom.functions">eigene Funktion</link> die ein
-   HTML Tag für ein Bild erzeugt.  Die Höhe und Breite der Ausgabe wird
+   HTML Tag fÃ¼r ein Bild erzeugt.  Die HÃ¶he und Breite der Ausgabe wird
    automatisch aus der Bilddatei berechnet wenn die Werte nicht
-   übergeben werden.
+   Ã¼bergeben werden.
   </para>
 
   <informaltable frame="all">
@@ -39,8 +39,8 @@
      <entry>height</entry>
      <entry>string</entry>
      <entry>Nein</entry>
-     <entry><emphasis>Normale Höhe des Bildes</emphasis></entry>
-     <entry>Höhe des Bildes</entry>
+     <entry><emphasis>Normale HÃ¶he des Bildes</emphasis></entry>
+     <entry>HÃ¶he des Bildes</entry>
     </row>
     <row>
      <entry>width</entry>
@@ -54,7 +54,7 @@
      <entry>string</entry>
      <entry>Nein</entry>
      <entry><emphasis>DOCUMENT_ROOT</emphasis></entry>
-     <entry>Basisverzeichnis für relative Pfadangaben</entry>
+     <entry>Basisverzeichnis fÃ¼r relative Pfadangaben</entry>
     </row>
     <row>
      <entry>alt</entry>
@@ -68,35 +68,35 @@
      <entry>string</entry>
      <entry>Nein</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Link für das Bild</entry>
+     <entry>Link fÃ¼r das Bild</entry>
     </row>
     <row>
      <entry>path_prefix</entry>
      <entry>string</entry>
      <entry>Nein</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Präfix für den Pfad zum Bild</entry>
+     <entry>PrÃ¤fix fÃ¼r den Pfad zum Bild</entry>
     </row>
    </tbody>
   </tgroup>
  </informaltable>
 
  <para>
-  basedir ist der Basispfad der für die Verlinkung verwendet werden
-  soll. Wenn kein Wert übergeben wird, wird die <link
+  basedir ist der Basispfad der fÃ¼r die Verlinkung verwendet werden
+  soll. Wenn kein Wert Ã¼bergeben wird, wird die <link
   linkend="language.variables.smarty">Umgebungsvariable</link>
   DOCUMENT_ROOT verwendet. Wenn <link
   linkend="variable.security">Sicherheit</link> eingeschaltet ist,
   muss das Bild in einem sicheren Verzeichnis liegen.
  </para>
  <para>
-  <parameter>href</parameter> ist das href Attribut für das
-  Image-Tag. Wenn dieser Wert übergeben wird, wird um das Bild ein
+  <parameter>href</parameter> ist das href Attribut fÃ¼r das
+  Image-Tag. Wenn dieser Wert Ã¼bergeben wird, wird um das Bild ein
   &lt;a href="LINKVALUE"&gt;&lt;a&gt; Tag erzeugt.
  </para>
  <para>
-  <parameter>path_prefix</parameter> ist ein optionaler Präfix der dem
-  Bildpfad vorangestellt wird. Die ist nützlich wenn zum Beispiel für
+  <parameter>path_prefix</parameter> ist ein optionaler PrÃ¤fix der dem
+  Bildpfad vorangestellt wird. Die ist nÃ¼tzlich wenn zum Beispiel fÃ¼r
   den Bildpfad ein anderer Servername verwendet werden soll.
  </para>
  <para>
@@ -106,10 +106,10 @@
  <note>
   <title>Technische Bemerkung</title>
   <para>
-   {html_image} greift auf das Dateisystem zu um Höhe und Breite zu
+   {html_image} greift auf das Dateisystem zu um HÃ¶he und Breite zu
    errechnen. Wenn Sie <link linkend="caching">caching</link> nicht
    verwenden sollten Sie normalerweise auf diese Funktion aus
-   performance Gründen verzichten.
+   performance GrÃ¼nden verzichten.
   </para>
  </note>
  <example>
@@ -124,7 +124,7 @@ Wobei index.tpl wie folgt aussieht:
 ]]>
   </programlisting>
   <para>
-   Mögliche Ausgabe:
+   MÃ¶gliche Ausgabe:
   </para>
   <screen>
 <![CDATA[

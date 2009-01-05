@@ -5,7 +5,7 @@
  <title>{if},{elseif},{else}</title>
  <para>
   <emphasis>{if}</emphasis>-Statements in Smarty erlauben die selbe
-  Flexibilität wie in PHP, bis auf ein paar Erweiterungen für die
+  FlexibilitÃ¤t wie in PHP, bis auf ein paar Erweiterungen fÃ¼r die
   Template-Engine.  Jedes <emphasis>{if}</emphasis> muss mit einem
   <emphasis>{/if}</emphasis> kombiniert
   sein. <emphasis>{else}</emphasis> und <emphasis>{elseif}</emphasis>
@@ -16,15 +16,15 @@
  </para>
  <para>
   Wenn <link linkend="variable.security">$security</link> angeschaltet
-  wurde, dann müssen alle verwendeten PHP-Funktionen im
+  wurde, dann mÃ¼ssen alle verwendeten PHP-Funktionen im
   <emphasis>IF_FUNCS</emphasis>-Array in dem <link
   linkend="variable.security.settings">$security_settings</link>-Array
   deklariert werden.
  </para>
  <para>
   Hier eine Liste der erlaubten Operatoren. Bedingungsoperatoren
-  müssen von umgebenden Elementen mit Leerzeichen abgetrennt werden.
-  PHP-Äquivalente sind, sofern vorhanden, angeben.
+  mÃ¼ssen von umgebenden Elementen mit Leerzeichen abgetrennt werden.
+  PHP-Ã„quivalente sind, sofern vorhanden, angeben.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">
@@ -32,14 +32,14 @@
    <colspec colname="Alternativen" align="center" />
    <colspec colname="Syntax Beispiel" />
    <colspec colname="Bedeutung" />
-   <colspec colname="PHP Äquivalent" />
+   <colspec colname="PHP Ã„quivalent" />
    <thead>
     <row>
      <entry>Operator</entry>
      <entry>Alternativen</entry>
      <entry>Syntax Beispiel</entry>
      <entry>Bedeutung</entry>
-     <entry>PHP Äquivalent</entry>
+     <entry>PHP Ã„quivalent</entry>
     </row>
    </thead>
    <tbody>
@@ -61,7 +61,7 @@
      <entry>&gt;</entry>
      <entry>gt</entry>
      <entry>$a gt $b</entry>
-     <entry>größer als</entry>
+     <entry>grÃ¶ÃŸer als</entry>
      <entry>&gt;</entry>
     </row>
     <row>
@@ -75,7 +75,7 @@
      <entry>&gt;=</entry>
      <entry>gte, ge</entry>
      <entry>$a ge $b</entry>
-     <entry>größer oder gleich</entry>
+     <entry>grÃ¶ÃŸer oder gleich</entry>
      <entry>&gt;=</entry>
     </row>
     <row>
@@ -182,17 +182,17 @@
 {/if}
 
 
-{* einbetten von php Funktionsaufrufen ('gt' steht für 'grösser als') *}
+{* einbetten von php Funktionsaufrufen ('gt' steht fÃ¼r 'grÃ¶sser als') *}
 {if count($var) gt 0}
 	...
 {/if}
 
-{* Auf "ist array" überprüfen. *}
+{* Auf "ist array" Ã¼berprÃ¼fen. *}
 {if is_array($foo) }
    .....
 {/if}
 
-{* Auf "ist nicht null" überprüfen. *}
+{* Auf "ist nicht null" Ã¼berprÃ¼fen. *}
 {if isset($foo) }
    .....
 {/if}

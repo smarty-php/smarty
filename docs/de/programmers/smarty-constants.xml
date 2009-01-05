@@ -24,7 +24,7 @@ define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
 // Pfad zum Smarty Verzeichnis setzen (unter Windows)
 define('SMARTY_DIR', 'c:/usr/local/lib/php/Smarty/libs/');
 
-// Smarty einbinden (der Dateiname beginnt mit großem 'S')
+// Smarty einbinden (der Dateiname beginnt mit groÃŸem 'S')
 require_once(SMARTY_DIR . 'Smarty.class.php');
 ?>
 ]]>

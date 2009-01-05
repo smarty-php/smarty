@@ -5,12 +5,12 @@
  <title>Postfilter</title>
  <para>
   Template Postfilter sind Filter, welche auf das Template nach dessen Kompilierung
-  angewendet werden. Postfilter können auf verschiedene Arten
+  angewendet werden. Postfilter kÃ¶nnen auf verschiedene Arten
   geladen werden. Man kann sie <link linkend="api.register.prefilter">registrieren</link>,
   aus dem Plugin-Verzeichnis mit <link linkend="api.load.filter">load_filter()</link> laden
   oder <link linkend="variable.autoload.filters">$autoload_filters</link> verwenden.
-  Smarty übergibt der Funktion als ersten Parameter den Template-Quellcode und erwartet
-  als Rückgabewert den bearbeiteten Quellcode.
+  Smarty Ã¼bergibt der Funktion als ersten Parameter den Template-Quellcode und erwartet
+  als RÃ¼ckgabewert den bearbeiteten Quellcode.
  </para>
  <example>
   <title>Template Postfilter verwenden</title>
@@ -18,7 +18,7 @@
 <![CDATA[
 <?php
    
-// fügen Sie folgende Zeilen in Ihre Applikation ein
+// fÃ¼gen Sie folgende Zeilen in Ihre Applikation ein
 function add_header_comment($tpl_source, &$smarty)
 {
     return "<?php echo \"<!-- Created by Smarty! -->\n\" ?>\n".$tpl_source;

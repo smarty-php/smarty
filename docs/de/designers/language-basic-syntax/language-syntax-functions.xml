@@ -41,13 +41,13 @@
   linkend="language.function.if">if</link>, <link
   linkend="language.function.section">section</link> und <link
   linkend="language.function.strip">strip</link>. Diese Funktionen
-  können nicht verändert werden.
+  kÃ¶nnen nicht verÃ¤ndert werden.
  </para>
  <para>
-  Individuelle Funktionen die die Fähigkeiten von Smarty erweitern
-  werden als Plugins implementiert.  Diese Funktionen können von Ihnen
-  angepasst werden, oder Sie können selbst neue Plugins
-  hinzufügen. <link
+  Individuelle Funktionen die die FÃ¤higkeiten von Smarty erweitern
+  werden als Plugins implementiert.  Diese Funktionen kÃ¶nnen von Ihnen
+  angepasst werden, oder Sie kÃ¶nnen selbst neue Plugins
+  hinzufÃ¼gen. <link
   linkend="language.function.html.options">{html_options}</link> und
   <link
   linkend="language.function.html.select.date">{html_select_date}</link>

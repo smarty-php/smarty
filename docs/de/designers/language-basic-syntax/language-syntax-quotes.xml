@@ -2,17 +2,17 @@
 <!-- $Revision$ -->
 <!-- EN-Revision: 1.6 Maintainer: andreas Status: ready -->
 <sect1 id="language.syntax.quotes">
- <title>Variablen mit Doppelten Anführungszeichen</title>
+ <title>Variablen mit Doppelten AnfÃ¼hrungszeichen</title>
  <para>
   Smarty erkennt <link linkend="api.assign">zugewiesene</link> <link
   linkend="language.syntax.variables">Variablen</link> mit doppelten
-  Anführungszeichen solange die Variablen nur Zahlen, Buchstaben,
+  AnfÃ¼hrungszeichen solange die Variablen nur Zahlen, Buchstaben,
   Understriche oder Klammern [] enthalten. Mit allen anderen Zeichen
   wie Punkt, Objekt Referenzen, etc muss die Vairable mit Backticks
   (``) umschlossen sein.
  </para>
  <example>
-  <title>Syntax von eingebetteten Anfürungszeichen</title>
+  <title>Syntax von eingebetteten AnfÃ¼rungszeichen</title>
   <programlisting>
 <![CDATA[
 SYNTAX BEISPIELE:
@@ -22,7 +22,7 @@ SYNTAX BEISPIELE:
 {func var="test $foo[bar] test"}  &lt;-- sieht $foo[bar]
 {func var="test $foo.bar test"}   &lt;-- sieht $foo (nicht $foo.bar)
 {func var="test `$foo.bar` test"} &lt;-- sieht $foo.bar
-{func var="test `$foo.bar` test"|escape} <-- Modifikatoren ausserhalb der Anführungsz.!
+{func var="test `$foo.bar` test"|escape} <-- Modifikatoren ausserhalb der AnfÃ¼hrungsz.!
 
 PRAKTISCHE BEISPIELE:
 {include file="subdir/$tpl_name.tpl"} &lt;-- ersetzt $tpl_name durch wert

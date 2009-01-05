@@ -26,28 +26,28 @@ $smarty->display('index.tpl');
     Wenn Caching eingeschaltet ist, wird der Funktionsaufruf display('index.tpl')
     das Template normal rendern, zur selben Zeit jedoch auch eine Datei mit
     dem Inhalt in das <link linkend="variable.cache.dir">$cache_dir</link> schreiben
-    (als gecachte Kopie). Beim nächsten Aufruf von display('index.tpl') wird die
+    (als gecachte Kopie). Beim nÃ¤chsten Aufruf von display('index.tpl') wird die
     gecachte Kopie verwendet.
    </para>
    <note>
     <title>Technische Bemerkung</title>
     <para>
      Die im <link linkend="variable.cache.dir">$cache_dir</link>
-     abgelegen Dateien haben einen ähnlichen Namen wie das Template,
+     abgelegen Dateien haben einen Ã¤hnlichen Namen wie das Template,
      mit dem sie erzeugt wurden. Obwohl sie eine '.php'-Endung
-     aufweisen, sind sie keine ausführbaren PHP-Skripte.
+     aufweisen, sind sie keine ausfÃ¼hrbaren PHP-Skripte.
      Editieren Sie diese Dateien NICHT!
     </para>
    </note>
    <para>
     Jede gecachte Seite hat eine Lebensdauer, die von <link
     linkend="variable.cache.lifetime">$cache_lifetime</link> bestimmt
-    wird. Normalerweise beträgt der Wert 3600 Sekunden (= 1
+    wird. Normalerweise betrÃ¤gt der Wert 3600 Sekunden (= 1
     Stunde). Nach Ablauf dieser Lebensdauer wird der Cache neu
-    generiert. Sie können die Lebensdauer pro Cache bestimmen indem
+    generiert. Sie kÃ¶nnen die Lebensdauer pro Cache bestimmen indem
     Sie <link linkend="variable.caching">$caching</link> auf 2
-    setzen. Konsultieren Sie den Abschnitt über <link
-    linkend="variable.cache.lifetime">$cache_lifetime</link> für
+    setzen. Konsultieren Sie den Abschnitt Ã¼ber <link
+    linkend="variable.cache.lifetime">$cache_lifetime</link> fÃ¼r
     weitere Informationen.
    </para>
    <example>
@@ -60,16 +60,16 @@ $smarty = new Smarty;
 
 $smarty->caching = 2; // Lebensdauer ist pro Cache
 
-// Standardwert für '$cache_lifetime' auf 5 Minuten setzen
+// Standardwert fÃ¼r '$cache_lifetime' auf 5 Minuten setzen
 $smarty->cache_lifetime = 300;
 $smarty->display('index.tpl');
 
-// '$cache_lifetime' für 'home.tpl' auf 1 Stunde setzen
+// '$cache_lifetime' fÃ¼r 'home.tpl' auf 1 Stunde setzen
 $smarty->cache_lifetime = 3600;
 $smarty->display('home.tpl');
 
 // ACHTUNG: die folgende Zuweisung an '$cache_lifetime' wird nicht funktionieren,
-// wenn '$caching' auf 2 gestellt ist. Wenn die '$cache_lifetime' für 'home.tpl' bereits
+// wenn '$caching' auf 2 gestellt ist. Wenn die '$cache_lifetime' fÃ¼r 'home.tpl' bereits
 // auf 1 Stunde gesetzt wurde, werden neue Werte ignoriert.
 // 'home.tpl' wird nach dieser Zuweisung immer noch eine '$cache_lifetime' von 1 Stunde haben
 $smarty->cache_lifetime = 30; // 30 seconds
@@ -82,9 +82,9 @@ $smarty->display('home.tpl');
     Wenn <link linkend="variable.compile.check">$compile_check</link>
     eingeschaltet ist, werden alle in den Cache eingeflossenen
     Templates und Konfigurationsdateien hinsichtlich ihrer letzten
-    Änderung überprüft.  Falls eine der Dateien seit der Erzeugung des
-    Cache geändert wurde, wird der Cache unverzüglich neu
-    generiert. Dadurch ergibt sich ein geringer Mehraufwand. Für
+    Ã„nderung Ã¼berprÃ¼ft.  Falls eine der Dateien seit der Erzeugung des
+    Cache geÃ¤ndert wurde, wird der Cache unverzÃ¼glich neu
+    generiert. Dadurch ergibt sich ein geringer Mehraufwand. FÃ¼r
     optimale Performance sollte <link
     linkend="variable.compile.check">$compile_check</link> deshalb auf
     'false' gesetzt werden.
@@ -108,15 +108,15 @@ $smarty->display('index.tpl');
    <para>
     Wenn <link linkend="variable.force.compile">$force_compile</link> eingeschaltet ist,
     werden die Cache-Dateien immer neu generiert und das Caching damit wirkungslos gemacht.
-    <link linkend="variable.force.compile">$force_compile</link> wird normalerweise nur für die Fehlersuche verwendet. 
-    Ein effizienterer Weg das Caching auszuschalten wäre, 
+    <link linkend="variable.force.compile">$force_compile</link> wird normalerweise nur fÃ¼r die Fehlersuche verwendet. 
+    Ein effizienterer Weg das Caching auszuschalten wÃ¤re, 
     <link linkend="variable.caching">$caching</link> auf 'false' (oder 0) zu setzen.
    </para>
    <para>
-    Mit der Funktion <link linkend="api.is.cached">is_cached()</link> kann überprüft
+    Mit der Funktion <link linkend="api.is.cached">is_cached()</link> kann Ã¼berprÃ¼ft
     werden, ob von einem Template eine gecachte Version vorliegt.
     In einem Template, das zum Beispiel Daten aus einer Datenbank bezieht,
-    können Sie diese Funktion verwenden, um den Prozess zu überspringen.
+    kÃ¶nnen Sie diese Funktion verwenden, um den Prozess zu Ã¼berspringen.
    </para>
    <example>
     <title>is_cached() verwenden</title>
@@ -140,15 +140,15 @@ $smarty->display('index.tpl');
      </programlisting>
    </example>
    <para>
-    Mit der <link linkend="language.function.insert">{insert}</link> Funktion können Sie
+    Mit der <link linkend="language.function.insert">{insert}</link> Funktion kÃ¶nnen Sie
     Teile einer Seite dynamisch halten. Wenn zum Beispiel ein Banner in einer gecachten Seite
     nicht gecached werden soll, kann dessen Aufruf mit <link linkend="language.function.insert">{insert}</link> dynamisch gehalten werden.
-    Konsultieren Sie den Abschnitt über <link linkend="language.function.insert">insert</link>
-    für weitere Informationen und Beispiele.
+    Konsultieren Sie den Abschnitt Ã¼ber <link linkend="language.function.insert">insert</link>
+    fÃ¼r weitere Informationen und Beispiele.
    </para>
    <para>
-    Mit der Funktion <link linkend="api.clear.all.cache">clear_all_cache()</link> können
-    Sie den gesamten Template-Cache löschen. Mit <link linkend="api.clear.cache">clear_cache()</link>
+    Mit der Funktion <link linkend="api.clear.all.cache">clear_all_cache()</link> kÃ¶nnen
+    Sie den gesamten Template-Cache lÃ¶schen. Mit <link linkend="api.clear.cache">clear_cache()</link>
     einzelne Templates oder <link linkend="caching.groups">Cache-Gruppen</link>.
    </para>
    <example>
@@ -161,10 +161,10 @@ $smarty = new Smarty;
 
 $smarty->caching = true;
 
-// alle Cache-Dateien löschen
+// alle Cache-Dateien lÃ¶schen
 $smarty->clear_all_cache();
 
-// nur Cache von 'index.tpl' löschen
+// nur Cache von 'index.tpl' lÃ¶schen
 $smarty->clear_cache('index.tpl');
 
 $smarty->display('index.tpl');

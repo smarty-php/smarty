@@ -5,9 +5,9 @@
  <title>html_options (Ausgabe von HTML-Options)</title>
  <para>
   {html_options} wird verwendet um HTML-Options Listen mit den
-  übergebenen Daten zu erzeugen. Die <link
-  linkend="language.custom.functions">Funktion</link> kümmert sich
-  ebenfalls um das setzen des ausgewählten Standardwertes. Die
+  Ã¼bergebenen Daten zu erzeugen. Die <link
+  linkend="language.custom.functions">Funktion</link> kÃ¼mmert sich
+  ebenfalls um das setzen des ausgewÃ¤hlten Standardwertes. Die
   Attribute 'values' und 'output' sind erforderlich, ausser man
   verwendet das Attribut 'options'.
  </para>
@@ -34,21 +34,21 @@
      <entry>array</entry>
      <entry>Ja, ausser 'options'-Attribut wird verwendet.</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Array mit Werten für die dropdown-Liste.</entry>
+     <entry>Array mit Werten fÃ¼r die dropdown-Liste.</entry>
     </row>
     <row>
      <entry>output</entry>
      <entry>array</entry>
      <entry>Ja, ausser 'options'-Attribut wird verwendet.</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>Arrays mit Namen für die dropdown-Liste.</entry>
+     <entry>Arrays mit Namen fÃ¼r die dropdown-Liste.</entry>
     </row>
     <row>
      <entry>selected</entry>
      <entry>string/array</entry>
      <entry>Nein</entry>
      <entry><emphasis>empty</emphasis></entry>
-     <entry>Das ausgewählte Array Element.</entry>
+     <entry>Das ausgewÃ¤hlte Array Element.</entry>
     </row>
     <row>
      <entry>options</entry>
@@ -64,7 +64,7 @@
  <para>
   Wenn ein Wert als Array erkannt wird, wird er als HTML-OPTGROUP
   ausgegeben und die Werte werden in Gruppen dargestellt.  Rekursion
-  wird unterstützt. Die Ausgabe ist XHTML kompatibel.
+  wird unterstÃ¼tzt. Die Ausgabe ist XHTML kompatibel.
  </para>
  <para>
   Wenn das (optionale) Attribute <emphasis>name</emphasis> angegeben
@@ -74,7 +74,7 @@
  <para>
   Alle Parameter die deren Namen nicht in der obigen Liste genannt
   wurde, werden dem &lt;select&gt;-Tag als Name/Wert-Paare
-  hinzugefügt.  Die Parameter werden ignoriert, wenn kein
+  hinzugefÃ¼gt.  Die Parameter werden ignoriert, wenn kein
   <emphasis>name</emphasis>-Attribute angegeben wurde.
  </para>
  <example>
