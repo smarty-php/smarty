@@ -7,7 +7,7 @@
   {php}-Tags erlauben es, PHP-Code direkt in das Template
   einzubetten. Der Inhalt wird nicht 'escaped', egal wie <link
   linkend="variable.php.handling">$php_handling</link> konfiguriert
-  ist.  Dieses Tag ist nur für erfahrene Benutzer gedacht und wird
+  ist. Dieses Tag ist nur für erfahrene Benutzer gedacht und wird
   auch von diesen normalerweise nicht benötigt.
  </para>
  <example>

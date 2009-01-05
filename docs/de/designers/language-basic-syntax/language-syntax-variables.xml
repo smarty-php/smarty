@@ -9,7 +9,7 @@
   ähnlich den <ulink
   url="&url.php-manual;language.variables">Variablen in PHP</ulink>.
   Numerische Arrayindizes können referenziert werden und auch
-  Nichtnumerische.  Zugriff auf Objekteigenschaften und -methoden ist
+  Nichtnumerische. Zugriff auf Objekteigenschaften und -methoden ist
   auch möglich.
   <link
   linkend="language.config.variables">Konfigurationsvariablen</link>

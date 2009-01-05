@@ -52,7 +52,7 @@
  </example>
  <para>
   Achtung: im obigen Beispiel beginnen und enden alle Zeilen mit
-  HTML-Tags.  Falls Sie Abschnitte haben, die nur Text enthalten,
+  HTML-Tags. Falls Sie Abschnitte haben, die nur Text enthalten,
   werden diese ebenfalls zusammengeschlossen. Das kann zu
   unerwünschten Resultaten führen.
  </para>

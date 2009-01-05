@@ -8,7 +8,7 @@
   der Funktion definieren beziehungsweise beeinflussen. Parameter
   f&uuml;r Smarty <link
   linkend="language.syntax.functions">Funktionen</link> sind HTML
-  Attributen sehr &auml;hnlich.  Statische Werte m&uuml;ssen nicht in
+  Attributen sehr &auml;hnlich. Statische Werte m&uuml;ssen nicht in
   Anf&uuml;hrungszeichen gesetzt werden, f&uuml;r literale
   Zeichenketten (literal strings) wird dies jedoch empfohlen.
  </para>

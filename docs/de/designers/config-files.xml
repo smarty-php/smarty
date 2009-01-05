@@ -6,9 +6,9 @@
  <para>
   Konfigurationsdateien sind ein praktischer Weg um Template-Variablen
   aus einer gemeinsamen Datei zu lesen. Ein Beispiel sind die
-  Template-Farben.  Wenn Sie die Farben einer Applikation anpassen
+  Template-Farben. Wenn Sie die Farben einer Applikation anpassen
   wollen, müssen Sie normalerweise alle Templates durcharbeiten,
-  und die entsprechenden Werte ändern.  Mit einer
+  und die entsprechenden Werte ändern. Mit einer
   Konfigurationsdatei können Sie alle Definitionen in einer
   einzigen Datei vornehmen, und somit auch einfach ändern.
  </para>
@@ -54,7 +54,7 @@ pass=foobar
  <para>
   Dieses Beispiel hat 2 'sections'. 'section'-Namen werden von
   []-Zeichen umschlossen und können alle Zeichen ausser
-  <literal>[</literal> und <literal>]</literal> enthalten.  Die vier
+  <literal>[</literal> und <literal>]</literal> enthalten. Die vier
   Variablen welche am Anfang der Datei definiert werden sind globale
   Variablen. Diese Variablen werden immer geladen. Wenn eine
   definierte 'section' geladen wird, werden also die globalen

@@ -11,8 +11,8 @@
   linkend="language.variables.smarty.capture">$smarty.capture.foo</link>
   angesprochen werden. Falls kein 'name'-Attribut übergeben wurde,
   wird der Inhalt in 'default' (also $smarty.capture.default)
-  abgelegt.  Jede {capture} Sektion muss mit {/capture} beendet
-  werden.  {capture}-Blöcke können verschachtelt sein.
+  abgelegt. Jede {capture} Sektion muss mit {/capture} beendet
+  werden. {capture}-Blöcke können verschachtelt sein.
  </para>
  <informaltable frame="all">
   <tgroup cols="5">

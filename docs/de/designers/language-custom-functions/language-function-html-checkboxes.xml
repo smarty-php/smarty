@@ -76,7 +76,7 @@
   html_checkboxes ist eine <link
   linkend="language.custom.functions">Funktion</link> die aus den
   übergebenen Daten html checkbox Elemente erstellt und kümmert sich
-  darum welche Elemente ausgewählt sind.  Erforderliche Attribute sind
+  darum welche Elemente ausgewählt sind. Erforderliche Attribute sind
   Wert/Ausgabe oder Options. Die Ausgabe ist XHTML kompatibel
  </para>
  <para>

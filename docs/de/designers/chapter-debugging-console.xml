@@ -23,7 +23,7 @@
   werden in welchem Sie alle Informationen zur aufgerufenen Seite
   finden. Falls Sie die Variablen eines bestimmten Templates ausgeben
   wollen, können Sie dazu die Funktion <link
-  linkend="language.function.debug">{debug}</link> verwenden.  Um
+  linkend="language.function.debug">{debug}</link> verwenden. Um
   debugging auszuschalten, können Sie <link
   linkend="variable.debugging">$debugging</link> auf 'false' setzen.
   Sie können debugging auch temporär aktivieren, in dem Sie der
@@ -39,7 +39,7 @@
    linkend="api.fetch">fetch()</link> geladen wurden, sondern nur
    für Daten die via <link linkend="api.display">display()</link>
    ausgegeben werden. Die Konsole besteht aus ein paar Zeilen
-   Javascript welche am Ende jeder Seite eingefügt werden.  Wenn
+   Javascript welche am Ende jeder Seite eingefügt werden. Wenn
    Sie Javascript nicht mögen, können Sie die Ausgabe in
    'debug.tpl' selbst definieren. Debug-Ausgaben werden nicht gecached
    und Informationen zu 'debug.tpl' selbst werden nicht ausgegeben.

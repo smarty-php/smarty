@@ -61,9 +61,9 @@
  <para>
   Stellen Sie sich vor, sie hätten ein Template mit einem
   Werbebanner. Dieser Banner kann verschiedene Arten von Inhalten
-  haben: Bilder, HTML, Flash, etc.  Deshalb können wir nicht einfach
+  haben: Bilder, HTML, Flash, etc. Deshalb können wir nicht einfach
   einen statischen Link verwenden und müssen vermeiden, dass dieser
-  Inhalt gecached wird.  Hier kommt das {insert}-Tag ins Spiel. Das
+  Inhalt gecached wird. Hier kommt das {insert}-Tag ins Spiel. Das
   Template kennt die Variablen '#banner_location_id#' und '#site_id#'
   (zum Beispiel aus einer <link
   linkend="config.files">Konfigurationsdatei</link>) und soll eine
@@ -85,15 +85,15 @@
   'insert'-Funktionen in Ihrer Applikation muss 'insert_'
   vorangestellt werden, um Konflikte im Namensraum zu vermeiden. Ihre
   'insert_getBanner()'-Funktion sollte etwas mit den übergebenen
-  Parametern unternehmen und das Resultat zurückgeben.  Dieses
+  Parametern unternehmen und das Resultat zurückgeben. Dieses
   Resultat wird an der Stelle des 'insert'-Tags in Ihrem Template
-  ausgegeben.  In diesem Beispiel würde Smarty folgende Funktion
+  ausgegeben. In diesem Beispiel würde Smarty folgende Funktion
   aufrufen: insert_getBanner(array("lid" => "12345","sid" => "67890"))
   und die erhaltenen Resultate an Stelle des 'insert'-Tags ausgeben.
  </para>
  <para>
   Falls Sie das 'assign'-Attribut übergeben, wird die Ausgabe des
-  'insert'-Tags in dieser Variablen abgelegt.  Bemerkung: dies ist
+  'insert'-Tags in dieser Variablen abgelegt. Bemerkung: dies ist
   nicht sinnvoll, wenn <link linkend="variable.caching">Caching</link>
   eingeschaltet ist.
  </para>
@@ -101,7 +101,7 @@
   Falls Sie das 'script'-Attribut übergeben, wird das angegebene
   PHP-Skript vor der Ausführung der {insert}-Funktion eingebunden.
   Dies ist nützlich, um die {insert}-Funktion erst in diesem Skript zu
-  definieren.  Der Pfad kann absolut oder relativ zu <link
+  definieren. Der Pfad kann absolut oder relativ zu <link
   linkend="variable.trusted.dir">$trusted_dir</link> angegeben werden.
   Wenn Sicherheit eingeschaltet ist, muss das Skript in <link
   linkend="variable.trusted.dir">$trusted_dir</link> liegen.
@@ -114,7 +114,7 @@
  <note>
   <title>Technische Bemerkung</title>
   <para>
-   Es gibt die Möglichkeit, Teile des Templates nicht zu cachen.  Wenn
+   Es gibt die Möglichkeit, Teile des Templates nicht zu cachen. Wenn
    Sie <link linkend="caching">caching</link> eingeschaltet haben,
    werden {insert}-Tags nicht gecached. Sie werden jedesmal
    ausgeführt, wenn die Seite erstellt wird - selbst innerhalb

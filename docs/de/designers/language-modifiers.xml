@@ -38,7 +38,7 @@
  </example>
  <para>
   Wenn Sie einen Modifikator auf ein Array anwenden, wird dieser auf
-  jeden Wert angewandt.  Um zu erreichen, dass der Modifkator auf den
+  jeden Wert angewandt. Um zu erreichen, dass der Modifkator auf den
   Array selbst angewendet wird, muss dem Modifikator ein
   <literal>@</literal> Zeichen vorangestellt werden. Beispiel:
   <literal>{$artikelTitel|@count}</literal> (gibt die Anzahl Elemente

@@ -15,9 +15,9 @@
    werden. Erforderliche Parameter sind: <emphasis>from</emphasis> und
    <emphasis>item</emphasis>. Der Name der {foreach}-Schleife kann
    frei vergeben werden und sowohl Buchstaben, Zahlen als auch
-   Unterstriche enthalten.  <emphasis>foreach</emphasis>-Schleifen
+   Unterstriche enthalten. <emphasis>foreach</emphasis>-Schleifen
    können verschachtelt werden, dabei ist zu beachten, dass sich die
-   definierten Namen voneinander unterscheiden.  Die
+   definierten Namen voneinander unterscheiden. Die
    <emphasis>from</emphasis> Variable (normalerweise ein assoziatives
    Array) definiert die Anzahl der von <emphasis>foreach</emphasis> zu
    durchlaufenen Iterationen. <emphasis>foreachelse</emphasis> wird
@@ -168,7 +168,7 @@ id: 1002<br>
 
  <para>
   Foreach-Loops haben auch eigene Variablen welche die Foreach
-  Eigenschaften enthalten.  Diese werden wie folgt ausgewiesen:
+  Eigenschaften enthalten. Diese werden wie folgt ausgewiesen:
   {$smarty.foreach.foreachname.varname}. foreachname ist der Name der
   als <emphasis>name</emphasis> Attribut von Foreach übergeben wurden.
  </para>

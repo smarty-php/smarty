@@ -6,7 +6,7 @@
  <para>
   <emphasis>{if}</emphasis>-Statements in Smarty erlauben die selbe
   Flexibilität wie in PHP, bis auf ein paar Erweiterungen für die
-  Template-Engine.  Jedes <emphasis>{if}</emphasis> muss mit einem
+  Template-Engine. Jedes <emphasis>{if}</emphasis> muss mit einem
   <emphasis>{/if}</emphasis> kombiniert
   sein. <emphasis>{else}</emphasis> und <emphasis>{elseif}</emphasis>
   sind ebenfalls erlaubt. Alle PHP Vergleichsoperatoren und Funktionen, wie

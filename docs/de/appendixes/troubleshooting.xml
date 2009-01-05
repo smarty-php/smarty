@@ -45,7 +45,7 @@ Parse error: parse error in /path/to/smarty/templates_c/index.tpl.php on line 75
     Wenn ein PHP Syntaxfehler auftritt, wird Ihnen die Zeilennummer
     des betroffenen PHP Skriptes ausgegeben, nicht die des
     Templates. Normalerweise k&ouml;nnen Sie jedoch das Template
-    anschauen um den Fehler zu lokalisieren.  Schauen sie insbesondere
+    anschauen um den Fehler zu lokalisieren. Schauen sie insbesondere
     auf Folgendes: fehlende End-Tags in einer {if}{/if} Anweisung oder
     in einer {section}{/section} und die Logik eines {if}
     Blocks. Falls Sie den Fehler so nicht finden, k&ouml;nnen Sie auch

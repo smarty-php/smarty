@@ -9,7 +9,7 @@
   zuzugreifen. Dafür gibt es zwei Wege. Der erste ist, Objekte zu
   <link linkend="api.register.object">registrieren</link> und wie auf
   eine <link linkend="language.custom.functions">eigene
-  Funktion</link> zuzugreifen.  Der andere Weg ist, das Objekt dem
+  Funktion</link> zuzugreifen. Der andere Weg ist, das Objekt dem
   Template mit <link linkend="api.assign">assign()</link> zuzuweisen
   und darauf wie auf andere Variablen zuzugreifen. Die erste Methode
   hat eine nettere Template Syntax und ist sicherer da der Zugriff auf
@@ -37,8 +37,8 @@
   Normalerweise werden Parameter welche einem Objekt via Template
   übergeben werden genau so übergeben wie dies bei normalen <link
   linkend="language.custom.functions">eigenen Funktionen</link> der
-  Fall ist.  Das erste Objekt ist ein assoziatives Array und das
-  zweite das Smarty Objekt selbst.  Wenn Sie die Parameter einzeln
+  Fall ist. Das erste Objekt ist ein assoziatives Array und das
+  zweite das Smarty Objekt selbst. Wenn Sie die Parameter einzeln
   erhalten möchten können Sie den vierten Parameter auf
   <literal>false</literal> setzen.
  </para>

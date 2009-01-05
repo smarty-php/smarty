@@ -63,7 +63,7 @@
 
  <para>
   Wenn ein Wert als Array erkannt wird, wird er als HTML-OPTGROUP
-  ausgegeben und die Werte werden in Gruppen dargestellt.  Rekursion
+  ausgegeben und die Werte werden in Gruppen dargestellt. Rekursion
   wird unterstützt. Die Ausgabe ist XHTML kompatibel.
  </para>
  <para>
@@ -74,7 +74,7 @@
  <para>
   Alle Parameter die deren Namen nicht in der obigen Liste genannt
   wurde, werden dem &lt;select&gt;-Tag als Name/Wert-Paare
-  hinzugefügt.  Die Parameter werden ignoriert, wenn kein
+  hinzugefügt. Die Parameter werden ignoriert, wenn kein
   <emphasis>name</emphasis>-Attribute angegeben wurde.
  </para>
  <example>

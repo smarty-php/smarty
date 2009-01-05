@@ -5,8 +5,8 @@
  <title>include (einbinden)</title>
  <para>
   {include}-Tags werden verwendet, um andere Templates in das aktuelle
-  Template einzubinden.  Alle Variablen des aktuellen Templates sind
-  auch im eingebundenen Template verfügbar.  Das {include}-Tag muss ein
+  Template einzubinden. Alle Variablen des aktuellen Templates sind
+  auch im eingebundenen Template verfügbar. Das {include}-Tag muss ein
   'file' Attribut mit dem Pfad zum einzubindenden Template enthalten.
  </para>
  <para>

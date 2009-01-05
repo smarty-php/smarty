@@ -68,7 +68,7 @@
  </para>
  <para>
   Optional kann das <emphasis>assign</emphasis> Attribut übergeben
-  werden.  Die Ausgabe von <emphasis>include_php</emphasis> wird dann
+  werden. Die Ausgabe von <emphasis>include_php</emphasis> wird dann
   nicht direkt eingefügt, sondern in der durch assign benannten
   Template-Variable abgelegt.
  </para>

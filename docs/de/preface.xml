@@ -57,7 +57,7 @@
    feststellen mussten, dass ein paar komplizierte technische Probleme
    auf uns zukommen w&uuml;rden, entschlossen wir uns die Template
    Engine in PHP als Klasse zu realisieren, damit sie von jederman
-   verwendet und angepasst werden kann.  So schrieben wir also eine
+   verwendet und angepasst werden kann. So schrieben wir also eine
    Engine, die wir <productname>SmartTemplate</productname> nannten
    (anm: diese Klasse wurde nie ver&ouml;ffentlicht). SmartTemplate
    erlaubte uns praktisch alles zu tun was wir uns vorgenommen hatten:

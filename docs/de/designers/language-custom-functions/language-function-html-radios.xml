@@ -6,7 +6,7 @@
  <para>
   html_radio ist eine Funktion die aus den übergebenen Daten html
   radio Elemente erstellt und kümmert sich darum welche Elemente
-  ausgewählt sind.  Erforderliche Attribute sind Wert/Ausgabe
+  ausgewählt sind. Erforderliche Attribute sind Wert/Ausgabe
   oder Options. Die Ausgabe ist XHTML kompatibel
  </para>
  <informaltable frame="all">

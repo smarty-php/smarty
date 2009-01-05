@@ -5,7 +5,7 @@
  <title>Kombinieren von Modifikatoren</title>
  <para>
   Sie können auf eine Variable so viele Modifikatoren anwenden
-  wie Sie möchten.  Die Modifkatoren werden in der Reihenfolge
+  wie Sie möchten. Die Modifkatoren werden in der Reihenfolge
   angewandt, in der sie notiert wurden - von links nach rechts.
   Kombinierte Modifikatoren müssen mit einem
   <literal>|</literal>-Zeichen (pipe) getrennt werden.

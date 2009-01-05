@@ -42,7 +42,7 @@
    verwendet. Deshalb m&uuml;ssen Templates nicht f&uuml;r jeden
    Seitenaufruf performance-intensiv neu geparst werden und jedes
    Template kann voll von PHP Compiler-Cache L&ouml;sungen
-   profitieren.  (Zend, <ulink url="&url.zend;">&url.zend;</ulink>;
+   profitieren. (Zend, <ulink url="&url.zend;">&url.zend;</ulink>;
    PHP Accelerator, <ulink
    url="&url.ion-accel;">&url.ion-accel;</ulink>)
   </para>
@@ -182,7 +182,7 @@
     <para>
 
      Wir empfehlen keine &Auml;nderungen an den Smarty-Library Dateien
-     vorzunehmen.  Dies macht ein m&ouml;gliches Upgrade wesentlich
+     vorzunehmen. Dies macht ein m&ouml;gliches Upgrade wesentlich
      einfacher. Sie m&uuml;ssen diese Dateien auch nicht anpassen, um
      Smarty zu konfigurieren! Benutzen Sie für diesen Zwecke eine
      Instanz der Smarty-Klasse.
@@ -329,7 +329,7 @@ ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'c:/webroot/lib/S
    </para>
    <para>
     Stellen Sie sicher, dass Sie die DocumentRoot Ihres Webservers
-    kennen.  In unserem Beispiel lautet sie
+    kennen. In unserem Beispiel lautet sie
     '/web/www.domain.com/docs/'.
    </para>
    <para>
@@ -406,7 +406,7 @@ ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'c:/webroot/lib/S
     <para>
      Falls Sie kein Caching und keine Konfigurationsdateien verwenden,
      ist es nicht erforderlich die Verzeichnisse '$config_dir' und
-     '$cache_dir' zu erstellen.  Es wird jedoch trotzdem empfohlen, da
+     '$cache_dir' zu erstellen. Es wird jedoch trotzdem empfohlen, da
      diese Funktionalit&auml;ten eventuell sp&auml;ter genutzt werden
      sollen.
     </para>
@@ -415,7 +415,7 @@ ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'c:/webroot/lib/S
     Smarty ben&ouml;tigt <emphasis
     role="bold">Schreibzugriff</emphasis> auf die Verzeichnisse <link
     linkend="variable.compile.dir">$compile_dir</link> und <link
-    linkend="variable.cache.dir">$cache_dir</link>.  Stellen Sie also
+    linkend="variable.cache.dir">$cache_dir</link>. Stellen Sie also
     sicher, dass der Webserver-Benutzer (normalerweise Benutzer
     'nobody' und Gruppe 'nogroup') in diese Verzeichnisse schreiben
     kann. (In OS X lautet der Benutzer normalerweise 'www' und ist in
@@ -450,7 +450,7 @@ chmod 770 /web/www.example.com/smarty/guestbook/cache/
 
    <para>
     Nun m&uuml;ssen wir die <filename>index.tpl</filename> Datei
-    erstellen, welche Smarty laden soll.  Die Datei wird in Ihrem
+    erstellen, welche Smarty laden soll. Die Datei wird in Ihrem
     <link linkend="variable.template.dir">$template_dir</link>
     abgelegt.
    </para>
@@ -473,7 +473,7 @@ Hallo {$name}, herzlich Willkommen!
      {* Smarty *} ist ein <link
      linkend="language.syntax.comments">Template-Kommentar</link>. Der
      wird zwar nicht ben&ouml;tigt, es ist jedoch eine gute Idee jedes
-     Template mit einem Kommentar zu versehen.  Dies erleichtert die
+     Template mit einem Kommentar zu versehen. Dies erleichtert die
      Erkennbarkeit des Templates, unabh&auml;ngig von der verwendeten
      Dateierweiterung. (Zum Beispiel f&uuml;r Editoren die
      Syntax-Highlighting unterst&uuml;tzen.)
@@ -523,7 +523,7 @@ $smarty->display('index.tpl');
      class="directory">/web/www.example.com/smarty/guestbook/</filename>
      in Ihrem PHP-'include_path' liegt, w&auml;re dies nicht
      n&ouml;tig. Es ist jedoch effizienter und weniger
-     fehleranf&auml;llig die Pfade absolut zu setzen.  Und es
+     fehleranf&auml;llig die Pfade absolut zu setzen. Und es
      garantiert, dass Smarty die Templates aus dem geplanten
      Verzeichnis l&auml;dt.
     </para>
@@ -597,7 +597,7 @@ class Smarty_GuestBook extends Smarty {
      In unserem Beispiel werden die Library Dateien ausserhalb der
      DocumentRoot abgelegt. Diese Dateien k&ouml;nnten sensitive
      Informationen enthalten, die wir nicht zug&auml;nglich machen
-     m&ouml;chten.  Deshalb legen wir alle Library Dateien in
+     m&ouml;chten. Deshalb legen wir alle Library Dateien in
      '/php/includes/guestbook/' ab und laden sie in unserem 'setup.php'
      Skript, wie Sie im oben gezeigten Beispiel sehen k&ouml;nnen.
     </para>
@@ -626,7 +626,7 @@ $smarty->display('index.tpl');
   </example>
   <para>
    Wie Sie sehen k&ouml;nnen, ist es sehr einfach eine Instanz von
-   Smarty zu erstellen.  Mit Hilfe von Smarty_GuestBook werden alle
+   Smarty zu erstellen. Mit Hilfe von Smarty_GuestBook werden alle
    Variablen automatisch initialisiert.
   </para>
    

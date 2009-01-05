@@ -15,7 +15,7 @@
    f&uuml;r <link
    linkend="language.syntax.functions">Funktionsparameter</link> und
    <link linkend="language.modifiers">Modifikatoren</link> sowie in
-   Bedingungen verwendet werden.  Um eine Variable auszugeben,
+   Bedingungen verwendet werden. Um eine Variable auszugeben,
    umschliessen Sie sie mit <link
    linkend="variable.left.delimiter">Trennzeichen</link>, so dass die
    Variable das einzige enthaltene Element ist. Beispiele:

@@ -5,10 +5,10 @@
  <title>literal</title>
  <para>
   {literal}-Tags erlauben es, einen Block wörtlich auszugeben,
-  d.h. von der Interpretation durch Smarty auszuschliessen.  Dies ist
+  d.h. von der Interpretation durch Smarty auszuschliessen. Dies ist
   vor allem für Javascript- oder andere Blöcke nützlich, die
   geschwungene Klammern verwenden. Alles was zwischen den
-  {literal}{/literal} Tags steht, wird direkt angezeigt.  Wenn in
+  {literal}{/literal} Tags steht, wird direkt angezeigt. Wenn in
   einem {literal}-Block temlate-Tags verwendet werden sollen, is es
   manchmal sinnvoller <link
   linkend="language.function.ldelim">{ldelim}{rdelim}</link> statt

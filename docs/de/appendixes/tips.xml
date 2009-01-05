@@ -47,7 +47,7 @@
     Wenn eine Variable in einem Template häufig zum Einsatz kommt,
     kann es ein bisschen störend wirken, den <link
     linkend="language.modifier.default"><emphasis>default</emphasis></link>-Modifikator
-    jedes mal anzuwenden.  Sie können dies umgehen, indem Sie der
+    jedes mal anzuwenden. Sie können dies umgehen, indem Sie der
     Variable mit der <link
     linkend="language.function.assign">{assign}</link> Funktion einen
     Standardwert zuweisen.
@@ -308,7 +308,7 @@ function insert_header($params)
     (zum Beispiel mit Datenbankabfragen). Danach kreieren Sie eine
     Instanz von Smarty, weisen die Variablen mit <link
     linkend="api.assign">assign()</link> zu und geben das Template mit
-    <link linkend="api.display">display()</link> aus.  Wenn wir also
+    <link linkend="api.display">display()</link> aus. Wenn wir also
     zum Beispiel einen Börsenticker in unserem Template haben, stellen
     wir die Kursinformationen in unserer Anwendung zusammen, weisen
     Sie dem Template zu und geben es aus. Wäre es jedoch nicht nett

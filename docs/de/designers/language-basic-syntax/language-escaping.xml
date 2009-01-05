@@ -6,7 +6,7 @@
  <para>
   Manchmal ist es wünschenswert, dass Smarty Teile eines
   Templates nicht parst. Dies ist zum Beispiel der Fall, wenn
-  Javascript oder CSS im Template eingebettet werden.  Da diese
+  Javascript oder CSS im Template eingebettet werden. Da diese
   Sprachen selbst { und } nutzen, erkennt Smarty diese als Start-
   beziehungsweise End-Tags.
  </para>
@@ -19,7 +19,7 @@
  <para>
   Um solche Inhalte trotzdem im gleichen Template einzubetten, können
   Sie <link linkend="language.function.literal">{literal}
-  .. {/literal}</link> Blöcke verwenden.  Die aktuell benutzten
+  .. {/literal}</link> Blöcke verwenden. Die aktuell benutzten
   Trennzeichen können Sie mit <link
   linkend="language.function.ldelim">{ldelim}</link>, <link
   linkend="language.function.ldelim">{rdelim}</link>, <link

@@ -82,7 +82,7 @@ $smarty->display('home.tpl');
     Wenn <link linkend="variable.compile.check">$compile_check</link>
     eingeschaltet ist, werden alle in den Cache eingeflossenen
     Templates und Konfigurationsdateien hinsichtlich ihrer letzten
-    Änderung überprüft.  Falls eine der Dateien seit der Erzeugung des
+    Änderung überprüft. Falls eine der Dateien seit der Erzeugung des
     Cache geändert wurde, wird der Cache unverzüglich neu
     generiert. Dadurch ergibt sich ein geringer Mehraufwand. Für
     optimale Performance sollte <link

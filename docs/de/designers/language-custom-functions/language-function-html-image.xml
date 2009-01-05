@@ -6,7 +6,7 @@
   <para>
    {html_image} ist eine <link
    linkend="language.custom.functions">eigene Funktion</link> die ein
-   HTML Tag für ein Bild erzeugt.  Die Höhe und Breite der Ausgabe wird
+   HTML Tag für ein Bild erzeugt. Die Höhe und Breite der Ausgabe wird
    automatisch aus der Bilddatei berechnet wenn die Werte nicht
    übergeben werden.
   </para>

@@ -50,9 +50,9 @@
       Definiert den Geltungsbereich der zu ladenden Variablen.
       Erlaubte Werte sind 'local','parent' und 'global'. 'local'
       bedeutet, dass die Variablen in den Context des lokalen Template
-      geladen werden.  'parent' bedeutet, dass die Variablen sowohl in
+      geladen werden. 'parent' bedeutet, dass die Variablen sowohl in
       den lokalen Context, als auch in den Context des aufrufenden
-      Templates eingebunden werden.  'global' bedeutet, dass die
+      Templates eingebunden werden. 'global' bedeutet, dass die
       Variablen von allen Templates zugänglich sind.
      </entry>
     </row>

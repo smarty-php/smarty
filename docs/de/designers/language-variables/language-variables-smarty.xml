@@ -57,7 +57,7 @@
   <title>{$smarty.now}</title>
   <para>
    Die momentane Unix-Timestamp kann über {$smarty.now} angefragt
-   werden.  Diese Zahl ist die Summe der verstrichenen Sekunden seit
+   werden. Diese Zahl ist die Summe der verstrichenen Sekunden seit
    Beginn der UNIX-Epoche (1. Januar 1970) und kann zur Anzeige
    direkt dem <link
    linkend="language.modifier.date.format">'date_format'-Modifikator

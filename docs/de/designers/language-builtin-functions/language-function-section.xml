@@ -6,7 +6,7 @@
  <para>
   Template-{sections} werden verwendet, um durch <emphasis
   role="bold">Arrays</emphasis> zu iterieren (ähnlich wie <link
-  linkend="language.function.foreach">{foreach}</link>).  Jedes
+  linkend="language.function.foreach">{foreach}</link>). Jedes
   <emphasis>section</emphasis>-Tag muss mit einem
   <emphasis>/section</emphasis>-Tag kombiniert
   werden. <emphasis>name</emphasis> und <emphasis>loop</emphasis> sind
@@ -15,7 +15,7 @@
   bestehen. {sections} können verschachtelt werden. Dabei ist zu
   beachten, dass sich ihre Namen unterscheiden. Aus der
   'loop'-Variable (normalerweise ein Array von Werten) resultiert die
-  Anzahl der Iterationen, die durchlaufen werden.  Wenn ein Wert aus
+  Anzahl der Iterationen, die durchlaufen werden. Wenn ein Wert aus
   der 'loop'-Variable innerhalb der {section} ausgegeben werden soll,
   muss der 'section-name' umschlossen mit [] angefügt werden.
   <emphasis>sectionelse</emphasis> wird ausgeführt, wenn keine Werte
@@ -255,7 +255,7 @@ $smarty->assign('contact_info', $info);
   <programlisting>
 <![CDATA[
 {*
-  Sections können unbegrenzt tief verschachtelt werden.  Mit
+  Sections können unbegrenzt tief verschachtelt werden. Mit
   verschachtelten 'sections' können Sie auf komplexe Datenstrukturen
   zugreifen (wie zum Beispiel multidimensionale Arrays). Im folgenden
   Beispiel ist $contact_type[customer] ein Array mit Kontakttypen des
@@ -393,14 +393,14 @@ keine Werte in $custid gefunden
  </example>
  <para>
   Die Eigenschaften der 'section' werden in besonderen Variablen
-  abgelegt.  Diese sind wie folgt aufgebaut: <link
+  abgelegt. Diese sind wie folgt aufgebaut: <link
   linkend="language.variables.smarty.loops">{$smarty.section.sectionname.varname}</link>
  </para>
  <note>
   <para>
    Bermerkung: Seit Smarty 1.5.0 hat sich die Syntax der 'section'
    Eigenschaften von {%sectionname.varname%} zu
-   {$smarty.section.sectionname.varname} geändert.  Die alte Syntax
+   {$smarty.section.sectionname.varname} geändert. Die alte Syntax
    wird noch immer unterstützt, die Dokumentation erwähnt jedoch nur
    noch die neue Schreibweise.
   </para>
@@ -635,7 +635,7 @@ aktuelle loop iteration: 3
   <title>rownum</title>
   <para>
    'rownum' wird verwendet um die aktuelle Iteration (startend bei 1)
-   auszugeben.  'rownum' ist ein Alias für 'iteration' und arbeitet
+   auszugeben. 'rownum' ist ein Alias für 'iteration' und arbeitet
    identisch.
   </para>
   <example>
@@ -662,7 +662,7 @@ aktuelle loop iteration: 3
   <title>loop</title>
   <para>
    'loop' wird verwendet, um die Nummer letzte Iteration der 'section'
-   auszugeben.  Dieser Wert kann inner- und ausserhalb der 'section'
+   auszugeben. Dieser Wert kann inner- und ausserhalb der 'section'
    verwendet werden.
   </para>
   <example>

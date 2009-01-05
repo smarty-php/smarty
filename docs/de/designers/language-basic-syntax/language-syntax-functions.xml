@@ -45,7 +45,7 @@
  </para>
  <para>
   Individuelle Funktionen die die Fähigkeiten von Smarty erweitern
-  werden als Plugins implementiert.  Diese Funktionen können von Ihnen
+  werden als Plugins implementiert. Diese Funktionen können von Ihnen
   angepasst werden, oder Sie können selbst neue Plugins
   hinzufügen. <link
   linkend="language.function.html.options">{html_options}</link> und

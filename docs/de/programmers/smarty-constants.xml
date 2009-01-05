@@ -40,7 +40,7 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
  <sect1 id="constant.smarty.core.dir">
   <title>SMARTY_CORE_DIR</title>
   <para>
-   Dies ist der absolute Systempfad zu den Smarty Kerndateien.  Wenn
+   Dies ist der absolute Systempfad zu den Smarty Kerndateien. Wenn
    nicht vorher definiert, dann definiert Smarty diesen Wert mit
    <emphasis>internals/</emphasis> unterhalb des Verzeichniss <link
    linkend="constant.smarty.dir">SMARTY_DIR</link>. Wenn angegeben,
