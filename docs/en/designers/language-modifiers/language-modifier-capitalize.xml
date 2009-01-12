@@ -4,8 +4,8 @@
   <title>capitalize</title>
     <para>
      This is used to capitalize the first letter of all words in a variable.
-     This is similar to the PHP <ulink url="&url.php-manual;ucfirst">
-   <varname>ucfirst()</varname></ulink> function.
+     This is similar to the PHP <ulink url="&url.php-manual;ucwords">
+   <varname>ucwords()</varname></ulink> function.
   </para>
   <informaltable frame="all">
    <tgroup cols="5">
