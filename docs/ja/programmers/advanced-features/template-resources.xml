@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2675 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3005 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
   <sect1 id="template.resources">
    <title>テンプレートリソース</title>
@@ -134,33 +134,21 @@ $smarty->display('file:F:/path/to/my/templates/menu.tpl');
 // これらの関数をアプリケーションに追加します
 function db_get_template ($tpl_name, &$tpl_source, &$smarty_obj)
 {
-    // ここでデータベースを呼び出し、取得したテンプレートを
+    // ここでデータベースを呼び出し、取得した実際のテンプレートを
     // $tpl_source に代入します
-    $sql = new SQL;
-    $sql->query("select tpl_source
-                   from my_table
-                  where tpl_name='$tpl_name'");
-    if ($sql->num_rows) {
-        $tpl_source = $sql->record['tpl_source'];
-        return true;
-    } else {
-        return false;
-    }
+    $tpl_source = "This is the template text";
+    // 成功した場合に true を返します。false を返すと失敗したことになります
+    return true;
 }
 
 function db_get_timestamp($tpl_name, &$tpl_timestamp, &$smarty_obj)
 {
+    // テンプレートの最終更新時刻の Unix タイムスタンプを
     // $tpl_timestampに代入するためにデータベースを呼び出します
-    $sql = new SQL;
-    $sql->query("select tpl_timestamp
-                   from my_table
-                  where tpl_name='$tpl_name'");
-    if ($sql->num_rows) {
-        $tpl_timestamp = $sql->record['tpl_timestamp'];
-        return true;
-    } else {
-        return false;
-    }
+    // これで、再コンパイルが必要かどうかを判断します
+    $tpl_timestamp = time(); // この例だと常に再コンパイルとなります!
+    // 成功した場合に true を返します。false を返すと失敗したことになります
+    return true;
 }
 
 function db_get_secure($tpl_name, &$smarty_obj)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2597 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3006 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="plugins.resources"><title>リソースプラグイン</title>
     <para>
@@ -94,32 +94,20 @@
 function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
 {
     // ここでデータベースを呼び出し、
-    // $tpl_source に代入します
-    $sql = new SQL;
-    $sql->query("select tpl_source
-                   from my_table
-                  where tpl_name='$tpl_name'");
-    if ($sql->num_rows) {
-        $tpl_source = $sql->record['tpl_source'];
-        return true;
-    } else {
-        return false;
-    }
+    // 失際のテンプレートの内容を $tpl_source に代入します
+    $tpl_source = "This is the template text";
+    // 成功した場合に true を返します。false を返すと失敗したことになります
+    return true;
 }
 
 function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
 {
-    // ここでデータベースを呼び出し、$tpl_timestampに代入します
-    $sql = new SQL;
-    $sql->query("select tpl_timestamp
-                   from my_table
-                  where tpl_name='$tpl_name'");
-    if ($sql->num_rows) {
-        $tpl_timestamp = $sql->record['tpl_timestamp'];
-        return true;
-    } else {
-        return false;
-    }
+    // テンプレートの最終更新時刻の Unix タイムスタンプを
+    // $tpl_timestampに代入するためにデータベースを呼び出します
+    // これで、再コンパイルが必要かどうかを判断します
+    $tpl_timestamp = time(); // この例だと常に再コンパイルとなります!
+    // 成功した場合に true を返します。false を返すと失敗したことになります
+    return true;
 }
 
 function smarty_resource_db_secure($tpl_name, &$smarty)

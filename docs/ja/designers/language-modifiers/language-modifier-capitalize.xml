@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2590 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2981 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <sect1 id="language.modifier.capitalize">
   <title>capitalize</title>
     <para>
      変数内の全ての単語の先頭を大文字で開始します。
-     PHP の <ulink url="&url.php-manual;ucfirst">
-   <varname>ucfirst()</varname></ulink> 関数と似ています。
+     PHP の <ulink url="&url.php-manual;ucwords">
+   <varname>ucwords()</varname></ulink> 関数と似ています。
   </para>
   <informaltable frame="all">
    <tgroup cols="5">
