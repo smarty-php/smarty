@@ -4,7 +4,7 @@
 * @author Monte Ohrt <monte at ohrt dot com> 
 * @package SmartyTestScripts
 */
-require('./libs/Smarty.class.php');
+require('../libs/Smarty.class.php');
 ini_set('short_open_tag','1');
 
  class Person
