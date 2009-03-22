@@ -1,0 +1,108 @@
+<?php
+/**
+* Smarty Internal Plugin Configfilelexer
+*
+* This is the lexer to break the config file source into tokens 
+* @package Smarty
+* @subpackage Config
+* @author Uwe Tews 
+*/
+/**
+* Smarty Internal Plugin Templatelexer
+*/
+class Smarty_Internal_Configfilelexer
+{
+
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    private $state = 1;
+    public $smarty_token_names = array (		// Text for parser error messages
+   				);
+    				
+    				
+    function __construct($data)
+    {
+        // set instance object
+        self::instance($this); 
+        $this->data = $data;
+        $this->counter = 0;
+        $this->line = 1;
+        $this->smarty = Smarty::instance(); 
+     }
+    public static function &instance($new_instance = null)
+    {
+        static $instance = null;
+        if (isset($new_instance) && is_object($new_instance))
+            $instance = $new_instance;
+        return $instance;
+    } 
+
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+commentstart = /#/
+openB = /\[/
+closeB = /]/
+number = /\d+(\.\d+)?/
+dot = /\./
+equal = /\s*\=\s*/
+eol = /(\n|\r\n)/
+space = /[\s]+/
+id = /\w+/
+si_qstr = '\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\''
+ml_qstr = '\"\"\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"\"\"'
+do_qstr = '\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"'
+other = /./
+*/
+/*!lex2php
+%statename START
+
+commentstart {
+  $this->token = Smarty_Internal_Configfileparser::TPC_COMMENTSTART;
+}
+si_qstr {
+  $this->token = Smarty_Internal_Configfileparser::TPC_SI_QSTR;
+}
+ml_qstr {
+  $this->token = Smarty_Internal_Configfileparser::TPC_ML_QSTR;
+}
+do_qstr {
+  $this->token = Smarty_Internal_Configfileparser::TPC_DO_QSTR;
+}
+openB {
+  $this->token = Smarty_Internal_Configfileparser::TPC_OPENB;
+}
+closeB {
+  $this->token = Smarty_Internal_Configfileparser::TPC_CLOSEB;
+}
+equal {
+  $this->token = Smarty_Internal_Configfileparser::TPC_EQUAL;
+}
+number {
+  $this->token = Smarty_Internal_Configfileparser::TPC_NUMBER;
+}
+eol {
+  $this->token = Smarty_Internal_Configfileparser::TPC_EOL;
+}
+space {
+  $this->token = Smarty_Internal_Configfileparser::TPC_SPACE;
+}
+dot {
+  $this->token = Smarty_Internal_Configfileparser::TPC_DOT;
+}
+id {
+  $this->token = Smarty_Internal_Configfileparser::TPC_ID;
+}
+other {
+  $this->token = Smarty_Internal_Configfileparser::TPC_OTHER;
+}
+*/
+}

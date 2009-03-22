@@ -1,0 +1,382 @@
+<?php
+/**
+* Smarty Internal Plugin Templatelexer
+*
+* This is the lexer to break the template source into tokens 
+* @package Smarty
+* @subpackage Compiler
+* @author Uwe Tews 
+*/
+/**
+* Smarty Internal Plugin Templatelexer
+*/
+class Smarty_Internal_Templatelexer
+{
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    private $state = 1;
+    public $smarty_token_names = array (		// Text for parser error messages
+    				'LDEL'		=> '{',
+    				'RDEL'		=> '}',
+    				'IDENTITY'	=> '===',
+    				'NONEIDENTITY'	=> '!==',
+    				'EQUALS'	=> '==',
+    				'NOTEQUALS'	=> '!=',
+    				'GREATEREQUAL' => '(>=,GE)',
+    				'LESSEQUAL' => '(<=,LE)',
+    				'GREATERTHAN' => '(>,GT)',
+    				'LESSTHAN' => '(<,LT)',
+    				'NOT'			=> '(!,NOT)',
+    				'LAND'		=> '(&&,AND)',
+    				'LOR'			=> '(||,OR)',
+    				'OPENP'		=> '(',
+    				'CLOSEP'	=> ')',
+    				'OPENB'		=> '[',
+    				'CLOSEB'	=> ']',
+    				'PTR'			=> '->',
+    				'APTR'		=> '=>',
+    				'EQUAL'		=> '=',
+    				'NUMBER'	=> 'number',
+    				'UNIMATH'	=> '+" , "-',
+    				'MATH'		=> '*" , "/" , "%',
+    				'INCDEC'	=> '++" , "--',
+    				'SPACE'		=> ' ',
+    				'DOLLAR'	=> '$',
+    				'SEMICOLON' => ';',
+    				'COLON'		=> ':',
+    				'DOUBLECOLON'		=> '::',
+    				'AT'		=> '@',
+    				'HATCH'		=> '#',
+    				'QUOTE'		=> '"',
+    				'SINGLEQUOTE'		=> "'",
+    				'BACKTICK'		=> '`',
+    				'VERT'		=> '|',
+    				'DOT'			=> '.',
+    				'COMMA'		=> '","',
+    				'ANDSYM'		=> '"&"',
+    				'ID'			=> 'identifier',
+    				'OTHER'		=> 'text',
+    				'PHP'			=> 'PHP code',
+    				'LDELSLASH' => 'closing tag',
+    				'COMMENTSTART' => '{*',
+    				'COMMENTEND' => '*}',
+     				'LITERALEND' => 'literal close',
+    				'IN' => 'in',
+    				'NULL' => 'null',
+    				'BOOLEAN' => 'boolean'
+    				);
+    				
+    				
+    function __construct($data)
+    {
+        // set instance object
+        self::instance($this); 
+        $this->data = $data;
+        $this->counter = 0;
+        $this->line = 1;
+        $this->smarty = Smarty::instance(); 
+        $this->ldel = preg_quote($this->smarty->left_delimiter); 
+        $this->rdel = preg_quote($this->smarty->right_delimiter);
+     }
+    public static function &instance($new_instance = null)
+    {
+        static $instance = null;
+        if (isset($new_instance) && is_object($new_instance))
+            $instance = $new_instance;
+        return $instance;
+    } 
+
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+php = /\<\?php.*\?\>/
+xml = /\<\?xml.*\?\>/
+shorttagstart = /\<\?=/
+shorttagend = /\?\>/
+phpstart = /SMARTYldelphpSMARTYrdel/
+phpend = /SMARTYldel\/phpSMARTYrdel/
+ldels = /SMARTYldel\s{1,}/
+rdels = /\s{1,}SMARTYrdel/
+ldelslash = /SMARTYldel\//
+ldel = /SMARTYldel/
+rdel = /SMARTYrdel/
+number = /\d+(\.\d+)?/
+boolean = /true|TRUE|True|false|FALSE|False/
+null = /null|NULL|Null/
+math = /\s*\*(?!\})\s*|\s*(\/|\%)\s*/
+commentstart = /SMARTYldel\*/
+commentend = /\*SMARTYrdel/
+escapedquotes = /(\\\"|\\\')/
+incdec = /(\+\+|\-\-)\s*/
+unimath = /\s*(\+|\-)\s*/
+openP = /\(/
+closeP = /\)/
+openB = /\[/
+closeB = /]/
+dollar = /\$/
+dot = /\./
+comma = /\s*\,\s*/
+doublecolon = /\:\:/
+colon = /\:/
+at = /@/
+hatch = /#/
+semicolon = /\s*\;\s*/
+vert = /\s*\|/
+equal = /\s*=\s*/
+space = /[\s]+/
+ptr = /\s*\->/
+aptr = /\s*=>\s*/
+quote = /\"/
+singlequote = /\'/
+backtick = /`/
+andsym = /\s?\&\s?/
+id = /\w+/
+literalstart = 'SMARTYldelliteralSMARTYrdel'
+literalend = 'SMARTYldel/literalSMARTYrdel'
+ldelim = 'SMARTYldelldelimSMARTYrdel'
+rdelim = 'SMARTYldelrdelimSMARTYrdel'
+equals = /\s*==\s*|\s+(EQ|eq)\s+/
+notequals = /\s*\!=\s*|\s+(NE|ne)\s+/
+greaterthan = /\s*\>\s*|\s+(GT|gt)\s+/
+lessthan = /\s*\<\s*|\s+(LT|lt)\s+/
+greaterequal = /\s*\>=\s*|\s+(GE|ge)\s+/
+lessequal = /\s*<=\s*|\s+(LE|le)\s+/
+identity = /\s*===\s*/
+noneidentity = /\s*!==\s*/
+isoddby = /\s+is\s+odd\s+by\s+/
+isnotoddby = /\s+is\s+not\s+odd\s+by\s+/
+isodd = /\s+is\s+odd/
+isnotodd = /\s+is\s+not\s+odd/
+isevenby = /\s+is\s+even\s+by\s+/
+isnotevenby = /\s+is\s+not\s+even\s+by\s+/
+iseven = /\s+is\s+even/
+isnoteven = /\s+is\s+not\s+even/
+isdivby = /\s+is\s+div\s+by\s+/
+isnotdivby = /\s+is\s+not\s+div\s+by\s+/
+in = /\s+(IN|in)\s+/
+not = /!|(NOT|not)\s+/
+land = /\s*\&\&\s*|\s+(AND|and)\s+/
+lor = /\s*\|\|\s*|\s+(OR|or)\s+/
+other = /./
+*/
+/*!lex2php
+%statename START
+xml {
+  $this->token = Smarty_Internal_Templateparser::TP_XML;
+}
+php {
+  $this->token = Smarty_Internal_Templateparser::TP_PHP;
+}
+shorttagstart {
+  $this->token = Smarty_Internal_Templateparser::TP_SHORTTAGSTART;
+}
+shorttagend {
+  $this->token = Smarty_Internal_Templateparser::TP_SHORTTAGEND;
+}
+phpstart {
+  $this->token = Smarty_Internal_Templateparser::TP_PHPSTART;
+}
+phpend {
+  $this->token = Smarty_Internal_Templateparser::TP_PHPEND;
+}  
+commentend {
+  $this->token = Smarty_Internal_Templateparser::TP_COMMENTEND;
+}
+commentstart {
+  $this->token = Smarty_Internal_Templateparser::TP_COMMENTSTART;
+}
+escapedquotes {
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+}
+singlequote {
+  $this->token = Smarty_Internal_Templateparser::TP_SINGLEQUOTE;
+}
+literalstart {
+  $this->token = Smarty_Internal_Templateparser::TP_LITERALSTART;
+}
+literalend {
+  $this->token = Smarty_Internal_Templateparser::TP_LITERALEND;
+}
+ldelim {
+  $this->token = Smarty_Internal_Templateparser::TP_LDELIMTAG;
+}
+rdelim {
+  $this->token = Smarty_Internal_Templateparser::TP_RDELIMTAG;
+}
+ldels {
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+}
+rdels {
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+}
+ldelslash {
+  $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
+}
+ldel {
+  $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+}
+rdel {
+  $this->token = Smarty_Internal_Templateparser::TP_RDEL;
+}
+in {
+  $this->token = Smarty_Internal_Templateparser::TP_IN;
+}
+boolean {
+  $this->token = Smarty_Internal_Templateparser::TP_BOOLEAN;
+}
+null {
+  $this->token = Smarty_Internal_Templateparser::TP_NULL;
+}
+identity{
+  $this->token = Smarty_Internal_Templateparser::TP_IDENTITY;
+}
+noneidentity{
+  $this->token = Smarty_Internal_Templateparser::TP_NONEIDENTITY;
+}
+equals{
+  $this->token = Smarty_Internal_Templateparser::TP_EQUALS;
+}
+notequals{
+  $this->token = Smarty_Internal_Templateparser::TP_NOTEQUALS;
+}
+greaterequal{
+  $this->token = Smarty_Internal_Templateparser::TP_GREATEREQUAL;
+}
+lessequal{
+  $this->token = Smarty_Internal_Templateparser::TP_LESSEQUAL;
+}
+greaterthan{
+  $this->token = Smarty_Internal_Templateparser::TP_GREATERTHAN;
+}
+lessthan{
+  $this->token = Smarty_Internal_Templateparser::TP_LESSTHAN;
+}
+not{
+  $this->token = Smarty_Internal_Templateparser::TP_NOT;
+}
+land {
+  $this->token = Smarty_Internal_Templateparser::TP_LAND;
+}
+lor {
+  $this->token = Smarty_Internal_Templateparser::TP_LOR;
+}
+isoddby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISODDBY;
+}
+isnotoddby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTODDBY;
+}
+
+isodd  {
+  $this->token = Smarty_Internal_Templateparser::TP_ISODD;
+}
+isnotodd {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTODD;
+}
+isevenby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISEVENBY;
+}
+isnotevenby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTEVENBY;
+}
+iseven{
+  $this->token = Smarty_Internal_Templateparser::TP_ISEVEN;
+}
+isnoteven {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTEVEN;
+}
+isdivby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISDIVBY;
+}
+isnotdivby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTDIVBY;
+}
+openP {
+  $this->token = Smarty_Internal_Templateparser::TP_OPENP;
+}
+closeP {
+  $this->token = Smarty_Internal_Templateparser::TP_CLOSEP;
+}
+openB {
+  $this->token = Smarty_Internal_Templateparser::TP_OPENB;
+}
+
+closeB {
+  $this->token = Smarty_Internal_Templateparser::TP_CLOSEB;
+}
+ptr {
+  $this->token = Smarty_Internal_Templateparser::TP_PTR; 
+}
+aptr {
+  $this->token = Smarty_Internal_Templateparser::TP_APTR;
+}
+equal {
+  $this->token = Smarty_Internal_Templateparser::TP_EQUAL;
+}
+number {
+  $this->token = Smarty_Internal_Templateparser::TP_NUMBER;
+}
+incdec {
+  $this->token = Smarty_Internal_Templateparser::TP_INCDEC;
+}
+unimath {
+  $this->token = Smarty_Internal_Templateparser::TP_UNIMATH;
+}
+math {
+  $this->token = Smarty_Internal_Templateparser::TP_MATH;
+}
+space {
+  $this->token = Smarty_Internal_Templateparser::TP_SPACE;
+}
+dollar {
+  $this->token = Smarty_Internal_Templateparser::TP_DOLLAR;
+}
+semicolon {
+  $this->token = Smarty_Internal_Templateparser::TP_SEMICOLON;
+}
+doublecolon {
+  $this->token = Smarty_Internal_Templateparser::TP_DOUBLECOLON;
+}
+colon {
+  $this->token = Smarty_Internal_Templateparser::TP_COLON;
+}
+at {
+  $this->token = Smarty_Internal_Templateparser::TP_AT;
+}
+hatch {
+  $this->token = Smarty_Internal_Templateparser::TP_HATCH;
+}
+quote {
+  $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
+}
+backtick {
+  $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;
+}
+vert {
+  $this->token = Smarty_Internal_Templateparser::TP_VERT;
+}
+dot {
+  $this->token = Smarty_Internal_Templateparser::TP_DOT;
+}
+comma {
+  $this->token = Smarty_Internal_Templateparser::TP_COMMA;
+}
+andsym {
+  $this->token = Smarty_Internal_Templateparser::TP_ANDSYM;
+}
+id {
+  $this->token = Smarty_Internal_Templateparser::TP_ID;
+}
+other {
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+}
+*/
+}
