@@ -245,12 +245,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // create template object if necessary
         ($template instanceof $this->template_class)? $_template = $template :
         $_template = $this->createTemplate ($template, $parent , $cache_id, $compile_id);
-//        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
-//            ? $this->error_reporting : error_reporting() &~E_NOTICE); 
+        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
+            ? $this->error_reporting : error_reporting() &~E_NOTICE); 
         // return redered template
         $_output = $_template->getRenderedTemplate();
         $_template->rendered_content = null;
-//        error_reporting($_smarty_old_error_level);
+        error_reporting($_smarty_old_error_level);
         return $_output;
     } 
 
