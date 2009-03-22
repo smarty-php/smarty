@@ -1,0 +1,211 @@
+03/22/2009
+- fixed possible sources for notice errors
+- rearrange SVN into distribution and development folders
+
+03/21/2009
+- fixed exceptions in function plugins
+- fixed notice error in Smarty.class.php
+- allow chained objects to span multiple lines
+- fixed error in modifers 
+
+03/20/2009
+- moved /plugins folder into /libs folder
+- added noprint modifier
+- autoappend a directory separator if the xxxxx_dir definition have no trailing one
+
+03/19/2009
+- allow array definition as modifer paramter
+- changed modifier to use multi byte string funktions. 
+
+03/17/2009
+- bugfix 
+
+03/15/2009
+- added {include_php} tag for BC
+- removed @ error suppression 
+- bugfix fetch did always repeat output of first call when calling same template several times
+- PHPunit tests extended
+
+03/13/2009
+- changed block syntax to be Smarty like  {block:titel} -> {block name=titel}
+- compiling of {block} and {extend} tags rewriten for better performance
+- added special Smarty variable block  ($smarty.block.foo} returns the parent definition of block foo
+- optimization of {block} tag compiled code.
+- fixed problem with escaped double quotes in double quoted strings
+
+03/12/2009
+- added support of template inheritance by {extend } and {block } tags.
+- bugfix comments within literals
+- added scope attribuie to {include} tag
+
+03/10/2009
+- couple of bugfixes and improvements
+- PHPunit tests extended
+
+03/09/2009
+- added support for global template vars.  {assign_global...}  $smarty->assign_global(...)
+- added direct_access_security
+- PHPunit tests extended
+- added missing {if} tag conditions like "is div by" etc.
+
+03/08/2009
+- splitted up the Compiler class to make it easier to use a coustom compiler
+- made default plugins_dir relative to Smarty root and not current working directory
+- some changes to make the lexer parser better configurable
+- implemented {section} tag for Smarty2 BC
+
+03/07/2009
+- fixed problem with comment tags
+- fixed problem with #xxxx in double quoted string
+- new {while} tag implemented
+- made lexer and paser class configurable as $smarty property
+- Smarty method get_template_vars implemented
+- Smarty method get_registered_object implemented
+- Smarty method trigger_error implemented
+- PHPunit tests extended
+
+03/06/2009
+- final changes on config variable handling
+- parser change - unquoted strings will by be converted into single quoted strings
+- PHPunit tests extended
+- some code cleanup
+- fixed problem on catenate strings with expression
+- update of count_words modifier
+- bugfix on comment tags
+
+
+03/05/2009
+- bugfix on <?xml...> tag with caching enabled
+- changes on exception handling (by Monte)
+
+03/04/2009
+- added support for config variables
+- bugfix on <?xml...> tag
+
+03/02/2009
+- fixed unqouted strings within modifier parameter
+- bugfix parsing of mofifier parameter
+
+03/01/2009
+- modifier chaining works now as in Smarty2
+
+02/28/2009
+- changed handling of unqouted strings
+
+02/26/2009
+- bugfix
+- changed $smarty.capture.foo to be global for Smarty2 BC.
+
+02/24/2009
+- bugfix {php} {/php} tags for backward compatibility
+- bugfix for expressions on arrays
+- fixed usage of "null" value
+- added $smarty.foreach.foo.first and $smarty.foreach.foo.last
+
+02/06/2009
+- bugfix for request variables without index  for example $smarty.get
+- experimental solution for variable functions in static class
+
+02/05/2009
+- update of popup plugin
+- added config variables to template parser (load config functions still missing)
+- parser bugfix for empty quoted strings
+
+02/03/2009
+- allow array of objects as static class variabales.
+- use htmlentities at source output at template errors.
+
+02/02/2009
+- changed search order on modifiers to look at plugins folder first
+- parser bug fix for modifier on array elements  $foo.bar|modifier
+- parser bug fix on single quoted srings
+- internal: splitted up compiler plugin files 
+
+02/01/2009
+- allow method chaining on static classes
+- special Smarty variables  $smarty.... implemented
+- added {PHP} {/PHP} tags for backward compatibility
+
+01/31/2009
+- added {math} plugin for Smarty2 BC
+- added template_exists method
+- changed Smarty3 method enable_security() to enableSecurity() to follow camelCase standards
+
+01/30/2009
+- bugfix in single quoted strings
+- changed syntax for variable property access from $foo:property to $foo@property because of ambiguous syntax at modifiers
+
+01/29/2009
+- syntax for array definition changed from (1,2,3) to [1,2,3] to remove ambiguous syntax
+- allow  {for $foo in [1,2,3]} syntax
+- bugfix in double quoted strings
+- allow <?xml...?> tags in template even if short_tags are enabled
+
+01/28/2009
+- fixed '!==' if condition.
+
+01/28/2009
+- added support of {strip} {/strip} tag.
+
+01/27/2009
+- bug fix on backticks in double quoted strings at objects
+
+01/25/2009
+- Smarty2 modfiers added to SVN
+
+01/25/2009
+- bugfix allow arrays at object properties in Smarty syntax
+- the template object is now passed as additional parameter at plugin calls
+- clear_compiled_tpl methode completed
+
+01/20/2009
+- access to class constants implemented  ( class::CONSTANT )
+- access to static class variables implemented ( class::$variable )
+- call of static class methodes implemented ( class::methode() )
+
+01/16/2009
+- reallow leading _ in variable names  {$_var}
+- allow array of objects  {$array.index->methode()} syntax
+- finished work on clear_cache and clear_cache_all methodes
+
+01/11/2009
+- added support of {literal} tag
+- added support of {ldelim} and {rdelim} tags
+- make code compatible to run with E_STRICT error setting
+
+01/08/2009
+- moved clear_assign and clear_all_assign to internal.templatebase.php
+- added assign_by_ref, append and append_by_ref methodes
+
+01/02/2009
+- added load_filter methode
+- fished work on filter handling
+- optimization of plugin loading
+
+12/30/2008
+- added compiler support of registered object 
+- added backtick support in doubled quoted strings for backward compatibility
+- some minor bug fixes and improvments
+
+12/23/2008
+- fixed problem of not working "not" operator in if-expressions
+- added handling of compiler function plugins
+- finished work on (un)register_compiler_function methode
+- finished work on (un)register_modifier methode
+- plugin handling from plugins folder changed for modifier plugins
+  deleted - internal.modifier.php
+- added modifier chaining to parser 
+
+12/17/2008
+- finished (un)register_function methode
+- finished (un)register_block methode
+- added security checking for PHP functions in PHP templates
+- plugin handling from plugins folder rewritten
+  new - internal.plugin_handler.php
+  deleted - internal.block.php
+  deleted - internal.function.php
+- removed plugin checking from security handler
+
+12/16/2008
+
+- new start of this change_log file
