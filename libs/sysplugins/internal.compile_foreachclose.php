@@ -28,7 +28,7 @@ class Smarty_Internal_Compile_ForeachClose extends Smarty_Internal_CompileBase {
         if ($_open_tag == 'foreachelse')
             return "<?php } ?>";
         else
-            return "<?php }}} ?>";
+            return "<?php }} ?>";
     } 
 }
 

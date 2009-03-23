@@ -28,8 +28,6 @@ class Smarty_Internal_Compile_ForClose extends Smarty_Internal_CompileBase {
         $_open_tag = $this->_close_tag(array('for', 'forarray', 'forelse'));
         if ($_open_tag == 'forelse')
             return "<?php }  ?>";
-        elseif ($_open_tag == 'forarray')
-            return "<?php }}} ?>";
         else
             return "<?php }} ?>";
     } 

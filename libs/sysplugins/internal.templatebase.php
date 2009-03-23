@@ -373,7 +373,7 @@ class Undefined_Smarty_Variable {
     // return always false
     public function __get ($name)
     {
-        return false;
+        return null;
     } 
 } 
 

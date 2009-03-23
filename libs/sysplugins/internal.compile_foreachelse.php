@@ -26,7 +26,7 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase {
 
         $this->_close_tag('foreach');
         $this->_open_tag('foreachelse');
-        return "<?php }}} else { ?>";
+        return "<?php }} else { ?>";
     } 
 } 
 

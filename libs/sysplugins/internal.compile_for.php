@@ -46,7 +46,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
 
             $output = "<?php ";
             $output .= " \$_smarty_tpl->tpl_vars[$item] = new Smarty_Variable;\n";
-            $output .= " \$_from = $from; if (\$_from !== false) { if (!is_array(\$_from) && !is_object(\$_from)) { settype(\$_from, 'array');}\n";
+            $output .= " \$_from = $from; if (!is_array(\$_from) && !is_object(\$_from)) { settype(\$_from, 'array');}\n";
             $output .= " \$_smarty_tpl->tpl_vars[$item]->total=count(\$_from);\n";
             $output .= " \$_smarty_tpl->tpl_vars[$item]->iteration=0;\n";
             $output .= " \$_smarty_tpl->tpl_vars[$item]->index=-1;\n";

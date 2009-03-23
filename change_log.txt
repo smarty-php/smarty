@@ -1,3 +1,6 @@
+03/23/2009
+- fixed {foreachelse} and {forelse} tags
+
 03/22/2009
 - fixed possible sources for notice errors
 - rearrange SVN into distribution and development folders
