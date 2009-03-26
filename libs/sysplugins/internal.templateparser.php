@@ -718,11 +718,11 @@ static public $yy_action = array(
  /*    50 */   374,  268,  374,  374,  374,  374,  374,  374,  374,  374,
  /*    60 */   268,  295,  374,  294,  374,  374,  374,  344,  335,  341,
  /*    70 */   337,  331,  336,  340,  345,  374,  374,  307,  374,  374,
- /*    80 */   374,  274,  374,  329,  374,  360,  374,  374,  317,  374,
+ /*    80 */   374,  274,  374,  328,  374,  360,  374,  374,  317,  374,
  /*    90 */   374,  322,  374,  374,  374,  374,  296,  334,  374,  305,
  /*   100 */   361,  362,  262,  374,  275,  269,  314,  272,  297,  305,
  /*   110 */   300,  327,  327,  273,  374,  273,  374,  306,  374,  374,
- /*   120 */   328,  273,  374,  374,  374,  374,  374,  374,  374,  374,
+ /*   120 */   329,  273,  374,  374,  374,  374,  374,  374,  374,  374,
  /*   130 */   374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
  /*   140 */   298,  374,  374,  374,  374,  374,  279,  324,  281,  282,
  /*   150 */   246,  245,  261,  247,  332,  321,  248,  343,  342,  319,
@@ -1025,8 +1025,8 @@ static public $yy_action = array(
  /*  85 */ "modifier ::= VERT ID",
  /*  86 */ "modparameters ::= modparameters modparameter",
  /*  87 */ "modparameters ::=",
- /*  88 */ "modparameter ::= COLON ID",
- /*  89 */ "modparameter ::= COLON exprs",
+ /*  88 */ "modparameter ::= COLON exprs",
+ /*  89 */ "modparameter ::= COLON ID",
  /*  90 */ "ifexprs ::= ifexpr",
  /*  91 */ "ifexprs ::= NOT ifexprs",
  /*  92 */ "ifexprs ::= OPENP ifexprs CLOSEP",
@@ -1988,10 +1988,10 @@ static public $yy_action = array(
     function yy_r86(){ $this->_retvalue = $this->yystack[$this->yyidx + -1]->minor.$this->yystack[$this->yyidx + 0]->minor;    }
 #line 1994 "internal.templateparser.php"
 #line 384 "internal.templateparser.y"
-    function yy_r88(){$this->_retvalue = ','.$this->yystack[$this->yyidx + 0]->minor.'';    }
+    function yy_r88(){$this->_retvalue = ','.$this->yystack[$this->yyidx + 0]->minor;    }
 #line 1997 "internal.templateparser.php"
 #line 385 "internal.templateparser.y"
-    function yy_r89(){$this->_retvalue = ','.$this->yystack[$this->yyidx + 0]->minor;    }
+    function yy_r89(){$this->_retvalue = ',\''.$this->yystack[$this->yyidx + 0]->minor.'\'';    }
 #line 2000 "internal.templateparser.php"
 #line 392 "internal.templateparser.y"
     function yy_r91(){$this->_retvalue = '!'.$this->yystack[$this->yyidx + 0]->minor;    }
