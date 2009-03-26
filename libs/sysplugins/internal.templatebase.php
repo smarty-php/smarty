@@ -373,7 +373,11 @@ class Undefined_Smarty_Variable {
     // return always false
     public function __get ($name)
     {
-        return null;
+        if ($name == 'nocache') {
+            return false;
+        } else {
+            return null;
+        } 
     } 
 } 
 
