@@ -406,7 +406,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
 * @param string $code the error code
 */
 class SmartyException {
-    public function printException($e)
+    public static function printException($e)
     {
         echo "Code: " . $e->getCode() . "<br />Error: " . htmlentities($e->getMessage()) . "<br />"
          . "File: " . $e->getFile() . "<br />"

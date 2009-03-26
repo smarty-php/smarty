@@ -1,6 +1,9 @@
 03/26/2009
 - fixed parser not to create error on `word` in double quoted strings
 - allow PHP  array(...)
+- implemented  $smarty.block.name.parent to access parent block content
+- fixed smarty.class
+
 
 03/23/2009
 - fixed {foreachelse} and {forelse} tags
