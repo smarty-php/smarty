@@ -487,7 +487,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // load resource handler if required
         if (!isset($this->resource_objects[$this->resource_type])) {
             // is this an internal or custom resource?
-            if (in_array($this->resource_type, array('file', 'php', 'string'))) {
+            if (in_array($this->resource_type, array('file', 'php', 'string','extend'))) {
                 // internal, get from sysplugins dir
                 $_resource_class = "Smarty_Internal_Resource_{$this->resource_type}";
             } else {
@@ -509,20 +509,23 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     /**
     * get system filepath to template
     */
-    public function buildTemplateFilepath ()
+    public function buildTemplateFilepath ($file = null)
     {
+        if ($file == null) {
+        $file = $this->resource_name;
+        }
         foreach((array)$this->smarty->template_dir as $_template_dir) {
         if (substr($_template_dir, -1) != DIRECTORY_SEPARATOR) {
             $_template_dir .= DIRECTORY_SEPARATOR;
         } 
 
-            $_filepath = $_template_dir . $this->resource_name;
+            $_filepath = $_template_dir . $file;
             if (file_exists($_filepath))
                 return $_filepath;
         } 
-        if (file_exists($this->resource_name)) return $this->resource_name; 
+        if (file_exists($file)) return $file; 
         // no tpl file found
-        throw new Exception("Unable to load template \"{$this->resource_name}\"");
+        throw new Exception("Unable to load template \"{$file}\"");
         return false;
     } 
 

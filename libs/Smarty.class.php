@@ -384,12 +384,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
             $plugin_filename = strtolower('method.' . $name . $this->php_ext);
             if (!file_exists($this->sysplugins_dir . $plugin_filename)) {
                 throw new Exception("Sysplugin file " . $plugin_filename . " does not exist");
-                die();
             } 
             require_once($this->sysplugins_dir . $plugin_filename);
             if (!class_exists($class_name, false)) {
                 throw new Exception ("Sysplugin file " . $plugin_filename . " does not define class " . $class_name);
-                die();
             } 
         } 
         $method = new $class_name;
