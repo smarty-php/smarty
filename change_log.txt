@@ -1,3 +1,7 @@
+03/28/2009
+- file order for exted resource inverted
+- clear_compiled_tpl and clear_cache_all will not touch .svn folder any longer
+
 03/27/2009
 - added extend resource
 

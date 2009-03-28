@@ -56,6 +56,7 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
     {
         $this->template = $_template;
         $_files = explode('|', $_template->resource_name);
+        $_files = array_reverse($_files);
         foreach ($_files as $_file) {
             $_filepath = $_template->buildTemplateFilepath ($_file);
             if ($_file != $_files[0]) {
@@ -64,7 +65,6 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
             // read template file
             $_content = file_get_contents($_filepath);
             if ($_file != $_files[count($_files)-1]) {
-                $_content = preg_replace ('/' . $this->smarty->left_delimiter . 'extend\s+(?:file=)?\s*(\S+?|(["\']).+?\2)' . $this->smarty->right_delimiter . '/i', '' , $_content, 1);
                 $_content = preg_replace_callback('/(' . $this->smarty->left_delimiter . 'block(.+?)' . $this->smarty->right_delimiter . ')((?:\r?\n?)(.*?)(?:\r?\n?))(' . $this->smarty->left_delimiter . '\/block(.*?)' . $this->smarty->right_delimiter . ')/is', array('Smarty_Internal_Resource_Extend', 'saveBlockData'), $_content);
             } else {
                 $_template->template_source = $_content;

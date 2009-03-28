@@ -24,7 +24,7 @@ class Smarty_Method_Clear_Compiled_Tpl extends Smarty_Internal_Base {
     * @param string $compile_id compile id
     * @param integer $exp_time expiration time
     * @return integer number of template files deleted
-    */ 
+    */
     public function execute($resource_name = null, $compile_id = null, $exp_time = null)
     {
         $_dir_sep = $this->smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
@@ -45,11 +45,12 @@ class Smarty_Method_Clear_Compiled_Tpl extends Smarty_Internal_Base {
         $_compileDirs = new RecursiveDirectoryIterator($_dir);
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
+            if (strpos($_file,'.svn') !== false) continue;
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
                     // delete folder if empty
                     @rmdir($_file->getPathname());
-                } 
+                }                                         
             } else {
                 if ((!isset($compile_id) || substr_compare((string)$_file, $_compile_id_part, 0, strlen($_compile_id_part)) == 0) &&
                         (!isset($resource_name) || substr_compare((string)$_file, $_resource_part_1, - strlen($_resource_part_1), strlen($_resource_part_1)) == 0 ||

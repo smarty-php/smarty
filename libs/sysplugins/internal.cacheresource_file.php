@@ -106,6 +106,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_Internal_PluginBase {
         $_cacheDirs = new RecursiveDirectoryIterator($_dir);
         $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_cache as $_file) {
+            if (strpos($_file, '.svn') !== false) continue;
             if ($_file->isDir()) {
                 if (!$_cache->isDot()) {
                     // delete folder if empty

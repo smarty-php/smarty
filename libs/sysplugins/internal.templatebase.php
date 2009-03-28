@@ -290,7 +290,8 @@ class Smarty_Internal_TemplateBase {
     */
     public function buildTemplateId ($_resource, $_cache_id, $_compile_id)
     {
-        return md5($_resource . md5($_cache_id) . md5($_compile_id));
+//        return md5($_resource . md5($_cache_id) . md5($_compile_id));
+        return crc32($_resource . $_cache_id . $_compile_id);
     } 
 
     /**
