@@ -126,7 +126,8 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
     public function getCompiledFilepath($_template)
     {
         $_files = explode('|', $_template->resource_name);
-        $_filepath = md5($_files[0]); 
+//        $_filepath = md5($_files[0]); 
+        $_filepath = (string)sprintf("%u",crc32($_files[0]));
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 3) . DIRECTORY_SEPARATOR

@@ -1,4 +1,5 @@
 03/28/2009
+- md5 hash function replace with crc32 for speed optimization
 - file order for exted resource inverted
 - clear_compiled_tpl and clear_cache_all will not touch .svn folder any longer
 
