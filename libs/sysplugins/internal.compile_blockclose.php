@@ -28,18 +28,19 @@ class Smarty_Internal_Compile_BlockClose extends Smarty_Internal_CompileBase {
         // check and get attributes
         $this->optional_attributes = array('name');
         $_attr = $this->_get_attributes($args);
-        $saved_attr = $this->_close_tag(array('block')); 
+        $saved_data = $this->_close_tag(array('block')); 
         // if name does match to opening tag
-        if (isset($_attr['name']) && $saved_attr['name'] != $_attr['name']) {
-            $this->compiler->trigger_template_error('mismatching name attributes "' . $saved_attr['name'] . '" and "' . $_attr['name'] . '"');
+        if (isset($_attr['name']) && $saved_data[0]['name'] != $_attr['name']) {
+            $this->compiler->trigger_template_error('mismatching name attributes "' . $saved_data[0]['name'] . '" and "' . $_attr['name'] . '"');
         } 
-        $_name = trim($saved_attr['name'], "'");
+        $_name = trim($saved_data[0]['name'], "'");
         if (!empty($compiler->template->block_data[$_name])) {
             $_output = $compiler->template->block_data[$_name]['compiled'];
         } else {
             $_output = $compiler->template->extracted_compiled_code;
         } 
-        $compiler->template->extracted_compiled_code = '';
+        $compiler->template->extracted_compiled_code = $saved_data[1];
+        $compiler->template->extract_code = $saved_data[2];
         return $_output;
     } 
 } 
