@@ -93,7 +93,7 @@ class Smarty_Internal_Resource_File extends Smarty_Internal_Base {
     public function getCompiledFilepath($_template)
     {
 //        $_filepath = md5($_template->resource_name); 
-        $_filepath = (string)sprintf("%u",crc32($_template->resource_name));
+        $_filepath = (string)abs(crc32($_template->resource_name));
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 3) . DIRECTORY_SEPARATOR

@@ -90,7 +90,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_Internal_PluginBase {
     {
         $_dir_sep = $this->smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
         if (isset($resource_name)) {
-            $_resource_part = (string)sprintf("%u",crc32($resource_name)) . '.' . $resource_name . $this->smarty->php_ext;
+            $_resource_part = (string)abs(crc32($resource_name)) . '.' . $resource_name . $this->smarty->php_ext;
         } else {
             $_resource_part = null;
         } 
@@ -145,7 +145,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_Internal_PluginBase {
     private function buildCachedFilepath ($resource_name, $cache_id, $compile_id)
     {
 //        $_filepath = md5($resource_name); 
-        $_filepath = (string)sprintf("%u",crc32($resource_name));
+        $_filepath = (string)abs(crc32($resource_name));
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DIRECTORY_SEPARATOR
