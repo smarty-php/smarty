@@ -100,7 +100,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.   
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.    
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -178,7 +178,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $this->loadPlugin('Smarty_Internal_Plugin_Handler');
         $this->plugin_handler = new Smarty_Internal_Plugin_Handler;
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
-            $_query_string = $this->request_use_auto_globals ? $_SERVER['QUERY_STRING'] : $GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING'];
+            $_query_string = $this->request_use_auto_globals ? isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING']:'' : isset($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING']) ? $GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING']:'';
             if (false !== strpos($_query_string, $this->smarty_debug_id)) {
                 if (false !== strpos($_query_string, $this->smarty_debug_id . '=on')) {
                     // enable debugging for this browser session
@@ -292,7 +292,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     } 
 
     /**
-    * Load the plugin with securty definition and enables security
+    * Load the plugin with security definition and enables security
     * 
     * @param string $security_policy plugin to load
     */
@@ -311,6 +311,64 @@ class Smarty extends Smarty_Internal_TemplateBase {
         } 
     } 
 
+    /**
+    * Set template directory
+    * 
+    * @param string $ |array $template_dir folder(s) of template sorces
+    */
+    public function setTemplateDir($template_dir)
+    {
+        $this->smarty->template_dir = (array)$template_dir;
+        return;
+    } 
+    /**
+    * Adds template directory(s) to existing ones
+    * 
+    * @param string|array $template_dir folder(s) of template sources
+    */
+    public function addTemplateDir($template_dir)
+    {
+        $this->smarty->template_dir = array_merge((array)$this->smarty->template_dir, (array)$template_dir);
+        $this->smarty->template_dir = array_unique($this->smarty->template_dir);
+        return;
+    } 
+    /**
+    * Set compile directory
+    * 
+    * @param string $compile_dir folder of compiled template sources
+    */
+    public function setCompileDir($compile_dir)
+    {
+        $this->smarty->compile_dir = $compile_dir;
+        return;
+    } 
+    /**
+    * Set cache directory
+    * 
+    * @param string $cache_dir folder of cache files
+    */
+    public function setCacheDir($cache_dir)
+    {
+        $this->smarty->cache_dir = $cache_dir;
+        return;
+    } 
+    /**
+    * Enable Caching
+    */
+    public function enableCaching()
+    {
+        $this->smarty->caching = true;
+        return;
+    } 
+    /**
+    * Set caching life time
+    * @param integer $lifetime lifetime of cached file in seconds
+    */
+    public function setCachingLifetime($lifetime)
+    {
+        $this->smarty->caching_lifetime = $lifetime;
+        return;
+    } 
     /**
     * Takes unknown classes and loads plugin files for them
     * class name format: Smarty_PluginType_PluginName

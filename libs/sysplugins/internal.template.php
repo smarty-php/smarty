@@ -259,7 +259,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             if ($this->mustCompile()) {
                 $this->compileTemplateSource();
             } else {
-                $this->compiled_template = !$this->isEvaluated() ? file_get_contents($this->getCompiledFilepath()) : false;
+                $this->compiled_template = !$this->isEvaluated() && $this->usesCompiler() ? file_get_contents($this->getCompiledFilepath()) : false;
             } 
         } 
         return $this->compiled_template;
