@@ -199,7 +199,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function mustCompile ()
     {
         if ($this->mustCompile === null) {
-            $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())); 
+            $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ()))); 
             // read compiled template
             if ($this->compiled_template !== true && file_exists($this->getCompiledFilepath())) {
                 $this->compiled_template = !$this->isEvaluated() ? file_get_contents($this->getCompiledFilepath()):'';

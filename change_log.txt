@@ -1,3 +1,8 @@
+03/31/2009
+- bugfix smarty.class and internal.security_handler
+- added compile_check configuration 
+- added all setter/getter methodes
+
 03/30/2009
 - added all major setter/getter methodes
 

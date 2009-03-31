@@ -20,10 +20,6 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
     {
         $this->smarty = Smarty::instance();
 
-        if (empty($this->smarty->debug_tpl)) {
-            // set path to debug template from SMARTY_DIR
-            $this->smarty->debug_tpl = SMARTY_DIR . 'debug.tpl';
-        } 
         // get template names
         $i = 0;
         $_template_data = array();

@@ -59,7 +59,7 @@ class Smarty_Internal_Security_Handler extends Smarty_Internal_Base {
             foreach ((array)$this->smarty->template_dir as $curr_dir) {
                 if (($_cd = realpath($curr_dir)) !== false &&
                         strncmp($_rp, $_cd, strlen($_cd)) == 0 &&
-                        substr($_rp, strlen($_cd), 1) == DIRECTORY_SEPARATOR) {
+                        (strlen($_rp) == strlen($_cd) || substr($_rp, strlen($_cd), 1) == DIRECTORY_SEPARATOR)) {
                     return true;
                 } 
             } 
@@ -70,7 +70,7 @@ class Smarty_Internal_Security_Handler extends Smarty_Internal_Base {
                     if ($_cd == $_rp) {
                         return true;
                     } elseif (strncmp($_rp, $_cd, strlen($_cd)) == 0 &&
-                            substr($_rp, strlen($_cd), 1) == DIRECTORY_SEPARATOR) {
+                          (strlen($_rp) == strlen($_cd) || substr($_rp, strlen($_cd), 1) == DIRECTORY_SEPARATOR)) {
                         return true;
                     } 
                 } 

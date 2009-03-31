@@ -67,6 +67,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $config_dir = null; 
     // force template compiling?
     public $force_compile = false; 
+    // check template for modifications?
+    public $compile_check = true; 
     // use sub dirs for compiled/cached files?
     public $use_sub_dirs = false; 
     // php file extention
@@ -93,14 +95,14 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $debugging = false;
     public $debugging_ctrl = 'URL';
     public $smarty_debug_id = 'SMARTY_DEBUG';
-    public $request_use_auto_globals = true;
-    public $debug_tpl = null; 
+    public $debug_tpl = null;
+    public $request_use_auto_globals = true; 
     // When set, smarty does uses this value as error_reporting-level.
     public $error_reporting = null; 
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.    
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.     
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -168,7 +170,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $this->plugins_dir = array(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR);
         $this->cache_dir = '.' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR;
         $this->config_dir = '.' . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR;
-        $this->sysplugins_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR; 
+        $this->sysplugins_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR;
+        $this->debug_tpl = SMARTY_DIR . 'debug.tpl'; 
         // set instance object
         self::instance($this); 
         // load base plugins
@@ -307,7 +310,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             $this->security_handler = new Smarty_Internal_Security_Handler();
             $this->security = true;
         } else {
-            throw new Exception("Security policy {$security_definition} not found");
+            throw new Exception("Security policy {$security_policy} not found");
         } 
     } 
 
@@ -324,7 +327,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     /**
     * Adds template directory(s) to existing ones
     * 
-    * @param string|array $template_dir folder(s) of template sources
+    * @param string $ |array $template_dir folder(s) of template sources
     */
     public function addTemplateDir($template_dir)
     {
@@ -362,6 +365,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     } 
     /**
     * Set caching life time
+    * 
     * @param integer $lifetime lifetime of cached file in seconds
     */
     public function setCachingLifetime($lifetime)
