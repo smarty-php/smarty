@@ -1,7 +1,12 @@
+04/02/2009
+- added setter/getter methodes
+- added $foo@first and $foo@last properties at {for} tag
+- added $set_timezone (true/false) property to setup optionally the default time zone
+
 03/31/2009
 - bugfix smarty.class and internal.security_handler
 - added compile_check configuration 
-- added all setter/getter methodes
+- added setter/getter methodes
 
 03/30/2009
 - added all major setter/getter methodes

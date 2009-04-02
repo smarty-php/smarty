@@ -52,8 +52,10 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
             $output .= " \$_smarty_tpl->tpl_vars[$item]->index=-1;\n";
             $output .= "if (\$_smarty_tpl->tpl_vars[$item]->total > 0){\n";
             $output .= "    foreach (\$_from as \$_smarty_tpl->tpl_vars[$item]->key => \$_smarty_tpl->tpl_vars[$item]->value){\n";
+            $output .= " \$_smarty_tpl->tpl_vars[$item]->first = \$_smarty_tpl->tpl_vars[$item]->iteration === 0;\n";
             $output .= " \$_smarty_tpl->tpl_vars[$item]->iteration++;\n";
             $output .= " \$_smarty_tpl->tpl_vars[$item]->index++;\n";
+            $output .= " \$_smarty_tpl->tpl_vars[$item]->last = \$_smarty_tpl->tpl_vars[$item]->iteration === \$_smarty_tpl->tpl_vars[$item]->total;\n";
             $output .= "?>"; 
             // return compiled code
             return $output;

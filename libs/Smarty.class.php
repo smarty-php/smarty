@@ -102,7 +102,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.     
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.      
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -153,13 +153,17 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $_smarty_vars = array(); 
     // start time for execution time calculation
     public $start_time = 0;
-
+    // set default time zone
+    public $set_timezone = true;
     /**
     * Class constructor, initializes basic smarty properties
     */
     public function __construct()
     {
         mb_internal_encoding($this->resource_char_set);
+        if ($this->set_timezone and function_exists("date_default_timezone_set") and function_exists("date_default_timezone_get")) {
+            date_default_timezone_set(date_default_timezone_get());
+        } 
         $this->start_time = $this->_get_time(); 
         // set exception handler
         if (!empty($this->exception_handler))
