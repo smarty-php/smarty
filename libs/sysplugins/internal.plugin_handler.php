@@ -56,6 +56,13 @@ class Smarty_Internal_Plugin_Handler extends Smarty_Internal_Base {
                 } 
             } 
         } 
+        if (!empty($this->smarty->default_plugin_handler_func)) {
+            if (!is_callable($this->smarty->default_plugin_handler_func)) {
+                throw new Exception("Default template handler not callable");
+            } else {
+                return call_user_func_array($this->smarty->default_plugin_handler_func, array($name, $type, &$this));
+            } 
+        } 
         return false;
     } 
 } 

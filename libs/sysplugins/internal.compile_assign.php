@@ -24,10 +24,10 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
     {
         $this->compiler = $compiler;
         $this->required_attributes = array('var', 'value');
-        $this->optional_attributes = array('global','nocache');
+        $this->optional_attributes = array('global', 'nocache', 'index');
 
         $_nocache = 'null';
-        $_global = 'null'; 
+        $_global = 'null';
         // check for nocache attribute before _get_attributes because
         // it shall not controll caching of the compiled code, but is a parameter
         if (isset($args['nocache'])) {
@@ -44,8 +44,19 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
             $_global = 'true';
             $_global_boolean = true;
         } 
+        if (isset($_attr['index'])) {
+            $_index = $_attr['index'];
+        } 
         // compiled output
-        return "<?php \$_smarty_tpl->assign($_attr[var],$_attr[value],$_nocache,$_global);?>";
+        if (isset($_attr['index'])) {
+            if ($_attr['index'] == '') {
+                return "<?php \$_smarty_tpl->append($_attr[var],$_attr[value],false,$_nocache,$_global);?>";
+            } else {
+                return "<?php \$_smarty_tpl->append($_attr[var],array($_attr[index] => $_attr[value]),true,$_nocache,$_global);?>";
+            } 
+        } else {
+            return "<?php \$_smarty_tpl->assign($_attr[var],$_attr[value],$_nocache,$_global);?>";
+        } 
     } 
 } 
 

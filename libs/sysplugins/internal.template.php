@@ -43,7 +43,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public $compile_time = 0;
     public $mustCompile = null;
     public $suppressHeader = false;
-    public $extract_code = false; 
+    public $extract_code = false;
     public $extracted_compiled_code = ''; 
     // Rendered content
     public $rendered_content = null; 
@@ -158,7 +158,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         if ($this->template_source === null) {
             $this->resource_objects[$this->resource_type]->getTemplateSource($this);
         } 
-            return $this->template_source;
+        return $this->template_source;
     } 
 
     /**
@@ -387,7 +387,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // disable caching for evaluated code
         if ($this->isEvaluated()) {
             $this->caching = false;
-        } 
+        }
+        // checks if template exists 
+        $this->getTemplateFilepath();
         // read from cache or render
         if ($this->rendered_content === null && !$this->isCached()) {
             // render template (not loaded and not in cache)
@@ -488,7 +490,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // load resource handler if required
         if (!isset($this->resource_objects[$this->resource_type])) {
             // is this an internal or custom resource?
-            if (in_array($this->resource_type, array('file', 'php', 'string','extend'))) {
+            if (in_array($this->resource_type, array('file', 'php', 'string', 'extend'))) {
                 // internal, get from sysplugins dir
                 $_resource_class = "Smarty_Internal_Resource_{$this->resource_type}";
             } else {
@@ -513,12 +515,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function buildTemplateFilepath ($file = null)
     {
         if ($file == null) {
-        $file = $this->resource_name;
-        }
-        foreach((array)$this->smarty->template_dir as $_template_dir) {
-        if (substr($_template_dir, -1) != DIRECTORY_SEPARATOR) {
-            $_template_dir .= DIRECTORY_SEPARATOR;
+            $file = $this->resource_name;
         } 
+        foreach((array)$this->smarty->template_dir as $_template_dir) {
+            if (substr($_template_dir, -1) != DIRECTORY_SEPARATOR) {
+                $_template_dir .= DIRECTORY_SEPARATOR;
+            } 
 
             $_filepath = $_template_dir . $file;
             if (file_exists($_filepath))
@@ -526,6 +528,18 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         } 
         if (file_exists($file)) return $file; 
         // no tpl file found
+        if (!empty($this->smarty->default_template_handler_func)) {
+            if (!is_callable($this->smarty->default_template_handler_func)) {
+                throw new Exception("Default template handler not callable");
+            } else {
+                $_return = call_user_func_array($this->smarty->default_template_handler_func,
+                    array($this->resource_type, $this->resource_name, &$this->template_source, &$this));
+                if ($_return == true) {
+                    $this->isEvaluated = true;
+                    return $_filepath;
+                } 
+            } 
+        } 
         throw new Exception("Unable to load template \"{$file}\"");
         return false;
     } 

@@ -1,3 +1,8 @@
+04/03/2006
+- added registerDefaultTemplateHandler methode and functionallity
+- added registerDefaultPluginHandler methode and functionallity
+- added {append} tag to extend Smarty array variabled
+
 04/02/2009
 - added setter/getter methodes
 - added $foo@first and $foo@last properties at {for} tag

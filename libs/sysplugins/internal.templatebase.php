@@ -76,7 +76,7 @@ class Smarty_Internal_TemplateBase {
     * @param mixed $value the value to append
     * @param boolean $merge flag if array elements shall be merged
     */
-    public function append($tpl_var, $value = null, $merge = false)
+    public function append($tpl_var, $value = null, $merge = false, $nocache = false, $global = false)
     {
         if (is_array($tpl_var)) {
             // $tpl_var is an array, ignore $value
@@ -84,7 +84,7 @@ class Smarty_Internal_TemplateBase {
                 if ($_key != '') {
                     if (!isset($this->tpl_vars[$_key])) {
                         $this->check_tplvar($_key);
-                        $this->tpl_vars[$_key] = new Smarty_variable();
+                        $this->tpl_vars[$_key] = new Smarty_variable(null, $nocache, $global);
                     } 
                     if (!is_array($this->tpl_vars[$_key]->value)) {
                         settype($this->tpl_vars[$_key]->value, 'array');
@@ -102,7 +102,7 @@ class Smarty_Internal_TemplateBase {
             if ($tpl_var != '' && isset($value)) {
                 if (!isset($this->tpl_vars[$tpl_var])) {
                     $this->check_tplvar($tpl_var);
-                    $this->tpl_vars[$tpl_var] = new Smarty_variable();
+                    $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $global);
                 } 
                 if (!is_array($this->tpl_vars[$tpl_var]->value)) {
                     settype($this->tpl_vars[$tpl_var]->value, 'array');

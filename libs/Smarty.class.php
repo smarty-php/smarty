@@ -56,7 +56,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // display error on not assigned variabled
     static $error_unassigned = false; 
     // template directory
-    public $template_dir = null; 
+    public $template_dir = null;
+    // default template handler
+    public $default_template_handler_func = null; 
     // compile directory
     public $compile_dir = null; 
     // plugins directory
@@ -139,6 +141,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $plugin_search_order = array('function', 'block', 'compiler', 'class'); 
     // plugin handler object
     public $plugin_handler = null; 
+    // default plugin handler
+    public $default_plugin_handler_func = null; 
     // registered objects
     public $registered_objects = array(); 
     // registered filters
