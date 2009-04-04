@@ -20,14 +20,14 @@ class Smarty_Method_registerDefaultTemplateHandler extends Smarty_Internal_Base 
     /**
     * Registers a default template handler
     * 
-    * @param string $ |array $plugin class/methode name
+    * @param string $ |array $function class/methode name
     */
-    public function execute($plugin)
+    public function execute($function)
     {
-        if (is_callable($plugin)) {
-            $this->smarty->default_template_handler_func = $plugin;
+        if (is_callable($function)) {
+            $this->smarty->default_template_handler_func = $function;
         } else {
-            throw new Exception("Default template handler not callable");
+            throw new Exception('Default template handler "'.$function.'" not callable');
         } 
     } 
 } 

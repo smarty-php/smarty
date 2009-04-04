@@ -16,7 +16,7 @@
 * Registers a default plugin handler
 */
 
-class Smarty_Method_registerDefaultPluginhandlerHandler extends Smarty_Internal_Base {
+class Smarty_Method_registerDefaultPluginHandler extends Smarty_Internal_Base {
     /**
 * Registers a default plugin handler
     * 
@@ -27,7 +27,7 @@ class Smarty_Method_registerDefaultPluginhandlerHandler extends Smarty_Internal_
         if (is_callable($plugin)) {
             $this->smarty->default_plugin_handler_func = $plugin;
         } else {
-            throw new Exception("Default plugin handler not callable");
+            throw new Exception('Default plugin handler "'.$plugin.'" not callable');
         } 
     } 
 } 

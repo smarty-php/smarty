@@ -1,3 +1,6 @@
+04/04/2009
+- some fixes on yesterdays update
+
 04/03/2006
 - added registerDefaultTemplateHandler methode and functionallity
 - added registerDefaultPluginHandler methode and functionallity
