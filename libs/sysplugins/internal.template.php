@@ -533,9 +533,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 throw new Exception("Default template handler not callable");
             } else {
                 $_return = call_user_func_array($this->smarty->default_template_handler_func,
-                    array($this->resource_type, $this->resource_name, &$this->template_source, &$this));
+                    array($this->resource_type, $this->resource_name, &$this->template_source, &$this->template_timestamp, &$this));
                 if ($_return == true) {
-                    $this->isEvaluated = true;
                     return $_filepath;
                 } 
             } 

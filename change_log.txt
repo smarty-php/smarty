@@ -1,4 +1,5 @@
 04/04/2009
+- make output of template default handlers cachable
 - some fixes on yesterdays update
 
 04/03/2006
