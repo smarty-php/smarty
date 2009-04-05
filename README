@@ -127,19 +127,21 @@ Object method chaining is implemented.
 {$object->method1($x)->method2($y)}
 
 New {for....} tag:
-There are two different styles.
-To loop over an array:
-{for $var in $myarray}   ....  {/for}
-$var@key            will deliver the key
-$var@iteration      will deliver the iteration
-$var@total           will deliver the total number of array entries
-
 For a counting for loop:
 {for $x=0, $y=count($foo); $x<$y; $i++}  ....  {/for}
 Any number of statements can be used separated by comma as the first
 inital expression at {for}
 
-The {for} will replace Smarty2's {foreach} and {section}.  For BC {foreach} are {section} are still supported.
+New {foreach...} syntax to loop over an array:
+{foreach $var in $myarray}   ....  {/foreach}
+$var@key            will deliver the key
+$var@iteration      will deliver the iteration
+$var@index          will deliver the index
+$var@total          will deliver the total number of array entries
+$var@first          will deliver true for the first iteration
+$var@last           will deliver true for the last iteration
+
+The {for} and new {foreach} will replace Smarty2's {foreach} and {section}.  For BC Smarty2 {foreach} are {section} syntax is still supported.
 
 NOTE:  {$bar[foo]} will always be parsed that foo is the name of a section. 
 If you want to access an array element with index foo,you must use quotes like {$bar['foo']}
