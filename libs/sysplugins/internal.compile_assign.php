@@ -52,7 +52,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
             if ($_attr['index'] == '') {
                 return "<?php \$_smarty_tpl->append($_attr[var],$_attr[value],false,$_nocache,$_global);?>";
             } else {
-                return "<?php \$_smarty_tpl->append($_attr[var],array($_attr[index] => $_attr[value]),true,$_nocache,$_global);?>";
+                return "<?php \$_tmp$_attr[index] = $_attr[value]; \$_smarty_tpl->append($_attr[var],\$_tmp,true,$_nocache,$_global);?>";
             } 
         } else {
             return "<?php \$_smarty_tpl->assign($_attr[var],$_attr[value],$_nocache,$_global);?>";

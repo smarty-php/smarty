@@ -1,5 +1,8 @@
+04/05/2009
+- added append array for short form of assign  {$foo[]='bar'} and allow assignments to nested arrays {$foo['bla']['blue']='bar'}
+
 04/04/2009
-- make output of template default handlers cachable
+- make output of template default handlers cachable and save compiled source
 - some fixes on yesterdays update
 
 04/03/2006
