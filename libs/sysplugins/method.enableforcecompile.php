@@ -18,7 +18,8 @@
 class Smarty_Method_enableForceCompile extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->force_compile = true;
+        $this->smarty->force_compile = true;
+        return;
     } 
 } 
 

@@ -18,7 +18,8 @@
 class Smarty_Method_enableDefaultTimezone extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->set_timezone = true;
+        $this->smarty->set_timezone = true;
+        return;
     } 
 } 
 

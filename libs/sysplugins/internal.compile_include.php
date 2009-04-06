@@ -34,12 +34,12 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             $_assign = $_attr['assign'];
         } 
 
-        $_parent_scope = '0';
+        $_parent_scope = LOCAL_SCOPE;
         if (isset($_attr['scope'])) {
             if ($_attr['scope'] == '\'parent\'') {
-                $_parent_scope = '1';
+                $_parent_scope = PARENT_SCOPE;
             } elseif ($_attr['scope'] == '\'root\'') {
-                $_parent_scope = '2';
+                $_parent_scope = ROOT_SCOPE;
             } 
         } 
 
@@ -69,13 +69,13 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         unset($_attr['file'], $_attr['assign'], $_attr['caching_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope']); 
         // remaining attributes must be assigned as smarty variable
         if (!empty($_attr)) {
-            if ($_parent_scope == '0') {
+            if ($_parent_scope == LOCAL_SCOPE) {
                 // create variables
                 foreach ($_attr as $_key => $_value) {
                     $_output .= "\$_template->assign('$_key',$_value);";
                 } 
             } else {
-                $this->compiler->trigger_template_error('variable passing not allowed in parent scope');
+                $this->compiler->trigger_template_error('variable passing not allowed in parent/global scope');
             } 
         } 
         // add caching parameter if required

@@ -26,6 +26,7 @@ class Smarty_Method_SetConfigDir extends Smarty_Internal_Base {
     public function execute($config_dir)
     {
         $this->smarty->config_dir = $config_dir;
+        return;
     } 
 } 
 

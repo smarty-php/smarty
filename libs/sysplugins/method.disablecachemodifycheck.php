@@ -18,7 +18,8 @@
 class Smarty_Method_disableCacheModifyCheck extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->cache_modified_check = false;
+        $this->smarty->cache_modified_check = false;
+        return ;
     } 
 } 
 

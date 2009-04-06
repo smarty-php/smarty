@@ -18,7 +18,8 @@
 class Smarty_Method_disableConfigOverwrite extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->config_overwrite = false;
+        $this->smarty->config_overwrite = false;
+        return ;
     } 
 } 
 

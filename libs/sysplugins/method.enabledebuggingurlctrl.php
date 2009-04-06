@@ -18,7 +18,8 @@
 class Smarty_Method_EnableDebuggingUrlCtrl extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->debugging_ctrl = 'URL';
+        $this->smarty->debugging_ctrl = 'URL';
+        return;
     } 
 } 
 

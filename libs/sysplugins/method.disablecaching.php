@@ -18,7 +18,8 @@
 class Smarty_Method_DisableCaching extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->caching = false;
+        $this->smarty->caching = false;
+        return;
     } 
 } 
 

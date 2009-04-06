@@ -18,7 +18,8 @@
 class Smarty_Method_DisableDebugging extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->debugging = false;
+        $this->smarty->debugging = false;
+        return;
     } 
 } 
 

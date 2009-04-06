@@ -104,7 +104,7 @@ $smarty->display('string:This is my template, {$foo}!');
 
 You can use complex expressions almost anywhere.
 {$x+$y} will output the sum of x and y.
-PHP functions can be used in expressions unless they are not disabled by the security policy.
+PHP functions can be used in expressions unless they are disabled by the security policy.
 {assign var=foo value=2*(3+sqrt($bar))}
 
 You can define arrays.

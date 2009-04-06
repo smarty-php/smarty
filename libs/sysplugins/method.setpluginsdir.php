@@ -26,6 +26,7 @@ class Smarty_Method_SetPluginsDir extends Smarty_Internal_Base {
     public function execute($plugins_dir)
     {
         $this->smarty->plugins_dir = (array)$plugins_dir;
+        return;
     } 
 } 
 

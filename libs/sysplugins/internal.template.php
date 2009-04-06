@@ -387,9 +387,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // disable caching for evaluated code
         if ($this->isEvaluated()) {
             $this->caching = false;
-        }
-        // checks if template exists 
-        $this->getTemplateFilepath();
+        } 
+        // checks if template exists
+        $this->getTemplateFilepath(); 
         // read from cache or render
         if ($this->rendered_content === null && !$this->isCached()) {
             // render template (not loaded and not in cache)
@@ -546,25 +546,26 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     /**
     * Update Smarty variables in parent variable object
     */
-    public function updateParentVariables ($mode = 0)
-    { 
-        // do we have a back pointer?
-        if (is_object($this->parent)) {
-            if ($mode == 2) {
-                $_ptr = $this->smarty;
-            } else {
-                $_ptr = $this->parent;
+    public function updateParentVariables ($scope = LOCAL_SCOPE)
+    {
+        foreach ($this->tpl_vars as $_key => $_value) {
+            // copy global vars back to parent
+            if (isset($this->parent) && ($scope == PARENT_SCOPE || $this->tpl_vars[$_key]->global)) {
+                if (isset($this->parent->tpl_vars[$_key])) {
+                    // variable is already defined in parent, copy value
+                    $this->parent->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
+                } else {
+                    // create variable in parent
+                    $this->parent->tpl_vars[$_key] = clone $_value;
+                } 
             } 
-            foreach ($this->tpl_vars as $_key => $_value) {
-                // copy global vars back to parent
-                if ($mode > 0 || $this->tpl_vars[$_key]->global) {
-                    if (isset($this->parent->tpl_vars[$_key])) {
-                        // variable is already defined in parent, copy value
-                        $this->parent->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
-                    } else {
-                        // create variable in parent
-                        $this->parent->tpl_vars[$_key] = clone $_value;
-                    } 
+            if ($scope == ROOT_SCOPE) {
+                if (isset($this->smarty->tpl_vars[$_key])) {
+                    // variable is already defined in root, copy value
+                    $this->smarty->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
+                } else {
+                    // create variable in root
+                    $this->smarty->tpl_vars[$_key] = clone $_value;
                 } 
             } 
         } 

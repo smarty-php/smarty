@@ -35,10 +35,16 @@
 * if not defined, include_path will be used. Sets SMARTY_DIR only if user
 * application has not already defined it.
 */
-
 if (!defined('SMARTY_DIR')) {
     define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
-} 
+}
+
+/**
+* define variable scopes 
+*/
+define('LOCAL_SCOPE',0);
+define('PARENT_SCOPE',1);
+define('ROOT_SCOPE',2);
 
 /**
 * load required base class for creation of the smarty object

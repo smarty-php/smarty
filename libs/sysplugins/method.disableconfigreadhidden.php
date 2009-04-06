@@ -18,7 +18,8 @@
 class Smarty_Method_disableConfigReadHidden extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->config_read_hidden = false;
+        $this->smarty->config_read_hidden = false;
+        return;
     } 
 } 
 

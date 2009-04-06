@@ -18,7 +18,8 @@
 class Smarty_Method_EnableCompileCheck extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->compile_check = true;
+        $this->smarty->compile_check = true;
+        return;
     } 
 } 
 

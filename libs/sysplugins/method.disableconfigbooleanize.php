@@ -18,7 +18,8 @@
 class Smarty_Method_disableConfigBooleanize extends Smarty_Internal_Base {
     public function execute()
     {
-        return $this->smarty->config_booleanize = false;
+        $this->smarty->config_booleanize = false;
+        return;
     } 
 } 
 
