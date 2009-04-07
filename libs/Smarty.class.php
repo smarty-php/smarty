@@ -42,9 +42,9 @@ if (!defined('SMARTY_DIR')) {
 /**
 * define variable scopes 
 */
-define('LOCAL_SCOPE',0);
-define('PARENT_SCOPE',1);
-define('ROOT_SCOPE',2);
+define('SMARTY_LOCAL_SCOPE',0);
+define('SMARTY_PARENT_SCOPE',1);
+define('SMARTY_ROOT_SCOPE',2);
 
 /**
 * load required base class for creation of the smarty object

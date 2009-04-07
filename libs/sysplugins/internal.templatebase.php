@@ -20,21 +20,21 @@ class Smarty_Internal_TemplateBase {
     * @param array $ |string $tpl_var the template variable name(s)
     * @param mixed $value the value to assign
     * @param boolean $nocache if true any output of this variable will be not cached
-    * @param boolean $global if true the variable will have global scope
+    * @param boolean $scope  the scope the variable will have  (local,parent or root)
     */
-    public function assign($tpl_var, $value = null, $nocache = false, $global = false)
+    public function assign($tpl_var, $value = null, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
                 if ($_key != '') {
                     $this->check_tplvar($_key);
-                    $this->tpl_vars[$_key] = new Smarty_variable($_val, $nocache, $global);
+                    $this->tpl_vars[$_key] = new Smarty_variable($_val, $nocache, $scope);
                 } 
             } 
         } else {
             if ($tpl_var != '') {
                 $this->check_tplvar($tpl_var);
-                $this->tpl_vars[$tpl_var] = new Smarty_variable($value, $nocache, $global);
+                $this->tpl_vars[$tpl_var] = new Smarty_variable($value, $nocache, $scope);
             } 
         } 
     } 
@@ -59,13 +59,13 @@ class Smarty_Internal_TemplateBase {
     * @param string $tpl_var the template variable name
     * @param mixed $ &$value the referenced value to assign
     * @param boolean $nocache if true any output of this variable will be not cached
-    * @param boolean $global if true the variable will have global scope
+    * @param boolean $scope  the scope the variable will have  (local,parent or root)
     */
-    public function assign_by_ref($tpl_var, &$value, $nocache = false, $global = false)
+    public function assign_by_ref($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
         if ($tpl_var != '') {
             $this->check_tplvar($tpl_var);
-            $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $global);
+            $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
             $this->tpl_vars[$tpl_var]->value = &$value;
         } 
     } 
@@ -75,8 +75,10 @@ class Smarty_Internal_TemplateBase {
     * @param array $ |string $tpl_var the template variable name(s)
     * @param mixed $value the value to append
     * @param boolean $merge flag if array elements shall be merged
+    * @param boolean $nocache if true any output of this variable will be not cached
+    * @param boolean $scope  the scope the variable will have  (local,parent or root)
     */
-    public function append($tpl_var, $value = null, $merge = false, $nocache = false, $global = false)
+    public function append($tpl_var, $value = null, $merge = false, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
         if (is_array($tpl_var)) {
             // $tpl_var is an array, ignore $value
@@ -84,7 +86,7 @@ class Smarty_Internal_TemplateBase {
                 if ($_key != '') {
                     if (!isset($this->tpl_vars[$_key])) {
                         $this->check_tplvar($_key);
-                        $this->tpl_vars[$_key] = new Smarty_variable(null, $nocache, $global);
+                        $this->tpl_vars[$_key] = new Smarty_variable(null, $nocache, $scope);
                     } 
                     if (!is_array($this->tpl_vars[$_key]->value)) {
                         settype($this->tpl_vars[$_key]->value, 'array');
@@ -102,7 +104,7 @@ class Smarty_Internal_TemplateBase {
             if ($tpl_var != '' && isset($value)) {
                 if (!isset($this->tpl_vars[$tpl_var])) {
                     $this->check_tplvar($tpl_var);
-                    $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $global);
+                    $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
                 } 
                 if (!is_array($this->tpl_vars[$tpl_var]->value)) {
                     settype($this->tpl_vars[$tpl_var]->value, 'array');
@@ -349,19 +351,19 @@ class Smarty_Variable {
     // template variable
     public $value;
     public $nocache;
-    public $global;
+    public $scope;
     /**
     * create Smarty variable object
     * 
     * @param mixed $value the value to assign
     * @param boolean $nocache if true any output of this variable will be not cached
-    * @param boolean $global if true the variable will have global scope
+    * @param boolean $scope  the scope the variable will have  (local,parent or root)
     */
-    public function __construct ($value = null, $nocache = false, $global = false)
+    public function __construct ($value = null, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
         $this->value = $value;
         $this->nocache = $nocache;
-        $this->global = $global;
+        $this->scope = $scope;
     } 
 } 
 

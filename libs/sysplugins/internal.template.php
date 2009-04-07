@@ -89,7 +89,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->caching_type = $this->smarty->default_caching_type;
         $this->security = $this->smarty->security;
         $this->cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($this->caching_type);
-        $this->parent = $_parent; 
+        $this->parent = $_parent;
+        $this->tpl_vars['smarty'] = new Smarty_Variable; 
         // load filter handler if required
         if (!is_object($this->smarty->filter_handler) && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))) {
             $this->smarty->loadPlugin('Smarty_Internal_Run_Filter');
@@ -546,11 +547,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     /**
     * Update Smarty variables in parent variable object
     */
-    public function updateParentVariables ($scope = LOCAL_SCOPE)
+    public function updateParentVariables ($scope = SMARTY_LOCAL_SCOPE)
     {
         foreach ($this->tpl_vars as $_key => $_value) {
             // copy global vars back to parent
-            if (isset($this->parent) && ($scope == PARENT_SCOPE || $this->tpl_vars[$_key]->global)) {
+            if (isset($this->parent) && ($scope == SMARTY_PARENT_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_PARENT_SCOPE)) {
                 if (isset($this->parent->tpl_vars[$_key])) {
                     // variable is already defined in parent, copy value
                     $this->parent->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
@@ -559,7 +560,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                     $this->parent->tpl_vars[$_key] = clone $_value;
                 } 
             } 
-            if ($scope == ROOT_SCOPE) {
+            if ($scope == SMARTY_ROOT_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_ROOT_SCOPE) {
                 if (isset($this->smarty->tpl_vars[$_key])) {
                     // variable is already defined in root, copy value
                     $this->smarty->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
