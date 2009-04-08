@@ -1,3 +1,6 @@
+04/08/2009
+- allow variable object property
+
 04/07/2009
 - changed variable scopes to SMARTY_LOCAL_SCOPE, SMARTY_PARENT_SCOPE, SMARTY_ROOT_SCOPE to avoid possible conflicts with user constants
 - Smarty variable global attribute replaced with scope attribute
