@@ -44,23 +44,14 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         if (0 == preg_match('/(.?)(name=)(.*)/', $matches[2], $_match)) {
             $this->compiler->trigger_template_error("\"" . $matches[0] . "\" missing name attribute");
         } else {
-   
             $_name = trim($_match[3], "\"'");
             if (!isset($this->compiler->template->block_data[$_name])) {
-                // check for smarty possible tags
-                if (strpos($matches[3], $this->smarty->left_delimiter) === false) {
-                    // output as is
-                    $_output = $matches[3];
-                } else {
-                    // tags in $_content will be precompiled and compiled code is returnd
-                    $tpl = $this->smarty->createTemplate('string:' . $matches[3]);
-                    $tpl->suppressHeader = true;
-                    $_output = $tpl->getCompiledTemplate();
-                    $tpl->suppressHeader = false; 
-                    // $_output = '<?php echo $_smarty_tpl->smarty->fetch(\'string:' . addcslashes($_content,"'") . '\', $_smarty_tpl); ? >';
-                } 
+                // compile block content
+                $tpl = $this->smarty->createTemplate('string:' . $matches[3]);
+                $tpl->suppressHeader = true;
+                $this->compiler->template->block_data[$_name]['compiled'] = $tpl->getCompiledTemplate();
                 $this->compiler->template->block_data[$_name]['source'] = $matches[3];
-                $this->compiler->template->block_data[$_name]['compiled'] = $_output;
+                $tpl->suppressHeader = false;
             } 
         } 
     } 
