@@ -1,4 +1,5 @@
 04/09/2009
+- fixed execution of filters defined by classes
 - compile the always the content of {block} tags to make shure that the filters are running over it
 - syntax corrections on variable object property
 - syntax corrections on array access in dot syntax

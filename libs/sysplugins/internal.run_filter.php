@@ -50,8 +50,8 @@ class Smarty_Internal_Run_Filter extends Smarty_Internal_Base {
         } 
         // loop over registerd filters of specified type
         if (!empty($this->smarty->registered_filters[$type])) {
-            foreach ($this->smarty->registered_filters[$type] as $name) {
-                $output = call_user_func_array($this->smarty->registered_filters[$type][$name], array($output, $this->smarty));
+            foreach ($this->smarty->registered_filters[$type] as $key => $name) {
+                $output = call_user_func_array($this->smarty->registered_filters[$type][$key], array($output, $this->smarty));
             } 
         } 
         // return filtered output
