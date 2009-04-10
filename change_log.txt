@@ -1,4 +1,6 @@
 04/10/2009
+- added global variable scope SMARTY_GLOBAL_SCOPE 
+- enable 'variable' filter by default
 - fixed {$smarty.block.parent.foo} 
 - implementation of a 'variable' filter as replacement for default modifier
 

@@ -45,6 +45,7 @@ if (!defined('SMARTY_DIR')) {
 define('SMARTY_LOCAL_SCOPE', 0);
 define('SMARTY_PARENT_SCOPE', 1);
 define('SMARTY_ROOT_SCOPE', 2);
+define('SMARTY_GLOBAL_SCOPE', 3);
 
 /**
 * load required base class for creation of the smarty object
@@ -156,12 +157,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // autoload filter
     public $autoload_filters = array(); 
     // status of filter on variable output
-    public $variable_filter = false; 
+    public $variable_filter = true; 
     // cache resorce objects
     public $cache_resource_objects = array(); 
     // write file object
     public $write_file_object = null; 
-    // global smarty  vars
+    // global internal smarty  vars
     public $_smarty_vars = array(); 
     // start time for execution time calculation
     public $start_time = 0; 

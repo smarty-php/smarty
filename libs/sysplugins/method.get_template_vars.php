@@ -47,6 +47,11 @@ class Smarty_Method_Get_Template_Vars extends Smarty_Internal_Base {
                     $_ptr = null;
                 } 
             } 
+            if ($search_parents) {
+                foreach ($this->smarty->global_tpl_vars AS $key => $var) {
+                    $_result[$key] = $var->value;
+                } 
+            } 
             return $_result;
         } 
     } 

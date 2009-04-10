@@ -193,7 +193,8 @@ class Smarty_Internal_TemplateBase {
     {
         if ($_ptr === null) {
             $_ptr = $this;
-        } while ($_ptr !== null) {
+        } 
+        while ($_ptr !== null) {
             if (isset($_ptr->tpl_vars[$variable])) {
                 // found it, return it
                 return $_ptr->tpl_vars[$variable];
@@ -204,6 +205,11 @@ class Smarty_Internal_TemplateBase {
             } else {
                 $_ptr = null;
             } 
+        } 
+        $_ptr = Smarty::instance();
+        if (isset($_ptr->global_tpl_vars[$variable])) {
+            // found it, return it
+            return $_ptr->global_tpl_vars[$variable];
         } 
         if (Smarty::$error_unassigned) {
             throw new Exception('Undefined Smarty variable "' . $variable . '"');

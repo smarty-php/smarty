@@ -553,16 +553,33 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 } else {
                     // create variable in parent
                     $this->parent->tpl_vars[$_key] = clone $_value;
+                    $this->smarty->tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
                 } 
             } 
             if ($scope == SMARTY_ROOT_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_ROOT_SCOPE) {
-                if (isset($this->smarty->tpl_vars[$_key])) {
+                $_ptr = $this; 
+                // find  root
+                while ($_ptr->parent != null) {
+                    $_ptr = $_ptr->parent;
+                } 
+                if (isset($_ptr->tpl_vars[$_key])) {
                     // variable is already defined in root, copy value
-                    $this->smarty->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
+                    $_ptr->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
                 } else {
                     // create variable in root
-                    $this->smarty->tpl_vars[$_key] = clone $_value;
+                    $_ptr->tpl_vars[$_key] = clone $_value;
+                    $_ptr->tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
                 } 
+            } 
+            if ($scope == SMARTY_GLOBAL_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_GLOBAL_SCOPE) {
+                if (isset($this->smarty->global_tpl_vars[$_key])) {
+                    // variable is already defined in root, copy value
+                    $this->smarty->global_tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
+                } else {
+                    // create variable in root
+                    $this->smarty->global_tpl_vars[$_key] = clone $_value;
+                } 
+                $this->smarty->global_tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
             } 
         } 
     } 

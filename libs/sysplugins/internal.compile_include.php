@@ -40,6 +40,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_parent_scope = SMARTY_PARENT_SCOPE;
             } elseif ($_attr['scope'] == '\'root\'') {
                 $_parent_scope = SMARTY_ROOT_SCOPE;
+            } elseif ($_attr['scope'] == '\'global\'') {
+                $_parent_scope = SMARTY_GLOBAL_SCOPE;
             } 
         } 
 
