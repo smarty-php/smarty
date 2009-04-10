@@ -83,8 +83,8 @@ class Smarty_Internal_Compile_Smarty extends Smarty_Internal_CompileBase {
             case 'global':
                 return "\$_smarty_tpl->smarty->getGlobalVariable($_index[1])->value";
             case 'block':
-                if ($_index[2] == '\'parent\'') {
-                    return "'" . addcslashes($compiler->template->block_data[trim($_index[1], "'")]['source'], "'") . "'";
+                if ($_index[1] == '\'parent\'') {
+                    return "'" . addcslashes($compiler->template->block_data[trim($_index[2], "'")]['source'], "'") . "'";
                 } else {
                     return "''";
                 } 
