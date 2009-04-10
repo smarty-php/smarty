@@ -1,30 +1,36 @@
 <?php
 /**
- * Smarty plugin
- * @package Smarty
- * @subpackage PluginsModifier
- */
-
+* Smarty plugin
+* 
+* @package Smarty
+* @subpackage PluginsModifier
+*/
 
 /**
- * Smarty strip modifier plugin
- *
- * Type:     modifier<br>
- * Name:     strip<br>
- * Purpose:  Replace all repeated spaces, newlines, tabs
- *           with a single space or supplied replacement string.<br>
- * Example:  {$var|strip} {$var|strip:"&nbsp;"}
- * Date:     September 25th, 2002
- * @link http://smarty.php.net/manual/en/language.modifier.strip.php
- *          strip (Smarty online manual)
- * @author   Monte Ohrt <monte at ohrt dot com>
- * @version  1.0
- * @param string
- * @param string
- * @return string
- */
+* Smarty strip modifier plugin
+* 
+* Type:     modifier<br>
+* Name:     strip<br>
+* Purpose:  Replace all repeated spaces, newlines, tabs
+*            with a single space or supplied replacement string.<br>
+* Example:  {$var|strip} {$var|strip:"&nbsp;"}
+* Date:     September 25th, 2002
+* 
+* @link http://smarty.php.net/manual/en/language.modifier.strip.php strip (Smarty online manual)
+* @author Monte Ohrt <monte at ohrt dot com> 
+* @version 1.0
+* @param string $ 
+* @param string $ 
+* @return string 
+*/
 function smarty_modifier_strip($text, $replace = ' ')
 {
-    return mb_ereg_replace('!\s+!', $replace, $text,'p');
-}
+    $smarty = Smarty::instance();
+    if ($smarty->has_mb) {
+        return mb_ereg_replace('!\s+!', $replace, $text, 'p');
+    } else {
+        return ereg_replace('!\s+!', $replace, $text, 'p');
+    } 
+} 
+
 ?>

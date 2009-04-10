@@ -38,7 +38,12 @@ function smarty_modifier_replace($string, $search, $replace)
             return $haystack;
         } 
     } 
-    return mb_str_replace($search, $replace, $string);
+    $smarty = Smarty::instance();
+    if ($smarty->has_mb) {
+        return mb_str_replace($search, $replace, $string);
+    } else {
+        return str_replace($search, $replace, $string);
+    } 
 } 
 
 ?>

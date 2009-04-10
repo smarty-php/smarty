@@ -1,26 +1,31 @@
 <?php
 /**
- * Smarty plugin
- * @package Smarty
- * @subpackage PluginsModifier
- */
-
+* Smarty plugin
+* 
+* @package Smarty
+* @subpackage PluginsModifier
+*/
 
 /**
- * Smarty upper modifier plugin
- *
- * Type:     modifier<br>
- * Name:     upper<br>
- * Purpose:  convert string to uppercase
- * @link http://smarty.php.net/manual/en/language.modifier.upper.php
- *          upper (Smarty online manual)
- * @author   Monte Ohrt <monte at ohrt dot com>
- * @param string
- * @return string
- */
+* Smarty upper modifier plugin
+* 
+* Type:     modifier<br>
+* Name:     upper<br>
+* Purpose:  convert string to uppercase
+* 
+* @link http://smarty.php.net/manual/en/language.modifier.upper.php upper (Smarty online manual)
+* @author Monte Ohrt <monte at ohrt dot com> 
+* @param string $ 
+* @return string 
+*/
 function smarty_modifier_upper($string)
 {
-    return mb_strtoupper($string);
-}
+    $smarty = Smarty::instance();
+    if ($smarty->has_mb) {
+        return mb_strtoupper($string);
+    } else {
+        return strtoupper($string);
+    } 
+} 
 
 ?>
