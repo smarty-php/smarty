@@ -37,14 +37,14 @@
 */
 if (!defined('SMARTY_DIR')) {
     define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
-}
+} 
 
 /**
-* define variable scopes 
+* define variable scopes
 */
-define('SMARTY_LOCAL_SCOPE',0);
-define('SMARTY_PARENT_SCOPE',1);
-define('SMARTY_ROOT_SCOPE',2);
+define('SMARTY_LOCAL_SCOPE', 0);
+define('SMARTY_PARENT_SCOPE', 1);
+define('SMARTY_ROOT_SCOPE', 2);
 
 /**
 * load required base class for creation of the smarty object
@@ -62,7 +62,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // display error on not assigned variabled
     static $error_unassigned = false; 
     // template directory
-    public $template_dir = null;
+    public $template_dir = null; 
     // default template handler
     public $default_template_handler_func = null; 
     // compile directory
@@ -110,7 +110,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.      
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.       
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -137,8 +137,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $exception_handler = array('SmartyException', 'getStaticException'); 
     // cached template objects
     static $template_objects = null; 
-    // autoload filter
-    public $autoload_filters = array(); 
     // check If-Modified-Since headers
     public $cache_modified_check = false; 
     // registered plugins
@@ -155,6 +153,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $registered_filters = array(); 
     // filter handler
     public $filter_handler = null; 
+    // autoload filter
+    public $autoload_filters = array(); 
+    // status of filter on variable output
+    public $variable_filter = false; 
     // cache resorce objects
     public $cache_resource_objects = array(); 
     // write file object
@@ -162,7 +164,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // global smarty  vars
     public $_smarty_vars = array(); 
     // start time for execution time calculation
-    public $start_time = 0;
+    public $start_time = 0; 
     // set default time zone
     public $set_timezone = true;
     /**
@@ -194,6 +196,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $this->loadPlugin($this->template_class);
         $this->loadPlugin('Smarty_Internal_Plugin_Handler');
         $this->plugin_handler = new Smarty_Internal_Plugin_Handler;
+        $this->loadPlugin('Smarty_Internal_Run_Filter');
+        $this->filter_handler = new Smarty_Internal_Run_Filter;
+
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
             $_query_string = $this->request_use_auto_globals ? isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING']:'' : isset($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING']) ? $GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING']:'';
             if (false !== strpos($_query_string, $this->smarty_debug_id)) {

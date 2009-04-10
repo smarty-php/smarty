@@ -32,10 +32,6 @@ class Smarty_Internal_Compiler extends Smarty_Internal_Base {
         $this->smarty->loadPlugin($parser_class);
         $this->lexer_class = $lexer_class;
         $this->parser_class = $parser_class;
-        if (!is_object($this->smarty->filter_handler) && (isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre']) || isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post']))) {
-            $this->smarty->loadPlugin('Smarty_Internal_Run_Filter');
-            $this->smarty->filter_handler = new Smarty_Internal_Run_Filter;
-        } 
     } 
 
     /**

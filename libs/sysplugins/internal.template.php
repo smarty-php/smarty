@@ -91,11 +91,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($this->caching_type);
         $this->parent = $_parent;
         $this->tpl_vars['smarty'] = new Smarty_Variable; 
-        // load filter handler if required
-        if (!is_object($this->smarty->filter_handler) && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))) {
-            $this->smarty->loadPlugin('Smarty_Internal_Run_Filter');
-            $this->smarty->filter_handler = new Smarty_Internal_Run_Filter;
-        } 
         // Template resource
         $this->template_resource = $template_resource; 
         // parse resource name

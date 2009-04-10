@@ -25,12 +25,12 @@ class Smarty_Method_Load_Filter extends Smarty_Internal_Base {
     */
     function execute($type, $name)
     {
-        $_plugin = "Smarty_{$type}filter_{$name}";
+        $_plugin = "smarty_{$type}filter_{$name}";
         $_filter_name = $_plugin;
         if ($this->smarty->loadPlugin($_plugin)) {
             if (class_exists($_plugin, false)) {
                 $_plugin = array($_plugin, 'execute');
-            } 
+            }
             if (is_callable($_plugin)) {
                 $this->smarty->registered_filters[$type][$_filter_name] = $_plugin;
                 return;

@@ -21,9 +21,9 @@ class Smarty_Internal_Compile_Print_Expression extends Smarty_Internal_CompileBa
     */
     public function compile($args, $compiler)
     {
-        $this->compiler = $compiler; 
+        $this->compiler = $compiler;
         $this->required_attributes = array('value');
-        $this->optional_attributes = array('assign','nocache'); 
+        $this->optional_attributes = array('assign', 'nocache', 'filter'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
@@ -33,13 +33,17 @@ class Smarty_Internal_Compile_Print_Expression extends Smarty_Internal_CompileBa
             } 
         } 
 
+        if (!isset($_attr['filter'])) {
+            $_attr['filter'] = 'null';
+        } 
+
         if (isset($_attr['assign'])) {
             // assign output to variable
             $output = '<?php $_smarty_tpl->assign(' . $_attr['assign'] . ',' . $_attr['value'] . ');?>';
         } else {
             // display value
             $this->compiler->has_output = true;
-            $output = '<?php echo ' . $_attr['value'] . ';?>';
+            $output = '<?php echo $this->smarty->filter_handler->execute(\'variable\', ' . $_attr['value'] . ',' . $_attr['filter'] . ');?>';
         } 
         return $output;
     } 
