@@ -166,8 +166,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $_smarty_vars = array(); 
     // start time for execution time calculation
     public $start_time = 0; 
-    // set default time zone
-    public $set_timezone = true; 
     // has multibyte string functions?
     public $has_mb = false;
     /**
@@ -179,7 +177,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             $this->has_mb = true;
             mb_internal_encoding($this->resource_char_set);
         } 
-        if ($this->set_timezone and function_exists("date_default_timezone_set") and function_exists("date_default_timezone_get")) {
+        if (function_exists("date_default_timezone_set")) {
             date_default_timezone_set(date_default_timezone_get());
         } 
         $this->start_time = $this->_get_time(); 

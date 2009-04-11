@@ -26,7 +26,9 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         $this->required_attributes = array('file'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
-        $include_file = trim($_attr['file'], "'"); 
+        $_smarty_tpl = $compiler->template;
+//        $include_file = '';
+        eval('$include_file = '.$_attr['file'].';'); 
         // create template object
         $_template = new Smarty_Template ($include_file, $compiler->template); 
         // save file dependency

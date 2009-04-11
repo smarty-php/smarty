@@ -49,7 +49,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
         if (strlen($string) > $length) {
             $length -= min($length, strlen($etc));
             if (!$break_words && !$middle) {
-                $string = ereg_replace('/\s+?(\S+)?$/', '', substr($string, 0, $length + 1), 'p');
+                $string = preg_replace('/\s+?(\S+)?$/', '', substr($string, 0, $length + 1));
             } 
             if (!$middle) {
                 return substr($string, 0, $length) . $etc;

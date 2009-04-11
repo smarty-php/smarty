@@ -1,3 +1,7 @@
+04/11/2009
+- fixed variables in 'file' attribute of {extend} tag
+- fixed problems in modifiers (if mb string functions not present)
+
 04/10/2009
 - check if mb string functions available otherwise fallback to normal string functions
 - added global variable scope SMARTY_GLOBAL_SCOPE 

@@ -29,7 +29,7 @@ function smarty_modifier_strip($text, $replace = ' ')
     if ($smarty->has_mb) {
         return mb_ereg_replace('!\s+!', $replace, $text, 'p');
     } else {
-        return ereg_replace('!\s+!', $replace, $text, 'p');
+        return preg_replace('!\s+!', $replace, $text);
     } 
 } 
 
