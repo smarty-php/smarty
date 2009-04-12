@@ -27,8 +27,8 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
         $_smarty_tpl = $compiler->template;
-//        $include_file = '';
-        eval('$include_file = '.$_attr['file'].';'); 
+        // $include_file = '';
+        eval('$include_file = ' . $_attr['file'] . ';'); 
         // create template object
         $_template = new Smarty_Template ($include_file, $compiler->template); 
         // save file dependency
@@ -43,17 +43,25 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
 
     protected function saveBlockData(array $matches)
     {
-        if (0 == preg_match('/(.?)(name=)(.*)/', $matches[2], $_match)) {
+        if (0 == preg_match('/(.?)(name=)([^ ]*)/', $matches[2], $_match)) {
             $this->compiler->trigger_template_error("\"" . $matches[0] . "\" missing name attribute");
         } else {
+            // compile block content
+            $tpl = $this->smarty->createTemplate('string:' . $matches[3]);
+            $tpl->suppressHeader = true;
+            $compiled_content = $tpl->getCompiledTemplate();
+            $tpl->suppressHeader = false;
             $_name = trim($_match[3], "\"'");
-            if (!isset($this->compiler->template->block_data[$_name])) {
-                // compile block content
-                $tpl = $this->smarty->createTemplate('string:' . $matches[3]);
-                $tpl->suppressHeader = true;
-                $this->compiler->template->block_data[$_name]['compiled'] = $tpl->getCompiledTemplate();
+
+            if (preg_match('/(.?)(append=true)(.*)/', $matches[2], $_match) != 0) {
+                $this->compiler->template->block_data[$_name]['compiled'] .= $compiled_content;
+                $this->compiler->template->block_data[$_name]['source'] .= $matches[3];
+            } elseif (preg_match('/(.?)(prepend=true)(.*)/', $matches[2], $_match) != 0) {
+                $this->compiler->template->block_data[$_name]['compiled'] = $compiled_content . $this->compiler->template->block_data[$_name]['compiled'];
+                $this->compiler->template->block_data[$_name]['source'] = $matches[3] . $this->compiler->template->block_data[$_name]['source'];
+            } elseif (!isset($this->compiler->template->block_data[$_name])) {
+                $this->compiler->template->block_data[$_name]['compiled'] = $compiled_content;
                 $this->compiler->template->block_data[$_name]['source'] = $matches[3];
-                $tpl->suppressHeader = false;
             } 
         } 
     } 

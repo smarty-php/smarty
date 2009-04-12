@@ -1,3 +1,6 @@
+04/12/2009
+- added append and prepend attribute to {block} tag
+
 04/11/2009
 - fixed variables in 'file' attribute of {extend} tag
 - fixed problems in modifiers (if mb string functions not present)
