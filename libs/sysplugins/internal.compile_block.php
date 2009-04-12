@@ -23,7 +23,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
     {
         $this->compiler = $compiler;
         $this->required_attributes = array('name');
-        $this->optional_attributes = array('assign','append','prepend'); 
+        $this->optional_attributes = array('assign'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
         $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code); 
