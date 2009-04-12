@@ -1,3 +1,7 @@
+04/13/2009
+- fixed scope problem with parent variables when appending variables within templates.
+- fixed code for {block} without childs (possible sources for notice errors removed)
+
 04/12/2009
 - added append and prepend attribute to {block} tag
 

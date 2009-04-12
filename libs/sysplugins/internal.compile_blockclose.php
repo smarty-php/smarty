@@ -34,12 +34,14 @@ class Smarty_Internal_Compile_BlockClose extends Smarty_Internal_CompileBase {
             $this->compiler->trigger_template_error('mismatching name attributes "' . $saved_data[0]['name'] . '" and "' . $_attr['name'] . '"');
         } 
         $_name = trim($saved_data[0]['name'], "'");
-        if ($compiler->template->block_data[$_name]['mode'] == 'prepend') {
-            $_output = $compiler->template->block_data[$_name]['compiled'].$compiler->template->extracted_compiled_code;
-        } elseif ($compiler->template->block_data[$_name]['mode'] == 'append') {
-            $_output = $compiler->template->extracted_compiled_code.$compiler->template->block_data[$_name]['compiled'];
-        } elseif (!empty($compiler->template->block_data[$_name])) {
-            $_output = $compiler->template->block_data[$_name]['compiled'];
+        if (isset($compiler->template->block_data[$_name])) {
+            if ($compiler->template->block_data[$_name]['mode'] == 'prepend') {
+                $_output = $compiler->template->block_data[$_name]['compiled'] . $compiler->template->extracted_compiled_code;
+            } elseif ($compiler->template->block_data[$_name]['mode'] == 'append') {
+                $_output = $compiler->template->extracted_compiled_code . $compiler->template->block_data[$_name]['compiled'];
+            } elseif (!empty($compiler->template->block_data[$_name])) {
+                $_output = $compiler->template->block_data[$_name]['compiled'];
+            } 
         } else {
             $_output = $compiler->template->extracted_compiled_code;
         } 

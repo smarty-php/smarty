@@ -53,25 +53,29 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
             $tpl->suppressHeader = false;
             $_name = trim($_match[3], "\"'");
 
-            if ($this->compiler->template->block_data[$_name]['mode'] == 'prepend') {
-                $this->compiler->template->block_data[$_name]['compiled'] .= $compiled_content;
-                $this->compiler->template->block_data[$_name]['source'] .= $matches[3];
-            } elseif ($this->compiler->template->block_data[$_name]['mode'] == 'append') {
-                $this->compiler->template->block_data[$_name]['compiled'] = $compiled_content . $this->compiler->template->block_data[$_name]['compiled'];
-                $this->compiler->template->block_data[$_name]['source'] = $matches[3] . $this->compiler->template->block_data[$_name]['source'];
-            } elseif (!isset($this->compiler->template->block_data[$_name])) {
+            if (isset($this->compiler->template->block_data[$_name])) {
+                if ($this->compiler->template->block_data[$_name]['mode'] == 'prepend') {
+                    $this->compiler->template->block_data[$_name]['compiled'] .= $compiled_content;
+                    $this->compiler->template->block_data[$_name]['source'] .= $matches[3];
+                } elseif ($this->compiler->template->block_data[$_name]['mode'] == 'append') {
+                    $this->compiler->template->block_data[$_name]['compiled'] = $compiled_content . $this->compiler->template->block_data[$_name]['compiled'];
+                    $this->compiler->template->block_data[$_name]['source'] = $matches[3] . $this->compiler->template->block_data[$_name]['source'];
+                } 
+            } else {
                 $this->compiler->template->block_data[$_name]['compiled'] = $compiled_content;
                 $this->compiler->template->block_data[$_name]['source'] = $matches[3];
             } 
-            if ($this->compiler->template->block_data[$_name]['mode'] != 'replace') {
-                if (preg_match('/(.?)(append=true)(.*)/', $matches[2], $_match) != 0) {
-                    $this->compiler->template->block_data[$_name]['mode'] = 'append';
-                } elseif (preg_match('/(.?)(prepend=true)(.*)/', $matches[2], $_match) != 0) {
-                    $this->compiler->template->block_data[$_name]['mode'] = 'prepend';
-                } else {
-                    $this->compiler->template->block_data[$_name]['mode'] = 'replace';
+            if (isset($this->compiler->template->block_data[$_name]['mode'])) {
+                if ($this->compiler->template->block_data[$_name]['mode'] != 'replace') {
+                    if (preg_match('/(.?)(append=true)(.*)/', $matches[2], $_match) != 0) {
+                        $this->compiler->template->block_data[$_name]['mode'] = 'append';
+                    } elseif (preg_match('/(.?)(prepend=true)(.*)/', $matches[2], $_match) != 0) {
+                        $this->compiler->template->block_data[$_name]['mode'] = 'prepend';
+                    } 
                 } 
-            }
+            } else {
+                $this->compiler->template->block_data[$_name]['mode'] = 'replace';
+            } 
         } 
     } 
 } 

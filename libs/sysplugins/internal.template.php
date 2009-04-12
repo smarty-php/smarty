@@ -521,7 +521,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             $_filepath = $_template_dir . $file;
             if (file_exists($_filepath))
                 return $_filepath;
-        } 
+        }
         if (file_exists($file)) return $file; 
         // no tpl file found
         if (!empty($this->smarty->default_template_handler_func)) {

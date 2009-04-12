@@ -20,7 +20,7 @@ class Smarty_Internal_TemplateBase {
     * @param array $ |string $tpl_var the template variable name(s)
     * @param mixed $value the value to assign
     * @param boolean $nocache if true any output of this variable will be not cached
-    * @param boolean $scope  the scope the variable will have  (local,parent or root)
+    * @param boolean $scope the scope the variable will have  (local,parent or root)
     */
     public function assign($tpl_var, $value = null, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
@@ -59,7 +59,7 @@ class Smarty_Internal_TemplateBase {
     * @param string $tpl_var the template variable name
     * @param mixed $ &$value the referenced value to assign
     * @param boolean $nocache if true any output of this variable will be not cached
-    * @param boolean $scope  the scope the variable will have  (local,parent or root)
+    * @param boolean $scope the scope the variable will have  (local,parent or root)
     */
     public function assign_by_ref($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
@@ -76,7 +76,7 @@ class Smarty_Internal_TemplateBase {
     * @param mixed $value the value to append
     * @param boolean $merge flag if array elements shall be merged
     * @param boolean $nocache if true any output of this variable will be not cached
-    * @param boolean $scope  the scope the variable will have  (local,parent or root)
+    * @param boolean $scope the scope the variable will have  (local,parent or root)
     */
     public function append($tpl_var, $value = null, $merge = false, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
@@ -86,9 +86,17 @@ class Smarty_Internal_TemplateBase {
                 if ($_key != '') {
                     if (!isset($this->tpl_vars[$_key])) {
                         $this->check_tplvar($_key);
-                        $this->tpl_vars[$_key] = new Smarty_variable(null, $nocache, $scope);
+                        $tpl_var_inst = $this->getVariable($_key, null, true, false);
+                        if ($tpl_var_inst instanceof Undefined_Smarty_Variable) {
+                            $this->tpl_vars[$_key] = new Smarty_variable(null, $nocache, $scope);
+                        } else {
+                            $this->tpl_vars[$_key] = clone $tpl_var_inst;
+                            if ($scope != SMARTY_LOCAL_SCOPE) {
+                                $this->tpl_vars[$_key]->scope = $scope;
+                            } 
+                        } 
                     } 
-                    if (!is_array($this->tpl_vars[$_key]->value)) {
+                    if (!(is_array($this->tpl_vars[$_key]->value) || $this->tpl_vars[$_key]->value instanceof ArrayAccess)) {
                         settype($this->tpl_vars[$_key]->value, 'array');
                     } 
                     if ($merge && is_array($_val)) {
@@ -104,9 +112,17 @@ class Smarty_Internal_TemplateBase {
             if ($tpl_var != '' && isset($value)) {
                 if (!isset($this->tpl_vars[$tpl_var])) {
                     $this->check_tplvar($tpl_var);
-                    $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
+                    $tpl_var_inst = $this->getVariable($tpl_var, null, true, false);
+                    if ($tpl_var_inst instanceof Undefined_Smarty_Variable) {
+                        $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
+                    } else {
+                        $this->tpl_vars[$tpl_var] = clone $tpl_var_inst;
+                        if ($scope != SMARTY_LOCAL_SCOPE) {
+                            $this->tpl_vars[$tpl_var]->scope = $scope;
+                        } 
+                    } 
                 } 
-                if (!is_array($this->tpl_vars[$tpl_var]->value)) {
+                if (!(is_array($this->tpl_vars[$tpl_var]->value) || $this->tpl_vars[$tpl_var]->value instanceof ArrayAccess)) {
                     settype($this->tpl_vars[$tpl_var]->value, 'array');
                 } 
                 if ($merge && is_array($value)) {
@@ -119,6 +135,7 @@ class Smarty_Internal_TemplateBase {
             } 
         } 
     } 
+
     /**
     * appends values to template variables by reference
     * 
@@ -189,12 +206,11 @@ class Smarty_Internal_TemplateBase {
     * @param boolean $search_parents search also in parent data
     * @return object the object of the variable
     */
-    public function getVariable($variable, $_ptr = null, $search_parents = true)
+    public function getVariable($variable, $_ptr = null, $search_parents = true, $error_enable = true)
     {
         if ($_ptr === null) {
             $_ptr = $this;
-        } 
-        while ($_ptr !== null) {
+        } while ($_ptr !== null) {
             if (isset($_ptr->tpl_vars[$variable])) {
                 // found it, return it
                 return $_ptr->tpl_vars[$variable];
@@ -211,7 +227,7 @@ class Smarty_Internal_TemplateBase {
             // found it, return it
             return $_ptr->global_tpl_vars[$variable];
         } 
-        if (Smarty::$error_unassigned) {
+        if (Smarty::$error_unassigned && $error_enable) {
             throw new Exception('Undefined Smarty variable "' . $variable . '"');
         } else {
             return new Undefined_Smarty_Variable;
@@ -297,8 +313,8 @@ class Smarty_Internal_TemplateBase {
     * @returns string a unique template id
     */
     public function buildTemplateId ($_resource, $_cache_id, $_compile_id)
-    {
-//        return md5($_resource . md5($_cache_id) . md5($_compile_id));
+    { 
+        // return md5($_resource . md5($_cache_id) . md5($_compile_id));
         return crc32($_resource . $_cache_id . $_compile_id);
     } 
 
@@ -329,7 +345,6 @@ class Smarty_Data extends Smarty_Internal_TemplateBase {
     public $parent = null; 
     // config vars
     public $config_vars = array();
-
     /**
     * create Smarty data object
     */
@@ -363,7 +378,7 @@ class Smarty_Variable {
     * 
     * @param mixed $value the value to assign
     * @param boolean $nocache if true any output of this variable will be not cached
-    * @param boolean $scope  the scope the variable will have  (local,parent or root)
+    * @param boolean $scope the scope the variable will have  (local,parent or root)
     */
     public function __construct ($value = null, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
