@@ -65,6 +65,13 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_caching = 'true';
             } 
         } 
+
+        if ($this->compiler->tag_nocache == false) {
+            // save file dependency
+            $_template = new Smarty_Template (trim($include_file,'\''));
+            $compiler->template->file_dependency['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
+            unset ($_template);
+        } 
         // create template object
         $_output = "<?php \$_template = new Smarty_Template ($include_file, \$_smarty_tpl);"; 
         // delete {include} standard attributes
@@ -91,9 +98,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         } 
         // was there an assign attribute
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template)); ?>";
+            $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template, null, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id)); ?>";
         } else {
-            $_output .= "echo \$_smarty_tpl->smarty->fetch(\$_template); ?>";
+            $_output .= "echo \$_smarty_tpl->smarty->fetch(\$_template, null, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id); ?>";
         } 
         if ($_parent_scope != '0') {
             $_output .= "<?php \$_template->updateParentVariables($_parent_scope); ?>";

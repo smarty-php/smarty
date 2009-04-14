@@ -134,7 +134,7 @@ class Smarty_Internal_Config extends Smarty_Internal_Base {
     } 
     public function buildCompiledFilepath()
     {
-        $_filepath = md5($this->config_resource_name); 
+        $_filepath  = (string)abs(crc32($this->config_resource_name)); 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 3) . DIRECTORY_SEPARATOR

@@ -201,10 +201,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 $this->compiled_template = !$this->isEvaluated() ? file_get_contents($this->getCompiledFilepath()):'';
                 $found = preg_match('~\<\?php /\*(.*)\*/ \?\>~', $this->compiled_template, $matches);
                 if ($found) {
-                    $this->file_dependency_string = $matches[0] . "\n";
-                    $tmp = unserialize($matches[1]);
-                    if (!empty($tmp)) {
-                        foreach ($tmp['file_dependency'] as $file_to_check) {
+                    $this->file_dependency = unserialize($matches[1]);
+                    if (!empty($this->file_dependency)) {
+                        foreach ($this->file_dependency['file_dependency'] as $file_to_check) {
                             If (filemtime($file_to_check[0]) != $file_to_check[1]) {
                                 $this->mustCompile = true;
                                 return $this->mustCompile;
@@ -344,8 +343,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     * Writes the cached template output
     */
     public function writeCachedContent ()
-    {
-        $this->rendered_content = $this->dir_acc_sec_string . $this->rendered_content;
+    { 
+        // build file dependency string
+        $this->file_dependency_string = '<?php /*' . serialize($this->file_dependency) . "*/ ?>\n";
+        $this->rendered_content = $this->file_dependency_string . $this->dir_acc_sec_string . $this->rendered_content;
         return ($this->isEvaluated() || !$this->caching) ? false : $this->cacher_object->writeCachedContent($this);
     } 
 
@@ -360,52 +361,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         if ($this->isCached === null) {
             $this->isCached = false;
-            if ($this->caching) {
-                if (!$this->mustCompile() && !$this->isEvaluated() && $this->getTemplateTimestamp() <= $this->getCachedTimestamp() && ((time() <= $this->getCachedTimestamp() + $this->caching_lifetime) || $this->caching_lifetime < 0)) {
+            if ($this->caching && !$this->isEvaluated()) {
+                if (!$this->mustCompile() && $this->getTemplateTimestamp() <= $this->getCachedTimestamp() && ((time() <= $this->getCachedTimestamp() + $this->caching_lifetime) || $this->caching_lifetime < 0)) {
                     $this->rendered_content = $this->cacher_object->getCachedContents($this);
                     $this->isCached = true;
                 } 
             } 
         } 
         return $this->isCached;
-    } 
-
-    /**
-    * Returns the rendered HTML output 
-    * 
-    * If the cache is valid the cached content is used, otherwise
-    * the output is rendered from the compiled template or PHP template source
-    * 
-    * @return string rendered HTML output
-    */
-    public function getRenderedTemplate ()
-    { 
-        // disable caching for evaluated code
-        if ($this->isEvaluated()) {
-            $this->caching = false;
-        } 
-        // checks if template exists
-        $this->getTemplateFilepath(); 
-        // read from cache or render
-        if ($this->rendered_content === null && !$this->isCached()) {
-            // render template (not loaded and not in cache)
-            $this->renderTemplate();
-        } 
-        if ($this->caching && $this->usesCompiler()) {
-            // cached output could contain nocache code
-            $_start_time = $this->_get_time();
-            $_smarty_tpl = $this;
-            ob_start();
-            eval("?>" . $this->rendered_content);
-            $this->updateParentVariables();
-            $this->cache_time = $this->_get_time() - $_start_time;
-            return (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))?
-            $this->smarty->filter_handler->execute('output', ob_get_clean()) : ob_get_clean();
-        } else {
-            $this->updateParentVariables();
-            return (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))?
-            $this->smarty->filter_handler->execute('output', $this->rendered_content) : $this->rendered_content;
-        } 
     } 
 
     /**
@@ -456,6 +419,44 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         if (!$this->isEvaluated() && $this->caching) {
             // write rendered template
             $this->writeCachedContent($this);
+        } 
+    } 
+
+    /**
+    * Returns the rendered HTML output 
+    * 
+    * If the cache is valid the cached content is used, otherwise
+    * the output is rendered from the compiled template or PHP template source
+    * 
+    * @return string rendered HTML output
+    */
+    public function getRenderedTemplate ()
+    { 
+        // disable caching for evaluated code
+        if ($this->isEvaluated()) {
+            $this->caching = false;
+        } 
+        // checks if template exists
+        $this->getTemplateFilepath(); 
+        // read from cache or render
+        if ($this->rendered_content === null && !$this->isCached()) {
+            // render template (not loaded and not in cache)
+            $this->renderTemplate();
+        } 
+        if ($this->caching && $this->usesCompiler()) {
+            // cached output could contain nocache code
+            $_start_time = $this->_get_time();
+            $_smarty_tpl = $this;
+            ob_start();
+            eval("?>" . $this->rendered_content);
+            $this->updateParentVariables();
+            $this->cache_time = $this->_get_time() - $_start_time;
+            return (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))?
+            $this->smarty->filter_handler->execute('output', ob_get_clean()) : ob_get_clean();
+        } else {
+            $this->updateParentVariables();
+            return (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))?
+            $this->smarty->filter_handler->execute('output', $this->rendered_content) : $this->rendered_content;
         } 
     } 
 
@@ -521,7 +522,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             $_filepath = $_template_dir . $file;
             if (file_exists($_filepath))
                 return $_filepath;
-        }
+        } 
         if (file_exists($file)) return $file; 
         // no tpl file found
         if (!empty($this->smarty->default_template_handler_func)) {
