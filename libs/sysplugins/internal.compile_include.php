@@ -98,7 +98,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         } 
         // was there an assign attribute
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template); ?>";
+            $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template)); ?>";
         } else {
             $_output .= "echo \$_smarty_tpl->smarty->fetch(\$_template); ?>";
         } 
