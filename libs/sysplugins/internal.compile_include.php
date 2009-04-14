@@ -73,7 +73,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             unset ($_template);
         } 
         // create template object
-        $_output = "<?php \$_template = new Smarty_Template ($include_file, \$_smarty_tpl);"; 
+        $_output = "<?php \$_template = new Smarty_Template ($include_file, \$_smarty_tpl, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id);"; 
         // delete {include} standard attributes
         unset($_attr['file'], $_attr['assign'], $_attr['caching_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope']); 
         // remaining attributes must be assigned as smarty variable
@@ -98,11 +98,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         } 
         // was there an assign attribute
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template, null, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id)); ?>";
+            $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template); ?>";
         } else {
-            $_output .= "echo \$_smarty_tpl->smarty->fetch(\$_template, null, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id); ?>";
+            $_output .= "echo \$_smarty_tpl->smarty->fetch(\$_template); ?>";
         } 
-        if ($_parent_scope != '0') {
+        if ($_parent_scope != SMARTY_LOCAL_SCOPE) {
             $_output .= "<?php \$_template->updateParentVariables($_parent_scope); ?>";
         } 
         return $_output;
