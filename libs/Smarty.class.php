@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.         
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.          
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -173,6 +173,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function __construct()
     {
+        // set instance object
+        self::instance($this); 
+
         if (is_callable('mb_internal_encoding')) {
             $this->has_mb = true;
             mb_internal_encoding($this->resource_char_set);
@@ -185,15 +188,13 @@ class Smarty extends Smarty_Internal_TemplateBase {
         if (!empty($this->exception_handler))
             set_exception_handler($this->exception_handler); 
         // set default dirs
-        $this->template_dir = '.' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+        $this->template_dir = array('.' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR);
         $this->compile_dir = '.' . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR;
         $this->plugins_dir = array(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR);
         $this->cache_dir = '.' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR;
         $this->config_dir = '.' . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR;
         $this->sysplugins_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR;
         $this->debug_tpl = SMARTY_DIR . 'debug.tpl'; 
-        // set instance object
-        self::instance($this); 
         // load base plugins
         $this->loadPlugin('Smarty_Internal_Base');
         $this->loadPlugin('Smarty_Internal_PluginBase');

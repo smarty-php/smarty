@@ -275,6 +275,29 @@ class Smarty_Internal_TemplateBase {
             return '';
         } 
     } 
+    /**
+    * gets  a stream variable
+    * 
+    * @param string $variable the stream of the variable
+    * @return mixed the value of the global variable
+    */
+    public function getStreamVariable($variable)
+    {
+        $_result = '';
+        if ($fp = fopen($variable, 'r+')) {
+            while (!feof($fp)) {
+                $_result .= fgets($fp);
+            } 
+            fclose($fp);
+            return $_result;
+        } 
+
+        if (Smarty::$error_unassigned) {
+            throw new Exception('Undefined global variable "' . $variable . '"');
+        } else {
+            return '';
+        } 
+    } 
 
     /**
     * creates a template object

@@ -1,3 +1,7 @@
+04/18/2009
+- added stream resources  ($smarty->display('mystream://mytemplate'))
+- added stream variables  {$mystream:myvar}
+
 04/14/2009
 - fixed compile_id handling on {include} tags
 - fixed append/prepend attributes in {block} tag

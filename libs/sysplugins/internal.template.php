@@ -473,7 +473,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             // no resource given, use default
             $this->resource_type = $this->smarty->default_resource_type;
             $this->resource_name = $template_resource;
-        } else {
+        } elseif (strpos($template_resource, '://') != strpos($template_resource, ':')) {
             // get type and name from path
             list($this->resource_type, $this->resource_name) = explode(':', $template_resource, 2);
             if (strlen($this->resource_type) == 1) {
@@ -483,11 +483,15 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             } else {
                 $this->resource_type = strtolower($this->resource_type);
             } 
+        } else {
+            // stream resource
+            $this->resource_type = 'stream';
+            $this->resource_name = $template_resource;
         } 
         // load resource handler if required
         if (!isset($this->resource_objects[$this->resource_type])) {
             // is this an internal or custom resource?
-            if (in_array($this->resource_type, array('file', 'php', 'string', 'extend'))) {
+            if (in_array($this->resource_type, array('file', 'php', 'string', 'extend', 'stream'))) {
                 // internal, get from sysplugins dir
                 $_resource_class = "Smarty_Internal_Resource_{$this->resource_type}";
             } else {
@@ -500,96 +504,96 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         } 
         // cache template object under a unique ID
         // do not cache string resources
-        if ($this->resource_type != 'string') {
-            Smarty::$template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
-        } 
-        return true;
-    } 
-
-    /**
-    * get system filepath to template
-    */
-    public function buildTemplateFilepath ($file = null)
-    {
-        if ($file == null) {
-            $file = $this->resource_name;
-        } 
-        foreach((array)$this->smarty->template_dir as $_template_dir) {
-            if (substr($_template_dir, -1) != DIRECTORY_SEPARATOR) {
-                $_template_dir .= DIRECTORY_SEPARATOR;
+        if (!in_array($this->resource_type, array('string', 'stream'))) {
+                    Smarty::$template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
+                } 
+                return true;
             } 
 
-            $_filepath = $_template_dir . $file;
-            if (file_exists($_filepath))
-                return $_filepath;
-        } 
-        if (file_exists($file)) return $file; 
-        // no tpl file found
-        if (!empty($this->smarty->default_template_handler_func)) {
-            if (!is_callable($this->smarty->default_template_handler_func)) {
-                throw new Exception("Default template handler not callable");
-            } else {
-                $_return = call_user_func_array($this->smarty->default_template_handler_func,
-                    array($this->resource_type, $this->resource_name, &$this->template_source, &$this->template_timestamp, &$this));
-                if ($_return == true) {
-                    return $_filepath;
+            /**
+            * get system filepath to template
+            */
+            public function buildTemplateFilepath ($file = null)
+            {
+                if ($file == null) {
+                    $file = $this->resource_name;
+                } 
+                foreach((array)$this->smarty->template_dir as $_template_dir) {
+                    if (substr($_template_dir, -1) != DIRECTORY_SEPARATOR) {
+                        $_template_dir .= DIRECTORY_SEPARATOR;
+                    } 
+
+                    $_filepath = $_template_dir . $file;
+                    if (file_exists($_filepath))
+                        return $_filepath;
+                } 
+                if (file_exists($file)) return $file; 
+                // no tpl file found
+                if (!empty($this->smarty->default_template_handler_func)) {
+                    if (!is_callable($this->smarty->default_template_handler_func)) {
+                        throw new Exception("Default template handler not callable");
+                    } else {
+                        $_return = call_user_func_array($this->smarty->default_template_handler_func,
+                            array($this->resource_type, $this->resource_name, &$this->template_source, &$this->template_timestamp, &$this));
+                        if ($_return == true) {
+                            return $_filepath;
+                        } 
+                    } 
+                } 
+                throw new Exception("Unable to load template \"{$file}\"");
+                return false;
+            } 
+
+            /**
+            * Update Smarty variables in parent variable object
+            */
+            public function updateParentVariables ($scope = SMARTY_LOCAL_SCOPE)
+            {
+                foreach ($this->tpl_vars as $_key => $_value) {
+                    // copy global vars back to parent
+                    if (isset($this->parent) && ($scope == SMARTY_PARENT_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_PARENT_SCOPE)) {
+                        if (isset($this->parent->tpl_vars[$_key])) {
+                            // variable is already defined in parent, copy value
+                            $this->parent->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
+                        } else {
+                            // create variable in parent
+                            $this->parent->tpl_vars[$_key] = clone $_value;
+                            $this->smarty->tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
+                        } 
+                    } 
+                    if ($scope == SMARTY_ROOT_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_ROOT_SCOPE) {
+                        $_ptr = $this; 
+                        // find  root
+                        while ($_ptr->parent != null) {
+                            $_ptr = $_ptr->parent;
+                        } 
+                        if (isset($_ptr->tpl_vars[$_key])) {
+                            // variable is already defined in root, copy value
+                            $_ptr->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
+                        } else {
+                            // create variable in root
+                            $_ptr->tpl_vars[$_key] = clone $_value;
+                            $_ptr->tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
+                        } 
+                    } 
+                    if ($scope == SMARTY_GLOBAL_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_GLOBAL_SCOPE) {
+                        if (isset($this->smarty->global_tpl_vars[$_key])) {
+                            // variable is already defined in root, copy value
+                            $this->smarty->global_tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
+                        } else {
+                            // create variable in root
+                            $this->smarty->global_tpl_vars[$_key] = clone $_value;
+                        } 
+                        $this->smarty->global_tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
+                    } 
                 } 
             } 
         } 
-        throw new Exception("Unable to load template \"{$file}\"");
-        return false;
-    } 
 
-    /**
-    * Update Smarty variables in parent variable object
-    */
-    public function updateParentVariables ($scope = SMARTY_LOCAL_SCOPE)
-    {
-        foreach ($this->tpl_vars as $_key => $_value) {
-            // copy global vars back to parent
-            if (isset($this->parent) && ($scope == SMARTY_PARENT_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_PARENT_SCOPE)) {
-                if (isset($this->parent->tpl_vars[$_key])) {
-                    // variable is already defined in parent, copy value
-                    $this->parent->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
-                } else {
-                    // create variable in parent
-                    $this->parent->tpl_vars[$_key] = clone $_value;
-                    $this->smarty->tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
-                } 
-            } 
-            if ($scope == SMARTY_ROOT_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_ROOT_SCOPE) {
-                $_ptr = $this; 
-                // find  root
-                while ($_ptr->parent != null) {
-                    $_ptr = $_ptr->parent;
-                } 
-                if (isset($_ptr->tpl_vars[$_key])) {
-                    // variable is already defined in root, copy value
-                    $_ptr->tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
-                } else {
-                    // create variable in root
-                    $_ptr->tpl_vars[$_key] = clone $_value;
-                    $_ptr->tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
-                } 
-            } 
-            if ($scope == SMARTY_GLOBAL_SCOPE || $this->tpl_vars[$_key]->scope == SMARTY_GLOBAL_SCOPE) {
-                if (isset($this->smarty->global_tpl_vars[$_key])) {
-                    // variable is already defined in root, copy value
-                    $this->smarty->global_tpl_vars[$_key]->value = $this->tpl_vars[$_key]->value;
-                } else {
-                    // create variable in root
-                    $this->smarty->global_tpl_vars[$_key] = clone $_value;
-                } 
-                $this->smarty->global_tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
-            } 
+        /**
+        * wrapper for template class
+        */
+        class Smarty_Template extends Smarty_Internal_Template {
         } 
-    } 
-} 
 
-/**
-* wrapper for template class
-*/
-class Smarty_Template extends Smarty_Internal_Template {
-} 
-
-?>
+        ?>
