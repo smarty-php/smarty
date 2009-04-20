@@ -66,12 +66,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             } 
         } 
 
-        if ($this->compiler->tag_nocache == false) {
+//        if ($this->compiler->tag_nocache == false) {
             // save file dependency
-            $_template = new Smarty_Template (trim($include_file,'\''));
-            $compiler->template->file_dependency['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
-            unset ($_template);
-        } 
+//            $compiler->template->file_dependency['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
+//            unset ($_template);
+//        } 
         // create template object
         $_output = "<?php \$_template = new Smarty_Template ($include_file, \$_smarty_tpl, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id);"; 
         // delete {include} standard attributes

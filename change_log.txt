@@ -1,3 +1,7 @@
+
+04/20/2009
+- fixed error in {include} tag with variable file attribute
+
 04/18/2009
 - added stream resources  ($smarty->display('mystream://mytemplate'))
 - added stream variables  {$mystream:myvar}
