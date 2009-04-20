@@ -1,5 +1,6 @@
 
 04/20/2009
+- fixed "$foo.bar  ..." variable replacement in double quoted strings
 - fixed error in {include} tag with variable file attribute
 
 04/18/2009
