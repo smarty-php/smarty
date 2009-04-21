@@ -1,3 +1,5 @@
+04/21/2009
+- change of new style syntax for forach. Now:  {foreach $array as $var}  like in PHP
 
 04/20/2009
 - fixed "$foo.bar  ..." variable replacement in double quoted strings

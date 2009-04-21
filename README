@@ -133,7 +133,7 @@ Any number of statements can be used separated by comma as the first
 inital expression at {for}
 
 New {foreach...} syntax to loop over an array:
-{foreach $var in $myarray}   ....  {/foreach}
+{foreach $myarray as $var}   ....  {/foreach}
 $var@key            will deliver the key
 $var@iteration      will deliver the iteration
 $var@index          will deliver the index
