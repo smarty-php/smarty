@@ -1,3 +1,6 @@
+04/22/2009
+- unified template stream syntax with standard Smarty resource syntax  $smarty->display('mystream:mytemplate')
+
 04/21/2009
 - change of new style syntax for forach. Now:  {foreach $array as $var}  like in PHP
 
