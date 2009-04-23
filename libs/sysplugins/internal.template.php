@@ -90,7 +90,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->security = $this->smarty->security;
         $this->cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($this->caching_type);
         $this->parent = $_parent;
-        $this->tpl_vars['smarty'] = new Smarty_Variable; 
         // Template resource
         $this->template_resource = $template_resource; 
         // parse resource name

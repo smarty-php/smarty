@@ -1,3 +1,6 @@
+04/23/2009
+- fixed access of special smarty variables from included template
+
 04/22/2009
 - unified template stream syntax with standard Smarty resource syntax  $smarty->display('mystream:mytemplate')
 
