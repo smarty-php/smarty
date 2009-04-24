@@ -1,6 +1,6 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Capture
+* Smarty Internal Plugin Compile Block
 * 
 * Compiles the {block} tag
 * 
@@ -17,7 +17,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
     * 
     * @param array $args array with attributes from parser
     * @param object $compiler compiler object
-    * @return string compiled code
+    * @return boolean true
     */
     public function compile($args, $compiler)
     {

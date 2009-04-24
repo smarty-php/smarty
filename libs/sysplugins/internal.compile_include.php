@@ -68,7 +68,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
 
 //        if ($this->compiler->tag_nocache == false) {
             // save file dependency
-//            $compiler->template->file_dependency['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
+//            $compiler->template->properties['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
 //            unset ($_template);
 //        } 
         // create template object

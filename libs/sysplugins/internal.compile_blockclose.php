@@ -2,7 +2,7 @@
 /**
 * Smarty Internal Plugin Compile Block Close
 * 
-* Compiles the {/capture} tag
+* Compiles the {/block} tag
 * 
 * @package Smarty
 * @subpackage Compiler

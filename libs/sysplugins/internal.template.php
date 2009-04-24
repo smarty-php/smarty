@@ -59,7 +59,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     // storage for plugin
     public $plugin_data = array(); 
     // files template is depending from
-    public $file_dependency = array(); 
+    public $properties = array(); 
     // storage for block data
     public $block_data = array();
 
@@ -89,7 +89,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->caching_type = $this->smarty->default_caching_type;
         $this->security = $this->smarty->security;
         $this->cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($this->caching_type);
-        $this->parent = $_parent;
+        $this->parent = $_parent; 
         // Template resource
         $this->template_resource = $template_resource; 
         // parse resource name
@@ -194,15 +194,18 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function mustCompile ()
     {
         if ($this->mustCompile === null) {
-            $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ()))); 
+            $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
+            if ($this->mustCompile) {
+                return true;
+            } 
             // read compiled template
             if ($this->compiled_template !== true && file_exists($this->getCompiledFilepath())) {
                 $this->compiled_template = !$this->isEvaluated() ? file_get_contents($this->getCompiledFilepath()):'';
                 $found = preg_match('~\<\?php /\*(.*)\*/ \?\>~', $this->compiled_template, $matches);
                 if ($found) {
-                    $this->file_dependency = unserialize($matches[1]);
-                    if (!empty($this->file_dependency)) {
-                        foreach ($this->file_dependency['file_dependency'] as $file_to_check) {
+                    $_properties = unserialize($matches[1]);
+                    if (!empty($_properties['file_dependency'])) {
+                        foreach ($_properties['file_dependency'] as $file_to_check) {
                             If (filemtime($file_to_check[0]) != $file_to_check[1]) {
                                 $this->mustCompile = true;
                                 return $this->mustCompile;
@@ -284,9 +287,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             // compiling succeded
             if (!$this->isEvaluated()) {
                 // build file dependency string
-                $this->file_dependency_string = '<?php /*' . serialize($this->file_dependency) . "*/ ?>\n"; 
+                $this->properties_string = '<?php /*' . serialize($this->properties) . "*/ ?>\n"; 
                 // write compiled template
-                $this->smarty->write_file_object->writeFile($this->getCompiledFilepath(), $this->file_dependency_string . $this->dir_acc_sec_string . $this->getCompiledTemplate()); 
+                $this->smarty->write_file_object->writeFile($this->getCompiledFilepath(), $this->properties_string . $this->dir_acc_sec_string . $this->getCompiledTemplate()); 
                 // make template and compiled file timestamp match
                 touch($this->getCompiledFilepath(), $this->getTemplateTimestamp());
             } 
@@ -344,8 +347,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function writeCachedContent ()
     { 
         // build file dependency string
-        $this->file_dependency_string = '<?php /*' . serialize($this->file_dependency) . "*/ ?>\n";
-        $this->rendered_content = $this->file_dependency_string . $this->dir_acc_sec_string . $this->rendered_content;
+        $this->properties_string = '<?php /*' . serialize($this->properties) . "*/ ?>\n";
+        $this->rendered_content = $this->properties_string . $this->dir_acc_sec_string . $this->rendered_content;
         return ($this->isEvaluated() || !$this->caching) ? false : $this->cacher_object->writeCachedContent($this);
     } 
 
