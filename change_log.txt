@@ -1,4 +1,5 @@
 04/24/2009
+- changed name of {template} tag to {function}
 - added new {template} tag
 
 04/23/2009
