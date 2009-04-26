@@ -65,6 +65,15 @@ class Smarty_Security_Policy {
     * @var array 
     */
     public $modifiers = array('escape','count');
+
+    /**
+    * This is an array of trusted streams.
+    *
+    * If empty all streams are allowed.
+    * If set to 'none' none is allowed.
+    * @var array 
+    */
+    public $streams = array('file');
     /**
     + flag if constants can be accessed from template
     */

@@ -1,20 +1,20 @@
 <?php
 
 /**
-* Smarty Internal Plugin Compile Internalfunctioncall
+* Smarty Internal Plugin Compile Internal_Function_Call
 * 
-* Compiles the {internalfunctioncall} tag
+* Compiles the {internal_function_call} tag
 * 
 * @package Smarty
 * @subpackage Compiler
 * @author Uwe Tews 
 */
 /**
-* Smarty Internal Plugin Compile Internalfunctioncall Class
+* Smarty Internal Plugin Compile Internal_Function_Call Class
 */
-class Smarty_Internal_Compile_Internalfunctioncall extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Internal_Function_Call extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {internalfunctioncall} tag
+    * Compiles code for the {internal_function_call} tag
     * 
     * @param array $args array with attributes from parser
     * @param object $compiler compiler object
@@ -31,8 +31,8 @@ class Smarty_Internal_Compile_Internalfunctioncall extends Smarty_Internal_Compi
         if (isset($_attr['assign'])) {
             // output will be stored in a smarty variable instead of beind displayed
             $_assign = $_attr['assign'];
-        }
-        $_name = trim( $_attr['name'],"'");
+        } 
+        $_name = trim($_attr['name'], "'"); 
         // create template object
         $_output = "<?php \$_template = new Smarty_Template ('string:', \$_smarty_tpl);\n"; 
         // assign default paramter
@@ -51,14 +51,14 @@ class Smarty_Internal_Compile_Internalfunctioncall extends Smarty_Internal_Compi
             foreach ($_attr as $_key => $_value) {
                 $_output .= "\$_template->assign('$_key',$_value);\n";
             } 
-        }
+        } 
         if (isset($compiler->template->properties['function'][$_name]['compiled'])) {
-            $_compiled = str_replace(array('_%n',"'"), array("\n","\'"), $compiler->template->properties['function'][$_name]['compiled']);
+            $_compiled = str_replace(array('_%n', "'"), array("\n", "\'"), $compiler->template->properties['function'][$_name]['compiled']);
             $_output .= "\$_template->compiled_template = '$_compiled';\n \$_template->mustCompile = false;\n";
         } else {
-// for recursion
+            // for recursion
             $_output .= "\$_template->compiled_template = \$_smarty_tpl->compiled_template;\n \$_template->mustCompile = false;\n";
-        }
+        } 
         // was there an assign attribute
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template)); ?>";

@@ -1,3 +1,7 @@
+04/26/2009
+- added trusted stream checking to security
+- internal changes at file dependency check for caching
+
 04/24/2009
 - changed name of {template} tag to {function}
 - added new {template} tag

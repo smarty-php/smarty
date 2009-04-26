@@ -18,8 +18,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
     */
     public function display_debug()
     {
-        $this->smarty = Smarty::instance();
-
+        $this->smarty = Smarty::instance(); 
         // get template names
         $i = 0;
         $_template_data = array();
@@ -32,6 +31,15 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
                     $_template_data[$i]['render_time'] = $_template_obj->render_time;
                     $_template_data[$i]['cache_time'] = $_template_obj->cache_time;
                     $i++;
+                    if (false && $i == 1) {
+                        foreach ($_template_obj->properties['file_dependency'] as $_file) {
+                            $_template_data[$i]['name'] = $_file[0];
+                            $_template_data[$i]['compile_time'] = 0;
+                            $_template_data[$i]['render_time'] = 0;
+                            $_template_data[$i]['cache_time'] = 0;
+                            $i++;
+                        } 
+                    } 
                 } 
             } 
         } 

@@ -48,6 +48,13 @@ define('SMARTY_ROOT_SCOPE', 2);
 define('SMARTY_GLOBAL_SCOPE', 3);
 
 /**
+* define caching modes
+*/
+define('SMARTY_CACHING_OFF', 0);
+define('SMARTY_CACHING_LIFETIME_CURRENT', 1);
+define('SMARTY_CACHING_LIVETIME_SAVED', 2);
+
+/**
 * load required base class for creation of the smarty object
 */
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.templatebase.php');
@@ -111,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.          
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.            
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -172,9 +179,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * Class constructor, initializes basic smarty properties
     */
     public function __construct()
-    {
+    { 
         // set instance object
-        self::instance($this); 
+        self::instance($this);
 
         if (is_callable('mb_internal_encoding')) {
             $this->has_mb = true;
@@ -204,7 +211,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $this->loadPlugin('Smarty_Internal_Run_Filter');
         $this->filter_handler = new Smarty_Internal_Run_Filter;
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
-            $_query_string = $this->request_use_auto_globals ? isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING']:'' : isset($GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING']) ? $GLOBALS['HTTP_SERVER_VARS']['QUERY_STRING']:'';
+            if (isset($_SERVER['QUERY_STRING'])) {
+                $_query_string = $_SERVER['QUERY_STRING'];
+            } else {
+                $_query_string = '';
+            } 
             if (false !== strpos($_query_string, $this->smarty_debug_id)) {
                 if (false !== strpos($_query_string, $this->smarty_debug_id . '=on')) {
                     // enable debugging for this browser session

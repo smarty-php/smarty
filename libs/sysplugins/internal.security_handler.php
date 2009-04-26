@@ -10,7 +10,6 @@
 * This class contains all methods for security checking
 */
 class Smarty_Internal_Security_Handler extends Smarty_Internal_Base {
-
     /**
     * Check if PHP function is trusted.
     * 
@@ -44,6 +43,22 @@ class Smarty_Internal_Security_Handler extends Smarty_Internal_Base {
             return false;
         } 
     } 
+    /**
+    * Check if stream is trusted.
+    * 
+    * @param string $stream_name 
+    * @param object $compiler compiler object
+    * @return boolean true if stream is trusted
+    */
+    function isTrustedStream($stream_name)
+    {
+        if (empty($this->smarty->security_policy->streams) || in_array($stream_name, $this->smarty->security_policy->streams)) {
+            return true;
+        } else {
+            throw new Exception ("stream \"" . $stream_name . "\" not allowed by security setting");
+            return false;
+        } 
+    } 
 
     /**
     * Check if directory of file resource is trusted.
@@ -70,7 +85,7 @@ class Smarty_Internal_Security_Handler extends Smarty_Internal_Base {
                     if ($_cd == $_rp) {
                         return true;
                     } elseif (strncmp($_rp, $_cd, strlen($_cd)) == 0 &&
-                          (strlen($_rp) == strlen($_cd) || substr($_rp, strlen($_cd), 1) == DIRECTORY_SEPARATOR)) {
+                            (strlen($_rp) == strlen($_cd) || substr($_rp, strlen($_cd), 1) == DIRECTORY_SEPARATOR)) {
                         return true;
                     } 
                 } 
@@ -90,7 +105,7 @@ class Smarty_Internal_Security_Handler extends Smarty_Internal_Base {
     function isTrustedPHPDir($filepath)
     {
         $_rp = realpath($filepath);
-       if (!empty($this->smarty->security_policy->trusted_dir)) {
+        if (!empty($this->smarty->security_policy->trusted_dir)) {
             foreach ((array)$this->smarty->security_policy->trusted_dir as $curr_dir) {
                 if (($_cd = realpath($curr_dir)) !== false) {
                     if ($_cd == $_rp) {

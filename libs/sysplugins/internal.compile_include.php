@@ -44,7 +44,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_parent_scope = SMARTY_GLOBAL_SCOPE;
             } 
         } 
-
+        // default for included templates
+        $_caching = SMARTY_CACHING_OFF;
         /*
         * if the {include} tag provides individual parameter for caching
         * it will not be included into the common cache file and treated like
@@ -56,21 +57,14 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         } 
         if (isset($_attr['nocache'])) {
             if ($_attr['nocache'] == 'true') {
-                $_caching = 'false';
                 $this->compiler->tag_nocache = true;
             } 
         } 
         if (isset($_attr['caching'])) {
             if ($_attr['caching'] == 'true') {
-                $_caching = 'true';
+                $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
             } 
         } 
-
-//        if ($this->compiler->tag_nocache == false) {
-            // save file dependency
-//            $compiler->template->properties['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
-//            unset ($_template);
-//        } 
         // create template object
         $_output = "<?php \$_template = new Smarty_Template ($include_file, \$_smarty_tpl, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id);"; 
         // delete {include} standard attributes
@@ -90,11 +84,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if (isset($_caching_lifetime)) {
             $_output .= "\$_template->caching_lifetime = $_caching_lifetime;";
         } 
-        if (isset($_caching)) {
-            $_output .= "\$_template->caching = $_caching;";
-        } elseif (isset($_caching_lifetime)) {
-            $_output .= "\$_template->caching = true;";
-        } 
+        $_output .= "\$_template->caching = $_caching;"; 
         // was there an assign attribute
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template)); ?>";

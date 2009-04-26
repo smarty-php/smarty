@@ -89,7 +89,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->caching_type = $this->smarty->default_caching_type;
         $this->security = $this->smarty->security;
         $this->cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($this->caching_type);
-        $this->parent = $_parent; 
+        $this->parent = $_parent;
+        $this->properties['file_dependency'] = array(); 
         // Template resource
         $this->template_resource = $template_resource; 
         // parse resource name
@@ -286,7 +287,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         if ($this->compiler_object->compileTemplate($this)) {
             // compiling succeded
             if (!$this->isEvaluated()) {
-                // build file dependency string
+                // build template property string
                 $this->properties_string = '<?php /*' . serialize($this->properties) . "*/ ?>\n"; 
                 // write compiled template
                 $this->smarty->write_file_object->writeFile($this->getCompiledFilepath(), $this->properties_string . $this->dir_acc_sec_string . $this->getCompiledTemplate()); 
@@ -298,7 +299,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             throw new Exception("Error compiling template {$this->getTemplateFilepath ()}");
             return false;
         } 
-        $this->compile_time = $this->_get_time() - $_start_time;
+        $this->compile_time += $this->_get_time() - $_start_time;
     } 
 
     /**
@@ -347,6 +348,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function writeCachedContent ()
     { 
         // build file dependency string
+        $this->properties['caching_lifetime'] = $this->caching_lifetime;
         $this->properties_string = '<?php /*' . serialize($this->properties) . "*/ ?>\n";
         $this->rendered_content = $this->properties_string . $this->dir_acc_sec_string . $this->rendered_content;
         return ($this->isEvaluated() || !$this->caching) ? false : $this->cacher_object->writeCachedContent($this);
@@ -363,9 +365,29 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         if ($this->isCached === null) {
             $this->isCached = false;
-            if ($this->caching && !$this->isEvaluated()) {
-                if (!$this->mustCompile() && $this->getTemplateTimestamp() <= $this->getCachedTimestamp() && ((time() <= $this->getCachedTimestamp() + $this->caching_lifetime) || $this->caching_lifetime < 0)) {
+            if ($this->caching && !$this->isEvaluated() && !$this->force_compile) {
+                if ($this->getCachedTimestamp() === false) {
+                    return $this->isCached;
+                } 
+                if (/*$this->getTemplateTimestamp() <= $this->getCachedTimestamp() && */
+                    ($this->caching == SMARTY_CACHING_LIVETIME_SAVED || ($this->caching == SMARTY_CACHING_LIFETIME_CURRENT && (time() <= ($this->getCachedTimestamp() + $this->caching_lifetime) || $this->caching_lifetime < 0)))) {
                     $this->rendered_content = $this->cacher_object->getCachedContents($this);
+                    $_found = preg_match('~\<\?php /\*(.*)\*/ \?\>~', $this->rendered_content, $_matches);
+                    if ($_found) {
+                        $this->properties = unserialize($_matches[1]);
+                        if ($this->caching == SMARTY_CACHING_LIVETIME_SAVED && (time() > ($this->getCachedTimestamp() + $this->properties['caching_lifetime']) || $this->properties['caching_lifetime'] < 0)) {
+                            $this->rendered_content = null;
+                            return $this->isCached;
+                        } 
+                        if (!empty($this->properties['file_dependency'])) {
+                            foreach ($this->properties['file_dependency'] as $file_to_check) {
+                                If (filemtime($file_to_check[0]) > $this->getCachedTimestamp()) {
+                                    $this->rendered_content = null;
+                                    return $this->isCached;
+                                } 
+                            } 
+                        } 
+                    } 
                     $this->isCached = true;
                 } 
             } 
@@ -415,10 +437,17 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             // include PHP template
             include($this->getTemplateFilepath ());
         } 
-        $this->render_time = $this->_get_time() - $_start_time;
-        $this->rendered_content = ob_get_clean(); 
+        $this->render_time += $this->_get_time() - $_start_time;
+        $this->rendered_content = ob_get_clean();
+        if (!$this->isEvaluated) {
+            $this->properties['file_dependency'][] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
+        } 
+        if ($this->parent instanceof Smarty_Template or $this->parent instanceof Smarty_Internal_Template) {
+            $this->parent->properties['file_dependency'] = array_merge($this->parent->properties['file_dependency'], $this->properties['file_dependency']);
+        } 
         // write to cache when nessecary
         if (!$this->isEvaluated() && $this->caching) {
+            $this->properties['file_dependency'] = array_unique($this->properties['file_dependency']); 
             // write rendered template
             $this->writeCachedContent($this);
         } 
@@ -452,7 +481,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             ob_start();
             eval("?>" . $this->rendered_content);
             $this->updateParentVariables();
-            $this->cache_time = $this->_get_time() - $_start_time;
+            $this->cache_time += $this->_get_time() - $_start_time;
             return (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))?
             $this->smarty->filter_handler->execute('output', ob_get_clean()) : ob_get_clean();
         } else {
@@ -502,6 +531,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                     $_known_stream = stream_get_wrappers();
                     if (in_array($this->resource_type, $_known_stream)) {
                         // is known stream
+                        if ($this->smarty->security) {
+                            $this->smarty->security_handler->isTrustedStream($this->resource_type);
+                        } 
                         if (!isset($this->resource_objects['stream'])) {
                             $this->smarty->loadPlugin('Smarty_Internal_Resource_Stream');
                             $this->resource_objects['stream'] = new Smarty_Internal_Resource_Stream;
