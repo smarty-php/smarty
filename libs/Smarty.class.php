@@ -1548,7 +1548,7 @@ class Smarty
                         $params['source_content'] = $this->_read_file($_resource_name);
                     }
                     $params['resource_timestamp'] = filemtime($_resource_name);
-                    $_return = is_file($_resource_name);
+                    $_return = is_file($_resource_name) && is_readable($_resource_name);
                     break;
 
                 default:
@@ -1711,7 +1711,7 @@ class Smarty
      */
     function _read_file($filename)
     {
-        if ( file_exists($filename) && ($fd = @fopen($filename, 'rb')) ) {
+        if ( file_exists($filename) && is_readable($filename) && ($fd = @fopen($filename, 'rb')) ) {
             $contents = '';
             while (!feof($fd)) {
                 $contents .= fread($fd, 8192);
