@@ -11,7 +11,7 @@
 /**
 * Smarty Internal Plugin Compile Smarty Class
 */
-class Smarty_Internal_Compile_Smarty extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Internal_Smarty_Var extends Smarty_Internal_CompileBase {
     /**
     * Compiles code for the speical $smarty variables
     * 

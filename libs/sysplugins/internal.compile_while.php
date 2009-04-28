@@ -25,9 +25,14 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase {
         $this->required_attributes = array('if condition'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
-
         $this->_open_tag('while');
-        return '<?php while (' . $args['if condition'] . ') { ?>';
+        if (is_array($args['if condition'])) {
+            $_output = " <?php if (!isset(\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."])) \$_smarty_tpl->tpl_vars[".$args['if condition']['var']."] = new Smarty_Variable;\n";
+            $_output .= " while (\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."]->value = ".$args['if condition']['value'].") {\n ?>";
+            return $_output;
+        } else {
+            return '<?php while (' . $args['if condition'] . ') { ?>';
+        } 
     } 
 } 
 

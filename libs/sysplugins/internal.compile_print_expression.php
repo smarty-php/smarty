@@ -29,7 +29,7 @@ class Smarty_Internal_Compile_Print_Expression extends Smarty_Internal_CompileBa
 
         if (isset($_attr['nocache'])) {
             if ($_attr['nocache'] == 'true') {
-                $this->compiler->_compiler_status->tag_nocache = true;
+                $this->compiler->tag_nocache = true;
             } 
         } 
 

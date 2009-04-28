@@ -36,8 +36,12 @@ class Smarty_Internal_Compile_Internal_Function_Call extends Smarty_Internal_Com
         // create template object
         $_output = "<?php \$_template = new Smarty_Template ('string:', \$_smarty_tpl);\n"; 
         // assign default paramter
-        if (isset($compiler->template->properties['function'][$_name]['parameter'])) {
-            foreach ($compiler->template->properties['function'][$_name]['parameter'] as $_key => $_value) {
+        $_ptr = $compiler->template;
+        while ($_ptr != null && !isset($_ptr->properties['function'][$_name])) {
+            $_ptr = $_ptr->parent;
+        } 
+        if ($_ptr != null && isset($_ptr->properties['function'][$_name]['parameter'])) {
+            foreach ($_ptr->properties['function'][$_name]['parameter'] as $_key => $_value) {
                 if (!isset($_attr[$_key])) {
                     $_output .= "\$_template->assign('$_key',$_value);\n";
                 } 
@@ -52,8 +56,8 @@ class Smarty_Internal_Compile_Internal_Function_Call extends Smarty_Internal_Com
                 $_output .= "\$_template->assign('$_key',$_value);\n";
             } 
         } 
-        if (isset($compiler->template->properties['function'][$_name]['compiled'])) {
-            $_compiled = str_replace(array('_%n', "'"), array("\n", "\'"), $compiler->template->properties['function'][$_name]['compiled']);
+        if (isset($_ptr->properties['function'][$_name]['compiled'])) {
+            $_compiled = str_replace(array('_%n', "'"), array("\n", "\'"), $_ptr->properties['function'][$_name]['compiled']);
             $_output .= "\$_template->compiled_template = '$_compiled';\n \$_template->mustCompile = false;\n";
         } else {
             // for recursion
