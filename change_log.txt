@@ -1,5 +1,6 @@
 04/29/2009
 - fixed problem with directory setter methodes
+- allow that cache_dir can end without directory separator
 
 04/28/2009
 - the {function} tag can no longer overwrite standard smarty tags
