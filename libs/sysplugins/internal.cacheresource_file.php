@@ -164,7 +164,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_Internal_PluginBase {
         } else {
             $_compile_id = '';
         } 
-        $_cache_dir = $_template->smarty->cache_dir;
+        $_cache_dir = $this->smarty->cache_dir;
         if (substr($_cache_dir, -1) != DIRECTORY_SEPARATOR) {
             $_cache_dir .= DIRECTORY_SEPARATOR;
         } 
