@@ -199,17 +199,19 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             if ($this->mustCompile) {
                 return true;
             } 
-            // read compiled template
-            if ($this->compiled_template !== true && file_exists($this->getCompiledFilepath())) {
-                $this->compiled_template = !$this->isEvaluated() ? file_get_contents($this->getCompiledFilepath()):'';
-                $found = preg_match('~\<\?php /\*(.*)\*/ \?\>~', $this->compiled_template, $matches);
-                if ($found) {
-                    $_properties = unserialize($matches[1]);
-                    if (!empty($_properties['file_dependency'])) {
-                        foreach ($_properties['file_dependency'] as $file_to_check) {
-                            If (filemtime($file_to_check[0]) != $file_to_check[1]) {
-                                $this->mustCompile = true;
-                                return $this->mustCompile;
+            if ($this->smarty->compile_check) {
+                // read compiled template to check file dependencies
+                if ($this->compiled_template !== true && file_exists($this->getCompiledFilepath())) {
+                    $this->compiled_template = !$this->isEvaluated() ? file_get_contents($this->getCompiledFilepath()):'';
+                    $found = preg_match('~\<\?php /\*(.*)\*/ \?\>~', $this->compiled_template, $matches);
+                    if ($found) {
+                        $_properties = unserialize($matches[1]);
+                        if (!empty($_properties['file_dependency'])) {
+                            foreach ($_properties['file_dependency'] as $file_to_check) {
+                                If (filemtime($file_to_check[0]) != $file_to_check[1]) {
+                                    $this->mustCompile = true;
+                                    return $this->mustCompile;
+                                } 
                             } 
                         } 
                     } 
@@ -379,7 +381,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                             $this->rendered_content = null;
                             return $this->isCached;
                         } 
-                        if (!empty($this->properties['file_dependency'])) {
+                        if (!empty($this->properties['file_dependency']) && $this->smarty->compile_check) {
                             foreach ($this->properties['file_dependency'] as $file_to_check) {
                                 If (filemtime($file_to_check[0]) > $this->getCachedTimestamp()) {
                                     $this->rendered_content = null;

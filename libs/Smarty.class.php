@@ -118,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.            
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.             
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -355,7 +355,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function setTemplateDir($template_dir)
     {
-        $this->smarty->template_dir = (array)$template_dir;
+        $this->template_dir = (array)$template_dir;
         return;
     } 
     /**
@@ -365,8 +365,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function addTemplateDir($template_dir)
     {
-        $this->smarty->template_dir = array_merge((array)$this->smarty->template_dir, (array)$template_dir);
-        $this->smarty->template_dir = array_unique($this->smarty->template_dir);
+        $this->template_dir = array_merge((array)$this->template_dir, (array)$template_dir);
+        $this->template_dir = array_unique($this->template_dir);
         return;
     } 
     /**
@@ -376,7 +376,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function setCompileDir($compile_dir)
     {
-        $this->smarty->compile_dir = $compile_dir;
+        $this->compile_dir = $compile_dir;
         return;
     } 
     /**
@@ -386,7 +386,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function setCacheDir($cache_dir)
     {
-        $this->smarty->cache_dir = $cache_dir;
+        $this->cache_dir = $cache_dir;
         return;
     } 
     /**
@@ -394,7 +394,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function enableCaching()
     {
-        $this->smarty->caching = true;
+        $this->caching = true;
         return;
     } 
     /**
@@ -404,7 +404,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function setCachingLifetime($lifetime)
     {
-        $this->smarty->caching_lifetime = $lifetime;
+        $this->caching_lifetime = $lifetime;
         return;
     } 
     /**
@@ -445,8 +445,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // loop through plugin dirs and find the plugin
         foreach((array)$this->plugins_dir as $plugin_dir) {
             if (file_exists($plugin_dir . $plugin_filename)) {
-                require_once($plugin_dir . $plugin_filename);
-                return true;
+                   require_once($plugin_dir . $plugin_filename);
+                    return true;
             } 
         } 
         // no plugin loaded
