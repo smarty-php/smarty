@@ -113,11 +113,7 @@ class Smarty_Internal_TemplateCompilerBase extends Smarty_Internal_Base {
         $this->has_output = false; 
         // compile the smarty tag (required compile classes to compile the tag are autoloaded)
         if (($_output = $this->$tag($args, $this)) === false) {
-            $_ptr = $this->template;
-            while ($_ptr != null && !isset($_ptr->properties['function'][$tag])) {
-                $_ptr = $_ptr->parent;
-            } 
-            if ($_ptr != null) {
+            if (isset($this->smarty->template_functions[$tag])) {
                 // template defined by {template} tag
                 $args['name'] = $tag;
                 $tag = 'internal_function_call';

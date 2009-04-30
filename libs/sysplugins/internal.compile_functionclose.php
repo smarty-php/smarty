@@ -35,6 +35,8 @@ class Smarty_Internal_Compile_FunctionClose extends Smarty_Internal_CompileBase 
         } 
         $_name = trim($saved_data[0]['name'], "'");
         $compiler->template->properties['function'][$_name]['compiled'] = str_replace("\n",'_%n',$compiler->template->extracted_compiled_code);
+        $this->smarty->template_functions[$_name]['compiled'] = $compiler->template->extracted_compiled_code;
+        $this->smarty->template_functions[$_name]['parameter'] = $compiler->template->properties['function'][$_name]['parameter'];
         $compiler->template->extracted_compiled_code = $saved_data[1];
         $compiler->template->extract_code = $saved_data[2];
         return true;

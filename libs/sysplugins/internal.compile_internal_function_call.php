@@ -36,12 +36,17 @@ class Smarty_Internal_Compile_Internal_Function_Call extends Smarty_Internal_Com
         // create template object
         $_output = "<?php \$_template = new Smarty_Template ('string:', \$_smarty_tpl);\n"; 
         // assign default paramter
-        $_ptr = $compiler->template;
-        while ($_ptr != null && !isset($_ptr->properties['function'][$_name])) {
-            $_ptr = $_ptr->parent;
+        if (isset($this->smarty->template_functions[$_name]['parameter'])) {
+            // function is already compiled
+            foreach ($this->smarty->template_functions[$_name]['parameter'] as $_key => $_value) {
+                if (!isset($_attr[$_key])) {
+                    $_output .= "\$_template->assign('$_key',$_value);\n";
+                } 
+            } 
         } 
-        if ($_ptr != null && isset($_ptr->properties['function'][$_name]['parameter'])) {
-            foreach ($_ptr->properties['function'][$_name]['parameter'] as $_key => $_value) {
+        if (isset($compiler->template->properties['function'][$_name]['parameter'])) {
+            // for recursive call during function compilation
+            foreach ($compiler->template->properties['function'][$_name]['parameter'] as $_key => $_value) {
                 if (!isset($_attr[$_key])) {
                     $_output .= "\$_template->assign('$_key',$_value);\n";
                 } 
@@ -56,13 +61,8 @@ class Smarty_Internal_Compile_Internal_Function_Call extends Smarty_Internal_Com
                 $_output .= "\$_template->assign('$_key',$_value);\n";
             } 
         } 
-        if (isset($_ptr->properties['function'][$_name]['compiled'])) {
-            $_compiled = str_replace(array('_%n', "'"), array("\n", "\'"), $_ptr->properties['function'][$_name]['compiled']);
-            $_output .= "\$_template->compiled_template = '$_compiled';\n \$_template->mustCompile = false;\n";
-        } else {
-            // for recursion
-            $_output .= "\$_template->compiled_template = \$_smarty_tpl->compiled_template;\n \$_template->mustCompile = false;\n";
-        } 
+        // load compiled function
+        $_output .= "\$_template->compiled_template = \$this->smarty->template_functions['$_name']['compiled'];\n\$_template->mustCompile = false;\n"; 
         // was there an assign attribute
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template)); ?>";

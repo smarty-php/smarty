@@ -126,7 +126,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // assigned global tpl vars
     public $global_tpl_vars = array(); 
     // dummy parent object
-    public $parent = null; 
+    public $parent = null;
+    // global template functions
+    public $template_functions = null; 
     // system plugins directory
     private $sysplugins_dir = null; 
     // resource type used if none given

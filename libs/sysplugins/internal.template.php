@@ -58,7 +58,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public $config_vars = array(); 
     // storage for plugin
     public $plugin_data = array(); 
-    // files template is depending from
+    // special properties
     public $properties = array(); 
     // storage for block data
     public $block_data = array();
@@ -203,12 +203,18 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 // read compiled template to check file dependencies
                 if ($this->compiled_template !== true && file_exists($this->getCompiledFilepath())) {
                     $this->compiled_template = !$this->isEvaluated() ? file_get_contents($this->getCompiledFilepath()):'';
-                    $found = preg_match('~\<\?php /\*(.*)\*/ \?\>~', $this->compiled_template, $matches);
-                    if ($found) {
-                        $_properties = unserialize($matches[1]);
-                        if (!empty($_properties['file_dependency'])) {
-                            foreach ($_properties['file_dependency'] as $file_to_check) {
-                                If (filemtime($file_to_check[0]) != $file_to_check[1]) {
+                    if (preg_match('~\<\?php /\*(.*)\*/ \?\>~', $this->compiled_template, $_matches)) {
+                        $this->properties = unserialize($_matches[1]);
+                        if (!empty($this->properties['function'])) {
+                            foreach ($this->properties['function'] as $_name => $_data) {
+                                $this->smarty->template_functions[$_name]['compiled'] = str_replace(array('_%n'), array("\n"), $_data['compiled']);
+                                $this->smarty->template_functions[$_name]['parameter'] = $_data['parameter'];
+                            } 
+                        } 
+                        if (!empty($this->properties['file_dependency'])) {
+                            foreach ($this->properties['file_dependency'] as $_file_to_check) {
+                                If (filemtime($_file_to_check[0]) != $_file_to_check[1]) {
+                                    $this->properties['file_dependency'] = array();
                                     $this->mustCompile = true;
                                     return $this->mustCompile;
                                 } 
@@ -260,6 +266,15 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 $this->compileTemplateSource();
             } else {
                 $this->compiled_template = !$this->isEvaluated() && $this->usesCompiler() ? file_get_contents($this->getCompiledFilepath()) : false;
+                if (preg_match('~\<\?php /\*(.*)\*/ \?\>~', $this->compiled_template, $_matches)) {
+                    $this->properties = unserialize($_matches[1]);
+                    if (!empty($this->properties['function'])) {
+                        foreach ($this->properties['function'] as $_name => $_data) {
+                                $this->smarty->template_functions[$_name]['compiled'] = str_replace(array('_%n'), array("\n"), $_data['compiled']);
+                                $this->smarty->template_functions[$_name]['parameter'] = $_data['parameter'];
+                        } 
+                    } 
+                } 
             } 
         } 
         return $this->compiled_template;

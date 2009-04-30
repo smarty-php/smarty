@@ -1,3 +1,6 @@
+04/30/2009
+- functions defined with the {function} tag now always have global scope
+
 04/29/2009
 - fixed problem with directory setter methodes
 - allow that cache_dir can end without directory separator
