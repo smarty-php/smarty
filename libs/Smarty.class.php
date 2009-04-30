@@ -236,7 +236,8 @@ class Smarty
                                     'INCLUDE_ANY'     => false,
                                     'PHP_TAGS'        => false,
                                     'MODIFIER_FUNCS'  => array('count'),
-                                    'ALLOW_CONSTANTS'  => false
+                                    'ALLOW_CONSTANTS'  => false,
+                                    'ALLOW_SUPER_GLOBALS' => true
                                    );
 
     /**
@@ -1950,6 +1951,47 @@ class Smarty
 			return $function;
 		}
 	}
+  
+    /**
+     * wrapper for super global access
+     * @return mixed
+     */
+    function _get_super($type,$name)
+    {
+        // don't display anything if not allowed
+        if($this->security && !$this->security_settings['ALLOW_SUPER_GLOBALS']) {
+          $this->trigger_error('security error: super global access not allowed');
+          return false;
+        }
+        if(empty($type)||empty($name))
+          return null;
+        switch($type) {
+            case 'get':
+              return $this->request_use_auto_globals ? $_GET[$name] : $GLOBALS['HTTP_GET_VARS'][$name];
+              break;
+            case 'post':
+              return $this->request_use_auto_globals ? $_POST[$name] : $GLOBALS['HTTP_POST_VARS'][$name];
+              break;
+            case 'server':
+              return $this->request_use_auto_globals ? $_SERVER[$name] : $GLOBALS['HTTP_SERVER_VARS'][$name];
+              break;
+            case 'session':
+              return $this->request_use_auto_globals ? $_SESSION[$name] : $GLOBALS['HTTP_SESSION_VARS'][$name];
+              break;        
+            case 'request':
+              return $this->request_use_auto_globals ? $_REQUEST[$name] : $GLOBALS['HTTP_REQUEST_VARS'][$name];
+              break;        
+            case 'cookies':
+              return $this->request_use_auto_globals ? $_COOKIE[$name] : $GLOBALS['HTTP_COOKIE_VARS'][$name];
+              break;        
+            case 'env':
+              return $this->request_use_auto_globals ? $_ENV[$name] : $GLOBALS['HTTP_ENV_VARS'][$name];
+              break;        
+            default:
+              return null;
+              break;
+        }
+    }
     
     /**#@-*/
 

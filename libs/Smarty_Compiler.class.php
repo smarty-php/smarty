@@ -2047,27 +2047,39 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'get':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_GET' : "\$GLOBALS['HTTP_GET_VARS']";
+                $_ref_val = substr($indexes[1], 1);
+                $compiled_ref = "\$this->_get_super('get','$_ref_val')";
+                array_shift($indexes);
                 break;
 
             case 'post':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_POST' : "\$GLOBALS['HTTP_POST_VARS']";
+                $_ref_val = substr($indexes[1], 1);
+                $compiled_ref = "\$this->_get_super('post','$_ref_val')";
+                array_shift($indexes);
                 break;
 
             case 'cookies':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_COOKIE' : "\$GLOBALS['HTTP_COOKIE_VARS']";
+                $_ref_val = substr($indexes[1], 1);
+                $compiled_ref = "\$this->_get_super('cookies','$_ref_val')";
+                array_shift($indexes);
                 break;
 
             case 'env':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_ENV' : "\$GLOBALS['HTTP_ENV_VARS']";
+                $_ref_val = substr($indexes[1], 1);
+                $compiled_ref = "\$this->_get_super('env','$_ref_val')";
+                array_shift($indexes);
                 break;
 
             case 'server':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_SERVER' : "\$GLOBALS['HTTP_SERVER_VARS']";
+                $_ref_val = substr($indexes[1], 1);
+                $compiled_ref = "\$this->_get_super('server','$_ref_val')";
+                array_shift($indexes);
                 break;
 
             case 'session':
-                $compiled_ref = ($this->request_use_auto_globals) ? '$_SESSION' : "\$GLOBALS['HTTP_SESSION_VARS']";
+                $_ref_val = substr($indexes[1], 1);
+                $compiled_ref = "\$this->_get_super('session','$_ref_val')";
+                array_shift($indexes);
                 break;
 
             /*
