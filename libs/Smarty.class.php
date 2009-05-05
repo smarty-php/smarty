@@ -64,7 +64,7 @@ require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_
 */
 class Smarty extends Smarty_Internal_TemplateBase {
     // smarty version
-    static $_version = 'Smarty3Alpha'; 
+    public static $_version = 'Smarty3Alpha'; 
     // class used for templates
     public $template_class = 'Smarty_Internal_Template'; 
     // display error on not assigned variabled
@@ -114,11 +114,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $debug_tpl = null;
     public $request_use_auto_globals = true; 
     // When set, smarty does uses this value as error_reporting-level.
-    public $error_reporting = null; 
+    public $error_reporting = null;
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.             
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                   
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -126,7 +126,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // assigned global tpl vars
     public $global_tpl_vars = array(); 
     // dummy parent object
-    public $parent = null;
+    public $parent = null; 
     // global template functions
     public $template_functions = null; 
     // system plugins directory
@@ -146,7 +146,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // exception handler: set null to disable
     public $exception_handler = array('SmartyException', 'getStaticException'); 
     // cached template objects
-    static $template_objects = null; 
+    public $template_objects = null; 
     // check If-Modified-Since headers
     public $cache_modified_check = false; 
     // registered plugins
@@ -255,7 +255,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * Sets a static instance of the smarty object. Retrieve with:
     * $smarty = Smarty::instance();
     * 
-    * @param object $new_instance the Smarty object when setting
     * @return object reference to Smarty object
     */
     public static function &instance($new_instance = null)
@@ -335,9 +334,13 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * 
     * @param string $security_policy plugin to load
     */
-    public function enableSecurity($security_policy = 'Smarty_SecurityPolicy_Default')
+    public function enableSecurity($security_policy_file = null)
     {
-        if ($this->loadPlugin($security_policy)) {
+        if (!isset($security_policy_file)) {
+            $security_policy_file = SMARTY_DIR . 'Security.class.php';
+        } 
+        if (file_exists($security_policy_file)) {
+            require_once($security_policy_file);
             if (!class_exists('Smarty_Security_Policy')) {
                 throw new Exception("Security policy must define class 'Smarty_Security_Policy'");
             } 
@@ -346,7 +349,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             $this->security_handler = new Smarty_Internal_Security_Handler();
             $this->security = true;
         } else {
-            throw new Exception("Security policy {$security_policy} not found");
+            throw new Exception("Security policy {$security_policy_file} not found");
         } 
     } 
 
@@ -427,28 +430,28 @@ class Smarty extends Smarty_Internal_TemplateBase {
             return true; 
         // Plugin name is expected to be: Smarty_[Type]_[Name]
         $plugin_name = strtolower($plugin_name);
-        $name_parts = explode('_', $plugin_name, 3); 
+        $_name_parts = explode('_', $plugin_name, 3); 
         // class name must have three parts to be valid plugin
-        if (count($name_parts) < 3 || $name_parts[0] !== 'smarty') {
+        if (count($_name_parts) < 3 || $_name_parts[0] !== 'smarty') {
             throw new Exception("plugin {$plugin_name} is not a valid name format");
             return false;
         } 
         // plugin filename is expected to be: [type].[name].php
-        $plugin_filename = "{$name_parts[1]}.{$name_parts[2]}{$this->php_ext}"; 
+        $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}{$this->php_ext}"; 
         // if type is "internal", get plugin from sysplugins
-        if ($name_parts[1] == 'internal') {
-            if (file_exists($this->sysplugins_dir . $plugin_filename)) {
-                require_once($this->sysplugins_dir . $plugin_filename);
+        if ($_name_parts[1] == 'internal') {
+            if (file_exists($this->sysplugins_dir . $_plugin_filename)) {
+                require_once($this->sysplugins_dir . $_plugin_filename);
                 return true;
             } else {
                 return false;
             } 
         } 
         // loop through plugin dirs and find the plugin
-        foreach((array)$this->plugins_dir as $plugin_dir) {
-            if (file_exists($plugin_dir . $plugin_filename)) {
-                   require_once($plugin_dir . $plugin_filename);
-                    return true;
+        foreach((array)$this->plugins_dir as $_plugin_dir) {
+            if (file_exists($_plugin_dir . $_plugin_filename)) {
+                require_once($_plugin_dir . $_plugin_filename);
+                return true;
             } 
         } 
         // no plugin loaded
@@ -477,19 +480,19 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function __call($name, $args)
     {
-        $class_name = "Smarty_Method_{$name}";
-        if (!class_exists($class_name, false)) {
-            $plugin_filename = strtolower('method.' . $name . $this->php_ext);
-            if (!file_exists($this->sysplugins_dir . $plugin_filename)) {
-                throw new Exception("Sysplugin file " . $plugin_filename . " does not exist");
+        $_class_name = "Smarty_Method_{$name}";
+        if (!class_exists($_class_name, false)) {
+            $_plugin_filename = strtolower('method.' . $name . $this->php_ext);
+            if (!file_exists($this->sysplugins_dir . $_plugin_filename)) {
+                throw new Exception("Sysplugin file " . $_plugin_filename . " does not exist");
             } 
-            require_once($this->sysplugins_dir . $plugin_filename);
-            if (!class_exists($class_name, false)) {
-                throw new Exception ("Sysplugin file " . $plugin_filename . " does not define class " . $class_name);
+            require_once($this->sysplugins_dir . $_plugin_filename);
+            if (!class_exists($_class_name, false)) {
+                throw new Exception ("Sysplugin file " . $_plugin_filename . " does not define class " . $_class_name);
             } 
         } 
-        $method = new $class_name;
-        return call_user_func_array(array($method, 'execute'), $args);
+        $_method_object = new $_class_name;
+        return call_user_func_array(array($_method_object, 'execute'), $args);
     } 
 } 
 

@@ -3,7 +3,7 @@
 * Smarty plugin
 * 
 * @package Smarty
-* @subpackage PluginsConfiguration
+* @subpackage Security
 * @author Uwe Tews 
 */ 
     define('SMARTY_PHP_PASSTHRU',   0);
@@ -78,6 +78,10 @@ class Smarty_Security_Policy {
     + flag if constants can be accessed from template
     */
     public $allow_constants = true;
+    /**
+    + flag if super globals can be accessed from template
+    */
+    public $allow_super_globals = true;
 } 
 
 ?>

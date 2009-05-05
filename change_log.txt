@@ -1,3 +1,9 @@
+05/05/2009
+- fixed E_STRICT incompabilities
+- {function} tag bug fix 
+- security policy definitions have been moved from plugins folder to file Security.class.php in libs folder
+- added allow_super_global configuration to security
+
 04/30/2009
 - functions defined with the {function} tag now always have global scope
 

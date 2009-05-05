@@ -32,6 +32,8 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
         foreach ($_attr as $_key => $_data) {
             $compiler->template->properties['function'][$_name]['parameter'][$_key] = $_data;
         } 
+        // make function known for recursive calls
+        $this->smarty->template_functions[$_name]['compiled'] = '';
         $compiler->template->extract_code = true;
         $compiler->template->extracted_compiled_code = '';
         $compiler->template->has_code = false;

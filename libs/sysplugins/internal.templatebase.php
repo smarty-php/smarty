@@ -311,12 +311,13 @@ class Smarty_Internal_TemplateBase {
     public function createTemplate($template, $parent = null, $cache_id = null, $compile_id = null)
     {
         if (!is_object($template)) {
+        $_smarty = Smarty::instance();
             // we got a template resource
             $_templateId = $this->buildTemplateId ($template, $cache_id, $compile_id); 
             // already in template cache?
-            if (isset(Smarty::$template_objects[$_templateId])) {
+            if (isset($_smarty->template_objects[$_templateId])) {
                 // return cached template object
-                return Smarty::$template_objects[$_templateId];
+                return $_smarty->template_objects[$_templateId];
             } else {
                 // create and cache new template object
                 return new Smarty_Internal_Template ($template, $parent, $cache_id, $compile_id);

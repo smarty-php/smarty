@@ -90,7 +90,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->security = $this->smarty->security;
         $this->cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($this->caching_type);
         $this->parent = $_parent;
-        $this->properties['file_dependency'] = array(); 
+        $this->properties['file_dependency'] = array();
+        // dummy local smarty variable
+        $this->tpl_vars['smarty'] = new Smarty_Variable;
         // Template resource
         $this->template_resource = $template_resource; 
         // parse resource name
@@ -566,7 +568,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // cache template object under a unique ID
         // do not cache string resources
         if ($this->resource_type != 'string') {
-            Smarty::$template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
+            $this->smarty->template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
         } 
         return true;
     } 

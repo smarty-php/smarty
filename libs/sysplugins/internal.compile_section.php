@@ -34,7 +34,6 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
         $section_name = $_attr['name'];
         
         $output .= "unset(\$_smarty_tpl->tpl_vars['smarty']->value['section'][$section_name]);\n";
-        $output .= "\$_smarty_tpl->tpl_vars['smarty']->scope = 0;\n";
         $section_props = "\$_smarty_tpl->tpl_vars['smarty']->value['section'][$section_name]";
 
         foreach ($_attr as $attr_name => $attr_value) {
