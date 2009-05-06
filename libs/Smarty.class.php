@@ -114,11 +114,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $debug_tpl = null;
     public $request_use_auto_globals = true; 
     // When set, smarty does uses this value as error_reporting-level.
-    public $error_reporting = null;
+    public $error_reporting = null; 
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                   
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                    
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -449,6 +449,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
         } 
         // loop through plugin dirs and find the plugin
         foreach((array)$this->plugins_dir as $_plugin_dir) {
+            if (substr($_plugin_dir, -1) != DIRECTORY_SEPARATOR) {
+                $_plugin_dir .= DIRECTORY_SEPARATOR;
+            } 
+
             if (file_exists($_plugin_dir . $_plugin_filename)) {
                 require_once($_plugin_dir . $_plugin_filename);
                 return true;
