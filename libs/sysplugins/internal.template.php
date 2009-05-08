@@ -90,9 +90,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->security = $this->smarty->security;
         $this->cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($this->caching_type);
         $this->parent = $_parent;
-        $this->properties['file_dependency'] = array();
+        $this->properties['file_dependency'] = array(); 
         // dummy local smarty variable
-        $this->tpl_vars['smarty'] = new Smarty_Variable;
+        $this->tpl_vars['smarty'] = new Smarty_Variable; 
         // Template resource
         $this->template_resource = $template_resource; 
         // parse resource name
@@ -272,8 +272,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                     $this->properties = unserialize($_matches[1]);
                     if (!empty($this->properties['function'])) {
                         foreach ($this->properties['function'] as $_name => $_data) {
-                                $this->smarty->template_functions[$_name]['compiled'] = str_replace(array('_%n'), array("\n"), $_data['compiled']);
-                                $this->smarty->template_functions[$_name]['parameter'] = $_data['parameter'];
+                            $this->smarty->template_functions[$_name]['compiled'] = str_replace(array('_%n'), array("\n"), $_data['compiled']);
+                            $this->smarty->template_functions[$_name]['parameter'] = $_data['parameter'];
                         } 
                     } 
                 } 
@@ -472,6 +472,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         } 
     } 
 
+    function processInclude()
+    {
+        $_smarty_tpl = $this;
+        $_start_time = $this->_get_time();
+        eval("?>" . $this->getCompiledTemplate());
+        $this->render_time += $this->_get_time() - $_start_time;
+    } 
     /**
     * Returns the rendered HTML output 
     * 

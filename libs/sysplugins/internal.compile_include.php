@@ -45,7 +45,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             } 
         } 
         // default for included templates
-        $_caching = SMARTY_CACHING_OFF;
+        if ($compiler->template->caching) {
+            $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
+        } else {
+            $_caching = SMARTY_CACHING_OFF;
+        } 
         /*
         * if the {include} tag provides individual parameter for caching
         * it will not be included into the common cache file and treated like
@@ -89,7 +93,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template)); ?>";
         } else {
-            $_output .= "echo \$_smarty_tpl->smarty->fetch(\$_template); ?>";
+            $_output .= "\$_template->processInclude(); ?>";
         } 
         if ($_parent_scope != SMARTY_LOCAL_SCOPE) {
             $_output .= "<?php \$_template->updateParentVariables($_parent_scope); ?>";

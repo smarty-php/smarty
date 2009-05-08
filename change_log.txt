@@ -1,3 +1,6 @@
+05/08/2009
+- fixed bug of {nocache}  tag in included templates
+
 05/06/2009
 - allow that plugins_dir folder names can end without directory separator
 
