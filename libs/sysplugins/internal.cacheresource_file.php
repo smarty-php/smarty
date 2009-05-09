@@ -169,7 +169,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_Internal_PluginBase {
             $_cache_dir .= DIRECTORY_SEPARATOR;
         } 
 
-        return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . $resource_name . $this->smarty->php_ext;
+        return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($resource_name) . $this->smarty->php_ext;
     } 
 } 
 
