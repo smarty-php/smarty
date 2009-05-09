@@ -1,4 +1,5 @@
 05/09/2009
+- syntax change for stream variables
 - fixed bug when using absolute template filepath and caching
 
 05/08/2009

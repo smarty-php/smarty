@@ -472,6 +472,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         } 
     } 
 
+    /* Include subtemplates ({include} tag
+    */
     function processInclude()
     {
         $_smarty_tpl = $this;
