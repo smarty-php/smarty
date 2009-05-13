@@ -1,3 +1,4 @@
+- strip backticks from {math} equations (mohrt)
 - throw error when template exists but not readable (mohrt)
 
 Version 2.6.22 (Dec 17th, 2008)
