@@ -591,7 +591,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             $file = $this->resource_name;
         } 
         foreach((array)$this->smarty->template_dir as $_template_dir) {
-            if (substr($_template_dir, -1) != DIRECTORY_SEPARATOR) {
+            if (strpos('/\\',substr($_template_dir, -1)) === false) {
                 $_template_dir .= DIRECTORY_SEPARATOR;
             } 
 

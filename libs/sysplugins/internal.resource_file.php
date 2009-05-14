@@ -111,7 +111,7 @@ class Smarty_Internal_Resource_File extends Smarty_Internal_Base {
             $_cache = '';
         } 
         $_compile_dir = $_template->smarty->compile_dir;
-        if (substr($_compile_dir, -1) != DIRECTORY_SEPARATOR) {
+        if (strpos('/\\',substr($_compile_dir, -1)) === false) {
             $_compile_dir .= DIRECTORY_SEPARATOR;
         } 
         return $_compile_dir . $_filepath . '.' . basename($_template->resource_name) . $_cache . $_template->smarty->php_ext;

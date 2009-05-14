@@ -77,7 +77,7 @@ class Smarty_Internal_Config extends Smarty_Internal_Base {
     public function buildConfigFilepath ()
     {
         foreach((array)$this->smarty->config_dir as $_config_dir) {
-            if (substr($_config_dir, -1) != DIRECTORY_SEPARATOR) {
+            if (strpos('/\\',substr($_config_dir, -1)) === false) {
                 $_config_dir .= DIRECTORY_SEPARATOR;
             } 
 

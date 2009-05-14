@@ -449,7 +449,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         } 
         // loop through plugin dirs and find the plugin
         foreach((array)$this->plugins_dir as $_plugin_dir) {
-            if (substr($_plugin_dir, -1) != DIRECTORY_SEPARATOR) {
+            if (strpos('/\\',substr($_plugin_dir, -1)) === false) {
                 $_plugin_dir .= DIRECTORY_SEPARATOR;
             } 
 
