@@ -1,4 +1,7 @@
+Version 2.6.23 (May 13th, 2009)
+-------------------------------
 - strip backticks from {math} equations (mohrt)
+- make PHP super globals read-only from template (mohrt)
 - throw error when template exists but not readable (mohrt)
 
 Version 2.6.22 (Dec 17th, 2008)
