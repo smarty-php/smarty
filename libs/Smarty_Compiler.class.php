@@ -2047,39 +2047,27 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'get':
-                $_ref_val = substr($indexes[1], 1);
-                $compiled_ref = "\$this->_get_super('get','$_ref_val')";
-                array_shift($indexes);
+                $compiled_ref = "\$this->supers['get']";
                 break;
 
             case 'post':
-                $_ref_val = substr($indexes[1], 1);
-                $compiled_ref = "\$this->_get_super('post','$_ref_val')";
-                array_shift($indexes);
+                $compiled_ref = "\$this->supers['post']";
                 break;
 
             case 'cookies':
-                $_ref_val = substr($indexes[1], 1);
-                $compiled_ref = "\$this->_get_super('cookies','$_ref_val')";
-                array_shift($indexes);
+                $compiled_ref = "\$this->supers['cookies']";
                 break;
 
             case 'env':
-                $_ref_val = substr($indexes[1], 1);
-                $compiled_ref = "\$this->_get_super('env','$_ref_val')";
-                array_shift($indexes);
+                $compiled_ref = "\$this->supers['env']";
                 break;
 
             case 'server':
-                $_ref_val = substr($indexes[1], 1);
-                $compiled_ref = "\$this->_get_super('server','$_ref_val')";
-                array_shift($indexes);
+                $compiled_ref = "\$this->supers['server']";
                 break;
 
             case 'session':
-                $_ref_val = substr($indexes[1], 1);
-                $compiled_ref = "\$this->_get_super('session','$_ref_val')";
-                array_shift($indexes);
+                $compiled_ref = "\$this->supers['session']";
                 break;
 
             /*
@@ -2088,7 +2076,7 @@ class Smarty_Compiler extends Smarty {
              */
             case 'request':
                 if ($this->request_use_auto_globals) {
-                    $compiled_ref = '$_REQUEST';
+                    $compiled_ref = "\$this->supers['request']";
                     break;
                 } else {
                     $this->_init_smarty_vars = true;

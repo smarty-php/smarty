@@ -570,6 +570,15 @@ class Smarty
     {
       $this->assign('SCRIPT_NAME', isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME']
                     : @$GLOBALS['HTTP_SERVER_VARS']['SCRIPT_NAME']);
+                    
+      $this->supers['get'] = $this->request_use_auto_globals ? $_GET : $GLOBALS['HTTP_GET_VARS'];
+      $this->supers['post'] = $this->request_use_auto_globals ? $_POST : $GLOBALS['HTTP_POST_VARS'];
+      $this->supers['server'] = $this->request_use_auto_globals ? $_SERVER : $GLOBALS['HTTP_SERVER_VARS'];
+      $this->supers['session'] = $this->request_use_auto_globals ? $_SESSION : $GLOBALS['HTTP_SESSION_VARS'];
+      $this->supers['request'] = $this->request_use_auto_globals ? $_REQUEST : $GLOBALS['HTTP_REQUEST_VARS'];
+      $this->supers['cookies'] = $this->request_use_auto_globals ? $_COOKIE : $GLOBALS['HTTP_COOKIE_VARS'];
+      $this->supers['env'] = $this->request_use_auto_globals ? $_ENV : $GLOBALS['HTTP_ENV_VARS'];
+                    
     }
 
     /**
@@ -1952,47 +1961,6 @@ class Smarty
 		}
 	}
   
-    /**
-     * wrapper for super global access
-     * @return mixed
-     */
-    function _get_super($type,$name)
-    {
-        // don't display anything if not allowed
-        if($this->security && !$this->security_settings['ALLOW_SUPER_GLOBALS']) {
-          $this->trigger_error('security error: super global access not allowed');
-          return false;
-        }
-        if(empty($type)||empty($name))
-          return null;
-        switch($type) {
-            case 'get':
-              return $this->request_use_auto_globals ? $_GET[$name] : $GLOBALS['HTTP_GET_VARS'][$name];
-              break;
-            case 'post':
-              return $this->request_use_auto_globals ? $_POST[$name] : $GLOBALS['HTTP_POST_VARS'][$name];
-              break;
-            case 'server':
-              return $this->request_use_auto_globals ? $_SERVER[$name] : $GLOBALS['HTTP_SERVER_VARS'][$name];
-              break;
-            case 'session':
-              return $this->request_use_auto_globals ? $_SESSION[$name] : $GLOBALS['HTTP_SESSION_VARS'][$name];
-              break;        
-            case 'request':
-              return $this->request_use_auto_globals ? $_REQUEST[$name] : $GLOBALS['HTTP_REQUEST_VARS'][$name];
-              break;        
-            case 'cookies':
-              return $this->request_use_auto_globals ? $_COOKIE[$name] : $GLOBALS['HTTP_COOKIE_VARS'][$name];
-              break;        
-            case 'env':
-              return $this->request_use_auto_globals ? $_ENV[$name] : $GLOBALS['HTTP_ENV_VARS'][$name];
-              break;        
-            default:
-              return null;
-              break;
-        }
-    }
-    
     /**#@-*/
 
 }
