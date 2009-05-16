@@ -2047,27 +2047,27 @@ class Smarty_Compiler extends Smarty {
                 break;
 
             case 'get':
-                $compiled_ref = "\$this->supers['get']";
+                $compiled_ref = "\$this->_supers['get']";
                 break;
 
             case 'post':
-                $compiled_ref = "\$this->supers['post']";
+                $compiled_ref = "\$this->_supers['post']";
                 break;
 
             case 'cookies':
-                $compiled_ref = "\$this->supers['cookies']";
+                $compiled_ref = "\$this->_supers['cookies']";
                 break;
 
             case 'env':
-                $compiled_ref = "\$this->supers['env']";
+                $compiled_ref = "\$this->_supers['env']";
                 break;
 
             case 'server':
-                $compiled_ref = "\$this->supers['server']";
+                $compiled_ref = "\$this->_supers['server']";
                 break;
 
             case 'session':
-                $compiled_ref = "\$this->supers['session']";
+                $compiled_ref = "\$this->_supers['session']";
                 break;
 
             /*
@@ -2076,7 +2076,7 @@ class Smarty_Compiler extends Smarty {
              */
             case 'request':
                 if ($this->request_use_auto_globals) {
-                    $compiled_ref = "\$this->supers['request']";
+                    $compiled_ref = "\$this->_supers['request']";
                     break;
                 } else {
                     $this->_init_smarty_vars = true;
