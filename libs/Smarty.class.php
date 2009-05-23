@@ -27,7 +27,7 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.6.24-dev
+ * @version 2.6.25-dev
  */
 
 /* $Id$ */
@@ -107,7 +107,7 @@ class Smarty
     /**
      * When set, smarty does uses this value as error_reporting-level.
      *
-     * @var boolean
+     * @var integer
      */
     var $error_reporting  =  null;
 
@@ -465,7 +465,7 @@ class Smarty
      *
      * @var string
      */
-    var $_version              = '2.6.24-dev';
+    var $_version              = '2.6.25-dev';
 
     /**
      * current template inclusion depth
