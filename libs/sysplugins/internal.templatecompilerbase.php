@@ -158,6 +158,7 @@ class Smarty_Internal_TemplateCompilerBase extends Smarty_Internal_Base {
                 } 
                 // if compiler function plugin call it now
                 if ($this->smarty->registered_plugins[$tag][0] == 'compiler') {
+                    $this->tag_nocache = false;
                     return call_user_func_array($this->smarty->registered_plugins[$tag][1], array($args, $this));
                 } 
                 // compile function or block plugin
