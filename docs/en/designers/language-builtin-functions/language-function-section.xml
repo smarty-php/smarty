@@ -4,7 +4,7 @@
  <title>{section},{sectionelse}</title>
   <para>
   A <varname>{section}</varname>
-  is for looping over <emphasis role="bold">arrays of data</emphasis>,
+  is for looping over <emphasis role="bold">sequentially indexed arrays of data</emphasis>,
   unlike <link linkend="language.function.foreach"><varname>{foreach}</varname></link>
   which is used to loop over a
    <emphasis role="bold">single associative array</emphasis>.
