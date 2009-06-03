@@ -20,7 +20,7 @@ class Smarty_Internal_Plugin_Handler extends Smarty_Internal_Base {
     public function __call($name, $args)
     {
         if ($this->loadSmartyPlugin($name, $args[1])) {
-            // call plugin
+            // call plugin 
             return call_user_func_array($this->smarty->registered_plugins[$name][1], $args[0]);
         } else {
             // plugin not found

@@ -41,14 +41,14 @@ class Smarty_Internal_Compile_Block_Plugin extends Smarty_Internal_CompileBase {
             $this->_open_tag($tag, $_params);
 
             // compile code
-            $output = '<?php $_block_repeat=true;$_smarty_tpl->smarty->plugin_handler->' . $tag . '(array(' . $_params . ', null, $_smarty_tpl->smarty, $_block_repeat, $_smarty_tpl),\'block\');while ($_block_repeat) { ob_start();?>';
+            $output = '<?php $_block_repeat=true;$_smarty_tpl->smarty->plugin_handler->loadSmartyPlugin(\''.$tag.'\', \'block\'); $_smarty_tpl->smarty->registered_plugins[\'' . $tag . '\'][1](' . $_params . ', null, $_smarty_tpl->smarty, $_block_repeat, $_smarty_tpl);while ($_block_repeat) { ob_start();?>';
         } else {
             // closing tag of block plugin
             $_params = $this->_close_tag(substr($tag,0,-5));
             // This tag does create output
             $this->compiler->has_output = true;
             // compile code
-            $output = '<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false; echo $_smarty_tpl->smarty->plugin_handler->' . substr($tag,0,-5) . '(array(' . $_params . ', $_block_content, $_smarty_tpl->smarty, $_block_repeat, $_smarty_tpl),\'block\'); }?>';
+            $output = '<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false; echo $_smarty_tpl->smarty->registered_plugins[\'' . substr($tag,0,-5) . '\'][1](' . $_params . ', $_block_content, $_smarty_tpl->smarty, $_block_repeat, $_smarty_tpl); }?>';
         } 
         return $output;
     } 
