@@ -109,7 +109,7 @@
   <programlisting>
 <![CDATA[
 {section name=rows loop=$data}
-<tr bgcolor="{cycle values="#eeeeee,#d0d0d0"}">
+<tr class="{cycle values="odd,even"}">
    <td>{$data[rows]}</td>
 </tr>
 {/section}
@@ -118,13 +118,13 @@
   <para>The above template would output:</para>
   <screen>
 <![CDATA[
-<tr bgcolor="#eeeeee">
+<tr class="odd">
    <td>1</td>
 </tr>
-<tr bgcolor="#d0d0d0">
+<tr class="even">
    <td>2</td>
 </tr>
-<tr bgcolor="#eeeeee">
+<tr class="odd">
    <td>3</td>
 </tr>
 ]]>
