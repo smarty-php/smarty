@@ -70,31 +70,40 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
                 $_template->template_source = $_content;
             } 
         } 
-    } 
+    }
     protected function saveBlockData(array $matches)
     {
-        if (0 == preg_match('/(.?)(name=)(.*)/', $matches[2], $_match)) {
+        if (0 == preg_match('/(.?)(name=)([^ ]*)/', $matches[2], $_match)) {
             $this->compiler->trigger_template_error("\"" . $matches[0] . "\" missing name attribute");
         } else {
+            // compile block content
+            $_tpl = $this->smarty->createTemplate('string:' . $matches[3]);
+            $_tpl->suppressHeader = true;
+            $_compiled_content = $_tpl->getCompiledTemplate();
+            unset($_tpl);
             $_name = trim($_match[3], "\"'");
-            if (!isset($this->template->block_data[$_name])) {
-                // check for smarty possible tags
-                if (strpos($matches[3], $this->smarty->left_delimiter) === false) {
-                    // output as is
-                    $_output = $matches[3];
-                } else {
-                    // tags in $_content will be precompiled and compiled code is returnd
-                    $tpl = $this->smarty->createTemplate('string:' . $matches[3]);
-                    $tpl->suppressHeader = true;
-                    $_output = $tpl->getCompiledTemplate();
-                    $tpl->suppressHeader = false; 
-                    // $_output = '<?php echo $_smarty_tpl->smarty->fetch(\'string:' . addcslashes($_content,"'") . '\', $_smarty_tpl); ? >';
+
+            if (isset($this->template->block_data[$_name])) {
+                if ($this->template->block_data[$_name]['mode'] == 'prepend') {
+                    $this->template->block_data[$_name]['compiled'] .= $_compiled_content;
+                    $this->template->block_data[$_name]['source'] .= $matches[3];
+                } elseif ($this->template->block_data[$_name]['mode'] == 'append') {
+                    $this->template->block_data[$_name]['compiled'] = $_compiled_content . $this->template->block_data[$_name]['compiled'];
+                    $this->template->block_data[$_name]['source'] = $matches[3] . $this->template->block_data[$_name]['source'];
                 } 
+            } else {
+                $this->template->block_data[$_name]['compiled'] = $_compiled_content;
                 $this->template->block_data[$_name]['source'] = $matches[3];
-                $this->template->block_data[$_name]['compiled'] = $_output;
+            } 
+            if (preg_match('/(.?)(append=true)(.*)/', $matches[2], $_match) != 0) {
+                $this->template->block_data[$_name]['mode'] = 'append';
+            } elseif (preg_match('/(.?)(prepend=true)(.*)/', $matches[2], $_match) != 0) {
+                $this->template->block_data[$_name]['mode'] = 'prepend';
+            } else {
+                $this->template->block_data[$_name]['mode'] = 'replace';
             } 
         } 
-    } 
+        }
 
     /**
     * Return flag that this resource uses the compiler
@@ -126,8 +135,7 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
     public function getCompiledFilepath($_template)
     {
         $_files = explode('|', $_template->resource_name);
-//        $_filepath = md5($_files[0]); 
-        $_filepath = (string)abs(crc32($_files[0]));
+        $_filepath = (string)abs(crc32($_template->resource_name));
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 3) . DIRECTORY_SEPARATOR
