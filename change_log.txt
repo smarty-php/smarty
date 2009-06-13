@@ -1,6 +1,7 @@
 06/13/2009
 - bugfix at extend resource: create unique files for compiled template and cache for each combination of template files
 - update extend resource to handle appen and prepend block attributes
+- instantiate classes of plugins instead of calling them static
 
 06/03/2009
 - fixed repeat at block plugins

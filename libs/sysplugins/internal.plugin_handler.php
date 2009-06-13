@@ -45,7 +45,7 @@ class Smarty_Internal_Plugin_Handler extends Smarty_Internal_Base {
                 $plugin = 'smarty_' . $plugin_type . '_' . $name;
                 if ($this->smarty->loadPlugin($plugin)) {
                     if (class_exists($plugin, false)) {
-                        $plugin = array($plugin, 'execute');
+                        $plugin = array(new $plugin, 'execute');
                     } 
                     if (is_callable($plugin)) {
                         $this->smarty->registered_plugins[$name] = array($plugin_type, $plugin, false);
