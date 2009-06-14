@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2698 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3152 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.section">
  <title>{section},{sectionelse}</title>
   <para>
   <varname>{section}</varname> は、
-  <emphasis role="bold">データの配列</emphasis> をループするために使用します。
+  <emphasis role="bold">データが格納された数値添字配列</emphasis> をループするために使用します。
   これは、<link linkend="language.function.foreach"><varname>{foreach}</varname></link>
   が <emphasis role="bold">１つの連想配列</emphasis>
   をループするのとは異なります。すべての <varname>{section}</varname>
