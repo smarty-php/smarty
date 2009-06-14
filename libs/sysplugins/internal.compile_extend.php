@@ -35,7 +35,7 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         $compiler->template->properties['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp()); 
         // $_old_source = preg_replace ('/' . $this->smarty->left_delimiter . 'extend\s+(?:file=)?\s*(\S+?|(["\']).+?\2)' . $this->smarty->right_delimiter . '/i', '' , $compiler->template->template_source, 1);
         $_old_source = $compiler->template->template_source;
-        $_old_source = preg_replace_callback('/(' . $this->smarty->left_delimiter . 'block(.+?)' . $this->smarty->right_delimiter . ')((?:\r?\n?)(.*?)(?:\r?\n?))(' . $this->smarty->left_delimiter . '\/block(.*?)' . $this->smarty->right_delimiter . ')/is', array($this, 'saveBlockData'), $_old_source);
+        $_old_source = preg_replace_callback('/(' . $this->compiler->smarty->left_delimiter . 'block(.+?)' . $this->compiler->smarty->right_delimiter . ')((?:\r?\n?)(.*?)(?:\r?\n?))(' . $this->compiler->smarty->left_delimiter . '\/block(.*?)' . $this->compiler->smarty->right_delimiter . ')/is', array($this, 'saveBlockData'), $_old_source);
         $compiler->template->template_source = $_template->getTemplateSource();
         $compiler->abort_and_recompile = true;
         return ' ';
@@ -47,7 +47,7 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
             $this->compiler->trigger_template_error("\"" . $matches[0] . "\" missing name attribute");
         } else {
             // compile block content
-            $_tpl = $this->smarty->createTemplate('string:' . $matches[3]);
+            $_tpl = $this->compiler->smarty->createTemplate('string:' . $matches[3]);
             $_tpl->suppressHeader = true;
             $_compiled_content = $_tpl->getCompiledTemplate();
             unset($_tpl);
