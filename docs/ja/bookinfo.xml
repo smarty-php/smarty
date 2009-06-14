@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2094 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <bookinfo id="bookinfo">
   <title>Smarty - コンパイリング PHP テンプレートエンジン</title>

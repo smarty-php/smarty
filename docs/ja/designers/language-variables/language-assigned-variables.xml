@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2588 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.assigned.variables">
  <title>PHP から割り当てられた変数</title>

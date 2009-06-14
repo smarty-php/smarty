@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2757 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.syntax.quotes">
  <title>ダブルクォート内に埋め込まれた変数</title>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2583 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <sect1 id="language.function.ldelim">
   <title>{ldelim},{rdelim}</title>
