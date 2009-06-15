@@ -234,7 +234,7 @@
     {* do something *}
 {/if}
 
-{if is_array($foo) && count($foo) > 0)
+{if is_array($foo) && count($foo) > 0}
     {* do a foreach loop *}
 {/if}
   ]]>
