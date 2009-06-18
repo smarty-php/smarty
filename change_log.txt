@@ -1,3 +1,6 @@
+06/18/2009
+- fixed compilation of block plugins when caching enabled
+
 06/14/2009
 - fixed array access on super globals
 - allow smarty tags within xml tags
