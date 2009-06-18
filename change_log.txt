@@ -1,5 +1,6 @@
 06/18/2009
 - fixed compilation of block plugins when caching enabled
+- added $smarty.current_dir  which returns the current working directory
 
 06/14/2009
 - fixed array access on super globals

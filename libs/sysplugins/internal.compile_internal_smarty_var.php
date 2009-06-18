@@ -66,6 +66,9 @@ class Smarty_Internal_Compile_Internal_Smarty_Var extends Smarty_Internal_Compil
             case 'template':
                 $_template_name = $compiler->template->getTemplateFilepath();
                 return "'$_template_name'";
+            case 'current_dir':
+                $_template_dir_name = dirname($compiler->template->getTemplateFilepath());
+                return "'$_template_dir_name'";
 
             case 'version':
                 $_version = Smarty::$_version;
