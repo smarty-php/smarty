@@ -1,3 +1,8 @@
+06/22/2009
+- fix on \n and spaces inside smarty tags
+- removed request_use_auto_globals propert as it is no longer needed because Smarty 3 will always run under PHP 5
+
+
 06/18/2009
 - fixed compilation of block plugins when caching enabled
 - added $smarty.current_dir  which returns the current working directory

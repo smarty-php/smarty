@@ -112,7 +112,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $debugging_ctrl = 'URL';
     public $smarty_debug_id = 'SMARTY_DEBUG';
     public $debug_tpl = null;
-    public $request_use_auto_globals = true; 
     // When set, smarty does uses this value as error_reporting-level.
     public $error_reporting = null; 
     // config var settings
@@ -232,9 +231,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
                     $this->debugging = true;
                 } 
             } else {
-                if ($this->request_use_auto_globals && isset($_COOKIE['SMARTY_DEBUG'])) {
-                    $this->debugging = true;
-                } elseif (!$this->request_use_auto_globals && isset($GLOBALS['HTTP_COOKIE_VARS']['SMARTY_DEBUG'])) {
+                if (isset($_COOKIE['SMARTY_DEBUG'])) {
                     $this->debugging = true;
                 } 
             } 
