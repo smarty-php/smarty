@@ -1,3 +1,6 @@
+06/24/2009
+- fixed smarty_function_html_options call in plugin function.html_select_date.php
+
 06/22/2009
 - fix on \n and spaces inside smarty tags
 - removed request_use_auto_globals propert as it is no longer needed because Smarty 3 will always run under PHP 5

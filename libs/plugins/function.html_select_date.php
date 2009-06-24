@@ -252,7 +252,7 @@ function smarty_function_html_select_date($params, $smarty, $template)
                 'values' => $day_values,
                 'selected' => $time[2],
                 'print_result' => false),
-            $smarty);
+            $smarty $template);
         $day_result .= '</select>';
     } 
 
@@ -299,7 +299,7 @@ function smarty_function_html_select_date($params, $smarty, $template)
                     'values' => $yearvals,
                     'selected' => $time[0],
                     'print_result' => false),
-                $smarty);
+                $smarty, $template);
             $year_result .= '</select>';
         } 
     } 
