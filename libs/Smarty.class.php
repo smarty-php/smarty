@@ -55,6 +55,14 @@ define('SMARTY_CACHING_LIFETIME_CURRENT', 1);
 define('SMARTY_CACHING_LIVETIME_SAVED', 2);
 
 /**
+* define exception handling
+*/
+if (!defined('SMARTY_EXCEPTION_HANDLER')) {
+    define('SMARTY_EXCEPTION_HANDLER', 1);
+}
+
+
+/**
 * load required base class for creation of the smarty object
 */
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.templatebase.php');
@@ -142,7 +150,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $default_config_type = 'file'; 
     // class used for cacher
     public $cacher_class = 'Smarty_Internal_Cacher_InlineCode'; 
-    // exception handler: set null to disable
+    // exception handler: define SMARTY_EXCEPTION_HANDLER to 0 to disable
     public $exception_handler = array('SmartyException', 'getStaticException'); 
     // cached template objects
     public $template_objects = null; 
@@ -193,7 +201,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         } 
         $this->start_time = $this->_get_time(); 
         // set exception handler
-        if (!empty($this->exception_handler))
+        if (SMARTY_EXCEPTION_HANDLER && !empty($this->exception_handler))
             set_exception_handler($this->exception_handler); 
         // set default dirs
         $this->template_dir = array('.' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR);
@@ -244,7 +252,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public function __destruct()
     { 
         // restore to previous exception handler, if any
-        if (!empty($this->exception_handler))
+        if (SMARTY_EXCEPTION_HANDLER && !empty($this->exception_handler))
             restore_exception_handler();
     } 
 
