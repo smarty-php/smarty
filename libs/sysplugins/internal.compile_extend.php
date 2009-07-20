@@ -35,6 +35,10 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         $compiler->template->properties['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp()); 
         // $_old_source = preg_replace ('/' . $this->smarty->left_delimiter . 'extend\s+(?:file=)?\s*(\S+?|(["\']).+?\2)' . $this->smarty->right_delimiter . '/i', '' , $compiler->template->template_source, 1);
         $_old_source = $compiler->template->template_source;
+        if (preg_match_all('/(' . $this->compiler->smarty->left_delimiter . 'block(.+?)' . $this->compiler->smarty->right_delimiter . ')/', $_old_source, $dummy) !=
+                preg_match_all('/(' . $this->compiler->smarty->left_delimiter . '\/block(.*?)' . $this->compiler->smarty->right_delimiter . ')/', $_old_source, $dummy)) {
+            $this->compiler->trigger_template_error(" unmatched {block} {/block} pairs");
+        } 
         $_old_source = preg_replace_callback('/(' . $this->compiler->smarty->left_delimiter . 'block(.+?)' . $this->compiler->smarty->right_delimiter . ')((?:\r?\n?)(.*?)(?:\r?\n?))(' . $this->compiler->smarty->left_delimiter . '\/block(.*?)' . $this->compiler->smarty->right_delimiter . ')/is', array($this, 'saveBlockData'), $_old_source);
         $compiler->template->template_source = $_template->getTemplateSource();
         $compiler->abort_and_recompile = true;
@@ -70,7 +74,7 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
             if (preg_match('/(.?)(append=true)(.*)/', $matches[2], $_match) != 0) {
                 $this->compiler->template->block_data[$_name]['mode'] = 'append';
             } elseif (preg_match('/(.?)(prepend=true)(.*)/', $matches[2], $_match) != 0) {
-                $this->compiler->template->block_data[$_name]['mode'] = 'prepend';
+                $this->compiler->template->block_data[$_name]['mode'] = 'prepend'; 
                 // }
                 // }
             } else {
