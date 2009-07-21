@@ -109,5 +109,4 @@ class Smarty_Internal_Compile_Internal_Smarty_Var extends Smarty_Internal_Compil
         return $compiled_ref;
     } 
 } 
-
 ?>

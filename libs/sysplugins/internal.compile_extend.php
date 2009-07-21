@@ -52,6 +52,7 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         } else {
             // compile block content
             $_tpl = $this->compiler->smarty->createTemplate('string:' . $matches[3]);
+            $_tpl->template_filepath = $this->compiler->template->getTemplateFilepath();
             $_tpl->suppressHeader = true;
             $_compiled_content = $_tpl->getCompiledTemplate();
             unset($_tpl);
