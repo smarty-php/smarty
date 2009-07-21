@@ -33,7 +33,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     private $usesCompiler = null;
     private $isEvaluated = null; 
     // Template source
-    private $template_filepath = null;
+    public $template_filepath = null;
     public $template_source = null;
     private $template_timestamp = null; 
     // Compiled template
