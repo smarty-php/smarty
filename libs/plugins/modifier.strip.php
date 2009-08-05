@@ -12,7 +12,7 @@
 * Type:     modifier<br>
 * Name:     strip<br>
 * Purpose:  Replace all repeated spaces, newlines, tabs
-*            with a single space or supplied replacement string.<br>
+*             with a single space or supplied replacement string.<br>
 * Example:  {$var|strip} {$var|strip:"&nbsp;"}
 * Date:     September 25th, 2002
 * 
@@ -27,7 +27,7 @@ function smarty_modifier_strip($text, $replace = ' ')
 {
     $smarty = Smarty::instance();
     if ($smarty->has_mb) {
-        return mb_ereg_replace('!\s+!', $replace, $text, 'p');
+        return mb_ereg_replace("\s+", $replace, $text, 'p');
     } else {
         return preg_replace('!\s+!', $replace, $text);
     } 
