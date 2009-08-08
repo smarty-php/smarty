@@ -120,7 +120,7 @@ class Smarty_Internal_Configfileparser#line 109 "internal.configfileparser.php"
         // set instance object
         self::instance($this); 
         $this->lex = $lex;
-        $this->smarty = Smarty::instance(); 
+        $this->smarty = $compiler->smarty; 
         $this->compiler = $compiler;
         $this->current_section = null;
         $this->hidden_section = false;

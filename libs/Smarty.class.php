@@ -59,8 +59,7 @@ define('SMARTY_CACHING_LIVETIME_SAVED', 2);
 */
 if (!defined('SMARTY_EXCEPTION_HANDLER')) {
     define('SMARTY_EXCEPTION_HANDLER', 1);
-}
-
+} 
 
 /**
 * load required base class for creation of the smarty object
@@ -71,6 +70,8 @@ require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_
 * This is the main Smarty class
 */
 class Smarty extends Smarty_Internal_TemplateBase {
+    // smarty instances
+    private static $instance = array(); 
     // smarty version
     public static $_version = 'Smarty3Alpha'; 
     // class used for templates
@@ -119,13 +120,13 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $debugging = false;
     public $debugging_ctrl = 'URL';
     public $smarty_debug_id = 'SMARTY_DEBUG';
-    public $debug_tpl = null;
+    public $debug_tpl = null; 
     // When set, smarty does uses this value as error_reporting-level.
     public $error_reporting = null; 
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                    
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                       
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -187,11 +188,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
     /**
     * Class constructor, initializes basic smarty properties
     */
-    public function __construct()
+    public function __construct($name = 'default')
     { 
         // set instance object
-        self::instance($this);
-
+        Smarty::$instance[$name] = $this;
         if (is_callable('mb_internal_encoding')) {
             $this->has_mb = true;
             mb_internal_encoding($this->resource_char_set);
@@ -216,9 +216,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $this->loadPlugin('Smarty_Internal_PluginBase');
         $this->loadPlugin($this->template_class);
         $this->loadPlugin('Smarty_Internal_Plugin_Handler');
-        $this->plugin_handler = new Smarty_Internal_Plugin_Handler;
+        $this->plugin_handler = new Smarty_Internal_Plugin_Handler($this);
         $this->loadPlugin('Smarty_Internal_Run_Filter');
-        $this->filter_handler = new Smarty_Internal_Run_Filter;
+        $this->filter_handler = new Smarty_Internal_Run_Filter($this);
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
             if (isset($_SERVER['QUERY_STRING'])) {
                 $_query_string = $_SERVER['QUERY_STRING'];
@@ -258,16 +258,17 @@ class Smarty extends Smarty_Internal_TemplateBase {
 
     /**
     * Sets a static instance of the smarty object. Retrieve with:
-    * $smarty = Smarty::instance();
+    * $smarty = Smarty::instance($name);
     * 
     * @return object reference to Smarty object
     */
-    public static function &instance($new_instance = null)
+    public static function &instance($name = 'default')
     {
-        static $instance = null;
-        if (isset($new_instance) && is_object($new_instance))
-            $instance = $new_instance;
-        return $instance;
+       if (isset(Smarty::$instance[$name])) {
+            return Smarty::$instance[$name];
+        } else {
+            throw new Exception("Smarty instance $name is not existing");
+        } 
     } 
 
     /**
@@ -349,9 +350,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
             if (!class_exists('Smarty_Security_Policy')) {
                 throw new Exception("Security policy must define class 'Smarty_Security_Policy'");
             } 
-            $this->security_policy = new Smarty_Security_Policy();
+            $this->security_policy = new Smarty_Security_Policy;
             $this->loadPlugin('Smarty_Internal_Security_Handler');
-            $this->security_handler = new Smarty_Internal_Security_Handler();
+            $this->security_handler = new Smarty_Internal_Security_Handler($this);
             $this->security = true;
         } else {
             throw new Exception("Security policy {$security_policy_file} not found");
@@ -454,7 +455,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         } 
         // loop through plugin dirs and find the plugin
         foreach((array)$this->plugins_dir as $_plugin_dir) {
-            if (strpos('/\\',substr($_plugin_dir, -1)) === false) {
+            if (strpos('/\\', substr($_plugin_dir, -1)) === false) {
                 $_plugin_dir .= DIRECTORY_SEPARATOR;
             } 
 
@@ -489,19 +490,17 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function __call($name, $args)
     {
-        $_class_name = "Smarty_Method_{$name}";
-        if (!class_exists($_class_name, false)) {
+        if (!is_callable($name)) {
             $_plugin_filename = strtolower('method.' . $name . $this->php_ext);
             if (!file_exists($this->sysplugins_dir . $_plugin_filename)) {
                 throw new Exception("Sysplugin file " . $_plugin_filename . " does not exist");
             } 
             require_once($this->sysplugins_dir . $_plugin_filename);
-            if (!class_exists($_class_name, false)) {
-                throw new Exception ("Sysplugin file " . $_plugin_filename . " does not define class " . $_class_name);
+            if (!is_callable($name)) {
+                throw new Exception ("Sysplugin file " . $_plugin_filename . " does not define function " . $name);
             } 
         } 
-        $_method_object = new $_class_name;
-        return call_user_func_array(array($_method_object, 'execute'), $args);
+        return call_user_func_array($name, array_merge(array($this), $args));
     } 
 } 
 
@@ -519,6 +518,7 @@ class SmartyException {
         echo "Code: " . $e->getCode() . "<br />Error: " . htmlentities($e->getMessage()) . "<br />"
          . "File: " . $e->getFile() . "<br />"
          . "Line: " . $e->getLine() . "<br />"
+//         . "Trace" . $e->getTraceAsString() . "<br />"
          . "\n";
     } 
 

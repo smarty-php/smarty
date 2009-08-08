@@ -11,25 +11,19 @@
 */
 
 /**
-* Smarty class Clear_All_Assign
+* Delete Smarty variables
 * 
-* Delete Smarty variables at current level
+* @param object $smarty 
+* @param object $data_object object which holds tpl_vars
 */
-
-class Smarty_Method_Clear_All_Assign extends Smarty_Internal_Base {
-    /**
-    * Delete Smarty variables
-    * @param object $data_object object which holds tpl_vars
-    */
-    public function execute($data_object = null)
-    {
-        if (isset($data_object)) {
-            $ptr = $data_object;
-        } else {
-            $ptr = $this->smarty;
-        } 
-        $ptr->tpl_vars = array();
+function clear_all_assign($smarty, $data_object = null)
+{
+    if (isset($data_object)) {
+        $ptr = $data_object;
+    } else {
+        $ptr = $smarty;
     } 
+    $ptr->tpl_vars = array();
 } 
 
 ?>

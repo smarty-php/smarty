@@ -14,7 +14,11 @@
 /**
 * This class does contain all necessary methods for the HTML cache on file system
 */
-class Smarty_Internal_CacheResource_File extends Smarty_Internal_PluginBase {
+class Smarty_Internal_CacheResource_File {
+    function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    } 
     /**
     * Returns the filepath of the cached template output
     * 

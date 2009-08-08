@@ -16,8 +16,9 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
     /**
     * Initialize compiler
     */
-    public function __construct($lexer_class, $parser_class)
+    public function __construct($lexer_class, $parser_class, $smarty)
     {
+        $this->smarty = $smarty;
         parent::__construct(); 
         // get required plugins
         $this->smarty->loadPlugin($lexer_class);
@@ -38,7 +39,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
        tags in the templates are replaces with PHP code,
        then written to compiled files. */ 
         // init the lexer/parser to compile the template
-        $lex = new $this->lexer_class($_content);
+        $lex = new $this->lexer_class($_content,$this->smarty);
         $parser = new $this->parser_class($lex, $this); 
         // $parser->PrintTrace();
         // get tokens from lexer and parse them

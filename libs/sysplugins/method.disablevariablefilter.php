@@ -11,16 +11,12 @@
 */
 
 /**
-* Smarty class disableVariableFilter
-* 
 * Disable filter on variable output
 */
-class Smarty_Method_disableVariableFilter extends Smarty_Internal_Base {
-    public function execute()
-    {
-        $this->smarty->variable_filter = false;
-        return;
-    } 
+function disableVariableFilter($smarty)
+{
+    $smarty->variable_filter = false;
+    return;
 } 
 
 ?>

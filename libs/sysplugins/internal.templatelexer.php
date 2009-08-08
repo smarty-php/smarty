@@ -71,14 +71,14 @@ class Smarty_Internal_Templatelexer
     				);
     				
     				
-    function __construct($data)
+    function __construct($data,$smarty)
     {
         // set instance object
         self::instance($this); 
         $this->data = $data;
         $this->counter = 0;
         $this->line = 1;
-        $this->smarty = Smarty::instance(); 
+        $this->smarty = $smarty; 
         $this->ldel = preg_quote($this->smarty->left_delimiter); 
         $this->rdel = preg_quote($this->smarty->right_delimiter);
      }

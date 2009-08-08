@@ -34,7 +34,7 @@ class Smarty_Internal_Compile_Internal_Function_Call extends Smarty_Internal_Com
         } 
         $_name = trim($_attr['name'], "'"); 
         // create template object
-        $_output = "<?php \$_template = new Smarty_Template ('string:', \$_smarty_tpl);\n"; 
+        $_output = "<?php \$_template = new Smarty_Template ('string:', \$_smarty_tpl->smarty, \$_smarty_tpl);\n"; 
         // assign default paramter
         if (isset($this->smarty->template_functions[$_name]['parameter'])) {
             // function is already compiled

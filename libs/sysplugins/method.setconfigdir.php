@@ -11,23 +11,16 @@
 */
 
 /**
-* Smarty class setConfigDir
-* 
 * Sets directory of config files
+* 
+* @param object $smarty 
+* @param string $ config folder
+* @return 
 */
-
-class Smarty_Method_SetConfigDir extends Smarty_Internal_Base {
-    /**
-    * Sets directory of config files
-    * 
-    * @param string $ config folder
-    * @return 
-    */
-    public function execute($config_dir)
-    {
-        $this->smarty->config_dir = $config_dir;
-        return;
-    } 
+function SetConfigDir($smarty, $config_dir)
+{
+    $this->smarty->config_dir = $config_dir;
+    return;
 } 
 
 ?>

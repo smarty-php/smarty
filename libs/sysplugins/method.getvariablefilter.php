@@ -15,11 +15,9 @@
 * 
 * get status of filter on variable output
 */
-class Smarty_Method_getVariableFilter extends Smarty_Internal_Base {
-    public function execute()
-    {
-        return $this->smarty->variable_filter;
-    } 
+function getVariableFilter($smarty)
+{
+    return $smarty->variable_filter;
 } 
 
 ?>

@@ -11,16 +11,12 @@
 */
 
 /**
-* Smarty class enableVariableFilter
-* 
 * Enable filter on variable output
 */
-class Smarty_Method_enableVariableFilter extends Smarty_Internal_Base {
-    public function execute()
-    {
-        $this->smarty->variable_filter = true;
-        return;
-    } 
+function enableVariableFilter($smarty)
+{
+    $smarty->variable_filter = true;
+    return;
 } 
 
 ?>

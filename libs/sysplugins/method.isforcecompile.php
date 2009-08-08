@@ -11,15 +11,13 @@
 */
 
 /**
-* Smarty class isForceCompile
 * 
 * is forced compiling
 */
-class Smarty_Method_isForceCompile extends Smarty_Internal_Base {
-    public function execute()
+function isForceCompile($smarty)
     {
-        return $this->smarty->force_compile;
+        return $smarty->force_compile;
     } 
-} 
+
 
 ?>

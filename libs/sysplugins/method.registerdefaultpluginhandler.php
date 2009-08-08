@@ -11,24 +11,17 @@
 */
 
 /**
-* Smarty class registerDefaultPluginHandler
+* Registers a default plugin handler
 * 
-* Registers a default plugin handler
+* @param object $smarty 
+* @param string $ |array $plugin class/methode name
 */
-
-class Smarty_Method_registerDefaultPluginHandler extends Smarty_Internal_Base {
-    /**
-* Registers a default plugin handler
-    * 
-    * @param string $ |array $plugin class/methode name
-    */
-    public function execute($plugin)
-    {
-        if (is_callable($plugin)) {
-            $this->smarty->default_plugin_handler_func = $plugin;
-        } else {
-            throw new Exception('Default plugin handler "'.$plugin.'" not callable');
-        } 
+function registerDefaultPluginHandler($smarty, $plugin)
+{
+    if (is_callable($plugin)) {
+        $smarty->default_plugin_handler_func = $plugin;
+    } else {
+        throw new Exception('Default plugin handler "' . $plugin . '" not callable');
     } 
 } 
 

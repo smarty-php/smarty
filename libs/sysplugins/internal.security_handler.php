@@ -9,7 +9,11 @@
 /**
 * This class contains all methods for security checking
 */
-class Smarty_Internal_Security_Handler extends Smarty_Internal_Base {
+class Smarty_Internal_Security_Handler {
+    function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    } 
     /**
     * Check if PHP function is trusted.
     * 

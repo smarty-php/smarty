@@ -11,21 +11,17 @@
 */
 
 /**
-* Smarty class getCompileDir
-* 
 * Returns directory of compiled templates
 */
 
-class Smarty_Method_GetCompileDir extends Smarty_Internal_Base {
-    /**
+/**
 * Returns directory of compiled templates
-    * 
-    * @return array compiled template folder
-    */
-    public function execute()
-    {
-        return $this->smarty->compile_dir;
-    } 
+* 
+* @return array compiled template folder
+*/
+function GetCompileDir($smarty)
+{
+    return $this->smarty->compile_dir;
 } 
 
 ?>

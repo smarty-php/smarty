@@ -13,7 +13,11 @@
 /**
 * Class for filter processing
 */
-class Smarty_Internal_Run_Filter extends Smarty_Internal_Base {
+class Smarty_Internal_Run_Filter {
+    function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    } 
     /**
     * Run filters over content
     * 

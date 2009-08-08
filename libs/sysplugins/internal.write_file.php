@@ -10,7 +10,7 @@
 /**
 * Smarty Internal Write File Class
 */
-class Smarty_Internal_Write_File extends Smarty_Internal_Base {
+class Smarty_Internal_Write_File {
     /**
     * Writes file in a save way to disk
     * 

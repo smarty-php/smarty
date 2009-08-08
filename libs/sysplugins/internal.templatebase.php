@@ -311,16 +311,15 @@ class Smarty_Internal_TemplateBase {
     public function createTemplate($template, $parent = null, $cache_id = null, $compile_id = null)
     {
         if (!is_object($template)) {
-        $_smarty = Smarty::instance();
             // we got a template resource
             $_templateId = $this->buildTemplateId ($template, $cache_id, $compile_id); 
             // already in template cache?
-            if (isset($_smarty->template_objects[$_templateId])) {
+            if (isset($this->template_objects[$_templateId])) {
                 // return cached template object
-                return $_smarty->template_objects[$_templateId];
+                return $this->template_objects[$_templateId];
             } else {
                 // create and cache new template object
-                return new Smarty_Internal_Template ($template, $parent, $cache_id, $compile_id);
+                return new Smarty_Internal_Template ($template, $this, $parent, $cache_id, $compile_id);
             } 
         } else {
             // just return a copy of template class
@@ -336,7 +335,7 @@ class Smarty_Internal_TemplateBase {
     * @param mixed $_compile_id compile id to be used with this template
     * @returns string a unique template id
     */
-    public function buildTemplateId ($_resource, $_cache_id, $_compile_id)
+    function buildTemplateId ($_resource, $_cache_id, $_compile_id)
     { 
         // return md5($_resource . md5($_cache_id) . md5($_compile_id));
         return crc32($_resource . $_cache_id . $_compile_id);

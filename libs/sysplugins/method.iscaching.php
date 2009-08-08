@@ -11,15 +11,11 @@
 */
 
 /**
-* Smarty class isCaching
-* 
 * is caching
 */
-class Smarty_Method_isCaching extends Smarty_Internal_Base {
-    public function execute()
-    {
-        return $this->smarty->caching;
-    } 
+function isCaching($smarty)
+{
+    return $smarty->caching;
 } 
 
 ?>

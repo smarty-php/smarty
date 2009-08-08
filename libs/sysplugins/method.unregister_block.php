@@ -11,22 +11,18 @@
 */
 
 /**
-* Smarty class Unregister_Block
-* 
 * Unregister a Smarty block function plugin
 */
 
-class Smarty_Method_Unregister_Block extends Smarty_Internal_Base {
-    /**
-    * Unregisters block function
-    * 
-    * @param string $block_tag name of template function
-    */
-    public function execute($block_tag)
-    {
-        if (isset($this->smarty->registered_plugins[$block_tag]) && $this->smarty->registered_plugins[$block_tag][0] == 'block') {
-            unset($this->smarty->registered_plugins[$block_tag]);
-        } 
+/**
+* Unregisters block function
+* 
+* @param string $block_tag name of template function
+*/
+function unregister_block($smarty, $block_tag)
+{
+    if (isset($smarty->registered_plugins[$block_tag]) && $smarty->registered_plugins[$block_tag][0] == 'block') {
+        unset($smarty->registered_plugins[$block_tag]);
     } 
 } 
 

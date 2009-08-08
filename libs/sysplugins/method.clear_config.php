@@ -11,26 +11,19 @@
 */
 
 /**
-* Smarty class Clear_Config
+* Deassigns a single or all global config variables
 * 
-* Deassigns a single or all global config variables
+* @param object $smarty 
+* @param string $varname variable name or null
 */
-
-class Smarty_Method_Clear_Config extends Smarty_Internal_Base {
-    /**
-* Deassigns a single or all global config variables
-    * 
-    * @param string $varname variable name or null
-    */
-    public function execute($varname = null)
-    {
-        if (isset($varname)) {
-        unset($this->smarty->config_vars[$varname]);
-            return;
-        } else {
-            $this->smarty->config_vars = array();
-             return;
-        } 
+function clear_config($smarty, $varname = null)
+{
+    if (isset($varname)) {
+        unset($smarty->config_vars[$varname]);
+        return;
+    } else {
+        $smarty->config_vars = array();
+        return;
     } 
 } 
 

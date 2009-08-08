@@ -20,7 +20,7 @@
 * @param integer $ 
 * @return string 
 */
-class Smarty_Modifier_Debug_Print_Var extends Smarty_Internal_PluginBase {
+class Smarty_Modifier_Debug_Print_Var {
     static function execute ($var, $depth = 0, $length = 40)
     {
         $_replace = array("\n" => '<i>\n</i>',

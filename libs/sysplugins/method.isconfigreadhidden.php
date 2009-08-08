@@ -11,15 +11,11 @@
 */
 
 /**
-* Smarty class isConfigReadHidden
 * 
 * is config read hidden mode
 */
-class Smarty_Method_isConfigReadHidden extends Smarty_Internal_Base {
-    public function execute()
+function isConfigReadHidden($smarty)
     {
-        return $this->smarty->config_read_hidden;
+        return $smarty->config_read_hidden;
     } 
-} 
-
 ?>

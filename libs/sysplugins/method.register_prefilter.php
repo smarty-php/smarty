@@ -11,23 +11,16 @@
 */
 
 /**
-* Smarty class Register_Prefilter
+* Registers a prefilter function to apply
+* to a template before compiling
 * 
-* Register a PHP function as prefilter
+* @param object $smarty 
+* @param callback $function 
 */
-
-class Smarty_Method_Register_Prefilter extends Smarty_Internal_Base {
-    /**
-    * Registers a prefilter function to apply
-    * to a template before compiling
-    * 
-    * @param callback $function 
-    */
-    public function execute($function)
-    {
-        $_name = (is_array($function)) ? $function[0] : $function;
-        $this->smarty->registered_filters['pre'][$_name] = $function;
-    } 
+function register_prefilter($smarty, $function)
+{
+    $_name = (is_array($function)) ? $function[0] : $function;
+    $smarty->registered_filters['pre'][$_name] = $function;
 } 
 
 ?>

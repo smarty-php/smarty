@@ -11,16 +11,11 @@
 */
 
 /**
-* Smarty class disableConfigOverwrite
-* 
 * Disable config overwrite mode
 */
-class Smarty_Method_disableConfigOverwrite extends Smarty_Internal_Base {
-    public function execute()
-    {
-        $this->smarty->config_overwrite = false;
-        return ;
-    } 
+function disableConfigOverwrite($smarty)
+{
+    $smarty->config_overwrite = false;
+    return ;
 } 
-
 ?>

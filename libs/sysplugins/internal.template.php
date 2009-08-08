@@ -76,9 +76,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     * @param mixed $_cache_id cache id or null
     * @param mixed $_compile_id compile id or null
     */
-    public function __construct($template_resource, $_parent = null, $_cache_id = null, $_compile_id = null)
+    public function __construct($template_resource, $smarty, $_parent = null, $_cache_id = null, $_compile_id = null)
     {
-        $this->smarty = Smarty::instance(); 
+        $this->smarty = $smarty; 
         // Smarty parameter
         $this->cache_id = $_cache_id === null ? $this->smarty->cache_id : $_cache_id;
         $this->compile_id = $_compile_id === null ? $this->smarty->compile_id : $_compile_id;
@@ -102,12 +102,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // load cacher
         if ($this->caching) {
             $this->smarty->loadPlugin($this->cacher_class);
-            $this->cacher_object = new $this->cacher_class;
+            $this->cacher_object = new $this->cacher_class($this->smarty);
         } 
         // load cache resource
         if (!$this->isEvaluated() && $this->caching && !isset($this->smarty->cache_resource_objects[$this->caching_type])) {
             $this->smarty->loadPlugin($this->cache_resource_class);
-            $this->smarty->cache_resource_objects[$this->caching_type] = new $this->cache_resource_class;
+            $this->smarty->cache_resource_objects[$this->caching_type] = new $this->cache_resource_class($this->smarty);
         } 
         if ($this->smarty->direct_access_security) {
             $this->dir_acc_sec_string = "<?php if(!defined('SMARTY_DIR')) exit('no direct access allowed'); ?>\n";
@@ -296,7 +296,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             $this->smarty->loadPlugin('Smarty_Internal_CompileBase');
             $this->smarty->loadPlugin('Smarty_Internal_TemplateCompilerBase');
             $this->smarty->loadPlugin($this->resource_objects[$this->resource_type]->compiler_class);
-            $this->compiler_object = new $this->resource_objects[$this->resource_type]->compiler_class($this->resource_objects[$this->resource_type]->template_lexer_class, $this->resource_objects[$this->resource_type]->template_parser_class);
+            $this->compiler_object = new $this->resource_objects[$this->resource_type]->compiler_class($this->resource_objects[$this->resource_type]->template_lexer_class, $this->resource_objects[$this->resource_type]->template_parser_class, $this->smarty);
         } 
         if (!is_object($this->smarty->write_file_object)) {
             $this->smarty->loadPlugin("Smarty_Internal_Write_File");
@@ -548,12 +548,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             // try sysplugins dir first
             $_resource_class = "Smarty_Internal_Resource_{$this->resource_type}";
             if ($this->smarty->loadPlugin($_resource_class)) {
-                $this->resource_objects[$this->resource_type] = new $_resource_class;
+                $this->resource_objects[$this->resource_type] = new $_resource_class($this->smarty);
             } else {
                 // try plugins dir
                 $_resource_class = "Smarty_Resource_{$this->resource_type}";
                 if ($this->smarty->loadPlugin($_resource_class)) {
-                    $this->resource_objects[$this->resource_type] = new $_resource_class;
+                    $this->resource_objects[$this->resource_type] = new $_resource_class($this->smarty);
                 } else {
                     // try streams
                     $_known_stream = stream_get_wrappers();
@@ -564,7 +564,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                         } 
                         if (!isset($this->resource_objects['stream'])) {
                             $this->smarty->loadPlugin('Smarty_Internal_Resource_Stream');
-                            $this->resource_objects['stream'] = new Smarty_Internal_Resource_Stream;
+                            $this->resource_objects['stream'] = new Smarty_Internal_Resource_Stream($this->smarty);
                         } 
                         $this->resource_type = 'stream';
                         $this->resource_name = str_replace(':', '://', $template_resource);
@@ -577,7 +577,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // cache template object under a unique ID
         // do not cache string resources
         if ($this->resource_type != 'string') {
-            $this->smarty->template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
+          $this->smarty->template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
         } 
         return true;
     } 

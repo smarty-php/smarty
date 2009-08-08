@@ -11,16 +11,14 @@
 */
 
 /**
-* Smarty class disableCompileCheck
-* 
 * Disable compile checking
+* 
+* @param object $smarty 
 */
-class Smarty_Method_DisableCompileCheck extends Smarty_Internal_Base {
-    public function execute()
-    {
-        $this->smarty->compile_check = false;
-        return;
-    } 
+function DisableCompileCheck($smarty)
+{
+    $smarty->compile_check = false;
+    return;
 } 
 
 ?>

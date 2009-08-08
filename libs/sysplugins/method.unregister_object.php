@@ -11,21 +11,18 @@
 */
 
 /**
-* Smarty class Unregister_Object
 * 
 * Unregister a PHP object
 */
 
-class Smarty_Method_Unregister_Object extends Smarty_Internal_Base {
     /**
     * Unregisters object
     * 
     * @param string $object name of template object
     */
-    public function execute($object)
+     function unregister_object($smarty, $object)
     {
-        unset($this->smarty->registered_objects[$object]);
+        unset($smarty->registered_objects[$object]);
     } 
-} 
 
 ?>

@@ -11,24 +11,17 @@
 */
 
 /**
-* Smarty class addPluginsDir
-* 
 * Adds directory of plugin files
+* 
+* @param object $smarty 
+* @param string $ |array $ plugins folder
+* @return 
 */
-
-class Smarty_Method_AddPluginsDir extends Smarty_Internal_Base {
-    /**
-    * Adds directory of plugin files
-    * 
-    * @param string|array $ plugins folder
-    * @return 
-    */
-    public function execute($plugins_dir)
-    {
-        $this->smarty->plugins_dir = array_merge((array)$this->smarty->plugins_dir, (array)$plugins_dir);
-        $this->smarty->plugins_dir = array_unique($this->smarty->plugins_dir);
-        return;
-    } 
+function AddPluginsDir($smarty, $plugins_dir)
+{
+    $smarty->plugins_dir = array_merge((array)$smarty->plugins_dir, (array)$plugins_dir);
+    $smarty->plugins_dir = array_unique($smarty->plugins_dir);
+    return;
 } 
 
 ?>

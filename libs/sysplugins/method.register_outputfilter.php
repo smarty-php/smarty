@@ -11,22 +11,16 @@
 */
 
 /**
-* Smarty class Register_Outputfilter
+* Registers an output filter function to apply
+* to a template output
 * 
-* Register a PHP function as outputfilter
+* @param object $smarty 
+* @param callback $function 
 */
-
-class Smarty_Method_Register_Outputfilter extends Smarty_Internal_Base {
-    /**
-    * Registers an output filter function to apply
-    * to a template output
-    * 
-    * @param callback $function 
-    */
-    public function execute($function)
-    {
-        $_name = (is_array($function)) ? $function[0] : $function;
-        $this->smarty->registered_filters['output'][$_name] = $function;
-    } 
+function register_outputfilter($smarty, $function)
+{
+    $_name = (is_array($function)) ? $function[0] : $function;
+    $smarty->registered_filters['output'][$_name] = $function;
 } 
+
 ?>

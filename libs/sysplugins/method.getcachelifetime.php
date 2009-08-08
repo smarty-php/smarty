@@ -15,16 +15,14 @@
 * 
 * Returns lifetime of cache files
 */
-class Smarty_Method_GetCacheLifetime extends Smarty_Internal_Base {
-    /**
+/**
 * Returns lifetime of cache files
-    * 
-    * @return integer cache file lifetime
-    */
-    public function execute()
-    {
-        return $this->smarty->cache_lifetime;
-    } 
+* 
+* @return integer cache file lifetime
+*/
+function getCacheLifetime($smarty)
+{
+    return $smarty->cache_lifetime;
 } 
 
 ?>

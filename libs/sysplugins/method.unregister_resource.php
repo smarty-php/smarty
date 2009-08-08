@@ -11,21 +11,17 @@
 */
 
 /**
-* Smarty class Unregister_Resource
-* 
 * Unregister a template resource
 */
 
-class Smarty_Method_Unregister_Resource extends Smarty_Internal_Base {
-    /**
-    * Unregisters a resource
-    * 
-    * @param string $type name of resource
-    */
-    public function execute($type)
-    {
-        unset($this->smarty->plugins['resource'][$type]);
-    } 
+/**
+* Unregisters a resource
+* 
+* @param string $type name of resource
+*/
+function Unregister_Resource($smarty, $type)
+{
+    unset($smarty->plugins['resource'][$type]);
 } 
 
 ?>

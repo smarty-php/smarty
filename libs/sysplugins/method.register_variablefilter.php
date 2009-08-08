@@ -11,23 +11,16 @@
 */
 
 /**
-* Smarty class Register_Variablefilter
+* Registers an output filter function which
+* runs over any variable output
 * 
-* Register a PHP function as variablefilter
+* @param object $smarty 
+* @param callback $function 
 */
-
-class Smarty_Method_Register_Variablefilter extends Smarty_Internal_Base {
-    /**
-    * Registers an output filter function which
-    * runs over any variable output
-    * 
-    * @param callback $function 
-    */
-    public function execute($function)
-    {
-        $_name = (is_array($function)) ? $function[0] : $function;
-        $this->smarty->registered_filters['variable'][$_name] = $function;
-    } 
+function register_variablefilter($smarty, $function)
+{
+    $_name = (is_array($function)) ? $function[0] : $function;
+    $smarty->registered_filters['variable'][$_name] = $function;
 } 
 
 ?>

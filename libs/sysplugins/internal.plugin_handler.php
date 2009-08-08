@@ -10,7 +10,11 @@
 /**
 * Smarty Internal Plugin Handler Class
 */
-class Smarty_Internal_Plugin_Handler extends Smarty_Internal_Base {
+class Smarty_Internal_Plugin_Handler {
+    function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    } 
     /**
     * Call a Smarty plugin
     * 

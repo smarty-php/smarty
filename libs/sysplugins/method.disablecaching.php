@@ -11,16 +11,12 @@
 */
 
 /**
-* Smarty class disableCaching
-* 
 * Disable caching
 */
-class Smarty_Method_DisableCaching extends Smarty_Internal_Base {
-    public function execute()
-    {
-        $this->smarty->caching = false;
-        return;
-    } 
+function DisableCaching()
+{
+    $this->smarty->caching = false;
+    return;
 } 
 
 ?>

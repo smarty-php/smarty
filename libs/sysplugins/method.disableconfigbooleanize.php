@@ -11,16 +11,12 @@
 */
 
 /**
-* Smarty class disableConfigBooleanize
-* 
 * Disable config booleanize mode
 */
-class Smarty_Method_disableConfigBooleanize extends Smarty_Internal_Base {
-    public function execute()
-    {
-        $this->smarty->config_booleanize = false;
-        return;
-    } 
+function disableConfigBooleanize($smarty)
+{
+    $this->smarty->config_booleanize = false;
+    return;
 } 
 
 ?>

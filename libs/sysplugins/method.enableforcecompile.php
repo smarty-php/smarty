@@ -11,16 +11,12 @@
 */
 
 /**
-* Smarty class enableForceCompile
-* 
 * Enable forced compiling
 */
-class Smarty_Method_enableForceCompile extends Smarty_Internal_Base {
-    public function execute()
-    {
-        $this->smarty->force_compile = true;
-        return;
-    } 
+public function enableForceCompile($smarty)
+{
+    $smarty->force_compile = true;
+    return;
 } 
 
 ?>

@@ -9,15 +9,12 @@
 * @subpackage Config
 * @author Uwe Tews 
 */
-class Smarty_Internal_Config extends Smarty_Internal_Base {
+class Smarty_Internal_Config {
     static $config_objects = array();
 
-    public function __construct($config_resource)
+    public function __construct($config_resource, $smarty)
     {
-        parent::__construct(); 
-        // set instance object
-        // self::instance($this);
-        // initianlize
+        $this->smarty = $smarty;
         $this->config_resource = $config_resource;
         $this->config_resource_type = null;
         $this->config_resource_name = null;
@@ -77,7 +74,7 @@ class Smarty_Internal_Config extends Smarty_Internal_Base {
     public function buildConfigFilepath ()
     {
         foreach((array)$this->smarty->config_dir as $_config_dir) {
-            if (strpos('/\\',substr($_config_dir, -1)) === false) {
+            if (strpos('/\\', substr($_config_dir, -1)) === false) {
                 $_config_dir .= DIRECTORY_SEPARATOR;
             } 
 
@@ -134,7 +131,7 @@ class Smarty_Internal_Config extends Smarty_Internal_Base {
     } 
     public function buildCompiledFilepath()
     {
-        $_filepath  = (string)abs(crc32($this->config_resource_name)); 
+        $_filepath = (string)abs(crc32($this->config_resource_name)); 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 3) . DIRECTORY_SEPARATOR
@@ -201,7 +198,7 @@ class Smarty_Internal_Config extends Smarty_Internal_Base {
         if (!is_object($this->compiler_object)) {
             // load compiler
             $this->smarty->loadPlugin('Smarty_Internal_Config_File_Compiler');
-            $this->compiler_object = new Smarty_Internal_Config_File_Compiler;
+            $this->compiler_object = new Smarty_Internal_Config_File_Compiler($this->smarty);
         } 
         if (!is_object($this->smarty->write_file_object)) {
             $this->smarty->loadPlugin("Smarty_Internal_Write_File");
@@ -229,8 +226,8 @@ class Smarty_Internal_Config extends Smarty_Internal_Base {
     */
     public function loadConfigVars ($sections = null, $scope)
     {
-        $config_data = unserialize($this->getCompiledConfig());
-        // var_dump($config_data); 
+        $config_data = unserialize($this->getCompiledConfig()); 
+        // var_dump($config_data);
         // copy global config vars
         foreach ($config_data['vars'] as $variable => $value) {
             $scope->config_vars[$variable] = $value;

@@ -48,7 +48,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
         ksort($_assigned_vars);
         $_config_vars = $smarty->config_vars;
         ksort($_config_vars);
-        $_template = new Smarty_Template ($smarty->debug_tpl);
+        $_template = new Smarty_Template ($smarty->debug_tpl, $smarty);
         $_template->caching = false;
         $_template->force_compile = false;
         $_template->security = false;

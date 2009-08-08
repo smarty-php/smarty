@@ -30,7 +30,7 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         // $include_file = '';
         eval('$include_file = ' . $_attr['file'] . ';'); 
         // create template object
-        $_template = new Smarty_Template ($include_file, $compiler->template); 
+        $_template = new Smarty_Template ($include_file, $this->compiler->smarty, $compiler->template); 
         // save file dependency
         $compiler->template->properties['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp()); 
         // $_old_source = preg_replace ('/' . $this->smarty->left_delimiter . 'extend\s+(?:file=)?\s*(\S+?|(["\']).+?\2)' . $this->smarty->right_delimiter . '/i', '' , $compiler->template->template_source, 1);

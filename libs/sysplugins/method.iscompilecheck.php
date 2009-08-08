@@ -11,15 +11,11 @@
 */
 
 /**
-* Smarty class isCompileCheck
-* 
 * is compile checking
 */
-class Smarty_Method_isCompileCheck extends Smarty_Internal_Base {
-    public function execute()
-    {
-        return $this->smarty->compile_check;
-    } 
+function isCompileCheck($smarty)
+{
+    return $smarty->compile_check;
 } 
 
 ?>

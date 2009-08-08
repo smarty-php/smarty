@@ -11,22 +11,16 @@
 */
 
 /**
-* Smarty class Register_Postfilter
+* Registers a postfilter function to apply
+* to a compiled template after compilation
 * 
-* Register a PHP function as postfilter
+* @param object $smarty 
+* @param callback $function 
 */
-
-class Smarty_Method_Register_Postfilter extends Smarty_Internal_Base {
-    /**
-    * Registers a postfilter function to apply
-    * to a compiled template after compilation
-    * 
-    * @param callback $function 
-    */
-    public function execute($function)
-    {
-        $_name = (is_array($function)) ? $function[0] : $function;
-        $this->smarty->registered_filters['post'][$_name] = $function;
-    } 
+function register_postfilter($smarty, $function)
+{
+    $_name = (is_array($function)) ? $function[0] : $function;
+    $smarty->registered_filters['post'][$_name] = $function;
 } 
+
 ?>

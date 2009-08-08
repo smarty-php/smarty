@@ -12,12 +12,13 @@
 /**
  * Smarty Internal Plugin Resource PHP
  */
-class Smarty_Internal_Resource_PHP extends Smarty_Internal_Base {
+class Smarty_Internal_Resource_PHP {
     /**
      * Class constructor, enable short open tags
      */
-    public function __construct()
+    public function __construct($smarty)
     {
+        $this->smarty = $smarty;
         ini_set('short_open_tag', '1');
     } 
     /**

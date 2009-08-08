@@ -24,14 +24,14 @@ class Smarty_Internal_Configfilelexer
    				);
     				
     				
-    function __construct($data)
+    function __construct($data, $smarty)
     {
         // set instance object
         self::instance($this); 
         $this->data = $data;
         $this->counter = 0;
         $this->line = 1;
-        $this->smarty = Smarty::instance(); 
+        $this->smarty = $smarty; 
      }
     public static function &instance($new_instance = null)
     {

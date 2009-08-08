@@ -11,29 +11,22 @@
 */
 
 /**
-* Smarty class Register_Resource
+* Registers a resource to fetch a template
 * 
-* Register a a Smarty template resource
+* @param object $smarty 
+* @param string $type name of resource
+* @param array $functions array of functions to handle resource
 */
-
-class Smarty_Method_Register_Resource extends Smarty_Internal_Base {
-    /**
-    * Registers a resource to fetch a template
-    * 
-    * @param string $type name of resource
-    * @param array $functions array of functions to handle resource
-    */
-    public function execute($type, $functions)
-    {
-        if (count($functions) == 4) {
-            $this->_plugins['resource'][$type] =
-            array($functions, false);
-        } elseif (count($functions) == 5) {
-            $this->smarty->plugins['resource'][$type] =
-            array(array(array(&$functions[0], $functions[1]) , array(&$functions[0], $functions[2]) , array(&$functions[0], $functions[3]) , array(&$functions[0], $functions[4])) , false);
-        } else {
-            throw new Exception("malformed function-list for '$type' in register_resource");
-        } 
+function register_resource($smarty, $type, $functions)
+{
+    if (count($functions) == 4) {
+        $smarty->_plugins['resource'][$type] =
+        array($functions, false);
+    } elseif (count($functions) == 5) {
+        $smarty->plugins['resource'][$type] =
+        array(array(array(&$functions[0], $functions[1]) , array(&$functions[0], $functions[2]) , array(&$functions[0], $functions[3]) , array(&$functions[0], $functions[4])) , false);
+    } else {
+        throw new Exception("malformed function-list for '$type' in register_resource");
     } 
 } 
 

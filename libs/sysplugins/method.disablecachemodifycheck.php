@@ -11,16 +11,13 @@
 */
 
 /**
-* Smarty class disableCacheModifyCheck
 * 
 * Disable cache modify check
 */
-class Smarty_Method_disableCacheModifyCheck extends Smarty_Internal_Base {
-    public function execute()
+function disableCacheModifyCheck($smarty)
     {
-        $this->smarty->cache_modified_check = false;
+        $smarty->cache_modified_check = false;
         return ;
     } 
-} 
 
 ?>

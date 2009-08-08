@@ -11,22 +11,18 @@
 */
 
 /**
-* Smarty class Unregister_Variablefilter
-* 
 * Unregister a variablefilter
 */
 
-class Smarty_Method_Unregister_Variablefilter extends Smarty_Internal_Base {
-    /**
-    * Unregisters a variablefilter function
-    * 
-    * @param callback $function 
-    */
-    public function execute($function)
-    {
-        $_name = (is_array($function)) ? $function[0] : $function;
-        unset($this->smarty->registered_filters['variable'][$_name]);
-    } 
+/**
+* Unregisters a variablefilter function
+* 
+* @param callback $function 
+*/
+function unregister_variablefilter($smarty, $function)
+{
+    $_name = (is_array($function)) ? $function[0] : $function;
+    unset($smarty->registered_filters['variable'][$_name]);
 } 
 
 ?>

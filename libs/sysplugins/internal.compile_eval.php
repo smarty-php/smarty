@@ -32,7 +32,7 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
         }
   
         // create template object
-        $_output = "\$_template = new Smarty_Template ('string:'.".$_attr['var'].", \$_smarty_tpl);"; 
+        $_output = "\$_template = new Smarty_Template ('string:'.".$_attr['var'].", \$_smarty_tpl->smarty, \$_smarty_tpl);"; 
         //was there an assign attribute? 
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template));";

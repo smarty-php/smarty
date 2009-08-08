@@ -11,16 +11,12 @@
 */
 
 /**
-* Smarty class disableDefaultTimezone
-* 
 * Disable setting of default timezone
 */
-class Smarty_Method_disableDefaultTimezone extends Smarty_Internal_Base {
-    public function execute()
-    {
-        $this->smarty->set_timezone = false;
-        return;
-    } 
+function disableDefaultTimezone($smarty)
+{
+    $smarty->set_timezone = false;
+    return;
 } 
 
 ?>

@@ -11,7 +11,7 @@
 /**
 * Main compiler class
 */
-class Smarty_Internal_TemplateCompilerBase extends Smarty_Internal_Base {
+class Smarty_Internal_TemplateCompilerBase {
     // compile tag objects
     static $_tag_objects = array(); 
     // tag stack
@@ -24,7 +24,6 @@ class Smarty_Internal_TemplateCompilerBase extends Smarty_Internal_Base {
     */
     public function __construct()
     {
-        parent::__construct(); 
         // get required plugins
         if (!is_object($this->smarty->filter_handler) && (isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre']) || isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post']))) {
             $this->smarty->loadPlugin('Smarty_Internal_Run_Filter');
@@ -45,7 +44,7 @@ class Smarty_Internal_TemplateCompilerBase extends Smarty_Internal_Base {
        then written to compiled files. */
         if (!is_object($template->cacher_object)) {
             $this->smarty->loadPlugin($template->cacher_class);
-            $template->cacher_object = new $template->cacher_class;
+            $template->cacher_object = new $template->cacher_class($this->smarty);
         } 
         // flag for nochache sections
         $this->nocache = false;

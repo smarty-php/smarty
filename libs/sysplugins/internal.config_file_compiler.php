@@ -13,14 +13,14 @@
 /**
 * Main config file compiler class
 */
-class Smarty_Internal_Config_File_Compiler extends Smarty_Internal_Base {
+class Smarty_Internal_Config_File_Compiler {
    public $compile_error= false;
    /**
     * Initialize compiler
     */
-    public function __construct()
+    public function __construct($smarty)
     {
-        parent::__construct(); 
+        $this->smarty = $smarty; 
         // get required plugins
         $this->smarty->loadPlugin('Smarty_Internal_Configfilelexer');
         $this->smarty->loadPlugin('Smarty_Internal_Configfileparser');
@@ -47,7 +47,7 @@ class Smarty_Internal_Config_File_Compiler extends Smarty_Internal_Base {
             return true;
         } 
         // init the lexer/parser to compile the config file
-        $lex = new Smarty_Internal_Configfilelexer($_content);
+        $lex = new Smarty_Internal_Configfilelexer($_content, $this->smarty);
         $parser = new Smarty_Internal_Configfileparser($lex, $this); 
         // $parser->PrintTrace();
         // get tokens from lexer and parse them

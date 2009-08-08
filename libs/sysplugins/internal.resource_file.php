@@ -12,7 +12,11 @@
 /**
 * Smarty Internal Plugin Resource File
 */
-class Smarty_Internal_Resource_File extends Smarty_Internal_Base {
+class Smarty_Internal_Resource_File {
+    public function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    } 
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
@@ -92,8 +96,8 @@ class Smarty_Internal_Resource_File extends Smarty_Internal_Base {
     */
     public function getCompiledFilepath($_template)
     {
-//        $_filepath = md5($_template->resource_name); 
-        $_filepath = (string)abs(crc32($_template->resource_name));
+        // $_filepath = md5($_template->resource_name);
+        $_filepath = (string)abs(crc32($_template->resource_name)); 
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 3) . DIRECTORY_SEPARATOR
@@ -111,7 +115,7 @@ class Smarty_Internal_Resource_File extends Smarty_Internal_Base {
             $_cache = '';
         } 
         $_compile_dir = $_template->smarty->compile_dir;
-        if (strpos('/\\',substr($_compile_dir, -1)) === false) {
+        if (strpos('/\\', substr($_compile_dir, -1)) === false) {
             $_compile_dir .= DIRECTORY_SEPARATOR;
         } 
         return $_compile_dir . $_filepath . '.' . basename($_template->resource_name) . $_cache . $_template->smarty->php_ext;

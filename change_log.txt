@@ -1,3 +1,26 @@
+08/08/2009
+- removed all internal calls of Smarty::instance()
+- fixed code in double quoted strings
+
+08/05/2009
+- bugfix mb_string support
+- bugfix of \n.\t etc in double quoted strings
+
+07/29/2009
+- added syntax for variable config vars  like  #$foo#
+
+07/28/2009
+- fixed parsing of $smarty.session vars containing objects
+
+07/22/2009
+- fix of "$" handling in double quoted strings
+
+07/21/2009
+- fix that {$smarty.current_dir} return correct value within {block} tags.
+
+07/20/2009
+- drop error message on unmatched {block} {/block} pairs
+
 07/01/2009
 - fixed smarty_function_html_options call in plugin function.html_select_date.php (missing ,)
 

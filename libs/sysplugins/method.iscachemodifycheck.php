@@ -11,15 +11,11 @@
 */
 
 /**
-* Smarty class isCacheModifyCheck
-* 
 * is cache modify check
 */
-class Smarty_Method_isCacheModifyCheck extends Smarty_Internal_Base {
-    public function execute()
-    {
-        return $this->smarty->cache_modified_check;
-    } 
+function isCacheModifyCheck()
+{
+    return $smarty->cache_modified_check;
 } 
 
 ?>

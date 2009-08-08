@@ -13,7 +13,11 @@
 * Smarty Internal Plugin Resource Stream
 */
 
-class Smarty_Internal_Resource_Stream extends Smarty_Internal_Base {
+class Smarty_Internal_Resource_Stream {
+    public function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    } 
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';

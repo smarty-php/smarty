@@ -11,29 +11,25 @@
 */
 
 /**
-* Smarty class Get_Config_Vars
-* 
 * Returns a single or all global config variables
 */
 
-class Smarty_Method_Get_Config_Vars extends Smarty_Internal_Base {
-    /**
-    * Returns a single or all global config variables
-    * 
-    * @param string $varname variable name or null
-    * @return string variable value or or array of variables
-    */
-    public function execute($varname = null)
-    {
-        if (isset($varname)) {
-            if (isset($this->smarty->config_vars[$varname])) {
-                return $this->smarty->config_vars[$varname];
-            } else {
-                return '';
-            } 
+/**
+* Returns a single or all global config variables
+* 
+* @param string $varname variable name or null
+* @return string variable value or or array of variables
+*/
+function Get_Config_Vars($smarty, $varname = null)
+{
+    if (isset($varname)) {
+        if (isset($smarty->config_vars[$varname])) {
+            return $smarty->config_vars[$varname];
         } else {
-            return $this->smarty->config_vars;
+            return '';
         } 
+    } else {
+        return $smarty->config_vars;
     } 
 } 
 

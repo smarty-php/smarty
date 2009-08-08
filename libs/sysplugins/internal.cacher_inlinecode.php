@@ -15,7 +15,12 @@
 /**
 * Smarty Internal Plugin Cacher InlineCode Class
 */
-class Smarty_Internal_Cacher_InlineCode extends Smarty_Internal_PluginBase {
+class Smarty_Internal_Cacher_InlineCode {
+    function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    } 
+
     /**
     * Inject inline code for nocache template sections
     * 
@@ -30,7 +35,7 @@ class Smarty_Internal_Cacher_InlineCode extends Smarty_Internal_PluginBase {
     * @return string content
     */
     public function processNocacheCode ($content, $compiler, $tag_nocache, $is_code)
-    {
+    { 
         // If the template is not evaluated and we have a nocache section and or a nocache tag
         if ($is_code) {
             // generate replacement code
