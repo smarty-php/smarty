@@ -33,7 +33,7 @@ class Smarty_Internal_Compile_BlockClose extends Smarty_Internal_CompileBase {
         if (isset($_attr['name']) && $saved_data[0]['name'] != $_attr['name']) {
             $this->compiler->trigger_template_error('mismatching name attributes "' . $saved_data[0]['name'] . '" and "' . $_attr['name'] . '"');
         } 
-        $_name = trim($saved_data[0]['name'], "'");
+        $_name = trim($saved_data[0]['name'], "\"'");
         if (isset($compiler->template->block_data[$_name])) {
             if ($compiler->template->block_data[$_name]['mode'] == 'prepend') {
                 $_output = $compiler->template->block_data[$_name]['compiled'] . $compiler->template->extracted_compiled_code;

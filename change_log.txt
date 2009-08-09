@@ -1,3 +1,7 @@
+08/09/2009
+- fixed problems with doublequoted strings at name attribute of {block} tag
+- bugfix at scope attribute of {append} tag
+
 08/08/2009
 - removed all internal calls of Smarty::instance()
 - fixed code in double quoted strings
