@@ -25,12 +25,7 @@
 */
 function smarty_modifier_strip($text, $replace = ' ')
 {
-    $smarty = Smarty::instance();
-    if ($smarty->has_mb) {
-        return mb_ereg_replace("\s+", $replace, $text, 'p');
-    } else {
         return preg_replace('!\s+!', $replace, $text);
-    } 
 } 
 
 ?>

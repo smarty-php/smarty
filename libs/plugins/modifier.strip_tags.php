@@ -21,13 +21,8 @@
 */
 function smarty_modifier_strip_tags($string, $replace_with_space = true)
 {
-    $smarty = Smarty::instance();
     if ($replace_with_space) {
-        if ($smarty->has_mb) {
-            return mb_ereg_replace("<[^>]*?>", ' ', $string, 'p');
-        } else {
             return preg_replace('!<[^>]*?>!', ' ', $string);
-        } 
     } else {
         return strip_tags($string);
     } 

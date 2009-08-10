@@ -20,8 +20,7 @@
 */
 function smarty_modifier_lower($string)
 {
-    $smarty = Smarty::instance();
-    if ($smarty->has_mb) {
+    if (function_exists('mb_strtolower')) {
         return mb_strtolower($string);
     } else {
         return strtolower($string);

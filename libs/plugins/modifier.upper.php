@@ -20,8 +20,7 @@
 */
 function smarty_modifier_upper($string)
 {
-    $smarty = Smarty::instance();
-    if ($smarty->has_mb) {
+    if (function_exists('mb_strtoupper')) {
         return mb_strtoupper($string);
     } else {
         return strtoupper($string);
