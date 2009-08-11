@@ -1,3 +1,6 @@
+08/11/2009
+- fixed parser problems with custom delimiter
+
 08/10/2009
 - update of mb support in plugins
 
