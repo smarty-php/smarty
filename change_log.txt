@@ -1,3 +1,6 @@
+08/12/2009
+- fixed parser problems
+
 08/11/2009
 - fixed parser problems with custom delimiter
 
