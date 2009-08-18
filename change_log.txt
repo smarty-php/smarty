@@ -1,3 +1,7 @@
+08/18/2009
+- definition of template class name moded in internal.templatebase.php
+- whitespace parser changes
+
 08/12/2009
 - fixed parser problems
 

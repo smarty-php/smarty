@@ -14,6 +14,9 @@
 * Base class with template and variable methodes
 */
 class Smarty_Internal_TemplateBase {
+    // class used for templates
+    public $template_class = 'Smarty_Internal_Template'; 
+
     /**
     * assigns a Smarty variable
     * 
@@ -319,7 +322,7 @@ class Smarty_Internal_TemplateBase {
                 return $this->template_objects[$_templateId];
             } else {
                 // create and cache new template object
-                return new Smarty_Internal_Template ($template, $this, $parent, $cache_id, $compile_id);
+                return new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
             } 
         } else {
             // just return a copy of template class

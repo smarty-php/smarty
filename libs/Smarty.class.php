@@ -74,8 +74,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     private static $instance = array(); 
     // smarty version
     public static $_version = 'Smarty3Alpha'; 
-    // class used for templates
-    public $template_class = 'Smarty_Internal_Template'; 
     // display error on not assigned variabled
     static $error_unassigned = false; 
     // template directory
