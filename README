@@ -99,6 +99,12 @@ Again you can add modifier.
 
 WHAT IS NEW IN SMARTY TEMPLATE SYNTAX
 
+Smarty tags can be used as value in other tags.
+Eample:  {$foo={counter}+3}
+
+They can also be used inside double quoted strings.
+Example:  {$foo="this is message {counter}"}
+
 The special variable  $smarty.current_dir  does return the dirname of the current template.
 
 You can also use strings as templates with the "string" resource type:
