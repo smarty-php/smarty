@@ -1,5 +1,7 @@
 08/24/2009
 - fixed typo in lexer definition for '!==' operator
+- bugfix - the ouput of plugins was not cached
+- added global variable SCRIPT_NAME
 
 08/21/2009
 - fixed problems whitespace in conjuction with custom delimiters

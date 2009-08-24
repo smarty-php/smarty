@@ -124,7 +124,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                       
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                        
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -242,6 +242,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
                 } 
             } 
         } 
+        $this->assign_global('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
     } 
 
     /**
@@ -262,7 +263,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public static function &instance($name = 'default')
     {
-       if (isset(Smarty::$instance[$name])) {
+        if (isset(Smarty::$instance[$name])) {
             return Smarty::$instance[$name];
         } else {
             throw new Exception("Smarty instance $name is not existing");
@@ -516,7 +517,7 @@ class SmartyException {
         echo "Code: " . $e->getCode() . "<br />Error: " . htmlentities($e->getMessage()) . "<br />"
          . "File: " . $e->getFile() . "<br />"
          . "Line: " . $e->getLine() . "<br />"
-//         . "Trace" . $e->getTraceAsString() . "<br />"
+        // . "Trace" . $e->getTraceAsString() . "<br />"
          . "\n";
     } 
 

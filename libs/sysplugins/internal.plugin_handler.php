@@ -52,7 +52,7 @@ class Smarty_Internal_Plugin_Handler {
                         $plugin = array(new $plugin, 'execute');
                     } 
                     if (is_callable($plugin)) {
-                        $this->smarty->registered_plugins[$name] = array($plugin_type, $plugin, false);
+                        $this->smarty->registered_plugins[$name] = array($plugin_type, $plugin, true);
                         return true;
                     } else {
                         throw new Exception("Plugin \"{$name}\" not callable");
