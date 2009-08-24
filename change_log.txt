@@ -1,3 +1,6 @@
+08/24/2009
+- fixed typo in lexer definition for '!==' operator
+
 08/21/2009
 - fixed problems whitespace in conjuction with custom delimiters
 - Smarty tags can now be used as value anywhere
