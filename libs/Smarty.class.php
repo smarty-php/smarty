@@ -213,8 +213,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $this->debug_tpl = SMARTY_DIR . 'debug.tpl'; 
         // load basic plugins
 require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.template.php');
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.Plugin_Handler.php');
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.Run_Filter.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.plugin_handler.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.run_filter.php');
 //        $this->loadPlugin($this->template_class);
 //        $this->loadPlugin('Smarty_Internal_Plugin_Handler');
 //        $this->loadPlugin('Smarty_Internal_Run_Filter');
