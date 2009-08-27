@@ -1970,18 +1970,18 @@ static public $yy_action = array(
 #line 1975 "internal.templateparser.php"
 #line 151 "internal.templateparser.y"
     function yy_r18(){ preg_match('/\s*/',$this->yystack[$this->yyidx + -5]->minor,$s); $this->_retvalue = $s[0].'<?php ob_start();?>'.$this->compiler->compileTag($this->yystack[$this->yyidx + -4]->minor,$this->yystack[$this->yyidx + -1]->minor).'<?php echo ';
-																					                       if ($this->smarty->plugin_handler->loadSmartyPlugin($this->yystack[$this->yyidx + -3]->minor[0],'modifier')) {
-                                                                      $this->_retvalue .= "\$_smarty_tpl->smarty->plugin_handler->".$this->yystack[$this->yyidx + -3]->minor[0] . "(array(ob_get_clean()". $this->yystack[$this->yyidx + -2]->minor ."),'modifier');?>";
+															                                   if ($this->smarty->plugin_handler->loadSmartyPlugin($this->yystack[$this->yyidx + -3]->minor[0],'modifier')) {
+                                                                      $this->_retvalue .= "\$_smarty_tpl->smarty->plugin_handler->executeModifier('".$this->yystack[$this->yyidx + -3]->minor[0] . "',array(ob_get_clean()" . $this->yystack[$this->yyidx + -2]->minor. "),".$this->yystack[$this->yyidx + -3]->minor[1].");?>";
                                                                  } else {
-                                                                   if ($this->yystack[$this->yyidx + -3]->minor[0] == 'isset' || $this->yystack[$this->yyidx + -3]->minor[0] == 'empty' || is_callable($this->yystack[$this->yyidx + -3]->minor[0])) {
+                                                                   if (is_callable($this->yystack[$this->yyidx + -3]->minor[0])) {
 																					                            if (!$this->template->security || $this->smarty->security_handler->isTrustedModifier($this->yystack[$this->yyidx + -3]->minor[0], $this->compiler)) {
-																					                              $this->_retvalue .= $this->yystack[$this->yyidx + -3]->minor[0] . "(ob_get_clean()". $this->yystack[$this->yyidx + -2]->minor .");?>";
+                                                                         $this->_retvalue .= "\$_smarty_tpl->smarty->plugin_handler->executeModifier('".$this->yystack[$this->yyidx + -3]->minor[0] . "',array(ob_get_clean()" . $this->yystack[$this->yyidx + -2]->minor. "),".$this->yystack[$this->yyidx + -3]->minor[1].");?>";
 																					                            }
 																					                         } else {
                                                                       $this->compiler->trigger_template_error ("unknown modifier \"" . $this->yystack[$this->yyidx + -3]->minor[0] . "\"");
                                                                  }
                                                               }
-                                                                }
+                                                                        }
 #line 1990 "internal.templateparser.php"
 #line 165 "internal.templateparser.y"
     function yy_r19(){ preg_match('/\s*/',$this->yystack[$this->yyidx + -3]->minor,$s); $this->_retvalue = $s[0].$this->compiler->compileTag($this->yystack[$this->yyidx + -2]->minor.'close',$this->yystack[$this->yyidx + -1]->minor);    }
@@ -2053,13 +2053,13 @@ static public $yy_action = array(
     function yy_r37(){$this->_retvalue = '$_smarty_tpl->getStreamVariable(\''. $this->yystack[$this->yyidx + -2]->minor .'://'. $this->yystack[$this->yyidx + 0]->minor . '\')';    }
 #line 2059 "internal.templateparser.php"
 #line 227 "internal.templateparser.y"
-    function yy_r38(){             
+    function yy_r38(){            
                                                             if ($this->smarty->plugin_handler->loadSmartyPlugin($this->yystack[$this->yyidx + -1]->minor[0],'modifier')) {
-                                                                      $this->_retvalue = "\$_smarty_tpl->smarty->plugin_handler->".$this->yystack[$this->yyidx + -1]->minor[0] . "(array(". $this->yystack[$this->yyidx + -2]->minor . $this->yystack[$this->yyidx + 0]->minor ."),'modifier')";
+                                                                      $this->_retvalue = "\$_smarty_tpl->smarty->plugin_handler->executeModifier('".$this->yystack[$this->yyidx + -1]->minor[0] . "',array(". $this->yystack[$this->yyidx + -2]->minor . $this->yystack[$this->yyidx + 0]->minor. "),".$this->yystack[$this->yyidx + -1]->minor[1].")";
                                                                  } else {
-                                                                   if ($this->yystack[$this->yyidx + -1]->minor[0] == 'isset' || $this->yystack[$this->yyidx + -1]->minor[0] == 'empty' || is_callable($this->yystack[$this->yyidx + -1]->minor[0])) {
+                                                                   if (is_callable($this->yystack[$this->yyidx + -1]->minor[0])) {
 																					                            if (!$this->template->security || $this->smarty->security_handler->isTrustedModifier($this->yystack[$this->yyidx + -1]->minor[0], $this->compiler)) {
-																					                               $this->_retvalue = $this->yystack[$this->yyidx + -1]->minor[0] . "(". $this->yystack[$this->yyidx + -2]->minor . $this->yystack[$this->yyidx + 0]->minor .")";
+                                                                         $this->_retvalue = "\$_smarty_tpl->smarty->plugin_handler->executeModifier('".$this->yystack[$this->yyidx + -1]->minor[0] . "',array(". $this->yystack[$this->yyidx + -2]->minor . $this->yystack[$this->yyidx + 0]->minor. "),".$this->yystack[$this->yyidx + -1]->minor[1].")";
 																					                            }
 																					                         } else {
                                                                       $this->compiler->trigger_template_error ("unknown modifier \"" . $this->yystack[$this->yyidx + -1]->minor[0] . "\"");
@@ -2205,10 +2205,10 @@ static public $yy_action = array(
     function yy_r96(){ return;    }
 #line 2211 "internal.templateparser.php"
 #line 393 "internal.templateparser.y"
-    function yy_r97(){ $this->_retvalue =  array($this->yystack[$this->yyidx + 0]->minor,true);    }
+    function yy_r97(){ $this->_retvalue =  array($this->yystack[$this->yyidx + 0]->minor,'false');    }
 #line 2214 "internal.templateparser.php"
 #line 394 "internal.templateparser.y"
-    function yy_r98(){ $this->_retvalue =  array($this->yystack[$this->yyidx + 0]->minor,false);    }
+    function yy_r98(){ $this->_retvalue =  array($this->yystack[$this->yyidx + 0]->minor,'true');    }
 #line 2217 "internal.templateparser.php"
 #line 401 "internal.templateparser.y"
     function yy_r99(){ $this->_retvalue = $this->yystack[$this->yyidx + -1]->minor.$this->yystack[$this->yyidx + 0]->minor;    }

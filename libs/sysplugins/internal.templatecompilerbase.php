@@ -24,11 +24,6 @@ class Smarty_Internal_TemplateCompilerBase {
     */
     public function __construct()
     {
-        // get required plugins
-        if (!is_object($this->smarty->filter_handler) && (isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre']) || isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post']))) {
-            $this->smarty->loadPlugin('Smarty_Internal_Run_Filter');
-            $this->smarty->filter_handler = new Smarty_Internal_Run_Filter;
-        } 
     } 
     // abstract function doCompile($_content);
     /**

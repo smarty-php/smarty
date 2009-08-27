@@ -102,6 +102,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $caching = false; 
     // caching lifetime
     public $caching_lifetime = 0; 
+    // force cache file creation
+    public $force_cache = false; 
     // cache_id
     public $cache_id = null; 
     // compile_id
@@ -209,13 +211,14 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $this->config_dir = '.' . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR;
         $this->sysplugins_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR;
         $this->debug_tpl = SMARTY_DIR . 'debug.tpl'; 
-        // load base plugins
-        $this->loadPlugin('Smarty_Internal_Base');
-        $this->loadPlugin('Smarty_Internal_PluginBase');
-        $this->loadPlugin($this->template_class);
-        $this->loadPlugin('Smarty_Internal_Plugin_Handler');
+        // load basic plugins
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.template.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.Plugin_Handler.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.Run_Filter.php');
+//        $this->loadPlugin($this->template_class);
+//        $this->loadPlugin('Smarty_Internal_Plugin_Handler');
+//        $this->loadPlugin('Smarty_Internal_Run_Filter');
         $this->plugin_handler = new Smarty_Internal_Plugin_Handler($this);
-        $this->loadPlugin('Smarty_Internal_Run_Filter');
         $this->filter_handler = new Smarty_Internal_Run_Filter($this);
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
             if (isset($_SERVER['QUERY_STRING'])) {

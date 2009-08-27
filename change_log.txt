@@ -1,4 +1,11 @@
 08/24/2009
+- implemented registered resources as in Smarty2. NOTE: caching does not work yet
+- new property 'force_cache'. if true it forces the creation of a new cache file
+- fixed modifiers on arrays
+- some speed optimization on loading internal classes
+
+
+08/24/2009
 - fixed typo in lexer definition for '!==' operator
 - bugfix - the ouput of plugins was not cached
 - added global variable SCRIPT_NAME

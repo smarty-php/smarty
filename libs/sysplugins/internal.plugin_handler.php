@@ -24,8 +24,38 @@ class Smarty_Internal_Plugin_Handler {
     public function __call($name, $args)
     {
         if ($this->loadSmartyPlugin($name, $args[1])) {
-            // call plugin 
+            // call plugin
             return call_user_func_array($this->smarty->registered_plugins[$name][1], $args[0]);
+        } else {
+            // plugin not found
+            throw new Exception("Unable to load plugin {$name}");
+        } 
+    } 
+    public function executeModifier($name, $args, $check_array)
+    {
+        if ($this->loadSmartyPlugin($name, 'modifier')) {
+            // call plugin
+            if (!$check_array || !is_array($args[0])) {
+                return call_user_func_array($this->smarty->registered_plugins[$name][1], $args);
+            } else {
+                $args0 = $args[0];
+                foreach ($args0 as $key => $arg0) {
+                    $args[0] = $arg0;
+                    $result[$key] = call_user_func_array($this->smarty->registered_plugins[$name][1], $args);
+                } 
+                return $result;
+            } 
+        } elseif (is_callable($name)) {
+            if (!$check_array || !is_array($args[0])) {
+                return call_user_func_array($name, $args);
+            } else {
+                $args0 = $args[0];
+                foreach ($args0 as $key => $arg0) {
+                    $args[0] = $arg0;
+                    $result[$key] = call_user_func_array($name, $args);
+                } 
+                return $result;
+            } 
         } else {
             // plugin not found
             throw new Exception("Unable to load plugin {$name}");

@@ -85,6 +85,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->force_compile = $this->smarty->force_compile;
         $this->caching = $this->smarty->caching;
         $this->caching_lifetime = $this->smarty->caching_lifetime;
+        $this->force_cache = $this->smarty->force_cache;
         $this->cacher_class = $this->smarty->cacher_class;
         $this->caching_type = $this->smarty->default_caching_type;
         $this->security = $this->smarty->security;
@@ -154,7 +155,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function getTemplateSource ()
     {
         if ($this->template_source === null) {
-            $this->resource_objects[$this->resource_type]->getTemplateSource($this);
+            if (!$this->resource_objects[$this->resource_type]->getTemplateSource($this)) {
+            throw new Exception("Unable to read template '{$this->resource_name}'");
+            }
         } 
         return $this->template_source;
     } 
@@ -384,7 +387,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         if ($this->isCached === null) {
             $this->isCached = false;
-            if ($this->caching && !$this->isEvaluated() && !$this->force_compile) {
+            if ($this->caching && !$this->isEvaluated() && !$this->force_compile && !$this->force_cache) {
                 if ($this->getCachedTimestamp() === false) {
                     return $this->isCached;
                 } 
@@ -545,31 +548,37 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         } 
         // load resource handler if required
         if (!isset($this->resource_objects[$this->resource_type])) {
-            // try sysplugins dir first
-            $_resource_class = "Smarty_Internal_Resource_{$this->resource_type}";
-            if ($this->smarty->loadPlugin($_resource_class)) {
-                $this->resource_objects[$this->resource_type] = new $_resource_class($this->smarty);
+            // try registered resource
+            if (isset($this->smarty->_plugins['resource'][$this->resource_type])) {
+                $this->smarty->loadPlugin('Smarty_Internal_Resource_Registered');
+                $this->resource_objects[$this->resource_type] = new Smarty_Internal_Resource_Registered($this->smarty);
             } else {
-                // try plugins dir
-                $_resource_class = "Smarty_Resource_{$this->resource_type}";
+                // try sysplugins dir
+                $_resource_class = "Smarty_Internal_Resource_{$this->resource_type}";
                 if ($this->smarty->loadPlugin($_resource_class)) {
                     $this->resource_objects[$this->resource_type] = new $_resource_class($this->smarty);
                 } else {
-                    // try streams
-                    $_known_stream = stream_get_wrappers();
-                    if (in_array($this->resource_type, $_known_stream)) {
-                        // is known stream
-                        if ($this->smarty->security) {
-                            $this->smarty->security_handler->isTrustedStream($this->resource_type);
-                        } 
-                        if (!isset($this->resource_objects['stream'])) {
-                            $this->smarty->loadPlugin('Smarty_Internal_Resource_Stream');
-                            $this->resource_objects['stream'] = new Smarty_Internal_Resource_Stream($this->smarty);
-                        } 
-                        $this->resource_type = 'stream';
-                        $this->resource_name = str_replace(':', '://', $template_resource);
+                    // try plugins dir
+                    $_resource_class = "Smarty_Resource_{$this->resource_type}";
+                    if ($this->smarty->loadPlugin($_resource_class)) {
+                        $this->resource_objects[$this->resource_type] = new $_resource_class($this->smarty);
                     } else {
-                        throw new Exception('Unkown resource type \'' . $this->resource_type . '\'');
+                        // try streams
+                        $_known_stream = stream_get_wrappers();
+                        if (in_array($this->resource_type, $_known_stream)) {
+                            // is known stream
+                            if ($this->smarty->security) {
+                                $this->smarty->security_handler->isTrustedStream($this->resource_type);
+                            } 
+                            if (!isset($this->resource_objects['stream'])) {
+                                $this->smarty->loadPlugin('Smarty_Internal_Resource_Stream');
+                                $this->resource_objects['stream'] = new Smarty_Internal_Resource_Stream($this->smarty);
+                            } 
+                            $this->resource_type = 'stream';
+                            $this->resource_name = str_replace(':', '://', $template_resource);
+                        } else {
+                            throw new Exception('Unkown resource type \'' . $this->resource_type . '\'');
+                        } 
                     } 
                 } 
             } 
@@ -577,7 +586,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // cache template object under a unique ID
         // do not cache string resources
         if ($this->resource_type != 'string') {
-          $this->smarty->template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
+            $this->smarty->template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
         } 
         return true;
     } 
@@ -591,7 +600,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             $file = $this->resource_name;
         } 
         foreach((array)$this->smarty->template_dir as $_template_dir) {
-            if (strpos('/\\',substr($_template_dir, -1)) === false) {
+            if (strpos('/\\', substr($_template_dir, -1)) === false) {
                 $_template_dir .= DIRECTORY_SEPARATOR;
             } 
 
