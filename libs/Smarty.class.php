@@ -31,12 +31,19 @@
 */
 
 /**
+* define shorthand directory separator constant
+*/
+if (!defined('DS')) {
+  define('DS',DIRECTORY_SEPARATOR);
+}
+
+/**
 * set SMARTY_DIR to absolute path to Smarty library files.
 * if not defined, include_path will be used. Sets SMARTY_DIR only if user
 * application has not already defined it.
 */
 if (!defined('SMARTY_DIR')) {
-    define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+    define('SMARTY_DIR', dirname(__FILE__) . DS);
 } 
 
 /**
@@ -55,16 +62,9 @@ define('SMARTY_CACHING_LIFETIME_CURRENT', 1);
 define('SMARTY_CACHING_LIVETIME_SAVED', 2);
 
 /**
-* define exception handling
-*/
-if (!defined('SMARTY_EXCEPTION_HANDLER')) {
-    define('SMARTY_EXCEPTION_HANDLER', 1);
-} 
-
-/**
 * load required base class for creation of the smarty object
 */
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.templatebase.php');
+require_once(dirname(__FILE__) . DS . 'sysplugins' . DS . 'internal.templatebase.php');
 
 /**
 * This is the main Smarty class
@@ -153,8 +153,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $default_config_type = 'file'; 
     // class used for cacher
     public $cacher_class = 'Smarty_Internal_Cacher_InlineCode'; 
-    // exception handler: define SMARTY_EXCEPTION_HANDLER to 0 to disable
-    public $exception_handler = array('SmartyException', 'getStaticException'); 
+    // exception handler: array('ExceptionClass','ExceptionMethod');
+    public $exception_handler = null;
     // cached template objects
     public $template_objects = null; 
     // check If-Modified-Since headers
@@ -203,23 +203,23 @@ class Smarty extends Smarty_Internal_TemplateBase {
         } 
         $this->start_time = $this->_get_time(); 
         // set exception handler
-        if (SMARTY_EXCEPTION_HANDLER && !empty($this->exception_handler))
+        if (!empty($this->exception_handler))
             set_exception_handler($this->exception_handler); 
         // set default dirs
-        $this->template_dir = array('.' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR);
-        $this->compile_dir = '.' . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR;
-        $this->plugins_dir = array(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR);
-        $this->cache_dir = '.' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR;
-        $this->config_dir = '.' . DIRECTORY_SEPARATOR . 'configs' . DIRECTORY_SEPARATOR;
-        $this->sysplugins_dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR;
+        $this->template_dir = array('.' . DS . 'templates' . DS);
+        $this->compile_dir = '.' . DS . 'templates_c' . DS;
+        $this->plugins_dir = array(dirname(__FILE__) . DS . 'plugins' . DS);
+        $this->cache_dir = '.' . DS . 'cache' . DS;
+        $this->config_dir = '.' . DS . 'configs' . DS;
+        $this->sysplugins_dir = dirname(__FILE__) . DS . 'sysplugins' . DS;
         $this->debug_tpl = SMARTY_DIR . 'debug.tpl'; 
         // load basic plugins
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.template.php');
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.plugin_handler.php');
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_SEPARATOR . 'internal.run_filter.php');
-//        $this->loadPlugin($this->template_class);
-//        $this->loadPlugin('Smarty_Internal_Plugin_Handler');
-//        $this->loadPlugin('Smarty_Internal_Run_Filter');
+        require_once(dirname(__FILE__) . DS . 'sysplugins' . DS . 'internal.template.php');
+        require_once(dirname(__FILE__) . DS . 'sysplugins' . DS . 'internal.plugin_handler.php');
+        require_once(dirname(__FILE__) . DS . 'sysplugins' . DS . 'internal.run_filter.php');
+        //        $this->loadPlugin($this->template_class);
+        //        $this->loadPlugin('Smarty_Internal_Plugin_Handler');
+        //        $this->loadPlugin('Smarty_Internal_Run_Filter');
         $this->plugin_handler = new Smarty_Internal_Plugin_Handler($this);
         $this->filter_handler = new Smarty_Internal_Run_Filter($this);
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
@@ -256,7 +256,7 @@ require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_
     public function __destruct()
     { 
         // restore to previous exception handler, if any
-        if (SMARTY_EXCEPTION_HANDLER && !empty($this->exception_handler))
+        if (!empty($this->exception_handler))
             restore_exception_handler();
     } 
 
@@ -460,7 +460,7 @@ require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_
         // loop through plugin dirs and find the plugin
         foreach((array)$this->plugins_dir as $_plugin_dir) {
             if (strpos('/\\', substr($_plugin_dir, -1)) === false) {
-                $_plugin_dir .= DIRECTORY_SEPARATOR;
+                $_plugin_dir .= DS;
             } 
 
             if (file_exists($_plugin_dir . $_plugin_filename)) {
@@ -505,30 +505,6 @@ require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'sysplugins' . DIRECTORY_
             } 
         } 
         return call_user_func_array($name, array_merge(array($this), $args));
-    } 
-} 
-
-/**
-* Smarty Exception Handler
-* 
-* All errors thrown in Smarty will be handled here.
-* 
-* @param string $message the error message
-* @param string $code the error code
-*/
-class SmartyException {
-    public static function printException($e)
-    {
-        echo "Code: " . $e->getCode() . "<br />Error: " . htmlentities($e->getMessage()) . "<br />"
-         . "File: " . $e->getFile() . "<br />"
-         . "Line: " . $e->getLine() . "<br />"
-        // . "Trace" . $e->getTraceAsString() . "<br />"
-         . "\n";
-    } 
-
-    public static function getStaticException($e)
-    {
-        self::printException($e);
     } 
 } 
 

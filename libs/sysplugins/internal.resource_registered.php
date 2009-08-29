@@ -114,12 +114,12 @@ class Smarty_Internal_Resource_Registered {
         $_filepath = (string)abs(crc32($_template->resource_name)); 
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
-            $_filepath = substr($_filepath, 0, 3) . DIRECTORY_SEPARATOR
-             . substr($_filepath, 0, 2) . DIRECTORY_SEPARATOR
-             . substr($_filepath, 0, 1) . DIRECTORY_SEPARATOR
+            $_filepath = substr($_filepath, 0, 3) . DS
+             . substr($_filepath, 0, 2) . DS
+             . substr($_filepath, 0, 1) . DS
              . $_filepath;
         } 
-        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
+        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
         if (isset($_template->compile_id)) {
             $_filepath = $_template->compile_id . $_compile_dir_sep . $_filepath;
         } 
@@ -130,7 +130,7 @@ class Smarty_Internal_Resource_Registered {
         } 
         $_compile_dir = $_template->smarty->compile_dir;
         if (strpos('/\\', substr($_compile_dir, -1)) === false) {
-            $_compile_dir .= DIRECTORY_SEPARATOR;
+            $_compile_dir .= DS;
         } 
         return $_compile_dir . $_filepath . '.' . basename($_template->resource_name) . '.' . $_template->resource_type . $_cache . $_template->smarty->php_ext;
     } 

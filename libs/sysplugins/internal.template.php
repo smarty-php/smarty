@@ -613,7 +613,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         } 
         foreach((array)$this->smarty->template_dir as $_template_dir) {
             if (strpos('/\\', substr($_template_dir, -1)) === false) {
-                $_template_dir .= DIRECTORY_SEPARATOR;
+                $_template_dir .= DS;
             } 
 
             $_filepath = $_template_dir . $file;

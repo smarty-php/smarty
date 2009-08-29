@@ -75,7 +75,7 @@ class Smarty_Internal_Config {
     {
         foreach((array)$this->smarty->config_dir as $_config_dir) {
             if (strpos('/\\', substr($_config_dir, -1)) === false) {
-                $_config_dir .= DIRECTORY_SEPARATOR;
+                $_config_dir .= DS;
             } 
 
             $_filepath = $_config_dir . $this->config_resource_name;
@@ -134,14 +134,14 @@ class Smarty_Internal_Config {
         $_filepath = (string)abs(crc32($this->config_resource_name)); 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
-            $_filepath = substr($_filepath, 0, 3) . DIRECTORY_SEPARATOR
-             . substr($_filepath, 0, 2) . DIRECTORY_SEPARATOR
-             . substr($_filepath, 0, 1) . DIRECTORY_SEPARATOR
+            $_filepath = substr($_filepath, 0, 3) . DS
+             . substr($_filepath, 0, 2) . DS
+             . substr($_filepath, 0, 1) . DS
              . $_filepath;
         } 
         $_compile_dir = $this->smarty->compile_dir;
-        if (substr($_compile_dir, -1) != DIRECTORY_SEPARATOR) {
-            $_compile_dir .= DIRECTORY_SEPARATOR;
+        if (substr($_compile_dir, -1) != DS) {
+            $_compile_dir .= DS;
         } 
         return $_compile_dir . $_filepath . '.' . basename($this->config_resource_name) . '.config' . $this->smarty->php_ext;
     } 

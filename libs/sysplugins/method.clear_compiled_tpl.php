@@ -20,7 +20,7 @@
 */
 function clear_compiled_tpl($smarty, $resource_name = null, $compile_id = null, $exp_time = null)
 {
-    $_dir_sep = $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
+    $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
     if (isset($resource_name)) {
         $_resource_part_1 = $resource_name . $smarty->php_ext;
         $_resource_part_2 = $resource_name . '.cache' . $smarty->php_ext;
