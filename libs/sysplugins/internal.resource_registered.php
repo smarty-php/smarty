@@ -52,6 +52,20 @@ class Smarty_Internal_Resource_Registered {
             array($_template->resource_name, &$time_stamp, $this->smarty));
         return $time_stamp;
     } 
+    /**
+    * Get timestamp to template source by type and name
+    * 
+    * @param object $_template template object
+    * @return boolean false as string resources have no timestamp
+    */
+    public function getTemplateTimestampTypeName($_resource_type, $_resource_name)
+    { 
+        // return timestamp
+        $time_stamp = false;
+        call_user_func_array($this->smarty->_plugins['resource'][$_resource_type][0][1],
+            array($_resource_name, &$time_stamp, $this->smarty));
+        return $time_stamp;
+    } 
 
     /**
     * Retuen template source from resource name
@@ -118,7 +132,7 @@ class Smarty_Internal_Resource_Registered {
         if (strpos('/\\', substr($_compile_dir, -1)) === false) {
             $_compile_dir .= DIRECTORY_SEPARATOR;
         } 
-        return $_compile_dir . $_filepath . '.' . basename($_template->resource_name) . $_cache . '.' . $_template->resource_type . $_template->smarty->php_ext;
+        return $_compile_dir . $_filepath . '.' . basename($_template->resource_name) . '.' . $_template->resource_type . $_cache . $_template->smarty->php_ext;
     } 
 } 
 

@@ -4,6 +4,7 @@
 <head>
     <title>Smarty Debug Console</title>
 <style type="text/css">
+{literal}
 body, h1, h2, td, th, p {
     font-family: sans-serif;
     font-weight: normal;
@@ -80,6 +81,7 @@ td {
 #table_config_vars th {
     color: maroon;
 }
+{/literal}
 </style>
 </head>
 <body>
@@ -122,14 +124,13 @@ td {
 </html>
 {/capture}
 <script type="text/javascript">
-    if ( self.name == '' ) {
+{literal}    if ( self.name == '' ) {
        var title = 'Console';
       }
     else {
        var title = 'Console_' + self.name;
-      }
+      }{/literal}
     _smarty_console = window.open("",title.value,"width=680,height=600,resizable,scrollbars=yes");
     _smarty_console.document.write("{$debug_output|escape:'javascript'}");
     _smarty_console.document.close();
 </script>
-

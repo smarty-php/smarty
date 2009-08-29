@@ -29,7 +29,7 @@ class Smarty_Internal_Resource_PHP {
      */
     public function getTemplateFilepath($_template)
     {
-        $_filepath                                         = $_template->buildTemplateFilepath ();
+        $_filepath = $_template->buildTemplateFilepath ();
         
         if ($_template->security) {
             $_template->smarty->security_handler->isTrustedResourceDir($_filepath);

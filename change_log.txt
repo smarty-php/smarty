@@ -1,3 +1,8 @@
+08/29/2009
+- implemented caching of registered Resources
+- new property 'auto_literal'. if true(default)  '{ ' and ' }' interpreted as literal, not as Smarty delimiter
+
+
 08/28/2009
 - Fix on line breaks inside {if} tags
 

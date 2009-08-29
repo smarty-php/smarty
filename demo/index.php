@@ -1,12 +1,4 @@
 <?php
-    function _get_time()
-    {
-        $_mtime = microtime();
-        $_mtime = explode(" ", $_mtime);
-        return (double)($_mtime[1]) + (double)($_mtime[0]);
-    } 
-
-$start=_get_time();
 require('../libs/Smarty.class.php');
 
 $smarty = new Smarty;
@@ -34,5 +26,4 @@ $smarty->assign("option_output", array("New York","Nebraska","Kansas","Iowa","Ok
 $smarty->assign("option_selected", "NE");
 
 $smarty->display('index.tpl');
-echo _get_time()-$start;
 ?>
