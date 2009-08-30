@@ -39,11 +39,18 @@ if (!defined('DS')) {
 
 /**
 * set SMARTY_DIR to absolute path to Smarty library files.
-* if not defined, include_path will be used. Sets SMARTY_DIR only if user
-* application has not already defined it.
+* Sets SMARTY_DIR only if user application has not already defined it.
 */
 if (!defined('SMARTY_DIR')) {
     define('SMARTY_DIR', dirname(__FILE__) . DS);
+} 
+
+/**
+* set SMARTY_SYSPLUGINS_DIR to absolute path to Smarty internal plugins.
+* Sets SMARTY_SYSPLUGINS_DIR only if user application has not already defined it.
+*/
+if (!defined('SMARTY_SYSPLUGINS_DIR')) {
+    define('SMARTY_SYSPLUGINS_DIR', SMARTY_DIR . 'sysplugins' . DS);    
 } 
 
 /**
@@ -64,7 +71,7 @@ define('SMARTY_CACHING_LIVETIME_SAVED', 2);
 /**
 * load required base class for creation of the smarty object
 */
-require_once(dirname(__FILE__) . DS . 'sysplugins' . DS . 'internal.templatebase.php');
+require_once(SMARTY_SYSPLUGINS_DIR . 'internal.templatebase.php');
 
 /**
 * This is the main Smarty class
@@ -139,8 +146,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $parent = null; 
     // global template functions
     public $template_functions = null; 
-    // system plugins directory
-    private $sysplugins_dir = null; 
     // resource type used if none given
     public $default_resource_type = 'file'; 
     // charset of template
@@ -208,15 +213,14 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // set default dirs
         $this->template_dir = array('.' . DS . 'templates' . DS);
         $this->compile_dir = '.' . DS . 'templates_c' . DS;
-        $this->plugins_dir = array(dirname(__FILE__) . DS . 'plugins' . DS);
+        $this->plugins_dir = array(SMARTY_DIR . 'plugins' . DS);
         $this->cache_dir = '.' . DS . 'cache' . DS;
         $this->config_dir = '.' . DS . 'configs' . DS;
-        $this->sysplugins_dir = dirname(__FILE__) . DS . 'sysplugins' . DS;
         $this->debug_tpl = SMARTY_DIR . 'debug.tpl'; 
         // load basic plugins
-        require_once(dirname(__FILE__) . DS . 'sysplugins' . DS . 'internal.template.php');
-        require_once(dirname(__FILE__) . DS . 'sysplugins' . DS . 'internal.plugin_handler.php');
-        require_once(dirname(__FILE__) . DS . 'sysplugins' . DS . 'internal.run_filter.php');
+        require_once(SMARTY_SYSPLUGINS_DIR . 'internal.template.php');
+        require_once(SMARTY_SYSPLUGINS_DIR . 'internal.plugin_handler.php');
+        require_once(SMARTY_SYSPLUGINS_DIR . 'internal.run_filter.php');
         //        $this->loadPlugin($this->template_class);
         //        $this->loadPlugin('Smarty_Internal_Plugin_Handler');
         //        $this->loadPlugin('Smarty_Internal_Run_Filter');
@@ -450,8 +454,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}{$this->php_ext}"; 
         // if type is "internal", get plugin from sysplugins
         if ($_name_parts[1] == 'internal') {
-            if (file_exists($this->sysplugins_dir . $_plugin_filename)) {
-                require_once($this->sysplugins_dir . $_plugin_filename);
+            if (file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_filename)) {
+                require_once(SMARTY_SYSPLUGINS_DIR . $_plugin_filename);
                 return true;
             } else {
                 return false;
@@ -496,10 +500,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
     {
         if (!is_callable($name)) {
             $_plugin_filename = strtolower('method.' . $name . $this->php_ext);
-            if (!file_exists($this->sysplugins_dir . $_plugin_filename)) {
+            if (!file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_filename)) {
                 throw new Exception("Sysplugin file " . $_plugin_filename . " does not exist");
             } 
-            require_once($this->sysplugins_dir . $_plugin_filename);
+            require_once(SMARTY_SYSPLUGINS_DIR . $_plugin_filename);
             if (!is_callable($name)) {
                 throw new Exception ("Sysplugin file " . $_plugin_filename . " does not define function " . $name);
             } 

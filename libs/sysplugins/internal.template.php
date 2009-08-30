@@ -302,13 +302,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // compile template
         if (!is_object($this->compiler_object)) {
             // load compiler
-            $this->smarty->loadPlugin('Smarty_Internal_CompileBase');
-            $this->smarty->loadPlugin('Smarty_Internal_TemplateCompilerBase');
+            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.compilebase.php');
+            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.templatecompilerbase.php');
+            //$this->smarty->loadPlugin('Smarty_Internal_CompileBase');
+            //$this->smarty->loadPlugin('Smarty_Internal_TemplateCompilerBase');
             $this->smarty->loadPlugin($this->resource_objects[$this->resource_type]->compiler_class);
             $this->compiler_object = new $this->resource_objects[$this->resource_type]->compiler_class($this->resource_objects[$this->resource_type]->template_lexer_class, $this->resource_objects[$this->resource_type]->template_parser_class, $this->smarty);
         } 
         if (!is_object($this->smarty->write_file_object)) {
-            $this->smarty->loadPlugin("Smarty_Internal_Write_File");
+            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.write_file.php');
+            //$this->smarty->loadPlugin("Smarty_Internal_Write_File");
             $this->smarty->write_file_object = new Smarty_Internal_Write_File;
         } 
         // call compiler
@@ -455,7 +458,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             // PHP template
             $_start_time = $this->_get_time(); 
             // Smarty variables as objects extract as objects
-            $this->smarty->loadPlugin('Smarty_Internal_PHPVariableObjects');
+            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.phpvariableobjects.php');
+            //$this->smarty->loadPlugin('Smarty_Internal_PHPVariableObjects');
             $_ptr = $this;
             do {
                 foreach ($_ptr->tpl_vars as $_smarty_var => $_var_object) {
@@ -563,7 +567,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         if (!isset($this->resource_objects[$resource_type])) {
             // try registered resource
             if (isset($this->smarty->_plugins['resource'][$resource_type])) {
-                $this->smarty->loadPlugin('Smarty_Internal_Resource_Registered');
+                require_once(SMARTY_SYSPLUGINS_DIR . 'internal.resource_registered.php');
+                //$this->smarty->loadPlugin('Smarty_Internal_Resource_Registered');
                 $resource_handler = $this->resource_objects[$resource_type] = new Smarty_Internal_Resource_Registered($this->smarty);
             } else {
                 // try sysplugins dir
@@ -583,7 +588,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                             if ($this->smarty->security) {
                                 $this->smarty->security_handler->isTrustedStream($resource_type);
                             } 
-                            $this->smarty->loadPlugin('Smarty_Internal_Resource_Stream');
+                            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.resource_stream.php');
+                            //$this->smarty->loadPlugin('Smarty_Internal_Resource_Stream');
                             $resource_handler = $this->resource_objects[$resource_type] = new Smarty_Internal_Resource_Stream($this->smarty);
                             $resource_name = str_replace(':', '://', $template_resource);
                         } else {

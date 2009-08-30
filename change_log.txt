@@ -1,3 +1,7 @@
+08/30/2009
+- some speed optimizations on loading internal plugins
+
+
 08/29/2009
 - implemented caching of registered Resources
 - new property 'auto_literal'. if true(default)  '{ ' and ' }' interpreted as literal, not as Smarty delimiter
