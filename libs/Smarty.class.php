@@ -423,7 +423,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function setCachingLifetime($lifetime)
     {
-        $this->caching_lifetime = $lifetime;
+        $this->cache_lifetime = $lifetime;
         return;
     } 
     /**
