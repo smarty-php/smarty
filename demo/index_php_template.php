@@ -33,7 +33,7 @@ ini_set('short_open_tag','1');
 $smarty = new Smarty();
 $smarty->force_compile = false;
 $smarty->caching = false;
-$smarty->caching_lifetime = 10;
+$smarty->cache_lifetime = 10;
 
 $smarty->assign('foo','<bar>');
 

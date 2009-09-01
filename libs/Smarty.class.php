@@ -34,8 +34,8 @@
 * define shorthand directory separator constant
 */
 if (!defined('DS')) {
-  define('DS',DIRECTORY_SEPARATOR);
-}
+    define('DS', DIRECTORY_SEPARATOR);
+} 
 
 /**
 * set SMARTY_DIR to absolute path to Smarty library files.
@@ -50,7 +50,7 @@ if (!defined('SMARTY_DIR')) {
 * Sets SMARTY_SYSPLUGINS_DIR only if user application has not already defined it.
 */
 if (!defined('SMARTY_SYSPLUGINS_DIR')) {
-    define('SMARTY_SYSPLUGINS_DIR', SMARTY_DIR . 'sysplugins' . DS);    
+    define('SMARTY_SYSPLUGINS_DIR', SMARTY_DIR . 'sysplugins' . DS);
 } 
 
 /**
@@ -80,9 +80,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // smarty instances
     private static $instance = array(); 
     // smarty version
-    public static $_version = 'Smarty3Alpha'; 
+    public static $_version = 'Smarty3Beta-dev'; 
     // ato literal on delimiters with whitspace
-    public $auto_literal= false;
+    public $auto_literal = false; 
     // display error on not assigned variabled
     static $error_unassigned = false; 
     // template directory
@@ -109,8 +109,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $compile_error = false; 
     // caching enabled
     public $caching = false; 
-    // caching lifetime
-    public $caching_lifetime = 0; 
+    // cache lifetime
+    public $cache_lifetime = 0; 
     // force cache file creation
     public $force_cache = false; 
     // cache_id
@@ -135,7 +135,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                        
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                         
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -159,7 +159,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // class used for cacher
     public $cacher_class = 'Smarty_Internal_Cacher_InlineCode'; 
     // exception handler: array('ExceptionClass','ExceptionMethod');
-    public $exception_handler = null;
+    public $exception_handler = null; 
     // cached template objects
     public $template_objects = null; 
     // check If-Modified-Since headers
@@ -220,10 +220,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // load basic plugins
         require_once(SMARTY_SYSPLUGINS_DIR . 'internal.template.php');
         require_once(SMARTY_SYSPLUGINS_DIR . 'internal.plugin_handler.php');
-        require_once(SMARTY_SYSPLUGINS_DIR . 'internal.run_filter.php');
-        //        $this->loadPlugin($this->template_class);
-        //        $this->loadPlugin('Smarty_Internal_Plugin_Handler');
-        //        $this->loadPlugin('Smarty_Internal_Run_Filter');
+        require_once(SMARTY_SYSPLUGINS_DIR . 'internal.run_filter.php'); 
+        // $this->loadPlugin($this->template_class);
+        // $this->loadPlugin('Smarty_Internal_Plugin_Handler');
+        // $this->loadPlugin('Smarty_Internal_Run_Filter');
         $this->plugin_handler = new Smarty_Internal_Plugin_Handler($this);
         $this->filter_handler = new Smarty_Internal_Run_Filter($this);
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
@@ -486,6 +486,18 @@ class Smarty extends Smarty_Internal_TemplateBase {
     {
         $this->exception_handler = $handler;
         return set_exception_handler($handler);
+    } 
+
+    /**
+    * trigger Smarty error
+    * 
+    * @param string $error_msg 
+    * @param integer $error_type 
+    */
+    public function trigger_error($error_msg, $error_type = E_USER_WARNING)
+    { 
+        // trigger_error("Smarty error: $error_msg", $error_type);
+        throw new Exception("Smarty error: $error_msg");
     } 
 
     /**

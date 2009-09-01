@@ -55,8 +55,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         * it will not be included into the common cache file and treated like
         * a nocache section
         */
-        if (isset($_attr['caching_lifetime'])) {
-            $_caching_lifetime = $_attr['caching_lifetime'];
+        if (isset($_attr['cache_lifetime'])) {
+            $_cache_lifetime = $_attr['cache_lifetime'];
             $this->compiler->tag_nocache = true;
         } 
         if (isset($_attr['nocache'])) {
@@ -66,13 +66,13 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         } 
         if (isset($_attr['caching'])) {
             if ($_attr['caching'] == 'true') {
-                $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
+                $_caching = SMARTY_cache_lifetime_CURRENT;
             } 
         } 
         // create template object
         $_output = "<?php \$_template = new Smarty_Template ($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id);"; 
         // delete {include} standard attributes
-        unset($_attr['file'], $_attr['assign'], $_attr['caching_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope']); 
+        unset($_attr['file'], $_attr['assign'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope']); 
         // remaining attributes must be assigned as smarty variable
         if (!empty($_attr)) {
             if ($_parent_scope == SMARTY_LOCAL_SCOPE) {
@@ -85,8 +85,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             } 
         } 
         // add caching parameter if required
-        if (isset($_caching_lifetime)) {
-            $_output .= "\$_template->caching_lifetime = $_caching_lifetime;";
+        if (isset($_cache_lifetime)) {
+            $_output .= "\$_template->cache_lifetime = $_cache_lifetime;";
         } 
         $_output .= "\$_template->caching = $_caching;"; 
         // was there an assign attribute

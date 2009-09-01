@@ -55,7 +55,7 @@ class Smarty_Security_Policy {
     * @var array 
     */
     public $php_functions = array('isset', 'empty',
-            'count', 'sizeof','in_array', 'is_array','time');
+            'count', 'sizeof','in_array', 'is_array','time','nl2br');
 
     /**
     * This is an array of trusted modifers.

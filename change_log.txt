@@ -1,3 +1,12 @@
+09/01/2009
+- dropped nl2br as plugin
+- added '<>' as comparission operator in {if} tags
+- cached caching_lifetime property to cache_liftime for backward compatibility with Smarty2.
+  {include} optional attribute is also now cache_lifetime
+- fixed trigger_error methode (moved into Smarty class)
+- version is now  Beta!!!
+
+
 08/30/2009
 - some speed optimizations on loading internal plugins
 
