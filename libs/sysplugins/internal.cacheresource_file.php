@@ -100,7 +100,7 @@ class Smarty_Internal_CacheResource_File {
             $_resource_part = null;
         } 
         $_dir = $this->smarty->cache_dir;
-        if (substr($_dir, -1) != DS) {
+        if (strpos('/\\',substr($_dir, -1)) === false) {
             $_dir .= DS;
         } 
         if ($this->smarty->use_sub_dirs && isset($cache_id)) {
@@ -119,14 +119,16 @@ class Smarty_Internal_CacheResource_File {
                 } 
             } else {
                 $_parts = explode($_dir_sep, $_file);
+                var_dump((string)$_file,$_parts);
                 $_parts_count = count($_parts);
                 $_parts_compile_pos = $_parts_count - $_compile_pos;
                 if ($_parts_compile_pos < 0) {
                     $_parts_compile_pos = 0;
                 } 
-                if (substr_compare((string)$_file, $_dir, 0, strlen($_dir)) == 0 &&
+                if ((substr_compare((string)$_file, $_dir, 0, strlen($_dir)) == 0 &&
                         (!isset($resource_name) || $_parts[$_parts_count-1] == $_resource_part) &&
-                        (!isset($compile_id) || $_parts[$_parts_compile_pos] == $compile_id)) {
+                        (!isset($compile_id) || $_parts[$_parts_compile_pos] == $compile_id)) ||
+                        (isset($resource_name) && (string)$_file == $_dir . $_resource_part)) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_file) >= $exp_time) {
                             $_count += unlink((string) $_file) ? 1 : 0;
