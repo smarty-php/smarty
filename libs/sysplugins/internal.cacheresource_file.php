@@ -119,7 +119,6 @@ class Smarty_Internal_CacheResource_File {
                 } 
             } else {
                 $_parts = explode($_dir_sep, $_file);
-                var_dump((string)$_file,$_parts);
                 $_parts_count = count($_parts);
                 $_parts_compile_pos = $_parts_count - $_compile_pos;
                 if ($_parts_compile_pos < 0) {
