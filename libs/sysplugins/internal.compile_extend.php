@@ -41,7 +41,8 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         } 
         $block_count = count($s[0]);
         for ($i = 0; $i < $block_count; $i++) {
-            $block_content = substr($_old_source, $s[0][$i][1], $c[0][$i][1] + strlen($c[0][$i][0]) - $s[0][$i][1]);
+//            $block_content = substr($_old_source, $s[0][$i][1], $c[0][$i][1] + strlen($c[0][$i][0]) - $s[0][$i][1]);
+            $block_content = substr($_old_source, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1]  - $s[0][$i][1] - strlen($s[0][$i][0]));
             $this->saveBlockData($block_content, $s[0][$i][0]);
         } 
         $compiler->template->template_source = $_template->getTemplateSource();
