@@ -12,7 +12,11 @@
 /**
 * Smarty Internal Plugin Resource Extend
 */
-class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
+class Smarty_Internal_Resource_Extend {
+    public function __construct($smarty)
+    {
+        $this->smarty = $smarty;
+    } 
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
@@ -27,7 +31,7 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
     public function getTemplateFilepath($_template)
     {
         $_files = explode('|', $_template->resource_name);
-        $_filepath = $_template->buildTemplateFilepath ($_files[0]);
+        $_filepath = $_template->buildTemplateFilepath ($_files[count($_files)-1]);
         if ($_template->security) {
             $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
         } 
@@ -60,50 +64,60 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
         foreach ($_files as $_file) {
             $_filepath = $_template->buildTemplateFilepath ($_file);
             if ($_file != $_files[0]) {
-                $_template->file_dependency['file_dependency'][] = array($_filepath, filemtime($_filepath));
+                $_template->properties['file_dependency'][] = array($_filepath, filemtime($_filepath));
             } 
             // read template file
             $_content = file_get_contents($_filepath);
             if ($_file != $_files[count($_files)-1]) {
-                $_content = preg_replace_callback('/(' . $this->smarty->left_delimiter . 'block(.+?)' . $this->smarty->right_delimiter . ')((?:\r?\n?)(.*?)(?:\r?\n?))(' . $this->smarty->left_delimiter . '\/block(.*?)' . $this->smarty->right_delimiter . ')/is', array('Smarty_Internal_Resource_Extend', 'saveBlockData'), $_content);
+                if (preg_match_all('/(' . $this->smarty->left_delimiter . 'block(.+?)' . $this->smarty->right_delimiter . ')/', $_content, $s, PREG_OFFSET_CAPTURE) !=
+                        preg_match_all('/(' . $this->smarty->left_delimiter . '\/block(.*?)' . $this->smarty->right_delimiter . ')/', $_content, $c, PREG_OFFSET_CAPTURE)) {
+                    $this->smarty->trigger_error(" unmatched {block} {/block} pairs");
+                } 
+                $block_count = count($s[0]);
+                for ($i = 0; $i < $block_count; $i++) {
+                    $block_content = substr($_content, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0]));
+                    $this->saveBlockData($block_content, $s[0][$i][0]);
+                } 
             } else {
                 $_template->template_source = $_content;
+                return true;
             } 
         } 
-    }
-    protected function saveBlockData(array $matches)
+    } 
+    protected function saveBlockData($block_content, $block_tag)
     {
-        if (0 == preg_match('/(.?)(name=)([^ ]*)/', $matches[2], $_match)) {
-            $this->compiler->trigger_template_error("\"" . $matches[0] . "\" missing name attribute");
+        if (0 == preg_match('/(.?)(name=)([^ ]*)/', $block_tag, $_match)) {
+            $this->smarty->trigger_error("\"" . $block_tag . "\" missing name attribute");
         } else {
             // compile block content
-            $_tpl = $this->smarty->createTemplate('string:' . $matches[3]);
+            $_tpl = $this->smarty->createTemplate('string:' . $block_content);
+            $_tpl->template_filepath = $this->template->getTemplateFilepath();
             $_tpl->suppressHeader = true;
             $_compiled_content = $_tpl->getCompiledTemplate();
             unset($_tpl);
-            $_name = trim($_match[3], "\"'");
+            $_name = trim($_match[3], "\"'}");
 
             if (isset($this->template->block_data[$_name])) {
                 if ($this->template->block_data[$_name]['mode'] == 'prepend') {
                     $this->template->block_data[$_name]['compiled'] .= $_compiled_content;
-                    $this->template->block_data[$_name]['source'] .= $matches[3];
+                    $this->template->block_data[$_name]['source'] .= $block_content;
                 } elseif ($this->template->block_data[$_name]['mode'] == 'append') {
                     $this->template->block_data[$_name]['compiled'] = $_compiled_content . $this->template->block_data[$_name]['compiled'];
-                    $this->template->block_data[$_name]['source'] = $matches[3] . $this->template->block_data[$_name]['source'];
+                    $this->template->block_data[$_name]['source'] = $block_content . $this->template->block_data[$_name]['source'];
                 } 
             } else {
                 $this->template->block_data[$_name]['compiled'] = $_compiled_content;
-                $this->template->block_data[$_name]['source'] = $matches[3];
+                $this->template->block_data[$_name]['source'] = $block_content;
             } 
-            if (preg_match('/(.?)(append=true)(.*)/', $matches[2], $_match) != 0) {
+            if (preg_match('/(.?)(append=true)(.*)/', $block_tag, $_match) != 0) {
                 $this->template->block_data[$_name]['mode'] = 'append';
-            } elseif (preg_match('/(.?)(prepend=true)(.*)/', $matches[2], $_match) != 0) {
+            } elseif (preg_match('/(.?)(prepend=true)(.*)/', $block_tag, $_match) != 0) {
                 $this->template->block_data[$_name]['mode'] = 'prepend';
             } else {
                 $this->template->block_data[$_name]['mode'] = 'replace';
             } 
         } 
-        }
+    } 
 
     /**
     * Return flag that this resource uses the compiler
@@ -135,7 +149,7 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
     public function getCompiledFilepath($_template)
     {
         $_files = explode('|', $_template->resource_name);
-        $_filepath = (string)abs(crc32($_template->resource_name));
+        $_filepath = (string)abs(crc32($_template->resource_name)); 
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 3) . DS
@@ -156,7 +170,7 @@ class Smarty_Internal_Resource_Extend extends Smarty_Internal_Base {
         if (substr($_compile_dir, -1) != DS) {
             $_compile_dir .= DS;
         } 
-        return $_compile_dir . $_filepath . '.' . basename($_files[0]) . $_cache . $_template->smarty->php_ext;
+        return $_compile_dir . $_filepath . '.' . basename($_files[count($_files)-1]) . $_cache . $_template->smarty->php_ext;
     } 
 } 
 

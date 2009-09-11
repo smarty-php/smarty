@@ -175,7 +175,7 @@ class Smarty_Internal_CacheResource_File {
             $_cache_dir .= DS;
         } 
 
-        return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($_files[0]) . $this->smarty->php_ext;
+        return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($_files[count($_files)-1]) . $this->smarty->php_ext;
     } 
 } 
 
