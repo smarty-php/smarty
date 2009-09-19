@@ -30,8 +30,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
     if ($length == 0)
         return '';
 
-    $smarty = Smarty::instance();
-    if ($smarty->has_mb) {
+    if (is_callable('mb_strlen')) {
         if (mb_strlen($string) > $length) {
             $length -= min($length, mb_strlen($etc));
             if (!$break_words && !$middle) {

@@ -92,8 +92,8 @@ class Smarty_Internal_TemplateCompilerBase {
     /**
     * Compile Tag
     * 
-    *                                              This is a call back from the lexer/parser
-    *                                              It executes the required compile plugin for the Smarty tag
+    *                                               This is a call back from the lexer/parser
+    *                                               It executes the required compile plugin for the Smarty tag
     * 
     * @param string $tag tag name
     * @param array $args array with tag attributes
@@ -146,13 +146,11 @@ class Smarty_Internal_TemplateCompilerBase {
             // check if tag is registered or is Smarty plugin
             $this->smarty->plugin_handler->loadSmartyPlugin($tag, $this->smarty->plugin_search_order);
             if (isset($this->smarty->registered_plugins[$tag])) {
-                // check no cache
-                if (!$this->smarty->registered_plugins[$tag][2]) {
-                    $this->tag_nocache = true;
-                } 
                 // if compiler function plugin call it now
                 if ($this->smarty->registered_plugins[$tag][0] == 'compiler') {
-                    $this->tag_nocache = false;
+                    if (!$this->smarty->registered_plugins[$tag][2]) {
+                        $this->tag_nocache = true;
+                    } 
                     return call_user_func_array($this->smarty->registered_plugins[$tag][1], array($args, $this));
                 } 
                 // compile function or block plugin
@@ -174,10 +172,6 @@ class Smarty_Internal_TemplateCompilerBase {
                 } 
                 // plugin ?
                 if (isset($this->smarty->registered_plugins[$base_tag]) && $this->smarty->registered_plugins[$base_tag][0] == 'block') {
-                    // check no cache
-                    if (!$this->smarty->registered_plugins[$base_tag][2]) {
-                        $this->tag_nocache = true;
-                    } 
                     return $this->block_plugin($args, $tag, $this);
                 } 
             } 

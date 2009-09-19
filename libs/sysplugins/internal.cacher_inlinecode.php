@@ -88,31 +88,6 @@ class Smarty_Internal_Cacher_InlineCode {
         return $template_code;
     } 
 
-    /**
-    * Retrieve cached output
-    * 
-    * Calls the cache resource according to the caching type
-    * 
-    * @param object $_template intance of template object
-    * @return string content from cache
-    */
-    public function getCachedContents ($_template)
-    {
-        return $this->smarty->cache_resource_objects[$_template->caching_type]->getCachedContents($_template);
-    } 
-
-    /**
-    * Store cached output
-    * 
-    * Calls the cache resource according to the caching type
-    * 
-    * @param object $_template intance of template object
-    * @return boolean status
-    */
-    public function writeCachedContent ($_template)
-    {
-        return $this->smarty->cache_resource_objects[$_template->caching_type]->writeCachedContent($_template);
-    } 
 } 
 
 ?>

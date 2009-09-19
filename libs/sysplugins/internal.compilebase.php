@@ -20,9 +20,6 @@ interface TagCompilerInterface {
 //abstract class Smarty_Internal_CompileBase implements TagCompilerInterface 
 abstract class Smarty_Internal_CompileBase 
 {
-    /**
-    * Get an instance of Smarty and compiler object
-    */
     function __construct()
     {
         // initialize valid attributes

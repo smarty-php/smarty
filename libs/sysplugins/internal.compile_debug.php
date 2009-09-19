@@ -26,7 +26,7 @@ class Smarty_Internal_Compile_Debug extends Smarty_Internal_CompileBase {
         $_attr = $this->_get_attributes($args);
 
         // display debug template
-        $_output = "\$_smarty_tpl->smarty->loadPlugin('Smarty_Internal_Debug'); Smarty_Internal_Debug::display_debug();";
+        $_output = "\$_smarty_tpl->smarty->loadPlugin('Smarty_Internal_Debug'); Smarty_Internal_Debug::display_debug(\$_smarty_tpl->smarty);";
         return "<?php $_output ?>";
     } 
 } 

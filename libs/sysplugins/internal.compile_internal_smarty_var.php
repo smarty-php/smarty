@@ -82,12 +82,6 @@ class Smarty_Internal_Compile_Internal_Smarty_Var extends Smarty_Internal_Compil
 
             case 'config':
                 return "\$_smarty_tpl->getConfigVariable($_index[1])";
-            case 'block':
-                if ($_index[1] == '\'parent\'') {
-                    return "'" . addcslashes($compiler->template->block_data[trim($_index[2], "'")]['source'], "'") . "'";
-                } else {
-                    return "''";
-                } 
             case 'ldelim':
                 $_ldelim = $compiler->smarty->left_delimiter;
                 return "'$_ldelim'";

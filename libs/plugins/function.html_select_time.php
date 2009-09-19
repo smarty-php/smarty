@@ -25,8 +25,10 @@
 */
 function smarty_function_html_select_time($params, $smarty, $template)
 {
-    $smarty->loadPlugin('Smarty_shared_make_timestamp');
-    $smarty->loadPlugin('Smarty_function_html_options');
+    require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
+    require_once(SMARTY_PLUGINS_DIR . 'function.html_options.php');
+    //$smarty->loadPlugin('Smarty_shared_make_timestamp');
+    //$smarty->loadPlugin('Smarty_function_html_options');
 
     /* Default values. */
     $prefix = "Time_";

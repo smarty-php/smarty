@@ -130,7 +130,6 @@ class PHP_Function_Handler {
 
     public function __construct($tpl)
     {
-        $this->smarty = Smarty::instance();
         $this->template = $tpl;
     } 
     /**
@@ -144,7 +143,7 @@ class PHP_Function_Handler {
     {
         if (function_exists($name)) {
             // test security
-            if (!$this->template->security || empty($this->smarty->security_policy->php_functions) || in_array($name, $this->smarty->security_policy->php_functions)) {
+            if (!$this->template->security || empty($this->template->smarty->security_policy->php_functions) || in_array($name, $this->smarty->security_policy->php_functions)) {
                 // use PHP function if found
                 return call_user_func_array($name, $args);
             } else {

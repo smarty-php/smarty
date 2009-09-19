@@ -27,7 +27,7 @@
 * @author Monte Ohrt <monte at ohrt dot com> 
 * @author Uwe Tews 
 * @package Smarty
-* @version 3.0-alpha1
+* @version 3.0-beta
 */
 
 /**
@@ -51,6 +51,12 @@ if (!defined('SMARTY_DIR')) {
 */
 if (!defined('SMARTY_SYSPLUGINS_DIR')) {
     define('SMARTY_SYSPLUGINS_DIR', SMARTY_DIR . 'sysplugins' . DS);
+} 
+if (!defined('SMARTY_PLUGINS_DIR')) {
+    define('SMARTY_PLUGINS_DIR', SMARTY_DIR . 'plugins' . DS);
+} 
+if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
+    define('SMARTY_RESOURCE_CHAR_SET', 'UTF-8');
 } 
 
 /**
@@ -81,8 +87,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     private static $instance = array(); 
     // smarty version
     public static $_version = 'Smarty3Beta-dev'; 
-    // ato literal on delimiters with whitspace
-    public $auto_literal = false; 
+    // auto literal on delimiters with whitspace
+    public $auto_literal = true; 
     // display error on not assigned variabled
     static $error_unassigned = false; 
     // template directory
@@ -148,8 +154,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $template_functions = null; 
     // resource type used if none given
     public $default_resource_type = 'file'; 
-    // charset of template
-    public $resource_char_set = 'UTF-8'; 
     // caching type
     public $default_caching_type = 'file'; 
     // internal cache resource types
@@ -190,8 +194,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $_smarty_vars = array(); 
     // start time for execution time calculation
     public $start_time = 0; 
-    // has multibyte string functions?
-    public $has_mb = false;
     /**
     * Class constructor, initializes basic smarty properties
     */
@@ -199,9 +201,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
     { 
         // set instance object
         Smarty::$instance[$name] = $this;
+        $this->smarty = $this;
+        
         if (is_callable('mb_internal_encoding')) {
-            $this->has_mb = true;
-            mb_internal_encoding($this->resource_char_set);
+            mb_internal_encoding(SMARTY_RESOURCE_CHAR_SET);
         } 
         if (function_exists("date_default_timezone_set")) {
             date_default_timezone_set(date_default_timezone_get());
@@ -213,7 +216,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // set default dirs
         $this->template_dir = array('.' . DS . 'templates' . DS);
         $this->compile_dir = '.' . DS . 'templates_c' . DS;
-        $this->plugins_dir = array(SMARTY_DIR . 'plugins' . DS);
+        $this->plugins_dir = array(SMARTY_PLUGINS_DIR);
         $this->cache_dir = '.' . DS . 'cache' . DS;
         $this->config_dir = '.' . DS . 'configs' . DS;
         $this->debug_tpl = SMARTY_DIR . 'debug.tpl'; 
@@ -288,7 +291,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * @param mixed $compile_id compile id to be used with this template
     * @return string rendered template output
     */
-    public function fetch($template, $parent = null, $cache_id = null, $compile_id = null)
+    public function fetch($template, $cache_id = null, $compile_id = null, $parent = null)
     {
         if ($parent === null) {
             // get default Smarty data object
@@ -296,7 +299,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         } 
         // create template object if necessary
         ($template instanceof $this->template_class)? $_template = $template :
-        $_template = $this->createTemplate ($template, $parent , $cache_id, $compile_id);
+        $_template = $this->createTemplate ($template, $cache_id, $compile_id, $parent);
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
             ? $this->error_reporting : error_reporting() &~E_NOTICE); 
         // return redered template
@@ -314,14 +317,14 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * @param mixed $cache_id cache id to be used with this template
     * @param mixed $compile_id compile id to be used with this template
     */
-    public function display($template, $parent = null, $cache_id = null, $compile_id = null)
+    public function display($template, $cache_id = null, $compile_id = null, $parent = null)
     { 
         // display template
-        echo $this->fetch ($template, $parent , $cache_id, $compile_id); 
+        echo $this->fetch ($template, $cache_id, $compile_id, $parent); 
         // debug output?
         if ($this->debugging) {
             $this->loadPlugin('Smarty_Internal_Debug');
-            Smarty_Internal_Debug::display_debug();
+            Smarty_Internal_Debug::display_debug($this);
         } 
         return true;
     } 
@@ -421,7 +424,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * 
     * @param integer $lifetime lifetime of cached file in seconds
     */
-    public function setCachingLifetime($lifetime)
+    public function setCacheLifetime($lifetime)
     {
         $this->cache_lifetime = $lifetime;
         return;

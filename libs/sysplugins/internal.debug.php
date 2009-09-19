@@ -16,9 +16,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
     /**
     * Opens a window for the Smarty Debugging Consol and display the data
     */
-    public static function display_debug()
+    public static function display_debug($smarty)
     {
-        $smarty = Smarty::instance(); 
         // get template names
         $i = 0;
         $_template_data = array();

@@ -21,12 +21,8 @@
 * @param string $char_set character set
 * @return string escaped input string
 */
-function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null)
+function smarty_modifier_escape($string, $esc_type = 'html', $char_set = SMARTY_RESOURCE_CHAR_SET)
 {
-    if ($char_set === null) {
-        $smarty = Smarty::instance();
-        $char_set = $smarty->resource_char_set;
-    } 
     switch ($esc_type) {
         case 'html':
             return htmlspecialchars($string, ENT_QUOTES, $char_set);

@@ -64,7 +64,7 @@ class Smarty_Internal_Resource_Extend {
         foreach ($_files as $_file) {
             $_filepath = $_template->buildTemplateFilepath ($_file);
             if ($_file != $_files[0]) {
-                $_template->properties['file_dependency'][] = array($_filepath, filemtime($_filepath));
+                $_template->properties['file_dependency']['F'.abs(crc32($_filepath))] = array($_filepath, filemtime($_filepath));
             } 
             // read template file
             $_content = file_get_contents($_filepath);
@@ -75,7 +75,8 @@ class Smarty_Internal_Resource_Extend {
                 } 
                 $block_count = count($s[0]);
                 for ($i = 0; $i < $block_count; $i++) {
-                    $block_content = substr($_content, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0]));
+                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
+                    substr($_content, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0])));
                     $this->saveBlockData($block_content, $s[0][$i][0]);
                 } 
             } else {
@@ -98,16 +99,16 @@ class Smarty_Internal_Resource_Extend {
             $_name = trim($_match[3], "\"'}");
 
             if (isset($this->template->block_data[$_name])) {
-                if ($this->template->block_data[$_name]['mode'] == 'prepend') {
+                if (strpos($this->template->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                    $this->template->block_data[$_name]['compiled'] =
+                    str_replace('%%%%SMARTY_PARENT%%%%', $_compiled_content, $this->template->block_data[$_name]['compiled']);
+                } elseif ($this->template->block_data[$_name]['mode'] == 'prepend') {
                     $this->template->block_data[$_name]['compiled'] .= $_compiled_content;
-                    $this->template->block_data[$_name]['source'] .= $block_content;
                 } elseif ($this->template->block_data[$_name]['mode'] == 'append') {
                     $this->template->block_data[$_name]['compiled'] = $_compiled_content . $this->template->block_data[$_name]['compiled'];
-                    $this->template->block_data[$_name]['source'] = $block_content . $this->template->block_data[$_name]['source'];
                 } 
             } else {
                 $this->template->block_data[$_name]['compiled'] = $_compiled_content;
-                $this->template->block_data[$_name]['source'] = $block_content;
             } 
             if (preg_match('/(.?)(append=true)(.*)/', $block_tag, $_match) != 0) {
                 $this->template->block_data[$_name]['mode'] = 'append';

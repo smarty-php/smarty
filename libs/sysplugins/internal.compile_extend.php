@@ -32,8 +32,7 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         // create template object
         $_template = new Smarty_Template ($include_file, $this->compiler->smarty, $compiler->template); 
         // save file dependency
-        $compiler->template->properties['file_dependency'][] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp()); 
-        // $_old_source = preg_replace ('/' . $this->smarty->left_delimiter . 'extend\s+(?:file=)?\s*(\S+?|(["\']).+?\2)' . $this->smarty->right_delimiter . '/i', '' , $compiler->template->template_source, 1);
+        $compiler->template->properties['file_dependency']['F'.abs(crc32($_template->getTemplateFilepath()))] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
         $_old_source = $compiler->template->template_source;
         if (preg_match_all('/(' . $this->compiler->smarty->left_delimiter . 'block(.+?)' . $this->compiler->smarty->right_delimiter . ')/', $_old_source, $s, PREG_OFFSET_CAPTURE) !=
                 preg_match_all('/(' . $this->compiler->smarty->left_delimiter . '\/block(.*?)' . $this->compiler->smarty->right_delimiter . ')/', $_old_source, $c, PREG_OFFSET_CAPTURE)) {
@@ -41,8 +40,8 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         } 
         $block_count = count($s[0]);
         for ($i = 0; $i < $block_count; $i++) {
-//            $block_content = substr($_old_source, $s[0][$i][1], $c[0][$i][1] + strlen($c[0][$i][0]) - $s[0][$i][1]);
-            $block_content = substr($_old_source, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1]  - $s[0][$i][1] - strlen($s[0][$i][0]));
+            $block_content = str_replace($this->compiler->smarty->left_delimiter . '$smarty.parent' . $this->compiler->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
+                substr($_old_source, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0])));
             $this->saveBlockData($block_content, $s[0][$i][0]);
         } 
         $compiler->template->template_source = $_template->getTemplateSource();
@@ -64,23 +63,21 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
             $_name = trim($_match[3], "\"'}");
 
             if (isset($this->compiler->template->block_data[$_name])) {
-                if ($this->compiler->template->block_data[$_name]['mode'] == 'prepend') {
+                if (strpos($this->compiler->template->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                    $this->compiler->template->block_data[$_name]['compiled'] =
+                    str_replace('%%%%SMARTY_PARENT%%%%', $_compiled_content, $this->compiler->template->block_data[$_name]['compiled']);
+                } elseif ($this->compiler->template->block_data[$_name]['mode'] == 'prepend') {
                     $this->compiler->template->block_data[$_name]['compiled'] .= $_compiled_content;
-                    $this->compiler->template->block_data[$_name]['source'] .= $block_content;
                 } elseif ($this->compiler->template->block_data[$_name]['mode'] == 'append') {
                     $this->compiler->template->block_data[$_name]['compiled'] = $_compiled_content . $this->compiler->template->block_data[$_name]['compiled'];
-                    $this->compiler->template->block_data[$_name]['source'] = $block_content . $this->compiler->template->block_data[$_name]['source'];
                 } 
             } else {
                 $this->compiler->template->block_data[$_name]['compiled'] = $_compiled_content;
-                $this->compiler->template->block_data[$_name]['source'] = $block_content;
             } 
             if (preg_match('/(.?)(append=true)(.*)/', $block_tag, $_match) != 0) {
                 $this->compiler->template->block_data[$_name]['mode'] = 'append';
             } elseif (preg_match('/(.?)(prepend=true)(.*)/', $block_tag, $_match) != 0) {
-                $this->compiler->template->block_data[$_name]['mode'] = 'prepend'; 
-                // }
-                // }
+                $this->compiler->template->block_data[$_name]['mode'] = 'prepend';
             } else {
                 $this->compiler->template->block_data[$_name]['mode'] = 'replace';
             } 

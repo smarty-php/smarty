@@ -50,10 +50,9 @@ class Smarty_Internal_TemplateBase {
     */
     public function assign_global($varname, $value = null, $nocache = false)
     {
-        $_ptr = Smarty::instance();
         if ($varname != '') {
             $this->check_tplvar($varname);
-            $_ptr->global_tpl_vars[$varname] = new Smarty_variable($value, $nocache);
+            $this->smarty->global_tpl_vars[$varname] = new Smarty_variable($value, $nocache);
         } 
     } 
     /**
@@ -225,10 +224,9 @@ class Smarty_Internal_TemplateBase {
                 $_ptr = null;
             } 
         } 
-        $_ptr = Smarty::instance();
-        if (isset($_ptr->global_tpl_vars[$variable])) {
+        if (isset($this->smarty->global_tpl_vars[$variable])) {
             // found it, return it
-            return $_ptr->global_tpl_vars[$variable];
+            return $this->smarty->global_tpl_vars[$variable];
         } 
         if (Smarty::$error_unassigned && $error_enable) {
             throw new Exception('Undefined Smarty variable "' . $variable . '"');
@@ -260,29 +258,10 @@ class Smarty_Internal_TemplateBase {
         } 
     } 
     /**
-    * gets  a global variable
-    * 
-    * @param string $variable the name of the global variable
-    * @return mixed the value of the global variable
-    */
-    public function getGlobalVariable($variable)
-    {
-        $_ptr = Smarty::instance();
-        if (isset($_ptr->global_tpl_vars[$variable])) {
-            // found it, return it
-            return $_ptr->global_tpl_vars[$variable];
-        } 
-        if (Smarty::$error_unassigned) {
-            throw new Exception('Undefined global variable "' . $variable . '"');
-        } else {
-            return '';
-        } 
-    } 
-    /**
     * gets  a stream variable
     * 
     * @param string $variable the stream of the variable
-    * @return mixed the value of the global variable
+    * @return mixed the value of the stream variable
     */
     public function getStreamVariable($variable)
     {
@@ -296,7 +275,7 @@ class Smarty_Internal_TemplateBase {
         } 
 
         if (Smarty::$error_unassigned) {
-            throw new Exception('Undefined global variable "' . $variable . '"');
+            throw new Exception('Undefined stream variable "' . $variable . '"');
         } else {
             return '';
         } 
@@ -311,7 +290,7 @@ class Smarty_Internal_TemplateBase {
     * @param mixed $compile_id compile id to be used with this template
     * @returns object template object
     */
-    public function createTemplate($template, $parent = null, $cache_id = null, $compile_id = null)
+    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
     {
         if (!is_object($template)) {
             // we got a template resource

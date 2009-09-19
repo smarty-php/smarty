@@ -49,7 +49,10 @@ class Smarty_Internal_CacheResource_File {
     */
     public function getCachedContents($template)
     {
-        return file_get_contents($template->getCachedFilepath());
+        ob_start();
+        $_smarty_tpl = $template;
+        include $template->getCachedFilepath();
+        return ob_get_clean();
     } 
 
     /**
@@ -58,15 +61,15 @@ class Smarty_Internal_CacheResource_File {
     * @param object $template current template
     * @return boolean status
     */
-    public function writeCachedContent($template)
+    public function writeCachedContent($template, $content)
     {
         if (!$template->isEvaluated()) {
             if (!is_object($this->smarty->write_file_object)) {
-                require_once(SMARTY_SYSPLUGINS_DIR . 'internal.write_file.php');
-                //$this->smarty->loadPlugin("Smarty_Internal_Write_File");
+                require_once(SMARTY_SYSPLUGINS_DIR . 'internal.write_file.php'); 
+                // $this->smarty->loadPlugin("Smarty_Internal_Write_File");
                 $this->smarty->write_file_object = new Smarty_Internal_Write_File;
             } 
-            return $this->smarty->write_file_object->writeFile($template->getCachedFilepath(), $template->rendered_content);
+            return $this->smarty->write_file_object->writeFile($template->getCachedFilepath(), $content);
         } else {
             return false;
         } 
@@ -100,7 +103,7 @@ class Smarty_Internal_CacheResource_File {
             $_resource_part = null;
         } 
         $_dir = $this->smarty->cache_dir;
-        if (strpos('/\\',substr($_dir, -1)) === false) {
+        if (strpos('/\\', substr($_dir, -1)) === false) {
             $_dir .= DS;
         } 
         if ($this->smarty->use_sub_dirs && isset($cache_id)) {
@@ -125,8 +128,8 @@ class Smarty_Internal_CacheResource_File {
                     $_parts_compile_pos = 0;
                 } 
                 if ((substr_compare((string)$_file, $_dir, 0, strlen($_dir)) == 0 &&
-                        (!isset($resource_name) || $_parts[$_parts_count-1] == $_resource_part) &&
-                        (!isset($compile_id) || $_parts[$_parts_compile_pos] == $compile_id)) ||
+                            (!isset($resource_name) || $_parts[$_parts_count-1] == $_resource_part) &&
+                            (!isset($compile_id) || $_parts[$_parts_compile_pos] == $compile_id)) ||
                         (isset($resource_name) && (string)$_file == $_dir . $_resource_part)) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_file) >= $exp_time) {
@@ -150,8 +153,8 @@ class Smarty_Internal_CacheResource_File {
     */
     private function buildCachedFilepath ($resource_name, $cache_id, $compile_id)
     {
-        $_files = explode('|',$resource_name);
-        $_filepath = (string)abs(crc32($resource_name));
+        $_files = explode('|', $resource_name);
+        $_filepath = (string)abs(crc32($resource_name)); 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
@@ -171,7 +174,7 @@ class Smarty_Internal_CacheResource_File {
             $_compile_id = '';
         } 
         $_cache_dir = $this->smarty->cache_dir;
-        if (strpos('/\\',substr($_cache_dir, -1)) === false) {
+        if (strpos('/\\', substr($_cache_dir, -1)) === false) {
             $_cache_dir .= DS;
         } 
 
