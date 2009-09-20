@@ -340,7 +340,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public function is_cached($template, $cache_id = null, $compile_id = null)
     {
         if (!($template instanceof $this->template_class)) {
-            $template = $this->createTemplate ($template, $this, $cache_id, $compile_id);
+            $template = $this->createTemplate ($template, $cache_id, $compile_id, $this);
         } 
         // return cache status of template
         return $template->isCached();
