@@ -28,16 +28,42 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args); 
         // save posible attributes
-        $include_file = $_attr['file']; 
-        // check if compiled code can be merged
-        if (strpos($include_file, '$_smarty_tpl') === false) {
-            $tpl = new Smarty_Template (trim($include_file, "'\""), $compiler->smarty, $compiler->template);
-            $compiled_tpl = $tpl->getCompiledTemplate() . "<?php /*  End of included template \"" . $tpl->getTemplateFilepath() . "\" */ ?>";
-            $compiler->template->properties['file_dependency']['F' . abs(crc32($tpl->getTemplateFilepath()))] = array($tpl->getTemplateFilepath(), $tpl->getTemplateTimestamp());
-            $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $tpl->properties['file_dependency']);
-            $has_compiled_template = true;
-        } else {
-            $has_compiled_template = false;
+        $include_file = $_attr['file'];
+        $has_compiled_template = false;
+        if (true) {
+            // check if compiled code can be merged
+            if (strpos($include_file, '$_smarty_tpl') === false) {
+                $tpl = $compiler->smarty->createTemplate (trim($include_file, "'\""), $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
+                do {
+                    $must_compile = false;
+                    $prop = array();
+                    $compiled_tpl = $tpl->getCompiledTemplate();
+                    preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $compiled_tpl, $matches); //var_dump($matches, $compiled_tpl);
+                    if (isset($matches[2])) {
+                        $prop = unserialize($matches[2]);
+                        foreach ($prop['file_dependency'] as $_file_to_check) {
+                            If (is_file($_file_to_check[0])) {
+                                $mtime = filemtime($_file_to_check[0]);
+                            } else {
+                                $tpl->parseResourceName($_file_to_check[0], $resource_type, $resource_name, $resource_handler);
+                                $mtime = $resource_handler->getTemplateTimestampTypeName($resource_type, $resource_name);
+                            } 
+                            If ($mtime != $_file_to_check[1]) {
+                                $must_compile = true;
+                                break;
+                            } 
+                        } 
+                        if ($must_compile) {
+                            // recompile
+                            $tpl->compileTemplateSource();
+                        } 
+                    } 
+                } while ($must_compile);
+                if (isset($prop['file_dependency'])) {
+                    $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $prop['file_dependency']);
+                } 
+                $has_compiled_template = true;
+            } 
         } 
 
         if (isset($_attr['assign'])) {
@@ -56,11 +82,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             } 
         } 
         // default for included templates
-        // if ($compiler->template->caching) {
-        // $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
-        // } else {
-        $_caching = SMARTY_CACHING_OFF; 
-        // }
+        if ($compiler->template->caching) {
+            $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
+        } else {
+            $_caching = SMARTY_CACHING_OFF;
+        } 
         /*
         * if the {include} tag provides individual parameter for caching
         * it will not be included into the common cache file and treated like
@@ -108,9 +134,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template)); ?>";
         } else {
             if ($has_compiled_template) {
-                $_output .= " \$_tmp = \$_smarty_tpl; \$_smarty_tpl = \$_template;?>\n";
-                $_output .= $compiled_tpl;
-                $_output .= "<?php  \$_smarty_tpl = \$_tmp;?>";
+                $_output .= " \$_tpl_stack[] = \$_smarty_tpl; \$_smarty_tpl = \$_template;?>\n";
+                $_output .= $compiled_tpl . "<?php /*  End of included template \"" . $tpl->getTemplateFilepath() . "\" */ ?>";;
+                $_output .= "<?php  \$_smarty_tpl = array_pop(\$_tpl_stack);?>";
             } else {
                 $_output .= " echo \$_smarty_tpl->smarty->fetch(\$_template); ?>";
             } 

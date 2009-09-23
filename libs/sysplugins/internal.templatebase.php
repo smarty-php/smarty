@@ -296,12 +296,12 @@ class Smarty_Internal_TemplateBase {
             // we got a template resource
             $_templateId = $this->buildTemplateId ($template, $cache_id, $compile_id); 
             // already in template cache?
-            if (isset($this->template_objects[$_templateId])) {
+            if (isset($this->smarty->template_objects[$_templateId])) {
                 // return cached template object
-                return $this->template_objects[$_templateId];
+                return $this->smarty->template_objects[$_templateId];
             } else {
                 // create and cache new template object
-                return new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
+                return new $this->template_class($template, $this->smarty, $parent, $cache_id, $compile_id);
             } 
         } else {
             // just return a copy of template class
