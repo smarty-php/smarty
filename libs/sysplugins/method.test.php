@@ -36,15 +36,6 @@ function test($smarty)
     else
         echo "{$smarty->compile_dir} is OK.\n";
 
-    echo "Testing sysplugins directory...\n";
-
-    if (!is_dir($smarty->sysplugins_dir))
-        echo "FAILED: $smarty->sysplugins_dir is not a directory.\n";
-    elseif (!is_readable($smarty->sysplugins_dir))
-        echo "FAILED: $smarty->sysplugins_dir is not readable.\n";
-    else
-        echo "{$smarty->sysplugins_dir} is OK.\n";
-
     echo "Testing plugins directory...\n";
 
     foreach((array)$smarty->plugins_dir as $plugin_dir) {
