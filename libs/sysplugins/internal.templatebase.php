@@ -15,7 +15,7 @@
 */
 class Smarty_Internal_TemplateBase {
     // class used for templates
-    public $template_class = 'Smarty_Internal_Template'; 
+    public $template_class = 'Smarty_Internal_Template';
 
     /**
     * assigns a Smarty variable
@@ -57,19 +57,11 @@ class Smarty_Internal_TemplateBase {
     } 
     /**
     * assigns values to template variables by reference
-    * 
-    * @param string $tpl_var the template variable name
-    * @param mixed $ &$value the referenced value to assign
-    * @param boolean $nocache if true any output of this variable will be not cached
-    * @param boolean $scope the scope the variable will have  (local,parent or root)
+    * wrapper to assign
     */
     public function assign_by_ref($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
-        if ($tpl_var != '') {
-            $this->check_tplvar($tpl_var);
-            $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
-            $this->tpl_vars[$tpl_var]->value = &$value;
-        } 
+        $this->assign($tpl_var, $value, $nocache, $scope);
     } 
     /**
     * appends values to template variables
@@ -141,27 +133,11 @@ class Smarty_Internal_TemplateBase {
     /**
     * appends values to template variables by reference
     * 
-    * @param string $tpl_var the template variable name
-    * @param mixed $ &$value the referenced value to append
-    * @param boolean $merge flag if array elements shall be merged
+    * wrapper to append
     */
-    public function append_by_ref($tpl_var, &$value, $merge = false)
+    public function append_by_ref($tpl_var, $value = null, $merge = false, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
-        if ($tpl_var != '' && isset($value)) {
-            if (!isset($this->tpl_vars[$tpl_var])) {
-                $this->tpl_vars[$tpl_var] = new Smarty_variable();
-            } 
-            if (!@is_array($this->tpl_vars[$tpl_var]->value)) {
-                settype($this->tpl_vars[$tpl_var]->value, 'array');
-            } 
-            if ($merge && is_array($value)) {
-                foreach($value as $_key => $_val) {
-                    $this->tpl_vars[$tpl_var]->value[$_key] = &$value[$_key];
-                } 
-            } else {
-                $this->tpl_vars[$tpl_var]->value[] = &$value;
-            } 
-        } 
+        $this->append($tpl_var, $value, $merge, $nocache, $scope);
     } 
 
     /**
@@ -292,9 +268,15 @@ class Smarty_Internal_TemplateBase {
     */
     public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
     {
-        if (is_object($cache_id)) {
+        if (is_object($cache_id) || is_array($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
+        } 
+        if (is_array($parent)) {
+            $data = $parent;
+            $parent = null;
+        } else {
+            $data = null;
         } 
         if (!is_object($template)) {
             // we got a template resource
@@ -302,15 +284,23 @@ class Smarty_Internal_TemplateBase {
             // already in template cache?
             if (isset($this->smarty->template_objects[$_templateId])) {
                 // return cached template object
-                return $this->smarty->template_objects[$_templateId];
+                $tpl = $this->smarty->template_objects[$_templateId];
             } else {
                 // create and cache new template object
-                return new $this->template_class($template, $this->smarty, $parent, $cache_id, $compile_id);
+                $tpl = new $this->template_class($template, $this->smarty, $parent, $cache_id, $compile_id);
             } 
         } else {
             // just return a copy of template class
-            return $template;
+            $tpl = $template;
         } 
+        // fill data if present
+        if (is_array($data)) {
+            // set up variable values
+            foreach ($data as $_key => $_val) {
+                $tpl->tpl_vars[$_key] = new Smarty_variable($_val);
+            } 
+        } 
+        return $tpl;
     } 
 
     /**

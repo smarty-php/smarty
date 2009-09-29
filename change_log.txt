@@ -1,3 +1,9 @@
+09/30/2009
+- the methodes assign_by_ref is now wrapped to assign, append_by_ref to append
+- allow arrays of variables pass in display, fetch and createTemplate calls
+  $data = array('foo'=>'bar','foo2'=>'blar');
+  $smarty->display('my.tpl',$data);
+
 09/29/2009
 - changed {php} tag handling
 - removed support of Smarty::instance()
