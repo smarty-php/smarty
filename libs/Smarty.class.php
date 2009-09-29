@@ -75,6 +75,15 @@ define('SMARTY_CACHING_LIFETIME_CURRENT', 1);
 define('SMARTY_CACHING_LIVETIME_SAVED', 2);
 
 /**
+* This determines how Smarty handles "<?php ... ?>" tags in templates.
+* possible values:
+*/
+define('SMARTY_PHP_PASSTHRU', 0); //-> print tags as plain text
+define('SMARTY_PHP_QUOTE', 1); //-> escape tags as entities
+define('SMARTY_PHP_REMOVE', 2); //-> escape tags as entities
+define('SMARTY_PHP_ALLOW', 3); //-> escape tags as entities
+
+/**
 * load required base class for creation of the smarty object
 */
 require_once(SMARTY_SYSPLUGINS_DIR . 'internal.templatebase.php');
@@ -83,8 +92,6 @@ require_once(SMARTY_SYSPLUGINS_DIR . 'internal.templatebase.php');
 * This is the main Smarty class
 */
 class Smarty extends Smarty_Internal_TemplateBase {
-    // smarty instances
-    private static $instance = array(); 
     // smarty version
     public static $_version = 'Smarty3Beta-dev'; 
     // auto literal on delimiters with whitspace
@@ -127,6 +134,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $left_delimiter = "{";
     public $right_delimiter = "}"; 
     // security
+    public $php_handling = SMARTY_PHP_PASSTHRU;
     public $security = false;
     public $security_policy = null;
     public $security_handler = null;
@@ -141,7 +149,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                         
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                          
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -193,16 +201,15 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // global internal smarty  vars
     public $_smarty_vars = array(); 
     // start time for execution time calculation
-    public $start_time = 0; 
+    public $start_time = 0;
     /**
     * Class constructor, initializes basic smarty properties
     */
-    public function __construct($name = 'default')
+    public function __construct()
     { 
-        // set instance object
-        Smarty::$instance[$name] = $this;
+        // self reference needed by other classes methodes
         $this->smarty = $this;
-        
+
         if (is_callable('mb_internal_encoding')) {
             mb_internal_encoding(SMARTY_RESOURCE_CHAR_SET);
         } 
@@ -265,21 +272,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // restore to previous exception handler, if any
         if (!empty($this->exception_handler))
             restore_exception_handler();
-    } 
-
-    /**
-    * Sets a static instance of the smarty object. Retrieve with:
-    * $smarty = Smarty::instance($name);
-    * 
-    * @return object reference to Smarty object
-    */
-    public static function &instance($name = 'default')
-    {
-        if (isset(Smarty::$instance[$name])) {
-            return Smarty::$instance[$name];
-        } else {
-            throw new Exception("Smarty instance $name is not existing");
-        } 
     } 
 
     /**

@@ -6,10 +6,7 @@
 * @subpackage Security
 * @author Uwe Tews 
 */ 
-    define('SMARTY_PHP_PASSTHRU',   0);
-    define('SMARTY_PHP_QUOTE', 1);
-    define('SMARTY_PHP_REMOVE', 2);
-    define('SMARTY_PHP_ALLOW', 3);
+
 /**
 * This class does contain the security settings
 */
@@ -26,7 +23,7 @@ class Smarty_Security_Policy {
     * 
     * @var integer 
     */
-    public $php_handling = SMARTY_PHP_REMOVE;
+    public $php_handling = SMARTY_PHP_PASSTHRU;
 
     /**
     * This is the list of template directories that are considered secure.
@@ -79,9 +76,9 @@ class Smarty_Security_Policy {
     */
     public $allow_constants = true;
     /**
-    + flag if super globals can be accessed from template
+    + flag if {php} tag can be executed
     */
-    public $allow_super_globals = true;
+    public $allow_php_tag = false;
 } 
 
 ?>

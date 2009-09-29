@@ -444,26 +444,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 } 
             } 
         } else {
-            // PHP template
-            $_start_time = $this->_get_time(); 
-            // Smarty variables as objects extract as objects
-            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.phpvariableobjects.php'); 
-            // $this->smarty->loadPlugin('Smarty_Internal_PHPVariableObjects');
-            $_ptr = $this;
-            do {
-                foreach ($_ptr->tpl_vars as $_smarty_var => $_var_object) {
-                    if (isset($_var_object->value)) {
-                        $$_smarty_var = Smarty_Internal_PHPVariableObjects::createPHPVarObj($_var_object->value);
-                    } 
-                } 
-                $_ptr = $_ptr->parent;
-            } while ($_ptr != null);
-            unset ($_smarty_var, $_smarty_value, $_ptr); 
-            // special object for handling functions in PHP
-            $_f = Smarty_Internal_PHPVariableObjects::createPHPVarObj(new PHP_Function_Handler($this), true);
-            ob_start(); 
-            // include PHP template
-            include($this->getTemplateFilepath ());
+                throw new Exception("Resource '$this->resource_type' must use compiler");
         } 
         $this->render_time += $this->_get_time() - $_start_time;
         $this->rendered_content = ob_get_clean();

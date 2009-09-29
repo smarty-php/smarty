@@ -1,3 +1,10 @@
+09/29/2009
+- changed {php} tag handling
+- removed support of Smarty::instance()
+- removed support of PHP resource type
+- improved execution speed of {foreach} tags
+- fixed bug in {section} tag
+
 09/23/2009
 - improvements and bugfix on {include} tag handling
 NOTICE: existing compiled template and cache files must be deleted

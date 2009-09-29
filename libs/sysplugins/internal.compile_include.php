@@ -38,7 +38,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                     $must_compile = false;
                     $prop = array();
                     $compiled_tpl = $tpl->getCompiledTemplate();
-                    preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $compiled_tpl, $matches); //var_dump($matches, $compiled_tpl);
+                    preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $compiled_tpl, $matches); 
+                    $compiled_tpl = preg_replace(array('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>.*\n)/','/(\<\?php if\(\!defined\(\'SMARTY_DIR\'\)\))(.*)(\?\>.*\n)/'), '', $compiled_tpl); 
+                    //var_dump($matches, $compiled_tpl);
                     if (isset($matches[2])) {
                         $prop = unserialize($matches[2]);
                         foreach ($prop['file_dependency'] as $_file_to_check) {
