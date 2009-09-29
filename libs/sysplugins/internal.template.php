@@ -444,7 +444,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 } 
             } 
         } else {
-                throw new Exception("Resource '$this->resource_type' must use compiler");
+            throw new Exception("Resource '$this->resource_type' must use compiler");
         } 
         $this->render_time += $this->_get_time() - $_start_time;
         $this->rendered_content = ob_get_clean();
@@ -664,6 +664,29 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 $this->smarty->global_tpl_vars[$_key]->scope = SMARTY_LOCAL_SCOPE;
             } 
         } 
+    } 
+
+    /**
+    * wrapper for display
+    */
+    public function display ()
+    {
+        return $this->smarty->display($this);
+    } 
+
+    /**
+    * wrapper for fetch
+    */
+    public function fetch ()
+    {
+        return $this->smarty->fetch($this);
+    } 
+    /**
+    * wrapper for is_cached
+    */
+    public function is_cached ()
+    {
+        return $this->iscached();
     } 
 } 
 
