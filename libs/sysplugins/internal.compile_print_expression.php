@@ -23,7 +23,7 @@ class Smarty_Internal_Compile_Print_Expression extends Smarty_Internal_CompileBa
     {
         $this->compiler = $compiler;
         $this->required_attributes = array('value');
-        $this->optional_attributes = array('assign', 'nocache', 'filter'); 
+        $this->optional_attributes = array('assign', 'nocache', 'filter', 'nofilter'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
@@ -35,6 +35,11 @@ class Smarty_Internal_Compile_Print_Expression extends Smarty_Internal_CompileBa
 
         if (!isset($_attr['filter'])) {
             $_attr['filter'] = 'null';
+        } 
+        if (isset($_attr['nofilter'])) {
+            if ($_attr['nofilter'] == 'true') {
+                $_attr['filter'] = 'false';
+            } 
         } 
 
         if (isset($_attr['assign'])) {

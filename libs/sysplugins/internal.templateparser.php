@@ -2088,7 +2088,7 @@ static public $yy_action = array(
     function yy_r30(){ $this->_retvalue = array($this->yystack[$this->yyidx + -2]->minor=>$this->yystack[$this->yyidx + 0]->minor);    }
 #line 2094 "internal.templateparser.php"
 #line 205 "internal.templateparser.y"
-    function yy_r31(){ $this->_retvalue = array($this->yystack[$this->yyidx + 0]->minor=>null);    }
+    function yy_r31(){ $this->_retvalue = array($this->yystack[$this->yyidx + 0]->minor=>'true');    }
 #line 2097 "internal.templateparser.php"
 #line 210 "internal.templateparser.y"
     function yy_r32(){ $this->_retvalue = array($this->yystack[$this->yyidx + 0]->minor);    }
