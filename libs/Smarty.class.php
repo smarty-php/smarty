@@ -149,7 +149,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                          
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                            
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -278,13 +278,17 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * fetches a rendered Smarty template
     * 
     * @param string $template the resource handle of the template file or template object
-    * @param object $ |null $parent next higher level of Smarty variables
     * @param mixed $cache_id cache id to be used with this template
     * @param mixed $compile_id compile id to be used with this template
+    * @param object $ |null $parent next higher level of Smarty variables
     * @return string rendered template output
     */
     public function fetch($template, $cache_id = null, $compile_id = null, $parent = null)
     {
+        if (is_object($cache_id)) {
+            $parent = $cache_id;
+            $cache_id = null;
+        } 
         if ($parent === null) {
             // get default Smarty data object
             $parent = $this;
@@ -305,12 +309,16 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * displays a Smarty template
     * 
     * @param string $ |object $template the resource handle of the template file  or template object
-    * @param object $parent next higher level of Smarty variables
     * @param mixed $cache_id cache id to be used with this template
     * @param mixed $compile_id compile id to be used with this template
+    * @param object $parent next higher level of Smarty variables
     */
     public function display($template, $cache_id = null, $compile_id = null, $parent = null)
     { 
+        if (is_object($cache_id)) {
+            $parent = $cache_id;
+            $cache_id = null;
+        } 
         // display template
         echo $this->fetch ($template, $cache_id, $compile_id, $parent); 
         // debug output?

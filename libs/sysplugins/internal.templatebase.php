@@ -292,6 +292,10 @@ class Smarty_Internal_TemplateBase {
     */
     public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
     {
+        if (is_object($cache_id)) {
+            $parent = $cache_id;
+            $cache_id = null;
+        } 
         if (!is_object($template)) {
             // we got a template resource
             $_templateId = $this->buildTemplateId ($template, $cache_id, $compile_id); 
