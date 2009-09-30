@@ -1,4 +1,7 @@
+
+
 09/30/2009
+- bugfix for other cache resources than file
 - the methodes assign_by_ref is now wrapped to assign, append_by_ref to append
 - allow arrays of variables pass in display, fetch and createTemplate calls
   $data = array('foo'=>'bar','foo2'=>'blar');

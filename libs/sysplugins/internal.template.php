@@ -457,15 +457,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         } 
         // write to cache when nessecary
         if (!$this->isEvaluated() && $this->caching) {
-            // $this->properties['file_dependency'] = array_unique($this->properties['file_dependency']);
             // write rendered template
             $this->writeCachedContent($this);
             if ($this->usesCompiler()) {
-                // cache file may contain nocache code
-                ob_start();
-                $_smarty_tpl = $this;
-                include $this->getCachedFilepath();
-                $this->rendered_content = ob_get_clean();
+                // cache file may contain nocache code. read it back for processing
+                $this->rendered_content = $this->smarty->cache_resource_objects[$this->caching_type]->getCachedContents($this);
             } 
         } 
     } 
