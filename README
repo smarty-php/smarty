@@ -46,15 +46,6 @@ LEXER/PARSER!
 Smarty 3 now uses a real lexing tokenizer and a parser. This opens all kinds of doors
 such as template math, function recursion, among many other things.
 
-$smarty OBJECT SINGLETON
-
-Do you need a reference to the Smarty object instance? No problem:
-
-$smarty = Smarty::instance();
-
-You can do this from anywhere in your PHP code, and get the instance. You can
-be buried in a php function, in a class method, or wherever. The $smarty
-object is quickly obtainable.
 
 Since all internal plugins are now classes (did I mention that yet?), They all extend
 Smarty_Internal_PluginBase, which makes $this->smarty a reference to the Smarty
@@ -82,18 +73,6 @@ $smarty->display('php:mytemplate.tpl');
 Smarty will not compile it, it will just get executed as PHP. You have full
 reign of PHP in your template code. Your assigned template vars are available
 simply as <?=$foo?> <?=$bar?>, etc.
-
-How to add modifiers in PHP templates:
-Modifier are added like a method to the variables.
-<?=$foo->escape('html')?>
-Modifier can be chained.
-<?=$foo->truncate(5)->escape('html')?>
-
-How to output function results in PHP templates:
-Functions will require a $_f prefix.
-<?=$_f->time()?>
-Again you can add modifier.
-<?=$_f->time()->truncate(2)?>
 
 
 
