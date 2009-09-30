@@ -135,6 +135,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $right_delimiter = "}"; 
     // security
     public $php_handling = SMARTY_PHP_PASSTHRU;
+    public $allow_php_tag = false;
+    public $allow_php_templates = false;
     public $security = false;
     public $security_policy = null;
     public $security_handler = null;

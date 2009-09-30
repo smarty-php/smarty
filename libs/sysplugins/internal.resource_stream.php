@@ -30,7 +30,7 @@ class Smarty_Internal_Resource_Stream {
     */
     public function isExisting($template)
     {
-        if ($template->getTemplateSource() === false) {
+        if ($template->getTemplateSource() == '') {
             return false;
         } else {
             return true;

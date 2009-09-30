@@ -1,4 +1,6 @@
-
+10/01/2009
+- reactivated PHP resource for simple PHP templates. Must set allow_php_templates = true to enable
+- {PHP} tag can be enabled by allow_php_tag = true
 
 09/30/2009
 - fixed handling template_exits methode for all resource types

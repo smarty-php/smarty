@@ -5,7 +5,6 @@
 * @package SmartyTestScripts
 */
 require('../libs/Smarty.class.php');
-ini_set('short_open_tag','1');
 
  class Person
 {
@@ -31,11 +30,13 @@ ini_set('short_open_tag','1');
 }  
 
 $smarty = new Smarty();
+$smarty->allow_php_templates= true;
 $smarty->force_compile = false;
-$smarty->caching = false;
-$smarty->cache_lifetime = 10;
+$smarty->caching = true;
+$smarty->cache_lifetime = 100;
+//$smarty->debugging = true;
 
-$smarty->assign('foo','<bar>');
+$smarty->assign('foo',"'bar'");
 
 $person = new Person;
 

@@ -1,11 +1,13 @@
 PHP file test
 $foo is <?=$foo?>
-<br> Test modifier chaining
-<?=$foo->trim()->escape('html')?>
+<br> Test functions
+<? echo trim($foo,"'");?>
 <br>Test objects
-<?=$person->setName('Paul')->setAge(39)->introduce()->trim()->truncate(10)?>
+<?=$person->setName('Paul')->setAge(39)->introduce()?>
 <br>Test Arrays
-<?=$array['a']['aa']->truncate(5)?><?=$array['b']?>
-<br>Function
-<?=$_f->trim($array['a']['aa'])->truncate(10)?>
-DONE
+<?=$array['a']['aa']?> <?=$array['b']?>
+<br>function time 
+<? echo time();?>
+<br>nocache function time 
+<? echo '<? echo time();?>';?>
+<br>DONE

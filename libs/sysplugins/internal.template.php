@@ -461,10 +461,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 } 
             } 
         } else {
-            throw new Exception("Resource '$this->resource_type' must use compiler");
+            if (is_callable(array($this->resource_objects[$this->resource_type], 'renderUncompiled'))) {
+                $_start_time = $this->_get_time();
+                ob_start();
+                $this->resource_objects[$this->resource_type]->renderUncompiled($this);
+            } else {
+                throw new Exception("Resource '$this->resource_type' must have 'renderUncompiled' methode");
+            } 
         } 
-        $this->render_time += $this->_get_time() - $_start_time;
         $this->rendered_content = ob_get_clean();
+        $this->render_time += $this->_get_time() - $_start_time;
         if (!$this->isEvaluated) {
             $this->properties['file_dependency']['F' . abs(crc32($this->getTemplateFilepath()))] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
         } 
@@ -476,10 +482,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         if (!$this->isEvaluated() && $this->caching) {
             // write rendered template
             $this->writeCachedContent($this);
-            if ($this->usesCompiler()) {
                 // cache file may contain nocache code. read it back for processing
                 $this->rendered_content = $this->smarty->cache_resource_objects[$this->caching_type]->getCachedContents($this);
-            } 
         } 
     } 
 

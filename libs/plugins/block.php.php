@@ -25,9 +25,9 @@ function smarty_block_php($params, $content, $smarty, &$repeat, $template)
         $sec_obj = $smarty;
     } 
     if (is_null($content)) {
-    if ($sec_obj->php_handling != SMARTY_PHP_ALLOW) {
-        trigger_error("{php} is deprecated, set php_handling = SMARTY_PHP_ALLOW to enable",E_USER_WARNING);
-    } 
+        if (!$smarty->allow_php_tag) {
+            trigger_error("{php} is deprecated, set allow_php_tag = true to enable", E_USER_WARNING);
+        } 
         return;
     } 
 
