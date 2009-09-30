@@ -21,15 +21,11 @@
 * @return boolean status
 */
 function template_exists($smarty, $resource_name)
-{
-    foreach((array)$smarty->template_dir as $_template_dir) {
-        $_filepath = $_template_dir . $resource_name;
-        if (file_exists($_filepath))
-            return true;
-    } 
-    if (file_exists($resource_name)) return true; 
-    // no tpl file found
-    return false;
+{ 
+    // create template object
+    $tpl = new $smarty->template_class($resource_name, $smarty); 
+    // check if it does exists 
+        return $tpl->isExisting();
 } 
 
 ?>

@@ -24,6 +24,19 @@ class Smarty_Internal_Resource_Stream {
     public $template_parser_class = 'Smarty_Internal_Templateparser';
 
     /**
+    * Return flag if template source is existing
+    * 
+    * @return boolean true
+    */
+    public function isExisting($template)
+    {
+        if ($template->getTemplateSource() === false) {
+            return false;
+        } else {
+            return true;
+        } 
+    } 
+    /**
     * Get filepath to template source
     * 
     * @param object $_template template object

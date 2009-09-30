@@ -23,6 +23,20 @@ class Smarty_Internal_Resource_File {
     public $template_parser_class = 'Smarty_Internal_Templateparser';
 
     /**
+    * Return flag if template source is existing
+    * 
+    * @return boolean true
+    */
+    public function isExisting($template)
+    {
+        if ($template->getTemplateFilepath() === false) {
+            return false;
+        } else {
+            return true;
+        } 
+    } 
+
+    /**
     * Get filepath to template source
     * 
     * @param object $_template template object
@@ -32,10 +46,11 @@ class Smarty_Internal_Resource_File {
     {
         $_filepath = $_template->buildTemplateFilepath ();
 
-        if ($_template->security) {
-            $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
+        if ($_filepath !== false) {
+            if ($_template->security) {
+                $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
+            } 
         } 
-
         return $_filepath;
     } 
 
@@ -95,7 +110,7 @@ class Smarty_Internal_Resource_File {
     * @return string return path to compiled template
     */
     public function getCompiledFilepath($_template)
-    {
+    { 
         // $_filepath = md5($_template->resource_name);
         $_filepath = (string)abs(crc32($_template->resource_name)); 
         // if use_sub_dirs, break file into directories

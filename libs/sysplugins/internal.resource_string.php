@@ -4,9 +4,10 @@
 * Smarty Internal Plugin Resource String
 * 
 * Implements the strings as resource for Smarty template
+* 
 * @package Smarty
 * @subpackage TemplateResources
-* @author Uwe Tews
+* @author Uwe Tews 
 */
 /**
 * Smarty Internal Plugin Resource String
@@ -18,9 +19,19 @@ class Smarty_Internal_Resource_String {
         $this->smarty = $smarty;
     } 
     // classes used for compiling Smarty templates from file resource
-    public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler'; 
-    public $template_lexer_class = 'Smarty_Internal_Templatelexer'; 
-    public $template_parser_class = 'Smarty_Internal_Templateparser'; 
+    public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
+    public $template_lexer_class = 'Smarty_Internal_Templatelexer';
+    public $template_parser_class = 'Smarty_Internal_Templateparser';
+
+    /**
+    * Return flag if template source is existing
+    * 
+    * @return boolean true
+    */
+    public function isExisting($template)
+    {
+        return true;
+    } 
 
     /**
     * Get filepath to template source
@@ -29,11 +40,11 @@ class Smarty_Internal_Resource_String {
     * @return string return 'string' as template source is not a file
     */
     public function getTemplateFilepath($_template)
-    {
+    { 
         // no filepath for strings
         // return "string" for compiler error messages
         return 'string';
-    }
+    } 
 
     /**
     * Get timestamp to template source
@@ -42,9 +53,9 @@ class Smarty_Internal_Resource_String {
     * @return boolean false as string resources have no timestamp
     */
     public function getTemplateTimestamp($_template)
-    {    
-         // strings must always be compiled and have no timestamp
-         return false;
+    { 
+        // strings must always be compiled and have no timestamp
+        return false;
     } 
 
     /**
@@ -57,9 +68,9 @@ class Smarty_Internal_Resource_String {
     { 
         // return template string
         $_template->template_source = $_template->resource_name;
-        return  true;
-   }
-    
+        return true;
+    } 
+
     /**
     * Return flag that this resource uses the compiler
     * 
@@ -69,8 +80,8 @@ class Smarty_Internal_Resource_String {
     { 
         // resource string is template, needs compiler
         return true;
-    }
-    
+    } 
+
     /**
     * Return flag that this resource is evaluated
     * 
@@ -81,7 +92,7 @@ class Smarty_Internal_Resource_String {
         // compiled template is evaluated instead of saved to disk
         return true;
     } 
-     
+
     /**
     * Get filepath to compiled template
     * 
@@ -89,10 +100,10 @@ class Smarty_Internal_Resource_String {
     * @return boolean return false as compiled template is not stored
     */
     public function getCompiledFilepath($_template)
-    {
+    { 
         // no filepath for strings
         return false;
-    }
+    } 
 } 
 
 ?>

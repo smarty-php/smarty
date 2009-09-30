@@ -1,6 +1,7 @@
 
 
 09/30/2009
+- fixed handling template_exits methode for all resource types
 - bugfix for other cache resources than file
 - the methodes assign_by_ref is now wrapped to assign, append_by_ref to append
 - allow arrays of variables pass in display, fetch and createTemplate calls

@@ -23,6 +23,19 @@ class Smarty_Internal_Resource_Extend {
     public $template_parser_class = 'Smarty_Internal_Templateparser';
 
     /**
+    * Return flag if template source is existing
+    * 
+    * @return boolean true
+    */
+    public function isExisting($template)
+    {
+        if ($template->getTemplateFilepath() === false) {
+            return false;
+        } else {
+            return true;
+        } 
+    } 
+    /**
     * Get filepath to template source
     * 
     * @param object $_template template object
@@ -32,10 +45,11 @@ class Smarty_Internal_Resource_Extend {
     {
         $_files = explode('|', $_template->resource_name);
         $_filepath = $_template->buildTemplateFilepath ($_files[count($_files)-1]);
-        if ($_template->security) {
-            $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
+        if ($_filepath !== false) {
+            if ($_template->security) {
+                $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
+            } 
         } 
-
         return $_filepath;
     } 
 
@@ -62,11 +76,14 @@ class Smarty_Internal_Resource_Extend {
         $_files = explode('|', $_template->resource_name);
         $_files = array_reverse($_files);
         foreach ($_files as $_file) {
-            $_filepath = $_template->buildTemplateFilepath ($_file);
-            if ($_file != $_files[0]) {
-                $_template->properties['file_dependency']['F'.abs(crc32($_filepath))] = array($_filepath, filemtime($_filepath));
-            } 
+            $_filepath = $_template->buildTemplateFilepath ($_file); 
             // read template file
+            if ($_filepath === false) {
+                throw new Exception("Unable to load template \"file : {$_file}\"");
+            } 
+            if ($_file != $_files[0]) {
+                $_template->properties['file_dependency']['F' . abs(crc32($_filepath))] = array($_filepath, filemtime($_filepath));
+            } 
             $_content = file_get_contents($_filepath);
             if ($_file != $_files[count($_files)-1]) {
                 if (preg_match_all('/(' . $this->smarty->left_delimiter . 'block(.+?)' . $this->smarty->right_delimiter . ')/', $_content, $s, PREG_OFFSET_CAPTURE) !=
@@ -76,7 +93,7 @@ class Smarty_Internal_Resource_Extend {
                 $block_count = count($s[0]);
                 for ($i = 0; $i < $block_count; $i++) {
                     $block_content = str_replace($this->smarty->left_delimiter . '$smarty.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
-                    substr($_content, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0])));
+                        substr($_content, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0])));
                     $this->saveBlockData($block_content, $s[0][$i][0]);
                 } 
             } else {

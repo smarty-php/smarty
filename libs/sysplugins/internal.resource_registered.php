@@ -24,6 +24,19 @@ class Smarty_Internal_Resource_Registered {
     public $template_parser_class = 'Smarty_Internal_Templateparser';
 
     /**
+    * Return flag if template source is existing
+    * 
+    * @return boolean true
+    */
+    public function isExisting($_template)
+    {
+        if (is_integer($this->getTemplateTimestamp($_template))) {
+            return true;
+        } else {
+            return false;
+        } 
+    } 
+    /**
     * Get filepath to template source
     * 
     * @param object $_template template object

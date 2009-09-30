@@ -31,7 +31,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public $resource_type = null;
     public $resource_name = null;
     private $usesCompiler = null;
-    private $isEvaluated = null; 
+    private $isEvaluated = null;
+    private $isExisting = null; 
     // Template source
     public $template_filepath = null;
     public $template_source = null;
@@ -158,6 +159,19 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     } 
 
     /**
+    * Returns if the  template is existing
+    * 
+    * The status is determined by the actual resource handler
+    * 
+    * @return boolean true if the template exists
+    */
+    public function isExisting ()
+    {
+        return $this->isExisting === null ?
+        $this->isExisting = $this->resource_objects[$this->resource_type]->isExisting($this) :
+        $this->isExisting;
+    } 
+    /**
     * Returns if the template resource uses the Smarty compiler
     * 
     * The status is determined by the actual resource handler
@@ -194,6 +208,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     */
     public function mustCompile ()
     {
+        if (!$this->isExisting()) {
+            throw new Exception("Unable to load template \"{$this->resource_type} : {$this->resource_name}\"");
+        } 
         if ($this->mustCompile === null) {
             $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
             if ($this->mustCompile) {
@@ -592,7 +609,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 } 
             } 
         } 
-        throw new Exception("Unable to load template \"{$file}\"");
+        // throw new Exception("Unable to load template \"{$file}\"");
         return false;
     } 
 
