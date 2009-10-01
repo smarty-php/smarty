@@ -1,4 +1,5 @@
 10/01/2009
+- removed default timezone setting
 - reactivated PHP resource for simple PHP templates. Must set allow_php_templates = true to enable
 - {PHP} tag can be enabled by allow_php_tag = true
 

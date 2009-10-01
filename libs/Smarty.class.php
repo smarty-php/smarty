@@ -215,9 +215,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
         if (is_callable('mb_internal_encoding')) {
             mb_internal_encoding(SMARTY_RESOURCE_CHAR_SET);
         } 
-        if (function_exists("date_default_timezone_set")) {
-            date_default_timezone_set(date_default_timezone_get());
-        } 
         $this->start_time = $this->_get_time(); 
         // set exception handler
         if (!empty($this->exception_handler))
