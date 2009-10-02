@@ -45,20 +45,308 @@ backward compatible with Smarty 2, except for the following items:
 There are many things that are new to Smarty 3. Here are the notable items:
    
 LEXER/PARSER
+============
 
 Smarty 3 now uses a lexing tokenizer for it's parser/compiler. Basically, this
 means Smarty has some syntax additions that make life easier such as in-template
 math, shorter/intuitive function parameter options, infinite function recursion,
 more accurate error handling, etc.
 
+
+WHAT IS NEW IN SMARTY TEMPLATE SYNTAX
+=====================================
+
+Smarty 3 allows to use expressions almost anywhere. Expressions can include PHP functions as 
+long as they are not disabled by the security policy, object methods and properties etc.  
+The {math} plugin will be no longer necessary but is still active for BC.
+Examples:
+{$x+$y} 													will output the sum of x and y.
+{$foo = strlen($bar)}   					function in assignment
+{assign var=foo value= $x+$y} 		in attributs 
+{$foo = myfunct( ($x+$y)*3 )} 		as function parameter 
+{$foo[$x+3]} 											as array index
+
+The {math} plugin will be no longer necessary but is still active for BC.
+
+
+
+Smarty tags can be used as values within other tags.
+Example:  {$foo={counter}+3}
+
+They can also be used inside double quoted strings.
+Example:  {$foo="this is message {counter}"}
+
+
+
+You can define arrays.
+{assign var=foo value=[1,2,3]}
+{assign var=foo value=['y'=>'yellow','b'=>'blue']}
+Arrays can be nested.
+{assign var=foo value=[1,[9,8],3]}
+
+
+
+There is a new "short" syntax for assigning variables.
+{$foo=$bar+2}
+
+You can assign a value to a specific array element. If the variable does exists but is not 
+an array it is converted to an array before the new values are assigned
+Examples:
+{$foo['bar']=1}
+{$foo['bar']['blar']=1}
+
+You can append values to an array. If the variable does exists but is not an array it is 
+converted to an array before the new values are assigned.
+ {$foo[]=1}
+
+
+
+
+
+You can now use a new PHP like syntax for accessing array elements.
+Examples:
+{$foo[1]}             normal access
+{$foo['bar']}
+{$foo['bar'][1]}
+{$foo[section_name]}  unquoted strings will result in an access using a section index
+{$foo[$x+$x]}         index may contain any expression
+{$foo[$bar[1]]}       nested index
+
+The old dot syntax stays intact for BC, but there are also some improvements.
+Examples:
+{$foo.a.b.c}    		=>  $foo['a']['b']['c'] 
+{$foo.a.$b.c}   		=>  $foo['a'][$b]['c']      	with variable index
+{$foo.a.{$b+4}.c}   =>  $foo['a'][$b+4]['c']   		with expression as index
+{$foo.a.{$b.c}}   	=>  $foo['a'][$b['c']]       	with nested index
+																										{ and } are used to address ambiguties 
+																										when nesting the dot syntax 
+
+
+
+Variable names itself can now be variable and contain expressions.
+Examples:
+$foo  normal variable
+$foo_{$bar}  variable name containing other variable 
+$foo_{$x+$y}  variable name containing expressions 
+$foo_{$bar}_buh_{$blar}  variable name with multiple segments
+{$foo_{$x}} will output the variable $foo_1 if $x has a value of 1.
+
+
+
+
+Object method chaining is implemented.
+{$object->method1($x)->method2($y)}
+
+
+
+
+{for} tag added for looping (replacement for {section} tag):
+{for $x=0, $y=count($foo); $x<$y; $i++}  ....  {/for}
+Any number of statements can be used separated by comma as the first
+inital expression at {for}.
+
+The Smarty 2 {section} syntax is still supported.
+
+
+
+New {foreach} syntax to loop over an array:
+{foreach $myarray as $var}   ....  {/foreach}
+$var@key            will deliver the key
+$var@iteration      will deliver the iteration
+$var@index          will deliver the index
+$var@total          will deliver the total number of array entries
+$var@first          will deliver true for the first iteration
+$var@last           will deliver true for the last iteration
+
+The Smarty 2 {foreach} tag syntax is still supported.
+
+NOTE: {$bar[foo]} still indicates a variable inside of a {section} named foo. 
+If you want to access an array element with index foo, you must use quotes
+such as {$bar['foo']}, or use the dot syntax {$bar.foo}.
+
+
+
+
+
+There is a new while block tag
+{while $foo ==  true} ..... {/while}
+{while $row = mysql_assoc($mysql_result)} .....  {/while}
+
+
+
+
+
+Direct access to PHP functions:
+Just as you can use PHP functions as modifiers directly, you can now access
+PHP functions directly, provided they are permitted by security settings:
+{time()}
+
+
+
+There is a new {function}  {/function} block tag. 
+This allows to reuse code sequences like a function.
+It can all itself recursively.
+
+See the following example for e nested menu ouput.
+
+Template file:
+{function name=menu level=0}
+  <ul class="level{$level}">
+  {foreach $data as $entry}
+    {if is_array($entry)}
+                  <li>{$entry@key}</li>
+               {menu data=$entry level=$level+1}
+    {else}
+      <li>{$entry}</li>
+    {/if}
+  {/foreach}
+  </ul>
+{/function}
+
+{$menu = ['item1','item2','item3' => ['item3-1','item3-2','item3-3' => ['item3-3-1','item3-3-2']],'item4']}
+
+{menu data=$menu}
+
+
+Generated output:
+    * item1
+    * item2
+    * item3
+          o item3-1
+          o item3-2
+          o item3-3
+                + item3-3-1
+                + item3-3-2
+    * item4
+
+The function tag itself must have name attribute. This name will become the tag name when calling 
+the function. The function tag may have any number of additional attributes. These will be default 
+settings for local variables.
+
+
+
+
+
+New {nocache} block function:
+{nocache} ... {/nocache} will declare a section of the template to be not cached.
+
+
+
+
+New nocache attribute:
+You can declare variable/function output as non-cached with the nocache attribute.
+{$foo nocache=true} or {$foo nocache} 
+
+{foo bar="baz" nocache=true} or {foo bar="baz" nocache}
+
+{time() nocache=true} or {time() nocache}
+
+Or you can assign the variable already in your script as nocache:
+$smarty->assign('foo',$something,true);
+{$foo}
+
+
+
+$smarty.current_dir returns the dirname of the current template.
+
+
+
+
+You can use strings directly as templates with the "string" resource type:
+$smarty->display('string:This is my template, {$foo}!');
+{include file="string:This is my template, {$foo}!"}
+
+
+
+VARIABLE SCOPE / VARIABLE STORAGE
+=================================
+
+In Smarty 2 all Smarty variables were stored within the Smarty object. 
+So all variables assigned by the PHP script were accessible by all subsequent 
+fetch and display template calls.
+
+In Smarty 3 we do have the possibility to assign variables to the Smarty object, 
+to user created data objects and to user created template objects. 
+These objects can be “chained”. A template object which normally will always be at 
+the end of such a chain can access all variables belonging to that template and 
+all variables within the parent chain. The Smarty object can only be the root 
+of such a chain, but a chain can also be isolated from the Smarty root.
+
+All the known Smarty assign…. methods will work also on the data and template objects.
+
+Besides the above mentioned objects there is also a special storage area for global variables.
+
+A data object can be created as follow:
+$data = new Smarty_Data;          // create root data object not linked to any parent
+$data->assign(‘foo’,’bar’);       // assign variable    
+
+$data= new Smarty_Data($smarty);  // create data object having a parent link to the Smarty object
+
+$data2= new Smarty_Data($data);   // create data object having a parent link to the $data data object
+
+
+A template object can be created by using the createTemplate method. It has the same parameter as the fetch or display method.
+function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
+
+Examples:
+$tpl = $smarty->createTemplate(‘mytpl.tpl’);          // create template object not linked to any parent
+$tpl->assign(‘foo’,’bar’);                            // assign variable    
+
+$tpl = $smarty->createTemplate(‘mytpl.tpl’,$smarty);  // create template having a parent link to the Smarty object
+
+$tpl = $smarty->createTemplate(‘mytpl.tpl’,$data);    // create template having a parent link to the $data object
+
+
+The standard fetch and display methods will implicitly create a template object. If the $parent parameter is not 
+specified in these method calls for BC reasons the template object is linked back to the Smarty object as parent.
+
+If a template is called by an {include..} tag from another template the subtemplate links back to the calling 
+template as parent. 
+
+As said before from inside a template all variables can be accessed which are defined locally or within the parent chain. 
+If the template code does create or modify a variable by using the {assign var=foo…} or {$foo=…} tags these new values 
+are know only locally (local scope). So when the template exits none of the new variables or modifications can be seen 
+in the calling template. This is same behavior as in Smarty 2. 
+
+With Smarty3 we can assign variables with a scope attribute which allows to export new variables or modifications 
+into the outside world when a template exits.
+
+Possible scopes are local, parent, root and global. 
+Examples:
+{assign var=foo value=’bar’}       // no scope is specified, the default ‘local’ will apply. Values can only be 
+                                   // seen in the current template
+{$foo=’bar’}
+
+{assign var=foo value=’bar’ scope=parent}       //  Values will be exported to the parent object 
+                                                //  (normally the calling template)
+{$foo=’bar’ scope=parent}
+
+{assign var=foo value=’bar’ scope=root}        //  Values will be exported to the root object, so they can 
+                                               //  be seen from all templates using the same root.
+{$foo=’bar’ scope=root}
+
+{assign var=foo value=’bar’ scope=global}       //  Values will be exported to the global variable storage, 
+                                                //so they can be seen from all templates.
+{$foo=’bar’ scope=global}
+
+
+The scope attribute can also be attached to the {include  } tag. In this case the specified scope will be 
+the default scope for all assignments within the included template.
+
+
+
 PLUGINS
+=======
 
 Smarty 3 plugins are now objects that extend Smarty_Internal_PluginBase. All
 plugins have the property $this->smarty available as a reference to the Smarty
 object instance. The Smarty 2 function-style plugins are still compatible, you
 can drop them right into the Smarty 3 plugin directory.
 
+
+
 PHP TEMPLATES
+=============
 
 For those that prefer pure PHP over the {tag} based syntax, Smarty now offers
 a PHP option for template syntax. PHP templates have several differences over
@@ -89,91 +377,6 @@ You can call PHP functions a usual:
 <?php echo foo($bar); ?>
 
 
-WHAT IS NEW IN SMARTY TEMPLATE SYNTAX
-
-Smarty tags can be used as values within other tags.
-Example:  {$foo={counter}+3}
-
-They can also be used inside double quoted strings.
-Example:  {$foo="this is message {counter}"}
-
-$smarty.current_dir returns the dirname of the current template.
-
-You can use strings directly as templates with the "string" resource type:
-$smarty->display('string:This is my template, {$foo}!');
-{include file="string:This is my template, {$foo}!"}
-
-You can use math expressions in the templates.
-{$x+$y} will output the sum of x and y.
-PHP functions can be used in expressions unless they are disabled by the security policy.
-{assign var=foo value=2*(3+sqrt($bar))}
-
-You can define arrays.
-{assign var=foo value=[1,2,3]}
-{assign var=foo value=['y'=>'yellow','b'=>'blue']}
-Arrays can be nested.
-{assign var=foo value=[1,[9,8],3]}
-
-There is a new "short" syntax for assigning variables.
-{$foo=$bar+2}
-{$foo['y']='yellow}
-{$foo[]=$bar}
-
-Arrays can be accessed now also with a new syntax. 
-{$foo['bar']} // same as {$foo.bar}
-The quotes are required. This syntax addition addresses ambiguties when nesting
-the dot syntax. The dot syntax {$foo.bar} will still work.
-You can use array elements as index of other array.
-{$foo['bar'][$blar['buh']['puh']}
-{$foo.bar.{$blar.buh}.puh}
-
-Variable names can be handled with variables directly.
-{$foo_{$x}} will output the variable $foo_1 if $x has a value of 1.
-
-Object method chaining is implemented.
-{$object->method1($x)->method2($y)}
-
-{for} tag added for looping (replacement for {section} tag):
-{for $x=0, $y=count($foo); $x<$y; $i++}  ....  {/for}
-Any number of statements can be used separated by comma as the first
-inital expression at {for}.
-
-The Smarty 2 {section} syntax is still supported.
-
-New {foreach} syntax to loop over an array:
-{foreach $myarray as $var}   ....  {/foreach}
-$var@key            will deliver the key
-$var@iteration      will deliver the iteration
-$var@index          will deliver the index
-$var@total          will deliver the total number of array entries
-$var@first          will deliver true for the first iteration
-$var@last           will deliver true for the last iteration
-
-The Smarty 2 {foreach} tag syntax is still supported.
-
-NOTE: {$bar[foo]} still indicates a variable inside of a {section} named foo. 
-If you want to access an array element with index foo, you must use quotes
-such as {$bar['foo']}, or use the dot syntax {$bar.foo}.
-
-New {while....} tag:
-{while $i<10}  ....  {/while}
-
-Direct access to PHP functions:
-Just as you can use PHP functions as modifiers directly, you can now access
-PHP functions directly, provided they are permitted by security settings:
-{time()}
-
-New {nocache} block function:
-{nocache} ... {/nocache} will declare a section of the template to be not cached.
-
-New nocache attribute:
-You can declare variable/function output as non-cached with the nocache attribute.
-{$foo nocache=true} or {$foo nocache} 
-{foo bar="baz" nocache=true} or {foo bar="baz" nocache}
-{time() nocache=true} or {time() nocache}
-Or you can assign the variable already in your script as nocache:
-$smarty->assign('foo',$something,true);
-{$foo}
 
 Please look through it and send any questions/suggestions/etc to the forums.
 
