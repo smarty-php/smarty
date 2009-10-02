@@ -1,34 +1,29 @@
-Smarty 3.0 Alpha 1 : Proof of Concept
+Smarty 3.0 Beta
 
 Author: Monte Ohrt <monte at ohrt dot com >
 Author: Uwe Tews
 
-This code is a proof of concept as a basis of the Smarty 3 template engine.
-It is by no means complete, it is only a shell of an infrastructure to build
-the 3.0 codebase upon. What I need is feedback before continuing! Now is the
-time to make decisions that will affect the engine fundamentals.
+AN INTRODUCTION TO SMARTY 3 BETA
 
-So, a quick intro to the thinking behind this alpha code.
+The file structure is similar to Smarty 2:
 
-If you take a look at the file structure, you should see this:
-
-index.php
 /libs/
   Smarty.class.php
 /libs/sysplugins/
   internal.*
-/plugins/
+/libs/plugins/
   function.mailto.php
   modifier.escape.php
-/templates/
-  index.tpl
-  index_view.php
-  
+  ...
 
-If you execute the index.php file, you will see an example of using Smarty to
-display a couple of template files.
+A lot of Smarty 3 core functionality lies in the sysplugins directory, you do
+not need to change any files here. The /libs/plugins/ folder is where Smarty
+plugins are located. You can add your own here, or create a separate plugin
+directory, just the same as Smarty 2. You will still need to create your own
+/cache/, /templates/, /templates_c/, /configs/ folders. Be sure /cache/ and
+/templates_c/ are writable.
 
-The way to use Smarty 3 should look extremely familiar:
+The typical way to use Smarty 3 should also look familiar:
 
 require('Smarty.class.php');
 $smarty = new Smarty;
@@ -36,60 +31,82 @@ $smarty->assign('foo','bar');
 $smarty->display('index.tpl');
 
 
-However, Smarty works completely different on the inside. The majority of
-the Smarty system now lies in the plugin directory. The core Smarty.class.php
-class is extremely slim. The fundamental idea is for Smarty to lazy-load all
-requirements (objects) on an as-needed basis.
+However, Smarty 3 works completely different on the inside. Smarty 3 is mostly
+backward compatible with Smarty 2, except for the following items:
 
-LEXER/PARSER!
+*) Smarty 3 is PHP 5 only. It will not work with PHP 4.
+*) The {php} tag is disabled by default. Enable with $smarty->allow_php_tag=true.
+*) Delimiters surrounded by whitespace are no longer treated as Smarty tags.
+   Therefore, { foo } will not compile as a tag, you must use {foo}. This change
+   Makes Javascript/CSS easier to work with, eliminating the need for {literal}.
 
-Smarty 3 now uses a real lexing tokenizer and a parser. This opens all kinds of doors
-such as template math, function recursion, among many other things.
 
+There are many things that are new to Smarty 3. Here are the notable items:
+   
+LEXER/PARSER
 
-Since all internal plugins are now classes (did I mention that yet?), They all extend
-Smarty_Internal_PluginBase, which makes $this->smarty a reference to the Smarty
-object instance. This is available to all plugins.
+Smarty 3 now uses a lexing tokenizer for it's parser/compiler. Basically, this
+means Smarty has some syntax additions that make life easier such as in-template
+math, shorter/intuitive function parameter options, infinite function recursion,
+more accurate error handling, etc.
+
+OBJECTS
+
+Smarty 3 plugins are now objects that extend Smarty_Internal_PluginBase. All
+plugins have the property $this->smarty available as a reference to the Smarty
+object instance. The Smarty 2 function-style plugins are still compatible, you
+can drop them right into the Smarty 3 plugin directory.
 
 PHP TEMPLATES
 
-Smarty's fundamental design goals are meant to separate business logic from
-presentation logic. Since Smarty 2.0 templates work on a tag-based syntax, this
-has usually equated to "Don't put PHP in the templates." But, these two
-philosophies are completely separate. You could conceivably use plain PHP
-scripts as your templates and still maintain business logic separation.
-Even though PHP is used in the template, it is still just presentation logic.
+For those that prefer pure PHP over the {tag} based syntax, Smarty now offers
+a PHP option for template syntax. PHP templates have several differences over
+the tag-based templates:
 
-So now you have your choice: Use templates that are just plain PHP code, or
-use the compiled templates using the familiar {$foo} tag syntax. Whatever is
-more important to you (PHP or tags/security/etc), make your own choice. Just
-remember, PHP templates require YOU to keep the separation yourself. It won't
-be as obvious.
+*) PHP templates are not compiled, they are included directly by the engine.
+*) None of Smarty's security features are applied to PHP templates.
+*) By default, PHP templates are disabled, set $smarty->allow_php_templates=true.
 
 If you want to use a PHP template, just use the "php" resource type:
 
-$smarty->display('php:mytemplate.tpl');
+$smarty->display('php:foo.php');
 
-Smarty will not compile it, it will just get executed as PHP. You have full
-reign of PHP in your template code. Your assigned template vars are available
-simply as <?=$foo?> <?=$bar?>, etc.
+You can also mix PHP templates with {tag} templates:
 
+{include file="php:foo.php"}
+
+In PHP templates, assigned vars are available simply as:
+
+// same as {$foo}
+<?php echo $foo; ?>
+<?=$foo?> // php short tags
+
+Modifiers are used as such:
+
+// same as {foo|trim|truncate:50}
+$foo->trim()->truncate(50);
+
+Template functions are used as such:
+
+// same as {foo bar=$baz}
+$_f->foo($baz);
 
 
 WHAT IS NEW IN SMARTY TEMPLATE SYNTAX
 
-Smarty tags can be used as value in other tags.
-Eample:  {$foo={counter}+3}
+Smarty tags can be used as values within other tags.
+Example:  {$foo={counter}+3}
 
 They can also be used inside double quoted strings.
 Example:  {$foo="this is message {counter}"}
 
-The special variable  $smarty.current_dir  does return the dirname of the current template.
+$smarty.current_dir returns the dirname of the current template.
 
-You can also use strings as templates with the "string" resource type:
+You can use strings directly as templates with the "string" resource type:
 $smarty->display('string:This is my template, {$foo}!');
+{include file="string:This is my template, {$foo}!"}
 
-You can use complex expressions almost anywhere.
+You can use math expressions in the templates.
 {$x+$y} will output the sum of x and y.
 PHP functions can be used in expressions unless they are disabled by the security policy.
 {assign var=foo value=2*(3+sqrt($bar))}
@@ -103,23 +120,25 @@ Arrays can be nested.
 There is a new "short" syntax for assigning variables.
 {$foo=$bar+2}
 
-Arrays can be accessed now also with a new syntax
-{$foo['colour']}
-The old syntax {$foo.colour} will still work.
+Arrays can be accessed now also with a new syntax. 
+{$foo['bar']} // same as {$foo.bar}
+The quotes are required. This syntax addition addresses ambiguties when nesting
+the dot syntax. The dot syntax {$foo.bar} will still work.
 
-Variable names can be variable.
-{$foo_{$x}} will output the variable foo_1 if $x has a value of 1.
+Variable names can be handled with variables directly.
+{$foo_{$x}} will output the variable $foo_1 if $x has a value of 1.
 
 Object method chaining is implemented.
 {$object->method1($x)->method2($y)}
 
-New {for....} tag:
-For a counting for loop:
+{for} tag added for looping (replacement for {section} tag):
 {for $x=0, $y=count($foo); $x<$y; $i++}  ....  {/for}
 Any number of statements can be used separated by comma as the first
-inital expression at {for}
+inital expression at {for}.
 
-New {foreach...} syntax to loop over an array:
+The Smarty 2 {section} syntax is still supported.
+
+New {foreach} syntax to loop over an array:
 {foreach $myarray as $var}   ....  {/foreach}
 $var@key            will deliver the key
 $var@iteration      will deliver the iteration
@@ -128,22 +147,29 @@ $var@total          will deliver the total number of array entries
 $var@first          will deliver true for the first iteration
 $var@last           will deliver true for the last iteration
 
-The {for} and new {foreach} will replace Smarty2's {foreach} and {section}.  For BC Smarty2 {foreach} are {section} syntax is still supported.
+The Smarty 2 {foreach} tag syntax is still supported.
 
-NOTE:  {$bar[foo]} will always be parsed that foo is the name of a section. 
-If you want to access an array element with index foo,you must use quotes like {$bar['foo']}
+NOTE: {$bar[foo]} still indicates a variable inside of a {section} named foo. 
+If you want to access an array element with index foo, you must use quotes
+such as {$bar['foo']}, or use the dot syntax {$bar.foo}.
 
 New {while....} tag:
 {while $i<10}  ....  {/while}
 
+Direct access to PHP functions:
+Just as you can use PHP functions as modifiers directly, you can now access
+PHP functions directly, provided they are permitted by security settings:
+{time()}
+
+New {nocache} block function:
 {nocache} ... {/nocache} will declare a section of the template to be not cached.
 
-You can declare output to be not cached with the nocache attribute.
+New nocache attribute:
+You can declare variable/function output as non-cached with the nocache attribute.
 {$foo nocache=true}
+{foo bar="baz" nocache=true}
 {time() nocache=true}
 
-Ok that pretty much wraps up the principles and fetures behind the alpha code.
-But this list is not complete yet. 
 Please look through it and send any questions/suggestions/etc to the forums.
 
 http://www.phpinsider.com/smarty-forum/viewtopic.php?t=14168
