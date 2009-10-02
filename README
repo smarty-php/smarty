@@ -39,6 +39,7 @@ backward compatible with Smarty 2, except for the following items:
 *) Delimiters surrounded by whitespace are no longer treated as Smarty tags.
    Therefore, { foo } will not compile as a tag, you must use {foo}. This change
    Makes Javascript/CSS easier to work with, eliminating the need for {literal}.
+   This can be disabled by seting $smarty->$auto_literal = false;
 
 
 There are many things that are new to Smarty 3. Here are the notable items:
@@ -50,7 +51,7 @@ means Smarty has some syntax additions that make life easier such as in-template
 math, shorter/intuitive function parameter options, infinite function recursion,
 more accurate error handling, etc.
 
-OBJECTS
+PLUGINS
 
 Smarty 3 plugins are now objects that extend Smarty_Internal_PluginBase. All
 plugins have the property $this->smarty available as a reference to the Smarty
@@ -81,15 +82,11 @@ In PHP templates, assigned vars are available simply as:
 <?php echo $foo; ?>
 <?=$foo?> // php short tags
 
-Modifiers are used as such:
+You can't use Smarty modifiers from the plugin folder.
+They must be implemented as PHP function.
 
-// same as {foo|trim|truncate:50}
-$foo->trim()->truncate(50);
-
-Template functions are used as such:
-
-// same as {foo bar=$baz}
-$_f->foo($baz);
+You can call PHP functions a usual:
+<?php echo foo($bar); ?>
 
 
 WHAT IS NEW IN SMARTY TEMPLATE SYNTAX
@@ -119,11 +116,16 @@ Arrays can be nested.
 
 There is a new "short" syntax for assigning variables.
 {$foo=$bar+2}
+{$foo['y']='yellow}
+{$foo[]=$bar}
 
 Arrays can be accessed now also with a new syntax. 
 {$foo['bar']} // same as {$foo.bar}
 The quotes are required. This syntax addition addresses ambiguties when nesting
 the dot syntax. The dot syntax {$foo.bar} will still work.
+You can use array elements as index of other array.
+{$foo['bar'][$blar['buh']['puh']}
+{$foo.bar.{$blar.buh}.puh}
 
 Variable names can be handled with variables directly.
 {$foo_{$x}} will output the variable $foo_1 if $x has a value of 1.
@@ -166,9 +168,12 @@ New {nocache} block function:
 
 New nocache attribute:
 You can declare variable/function output as non-cached with the nocache attribute.
-{$foo nocache=true}
-{foo bar="baz" nocache=true}
-{time() nocache=true}
+{$foo nocache=true} or {$foo nocache} 
+{foo bar="baz" nocache=true} or {foo bar="baz" nocache}
+{time() nocache=true} or {time() nocache}
+Or you can assign the variable already in your script as nocache:
+$smarty->assign('foo',$something,true);
+{$foo}
 
 Please look through it and send any questions/suggestions/etc to the forums.
 
