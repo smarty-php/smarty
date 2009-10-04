@@ -19,8 +19,7 @@
 */
 function register_variablefilter($smarty, $function)
 {
-    $_name = (is_array($function)) ? $function[0] : $function;
-    $smarty->registered_filters['variable'][$_name] = $function;
+    $smarty->registered_filters['variable'][$smarty->_get_filter_name($function)] = $function;
 } 
 
 ?>

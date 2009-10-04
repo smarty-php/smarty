@@ -19,8 +19,7 @@
 */
 function register_outputfilter($smarty, $function)
 {
-    $_name = (is_array($function)) ? $function[0] : $function;
-    $smarty->registered_filters['output'][$_name] = $function;
+    $smarty->registered_filters['output'][$smarty->_get_filter_name($function)] = $function;
 } 
 
 ?>

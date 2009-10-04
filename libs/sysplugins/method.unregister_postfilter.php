@@ -21,8 +21,7 @@
 */
 function unregister_postfilter($smarty, $function)
 {
-    $_name = (is_array($function)) ? $function[0] : $function;
-    unset($smarty->registered_filters['post'][$_name]);
+    unset($smarty->registered_filters['post'][$smarty->_get_filter_name($function)]);
 } 
 
 ?>

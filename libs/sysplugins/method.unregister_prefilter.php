@@ -21,8 +21,7 @@
 */
 function unregister_prefilter($smarty, $function)
 {
-    $_name = (is_array($function)) ? $function[0] : $function;
-    unset($smarty->registered_filters['pre'][$_name]);
+    unset($smarty->registered_filters['pre'][$smarty->_get_filter_name($function)]);
 } 
 
 ?>

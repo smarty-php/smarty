@@ -178,6 +178,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $template_objects = null; 
     // check If-Modified-Since headers
     public $cache_modified_check = false; 
+    // cached objects
+    public $resource_objects = array();
     // registered plugins
     public $registered_plugins = array(); 
     // plugin search order

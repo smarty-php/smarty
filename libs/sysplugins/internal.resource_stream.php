@@ -46,7 +46,7 @@ class Smarty_Internal_Resource_Stream {
     { 
         // no filepath for strings
         // return resource name for compiler error messages
-        return $_template->resource_name;
+        return str_replace(':', '://', $_template->template_resource);
     } 
 
     /**
@@ -71,7 +71,7 @@ class Smarty_Internal_Resource_Stream {
     { 
         // return template string
         $_template->template_source = '';
-        $fp = fopen($_template->resource_name,'r+');
+        $fp = fopen(str_replace(':', '://', $_template->template_resource),'r+');
         while (!feof($fp)) {
             $_template->template_source .= fgets($fp);
         } 

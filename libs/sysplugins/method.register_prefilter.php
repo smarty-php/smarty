@@ -19,8 +19,7 @@
 */
 function register_prefilter($smarty, $function)
 {
-    $_name = (is_array($function)) ? $function[0] : $function;
-    $smarty->registered_filters['pre'][$_name] = $function;
+    $smarty->registered_filters['pre'][$smarty->_get_filter_name($function)] = $function;
 } 
 
 ?>

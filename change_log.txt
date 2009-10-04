@@ -1,3 +1,7 @@
+10/03/2009
+- internal changes to improve performance
+- fix registering of filters for classes
+
 10/01/2009
 - removed default timezone setting
 - reactivated PHP resource for simple PHP templates. Must set allow_php_templates = true to enable

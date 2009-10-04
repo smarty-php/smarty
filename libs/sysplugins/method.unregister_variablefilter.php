@@ -21,8 +21,7 @@
 */
 function unregister_variablefilter($smarty, $function)
 {
-    $_name = (is_array($function)) ? $function[0] : $function;
-    unset($smarty->registered_filters['variable'][$_name]);
+    unset($smarty->registered_filters['variable'][$smarty->_get_filter_name($function)]);
 } 
 
 ?>

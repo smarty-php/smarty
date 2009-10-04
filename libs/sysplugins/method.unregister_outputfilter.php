@@ -22,8 +22,7 @@
 */
 function unregister_outputfilter($smarty, $function)
 {
-    $_name = (is_array($function)) ? $function[0] : $function;
-    unset($smarty->registered_filters['output'][$_name]);
+    unset($smarty->registered_filters['output'][$smarty->_get_filter_name($function)]);
 } 
 
 ?>

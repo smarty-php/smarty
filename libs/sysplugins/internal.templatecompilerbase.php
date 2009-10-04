@@ -51,7 +51,7 @@ class Smarty_Internal_TemplateCompilerBase {
         // template header code
         $template_header = '';
         if (!$template->suppressHeader) {
-            $template_header = "<?php /* Smarty version " . Smarty::$_version . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . "\n";
+            $template_header .= "<?php /* Smarty version " . Smarty::$_version . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . "\n";
             $template_header .= "         compiled from \"" . $this->template->getTemplateFilepath() . "\" */ ?>\n";
         } 
 
@@ -66,7 +66,7 @@ class Smarty_Internal_TemplateCompilerBase {
             } 
             // on empty template just return header
             if ($_content == '') {
-                $template->compiled_template = $template_header;
+                $template->compiled_template = $template->createPropertyHeader() . $template_header;
                 return true;
             } 
             // init cacher plugin
@@ -77,7 +77,7 @@ class Smarty_Internal_TemplateCompilerBase {
 
         if (!$this->compile_error) {
             // close cacher and return compiled template
-            $template->compiled_template = $template_header . $template->cacher_object->closeCacher($this, $_compiled_code); 
+            $template->compiled_template = $template->createPropertyHeader() . $template_header . $template->cacher_object->closeCacher($this, $_compiled_code); 
             // run postfilter if required
             if (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) {
                 $template->compiled_template = $this->smarty->filter_handler->execute('post', $template->compiled_template);
