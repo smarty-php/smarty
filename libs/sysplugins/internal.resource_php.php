@@ -21,6 +21,21 @@ class Smarty_Internal_Resource_PHP {
         $this->smarty = $smarty;
         ini_set('short_open_tag', '1');
     } 
+
+    /**
+    * Return flag if template source is existing
+    * 
+    * @return boolean true
+    */
+    public function isExisting($template)
+    {
+        if ($template->getTemplateFilepath() === false) {
+            return false;
+        } else {
+            return true;
+        } 
+    } 
+
     /**
     * Get filepath to template source
     * 
