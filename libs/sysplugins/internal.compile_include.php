@@ -33,14 +33,15 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if (true) {
             // check if compiled code can be merged
             if (strpos($include_file, '$_smarty_tpl') === false) {
-                $tpl = $compiler->smarty->createTemplate (trim($include_file, "'\""), $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
+                eval("\$tmp = $include_file;");
+                $tpl = $compiler->smarty->createTemplate ($tmp, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
                 do {
                     $must_compile = false;
                     $prop = array();
                     $compiled_tpl = $tpl->getCompiledTemplate();
-                    preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $compiled_tpl, $matches); 
-                    $compiled_tpl = preg_replace(array('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>.*\n)/','/(\<\?php if\(\!defined\(\'SMARTY_DIR\'\)\))(.*)(\?\>.*\n)/'), '', $compiled_tpl); 
-                    //var_dump($matches, $compiled_tpl);
+                    preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $compiled_tpl, $matches);
+                    $compiled_tpl = preg_replace(array('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>.*\n)/', '/(\<\?php if\(\!defined\(\'SMARTY_DIR\'\)\))(.*)(\?\>.*\n)/'), '', $compiled_tpl); 
+                    // var_dump($matches, $compiled_tpl);
                     if (isset($matches[2])) {
                         $prop = unserialize($matches[2]);
                         foreach ($prop['file_dependency'] as $_file_to_check) {
