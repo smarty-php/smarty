@@ -32,7 +32,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
 
         $_output = '<?php '; 
         // save posible attributes
-        $_name = 'insert_' . trim($_attr['name'], "'");
+        $_name = 'insert_' . trim($_attr['name'], "'\"");
         if (isset($_attr['assign'])) {
             // output will be stored in a smarty variable instead of beind displayed
             $_assign = $_attr['assign'];

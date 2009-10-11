@@ -1,3 +1,8 @@
+10/11/2009
+- fixed bug when template with same name is used with different data objects
+- fixed bug with double quoted name attribute at {insert} tag
+- reenabled assign_by_ref and append_by_ref methodes
+
 10/07/2009
 - removed block nesting checks for {capture}
 

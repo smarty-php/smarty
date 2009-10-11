@@ -57,11 +57,19 @@ class Smarty_Internal_TemplateBase {
     } 
     /**
     * assigns values to template variables by reference
-    * wrapper to assign
+    * 
+    * @param string $tpl_var the template variable name
+    * @param mixed $ &$value the referenced value to assign
+    * @param boolean $nocache if true any output of this variable will be not cached
+    * @param boolean $scope the scope the variable will have  (local,parent or root)
     */
     public function assign_by_ref($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
-        $this->assign($tpl_var, $value, $nocache, $scope);
+        if ($tpl_var != '') {
+            $this->check_tplvar($tpl_var);
+            $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
+            $this->tpl_vars[$tpl_var]->value = &$value;
+        } 
     } 
     /**
     * appends values to template variables
@@ -133,11 +141,27 @@ class Smarty_Internal_TemplateBase {
     /**
     * appends values to template variables by reference
     * 
-    * wrapper to append
+    * @param string $tpl_var the template variable name
+    * @param mixed $ &$value the referenced value to append
+    * @param boolean $merge flag if array elements shall be merged
     */
-    public function append_by_ref($tpl_var, $value = null, $merge = false, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+    public function append_by_ref($tpl_var, &$value, $merge = false)
     {
-        $this->append($tpl_var, $value, $merge, $nocache, $scope);
+        if ($tpl_var != '' && isset($value)) {
+            if (!isset($this->tpl_vars[$tpl_var])) {
+                $this->tpl_vars[$tpl_var] = new Smarty_variable();
+            } 
+            if (!@is_array($this->tpl_vars[$tpl_var]->value)) {
+                settype($this->tpl_vars[$tpl_var]->value, 'array');
+            } 
+            if ($merge && is_array($value)) {
+                foreach($value as $_key => $_val) {
+                    $this->tpl_vars[$tpl_var]->value[$_key] = &$value[$_key];
+                } 
+            } else {
+                $this->tpl_vars[$tpl_var]->value[] = &$value;
+            } 
+        } 
     } 
 
     /**
@@ -282,11 +306,11 @@ class Smarty_Internal_TemplateBase {
             // we got a template resource
             $_templateId = $this->buildTemplateId ($template, $cache_id, $compile_id); 
             // already in template cache?
-            if (isset($this->smarty->template_objects[$_templateId])) {
+            if (isset($this->smarty->template_objects[$_templateId]) && $this->smarty->caching) {
                 // return cached template object
                 $tpl = $this->smarty->template_objects[$_templateId];
             } else {
-                // create and cache new template object
+                // create new template object
                 $tpl = new $this->template_class($template, $this->smarty, $parent, $cache_id, $compile_id);
             } 
         } else {
