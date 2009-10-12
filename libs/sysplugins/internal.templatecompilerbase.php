@@ -66,7 +66,11 @@ class Smarty_Internal_TemplateCompilerBase {
             } 
             // on empty template just return header
             if ($_content == '') {
-                $template->compiled_template = $template->createPropertyHeader() . $template_header;
+                if ($template->suppressHeader) {
+                    $template->compiled_template = '';
+                } else {
+                    $template->compiled_template = $template->createPropertyHeader() . $template_header;
+                } 
                 return true;
             } 
             // init cacher plugin
@@ -77,7 +81,11 @@ class Smarty_Internal_TemplateCompilerBase {
 
         if (!$this->compile_error) {
             // close cacher and return compiled template
-            $template->compiled_template = $template->createPropertyHeader() . $template_header . $template->cacher_object->closeCacher($this, $_compiled_code); 
+            if ($template->suppressHeader) {
+                $template->compiled_template = $template->cacher_object->closeCacher($this, $_compiled_code);
+            } else {
+                $template->compiled_template = $template->createPropertyHeader() . $template_header . $template->cacher_object->closeCacher($this, $_compiled_code);
+            } 
             // run postfilter if required
             if (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) {
                 $template->compiled_template = $this->smarty->filter_handler->execute('post', $template->compiled_template);
@@ -92,8 +100,8 @@ class Smarty_Internal_TemplateCompilerBase {
     /**
     * Compile Tag
     * 
-    *                                               This is a call back from the lexer/parser
-    *                                               It executes the required compile plugin for the Smarty tag
+    *                                                 This is a call back from the lexer/parser
+    *                                                 It executes the required compile plugin for the Smarty tag
     * 
     * @param string $tag tag name
     * @param array $args array with tag attributes

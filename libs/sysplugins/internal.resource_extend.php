@@ -116,24 +116,24 @@ class Smarty_Internal_Resource_Extend {
             unset($_tpl);
             $_name = trim($_match[3], "\"'}");
 
-            if (isset($this->template->block_data[$_name])) {
-                if (strpos($this->template->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
-                    $this->template->block_data[$_name]['compiled'] =
-                    str_replace('%%%%SMARTY_PARENT%%%%', $_compiled_content, $this->template->block_data[$_name]['compiled']);
-                } elseif ($this->template->block_data[$_name]['mode'] == 'prepend') {
-                    $this->template->block_data[$_name]['compiled'] .= $_compiled_content;
-                } elseif ($this->template->block_data[$_name]['mode'] == 'append') {
-                    $this->template->block_data[$_name]['compiled'] = $_compiled_content . $this->template->block_data[$_name]['compiled'];
+            if (isset($this->smarty->block_data[$_name])) {
+                if (strpos($this->smarty->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                    $this->smarty->block_data[$_name]['compiled'] =
+                    str_replace('%%%%SMARTY_PARENT%%%%', $_compiled_content, $this->smarty->block_data[$_name]['compiled']);
+                } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
+                    $this->smarty->block_data[$_name]['compiled'] .= $_compiled_content;
+                } elseif ($this->smarty->block_data[$_name]['mode'] == 'append') {
+                    $this->smarty->block_data[$_name]['compiled'] = $_compiled_content . $this->smarty->block_data[$_name]['compiled'];
                 } 
             } else {
-                $this->template->block_data[$_name]['compiled'] = $_compiled_content;
+                $this->smarty->block_data[$_name]['compiled'] = $_compiled_content;
             } 
             if (preg_match('/(.?)(append=true)(.*)/', $block_tag, $_match) != 0) {
-                $this->template->block_data[$_name]['mode'] = 'append';
+                $this->smarty->block_data[$_name]['mode'] = 'append';
             } elseif (preg_match('/(.?)(prepend=true)(.*)/', $block_tag, $_match) != 0) {
-                $this->template->block_data[$_name]['mode'] = 'prepend';
+                $this->smarty->block_data[$_name]['mode'] = 'prepend';
             } else {
-                $this->template->block_data[$_name]['mode'] = 'replace';
+                $this->smarty->block_data[$_name]['mode'] = 'replace';
             } 
         } 
     } 

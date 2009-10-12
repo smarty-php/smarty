@@ -22,6 +22,7 @@ class Smarty_Internal_Compile_BlockClose extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
+        $this->smarty = $compiler->smarty;
         $this->compiler->has_code = true; 
         // turn off block code extraction
         $compiler->template->extract_code = false; 
@@ -34,15 +35,15 @@ class Smarty_Internal_Compile_BlockClose extends Smarty_Internal_CompileBase {
             $this->compiler->trigger_template_error('mismatching name attributes "' . $saved_data[0]['name'] . '" and "' . $_attr['name'] . '"');
         } 
         $_name = trim($saved_data[0]['name'], "\"'");
-        if (isset($compiler->template->block_data[$_name])) {
-            if (strpos($compiler->template->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
-                $_output = str_replace('%%%%SMARTY_PARENT%%%%', $_compiled_content, $compiler->template->block_data[$_name]['compiled']);
-            } elseif ($compiler->template->block_data[$_name]['mode'] == 'prepend') {
-                $_output = $compiler->template->block_data[$_name]['compiled'] . $compiler->template->extracted_compiled_code;
-            } elseif ($compiler->template->block_data[$_name]['mode'] == 'append') {
-                $_output = $compiler->template->extracted_compiled_code . $compiler->template->block_data[$_name]['compiled'];
-            } elseif (!empty($compiler->template->block_data[$_name])) {
-                $_output = $compiler->template->block_data[$_name]['compiled'];
+        if (isset($this->smarty->block_data[$_name])) {
+            if (strpos($this->smarty->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                $_output = str_replace('%%%%SMARTY_PARENT%%%%', $compiler->template->extracted_compiled_code, $this->smarty->block_data[$_name]['compiled']);
+            } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
+                $_output = $this->smarty->block_data[$_name]['compiled'] . $compiler->template->extracted_compiled_code;
+            } elseif ($this->smarty->block_data[$_name]['mode'] == 'append') {
+                $_output = $compiler->template->extracted_compiled_code . $this->smarty->block_data[$_name]['compiled'];
+            } elseif (!empty($this->smarty->block_data[$_name])) {
+                $_output = $this->smarty->block_data[$_name]['compiled'];
             } 
         } else {
             $_output = $compiler->template->extracted_compiled_code;

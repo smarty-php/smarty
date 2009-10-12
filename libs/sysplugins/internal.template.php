@@ -159,10 +159,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     * 
     * @return boolean true if the template exists
     */
-    public function isExisting ($error= false)
+    public function isExisting ($error = false)
     {
         if ($this->isExisting === null) {
-        $this->isExisting = $this->smarty->resource_objects[$this->resource_type]->isExisting($this);
+            $this->isExisting = $this->smarty->resource_objects[$this->resource_type]->isExisting($this);
         } 
         if (!$this->isExisting && $error) {
             throw new Exception("Unable to load template \"{$this->resource_type} : {$this->resource_name}\"");
@@ -207,7 +207,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function mustCompile ()
     {
         $this->isExisting(true);
-         
+
         if ($this->mustCompile === null) {
             $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
         } 
@@ -383,10 +383,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                     } 
                     if (!empty($this->properties['file_dependency']) && $this->smarty->compile_check) {
                         foreach ($this->properties['file_dependency'] as $_file_to_check) {
-                            If (is_file($_file_to_check[0])) {
+                            $this->getResourceTypeName($_file_to_check[0], $resource_type, $resource_name);
+                            If ($resource_type == 'file') {
                                 $mtime = filemtime($_file_to_check[0]);
                             } else {
-                                $this->parseResourceName($_file_to_check[0], $resource_type, $resource_name, $resource_handler);
+                                $resource_handler = $this->loadTemplateResourceHandler($resource_type);
                                 $mtime = $resource_handler->getTemplateTimestampTypeName($resource_type, $resource_name);
                             } 
                             // If ($mtime > $this->getCachedTimestamp()) {
@@ -429,15 +430,17 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                     if (!empty($this->properties['file_dependency'])) {
                         $this->mustCompile = false;
                         foreach ($this->properties['file_dependency'] as $_file_to_check) {
-                            If (is_file($_file_to_check[0])) {
+                            $this->getResourceTypeName($_file_to_check[0], $resource_type, $resource_name);
+                            If ($resource_type == 'file') {
                                 $mtime = filemtime($_file_to_check[0]);
                             } else {
-                                $this->parseResourceName($_file_to_check[0], $resource_type, $resource_name, $resource_handler);
+                                $resource_handler = $this->loadTemplateResourceHandler($resource_type);
                                 $mtime = $resource_handler->getTemplateTimestampTypeName($resource_type, $resource_name);
                             } 
                             If ($mtime != $_file_to_check[1]) {
                                 $this->properties['file_dependency'] = array();
                                 $this->mustCompile = true;
+                                break;
                             } 
                         } 
                         if ($this->mustCompile) {
@@ -504,71 +507,25 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     } 
 
     /**
-    * parse a template resource in its name and type
+    * Parse a template resource in its name and type
+    * Load required resource handler
     * 
     * @param string $template_resource template resource specification
+    * @param string $resource_type return resource type
+    * @param string $resource_name return resource name
+    * @param object $resource_handler return resource handler object
     */
     public function parseResourceName($template_resource, &$resource_type, &$resource_name, &$resource_handler)
     {
         if (empty($template_resource))
             return false;
-        if (strpos($template_resource, ':') === false) {
-            // no resource given, use default
-            $resource_type = $this->smarty->default_resource_type;
-            $resource_name = $template_resource;
-        } else {
-            // get type and name from path
-            list($resource_type, $resource_name) = explode(':', $template_resource, 2);
-            if (strlen($resource_type) == 1) {
-                // 1 char is not resource type, but part of filepath
-                $resource_type = 'file';
-                $resource_name = $template_resource;
-            } else {
-                $resource_type = strtolower($resource_type);
-            } 
-        } 
-        // load resource handler if required
-        if (!isset($this->smarty->resource_objects[$resource_type])) {
-            // try registered resource
-            if (isset($this->smarty->_plugins['resource'][$resource_type])) {
-                require_once(SMARTY_SYSPLUGINS_DIR . 'internal.resource_registered.php'); 
-                // $this->smarty->loadPlugin('Smarty_Internal_Resource_Registered');
-                $resource_handler = $this->smarty->resource_objects[$resource_type] = new Smarty_Internal_Resource_Registered($this->smarty);
-            } else {
-                // try sysplugins dir
-                $_resource_class = "Smarty_Internal_Resource_{$resource_type}";
-                if ($this->smarty->loadPlugin($_resource_class)) {
-                    $resource_handler = $this->smarty->resource_objects[$resource_type] = new $_resource_class($this->smarty);
-                } else {
-                    // try plugins dir
-                    $_resource_class = "Smarty_Resource_{$resource_type}";
-                    if ($this->smarty->loadPlugin($_resource_class)) {
-                        $resource_handler = $this->smarty->resource_objects[$resource_type] = new $_resource_class($this->smarty);
-                    } else {
-                        // try streams
-                        $_known_stream = stream_get_wrappers();
-                        if (in_array($resource_type, $_known_stream)) {
-                            // is known stream
-                            if ($this->smarty->security) {
-                                $this->smarty->security_handler->isTrustedStream($resource_type);
-                            } 
-                            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.resource_stream.php'); 
-                            // $this->smarty->loadPlugin('Smarty_Internal_Resource_Stream');
-                            $resource_handler = $this->smarty->resource_objects[$resource_type] = new Smarty_Internal_Resource_Stream($this->smarty);
-//                            $resource_name = str_replace(':', '://', $template_resource);
-                        } else {
-                            throw new Exception('Unkown resource type \'' . $resource_type . '\'');
-                        } 
-                    } 
-                } 
-            } 
-        } else {
-            $resource_handler = $this->smarty->resource_objects[$resource_type];
-        } 
+        $this->getResourceTypeName($template_resource, $resource_type, $resource_name);
+        $resource_handler = $this->loadTemplateResourceHandler($resource_type); 
         // cache template object under a unique ID
         // do not cache string resources
+        // *****        if ($resource_type != 'string' && $this->smarty->caching) {
         if ($resource_type != 'string') {
-           $this->smarty->template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
+            $this->smarty->template_objects[$this->buildTemplateId ($this->template_resource, $this->cache_id, $this->compile_id)] = $this;
         } 
         return true;
     } 
@@ -674,6 +631,91 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     } 
 
     /**
+    * Split a template resource in its name and type
+    * 
+    * @param string $template_resource template resource specification
+    * @param string $resource_type return resource type
+    * @param string $resource_name return resource name
+    */
+    private function getResourceTypeName ($template_resource, &$resource_type, &$resource_name)
+    {
+        if (strpos($template_resource, ':') === false) {
+            // no resource given, use default
+            $resource_type = $this->smarty->default_resource_type;
+            $resource_name = $template_resource;
+        } else {
+            // get type and name from path
+            list($resource_type, $resource_name) = explode(':', $template_resource, 2);
+            if (strlen($resource_type) == 1) {
+                // 1 char is not resource type, but part of filepath
+                $resource_type = 'file';
+                $resource_name = $template_resource;
+            } else {
+                $resource_type = strtolower($resource_type);
+            } 
+        } 
+    } 
+
+    /**
+    * Load template resource handler by type
+    * 
+    * @param string $resource_type template resource type
+    * @return object resource handler object
+    */
+    private function loadTemplateResourceHandler ($resource_type)
+    { 
+        // load resource handler if required
+        if (!isset($this->smarty->resource_objects[$resource_type])) {
+            // try registered resource
+            if (isset($this->smarty->_plugins['resource'][$resource_type])) {
+                require_once(SMARTY_SYSPLUGINS_DIR . 'internal.resource_registered.php'); 
+                // $this->smarty->loadPlugin('Smarty_Internal_Resource_Registered');
+                return $this->smarty->resource_objects[$resource_type] = new Smarty_Internal_Resource_Registered($this->smarty);
+            } else {
+                // try sysplugins dir
+                $_resource_class = "Smarty_Internal_Resource_{$resource_type}";
+                if ($this->smarty->loadPlugin($_resource_class)) {
+                    return $this->smarty->resource_objects[$resource_type] = new $_resource_class($this->smarty);
+                } else {
+                    // try plugins dir
+                    $_resource_class = "Smarty_Resource_{$resource_type}";
+                    if ($this->smarty->loadPlugin($_resource_class)) {
+                        if (class_exists($_resource_class, false)) {
+                            return $this->smarty->resource_objects[$resource_type] = new $_resource_class($this->smarty);
+                        } else {
+                            $this->smarty->register_resource($resource_type,
+                                array("smarty_resource_{$resource_type}_source",
+                                    "smarty_resource_{$resource_type}_timestamp",
+                                    "smarty_resource_{$resource_type}_secure",
+                                    "smarty_resource_{$resource_type}_trusted"));
+                            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.resource_registered.php'); 
+                            // $this->smarty->loadPlugin('Smarty_Internal_Resource_Registered');
+                            return $this->smarty->resource_objects[$resource_type] = new Smarty_Internal_Resource_Registered($this->smarty);
+                        } 
+                    } else {
+                        // try streams
+                        $_known_stream = stream_get_wrappers();
+                        if (in_array($resource_type, $_known_stream)) {
+                            // is known stream
+                            if ($this->smarty->security) {
+                                $this->smarty->security_handler->isTrustedStream($resource_type);
+                            } 
+                            require_once(SMARTY_SYSPLUGINS_DIR . 'internal.resource_stream.php'); 
+                            // $this->smarty->loadPlugin('Smarty_Internal_Resource_Stream');
+                            return $this->smarty->resource_objects[$resource_type] = new Smarty_Internal_Resource_Stream($this->smarty); 
+                            // $resource_name = str_replace(':', '://', $template_resource);
+                        } else {
+                            throw new Exception('Unkown resource type \'' . $resource_type . '\'');
+                        } 
+                    } 
+                } 
+            } 
+        } else {
+            return $this->smarty->resource_objects[$resource_type];
+        } 
+    } 
+
+    /**
     * Create property header
     */
     public function createPropertyHeader ()
@@ -703,7 +745,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     */
     public function is_cached ()
     {
-        return $this->iscached();
+        return $this->iscached($this);
     } 
 } 
 
