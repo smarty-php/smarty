@@ -82,6 +82,7 @@ class Smarty_Internal_Templatelexer
         $this->rdel = preg_quote($this->smarty->right_delimiter);
         $this->smarty_token_names['LDEL'] =	$this->smarty->left_delimiter;
         $this->smarty_token_names['RDEL'] =	$this->smarty->right_delimiter;
+        $this->tag = false;
      }
     public static function &instance($new_instance = null)
     {
@@ -462,11 +463,13 @@ class Smarty_Internal_Templatelexer
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+  $this->tag = true;
     }
     function yy_r1_19($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_RDEL;
+  $this->tag = false;
     }
     function yy_r1_20($yy_subpatterns)
     {

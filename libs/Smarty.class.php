@@ -122,6 +122,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $compile_error = false; 
     // caching enabled
     public $caching = false; 
+    // merge compiled includea
+    public $merge_compiled_includes = true; 
     // cache lifetime
     public $cache_lifetime = 0; 
     // force cache file creation
@@ -151,7 +153,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                            
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                              
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -179,7 +181,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // check If-Modified-Since headers
     public $cache_modified_check = false; 
     // cached objects
-    public $resource_objects = array();
+    public $resource_objects = array(); 
     // registered plugins
     public $registered_plugins = array(); 
     // plugin search order
@@ -286,6 +288,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function fetch($template, $cache_id = null, $compile_id = null, $parent = null)
     {
+        $this->checkDebugging();
         if (is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
@@ -315,18 +318,15 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * @param object $parent next higher level of Smarty variables
     */
     public function display($template, $cache_id = null, $compile_id = null, $parent = null)
-    { 
+    {
         if (is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
         } 
         // display template
         echo $this->fetch ($template, $cache_id, $compile_id, $parent); 
-        // debug output?
-        if ($this->debugging) {
-            $this->loadPlugin('Smarty_Internal_Debug');
-            Smarty_Internal_Debug::display_debug($this);
-        } 
+        // debug output
+        $this->displayDebugInfo();
         return true;
     } 
 
@@ -340,6 +340,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function is_cached($template, $cache_id = null, $compile_id = null)
     {
+        $this->checkDebugging();
         if (!($template instanceof $this->template_class)) {
             $template = $this->createTemplate ($template, $cache_id, $compile_id, $this);
         } 
@@ -493,14 +494,33 @@ class Smarty extends Smarty_Internal_TemplateBase {
     } 
 
     /**
+    * Check if debugging handler must be loaded
+    */
+    public function checkDebugging()
+    {
+        if ($this->debugging && !class_exists('Smarty_Internal_Debug', false)) {
+            $this->loadPlugin('Smarty_Internal_Debug');
+        } 
+    } 
+
+    /**
+    * Display debug info
+    */
+    public function displayDebugInfo()
+    {
+        if ($this->debugging) {
+            Smarty_Internal_Debug::display_debug($this);
+        } 
+    } 
+
+    /**
     * trigger Smarty error
     * 
     * @param string $error_msg 
     * @param integer $error_type 
     */
     public function trigger_error($error_msg, $error_type = E_USER_WARNING)
-    { 
-        // trigger_error("Smarty error: $error_msg", $error_type);
+    {
         throw new Exception("Smarty error: $error_msg");
     } 
 

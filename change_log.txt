@@ -1,3 +1,8 @@
+10/13/2009
+- do not recompile evaluated templates if reused just with other data
+- recompile config files when config properties did change
+- some lexer/parser otimizations
+
 10/11/2009
 - allow {block} tags inside included templates
 - bugfix for resource plugins in Smarty2 format

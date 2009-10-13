@@ -415,7 +415,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function renderTemplate ()
     {
         if ($this->usesCompiler()) {
-            if ($this->mustCompile()) {
+            if ($this->mustCompile() && $this->compiled_template === null) {
                 $this->compileTemplateSource();
             } 
             $_smarty_tpl = $this;

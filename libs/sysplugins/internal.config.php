@@ -131,7 +131,9 @@ class Smarty_Internal_Config {
     } 
     public function buildCompiledFilepath()
     {
-        $_filepath = (string)abs(crc32($this->config_resource_name)); 
+        $_flag = (int)$this->smarty->config_read_hidden + (int)$this->smarty->config_booleanize * 2 +
+        (int)$this->smarty->config_overwrite * 4;
+        $_filepath = (string)abs(crc32($this->config_resource_name . $_flag)); 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 3) . DS
