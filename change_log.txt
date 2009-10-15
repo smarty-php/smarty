@@ -1,3 +1,7 @@
+10/15/2009
+- allow bit operator '&' inside {if} tag
+- implementation of ternary operator
+
 10/13/2009
 - do not recompile evaluated templates if reused just with other data
 - recompile config files when config properties did change
