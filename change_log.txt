@@ -1,4 +1,7 @@
 10/15/2009
+- buxfix on assigning array elements inside templates
+
+10/15/2009
 - allow bit operator '&' inside {if} tag
 - implementation of ternary operator
 
