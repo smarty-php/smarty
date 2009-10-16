@@ -1,5 +1,6 @@
 10/15/2009
 - buxfix on assigning array elements inside templates
+- parser bugfix on array access
 
 10/15/2009
 - allow bit operator '&' inside {if} tag
