@@ -1,3 +1,6 @@
+10/17/2009
+- remove ?>\n<?php and ?><?php sequences from compiled template
+
 10/15/2009
 - buxfix on assigning array elements inside templates
 - parser bugfix on array access

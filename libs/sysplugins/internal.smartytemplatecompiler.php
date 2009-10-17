@@ -63,7 +63,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
 
         if (!$this->compile_error) {
             // return compiled code
-            return $parser->retvalue;
+            return str_replace(array("?>\n<?php","?><?php"), '', $parser->retvalue);
         } else {
             // compilation error
             return false;
