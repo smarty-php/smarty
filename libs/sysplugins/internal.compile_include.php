@@ -32,7 +32,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         $has_compiled_template = false;
         if ($compiler->smarty->merge_compiled_includes) {
             // check if compiled code can be merged (contains no variable part)
-            if (substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2) { 
+            if ((substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2) and substr_count($include_file, '(') == 0) { 
                 eval("\$tmp = $include_file;");
                 $tpl = $compiler->smarty->createTemplate ($tmp, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
                 do {
