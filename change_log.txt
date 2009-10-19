@@ -1,4 +1,5 @@
 10/19/2009
+- fixed compiled template merging on variable double quoted strings as name
 - fixed bug in caching mode 2 and cache_lifetime -1 
 - fixed modifier support on block tags
 

@@ -66,7 +66,7 @@ class Smarty_Internal_TemplateCompilerBase {
             } 
             // on empty template just return header
             if ($_content == '') {
-                if ($template->suppressHeader) {
+                if ($template->suppressFileDependency) {
                     $template->compiled_template = '';
                 } else {
                     $template->compiled_template = $template->createPropertyHeader() . $template_header;
@@ -81,7 +81,7 @@ class Smarty_Internal_TemplateCompilerBase {
 
         if (!$this->compile_error) {
             // close cacher and return compiled template
-            if ($template->suppressHeader) {
+            if ($template->suppressFileDependency) {
                 $template->compiled_template = $template->cacher_object->closeCacher($this, $_compiled_code);
             } else {
                 $template->compiled_template = $template->createPropertyHeader() . $template_header . $template->cacher_object->closeCacher($this, $_compiled_code);
