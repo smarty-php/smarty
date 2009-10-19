@@ -43,6 +43,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public $compile_time = 0;
     public $mustCompile = null;
     public $suppressHeader = false;
+    public $suppressFileDependency = false;
     public $extract_code = false;
     public $extracted_compiled_code = ''; 
     // Rendered content
@@ -146,7 +147,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         if ($this->template_source === null) {
             if (!$this->smarty->resource_objects[$this->resource_type]->getTemplateSource($this)) {
-                throw new Exception("Unable to read template '{$this->resource_name}'");
+                throw new Exception("Unable to read template {$this->resource_type} '{$this->resource_name}'");
             } 
         } 
         return $this->template_source;
@@ -165,7 +166,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             $this->isExisting = $this->smarty->resource_objects[$this->resource_type]->isExisting($this);
         } 
         if (!$this->isExisting && $error) {
-            throw new Exception("Unable to load template \"{$this->resource_type} : {$this->resource_name}\"");
+            throw new Exception("Unable to load template {$this->resource_type} '{$this->resource_name}'");
         } 
         return $this->isExisting;
     } 
@@ -377,7 +378,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                     $_start_time = $this->_get_time();
                     $this->rendered_content = $this->smarty->cache_resource_objects[$this->caching_type]->getCachedContents($this);
                     $this->cache_time += $this->_get_time() - $_start_time;
-                    if ($this->caching == SMARTY_CACHING_LIVETIME_SAVED && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']) || $this->properties['cache_lifetime'] < 0)) {
+                    if ($this->caching == SMARTY_CACHING_LIVETIME_SAVED && $this->properties['cache_lifetime'] >0 && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']))) {
                         $this->rendered_content = null;
                         return $this->isCached;
                     } 

@@ -1,4 +1,5 @@
 10/19/2009
+- fixed bug in caching mode 2 and cache_lifetime -1 
 - fixed modifier support on block tags
 
 10/17/2009
