@@ -1,3 +1,6 @@
+10/19/2009
+- fixed modifier support on block tags
+
 10/17/2009
 - remove ?>\n<?php and ?><?php sequences from compiled template
 
