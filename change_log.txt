@@ -1,3 +1,7 @@
+10/20/2009
+- check at compile time for variable filter to improve rendering speed if no filter is used
+- fixed bug at combination of {elseif} tag and {...} in double quoted strings of static class parameter
+
 10/19/2009
 - fixed compiled template merging on variable double quoted strings as name
 - fixed bug in caching mode 2 and cache_lifetime -1 

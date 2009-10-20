@@ -23,8 +23,8 @@ class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler; 
-        $this->_close_tag(array('if', 'elseif'));
-        $this->_open_tag('else');
+        $nesting = $this->_close_tag(array('if', 'elseif'));
+        $this->_open_tag('else',$nesting);
 
         return '<?php else: ?>';
     } 

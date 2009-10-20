@@ -21,15 +21,23 @@ class Smarty_Internal_Compile_ElseIf extends Smarty_Internal_CompileBase {
     */
     public function compile($args, $compiler)
     {
-        $this->compiler = $compiler; 
+        $this->compiler = $compiler;
         $this->required_attributes = array('if condition'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $this->_close_tag(array('if', 'elseif'));
-        $this->_open_tag('elseif');
+        $nesting = $this->_close_tag(array('if', 'elseif'));
 
-        return '<?php elseif (' . $args['if condition'] . '): ?>';
+        if (empty($this->compiler->prefix_code)) {
+            $this->_open_tag('elseif', $nesting);
+            return '<?php elseif (' . $args['if condition'] . '): ?>';
+        } else {
+            $tmp = '';
+            foreach ($this->compiler->prefix_code as $code) $tmp .= $code;
+            $this->compiler->prefix_code = array();
+            $this->_open_tag('elseif', $nesting + 1);
+            return '<?php else: ?>' . $tmp . '<?php if (' . $args['if condition'] . '): ?>';
+        } 
     } 
 } 
 

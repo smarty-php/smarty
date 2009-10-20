@@ -48,7 +48,11 @@ class Smarty_Internal_Compile_Print_Expression extends Smarty_Internal_CompileBa
         } else {
             // display value
             $this->compiler->has_output = true;
-            $output = '<?php echo $this->smarty->filter_handler->execute(\'variable\', ' . $_attr['value'] . ',' . $_attr['filter'] . ');?>';
+            if (isset($this->compiler->smarty->registered_filters['variable'])) {
+                $output = '<?php echo $this->smarty->filter_handler->execute(\'variable\', ' . $_attr['value'] . ',' . $_attr['filter'] . ');?>';
+            } else {
+                $output = '<?php echo ' . $_attr['value'] . ';?>';
+            } 
         } 
         return $output;
     } 

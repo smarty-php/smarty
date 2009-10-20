@@ -131,7 +131,7 @@ class Smarty_Internal_Templateparser#line 109 "internal.templateparser.php"
         $this->cacher = $this->template->cacher_object; 
         $this->compiler->has_variable_string = false;
 				$this->nocache = false;
-				$this->prefix_code = array();
+				$this->compiler->prefix_code = array();
 				$this->prefix_number = 0;
     }
     public static function &instance($new_instance = null)
@@ -1982,7 +1982,7 @@ static public $yy_action = array(
 #line 94 "internal.templateparser.y"
     function yy_r3(){preg_match('/\s*/',$this->yystack[$this->yyidx + -2]->minor,$s); 
                                           if ($this->compiler->has_code) {
-                                            $tmp =''; foreach ($this->prefix_code as $code) {$tmp.=$code;} $this->prefix_code=array();
+                                            $tmp =''; foreach ($this->compiler->prefix_code as $code) {$tmp.=$code;} $this->compiler->prefix_code=array();
                                             $this->_retvalue = $this->cacher->processNocacheCode($tmp.$s[0].$this->yystack[$this->yyidx + -1]->minor, $this->compiler,$this->nocache,true);
                                          } else { $this->_retvalue = $s[0].$this->yystack[$this->yyidx + -1]->minor;} $this->nocache=false; $this->compiler->has_variable_string = false;    }
 #line 1993 "internal.templateparser.php"
@@ -2190,13 +2190,13 @@ static public $yy_action = array(
     function yy_r65(){ $this->_retvalue = $this->yystack[$this->yyidx + -2]->minor.'::'.$this->yystack[$this->yyidx + 0]->minor;     }
 #line 2196 "internal.templateparser.php"
 #line 314 "internal.templateparser.y"
-    function yy_r66(){ $this->prefix_number++; $this->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'=$_smarty_tpl->getVariable(\''. $this->yystack[$this->yyidx + -3]->minor .'\')->value;?>'; $this->_retvalue = $this->yystack[$this->yyidx + -6]->minor.'::$_tmp'.$this->prefix_number.'('. $this->yystack[$this->yyidx + -1]->minor .')';     }
+    function yy_r66(){ $this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'=$_smarty_tpl->getVariable(\''. $this->yystack[$this->yyidx + -3]->minor .'\')->value;?>'; $this->_retvalue = $this->yystack[$this->yyidx + -6]->minor.'::$_tmp'.$this->prefix_number.'('. $this->yystack[$this->yyidx + -1]->minor .')';     }
 #line 2199 "internal.templateparser.php"
 #line 316 "internal.templateparser.y"
     function yy_r67(){ $this->_retvalue = $this->yystack[$this->yyidx + -3]->minor.'::'.$this->yystack[$this->yyidx + -1]->minor.$this->yystack[$this->yyidx + 0]->minor;     }
 #line 2202 "internal.templateparser.php"
 #line 317 "internal.templateparser.y"
-    function yy_r68(){ $this->prefix_number++; $this->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'=$_smarty_tpl->getVariable(\''. $this->yystack[$this->yyidx + -4]->minor .'\')->value;?>'; $this->_retvalue = $this->yystack[$this->yyidx + -7]->minor.'::$_tmp'.$this->prefix_number.'('. $this->yystack[$this->yyidx + -2]->minor .')'.$this->yystack[$this->yyidx + 0]->minor;     }
+    function yy_r68(){ $this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'=$_smarty_tpl->getVariable(\''. $this->yystack[$this->yyidx + -4]->minor .'\')->value;?>'; $this->_retvalue = $this->yystack[$this->yyidx + -7]->minor.'::$_tmp'.$this->prefix_number.'('. $this->yystack[$this->yyidx + -2]->minor .')'.$this->yystack[$this->yyidx + 0]->minor;     }
 #line 2205 "internal.templateparser.php"
 #line 319 "internal.templateparser.y"
     function yy_r69(){ $this->_retvalue = $this->yystack[$this->yyidx + -2]->minor.'::'.$this->yystack[$this->yyidx + 0]->minor;    }
@@ -2208,7 +2208,7 @@ static public $yy_action = array(
     function yy_r71(){ $this->_retvalue = $this->yystack[$this->yyidx + -5]->minor.'::$'.$this->yystack[$this->yyidx + -2]->minor.$this->yystack[$this->yyidx + -1]->minor.$this->yystack[$this->yyidx + 0]->minor;    }
 #line 2214 "internal.templateparser.php"
 #line 325 "internal.templateparser.y"
-    function yy_r72(){ $this->prefix_number++; $this->prefix_code[] = '<?php ob_start();?>'.$this->yystack[$this->yyidx + -1]->minor.'<?php $_tmp'.$this->prefix_number.'=ob_get_clean();?>'; $this->_retvalue = '$_tmp'.$this->prefix_number;     }
+    function yy_r72(){ $this->prefix_number++; $this->compiler->prefix_code[] = '<?php ob_start();?>'.$this->yystack[$this->yyidx + -1]->minor.'<?php $_tmp'.$this->prefix_number.'=ob_get_clean();?>'; $this->_retvalue = '$_tmp'.$this->prefix_number;     }
 #line 2217 "internal.templateparser.php"
 #line 334 "internal.templateparser.y"
     function yy_r73(){if ($this->yystack[$this->yyidx + 0]->minor['var'] == '\'smarty\'') { $this->_retvalue =  $this->compiler->compileTag('internal_smarty_var',$this->yystack[$this->yyidx + 0]->minor['index']);} else {
@@ -2351,7 +2351,7 @@ static public $yy_action = array(
     function yy_r125(){$this->_retvalue = '(1 & '.$this->yystack[$this->yyidx + -2]->minor.' / '.$this->yystack[$this->yyidx + 0]->minor.')';    }
 #line 2357 "internal.templateparser.php"
 #line 473 "internal.templateparser.y"
-    function yy_r131(){$this->prefix_number++; $this->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'='.$this->yystack[$this->yyidx + 0]->minor.';?>'; $this->_retvalue = $this->yystack[$this->yyidx + -2]->minor.$this->yystack[$this->yyidx + -1]->minor.'$_tmp'.$this->prefix_number;    }
+    function yy_r131(){$this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'='.$this->yystack[$this->yyidx + 0]->minor.';?>'; $this->_retvalue = $this->yystack[$this->yyidx + -2]->minor.$this->yystack[$this->yyidx + -1]->minor.'$_tmp'.$this->prefix_number;    }
 #line 2360 "internal.templateparser.php"
 #line 475 "internal.templateparser.y"
     function yy_r132(){$this->_retvalue = '==';    }
@@ -2414,7 +2414,7 @@ static public $yy_action = array(
     function yy_r155(){preg_match('/\s*/',$this->yystack[$this->yyidx + -2]->minor,$s); $this->_retvalue = $s[0].'".('.$this->yystack[$this->yyidx + -1]->minor.')."'; $this->compiler->has_variable_string = true;    }
 #line 2420 "internal.templateparser.php"
 #line 509 "internal.templateparser.y"
-    function yy_r156(){ preg_match('/\s*/',$this->yystack[$this->yyidx + -2]->minor,$s); $this->prefix_number++; $this->prefix_code[] = '<?php ob_start();?>'.$this->yystack[$this->yyidx + -1]->minor.'<?php $_tmp'.$this->prefix_number.'=ob_get_clean();?>'; $this->_retvalue = $s[0].'".$_tmp'.$this->prefix_number.'."'; $this->compiler->has_variable_string = true;    }
+    function yy_r156(){ preg_match('/\s*/',$this->yystack[$this->yyidx + -2]->minor,$s); $this->prefix_number++; $this->compiler->prefix_code[] = '<?php ob_start();?>'.$this->yystack[$this->yyidx + -1]->minor.'<?php $_tmp'.$this->prefix_number.'=ob_get_clean();?>'; $this->_retvalue = $s[0].'".$_tmp'.$this->prefix_number.'."'; $this->compiler->has_variable_string = true;    }
 #line 2423 "internal.templateparser.php"
 #line 510 "internal.templateparser.y"
     function yy_r157(){$this->_retvalue = '$'.$this->yystack[$this->yyidx + 0]->minor;    }

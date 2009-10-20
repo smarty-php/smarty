@@ -26,7 +26,7 @@ class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $this->_open_tag('if');
+        $this->_open_tag('if',1);
         if (is_array($args['if condition'])) {
             $_output = " <?php if (!isset(\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."])) \$_smarty_tpl->tpl_vars[".$args['if condition']['var']."] = new Smarty_Variable;\n";
             $_output .= "if (\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."]->value = ".$args['if condition']['value']."): ?>";
