@@ -24,15 +24,13 @@
 function clear_cache($smarty, $template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = 'file')
 { 
     // load cache resource
-    if (!isset($smarty->cache_resource_objects[$type])) {
-        $_cache_resource_class = 'Smarty_Internal_CacheResource_' . $type;
-        if (!$smarty->loadPlugin($_cache_resource_class)) {
-            throw new Exception("Undefined cache resource type {$type}");
-        } 
-        $smarty->cache_resource_objects[$type] = new $_cache_resource_class($smarty);
+    $_cache_resource_class = 'Smarty_Internal_CacheResource_' . $type;
+    if (!$smarty->loadPlugin($_cache_resource_class)) {
+        throw new Exception("Undefined cache resource type {$type}");
     } 
+    $cache_object = new $_cache_resource_class($smarty);
 
-    return $smarty->cache_resource_objects[$type]->clear($template_name, $cache_id, $compile_id, $exp_time);
+    return $cache_object->clear($template_name, $cache_id, $compile_id, $exp_time);
 } 
 
 ?>

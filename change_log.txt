@@ -2,6 +2,8 @@
 - added {$foo++}{$foo--} syntax
 - buxfix changed PHP "if (..):" to "if (..){" because of possible bad code when concenating PHP tags
 - autoload Smarty internal classes
+- fixed file dependency for config files 
+- some code optimizations
 
 10/20/2009
 - check at compile time for variable filter to improve rendering speed if no filter is used

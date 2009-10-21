@@ -200,8 +200,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $autoload_filters = array(); 
     // status of filter on variable output
     public $variable_filter = true; 
-    // cache resorce objects
-    public $cache_resource_objects = array(); 
     // global internal smarty  vars
     public $_smarty_vars = array(); 
     // start time for execution time calculation

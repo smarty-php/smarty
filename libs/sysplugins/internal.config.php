@@ -12,8 +12,9 @@
 class Smarty_Internal_Config {
     static $config_objects = array();
 
-    public function __construct($config_resource, $smarty)
+    public function __construct($config_resource, $smarty, $template = null)
     {
+        $this->template = $template;
         $this->smarty = $smarty;
         $this->config_resource = $config_resource;
         $this->config_resource_type = null;
@@ -223,6 +224,9 @@ class Smarty_Internal_Config {
     */
     public function loadConfigVars ($sections = null, $scope)
     {
+        if (isset($this->template)) {
+            $this->template->properties['file_dependency']['F' . abs(crc32($this->getConfigFilepath()))] = array($this->getConfigFilepath(), $this->getTimestamp());
+        } 
         $config_data = unserialize($this->getCompiledConfig()); 
         // var_dump($config_data);
         // copy global config vars
