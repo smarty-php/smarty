@@ -23,7 +23,7 @@ class Smarty_Internal_Compile_IfClose extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler; 
-        $nesting = $this->_close_tag(array('if', 'else', 'elseif'));
+        list($nesting, $compiler->tag_nocache) = $this->_close_tag(array('if', 'else', 'elseif'));
         $tmp = '';
         for ($i = 0; $i < $nesting ; $i++) $tmp .= '}';
         return "<?php $tmp?>";

@@ -19,7 +19,7 @@
 * 
 * @param string $ array debug template filepath
 */
-function SetDebugTemplate(smarty, $debug_tpl)
+function SetDebugTemplate($smarty, $debug_tpl)
 {
     $smarty->debug_tpl = $debug_tpl;
     return;

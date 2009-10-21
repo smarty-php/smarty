@@ -34,13 +34,13 @@ class Smarty_Internal_Cacher_InlineCode {
     * @param boolean $is_code true if content is compiled code
     * @return string content
     */
-    public function processNocacheCode ($content, $compiler, $tag_nocache, $is_code)
+    public function processNocacheCode ($content, $compiler, $is_code)
     { 
         // If the template is not evaluated and we have a nocache section and or a nocache tag
         if ($is_code) {
             // generate replacement code
             if (!$compiler->template->isEvaluated() && $compiler->template->caching &&
-                    ($tag_nocache || $compiler->nocache || $compiler->tag_nocache)) {
+                    ($compiler->nocache || $compiler->tag_nocache)) {
                 $compiler->tag_nocache = false;
                 $_output = str_replace("'", "\'", $content);
                 $_output = '<?php  echo \'' . $_output . '\';?>';

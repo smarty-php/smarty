@@ -26,16 +26,16 @@ class Smarty_Internal_Compile_ElseIf extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $nesting = $this->_close_tag(array('if', 'elseif'));
+        list($nesting, $compiler->tag_nocache) = $this->_close_tag(array('if', 'elseif'));
 
         if (empty($this->compiler->prefix_code)) {
-            $this->_open_tag('elseif', $nesting);
+            $this->_open_tag('elseif', array($nesting, $compiler->tag_nocache));
             return '<?php }elseif(' . $args['if condition'] . '){?>';
         } else {
             $tmp = '';
             foreach ($this->compiler->prefix_code as $code) $tmp .= $code;
             $this->compiler->prefix_code = array();
-            $this->_open_tag('elseif', $nesting + 1);
+            $this->_open_tag('elseif', array($nesting + 1, $compiler->tag_nocache));
             return '<?php }else{?>' . $tmp . '<?php if (' . $args['if condition'] . '){?>';
         } 
     } 
