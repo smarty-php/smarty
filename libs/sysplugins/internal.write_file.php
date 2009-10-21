@@ -18,7 +18,7 @@ class Smarty_Internal_Write_File {
     * @param string $_contents file content
     * @return boolean true
     */
-    public function writeFile($_filepath, $_contents)
+    public static function writeFile($_filepath, $_contents)
     {
         $_dirpath = dirname($_filepath); 
         // if subdirs, create dir structure

@@ -199,18 +199,13 @@ class Smarty_Internal_Config {
         // compile template
         if (!is_object($this->compiler_object)) {
             // load compiler
-            $this->smarty->loadPlugin('Smarty_Internal_Config_File_Compiler');
             $this->compiler_object = new Smarty_Internal_Config_File_Compiler($this->smarty);
-        } 
-        if (!is_object($this->smarty->write_file_object)) {
-            $this->smarty->loadPlugin("Smarty_Internal_Write_File");
-            $this->smarty->write_file_object = new Smarty_Internal_Write_File;
         } 
         // call compiler
         if ($this->compiler_object->compileSource($this)) {
             // compiling succeded
             // write compiled template
-            $this->smarty->write_file_object->writeFile($this->getCompiledFilepath(), $this->getCompiledConfig()); 
+            Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->getCompiledConfig()); 
             // make template and compiled file timestamp match
             touch($this->getCompiledFilepath(), $this->getTimestamp());
         } else {

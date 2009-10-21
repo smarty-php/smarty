@@ -1,3 +1,8 @@
+10/21/2009
+- added {$foo++}{$foo--} syntax
+- buxfix changed PHP "if (..):" to "if (..){" because of possible bad code when concenating PHP tags
+- autoload Smarty internal classes
+
 10/20/2009
 - check at compile time for variable filter to improve rendering speed if no filter is used
 - fixed bug at combination of {elseif} tag and {...} in double quoted strings of static class parameter

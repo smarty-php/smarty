@@ -64,12 +64,7 @@ class Smarty_Internal_CacheResource_File {
     public function writeCachedContent($template, $content)
     {
         if (!$template->isEvaluated()) {
-            if (!is_object($this->smarty->write_file_object)) {
-                require_once(SMARTY_SYSPLUGINS_DIR . 'internal.write_file.php'); 
-                // $this->smarty->loadPlugin("Smarty_Internal_Write_File");
-                $this->smarty->write_file_object = new Smarty_Internal_Write_File;
-            } 
-            return $this->smarty->write_file_object->writeFile($template->getCachedFilepath(), $content);
+            return Smarty_Internal_Write_File::writeFile($template->getCachedFilepath(), $content);
         } else {
             return false;
         } 

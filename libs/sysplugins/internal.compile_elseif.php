@@ -30,13 +30,13 @@ class Smarty_Internal_Compile_ElseIf extends Smarty_Internal_CompileBase {
 
         if (empty($this->compiler->prefix_code)) {
             $this->_open_tag('elseif', $nesting);
-            return '<?php elseif (' . $args['if condition'] . '): ?>';
+            return '<?php }elseif(' . $args['if condition'] . '){?>';
         } else {
             $tmp = '';
             foreach ($this->compiler->prefix_code as $code) $tmp .= $code;
             $this->compiler->prefix_code = array();
             $this->_open_tag('elseif', $nesting + 1);
-            return '<?php else: ?>' . $tmp . '<?php if (' . $args['if condition'] . '): ?>';
+            return '<?php }else{?>' . $tmp . '<?php if (' . $args['if condition'] . '){?>';
         } 
     } 
 } 
