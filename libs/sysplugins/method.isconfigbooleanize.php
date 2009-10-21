@@ -13,7 +13,7 @@
 /**
 * is config booleanize mode
 */
-public function isConfigBooleanize($smarty)
+function isConfigBooleanize($smarty)
 {
     return $smarty->config_booleanize;
 } 

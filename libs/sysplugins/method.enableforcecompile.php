@@ -13,7 +13,7 @@
 /**
 * Enable forced compiling
 */
-public function enableForceCompile($smarty)
+function enableForceCompile($smarty)
 {
     $smarty->force_compile = true;
     return;

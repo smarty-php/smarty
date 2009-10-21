@@ -19,7 +19,7 @@
 * 
 * @return array cache folder
 */
-public function getCacheDir($smarty)
+function getCacheDir($smarty)
 {
     return $this->smarty->cache_dir;
 } 

@@ -13,7 +13,7 @@
 /**
 * Enable debugging
 */
-public function enableDebugging($smarty)
+function enableDebugging($smarty)
 {
     $this->smarty->debugging = true;
     return;

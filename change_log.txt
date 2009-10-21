@@ -4,6 +4,7 @@
 - autoload Smarty internal classes
 - fixed file dependency for config files 
 - some code optimizations
+- fixed function definitions on some autoloaded methodes
 
 10/20/2009
 - check at compile time for variable filter to improve rendering speed if no filter is used

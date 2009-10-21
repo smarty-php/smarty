@@ -13,7 +13,7 @@
 /**
 * Enable config overwrite mode
 */
-public function enableConfigOverwrite($smarty)
+function enableConfigOverwrite($smarty)
 {
     $smarty->config_overwrite = true;
     return;
