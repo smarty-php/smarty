@@ -26,7 +26,7 @@
  * @param object &$smarty Smarty object
  * @return string filtered output
  */
-function smarty_outputfilter_trimwhitespace($source, &$smarty)
+function smarty_outputfilter_trimwhitespace($source, $smarty)
 {
     // Pull out the script blocks
     preg_match_all("!<script[^>]*?>.*?</script>!is", $source, $match);
