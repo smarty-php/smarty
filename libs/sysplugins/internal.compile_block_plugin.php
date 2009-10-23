@@ -36,7 +36,7 @@ class Smarty_Internal_Compile_Block_Plugin extends Smarty_Internal_CompileBase {
             } 
             $_params = 'array(' . implode(",", $_paramsArray) . ')';
 
-            $this->_open_tag($tag, array($_params, $this->compiler->nocache)); 
+            $this->_open_tag($tag, array($_params, $this->compiler->nocache,$this->compiler->tag_nocache)); 
             // not cachable?
             if (isset($this->compiler->smarty->registered_plugins[$tag]) && !$this->compiler->smarty->registered_plugins[$tag][2]) {
                 $this->compiler->nocache = true;
@@ -48,7 +48,10 @@ class Smarty_Internal_Compile_Block_Plugin extends Smarty_Internal_CompileBase {
                  $this->compiler->tag_nocache = true;
             }
             // closing tag of block plugin
-            list($_params, $this->compiler->nocache) = $this->_close_tag(substr($tag, 0, -5)); 
+            list($_params, $this->compiler->nocache,$tag_nocache) = $this->_close_tag(substr($tag, 0, -5)); 
+            if ($tag_nocache) {
+                 $this->compiler->tag_nocache = true;
+            }
             // This tag does create output
             $this->compiler->has_output = true; 
             // compile code
