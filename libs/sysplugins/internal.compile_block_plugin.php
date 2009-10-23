@@ -36,22 +36,22 @@ class Smarty_Internal_Compile_Block_Plugin extends Smarty_Internal_CompileBase {
             } 
             $_params = 'array(' . implode(",", $_paramsArray) . ')';
 
-            $this->_open_tag($tag, array($_params, $this->compiler->nocache,$this->compiler->tag_nocache)); 
+            $this->_open_tag($tag, array($_params, $this->compiler->nocache)); 
             // not cachable?
             if (isset($this->compiler->smarty->registered_plugins[$tag]) && !$this->compiler->smarty->registered_plugins[$tag][2]) {
                 $this->compiler->nocache = true;
             } 
-            // compile code
+			// maybe nocache because of nocache variables
+			$this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
+			// compile code
             $output = '<?php $_block_repeat=true; $_smarty_tpl->smarty->plugin_handler->' . $tag . '(array(' . $_params . ', null, $_smarty_tpl->smarty, &$_block_repeat, $_smarty_tpl),\'block\');while ($_block_repeat) { ob_start();?>';
         } else {
-            if ($this->compiler->nocache) {
+			// must endblock be nocache?
+			if ($this->compiler->nocache) {
                  $this->compiler->tag_nocache = true;
             }
-            // closing tag of block plugin
-            list($_params, $this->compiler->nocache,$tag_nocache) = $this->_close_tag(substr($tag, 0, -5)); 
-            if ($tag_nocache) {
-                 $this->compiler->tag_nocache = true;
-            }
+            // closing tag of block plugin, restore nocache
+            list($_params, $this->compiler->nocache) = $this->_close_tag(substr($tag, 0, -5)); 
             // This tag does create output
             $this->compiler->has_output = true; 
             // compile code
