@@ -1,5 +1,6 @@
 10/24/2009
 - fixed nocache vars at internal block tags
+- fixed merging of recursive includes
 
 10/23/2009
 - fixed nocache var problem

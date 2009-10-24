@@ -34,6 +34,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             // check if compiled code can be merged (contains no variable part)
             if (!$compiler->has_variable_string && (substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2) and substr_count($include_file, '(') == 0) {
                 eval("\$tmp = $include_file;");
+				if ($this->compiler->template->template_resource != $tmp) {
                 $tpl = $compiler->smarty->createTemplate ($tmp, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
                 if ($tpl->isExisting()) {
                     do {
@@ -67,7 +68,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                         $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $prop['file_dependency']);
                     } 
                     $has_compiled_template = true;
-                } 
+                }
+				}
             } 
         } 
 
