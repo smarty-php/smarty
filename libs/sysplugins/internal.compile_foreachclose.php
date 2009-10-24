@@ -24,7 +24,13 @@ class Smarty_Internal_Compile_ForeachClose extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $_open_tag = $this->_close_tag(array('foreach', 'foreachelse'));
+		// must endblock be nocache?
+		if ($this->compiler->nocache) {
+               $this->compiler->tag_nocache = true;
+        }
+
+        list($_open_tag, $this->compiler->nocache) = $this->_close_tag(array('foreach', 'foreachelse'));
+
         if ($_open_tag == 'foreachelse')
             return "<?php } ?>";
         else

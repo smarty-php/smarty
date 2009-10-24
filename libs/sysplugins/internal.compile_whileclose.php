@@ -23,7 +23,11 @@ class Smarty_Internal_Compile_WhileClose extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler; 
-        $this->_close_tag(array('while'));
+ 		// must endblock be nocache?
+		if ($this->compiler->nocache) {
+                 $this->compiler->tag_nocache = true;
+        }
+        $this->compiler->nocache = $this->_close_tag(array('while'));
         return "<?php }?>";
     } 
 } 

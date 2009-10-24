@@ -25,7 +25,13 @@ class Smarty_Internal_Compile_SectionClose extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $_open_tag = $this->_close_tag(array('section', 'sectionelse'));
+ 		// must endblock be nocache?
+		if ($this->compiler->nocache) {
+                 $this->compiler->tag_nocache = true;
+        }
+
+        list($_open_tag, $this->compiler->nocache) = $this->_close_tag(array('section', 'sectionelse'));
+
         if ($_open_tag == 'sectionelse')
             return "<?php endif; ?>";
         else

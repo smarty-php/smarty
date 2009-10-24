@@ -25,8 +25,9 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $this->_close_tag('section');
-        $this->_open_tag('sectionelse');
+        list($_open_tag, $this->compiler->nocache) = $this->_close_tag(array('section'));
+        $this->_open_tag('sectionelse',array('sectionelse', $this->compiler->nocache));
+
         return "<?php endfor; else: ?>";
     } 
 } 

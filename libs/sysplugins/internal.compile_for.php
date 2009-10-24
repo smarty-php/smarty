@@ -38,7 +38,9 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $this->_open_tag('for');
+        $this->_open_tag('for', array('for',$this->compiler->nocache));
+		// maybe nocache because of nocache variables
+		$this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
 
         $output = "<?php ";
         foreach ($_attr['start'] as $_statement) {
