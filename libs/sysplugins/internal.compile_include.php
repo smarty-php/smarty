@@ -36,7 +36,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 eval("\$tmp = $include_file;");
 				if ($this->compiler->template->template_resource != $tmp) {
                 $tpl = $compiler->smarty->createTemplate ($tmp, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
-                if ($tpl->isExisting()) {
+                if ($tpl->usesCompiler() && $tpl->isExisting()) {
                     do {
                         $must_compile = false;
                         $prop = array();
