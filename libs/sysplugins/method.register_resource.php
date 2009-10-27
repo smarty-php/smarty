@@ -23,7 +23,7 @@ function register_resource($smarty, $type, $functions)
         $smarty->_plugins['resource'][$type] =
         array($functions, false);
     } elseif (count($functions) == 5) {
-        $smarty->plugins['resource'][$type] =
+        $smarty->_plugins['resource'][$type] =
         array(array(array(&$functions[0], $functions[1]) , array(&$functions[0], $functions[2]) , array(&$functions[0], $functions[3]) , array(&$functions[0], $functions[4])) , false);
     } else {
         throw new Exception("malformed function-list for '$type' in register_resource");
