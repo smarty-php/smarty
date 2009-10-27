@@ -1,5 +1,6 @@
 10/27/2009
-- fixed typo in method.regsiter_resource
+- fixed typo in method.register_resource
+- pass {} through as literal
 
 10/26/2009
 - merge only compiled subtemplates into the compiled code of the main template
