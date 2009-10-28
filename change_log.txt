@@ -1,3 +1,7 @@
+
+10/27/2009
+- fixed missing quotes in include_php.php
+
 10/27/2009
 - fixed typo in method.register_resource
 - pass {} through as literal

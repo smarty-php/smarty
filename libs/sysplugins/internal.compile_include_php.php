@@ -61,7 +61,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
             $_output .= 'ob_start(); include' . $_once . ' (\'' . $_file . '\'); $_smarty_tpl->assign(' . $_assign . ',ob_get_contents()); ob_end_clean();?>';
         } else {
             $this->compiler->has_output = true;
-            $_output .= 'include' . $once . ' (' . $_file . '); ?>';
+            $_output .= 'include' . $_once . ' (\'' . $_file . '\'); ?>';
         } 
         return $_output;
     } 
