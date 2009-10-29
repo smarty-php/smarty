@@ -94,7 +94,7 @@ spl_autoload_register('smartyAutoload');
 */
 class Smarty extends Smarty_Internal_TemplateBase {
     // smarty version
-    public static $_version = 'Smarty3-SVN$Rev: 3286 $'
+    public static $_version = 'Smarty3-SVN$Rev: 3286 $';
     // auto literal on delimiters with whitspace
     public $auto_literal = true; 
     // display error on not assigned variabled
