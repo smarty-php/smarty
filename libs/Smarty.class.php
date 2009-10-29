@@ -3,6 +3,7 @@
 /**
 * Project:     Smarty: the PHP compiling template engine
 * File:        Smarty.class.php
+* SVN:         $Id$
 * 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +28,7 @@
 * @author Monte Ohrt <monte at ohrt dot com> 
 * @author Uwe Tews 
 * @package Smarty
-* @version 3-SVN$Rev$
+* @version 3-SVN$Rev: 3286 $
 */
 
 /**
@@ -93,7 +94,7 @@ spl_autoload_register('smartyAutoload');
 */
 class Smarty extends Smarty_Internal_TemplateBase {
     // smarty version
-    public static $_version = 'Smarty3-SVN$Rev$'
+    public static $_version = 'Smarty3-SVN$Rev: 3286 $'
     // auto literal on delimiters with whitspace
     public $auto_literal = true; 
     // display error on not assigned variabled
