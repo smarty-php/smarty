@@ -27,7 +27,7 @@
 * @author Monte Ohrt <monte at ohrt dot com> 
 * @author Uwe Tews 
 * @package Smarty
-* @version 3.0-beta
+* @version 3-SVN$Rev$
 */
 
 /**
@@ -93,7 +93,7 @@ spl_autoload_register('smartyAutoload');
 */
 class Smarty extends Smarty_Internal_TemplateBase {
     // smarty version
-    public static $_version = 'Smarty3Beta-dev'; 
+    public static $_version = 'Smarty3-SVN$Rev$'
     // auto literal on delimiters with whitspace
     public $auto_literal = true; 
     // display error on not assigned variabled
