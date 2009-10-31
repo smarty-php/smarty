@@ -73,7 +73,7 @@ define('SMARTY_GLOBAL_SCOPE', 3);
 */
 define('SMARTY_CACHING_OFF', 0);
 define('SMARTY_CACHING_LIFETIME_CURRENT', 1);
-define('SMARTY_CACHING_LIVETIME_SAVED', 2);
+define('SMARTY_CACHING_LIFETIME_SAVED', 2);
 
 /**
 * This determines how Smarty handles "<?php ... ?>" tags in templates.
@@ -86,9 +86,16 @@ define('SMARTY_PHP_ALLOW', 3); //-> escape tags as entities
 
 /**
 * register the class autoloader
-**/
-spl_autoload_register('smartyAutoload'); 
-
+*/
+if (set_include_path(SMARTY_SYSPLUGINS_DIR . PATH_SEPARATOR . get_include_path()) !== false) {
+    spl_autoload_extensions('.php,.inc');
+    $registeredAutoLoadFunctions = spl_autoload_functions();
+    if (!isset($registeredAutoLoadFunctions['spl_autoload'])) {
+        spl_autoload_register();
+    } 
+} else {
+    spl_autoload_register('smartyAutoload');
+} 
 /**
 * This is the main Smarty class
 */
@@ -97,8 +104,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public static $_version = 'Smarty3-SVN$Rev: 3286 $';
     // auto literal on delimiters with whitspace
     public $auto_literal = true; 
-    // display error on not assigned variabled
-    static $error_unassigned = false; 
+    // display error on not assigned variables
+    public $error_unassigned = false; 
     // template directory
     public $template_dir = null; 
     // default template handler
@@ -154,7 +161,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                               
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                    
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -204,12 +211,17 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // global internal smarty  vars
     public $_smarty_vars = array(); 
     // start time for execution time calculation
-    public $start_time = 0;
+    public $start_time = 0; 
+    // default file permissions
+    public $_file_perms = 0644; 
+    // default dir permissions
+    public $_dir_perms = 0771;
+
     /**
     * Class constructor, initializes basic smarty properties
     */
     public function __construct()
-    {
+    { 
         // self reference needed by other classes methodes
         $this->smarty = $this;
 
@@ -226,7 +238,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $this->plugins_dir = array(SMARTY_PLUGINS_DIR);
         $this->cache_dir = '.' . DS . 'cache' . DS;
         $this->config_dir = '.' . DS . 'configs' . DS;
-        $this->debug_tpl = SMARTY_DIR . 'debug.tpl'; 
+        $this->debug_tpl = SMARTY_DIR . 'debug.tpl';
         $this->plugin_handler = new Smarty_Internal_Plugin_Handler($this);
         $this->filter_handler = new Smarty_Internal_Run_Filter($this);
         if (!$this->debugging && $this->debugging_ctrl == 'URL') {
@@ -435,24 +447,24 @@ class Smarty extends Smarty_Internal_TemplateBase {
         if (is_callable($plugin_name))
             return true; 
         // Plugin name is expected to be: Smarty_[Type]_[Name]
-        $plugin_name = strtolower($plugin_name);
-        $_name_parts = explode('_', $plugin_name, 3); 
+        $_plugin_name = strtolower($plugin_name);
+        $_name_parts = explode('_', $_plugin_name, 3); 
         // class name must have three parts to be valid plugin
         if (count($_name_parts) < 3 || $_name_parts[0] !== 'smarty') {
             throw new Exception("plugin {$plugin_name} is not a valid name format");
             return false;
         } 
-        // plugin filename is expected to be: [type].[name].php
-        $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}{$this->php_ext}"; 
         // if type is "internal", get plugin from sysplugins
         if ($_name_parts[1] == 'internal') {
-            if (file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_filename)) {
-                require_once(SMARTY_SYSPLUGINS_DIR . $_plugin_filename);
+            if (file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_name . $this->php_ext)) {
+                require_once(SMARTY_SYSPLUGINS_DIR . $_plugin_name . $this->php_ext);
                 return true;
             } else {
                 return false;
             } 
         } 
+        // plugin filename is expected to be: [type].[name].php
+        $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}{$this->php_ext}"; 
         // loop through plugin dirs and find the plugin
         foreach((array)$this->plugins_dir as $_plugin_dir) {
             if (strpos('/\\', substr($_plugin_dir, -1)) === false) {
@@ -512,7 +524,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public function __call($name, $args)
     {
         if (!is_callable($name)) {
-            $_plugin_filename = strtolower('method.' . $name . $this->php_ext);
+            $_plugin_filename = strtolower('smarty_method_' . $name . $this->php_ext);
             if (!file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_filename)) {
                 throw new Exception("Sysplugin file " . $_plugin_filename . " does not exist");
             } 
@@ -527,10 +539,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
 
 function smartyAutoload($class)
 {
-    if (substr($class, 0, 16) === 'Smarty_Internal_') {
-        $class = strtolower($class);
-        $_name_parts = explode('_', $class, 3);
-        include SMARTY_SYSPLUGINS_DIR . 'internal.' . $_name_parts[2] . '.php';
+    $_class = strtolower($class);
+    if (substr($_class, 0, 16) === 'smarty_internal_') {
+        include SMARTY_SYSPLUGINS_DIR . $_class . '.php';
     } 
 } 
 

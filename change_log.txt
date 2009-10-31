@@ -1,3 +1,6 @@
+10/31/2009
+- change of filenames in sysplugins folder for internal spl_autoload function
+- lexer/parser changed for increased compilation speed
 
 10/27/2009
 - fixed missing quotes in include_php.php
