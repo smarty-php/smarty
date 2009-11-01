@@ -87,12 +87,13 @@ define('SMARTY_PHP_ALLOW', 3); //-> escape tags as entities
 /**
 * register the class autoloader
 */
+spl_autoload_extensions('.php,.inc');
 if (set_include_path(SMARTY_SYSPLUGINS_DIR . PATH_SEPARATOR . get_include_path()) !== false) {
-    spl_autoload_extensions('.php,.inc');
-    $registeredAutoLoadFunctions = spl_autoload_functions();
-    if (!isset($registeredAutoLoadFunctions['spl_autoload'])) {
-        spl_autoload_register();
-    } 
+    $spl_funcs = spl_autoload_functions();
+    if($spl_funcs === false)
+      spl_autoload_register();
+    elseif(!in_array('spl_autoload',$spl_funcs))
+      spl_autoload_register('spl_autoload');
 } else {
     spl_autoload_register('smartyAutoload');
 } 
