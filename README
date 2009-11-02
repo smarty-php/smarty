@@ -63,10 +63,10 @@ is still supported for BC.
 
 Examples:
 {$x+$y} 													will output the sum of x and y.
-{$foo = strlen($bar)}   					function in assignment
-{assign var=foo value= $x+$y} 		in attributs 
-{$foo = myfunct( ($x+$y)*3 )} 		as function parameter 
-{$foo[$x+3]} 											as array index
+{$foo = strlen($bar)}             function in assignment
+{assign var=foo value= $x+$y}     in attributs 
+{$foo = myfunct( ($x+$y)*3 )}     as function parameter 
+{$foo[$x+3]}                      as array index
 
 Smarty tags can be used as values within other tags.
 Example:  {$foo={counter}+3}
@@ -106,10 +106,10 @@ Examples:
 
 The original "dot" notation stays, and with improvements.
 Examples:
-{$foo.a.b.c}    		=>  $foo['a']['b']['c'] 
-{$foo.a.$b.c}   		=>  $foo['a'][$b]['c']      	with variable index
-{$foo.a.{$b+4}.c}   =>  $foo['a'][$b+4]['c']   		with expression as index
-{$foo.a.{$b.c}}   	=>  $foo['a'][$b['c']]       	with nested index
+{$foo.a.b.c}        =>  $foo['a']['b']['c'] 
+{$foo.a.$b.c}       =>  $foo['a'][$b]['c']        with variable index
+{$foo.a.{$b+4}.c}   =>  $foo['a'][$b+4]['c']       with expression as index
+{$foo.a.{$b.c}}     =>  $foo['a'][$b['c']]         with nested index
 
 note that { and } are used to address ambiguties when nesting the dot syntax. 
 
