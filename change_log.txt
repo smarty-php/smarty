@@ -1,3 +1,6 @@
+11/02/2009
+- added neq,lte,gte,mod as aliases to if conditions 
+
 10/31/2009
 - change of filenames in sysplugins folder for internal spl_autoload function
 - lexer/parser changed for increased compilation speed
