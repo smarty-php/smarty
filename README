@@ -62,7 +62,7 @@ methods and properties, etc. The {math} plugin will be no longer necessary but
 is still supported for BC.
 
 Examples:
-{$x+$y} 													will output the sum of x and y.
+{$x+$y}                           will output the sum of x and y.
 {$foo = strlen($bar)}             function in assignment
 {assign var=foo value= $x+$y}     in attributs 
 {$foo = myfunct( ($x+$y)*3 )}     as function parameter 
