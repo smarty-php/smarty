@@ -524,15 +524,15 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function __call($name, $args)
     {
+        if ($name == 'Smarty') {
+            throw new Exception('Please use parent::__construct() to call parent constuctor');
+        }
         if (!is_callable($name)) {
             $_plugin_filename = strtolower('smarty_method_' . $name . $this->php_ext);
             if (!file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_filename)) {
-                throw new Exception("Sysplugin file " . $_plugin_filename . " does not exist");
+                throw new Exception('Undefined Smarty method "'. $name .'"');
             } 
             require_once(SMARTY_SYSPLUGINS_DIR . $_plugin_filename);
-            if (!is_callable($name)) {
-                throw new Exception ("Sysplugin file " . $_plugin_filename . " does not define function " . $name);
-            } 
         } 
         return call_user_func_array($name, array_merge(array($this), $args));
     } 

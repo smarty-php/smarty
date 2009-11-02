@@ -1,5 +1,6 @@
 11/02/2009
 - added neq,lte,gte,mod as aliases to if conditions 
+- throw exception on illegal Smarty() constructor calls
 
 10/31/2009
 - change of filenames in sysplugins folder for internal spl_autoload function
