@@ -1,6 +1,5 @@
 11/02/2009
 - added neq,lte,gte,mod as aliases to if conditions 
-- change on unquoted attribute values 
 
 10/31/2009
 - change of filenames in sysplugins folder for internal spl_autoload function
