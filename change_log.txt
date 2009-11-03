@@ -1,3 +1,6 @@
+11/03/2009
+- fixed parser error on objects with special smarty vars
+
 11/02/2009
 - added neq,lte,gte,mod as aliases to if conditions 
 - throw exception on illegal Smarty() constructor calls
