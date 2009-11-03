@@ -17,7 +17,7 @@
 * @param object $smarty 
 * @param callback $function 
 */
-function register_postfilter($smarty, $function)
+function  Smarty_Method_Register_Postfilter($smarty, $function)
 {
     $smarty->registered_filters['post'][$smarty->_get_filter_name($function)] = $function;
 } 

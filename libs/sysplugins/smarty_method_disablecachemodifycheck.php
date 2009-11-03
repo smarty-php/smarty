@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableCacheModifyCheck
+* Smarty method DisableCacheModifyCheck
 * 
 * Disable cache modify check
 * 
@@ -14,7 +14,7 @@
 * 
 * Disable cache modify check
 */
-function disableCacheModifyCheck($smarty)
+function  Smarty_Method_DisableCacheModifyCheck($smarty)
     {
         $smarty->cache_modified_check = false;
         return ;

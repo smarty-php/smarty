@@ -17,7 +17,7 @@
 * @param string $ |array $ plugins folder
 * @return 
 */
-function AddPluginsDir($smarty, $plugins_dir)
+function  Smarty_Method_AddPluginsDir($smarty, $plugins_dir)
 {
     $smarty->plugins_dir = array_merge((array)$smarty->plugins_dir, (array)$plugins_dir);
     $smarty->plugins_dir = array_unique($smarty->plugins_dir);

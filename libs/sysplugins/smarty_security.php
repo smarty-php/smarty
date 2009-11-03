@@ -10,7 +10,7 @@
 /**
 * This class does contain the security settings
 */
-class Smarty_Security_Policy {
+class Smarty_Security {
     /**
     * This determines how Smarty handles "<?php ... ?>" tags in templates.
     * possible values:

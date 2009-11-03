@@ -133,7 +133,7 @@ class Smarty_Internal_Resource_File {
         if (strpos('/\\', substr($_compile_dir, -1)) === false) {
             $_compile_dir .= DS;
         } 
-        return $_compile_dir . $_filepath . '.' . $_template->resource_type . '.' . basename($_template->resource_name). $_cache . $_template->smarty->php_ext;
+        return $_compile_dir . $_filepath . '.' . $_template->resource_type . '.' . basename($_template->resource_name). $_cache . '.php';
     } 
 } 
 

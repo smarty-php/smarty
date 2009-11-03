@@ -17,7 +17,7 @@
 * @param object $smarty 
 * @param callback $function 
 */
-function register_variablefilter($smarty, $function)
+function  Smarty_Method_Register_Variablefilter($smarty, $function)
 {
     $smarty->registered_filters['variable'][$smarty->_get_filter_name($function)] = $function;
 } 

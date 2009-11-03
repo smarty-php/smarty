@@ -90,10 +90,10 @@ define('SMARTY_PHP_ALLOW', 3); //-> escape tags as entities
 spl_autoload_extensions('.php,.inc');
 if (set_include_path(SMARTY_SYSPLUGINS_DIR . PATH_SEPARATOR . get_include_path()) !== false) {
     $spl_funcs = spl_autoload_functions();
-    if($spl_funcs === false)
-      spl_autoload_register();
-    elseif(!in_array('spl_autoload',$spl_funcs))
-      spl_autoload_register('spl_autoload');
+    if ($spl_funcs === false)
+        spl_autoload_register();
+    elseif (!in_array('spl_autoload', $spl_funcs))
+        spl_autoload_register('spl_autoload');
 } else {
     spl_autoload_register('smartyAutoload');
 } 
@@ -102,7 +102,7 @@ if (set_include_path(SMARTY_SYSPLUGINS_DIR . PATH_SEPARATOR . get_include_path()
 */
 class Smarty extends Smarty_Internal_TemplateBase {
     // smarty version
-    public static $_version = 'Smarty3-SVN$Rev: 3286 $';
+    public static $_version = 'Smarty3-SVN$Rev: 3286 $'; 
     // auto literal on delimiters with whitspace
     public $auto_literal = true; 
     // display error on not assigned variables
@@ -125,8 +125,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $compile_check = true; 
     // use sub dirs for compiled/cached files?
     public $use_sub_dirs = false; 
-    // php file extention
-    public $php_ext = '.php'; 
     // compile_error?
     public $compile_error = false; 
     // caching enabled
@@ -145,6 +143,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $left_delimiter = "{";
     public $right_delimiter = "}"; 
     // security
+    public $security_class = 'Smarty_Security';
     public $php_handling = SMARTY_PHP_PASSTHRU;
     public $allow_php_tag = false;
     public $allow_php_templates = false;
@@ -162,7 +161,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                    
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                      
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -216,7 +215,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // default file permissions
     public $_file_perms = 0644; 
     // default dir permissions
-    public $_dir_perms = 0771;
+    public $_dir_perms = 0771; 
     // smarty object reference
     public $smarty = null;
 
@@ -352,25 +351,16 @@ class Smarty extends Smarty_Internal_TemplateBase {
     } 
 
     /**
-    * Load the plugin with security definition and enables security
-    * 
-    * @param string $security_policy plugin to load
+    * Loads security class and enables security
     */
-    public function enableSecurity($security_policy_file = null)
+    public function enableSecurity()
     {
-        if (!isset($security_policy_file)) {
-            $security_policy_file = SMARTY_DIR . 'Security.class.php';
-        } 
-        if (file_exists($security_policy_file)) {
-            require_once($security_policy_file);
-            if (!class_exists('Smarty_Security_Policy')) {
-                throw new Exception("Security policy must define class 'Smarty_Security_Policy'");
-            } 
-            $this->security_policy = new Smarty_Security_Policy;
+        if (isset($this->security_class)) {
+            $this->security_policy = new $this->security_class;
             $this->security_handler = new Smarty_Internal_Security_Handler($this);
             $this->security = true;
         } else {
-            throw new Exception("Security policy {$security_policy_file} not found");
+            throw new Exception('Property security_class is not defined');
         } 
     } 
 
@@ -459,15 +449,15 @@ class Smarty extends Smarty_Internal_TemplateBase {
         } 
         // if type is "internal", get plugin from sysplugins
         if ($_name_parts[1] == 'internal') {
-            if (file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_name . $this->php_ext)) {
-                require_once(SMARTY_SYSPLUGINS_DIR . $_plugin_name . $this->php_ext);
+            if (file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_name . '.php')) {
+                require_once(SMARTY_SYSPLUGINS_DIR . $_plugin_name . '.php');
                 return true;
             } else {
                 return false;
             } 
         } 
         // plugin filename is expected to be: [type].[name].php
-        $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}{$this->php_ext}"; 
+        $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php"; 
         // loop through plugin dirs and find the plugin
         foreach((array)$this->plugins_dir as $_plugin_dir) {
             if (strpos('/\\', substr($_plugin_dir, -1)) === false) {
@@ -526,17 +516,18 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function __call($name, $args)
     {
-        if ($name == 'Smarty') {
+        $name = strtolower($name);
+        if ($name == 'smarty') {
             throw new Exception('Please use parent::__construct() to call parent constuctor');
-        }
-        if (!is_callable($name)) {
-            $_plugin_filename = strtolower('smarty_method_' . $name . $this->php_ext);
-            if (!file_exists(SMARTY_SYSPLUGINS_DIR . $_plugin_filename)) {
-                throw new Exception('Undefined Smarty method "'. $name .'"');
-            } 
-            require_once(SMARTY_SYSPLUGINS_DIR . $_plugin_filename);
         } 
-        return call_user_func_array($name, array_merge(array($this), $args));
+        $function_name = 'smarty_method_' . $name;
+        if (!is_callable($function_name)) {
+            if (!file_exists(SMARTY_SYSPLUGINS_DIR . $function_name . '.php')) {
+                throw new Exception('Undefined Smarty method "' . $name . '"');
+            } 
+            require_once(SMARTY_SYSPLUGINS_DIR . $function_name . '.php');
+        } 
+        return call_user_func_array($function_name, array_merge(array($this), $args));
     } 
 } 
 

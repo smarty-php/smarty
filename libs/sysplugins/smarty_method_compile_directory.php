@@ -16,7 +16,7 @@
 * @param string $dir_name name of directories
 * @return integer number of template files deleted
 */
-function compile_directory($smarty, $extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+function  Smarty_Method_Compile_Directory($smarty, $extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
 {
     function _get_time()
     {

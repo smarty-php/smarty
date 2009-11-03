@@ -189,7 +189,7 @@ class Smarty_Internal_Resource_Extend {
         if (substr($_compile_dir, -1) != DS) {
             $_compile_dir .= DS;
         } 
-        return $_compile_dir . $_filepath . '.' . basename($_files[count($_files)-1]) . $_cache . $template->smarty->php_ext;
+        return $_compile_dir . $_filepath . '.' . basename($_files[count($_files)-1]) . $_cache . '.php';
     } 
 } 
 

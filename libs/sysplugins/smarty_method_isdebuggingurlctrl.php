@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method isDebuggingUrlCtrl
+* Smarty method IsDebuggingUrlCtrl
 * 
 * is possibility to is debugging by SMARTY_DEBUG attribute
 * 
@@ -13,7 +13,7 @@
 /**
 * is possibility to is debugging by SMARTY_DEBUG attribute
 */
-function isDebuggingUrlCtrl($smarty)
+function  Smarty_Method_IsDebuggingUrlCtrl($smarty)
 {
     return $smarty->debugging_ctrl != 'none';
 } 

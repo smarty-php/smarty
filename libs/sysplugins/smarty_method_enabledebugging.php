@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method enableDebugging
+* Smarty method EnableDebugging
 * 
 * Enable debugging
 * 
@@ -13,7 +13,7 @@
 /**
 * Enable debugging
 */
-function enableDebugging($smarty)
+function  Smarty_Method_EnableDebugging($smarty)
 {
     $this->smarty->debugging = true;
     return;

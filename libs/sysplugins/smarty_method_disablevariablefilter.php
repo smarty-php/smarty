@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableVariableFilter
+* Smarty method DisableVariableFilter
 * 
 * Disable  filter on variable output
 * 
@@ -13,7 +13,7 @@
 /**
 * Disable filter on variable output
 */
-function disableVariableFilter($smarty)
+function  Smarty_Method_DisableVariableFilter($smarty)
 {
     $smarty->variable_filter = false;
     return;

@@ -16,7 +16,7 @@
 * @param object $smarty 
 * @param string $varname variable name or null
 */
-function clear_config($smarty, $varname = null)
+function  Smarty_Method_Clear_Config($smarty, $varname = null)
 {
     if (isset($varname)) {
         unset($smarty->config_vars[$varname]);

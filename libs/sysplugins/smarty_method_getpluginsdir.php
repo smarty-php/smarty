@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method getPluginsDir
+* Smarty method GetPluginsDir
 * 
 * Returns directory of plugins
 * 
@@ -19,7 +19,7 @@
 * 
 * @return array plugins folder
 */
-function getPluginsDir($smarty)
+function  Smarty_Method_GetPluginsDir($smarty)
 {
     return $smarty->plugins_dir;
 } 

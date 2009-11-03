@@ -93,7 +93,7 @@ class Smarty_Internal_CacheResource_File {
     {
         $_dir_sep = $this->smarty->use_sub_dirs ? DS : '^';
         if (isset($resource_name)) {
-            $_resource_part = (string)abs(crc32($resource_name)) . '.' . $resource_name . $this->smarty->php_ext;
+            $_resource_part = (string)abs(crc32($resource_name)) . '.' . $resource_name . '.php';
         } else {
             $_resource_part = null;
         } 
@@ -173,7 +173,7 @@ class Smarty_Internal_CacheResource_File {
             $_cache_dir .= DS;
         } 
 
-        return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($_files[count($_files)-1]) . $this->smarty->php_ext;
+        return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($_files[count($_files)-1]) . '.php';
     } 
 } 
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method enableForceCompile
+* Smarty method EnableForceCompile
 * 
 * Enable forced compiling
 * 
@@ -13,7 +13,7 @@
 /**
 * Enable forced compiling
 */
-function enableForceCompile($smarty)
+function  Smarty_Method_EnableForceCompile($smarty)
 {
     $smarty->force_compile = true;
     return;

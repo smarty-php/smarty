@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method isCompileCheck
+* Smarty method IsCompileCheck
 * 
 * is compile checking
 * 
@@ -13,7 +13,7 @@
 /**
 * is compile checking
 */
-function isCompileCheck($smarty)
+function  Smarty_Method_IsCompileCheck($smarty)
 {
     return $smarty->compile_check;
 } 

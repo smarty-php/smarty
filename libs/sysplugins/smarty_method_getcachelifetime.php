@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method getCacheLifetime
+* Smarty method GetCacheLifetime
 * 
 * Returns lifetime of cache files
 * 
@@ -20,7 +20,7 @@
 * 
 * @return integer cache file lifetime
 */
-function getCacheLifetime($smarty)
+function  Smarty_Method_GetCacheLifetime($smarty)
 {
     return $smarty->cache_lifetime;
 } 

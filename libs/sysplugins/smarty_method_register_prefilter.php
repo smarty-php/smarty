@@ -17,7 +17,7 @@
 * @param object $smarty 
 * @param callback $function 
 */
-function register_prefilter($smarty, $function)
+function  Smarty_Method_Register_Prefilter($smarty, $function)
 {
     $smarty->registered_filters['pre'][$smarty->_get_filter_name($function)] = $function;
 } 

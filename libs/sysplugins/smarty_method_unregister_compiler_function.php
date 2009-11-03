@@ -19,7 +19,7 @@
 * 
 * @param string $compiler_tag name of template function
 */
-function unregister_compiler_function($smarty, $compiler_tag)
+function  Smarty_Method_Unregister_Compiler_Function($smarty, $compiler_tag)
 {
     if (isset($smarty->registered_plugins[$compiler_tag]) && $smarty->registered_plugins[$compiler_tag][0] == 'compiler') {
         unset($smarty->registered_plugins[$compiler_tag]);

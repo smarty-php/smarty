@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableCaching
+* Smarty method DisableCaching
 * 
 * Disable caching
 * 
@@ -13,7 +13,7 @@
 /**
 * Disable caching
 */
-function DisableCaching()
+function  Smarty_Method_DisableCaching()
 {
     $this->smarty->caching = false;
     return;

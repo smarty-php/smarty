@@ -18,12 +18,12 @@
 * @param integer $exp_time expiration time
 * @return integer number of template files deleted
 */
-function clear_compiled_tpl($smarty, $resource_name = null, $compile_id = null, $exp_time = null)
+function  Smarty_Method_Clear_Compiled_Tpl($smarty, $resource_name = null, $compile_id = null, $exp_time = null)
 {
     $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
     if (isset($resource_name)) {
-        $_resource_part_1 = $resource_name . $smarty->php_ext;
-        $_resource_part_2 = $resource_name . '.cache' . $smarty->php_ext;
+        $_resource_part_1 = $resource_name . '.php';
+        $_resource_part_2 = $resource_name . '.cache' . '.php';
     } else {
         $_resource_part = '';
     } 

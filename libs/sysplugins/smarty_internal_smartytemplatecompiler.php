@@ -21,8 +21,6 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         $this->smarty = $smarty;
         parent::__construct(); 
         // get required plugins
-//        $this->smarty->loadPlugin($lexer_class);
-//        $this->smarty->loadPlugin($parser_class);
         $this->lexer_class = $lexer_class;
         $this->parser_class = $parser_class;
     } 

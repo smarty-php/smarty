@@ -21,7 +21,7 @@
 * @param string $type resource type
 * @return integer number of cache files deleted
 */
-function clear_cache($smarty, $template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = 'file')
+function  Smarty_Method_Clear_Cache($smarty, $template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = 'file')
 { 
     // load cache resource
     $_cache_resource_class = 'Smarty_Internal_CacheResource_' . $type;

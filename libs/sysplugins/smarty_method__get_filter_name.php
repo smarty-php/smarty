@@ -16,7 +16,7 @@
 * @param object $smarty 
 * @param callback $function 
 */
-function _get_filter_name($smarty, $function)
+function Smarty_Method__get_filter_name($smarty, $function)
 {
 		if (is_array($function)) {
 			$_class_name = (is_object($function[0]) ?

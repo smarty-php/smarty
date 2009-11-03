@@ -20,7 +20,7 @@
 * @param string $compiler_tag of template function
 * @param string $compiler_impl name of PHP function to register
 */
-function register_compiler_function($smarty, $compiler_tag, $compiler_impl, $cacheable = true)
+function  Smarty_Method_Register_Compiler_Function($smarty, $compiler_tag, $compiler_impl, $cacheable = true)
 {
     if (isset($smarty->registered_plugins[$compiler_tag])) {
         throw new Exception("Plugin tag \"{$compiler_tag}\" already registered");

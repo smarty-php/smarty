@@ -20,7 +20,7 @@
 * @param boolean $smarty_args smarty argument format, else traditional
 * @param null $ |array $block_functs list of methods that are block format
 */
-function register_object($smarty, $object, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
+function  Smarty_Method_Register_Object($smarty, $object, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
 { 
     // test if allowed methodes callable
     if (!empty($allowed)) {

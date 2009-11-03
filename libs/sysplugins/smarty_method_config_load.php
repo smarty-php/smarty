@@ -17,7 +17,7 @@
 * @param string $config_file filename
 * @param mixed $sections array of section names, single section or null
 */
-function config_load($smarty, $config_file, $sections = null)
+function  Smarty_Method_Config_Load($smarty, $config_file, $sections = null)
 { 
     // load Config class
     $config = new Smarty_Internal_Config($config_file, $smarty);

@@ -17,7 +17,7 @@
 * @param string $type name of resource
 * @param array $functions array of functions to handle resource
 */
-function register_resource($smarty, $type, $functions)
+function  Smarty_Method_Register_Resource($smarty, $type, $functions)
 {
     if (count($functions) == 4) {
         $smarty->_plugins['resource'][$type] =

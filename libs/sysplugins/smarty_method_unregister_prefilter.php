@@ -19,7 +19,7 @@
 * 
 * @param callback $function 
 */
-function unregister_prefilter($smarty, $function)
+function  Smarty_Method_Unregister_Prefilter($smarty, $function)
 {
     unset($smarty->registered_filters['pre'][$smarty->_get_filter_name($function)]);
 } 

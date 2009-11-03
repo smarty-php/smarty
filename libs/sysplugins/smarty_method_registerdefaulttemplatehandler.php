@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method registerDefaultTemplateHandler
+* Smarty method RegisterDefaultTemplateHandler
 * 
 * Registers a default template handler
 * 
@@ -16,7 +16,7 @@
 * @param object $smarty 
 * @param string $ |array $function class/methode name
 */
-function registerDefaultTemplateHandler($smarty, $function)
+function  Smarty_Method_RegisterDefaultTemplateHandler($smarty, $function)
 {
     if (is_callable($function)) {
         $smarty->default_template_handler_func = $function;

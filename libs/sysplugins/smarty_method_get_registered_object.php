@@ -20,7 +20,7 @@
 * @param string $name 
 * @return object 
 */
-function get_registered_object($smarty, $name)
+function  Smarty_Method_Get_Registered_Object($smarty, $name)
 {
     if (!isset($smarty->registered_objects[$name]))
         throw new Exception("'$name' is not a registered object");

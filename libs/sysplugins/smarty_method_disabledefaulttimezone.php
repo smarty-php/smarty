@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableDefaultTimezone
+* Smarty method DisableDefaultTimezone
 * 
 * Disable setting of default timezone
 * 
@@ -13,7 +13,7 @@
 /**
 * Disable setting of default timezone
 */
-function disableDefaultTimezone($smarty)
+function  Smarty_Method_DisableDefaultTimezone($smarty)
 {
     $smarty->set_timezone = false;
     return;

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method isConfigBooleanize
+* Smarty method IsConfigBooleanize
 * 
 * is config booleanize mode
 * 
@@ -13,7 +13,7 @@
 /**
 * is config booleanize mode
 */
-function isConfigBooleanize($smarty)
+function  Smarty_Method_IsConfigBooleanize($smarty)
 {
     return $smarty->config_booleanize;
 } 

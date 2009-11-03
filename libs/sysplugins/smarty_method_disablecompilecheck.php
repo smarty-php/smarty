@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableCompileCheck
+* Smarty method DisableCompileCheck
 * 
 * Disable compile checking
 * 
@@ -15,7 +15,7 @@
 * 
 * @param object $smarty 
 */
-function DisableCompileCheck($smarty)
+function  Smarty_Method_DisableCompileCheck($smarty)
 {
     $smarty->compile_check = false;
     return;

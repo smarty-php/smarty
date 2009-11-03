@@ -17,7 +17,7 @@
 * @param string $varname variable name or null
 * @return string variable value or or array of variables
 */
-function get_global($smarty, $varname = null)
+function  Smarty_Method_Get_Global($smarty, $varname = null)
 {
     if (isset($varname)) {
         if (isset($smarty->global_tpl_vars[$varname])) {

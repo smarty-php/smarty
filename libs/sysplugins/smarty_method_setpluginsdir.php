@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method setPluginsDir
+* Smarty method SetPluginsDir
 * 
 * Sets directory of plugin files
 * 
@@ -20,7 +20,7 @@
 * @param string $ plugins folder
 * @return 
 */
-function SetPluginsDir($smarty, $plugins_dir)
+function  Smarty_Method_SetPluginsDir($smarty, $plugins_dir)
 {
     $smarty->plugins_dir = (array)$plugins_dir;
     return;

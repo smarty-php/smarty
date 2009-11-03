@@ -17,7 +17,7 @@
 * @param string $modifier name of template modifier
 * @param string $modifier_impl name of PHP function to register
 */
-function register_modifier($smarty, $modifier, $modifier_impl)
+function  Smarty_Method_Register_Modifier($smarty, $modifier, $modifier_impl)
 {
     if (isset($smarty->registered_plugins[$modifier])) {
         throw new Exception("Plugin \"{$modifier}\" already registered");

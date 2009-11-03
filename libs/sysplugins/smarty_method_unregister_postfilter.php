@@ -19,7 +19,7 @@
 * 
 * @param callback $function 
 */
-function unregister_postfilter($smarty, $function)
+function  Smarty_Method_Unregister_Postfilter($smarty, $function)
 {
     unset($smarty->registered_filters['post'][$smarty->_get_filter_name($function)]);
 } 

@@ -16,7 +16,7 @@
 * @param object $smarty 
 * @param object $data_object object which holds tpl_vars
 */
-function clear_all_assign($smarty, $data_object = null)
+function  Smarty_Method_Clear_All_Assign($smarty, $data_object = null)
 {
     if (isset($data_object)) {
         $ptr = $data_object;

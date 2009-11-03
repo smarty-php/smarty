@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableConfigBooleanize
+* Smarty method DisableConfigBooleanize
 * 
 * Disable config booleanize mode
 * 
@@ -13,7 +13,7 @@
 /**
 * Disable config booleanize mode
 */
-function disableConfigBooleanize($smarty)
+function  Smarty_Method_DisableConfigBooleanize($smarty)
 {
     $this->smarty->config_booleanize = false;
     return;

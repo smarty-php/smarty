@@ -19,7 +19,7 @@
 * 
 * @param string $modifier name of template modifier
 */
-function unregister_modifier($smarty, $modifier)
+function  Smarty_Method_Unregister_Modifier($smarty, $modifier)
 {
     if (isset($smarty->registered_plugins[$modifier]) && $smarty->registered_plugins[$modifier][0] == 'modifier') {
         unset($smarty->registered_plugins[$modifier]);

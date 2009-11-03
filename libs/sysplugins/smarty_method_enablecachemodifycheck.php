@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method enableCacheModifyCheck
+* Smarty method EnableCacheModifyCheck
 * 
 * Enable cache modify check
 * 
@@ -13,7 +13,7 @@
 /**
 * Enable cache modify check
 */
-function enableCacheModifyCheck($smarty)
+function  Smarty_Method_EnableCacheModifyCheck($smarty)
 {
     $smarty->cache_modified_check = true;
     return;

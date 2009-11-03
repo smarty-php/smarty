@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method getDebugTemplate
+* Smarty method GetDebugTemplate
 * 
 * Returns debug template filepath
 * 
@@ -19,7 +19,7 @@
 * 
 * @return string debug template filepath
 */
-function GetDebugTemplate($smarty)
+function  Smarty_Method_GetDebugTemplate($smarty)
 {
     return $smarty->debug_tpl;
 } 

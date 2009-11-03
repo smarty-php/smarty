@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method isDebugging
+* Smarty method IsDebugging
 * 
 * is debugging
 * 
@@ -13,7 +13,7 @@
 /**
 * is debugging
 */
-function isDebugging($smarty)
+function  Smarty_Method_IsDebugging($smarty)
 {
     return $smarty->debugging;
 } 

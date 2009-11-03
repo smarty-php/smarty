@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method getCacheDir
+* Smarty method GetCacheDir
 * 
 * Returns directory of cache files
 * 
@@ -19,7 +19,7 @@
 * 
 * @return array cache folder
 */
-function getCacheDir($smarty)
+function  Smarty_Method_GetCacheDir($smarty)
 {
     return $this->smarty->cache_dir;
 } 

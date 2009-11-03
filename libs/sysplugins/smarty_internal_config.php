@@ -146,7 +146,7 @@ class Smarty_Internal_Config {
         if (substr($_compile_dir, -1) != DS) {
             $_compile_dir .= DS;
         } 
-        return $_compile_dir . $_filepath . '.' . basename($this->config_resource_name) . '.config' . $this->smarty->php_ext;
+        return $_compile_dir . $_filepath . '.' . basename($this->config_resource_name) . '.config' . '.php';
     } 
     /**
     * Returns the timpestamp of the compiled file

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method enableDebuggingUrlCtrl
+* Smarty method EnableDebuggingUrlCtrl
 * 
 * Enable possibility to enable debugging by SMARTY_DEBUG attribute
 * 
@@ -13,7 +13,7 @@
 /**
 * Enable possibility to enable debugging by SMARTY_DEBUG attribute
 */
-function enableDebuggingUrlCtrl($smarty)
+function  Smarty_Method_EnableDebuggingUrlCtrl($smarty)
 {
     $smarty->debugging_ctrl = 'URL';
     return;

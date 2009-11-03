@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method getCompileDir
+* Smarty method GetCompileDir
 * 
 * Returns directory of compiled templates
 * 
@@ -19,7 +19,7 @@
 * 
 * @return array compiled template folder
 */
-function GetCompileDir($smarty)
+function  Smarty_Method_GetCompileDir($smarty)
 {
     return $this->smarty->compile_dir;
 } 

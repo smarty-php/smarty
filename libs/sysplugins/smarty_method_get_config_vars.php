@@ -20,7 +20,7 @@
 * @param string $varname variable name or null
 * @return string variable value or or array of variables
 */
-function Get_Config_Vars($smarty, $varname = null)
+function  Smarty_Method_Get_Config_Vars($smarty, $varname = null)
 {
     if (isset($varname)) {
         if (isset($smarty->config_vars[$varname])) {

@@ -18,7 +18,7 @@
 * @param string $type resource type
 * @return integer number of cache files deleted
 */
-function clear_all_cache($smarty, $exp_time = null, $type = 'file')
+function  Smarty_Method_Clear_All_Cache($smarty, $exp_time = null, $type = 'file')
 { 
     // load cache resource
     if (!isset($smarty->cache_resource_objects[$type])) {

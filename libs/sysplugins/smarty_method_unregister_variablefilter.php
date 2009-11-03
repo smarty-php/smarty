@@ -19,7 +19,7 @@
 * 
 * @param callback $function 
 */
-function unregister_variablefilter($smarty, $function)
+function  Smarty_Method_Unregister_Variablefilter($smarty, $function)
 {
     unset($smarty->registered_filters['variable'][$smarty->_get_filter_name($function)]);
 } 

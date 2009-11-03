@@ -21,7 +21,7 @@
 * @param string $block_impl PHP function to register
 * @param boolean $cacheable if true (default) this fuction is cachable
 */
-function register_block($smarty, $block_tag, $block_impl, $cacheable = true, $cache_attr = array())
+function  Smarty_Method_Register_Block($smarty, $block_tag, $block_impl, $cacheable = true, $cache_attr = array())
 {
     if (isset($smarty->registered_plugins[$block_tag])) {
         throw new Exception("Plugin tag \"{$block_tag}\" already registered");

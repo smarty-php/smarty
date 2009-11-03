@@ -20,7 +20,7 @@
 * 
 * @param callback $function 
 */
-function unregister_outputfilter($smarty, $function)
+function  Smarty_Method_Unregister_Outputfilter($smarty, $function)
 {
     unset($smarty->registered_filters['output'][$smarty->_get_filter_name($function)]);
 } 

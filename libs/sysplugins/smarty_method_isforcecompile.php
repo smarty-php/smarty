@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method isForceCompile
+* Smarty method IsForceCompile
 * 
 * is forced compiling
 * 
@@ -14,7 +14,7 @@
 * 
 * is forced compiling
 */
-function isForceCompile($smarty)
+function  Smarty_Method_IsForceCompile($smarty)
     {
         return $smarty->force_compile;
     } 

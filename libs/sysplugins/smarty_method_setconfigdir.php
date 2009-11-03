@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method setConfigDir
+* Smarty method SetConfigDir
 * 
 * Sets directory of config files
 * 
@@ -17,7 +17,7 @@
 * @param string $ config folder
 * @return 
 */
-function SetConfigDir($smarty, $config_dir)
+function  Smarty_Method_SetConfigDir($smarty, $config_dir)
 {
     $this->smarty->config_dir = $config_dir;
     return;

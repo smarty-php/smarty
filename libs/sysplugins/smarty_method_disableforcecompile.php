@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableForceCompile
+* Smarty method DisableForceCompile
 * 
 * Disable forced compiling
 * 
@@ -13,7 +13,7 @@
 /**
 * Disable forced compiling
 */
-function disableForceCompile($smarty)
+function  Smarty_Method_DisableForceCompile($smarty)
 {
     $smarty->force_compile = false;
     return;

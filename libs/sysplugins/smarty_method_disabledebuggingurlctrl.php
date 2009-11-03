@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableDebuggingUrlCtrl
+* Smarty method DisableDebuggingUrlCtrl
 * 
 * Disable possibility to Disable debugging by SMARTY_DEBUG attribute
 * 
@@ -13,7 +13,7 @@
 /**
 * Disable possibility to Disable debugging by SMARTY_DEBUG attribute
 */
-function disableDebuggingUrlCtrl($smarty)
+function  Smarty_Method_DisableDebuggingUrlCtrl($smarty)
     {
         $smarty->debugging_ctrl = 'none';
         return;

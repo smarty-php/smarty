@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method enableVariableFilter
+* Smarty method EnableVariableFilter
 * 
 * Enable  filter on variable output
 * 
@@ -13,7 +13,7 @@
 /**
 * Enable filter on variable output
 */
-function enableVariableFilter($smarty)
+function  Smarty_Method_EnableVariableFilter($smarty)
 {
     $smarty->variable_filter = true;
     return;

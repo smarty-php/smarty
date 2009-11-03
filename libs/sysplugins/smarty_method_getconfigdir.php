@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method getConfigDir
+* Smarty method GetConfigDir
 * 
 * Returns directory of config files
 * 
@@ -19,7 +19,7 @@
 * 
 * @return array config folder
 */
-function getConfigDir($smarty)
+function  Smarty_Method_GetConfigDir($smarty)
 {
     return $smarty->config_dir;
 } 

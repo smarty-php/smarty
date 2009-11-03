@@ -17,7 +17,7 @@
 * @param object $smarty 
 * @param callback $function 
 */
-function register_outputfilter($smarty, $function)
+function  Smarty_Method_Register_Outputfilter($smarty, $function)
 {
     $smarty->registered_filters['output'][$smarty->_get_filter_name($function)] = $function;
 } 

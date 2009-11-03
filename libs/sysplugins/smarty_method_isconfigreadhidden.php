@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method isConfigReadHidden
+* Smarty method IsConfigReadHidden
 * 
 * is config read hidden mode
 * 
@@ -14,7 +14,7 @@
 * 
 * is config read hidden mode
 */
-function isConfigReadHidden($smarty)
+function  Smarty_Method_IsConfigReadHidden($smarty)
     {
         return $smarty->config_read_hidden;
     } 

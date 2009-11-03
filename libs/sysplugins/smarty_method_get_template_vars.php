@@ -20,7 +20,7 @@
 * @param string $varname variable name or null
 * @return string variable value or or array of variables
 */
-function get_template_vars($smarty, $varname = null, $_ptr = null, $search_parents = true)
+function  Smarty_Method_Get_Template_Vars($smarty, $varname = null, $_ptr = null, $search_parents = true)
 {
     if (isset($varname)) {
         $_var = $smarty->getVariable($varname, $_ptr, $search_parents);

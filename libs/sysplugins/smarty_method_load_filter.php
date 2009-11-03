@@ -16,7 +16,7 @@
 * @param string $type filter type
 * @param string $name filter name
 */
-function load_filter($smarty, $type, $name)
+function  Smarty_Method_Load_Filter($smarty, $type, $name)
 {
     $_plugin = "smarty_{$type}filter_{$name}";
     $_filter_name = $_plugin;

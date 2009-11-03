@@ -20,7 +20,7 @@
     * 
     * @param string $object name of template object
     */
-     function unregister_object($smarty, $object)
+     function  Smarty_Method_Unregister_Object($smarty, $object)
     {
         unset($smarty->registered_objects[$object]);
     } 

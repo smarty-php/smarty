@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method getVariableFilter
+* Smarty method GetVariableFilter
 * 
 * get status of filter on variable output
 * 
@@ -15,7 +15,7 @@
 * 
 * get status of filter on variable output
 */
-function getVariableFilter($smarty)
+function  Smarty_Method_GetVariableFilter($smarty)
 {
     return $smarty->variable_filter;
 } 

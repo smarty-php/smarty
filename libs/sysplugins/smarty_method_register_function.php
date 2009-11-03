@@ -18,7 +18,7 @@
 * @param string $function_impl the name of the PHP function to register
 * @param boolean $cacheable if true (default) this fuction is cachable
 */
-function register_function($smarty, $function_tag, $function_impl, $cacheable = true, $cache_attr = array())
+function  Smarty_Method_Register_Function($smarty, $function_tag, $function_impl, $cacheable = true, $cache_attr = array())
 {
     if (isset($smarty->registered_plugins[$function_tag])) {
         throw new Exception("Plugin tag \"{$function_tag}\" already registered");

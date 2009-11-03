@@ -17,7 +17,7 @@
 * @param string $ |array $varname variable name or array of variable names
 * @param object $data_object object which holds tpl_vars
 */
-function clear_assign($smarty, $varname, $data_object = null)
+function  Smarty_Method_Clear_Assign($smarty, $varname, $data_object = null)
 {
     foreach ((array)$varname as $variable) {
         if (isset($data_object)) {

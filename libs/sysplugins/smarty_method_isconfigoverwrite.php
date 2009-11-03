@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method isConfigOverwrite
+* Smarty method IsConfigOverwrite
 * 
 * is config overwrite mode
 * 
@@ -13,7 +13,7 @@
 /**
 * is config overwrite mode
 */
-function isConfigOverwrite($smarty)
+function  Smarty_Method_IsConfigOverwrite($smarty)
 {
     return $smarty->config_overwrite;
 } 

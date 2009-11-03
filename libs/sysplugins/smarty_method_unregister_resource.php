@@ -19,7 +19,7 @@
 * 
 * @param string $type name of resource
 */
-function Unregister_Resource($smarty, $type)
+function  Smarty_Method_Unregister_Resource($smarty, $type)
 {
     unset($smarty->plugins['resource'][$type]);
 } 

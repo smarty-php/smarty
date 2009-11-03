@@ -8,7 +8,7 @@
 * @subpackage plugins
 */
 
-function test($smarty)
+function  Smarty_Method_Test($smarty)
 {
     echo "<PRE>\n";
 

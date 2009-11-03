@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method isCaching
+* Smarty method IsCaching
 * 
 * is caching
 * 
@@ -13,7 +13,7 @@
 /**
 * is caching
 */
-function isCaching($smarty)
+function  Smarty_Method_IsCaching($smarty)
 {
     return $smarty->caching;
 } 

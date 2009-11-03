@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method getTemplateDir
+* Smarty method GetTemplateDir
 * 
 * Returns template directory
 * 
@@ -19,7 +19,7 @@
 * 
 * @return array template folders
 */
-function getTemplateDir($smarty)
+function  Smarty_Method_GetTemplateDir($smarty)
 {
     return $smarty->template_dir;
 } 

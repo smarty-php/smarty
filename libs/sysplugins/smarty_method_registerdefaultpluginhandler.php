@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method registerDefaultPluginhandlerHandler
+* Smarty method RegisterDefaultPluginhandlerHandler
 * 
 * Registers a default plugin handler
 * 
@@ -16,7 +16,7 @@
 * @param object $smarty 
 * @param string $ |array $plugin class/methode name
 */
-function registerDefaultPluginHandler($smarty, $plugin)
+function  Smarty_Method_RegisterDefaultPluginHandler($smarty, $plugin)
 {
     if (is_callable($plugin)) {
         $smarty->default_plugin_handler_func = $plugin;

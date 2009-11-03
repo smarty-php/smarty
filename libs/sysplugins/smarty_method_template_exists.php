@@ -20,7 +20,7 @@
 * @param string $resource_name template name
 * @return boolean status
 */
-function template_exists($smarty, $resource_name)
+function  Smarty_Method_Template_Exists($smarty, $resource_name)
 { 
     // create template object
     $tpl = new $smarty->template_class($resource_name, $smarty); 

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty method disableConfigReadHidden
+* Smarty method DisableConfigReadHidden
 * 
 * Disable config read hidden mode
 * 
@@ -13,7 +13,7 @@
 /**
 * Disable config read hidden mode
 */
-function disableConfigReadHidden ($smarty)
+function  Smarty_Method_DisableConfigReadHidden ($smarty)
 {
     $this->smarty->config_read_hidden = false;
     return;
