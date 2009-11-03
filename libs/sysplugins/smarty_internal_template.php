@@ -210,7 +210,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         $this->isExisting(true);
         if ($this->mustCompile === null) {
-            $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
+            $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || $this->getCompiledTimestamp () === false ||
+            ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
         } 
         return $this->mustCompile;
     } 
@@ -370,11 +371,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 if ($this->getCachedTimestamp() === false) {
                     return $this->isCached;
                 } 
-                if (($this->caching == SMARTY_CACHING_LIFETIME_SAVED || ($this->caching == SMARTY_CACHING_LIFETIME_CURRENT && (time() <= ($this->getCachedTimestamp() + $this->cache_lifetime) || $this->cache_lifetime < 0)))) {
+                if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED || ($this->caching && (time() <= ($this->getCachedTimestamp() + $this->cache_lifetime) || $this->cache_lifetime < 0))) {
                     $_start_time = $this->_get_time();
                     $this->rendered_content = $this->cache_resource_object->getCachedContents($this);
                     $this->cache_time += $this->_get_time() - $_start_time;
-                    if ($this->caching == SMARTY_CACHING_LIFETIME_SAVED && $this->properties['cache_lifetime'] >0 && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']))) {
+                    if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED && $this->properties['cache_lifetime'] >0 && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']))) {
                         $this->rendered_content = null;
                         return $this->isCached;
                     } 

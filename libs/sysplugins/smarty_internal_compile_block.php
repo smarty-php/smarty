@@ -26,11 +26,11 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
         $this->optional_attributes = array('assign'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
-        $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code); 
+        $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code);
         $this->_open_tag('block', $save);
         $compiler->template->extract_code = true;
         $compiler->template->extracted_compiled_code = '';
-        $compiler->template->has_code = false; 
+        $compiler->template->has_code = false;
         return true;
     } 
 } 
@@ -76,7 +76,14 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             $_output = $compiler->template->extracted_compiled_code;
         } 
         $compiler->template->extracted_compiled_code = $saved_data[1];
-        $compiler->template->extract_code = $saved_data[2];
+        $compiler->template->extract_code = $saved_data[2]; 
+        // check for includes in block tags
+        preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $_output, $matches);
+        $_output = preg_replace(array('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>.*\n)/', '/(\<\?php if\(\!defined\(\'SMARTY_DIR\'\)\))(.*)(\?\>.*\n)/'), '', $_output); 
+        if (isset($matches[2])) {
+            $prop = unserialize($matches[2]);
+            $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $prop['file_dependency']);
+        } 
         return $_output;
     } 
 } 
