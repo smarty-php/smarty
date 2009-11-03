@@ -217,13 +217,15 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $_file_perms = 0644; 
     // default dir permissions
     public $_dir_perms = 0771;
+    // smarty object reference
+    public $smarty = null;
 
     /**
     * Class constructor, initializes basic smarty properties
     */
     public function __construct()
     { 
-        // self reference needed by other classes methodes
+        // self reference needed by other classes methods
         $this->smarty = $this;
 
         if (is_callable('mb_internal_encoding')) {
