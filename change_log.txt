@@ -1,5 +1,6 @@
 11/04/2009
 - added typecasting support for template variables
+- bugfix on complex indexed special Smarty variables
 
 11/03/2009
 - fixed parser error on objects with special smarty vars

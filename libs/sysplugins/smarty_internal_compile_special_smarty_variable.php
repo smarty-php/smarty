@@ -21,7 +21,7 @@ class Smarty_Internal_Compile_Special_Smarty_Variable extends Smarty_Internal_Co
     */
     public function compile($args, $compiler)
     {
-        $_index = explode(',', str_replace(array('][', '[', ']'), array(',', '', ''), $args));
+        $_index = explode(',', str_replace(array(']['), array(','), substr($args,1,strlen($args)-2)));
         $compiled_ref = ' ';
         switch (trim($_index[0], "'")) {
             case 'foreach':
