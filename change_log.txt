@@ -1,3 +1,6 @@
+11/05/2009
+- config_load method can now be called on data and template objects
+
 11/04/2009
 - added typecasting support for template variables
 - bugfix on complex indexed special Smarty variables

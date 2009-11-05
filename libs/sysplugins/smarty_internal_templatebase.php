@@ -201,6 +201,19 @@ class Smarty_Internal_TemplateBase {
     } 
 
     /**
+    * load a config file, optionally load just selected sections
+    * 
+    * @param string $config_file filename
+    * @param mixed $sections array of section names, single section or null
+    */
+    public function config_load($config_file, $sections = null)
+    { 
+        // load Config class
+        $config = new Smarty_Internal_Config($config_file, $this->smarty);
+        $config->loadConfigVars($sections, $this);
+    } 
+
+    /**
     * gets the object of a Smarty variable
     * 
     * @param string $variable the name of the Smarty variable
