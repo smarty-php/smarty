@@ -52,7 +52,7 @@ abstract class Smarty_Internal_CompileBase
             $tmp_array = array_merge($this->required_attributes, $this->optional_attributes);
             foreach ($args as $key => $dummy) {
                  if (!in_array($key, $tmp_array) && $key !== 0) {
-                   $this->compiler->trigger_template_error("unexspected \"" . $key . "\" attribute");
+                   $this->compiler->trigger_template_error("unexpected \"" . $key . "\" attribute");
                 } 
             } 
         } 

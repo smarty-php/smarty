@@ -88,7 +88,7 @@ define('SMARTY_PHP_ALLOW', 3); //-> escape tags as entities
 * register the class autoloader
 */
 spl_autoload_register('smartyAutoload');
-
+                            
 
 /**
 * This is the main Smarty class
@@ -527,7 +527,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
 function smartyAutoload($class)
 {
     $_class = strtolower($class);
-    if (substr($_class, 0, 16) === 'smarty_internal_') {
+    if (substr($_class, 0, 16) === 'smarty_internal_' || $_class == 'smarty_security') {
         include SMARTY_SYSPLUGINS_DIR . $_class . '.php';
     } 
 } 
