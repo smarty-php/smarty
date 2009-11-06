@@ -87,16 +87,9 @@ define('SMARTY_PHP_ALLOW', 3); //-> escape tags as entities
 /**
 * register the class autoloader
 */
-spl_autoload_extensions('.php,.inc');
-if (set_include_path(SMARTY_SYSPLUGINS_DIR . PATH_SEPARATOR . get_include_path()) !== false) {
-    $spl_funcs = spl_autoload_functions();
-    if ($spl_funcs === false)
-        spl_autoload_register();
-    elseif (!in_array('spl_autoload', $spl_funcs))
-        spl_autoload_register('spl_autoload');
-} else {
-    spl_autoload_register('smartyAutoload');
-} 
+spl_autoload_register('smartyAutoload');
+
+
 /**
 * This is the main Smarty class
 */
