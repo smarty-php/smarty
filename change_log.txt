@@ -1,4 +1,5 @@
 11/08/2009
+- fixed alphanumeric array index 
 - bugfix on complex double quoted strings
 
 11/05/2009
