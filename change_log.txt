@@ -1,3 +1,6 @@
+11/08/2009
+- bugfix on complex double quoted strings
+
 11/05/2009
 - config_load method can now be called on data and template objects
 
