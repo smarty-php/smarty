@@ -1,6 +1,7 @@
 11/09/2009
 - lexer/parser bugfix 
 - new SMARTY_SPL_AUTOLOAD constant to control the autoloader option
+- bugfix for {function} block tags in included templates
 
 11/08/2009
 - fixed alphanumeric array index 
