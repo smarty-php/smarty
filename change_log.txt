@@ -1,3 +1,6 @@
+11/09/2009
+- lexer/parser bugfix 
+
 11/08/2009
 - fixed alphanumeric array index 
 - bugfix on complex double quoted strings

@@ -83,7 +83,6 @@ class Smarty_Internal_Templatelexer
         $this->rdel = preg_quote($this->smarty->right_delimiter);
         $this->smarty_token_names['LDEL'] =	$this->smarty->left_delimiter;
         $this->smarty_token_names['RDEL'] =	$this->smarty->right_delimiter;
-        $this->ldel_count = 0;
      }
     public static function &instance($new_instance = null)
     {
@@ -125,7 +124,8 @@ class Smarty_Internal_Templatelexer
     {
         $tokenMap = array (
               1 => 0,
-              2 => 2,
+              2 => 1,
+              4 => 0,
               5 => 0,
               6 => 0,
               7 => 0,
@@ -136,14 +136,13 @@ class Smarty_Internal_Templatelexer
               12 => 0,
               13 => 0,
               14 => 0,
-              15 => 0,
-              16 => 2,
-              19 => 0,
+              15 => 2,
+              18 => 0,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(\\{\\})|^(".$this->ldel."\\*((\\s|.)*?)\\*".$this->rdel.")|^(<\\?xml)|^(<\\?php)|^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)/";
+        $yy_global_pattern = "/^(\\{\\})|^(".$this->ldel."\\*([\S\s]*?)\\*".$this->rdel.")|^(<\\?xml)|^(<\\?php)|^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)/";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -183,21 +182,21 @@ class Smarty_Internal_Templatelexer
                     // skip this token
                     continue;
                 } else {                    $yy_yymore_patterns = array(
-        1 => array(0, "^(".$this->ldel."\\*((\\s|.)*?)\\*".$this->rdel.")|^(<\\?xml)|^(<\\?php)|^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        2 => array(2, "^(<\\?xml)|^(<\\?php)|^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        5 => array(2, "^(<\\?php)|^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        6 => array(2, "^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        7 => array(2, "^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        8 => array(2, "^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        9 => array(2, "^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        10 => array(2, "^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        11 => array(2, "^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        12 => array(2, "^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        13 => array(2, "^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        14 => array(2, "^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        15 => array(2, "^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
-        16 => array(4, "^([\S\s]+)"),
-        19 => array(4, ""),
+        1 => array(0, "^(".$this->ldel."\\*([\S\s]*?)\\*".$this->rdel.")|^(<\\?xml)|^(<\\?php)|^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        2 => array(1, "^(<\\?xml)|^(<\\?php)|^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        4 => array(1, "^(<\\?php)|^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        5 => array(1, "^(<\\?=)|^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        6 => array(1, "^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        7 => array(1, "^(".$this->ldel."\/literal".$this->rdel.")|^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        8 => array(1, "^(".$this->ldel."ldelim".$this->rdel.")|^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        9 => array(1, "^(".$this->ldel."rdelim".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        10 => array(1, "^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        11 => array(1, "^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        12 => array(1, "^(".$this->ldel."\/)|^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        13 => array(1, "^(".$this->ldel.")|^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        14 => array(1, "^(([\S\s]*?)(".$this->ldel."|<\\?))|^([\S\s]+)"),
+        15 => array(3, "^([\S\s]+)"),
+        18 => array(3, ""),
     );
 
                     // yymore is needed
@@ -264,45 +263,46 @@ class Smarty_Internal_Templatelexer
 
   $this->token = Smarty_Internal_Templateparser::TP_COMMENT;
     }
-    function yy_r1_5($yy_subpatterns)
+    function yy_r1_4($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_XML;
   $this->yypushstate(self::PHP);
     }
-    function yy_r1_6($yy_subpatterns)
+    function yy_r1_5($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_PHP;
   $this->yypushstate(self::PHP);
     }
-    function yy_r1_7($yy_subpatterns)
+    function yy_r1_6($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_SHORTTAGSTART;
   $this->yypushstate(self::PHP);
     }
+    function yy_r1_7($yy_subpatterns)
+    {
+
+  $this->yypushstate(self::LITERAL);
+  return true;
+    }
     function yy_r1_8($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_LITERALSTART;
+  return false;  // unexspected here just ignore
     }
     function yy_r1_9($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_LITERALEND;
+  $this->token = Smarty_Internal_Templateparser::TP_LDELIMTAG;
     }
     function yy_r1_10($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_LDELIMTAG;
-    }
-    function yy_r1_11($yy_subpatterns)
-    {
-
   $this->token = Smarty_Internal_Templateparser::TP_RDELIMTAG;
     }
-    function yy_r1_12($yy_subpatterns)
+    function yy_r1_11($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal) {
@@ -312,7 +312,7 @@ class Smarty_Internal_Templatelexer
      $this->yypushstate(self::SMARTY);
   }
     }
-    function yy_r1_13($yy_subpatterns)
+    function yy_r1_12($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal) {
@@ -322,19 +322,19 @@ class Smarty_Internal_Templatelexer
      $this->yypushstate(self::SMARTY);
   }
     }
-    function yy_r1_14($yy_subpatterns)
+    function yy_r1_13($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
      $this->yypushstate(self::SMARTY);
     }
-    function yy_r1_15($yy_subpatterns)
+    function yy_r1_14($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_LDEL;
      $this->yypushstate(self::SMARTY);
     }
-    function yy_r1_16($yy_subpatterns)
+    function yy_r1_15($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
@@ -349,7 +349,7 @@ class Smarty_Internal_Templatelexer
      return;				// change state after processiing token
   }
     }
-    function yy_r1_19($yy_subpatterns)
+    function yy_r1_18($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
@@ -610,12 +610,13 @@ class Smarty_Internal_Templatelexer
     function yy_r2_4($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_LITERALSTART;
+  $this->yypushstate(self::LITERAL);
+  return true;
     }
     function yy_r2_5($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_LITERALEND;
+  return false;  // unexspected here just ignore
     }
     function yy_r2_6($yy_subpatterns)
     {
@@ -1084,6 +1085,147 @@ class Smarty_Internal_Templatelexer
   $this->value = substr($this->value,0,-2);
     }
     function yy_r3_4($yy_subpatterns)
+    {
+
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+    }
+
+
+    function yylex4()
+    {
+        $tokenMap = array (
+              1 => 0,
+              2 => 0,
+              3 => 1,
+              5 => 0,
+            );
+        if ($this->counter >= strlen($this->data)) {
+            return false; // end of input
+        }
+        $yy_global_pattern = "/^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(([\S\s]*?)".$this->ldel."\/literal".$this->rdel.")|^([\S\s]+)/";
+
+        do {
+            if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
+                $yysubmatches = $yymatches;
+                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                if (!count($yymatches)) {
+                    throw new Exception('Error: lexing failed because a rule matched' .
+                        'an empty string.  Input "' . substr($this->data,
+                        $this->counter, 5) . '... state LITERAL');
+                }
+                next($yymatches); // skip global match
+                $this->token = key($yymatches); // token number
+                if ($tokenMap[$this->token]) {
+                    // extract sub-patterns for passing to lex function
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
+                        $tokenMap[$this->token]);
+                } else {
+                    $yysubmatches = array();
+                }
+                $this->value = current($yymatches); // token value
+                $r = $this->{'yy_r4_' . $this->token}($yysubmatches);
+                if ($r === null) {
+                    $this->counter += strlen($this->value);
+                    $this->line += substr_count($this->value, "\n");
+                    // accept this token
+                    return true;
+                } elseif ($r === true) {
+                    // we have changed state
+                    // process this token in the new state
+                    return $this->yylex();
+                } elseif ($r === false) {
+                    $this->counter += strlen($this->value);
+                    $this->line += substr_count($this->value, "\n");
+                    if ($this->counter >= strlen($this->data)) {
+                        return false; // end of input
+                    }
+                    // skip this token
+                    continue;
+                } else {                    $yy_yymore_patterns = array(
+        1 => array(0, "^(".$this->ldel."\/literal".$this->rdel.")|^(([\S\s]*?)".$this->ldel."\/literal".$this->rdel.")|^([\S\s]+)"),
+        2 => array(0, "^(([\S\s]*?)".$this->ldel."\/literal".$this->rdel.")|^([\S\s]+)"),
+        3 => array(1, "^([\S\s]+)"),
+        5 => array(1, ""),
+    );
+
+                    // yymore is needed
+                    do {
+                        if (!strlen($yy_yymore_patterns[$this->token][1])) {
+                            throw new Exception('cannot do yymore for the last token');
+                        }
+                        $yysubmatches = array();
+                        if (preg_match('/' . $yy_yymore_patterns[$this->token][1] . '/',
+                              substr($this->data, $this->counter), $yymatches)) {
+                            $yysubmatches = $yymatches;
+                            $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                            next($yymatches); // skip global match
+                            $this->token += key($yymatches) + $yy_yymore_patterns[$this->token][0]; // token number
+                            $this->value = current($yymatches); // token value
+                            $this->line = substr_count($this->value, "\n");
+                            if ($tokenMap[$this->token]) {
+                                // extract sub-patterns for passing to lex function
+                                $yysubmatches = array_slice($yysubmatches, $this->token + 1,
+                                    $tokenMap[$this->token]);
+                            } else {
+                                $yysubmatches = array();
+                            }
+                        }
+                    	$r = $this->{'yy_r4_' . $this->token}($yysubmatches);
+                    } while ($r !== null && !is_bool($r));
+			        if ($r === true) {
+			            // we have changed state
+			            // process this token in the new state
+			            return $this->yylex();
+                    } elseif ($r === false) {
+                        $this->counter += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        if ($this->counter >= strlen($this->data)) {
+                            return false; // end of input
+                        }
+                        // skip this token
+                        continue;
+			        } else {
+	                    // accept
+	                    $this->counter += strlen($this->value);
+	                    $this->line += substr_count($this->value, "\n");
+	                    return true;
+			        }
+                }
+            } else {
+                throw new Exception('Unexpected input at line' . $this->line .
+                    ': ' . $this->data[$this->counter]);
+            }
+            break;
+        } while (true);
+
+    } // end function
+
+
+    const LITERAL = 4;
+    function yy_r4_1($yy_subpatterns)
+    {
+
+  return false;
+    }
+    function yy_r4_2($yy_subpatterns)
+    {
+
+  $this->yypopstate();
+  return false;
+    }
+    function yy_r4_3($yy_subpatterns)
+    {
+
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+  $this->value = substr($this->value,0,-strlen($this->smarty->left_delimiter)-strlen($this->smarty->right_delimiter)-8);
+  $this->yypopstate();
+  if (strlen($this->value) == 0) {
+     return false;		// change state directly
+  } else {
+     return;				// change state after processiing token
+  }
+    }
+    function yy_r4_5($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
