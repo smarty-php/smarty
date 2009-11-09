@@ -68,7 +68,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                         $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $prop['file_dependency']);
                     } 
                     if (isset($prop['function'])) {
-                        $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $prop['function']);
+                        $compiler->template->properties['function'] = array_merge((array)$compiler->template->properties['function'], $prop['function']);
                     } 
                     $has_compiled_template = true;
                 }
