@@ -1,5 +1,6 @@
 11/09/2009
 - lexer/parser bugfix 
+- new SMARTY_SPL_AUTOLOAD constant to control the autoloader option
 
 11/08/2009
 - fixed alphanumeric array index 
