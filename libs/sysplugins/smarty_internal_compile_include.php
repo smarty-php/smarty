@@ -34,45 +34,49 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             // check if compiled code can be merged (contains no variable part)
             if (!$compiler->has_variable_string && (substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2) and substr_count($include_file, '(') == 0) {
                 eval("\$tmp = $include_file;");
-				if ($this->compiler->template->template_resource != $tmp) {
-                $tpl = $compiler->smarty->createTemplate ($tmp, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
-                if ($tpl->usesCompiler() && $tpl->isExisting()) {
-                    do {
-                        $must_compile = false;
-                        $prop = array();
-                        $compiled_tpl = $tpl->getCompiledTemplate();
-                        preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $compiled_tpl, $matches);
-                        $compiled_tpl = preg_replace(array('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>.*\n)/', '/(\<\?php if\(\!defined\(\'SMARTY_DIR\'\)\))(.*)(\?\>.*\n)/'), '', $compiled_tpl); 
-                        // var_dump($matches, $compiled_tpl);
-                        if (isset($matches[2])) {
-                            $prop = unserialize($matches[2]);
-                            foreach ($prop['file_dependency'] as $_file_to_check) {
-                                If (is_file($_file_to_check[0])) {
-                                    $mtime = filemtime($_file_to_check[0]);
-                                } else {
-                                    $tpl->parseResourceName($_file_to_check[0], $resource_type, $resource_name, $resource_handler);
-                                    $mtime = $resource_handler->getTemplateTimestampTypeName($resource_type, $resource_name);
+                if ($this->compiler->template->template_resource != $tmp) {
+                    $tpl = $compiler->smarty->createTemplate ($tmp, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
+                    if ($tpl->usesCompiler() && $tpl->isExisting()) {
+                        do {
+                            $must_compile = false;
+                            $prop = array();
+                            $compiled_tpl = $tpl->getCompiledTemplate();
+                            preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $compiled_tpl, $matches);
+                            $compiled_tpl = preg_replace(array('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>.*\n)/', '/(\<\?php if\(\!defined\(\'SMARTY_DIR\'\)\))(.*)(\?\>.*\n)/'), '', $compiled_tpl); 
+                            // var_dump($matches, $compiled_tpl);
+                            if (isset($matches[2])) {
+                                $prop = unserialize($matches[2]);
+                                foreach ($prop['file_dependency'] as $_file_to_check) {
+                                    If (is_file($_file_to_check[0])) {
+                                        $mtime = filemtime($_file_to_check[0]);
+                                    } else {
+                                        $tpl->parseResourceName($_file_to_check[0], $resource_type, $resource_name, $resource_handler);
+                                        $mtime = $resource_handler->getTemplateTimestampTypeName($resource_type, $resource_name);
+                                    } 
+                                    If ($mtime != $_file_to_check[1]) {
+                                        $must_compile = true;
+                                        break;
+                                    } 
                                 } 
-                                If ($mtime != $_file_to_check[1]) {
-                                    $must_compile = true;
-                                    break;
+                                if ($must_compile) {
+                                    // recompile
+                                    $tpl->compileTemplateSource();
                                 } 
                             } 
-                            if ($must_compile) {
-                                // recompile
-                                $tpl->compileTemplateSource();
+                        } while ($must_compile);
+                        if (isset($prop['file_dependency'])) {
+                            $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $prop['file_dependency']);
+                        } 
+                        if (isset($prop['function'])) {
+                            if (isset($compiler->template->properties['function'])) {
+                                $compiler->template->properties['function'] = array_merge((array)$compiler->template->properties['function'], $prop['function']);
+                            } else {
+                                $compiler->template->properties['function'] = $prop['function'];
                             } 
                         } 
-                    } while ($must_compile);
-                    if (isset($prop['file_dependency'])) {
-                        $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $prop['file_dependency']);
+                        $has_compiled_template = true;
                     } 
-                    if (isset($prop['function'])) {
-                        $compiler->template->properties['function'] = array_merge((array)$compiler->template->properties['function'], $prop['function']);
-                    } 
-                    $has_compiled_template = true;
-                }
-				}
+                } 
             } 
         } 
 

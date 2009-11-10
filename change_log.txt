@@ -1,3 +1,6 @@
+11/10/2009
+- fixed preg_qoute on delimiters
+
 11/09/2009
 - lexer/parser bugfix 
 - new SMARTY_SPL_AUTOLOAD constant to control the autoloader option

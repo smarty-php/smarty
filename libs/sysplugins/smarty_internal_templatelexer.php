@@ -79,8 +79,8 @@ class Smarty_Internal_Templatelexer
         $this->counter = 0;
         $this->line = 1;
         $this->smarty = $smarty;
-        $this->ldel = preg_quote($this->smarty->left_delimiter); 
-        $this->rdel = preg_quote($this->smarty->right_delimiter);
+        $this->ldel = preg_quote($this->smarty->left_delimiter,'/'); 
+        $this->rdel = preg_quote($this->smarty->right_delimiter,'/');
         $this->smarty_token_names['LDEL'] =	$this->smarty->left_delimiter;
         $this->smarty_token_names['RDEL'] =	$this->smarty->right_delimiter;
      }
