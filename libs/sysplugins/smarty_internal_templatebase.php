@@ -30,13 +30,11 @@ class Smarty_Internal_TemplateBase {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
                 if ($_key != '') {
-                    $this->check_tplvar($_key);
                     $this->tpl_vars[$_key] = new Smarty_variable($_val, $nocache, $scope);
                 } 
             } 
         } else {
             if ($tpl_var != '') {
-                $this->check_tplvar($tpl_var);
                 $this->tpl_vars[$tpl_var] = new Smarty_variable($value, $nocache, $scope);
             } 
         } 
@@ -51,7 +49,6 @@ class Smarty_Internal_TemplateBase {
     public function assign_global($varname, $value = null, $nocache = false)
     {
         if ($varname != '') {
-            $this->check_tplvar($varname);
             $this->smarty->global_tpl_vars[$varname] = new Smarty_variable($value, $nocache);
         } 
     } 
@@ -66,7 +63,6 @@ class Smarty_Internal_TemplateBase {
     public function assign_by_ref($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
         if ($tpl_var != '') {
-            $this->check_tplvar($tpl_var);
             $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
             $this->tpl_vars[$tpl_var]->value = &$value;
         } 
@@ -87,7 +83,6 @@ class Smarty_Internal_TemplateBase {
             foreach ($tpl_var as $_key => $_val) {
                 if ($_key != '') {
                     if (!isset($this->tpl_vars[$_key])) {
-                        $this->check_tplvar($_key);
                         $tpl_var_inst = $this->getVariable($_key, null, true, false);
                         if ($tpl_var_inst instanceof Undefined_Smarty_Variable) {
                             $this->tpl_vars[$_key] = new Smarty_variable(null, $nocache, $scope);
@@ -113,7 +108,6 @@ class Smarty_Internal_TemplateBase {
         } else {
             if ($tpl_var != '' && isset($value)) {
                 if (!isset($this->tpl_vars[$tpl_var])) {
-                    $this->check_tplvar($tpl_var);
                     $tpl_var_inst = $this->getVariable($tpl_var, null, true, false);
                     if ($tpl_var_inst instanceof Undefined_Smarty_Variable) {
                         $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
@@ -164,17 +158,6 @@ class Smarty_Internal_TemplateBase {
         } 
     } 
 
-    /**
-    * check if template variable name is reserved.
-    * 
-    * @param string $tpl_var the template variable
-    */
-    private function check_tplvar($tpl_var)
-    {
-        if (in_array($tpl_var, array('this', 'smarty'))) {
-            throw new Exception("Cannot assign value to reserved var '{$tpl_var}'");
-        } 
-    } 
 
     /**
     * clear the given assigned template variable.
