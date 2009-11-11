@@ -332,7 +332,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // display template
         echo $this->fetch ($template, $cache_id, $compile_id, $parent); 
         // debug output
-        $this->displayDebugInfo();
+        if ($this->debugging) {
+            Smarty_Internal_Debug::display_debug($this);
+        } 
         return true;
     } 
 
@@ -486,16 +488,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     {
         $this->exception_handler = $handler;
         return set_exception_handler($handler);
-    } 
-
-    /**
-    * Display debug info
-    */
-    public function displayDebugInfo()
-    {
-        if ($this->debugging) {
-            Smarty_Internal_Debug::display_debug($this);
-        } 
     } 
 
     /**

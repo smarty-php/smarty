@@ -13,35 +13,67 @@
 * Smarty Internal Plugin Debug Class
 */
 class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
+    // template data
+    static $template_data = array();
+
+    /**
+    * Start logging of compile time
+    */
+    public static function start_compile($template)
+    {
+        $key = self::get_key($template);
+        self::$template_data[$key]['start_time'] = self::get_time();
+    } 
+
+    /**
+    * End logging of compile time
+    */
+    public static function end_compile($template)
+    {
+        $key = self::get_key($template);
+        self::$template_data[$key]['compile_time'] = self::get_time() - self::$template_data[$key]['start_time'];
+    } 
+
+    /**
+    * Start logging of render time
+    */
+    public static function start_render($template)
+    {
+        $key = self::get_key($template);
+        self::$template_data[$key]['start_time'] = self::get_time();
+    } 
+
+    /**
+    * End logging of compile time
+    */
+    public static function end_render($template)
+    {
+        $key = self::get_key($template);
+        self::$template_data[$key]['render_time'] = self::get_time() - self::$template_data[$key]['start_time'];
+    } 
+
+    /**
+    * Start logging of cache time
+    */
+    public static function start_cache($template)
+    {
+        $key = self::get_key($template);
+        self::$template_data[$key]['start_time'] = self::get_time();
+    } 
+
+    /**
+    * End logging of cache time
+    */
+    public static function end_cache($template)
+    {
+        $key = self::get_key($template);
+        self::$template_data[$key]['cache_time'] = self::get_time() - self::$template_data[$key]['start_time'];
+    } 
     /**
     * Opens a window for the Smarty Debugging Consol and display the data
     */
     public static function display_debug($smarty)
-    {
-        // get template names
-        $i = 0;
-        $_template_data = array();
-        if (is_array($smarty->template_objects)) {
-            foreach ($smarty->template_objects as $_template_obj) {
-                // exclude the debugging template from displayed data
-                if ($smarty->debug_tpl != $_template_obj->resource_name) {
-                    $_template_data[$i]['name'] = $_template_obj->getTemplateFilepath();
-                    $_template_data[$i]['compile_time'] = $_template_obj->compile_time;
-                    $_template_data[$i]['render_time'] = $_template_obj->render_time;
-                    $_template_data[$i]['cache_time'] = $_template_obj->cache_time;
-                    $i++;
-                    if (false && $i == 1) {
-                        foreach ($_template_obj->properties['file_dependency'] as $_file) {
-                            $_template_data[$i]['name'] = $_file[0];
-                            $_template_data[$i]['compile_time'] = 0;
-                            $_template_data[$i]['render_time'] = 0;
-                            $_template_data[$i]['cache_time'] = 0;
-                            $i++;
-                        } 
-                    } 
-                } 
-            } 
-        } 
+    { 
         // prepare information of assigned variables
         $_assigned_vars = $smarty->tpl_vars;
         ksort($_assigned_vars);
@@ -51,11 +83,40 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
         $_template->caching = false;
         $_template->force_compile = false;
         $_template->security = false;
-        $_template->assign('template_data', $_template_data);
+        $_template->assign('template_data', self::$template_data);
         $_template->assign('assigned_vars', $_assigned_vars);
         $_template->assign('config_vars', $_config_vars);
         $_template->assign('execution_time', $smarty->_get_time() - $smarty->start_time);
         echo $smarty->fetch($_template);
+    } 
+
+    /**
+    * get_key
+    */
+    static function get_key($template)
+    {
+        $key = 'F' . abs(crc32($template->getTemplateFilepath()));
+        if (isset(self::$template_data[$key])) {
+            return $key;
+        } else {
+            self::$template_data[$key]['name'] = $template->getTemplateFilepath();
+            self::$template_data[$key]['compile_time'] = 0;
+            self::$template_data[$key]['render_time'] = 0;
+            self::$template_data[$key]['cache_time'] = 0;
+            return $key;
+        } 
+    } 
+
+    /**
+    * return current time
+    * 
+    * @returns double current time
+    */
+    static function get_time()
+    {
+        $_mtime = microtime();
+        $_mtime = explode(" ", $_mtime);
+        return (double)($_mtime[1]) + (double)($_mtime[0]);
     } 
 } 
 
