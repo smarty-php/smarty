@@ -1,3 +1,6 @@
+11/11/2009
+- fixed {foreachelse}, {forelse}, {sectionelse} compiled code at nocache variables
+
 11/10/2009
 - fixed preg_qoute on delimiters
 

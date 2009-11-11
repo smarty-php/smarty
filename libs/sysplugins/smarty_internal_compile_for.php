@@ -71,8 +71,8 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        list($_open_tag, $this->compiler->nocache) = $this->_close_tag(array('for'));
-        $this->_open_tag('forelse',array('forelse', $this->compiler->nocache));
+        list($_open_tag, $nocache) = $this->_close_tag(array('for'));
+        $this->_open_tag('forelse',array('forelse', $nocache));
         return "<?php }} else { ?>";
     } 
 } 
