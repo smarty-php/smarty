@@ -357,12 +357,12 @@ grandchild.tpl:
   {/foreach}
 {/block}
 
-We redefined all the blocks here, however in the title block we used {$amrty.parent},
+We redefined all the blocks here, however in the title block we used {$smarty.parent},
 which tells Smarty to insert the default content from the parent template in its place.
 The content block was overriden to display the image files, and page-title has also be 
 overriden to display a completely different title. 
 
-If we render garndchild.tpl we will get this: 
+If we render grandchild.tpl we will get this: 
 <html>
   <head>
     <title>Home - Child title</title>
@@ -377,7 +377,7 @@ If we render garndchild.tpl we will get this:
   </body>
 </html>
 
-NOTE: In the child templates everthing outside the {extend} or {block} tag sections
+NOTE: In the child templates everything outside the {extend} or {block} tag sections
 is ignored.
 
 The inheritance tree can be as big as you want (meaning you can extend a file that 
@@ -389,8 +389,8 @@ can use the extend resource as follow:
 
 $smarty->display('extend:grandchild.tpl|child.tpl|parent.tpl');
 
-Child {block} tags may otionally have a append or prepand attribute. In this case the parent block content 
-is appended or prpended to the child block content.
+Child {block} tags may optionally have a append or prepend attribute. In this case the parent block content 
+is appended or prepended to the child block content.
 
 {block name='title' append} My title {/block}
 
