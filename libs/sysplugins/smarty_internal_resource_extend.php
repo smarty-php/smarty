@@ -111,7 +111,7 @@ class Smarty_Internal_Resource_Extend {
             // compile block content
             $_tpl = $this->smarty->createTemplate('string:' . $block_content,null,null,$template);
             $_tpl->template_filepath = $this->template->getTemplateFilepath();
-//            $_tpl->suppressFileDependency = true;
+            $_tpl->forceNocache= true;
             $_compiled_content = $_tpl->getCompiledTemplate();
             unset($_tpl);
             $_name = trim($_match[3], "\"'}");

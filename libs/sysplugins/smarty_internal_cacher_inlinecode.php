@@ -39,7 +39,7 @@ class Smarty_Internal_Cacher_InlineCode {
         // If the template is not evaluated and we have a nocache section and or a nocache tag
         if ($is_code) {
             // generate replacement code
-            if (!$compiler->template->isEvaluated() && $compiler->template->caching &&
+            if ((!$compiler->template->isEvaluated() || $compiler->template->forceNocache) && $compiler->template->caching &&
                     ($compiler->nocache || $compiler->tag_nocache)) {
                 $compiler->tag_nocache = false;
                 $_output = str_replace("'", "\'", $content);

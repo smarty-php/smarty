@@ -25,6 +25,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public $cacher_class = null;
     public $caching_type = null;
     public $force_compile = null; 
+    public $forceNocache = false; 
     // Template resource
     public $template_resource = null;
     public $resource_type = null;
