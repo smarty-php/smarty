@@ -1,5 +1,6 @@
 11/12/2009
 - fixed variable filenames in {include_php} and {insert}
+- added scope to Smarty variables in the {block} tag compiler
 
 11/11/2009
 - fixed {foreachelse}, {forelse}, {sectionelse} compiled code at nocache variables

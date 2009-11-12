@@ -43,20 +43,20 @@ class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
         for ($i = 0; $i < $block_count; $i++) {
             $block_content = str_replace($this->smarty->left_delimiter . '$smarty.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
                 substr($_old_source, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0])));
-            $this->saveBlockData($block_content, $s[0][$i][0]);
+            $this->saveBlockData($block_content, $s[0][$i][0],$compiler->template);
         } 
         $compiler->template->template_source = $_template->getTemplateSource();
         $compiler->abort_and_recompile = true;
         return ' ';
     } 
 
-    protected function saveBlockData($block_content, $block_tag)
+    protected function saveBlockData($block_content, $block_tag,$template)
     {
         if (0 == preg_match('/(.?)(name=)([^ ]*)/', $block_tag, $_match)) {
             $this->compiler->trigger_template_error("\"" . $block_tag . "\" missing name attribute");
         } else {
             // compile block content
-            $_tpl = $this->smarty->createTemplate('string:' . $block_content);
+            $_tpl = $this->smarty->createTemplate('string:' . $block_content,null,null,$template);
             $_tpl->template_filepath = $this->compiler->template->getTemplateFilepath();
 //            $_tpl->suppressFileDependency = true;
             $_compiled_content = $_tpl->getCompiledTemplate();
