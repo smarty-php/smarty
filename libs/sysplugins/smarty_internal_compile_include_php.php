@@ -29,22 +29,23 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
         $_attr = $this->_get_attributes($args);
 
         $_output = '<?php '; 
-        // save posible attributes
-        $_file = $_attr['file'];
-        $_file = realpath(trim($_file, "'"));
 
-        if ($this->smarty->security) {
-            $this->smarty->security_handler->isTrustedPHPDir($_file);
+        $_smarty_tpl = $compiler->template; 
+        eval('$_file = ' . $_attr['file'] . ';'); 
+        
+        $_file = realpath($_file);
+
+        if ($this->compiler->smarty->security) {
+            $this->compiler->smarty->security_handler->isTrustedPHPDir($_file);
         } 
 
         if ($_file === false) {
             $this->compiler->trigger_template_error('include_php: file "' . $_attr['file'] . '" is not readable');
         } 
 
-        if ($this->smarty->security) {
-            $this->smarty->security_handler->isTrustedPHPDir($_file);
+        if ($this->compiler->smarty->security) {
+            $this->compiler->smarty->security_handler->isTrustedPHPDir($_file);
         } 
-
         if (isset($_attr['assign'])) {
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign'];
@@ -60,8 +61,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
         if (isset($_assign)) {
             $_output .= 'ob_start(); include' . $_once . ' (\'' . $_file . '\'); $_smarty_tpl->assign(' . $_assign . ',ob_get_contents()); ob_end_clean();?>';
         } else {
-            $this->compiler->has_output = true;
-            $_output .= 'include' . $_once . ' (\'' . $_file . '\'); ?>';
+            $_output .= 'include' . $_once . ' (\'' . $_file . '\');?>';
         } 
         return $_output;
     } 

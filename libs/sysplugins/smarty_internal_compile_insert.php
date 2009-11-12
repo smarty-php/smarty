@@ -22,11 +22,11 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
     */
     public function compile($args, $compiler)
     {
-        $this->compiler = $compiler; 
+        $this->compiler = $compiler;
         $this->required_attributes = array('name');
         $this->optional_attributes = array('_any'); 
         // check and get attributes
-        $_attr = $this->_get_attributes($args);
+        $_attr = $this->_get_attributes($args); 
         // this tag must not be cached
         $this->compiler->tag_nocache = true;
 
@@ -35,13 +35,14 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
         $_name = 'insert_' . trim($_attr['name'], "'\"");
         if (isset($_attr['assign'])) {
             // output will be stored in a smarty variable instead of beind displayed
-            $_assign = $_attr['assign'];
+            $_assign = $_attr['assign']; 
             // create variable to make shure that the compiler knows about its nocache status
-            $this->compiler->template->tpl_vars[trim($_attr['assign'],"'")] = new Smarty_Variable(null,true);
+            $this->compiler->template->tpl_vars[trim($_attr['assign'], "'")] = new Smarty_Variable(null, true);
         } 
         if (isset($_attr['script'])) {
             // script which must be included
-            $_script = $_attr['script'];
+            $_smarty_tpl = $compiler->template;
+            eval('$_script = ' . $_attr['script'] . ';');
             if (!file_exists($_script)) {
                 $this->compiler->trigger_template_error('missing file "' . $_script . '"');
             } 
