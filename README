@@ -323,7 +323,77 @@ can drop them right into the Smarty 3 plugin directory.
 TEMPLATE INHERITANCE:
 =====================
 
-(to be filled in)
+With template inheritance you can define blocks, which are areas that can be
+overriden by child templates, so your templates could look like this: 
+
+parent.tpl:
+<html>
+  <head>
+    <title>{block name='title'}My site name{/block}</title>
+  </head>
+  <body>
+    <h1>{block name='page-title'}Default page title{/block}</h1>
+    <div id="content">
+      {block name='content'}
+        Default content
+      {/block}
+    </div>
+  </body>
+</html>
+
+child.tpl:
+{extend file='parent.tpl'} 
+{block name='title'}
+Child title
+{/block}
+
+grandchild.tpl:
+{extend file='child.tpl'} 
+{block name='title'}Home - {$smarty.parent}{/block} 
+{block name='page-title'}My home{/block}
+{block name='content'}
+  {foreach $images as $img}
+    <img src="{$img.url}" alt="{$img.description}" />
+  {/foreach}
+{/block}
+
+We redefined all the blocks here, however in the title block we used {$amrty.parent},
+which tells Smarty to insert the default content from the parent template in its place.
+The content block was overriden to display the image files, and page-title has also be 
+overriden to display a completely different title. 
+
+If we render garndchild.tpl we will get this: 
+<html>
+  <head>
+    <title>Home - Child title</title>
+  </head>
+  <body>
+    <h1>My home</h1>
+    <div id="content">
+      <img src="/example.jpg" alt="image" />
+      <img src="/example2.jpg" alt="image" />
+      <img src="/example3.jpg" alt="image" />
+    </div>
+  </body>
+</html>
+
+NOTE: In the child templates everthing outside the {extend} or {block} tag sections
+is ignored.
+
+The inheritance tree can be as big as you want (meaning you can extend a file that 
+extends another one that extends another one and so on..), but be aware that all files 
+have to be checked for modifications at runtime so the more inheritance the more overhead you add.
+
+Instead of defining the parent/child relationships with the {extend} tag in the child template you
+can use the extend resource as follow:
+
+$smarty->display('extend:grandchild.tpl|child.tpl|parent.tpl');
+
+Child {block} tags may otionally have a append or prepand attribute. In this case the parent block content 
+is appended or prpended to the child block content.
+
+{block name='title' append} My title {/block}
+
 
 PHP STREAMS:
 ============
