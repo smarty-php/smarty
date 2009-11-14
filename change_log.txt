@@ -3,7 +3,8 @@
 - bugfix modifiers on registered object tags
 - fixed locaion where outputfilters are running
 - fixed config file definitions at EOF
-- fix on merging compiled templates with nocache sections in nocache includes 
+- fix on merging compiled templates with nocache sections in nocache includes
+- parser could run into a PHP error on wrong file attribute
 
 11/12/2009
 - fixed variable filenames in {include_php} and {insert}
