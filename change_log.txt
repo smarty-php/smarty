@@ -1,3 +1,6 @@
+11/14/2009
+- bugfix on merging compiled templates when source files got removed or renamed.
+
 11/12/2009
 - fixed variable filenames in {include_php} and {insert}
 - added scope to Smarty variables in the {block} tag compiler

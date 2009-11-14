@@ -51,6 +51,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                                         $mtime = filemtime($_file_to_check[0]);
                                     } else {
                                         $tpl->parseResourceName($_file_to_check[0], $resource_type, $resource_name, $resource_handler);
+                                        if ($resource_type == 'file') {
+                                            $must_compile = true;   // subtemplate no longer existing
+                                            break;
+                                        } 
                                         $mtime = $resource_handler->getTemplateTimestampTypeName($resource_type, $resource_name);
                                     } 
                                     If ($mtime != $_file_to_check[1]) {
