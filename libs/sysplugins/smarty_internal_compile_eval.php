@@ -35,9 +35,9 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
         $_output = "\$_template = new Smarty_Template ('string:'.".$_attr['var'].", \$_smarty_tpl->smarty, \$_smarty_tpl);"; 
         //was there an assign attribute? 
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template));";
+            $_output .= "\$_smarty_tpl->assign($_assign,\$_template->getRenderedTemplate());";
         } else {
-            $_output .= "echo \$_smarty_tpl->smarty->fetch(\$_template);";
+            $_output .= "echo \$_template->getRenderedTemplate();";
         } 
         return "<?php $_output ?>";
     } 

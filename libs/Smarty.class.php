@@ -88,7 +88,7 @@ define('SMARTY_PHP_ALLOW', 3); //-> escape tags as entities
 * register the class autoloader
 */
 if (!defined('SMARTY_SPL_AUTOLOAD')) {
-    define('SMARTY_SPL_AUTOLOAD',0);
+    define('SMARTY_SPL_AUTOLOAD', 0);
 } 
 
 if (SMARTY_SPL_AUTOLOAD && set_include_path(get_include_path() . PATH_SEPARATOR . SMARTY_SYSPLUGINS_DIR) !== false) {
@@ -98,7 +98,7 @@ if (SMARTY_SPL_AUTOLOAD && set_include_path(get_include_path() . PATH_SEPARATOR 
     } 
 } else {
     spl_autoload_register('smartyAutoload');
-}                             
+} 
 
 /**
 * This is the main Smarty class
@@ -164,7 +164,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                      
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                        
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -309,7 +309,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
             ? $this->error_reporting : error_reporting() &~E_NOTICE); 
         // return redered template
-        $_output = $_template->getRenderedTemplate();
+        if (isset($this->autoload_filters['output']) || isset($this->registered_filters['output'])) {
+            $_output = $this->filter_handler->execute('output', $_template->getRenderedTemplate());
+        } else {
+            $_output = $_template->getRenderedTemplate();
+        } 
         $_template->rendered_content = null;
         error_reporting($_smarty_old_error_level);
         return $_output;

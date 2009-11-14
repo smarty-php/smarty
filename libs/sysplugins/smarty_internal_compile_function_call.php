@@ -65,9 +65,9 @@ class Smarty_Internal_Compile_Function_Call extends Smarty_Internal_CompileBase 
         $_output .= "\$_template->compiled_template = \$this->smarty->template_functions['$_name']['compiled'];\n\$_template->mustCompile = false;\n"; 
         // was there an assign attribute
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->assign($_assign,\$_smarty_tpl->smarty->fetch(\$_template)); ?>";
+            $_output .= "\$_smarty_tpl->assign($_assign,\$_template->getRenderedTemplate()); ?>";
         } else {
-            $_output .= "echo \$_smarty_tpl->smarty->fetch(\$_template); ?>";
+            $_output .= "echo \$_template->getRenderedTemplate(); ?>";
         } 
         return $_output;
     } 

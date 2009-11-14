@@ -149,14 +149,14 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         $_output .= "\$_template->caching = $_caching;"; 
         // was there an assign attribute
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->assign($_assign,\$_template->fetch()); ?>";
+            $_output .= "\$_smarty_tpl->assign($_assign,\$_template->getRenderedTemplate()); ?>";
         } else {
             if ($has_compiled_template) {
                 $_output .= " \$_tpl_stack[] = \$_smarty_tpl; \$_smarty_tpl = \$_template;?>\n";
                 $_output .= $compiled_tpl . "<?php /*  End of included template \"" . $tpl->getTemplateFilepath() . "\" */ ?>";
                 $_output .= "<?php  \$_smarty_tpl = array_pop(\$_tpl_stack);?>";
             } else {
-                $_output .= " echo \$_template->fetch(); ?>";
+                $_output .= " echo \$_template->getRenderedTemplate(); ?>";
             } 
         } 
         if ($_parent_scope != SMARTY_LOCAL_SCOPE) {

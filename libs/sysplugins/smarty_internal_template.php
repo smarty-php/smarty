@@ -517,8 +517,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             $this->renderTemplate();
         } 
         $this->updateParentVariables();
-        return (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))?
-        $this->smarty->filter_handler->execute('output', $this->rendered_content) : $this->rendered_content;
+        return $this->rendered_content;
     } 
 
     /**

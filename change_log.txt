@@ -1,5 +1,8 @@
 11/14/2009
 - bugfix on merging compiled templates when source files got removed or renamed.
+- bugfix modifiers on registered object tags
+- fixed locaion where outputfilters are running
+- fixed config file definitions at EOF
 
 11/12/2009
 - fixed variable filenames in {include_php} and {insert}
