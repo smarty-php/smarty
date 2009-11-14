@@ -100,7 +100,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             } 
         } 
         // default for included templates
-        if ($compiler->template->caching) {
+        if ($this->compiler->template->caching && !$this->compiler->nocache) {
             $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
         } else {
             $_caching = SMARTY_CACHING_OFF;
@@ -117,6 +117,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if (isset($_attr['nocache'])) {
             if ($_attr['nocache'] == 'true') {
                 $this->compiler->tag_nocache = true;
+                $_caching = SMARTY_CACHING_OFF;
             } 
         } 
         if (isset($_attr['caching'])) {
@@ -151,7 +152,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_template->getRenderedTemplate()); ?>";
         } else {
-            if ($has_compiled_template) {
+            if ($has_compiled_template && !($compiler->template->caching && ($this->compiler->tag_nocache || $this->compiler->nocache))) {
                 $_output .= " \$_tpl_stack[] = \$_smarty_tpl; \$_smarty_tpl = \$_template;?>\n";
                 $_output .= $compiled_tpl . "<?php /*  End of included template \"" . $tpl->getTemplateFilepath() . "\" */ ?>";
                 $_output .= "<?php  \$_smarty_tpl = array_pop(\$_tpl_stack);?>";
