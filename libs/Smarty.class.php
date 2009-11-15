@@ -329,10 +329,6 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function display($template, $cache_id = null, $compile_id = null, $parent = null)
     {
-        if (is_object($cache_id)) {
-            $parent = $cache_id;
-            $cache_id = null;
-        } 
         // display template
         echo $this->fetch ($template, $cache_id, $compile_id, $parent); 
         // debug output

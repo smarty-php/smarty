@@ -1,3 +1,6 @@
+11/15/2009
+- lexer/parser optimizations on quoted strings
+
 11/14/2009
 - bugfix on merging compiled templates when source files got removed or renamed.
 - bugfix modifiers on registered object tags
