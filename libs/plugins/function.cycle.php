@@ -63,7 +63,7 @@ function smarty_function_cycle($params, $smarty, $template)
 
     if (isset($params['delimiter'])) {
       $template->plugin_data['cycle'][$name]['delimiter'] = $params['delimiter'];
-    } elseif (!isset($cycle_vars[$name]['delimiter'])) {
+    } elseif (!isset($template->plugin_data['cycle'][$name]['delimiter'])) {
       $template->plugin_data['cycle'][$name]['delimiter'] = ',';
     }
     
