@@ -342,13 +342,13 @@ parent.tpl:
 </html>
 
 child.tpl:
-{extend file='parent.tpl'} 
+{extends file='parent.tpl'} 
 {block name='title'}
 Child title
 {/block}
 
 grandchild.tpl:
-{extend file='child.tpl'} 
+{extends file='child.tpl'} 
 {block name='title'}Home - {$smarty.parent}{/block} 
 {block name='page-title'}My home{/block}
 {block name='content'}
@@ -377,17 +377,17 @@ If we render grandchild.tpl we will get this:
   </body>
 </html>
 
-NOTE: In the child templates everything outside the {extend} or {block} tag sections
+NOTE: In the child templates everything outside the {extends} or {block} tag sections
 is ignored.
 
 The inheritance tree can be as big as you want (meaning you can extend a file that 
 extends another one that extends another one and so on..), but be aware that all files 
 have to be checked for modifications at runtime so the more inheritance the more overhead you add.
 
-Instead of defining the parent/child relationships with the {extend} tag in the child template you
-can use the extend resource as follow:
+Instead of defining the parent/child relationships with the {extends} tag in the child template you
+can use the s resource as follow:
 
-$smarty->display('extend:grandchild.tpl|child.tpl|parent.tpl');
+$smarty->display('extends:grandchild.tpl|child.tpl|parent.tpl');
 
 Child {block} tags may optionally have a append or prepend attribute. In this case the parent block content 
 is appended or prepended to the child block content.

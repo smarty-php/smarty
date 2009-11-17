@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty Internal Plugin Resource Extend
+* Smarty Internal Plugin Resource Extends
 * 
 * Implements the file system as resource for Smarty which does extend a chain of template files templates
 * 
@@ -10,9 +10,9 @@
 * @author Uwe Tews 
 */
 /**
-* Smarty Internal Plugin Resource Extend
+* Smarty Internal Plugin Resource Extends
 */
-class Smarty_Internal_Resource_Extend {
+class Smarty_Internal_Resource_Extends {
     public function __construct($smarty)
     {
         $this->smarty = $smarty;

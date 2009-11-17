@@ -3,7 +3,7 @@
 /**
 * Smarty Internal Plugin Compile extend
 * 
-* Compiles the {extend} tag
+* Compiles the {extends} tag
 * 
 * @package Smarty
 * @subpackage Compiler
@@ -12,9 +12,9 @@
 /**
 * Smarty Internal Plugin Compile extend Class
 */
-class Smarty_Internal_Compile_Extend extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {extend} tag
+    * Compiles code for the {extends} tag
     * 
     * @param array $args array with attributes from parser
     * @param object $compiler compiler object
