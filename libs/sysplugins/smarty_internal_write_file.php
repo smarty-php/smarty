@@ -18,12 +18,12 @@ class Smarty_Internal_Write_File {
     * @param string $_contents file content
     * @return boolean true
     */
-    public static function writeFile($_filepath, $_contents)
+    public static function writeFile($_filepath, $_contents, $smarty)
     {
         $_dirpath = dirname($_filepath); 
         // if subdirs, create dir structure
         if ($_dirpath !== '.' && !file_exists($_dirpath)) {
-            mkdir($_dirpath, 0755, true);
+            mkdir($_dirpath, $smarty->_dir_perms, true);
         } 
         // write to tmp file, then move to overt file lock race condition
         $_tmp_file = tempnam($_dirpath, 'wrt');
@@ -38,7 +38,7 @@ class Smarty_Internal_Write_File {
         // rename tmp file
         rename($_tmp_file, $_filepath); 
         // set file permissions
-        chmod($_filepath, 0644);
+        chmod($_filepath, $smarty->_file_perms);
 
         return true;
     } 

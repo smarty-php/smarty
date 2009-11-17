@@ -59,7 +59,10 @@ if (!defined('SMARTY_PLUGINS_DIR')) {
 if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
     define('SMARTY_RESOURCE_CHAR_SET', 'UTF-8');
 } 
-
+if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
+    define('SMARTY_RESOURCE_DATE_FORMAT', '%b %e, %Y');
+} 
+ 
 /**
 * define variable scopes
 */

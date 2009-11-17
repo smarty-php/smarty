@@ -288,7 +288,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             // compiling succeded
             if (!$this->isEvaluated()) {
                 // write compiled template
-                Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->compiled_template); 
+                Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->compiled_template, $this->smarty); 
                 // make template and compiled file timestamp match
                 $this->compiled_timestamp = null;
                 touch($this->getCompiledFilepath(), $this->getTemplateTimestamp()); 

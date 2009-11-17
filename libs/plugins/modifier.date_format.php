@@ -25,7 +25,7 @@
 * @return string |void
 * @uses smarty_make_timestamp()
 */
-function smarty_modifier_date_format($string, $format = '%b %e, %Y', $default_date = '')
+function smarty_modifier_date_format($string, $format = SMARTY_RESOURCE_DATE_FORMAT, $default_date = '')
 {
     /**
     * Include the {@link shared.make_timestamp.php} plugin

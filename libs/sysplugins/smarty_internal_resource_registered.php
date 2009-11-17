@@ -123,7 +123,7 @@ class Smarty_Internal_Resource_Registered {
     */
     public function getCompiledFilepath($_template)
     { 
-        // $_filepath = md5($_template->resource_name);
+        $_compile_id =  isset($_template->compile_id) ? preg_replace('![^\w\|]+!','_',$_template->compile_id) : null;
         $_filepath = (string)abs(crc32($_template->template_resource)); 
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
@@ -133,8 +133,8 @@ class Smarty_Internal_Resource_Registered {
              . $_filepath;
         } 
         $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
-        if (isset($_template->compile_id)) {
-            $_filepath = $_template->compile_id . $_compile_dir_sep . $_filepath;
+        if (isset($_compile_id)) {
+            $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
         } 
         if ($_template->caching) {
             $_cache = '.cache';

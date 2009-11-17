@@ -333,7 +333,8 @@ class Smarty_Internal_TemplateBase {
     */
     function buildTemplateId ($_resource, $_cache_id, $_compile_id)
     { 
-        // return md5($_resource . md5($_cache_id) . md5($_compile_id));
+        $_cache_id =  isset($_cache_id) ? preg_replace('![^\w\|]+!','_',$_cache_id) : null;
+        $_compile_id =  isset($_compile_id) ? preg_replace('![^\w\|]+!','_',$_compile_id) : null;
         return crc32($_resource . $_cache_id . $_compile_id);
     } 
 

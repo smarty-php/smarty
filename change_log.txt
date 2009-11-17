@@ -1,3 +1,8 @@
+11/17/2009
+- sanitize compile_id and cache_id (replace illegal chars with _)
+- use _dir_perms and _file_perms properties at file creation
+- new constant SMARTY_RESOURCE_DATE_FORMAT (default '%b %e, %Y') which is used as default format in modifier date_format
+
 11/15/2009
 - lexer/parser optimizations on quoted strings
 

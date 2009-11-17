@@ -20,6 +20,7 @@
 */
 function  Smarty_Method_Clear_Compiled_Tpl($smarty, $resource_name = null, $compile_id = null, $exp_time = null)
 {
+    $_compile_id =  isset($compile_id) ? preg_replace('![^\w\|]+!','_',$compile_id) : null;
     $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
     if (isset($resource_name)) {
         $_resource_part_1 = $resource_name . '.php';
@@ -28,11 +29,11 @@ function  Smarty_Method_Clear_Compiled_Tpl($smarty, $resource_name = null, $comp
         $_resource_part = '';
     } 
     $_dir = $smarty->compile_dir;
-    if ($smarty->use_sub_dirs && isset($compile_id)) {
-        $_dir .= $compile_id . $_dir_sep;
+    if ($smarty->use_sub_dirs && isset($_compile_id)) {
+        $_dir .= $_compile_id . $_dir_sep;
     } 
-    if (isset($compile_id)) {
-        $_compile_id_part = $smarty->compile_dir . $compile_id . $_dir_sep;
+    if (isset($_compile_id)) {
+        $_compile_id_part = $smarty->compile_dir . $_compile_id . $_dir_sep;
     } 
     $_count = 0;
     $_compileDirs = new RecursiveDirectoryIterator($_dir);
@@ -45,7 +46,7 @@ function  Smarty_Method_Clear_Compiled_Tpl($smarty, $resource_name = null, $comp
                 @rmdir($_file->getPathname());
             } 
         } else {
-            if ((!isset($compile_id) || substr_compare((string)$_file, $_compile_id_part, 0, strlen($_compile_id_part)) == 0) &&
+            if ((!isset($_compile_id) || substr_compare((string)$_file, $_compile_id_part, 0, strlen($_compile_id_part)) == 0) &&
                     (!isset($resource_name) || substr_compare((string)$_file, $_resource_part_1, - strlen($_resource_part_1), strlen($_resource_part_1)) == 0 ||
                         substr_compare((string)$_file, $_resource_part_2, - strlen($_resource_part_2), strlen($_resource_part_2)) == 0)) {
                 if (isset($exp_time)) {

@@ -206,7 +206,7 @@ class Smarty_Internal_Config {
         if ($this->compiler_object->compileSource($this)) {
             // compiling succeded
             // write compiled template
-            Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->getCompiledConfig()); 
+            Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->getCompiledConfig(), $this->smarty); 
             // make template and compiled file timestamp match
             touch($this->getCompiledFilepath(), $this->getTimestamp());
         } else {
