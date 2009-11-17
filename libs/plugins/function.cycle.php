@@ -61,7 +61,11 @@ function smarty_function_cycle($params, $smarty, $template)
         $template->plugin_data['cycle'][$name]['values'] = $params['values'];
     }
 
-    $template->plugin_data['cycle'][$name]['delimiter'] = (isset($params['delimiter'])) ? $params['delimiter'] : ',';
+    if (isset($params['delimiter'])) {
+      $template->plugin_data['cycle'][$name]['delimiter'] = $params['delimiter'];
+    } elseif (!isset($cycle_vars[$name]['delimiter'])) {
+      $template->plugin_data['cycle'][$name]['delimiter'] = ',';
+    }
     
     if(is_array($template->plugin_data['cycle'][$name]['values'])) {
         $cycle_array = $template->plugin_data['cycle'][$name]['values'];
