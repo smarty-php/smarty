@@ -47,7 +47,8 @@ class Smarty_Internal_TemplateCompilerBase {
         // assume successfull compiling
         $this->compile_error = false; 
         // save template object in compiler class
-        $this->template = $template; 
+        $this->template = $template;
+        $this->smarty->_current_file = $this->template->getTemplateFilepath(); 
         // template header code
         $template_header = '';
         if (!$template->suppressHeader) {
