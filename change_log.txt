@@ -1,3 +1,7 @@
+11/18/2009
+- observe umask settings when setting file permissions
+- avoide unneeded cache file creation for subtemplates which did occur in some situations
+
 11/17/2009
 - sanitize compile_id and cache_id (replace illegal chars with _)
 - use _dir_perms and _file_perms properties at file creation

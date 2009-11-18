@@ -101,7 +101,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         } 
         // default for included templates
         if ($this->compiler->template->caching && !$this->compiler->nocache) {
-            $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
+            $_caching = 9999;
         } else {
             $_caching = SMARTY_CACHING_OFF;
         } 
@@ -113,6 +113,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if (isset($_attr['cache_lifetime'])) {
             $_cache_lifetime = $_attr['cache_lifetime'];
             $this->compiler->tag_nocache = true;
+            $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
         } 
         if (isset($_attr['nocache'])) {
             if ($_attr['nocache'] == 'true') {
@@ -124,6 +125,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             if ($_attr['caching'] == 'true') {
                 $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
             } else {
+                $this->compiler->tag_nocache = true;
                 $_caching = SMARTY_CACHING_OFF;
             } 
         } 

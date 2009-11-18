@@ -136,7 +136,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // caching enabled
     public $caching = false; 
     // merge compiled includea
-    public $merge_compiled_includes = true; 
+    public $merge_compiled_includes = false; 
     // cache lifetime
     public $cache_lifetime = 0; 
     // force cache file creation

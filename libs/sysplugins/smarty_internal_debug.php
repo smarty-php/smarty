@@ -31,7 +31,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
     public static function end_compile($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['compile_time'] = self::get_time() - self::$template_data[$key]['start_time'];
+        self::$template_data[$key]['compile_time'] += self::get_time() - self::$template_data[$key]['start_time'];
     } 
 
     /**
@@ -49,7 +49,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
     public static function end_render($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['render_time'] = self::get_time() - self::$template_data[$key]['start_time'];
+        self::$template_data[$key]['render_time'] += self::get_time() - self::$template_data[$key]['start_time'];
     } 
 
     /**
@@ -67,7 +67,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
     public static function end_cache($template)
     {
         $key = self::get_key($template);
-        self::$template_data[$key]['cache_time'] = self::get_time() - self::$template_data[$key]['start_time'];
+        self::$template_data[$key]['cache_time'] += self::get_time() - self::$template_data[$key]['start_time'];
     } 
     /**
     * Opens a window for the Smarty Debugging Consol and display the data

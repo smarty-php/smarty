@@ -372,7 +372,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 if ($this->getCachedTimestamp() === false) {
                     return $this->isCached;
                 } 
-                if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED || ($this->caching && (time() <= ($this->getCachedTimestamp() + $this->cache_lifetime) || $this->cache_lifetime < 0))) {
+                if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED || ($this->caching == SMARTY_CACHING_LIFETIME_CURRENT && (time() <= ($this->getCachedTimestamp() + $this->cache_lifetime) || $this->cache_lifetime < 0))) {
                     if ($this->smarty->debugging) {
                         Smarty_Internal_Debug::start_cache($this);
                     } 
@@ -481,7 +481,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             Smarty_Internal_Debug::end_render($this);
         } 
         // write to cache when nessecary
-        if (!$this->isEvaluated() && $this->caching) {
+        if (!$this->isEvaluated() && ($this->caching == SMARTY_CACHING_LIFETIME_SAVED || $this->caching == SMARTY_CACHING_LIFETIME_CURRENT)) {
             if ($this->smarty->debugging) {
                 Smarty_Internal_Debug::start_cache($this);
             } 
