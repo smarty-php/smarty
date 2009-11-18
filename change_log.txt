@@ -1,4 +1,8 @@
 11/18/2009
+- allow integer as attribute name in plugin calls
+
+------- beta 4
+11/18/2009
 - observe umask settings when setting file permissions
 - avoide unneeded cache file creation for subtemplates which did occur in some situations
 - make $smarty->_current_file available during compilation for Smarty2 BC

@@ -29,15 +29,19 @@ class Smarty_Internal_Compile_Function_Plugin extends Smarty_Internal_CompileBas
         $this->required_attributes = array();
         $this->optional_attributes = array('_any'); 
         // check and get attributes
-        $_attr = $this->_get_attributes($args);
+        $_attr = $this->_get_attributes($args); 
         // not cachable?
         if (isset($this->compiler->smarty->registered_plugins[$tag]) && !$this->compiler->smarty->registered_plugins[$tag][2]) {
-            $this->compiler->tag_nocache = true;        
-        }
+            $this->compiler->tag_nocache = true;
+        } 
         // convert attributes into parameter array string
         $_paramsArray = array();
         foreach ($_attr as $_key => $_value) {
-            $_paramsArray[] = "'$_key'=>$_value";
+            if (is_int($_key)) {
+                $_paramsArray[] = "$_key=>$_value";
+            } else {
+                $_paramsArray[] = "'$_key'=>$_value";
+            } 
         } 
         $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
         // compile code

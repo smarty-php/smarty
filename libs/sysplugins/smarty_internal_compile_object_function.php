@@ -34,7 +34,11 @@ class Smarty_Internal_Compile_Object_Function extends Smarty_Internal_CompileBas
         // convert attributes into parameter array string
         $_paramsArray = array();
         foreach ($_attr as $_key => $_value) {
-            $_paramsArray[] = "'$_key'=>$_value";
+            if (is_int($_key)) {
+                $_paramsArray[] = "$_key=>$_value";
+            } else {
+                $_paramsArray[] = "'$_key'=>$_value";
+            } 
         } 
         $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
         // compile code
