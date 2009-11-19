@@ -208,7 +208,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->isExisting(true);
         if ($this->mustCompile === null) {
             $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || $this->getCompiledTimestamp () === false ||
-                    ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
+//                    ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
+                    ($this->smarty->compile_check && $this->getCompiledTimestamp () < $this->getTemplateTimestamp ())));
         } 
         return $this->mustCompile;
     } 
@@ -290,12 +291,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 // write compiled template
                 Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->compiled_template, $this->smarty); 
                 // make template and compiled file timestamp match
+/**
                 $this->compiled_timestamp = null;
                 touch($this->getCompiledFilepath(), $this->getTemplateTimestamp()); 
                 // daylight saving time problem on windows
                 if ($this->template_timestamp != $this->getCompiledTimestamp()) {
                     touch($this->getCompiledFilepath(), 2 * $this->template_timestamp - $this->compiled_timestamp);
-                } 
+                }
+**/ 
             } 
         } else {
             // error compiling template
@@ -442,7 +445,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                                 $resource_handler = $this->loadTemplateResourceHandler($resource_type);
                                 $mtime = $resource_handler->getTemplateTimestampTypeName($resource_type, $resource_name);
                             } 
-                            If ($mtime != $_file_to_check[1]) {
+//                            If ($mtime != $_file_to_check[1]) {
+                            If ($mtime > $_file_to_check[1]) {
                                 $this->properties['file_dependency'] = array();
                                 $this->mustCompile = true;
                                 break;

@@ -1,3 +1,6 @@
+11/19/2009
+- compiled templates are no longer touched with the filemtime of template source
+
 11/18/2009
 - allow integer as attribute name in plugin calls
 
