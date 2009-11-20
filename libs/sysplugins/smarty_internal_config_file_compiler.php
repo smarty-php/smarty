@@ -41,7 +41,7 @@ class Smarty_Internal_Config_File_Compiler {
        then written to compiled files. */ 
        $this->config = $config; 
        // get config file source
-        $_content = $config->getConfigSource();
+        $_content = $config->getConfigSource()."\n";
         // on empty template just return
         if ($_content == '') {
             return true;

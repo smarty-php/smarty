@@ -1,3 +1,7 @@
+11/20/2009
+- bugfix for empty config files
+- convert timestamps of registered resources to integer
+
 11/19/2009
 - compiled templates are no longer touched with the filemtime of template source
 

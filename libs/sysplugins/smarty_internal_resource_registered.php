@@ -63,7 +63,7 @@ class Smarty_Internal_Resource_Registered {
         $time_stamp = false;
         call_user_func_array($this->smarty->_plugins['resource'][$_template->resource_type][0][1],
             array($_template->resource_name, &$time_stamp, $this->smarty));
-        return $time_stamp;
+        return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
     } 
     /**
     * Get timestamp to template source by type and name
@@ -77,7 +77,7 @@ class Smarty_Internal_Resource_Registered {
         $time_stamp = false;
         call_user_func_array($this->smarty->_plugins['resource'][$_resource_type][0][1],
             array($_resource_name, &$time_stamp, $this->smarty));
-        return $time_stamp;
+        return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
     } 
 
     /**
