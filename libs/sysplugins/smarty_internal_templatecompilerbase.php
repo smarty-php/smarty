@@ -149,7 +149,7 @@ class Smarty_Internal_TemplateCompilerBase {
                 } elseif (in_array($methode, $this->smarty->registered_objects[$tag][3])) {
                     return $this->generateCode('object_block_function',$args, $tag, $methode);
                 } else {
-                    return $this->trigger_template_error ('unallowed methode "' . $methode . '" in registered object "' . $tag . '"');
+                    return $this->trigger_template_error ('unallowed methode "' . $methode . '" in registered object "' . $tag . '"', $this->lex->taglineno);
                 } 
             } 
             // check if tag is registered or is Smarty plugin
@@ -176,7 +176,7 @@ class Smarty_Internal_TemplateCompilerBase {
                     if (in_array($methode, $this->smarty->registered_objects[$base_tag][3])) {
                         return $this->generateCode('object_block_function', $args, $tag, $methode);
                     } else {
-                        return $this->trigger_template_error ('unallowed closing tag methode "' . $methode . '" in registered object "' . $base_tag . '"');
+                        return $this->trigger_template_error ('unallowed closing tag methode "' . $methode . '" in registered object "' . $base_tag . '"', $this->lex->taglineno);
                     } 
                 } 
                 // plugin ?
@@ -184,7 +184,7 @@ class Smarty_Internal_TemplateCompilerBase {
                     return $this->generateCode('block_plugin',$args, $tag);
                 } 
             } 
-            $this->trigger_template_error ("unknown tag \"" . $tag . "\"");
+            $this->trigger_template_error ("unknown tag \"" . $tag . "\"", $this->lex->taglineno);
         } 
     } 
 
@@ -231,14 +231,11 @@ class Smarty_Internal_TemplateCompilerBase {
     * @todo output exact position of parse error in source line
     * @param  $args string individual error message or null
     */
-    public function trigger_template_error($args = null)
+    public function trigger_template_error($args = null, $line= null)
     {
-        $this->lex = Smarty_Internal_Templatelexer::instance();
-        $this->parser = Smarty_Internal_Templateparser::instance(); 
         // get template source line which has error
+        if (!isset($line)) {
         $line = $this->lex->line;
-        if (isset($args)) {
-            // $line--;
         } 
         $match = preg_split("/\n/", $this->lex->data);
         $error_text = 'Syntax Error in template "' . $this->template->getTemplateFilepath() . '"  on line ' . $line . ' "' . $match[$line-1] . '" ';

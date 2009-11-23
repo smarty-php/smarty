@@ -130,10 +130,10 @@ class Smarty_Internal_CacheResource_File {
                         (isset($resource_name) && (string)$_file == $_dir . $_resource_part)) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_file) >= $exp_time) {
-                            $_count += unlink((string) $_file) ? 1 : 0;
+                            $_count += @unlink((string) $_file) ? 1 : 0;
                         } 
                     } else {
-                        $_count += unlink((string) $_file) ? 1 : 0;
+                        $_count += @unlink((string) $_file) ? 1 : 0;
                     } 
                 } 
             } 

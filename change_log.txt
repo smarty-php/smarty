@@ -1,4 +1,9 @@
 11/23/2009
+- suppress warnings on unlink caused by race conditions
+- correct line number on unknown tag error message
+
+------- beta 5
+11/23/2009
 - fixed configfile parser for text starting with a numeric char
 - the default_template_handler_func may now return a filepath to a template source
 

@@ -36,7 +36,7 @@ class Smarty_Internal_Write_File {
         } 
         // remove original file
         if (file_exists($_filepath))
-            unlink($_filepath); 
+            @unlink($_filepath); 
         // rename tmp file
         rename($_tmp_file, $_filepath); 
         // set file permissions
