@@ -1,3 +1,7 @@
+11/23/2009
+- fixed configfile parser for text starting with a numeric char
+- the default_template_handler_func may now return a filepath to a template source
+
 11/20/2009
 - bugfix for empty config files
 - convert timestamps of registered resources to integer

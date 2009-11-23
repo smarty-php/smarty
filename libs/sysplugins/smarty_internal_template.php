@@ -3,7 +3,7 @@
 /**
 * Smarty Internal Plugin Template
 * 
-* This files contains the Smarty template engine
+* This file contains the Smarty template engine
 * 
 * @package Smarty
 * @subpackage Templates
@@ -572,10 +572,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 throw new Exception("Default template handler not callable");
             } else {
                 $_return = call_user_func_array($this->smarty->default_template_handler_func,
-                    array($this->resource_type, $this->resource_name, &$this->template_source, &$this->template_timestamp, &$this));
+                    array($this->resource_type, $this->resource_name, &$this->template_source, &$this->template_timestamp, $this));
                 if ($_return == true) {
-                    return $_filepath;
-                } 
+                    return $file;
+                } elseif (is_string($_return)) {
+                    return $_return;
+                }
             } 
         } 
         // throw new Exception("Unable to load template \"{$file}\"");

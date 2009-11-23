@@ -103,12 +103,12 @@ class TPC_yyStackEntry
 // code external to the class is included here
 
 // declare_class is output here
-#line 12 "Smarty_Internal_Configfileparser.y"
-class Smarty_Internal_Configfileparser#line 109 "Smarty_Internal_Configfileparser.php"
+#line 12 "smarty_internal_configfileparser.y"
+class Smarty_Internal_Configfileparser#line 109 "smarty_internal_configfileparser.php"
 {
 /* First off, code is included which follows the "include_class" declaration
 ** in the input file. */
-#line 14 "Smarty_Internal_Configfileparser.y"
+#line 14 "smarty_internal_configfileparser.y"
 
     // states whether the parse was successful or not
     public $successful = true;
@@ -133,7 +133,7 @@ class Smarty_Internal_Configfileparser#line 109 "Smarty_Internal_Configfileparse
         return $instance;
     }
     
-#line 139 "Smarty_Internal_Configfileparser.php"
+#line 139 "smarty_internal_configfileparser.php"
 
 /* Next is all token values, as class constants
 */
@@ -146,22 +146,21 @@ class Smarty_Internal_Configfileparser#line 109 "Smarty_Internal_Configfileparse
 */
     const TPC_OTHER                          =  1;
     const TPC_COMMENTSTART                   =  2;
-    const TPC_NUMBER                         =  3;
-    const TPC_OPENB                          =  4;
-    const TPC_CLOSEB                         =  5;
-    const TPC_DOT                            =  6;
-    const TPC_BOOLEANTRUE                    =  7;
-    const TPC_BOOLEANFALSE                   =  8;
-    const TPC_SI_QSTR                        =  9;
-    const TPC_DO_QSTR                        = 10;
-    const TPC_EQUAL                          = 11;
-    const TPC_SPACE                          = 12;
-    const TPC_ID                             = 13;
-    const TPC_EOL                            = 14;
-    const TPC_ML_QSTR                        = 15;
-    const YY_NO_ACTION = 46;
-    const YY_ACCEPT_ACTION = 45;
-    const YY_ERROR_ACTION = 44;
+    const TPC_OPENB                          =  3;
+    const TPC_CLOSEB                         =  4;
+    const TPC_DOT                            =  5;
+    const TPC_BOOLEANTRUE                    =  6;
+    const TPC_BOOLEANFALSE                   =  7;
+    const TPC_SI_QSTR                        =  8;
+    const TPC_DO_QSTR                        =  9;
+    const TPC_EQUAL                          = 10;
+    const TPC_SPACE                          = 11;
+    const TPC_ID                             = 12;
+    const TPC_EOL                            = 13;
+    const TPC_ML_QSTR                        = 14;
+    const YY_NO_ACTION = 47;
+    const YY_ACCEPT_ACTION = 46;
+    const YY_ERROR_ACTION = 45;
 
 /* Next are that tables used to determine what action to take based on the
 ** current state and lookahead token.  These tables are used to implement
@@ -213,45 +212,45 @@ class Smarty_Internal_Configfileparser#line 109 "Smarty_Internal_Configfileparse
 **                          shifting non-terminals after a reduce.
 **  self::$yy_default       Default action for each state.
 */
-    const YY_SZ_ACTTAB = 32;
+    const YY_SZ_ACTTAB = 36;
 static public $yy_action = array(
- /*     0 */    26,   20,   15,    4,   14,    2,   11,    6,   25,   27,
- /*    10 */     8,    5,   14,   10,   18,   26,    9,   16,   45,    3,
- /*    20 */    19,    7,   12,   13,   21,   23,    1,   26,   17,   24,
- /*    30 */    41,   22,
+ /*     0 */     3,    9,    7,    6,   15,   46,    4,   17,   10,   26,
+ /*    10 */    11,   14,   26,    2,   15,   12,   23,   13,    8,   25,
+ /*    20 */    27,   22,    5,   18,   26,   19,   20,    1,   22,   24,
+ /*    30 */    42,   21,   42,   42,   16,   20,
     );
     static public $yy_lookahead = array(
- /*     0 */     1,   14,    3,   21,   22,    2,    6,    4,    9,   10,
- /*    10 */    20,   21,   22,   13,   15,    1,   13,   14,   17,   18,
- /*    20 */    19,    5,   13,    5,   14,   14,   11,    1,   14,   22,
- /*    30 */    23,   19,
+ /*     0 */     2,    3,   20,   21,   22,   16,   17,   18,    5,    1,
+ /*    10 */    12,   13,    1,   21,   22,   12,   19,   12,    4,    8,
+ /*    20 */     9,   13,    4,   19,    1,   14,   22,   10,   13,   19,
+ /*    30 */    23,   19,   23,   23,   18,   22,
 );
-    const YY_SHIFT_USE_DFLT = -14;
+    const YY_SHIFT_USE_DFLT = -3;
     const YY_SHIFT_MAX = 13;
     static public $yy_shift_ofst = array(
- /*     0 */     3,   -1,   26,    3,   14,   26,    0,   10,  -13,   15,
- /*    10 */    16,    9,   18,   11,
+ /*     0 */    -2,   11,    8,   23,   -2,   15,   23,   15,   15,    3,
+ /*    10 */     5,   17,   14,   18,
 );
     const YY_REDUCE_USE_DFLT = -19;
-    const YY_REDUCE_MAX = 5;
+    const YY_REDUCE_MAX = 8;
     static public $yy_reduce_ofst = array(
- /*     0 */     1,  -10,  -18,   12,    7,    7,
+ /*     0 */   -11,  -18,    4,   -8,   16,   12,   13,   10,   -3,
 );
     static public $yyExpectedTokens = array(
-        /* 0 */ array(2, 4, 13, 14, ),
-        /* 1 */ array(1, 3, 9, 10, 15, ),
-        /* 2 */ array(1, ),
-        /* 3 */ array(2, 4, 13, 14, ),
-        /* 4 */ array(1, 14, ),
-        /* 5 */ array(1, ),
-        /* 6 */ array(6, 13, ),
-        /* 7 */ array(14, ),
-        /* 8 */ array(14, ),
-        /* 9 */ array(11, ),
-        /* 10 */ array(5, ),
-        /* 11 */ array(13, ),
-        /* 12 */ array(5, ),
-        /* 13 */ array(14, ),
+        /* 0 */ array(2, 3, 12, 13, ),
+        /* 1 */ array(1, 8, 9, 14, ),
+        /* 2 */ array(1, 13, ),
+        /* 3 */ array(1, ),
+        /* 4 */ array(2, 3, 12, 13, ),
+        /* 5 */ array(13, ),
+        /* 6 */ array(1, ),
+        /* 7 */ array(13, ),
+        /* 8 */ array(13, ),
+        /* 9 */ array(5, 12, ),
+        /* 10 */ array(12, ),
+        /* 11 */ array(10, ),
+        /* 12 */ array(4, ),
+        /* 13 */ array(4, ),
         /* 14 */ array(),
         /* 15 */ array(),
         /* 16 */ array(),
@@ -268,9 +267,9 @@ static public $yy_action = array(
         /* 27 */ array(),
 );
     static public $yy_default = array(
- /*     0 */    44,   44,   44,   28,   44,   36,   44,   44,   44,   44,
- /*    10 */    44,   44,   44,   44,   42,   40,   34,   35,   39,   29,
- /*    20 */    33,   31,   30,   32,   41,   37,   43,   38,
+ /*     0 */    45,   45,   41,   45,   28,   41,   36,   41,   41,   45,
+ /*    10 */    45,   45,   45,   45,   34,   43,   30,   29,   35,   39,
+ /*    20 */    42,   32,   40,   31,   33,   37,   44,   38,
 );
 /* The next thing included is series of defines which control
 ** various aspects of the generated parser.
@@ -290,8 +289,8 @@ static public $yy_action = array(
     const YYNOCODE = 24;
     const YYSTACKDEPTH = 100;
     const YYNSTATE = 28;
-    const YYNRULE = 16;
-    const YYERRORSYMBOL = 16;
+    const YYNRULE = 17;
+    const YYERRORSYMBOL = 15;
     const YYERRSYMDT = 'yy0';
     const YYFALLBACK = 1;
     /** The next table maps tokens into fallback tokens.  If a construct
@@ -308,7 +307,6 @@ static public $yy_action = array(
     0,  /*          $ => nothing */
     0,  /*      OTHER => nothing */
     1,  /* COMMENTSTART => OTHER */
-    1,  /*     NUMBER => OTHER */
     1,  /*      OPENB => OTHER */
     1,  /*     CLOSEB => OTHER */
     1,  /*        DOT => OTHER */
@@ -389,11 +387,11 @@ static public $yy_action = array(
      * @var array
      */
     public $yyTokenName = array( 
-  '$',             'OTHER',         'COMMENTSTART',  'NUMBER',      
-  'OPENB',         'CLOSEB',        'DOT',           'BOOLEANTRUE', 
-  'BOOLEANFALSE',  'SI_QSTR',       'DO_QSTR',       'EQUAL',       
-  'SPACE',         'ID',            'EOL',           'ML_QSTR',     
-  'error',         'start',         'config',        'config_element',
+  '$',             'OTHER',         'COMMENTSTART',  'OPENB',       
+  'CLOSEB',        'DOT',           'BOOLEANTRUE',   'BOOLEANFALSE',
+  'SI_QSTR',       'DO_QSTR',       'EQUAL',         'SPACE',       
+  'ID',            'EOL',           'ML_QSTR',       'error',       
+  'start',         'config',        'config_element',  'opteol',      
   'value',         'text',          'textelement', 
     );
 
@@ -405,19 +403,20 @@ static public $yy_action = array(
  /*   0 */ "start ::= config",
  /*   1 */ "config ::= config_element",
  /*   2 */ "config ::= config config_element",
- /*   3 */ "config_element ::= OPENB ID CLOSEB EOL",
- /*   4 */ "config_element ::= OPENB DOT ID CLOSEB EOL",
- /*   5 */ "config_element ::= ID EQUAL value EOL",
+ /*   3 */ "config_element ::= OPENB ID CLOSEB opteol",
+ /*   4 */ "config_element ::= OPENB DOT ID CLOSEB opteol",
+ /*   5 */ "config_element ::= ID EQUAL value opteol",
  /*   6 */ "config_element ::= EOL",
- /*   7 */ "config_element ::= COMMENTSTART text EOL",
+ /*   7 */ "config_element ::= COMMENTSTART text opteol",
  /*   8 */ "value ::= text",
  /*   9 */ "value ::= SI_QSTR",
  /*  10 */ "value ::= DO_QSTR",
  /*  11 */ "value ::= ML_QSTR",
- /*  12 */ "value ::= NUMBER",
- /*  13 */ "text ::= text textelement",
- /*  14 */ "text ::= textelement",
- /*  15 */ "textelement ::= OTHER",
+ /*  12 */ "opteol ::= EOL",
+ /*  13 */ "opteol ::=",
+ /*  14 */ "text ::= text textelement",
+ /*  15 */ "text ::= textelement",
+ /*  16 */ "textelement ::= OTHER",
     );
 
     /**
@@ -782,19 +781,20 @@ static public $yy_action = array(
      * </pre>
      */
     static public $yyRuleInfo = array(
+  array( 'lhs' => 16, 'rhs' => 1 ),
   array( 'lhs' => 17, 'rhs' => 1 ),
+  array( 'lhs' => 17, 'rhs' => 2 ),
+  array( 'lhs' => 18, 'rhs' => 4 ),
+  array( 'lhs' => 18, 'rhs' => 5 ),
+  array( 'lhs' => 18, 'rhs' => 4 ),
   array( 'lhs' => 18, 'rhs' => 1 ),
-  array( 'lhs' => 18, 'rhs' => 2 ),
-  array( 'lhs' => 19, 'rhs' => 4 ),
-  array( 'lhs' => 19, 'rhs' => 5 ),
-  array( 'lhs' => 19, 'rhs' => 4 ),
+  array( 'lhs' => 18, 'rhs' => 3 ),
+  array( 'lhs' => 20, 'rhs' => 1 ),
+  array( 'lhs' => 20, 'rhs' => 1 ),
+  array( 'lhs' => 20, 'rhs' => 1 ),
+  array( 'lhs' => 20, 'rhs' => 1 ),
   array( 'lhs' => 19, 'rhs' => 1 ),
-  array( 'lhs' => 19, 'rhs' => 3 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
+  array( 'lhs' => 19, 'rhs' => 0 ),
   array( 'lhs' => 21, 'rhs' => 2 ),
   array( 'lhs' => 21, 'rhs' => 1 ),
   array( 'lhs' => 22, 'rhs' => 1 ),
@@ -810,10 +810,10 @@ static public $yy_action = array(
         0 => 0,
         1 => 1,
         8 => 1,
-        14 => 1,
         15 => 1,
+        16 => 1,
         2 => 2,
-        13 => 2,
+        14 => 2,
         3 => 3,
         4 => 4,
         5 => 5,
@@ -822,7 +822,6 @@ static public $yy_action = array(
         9 => 9,
         10 => 10,
         11 => 10,
-        12 => 12,
     );
     /* Beginning here are the reduction cases.  A typical example
     ** follows:
@@ -830,24 +829,24 @@ static public $yy_action = array(
     **   function yy_r0($yymsp){ ... }           // User supplied code
     **  #line <lineno> <thisfile>
     */
-#line 67 "Smarty_Internal_Configfileparser.y"
+#line 67 "smarty_internal_configfileparser.y"
     function yy_r0(){ $this->_retvalue = $this->yystack[$this->yyidx + 0]->minor;     }
-#line 840 "Smarty_Internal_Configfileparser.php"
-#line 73 "Smarty_Internal_Configfileparser.y"
+#line 839 "smarty_internal_configfileparser.php"
+#line 73 "smarty_internal_configfileparser.y"
     function yy_r1(){$this->_retvalue = $this->yystack[$this->yyidx + 0]->minor;    }
-#line 843 "Smarty_Internal_Configfileparser.php"
-#line 75 "Smarty_Internal_Configfileparser.y"
+#line 842 "smarty_internal_configfileparser.php"
+#line 75 "smarty_internal_configfileparser.y"
     function yy_r2(){$this->_retvalue = $this->yystack[$this->yyidx + -1]->minor.$this->yystack[$this->yyidx + 0]->minor;    }
-#line 846 "Smarty_Internal_Configfileparser.php"
-#line 81 "Smarty_Internal_Configfileparser.y"
+#line 845 "smarty_internal_configfileparser.php"
+#line 81 "smarty_internal_configfileparser.y"
     function yy_r3(){ $this->hidden_section = false; $this->current_section = $this->yystack[$this->yyidx + -2]->minor; $this->_retvalue ='';    }
-#line 849 "Smarty_Internal_Configfileparser.php"
-#line 83 "Smarty_Internal_Configfileparser.y"
+#line 848 "smarty_internal_configfileparser.php"
+#line 83 "smarty_internal_configfileparser.y"
     function yy_r4(){ if ($this->smarty->config_read_hidden) {
                                                        $this->hidden_section = false; $this->current_section = $this->yystack[$this->yyidx + -2]->minor;
                                                       } else {$this->hidden_section = true; } $this->_retvalue ='';    }
-#line 854 "Smarty_Internal_Configfileparser.php"
-#line 87 "Smarty_Internal_Configfileparser.y"
+#line 853 "smarty_internal_configfileparser.php"
+#line 87 "smarty_internal_configfileparser.y"
     function yy_r5(){if (!$this->hidden_section) {
                                                    $value=$this->yystack[$this->yyidx + -1]->minor;
                                                    if ($this->smarty->config_booleanize) {
@@ -871,19 +870,16 @@ static public $yy_action = array(
                                                           $this->compiler->config_data['sections'][$this->current_section]['vars'][$this->yystack[$this->yyidx + -3]->minor][]=$value;
                                                       }
                                                      }}  $this->_retvalue ='';    }
-#line 879 "Smarty_Internal_Configfileparser.php"
-#line 111 "Smarty_Internal_Configfileparser.y"
+#line 878 "smarty_internal_configfileparser.php"
+#line 111 "smarty_internal_configfileparser.y"
     function yy_r6(){ $this->_retvalue ='';    }
-#line 882 "Smarty_Internal_Configfileparser.php"
-#line 115 "Smarty_Internal_Configfileparser.y"
+#line 881 "smarty_internal_configfileparser.php"
+#line 115 "smarty_internal_configfileparser.y"
     function yy_r9(){$this->_retvalue = trim($this->yystack[$this->yyidx + 0]->minor,"'");    }
-#line 885 "Smarty_Internal_Configfileparser.php"
-#line 116 "Smarty_Internal_Configfileparser.y"
+#line 884 "smarty_internal_configfileparser.php"
+#line 116 "smarty_internal_configfileparser.y"
     function yy_r10(){$this->_retvalue = trim($this->yystack[$this->yyidx + 0]->minor,'"');    }
-#line 888 "Smarty_Internal_Configfileparser.php"
-#line 118 "Smarty_Internal_Configfileparser.y"
-    function yy_r12(){$this->_retvalue = (int)$this->yystack[$this->yyidx + 0]->minor;    }
-#line 891 "Smarty_Internal_Configfileparser.php"
+#line 887 "smarty_internal_configfileparser.php"
 
     /**
      * placeholder for the left hand side in a reduce operation.
@@ -995,12 +991,12 @@ static public $yy_action = array(
      */
     function yy_syntax_error($yymajor, $TOKEN)
     {
-#line 52 "Smarty_Internal_Configfileparser.y"
+#line 52 "smarty_internal_configfileparser.y"
 
     $this->internalError = true;
     $this->yymajor = $yymajor;
     $this->compiler->trigger_config_file_error();
-#line 1009 "Smarty_Internal_Configfileparser.php"
+#line 1005 "smarty_internal_configfileparser.php"
     }
 
     /**
@@ -1018,13 +1014,13 @@ static public $yy_action = array(
         }
         /* Here code is inserted which will be executed whenever the
         ** parser accepts */
-#line 44 "Smarty_Internal_Configfileparser.y"
+#line 44 "smarty_internal_configfileparser.y"
 
     $this->successful = !$this->internalError;
     $this->internalError = false;
     $this->retvalue = $this->_retvalue;
     //echo $this->retvalue."\n\n";
-#line 1034 "Smarty_Internal_Configfileparser.php"
+#line 1030 "smarty_internal_configfileparser.php"
     }
 
     /**
