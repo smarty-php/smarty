@@ -1,3 +1,6 @@
+11/24/2009
+- bugfix for $smarty->config_overwrite = false
+
 11/23/2009
 - suppress warnings on unlink caused by race conditions
 - correct line number on unknown tag error message

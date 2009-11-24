@@ -856,14 +856,14 @@ static public $yy_action = array(
                                                          $value = false;
                                                    }
                                                    if ($this->current_section == null) {
-                                                      if ($this->smarty->config_overwrite) {
+                                                      if ($this->smarty->config_overwrite || !isset($this->compiler->config_data['vars'][$this->yystack[$this->yyidx + -3]->minor])) {
                                                            $this->compiler->config_data['vars'][$this->yystack[$this->yyidx + -3]->minor]=$value;
                                                         } else {
                                                           settype($this->compiler->config_data['vars'][$this->yystack[$this->yyidx + -3]->minor], 'array');
                                                           $this->compiler->config_data['vars'][$this->yystack[$this->yyidx + -3]->minor][]=$value;
                                                         }
                                                      } else {
-                                                      if ($this->smarty->config_overwrite) {
+                                                      if ($this->smarty->config_overwrite || !isset($this->compiler->config_data['sections'][$this->current_section]['vars'][$this->yystack[$this->yyidx + -3]->minor])) {
                                                           $this->compiler->config_data['sections'][$this->current_section]['vars'][$this->yystack[$this->yyidx + -3]->minor]=$value;
                                                       } else {
                                                           settype($this->compiler->config_data['sections'][$this->current_section]['vars'][$this->yystack[$this->yyidx + -3]->minor], 'array');
