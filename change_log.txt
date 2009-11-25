@@ -1,5 +1,6 @@
 11/25/2009
 - allow the following writing for boolean: true, TRUE, True, false, FALSE, False
+- {strip} tag functionality rewritten
 
 11/24/2009
 - bugfix for $smarty->config_overwrite = false
