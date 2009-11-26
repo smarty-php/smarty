@@ -2249,10 +2249,10 @@ static public $yy_action = array(
 #line 2254 "smarty_internal_templateparser.php"
 #line 358 "smarty_internal_templateparser.y"
     function yy_r76(){if ($this->yystack[$this->yyidx + 0]->minor['var'] == '\'smarty\'') { $this->_retvalue =  $this->compiler->compileTag('special_smarty_variable',$this->yystack[$this->yyidx + 0]->minor['index']);} else {
-                                                         $this->_retvalue = '$_smarty_tpl->getVariable('. $this->yystack[$this->yyidx + 0]->minor['var'] .')->value'.$this->yystack[$this->yyidx + 0]->minor['index']; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim($this->yystack[$this->yyidx + 0]->minor['var'],"'"))->nocache;}    }
+                                                         $this->_retvalue = '$_smarty_tpl->getVariable('. $this->yystack[$this->yyidx + 0]->minor['var'] .')->value'.$this->yystack[$this->yyidx + 0]->minor['index']; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim($this->yystack[$this->yyidx + 0]->minor['var'],"'"), null, true, false)->nocache;}    }
 #line 2258 "smarty_internal_templateparser.php"
 #line 361 "smarty_internal_templateparser.y"
-    function yy_r77(){ $this->_retvalue = '$_smarty_tpl->getVariable('. $this->yystack[$this->yyidx + -2]->minor .')->'.$this->yystack[$this->yyidx + 0]->minor; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim($this->yystack[$this->yyidx + -2]->minor,"'"))->nocache;    }
+    function yy_r77(){ $this->_retvalue = '$_smarty_tpl->getVariable('. $this->yystack[$this->yyidx + -2]->minor .')->'.$this->yystack[$this->yyidx + 0]->minor; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim($this->yystack[$this->yyidx + -2]->minor,"'"), null, true, false)->nocache;    }
 #line 2261 "smarty_internal_templateparser.php"
 #line 365 "smarty_internal_templateparser.y"
     function yy_r79(){$this->_retvalue = '$_smarty_tpl->getConfigVariable(\''. $this->yystack[$this->yyidx + -1]->minor .'\')';    }
@@ -2304,7 +2304,7 @@ static public $yy_action = array(
 #line 2309 "smarty_internal_templateparser.php"
 #line 411 "smarty_internal_templateparser.y"
     function yy_r99(){ if ($this->yystack[$this->yyidx + -1]->minor['var'] == '\'smarty\'') { $this->_retvalue =  $this->compiler->compileTag('special_smarty_variable',$this->yystack[$this->yyidx + -1]->minor['index']).$this->yystack[$this->yyidx + 0]->minor;} else {
-                                                         $this->_retvalue = '$_smarty_tpl->getVariable('. $this->yystack[$this->yyidx + -1]->minor['var'] .')->value'.$this->yystack[$this->yyidx + -1]->minor['index'].$this->yystack[$this->yyidx + 0]->minor; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim($this->yystack[$this->yyidx + -1]->minor['var'],"'"))->nocache;}    }
+                                                         $this->_retvalue = '$_smarty_tpl->getVariable('. $this->yystack[$this->yyidx + -1]->minor['var'] .')->value'.$this->yystack[$this->yyidx + -1]->minor['index'].$this->yystack[$this->yyidx + 0]->minor; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim($this->yystack[$this->yyidx + -1]->minor['var'],"'"), null, true, false)->nocache;}    }
 #line 2313 "smarty_internal_templateparser.php"
 #line 414 "smarty_internal_templateparser.y"
     function yy_r100(){$this->_retvalue  = $this->yystack[$this->yyidx + 0]->minor;     }
@@ -2448,7 +2448,7 @@ static public $yy_action = array(
     function yy_r159(){$this->_retvalue = '".'.$this->yystack[$this->yyidx + -1]->minor.'."'; $this->compiler->has_variable_string = true;    }
 #line 2454 "smarty_internal_templateparser.php"
 #line 534 "smarty_internal_templateparser.y"
-    function yy_r160(){$this->_retvalue = '".'.'$_smarty_tpl->getVariable(\''. substr($this->yystack[$this->yyidx + 0]->minor,1) .'\')->value'.'."'; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim($this->yystack[$this->yyidx + 0]->minor,"'"))->nocache; $this->compiler->has_variable_string = true;    }
+    function yy_r160(){$this->_retvalue = '".'.'$_smarty_tpl->getVariable(\''. substr($this->yystack[$this->yyidx + 0]->minor,1) .'\')->value'.'."'; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim($this->yystack[$this->yyidx + 0]->minor,"'"), null, true, false)->nocache; $this->compiler->has_variable_string = true;    }
 #line 2457 "smarty_internal_templateparser.php"
 #line 536 "smarty_internal_templateparser.y"
     function yy_r162(){ $this->_retvalue = '".('.$this->yystack[$this->yyidx + -1]->minor.')."'; $this->compiler->has_variable_string = true;    }

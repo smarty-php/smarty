@@ -2,6 +2,7 @@
 - bugfix on nested doublequoted strings
 - correct line number on unknown tag error message
 - changed {include} compiled code
+- fix on checking dynamic varibales with error_unassigned = true
 
 11/25/2009
 - allow the following writing for boolean: true, TRUE, True, false, FALSE, False
