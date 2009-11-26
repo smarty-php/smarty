@@ -100,11 +100,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_parent_scope = SMARTY_GLOBAL_SCOPE;
             } 
         } 
+        $_caching= 'null';
         // default for included templates
         if ($this->compiler->template->caching && !$this->compiler->nocache) {
             $_caching = 9999;
-        } else {
-            $_caching = SMARTY_CACHING_OFF;
         } 
         /*
         * if the {include} tag provides individual parameter for caching
@@ -115,7 +114,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             $_cache_lifetime = $_attr['cache_lifetime'];
             $this->compiler->tag_nocache = true;
             $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
-        } 
+        } else {
+            $_cache_lifetime = 'null';        
+        }
         if (isset($_attr['nocache'])) {
             if ($_attr['nocache'] == 'true') {
                 $this->compiler->tag_nocache = true;
@@ -131,7 +132,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             } 
         } 
         // create template object
-        $_output = "<?php \$_template = new Smarty_Template ($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, \$_smarty_tpl->cache_id,  \$_smarty_tpl->compile_id);"; 
+        $_output = "<?php \$_template = new Smarty_Template ($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, \$_smarty_tpl->cache_id, \$_smarty_tpl->compile_id, $_caching, $_cache_lifetime);"; 
         // delete {include} standard attributes
         unset($_attr['file'], $_attr['assign'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope']); 
         // remaining attributes must be assigned as smarty variable
@@ -145,12 +146,6 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $this->compiler->trigger_template_error('variable passing not allowed in parent/global scope');
             } 
         } 
-        // add caching parameter if required
-        if (isset($_cache_lifetime)) {
-            $_output .= "\$_template->cache_lifetime = $_cache_lifetime;";
-            $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
-        } 
-        $_output .= "\$_template->caching = $_caching;"; 
         // was there an assign attribute
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign($_assign,\$_template->getRenderedTemplate()); ?>";

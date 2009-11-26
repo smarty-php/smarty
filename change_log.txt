@@ -1,5 +1,7 @@
 11/26/2009
 - bugfix on nested doublequoted strings
+- correct line number on unknown tag error message
+- changed {include} compiled code
 
 11/25/2009
 - allow the following writing for boolean: true, TRUE, True, false, FALSE, False

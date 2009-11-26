@@ -76,15 +76,15 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     * @param mixed $_cache_id cache id or null
     * @param mixed $_compile_id compile id or null
     */
-    public function __construct($template_resource, $smarty, $_parent = null, $_cache_id = null, $_compile_id = null)
+    public function __construct($template_resource, $smarty, $_parent = null, $_cache_id = null, $_compile_id = null, $_caching = null, $_cache_lifetime = null)
     {
         $this->smarty = $smarty; 
         // Smarty parameter
         $this->cache_id = $_cache_id === null ? $this->smarty->cache_id : $_cache_id;
         $this->compile_id = $_compile_id === null ? $this->smarty->compile_id : $_compile_id;
         $this->force_compile = $this->smarty->force_compile;
-        $this->caching = $this->smarty->caching;
-        $this->cache_lifetime = $this->smarty->cache_lifetime;
+        $this->caching = $_caching === null ? $this->smarty->caching : $_caching;
+        $this->cache_lifetime = $_cache_lifetime === null ?$this->smarty->cache_lifetime : $_cache_lifetime;
         $this->force_cache = $this->smarty->force_cache;
         $this->cacher_class = $this->smarty->cacher_class;
         $this->caching_type = $this->smarty->default_caching_type;
@@ -573,10 +573,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             } else {
                 $_return = call_user_func_array($this->smarty->default_template_handler_func,
                     array($this->resource_type, $this->resource_name, &$this->template_source, &$this->template_timestamp, $this));
-                if ($_return == true) {
-                    return $file;
-                } elseif (is_string($_return)) {
+                if (is_string($_return)) {
                     return $_return;
+                } elseif ($_return === true) {
+                    return $file;
                 }
             } 
         } 

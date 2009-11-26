@@ -235,7 +235,7 @@ class Smarty_Internal_TemplateCompilerBase {
     {
         // get template source line which has error
         if (!isset($line)) {
-        $line = $this->lex->line;
+            $line = $this->lex->line;
         } 
         $match = preg_split("/\n/", $this->lex->data);
         $error_text = 'Syntax Error in template "' . $this->template->getTemplateFilepath() . '"  on line ' . $line . ' "' . $match[$line-1] . '" ';
