@@ -1,3 +1,6 @@
+11/27/2009
+- added cache resource MYSQL plugin
+
 11/26/2009
 - bugfix on nested doublequoted strings
 - correct line number on unknown tag error message

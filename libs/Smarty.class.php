@@ -62,7 +62,7 @@ if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
 if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
     define('SMARTY_RESOURCE_DATE_FORMAT', '%b %e, %Y');
 } 
- 
+
 /**
 * define variable scopes
 */
@@ -167,7 +167,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                        
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                            
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -181,9 +181,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     // resource type used if none given
     public $default_resource_type = 'file'; 
     // caching type
-    public $default_caching_type = 'file'; 
+    public $caching_type = 'file'; 
     // internal cache resource types
-    public $cache_resorce_types = array('file'); 
+    public $cache_resource_types = array('file'); 
     // config type
     public $default_config_type = 'file'; 
     // class used for cacher
@@ -331,7 +331,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * @param object $parent next higher level of Smarty variables
     */
     public function display($template, $cache_id = null, $compile_id = null, $parent = null)
-    {
+    { 
         // display template
         echo $this->fetch ($template, $cache_id, $compile_id, $parent); 
         // debug output
@@ -491,6 +491,34 @@ class Smarty extends Smarty_Internal_TemplateBase {
     {
         $this->exception_handler = $handler;
         return set_exception_handler($handler);
+    } 
+
+    /**
+    * Loads cache resource.
+    * 
+    * @return object of cache resource
+    */
+    public function loadCacheResource($type = null)
+    {
+        if (!isset($type)) {
+            $type = $this->caching_type;
+        } 
+        // already loaded?
+        if (isset($this->cache_resource_objects[$type])) {
+            return $this->cache_resource_objects[$type];
+        } 
+        if (in_array($type, $this->cache_resource_types)) {
+            $cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($type);
+            return $this->cache_resource_objects[$type] = new $cache_resource_class($this);
+        } else {
+            // try plugins dir
+            $cache_resource_class = 'Smarty_CacheResource_' . ucfirst($type);
+            if ($this->loadPlugin($cache_resource_class)) {
+                return $this->cache_resource_objects[$type] = new $cache_resource_class($this);
+            } else {
+                throw new Exception("Unable to load cache resource '{$type}'");
+            } 
+        } 
     } 
 
     /**

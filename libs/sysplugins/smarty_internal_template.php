@@ -24,7 +24,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public $cache_lifetime = null;
     public $cacher_class = null;
     public $caching_type = null;
-    public $force_compile = null; 
+    public $force_compile = null;
     public $forceNocache = false; 
     // Template resource
     public $template_resource = null;
@@ -87,9 +87,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         $this->cache_lifetime = $_cache_lifetime === null ?$this->smarty->cache_lifetime : $_cache_lifetime;
         $this->force_cache = $this->smarty->force_cache;
         $this->cacher_class = $this->smarty->cacher_class;
-        $this->caching_type = $this->smarty->default_caching_type;
         $this->security = $this->smarty->security;
-        $this->cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($this->caching_type);
         $this->parent = $_parent;
         $this->properties['file_dependency'] = array(); 
         // dummy local smarty variable
@@ -102,7 +100,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         } 
         // load cache resource
         if (!$this->isEvaluated() && $this->caching) {
-            $this->cache_resource_object = new $this->cache_resource_class($this->smarty);
+            $this->cache_resource_object = $this->smarty->loadCacheResource();
         } 
     } 
 
@@ -207,8 +205,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         $this->isExisting(true);
         if ($this->mustCompile === null) {
-            $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || $this->getCompiledTimestamp () === false ||
-//                    ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
+            $this->mustCompile = ($this->usesCompiler() && ($this->force_compile || $this->isEvaluated() || $this->getCompiledTimestamp () === false || 
+                    // ($this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTemplateTimestamp ())));
                     ($this->smarty->compile_check && $this->getCompiledTimestamp () < $this->getTemplateTimestamp ())));
         } 
         return $this->mustCompile;
@@ -291,14 +289,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 // write compiled template
                 Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->compiled_template, $this->smarty); 
                 // make template and compiled file timestamp match
-/**
-                $this->compiled_timestamp = null;
-                touch($this->getCompiledFilepath(), $this->getTemplateTimestamp()); 
-                // daylight saving time problem on windows
-                if ($this->template_timestamp != $this->getCompiledTimestamp()) {
-                    touch($this->getCompiledFilepath(), 2 * $this->template_timestamp - $this->compiled_timestamp);
-                }
-**/ 
+                /**
+                * $this->compiled_timestamp = null;
+                * touch($this->getCompiledFilepath(), $this->getTemplateTimestamp()); 
+                * // daylight saving time problem on windows
+                * if ($this->template_timestamp != $this->getCompiledTimestamp()) {
+                * touch($this->getCompiledFilepath(), 2 * $this->template_timestamp - $this->compiled_timestamp);
+                * }
+                */
             } 
         } else {
             // error compiling template
@@ -445,7 +443,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                                 $resource_handler = $this->loadTemplateResourceHandler($resource_type);
                                 $mtime = $resource_handler->getTemplateTimestampTypeName($resource_type, $resource_name);
                             } 
-//                            If ($mtime != $_file_to_check[1]) {
+                            // If ($mtime != $_file_to_check[1]) {
                             If ($mtime > $_file_to_check[1]) {
                                 $this->properties['file_dependency'] = array();
                                 $this->mustCompile = true;
@@ -577,7 +575,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                     return $_return;
                 } elseif ($_return === true) {
                     return $file;
-                }
+                } 
             } 
         } 
         // throw new Exception("Unable to load template \"{$file}\"");

@@ -18,18 +18,12 @@
 * @param string $type resource type
 * @return integer number of cache files deleted
 */
-function  Smarty_Method_Clear_All_Cache($smarty, $exp_time = null, $type = 'file')
+function  Smarty_Method_Clear_All_Cache($smarty, $exp_time = null, $type = null)
 { 
     // load cache resource
-    if (!isset($smarty->cache_resource_objects[$type])) {
-        $_cache_resource_class = 'Smarty_Internal_CacheResource_' . $type;
-        if (!$smarty->loadPlugin($_cache_resource_class)) {
-            throw new Exception("Undefined cache resource type {$type}");
-        } 
-        $smarty->cache_resource_objects[$type] = new $_cache_resource_class($smarty);
-    } 
+    $cacheResource = $smarty->loadCacheResource($type);
 
-    return $smarty->cache_resource_objects[$type]->clearAll($exp_time);
+    return $cacheResource->clearAll($exp_time);
 } 
 
 ?>
