@@ -83,6 +83,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
         $_template->caching = false;
         $_template->force_compile = false;
         $_template->security = false;
+        $_template->cache_id = null;
+        $_template->compile_id = null;
         $_template->assign('template_data', self::$template_data);
         $_template->assign('assigned_vars', $_assigned_vars);
         $_template->assign('config_vars', $_config_vars);
