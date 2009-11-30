@@ -418,7 +418,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function enableCaching()
     {
-        $this->caching = true;
+        $this->caching = SMARTY_CACHING_LIFETIME_CURRENT;
         return;
     } 
     /**

@@ -1,3 +1,6 @@
+11/30/2009
+- map 'true' to SMARTY_CACHING_LIFETIME_CURRENT for the $smarty->caching parameter
+
 11/28/2009
 - ignore compile_id at debug template
 - added direct access to constants in templates
