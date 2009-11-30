@@ -113,7 +113,6 @@ class Smarty_Internal_Resource_Extends {
             $_tpl->template_filepath = $this->template->getTemplateFilepath();
             $_tpl->forceNocache= true;
             $_compiled_content = $_tpl->getCompiledTemplate();
-            unset($_tpl);
             $_name = trim($_match[3], "\"'}");
 
             if (isset($this->smarty->block_data[$_name])) {
@@ -135,6 +134,10 @@ class Smarty_Internal_Resource_Extends {
             } else {
                 $this->smarty->block_data[$_name]['mode'] = 'replace';
             } 
+            if (isset($_tpl->properties['function'])) {
+                $this->smarty->block_data[$_name]['function'] = $_tpl->properties['function'];
+            } 
+            unset($_tpl);
         } 
     } 
 

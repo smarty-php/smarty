@@ -72,6 +72,13 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             } elseif (!empty($this->smarty->block_data[$_name])) {
                 $_output = $this->smarty->block_data[$_name]['compiled'];
             } 
+            if (isset($this->smarty->block_data[$_name]['function'])) {
+                if (isset($compiler->template->properties['function'])) {
+                    $compiler->template->properties['function'] = array_merge ($compiler->template->properties['function'], $this->smarty->block_data[$_name]['function']);
+                } else {
+                    $compiler->template->properties['function'] = $this->smarty->block_data[$_name]['function'];
+                } 
+            } 
         } else {
             $_output = $compiler->template->extracted_compiled_code;
         } 
@@ -79,7 +86,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         $compiler->template->extract_code = $saved_data[2]; 
         // check for includes in block tags
         preg_match('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>)/', $_output, $matches);
-        $_output = preg_replace(array('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>.*\n)/', '/(\<\?php if\(\!defined\(\'SMARTY_DIR\'\)\))(.*)(\?\>.*\n)/'), '', $_output); 
+        $_output = preg_replace(array('/(\<\?php \$_smarty_tpl-\>decodeProperties\(\')(.*)(\'.*\?\>.*\n)/', '/(\<\?php if\(\!defined\(\'SMARTY_DIR\'\)\))(.*)(\?\>.*\n)/'), '', $_output);
         if (isset($matches[2])) {
             $prop = unserialize($matches[2]);
             $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $prop['file_dependency']);
