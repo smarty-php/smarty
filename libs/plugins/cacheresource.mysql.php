@@ -5,15 +5,15 @@
 * 
 * Implements MYSQL as resource for the HTML cache
 *
-*CREATE TABLE `smarty_cache` (
+*CREATE TABLE `SMARTY_CACHE` (
+*  `Id` int(12) NOT NULL,
 *  `CacheContents` mediumtext NOT NULL,
 *  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 *  `CacheId` varchar(100) NOT NULL,
 *  `CompileId` varchar(100) NOT NULL,
 *  `ResourceName` varchar(100) NOT NULL,
 *  UNIQUE KEY `NewIndex_1` (`Id`)
-*) ENGINE=MyISAM DEFAULT CHARSET=latin1
-* 
+*) ENGINE=MyISAM DEFAULT CHARSET=latin1* 
 * @package Smarty
 * @subpackage Plugins
 * @author Uwe Tews 
