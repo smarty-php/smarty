@@ -65,7 +65,7 @@ function smarty_function_html_radios($params, $smarty, $template)
             case 'checked':
             case 'selected':
                 if (is_array($_val)) {
-                    throw new Exception ('html_radios: the "' . $_key . '" attribute cannot be an array', E_USER_WARNING);
+                    trigger_error('html_radios: the "' . $_key . '" attribute cannot be an array', E_USER_WARNING);
                 } else {
                     $selected = (string)$_val;
                 } 
@@ -86,7 +86,7 @@ function smarty_function_html_radios($params, $smarty, $template)
                 break;
 
             case 'radios':
-                throw new Exception ('html_radios: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
+                trigger_error('html_radios: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
                 $options = (array)$_val;
                 break;
 
@@ -97,7 +97,7 @@ function smarty_function_html_radios($params, $smarty, $template)
                 if (!is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
-                    throw new Exception ("html_radios: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    trigger_error("html_radios: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 } 
                 break;
         } 

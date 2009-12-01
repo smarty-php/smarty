@@ -50,7 +50,7 @@ function smarty_function_cycle($params, $smarty, $template)
             
     if (!in_array('values', array_keys($params))) {
         if(!isset($template->plugin_data['cycle'][$name]['values'])) {
-            throw new Exception ("cycle: missing 'values' parameter");
+            trigger_error("cycle: missing 'values' parameter",E_USER_WARNING);
             return;
         }
     } else {

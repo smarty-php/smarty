@@ -85,7 +85,7 @@ function smarty_function_html_image($params, $smarty, $template)
     } 
 
     if (empty($file)) {
-        throw new Exception ("html_image: missing 'file' parameter", E_USER_NOTICE);
+        trigger_error("html_image: missing 'file' parameter", E_USER_NOTICE);
         return;
     } 
 
@@ -98,13 +98,13 @@ function smarty_function_html_image($params, $smarty, $template)
     if (!isset($params['width']) || !isset($params['height'])) {
         if (!$_image_data = @getimagesize($_image_path)) {
             if (!file_exists($_image_path)) {
-                throw new Exception ("html_image: unable to find '$_image_path'", E_USER_NOTICE);
+                trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);
                 return;
             } else if (!is_readable($_image_path)) {
-                throw new Exception ("html_image: unable to read '$_image_path'", E_USER_NOTICE);
+                trigger_error("html_image: unable to read '$_image_path'", E_USER_NOTICE);
                 return;
             } else {
-                throw new Exception ("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
+                trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
                 return;
             } 
         } 

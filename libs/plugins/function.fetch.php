@@ -24,7 +24,7 @@
 function smarty_function_fetch($params, $smarty, $template)
 {
     if (empty($params['file'])) {
-        throw new Exception ("[plugin] fetch parameter 'file' cannot be empty");
+        trigger_error("[plugin] fetch parameter 'file' cannot be empty",E_USER_NOTICE);
         return;
     }
 
@@ -41,7 +41,7 @@ function smarty_function_fetch($params, $smarty, $template)
             }
             fclose($fp);
         } else {
-            throw new Exception ('[plugin] fetch cannot read file \'' . $params['file'] . '\'');
+            trigger_error('[plugin] fetch cannot read file \'' . $params['file'] . '\'',E_USER_NOTICE);
             return;
         }
     } else {
@@ -94,7 +94,7 @@ function smarty_function_fetch($params, $smarty, $template)
                         case "header":
                             if(!empty($param_value)) {
                                 if(!preg_match('![\w\d-]+: .+!',$param_value)) {
-                                    throw new Exception ("[plugin] invalid header format '".$param_value."'");
+                                    trigger_error("[plugin] invalid header format '".$param_value."'",E_USER_NOTICE);
                                     return;
                                 } else {
                                     $extra_headers[] = $param_value;
@@ -110,7 +110,7 @@ function smarty_function_fetch($params, $smarty, $template)
                             if(!preg_match('!\D!', $param_value)) {
                                 $proxy_port = (int) $param_value;
                             } else {
-                                throw new Exception ("[plugin] invalid value for attribute '".$param_key."'");
+                                trigger_error("[plugin] invalid value for attribute '".$param_key."'",E_USER_NOTICE);
                                 return;
                             }
                             break;
@@ -128,12 +128,12 @@ function smarty_function_fetch($params, $smarty, $template)
                             if(!preg_match('!\D!', $param_value)) {
                                 $timeout = (int) $param_value;
                             } else {
-                                throw new Exception ("[plugin] invalid value for attribute '".$param_key."'");
+                                trigger_error("[plugin] invalid value for attribute '".$param_key."'",E_USER_NOTICE);
                                 return;
                             }
                             break;
                         default:
-                            throw new Exception ("[plugin] unrecognized attribute '".$param_key."'");
+                            trigger_error("[plugin] unrecognized attribute '".$param_key."'",E_USER_NOTICE);
                             return;
                     }
                 }
@@ -145,7 +145,7 @@ function smarty_function_fetch($params, $smarty, $template)
                 }
 
                 if(!$fp) {
-                    throw new Exception ("[plugin] unable to fetch: $errstr ($errno)");
+                    trigger_error("[plugin] unable to fetch: $errstr ($errno)",E_USER_NOTICE);
                     return;
                 } else {
                     if($_is_proxy) {
@@ -188,7 +188,7 @@ function smarty_function_fetch($params, $smarty, $template)
                     }
                 }
             } else {
-                throw new Exception ("[plugin] unable to parse URL, check syntax");
+                trigger_error("[plugin fetch] unable to parse URL, check syntax",E_USER_NOTICE);
                 return;
             }
         } else {
@@ -199,7 +199,7 @@ function smarty_function_fetch($params, $smarty, $template)
                 }
                 fclose($fp);
             } else {
-                throw new Exception ('[plugin] fetch cannot read file \'' . $params['file'] .'\'');
+                trigger_error('[plugin] fetch cannot read file \'' . $params['file'] .'\'',E_USER_NOTICE);
                 return;
             }
         }

@@ -2,6 +2,7 @@
 - fixed parsing of names of special formated tags like if,elseif,while,for,foreach
 - removed direct access to constants in templates because of some syntax problems
 - removed cache resource plugin for mysql from the distribution
+- replaced most hard errors (exceptions) by softerrors(trigger_error) in plugins
 
 11/30/2009
 - map 'true' to SMARTY_CACHING_LIFETIME_CURRENT for the $smarty->caching parameter

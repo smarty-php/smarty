@@ -134,7 +134,7 @@ function smarty_function_html_select_date($params, $smarty, $template)
                 if (!is_array($_value)) {
                     $extra_attrs .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_value) . '"';
                 } else {
-                    throw new Exception ("html_select_date: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    trigger_error("html_select_date: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 } 
                 break;
         } 

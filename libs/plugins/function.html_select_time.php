@@ -78,7 +78,7 @@ function smarty_function_html_select_time($params, $smarty, $template)
                 break;
 
             default:
-                throw new Exception ("[html_select_time] unknown parameter $_key", E_USER_WARNING);
+                trigger_error("[html_select_time] unknown parameter $_key", E_USER_WARNING);
         } 
     } 
 

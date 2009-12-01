@@ -80,7 +80,7 @@ function smarty_function_html_checkboxes($params, $smarty, $template)
                 break;
 
             case 'checkboxes':
-                throw new Exception ('html_checkboxes: the use of the "checkboxes" attribute is deprecated, use "options" instead', E_USER_WARNING);
+                trigger_error('html_checkboxes: the use of the "checkboxes" attribute is deprecated, use "options" instead', E_USER_WARNING);
                 $options = (array)$_val;
                 break;
 
@@ -91,7 +91,7 @@ function smarty_function_html_checkboxes($params, $smarty, $template)
                 if(!is_array($_val)) {
                     $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
                 } else {
-                    throw new Exception ("html_checkboxes: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    trigger_error("html_checkboxes: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }

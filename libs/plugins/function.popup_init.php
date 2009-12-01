@@ -32,7 +32,7 @@ function smarty_function_popup_init($params, $smarty, $template)
         return '<div id="overDiv" style="position:absolute; visibility:hidden; z-index:'.$zindex.';"></div>' . "\n"
          . '<script type="text/javascript" language="JavaScript" src="'.$params['src'].'"></script>' . "\n";
     } else {
-        throw new Exception ("popup_init: missing src parameter");
+        trigger_error("popup_init: missing src parameter",E_USER_WARNING);
     }
 }
 
