@@ -31,7 +31,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         // $include_file = '';
         eval('$include_file = ' . $_attr['file'] . ';'); 
         // create template object
-        $_template = new Smarty_Template ($include_file, $this->smarty, $compiler->template); 
+        $_template = new $compiler->smarty->template_class($include_file, $this->smarty, $compiler->template); 
         // save file dependency
         $compiler->template->properties['file_dependency']['F' . abs(crc32($_template->getTemplateFilepath()))] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
         $_old_source = $compiler->template->template_source;

@@ -3,6 +3,7 @@
 - removed direct access to constants in templates because of some syntax problems
 - removed cache resource plugin for mysql from the distribution
 - replaced most hard errors (exceptions) by softerrors(trigger_error) in plugins
+- use $template_class property for template class name when compiling {include},{eval} and {extends} tags
 
 11/30/2009
 - map 'true' to SMARTY_CACHING_LIFETIME_CURRENT for the $smarty->caching parameter
