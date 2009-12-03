@@ -129,6 +129,18 @@ Example: {$object->method1($x)->method2($y)}
 Any number of statements can be used separated by comma as the first
 inital expression at {for}.
 
+{for $x = $start to $end step $step} ... {/for}is in the SVN now .
+You can use also
+{for $x = $start to $end} ... {/for}
+In this case the step value will be automaticall 1 or -1 depending on the start and end values.
+Instead of $start and $end you can use any valid expression.
+Inside the loop the following special vars can be accessed:
+$x@iteration = number of iteration
+$x@total = total number of iterations
+$x@first = true on first iteration
+$x@last = true on last iteration
+
+
 The Smarty 2 {section} syntax is still supported.
 
 New shorter {foreach} syntax to loop over an array.
