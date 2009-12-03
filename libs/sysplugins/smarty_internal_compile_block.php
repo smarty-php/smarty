@@ -63,22 +63,20 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         } 
         $_name = trim($saved_data[0]['name'], "\"'");
         if (isset($this->smarty->block_data[$_name])) {
-            if (strpos($this->smarty->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
-                $_output = str_replace('%%%%SMARTY_PARENT%%%%', $compiler->template->extracted_compiled_code, $this->smarty->block_data[$_name]['compiled']);
+            $_tpl = $this->smarty->createTemplate('string:' . $this->smarty->block_data[$_name]['source'], null, null, $compiler->template);
+            $_tpl->template_filepath = $this->smarty->block_data[$_name]['file'];
+            $_tpl->forceNocache = true;
+
+            if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                $_output = str_replace('%%%%SMARTY_PARENT%%%%', $compiler->template->extracted_compiled_code, $_tpl->getCompiledTemplate());
             } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
-                $_output = $this->smarty->block_data[$_name]['compiled'] . $compiler->template->extracted_compiled_code;
+                $_output = $_tpl->getCompiledTemplate() . $compiler->template->extracted_compiled_code;
             } elseif ($this->smarty->block_data[$_name]['mode'] == 'append') {
-                $_output = $compiler->template->extracted_compiled_code . $this->smarty->block_data[$_name]['compiled'];
+                $_output = $compiler->template->extracted_compiled_code . $_tpl->getCompiledTemplate();
             } elseif (!empty($this->smarty->block_data[$_name])) {
-                $_output = $this->smarty->block_data[$_name]['compiled'];
+                $_output = $_tpl->getCompiledTemplate();
             } 
-            if (isset($this->smarty->block_data[$_name]['function'])) {
-                if (isset($compiler->template->properties['function'])) {
-                    $compiler->template->properties['function'] = array_merge ($compiler->template->properties['function'], $this->smarty->block_data[$_name]['function']);
-                } else {
-                    $compiler->template->properties['function'] = $this->smarty->block_data[$_name]['function'];
-                } 
-            } 
+            unset($tpl);
         } else {
             $_output = $compiler->template->extracted_compiled_code;
         } 

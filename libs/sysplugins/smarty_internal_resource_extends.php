@@ -74,6 +74,7 @@ class Smarty_Internal_Resource_Extends {
     public function getTemplateSource($template)
     {
         $this->template = $template;
+        $saved_filepath = $template->getTemplateFilepath();
         $_files = explode('|', $template->resource_name);
         $_files = array_reverse($_files);
         foreach ($_files as $_file) {
@@ -85,6 +86,7 @@ class Smarty_Internal_Resource_Extends {
             if ($_file != $_files[0]) {
                 $template->properties['file_dependency']['F' . abs(crc32($_filepath))] = array($_filepath, filemtime($_filepath));
             } 
+            $template->template_filepath = $_filepath;
             $_content = file_get_contents($_filepath);
             if ($_file != $_files[count($_files)-1]) {
                 if (preg_match_all('/(' . $this->smarty->left_delimiter . 'block(.+?)' . $this->smarty->right_delimiter . ')/', $_content, $_open, PREG_OFFSET_CAPTURE) !=
@@ -95,37 +97,32 @@ class Smarty_Internal_Resource_Extends {
                 for ($_i = 0; $_i < $_block_count; $_i++) {
                     $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
                         substr($_content, $_open[0][$_i][1] + strlen($_open[0][$_i][0]), $_close[0][$_i][1] - $_open[0][$_i][1] - strlen($_open[0][$_i][0])));
-                    $this->saveBlockData($_block_content, $_open[0][$_i][0],$this->template);
+                    $this->saveBlockData($_block_content, $_open[0][$_i][0], $_filepath);
                 } 
             } else {
                 $template->template_source = $_content;
                 return true;
             } 
         } 
+        $template->template_filepath = $saved_filepath;
     } 
-    protected function saveBlockData($block_content, $block_tag,$template)
+    protected function saveBlockData($block_content, $block_tag, $_filepath)
     {
         if (0 == preg_match('/(.?)(name=)([^ ]*)/', $block_tag, $_match)) {
             $this->smarty->trigger_error("\"" . $block_tag . "\" missing name attribute");
         } else {
-            // compile block content
-            $_tpl = $this->smarty->createTemplate('string:' . $block_content,null,null,$template);
-            $_tpl->template_filepath = $this->template->getTemplateFilepath();
-            $_tpl->forceNocache= true;
-            $_compiled_content = $_tpl->getCompiledTemplate();
             $_name = trim($_match[3], "\"'}");
-
             if (isset($this->smarty->block_data[$_name])) {
-                if (strpos($this->smarty->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
-                    $this->smarty->block_data[$_name]['compiled'] =
-                    str_replace('%%%%SMARTY_PARENT%%%%', $_compiled_content, $this->smarty->block_data[$_name]['compiled']);
+                if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                    $this->smarty->block_data[$_name]['source'] =
+                    str_replace('%%%%SMARTY_PARENT%%%%', $block_content, $this->smarty->block_data[$_name]['source']);
                 } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
-                    $this->smarty->block_data[$_name]['compiled'] .= $_compiled_content;
+                    $this->smarty->block_data[$_name]['source'] .= $block_content;
                 } elseif ($this->smarty->block_data[$_name]['mode'] == 'append') {
-                    $this->smarty->block_data[$_name]['compiled'] = $_compiled_content . $this->smarty->block_data[$_name]['compiled'];
+                    $this->smarty->block_data[$_name]['source'] = $block_content . $this->smarty->block_data[$_name]['source'];
                 } 
             } else {
-                $this->smarty->block_data[$_name]['compiled'] = $_compiled_content;
+                $this->smarty->block_data[$_name]['source'] = $block_content;
             } 
             if (preg_match('/(.?)(append=true)(.*)/', $block_tag, $_match) != 0) {
                 $this->smarty->block_data[$_name]['mode'] = 'append';
@@ -134,10 +131,7 @@ class Smarty_Internal_Resource_Extends {
             } else {
                 $this->smarty->block_data[$_name]['mode'] = 'replace';
             } 
-            if (isset($_tpl->properties['function'])) {
-                $this->smarty->block_data[$_name]['function'] = $_tpl->properties['function'];
-            } 
-            unset($_tpl);
+            $this->smarty->block_data[$_name]['file'] = $_filepath;
         } 
     } 
 
@@ -170,7 +164,7 @@ class Smarty_Internal_Resource_Extends {
     */
     public function getCompiledFilepath($template)
     {
-        $_compile_id =  isset($template->compile_id) ? preg_replace('![^\w\|]+!','_',$template->compile_id) : null;
+        $_compile_id = isset($template->compile_id) ? preg_replace('![^\w\|]+!', '_', $template->compile_id) : null;
         $_files = explode('|', $template->resource_name);
         $_filepath = (string)abs(crc32($template->resource_name)); 
         // if use_sub_dirs, break file into directories
@@ -193,7 +187,7 @@ class Smarty_Internal_Resource_Extends {
         if (substr($_compile_dir, -1) != DS) {
             $_compile_dir .= DS;
         } 
-        return $_compile_dir . $_filepath . '.' . basename($_files[count($_files)-1]) . $_cache . '.php';
+        return $_compile_dir . $_filepath . '.' . $template->resource_type . '.' . basename($_files[count($_files)-1]) . $_cache . '.php';
     } 
 } 
 

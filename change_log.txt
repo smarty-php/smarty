@@ -1,3 +1,6 @@
+12/03/2009
+- template inheritance: child templates can now call functions defined by the {function} tag in the parent template
+
 12/01/2009
 - fixed parsing of names of special formated tags like if,elseif,while,for,foreach
 - removed direct access to constants in templates because of some syntax problems

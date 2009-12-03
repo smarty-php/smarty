@@ -46,6 +46,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
             $this->saveBlockData($block_content, $s[0][$i][0], $compiler->template);
         } 
         $compiler->template->template_source = $_template->getTemplateSource();
+        $compiler->template->template_filepath = $_template->getTemplateFilepath();
         $compiler->abort_and_recompile = true;
         return ' ';
     } 
@@ -55,24 +56,18 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         if (0 == preg_match('/(.?)(name=)([^ ]*)/', $block_tag, $_match)) {
             $this->compiler->trigger_template_error("\"" . $block_tag . "\" missing name attribute");
         } else {
-            // compile block content
-            $_tpl = $this->smarty->createTemplate('string:' . $block_content, null, null, $template);
-            $_tpl->template_filepath = $this->compiler->template->getTemplateFilepath();
-            $_tpl->forceNocache = true;
-            $_compiled_content = $_tpl->getCompiledTemplate();
             $_name = trim($_match[3], "\"'}");
-
             if (isset($this->smarty->block_data[$_name])) {
-                if (strpos($this->smarty->block_data[$_name]['compiled'], '%%%%SMARTY_PARENT%%%%') !== false) {
-                    $this->smarty->block_data[$_name]['compiled'] =
-                    str_replace('%%%%SMARTY_PARENT%%%%', $_compiled_content, $this->smarty->block_data[$_name]['compiled']);
+                if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                    $this->smarty->block_data[$_name]['source'] =
+                    str_replace('%%%%SMARTY_PARENT%%%%', $block_content, $this->smarty->block_data[$_name]['source']);
                 } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
-                    $this->smarty->block_data[$_name]['compiled'] .= $_compiled_content;
+                    $this->smarty->block_data[$_name]['source'] .= $block_content;
                 } elseif ($this->smarty->block_data[$_name]['mode'] == 'append') {
-                    $this->smarty->block_data[$_name]['compiled'] = $_compiled_content . $this->smarty->block_data[$_name]['compiled'];
+                    $this->smarty->block_data[$_name]['source'] = $block_content . $this->smarty->block_data[$_name]['source'];
                 } 
             } else {
-                $this->smarty->block_data[$_name]['compiled'] = $_compiled_content;
+                $this->smarty->block_data[$_name]['source'] = $block_content;
             } 
             if (preg_match('/(.?)(append=true)(.*)/', $block_tag, $_match) != 0) {
                 $this->smarty->block_data[$_name]['mode'] = 'append';
@@ -81,10 +76,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
             } else {
                 $this->smarty->block_data[$_name]['mode'] = 'replace';
             } 
-            if (isset($_tpl->properties['function'])) {
-                $this->smarty->block_data[$_name]['function'] = $_tpl->properties['function'];
-            } 
-            unset($_tpl);
+            $this->smarty->block_data[$_name]['file'] = $template->getTemplateFilepath();
         } 
     } 
 } 
