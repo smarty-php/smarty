@@ -34,20 +34,40 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
     {
         $this->compiler = $compiler; 
         // {for $x=0; $x<$y; $x++} syntax
-        $this->required_attributes = array('ifexp', 'start', 'loop', 'varloop'); 
+        if (isset($args['ifexp'])) {
+            $this->required_attributes = array('ifexp', 'start', 'loop', 'varloop');
+        } else {
+            $this->required_attributes = array('start', 'to');
+            $this->optional_attributes = array('step');
+        } 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $this->_open_tag('for', array('for',$this->compiler->nocache));
-		// maybe nocache because of nocache variables
-		$this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
+        $this->_open_tag('for', array('for', $this->compiler->nocache)); 
+        // maybe nocache because of nocache variables
+        $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
 
         $output = "<?php ";
-        foreach ($_attr['start'] as $_statement) {
-            $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
-            $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value];\n";
+        if (isset($_attr['ifexp'])) {
+            foreach ($_attr['start'] as $_statement) {
+                $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
+                $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value];\n";
+            } 
+            $output .= "  if ($_attr[ifexp]){ for (\$_foo=true;$_attr[ifexp]; \$_smarty_tpl->tpl_vars[$_attr[varloop]]->value$_attr[loop]){\n";
+        } else {
+            $_statement = $_attr['start'];
+            $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
+            if (isset($_attr['step'])) {
+                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->step = $_attr[step];";
+            } else {
+                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->step = ($_attr[to] - ($_statement[value]) < 0) ? -1 : 1;";
+            } 
+            $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int)ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - $_statement[value] : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step));\n";
+            $output .= "if (\$_smarty_tpl->tpl_vars[$_statement[var]]->total > 0){\n";
+            $output .= "for (\$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value], \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration = 1;\$_smarty_tpl->tpl_vars[$_statement[var]]->iteration <= \$_smarty_tpl->tpl_vars[$_statement[var]]->total;\$_smarty_tpl->tpl_vars[$_statement[var]]->value += \$_smarty_tpl->tpl_vars[$_statement[var]]->step, \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration++){\n";
+            $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->first = \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration == 1;";
+            $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->last = \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration == \$_smarty_tpl->tpl_vars[$_statement[var]]->total;";
         } 
-        $output .= "  if ($_attr[ifexp]){ for (\$_foo=true;$_attr[ifexp]; \$_smarty_tpl->tpl_vars[$_attr[varloop]]->value$_attr[loop]){\n";
         $output .= "?>"; 
         // return compiled code
         return $output;
@@ -72,7 +92,7 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase {
         $_attr = $this->_get_attributes($args);
 
         list($_open_tag, $nocache) = $this->_close_tag(array('for'));
-        $this->_open_tag('forelse',array('forelse', $nocache));
+        $this->_open_tag('forelse', array('forelse', $nocache));
         return "<?php }} else { ?>";
     } 
 } 
@@ -92,11 +112,11 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase {
     {
         $this->compiler = $compiler; 
         // check and get attributes
-        $_attr = $this->_get_attributes($args);
-		// must endblock be nocache?
-		if ($this->compiler->nocache) {
-               $this->compiler->tag_nocache = true;
-        }
+        $_attr = $this->_get_attributes($args); 
+        // must endblock be nocache?
+        if ($this->compiler->nocache) {
+            $this->compiler->tag_nocache = true;
+        } 
 
         list($_open_tag, $this->compiler->nocache) = $this->_close_tag(array('for', 'forelse'));
         if ($_open_tag == 'forelse')
