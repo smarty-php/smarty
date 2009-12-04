@@ -38,7 +38,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
             $this->required_attributes = array('ifexp', 'start', 'loop', 'varloop');
         } else {
             $this->required_attributes = array('start', 'to');
-            $this->optional_attributes = array('step');
+            $this->optional_attributes = array('step', 'max');
         } 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
@@ -62,7 +62,11 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
             } else {
                 $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->step = ($_attr[to] - ($_statement[value]) < 0) ? -1 : 1;";
             } 
-            $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int)ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - $_statement[value] : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step));\n";
+            if (isset($_attr['max'])) {
+                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int)min(ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - $_statement[value] : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step)),$_attr[max]);\n";
+            } else {
+                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int)ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - $_statement[value] : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step));\n";
+            } 
             $output .= "if (\$_smarty_tpl->tpl_vars[$_statement[var]]->total > 0){\n";
             $output .= "for (\$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value], \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration = 1;\$_smarty_tpl->tpl_vars[$_statement[var]]->iteration <= \$_smarty_tpl->tpl_vars[$_statement[var]]->total;\$_smarty_tpl->tpl_vars[$_statement[var]]->value += \$_smarty_tpl->tpl_vars[$_statement[var]]->step, \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration++){\n";
             $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->first = \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration == 1;";

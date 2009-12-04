@@ -1,3 +1,7 @@
+12/04/2009
+- added max attribute to for loop
+- added security mode allow_super_globals
+
 12/03/2009
 - template inheritance: child templates can now call functions defined by the {function} tag in the parent template
 - added {for $foo = 1 to 5 step 2}  syntax

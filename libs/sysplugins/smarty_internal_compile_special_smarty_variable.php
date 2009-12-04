@@ -21,9 +21,10 @@ class Smarty_Internal_Compile_Special_Smarty_Variable extends Smarty_Internal_Co
     */
     public function compile($args, $compiler)
     {
-        $_index = explode(',', str_replace(array(']['), array(','), substr($args,1,strlen($args)-2)));
+        $_index = explode(',', str_replace(array(']['), array(','), substr($args, 1, strlen($args)-2)));
         $compiled_ref = ' ';
-        switch (trim($_index[0], "'")) {
+        $variable = trim($_index[0], "'");
+        switch ($variable) {
             case 'foreach':
                 return "\$_smarty_tpl->getVariable('smarty')->value$args";
             case 'section':
@@ -34,31 +35,17 @@ class Smarty_Internal_Compile_Special_Smarty_Variable extends Smarty_Internal_Co
                 return 'time()';
 
             case 'get':
-                $compiled_ref = "\$_GET";
-                break;
-
             case 'post':
-                $compiled_ref = "\$_POST";
-                break;
-
             case 'cookies':
-                $compiled_ref = "\$_COOKIE";
-                break;
-
             case 'env':
-                $compiled_ref = "\$_ENV";
-                break;
-
             case 'server':
-                $compiled_ref = "\$_SERVER";
-                break;
-
             case 'session':
-                $compiled_ref = "\$_SESSION";
-                break;
-
             case 'request':
-                $compiled_ref = "\$_REQUEST";
+                if ($compiler->smarty->security && !$compiler->smarty->security_policy->allow_super_globals) {
+                    $compiler->trigger_template_error("(secure mode) super globals not permitted");
+                    break;
+                } 
+                $compiled_ref = "\$_".strtoupper($variable);
                 break;
 
             case 'template':
@@ -103,4 +90,5 @@ class Smarty_Internal_Compile_Special_Smarty_Variable extends Smarty_Internal_Co
         return $compiled_ref;
     } 
 } 
+
 ?>

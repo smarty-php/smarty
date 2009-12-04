@@ -76,6 +76,10 @@ class Smarty_Security {
     */
     public $allow_constants = true;
     /**
+    + flag if super globals can be accessed from template
+    */
+    public $allow_super_globals = true;
+    /**
     + flag if {php} tag can be executed
     */
     public $allow_php_tag = false;
