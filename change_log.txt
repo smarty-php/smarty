@@ -1,6 +1,7 @@
 12/03/2009
 - template inheritance: child templates can now call functions defined by the {function} tag in the parent template
 - added {for $foo = 1 to 5 step 2}  syntax
+- bugfix for {$foo.$x.$y.$z}
 
 12/01/2009
 - fixed parsing of names of special formated tags like if,elseif,while,for,foreach
