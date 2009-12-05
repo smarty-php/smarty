@@ -127,65 +127,7 @@ class Smarty_Internal_Configfilelexer
                     }
                     // skip this token
                     continue;
-                } else {                    $yy_yymore_patterns = array(
-        1 => array(0, "^('[^'\\\\\\\\]*(?:\\\\\\\\.[^'\\\\\\\\]*)*')|^(\"\"\"[^\"\\\\\\\\]*(?:\\\\\\\\.[^\"\\\\\\\\]*)*\"\"\")|^(\"[^\"\\\\\\\\]*(?:\\\\\\\\.[^\"\\\\\\\\]*)*\")|^(\\[)|^(])|^(\\s*=\\s*)|^((\n|\r\n))|^([\s]+)|^(\\.)|^(\\w+)|^(.)"),
-        2 => array(0, "^(\"\"\"[^\"\\\\\\\\]*(?:\\\\\\\\.[^\"\\\\\\\\]*)*\"\"\")|^(\"[^\"\\\\\\\\]*(?:\\\\\\\\.[^\"\\\\\\\\]*)*\")|^(\\[)|^(])|^(\\s*=\\s*)|^((\n|\r\n))|^([\s]+)|^(\\.)|^(\\w+)|^(.)"),
-        3 => array(0, "^(\"[^\"\\\\\\\\]*(?:\\\\\\\\.[^\"\\\\\\\\]*)*\")|^(\\[)|^(])|^(\\s*=\\s*)|^((\n|\r\n))|^([\s]+)|^(\\.)|^(\\w+)|^(.)"),
-        4 => array(0, "^(\\[)|^(])|^(\\s*=\\s*)|^((\n|\r\n))|^([\s]+)|^(\\.)|^(\\w+)|^(.)"),
-        5 => array(0, "^(])|^(\\s*=\\s*)|^((\n|\r\n))|^([\s]+)|^(\\.)|^(\\w+)|^(.)"),
-        6 => array(0, "^(\\s*=\\s*)|^((\n|\r\n))|^([\s]+)|^(\\.)|^(\\w+)|^(.)"),
-        7 => array(0, "^((\n|\r\n))|^([\s]+)|^(\\.)|^(\\w+)|^(.)"),
-        8 => array(1, "^([\s]+)|^(\\.)|^(\\w+)|^(.)"),
-        10 => array(1, "^(\\.)|^(\\w+)|^(.)"),
-        11 => array(1, "^(\\w+)|^(.)"),
-        12 => array(1, "^(.)"),
-        13 => array(1, ""),
-    );
-
-                    // yymore is needed
-                    do {
-                        if (!strlen($yy_yymore_patterns[$this->token][1])) {
-                            throw new Exception('cannot do yymore for the last token');
-                        }
-                        $yysubmatches = array();
-                        if (preg_match('/' . $yy_yymore_patterns[$this->token][1] . '/',
-                              substr($this->data, $this->counter), $yymatches)) {
-                            $yysubmatches = $yymatches;
-                            $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
-                            next($yymatches); // skip global match
-                            $this->token += key($yymatches) + $yy_yymore_patterns[$this->token][0]; // token number
-                            $this->value = current($yymatches); // token value
-                            $this->line = substr_count($this->value, "\n");
-                            if ($tokenMap[$this->token]) {
-                                // extract sub-patterns for passing to lex function
-                                $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                                    $tokenMap[$this->token]);
-                            } else {
-                                $yysubmatches = array();
-                            }
-                        }
-                    	$r = $this->{'yy_r1_' . $this->token}($yysubmatches);
-                    } while ($r !== null && !is_bool($r));
-			        if ($r === true) {
-			            // we have changed state
-			            // process this token in the new state
-			            return $this->yylex();
-                    } elseif ($r === false) {
-                        $this->counter += strlen($this->value);
-                        $this->line += substr_count($this->value, "\n");
-                        if ($this->counter >= strlen($this->data)) {
-                            return false; // end of input
-                        }
-                        // skip this token
-                        continue;
-			        } else {
-	                    // accept
-	                    $this->counter += strlen($this->value);
-	                    $this->line += substr_count($this->value, "\n");
-	                    return true;
-			        }
-                }
-            } else {
+                }            } else {
                 throw new Exception('Unexpected input at line' . $this->line .
                     ': ' . $this->data[$this->counter]);
             }

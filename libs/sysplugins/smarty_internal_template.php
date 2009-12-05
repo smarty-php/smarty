@@ -53,7 +53,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     private $cached_filepath = null;
     private $cached_timestamp = null;
     private $isCached = null;
-    private $cache_resource_object = null; 
+    private $cache_resource_object = null;
+    private $cacheFileWritten = false;
+    private $cacheFileChecked = false; 
     // template variables
     public $tpl_vars = array();
     public $parent = null;
@@ -333,7 +335,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function getCachedTimestamp ()
     {
         return $this->cached_timestamp === null ?
-        $this->cached_timestamp = ($this->isEvaluated() || !($this->caching ==1 || $this->caching ==2)) ? false : $this->cache_resource_object->getCachedTimestamp($this) :
+        $this->cached_timestamp = ($this->isEvaluated() || !($this->caching == 1 || $this->caching == 2)) ? false : $this->cache_resource_object->getCachedTimestamp($this) :
         $this->cached_timestamp;
     } 
 
@@ -382,6 +384,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                     if ($this->smarty->debugging) {
                         Smarty_Internal_Debug::end_cache($this);
                     } 
+                    if ($this->cacheFileChecked) {
+                        $this->isCached = true;
+                        return $this->isCached;
+                    } 
+                    $this->cacheFileChecked = true;
                     if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED && $this->properties['cache_lifetime'] > 0 && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']))) {
                         $this->rendered_content = null;
                         return $this->isCached;
@@ -489,7 +496,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 Smarty_Internal_Debug::start_cache($this);
             } 
             // write rendered template
-            $this->writeCachedContent($this); 
+            if (!$this->cacheFileWritten) {
+                $this->writeCachedContent($this);
+                $this->cacheFileWritten = true;
+            } 
             // cache file may contain nocache code. read it back for processing
             $this->rendered_content = $this->cache_resource_object->getCachedContents($this);
             if ($this->smarty->debugging) {
@@ -520,6 +530,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             $this->renderTemplate();
         } 
         $this->updateParentVariables();
+        $this->isCached = null;
         return $this->rendered_content;
     } 
 

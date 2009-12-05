@@ -1,5 +1,6 @@
 12/05/2009
 - fixed problem when a cached file was fetched several times
+- removed unneeded lexer code
 
 12/04/2009
 - added max attribute to for loop
