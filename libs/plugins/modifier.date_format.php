@@ -25,7 +25,7 @@
 * @return string |void
 * @uses smarty_make_timestamp()
 */
-function smarty_modifier_date_format($string, $format = SMARTY_RESOURCE_DATE_FORMAT, $default_date = '')
+function smarty_modifier_date_format($string, $format = SMARTY_RESOURCE_DATE_FORMAT, $default_date = '',$formatter='auto')
 {
     /**
     * Include the {@link shared.make_timestamp.php} plugin
@@ -38,20 +38,24 @@ function smarty_modifier_date_format($string, $format = SMARTY_RESOURCE_DATE_FOR
     } else {
         return;
     } 
-    if (DS == '\\') {
-        $_win_from = array('%D', '%h', '%n', '%r', '%R', '%t', '%T');
-        $_win_to = array('%m/%d/%y', '%b', "\n", '%I:%M:%S %p', '%H:%M', "\t", '%H:%M:%S');
-        if (strpos($format, '%e') !== false) {
-            $_win_from[] = '%e';
-            $_win_to[] = sprintf('%\' 2d', date('j', $timestamp));
+    if($formatter=='strftime'||($formatter=='auto'&&strpos($format,'%')!==false)) {
+        if (DS == '\\') {
+            $_win_from = array('%D', '%h', '%n', '%r', '%R', '%t', '%T');
+            $_win_to = array('%m/%d/%y', '%b', "\n", '%I:%M:%S %p', '%H:%M', "\t", '%H:%M:%S');
+            if (strpos($format, '%e') !== false) {
+                $_win_from[] = '%e';
+                $_win_to[] = sprintf('%\' 2d', date('j', $timestamp));
+            } 
+            if (strpos($format, '%l') !== false) {
+                $_win_from[] = '%l';
+                $_win_to[] = sprintf('%\' 2d', date('h', $timestamp));
+            } 
+            $format = str_replace($_win_from, $_win_to, $format);
         } 
-        if (strpos($format, '%l') !== false) {
-            $_win_from[] = '%l';
-            $_win_to[] = sprintf('%\' 2d', date('h', $timestamp));
-        } 
-        $format = str_replace($_win_from, $_win_to, $format);
-    } 
-    return strftime($format, $timestamp);
+        return strftime($format, $timestamp);
+    } else {
+        return date($format, $timestamp);
+    }
 } 
 
 ?>
