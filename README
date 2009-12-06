@@ -399,7 +399,7 @@ have to be checked for modifications at runtime so the more inheritance the more
 Instead of defining the parent/child relationships with the {extends} tag in the child template you
 can use the s resource as follow:
 
-$smarty->display('extends:grandchild.tpl|child.tpl|parent.tpl');
+$smarty->display('extends:parent.tpl|child.tpl|grandchild.tpl');
 
 Child {block} tags may optionally have a append or prepend attribute. In this case the parent block content 
 is appended or prepended to the child block content.
