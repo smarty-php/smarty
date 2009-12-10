@@ -1,3 +1,6 @@
+12/10/2009
+- bugfix on {function} tags and template inheritance
+
 12/05/2009
 - fixed problem when a cached file was fetched several times
 - removed unneeded lexer code
