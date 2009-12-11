@@ -46,9 +46,9 @@ function  Smarty_Method_Clear_Compiled_Tpl($smarty, $resource_name = null, $comp
                 @rmdir($_file->getPathname());
             } 
         } else {
-            if ((!isset($_compile_id) || substr_compare((string)$_file, $_compile_id_part, 0, strlen($_compile_id_part)) == 0) &&
-                    (!isset($resource_name) || substr_compare((string)$_file, $_resource_part_1, - strlen($_resource_part_1), strlen($_resource_part_1)) == 0 ||
-                        substr_compare((string)$_file, $_resource_part_2, - strlen($_resource_part_2), strlen($_resource_part_2)) == 0)) {
+            if ((!isset($_compile_id) || (strlen((string)$_file) > strlen($_compile_id_part) && substr_compare((string)$_file, $_compile_id_part, 0, strlen($_compile_id_part)) == 0)) &&
+                    (!isset($resource_name) || (strlen((string)$_file) > strlen($_resource_part_1) && substr_compare((string)$_file, $_resource_part_1, - strlen($_resource_part_1), strlen($_resource_part_1)) == 0) ||
+                        (strlen((string)$_file) > strlen($_resource_part_2) && substr_compare((string)$_file, $_resource_part_2, - strlen($_resource_part_2), strlen($_resource_part_2)) == 0))) {
                 if (isset($exp_time)) {
                     if (time() - @filemtime($_file) >= $exp_time) {
                         $_count += @unlink((string) $_file) ? 1 : 0;

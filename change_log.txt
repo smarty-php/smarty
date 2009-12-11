@@ -1,3 +1,6 @@
+12/11/2009
+- bugfix on clear_compiled_tpl (avoid possible warning)
+
 12/10/2009
 - bugfix on {function} tags and template inheritance
 
