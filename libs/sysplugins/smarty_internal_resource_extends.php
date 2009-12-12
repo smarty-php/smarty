@@ -124,9 +124,9 @@ class Smarty_Internal_Resource_Extends {
             } else {
                 $this->smarty->block_data[$_name]['source'] = $block_content;
             } 
-            if (preg_match('/(.?)(append=true)(.*)/', $block_tag, $_match) != 0) {
+            if (preg_match('/(.?)(append)(.*)/', $block_tag, $_match) != 0) {
                 $this->smarty->block_data[$_name]['mode'] = 'append';
-            } elseif (preg_match('/(.?)(prepend=true)(.*)/', $block_tag, $_match) != 0) {
+            } elseif (preg_match('/(.?)(prepend)(.*)/', $block_tag, $_match) != 0) {
                 $this->smarty->block_data[$_name]['mode'] = 'prepend';
             } else {
                 $this->smarty->block_data[$_name]['mode'] = 'replace';
