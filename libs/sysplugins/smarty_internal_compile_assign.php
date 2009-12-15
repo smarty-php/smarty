@@ -24,7 +24,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
     {
         $this->compiler = $compiler;
         $this->required_attributes = array('var', 'value');
-        $this->optional_attributes = array('scope', 'nocache', 'index');
+        $this->optional_attributes = array('scope', 'nocache', 'smarty_internal_index');
 
         $_nocache = 'null';
         $_scope = 'null'; 
@@ -49,16 +49,12 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
                 $_scope = SMARTY_GLOBAL_SCOPE;
             } 
         } 
-
-        if (isset($_attr['index'])) {
-            $_index = $_attr['index'];
-        } 
         // compiled output
-        if (isset($_attr['index'])) {
-            if ($_attr['index'] == '') {
+        if (isset($_attr['smarty_internal_index'])) {
+            if ($_attr['smarty_internal_index'] == '') {
                 return "<?php \$_smarty_tpl->append($_attr[var],$_attr[value],false,$_nocache,$_scope);?>";
             } else {
-                return "<?php \$_tmp$_attr[index] = $_attr[value]; \$_smarty_tpl->append($_attr[var],\$_tmp,true,$_nocache,$_scope); unset (\$_tmp);?>";
+                return "<?php \$_tmp$_attr[smarty_internal_index] = $_attr[value]; \$_smarty_tpl->append($_attr[var],\$_tmp,true,$_nocache,$_scope); unset (\$_tmp);?>";
             } 
         } else {
             return "<?php \$_smarty_tpl->assign($_attr[var],$_attr[value],$_nocache,$_scope);?>";
