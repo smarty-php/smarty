@@ -1,4 +1,14 @@
+12/16/2009
+- update of changelog
+
+12/14/2009
+- fixed sideefect of last modification (objects in array index did not work anymore)
+
+12/13/2009
+- allow boolean negation ("!") as operator on variables outside {if} tag
+
 12/12/2009
+- bugfix on single quotes inside {function} tag
 - fix short append/prepend attributes in {block} tags
 
 12/11/2009
