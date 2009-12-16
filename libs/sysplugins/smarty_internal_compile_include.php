@@ -30,7 +30,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         // save posible attributes
         $include_file = $_attr['file'];
         $has_compiled_template = false;
-        if ($compiler->smarty->merge_compiled_includes) {
+        if ($compiler->smarty->merge_compiled_includes || isset($_attr['inline'])) {
             // check if compiled code can be merged (contains no variable part)
             if (!$compiler->has_variable_string && (substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2) and substr_count($include_file, '(') == 0) {
                 eval("\$tmp = $include_file;");
@@ -134,7 +134,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         // create template object
         $_output = "<?php \$_template = new {$compiler->smarty->template_class} ($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, \$_smarty_tpl->cache_id, \$_smarty_tpl->compile_id, $_caching, $_cache_lifetime);"; 
         // delete {include} standard attributes
-        unset($_attr['file'], $_attr['assign'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope']); 
+        unset($_attr['file'], $_attr['assign'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']); 
         // remaining attributes must be assigned as smarty variable
         if (!empty($_attr)) {
             if ($_parent_scope == SMARTY_LOCAL_SCOPE) {

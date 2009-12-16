@@ -1,5 +1,6 @@
 12/16/2009
 - update of changelog
+- added {include file='foo.tpl' inline}  inline option to merge compiled code of aubtemplate into the calling template
 
 12/14/2009
 - fixed sideefect of last modification (objects in array index did not work anymore)
