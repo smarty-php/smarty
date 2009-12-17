@@ -1,6 +1,7 @@
 12/17/2009
 - bugfix of parent/global variable update at included/merged subtemplates
 - encode final template filepath into filename of compiled and cached files
+- fixed {strip} handling in auto literals
 
 12/16/2009
 - update of changelog
