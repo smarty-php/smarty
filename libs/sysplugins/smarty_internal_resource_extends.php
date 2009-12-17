@@ -166,7 +166,7 @@ class Smarty_Internal_Resource_Extends {
     {
         $_compile_id = isset($template->compile_id) ? preg_replace('![^\w\|]+!', '_', $template->compile_id) : null;
         $_files = explode('|', $template->resource_name);
-        $_filepath = (string)abs(crc32($template->resource_name)); 
+        $_filepath = (string)abs(crc32($template->getTemplateFilepath())); 
         // if use_sub_dirs, break file into directories
         if ($template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS

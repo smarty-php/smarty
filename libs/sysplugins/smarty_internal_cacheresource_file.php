@@ -27,7 +27,7 @@ class Smarty_Internal_CacheResource_File {
     */
     public function getCachedFilepath($template)
     {
-        return $this->buildCachedFilepath ($template->resource_name, $template->cache_id, $template->compile_id);
+        return $this->buildCachedFilepath ($template->getTemplateFilepath(), $template->cache_id, $template->compile_id);
     } 
 
     /**
