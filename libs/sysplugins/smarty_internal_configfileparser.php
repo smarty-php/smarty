@@ -114,62 +114,62 @@ class Smarty_Internal_Configfileparser#line 79 "smarty_internal_configfileparser
 #line 107 "smarty_internal_configfileparser.php"
 
     const TPC_OTHER                          =  1;
-    const TPC_COMMENTSTART                   =  2;
-    const TPC_OPENB                          =  3;
-    const TPC_CLOSEB                         =  4;
-    const TPC_DOT                            =  5;
-    const TPC_BOOLEANTRUE                    =  6;
-    const TPC_BOOLEANFALSE                   =  7;
-    const TPC_SI_QSTR                        =  8;
-    const TPC_DO_QSTR                        =  9;
-    const TPC_EQUAL                          = 10;
-    const TPC_SPACE                          = 11;
-    const TPC_ID                             = 12;
-    const TPC_EOL                            = 13;
+    const TPC_OPENB                          =  2;
+    const TPC_CLOSEB                         =  3;
+    const TPC_DOT                            =  4;
+    const TPC_BOOLEANTRUE                    =  5;
+    const TPC_BOOLEANFALSE                   =  6;
+    const TPC_SI_QSTR                        =  7;
+    const TPC_DO_QSTR                        =  8;
+    const TPC_EQUAL                          =  9;
+    const TPC_SPACE                          = 10;
+    const TPC_ID                             = 11;
+    const TPC_EOL                            = 12;
+    const TPC_COMMENTSTART                   = 13;
     const TPC_ML_QSTR                        = 14;
     const YY_NO_ACTION = 49;
     const YY_ACCEPT_ACTION = 48;
     const YY_ERROR_ACTION = 47;
 
-    const YY_SZ_ACTTAB = 39;
+    const YY_SZ_ACTTAB = 37;
 static public $yy_action = array(
- /*     0 */     2,    9,   20,   24,    3,   14,    7,    5,   14,    6,
- /*    10 */    12,   15,   21,   48,    4,   17,   21,   11,   18,   26,
- /*    20 */    28,   27,    8,    1,   13,   16,   25,   23,   23,   10,
- /*    30 */    21,   27,   43,   43,   19,   43,   43,   43,   22,
+ /*     0 */     9,   21,   20,   18,    3,   14,   27,   26,   28,   12,
+ /*    10 */    15,    2,   21,    6,   16,    7,    5,   14,   48,    4,
+ /*    20 */    17,   11,   24,   23,    1,    8,   23,   10,   13,   21,
+ /*    30 */    27,   25,   22,   43,   43,   43,   19,
     );
     static public $yy_lookahead = array(
- /*     0 */     2,    3,   19,   19,   21,   22,   20,   21,   22,    4,
- /*    10 */    12,   13,    1,   16,   17,   18,    1,    5,   19,    8,
- /*    20 */     9,   22,    4,   10,   12,   14,   19,   13,   13,   12,
- /*    30 */     1,   22,   23,   23,   18,   23,   23,   23,   19,
+ /*     0 */     2,    1,   19,   19,   21,   22,   22,    7,    8,   11,
+ /*    10 */    12,   13,    1,    3,   14,   20,   21,   22,   16,   17,
+ /*    20 */    18,    4,   19,   12,    9,    3,   12,   11,   11,    1,
+ /*    30 */    22,   19,   19,   23,   23,   23,   18,
 );
     const YY_SHIFT_USE_DFLT = -3;
     const YY_SHIFT_MAX = 13;
     static public $yy_shift_ofst = array(
- /*     0 */    -2,   11,   15,   15,   -2,   29,   14,   14,   14,   12,
- /*    10 */     5,   17,   13,   18,
+ /*     0 */    -2,    0,   11,   11,   -2,   28,   14,   14,   14,   17,
+ /*    10 */    10,   16,   15,   22,
 );
     const YY_REDUCE_USE_DFLT = -18;
     const YY_REDUCE_MAX = 8;
     static public $yy_reduce_ofst = array(
- /*     0 */    -3,  -14,  -17,   -1,   16,    9,   19,    7,  -16,
+ /*     0 */     2,   -5,  -17,  -16,   18,    8,   13,   12,    3,
 );
     static public $yyExpectedTokens = array(
-        /* 0 */ array(2, 3, 12, 13, ),
-        /* 1 */ array(1, 8, 9, 14, ),
-        /* 2 */ array(1, 13, ),
-        /* 3 */ array(1, 13, ),
-        /* 4 */ array(2, 3, 12, 13, ),
+        /* 0 */ array(2, 11, 12, 13, ),
+        /* 1 */ array(1, 7, 8, 14, ),
+        /* 2 */ array(1, 12, ),
+        /* 3 */ array(1, 12, ),
+        /* 4 */ array(2, 11, 12, 13, ),
         /* 5 */ array(1, ),
-        /* 6 */ array(13, ),
-        /* 7 */ array(13, ),
-        /* 8 */ array(13, ),
-        /* 9 */ array(5, 12, ),
-        /* 10 */ array(4, ),
-        /* 11 */ array(12, ),
-        /* 12 */ array(10, ),
-        /* 13 */ array(4, ),
+        /* 6 */ array(12, ),
+        /* 7 */ array(12, ),
+        /* 8 */ array(12, ),
+        /* 9 */ array(4, 11, ),
+        /* 10 */ array(3, ),
+        /* 11 */ array(11, ),
+        /* 12 */ array(9, ),
+        /* 13 */ array(3, ),
         /* 14 */ array(),
         /* 15 */ array(),
         /* 16 */ array(),
@@ -201,7 +201,6 @@ static public $yy_action = array(
     static public $yyFallback = array(
     0,  /*          $ => nothing */
     0,  /*      OTHER => nothing */
-    1,  /* COMMENTSTART => OTHER */
     1,  /*      OPENB => OTHER */
     1,  /*     CLOSEB => OTHER */
     1,  /*        DOT => OTHER */
@@ -213,6 +212,7 @@ static public $yy_action = array(
     1,  /*      SPACE => OTHER */
     1,  /*         ID => OTHER */
     0,  /*        EOL => nothing */
+    0,  /* COMMENTSTART => nothing */
     0,  /*    ML_QSTR => nothing */
     );
     static function Trace($TraceFILE, $zTracePrompt)
@@ -239,10 +239,10 @@ static public $yy_action = array(
     public $yystack = array();  /* The parser's stack */
 
     public $yyTokenName = array( 
-  '$',             'OTHER',         'COMMENTSTART',  'OPENB',       
-  'CLOSEB',        'DOT',           'BOOLEANTRUE',   'BOOLEANFALSE',
-  'SI_QSTR',       'DO_QSTR',       'EQUAL',         'SPACE',       
-  'ID',            'EOL',           'ML_QSTR',       'error',       
+  '$',             'OTHER',         'OPENB',         'CLOSEB',      
+  'DOT',           'BOOLEANTRUE',   'BOOLEANFALSE',  'SI_QSTR',     
+  'DO_QSTR',       'EQUAL',         'SPACE',         'ID',          
+  'EOL',           'COMMENTSTART',  'ML_QSTR',       'error',       
   'start',         'config',        'config_element',  'opteol',      
   'value',         'text',          'textelement', 
     );
