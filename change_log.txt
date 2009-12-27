@@ -10,6 +10,7 @@
 - code cleanup for merging compiled templates
 - couple of runtime optimizations (still not all done)
 - update of getCachedTimestamp()
+- fixed bug on modifier plugins at nocache output
 
 12/19/2009
 - bugfix on comment lines in config files

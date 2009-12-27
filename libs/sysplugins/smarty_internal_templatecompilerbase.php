@@ -266,6 +266,13 @@ class Smarty_Internal_TemplateCompilerBase {
                 if (isset($this->template->required_plugins['compiled'][$plugin_name])) {
                     $this->template->required_plugins['cache'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
                 } 
+            } else {
+                if (isset($this->template->required_plugins['cache'][$plugin_name])) {
+                    $this->template->required_plugins['compiled'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
+                } 
+            } 
+            if ($type = 'modifier') {
+                $this->template->saved_modifer[$plugin_name] = true;
             } 
             return $this->template->required_plugins_call[$plugin_name][$type];
         } 
@@ -290,6 +297,10 @@ class Smarty_Internal_TemplateCompilerBase {
                     $this->template->required_plugins['compiled'][$plugin_name]['file'] = $file;
                     $this->template->required_plugins['compiled'][$plugin_name]['type'] = $type;
                 } 
+                if ($type = 'modifier') {
+                    $this->template->saved_modifer[$plugin_name] = true;
+                } 
+
                 return $plugin;
             } else {
                 throw new Exception("Plugin {$type} \"{$plugin_name}\" not callable");
@@ -319,6 +330,15 @@ class Smarty_Internal_TemplateCompilerBase {
                 $this->tag_nocache = false;
                 $_output = str_replace("'", "\'", $content);
                 $_output = "<?php echo '/*%%SmartyNocache%%*/" . $_output . "/*/%%SmartyNocache%%*/';?>\n";
+                // make sure we include modifer plugins for nocache code
+                if (isset($this->template->saved_modifer)) {
+                    foreach ($this->template->saved_modifer as $plugin_name => $dummy) {
+                        if (isset($this->template->required_plugins['compiled'][$plugin_name])) {
+                            $this->template->required_plugins['cache'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
+                        } 
+                    } 
+                    unset($this->template->saved_modifer);
+                } 
             } else {
                 $_output = $content;
             } 
