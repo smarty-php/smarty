@@ -21,8 +21,8 @@
 */
 function  Smarty_Method_Unregister_Compiler_Function($smarty, $compiler_tag)
 {
-    if (isset($smarty->registered_plugins[$compiler_tag]) && $smarty->registered_plugins[$compiler_tag][0] == 'compiler') {
-        unset($smarty->registered_plugins[$compiler_tag]);
+    if (isset($smarty->registered_plugins['compiler'][$compiler_tag])) {
+        unset($smarty->registered_plugins['compiler'][$compiler_tag]);
     } 
 } 
 

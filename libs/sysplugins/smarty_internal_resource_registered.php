@@ -22,6 +22,9 @@ class Smarty_Internal_Resource_Registered {
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
     public $template_parser_class = 'Smarty_Internal_Templateparser';
+    // properties
+    public $usesCompiler = true;
+    public $isEvaluated = false;
 
     /**
     * Return flag if template source is existing
@@ -91,28 +94,6 @@ class Smarty_Internal_Resource_Registered {
         // return template string
         return call_user_func_array($this->smarty->_plugins['resource'][$_template->resource_type][0][0],
             array($_template->resource_name, &$_template->template_source, $this->smarty));
-    } 
-
-    /**
-    * Return flag that this resource uses the compiler
-    * 
-    * @return boolean true
-    */
-    public function usesCompiler()
-    { 
-        // resource string is template, needs compiler
-        return true;
-    } 
-
-    /**
-    * Return flag that this resource is evaluated
-    * 
-    * @return boolean true
-    */
-    public function isEvaluated()
-    { 
-        // compiled template is evaluated instead of saved to disk
-        return false;
     } 
 
     /**

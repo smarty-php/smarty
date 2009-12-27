@@ -11,7 +11,7 @@
 /**
 * Smarty Internal Plugin Compile Function Plugin Class
 */
-class Smarty_Internal_Compile_Function_Plugin extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_CompileBase {
     /**
     * Compiles code for the execution of function plugin
     * 
@@ -20,7 +20,7 @@ class Smarty_Internal_Compile_Function_Plugin extends Smarty_Internal_CompileBas
     * @param object $compiler compiler object
     * @return string compiled code
     */
-    public function compile($args, $compiler, $tag)
+    public function compile($args, $compiler, $tag, $function)
     {
         $this->compiler = $compiler; 
         // This tag does create output
@@ -30,10 +30,6 @@ class Smarty_Internal_Compile_Function_Plugin extends Smarty_Internal_CompileBas
         $this->optional_attributes = array('_any'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args); 
-        // not cachable?
-        if (isset($this->compiler->smarty->registered_plugins[$tag]) && !$this->compiler->smarty->registered_plugins[$tag][2]) {
-            $this->compiler->tag_nocache = true;
-        } 
         // convert attributes into parameter array string
         $_paramsArray = array();
         foreach ($_attr as $_key => $_value) {
@@ -45,8 +41,11 @@ class Smarty_Internal_Compile_Function_Plugin extends Smarty_Internal_CompileBas
         } 
         $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
         // compile code
-        $output = '<?php echo $_smarty_tpl->smarty->plugin_handler->' . $tag . '(array(' . $_params . ',$_smarty_tpl->smarty,$_smarty_tpl),\'function\');?>';
-
+        if (is_array($function)) {
+            $output = '<?php echo call_user_func_array(array(\'' . $function[0] . '\',\'' . $function[1] . '\'),(array(' . $_params . ',$_smarty_tpl->smarty,$_smarty_tpl));?>';
+        } else {
+            $output = '<?php echo ' . $function . '(' . $_params . ',$_smarty_tpl->smarty,$_smarty_tpl);?>';
+        } 
         return $output;
     } 
 } 

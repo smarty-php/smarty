@@ -22,13 +22,13 @@
 */
 function  Smarty_Method_Register_Compiler_Function($smarty, $compiler_tag, $compiler_impl, $cacheable = true)
 {
-    if (isset($smarty->registered_plugins[$compiler_tag])) {
+    if (isset($smarty->registered_plugins['compiler'][$compiler_tag])) {
         throw new Exception("Plugin tag \"{$compiler_tag}\" already registered");
     } elseif (!is_callable($compiler_impl)) {
         throw new Exception("Plugin \"{$compiler_tag}\" not callable");
     } else {
-        $smarty->registered_plugins[$compiler_tag] =
-        array('compiler', $compiler_impl, $cacheable);
+        $smarty->registered_plugins['compiler'][$compiler_tag] =
+        array($compiler_impl, $cacheable);
     } 
 } 
 

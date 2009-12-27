@@ -100,8 +100,6 @@ class Smarty_Internal_Configfileparser#line 79 "smarty_internal_configfileparser
         $this->lex = $lex;
         $this->smarty = $compiler->smarty; 
         $this->compiler = $compiler;
-        $this->current_section = null;
-        $this->hidden_section = false;
     }
     public static function &instance($new_instance = null)
     {
@@ -110,70 +108,145 @@ class Smarty_Internal_Configfileparser#line 79 "smarty_internal_configfileparser
             $instance = $new_instance;
         return $instance;
     }
-    
-#line 107 "smarty_internal_configfileparser.php"
 
-    const TPC_OTHER                          =  1;
-    const TPC_OPENB                          =  2;
+    private function parse_bool($str) {
+        if (in_array(strtolower($str) ,array('on','yes','true'))) {
+            $res = true;
+        } else {
+            assert(in_array(strtolower($str), array('off','no','false')));
+            $res = false;
+        }
+        return $res;
+    }
+
+    private static $escapes_single = Array('\\' => '\\',
+                                          '\'' => '\'');
+    private static function parse_single_quoted_string($qstr) {
+        $escaped_string = substr($qstr, 1, strlen($qstr)-2); //remove outer quotes
+
+        $ss = preg_split('/(\\\\.)/', $escaped_string, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        $str = "";
+        foreach ($ss as $s) {
+            if (strlen($s) === 2 && $s[0] === '\\') {
+                if (isset(self::$escapes_single[$s[1]])) {
+                    $s = self::$escapes_single[$s[1]];
+                }
+             }
+
+             $str .= $s;
+        }
+
+        return $str;
+    }
+
+    private static function parse_double_quoted_string($qstr) {
+        $inner_str = substr($qstr, 1, strlen($qstr)-2);
+        return stripcslashes($inner_str);
+    }
+
+    private static function parse_tripple_double_quoted_string($qstr) {
+        $inner_str = substr($qstr, 3, strlen($qstr)-6);
+        return stripcslashes($inner_str);
+    }
+
+    private function set_var(Array $var, Array &$target_array) {
+        $key = $var["key"];
+        $value = $var["value"];
+
+        if ($this->smarty->config_overwrite || !isset($target_array['vars'][$key])) {
+            $target_array['vars'][$key] = $value;
+        } else {
+            settype($target_array['vars'][$key], 'array');
+            $target_array['vars'][$key][] = $value;
+        }
+    }
+
+    private function add_global_vars(Array $vars) {
+        if (!isset($this->compiler->config_data['vars'])) {
+	    $this->compiler->config_data['vars'] = Array();
+        }
+        foreach ($vars as $var) {
+            $this->set_var($var, $this->compiler->config_data);
+        }
+    }
+
+    private function add_section_vars($section_name, Array $vars) {
+        if (!isset($this->compiler->config_data['sections'][$section_name]['vars'])) {
+            $this->compiler->config_data['sections'][$section_name]['vars'] = Array();
+        }
+        foreach ($vars as $var) {
+            $this->set_var($var, $this->compiler->config_data['sections'][$section_name]);
+        }
+    }
+#line 175 "smarty_internal_configfileparser.php"
+
+    const TPC_OPENB                          =  1;
+    const TPC_ID                             =  2;
     const TPC_CLOSEB                         =  3;
     const TPC_DOT                            =  4;
-    const TPC_BOOLEANTRUE                    =  5;
-    const TPC_BOOLEANFALSE                   =  6;
-    const TPC_SI_QSTR                        =  7;
-    const TPC_DO_QSTR                        =  8;
-    const TPC_EQUAL                          =  9;
-    const TPC_SPACE                          = 10;
-    const TPC_ID                             = 11;
-    const TPC_EOL                            = 12;
-    const TPC_COMMENTSTART                   = 13;
-    const TPC_ML_QSTR                        = 14;
-    const YY_NO_ACTION = 49;
-    const YY_ACCEPT_ACTION = 48;
-    const YY_ERROR_ACTION = 47;
+    const TPC_EQUAL                          =  5;
+    const TPC_FLOAT                          =  6;
+    const TPC_INT                            =  7;
+    const TPC_BOOL                           =  8;
+    const TPC_SINGLE_QUOTED_STRING           =  9;
+    const TPC_DOUBLE_QUOTED_STRING           = 10;
+    const TPC_TRIPPLE_DOUBLE_QUOTED_STRING   = 11;
+    const TPC_NAKED_STRING                   = 12;
+    const TPC_NEWLINE                        = 13;
+    const TPC_COMMENTSTART                   = 14;
+    const YY_NO_ACTION = 58;
+    const YY_ACCEPT_ACTION = 57;
+    const YY_ERROR_ACTION = 56;
 
-    const YY_SZ_ACTTAB = 37;
+    const YY_SZ_ACTTAB = 53;
 static public $yy_action = array(
- /*     0 */     9,   21,   20,   18,    3,   14,   27,   26,   28,   12,
- /*    10 */    15,    2,   21,    6,   16,    7,    5,   14,   48,    4,
- /*    20 */    17,   11,   24,   23,    1,    8,   23,   10,   13,   21,
- /*    30 */    27,   25,   22,   43,   43,   43,   19,
+ /*     0 */    24,   34,   33,   32,   31,   35,   21,   57,    6,   14,
+ /*    10 */    22,    7,    2,    9,   29,    8,    2,    9,   19,   11,
+ /*    20 */    19,   11,   26,   23,    2,    9,   15,   20,   46,    2,
+ /*    30 */     9,   12,   25,   46,    2,    9,   10,   17,   18,   27,
+ /*    40 */    16,    5,   13,   30,   28,   46,    5,   46,    3,    4,
+ /*    50 */    46,   46,    1,
     );
     static public $yy_lookahead = array(
- /*     0 */     2,    1,   19,   19,   21,   22,   22,    7,    8,   11,
- /*    10 */    12,   13,    1,    3,   14,   20,   21,   22,   16,   17,
- /*    20 */    18,    4,   19,   12,    9,    3,   12,   11,   11,    1,
- /*    30 */    22,   19,   19,   23,   23,   23,   18,
+ /*     0 */     6,    7,    8,    9,   10,   11,   12,   16,   17,    2,
+ /*    10 */    19,    5,   21,   22,   19,    3,   21,   22,   13,   14,
+ /*    20 */    13,   14,   19,   13,   21,   22,    2,   19,   24,   21,
+ /*    30 */    22,    1,   19,   24,   21,   22,    3,   12,   13,   18,
+ /*    40 */     2,   20,    4,   23,   18,   24,   20,   24,   21,   21,
+ /*    50 */    24,   24,   21,
 );
-    const YY_SHIFT_USE_DFLT = -3;
-    const YY_SHIFT_MAX = 13;
+    const YY_SHIFT_USE_DFLT = -7;
+    const YY_SHIFT_MAX = 17;
     static public $yy_shift_ofst = array(
- /*     0 */    -2,    0,   11,   11,   -2,   28,   14,   14,   14,   17,
- /*    10 */    10,   16,   15,   22,
+ /*     0 */     7,    7,    7,    7,    7,   30,   30,   -6,    5,    5,
+ /*    10 */     5,   25,   38,   24,    6,   12,   33,   10,
 );
-    const YY_REDUCE_USE_DFLT = -18;
-    const YY_REDUCE_MAX = 8;
+    const YY_REDUCE_USE_DFLT = -10;
+    const YY_REDUCE_MAX = 10;
     static public $yy_reduce_ofst = array(
- /*     0 */     2,   -5,  -17,  -16,   18,    8,   13,   12,    3,
+ /*     0 */    -9,    8,   13,    3,   -5,   21,   26,   20,   31,   28,
+ /*    10 */    27,
 );
     static public $yyExpectedTokens = array(
-        /* 0 */ array(2, 11, 12, 13, ),
-        /* 1 */ array(1, 7, 8, 14, ),
-        /* 2 */ array(1, 12, ),
-        /* 3 */ array(1, 12, ),
-        /* 4 */ array(2, 11, 12, 13, ),
+        /* 0 */ array(2, 13, 14, ),
+        /* 1 */ array(2, 13, 14, ),
+        /* 2 */ array(2, 13, 14, ),
+        /* 3 */ array(2, 13, 14, ),
+        /* 4 */ array(2, 13, 14, ),
         /* 5 */ array(1, ),
-        /* 6 */ array(12, ),
-        /* 7 */ array(12, ),
-        /* 8 */ array(12, ),
-        /* 9 */ array(4, 11, ),
-        /* 10 */ array(3, ),
-        /* 11 */ array(11, ),
-        /* 12 */ array(9, ),
-        /* 13 */ array(3, ),
-        /* 14 */ array(),
-        /* 15 */ array(),
-        /* 16 */ array(),
-        /* 17 */ array(),
+        /* 6 */ array(1, ),
+        /* 7 */ array(6, 7, 8, 9, 10, 11, 12, ),
+        /* 8 */ array(13, 14, ),
+        /* 9 */ array(13, 14, ),
+        /* 10 */ array(13, 14, ),
+        /* 11 */ array(12, 13, ),
+        /* 12 */ array(2, 4, ),
+        /* 13 */ array(2, ),
+        /* 14 */ array(5, ),
+        /* 15 */ array(3, ),
+        /* 16 */ array(3, ),
+        /* 17 */ array(13, ),
         /* 18 */ array(),
         /* 19 */ array(),
         /* 20 */ array(),
@@ -185,35 +258,28 @@ static public $yy_action = array(
         /* 26 */ array(),
         /* 27 */ array(),
         /* 28 */ array(),
+        /* 29 */ array(),
+        /* 30 */ array(),
+        /* 31 */ array(),
+        /* 32 */ array(),
+        /* 33 */ array(),
+        /* 34 */ array(),
+        /* 35 */ array(),
 );
     static public $yy_default = array(
- /*     0 */    47,   47,   43,   43,   29,   38,   43,   43,   43,   47,
- /*    10 */    47,   47,   47,   47,   45,   35,   41,   30,   37,   31,
- /*    20 */    36,   46,   33,   42,   32,   34,   39,   44,   40,
+ /*     0 */    44,   44,   44,   44,   44,   39,   39,   56,   56,   56,
+ /*    10 */    56,   56,   56,   56,   56,   56,   56,   56,   54,   53,
+ /*    20 */    41,   52,   37,   55,   46,   42,   40,   38,   36,   43,
+ /*    30 */    45,   50,   49,   48,   47,   51,
 );
-    const YYNOCODE = 24;
+    const YYNOCODE = 25;
     const YYSTACKDEPTH = 100;
-    const YYNSTATE = 29;
-    const YYNRULE = 18;
+    const YYNSTATE = 36;
+    const YYNRULE = 20;
     const YYERRORSYMBOL = 15;
     const YYERRSYMDT = 'yy0';
-    const YYFALLBACK = 1;
+    const YYFALLBACK = 0;
     static public $yyFallback = array(
-    0,  /*          $ => nothing */
-    0,  /*      OTHER => nothing */
-    1,  /*      OPENB => OTHER */
-    1,  /*     CLOSEB => OTHER */
-    1,  /*        DOT => OTHER */
-    1,  /* BOOLEANTRUE => OTHER */
-    1,  /* BOOLEANFALSE => OTHER */
-    1,  /*    SI_QSTR => OTHER */
-    1,  /*    DO_QSTR => OTHER */
-    1,  /*      EQUAL => OTHER */
-    1,  /*      SPACE => OTHER */
-    1,  /*         ID => OTHER */
-    0,  /*        EOL => nothing */
-    0,  /* COMMENTSTART => nothing */
-    0,  /*    ML_QSTR => nothing */
     );
     static function Trace($TraceFILE, $zTracePrompt)
     {
@@ -239,33 +305,35 @@ static public $yy_action = array(
     public $yystack = array();  /* The parser's stack */
 
     public $yyTokenName = array( 
-  '$',             'OTHER',         'OPENB',         'CLOSEB',      
-  'DOT',           'BOOLEANTRUE',   'BOOLEANFALSE',  'SI_QSTR',     
-  'DO_QSTR',       'EQUAL',         'SPACE',         'ID',          
-  'EOL',           'COMMENTSTART',  'ML_QSTR',       'error',       
-  'start',         'config',        'config_element',  'opteol',      
-  'value',         'text',          'textelement', 
+  '$',             'OPENB',         'ID',            'CLOSEB',      
+  'DOT',           'EQUAL',         'FLOAT',         'INT',         
+  'BOOL',          'SINGLE_QUOTED_STRING',  'DOUBLE_QUOTED_STRING',  'TRIPPLE_DOUBLE_QUOTED_STRING',
+  'NAKED_STRING',  'NEWLINE',       'COMMENTSTART',  'error',       
+  'start',         'global_vars',   'sections',      'var_list',    
+  'section',       'newline',       'var',           'value',       
     );
 
     static public $yyRuleName = array(
- /*   0 */ "start ::= config",
- /*   1 */ "config ::= config_element",
- /*   2 */ "config ::= config config_element",
- /*   3 */ "config_element ::= OPENB ID CLOSEB opteol",
- /*   4 */ "config_element ::= OPENB DOT ID CLOSEB opteol",
- /*   5 */ "config_element ::= ID EQUAL value opteol",
- /*   6 */ "config_element ::= EOL",
- /*   7 */ "config_element ::= COMMENTSTART opteol",
- /*   8 */ "config_element ::= COMMENTSTART text opteol",
- /*   9 */ "value ::= text",
- /*  10 */ "value ::= SI_QSTR",
- /*  11 */ "value ::= DO_QSTR",
- /*  12 */ "value ::= ML_QSTR",
- /*  13 */ "opteol ::= EOL",
- /*  14 */ "opteol ::=",
- /*  15 */ "text ::= text textelement",
- /*  16 */ "text ::= textelement",
- /*  17 */ "textelement ::= OTHER",
+ /*   0 */ "start ::= global_vars sections",
+ /*   1 */ "global_vars ::= var_list",
+ /*   2 */ "sections ::= section sections",
+ /*   3 */ "sections ::=",
+ /*   4 */ "section ::= OPENB ID CLOSEB newline var_list",
+ /*   5 */ "section ::= OPENB DOT ID CLOSEB newline var_list",
+ /*   6 */ "var_list ::= newline var_list",
+ /*   7 */ "var_list ::= var newline var_list",
+ /*   8 */ "var_list ::=",
+ /*   9 */ "var ::= ID EQUAL value",
+ /*  10 */ "value ::= FLOAT",
+ /*  11 */ "value ::= INT",
+ /*  12 */ "value ::= BOOL",
+ /*  13 */ "value ::= SINGLE_QUOTED_STRING",
+ /*  14 */ "value ::= DOUBLE_QUOTED_STRING",
+ /*  15 */ "value ::= TRIPPLE_DOUBLE_QUOTED_STRING",
+ /*  16 */ "value ::= NAKED_STRING",
+ /*  17 */ "newline ::= NEWLINE",
+ /*  18 */ "newline ::= COMMENTSTART NEWLINE",
+ /*  19 */ "newline ::= COMMENTSTART NAKED_STRING NEWLINE",
     );
 
     function tokenName($tokenType)
@@ -539,95 +607,92 @@ static public $yy_action = array(
     }
 
     static public $yyRuleInfo = array(
-  array( 'lhs' => 16, 'rhs' => 1 ),
+  array( 'lhs' => 16, 'rhs' => 2 ),
   array( 'lhs' => 17, 'rhs' => 1 ),
-  array( 'lhs' => 17, 'rhs' => 2 ),
-  array( 'lhs' => 18, 'rhs' => 4 ),
-  array( 'lhs' => 18, 'rhs' => 5 ),
-  array( 'lhs' => 18, 'rhs' => 4 ),
-  array( 'lhs' => 18, 'rhs' => 1 ),
   array( 'lhs' => 18, 'rhs' => 2 ),
-  array( 'lhs' => 18, 'rhs' => 3 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
-  array( 'lhs' => 20, 'rhs' => 1 ),
-  array( 'lhs' => 19, 'rhs' => 1 ),
+  array( 'lhs' => 18, 'rhs' => 0 ),
+  array( 'lhs' => 20, 'rhs' => 5 ),
+  array( 'lhs' => 20, 'rhs' => 6 ),
+  array( 'lhs' => 19, 'rhs' => 2 ),
+  array( 'lhs' => 19, 'rhs' => 3 ),
   array( 'lhs' => 19, 'rhs' => 0 ),
-  array( 'lhs' => 21, 'rhs' => 2 ),
+  array( 'lhs' => 22, 'rhs' => 3 ),
+  array( 'lhs' => 23, 'rhs' => 1 ),
+  array( 'lhs' => 23, 'rhs' => 1 ),
+  array( 'lhs' => 23, 'rhs' => 1 ),
+  array( 'lhs' => 23, 'rhs' => 1 ),
+  array( 'lhs' => 23, 'rhs' => 1 ),
+  array( 'lhs' => 23, 'rhs' => 1 ),
+  array( 'lhs' => 23, 'rhs' => 1 ),
   array( 'lhs' => 21, 'rhs' => 1 ),
-  array( 'lhs' => 22, 'rhs' => 1 ),
+  array( 'lhs' => 21, 'rhs' => 2 ),
+  array( 'lhs' => 21, 'rhs' => 3 ),
     );
 
     static public $yyReduceMap = array(
         0 => 0,
+        2 => 0,
+        3 => 0,
+        17 => 0,
+        18 => 0,
+        19 => 0,
         1 => 1,
-        9 => 1,
-        16 => 1,
-        17 => 1,
-        2 => 2,
-        15 => 2,
-        3 => 3,
         4 => 4,
         5 => 5,
         6 => 6,
-        7 => 6,
-        8 => 6,
+        16 => 6,
+        7 => 7,
+        8 => 8,
+        9 => 9,
         10 => 10,
         11 => 11,
-        12 => 11,
+        12 => 12,
+        13 => 13,
+        14 => 14,
+        15 => 15,
     );
-#line 67 "smarty_internal_configfileparser.y"
-    function yy_r0(){ $this->_retvalue = $this->yystack[$this->yyidx + 0]->minor;     }
-#line 577 "smarty_internal_configfileparser.php"
-#line 73 "smarty_internal_configfileparser.y"
-    function yy_r1(){$this->_retvalue = $this->yystack[$this->yyidx + 0]->minor;    }
-#line 580 "smarty_internal_configfileparser.php"
-#line 75 "smarty_internal_configfileparser.y"
-    function yy_r2(){$this->_retvalue = $this->yystack[$this->yyidx + -1]->minor.$this->yystack[$this->yyidx + 0]->minor;    }
-#line 583 "smarty_internal_configfileparser.php"
-#line 81 "smarty_internal_configfileparser.y"
-    function yy_r3(){ $this->hidden_section = false; $this->current_section = $this->yystack[$this->yyidx + -2]->minor; $this->_retvalue ='';    }
-#line 586 "smarty_internal_configfileparser.php"
-#line 83 "smarty_internal_configfileparser.y"
-    function yy_r4(){ if ($this->smarty->config_read_hidden) {
-                                                       $this->hidden_section = false; $this->current_section = $this->yystack[$this->yyidx + -2]->minor;
-                                                      } else {$this->hidden_section = true; } $this->_retvalue ='';    }
-#line 591 "smarty_internal_configfileparser.php"
-#line 87 "smarty_internal_configfileparser.y"
-    function yy_r5(){if (!$this->hidden_section) {
-                                                   $value=$this->yystack[$this->yyidx + -1]->minor;
-                                                   if ($this->smarty->config_booleanize) {
-                                                       if (in_array(strtolower($value),array('on','yes','true')))
-                                                          $value = true;
-                                                       else if (in_array(strtolower($value),array('off','no','false')))
-                                                         $value = false;
-                                                   }
-                                                   if ($this->current_section == null) {
-                                                      if ($this->smarty->config_overwrite || !isset($this->compiler->config_data['vars'][$this->yystack[$this->yyidx + -3]->minor])) {
-                                                           $this->compiler->config_data['vars'][$this->yystack[$this->yyidx + -3]->minor]=$value;
-                                                        } else {
-                                                          settype($this->compiler->config_data['vars'][$this->yystack[$this->yyidx + -3]->minor], 'array');
-                                                          $this->compiler->config_data['vars'][$this->yystack[$this->yyidx + -3]->minor][]=$value;
-                                                        }
-                                                     } else {
-                                                      if ($this->smarty->config_overwrite || !isset($this->compiler->config_data['sections'][$this->current_section]['vars'][$this->yystack[$this->yyidx + -3]->minor])) {
-                                                          $this->compiler->config_data['sections'][$this->current_section]['vars'][$this->yystack[$this->yyidx + -3]->minor]=$value;
-                                                      } else {
-                                                          settype($this->compiler->config_data['sections'][$this->current_section]['vars'][$this->yystack[$this->yyidx + -3]->minor], 'array');
-                                                          $this->compiler->config_data['sections'][$this->current_section]['vars'][$this->yystack[$this->yyidx + -3]->minor][]=$value;
-                                                      }
-                                                     }}  $this->_retvalue ='';    }
-#line 616 "smarty_internal_configfileparser.php"
-#line 111 "smarty_internal_configfileparser.y"
-    function yy_r6(){ $this->_retvalue ='';    }
-#line 619 "smarty_internal_configfileparser.php"
-#line 116 "smarty_internal_configfileparser.y"
-    function yy_r10(){$this->_retvalue = trim($this->yystack[$this->yyidx + 0]->minor,"'");    }
-#line 622 "smarty_internal_configfileparser.php"
-#line 117 "smarty_internal_configfileparser.y"
-    function yy_r11(){$this->_retvalue = trim($this->yystack[$this->yyidx + 0]->minor,'"');    }
-#line 625 "smarty_internal_configfileparser.php"
+#line 127 "smarty_internal_configfileparser.y"
+    function yy_r0(){ $this->_retvalue = null;     }
+#line 651 "smarty_internal_configfileparser.php"
+#line 130 "smarty_internal_configfileparser.y"
+    function yy_r1(){ $this->add_global_vars($this->yystack[$this->yyidx + 0]->minor); $this->_retvalue = null;     }
+#line 654 "smarty_internal_configfileparser.php"
+#line 136 "smarty_internal_configfileparser.y"
+    function yy_r4(){ $this->add_section_vars($this->yystack[$this->yyidx + -3]->minor, $this->yystack[$this->yyidx + 0]->minor); $this->_retvalue = null;     }
+#line 657 "smarty_internal_configfileparser.php"
+#line 137 "smarty_internal_configfileparser.y"
+    function yy_r5(){ if ($this->smarty->config_read_hidden) { $this->add_section_vars($this->yystack[$this->yyidx + -3]->minor, $this->yystack[$this->yyidx + 0]->minor); } $this->_retvalue = null;     }
+#line 660 "smarty_internal_configfileparser.php"
+#line 141 "smarty_internal_configfileparser.y"
+    function yy_r6(){ $this->_retvalue = $this->yystack[$this->yyidx + 0]->minor;     }
+#line 663 "smarty_internal_configfileparser.php"
+#line 142 "smarty_internal_configfileparser.y"
+    function yy_r7(){ $this->_retvalue = array_merge(Array($this->yystack[$this->yyidx + -2]->minor), $this->yystack[$this->yyidx + 0]->minor);     }
+#line 666 "smarty_internal_configfileparser.php"
+#line 143 "smarty_internal_configfileparser.y"
+    function yy_r8(){ $this->_retvalue = Array();     }
+#line 669 "smarty_internal_configfileparser.php"
+#line 147 "smarty_internal_configfileparser.y"
+    function yy_r9(){ $this->_retvalue = Array("key" => $this->yystack[$this->yyidx + -2]->minor, "value" => $this->yystack[$this->yyidx + 0]->minor);     }
+#line 672 "smarty_internal_configfileparser.php"
+#line 149 "smarty_internal_configfileparser.y"
+    function yy_r10(){ $this->_retvalue = (float) $this->yystack[$this->yyidx + 0]->minor;     }
+#line 675 "smarty_internal_configfileparser.php"
+#line 150 "smarty_internal_configfileparser.y"
+    function yy_r11(){ $this->_retvalue = (int) $this->yystack[$this->yyidx + 0]->minor;     }
+#line 678 "smarty_internal_configfileparser.php"
+#line 151 "smarty_internal_configfileparser.y"
+    function yy_r12(){ $this->_retvalue = $this->parse_bool($this->yystack[$this->yyidx + 0]->minor);     }
+#line 681 "smarty_internal_configfileparser.php"
+#line 152 "smarty_internal_configfileparser.y"
+    function yy_r13(){ $this->_retvalue = self::parse_single_quoted_string($this->yystack[$this->yyidx + 0]->minor);     }
+#line 684 "smarty_internal_configfileparser.php"
+#line 153 "smarty_internal_configfileparser.y"
+    function yy_r14(){ $this->_retvalue = self::parse_double_quoted_string($this->yystack[$this->yyidx + 0]->minor);     }
+#line 687 "smarty_internal_configfileparser.php"
+#line 154 "smarty_internal_configfileparser.y"
+    function yy_r15(){ $this->_retvalue = self::parse_tripple_double_quoted_string($this->yystack[$this->yyidx + 0]->minor);     }
+#line 690 "smarty_internal_configfileparser.php"
 
     private $_retvalue;
 
@@ -684,12 +749,12 @@ static public $yy_action = array(
 
     function yy_syntax_error($yymajor, $TOKEN)
     {
-#line 52 "smarty_internal_configfileparser.y"
+#line 120 "smarty_internal_configfileparser.y"
 
     $this->internalError = true;
     $this->yymajor = $yymajor;
     $this->compiler->trigger_config_file_error();
-#line 688 "smarty_internal_configfileparser.php"
+#line 753 "smarty_internal_configfileparser.php"
     }
 
     function yy_accept()
@@ -700,13 +765,13 @@ static public $yy_action = array(
         while ($this->yyidx >= 0) {
             $stack = $this->yy_pop_parser_stack();
         }
-#line 44 "smarty_internal_configfileparser.y"
+#line 112 "smarty_internal_configfileparser.y"
 
     $this->successful = !$this->internalError;
     $this->internalError = false;
     $this->retvalue = $this->_retvalue;
     //echo $this->retvalue."\n\n";
-#line 706 "smarty_internal_configfileparser.php"
+#line 771 "smarty_internal_configfileparser.php"
     }
 
     function doParse($yymajor, $yytokenvalue)

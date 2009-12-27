@@ -19,13 +19,13 @@
 */
 function  Smarty_Method_Register_Modifier($smarty, $modifier, $modifier_impl)
 {
-    if (isset($smarty->registered_plugins[$modifier])) {
+    if (isset($smarty->registered_plugins['modifier'][$modifier])) {
         throw new Exception("Plugin \"{$modifier}\" already registered");
     } elseif (!is_callable($modifier_impl)) {
         throw new Exception("Plugin \"{$modifier}\" not callable");
     } else {
-        $smarty->registered_plugins[$modifier] =
-        array('modifier', $modifier_impl);
+        $smarty->registered_plugins['modifier'][$modifier] =
+        array($modifier_impl);
     } 
 } 
 ?>

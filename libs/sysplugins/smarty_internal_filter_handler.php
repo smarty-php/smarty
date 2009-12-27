@@ -1,9 +1,9 @@
 <?php
 
 /**
-* Smarty Internal Plugin Run Filter
+* Smarty Internal Plugin Filter Handler
 * 
-* Smarty run filter class
+* Smarty filter handler class
 * 
 * @package Smarty
 * @subpackage PluginsInternal
@@ -13,11 +13,7 @@
 /**
 * Class for filter processing
 */
-class Smarty_Internal_Run_Filter {
-    function __construct($smarty)
-    {
-        $this->smarty = $smarty;
-    } 
+class Smarty_Internal_Filter_Handler {
     /**
     * Run filters over content
     * 
@@ -30,22 +26,22 @@ class Smarty_Internal_Run_Filter {
     * @param string $content the content which shall be processed by the filters
     * @return string the filtered content
     */
-    public function execute($type, $content, $flag = null)
+    static function runFilter($type, $content, $smarty, $flag = null)
     {
         $output = $content;
-        if ($type != 'variable' || ($this->smarty->variable_filter && $flag !== false) || $flag === true) {
+        if ($type != 'variable' || ($smarty->variable_filter && $flag !== false) || $flag === true) {
             // loop over autoload filters of specified type
-            if (!empty($this->smarty->autoload_filters[$type])) {
-                foreach ((array)$this->smarty->autoload_filters[$type] as $name) {
+            if (!empty($smarty->autoload_filters[$type])) {
+                foreach ((array)$smarty->autoload_filters[$type] as $name) {
                     $plugin_name = "Smarty_{$type}filter_{$name}";
-                    if ($this->smarty->loadPlugin($plugin_name)) {
+                    if ($smarty->loadPlugin($plugin_name)) {
                         // use class plugin if found
                         if (class_exists($plugin_name, false)) {
                             // loaded class of filter plugin
-                            $output = call_user_func_array(array($plugin_name, 'execute'), array($output, $this->smarty));
+                            $output = call_user_func_array(array($plugin_name, 'execute'), array($output, $smarty));
                         } elseif (function_exists($plugin_name)) {
                             // use loaded Smarty2 style plugin
-                            $output = call_user_func_array($plugin_name, array($output, $this->smarty));
+                            $output = call_user_func_array($plugin_name, array($output, $smarty));
                         } 
                     } else {
                         // nothing found, throw exception
@@ -54,9 +50,9 @@ class Smarty_Internal_Run_Filter {
                 } 
             } 
             // loop over registerd filters of specified type
-            if (!empty($this->smarty->registered_filters[$type])) {
-                foreach ($this->smarty->registered_filters[$type] as $key => $name) {
-                    $output = call_user_func_array($this->smarty->registered_filters[$type][$key], array($output, $this->smarty));
+            if (!empty($smarty->registered_filters[$type])) {
+                foreach ($smarty->registered_filters[$type] as $key => $name) {
+                    $output = call_user_func_array($smarty->registered_filters[$type][$key], array($output, $smarty));
                 } 
             } 
         } 

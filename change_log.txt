@@ -1,3 +1,15 @@
+12/27/2009
+--- this is a major update with a couple of internal changes ---
+- new config file lexer/parser (thanks to Thue Jnaus Kristensen)
+- template lexer/parser fixes for PHP and {literal} handing (thanks to Thue Jnaus Kristensen)
+- fix on registered plugins with different type but same name
+- rewrite of plugin handling (optimized execution speed)
+- closed a security hole regarding PHP code injection into cache files
+- fixed bug in clear cache handling
+- Renamed a couple of internal classes
+- code cleanup for merging compiled templates
+- couple of runtime optimizations (still not all done)
+
 12/19/2009
 - bugfix on comment lines in config files
 
@@ -8,7 +20,7 @@
 
 12/16/2009
 - update of changelog
-- added {include file='foo.tpl' inline}  inline option to merge compiled code of aubtemplate into the calling template
+- added {include file='foo.tpl' inline}  inline option to merge compiled code of subtemplate into the calling template
 
 12/14/2009
 - fixed sideefect of last modification (objects in array index did not work anymore)

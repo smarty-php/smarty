@@ -12,7 +12,7 @@
 /**
 * Smarty Internal Plugin Debug Class
 */
-class Smarty_Internal_Debug extends Smarty_Internal_TemplateBase {
+class Smarty_Internal_Debug extends Smarty_Internal_Data {
     // template data
     static $template_data = array();
 

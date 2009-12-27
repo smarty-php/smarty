@@ -11,7 +11,7 @@
 /**
 * Smarty Internal Plugin Compile Print Expression Class
 */
-class Smarty_Internal_Compile_Print_Expression extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_CompileBase {
     /**
     * Compiles code for gererting output from any expression
     * 
@@ -49,7 +49,7 @@ class Smarty_Internal_Compile_Print_Expression extends Smarty_Internal_CompileBa
             // display value
             $this->compiler->has_output = true;
             if (isset($this->compiler->smarty->registered_filters['variable'])) {
-                $output = '<?php echo $this->smarty->filter_handler->execute(\'variable\', ' . $_attr['value'] . ',' . $_attr['filter'] . ');?>';
+                $output = '<?php echo Smarty_Internal_Filter_Handler::runFilter(\'variable\', ' . $_attr['value'] . ',$this->smarty);?>';
             } else {
                 $output = '<?php echo ' . $_attr['value'] . ';?>';
             } 

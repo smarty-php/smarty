@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Smarty Internal Plugin TemplateBase
+* Smarty Internal Plugin Data
 * 
 * This file contains the basic classes and methodes for template and variable creation
 * 
@@ -13,7 +13,7 @@
 /**
 * Base class with template and variable methodes
 */
-class Smarty_Internal_TemplateBase {
+class Smarty_Internal_Data {
     // class used for templates
     public $template_class = 'Smarty_Internal_Template';
 
@@ -300,8 +300,8 @@ class Smarty_Internal_TemplateBase {
         } 
         if (!is_object($template)) {
             // we got a template resource
-            $_templateId = $this->buildTemplateId ($template, $cache_id, $compile_id); 
             // already in template cache?
+            $_templateId = crc32($template . $cache_id . $compile_id);
             if (isset($this->smarty->template_objects[$_templateId]) && $this->smarty->caching) {
                 // return cached template object
                 $tpl = $this->smarty->template_objects[$_templateId];
@@ -324,21 +324,6 @@ class Smarty_Internal_TemplateBase {
     } 
 
     /**
-    * generates a template id
-    * 
-    * @param string $_resource the resource handle of the template file
-    * @param mixed $_cache_id cache id to be used with this template
-    * @param mixed $_compile_id compile id to be used with this template
-    * @returns string a unique template id
-    */
-    function buildTemplateId ($_resource, $_cache_id, $_compile_id)
-    { 
-        $_cache_id =  isset($_cache_id) ? preg_replace('![^\w\|]+!','_',$_cache_id) : null;
-        $_compile_id =  isset($_compile_id) ? preg_replace('![^\w\|]+!','_',$_compile_id) : null;
-        return crc32($_resource . $_cache_id . $_compile_id);
-    } 
-
-    /**
     * return current time
     * 
     * @returns double current time
@@ -358,7 +343,7 @@ class Smarty_Internal_TemplateBase {
 * 
 * @param object $parent tpl_vars next higher level of Smarty variables
 */
-class Smarty_Data extends Smarty_Internal_TemplateBase {
+class Smarty_Data extends Smarty_Internal_Data {
     // array of variable objects
     public $tpl_vars = array(); 
     // back pointer to parent object

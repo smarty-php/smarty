@@ -20,13 +20,13 @@
 */
 function  Smarty_Method_Register_Function($smarty, $function_tag, $function_impl, $cacheable = true, $cache_attr = array())
 {
-    if (isset($smarty->registered_plugins[$function_tag])) {
+    if (isset($smarty->registered_plugins['function'][$function_tag])) {
         throw new Exception("Plugin tag \"{$function_tag}\" already registered");
     } elseif (!is_callable($function_impl)) {
         throw new Exception("Plugin \"{$function_tag}\" not callable");
     } else {
-        $smarty->registered_plugins[$function_tag] =
-        array('function', $function_impl, $cacheable, $cache_attr);
+        $smarty->registered_plugins['function'][$function_tag] =
+        array($function_impl, $cacheable, $cache_attr);
     } 
 } 
 

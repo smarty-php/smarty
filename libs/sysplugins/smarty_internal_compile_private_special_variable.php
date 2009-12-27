@@ -11,7 +11,7 @@
 /**
 * Smarty Internal Plugin Compile special Smarty Variable Class
 */
-class Smarty_Internal_Compile_Special_Smarty_Variable extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_CompileBase {
     /**
     * Compiles code for the speical $smarty variables
     * 
@@ -57,7 +57,7 @@ class Smarty_Internal_Compile_Special_Smarty_Variable extends Smarty_Internal_Co
                 return "'$_template_dir_name'";
 
             case 'version':
-                $_version = Smarty::$_version;
+                $_version = Smarty::SMARTY_VERSION;
                 return "'$_version'";
 
             case 'const':
@@ -78,7 +78,7 @@ class Smarty_Internal_Compile_Special_Smarty_Variable extends Smarty_Internal_Co
                 return "'$_rdelim'";
 
             default:
-                $compiler->trigger_template_error('$smarty.' . trim($_index[0], "'") . ' is an unknown reference');
+                $compiler->trigger_template_error('$smarty.' . trim($_index[0], "'") . ' is invalid');
                 break;
         } 
         if (isset($_index[1])) {

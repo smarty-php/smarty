@@ -21,8 +21,8 @@
 */
 function  Smarty_Method_Unregister_Function($smarty, $function_tag)
 {
-    if (isset($smarty->registered_plugins[$function_tag]) && $smarty->registered_plugins[$function_tag][0] == 'function') {
-        unset($smarty->registered_plugins[$function_tag]);
+    if (isset($smarty->registered_plugins['function'][$function_tag])) {
+        unset($smarty->registered_plugins['function'][$function_tag]);
     } 
 } 
 

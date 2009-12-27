@@ -29,6 +29,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
         $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code);
         $this->_open_tag('function', $save);
         $_name = trim($_attr['name'], "'");
+        unset($_attr['name']);
         foreach ($_attr as $_key => $_data) {
             $compiler->template->properties['function'][$_name]['parameter'][$_key] = $_data;
         } 
@@ -56,20 +57,13 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase 
     {
         $this->compiler = $compiler;
         $this->compiler->has_code = false; 
-        // turn off block code extraction
-        $compiler->template->extract_code = false; 
-        // check and get attributes
-        $this->optional_attributes = array('name');
         $_attr = $this->_get_attributes($args);
         $saved_data = $this->_close_tag(array('function')); 
-        // if name does match to opening tag
-        if (isset($_attr['name']) && $saved_data[0]['name'] != $_attr['name']) {
-            $this->compiler->trigger_template_error('mismatching name attributes "' . $saved_data[0]['name'] . '" and "' . $_attr['name'] . '"');
-        } 
         $_name = trim($saved_data[0]['name'], "'");
-        $compiler->template->properties['function'][$_name]['compiled'] = str_replace("\n",'_%n',$compiler->template->extracted_compiled_code);
+        $compiler->template->properties['function'][$_name]['compiled'] = $compiler->template->extracted_compiled_code;
         $this->compiler->smarty->template_functions[$_name]['compiled'] = $compiler->template->extracted_compiled_code;
         $this->compiler->smarty->template_functions[$_name]['parameter'] = $compiler->template->properties['function'][$_name]['parameter'];
+        // restore old code extraction status
         $compiler->template->extracted_compiled_code = $saved_data[1];
         $compiler->template->extract_code = $saved_data[2];
         return true;

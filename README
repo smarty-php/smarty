@@ -16,7 +16,7 @@ The file structure is similar to Smarty 2:
   modifier.escape.php
   ...
 
-A lot of Smarty 3 core functionality lies in the sysplugins directory, you do
+A lot of Smarty 3 core functionality lies in the sysplugins directory; you do
 not need to change any files here. The /libs/plugins/ folder is where Smarty
 plugins are located. You can add your own here, or create a separate plugin
 directory, just the same as Smarty 2. You will still need to create your own
@@ -47,7 +47,7 @@ There are many things that are new to Smarty 3. Here are the notable items:
 LEXER/PARSER
 ============
 
-Smarty 3 now uses a lexing tokenizer for it's parser/compiler. Basically, this
+Smarty 3 now uses a lexing tokenizer for its parser/compiler. Basically, this
 means Smarty has some syntax additions that make life easier such as in-template
 math, shorter/intuitive function parameter options, infinite function recursion,
 more accurate error handling, etc.
@@ -57,14 +57,14 @@ WHAT IS NEW IN SMARTY TEMPLATE SYNTAX
 =====================================
 
 Smarty 3 allows expressions almost anywhere. Expressions can include PHP
-functions as  long as they are not disabled by the security policy, object
-methods and properties, etc. The {math} plugin will be no longer necessary but
+functions as long as they are not disabled by the security policy, object
+methods and properties, etc. The {math} plugin is no longer necessary but
 is still supported for BC.
 
 Examples:
 {$x+$y}                           will output the sum of x and y.
 {$foo = strlen($bar)}             function in assignment
-{assign var=foo value= $x+$y}     in attributs 
+{assign var=foo value= $x+$y}     in attributes 
 {$foo = myfunct( ($x+$y)*3 )}     as function parameter 
 {$foo[$x+3]}                      as array index
 
@@ -170,8 +170,8 @@ Just as you can use PHP functions as modifiers directly, you can now access
 PHP functions directly, provided they are permitted by security settings:
 {time()}
 
-There is a new {function}...{/function} block tag.  This allows to reuse code
-sequences like a plugin function. It can all itself recursively.
+There is a new {function}...{/function} block tag.  This enables reuse of code
+sequences like a plugin function. It can call itself recursively.
 
 Example:
 
@@ -397,7 +397,7 @@ extends another one that extends another one and so on..), but be aware that all
 have to be checked for modifications at runtime so the more inheritance the more overhead you add.
 
 Instead of defining the parent/child relationships with the {extends} tag in the child template you
-can use the s resource as follow:
+can use the resource as follow:
 
 $smarty->display('extends:parent.tpl|child.tpl|grandchild.tpl');
 

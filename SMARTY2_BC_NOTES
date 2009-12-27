@@ -4,9 +4,9 @@ Smarty 3 is PHP 5 only. It will not work with PHP 4.
 
 == {php} Tag ==
 The {php} tag is disabled by default. The use of {php} tags is
-decripated. It can be enabled with $smarty->allow_php_tag=true.
+deprecated. It can be enabled with $smarty->allow_php_tag=true.
 
-But if you scatter PHP code which belogs together into several
+But if you scatter PHP code which belongs together into several
 {php} tags it may not work any longer.
 
 == Delimiters and whitespace ==
@@ -27,8 +27,8 @@ For example filename strings must be quoted
 
 == Extending the Smarty class ==
 Smarty 3 makes use of the __construct method for initialization. If you are extending 
-the Smarty class its constructor is not called implicitly if the your child class defines 
-also constructor. In order to run Smarty's constructor, a call to parent::__construct() 
+the Smarty class, its constructor is not called implicitly if the your child class defines 
+its own constructor. In order to run Smarty's constructor, a call to parent::__construct() 
 within your child constructor is required. 
 
 <source lang="php">
@@ -55,7 +55,7 @@ In Smarty 2, mixed case file names did work.
 
 == Scope of Special Smarty Variables ==
 In Smarty 2 the special Smarty variables $smarty.section... and $smarty.foreach... 
-had global scope. If you had loops with same name in subtemplates you could accidentally 
+had global scope. If you had loops with the same name in subtemplates you could accidentally 
 overwrite values of parent template.
 
 In Smarty 3 these special Smarty variable have only local scope in the template which 
@@ -68,5 +68,5 @@ as parameter.
 == SMARTY_RESOURCE_CHAR_SET ==
 Smarty 3 sets the constant SMARTY_RESOURCE_CHAR_SET to utf-8 as default template charset. 
 This is now used also on modifiers like escape as default charset. If your templates use 
-other charsets make sure that you define the constant accordingly. Otherwise you may get 
-not output.
+other charsets make sure that you define the constant accordingly. Otherwise you may not 
+get any output.

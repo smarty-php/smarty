@@ -21,6 +21,9 @@ class Smarty_Internal_Resource_PHP {
         $this->smarty = $smarty;
         ini_set('short_open_tag', '1');
     } 
+    // properties
+    public $usesCompiler = false;
+    public $isEvaluated = false;
 
     /**
     * Return flag if template source is existing
@@ -80,27 +83,6 @@ class Smarty_Internal_Resource_PHP {
         } 
     } 
 
-    /**
-    * Return flag that this resource not use the compiler
-    * 
-    * @return boolean false
-    */
-    public function usesCompiler()
-    { 
-        // does not use compiler, template is PHP
-        return false;
-    } 
-
-    /**
-    * Return flag that this is not evaluated
-    * 
-    * @return boolean false
-    */
-    public function isEvaluated()
-    { 
-        // does not use compiler, must be false
-        return false;
-    } 
 
     /**
     * Get filepath to compiled template

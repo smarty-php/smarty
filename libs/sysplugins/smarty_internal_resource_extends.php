@@ -21,6 +21,9 @@ class Smarty_Internal_Resource_Extends {
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
     public $template_lexer_class = 'Smarty_Internal_Templatelexer';
     public $template_parser_class = 'Smarty_Internal_Templateparser';
+    // properties
+    public $usesCompiler = true;
+    public $isEvaluated = false;
 
     /**
     * Return flag if template source is existing
@@ -135,27 +138,6 @@ class Smarty_Internal_Resource_Extends {
         } 
     } 
 
-    /**
-    * Return flag that this resource uses the compiler
-    * 
-    * @return boolean true
-    */
-    public function usesCompiler()
-    { 
-        // template has tags, uses compiler
-        return true;
-    } 
-
-    /**
-    * Return flag that this is not evaluated
-    * 
-    * @return boolean false
-    */
-    public function isEvaluated()
-    { 
-        // save the compiled file to disk, do not evaluate
-        return false;
-    } 
     /**
     * Get filepath to compiled template
     * 

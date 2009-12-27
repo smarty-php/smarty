@@ -12,7 +12,7 @@
 /**
 * Smarty Internal Plugin Compile Function_Call Class
 */
-class Smarty_Internal_Compile_Function_Call extends Smarty_Internal_CompileBase {
+class Smarty_Internal_Compile_Private_Function_Call extends Smarty_Internal_CompileBase {
     /**
     * Compiles the calls of user defined tags defined by {function}
     * 

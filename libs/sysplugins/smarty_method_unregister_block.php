@@ -21,8 +21,8 @@
 */
 function  Smarty_Method_Unregister_Block($smarty, $block_tag)
 {
-    if (isset($smarty->registered_plugins[$block_tag]) && $smarty->registered_plugins[$block_tag][0] == 'block') {
-        unset($smarty->registered_plugins[$block_tag]);
+    if (isset($smarty->registered_plugins['block'][$block_tag])) {
+        unset($smarty->registered_plugins['block'][$block_tag]);
     } 
 } 
 
