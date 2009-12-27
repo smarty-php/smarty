@@ -38,8 +38,8 @@ class Smarty_Internal_CacheResource_File {
     */
     public function getCachedTimestamp($template)
     {
-        return @filemtime($template->getCachedFilepath()); 
-        // return ($template->getCachedFilepath() && file_exists($template->getCachedFilepath())) ? filemtime($template->getCachedFilepath()) : false ;
+        //return @filemtime($template->getCachedFilepath()); 
+        return ($template->getCachedFilepath() && file_exists($template->getCachedFilepath())) ? filemtime($template->getCachedFilepath()) : false ;
     } 
 
     /**
