@@ -138,7 +138,7 @@ class Smarty extends Smarty_Internal_Data {
     // merge compiled includea
     public $merge_compiled_includes = false; 
     // cache lifetime
-    public $cache_lifetime = 0; 
+    public $cache_lifetime = 3600; 
     // force cache file creation
     public $force_cache = false; 
     // cache_id
