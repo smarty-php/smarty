@@ -28,7 +28,7 @@ class Smarty_Internal_TemplateCompilerBase {
     */
     public function __construct()
     {
-      $this->nocache_hash = uniqid(rand(),true);
+      $this->nocache_hash = md5(uniqid(rand(),true));
     } 
     // abstract function doCompile($_content);
     /**
