@@ -1,7 +1,7 @@
 12/28/2009
 - update for security fixes
 - make modifier plugins always trusted
-- adding md5 to nocache_hash
+- fixed bug loading modifiers in child template at template inheritance
 
 12/27/2009
 --- this is a major update with a couple of internal changes ---
