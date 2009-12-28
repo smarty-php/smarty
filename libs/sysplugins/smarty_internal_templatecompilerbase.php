@@ -28,7 +28,7 @@ class Smarty_Internal_TemplateCompilerBase {
     */
     public function __construct()
     {
-      $this->nocache_hash = md5(uniqid(rand(),true));
+      $this->nocache_hash = uniqid(rand(),true);
     } 
     // abstract function doCompile($_content);
     /**
@@ -275,7 +275,7 @@ class Smarty_Internal_TemplateCompilerBase {
                     $this->template->required_plugins['compiled'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
                 } 
             } 
-            if ($type = 'modifier') {
+            if ($type == 'modifier') {
                 $this->template->saved_modifer[$plugin_name] = true;
             } 
             return $this->template->required_plugins_call[$plugin_name][$type];
@@ -301,7 +301,7 @@ class Smarty_Internal_TemplateCompilerBase {
                     $this->template->required_plugins['compiled'][$plugin_name]['file'] = $file;
                     $this->template->required_plugins['compiled'][$plugin_name]['type'] = $type;
                 } 
-                if ($type = 'modifier') {
+                if ($type == 'modifier') {
                     $this->template->saved_modifer[$plugin_name] = true;
                 } 
 

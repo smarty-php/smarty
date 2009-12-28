@@ -46,7 +46,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                         // get compiled code
                         $compiled_tpl = $tpl->getCompiledTemplate(); 
                         // remove header code
-                        $compiled_tpl = preg_replace('/(<\?php \/\*%%SmartyHeaderCode%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s', '', $compiled_tpl);
+                        $compiled_tpl = preg_replace("/(<\?php \/\*%%SmartyHeaderCode:{$tpl->properties['nocache_hash']}%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s", '', $compiled_tpl); 
+                        // replace nocache_hash
+                        $compiled_tpl = preg_replace("/{$tpl->properties['nocache_hash']}/", $compiler->template->properties['nocache_hash'], $compiled_tpl);
                         $has_compiled_template = true;
                     } 
                 } 

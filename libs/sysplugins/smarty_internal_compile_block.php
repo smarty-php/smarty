@@ -68,7 +68,6 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             $_tpl->forceNocache = true;
             $_tpl->suppressHeader = true;
             $_tpl->suppressFileDependency = true;
-
             if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
                 $_output = str_replace('%%%%SMARTY_PARENT%%%%', $compiler->template->extracted_compiled_code, $_tpl->getCompiledTemplate());
             } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
@@ -78,7 +77,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             } elseif (!empty($this->smarty->block_data[$_name])) {
                 $_output = $_tpl->getCompiledTemplate();
             }
-            $compiler->template->properties = array_merge_recursive($compiler->template->properties, $_tpl->properties);
+            $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $_tpl->properties['file_dependency']);
+            $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $_tpl->properties['function']);
             unset($_tpl);
         } else {
             $_output = $compiler->template->extracted_compiled_code;

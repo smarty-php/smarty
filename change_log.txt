@@ -1,3 +1,7 @@
+12/28/2009
+- update for security fixes
+- make modifier plugins always trusted
+
 12/27/2009
 --- this is a major update with a couple of internal changes ---
 - new config file lexer/parser (thanks to Thue Jnaus Kristensen)
