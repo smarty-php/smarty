@@ -20,12 +20,15 @@ class Smarty_Internal_TemplateCompilerBase {
     public $template = null; 
     // required plugins
     public $required_plugins_call = array();
+    // hash for nocache sections
+    private $nocache_hash = null;
 
     /**
     * Initialize compiler
     */
     public function __construct()
     {
+      $this->nocache_hash = md5(uniqid(rand(),true));
     } 
     // abstract function doCompile($_content);
     /**
@@ -36,6 +39,7 @@ class Smarty_Internal_TemplateCompilerBase {
     */
     public function compileTemplate($template)
     {
+        $template->properties['nocache_hash'] = $this->nocache_hash;
         /* here is where the compiling takes place. Smarty
        tags in the templates are replaces with PHP code,
        then written to compiled files. */ 
@@ -329,7 +333,7 @@ class Smarty_Internal_TemplateCompilerBase {
                     ($this->nocache || $this->tag_nocache)) {
                 $this->tag_nocache = false;
                 $_output = str_replace("'", "\'", $content);
-                $_output = "<?php echo '/*%%SmartyNocache%%*/" . $_output . "/*/%%SmartyNocache%%*/';?>\n";
+                $_output = "<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/" . $_output . "/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>\n";
                 // make sure we include modifer plugins for nocache code
                 if (isset($this->template->saved_modifer)) {
                     foreach ($this->template->saved_modifer as $plugin_name => $dummy) {

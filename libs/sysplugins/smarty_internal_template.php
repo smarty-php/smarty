@@ -330,9 +330,18 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         } 
         // build file dependency string
         $this->properties['cache_lifetime'] = $this->cache_lifetime;
-        $this->dynamicId = uniqid();
-        $output = preg_replace('/(<%|%>|<\?php|<\?|\?>)/', '<?php /*' . $this->dynamicId . '*/ echo \'$1\'; ?>', $this->rendered_content);
-        $output = preg_replace_callback('/\/\*%%SmartyNocache%%\*\/(.+?)\/\*\/%%SmartyNocache%%\*\//s', array($this, 'unescapePhp'), $output);
+        // get text between non-cached items
+        $cache_split = preg_split("!/\*%%SmartyNocache:{$this->properties['nocache_hash']}%%\*\/(.+?)/\*/%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!s",$this->rendered_content);
+        // get non-cached items
+        preg_match_all("!/\*%%SmartyNocache:{$this->properties['nocache_hash']}%%\*\/(.+?)/\*/%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!s",$this->rendered_content,$cache_parts);
+        $output = '';
+        // loop over items, stitch back together
+        foreach($cache_split as $curr_idx => $curr_split) {
+          // escape PHP tags in template content
+          $output .= preg_replace('/(<%|%>|<\?php|<\?|\?>)/', '<?php echo \'$1\'; ?>', $curr_split);
+          // remove nocache tags from cache output
+          $output .= preg_replace("!/\*/?%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!",'',$cache_parts[0][$curr_idx]); 
+        }
         return $this->cache_resource_object->writeCachedContent($this, $this->createPropertyHeader(true) . $output);
     } 
 
@@ -744,13 +753,6 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 $this->smarty->template_functions[$_name]['parameter'] = $_data['parameter'];
             } 
         } 
-    } 
-    /**
-    * callback to unescap PHP
-    */
-    public function unescapePhp($match)
-    {
-        return preg_replace('{<\?php /\*' . $this->dynamicId . '\*/ echo \'(.+?)\'; \?>}s', '$1', $match[1]);
     } 
 
     /**
